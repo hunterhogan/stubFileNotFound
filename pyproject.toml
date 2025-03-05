@@ -14,7 +14,7 @@ classifiers = [
 	"Programming Language :: Python",
 	"Programming Language :: Python :: 3",
 	"Typing :: Typed",]
-dependencies = ["mypy", "numpy", "optype[numpy]", "scipy-stubs"]
+dependencies = ["AST-Stubgen", "mypy", "numpy", "optype[numpy]", "pyright", "scipy-stubs", "stubgen-pyx"]
 description = "Crowdsourced stub type files for third-party Python packages."
 keywords = []
 license = { 'text' = "CC-BY-NC-4.0" }
