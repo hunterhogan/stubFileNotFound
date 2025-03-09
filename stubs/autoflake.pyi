@@ -139,9 +139,36 @@ def filter_star_import(line: str, marked_star_import_undefined_name: Iterable[st
 def filter_unused_import(line: str, unused_module: Iterable[str], remove_all_unused_imports: bool, imports: Iterable[str], previous_line: str = '') -> PendingFix | str:
     """Return line if used, otherwise return None."""
 def filter_unused_variable(line: str, previous_line: str = '', drop_rhs: bool = False) -> str:
-    """Return line if used, otherwise return None."""
+    """Remove unused variables from the line.
+
+    By default, keeps the right-hand side (RHS) expression unless
+    drop_rhs is True. Removing the RHS could be unsafe if the
+    expression has side effects.
+
+    Parameters:
+        line: Line of code to process.
+        previous_line: Previous line of code for context.
+        drop_rhs: Whether to remove right-hand side of assignments.
+
+    Returns:
+        Processed line with unused variable removed or unchanged line.
+    """
 def filter_duplicate_key(line: str, message: pyflakes.messages.Message, line_number: int, marked_line_numbers: Iterable[int], source: str, previous_line: str = '') -> str:
-    """Return '' if first occurrence of the key otherwise return `line`."""
+    """Remove duplicate keys from dictionaries and other mappings.
+
+    Keeps the first occurrence of a key and removes subsequent duplicates.
+
+    Parameters:
+        line: Line of code to process.
+        message: Pyflakes message indicating duplicate key.
+        line_number: Current line number being processed.
+        marked_line_numbers: Collection of lines already identified for removal.
+        source: Complete source code being processed.
+        previous_line: Previous line of code for context.
+
+    Returns:
+        Empty string if the line contains a duplicate key, otherwise returns the original line.
+    """
 def dict_entry_has_key(line: str, key: Any) -> bool:
     """Return True if `line` is a dict entry that uses `key`.
 
@@ -154,13 +181,44 @@ def is_literal_or_name(value: str) -> bool:
 def useless_pass_line_numbers(source: str, ignore_pass_after_docstring: bool = False) -> Iterable[int]:
     '''Yield line numbers of unneeded "pass" statements.'''
 def filter_useless_pass(source: str, ignore_pass_statements: bool = False, ignore_pass_after_docstring: bool = False) -> Iterable[str]:
-    '''Yield code with useless "pass" lines removed.'''
+    """Remove useless pass statements from Python code.
+
+    By default, autoflake removes unnecessary pass statements.
+
+    Parameters:
+        source: Source code to process.
+        ignore_pass_statements: Skip removal of any pass statements if True.
+        ignore_pass_after_docstring: Skip removal of pass statements following docstrings.
+
+    Returns:
+        Lines of code with useless pass statements removed.
+    """
 def get_indentation(line: str) -> str:
     """Return leading whitespace."""
 def get_line_ending(line: str) -> str:
     """Return line ending."""
 def fix_code(source: str, additional_imports: Iterable[str] | None = None, expand_star_imports: bool = False, remove_all_unused_imports: bool = False, remove_duplicate_keys: bool = False, remove_unused_variables: bool = False, remove_rhs_for_unused_variables: bool = False, ignore_init_module_imports: bool = False, ignore_pass_statements: bool = False, ignore_pass_after_docstring: bool = False) -> str:
-    """Return code with all filtering run on it."""
+    """Removes unused imports and unused variables from Python code.
+
+    By default, only removes unused imports for modules from the standard library.
+    Removal of unused variables is disabled by default.
+    Also removes useless 'pass' statements by default.
+
+    Parameters:
+        source: Source code string to process.
+        additional_imports: List of non-standard modules to consider for removal.
+        expand_star_imports: Expand wildcard star imports with undefined names.
+        remove_all_unused_imports: Remove all unused imports (not just std lib).
+        remove_duplicate_keys: Remove all duplicate keys in objects.
+        remove_unused_variables: Remove unused variables.
+        remove_rhs_for_unused_variables: Remove RHS when removing unused variables (unsafe).
+        ignore_init_module_imports: Exclude __init__.py when removing unused imports.
+        ignore_pass_statements: Ignore all pass statements.
+        ignore_pass_after_docstring: Ignore pass statements after a docstring.
+
+    Returns:
+        Code with all filtering applied to it.
+    """
 def fix_file(filename: str, args: Mapping[str, Any], standard_out: IO[str] | None = None) -> int:
     """Run fix_code() on a file."""
 def _fix_file(input_file: IO[str], filename: str, args: Mapping[str, Any], write_to_stdout: bool, standard_out: IO[str], encoding: str | None = None) -> int: ...
