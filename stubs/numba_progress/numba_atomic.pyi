@@ -1,3 +1,4 @@
+# pyright: reportDeprecated = false
 from numpy.typing import NDArray
 from typing import Any, Union, TypeVar
 import numpy as np
