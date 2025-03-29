@@ -1,62 +1,21 @@
-from _typeshed import Incomplete
+from typing import Callable, Optional, Union, Dict, Tuple
+import numpy as np
+from numpy.typing import NDArray
 
 __all__ = ['get_filter', 'clear_cache', 'sinc_window']
 
+"""Filter construction and loading."""
 
-import sys
+# Dictionary to cache loaded filters
+FILTER_CACHE: Dict[str, Tuple[NDArray[np.floating], int, float]] = {}
 
-"""Filter construction and loading.
---------------------------------
+# List of filter functions available
+FILTER_FUNCTIONS = ['sinc_window']
 
-`resampy` provides two pre-computed resampling filters which are tuned for either
-high-quality or fast calculation.  These filters are constructed by the `create_filters.py`
-script.
-
-    - `kaiser_best` :
-        > Parameters for kaiser_best:
-        >   ----------------------------------------
-        >       beta        = 12.9846
-        >       roll        = 0.917347
-        >       # zeros     = 50
-        >       precision   = 13
-        >       attenuation = -120.0
-        >   ----------------------------------------
-
-    - `kaiser_fast` :
-        > Parameters for kaiser_fast:
-        > ----------------------------------------
-        >     beta        = 9.90322
-        >     roll        = 0.868212
-        >     # zeros     = 24
-        >     precision   = 9
-        >     attenuation = -93.0
-        > ----------------------------------------
-
-
-These filters can be used by calling `resample` as follows:
-
-    >>> # High-quality
-    >>> resampy.resample(x, sr_orig, sr_new, filter='kaiser_best')  # doctest: +SKIP
-    >>> # Fast calculation
-    >>> resampy.resample(x, sr_orig, sr_new, filter='kaiser_fast')  # doctest: +SKIP
-
-
-It is also possible to construct custom filters as follows:
-
-    >>> resampy.resample(x, sr_orig, sr_new, filter='sinc_window',
-    ...                  **kwargs)                                  # doctest: +SKIP
-
-where ``**kwargs`` are additional parameters to `sinc_window`.
-
-"""
-if sys.version_info < (3, 9):
-    ...
-else:
-    ...
-FILTER_FUNCTIONS = ...
-FILTER_CACHE = ...
-__all__ = ['get_filter', 'clear_cache'] + FILTER_FUNCTIONS
-def sinc_window(num_zeros: int = 64, precision: int = 9, window: Incomplete | None = None, rolloff: float = 0.945):
+def sinc_window(num_zeros: int = 64,
+                precision: int = 9,
+                window: Optional[Callable] = None,
+                rolloff: float = 0.945) -> Tuple[NDArray[np.floating], int, float]:
     """Construct a windowed sinc interpolation filter
 
     Parameters
@@ -86,29 +45,11 @@ def sinc_window(num_zeros: int = 64, precision: int = 9, window: Incomplete | No
     ValueError
         if `num_zeros < 1`, `precision < 1`,
         or `rolloff` is outside the range `(0, 1]`.
-
-    Examples
-    --------
-    >>> import scipy, scipy.signal
-    >>> import resampy
-    >>> np.set_printoptions(threshold=5, suppress=False)
-    >>> # A filter with 10 zero-crossings, 32 samples per crossing, and a
-    >>> # Hann window for tapering.
-    >>> halfwin, prec, rolloff = resampy.filters.sinc_window(num_zeros=10, precision=5,
-    ...                                                      window=scipy.signal.hann)
-    >>> halfwin
-    array([  9.450e-01,   9.436e-01, ...,  -7.455e-07,  -0.000e+00])
-    >>> prec
-    32
-    >>> rolloff
-    0.945
-
-    >>> # Or using sinc-window filter construction directly in resample
-    >>> y = resampy.resample(x, sr_orig, sr_new, filter='sinc_window',
-    ...                      num_zeros=10, precision=5,
-    ...                      window=scipy.signal.hann)              # doctest: +SKIP
     """
-def get_filter(name_or_function, **kwargs):
+    ...
+
+def get_filter(name_or_function: Union[str, Callable[..., Tuple[NDArray[np.floating], int, float]]],
+               **kwargs) -> Tuple[NDArray[np.floating], int, float]:
     """Retrieve a window given its name or function handle.
 
     Parameters
@@ -145,7 +86,7 @@ def get_filter(name_or_function, **kwargs):
     """
     ...
 
-def load_filter(filter_name):
+def load_filter(filter_name: str) -> Tuple[NDArray[np.floating], int, float]:
     """Retrieve a pre-computed filter.
 
     Parameters
@@ -164,7 +105,7 @@ def load_filter(filter_name):
     """
     ...
 
-def clear_cache(): # -> None:
+def clear_cache() -> None:
     """Clear the filter cache.
 
     Calling this function will ensure that packaged filters are reloaded

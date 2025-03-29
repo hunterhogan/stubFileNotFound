@@ -1,6 +1,22 @@
+from typing import Callable, TypeVar, Union, overload
+import numpy as np
+from numpy.typing import NDArray
+
 __all__ = ['resample', 'resample_nu']
 
-def resample(x, sr_orig, sr_new, axis: int = -1, filter: str = 'kaiser_best', parallel: bool = False, **kwargs):
+_FloatArray = TypeVar('_FloatArray', bound=NDArray[np.floating])
+_FilterType = Union[str, Callable[..., tuple[NDArray[np.floating], int, float]]]
+
+@overload
+def resample(x: _FloatArray,
+             sr_orig: Union[int, float],
+             sr_new: Union[int, float],
+             axis: int = -1,
+             filter: _FilterType = 'kaiser_best',
+             parallel: bool = False,
+             **kwargs) -> _FloatArray: ...
+
+def resample(x, sr_orig, sr_new, axis: int = -1, filter: _FilterType = 'kaiser_best', parallel: bool = False, **kwargs):
     """Resample a signal x from sr_orig to sr_new along a given axis.
 
     Parameters
@@ -79,7 +95,18 @@ def resample(x, sr_orig, sr_new, axis: int = -1, filter: str = 'kaiser_best', pa
     >>> y_stereo.shape
     (2, 110250)
     """
-def resample_nu(x, sr_orig, t_out, axis: int = -1, filter: str = 'kaiser_best', parallel: bool = False, **kwargs):
+    ...
+
+@overload
+def resample_nu(x: _FloatArray,
+                sr_orig: Union[int, float],
+                t_out: NDArray[np.floating],
+                axis: int = -1,
+                filter: _FilterType = 'kaiser_best',
+                parallel: bool = False,
+                **kwargs) -> _FloatArray: ...
+
+def resample_nu(x, sr_orig, t_out, axis: int = -1, filter: _FilterType = 'kaiser_best', parallel: bool = False, **kwargs):
     """Interpolate a signal x at specified positions (t_out) along a given axis.
 
     Parameters
@@ -104,7 +131,7 @@ def resample_nu(x, sr_orig, t_out, axis: int = -1, filter: str = 'kaiser_best', 
     parallel : optional, bool
         Enable/disable parallel computation exploiting multi-threading.
 
-        Default: True.
+        Default: False.
 
     **kwargs
         additional keyword arguments provided to the specified filter
@@ -118,6 +145,8 @@ def resample_nu(x, sr_orig, t_out, axis: int = -1, filter: str = 'kaiser_best', 
     ------
     TypeError
         if the input signal `x` has an unsupported data type.
+    ValueError
+        if t_out contains values outside the valid range for the input data.
 
     Notes
     -----
