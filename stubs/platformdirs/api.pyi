@@ -1,5 +1,4 @@
 import abc
-from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from collections.abc import Iterator
 from pathlib import Path
@@ -7,13 +6,13 @@ from typing import Literal
 
 class PlatformDirsABC(ABC, metaclass=abc.ABCMeta):
     """Abstract base class for platform directories."""
-    appname: Incomplete
-    appauthor: Incomplete
-    version: Incomplete
-    roaming: Incomplete
-    multipath: Incomplete
-    opinion: Incomplete
-    ensure_exists: Incomplete
+    appname: str | None
+    appauthor: str | Literal[False] | None
+    version: str | None
+    roaming: bool
+    multipath: bool
+    opinion: bool
+    ensure_exists: bool
     def __init__(self, appname: str | None = None, appauthor: str | Literal[False] | None = None, version: str | None = None, roaming: bool = False, multipath: bool = False, opinion: bool = True, ensure_exists: bool = False) -> None:
         """
         Create a new platform directory.
