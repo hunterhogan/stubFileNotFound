@@ -11,11 +11,19 @@ AppDirs = PlatformDirs
 
 def user_data_dir(appname: str | None = None, appauthor: str | Literal[False] | None = None, version: str | None = None, roaming: bool = False, ensure_exists: bool = False) -> str:
     """
-    :param appname: See `appname <platformdirs.api.PlatformDirsABC.appname>`.
-    :param appauthor: See `appauthor <platformdirs.api.PlatformDirsABC.appauthor>`.
-    :param version: See `version <platformdirs.api.PlatformDirsABC.version>`.
-    :param roaming: See `roaming <platformdirs.api.PlatformDirsABC.roaming>`.
-    :param ensure_exists: See `ensure_exists <platformdirs.api.PlatformDirsABC.ensure_exists>`.
+    Return the full path to the user-specific data directory for the application.
+
+    :param appname: The name of application. This will be used as the directory name.
+    :param appauthor: The name of the app author or distributing body for this application.
+                    Typically it is the owning company name. Defaults to appname.
+                    You may pass False to disable it.
+    :param version: An optional version path element to append to the path.
+                    If specified, it will be appended to the path as another directory.
+    :param roaming: Whether to use the roaming appdata directory on Windows.
+                    That means that for users on a Windows network setup for roaming profiles,
+                    this user data will be synced on login.
+    :param ensure_exists: Optionally create the directory (and any missing parents) upon
+                        access if it does not exist. By default, no directories are created.
     :returns: data directory tied to the user
     """
 def site_data_dir(appname: str | None = None, appauthor: str | Literal[False] | None = None, version: str | None = None, multipath: bool = False, ensure_exists: bool = False) -> str:

@@ -26,4 +26,4 @@ PROPS: tuple[str, ...] = (
 )
 
 def main() -> None:
-    """Run the main entry point."""
+    """Run the main entry point, printing directory paths for various platformdirs locations."""

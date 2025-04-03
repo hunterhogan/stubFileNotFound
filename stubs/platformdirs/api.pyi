@@ -6,26 +6,65 @@ from typing import Literal
 
 class PlatformDirsABC(ABC, metaclass=abc.ABCMeta):
     """Abstract base class for platform directories."""
+
     appname: str | None
+    """The name of application."""
+
     appauthor: str | Literal[False] | None
+    """
+    The name of the app author or distributing body for this application.
+
+    Typically, it is the owning company name. Defaults to appname. You may pass False to disable it.
+    """
+
     version: str | None
+    """
+    An optional version path element to append to the path.
+
+    You might want to use this if you want multiple versions of your app to be able to run independently.
+    If used, this would typically be <major>.<minor>.
+    """
+
     roaming: bool
+    """
+    Whether to use the roaming appdata directory on Windows.
+
+    That means that for users on a Windows network setup for roaming profiles,
+    this user data will be synced on login.
+    """
+
     multipath: bool
+    """
+    An optional parameter which indicates that the entire list of data dirs should be returned.
+
+    By default, the first item would only be returned.
+    """
+
     opinion: bool
+    """A flag to indicating to use opinionated values."""
+
     ensure_exists: bool
+    """
+    Optionally create the directory (and any missing parents) upon access if it does not exist.
+
+    By default, no directories are created.
+    """
+
     def __init__(self, appname: str | None = None, appauthor: str | Literal[False] | None = None, version: str | None = None, roaming: bool = False, multipath: bool = False, opinion: bool = True, ensure_exists: bool = False) -> None:
         """
         Create a new platform directory.
 
-        :param appname: See `appname`.
-        :param appauthor: See `appauthor`.
-        :param version: See `version`.
-        :param roaming: See `roaming`.
-        :param multipath: See `multipath`.
-        :param opinion: See `opinion`.
-        :param ensure_exists: See `ensure_exists`.
-
+        :param appname: The name of application.
+        :param appauthor: The name of the app author or distributing body for this application.
+                          Typically it is the owning company name. Defaults to appname. You may pass False to disable it.
+        :param version: An optional version path element to append to the path.
+                        You might want to use this if you want multiple versions of your app to be able to run independently.
+        :param roaming: Whether to use the roaming appdata directory on Windows.
+        :param multipath: An optional parameter which indicates that the entire list of data dirs should be returned.
+        :param opinion: A flag to indicating to use opinionated values.
+        :param ensure_exists: Optionally create the directory (and any missing parents) upon access if it does not exist.
         """
+
     def _append_app_name_and_version(self, *base: str) -> str: ...
     def _optionally_create_directory(self, path: str) -> None: ...
     def _first_item_as_path_if_multipath(self, directory: str) -> Path: ...
