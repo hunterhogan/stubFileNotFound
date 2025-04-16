@@ -75,4 +75,4 @@ Relevant settings may include
    Ast_Stubgen.generate_stub('.venv/Lib/site-packages/Ast_Stubgen/__init__.py', 'typings/Ast_Stubgen/__init__.pyi')
    ```
 
-[![CC-BY-NC-4.0](https://github.com/hunterhogan/stubFileNotFound/blob/main/CC-BY-NC-4.0.png)](https://creativecommons.org/licenses/by-nc/4.0/)
+[![CC-BY-NC-4.0](https://github.com/hunterhogan/stubFileNotFound/blob/main/CC-BY-NC-4.0.svg)](https://creativecommons.org/licenses/by-nc/4.0/)

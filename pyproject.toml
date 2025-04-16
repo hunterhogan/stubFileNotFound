@@ -13,6 +13,10 @@ classifiers = [
 	"Operating System :: OS Independent",
 	"Programming Language :: Python",
 	"Programming Language :: Python :: 3",
+	"Programming Language :: Python :: 3.10",
+	"Programming Language :: Python :: 3.11",
+	"Programming Language :: Python :: 3.12",
+	"Programming Language :: Python :: 3.13",
 	"Typing :: Typed",]
 dependencies = ["AST-Stubgen", "MonkeyType", "mypy", "numpy", "optype[numpy]", "pyright", "scipy-stubs", "stubgen-pyx"]
 description = "Crowdsourced stub type files for third-party Python packages."
@@ -20,10 +24,10 @@ keywords = []
 license = { 'text' = "CC-BY-NC-4.0" }
 name = "stubFileNotFound"
 optional-dependencies = { testing = [
-	"pytest-cov",
-	"pytest-subtests",
-	"pytest-xdist",
+	"mypy",
 	"pytest",
+	"pytest-cov",
+	"pytest-xdist",
 	"pyupgrade",] }
 readme = { file = "README.md", content-type = "text/markdown" }
 requires-python = ">=3.10"
@@ -45,12 +49,13 @@ run = { branch = true, concurrency = [
 xml = { output = "tests/coverage/coverage.xml" }
 
 [tool.pytest.ini_options]
-log_auto_indent = ["On"]
+log_auto_indent = true
 addopts = ["--color=yes"]
 testpaths = ["tests"]
 
-[tool.setuptools.packages.find]
-where = ["."]
+[tool.setuptools]
+package-data = { "*" = ["py.typed"] }
+packages = { find = {} }
 
 [tool.updateCitation]
 filenameCitationDOTcff = 'CITATION.cff'
