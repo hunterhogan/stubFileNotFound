@@ -8,7 +8,6 @@ from networkx.classes.graph import Graph
 from networkx.classes.reportviews import DiDegreeView, InDegreeView, InEdgeView, OutDegreeView, OutEdgeView
 
 _Node = Hashable
-_EdgePlus = tuple[_Node, _Node] | tuple[_Node, _Node, object]
 
 __all__ = ['DiGraph']
 
@@ -51,7 +50,7 @@ class _CachedPropertyResetterPred:
 	"""
 	def __set__(self, obj: Any, value: Any) -> None: ...
 
-class DiGraph(Graph):
+class DiGraph(Graph[_Node]):
 	"""
 	Base class for directed graphs.
 
@@ -249,7 +248,7 @@ class DiGraph(Graph):
 
 	edge_attr_dict_factory : function, optional (default: dict)
 		Factory function to be used to create the edge attribute
-		dict which holds attribute values keyed by attribute name.
+		dict which holds edge attribute values keyed by attribute name.
 		It should require no arguments and return a dict-like object.
 
 	graph_attr_dict_factory : function, (default: dict)
@@ -294,7 +293,7 @@ class DiGraph(Graph):
 	"""
 	# Type descriptors
 	_adj: dict[_Node, dict[_Node, dict[str, Any]]]
-	_succ = _adj
+	_succ: dict[_Node, dict[_Node, dict[str, Any]]]
 	_pred: dict[_Node, dict[_Node, dict[str, Any]]]
 	# Dictionaries for graph, node attributes
 	graph: dict[str, Any]
@@ -551,7 +550,9 @@ class DiGraph(Graph):
 		>>> e = (2, 3, {'weight': 7}) # an edge with attribute data
 		>>> G.remove_edge(*e[:2]) # select first part of edge tuple
 		"""
-	def remove_edges_from(self, ebunch: Iterable[_EdgePlus]) -> None:
+		...
+
+	def remove_edges_from(self, ebunch: Iterable[tuple[_Node, _Node] | tuple[_Node, _Node, dict[str, Any]]]) -> None:
 		"""Remove all edges specified in ebunch.
 
 		Parameters
@@ -920,7 +921,9 @@ class DiGraph(Graph):
 
 	def is_directed(self) -> bool:
 		"""Returns True if graph is directed, False otherwise."""
-	def to_undirected(self, as_view: bool = False) -> Graph:
+		...
+
+	def to_undirected(self, as_view: bool = False) -> Graph[_Node]:
 		"""Returns an undirected representation of the digraph.
 
 		Parameters
