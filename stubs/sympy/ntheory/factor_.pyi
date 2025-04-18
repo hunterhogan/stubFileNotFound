@@ -15,7 +15,6 @@ from sympy.utilities.decorator import deprecated as deprecated
 from sympy.utilities.iterables import flatten as flatten
 from sympy.utilities.misc import as_int as as_int, filldedent as filldedent
 
-
 def smoothness(n: int) -> tuple[int, int]:
 	"""
 	Return the B-smooth and B-power smooth values of n.
