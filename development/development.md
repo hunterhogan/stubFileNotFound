@@ -8,8 +8,8 @@
 
 ## Core Principles
 
-- **This file (`development.md`) must always be kept up to date.**
-- **No reinvention of the wheel:** Use existing, well-maintained tools (e.g., `pyupgrade` for modernizing stubs, `mypy`/`pyright`/`stubtest` for validation). Do not write custom scripts for problems already solved by the community.
+- **This file (`development/development.md`) must always be kept up to date.**
+- **No reinvention of the wheel:** Use existing, well-maintained tools (e.g., `pyupgrade` for modernizing stubs, `mypy`/`pyright`/`stubtest` for validation). Do not write custom scripts for problems already solved by the community, unless they significantly automate a tedious process (like `stubFileNotFound/generate_stubs.py`).
 - **Minimum supported Python version is 3.10.**
 - **All configuration must be in `pyproject.toml` whenever possible.**
 - **All automation and documentation must be reproducible and understandable by both AI assistants and human contributors.**
@@ -18,30 +18,37 @@
 ## Directory Structure
 
 - `stubs/`: All third-party `.pyi` stub files, organized by package name.
-- `stubFileNotFound/`: The main package directory. Contains only importable, documented, and essential code. No random scripts.
+- `stubFileNotFound/`: The main package directory. Contains importable modules like `generate_stubs.py`.
 - `tests/`: All tests for stub validation and package logic. If missing, create it.
+- `development/`: Contains supplementary documentation like `third_party_packages.md` and this file (`development.md`).
 - `pyproject.toml`: The single source of truth for configuration and metadata.
 - `README.md`: User and contributor documentation.
-- `development.md`: This file. Must always reflect the current state and process.
 - Any other directory must be explicitly documented here or removed.
 
 ## Development Workflow
 
 1. **Stub Generation**
-   - Use `stubgen`, `pyright`, or similar tools to generate initial stubs for third-party packages.
-   - Place generated stubs in `stubs/`, organized by package name.
-   - Do not write custom stub generation scripts unless absolutely necessary and not already solved by existing tools.
+   - Use the automation script `stubFileNotFound/generate_stubs.py` for generating initial stubs.
+     - For standard Python packages: `python -m stubFileNotFound.generate_stubs <package_name>`
+     - For Cython packages: `python -m stubFileNotFound.generate_stubs <package_name> --cython`
+   - This script uses `mypy.stubgen` or `stubgen-pyx` and places generated stubs in `stubs/<package_name>/`.
+   - Manual generation using `pyright --createstub` or VS Code Quick Fixes is also possible for specific cases, followed by manual placement in `stubs/`.
 
 2. **Stub Modernization**
-   - Use [`pyupgrade`](https://github.com/asottile/pyupgrade) to automatically modernize stubs to Python 3.10+ syntax (e.g., remove deprecated `typing.List`, etc.).
-   - Do not write custom code to check or fix deprecated types—run `pyupgrade` on all stubs instead.
+   - The `stubFileNotFound/generate_stubs.py` script automatically runs `pyupgrade --py310-plus` on the newly generated stubs.
+   - To modernize all existing stubs, run:
+
+     ```sh
+     pyupgrade --py310-plus stubs/**/*.pyi
+     ```
 
 3. **Stub Validation**
-   - Use `mypy`, `pyright`, and `stubtest` to validate stubs. Add tests in `tests/` to automate this process.   - Example validation commands:
+   - Use `mypy`, `pyright`, and `stubtest` to validate stubs. Add tests in `tests/` to automate this process.
+   - Example validation commands:
 
      ```sh
      mypy --python-version 3.10 stubs/package_name
-     pyright --pythonversion 3.10 --typeshedpath stubs/ examples/usage_of_package.py
+     pyright --pythonversion 3.10 --typeshedpath stubs/ examples/usage_of_package.py # (If example usage exists)
      stubtest package_name --stub-dir stubs/package_name --ignore-missing-stub
      ```
 
@@ -54,11 +61,12 @@
 
 5. **Documentation and Process**
    - After any significant change, update this `development.md` to reflect the new state or process.
-   - Remove or document any directory (like `scripts/`) that is not part of the standard Python package structure.
+   - Update `development/third_party_packages.md` to track dependencies and stubbed packages.
    - Keep `README.md` up to date for users and contributors.
 
 ## Automation
 
+- Use `stubFileNotFound/generate_stubs.py` for generating and initially modernizing stubs.
 - Use `pyupgrade` to modernize all stubs:
 
   ```sh
@@ -68,11 +76,16 @@
 - Use `pytest`, `mypy`, `pyright`, and `stubtest` for validation and testing. Configure them in `pyproject.toml`.
 - Do not duplicate functionality already provided by these tools.
 
+## Third-Party Package Tracking
+
+- Refer to `development/third_party_packages.md` for a list of dependencies, packages with generated stubs, considered packages, and rejected packages. Keep this file updated.
+
 ## Open Issues / TODOs
 
-- Reduce code duplication and remove any custom logic that is already solved by community tools.
-- Add or improve tests in `tests/`.
-- Always update this file after any process or structure change.
+- Reduce code duplication and remove any custom logic that is already solved by community tools (review existing stubs/code).
+- Add or improve tests in `tests/` for stub validation.
+- Ensure `development/third_party_packages.md` is comprehensive.
+- Always update this file (`development/development.md`) after any process or structure change.
 
 ---
 
