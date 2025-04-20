@@ -1,6 +1,6 @@
 # stubFileNotFound: Crowdsourced Stub Type Files for Third-Party Python Packages
 
-`stubFileNotFound` is a collaborative project for creating and sharing [Python stub files](https://typing.python.org/en/latest/spec/distributing.html) (`.pyi`) for third-party Python packages. Stub files provide type hints for modules, enhancing code readability and enabling better static analysis with tools like PyLance, pyright, and mypy.
+`stubFileNotFound` is a collaborative project for creating and sharing [Python stub files](https://typing.python.org/en/latest/spec/distributing.html) (`.pyi`) for third-party Python packages. Stub files provide type hints and docstrings for modules, enabling better static analysis with tools like PyLance, pyright, and mypy and making it easier for developers to use the package.
 
 ## How to Contribute
 
@@ -57,11 +57,15 @@ Relevant settings may include
    ```
 
 3. [pyright](https://github.com/microsoft/pyright)
-   1. `pyright --createstub`
+   1. `pyright --createstub nameOfAnInstalledPackage`
    2. ["Quick Fix"](https://microsoft.github.io/pyright/#/type-stubs?id=generating-type-stubs-in-vs-code) in VS Code.
 4. [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.python) if `reportMissingTypeStubs` is enabled and the stub is missing: ["Quick Fix"](https://microsoft.github.io/pyright/#/type-stubs?id=generating-type-stubs-in-vs-code)
-5. [stubgen-pyx](https://github.com/jon-edward/stubgen-pyx): `stubgen-pyx /path/to/package`
-6. [stub-generator](https://pypi.org/project/stub-generator/)
+
+## Tools that can allegedly create a stub
+
+1. [MonkeyType](https://github.com/Instagram/MonkeyType)
+2. [stubgen-pyx](https://github.com/jon-edward/stubgen-pyx): `stubgen-pyx /path/to/package`
+3. [stub-generator](https://pypi.org/project/stub-generator/)
 
 ### Tools I probably won't use
 

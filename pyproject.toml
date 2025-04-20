@@ -24,7 +24,6 @@ keywords = []
 license = { 'text' = "CC-BY-NC-4.0" }
 name = "stubFileNotFound"
 optional-dependencies = { testing = [
-	"mypy",
 	"pytest",
 	"pytest-cov",
 	"pytest-xdist",
@@ -42,8 +41,9 @@ report = { exclude_lines = [
 run = { branch = true, concurrency = [
 	"multiprocessing",
 ], data_file = "tests/coverage/.coverage", omit = [
-	"tests/*",
 	"stubs/*",
+	"tests/*",
+	"typings/*",
 ], parallel = true, source = [
 	".",] }
 xml = { output = "tests/coverage/coverage.xml" }
