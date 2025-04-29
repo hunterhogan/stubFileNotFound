@@ -4,10 +4,8 @@ from typing import Any, TypeVar, overload
 from typing_extensions import Self
 
 from networkx.classes.coreviews import AdjacencyView
-from networkx.classes.graph import Graph
+from networkx.classes.graph import Graph, _Node # type: ignore[reportPrivateUsage]
 from networkx.classes.reportviews import DiDegreeView, InDegreeView, InEdgeView, OutDegreeView, OutEdgeView
-
-_Node = Hashable
 
 __all__ = ['DiGraph']
 
@@ -985,7 +983,7 @@ class DiGraph(Graph[_Node]):
 		"""
 		...
 
-	def reverse(self, copy: bool = True) -> 'DiGraph':
+	def reverse(self, copy: bool = True) -> 'DiGraph[_Node]':
 		"""Returns the reverse of the graph.
 
 		The reverse is a graph with the same nodes and edges

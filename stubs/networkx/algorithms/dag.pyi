@@ -1,7 +1,6 @@
 from collections.abc import Generator, Hashable, Iterable, Callable
-from networkx.classes.graph import Graph
+from networkx.classes.graph import Graph, _Node # type: ignore[reportPrivateUsage]
 from networkx.classes.digraph import DiGraph
-_Node = Hashable
 
 __all__ = ['descendants', 'ancestors', 'topological_sort', 'lexicographical_topological_sort', 'all_topological_sorts', 'topological_generations', 'is_directed_acyclic_graph', 'is_aperiodic', 'transitive_closure', 'transitive_closure_dag', 'transitive_reduction', 'antichains', 'dag_longest_path', 'dag_longest_path_length', 'dag_to_branching', 'compute_v_structures']
 

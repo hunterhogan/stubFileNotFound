@@ -126,7 +126,7 @@ class Graph(Collection[_Node]):
 		'''
 		...
 
-	def to_directed_class(self) -> type['DiGraph']:
+	def to_directed_class(self) -> type['DiGraph[_Node]']:
 		"""Returns the class to use for directed copies of this graph.
 
 		When creating a directed version of the graph with functions like
@@ -935,7 +935,7 @@ class Graph(Collection[_Node]):
 		"""
 		...
 
-	def to_directed(self, as_view: bool = False) -> 'DiGraph':
+	def to_directed(self, as_view: bool = False) -> 'DiGraph[_Node]':
 		"""Returns a directed representation of the graph.
 
 		Returns
