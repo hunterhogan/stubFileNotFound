@@ -1,11 +1,12 @@
-import np
-import pandas._libs.lib as lib
-import typing
+import numpy as np
 from collections.abc import Iterable, Sequence
-from pandas._libs.lib import is_bool as is_bool, is_integer as is_integer
+from pandas._libs import lib as lib
+from pandas.core.dtypes.common import is_bool as is_bool, is_integer as is_integer
+from typing import TypeVar, overload
 
-BoolishT: typing.TypeVar
-BoolishNoneT: typing.TypeVar
+BoolishT = TypeVar('BoolishT', bool, int)
+BoolishNoneT = TypeVar('BoolishNoneT', bool, int, None)
+
 def _check_arg_length(fname, args, max_fname_arg_count, compat_args) -> None:
     """
     Checks whether 'args' has length of at most 'compat_args'. Raises
@@ -115,7 +116,7 @@ def validate_args_and_kwargs(fname, args, kwargs, max_fname_arg_count, compat_ar
     validate_kwargs : Purely kwargs validation.
 
     """
-def validate_bool_kwarg(value: BoolishNoneT, arg_name: str, none_allowed: bool = ..., int_allowed: bool = ...) -> BoolishNoneT:
+def validate_bool_kwarg(value: BoolishNoneT, arg_name: str, none_allowed: bool = True, int_allowed: bool = False) -> BoolishNoneT:
     """
     Ensure that argument passed in arg_name can be interpreted as boolean.
 
@@ -140,7 +141,7 @@ def validate_bool_kwarg(value: BoolishNoneT, arg_name: str, none_allowed: bool =
     ValueError
         If the value is not a valid boolean.
     """
-def validate_fillna_kwargs(value, method, validate_scalar_dict_value: bool = ...):
+def validate_fillna_kwargs(value, method, validate_scalar_dict_value: bool = True):
     """
     Validate the keyword arguments to 'fillna'.
 
@@ -180,8 +181,10 @@ def validate_percentile(q: float | Iterable[float]) -> np.ndarray:
     ------
     ValueError if percentiles are not in given interval([0, 1]).
     """
-def validate_ascending(ascending: bool | int | Sequence[BoolishT]) -> bool | int | list[BoolishT]:
-    """Validate ``ascending`` kwargs for ``sort_index`` method."""
+@overload
+def validate_ascending(ascending: BoolishT) -> BoolishT: ...
+@overload
+def validate_ascending(ascending: Sequence[BoolishT]) -> list[BoolishT]: ...
 def validate_endpoints(closed: str | None) -> tuple[bool, bool]:
     '''
     Check that the `closed` argument is among [None, "left", "right"]

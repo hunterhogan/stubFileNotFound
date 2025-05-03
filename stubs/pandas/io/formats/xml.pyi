@@ -1,20 +1,94 @@
 from _typeshed import Incomplete
-from pandas._libs.lib import is_list_like as is_list_like
-from pandas._libs.properties import cache_readonly as cache_readonly
+from pandas import DataFrame as DataFrame
+from pandas._typing import CompressionOptions as CompressionOptions, FilePath as FilePath, ReadBuffer as ReadBuffer, StorageOptions as StorageOptions, WriteBuffer as WriteBuffer
+from pandas.core.dtypes.common import is_list_like as is_list_like
 from pandas.core.dtypes.missing import isna as isna
+from pandas.core.shared_docs import _shared_docs as _shared_docs
 from pandas.errors import AbstractMethodError as AbstractMethodError
 from pandas.io.common import get_handle as get_handle
 from pandas.io.xml import get_data_from_filepath as get_data_from_filepath, preprocess_data as preprocess_data
-from pandas.util._decorators import doc as doc
-from typing import Any, ClassVar
-
-TYPE_CHECKING: bool
-_shared_docs: dict
+from pandas.util._decorators import cache_readonly as cache_readonly, doc as doc
+from typing import Any
 
 class _BaseXMLFormatter:
-    _docstring_components: ClassVar[list] = ...
-    _sub_element_cls: Incomplete
-    def __init__(self, frame: DataFrame, path_or_buffer: FilePath | WriteBuffer[bytes] | WriteBuffer[str] | None, index: bool = ..., root_name: str | None = ..., row_name: str | None = ..., na_rep: str | None, attr_cols: list[str] | None, elem_cols: list[str] | None, namespaces: dict[str | None, str] | None, prefix: str | None, encoding: str = ..., xml_declaration: bool | None = ..., pretty_print: bool | None = ..., stylesheet: FilePath | ReadBuffer[str] | ReadBuffer[bytes] | None, compression: CompressionOptions = ..., storage_options: StorageOptions | None) -> None: ...
+    """
+    Subclass for formatting data in XML.
+
+    Parameters
+    ----------
+    path_or_buffer : str or file-like
+        This can be either a string of raw XML, a valid URL,
+        file or file-like object.
+
+    index : bool
+        Whether to include index in xml document.
+
+    row_name : str
+        Name for root of xml document. Default is 'data'.
+
+    root_name : str
+        Name for row elements of xml document. Default is 'row'.
+
+    na_rep : str
+        Missing data representation.
+
+    attrs_cols : list
+        List of columns to write as attributes in row element.
+
+    elem_cols : list
+        List of columns to write as children in row element.
+
+    namespaces : dict
+        The namespaces to define in XML document as dicts with key
+        being namespace and value the URI.
+
+    prefix : str
+        The prefix for each element in XML document including root.
+
+    encoding : str
+        Encoding of xml object or document.
+
+    xml_declaration : bool
+        Whether to include xml declaration at top line item in xml.
+
+    pretty_print : bool
+        Whether to write xml document with line breaks and indentation.
+
+    stylesheet : str or file-like
+        A URL, file, file-like object, or a raw string containing XSLT.
+
+    {compression_options}
+
+        .. versionchanged:: 1.4.0 Zstandard support.
+
+    {storage_options}
+
+    See also
+    --------
+    pandas.io.formats.xml.EtreeXMLFormatter
+    pandas.io.formats.xml.LxmlXMLFormatter
+
+    """
+    frame: Incomplete
+    path_or_buffer: Incomplete
+    index: Incomplete
+    root_name: Incomplete
+    row_name: Incomplete
+    na_rep: Incomplete
+    attr_cols: Incomplete
+    elem_cols: Incomplete
+    namespaces: Incomplete
+    prefix: Incomplete
+    encoding: Incomplete
+    xml_declaration: Incomplete
+    pretty_print: Incomplete
+    stylesheet: Incomplete
+    compression: CompressionOptions
+    storage_options: Incomplete
+    orig_cols: Incomplete
+    frame_dicts: Incomplete
+    prefix_uri: Incomplete
+    def __init__(self, frame: DataFrame, path_or_buffer: FilePath | WriteBuffer[bytes] | WriteBuffer[str] | None = None, index: bool = True, root_name: str | None = 'data', row_name: str | None = 'row', na_rep: str | None = None, attr_cols: list[str] | None = None, elem_cols: list[str] | None = None, namespaces: dict[str | None, str] | None = None, prefix: str | None = None, encoding: str = 'utf-8', xml_declaration: bool | None = True, pretty_print: bool | None = True, stylesheet: FilePath | ReadBuffer[str] | ReadBuffer[bytes] | None = None, compression: CompressionOptions = 'infer', storage_options: StorageOptions | None = None) -> None: ...
     def _build_tree(self) -> bytes:
         """
         Build tree from  data.
@@ -84,6 +158,7 @@ class _BaseXMLFormatter:
         works with tuples for multindex or hierarchical columns.
         """
     def _get_flat_col_name(self, col: str | tuple) -> str: ...
+    def _sub_element_cls(self) -> None: ...
     def _build_elems(self, d: dict[str, Any], elem_row: Any) -> None:
         """
         Create child elements of row.
@@ -94,9 +169,16 @@ class _BaseXMLFormatter:
     def write_output(self) -> str | None: ...
 
 class EtreeXMLFormatter(_BaseXMLFormatter):
-    _sub_element_cls: Incomplete
+    """
+    Class for formatting data in xml using Python standard library
+    modules: `xml.etree.ElementTree` and `xml.dom.minidom`.
+    """
+    root: Incomplete
+    elem_cols: Incomplete
+    out_xml: Incomplete
     def _build_tree(self) -> bytes: ...
     def _get_prefix_uri(self) -> str: ...
+    def _sub_element_cls(self): ...
     def _prettify_tree(self) -> bytes:
         """
         Output tree for pretty print format.
@@ -105,8 +187,14 @@ class EtreeXMLFormatter(_BaseXMLFormatter):
         """
 
 class LxmlXMLFormatter(_BaseXMLFormatter):
-    _sub_element_cls: Incomplete
+    """
+    Class for formatting data in xml using Python standard library
+    modules: `xml.etree.ElementTree` and `xml.dom.minidom`.
+    """
     def __init__(self, *args, **kwargs) -> None: ...
+    root: Incomplete
+    elem_cols: Incomplete
+    out_xml: Incomplete
     def _build_tree(self) -> bytes:
         """
         Build tree from  data.
@@ -122,6 +210,7 @@ class LxmlXMLFormatter(_BaseXMLFormatter):
         requirement that empty string prefixes are not allowed.
         """
     def _get_prefix_uri(self) -> str: ...
+    def _sub_element_cls(self): ...
     def _transform_doc(self) -> bytes:
         """
         Parse stylesheet from file or buffer and run it.

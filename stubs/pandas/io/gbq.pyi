@@ -1,10 +1,11 @@
+from google.auth.credentials import Credentials as Credentials
+from pandas import DataFrame as DataFrame
 from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Any
 
-TYPE_CHECKING: bool
 def _try_import(): ...
-def read_gbq(query: str, project_id: str | None, index_col: str | None, col_order: list[str] | None, reauth: bool = ..., auth_local_webserver: bool = ..., dialect: str | None, location: str | None, configuration: dict[str, Any] | None, credentials: Credentials | None, use_bqstorage_api: bool | None, max_results: int | None, progress_bar_type: str | None) -> DataFrame:
+def read_gbq(query: str, project_id: str | None = None, index_col: str | None = None, col_order: list[str] | None = None, reauth: bool = False, auth_local_webserver: bool = True, dialect: str | None = None, location: str | None = None, configuration: dict[str, Any] | None = None, credentials: Credentials | None = None, use_bqstorage_api: bool | None = None, max_results: int | None = None, progress_bar_type: str | None = None) -> DataFrame:
     '''
     Load data from Google BigQuery.
 
@@ -147,4 +148,4 @@ def read_gbq(query: str, project_id: str | None, index_col: str | None, col_orde
     ...                  dialect="standard"
     ...                  )  # doctest: +SKIP
     '''
-def to_gbq(dataframe: DataFrame, destination_table: str, project_id: str | None, chunksize: int | None, reauth: bool = ..., if_exists: str = ..., auth_local_webserver: bool = ..., table_schema: list[dict[str, str]] | None, location: str | None, progress_bar: bool = ..., credentials: Credentials | None) -> None: ...
+def to_gbq(dataframe: DataFrame, destination_table: str, project_id: str | None = None, chunksize: int | None = None, reauth: bool = False, if_exists: str = 'fail', auth_local_webserver: bool = True, table_schema: list[dict[str, str]] | None = None, location: str | None = None, progress_bar: bool = True, credentials: Credentials | None = None) -> None: ...

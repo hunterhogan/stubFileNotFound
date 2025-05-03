@@ -1,24 +1,23 @@
-import ma
-import np
-import pandas._libs.lib as lib
-import pandas.core.common as com
+import numpy as np
+from _typeshed import Incomplete
 from collections.abc import Sequence
+from numpy import ma
+from pandas import Index as Index, Series as Series
 from pandas._config import using_pyarrow_string_dtype as using_pyarrow_string_dtype
-from pandas._libs.lib import is_list_like as is_list_like
-from pandas._libs.tslibs.np_datetime import get_supported_dtype as get_supported_dtype, is_supported_dtype as is_supported_dtype
-from pandas._libs.tslibs.period import Period as Period
-from pandas._typing import T as T
+from pandas._libs import lib as lib
+from pandas._libs.tslibs import Period as Period, get_supported_dtype as get_supported_dtype, is_supported_dtype as is_supported_dtype
+from pandas._typing import AnyArrayLike as AnyArrayLike, ArrayLike as ArrayLike, Dtype as Dtype, DtypeObj as DtypeObj, T as T
+from pandas.core.arrays.base import ExtensionArray as ExtensionArray
 from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.cast import construct_1d_arraylike_from_scalar as construct_1d_arraylike_from_scalar, construct_1d_object_array_from_listlike as construct_1d_object_array_from_listlike, maybe_cast_to_datetime as maybe_cast_to_datetime, maybe_cast_to_integer_array as maybe_cast_to_integer_array, maybe_convert_platform as maybe_convert_platform, maybe_infer_to_datetimelike as maybe_infer_to_datetimelike, maybe_promote as maybe_promote
-from pandas.core.dtypes.common import is_object_dtype as is_object_dtype, is_string_dtype as is_string_dtype, pandas_dtype as pandas_dtype
+from pandas.core.dtypes.common import is_list_like as is_list_like, is_object_dtype as is_object_dtype, is_string_dtype as is_string_dtype, pandas_dtype as pandas_dtype
 from pandas.core.dtypes.dtypes import NumpyEADtype as NumpyEADtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCExtensionArray as ABCExtensionArray, ABCIndex as ABCIndex, ABCSeries as ABCSeries
 from pandas.core.dtypes.missing import isna as isna
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import AnyArrayLike, ArrayLike, Dtype, DtypeObj
+from typing import overload
 
-TYPE_CHECKING: bool
-def array(data: Sequence[object] | AnyArrayLike, dtype: Dtype | None, copy: bool = ...) -> ExtensionArray:
+def array(data: Sequence[object] | AnyArrayLike, dtype: Dtype | None = None, copy: bool = True) -> ExtensionArray:
     '''
     Create an array.
 
@@ -225,50 +224,12 @@ def array(data: Sequence[object] | AnyArrayLike, dtype: Dtype | None, copy: bool
     ValueError: Cannot pass scalar \'1\' to \'pandas.array\'.
     '''
 
-_typs: frozenset
-def extract_array(obj: T, extract_numpy: bool = ..., extract_range: bool = ...) -> T | ArrayLike:
-    """
-    Extract the ndarray or ExtensionArray from a Series or Index.
+_typs: Incomplete
 
-    For all other types, `obj` is just returned as is.
-
-    Parameters
-    ----------
-    obj : object
-        For Series / Index, the underlying ExtensionArray is unboxed.
-
-    extract_numpy : bool, default False
-        Whether to extract the ndarray from a NumpyExtensionArray.
-
-    extract_range : bool, default False
-        If we have a RangeIndex, return range._values if True
-        (which is a materialized integer ndarray), otherwise return unchanged.
-
-    Returns
-    -------
-    arr : object
-
-    Examples
-    --------
-    >>> extract_array(pd.Series(['a', 'b', 'c'], dtype='category'))
-    ['a', 'b', 'c']
-    Categories (3, object): ['a', 'b', 'c']
-
-    Other objects like lists, arrays, and DataFrames are just passed through.
-
-    >>> extract_array([1, 2, 3])
-    [1, 2, 3]
-
-    For an ndarray-backed Series / Index the ndarray is returned.
-
-    >>> extract_array(pd.Series([1, 2, 3]))
-    array([1, 2, 3])
-
-    To extract all the way down to the ndarray, pass ``extract_numpy=True``.
-
-    >>> extract_array(pd.Series([1, 2, 3]), extract_numpy=True)
-    array([1, 2, 3])
-    """
+@overload
+def extract_array(obj: Series | Index, extract_numpy: bool = ..., extract_range: bool = ...) -> ArrayLike: ...
+@overload
+def extract_array(obj: T, extract_numpy: bool = ..., extract_range: bool = ...) -> T | ArrayLike: ...
 def ensure_wrapped_if_datetimelike(arr):
     """
     Wrap datetime64 and timedelta64 ndarrays in DatetimeArray/TimedeltaArray.
@@ -277,7 +238,7 @@ def sanitize_masked_array(data: ma.MaskedArray) -> np.ndarray:
     """
     Convert numpy MaskedArray to ensure mask is softened.
     """
-def sanitize_array(data, index: Index | None, dtype: DtypeObj | None, copy: bool = ..., *, allow_2d: bool = ...) -> ArrayLike:
+def sanitize_array(data, index: Index | None, dtype: DtypeObj | None = None, copy: bool = False, *, allow_2d: bool = False) -> ArrayLike:
     """
     Sanitize input data to an ndarray or ExtensionArray, copy if specified,
     coerce to the dtype if specified.
@@ -303,7 +264,7 @@ def _sanitize_non_ordered(data) -> None:
     """
     Raise only for unordered sets, e.g., not for dict_keys
     """
-def _sanitize_ndim(result: ArrayLike, data, dtype: DtypeObj | None, index: Index | None, *, allow_2d: bool = ...) -> ArrayLike:
+def _sanitize_ndim(result: ArrayLike, data, dtype: DtypeObj | None, index: Index | None, *, allow_2d: bool = False) -> ArrayLike:
     """
     Ensure we have a 1-dimensional result array.
     """

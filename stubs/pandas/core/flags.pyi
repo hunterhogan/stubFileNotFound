@@ -1,12 +1,81 @@
 from _typeshed import Incomplete
-from typing import ClassVar
-
-TYPE_CHECKING: bool
+from pandas.core.generic import NDFrame as NDFrame
 
 class Flags:
-    _keys: ClassVar[set] = ...
-    allows_duplicate_labels: Incomplete
+    """
+    Flags that apply to pandas objects.
+
+    Parameters
+    ----------
+    obj : Series or DataFrame
+        The object these flags are associated with.
+    allows_duplicate_labels : bool, default True
+        Whether to allow duplicate labels in this object. By default,
+        duplicate labels are permitted. Setting this to ``False`` will
+        cause an :class:`errors.DuplicateLabelError` to be raised when
+        `index` (or columns for DataFrame) is not unique, or any
+        subsequent operation on introduces duplicates.
+        See :ref:`duplicates.disallow` for more.
+
+        .. warning::
+
+           This is an experimental feature. Currently, many methods fail to
+           propagate the ``allows_duplicate_labels`` value. In future versions
+           it is expected that every method taking or returning one or more
+           DataFrame or Series objects will propagate ``allows_duplicate_labels``.
+
+    Examples
+    --------
+    Attributes can be set in two ways:
+
+    >>> df = pd.DataFrame()
+    >>> df.flags
+    <Flags(allows_duplicate_labels=True)>
+    >>> df.flags.allows_duplicate_labels = False
+    >>> df.flags
+    <Flags(allows_duplicate_labels=False)>
+
+    >>> df.flags['allows_duplicate_labels'] = True
+    >>> df.flags
+    <Flags(allows_duplicate_labels=True)>
+    """
+    _keys: set[str]
+    _allows_duplicate_labels: Incomplete
+    _obj: Incomplete
     def __init__(self, obj: NDFrame, *, allows_duplicate_labels: bool) -> None: ...
+    @property
+    def allows_duplicate_labels(self) -> bool:
+        '''
+        Whether this object allows duplicate labels.
+
+        Setting ``allows_duplicate_labels=False`` ensures that the
+        index (and columns of a DataFrame) are unique. Most methods
+        that accept and return a Series or DataFrame will propagate
+        the value of ``allows_duplicate_labels``.
+
+        See :ref:`duplicates` for more.
+
+        See Also
+        --------
+        DataFrame.attrs : Set global metadata on this object.
+        DataFrame.set_flags : Set global flags on this object.
+
+        Examples
+        --------
+        >>> df = pd.DataFrame({"A": [1, 2]}, index=[\'a\', \'a\'])
+        >>> df.flags.allows_duplicate_labels
+        True
+        >>> df.flags.allows_duplicate_labels = False
+        Traceback (most recent call last):
+            ...
+        pandas.errors.DuplicateLabelError: Index has duplicates.
+              positions
+        label
+        a        [0, 1]
+        '''
+    @allows_duplicate_labels.setter
+    def allows_duplicate_labels(self, value: bool) -> None: ...
     def __getitem__(self, key: str): ...
     def __setitem__(self, key: str, value) -> None: ...
+    def __repr__(self) -> str: ...
     def __eq__(self, other) -> bool: ...

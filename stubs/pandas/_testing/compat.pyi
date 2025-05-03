@@ -1,6 +1,6 @@
-from pandas.core.frame import DataFrame as DataFrame
+from pandas import DataFrame as DataFrame
+from pandas._typing import DtypeObj as DtypeObj
 
-TYPE_CHECKING: bool
 def get_dtype(obj) -> DtypeObj: ...
 def get_obj(df: DataFrame, klass):
     """

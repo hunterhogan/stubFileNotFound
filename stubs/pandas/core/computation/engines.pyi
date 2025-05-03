@@ -1,13 +1,13 @@
-import _abc
-import pandas.io.formats.printing as printing
+import abc
+from _typeshed import Incomplete
 from pandas.core.computation.align import align_terms as align_terms, reconstruct_object as reconstruct_object
+from pandas.core.computation.expr import Expr as Expr
+from pandas.core.computation.ops import MATHOPS as MATHOPS, REDUCTIONS as REDUCTIONS
 from pandas.errors import NumExprClobberingError as NumExprClobberingError
-from typing import ClassVar
+from pandas.io.formats import printing as printing
 
-TYPE_CHECKING: bool
-MATHOPS: tuple
-REDUCTIONS: tuple
-_ne_builtins: frozenset
+_ne_builtins: Incomplete
+
 def _check_ne_builtin_clash(expr: Expr) -> None:
     """
     Attempt to prevent foot-shooting in a helpful way.
@@ -18,10 +18,12 @@ def _check_ne_builtin_clash(expr: Expr) -> None:
         Terms can contain
     """
 
-class AbstractEngine:
-    has_neg_frac: ClassVar[bool] = ...
-    __abstractmethods__: ClassVar[frozenset] = ...
-    _abc_impl: ClassVar[_abc._abc_data] = ...
+class AbstractEngine(metaclass=abc.ABCMeta):
+    """Object serving as a base class for all engines."""
+    has_neg_frac: bool
+    expr: Incomplete
+    aligned_axes: Incomplete
+    result_type: Incomplete
     def __init__(self, expr) -> None: ...
     def convert(self) -> str:
         """
@@ -41,6 +43,9 @@ class AbstractEngine:
         object
             The result of the passed expression.
         """
+    @property
+    def _is_aligned(self) -> bool: ...
+    @abc.abstractmethod
     def _evaluate(self):
         """
         Return an evaluated expression.
@@ -55,19 +60,20 @@ class AbstractEngine:
         -----
         Must be implemented by subclasses.
         """
-    @property
-    def _is_aligned(self): ...
 
 class NumExprEngine(AbstractEngine):
-    has_neg_frac: ClassVar[bool] = ...
-    __abstractmethods__: ClassVar[frozenset] = ...
-    _abc_impl: ClassVar[_abc._abc_data] = ...
+    """NumExpr engine class"""
+    has_neg_frac: bool
     def _evaluate(self): ...
 
 class PythonEngine(AbstractEngine):
-    has_neg_frac: ClassVar[bool] = ...
-    __abstractmethods__: ClassVar[frozenset] = ...
-    _abc_impl: ClassVar[_abc._abc_data] = ...
+    """
+    Evaluate an expression in Python space.
+
+    Mostly for testing purposes.
+    """
+    has_neg_frac: bool
     def evaluate(self): ...
     def _evaluate(self) -> None: ...
-ENGINES: dict
+
+ENGINES: dict[str, type[AbstractEngine]]

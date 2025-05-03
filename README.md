@@ -66,6 +66,7 @@ Relevant settings may include
 1. [MonkeyType](https://github.com/Instagram/MonkeyType)
 2. [stubgen-pyx](https://github.com/jon-edward/stubgen-pyx): `stubgen-pyx /path/to/package`
 3. [stub-generator](https://pypi.org/project/stub-generator/)
+4. [pytype](https://google.github.io/pytype/)
 
 ### Tools I probably won't use
 

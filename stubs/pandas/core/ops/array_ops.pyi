@@ -1,27 +1,21 @@
-import np
-import pandas._libs.lib as lib
-import pandas._libs.ops as libops
-import pandas.core.computation.expressions as expressions
-import pandas.core.ops.missing as missing
-import pandas.core.roperator as roperator
-from pandas._libs.algos import ensure_object as ensure_object
-from pandas._libs.lib import is_list_like as is_list_like, is_scalar as is_scalar
-from pandas._libs.tslibs.nattype import NaT as NaT
-from pandas._libs.tslibs.np_datetime import get_supported_dtype as get_supported_dtype, is_supported_dtype as is_supported_dtype, is_unitless as is_unitless
-from pandas._libs.tslibs.offsets import BaseOffset as BaseOffset
-from pandas._libs.tslibs.timedeltas import Timedelta as Timedelta
-from pandas._libs.tslibs.timestamps import Timestamp as Timestamp
+import numpy as np
+from _typeshed import Incomplete
+from pandas._libs import NaT as NaT, Timedelta as Timedelta, Timestamp as Timestamp, lib as lib
+from pandas._libs.tslibs import BaseOffset as BaseOffset, get_supported_dtype as get_supported_dtype, is_supported_dtype as is_supported_dtype, is_unitless as is_unitless
+from pandas._typing import ArrayLike as ArrayLike, Shape as Shape
+from pandas.core import roperator as roperator
+from pandas.core.computation import expressions as expressions
 from pandas.core.construction import ensure_wrapped_if_datetimelike as ensure_wrapped_if_datetimelike
 from pandas.core.dtypes.cast import construct_1d_object_array_from_listlike as construct_1d_object_array_from_listlike, find_common_type as find_common_type
-from pandas.core.dtypes.common import is_bool_dtype as is_bool_dtype, is_numeric_v_string_like as is_numeric_v_string_like, is_object_dtype as is_object_dtype
+from pandas.core.dtypes.common import ensure_object as ensure_object, is_bool_dtype as is_bool_dtype, is_list_like as is_list_like, is_numeric_v_string_like as is_numeric_v_string_like, is_object_dtype as is_object_dtype, is_scalar as is_scalar
 from pandas.core.dtypes.generic import ABCExtensionArray as ABCExtensionArray, ABCIndex as ABCIndex, ABCSeries as ABCSeries
 from pandas.core.dtypes.missing import isna as isna, notna as notna
+from pandas.core.ops import missing as missing
 from pandas.core.ops.dispatch import should_extension_dispatch as should_extension_dispatch
 from pandas.core.ops.invalid import invalid_comparison as invalid_comparison
 from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Any
 
-TYPE_CHECKING: bool
 def fill_binop(left, right, fill_value):
     """
     If a non-None fill_value is given, replace null entries in left and right
@@ -55,7 +49,7 @@ def _masked_arith_op(x: np.ndarray, y, op):
     y : np.ndarray, Series, Index
     op : binary operator
     """
-def _na_arithmetic_op(left: np.ndarray, right, op, is_cmp: bool = ...):
+def _na_arithmetic_op(left: np.ndarray, right, op, is_cmp: bool = False):
     """
     Return the result of evaluating op on the passed in values.
 
@@ -165,7 +159,8 @@ def maybe_prepare_scalar_for_op(obj, shape: Shape):
     attached to the result of the arithmetic operation.
     """
 
-_BOOL_OP_NOT_ALLOWED: set
+_BOOL_OP_NOT_ALLOWED: Incomplete
+
 def _bool_arith_check(op, a: np.ndarray, b):
     """
     In contrast to numpy, pandas raises an error for certain operations

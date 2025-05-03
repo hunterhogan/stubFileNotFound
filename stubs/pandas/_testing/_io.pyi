@@ -1,11 +1,11 @@
-import pandas as pd
+from pandas import DataFrame as DataFrame, Series as Series
 from pandas._testing.contexts import ensure_clean as ensure_clean
+from pandas._typing import FilePath as FilePath, ReadPickleBuffer as ReadPickleBuffer
 from pandas.compat import get_bz2_file as get_bz2_file, get_lzma_file as get_lzma_file
 from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from typing import Any
 
-TYPE_CHECKING: bool
-def round_trip_pickle(obj: Any, path: FilePath | ReadPickleBuffer | None) -> DataFrame | Series:
+def round_trip_pickle(obj: Any, path: FilePath | ReadPickleBuffer | None = None) -> DataFrame | Series:
     """
     Pickle an object and then read it again.
 
@@ -21,7 +21,7 @@ def round_trip_pickle(obj: Any, path: FilePath | ReadPickleBuffer | None) -> Dat
     pandas object
         The original object that was pickled and then re-read.
     """
-def round_trip_pathlib(writer, reader, path: str | None):
+def round_trip_pathlib(writer, reader, path: str | None = None):
     """
     Write an object to file specified by a pathlib.Path and read it back
 
@@ -39,7 +39,7 @@ def round_trip_pathlib(writer, reader, path: str | None):
     pandas object
         The original object that was serialized and then re-read.
     """
-def round_trip_localpath(writer, reader, path: str | None):
+def round_trip_localpath(writer, reader, path: str | None = None):
     """
     Write an object to file specified by a py.path LocalPath and read it back.
 
@@ -57,7 +57,7 @@ def round_trip_localpath(writer, reader, path: str | None):
     pandas object
         The original object that was serialized and then re-read.
     """
-def write_to_compressed(compression, path, data, dest: str = ...) -> None:
+def write_to_compressed(compression, path, data, dest: str = 'test') -> None:
     '''
     Write data to a compressed file.
 

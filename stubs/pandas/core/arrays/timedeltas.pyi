@@ -1,85 +1,121 @@
-import np
-import npt
-import numpy
-import numpy.dtypes
-import pandas._libs.lib
-import pandas._libs.lib as lib
-import pandas._libs.tslibs as tslibs
-import pandas.compat.numpy.function as nv
-import pandas.core.array_algos.datetimelike_accumulations as datetimelike_accumulations
-import pandas.core.arrays.datetimelike
-import pandas.core.arrays.datetimelike as dtl
-import pandas.core.common as com
-import pandas.core.nanops as nanops
-import pandas.core.roperator as roperator
-from pandas._libs.lib import is_scalar as is_scalar
+import numpy as np
+from _typeshed import Incomplete
+from collections.abc import Iterator
+from pandas import DataFrame as DataFrame
+from pandas._libs import lib as lib, tslibs as tslibs
+from pandas._libs.tslibs import NaT as NaT, NaTType as NaTType, Tick as Tick, Timedelta as Timedelta, astype_overflowsafe as astype_overflowsafe, get_supported_dtype as get_supported_dtype, iNaT as iNaT, is_supported_dtype as is_supported_dtype, periods_per_second as periods_per_second
 from pandas._libs.tslibs.conversion import cast_from_unit_vectorized as cast_from_unit_vectorized
-from pandas._libs.tslibs.dtypes import periods_per_second as periods_per_second
 from pandas._libs.tslibs.fields import get_timedelta_days as get_timedelta_days, get_timedelta_field as get_timedelta_field
-from pandas._libs.tslibs.nattype import NaT as NaT, NaTType as NaTType
-from pandas._libs.tslibs.np_datetime import astype_overflowsafe as astype_overflowsafe, get_supported_dtype as get_supported_dtype, is_supported_dtype as is_supported_dtype
-from pandas._libs.tslibs.offsets import Tick as Tick
-from pandas._libs.tslibs.timedeltas import Timedelta as Timedelta, array_to_timedelta64 as array_to_timedelta64, floordiv_object_array as floordiv_object_array, ints_to_pytimedelta as ints_to_pytimedelta, parse_timedelta_unit as parse_timedelta_unit, truediv_object_array as truediv_object_array
+from pandas._libs.tslibs.timedeltas import array_to_timedelta64 as array_to_timedelta64, floordiv_object_array as floordiv_object_array, ints_to_pytimedelta as ints_to_pytimedelta, parse_timedelta_unit as parse_timedelta_unit, truediv_object_array as truediv_object_array
+from pandas._typing import AxisInt as AxisInt, DateTimeErrorChoices as DateTimeErrorChoices, DtypeObj as DtypeObj, NpDtype as NpDtype, Self as Self, npt as npt
+from pandas.core import nanops as nanops, roperator as roperator
+from pandas.core.array_algos import datetimelike_accumulations as datetimelike_accumulations
+from pandas.core.arrays import datetimelike as dtl
 from pandas.core.arrays._ranges import generate_regular_range as generate_regular_range
-from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
-from pandas.core.dtypes.common import is_float_dtype as is_float_dtype, is_integer_dtype as is_integer_dtype, is_object_dtype as is_object_dtype, is_string_dtype as is_string_dtype, pandas_dtype as pandas_dtype
+from pandas.core.dtypes.common import TD64NS_DTYPE as TD64NS_DTYPE, is_float_dtype as is_float_dtype, is_integer_dtype as is_integer_dtype, is_object_dtype as is_object_dtype, is_scalar as is_scalar, is_string_dtype as is_string_dtype, pandas_dtype as pandas_dtype
+from pandas.core.dtypes.dtypes import ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.missing import isna as isna
 from pandas.core.ops.common import unpack_zerodim_and_defer as unpack_zerodim_and_defer
 from pandas.util._validators import validate_endpoints as validate_endpoints
-from typing import ClassVar
 
-TYPE_CHECKING: bool
-iNaT: int
-TD64NS_DTYPE: numpy.dtypes.TimeDelta64DType
 def _field_accessor(name: str, alias: str, docstring: str): ...
 
-class TimedeltaArray(pandas.core.arrays.datetimelike.TimelikeOps):
-    _typ: ClassVar[str] = ...
-    _internal_fill_value: ClassVar[numpy.timedelta64] = ...
-    _recognized_scalars: ClassVar[tuple] = ...
-    _infer_matches: ClassVar[tuple] = ...
-    __array_priority__: ClassVar[int] = ...
-    _other_ops: ClassVar[list] = ...
-    _bool_ops: ClassVar[list] = ...
-    _object_ops: ClassVar[list] = ...
-    _field_ops: ClassVar[list] = ...
-    _datetimelike_ops: ClassVar[list] = ...
-    _datetimelike_methods: ClassVar[list] = ...
-    _freq: ClassVar[None] = ...
-    _default_dtype: ClassVar[numpy.dtypes.TimeDelta64DType] = ...
-    days_docstring: ClassVar[str] = ...
-    seconds_docstring: ClassVar[str] = ...
-    microseconds_docstring: ClassVar[str] = ...
-    nanoseconds_docstring: ClassVar[str] = ...
-    def _is_recognized_dtype(self, x): ...
+class TimedeltaArray(dtl.TimelikeOps):
+    '''
+    Pandas ExtensionArray for timedelta data.
+
+    .. warning::
+
+       TimedeltaArray is currently experimental, and its API may change
+       without warning. In particular, :attr:`TimedeltaArray.dtype` is
+       expected to change to be an instance of an ``ExtensionDtype``
+       subclass.
+
+    Parameters
+    ----------
+    values : array-like
+        The timedelta data.
+
+    dtype : numpy.dtype
+        Currently, only ``numpy.dtype("timedelta64[ns]")`` is accepted.
+    freq : Offset, optional
+    copy : bool, default False
+        Whether to copy the underlying array of data.
+
+    Attributes
+    ----------
+    None
+
+    Methods
+    -------
+    None
+
+    Examples
+    --------
+    >>> pd.arrays.TimedeltaArray._from_sequence(pd.TimedeltaIndex([\'1h\', \'2h\']))
+    <TimedeltaArray>
+    [\'0 days 01:00:00\', \'0 days 02:00:00\']
+    Length: 2, dtype: timedelta64[ns]
+    '''
+    _typ: str
+    _internal_fill_value: Incomplete
+    _recognized_scalars: Incomplete
+    _is_recognized_dtype: Incomplete
+    _infer_matches: Incomplete
+    @property
+    def _scalar_type(self) -> type[Timedelta]: ...
+    __array_priority__: int
+    _other_ops: list[str]
+    _bool_ops: list[str]
+    _object_ops: list[str]
+    _field_ops: list[str]
+    _datetimelike_ops: list[str]
+    _datetimelike_methods: list[str]
     def _box_func(self, x: np.timedelta64) -> Timedelta | NaTType: ...
+    @property
+    def dtype(self) -> np.dtype[np.timedelta64]:
+        """
+        The dtype for the TimedeltaArray.
+
+        .. warning::
+
+           A future version of pandas will change dtype to be an instance
+           of a :class:`pandas.api.extensions.ExtensionDtype` subclass,
+           not a ``numpy.dtype``.
+
+        Returns
+        -------
+        numpy.dtype
+        """
+    _freq: Incomplete
+    _default_dtype = TD64NS_DTYPE
     @classmethod
     def _validate_dtype(cls, values, dtype): ...
     @classmethod
-    def _simple_new(cls, values: npt.NDArray[np.timedelta64], freq: Tick | None, dtype: np.dtype[np.timedelta64] = ...) -> Self: ...
+    def _simple_new(cls, values: npt.NDArray[np.timedelta64], freq: Tick | None = None, dtype: np.dtype[np.timedelta64] = ...) -> Self: ...
     @classmethod
-    def _from_sequence(cls, data, *, dtype, copy: bool = ...) -> Self: ...
+    def _from_sequence(cls, data, *, dtype: Incomplete | None = None, copy: bool = False) -> Self: ...
     @classmethod
-    def _from_sequence_not_strict(cls, data, *, dtype, copy: bool = ..., freq: pandas._libs.lib._NoDefault = ..., unit) -> Self:
+    def _from_sequence_not_strict(cls, data, *, dtype: Incomplete | None = None, copy: bool = False, freq=..., unit: Incomplete | None = None) -> Self:
         """
         _from_sequence_not_strict but without responsibility for finding the
         result's `freq`.
         """
     @classmethod
-    def _generate_range(cls, start, end, periods, freq, closed, *, unit: str | None) -> Self: ...
+    def _generate_range(cls, start, end, periods, freq, closed: Incomplete | None = None, *, unit: str | None = None) -> Self: ...
     def _unbox_scalar(self, value) -> np.timedelta64: ...
     def _scalar_from_string(self, value) -> Timedelta | NaTType: ...
     def _check_compatible_with(self, other) -> None: ...
-    def astype(self, dtype, copy: bool = ...): ...
+    def astype(self, dtype, copy: bool = True): ...
     def __iter__(self) -> Iterator: ...
-    def sum(self, *, axis: AxisInt | None, dtype: NpDtype | None, out, keepdims: bool = ..., initial, skipna: bool = ..., min_count: int = ...): ...
-    def std(self, *, axis: AxisInt | None, dtype: NpDtype | None, out, ddof: int = ..., keepdims: bool = ..., skipna: bool = ...): ...
-    def _accumulate(self, name: str, *, skipna: bool = ..., **kwargs): ...
-    def _formatter(self, boxed: bool = ...): ...
-    def _format_native_types(self, *, na_rep: str | float = ..., date_format, **kwargs) -> npt.NDArray[np.object_]: ...
-    def _add_offset(self, other): ...
+    def sum(self, *, axis: AxisInt | None = None, dtype: NpDtype | None = None, out: Incomplete | None = None, keepdims: bool = False, initial: Incomplete | None = None, skipna: bool = True, min_count: int = 0): ...
+    def std(self, *, axis: AxisInt | None = None, dtype: NpDtype | None = None, out: Incomplete | None = None, ddof: int = 1, keepdims: bool = False, skipna: bool = True): ...
+    def _accumulate(self, name: str, *, skipna: bool = True, **kwargs): ...
+    def _formatter(self, boxed: bool = False): ...
+    def _format_native_types(self, *, na_rep: str | float = 'NaT', date_format: Incomplete | None = None, **kwargs) -> npt.NDArray[np.object_]: ...
+    def _add_offset(self, other) -> None: ...
     def __mul__(self, other) -> Self: ...
-    def __rmul__(self, other) -> Self: ...
+    __rmul__ = __mul__
     def _scalar_divlike_op(self, other, op):
         """
         Shared logic for __truediv__, __rtruediv__, __floordiv__, __rfloordiv__
@@ -174,21 +210,38 @@ class TimedeltaArray(pandas.core.arrays.datetimelike.TimelikeOps):
         array([datetime.timedelta(days=1), datetime.timedelta(days=2),
                datetime.timedelta(days=3)], dtype=object)
         """
+    days_docstring: Incomplete
+    days: Incomplete
+    seconds_docstring: Incomplete
+    seconds: Incomplete
+    microseconds_docstring: Incomplete
+    microseconds: Incomplete
+    nanoseconds_docstring: Incomplete
+    nanoseconds: Incomplete
     @property
-    def _scalar_type(self): ...
-    @property
-    def dtype(self): ...
-    @property
-    def days(self): ...
-    @property
-    def seconds(self): ...
-    @property
-    def microseconds(self): ...
-    @property
-    def nanoseconds(self): ...
-    @property
-    def components(self): ...
-def sequence_to_td64ns(data, copy: bool = ..., unit, errors: DateTimeErrorChoices = ...) -> tuple[np.ndarray, Tick | None]:
+    def components(self) -> DataFrame:
+        """
+        Return a DataFrame of the individual resolution components of the Timedeltas.
+
+        The components (days, hours, minutes seconds, milliseconds, microseconds,
+        nanoseconds) are returned as columns in a DataFrame.
+
+        Returns
+        -------
+        DataFrame
+
+        Examples
+        --------
+        >>> tdelta_idx = pd.to_timedelta(['1 day 3 min 2 us 42 ns'])
+        >>> tdelta_idx
+        TimedeltaIndex(['1 days 00:03:00.000002042'],
+                       dtype='timedelta64[ns]', freq=None)
+        >>> tdelta_idx.components
+           days  hours  minutes  seconds  milliseconds  microseconds  nanoseconds
+        0     1      0        3        0             0             2           42
+        """
+
+def sequence_to_td64ns(data, copy: bool = False, unit: Incomplete | None = None, errors: DateTimeErrorChoices = 'raise') -> tuple[np.ndarray, Tick | None]:
     '''
     Parameters
     ----------
@@ -219,7 +272,7 @@ def sequence_to_td64ns(data, copy: bool = ..., unit, errors: DateTimeErrorChoice
     errors to be ignored; they are caught and subsequently ignored at a
     higher level.
     '''
-def _ints_to_td64ns(data, unit: str = ...):
+def _ints_to_td64ns(data, unit: str = 'ns'):
     '''
     Convert an ndarray with integer-dtype to timedelta64[ns] dtype, treating
     the integers as multiples of the given timedelta unit.
@@ -235,7 +288,7 @@ def _ints_to_td64ns(data, unit: str = ...):
     numpy.ndarray : timedelta64[ns] array converted from data
     bool : whether a copy was made
     '''
-def _objects_to_td64ns(data, unit, errors: DateTimeErrorChoices = ...):
+def _objects_to_td64ns(data, unit: Incomplete | None = None, errors: DateTimeErrorChoices = 'raise'):
     '''
     Convert a object-dtyped or string-dtyped array into an
     timedelta64[ns]-dtyped array.

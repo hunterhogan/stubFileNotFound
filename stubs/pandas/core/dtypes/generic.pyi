@@ -1,104 +1,24 @@
-TYPE_CHECKING: bool
+from _typeshed import Incomplete
+from pandas import Categorical as Categorical, CategoricalIndex as CategoricalIndex, DataFrame as DataFrame, DatetimeIndex as DatetimeIndex, Index as Index, IntervalIndex as IntervalIndex, MultiIndex as MultiIndex, PeriodIndex as PeriodIndex, RangeIndex as RangeIndex, Series as Series, TimedeltaIndex as TimedeltaIndex
+from pandas.core.arrays import DatetimeArray as DatetimeArray, ExtensionArray as ExtensionArray, NumpyExtensionArray as NumpyExtensionArray, PeriodArray as PeriodArray, TimedeltaArray as TimedeltaArray
+from pandas.core.generic import NDFrame as NDFrame
+
 def create_pandas_abc_type(name, attr, comp): ...
 
-class ABCRangeIndex:
-    @classmethod
-    def __instancecheck__(cls, inst) -> bool: ...
-    @classmethod
-    def __subclasscheck__(cls, inst) -> bool: ...
-
-class ABCMultiIndex:
-    @classmethod
-    def __instancecheck__(cls, inst) -> bool: ...
-    @classmethod
-    def __subclasscheck__(cls, inst) -> bool: ...
-
-class ABCDatetimeIndex:
-    @classmethod
-    def __instancecheck__(cls, inst) -> bool: ...
-    @classmethod
-    def __subclasscheck__(cls, inst) -> bool: ...
-
-class ABCTimedeltaIndex:
-    @classmethod
-    def __instancecheck__(cls, inst) -> bool: ...
-    @classmethod
-    def __subclasscheck__(cls, inst) -> bool: ...
-
-class ABCPeriodIndex:
-    @classmethod
-    def __instancecheck__(cls, inst) -> bool: ...
-    @classmethod
-    def __subclasscheck__(cls, inst) -> bool: ...
-
-class ABCCategoricalIndex:
-    @classmethod
-    def __instancecheck__(cls, inst) -> bool: ...
-    @classmethod
-    def __subclasscheck__(cls, inst) -> bool: ...
-
-class ABCIntervalIndex:
-    @classmethod
-    def __instancecheck__(cls, inst) -> bool: ...
-    @classmethod
-    def __subclasscheck__(cls, inst) -> bool: ...
-
-class ABCIndex:
-    @classmethod
-    def __instancecheck__(cls, inst) -> bool: ...
-    @classmethod
-    def __subclasscheck__(cls, inst) -> bool: ...
-
-class ABCNDFrame:
-    @classmethod
-    def __instancecheck__(cls, inst) -> bool: ...
-    @classmethod
-    def __subclasscheck__(cls, inst) -> bool: ...
-
-class ABCSeries:
-    @classmethod
-    def __instancecheck__(cls, inst) -> bool: ...
-    @classmethod
-    def __subclasscheck__(cls, inst) -> bool: ...
-
-class ABCDataFrame:
-    @classmethod
-    def __instancecheck__(cls, inst) -> bool: ...
-    @classmethod
-    def __subclasscheck__(cls, inst) -> bool: ...
-
-class ABCCategorical:
-    @classmethod
-    def __instancecheck__(cls, inst) -> bool: ...
-    @classmethod
-    def __subclasscheck__(cls, inst) -> bool: ...
-
-class ABCDatetimeArray:
-    @classmethod
-    def __instancecheck__(cls, inst) -> bool: ...
-    @classmethod
-    def __subclasscheck__(cls, inst) -> bool: ...
-
-class ABCTimedeltaArray:
-    @classmethod
-    def __instancecheck__(cls, inst) -> bool: ...
-    @classmethod
-    def __subclasscheck__(cls, inst) -> bool: ...
-
-class ABCPeriodArray:
-    @classmethod
-    def __instancecheck__(cls, inst) -> bool: ...
-    @classmethod
-    def __subclasscheck__(cls, inst) -> bool: ...
-
-class ABCExtensionArray:
-    @classmethod
-    def __instancecheck__(cls, inst) -> bool: ...
-    @classmethod
-    def __subclasscheck__(cls, inst) -> bool: ...
-
-class ABCNumpyExtensionArray:
-    @classmethod
-    def __instancecheck__(cls, inst) -> bool: ...
-    @classmethod
-    def __subclasscheck__(cls, inst) -> bool: ...
+ABCRangeIndex: Incomplete
+ABCMultiIndex: Incomplete
+ABCDatetimeIndex: Incomplete
+ABCTimedeltaIndex: Incomplete
+ABCPeriodIndex: Incomplete
+ABCCategoricalIndex: Incomplete
+ABCIntervalIndex: Incomplete
+ABCIndex: Incomplete
+ABCNDFrame: Incomplete
+ABCSeries: Incomplete
+ABCDataFrame: Incomplete
+ABCCategorical: Incomplete
+ABCDatetimeArray: Incomplete
+ABCTimedeltaArray: Incomplete
+ABCPeriodArray: Incomplete
+ABCExtensionArray: Incomplete
+ABCNumpyExtensionArray: Incomplete

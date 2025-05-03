@@ -1,7 +1,7 @@
-import np
-from pandas._libs.lib import is_list_like as is_list_like
+import numpy as np
+from pandas._typing import NumpyIndexT as NumpyIndexT
+from pandas.core.dtypes.common import is_list_like as is_list_like
 
-TYPE_CHECKING: bool
 def cartesian_product(X) -> list[np.ndarray]:
     """
     Numpy version of itertools.product.

@@ -1,10 +1,7 @@
-import pandas._libs.tslibs.timestamps
+from _typeshed import Incomplete
 from datetime import datetime
-from dateutil._common import FR as FR, MO as MO, SA as SA, SU as SU, TH as TH, TU as TU, WE as WE
-from pandas._libs.tslibs.timestamps import Timestamp
-from pandas.core.indexes.datetimes import DatetimeIndex
-from pandas.core.series import Series
-from typing import ClassVar
+from dateutil.relativedelta import FR as FR, MO as MO, SA as SA, SU as SU, TH as TH, TU as TU, WE as WE
+from pandas import DatetimeIndex, Series, Timestamp
 
 __all__ = ['after_nearest_workday', 'before_nearest_workday', 'FR', 'get_calendar', 'HolidayCalendarFactory', 'MO', 'nearest_workday', 'next_monday', 'next_monday_or_tuesday', 'next_workday', 'previous_friday', 'previous_workday', 'register', 'SA', 'SU', 'sunday_to_monday', 'TH', 'TU', 'WE', 'weekend_to_monday']
 
@@ -58,7 +55,20 @@ def after_nearest_workday(dt: datetime) -> datetime:
     """
 
 class Holiday:
-    def __init__(self, name: str, year, month, day, offset, observance, start_date, end_date, days_of_week) -> None:
+    """
+    Class that defines a holiday with start/end dates and rules
+    for observance.
+    """
+    start_date: Timestamp | None
+    end_date: Timestamp | None
+    days_of_week: tuple[int, ...] | None
+    name: Incomplete
+    year: Incomplete
+    month: Incomplete
+    day: Incomplete
+    offset: Incomplete
+    observance: Incomplete
+    def __init__(self, name: str, year: Incomplete | None = None, month: Incomplete | None = None, day: Incomplete | None = None, offset: Incomplete | None = None, observance: Incomplete | None = None, start_date: Incomplete | None = None, end_date: Incomplete | None = None, days_of_week: Incomplete | None = None) -> None:
         '''
         Parameters
         ----------
@@ -109,7 +119,8 @@ class Holiday:
         >>> July3rd
         Holiday: July 3rd (month=7, day=3, )
         '''
-    def dates(self, start_date, end_date, return_name: bool = ...) -> Series | DatetimeIndex:
+    def __repr__(self) -> str: ...
+    def dates(self, start_date, end_date, return_name: bool = False) -> Series | DatetimeIndex:
         """
         Calculate holidays observed between start date and end date
 
@@ -148,6 +159,7 @@ class Holiday:
         -------
         Dates with rules applied
         """
+
 def register(cls) -> None: ...
 def get_calendar(name: str):
     """
@@ -160,15 +172,18 @@ def get_calendar(name: str):
     """
 
 class HolidayCalendarMetaClass(type):
-    @classmethod
-    def __init__(cls, clsname: str, bases, attrs) -> None: ...
+    def __new__(cls, clsname: str, bases, attrs): ...
 
-class AbstractHolidayCalendar:
-    rules: ClassVar[list] = ...
-    start_date: ClassVar[pandas._libs.tslibs.timestamps.Timestamp] = ...
-    end_date: ClassVar[pandas._libs.tslibs.timestamps.Timestamp] = ...
-    _cache: ClassVar[None] = ...
-    def __init__(self, name: str = ..., rules) -> None:
+class AbstractHolidayCalendar(metaclass=HolidayCalendarMetaClass):
+    """
+    Abstract interface to create holidays following certain rules.
+    """
+    rules: list[Holiday]
+    start_date: Incomplete
+    end_date: Incomplete
+    _cache: Incomplete
+    name: Incomplete
+    def __init__(self, name: str = '', rules: Incomplete | None = None) -> None:
         """
         Initializes holiday object with a given set a rules.  Normally
         classes just have the rules defined within them.
@@ -181,7 +196,7 @@ class AbstractHolidayCalendar:
             A set of rules used to create the holidays.
         """
     def rule_from_name(self, name: str): ...
-    def holidays(self, start, end, return_name: bool = ...):
+    def holidays(self, start: Incomplete | None = None, end: Incomplete | None = None, return_name: bool = False):
         """
         Returns a curve with holidays between start_date and end_date
 
@@ -211,7 +226,7 @@ class AbstractHolidayCalendar:
         other : AbstractHolidayCalendar
           instance/subclass or array of Holiday objects
         """
-    def merge(self, other, inplace: bool = ...):
+    def merge(self, other, inplace: bool = False):
         """
         Merge holiday calendars together.  The caller's class
         rules take precedence.  The merge will be done
@@ -225,14 +240,10 @@ class AbstractHolidayCalendar:
         """
 
 class USFederalHolidayCalendar(AbstractHolidayCalendar):
-    rules: ClassVar[list] = ...
-def HolidayCalendarFactory(name: str, base, other, base_class: type[AbstractHolidayCalendar] = ...): ...
+    """
+    US Federal Government Holiday Calendar based on rules specified by:
+    https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/
+    """
+    rules: Incomplete
 
-# Names in __all__ with no definition:
-#   FR
-#   MO
-#   SA
-#   SU
-#   TH
-#   TU
-#   WE
+def HolidayCalendarFactory(name: str, base, other, base_class=...): ...

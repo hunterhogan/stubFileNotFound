@@ -1,70 +1,60 @@
-import enum
-import pandas._libs.lib
-import pandas._libs.lib as lib
-import pandas._libs.ops as libops
-import pandas._libs.parsers as parsers
-import pandas._libs.tslibs.parsing as parsing
-import pandas.core.algorithms as algorithms
-import pandas.core.tools.datetimes as tools
-from pandas._libs.algos import ensure_object as ensure_object
-from pandas._libs.lib import is_integer as is_integer, is_list_like as is_list_like, is_scalar as is_scalar
+from _typeshed import Incomplete
+from collections.abc import Hashable, Iterable, Mapping, Sequence
+from enum import Enum
+from pandas import ArrowDtype as ArrowDtype, DataFrame as DataFrame, DatetimeIndex as DatetimeIndex, StringDtype as StringDtype, concat as concat
+from pandas._libs import lib as lib, parsers as parsers
+from pandas._libs.parsers import STR_NA_VALUES as STR_NA_VALUES
+from pandas._libs.tslibs import parsing as parsing
+from pandas._typing import ArrayLike as ArrayLike, DtypeArg as DtypeArg, DtypeObj as DtypeObj, Scalar as Scalar
 from pandas.compat._optional import import_optional_dependency as import_optional_dependency
-from pandas.core.arrays.arrow.array import ArrowExtensionArray as ArrowExtensionArray
-from pandas.core.arrays.base import ExtensionArray as ExtensionArray
-from pandas.core.arrays.boolean import BooleanArray as BooleanArray, BooleanDtype as BooleanDtype
-from pandas.core.arrays.categorical import Categorical as Categorical
-from pandas.core.arrays.floating import FloatingArray as FloatingArray
-from pandas.core.arrays.integer import IntegerArray as IntegerArray
-from pandas.core.arrays.masked import BaseMaskedArray as BaseMaskedArray
-from pandas.core.arrays.string_ import StringDtype as StringDtype
+from pandas.core import algorithms as algorithms
+from pandas.core.arrays import ArrowExtensionArray as ArrowExtensionArray, BaseMaskedArray as BaseMaskedArray, BooleanArray as BooleanArray, Categorical as Categorical, ExtensionArray as ExtensionArray, FloatingArray as FloatingArray, IntegerArray as IntegerArray
+from pandas.core.arrays.boolean import BooleanDtype as BooleanDtype
 from pandas.core.dtypes.astype import astype_array as astype_array
-from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
-from pandas.core.dtypes.common import is_bool_dtype as is_bool_dtype, is_extension_array_dtype as is_extension_array_dtype, is_float_dtype as is_float_dtype, is_integer_dtype as is_integer_dtype, is_object_dtype as is_object_dtype, is_string_dtype as is_string_dtype, pandas_dtype as pandas_dtype
-from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype, CategoricalDtype as CategoricalDtype
-from pandas.core.dtypes.inference import is_dict_like as is_dict_like
+from pandas.core.dtypes.common import ensure_object as ensure_object, is_bool_dtype as is_bool_dtype, is_dict_like as is_dict_like, is_extension_array_dtype as is_extension_array_dtype, is_float_dtype as is_float_dtype, is_integer as is_integer, is_integer_dtype as is_integer_dtype, is_list_like as is_list_like, is_object_dtype as is_object_dtype, is_scalar as is_scalar, is_string_dtype as is_string_dtype, pandas_dtype as pandas_dtype
+from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.missing import isna as isna
-from pandas.core.frame import DataFrame as DataFrame
-from pandas.core.indexes.api import default_index as default_index
-from pandas.core.indexes.base import Index as Index, ensure_index_from_sequences as ensure_index_from_sequences
-from pandas.core.indexes.datetimes import DatetimeIndex as DatetimeIndex
-from pandas.core.indexes.multi import MultiIndex as MultiIndex
-from pandas.core.reshape.concat import concat as concat
+from pandas.core.indexes.api import Index as Index, MultiIndex as MultiIndex, default_index as default_index, ensure_index_from_sequences as ensure_index_from_sequences
 from pandas.core.series import Series as Series
 from pandas.errors import ParserError as ParserError, ParserWarning as ParserWarning
 from pandas.io.common import is_potential_multi_index as is_potential_multi_index
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Callable, ClassVar
-
-TYPE_CHECKING: bool
-STR_NA_VALUES: set
+from typing import Callable, overload
 
 class ParserBase:
-    class BadLineHandleMethod(enum.Enum):
-        _new_member_: ClassVar[builtin_function_or_method] = ...
-        _use_args_: ClassVar[bool] = ...
-        _member_names_: ClassVar[list] = ...
-        _member_map_: ClassVar[dict] = ...
-        _value2member_map_: ClassVar[dict] = ...
-        _hashable_values_: ClassVar[list] = ...
-        _unhashable_values_: ClassVar[list] = ...
-        _unhashable_values_map_: ClassVar[dict] = ...
-        _member_type_: ClassVar[type[object]] = ...
-        _value_repr_: ClassVar[None] = ...
-        ERROR: ClassVar[ParserBase.BadLineHandleMethod] = ...
-        WARN: ClassVar[ParserBase.BadLineHandleMethod] = ...
-        SKIP: ClassVar[ParserBase.BadLineHandleMethod] = ...
-        @staticmethod
-        def _generate_next_value_(name, start, count, last_values):
-            """
-            Generate the next value when not given.
-
-            name: the name of the member
-            start: the initial start value or None
-            count: the number of existing members
-            last_values: the list of values assigned
-            """
-        @classmethod
-        def __init__(cls, value) -> None: ...
+    class BadLineHandleMethod(Enum):
+        ERROR = 0
+        WARN = 1
+        SKIP = 2
+    _implicit_index: bool
+    _first_chunk: bool
+    keep_default_na: bool
+    dayfirst: bool
+    cache_dates: bool
+    keep_date_col: bool
+    usecols_dtype: str | None
+    names: Incomplete
+    orig_names: Sequence[Hashable] | None
+    index_col: Incomplete
+    unnamed_cols: set
+    index_names: Sequence[Hashable] | None
+    col_names: Sequence[Hashable] | None
+    parse_dates: Incomplete
+    _parse_date_cols: Iterable
+    date_parser: Incomplete
+    date_format: Incomplete
+    na_values: Incomplete
+    na_fvalues: Incomplete
+    na_filter: Incomplete
+    dtype: Incomplete
+    converters: Incomplete
+    dtype_backend: Incomplete
+    true_values: Incomplete
+    false_values: Incomplete
+    _date_conv: Incomplete
+    header: Incomplete
+    _name_processed: bool
+    on_bad_lines: Incomplete
     def __init__(self, kwds) -> None: ...
     def _validate_parse_dates_presence(self, columns: Sequence[Hashable]) -> Iterable:
         """
@@ -90,8 +80,10 @@ class ParserBase:
 
         """
     def close(self) -> None: ...
+    @property
+    def _has_complex_date_col(self) -> bool: ...
     def _should_parse_dates(self, i: int) -> bool: ...
-    def _extract_multi_indexer_columns(self, header, index_names: Sequence[Hashable] | None, passed_names: bool = ...) -> tuple[Sequence[Hashable], Sequence[Hashable] | None, Sequence[Hashable] | None, bool]:
+    def _extract_multi_indexer_columns(self, header, index_names: Sequence[Hashable] | None, passed_names: bool = False) -> tuple[Sequence[Hashable], Sequence[Hashable] | None, Sequence[Hashable] | None, bool]:
         """
         Extract and return the names, index_names, col_names if the column
         names are a MultiIndex.
@@ -106,14 +98,14 @@ class ParserBase:
             A flag specifying if names where passed
 
         """
-    def _maybe_make_multi_index_columns(self, columns: Sequence[Hashable], col_names: Sequence[Hashable] | None) -> Sequence[Hashable] | MultiIndex: ...
-    def _make_index(self, data, alldata, columns, indexnamerow: list[Scalar] | None) -> tuple[Index | None, Sequence[Hashable] | MultiIndex]: ...
+    def _maybe_make_multi_index_columns(self, columns: Sequence[Hashable], col_names: Sequence[Hashable] | None = None) -> Sequence[Hashable] | MultiIndex: ...
+    def _make_index(self, data, alldata, columns, indexnamerow: list[Scalar] | None = None) -> tuple[Index | None, Sequence[Hashable] | MultiIndex]: ...
     def _get_simple_index(self, data, columns): ...
     def _get_complex_date_index(self, data, col_names): ...
     def _clean_mapping(self, mapping):
         """converts col numbers to names"""
-    def _agg_index(self, index, try_parse_dates: bool = ...) -> Index: ...
-    def _convert_to_ndarrays(self, dct: Mapping, na_values, na_fvalues, verbose: bool = ..., converters, dtypes): ...
+    def _agg_index(self, index, try_parse_dates: bool = True) -> Index: ...
+    def _convert_to_ndarrays(self, dct: Mapping, na_values, na_fvalues, verbose: bool = False, converters: Incomplete | None = None, dtypes: Incomplete | None = None): ...
     def _set_noconvert_dtype_columns(self, col_indices: list[int], names: Sequence[Hashable]) -> set[int]:
         """
         Set the columns that should not undergo dtype conversions.
@@ -132,7 +124,7 @@ class ParserBase:
         -------
         A set of integers containing the positions of the columns not to convert.
         """
-    def _infer_types(self, values, na_values, no_dtype_specified, try_num_bool: bool = ...) -> tuple[ArrayLike, int]:
+    def _infer_types(self, values, na_values, no_dtype_specified, try_num_bool: bool = True) -> tuple[ArrayLike, int]:
         """
         Infer types of values, possibly casting
 
@@ -165,7 +157,10 @@ class ParserBase:
         -------
         converted : ndarray or ExtensionArray
         """
-    def _do_date_conversions(self, names: Sequence[Hashable] | Index, data: Mapping[Hashable, ArrayLike] | DataFrame) -> tuple[Sequence[Hashable] | Index, Mapping[Hashable, ArrayLike] | DataFrame]: ...
+    @overload
+    def _do_date_conversions(self, names: Index, data: DataFrame) -> tuple[Sequence[Hashable] | Index, DataFrame]: ...
+    @overload
+    def _do_date_conversions(self, names: Sequence[Hashable], data: Mapping[Hashable, ArrayLike]) -> tuple[Sequence[Hashable], Mapping[Hashable, ArrayLike]]: ...
     def _check_data_length(self, columns: Sequence[Hashable], data: Sequence[ArrayLike]) -> None:
         """Checks if length of data is equal to length of column names.
 
@@ -177,14 +172,10 @@ class ParserBase:
         columns: list of column names
         data: list of array-likes containing the data column-wise.
         """
-    def _evaluate_usecols(self, usecols: Callable[[Hashable], object] | set[str] | set[int], names: Sequence[Hashable]) -> set[str] | set[int]:
-        """
-        Check whether or not the 'usecols' parameter
-        is a callable.  If so, enumerates the 'names'
-        parameter and returns a set of indices for
-        each entry in 'names' that evaluates to True.
-        If not a callable, returns 'usecols'.
-        """
+    @overload
+    def _evaluate_usecols(self, usecols: set[int] | Callable[[Hashable], object], names: Sequence[Hashable]) -> set[int]: ...
+    @overload
+    def _evaluate_usecols(self, usecols: set[str], names: Sequence[Hashable]) -> set[str]: ...
     def _validate_usecols_names(self, usecols, names: Sequence):
         """
         Validates that all usecols are present in a given
@@ -233,14 +224,14 @@ class ParserBase:
             is passed in or None if a callable or None is passed in.
         """
     def _clean_index_names(self, columns, index_col) -> tuple[list | None, list, list]: ...
-    def _get_empty_meta(self, columns, dtype: DtypeArg | None): ...
-    @property
-    def _has_complex_date_col(self): ...
-def _make_date_converter(date_parser: pandas._libs.lib._NoDefault = ..., dayfirst: bool = ..., cache_dates: bool = ..., date_format: dict[Hashable, str] | str | None): ...
+    def _get_empty_meta(self, columns, dtype: DtypeArg | None = None): ...
 
-parser_defaults: dict
-def _process_date_conversion(data_dict, converter: Callable, parse_spec, index_col, index_names, columns, keep_date_col: bool = ..., dtype_backend: pandas._libs.lib._NoDefault = ...): ...
-def _try_convert_dates(parser: Callable, colspec, data_dict, columns, target_name: str | None): ...
+def _make_date_converter(date_parser=..., dayfirst: bool = False, cache_dates: bool = True, date_format: dict[Hashable, str] | str | None = None): ...
+
+parser_defaults: Incomplete
+
+def _process_date_conversion(data_dict, converter: Callable, parse_spec, index_col, index_names, columns, keep_date_col: bool = False, dtype_backend=...): ...
+def _try_convert_dates(parser: Callable, colspec, data_dict, columns, target_name: str | None = None): ...
 def _get_na_values(col, na_values, na_fvalues, keep_default_na: bool):
     """
     Get the NaN values for a given column.

@@ -1,8 +1,7 @@
-import np
-import npt
+import numpy as np
+from pandas._typing import ArrayLike as ArrayLike, Scalar as Scalar, npt as npt
 from pandas.core.dtypes.missing import isna as isna, na_value_for_dtype as na_value_for_dtype
 
-TYPE_CHECKING: bool
 def quantile_compat(values: ArrayLike, qs: npt.NDArray[np.float64], interpolation: str) -> ArrayLike:
     """
     Compute the quantiles of the given values for each quantile in `qs`.

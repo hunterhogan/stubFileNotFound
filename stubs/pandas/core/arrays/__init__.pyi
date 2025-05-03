@@ -1,5 +1,4 @@
-from . import _arrow_string_mixins as _arrow_string_mixins, _mixins as _mixins, _ranges as _ranges, _utils as _utils, arrow as arrow, base as base, boolean as boolean, categorical as categorical, datetimelike as datetimelike, datetimes as datetimes, floating as floating, integer as integer, interval as interval, masked as masked, numeric as numeric, numpy_ as numpy_, period as period, sparse as sparse, string_ as string_, string_arrow as string_arrow, timedeltas as timedeltas
-from pandas.core.arrays.arrow.array import ArrowExtensionArray as ArrowExtensionArray
+from pandas.core.arrays.arrow import ArrowExtensionArray as ArrowExtensionArray
 from pandas.core.arrays.base import ExtensionArray as ExtensionArray, ExtensionOpsMixin as ExtensionOpsMixin, ExtensionScalarOpsMixin as ExtensionScalarOpsMixin
 from pandas.core.arrays.boolean import BooleanArray as BooleanArray
 from pandas.core.arrays.categorical import Categorical as Categorical
@@ -10,29 +9,9 @@ from pandas.core.arrays.interval import IntervalArray as IntervalArray
 from pandas.core.arrays.masked import BaseMaskedArray as BaseMaskedArray
 from pandas.core.arrays.numpy_ import NumpyExtensionArray as NumpyExtensionArray
 from pandas.core.arrays.period import PeriodArray as PeriodArray, period_array as period_array
-from pandas.core.arrays.sparse.array import SparseArray as SparseArray
+from pandas.core.arrays.sparse import SparseArray as SparseArray
 from pandas.core.arrays.string_ import StringArray as StringArray
 from pandas.core.arrays.string_arrow import ArrowStringArray as ArrowStringArray
 from pandas.core.arrays.timedeltas import TimedeltaArray as TimedeltaArray
 
 __all__ = ['ArrowExtensionArray', 'ExtensionArray', 'ExtensionOpsMixin', 'ExtensionScalarOpsMixin', 'ArrowStringArray', 'BaseMaskedArray', 'BooleanArray', 'Categorical', 'DatetimeArray', 'FloatingArray', 'IntegerArray', 'IntervalArray', 'NumpyExtensionArray', 'PeriodArray', 'period_array', 'SparseArray', 'StringArray', 'TimedeltaArray']
-
-# Names in __all__ with no definition:
-#   ArrowExtensionArray
-#   ArrowStringArray
-#   BaseMaskedArray
-#   BooleanArray
-#   Categorical
-#   DatetimeArray
-#   ExtensionArray
-#   ExtensionOpsMixin
-#   ExtensionScalarOpsMixin
-#   FloatingArray
-#   IntegerArray
-#   IntervalArray
-#   NumpyExtensionArray
-#   PeriodArray
-#   SparseArray
-#   StringArray
-#   TimedeltaArray
-#   period_array

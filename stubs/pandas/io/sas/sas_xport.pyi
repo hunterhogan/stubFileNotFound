@@ -1,26 +1,25 @@
-import _abc
-import collections.abc
-import pandas.io.sas.sasreader
-import pd as pd
+import pandas as pd
+from _typeshed import Incomplete
+from collections import abc
+from pandas._typing import CompressionOptions as CompressionOptions, DatetimeNaTType as DatetimeNaTType, FilePath as FilePath, ReadBuffer as ReadBuffer
 from pandas.io.common import get_handle as get_handle
 from pandas.io.sas.sasreader import ReaderBase as ReaderBase
 from pandas.util._decorators import Appender as Appender
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import ClassVar
 
-TYPE_CHECKING: bool
 _correct_line1: str
 _correct_header1: str
 _correct_header2: str
 _correct_obs_header: str
-_fieldkeys: list
+_fieldkeys: Incomplete
 _base_params_doc: str
 _params2_doc: str
 _format_params_doc: str
 _iterator_doc: str
-_read_sas_doc: str
-_xport_reader_doc: str
+_read_sas_doc: Incomplete
+_xport_reader_doc: Incomplete
 _read_method_doc: str
+
 def _parse_date(datestr: str) -> DatetimeNaTType:
     """Given a date in xport format, return Python date."""
 def _split_line(s: str, parts):
@@ -43,12 +42,25 @@ def _parse_float_vec(vec):
     native 8 byte floats.
     """
 
-class XportReader(pandas.io.sas.sasreader.ReaderBase, collections.abc.Iterator):
-    __abstractmethods__: ClassVar[frozenset] = ...
-    _abc_impl: ClassVar[_abc._abc_data] = ...
-    def __init__(self, filepath_or_buffer: FilePath | ReadBuffer[bytes], index, encoding: str | None = ..., chunksize: int | None, compression: CompressionOptions = ...) -> None: ...
+class XportReader(ReaderBase, abc.Iterator):
+    __doc__ = _xport_reader_doc
+    _encoding: Incomplete
+    _lines_read: int
+    _index: Incomplete
+    _chunksize: Incomplete
+    handles: Incomplete
+    filepath_or_buffer: Incomplete
+    def __init__(self, filepath_or_buffer: FilePath | ReadBuffer[bytes], index: Incomplete | None = None, encoding: str | None = 'ISO-8859-1', chunksize: int | None = None, compression: CompressionOptions = 'infer') -> None: ...
     def close(self) -> None: ...
     def _get_row(self): ...
+    file_info: Incomplete
+    member_info: Incomplete
+    fields: Incomplete
+    record_length: Incomplete
+    record_start: Incomplete
+    nobs: Incomplete
+    columns: Incomplete
+    _dtype: Incomplete
     def _read_header(self) -> None: ...
     def __next__(self) -> pd.DataFrame: ...
     def _record_count(self) -> int:
@@ -60,7 +72,7 @@ class XportReader(pandas.io.sas.sasreader.ReaderBase, collections.abc.Iterator):
 
         Side effect: returns file position to record_start.
         """
-    def get_chunk(self, size: int | None) -> pd.DataFrame:
+    def get_chunk(self, size: int | None = None) -> pd.DataFrame:
         """
         Reads lines from Xport file and returns as dataframe
 
@@ -74,16 +86,4 @@ class XportReader(pandas.io.sas.sasreader.ReaderBase, collections.abc.Iterator):
         DataFrame
         """
     def _missing_double(self, vec): ...
-    def read(self, nrows: int | None) -> pd.DataFrame:
-        """Read observations from SAS Xport file, returning as data frame.
-
-        Parameters
-        ----------
-        nrows : int
-            Number of rows to read from data file; if None, read whole
-            file.
-
-        Returns
-        -------
-        A DataFrame.
-        """
+    def read(self, nrows: int | None = None) -> pd.DataFrame: ...

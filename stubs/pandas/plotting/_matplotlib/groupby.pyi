@@ -1,11 +1,11 @@
-import np
+import numpy as np
+from collections.abc import Hashable
+from pandas import DataFrame as DataFrame, MultiIndex as MultiIndex, Series as Series, concat as concat
+from pandas._typing import IndexLabel as IndexLabel
 from pandas.core.dtypes.missing import remove_na_arraylike as remove_na_arraylike
-from pandas.core.indexes.multi import MultiIndex as MultiIndex
-from pandas.core.reshape.concat import concat as concat
 from pandas.plotting._matplotlib.misc import unpack_single_str_list as unpack_single_str_list
 
-TYPE_CHECKING: bool
-def create_iter_data_given_by(data: DataFrame, kind: str = ...) -> dict[Hashable, DataFrame | Series]:
+def create_iter_data_given_by(data: DataFrame, kind: str = 'hist') -> dict[Hashable, DataFrame | Series]:
     """
     Create data for iteration given `by` is assigned or not, and it is only
     used in both hist and boxplot.

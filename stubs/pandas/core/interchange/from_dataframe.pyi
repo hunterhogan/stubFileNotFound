@@ -1,13 +1,14 @@
-import np
-import pd as pd
+import numpy as np
+import pandas as pd
 from pandas.compat._optional import import_optional_dependency as import_optional_dependency
-from pandas.core.interchange.dataframe_protocol import Buffer as Buffer, Column as Column, ColumnNullType as ColumnNullType, DataFrameXchg as DataFrameXchg, DtypeKind as DtypeKind
+from pandas.core.interchange.dataframe_protocol import Buffer as Buffer, Column as Column, ColumnNullType as ColumnNullType, DataFrame as DataFrameXchg, DtypeKind as DtypeKind
 from pandas.core.interchange.utils import ArrowCTypes as ArrowCTypes, Endianness as Endianness
 from pandas.errors import SettingWithCopyError as SettingWithCopyError
 from typing import Any
 
-_NP_DTYPES: dict
-def from_dataframe(df, allow_copy: bool = ...) -> pd.DataFrame:
+_NP_DTYPES: dict[DtypeKind, dict[int, Any]]
+
+def from_dataframe(df, allow_copy: bool = True) -> pd.DataFrame:
     """
     Build a ``pd.DataFrame`` from any DataFrame supporting the interchange protocol.
 
@@ -39,7 +40,7 @@ def from_dataframe(df, allow_copy: bool = ...) -> pd.DataFrame:
     These methods (``column_names``, ``select_columns_by_name``) should work
     for any dataframe library which implements the interchange protocol.
     """
-def _from_dataframe(df: DataFrameXchg, allow_copy: bool = ...):
+def _from_dataframe(df: DataFrameXchg, allow_copy: bool = True):
     """
     Build a ``pd.DataFrame`` from the DataFrame interchange object.
 
@@ -127,7 +128,7 @@ def datetime_column_to_ndarray(col: Column) -> tuple[np.ndarray | pd.Series, Any
         Tuple of np.ndarray holding the data and the memory owner object
         that keeps the memory alive.
     """
-def buffer_to_ndarray(buffer: Buffer, dtype: tuple[DtypeKind, int, str, str], *, length: int, offset: int = ...) -> np.ndarray:
+def buffer_to_ndarray(buffer: Buffer, dtype: tuple[DtypeKind, int, str, str], *, length: int, offset: int = 0) -> np.ndarray:
     """
     Build a NumPy array from the passed buffer.
 
@@ -153,7 +154,7 @@ def buffer_to_ndarray(buffer: Buffer, dtype: tuple[DtypeKind, int, str, str], *,
     responsible for keeping the memory owner object alive as long as
     the returned NumPy array is being used.
     """
-def set_nulls(data: np.ndarray | pd.Series, col: Column, validity: tuple[Buffer, tuple[DtypeKind, int, str, str]] | None, allow_modify_inplace: bool = ...):
+def set_nulls(data: np.ndarray | pd.Series, col: Column, validity: tuple[Buffer, tuple[DtypeKind, int, str, str]] | None, allow_modify_inplace: bool = True):
     """
     Set null values for the data according to the column null kind.
 

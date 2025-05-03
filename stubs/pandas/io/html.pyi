@@ -1,23 +1,26 @@
-import lib as lib
-from pandas._libs.lib import is_list_like as is_list_like
+from _typeshed import Incomplete
+from collections.abc import Iterable, Sequence
+from pandas import DataFrame as DataFrame, isna as isna
+from pandas._libs import lib as lib
+from pandas._typing import BaseBuffer as BaseBuffer, DtypeBackend as DtypeBackend, FilePath as FilePath, HTMLFlavors as HTMLFlavors, ReadBuffer as ReadBuffer, StorageOptions as StorageOptions
 from pandas.compat._optional import import_optional_dependency as import_optional_dependency
-from pandas.core.dtypes.inference import is_file_like as is_file_like
-from pandas.core.dtypes.missing import isna as isna
+from pandas.core.dtypes.common import is_list_like as is_list_like
 from pandas.core.indexes.base import Index as Index
 from pandas.core.indexes.multi import MultiIndex as MultiIndex
 from pandas.core.series import Series as Series
+from pandas.core.shared_docs import _shared_docs as _shared_docs
 from pandas.errors import AbstractMethodError as AbstractMethodError, EmptyDataError as EmptyDataError
-from pandas.io.common import file_exists as file_exists, get_handle as get_handle, is_fsspec_url as is_fsspec_url, is_url as is_url, stringify_path as stringify_path, validate_header_arg as validate_header_arg
+from pandas.io.common import file_exists as file_exists, get_handle as get_handle, is_file_like as is_file_like, is_fsspec_url as is_fsspec_url, is_url as is_url, stringify_path as stringify_path, validate_header_arg as validate_header_arg
 from pandas.io.formats.printing import pprint_thing as pprint_thing
-from pandas.io.parsers.readers import TextParser as TextParser
+from pandas.io.parsers import TextParser as TextParser
 from pandas.util._decorators import doc as doc
 from pandas.util._exceptions import find_stack_level as find_stack_level
 from pandas.util._validators import check_dtype_backend as check_dtype_backend
 from re import Pattern
 from typing import Literal
 
-TYPE_CHECKING: bool
-_shared_docs: dict
+_RE_WHITESPACE: Incomplete
+
 def _remove_whitespace(s: str, regex: Pattern = ...) -> str:
     """
     Replace extra whitespace inside of a string with a single space.
@@ -67,7 +70,81 @@ def _read(obj: FilePath | BaseBuffer, encoding: str | None, storage_options: Sto
     """
 
 class _HtmlFrameParser:
-    def __init__(self, io: FilePath | ReadBuffer[str] | ReadBuffer[bytes], match: str | Pattern, attrs: dict[str, str] | None, encoding: str, displayed_only: bool, extract_links: Literal[None, 'header', 'footer', 'body', 'all'], storage_options: StorageOptions) -> None: ...
+    '''
+    Base class for parsers that parse HTML into DataFrames.
+
+    Parameters
+    ----------
+    io : str or file-like
+        This can be either a string of raw HTML, a valid URL using the HTTP,
+        FTP, or FILE protocols or a file-like object.
+
+    match : str or regex
+        The text to match in the document.
+
+    attrs : dict
+        List of HTML <table> element attributes to match.
+
+    encoding : str
+        Encoding to be used by parser
+
+    displayed_only : bool
+        Whether or not items with "display:none" should be ignored
+
+    extract_links : {None, "all", "header", "body", "footer"}
+        Table elements in the specified section(s) with <a> tags will have their
+        href extracted.
+
+        .. versionadded:: 1.5.0
+
+    Attributes
+    ----------
+    io : str or file-like
+        raw HTML, URL, or file-like object
+
+    match : regex
+        The text to match in the raw HTML
+
+    attrs : dict-like
+        A dictionary of valid table attributes to use to search for table
+        elements.
+
+    encoding : str
+        Encoding to be used by parser
+
+    displayed_only : bool
+        Whether or not items with "display:none" should be ignored
+
+    extract_links : {None, "all", "header", "body", "footer"}
+        Table elements in the specified section(s) with <a> tags will have their
+        href extracted.
+
+        .. versionadded:: 1.5.0
+
+    Notes
+    -----
+    To subclass this class effectively you must override the following methods:
+        * :func:`_build_doc`
+        * :func:`_attr_getter`
+        * :func:`_href_getter`
+        * :func:`_text_getter`
+        * :func:`_parse_td`
+        * :func:`_parse_thead_tr`
+        * :func:`_parse_tbody_tr`
+        * :func:`_parse_tfoot_tr`
+        * :func:`_parse_tables`
+        * :func:`_equals_tag`
+    See each method\'s respective documentation for details on their
+    functionality.
+    '''
+    io: Incomplete
+    match: Incomplete
+    attrs: Incomplete
+    encoding: Incomplete
+    displayed_only: Incomplete
+    extract_links: Incomplete
+    storage_options: Incomplete
+    def __init__(self, io: FilePath | ReadBuffer[str] | ReadBuffer[bytes], match: str | Pattern, attrs: dict[str, str] | None, encoding: str, displayed_only: bool, extract_links: Literal[None, 'header', 'footer', 'body', 'all'], storage_options: StorageOptions = None) -> None: ...
     def parse_tables(self):
         """
         Parse and return all tables from the DOM.
@@ -107,7 +184,7 @@ class _HtmlFrameParser:
         href : str or unicode
             The href from the <a> child of the DOM node.
         """
-    def _text_getter(self, obj):
+    def _text_getter(self, obj) -> None:
         """
         Return the text of an individual DOM node.
 
@@ -121,7 +198,7 @@ class _HtmlFrameParser:
         text : str or unicode
             The text from an individual DOM node.
         """
-    def _parse_td(self, obj):
+    def _parse_td(self, obj) -> None:
         """
         Return the td elements from a row element.
 
@@ -135,7 +212,7 @@ class _HtmlFrameParser:
         list of node-like
             These are the elements of each row, i.e., the columns.
         """
-    def _parse_thead_tr(self, table):
+    def _parse_thead_tr(self, table) -> None:
         """
         Return the list of thead row elements from the parsed table element.
 
@@ -148,7 +225,7 @@ class _HtmlFrameParser:
         list of node-like
             These are the <tr> row elements of a table.
         """
-    def _parse_tbody_tr(self, table):
+    def _parse_tbody_tr(self, table) -> None:
         """
         Return the list of tbody row elements from the parsed table element.
 
@@ -165,7 +242,7 @@ class _HtmlFrameParser:
         list of node-like
             These are the <tr> row elements of a table.
         """
-    def _parse_tfoot_tr(self, table):
+    def _parse_tfoot_tr(self, table) -> None:
         """
         Return the list of tfoot row elements from the parsed table element.
 
@@ -178,7 +255,7 @@ class _HtmlFrameParser:
         list of node-like
             These are the <tr> row elements of a table.
         """
-    def _parse_tables(self, document, match, attrs):
+    def _parse_tables(self, document, match, attrs) -> None:
         """
         Return all tables from the parsed DOM.
 
@@ -219,7 +296,7 @@ class _HtmlFrameParser:
         boolean
             Whether `obj`'s tag name is `tag`
         """
-    def _build_doc(self):
+    def _build_doc(self) -> None:
         """
         Return a tree-like object that can be used to iterate over the DOM.
 
@@ -292,6 +369,19 @@ class _HtmlFrameParser:
         """
 
 class _BeautifulSoupHtml5LibFrameParser(_HtmlFrameParser):
+    """
+    HTML to DataFrame parser that uses BeautifulSoup under the hood.
+
+    See Also
+    --------
+    pandas.io.html._HtmlFrameParser
+    pandas.io.html._LxmlFrameParser
+
+    Notes
+    -----
+    Documentation strings for this class are in the base class
+    :class:`pandas.io.html._HtmlFrameParser`.
+    """
     def _parse_tables(self, document, match, attrs): ...
     def _href_getter(self, obj) -> str | None: ...
     def _text_getter(self, obj): ...
@@ -302,6 +392,7 @@ class _BeautifulSoupHtml5LibFrameParser(_HtmlFrameParser):
     def _parse_tfoot_tr(self, table): ...
     def _setup_build_doc(self): ...
     def _build_doc(self): ...
+
 def _build_xpath_expr(attrs) -> str:
     """
     Build an xpath expression to simulate bs4's ability to pass in kwargs to
@@ -318,9 +409,26 @@ def _build_xpath_expr(attrs) -> str:
         An XPath expression that checks for the given HTML attributes.
     """
 
-_re_namespace: dict
+_re_namespace: Incomplete
 
 class _LxmlFrameParser(_HtmlFrameParser):
+    """
+    HTML to DataFrame parser that uses lxml under the hood.
+
+    Warning
+    -------
+    This parser can only handle HTTP, FTP, and FILE urls.
+
+    See Also
+    --------
+    _HtmlFrameParser
+    _BeautifulSoupLxmlFrameParser
+
+    Notes
+    -----
+    Documentation strings for this class are in the base class
+    :class:`_HtmlFrameParser`.
+    """
     def _href_getter(self, obj) -> str | None: ...
     def _text_getter(self, obj): ...
     def _parse_td(self, row): ...
@@ -345,10 +453,12 @@ class _LxmlFrameParser(_HtmlFrameParser):
     def _parse_thead_tr(self, table): ...
     def _parse_tbody_tr(self, table): ...
     def _parse_tfoot_tr(self, table): ...
+
 def _expand_elements(body) -> None: ...
 def _data_to_frame(**kwargs): ...
 
-_valid_parsers: dict
+_valid_parsers: Incomplete
+
 def _parser_dispatch(flavor: HTMLFlavors | None) -> type[_HtmlFrameParser]:
     '''
     Choose the parser based on the input flavor.
@@ -373,7 +483,7 @@ def _parser_dispatch(flavor: HTMLFlavors | None) -> type[_HtmlFrameParser]:
 def _print_as_set(s) -> str: ...
 def _validate_flavor(flavor): ...
 def _parse(flavor, io, match, attrs, encoding, displayed_only, extract_links, storage_options, **kwargs): ...
-def read_html(io: FilePath | ReadBuffer[str], *, match: str | Pattern = ..., flavor: HTMLFlavors | Sequence[HTMLFlavors] | None, header: int | Sequence[int] | None, index_col: int | Sequence[int] | None, skiprows: int | Sequence[int] | slice | None, attrs: dict[str, str] | None, parse_dates: bool = ..., thousands: str | None = ..., encoding: str | None, decimal: str = ..., converters: dict | None, na_values: Iterable[object] | None, keep_default_na: bool = ..., displayed_only: bool = ..., extract_links: Literal[None, 'header', 'footer', 'body', 'all'], dtype_backend: DtypeBackend | lib.NoDefault = ..., storage_options: StorageOptions) -> list[DataFrame]:
+def read_html(io: FilePath | ReadBuffer[str], *, match: str | Pattern = '.+', flavor: HTMLFlavors | Sequence[HTMLFlavors] | None = None, header: int | Sequence[int] | None = None, index_col: int | Sequence[int] | None = None, skiprows: int | Sequence[int] | slice | None = None, attrs: dict[str, str] | None = None, parse_dates: bool = False, thousands: str | None = ',', encoding: str | None = None, decimal: str = '.', converters: dict | None = None, na_values: Iterable[object] | None = None, keep_default_na: bool = True, displayed_only: bool = True, extract_links: Literal[None, 'header', 'footer', 'body', 'all'] = None, dtype_backend: DtypeBackend | lib.NoDefault = ..., storage_options: StorageOptions = None) -> list[DataFrame]:
     '''
     Read HTML tables into a ``list`` of ``DataFrame`` objects.
 
@@ -398,7 +508,7 @@ def read_html(io: FilePath | ReadBuffer[str], *, match: str | Pattern = ..., fla
         This value is converted to a regular expression so that there is
         consistent behavior between Beautiful Soup and lxml.
 
-    flavor : {"lxml", "html5lib", "bs4"} or list-like, optional
+    flavor : {{"lxml", "html5lib", "bs4"}} or list-like, optional
         The parsing engine (or list of parsing engines) to use. \'bs4\' and
         \'html5lib\' are synonymous with each other, they are both there for
         backwards compatibility. The default of ``None`` tries to use ``lxml``
@@ -423,13 +533,13 @@ def read_html(io: FilePath | ReadBuffer[str], *, match: str | Pattern = ..., fla
         passed to lxml or Beautiful Soup. However, these attributes must be
         valid HTML table attributes to work correctly. For example, ::
 
-            attrs = {\'id\': \'table\'}
+            attrs = {{\'id\': \'table\'}}
 
         is a valid attribute dictionary because the \'id\' HTML tag attribute is
         a valid HTML attribute for *any* HTML tag as per `this document
         <https://html.spec.whatwg.org/multipage/dom.html#global-attributes>`__. ::
 
-            attrs = {\'asdf\': \'table\'}
+            attrs = {{\'asdf\': \'table\'}}
 
         is *not* a valid attribute dictionary because \'asdf\' is not a valid
         HTML attribute even if it is a valid XML attribute.  Valid HTML 4.01
@@ -471,13 +581,13 @@ def read_html(io: FilePath | ReadBuffer[str], *, match: str | Pattern = ..., fla
     displayed_only : bool, default True
         Whether elements with "display: none" should be parsed.
 
-    extract_links : {None, "all", "header", "body", "footer"}
+    extract_links : {{None, "all", "header", "body", "footer"}}
         Table elements in the specified section(s) with <a> tags will have their
         href extracted.
 
         .. versionadded:: 1.5.0
 
-    dtype_backend : {\'numpy_nullable\', \'pyarrow\'}, default \'numpy_nullable\'
+    dtype_backend : {{\'numpy_nullable\', \'pyarrow\'}}, default \'numpy_nullable\'
         Back-end data type applied to the resultant :class:`DataFrame`
         (still experimental). Behaviour is as follows:
 
@@ -488,15 +598,7 @@ def read_html(io: FilePath | ReadBuffer[str], *, match: str | Pattern = ..., fla
 
         .. versionadded:: 2.0
 
-    storage_options : dict, optional
-        Extra options that make sense for a particular storage connection, e.g.
-        host, port, username, password, etc. For HTTP(S) URLs the key-value pairs
-        are forwarded to ``urllib.request.Request`` as header options. For other
-        URLs (e.g. starting with "s3://", and "gcs://") the key-value pairs are
-        forwarded to ``fsspec.open``. Please see ``fsspec`` and ``urllib`` for more
-        details, and for more examples on storage options refer `here
-        <https://pandas.pydata.org/docs/user_guide/io.html?
-        highlight=storage_options#reading-writing-remote-files>`_.
+    {storage_options}
 
         .. versionadded:: 2.1.0
 

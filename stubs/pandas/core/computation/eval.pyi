@@ -1,4 +1,7 @@
-from pandas.core.computation.expr import Expr as Expr
+from _typeshed import Incomplete
+from pandas.core.computation.engines import ENGINES as ENGINES
+from pandas.core.computation.expr import Expr as Expr, PARSERS as PARSERS
+from pandas.core.computation.ops import BinOp as BinOp
 from pandas.core.computation.parsing import tokenize_string as tokenize_string
 from pandas.core.computation.scope import ensure_scope as ensure_scope
 from pandas.core.dtypes.common import is_extension_array_dtype as is_extension_array_dtype
@@ -7,9 +10,6 @@ from pandas.io.formats.printing import pprint_thing as pprint_thing
 from pandas.util._exceptions import find_stack_level as find_stack_level
 from pandas.util._validators import validate_bool_kwarg as validate_bool_kwarg
 
-TYPE_CHECKING: bool
-ENGINES: dict
-PARSERS: dict
 def _check_engine(engine: str | None) -> str:
     """
     Make sure a valid engine is passed.
@@ -44,8 +44,8 @@ def _check_parser(parser: str):
     KeyError
       * If an invalid parser is passed
     """
-def _check_resolvers(resolvers): ...
-def _check_expression(expr):
+def _check_resolvers(resolvers) -> None: ...
+def _check_expression(expr) -> None:
     """
     Make sure an expression is not an empty string
 
@@ -84,7 +84,7 @@ def _convert_expression(expr) -> str:
       * If the expression is empty.
     """
 def _check_for_locals(expr: str, stack_level: int, parser: str): ...
-def eval(expr: str | BinOp, parser: str = ..., engine: str | None, local_dict, global_dict, resolvers: tuple = ..., level: int = ..., target, inplace: bool = ...):
+def eval(expr: str | BinOp, parser: str = 'pandas', engine: str | None = None, local_dict: Incomplete | None = None, global_dict: Incomplete | None = None, resolvers=(), level: int = 0, target: Incomplete | None = None, inplace: bool = False):
     '''
     Evaluate a Python expression as a string using various backends.
 

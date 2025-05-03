@@ -1,5 +1,5 @@
-import numba.core.registry
+import numpy as np
+from pandas._typing import npt as npt
 
-TYPE_CHECKING: bool
-sliding_min_max: numba.core.registry.CPUDispatcher
-grouped_min_max: numba.core.registry.CPUDispatcher
+def sliding_min_max(values: np.ndarray, result_dtype: np.dtype, start: np.ndarray, end: np.ndarray, min_periods: int, is_max: bool) -> tuple[np.ndarray, list[int]]: ...
+def grouped_min_max(values: np.ndarray, result_dtype: np.dtype, labels: npt.NDArray[np.intp], ngroups: int, min_periods: int, is_max: bool) -> tuple[np.ndarray, list[int]]: ...

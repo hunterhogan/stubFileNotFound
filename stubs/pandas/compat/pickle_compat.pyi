@@ -1,25 +1,22 @@
-import pickle
+import pickle as pkl
+from _typeshed import Incomplete
 from collections.abc import Generator
+from pandas import Index as Index
 from pandas._libs.arrays import NDArrayBacked as NDArrayBacked
-from pandas._libs.tslibs.offsets import BaseOffset as BaseOffset
-from pandas.core.arrays.datetimes import DatetimeArray as DatetimeArray
-from pandas.core.arrays.period import PeriodArray as PeriodArray
-from pandas.core.arrays.timedeltas import TimedeltaArray as TimedeltaArray
-from pandas.core.indexes.base import Index as Index
-from pandas.core.internals.managers import BlockManager as BlockManager
-from typing import ClassVar
+from pandas._libs.tslibs import BaseOffset as BaseOffset
+from pandas.core.arrays import DatetimeArray as DatetimeArray, PeriodArray as PeriodArray, TimedeltaArray as TimedeltaArray
+from pandas.core.internals import BlockManager as BlockManager
 
-TYPE_CHECKING: bool
 def load_reduce(self) -> None: ...
 
-_class_locations_map: dict
+_class_locations_map: Incomplete
 
-class Unpickler(pickle._Unpickler):
-    dispatch: ClassVar[dict] = ...
+class Unpickler(pkl._Unpickler):
     def find_class(self, module, name): ...
+
 def load_newobj(self) -> None: ...
 def load_newobj_ex(self) -> None: ...
-def load(fh, encoding: str | None, is_verbose: bool = ...):
+def load(fh, encoding: str | None = None, is_verbose: bool = False):
     """
     Load a pickle, with a provided encoding,
 
@@ -29,11 +26,11 @@ def load(fh, encoding: str | None, is_verbose: bool = ...):
     encoding : an optional encoding
     is_verbose : show exception output
     """
-def loads(bytes_object: bytes, *, fix_imports: bool = ..., encoding: str = ..., errors: str = ...):
+def loads(bytes_object: bytes, *, fix_imports: bool = True, encoding: str = 'ASCII', errors: str = 'strict'):
     """
     Analogous to pickle._loads.
     """
-def patch_pickle(*args, **kwds) -> Generator[None, None, None]:
+def patch_pickle() -> Generator[None, None, None]:
     """
     Temporarily patch pickle to use our unpickler.
     """

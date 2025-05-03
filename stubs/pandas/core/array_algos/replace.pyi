@@ -1,13 +1,11 @@
-import np
-import npt
+import numpy as np
 import re
-from pandas._libs.lib import is_bool as is_bool
-from pandas.core.dtypes.inference import is_re as is_re, is_re_compilable as is_re_compilable
+from pandas._typing import ArrayLike as ArrayLike, Scalar as Scalar, npt as npt
+from pandas.core.dtypes.common import is_bool as is_bool, is_re as is_re, is_re_compilable as is_re_compilable
 from pandas.core.dtypes.missing import isna as isna
 from re import Pattern
 from typing import Any
 
-TYPE_CHECKING: bool
 def should_use_regex(regex: bool, to_replace: Any) -> bool:
     """
     Decide whether to treat `to_replace` as a regular expression.

@@ -1,15 +1,15 @@
-import np
-import npt
-import pandas._libs.lib as lib
+import numpy as np
 import scipy.sparse
+from collections.abc import Iterable
+from pandas._libs import lib as lib
+from pandas._typing import IndexLabel as IndexLabel, npt as npt
 from pandas.core.algorithms import factorize as factorize
 from pandas.core.dtypes.missing import notna as notna
-from pandas.core.indexes.multi import MultiIndex as MultiIndex
+from pandas.core.indexes.api import MultiIndex as MultiIndex
 from pandas.core.series import Series as Series
 
-TYPE_CHECKING: bool
 def _check_is_partition(parts: Iterable, whole: Iterable): ...
-def _levels_to_axis(ss, levels: tuple[int] | list[int], valid_ilocs: npt.NDArray[np.intp], sort_labels: bool = ...) -> tuple[npt.NDArray[np.intp], list[IndexLabel]]:
+def _levels_to_axis(ss, levels: tuple[int] | list[int], valid_ilocs: npt.NDArray[np.intp], sort_labels: bool = False) -> tuple[npt.NDArray[np.intp], list[IndexLabel]]:
     """
     For a MultiIndexed sparse Series `ss`, return `ax_coords` and `ax_labels`,
     where `ax_coords` are the coordinates along one of the two axes of the
@@ -31,7 +31,7 @@ def _levels_to_axis(ss, levels: tuple[int] | list[int], valid_ilocs: npt.NDArray
     ax_coords : numpy.ndarray (axis coordinates)
     ax_labels : list (axis labels)
     """
-def _to_ijv(ss, row_levels: tuple[int] | list[int] = ..., column_levels: tuple[int] | list[int] = ..., sort_labels: bool = ...) -> tuple[np.ndarray, npt.NDArray[np.intp], npt.NDArray[np.intp], list[IndexLabel], list[IndexLabel]]:
+def _to_ijv(ss, row_levels: tuple[int] | list[int] = (0,), column_levels: tuple[int] | list[int] = (1,), sort_labels: bool = False) -> tuple[np.ndarray, npt.NDArray[np.intp], npt.NDArray[np.intp], list[IndexLabel], list[IndexLabel]]:
     """
     For an arbitrary MultiIndexed sparse Series return (v, i, j, ilabels,
     jlabels) where (v, (i, j)) is suitable for passing to scipy.sparse.coo
@@ -58,13 +58,13 @@ def _to_ijv(ss, row_levels: tuple[int] | list[int] = ..., column_levels: tuple[i
     i_labels : list (row labels)
     j_labels : list (column labels)
     """
-def sparse_series_to_coo(ss: Series, row_levels: Iterable[int] = ..., column_levels: Iterable[int] = ..., sort_labels: bool = ...) -> tuple[scipy.sparse.coo_matrix, list[IndexLabel], list[IndexLabel]]:
+def sparse_series_to_coo(ss: Series, row_levels: Iterable[int] = (0,), column_levels: Iterable[int] = (1,), sort_labels: bool = False) -> tuple[scipy.sparse.coo_matrix, list[IndexLabel], list[IndexLabel]]:
     """
     Convert a sparse Series to a scipy.sparse.coo_matrix using index
     levels row_levels, column_levels as the row and column
     labels respectively. Returns the sparse_matrix, row and column labels.
     """
-def coo_to_sparse_series(A: scipy.sparse.coo_matrix, dense_index: bool = ...) -> Series:
+def coo_to_sparse_series(A: scipy.sparse.coo_matrix, dense_index: bool = False) -> Series:
     """
     Convert a scipy.sparse.coo_matrix to a Series with type sparse.
 

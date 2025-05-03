@@ -1,7 +1,6 @@
-import np
-import npt
+import numpy as np
+from pandas._typing import npt as npt
 
-TYPE_CHECKING: bool
 def invalid_comparison(left, right, op) -> npt.NDArray[np.bool_]:
     """
     If a comparison has mismatched types and is not necessarily meaningful,

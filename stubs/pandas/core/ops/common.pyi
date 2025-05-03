@@ -1,9 +1,9 @@
 from pandas._libs.lib import item_from_zerodim as item_from_zerodim
 from pandas._libs.missing import is_matching_na as is_matching_na
+from pandas._typing import F as F
 from pandas.core.dtypes.generic import ABCIndex as ABCIndex, ABCSeries as ABCSeries
 from typing import Callable
 
-TYPE_CHECKING: bool
 def unpack_zerodim_and_defer(name: str) -> Callable[[F], F]:
     """
     Boilerplate for pandas conventions in arithmetic and comparison methods.

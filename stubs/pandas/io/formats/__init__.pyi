@@ -1,6 +1,3 @@
-from . import console as console, format as format, info as info, printing as printing
+from pandas.io.formats import style as style
 
 __all__ = ['style']
-
-# Names in __all__ with no definition:
-#   style

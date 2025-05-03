@@ -1,18 +1,17 @@
+from _typeshed import Incomplete
 from collections.abc import Hashable, Iterable
-from pandas._libs.lib import is_list_like as is_list_like
 from pandas._libs.sparse import IntIndex as IntIndex
+from pandas._typing import NpDtype as NpDtype
+from pandas.core.arrays import SparseArray as SparseArray
 from pandas.core.arrays.categorical import factorize_from_iterable as factorize_from_iterable
-from pandas.core.arrays.sparse.array import SparseArray as SparseArray
 from pandas.core.arrays.string_ import StringDtype as StringDtype
-from pandas.core.dtypes.common import is_integer_dtype as is_integer_dtype, is_object_dtype as is_object_dtype, pandas_dtype as pandas_dtype
+from pandas.core.dtypes.common import is_integer_dtype as is_integer_dtype, is_list_like as is_list_like, is_object_dtype as is_object_dtype, pandas_dtype as pandas_dtype
 from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype, CategoricalDtype as CategoricalDtype
 from pandas.core.frame import DataFrame as DataFrame
-from pandas.core.indexes.api import default_index as default_index
-from pandas.core.indexes.base import Index as Index
+from pandas.core.indexes.api import Index as Index, default_index as default_index
 from pandas.core.series import Series as Series
 
-TYPE_CHECKING: bool
-def get_dummies(data, prefix, prefix_sep: str | Iterable[str] | dict[str, str] = ..., dummy_na: bool = ..., columns, sparse: bool = ..., drop_first: bool = ..., dtype: NpDtype | None) -> DataFrame:
+def get_dummies(data, prefix: Incomplete | None = None, prefix_sep: str | Iterable[str] | dict[str, str] = '_', dummy_na: bool = False, columns: Incomplete | None = None, sparse: bool = False, drop_first: bool = False, dtype: NpDtype | None = None) -> DataFrame:
     """
     Convert categorical variable into dummy/indicator variables.
 
@@ -118,8 +117,8 @@ def get_dummies(data, prefix, prefix_sep: str | Iterable[str] | dict[str, str] =
     1  0.0  1.0  0.0
     2  0.0  0.0  1.0
     """
-def _get_dummies_1d(data, prefix, prefix_sep: str | Iterable[str] | dict[str, str] = ..., dummy_na: bool = ..., sparse: bool = ..., drop_first: bool = ..., dtype: NpDtype | None) -> DataFrame: ...
-def from_dummies(data: DataFrame, sep: None | str, default_category: None | Hashable | dict[str, Hashable]) -> DataFrame:
+def _get_dummies_1d(data, prefix, prefix_sep: str | Iterable[str] | dict[str, str] = '_', dummy_na: bool = False, sparse: bool = False, drop_first: bool = False, dtype: NpDtype | None = None) -> DataFrame: ...
+def from_dummies(data: DataFrame, sep: None | str = None, default_category: None | Hashable | dict[str, Hashable] = None) -> DataFrame:
     '''
     Create a categorical ``DataFrame`` from a ``DataFrame`` of dummy variables.
 

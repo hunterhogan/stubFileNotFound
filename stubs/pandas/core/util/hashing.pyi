@@ -1,12 +1,14 @@
-import np
-import npt
+import numpy as np
+from collections.abc import Hashable, Iterable, Iterator
+from pandas import DataFrame as DataFrame, Index as Index, MultiIndex as MultiIndex, Series as Series
 from pandas._libs.hashing import hash_object_array as hash_object_array
-from pandas._libs.lib import is_list_like as is_list_like
+from pandas._typing import ArrayLike as ArrayLike, npt as npt
+from pandas.core.dtypes.common import is_list_like as is_list_like
 from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCExtensionArray as ABCExtensionArray, ABCIndex as ABCIndex, ABCMultiIndex as ABCMultiIndex, ABCSeries as ABCSeries
 
-TYPE_CHECKING: bool
 _default_hash_key: str
+
 def combine_hash_arrays(arrays: Iterator[np.ndarray], num_items: int) -> npt.NDArray[np.uint64]:
     """
     Parameters
@@ -20,7 +22,7 @@ def combine_hash_arrays(arrays: Iterator[np.ndarray], num_items: int) -> npt.NDA
 
     Should be the same as CPython's tupleobject.c
     """
-def hash_pandas_object(obj: Index | DataFrame | Series, index: bool = ..., encoding: str = ..., hash_key: str | None = ..., categorize: bool = ...) -> Series:
+def hash_pandas_object(obj: Index | DataFrame | Series, index: bool = True, encoding: str = 'utf8', hash_key: str | None = ..., categorize: bool = True) -> Series:
     """
     Return a data hash of the Index/Series/DataFrame.
 
@@ -49,7 +51,7 @@ def hash_pandas_object(obj: Index | DataFrame | Series, index: bool = ..., encod
     2      393322362522515241
     dtype: uint64
     """
-def hash_tuples(vals: MultiIndex | Iterable[tuple[Hashable, ...]], encoding: str = ..., hash_key: str = ...) -> npt.NDArray[np.uint64]:
+def hash_tuples(vals: MultiIndex | Iterable[tuple[Hashable, ...]], encoding: str = 'utf8', hash_key: str = ...) -> npt.NDArray[np.uint64]:
     """
     Hash an MultiIndex / listlike-of-tuples efficiently.
 
@@ -63,7 +65,7 @@ def hash_tuples(vals: MultiIndex | Iterable[tuple[Hashable, ...]], encoding: str
     -------
     ndarray[np.uint64] of hashed values
     """
-def hash_array(vals: ArrayLike, encoding: str = ..., hash_key: str = ..., categorize: bool = ...) -> npt.NDArray[np.uint64]:
+def hash_array(vals: ArrayLike, encoding: str = 'utf8', hash_key: str = ..., categorize: bool = True) -> npt.NDArray[np.uint64]:
     """
     Given a 1d array, return an array of deterministic integers.
 
@@ -89,7 +91,7 @@ def hash_array(vals: ArrayLike, encoding: str = ..., hash_key: str = ..., catego
     array([ 6238072747940578789, 15839785061582574730,  2185194620014831856],
       dtype=uint64)
     """
-def _hash_ndarray(vals: np.ndarray, encoding: str = ..., hash_key: str = ..., categorize: bool = ...) -> npt.NDArray[np.uint64]:
+def _hash_ndarray(vals: np.ndarray, encoding: str = 'utf8', hash_key: str = ..., categorize: bool = True) -> npt.NDArray[np.uint64]:
     """
     See hash_array.__doc__.
     """

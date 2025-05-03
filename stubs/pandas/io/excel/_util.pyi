@@ -1,10 +1,13 @@
-from collections.abc import Hashable, Sequence
-from pandas._libs.lib import is_integer as is_integer, is_list_like as is_list_like
+from collections.abc import Hashable, MutableMapping, Sequence
 from pandas.compat._optional import import_optional_dependency as import_optional_dependency
-from typing import Any, Literal
+from pandas.core.dtypes.common import is_integer as is_integer, is_list_like as is_list_like
+from pandas.io.excel._base import ExcelWriter as ExcelWriter
+from typing import Any, Callable, Literal, TypeVar, overload
 
-TYPE_CHECKING: bool
-_writers: dict
+ExcelWriter_t = type[ExcelWriter]
+usecols_func = TypeVar('usecols_func', bound=Callable[[Hashable], object])
+_writers: MutableMapping[str, ExcelWriter_t]
+
 def register_writer(klass: ExcelWriter_t) -> None:
     """
     Add engine to the excel writer registry.io.excel.
@@ -15,7 +18,7 @@ def register_writer(klass: ExcelWriter_t) -> None:
     ----------
     klass : ExcelWriter
     """
-def get_default_engine(ext: str, mode: Literal['reader', 'writer'] = ...) -> str:
+def get_default_engine(ext: str, mode: Literal['reader', 'writer'] = 'reader') -> str:
     """
     Return the default reader/writer for the given extension.
 
@@ -73,21 +76,18 @@ def _range2cols(areas: str) -> list[int]:
     >>> _range2cols('A,C,Z:AB')
     [0, 2, 25, 26, 27]
     """
-def maybe_convert_usecols(usecols: str | list[int] | list[str] | usecols_func | None) -> None | list[int] | list[str] | usecols_func:
-    """
-    Convert `usecols` into a compatible format for parsing in `parsers.py`.
-
-    Parameters
-    ----------
-    usecols : object
-        The use-columns object to potentially convert.
-
-    Returns
-    -------
-    converted : object
-        The compatible format of `usecols`.
-    """
-def validate_freeze_panes(freeze_panes: tuple[int, int] | None) -> bool: ...
+@overload
+def maybe_convert_usecols(usecols: str | list[int]) -> list[int]: ...
+@overload
+def maybe_convert_usecols(usecols: list[str]) -> list[str]: ...
+@overload
+def maybe_convert_usecols(usecols: usecols_func) -> usecols_func: ...
+@overload
+def maybe_convert_usecols(usecols: None) -> None: ...
+@overload
+def validate_freeze_panes(freeze_panes: tuple[int, int]) -> Literal[True]: ...
+@overload
+def validate_freeze_panes(freeze_panes: None) -> Literal[False]: ...
 def fill_mi_header(row: list[Hashable], control_row: list[bool]) -> tuple[list[Hashable], list[bool]]:
     """
     Forward fill blank entries in row but only inside the same parent index.

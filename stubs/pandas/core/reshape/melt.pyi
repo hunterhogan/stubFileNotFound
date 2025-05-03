@@ -1,131 +1,20 @@
-import pandas.core.algorithms as algos
-from pandas._libs.lib import is_list_like as is_list_like
+from _typeshed import Incomplete
+from collections.abc import Hashable
+from pandas import DataFrame as DataFrame
+from pandas._typing import AnyArrayLike as AnyArrayLike
+from pandas.core.dtypes.common import is_list_like as is_list_like
 from pandas.core.dtypes.concat import concat_compat as concat_compat
 from pandas.core.dtypes.missing import notna as notna
-from pandas.core.indexes.multi import MultiIndex as MultiIndex
+from pandas.core.indexes.api import MultiIndex as MultiIndex
 from pandas.core.reshape.concat import concat as concat
 from pandas.core.reshape.util import tile_compat as tile_compat
+from pandas.core.shared_docs import _shared_docs as _shared_docs
 from pandas.core.tools.numeric import to_numeric as to_numeric
 from pandas.util._decorators import Appender as Appender
 
-TYPE_CHECKING: bool
-_shared_docs: dict
 def ensure_list_vars(arg_vars, variable: str, columns) -> list: ...
-def melt(frame: DataFrame, id_vars, value_vars, var_name, value_name: Hashable = ..., col_level, ignore_index: bool = ...) -> DataFrame:
-    '''
-    Unpivot a DataFrame from wide to long format, optionally leaving identifiers set.
-
-    This function is useful to massage a DataFrame into a format where one
-    or more columns are identifier variables (`id_vars`), while all other
-    columns, considered measured variables (`value_vars`), are "unpivoted" to
-    the row axis, leaving just two non-identifier columns, \'variable\' and
-    \'value\'.
-
-    Parameters
-    ----------
-    id_vars : scalar, tuple, list, or ndarray, optional
-        Column(s) to use as identifier variables.
-    value_vars : scalar, tuple, list, or ndarray, optional
-        Column(s) to unpivot. If not specified, uses all columns that
-        are not set as `id_vars`.
-    var_name : scalar, default None
-        Name to use for the \'variable\' column. If None it uses
-        ``frame.columns.name`` or \'variable\'.
-    value_name : scalar, default \'value\'
-        Name to use for the \'value\' column, can\'t be an existing column label.
-    col_level : scalar, optional
-        If columns are a MultiIndex then use this level to melt.
-    ignore_index : bool, default True
-        If True, original index is ignored. If False, the original index is retained.
-        Index labels will be repeated as necessary.
-
-    Returns
-    -------
-    DataFrame
-        Unpivoted DataFrame.
-
-    See Also
-    --------
-    DataFrame.melt : Identical method.
-    pivot_table : Create a spreadsheet-style pivot table as a DataFrame.
-    DataFrame.pivot : Return reshaped DataFrame organized
-        by given index / column values.
-    DataFrame.explode : Explode a DataFrame from list-like
-            columns to long format.
-
-    Notes
-    -----
-    Reference :ref:`the user guide <reshaping.melt>` for more examples.
-
-    Examples
-    --------
-    >>> df = pd.DataFrame({\'A\': {0: \'a\', 1: \'b\', 2: \'c\'},
-    ...                    \'B\': {0: 1, 1: 3, 2: 5},
-    ...                    \'C\': {0: 2, 1: 4, 2: 6}})
-    >>> df
-       A  B  C
-    0  a  1  2
-    1  b  3  4
-    2  c  5  6
-
-    >>> pd.melt(df, id_vars=[\'A\'], value_vars=[\'B\'])
-       A variable  value
-    0  a        B      1
-    1  b        B      3
-    2  c        B      5
-
-    >>> pd.melt(df, id_vars=[\'A\'], value_vars=[\'B\', \'C\'])
-       A variable  value
-    0  a        B      1
-    1  b        B      3
-    2  c        B      5
-    3  a        C      2
-    4  b        C      4
-    5  c        C      6
-
-    The names of \'variable\' and \'value\' columns can be customized:
-
-    >>> pd.melt(df, id_vars=[\'A\'], value_vars=[\'B\'],
-    ...         var_name=\'myVarname\', value_name=\'myValname\')
-       A myVarname  myValname
-    0  a         B          1
-    1  b         B          3
-    2  c         B          5
-
-    Original index values can be kept around:
-
-    >>> pd.melt(df, id_vars=[\'A\'], value_vars=[\'B\', \'C\'], ignore_index=False)
-       A variable  value
-    0  a        B      1
-    1  b        B      3
-    2  c        B      5
-    0  a        C      2
-    1  b        C      4
-    2  c        C      6
-
-    If you have multi-index columns:
-
-    >>> df.columns = [list(\'ABC\'), list(\'DEF\')]
-    >>> df
-       A  B  C
-       D  E  F
-    0  a  1  2
-    1  b  3  4
-    2  c  5  6
-
-    >>> pd.melt(df, col_level=0, id_vars=[\'A\'], value_vars=[\'B\'])
-       A variable  value
-    0  a        B      1
-    1  b        B      3
-    2  c        B      5
-
-    >>> pd.melt(df, id_vars=[(\'A\', \'D\')], value_vars=[(\'B\', \'E\')])
-      (A, D) variable_0 variable_1  value
-    0      a          B          E      1
-    1      b          B          E      3
-    2      c          B          E      5
-    '''
-def lreshape(data: DataFrame, groups: dict, dropna: bool = ...) -> DataFrame:
+def melt(frame: DataFrame, id_vars: Incomplete | None = None, value_vars: Incomplete | None = None, var_name: Incomplete | None = None, value_name: Hashable = 'value', col_level: Incomplete | None = None, ignore_index: bool = True) -> DataFrame: ...
+def lreshape(data: DataFrame, groups: dict, dropna: bool = True) -> DataFrame:
     '''
     Reshape wide-format data to long. Generalized inverse of DataFrame.pivot.
 
@@ -178,7 +67,7 @@ def lreshape(data: DataFrame, groups: dict, dropna: bool = ...) -> DataFrame:
     2  Red Sox  2008  545
     3  Yankees  2008  526
     '''
-def wide_to_long(df: DataFrame, stubnames, i, j, sep: str = ..., suffix: str = ...) -> DataFrame:
+def wide_to_long(df: DataFrame, stubnames, i, j, sep: str = '', suffix: str = '\\d+') -> DataFrame:
     '''
     Unpivot a DataFrame from wide to long format.
 

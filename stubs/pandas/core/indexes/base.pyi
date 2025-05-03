@@ -1,68 +1,94 @@
-import lib as lib
-import np
-import npt
-import pandas._libs.algos as libalgos
-import pandas._libs.index as libindex
-import pandas._libs.join as libjoin
-import pandas._libs.lib
-import pandas._libs.writers as writers
-import pandas.compat.numpy.function as nv
-import pandas.core.algorithms as algos
-import pandas.core.arraylike as arraylike
-import pandas.core.base
-import pandas.core.common as com
-import pandas.core.nanops as nanops
-import pandas.core.ops as ops
-import pandas.core.strings.accessor
+import numpy as np
 from _typeshed import Incomplete
-from builtins import str_t
-from collections.abc import Level
+from collections.abc import Hashable, Iterable, Sequence
+from pandas import DataFrame, MultiIndex, Series
+from pandas._libs import index as libindex, lib
+from pandas._typing import AnyAll, ArrayLike, Axis, DropKeep, DtypeObj, IgnoreRaise, IndexLabel, JoinHow, Level, NaPosition, ReindexMethod, Self, Shape, npt
+from pandas.core.arrays import ExtensionArray
+from pandas.core.base import IndexOpsMixin, PandasObject
+from pandas.core.dtypes.dtypes import ExtensionDtype
+from pandas.core.dtypes.missing import isna
 from pandas.core.indexes.frozen import FrozenList
 from pandas.io.formats.printing import PrettyDict
-from typing import Any, AnyAll, ArrayLike, Axis, Callable, ClassVar as _ClassVar, DropKeep, DtypeObj, IgnoreRaise, IndexLabel, JoinHow, Literal, NaPosition, NoReturn, ReindexMethod
+from typing import Any, Callable, ClassVar, Literal, NoReturn, overload
 
 __all__ = ['Index']
 
-class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
-    __pandas_priority__: _ClassVar[int] = ...
-    _typ: _ClassVar[str] = ...
-    _data_cls: _ClassVar[tuple] = ...
-    _id: _ClassVar[None] = ...
-    _name: _ClassVar[None] = ...
-    _no_setting_name: _ClassVar[bool] = ...
-    _comparables: _ClassVar[list] = ...
-    _attributes: _ClassVar[list] = ...
-    _engine_types: _ClassVar[dict] = ...
-    _supports_partial_string_indexing: _ClassVar[bool] = ...
-    _accessors: _ClassVar[set] = ...
-    str: _ClassVar[type[pandas.core.strings.accessor.StringMethods]] = ...
-    _references: _ClassVar[None] = ...
-    _default_na_rep: _ClassVar[str] = ...
-    _requires_unique_msg: _ClassVar[str] = ...
-    _can_hold_strings: Incomplete
-    _constructor: Incomplete
-    _engine: Incomplete
-    _dir_additions_for_owner: Incomplete
-    dtype: Incomplete
-    name: Incomplete
-    names: Incomplete
-    _can_hold_na: Incomplete
-    is_unique: Incomplete
-    inferred_type: Incomplete
-    _is_all_dates: Incomplete
-    _is_multi: Incomplete
-    _na_value: Incomplete
-    _isnan: Incomplete
-    hasnans: Incomplete
-    _can_use_libjoin: Incomplete
-    array: Incomplete
-    _should_fallback_to_positional: Incomplete
+str_t = str
+
+class Index(IndexOpsMixin, PandasObject):
+    '''
+    Immutable sequence used for indexing and alignment.
+
+    The basic object storing axis labels for all pandas objects.
+
+    .. versionchanged:: 2.0.0
+
+       Index can hold all numpy numeric dtypes (except float16). Previously only
+       int64/uint64/float64 dtypes were accepted.
+
+    Parameters
+    ----------
+    data : array-like (1-dimensional)
+    dtype : str, numpy.dtype, or ExtensionDtype, optional
+        Data type for the output Index. If not specified, this will be
+        inferred from `data`.
+        See the :ref:`user guide <basics.dtypes>` for more usages.
+    copy : bool, default False
+        Copy input data.
+    name : object
+        Name to be stored in the index.
+    tupleize_cols : bool (default: True)
+        When True, attempt to create a MultiIndex if possible.
+
+    See Also
+    --------
+    RangeIndex : Index implementing a monotonic integer range.
+    CategoricalIndex : Index of :class:`Categorical` s.
+    MultiIndex : A multi-level, or hierarchical Index.
+    IntervalIndex : An Index of :class:`Interval` s.
+    DatetimeIndex : Index of datetime64 data.
+    TimedeltaIndex : Index of timedelta64 data.
+    PeriodIndex : Index of Period data.
+
+    Notes
+    -----
+    An Index instance can **only** contain hashable objects.
+    An Index instance *can not* hold numpy float16 dtype.
+
+    Examples
+    --------
+    >>> pd.Index([1, 2, 3])
+    Index([1, 2, 3], dtype=\'int64\')
+
+    >>> pd.Index(list(\'abc\'))
+    Index([\'a\', \'b\', \'c\'], dtype=\'object\')
+
+    >>> pd.Index([1, 2, 3], dtype="uint8")
+    Index([1, 2, 3], dtype=\'uint8\')
+    '''
+    __pandas_priority__: int
     def _left_indexer_unique(self, other: Self) -> npt.NDArray[np.intp]: ...
     def _left_indexer(self, other: Self) -> tuple[ArrayLike, npt.NDArray[np.intp], npt.NDArray[np.intp]]: ...
     def _inner_indexer(self, other: Self) -> tuple[ArrayLike, npt.NDArray[np.intp], npt.NDArray[np.intp]]: ...
     def _outer_indexer(self, other: Self) -> tuple[ArrayLike, npt.NDArray[np.intp], npt.NDArray[np.intp]]: ...
-    @classmethod
-    def __init__(cls, data, dtype, copy: bool = ..., name, tupleize_cols: bool = ...) -> Self: ...
+    _typ: str
+    _data: ExtensionArray | np.ndarray
+    _data_cls: type[ExtensionArray] | tuple[type[np.ndarray], type[ExtensionArray]]
+    _id: object | None
+    _name: Hashable
+    _no_setting_name: bool
+    _comparables: list[str]
+    _attributes: list[str]
+    def _can_hold_strings(self) -> bool: ...
+    _engine_types: dict[np.dtype | ExtensionDtype, type[libindex.IndexEngine]]
+    @property
+    def _engine_type(self) -> type[libindex.IndexEngine | libindex.ExtensionEngine]: ...
+    _supports_partial_string_indexing: bool
+    _accessors: Incomplete
+    str: Incomplete
+    _references: Incomplete
+    def __new__(cls, data: Incomplete | None = None, dtype: Incomplete | None = None, copy: bool = False, name: Incomplete | None = None, tupleize_cols: bool = True) -> Self: ...
     @classmethod
     def _ensure_array(cls, data, dtype, copy: bool):
         """
@@ -71,7 +97,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
     @classmethod
     def _dtype_to_subclass(cls, dtype: DtypeObj): ...
     @classmethod
-    def _simple_new(cls, values: ArrayLike, name: Hashable | None, refs) -> Self:
+    def _simple_new(cls, values: ArrayLike, name: Hashable | None = None, refs: Incomplete | None = None) -> Self:
         """
         We require that we have a dtype compat for the values. If we are passed
         a non-dtype compat, then coerce using the constructor.
@@ -84,6 +110,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         Constructor that uses the 1.0.x behavior inferring numeric dtypes
         for ndarray[object] inputs.
         """
+    def _constructor(self) -> type[Self]: ...
     def _maybe_check_unique(self) -> None:
         """
         Check that an Index has no duplicates.
@@ -169,20 +196,39 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         Initializes or resets ``_id`` attribute with new object.
         """
     def _cleanup(self) -> None: ...
+    def _engine(self) -> libindex.IndexEngine | libindex.ExtensionEngine | libindex.MaskedIndexEngine: ...
+    def _dir_additions_for_owner(self) -> set[str_t]:
+        """
+        Add the string-like labels to the owner dataframe/series dir output.
+
+        If this is a MultiIndex, it's first level values are used.
+        """
     def __len__(self) -> int:
         """
         Return the length of the Index.
         """
-    def __array__(self, dtype, copy) -> np.ndarray:
+    def __array__(self, dtype: Incomplete | None = None, copy: Incomplete | None = None) -> np.ndarray:
         """
         The array interface, return my values.
         """
     def __array_ufunc__(self, ufunc: np.ufunc, method: str_t, *inputs, **kwargs): ...
-    def __array_wrap__(self, result, context, return_scalar: bool = ...):
+    def __array_wrap__(self, result, context: Incomplete | None = None, return_scalar: bool = False):
         """
         Gets called after a ufunc and other functions e.g. np.split.
         """
-    def ravel(self, order: str_t = ...) -> Self:
+    def dtype(self) -> DtypeObj:
+        """
+        Return the dtype object of the underlying data.
+
+        Examples
+        --------
+        >>> idx = pd.Index([1, 2, 3])
+        >>> idx
+        Index([1, 2, 3], dtype='int64')
+        >>> idx.dtype
+        dtype('int64')
+        """
+    def ravel(self, order: str_t = 'C') -> Self:
         """
         Return a view on self.
 
@@ -200,8 +246,8 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> s.index.ravel()
         Index(['a', 'b', 'c'], dtype='object')
         """
-    def view(self, cls): ...
-    def astype(self, dtype, copy: bool = ...):
+    def view(self, cls: Incomplete | None = None): ...
+    def astype(self, dtype, copy: bool = True):
         """
         Create an Index with values cast to dtypes.
 
@@ -233,83 +279,14 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> idx.astype('float')
         Index([1.0, 2.0, 3.0], dtype='float64')
         """
-    def take(self, indices, axis: Axis = ..., allow_fill: bool = ..., fill_value, **kwargs) -> Self:
-        """
-        Return a new Index of the values selected by the indices.
-
-        For internal compatibility with numpy arrays.
-
-        Parameters
-        ----------
-        indices : array-like
-            Indices to be taken.
-        axis : int, optional
-            The axis over which to select values, always 0.
-        allow_fill : bool, default True
-        fill_value : scalar, default None
-            If allow_fill=True and fill_value is not None, indices specified by
-            -1 are regarded as NA. If Index doesn't hold NA, raise ValueError.
-
-        Returns
-        -------
-        Index
-            An index formed of elements at the given indices. Will be the same
-            type as self, except for RangeIndex.
-
-        See Also
-        --------
-        numpy.ndarray.take: Return an array formed from the
-            elements of a at the given indices.
-
-        Examples
-        --------
-        >>> idx = pd.Index(['a', 'b', 'c'])
-        >>> idx.take([2, 2, 1, 2])
-        Index(['c', 'c', 'b', 'c'], dtype='object')
-        """
+    def take(self, indices, axis: Axis = 0, allow_fill: bool = True, fill_value: Incomplete | None = None, **kwargs) -> Self: ...
     def _maybe_disallow_fill(self, allow_fill: bool, fill_value, indices) -> bool:
         """
         We only use pandas-style take when allow_fill is True _and_
         fill_value is not None.
         """
-    def repeat(self, repeats, axis: None) -> Self:
-        """
-        Repeat elements of a Index.
-
-        Returns a new Index where each element of the current Index
-        is repeated consecutively a given number of times.
-
-        Parameters
-        ----------
-        repeats : int or array of ints
-            The number of repetitions for each element. This should be a
-            non-negative integer. Repeating 0 times will return an empty
-            Index.
-        axis : None
-            Must be ``None``. Has no effect but is accepted for compatibility
-            with numpy.
-
-        Returns
-        -------
-        Index
-            Newly created Index with repeated elements.
-
-        See Also
-        --------
-        Series.repeat : Equivalent function for Series.
-        numpy.repeat : Similar method for :class:`numpy.ndarray`.
-
-        Examples
-        --------
-        >>> idx = pd.Index(['a', 'b', 'c'])
-        >>> idx
-        Index(['a', 'b', 'c'], dtype='object')
-        >>> idx.repeat(2)
-        Index(['a', 'a', 'b', 'b', 'c', 'c'], dtype='object')
-        >>> idx.repeat([1, 2, 3])
-        Index(['a', 'b', 'b', 'c', 'c', 'c'], dtype='object')
-        """
-    def copy(self, name: Hashable | None, deep: bool = ...) -> Self:
+    def repeat(self, repeats, axis: None = None) -> Self: ...
+    def copy(self, name: Hashable | None = None, deep: bool = False) -> Self:
         """
         Make a copy of this object.
 
@@ -339,14 +316,23 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         False
         """
     def __copy__(self, **kwargs) -> Self: ...
-    def __deepcopy__(self, memo) -> Self:
+    def __deepcopy__(self, memo: Incomplete | None = None) -> Self:
         """
         Parameters
         ----------
         memo, default None
             Standard signature. Unused
         """
-    def _format_data(self, name) -> str_t:
+    def __repr__(self) -> str_t:
+        """
+        Return a string representation for this object.
+        """
+    @property
+    def _formatter_func(self):
+        """
+        Return the formatter function.
+        """
+    def _format_data(self, name: Incomplete | None = None) -> str_t:
         """
         Return the formatted data as a unicode string.
         """
@@ -359,17 +345,18 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         Return a name or list of names with None replaced by the level number.
         """
     def _mpl_repr(self) -> np.ndarray: ...
-    def format(self, name: bool = ..., formatter: Callable | None, na_rep: str_t = ...) -> list[str_t]:
+    def format(self, name: bool = False, formatter: Callable | None = None, na_rep: str_t = 'NaN') -> list[str_t]:
         """
         Render a string representation of the Index.
         """
-    def _format_flat(self, *, include_name: bool, formatter: Callable | None) -> list[str_t]:
+    _default_na_rep: str
+    def _format_flat(self, *, include_name: bool, formatter: Callable | None = None) -> list[str_t]:
         """
         Render a string representation of the Index.
         """
     def _format_with_header(self, *, header: list[str_t], na_rep: str_t) -> list[str_t]: ...
-    def _get_values_for_csv(self, *, na_rep: str_t = ..., decimal: str_t = ..., float_format, date_format, quoting) -> npt.NDArray[np.object_]: ...
-    def _summary(self, name) -> str_t:
+    def _get_values_for_csv(self, *, na_rep: str_t = '', decimal: str_t = '.', float_format: Incomplete | None = None, date_format: Incomplete | None = None, quoting: Incomplete | None = None) -> npt.NDArray[np.object_]: ...
+    def _summary(self, name: Incomplete | None = None) -> str_t:
         """
         Return a summarized representation.
 
@@ -398,7 +385,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         --------
         MultiIndex.to_flat_index : Subclass implementation.
         """
-    def to_series(self, index, name: Hashable | None) -> Series:
+    def to_series(self, index: Incomplete | None = None, name: Hashable | None = None) -> Series:
         """
         Create a Series with both index and values equal to the index keys.
 
@@ -452,7 +439,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         Cow      Cow
         Name: zoo, dtype: object
         """
-    def to_frame(self, index: bool = ..., name: Hashable = ...) -> DataFrame:
+    def to_frame(self, index: bool = True, name: Hashable = ...) -> DataFrame:
         """
         Create a DataFrame with a column containing the Index.
 
@@ -501,12 +488,27 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         1  Bear
         2   Cow
         """
-    def _validate_names(self, name, names, deep: bool = ...) -> list[Hashable]:
+    @property
+    def name(self) -> Hashable:
+        """
+        Return Index or MultiIndex name.
+
+        Examples
+        --------
+        >>> idx = pd.Index([1, 2, 3], name='x')
+        >>> idx
+        Index([1, 2, 3], dtype='int64',  name='x')
+        >>> idx.name
+        'x'
+        """
+    @name.setter
+    def name(self, value: Hashable) -> None: ...
+    def _validate_names(self, name: Incomplete | None = None, names: Incomplete | None = None, deep: bool = False) -> list[Hashable]:
         """
         Handles the quirks of having a singular 'name' parameter for general
         Index and plural 'names' parameter for MultiIndex.
         """
-    def _get_default_index_names(self, names: Hashable | Sequence[Hashable] | None, default) -> list[Hashable]:
+    def _get_default_index_names(self, names: Hashable | Sequence[Hashable] | None = None, default: Incomplete | None = None) -> list[Hashable]:
         """
         Get names of index.
 
@@ -523,7 +525,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
             if names not str or list-like
         """
     def _get_names(self) -> FrozenList: ...
-    def _set_names(self, values, *, level) -> None:
+    def _set_names(self, values, *, level: Incomplete | None = None) -> None:
         """
         Set new names on index. Each name has to be a hashable type.
 
@@ -539,120 +541,21 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         ------
         TypeError if each name is not hashable.
         """
-    def set_names(self, names, *, level, inplace: bool = ...) -> Self | None:
+    names: Incomplete
+    @overload
+    def set_names(self, names, *, level=..., inplace: Literal[False] = ...) -> Self: ...
+    @overload
+    def set_names(self, names, *, level=..., inplace: Literal[True]) -> None: ...
+    @overload
+    def set_names(self, names, *, level=..., inplace: bool = ...) -> Self | None: ...
+    @overload
+    def rename(self, name, *, inplace: Literal[False] = ...) -> Self: ...
+    @overload
+    def rename(self, name, *, inplace: Literal[True]) -> None: ...
+    @property
+    def nlevels(self) -> int:
         """
-        Set Index or MultiIndex name.
-
-        Able to set new names partially and by level.
-
-        Parameters
-        ----------
-
-        names : label or list of label or dict-like for MultiIndex
-            Name(s) to set.
-
-            .. versionchanged:: 1.3.0
-
-        level : int, label or list of int or label, optional
-            If the index is a MultiIndex and names is not dict-like, level(s) to set
-            (None for all levels). Otherwise level must be None.
-
-            .. versionchanged:: 1.3.0
-
-        inplace : bool, default False
-            Modifies the object directly, instead of creating a new Index or
-            MultiIndex.
-
-        Returns
-        -------
-        Index or None
-            The same type as the caller or None if ``inplace=True``.
-
-        See Also
-        --------
-        Index.rename : Able to set new names without level.
-
-        Examples
-        --------
-        >>> idx = pd.Index([1, 2, 3, 4])
-        >>> idx
-        Index([1, 2, 3, 4], dtype='int64')
-        >>> idx.set_names('quarter')
-        Index([1, 2, 3, 4], dtype='int64', name='quarter')
-
-        >>> idx = pd.MultiIndex.from_product([['python', 'cobra'],
-        ...                                   [2018, 2019]])
-        >>> idx
-        MultiIndex([('python', 2018),
-                    ('python', 2019),
-                    ( 'cobra', 2018),
-                    ( 'cobra', 2019)],
-                   )
-        >>> idx = idx.set_names(['kind', 'year'])
-        >>> idx.set_names('species', level=0)
-        MultiIndex([('python', 2018),
-                    ('python', 2019),
-                    ( 'cobra', 2018),
-                    ( 'cobra', 2019)],
-                   names=['species', 'year'])
-
-        When renaming levels with a dict, levels can not be passed.
-
-        >>> idx.set_names({'kind': 'snake'})
-        MultiIndex([('python', 2018),
-                    ('python', 2019),
-                    ( 'cobra', 2018),
-                    ( 'cobra', 2019)],
-                   names=['snake', 'year'])
-        """
-    def rename(self, name, *, inplace: bool = ...) -> Self | None:
-        """
-        Alter Index or MultiIndex name.
-
-        Able to set new names without level. Defaults to returning new index.
-        Length of names must match number of levels in MultiIndex.
-
-        Parameters
-        ----------
-        name : label or list of labels
-            Name(s) to set.
-        inplace : bool, default False
-            Modifies the object directly, instead of creating a new Index or
-            MultiIndex.
-
-        Returns
-        -------
-        Index or None
-            The same type as the caller or None if ``inplace=True``.
-
-        See Also
-        --------
-        Index.set_names : Able to set new names partially and by level.
-
-        Examples
-        --------
-        >>> idx = pd.Index(['A', 'C', 'A', 'B'], name='score')
-        >>> idx.rename('grade')
-        Index(['A', 'C', 'A', 'B'], dtype='object', name='grade')
-
-        >>> idx = pd.MultiIndex.from_product([['python', 'cobra'],
-        ...                                   [2018, 2019]],
-        ...                                   names=['kind', 'year'])
-        >>> idx
-        MultiIndex([('python', 2018),
-                    ('python', 2019),
-                    ( 'cobra', 2018),
-                    ( 'cobra', 2019)],
-                   names=['kind', 'year'])
-        >>> idx.rename(['species', 'year'])
-        MultiIndex([('python', 2018),
-                    ('python', 2019),
-                    ( 'cobra', 2018),
-                    ( 'cobra', 2019)],
-                   names=['species', 'year'])
-        >>> idx.rename('species')
-        Traceback (most recent call last):
-        TypeError: Must pass list-like as `names`.
+        Number of levels.
         """
     def _sort_levels_monotonic(self) -> Self:
         """
@@ -667,7 +570,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
 
         """
     def _get_level_number(self, level) -> int: ...
-    def sortlevel(self, level, ascending: bool | list[bool] = ..., sort_remaining, na_position: NaPosition = ...):
+    def sortlevel(self, level: Incomplete | None = None, ascending: bool | list[bool] = True, sort_remaining: Incomplete | None = None, na_position: NaPosition = 'first'):
         """
         For internal compatibility with the Index API.
 
@@ -725,43 +628,8 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> idx.get_level_values(0)
         Index(['a', 'b', 'c'], dtype='object')
         """
-    def get_level_values(self, level) -> Index:
-        """
-        Return an Index of values for requested level.
-
-        This is primarily useful to get an individual level of values from a
-        MultiIndex, but is provided on Index as well for compatibility.
-
-        Parameters
-        ----------
-        level : int or str
-            It is either the integer position or the name of the level.
-
-        Returns
-        -------
-        Index
-            Calling object, as there is only one level in the Index.
-
-        See Also
-        --------
-        MultiIndex.get_level_values : Get values for a level of a MultiIndex.
-
-        Notes
-        -----
-        For Index, level should be 0, since there are no multiple levels.
-
-        Examples
-        --------
-        >>> idx = pd.Index(list('abc'))
-        >>> idx
-        Index(['a', 'b', 'c'], dtype='object')
-
-        Get level values by supplying `level` as integer:
-
-        >>> idx.get_level_values(0)
-        Index(['a', 'b', 'c'], dtype='object')
-        """
-    def droplevel(self, level: IndexLabel = ...):
+    get_level_values = _get_level_values
+    def droplevel(self, level: IndexLabel = 0):
         """
         Return index with requested level(s) removed.
 
@@ -809,6 +677,147 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         """
         Drop MultiIndex levels by level _number_, not name.
         """
+    def _can_hold_na(self) -> bool: ...
+    @property
+    def is_monotonic_increasing(self) -> bool:
+        """
+        Return a boolean if the values are equal or increasing.
+
+        Returns
+        -------
+        bool
+
+        See Also
+        --------
+        Index.is_monotonic_decreasing : Check if the values are equal or decreasing.
+
+        Examples
+        --------
+        >>> pd.Index([1, 2, 3]).is_monotonic_increasing
+        True
+        >>> pd.Index([1, 2, 2]).is_monotonic_increasing
+        True
+        >>> pd.Index([1, 3, 2]).is_monotonic_increasing
+        False
+        """
+    @property
+    def is_monotonic_decreasing(self) -> bool:
+        """
+        Return a boolean if the values are equal or decreasing.
+
+        Returns
+        -------
+        bool
+
+        See Also
+        --------
+        Index.is_monotonic_increasing : Check if the values are equal or increasing.
+
+        Examples
+        --------
+        >>> pd.Index([3, 2, 1]).is_monotonic_decreasing
+        True
+        >>> pd.Index([3, 2, 2]).is_monotonic_decreasing
+        True
+        >>> pd.Index([3, 1, 2]).is_monotonic_decreasing
+        False
+        """
+    @property
+    def _is_strictly_monotonic_increasing(self) -> bool:
+        """
+        Return if the index is strictly monotonic increasing
+        (only increasing) values.
+
+        Examples
+        --------
+        >>> Index([1, 2, 3])._is_strictly_monotonic_increasing
+        True
+        >>> Index([1, 2, 2])._is_strictly_monotonic_increasing
+        False
+        >>> Index([1, 3, 2])._is_strictly_monotonic_increasing
+        False
+        """
+    @property
+    def _is_strictly_monotonic_decreasing(self) -> bool:
+        """
+        Return if the index is strictly monotonic decreasing
+        (only decreasing) values.
+
+        Examples
+        --------
+        >>> Index([3, 2, 1])._is_strictly_monotonic_decreasing
+        True
+        >>> Index([3, 2, 2])._is_strictly_monotonic_decreasing
+        False
+        >>> Index([3, 1, 2])._is_strictly_monotonic_decreasing
+        False
+        """
+    def is_unique(self) -> bool:
+        '''
+        Return if the index has unique values.
+
+        Returns
+        -------
+        bool
+
+        See Also
+        --------
+        Index.has_duplicates : Inverse method that checks if it has duplicate values.
+
+        Examples
+        --------
+        >>> idx = pd.Index([1, 5, 7, 7])
+        >>> idx.is_unique
+        False
+
+        >>> idx = pd.Index([1, 5, 7])
+        >>> idx.is_unique
+        True
+
+        >>> idx = pd.Index(["Watermelon", "Orange", "Apple",
+        ...                 "Watermelon"]).astype("category")
+        >>> idx.is_unique
+        False
+
+        >>> idx = pd.Index(["Orange", "Apple",
+        ...                 "Watermelon"]).astype("category")
+        >>> idx.is_unique
+        True
+        '''
+    @property
+    def has_duplicates(self) -> bool:
+        '''
+        Check if the Index has duplicate values.
+
+        Returns
+        -------
+        bool
+            Whether or not the Index has duplicate values.
+
+        See Also
+        --------
+        Index.is_unique : Inverse method that checks if it has unique values.
+
+        Examples
+        --------
+        >>> idx = pd.Index([1, 5, 7, 7])
+        >>> idx.has_duplicates
+        True
+
+        >>> idx = pd.Index([1, 5, 7])
+        >>> idx.has_duplicates
+        False
+
+        >>> idx = pd.Index(["Watermelon", "Orange", "Apple",
+        ...                 "Watermelon"]).astype("category")
+        >>> idx.has_duplicates
+        True
+
+        >>> idx = pd.Index(["Orange", "Apple",
+        ...                 "Watermelon"]).astype("category")
+        >>> idx.has_duplicates
+        False
+        '''
     def is_boolean(self) -> bool:
         '''
         Check if the Index only consists of booleans.
@@ -1092,7 +1101,54 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         .. deprecated:: 2.0.0
             Use `pandas.api.types.infer_dtype` instead
         """
+    def inferred_type(self) -> str_t:
+        """
+        Return a string of the type inferred from the values.
+
+        Examples
+        --------
+        >>> idx = pd.Index([1, 2, 3])
+        >>> idx
+        Index([1, 2, 3], dtype='int64')
+        >>> idx.inferred_type
+        'integer'
+        """
+    def _is_all_dates(self) -> bool:
+        """
+        Whether or not the index values only consist of dates.
+        """
+    def _is_multi(self) -> bool:
+        """
+        Cached check equivalent to isinstance(self, MultiIndex)
+        """
     def __reduce__(self): ...
+    def _na_value(self):
+        """The expected NA value to use with this index."""
+    def _isnan(self) -> npt.NDArray[np.bool_]:
+        """
+        Return if each value is NaN.
+        """
+    def hasnans(self) -> bool:
+        """
+        Return True if there are any NaNs.
+
+        Enables various performance speedups.
+
+        Returns
+        -------
+        bool
+
+        Examples
+        --------
+        >>> s = pd.Series([1, 2, 3], index=['a', 'b', None])
+        >>> s
+        a    1
+        b    2
+        None 3
+        dtype: int64
+        >>> s.index.hasnans
+        True
+        """
     def isna(self) -> npt.NDArray[np.bool_]:
         """
         Detect missing values.
@@ -1145,58 +1201,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> idx.isna()
         array([False,  True,  True,  True])
         """
-    def isnull(self) -> npt.NDArray[np.bool_]:
-        """
-        Detect missing values.
-
-        Return a boolean same-sized object indicating if the values are NA.
-        NA values, such as ``None``, :attr:`numpy.NaN` or :attr:`pd.NaT`, get
-        mapped to ``True`` values.
-        Everything else get mapped to ``False`` values. Characters such as
-        empty strings `''` or :attr:`numpy.inf` are not considered NA values.
-
-        Returns
-        -------
-        numpy.ndarray[bool]
-            A boolean array of whether my values are NA.
-
-        See Also
-        --------
-        Index.notna : Boolean inverse of isna.
-        Index.dropna : Omit entries with missing values.
-        isna : Top-level isna.
-        Series.isna : Detect missing values in Series object.
-
-        Examples
-        --------
-        Show which entries in a pandas.Index are NA. The result is an
-        array.
-
-        >>> idx = pd.Index([5.2, 6.0, np.nan])
-        >>> idx
-        Index([5.2, 6.0, nan], dtype='float64')
-        >>> idx.isna()
-        array([False, False,  True])
-
-        Empty strings are not considered NA values. None is considered an NA
-        value.
-
-        >>> idx = pd.Index(['black', '', 'red', None])
-        >>> idx
-        Index(['black', '', 'red', None], dtype='object')
-        >>> idx.isna()
-        array([False, False, False,  True])
-
-        For datetimes, `NaT` (Not a Time) is considered as an NA value.
-
-        >>> idx = pd.DatetimeIndex([pd.Timestamp('1940-04-25'),
-        ...                         pd.Timestamp(''), None, pd.NaT])
-        >>> idx
-        DatetimeIndex(['1940-04-25', 'NaT', 'NaT', 'NaT'],
-                      dtype='datetime64[ns]', freq=None)
-        >>> idx.isna()
-        array([False,  True,  True,  True])
-        """
+    isnull = isna
     def notna(self) -> npt.NDArray[np.bool_]:
         """
         Detect existing (non-missing) values.
@@ -1238,48 +1243,8 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> idx.notna()
         array([ True,  True,  True, False])
         """
-    def notnull(self) -> npt.NDArray[np.bool_]:
-        """
-        Detect existing (non-missing) values.
-
-        Return a boolean same-sized object indicating if the values are not NA.
-        Non-missing values get mapped to ``True``. Characters such as empty
-        strings ``''`` or :attr:`numpy.inf` are not considered NA values.
-        NA values, such as None or :attr:`numpy.NaN`, get mapped to ``False``
-        values.
-
-        Returns
-        -------
-        numpy.ndarray[bool]
-            Boolean array to indicate which entries are not NA.
-
-        See Also
-        --------
-        Index.notnull : Alias of notna.
-        Index.isna: Inverse of notna.
-        notna : Top-level notna.
-
-        Examples
-        --------
-        Show which entries in an Index are not NA. The result is an
-        array.
-
-        >>> idx = pd.Index([5.2, 6.0, np.nan])
-        >>> idx
-        Index([5.2, 6.0, nan], dtype='float64')
-        >>> idx.notna()
-        array([ True,  True, False])
-
-        Empty strings are not considered NA values. None is considered a NA
-        value.
-
-        >>> idx = pd.Index(['black', '', 'red', None])
-        >>> idx
-        Index(['black', '', 'red', None], dtype='object')
-        >>> idx.notna()
-        array([ True,  True,  True, False])
-        """
-    def fillna(self, value, downcast: pandas._libs.lib._NoDefault = ...):
+    notnull = notna
+    def fillna(self, value: Incomplete | None = None, downcast=...):
         """
         Fill NA/NaN values with the specified value.
 
@@ -1310,7 +1275,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> idx.fillna(0)
         Index([0.0, 0.0, 3.0], dtype='float64')
         """
-    def dropna(self, how: AnyAll = ...) -> Self:
+    def dropna(self, how: AnyAll = 'any') -> Self:
         """
         Return Index without NA/NaN values.
 
@@ -1330,7 +1295,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> idx.dropna()
         Index([1.0, 3.0], dtype='float64')
         """
-    def unique(self, level: Hashable | None) -> Self:
+    def unique(self, level: Hashable | None = None) -> Self:
         """
         Return unique values in the index.
 
@@ -1357,7 +1322,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> idx.unique()
         Index([1, 2, 3], dtype='int64')
         """
-    def drop_duplicates(self, *, keep: DropKeep = ...) -> Self:
+    def drop_duplicates(self, *, keep: DropKeep = 'first') -> Self:
         """
         Return Index with duplicate values removed.
 
@@ -1403,7 +1368,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> idx.drop_duplicates(keep=False)
         Index(['cow', 'beetle', 'hippo'], dtype='object')
         """
-    def duplicated(self, keep: DropKeep = ...) -> npt.NDArray[np.bool_]:
+    def duplicated(self, keep: DropKeep = 'first') -> npt.NDArray[np.bool_]:
         """
         Indicate duplicate index values.
 
@@ -1459,19 +1424,19 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         """
     def __iadd__(self, other): ...
     def __nonzero__(self) -> NoReturn: ...
-    def __bool__(self) -> NoReturn: ...
+    __bool__ = __nonzero__
     def _get_reconciled_name_object(self, other):
         """
         If the result of a set operation will be self,
         return self, unless the name changes, in which
         case make a shallow copy of self.
         """
-    def _validate_sort_keyword(self, sort): ...
+    def _validate_sort_keyword(self, sort) -> None: ...
     def _dti_setop_align_tzs(self, other: Index, setop: str_t) -> tuple[Index, Index]:
         """
         With mismatched timezones, cast both to UTC.
         """
-    def union(self, other, sort):
+    def union(self, other, sort: Incomplete | None = None):
         '''
         Form the union of two Index objects.
 
@@ -1574,7 +1539,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         Index
         """
     def _wrap_setop_result(self, other: Index, result) -> Index: ...
-    def intersection(self, other, sort: bool = ...):
+    def intersection(self, other, sort: bool = False):
         """
         Form the intersection of two Index objects.
 
@@ -1602,7 +1567,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> idx1.intersection(idx2)
         Index([3, 4], dtype='int64')
         """
-    def _intersection(self, other: Index, sort: bool = ...):
+    def _intersection(self, other: Index, sort: bool = False):
         """
         intersection specialized to the case with matching dtypes.
         """
@@ -1616,7 +1581,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         np.ndarray or ExtensionArray or MultiIndex
             The returned array will be unique.
         """
-    def difference(self, other, sort):
+    def difference(self, other, sort: Incomplete | None = None):
         """
         Return a new Index with elements of index not in `other`.
 
@@ -1650,7 +1615,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         """
     def _difference(self, other, sort): ...
     def _wrap_difference_result(self, other, result): ...
-    def symmetric_difference(self, other, result_name, sort):
+    def symmetric_difference(self, other, result_name: Incomplete | None = None, sort: Incomplete | None = None):
         """
         Compute the symmetric difference of two Index objects.
 
@@ -1714,7 +1679,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> non_monotonic_index.get_loc('b')
         array([False,  True, False,  True])
         """
-    def get_indexer(self, target, method: ReindexMethod | None, limit: int | None, tolerance) -> npt.NDArray[np.intp]:
+    def get_indexer(self, target, method: ReindexMethod | None = None, limit: int | None = None, tolerance: Incomplete | None = None) -> npt.NDArray[np.intp]:
         """
         Compute indexer and mask for new index given the current index.
 
@@ -1765,18 +1730,18 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         Notice that the return value is an array of locations in ``index``
         and ``x`` is marked by -1, as it is not in ``index``.
         """
-    def _get_indexer(self, target: Index, method: str_t | None, limit: int | None, tolerance) -> npt.NDArray[np.intp]: ...
+    def _get_indexer(self, target: Index, method: str_t | None = None, limit: int | None = None, tolerance: Incomplete | None = None) -> npt.NDArray[np.intp]: ...
     def _should_partial_index(self, target: Index) -> bool:
         """
         Should we attempt partial-matching indexing?
         """
-    def _check_indexing_method(self, method: str_t | None, limit: int | None, tolerance) -> None:
+    def _check_indexing_method(self, method: str_t | None, limit: int | None = None, tolerance: Incomplete | None = None) -> None:
         """
         Raise if we have a get_indexer `method` that is not supported or valid.
         """
     def _convert_tolerance(self, tolerance, target: np.ndarray | Index) -> np.ndarray: ...
-    def _get_fill_indexer(self, target: Index, method: str_t, limit: int | None, tolerance) -> npt.NDArray[np.intp]: ...
-    def _get_fill_indexer_searchsorted(self, target: Index, method: str_t, limit: int | None) -> npt.NDArray[np.intp]:
+    def _get_fill_indexer(self, target: Index, method: str_t, limit: int | None = None, tolerance: Incomplete | None = None) -> npt.NDArray[np.intp]: ...
+    def _get_fill_indexer_searchsorted(self, target: Index, method: str_t, limit: int | None = None) -> npt.NDArray[np.intp]:
         """
         Fallback pad/backfill get_indexer that works for monotonic decreasing
         indexes and non-monotonic targets.
@@ -1822,7 +1787,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         ------
         ValueError if its a duplicate axis
         """
-    def reindex(self, target, method: ReindexMethod | None, level, limit: int | None, tolerance: float | None) -> tuple[Index, npt.NDArray[np.intp] | None]:
+    def reindex(self, target, method: ReindexMethod | None = None, level: Incomplete | None = None, limit: int | None = None, tolerance: float | None = None) -> tuple[Index, npt.NDArray[np.intp] | None]:
         """
         Create index with target's values.
 
@@ -1900,36 +1865,17 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         new_indexer : np.ndarray[np.intp] or None
 
         """
-    def join(self, other: Index, *, how: JoinHow = ..., level: Level | None, return_indexers: bool = ..., sort: bool = ...) -> Index | tuple[Index, npt.NDArray[np.intp] | None, npt.NDArray[np.intp] | None]:
-        """
-        Compute join_index and indexers to conform data structures to the new index.
-
-        Parameters
-        ----------
-        other : Index
-        how : {'left', 'right', 'inner', 'outer'}
-        level : int or level name, default None
-        return_indexers : bool, default False
-        sort : bool, default False
-            Sort the join keys lexicographically in the result Index. If False,
-            the order of the join keys depends on the join type (how keyword).
-
-        Returns
-        -------
-        join_index, (left_indexer, right_indexer)
-
-        Examples
-        --------
-        >>> idx1 = pd.Index([1, 2, 3])
-        >>> idx2 = pd.Index([4, 5, 6])
-        >>> idx1.join(idx2, how='outer')
-        Index([1, 2, 3, 4, 5, 6], dtype='int64')
-        """
+    @overload
+    def join(self, other: Index, *, how: JoinHow = ..., level: Level = ..., return_indexers: Literal[True], sort: bool = ...) -> tuple[Index, npt.NDArray[np.intp] | None, npt.NDArray[np.intp] | None]: ...
+    @overload
+    def join(self, other: Index, *, how: JoinHow = ..., level: Level = ..., return_indexers: Literal[False] = ..., sort: bool = ...) -> Index: ...
+    @overload
+    def join(self, other: Index, *, how: JoinHow = ..., level: Level = ..., return_indexers: bool = ..., sort: bool = ...) -> Index | tuple[Index, npt.NDArray[np.intp] | None, npt.NDArray[np.intp] | None]: ...
     def _join_empty(self, other: Index, how: JoinHow, sort: bool) -> tuple[Index, npt.NDArray[np.intp] | None, npt.NDArray[np.intp] | None]: ...
     def _join_via_get_indexer(self, other: Index, how: JoinHow, sort: bool) -> tuple[Index, npt.NDArray[np.intp] | None, npt.NDArray[np.intp] | None]: ...
     def _join_multi(self, other: Index, how: JoinHow): ...
-    def _join_non_unique(self, other: Index, how: JoinHow = ..., sort: bool = ...) -> tuple[Index, npt.NDArray[np.intp], npt.NDArray[np.intp]]: ...
-    def _join_level(self, other: Index, level, how: JoinHow = ..., keep_order: bool = ...) -> tuple[MultiIndex, npt.NDArray[np.intp] | None, npt.NDArray[np.intp] | None]:
+    def _join_non_unique(self, other: Index, how: JoinHow = 'left', sort: bool = False) -> tuple[Index, npt.NDArray[np.intp], npt.NDArray[np.intp]]: ...
+    def _join_level(self, other: Index, level, how: JoinHow = 'left', keep_order: bool = True) -> tuple[MultiIndex, npt.NDArray[np.intp] | None, npt.NDArray[np.intp] | None]:
         """
         The join method *only* affects the level of the resulting
         MultiIndex. Otherwise it just exactly aligns the Index data to the
@@ -1939,8 +1885,80 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         MultiIndex will not be changed; otherwise, it will tie out
         with `other`.
         """
-    def _join_monotonic(self, other: Index, how: JoinHow = ...) -> tuple[Index, npt.NDArray[np.intp] | None, npt.NDArray[np.intp] | None]: ...
+    def _join_monotonic(self, other: Index, how: JoinHow = 'left') -> tuple[Index, npt.NDArray[np.intp] | None, npt.NDArray[np.intp] | None]: ...
     def _wrap_joined_index(self, joined: ArrayLike, other: Self, lidx: npt.NDArray[np.intp], ridx: npt.NDArray[np.intp]) -> Self: ...
+    def _can_use_libjoin(self) -> bool:
+        """
+        Whether we can use the fastpaths implemented in _libs.join.
+
+        This is driven by whether (in monotonic increasing cases that are
+        guaranteed not to have NAs) we can convert to a np.ndarray without
+        making a copy. If we cannot, this negates the performance benefit
+        of using libjoin.
+        """
+    @property
+    def values(self) -> ArrayLike:
+        """
+        Return an array representing the data in the Index.
+
+        .. warning::
+
+           We recommend using :attr:`Index.array` or
+           :meth:`Index.to_numpy`, depending on whether you need
+           a reference to the underlying data or a NumPy array.
+
+        Returns
+        -------
+        array: numpy.ndarray or ExtensionArray
+
+        See Also
+        --------
+        Index.array : Reference to the underlying data.
+        Index.to_numpy : A NumPy array representing the underlying data.
+
+        Examples
+        --------
+        For :class:`pandas.Index`:
+
+        >>> idx = pd.Index([1, 2, 3])
+        >>> idx
+        Index([1, 2, 3], dtype='int64')
+        >>> idx.values
+        array([1, 2, 3])
+
+        For :class:`pandas.IntervalIndex`:
+
+        >>> idx = pd.interval_range(start=0, end=5)
+        >>> idx.values
+        <IntervalArray>
+        [(0, 1], (1, 2], (2, 3], (3, 4], (4, 5]]
+        Length: 5, dtype: interval[int64, right]
+        """
+    def array(self) -> ExtensionArray: ...
+    @property
+    def _values(self) -> ExtensionArray | np.ndarray:
+        """
+        The best array representation.
+
+        This is an ndarray or ExtensionArray.
+
+        ``_values`` are consistent between ``Series`` and ``Index``.
+
+        It may differ from the public '.values' method.
+
+        index             | values          | _values       |
+        ----------------- | --------------- | ------------- |
+        Index             | ndarray         | ndarray       |
+        CategoricalIndex  | Categorical     | Categorical   |
+        DatetimeIndex     | ndarray[M8ns]   | DatetimeArray |
+        DatetimeIndex[tz] | ndarray[M8ns]   | DatetimeArray |
+        PeriodIndex       | ndarray[object] | PeriodArray   |
+        IntervalIndex     | IntervalArray   | IntervalArray |
+
+        See Also
+        --------
+        values : Values
+        """
     def _get_engine_target(self) -> ArrayLike:
         """
         Get the ndarray or ExtensionArray that we can pass to the IndexEngine
@@ -1956,37 +1974,8 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         Cast the ndarray returned from one of the libjoin.foo_indexer functions
         back to type(self._data).
         """
-    def memory_usage(self, deep: bool = ...) -> int:
-        """
-        Memory usage of the values.
-
-        Parameters
-        ----------
-        deep : bool, default False
-            Introspect the data deeply, interrogate
-            `object` dtypes for system-level memory consumption.
-
-        Returns
-        -------
-        bytes used
-
-        See Also
-        --------
-        numpy.ndarray.nbytes : Total bytes consumed by the elements of the
-            array.
-
-        Notes
-        -----
-        Memory usage does not include memory consumed by elements that
-        are not components of the array if deep=False or if used on PyPy
-
-        Examples
-        --------
-        >>> idx = pd.Index([1, 2, 3])
-        >>> idx.memory_usage()
-        24
-        """
-    def where(self, cond, other) -> Index:
+    def memory_usage(self, deep: bool = False) -> int: ...
+    def where(self, cond, other: Incomplete | None = None) -> Index:
         """
         Replace values where the condition is False.
 
@@ -2019,7 +2008,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         Index(['car', 'other', 'train', 'other'], dtype='object')
         """
     @classmethod
-    def _raise_scalar_data_error(cls, data): ...
+    def _raise_scalar_data_error(cls, data) -> None: ...
     def _validate_fill_value(self, value):
         """
         Check if the value can be inserted into our array without casting,
@@ -2069,6 +2058,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> 6 in idx
         False
         """
+    __hash__: ClassVar[None]
     def __setitem__(self, key, value) -> None: ...
     def __getitem__(self, key):
         """
@@ -2321,63 +2311,17 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> idx.asof_locs(where, mask)
         array([-1,  0,  0])
         """
-    def sort_values(self, *, return_indexer: bool = ..., ascending: bool = ..., na_position: NaPosition = ..., key: Callable | None) -> Self | tuple[Self, np.ndarray]:
-        """
-        Return a sorted copy of the index.
-
-        Return a sorted copy of the index, and optionally return the indices
-        that sorted the index itself.
-
-        Parameters
-        ----------
-        return_indexer : bool, default False
-            Should the indices that would sort the index be returned.
-        ascending : bool, default True
-            Should the index values be sorted in an ascending order.
-        na_position : {'first' or 'last'}, default 'last'
-            Argument 'first' puts NaNs at the beginning, 'last' puts NaNs at
-            the end.
-        key : callable, optional
-            If not None, apply the key function to the index values
-            before sorting. This is similar to the `key` argument in the
-            builtin :meth:`sorted` function, with the notable difference that
-            this `key` function should be *vectorized*. It should expect an
-            ``Index`` and return an ``Index`` of the same shape.
-
-        Returns
-        -------
-        sorted_index : pandas.Index
-            Sorted copy of the index.
-        indexer : numpy.ndarray, optional
-            The indices that the index itself was sorted by.
-
-        See Also
-        --------
-        Series.sort_values : Sort values of a Series.
-        DataFrame.sort_values : Sort values in a DataFrame.
-
-        Examples
-        --------
-        >>> idx = pd.Index([10, 100, 1, 1000])
-        >>> idx
-        Index([10, 100, 1, 1000], dtype='int64')
-
-        Sort values in ascending order (default behavior).
-
-        >>> idx.sort_values()
-        Index([1, 10, 100, 1000], dtype='int64')
-
-        Sort values in descending order, and also get the indices `idx` was
-        sorted by.
-
-        >>> idx.sort_values(ascending=False, return_indexer=True)
-        (Index([1000, 100, 10, 1], dtype='int64'), array([3, 1, 0, 2]))
-        """
-    def sort(self, *args, **kwargs):
+    @overload
+    def sort_values(self, *, return_indexer: Literal[False] = ..., ascending: bool = ..., na_position: NaPosition = ..., key: Callable | None = ...) -> Self: ...
+    @overload
+    def sort_values(self, *, return_indexer: Literal[True], ascending: bool = ..., na_position: NaPosition = ..., key: Callable | None = ...) -> tuple[Self, np.ndarray]: ...
+    @overload
+    def sort_values(self, *, return_indexer: bool = ..., ascending: bool = ..., na_position: NaPosition = ..., key: Callable | None = ...) -> Self | tuple[Self, np.ndarray]: ...
+    def sort(self, *args, **kwargs) -> None:
         """
         Use sort_values instead.
         """
-    def shift(self, periods: int = ..., freq):
+    def shift(self, periods: int = 1, freq: Incomplete | None = None):
         """
         Shift index by desired number of time frequency increments.
 
@@ -2468,53 +2412,12 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> idx[order]
         Index(['a', 'b', 'c', 'd'], dtype='object')
         """
-    def _check_indexing_error(self, key): ...
-    def get_indexer_non_unique(self, target) -> tuple[npt.NDArray[np.intp], npt.NDArray[np.intp]]:
+    def _check_indexing_error(self, key) -> None: ...
+    def _should_fallback_to_positional(self) -> bool:
         """
-        Compute indexer and mask for new index given the current index.
-
-        The indexer should be then used as an input to ndarray.take to align the
-        current data to the new index.
-
-        Parameters
-        ----------
-        target : Index
-
-        Returns
-        -------
-        indexer : np.ndarray[np.intp]
-            Integers from 0 to n - 1 indicating that the index at these
-            positions matches the corresponding target values. Missing values
-            in the target are marked by -1.
-        missing : np.ndarray[np.intp]
-            An indexer into the target of the values not found.
-            These correspond to the -1 in the indexer array.
-
-        Examples
-        --------
-        >>> index = pd.Index(['c', 'b', 'a', 'b', 'b'])
-        >>> index.get_indexer_non_unique(['b', 'b'])
-        (array([1, 3, 4, 1, 3, 4]), array([], dtype=int64))
-
-        In the example below there are no matched values.
-
-        >>> index = pd.Index(['c', 'b', 'a', 'b', 'b'])
-        >>> index.get_indexer_non_unique(['q', 'r', 't'])
-        (array([-1, -1, -1]), array([0, 1, 2]))
-
-        For this reason, the returned ``indexer`` contains only integers equal to -1.
-        It demonstrates that there's no match between the index and the ``target``
-        values at these positions. The mask [0, 1, 2] in the return value shows that
-        the first, second, and third elements are missing.
-
-        Notice that the return value is a tuple contains two items. In the example
-        below the first item is an array of locations in ``index``. The second
-        item is a mask shows that the first and third elements are missing.
-
-        >>> index = pd.Index(['c', 'b', 'a', 'b', 'b'])
-        >>> index.get_indexer_non_unique(['f', 'b', 's'])
-        (array([-1,  1,  3,  4, -1]), array([0, 2]))
+        Should an integer key be treated as positional?
         """
+    def get_indexer_non_unique(self, target) -> tuple[npt.NDArray[np.intp], npt.NDArray[np.intp]]: ...
     def get_indexer_for(self, target) -> npt.NDArray[np.intp]:
         """
         Guaranteed return of an indexer even when non-unique.
@@ -2558,30 +2461,21 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         KeyError
             If at least one key was requested but none was found.
         """
-    def _get_indexer_non_comparable(self, target: Index, method, unique: bool = ...) -> npt.NDArray[np.intp] | tuple[npt.NDArray[np.intp], npt.NDArray[np.intp]]:
+    @overload
+    def _get_indexer_non_comparable(self, target: Index, method, unique: Literal[True] = ...) -> npt.NDArray[np.intp]: ...
+    @overload
+    def _get_indexer_non_comparable(self, target: Index, method, unique: Literal[False]) -> tuple[npt.NDArray[np.intp], npt.NDArray[np.intp]]: ...
+    @overload
+    def _get_indexer_non_comparable(self, target: Index, method, unique: bool = True) -> npt.NDArray[np.intp] | tuple[npt.NDArray[np.intp], npt.NDArray[np.intp]]: ...
+    @property
+    def _index_as_unique(self) -> bool:
         """
-        Called from get_indexer or get_indexer_non_unique when the target
-        is of a non-comparable dtype.
+        Whether we should treat this as unique for the sake of
+        get_indexer vs get_indexer_non_unique.
 
-        For get_indexer lookups with method=None, get_indexer is an _equality_
-        check, so non-comparable dtypes mean we will always have no matches.
-
-        For get_indexer lookups with a method, get_indexer is an _inequality_
-        check, so non-comparable dtypes mean we will always raise TypeError.
-
-        Parameters
-        ----------
-        target : Index
-        method : str or None
-        unique : bool, default True
-            * True if called from get_indexer.
-            * False if called from get_indexer_non_unique.
-
-        Raises
-        ------
-        TypeError
-            If doing an inequality check, i.e. method is not None.
+        For IntervalIndex compat.
         """
+    _requires_unique_msg: str
     def _maybe_downcast_for_indexing(self, other: Index) -> tuple[Index, Index]:
         """
         When dealing with an object-dtype Index and a non-object Index, see
@@ -2614,7 +2508,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         dict
             {group name -> group labels}
         """
-    def map(self, mapper, na_action: Literal['ignore'] | None):
+    def map(self, mapper, na_action: Literal['ignore'] | None = None):
         """
         Map values using an input mapping or function.
 
@@ -2649,14 +2543,14 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> idx.map(lambda x: x.upper())
         Index(['A', 'B', 'C'], dtype='object')
         """
-    def _transform_index(self, func, *, level) -> Index:
+    def _transform_index(self, func, *, level: Incomplete | None = None) -> Index:
         """
         Apply function to all values found in index.
 
         This includes transforming multiindex entries separately.
         Only apply function to one level of the MultiIndex if level is specified.
         """
-    def isin(self, values, level) -> npt.NDArray[np.bool_]:
+    def isin(self, values, level: Incomplete | None = None) -> npt.NDArray[np.bool_]:
         """
         Return a boolean array where the index values are in `values`.
 
@@ -2726,7 +2620,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         array([ True, False, False])
         """
     def _get_string_slice(self, key: str_t): ...
-    def slice_indexer(self, start: Hashable | None, end: Hashable | None, step: int | None) -> slice:
+    def slice_indexer(self, start: Hashable | None = None, end: Hashable | None = None, step: int | None = None) -> slice:
         """
         Compute the slice indexer for input labels and step.
 
@@ -2798,7 +2692,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         -----
         Value of `side` parameter should be validated in caller.
         """
-    def _searchsorted_monotonic(self, label, side: Literal['left', 'right'] = ...): ...
+    def _searchsorted_monotonic(self, label, side: Literal['left', 'right'] = 'left'): ...
     def get_slice_bound(self, label, side: Literal['left', 'right']) -> int:
         """
         Calculate slice bound that corresponds to given label.
@@ -2837,7 +2731,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         Traceback (most recent call last):
         KeyError: Cannot get left slice bound for non-unique label: 'a'
         """
-    def slice_locs(self, start, end, step) -> tuple[int, int]:
+    def slice_locs(self, start: Incomplete | None = None, end: Incomplete | None = None, step: Incomplete | None = None) -> tuple[int, int]:
         """
         Compute slice locations for input labels.
 
@@ -2918,7 +2812,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> idx.insert(1, 'x')
         Index(['a', 'x', 'b', 'c'], dtype='object')
         """
-    def drop(self, labels: Index | np.ndarray | Iterable[Hashable], errors: IgnoreRaise = ...) -> Index:
+    def drop(self, labels: Index | np.ndarray | Iterable[Hashable], errors: IgnoreRaise = 'raise') -> Index:
         """
         Make new Index with passed list of labels deleted.
 
@@ -2944,7 +2838,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> idx.drop(['a'])
         Index(['b', 'c'], dtype='object')
         """
-    def infer_objects(self, copy: bool = ...) -> Index:
+    def infer_objects(self, copy: bool = True) -> Index:
         """
         If we have an object dtype, try to infer a non-object dtype.
 
@@ -2953,7 +2847,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         copy : bool, default True
             Whether to make a copy in cases where no inference occurs.
         """
-    def diff(self, periods: int = ...) -> Index:
+    def diff(self, periods: int = 1) -> Index:
         """
         Computes the difference between consecutive values in the Index object.
 
@@ -2979,7 +2873,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         Index([nan, 10.0, 10.0, 10.0, 10.0], dtype='float64')
 
         """
-    def round(self, decimals: int = ...) -> Self:
+    def round(self, decimals: int = 0) -> Self:
         """
         Round each value in the Index to the given number of decimals.
 
@@ -3093,109 +2987,9 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         """
         raise if this Index subclass does not support any or all.
         """
-    def argmin(self, axis, skipna: bool = ..., *args, **kwargs) -> int:
-        """
-        Return int position of the smallest value in the Series.
-
-        If the minimum is achieved in multiple locations,
-        the first row position is returned.
-
-        Parameters
-        ----------
-        axis : {None}
-            Unused. Parameter needed for compatibility with DataFrame.
-        skipna : bool, default True
-            Exclude NA/null values when showing the result.
-        *args, **kwargs
-            Additional arguments and keywords for compatibility with NumPy.
-
-        Returns
-        -------
-        int
-            Row position of the minimum value.
-
-        See Also
-        --------
-        Series.argmin : Return position of the minimum value.
-        Series.argmax : Return position of the maximum value.
-        numpy.ndarray.argmin : Equivalent method for numpy arrays.
-        Series.idxmax : Return index label of the maximum values.
-        Series.idxmin : Return index label of the minimum values.
-
-        Examples
-        --------
-        Consider dataset containing cereal calories
-
-        >>> s = pd.Series({'Corn Flakes': 100.0, 'Almond Delight': 110.0,
-        ...                'Cinnamon Toast Crunch': 120.0, 'Cocoa Puff': 110.0})
-        >>> s
-        Corn Flakes              100.0
-        Almond Delight           110.0
-        Cinnamon Toast Crunch    120.0
-        Cocoa Puff               110.0
-        dtype: float64
-
-        >>> s.argmax()
-        2
-        >>> s.argmin()
-        0
-
-        The maximum cereal calories is the third element and
-        the minimum cereal calories is the first element,
-        since series is zero-indexed.
-        """
-    def argmax(self, axis, skipna: bool = ..., *args, **kwargs) -> int:
-        """
-        Return int position of the largest value in the Series.
-
-        If the maximum is achieved in multiple locations,
-        the first row position is returned.
-
-        Parameters
-        ----------
-        axis : {None}
-            Unused. Parameter needed for compatibility with DataFrame.
-        skipna : bool, default True
-            Exclude NA/null values when showing the result.
-        *args, **kwargs
-            Additional arguments and keywords for compatibility with NumPy.
-
-        Returns
-        -------
-        int
-            Row position of the maximum value.
-
-        See Also
-        --------
-        Series.argmax : Return position of the maximum value.
-        Series.argmin : Return position of the minimum value.
-        numpy.ndarray.argmax : Equivalent method for numpy arrays.
-        Series.idxmax : Return index label of the maximum values.
-        Series.idxmin : Return index label of the minimum values.
-
-        Examples
-        --------
-        Consider dataset containing cereal calories
-
-        >>> s = pd.Series({'Corn Flakes': 100.0, 'Almond Delight': 110.0,
-        ...                'Cinnamon Toast Crunch': 120.0, 'Cocoa Puff': 110.0})
-        >>> s
-        Corn Flakes              100.0
-        Almond Delight           110.0
-        Cinnamon Toast Crunch    120.0
-        Cocoa Puff               110.0
-        dtype: float64
-
-        >>> s.argmax()
-        2
-        >>> s.argmin()
-        0
-
-        The maximum cereal calories is the third element and
-        the minimum cereal calories is the first element,
-        since series is zero-indexed.
-        """
-    def min(self, axis, skipna: bool = ..., *args, **kwargs):
+    def argmin(self, axis: Incomplete | None = None, skipna: bool = True, *args, **kwargs) -> int: ...
+    def argmax(self, axis: Incomplete | None = None, skipna: bool = True, *args, **kwargs) -> int: ...
+    def min(self, axis: Incomplete | None = None, skipna: bool = True, *args, **kwargs):
         """
         Return the minimum value of the Index.
 
@@ -3235,7 +3029,7 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         >>> idx.min()
         ('a', 1)
         """
-    def max(self, axis, skipna: bool = ..., *args, **kwargs):
+    def max(self, axis: Incomplete | None = None, skipna: bool = True, *args, **kwargs):
         """
         Return the maximum value of the Index.
 
@@ -3276,26 +3070,15 @@ class Index(pandas.core.base.IndexOpsMixin, pandas.core.base.PandasObject):
         ('b', 2)
         """
     @property
-    def _engine_type(self): ...
-    @property
-    def _formatter_func(self): ...
-    @property
-    def nlevels(self): ...
-    @property
-    def is_monotonic_increasing(self): ...
-    @property
-    def is_monotonic_decreasing(self): ...
-    @property
-    def _is_strictly_monotonic_increasing(self): ...
-    @property
-    def _is_strictly_monotonic_decreasing(self): ...
-    @property
-    def has_duplicates(self): ...
-    @property
-    def values(self): ...
-    @property
-    def _values(self): ...
-    @property
-    def _index_as_unique(self): ...
-    @property
-    def shape(self): ...
+    def shape(self) -> Shape:
+        """
+        Return a tuple of the shape of the underlying data.
+
+        Examples
+        --------
+        >>> idx = pd.Index([1, 2, 3])
+        >>> idx
+        Index([1, 2, 3], dtype='int64')
+        >>> idx.shape
+        (3,)
+        """

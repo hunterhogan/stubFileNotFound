@@ -1,11 +1,10 @@
-import pandas.core.common as com
 from collections.abc import Collection, Iterator
-from pandas._libs.lib import is_list_like as is_list_like
+from matplotlib.colors import Colormap
+from pandas._typing import MatplotlibColor as Color
+from pandas.core.dtypes.common import is_list_like as is_list_like
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Color
 
-TYPE_CHECKING: bool
-def get_standard_colors(num_colors: int, colormap: Colormap | None, color_type: str = ..., color: dict[str, Color] | Color | Collection[Color] | None):
+def get_standard_colors(num_colors: int, colormap: Colormap | None = None, color_type: str = 'default', color: dict[str, Color] | Color | Collection[Color] | None = None):
     '''
     Get standard colors based on `colormap`, `color_type` or `color` inputs.
 

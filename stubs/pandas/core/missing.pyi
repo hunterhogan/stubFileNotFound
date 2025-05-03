@@ -1,20 +1,15 @@
-import np
-import npt
-import pandas._libs.algos as algos
-import pandas._libs.lib as lib
-from builtins import AxisInt
-from pandas._libs.tslibs.nattype import NaT as NaT
-from pandas._typing import F as F
+import numpy as np
+from _typeshed import Incomplete
+from pandas import Index as Index
+from pandas._libs import NaT as NaT, algos as algos, lib as lib
+from pandas._typing import ArrayLike as ArrayLike, AxisInt as AxisInt, F as F, ReindexMethod as ReindexMethod, npt as npt
 from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core.dtypes.cast import infer_dtype_from as infer_dtype_from
-from pandas.core.dtypes.common import is_bool_dtype as is_bool_dtype, is_numeric_dtype as is_numeric_dtype, is_numeric_v_string_like as is_numeric_v_string_like, is_object_dtype as is_object_dtype, needs_i8_conversion as needs_i8_conversion
+from pandas.core.dtypes.common import is_array_like as is_array_like, is_bool_dtype as is_bool_dtype, is_numeric_dtype as is_numeric_dtype, is_numeric_v_string_like as is_numeric_v_string_like, is_object_dtype as is_object_dtype, needs_i8_conversion as needs_i8_conversion
 from pandas.core.dtypes.dtypes import DatetimeTZDtype as DatetimeTZDtype
-from pandas.core.dtypes.inference import is_array_like as is_array_like
 from pandas.core.dtypes.missing import is_valid_na_for_dtype as is_valid_na_for_dtype, isna as isna, na_value_for_dtype as na_value_for_dtype
-from typing import Any, ArrayLike, Literal, ReindexMethod
+from typing import Any, Literal, overload
 
-TYPE_CHECKING: bool
-npt: None
 def check_value_size(value, mask: npt.NDArray[np.bool_], length: int):
     """
     Validate the size of the values passed to ExtensionArray.fillna.
@@ -33,10 +28,14 @@ def mask_missing(arr: ArrayLike, values_to_mask) -> npt.NDArray[np.bool_]:
     -------
     np.ndarray[bool]
     """
-def clean_fill_method(method: Literal['ffill', 'pad', 'bfill', 'backfill', 'nearest'], *, allow_nearest: bool = ...) -> Literal['pad', 'backfill', 'nearest']: ...
+@overload
+def clean_fill_method(method: Literal['ffill', 'pad', 'bfill', 'backfill'], *, allow_nearest: Literal[False] = ...) -> Literal['pad', 'backfill']: ...
+@overload
+def clean_fill_method(method: Literal['ffill', 'pad', 'bfill', 'backfill', 'nearest'], *, allow_nearest: Literal[True]) -> Literal['pad', 'backfill', 'nearest']: ...
 
-NP_METHODS: list
-SP_METHODS: list
+NP_METHODS: Incomplete
+SP_METHODS: Incomplete
+
 def clean_interp_method(method: str, index: Index, **kwargs) -> str: ...
 def find_valid_index(how: str, is_valid: npt.NDArray[np.bool_]) -> int | None:
     """
@@ -57,7 +56,7 @@ def validate_limit_direction(limit_direction: str) -> Literal['forward', 'backwa
 def validate_limit_area(limit_area: str | None) -> Literal['inside', 'outside'] | None: ...
 def infer_limit_direction(limit_direction: Literal['backward', 'forward', 'both'] | None, method: str) -> Literal['backward', 'forward', 'both']: ...
 def get_interp_index(method, index: Index) -> Index: ...
-def interpolate_2d_inplace(data: np.ndarray, index: Index, axis: AxisInt, method: str = ..., limit: int | None, limit_direction: str = ..., limit_area: str | None, fill_value: Any | None, mask, **kwargs) -> None:
+def interpolate_2d_inplace(data: np.ndarray, index: Index, axis: AxisInt, method: str = 'linear', limit: int | None = None, limit_direction: str = 'forward', limit_area: str | None = None, fill_value: Any | None = None, mask: Incomplete | None = None, **kwargs) -> None:
     """
     Column-wise application of _interpolate_1d.
 
@@ -72,7 +71,7 @@ def _index_to_interp_indices(index: Index, method: str) -> np.ndarray:
     """
     Convert Index to ndarray of indices to pass to NumPy/SciPy.
     """
-def _interpolate_1d(indices: np.ndarray, yvalues: np.ndarray, method: str = ..., limit: int | None, limit_direction: str = ..., limit_area: Literal['inside', 'outside'] | None, fill_value: Any | None, bounds_error: bool = ..., order: int | None, mask, **kwargs) -> None:
+def _interpolate_1d(indices: np.ndarray, yvalues: np.ndarray, method: str = 'linear', limit: int | None = None, limit_direction: str = 'forward', limit_area: Literal['inside', 'outside'] | None = None, fill_value: Any | None = None, bounds_error: bool = False, order: int | None = None, mask: Incomplete | None = None, **kwargs) -> None:
     """
     Logic for the 1-d interpolation.  The input
     indices and yvalues will each be 1-d arrays of the same length.
@@ -84,13 +83,13 @@ def _interpolate_1d(indices: np.ndarray, yvalues: np.ndarray, method: str = ...,
     -----
     Fills 'yvalues' in-place.
     """
-def _interpolate_scipy_wrapper(x: np.ndarray, y: np.ndarray, new_x: np.ndarray, method: str, fill_value, bounds_error: bool = ..., order, **kwargs):
+def _interpolate_scipy_wrapper(x: np.ndarray, y: np.ndarray, new_x: np.ndarray, method: str, fill_value: Incomplete | None = None, bounds_error: bool = False, order: Incomplete | None = None, **kwargs):
     """
     Passed off to scipy.interpolate.interp1d. method is scipy's kind.
     Returns an array interpolated at new_x.  Add any new methods to
     the list in _clean_interp_method.
     """
-def _from_derivatives(xi: np.ndarray, yi: np.ndarray, x: np.ndarray, order, der: int | list[int] | None = ..., extrapolate: bool = ...):
+def _from_derivatives(xi: np.ndarray, yi: np.ndarray, x: np.ndarray, order: Incomplete | None = None, der: int | list[int] | None = 0, extrapolate: bool = False):
     """
     Convenience function for interpolate.BPoly.from_derivatives.
 
@@ -124,7 +123,7 @@ def _from_derivatives(xi: np.ndarray, yi: np.ndarray, x: np.ndarray, order, der:
     y : scalar or array-like
         The result, of length R or length M or M by R.
     """
-def _akima_interpolate(xi: np.ndarray, yi: np.ndarray, x: np.ndarray, der: int | list[int] | None = ..., axis: AxisInt = ...):
+def _akima_interpolate(xi: np.ndarray, yi: np.ndarray, x: np.ndarray, der: int | list[int] | None = 0, axis: AxisInt = 0):
     """
     Convenience function for akima interpolation.
     xi and yi are arrays of values used to approximate some function f,
@@ -160,7 +159,7 @@ def _akima_interpolate(xi: np.ndarray, yi: np.ndarray, x: np.ndarray, der: int |
         The result, of length R or length M or M by R,
 
     """
-def _cubicspline_interpolate(xi: np.ndarray, yi: np.ndarray, x: np.ndarray, axis: AxisInt = ..., bc_type: str | tuple[Any, Any] = ..., extrapolate):
+def _cubicspline_interpolate(xi: np.ndarray, yi: np.ndarray, x: np.ndarray, axis: AxisInt = 0, bc_type: str | tuple[Any, Any] = 'not-a-knot', extrapolate: Incomplete | None = None):
     '''
     Convenience function for cubic spline data interpolator.
 
@@ -249,7 +248,7 @@ def _interpolate_with_limit_area(values: np.ndarray, method: Literal['pad', 'bac
     -----
     Modifies values in-place.
     '''
-def pad_or_backfill_inplace(values: np.ndarray, method: Literal['pad', 'backfill'] = ..., axis: AxisInt = ..., limit: int | None, limit_area: Literal['inside', 'outside'] | None) -> None:
+def pad_or_backfill_inplace(values: np.ndarray, method: Literal['pad', 'backfill'] = 'pad', axis: AxisInt = 0, limit: int | None = None, limit_area: Literal['inside', 'outside'] | None = None) -> None:
     '''
     Perform an actual interpolation of values, values will be make 2-d if
     needed fills inplace, returns the result.
@@ -271,15 +270,15 @@ def pad_or_backfill_inplace(values: np.ndarray, method: Literal['pad', 'backfill
     -----
     Modifies values in-place.
     '''
-def _fillna_prep(values, mask: npt.NDArray[np.bool_] | None) -> npt.NDArray[np.bool_]: ...
+def _fillna_prep(values, mask: npt.NDArray[np.bool_] | None = None) -> npt.NDArray[np.bool_]: ...
 def _datetimelike_compat(func: F) -> F:
     """
     Wrapper to handle datetime64 and timedelta64 dtypes.
     """
-def _pad_1d(values: np.ndarray, limit: int | None, limit_area: Literal['inside', 'outside'] | None, mask: npt.NDArray[np.bool_] | None) -> tuple[np.ndarray, npt.NDArray[np.bool_]]: ...
-def _backfill_1d(values: np.ndarray, limit: int | None, limit_area: Literal['inside', 'outside'] | None, mask: npt.NDArray[np.bool_] | None) -> tuple[np.ndarray, npt.NDArray[np.bool_]]: ...
-def _pad_2d(values: np.ndarray, limit: int | None, limit_area: Literal['inside', 'outside'] | None, mask: npt.NDArray[np.bool_] | None): ...
-def _backfill_2d(values, limit: int | None, limit_area: Literal['inside', 'outside'] | None, mask: npt.NDArray[np.bool_] | None): ...
+def _pad_1d(values: np.ndarray, limit: int | None = None, limit_area: Literal['inside', 'outside'] | None = None, mask: npt.NDArray[np.bool_] | None = None) -> tuple[np.ndarray, npt.NDArray[np.bool_]]: ...
+def _backfill_1d(values: np.ndarray, limit: int | None = None, limit_area: Literal['inside', 'outside'] | None = None, mask: npt.NDArray[np.bool_] | None = None) -> tuple[np.ndarray, npt.NDArray[np.bool_]]: ...
+def _pad_2d(values: np.ndarray, limit: int | None = None, limit_area: Literal['inside', 'outside'] | None = None, mask: npt.NDArray[np.bool_] | None = None): ...
+def _backfill_2d(values, limit: int | None = None, limit_area: Literal['inside', 'outside'] | None = None, mask: npt.NDArray[np.bool_] | None = None): ...
 def _fill_limit_area_1d(mask: npt.NDArray[np.bool_], limit_area: Literal['outside', 'inside']) -> None:
     '''Prepare 1d mask for ffill/bfill with limit_area.
 
@@ -308,8 +307,9 @@ def _fill_limit_area_2d(mask: npt.NDArray[np.bool_], limit_area: Literal['outsid
         Whether to limit filling to outside or inside the outer most non-NA value.
     '''
 
-_fill_methods: dict
-def get_fill_func(method, ndim: int = ...): ...
+_fill_methods: Incomplete
+
+def get_fill_func(method, ndim: int = 1): ...
 def clean_reindex_fill_method(method) -> ReindexMethod | None: ...
 def _interp_limit(invalid: npt.NDArray[np.bool_], fw_limit: int | None, bw_limit: int | None):
     """

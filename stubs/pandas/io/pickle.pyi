@@ -1,11 +1,11 @@
-import pandas.compat.pickle_compat as pc
+from pandas import DataFrame as DataFrame, Series as Series
+from pandas._typing import CompressionOptions as CompressionOptions, FilePath as FilePath, ReadPickleBuffer as ReadPickleBuffer, StorageOptions as StorageOptions, WriteBuffer as WriteBuffer
+from pandas.core.shared_docs import _shared_docs as _shared_docs
 from pandas.io.common import get_handle as get_handle
 from pandas.util._decorators import doc as doc
 from typing import Any
 
-TYPE_CHECKING: bool
-_shared_docs: dict
-def to_pickle(obj: Any, filepath_or_buffer: FilePath | WriteBuffer[bytes], compression: CompressionOptions = ..., protocol: int = ..., storage_options: StorageOptions | None) -> None:
+def to_pickle(obj: Any, filepath_or_buffer: FilePath | WriteBuffer[bytes], compression: CompressionOptions = 'infer', protocol: int = ..., storage_options: StorageOptions | None = None) -> None:
     '''
     Pickle (serialize) object to file.
 
@@ -17,24 +17,7 @@ def to_pickle(obj: Any, filepath_or_buffer: FilePath | WriteBuffer[bytes], compr
         String, path object (implementing ``os.PathLike[str]``), or file-like
         object implementing a binary ``write()`` function.
         Also accepts URL. URL has to be of S3 or GCS.
-    compression : str or dict, default \'infer\'
-        For on-the-fly compression of the output data. If \'infer\' and \'filepath_or_buffer\' is
-        path-like, then detect compression from the following extensions: \'.gz\',
-        \'.bz2\', \'.zip\', \'.xz\', \'.zst\', \'.tar\', \'.tar.gz\', \'.tar.xz\' or \'.tar.bz2\'
-        (otherwise no compression).
-        Set to ``None`` for no compression.
-        Can also be a dict with key ``\'method\'`` set
-        to one of {``\'zip\'``, ``\'gzip\'``, ``\'bz2\'``, ``\'zstd\'``, ``\'xz\'``, ``\'tar\'``} and
-        other key-value pairs are forwarded to
-        ``zipfile.ZipFile``, ``gzip.GzipFile``,
-        ``bz2.BZ2File``, ``zstandard.ZstdCompressor``, ``lzma.LZMAFile`` or
-        ``tarfile.TarFile``, respectively.
-        As an example, the following could be passed for faster compression and to create
-        a reproducible gzip archive:
-        ``compression={\'method\': \'gzip\', \'compresslevel\': 1, \'mtime\': 1}``.
-
-        .. versionadded:: 1.5.0
-            Added support for `.tar` files.
+    {compression_options}
 
         .. versionchanged:: 1.4.0 Zstandard support.
 
@@ -47,15 +30,7 @@ def to_pickle(obj: Any, filepath_or_buffer: FilePath | WriteBuffer[bytes], compr
         protocol parameter is equivalent to setting its value to
         HIGHEST_PROTOCOL.
 
-    storage_options : dict, optional
-        Extra options that make sense for a particular storage connection, e.g.
-        host, port, username, password, etc. For HTTP(S) URLs the key-value pairs
-        are forwarded to ``urllib.request.Request`` as header options. For other
-        URLs (e.g. starting with "s3://", and "gcs://") the key-value pairs are
-        forwarded to ``fsspec.open``. Please see ``fsspec`` and ``urllib`` for more
-        details, and for more examples on storage options refer `here
-        <https://pandas.pydata.org/docs/user_guide/io.html?
-        highlight=storage_options#reading-writing-remote-files>`_.
+    {storage_options}
 
         .. [1] https://docs.python.org/3/library/pickle.html
 
@@ -68,7 +43,7 @@ def to_pickle(obj: Any, filepath_or_buffer: FilePath | WriteBuffer[bytes], compr
 
     Examples
     --------
-    >>> original_df = pd.DataFrame({"foo": range(5), "bar": range(5, 10)})  # doctest: +SKIP
+    >>> original_df = pd.DataFrame({{"foo": range(5), "bar": range(5, 10)}})  # doctest: +SKIP
     >>> original_df  # doctest: +SKIP
        foo  bar
     0    0    5
@@ -87,7 +62,7 @@ def to_pickle(obj: Any, filepath_or_buffer: FilePath | WriteBuffer[bytes], compr
     3    3    8
     4    4    9
     '''
-def read_pickle(filepath_or_buffer: FilePath | ReadPickleBuffer, compression: CompressionOptions = ..., storage_options: StorageOptions | None) -> DataFrame | Series:
+def read_pickle(filepath_or_buffer: FilePath | ReadPickleBuffer, compression: CompressionOptions = 'infer', storage_options: StorageOptions | None = None) -> DataFrame | Series:
     '''
     Load pickled pandas object (or any object) from file.
 
@@ -103,37 +78,11 @@ def read_pickle(filepath_or_buffer: FilePath | ReadPickleBuffer, compression: Co
         object implementing a binary ``readlines()`` function.
         Also accepts URL. URL is not limited to S3 and GCS.
 
-    compression : str or dict, default \'infer\'
-        For on-the-fly decompression of on-disk data. If \'infer\' and \'filepath_or_buffer\' is
-        path-like, then detect compression from the following extensions: \'.gz\',
-        \'.bz2\', \'.zip\', \'.xz\', \'.zst\', \'.tar\', \'.tar.gz\', \'.tar.xz\' or \'.tar.bz2\'
-        (otherwise no compression).
-        If using \'zip\' or \'tar\', the ZIP file must contain only one data file to be read in.
-        Set to ``None`` for no decompression.
-        Can also be a dict with key ``\'method\'`` set
-        to one of {``\'zip\'``, ``\'gzip\'``, ``\'bz2\'``, ``\'zstd\'``, ``\'xz\'``, ``\'tar\'``} and
-        other key-value pairs are forwarded to
-        ``zipfile.ZipFile``, ``gzip.GzipFile``,
-        ``bz2.BZ2File``, ``zstandard.ZstdDecompressor``, ``lzma.LZMAFile`` or
-        ``tarfile.TarFile``, respectively.
-        As an example, the following could be passed for Zstandard decompression using a
-        custom compression dictionary:
-        ``compression={\'method\': \'zstd\', \'dict_data\': my_compression_dict}``.
-
-        .. versionadded:: 1.5.0
-            Added support for `.tar` files.
+    {decompression_options}
 
         .. versionchanged:: 1.4.0 Zstandard support.
 
-    storage_options : dict, optional
-        Extra options that make sense for a particular storage connection, e.g.
-        host, port, username, password, etc. For HTTP(S) URLs the key-value pairs
-        are forwarded to ``urllib.request.Request`` as header options. For other
-        URLs (e.g. starting with "s3://", and "gcs://") the key-value pairs are
-        forwarded to ``fsspec.open``. Please see ``fsspec`` and ``urllib`` for more
-        details, and for more examples on storage options refer `here
-        <https://pandas.pydata.org/docs/user_guide/io.html?
-        highlight=storage_options#reading-writing-remote-files>`_.
+    {storage_options}
 
     Returns
     -------
@@ -155,7 +104,7 @@ def read_pickle(filepath_or_buffer: FilePath | ReadPickleBuffer, compression: Co
     Examples
     --------
     >>> original_df = pd.DataFrame(
-    ...     {"foo": range(5), "bar": range(5, 10)}
+    ...     {{"foo": range(5), "bar": range(5, 10)}}
     ...    )  # doctest: +SKIP
     >>> original_df  # doctest: +SKIP
        foo  bar

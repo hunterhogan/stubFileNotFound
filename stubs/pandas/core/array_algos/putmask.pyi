@@ -1,12 +1,12 @@
-import np
-import npt
-import pandas._libs.lib as lib
-from pandas._libs.lib import is_list_like as is_list_like
-from pandas.core.arrays.base import ExtensionArray as ExtensionArray
+import numpy as np
+from pandas import MultiIndex as MultiIndex
+from pandas._libs import lib as lib
+from pandas._typing import ArrayLike as ArrayLike, npt as npt
+from pandas.core.arrays import ExtensionArray as ExtensionArray
 from pandas.core.dtypes.cast import infer_dtype_from as infer_dtype_from
+from pandas.core.dtypes.common import is_list_like as is_list_like
 from typing import Any
 
-TYPE_CHECKING: bool
 def putmask_inplace(values: ArrayLike, mask: npt.NDArray[np.bool_], value: Any) -> None:
     """
     ExtensionArray-compatible implementation of np.putmask.  The main

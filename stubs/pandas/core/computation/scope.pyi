@@ -1,18 +1,18 @@
-import _abc
-import collections
-import typing
 from _typeshed import Incomplete
-from pandas._libs.tslibs.timestamps import Timestamp as Timestamp
+from collections import ChainMap
+from pandas._libs.tslibs import Timestamp as Timestamp
 from pandas.errors import UndefinedVariableError as UndefinedVariableError
-from typing import ClassVar
+from typing import TypeVar
 
-_KT: typing.TypeVar
-_VT: typing.TypeVar
+_KT = TypeVar('_KT')
+_VT = TypeVar('_VT')
 
-class DeepChainMap(collections.ChainMap):
-    __orig_bases__: ClassVar[tuple] = ...
-    __abstractmethods__: ClassVar[frozenset] = ...
-    _abc_impl: ClassVar[_abc._abc_data] = ...
+class DeepChainMap(ChainMap[_KT, _VT]):
+    """
+    Variant of ChainMap that allows direct updates to inner scopes.
+
+    Only works when all passed mapping are mutable.
+    """
     def __setitem__(self, key: _KT, value: _VT) -> None: ...
     def __delitem__(self, key: _KT) -> None:
         """
@@ -21,7 +21,8 @@ class DeepChainMap(collections.ChainMap):
         KeyError
             If `key` doesn't exist.
         """
-def ensure_scope(level: int, global_dict, local_dict, resolvers: tuple = ..., target) -> Scope:
+
+def ensure_scope(level: int, global_dict: Incomplete | None = None, local_dict: Incomplete | None = None, resolvers=(), target: Incomplete | None = None) -> Scope:
     """Ensure that we are grabbing the correct scope."""
 def _replacer(x) -> str:
     """
@@ -31,7 +32,8 @@ def _replacer(x) -> str:
 def _raw_hex_id(obj) -> str:
     """Return the padded hexadecimal id of ``obj``."""
 
-DEFAULT_GLOBALS: dict
+DEFAULT_GLOBALS: Incomplete
+
 def _get_pretty_string(obj) -> str:
     """
     Return a prettier version of obj.
@@ -48,12 +50,45 @@ def _get_pretty_string(obj) -> str:
     """
 
 class Scope:
-    level: Incomplete
-    resolvers: Incomplete
-    scope: Incomplete
+    """
+    Object to hold scope, with a few bells to deal with some custom syntax
+    and contexts added by pandas.
+
+    Parameters
+    ----------
+    level : int
+    global_dict : dict or None, optional, default None
+    local_dict : dict or Scope or None, optional, default None
+    resolvers : list-like or None, optional, default None
+    target : object
+
+    Attributes
+    ----------
+    level : int
+    scope : DeepChainMap
+    target : object
+    temps : dict
+    """
+    __slots__: Incomplete
+    level: int
+    scope: DeepChainMap
+    resolvers: DeepChainMap
+    temps: dict
     target: Incomplete
-    temps: Incomplete
-    def __init__(self, level: int, global_dict, local_dict, resolvers: tuple = ..., target) -> None: ...
+    def __init__(self, level: int, global_dict: Incomplete | None = None, local_dict: Incomplete | None = None, resolvers=(), target: Incomplete | None = None) -> None: ...
+    def __repr__(self) -> str: ...
+    @property
+    def has_resolvers(self) -> bool:
+        """
+        Return whether we have any extra scope.
+
+        For example, DataFrames pass Their columns as resolvers during calls to
+        ``DataFrame.eval()`` and ``DataFrame.query()``.
+
+        Returns
+        -------
+        hr : bool
+        """
     def resolve(self, key: str, is_local: bool):
         """
         Resolve a variable name in a possibly local context.
@@ -71,7 +106,7 @@ class Scope:
         value : object
             The value of a particular variable
         """
-    def swapkey(self, old_key: str, new_key: str, new_value) -> None:
+    def swapkey(self, old_key: str, new_key: str, new_value: Incomplete | None = None) -> None:
         """
         Replace a variable name, with a potentially new value.
 
@@ -119,8 +154,16 @@ class Scope:
             The name of the temporary variable created.
         """
     @property
-    def has_resolvers(self): ...
+    def ntemps(self) -> int:
+        """The number of temporary variables in this scope"""
     @property
-    def ntemps(self): ...
-    @property
-    def full_scope(self): ...
+    def full_scope(self) -> DeepChainMap:
+        """
+        Return the full scope for use with passing to engines transparently
+        as a mapping.
+
+        Returns
+        -------
+        vars : DeepChainMap
+            All variables in this scope.
+        """

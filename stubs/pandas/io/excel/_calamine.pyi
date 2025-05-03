@@ -1,42 +1,32 @@
-import pandas as pd
-import pandas.io.excel._base
-from datetime import time
+from datetime import date, datetime, time, timedelta
+from pandas._typing import FilePath as FilePath, NaTType as NaTType, ReadBuffer as ReadBuffer, Scalar as Scalar, StorageOptions as StorageOptions
 from pandas.compat._optional import import_optional_dependency as import_optional_dependency
+from pandas.core.shared_docs import _shared_docs as _shared_docs
 from pandas.io.excel._base import BaseExcelReader as BaseExcelReader
 from pandas.util._decorators import doc as doc
-from typing import Any, ClassVar
+from python_calamine import CalamineSheet as CalamineSheet, CalamineWorkbook
+from typing import Any
 
-TYPE_CHECKING: bool
-_shared_docs: dict
+_CellValue = int | float | str | bool | time | date | datetime | timedelta
 
-class CalamineReader(pandas.io.excel._base.BaseExcelReader):
-    __orig_bases__: ClassVar[tuple] = ...
-    __parameters__: ClassVar[tuple] = ...
-    def __init__(self, filepath_or_buffer: FilePath | ReadBuffer[bytes], storage_options: StorageOptions | None, engine_kwargs: dict | None) -> None:
-        '''
+class CalamineReader(BaseExcelReader['CalamineWorkbook']):
+    def __init__(self, filepath_or_buffer: FilePath | ReadBuffer[bytes], storage_options: StorageOptions | None = None, engine_kwargs: dict | None = None) -> None:
+        """
         Reader using calamine engine (xlsx/xls/xlsb/ods).
 
         Parameters
         ----------
         filepath_or_buffer : str, path to be parsed or
             an open readable stream.
-        storage_options : dict, optional
-            Extra options that make sense for a particular storage connection, e.g.
-            host, port, username, password, etc. For HTTP(S) URLs the key-value pairs
-            are forwarded to ``urllib.request.Request`` as header options. For other
-            URLs (e.g. starting with "s3://", and "gcs://") the key-value pairs are
-            forwarded to ``fsspec.open``. Please see ``fsspec`` and ``urllib`` for more
-            details, and for more examples on storage options refer `here
-            <https://pandas.pydata.org/docs/user_guide/io.html?
-            highlight=storage_options#reading-writing-remote-files>`_.
+        {storage_options}
         engine_kwargs : dict, optional
             Arbitrary keyword arguments passed to excel engine.
-        '''
+        """
+    @property
+    def _workbook_class(self) -> type[CalamineWorkbook]: ...
     def load_workbook(self, filepath_or_buffer: FilePath | ReadBuffer[bytes], engine_kwargs: Any) -> CalamineWorkbook: ...
+    @property
+    def sheet_names(self) -> list[str]: ...
     def get_sheet_by_name(self, name: str) -> CalamineSheet: ...
     def get_sheet_by_index(self, index: int) -> CalamineSheet: ...
-    def get_sheet_data(self, sheet: CalamineSheet, file_rows_needed: int | None) -> list[list[Scalar | NaTType | time]]: ...
-    @property
-    def _workbook_class(self): ...
-    @property
-    def sheet_names(self): ...
+    def get_sheet_data(self, sheet: CalamineSheet, file_rows_needed: int | None = None) -> list[list[Scalar | NaTType | time]]: ...

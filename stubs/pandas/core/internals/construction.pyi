@@ -1,32 +1,24 @@
-import np
-import np.rec
-import npt
-import pandas._libs.lib as lib
-import pandas.core.algorithms as algorithms
-import pandas.core.common as com
+import numpy as np
+from collections.abc import Sequence
 from pandas._config import using_pyarrow_string_dtype as using_pyarrow_string_dtype
-from pandas._libs.internals import BlockPlacement as BlockPlacement
-from pandas._libs.lib import is_list_like as is_list_like
-from pandas.core.arrays.base import ExtensionArray as ExtensionArray
+from pandas._libs import lib as lib
+from pandas._typing import ArrayLike as ArrayLike, DtypeObj as DtypeObj, Manager as Manager, npt as npt
+from pandas.core import algorithms as algorithms
+from pandas.core.arrays import ExtensionArray as ExtensionArray
 from pandas.core.arrays.string_ import StringDtype as StringDtype
-from pandas.core.construction import ensure_wrapped_if_datetimelike as ensure_wrapped_if_datetimelike, extract_array as extract_array, pd_array as pd_array, range_to_ndarray as range_to_ndarray, sanitize_array as sanitize_array
+from pandas.core.construction import ensure_wrapped_if_datetimelike as ensure_wrapped_if_datetimelike, extract_array as extract_array, range_to_ndarray as range_to_ndarray, sanitize_array as sanitize_array
 from pandas.core.dtypes.astype import astype_is_view as astype_is_view
-from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.cast import construct_1d_arraylike_from_scalar as construct_1d_arraylike_from_scalar, dict_compat as dict_compat, maybe_cast_to_datetime as maybe_cast_to_datetime, maybe_convert_platform as maybe_convert_platform, maybe_infer_to_datetimelike as maybe_infer_to_datetimelike
-from pandas.core.dtypes.common import is_1d_only_ea_dtype as is_1d_only_ea_dtype, is_integer_dtype as is_integer_dtype, is_object_dtype as is_object_dtype
+from pandas.core.dtypes.common import is_1d_only_ea_dtype as is_1d_only_ea_dtype, is_integer_dtype as is_integer_dtype, is_list_like as is_list_like, is_named_tuple as is_named_tuple, is_object_dtype as is_object_dtype
+from pandas.core.dtypes.dtypes import ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCSeries as ABCSeries
-from pandas.core.dtypes.inference import is_named_tuple as is_named_tuple
-from pandas.core.indexes.api import default_index as default_index, get_objs_combined_axis as get_objs_combined_axis, union_indexes as union_indexes
-from pandas.core.indexes.base import Index as Index, ensure_index as ensure_index
-from pandas.core.indexes.datetimes import DatetimeIndex as DatetimeIndex
-from pandas.core.indexes.timedeltas import TimedeltaIndex as TimedeltaIndex
+from pandas.core.indexes.api import DatetimeIndex as DatetimeIndex, Index as Index, TimedeltaIndex as TimedeltaIndex, default_index as default_index, ensure_index as ensure_index, get_objs_combined_axis as get_objs_combined_axis, union_indexes as union_indexes
 from pandas.core.internals.array_manager import ArrayManager as ArrayManager, SingleArrayManager as SingleArrayManager
-from pandas.core.internals.blocks import ensure_block_shape as ensure_block_shape, new_block as new_block, new_block_2d as new_block_2d
+from pandas.core.internals.blocks import BlockPlacement as BlockPlacement, ensure_block_shape as ensure_block_shape, new_block as new_block, new_block_2d as new_block_2d
 from pandas.core.internals.managers import BlockManager as BlockManager, SingleBlockManager as SingleBlockManager, create_block_manager_from_blocks as create_block_manager_from_blocks, create_block_manager_from_column_arrays as create_block_manager_from_column_arrays
 from typing import Any
 
-TYPE_CHECKING: bool
-def arrays_to_mgr(arrays, columns: Index, index, *, dtype: DtypeObj | None, verify_integrity: bool = ..., typ: str | None, consolidate: bool = ...) -> Manager:
+def arrays_to_mgr(arrays, columns: Index, index, *, dtype: DtypeObj | None = None, verify_integrity: bool = True, typ: str | None = None, consolidate: bool = True) -> Manager:
     """
     Segregate Series based on type and coerce into matrices.
 
@@ -36,7 +28,7 @@ def rec_array_to_mgr(data: np.rec.recarray | np.ndarray, index, columns, dtype: 
     """
     Extract from a masked rec array and create the manager.
     """
-def mgr_to_mgr(mgr, typ: str, copy: bool = ...) -> Manager:
+def mgr_to_mgr(mgr, typ: str, copy: bool = True) -> Manager:
     """
     Convert to specific type of Manager. Does not copy if the type is already
     correct. Does not guarantee a copy otherwise. `copy` keyword only controls
@@ -48,7 +40,7 @@ def _check_values_indices_shape_match(values: np.ndarray, index: Index, columns:
     Check that the shape implied by our axes matches the actual shape of the
     data.
     """
-def dict_to_mgr(data: dict, index, columns, *, dtype: DtypeObj | None, typ: str = ..., copy: bool = ...) -> Manager:
+def dict_to_mgr(data: dict, index, columns, *, dtype: DtypeObj | None = None, typ: str = 'block', copy: bool = True) -> Manager:
     """
     Segregate Series based on type and coerce into matrices.
     Needs to handle a lot of exceptional cases.
@@ -63,7 +55,7 @@ def treat_as_nested(data) -> bool:
     """
     Check if we should use nested_data_to_arrays.
     """
-def _prep_ndarraylike(values, copy: bool = ...) -> np.ndarray: ...
+def _prep_ndarraylike(values, copy: bool = True) -> np.ndarray: ...
 def _ensure_2d(values: np.ndarray) -> np.ndarray:
     """
     Reshape 1D values, raise on anything else other than 2D.
@@ -103,7 +95,7 @@ def dataclasses_to_dicts(data):
     [{'x': 1, 'y': 2}, {'x': 2, 'y': 3}]
 
     """
-def to_arrays(data, columns: Index | None, dtype: DtypeObj | None) -> tuple[list[ArrayLike], Index]:
+def to_arrays(data, columns: Index | None, dtype: DtypeObj | None = None) -> tuple[list[ArrayLike], Index]:
     """
     Return list of arrays, columns.
 
@@ -168,7 +160,7 @@ def _validate_or_indexify_columns(content: list[np.ndarray], columns: Index | No
     3. ValueError when content is list of lists, but length of sub-list is
         not equal to length of content
     """
-def convert_object_array(content: list[npt.NDArray[np.object_]], dtype: DtypeObj | None, dtype_backend: str = ..., coerce_float: bool = ...) -> list[ArrayLike]:
+def convert_object_array(content: list[npt.NDArray[np.object_]], dtype: DtypeObj | None, dtype_backend: str = 'numpy', coerce_float: bool = False) -> list[ArrayLike]:
     """
     Internal function to convert object array.
 

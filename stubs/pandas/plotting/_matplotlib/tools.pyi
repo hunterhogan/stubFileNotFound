@@ -1,17 +1,24 @@
-import np
-from pandas._libs.lib import is_list_like as is_list_like
+import numpy as np
+from _typeshed import Incomplete
+from collections.abc import Iterable, Sequence
+from matplotlib.axes import Axes
+from matplotlib.axis import Axis
+from matplotlib.figure import Figure
+from matplotlib.lines import Line2D
+from matplotlib.table import Table
+from pandas import DataFrame as DataFrame, Series as Series
+from pandas.core.dtypes.common import is_list_like as is_list_like
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCIndex as ABCIndex, ABCSeries as ABCSeries
 from pandas.util._exceptions import find_stack_level as find_stack_level
 
-TYPE_CHECKING: bool
 def do_adjust_figure(fig: Figure) -> bool:
     """Whether fig has constrained_layout enabled."""
 def maybe_adjust_figure(fig: Figure, *args, **kwargs) -> None:
     """Call fig.subplots_adjust unless fig has constrained_layout enabled."""
 def format_date_labels(ax: Axes, rot) -> None: ...
-def table(ax, data: DataFrame | Series, rowLabels, colLabels, **kwargs) -> Table: ...
-def _get_layout(nplots: int, layout: tuple[int, int] | None, layout_type: str = ...) -> tuple[int, int]: ...
-def create_subplots(naxes: int, sharex: bool = ..., sharey: bool = ..., squeeze: bool = ..., subplot_kw, ax, layout, layout_type: str = ..., **fig_kw):
+def table(ax, data: DataFrame | Series, rowLabels: Incomplete | None = None, colLabels: Incomplete | None = None, **kwargs) -> Table: ...
+def _get_layout(nplots: int, layout: tuple[int, int] | None = None, layout_type: str = 'box') -> tuple[int, int]: ...
+def create_subplots(naxes: int, sharex: bool = False, sharey: bool = False, squeeze: bool = True, subplot_kw: Incomplete | None = None, ax: Incomplete | None = None, layout: Incomplete | None = None, layout_type: str = 'box', **fig_kw):
     """
     Create a figure with a set of subplots already made.
 
@@ -118,6 +125,6 @@ def _has_externally_shared_axis(ax1: Axes, compare_axis: str) -> bool:
     '''
 def handle_shared_axes(axarr: Iterable[Axes], nplots: int, naxes: int, nrows: int, ncols: int, sharex: bool, sharey: bool) -> None: ...
 def flatten_axes(axes: Axes | Sequence[Axes]) -> np.ndarray: ...
-def set_ticks_props(axes: Axes | Sequence[Axes], xlabelsize: int | None, xrot, ylabelsize: int | None, yrot): ...
+def set_ticks_props(axes: Axes | Sequence[Axes], xlabelsize: int | None = None, xrot: Incomplete | None = None, ylabelsize: int | None = None, yrot: Incomplete | None = None): ...
 def get_all_lines(ax: Axes) -> list[Line2D]: ...
 def get_xlim(lines: Iterable[Line2D]) -> tuple[float, float]: ...

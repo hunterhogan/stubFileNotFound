@@ -1,118 +1,61 @@
-import np
-import npt
-import pandas._libs.lib as lib
-import pandas._libs.missing as libmissing
-import pandas.compat.numpy.function as nv
-import pandas.core.algorithms as algos
-import pandas.core.array_algos.masked_accumulations as masked_accumulations
-import pandas.core.array_algos.masked_reductions as masked_reductions
-import pandas.core.arraylike
-import pandas.core.arraylike as arraylike
-import pandas.core.arrays.base
-import pandas.core.missing as missing
-import pandas.core.nanops as nanops
-import pandas.core.ops as ops
-import typing
-from builtins import AxisInt, Shape
-from pandas._libs.lib import is_bool as is_bool, is_list_like as is_list_like, is_scalar as is_scalar
-from pandas._libs.tslibs.np_datetime import is_supported_dtype as is_supported_dtype
-from pandas.compat import is_platform_windows as is_platform_windows
+import numpy as np
+from _typeshed import Incomplete
+from collections.abc import Iterator, Sequence
+from pandas import Series as Series
+from pandas._libs import lib as lib
+from pandas._libs.tslibs import is_supported_dtype as is_supported_dtype
+from pandas._typing import ArrayLike as ArrayLike, AstypeArg as AstypeArg, AxisInt as AxisInt, DtypeObj as DtypeObj, FillnaOptions as FillnaOptions, InterpolateOptions as InterpolateOptions, NpDtype as NpDtype, NumpySorter as NumpySorter, NumpyValueArrayLike as NumpyValueArrayLike, PositionalIndexer as PositionalIndexer, Scalar as Scalar, ScalarIndexer as ScalarIndexer, Self as Self, SequenceIndexer as SequenceIndexer, Shape as Shape, npt as npt
+from pandas.compat import IS64 as IS64, is_platform_windows as is_platform_windows
+from pandas.core import arraylike as arraylike, missing as missing, nanops as nanops, ops as ops
 from pandas.core.algorithms import factorize_array as factorize_array, isin as isin, map_array as map_array, mode as mode, take as take
+from pandas.core.array_algos import masked_accumulations as masked_accumulations, masked_reductions as masked_reductions
 from pandas.core.array_algos.quantile import quantile_with_mask as quantile_with_mask
 from pandas.core.arraylike import OpsMixin as OpsMixin
+from pandas.core.arrays import BooleanArray as BooleanArray, FloatingArray as FloatingArray
 from pandas.core.arrays._utils import to_numpy_dtype_inference as to_numpy_dtype_inference
 from pandas.core.arrays.base import ExtensionArray as ExtensionArray
-from pandas.core.construction import ensure_wrapped_if_datetimelike as ensure_wrapped_if_datetimelike, extract_array as extract_array, pd_array as pd_array
+from pandas.core.construction import ensure_wrapped_if_datetimelike as ensure_wrapped_if_datetimelike, extract_array as extract_array
 from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
-from pandas.core.dtypes.common import is_integer_dtype as is_integer_dtype, is_string_dtype as is_string_dtype, pandas_dtype as pandas_dtype
+from pandas.core.dtypes.common import is_bool as is_bool, is_integer_dtype as is_integer_dtype, is_list_like as is_list_like, is_scalar as is_scalar, is_string_dtype as is_string_dtype, pandas_dtype as pandas_dtype
 from pandas.core.dtypes.dtypes import BaseMaskedDtype as BaseMaskedDtype
 from pandas.core.dtypes.missing import array_equivalent as array_equivalent, is_valid_na_for_dtype as is_valid_na_for_dtype, isna as isna, notna as notna
-from pandas.core.indexers.utils import check_array_indexer as check_array_indexer
-from pandas.core.ops.invalid import invalid_comparison as invalid_comparison
+from pandas.core.indexers import check_array_indexer as check_array_indexer
+from pandas.core.ops import invalid_comparison as invalid_comparison
 from pandas.core.util.hashing import hash_array as hash_array
 from pandas.errors import AbstractMethodError as AbstractMethodError
 from pandas.util._decorators import doc as doc
 from pandas.util._validators import validate_fillna_kwargs as validate_fillna_kwargs
-from typing import Any, ArrayLike, AstypeArg, Callable, ClassVar, DtypeObj, FillnaOptions, InterpolateOptions, Literal, NpDtype, PositionalIndexer, Scalar
+from typing import Any, Callable, Literal, overload
 
-TYPE_CHECKING: bool
-Self: None
-npt: None
-IS64: bool
+class BaseMaskedArray(OpsMixin, ExtensionArray):
+    """
+    Base class for masked arrays (which use _data and _mask to store the data).
 
-class BaseMaskedArray(pandas.core.arraylike.OpsMixin, pandas.core.arrays.base.ExtensionArray):
-    _truthy_value: ClassVar[typing._UnionGenericAlias] = ...
-    _falsey_value: ClassVar[typing._UnionGenericAlias] = ...
-    __array_priority__: ClassVar[int] = ...
+    numpy based
+    """
+    _internal_fill_value: Scalar
+    _data: np.ndarray
+    _mask: npt.NDArray[np.bool_]
+    _truthy_value = Scalar
+    _falsey_value = Scalar
     @classmethod
     def _simple_new(cls, values: np.ndarray, mask: npt.NDArray[np.bool_]) -> Self: ...
-    def __init__(self, values: np.ndarray, mask: npt.NDArray[np.bool_], copy: bool = ...) -> None: ...
+    def __init__(self, values: np.ndarray, mask: npt.NDArray[np.bool_], copy: bool = False) -> None: ...
     @classmethod
-    def _from_sequence(cls, scalars, *, dtype, copy: bool = ...) -> Self: ...
+    def _from_sequence(cls, scalars, *, dtype: Incomplete | None = None, copy: bool = False) -> Self: ...
     @classmethod
-    def _empty(cls, shape: Shape, dtype: ExtensionDtype):
-        """
-        Create an ExtensionArray with the given shape and dtype.
-
-        See also
-        --------
-        ExtensionDtype.empty
-            ExtensionDtype.empty is the 'official' public version of this API.
-        """
-    def _formatter(self, boxed: bool = ...) -> Callable[[Any], str | None]: ...
-    def __getitem__(self, item: PositionalIndexer) -> Self | Any: ...
-    def _pad_or_backfill(self, *, method: FillnaOptions, limit: int | None, limit_area: Literal['inside', 'outside'] | None, copy: bool = ...) -> Self: ...
-    def fillna(self, value, method, limit: int | None, copy: bool = ...) -> Self:
-        '''
-        Fill NA/NaN values using the specified method.
-
-        Parameters
-        ----------
-        value : scalar, array-like
-            If a scalar value is passed it is used to fill all missing values.
-            Alternatively, an array-like "value" can be given. It\'s expected
-            that the array-like have the same length as \'self\'.
-        method : {\'backfill\', \'bfill\', \'pad\', \'ffill\', None}, default None
-            Method to use for filling holes in reindexed Series:
-
-            * pad / ffill: propagate last valid observation forward to next valid.
-            * backfill / bfill: use NEXT valid observation to fill gap.
-
-            .. deprecated:: 2.1.0
-
-        limit : int, default None
-            If method is specified, this is the maximum number of consecutive
-            NaN values to forward/backward fill. In other words, if there is
-            a gap with more than this number of consecutive NaNs, it will only
-            be partially filled. If method is not specified, this is the
-            maximum number of entries along the entire axis where NaNs will be
-            filled.
-
-            .. deprecated:: 2.1.0
-
-        copy : bool, default True
-            Whether to make a copy of the data before filling. If False, then
-            the original should be modified and no new memory should be allocated.
-            For ExtensionArray subclasses that cannot do this, it is at the
-            author\'s discretion whether to ignore "copy=False" or to raise.
-            The base class implementation ignores the keyword in pad/backfill
-            cases.
-
-        Returns
-        -------
-        ExtensionArray
-            With NA/NaN filled.
-
-        Examples
-        --------
-        >>> arr = pd.array([np.nan, np.nan, 2, 3, np.nan, np.nan])
-        >>> arr.fillna(0)
-        <IntegerArray>
-        [0, 0, 2, 3, 0, 0]
-        Length: 6, dtype: Int64
-        '''
+    def _empty(cls, shape: Shape, dtype: ExtensionDtype): ...
+    def _formatter(self, boxed: bool = False) -> Callable[[Any], str | None]: ...
+    @property
+    def dtype(self) -> BaseMaskedDtype: ...
+    @overload
+    def __getitem__(self, item: ScalarIndexer) -> Any: ...
+    @overload
+    def __getitem__(self, item: SequenceIndexer) -> Self: ...
+    def _pad_or_backfill(self, *, method: FillnaOptions, limit: int | None = None, limit_area: Literal['inside', 'outside'] | None = None, copy: bool = True) -> Self: ...
+    def fillna(self, value: Incomplete | None = None, method: Incomplete | None = None, limit: int | None = None, copy: bool = True) -> Self: ...
     @classmethod
-    def _coerce_to_array(cls, values, *, dtype: DtypeObj, copy: bool = ...) -> tuple[np.ndarray, np.ndarray]: ...
+    def _coerce_to_array(cls, values, *, dtype: DtypeObj, copy: bool = False) -> tuple[np.ndarray, np.ndarray]: ...
     def _validate_setitem_value(self, value):
         """
         Check if we have a scalar that we can cast losslessly.
@@ -125,11 +68,17 @@ class BaseMaskedArray(pandas.core.arraylike.OpsMixin, pandas.core.arrays.base.Ex
     def __contains__(self, key) -> bool: ...
     def __iter__(self) -> Iterator: ...
     def __len__(self) -> int: ...
+    @property
+    def shape(self) -> Shape: ...
+    @property
+    def ndim(self) -> int: ...
     def swapaxes(self, axis1, axis2) -> Self: ...
-    def delete(self, loc, axis: AxisInt = ...) -> Self: ...
+    def delete(self, loc, axis: AxisInt = 0) -> Self: ...
     def reshape(self, *args, **kwargs) -> Self: ...
     def ravel(self, *args, **kwargs) -> Self: ...
-    def round(self, decimals: int = ..., *args, **kwargs):
+    @property
+    def T(self) -> Self: ...
+    def round(self, decimals: int = 0, *args, **kwargs):
         """
         Round each value in the array a to the given number of decimals.
 
@@ -158,7 +107,7 @@ class BaseMaskedArray(pandas.core.arraylike.OpsMixin, pandas.core.arrays.base.Ex
     def __pos__(self) -> Self: ...
     def __abs__(self) -> Self: ...
     def _values_for_json(self) -> np.ndarray: ...
-    def to_numpy(self, dtype: npt.DTypeLike | None, copy: bool = ..., na_value: object = ...) -> np.ndarray:
+    def to_numpy(self, dtype: npt.DTypeLike | None = None, copy: bool = False, na_value: object = ...) -> np.ndarray:
         '''
         Convert to a NumPy Array.
 
@@ -219,38 +168,30 @@ class BaseMaskedArray(pandas.core.arraylike.OpsMixin, pandas.core.arrays.base.Ex
         >>> a.to_numpy(dtype="bool", na_value=False)
         array([ True, False, False])
         '''
-    def tolist(self):
-        """
-        Return a list of the values.
-
-        These are each a scalar type, which is a Python scalar
-        (for str, int, float) or a pandas scalar
-        (for Timestamp/Timedelta/Interval/Period)
-
-        Returns
-        -------
-        list
-
-        Examples
-        --------
-        >>> arr = pd.array([1, 2, 3])
-        >>> arr.tolist()
-        [1, 2, 3]
-        """
+    def tolist(self): ...
+    @overload
+    def astype(self, dtype: npt.DTypeLike, copy: bool = ...) -> np.ndarray: ...
+    @overload
+    def astype(self, dtype: ExtensionDtype, copy: bool = ...) -> ExtensionArray: ...
+    @overload
     def astype(self, dtype: AstypeArg, copy: bool = ...) -> ArrayLike: ...
-    def __array__(self, dtype: NpDtype | None, copy: bool | None) -> np.ndarray:
+    __array_priority__: int
+    def __array__(self, dtype: NpDtype | None = None, copy: bool | None = None) -> np.ndarray:
         """
         the array interface, return my values
         We return an object array here to preserve our scalar values
         """
+    _HANDLED_TYPES: tuple[type, ...]
     def __array_ufunc__(self, ufunc: np.ufunc, method: str, *inputs, **kwargs): ...
-    def __arrow_array__(self, type):
+    def __arrow_array__(self, type: Incomplete | None = None):
         """
         Convert myself into a pyarrow Array.
         """
+    @property
+    def _hasna(self) -> bool: ...
     def _propagate_mask(self, mask: npt.NDArray[np.bool_] | None, other) -> npt.NDArray[np.bool_]: ...
     def _arith_method(self, other, op): ...
-    def _logical_method(self, other, op): ...
+    _logical_method = _arith_method
     def _cmp_method(self, other, op) -> BooleanArray: ...
     def _maybe_mask_result(self, result: np.ndarray | tuple[np.ndarray, np.ndarray], mask: np.ndarray):
         """
@@ -260,32 +201,17 @@ class BaseMaskedArray(pandas.core.arraylike.OpsMixin, pandas.core.arrays.base.Ex
         mask : array-like bool
         """
     def isna(self) -> np.ndarray: ...
+    @property
+    def _na_value(self): ...
+    @property
+    def nbytes(self) -> int: ...
     @classmethod
-    def _concat_same_type(cls, to_concat: Sequence[Self], axis: AxisInt = ...) -> Self: ...
+    def _concat_same_type(cls, to_concat: Sequence[Self], axis: AxisInt = 0) -> Self: ...
     def _hash_pandas_object(self, *, encoding: str, hash_key: str, categorize: bool) -> npt.NDArray[np.uint64]: ...
-    def take(self, indexer, *, allow_fill: bool = ..., fill_value: Scalar | None, axis: AxisInt = ...) -> Self: ...
+    def take(self, indexer, *, allow_fill: bool = False, fill_value: Scalar | None = None, axis: AxisInt = 0) -> Self: ...
     def isin(self, values: ArrayLike) -> BooleanArray: ...
     def copy(self) -> Self: ...
-    def duplicated(self, keep: Literal['first', 'last', False] = ...) -> npt.NDArray[np.bool_]:
-        '''
-        Return boolean ndarray denoting duplicate values.
-
-        Parameters
-        ----------
-        keep : {\'first\', \'last\', False}, default \'first\'
-            - ``first`` : Mark duplicates as ``True`` except for the first occurrence.
-            - ``last`` : Mark duplicates as ``True`` except for the last occurrence.
-            - False : Mark all duplicates as ``True``.
-
-        Returns
-        -------
-        ndarray[bool]
-
-        Examples
-        --------
-        >>> pd.array([1, 1, 2, 3, 3], dtype="Int64").duplicated()
-        array([False,  True, False, False,  True])
-        '''
+    def duplicated(self, keep: Literal['first', 'last', False] = 'first') -> npt.NDArray[np.bool_]: ...
     def unique(self) -> Self:
         """
         Compute the BaseMaskedArray of unique values.
@@ -294,129 +220,10 @@ class BaseMaskedArray(pandas.core.arraylike.OpsMixin, pandas.core.arrays.base.Ex
         -------
         uniques : BaseMaskedArray
         """
-    def searchsorted(self, value: NumpyValueArrayLike | ExtensionArray, side: Literal['left', 'right'] = ..., sorter: NumpySorter | None) -> npt.NDArray[np.intp] | np.intp:
-        """
-        Find indices where elements should be inserted to maintain order.
-
-        Find the indices into a sorted array `self` (a) such that, if the
-        corresponding elements in `value` were inserted before the indices,
-        the order of `self` would be preserved.
-
-        Assuming that `self` is sorted:
-
-        ======  ================================
-        `side`  returned index `i` satisfies
-        ======  ================================
-        left    ``self[i-1] < value <= self[i]``
-        right   ``self[i-1] <= value < self[i]``
-        ======  ================================
-
-        Parameters
-        ----------
-        value : array-like, list or scalar
-            Value(s) to insert into `self`.
-        side : {'left', 'right'}, optional
-            If 'left', the index of the first suitable location found is given.
-            If 'right', return the last such index.  If there is no suitable
-            index, return either 0 or N (where N is the length of `self`).
-        sorter : 1-D array-like, optional
-            Optional array of integer indices that sort array a into ascending
-            order. They are typically the result of argsort.
-
-        Returns
-        -------
-        array of ints or int
-            If value is array-like, array of insertion points.
-            If value is scalar, a single integer.
-
-        See Also
-        --------
-        numpy.searchsorted : Similar method from NumPy.
-
-        Examples
-        --------
-        >>> arr = pd.array([1, 2, 3, 5])
-        >>> arr.searchsorted([4])
-        array([3])
-        """
-    def factorize(self, use_na_sentinel: bool = ...) -> tuple[np.ndarray, ExtensionArray]:
-        '''
-        Encode the extension array as an enumerated type.
-
-        Parameters
-        ----------
-        use_na_sentinel : bool, default True
-            If True, the sentinel -1 will be used for NaN values. If False,
-            NaN values will be encoded as non-negative integers and will not drop the
-            NaN from the uniques of the values.
-
-            .. versionadded:: 1.5.0
-
-        Returns
-        -------
-        codes : ndarray
-            An integer NumPy array that\'s an indexer into the original
-            ExtensionArray.
-        uniques : ExtensionArray
-            An ExtensionArray containing the unique values of `self`.
-
-            .. note::
-
-               uniques will *not* contain an entry for the NA value of
-               the ExtensionArray if there are any missing values present
-               in `self`.
-
-        See Also
-        --------
-        factorize : Top-level factorize method that dispatches here.
-
-        Notes
-        -----
-        :meth:`pandas.factorize` offers a `sort` keyword as well.
-
-        Examples
-        --------
-        >>> idx1 = pd.PeriodIndex(["2014-01", "2014-01", "2014-02", "2014-02",
-        ...                       "2014-03", "2014-03"], freq="M")
-        >>> arr, idx = idx1.factorize()
-        >>> arr
-        array([0, 0, 1, 1, 2, 2])
-        >>> idx
-        PeriodIndex([\'2014-01\', \'2014-02\', \'2014-03\'], dtype=\'period[M]\')
-        '''
-    def _values_for_argsort(self) -> np.ndarray:
-        """
-        Return values for sorting.
-
-        Returns
-        -------
-        ndarray
-            The transformed values should maintain the ordering between values
-            within the array.
-
-        See Also
-        --------
-        ExtensionArray.argsort : Return the indices that would sort this array.
-
-        Notes
-        -----
-        The caller is responsible for *not* modifying these values in-place, so
-        it is safe for implementers to give views on ``self``.
-
-        Functions that use this (e.g. ``ExtensionArray.argsort``) should ignore
-        entries with missing values in the original array (according to
-        ``self.isna()``). This means that the corresponding entries in the returned
-        array don't need to be modified to sort correctly.
-
-        Examples
-        --------
-        In most cases, this is the underlying Numpy array of the ``ExtensionArray``:
-
-        >>> arr = pd.array([1, 2, 3])
-        >>> arr._values_for_argsort()
-        array([1, 2, 3])
-        """
-    def value_counts(self, dropna: bool = ...) -> Series:
+    def searchsorted(self, value: NumpyValueArrayLike | ExtensionArray, side: Literal['left', 'right'] = 'left', sorter: NumpySorter | None = None) -> npt.NDArray[np.intp] | np.intp: ...
+    def factorize(self, use_na_sentinel: bool = True) -> tuple[np.ndarray, ExtensionArray]: ...
+    def _values_for_argsort(self) -> np.ndarray: ...
+    def value_counts(self, dropna: bool = True) -> Series:
         """
         Returns a Series containing counts of each unique value.
 
@@ -433,32 +240,8 @@ class BaseMaskedArray(pandas.core.arraylike.OpsMixin, pandas.core.arrays.base.Ex
         --------
         Series.value_counts
         """
-    def _mode(self, dropna: bool = ...) -> Self: ...
-    def equals(self, other) -> bool:
-        """
-        Return if another array is equivalent to this array.
-
-        Equivalent means that both arrays have the same shape and dtype, and
-        all values compare equal. Missing values in the same location are
-        considered equal (in contrast with normal equality).
-
-        Parameters
-        ----------
-        other : ExtensionArray
-            Array to compare to this Array.
-
-        Returns
-        -------
-        boolean
-            Whether the arrays are equivalent.
-
-        Examples
-        --------
-        >>> arr1 = pd.array([1, 2, np.nan])
-        >>> arr2 = pd.array([1, 2, np.nan])
-        >>> arr1.equals(arr2)
-        True
-        """
+    def _mode(self, dropna: bool = True) -> Self: ...
+    def equals(self, other) -> bool: ...
     def _quantile(self, qs: npt.NDArray[np.float64], interpolation: str) -> BaseMaskedArray:
         """
         Dispatch to quantile_with_mask, needed because we do not have
@@ -468,19 +251,19 @@ class BaseMaskedArray(pandas.core.arraylike.OpsMixin, pandas.core.arrays.base.Ex
         -----
         We assume that all impacted cases are 1D-only.
         """
-    def _reduce(self, name: str, *, skipna: bool = ..., keepdims: bool = ..., **kwargs): ...
+    def _reduce(self, name: str, *, skipna: bool = True, keepdims: bool = False, **kwargs): ...
     def _wrap_reduction_result(self, name: str, result, *, skipna, axis): ...
     def _wrap_na_result(self, *, name, axis, mask_size): ...
     def _wrap_min_count_reduction_result(self, name: str, result, *, skipna, min_count, axis): ...
-    def sum(self, *, skipna: bool = ..., min_count: int = ..., axis: AxisInt | None = ..., **kwargs): ...
-    def prod(self, *, skipna: bool = ..., min_count: int = ..., axis: AxisInt | None = ..., **kwargs): ...
-    def mean(self, *, skipna: bool = ..., axis: AxisInt | None = ..., **kwargs): ...
-    def var(self, *, skipna: bool = ..., axis: AxisInt | None = ..., ddof: int = ..., **kwargs): ...
-    def std(self, *, skipna: bool = ..., axis: AxisInt | None = ..., ddof: int = ..., **kwargs): ...
-    def min(self, *, skipna: bool = ..., axis: AxisInt | None = ..., **kwargs): ...
-    def max(self, *, skipna: bool = ..., axis: AxisInt | None = ..., **kwargs): ...
-    def map(self, mapper, na_action): ...
-    def any(self, *, skipna: bool = ..., axis: AxisInt | None = ..., **kwargs):
+    def sum(self, *, skipna: bool = True, min_count: int = 0, axis: AxisInt | None = 0, **kwargs): ...
+    def prod(self, *, skipna: bool = True, min_count: int = 0, axis: AxisInt | None = 0, **kwargs): ...
+    def mean(self, *, skipna: bool = True, axis: AxisInt | None = 0, **kwargs): ...
+    def var(self, *, skipna: bool = True, axis: AxisInt | None = 0, ddof: int = 1, **kwargs): ...
+    def std(self, *, skipna: bool = True, axis: AxisInt | None = 0, ddof: int = 1, **kwargs): ...
+    def min(self, *, skipna: bool = True, axis: AxisInt | None = 0, **kwargs): ...
+    def max(self, *, skipna: bool = True, axis: AxisInt | None = 0, **kwargs): ...
+    def map(self, mapper, na_action: Incomplete | None = None): ...
+    def any(self, *, skipna: bool = True, axis: AxisInt | None = 0, **kwargs):
         '''
         Return whether any element is truthy.
 
@@ -543,7 +326,7 @@ class BaseMaskedArray(pandas.core.arraylike.OpsMixin, pandas.core.arrays.base.Ex
         >>> pd.array([0, 0, pd.NA]).any(skipna=False)
         <NA>
         '''
-    def all(self, *, skipna: bool = ..., axis: AxisInt | None = ..., **kwargs):
+    def all(self, *, skipna: bool = True, axis: AxisInt | None = 0, **kwargs):
         '''
         Return whether all elements are truthy.
 
@@ -610,22 +393,9 @@ class BaseMaskedArray(pandas.core.arraylike.OpsMixin, pandas.core.arrays.base.Ex
         """
         See NDFrame.interpolate.__doc__.
         """
-    def _accumulate(self, name: str, *, skipna: bool = ..., **kwargs) -> BaseMaskedArray: ...
+    def _accumulate(self, name: str, *, skipna: bool = True, **kwargs) -> BaseMaskedArray: ...
     def _groupby_op(self, *, how: str, has_dropped_na: bool, min_count: int, ngroups: int, ids: npt.NDArray[np.intp], **kwargs): ...
-    @property
-    def dtype(self): ...
-    @property
-    def shape(self): ...
-    @property
-    def ndim(self): ...
-    @property
-    def T(self): ...
-    @property
-    def _hasna(self): ...
-    @property
-    def _na_value(self): ...
-    @property
-    def nbytes(self): ...
+
 def transpose_homogeneous_masked_arrays(masked_arrays: Sequence[BaseMaskedArray]) -> list[BaseMaskedArray]:
     """Transpose masked arrays in a list, but faster.
 

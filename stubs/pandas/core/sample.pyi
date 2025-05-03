@@ -1,9 +1,9 @@
-import np
-import np.random
-import pandas._libs.lib as lib
+import numpy as np
+from pandas._libs import lib as lib
+from pandas._typing import AxisInt as AxisInt
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCSeries as ABCSeries
+from pandas.core.generic import NDFrame as NDFrame
 
-TYPE_CHECKING: bool
 def preprocess_weights(obj: NDFrame, weights, axis: AxisInt) -> np.ndarray:
     """
     Process and validate the `weights` argument to `NDFrame.sample` and

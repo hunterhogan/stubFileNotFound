@@ -1,16 +1,17 @@
-import np
-import pandas._libs.lib as lib
+import numpy as np
+from _typeshed import Incomplete
 from collections.abc import Collection, Generator, Hashable, Iterable, Sequence
-from pandas._libs.lib import is_integer as is_integer
+from pandas import Index as Index
+from pandas._libs import lib as lib
+from pandas._typing import AnyArrayLike as AnyArrayLike, ArrayLike as ArrayLike, NpDtype as NpDtype, RandomState as RandomState, T as T
+from pandas.compat.numpy import np_version_gte1p24 as np_version_gte1p24
 from pandas.core.dtypes.cast import construct_1d_object_array_from_listlike as construct_1d_object_array_from_listlike
-from pandas.core.dtypes.common import is_bool_dtype as is_bool_dtype
+from pandas.core.dtypes.common import is_bool_dtype as is_bool_dtype, is_integer as is_integer
 from pandas.core.dtypes.generic import ABCExtensionArray as ABCExtensionArray, ABCIndex as ABCIndex, ABCMultiIndex as ABCMultiIndex, ABCSeries as ABCSeries
 from pandas.core.dtypes.inference import iterable_not_string as iterable_not_string
-from typing import Any, Callable
+from typing import Any, Callable, overload
 
-TYPE_CHECKING: bool
-np_version_gte1p24: bool
-def flatten(line):
+def flatten(line) -> Generator[Incomplete, Incomplete]:
     """
     Flatten an arbitrarily nested sequence.
 
@@ -92,8 +93,11 @@ def count_not_none(*args) -> int:
     """
     Returns the count of arguments that are not None.
     """
-def asarray_tuplesafe(values: Iterable, dtype: NpDtype | None) -> ArrayLike: ...
-def index_labels_to_array(labels: np.ndarray | Iterable, dtype: NpDtype | None) -> np.ndarray:
+@overload
+def asarray_tuplesafe(values: ArrayLike | list | tuple | zip, dtype: NpDtype | None = ...) -> np.ndarray: ...
+@overload
+def asarray_tuplesafe(values: Iterable, dtype: NpDtype | None = ...) -> ArrayLike: ...
+def index_labels_to_array(labels: np.ndarray | Iterable, dtype: NpDtype | None = None) -> np.ndarray:
     """
     Transform label or iterable of labels to array, for use in Index.
 
@@ -160,26 +164,10 @@ def standardize_mapping(into):
     DataFrame.to_dict
     Series.to_dict
     """
-def random_state(state: RandomState | None):
-    """
-    Helper function for processing random_state arguments.
-
-    Parameters
-    ----------
-    state : int, array-like, BitGenerator, Generator, np.random.RandomState, None.
-        If receives an int, array-like, or BitGenerator, passes to
-        np.random.RandomState() as seed.
-        If receives an np.random RandomState or Generator, just returns that unchanged.
-        If receives `None`, returns np.random.
-        If receives anything else, raises an informative ValueError.
-
-        Default None.
-
-    Returns
-    -------
-    np.random.RandomState or np.random.Generator. If state is None, returns np.random
-
-    """
+@overload
+def random_state(state: np.random.Generator) -> np.random.Generator: ...
+@overload
+def random_state(state: int | np.ndarray | np.random.BitGenerator | np.random.RandomState | None) -> np.random.RandomState: ...
 def pipe(obj, func: Callable[..., T] | tuple[Callable[..., T], str], *args, **kwargs) -> T:
     """
     Apply a function ``func`` to object ``obj`` either by passing obj as the
@@ -214,7 +202,7 @@ def convert_to_list_like(values: Hashable | Iterable | AnyArrayLike) -> list | A
     Convert list-like or scalar input to list-like. List, numpy and pandas array-like
     inputs are returned unmodified whereas others are converted to list.
     """
-def temp_setattr(*args, **kwds) -> Generator[None, None, None]:
+def temp_setattr(obj, attr: str, value, condition: bool = True) -> Generator[None, None, None]:
     """
     Temporarily set attribute on an object.
 
@@ -239,9 +227,10 @@ def require_length_match(data, index: Index) -> None:
     Check the length of data matches the length of the index.
     """
 
-_builtin_table: dict
-_builtin_table_alias: dict
-_cython_table: dict
+_builtin_table: Incomplete
+_builtin_table_alias: Incomplete
+_cython_table: Incomplete
+
 def get_cython_func(arg: Callable) -> str | None:
     """
     if we define an internal function for this argument, return it
