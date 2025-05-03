@@ -1,0 +1,123 @@
+import _cython_3_0_11
+
+__pyx_capi__: dict
+__test__: dict
+backfill: _cython_3_0_11.fused_cython_function
+backfill_2d_inplace: _cython_3_0_11.fused_cython_function
+backfill_inplace: _cython_3_0_11.fused_cython_function
+diff_2d: _cython_3_0_11.fused_cython_function
+ensure_float64: _cython_3_0_11.cython_function_or_method
+ensure_int16: _cython_3_0_11.cython_function_or_method
+ensure_int32: _cython_3_0_11.cython_function_or_method
+ensure_int64: _cython_3_0_11.cython_function_or_method
+ensure_int8: _cython_3_0_11.cython_function_or_method
+ensure_object: _cython_3_0_11.cython_function_or_method
+ensure_platform_int: _cython_3_0_11.cython_function_or_method
+ensure_uint64: _cython_3_0_11.cython_function_or_method
+get_fill_indexer: _cython_3_0_11.cython_function_or_method
+groupsort_indexer: _cython_3_0_11.cython_function_or_method
+is_lexsorted: _cython_3_0_11.cython_function_or_method
+is_monotonic: _cython_3_0_11.fused_cython_function
+kth_smallest: _cython_3_0_11.fused_cython_function
+nancorr: _cython_3_0_11.cython_function_or_method
+nancorr_spearman: _cython_3_0_11.cython_function_or_method
+pad: _cython_3_0_11.fused_cython_function
+pad_2d_inplace: _cython_3_0_11.fused_cython_function
+pad_inplace: _cython_3_0_11.fused_cython_function
+rank_1d: _cython_3_0_11.fused_cython_function
+rank_2d: _cython_3_0_11.fused_cython_function
+take_1d_bool_bool: _cython_3_0_11.cython_function_or_method
+take_1d_bool_object: _cython_3_0_11.cython_function_or_method
+take_1d_float32_float32: _cython_3_0_11.cython_function_or_method
+take_1d_float32_float64: _cython_3_0_11.cython_function_or_method
+take_1d_float64_float64: _cython_3_0_11.cython_function_or_method
+take_1d_int16_float64: _cython_3_0_11.cython_function_or_method
+take_1d_int16_int16: _cython_3_0_11.cython_function_or_method
+take_1d_int16_int32: _cython_3_0_11.cython_function_or_method
+take_1d_int16_int64: _cython_3_0_11.cython_function_or_method
+take_1d_int32_float64: _cython_3_0_11.cython_function_or_method
+take_1d_int32_int32: _cython_3_0_11.cython_function_or_method
+take_1d_int32_int64: _cython_3_0_11.cython_function_or_method
+take_1d_int64_float64: _cython_3_0_11.cython_function_or_method
+take_1d_int64_int64: _cython_3_0_11.cython_function_or_method
+take_1d_int8_float64: _cython_3_0_11.cython_function_or_method
+take_1d_int8_int32: _cython_3_0_11.cython_function_or_method
+take_1d_int8_int64: _cython_3_0_11.cython_function_or_method
+take_1d_int8_int8: _cython_3_0_11.cython_function_or_method
+take_1d_object_object: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_bool_bool: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_bool_object: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_float32_float32: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_float32_float64: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_float64_float64: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_int16_float64: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_int16_int16: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_int16_int32: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_int16_int64: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_int32_float64: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_int32_int32: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_int32_int64: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_int64_float64: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_int64_int64: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_int8_float64: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_int8_int32: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_int8_int64: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_int8_int8: _cython_3_0_11.cython_function_or_method
+take_2d_axis0_object_object: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_bool_bool: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_bool_object: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_float32_float32: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_float32_float64: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_float64_float64: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_int16_float64: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_int16_int16: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_int16_int32: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_int16_int64: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_int32_float64: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_int32_int32: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_int32_int64: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_int64_float64: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_int64_int64: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_int8_float64: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_int8_int32: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_int8_int64: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_int8_int8: _cython_3_0_11.cython_function_or_method
+take_2d_axis1_object_object: _cython_3_0_11.cython_function_or_method
+take_2d_multi_bool_bool: _cython_3_0_11.cython_function_or_method
+take_2d_multi_bool_object: _cython_3_0_11.cython_function_or_method
+take_2d_multi_float32_float32: _cython_3_0_11.cython_function_or_method
+take_2d_multi_float32_float64: _cython_3_0_11.cython_function_or_method
+take_2d_multi_float64_float64: _cython_3_0_11.cython_function_or_method
+take_2d_multi_int16_float64: _cython_3_0_11.cython_function_or_method
+take_2d_multi_int16_int16: _cython_3_0_11.cython_function_or_method
+take_2d_multi_int16_int32: _cython_3_0_11.cython_function_or_method
+take_2d_multi_int16_int64: _cython_3_0_11.cython_function_or_method
+take_2d_multi_int32_float64: _cython_3_0_11.cython_function_or_method
+take_2d_multi_int32_int32: _cython_3_0_11.cython_function_or_method
+take_2d_multi_int32_int64: _cython_3_0_11.cython_function_or_method
+take_2d_multi_int64_float64: _cython_3_0_11.cython_function_or_method
+take_2d_multi_int64_int64: _cython_3_0_11.cython_function_or_method
+take_2d_multi_int8_float64: _cython_3_0_11.cython_function_or_method
+take_2d_multi_int8_int32: _cython_3_0_11.cython_function_or_method
+take_2d_multi_int8_int64: _cython_3_0_11.cython_function_or_method
+take_2d_multi_int8_int8: _cython_3_0_11.cython_function_or_method
+take_2d_multi_object_object: _cython_3_0_11.cython_function_or_method
+tiebreakers: dict
+unique_deltas: _cython_3_0_11.cython_function_or_method
+validate_limit: _cython_3_0_11.cython_function_or_method
+
+class Infinity:
+    def __eq__(self, other: object) -> bool: ...
+    def __ge__(self, other: object) -> bool: ...
+    def __gt__(self, other: object) -> bool: ...
+    def __le__(self, other: object) -> bool: ...
+    def __lt__(self, other: object) -> bool: ...
+    def __ne__(self, other: object) -> bool: ...
+
+class NegInfinity:
+    def __eq__(self, other: object) -> bool: ...
+    def __ge__(self, other: object) -> bool: ...
+    def __gt__(self, other: object) -> bool: ...
+    def __le__(self, other: object) -> bool: ...
+    def __lt__(self, other: object) -> bool: ...
+    def __ne__(self, other: object) -> bool: ...

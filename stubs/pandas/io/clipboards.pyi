@@ -1,0 +1,77 @@
+from pandas import get_option as get_option, option_context as option_context
+from pandas._libs import lib as lib
+from pandas._typing import DtypeBackend as DtypeBackend
+from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame
+from pandas.util._exceptions import find_stack_level as find_stack_level
+from pandas.util._validators import check_dtype_backend as check_dtype_backend
+
+def read_clipboard(sep: str = '\\s+', dtype_backend: DtypeBackend | lib.NoDefault = ..., **kwargs):
+    '''
+    Read text from clipboard and pass to :func:`~pandas.read_csv`.
+
+    Parses clipboard contents similar to how CSV files are parsed
+    using :func:`~pandas.read_csv`.
+
+    Parameters
+    ----------
+    sep : str, default \'\\\\s+\'
+        A string or regex delimiter. The default of ``\'\\\\s+\'`` denotes
+        one or more whitespace characters.
+
+    dtype_backend : {\'numpy_nullable\', \'pyarrow\'}, default \'numpy_nullable\'
+        Back-end data type applied to the resultant :class:`DataFrame`
+        (still experimental). Behaviour is as follows:
+
+        * ``"numpy_nullable"``: returns nullable-dtype-backed :class:`DataFrame`
+          (default).
+        * ``"pyarrow"``: returns pyarrow-backed nullable :class:`ArrowDtype`
+          DataFrame.
+
+        .. versionadded:: 2.0
+
+    **kwargs
+        See :func:`~pandas.read_csv` for the full argument list.
+
+    Returns
+    -------
+    DataFrame
+        A parsed :class:`~pandas.DataFrame` object.
+
+    See Also
+    --------
+    DataFrame.to_clipboard : Copy object to the system clipboard.
+    read_csv : Read a comma-separated values (csv) file into DataFrame.
+    read_fwf : Read a table of fixed-width formatted lines into DataFrame.
+
+    Examples
+    --------
+    >>> df = pd.DataFrame([[1, 2, 3], [4, 5, 6]], columns=[\'A\', \'B\', \'C\'])
+    >>> df.to_clipboard()  # doctest: +SKIP
+    >>> pd.read_clipboard()  # doctest: +SKIP
+         A  B  C
+    0    1  2  3
+    1    4  5  6
+    '''
+def to_clipboard(obj, excel: bool | None = True, sep: str | None = None, **kwargs) -> None:
+    """
+    Attempt to write text representation of object to the system clipboard
+    The clipboard can be then pasted into Excel for example.
+
+    Parameters
+    ----------
+    obj : the object to write to the clipboard
+    excel : bool, defaults to True
+            if True, use the provided separator, writing in a csv
+            format for allowing easy pasting into excel.
+            if False, write a string representation of the object
+            to the clipboard
+    sep : optional, defaults to tab
+    other keywords are passed to to_csv
+
+    Notes
+    -----
+    Requirements for your platform
+      - Linux: xclip, or xsel (with PyQt4 modules)
+      - Windows:
+      - OS X:
+    """

@@ -1,0 +1,277 @@
+import numpy as np
+from _typeshed import Incomplete
+from collections.abc import Hashable
+from pandas._libs import index as libindex
+from pandas._typing import Dtype as Dtype, DtypeObj as DtypeObj, Self as Self, npt as npt
+from pandas.core.arrays.categorical import Categorical as Categorical, contains as contains
+from pandas.core.construction import extract_array as extract_array
+from pandas.core.dtypes.common import is_scalar as is_scalar
+from pandas.core.dtypes.concat import concat_compat as concat_compat
+from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype
+from pandas.core.dtypes.missing import is_valid_na_for_dtype as is_valid_na_for_dtype, isna as isna
+from pandas.core.indexes.base import Index as Index, maybe_extract_name as maybe_extract_name
+from pandas.core.indexes.extension import NDArrayBackedExtensionIndex as NDArrayBackedExtensionIndex, inherit_names as inherit_names
+from pandas.util._decorators import cache_readonly as cache_readonly, doc as doc
+from typing import Any, Literal
+
+class CategoricalIndex(NDArrayBackedExtensionIndex):
+    '''
+    Index based on an underlying :class:`Categorical`.
+
+    CategoricalIndex, like Categorical, can only take on a limited,
+    and usually fixed, number of possible values (`categories`). Also,
+    like Categorical, it might have an order, but numerical operations
+    (additions, divisions, ...) are not possible.
+
+    Parameters
+    ----------
+    data : array-like (1-dimensional)
+        The values of the categorical. If `categories` are given, values not in
+        `categories` will be replaced with NaN.
+    categories : index-like, optional
+        The categories for the categorical. Items need to be unique.
+        If the categories are not given here (and also not in `dtype`), they
+        will be inferred from the `data`.
+    ordered : bool, optional
+        Whether or not this categorical is treated as an ordered
+        categorical. If not given here or in `dtype`, the resulting
+        categorical will be unordered.
+    dtype : CategoricalDtype or "category", optional
+        If :class:`CategoricalDtype`, cannot be used together with
+        `categories` or `ordered`.
+    copy : bool, default False
+        Make a copy of input ndarray.
+    name : object, optional
+        Name to be stored in the index.
+
+    Attributes
+    ----------
+    codes
+    categories
+    ordered
+
+    Methods
+    -------
+    rename_categories
+    reorder_categories
+    add_categories
+    remove_categories
+    remove_unused_categories
+    set_categories
+    as_ordered
+    as_unordered
+    map
+
+    Raises
+    ------
+    ValueError
+        If the categories do not validate.
+    TypeError
+        If an explicit ``ordered=True`` is given but no `categories` and the
+        `values` are not sortable.
+
+    See Also
+    --------
+    Index : The base pandas Index type.
+    Categorical : A categorical array.
+    CategoricalDtype : Type for categorical data.
+
+    Notes
+    -----
+    See the `user guide
+    <https://pandas.pydata.org/pandas-docs/stable/user_guide/advanced.html#categoricalindex>`__
+    for more.
+
+    Examples
+    --------
+    >>> pd.CategoricalIndex(["a", "b", "c", "a", "b", "c"])
+    CategoricalIndex([\'a\', \'b\', \'c\', \'a\', \'b\', \'c\'],
+                     categories=[\'a\', \'b\', \'c\'], ordered=False, dtype=\'category\')
+
+    ``CategoricalIndex`` can also be instantiated from a ``Categorical``:
+
+    >>> c = pd.Categorical(["a", "b", "c", "a", "b", "c"])
+    >>> pd.CategoricalIndex(c)
+    CategoricalIndex([\'a\', \'b\', \'c\', \'a\', \'b\', \'c\'],
+                     categories=[\'a\', \'b\', \'c\'], ordered=False, dtype=\'category\')
+
+    Ordered ``CategoricalIndex`` can have a min and max value.
+
+    >>> ci = pd.CategoricalIndex(
+    ...     ["a", "b", "c", "a", "b", "c"], ordered=True, categories=["c", "b", "a"]
+    ... )
+    >>> ci
+    CategoricalIndex([\'a\', \'b\', \'c\', \'a\', \'b\', \'c\'],
+                     categories=[\'c\', \'b\', \'a\'], ordered=True, dtype=\'category\')
+    >>> ci.min()
+    \'c\'
+    '''
+    _typ: str
+    _data_cls = Categorical
+    @property
+    def _can_hold_strings(self): ...
+    def _should_fallback_to_positional(self) -> bool: ...
+    codes: np.ndarray
+    categories: Index
+    ordered: bool | None
+    _data: Categorical
+    _values: Categorical
+    @property
+    def _engine_type(self) -> type[libindex.IndexEngine]: ...
+    def __new__(cls, data: Incomplete | None = None, categories: Incomplete | None = None, ordered: Incomplete | None = None, dtype: Dtype | None = None, copy: bool = False, name: Hashable | None = None) -> Self: ...
+    def _is_dtype_compat(self, other: Index) -> Categorical:
+        """
+        *this is an internal non-public method*
+
+        provide a comparison between the dtype of self and other (coercing if
+        needed)
+
+        Parameters
+        ----------
+        other : Index
+
+        Returns
+        -------
+        Categorical
+
+        Raises
+        ------
+        TypeError if the dtypes are not compatible
+        """
+    def equals(self, other: object) -> bool:
+        """
+        Determine if two CategoricalIndex objects contain the same elements.
+
+        Returns
+        -------
+        bool
+            ``True`` if two :class:`pandas.CategoricalIndex` objects have equal
+            elements, ``False`` otherwise.
+
+        Examples
+        --------
+        >>> ci = pd.CategoricalIndex(['a', 'b', 'c', 'a', 'b', 'c'])
+        >>> ci2 = pd.CategoricalIndex(pd.Categorical(['a', 'b', 'c', 'a', 'b', 'c']))
+        >>> ci.equals(ci2)
+        True
+
+        The order of elements matters.
+
+        >>> ci3 = pd.CategoricalIndex(['c', 'b', 'a', 'a', 'b', 'c'])
+        >>> ci.equals(ci3)
+        False
+
+        The orderedness also matters.
+
+        >>> ci4 = ci.as_ordered()
+        >>> ci.equals(ci4)
+        False
+
+        The categories matter, but the order of the categories matters only when
+        ``ordered=True``.
+
+        >>> ci5 = ci.set_categories(['a', 'b', 'c', 'd'])
+        >>> ci.equals(ci5)
+        False
+
+        >>> ci6 = ci.set_categories(['b', 'c', 'a'])
+        >>> ci.equals(ci6)
+        True
+        >>> ci_ordered = pd.CategoricalIndex(['a', 'b', 'c', 'a', 'b', 'c'],
+        ...                                  ordered=True)
+        >>> ci2_ordered = ci_ordered.set_categories(['b', 'c', 'a'])
+        >>> ci_ordered.equals(ci2_ordered)
+        False
+        """
+    @property
+    def _formatter_func(self): ...
+    def _format_attrs(self):
+        """
+        Return a list of tuples of the (attr,formatted_value)
+        """
+    @property
+    def inferred_type(self) -> str: ...
+    def __contains__(self, key: Any) -> bool: ...
+    def reindex(self, target, method: Incomplete | None = None, level: Incomplete | None = None, limit: int | None = None, tolerance: Incomplete | None = None) -> tuple[Index, npt.NDArray[np.intp] | None]:
+        """
+        Create index with target's values (move/add/delete values as necessary)
+
+        Returns
+        -------
+        new_index : pd.Index
+            Resulting index
+        indexer : np.ndarray[np.intp] or None
+            Indices of output values in original index
+
+        """
+    def _maybe_cast_indexer(self, key) -> int: ...
+    def _maybe_cast_listlike_indexer(self, values) -> CategoricalIndex: ...
+    def _is_comparable_dtype(self, dtype: DtypeObj) -> bool: ...
+    def map(self, mapper, na_action: Literal['ignore'] | None = None):
+        """
+        Map values using input an input mapping or function.
+
+        Maps the values (their categories, not the codes) of the index to new
+        categories. If the mapping correspondence is one-to-one the result is a
+        :class:`~pandas.CategoricalIndex` which has the same order property as
+        the original, otherwise an :class:`~pandas.Index` is returned.
+
+        If a `dict` or :class:`~pandas.Series` is used any unmapped category is
+        mapped to `NaN`. Note that if this happens an :class:`~pandas.Index`
+        will be returned.
+
+        Parameters
+        ----------
+        mapper : function, dict, or Series
+            Mapping correspondence.
+
+        Returns
+        -------
+        pandas.CategoricalIndex or pandas.Index
+            Mapped index.
+
+        See Also
+        --------
+        Index.map : Apply a mapping correspondence on an
+            :class:`~pandas.Index`.
+        Series.map : Apply a mapping correspondence on a
+            :class:`~pandas.Series`.
+        Series.apply : Apply more complex functions on a
+            :class:`~pandas.Series`.
+
+        Examples
+        --------
+        >>> idx = pd.CategoricalIndex(['a', 'b', 'c'])
+        >>> idx
+        CategoricalIndex(['a', 'b', 'c'], categories=['a', 'b', 'c'],
+                          ordered=False, dtype='category')
+        >>> idx.map(lambda x: x.upper())
+        CategoricalIndex(['A', 'B', 'C'], categories=['A', 'B', 'C'],
+                         ordered=False, dtype='category')
+        >>> idx.map({'a': 'first', 'b': 'second', 'c': 'third'})
+        CategoricalIndex(['first', 'second', 'third'], categories=['first',
+                         'second', 'third'], ordered=False, dtype='category')
+
+        If the mapping is one-to-one the ordering of the categories is
+        preserved:
+
+        >>> idx = pd.CategoricalIndex(['a', 'b', 'c'], ordered=True)
+        >>> idx
+        CategoricalIndex(['a', 'b', 'c'], categories=['a', 'b', 'c'],
+                         ordered=True, dtype='category')
+        >>> idx.map({'a': 3, 'b': 2, 'c': 1})
+        CategoricalIndex([3, 2, 1], categories=[3, 2, 1], ordered=True,
+                         dtype='category')
+
+        If the mapping is not one-to-one an :class:`~pandas.Index` is returned:
+
+        >>> idx.map({'a': 'first', 'b': 'second', 'c': 'first'})
+        Index(['first', 'second', 'first'], dtype='object')
+
+        If a `dict` is used, all unmapped categories are mapped to `NaN` and
+        the result is an :class:`~pandas.Index`:
+
+        >>> idx.map({'a': 'first', 'b': 'second'})
+        Index(['first', 'second', nan], dtype='object')
+        """
+    def _concat(self, to_concat: list[Index], name: Hashable) -> Index: ...

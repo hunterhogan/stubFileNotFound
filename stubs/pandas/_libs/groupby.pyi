@@ -1,0 +1,25 @@
+import _cython_3_0_11
+from pandas._libs.algos import groupsort_indexer as groupsort_indexer, rank_1d as rank_1d, take_2d_axis1_bool_bool as take_2d_axis1_bool_bool, take_2d_axis1_float64_float64 as take_2d_axis1_float64_float64
+
+__test__: dict
+group_any_all: _cython_3_0_11.cython_function_or_method
+group_cummax: _cython_3_0_11.fused_cython_function
+group_cummin: _cython_3_0_11.fused_cython_function
+group_cumprod: _cython_3_0_11.fused_cython_function
+group_cumsum: _cython_3_0_11.fused_cython_function
+group_fillna_indexer: _cython_3_0_11.cython_function_or_method
+group_idxmin_idxmax: _cython_3_0_11.fused_cython_function
+group_last: _cython_3_0_11.fused_cython_function
+group_max: _cython_3_0_11.fused_cython_function
+group_mean: _cython_3_0_11.fused_cython_function
+group_median_float64: _cython_3_0_11.cython_function_or_method
+group_min: _cython_3_0_11.fused_cython_function
+group_nth: _cython_3_0_11.fused_cython_function
+group_ohlc: _cython_3_0_11.fused_cython_function
+group_prod: _cython_3_0_11.fused_cython_function
+group_quantile: _cython_3_0_11.fused_cython_function
+group_rank: _cython_3_0_11.fused_cython_function
+group_shift_indexer: _cython_3_0_11.cython_function_or_method
+group_skew: _cython_3_0_11.cython_function_or_method
+group_sum: _cython_3_0_11.fused_cython_function
+group_var: _cython_3_0_11.fused_cython_function

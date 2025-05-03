@@ -1,0 +1,8 @@
+import _cython_3_0_11
+
+__test__: dict
+maybe_convert_bool: _cython_3_0_11.cython_function_or_method
+scalar_binop: _cython_3_0_11.cython_function_or_method
+scalar_compare: _cython_3_0_11.cython_function_or_method
+vec_binop: _cython_3_0_11.cython_function_or_method
+vec_compare: _cython_3_0_11.cython_function_or_method

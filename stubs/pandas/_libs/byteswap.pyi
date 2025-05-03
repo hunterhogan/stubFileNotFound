@@ -1,0 +1,8 @@
+import _cython_3_0_11
+
+__test__: dict
+read_double_with_byteswap: _cython_3_0_11.cython_function_or_method
+read_float_with_byteswap: _cython_3_0_11.cython_function_or_method
+read_uint16_with_byteswap: _cython_3_0_11.cython_function_or_method
+read_uint32_with_byteswap: _cython_3_0_11.cython_function_or_method
+read_uint64_with_byteswap: _cython_3_0_11.cython_function_or_method
