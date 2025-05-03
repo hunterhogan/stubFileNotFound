@@ -1,15 +1,15 @@
-import numpy as np
-from pandas._typing import Scalar as Scalar
+import functools
+import np
 from pandas.compat._optional import import_optional_dependency as import_optional_dependency
-from typing import Any, Callable
+from typing import Callable
 
-def generate_apply_looper(func, nopython: bool = True, nogil: bool = True, parallel: bool = False): ...
-def make_looper(func, result_dtype, is_grouped_kernel, nopython, nogil, parallel): ...
+TYPE_CHECKING: bool
+generate_apply_looper: functools._lru_cache_wrapper
+make_looper: functools._lru_cache_wrapper
+default_dtype_mapping: dict
 
-default_dtype_mapping: dict[np.dtype, Any]
-float_dtype_mapping: dict[np.dtype, Any]
-identity_dtype_mapping: dict[np.dtype, Any]
-
+float_dtype_mapping: dict
+identity_dtype_mapping: dict
 def generate_shared_aggregator(func: Callable[..., Scalar], dtype_mapping: dict[np.dtype, np.dtype], is_grouped_kernel: bool, nopython: bool, nogil: bool, parallel: bool):
     """
     Generate a Numba function that loops over the columns 2D object and applies

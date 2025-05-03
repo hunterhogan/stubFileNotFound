@@ -1,9 +1,9 @@
-from _typeshed import Incomplete
-from collections.abc import Generator, Iterable, Iterator
+from collections.abc import Generator
 from pandas.errors import CSSWarning as CSSWarning
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Callable
+from typing import Callable, ClassVar
 
+TYPE_CHECKING: bool
 def _side_expander(prop_fmt: str) -> Callable:
     """
     Wrapper to expand shorthand property into top, right, bottom, left properties
@@ -17,7 +17,7 @@ def _side_expander(prop_fmt: str) -> Callable:
     -------
         function: Return to call when a 'border(-{side}): {value}' string is encountered
     """
-def _border_expander(side: str = '') -> Callable:
+def _border_expander(side: str = ...) -> Callable:
     """
     Wrapper to expand 'border' property into border color, style, and width properties
 
@@ -32,18 +32,15 @@ def _border_expander(side: str = '') -> Callable:
     """
 
 class CSSResolver:
-    """
-    A callable for parsing and resolving CSS to atomic properties.
-    """
-    UNIT_RATIOS: Incomplete
-    FONT_SIZE_RATIOS: Incomplete
-    MARGIN_RATIOS: Incomplete
-    BORDER_WIDTH_RATIOS: Incomplete
-    BORDER_STYLES: Incomplete
-    SIDE_SHORTHANDS: Incomplete
-    SIDES: Incomplete
-    CSS_EXPANSIONS: Incomplete
-    def __call__(self, declarations: str | Iterable[tuple[str, str]], inherited: dict[str, str] | None = None) -> dict[str, str]:
+    UNIT_RATIOS: ClassVar[dict] = ...
+    FONT_SIZE_RATIOS: ClassVar[dict] = ...
+    MARGIN_RATIOS: ClassVar[dict] = ...
+    BORDER_WIDTH_RATIOS: ClassVar[dict] = ...
+    BORDER_STYLES: ClassVar[list] = ...
+    SIDE_SHORTHANDS: ClassVar[dict] = ...
+    SIDES: ClassVar[tuple] = ...
+    CSS_EXPANSIONS: ClassVar[dict] = ...
+    def __call__(self, declarations: str | Iterable[tuple[str, str]], inherited: dict[str, str] | None) -> dict[str, str]:
         '''
         The given declarations to atomic properties.
 
@@ -88,7 +85,7 @@ class CSSResolver:
     def _get_font_size(self, props: dict[str, str]) -> float | None: ...
     def _get_float_font_size_from_pt(self, font_size_string: str) -> float: ...
     def _update_other_units(self, props: dict[str, str]) -> dict[str, str]: ...
-    def size_to_pt(self, in_val, em_pt: Incomplete | None = None, conversions=...) -> str: ...
+    def size_to_pt(self, in_val, em_pt, conversions: dict = ...) -> str: ...
     def atomize(self, declarations: Iterable) -> Generator[tuple[str, str], None, None]: ...
     def parse(self, declarations_str: str) -> Iterator[tuple[str, str]]:
         """

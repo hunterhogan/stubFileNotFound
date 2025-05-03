@@ -1,12 +1,11 @@
 import pytest
-from _typeshed import Incomplete
-from pandas._config import get_option as get_option
-from pandas._config.config import _get_option as _get_option
-from pandas._typing import F as F
-from pandas.compat import IS64 as IS64, is_platform_windows as is_platform_windows
+from pandas._config.config import _get_option as _get_option, get_option as get_option
+from pandas.compat import is_platform_windows as is_platform_windows
 from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from typing import Callable
 
+TYPE_CHECKING: bool
+IS64: bool
 def skip_if_installed(package: str) -> pytest.MarkDecorator:
     """
     Skip a test if a package is installed.
@@ -22,7 +21,7 @@ def skip_if_installed(package: str) -> pytest.MarkDecorator:
         a pytest.mark.skipif to use as either a test decorator or a
         parametrization mark.
     """
-def skip_if_no(package: str, min_version: str | None = None) -> pytest.MarkDecorator:
+def skip_if_no(package: str, min_version: str | None) -> pytest.MarkDecorator:
     """
     Generic function to help skip tests when required packages are not
     present on the testing system.
@@ -53,11 +52,6 @@ def skip_if_no(package: str, min_version: str | None = None) -> pytest.MarkDecor
         a pytest.mark.skipif to use as either a test decorator or a
         parametrization mark.
     """
-
-skip_if_32bit: Incomplete
-skip_if_windows: Incomplete
-skip_if_not_us_locale: Incomplete
-
 def parametrize_fixture_doc(*args) -> Callable[[F], F]:
     """
     Intended for use as a decorator for parametrized fixture,
@@ -78,8 +72,3 @@ def parametrize_fixture_doc(*args) -> Callable[[F], F]:
         ``parametrize_fixture_doc`` mark
     """
 def mark_array_manager_not_yet_implemented(request) -> None: ...
-
-skip_array_manager_not_yet_implemented: Incomplete
-skip_array_manager_invalid_test: Incomplete
-skip_copy_on_write_not_yet_implemented: Incomplete
-skip_copy_on_write_invalid_test: Incomplete

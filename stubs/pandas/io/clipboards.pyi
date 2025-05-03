@@ -1,11 +1,11 @@
-from pandas import get_option as get_option, option_context as option_context
-from pandas._libs import lib as lib
-from pandas._typing import DtypeBackend as DtypeBackend
+import lib as lib
+from pandas._config.config import get_option as get_option, option_context as option_context
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame
 from pandas.util._exceptions import find_stack_level as find_stack_level
 from pandas.util._validators import check_dtype_backend as check_dtype_backend
 
-def read_clipboard(sep: str = '\\s+', dtype_backend: DtypeBackend | lib.NoDefault = ..., **kwargs):
+TYPE_CHECKING: bool
+def read_clipboard(sep: str = ..., dtype_backend: DtypeBackend | lib.NoDefault = ..., **kwargs):
     '''
     Read text from clipboard and pass to :func:`~pandas.read_csv`.
 
@@ -52,7 +52,7 @@ def read_clipboard(sep: str = '\\s+', dtype_backend: DtypeBackend | lib.NoDefaul
     0    1  2  3
     1    4  5  6
     '''
-def to_clipboard(obj, excel: bool | None = True, sep: str | None = None, **kwargs) -> None:
+def to_clipboard(obj, excel: bool | None = ..., sep: str | None, **kwargs) -> None:
     """
     Attempt to write text representation of object to the system clipboard
     The clipboard can be then pasted into Excel for example.

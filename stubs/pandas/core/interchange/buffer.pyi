@@ -1,27 +1,18 @@
-import numpy as np
-import pyarrow as pa
-from _typeshed import Incomplete
+import _abc
+import np
+import pa
+import pandas.core.interchange.dataframe_protocol
 from pandas.core.interchange.dataframe_protocol import Buffer as Buffer, DlpackDeviceType as DlpackDeviceType
-from typing import Any
+from typing import Any, ClassVar
 
-class PandasBuffer(Buffer):
-    """
-    Data in the buffer is guaranteed to be contiguous in memory.
-    """
-    _x: Incomplete
-    def __init__(self, x: np.ndarray, allow_copy: bool = True) -> None:
+TYPE_CHECKING: bool
+
+class PandasBuffer(pandas.core.interchange.dataframe_protocol.Buffer):
+    __abstractmethods__: ClassVar[frozenset] = ...
+    _abc_impl: ClassVar[_abc._abc_data] = ...
+    def __init__(self, x: np.ndarray, allow_copy: bool = ...) -> None:
         """
         Handle only regular columns (= numpy arrays) for now.
-        """
-    @property
-    def bufsize(self) -> int:
-        """
-        Buffer size in bytes.
-        """
-    @property
-    def ptr(self) -> int:
-        """
-        Pointer to start of the buffer as an integer.
         """
     def __dlpack__(self) -> Any:
         """
@@ -31,28 +22,18 @@ class PandasBuffer(Buffer):
         """
         Device type and device ID for where the data in the buffer resides.
         """
-    def __repr__(self) -> str: ...
+    @property
+    def bufsize(self): ...
+    @property
+    def ptr(self): ...
 
-class PandasBufferPyarrow(Buffer):
-    """
-    Data in the buffer is guaranteed to be contiguous in memory.
-    """
-    _buffer: Incomplete
-    _length: Incomplete
+class PandasBufferPyarrow(pandas.core.interchange.dataframe_protocol.Buffer):
+    __abstractmethods__: ClassVar[frozenset] = ...
+    _abc_impl: ClassVar[_abc._abc_data] = ...
     def __init__(self, buffer: pa.Buffer, *, length: int) -> None:
         """
         Handle pyarrow chunked arrays.
         """
-    @property
-    def bufsize(self) -> int:
-        """
-        Buffer size in bytes.
-        """
-    @property
-    def ptr(self) -> int:
-        """
-        Pointer to start of the buffer as an integer.
-        """
     def __dlpack__(self) -> Any:
         """
         Represent this structure as DLPack interface.
@@ -61,4 +42,7 @@ class PandasBufferPyarrow(Buffer):
         """
         Device type and device ID for where the data in the buffer resides.
         """
-    def __repr__(self) -> str: ...
+    @property
+    def bufsize(self): ...
+    @property
+    def ptr(self): ...

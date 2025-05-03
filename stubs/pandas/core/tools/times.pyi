@@ -1,11 +1,10 @@
-from _typeshed import Incomplete
 from pandas._libs.lib import is_list_like as is_list_like
-from pandas._typing import DateTimeErrorChoices as DateTimeErrorChoices
 from pandas.core.dtypes.generic import ABCIndex as ABCIndex, ABCSeries as ABCSeries
 from pandas.core.dtypes.missing import notna as notna
 from pandas.util._exceptions import find_stack_level as find_stack_level
 
-def to_time(arg, format: str | None = None, infer_time_format: bool = False, errors: DateTimeErrorChoices = 'raise'):
+TYPE_CHECKING: bool
+def to_time(arg, format: str | None, infer_time_format: bool = ..., errors: DateTimeErrorChoices = ...):
     '''
     Parse time strings to time objects using fixed strptime formats ("%H:%M",
     "%H%M", "%I:%M%p", "%I%M%p", "%H:%M:%S", "%H%M%S", "%I:%M:%S%p",
@@ -33,6 +32,5 @@ def to_time(arg, format: str | None = None, infer_time_format: bool = False, err
     datetime.time
     '''
 
-_time_formats: Incomplete
-
+_time_formats: list
 def _guess_time_format_for_array(arr): ...

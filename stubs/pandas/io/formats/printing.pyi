@@ -1,14 +1,12 @@
-from _typeshed import Incomplete
+import typing
 from collections.abc import Iterable, Mapping, Sequence
-from pandas._config import get_option as get_option
+from pandas._config.config import get_option as get_option
 from pandas.core.dtypes.inference import is_sequence as is_sequence
 from pandas.io.formats.console import get_console_size as get_console_size
-from typing import Any, Callable, TypeVar
+from typing import Any, Callable, ClassVar, EscapeChars
 
-EscapeChars = Mapping[str, str] | Iterable[str]
-_KT = TypeVar('_KT')
-_VT = TypeVar('_VT')
-
+_KT: typing.TypeVar
+_VT: typing.TypeVar
 def adjoin(space: int, *lists: list[str], **kwargs) -> str:
     """
     Glues together two sets of strings using the amount of space requested.
@@ -25,23 +23,23 @@ def adjoin(space: int, *lists: list[str], **kwargs) -> str:
     justfunc : callable
         function used to justify str. Needed for unicode handling.
     """
-def _adj_justify(texts: Iterable[str], max_len: int, mode: str = 'right') -> list[str]:
+def _adj_justify(texts: Iterable[str], max_len: int, mode: str = ...) -> list[str]:
     """
     Perform ljust, center, rjust against string or list-like
     """
-def _pprint_seq(seq: Sequence, _nest_lvl: int = 0, max_seq_items: int | None = None, **kwds) -> str:
+def _pprint_seq(seq: Sequence, _nest_lvl: int = ..., max_seq_items: int | None, **kwds) -> str:
     """
     internal. pprinter for iterables. you should probably use pprint_thing()
     rather than calling this directly.
 
     bounds length of printed sequence, depending on options
     """
-def _pprint_dict(seq: Mapping, _nest_lvl: int = 0, max_seq_items: int | None = None, **kwds) -> str:
+def _pprint_dict(seq: Mapping, _nest_lvl: int = ..., max_seq_items: int | None, **kwds) -> str:
     """
     internal. pprinter for iterables. you should probably use pprint_thing()
     rather than calling this directly.
     """
-def pprint_thing(thing: Any, _nest_lvl: int = 0, escape_chars: EscapeChars | None = None, default_escapes: bool = False, quote_strings: bool = False, max_seq_items: int | None = None) -> str:
+def pprint_thing(thing: Any, _nest_lvl: int = ..., escape_chars: EscapeChars | None, default_escapes: bool = ..., quote_strings: bool = ..., max_seq_items: int | None) -> str:
     """
     This function is the sanctioned way of converting objects
     to a string representation and properly handles nested sequences.
@@ -64,10 +62,10 @@ def pprint_thing(thing: Any, _nest_lvl: int = 0, escape_chars: EscapeChars | Non
     -------
     str
     """
-def pprint_thing_encoded(object, encoding: str = 'utf-8', errors: str = 'replace') -> bytes: ...
+def pprint_thing_encoded(object, encoding: str = ..., errors: str = ...) -> bytes: ...
 def enable_data_resource_formatter(enable: bool) -> None: ...
-def default_pprint(thing: Any, max_seq_items: int | None = None) -> str: ...
-def format_object_summary(obj, formatter: Callable, is_justify: bool = True, name: str | None = None, indent_for_name: bool = True, line_break_each_value: bool = False) -> str:
+def default_pprint(thing: Any, max_seq_items: int | None) -> str: ...
+def format_object_summary(obj, formatter: Callable, is_justify: bool = ..., name: str | None, indent_for_name: bool = ..., line_break_each_value: bool = ...) -> str:
     """
     Return the formatted obj as a unicode string
 
@@ -114,28 +112,23 @@ def _justify(head: list[Sequence[str]], tail: list[Sequence[str]]) -> tuple[list
     ([('  a', '   b')], [('abc', 'abcd')])
     """
 
-class PrettyDict(dict[_KT, _VT]):
-    """Dict extension to support abbreviated __repr__"""
-    def __repr__(self) -> str: ...
+class PrettyDict(dict):
+    __orig_bases__: ClassVar[tuple] = ...
 
 class _TextAdjustment:
-    encoding: Incomplete
     def __init__(self) -> None: ...
     def len(self, text: str) -> int: ...
-    def justify(self, texts: Any, max_len: int, mode: str = 'right') -> list[str]:
+    def justify(self, texts: Any, max_len: int, mode: str = ...) -> list[str]:
         """
         Perform ljust, center, rjust against string or list-like
         """
     def adjoin(self, space: int, *lists, **kwargs) -> str: ...
 
 class _EastAsianTextAdjustment(_TextAdjustment):
-    ambiguous_width: int
-    _EAW_MAP: Incomplete
     def __init__(self) -> None: ...
     def len(self, text: str) -> int:
         """
         Calculate display width considering unicode East Asian Width
         """
-    def justify(self, texts: Iterable[str], max_len: int, mode: str = 'right') -> list[str]: ...
-
+    def justify(self, texts: Iterable[str], max_len: int, mode: str = ...) -> list[str]: ...
 def get_adjustment() -> _TextAdjustment: ...

@@ -1,35 +1,35 @@
-import numpy as np
-from _typeshed import Incomplete
-from pandas._config import get_option as get_option
-from pandas._libs import NaT as NaT, NaTType as NaTType, iNaT as iNaT, lib as lib
-from pandas._typing import ArrayLike as ArrayLike, AxisInt as AxisInt, CorrelationMethod as CorrelationMethod, Dtype as Dtype, DtypeObj as DtypeObj, F as F, Scalar as Scalar, Shape as Shape, npt as npt
+import np
+import npt
+import pandas._libs.lib as lib
+from builtins import AxisInt, Shape
+from pandas._config.config import get_option as get_option
+from pandas._libs.lib import is_complex as is_complex, is_float as is_float, is_integer as is_integer
+from pandas._libs.tslibs.nattype import NaT as NaT, NaTType as NaTType
+from pandas._typing import F as F
 from pandas.compat._optional import import_optional_dependency as import_optional_dependency
-from pandas.core.dtypes.common import is_complex as is_complex, is_float as is_float, is_float_dtype as is_float_dtype, is_integer as is_integer, is_numeric_dtype as is_numeric_dtype, is_object_dtype as is_object_dtype, needs_i8_conversion as needs_i8_conversion, pandas_dtype as pandas_dtype
+from pandas.core.dtypes.common import is_float_dtype as is_float_dtype, is_numeric_dtype as is_numeric_dtype, is_object_dtype as is_object_dtype, needs_i8_conversion as needs_i8_conversion, pandas_dtype as pandas_dtype
 from pandas.core.dtypes.missing import isna as isna, na_value_for_dtype as na_value_for_dtype, notna as notna
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Any, Callable
+from typing import Any, ArrayLike, Callable, CorrelationMethod, Dtype, DtypeObj, Scalar
 
-bn: Incomplete
-_BOTTLENECK_INSTALLED: Incomplete
+iNaT: int
+npt: None
+bn: None
+_BOTTLENECK_INSTALLED: bool
 _USE_BOTTLENECK: bool
-
-def set_use_bottleneck(v: bool = True) -> None: ...
+def set_use_bottleneck(v: bool = ...) -> None: ...
 
 class disallow:
-    dtypes: Incomplete
     def __init__(self, *dtypes: Dtype) -> None: ...
     def check(self, obj) -> bool: ...
     def __call__(self, f: F) -> F: ...
 
 class bottleneck_switch:
-    name: Incomplete
-    kwargs: Incomplete
-    def __init__(self, name: Incomplete | None = None, **kwargs) -> None: ...
+    def __init__(self, name, **kwargs) -> None: ...
     def __call__(self, alt: F) -> F: ...
-
 def _bn_ok_dtype(dtype: DtypeObj, name: str) -> bool: ...
 def _has_infs(result) -> bool: ...
-def _get_fill_value(dtype: DtypeObj, fill_value: Scalar | None = None, fill_value_typ: Incomplete | None = None):
+def _get_fill_value(dtype: DtypeObj, fill_value: Scalar | None, fill_value_typ):
     """return the correct fill value for the dtype of the values"""
 def _maybe_get_mask(values: np.ndarray, skipna: bool, mask: npt.NDArray[np.bool_] | None) -> npt.NDArray[np.bool_] | None:
     """
@@ -62,7 +62,7 @@ def _maybe_get_mask(values: np.ndarray, skipna: bool, mask: npt.NDArray[np.bool_
     -------
     Optional[np.ndarray[bool]]
     """
-def _get_values(values: np.ndarray, skipna: bool, fill_value: Any = None, fill_value_typ: str | None = None, mask: npt.NDArray[np.bool_] | None = None) -> tuple[np.ndarray, npt.NDArray[np.bool_] | None]:
+def _get_values(values: np.ndarray, skipna: bool, fill_value: Any, fill_value_typ: str | None, mask: npt.NDArray[np.bool_] | None) -> tuple[np.ndarray, npt.NDArray[np.bool_] | None]:
     """
     Utility to get the values view, mask, dtype, dtype_max, and fill_value.
 
@@ -95,7 +95,7 @@ def _get_values(values: np.ndarray, skipna: bool, fill_value: Any = None, fill_v
     """
 def _get_dtype_max(dtype: np.dtype) -> np.dtype: ...
 def _na_ok_dtype(dtype: DtypeObj) -> bool: ...
-def _wrap_results(result, dtype: np.dtype, fill_value: Incomplete | None = None):
+def _wrap_results(result, dtype: np.dtype, fill_value):
     """wrap our results if needed"""
 def _datetimelike_compat(func: F) -> F:
     """
@@ -124,7 +124,7 @@ def maybe_operate_rowwise(func: F) -> F:
     very slow if axis 1 >> axis 0.
     Operate row-by-row and concatenate the results.
     """
-def nanany(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = True, mask: npt.NDArray[np.bool_] | None = None) -> bool:
+def nanany(values: np.ndarray, *, axis: AxisInt | None, skipna: bool = ..., mask: npt.NDArray[np.bool_] | None) -> bool:
     """
     Check if any elements along an axis evaluate to True.
 
@@ -152,7 +152,7 @@ def nanany(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = Tr
     >>> nanops.nanany(s.values)
     False
     """
-def nanall(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = True, mask: npt.NDArray[np.bool_] | None = None) -> bool:
+def nanall(values: np.ndarray, *, axis: AxisInt | None, skipna: bool = ..., mask: npt.NDArray[np.bool_] | None) -> bool:
     """
     Check if all elements along an axis evaluate to True.
 
@@ -180,7 +180,7 @@ def nanall(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = Tr
     >>> nanops.nanall(s.values)
     False
     """
-def nansum(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = True, min_count: int = 0, mask: npt.NDArray[np.bool_] | None = None) -> float:
+def nansum(*args, **kwargs) -> float:
     """
     Sum the elements along an axis ignoring NaNs
 
@@ -205,7 +205,7 @@ def nansum(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = Tr
     3.0
     """
 def _mask_datetimelike_result(result: np.ndarray | np.datetime64 | np.timedelta64, axis: AxisInt | None, mask: npt.NDArray[np.bool_], orig_values: np.ndarray) -> np.ndarray | np.datetime64 | np.timedelta64 | NaTType: ...
-def nanmean(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = True, mask: npt.NDArray[np.bool_] | None = None) -> float:
+def nanmean(values: np.ndarray, *, axis: AxisInt | None, skipna: bool = ..., **kwds) -> float:
     """
     Compute the mean of the element along an axis ignoring NaNs
 
@@ -230,7 +230,7 @@ def nanmean(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = T
     >>> nanops.nanmean(s.values)
     1.5
     """
-def nanmedian(values, *, axis: AxisInt | None = None, skipna: bool = True, mask: Incomplete | None = None):
+def nanmedian(values, *, axis: AxisInt | None, skipna: bool = ..., **kwds):
     """
     Parameters
     ----------
@@ -289,7 +289,7 @@ def _get_counts_nanvar(values_shape: Shape, mask: npt.NDArray[np.bool_] | None, 
     count : int, np.nan or np.ndarray
     d : int, np.nan or np.ndarray
     """
-def nanstd(values, *, axis: AxisInt | None = None, skipna: bool = True, ddof: int = 1, mask: Incomplete | None = None):
+def nanstd(values, *, axis: AxisInt | None, skipna: bool = ..., **kwds):
     """
     Compute the standard deviation along given axis while ignoring NaNs
 
@@ -317,7 +317,7 @@ def nanstd(values, *, axis: AxisInt | None = None, skipna: bool = True, ddof: in
     >>> nanops.nanstd(s.values)
     1.0
     """
-def nanvar(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = True, ddof: int = 1, mask: Incomplete | None = None):
+def nanvar(*args, **kwargs):
     """
     Compute the variance along given axis while ignoring NaNs
 
@@ -345,7 +345,7 @@ def nanvar(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = Tr
     >>> nanops.nanvar(s.values)
     1.0
     """
-def nansem(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = True, ddof: int = 1, mask: npt.NDArray[np.bool_] | None = None) -> float:
+def nansem(*args, **kwargs) -> float:
     """
     Compute the standard error in the mean along given axis while ignoring NaNs
 
@@ -374,11 +374,9 @@ def nansem(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = Tr
      0.5773502691896258
     """
 def _nanminmax(meth, fill_value_typ): ...
-
-nanmin: Incomplete
-nanmax: Incomplete
-
-def nanargmax(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = True, mask: npt.NDArray[np.bool_] | None = None) -> int | np.ndarray:
+def nanmin(values: np.ndarray, *, axis: AxisInt | None, skipna: bool = ..., **kwds): ...
+def nanmax(values: np.ndarray, *, axis: AxisInt | None, skipna: bool = ..., **kwds): ...
+def nanargmax(values: np.ndarray, *, axis: AxisInt | None, skipna: bool = ..., mask: npt.NDArray[np.bool_] | None) -> int | np.ndarray:
     """
     Parameters
     ----------
@@ -410,7 +408,7 @@ def nanargmax(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool =
     >>> nanops.nanargmax(arr, axis=1)
     array([2, 2, 1, 1])
     """
-def nanargmin(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = True, mask: npt.NDArray[np.bool_] | None = None) -> int | np.ndarray:
+def nanargmin(values: np.ndarray, *, axis: AxisInt | None, skipna: bool = ..., mask: npt.NDArray[np.bool_] | None) -> int | np.ndarray:
     """
     Parameters
     ----------
@@ -442,7 +440,7 @@ def nanargmin(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool =
     >>> nanops.nanargmin(arr, axis=1)
     array([0, 0, 1, 1])
     """
-def nanskew(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = True, mask: npt.NDArray[np.bool_] | None = None) -> float:
+def nanskew(*args, **kwargs) -> float:
     """
     Compute the sample skewness.
 
@@ -471,7 +469,7 @@ def nanskew(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = T
     >>> nanops.nanskew(s.values)
     1.7320508075688787
     """
-def nankurt(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = True, mask: npt.NDArray[np.bool_] | None = None) -> float:
+def nankurt(*args, **kwargs) -> float:
     """
     Compute the sample excess kurtosis
 
@@ -500,7 +498,7 @@ def nankurt(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = T
     >>> nanops.nankurt(s.values)
     -1.2892561983471076
     """
-def nanprod(values: np.ndarray, *, axis: AxisInt | None = None, skipna: bool = True, min_count: int = 0, mask: npt.NDArray[np.bool_] | None = None) -> float:
+def nanprod(*args, **kwargs) -> float:
     """
     Parameters
     ----------
@@ -543,7 +541,7 @@ def _get_counts(values_shape: Shape, mask: npt.NDArray[np.bool_] | None, axis: A
     -------
     count : scalar or array
     """
-def _maybe_null_out(result: np.ndarray | float | NaTType, axis: AxisInt | None, mask: npt.NDArray[np.bool_] | None, shape: tuple[int, ...], min_count: int = 1) -> np.ndarray | float | NaTType:
+def _maybe_null_out(result: np.ndarray | float | NaTType, axis: AxisInt | None, mask: npt.NDArray[np.bool_] | None, shape: tuple[int, ...], min_count: int = ...) -> np.ndarray | float | NaTType:
     """
     Returns
     -------
@@ -569,12 +567,12 @@ def check_below_min_count(shape: tuple[int, ...], mask: npt.NDArray[np.bool_] | 
     bool
     """
 def _zero_out_fperr(arg): ...
-def nancorr(a: np.ndarray, b: np.ndarray, *, method: CorrelationMethod = 'pearson', min_periods: int | None = None) -> float:
+def nancorr(*args, **kwargs) -> float:
     """
     a, b: ndarrays
     """
 def get_corr_func(method: CorrelationMethod) -> Callable[[np.ndarray, np.ndarray], float]: ...
-def nancov(a: np.ndarray, b: np.ndarray, *, min_periods: int | None = None, ddof: int | None = 1) -> float: ...
+def nancov(*args, **kwargs) -> float: ...
 def _ensure_numeric(x): ...
 def na_accum_func(values: ArrayLike, accum_func, *, skipna: bool) -> ArrayLike:
     """

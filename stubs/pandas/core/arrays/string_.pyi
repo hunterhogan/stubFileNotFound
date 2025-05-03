@@ -1,65 +1,39 @@
-import numpy as np
+import _abc
+import np
+import npt
+import pandas._libs.lib as lib
+import pandas._libs.missing
+import pandas._libs.missing as libmissing
+import pandas.compat.numpy.function as nv
+import pandas.core.array_algos.masked_reductions as masked_reductions
+import pandas.core.arrays.base
+import pandas.core.arrays.numpy_
+import pandas.core.dtypes.base
+import pandas.core.ops as ops
 import pyarrow
-from _typeshed import Incomplete
-from pandas import Series as Series
-from pandas._config import get_option as get_option
-from pandas._libs import lib as lib, missing as libmissing
+from pandas._config.config import get_option as get_option
 from pandas._libs.arrays import NDArrayBacked as NDArrayBacked
 from pandas._libs.lib import ensure_string_array as ensure_string_array
-from pandas._typing import AxisInt as AxisInt, Dtype as Dtype, DtypeObj as DtypeObj, NumpySorter as NumpySorter, NumpyValueArrayLike as NumpyValueArrayLike, Scalar as Scalar, Self as Self, npt as npt, type_t as type_t
-from pandas.compat import pa_version_under10p1 as pa_version_under10p1
-from pandas.core import ops as ops
-from pandas.core.array_algos import masked_reductions as masked_reductions
 from pandas.core.arrays.base import ExtensionArray as ExtensionArray
 from pandas.core.arrays.floating import FloatingArray as FloatingArray, FloatingDtype as FloatingDtype
 from pandas.core.arrays.integer import IntegerArray as IntegerArray, IntegerDtype as IntegerDtype
 from pandas.core.arrays.numpy_ import NumpyExtensionArray as NumpyExtensionArray
 from pandas.core.construction import extract_array as extract_array
 from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype, StorageExtensionDtype as StorageExtensionDtype, register_extension_dtype as register_extension_dtype
-from pandas.core.dtypes.common import is_array_like as is_array_like, is_bool_dtype as is_bool_dtype, is_integer_dtype as is_integer_dtype, is_object_dtype as is_object_dtype, is_string_dtype as is_string_dtype, pandas_dtype as pandas_dtype
-from pandas.core.indexers import check_array_indexer as check_array_indexer
-from pandas.core.missing import isna as isna
+from pandas.core.dtypes.common import is_bool_dtype as is_bool_dtype, is_integer_dtype as is_integer_dtype, is_object_dtype as is_object_dtype, is_string_dtype as is_string_dtype, pandas_dtype as pandas_dtype
+from pandas.core.dtypes.inference import is_array_like as is_array_like
+from pandas.core.dtypes.missing import isna as isna
+from pandas.core.indexers.utils import check_array_indexer as check_array_indexer
 from pandas.util._decorators import doc as doc
-from typing import ClassVar, Literal
+from typing import ClassVar as _ClassVar, Literal
 
-class StringDtype(StorageExtensionDtype):
-    '''
-    Extension dtype for string data.
+TYPE_CHECKING: bool
+pa_version_under10p1: bool
 
-    .. warning::
-
-       StringDtype is considered experimental. The implementation and
-       parts of the API may change without warning.
-
-    Parameters
-    ----------
-    storage : {"python", "pyarrow", "pyarrow_numpy"}, optional
-        If not given, the value of ``pd.options.mode.string_storage``.
-
-    Attributes
-    ----------
-    None
-
-    Methods
-    -------
-    None
-
-    Examples
-    --------
-    >>> pd.StringDtype()
-    string[python]
-
-    >>> pd.StringDtype(storage="pyarrow")
-    string[pyarrow]
-    '''
-    name: ClassVar[str]
-    @property
-    def na_value(self) -> libmissing.NAType | float: ...
-    _metadata: Incomplete
-    storage: Incomplete
-    def __init__(self, storage: Incomplete | None = None) -> None: ...
-    @property
-    def type(self) -> type[str]: ...
+class StringDtype(pandas.core.dtypes.base.StorageExtensionDtype):
+    name: _ClassVar[str] = ...
+    _metadata: _ClassVar[tuple] = ...
+    def __init__(self, storage) -> None: ...
     @classmethod
     def construct_from_string(cls, string) -> Self:
         """
@@ -100,120 +74,105 @@ class StringDtype(StorageExtensionDtype):
         """
         Construct StringArray from pyarrow Array/ChunkedArray.
         """
+    @property
+    def na_value(self): ...
+    @property
+    def type(self): ...
 
-class BaseStringArray(ExtensionArray):
-    """
-    Mixin class for StringArray, ArrowStringArray.
-    """
-    def tolist(self): ...
+class BaseStringArray(pandas.core.arrays.base.ExtensionArray):
+    def tolist(self):
+        """
+        Return a list of the values.
+
+        These are each a scalar type, which is a Python scalar
+        (for str, int, float) or a pandas scalar
+        (for Timestamp/Timedelta/Interval/Period)
+
+        Returns
+        -------
+        list
+
+        Examples
+        --------
+        >>> arr = pd.array([1, 2, 3])
+        >>> arr.tolist()
+        [1, 2, 3]
+        """
     @classmethod
     def _from_scalars(cls, scalars, dtype: DtypeObj) -> Self: ...
 
-class StringArray(BaseStringArray, NumpyExtensionArray):
-    '''
-    Extension array for string data.
-
-    .. warning::
-
-       StringArray is considered experimental. The implementation and
-       parts of the API may change without warning.
-
-    Parameters
-    ----------
-    values : array-like
-        The array of data.
-
-        .. warning::
-
-           Currently, this expects an object-dtype ndarray
-           where the elements are Python strings
-           or nan-likes (``None``, ``np.nan``, ``NA``).
-           This may change without warning in the future. Use
-           :meth:`pandas.array` with ``dtype="string"`` for a stable way of
-           creating a `StringArray` from any sequence.
-
-        .. versionchanged:: 1.5.0
-
-           StringArray now accepts array-likes containing
-           nan-likes(``None``, ``np.nan``) for the ``values`` parameter
-           in addition to strings and :attr:`pandas.NA`
-
-    copy : bool, default False
-        Whether to copy the array of data.
-
-    Attributes
-    ----------
-    None
-
-    Methods
-    -------
-    None
-
-    See Also
-    --------
-    :func:`pandas.array`
-        The recommended function for creating a StringArray.
-    Series.str
-        The string methods are available on Series backed by
-        a StringArray.
-
-    Notes
-    -----
-    StringArray returns a BooleanArray for comparison methods.
-
-    Examples
-    --------
-    >>> pd.array([\'This is\', \'some text\', None, \'data.\'], dtype="string")
-    <StringArray>
-    [\'This is\', \'some text\', <NA>, \'data.\']
-    Length: 4, dtype: string
-
-    Unlike arrays instantiated with ``dtype="object"``, ``StringArray``
-    will convert the values to strings.
-
-    >>> pd.array([\'1\', 1], dtype="object")
-    <NumpyExtensionArray>
-    [\'1\', 1]
-    Length: 2, dtype: object
-    >>> pd.array([\'1\', 1], dtype="string")
-    <StringArray>
-    [\'1\', \'1\']
-    Length: 2, dtype: string
-
-    However, instantiating StringArrays directly with non-strings will raise an error.
-
-    For comparison methods, `StringArray` returns a :class:`pandas.BooleanArray`:
-
-    >>> pd.array(["a", None, "c"], dtype="string") == "a"
-    <BooleanArray>
-    [True, <NA>, False]
-    Length: 3, dtype: boolean
-    '''
-    _typ: str
-    def __init__(self, values, copy: bool = False) -> None: ...
-    def _validate(self) -> None:
+class StringArray(BaseStringArray, pandas.core.arrays.numpy_.NumpyExtensionArray):
+    _typ: _ClassVar[str] = ...
+    _str_na_value: _ClassVar[pandas._libs.missing.NAType] = ...
+    __abstractmethods__: _ClassVar[frozenset] = ...
+    _abc_impl: _ClassVar[_abc._abc_data] = ...
+    def __init__(self, values, copy: bool = ...) -> None: ...
+    def _validate(self):
         """Validate that we only store NA or strings."""
     @classmethod
-    def _from_sequence(cls, scalars, *, dtype: Dtype | None = None, copy: bool = False): ...
+    def _from_sequence(cls, scalars, *, dtype: Dtype | None, copy: bool = ...): ...
     @classmethod
-    def _from_sequence_of_strings(cls, strings, *, dtype: Dtype | None = None, copy: bool = False): ...
+    def _from_sequence_of_strings(cls, strings, *, dtype: Dtype | None, copy: bool = ...): ...
     @classmethod
     def _empty(cls, shape, dtype) -> StringArray: ...
-    def __arrow_array__(self, type: Incomplete | None = None):
+    def __arrow_array__(self, type):
         """
         Convert myself into a pyarrow Array.
         """
     def _values_for_factorize(self): ...
     def __setitem__(self, key, value) -> None: ...
     def _putmask(self, mask: npt.NDArray[np.bool_], value) -> None: ...
-    def astype(self, dtype, copy: bool = True): ...
-    def _reduce(self, name: str, *, skipna: bool = True, axis: AxisInt | None = 0, **kwargs): ...
-    def min(self, axis: Incomplete | None = None, skipna: bool = True, **kwargs) -> Scalar: ...
-    def max(self, axis: Incomplete | None = None, skipna: bool = True, **kwargs) -> Scalar: ...
-    def value_counts(self, dropna: bool = True) -> Series: ...
-    def memory_usage(self, deep: bool = False) -> int: ...
-    def searchsorted(self, value: NumpyValueArrayLike | ExtensionArray, side: Literal['left', 'right'] = 'left', sorter: NumpySorter | None = None) -> npt.NDArray[np.intp] | np.intp: ...
+    def astype(self, dtype, copy: bool = ...): ...
+    def _reduce(self, name: str, *, skipna: bool = ..., axis: AxisInt | None = ..., **kwargs): ...
+    def min(self, axis, skipna: bool = ..., **kwargs) -> Scalar: ...
+    def max(self, axis, skipna: bool = ..., **kwargs) -> Scalar: ...
+    def value_counts(self, dropna: bool = ...) -> Series: ...
+    def memory_usage(self, deep: bool = ...) -> int: ...
+    def searchsorted(self, value: NumpyValueArrayLike | ExtensionArray, side: Literal['left', 'right'] = ..., sorter: NumpySorter | None) -> npt.NDArray[np.intp] | np.intp:
+        """
+        Find indices where elements should be inserted to maintain order.
+
+        Find the indices into a sorted array `self` (a) such that, if the
+        corresponding elements in `value` were inserted before the indices,
+        the order of `self` would be preserved.
+
+        Assuming that `self` is sorted:
+
+        ======  ================================
+        `side`  returned index `i` satisfies
+        ======  ================================
+        left    ``self[i-1] < value <= self[i]``
+        right   ``self[i-1] <= value < self[i]``
+        ======  ================================
+
+        Parameters
+        ----------
+        value : array-like, list or scalar
+            Value(s) to insert into `self`.
+        side : {'left', 'right'}, optional
+            If 'left', the index of the first suitable location found is given.
+            If 'right', return the last such index.  If there is no suitable
+            index, return either 0 or N (where N is the length of `self`).
+        sorter : 1-D array-like, optional
+            Optional array of integer indices that sort array a into ascending
+            order. They are typically the result of argsort.
+
+        Returns
+        -------
+        array of ints or int
+            If value is array-like, array of insertion points.
+            If value is scalar, a single integer.
+
+        See Also
+        --------
+        numpy.searchsorted : Similar method from NumPy.
+
+        Examples
+        --------
+        >>> arr = pd.array([1, 2, 3, 5])
+        >>> arr.searchsorted([4])
+        array([3])
+        """
     def _cmp_method(self, other, op): ...
-    _arith_method = _cmp_method
-    _str_na_value: Incomplete
-    def _str_map(self, f, na_value: Incomplete | None = None, dtype: Dtype | None = None, convert: bool = True): ...
+    def _arith_method(self, other, op): ...
+    def _str_map(self, f, na_value, dtype: Dtype | None, convert: bool = ...): ...

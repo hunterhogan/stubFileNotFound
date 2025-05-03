@@ -1,0 +1,16 @@
+import _cython_3_0_11
+
+__pyx_capi__: dict
+__test__: dict
+add_overflowsafe: _cython_3_0_11.cython_function_or_method
+astype_overflowsafe: _cython_3_0_11.cython_function_or_method
+compare_mismatched_resolutions: _cython_3_0_11.cython_function_or_method
+get_supported_dtype: _cython_3_0_11.cython_function_or_method
+is_supported_dtype: _cython_3_0_11.cython_function_or_method
+is_unitless: _cython_3_0_11.cython_function_or_method
+py_get_unit_from_dtype: _cython_3_0_11.cython_function_or_method
+py_td64_to_tdstruct: _cython_3_0_11.cython_function_or_method
+
+class OutOfBoundsDatetime(ValueError): ...
+
+class OutOfBoundsTimedelta(ValueError): ...

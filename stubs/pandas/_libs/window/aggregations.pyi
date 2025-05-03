@@ -1,0 +1,22 @@
+import _cython_3_0_11
+from pandas._libs.algos import is_monotonic as is_monotonic
+
+__test__: dict
+ewm: _cython_3_0_11.cython_function_or_method
+ewmcov: _cython_3_0_11.cython_function_or_method
+interpolation_types: dict
+roll_apply: _cython_3_0_11.cython_function_or_method
+roll_kurt: _cython_3_0_11.cython_function_or_method
+roll_max: _cython_3_0_11.cython_function_or_method
+roll_mean: _cython_3_0_11.cython_function_or_method
+roll_median_c: _cython_3_0_11.cython_function_or_method
+roll_min: _cython_3_0_11.cython_function_or_method
+roll_quantile: _cython_3_0_11.cython_function_or_method
+roll_rank: _cython_3_0_11.cython_function_or_method
+roll_skew: _cython_3_0_11.cython_function_or_method
+roll_sum: _cython_3_0_11.cython_function_or_method
+roll_var: _cython_3_0_11.cython_function_or_method
+roll_weighted_mean: _cython_3_0_11.cython_function_or_method
+roll_weighted_sum: _cython_3_0_11.cython_function_or_method
+roll_weighted_var: _cython_3_0_11.cython_function_or_method
+rolling_rank_tiebreakers: dict

@@ -1,13 +1,19 @@
-from odf.opendocument import OpenDocument
-from pandas._libs.tslibs.nattype import NaTType as NaTType
-from pandas._typing import FilePath as FilePath, ReadBuffer as ReadBuffer, Scalar as Scalar, StorageOptions as StorageOptions
+import pandas as pd
+import pandas.io.excel._base
+from pandas._typing import ReadBuffer as ReadBuffer
 from pandas.compat._optional import import_optional_dependency as import_optional_dependency
-from pandas.core.shared_docs import _shared_docs as _shared_docs
 from pandas.io.excel._base import BaseExcelReader as BaseExcelReader
 from pandas.util._decorators import doc as doc
+from typing import ClassVar, FilePath, Scalar, StorageOptions
 
-class ODFReader(BaseExcelReader['OpenDocument']):
-    def __init__(self, filepath_or_buffer: FilePath | ReadBuffer[bytes], storage_options: StorageOptions | None = None, engine_kwargs: dict | None = None) -> None:
+TYPE_CHECKING: bool
+_shared_docs: dict
+
+class ODFReader(pandas.io.excel._base.BaseExcelReader):
+    __orig_bases__: ClassVar[tuple] = ...
+    __parameters__: ClassVar[tuple] = ...
+    _docstring_components: ClassVar[list] = ...
+    def __init__(self, filepath_or_buffer: FilePath | ReadBuffer[bytes], storage_options: StorageOptions | None, engine_kwargs: dict | None) -> None:
         """
         Read tables out of OpenDocument formatted files.
 
@@ -19,18 +25,10 @@ class ODFReader(BaseExcelReader['OpenDocument']):
         engine_kwargs : dict, optional
             Arbitrary keyword arguments passed to excel engine.
         """
-    @property
-    def _workbook_class(self) -> type[OpenDocument]: ...
     def load_workbook(self, filepath_or_buffer: FilePath | ReadBuffer[bytes], engine_kwargs) -> OpenDocument: ...
-    @property
-    def empty_value(self) -> str:
-        """Property for compat with other readers."""
-    @property
-    def sheet_names(self) -> list[str]:
-        """Return a list of sheet names present in the document"""
     def get_sheet_by_index(self, index: int): ...
     def get_sheet_by_name(self, name: str): ...
-    def get_sheet_data(self, sheet, file_rows_needed: int | None = None) -> list[list[Scalar | NaTType]]:
+    def get_sheet_data(self, sheet, file_rows_needed: int | None) -> list[list[Scalar | NaTType]]:
         """
         Parse an ODF Table into a list of lists
         """
@@ -47,3 +45,9 @@ class ODFReader(BaseExcelReader['OpenDocument']):
         Find and decode OpenDocument text:s tags that represent
         a run length encoded sequence of space characters.
         """
+    @property
+    def _workbook_class(self): ...
+    @property
+    def empty_value(self): ...
+    @property
+    def sheet_names(self): ...

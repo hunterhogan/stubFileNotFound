@@ -1,5 +1,5 @@
-from pandas._libs import NaT as NaT
-from pandas._typing import Axis
+import pandas._libs.lib as lib
+from pandas._libs.tslibs.nattype import NaT as NaT
 from pandas.core.indexes.base import Index as Index, _new_Index as _new_Index, ensure_index as ensure_index, ensure_index_from_sequences as ensure_index_from_sequences, get_unanimous_names as get_unanimous_names
 from pandas.core.indexes.category import CategoricalIndex as CategoricalIndex
 from pandas.core.indexes.datetimes import DatetimeIndex as DatetimeIndex
@@ -12,7 +12,7 @@ from pandas.errors import InvalidIndexError as InvalidIndexError
 
 __all__ = ['Index', 'MultiIndex', 'CategoricalIndex', 'IntervalIndex', 'RangeIndex', 'InvalidIndexError', 'TimedeltaIndex', 'PeriodIndex', 'DatetimeIndex', '_new_Index', 'NaT', 'ensure_index', 'ensure_index_from_sequences', 'get_objs_combined_axis', 'union_indexes', 'get_unanimous_names', 'all_indexes_same', 'default_index', 'safe_sort_index']
 
-def get_objs_combined_axis(objs, intersect: bool = False, axis: Axis = 0, sort: bool = True, copy: bool = False) -> Index:
+def get_objs_combined_axis(objs, intersect: bool = ..., axis: Axis = ..., sort: bool = ..., copy: bool = ...) -> Index:
     '''
     Extract combined index: return intersection or union (depending on the
     value of "intersect") of indexes on given axis, or None if all objects
@@ -50,7 +50,7 @@ def safe_sort_index(index: Index) -> Index:
     -------
     Index
     """
-def union_indexes(indexes, sort: bool | None = True) -> Index:
+def union_indexes(indexes, sort: bool | None = ...) -> Index:
     """
     Return the union of indexes.
 
@@ -80,3 +80,19 @@ def all_indexes_same(indexes) -> bool:
         True if all indexes contain the same elements, False otherwise.
     """
 def default_index(n: int) -> RangeIndex: ...
+
+# Names in __all__ with no definition:
+#   CategoricalIndex
+#   DatetimeIndex
+#   Index
+#   IntervalIndex
+#   InvalidIndexError
+#   MultiIndex
+#   NaT
+#   PeriodIndex
+#   RangeIndex
+#   TimedeltaIndex
+#   _new_Index
+#   ensure_index
+#   ensure_index_from_sequences
+#   get_unanimous_names

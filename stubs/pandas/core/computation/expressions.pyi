@@ -1,20 +1,22 @@
-from _typeshed import Incomplete
-from pandas._config import get_option as get_option
-from pandas._typing import FuncType as FuncType
-from pandas.core import roperator as roperator
-from pandas.core.computation.check import NUMEXPR_INSTALLED as NUMEXPR_INSTALLED
+import pandas.core.roperator as roperator
+from pandas._config.config import get_option as get_option
 from pandas.util._exceptions import find_stack_level as find_stack_level
 
-_TEST_MODE: bool | None
-_TEST_RESULT: list[bool]
-USE_NUMEXPR = NUMEXPR_INSTALLED
-_evaluate: FuncType | None
-_where: FuncType | None
-_ALLOWED_DTYPES: Incomplete
-_MIN_ELEMENTS: int
+TYPE_CHECKING: bool
+NUMEXPR_INSTALLED: bool
+_TEST_MODE: None
+_TEST_RESULT: list
+USE_NUMEXPR: bool
+def _evaluate(op, op_str, a, b):
+    """
+    Standard evaluation.
+    """
+def _where(cond, a, b): ...
 
-def set_use_numexpr(v: bool = True) -> None: ...
-def set_numexpr_threads(n: Incomplete | None = None) -> None: ...
+_ALLOWED_DTYPES: dict
+_MIN_ELEMENTS: int
+def set_use_numexpr(v: bool = ...) -> None: ...
+def set_numexpr_threads(n) -> None: ...
 def _evaluate_standard(op, op_str, a, b):
     """
     Standard evaluation.
@@ -23,21 +25,19 @@ def _can_use_numexpr(op, op_str, a, b, dtype_check) -> bool:
     """return a boolean if we WILL be using numexpr"""
 def _evaluate_numexpr(op, op_str, a, b): ...
 
-_op_str_mapping: Incomplete
-
+_op_str_mapping: dict
 def _where_standard(cond, a, b): ...
 def _where_numexpr(cond, a, b): ...
 def _has_bool_dtype(x): ...
 
-_BOOL_OP_UNSUPPORTED: Incomplete
-
+_BOOL_OP_UNSUPPORTED: dict
 def _bool_arith_fallback(op_str, a, b) -> bool:
     """
     Check if we should fallback to the python `_evaluate_standard` in case
     of an unsupported operation by numexpr, which is the case for some
     boolean ops.
     """
-def evaluate(op, a, b, use_numexpr: bool = True):
+def evaluate(op, a, b, use_numexpr: bool = ...):
     """
     Evaluate and return the expression of the op on a and b.
 
@@ -49,7 +49,7 @@ def evaluate(op, a, b, use_numexpr: bool = True):
     use_numexpr : bool, default True
         Whether to try to use numexpr.
     """
-def where(cond, a, b, use_numexpr: bool = True):
+def where(cond, a, b, use_numexpr: bool = ...):
     """
     Evaluate the where condition cond on a and b.
 
@@ -61,7 +61,7 @@ def where(cond, a, b, use_numexpr: bool = True):
     use_numexpr : bool, default True
         Whether to try to use numexpr.
     """
-def set_test_mode(v: bool = True) -> None:
+def set_test_mode(v: bool = ...) -> None:
     """
     Keeps track of whether numexpr was used.
 

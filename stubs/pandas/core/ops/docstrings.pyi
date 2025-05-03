@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 def make_flex_doc(op_name: str, typ: str) -> str:
     """
     Make the appropriate substitutions for the given operation and class-typ
@@ -18,26 +16,27 @@ def make_flex_doc(op_name: str, typ: str) -> str:
 
 _common_examples_algebra_SERIES: str
 _common_examples_comparison_SERIES: str
-_add_example_SERIES: Incomplete
-_sub_example_SERIES: Incomplete
-_mul_example_SERIES: Incomplete
-_div_example_SERIES: Incomplete
-_floordiv_example_SERIES: Incomplete
-_divmod_example_SERIES: Incomplete
-_mod_example_SERIES: Incomplete
-_pow_example_SERIES: Incomplete
-_ne_example_SERIES: Incomplete
-_eq_example_SERIES: Incomplete
-_lt_example_SERIES: Incomplete
-_le_example_SERIES: Incomplete
-_gt_example_SERIES: Incomplete
-_ge_example_SERIES: Incomplete
+_add_example_SERIES: str
+_sub_example_SERIES: str
+_mul_example_SERIES: str
+_div_example_SERIES: str
+_floordiv_example_SERIES: str
+_divmod_example_SERIES: str
+_mod_example_SERIES: str
+_pow_example_SERIES: str
+_ne_example_SERIES: str
+_eq_example_SERIES: str
+_lt_example_SERIES: str
+_le_example_SERIES: str
+_gt_example_SERIES: str
+_ge_example_SERIES: str
 _returns_series: str
 _returns_tuple: str
-_op_descriptions: dict[str, dict[str, str | None]]
+_op_descriptions: dict
 _py_num_ref: str
-_op_names: Incomplete
-reverse_op: Incomplete
+_op_names: list
+key: str
+reverse_op: None
 _flex_doc_SERIES: str
 _see_also_reverse_SERIES: str
 _flex_doc_FRAME: str

@@ -1,52 +1,333 @@
 import datetime
-from _typeshed import Incomplete
-from collections.abc import Hashable, Iterable, Mapping, Sequence
-from pandas._config import config as config
-from pandas._libs import lib as lib
-from pandas._libs.parsers import STR_NA_VALUES as STR_NA_VALUES
-from pandas._typing import DtypeArg as DtypeArg, DtypeBackend as DtypeBackend, ExcelWriterIfSheetExists as ExcelWriterIfSheetExists, FilePath as FilePath, IntStrT as IntStrT, ReadBuffer as ReadBuffer, Self as Self, SequenceNotStr as SequenceNotStr, StorageOptions as StorageOptions, WriteExcelBuffer as WriteExcelBuffer
+import lib as lib
+import pandas._config.config as config
+import pandas.io.excel._calamine
+import pandas.io.excel._odfreader
+import pandas.io.excel._openpyxl
+import pandas.io.excel._pyxlsb
+import pandas.io.excel._xlrd
+import typing
+from collections.abc import Hashable, Iterable, Sequence
+from pandas._libs.lib import is_bool as is_bool, is_float as is_float, is_integer as is_integer, is_list_like as is_list_like
 from pandas.compat._optional import get_version as get_version, import_optional_dependency as import_optional_dependency
-from pandas.core.dtypes.common import is_bool as is_bool, is_float as is_float, is_integer as is_integer, is_list_like as is_list_like
 from pandas.core.frame import DataFrame as DataFrame
-from pandas.core.shared_docs import _shared_docs as _shared_docs
 from pandas.errors import EmptyDataError as EmptyDataError
 from pandas.io.common import IOHandles as IOHandles, get_handle as get_handle, stringify_path as stringify_path, validate_header_arg as validate_header_arg
-from pandas.io.excel._calamine import CalamineReader as CalamineReader
-from pandas.io.excel._odfreader import ODFReader as ODFReader
-from pandas.io.excel._openpyxl import OpenpyxlReader as OpenpyxlReader
-from pandas.io.excel._pyxlsb import PyxlsbReader as PyxlsbReader
 from pandas.io.excel._util import fill_mi_header as fill_mi_header, get_default_engine as get_default_engine, get_writer as get_writer, maybe_convert_usecols as maybe_convert_usecols, pop_header_name as pop_header_name
-from pandas.io.excel._xlrd import XlrdReader as XlrdReader
-from pandas.io.parsers import TextParser as TextParser
-from pandas.io.parsers.readers import validate_integer as validate_integer
+from pandas.io.parsers.readers import TextParser as TextParser, validate_integer as validate_integer
 from pandas.util._decorators import Appender as Appender, doc as doc
 from pandas.util._exceptions import find_stack_level as find_stack_level
 from pandas.util._validators import check_dtype_backend as check_dtype_backend
 from pandas.util.version import Version as Version
-from types import TracebackType
-from typing import Any, Callable, Generic, Literal, TypeVar, overload
+from typing import Any, Callable, ClassVar, Literal
 
-_read_excel_doc: Incomplete
+TYPE_CHECKING: bool
+STR_NA_VALUES: set
+_shared_docs: dict
+_read_excel_doc: str
+def read_excel(io, sheet_name: str | int | list[IntStrT] | None = ..., *, header: int | Sequence[int] | None = ..., names: SequenceNotStr[Hashable] | range | None, index_col: int | str | Sequence[int] | None, usecols: int | str | Sequence[int] | Sequence[str] | Callable[[str], bool] | None, dtype: DtypeArg | None, engine: Literal['xlrd', 'openpyxl', 'odf', 'pyxlsb', 'calamine'] | None, converters: dict[str, Callable] | dict[int, Callable] | None, true_values: Iterable[Hashable] | None, false_values: Iterable[Hashable] | None, skiprows: Sequence[int] | int | Callable[[int], object] | None, nrows: int | None, na_values, keep_default_na: bool = ..., na_filter: bool = ..., verbose: bool = ..., parse_dates: list | dict | bool = ..., date_parser: Callable | lib.NoDefault = ..., date_format: dict[Hashable, str] | str | None, thousands: str | None, decimal: str = ..., comment: str | None, skipfooter: int = ..., storage_options: StorageOptions | None, dtype_backend: DtypeBackend | lib.NoDefault = ..., engine_kwargs: dict | None) -> DataFrame | dict[IntStrT, DataFrame]:
+    '''
+    Read an Excel file into a ``pandas`` ``DataFrame``.
 
-@overload
-def read_excel(io, sheet_name: str | int = ..., *, header: int | Sequence[int] | None = ..., names: SequenceNotStr[Hashable] | range | None = ..., index_col: int | str | Sequence[int] | None = ..., usecols: int | str | Sequence[int] | Sequence[str] | Callable[[str], bool] | None = ..., dtype: DtypeArg | None = ..., engine: Literal['xlrd', 'openpyxl', 'odf', 'pyxlsb', 'calamine'] | None = ..., converters: dict[str, Callable] | dict[int, Callable] | None = ..., true_values: Iterable[Hashable] | None = ..., false_values: Iterable[Hashable] | None = ..., skiprows: Sequence[int] | int | Callable[[int], object] | None = ..., nrows: int | None = ..., na_values=..., keep_default_na: bool = ..., na_filter: bool = ..., verbose: bool = ..., parse_dates: list | dict | bool = ..., date_parser: Callable | lib.NoDefault = ..., date_format: dict[Hashable, str] | str | None = ..., thousands: str | None = ..., decimal: str = ..., comment: str | None = ..., skipfooter: int = ..., storage_options: StorageOptions = ..., dtype_backend: DtypeBackend | lib.NoDefault = ...) -> DataFrame: ...
-@overload
-def read_excel(io, sheet_name: list[IntStrT] | None, *, header: int | Sequence[int] | None = ..., names: SequenceNotStr[Hashable] | range | None = ..., index_col: int | str | Sequence[int] | None = ..., usecols: int | str | Sequence[int] | Sequence[str] | Callable[[str], bool] | None = ..., dtype: DtypeArg | None = ..., engine: Literal['xlrd', 'openpyxl', 'odf', 'pyxlsb', 'calamine'] | None = ..., converters: dict[str, Callable] | dict[int, Callable] | None = ..., true_values: Iterable[Hashable] | None = ..., false_values: Iterable[Hashable] | None = ..., skiprows: Sequence[int] | int | Callable[[int], object] | None = ..., nrows: int | None = ..., na_values=..., keep_default_na: bool = ..., na_filter: bool = ..., verbose: bool = ..., parse_dates: list | dict | bool = ..., date_parser: Callable | lib.NoDefault = ..., date_format: dict[Hashable, str] | str | None = ..., thousands: str | None = ..., decimal: str = ..., comment: str | None = ..., skipfooter: int = ..., storage_options: StorageOptions = ..., dtype_backend: DtypeBackend | lib.NoDefault = ...) -> dict[IntStrT, DataFrame]: ...
-_WorkbookT = TypeVar('_WorkbookT')
+    Supports `xls`, `xlsx`, `xlsm`, `xlsb`, `odf`, `ods` and `odt` file extensions
+    read from a local filesystem or URL. Supports an option to read
+    a single sheet or a list of sheets.
 
-class BaseExcelReader(Generic[_WorkbookT]):
-    book: _WorkbookT
-    handles: Incomplete
-    def __init__(self, filepath_or_buffer, storage_options: StorageOptions | None = None, engine_kwargs: dict | None = None) -> None: ...
-    @property
-    def _workbook_class(self) -> type[_WorkbookT]: ...
+    Parameters
+    ----------
+    io : str, bytes, ExcelFile, xlrd.Book, path object, or file-like object
+        Any valid string path is acceptable. The string could be a URL. Valid
+        URL schemes include http, ftp, s3, and file. For file URLs, a host is
+        expected. A local file could be: ``file://localhost/path/to/table.xlsx``.
+
+        If you want to pass in a path object, pandas accepts any ``os.PathLike``.
+
+        By file-like object, we refer to objects with a ``read()`` method,
+        such as a file handle (e.g. via builtin ``open`` function)
+        or ``StringIO``.
+
+        .. deprecated:: 2.1.0
+            Passing byte strings is deprecated. To read from a
+            byte string, wrap it in a ``BytesIO`` object.
+    sheet_name : str, int, list, or None, default 0
+        Strings are used for sheet names. Integers are used in zero-indexed
+        sheet positions (chart sheets do not count as a sheet position).
+        Lists of strings/integers are used to request multiple sheets.
+        Specify ``None`` to get all worksheets.
+
+        Available cases:
+
+        * Defaults to ``0``: 1st sheet as a `DataFrame`
+        * ``1``: 2nd sheet as a `DataFrame`
+        * ``"Sheet1"``: Load sheet with name "Sheet1"
+        * ``[0, 1, "Sheet5"]``: Load first, second and sheet named "Sheet5"
+          as a dict of `DataFrame`
+        * ``None``: All worksheets.
+
+    header : int, list of int, default 0
+        Row (0-indexed) to use for the column labels of the parsed
+        DataFrame. If a list of integers is passed those row positions will
+        be combined into a ``MultiIndex``. Use None if there is no header.
+    names : array-like, default None
+        List of column names to use. If file contains no header row,
+        then you should explicitly pass header=None.
+    index_col : int, str, list of int, default None
+        Column (0-indexed) to use as the row labels of the DataFrame.
+        Pass None if there is no such column.  If a list is passed,
+        those columns will be combined into a ``MultiIndex``.  If a
+        subset of data is selected with ``usecols``, index_col
+        is based on the subset.
+
+        Missing values will be forward filled to allow roundtripping with
+        ``to_excel`` for ``merged_cells=True``. To avoid forward filling the
+        missing values use ``set_index`` after reading the data instead of
+        ``index_col``.
+    usecols : str, list-like, or callable, default None
+        * If None, then parse all columns.
+        * If str, then indicates comma separated list of Excel column letters
+          and column ranges (e.g. "A:E" or "A,C,E:F"). Ranges are inclusive of
+          both sides.
+        * If list of int, then indicates list of column numbers to be parsed
+          (0-indexed).
+        * If list of string, then indicates list of column names to be parsed.
+        * If callable, then evaluate each column name against it and parse the
+          column if the callable returns ``True``.
+
+        Returns a subset of the columns according to behavior above.
+    dtype : Type name or dict of column -> type, default None
+        Data type for data or columns. E.g. {\'a\': np.float64, \'b\': np.int32}
+        Use ``object`` to preserve data as stored in Excel and not interpret dtype,
+        which will necessarily result in ``object`` dtype.
+        If converters are specified, they will be applied INSTEAD
+        of dtype conversion.
+        If you use ``None``, it will infer the dtype of each column based on the data.
+    engine : {\'openpyxl\', \'calamine\', \'odf\', \'pyxlsb\', \'xlrd\'}, default None
+        If io is not a buffer or path, this must be set to identify io.
+        Engine compatibility :
+
+        - ``openpyxl`` supports newer Excel file formats.
+        - ``calamine`` supports Excel (.xls, .xlsx, .xlsm, .xlsb)
+          and OpenDocument (.ods) file formats.
+        - ``odf`` supports OpenDocument file formats (.odf, .ods, .odt).
+        - ``pyxlsb`` supports Binary Excel files.
+        - ``xlrd`` supports old-style Excel files (.xls).
+
+        When ``engine=None``, the following logic will be used to determine the engine:
+
+        - If ``path_or_buffer`` is an OpenDocument format (.odf, .ods, .odt),
+          then `odf <https://pypi.org/project/odfpy/>`_ will be used.
+        - Otherwise if ``path_or_buffer`` is an xls format, ``xlrd`` will be used.
+        - Otherwise if ``path_or_buffer`` is in xlsb format, ``pyxlsb`` will be used.
+        - Otherwise ``openpyxl`` will be used.
+    converters : dict, default None
+        Dict of functions for converting values in certain columns. Keys can
+        either be integers or column labels, values are functions that take one
+        input argument, the Excel cell content, and return the transformed
+        content.
+    true_values : list, default None
+        Values to consider as True.
+    false_values : list, default None
+        Values to consider as False.
+    skiprows : list-like, int, or callable, optional
+        Line numbers to skip (0-indexed) or number of lines to skip (int) at the
+        start of the file. If callable, the callable function will be evaluated
+        against the row indices, returning True if the row should be skipped and
+        False otherwise. An example of a valid callable argument would be ``lambda
+        x: x in [0, 2]``.
+    nrows : int, default None
+        Number of rows to parse.
+    na_values : scalar, str, list-like, or dict, default None
+        Additional strings to recognize as NA/NaN. If dict passed, specific
+        per-column NA values. By default the following values are interpreted
+        as NaN: \'\', \'#N/A\', \'#N/A N/A\', \'#NA\', \'-1.#IND\', \'-1.#QNAN\', \'-NaN\', \'-nan\',
+        \'1.#IND\', \'1.#QNAN\', \'<NA>\', \'N/A\', \'NA\', \'NULL\', \'NaN\', \'None\',
+        \'n/a\', \'nan\', \'null\'.
+    keep_default_na : bool, default True
+        Whether or not to include the default NaN values when parsing the data.
+        Depending on whether ``na_values`` is passed in, the behavior is as follows:
+
+        * If ``keep_default_na`` is True, and ``na_values`` are specified,
+          ``na_values`` is appended to the default NaN values used for parsing.
+        * If ``keep_default_na`` is True, and ``na_values`` are not specified, only
+          the default NaN values are used for parsing.
+        * If ``keep_default_na`` is False, and ``na_values`` are specified, only
+          the NaN values specified ``na_values`` are used for parsing.
+        * If ``keep_default_na`` is False, and ``na_values`` are not specified, no
+          strings will be parsed as NaN.
+
+        Note that if `na_filter` is passed in as False, the ``keep_default_na`` and
+        ``na_values`` parameters will be ignored.
+    na_filter : bool, default True
+        Detect missing value markers (empty strings and the value of na_values). In
+        data without any NAs, passing ``na_filter=False`` can improve the
+        performance of reading a large file.
+    verbose : bool, default False
+        Indicate number of NA values placed in non-numeric columns.
+    parse_dates : bool, list-like, or dict, default False
+        The behavior is as follows:
+
+        * ``bool``. If True -> try parsing the index.
+        * ``list`` of int or names. e.g. If [1, 2, 3] -> try parsing columns 1, 2, 3
+          each as a separate date column.
+        * ``list`` of lists. e.g.  If [[1, 3]] -> combine columns 1 and 3 and parse as
+          a single date column.
+        * ``dict``, e.g. {\'foo\' : [1, 3]} -> parse columns 1, 3 as date and call
+          result \'foo\'
+
+        If a column or index contains an unparsable date, the entire column or
+        index will be returned unaltered as an object data type. If you don`t want to
+        parse some cells as date just change their type in Excel to "Text".
+        For non-standard datetime parsing, use ``pd.to_datetime`` after ``pd.read_excel``.
+
+        Note: A fast-path exists for iso8601-formatted dates.
+    date_parser : function, optional
+        Function to use for converting a sequence of string columns to an array of
+        datetime instances. The default uses ``dateutil.parser.parser`` to do the
+        conversion. Pandas will try to call `date_parser` in three different ways,
+        advancing to the next if an exception occurs: 1) Pass one or more arrays
+        (as defined by `parse_dates`) as arguments; 2) concatenate (row-wise) the
+        string values from the columns defined by `parse_dates` into a single array
+        and pass that; and 3) call `date_parser` once for each row using one or
+        more strings (corresponding to the columns defined by `parse_dates`) as
+        arguments.
+
+        .. deprecated:: 2.0.0
+           Use ``date_format`` instead, or read in as ``object`` and then apply
+           :func:`to_datetime` as-needed.
+    date_format : str or dict of column -> format, default ``None``
+       If used in conjunction with ``parse_dates``, will parse dates according to this
+       format. For anything more complex,
+       please read in as ``object`` and then apply :func:`to_datetime` as-needed.
+
+       .. versionadded:: 2.0.0
+    thousands : str, default None
+        Thousands separator for parsing string columns to numeric.  Note that
+        this parameter is only necessary for columns stored as TEXT in Excel,
+        any numeric columns will automatically be parsed, regardless of display
+        format.
+    decimal : str, default \'.\'
+        Character to recognize as decimal point for parsing string columns to numeric.
+        Note that this parameter is only necessary for columns stored as TEXT in Excel,
+        any numeric columns will automatically be parsed, regardless of display
+        format.(e.g. use \',\' for European data).
+
+        .. versionadded:: 1.4.0
+
+    comment : str, default None
+        Comments out remainder of line. Pass a character or characters to this
+        argument to indicate comments in the input file. Any data between the
+        comment string and the end of the current line is ignored.
+    skipfooter : int, default 0
+        Rows at the end to skip (0-indexed).
+    storage_options : dict, optional
+        Extra options that make sense for a particular storage connection, e.g.
+        host, port, username, password, etc. For HTTP(S) URLs the key-value pairs
+        are forwarded to ``urllib.request.Request`` as header options. For other
+        URLs (e.g. starting with "s3://", and "gcs://") the key-value pairs are
+        forwarded to ``fsspec.open``. Please see ``fsspec`` and ``urllib`` for more
+        details, and for more examples on storage options refer `here
+        <https://pandas.pydata.org/docs/user_guide/io.html?
+        highlight=storage_options#reading-writing-remote-files>`_.
+
+    dtype_backend : {\'numpy_nullable\', \'pyarrow\'}, default \'numpy_nullable\'
+        Back-end data type applied to the resultant :class:`DataFrame`
+        (still experimental). Behaviour is as follows:
+
+        * ``"numpy_nullable"``: returns nullable-dtype-backed :class:`DataFrame`
+          (default).
+        * ``"pyarrow"``: returns pyarrow-backed nullable :class:`ArrowDtype`
+          DataFrame.
+
+        .. versionadded:: 2.0
+
+    engine_kwargs : dict, optional
+        Arbitrary keyword arguments passed to excel engine.
+
+    Returns
+    -------
+    DataFrame or dict of DataFrames
+        DataFrame from the passed in Excel file. See notes in sheet_name
+        argument for more information on when a dict of DataFrames is returned.
+
+    See Also
+    --------
+    DataFrame.to_excel : Write DataFrame to an Excel file.
+    DataFrame.to_csv : Write DataFrame to a comma-separated values (csv) file.
+    read_csv : Read a comma-separated values (csv) file into DataFrame.
+    read_fwf : Read a table of fixed-width formatted lines into DataFrame.
+
+    Notes
+    -----
+    For specific information on the methods used for each Excel engine, refer to the pandas
+    :ref:`user guide <io.excel_reader>`
+
+    Examples
+    --------
+    The file can be read using the file name as string or an open file object:
+
+    >>> pd.read_excel(\'tmp.xlsx\', index_col=0)  # doctest: +SKIP
+           Name  Value
+    0   string1      1
+    1   string2      2
+    2  #Comment      3
+
+    >>> pd.read_excel(open(\'tmp.xlsx\', \'rb\'),
+    ...               sheet_name=\'Sheet3\')  # doctest: +SKIP
+       Unnamed: 0      Name  Value
+    0           0   string1      1
+    1           1   string2      2
+    2           2  #Comment      3
+
+    Index and header can be specified via the `index_col` and `header` arguments
+
+    >>> pd.read_excel(\'tmp.xlsx\', index_col=None, header=None)  # doctest: +SKIP
+         0         1      2
+    0  NaN      Name  Value
+    1  0.0   string1      1
+    2  1.0   string2      2
+    3  2.0  #Comment      3
+
+    Column types are inferred but can be explicitly specified
+
+    >>> pd.read_excel(\'tmp.xlsx\', index_col=0,
+    ...               dtype={\'Name\': str, \'Value\': float})  # doctest: +SKIP
+           Name  Value
+    0   string1    1.0
+    1   string2    2.0
+    2  #Comment    3.0
+
+    True, False, and NA values, and thousands separators have defaults,
+    but can be explicitly specified, too. Supply the values you would like
+    as strings or lists of strings!
+
+    >>> pd.read_excel(\'tmp.xlsx\', index_col=0,
+    ...               na_values=[\'string1\', \'string2\'])  # doctest: +SKIP
+           Name  Value
+    0       NaN      1
+    1       NaN      2
+    2  #Comment      3
+
+    Comment lines in the excel input file can be skipped using the
+    ``comment`` kwarg.
+
+    >>> pd.read_excel(\'tmp.xlsx\', index_col=0, comment=\'#\')  # doctest: +SKIP
+          Name  Value
+    0  string1    1.0
+    1  string2    2.0
+    2     None    NaN
+    '''
+
+_WorkbookT: typing.TypeVar
+
+class BaseExcelReader(typing.Generic):
+    __orig_bases__: ClassVar[tuple] = ...
+    __parameters__: ClassVar[tuple] = ...
+    def __init__(self, filepath_or_buffer, storage_options: StorageOptions | None, engine_kwargs: dict | None) -> None: ...
     def load_workbook(self, filepath_or_buffer, engine_kwargs) -> _WorkbookT: ...
     def close(self) -> None: ...
-    @property
-    def sheet_names(self) -> list[str]: ...
     def get_sheet_by_name(self, name: str): ...
     def get_sheet_by_index(self, index: int): ...
-    def get_sheet_data(self, sheet, rows: int | None = None): ...
+    def get_sheet_data(self, sheet, rows: int | None): ...
     def raise_if_bad_sheet_by_index(self, index: int) -> None: ...
     def raise_if_bad_sheet_by_name(self, name: str) -> None: ...
     def _check_skiprows_func(self, skiprows: Callable, rows_to_use: int) -> int:
@@ -87,191 +368,18 @@ class BaseExcelReader(Generic[_WorkbookT]):
         -------
         int or None
         """
-    def parse(self, sheet_name: str | int | list[int] | list[str] | None = 0, header: int | Sequence[int] | None = 0, names: SequenceNotStr[Hashable] | range | None = None, index_col: int | Sequence[int] | None = None, usecols: Incomplete | None = None, dtype: DtypeArg | None = None, true_values: Iterable[Hashable] | None = None, false_values: Iterable[Hashable] | None = None, skiprows: Sequence[int] | int | Callable[[int], object] | None = None, nrows: int | None = None, na_values: Incomplete | None = None, verbose: bool = False, parse_dates: list | dict | bool = False, date_parser: Callable | lib.NoDefault = ..., date_format: dict[Hashable, str] | str | None = None, thousands: str | None = None, decimal: str = '.', comment: str | None = None, skipfooter: int = 0, dtype_backend: DtypeBackend | lib.NoDefault = ..., **kwds): ...
-
-class ExcelWriter(Generic[_WorkbookT]):
-    '''
-    Class for writing DataFrame objects into excel sheets.
-
-    Default is to use:
-
-    * `xlsxwriter <https://pypi.org/project/XlsxWriter/>`__ for xlsx files if xlsxwriter
-      is installed otherwise `openpyxl <https://pypi.org/project/openpyxl/>`__
-    * `odswriter <https://pypi.org/project/odswriter/>`__ for ods files
-
-    See ``DataFrame.to_excel`` for typical usage.
-
-    The writer should be used as a context manager. Otherwise, call `close()` to save
-    and close any opened file handles.
-
-    Parameters
-    ----------
-    path : str or typing.BinaryIO
-        Path to xls or xlsx or ods file.
-    engine : str (optional)
-        Engine to use for writing. If None, defaults to
-        ``io.excel.<extension>.writer``.  NOTE: can only be passed as a keyword
-        argument.
-    date_format : str, default None
-        Format string for dates written into Excel files (e.g. \'YYYY-MM-DD\').
-    datetime_format : str, default None
-        Format string for datetime objects written into Excel files.
-        (e.g. \'YYYY-MM-DD HH:MM:SS\').
-    mode : {{\'w\', \'a\'}}, default \'w\'
-        File mode to use (write or append). Append does not work with fsspec URLs.
-    {storage_options}
-
-    if_sheet_exists : {{\'error\', \'new\', \'replace\', \'overlay\'}}, default \'error\'
-        How to behave when trying to write to a sheet that already
-        exists (append mode only).
-
-        * error: raise a ValueError.
-        * new: Create a new sheet, with a name determined by the engine.
-        * replace: Delete the contents of the sheet before writing to it.
-        * overlay: Write contents to the existing sheet without first removing,
-          but possibly over top of, the existing contents.
-
-        .. versionadded:: 1.3.0
-
-        .. versionchanged:: 1.4.0
-
-           Added ``overlay`` option
-
-    engine_kwargs : dict, optional
-        Keyword arguments to be passed into the engine. These will be passed to
-        the following functions of the respective engines:
-
-        * xlsxwriter: ``xlsxwriter.Workbook(file, **engine_kwargs)``
-        * openpyxl (write mode): ``openpyxl.Workbook(**engine_kwargs)``
-        * openpyxl (append mode): ``openpyxl.load_workbook(file, **engine_kwargs)``
-        * odswriter: ``odf.opendocument.OpenDocumentSpreadsheet(**engine_kwargs)``
-
-        .. versionadded:: 1.3.0
-
-    Notes
-    -----
-    For compatibility with CSV writers, ExcelWriter serializes lists
-    and dicts to strings before writing.
-
-    Examples
-    --------
-    Default usage:
-
-    >>> df = pd.DataFrame([["ABC", "XYZ"]], columns=["Foo", "Bar"])  # doctest: +SKIP
-    >>> with pd.ExcelWriter("path_to_file.xlsx") as writer:
-    ...     df.to_excel(writer)  # doctest: +SKIP
-
-    To write to separate sheets in a single file:
-
-    >>> df1 = pd.DataFrame([["AAA", "BBB"]], columns=["Spam", "Egg"])  # doctest: +SKIP
-    >>> df2 = pd.DataFrame([["ABC", "XYZ"]], columns=["Foo", "Bar"])  # doctest: +SKIP
-    >>> with pd.ExcelWriter("path_to_file.xlsx") as writer:
-    ...     df1.to_excel(writer, sheet_name="Sheet1")  # doctest: +SKIP
-    ...     df2.to_excel(writer, sheet_name="Sheet2")  # doctest: +SKIP
-
-    You can set the date format or datetime format:
-
-    >>> from datetime import date, datetime  # doctest: +SKIP
-    >>> df = pd.DataFrame(
-    ...     [
-    ...         [date(2014, 1, 31), date(1999, 9, 24)],
-    ...         [datetime(1998, 5, 26, 23, 33, 4), datetime(2014, 2, 28, 13, 5, 13)],
-    ...     ],
-    ...     index=["Date", "Datetime"],
-    ...     columns=["X", "Y"],
-    ... )  # doctest: +SKIP
-    >>> with pd.ExcelWriter(
-    ...     "path_to_file.xlsx",
-    ...     date_format="YYYY-MM-DD",
-    ...     datetime_format="YYYY-MM-DD HH:MM:SS"
-    ... ) as writer:
-    ...     df.to_excel(writer)  # doctest: +SKIP
-
-    You can also append to an existing Excel file:
-
-    >>> with pd.ExcelWriter("path_to_file.xlsx", mode="a", engine="openpyxl") as writer:
-    ...     df.to_excel(writer, sheet_name="Sheet3")  # doctest: +SKIP
-
-    Here, the `if_sheet_exists` parameter can be set to replace a sheet if it
-    already exists:
-
-    >>> with ExcelWriter(
-    ...     "path_to_file.xlsx",
-    ...     mode="a",
-    ...     engine="openpyxl",
-    ...     if_sheet_exists="replace",
-    ... ) as writer:
-    ...     df.to_excel(writer, sheet_name="Sheet1")  # doctest: +SKIP
-
-    You can also write multiple DataFrames to a single sheet. Note that the
-    ``if_sheet_exists`` parameter needs to be set to ``overlay``:
-
-    >>> with ExcelWriter("path_to_file.xlsx",
-    ...     mode="a",
-    ...     engine="openpyxl",
-    ...     if_sheet_exists="overlay",
-    ... ) as writer:
-    ...     df1.to_excel(writer, sheet_name="Sheet1")
-    ...     df2.to_excel(writer, sheet_name="Sheet1", startcol=3)  # doctest: +SKIP
-
-    You can store Excel file in RAM:
-
-    >>> import io
-    >>> df = pd.DataFrame([["ABC", "XYZ"]], columns=["Foo", "Bar"])
-    >>> buffer = io.BytesIO()
-    >>> with pd.ExcelWriter(buffer) as writer:
-    ...     df.to_excel(writer)
-
-    You can pack Excel file into zip archive:
-
-    >>> import zipfile  # doctest: +SKIP
-    >>> df = pd.DataFrame([["ABC", "XYZ"]], columns=["Foo", "Bar"])  # doctest: +SKIP
-    >>> with zipfile.ZipFile("path_to_file.zip", "w") as zf:
-    ...     with zf.open("filename.xlsx", "w") as buffer:
-    ...         with pd.ExcelWriter(buffer) as writer:
-    ...             df.to_excel(writer)  # doctest: +SKIP
-
-    You can specify additional arguments to the underlying engine:
-
-    >>> with pd.ExcelWriter(
-    ...     "path_to_file.xlsx",
-    ...     engine="xlsxwriter",
-    ...     engine_kwargs={{"options": {{"nan_inf_to_errors": True}}}}
-    ... ) as writer:
-    ...     df.to_excel(writer)  # doctest: +SKIP
-
-    In append mode, ``engine_kwargs`` are passed through to
-    openpyxl\'s ``load_workbook``:
-
-    >>> with pd.ExcelWriter(
-    ...     "path_to_file.xlsx",
-    ...     engine="openpyxl",
-    ...     mode="a",
-    ...     engine_kwargs={{"keep_vba": True}}
-    ... ) as writer:
-    ...     df.to_excel(writer, sheet_name="Sheet2")  # doctest: +SKIP
-    '''
-    _engine: str
-    _supported_extensions: tuple[str, ...]
-    def __new__(cls, path: FilePath | WriteExcelBuffer | ExcelWriter, engine: str | None = None, date_format: str | None = None, datetime_format: str | None = None, mode: str = 'w', storage_options: StorageOptions | None = None, if_sheet_exists: ExcelWriterIfSheetExists | None = None, engine_kwargs: dict | None = None) -> Self: ...
-    _path: Incomplete
+    def parse(self, sheet_name: str | int | list[int] | list[str] | None = ..., header: int | Sequence[int] | None = ..., names: SequenceNotStr[Hashable] | range | None, index_col: int | Sequence[int] | None, usecols, dtype: DtypeArg | None, true_values: Iterable[Hashable] | None, false_values: Iterable[Hashable] | None, skiprows: Sequence[int] | int | Callable[[int], object] | None, nrows: int | None, na_values, verbose: bool = ..., parse_dates: list | dict | bool = ..., date_parser: Callable | lib.NoDefault = ..., date_format: dict[Hashable, str] | str | None, thousands: str | None, decimal: str = ..., comment: str | None, skipfooter: int = ..., dtype_backend: DtypeBackend | lib.NoDefault = ..., **kwds): ...
     @property
-    def supported_extensions(self) -> tuple[str, ...]:
-        """Extensions that writer engine supports."""
+    def _workbook_class(self): ...
     @property
-    def engine(self) -> str:
-        """Name of engine."""
-    @property
-    def sheets(self) -> dict[str, Any]:
-        """Mapping of sheet names to sheet objects."""
-    @property
-    def book(self) -> _WorkbookT:
-        """
-        Book instance. Class type will depend on the engine used.
+    def sheet_names(self): ...
 
-        This attribute can be used to access engine-specific features.
-        """
-    def _write_cells(self, cells, sheet_name: str | None = None, startrow: int = 0, startcol: int = 0, freeze_panes: tuple[int, int] | None = None) -> None:
+class ExcelWriter(typing.Generic):
+    _path: ClassVar[None] = ...
+    __orig_bases__: ClassVar[tuple] = ...
+    __parameters__: ClassVar[tuple] = ...
+    _docstring_components: ClassVar[list] = ...
+    def _write_cells(self, cells, sheet_name: str | None, startrow: int = ..., startcol: int = ..., freeze_panes: tuple[int, int] | None) -> None:
         """
         Write given formatted cells into Excel an excel sheet
 
@@ -290,28 +398,7 @@ class ExcelWriter(Generic[_WorkbookT]):
         """
         Save workbook to disk.
         """
-    _if_sheet_exists: Incomplete
-    _handles: Incomplete
-    _cur_sheet: Incomplete
-    _date_format: str
-    _datetime_format: str
-    _mode: Incomplete
-    def __init__(self, path: FilePath | WriteExcelBuffer | ExcelWriter, engine: str | None = None, date_format: str | None = None, datetime_format: str | None = None, mode: str = 'w', storage_options: StorageOptions | None = None, if_sheet_exists: ExcelWriterIfSheetExists | None = None, engine_kwargs: dict[str, Any] | None = None) -> None: ...
-    @property
-    def date_format(self) -> str:
-        """
-        Format string for dates written into Excel files (e.g. 'YYYY-MM-DD').
-        """
-    @property
-    def datetime_format(self) -> str:
-        """
-        Format string for dates written into Excel files (e.g. 'YYYY-MM-DD').
-        """
-    @property
-    def if_sheet_exists(self) -> str:
-        """
-        How to behave when writing to a sheet that already exists in append mode.
-        """
+    def __init__(self, path: FilePath | WriteExcelBuffer | ExcelWriter, engine: str | None, date_format: str | None, datetime_format: str | None, mode: str = ..., storage_options: StorageOptions | None, if_sheet_exists: ExcelWriterIfSheetExists | None, engine_kwargs: dict[str, Any] | None) -> None: ...
     def __fspath__(self) -> str: ...
     def _get_sheet_name(self, sheet_name: str | None) -> str: ...
     def _value_with_fmt(self, val) -> tuple[int | float | bool | str | datetime.datetime | datetime.date, str | None]:
@@ -338,13 +425,25 @@ class ExcelWriter(Generic[_WorkbookT]):
     def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None) -> None: ...
     def close(self) -> None:
         """synonym for save, to make it more file-like"""
-
-XLS_SIGNATURES: Incomplete
+    @property
+    def supported_extensions(self): ...
+    @property
+    def engine(self): ...
+    @property
+    def sheets(self): ...
+    @property
+    def book(self): ...
+    @property
+    def date_format(self): ...
+    @property
+    def datetime_format(self): ...
+    @property
+    def if_sheet_exists(self): ...
+XLS_SIGNATURES: tuple
 ZIP_SIGNATURE: bytes
-PEEK_SIZE: Incomplete
-
-def inspect_excel_format(content_or_path: FilePath | ReadBuffer[bytes], storage_options: StorageOptions | None = None) -> str | None:
-    """
+PEEK_SIZE: int
+def inspect_excel_format(content_or_path: FilePath | ReadBuffer[bytes], storage_options: StorageOptions | None) -> str | None:
+    '''
     Inspect the path or content of an excel file and get its format.
 
     Adopted from xlrd: https://github.com/python-excel/xlrd.
@@ -353,7 +452,15 @@ def inspect_excel_format(content_or_path: FilePath | ReadBuffer[bytes], storage_
     ----------
     content_or_path : str or file-like object
         Path to file or content of file to inspect. May be a URL.
-    {storage_options}
+    storage_options : dict, optional
+        Extra options that make sense for a particular storage connection, e.g.
+        host, port, username, password, etc. For HTTP(S) URLs the key-value pairs
+        are forwarded to ``urllib.request.Request`` as header options. For other
+        URLs (e.g. starting with "s3://", and "gcs://") the key-value pairs are
+        forwarded to ``fsspec.open``. Please see ``fsspec`` and ``urllib`` for more
+        details, and for more examples on storage options refer `here
+        <https://pandas.pydata.org/docs/user_guide/io.html?
+        highlight=storage_options#reading-writing-remote-files>`_.
 
     Returns
     -------
@@ -366,74 +473,18 @@ def inspect_excel_format(content_or_path: FilePath | ReadBuffer[bytes], storage_
         If resulting stream is empty.
     BadZipFile
         If resulting stream does not have an XLS signature and is not a valid zipfile.
-    """
+    '''
 
 class ExcelFile:
-    '''
-    Class for parsing tabular Excel sheets into DataFrame objects.
-
-    See read_excel for more documentation.
-
-    Parameters
-    ----------
-    path_or_buffer : str, bytes, path object (pathlib.Path or py._path.local.LocalPath),
-        A file-like object, xlrd workbook or openpyxl workbook.
-        If a string or path object, expected to be a path to a
-        .xls, .xlsx, .xlsb, .xlsm, .odf, .ods, or .odt file.
-    engine : str, default None
-        If io is not a buffer or path, this must be set to identify io.
-        Supported engines: ``xlrd``, ``openpyxl``, ``odf``, ``pyxlsb``, ``calamine``
-        Engine compatibility :
-
-        - ``xlrd`` supports old-style Excel files (.xls).
-        - ``openpyxl`` supports newer Excel file formats.
-        - ``odf`` supports OpenDocument file formats (.odf, .ods, .odt).
-        - ``pyxlsb`` supports Binary Excel files.
-        - ``calamine`` supports Excel (.xls, .xlsx, .xlsm, .xlsb)
-          and OpenDocument (.ods) file formats.
-
-        .. versionchanged:: 1.2.0
-
-           The engine `xlrd <https://xlrd.readthedocs.io/en/latest/>`_
-           now only supports old-style ``.xls`` files.
-           When ``engine=None``, the following logic will be
-           used to determine the engine:
-
-           - If ``path_or_buffer`` is an OpenDocument format (.odf, .ods, .odt),
-             then `odf <https://pypi.org/project/odfpy/>`_ will be used.
-           - Otherwise if ``path_or_buffer`` is an xls format,
-             ``xlrd`` will be used.
-           - Otherwise if ``path_or_buffer`` is in xlsb format,
-             `pyxlsb <https://pypi.org/project/pyxlsb/>`_ will be used.
-
-           .. versionadded:: 1.3.0
-
-           - Otherwise if `openpyxl <https://pypi.org/project/openpyxl/>`_ is installed,
-             then ``openpyxl`` will be used.
-           - Otherwise if ``xlrd >= 2.0`` is installed, a ``ValueError`` will be raised.
-
-           .. warning::
-
-            Please do not report issues when using ``xlrd`` to read ``.xlsx`` files.
-            This is not supported, switch to using ``openpyxl`` instead.
-    engine_kwargs : dict, optional
-        Arbitrary keyword arguments passed to excel engine.
-
-    Examples
-    --------
-    >>> file = pd.ExcelFile(\'myfile.xlsx\')  # doctest: +SKIP
-    >>> with pd.ExcelFile("myfile.xls") as xls:  # doctest: +SKIP
-    ...     df1 = pd.read_excel(xls, "Sheet1")  # doctest: +SKIP
-    '''
-    _engines: Mapping[str, Any]
-    io: Incomplete
-    _io: Incomplete
-    engine: Incomplete
-    storage_options: Incomplete
-    _reader: Incomplete
-    def __init__(self, path_or_buffer, engine: str | None = None, storage_options: StorageOptions | None = None, engine_kwargs: dict | None = None) -> None: ...
+    CalamineReader: ClassVar[type[pandas.io.excel._calamine.CalamineReader]] = ...
+    ODFReader: ClassVar[type[pandas.io.excel._odfreader.ODFReader]] = ...
+    OpenpyxlReader: ClassVar[type[pandas.io.excel._openpyxl.OpenpyxlReader]] = ...
+    PyxlsbReader: ClassVar[type[pandas.io.excel._pyxlsb.PyxlsbReader]] = ...
+    XlrdReader: ClassVar[type[pandas.io.excel._xlrd.XlrdReader]] = ...
+    _engines: ClassVar[dict] = ...
+    def __init__(self, path_or_buffer, engine: str | None, storage_options: StorageOptions | None, engine_kwargs: dict | None) -> None: ...
     def __fspath__(self): ...
-    def parse(self, sheet_name: str | int | list[int] | list[str] | None = 0, header: int | Sequence[int] | None = 0, names: SequenceNotStr[Hashable] | range | None = None, index_col: int | Sequence[int] | None = None, usecols: Incomplete | None = None, converters: Incomplete | None = None, true_values: Iterable[Hashable] | None = None, false_values: Iterable[Hashable] | None = None, skiprows: Sequence[int] | int | Callable[[int], object] | None = None, nrows: int | None = None, na_values: Incomplete | None = None, parse_dates: list | dict | bool = False, date_parser: Callable | lib.NoDefault = ..., date_format: str | dict[Hashable, str] | None = None, thousands: str | None = None, comment: str | None = None, skipfooter: int = 0, dtype_backend: DtypeBackend | lib.NoDefault = ..., **kwds) -> DataFrame | dict[str, DataFrame] | dict[int, DataFrame]:
+    def parse(self, sheet_name: str | int | list[int] | list[str] | None = ..., header: int | Sequence[int] | None = ..., names: SequenceNotStr[Hashable] | range | None, index_col: int | Sequence[int] | None, usecols, converters, true_values: Iterable[Hashable] | None, false_values: Iterable[Hashable] | None, skiprows: Sequence[int] | int | Callable[[int], object] | None, nrows: int | None, na_values, parse_dates: list | dict | bool = ..., date_parser: Callable | lib.NoDefault = ..., date_format: str | dict[Hashable, str] | None, thousands: str | None, comment: str | None, skipfooter: int = ..., dtype_backend: DtypeBackend | lib.NoDefault = ..., **kwds) -> DataFrame | dict[str, DataFrame] | dict[int, DataFrame]:
         """
         Parse specified sheet(s) into a DataFrame.
 
@@ -452,11 +503,11 @@ class ExcelFile:
         >>> file = pd.ExcelFile('myfile.xlsx')  # doctest: +SKIP
         >>> file.parse()  # doctest: +SKIP
         """
-    @property
-    def book(self): ...
-    @property
-    def sheet_names(self): ...
     def close(self) -> None:
         """close io if necessary"""
     def __enter__(self) -> Self: ...
     def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None) -> None: ...
+    @property
+    def book(self): ...
+    @property
+    def sheet_names(self): ...

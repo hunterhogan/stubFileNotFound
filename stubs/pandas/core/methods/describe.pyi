@@ -1,19 +1,20 @@
+import _abc
 import abc
-import numpy as np
-from _typeshed import Incomplete
-from abc import ABC, abstractmethod
-from collections.abc import Hashable, Sequence
-from pandas import DataFrame as DataFrame, Series as Series
-from pandas._libs.tslibs import Timestamp as Timestamp
-from pandas._typing import DtypeObj as DtypeObj, NDFrameT as NDFrameT, npt as npt
+import np
+import npt
+from pandas._libs.tslibs.timestamps import Timestamp as Timestamp
+from pandas._typing import NDFrameT as NDFrameT
 from pandas.core.arrays.floating import Float64Dtype as Float64Dtype
+from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.common import is_bool_dtype as is_bool_dtype, is_numeric_dtype as is_numeric_dtype
-from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype, DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype
+from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype, DatetimeTZDtype as DatetimeTZDtype
 from pandas.core.reshape.concat import concat as concat
 from pandas.io.formats.format import format_percentiles as format_percentiles
 from pandas.util._validators import validate_percentile as validate_percentile
-from typing import Callable
+from typing import Callable, ClassVar
 
+TYPE_CHECKING: bool
+npt: None
 def describe_ndframe(*, obj: NDFrameT, include: str | Sequence[str] | None, exclude: str | Sequence[str] | None, percentiles: Sequence[float] | np.ndarray | None) -> NDFrameT:
     """Describe series or dataframe.
 
@@ -37,17 +38,10 @@ def describe_ndframe(*, obj: NDFrameT, include: str | Sequence[str] | None, excl
     Dataframe or series description.
     """
 
-class NDFrameDescriberAbstract(ABC, metaclass=abc.ABCMeta):
-    """Abstract class for describing dataframe or series.
-
-    Parameters
-    ----------
-    obj : Series or DataFrame
-        Object to be described.
-    """
-    obj: Incomplete
+class NDFrameDescriberAbstract(abc.ABC):
+    __abstractmethods__: ClassVar[frozenset] = ...
+    _abc_impl: ClassVar[_abc._abc_data] = ...
     def __init__(self, obj: DataFrame | Series) -> None: ...
-    @abstractmethod
     def describe(self, percentiles: Sequence[float] | np.ndarray) -> DataFrame | Series:
         """Do describe either series or dataframe.
 
@@ -58,30 +52,17 @@ class NDFrameDescriberAbstract(ABC, metaclass=abc.ABCMeta):
         """
 
 class SeriesDescriber(NDFrameDescriberAbstract):
-    """Class responsible for creating series description."""
-    obj: Series
+    __abstractmethods__: ClassVar[frozenset] = ...
+    _abc_impl: ClassVar[_abc._abc_data] = ...
     def describe(self, percentiles: Sequence[float] | np.ndarray) -> Series: ...
 
 class DataFrameDescriber(NDFrameDescriberAbstract):
-    """Class responsible for creating dataobj description.
-
-    Parameters
-    ----------
-    obj : DataFrame
-        DataFrame to be described.
-    include : 'all', list-like of dtypes or None
-        A white list of data types to include in the result.
-    exclude : list-like of dtypes or None
-        A black list of data types to omit from the result.
-    """
-    obj: DataFrame
-    include: Incomplete
-    exclude: Incomplete
+    __abstractmethods__: ClassVar[frozenset] = ...
+    _abc_impl: ClassVar[_abc._abc_data] = ...
     def __init__(self, obj: DataFrame, *, include: str | Sequence[str] | None, exclude: str | Sequence[str] | None) -> None: ...
     def describe(self, percentiles: Sequence[float] | np.ndarray) -> DataFrame: ...
     def _select_data(self) -> DataFrame:
         """Select columns to be described."""
-
 def reorder_columns(ldesc: Sequence[Series]) -> list[Hashable]:
     """Set a convenient order for rows for display."""
 def describe_numeric_1d(series: Series, percentiles: Sequence[float]) -> Series:

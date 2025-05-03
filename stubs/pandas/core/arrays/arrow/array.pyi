@@ -1,108 +1,69 @@
-import numpy as np
-import pyarrow as pa
+import _abc
+import np
+import npt
+import pa
+import pandas._libs.lib as lib
+import pandas._libs.tslibs.timezones as timezones
+import pandas.core.algorithms as algos
+import pandas.core.arraylike
+import pandas.core.arrays._arrow_string_mixins
+import pandas.core.arrays.base
+import pandas.core.common as com
+import pandas.core.missing as missing
+import pandas.core.ops as ops
+import pandas.core.roperator as roperator
+import pandas.core.strings.base
 import re
-from _typeshed import Incomplete
-from collections.abc import Sequence
-from pandas import Series as Series
-from pandas._libs import lib as lib
-from pandas._libs.tslibs import NaT as NaT, Timedelta as Timedelta, Timestamp as Timestamp, timezones as timezones
-from pandas._typing import ArrayLike as ArrayLike, AxisInt as AxisInt, Dtype as Dtype, FillnaOptions as FillnaOptions, InterpolateOptions as InterpolateOptions, Iterator as Iterator, NpDtype as NpDtype, NumpySorter as NumpySorter, NumpyValueArrayLike as NumpyValueArrayLike, PositionalIndexer as PositionalIndexer, Scalar as Scalar, Self as Self, SortKind as SortKind, TakeIndexer as TakeIndexer, TimeAmbiguous as TimeAmbiguous, TimeNonexistent as TimeNonexistent, npt as npt
-from pandas.compat import pa_version_under10p1 as pa_version_under10p1, pa_version_under11p0 as pa_version_under11p0, pa_version_under13p0 as pa_version_under13p0
-from pandas.core import missing as missing, ops as ops, roperator as roperator
+from pandas._libs.lib import is_integer as is_integer, is_list_like as is_list_like, is_scalar as is_scalar
+from pandas._libs.tslibs.nattype import NaT as NaT
+from pandas._libs.tslibs.offsets import to_offset as to_offset
+from pandas._libs.tslibs.timedeltas import Timedelta as Timedelta
+from pandas._libs.tslibs.timestamps import Timestamp as Timestamp
 from pandas.core.algorithms import map_array as map_array
 from pandas.core.arraylike import OpsMixin as OpsMixin
 from pandas.core.arrays._arrow_string_mixins import ArrowStringArrayMixin as ArrowStringArrayMixin
 from pandas.core.arrays._utils import to_numpy_dtype_inference as to_numpy_dtype_inference
 from pandas.core.arrays.base import ExtensionArray as ExtensionArray, ExtensionArraySupportsAnyAll as ExtensionArraySupportsAnyAll
-from pandas.core.arrays.datetimes import DatetimeArray as DatetimeArray
 from pandas.core.arrays.masked import BaseMaskedArray as BaseMaskedArray
 from pandas.core.arrays.string_ import StringDtype as StringDtype
-from pandas.core.arrays.timedeltas import TimedeltaArray as TimedeltaArray
 from pandas.core.dtypes.cast import can_hold_element as can_hold_element, infer_dtype_from_scalar as infer_dtype_from_scalar
-from pandas.core.dtypes.common import CategoricalDtype as CategoricalDtype, is_array_like as is_array_like, is_bool_dtype as is_bool_dtype, is_float_dtype as is_float_dtype, is_integer as is_integer, is_list_like as is_list_like, is_numeric_dtype as is_numeric_dtype, is_scalar as is_scalar
-from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype, DatetimeTZDtype as DatetimeTZDtype
+from pandas.core.dtypes.common import is_bool_dtype as is_bool_dtype, is_float_dtype as is_float_dtype, is_numeric_dtype as is_numeric_dtype
+from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype
+from pandas.core.dtypes.inference import is_array_like as is_array_like
 from pandas.core.dtypes.missing import isna as isna
-from pandas.core.indexers import check_array_indexer as check_array_indexer, unpack_tuple_and_ellipses as unpack_tuple_and_ellipses, validate_indices as validate_indices
+from pandas.core.indexers.utils import check_array_indexer as check_array_indexer, unpack_tuple_and_ellipses as unpack_tuple_and_ellipses, validate_indices as validate_indices
 from pandas.core.strings.base import BaseStringArrayMethods as BaseStringArrayMethods
 from pandas.io._util import _arrow_dtype_mapping as _arrow_dtype_mapping
-from pandas.tseries.frequencies import to_offset as to_offset
 from pandas.util._decorators import doc as doc
 from pandas.util._validators import validate_fillna_kwargs as validate_fillna_kwargs
-from typing import Any, Callable, Literal
+from typing import Any, Callable, ClassVar, Literal
 
-ARROW_CMP_FUNCS: Incomplete
-ARROW_LOGICAL_FUNCS: Incomplete
-ARROW_BIT_WISE_FUNCS: Incomplete
-
-def cast_for_truediv(arrow_array: pa.ChunkedArray, pa_object: pa.Array | pa.Scalar) -> tuple[pa.ChunkedArray, pa.Array | pa.Scalar]: ...
-def floordiv_compat(left: pa.ChunkedArray | pa.Array | pa.Scalar, right: pa.ChunkedArray | pa.Array | pa.Scalar) -> pa.ChunkedArray: ...
-
-ARROW_ARITHMETIC_FUNCS: Incomplete
-
+TYPE_CHECKING: bool
+pa_version_under10p1: bool
+pa_version_under11p0: bool
+pa_version_under13p0: bool
 def get_unit_from_pa_dtype(pa_dtype): ...
 def to_pyarrow_type(dtype: ArrowDtype | pa.DataType | Dtype | None) -> pa.DataType | None:
     """
     Convert dtype to a pyarrow type instance.
     """
 
-class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArrayMixin, BaseStringArrayMethods):
-    '''
-    Pandas ExtensionArray backed by a PyArrow ChunkedArray.
-
-    .. warning::
-
-       ArrowExtensionArray is considered experimental. The implementation and
-       parts of the API may change without warning.
-
-    Parameters
-    ----------
-    values : pyarrow.Array or pyarrow.ChunkedArray
-
-    Attributes
-    ----------
-    None
-
-    Methods
-    -------
-    None
-
-    Returns
-    -------
-    ArrowExtensionArray
-
-    Notes
-    -----
-    Most methods are implemented using `pyarrow compute functions. <https://arrow.apache.org/docs/python/api/compute.html>`__
-    Some methods may either raise an exception or raise a ``PerformanceWarning`` if an
-    associated compute function is not available based on the installed version of PyArrow.
-
-    Please install the latest version of PyArrow to enable the best functionality and avoid
-    potential bugs in prior versions of PyArrow.
-
-    Examples
-    --------
-    Create an ArrowExtensionArray with :func:`pandas.array`:
-
-    >>> pd.array([1, 1, None], dtype="int64[pyarrow]")
-    <ArrowExtensionArray>
-    [1, 1, <NA>]
-    Length: 3, dtype: int64[pyarrow]
-    '''
-    _pa_array: pa.ChunkedArray
-    _dtype: ArrowDtype
+class ArrowExtensionArray(pandas.core.arraylike.OpsMixin, pandas.core.arrays.base.ExtensionArraySupportsAnyAll, pandas.core.arrays._arrow_string_mixins.ArrowStringArrayMixin, pandas.core.strings.base.BaseStringArrayMethods):
+    __abstractmethods__: ClassVar[frozenset] = ...
+    _abc_impl: ClassVar[_abc._abc_data] = ...
     def __init__(self, values: pa.Array | pa.ChunkedArray) -> None: ...
     @classmethod
-    def _from_sequence(cls, scalars, *, dtype: Dtype | None = None, copy: bool = False):
+    def _from_sequence(cls, scalars, *, dtype: Dtype | None, copy: bool = ...):
         """
         Construct a new ExtensionArray from a sequence of scalars.
         """
     @classmethod
-    def _from_sequence_of_strings(cls, strings, *, dtype: Dtype | None = None, copy: bool = False):
+    def _from_sequence_of_strings(cls, strings, *, dtype: Dtype | None, copy: bool = ...):
         """
         Construct a new ExtensionArray from a sequence of strings.
         """
     @classmethod
-    def _box_pa(cls, value, pa_type: pa.DataType | None = None) -> pa.Array | pa.ChunkedArray | pa.Scalar:
+    def _box_pa(cls, value, pa_type: pa.DataType | None) -> pa.Array | pa.ChunkedArray | pa.Scalar:
         """
         Box value into a pyarrow Array, ChunkedArray or Scalar.
 
@@ -116,7 +77,7 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
         pa.Array or pa.ChunkedArray or pa.Scalar
         """
     @classmethod
-    def _box_pa_scalar(cls, value, pa_type: pa.DataType | None = None) -> pa.Scalar:
+    def _box_pa_scalar(cls, value, pa_type: pa.DataType | None) -> pa.Scalar:
         """
         Box value into a pyarrow Scalar.
 
@@ -130,7 +91,7 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
         pa.Scalar
         """
     @classmethod
-    def _box_pa_array(cls, value, pa_type: pa.DataType | None = None, copy: bool = False) -> pa.Array | pa.ChunkedArray:
+    def _box_pa_array(cls, value, pa_type: pa.DataType | None, copy: bool = ...) -> pa.Array | pa.ChunkedArray:
         """
         Box value into a pyarrow Array or ChunkedArray.
 
@@ -171,31 +132,19 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
         """
         Iterate over elements of the array.
         """
-    def __arrow_array__(self, type: Incomplete | None = None):
+    def __arrow_array__(self, type):
         """Convert myself to a pyarrow ChunkedArray."""
-    def __array__(self, dtype: NpDtype | None = None, copy: bool | None = None) -> np.ndarray:
+    def __array__(self, dtype: NpDtype | None, copy: bool | None) -> np.ndarray:
         """Correctly construct numpy arrays when passed to `np.asarray()`."""
     def __invert__(self) -> Self: ...
     def __neg__(self) -> Self: ...
     def __pos__(self) -> Self: ...
     def __abs__(self) -> Self: ...
-    def __getstate__(self): ...
-    def __setstate__(self, state) -> None: ...
     def _cmp_method(self, other, op): ...
     def _evaluate_op_method(self, other, op, arrow_funcs): ...
     def _logical_method(self, other, op): ...
     def _arith_method(self, other, op): ...
     def equals(self, other) -> bool: ...
-    @property
-    def dtype(self) -> ArrowDtype:
-        """
-        An instance of 'ExtensionDtype'.
-        """
-    @property
-    def nbytes(self) -> int:
-        """
-        The number of bytes needed to store this object in memory.
-        """
     def __len__(self) -> int:
         """
         Length of this array.
@@ -205,15 +154,13 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
         length : int
         """
     def __contains__(self, key) -> bool: ...
-    @property
-    def _hasna(self) -> bool: ...
     def isna(self) -> npt.NDArray[np.bool_]:
         """
         Boolean NumPy array indicating if each value is missing.
 
         This should return a 1-D array the same length as 'self'.
         """
-    def any(self, *, skipna: bool = True, **kwargs):
+    def any(self, *, skipna: bool = ..., **kwargs):
         '''
         Return whether any element is truthy.
 
@@ -269,7 +216,7 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
         >>> pd.array([0, 0, pd.NA], dtype="boolean[pyarrow]").any(skipna=False)
         <NA>
         '''
-    def all(self, *, skipna: bool = True, **kwargs):
+    def all(self, *, skipna: bool = ..., **kwargs):
         '''
         Return whether all elements are truthy.
 
@@ -325,10 +272,10 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
         >>> pd.array([1, 0, pd.NA], dtype="boolean[pyarrow]").all(skipna=False)
         False
         '''
-    def argsort(self, *, ascending: bool = True, kind: SortKind = 'quicksort', na_position: str = 'last', **kwargs) -> np.ndarray: ...
+    def argsort(self, *, ascending: bool = ..., kind: SortKind = ..., na_position: str = ..., **kwargs) -> np.ndarray: ...
     def _argmin_max(self, skipna: bool, method: str) -> int: ...
-    def argmin(self, skipna: bool = True) -> int: ...
-    def argmax(self, skipna: bool = True) -> int: ...
+    def argmin(self, skipna: bool = ...) -> int: ...
+    def argmax(self, skipna: bool = ...) -> int: ...
     def copy(self) -> Self:
         """
         Return a shallow copy of the array.
@@ -347,8 +294,56 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
         -------
         ArrowExtensionArray
         """
-    def _pad_or_backfill(self, *, method: FillnaOptions, limit: int | None = None, limit_area: Literal['inside', 'outside'] | None = None, copy: bool = True) -> Self: ...
-    def fillna(self, value: object | ArrayLike | None = None, method: FillnaOptions | None = None, limit: int | None = None, copy: bool = True) -> Self: ...
+    def _pad_or_backfill(self, *, method: FillnaOptions, limit: int | None, limit_area: Literal['inside', 'outside'] | None, copy: bool = ...) -> Self: ...
+    def fillna(self, value: object | ArrayLike | None, method: FillnaOptions | None, limit: int | None, copy: bool = ...) -> Self:
+        '''
+        Fill NA/NaN values using the specified method.
+
+        Parameters
+        ----------
+        value : scalar, array-like
+            If a scalar value is passed it is used to fill all missing values.
+            Alternatively, an array-like "value" can be given. It\'s expected
+            that the array-like have the same length as \'self\'.
+        method : {\'backfill\', \'bfill\', \'pad\', \'ffill\', None}, default None
+            Method to use for filling holes in reindexed Series:
+
+            * pad / ffill: propagate last valid observation forward to next valid.
+            * backfill / bfill: use NEXT valid observation to fill gap.
+
+            .. deprecated:: 2.1.0
+
+        limit : int, default None
+            If method is specified, this is the maximum number of consecutive
+            NaN values to forward/backward fill. In other words, if there is
+            a gap with more than this number of consecutive NaNs, it will only
+            be partially filled. If method is not specified, this is the
+            maximum number of entries along the entire axis where NaNs will be
+            filled.
+
+            .. deprecated:: 2.1.0
+
+        copy : bool, default True
+            Whether to make a copy of the data before filling. If False, then
+            the original should be modified and no new memory should be allocated.
+            For ExtensionArray subclasses that cannot do this, it is at the
+            author\'s discretion whether to ignore "copy=False" or to raise.
+            The base class implementation ignores the keyword in pad/backfill
+            cases.
+
+        Returns
+        -------
+        ExtensionArray
+            With NA/NaN filled.
+
+        Examples
+        --------
+        >>> arr = pd.array([np.nan, np.nan, 2, 3, np.nan, np.nan])
+        >>> arr.fillna(0)
+        <IntegerArray>
+        [0, 0, 2, 3, 0, 0]
+        Length: 6, dtype: Int64
+        '''
     def isin(self, values: ArrayLike) -> npt.NDArray[np.bool_]: ...
     def _values_for_factorize(self) -> tuple[np.ndarray, Any]:
         """
@@ -364,9 +359,53 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
         The values returned by this method are also used in
         :func:`pandas.util.hash_pandas_object`.
         """
-    def factorize(self, use_na_sentinel: bool = True) -> tuple[np.ndarray, ExtensionArray]: ...
-    def reshape(self, *args, **kwargs) -> None: ...
-    def round(self, decimals: int = 0, *args, **kwargs) -> Self:
+    def factorize(self, use_na_sentinel: bool = ...) -> tuple[np.ndarray, ExtensionArray]:
+        '''
+        Encode the extension array as an enumerated type.
+
+        Parameters
+        ----------
+        use_na_sentinel : bool, default True
+            If True, the sentinel -1 will be used for NaN values. If False,
+            NaN values will be encoded as non-negative integers and will not drop the
+            NaN from the uniques of the values.
+
+            .. versionadded:: 1.5.0
+
+        Returns
+        -------
+        codes : ndarray
+            An integer NumPy array that\'s an indexer into the original
+            ExtensionArray.
+        uniques : ExtensionArray
+            An ExtensionArray containing the unique values of `self`.
+
+            .. note::
+
+               uniques will *not* contain an entry for the NA value of
+               the ExtensionArray if there are any missing values present
+               in `self`.
+
+        See Also
+        --------
+        factorize : Top-level factorize method that dispatches here.
+
+        Notes
+        -----
+        :meth:`pandas.factorize` offers a `sort` keyword as well.
+
+        Examples
+        --------
+        >>> idx1 = pd.PeriodIndex(["2014-01", "2014-01", "2014-02", "2014-02",
+        ...                       "2014-03", "2014-03"], freq="M")
+        >>> arr, idx = idx1.factorize()
+        >>> arr
+        array([0, 0, 1, 1, 2, 2])
+        >>> idx
+        PeriodIndex([\'2014-01\', \'2014-02\', \'2014-03\'], dtype=\'period[M]\')
+        '''
+    def reshape(self, *args, **kwargs): ...
+    def round(self, decimals: int = ..., *args, **kwargs) -> Self:
         """
         Round each value in the array a to the given number of decimals.
 
@@ -388,8 +427,52 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
         DataFrame.round : Round values of a DataFrame.
         Series.round : Round values of a Series.
         """
-    def searchsorted(self, value: NumpyValueArrayLike | ExtensionArray, side: Literal['left', 'right'] = 'left', sorter: NumpySorter | None = None) -> npt.NDArray[np.intp] | np.intp: ...
-    def take(self, indices: TakeIndexer, allow_fill: bool = False, fill_value: Any = None) -> ArrowExtensionArray:
+    def searchsorted(self, value: NumpyValueArrayLike | ExtensionArray, side: Literal['left', 'right'] = ..., sorter: NumpySorter | None) -> npt.NDArray[np.intp] | np.intp:
+        """
+        Find indices where elements should be inserted to maintain order.
+
+        Find the indices into a sorted array `self` (a) such that, if the
+        corresponding elements in `value` were inserted before the indices,
+        the order of `self` would be preserved.
+
+        Assuming that `self` is sorted:
+
+        ======  ================================
+        `side`  returned index `i` satisfies
+        ======  ================================
+        left    ``self[i-1] < value <= self[i]``
+        right   ``self[i-1] <= value < self[i]``
+        ======  ================================
+
+        Parameters
+        ----------
+        value : array-like, list or scalar
+            Value(s) to insert into `self`.
+        side : {'left', 'right'}, optional
+            If 'left', the index of the first suitable location found is given.
+            If 'right', return the last such index.  If there is no suitable
+            index, return either 0 or N (where N is the length of `self`).
+        sorter : 1-D array-like, optional
+            Optional array of integer indices that sort array a into ascending
+            order. They are typically the result of argsort.
+
+        Returns
+        -------
+        array of ints or int
+            If value is array-like, array of insertion points.
+            If value is scalar, a single integer.
+
+        See Also
+        --------
+        numpy.searchsorted : Similar method from NumPy.
+
+        Examples
+        --------
+        >>> arr = pd.array([1, 2, 3, 5])
+        >>> arr.searchsorted([4])
+        array([3])
+        """
+    def take(self, indices: TakeIndexer, allow_fill: bool = ..., fill_value: Any) -> ArrowExtensionArray:
         '''
         Take elements from an array.
 
@@ -450,9 +533,51 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
     def _to_timedeltaarray(self) -> TimedeltaArray:
         """Convert a pyarrow duration typed array to a TimedeltaArray."""
     def _values_for_json(self) -> np.ndarray: ...
-    def to_numpy(self, dtype: npt.DTypeLike | None = None, copy: bool = False, na_value: object = ...) -> np.ndarray: ...
-    def map(self, mapper, na_action: Incomplete | None = None): ...
-    def duplicated(self, keep: Literal['first', 'last', False] = 'first') -> npt.NDArray[np.bool_]: ...
+    def to_numpy(self, dtype: npt.DTypeLike | None, copy: bool = ..., na_value: object = ...) -> np.ndarray:
+        """
+        Convert to a NumPy ndarray.
+
+        This is similar to :meth:`numpy.asarray`, but may provide additional control
+        over how the conversion is done.
+
+        Parameters
+        ----------
+        dtype : str or numpy.dtype, optional
+            The dtype to pass to :meth:`numpy.asarray`.
+        copy : bool, default False
+            Whether to ensure that the returned value is a not a view on
+            another array. Note that ``copy=False`` does not *ensure* that
+            ``to_numpy()`` is no-copy. Rather, ``copy=True`` ensure that
+            a copy is made, even if not strictly necessary.
+        na_value : Any, optional
+            The value to use for missing values. The default value depends
+            on `dtype` and the type of the array.
+
+        Returns
+        -------
+        numpy.ndarray
+        """
+    def map(self, mapper, na_action): ...
+    def duplicated(self, keep: Literal['first', 'last', False] = ...) -> npt.NDArray[np.bool_]:
+        '''
+        Return boolean ndarray denoting duplicate values.
+
+        Parameters
+        ----------
+        keep : {\'first\', \'last\', False}, default \'first\'
+            - ``first`` : Mark duplicates as ``True`` except for the first occurrence.
+            - ``last`` : Mark duplicates as ``True`` except for the last occurrence.
+            - False : Mark all duplicates as ``True``.
+
+        Returns
+        -------
+        ndarray[bool]
+
+        Examples
+        --------
+        >>> pd.array([1, 1, 2, 3, 3], dtype="Int64").duplicated()
+        array([False,  True, False, False,  True])
+        '''
     def unique(self) -> Self:
         """
         Compute the ArrowExtensionArray of unique values.
@@ -461,7 +586,7 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
         -------
         ArrowExtensionArray
         """
-    def value_counts(self, dropna: bool = True) -> Series:
+    def value_counts(self, dropna: bool = ...) -> Series:
         """
         Return a Series containing counts of each unique value.
 
@@ -491,7 +616,7 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
         -------
         ArrowExtensionArray
         """
-    def _accumulate(self, name: str, *, skipna: bool = True, **kwargs) -> ArrowExtensionArray | ExtensionArray:
+    def _accumulate(self, name: str, *, skipna: bool = ..., **kwargs) -> ArrowExtensionArray | ExtensionArray:
         """
         Return an ExtensionArray performing an accumulation operation.
 
@@ -519,7 +644,7 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
         ------
         NotImplementedError : subclass does not define accumulations
         """
-    def _reduce_pyarrow(self, name: str, *, skipna: bool = True, **kwargs) -> pa.Scalar:
+    def _reduce_pyarrow(self, name: str, *, skipna: bool = ..., **kwargs) -> pa.Scalar:
         """
         Return a pyarrow scalar result of performing the reduction operation.
 
@@ -543,7 +668,7 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
         ------
         TypeError : subclass does not define reductions
         """
-    def _reduce(self, name: str, *, skipna: bool = True, keepdims: bool = False, **kwargs):
+    def _reduce(self, name: str, *, skipna: bool = ..., keepdims: bool = ..., **kwargs):
         """
         Return a scalar result of performing the reduction operation.
 
@@ -567,7 +692,7 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
         ------
         TypeError : subclass does not define reductions
         """
-    def _reduce_calc(self, name: str, *, skipna: bool = True, keepdims: bool = False, **kwargs): ...
+    def _reduce_calc(self, name: str, *, skipna: bool = ..., keepdims: bool = ..., **kwargs): ...
     def _explode(self):
         """
         See Series.explode.__doc__.
@@ -593,8 +718,8 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
         -------
         None
         """
-    def _rank_calc(self, *, axis: AxisInt = 0, method: str = 'average', na_option: str = 'keep', ascending: bool = True, pct: bool = False): ...
-    def _rank(self, *, axis: AxisInt = 0, method: str = 'average', na_option: str = 'keep', ascending: bool = True, pct: bool = False):
+    def _rank_calc(self, *, axis: AxisInt = ..., method: str = ..., na_option: str = ..., ascending: bool = ..., pct: bool = ...): ...
+    def _rank(self, *, axis: AxisInt = ..., method: str = ..., na_option: str = ..., ascending: bool = ..., pct: bool = ...):
         """
         See Series.rank.__doc__.
         """
@@ -611,7 +736,7 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
         -------
         same type as self
         """
-    def _mode(self, dropna: bool = True) -> Self:
+    def _mode(self, dropna: bool = ...) -> Self:
         """
         Returns the mode(s) of the ExtensionArray.
 
@@ -674,19 +799,19 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
     def _groupby_op(self, *, how: str, has_dropped_na: bool, min_count: int, ngroups: int, ids: npt.NDArray[np.intp], **kwargs): ...
     def _apply_elementwise(self, func: Callable) -> list[list[Any]]:
         """Apply a callable to each element while maintaining the chunking structure."""
-    def _str_count(self, pat: str, flags: int = 0): ...
-    def _str_contains(self, pat, case: bool = True, flags: int = 0, na: Incomplete | None = None, regex: bool = True): ...
-    def _str_startswith(self, pat: str | tuple[str, ...], na: Incomplete | None = None): ...
-    def _str_endswith(self, pat: str | tuple[str, ...], na: Incomplete | None = None): ...
-    def _str_replace(self, pat: str | re.Pattern, repl: str | Callable, n: int = -1, case: bool = True, flags: int = 0, regex: bool = True): ...
+    def _str_count(self, pat: str, flags: int = ...): ...
+    def _str_contains(self, pat, case: bool = ..., flags: int = ..., na, regex: bool = ...): ...
+    def _str_startswith(self, pat: str | tuple[str, ...], na): ...
+    def _str_endswith(self, pat: str | tuple[str, ...], na): ...
+    def _str_replace(self, pat: str | re.Pattern, repl: str | Callable, n: int = ..., case: bool = ..., flags: int = ..., regex: bool = ...): ...
     def _str_repeat(self, repeats: int | Sequence[int]): ...
-    def _str_match(self, pat: str, case: bool = True, flags: int = 0, na: Scalar | None = None): ...
-    def _str_fullmatch(self, pat, case: bool = True, flags: int = 0, na: Scalar | None = None): ...
-    def _str_find(self, sub: str, start: int = 0, end: int | None = None): ...
+    def _str_match(self, pat: str, case: bool = ..., flags: int = ..., na: Scalar | None): ...
+    def _str_fullmatch(self, pat, case: bool = ..., flags: int = ..., na: Scalar | None): ...
+    def _str_find(self, sub: str, start: int = ..., end: int | None): ...
     def _str_join(self, sep: str): ...
     def _str_partition(self, sep: str, expand: bool): ...
     def _str_rpartition(self, sep: str, expand: bool): ...
-    def _str_slice(self, start: int | None = None, stop: int | None = None, step: int | None = None): ...
+    def _str_slice(self, start: int | None, stop: int | None, step: int | None): ...
     def _str_isalnum(self): ...
     def _str_isalpha(self): ...
     def _str_isdecimal(self): ...
@@ -699,23 +824,44 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
     def _str_len(self): ...
     def _str_lower(self): ...
     def _str_upper(self): ...
-    def _str_strip(self, to_strip: Incomplete | None = None): ...
-    def _str_lstrip(self, to_strip: Incomplete | None = None): ...
-    def _str_rstrip(self, to_strip: Incomplete | None = None): ...
+    def _str_strip(self, to_strip): ...
+    def _str_lstrip(self, to_strip): ...
+    def _str_rstrip(self, to_strip): ...
     def _str_removeprefix(self, prefix: str): ...
     def _str_casefold(self): ...
-    def _str_encode(self, encoding: str, errors: str = 'strict'): ...
-    def _str_extract(self, pat: str, flags: int = 0, expand: bool = True): ...
-    def _str_findall(self, pat: str, flags: int = 0): ...
-    def _str_get_dummies(self, sep: str = '|'): ...
-    def _str_index(self, sub: str, start: int = 0, end: int | None = None): ...
-    def _str_rindex(self, sub: str, start: int = 0, end: int | None = None): ...
+    def _str_encode(self, encoding: str, errors: str = ...): ...
+    def _str_extract(self, pat: str, flags: int = ..., expand: bool = ...): ...
+    def _str_findall(self, pat: str, flags: int = ...): ...
+    def _str_get_dummies(self, sep: str = ...): ...
+    def _str_index(self, sub: str, start: int = ..., end: int | None): ...
+    def _str_rindex(self, sub: str, start: int = ..., end: int | None): ...
     def _str_normalize(self, form: str): ...
-    def _str_rfind(self, sub: str, start: int = 0, end: Incomplete | None = None): ...
-    def _str_split(self, pat: str | None = None, n: int | None = -1, expand: bool = False, regex: bool | None = None): ...
-    def _str_rsplit(self, pat: str | None = None, n: int | None = -1): ...
+    def _str_rfind(self, sub: str, start: int = ..., end): ...
+    def _str_split(self, pat: str | None, n: int | None = ..., expand: bool = ..., regex: bool | None): ...
+    def _str_rsplit(self, pat: str | None, n: int | None = ...): ...
     def _str_translate(self, table: dict[int, str]): ...
     def _str_wrap(self, width: int, **kwargs): ...
+    def _dt_to_pytimedelta(self): ...
+    def _dt_total_seconds(self): ...
+    def _dt_as_unit(self, unit: str): ...
+    def _dt_isocalendar(self): ...
+    def _dt_normalize(self): ...
+    def _dt_strftime(self, format: str): ...
+    def _round_temporally(self, method: Literal['ceil', 'floor', 'round'], freq, ambiguous: TimeAmbiguous = ..., nonexistent: TimeNonexistent = ...): ...
+    def _dt_ceil(self, freq, ambiguous: TimeAmbiguous = ..., nonexistent: TimeNonexistent = ...): ...
+    def _dt_floor(self, freq, ambiguous: TimeAmbiguous = ..., nonexistent: TimeNonexistent = ...): ...
+    def _dt_round(self, freq, ambiguous: TimeAmbiguous = ..., nonexistent: TimeNonexistent = ...): ...
+    def _dt_day_name(self, locale: str | None): ...
+    def _dt_month_name(self, locale: str | None): ...
+    def _dt_to_pydatetime(self): ...
+    def _dt_tz_localize(self, tz, ambiguous: TimeAmbiguous = ..., nonexistent: TimeNonexistent = ...): ...
+    def _dt_tz_convert(self, tz): ...
+    @property
+    def dtype(self): ...
+    @property
+    def nbytes(self): ...
+    @property
+    def _hasna(self): ...
     @property
     def _dt_days(self): ...
     @property
@@ -730,23 +876,22 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
     def _dt_microseconds(self): ...
     @property
     def _dt_nanoseconds(self): ...
-    def _dt_to_pytimedelta(self): ...
-    def _dt_total_seconds(self): ...
-    def _dt_as_unit(self, unit: str): ...
     @property
     def _dt_year(self): ...
     @property
     def _dt_day(self): ...
     @property
     def _dt_day_of_week(self): ...
-    _dt_dayofweek = _dt_day_of_week
-    _dt_weekday = _dt_day_of_week
+    @property
+    def _dt_dayofweek(self): ...
+    @property
+    def _dt_weekday(self): ...
     @property
     def _dt_day_of_year(self): ...
-    _dt_dayofyear = _dt_day_of_year
+    @property
+    def _dt_dayofyear(self): ...
     @property
     def _dt_hour(self): ...
-    def _dt_isocalendar(self): ...
     @property
     def _dt_is_leap_year(self): ...
     @property
@@ -763,7 +908,8 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
     def _dt_is_quarter_end(self): ...
     @property
     def _dt_days_in_month(self): ...
-    _dt_daysinmonth = _dt_days_in_month
+    @property
+    def _dt_daysinmonth(self): ...
     @property
     def _dt_microsecond(self): ...
     @property
@@ -784,18 +930,6 @@ class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll, ArrowStringArr
     def _dt_tz(self): ...
     @property
     def _dt_unit(self): ...
-    def _dt_normalize(self): ...
-    def _dt_strftime(self, format: str): ...
-    def _round_temporally(self, method: Literal['ceil', 'floor', 'round'], freq, ambiguous: TimeAmbiguous = 'raise', nonexistent: TimeNonexistent = 'raise'): ...
-    def _dt_ceil(self, freq, ambiguous: TimeAmbiguous = 'raise', nonexistent: TimeNonexistent = 'raise'): ...
-    def _dt_floor(self, freq, ambiguous: TimeAmbiguous = 'raise', nonexistent: TimeNonexistent = 'raise'): ...
-    def _dt_round(self, freq, ambiguous: TimeAmbiguous = 'raise', nonexistent: TimeNonexistent = 'raise'): ...
-    def _dt_day_name(self, locale: str | None = None): ...
-    def _dt_month_name(self, locale: str | None = None): ...
-    def _dt_to_pydatetime(self): ...
-    def _dt_tz_localize(self, tz, ambiguous: TimeAmbiguous = 'raise', nonexistent: TimeNonexistent = 'raise'): ...
-    def _dt_tz_convert(self, tz): ...
-
 def transpose_homogeneous_pyarrow(arrays: Sequence[ArrowExtensionArray]) -> list[ArrowExtensionArray]:
     """Transpose arrow extension arrays in a list, but faster.
 

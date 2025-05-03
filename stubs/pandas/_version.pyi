@@ -1,24 +1,18 @@
-from _typeshed import Incomplete
-from typing import Callable
+from typing import Callable as _Callable
 
 def get_keywords():
     """Get the keywords needed to look up the version information."""
 
-class VersioneerConfig:
-    """Container for Versioneer configuration parameters."""
-
+class VersioneerConfig: ...
 def get_config():
     """Create, populate and return the VersioneerConfig() object."""
 
-class NotThisMethod(Exception):
-    """Exception raised if a method is not valid for the current scenario."""
-
-LONG_VERSION_PY: dict[str, str]
-HANDLERS: dict[str, dict[str, Callable]]
-
+class NotThisMethod(Exception): ...
+LONG_VERSION_PY: dict
+HANDLERS: dict
 def register_vcs_handler(vcs, method):
     """Create decorator to mark a method as the handler of a VCS."""
-def run_command(commands, args, cwd: Incomplete | None = None, verbose: bool = False, hide_stderr: bool = False, env: Incomplete | None = None):
+def run_command(commands, args, cwd, verbose: bool = ..., hide_stderr: bool = ..., env):
     """Call the given command(s)."""
 def versions_from_parentdir(parentdir_prefix, root, verbose):
     """Try to determine the version from the parent directory name.
@@ -31,7 +25,7 @@ def git_get_keywords(versionfile_abs):
     """Extract version information from the given file."""
 def git_versions_from_keywords(keywords, tag_prefix, verbose):
     """Get version information from git keywords."""
-def git_pieces_from_vcs(tag_prefix, root, verbose, runner=...):
+def git_pieces_from_vcs(tag_prefix, root, verbose, runner: _Callable = ...):
     """Get version from 'git describe' in the root of the source tree.
 
     This only gets called if the git-archive 'subst' keywords were *not*

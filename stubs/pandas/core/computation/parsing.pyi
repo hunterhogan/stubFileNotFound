@@ -1,8 +1,8 @@
 import tokenize
-from collections.abc import Hashable, Iterator
 
+iskeyword: builtin_function_or_method
+TYPE_CHECKING: bool
 BACKTICK_QUOTED_STRING: int
-
 def create_valid_python_identifier(name: str) -> str:
     """
     Create valid Python identifiers from any string.

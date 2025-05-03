@@ -1,38 +1,181 @@
-import numpy as np
-from _typeshed import Incomplete
-from pandas import Series as Series
-from pandas._config import get_option as get_option
-from pandas._libs import lib as lib
-from pandas._libs.tslibs import NaT as NaT, iNaT as iNaT
-from pandas._typing import ArrayLike as ArrayLike, DtypeObj as DtypeObj, NDFrame as NDFrame, NDFrameT as NDFrameT, Scalar as Scalar, npt as npt
-from pandas.core.dtypes.common import DT64NS_DTYPE as DT64NS_DTYPE, TD64NS_DTYPE as TD64NS_DTYPE, ensure_object as ensure_object, is_scalar as is_scalar, is_string_or_object_np_dtype as is_string_or_object_np_dtype
-from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype, IntervalDtype as IntervalDtype, PeriodDtype as PeriodDtype
+import np
+import np.rec
+import npt
+import numpy.dtypes
+import pandas._libs.lib as lib
+import pandas._libs.missing as libmissing
+from pandas._config.config import get_option as get_option
+from pandas._libs.algos import ensure_object as ensure_object
+from pandas._libs.lib import is_list_like as is_list_like, is_scalar as is_scalar
+from pandas._libs.missing import isneginf_scalar as isneginf_scalar, isposinf_scalar as isposinf_scalar
+from pandas._libs.tslibs.nattype import NaT as NaT
+from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
+from pandas.core.dtypes.common import is_string_or_object_np_dtype as is_string_or_object_np_dtype
+from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, IntervalDtype as IntervalDtype, PeriodDtype as PeriodDtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCExtensionArray as ABCExtensionArray, ABCIndex as ABCIndex, ABCMultiIndex as ABCMultiIndex, ABCSeries as ABCSeries
-from pandas.core.dtypes.inference import is_list_like as is_list_like
-from pandas.core.indexes.base import Index as Index
-from re import Pattern
-from typing import overload
 
-isposinf_scalar: Incomplete
-isneginf_scalar: Incomplete
-nan_checker: Incomplete
+TYPE_CHECKING: bool
+iNaT: int
+DT64NS_DTYPE: numpy.dtypes.DateTime64DType
+TD64NS_DTYPE: numpy.dtypes.TimeDelta64DType
 INF_AS_NA: bool
-_dtype_object: Incomplete
-_dtype_str: Incomplete
+_dtype_object: numpy.dtypes.ObjectDType
+_dtype_str: numpy.dtypes.StrDType
+def isna(obj: object) -> bool | npt.NDArray[np.bool_] | NDFrame:
+    '''
+    Detect missing values for an array-like object.
 
-@overload
-def isna(obj: Scalar | Pattern) -> bool: ...
-@overload
-def isna(obj: ArrayLike | Index | list) -> npt.NDArray[np.bool_]: ...
-@overload
-def isna(obj: NDFrameT) -> NDFrameT: ...
-@overload
-def isna(obj: NDFrameT | ArrayLike | Index | list) -> NDFrameT | npt.NDArray[np.bool_]: ...
-@overload
-def isna(obj: object) -> bool | npt.NDArray[np.bool_] | NDFrame: ...
-isnull = isna
+    This function takes a scalar or array-like object and indicates
+    whether values are missing (``NaN`` in numeric arrays, ``None`` or ``NaN``
+    in object arrays, ``NaT`` in datetimelike).
 
-def _isna(obj, inf_as_na: bool = False):
+    Parameters
+    ----------
+    obj : scalar or array-like
+        Object to check for null or missing values.
+
+    Returns
+    -------
+    bool or array-like of bool
+        For scalar input, returns a scalar boolean.
+        For array input, returns an array of boolean indicating whether each
+        corresponding element is missing.
+
+    See Also
+    --------
+    notna : Boolean inverse of pandas.isna.
+    Series.isna : Detect missing values in a Series.
+    DataFrame.isna : Detect missing values in a DataFrame.
+    Index.isna : Detect missing values in an Index.
+
+    Examples
+    --------
+    Scalar arguments (including strings) result in a scalar boolean.
+
+    >>> pd.isna(\'dog\')
+    False
+
+    >>> pd.isna(pd.NA)
+    True
+
+    >>> pd.isna(np.nan)
+    True
+
+    ndarrays result in an ndarray of booleans.
+
+    >>> array = np.array([[1, np.nan, 3], [4, 5, np.nan]])
+    >>> array
+    array([[ 1., nan,  3.],
+           [ 4.,  5., nan]])
+    >>> pd.isna(array)
+    array([[False,  True, False],
+           [False, False,  True]])
+
+    For indexes, an ndarray of booleans is returned.
+
+    >>> index = pd.DatetimeIndex(["2017-07-05", "2017-07-06", None,
+    ...                           "2017-07-08"])
+    >>> index
+    DatetimeIndex([\'2017-07-05\', \'2017-07-06\', \'NaT\', \'2017-07-08\'],
+                  dtype=\'datetime64[ns]\', freq=None)
+    >>> pd.isna(index)
+    array([False, False,  True, False])
+
+    For Series and DataFrame, the same type is returned, containing booleans.
+
+    >>> df = pd.DataFrame([[\'ant\', \'bee\', \'cat\'], [\'dog\', None, \'fly\']])
+    >>> df
+         0     1    2
+    0  ant   bee  cat
+    1  dog  None  fly
+    >>> pd.isna(df)
+           0      1      2
+    0  False  False  False
+    1  False   True  False
+
+    >>> pd.isna(df[1])
+    0    False
+    1     True
+    Name: 1, dtype: bool
+    '''
+def isnull(obj: object) -> bool | npt.NDArray[np.bool_] | NDFrame:
+    '''
+    Detect missing values for an array-like object.
+
+    This function takes a scalar or array-like object and indicates
+    whether values are missing (``NaN`` in numeric arrays, ``None`` or ``NaN``
+    in object arrays, ``NaT`` in datetimelike).
+
+    Parameters
+    ----------
+    obj : scalar or array-like
+        Object to check for null or missing values.
+
+    Returns
+    -------
+    bool or array-like of bool
+        For scalar input, returns a scalar boolean.
+        For array input, returns an array of boolean indicating whether each
+        corresponding element is missing.
+
+    See Also
+    --------
+    notna : Boolean inverse of pandas.isna.
+    Series.isna : Detect missing values in a Series.
+    DataFrame.isna : Detect missing values in a DataFrame.
+    Index.isna : Detect missing values in an Index.
+
+    Examples
+    --------
+    Scalar arguments (including strings) result in a scalar boolean.
+
+    >>> pd.isna(\'dog\')
+    False
+
+    >>> pd.isna(pd.NA)
+    True
+
+    >>> pd.isna(np.nan)
+    True
+
+    ndarrays result in an ndarray of booleans.
+
+    >>> array = np.array([[1, np.nan, 3], [4, 5, np.nan]])
+    >>> array
+    array([[ 1., nan,  3.],
+           [ 4.,  5., nan]])
+    >>> pd.isna(array)
+    array([[False,  True, False],
+           [False, False,  True]])
+
+    For indexes, an ndarray of booleans is returned.
+
+    >>> index = pd.DatetimeIndex(["2017-07-05", "2017-07-06", None,
+    ...                           "2017-07-08"])
+    >>> index
+    DatetimeIndex([\'2017-07-05\', \'2017-07-06\', \'NaT\', \'2017-07-08\'],
+                  dtype=\'datetime64[ns]\', freq=None)
+    >>> pd.isna(index)
+    array([False, False,  True, False])
+
+    For Series and DataFrame, the same type is returned, containing booleans.
+
+    >>> df = pd.DataFrame([[\'ant\', \'bee\', \'cat\'], [\'dog\', None, \'fly\']])
+    >>> df
+         0     1    2
+    0  ant   bee  cat
+    1  dog  None  fly
+    >>> pd.isna(df)
+           0      1      2
+    0  False  False  False
+    1  False   True  False
+
+    >>> pd.isna(df[1])
+    0    False
+    1     True
+    Name: 1, dtype: bool
+    '''
+def _isna(obj, inf_as_na: bool = ...):
     """
     Detect missing values, treating None, NaN or NA as null. Infinite
     values will also be treated as null if inf_as_na is True.
@@ -69,7 +212,7 @@ def _use_inf_as_na(key) -> None:
     * https://stackoverflow.com/questions/4859217/
       programmatically-creating-variables-in-python/4859312#4859312
     """
-def _isna_array(values: ArrayLike, inf_as_na: bool = False):
+def _isna_array(values: ArrayLike, inf_as_na: bool = ...):
     """
     Return an array indicating which values of the input array are NaN / NA.
 
@@ -88,19 +231,161 @@ def _isna_array(values: ArrayLike, inf_as_na: bool = False):
 def _isna_string_dtype(values: np.ndarray, inf_as_na: bool) -> npt.NDArray[np.bool_]: ...
 def _has_record_inf_value(record_as_array: np.ndarray) -> np.bool_: ...
 def _isna_recarray_dtype(values: np.rec.recarray, inf_as_na: bool) -> npt.NDArray[np.bool_]: ...
-@overload
-def notna(obj: Scalar) -> bool: ...
-@overload
-def notna(obj: ArrayLike | Index | list) -> npt.NDArray[np.bool_]: ...
-@overload
-def notna(obj: NDFrameT) -> NDFrameT: ...
-@overload
-def notna(obj: NDFrameT | ArrayLike | Index | list) -> NDFrameT | npt.NDArray[np.bool_]: ...
-@overload
-def notna(obj: object) -> bool | npt.NDArray[np.bool_] | NDFrame: ...
-notnull = notna
+def notna(obj: object) -> bool | npt.NDArray[np.bool_] | NDFrame:
+    '''
+    Detect non-missing values for an array-like object.
 
-def array_equivalent(left, right, strict_nan: bool = False, dtype_equal: bool = False) -> bool:
+    This function takes a scalar or array-like object and indicates
+    whether values are valid (not missing, which is ``NaN`` in numeric
+    arrays, ``None`` or ``NaN`` in object arrays, ``NaT`` in datetimelike).
+
+    Parameters
+    ----------
+    obj : array-like or object value
+        Object to check for *not* null or *non*-missing values.
+
+    Returns
+    -------
+    bool or array-like of bool
+        For scalar input, returns a scalar boolean.
+        For array input, returns an array of boolean indicating whether each
+        corresponding element is valid.
+
+    See Also
+    --------
+    isna : Boolean inverse of pandas.notna.
+    Series.notna : Detect valid values in a Series.
+    DataFrame.notna : Detect valid values in a DataFrame.
+    Index.notna : Detect valid values in an Index.
+
+    Examples
+    --------
+    Scalar arguments (including strings) result in a scalar boolean.
+
+    >>> pd.notna(\'dog\')
+    True
+
+    >>> pd.notna(pd.NA)
+    False
+
+    >>> pd.notna(np.nan)
+    False
+
+    ndarrays result in an ndarray of booleans.
+
+    >>> array = np.array([[1, np.nan, 3], [4, 5, np.nan]])
+    >>> array
+    array([[ 1., nan,  3.],
+           [ 4.,  5., nan]])
+    >>> pd.notna(array)
+    array([[ True, False,  True],
+           [ True,  True, False]])
+
+    For indexes, an ndarray of booleans is returned.
+
+    >>> index = pd.DatetimeIndex(["2017-07-05", "2017-07-06", None,
+    ...                          "2017-07-08"])
+    >>> index
+    DatetimeIndex([\'2017-07-05\', \'2017-07-06\', \'NaT\', \'2017-07-08\'],
+                  dtype=\'datetime64[ns]\', freq=None)
+    >>> pd.notna(index)
+    array([ True,  True, False,  True])
+
+    For Series and DataFrame, the same type is returned, containing booleans.
+
+    >>> df = pd.DataFrame([[\'ant\', \'bee\', \'cat\'], [\'dog\', None, \'fly\']])
+    >>> df
+         0     1    2
+    0  ant   bee  cat
+    1  dog  None  fly
+    >>> pd.notna(df)
+          0      1     2
+    0  True   True  True
+    1  True  False  True
+
+    >>> pd.notna(df[1])
+    0     True
+    1    False
+    Name: 1, dtype: bool
+    '''
+def notnull(obj: object) -> bool | npt.NDArray[np.bool_] | NDFrame:
+    '''
+    Detect non-missing values for an array-like object.
+
+    This function takes a scalar or array-like object and indicates
+    whether values are valid (not missing, which is ``NaN`` in numeric
+    arrays, ``None`` or ``NaN`` in object arrays, ``NaT`` in datetimelike).
+
+    Parameters
+    ----------
+    obj : array-like or object value
+        Object to check for *not* null or *non*-missing values.
+
+    Returns
+    -------
+    bool or array-like of bool
+        For scalar input, returns a scalar boolean.
+        For array input, returns an array of boolean indicating whether each
+        corresponding element is valid.
+
+    See Also
+    --------
+    isna : Boolean inverse of pandas.notna.
+    Series.notna : Detect valid values in a Series.
+    DataFrame.notna : Detect valid values in a DataFrame.
+    Index.notna : Detect valid values in an Index.
+
+    Examples
+    --------
+    Scalar arguments (including strings) result in a scalar boolean.
+
+    >>> pd.notna(\'dog\')
+    True
+
+    >>> pd.notna(pd.NA)
+    False
+
+    >>> pd.notna(np.nan)
+    False
+
+    ndarrays result in an ndarray of booleans.
+
+    >>> array = np.array([[1, np.nan, 3], [4, 5, np.nan]])
+    >>> array
+    array([[ 1., nan,  3.],
+           [ 4.,  5., nan]])
+    >>> pd.notna(array)
+    array([[ True, False,  True],
+           [ True,  True, False]])
+
+    For indexes, an ndarray of booleans is returned.
+
+    >>> index = pd.DatetimeIndex(["2017-07-05", "2017-07-06", None,
+    ...                          "2017-07-08"])
+    >>> index
+    DatetimeIndex([\'2017-07-05\', \'2017-07-06\', \'NaT\', \'2017-07-08\'],
+                  dtype=\'datetime64[ns]\', freq=None)
+    >>> pd.notna(index)
+    array([ True,  True, False,  True])
+
+    For Series and DataFrame, the same type is returned, containing booleans.
+
+    >>> df = pd.DataFrame([[\'ant\', \'bee\', \'cat\'], [\'dog\', None, \'fly\']])
+    >>> df
+         0     1    2
+    0  ant   bee  cat
+    1  dog  None  fly
+    >>> pd.notna(df)
+          0      1     2
+    0  True   True  True
+    1  True  False  True
+
+    >>> pd.notna(df[1])
+    0     True
+    1    False
+    Name: 1, dtype: bool
+    '''
+def array_equivalent(left, right, strict_nan: bool = ..., dtype_equal: bool = ...) -> bool:
     """
     True if two arrays, left and right, have equal non-NaN elements, and NaNs
     in corresponding locations.  False otherwise. It is assumed that left and
@@ -154,7 +439,7 @@ def maybe_fill(arr: np.ndarray) -> np.ndarray:
     """
     Fill numpy.ndarray with NaN, unless we have a integer or boolean dtype.
     """
-def na_value_for_dtype(dtype: DtypeObj, compat: bool = True):
+def na_value_for_dtype(dtype: DtypeObj, compat: bool = ...):
     """
     Return a dtype compat na value
 

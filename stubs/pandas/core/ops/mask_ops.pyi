@@ -1,5 +1,6 @@
-import numpy as np
-from pandas._libs import lib as lib, missing as libmissing
+import libmissing as libmissing
+import np
+import pandas._libs.lib as lib
 
 def kleene_or(left: bool | np.ndarray | libmissing.NAType, right: bool | np.ndarray | libmissing.NAType, left_mask: np.ndarray | None, right_mask: np.ndarray | None):
     """

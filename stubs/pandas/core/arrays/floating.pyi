@@ -1,21 +1,44 @@
-import numpy as np
-from _typeshed import Incomplete
+import np
+import numpy
+import numpy.dtypes
+import pandas.core.arrays.numeric
 from pandas.core.arrays.numeric import NumericArray as NumericArray, NumericDtype as NumericDtype
 from pandas.core.dtypes.base import register_extension_dtype as register_extension_dtype
 from pandas.core.dtypes.common import is_float_dtype as is_float_dtype
-from typing import ClassVar
+from typing import ClassVar as _ClassVar
 
-class FloatingDtype(NumericDtype):
-    """
-    An ExtensionDtype to hold a single size of floating dtype.
+class FloatingDtype(pandas.core.arrays.numeric.NumericDtype):
+    _default_np_dtype: _ClassVar[numpy.dtypes.Float64DType] = ...
+    def _checker(self, arr_or_dtype) -> bool:
+        """
+        Check whether the provided array or dtype is of a float dtype.
 
-    These specific implementations are subclasses of the non-public
-    FloatingDtype. For example we have Float32Dtype to represent float32.
+        Parameters
+        ----------
+        arr_or_dtype : array-like or dtype
+            The array or dtype to check.
 
-    The attributes name & type are set when these subclasses are created.
-    """
-    _default_np_dtype: Incomplete
-    _checker = is_float_dtype
+        Returns
+        -------
+        boolean
+            Whether or not the array or dtype is of a float dtype.
+
+        Examples
+        --------
+        >>> from pandas.api.types import is_float_dtype
+        >>> is_float_dtype(str)
+        False
+        >>> is_float_dtype(int)
+        False
+        >>> is_float_dtype(float)
+        True
+        >>> is_float_dtype(np.array(['a', 'b']))
+        False
+        >>> is_float_dtype(pd.Series([1, 2]))
+        False
+        >>> is_float_dtype(pd.Index([1, 2.]))
+        True
+        """
     @classmethod
     def construct_array_type(cls) -> type[FloatingArray]:
         """
@@ -35,78 +58,67 @@ class FloatingDtype(NumericDtype):
         "safe" in this context means the casting is lossless.
         '''
 
-class FloatingArray(NumericArray):
-    '''
-    Array of floating (optional missing) values.
+class FloatingArray(pandas.core.arrays.numeric.NumericArray):
+    class _dtype_cls(pandas.core.arrays.numeric.NumericDtype):
+        _default_np_dtype: _ClassVar[numpy.dtypes.Float64DType] = ...
+        def _checker(self, arr_or_dtype) -> bool:
+            """
+            Check whether the provided array or dtype is of a float dtype.
 
-    .. warning::
+            Parameters
+            ----------
+            arr_or_dtype : array-like or dtype
+                The array or dtype to check.
 
-       FloatingArray is currently experimental, and its API or internal
-       implementation may change without warning. Especially the behaviour
-       regarding NaN (distinct from NA missing values) is subject to change.
+            Returns
+            -------
+            boolean
+                Whether or not the array or dtype is of a float dtype.
 
-    We represent a FloatingArray with 2 numpy arrays:
+            Examples
+            --------
+            >>> from pandas.api.types import is_float_dtype
+            >>> is_float_dtype(str)
+            False
+            >>> is_float_dtype(int)
+            False
+            >>> is_float_dtype(float)
+            True
+            >>> is_float_dtype(np.array(['a', 'b']))
+            False
+            >>> is_float_dtype(pd.Series([1, 2]))
+            False
+            >>> is_float_dtype(pd.Index([1, 2.]))
+            True
+            """
+        @classmethod
+        def construct_array_type(cls) -> type[FloatingArray]:
+            """
+            Return the array type associated with this dtype.
 
-    - data: contains a numpy float array of the appropriate dtype
-    - mask: a boolean array holding a mask on the data, True is missing
+            Returns
+            -------
+            type
+            """
+        @classmethod
+        def _get_dtype_mapping(cls) -> dict[np.dtype, FloatingDtype]: ...
+        @classmethod
+        def _safe_cast(cls, values: np.ndarray, dtype: np.dtype, copy: bool) -> np.ndarray:
+            '''
+            Safely cast the values to the given dtype.
 
-    To construct an FloatingArray from generic array-like input, use
-    :func:`pandas.array` with one of the float dtypes (see examples).
-
-    See :ref:`integer_na` for more.
-
-    Parameters
-    ----------
-    values : numpy.ndarray
-        A 1-d float-dtype array.
-    mask : numpy.ndarray
-        A 1-d boolean-dtype array indicating missing values.
-    copy : bool, default False
-        Whether to copy the `values` and `mask`.
-
-    Attributes
-    ----------
-    None
-
-    Methods
-    -------
-    None
-
-    Returns
-    -------
-    FloatingArray
-
-    Examples
-    --------
-    Create an FloatingArray with :func:`pandas.array`:
-
-    >>> pd.array([0.1, None, 0.3], dtype=pd.Float32Dtype())
-    <FloatingArray>
-    [0.1, <NA>, 0.3]
-    Length: 3, dtype: Float32
-
-    String aliases for the dtypes are also available. They are capitalized.
-
-    >>> pd.array([0.1, None, 0.3], dtype="Float32")
-    <FloatingArray>
-    [0.1, <NA>, 0.3]
-    Length: 3, dtype: Float32
-    '''
-    _dtype_cls = FloatingDtype
-    _internal_fill_value: Incomplete
-    _truthy_value: float
-    _falsey_value: float
-
+            "safe" in this context means the casting is lossless.
+            '''
+    _internal_fill_value: _ClassVar[float] = ...
+    _truthy_value: _ClassVar[float] = ...
+    _falsey_value: _ClassVar[float] = ...
 _dtype_docstring: str
 
 class Float32Dtype(FloatingDtype):
-    type: Incomplete
-    name: ClassVar[str]
-    __doc__: Incomplete
+    type: _ClassVar[type[numpy.float32]] = ...
+    name: _ClassVar[str] = ...
 
 class Float64Dtype(FloatingDtype):
-    type = np.float64
-    name: ClassVar[str]
-    __doc__: Incomplete
-
-NUMPY_FLOAT_TO_DTYPE: dict[np.dtype, FloatingDtype]
+    type: _ClassVar[type[numpy.float64]] = ...
+    name: _ClassVar[str] = ...
+NUMPY_FLOAT_TO_DTYPE: dict

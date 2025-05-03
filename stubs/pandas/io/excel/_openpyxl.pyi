@@ -1,29 +1,18 @@
-from _typeshed import Incomplete
-from openpyxl import Workbook
-from openpyxl.descriptors.serialisable import Serialisable as Serialisable
-from pandas._typing import ExcelWriterIfSheetExists as ExcelWriterIfSheetExists, FilePath as FilePath, ReadBuffer as ReadBuffer, Scalar as Scalar, StorageOptions as StorageOptions, WriteExcelBuffer as WriteExcelBuffer
+import pandas.io.excel._base
 from pandas.compat._optional import import_optional_dependency as import_optional_dependency
-from pandas.core.shared_docs import _shared_docs as _shared_docs
 from pandas.io.excel._base import BaseExcelReader as BaseExcelReader, ExcelWriter as ExcelWriter
 from pandas.io.excel._util import combine_kwargs as combine_kwargs, validate_freeze_panes as validate_freeze_panes
 from pandas.util._decorators import doc as doc
-from typing import Any
+from typing import Any, ClassVar
 
-class OpenpyxlWriter(ExcelWriter):
-    _engine: str
-    _supported_extensions: Incomplete
-    _book: Incomplete
-    def __init__(self, path: FilePath | WriteExcelBuffer | ExcelWriter, engine: str | None = None, date_format: str | None = None, datetime_format: str | None = None, mode: str = 'w', storage_options: StorageOptions | None = None, if_sheet_exists: ExcelWriterIfSheetExists | None = None, engine_kwargs: dict[str, Any] | None = None, **kwargs) -> None: ...
-    @property
-    def book(self) -> Workbook:
-        """
-        Book instance of class openpyxl.workbook.Workbook.
+TYPE_CHECKING: bool
+_shared_docs: dict
 
-        This attribute can be used to access engine-specific features.
-        """
-    @property
-    def sheets(self) -> dict[str, Any]:
-        """Mapping of sheet names to sheet objects."""
+class OpenpyxlWriter(pandas.io.excel._base.ExcelWriter):
+    _engine: ClassVar[str] = ...
+    _supported_extensions: ClassVar[tuple] = ...
+    __parameters__: ClassVar[tuple] = ...
+    def __init__(self, path: FilePath | WriteExcelBuffer | ExcelWriter, engine: str | None, date_format: str | None, datetime_format: str | None, mode: str = ..., storage_options: StorageOptions | None, if_sheet_exists: ExcelWriterIfSheetExists | None, engine_kwargs: dict[str, Any] | None, **kwargs) -> None: ...
     def _save(self) -> None:
         """
         Save workbook to disk.
@@ -235,27 +224,41 @@ class OpenpyxlWriter(ExcelWriter):
         Returns
         -------
         """
-    def _write_cells(self, cells, sheet_name: str | None = None, startrow: int = 0, startcol: int = 0, freeze_panes: tuple[int, int] | None = None) -> None: ...
+    def _write_cells(self, cells, sheet_name: str | None, startrow: int = ..., startcol: int = ..., freeze_panes: tuple[int, int] | None) -> None: ...
+    @property
+    def book(self): ...
+    @property
+    def sheets(self): ...
 
-class OpenpyxlReader(BaseExcelReader['Workbook']):
-    def __init__(self, filepath_or_buffer: FilePath | ReadBuffer[bytes], storage_options: StorageOptions | None = None, engine_kwargs: dict | None = None) -> None:
-        """
+class OpenpyxlReader(pandas.io.excel._base.BaseExcelReader):
+    __orig_bases__: ClassVar[tuple] = ...
+    __parameters__: ClassVar[tuple] = ...
+    def __init__(self, filepath_or_buffer: FilePath | ReadBuffer[bytes], storage_options: StorageOptions | None, engine_kwargs: dict | None) -> None:
+        '''
         Reader using openpyxl engine.
 
         Parameters
         ----------
         filepath_or_buffer : str, path object or Workbook
             Object to be parsed.
-        {storage_options}
+        storage_options : dict, optional
+            Extra options that make sense for a particular storage connection, e.g.
+            host, port, username, password, etc. For HTTP(S) URLs the key-value pairs
+            are forwarded to ``urllib.request.Request`` as header options. For other
+            URLs (e.g. starting with "s3://", and "gcs://") the key-value pairs are
+            forwarded to ``fsspec.open``. Please see ``fsspec`` and ``urllib`` for more
+            details, and for more examples on storage options refer `here
+            <https://pandas.pydata.org/docs/user_guide/io.html?
+            highlight=storage_options#reading-writing-remote-files>`_.
         engine_kwargs : dict, optional
             Arbitrary keyword arguments passed to excel engine.
-        """
-    @property
-    def _workbook_class(self) -> type[Workbook]: ...
+        '''
     def load_workbook(self, filepath_or_buffer: FilePath | ReadBuffer[bytes], engine_kwargs) -> Workbook: ...
-    @property
-    def sheet_names(self) -> list[str]: ...
     def get_sheet_by_name(self, name: str): ...
     def get_sheet_by_index(self, index: int): ...
     def _convert_cell(self, cell) -> Scalar: ...
-    def get_sheet_data(self, sheet, file_rows_needed: int | None = None) -> list[list[Scalar]]: ...
+    def get_sheet_data(self, sheet, file_rows_needed: int | None) -> list[list[Scalar]]: ...
+    @property
+    def _workbook_class(self): ...
+    @property
+    def sheet_names(self): ...

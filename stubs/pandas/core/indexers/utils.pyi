@@ -1,14 +1,13 @@
-import numpy as np
-from _typeshed import Incomplete
-from pandas._libs import lib as lib
-from pandas._typing import AnyArrayLike as AnyArrayLike
-from pandas.core.dtypes.common import is_array_like as is_array_like, is_bool_dtype as is_bool_dtype, is_integer as is_integer, is_integer_dtype as is_integer_dtype, is_list_like as is_list_like
-from pandas.core.dtypes.dtypes import ExtensionDtype as ExtensionDtype
+import np
+import pandas._libs.lib as lib
+from pandas._libs.lib import is_integer as is_integer, is_list_like as is_list_like
+from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
+from pandas.core.dtypes.common import is_bool_dtype as is_bool_dtype, is_integer_dtype as is_integer_dtype
 from pandas.core.dtypes.generic import ABCIndex as ABCIndex, ABCSeries as ABCSeries
-from pandas.core.frame import DataFrame as DataFrame
-from pandas.core.indexes.base import Index as Index
+from pandas.core.dtypes.inference import is_array_like as is_array_like
 from typing import Any
 
+TYPE_CHECKING: bool
 def is_valid_positional_slice(slc: slice) -> bool:
     """
     Check if a slice object can be interpreted as a positional indexer.
@@ -128,7 +127,7 @@ def validate_indices(indices: np.ndarray, n: int) -> None:
         ...
     IndexError: indices are out-of-bounds
     """
-def maybe_convert_indices(indices, n: int, verify: bool = True) -> np.ndarray:
+def maybe_convert_indices(indices, n: int, verify: bool = ...) -> np.ndarray:
     """
     Attempt to convert indices into valid, positive indices.
 
@@ -156,7 +155,7 @@ def maybe_convert_indices(indices, n: int, verify: bool = True) -> np.ndarray:
         One of the converted indices either exceeded the number of,
         elements (specified by `n`), or was still negative.
     """
-def length_of_indexer(indexer, target: Incomplete | None = None) -> int:
+def length_of_indexer(indexer, target) -> int:
     """
     Return the expected length of target[indexer]
 

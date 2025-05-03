@@ -1,7 +1,8 @@
 from collections.abc import Generator
 from pandas._config.config import options as options
 
-def set_locale(new_locale: str | tuple[str, str], lc_var: int = ...) -> Generator[str | tuple[str, str], None, None]:
+TYPE_CHECKING: bool
+def set_locale(*args, **kwds) -> Generator[str | tuple[str, str], None, None]:
     '''
     Context manager for temporarily setting a locale.
 
@@ -54,7 +55,7 @@ def _valid_locales(locales: list[str] | str, normalize: bool) -> list[str]:
     valid_locales : list
         A list of valid locales.
     """
-def get_locales(prefix: str | None = None, normalize: bool = True) -> list[str]:
+def get_locales(prefix: str | None, normalize: bool = ...) -> list[str]:
     '''
     Get all the locales that are available on the system.
 

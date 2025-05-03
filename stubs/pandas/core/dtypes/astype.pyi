@@ -1,25 +1,38 @@
-import numpy as np
-from _typeshed import Incomplete
-from pandas._libs import lib as lib
+import np
+import numpy.dtypes
+import pandas._libs.lib as lib
 from pandas._libs.tslibs.timedeltas import array_to_timedelta64 as array_to_timedelta64
-from pandas._typing import ArrayLike as ArrayLike, DtypeObj as DtypeObj, IgnoreRaise as IgnoreRaise
-from pandas.core.arrays import ExtensionArray as ExtensionArray
+from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.common import is_object_dtype as is_object_dtype, is_string_dtype as is_string_dtype, pandas_dtype as pandas_dtype
-from pandas.core.dtypes.dtypes import ExtensionDtype as ExtensionDtype, NumpyEADtype as NumpyEADtype
+from pandas.core.dtypes.dtypes import NumpyEADtype as NumpyEADtype
 from pandas.errors import IntCastingNaNError as IntCastingNaNError
-from typing import overload
 
-_dtype_obj: Incomplete
+TYPE_CHECKING: bool
+_dtype_obj: numpy.dtypes.ObjectDType
+def _astype_nansafe(arr: np.ndarray, dtype: DtypeObj, copy: bool = ..., skipna: bool = ...) -> ArrayLike:
+    """
+    Cast the elements of an array to a given dtype a nan-safe manner.
 
-@overload
-def _astype_nansafe(arr: np.ndarray, dtype: np.dtype, copy: bool = ..., skipna: bool = ...) -> np.ndarray: ...
-@overload
-def _astype_nansafe(arr: np.ndarray, dtype: ExtensionDtype, copy: bool = ..., skipna: bool = ...) -> ExtensionArray: ...
+    Parameters
+    ----------
+    arr : ndarray
+    dtype : np.dtype or ExtensionDtype
+    copy : bool, default True
+        If False, a view will be attempted but may fail, if
+        e.g. the item sizes don't align.
+    skipna: bool, default False
+        Whether or not we should skip NaN when casting as a string-type.
+
+    Raises
+    ------
+    ValueError
+        The dtype was a datetime64/timedelta64 dtype, but it had no unit.
+    """
 def _astype_float_to_int_nansafe(values: np.ndarray, dtype: np.dtype, copy: bool) -> np.ndarray:
     """
     astype with a check preventing converting NaN to an meaningless integer value.
     """
-def astype_array(values: ArrayLike, dtype: DtypeObj, copy: bool = False) -> ArrayLike:
+def astype_array(values: ArrayLike, dtype: DtypeObj, copy: bool = ...) -> ArrayLike:
     """
     Cast array (ndarray or ExtensionArray) to the new dtype.
 
@@ -34,7 +47,7 @@ def astype_array(values: ArrayLike, dtype: DtypeObj, copy: bool = False) -> Arra
     -------
     ndarray or ExtensionArray
     """
-def astype_array_safe(values: ArrayLike, dtype, copy: bool = False, errors: IgnoreRaise = 'raise') -> ArrayLike:
+def astype_array_safe(values: ArrayLike, dtype, copy: bool = ..., errors: IgnoreRaise = ...) -> ArrayLike:
     """
     Cast array (ndarray or ExtensionArray) to the new dtype.
 

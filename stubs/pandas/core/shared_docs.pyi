@@ -1,1 +1,1 @@
-_shared_docs: dict[str, str]
+_shared_docs: dict

@@ -1,58 +1,46 @@
-import numpy as np
-from _typeshed import Incomplete
+import np
+import pandas._libs.lib as lib
+import pandas.core.common as com
+import printing as printing
+from _io import StringIO
 from collections.abc import Generator, Hashable, Sequence
-from io import StringIO
-from pandas import DataFrame as DataFrame, Series as Series
 from pandas._config.config import get_option as get_option, set_option as set_option
-from pandas._libs import lib as lib
+from pandas._libs.lib import is_float as is_float, is_integer as is_integer, is_list_like as is_list_like, is_scalar as is_scalar
 from pandas._libs.missing import NA as NA
-from pandas._libs.tslibs import NaT as NaT, Timedelta as Timedelta, Timestamp as Timestamp
-from pandas._libs.tslibs.nattype import NaTType as NaTType
-from pandas._typing import ArrayLike as ArrayLike, Axes as Axes, ColspaceArgType as ColspaceArgType, ColspaceType as ColspaceType, CompressionOptions as CompressionOptions, FilePath as FilePath, FloatFormatType as FloatFormatType, FormattersType as FormattersType, IndexLabel as IndexLabel, SequenceNotStr as SequenceNotStr, StorageOptions as StorageOptions, WriteBuffer as WriteBuffer
-from pandas.core.arrays import Categorical as Categorical, DatetimeArray as DatetimeArray, ExtensionArray as ExtensionArray, TimedeltaArray as TimedeltaArray
+from pandas._libs.tslibs.nattype import NaT as NaT, NaTType as NaTType
+from pandas._libs.tslibs.timedeltas import Timedelta as Timedelta
+from pandas._libs.tslibs.timestamps import Timestamp as Timestamp
+from pandas.core.arrays.base import ExtensionArray as ExtensionArray
+from pandas.core.arrays.categorical import Categorical as Categorical
+from pandas.core.arrays.datetimes import DatetimeArray as DatetimeArray
 from pandas.core.arrays.string_ import StringDtype as StringDtype
+from pandas.core.arrays.timedeltas import TimedeltaArray as TimedeltaArray
 from pandas.core.base import PandasObject as PandasObject
-from pandas.core.dtypes.common import is_complex_dtype as is_complex_dtype, is_float as is_float, is_integer as is_integer, is_list_like as is_list_like, is_numeric_dtype as is_numeric_dtype, is_scalar as is_scalar
-from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype
+from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
+from pandas.core.dtypes.common import is_complex_dtype as is_complex_dtype, is_numeric_dtype as is_numeric_dtype
+from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype
 from pandas.core.dtypes.missing import isna as isna, notna as notna
-from pandas.core.indexes.api import Index as Index, MultiIndex as MultiIndex, PeriodIndex as PeriodIndex, ensure_index as ensure_index
+from pandas.core.indexes.base import Index as Index, ensure_index as ensure_index
 from pandas.core.indexes.datetimes import DatetimeIndex as DatetimeIndex
+from pandas.core.indexes.multi import MultiIndex as MultiIndex
+from pandas.core.indexes.period import PeriodIndex as PeriodIndex
 from pandas.core.indexes.timedeltas import TimedeltaIndex as TimedeltaIndex
 from pandas.core.reshape.concat import concat as concat
 from pandas.io.common import check_parent_directory as check_parent_directory, stringify_path as stringify_path
-from pandas.io.formats import printing as printing
-from typing import Any, Callable, Final
+from typing import Any, Callable, ClassVar
 
-common_docstring: Final[str]
-VALID_JUSTIFY_PARAMETERS: Incomplete
-return_docstring: Final[str]
+QUOTE_NONE: int
+TYPE_CHECKING: bool
+common_docstring: str
+VALID_JUSTIFY_PARAMETERS: tuple
+return_docstring: str
 
 class SeriesFormatter:
-    """
-    Implement the main logic of Series.to_string, which underlies
-    Series.__repr__.
-    """
-    series: Incomplete
-    buf: Incomplete
-    name: Incomplete
-    na_rep: Incomplete
-    header: Incomplete
-    length: Incomplete
-    index: Incomplete
-    max_rows: Incomplete
-    min_rows: Incomplete
-    float_format: Incomplete
-    dtype: Incomplete
-    adj: Incomplete
-    def __init__(self, series: Series, *, length: bool | str = True, header: bool = True, index: bool = True, na_rep: str = 'NaN', name: bool = False, float_format: str | None = None, dtype: bool = True, max_rows: int | None = None, min_rows: int | None = None) -> None: ...
-    tr_row_num: int | None
-    tr_series: Incomplete
-    is_truncated_vertically: Incomplete
+    def __init__(self, series: Series, *, length: bool | str = ..., header: bool = ..., index: bool = ..., na_rep: str = ..., name: bool = ..., float_format: str | None, dtype: bool = ..., max_rows: int | None, min_rows: int | None) -> None: ...
     def _chk_truncate(self) -> None: ...
     def _get_footer(self) -> str: ...
     def _get_formatted_values(self) -> list[str]: ...
     def to_string(self) -> str: ...
-
 def get_dataframe_repr_params() -> dict[str, Any]:
     """Get the parameters used to repr(dataFrame) calls using DataFrame.to_string.
 
@@ -89,59 +77,11 @@ def get_series_repr_params() -> dict[str, Any]:
     """
 
 class DataFrameFormatter:
-    """
-    Class for processing dataframe formatting options and data.
-
-    Used by DataFrame.to_string, which backs DataFrame.__repr__.
-    """
-    __doc__: Incomplete
-    frame: Incomplete
-    columns: Incomplete
-    col_space: Incomplete
-    header: Incomplete
-    index: Incomplete
-    na_rep: Incomplete
-    formatters: Incomplete
-    justify: Incomplete
-    float_format: Incomplete
-    sparsify: Incomplete
-    show_index_names: Incomplete
-    decimal: Incomplete
-    bold_rows: Incomplete
-    escape: Incomplete
-    max_rows: Incomplete
-    min_rows: Incomplete
-    max_cols: Incomplete
-    show_dimensions: Incomplete
-    max_cols_fitted: Incomplete
-    max_rows_fitted: Incomplete
-    tr_frame: Incomplete
-    adj: Incomplete
-    def __init__(self, frame: DataFrame, columns: Axes | None = None, col_space: ColspaceArgType | None = None, header: bool | SequenceNotStr[str] = True, index: bool = True, na_rep: str = 'NaN', formatters: FormattersType | None = None, justify: str | None = None, float_format: FloatFormatType | None = None, sparsify: bool | None = None, index_names: bool = True, max_rows: int | None = None, min_rows: int | None = None, max_cols: int | None = None, show_dimensions: bool | str = False, decimal: str = '.', bold_rows: bool = False, escape: bool = True) -> None: ...
+    def __init__(self, frame: DataFrame, columns: Axes | None, col_space: ColspaceArgType | None, header: bool | SequenceNotStr[str] = ..., index: bool = ..., na_rep: str = ..., formatters: FormattersType | None, justify: str | None, float_format: FloatFormatType | None, sparsify: bool | None, index_names: bool = ..., max_rows: int | None, min_rows: int | None, max_cols: int | None, show_dimensions: bool | str = ..., decimal: str = ..., bold_rows: bool = ..., escape: bool = ...) -> None: ...
     def get_strcols(self) -> list[list[str]]:
         """
         Render a DataFrame to a list of columns (as lists of strings).
         """
-    @property
-    def should_show_dimensions(self) -> bool: ...
-    @property
-    def is_truncated(self) -> bool: ...
-    @property
-    def is_truncated_horizontally(self) -> bool: ...
-    @property
-    def is_truncated_vertically(self) -> bool: ...
-    @property
-    def dimensions_info(self) -> str: ...
-    @property
-    def has_index_names(self) -> bool: ...
-    @property
-    def has_column_names(self) -> bool: ...
-    @property
-    def show_row_idx_names(self) -> bool: ...
-    @property
-    def show_col_idx_names(self) -> bool: ...
-    @property
-    def max_rows_displayed(self) -> int: ...
     def _initialize_sparsify(self, sparsify: bool | None) -> bool: ...
     def _initialize_formatters(self, formatters: FormattersType | None) -> FormattersType: ...
     def _initialize_justify(self, justify: str | None) -> str: ...
@@ -169,7 +109,6 @@ class DataFrameFormatter:
         """
         Check whether the frame should be truncated. If so, slice the frame up.
         """
-    tr_col_num: Incomplete
     def _truncate_horizontally(self) -> None:
         """Remove columns, which are not to be displayed and adjust formatters.
 
@@ -178,7 +117,6 @@ class DataFrameFormatter:
             - formatters
             - tr_col_num
         """
-    tr_row_num: Incomplete
     def _truncate_vertically(self) -> None:
         """Remove rows, which are not to be displayed.
 
@@ -192,26 +130,30 @@ class DataFrameFormatter:
     def _get_formatted_column_labels(self, frame: DataFrame) -> list[list[str]]: ...
     def _get_formatted_index(self, frame: DataFrame) -> list[str]: ...
     def _get_column_name_list(self) -> list[Hashable]: ...
+    @property
+    def should_show_dimensions(self): ...
+    @property
+    def is_truncated(self): ...
+    @property
+    def is_truncated_horizontally(self): ...
+    @property
+    def is_truncated_vertically(self): ...
+    @property
+    def dimensions_info(self): ...
+    @property
+    def has_index_names(self): ...
+    @property
+    def has_column_names(self): ...
+    @property
+    def show_row_idx_names(self): ...
+    @property
+    def show_col_idx_names(self): ...
+    @property
+    def max_rows_displayed(self): ...
 
 class DataFrameRenderer:
-    """Class for creating dataframe output in multiple formats.
-
-    Called in pandas.core.generic.NDFrame:
-        - to_csv
-        - to_latex
-
-    Called in pandas.core.frame.DataFrame:
-        - to_html
-        - to_string
-
-    Parameters
-    ----------
-    fmt : DataFrameFormatter
-        Formatter with the formatting options.
-    """
-    fmt: Incomplete
     def __init__(self, fmt: DataFrameFormatter) -> None: ...
-    def to_html(self, buf: FilePath | WriteBuffer[str] | None = None, encoding: str | None = None, classes: str | list | tuple | None = None, notebook: bool = False, border: int | bool | None = None, table_id: str | None = None, render_links: bool = False) -> str | None:
+    def to_html(self, buf: FilePath | WriteBuffer[str] | None, encoding: str | None, classes: str | list | tuple | None, notebook: bool = ..., border: int | bool | None, table_id: str | None, render_links: bool = ...) -> str | None:
         '''
         Render a DataFrame to a html table.
 
@@ -236,7 +178,7 @@ class DataFrameRenderer:
         render_links : bool, default False
             Convert URLs to HTML links.
         '''
-    def to_string(self, buf: FilePath | WriteBuffer[str] | None = None, encoding: str | None = None, line_width: int | None = None) -> str | None:
+    def to_string(self, buf: FilePath | WriteBuffer[str] | None, encoding: str | None, line_width: int | None) -> str | None:
         """
         Render a DataFrame to a console-friendly tabular output.
 
@@ -251,21 +193,20 @@ class DataFrameRenderer:
         line_width : int, optional
             Width to wrap a line in characters.
         """
-    def to_csv(self, path_or_buf: FilePath | WriteBuffer[bytes] | WriteBuffer[str] | None = None, encoding: str | None = None, sep: str = ',', columns: Sequence[Hashable] | None = None, index_label: IndexLabel | None = None, mode: str = 'w', compression: CompressionOptions = 'infer', quoting: int | None = None, quotechar: str = '"', lineterminator: str | None = None, chunksize: int | None = None, date_format: str | None = None, doublequote: bool = True, escapechar: str | None = None, errors: str = 'strict', storage_options: StorageOptions | None = None) -> str | None:
+    def to_csv(self, path_or_buf: FilePath | WriteBuffer[bytes] | WriteBuffer[str] | None, encoding: str | None, sep: str = ..., columns: Sequence[Hashable] | None, index_label: IndexLabel | None, mode: str = ..., compression: CompressionOptions = ..., quoting: int | None, quotechar: str = ..., lineterminator: str | None, chunksize: int | None, date_format: str | None, doublequote: bool = ..., escapechar: str | None, errors: str = ..., storage_options: StorageOptions | None) -> str | None:
         """
         Render dataframe as comma-separated file.
         """
-
-def save_to_buffer(string: str, buf: FilePath | WriteBuffer[str] | None = None, encoding: str | None = None) -> str | None:
+def save_to_buffer(string: str, buf: FilePath | WriteBuffer[str] | None, encoding: str | None) -> str | None:
     """
     Perform serialization. Write to buf or return as string if buf is None.
     """
-def _get_buffer(buf: FilePath | WriteBuffer[str] | None, encoding: str | None = None) -> Generator[WriteBuffer[str], None, None] | Generator[StringIO, None, None]:
+def _get_buffer(*args, **kwds) -> Generator[WriteBuffer[str], None, None] | Generator[StringIO, None, None]:
     """
     Context manager to open, yield and close buffer for filenames or Path-like
     objects, otherwise yield buf unchanged.
     """
-def format_array(values: ArrayLike, formatter: Callable | None, float_format: FloatFormatType | None = None, na_rep: str = 'NaN', digits: int | None = None, space: str | int | None = None, justify: str = 'right', decimal: str = '.', leading_space: bool | None = True, quoting: int | None = None, fallback_formatter: Callable | None = None) -> list[str]:
+def format_array(values: ArrayLike, formatter: Callable | None, float_format: FloatFormatType | None, na_rep: str = ..., digits: int | None, space: str | int | None, justify: str = ..., decimal: str = ..., leading_space: bool | None = ..., quoting: int | None, fallback_formatter: Callable | None) -> list[str]:
     """
     Format an array for printing.
 
@@ -295,28 +236,13 @@ def format_array(values: ArrayLike, formatter: Callable | None, float_format: Fl
     """
 
 class _GenericArrayFormatter:
-    values: Incomplete
-    digits: Incomplete
-    na_rep: Incomplete
-    space: Incomplete
-    formatter: Incomplete
-    float_format: Incomplete
-    justify: Incomplete
-    decimal: Incomplete
-    quoting: Incomplete
-    fixed_width: Incomplete
-    leading_space: Incomplete
-    fallback_formatter: Incomplete
-    def __init__(self, values: ArrayLike, digits: int = 7, formatter: Callable | None = None, na_rep: str = 'NaN', space: str | int = 12, float_format: FloatFormatType | None = None, justify: str = 'right', decimal: str = '.', quoting: int | None = None, fixed_width: bool = True, leading_space: bool | None = True, fallback_formatter: Callable | None = None) -> None: ...
+    def __init__(self, values: ArrayLike, digits: int = ..., formatter: Callable | None, na_rep: str = ..., space: str | int = ..., float_format: FloatFormatType | None, justify: str = ..., decimal: str = ..., quoting: int | None, fixed_width: bool = ..., leading_space: bool | None = ..., fallback_formatter: Callable | None) -> None: ...
     def get_result(self) -> list[str]: ...
     def _format_strings(self) -> list[str]: ...
 
 class FloatArrayFormatter(_GenericArrayFormatter):
-    fixed_width: bool
-    formatter: Incomplete
-    float_format: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
-    def _value_formatter(self, float_format: FloatFormatType | None = None, threshold: float | None = None) -> Callable:
+    def _value_formatter(self, float_format: FloatFormatType | None, threshold: float | None) -> Callable:
         """Returns a function to be applied on each value to format it"""
     def get_result_as_array(self) -> np.ndarray:
         """
@@ -329,17 +255,12 @@ class _IntArrayFormatter(_GenericArrayFormatter):
     def _format_strings(self) -> list[str]: ...
 
 class _Datetime64Formatter(_GenericArrayFormatter):
-    values: DatetimeArray
-    nat_rep: Incomplete
-    date_format: Incomplete
-    def __init__(self, values: DatetimeArray, nat_rep: str = 'NaT', date_format: None = None, **kwargs) -> None: ...
+    def __init__(self, values: DatetimeArray, nat_rep: str = ..., date_format: None, **kwargs) -> None: ...
     def _format_strings(self) -> list[str]:
         """we by definition have DO NOT have a TZ"""
 
 class _ExtensionArrayFormatter(_GenericArrayFormatter):
-    values: ExtensionArray
     def _format_strings(self) -> list[str]: ...
-
 def format_percentiles(percentiles: np.ndarray | Sequence[float]) -> list[str]:
     """
     Outputs rounded and formatted percentiles.
@@ -373,32 +294,28 @@ def format_percentiles(percentiles: np.ndarray | Sequence[float]) -> list[str]:
     ['0%', '50%', '2.0%', '50%', '66.67%', '99.99%']
     """
 def get_precision(array: np.ndarray | Sequence[float]) -> int: ...
-def _format_datetime64(x: NaTType | Timestamp, nat_rep: str = 'NaT') -> str: ...
-def _format_datetime64_dateonly(x: NaTType | Timestamp, nat_rep: str = 'NaT', date_format: str | None = None) -> str: ...
-def get_format_datetime64(is_dates_only: bool, nat_rep: str = 'NaT', date_format: str | None = None) -> Callable:
+def _format_datetime64(x: NaTType | Timestamp, nat_rep: str = ...) -> str: ...
+def _format_datetime64_dateonly(x: NaTType | Timestamp, nat_rep: str = ..., date_format: str | None) -> str: ...
+def get_format_datetime64(is_dates_only: bool, nat_rep: str = ..., date_format: str | None) -> Callable:
     """Return a formatter callable taking a datetime64 as input and providing
     a string as output"""
 
 class _Datetime64TZFormatter(_Datetime64Formatter):
-    values: DatetimeArray
     def _format_strings(self) -> list[str]:
         """we by definition have a TZ"""
 
 class _Timedelta64Formatter(_GenericArrayFormatter):
-    values: TimedeltaArray
-    nat_rep: Incomplete
-    def __init__(self, values: TimedeltaArray, nat_rep: str = 'NaT', **kwargs) -> None: ...
+    def __init__(self, values: TimedeltaArray, nat_rep: str = ..., **kwargs) -> None: ...
     def _format_strings(self) -> list[str]: ...
-
-def get_format_timedelta64(values: TimedeltaArray, nat_rep: str | float = 'NaT', box: bool = False) -> Callable:
+def get_format_timedelta64(values: TimedeltaArray, nat_rep: str | float = ..., box: bool = ...) -> Callable:
     """
     Return a formatter function for a range of timedeltas.
     These will all have the same format argument
 
     If box, then show the return in quotes
     """
-def _make_fixed_width(strings: list[str], justify: str = 'right', minimum: int | None = None, adj: printing._TextAdjustment | None = None) -> list[str]: ...
-def _trim_zeros_complex(str_complexes: ArrayLike, decimal: str = '.') -> list[str]:
+def _make_fixed_width(strings: list[str], justify: str = ..., minimum: int | None, adj: printing._TextAdjustment | None) -> list[str]: ...
+def _trim_zeros_complex(str_complexes: ArrayLike, decimal: str = ...) -> list[str]:
     """
     Separates the real and imaginary parts from the complex number, and
     executes the _trim_zeros_float method on each of those.
@@ -408,7 +325,7 @@ def _trim_zeros_single_float(str_float: str) -> str:
     Trims trailing zeros after a decimal point,
     leaving just one if necessary.
     """
-def _trim_zeros_float(str_floats: ArrayLike | list[str], decimal: str = '.') -> list[str]:
+def _trim_zeros_float(str_floats: ArrayLike | list[str], decimal: str = ...) -> list[str]:
     """
     Trims the maximum number of trailing zeros equally from
     all numbers containing decimals, leaving just one if
@@ -417,15 +334,8 @@ def _trim_zeros_float(str_floats: ArrayLike | list[str], decimal: str = '.') -> 
 def _has_names(index: Index) -> bool: ...
 
 class EngFormatter:
-    """
-    Formats float values according to engineering format.
-
-    Based on matplotlib.ticker.EngFormatter
-    """
-    ENG_PREFIXES: Incomplete
-    accuracy: Incomplete
-    use_eng_prefix: Incomplete
-    def __init__(self, accuracy: int | None = None, use_eng_prefix: bool = False) -> None: ...
+    ENG_PREFIXES: ClassVar[dict] = ...
+    def __init__(self, accuracy: int | None, use_eng_prefix: bool = ...) -> None: ...
     def __call__(self, num: float) -> str:
         '''
         Formats a number in engineering notation, appending a letter
@@ -446,8 +356,7 @@ class EngFormatter:
 
         @return: engineering formatted string
         '''
-
-def set_eng_float_format(accuracy: int = 3, use_eng_prefix: bool = False) -> None:
+def set_eng_float_format(accuracy: int = ..., use_eng_prefix: bool = ...) -> None:
     '''
     Format float representation in DataFrame with SI notation.
 
@@ -502,7 +411,7 @@ def set_eng_float_format(accuracy: int = 3, use_eng_prefix: bool = False) -> Non
 
     >>> pd.set_option("display.float_format", None)  # unset option
     '''
-def get_level_lengths(levels: Any, sentinel: bool | object | str = '') -> list[dict[int, int]]:
+def get_level_lengths(levels: Any, sentinel: bool | object | str = ...) -> list[dict[int, int]]:
     """
     For each index in each level the function returns lengths of indexes.
 

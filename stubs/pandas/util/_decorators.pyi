@@ -1,12 +1,10 @@
-from _typeshed import Incomplete
-from collections.abc import Mapping
 from pandas._libs.properties import cache_readonly as cache_readonly
 from pandas._typing import F, T
 from typing import Any, Callable
 
 __all__ = ['Appender', 'cache_readonly', 'deprecate', 'deprecate_kwarg', 'deprecate_nonkeyword_arguments', 'doc', 'future_version_msg', 'Substitution']
 
-def deprecate(name: str, alternative: Callable[..., Any], version: str, alt_name: str | None = None, klass: type[Warning] | None = None, stacklevel: int = 2, msg: str | None = None) -> Callable[[F], F]:
+def deprecate(name: str, alternative: Callable[..., Any], version: str, alt_name: str | None, klass: type[Warning] | None, stacklevel: int = ..., msg: str | None) -> Callable[[F], F]:
     """
     Return a new function that emits a deprecation warning on use.
 
@@ -32,7 +30,7 @@ def deprecate(name: str, alternative: Callable[..., Any], version: str, alt_name
         The message to display in the warning.
         Default is '{name} is deprecated. Use {alt_name} instead.'
     """
-def deprecate_kwarg(old_arg_name: str, new_arg_name: str | None, mapping: Mapping[Any, Any] | Callable[[Any], Any] | None = None, stacklevel: int = 2) -> Callable[[F], F]:
+def deprecate_kwarg(old_arg_name: str, new_arg_name: str | None, mapping: Mapping[Any, Any] | Callable[[Any], Any] | None, stacklevel: int = ...) -> Callable[[F], F]:
     '''
     Decorator to deprecate a keyword argument of a function.
 
@@ -96,7 +94,7 @@ def deprecate_kwarg(old_arg_name: str, new_arg_name: str | None, mapping: Mappin
     '''
 def future_version_msg(version: str | None) -> str:
     """Specify which version of pandas the deprecation will take place in."""
-def deprecate_nonkeyword_arguments(version: str | None, allowed_args: list[str] | None = None, name: str | None = None) -> Callable[[F], F]:
+def deprecate_nonkeyword_arguments(version: str | None, allowed_args: list[str] | None, name: str | None) -> Callable[[F], F]:
     """
     Decorator to deprecate a use of non-keyword arguments of a function.
 
@@ -140,34 +138,6 @@ def doc(*docstrings: None | str | Callable, **params) -> Callable[[F], F]:
     '''
 
 class Substitution:
-    '''
-    A decorator to take a function\'s docstring and perform string
-    substitution on it.
-
-    This decorator should be robust even if func.__doc__ is None
-    (for example, if -OO was passed to the interpreter)
-
-    Usage: construct a docstring.Substitution with a sequence or
-    dictionary suitable for performing substitution; then
-    decorate a suitable function with the constructed object. e.g.
-
-    sub_author_name = Substitution(author=\'Jason\')
-
-    @sub_author_name
-    def some_function(x):
-        "%(author)s wrote this function"
-
-    # note that some_function.__doc__ is now "Jason wrote this function"
-
-    One can also use positional arguments.
-
-    sub_first_last_names = Substitution(\'Edgar Allen\', \'Poe\')
-
-    @sub_first_last_names
-    def some_function(x):
-        "%s %s wrote the Raven"
-    '''
-    params: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
     def __call__(self, func: F) -> F: ...
     def update(self, *args, **kwargs) -> None:
@@ -176,26 +146,8 @@ class Substitution:
         """
 
 class Appender:
-    '''
-    A function decorator that will append an addendum to the docstring
-    of the target function.
-
-    This decorator should be robust even if func.__doc__ is None
-    (for example, if -OO was passed to the interpreter).
-
-    Usage: construct a docstring.Appender with a string to be joined to
-    the original docstring. An optional \'join\' parameter may be supplied
-    which will be used to join the docstring and addendum. e.g.
-
-    add_copyright = Appender("Copyright (c) 2009", join=\'
-\')
-
-    @add_copyright
-    def my_dog(has=\'fleas\'):
-        "This docstring will have a copyright below"
-        pass
-    '''
-    addendum: str | None
-    join: Incomplete
-    def __init__(self, addendum: str | None, join: str = '', indents: int = 0) -> None: ...
+    def __init__(self, addendum: str | None, join: str = ..., indents: int = ...) -> None: ...
     def __call__(self, func: T) -> T: ...
+
+# Names in __all__ with no definition:
+#   cache_readonly

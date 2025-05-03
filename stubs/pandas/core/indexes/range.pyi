@@ -1,89 +1,43 @@
-import numpy as np
+import np
+import npt
+import numpy.dtypes
+import pandas._libs.index as libindex
+import pandas._libs.lib as lib
+import pandas.compat.numpy.function as nv
+import pandas.core.common as com
+import pandas.core.indexes.base
+import pandas.core.indexes.base as ibase
+import pandas.core.ops as ops
 from _typeshed import Incomplete
 from collections.abc import Hashable, Iterator
-from pandas._libs import index as libindex, lib as lib
-from pandas._libs.algos import unique_deltas as unique_deltas
-from pandas._libs.lib import no_default as no_default
-from pandas._typing import Axis as Axis, Dtype as Dtype, NaPosition as NaPosition, Self as Self, npt as npt
-from pandas.core import ops as ops
+from pandas._libs.algos import ensure_platform_int as ensure_platform_int, unique_deltas as unique_deltas
+from pandas._libs.lib import is_float as is_float, is_integer as is_integer, is_scalar as is_scalar, no_default as no_default
+from pandas._libs.properties import cache_readonly as cache_readonly
 from pandas.core.construction import extract_array as extract_array
-from pandas.core.dtypes.common import ensure_platform_int as ensure_platform_int, ensure_python_int as ensure_python_int, is_float as is_float, is_integer as is_integer, is_scalar as is_scalar, is_signed_integer_dtype as is_signed_integer_dtype
+from pandas.core.dtypes.common import ensure_python_int as ensure_python_int, is_signed_integer_dtype as is_signed_integer_dtype
 from pandas.core.dtypes.generic import ABCTimedeltaIndex as ABCTimedeltaIndex
 from pandas.core.indexes.base import Index as Index, maybe_extract_name as maybe_extract_name
 from pandas.core.ops.common import unpack_zerodim_and_defer as unpack_zerodim_and_defer
-from pandas.util._decorators import cache_readonly as cache_readonly, deprecate_nonkeyword_arguments as deprecate_nonkeyword_arguments, doc as doc
-from typing import Any, Callable, Literal, overload
+from pandas.util._decorators import deprecate_nonkeyword_arguments as deprecate_nonkeyword_arguments, doc as doc
+from typing import Any, Callable, ClassVar
 
-_empty_range: Incomplete
-_dtype_int64: Incomplete
+TYPE_CHECKING: bool
+_empty_range: range
+_dtype_int64: numpy.dtypes.Int64DType
 
-class RangeIndex(Index):
-    '''
-    Immutable Index implementing a monotonic integer range.
-
-    RangeIndex is a memory-saving special case of an Index limited to representing
-    monotonic ranges with a 64-bit dtype. Using RangeIndex may in some instances
-    improve computing speed.
-
-    This is the default index type used
-    by DataFrame and Series when no explicit index is provided by the user.
-
-    Parameters
-    ----------
-    start : int (default: 0), range, or other RangeIndex instance
-        If int and "stop" is not given, interpreted as "stop" instead.
-    stop : int (default: 0)
-    step : int (default: 1)
-    dtype : np.int64
-        Unused, accepted for homogeneity with other index types.
-    copy : bool, default False
-        Unused, accepted for homogeneity with other index types.
-    name : object, optional
-        Name to be stored in the index.
-
-    Attributes
-    ----------
-    start
-    stop
-    step
-
-    Methods
-    -------
-    from_range
-
-    See Also
-    --------
-    Index : The base pandas Index type.
-
-    Examples
-    --------
-    >>> list(pd.RangeIndex(5))
-    [0, 1, 2, 3, 4]
-
-    >>> list(pd.RangeIndex(-2, 4))
-    [-2, -1, 0, 1, 2, 3]
-
-    >>> list(pd.RangeIndex(0, 10, 2))
-    [0, 2, 4, 6, 8]
-
-    >>> list(pd.RangeIndex(2, -10, -3))
-    [2, -1, -4, -7]
-
-    >>> list(pd.RangeIndex(0))
-    []
-
-    >>> list(pd.RangeIndex(1, 0))
-    []
-    '''
-    _typ: str
-    _dtype_validation_metadata: Incomplete
-    _range: range
-    _values: np.ndarray
-    @property
-    def _engine_type(self) -> type[libindex.Int64Engine]: ...
-    def __new__(cls, start: Incomplete | None = None, stop: Incomplete | None = None, step: Incomplete | None = None, dtype: Dtype | None = None, copy: bool = False, name: Hashable | None = None) -> Self: ...
+class RangeIndex(pandas.core.indexes.base.Index):
+    _typ: ClassVar[str] = ...
+    _dtype_validation_metadata: ClassVar[tuple] = ...
+    _constructor: Incomplete
+    _data: Incomplete
+    nbytes: Incomplete
+    is_monotonic_increasing: Incomplete
+    is_monotonic_decreasing: Incomplete
+    _should_fallback_to_positional: Incomplete
     @classmethod
-    def from_range(cls, data: range, name: Incomplete | None = None, dtype: Dtype | None = None) -> Self:
+    def __init__(cls, start, stop, step, dtype: Dtype | None, copy: bool = ..., name: Hashable | None) -> Self: ...
+    @classmethod
+    def from_range(cls, data: range, name, dtype: Dtype | None) -> Self:
         """
         Create :class:`pandas.RangeIndex` from a ``range`` object.
 
@@ -100,17 +54,9 @@ class RangeIndex(Index):
         RangeIndex(start=2, stop=-10, step=-3)
         """
     @classmethod
-    def _simple_new(cls, values: range, name: Hashable | None = None) -> Self: ...
+    def _simple_new(cls, values: range, name: Hashable | None) -> Self: ...
     @classmethod
     def _validate_dtype(cls, dtype: Dtype | None) -> None: ...
-    def _constructor(self) -> type[Index]:
-        """return the class to use for construction"""
-    def _data(self) -> np.ndarray:
-        """
-        An int array that for performance reasons is created only when needed.
-
-        The constructed array is saved in ``_cache``.
-        """
     def _get_data_as_items(self) -> list[tuple[str, int]]:
         """return a list of tuples of start, stop, step"""
     def __reduce__(self): ...
@@ -119,63 +65,7 @@ class RangeIndex(Index):
         Return a list of tuples of the (attr, formatted_value)
         """
     def _format_with_header(self, *, header: list[str], na_rep: str) -> list[str]: ...
-    @property
-    def start(self) -> int:
-        """
-        The value of the `start` parameter (``0`` if this was not supplied).
-
-        Examples
-        --------
-        >>> idx = pd.RangeIndex(5)
-        >>> idx.start
-        0
-
-        >>> idx = pd.RangeIndex(2, -10, -3)
-        >>> idx.start
-        2
-        """
-    @property
-    def stop(self) -> int:
-        """
-        The value of the `stop` parameter.
-
-        Examples
-        --------
-        >>> idx = pd.RangeIndex(5)
-        >>> idx.stop
-        5
-
-        >>> idx = pd.RangeIndex(2, -10, -3)
-        >>> idx.stop
-        -10
-        """
-    @property
-    def step(self) -> int:
-        """
-        The value of the `step` parameter (``1`` if this was not supplied).
-
-        Examples
-        --------
-        >>> idx = pd.RangeIndex(5)
-        >>> idx.step
-        1
-
-        >>> idx = pd.RangeIndex(2, -10, -3)
-        >>> idx.step
-        -3
-
-        Even if :class:`pandas.RangeIndex` is empty, ``step`` is still ``1`` if
-        not supplied.
-
-        >>> idx = pd.RangeIndex(1, 0)
-        >>> idx.step
-        1
-        """
-    def nbytes(self) -> int:
-        """
-        Return the number of bytes in the underlying data.
-        """
-    def memory_usage(self, deep: bool = False) -> int:
+    def memory_usage(self, deep: bool = ...) -> int:
         """
         Memory usage of my values
 
@@ -198,31 +88,103 @@ class RangeIndex(Index):
         --------
         numpy.ndarray.nbytes
         """
-    @property
-    def dtype(self) -> np.dtype: ...
-    @property
-    def is_unique(self) -> bool:
-        """return if the index has unique values"""
-    def is_monotonic_increasing(self) -> bool: ...
-    def is_monotonic_decreasing(self) -> bool: ...
     def __contains__(self, key: Any) -> bool: ...
-    @property
-    def inferred_type(self) -> str: ...
-    def get_loc(self, key) -> int: ...
-    def _get_indexer(self, target: Index, method: str | None = None, limit: int | None = None, tolerance: Incomplete | None = None) -> npt.NDArray[np.intp]: ...
-    def _should_fallback_to_positional(self) -> bool:
+    def get_loc(self, key) -> int:
         """
-        Should an integer key be treated as positional?
+        Get integer location, slice or boolean mask for requested label.
+
+        Parameters
+        ----------
+        key : label
+
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+
+        Examples
+        --------
+        >>> unique_index = pd.Index(list('abc'))
+        >>> unique_index.get_loc('b')
+        1
+
+        >>> monotonic_index = pd.Index(list('abbc'))
+        >>> monotonic_index.get_loc('b')
+        slice(1, 3, None)
+
+        >>> non_monotonic_index = pd.Index(list('abcb'))
+        >>> non_monotonic_index.get_loc('b')
+        array([False,  True, False,  True])
         """
+    def _get_indexer(self, target: Index, method: str | None, limit: int | None, tolerance) -> npt.NDArray[np.intp]: ...
     def tolist(self) -> list[int]: ...
-    def __iter__(self) -> Iterator[int]: ...
-    def _shallow_copy(self, values, name: Hashable = ...): ...
+    def __iter__(self) -> Iterator[int]:
+        """
+        Return an iterator of the values.
+
+        These are each a scalar type, which is a Python scalar
+        (for str, int, float) or a pandas scalar
+        (for Timestamp/Timedelta/Interval/Period)
+
+        Returns
+        -------
+        iterator
+
+        Examples
+        --------
+        >>> s = pd.Series([1, 2, 3])
+        >>> for x in s:
+        ...     print(x)
+        1
+        2
+        3
+        """
+    def _shallow_copy(self, values, name: Hashable = ...):
+        """
+        Create a new Index with the same class as the caller, don't copy the
+        data, use the same object attributes with passed in attributes taking
+        precedence.
+
+        *this is an internal non-public method*
+
+        Parameters
+        ----------
+        values : the values to create the new Index, optional
+        name : Label, defaults to self.name
+        """
     def _view(self) -> Self: ...
-    def copy(self, name: Hashable | None = None, deep: bool = False) -> Self: ...
+    def copy(self, name: Hashable | None, deep: bool = ...) -> Self:
+        """
+        Make a copy of this object.
+
+        Name is set on the new object.
+
+        Parameters
+        ----------
+        name : Label, optional
+            Set name for new object.
+        deep : bool, default False
+
+        Returns
+        -------
+        Index
+            Index refer to new object which is a copy of this object.
+
+        Notes
+        -----
+        In most cases, there should be no functional difference from using
+        ``deep``, but if ``deep`` is passed it will attempt to deepcopy.
+
+        Examples
+        --------
+        >>> idx = pd.Index(['a', 'b', 'c'])
+        >>> new_idx = idx.copy()
+        >>> idx is new_idx
+        False
+        """
     def _minmax(self, meth: str): ...
-    def min(self, axis: Incomplete | None = None, skipna: bool = True, *args, **kwargs) -> int:
+    def min(self, axis, skipna: bool = ..., *args, **kwargs) -> int:
         """The minimum value of the RangeIndex"""
-    def max(self, axis: Incomplete | None = None, skipna: bool = True, *args, **kwargs) -> int:
+    def max(self, axis, skipna: bool = ..., *args, **kwargs) -> int:
         """The maximum value of the RangeIndex"""
     def argsort(self, *args, **kwargs) -> npt.NDArray[np.intp]:
         """
@@ -237,18 +199,13 @@ class RangeIndex(Index):
         --------
         numpy.ndarray.argsort
         """
-    def factorize(self, sort: bool = False, use_na_sentinel: bool = True) -> tuple[npt.NDArray[np.intp], RangeIndex]: ...
+    def factorize(self, sort: bool = ..., use_na_sentinel: bool = ...) -> tuple[npt.NDArray[np.intp], RangeIndex]: ...
     def equals(self, other: object) -> bool:
         """
         Determines if two Index objects contain the same elements.
         """
-    @overload
-    def sort_values(self, *, return_indexer: Literal[False] = ..., ascending: bool = ..., na_position: NaPosition = ..., key: Callable | None = ...) -> Self: ...
-    @overload
-    def sort_values(self, *, return_indexer: Literal[True], ascending: bool = ..., na_position: NaPosition = ..., key: Callable | None = ...) -> tuple[Self, np.ndarray | RangeIndex]: ...
-    @overload
-    def sort_values(self, *, return_indexer: bool = ..., ascending: bool = ..., na_position: NaPosition = ..., key: Callable | None = ...) -> Self | tuple[Self, np.ndarray | RangeIndex]: ...
-    def _intersection(self, other: Index, sort: bool = False): ...
+    def sort_values(self, *, return_indexer: bool = ..., ascending: bool = ..., na_position: NaPosition = ..., key: Callable | None) -> Self | tuple[Self, np.ndarray | RangeIndex]: ...
+    def _intersection(self, other: Index, sort: bool = ...): ...
     def _min_fitting_element(self, lower_limit: int) -> int:
         """Returns the smallest element greater than or equal to the limit"""
     def _extended_gcd(self, a: int, b: int) -> tuple[int, int, int]:
@@ -280,8 +237,8 @@ class RangeIndex(Index):
         -------
         union : Index
         """
-    def _difference(self, other, sort: Incomplete | None = None): ...
-    def symmetric_difference(self, other, result_name: Hashable | None = None, sort: Incomplete | None = None): ...
+    def _difference(self, other, sort): ...
+    def symmetric_difference(self, other, result_name: Hashable | None, sort): ...
     def delete(self, loc) -> Index: ...
     def insert(self, loc: int, item) -> Index: ...
     def _concat(self, indexes: list[Index], name: Hashable) -> Index:
@@ -297,8 +254,6 @@ class RangeIndex(Index):
         """
         return the length of the RangeIndex
         """
-    @property
-    def size(self) -> int: ...
     def __getitem__(self, key):
         """
         Conserve RangeIndex type for scalar and slice keys.
@@ -319,4 +274,20 @@ class RangeIndex(Index):
         op : callable that accepts 2 params
             perform the binary op
         """
-    def take(self, indices, axis: Axis = 0, allow_fill: bool = True, fill_value: Incomplete | None = None, **kwargs) -> Index: ...
+    def take(self, indices, axis: Axis = ..., allow_fill: bool = ..., fill_value, **kwargs) -> Index: ...
+    @property
+    def _engine_type(self): ...
+    @property
+    def start(self): ...
+    @property
+    def stop(self): ...
+    @property
+    def step(self): ...
+    @property
+    def dtype(self): ...
+    @property
+    def is_unique(self): ...
+    @property
+    def inferred_type(self): ...
+    @property
+    def size(self): ...

@@ -1,33 +1,25 @@
-import pyarrow.compute as pc
-from _typeshed import Incomplete
-from abc import ABCMeta, abstractmethod
-from collections.abc import Iterator
-from pandas import DataFrame as DataFrame, Series as Series
-from pandas.compat import pa_version_under10p1 as pa_version_under10p1, pa_version_under11p0 as pa_version_under11p0
-from pandas.core.dtypes.common import is_list_like as is_list_like
-from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype
+import _abc
+import pc
+from pandas._libs.lib import is_list_like as is_list_like
+from typing import ClassVar
 
-class ArrowAccessor(metaclass=ABCMeta):
-    _data: Incomplete
-    _validation_msg: Incomplete
-    @abstractmethod
-    def __init__(self, data, validation_msg: str): ...
-    @abstractmethod
+TYPE_CHECKING: bool
+pa_version_under10p1: bool
+pa_version_under11p0: bool
+
+class ArrowAccessor:
+    __abstractmethods__: ClassVar[frozenset] = ...
+    _abc_impl: ClassVar[_abc._abc_data] = ...
+    def __init__(self, data, validation_msg: str) -> None: ...
     def _is_valid_pyarrow_dtype(self, pyarrow_dtype) -> bool: ...
-    def _validate(self, data) -> None: ...
+    def _validate(self, data): ...
     @property
     def _pa_array(self): ...
 
 class ListAccessor(ArrowAccessor):
-    """
-    Accessor object for list data properties of the Series values.
-
-    Parameters
-    ----------
-    data : Series
-        Series containing Arrow list data.
-    """
-    def __init__(self, data: Incomplete | None = None) -> None: ...
+    __abstractmethods__: ClassVar[frozenset] = ...
+    _abc_impl: ClassVar[_abc._abc_data] = ...
+    def __init__(self, data) -> None: ...
     def _is_valid_pyarrow_dtype(self, pyarrow_dtype) -> bool: ...
     def len(self) -> Series:
         """
@@ -117,44 +109,10 @@ class ListAccessor(ArrowAccessor):
         """
 
 class StructAccessor(ArrowAccessor):
-    """
-    Accessor object for structured data properties of the Series values.
-
-    Parameters
-    ----------
-    data : Series
-        Series containing Arrow struct data.
-    """
-    def __init__(self, data: Incomplete | None = None) -> None: ...
+    __abstractmethods__: ClassVar[frozenset] = ...
+    _abc_impl: ClassVar[_abc._abc_data] = ...
+    def __init__(self, data) -> None: ...
     def _is_valid_pyarrow_dtype(self, pyarrow_dtype) -> bool: ...
-    @property
-    def dtypes(self) -> Series:
-        '''
-        Return the dtype object of each child field of the struct.
-
-        Returns
-        -------
-        pandas.Series
-            The data type of each child field.
-
-        Examples
-        --------
-        >>> import pyarrow as pa
-        >>> s = pd.Series(
-        ...     [
-        ...         {"version": 1, "project": "pandas"},
-        ...         {"version": 2, "project": "pandas"},
-        ...         {"version": 1, "project": "numpy"},
-        ...     ],
-        ...     dtype=pd.ArrowDtype(pa.struct(
-        ...         [("version", pa.int64()), ("project", pa.string())]
-        ...     ))
-        ... )
-        >>> s.struct.dtypes
-        version     int64[pyarrow]
-        project    string[pyarrow]
-        dtype: object
-        '''
     def field(self, name_or_index: list[str] | list[bytes] | list[int] | pc.Expression | bytes | str | int) -> Series:
         '''
         Extract a child field of a struct as a Series.
@@ -289,3 +247,5 @@ class StructAccessor(ArrowAccessor):
         1        2  pandas
         2        1   numpy
         '''
+    @property
+    def dtypes(self): ...

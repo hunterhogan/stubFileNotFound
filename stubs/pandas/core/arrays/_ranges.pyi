@@ -1,9 +1,14 @@
-import numpy as np
-from pandas._libs.lib import i8max as i8max
-from pandas._libs.tslibs import BaseOffset as BaseOffset, OutOfBoundsDatetime as OutOfBoundsDatetime, Timedelta as Timedelta, Timestamp as Timestamp, iNaT as iNaT
-from pandas._typing import npt as npt
+import np
+import npt
+from pandas._libs.tslibs.np_datetime import OutOfBoundsDatetime as OutOfBoundsDatetime
+from pandas._libs.tslibs.offsets import BaseOffset as BaseOffset
+from pandas._libs.tslibs.timedeltas import Timedelta as Timedelta
+from pandas._libs.tslibs.timestamps import Timestamp as Timestamp
 
-def generate_regular_range(start: Timestamp | Timedelta | None, end: Timestamp | Timedelta | None, periods: int | None, freq: BaseOffset, unit: str = 'ns') -> npt.NDArray[np.intp]:
+TYPE_CHECKING: bool
+i8max: int
+iNaT: int
+def generate_regular_range(start: Timestamp | Timedelta | None, end: Timestamp | Timedelta | None, periods: int | None, freq: BaseOffset, unit: str = ...) -> npt.NDArray[np.intp]:
     '''
     Generate a range of dates or timestamps with the spans between dates
     described by the given `freq` DateOffset.
@@ -26,7 +31,7 @@ def generate_regular_range(start: Timestamp | Timedelta | None, end: Timestamp |
     ndarray[np.int64]
         Representing the given resolution.
     '''
-def _generate_range_overflow_safe(endpoint: int, periods: int, stride: int, side: str = 'start') -> int:
+def _generate_range_overflow_safe(endpoint: int, periods: int, stride: int, side: str = ...) -> int:
     """
     Calculate the second endpoint for passing to np.arange, checking
     to avoid an integer overflow.  Catch OverflowError and re-raise

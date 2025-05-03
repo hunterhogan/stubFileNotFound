@@ -1,15 +1,15 @@
-import numpy as np
-from pandas._typing import ArrayLike as ArrayLike, npt as npt
-from pandas.core.arrays import IntervalArray as IntervalArray
-from pandas.core.arrays._mixins import NDArrayBackedExtensionArray as NDArrayBackedExtensionArray
+import np
+import pandas.core.indexes.base
+import typing
+from _typeshed import Incomplete
+from pandas._libs.properties import cache_readonly as cache_readonly
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame
 from pandas.core.indexes.base import Index as Index
-from pandas.util._decorators import cache_readonly as cache_readonly
-from typing import Callable, TypeVar
+from typing import Callable
 
-_ExtensionIndexT = TypeVar('_ExtensionIndexT', bound='ExtensionIndex')
-
-def _inherit_from_data(name: str, delegate: type, cache: bool = False, wrap: bool = False):
+TYPE_CHECKING: bool
+_ExtensionIndexT: typing.TypeVar
+def _inherit_from_data(name: str, delegate: type, cache: bool = ..., wrap: bool = ...):
     """
     Make an alias for a method of the underlying ExtensionArray.
 
@@ -27,7 +27,7 @@ def _inherit_from_data(name: str, delegate: type, cache: bool = False, wrap: boo
     -------
     attribute, method, property, or cache_readonly
     """
-def inherit_names(names: list[str], delegate: type, cache: bool = False, wrap: bool = False) -> Callable[[type[_ExtensionIndexT]], type[_ExtensionIndexT]]:
+def inherit_names(names: list[str], delegate: type, cache: bool = ..., wrap: bool = ...) -> Callable[[type[_ExtensionIndexT]], type[_ExtensionIndexT]]:
     """
     Class decorator to pin attributes from an ExtensionArray to a Index subclass.
 
@@ -40,21 +40,13 @@ def inherit_names(names: list[str], delegate: type, cache: bool = False, wrap: b
         Whether to wrap the inherited result in an Index.
     """
 
-class ExtensionIndex(Index):
-    """
-    Index subclass for indexes backed by ExtensionArray.
-    """
-    _data: IntervalArray | NDArrayBackedExtensionArray
+class ExtensionIndex(pandas.core.indexes.base.Index):
+    _isnan: Incomplete
     def _validate_fill_value(self, value):
         """
         Convert value to be insertable to underlying array.
         """
-    def _isnan(self) -> npt.NDArray[np.bool_]: ...
 
 class NDArrayBackedExtensionIndex(ExtensionIndex):
-    """
-    Index subclass for indexes backed by NDArrayBackedExtensionArray.
-    """
-    _data: NDArrayBackedExtensionArray
     def _get_engine_target(self) -> np.ndarray: ...
     def _from_join_target(self, result: np.ndarray) -> ArrayLike: ...

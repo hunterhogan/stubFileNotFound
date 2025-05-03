@@ -1,6 +1,6 @@
 __all__ = ['test']
 
-def test(extra_args: list[str] | None = None, run_doctests: bool = False) -> None:
+def test(extra_args: list[str] | None, run_doctests: bool = ...) -> None:
     '''
     Run the pandas test suite using pytest.
 

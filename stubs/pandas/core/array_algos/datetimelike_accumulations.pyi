@@ -1,9 +1,9 @@
-import numpy as np
-from pandas._libs import iNaT as iNaT
+import np
 from pandas.core.dtypes.missing import isna as isna
 from typing import Callable
 
-def _cum_func(func: Callable, values: np.ndarray, *, skipna: bool = True):
+iNaT: int
+def _cum_func(func: Callable, values: np.ndarray, *, skipna: bool = ...):
     """
     Accumulations for 1D datetimelike arrays.
 
@@ -16,6 +16,6 @@ def _cum_func(func: Callable, values: np.ndarray, *, skipna: bool = True):
     skipna : bool, default True
         Whether to skip NA.
     """
-def cumsum(values: np.ndarray, *, skipna: bool = True) -> np.ndarray: ...
-def cummin(values: np.ndarray, *, skipna: bool = True): ...
-def cummax(values: np.ndarray, *, skipna: bool = True): ...
+def cumsum(values: np.ndarray, *, skipna: bool = ...) -> np.ndarray: ...
+def cummin(values: np.ndarray, *, skipna: bool = ...): ...
+def cummax(values: np.ndarray, *, skipna: bool = ...): ...

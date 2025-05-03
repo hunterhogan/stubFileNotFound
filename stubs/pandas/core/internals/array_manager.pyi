@@ -1,55 +1,41 @@
-import numpy as np
+import np
+import npt
+import pandas._libs.lib as lib
+import pandas.core.algorithms as algos
+import pandas.core.internals.base
 from _typeshed import Incomplete
-from collections.abc import Hashable
-from pandas._libs import NaT as NaT, lib as lib
-from pandas._typing import ArrayLike as ArrayLike, AxisInt as AxisInt, DtypeObj as DtypeObj, QuantileInterpolation as QuantileInterpolation, Self as Self, npt as npt
+from pandas._libs.algos import ensure_platform_int as ensure_platform_int
+from pandas._libs.internals import BlockPlacement as BlockPlacement
+from pandas._libs.lib import is_integer as is_integer
+from pandas._libs.tslibs.nattype import NaT as NaT
 from pandas.core.array_algos.quantile import quantile_compat as quantile_compat
 from pandas.core.array_algos.take import take_1d as take_1d
-from pandas.core.arrays import DatetimeArray as DatetimeArray, ExtensionArray as ExtensionArray, NumpyExtensionArray as NumpyExtensionArray, TimedeltaArray as TimedeltaArray
+from pandas.core.arrays.base import ExtensionArray as ExtensionArray
+from pandas.core.arrays.datetimes import DatetimeArray as DatetimeArray
+from pandas.core.arrays.numpy_ import NumpyExtensionArray as NumpyExtensionArray
+from pandas.core.arrays.timedeltas import TimedeltaArray as TimedeltaArray
 from pandas.core.construction import ensure_wrapped_if_datetimelike as ensure_wrapped_if_datetimelike, extract_array as extract_array, sanitize_array as sanitize_array
 from pandas.core.dtypes.astype import astype_array as astype_array, astype_array_safe as astype_array_safe
+from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.cast import ensure_dtype_can_hold_na as ensure_dtype_can_hold_na, find_common_type as find_common_type, infer_dtype_from_scalar as infer_dtype_from_scalar, np_find_common_type as np_find_common_type
-from pandas.core.dtypes.common import ensure_platform_int as ensure_platform_int, is_datetime64_ns_dtype as is_datetime64_ns_dtype, is_integer as is_integer, is_numeric_dtype as is_numeric_dtype, is_object_dtype as is_object_dtype, is_timedelta64_ns_dtype as is_timedelta64_ns_dtype
-from pandas.core.dtypes.dtypes import ExtensionDtype as ExtensionDtype
+from pandas.core.dtypes.common import is_datetime64_ns_dtype as is_datetime64_ns_dtype, is_numeric_dtype as is_numeric_dtype, is_object_dtype as is_object_dtype, is_timedelta64_ns_dtype as is_timedelta64_ns_dtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCSeries as ABCSeries
 from pandas.core.dtypes.missing import array_equals as array_equals, isna as isna, na_value_for_dtype as na_value_for_dtype
-from pandas.core.indexers import maybe_convert_indices as maybe_convert_indices, validate_indices as validate_indices
-from pandas.core.indexes.api import Index as Index, ensure_index as ensure_index
-from pandas.core.indexes.base import get_values_for_csv as get_values_for_csv
+from pandas.core.indexers.utils import maybe_convert_indices as maybe_convert_indices, validate_indices as validate_indices
+from pandas.core.indexes.base import Index as Index, ensure_index as ensure_index, get_values_for_csv as get_values_for_csv
 from pandas.core.internals.base import DataManager as DataManager, SingleDataManager as SingleDataManager, ensure_np_dtype as ensure_np_dtype, interleaved_dtype as interleaved_dtype
-from pandas.core.internals.blocks import BlockPlacement as BlockPlacement, ensure_block_shape as ensure_block_shape, external_values as external_values, extract_pandas_array as extract_pandas_array, maybe_coerce_values as maybe_coerce_values, new_block as new_block
+from pandas.core.internals.blocks import ensure_block_shape as ensure_block_shape, external_values as external_values, extract_pandas_array as extract_pandas_array, maybe_coerce_values as maybe_coerce_values, new_block as new_block
 from pandas.core.internals.managers import make_na_array as make_na_array
-from typing import Callable, Literal
+from typing import Callable, ClassVar, Literal
 
-class BaseArrayManager(DataManager):
-    """
-    Core internal data structure to implement DataFrame and Series.
+TYPE_CHECKING: bool
 
-    Alternative to the BlockManager, storing a list of 1D arrays instead of
-    Blocks.
-
-    This is *not* a public API class
-
-    Parameters
-    ----------
-    arrays : Sequence of arrays
-    axes : Sequence of Index
-    verify_integrity : bool, default True
-
-    """
-    __slots__: Incomplete
-    arrays: list[np.ndarray | ExtensionArray]
-    _axes: list[Index]
-    def __init__(self, arrays: list[np.ndarray | ExtensionArray], axes: list[Index], verify_integrity: bool = True) -> None: ...
-    def make_empty(self, axes: Incomplete | None = None) -> Self:
+class BaseArrayManager(pandas.core.internals.base.DataManager):
+    _axes: Incomplete
+    arrays: Incomplete
+    def __init__(self, arrays: list[np.ndarray | ExtensionArray], axes: list[Index], verify_integrity: bool = ...) -> None: ...
+    def make_empty(self, axes) -> Self:
         """Return an empty ArrayManager with the items axis of len 0 (no columns)"""
-    @property
-    def items(self) -> Index: ...
-    @property
-    def axes(self) -> list[Index]:
-        """Axes is BlockManager-compatible order (columns, rows)"""
-    @property
-    def shape_proper(self) -> tuple[int, ...]: ...
     @staticmethod
     def _normalize_axis(axis: AxisInt) -> int: ...
     def set_axis(self, axis: AxisInt, new_labels: Index) -> None: ...
@@ -58,10 +44,7 @@ class BaseArrayManager(DataManager):
         """
         Only implemented on the BlockManager level
         """
-    def __getstate__(self): ...
-    def __setstate__(self, state) -> None: ...
-    def __repr__(self) -> str: ...
-    def apply(self, f, align_keys: list[str] | None = None, **kwargs) -> Self:
+    def apply(self, f, align_keys: list[str] | None, **kwargs) -> Self:
         """
         Iterate over the arrays, collect and create a new ArrayManager.
 
@@ -77,22 +60,14 @@ class BaseArrayManager(DataManager):
         -------
         ArrayManager
         """
-    def apply_with_block(self, f, align_keys: Incomplete | None = None, **kwargs) -> Self: ...
-    def setitem(self, indexer, value, warn: bool = True) -> Self: ...
+    def apply_with_block(self, f, align_keys, **kwargs) -> Self: ...
+    def setitem(self, indexer, value, warn: bool = ...) -> Self: ...
     def diff(self, n: int) -> Self: ...
-    def astype(self, dtype, copy: bool | None = False, errors: str = 'raise') -> Self: ...
+    def astype(self, dtype, copy: bool | None = ..., errors: str = ...) -> Self: ...
     def convert(self, copy: bool | None) -> Self: ...
-    def get_values_for_csv(self, *, float_format, date_format, decimal, na_rep: str = 'nan', quoting: Incomplete | None = None) -> Self: ...
-    @property
-    def any_extension_types(self) -> bool:
-        """Whether any of the blocks in this manager are extension blocks"""
-    @property
-    def is_view(self) -> bool:
-        """return a boolean if we are a single block and are a view"""
-    @property
-    def is_single_block(self) -> bool: ...
+    def get_values_for_csv(self, *, float_format, date_format, decimal, na_rep: str = ..., quoting) -> Self: ...
     def _get_data_subset(self, predicate: Callable) -> Self: ...
-    def get_bool_data(self, copy: bool = False) -> Self:
+    def get_bool_data(self, copy: bool = ...) -> Self:
         """
         Select columns that are bool-dtype and object-dtype columns that are all-bool.
 
@@ -101,7 +76,7 @@ class BaseArrayManager(DataManager):
         copy : bool, default False
             Whether to copy the blocks
         """
-    def get_numeric_data(self, copy: bool = False) -> Self:
+    def get_numeric_data(self, copy: bool = ...) -> Self:
         """
         Select columns that have a numeric dtype.
 
@@ -110,7 +85,7 @@ class BaseArrayManager(DataManager):
         copy : bool, default False
             Whether to copy the blocks
         """
-    def copy(self, deep: bool | Literal['all'] | None = True) -> Self:
+    def copy(self, deep: bool | Literal['all'] | None = ...) -> Self:
         """
         Make deep or shallow copy of ArrayManager
 
@@ -124,8 +99,8 @@ class BaseArrayManager(DataManager):
         -------
         BlockManager
         """
-    def reindex_indexer(self, new_axis, indexer, axis: AxisInt, fill_value: Incomplete | None = None, allow_dups: bool = False, copy: bool | None = True, only_slice: bool = False, use_na_proxy: bool = False) -> Self: ...
-    def _reindex_indexer(self, new_axis, indexer: npt.NDArray[np.intp] | None, axis: AxisInt, fill_value: Incomplete | None = None, allow_dups: bool = False, copy: bool | None = True, use_na_proxy: bool = False) -> Self:
+    def reindex_indexer(self, new_axis, indexer, axis: AxisInt, fill_value, allow_dups: bool = ..., copy: bool | None = ..., only_slice: bool = ..., use_na_proxy: bool = ...) -> Self: ...
+    def _reindex_indexer(self, new_axis, indexer: npt.NDArray[np.intp] | None, axis: AxisInt, fill_value, allow_dups: bool = ..., copy: bool | None = ..., use_na_proxy: bool = ...) -> Self:
         """
         Parameters
         ----------
@@ -139,23 +114,31 @@ class BaseArrayManager(DataManager):
 
         pandas-indexer with -1's only.
         """
-    def take(self, indexer: npt.NDArray[np.intp], axis: AxisInt = 1, verify: bool = True) -> Self:
+    def take(self, indexer: npt.NDArray[np.intp], axis: AxisInt = ..., verify: bool = ...) -> Self:
         """
         Take items along any axis.
         """
-    def _make_na_array(self, fill_value: Incomplete | None = None, use_na_proxy: bool = False): ...
+    def _make_na_array(self, fill_value, use_na_proxy: bool = ...): ...
     def _equal_values(self, other) -> bool:
         """
         Used in .equals defined in base class. Only check the column values
         assuming shape and indexes have already been checked.
         """
+    @property
+    def items(self): ...
+    @property
+    def axes(self): ...
+    @property
+    def shape_proper(self): ...
+    @property
+    def any_extension_types(self): ...
+    @property
+    def is_view(self): ...
+    @property
+    def is_single_block(self): ...
 
 class ArrayManager(BaseArrayManager):
-    @property
-    def ndim(self) -> Literal[2]: ...
-    _axes: Incomplete
-    arrays: Incomplete
-    def __init__(self, arrays: list[np.ndarray | ExtensionArray], axes: list[Index], verify_integrity: bool = True) -> None: ...
+    def __init__(self, arrays: list[np.ndarray | ExtensionArray], axes: list[Index], verify_integrity: bool = ...) -> None: ...
     def _verify_integrity(self) -> None: ...
     def fast_xs(self, loc: int) -> SingleArrayManager:
         """
@@ -169,7 +152,7 @@ class ArrayManager(BaseArrayManager):
         -------
         np.ndarray or ExtensionArray
         """
-    def get_slice(self, slobj: slice, axis: AxisInt = 0) -> ArrayManager: ...
+    def get_slice(self, slobj: slice, axis: AxisInt = ...) -> ArrayManager: ...
     def iget(self, i: int) -> SingleArrayManager:
         """
         Return the data as a SingleArrayManager.
@@ -178,12 +161,7 @@ class ArrayManager(BaseArrayManager):
         """
         Return the data for column i as the values (ndarray or ExtensionArray).
         """
-    @property
-    def column_arrays(self) -> list[ArrayLike]:
-        """
-        Used in the JSON C code to access column arrays.
-        """
-    def iset(self, loc: int | slice | np.ndarray, value: ArrayLike, inplace: bool = False, refs: Incomplete | None = None) -> None:
+    def iset(self, loc: int | slice | np.ndarray, value: ArrayLike, inplace: bool = ..., refs) -> None:
         """
         Set new column(s).
 
@@ -198,14 +176,14 @@ class ArrayManager(BaseArrayManager):
         inplace : bool, default False
             Whether overwrite existing array as opposed to replacing it.
         """
-    def column_setitem(self, loc: int, idx: int | slice | np.ndarray, value, inplace_only: bool = False) -> None:
+    def column_setitem(self, loc: int, idx: int | slice | np.ndarray, value, inplace_only: bool = ...) -> None:
         '''
         Set values ("setitem") into a single column (not setting the full column).
 
         This is a method on the ArrayManager level, to avoid creating an
         intermediate Series at the DataFrame level (`s = df[loc]; s[idx] = value`)
         '''
-    def insert(self, loc: int, item: Hashable, value: ArrayLike, refs: Incomplete | None = None) -> None:
+    def insert(self, loc: int, item: Hashable, value: ArrayLike, refs) -> None:
         """
         Insert item at selected position.
 
@@ -247,7 +225,7 @@ class ArrayManager(BaseArrayManager):
         """
         Apply array_op blockwise with another (aligned) BlockManager.
         """
-    def quantile(self, *, qs: Index, transposed: bool = False, interpolation: QuantileInterpolation = 'linear') -> ArrayManager: ...
+    def quantile(self, *, qs: Index, transposed: bool = ..., interpolation: QuantileInterpolation = ...) -> ArrayManager: ...
     def unstack(self, unstacker, fill_value) -> ArrayManager:
         """
         Return a BlockManager with all blocks unstacked.
@@ -262,7 +240,7 @@ class ArrayManager(BaseArrayManager):
         -------
         unstacked : BlockManager
         """
-    def as_array(self, dtype: Incomplete | None = None, copy: bool = False, na_value: object = ...) -> np.ndarray:
+    def as_array(self, dtype, copy: bool = ..., na_value: object = ...) -> np.ndarray:
         """
         Convert the blockmanager data into an numpy array.
 
@@ -291,42 +269,33 @@ class ArrayManager(BaseArrayManager):
         """
         Concatenate uniformly-indexed ArrayManagers vertically.
         """
-
-class SingleArrayManager(BaseArrayManager, SingleDataManager):
-    __slots__: Incomplete
-    arrays: list[np.ndarray | ExtensionArray]
-    _axes: list[Index]
     @property
-    def ndim(self) -> Literal[1]: ...
-    def __init__(self, arrays: list[np.ndarray | ExtensionArray], axes: list[Index], verify_integrity: bool = True) -> None: ...
+    def ndim(self): ...
+    @property
+    def column_arrays(self): ...
+
+class SingleArrayManager(BaseArrayManager, pandas.core.internals.base.SingleDataManager):
+    _axes: Incomplete
+    arrays: Incomplete
+    def __init__(self, arrays: list[np.ndarray | ExtensionArray], axes: list[Index], verify_integrity: bool = ...) -> None: ...
     def _verify_integrity(self) -> None: ...
     @staticmethod
     def _normalize_axis(axis): ...
-    def make_empty(self, axes: Incomplete | None = None) -> Self:
+    def make_empty(self, axes) -> Self:
         """Return an empty ArrayManager with index/array of length 0"""
     @classmethod
     def from_array(cls, array, index) -> SingleArrayManager: ...
-    @property
-    def axes(self) -> list[Index]: ...
-    @property
-    def index(self) -> Index: ...
-    @property
-    def dtype(self): ...
     def external_values(self):
         """The array that Series.values returns"""
     def internal_values(self):
         """The array that Series._values returns"""
     def array_values(self):
         """The array that Series.array returns"""
-    @property
-    def _can_hold_na(self) -> bool: ...
-    @property
-    def is_single_block(self) -> bool: ...
     def fast_xs(self, loc: int) -> SingleArrayManager: ...
-    def get_slice(self, slobj: slice, axis: AxisInt = 0) -> SingleArrayManager: ...
+    def get_slice(self, slobj: slice, axis: AxisInt = ...) -> SingleArrayManager: ...
     def get_rows_with_mask(self, indexer: npt.NDArray[np.bool_]) -> SingleArrayManager: ...
     def apply(self, func, **kwargs) -> Self: ...
-    def setitem(self, indexer, value, warn: bool = True) -> SingleArrayManager:
+    def setitem(self, indexer, value, warn: bool = ...) -> SingleArrayManager:
         """
         Set values with indexer.
 
@@ -351,22 +320,22 @@ class SingleArrayManager(BaseArrayManager, SingleDataManager):
         """
         Manager analogue of Series.to_frame
         """
+    @property
+    def ndim(self): ...
+    @property
+    def axes(self): ...
+    @property
+    def index(self): ...
+    @property
+    def dtype(self): ...
+    @property
+    def _can_hold_na(self): ...
+    @property
+    def is_single_block(self): ...
 
 class NullArrayProxy:
-    """
-    Proxy object for an all-NA array.
-
-    Only stores the length of the array, and not the dtype. The dtype
-    will only be known when actually concatenating (after determining the
-    common dtype, for which this proxy is ignored).
-    Using this object avoids that the internals/concat.py needs to determine
-    the proper dtype and array type.
-    """
-    ndim: int
-    n: Incomplete
+    ndim: ClassVar[int] = ...
     def __init__(self, n: int) -> None: ...
-    @property
-    def shape(self) -> tuple[int]: ...
     def to_array(self, dtype: DtypeObj) -> ArrayLike:
         """
         Helper function to create the actual all-NA array from the NullArrayProxy
@@ -381,7 +350,8 @@ class NullArrayProxy:
         -------
         np.ndarray or ExtensionArray
         """
-
+    @property
+    def shape(self): ...
 def concat_arrays(to_concat: list) -> ArrayLike:
     """
     Alternative for concat_compat but specialized for use in the ArrayManager.

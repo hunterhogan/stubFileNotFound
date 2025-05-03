@@ -2,12 +2,12 @@ from pandas.compat._optional import import_optional_dependency as import_optiona
 from pandas.errors import NumbaUtilError as NumbaUtilError
 from typing import Callable
 
+TYPE_CHECKING: bool
 GLOBAL_USE_NUMBA: bool
-
 def maybe_use_numba(engine: str | None) -> bool:
     """Signal whether to use numba routines."""
-def set_use_numba(enable: bool = False) -> None: ...
-def get_jit_arguments(engine_kwargs: dict[str, bool] | None = None, kwargs: dict | None = None) -> dict[str, bool]:
+def set_use_numba(enable: bool = ...) -> None: ...
+def get_jit_arguments(engine_kwargs: dict[str, bool] | None, kwargs: dict | None) -> dict[str, bool]:
     """
     Return arguments to pass to numba.JIT, falling back on pandas default JIT settings.
 

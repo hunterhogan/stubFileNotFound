@@ -1,10 +1,6 @@
-import numpy as np
+import pandas._libs.lib as lib
 from _typeshed import Incomplete
-from pandas import DatetimeIndex, Series, TimedeltaIndex
-from pandas._libs.tslibs import Timestamp
 from pandas._libs.tslibs.offsets import Day as Day, to_offset as to_offset
-from pandas._typing import npt
-from pandas.core.arrays.datetimelike import DatetimeLikeArrayMixin
 
 __all__ = ['Day', 'get_period_alias', 'infer_freq', 'is_subperiod', 'is_superperiod', 'to_offset']
 
@@ -41,18 +37,17 @@ def infer_freq(index: DatetimeIndex | TimedeltaIndex | Series | DatetimeLikeArra
     """
 
 class _FrequencyInferer:
-    """
-    Not sure if I can avoid the state machine here
-    """
-    index: Incomplete
-    i8values: Incomplete
-    _creso: Incomplete
-    is_monotonic: Incomplete
+    deltas: Incomplete
+    deltas_asi8: Incomplete
+    is_unique: Incomplete
+    is_unique_asi8: Incomplete
+    day_deltas: Incomplete
+    hour_deltas: Incomplete
+    fields: Incomplete
+    rep_stamp: Incomplete
+    mdiffs: Incomplete
+    ydiffs: Incomplete
     def __init__(self, index) -> None: ...
-    def deltas(self) -> npt.NDArray[np.int64]: ...
-    def deltas_asi8(self) -> npt.NDArray[np.int64]: ...
-    def is_unique(self) -> bool: ...
-    def is_unique_asi8(self) -> bool: ...
     def get_freq(self) -> str | None:
         """
         Find the appropriate frequency string to describe the inferred
@@ -62,13 +57,7 @@ class _FrequencyInferer:
         -------
         str or None
         """
-    def day_deltas(self) -> list[int]: ...
-    def hour_deltas(self) -> list[int]: ...
-    def fields(self) -> np.ndarray: ...
-    def rep_stamp(self) -> Timestamp: ...
     def month_position_check(self) -> str | None: ...
-    def mdiffs(self) -> npt.NDArray[np.int64]: ...
-    def ydiffs(self) -> npt.NDArray[np.int64]: ...
     def _infer_daily_rule(self) -> str | None: ...
     def _get_daily_rule(self) -> str | None: ...
     def _get_annual_rule(self) -> str | None: ...
@@ -79,7 +68,6 @@ class _FrequencyInferer:
 
 class _TimedeltaFrequencyInferer(_FrequencyInferer):
     def _infer_daily_rule(self): ...
-
 def is_subperiod(source, target) -> bool:
     """
     Returns True if downsampling is possible between source and target
@@ -112,3 +100,7 @@ def is_superperiod(source, target) -> bool:
     -------
     bool
     """
+
+# Names in __all__ with no definition:
+#   Day
+#   to_offset

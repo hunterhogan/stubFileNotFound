@@ -1,5 +1,6 @@
-_initial_defencoding: str | None
+import pandas._config.config as cf
 
+_initial_defencoding: str
 def detect_console_encoding() -> str:
     """
     Try to find the most capable encoding supported by the console.

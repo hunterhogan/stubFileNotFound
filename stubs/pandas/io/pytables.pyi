@@ -1,36 +1,51 @@
-import itertools
-import numpy as np
+import np
+import npt
+import pandas._config.config as config
+import pandas._libs.lib as lib
+import pandas._libs.tslibs.timezones as timezones
+import pandas._libs.writers as libwriters
+import pandas.core.common as com
+import pandas.core.frame
+import pandas.core.series
+import re
 from _typeshed import Incomplete
-from collections.abc import Hashable, Iterator, Sequence
 from datetime import tzinfo
-from pandas import DataFrame as DataFrame, DatetimeIndex as DatetimeIndex, Index as Index, MultiIndex as MultiIndex, PeriodIndex as PeriodIndex, RangeIndex as RangeIndex, Series as Series, TimedeltaIndex as TimedeltaIndex, concat as concat, isna as isna
-from pandas._config import config as config, get_option as get_option, using_copy_on_write as using_copy_on_write, using_pyarrow_string_dtype as using_pyarrow_string_dtype
-from pandas._libs import lib as lib
-from pandas._libs.lib import is_string_array as is_string_array
-from pandas._libs.tslibs import timezones as timezones
-from pandas._typing import AnyArrayLike as AnyArrayLike, ArrayLike as ArrayLike, AxisInt as AxisInt, DtypeArg as DtypeArg, FilePath as FilePath, Self as Self, Shape as Shape, npt as npt
+from pandas._config import using_copy_on_write as using_copy_on_write, using_pyarrow_string_dtype as using_pyarrow_string_dtype
+from pandas._config.config import get_option as get_option
+from pandas._libs.algos import ensure_object as ensure_object
+from pandas._libs.lib import is_list_like as is_list_like, is_string_array as is_string_array
+from pandas._libs.properties import cache_readonly as cache_readonly
 from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.compat.pickle_compat import patch_pickle as patch_pickle
-from pandas.core.arrays import Categorical as Categorical, DatetimeArray as DatetimeArray, PeriodArray as PeriodArray
-from pandas.core.computation.pytables import PyTablesExpr as PyTablesExpr, maybe_expression as maybe_expression
+from pandas.core.arrays.categorical import Categorical as Categorical
+from pandas.core.arrays.datetimes import DatetimeArray as DatetimeArray
+from pandas.core.arrays.period import PeriodArray as PeriodArray
+from pandas.core.computation.pytables import PyTablesExpr as PyTablesExpr, Term as Term, maybe_expression as maybe_expression
 from pandas.core.construction import extract_array as extract_array
-from pandas.core.dtypes.common import ensure_object as ensure_object, is_bool_dtype as is_bool_dtype, is_complex_dtype as is_complex_dtype, is_list_like as is_list_like, is_string_dtype as is_string_dtype, needs_i8_conversion as needs_i8_conversion
-from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype, PeriodDtype as PeriodDtype
-from pandas.core.dtypes.missing import array_equivalent as array_equivalent
-from pandas.core.indexes.api import ensure_index as ensure_index
-from pandas.core.internals import ArrayManager as ArrayManager, Block as Block, BlockManager as BlockManager
+from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
+from pandas.core.dtypes.common import is_bool_dtype as is_bool_dtype, is_complex_dtype as is_complex_dtype, is_string_dtype as is_string_dtype, needs_i8_conversion as needs_i8_conversion
+from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, PeriodDtype as PeriodDtype
+from pandas.core.dtypes.missing import array_equivalent as array_equivalent, isna as isna
+from pandas.core.frame import DataFrame as DataFrame
+from pandas.core.indexes.base import Index as Index, ensure_index as ensure_index
+from pandas.core.indexes.datetimes import DatetimeIndex as DatetimeIndex
+from pandas.core.indexes.multi import MultiIndex as MultiIndex
+from pandas.core.indexes.period import PeriodIndex as PeriodIndex
+from pandas.core.indexes.range import RangeIndex as RangeIndex
+from pandas.core.indexes.timedeltas import TimedeltaIndex as TimedeltaIndex
+from pandas.core.internals.array_manager import ArrayManager as ArrayManager
+from pandas.core.internals.managers import BlockManager as BlockManager
+from pandas.core.reshape.concat import concat as concat
+from pandas.core.series import Series as Series
 from pandas.errors import AttributeConflictWarning as AttributeConflictWarning, ClosedFileError as ClosedFileError, IncompatibilityWarning as IncompatibilityWarning, PerformanceWarning as PerformanceWarning, PossibleDataLossError as PossibleDataLossError
 from pandas.io.common import stringify_path as stringify_path
 from pandas.io.formats.printing import adjoin as adjoin, pprint_thing as pprint_thing
-from pandas.util._decorators import cache_readonly as cache_readonly
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from tables import Col as Col, File as File, Node as Node
-from types import TracebackType
-from typing import Any, Final, Literal, overload
+from typing import Any, ClassVar, Literal
 
+TYPE_CHECKING: bool
 _version: str
 _default_encoding: str
-
 def _ensure_decoded(s):
     """if we have bytes, decode them to unicode"""
 def _ensure_encoding(encoding: str | None) -> str: ...
@@ -41,8 +56,6 @@ def _ensure_str(name):
 
     https://github.com/pandas-dev/pandas/issues/13492
     """
-Term = PyTablesExpr
-
 def _ensure_term(where, scope_level: int):
     """
     Ensure that the where is a Term or a list of Term.
@@ -51,20 +64,19 @@ def _ensure_term(where, scope_level: int):
     passed create the terms here with a frame_level=2 (we are 2 levels down)
     """
 
-incompatibility_doc: Final[str]
-attribute_conflict_doc: Final[str]
-performance_doc: Final[str]
-_FORMAT_MAP: Incomplete
-_AXES_MAP: Incomplete
-dropna_doc: Final[str]
-format_doc: Final[str]
-_table_mod: Incomplete
+incompatibility_doc: str
+attribute_conflict_doc: str
+performance_doc: str
+_FORMAT_MAP: dict
+_AXES_MAP: dict
+dropna_doc: str
+format_doc: str
+_table_mod: None
 _table_file_open_policy_is_strict: bool
-
 def _tables(): ...
-def to_hdf(path_or_buf: FilePath | HDFStore, key: str, value: DataFrame | Series, mode: str = 'a', complevel: int | None = None, complib: str | None = None, append: bool = False, format: str | None = None, index: bool = True, min_itemsize: int | dict[str, int] | None = None, nan_rep: Incomplete | None = None, dropna: bool | None = None, data_columns: Literal[True] | list[str] | None = None, errors: str = 'strict', encoding: str = 'UTF-8') -> None:
+def to_hdf(path_or_buf: FilePath | HDFStore, key: str, value: DataFrame | Series, mode: str = ..., complevel: int | None, complib: str | None, append: bool = ..., format: str | None, index: bool = ..., min_itemsize: int | dict[str, int] | None, nan_rep, dropna: bool | None, data_columns: Literal[True] | list[str] | None, errors: str = ..., encoding: str = ...) -> None:
     """store this object, close it if we opened it"""
-def read_hdf(path_or_buf: FilePath | HDFStore, key: Incomplete | None = None, mode: str = 'r', errors: str = 'strict', where: str | list | None = None, start: int | None = None, stop: int | None = None, columns: list[str] | None = None, iterator: bool = False, chunksize: int | None = None, **kwargs):
+def read_hdf(path_or_buf: FilePath | HDFStore, key, mode: str = ..., errors: str = ..., where: str | list | None, start: int | None, stop: int | None, columns: list[str] | None, iterator: bool = ..., chunksize: int | None, **kwargs):
     '''
     Read from the store, close it if we opened it.
 
@@ -135,84 +147,8 @@ def _is_metadata_of(group: Node, parent_group: Node) -> bool:
     """Check if a given group is a metadata group for a given parent_group."""
 
 class HDFStore:
-    '''
-    Dict-like IO interface for storing pandas objects in PyTables.
-
-    Either Fixed or Table format.
-
-    .. warning::
-
-       Pandas uses PyTables for reading and writing HDF5 files, which allows
-       serializing object-dtype data with pickle when using the "fixed" format.
-       Loading pickled data received from untrusted sources can be unsafe.
-
-       See: https://docs.python.org/3/library/pickle.html for more.
-
-    Parameters
-    ----------
-    path : str
-        File path to HDF5 file.
-    mode : {\'a\', \'w\', \'r\', \'r+\'}, default \'a\'
-
-        ``\'r\'``
-            Read-only; no data can be modified.
-        ``\'w\'``
-            Write; a new file is created (an existing file with the same
-            name would be deleted).
-        ``\'a\'``
-            Append; an existing file is opened for reading and writing,
-            and if the file does not exist it is created.
-        ``\'r+\'``
-            It is similar to ``\'a\'``, but the file must already exist.
-    complevel : int, 0-9, default None
-        Specifies a compression level for data.
-        A value of 0 or None disables compression.
-    complib : {\'zlib\', \'lzo\', \'bzip2\', \'blosc\'}, default \'zlib\'
-        Specifies the compression library to be used.
-        These additional compressors for Blosc are supported
-        (default if no compressor specified: \'blosc:blosclz\'):
-        {\'blosc:blosclz\', \'blosc:lz4\', \'blosc:lz4hc\', \'blosc:snappy\',
-         \'blosc:zlib\', \'blosc:zstd\'}.
-        Specifying a compression library which is not available issues
-        a ValueError.
-    fletcher32 : bool, default False
-        If applying compression use the fletcher32 checksum.
-    **kwargs
-        These parameters will be passed to the PyTables open_file method.
-
-    Examples
-    --------
-    >>> bar = pd.DataFrame(np.random.randn(10, 4))
-    >>> store = pd.HDFStore(\'test.h5\')
-    >>> store[\'foo\'] = bar   # write to HDF5
-    >>> bar = store[\'foo\']   # retrieve
-    >>> store.close()
-
-    **Create or load HDF5 file in-memory**
-
-    When passing the `driver` option to the PyTables open_file method through
-    **kwargs, the HDF5 file is loaded or created in-memory and will only be
-    written when closed:
-
-    >>> bar = pd.DataFrame(np.random.randn(10, 4))
-    >>> store = pd.HDFStore(\'test.h5\', driver=\'H5FD_CORE\')
-    >>> store[\'foo\'] = bar
-    >>> store.close()   # only now, data is written to disk
-    '''
-    _handle: File | None
-    _mode: str
-    _path: Incomplete
-    _complevel: Incomplete
-    _complib: Incomplete
-    _fletcher32: Incomplete
-    _filters: Incomplete
-    def __init__(self, path, mode: str = 'a', complevel: int | None = None, complib: Incomplete | None = None, fletcher32: bool = False, **kwargs) -> None: ...
+    def __init__(self, path, mode: str = ..., complevel: int | None, complib, fletcher32: bool = ..., **kwargs) -> None: ...
     def __fspath__(self) -> str: ...
-    @property
-    def root(self):
-        """return the root node"""
-    @property
-    def filename(self) -> str: ...
     def __getitem__(self, key: str): ...
     def __setitem__(self, key: str, value) -> None: ...
     def __delitem__(self, key: str) -> None: ...
@@ -224,10 +160,9 @@ class HDFStore:
         can match the exact pathname or the pathnm w/o the leading '/'
         """
     def __len__(self) -> int: ...
-    def __repr__(self) -> str: ...
     def __enter__(self) -> Self: ...
     def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None) -> None: ...
-    def keys(self, include: str = 'pandas') -> list[str]:
+    def keys(self, include: str = ...) -> list[str]:
         '''
         Return a list of keys corresponding to objects stored in HDFStore.
 
@@ -262,7 +197,7 @@ class HDFStore:
         """
         iterate on key->group
         """
-    def open(self, mode: str = 'a', **kwargs) -> None:
+    def open(self, mode: str = ..., **kwargs) -> None:
         """
         Open the file in the specified mode
 
@@ -277,12 +212,7 @@ class HDFStore:
         """
         Close the PyTables file handle
         """
-    @property
-    def is_open(self) -> bool:
-        """
-        return a boolean indicating whether the file is open
-        """
-    def flush(self, fsync: bool = False) -> None:
+    def flush(self, fsync: bool = ...) -> None:
         """
         Force all buffered modifications to be written to disk.
 
@@ -319,7 +249,7 @@ class HDFStore:
         >>> store.get(\'data\')  # doctest: +SKIP
         >>> store.close()  # doctest: +SKIP
         '''
-    def select(self, key: str, where: Incomplete | None = None, start: Incomplete | None = None, stop: Incomplete | None = None, columns: Incomplete | None = None, iterator: bool = False, chunksize: int | None = None, auto_close: bool = False):
+    def select(self, key: str, where, start, stop, columns, iterator: bool = ..., chunksize: int | None, auto_close: bool = ...):
         '''
         Retrieve pandas object stored in file, optionally based on where criteria.
 
@@ -373,7 +303,7 @@ class HDFStore:
         1  3
         >>> store.close()  # doctest: +SKIP
         '''
-    def select_as_coordinates(self, key: str, where: Incomplete | None = None, start: int | None = None, stop: int | None = None):
+    def select_as_coordinates(self, key: str, where, start: int | None, stop: int | None):
         '''
         return the selection as an Index
 
@@ -393,7 +323,7 @@ class HDFStore:
         start : integer (defaults to None), row number to start selection
         stop  : integer (defaults to None), row number to stop selection
         '''
-    def select_column(self, key: str, column: str, start: int | None = None, stop: int | None = None):
+    def select_column(self, key: str, column: str, start: int | None, stop: int | None):
         '''
         return a single column from the table. This is generally only useful to
         select an indexable
@@ -422,7 +352,7 @@ class HDFStore:
             is part of a data block)
 
         '''
-    def select_as_multiple(self, keys, where: Incomplete | None = None, selector: Incomplete | None = None, columns: Incomplete | None = None, start: Incomplete | None = None, stop: Incomplete | None = None, iterator: bool = False, chunksize: int | None = None, auto_close: bool = False):
+    def select_as_multiple(self, keys, where, selector, columns, start, stop, iterator: bool = ..., chunksize: int | None, auto_close: bool = ...):
         '''
         Retrieve pandas objects from multiple tables.
 
@@ -453,7 +383,7 @@ class HDFStore:
         raises TypeError if keys is not a list or tuple
         raises ValueError if the tables are not ALL THE SAME DIMENSIONS
         '''
-    def put(self, key: str, value: DataFrame | Series, format: Incomplete | None = None, index: bool = True, append: bool = False, complib: Incomplete | None = None, complevel: int | None = None, min_itemsize: int | dict[str, int] | None = None, nan_rep: Incomplete | None = None, data_columns: Literal[True] | list[str] | None = None, encoding: Incomplete | None = None, errors: str = 'strict', track_times: bool = True, dropna: bool = False) -> None:
+    def put(self, key: str, value: DataFrame | Series, format, index: bool = ..., append: bool = ..., complib, complevel: int | None, min_itemsize: int | dict[str, int] | None, nan_rep, data_columns: Literal[True] | list[str] | None, encoding, errors: str = ..., track_times: bool = ..., dropna: bool = ...) -> None:
         '''
         Store object in HDFStore.
 
@@ -493,7 +423,7 @@ class HDFStore:
         >>> store = pd.HDFStore("store.h5", \'w\')  # doctest: +SKIP
         >>> store.put(\'data\', df)  # doctest: +SKIP
         '''
-    def remove(self, key: str, where: Incomplete | None = None, start: Incomplete | None = None, stop: Incomplete | None = None) -> None:
+    def remove(self, key: str, where, start, stop) -> None:
         """
         Remove pandas object partially by specifying the where condition
 
@@ -514,7 +444,7 @@ class HDFStore:
         raises KeyError if key is not a valid store
 
         """
-    def append(self, key: str, value: DataFrame | Series, format: Incomplete | None = None, axes: Incomplete | None = None, index: bool | list[str] = True, append: bool = True, complib: Incomplete | None = None, complevel: int | None = None, columns: Incomplete | None = None, min_itemsize: int | dict[str, int] | None = None, nan_rep: Incomplete | None = None, chunksize: int | None = None, expectedrows: Incomplete | None = None, dropna: bool | None = None, data_columns: Literal[True] | list[str] | None = None, encoding: Incomplete | None = None, errors: str = 'strict') -> None:
+    def append(self, key: str, value: DataFrame | Series, format, axes, index: bool | list[str] = ..., append: bool = ..., complib, complevel: int | None, columns, min_itemsize: int | dict[str, int] | None, nan_rep, chunksize: int | None, expectedrows, dropna: bool | None, data_columns: Literal[True] | list[str] | None, encoding, errors: str = ...) -> None:
         '''
         Append to Table in file.
 
@@ -568,7 +498,7 @@ class HDFStore:
         0  5  6
         1  7  8
         '''
-    def append_to_multiple(self, d: dict, value, selector, data_columns: Incomplete | None = None, axes: Incomplete | None = None, dropna: bool = False, **kwargs) -> None:
+    def append_to_multiple(self, d: dict, value, selector, data_columns, axes, dropna: bool = ..., **kwargs) -> None:
         """
         Append to multiple tables
 
@@ -590,7 +520,7 @@ class HDFStore:
         axes parameter is currently not accepted
 
         """
-    def create_table_index(self, key: str, columns: Incomplete | None = None, optlevel: int | None = None, kind: str | None = None) -> None:
+    def create_table_index(self, key: str, columns, optlevel: int | None, kind: str | None) -> None:
         '''
         Create a pytables index on the table.
 
@@ -636,7 +566,7 @@ class HDFStore:
           children := [\'axis0\' (Array), \'axis1\' (Array), \'block0_values\' (Array),
           \'block0_items\' (Array)]]
         '''
-    def walk(self, where: str = '/') -> Iterator[tuple[str, list[str], list[str]]]:
+    def walk(self, where: str = ...) -> Iterator[tuple[str, list[str], list[str]]]:
         '''
         Walk the pytables group hierarchy for pandas objects.
 
@@ -679,7 +609,7 @@ class HDFStore:
         """return the node with the key or None if it does not exist"""
     def get_storer(self, key: str) -> GenericFixed | Table:
         """return the storer object for a key, raise if not in the file"""
-    def copy(self, file, mode: str = 'w', propindexes: bool = True, keys: Incomplete | None = None, complib: Incomplete | None = None, complevel: int | None = None, fletcher32: bool = False, overwrite: bool = True) -> HDFStore:
+    def copy(self, file, mode: str = ..., propindexes: bool = ..., keys, complib, complevel: int | None, fletcher32: bool = ..., overwrite: bool = ...) -> HDFStore:
         """
         Copy the existing store to a new file, updating in place.
 
@@ -719,111 +649,45 @@ class HDFStore:
     def _check_if_open(self) -> None: ...
     def _validate_format(self, format: str) -> str:
         """validate / deprecate formats"""
-    def _create_storer(self, group, format: Incomplete | None = None, value: DataFrame | Series | None = None, encoding: str = 'UTF-8', errors: str = 'strict') -> GenericFixed | Table:
+    def _create_storer(self, group, format, value: DataFrame | Series | None, encoding: str = ..., errors: str = ...) -> GenericFixed | Table:
         """return a suitable class to operate"""
-    def _write_to_group(self, key: str, value: DataFrame | Series, format, axes: Incomplete | None = None, index: bool | list[str] = True, append: bool = False, complib: Incomplete | None = None, complevel: int | None = None, fletcher32: Incomplete | None = None, min_itemsize: int | dict[str, int] | None = None, chunksize: int | None = None, expectedrows: Incomplete | None = None, dropna: bool = False, nan_rep: Incomplete | None = None, data_columns: Incomplete | None = None, encoding: Incomplete | None = None, errors: str = 'strict', track_times: bool = True) -> None: ...
+    def _write_to_group(self, key: str, value: DataFrame | Series, format, axes, index: bool | list[str] = ..., append: bool = ..., complib, complevel: int | None, fletcher32, min_itemsize: int | dict[str, int] | None, chunksize: int | None, expectedrows, dropna: bool = ..., nan_rep, data_columns, encoding, errors: str = ..., track_times: bool = ...) -> None: ...
     def _read_group(self, group: Node): ...
     def _identify_group(self, key: str, append: bool) -> Node:
         """Identify HDF5 group based on key, delete/create group if needed."""
     def _create_nodes_and_group(self, key: str) -> Node:
         """Create nodes from key and return group name."""
+    @property
+    def root(self): ...
+    @property
+    def filename(self): ...
+    @property
+    def is_open(self): ...
 
 class TableIterator:
-    """
-    Define the iteration interface on a table
-
-    Parameters
-    ----------
-    store : HDFStore
-    s     : the referred storer
-    func  : the function to execute the query
-    where : the where of the query
-    nrows : the rows to iterate on
-    start : the passed start value (default is None)
-    stop  : the passed stop value (default is None)
-    iterator : bool, default False
-        Whether to use the default iterator.
-    chunksize : the passed chunking value (default is 100000)
-    auto_close : bool, default False
-        Whether to automatically close the store at the end of iteration.
-    """
-    chunksize: int | None
-    store: HDFStore
-    s: GenericFixed | Table
-    func: Incomplete
-    where: Incomplete
-    nrows: Incomplete
-    start: Incomplete
-    stop: Incomplete
-    coordinates: Incomplete
-    auto_close: Incomplete
-    def __init__(self, store: HDFStore, s: GenericFixed | Table, func, where, nrows, start: Incomplete | None = None, stop: Incomplete | None = None, iterator: bool = False, chunksize: int | None = None, auto_close: bool = False) -> None: ...
+    def __init__(self, store: HDFStore, s: GenericFixed | Table, func, where, nrows, start, stop, iterator: bool = ..., chunksize: int | None, auto_close: bool = ...) -> None: ...
     def __iter__(self) -> Iterator: ...
     def close(self) -> None: ...
-    def get_result(self, coordinates: bool = False): ...
+    def get_result(self, coordinates: bool = ...): ...
 
 class IndexCol:
-    """
-    an index column description class
-
-    Parameters
-    ----------
-    axis   : axis which I reference
-    values : the ndarray like converted values
-    kind   : a string description of this type
-    typ    : the pytables type
-    pos    : the position in the pytables
-
-    """
-    is_an_indexable: bool
-    is_data_indexable: bool
-    _info_fields: Incomplete
-    values: Incomplete
-    kind: Incomplete
-    typ: Incomplete
-    name: Incomplete
-    cname: Incomplete
-    axis: Incomplete
-    pos: Incomplete
-    freq: Incomplete
-    tz: Incomplete
-    index_name: Incomplete
-    ordered: Incomplete
-    table: Incomplete
-    meta: Incomplete
-    metadata: Incomplete
-    def __init__(self, name: str, values: Incomplete | None = None, kind: Incomplete | None = None, typ: Incomplete | None = None, cname: str | None = None, axis: Incomplete | None = None, pos: Incomplete | None = None, freq: Incomplete | None = None, tz: Incomplete | None = None, index_name: Incomplete | None = None, ordered: Incomplete | None = None, table: Incomplete | None = None, meta: Incomplete | None = None, metadata: Incomplete | None = None) -> None: ...
-    @property
-    def itemsize(self) -> int: ...
-    @property
-    def kind_attr(self) -> str: ...
+    is_an_indexable: ClassVar[bool] = ...
+    is_data_indexable: ClassVar[bool] = ...
+    _info_fields: ClassVar[list] = ...
+    def __init__(self, name: str, values, kind, typ, cname: str | None, axis, pos, freq, tz, index_name, ordered, table, meta, metadata) -> None: ...
     def set_pos(self, pos: int) -> None:
         """set the position of this column in the Table"""
-    def __repr__(self) -> str: ...
     def __eq__(self, other: object) -> bool:
         """compare 2 col items"""
     def __ne__(self, other) -> bool: ...
-    @property
-    def is_indexed(self) -> bool:
-        """return whether I am an indexed column"""
     def convert(self, values: np.ndarray, nan_rep, encoding: str, errors: str) -> tuple[np.ndarray, np.ndarray] | tuple[Index, Index]:
         """
         Convert the data from this selection to the appropriate pandas type.
         """
     def take_data(self):
         """return the values"""
-    @property
-    def attrs(self): ...
-    @property
-    def description(self): ...
-    @property
-    def col(self):
-        """return my current col description"""
-    @property
-    def cvalues(self):
-        """return my cython values"""
     def __iter__(self) -> Iterator: ...
-    def maybe_set_size(self, min_itemsize: Incomplete | None = None) -> None:
+    def maybe_set_size(self, min_itemsize) -> None:
         """
         maybe set a string col itemsize:
             min_itemsize can be an integer or a dict with this columns name
@@ -831,7 +695,7 @@ class IndexCol:
         """
     def validate_names(self) -> None: ...
     def validate_and_set(self, handler: AppendableTable, append: bool) -> None: ...
-    def validate_col(self, itemsize: Incomplete | None = None):
+    def validate_col(self, itemsize):
         """validate this column: return the compared against itemsize"""
     def validate_attr(self, append: bool) -> None: ...
     def update_info(self, info) -> None:
@@ -847,11 +711,22 @@ class IndexCol:
         """validate that kind=category does not change the categories"""
     def write_metadata(self, handler: AppendableTable) -> None:
         """set the meta data"""
+    @property
+    def itemsize(self): ...
+    @property
+    def kind_attr(self): ...
+    @property
+    def is_indexed(self): ...
+    @property
+    def attrs(self): ...
+    @property
+    def description(self): ...
+    @property
+    def col(self): ...
+    @property
+    def cvalues(self): ...
 
 class GenericIndexCol(IndexCol):
-    """an index which is not represented in the data of the table"""
-    @property
-    def is_indexed(self) -> bool: ...
     def convert(self, values: np.ndarray, nan_rep, encoding: str, errors: str) -> tuple[Index, Index]:
         """
         Convert the data from this selection to the appropriate pandas type.
@@ -864,33 +739,16 @@ class GenericIndexCol(IndexCol):
         errors : str
         """
     def set_attr(self) -> None: ...
+    @property
+    def is_indexed(self): ...
 
 class DataCol(IndexCol):
-    """
-    a data holding column, by definition this is not indexable
-
-    Parameters
-    ----------
-    data   : the actual data
-    cname  : the column name in the table to hold the data (typically
-                values)
-    meta   : a string description of the metadata
-    metadata : the actual metadata
-    """
-    is_an_indexable: bool
-    is_data_indexable: bool
-    _info_fields: Incomplete
-    dtype: Incomplete
-    data: Incomplete
-    def __init__(self, name: str, values: Incomplete | None = None, kind: Incomplete | None = None, typ: Incomplete | None = None, cname: str | None = None, pos: Incomplete | None = None, tz: Incomplete | None = None, ordered: Incomplete | None = None, table: Incomplete | None = None, meta: Incomplete | None = None, metadata: Incomplete | None = None, dtype: DtypeArg | None = None, data: Incomplete | None = None) -> None: ...
-    @property
-    def dtype_attr(self) -> str: ...
-    @property
-    def meta_attr(self) -> str: ...
-    def __repr__(self) -> str: ...
+    is_an_indexable: ClassVar[bool] = ...
+    is_data_indexable: ClassVar[bool] = ...
+    _info_fields: ClassVar[list] = ...
+    def __init__(self, name: str, values, kind, typ, cname: str | None, pos, tz, ordered, table, meta, metadata, dtype: DtypeArg | None, data) -> None: ...
     def __eq__(self, other: object) -> bool:
         """compare 2 col items"""
-    kind: Incomplete
     def set_data(self, data: ArrayLike) -> None: ...
     def take_data(self):
         """return the data"""
@@ -910,11 +768,6 @@ class DataCol(IndexCol):
     def get_atom_datetime64(cls, shape): ...
     @classmethod
     def get_atom_timedelta64(cls, shape): ...
-    @property
-    def shape(self): ...
-    @property
-    def cvalues(self):
-        """return my cython values"""
     def validate_attr(self, append) -> None:
         """validate that we have the same order as the existing & same dtype"""
     def convert(self, values: np.ndarray, nan_rep, encoding: str, errors: str):
@@ -935,10 +788,17 @@ class DataCol(IndexCol):
         """
     def set_attr(self) -> None:
         """set the data for this column"""
+    @property
+    def dtype_attr(self): ...
+    @property
+    def meta_attr(self): ...
+    @property
+    def shape(self): ...
+    @property
+    def cvalues(self): ...
 
 class DataIndexableCol(DataCol):
-    """represent a data column that can be indexed"""
-    is_data_indexable: bool
+    is_data_indexable: ClassVar[bool] = ...
     def validate_names(self) -> None: ...
     @classmethod
     def get_atom_string(cls, shape, itemsize): ...
@@ -949,43 +809,41 @@ class DataIndexableCol(DataCol):
     @classmethod
     def get_atom_timedelta64(cls, shape): ...
 
-class GenericDataIndexableCol(DataIndexableCol):
-    """represent a generic pytables data column"""
+class GenericDataIndexableCol(DataIndexableCol): ...
 
 class Fixed:
-    """
-    represent an object in my store
-    facilitate read/write of various types of objects
-    this is an abstract base class
-
-    Parameters
-    ----------
-    parent : HDFStore
-    group : Node
-        The group node where the table resides.
-    """
-    pandas_kind: str
-    format_type: str
-    obj_type: type[DataFrame | Series]
-    ndim: int
-    parent: HDFStore
-    is_table: bool
-    group: Incomplete
-    encoding: Incomplete
-    errors: Incomplete
-    def __init__(self, parent: HDFStore, group: Node, encoding: str | None = 'UTF-8', errors: str = 'strict') -> None: ...
-    @property
-    def is_old_version(self) -> bool: ...
-    @property
-    def version(self) -> tuple[int, int, int]:
-        """compute and set our version"""
-    @property
-    def pandas_type(self): ...
-    def __repr__(self) -> str:
-        """return a pretty representation of myself"""
+    format_type: ClassVar[str] = ...
+    is_table: ClassVar[bool] = ...
+    def __init__(self, parent: HDFStore, group: Node, encoding: str | None = ..., errors: str = ...) -> None: ...
     def set_object_info(self) -> None:
         """set my pandas type & version"""
     def copy(self) -> Fixed: ...
+    def set_attrs(self) -> None:
+        """set our object attributes"""
+    def get_attrs(self) -> None:
+        """get our object attributes"""
+    def validate(self, other) -> Literal[True] | None:
+        """validate against an existing storable"""
+    def validate_version(self, where) -> None:
+        """are we trying to operate on an old version?"""
+    def infer_axes(self) -> bool:
+        """
+        infer the axes of my storer
+        return a boolean indicating if we have a valid storer or not
+        """
+    def read(self, where, columns, start: int | None, stop: int | None): ...
+    def write(self, obj, **kwargs) -> None: ...
+    def delete(self, where, start: int | None, stop: int | None) -> None:
+        """
+        support fully deleting the node in its entirety (only) - where
+        specification must be None
+        """
+    @property
+    def is_old_version(self): ...
+    @property
+    def version(self): ...
+    @property
+    def pandas_type(self): ...
     @property
     def shape(self): ...
     @property
@@ -995,44 +853,22 @@ class Fixed:
     @property
     def _filters(self): ...
     @property
-    def _complevel(self) -> int: ...
+    def _complevel(self): ...
     @property
-    def _fletcher32(self) -> bool: ...
+    def _fletcher32(self): ...
     @property
     def attrs(self): ...
-    def set_attrs(self) -> None:
-        """set our object attributes"""
-    def get_attrs(self) -> None:
-        """get our object attributes"""
     @property
-    def storable(self):
-        """return my storable"""
+    def storable(self): ...
     @property
-    def is_exists(self) -> bool: ...
+    def is_exists(self): ...
     @property
     def nrows(self): ...
-    def validate(self, other) -> Literal[True] | None:
-        """validate against an existing storable"""
-    def validate_version(self, where: Incomplete | None = None) -> None:
-        """are we trying to operate on an old version?"""
-    def infer_axes(self) -> bool:
-        """
-        infer the axes of my storer
-        return a boolean indicating if we have a valid storer or not
-        """
-    def read(self, where: Incomplete | None = None, columns: Incomplete | None = None, start: int | None = None, stop: int | None = None): ...
-    def write(self, obj, **kwargs) -> None: ...
-    def delete(self, where: Incomplete | None = None, start: int | None = None, stop: int | None = None) -> None:
-        """
-        support fully deleting the node in its entirety (only) - where
-        specification must be None
-        """
 
 class GenericFixed(Fixed):
-    """a generified fixed version"""
-    _index_type_map: Incomplete
-    _reverse_index_map: Incomplete
-    attributes: list[str]
+    _index_type_map: ClassVar[dict] = ...
+    _reverse_index_map: ClassVar[dict] = ...
+    attributes: ClassVar[list] = ...
     def _class_to_alias(self, cls) -> str: ...
     def _alias_to_class(self, alias): ...
     def _get_index_factory(self, attrs): ...
@@ -1040,124 +876,59 @@ class GenericFixed(Fixed):
         """
         raise if any keywords are passed which are not-None
         """
-    @property
-    def is_exists(self) -> bool: ...
     def set_attrs(self) -> None:
         """set our object attributes"""
-    encoding: Incomplete
-    errors: Incomplete
     def get_attrs(self) -> None:
         """retrieve our attributes"""
     def write(self, obj, **kwargs) -> None: ...
-    def read_array(self, key: str, start: int | None = None, stop: int | None = None):
+    def read_array(self, key: str, start: int | None, stop: int | None):
         """read an array for the specified node (off of group"""
-    def read_index(self, key: str, start: int | None = None, stop: int | None = None) -> Index: ...
+    def read_index(self, key: str, start: int | None, stop: int | None) -> Index: ...
     def write_index(self, key: str, index: Index) -> None: ...
     def write_multi_index(self, key: str, index: MultiIndex) -> None: ...
-    def read_multi_index(self, key: str, start: int | None = None, stop: int | None = None) -> MultiIndex: ...
-    def read_index_node(self, node: Node, start: int | None = None, stop: int | None = None) -> Index: ...
+    def read_multi_index(self, key: str, start: int | None, stop: int | None) -> MultiIndex: ...
+    def read_index_node(self, node: Node, start: int | None, stop: int | None) -> Index: ...
     def write_array_empty(self, key: str, value: ArrayLike) -> None:
         """write a 0-len array"""
-    def write_array(self, key: str, obj: AnyArrayLike, items: Index | None = None) -> None: ...
+    def write_array(self, key: str, obj: AnyArrayLike, items: Index | None) -> None: ...
+    @property
+    def is_exists(self): ...
 
 class SeriesFixed(GenericFixed):
-    pandas_kind: str
-    attributes: Incomplete
-    name: Hashable
+    pandas_kind: ClassVar[str] = ...
+    attributes: ClassVar[list] = ...
+    def read(self, where, columns, start: int | None, stop: int | None) -> Series: ...
+    def write(self, obj, **kwargs) -> None: ...
     @property
     def shape(self): ...
-    def read(self, where: Incomplete | None = None, columns: Incomplete | None = None, start: int | None = None, stop: int | None = None) -> Series: ...
-    def write(self, obj, **kwargs) -> None: ...
 
 class BlockManagerFixed(GenericFixed):
-    attributes: Incomplete
-    nblocks: int
-    @property
-    def shape(self) -> Shape | None: ...
-    def read(self, where: Incomplete | None = None, columns: Incomplete | None = None, start: int | None = None, stop: int | None = None) -> DataFrame: ...
+    attributes: ClassVar[list] = ...
+    def read(self, where, columns, start: int | None, stop: int | None) -> DataFrame: ...
     def write(self, obj, **kwargs) -> None: ...
+    @property
+    def shape(self): ...
 
 class FrameFixed(BlockManagerFixed):
-    pandas_kind: str
-    obj_type = DataFrame
+    pandas_kind: ClassVar[str] = ...
+    obj_type: ClassVar[type[pandas.core.frame.DataFrame]] = ...
 
 class Table(Fixed):
-    """
-    represent a table:
-        facilitate read/write of various types of tables
-
-    Attrs in Table Node
-    -------------------
-    These are attributes that are store in the main table node, they are
-    necessary to recreate these tables when read back in.
-
-    index_axes    : a list of tuples of the (original indexing axis and
-        index column)
-    non_index_axes: a list of tuples of the (original index axis and
-        columns on a non-indexing axis)
-    values_axes   : a list of the columns which comprise the data of this
-        table
-    data_columns  : a list of the columns that we are allowing indexing
-        (these become single columns in values_axes)
-    nan_rep       : the string to use for nan representations for string
-        objects
-    levels        : the names of levels
-    metadata      : the names of the metadata columns
-    """
-    pandas_kind: str
-    format_type: str
-    table_type: str
-    levels: int | list[Hashable]
-    is_table: bool
-    metadata: list
-    index_axes: Incomplete
-    non_index_axes: Incomplete
-    values_axes: Incomplete
-    data_columns: Incomplete
-    info: Incomplete
-    nan_rep: Incomplete
-    def __init__(self, parent: HDFStore, group: Node, encoding: str | None = None, errors: str = 'strict', index_axes: list[IndexCol] | None = None, non_index_axes: list[tuple[AxisInt, Any]] | None = None, values_axes: list[DataCol] | None = None, data_columns: list | None = None, info: dict | None = None, nan_rep: Incomplete | None = None) -> None: ...
-    @property
-    def table_type_short(self) -> str: ...
-    def __repr__(self) -> str:
-        """return a pretty representation of myself"""
+    pandas_kind: ClassVar[str] = ...
+    format_type: ClassVar[str] = ...
+    levels: ClassVar[int] = ...
+    is_table: ClassVar[bool] = ...
+    indexables: Incomplete
+    def __init__(self, parent: HDFStore, group: Node, encoding: str | None, errors: str = ..., index_axes: list[IndexCol] | None, non_index_axes: list[tuple[AxisInt, Any]] | None, values_axes: list[DataCol] | None, data_columns: list | None, info: dict | None, nan_rep) -> None: ...
     def __getitem__(self, c: str):
         """return the axis for c"""
     def validate(self, other) -> None:
         """validate against an existing table"""
-    @property
-    def is_multi_index(self) -> bool:
-        """the levels attribute is 1 or a list in the case of a multi-index"""
     def validate_multiindex(self, obj: DataFrame | Series) -> tuple[DataFrame, list[Hashable]]:
         """
         validate that we can store the multi-index; reset and return the
         new object
         """
-    @property
-    def nrows_expected(self) -> int:
-        """based on our axes, compute the expected nrows"""
-    @property
-    def is_exists(self) -> bool:
-        """has this table been created"""
-    @property
-    def storable(self): ...
-    @property
-    def table(self):
-        """return the table group (this is my storable)"""
-    @property
-    def dtype(self): ...
-    @property
-    def description(self): ...
-    @property
-    def axes(self) -> itertools.chain[IndexCol]: ...
-    @property
-    def ncols(self) -> int:
-        """the number of total columns in the values axes"""
-    @property
-    def is_transposed(self) -> bool: ...
-    @property
-    def data_orientation(self) -> tuple[int, ...]:
-        """return a tuple of my permutated axes, non_indexable at the front"""
     def queryables(self) -> dict[str, Any]:
         """return a dict of the kinds allowable columns for this object"""
     def index_cols(self):
@@ -1179,20 +950,16 @@ class Table(Fixed):
         """return the meta data array for this key"""
     def set_attrs(self) -> None:
         """set our table type & indexables"""
-    encoding: Incomplete
-    errors: Incomplete
     def get_attrs(self) -> None:
         """retrieve our attributes"""
-    def validate_version(self, where: Incomplete | None = None) -> None:
+    def validate_version(self, where) -> None:
         """are we trying to operate on an old version?"""
     def validate_min_itemsize(self, min_itemsize) -> None:
         """
         validate the min_itemsize doesn't contain items that are not in the
         axes this needs data_columns to be defined
         """
-    def indexables(self):
-        """create/cache the indexables if they don't exist"""
-    def create_index(self, columns: Incomplete | None = None, optlevel: Incomplete | None = None, kind: str | None = None) -> None:
+    def create_index(self, columns, optlevel, kind: str | None) -> None:
         '''
         Create a pytables index on the specified columns.
 
@@ -1220,7 +987,7 @@ class Table(Fixed):
         Cannot index Time64Col or ComplexCol.
         Pytables must be >= 3.0.
         '''
-    def _read_axes(self, where, start: int | None = None, stop: int | None = None) -> list[tuple[np.ndarray, np.ndarray] | tuple[Index, Index]]:
+    def _read_axes(self, where, start: int | None, stop: int | None) -> list[tuple[np.ndarray, np.ndarray] | tuple[Index, Index]]:
         """
         Create the axes sniffed from the table.
 
@@ -1242,7 +1009,7 @@ class Table(Fixed):
         take the input data_columns and min_itemize and create a data
         columns spec
         """
-    def _create_axes(self, axes, obj: DataFrame, validate: bool = True, nan_rep: Incomplete | None = None, data_columns: Incomplete | None = None, min_itemsize: Incomplete | None = None):
+    def _create_axes(self, axes, obj: DataFrame, validate: bool = ..., nan_rep, data_columns, min_itemsize):
         """
         Create and return the axes.
 
@@ -1268,29 +1035,48 @@ class Table(Fixed):
         """
     @staticmethod
     def _get_blocks_and_items(frame: DataFrame, table_exists: bool, new_non_index_axes, values_axes, data_columns): ...
-    def process_axes(self, obj, selection: Selection, columns: Incomplete | None = None) -> DataFrame:
+    def process_axes(self, obj, selection: Selection, columns) -> DataFrame:
         """process axes filters"""
     def create_description(self, complib, complevel: int | None, fletcher32: bool, expectedrows: int | None) -> dict[str, Any]:
         """create the description of the table from the axes & values"""
-    def read_coordinates(self, where: Incomplete | None = None, start: int | None = None, stop: int | None = None):
+    def read_coordinates(self, where, start: int | None, stop: int | None):
         """
         select coordinates (row numbers) from a table; return the
         coordinates object
         """
-    def read_column(self, column: str, where: Incomplete | None = None, start: int | None = None, stop: int | None = None):
+    def read_column(self, column: str, where, start: int | None, stop: int | None):
         """
         return a single column from the table, generally only indexables
         are interesting
         """
+    @property
+    def table_type_short(self): ...
+    @property
+    def is_multi_index(self): ...
+    @property
+    def nrows_expected(self): ...
+    @property
+    def is_exists(self): ...
+    @property
+    def storable(self): ...
+    @property
+    def table(self): ...
+    @property
+    def dtype(self): ...
+    @property
+    def description(self): ...
+    @property
+    def axes(self): ...
+    @property
+    def ncols(self): ...
+    @property
+    def is_transposed(self): ...
+    @property
+    def data_orientation(self): ...
 
 class WORMTable(Table):
-    """
-    a write-once read-many table: this format DOES NOT ALLOW appending to a
-    table. writing is a one-time operation the data are stored in a format
-    that allows for searching the data on disk
-    """
-    table_type: str
-    def read(self, where: Incomplete | None = None, columns: Incomplete | None = None, start: int | None = None, stop: int | None = None):
+    table_type: ClassVar[str] = ...
+    def read(self, where, columns, start: int | None, stop: int | None):
         """
         read the indices and the indexing array, calculate offset rows and return
         """
@@ -1302,10 +1088,9 @@ class WORMTable(Table):
         """
 
 class AppendableTable(Table):
-    """support the new appendable table formats"""
-    table_type: str
-    def write(self, obj, axes: Incomplete | None = None, append: bool = False, complib: Incomplete | None = None, complevel: Incomplete | None = None, fletcher32: Incomplete | None = None, min_itemsize: Incomplete | None = None, chunksize: int | None = None, expectedrows: Incomplete | None = None, dropna: bool = False, nan_rep: Incomplete | None = None, data_columns: Incomplete | None = None, track_times: bool = True) -> None: ...
-    def write_data(self, chunksize: int | None, dropna: bool = False) -> None:
+    table_type: ClassVar[str] = ...
+    def write(self, obj, axes, append: bool = ..., complib, complevel, fletcher32, min_itemsize, chunksize: int | None, expectedrows, dropna: bool = ..., nan_rep, data_columns, track_times: bool = ...) -> None: ...
+    def write_data(self, chunksize: int | None, dropna: bool = ...) -> None:
         """
         we form the data into a 2-d including indexes,values,mask write chunk-by-chunk
         """
@@ -1318,82 +1103,76 @@ class AppendableTable(Table):
         mask : an array of the masks
         values : an array of the values
         """
-    def delete(self, where: Incomplete | None = None, start: int | None = None, stop: int | None = None): ...
+    def delete(self, where, start: int | None, stop: int | None): ...
 
 class AppendableFrameTable(AppendableTable):
-    """support the new appendable table formats"""
-    pandas_kind: str
-    table_type: str
-    ndim: int
-    obj_type: type[DataFrame | Series]
-    @property
-    def is_transposed(self) -> bool: ...
+    pandas_kind: ClassVar[str] = ...
+    table_type: ClassVar[str] = ...
+    ndim: ClassVar[int] = ...
+    obj_type: ClassVar[type[pandas.core.frame.DataFrame]] = ...
     @classmethod
     def get_object(cls, obj, transposed: bool):
         """these are written transposed"""
-    def read(self, where: Incomplete | None = None, columns: Incomplete | None = None, start: int | None = None, stop: int | None = None): ...
+    def read(self, where, columns, start: int | None, stop: int | None): ...
+    @property
+    def is_transposed(self): ...
 
 class AppendableSeriesTable(AppendableFrameTable):
-    """support the new appendable table formats"""
-    pandas_kind: str
-    table_type: str
-    ndim: int
-    obj_type = Series
-    @property
-    def is_transposed(self) -> bool: ...
+    pandas_kind: ClassVar[str] = ...
+    table_type: ClassVar[str] = ...
+    ndim: ClassVar[int] = ...
+    obj_type: ClassVar[type[pandas.core.series.Series]] = ...
     @classmethod
     def get_object(cls, obj, transposed: bool): ...
-    def write(self, obj, data_columns: Incomplete | None = None, **kwargs) -> None:
+    def write(self, obj, data_columns, **kwargs) -> None:
         """we are going to write this as a frame table"""
-    def read(self, where: Incomplete | None = None, columns: Incomplete | None = None, start: int | None = None, stop: int | None = None) -> Series: ...
+    def read(self, where, columns, start: int | None, stop: int | None) -> Series: ...
+    @property
+    def is_transposed(self): ...
 
 class AppendableMultiSeriesTable(AppendableSeriesTable):
-    """support the new appendable table formats"""
-    pandas_kind: str
-    table_type: str
+    pandas_kind: ClassVar[str] = ...
+    table_type: ClassVar[str] = ...
     def write(self, obj, **kwargs) -> None:
         """we are going to write this as a frame table"""
 
 class GenericTable(AppendableFrameTable):
-    """a table that read/writes the generic pytables table format"""
-    pandas_kind: str
-    table_type: str
-    ndim: int
-    obj_type = DataFrame
-    levels: list[Hashable]
-    @property
-    def pandas_type(self) -> str: ...
-    @property
-    def storable(self): ...
-    non_index_axes: Incomplete
-    nan_rep: Incomplete
-    index_axes: Incomplete
-    values_axes: Incomplete
-    data_columns: Incomplete
+    pandas_kind: ClassVar[str] = ...
+    table_type: ClassVar[str] = ...
+    ndim: ClassVar[int] = ...
+    obj_type: ClassVar[type[pandas.core.frame.DataFrame]] = ...
+    indexables: Incomplete
     def get_attrs(self) -> None:
         """retrieve our attributes"""
-    def indexables(self):
-        """create the indexables from the table description"""
     def write(self, **kwargs) -> None: ...
+    @property
+    def pandas_type(self): ...
+    @property
+    def storable(self): ...
 
 class AppendableMultiFrameTable(AppendableFrameTable):
-    """a frame with a multi-index"""
-    table_type: str
-    obj_type = DataFrame
-    ndim: int
-    _re_levels: Incomplete
+    table_type: ClassVar[str] = ...
+    obj_type: ClassVar[type[pandas.core.frame.DataFrame]] = ...
+    ndim: ClassVar[int] = ...
+    _re_levels: ClassVar[re.Pattern] = ...
+    def write(self, obj, data_columns, **kwargs) -> None: ...
+    def read(self, where, columns, start: int | None, stop: int | None): ...
     @property
-    def table_type_short(self) -> str: ...
-    def write(self, obj, data_columns: Incomplete | None = None, **kwargs) -> None: ...
-    def read(self, where: Incomplete | None = None, columns: Incomplete | None = None, start: int | None = None, stop: int | None = None): ...
-
-def _reindex_axis(obj: DataFrame, axis: AxisInt, labels: Index, other: Incomplete | None = None) -> DataFrame: ...
+    def table_type_short(self): ...
+def _reindex_axis(obj: DataFrame, axis: AxisInt, labels: Index, other) -> DataFrame: ...
 def _get_tz(tz: tzinfo) -> str | tzinfo:
     """for a tz-aware type, return an encoded zone"""
-@overload
-def _set_tz(values: np.ndarray | Index, tz: str | tzinfo, coerce: bool = False) -> DatetimeIndex: ...
-@overload
-def _set_tz(values: np.ndarray | Index, tz: None, coerce: bool = False) -> np.ndarray: ...
+def _set_tz(values: np.ndarray | Index, tz: str | tzinfo | None, coerce: bool = ...) -> np.ndarray | DatetimeIndex:
+    """
+    coerce the values to a DatetimeIndex if tz is set
+    preserve the input shape if possible
+
+    Parameters
+    ----------
+    values : ndarray or Index
+    tz : str or tzinfo
+    coerce : if we do not have a passed timezone, coerce to M8[ns] ndarray
+    """
 def _convert_index(name: str, index: Index, encoding: str, errors: str) -> IndexCol: ...
 def _unconvert_index(data, kind: str, encoding: str, errors: str) -> np.ndarray | Index: ...
 def _maybe_convert_for_string_atom(name: str, bvalues: ArrayLike, existing_col, min_itemsize, nan_rep, encoding, errors, columns: list[str]): ...
@@ -1456,25 +1235,7 @@ def _get_data_and_dtype_name(data: ArrayLike):
     """
 
 class Selection:
-    """
-    Carries out a selection operation on a tables.Table object.
-
-    Parameters
-    ----------
-    table : a Table object
-    where : list of Terms (or convertible to)
-    start, stop: indices to start and/or stop selection
-
-    """
-    table: Incomplete
-    where: Incomplete
-    start: Incomplete
-    stop: Incomplete
-    condition: Incomplete
-    filter: Incomplete
-    terms: Incomplete
-    coordinates: Incomplete
-    def __init__(self, table: Table, where: Incomplete | None = None, start: int | None = None, stop: int | None = None) -> None: ...
+    def __init__(self, table: Table, where, start: int | None, stop: int | None) -> None: ...
     def generate(self, where):
         """where can be a : dict,list,tuple,string"""
     def select(self):

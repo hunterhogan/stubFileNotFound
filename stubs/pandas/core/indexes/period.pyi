@@ -1,144 +1,138 @@
-import numpy as np
+import _abc
+import np
+import npt
+import pandas._libs.index as libindex
+import pandas.core.arrays.period
+import pandas.core.common as com
+import pandas.core.indexes.base as ibase
+import pandas.core.indexes.datetimelike
 from _typeshed import Incomplete
-from collections.abc import Hashable
 from datetime import datetime
-from pandas._libs import index as libindex
-from pandas._libs.tslibs import BaseOffset as BaseOffset, NaT as NaT, Period as Period, Resolution as Resolution, Tick as Tick
-from pandas._libs.tslibs.dtypes import OFFSET_TO_PERIOD_FREQSTR as OFFSET_TO_PERIOD_FREQSTR
-from pandas._typing import Dtype as Dtype, DtypeObj as DtypeObj, Self as Self, npt as npt
+from pandas._libs.lib import is_integer as is_integer
+from pandas._libs.properties import cache_readonly as cache_readonly
+from pandas._libs.tslibs.dtypes import Resolution as Resolution
+from pandas._libs.tslibs.nattype import NaT as NaT
+from pandas._libs.tslibs.offsets import BaseOffset as BaseOffset, Tick as Tick
+from pandas._libs.tslibs.period import Period as Period
 from pandas.core.arrays.period import PeriodArray as PeriodArray, period_array as period_array, raise_on_incompatible as raise_on_incompatible, validate_dtype_freq as validate_dtype_freq
-from pandas.core.dtypes.common import is_integer as is_integer
 from pandas.core.dtypes.dtypes import PeriodDtype as PeriodDtype
 from pandas.core.dtypes.generic import ABCSeries as ABCSeries
 from pandas.core.dtypes.missing import is_valid_na_for_dtype as is_valid_na_for_dtype
-from pandas.core.indexes.base import maybe_extract_name as maybe_extract_name
+from pandas.core.indexes.base import Index as Index, maybe_extract_name as maybe_extract_name
 from pandas.core.indexes.datetimelike import DatetimeIndexOpsMixin as DatetimeIndexOpsMixin
-from pandas.core.indexes.datetimes import DatetimeIndex as DatetimeIndex, Index as Index
+from pandas.core.indexes.datetimes import DatetimeIndex as DatetimeIndex
 from pandas.core.indexes.extension import inherit_names as inherit_names
-from pandas.util._decorators import cache_readonly as cache_readonly, doc as doc
+from pandas.util._decorators import doc as doc
 from pandas.util._exceptions import find_stack_level as find_stack_level
+from typing import ClassVar
 
-_index_doc_kwargs: Incomplete
-_shared_doc_kwargs: Incomplete
-
+TYPE_CHECKING: bool
+OFFSET_TO_PERIOD_FREQSTR: dict
+_index_doc_kwargs: dict
+_shared_doc_kwargs: dict
 def _new_PeriodIndex(cls, **d): ...
 
-class PeriodIndex(DatetimeIndexOpsMixin):
-    """
-    Immutable ndarray holding ordinal values indicating regular periods in time.
+class PeriodIndex(pandas.core.indexes.datetimelike.DatetimeIndexOpsMixin):
+    _typ: ClassVar[str] = ...
+    _data_cls: ClassVar[type[pandas.core.arrays.period.PeriodArray]] = ...
+    _supports_partial_string_indexing: ClassVar[bool] = ...
+    __abstractmethods__: ClassVar[frozenset] = ...
+    _abc_impl: ClassVar[_abc._abc_data] = ...
+    _resolution_obj: Incomplete
+    hour: Incomplete
+    minute: Incomplete
+    second: Incomplete
+    is_leap_year: Incomplete
+    start_time: Incomplete
+    end_time: Incomplete
+    year: Incomplete
+    month: Incomplete
+    day: Incomplete
+    weekofyear: Incomplete
+    weekday: Incomplete
+    week: Incomplete
+    dayofweek: Incomplete
+    day_of_week: Incomplete
+    dayofyear: Incomplete
+    day_of_year: Incomplete
+    quarter: Incomplete
+    qyear: Incomplete
+    days_in_month: Incomplete
+    daysinmonth: Incomplete
+    def asfreq(self, freq, how: str = ...) -> Self:
+        """
+        Convert the PeriodArray to the specified frequency `freq`.
 
-    Index keys are boxed to Period objects which carries the metadata (eg,
-    frequency information).
+        Equivalent to applying :meth:`pandas.Period.asfreq` with the given arguments
+        to each :class:`~pandas.Period` in this PeriodArray.
 
-    Parameters
-    ----------
-    data : array-like (1d int np.ndarray or PeriodArray), optional
-        Optional period-like data to construct index with.
-    copy : bool
-        Make a copy of input ndarray.
-    freq : str or period object, optional
-        One of pandas period strings or corresponding objects.
-    year : int, array, or Series, default None
+        Parameters
+        ----------
+        freq : str
+            A frequency.
+        how : str {'E', 'S'}, default 'E'
+            Whether the elements should be aligned to the end
+            or start within pa period.
 
-        .. deprecated:: 2.2.0
-           Use PeriodIndex.from_fields instead.
-    month : int, array, or Series, default None
+            * 'E', 'END', or 'FINISH' for end,
+            * 'S', 'START', or 'BEGIN' for start.
 
-        .. deprecated:: 2.2.0
-           Use PeriodIndex.from_fields instead.
-    quarter : int, array, or Series, default None
+            January 31st ('END') vs. January 1st ('START') for example.
 
-        .. deprecated:: 2.2.0
-           Use PeriodIndex.from_fields instead.
-    day : int, array, or Series, default None
+        Returns
+        -------
+        PeriodArray
+            The transformed PeriodArray with the new frequency.
 
-        .. deprecated:: 2.2.0
-           Use PeriodIndex.from_fields instead.
-    hour : int, array, or Series, default None
+        See Also
+        --------
+        pandas.arrays.PeriodArray.asfreq: Convert each Period in a PeriodArray to the given frequency.
+        Period.asfreq : Convert a :class:`~pandas.Period` object to the given frequency.
 
-        .. deprecated:: 2.2.0
-           Use PeriodIndex.from_fields instead.
-    minute : int, array, or Series, default None
+        Examples
+        --------
+        >>> pidx = pd.period_range('2010-01-01', '2015-01-01', freq='Y')
+        >>> pidx
+        PeriodIndex(['2010', '2011', '2012', '2013', '2014', '2015'],
+        dtype='period[Y-DEC]')
 
-        .. deprecated:: 2.2.0
-           Use PeriodIndex.from_fields instead.
-    second : int, array, or Series, default None
+        >>> pidx.asfreq('M')
+        PeriodIndex(['2010-12', '2011-12', '2012-12', '2013-12', '2014-12',
+        '2015-12'], dtype='period[M]')
 
-        .. deprecated:: 2.2.0
-           Use PeriodIndex.from_fields instead.
-    dtype : str or PeriodDtype, default None
+        >>> pidx.asfreq('M', how='S')
+        PeriodIndex(['2010-01', '2011-01', '2012-01', '2013-01', '2014-01',
+        '2015-01'], dtype='period[M]')
+        """
+    def to_timestamp(self, freq, how: str = ...) -> DatetimeIndex:
+        '''
+        Cast to DatetimeArray/Index.
 
-    Attributes
-    ----------
-    day
-    dayofweek
-    day_of_week
-    dayofyear
-    day_of_year
-    days_in_month
-    daysinmonth
-    end_time
-    freq
-    freqstr
-    hour
-    is_leap_year
-    minute
-    month
-    quarter
-    qyear
-    second
-    start_time
-    week
-    weekday
-    weekofyear
-    year
+        Parameters
+        ----------
+        freq : str or DateOffset, optional
+            Target frequency. The default is \'D\' for week or longer,
+            \'s\' otherwise.
+        how : {\'s\', \'e\', \'start\', \'end\'}
+            Whether to use the start or end of the time period being converted.
 
-    Methods
-    -------
-    asfreq
-    strftime
-    to_timestamp
-    from_fields
-    from_ordinals
+        Returns
+        -------
+        DatetimeArray/Index
 
-    See Also
-    --------
-    Index : The base pandas Index type.
-    Period : Represents a period of time.
-    DatetimeIndex : Index with datetime64 data.
-    TimedeltaIndex : Index of timedelta64 data.
-    period_range : Create a fixed-frequency PeriodIndex.
-
-    Examples
-    --------
-    >>> idx = pd.PeriodIndex.from_fields(year=[2000, 2002], quarter=[1, 3])
-    >>> idx
-    PeriodIndex(['2000Q1', '2002Q3'], dtype='period[Q-DEC]')
-    """
-    _typ: str
-    _data: PeriodArray
-    freq: BaseOffset
-    dtype: PeriodDtype
-    _data_cls = PeriodArray
-    _supports_partial_string_indexing: bool
-    @property
-    def _engine_type(self) -> type[libindex.PeriodEngine]: ...
-    def _resolution_obj(self) -> Resolution: ...
-    def asfreq(self, freq: Incomplete | None = None, how: str = 'E') -> Self: ...
-    def to_timestamp(self, freq: Incomplete | None = None, how: str = 'start') -> DatetimeIndex: ...
-    @property
-    def hour(self) -> Index: ...
-    @property
-    def minute(self) -> Index: ...
-    @property
-    def second(self) -> Index: ...
-    def __new__(cls, data: Incomplete | None = None, ordinal: Incomplete | None = None, freq: Incomplete | None = None, dtype: Dtype | None = None, copy: bool = False, name: Hashable | None = None, **fields) -> Self: ...
+        Examples
+        --------
+        >>> idx = pd.PeriodIndex(["2023-01", "2023-02", "2023-03"], freq="M")
+        >>> idx.to_timestamp()
+        DatetimeIndex([\'2023-01-01\', \'2023-02-01\', \'2023-03-01\'],
+        dtype=\'datetime64[ns]\', freq=\'MS\')
+        '''
     @classmethod
-    def from_fields(cls, *, year: Incomplete | None = None, quarter: Incomplete | None = None, month: Incomplete | None = None, day: Incomplete | None = None, hour: Incomplete | None = None, minute: Incomplete | None = None, second: Incomplete | None = None, freq: Incomplete | None = None) -> Self: ...
+    def __init__(cls, data, ordinal, freq, dtype: Dtype | None, copy: bool = ..., name: Hashable | None, **fields) -> Self: ...
     @classmethod
-    def from_ordinals(cls, ordinals, *, freq, name: Incomplete | None = None) -> Self: ...
-    @property
-    def values(self) -> npt.NDArray[np.object_]: ...
+    def from_fields(cls, *, year, quarter, month, day, hour, minute, second, freq) -> Self: ...
+    @classmethod
+    def from_ordinals(cls, ordinals, *, freq, name) -> Self: ...
     def _maybe_convert_timedelta(self, other) -> int | npt.NDArray[np.int64]:
         """
         Convert timedelta-like input to an integer multiple of self.freq
@@ -166,14 +160,6 @@ class PeriodIndex(DatetimeIndexOpsMixin):
         mask : np.ndarray[bool]
             Array of booleans where data is not NA.
         """
-    @property
-    def is_full(self) -> bool:
-        """
-        Returns True if this PeriodIndex is range-like in that all Periods
-        between start and end are present, in order.
-        """
-    @property
-    def inferred_type(self) -> str: ...
     def _convert_tolerance(self, tolerance, target): ...
     def get_loc(self, key):
         """
@@ -197,11 +183,105 @@ class PeriodIndex(DatetimeIndexOpsMixin):
         """
     def _disallow_mismatched_indexing(self, key: Period) -> None: ...
     def _cast_partial_indexing_scalar(self, label: datetime) -> Period: ...
-    def _maybe_cast_slice_bound(self, label, side: str): ...
-    def _parsed_string_to_bounds(self, reso: Resolution, parsed: datetime): ...
-    def shift(self, periods: int = 1, freq: Incomplete | None = None) -> Self: ...
+    def _maybe_cast_slice_bound(self, label, side: str):
+        """
+        If label is a string, cast it to scalar type according to resolution.
 
-def period_range(start: Incomplete | None = None, end: Incomplete | None = None, periods: int | None = None, freq: Incomplete | None = None, name: Hashable | None = None) -> PeriodIndex:
+        Parameters
+        ----------
+        label : object
+        side : {'left', 'right'}
+
+        Returns
+        -------
+        label : object
+
+        Notes
+        -----
+        Value of `side` parameter should be validated in caller.
+        """
+    def _parsed_string_to_bounds(self, reso: Resolution, parsed: datetime): ...
+    def shift(self, periods: int = ..., freq) -> Self:
+        """
+        Shift index by desired number of time frequency increments.
+
+        This method is for shifting the values of datetime-like indexes
+        by a specified time increment a given number of times.
+
+        Parameters
+        ----------
+        periods : int, default 1
+            Number of periods (or increments) to shift by,
+            can be positive or negative.
+        freq : pandas.DateOffset, pandas.Timedelta or string, optional
+            Frequency increment to shift by.
+            If None, the index is shifted by its own `freq` attribute.
+            Offset aliases are valid strings, e.g., 'D', 'W', 'M' etc.
+
+        Returns
+        -------
+        pandas.DatetimeIndex
+            Shifted index.
+
+        See Also
+        --------
+        Index.shift : Shift values of Index.
+        PeriodIndex.shift : Shift values of PeriodIndex.
+        """
+    def strftime(self, *args, **kwargs):
+        '''
+        Convert to Index using specified date_format.
+
+        Return an Index of formatted strings specified by date_format, which
+        supports the same string format as the python standard library. Details
+        of the string format can be found in `python string format
+        doc <https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior>`__.
+
+        Formats supported by the C `strftime` API but not by the python string format
+        doc (such as `"%R"`, `"%r"`) are not officially supported and should be
+        preferably replaced with their supported equivalents (such as `"%H:%M"`,
+        `"%I:%M:%S %p"`).
+
+        Note that `PeriodIndex` support additional directives, detailed in
+        `Period.strftime`.
+
+        Parameters
+        ----------
+        date_format : str
+            Date format string (e.g. "%Y-%m-%d").
+
+        Returns
+        -------
+        ndarray[object]
+            NumPy ndarray of formatted strings.
+
+        See Also
+        --------
+        to_datetime : Convert the given argument to datetime.
+        DatetimeIndex.normalize : Return DatetimeIndex with times to midnight.
+        DatetimeIndex.round : Round the DatetimeIndex to the specified freq.
+        DatetimeIndex.floor : Floor the DatetimeIndex to the specified freq.
+        Timestamp.strftime : Format a single Timestamp.
+        Period.strftime : Format a single Period.
+
+        Examples
+        --------
+        >>> rng = pd.date_range(pd.Timestamp("2018-03-10 09:00"),
+        ...                     periods=3, freq=\'s\')
+        >>> rng.strftime(\'%B %d, %Y, %r\')
+        Index([\'March 10, 2018, 09:00:00 AM\', \'March 10, 2018, 09:00:01 AM\',
+               \'March 10, 2018, 09:00:02 AM\'],
+              dtype=\'object\')
+        '''
+    @property
+    def _engine_type(self): ...
+    @property
+    def values(self): ...
+    @property
+    def is_full(self): ...
+    @property
+    def inferred_type(self): ...
+def period_range(start, end, periods: int | None, freq, name: Hashable | None) -> PeriodIndex:
     '''
     Return a fixed frequency PeriodIndex.
 

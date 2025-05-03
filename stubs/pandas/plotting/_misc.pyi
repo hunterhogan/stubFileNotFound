@@ -1,14 +1,9 @@
-import numpy as np
-from _typeshed import Incomplete
-from collections.abc import Generator, Mapping
-from matplotlib.axes import Axes
-from matplotlib.colors import Colormap
-from matplotlib.figure import Figure
-from matplotlib.table import Table
-from pandas import DataFrame as DataFrame, Series as Series
+import np
+from collections.abc import Generator
 from pandas.plotting._core import _get_plot_backend as _get_plot_backend
-from typing import Any
+from typing import Any, ClassVar
 
+TYPE_CHECKING: bool
 def table(ax: Axes, data: DataFrame | Series, **kwargs) -> Table:
     """
     Helper function to convert DataFrame and Series to matplotlib.table.
@@ -121,7 +116,7 @@ def deregister() -> None:
     Traceback (most recent call last):
     TypeError: float() argument must be a string or a real number, not \'Period\'
     '''
-def scatter_matrix(frame: DataFrame, alpha: float = 0.5, figsize: tuple[float, float] | None = None, ax: Axes | None = None, grid: bool = False, diagonal: str = 'hist', marker: str = '.', density_kwds: Mapping[str, Any] | None = None, hist_kwds: Mapping[str, Any] | None = None, range_padding: float = 0.05, **kwargs) -> np.ndarray:
+def scatter_matrix(frame: DataFrame, alpha: float = ..., figsize: tuple[float, float] | None, ax: Axes | None, grid: bool = ..., diagonal: str = ..., marker: str = ..., density_kwds: Mapping[str, Any] | None, hist_kwds: Mapping[str, Any] | None, range_padding: float = ..., **kwargs) -> np.ndarray:
     """
     Draw a matrix of scatter plots.
 
@@ -173,7 +168,7 @@ def scatter_matrix(frame: DataFrame, alpha: float = 0.5, figsize: tuple[float, f
                 <Axes: xlabel='C', ylabel='D'>, <Axes: xlabel='D', ylabel='D'>]],
               dtype=object)
     """
-def radviz(frame: DataFrame, class_column: str, ax: Axes | None = None, color: list[str] | tuple[str, ...] | None = None, colormap: Colormap | str | None = None, **kwds) -> Axes:
+def radviz(frame: DataFrame, class_column: str, ax: Axes | None, color: list[str] | tuple[str, ...] | None, colormap: Colormap | str | None, **kwds) -> Axes:
     """
     Plot a multidimensional dataset in 2D.
 
@@ -242,7 +237,7 @@ def radviz(frame: DataFrame, class_column: str, ax: Axes | None = None, color: l
         ... )
         >>> pd.plotting.radviz(df, 'Category')  # doctest: +SKIP
     """
-def andrews_curves(frame: DataFrame, class_column: str, ax: Axes | None = None, samples: int = 200, color: list[str] | tuple[str, ...] | None = None, colormap: Colormap | str | None = None, **kwargs) -> Axes:
+def andrews_curves(frame: DataFrame, class_column: str, ax: Axes | None, samples: int = ..., color: list[str] | tuple[str, ...] | None, colormap: Colormap | str | None, **kwargs) -> Axes:
     """
     Generate a matplotlib plot for visualizing clusters of multivariate data.
 
@@ -291,7 +286,7 @@ def andrews_curves(frame: DataFrame, class_column: str, ax: Axes | None = None, 
         ... )
         >>> pd.plotting.andrews_curves(df, 'Name')  # doctest: +SKIP
     """
-def bootstrap_plot(series: Series, fig: Figure | None = None, size: int = 50, samples: int = 500, **kwds) -> Figure:
+def bootstrap_plot(series: Series, fig: Figure | None, size: int = ..., samples: int = ..., **kwds) -> Figure:
     '''
     Bootstrap plot on mean, median and mid-range statistics.
 
@@ -338,7 +333,7 @@ def bootstrap_plot(series: Series, fig: Figure | None = None, size: int = 50, sa
         >>> pd.plotting.bootstrap_plot(s)  # doctest: +SKIP
         <Figure size 640x480 with 6 Axes>
     '''
-def parallel_coordinates(frame: DataFrame, class_column: str, cols: list[str] | None = None, ax: Axes | None = None, color: list[str] | tuple[str, ...] | None = None, use_columns: bool = False, xticks: list | tuple | None = None, colormap: Colormap | str | None = None, axvlines: bool = True, axvlines_kwds: Mapping[str, Any] | None = None, sort_labels: bool = False, **kwargs) -> Axes:
+def parallel_coordinates(frame: DataFrame, class_column: str, cols: list[str] | None, ax: Axes | None, color: list[str] | tuple[str, ...] | None, use_columns: bool = ..., xticks: list | tuple | None, colormap: Colormap | str | None, axvlines: bool = ..., axvlines_kwds: Mapping[str, Any] | None, sort_labels: bool = ..., **kwargs) -> Axes:
     """
     Parallel coordinates plotting.
 
@@ -386,7 +381,7 @@ def parallel_coordinates(frame: DataFrame, class_column: str, cols: list[str] | 
         ...     df, 'Name', color=('#556270', '#4ECDC4', '#C7F464')
         ... )  # doctest: +SKIP
     """
-def lag_plot(series: Series, lag: int = 1, ax: Axes | None = None, **kwds) -> Axes:
+def lag_plot(series: Series, lag: int = ..., ax: Axes | None, **kwds) -> Axes:
     """
     Lag plot for time series.
 
@@ -427,7 +422,7 @@ def lag_plot(series: Series, lag: int = 1, ax: Axes | None = None, **kwds) -> Ax
         >>> pd.plotting.lag_plot(s, lag=1)
         <Axes: xlabel='y(t)', ylabel='y(t + 1)'>
     """
-def autocorrelation_plot(series: Series, ax: Axes | None = None, **kwargs) -> Axes:
+def autocorrelation_plot(series: Series, ax: Axes | None, **kwargs) -> Axes:
     """
     Autocorrelation plot for time series.
 
@@ -459,32 +454,9 @@ def autocorrelation_plot(series: Series, ax: Axes | None = None, **kwargs) -> Ax
     """
 
 class _Options(dict):
-    '''
-    Stores pandas plotting options.
-
-    Allows for parameter aliasing so you can just use parameter names that are
-    the same as the plot function parameters, but is stored in a canonical
-    format that makes it easy to breakdown into groups later.
-
-    Examples
-    --------
-
-    .. plot::
-            :context: close-figs
-
-             >>> np.random.seed(42)
-             >>> df = pd.DataFrame({\'A\': np.random.randn(10),
-             ...                   \'B\': np.random.randn(10)},
-             ...                   index=pd.date_range("1/1/2000",
-             ...                   freq=\'4MS\', periods=10))
-             >>> with pd.plotting.plot_params.use("x_compat", True):
-             ...     _ = df["A"].plot(color="r")
-             ...     _ = df["B"].plot(color="g")
-    '''
-    _ALIASES: Incomplete
-    _DEFAULT_KEYS: Incomplete
-    _deprecated: Incomplete
-    def __init__(self, deprecated: bool = False) -> None: ...
+    _ALIASES: ClassVar[dict] = ...
+    _DEFAULT_KEYS: ClassVar[list] = ...
+    def __init__(self, deprecated: bool = ...) -> None: ...
     def __getitem__(self, key): ...
     def __setitem__(self, key, value) -> None: ...
     def __delitem__(self, key) -> None: ...
@@ -498,10 +470,9 @@ class _Options(dict):
         None
         """
     def _get_canonical_key(self, key): ...
-    def use(self, key, value) -> Generator[_Options, None, None]:
+    def use(self, *args, **kwds) -> Generator[_Options, None, None]:
         """
         Temporarily set a parameter value using the with statement.
         Aliasing allowed.
         """
-
-plot_params: Incomplete
+plot_params: _Options

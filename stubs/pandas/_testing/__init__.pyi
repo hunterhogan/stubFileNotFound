@@ -1,39 +1,39 @@
-from _typeshed import Incomplete
-from pandas import DataFrame, Series
+import pandas as pd
+import pandas.core.frame
+import pandas.core.series
+from . import _io as _io, _warnings as _warnings, asserters as asserters, compat as compat, contexts as contexts
 from pandas._config.localization import can_set_locale as can_set_locale, get_locales as get_locales, set_locale as set_locale
 from pandas._testing._io import round_trip_localpath as round_trip_localpath, round_trip_pathlib as round_trip_pathlib, round_trip_pickle as round_trip_pickle, write_to_compressed as write_to_compressed
 from pandas._testing._warnings import assert_produces_warning as assert_produces_warning, maybe_produces_warning as maybe_produces_warning
 from pandas._testing.asserters import assert_almost_equal as assert_almost_equal, assert_attr_equal as assert_attr_equal, assert_categorical_equal as assert_categorical_equal, assert_class_equal as assert_class_equal, assert_contains_all as assert_contains_all, assert_copy as assert_copy, assert_datetime_array_equal as assert_datetime_array_equal, assert_dict_equal as assert_dict_equal, assert_equal as assert_equal, assert_extension_array_equal as assert_extension_array_equal, assert_frame_equal as assert_frame_equal, assert_index_equal as assert_index_equal, assert_indexing_slices_equivalent as assert_indexing_slices_equivalent, assert_interval_array_equal as assert_interval_array_equal, assert_is_sorted as assert_is_sorted, assert_is_valid_plot_return_object as assert_is_valid_plot_return_object, assert_metadata_equivalent as assert_metadata_equivalent, assert_numpy_array_equal as assert_numpy_array_equal, assert_period_array_equal as assert_period_array_equal, assert_series_equal as assert_series_equal, assert_sp_array_equal as assert_sp_array_equal, assert_timedelta_array_equal as assert_timedelta_array_equal, raise_assert_detail as raise_assert_detail
 from pandas._testing.compat import get_dtype as get_dtype, get_obj as get_obj
 from pandas._testing.contexts import assert_cow_warning as assert_cow_warning, decompress_file as decompress_file, ensure_clean as ensure_clean, raises_chained_assignment_error as raises_chained_assignment_error, set_timezone as set_timezone, use_numexpr as use_numexpr, with_csv_dialect as with_csv_dialect
-from pandas._typing import Dtype, NpDtype
-from typing import Callable, ContextManager
+from typing import Callable, ClassVar, ContextManager
 
 __all__ = ['ALL_INT_EA_DTYPES', 'ALL_INT_NUMPY_DTYPES', 'ALL_NUMPY_DTYPES', 'ALL_REAL_NUMPY_DTYPES', 'assert_almost_equal', 'assert_attr_equal', 'assert_categorical_equal', 'assert_class_equal', 'assert_contains_all', 'assert_copy', 'assert_datetime_array_equal', 'assert_dict_equal', 'assert_equal', 'assert_extension_array_equal', 'assert_frame_equal', 'assert_index_equal', 'assert_indexing_slices_equivalent', 'assert_interval_array_equal', 'assert_is_sorted', 'assert_is_valid_plot_return_object', 'assert_metadata_equivalent', 'assert_numpy_array_equal', 'assert_period_array_equal', 'assert_produces_warning', 'assert_series_equal', 'assert_sp_array_equal', 'assert_timedelta_array_equal', 'assert_cow_warning', 'at', 'BOOL_DTYPES', 'box_expected', 'BYTES_DTYPES', 'can_set_locale', 'COMPLEX_DTYPES', 'convert_rows_list_to_csv_str', 'DATETIME64_DTYPES', 'decompress_file', 'ENDIAN', 'ensure_clean', 'external_error_raised', 'FLOAT_EA_DTYPES', 'FLOAT_NUMPY_DTYPES', 'get_cython_table_params', 'get_dtype', 'getitem', 'get_locales', 'get_finest_unit', 'get_obj', 'get_op_from_name', 'iat', 'iloc', 'loc', 'maybe_produces_warning', 'NARROW_NP_DTYPES', 'NP_NAT_OBJECTS', 'NULL_OBJECTS', 'OBJECT_DTYPES', 'raise_assert_detail', 'raises_chained_assignment_error', 'round_trip_localpath', 'round_trip_pathlib', 'round_trip_pickle', 'setitem', 'set_locale', 'set_timezone', 'shares_memory', 'SIGNED_INT_EA_DTYPES', 'SIGNED_INT_NUMPY_DTYPES', 'STRING_DTYPES', 'SubclassedDataFrame', 'SubclassedSeries', 'TIMEDELTA64_DTYPES', 'to_array', 'UNSIGNED_INT_EA_DTYPES', 'UNSIGNED_INT_NUMPY_DTYPES', 'use_numexpr', 'with_csv_dialect', 'write_to_compressed']
 
-UNSIGNED_INT_NUMPY_DTYPES: list[NpDtype]
-UNSIGNED_INT_EA_DTYPES: list[Dtype]
-SIGNED_INT_NUMPY_DTYPES: list[NpDtype]
-SIGNED_INT_EA_DTYPES: list[Dtype]
-ALL_INT_NUMPY_DTYPES: Incomplete
-ALL_INT_EA_DTYPES: Incomplete
-FLOAT_NUMPY_DTYPES: list[NpDtype]
-FLOAT_EA_DTYPES: list[Dtype]
-COMPLEX_DTYPES: list[Dtype]
-STRING_DTYPES: list[Dtype]
-DATETIME64_DTYPES: list[Dtype]
-TIMEDELTA64_DTYPES: list[Dtype]
-BOOL_DTYPES: list[Dtype]
-BYTES_DTYPES: list[Dtype]
-OBJECT_DTYPES: list[Dtype]
-ALL_REAL_NUMPY_DTYPES: Incomplete
-ALL_NUMPY_DTYPES: Incomplete
-NARROW_NP_DTYPES: Incomplete
-ENDIAN: Incomplete
-NULL_OBJECTS: Incomplete
-NP_NAT_OBJECTS: Incomplete
-
-def box_expected(expected, box_cls, transpose: bool = True):
+UNSIGNED_INT_NUMPY_DTYPES: list
+UNSIGNED_INT_EA_DTYPES: list
+SIGNED_INT_NUMPY_DTYPES: list
+SIGNED_INT_EA_DTYPES: list
+ALL_INT_NUMPY_DTYPES: list
+ALL_INT_EA_DTYPES: list
+FLOAT_NUMPY_DTYPES: list
+FLOAT_EA_DTYPES: list
+COMPLEX_DTYPES: list
+STRING_DTYPES: list
+DATETIME64_DTYPES: list
+TIMEDELTA64_DTYPES: list
+BOOL_DTYPES: list
+BYTES_DTYPES: list
+OBJECT_DTYPES: list
+ALL_REAL_NUMPY_DTYPES: list
+ALL_NUMPY_DTYPES: list
+NARROW_NP_DTYPES: list
+ENDIAN: str
+NULL_OBJECTS: list
+NP_NAT_OBJECTS: list
+def box_expected(expected, box_cls, transpose: bool = ...):
     """
     Helper function to wrap the expected output of a test in a given box_class.
 
@@ -51,20 +51,19 @@ def to_array(obj):
     Similar to pd.array, but does not cast numpy dtypes to nullable dtypes.
     """
 
-class SubclassedSeries(Series):
-    _metadata: Incomplete
+class SubclassedSeries(pandas.core.series.Series):
+    _metadata: ClassVar[list] = ...
     @property
     def _constructor(self): ...
     @property
     def _constructor_expanddim(self): ...
 
-class SubclassedDataFrame(DataFrame):
-    _metadata: Incomplete
+class SubclassedDataFrame(pandas.core.frame.DataFrame):
+    _metadata: ClassVar[list] = ...
     @property
     def _constructor(self): ...
     @property
     def _constructor_sliced(self): ...
-
 def convert_rows_list_to_csv_str(rows_list: list[str]) -> str:
     """
     Convert list of CSV rows to single CSV-formatted string for current OS.
@@ -140,3 +139,46 @@ def shares_memory(left, right) -> bool:
     """
     Pandas-compat for np.shares_memory.
     """
+
+# Names in __all__ with no definition:
+#   assert_almost_equal
+#   assert_attr_equal
+#   assert_categorical_equal
+#   assert_class_equal
+#   assert_contains_all
+#   assert_copy
+#   assert_cow_warning
+#   assert_datetime_array_equal
+#   assert_dict_equal
+#   assert_equal
+#   assert_extension_array_equal
+#   assert_frame_equal
+#   assert_index_equal
+#   assert_indexing_slices_equivalent
+#   assert_interval_array_equal
+#   assert_is_sorted
+#   assert_is_valid_plot_return_object
+#   assert_metadata_equivalent
+#   assert_numpy_array_equal
+#   assert_period_array_equal
+#   assert_produces_warning
+#   assert_series_equal
+#   assert_sp_array_equal
+#   assert_timedelta_array_equal
+#   can_set_locale
+#   decompress_file
+#   ensure_clean
+#   get_dtype
+#   get_locales
+#   get_obj
+#   maybe_produces_warning
+#   raise_assert_detail
+#   raises_chained_assignment_error
+#   round_trip_localpath
+#   round_trip_pathlib
+#   round_trip_pickle
+#   set_locale
+#   set_timezone
+#   use_numexpr
+#   with_csv_dialect
+#   write_to_compressed

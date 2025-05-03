@@ -1,21 +1,37 @@
-from _typeshed import Incomplete
-from pandas import Categorical as Categorical, DataFrame as DataFrame, DatetimeIndex as DatetimeIndex, Index as Index, IntervalDtype as IntervalDtype, IntervalIndex as IntervalIndex, MultiIndex as MultiIndex, PeriodIndex as PeriodIndex, RangeIndex as RangeIndex, Series as Series, TimedeltaIndex as TimedeltaIndex
-from pandas._libs import lib as lib
+import lib as lib
+import pandas as pd
+from pandas._libs.lib import is_bool as is_bool
 from pandas._libs.missing import is_matching_na as is_matching_na
 from pandas._libs.sparse import SparseIndex as SparseIndex
 from pandas._libs.tslibs.np_datetime import compare_mismatched_resolutions as compare_mismatched_resolutions
-from pandas._typing import DtypeObj as DtypeObj
-from pandas.core.arrays import DatetimeArray as DatetimeArray, ExtensionArray as ExtensionArray, IntervalArray as IntervalArray, PeriodArray as PeriodArray, TimedeltaArray as TimedeltaArray
+from pandas.core.arrays.base import ExtensionArray as ExtensionArray
+from pandas.core.arrays.categorical import Categorical as Categorical
 from pandas.core.arrays.datetimelike import DatetimeLikeArrayMixin as DatetimeLikeArrayMixin
+from pandas.core.arrays.datetimes import DatetimeArray as DatetimeArray
+from pandas.core.arrays.interval import IntervalArray as IntervalArray
+from pandas.core.arrays.period import PeriodArray as PeriodArray
 from pandas.core.arrays.string_ import StringDtype as StringDtype
-from pandas.core.dtypes.common import is_bool as is_bool, is_float_dtype as is_float_dtype, is_integer_dtype as is_integer_dtype, is_number as is_number, is_numeric_dtype as is_numeric_dtype, needs_i8_conversion as needs_i8_conversion
-from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype, NumpyEADtype as NumpyEADtype
+from pandas.core.arrays.timedeltas import TimedeltaArray as TimedeltaArray
+from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
+from pandas.core.dtypes.common import is_float_dtype as is_float_dtype, is_integer_dtype as is_integer_dtype, is_numeric_dtype as is_numeric_dtype, needs_i8_conversion as needs_i8_conversion
+from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, IntervalDtype as IntervalDtype, NumpyEADtype as NumpyEADtype
+from pandas.core.dtypes.inference import is_number as is_number
 from pandas.core.dtypes.missing import array_equivalent as array_equivalent
+from pandas.core.frame import DataFrame as DataFrame
 from pandas.core.indexes.api import safe_sort_index as safe_sort_index
+from pandas.core.indexes.base import Index as Index
+from pandas.core.indexes.datetimes import DatetimeIndex as DatetimeIndex
+from pandas.core.indexes.interval import IntervalIndex as IntervalIndex
+from pandas.core.indexes.multi import MultiIndex as MultiIndex
+from pandas.core.indexes.period import PeriodIndex as PeriodIndex
+from pandas.core.indexes.range import RangeIndex as RangeIndex
+from pandas.core.indexes.timedeltas import TimedeltaIndex as TimedeltaIndex
+from pandas.core.series import Series as Series
 from pandas.io.formats.printing import pprint_thing as pprint_thing
 from typing import Literal, NoReturn
 
-def assert_almost_equal(left, right, check_dtype: bool | Literal['equiv'] = 'equiv', rtol: float = 1e-05, atol: float = 1e-08, **kwargs) -> None:
+TYPE_CHECKING: bool
+def assert_almost_equal(left, right, check_dtype: bool | Literal['equiv'] = ..., rtol: float = ..., atol: float = ..., **kwargs) -> None:
     """
     Check that the left and right objects are approximately equal.
 
@@ -51,8 +67,8 @@ def _check_isinstance(left, right, cls) -> None:
     ------
     AssertionError : Either `left` or `right` is not an instance of `cls`.
     """
-def assert_dict_equal(left, right, compare_keys: bool = True) -> None: ...
-def assert_index_equal(left: Index, right: Index, exact: bool | str = 'equiv', check_names: bool = True, check_exact: bool = True, check_categorical: bool = True, check_order: bool = True, rtol: float = 1e-05, atol: float = 1e-08, obj: str = 'Index') -> None:
+def assert_dict_equal(left, right, compare_keys: bool = ...) -> None: ...
+def assert_index_equal(left: Index, right: Index, exact: bool | str = ..., check_names: bool = ..., check_exact: bool = ..., check_categorical: bool = ..., check_order: bool = ..., rtol: float = ..., atol: float = ..., obj: str = ...) -> None:
     """
     Check that left and right Index are equal.
 
@@ -89,11 +105,11 @@ def assert_index_equal(left: Index, right: Index, exact: bool | str = 'equiv', c
     >>> b = pd.Index([1, 2, 3])
     >>> tm.assert_index_equal(a, b)
     """
-def assert_class_equal(left, right, exact: bool | str = True, obj: str = 'Input') -> None:
+def assert_class_equal(left, right, exact: bool | str = ..., obj: str = ...) -> None:
     """
     Checks classes are equal.
     """
-def assert_attr_equal(attr: str, left, right, obj: str = 'Attributes') -> None:
+def assert_attr_equal(attr: str, left, right, obj: str = ...) -> None:
     """
     Check attributes are equal. Both objects must have attribute.
 
@@ -110,7 +126,7 @@ def assert_attr_equal(attr: str, left, right, obj: str = 'Attributes') -> None:
 def assert_is_valid_plot_return_object(objs) -> None: ...
 def assert_is_sorted(seq) -> None:
     """Assert that the sequence is sorted."""
-def assert_categorical_equal(left, right, check_dtype: bool = True, check_category_order: bool = True, obj: str = 'Categorical') -> None:
+def assert_categorical_equal(left, right, check_dtype: bool = ..., check_category_order: bool = ..., obj: str = ...) -> None:
     """
     Test that Categoricals are equivalent.
 
@@ -129,7 +145,7 @@ def assert_categorical_equal(left, right, check_dtype: bool = True, check_catego
         Specify object name being compared, internally used to show appropriate
         assertion message.
     """
-def assert_interval_array_equal(left, right, exact: bool | Literal['equiv'] = 'equiv', obj: str = 'IntervalArray') -> None:
+def assert_interval_array_equal(left, right, exact: bool | Literal['equiv'] = ..., obj: str = ...) -> None:
     """
     Test that two IntervalArrays are equivalent.
 
@@ -145,11 +161,11 @@ def assert_interval_array_equal(left, right, exact: bool | Literal['equiv'] = 'e
         Specify object name being compared, internally used to show appropriate
         assertion message
     """
-def assert_period_array_equal(left, right, obj: str = 'PeriodArray') -> None: ...
-def assert_datetime_array_equal(left, right, obj: str = 'DatetimeArray', check_freq: bool = True) -> None: ...
-def assert_timedelta_array_equal(left, right, obj: str = 'TimedeltaArray', check_freq: bool = True) -> None: ...
-def raise_assert_detail(obj, message, left, right, diff: Incomplete | None = None, first_diff: Incomplete | None = None, index_values: Incomplete | None = None) -> NoReturn: ...
-def assert_numpy_array_equal(left, right, strict_nan: bool = False, check_dtype: bool | Literal['equiv'] = True, err_msg: Incomplete | None = None, check_same: Incomplete | None = None, obj: str = 'numpy array', index_values: Incomplete | None = None) -> None:
+def assert_period_array_equal(left, right, obj: str = ...) -> None: ...
+def assert_datetime_array_equal(left, right, obj: str = ..., check_freq: bool = ...) -> None: ...
+def assert_timedelta_array_equal(left, right, obj: str = ..., check_freq: bool = ...) -> None: ...
+def raise_assert_detail(obj, message, left, right, diff, first_diff, index_values) -> NoReturn: ...
+def assert_numpy_array_equal(left, right, strict_nan: bool = ..., check_dtype: bool | Literal['equiv'] = ..., err_msg, check_same, obj: str = ..., index_values) -> None:
     """
     Check that 'np.ndarray' is equivalent.
 
@@ -171,7 +187,7 @@ def assert_numpy_array_equal(left, right, strict_nan: bool = False, check_dtype:
     index_values : Index | numpy.ndarray, default None
         optional index (shared by both left and right), used in output.
     """
-def assert_extension_array_equal(left, right, check_dtype: bool | Literal['equiv'] = True, index_values: Incomplete | None = None, check_exact: bool | lib.NoDefault = ..., rtol: float | lib.NoDefault = ..., atol: float | lib.NoDefault = ..., obj: str = 'ExtensionArray') -> None:
+def assert_extension_array_equal(left, right, check_dtype: bool | Literal['equiv'] = ..., index_values, check_exact: bool | lib.NoDefault = ..., rtol: float | lib.NoDefault = ..., atol: float | lib.NoDefault = ..., obj: str = ...) -> None:
     """
     Check that left and right ExtensionArrays are equal.
 
@@ -213,7 +229,7 @@ def assert_extension_array_equal(left, right, check_dtype: bool | Literal['equiv
     >>> b, c = a.array, a.array
     >>> tm.assert_extension_array_equal(b, c)
     """
-def assert_series_equal(left, right, check_dtype: bool | Literal['equiv'] = True, check_index_type: bool | Literal['equiv'] = 'equiv', check_series_type: bool = True, check_names: bool = True, check_exact: bool | lib.NoDefault = ..., check_datetimelike_compat: bool = False, check_categorical: bool = True, check_category_order: bool = True, check_freq: bool = True, check_flags: bool = True, rtol: float | lib.NoDefault = ..., atol: float | lib.NoDefault = ..., obj: str = 'Series', *, check_index: bool = True, check_like: bool = False) -> None:
+def assert_series_equal(left, right, check_dtype: bool | Literal['equiv'] = ..., check_index_type: bool | Literal['equiv'] = ..., check_series_type: bool = ..., check_names: bool = ..., check_exact: bool | lib.NoDefault = ..., check_datetimelike_compat: bool = ..., check_categorical: bool = ..., check_category_order: bool = ..., check_freq: bool = ..., check_flags: bool = ..., rtol: float | lib.NoDefault = ..., atol: float | lib.NoDefault = ..., obj: str = ..., *, check_index: bool = ..., check_like: bool = ...) -> None:
     """
     Check that left and right Series are equal.
 
@@ -271,7 +287,7 @@ def assert_series_equal(left, right, check_dtype: bool | Literal['equiv'] = True
     >>> b = pd.Series([1, 2, 3, 4])
     >>> tm.assert_series_equal(a, b)
     """
-def assert_frame_equal(left, right, check_dtype: bool | Literal['equiv'] = True, check_index_type: bool | Literal['equiv'] = 'equiv', check_column_type: bool | Literal['equiv'] = 'equiv', check_frame_type: bool = True, check_names: bool = True, by_blocks: bool = False, check_exact: bool | lib.NoDefault = ..., check_datetimelike_compat: bool = False, check_categorical: bool = True, check_like: bool = False, check_freq: bool = True, check_flags: bool = True, rtol: float | lib.NoDefault = ..., atol: float | lib.NoDefault = ..., obj: str = 'DataFrame') -> None:
+def assert_frame_equal(left, right, check_dtype: bool | Literal['equiv'] = ..., check_index_type: bool | Literal['equiv'] = ..., check_column_type: bool | Literal['equiv'] = ..., check_frame_type: bool = ..., check_names: bool = ..., by_blocks: bool = ..., check_exact: bool | lib.NoDefault = ..., check_datetimelike_compat: bool = ..., check_categorical: bool = ..., check_like: bool = ..., check_freq: bool = ..., check_flags: bool = ..., rtol: float | lib.NoDefault = ..., atol: float | lib.NoDefault = ..., obj: str = ...) -> None:
     '''
     Check that left and right DataFrame are equal.
 
@@ -409,7 +425,7 @@ def assert_indexing_slices_equivalent(ser: Series, l_slc: slice, i_slc: slice) -
     Check that ser.iloc[i_slc] matches ser.loc[l_slc] and, if applicable,
     ser[l_slc].
     """
-def assert_metadata_equivalent(left: DataFrame | Series, right: DataFrame | Series | None = None) -> None:
+def assert_metadata_equivalent(left: DataFrame | Series, right: DataFrame | Series | None) -> None:
     """
     Check that ._metadata attributes are equivalent.
     """

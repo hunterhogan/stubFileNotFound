@@ -1,4 +1,4 @@
-import numpy as np
+import numba.core.registry
 
-def is_monotonic_increasing(bounds: np.ndarray) -> bool:
-    """Check if int64 values are monotonically increasing."""
+TYPE_CHECKING: bool
+is_monotonic_increasing: numba.core.registry.CPUDispatcher

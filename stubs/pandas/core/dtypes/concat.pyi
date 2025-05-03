@@ -1,15 +1,13 @@
-from collections.abc import Sequence
-from pandas._libs import lib as lib
-from pandas._typing import ArrayLike as ArrayLike, AxisInt as AxisInt, DtypeObj as DtypeObj
-from pandas.core.arrays import Categorical as Categorical, ExtensionArray as ExtensionArray
+import pandas._libs.lib as lib
 from pandas.core.dtypes.astype import astype_array as astype_array
 from pandas.core.dtypes.cast import common_dtype_categorical_compat as common_dtype_categorical_compat, find_common_type as find_common_type, np_find_common_type as np_find_common_type
 from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype
 from pandas.core.dtypes.generic import ABCCategoricalIndex as ABCCategoricalIndex, ABCSeries as ABCSeries
 from pandas.util._exceptions import find_stack_level as find_stack_level
 
+TYPE_CHECKING: bool
 def _is_nonempty(x, axis) -> bool: ...
-def concat_compat(to_concat: Sequence[ArrayLike], axis: AxisInt = 0, ea_compat_axis: bool = False) -> ArrayLike:
+def concat_compat(to_concat: Sequence[ArrayLike], axis: AxisInt = ..., ea_compat_axis: bool = ...) -> ArrayLike:
     """
     provide concatenation of an array of arrays each of which is a single
     'normalized' dtypes (in that for example, if it's object, then it is a
@@ -29,7 +27,7 @@ def concat_compat(to_concat: Sequence[ArrayLike], axis: AxisInt = 0, ea_compat_a
     a single array, preserving the combined dtypes
     """
 def _get_result_dtype(to_concat: Sequence[ArrayLike], non_empties: Sequence[ArrayLike]) -> tuple[bool, set[str], DtypeObj | None]: ...
-def union_categoricals(to_union, sort_categories: bool = False, ignore_order: bool = False) -> Categorical:
+def union_categoricals(to_union, sort_categories: bool = ..., ignore_order: bool = ...) -> Categorical:
     '''
     Combine list-like of Categorical-like, unioning categories.
 

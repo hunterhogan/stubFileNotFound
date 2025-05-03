@@ -1,14 +1,13 @@
-from _typeshed import Incomplete
 from collections.abc import Generator
-from pandas import set_option as set_option
 from pandas._config import using_copy_on_write as using_copy_on_write
-from pandas._typing import BaseBuffer as BaseBuffer, CompressionOptions as CompressionOptions, FilePath as FilePath
-from pandas.compat import PYPY as PYPY
+from pandas._config.config import set_option as set_option
 from pandas.errors import ChainedAssignmentError as ChainedAssignmentError
 from pandas.io.common import get_handle as get_handle
 from typing import Any, IO
 
-def decompress_file(path: FilePath | BaseBuffer, compression: CompressionOptions) -> Generator[IO[bytes], None, None]:
+TYPE_CHECKING: bool
+PYPY: bool
+def decompress_file(*args, **kwds) -> Generator[IO[bytes], None, None]:
     """
     Open a compressed file and return a file object.
 
@@ -24,7 +23,7 @@ def decompress_file(path: FilePath | BaseBuffer, compression: CompressionOptions
     -------
     file object
     """
-def set_timezone(tz: str) -> Generator[None, None, None]:
+def set_timezone(*args, **kwds) -> Generator[None, None, None]:
     """
     Context manager for temporarily setting a timezone.
 
@@ -45,7 +44,7 @@ def set_timezone(tz: str) -> Generator[None, None, None]:
     ...
     'EST'
     """
-def ensure_clean(filename: Incomplete | None = None, return_filelike: bool = False, **kwargs: Any) -> Generator[Any, None, None]:
+def ensure_clean(*args, **kwds) -> Generator[Any, None, None]:
     """
     Gets a temporary path and agrees to remove on close.
 
@@ -64,7 +63,7 @@ def ensure_clean(filename: Incomplete | None = None, return_filelike: bool = Fal
         Additional keywords are passed to open().
 
     """
-def with_csv_dialect(name: str, **kwargs) -> Generator[None, None, None]:
+def with_csv_dialect(*args, **kwds) -> Generator[None, None, None]:
     """
     Context manager to temporarily register a CSV dialect for parsing CSV.
 
@@ -83,9 +82,9 @@ def with_csv_dialect(name: str, **kwargs) -> Generator[None, None, None]:
     --------
     csv : Python's CSV library.
     """
-def use_numexpr(use, min_elements: Incomplete | None = None) -> Generator[None, None, None]: ...
-def raises_chained_assignment_error(warn: bool = True, extra_warnings=(), extra_match=()): ...
-def assert_cow_warning(warn: bool = True, match: Incomplete | None = None, **kwargs):
+def use_numexpr(*args, **kwds) -> Generator[None, None, None]: ...
+def raises_chained_assignment_error(warn: bool = ..., extra_warnings: tuple = ..., extra_match: tuple = ...): ...
+def assert_cow_warning(warn: bool = ..., match, **kwargs):
     """
     Assert that a warning is raised in the CoW warning mode.
 

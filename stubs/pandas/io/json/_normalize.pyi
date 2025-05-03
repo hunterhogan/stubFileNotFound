@@ -1,13 +1,14 @@
-from pandas import DataFrame as DataFrame
+import pandas as pd
 from pandas._libs.writers import convert_json_to_lines as convert_json_to_lines
-from pandas._typing import IgnoreRaise as IgnoreRaise, Scalar as Scalar
+from pandas.core.frame import DataFrame as DataFrame
 from typing import Any
 
+TYPE_CHECKING: bool
 def convert_to_line_delimits(s: str) -> str:
     """
     Helper function that converts JSON lists to line delimited JSON.
     """
-def nested_to_record(ds, prefix: str = '', sep: str = '.', level: int = 0, max_level: int | None = None):
+def nested_to_record(ds, prefix: str = ..., sep: str = ..., level: int = ..., max_level: int | None):
     '''
     A simplified json_normalize
 
@@ -71,7 +72,7 @@ def _normalise_json_ordered(data: dict[str, Any], separator: str) -> dict[str, A
     -------
     dict or list of dicts, matching `normalised_json_object`
     """
-def _simple_json_normalize(ds: dict | list[dict], sep: str = '.') -> dict | list[dict] | Any:
+def _simple_json_normalize(ds: dict | list[dict], sep: str = ...) -> dict | list[dict] | Any:
     '''
     A optimized basic json_normalize
 
@@ -104,7 +105,7 @@ def _simple_json_normalize(ds: dict | list[dict], sep: str = '.') -> dict | list
     {\'flat1\': 1, \'dict1.c\': 1, \'dict1.d\': 2, \'nested.e.c\': 1, \'nested.e.d\': 2, \'nested.d\': 2}
 
     '''
-def json_normalize(data: dict | list[dict], record_path: str | list | None = None, meta: str | list[str | list[str]] | None = None, meta_prefix: str | None = None, record_prefix: str | None = None, errors: IgnoreRaise = 'raise', sep: str = '.', max_level: int | None = None) -> DataFrame:
+def json_normalize(data: dict | list[dict], record_path: str | list | None, meta: str | list[str | list[str]] | None, meta_prefix: str | None, record_prefix: str | None, errors: IgnoreRaise = ..., sep: str = ..., max_level: int | None) -> DataFrame:
     '''
     Normalize semi-structured JSON data into a flat table.
 

@@ -1,21 +1,10 @@
-import numpy as np
-from _typeshed import Incomplete
-from collections.abc import Hashable as Hashable
+import np
+import pandas._libs.lib as lib
 from numbers import Number
-from pandas._libs import lib as lib
-from pandas._typing import TypeGuard as TypeGuard
+from pandas._libs.lib import is_bool as is_bool, is_complex as is_complex, is_decimal as is_decimal, is_float as is_float, is_integer as is_integer, is_interval as is_interval, is_iterator as is_iterator, is_list_like as is_list_like, is_scalar as is_scalar
 from re import Pattern
 
-is_bool: Incomplete
-is_integer: Incomplete
-is_float: Incomplete
-is_complex: Incomplete
-is_scalar: Incomplete
-is_decimal: Incomplete
-is_interval: Incomplete
-is_list_like: Incomplete
-is_iterator: Incomplete
-
+TYPE_CHECKING: bool
 def is_number(obj) -> TypeGuard[Number | np.number]:
     '''
     Check if the object is a number.

@@ -1,31 +1,40 @@
-import datetime as pydt
-import matplotlib.dates as mdates
-import matplotlib.units as munits
-import numpy as np
-from _typeshed import Incomplete
+import functools
+import matplotlib.dates
+import matplotlib.ticker
+import matplotlib.units
+import munits
+import np
+import npt
+import pandas._libs.lib as lib
+import pandas.core.common as com
+import pandas.core.tools.datetimes as tools
+import pydt
 from collections.abc import Generator
 from datetime import datetime, tzinfo
-from matplotlib.axis import Axis
-from matplotlib.ticker import Formatter, Locator
-from pandas import Index as Index, Series as Series, get_option as get_option
-from pandas._libs import lib as lib
-from pandas._libs.tslibs import Timestamp as Timestamp, to_offset as to_offset
+from pandas._config.config import get_option as get_option
+from pandas._libs.lib import is_float as is_float, is_integer as is_integer
 from pandas._libs.tslibs.dtypes import FreqGroup as FreqGroup, periods_per_day as periods_per_day
-from pandas._libs.tslibs.offsets import BaseOffset as BaseOffset
-from pandas._typing import F as F, npt as npt
-from pandas.core.dtypes.common import is_float as is_float, is_float_dtype as is_float_dtype, is_integer as is_integer, is_integer_dtype as is_integer_dtype, is_nested_list_like as is_nested_list_like
+from pandas._libs.tslibs.offsets import to_offset as to_offset
+from pandas._libs.tslibs.period import Period as Period
+from pandas._libs.tslibs.timestamps import Timestamp as Timestamp
+from pandas._typing import F as F
+from pandas.core.dtypes.common import is_float_dtype as is_float_dtype, is_integer_dtype as is_integer_dtype
+from pandas.core.dtypes.inference import is_nested_list_like as is_nested_list_like
+from pandas.core.indexes.base import Index as Index
 from pandas.core.indexes.datetimes import date_range as date_range
-from pandas.core.indexes.period import Period as Period, PeriodIndex as PeriodIndex, period_range as period_range
-from typing import Any
+from pandas.core.indexes.period import PeriodIndex as PeriodIndex, period_range as period_range
+from pandas.core.series import Series as Series
+from typing import ClassVar
 
-_mpl_units: Incomplete
-
+TYPE_CHECKING: bool
+npt: None
+_mpl_units: dict
 def get_pairs(): ...
 def register_pandas_matplotlib_converters(func: F) -> F:
     """
     Decorator applying pandas_converters.
     """
-def pandas_converters() -> Generator[None, None, None]:
+def pandas_converters(*args, **kwds) -> Generator[None, None, None]:
     """
     Context manager registering pandas' converters for a plot.
 
@@ -38,7 +47,7 @@ def deregister() -> None: ...
 def _to_ordinalf(tm: pydt.time) -> float: ...
 def time2num(d): ...
 
-class TimeConverter(munits.ConversionInterface):
+class TimeConverter(matplotlib.units.ConversionInterface):
     @staticmethod
     def convert(value, unit, axis): ...
     @staticmethod
@@ -46,10 +55,9 @@ class TimeConverter(munits.ConversionInterface):
     @staticmethod
     def default_units(x, axis) -> str: ...
 
-class TimeFormatter(Formatter):
-    locs: Incomplete
+class TimeFormatter(matplotlib.ticker.Formatter):
     def __init__(self, locs) -> None: ...
-    def __call__(self, x, pos: int | None = 0) -> str:
+    def __call__(self, x, pos: int | None = ...) -> str:
         """
         Return the time of day as a formatted string.
 
@@ -68,15 +76,14 @@ class TimeFormatter(Formatter):
             milliseconds and seconds are only displayed if non-zero.
         """
 
-class PeriodConverter(mdates.DateConverter):
+class PeriodConverter(matplotlib.dates.DateConverter):
     @staticmethod
     def convert(values, units, axis): ...
     @staticmethod
     def _convert_1d(values, units, axis): ...
-
 def get_datevalue(date, freq): ...
 
-class DatetimeConverter(mdates.DateConverter):
+class DatetimeConverter(matplotlib.dates.DateConverter):
     @staticmethod
     def convert(values, unit, axis): ...
     @staticmethod
@@ -90,18 +97,16 @@ class DatetimeConverter(mdates.DateConverter):
         The *axis* argument is required but not used.
         """
 
-class PandasAutoDateFormatter(mdates.AutoDateFormatter):
-    def __init__(self, locator, tz: Incomplete | None = None, defaultfmt: str = '%Y-%m-%d') -> None: ...
+class PandasAutoDateFormatter(matplotlib.dates.AutoDateFormatter):
+    def __init__(self, locator, tz, defaultfmt: str = ...) -> None: ...
 
-class PandasAutoDateLocator(mdates.AutoDateLocator):
-    _freq: int
+class PandasAutoDateLocator(matplotlib.dates.AutoDateLocator):
     def get_locator(self, dmin, dmax):
         """Pick the best locator based on a distance."""
     def _get_unit(self): ...
 
-class MilliSecondLocator(mdates.DateLocator):
-    UNIT: Incomplete
-    _interval: float
+class MilliSecondLocator(matplotlib.dates.DateLocator):
+    UNIT: ClassVar[float] = ...
     def __init__(self, tz) -> None: ...
     def _get_unit(self): ...
     @staticmethod
@@ -112,8 +117,7 @@ class MilliSecondLocator(mdates.DateLocator):
         """
         Set the view limits to include the data range.
         """
-
-def _from_ordinal(x, tz: tzinfo | None = None) -> datetime: ...
+def _from_ordinal(x, tz: tzinfo | None) -> datetime: ...
 def _get_default_annual_spacing(nyears) -> tuple[int, int]:
     """
     Returns a default spacing between consecutive ticks for annual data.
@@ -139,38 +143,15 @@ def has_level_label(label_flags: npt.NDArray[np.intp], vmin: float) -> bool:
     label won't be shown, so we must adjust for that.
     """
 def _get_periods_per_ymd(freq: BaseOffset) -> tuple[int, int, int]: ...
-def _daily_finder(vmin: float, vmax: float, freq: BaseOffset) -> np.ndarray: ...
-def _monthly_finder(vmin: float, vmax: float, freq: BaseOffset) -> np.ndarray: ...
-def _quarterly_finder(vmin: float, vmax: float, freq: BaseOffset) -> np.ndarray: ...
-def _annual_finder(vmin: float, vmax: float, freq: BaseOffset) -> np.ndarray: ...
+
+_daily_finder: functools._lru_cache_wrapper
+_monthly_finder: functools._lru_cache_wrapper
+_quarterly_finder: functools._lru_cache_wrapper
+_annual_finder: functools._lru_cache_wrapper
 def get_finder(freq: BaseOffset): ...
 
-class TimeSeries_DateLocator(Locator):
-    """
-    Locates the ticks along an axis controlled by a :class:`Series`.
-
-    Parameters
-    ----------
-    freq : BaseOffset
-        Valid frequency specifier.
-    minor_locator : {False, True}, optional
-        Whether the locator is for minor ticks (True) or not.
-    dynamic_mode : {True, False}, optional
-        Whether the locator should work in dynamic mode.
-    base : {int}, optional
-    quarter : {int}, optional
-    month : {int}, optional
-    day : {int}, optional
-    """
-    axis: Axis
-    freq: Incomplete
-    base: Incomplete
-    isminor: Incomplete
-    isdynamic: Incomplete
-    offset: int
-    plot_obj: Incomplete
-    finder: Incomplete
-    def __init__(self, freq: BaseOffset, minor_locator: bool = False, dynamic_mode: bool = True, base: int = 1, quarter: int = 1, month: int = 1, day: int = 1, plot_obj: Incomplete | None = None) -> None: ...
+class TimeSeries_DateLocator(matplotlib.ticker.Locator):
+    def __init__(self, freq: BaseOffset, minor_locator: bool = ..., dynamic_mode: bool = ..., base: int = ..., quarter: int = ..., month: int = ..., day: int = ..., plot_obj) -> None: ...
     def _get_default_locs(self, vmin, vmax):
         """Returns the default locations of ticks."""
     def __call__(self):
@@ -181,45 +162,18 @@ class TimeSeries_DateLocator(Locator):
         data.
         """
 
-class TimeSeries_DateFormatter(Formatter):
-    """
-    Formats the ticks along an axis controlled by a :class:`PeriodIndex`.
-
-    Parameters
-    ----------
-    freq : BaseOffset
-        Valid frequency specifier.
-    minor_locator : bool, default False
-        Whether the current formatter should apply to minor ticks (True) or
-        major ticks (False).
-    dynamic_mode : bool, default True
-        Whether the formatter works in dynamic mode or not.
-    """
-    axis: Axis
-    format: Incomplete
-    freq: Incomplete
-    locs: list[Any]
-    formatdict: dict[Any, Any] | None
-    isminor: Incomplete
-    isdynamic: Incomplete
-    offset: int
-    plot_obj: Incomplete
-    finder: Incomplete
-    def __init__(self, freq: BaseOffset, minor_locator: bool = False, dynamic_mode: bool = True, plot_obj: Incomplete | None = None) -> None: ...
+class TimeSeries_DateFormatter(matplotlib.ticker.Formatter):
+    def __init__(self, freq: BaseOffset, minor_locator: bool = ..., dynamic_mode: bool = ..., plot_obj) -> None: ...
     def _set_default_format(self, vmin, vmax):
         """Returns the default ticks spacing."""
     def set_locs(self, locs) -> None:
         """Sets the locations of the ticks"""
-    def __call__(self, x, pos: int | None = 0) -> str: ...
+    def __call__(self, x, pos: int | None = ...) -> str: ...
 
-class TimeSeries_TimedeltaFormatter(Formatter):
-    """
-    Formats the ticks along an axis controlled by a :class:`TimedeltaIndex`.
-    """
-    axis: Axis
+class TimeSeries_TimedeltaFormatter(matplotlib.ticker.Formatter):
     @staticmethod
     def format_timedelta_ticks(x, pos, n_decimals: int) -> str:
         """
         Convert seconds to 'D days HH:MM:SS.F'
         """
-    def __call__(self, x, pos: int | None = 0) -> str: ...
+    def __call__(self, x, pos: int | None = ...) -> str: ...

@@ -1,23 +1,23 @@
-import numpy as np
+import np
+import npt
+import pandas._libs.lib as lib
+import pandas._libs.missing as libmissing
+import pandas.core.arrays.masked
+import pandas.core.dtypes.dtypes
 import pyarrow
 from _typeshed import Incomplete
-from collections.abc import Mapping
-from pandas._libs import lib as lib
-from pandas._typing import Dtype as Dtype, DtypeObj as DtypeObj, Self as Self, npt as npt
-from pandas.core.arrays.masked import BaseMaskedArray as BaseMaskedArray, BaseMaskedDtype as BaseMaskedDtype
+from pandas._libs.properties import cache_readonly as cache_readonly
+from pandas.core.arrays.masked import BaseMaskedArray as BaseMaskedArray
 from pandas.core.dtypes.common import is_integer_dtype as is_integer_dtype, is_string_dtype as is_string_dtype, pandas_dtype as pandas_dtype
+from pandas.core.dtypes.dtypes import BaseMaskedDtype as BaseMaskedDtype
 from pandas.errors import AbstractMethodError as AbstractMethodError
-from pandas.util._decorators import cache_readonly as cache_readonly
-from typing import Any, Callable
+from typing import ClassVar
 
-class NumericDtype(BaseMaskedDtype):
-    _default_np_dtype: np.dtype
-    _checker: Callable[[Any], bool]
-    def __repr__(self) -> str: ...
-    def is_signed_integer(self) -> bool: ...
-    def is_unsigned_integer(self) -> bool: ...
-    @property
-    def _is_numeric(self) -> bool: ...
+TYPE_CHECKING: bool
+
+class NumericDtype(pandas.core.dtypes.dtypes.BaseMaskedDtype):
+    is_signed_integer: Incomplete
+    is_unsigned_integer: Incomplete
     def __from_arrow__(self, array: pyarrow.Array | pyarrow.ChunkedArray) -> BaseMaskedArray:
         """
         Construct IntegerArray/FloatingArray from pyarrow Array/ChunkedArray.
@@ -36,18 +36,15 @@ class NumericDtype(BaseMaskedDtype):
 
         "safe" in this context means the casting is lossless.
         '''
-
+    @property
+    def _is_numeric(self): ...
 def _coerce_to_data_and_mask(values, dtype, copy: bool, dtype_cls: type[NumericDtype], default_dtype: np.dtype): ...
 
-class NumericArray(BaseMaskedArray):
-    """
-    Base class for IntegerArray and FloatingArray.
-    """
-    _dtype_cls: type[NumericDtype]
-    def __init__(self, values: np.ndarray, mask: npt.NDArray[np.bool_], copy: bool = False) -> None: ...
-    def dtype(self) -> NumericDtype: ...
+class NumericArray(pandas.core.arrays.masked.BaseMaskedArray):
+    _HANDLED_TYPES: ClassVar[tuple] = ...
+    dtype: Incomplete
+    def __init__(self, values: np.ndarray, mask: npt.NDArray[np.bool_], copy: bool = ...) -> None: ...
     @classmethod
-    def _coerce_to_array(cls, value, *, dtype: DtypeObj, copy: bool = False) -> tuple[np.ndarray, np.ndarray]: ...
+    def _coerce_to_array(cls, value, *, dtype: DtypeObj, copy: bool = ...) -> tuple[np.ndarray, np.ndarray]: ...
     @classmethod
-    def _from_sequence_of_strings(cls, strings, *, dtype: Dtype | None = None, copy: bool = False) -> Self: ...
-    _HANDLED_TYPES: Incomplete
+    def _from_sequence_of_strings(cls, strings, *, dtype: Dtype | None, copy: bool = ...) -> Self: ...

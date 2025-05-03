@@ -1,16 +1,9 @@
-import pandas as pd
-from _typeshed import Incomplete
-from collections.abc import Iterable
+import pd as pd
+
+TYPE_CHECKING: bool
 
 class TablePlotter:
-    """
-    Layout some DataFrames in vertical/horizontal layout for explanation.
-    Used in merging.rst
-    """
-    cell_width: Incomplete
-    cell_height: Incomplete
-    font_size: Incomplete
-    def __init__(self, cell_width: float = 0.37, cell_height: float = 0.25, font_size: float = 7.5) -> None: ...
+    def __init__(self, cell_width: float = ..., cell_height: float = ..., font_size: float = ...) -> None: ...
     def _shape(self, df: pd.DataFrame) -> tuple[int, int]:
         """
         Calculate table shape considering index levels.
@@ -19,7 +12,7 @@ class TablePlotter:
         """
         Calculate appropriate figure size based on left and right data.
         """
-    def plot(self, left, right, labels: Iterable[str] = (), vertical: bool = True):
+    def plot(self, left, right, labels: Iterable[str] = ..., vertical: bool = ...):
         """
         Plot left / right DataFrames in specified layout.
 
@@ -36,6 +29,5 @@ class TablePlotter:
         Convert each input to appropriate for table outplot.
         """
     def _insert_index(self, data): ...
-    def _make_table(self, ax, df, title: str, height: float | None = None) -> None: ...
-
+    def _make_table(self, ax, df, title: str, height: float | None) -> None: ...
 def main() -> None: ...

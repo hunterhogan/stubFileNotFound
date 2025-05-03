@@ -1,29 +1,34 @@
-import numpy as np
-from _typeshed import Incomplete
-from collections.abc import Sequence, Sized
-from pandas import Index as Index
+import functools
+import np
+import npt
+import numpy.dtypes
+import pandas._libs.lib as lib
+import typing
 from pandas._config import using_pyarrow_string_dtype as using_pyarrow_string_dtype
-from pandas._libs import Interval as Interval, Period as Period, lib as lib
+from pandas._libs.algos import ensure_int16 as ensure_int16, ensure_int32 as ensure_int32, ensure_int64 as ensure_int64, ensure_int8 as ensure_int8, ensure_object as ensure_object
+from pandas._libs.interval import Interval as Interval
+from pandas._libs.lib import is_bool as is_bool, is_complex as is_complex, is_float as is_float, is_integer as is_integer, is_list_like as is_list_like, is_scalar as is_scalar
 from pandas._libs.missing import NA as NA, NAType as NAType, checknull as checknull
-from pandas._libs.tslibs import NaT as NaT, OutOfBoundsDatetime as OutOfBoundsDatetime, OutOfBoundsTimedelta as OutOfBoundsTimedelta, Timedelta as Timedelta, Timestamp as Timestamp, is_supported_dtype as is_supported_dtype
-from pandas._libs.tslibs.timedeltas import array_to_timedelta64 as array_to_timedelta64
-from pandas._typing import ArrayLike as ArrayLike, Dtype as Dtype, DtypeObj as DtypeObj, NumpyIndexT as NumpyIndexT, Scalar as Scalar, npt as npt
-from pandas.core.arrays import Categorical as Categorical, DatetimeArray as DatetimeArray, ExtensionArray as ExtensionArray, IntervalArray as IntervalArray, PeriodArray as PeriodArray, TimedeltaArray as TimedeltaArray
-from pandas.core.dtypes.common import ensure_int16 as ensure_int16, ensure_int32 as ensure_int32, ensure_int64 as ensure_int64, ensure_int8 as ensure_int8, ensure_object as ensure_object, ensure_str as ensure_str, is_bool as is_bool, is_complex as is_complex, is_float as is_float, is_integer as is_integer, is_object_dtype as is_object_dtype, is_scalar as is_scalar, is_string_dtype as is_string_dtype
-from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype, BaseMaskedDtype as BaseMaskedDtype, CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype, IntervalDtype as IntervalDtype, PandasExtensionDtype as PandasExtensionDtype, PeriodDtype as PeriodDtype
+from pandas._libs.tslibs.nattype import NaT as NaT
+from pandas._libs.tslibs.np_datetime import OutOfBoundsDatetime as OutOfBoundsDatetime, OutOfBoundsTimedelta as OutOfBoundsTimedelta, is_supported_dtype as is_supported_dtype
+from pandas._libs.tslibs.period import Period as Period
+from pandas._libs.tslibs.timedeltas import Timedelta as Timedelta, array_to_timedelta64 as array_to_timedelta64
+from pandas._libs.tslibs.timestamps import Timestamp as Timestamp
+from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
+from pandas.core.dtypes.common import ensure_str as ensure_str, is_object_dtype as is_object_dtype, is_string_dtype as is_string_dtype, pandas_dtype_func as pandas_dtype_func
+from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype, BaseMaskedDtype as BaseMaskedDtype, CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, IntervalDtype as IntervalDtype, PandasExtensionDtype as PandasExtensionDtype, PeriodDtype as PeriodDtype
 from pandas.core.dtypes.generic import ABCExtensionArray as ABCExtensionArray, ABCIndex as ABCIndex, ABCSeries as ABCSeries
-from pandas.core.dtypes.inference import is_list_like as is_list_like
 from pandas.core.dtypes.missing import is_valid_na_for_dtype as is_valid_na_for_dtype, isna as isna, na_value_for_dtype as na_value_for_dtype, notna as notna
 from pandas.errors import IntCastingNaNError as IntCastingNaNError, LossySetitemError as LossySetitemError
 from pandas.io._util import _arrow_dtype_mapping as _arrow_dtype_mapping
-from typing import Any, Literal, TypeVar, overload
+from typing import Any, Literal
 
-_int8_max: Incomplete
-_int16_max: Incomplete
-_int32_max: Incomplete
-_dtype_obj: Incomplete
-NumpyArrayT = TypeVar('NumpyArrayT', bound=np.ndarray)
-
+TYPE_CHECKING: bool
+_int8_max: int
+_int16_max: int
+_int32_max: int
+_dtype_obj: numpy.dtypes.ObjectDType
+NumpyArrayT: typing.TypeVar
 def maybe_convert_platform(values: list | tuple | range | np.ndarray | ExtensionArray) -> ArrayLike:
     """try to do platform conversion, allow ndarray or list here"""
 def is_nested_object(obj) -> bool:
@@ -34,7 +39,7 @@ def is_nested_object(obj) -> bool:
     This may not be necessarily be performant.
 
     """
-def maybe_box_datetimelike(value: Scalar, dtype: Dtype | None = None) -> Scalar:
+def maybe_box_datetimelike(value: Scalar, dtype: Dtype | None) -> Scalar:
     """
     Cast scalar to Timestamp or Timedelta if scalar is datetime-like
     and dtype is not object.
@@ -75,14 +80,25 @@ def _disallow_mismatched_datetimelike(value, dtype: DtypeObj):
     vice-versa, but we do not want to allow this, so we need to
     check explicitly
     '''
-@overload
-def maybe_downcast_to_dtype(result: np.ndarray, dtype: str | np.dtype) -> np.ndarray: ...
-@overload
-def maybe_downcast_to_dtype(result: ExtensionArray, dtype: str | np.dtype) -> ArrayLike: ...
-@overload
-def maybe_downcast_numeric(result: np.ndarray, dtype: np.dtype, do_round: bool = False) -> np.ndarray: ...
-@overload
-def maybe_downcast_numeric(result: ExtensionArray, dtype: DtypeObj, do_round: bool = False) -> ArrayLike: ...
+def maybe_downcast_to_dtype(result: ArrayLike, dtype: str | np.dtype) -> ArrayLike:
+    """
+    try to cast to the specified dtype (e.g. convert back to bool/int
+    or could be an astype of float64->float32
+    """
+def maybe_downcast_numeric(result: ArrayLike, dtype: DtypeObj, do_round: bool = ...) -> ArrayLike:
+    """
+    Subset of maybe_downcast_to_dtype restricted to numeric dtypes.
+
+    Parameters
+    ----------
+    result : ndarray or ExtensionArray
+    dtype : np.dtype or ExtensionDtype
+    do_round : bool
+
+    Returns
+    -------
+    ndarray or ExtensionArray
+    """
 def maybe_upcast_numeric_to_64bit(arr: NumpyIndexT) -> NumpyIndexT:
     """
     If array is a int/uint/float bit size lower than 64 bit, upcast it to 64 bit.
@@ -95,7 +111,7 @@ def maybe_upcast_numeric_to_64bit(arr: NumpyIndexT) -> NumpyIndexT:
     -------
     ndarray or ExtensionArray
     """
-def maybe_cast_pointwise_result(result: ArrayLike, dtype: DtypeObj, numeric_only: bool = False, same_dtype: bool = True) -> ArrayLike:
+def maybe_cast_pointwise_result(result: ArrayLike, dtype: DtypeObj, numeric_only: bool = ..., same_dtype: bool = ...) -> ArrayLike:
     """
     Try casting result of a pointwise operation back to the original dtype if
     appropriate.
@@ -116,7 +132,7 @@ def maybe_cast_pointwise_result(result: ArrayLike, dtype: DtypeObj, numeric_only
     result : array-like
         result maybe casted to the dtype.
     """
-def _maybe_cast_to_extension_array(cls, obj: ArrayLike, dtype: ExtensionDtype | None = None) -> ArrayLike:
+def _maybe_cast_to_extension_array(cls: type[ExtensionArray], obj: ArrayLike, dtype: ExtensionDtype | None) -> ArrayLike:
     """
     Call to `_from_sequence` that returns the object unchanged on Exception.
 
@@ -131,14 +147,13 @@ def _maybe_cast_to_extension_array(cls, obj: ArrayLike, dtype: ExtensionDtype | 
     -------
     ExtensionArray or obj
     """
-@overload
-def ensure_dtype_can_hold_na(dtype: np.dtype) -> np.dtype: ...
-@overload
-def ensure_dtype_can_hold_na(dtype: ExtensionDtype) -> ExtensionDtype: ...
+def ensure_dtype_can_hold_na(dtype: DtypeObj) -> DtypeObj:
+    """
+    If we have a dtype that cannot hold NA values, find the best match that can.
+    """
 
-_canonical_nans: Incomplete
-
-def maybe_promote(dtype: np.dtype, fill_value=...):
+_canonical_nans: dict
+def maybe_promote(dtype: np.dtype, fill_value: float = ...):
     """
     Find the minimal dtype that can hold both the given dtype and fill_value.
 
@@ -159,8 +174,9 @@ def maybe_promote(dtype: np.dtype, fill_value=...):
     ValueError
         If fill_value is a non-scalar and dtype is not object.
     """
-def _maybe_promote_cached(dtype, fill_value, fill_value_type): ...
-def _maybe_promote(dtype: np.dtype, fill_value=...): ...
+
+_maybe_promote_cached: functools._lru_cache_wrapper
+def _maybe_promote(dtype: np.dtype, fill_value: float = ...): ...
 def _ensure_dtype_type(value, dtype: np.dtype):
     """
     Ensure that the given value is an instance of the given dtype.
@@ -258,7 +274,7 @@ def invalidate_string_dtypes(dtype_set: set[DtypeObj]) -> None:
     """
 def coerce_indexer_dtype(indexer, categories) -> np.ndarray:
     """coerce the indexer input array to the smallest dtype possible"""
-def convert_dtypes(input_array: ArrayLike, convert_string: bool = True, convert_integer: bool = True, convert_boolean: bool = True, convert_floating: bool = True, infer_objects: bool = False, dtype_backend: Literal['numpy_nullable', 'pyarrow'] = 'numpy_nullable') -> DtypeObj:
+def convert_dtypes(input_array: ArrayLike, convert_string: bool = ..., convert_integer: bool = ..., convert_boolean: bool = ..., convert_floating: bool = ..., infer_objects: bool = ..., dtype_backend: Literal['numpy_nullable', 'pyarrow'] = ...) -> DtypeObj:
     '''
     Convert objects to best possible type, and optionally,
     to types supporting ``pd.NA``.
@@ -384,12 +400,23 @@ def np_find_common_type(*dtypes: np.dtype) -> np.dtype:
     -------
     np.dtype
     """
-@overload
-def find_common_type(types: list[np.dtype]) -> np.dtype: ...
-@overload
-def find_common_type(types: list[ExtensionDtype]) -> DtypeObj: ...
-@overload
-def find_common_type(types: list[DtypeObj]) -> DtypeObj: ...
+def find_common_type(types):
+    """
+    Find a common data type among the given dtypes.
+
+    Parameters
+    ----------
+    types : list of dtypes
+
+    Returns
+    -------
+    pandas extension or numpy dtype
+
+    See Also
+    --------
+    numpy.find_common_type
+
+    """
 def construct_2d_arraylike_from_scalar(value: Scalar, length: int, width: int, dtype: np.dtype, copy: bool) -> np.ndarray: ...
 def construct_1d_arraylike_from_scalar(value: Scalar, length: int, dtype: DtypeObj | None) -> ArrayLike:
     """

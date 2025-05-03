@@ -1,17 +1,17 @@
-from pandas import DataFrame as DataFrame, Series as Series
-from pandas._libs import lib as lib
+import pandas._libs.lib as lib
+import pandas._libs.tslibs.timezones as timezones
+import pandas.core.common as com
 from pandas._libs.json import ujson_loads as ujson_loads
-from pandas._libs.tslibs import timezones as timezones
 from pandas._libs.tslibs.dtypes import freq_to_period_freqstr as freq_to_period_freqstr
-from pandas._typing import DtypeObj as DtypeObj, JSONSerializable as JSONSerializable
+from pandas._libs.tslibs.offsets import to_offset as to_offset
+from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype, registry as registry
 from pandas.core.dtypes.common import is_bool_dtype as is_bool_dtype, is_integer_dtype as is_integer_dtype, is_numeric_dtype as is_numeric_dtype, is_string_dtype as is_string_dtype
-from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype, PeriodDtype as PeriodDtype
-from pandas.core.indexes.multi import MultiIndex as MultiIndex
-from pandas.tseries.frequencies import to_offset as to_offset
+from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, PeriodDtype as PeriodDtype
+from pandas.core.frame import DataFrame as DataFrame
 from pandas.util._exceptions import find_stack_level as find_stack_level
 
+TYPE_CHECKING: bool
 TABLE_SCHEMA_VERSION: str
-
 def as_json_table_type(x: DtypeObj) -> str:
     """
     Convert a NumPy / pandas type to its corresponding json_table.
@@ -86,7 +86,7 @@ def convert_json_field_to_pandas_type(field) -> str | CategoricalDtype:
     ... )
     \'datetime64[ns, US/Central]\'
     '''
-def build_table_schema(data: DataFrame | Series, index: bool = True, primary_key: bool | None = None, version: bool = True) -> dict[str, JSONSerializable]:
+def build_table_schema(data: DataFrame | Series, index: bool = ..., primary_key: bool | None, version: bool = ...) -> dict[str, JSONSerializable]:
     """
     Create a Table schema from ``data``.
 

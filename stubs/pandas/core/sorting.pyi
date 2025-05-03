@@ -1,18 +1,16 @@
-import numpy as np
-from _typeshed import Incomplete
-from collections.abc import Hashable, Iterable, Sequence
-from pandas import MultiIndex as MultiIndex, Series as Series
-from pandas._libs import algos as algos, hashtable as hashtable, lib as lib
+import np
+import npt
+import pandas._libs.algos as algos
+import pandas._libs.hashtable as hashtable
+import pandas._libs.lib as lib
+from pandas._libs.algos import ensure_int64 as ensure_int64, ensure_platform_int as ensure_platform_int
 from pandas._libs.hashtable import unique_label_indices as unique_label_indices
-from pandas._typing import ArrayLike as ArrayLike, AxisInt as AxisInt, IndexKeyFunc as IndexKeyFunc, Level as Level, NaPosition as NaPosition, Shape as Shape, SortKind as SortKind, npt as npt
-from pandas.core.arrays import ExtensionArray as ExtensionArray
 from pandas.core.construction import extract_array as extract_array
-from pandas.core.dtypes.common import ensure_int64 as ensure_int64, ensure_platform_int as ensure_platform_int
 from pandas.core.dtypes.generic import ABCMultiIndex as ABCMultiIndex, ABCRangeIndex as ABCRangeIndex
 from pandas.core.dtypes.missing import isna as isna
-from pandas.core.indexes.base import Index as Index
 from typing import Callable
 
+TYPE_CHECKING: bool
 def get_indexer_indexer(target: Index, level: Level | list[Level] | None, ascending: list[bool] | bool, kind: SortKind, na_position: NaPosition, sort_remaining: bool, key: IndexKeyFunc) -> npt.NDArray[np.intp] | None:
     """
     Helper method that return the indexer according to input parameters for
@@ -98,7 +96,7 @@ def decons_obs_group_ids(comp_ids: npt.NDArray[np.intp], obs_ids: npt.NDArray[np
     xnull : bool
         If nulls are excluded; i.e. -1 labels are passed through.
     """
-def lexsort_indexer(keys: Sequence[ArrayLike | Index | Series], orders: Incomplete | None = None, na_position: str = 'last', key: Callable | None = None, codes_given: bool = False) -> npt.NDArray[np.intp]:
+def lexsort_indexer(keys: Sequence[ArrayLike | Index | Series], orders, na_position: str = ..., key: Callable | None, codes_given: bool = ...) -> npt.NDArray[np.intp]:
     '''
     Performs lexical sorting on a set of keys
 
@@ -124,7 +122,7 @@ def lexsort_indexer(keys: Sequence[ArrayLike | Index | Series], orders: Incomple
     -------
     np.ndarray[np.intp]
     '''
-def nargsort(items: ArrayLike | Index | Series, kind: SortKind = 'quicksort', ascending: bool = True, na_position: str = 'last', key: Callable | None = None, mask: npt.NDArray[np.bool_] | None = None) -> npt.NDArray[np.intp]:
+def nargsort(items: ArrayLike | Index | Series, kind: SortKind = ..., ascending: bool = ..., na_position: str = ..., key: Callable | None, mask: npt.NDArray[np.bool_] | None) -> npt.NDArray[np.intp]:
     """
     Intended to be a drop-in replacement for np.argsort which handles NaNs.
 
@@ -146,7 +144,7 @@ def nargsort(items: ArrayLike | Index | Series, kind: SortKind = 'quicksort', as
     -------
     np.ndarray[np.intp]
     """
-def nargminmax(values: ExtensionArray, method: str, axis: AxisInt = 0):
+def nargminmax(values: ExtensionArray, method: str, axis: AxisInt = ...):
     '''
     Implementation of np.argmin/argmax but for ExtensionArray and which
     handles missing values.
@@ -165,7 +163,7 @@ def _nanargminmax(values: np.ndarray, mask: npt.NDArray[np.bool_], func) -> int:
     """
     See nanargminmax.__doc__.
     """
-def _ensure_key_mapped_multiindex(index: MultiIndex, key: Callable, level: Incomplete | None = None) -> MultiIndex:
+def _ensure_key_mapped_multiindex(index: MultiIndex, key: Callable, level) -> MultiIndex:
     """
     Returns a new MultiIndex in which key has been applied
     to all levels specified in level (or all levels if level
@@ -191,7 +189,7 @@ def _ensure_key_mapped_multiindex(index: MultiIndex, key: Callable, level: Incom
     labels : MultiIndex
         Resulting MultiIndex with modified levels.
     """
-def ensure_key_mapped(values: ArrayLike | Index | Series, key: Callable | None, levels: Incomplete | None = None) -> ArrayLike | Index | Series:
+def ensure_key_mapped(values: ArrayLike | Index | Series, key: Callable | None, levels) -> ArrayLike | Index | Series:
     """
     Applies a callable key function to the values function and checks
     that the resulting value has the same shape. Can be called on Index
@@ -213,7 +211,7 @@ def get_indexer_dict(label_list: list[np.ndarray], keys: list[Index]) -> dict[Ha
     dict:
         Labels mapped to indexers.
     """
-def get_group_index_sorter(group_index: npt.NDArray[np.intp], ngroups: int | None = None) -> npt.NDArray[np.intp]:
+def get_group_index_sorter(group_index: npt.NDArray[np.intp], ngroups: int | None) -> npt.NDArray[np.intp]:
     """
     algos.groupsort_indexer implements `counting sort` and it is at least
     O(ngroups), where
@@ -237,7 +235,7 @@ def get_group_index_sorter(group_index: npt.NDArray[np.intp], ngroups: int | Non
     -------
     np.ndarray[np.intp]
     """
-def compress_group_index(group_index: npt.NDArray[np.int64], sort: bool = True) -> tuple[npt.NDArray[np.int64], npt.NDArray[np.int64]]:
+def compress_group_index(group_index: npt.NDArray[np.int64], sort: bool = ...) -> tuple[npt.NDArray[np.int64], npt.NDArray[np.int64]]:
     """
     Group_index is offsets into cartesian product of all possible labels. This
     space can be huge, so this function compresses it, by computing offsets

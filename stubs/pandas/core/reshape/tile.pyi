@@ -1,14 +1,21 @@
-from _typeshed import Incomplete
-from pandas import Categorical as Categorical, Index as Index, IntervalIndex as IntervalIndex
-from pandas._libs import Timedelta as Timedelta, Timestamp as Timestamp, lib as lib
-from pandas._typing import DtypeObj as DtypeObj, IntervalLeftRight as IntervalLeftRight
+import pandas._libs.lib as lib
+import pandas.core.algorithms as algos
+from pandas._libs.algos import ensure_platform_int as ensure_platform_int
+from pandas._libs.lib import is_integer as is_integer, is_list_like as is_list_like, is_scalar as is_scalar
+from pandas._libs.tslibs.timedeltas import Timedelta as Timedelta
+from pandas._libs.tslibs.timestamps import Timestamp as Timestamp
+from pandas.core.arrays.categorical import Categorical as Categorical
 from pandas.core.arrays.datetimelike import dtype_to_unit as dtype_to_unit
-from pandas.core.dtypes.common import ensure_platform_int as ensure_platform_int, is_bool_dtype as is_bool_dtype, is_integer as is_integer, is_list_like as is_list_like, is_numeric_dtype as is_numeric_dtype, is_scalar as is_scalar
-from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype
+from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
+from pandas.core.dtypes.common import is_bool_dtype as is_bool_dtype, is_numeric_dtype as is_numeric_dtype
+from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype
 from pandas.core.dtypes.generic import ABCSeries as ABCSeries
 from pandas.core.dtypes.missing import isna as isna
+from pandas.core.indexes.base import Index as Index
+from pandas.core.indexes.interval import IntervalIndex as IntervalIndex
 
-def cut(x, bins, right: bool = True, labels: Incomplete | None = None, retbins: bool = False, precision: int = 3, include_lowest: bool = False, duplicates: str = 'raise', ordered: bool = True):
+TYPE_CHECKING: bool
+def cut(x, bins, right: bool = ..., labels, retbins: bool = ..., precision: int = ..., include_lowest: bool = ..., duplicates: str = ..., ordered: bool = ...):
     '''
     Bin values into discrete intervals.
 
@@ -185,7 +192,7 @@ def cut(x, bins, right: bool = True, labels: Incomplete | None = None, retbins: 
     [NaN, (0.0, 1.0], NaN, (2.0, 3.0], (4.0, 5.0]]
     Categories (3, interval[int64, right]): [(0, 1] < (2, 3] < (4, 5]]
     '''
-def qcut(x, q, labels: Incomplete | None = None, retbins: bool = False, precision: int = 3, duplicates: str = 'raise'):
+def qcut(x, q, labels, retbins: bool = ..., precision: int = ..., duplicates: str = ...):
     '''
     Quantile-based discretization function.
 
@@ -244,7 +251,7 @@ def _nbins_to_bins(x_idx: Index, nbins: int, right: bool) -> Index:
     If a user passed an integer N for bins, convert this to a sequence of N
     equal(ish)-sized bins.
     """
-def _bins_to_cuts(x_idx: Index, bins: Index, right: bool = True, labels: Incomplete | None = None, precision: int = 3, include_lowest: bool = False, duplicates: str = 'raise', ordered: bool = True): ...
+def _bins_to_cuts(x_idx: Index, bins: Index, right: bool = ..., labels, precision: int = ..., include_lowest: bool = ..., duplicates: str = ..., ordered: bool = ...): ...
 def _coerce_to_type(x: Index) -> tuple[Index, DtypeObj | None]:
     """
     if the passed data is of datetime/timedelta, bool or nullable int type,
@@ -252,7 +259,7 @@ def _coerce_to_type(x: Index) -> tuple[Index, DtypeObj | None]:
     handle it
     """
 def _is_dt_or_td(dtype: DtypeObj) -> bool: ...
-def _format_labels(bins: Index, precision: int, right: bool = True, include_lowest: bool = False):
+def _format_labels(bins: Index, precision: int, right: bool = ..., include_lowest: bool = ...):
     """based on the dtype, return our labels"""
 def _preprocess_for_cut(x) -> Index:
     """

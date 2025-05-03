@@ -1,6 +1,7 @@
-from pandas._typing import JSONSerializable as JSONSerializable
-from pandas.compat._optional import VERSIONS as VERSIONS, get_version as get_version, import_optional_dependency as import_optional_dependency
+from pandas.compat._optional import get_version as get_version, import_optional_dependency as import_optional_dependency
 
+TYPE_CHECKING: bool
+VERSIONS: dict
 def _get_commit_hash() -> str | None:
     """
     Use vendored versioneer code to get git hash, which handles
@@ -14,7 +15,7 @@ def _get_dependency_info() -> dict[str, JSONSerializable]:
     """
     Returns dependency information as a JSON serializable dictionary.
     """
-def show_versions(as_json: str | bool = False) -> None:
+def show_versions(as_json: str | bool = ...) -> None:
     """
     Provide useful information, important for bug reports.
 

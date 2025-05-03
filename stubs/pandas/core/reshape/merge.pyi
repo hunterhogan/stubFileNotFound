@@ -1,34 +1,247 @@
-import numpy as np
+import libhashtable as libhashtable
+import np
+import npt
+import pandas._libs.join as libjoin
+import pandas._libs.lib as lib
+import pandas.core.algorithms as algos
+import pandas.core.common as com
 from _typeshed import Incomplete
-from collections.abc import Hashable, Sequence
-from pandas import ArrowDtype as ArrowDtype, Categorical as Categorical, DataFrame as DataFrame, Index as Index, MultiIndex as MultiIndex, Series as Series
-from pandas._libs import Timedelta as Timedelta, hashtable as libhashtable, lib as lib
-from pandas._libs.lib import is_range_indexer as is_range_indexer
-from pandas._typing import AnyArrayLike as AnyArrayLike, ArrayLike as ArrayLike, IndexLabel as IndexLabel, JoinHow as JoinHow, MergeHow as MergeHow, Shape as Shape, Suffixes as Suffixes, npt as npt
-from pandas.core import groupby as groupby
-from pandas.core.arrays import ArrowExtensionArray as ArrowExtensionArray, BaseMaskedArray as BaseMaskedArray, DatetimeArray as DatetimeArray, ExtensionArray as ExtensionArray
+from builtins import Shape, Suffixes
+from collections.abc import Hashable
+from pandas._libs.algos import ensure_int64 as ensure_int64, ensure_object as ensure_object
+from pandas._libs.lib import is_bool as is_bool, is_integer as is_integer, is_list_like as is_list_like, is_range_indexer as is_range_indexer
+from pandas._libs.properties import cache_readonly as cache_readonly
+from pandas._libs.tslibs.timedeltas import Timedelta as Timedelta
+from pandas.core.arrays.arrow.array import ArrowExtensionArray as ArrowExtensionArray
+from pandas.core.arrays.base import ExtensionArray as ExtensionArray
+from pandas.core.arrays.categorical import Categorical as Categorical
+from pandas.core.arrays.masked import BaseMaskedArray as BaseMaskedArray
 from pandas.core.arrays.string_ import StringDtype as StringDtype
 from pandas.core.construction import ensure_wrapped_if_datetimelike as ensure_wrapped_if_datetimelike, extract_array as extract_array
 from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.cast import find_common_type as find_common_type
-from pandas.core.dtypes.common import ensure_int64 as ensure_int64, ensure_object as ensure_object, is_bool as is_bool, is_bool_dtype as is_bool_dtype, is_float_dtype as is_float_dtype, is_integer as is_integer, is_integer_dtype as is_integer_dtype, is_list_like as is_list_like, is_number as is_number, is_numeric_dtype as is_numeric_dtype, is_object_dtype as is_object_dtype, is_string_dtype as is_string_dtype, needs_i8_conversion as needs_i8_conversion
-from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype
+from pandas.core.dtypes.common import is_bool_dtype as is_bool_dtype, is_float_dtype as is_float_dtype, is_integer_dtype as is_integer_dtype, is_numeric_dtype as is_numeric_dtype, is_object_dtype as is_object_dtype, is_string_dtype as is_string_dtype, needs_i8_conversion as needs_i8_conversion
+from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype, CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCSeries as ABCSeries
+from pandas.core.dtypes.inference import is_number as is_number
 from pandas.core.dtypes.missing import isna as isna, na_value_for_dtype as na_value_for_dtype
-from pandas.core.frame import _merge_doc as _merge_doc
 from pandas.core.indexes.api import default_index as default_index
-from pandas.core.indexes.frozen import FrozenList as FrozenList
+from pandas.core.indexes.base import Index as Index
+from pandas.core.indexes.multi import MultiIndex as MultiIndex
+from pandas.core.series import Series as Series
 from pandas.core.sorting import get_group_index as get_group_index, is_int64_overflow_possible as is_int64_overflow_possible
 from pandas.errors import MergeError as MergeError
-from pandas.util._decorators import Appender as Appender, Substitution as Substitution, cache_readonly as cache_readonly
+from pandas.util._decorators import Appender as Appender, Substitution as Substitution
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Literal
+from typing import AnyArrayLike, ArrayLike, ClassVar, IndexLabel, JoinHow, Literal, MergeHow
 
-_factorizers: Incomplete
-_known: Incomplete
+TYPE_CHECKING: bool
+npt: None
+_merge_doc: str
+_factorizers: dict
+_known: tuple
+def merge(left: DataFrame | Series, right: DataFrame | Series, how: MergeHow = ..., on: IndexLabel | AnyArrayLike | None, left_on: IndexLabel | AnyArrayLike | None, right_on: IndexLabel | AnyArrayLike | None, left_index: bool = ..., right_index: bool = ..., sort: bool = ..., suffixes: Suffixes = ..., copy: bool | None, indicator: str | bool = ..., validate: str | None) -> DataFrame:
+    '''
+    Merge DataFrame or named Series objects with a database-style join.
 
-def merge(left: DataFrame | Series, right: DataFrame | Series, how: MergeHow = 'inner', on: IndexLabel | AnyArrayLike | None = None, left_on: IndexLabel | AnyArrayLike | None = None, right_on: IndexLabel | AnyArrayLike | None = None, left_index: bool = False, right_index: bool = False, sort: bool = False, suffixes: Suffixes = ('_x', '_y'), copy: bool | None = None, indicator: str | bool = False, validate: str | None = None) -> DataFrame: ...
-def _cross_merge(left: DataFrame, right: DataFrame, on: IndexLabel | AnyArrayLike | None = None, left_on: IndexLabel | AnyArrayLike | None = None, right_on: IndexLabel | AnyArrayLike | None = None, left_index: bool = False, right_index: bool = False, sort: bool = False, suffixes: Suffixes = ('_x', '_y'), copy: bool | None = None, indicator: str | bool = False, validate: str | None = None) -> DataFrame:
+    A named Series object is treated as a DataFrame with a single named column.
+
+    The join is done on columns or indexes. If joining columns on
+    columns, the DataFrame indexes *will be ignored*. Otherwise if joining indexes
+    on indexes or indexes on a column or columns, the index will be passed on.
+    When performing a cross merge, no column specifications to merge on are
+    allowed.
+
+    .. warning::
+
+        If both key columns contain rows where the key is a null value, those
+        rows will be matched against each other. This is different from usual SQL
+        join behaviour and can lead to unexpected results.
+
+    Parameters
+    ----------
+    left : DataFrame or named Series
+    right : DataFrame or named Series
+        Object to merge with.
+    how : {\'left\', \'right\', \'outer\', \'inner\', \'cross\'}, default \'inner\'
+        Type of merge to be performed.
+
+        * left: use only keys from left frame, similar to a SQL left outer join;
+          preserve key order.
+        * right: use only keys from right frame, similar to a SQL right outer join;
+          preserve key order.
+        * outer: use union of keys from both frames, similar to a SQL full outer
+          join; sort keys lexicographically.
+        * inner: use intersection of keys from both frames, similar to a SQL inner
+          join; preserve the order of the left keys.
+        * cross: creates the cartesian product from both frames, preserves the order
+          of the left keys.
+    on : label or list
+        Column or index level names to join on. These must be found in both
+        DataFrames. If `on` is None and not merging on indexes then this defaults
+        to the intersection of the columns in both DataFrames.
+    left_on : label or list, or array-like
+        Column or index level names to join on in the left DataFrame. Can also
+        be an array or list of arrays of the length of the left DataFrame.
+        These arrays are treated as if they are columns.
+    right_on : label or list, or array-like
+        Column or index level names to join on in the right DataFrame. Can also
+        be an array or list of arrays of the length of the right DataFrame.
+        These arrays are treated as if they are columns.
+    left_index : bool, default False
+        Use the index from the left DataFrame as the join key(s). If it is a
+        MultiIndex, the number of keys in the other DataFrame (either the index
+        or a number of columns) must match the number of levels.
+    right_index : bool, default False
+        Use the index from the right DataFrame as the join key. Same caveats as
+        left_index.
+    sort : bool, default False
+        Sort the join keys lexicographically in the result DataFrame. If False,
+        the order of the join keys depends on the join type (how keyword).
+    suffixes : list-like, default is ("_x", "_y")
+        A length-2 sequence where each element is optionally a string
+        indicating the suffix to add to overlapping column names in
+        `left` and `right` respectively. Pass a value of `None` instead
+        of a string to indicate that the column name from `left` or
+        `right` should be left as-is, with no suffix. At least one of the
+        values must not be None.
+    copy : bool, default True
+        If False, avoid copy if possible.
+
+        .. note::
+            The `copy` keyword will change behavior in pandas 3.0.
+            `Copy-on-Write
+            <https://pandas.pydata.org/docs/dev/user_guide/copy_on_write.html>`__
+            will be enabled by default, which means that all methods with a
+            `copy` keyword will use a lazy copy mechanism to defer the copy and
+            ignore the `copy` keyword. The `copy` keyword will be removed in a
+            future version of pandas.
+
+            You can already get the future behavior and improvements through
+            enabling copy on write ``pd.options.mode.copy_on_write = True``
+    indicator : bool or str, default False
+        If True, adds a column to the output DataFrame called "_merge" with
+        information on the source of each row. The column can be given a different
+        name by providing a string argument. The column will have a Categorical
+        type with the value of "left_only" for observations whose merge key only
+        appears in the left DataFrame, "right_only" for observations
+        whose merge key only appears in the right DataFrame, and "both"
+        if the observation\'s merge key is found in both DataFrames.
+
+    validate : str, optional
+        If specified, checks if merge is of specified type.
+
+        * "one_to_one" or "1:1": check if merge keys are unique in both
+          left and right datasets.
+        * "one_to_many" or "1:m": check if merge keys are unique in left
+          dataset.
+        * "many_to_one" or "m:1": check if merge keys are unique in right
+          dataset.
+        * "many_to_many" or "m:m": allowed, but does not result in checks.
+
+    Returns
+    -------
+    DataFrame
+        A DataFrame of the two merged objects.
+
+    See Also
+    --------
+    merge_ordered : Merge with optional filling/interpolation.
+    merge_asof : Merge on nearest keys.
+    DataFrame.join : Similar method using indices.
+
+    Examples
+    --------
+    >>> df1 = pd.DataFrame({\'lkey\': [\'foo\', \'bar\', \'baz\', \'foo\'],
+    ...                     \'value\': [1, 2, 3, 5]})
+    >>> df2 = pd.DataFrame({\'rkey\': [\'foo\', \'bar\', \'baz\', \'foo\'],
+    ...                     \'value\': [5, 6, 7, 8]})
+    >>> df1
+        lkey value
+    0   foo      1
+    1   bar      2
+    2   baz      3
+    3   foo      5
+    >>> df2
+        rkey value
+    0   foo      5
+    1   bar      6
+    2   baz      7
+    3   foo      8
+
+    Merge df1 and df2 on the lkey and rkey columns. The value columns have
+    the default suffixes, _x and _y, appended.
+
+    >>> df1.merge(df2, left_on=\'lkey\', right_on=\'rkey\')
+      lkey  value_x rkey  value_y
+    0  foo        1  foo        5
+    1  foo        1  foo        8
+    2  bar        2  bar        6
+    3  baz        3  baz        7
+    4  foo        5  foo        5
+    5  foo        5  foo        8
+
+    Merge DataFrames df1 and df2 with specified left and right suffixes
+    appended to any overlapping columns.
+
+    >>> df1.merge(df2, left_on=\'lkey\', right_on=\'rkey\',
+    ...           suffixes=(\'_left\', \'_right\'))
+      lkey  value_left rkey  value_right
+    0  foo           1  foo            5
+    1  foo           1  foo            8
+    2  bar           2  bar            6
+    3  baz           3  baz            7
+    4  foo           5  foo            5
+    5  foo           5  foo            8
+
+    Merge DataFrames df1 and df2, but raise an exception if the DataFrames have
+    any overlapping columns.
+
+    >>> df1.merge(df2, left_on=\'lkey\', right_on=\'rkey\', suffixes=(False, False))
+    Traceback (most recent call last):
+    ...
+    ValueError: columns overlap but no suffix specified:
+        Index([\'value\'], dtype=\'object\')
+
+    >>> df1 = pd.DataFrame({\'a\': [\'foo\', \'bar\'], \'b\': [1, 2]})
+    >>> df2 = pd.DataFrame({\'a\': [\'foo\', \'baz\'], \'c\': [3, 4]})
+    >>> df1
+          a  b
+    0   foo  1
+    1   bar  2
+    >>> df2
+          a  c
+    0   foo  3
+    1   baz  4
+
+    >>> df1.merge(df2, how=\'inner\', on=\'a\')
+          a  b  c
+    0   foo  1  3
+
+    >>> df1.merge(df2, how=\'left\', on=\'a\')
+          a  b  c
+    0   foo  1  3.0
+    1   bar  2  NaN
+
+    >>> df1 = pd.DataFrame({\'left\': [\'foo\', \'bar\']})
+    >>> df2 = pd.DataFrame({\'right\': [7, 8]})
+    >>> df1
+        left
+    0   foo
+    1   bar
+    >>> df2
+        right
+    0   7
+    1   8
+
+    >>> df1.merge(df2, how=\'cross\')
+       left  right
+    0   foo      7
+    1   foo      8
+    2   bar      7
+    3   bar      8
+    '''
+def _cross_merge(left: DataFrame, right: DataFrame, on: IndexLabel | AnyArrayLike | None, left_on: IndexLabel | AnyArrayLike | None, right_on: IndexLabel | AnyArrayLike | None, left_index: bool = ..., right_index: bool = ..., sort: bool = ..., suffixes: Suffixes = ..., copy: bool | None, indicator: str | bool = ..., validate: str | None) -> DataFrame:
     """
     See merge.__doc__ with how='cross'
     """
@@ -43,7 +256,7 @@ def _groupby_and_merge(by, left: DataFrame | Series, right: DataFrame | Series, 
     right: DataFrame
     merge_pieces: function for merging
     """
-def merge_ordered(left: DataFrame | Series, right: DataFrame | Series, on: IndexLabel | None = None, left_on: IndexLabel | None = None, right_on: IndexLabel | None = None, left_by: Incomplete | None = None, right_by: Incomplete | None = None, fill_method: str | None = None, suffixes: Suffixes = ('_x', '_y'), how: JoinHow = 'outer') -> DataFrame:
+def merge_ordered(left: DataFrame | Series, right: DataFrame | Series, on: IndexLabel | None, left_on: IndexLabel | None, right_on: IndexLabel | None, left_by, right_by, fill_method: str | None, suffixes: Suffixes = ..., how: JoinHow = ...) -> DataFrame:
     '''
     Perform a merge for ordered data with optional filling/interpolation.
 
@@ -135,7 +348,7 @@ def merge_ordered(left: DataFrame | Series, right: DataFrame | Series, on: Index
     8   d       2     b     3.0
     9   e       3     b     3.0
     '''
-def merge_asof(left: DataFrame | Series, right: DataFrame | Series, on: IndexLabel | None = None, left_on: IndexLabel | None = None, right_on: IndexLabel | None = None, left_index: bool = False, right_index: bool = False, by: Incomplete | None = None, left_by: Incomplete | None = None, right_by: Incomplete | None = None, suffixes: Suffixes = ('_x', '_y'), tolerance: int | Timedelta | None = None, allow_exact_matches: bool = True, direction: str = 'backward') -> DataFrame:
+def merge_asof(left: DataFrame | Series, right: DataFrame | Series, on: IndexLabel | None, left_on: IndexLabel | None, right_on: IndexLabel | None, left_index: bool = ..., right_index: bool = ..., by, left_by, right_by, suffixes: Suffixes = ..., tolerance: int | Timedelta | None, allow_exact_matches: bool = ..., direction: str = ...) -> DataFrame:
     '''
     Perform a merge by key distance.
 
@@ -373,36 +586,16 @@ def merge_asof(left: DataFrame | Series, right: DataFrame | Series, on: IndexLab
     '''
 
 class _MergeOperation:
-    """
-    Perform a database (SQL) merge operation between two DataFrame or Series
-    objects using either columns as keys or their row indexes
-    """
-    _merge_type: str
-    how: JoinHow | Literal['asof']
-    on: IndexLabel | None
-    left_on: Sequence[Hashable | AnyArrayLike]
-    right_on: Sequence[Hashable | AnyArrayLike]
-    left_index: bool
-    right_index: bool
-    sort: bool
-    suffixes: Suffixes
-    copy: bool
-    indicator: str | bool
-    validate: str | None
-    join_names: list[Hashable]
-    right_join_keys: list[ArrayLike]
-    left_join_keys: list[ArrayLike]
-    left: Incomplete
-    right: Incomplete
-    def __init__(self, left: DataFrame | Series, right: DataFrame | Series, how: JoinHow | Literal['asof'] = 'inner', on: IndexLabel | AnyArrayLike | None = None, left_on: IndexLabel | AnyArrayLike | None = None, right_on: IndexLabel | AnyArrayLike | None = None, left_index: bool = False, right_index: bool = False, sort: bool = True, suffixes: Suffixes = ('_x', '_y'), indicator: str | bool = False, validate: str | None = None) -> None: ...
+    _merge_type: ClassVar[str] = ...
+    _indicator_name: Incomplete
+    def __init__(self, left: DataFrame | Series, right: DataFrame | Series, how: JoinHow | Literal['asof'] = ..., on: IndexLabel | AnyArrayLike | None, left_on: IndexLabel | AnyArrayLike | None, right_on: IndexLabel | AnyArrayLike | None, left_index: bool = ..., right_index: bool = ..., sort: bool = ..., suffixes: Suffixes = ..., indicator: str | bool = ..., validate: str | None) -> None: ...
     def _maybe_require_matching_dtypes(self, left_join_keys: list[ArrayLike], right_join_keys: list[ArrayLike]) -> None: ...
     def _validate_tolerance(self, left_join_keys: list[ArrayLike]) -> None: ...
     def _reindex_and_concat(self, join_index: Index, left_indexer: npt.NDArray[np.intp] | None, right_indexer: npt.NDArray[np.intp] | None, copy: bool | None) -> DataFrame:
         """
         reindex along index and concat along columns.
         """
-    def get_result(self, copy: bool | None = True) -> DataFrame: ...
-    def _indicator_name(self) -> str | None: ...
+    def get_result(self, copy: bool | None = ...) -> DataFrame: ...
     def _indicator_pre_merge(self, left: DataFrame, right: DataFrame) -> tuple[DataFrame, DataFrame]: ...
     def _indicator_post_merge(self, result: DataFrame) -> DataFrame: ...
     def _maybe_restore_index_levels(self, result: DataFrame) -> None:
@@ -429,7 +622,7 @@ class _MergeOperation:
     def _get_join_indexers(self) -> tuple[npt.NDArray[np.intp] | None, npt.NDArray[np.intp] | None]:
         """return the join indexers"""
     def _get_join_info(self) -> tuple[Index, npt.NDArray[np.intp] | None, npt.NDArray[np.intp] | None]: ...
-    def _create_join_index(self, index: Index, other_index: Index, indexer: npt.NDArray[np.intp] | None, how: JoinHow = 'left') -> Index:
+    def _create_join_index(self, index: Index, other_index: Index, indexer: npt.NDArray[np.intp] | None, how: JoinHow = ...) -> Index:
         """
         Create a join index by rearranging one index to match another
 
@@ -457,8 +650,7 @@ class _MergeOperation:
     def _maybe_coerce_merge_keys(self) -> None: ...
     def _validate_left_right_on(self, left_on, right_on): ...
     def _validate_validate_kwd(self, validate: str) -> None: ...
-
-def get_join_indexers(left_keys: list[ArrayLike], right_keys: list[ArrayLike], sort: bool = False, how: JoinHow = 'inner') -> tuple[npt.NDArray[np.intp] | None, npt.NDArray[np.intp] | None]:
+def get_join_indexers(left_keys: list[ArrayLike], right_keys: list[ArrayLike], sort: bool = ..., how: JoinHow = ...) -> tuple[npt.NDArray[np.intp] | None, npt.NDArray[np.intp] | None]:
     """
 
     Parameters
@@ -475,7 +667,7 @@ def get_join_indexers(left_keys: list[ArrayLike], right_keys: list[ArrayLike], s
     np.ndarray[np.intp] or None
         Indexer into the right_keys.
     """
-def get_join_indexers_non_unique(left: ArrayLike, right: ArrayLike, sort: bool = False, how: JoinHow = 'inner') -> tuple[npt.NDArray[np.intp], npt.NDArray[np.intp]]:
+def get_join_indexers_non_unique(left: ArrayLike, right: ArrayLike, sort: bool = ..., how: JoinHow = ...) -> tuple[npt.NDArray[np.intp], npt.NDArray[np.intp]]:
     """
     Get join indexers for left and right.
 
@@ -531,29 +723,20 @@ def restore_dropped_levels_multijoin(left: MultiIndex, right: MultiIndex, droppe
     """
 
 class _OrderedMerge(_MergeOperation):
-    _merge_type: str
-    fill_method: Incomplete
-    def __init__(self, left: DataFrame | Series, right: DataFrame | Series, on: IndexLabel | None = None, left_on: IndexLabel | None = None, right_on: IndexLabel | None = None, left_index: bool = False, right_index: bool = False, suffixes: Suffixes = ('_x', '_y'), fill_method: str | None = None, how: JoinHow | Literal['asof'] = 'outer') -> None: ...
-    def get_result(self, copy: bool | None = True) -> DataFrame: ...
-
+    _merge_type: ClassVar[str] = ...
+    def __init__(self, left: DataFrame | Series, right: DataFrame | Series, on: IndexLabel | None, left_on: IndexLabel | None, right_on: IndexLabel | None, left_index: bool = ..., right_index: bool = ..., suffixes: Suffixes = ..., fill_method: str | None, how: JoinHow | Literal['asof'] = ...) -> None: ...
+    def get_result(self, copy: bool | None = ...) -> DataFrame: ...
 def _asof_by_function(direction: str): ...
 
 class _AsOfMerge(_OrderedMerge):
-    _merge_type: str
-    by: Incomplete
-    left_by: Incomplete
-    right_by: Incomplete
-    tolerance: Incomplete
-    allow_exact_matches: Incomplete
-    direction: Incomplete
-    def __init__(self, left: DataFrame | Series, right: DataFrame | Series, on: IndexLabel | None = None, left_on: IndexLabel | None = None, right_on: IndexLabel | None = None, left_index: bool = False, right_index: bool = False, by: Incomplete | None = None, left_by: Incomplete | None = None, right_by: Incomplete | None = None, suffixes: Suffixes = ('_x', '_y'), how: Literal['asof'] = 'asof', tolerance: Incomplete | None = None, allow_exact_matches: bool = True, direction: str = 'backward') -> None: ...
+    _merge_type: ClassVar[str] = ...
+    def __init__(self, left: DataFrame | Series, right: DataFrame | Series, on: IndexLabel | None, left_on: IndexLabel | None, right_on: IndexLabel | None, left_index: bool = ..., right_index: bool = ..., by, left_by, right_by, suffixes: Suffixes = ..., how: Literal['asof'] = ..., tolerance, allow_exact_matches: bool = ..., direction: str = ...) -> None: ...
     def _validate_left_right_on(self, left_on, right_on): ...
     def _maybe_require_matching_dtypes(self, left_join_keys: list[ArrayLike], right_join_keys: list[ArrayLike]) -> None: ...
     def _validate_tolerance(self, left_join_keys: list[ArrayLike]) -> None: ...
     def _convert_values_for_libjoin(self, values: AnyArrayLike, side: str) -> np.ndarray: ...
     def _get_join_indexers(self) -> tuple[npt.NDArray[np.intp], npt.NDArray[np.intp]]:
         """return the join indexers"""
-
 def _get_multiindex_indexer(join_keys: list[ArrayLike], index: MultiIndex, sort: bool) -> tuple[npt.NDArray[np.intp], npt.NDArray[np.intp]]: ...
 def _get_empty_indexer() -> tuple[npt.NDArray[np.intp], npt.NDArray[np.intp]]:
     """Return empty join indexers."""
@@ -577,8 +760,8 @@ def _get_no_sort_one_missing_indexer(n: int, left_missing: bool) -> tuple[npt.ND
     np.ndarray[np.intp]
         Right indexer
     """
-def _left_join_on_index(left_ax: Index, right_ax: Index, join_keys: list[ArrayLike], sort: bool = False) -> tuple[Index, npt.NDArray[np.intp] | None, npt.NDArray[np.intp]]: ...
-def _factorize_keys(lk: ArrayLike, rk: ArrayLike, sort: bool = True) -> tuple[npt.NDArray[np.intp], npt.NDArray[np.intp], int]:
+def _left_join_on_index(left_ax: Index, right_ax: Index, join_keys: list[ArrayLike], sort: bool = ...) -> tuple[Index, npt.NDArray[np.intp] | None, npt.NDArray[np.intp]]: ...
+def _factorize_keys(lk: ArrayLike, rk: ArrayLike, sort: bool = ...) -> tuple[npt.NDArray[np.intp], npt.NDArray[np.intp], int]:
     '''
     Encode left and right keys as enumerated types.
 
