@@ -1,13 +1,8 @@
 from _typeshed import Incomplete
-from numba import _dynfunc as _dynfunc
 from numba.core import callconv as callconv, cgutils as cgutils, codegen as codegen, config as config, externals as externals, fastmathpass as fastmathpass, intrinsics as intrinsics, types as types, utils as utils
 from numba.core.base import BaseContext as BaseContext
-from numba.core.callwrapper import PyCallWrapper as PyCallWrapper
-from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
 from numba.core.cpu_options import FastMathOptions as FastMathOptions, InlineOptions as InlineOptions, ParallelOptions as ParallelOptions
 from numba.core.options import TargetOptions as TargetOptions, include_default_options as include_default_options
-from numba.core.runtime import rtsys as rtsys
-from numba.np import ufunc_db as ufunc_db
 
 class ClosureBody(cgutils.Structure):
     _fields: Incomplete

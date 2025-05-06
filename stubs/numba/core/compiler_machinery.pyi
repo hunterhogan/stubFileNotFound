@@ -2,10 +2,7 @@ import abc
 from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from numba.core import config as config, errors as errors, transforms as transforms, utils as utils
-from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
 from numba.core.ir_utils import enforce_no_dels as enforce_no_dels, legalize_single_scope as legalize_single_scope
-from numba.core.postproc import PostProcessor as PostProcessor
-from numba.core.tracing import event as event
 from typing import NamedTuple
 
 _termcolor: Incomplete

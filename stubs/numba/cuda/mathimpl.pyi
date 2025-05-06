@@ -1,8 +1,5 @@
 from _typeshed import Incomplete
-from numba import cuda as cuda
 from numba.core import cgutils as cgutils, targetconfig as targetconfig, types as types, typing as typing
-from numba.core.imputils import Registry as Registry
-from numba.cuda import libdevice as libdevice
 from numba.types import float32 as float32, float64 as float64, int64 as int64, uint64 as uint64
 
 registry: Incomplete

@@ -1,5 +1,4 @@
 import enum
-import sys
 from typing import AnyStr
 
 __all__ = ["compile", "main", "PyCompileError", "PycInvalidationMode"]

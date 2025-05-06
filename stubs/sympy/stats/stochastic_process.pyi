@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from sympy.core.basic import Basic as Basic
 from sympy.stats.joint_rv import ProductPSpace as ProductPSpace
 from sympy.stats.rv import Distribution as Distribution, ProductDomain as ProductDomain, _symbol_converter as _symbol_converter
 

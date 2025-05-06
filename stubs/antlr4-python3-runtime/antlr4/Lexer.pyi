@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
 from typing import TextIO
 
-from antlr4.atn.LexerATNSimulator import LexerATNSimulator as LexerATNSimulator
-from antlr4.CommonTokenFactory import CommonTokenFactory as CommonTokenFactory
 from antlr4.error.Errors import (
     IllegalStateException as IllegalStateException,
     LexerNoViableAltException as LexerNoViableAltException,

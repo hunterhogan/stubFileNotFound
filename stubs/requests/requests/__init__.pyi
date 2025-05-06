@@ -23,7 +23,6 @@ from .exceptions import (
 )
 from .models import PreparedRequest as PreparedRequest, Request as Request, Response as Response
 from .sessions import Session as Session, session as session
-from .status_codes import codes as codes
 
 __author__ = version_mod.__author__
 __author_email__ = version_mod.__author_email__

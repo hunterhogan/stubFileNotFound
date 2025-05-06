@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from numba.core import ir as ir
 from numba.core.errors import ConstantInferenceError as ConstantInferenceError, NumbaError as NumbaError
 
 class ConstantInference:

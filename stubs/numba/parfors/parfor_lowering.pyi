@@ -2,10 +2,6 @@ from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, compiler as compiler, config as config, ir as ir, lowering as lowering, sigutils as sigutils, types as types
 from numba.core.errors import CompilerError as CompilerError, InternalError as InternalError, NotDefinedError as NotDefinedError, NumbaParallelSafetyWarning as NumbaParallelSafetyWarning
 from numba.core.ir_utils import add_offset_to_labels as add_offset_to_labels, find_max_label as find_max_label, find_topo_order as find_topo_order, fixup_var_define_in_scope as fixup_var_define_in_scope, get_call_table as get_call_table, get_definition as get_definition, get_global_func_typ as get_global_func_typ, get_name_var_table as get_name_var_table, get_np_ufunc_typ as get_np_ufunc_typ, get_unused_var_name as get_unused_var_name, guard as guard, is_const_call as is_const_call, is_pure as is_pure, legalize_names as legalize_names, remove_dels as remove_dels, rename_labels as rename_labels, replace_var_names as replace_var_names, transfer_scope as transfer_scope, visit_vars_inner as visit_vars_inner
-from numba.core.typing import signature as signature
-from numba.parfors import parfor as parfor
-from numba.parfors.parfor import ensure_parallel_support as ensure_parallel_support
-from numba.parfors.parfor_lowering_utils import ParforLoweringBuilder as ParforLoweringBuilder
 
 class ParforLower(lowering.Lower):
     """This is a custom lowering class that extends standard lowering so as

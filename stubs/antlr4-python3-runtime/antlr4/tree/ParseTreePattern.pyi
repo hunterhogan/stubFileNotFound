@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 
 from antlr4.tree.ParseTreePatternMatcher import ParseTreePatternMatcher as ParseTreePatternMatcher
 from antlr4.tree.Tree import ParseTree as ParseTree
-from antlr4.xpath.XPathLexer import XPathLexer as XPathLexer
 
 class ParseTreePattern:
     matcher: Incomplete

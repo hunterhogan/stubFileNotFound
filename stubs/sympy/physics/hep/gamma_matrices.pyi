@@ -1,8 +1,4 @@
 from _typeshed import Incomplete
-from sympy.core.mul import Mul as Mul
-from sympy.core.singleton import S as S
-from sympy.matrices.dense import eye as eye
-from sympy.matrices.expressions.trace import trace as trace
 from sympy.tensor.tensor import TensAdd as TensAdd, TensMul as TensMul, Tensor as Tensor, TensorHead as TensorHead, TensorIndex as TensorIndex, TensorIndexType as TensorIndexType, TensorSymmetry as TensorSymmetry, tensor_mul as tensor_mul
 
 LorentzIndex: Incomplete

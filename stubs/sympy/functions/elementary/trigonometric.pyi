@@ -1,27 +1,16 @@
 from _typeshed import Incomplete
-from sympy.core.add import Add as Add
-from sympy.core.cache import cacheit as cacheit
 from sympy.core.expr import Expr as Expr
 from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function, PoleError as PoleError, expand_mul as expand_mul
 from sympy.core.logic import FuzzyBool as FuzzyBool, fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
-from sympy.core.mod import Mod as Mod
 from sympy.core.numbers import Float as Float, Integer as Integer, Rational as Rational, equal_valued as equal_valued, pi as pi
 from sympy.core.relational import Eq as Eq, Ne as Ne
-from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol
-from sympy.core.sympify import sympify as sympify
 from sympy.functions.combinatorial.factorials import RisingFactorial as RisingFactorial, factorial as factorial
 from sympy.functions.combinatorial.numbers import bernoulli as bernoulli, euler as euler
 from sympy.functions.elementary._trigonometric_special import cos_table as cos_table, fermat_coords as fermat_coords, ipartfrac as ipartfrac
 from sympy.functions.elementary.complexes import im as im, re as re
 from sympy.functions.elementary.exponential import exp as exp, log as log
-from sympy.functions.elementary.integers import floor as floor
 from sympy.functions.elementary.miscellaneous import Max as Max, Min as Min, sqrt as sqrt
-from sympy.functions.elementary.piecewise import Piecewise as Piecewise
-from sympy.logic.boolalg import And as And
-from sympy.ntheory import factorint as factorint
-from sympy.polys.specialpolys import symmetric_poly as symmetric_poly
-from sympy.utilities.iterables import numbered_symbols as numbered_symbols
 
 def _imaginary_unit_as_coefficient(arg):
     """ Helper to extract symbolic coefficient for imaginary unit """

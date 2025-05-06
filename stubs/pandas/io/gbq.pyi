@@ -1,7 +1,5 @@
 from google.auth.credentials import Credentials as Credentials
 from pandas import DataFrame as DataFrame
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
-from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Any
 
 def _try_import(): ...

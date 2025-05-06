@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from enum import IntEnum
-from numba import _helperlib as _helperlib
 from numba.core import cgutils as cgutils, types as types, typing as typing
 from numba.core.errors import LoweringError as LoweringError, NumbaTypeError as NumbaTypeError, TypingError as TypingError
 from numba.core.extending import intrinsic as intrinsic, lower_builtin as lower_builtin, lower_cast as lower_cast, make_attribute_wrapper as make_attribute_wrapper, models as models, overload as overload, overload_attribute as overload_attribute, overload_method as overload_method, register_model as register_model

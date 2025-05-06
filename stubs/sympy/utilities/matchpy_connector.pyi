@@ -1,22 +1,12 @@
 from _typeshed import Incomplete
 from matchpy import Wildcard
-from sympy.core.add import Add as Add
-from sympy.core.basic import Basic as Basic
 from sympy.core.expr import Expr as Expr
-from sympy.core.mul import Mul as Mul
-from sympy.core.power import Pow as Pow
 from sympy.core.relational import Equality as Equality, Unequality as Unequality
 from sympy.core.symbol import Symbol as Symbol
-from sympy.core.sympify import _sympify as _sympify
-from sympy.external import import_module as import_module
 from sympy.functions import cos as cos, cot as cot, csc as csc, erf as erf, gamma as gamma, log as log, sec as sec, sin as sin, tan as tan, uppergamma as uppergamma
-from sympy.functions.elementary.exponential import exp as exp
 from sympy.functions.elementary.hyperbolic import acosh as acosh, acoth as acoth, acsch as acsch, asech as asech, asinh as asinh, atanh as atanh, cosh as cosh, coth as coth, csch as csch, sech as sech, sinh as sinh, tanh as tanh
 from sympy.functions.elementary.trigonometric import acos as acos, acot as acot, acsc as acsc, asec as asec, asin as asin, atan as atan
 from sympy.functions.special.error_functions import Ei as Ei, erfc as erfc, erfi as erfi, fresnelc as fresnelc, fresnels as fresnels
-from sympy.integrals.integrals import Integral as Integral
-from sympy.printing.repr import srepr as srepr
-from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
 from typing import Any, NamedTuple
 
 from collections.abc import Callable

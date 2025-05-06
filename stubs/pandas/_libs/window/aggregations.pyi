@@ -1,5 +1,4 @@
 import _cython_3_0_11
-from pandas._libs.algos import is_monotonic as is_monotonic
 
 __test__: dict
 ewm: _cython_3_0_11.cython_function_or_method

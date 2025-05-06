@@ -1,12 +1,9 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from functools import cached_property as cached_property
 from numba.core import cgutils as cgutils, types as types, typing as typing
 from numba.core.errors import NumbaValueError as NumbaValueError, TypingError as TypingError
 from numba.core.extending import intrinsic as intrinsic, overload as overload, overload_method as overload_method
 from numba.core.imputils import RefType as RefType, call_len as call_len, for_iter as for_iter, impl_ret_borrowed as impl_ret_borrowed, impl_ret_new_ref as impl_ret_new_ref, impl_ret_untracked as impl_ret_untracked, iternext_impl as iternext_impl, lower_builtin as lower_builtin, lower_cast as lower_cast
-from numba.cpython import slicing as slicing
-from numba.misc import quicksort as quicksort
 from typing import NamedTuple
 
 def get_payload_struct(context, builder, set_type, ptr):

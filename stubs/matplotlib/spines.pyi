@@ -2,7 +2,6 @@ import matplotlib.patches as mpatches
 from _typeshed import Incomplete
 from collections.abc import MutableMapping
 from matplotlib import _api as _api, _docstring as _docstring
-from matplotlib.artist import allow_rasterization as allow_rasterization
 
 class Spine(mpatches.Patch):
     """

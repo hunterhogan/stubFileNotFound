@@ -3,7 +3,6 @@ from typing import Any, Final, NamedTuple
 from typing_extensions import Self
 from typing import TypeAlias
 
-from .version import __version__ as __version__
 
 __all__ = ["tabulate", "tabulate_formats", "simple_separated_format"]
 

@@ -2,11 +2,6 @@ from .precedence import PRECEDENCE as PRECEDENCE, precedence as precedence
 from .printer import Printer as Printer, print_function as print_function
 from _typeshed import Incomplete
 from sympy.core import Basic as Basic, Mul as Mul, Number as Number, Pow as Pow, Rational as Rational, S as S
-from sympy.core.mul import _keep_coeff as _keep_coeff
-from sympy.core.numbers import Integer as Integer
-from sympy.core.relational import Relational as Relational
-from sympy.core.sorting import default_sort_key as default_sort_key
-from sympy.utilities.iterables import sift as sift
 from typing import Any
 
 class StrPrinter(Printer):

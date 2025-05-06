@@ -1,18 +1,13 @@
 from _typeshed import Incomplete
 from sympy.core import Derivative as Derivative, Mul as Mul, Pow as Pow, S as S, sympify as sympify
 from sympy.core.add import Add as Add, _unevaluated_Add as _unevaluated_Add
-from sympy.core.assumptions import assumptions as assumptions
 from sympy.core.exprtools import Factors as Factors, gcd_terms as gcd_terms
 from sympy.core.function import _mexpand as _mexpand, expand_mul as expand_mul, expand_power_base as expand_power_base
 from sympy.core.mul import _keep_coeff as _keep_coeff, _mulsort as _mulsort, _unevaluated_Mul as _unevaluated_Mul
 from sympy.core.numbers import Rational as Rational, nan as nan, zoo as zoo
-from sympy.core.parameters import global_parameters as global_parameters
 from sympy.core.sorting import default_sort_key as default_sort_key, ordered as ordered
 from sympy.core.symbol import Dummy as Dummy, Wild as Wild, symbols as symbols
 from sympy.functions import exp as exp, log as log, sqrt as sqrt
-from sympy.functions.elementary.complexes import Abs as Abs
-from sympy.polys import gcd as gcd
-from sympy.simplify.sqrtdenest import sqrtdenest as sqrtdenest
 from sympy.utilities.iterables import iterable as iterable, sift as sift
 
 def collect(expr, syms, func: Incomplete | None = None, evaluate: Incomplete | None = None, exact: bool = False, distribute_order_term: bool = True):

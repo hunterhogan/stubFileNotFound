@@ -1,10 +1,6 @@
 from _typeshed import Incomplete
 from matplotlib import _path as _path, cbook as cbook
 from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, RendererBase as RendererBase, _Backend as _Backend
-from matplotlib.backends.backend_mixed import MixedModeRenderer as MixedModeRenderer
-from matplotlib.colors import rgb2hex as rgb2hex
-from matplotlib.dates import UTC as UTC
-from matplotlib.path import Path as Path
 from matplotlib.transforms import Affine2D as Affine2D, Affine2DBase as Affine2DBase
 
 _log: Incomplete

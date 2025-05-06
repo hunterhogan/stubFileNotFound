@@ -1,21 +1,11 @@
-from .inverse import Inverse as Inverse
 from .matexpr import MatrixExpr as MatrixExpr
-from .matpow import MatPow as MatPow
-from .permutation import PermutationMatrix as PermutationMatrix
 from .special import GenericIdentity as GenericIdentity, Identity as Identity, OneMatrix as OneMatrix, ZeroMatrix as ZeroMatrix
-from .transpose import transpose as transpose
 from _typeshed import Incomplete
 from sympy.assumptions.ask import Q as Q, ask as ask
-from sympy.assumptions.refine import handlers_dict as handlers_dict
 from sympy.core import Basic as Basic, S as S, sympify as sympify
 from sympy.core.mul import Mul as Mul, mul as mul
 from sympy.core.numbers import Integer as Integer, Number as Number
-from sympy.core.symbol import Dummy as Dummy
-from sympy.functions import adjoint as adjoint
-from sympy.matrices.exceptions import NonInvertibleMatrixError as NonInvertibleMatrixError
-from sympy.matrices.matrixbase import MatrixBase as MatrixBase
 from sympy.strategies import do_one as do_one, exhaust as exhaust, flatten as flatten, new as new, rm_id as rm_id, typed as typed, unpack as unpack
-from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 
 class MatMul(MatrixExpr, Mul):
     """

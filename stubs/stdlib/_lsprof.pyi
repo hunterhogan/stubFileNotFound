@@ -1,4 +1,3 @@
-import sys
 from _typeshed import structseq
 from collections.abc import Callable
 from types import CodeType

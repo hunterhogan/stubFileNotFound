@@ -1,7 +1,3 @@
-from networkx.utils.backends import _dispatchable as _dispatchable
-from networkx.utils.configs import *
-from networkx.utils.decorators import *
-from networkx.utils.heaps import *
 
 # should be import * but pytype doesn't understand that _clear_cache is part of __all__
 from networkx.utils.misc import (
@@ -20,6 +16,3 @@ from networkx.utils.misc import (
     nodes_equal as nodes_equal,
     pairwise as pairwise,
 )
-from networkx.utils.random_sequence import *
-from networkx.utils.rcm import *
-from networkx.utils.union_find import *

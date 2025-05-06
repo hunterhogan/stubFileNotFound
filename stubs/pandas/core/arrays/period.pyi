@@ -2,11 +2,8 @@ import numpy as np
 from _typeshed import Incomplete
 from collections.abc import Sequence
 from datetime import timedelta
-from pandas._libs import lib as lib
-from pandas._libs.arrays import NDArrayBacked as NDArrayBacked
 from pandas._libs.tslibs import BaseOffset as BaseOffset, NaT as NaT, NaTType as NaTType, Timedelta as Timedelta, add_overflowsafe as add_overflowsafe, astype_overflowsafe as astype_overflowsafe, get_unit_from_dtype as get_unit_from_dtype, iNaT as iNaT, parsing as parsing, period as libperiod, to_offset as to_offset
 from pandas._libs.tslibs.dtypes import FreqGroup as FreqGroup, PeriodDtypeBase as PeriodDtypeBase, freq_to_period_freqstr as freq_to_period_freqstr
-from pandas._libs.tslibs.fields import isleapyear_arr as isleapyear_arr
 from pandas._libs.tslibs.offsets import Tick as Tick, delta_to_tick as delta_to_tick
 from pandas._libs.tslibs.period import DIFFERENT_FREQ as DIFFERENT_FREQ, IncompatibleFrequency as IncompatibleFrequency, Period as Period, get_period_field_arr as get_period_field_arr, period_asfreq_arr as period_asfreq_arr
 from pandas._typing import AnyArrayLike as AnyArrayLike, Dtype as Dtype, FillnaOptions as FillnaOptions, NpDtype as NpDtype, NumpySorter as NumpySorter, NumpyValueArrayLike as NumpyValueArrayLike, Self as Self, npt as npt
@@ -15,9 +12,7 @@ from pandas.core.arrays.base import ExtensionArray as ExtensionArray
 from pandas.core.dtypes.common import ensure_object as ensure_object, pandas_dtype as pandas_dtype
 from pandas.core.dtypes.dtypes import DatetimeTZDtype as DatetimeTZDtype, PeriodDtype as PeriodDtype
 from pandas.core.dtypes.generic import ABCIndex as ABCIndex, ABCPeriodIndex as ABCPeriodIndex, ABCSeries as ABCSeries, ABCTimedeltaArray as ABCTimedeltaArray
-from pandas.core.dtypes.missing import isna as isna
 from pandas.util._decorators import cache_readonly as cache_readonly, doc as doc
-from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Any, Literal, TypeVar, overload
 
 from collections.abc import Callable

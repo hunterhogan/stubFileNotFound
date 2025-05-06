@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from numba.core import errors as errors, ir as ir, ir_utils as ir_utils
 from numba.core.analysis import compute_cfg_from_blocks as compute_cfg_from_blocks, compute_use_defs as compute_use_defs, find_top_level_loops as find_top_level_loops
-from numba.core.utils import PYVERSION as PYVERSION
 from typing import NamedTuple
 
 _logger: Incomplete

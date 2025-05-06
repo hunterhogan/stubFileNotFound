@@ -2,7 +2,6 @@ import numpy as np
 from _typeshed import Incomplete
 from collections.abc import Hashable as Hashable
 from numbers import Number
-from pandas._libs import lib as lib
 from pandas._typing import TypeGuard as TypeGuard
 from re import Pattern
 

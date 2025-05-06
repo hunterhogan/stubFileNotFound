@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from ctypes import c_int, c_void_p
 from enum import IntEnum
-from numba.core import config as config
 from numba.cuda.cudadrv.error import NvrtcCompilationError as NvrtcCompilationError, NvrtcError as NvrtcError, NvrtcSupportError as NvrtcSupportError
 
 nvrtc_program = c_void_p

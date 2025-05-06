@@ -1,4 +1,3 @@
-from .numba_gdbinfo import display_gdbinfo as display_gdbinfo
 from .numba_sysinfo import display_sysinfo as display_sysinfo, get_sysinfo as get_sysinfo
 
 def make_parser(): ...

@@ -6,19 +6,10 @@ from collections.abc import Generator, Hashable, Iterator, Mapping, Sequence
 from pandas import DataFrame as DataFrame, ExcelWriter as ExcelWriter, HDFStore as HDFStore, Series as Series
 from pandas._config import config as config, using_copy_on_write as using_copy_on_write, warn_copy_on_write as warn_copy_on_write
 from pandas._libs import lib as lib
-from pandas._libs.lib import is_range_indexer as is_range_indexer
 from pandas._libs.tslibs import BaseOffset as BaseOffset, Period as Period, Tick as Tick, Timestamp as Timestamp, to_offset as to_offset
-from pandas._libs.tslibs.dtypes import freq_to_period_freqstr as freq_to_period_freqstr
 from pandas._typing import AlignJoin as AlignJoin, AnyArrayLike as AnyArrayLike, ArrayLike as ArrayLike, Axes as Axes, Axis as Axis, AxisInt as AxisInt, CompressionOptions as CompressionOptions, DtypeArg as DtypeArg, DtypeBackend as DtypeBackend, DtypeObj as DtypeObj, FilePath as FilePath, FillnaOptions as FillnaOptions, FloatFormatType as FloatFormatType, FormattersType as FormattersType, Frequency as Frequency, IgnoreRaise as IgnoreRaise, IndexKeyFunc as IndexKeyFunc, IndexLabel as IndexLabel, InterpolateOptions as InterpolateOptions, IntervalClosedType as IntervalClosedType, JSONSerializable as JSONSerializable, Level as Level, Manager as Manager, NDFrameT as NDFrameT, NaPosition as NaPosition, OpenFileErrors as OpenFileErrors, RandomState as RandomState, ReindexMethod as ReindexMethod, Renamer as Renamer, Scalar as Scalar, Self as Self, SequenceNotStr as SequenceNotStr, SortKind as SortKind, StorageOptions as StorageOptions, Suffixes as Suffixes, T as T, TimeAmbiguous as TimeAmbiguous, TimeNonexistent as TimeNonexistent, TimeUnit as TimeUnit, TimedeltaConvertibleTypes as TimedeltaConvertibleTypes, TimestampConvertibleTypes as TimestampConvertibleTypes, ValueKeyFunc as ValueKeyFunc, WriteBuffer as WriteBuffer, WriteExcelBuffer as WriteExcelBuffer, npt as npt
-from pandas.compat import PYPY as PYPY
-from pandas.compat._constants import REF_COUNT as REF_COUNT
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core import arraylike as arraylike, common as common, indexing as indexing, missing as missing, nanops as nanops, sample as sample
-from pandas.core.array_algos.replace import should_use_regex as should_use_regex
-from pandas.core.arrays import ExtensionArray as ExtensionArray
 from pandas.core.base import PandasObject as PandasObject
-from pandas.core.construction import extract_array as extract_array
-from pandas.core.dtypes.astype import astype_is_view as astype_is_view
 from pandas.core.dtypes.common import ensure_object as ensure_object, ensure_platform_int as ensure_platform_int, ensure_str as ensure_str, is_bool as is_bool, is_bool_dtype as is_bool_dtype, is_dict_like as is_dict_like, is_extension_array_dtype as is_extension_array_dtype, is_list_like as is_list_like, is_number as is_number, is_numeric_dtype as is_numeric_dtype, is_re_compilable as is_re_compilable, is_scalar as is_scalar, pandas_dtype as pandas_dtype
 from pandas.core.dtypes.dtypes import DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCSeries as ABCSeries
@@ -29,18 +20,12 @@ from pandas.core.indexers.objects import BaseIndexer as BaseIndexer
 from pandas.core.indexes.api import DatetimeIndex as DatetimeIndex, Index as Index, MultiIndex as MultiIndex, PeriodIndex as PeriodIndex, RangeIndex as RangeIndex, default_index as default_index, ensure_index as ensure_index
 from pandas.core.internals import ArrayManager as ArrayManager, BlockManager as BlockManager, SingleArrayManager as SingleArrayManager
 from pandas.core.internals.construction import mgr_to_mgr as mgr_to_mgr, ndarray_to_mgr as ndarray_to_mgr
-from pandas.core.methods.describe import describe_ndframe as describe_ndframe
 from pandas.core.missing import clean_fill_method as clean_fill_method, clean_reindex_fill_method as clean_reindex_fill_method, find_valid_index as find_valid_index
 from pandas.core.resample import Resampler as Resampler
-from pandas.core.reshape.concat import concat as concat
-from pandas.core.shared_docs import _shared_docs as _shared_docs
-from pandas.core.sorting import get_indexer_indexer as get_indexer_indexer
 from pandas.core.window import Expanding as Expanding, ExponentialMovingWindow as ExponentialMovingWindow, Rolling as Rolling, Window as Window
 from pandas.errors import AbstractMethodError as AbstractMethodError, ChainedAssignmentError as ChainedAssignmentError, InvalidIndexError as InvalidIndexError, SettingWithCopyError as SettingWithCopyError, SettingWithCopyWarning as SettingWithCopyWarning, _chained_assignment_method_msg as _chained_assignment_method_msg, _chained_assignment_warning_method_msg as _chained_assignment_warning_method_msg, _check_cacher as _check_cacher
 from pandas.io.formats.format import DataFrameFormatter as DataFrameFormatter, DataFrameRenderer as DataFrameRenderer
-from pandas.io.formats.printing import pprint_thing as pprint_thing
 from pandas.util._decorators import deprecate_nonkeyword_arguments as deprecate_nonkeyword_arguments, doc as doc
-from pandas.util._exceptions import find_stack_level as find_stack_level
 from pandas.util._validators import check_dtype_backend as check_dtype_backend, validate_ascending as validate_ascending, validate_bool_kwarg as validate_bool_kwarg, validate_fillna_kwargs as validate_fillna_kwargs, validate_inclusive as validate_inclusive
 from typing import Any, ClassVar, Literal, NoReturn, overload
 

@@ -1,6 +1,5 @@
 from . import _api as _api, _docstring as _docstring, artist as artist, cbook as cbook
 from .artist import Artist as Artist
-from .font_manager import FontProperties as FontProperties
 from .patches import FancyArrowPatch as FancyArrowPatch, FancyBboxPatch as FancyBboxPatch, Rectangle as Rectangle
 from .textpath import TextPath as TextPath, TextToPath as TextToPath
 from .transforms import Affine2D as Affine2D, Bbox as Bbox, BboxBase as BboxBase, BboxTransformTo as BboxTransformTo, IdentityTransform as IdentityTransform, Transform as Transform

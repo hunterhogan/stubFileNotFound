@@ -1,11 +1,5 @@
-from sympy.core import S as S
-from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.polys import Poly as Poly, groebner as groebner, roots as roots
 from sympy.polys.polyerrors import CoercionFailed as CoercionFailed, ComputationFailed as ComputationFailed, PolificationFailed as PolificationFailed
-from sympy.polys.polytools import parallel_poly_from_expr as parallel_poly_from_expr
-from sympy.simplify import rcollect as rcollect
-from sympy.utilities import postfixes as postfixes
-from sympy.utilities.misc import filldedent as filldedent
 
 class SolveFailed(Exception):
     """Raised when solver's conditions were not met. """

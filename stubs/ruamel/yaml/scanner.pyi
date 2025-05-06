@@ -1,4 +1,3 @@
-from ruamel.yaml.tokens import *
 from _typeshed import Incomplete
 from ruamel.yaml.error import MarkedYAMLError
 from typing import Any

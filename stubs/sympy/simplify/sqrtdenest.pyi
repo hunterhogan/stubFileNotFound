@@ -1,7 +1,5 @@
 from sympy.core import Add as Add, Expr as Expr, Mul as Mul, S as S, sympify as sympify
 from sympy.core.function import _mexpand as _mexpand, count_ops as count_ops, expand_mul as expand_mul
-from sympy.core.sorting import default_sort_key as default_sort_key
-from sympy.core.symbol import Dummy as Dummy
 from sympy.functions import root as root, sign as sign, sqrt as sqrt
 from sympy.polys import Poly as Poly, PolynomialError as PolynomialError
 

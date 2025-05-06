@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
 from ast import NodeTransformer
-from sympy.core.basic import Basic as Basic
-from sympy.core.sympify import SympifyError as SympifyError
 
 class Transform(NodeTransformer):
     local_dict: Incomplete

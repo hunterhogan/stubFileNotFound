@@ -19,7 +19,6 @@ from antlr4.PredictionContext import (
     PredictionContextCache as PredictionContextCache,
     SingletonPredictionContext as SingletonPredictionContext,
 )
-from antlr4.Token import Token as Token
 
 class SimState:
     def __init__(self) -> None: ...

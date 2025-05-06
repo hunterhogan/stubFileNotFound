@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from sympy.plotting.pygletplot.plot_rotation import get_spherical_rotatation as get_spherical_rotatation
 from sympy.plotting.pygletplot.util import get_model_matrix as get_model_matrix, model_to_screen as model_to_screen, screen_to_model as screen_to_model, vec_subs as vec_subs
 
 class PlotCamera:

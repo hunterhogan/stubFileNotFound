@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from sympy.combinatorics.free_groups import free_group as free_group
 from sympy.printing.defaults import DefaultPrinting as DefaultPrinting
 
 class CosetTable(DefaultPrinting):

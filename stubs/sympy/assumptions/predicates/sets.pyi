@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from sympy.assumptions import Predicate as Predicate
-from sympy.multipledispatch import Dispatcher as Dispatcher
 
 class IntegerPredicate(Predicate):
     """

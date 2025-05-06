@@ -1,12 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from sympy.core.symbol import Str as Str
-from sympy.core.sympify import _sympify as _sympify
 from sympy.logic.boolalg import Boolean as Boolean, false as false, true as true
 from sympy.multipledispatch.dispatcher import Dispatcher as Dispatcher, str_signature as str_signature
-from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
-from sympy.utilities.iterables import is_sequence as is_sequence
-from sympy.utilities.source import get_class as get_class
 
 class AssumptionsContext(set):
     """

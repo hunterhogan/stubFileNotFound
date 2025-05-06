@@ -1,15 +1,9 @@
 import pandas as pd
 from _typeshed import Incomplete
 from pandas import ArrowDtype as ArrowDtype, DatetimeTZDtype as DatetimeTZDtype
-from pandas._libs.lib import infer_dtype as infer_dtype
-from pandas._libs.tslibs import iNaT as iNaT
-from pandas.api.types import is_string_dtype as is_string_dtype
-from pandas.core.dtypes.dtypes import BaseMaskedDtype as BaseMaskedDtype
 from pandas.core.interchange.buffer import PandasBuffer as PandasBuffer, PandasBufferPyarrow as PandasBufferPyarrow
 from pandas.core.interchange.dataframe_protocol import Buffer as Buffer, Column as Column, ColumnBuffers as ColumnBuffers, ColumnNullType as ColumnNullType, DtypeKind as DtypeKind
 from pandas.core.interchange.utils import ArrowCTypes as ArrowCTypes, Endianness as Endianness, dtype_to_arrow_c_fmt as dtype_to_arrow_c_fmt
-from pandas.errors import NoBufferPresent as NoBufferPresent
-from pandas.util._decorators import cache_readonly as cache_readonly
 from typing import Any
 
 _NP_KINDS: Incomplete

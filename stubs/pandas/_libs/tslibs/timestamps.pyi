@@ -4,8 +4,6 @@ import pandas._libs.tslibs.base
 from _typeshed import Incomplete
 from pandas._libs.tslibs.fields import RoundTo as RoundTo, get_date_name_field as get_date_name_field, get_start_end_field as get_start_end_field, round_nsint64 as round_nsint64
 from pandas._libs.tslibs.np_datetime import OutOfBoundsDatetime as OutOfBoundsDatetime, OutOfBoundsTimedelta as OutOfBoundsTimedelta
-from pandas._libs.tslibs.timedeltas import Timedelta as Timedelta
-from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Any, ClassVar, overload
 
 __pyx_capi__: dict

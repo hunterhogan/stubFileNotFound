@@ -1,5 +1,4 @@
 from sympy.core.kind import Kind as Kind, NumberKind as NumberKind, _NumberKind as _NumberKind
-from sympy.core.mul import Mul as Mul
 
 class MatrixKind(Kind):
     """

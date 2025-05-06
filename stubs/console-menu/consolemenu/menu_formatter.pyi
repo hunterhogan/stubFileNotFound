@@ -1,7 +1,6 @@
 from consolemenu.console_menu import MenuItem
 from consolemenu.format import MenuBorderStyleType
 from consolemenu.format.menu_borders import MenuBorderStyle as MenuBorderStyle, MenuBorderStyleFactory as MenuBorderStyleFactory
-from consolemenu.format.menu_style import MenuStyle as MenuStyle
 from consolemenu.menu_component import (
     Dimension as Dimension,
     MenuFooter as MenuFooter,

@@ -1,13 +1,10 @@
 from _typeshed import Incomplete
-from sympy.core.numbers import I as I
-from sympy.polys.domains.algebraicfield import AlgebraicField as AlgebraicField
 from sympy.polys.domains.domain import Domain as Domain
 from sympy.polys.domains.domainelement import DomainElement as DomainElement
 from sympy.polys.domains.field import Field as Field
 from sympy.polys.domains.integerring import ZZ as ZZ
 from sympy.polys.domains.rationalfield import QQ as QQ
 from sympy.polys.domains.ring import Ring as Ring
-from sympy.polys.polyerrors import CoercionFailed as CoercionFailed
 
 class GaussianElement(DomainElement):
     """Base class for elements of Gaussian type domains."""

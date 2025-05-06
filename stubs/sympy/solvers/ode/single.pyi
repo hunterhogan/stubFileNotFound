@@ -1,29 +1,17 @@
 from .hypergeometric import equivalence_hypergeometric as equivalence_hypergeometric, get_sol_2F1_hypergeometric as get_sol_2F1_hypergeometric, match_2nd_2F1_hypergeometric as match_2nd_2F1_hypergeometric, match_2nd_hypergeometric as match_2nd_hypergeometric
-from .lie_group import _ode_lie_group as _ode_lie_group
 from .nonhomogeneous import _get_const_characteristic_eq_sols as _get_const_characteristic_eq_sols, _get_euler_characteristic_eq_sols as _get_euler_characteristic_eq_sols, _get_simplified_sol as _get_simplified_sol, _solve_undetermined_coefficients as _solve_undetermined_coefficients, _solve_variation_of_parameters as _solve_variation_of_parameters, _test_term as _test_term, _undetermined_coefficients_match as _undetermined_coefficients_match
 from .ode import dsolve as dsolve, homogeneous_order as homogeneous_order, ode_sol_simplicity as ode_sol_simplicity, odesimp as odesimp
 from .riccati import match_riccati as match_riccati, solve_riccati as solve_riccati
 from _typeshed import Incomplete
 from sympy.core import Add as Add, Pow as Pow, Rational as Rational, S as S
-from sympy.core.cache import cached_property as cached_property
 from sympy.core.expr import Expr as Expr
-from sympy.core.exprtools import factor_terms as factor_terms
 from sympy.core.function import AppliedUndef as AppliedUndef, Derivative as Derivative, Function as Function, Subs as Subs, _mexpand as _mexpand, diff as diff, expand as expand
-from sympy.core.mul import Mul as Mul
-from sympy.core.numbers import zoo as zoo
 from sympy.core.relational import Eq as Eq, Equality as Equality
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, Wild as Wild
 from sympy.functions import airyai as airyai, airybi as airybi, besselj as besselj, bessely as bessely, cbrt as cbrt, exp as exp, log as log, sqrt as sqrt, tan as tan
-from sympy.integrals import Integral as Integral
-from sympy.polys import Poly as Poly
-from sympy.polys.matrices.linsolve import _lin_eq2dict as _lin_eq2dict
 from sympy.polys.polytools import cancel as cancel, degree as degree, factor as factor
-from sympy.polys.solvers import PolyNonlinearError as PolyNonlinearError
 from sympy.simplify import collect as collect, logcombine as logcombine, posify as posify, separatevars as separatevars, simplify as simplify
-from sympy.simplify.radsimp import fraction as fraction
 from sympy.solvers.deutils import _preprocess as _preprocess, ode_order as ode_order
-from sympy.solvers.solvers import solve as solve
-from sympy.utilities import numbered_symbols as numbered_symbols
 from typing import ClassVar
 
 from collections.abc import Iterator

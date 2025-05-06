@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
 from matplotlib import _api as _api, backend_tools as backend_tools, cbook as cbook
-from matplotlib._pylab_helpers import Gcf as Gcf
 from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, NavigationToolbar2 as NavigationToolbar2, TimerBase as TimerBase, _Backend as _Backend
-from matplotlib.backend_tools import Cursors as Cursors
 
 _log: Incomplete
 _application: Incomplete

@@ -1,10 +1,6 @@
 from _typeshed import Incomplete
 from sympy.categories import CompositeMorphism as CompositeMorphism, Diagram as Diagram, IdentityMorphism as IdentityMorphism, NamedMorphism as NamedMorphism
 from sympy.core import Dict as Dict, Symbol as Symbol, default_sort_key as default_sort_key
-from sympy.printing.latex import latex as latex
-from sympy.sets import FiniteSet as FiniteSet
-from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
-from sympy.utilities.iterables import iterable as iterable
 
 __doctest_requires__: Incomplete
 

@@ -1,25 +1,10 @@
 from .entity import GeometryEntity as GeometryEntity, GeometrySet as GeometrySet
-from .exceptions import GeometryError as GeometryError
 from .point import Point as Point, Point3D as Point3D
 from .util import find as find, intersection as intersection
 from _typeshed import Incomplete
-from sympy.core.containers import Tuple as Tuple
-from sympy.core.evalf import N as N
-from sympy.core.expr import Expr as Expr
 from sympy.core.numbers import Float as Float, Rational as Rational, oo as oo
-from sympy.core.relational import Eq as Eq
-from sympy.core.singleton import S as S
-from sympy.core.sorting import ordered as ordered
 from sympy.core.symbol import Dummy as Dummy, _symbol as _symbol, uniquely_named_symbol as uniquely_named_symbol
-from sympy.core.sympify import sympify as sympify
-from sympy.functions.elementary.piecewise import Piecewise as Piecewise
 from sympy.functions.elementary.trigonometric import _pi_coeff as _pi_coeff, acos as acos, atan2 as atan2, tan as tan
-from sympy.logic.boolalg import And as And
-from sympy.matrices import Matrix as Matrix
-from sympy.sets.sets import Intersection as Intersection
-from sympy.simplify.simplify import simplify as simplify
-from sympy.solvers.solvers import solve as solve
-from sympy.solvers.solveset import linear_coeffs as linear_coeffs
 from sympy.utilities.misc import Undecidable as Undecidable, filldedent as filldedent
 
 t: Incomplete

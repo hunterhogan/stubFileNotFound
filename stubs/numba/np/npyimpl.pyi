@@ -2,11 +2,8 @@ from _typeshed import Incomplete
 from numba.core import callconv as callconv, cgutils as cgutils, config as config, errors as errors, types as types, typing as typing, utils as utils
 from numba.core.extending import intrinsic as intrinsic, overload as overload
 from numba.core.imputils import Registry as Registry, force_error_model as force_error_model, impl_ret_borrowed as impl_ret_borrowed, impl_ret_new_ref as impl_ret_new_ref
-from numba.core.typing import npydecl as npydecl
 from numba.np import arrayobj as arrayobj, numpy_support as numpy_support, ufunc_db as ufunc_db
-from numba.np.arrayobj import _getitem_array_generic as _getitem_array_generic
 from numba.np.numpy_support import _ufunc_loop_sig as _ufunc_loop_sig, from_dtype as from_dtype, select_array_wrapper as select_array_wrapper, ufunc_find_matching_loop as ufunc_find_matching_loop
-from numba.np.ufunc.sigparse import parse_signature as parse_signature
 from typing import NamedTuple
 
 registry: Incomplete

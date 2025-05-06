@@ -1,9 +1,7 @@
 from .abstract import Callable as Callable, DTypeSpec as DTypeSpec, Dummy as Dummy, Literal as Literal, Type as Type, weakref as weakref
 from .common import Opaque as Opaque
-from .misc import unliteral as unliteral
 from _typeshed import Incomplete
 from numba.core import config as config, errors as errors, types as types, utils as utils
-from numba.core.typeconv import Conversion as Conversion
 from typing import NamedTuple
 
 _logger: Incomplete

@@ -1,14 +1,7 @@
 from _typeshed import Incomplete
-from sympy.core import EulerGamma as EulerGamma
-from sympy.core.add import Add as Add
-from sympy.core.cache import cacheit as cacheit
 from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function, expand_mul as expand_mul
 from sympy.core.numbers import I as I, Rational as Rational, pi as pi
-from sympy.core.power import Pow as Pow
-from sympy.core.relational import is_eq as is_eq
-from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy, uniquely_named_symbol as uniquely_named_symbol
-from sympy.core.sympify import sympify as sympify
 from sympy.functions.combinatorial.factorials import RisingFactorial as RisingFactorial, factorial as factorial, factorial2 as factorial2
 from sympy.functions.elementary.complexes import polar_lift as polar_lift, re as re, unpolarify as unpolarify
 from sympy.functions.elementary.exponential import exp as exp, exp_polar as exp_polar, log as log

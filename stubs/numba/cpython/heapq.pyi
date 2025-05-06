@@ -1,5 +1,3 @@
-from numba.core import types as types
-from numba.core.errors import TypingError as TypingError
 from numba.core.extending import overload as overload, register_jitable as register_jitable
 
 def _siftdown(heap, startpos, pos) -> None: ...

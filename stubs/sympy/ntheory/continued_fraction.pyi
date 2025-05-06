@@ -1,11 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from sympy.core.exprtools import factor_terms as factor_terms
 from sympy.core.numbers import Integer as Integer, Rational as Rational
-from sympy.core.singleton import S as S
-from sympy.core.symbol import Dummy as Dummy
-from sympy.core.sympify import _sympify as _sympify
-from sympy.utilities.misc import as_int as as_int
 
 def continued_fraction(a) -> list:
     """Return the continued fraction representation of a Rational or

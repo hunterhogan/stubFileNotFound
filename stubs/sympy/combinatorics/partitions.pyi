@@ -1,13 +1,7 @@
 from _typeshed import Incomplete
 from sympy.core import Basic as Basic, Dict as Dict, Tuple as Tuple, sympify as sympify
-from sympy.core.numbers import Integer as Integer
-from sympy.core.sorting import default_sort_key as default_sort_key
-from sympy.core.sympify import _sympify as _sympify
-from sympy.functions.combinatorial.numbers import bell as bell
-from sympy.matrices import zeros as zeros
 from sympy.sets.sets import FiniteSet as FiniteSet, Union as Union
 from sympy.utilities.iterables import flatten as flatten, group as group
-from sympy.utilities.misc import as_int as as_int
 
 class Partition(FiniteSet):
     """

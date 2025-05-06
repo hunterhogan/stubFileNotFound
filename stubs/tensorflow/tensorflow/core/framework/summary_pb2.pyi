@@ -5,7 +5,6 @@ isort:skip_file
 
 import builtins
 import collections.abc
-import sys
 import typing
 
 import google.protobuf.descriptor
@@ -16,7 +15,6 @@ import tensorflow.core.framework.tensor_pb2
 import tensorflow.tsl.protobuf.histogram_pb2
 
 import typing as typing_extensions
-from tensorflow.tsl.protobuf.histogram_pb2 import HistogramProto as HistogramProto
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 

@@ -1,5 +1,4 @@
 from enum import Enum
-from matplotlib import _docstring as _docstring
 
 class JoinStyle(str, Enum):
     '''

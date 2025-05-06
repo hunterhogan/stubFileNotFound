@@ -11,18 +11,9 @@ from .subspaces import _columnspace as _columnspace, _nullspace as _nullspace, _
 from .utilities import _dotprodsimp as _dotprodsimp, _get_intermediate_simp_bool as _get_intermediate_simp_bool, _is_zero_after_expand_mul as _is_zero_after_expand_mul, _iszero as _iszero
 from _typeshed import Incomplete
 from collections.abc import Generator
-from sympy.assumptions.refine import refine as refine
 from sympy.core import Add as Add, SympifyError as SympifyError
 from sympy.core.basic import Atom as Atom, Basic as Basic
-from sympy.core.decorators import call_highest_priority as call_highest_priority
-from sympy.core.expr import Expr as Expr
-from sympy.core.function import diff as diff
-from sympy.core.kind import UndefinedKind as UndefinedKind
 from sympy.core.logic import FuzzyBool as FuzzyBool, fuzzy_and as fuzzy_and
-from sympy.core.mod import Mod as Mod
-from sympy.core.numbers import Integer as Integer
-from sympy.core.power import Pow as Pow
-from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, uniquely_named_symbol as uniquely_named_symbol
 from sympy.core.sympify import _sympify as _sympify, sympify as sympify
 from sympy.functions.combinatorial.factorials import binomial as binomial, factorial as factorial
@@ -30,12 +21,7 @@ from sympy.functions.elementary.complexes import Abs as Abs, im as im, re as re
 from sympy.functions.elementary.exponential import exp as exp, log as log
 from sympy.functions.elementary.miscellaneous import Max as Max, Min as Min, sqrt as sqrt
 from sympy.functions.special.tensor_functions import KroneckerDelta as KroneckerDelta, LeviCivita as LeviCivita
-from sympy.polys import cancel as cancel
-from sympy.polys.polytools import Poly as Poly
-from sympy.printing import sstr as sstr
 from sympy.printing.defaults import Printable as Printable
-from sympy.printing.str import StrPrinter as StrPrinter
-from sympy.tensor.array import NDimArray as NDimArray
 from sympy.utilities.iterables import NotIterable as NotIterable, flatten as flatten, is_sequence as is_sequence, reshape as reshape
 from sympy.utilities.misc import as_int as as_int, filldedent as filldedent
 

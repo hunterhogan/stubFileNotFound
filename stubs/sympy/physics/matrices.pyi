@@ -1,6 +1,4 @@
 from _typeshed import Incomplete
-from sympy.core.numbers import I as I
-from sympy.utilities.decorator import deprecated as deprecated
 
 def msigma(i):
     """Returns a Pauli matrix `\\sigma_i` with `i=1,2,3`.

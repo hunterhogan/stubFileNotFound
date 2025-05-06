@@ -4,9 +4,7 @@ from numba.core import config as config, errors as errors, ir as ir
 from numba.core.byteflow import AdaptCFA as AdaptCFA, AdaptDFA as AdaptDFA, BlockKind as BlockKind, Flow as Flow
 from numba.core.errors import NotDefinedError as NotDefinedError, UnsupportedBytecodeError as UnsupportedBytecodeError, error_extras as error_extras
 from numba.core.ir_utils import get_definition as get_definition, guard as guard
-from numba.core.unsafe import eh as eh
 from numba.core.utils import BINOPS_TO_OPERATORS as BINOPS_TO_OPERATORS, INPLACE_BINOPS_TO_OPERATORS as INPLACE_BINOPS_TO_OPERATORS, PYVERSION as PYVERSION
-from numba.cpython.unsafe.tuple import unpack_single_tuple as unpack_single_tuple
 
 class _UNKNOWN_VALUE:
     """Represents an unknown value, this is for ease of debugging purposes only.

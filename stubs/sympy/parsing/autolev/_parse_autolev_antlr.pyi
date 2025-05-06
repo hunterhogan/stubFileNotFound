@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from sympy.external import import_module as import_module
 
 autolevparser: Incomplete
 autolevlexer: Incomplete

@@ -1,12 +1,5 @@
 from sympy.abc import x as x, y as y, z as z
 from sympy.core.numbers import I as I, Integer as Integer, pi as pi
-from sympy.core.random import random as random
-from sympy.core.symbol import Symbol as Symbol
-from sympy.core.sympify import sympify as sympify
-from sympy.functions.elementary.miscellaneous import sqrt as sqrt
-from sympy.functions.elementary.trigonometric import sin as sin
-from sympy.polys.polytools import factor as factor
-from sympy.simplify.simplify import simplify as simplify
 
 def bench_R1():
     """real(f(f(f(f(f(f(f(f(f(f(i/2)))))))))))"""

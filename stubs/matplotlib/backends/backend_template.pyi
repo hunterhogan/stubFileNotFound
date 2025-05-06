@@ -1,8 +1,5 @@
 from _typeshed import Incomplete
-from matplotlib import _api as _api
-from matplotlib._pylab_helpers import Gcf as Gcf
 from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, GraphicsContextBase as GraphicsContextBase, RendererBase as RendererBase
-from matplotlib.figure import Figure as Figure
 
 class RendererTemplate(RendererBase):
     """

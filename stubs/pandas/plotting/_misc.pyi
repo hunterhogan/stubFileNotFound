@@ -6,7 +6,6 @@ from matplotlib.colors import Colormap
 from matplotlib.figure import Figure
 from matplotlib.table import Table
 from pandas import DataFrame as DataFrame, Series as Series
-from pandas.plotting._core import _get_plot_backend as _get_plot_backend
 from typing import Any
 
 def table(ax: Axes, data: DataFrame | Series, **kwargs) -> Table:

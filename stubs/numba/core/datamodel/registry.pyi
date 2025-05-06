@@ -1,4 +1,3 @@
-from .manager import DataModelManager as DataModelManager
 from _typeshed import Incomplete
 
 def register(dmm, typecls):

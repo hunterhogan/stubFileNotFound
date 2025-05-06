@@ -1,26 +1,12 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from sympy.core.add import Add as Add
-from sympy.core.expr import Expr as Expr
 from sympy.core.function import Derivative as Derivative, Function as Function, expand as expand
-from sympy.core.mul import Mul as Mul
 from sympy.core.numbers import Rational as Rational, nan as nan, oo as oo, zoo as zoo
-from sympy.core.relational import Eq as Eq
-from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, Wild as Wild, symbols as symbols
-from sympy.core.sympify import sympify as sympify
-from sympy.discrete.convolutions import convolution as convolution
 from sympy.functions.combinatorial.factorials import binomial as binomial, factorial as factorial, rf as rf
-from sympy.functions.combinatorial.numbers import bell as bell
 from sympy.functions.elementary.integers import ceiling as ceiling, floor as floor, frac as frac
 from sympy.functions.elementary.miscellaneous import Max as Max, Min as Min
-from sympy.functions.elementary.piecewise import Piecewise as Piecewise
-from sympy.series.limits import Limit as Limit
-from sympy.series.order import Order as Order
-from sympy.series.sequences import sequence as sequence
 from sympy.series.series_class import SeriesBase as SeriesBase
-from sympy.sets.sets import Interval as Interval
-from sympy.utilities.iterables import iterable as iterable
 
 def rational_algorithm(f, x, k, order: int = 4, full: bool = False):
     """

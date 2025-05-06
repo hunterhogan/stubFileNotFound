@@ -1,6 +1,3 @@
-from sympy.external.gmpy import gcd as gcd
-from sympy.ntheory.factor_ import factorint as factorint
-from sympy.utilities.misc import as_int as as_int
 
 def _is_nilpotent_number(factors: dict) -> bool:
     """ Check whether `n` is a nilpotent number.

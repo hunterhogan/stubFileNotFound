@@ -1,4 +1,4 @@
-from typing import Any, TypeVar, Union, overload
+from typing import Any, TypeVar, Union
 
 from collections.abc import Callable
 import numpy as np

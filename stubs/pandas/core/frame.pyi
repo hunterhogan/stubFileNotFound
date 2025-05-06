@@ -5,44 +5,28 @@ import pandas.plotting
 from _typeshed import Incomplete
 from collections.abc import Hashable, Iterable, Iterator, Mapping, Sequence
 from pandas._config import get_option as get_option, using_copy_on_write as using_copy_on_write, warn_copy_on_write as warn_copy_on_write
-from pandas._config.config import _get_option as _get_option
 from pandas._libs import lib as lib, properties as properties
-from pandas._libs.hashtable import duplicated as duplicated
 from pandas._libs.internals import BlockValuesRefs as BlockValuesRefs
-from pandas._libs.lib import is_range_indexer as is_range_indexer
 from pandas._typing import AggFuncType as AggFuncType, AnyAll as AnyAll, AnyArrayLike as AnyArrayLike, ArrayLike as ArrayLike, Axes as Axes, Axis as Axis, AxisInt as AxisInt, ColspaceArgType as ColspaceArgType, CompressionOptions as CompressionOptions, CorrelationMethod as CorrelationMethod, DropKeep as DropKeep, Dtype as Dtype, DtypeObj as DtypeObj, FilePath as FilePath, FloatFormatType as FloatFormatType, FormattersType as FormattersType, Frequency as Frequency, FromDictOrient as FromDictOrient, IgnoreRaise as IgnoreRaise, IndexKeyFunc as IndexKeyFunc, IndexLabel as IndexLabel, JoinValidate as JoinValidate, Level as Level, MergeHow as MergeHow, MergeValidate as MergeValidate, MutableMappingT as MutableMappingT, NaAction as NaAction, NaPosition as NaPosition, NsmallestNlargestKeep as NsmallestNlargestKeep, PythonFuncType as PythonFuncType, QuantileInterpolation as QuantileInterpolation, ReadBuffer as ReadBuffer, ReindexMethod as ReindexMethod, Renamer as Renamer, Scalar as Scalar, Self as Self, SequenceNotStr as SequenceNotStr, SortKind as SortKind, StorageOptions as StorageOptions, Suffixes as Suffixes, ToGbqIfexist as ToGbqIfexist, ToStataByteorder as ToStataByteorder, ToTimestampHow as ToTimestampHow, UpdateJoin as UpdateJoin, ValueKeyFunc as ValueKeyFunc, WriteBuffer as WriteBuffer, XMLParsers as XMLParsers, npt as npt
-from pandas.compat import PYPY as PYPY
-from pandas.compat._constants import REF_COUNT as REF_COUNT
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core import algorithms as algorithms, nanops as nanops, ops as ops, roperator as roperator
-from pandas.core.accessor import CachedAccessor as CachedAccessor
-from pandas.core.apply import reconstruct_and_relabel_result as reconstruct_and_relabel_result
-from pandas.core.array_algos.take import take_2d_multi as take_2d_multi
 from pandas.core.arraylike import OpsMixin as OpsMixin
 from pandas.core.arrays import BaseMaskedArray as BaseMaskedArray, DatetimeArray as DatetimeArray, ExtensionArray as ExtensionArray, PeriodArray as PeriodArray, TimedeltaArray as TimedeltaArray
-from pandas.core.arrays.sparse import SparseFrameAccessor as SparseFrameAccessor
 from pandas.core.construction import ensure_wrapped_if_datetimelike as ensure_wrapped_if_datetimelike, sanitize_array as sanitize_array, sanitize_masked_array as sanitize_masked_array
 from pandas.core.dtypes.cast import LossySetitemError as LossySetitemError, can_hold_element as can_hold_element, construct_1d_arraylike_from_scalar as construct_1d_arraylike_from_scalar, construct_2d_arraylike_from_scalar as construct_2d_arraylike_from_scalar, find_common_type as find_common_type, infer_dtype_from_scalar as infer_dtype_from_scalar, invalidate_string_dtypes as invalidate_string_dtypes, maybe_box_native as maybe_box_native, maybe_downcast_to_dtype as maybe_downcast_to_dtype
 from pandas.core.dtypes.common import infer_dtype_from_object as infer_dtype_from_object, is_1d_only_ea_dtype as is_1d_only_ea_dtype, is_array_like as is_array_like, is_bool_dtype as is_bool_dtype, is_dataclass as is_dataclass, is_dict_like as is_dict_like, is_float as is_float, is_float_dtype as is_float_dtype, is_hashable as is_hashable, is_integer as is_integer, is_integer_dtype as is_integer_dtype, is_iterator as is_iterator, is_list_like as is_list_like, is_scalar as is_scalar, is_sequence as is_sequence, needs_i8_conversion as needs_i8_conversion, pandas_dtype as pandas_dtype
-from pandas.core.dtypes.concat import concat_compat as concat_compat
 from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype, BaseMaskedDtype as BaseMaskedDtype, ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.missing import isna as isna, notna as notna
 from pandas.core.generic import NDFrame as NDFrame, make_doc as make_doc
 from pandas.core.groupby.generic import DataFrameGroupBy as DataFrameGroupBy
-from pandas.core.indexers import check_key_length as check_key_length
 from pandas.core.indexes.api import DatetimeIndex as DatetimeIndex, Index as Index, PeriodIndex as PeriodIndex, default_index as default_index, ensure_index as ensure_index, ensure_index_from_sequences as ensure_index_from_sequences
 from pandas.core.indexes.multi import MultiIndex as MultiIndex, maybe_droplevels as maybe_droplevels
 from pandas.core.indexing import check_bool_indexer as check_bool_indexer, check_dict_or_set_indexers as check_dict_or_set_indexers
 from pandas.core.interchange.dataframe_protocol import DataFrame as DataFrameXchg
 from pandas.core.internals import ArrayManager as ArrayManager, BlockManager as BlockManager, SingleDataManager as SingleDataManager
 from pandas.core.internals.construction import arrays_to_mgr as arrays_to_mgr, dataclasses_to_dicts as dataclasses_to_dicts, dict_to_mgr as dict_to_mgr, mgr_to_mgr as mgr_to_mgr, ndarray_to_mgr as ndarray_to_mgr, nested_data_to_arrays as nested_data_to_arrays, rec_array_to_mgr as rec_array_to_mgr, reorder_arrays as reorder_arrays, to_arrays as to_arrays, treat_as_nested as treat_as_nested
-from pandas.core.methods import selectn as selectn
-from pandas.core.reshape.melt import melt as melt
 from pandas.core.series import Series as Series
-from pandas.core.shared_docs import _shared_docs as _shared_docs
 from pandas.core.sorting import get_group_index as get_group_index, lexsort_indexer as lexsort_indexer, nargsort as nargsort
 from pandas.errors import ChainedAssignmentError as ChainedAssignmentError, InvalidIndexError as InvalidIndexError, _chained_assignment_method_msg as _chained_assignment_method_msg, _chained_assignment_msg as _chained_assignment_msg, _chained_assignment_warning_method_msg as _chained_assignment_warning_method_msg, _chained_assignment_warning_msg as _chained_assignment_warning_msg
-from pandas.io.common import get_handle as get_handle
 from pandas.io.formats import console as console, format as fmt
 from pandas.io.formats.info import DataFrameInfo as DataFrameInfo, INFO_DOCSTRING as INFO_DOCSTRING, frame_sub_kwargs as frame_sub_kwargs
 from pandas.io.formats.style import Styler as Styler

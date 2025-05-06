@@ -1,14 +1,6 @@
 from _typeshed import Incomplete
-from sympy.core.add import Add as Add
-from sympy.core.assumptions import StdFactKB as StdFactKB
 from sympy.core.expr import AtomicExpr as AtomicExpr, Expr as Expr
-from sympy.core.power import Pow as Pow
-from sympy.core.singleton import S as S
-from sympy.core.sorting import default_sort_key as default_sort_key
-from sympy.core.sympify import sympify as sympify
-from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.vector.basisdependent import BasisDependent as BasisDependent, BasisDependentAdd as BasisDependentAdd, BasisDependentMul as BasisDependentMul, BasisDependentZero as BasisDependentZero
-from sympy.vector.coordsysrect import CoordSys3D as CoordSys3D
 from sympy.vector.dyadic import BaseDyadic as BaseDyadic, Dyadic as Dyadic, DyadicAdd as DyadicAdd
 
 class Vector(BasisDependent):

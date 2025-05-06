@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 
 def generate_online_numba_ewma_func(nopython: bool, nogil: bool, parallel: bool):
     """

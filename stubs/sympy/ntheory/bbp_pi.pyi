@@ -1,4 +1,3 @@
-from sympy.utilities.misc import as_int as as_int
 
 def _series(j, n, prec: int = 14): ...
 def pi_hex_digits(n, prec: int = 14):

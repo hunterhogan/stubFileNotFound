@@ -1,6 +1,4 @@
 import math
-from .singleton import S as S
-from .sympify import sympify as sympify
 from sympy.external.gmpy import bit_scan1 as bit_scan1, gcdext as gcdext, iroot as iroot, sqrt as sqrt
 from sympy.utilities.misc import as_int as as_int, filldedent as filldedent
 

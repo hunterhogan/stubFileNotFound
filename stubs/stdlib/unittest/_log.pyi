@@ -1,5 +1,4 @@
 import logging
-import sys
 from types import TracebackType
 from typing import ClassVar, Generic, NamedTuple, TypeVar
 from unittest.case import TestCase, _BaseTestCaseContext

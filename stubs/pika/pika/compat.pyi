@@ -1,6 +1,5 @@
 from abc import ABCMeta
 from collections.abc import ItemsView, Mapping, ValuesView
-from io import StringIO as StringIO
 from re import Pattern
 from typing import Any, Final, SupportsIndex, TypeVar
 from typing import TypeGuard

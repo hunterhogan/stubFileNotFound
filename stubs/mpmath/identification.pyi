@@ -1,5 +1,4 @@
 from .libmp import int_types as int_types, sqrt_fixed as sqrt_fixed
-from .libmp.backend import xrange as xrange
 from _typeshed import Incomplete
 
 def round_fixed(x, prec): ...

@@ -1,10 +1,3 @@
-from sympy.core.numbers import Float as Float
-from sympy.core.singleton import S as S
-from sympy.functions.combinatorial.factorials import factorial as factorial
-from sympy.functions.elementary.exponential import exp as exp
-from sympy.functions.elementary.miscellaneous import sqrt as sqrt
-from sympy.functions.special.polynomials import assoc_laguerre as assoc_laguerre
-from sympy.functions.special.spherical_harmonics import Ynm as Ynm
 
 def R_nl(n, l, r, Z: int = 1):
     """

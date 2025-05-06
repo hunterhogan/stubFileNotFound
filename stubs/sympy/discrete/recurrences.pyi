@@ -1,6 +1,4 @@
 from sympy.core import S as S, sympify as sympify
-from sympy.utilities.iterables import iterable as iterable
-from sympy.utilities.misc import as_int as as_int
 
 def linrec(coeffs, init, n):
     """

@@ -1,8 +1,6 @@
 from .cudadrv import devicearray as devicearray, devices as devices, driver as driver
 from _typeshed import Incomplete
 from collections.abc import Generator
-from numba.core import config as config
-from numba.cuda.api_util import prepare_shape_strides_dtype as prepare_shape_strides_dtype
 
 require_context: Incomplete
 current_context: Incomplete

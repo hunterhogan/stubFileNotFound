@@ -1,10 +1,6 @@
 import numpy as np
 from pandas import MultiIndex as MultiIndex
-from pandas._libs import lib as lib
 from pandas._typing import ArrayLike as ArrayLike, npt as npt
-from pandas.core.arrays import ExtensionArray as ExtensionArray
-from pandas.core.dtypes.cast import infer_dtype_from as infer_dtype_from
-from pandas.core.dtypes.common import is_list_like as is_list_like
 from typing import Any
 
 def putmask_inplace(values: ArrayLike, mask: npt.NDArray[np.bool_], value: Any) -> None:

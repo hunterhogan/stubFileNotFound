@@ -1,5 +1,4 @@
 import _cython_3_0_11
-from pandas._libs.ops_dispatch import maybe_dispatch_ufunc_to_dunder_op as maybe_dispatch_ufunc_to_dunder_op
 from typing import ClassVar
 
 NA: NAType

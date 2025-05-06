@@ -1,5 +1,4 @@
 import numpy as np
-from pandas._libs import lib as lib
 from pandas._typing import AxisInt as AxisInt
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCSeries as ABCSeries
 from pandas.core.generic import NDFrame as NDFrame

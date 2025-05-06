@@ -3,8 +3,6 @@ from _typeshed import Incomplete
 from pandas.core.computation.ops import ARITH_OPS_SYMS as ARITH_OPS_SYMS, BOOL_OPS_SYMS as BOOL_OPS_SYMS, BinOp as BinOp, CMP_OPS_SYMS as CMP_OPS_SYMS, Constant as Constant, FuncNode as FuncNode, LOCAL_TAG as LOCAL_TAG, MATHOPS as MATHOPS, Op as Op, REDUCTIONS as REDUCTIONS, Term as Term, UNARY_OPS_SYMS as UNARY_OPS_SYMS, UnaryOp as UnaryOp, is_term as is_term
 from pandas.core.computation.parsing import clean_backtick_quoted_toks as clean_backtick_quoted_toks, tokenize_string as tokenize_string
 from pandas.core.computation.scope import Scope as Scope
-from pandas.errors import UndefinedVariableError as UndefinedVariableError
-from pandas.io.formats import printing as printing
 from typing import ClassVar, TypeVar
 
 from collections.abc import Callable

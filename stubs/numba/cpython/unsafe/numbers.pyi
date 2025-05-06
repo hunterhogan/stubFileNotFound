@@ -1,5 +1,4 @@
 from numba.core import errors as errors, types as types
-from numba.core.extending import intrinsic as intrinsic
 
 def viewer(tyctx, val, viewty):
     """ Bitcast a scalar 'val' to the given type 'viewty'. """

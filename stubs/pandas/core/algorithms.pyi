@@ -3,18 +3,13 @@ from _typeshed import Incomplete
 from pandas import Categorical as Categorical, Index as Index, Series as Series
 from pandas._libs import algos as algos, iNaT as iNaT, lib as lib
 from pandas._typing import AnyArrayLike as AnyArrayLike, ArrayLike as ArrayLike, AxisInt as AxisInt, DtypeObj as DtypeObj, ListLike as ListLike, NumpySorter as NumpySorter, NumpyValueArrayLike as NumpyValueArrayLike, TakeIndexer as TakeIndexer, npt as npt
-from pandas.core.array_algos.take import take_nd as take_nd
 from pandas.core.arrays import BaseMaskedArray as BaseMaskedArray, ExtensionArray as ExtensionArray
 from pandas.core.construction import ensure_wrapped_if_datetimelike as ensure_wrapped_if_datetimelike, extract_array as extract_array
 from pandas.core.dtypes.cast import construct_1d_object_array_from_listlike as construct_1d_object_array_from_listlike, np_find_common_type as np_find_common_type
 from pandas.core.dtypes.common import ensure_float64 as ensure_float64, ensure_object as ensure_object, ensure_platform_int as ensure_platform_int, is_array_like as is_array_like, is_bool_dtype as is_bool_dtype, is_complex_dtype as is_complex_dtype, is_dict_like as is_dict_like, is_extension_array_dtype as is_extension_array_dtype, is_float_dtype as is_float_dtype, is_integer as is_integer, is_integer_dtype as is_integer_dtype, is_list_like as is_list_like, is_object_dtype as is_object_dtype, is_signed_integer_dtype as is_signed_integer_dtype, needs_i8_conversion as needs_i8_conversion
-from pandas.core.dtypes.concat import concat_compat as concat_compat
 from pandas.core.dtypes.dtypes import BaseMaskedDtype as BaseMaskedDtype, CategoricalDtype as CategoricalDtype, ExtensionDtype as ExtensionDtype, NumpyEADtype as NumpyEADtype
 from pandas.core.dtypes.generic import ABCDatetimeArray as ABCDatetimeArray, ABCExtensionArray as ABCExtensionArray, ABCIndex as ABCIndex, ABCMultiIndex as ABCMultiIndex, ABCSeries as ABCSeries, ABCTimedeltaArray as ABCTimedeltaArray
 from pandas.core.dtypes.missing import isna as isna, na_value_for_dtype as na_value_for_dtype
-from pandas.core.indexers import validate_indices as validate_indices
-from pandas.util._decorators import doc as doc
-from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Literal
 
 def _ensure_data(values: ArrayLike) -> np.ndarray:

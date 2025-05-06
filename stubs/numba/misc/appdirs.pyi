@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from ctypes import windll as windll
 
 __version_info__: Incomplete
 __version__: Incomplete

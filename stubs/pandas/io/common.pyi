@@ -9,12 +9,7 @@ from io import BytesIO, StringIO, TextIOBase
 from pandas import MultiIndex as MultiIndex
 from pandas._typing import BaseBuffer as BaseBuffer, CompressionDict as CompressionDict, CompressionOptions as CompressionOptions, FilePath as FilePath, ReadBuffer as ReadBuffer, ReadCsvBuffer as ReadCsvBuffer, StorageOptions as StorageOptions, WriteBuffer as WriteBuffer
 from pandas.compat import get_bz2_file as get_bz2_file, get_lzma_file as get_lzma_file
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core.dtypes.common import is_bool as is_bool, is_file_like as is_file_like, is_integer as is_integer, is_list_like as is_list_like
-from pandas.core.dtypes.generic import ABCMultiIndex as ABCMultiIndex
-from pandas.core.shared_docs import _shared_docs as _shared_docs
-from pandas.util._decorators import doc as doc
-from pandas.util._exceptions import find_stack_level as find_stack_level
 from pathlib import Path
 from types import TracebackType
 from typing import AnyStr, Generic, IO, Literal, TypeVar, overload

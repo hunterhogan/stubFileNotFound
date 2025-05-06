@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from numba.core.registry import DelayedRegistry as DelayedRegistry
 from numba.np.ufunc import _internal as _internal, dufunc as dufunc, gufunc as gufunc
 from numba.np.ufunc.parallel import ParallelGUFuncBuilder as ParallelGUFuncBuilder, ParallelUFuncBuilder as ParallelUFuncBuilder
 

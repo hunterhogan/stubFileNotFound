@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
 from sympy.core import Mul as Mul, Pow as Pow, Rational as Rational, S as S
-from sympy.core.mul import _keep_coeff as _keep_coeff
-from sympy.core.numbers import equal_valued as equal_valued
 from sympy.printing.codeprinter import CodePrinter as CodePrinter
 from sympy.printing.precedence import PRECEDENCE as PRECEDENCE, precedence as precedence
 from typing import Any

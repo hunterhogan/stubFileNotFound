@@ -1,4 +1,3 @@
-from . import _api as _api
 from _typeshed import Incomplete
 
 def kwarg_doc(text):

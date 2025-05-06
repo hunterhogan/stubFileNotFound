@@ -1,6 +1,4 @@
 import sympy.plotting.backends.base_backend as base_backend
-from sympy.plotting.series import LineOver1DRangeSeries as LineOver1DRangeSeries
-from sympy.plotting.textplot import textplot as textplot
 
 class TextBackend(base_backend.Plot):
     def __init__(self, *args, **kwargs) -> None: ...

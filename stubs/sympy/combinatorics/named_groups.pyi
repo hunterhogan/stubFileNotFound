@@ -1,7 +1,4 @@
 from _typeshed import Incomplete
-from sympy.combinatorics.group_constructs import DirectProduct as DirectProduct
-from sympy.combinatorics.perm_groups import PermutationGroup as PermutationGroup
-from sympy.combinatorics.permutations import Permutation as Permutation
 
 _af_new: Incomplete
 

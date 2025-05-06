@@ -1,10 +1,5 @@
 from _typeshed import Incomplete
-from sympy.assumptions.ask import Q as Q
-from sympy.assumptions.assume import AppliedPredicate as AppliedPredicate
-from sympy.core.cache import cacheit as cacheit
-from sympy.core.symbol import Symbol as Symbol
 from sympy.logic.boolalg import And as And, Equivalent as Equivalent, Exclusive as Exclusive, Implies as Implies, Not as Not, to_cnf as to_cnf
-from sympy.logic.inference import satisfiable as satisfiable
 
 def get_composite_predicates(): ...
 def get_known_facts(x: Incomplete | None = None):

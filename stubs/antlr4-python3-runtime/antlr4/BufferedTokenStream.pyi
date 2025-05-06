@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 
-from antlr4.error.Errors import IllegalStateException as IllegalStateException
 from antlr4.Token import Token as Token
 
 Lexer: Incomplete

@@ -1,4 +1,3 @@
-from pandas._config import get_option as get_option
 
 def ensure_decoded(s) -> str:
     """

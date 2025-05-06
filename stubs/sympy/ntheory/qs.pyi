@@ -1,8 +1,5 @@
 from _typeshed import Incomplete
-from sympy.core.random import _randint as _randint
 from sympy.external.gmpy import gcd as gcd, invert as invert
-from sympy.ntheory import isprime as isprime
-from sympy.ntheory.residue_ntheory import _sqrt_mod_prime_power as _sqrt_mod_prime_power
 
 class SievePolynomial:
     modified_coeff: Incomplete

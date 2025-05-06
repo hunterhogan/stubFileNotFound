@@ -1,14 +1,8 @@
 from ._print_helpers import Printable as Printable
-from .assumptions import _prepare_class_assumptions as _prepare_class_assumptions
-from .cache import cacheit as cacheit
 from .kind import Kind as Kind, UndefinedKind as UndefinedKind
-from .singleton import S as S
-from .sorting import ordered as ordered
 from .sympify import SympifyError as SympifyError, _external_converter as _external_converter, _sympify as _sympify, sympify as sympify
 from .traversal import iterargs as iterargs, iterfreeargs as iterfreeargs
 from _typeshed import Incomplete
-from sympy.utilities.decorator import deprecated as deprecated
-from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.iterables import iterable as iterable, numbered_symbols as numbered_symbols
 from sympy.utilities.misc import filldedent as filldedent, func_name as func_name
 

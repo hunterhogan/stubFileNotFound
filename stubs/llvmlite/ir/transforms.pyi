@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from llvmlite.ir import CallInstr as CallInstr
 
 class Visitor:
     _module: Incomplete

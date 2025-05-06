@@ -1,10 +1,6 @@
 from .dimensions import Dimension as Dimension
 from _typeshed import Incomplete
-from sympy.core.add import Add as Add
 from sympy.core.function import Derivative as Derivative, Function as Function
-from sympy.core.mul import Mul as Mul
-from sympy.core.power import Pow as Pow
-from sympy.core.singleton import S as S
 from sympy.physics.units.dimensions import _QuantityMapper as _QuantityMapper
 from sympy.physics.units.quantities import Quantity as Quantity
 

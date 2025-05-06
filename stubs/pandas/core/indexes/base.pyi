@@ -7,7 +7,6 @@ from pandas._typing import AnyAll, ArrayLike, Axis, DropKeep, DtypeObj, IgnoreRa
 from pandas.core.arrays import ExtensionArray
 from pandas.core.base import IndexOpsMixin, PandasObject
 from pandas.core.dtypes.dtypes import ExtensionDtype
-from pandas.core.dtypes.missing import isna
 from pandas.core.indexes.frozen import FrozenList
 from pandas.io.formats.printing import PrettyDict
 from typing import Any, ClassVar, Literal, NoReturn, overload

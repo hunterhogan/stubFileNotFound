@@ -1,27 +1,12 @@
 import typing
 from _typeshed import Incomplete
-from sympy.combinatorics import Permutation as Permutation
-from sympy.combinatorics.permutations import _af_invert as _af_invert
 from sympy.core.basic import Basic as Basic
-from sympy.core.containers import Tuple as Tuple
 from sympy.core.expr import Expr as Expr
 from sympy.core.function import Function as Function, Lambda as Lambda
-from sympy.core.mul import Mul as Mul
-from sympy.core.numbers import Integer as Integer
-from sympy.core.relational import Equality as Equality
-from sympy.core.singleton import S as S
-from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol
-from sympy.core.sympify import _sympify as _sympify
-from sympy.functions.special.tensor_functions import KroneckerDelta as KroneckerDelta
-from sympy.matrices.expressions.diagonal import diagonalize_vector as diagonalize_vector
 from sympy.matrices.expressions.matexpr import MatrixElement as MatrixElement, MatrixExpr as MatrixExpr
-from sympy.matrices.expressions.special import ZeroMatrix as ZeroMatrix
-from sympy.matrices.matrixbase import MatrixBase as MatrixBase
 from sympy.tensor.array.arrayop import permutedims as permutedims, tensorcontraction as tensorcontraction, tensordiagonal as tensordiagonal, tensorproduct as tensorproduct
-from sympy.tensor.array.dense_ndim_array import ImmutableDenseNDimArray as ImmutableDenseNDimArray
 from sympy.tensor.array.expressions.utils import _apply_recursively_over_nested_lists as _apply_recursively_over_nested_lists, _build_push_indices_down_func_transformation as _build_push_indices_down_func_transformation, _build_push_indices_up_func_transformation as _build_push_indices_up_func_transformation, _get_contraction_links as _get_contraction_links, _get_mapping_from_subranks as _get_mapping_from_subranks, _sort_contraction_indices as _sort_contraction_indices
-from sympy.tensor.array.ndim_array import NDimArray as NDimArray
 from sympy.tensor.indexed import Indexed as Indexed, IndexedBase as IndexedBase
 
 class _ArrayExpr(Expr):

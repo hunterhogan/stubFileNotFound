@@ -1,7 +1,6 @@
 import enum
 from _typeshed import Incomplete
 from matplotlib import _api as _api, cbook as cbook
-from matplotlib._pylab_helpers import Gcf as Gcf
 
 class Cursors(enum.IntEnum):
     """Backend-independent cursor types."""

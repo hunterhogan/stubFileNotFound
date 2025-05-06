@@ -2,9 +2,6 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from numba.core import config as config, ir as ir, types as types, typing as typing, utils as utils
 from numba.core.errors import CompilerError as CompilerError, ForceLiteralArg as ForceLiteralArg, NumbaValueError as NumbaValueError, TypingError as TypingError, UnsupportedError as UnsupportedError, UntypedAttributeError as UntypedAttributeError, new_error_context as new_error_context, termcolor as termcolor
-from numba.core.funcdesc import qualifying_prefix as qualifying_prefix
-from numba.core.typeconv import Conversion as Conversion
-from numba.core.typing.templates import Signature as Signature
 
 _logger: Incomplete
 

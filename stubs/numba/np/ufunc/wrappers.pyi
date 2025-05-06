@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, types as types
 from numba.core.caching import NullCache as NullCache, make_library_cache as make_library_cache
-from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
 from typing import NamedTuple
 
 class _wrapper_info(NamedTuple):

@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
 from sympy.calculus.singularities import is_decreasing as is_decreasing, is_increasing as is_increasing
 from sympy.codegen.rewriting import Optimization as Optimization
-from sympy.core.function import UndefinedFunction as UndefinedFunction
-from sympy.sets.sets import Interval as Interval
 
 class SumApprox(Optimization):
     """

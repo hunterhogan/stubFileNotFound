@@ -1,15 +1,9 @@
-from . import cse_opts as cse_opts
 from _typeshed import Incomplete
 from sympy.core import Add as Add, Basic as Basic, Mul as Mul, Pow as Pow, sympify as sympify
 from sympy.core.containers import OrderedSet as OrderedSet, Tuple as Tuple
-from sympy.core.exprtools import factor_terms as factor_terms
-from sympy.core.singleton import S as S
-from sympy.core.sorting import ordered as ordered
 from sympy.core.symbol import Symbol as Symbol, symbols as symbols
 from sympy.matrices import ImmutableMatrix as ImmutableMatrix, ImmutableSparseMatrix as ImmutableSparseMatrix, Matrix as Matrix, MatrixBase as MatrixBase, SparseMatrix as SparseMatrix
 from sympy.matrices.expressions import Inverse as Inverse, MatAdd as MatAdd, MatMul as MatMul, MatPow as MatPow, MatrixExpr as MatrixExpr, MatrixSymbol as MatrixSymbol
-from sympy.matrices.expressions.matexpr import MatrixElement as MatrixElement
-from sympy.polys.rootoftools import RootOf as RootOf
 from sympy.utilities.iterables import iterable as iterable, numbered_symbols as numbered_symbols, sift as sift, topological_sort as topological_sort
 
 basic_optimizations: Incomplete

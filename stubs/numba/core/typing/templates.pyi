@@ -3,7 +3,6 @@ from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from collections.abc import Generator
 from numba.core import targetconfig as targetconfig, types as types, utils as utils
-from numba.core.cpu_options import InlineOptions as InlineOptions
 from numba.core.errors import InternalError as InternalError, TypingError as TypingError
 from typing import NamedTuple
 

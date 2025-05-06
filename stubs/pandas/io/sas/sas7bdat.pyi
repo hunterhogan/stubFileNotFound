@@ -5,10 +5,7 @@ from collections import abc
 from pandas import DataFrame as DataFrame, Timestamp as Timestamp, isna as isna
 from pandas._libs.byteswap import read_double_with_byteswap as read_double_with_byteswap, read_float_with_byteswap as read_float_with_byteswap, read_uint16_with_byteswap as read_uint16_with_byteswap, read_uint32_with_byteswap as read_uint32_with_byteswap, read_uint64_with_byteswap as read_uint64_with_byteswap
 from pandas._libs.sas import Parser as Parser, get_subheader_index as get_subheader_index
-from pandas._libs.tslibs.conversion import cast_from_unit_vectorized as cast_from_unit_vectorized
 from pandas._typing import CompressionOptions as CompressionOptions, FilePath as FilePath, ReadBuffer as ReadBuffer
-from pandas.errors import EmptyDataError as EmptyDataError
-from pandas.io.common import get_handle as get_handle
 from pandas.io.sas.sasreader import ReaderBase as ReaderBase
 
 _unix_origin: Incomplete

@@ -7,7 +7,6 @@ from typing_extensions import Self
 from typing import TypeAlias
 
 from tensorflow._aliases import DTypeLike, ShapeLike, TensorCompatible, TensorLike
-from tensorflow.io import gfile as gfile
 
 _FeatureSpecs: TypeAlias = Mapping[str, FixedLenFeature | FixedLenSequenceFeature | VarLenFeature | RaggedFeature | SparseFeature]
 

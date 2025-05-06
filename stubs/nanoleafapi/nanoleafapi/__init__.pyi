@@ -1,4 +1,3 @@
-from nanoleafapi.digital_twin import NanoleafDigitalTwin as NanoleafDigitalTwin
 from nanoleafapi.nanoleaf import (
     BLUE as BLUE,
     GREEN as GREEN,

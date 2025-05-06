@@ -1,14 +1,5 @@
 from _typeshed import Incomplete
-from sympy.core import sympify as sympify
-from sympy.core.function import diff as diff
-from sympy.core.singleton import S as S
-from sympy.integrals.integrals import integrate as integrate
-from sympy.simplify.simplify import simplify as simplify
-from sympy.vector.coordsysrect import CoordSys3D as CoordSys3D
-from sympy.vector.deloperator import Del as Del
-from sympy.vector.dyadic import Dyadic as Dyadic
 from sympy.vector.operators import curl as curl, divergence as divergence, gradient as gradient
-from sympy.vector.scalar import BaseScalar as BaseScalar
 from sympy.vector.vector import BaseVector as BaseVector, Vector as Vector
 
 def express(expr, system, system2: Incomplete | None = None, variables: bool = False):

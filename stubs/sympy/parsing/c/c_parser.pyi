@@ -2,9 +2,6 @@ from _typeshed import Incomplete
 from sympy.codegen.ast import Assignment as Assignment, CodeBlock as CodeBlock, Float as Float, FunctionCall as FunctionCall, FunctionDefinition as FunctionDefinition, FunctionPrototype as FunctionPrototype, Integer as Integer, Return as Return, Variable as Variable, While as While, aug_assign as aug_assign, bool_ as bool_, float32 as float32, float64 as float64, float80 as float80, int16 as int16, int64 as int64, int8 as int8, intc as intc, none as none, uint16 as uint16, uint32 as uint32, uint64 as uint64, uint8 as uint8
 from sympy.codegen.cnodes import PostDecrement as PostDecrement, PostIncrement as PostIncrement, PreDecrement as PreDecrement, PreIncrement as PreIncrement
 from sympy.core import Add as Add, Mod as Mod, Mul as Mul, Pow as Pow, Rel as Rel
-from sympy.core.symbol import Symbol as Symbol
-from sympy.core.sympify import sympify as sympify
-from sympy.external import import_module as import_module
 from sympy.logic.boolalg import And as And, Not as Not, Or as Or, as_Boolean as as_Boolean, false as false, true as true
 
 cin: Incomplete

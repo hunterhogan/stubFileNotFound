@@ -1,6 +1,6 @@
 import sys
 from _typeshed import StrOrBytesPath
-from ssl import *
+from ssl import SSLSocket
 
 import gevent.socket
 

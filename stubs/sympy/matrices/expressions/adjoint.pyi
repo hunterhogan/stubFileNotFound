@@ -1,4 +1,3 @@
-from sympy.core import Basic as Basic
 from sympy.functions import adjoint as adjoint, conjugate as conjugate
 from sympy.matrices.expressions.matexpr import MatrixExpr as MatrixExpr
 

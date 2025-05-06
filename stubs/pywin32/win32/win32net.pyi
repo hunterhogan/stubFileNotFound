@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 
-from win32.lib.pywintypes import error as error
 
 def NetGetJoinInformation() -> tuple[str, Incomplete]: ...
 def NetGroupGetInfo(server: str, groupname: str, level, /): ...

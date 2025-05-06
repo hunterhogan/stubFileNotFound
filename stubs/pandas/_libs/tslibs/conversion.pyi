@@ -1,7 +1,6 @@
 import _cython_3_0_11
 import numpy.dtypes
 from _typeshed import Incomplete
-from pandas._libs.tslibs.np_datetime import OutOfBoundsDatetime as OutOfBoundsDatetime
 from typing import ClassVar
 
 DT64NS_DTYPE: numpy.dtypes.DateTime64DType

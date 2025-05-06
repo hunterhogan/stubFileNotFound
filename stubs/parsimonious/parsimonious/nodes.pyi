@@ -3,7 +3,6 @@ from collections.abc import Callable, Iterator, Sequence
 from re import Match
 from typing import Any, Generic, TypeVar
 
-from parsimonious.exceptions import VisitationError as VisitationError
 from parsimonious.expressions import Expression
 from parsimonious.grammar import Grammar
 

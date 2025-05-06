@@ -1,7 +1,5 @@
-from .domainmatrix import DomainMatrix as DomainMatrix
 from .exceptions import DMDomainError as DMDomainError, DMShapeError as DMShapeError
 from _typeshed import Incomplete
-from sympy.ntheory.modular import symmetric_residue as symmetric_residue
 from sympy.polys.domains import QQ as QQ, ZZ as ZZ
 
 def smith_normal_form(m):

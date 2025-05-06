@@ -1,4 +1,3 @@
-from .cache import clear_cache as clear_cache
 from _typeshed import Incomplete
 from collections.abc import Generator
 from threading import local

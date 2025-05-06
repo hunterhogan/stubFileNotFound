@@ -1,14 +1,7 @@
 from .basic import Basic as Basic
-from .cache import cacheit as cacheit
-from .logic import fuzzy_and as fuzzy_and
-from .parameters import global_parameters as global_parameters
-from .sorting import ordered as ordered
-from .sympify import sympify as sympify
 from _typeshed import Incomplete
 from collections.abc import Generator
 from sympy.multipledispatch.dispatcher import Dispatcher as Dispatcher, RaiseNotImplementedError as RaiseNotImplementedError, ambiguity_register_error_ignore_dup as ambiguity_register_error_ignore_dup, str_signature as str_signature
-from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
-from sympy.utilities.iterables import sift as sift
 
 class AssocOp(Basic):
     """ Associative operations, can separate noncommutative and

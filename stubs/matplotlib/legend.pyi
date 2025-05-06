@@ -1,16 +1,11 @@
-from . import legend_handler as legend_handler
 from _typeshed import Incomplete
 from collections.abc import Generator
 from matplotlib import _api as _api, _docstring as _docstring, cbook as cbook, colors as colors, offsetbox as offsetbox
 from matplotlib.artist import Artist as Artist, allow_rasterization as allow_rasterization
-from matplotlib.cbook import silent_list as silent_list
 from matplotlib.collections import CircleCollection as CircleCollection, Collection as Collection, LineCollection as LineCollection, PathCollection as PathCollection, PolyCollection as PolyCollection, RegularPolyCollection as RegularPolyCollection
 from matplotlib.container import BarContainer as BarContainer, ErrorbarContainer as ErrorbarContainer, StemContainer as StemContainer
-from matplotlib.font_manager import FontProperties as FontProperties
-from matplotlib.lines import Line2D as Line2D
 from matplotlib.offsetbox import AnchoredOffsetbox as AnchoredOffsetbox, DraggableOffsetBox as DraggableOffsetBox, DrawingArea as DrawingArea, HPacker as HPacker, TextArea as TextArea, VPacker as VPacker
 from matplotlib.patches import FancyBboxPatch as FancyBboxPatch, Patch as Patch, Rectangle as Rectangle, Shadow as Shadow, StepPatch as StepPatch
-from matplotlib.text import Text as Text
 from matplotlib.transforms import Bbox as Bbox, BboxBase as BboxBase, BboxTransformFrom as BboxTransformFrom, BboxTransformTo as BboxTransformTo, TransformedBbox as TransformedBbox
 
 class DraggableLegend(DraggableOffsetBox):

@@ -3,10 +3,7 @@ from _typeshed import Incomplete
 from pandas import Index as Index
 from pandas._libs import NaT as NaT, algos as algos, lib as lib
 from pandas._typing import ArrayLike as ArrayLike, AxisInt as AxisInt, F as F, ReindexMethod as ReindexMethod, npt as npt
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
-from pandas.core.dtypes.cast import infer_dtype_from as infer_dtype_from
 from pandas.core.dtypes.common import is_array_like as is_array_like, is_bool_dtype as is_bool_dtype, is_numeric_dtype as is_numeric_dtype, is_numeric_v_string_like as is_numeric_v_string_like, is_object_dtype as is_object_dtype, needs_i8_conversion as needs_i8_conversion
-from pandas.core.dtypes.dtypes import DatetimeTZDtype as DatetimeTZDtype
 from pandas.core.dtypes.missing import is_valid_na_for_dtype as is_valid_na_for_dtype, isna as isna, na_value_for_dtype as na_value_for_dtype
 from typing import Any, Literal, overload
 

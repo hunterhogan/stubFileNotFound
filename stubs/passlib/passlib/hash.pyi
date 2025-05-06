@@ -1,4 +1,3 @@
-from passlib.handlers.argon2 import argon2 as argon2
 from passlib.handlers.bcrypt import bcrypt as bcrypt, bcrypt_sha256 as bcrypt_sha256
 from passlib.handlers.cisco import cisco_asa as cisco_asa, cisco_pix as cisco_pix, cisco_type7 as cisco_type7
 from passlib.handlers.des_crypt import bigcrypt as bigcrypt, bsdi_crypt as bsdi_crypt, crypt16 as crypt16, des_crypt as des_crypt
@@ -20,7 +19,6 @@ from passlib.handlers.django import (
     django_salted_md5 as django_salted_md5,
     django_salted_sha1 as django_salted_sha1,
 )
-from passlib.handlers.fshp import fshp as fshp
 from passlib.handlers.ldap_digests import (
     ldap_bcrypt as ldap_bcrypt,
     ldap_bsdi_crypt as ldap_bsdi_crypt,
@@ -54,18 +52,12 @@ from passlib.handlers.pbkdf2 import (
     pbkdf2_sha256 as pbkdf2_sha256,
     pbkdf2_sha512 as pbkdf2_sha512,
 )
-from passlib.handlers.phpass import phpass as phpass
-from passlib.handlers.postgres import postgres_md5 as postgres_md5
 from passlib.handlers.roundup import (
     ldap_hex_md5 as ldap_hex_md5,
     ldap_hex_sha1 as ldap_hex_sha1,
     roundup_plaintext as roundup_plaintext,
 )
-from passlib.handlers.scram import scram as scram
-from passlib.handlers.scrypt import scrypt as scrypt
-from passlib.handlers.sha1_crypt import sha1_crypt as sha1_crypt
 from passlib.handlers.sha2_crypt import sha256_crypt as sha256_crypt, sha512_crypt as sha512_crypt
-from passlib.handlers.sun_md5_crypt import sun_md5_crypt as sun_md5_crypt
 from passlib.handlers.windows import (
     bsd_nthash as bsd_nthash,
     lmhash as lmhash,

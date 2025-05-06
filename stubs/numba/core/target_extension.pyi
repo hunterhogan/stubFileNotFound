@@ -1,7 +1,6 @@
 import abc
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
-from numba.core.decorators import jit as jit
 from numba.core.errors import InternalTargetMismatchError as InternalTargetMismatchError, NonexistentTargetError as NonexistentTargetError
 from numba.core.registry import CPUDispatcher as CPUDispatcher, DelayedRegistry as DelayedRegistry
 

@@ -5,25 +5,14 @@ from collections.abc import Hashable, Iterator, Sequence
 from datetime import tzinfo
 from pandas import DataFrame as DataFrame, DatetimeIndex as DatetimeIndex, Index as Index, MultiIndex as MultiIndex, PeriodIndex as PeriodIndex, RangeIndex as RangeIndex, Series as Series, TimedeltaIndex as TimedeltaIndex, concat as concat, isna as isna
 from pandas._config import config as config, get_option as get_option, using_copy_on_write as using_copy_on_write, using_pyarrow_string_dtype as using_pyarrow_string_dtype
-from pandas._libs import lib as lib
-from pandas._libs.lib import is_string_array as is_string_array
-from pandas._libs.tslibs import timezones as timezones
 from pandas._typing import AnyArrayLike as AnyArrayLike, ArrayLike as ArrayLike, AxisInt as AxisInt, DtypeArg as DtypeArg, FilePath as FilePath, Self as Self, Shape as Shape, npt as npt
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
-from pandas.compat.pickle_compat import patch_pickle as patch_pickle
 from pandas.core.arrays import Categorical as Categorical, DatetimeArray as DatetimeArray, PeriodArray as PeriodArray
 from pandas.core.computation.pytables import PyTablesExpr as PyTablesExpr, maybe_expression as maybe_expression
-from pandas.core.construction import extract_array as extract_array
 from pandas.core.dtypes.common import ensure_object as ensure_object, is_bool_dtype as is_bool_dtype, is_complex_dtype as is_complex_dtype, is_list_like as is_list_like, is_string_dtype as is_string_dtype, needs_i8_conversion as needs_i8_conversion
 from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype, PeriodDtype as PeriodDtype
-from pandas.core.dtypes.missing import array_equivalent as array_equivalent
-from pandas.core.indexes.api import ensure_index as ensure_index
 from pandas.core.internals import ArrayManager as ArrayManager, Block as Block, BlockManager as BlockManager
 from pandas.errors import AttributeConflictWarning as AttributeConflictWarning, ClosedFileError as ClosedFileError, IncompatibilityWarning as IncompatibilityWarning, PerformanceWarning as PerformanceWarning, PossibleDataLossError as PossibleDataLossError
-from pandas.io.common import stringify_path as stringify_path
 from pandas.io.formats.printing import adjoin as adjoin, pprint_thing as pprint_thing
-from pandas.util._decorators import cache_readonly as cache_readonly
-from pandas.util._exceptions import find_stack_level as find_stack_level
 from tables import Col as Col, File as File, Node as Node
 from types import TracebackType
 from typing import Any, Final, Literal, overload

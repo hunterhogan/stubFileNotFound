@@ -1,11 +1,6 @@
 from _typeshed import Incomplete
-from sympy.core.containers import Tuple as Tuple
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol
-from sympy.plotting.plot import plot_factory as plot_factory
 from sympy.plotting.series import ImplicitSeries as ImplicitSeries, _set_discretization_points as _set_discretization_points
-from sympy.polys.polyutils import _sort_gens as _sort_gens
-from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
-from sympy.utilities.iterables import flatten as flatten
 
 __doctest_requires__: Incomplete
 

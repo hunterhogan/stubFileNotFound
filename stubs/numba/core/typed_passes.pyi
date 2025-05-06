@@ -2,11 +2,8 @@ import abc
 from _typeshed import Incomplete
 from collections.abc import Generator
 from numba.core import config as config, errors as errors, funcdesc as funcdesc, ir as ir, lowering as lowering, postproc as postproc, rewrites as rewrites, typeinfer as typeinfer, types as types, typing as typing
-from numba.core.annotations import type_annotations as type_annotations
 from numba.core.compiler_machinery import AnalysisPass as AnalysisPass, FunctionPass as FunctionPass, LoweringPass as LoweringPass, register_pass as register_pass
 from numba.core.ir_utils import build_definitions as build_definitions, check_and_legalize_ir as check_and_legalize_ir, compute_cfg_from_blocks as compute_cfg_from_blocks, dead_code_elimination as dead_code_elimination, get_definition as get_definition, guard as guard, is_operator_or_getitem as is_operator_or_getitem, raise_on_unsupported_feature as raise_on_unsupported_feature, replace_vars as replace_vars, simplify_CFG as simplify_CFG, warn_deprecated as warn_deprecated
-from numba.parfors.parfor import Parfor as Parfor
-from numba.parfors.parfor_lowering import ParforLower as ParforLower
 from typing import NamedTuple
 
 class _TypingResults(NamedTuple):

@@ -1,9 +1,5 @@
-from .basic import Basic as Basic
-from .sorting import ordered as ordered
-from .sympify import sympify as sympify
 from _typeshed import Incomplete
 from collections.abc import Generator
-from sympy.utilities.iterables import iterable as iterable
 
 def iterargs(expr) -> Generator[Incomplete]:
     """Yield the args of a Basic object in a breadth-first traversal.

@@ -1,17 +1,11 @@
 import numpy as np
 from _typeshed import Incomplete
 from pandas import DataFrame as DataFrame, Series as Series
-from pandas._libs import lib as lib
 from pandas.core.accessor import PandasDelegate as PandasDelegate, delegate_names as delegate_names
 from pandas.core.arrays import DatetimeArray as DatetimeArray, PeriodArray as PeriodArray, TimedeltaArray as TimedeltaArray
-from pandas.core.arrays.arrow.array import ArrowExtensionArray as ArrowExtensionArray
 from pandas.core.base import NoNewAttributesMixin as NoNewAttributesMixin, PandasObject as PandasObject
 from pandas.core.dtypes.common import is_integer_dtype as is_integer_dtype, is_list_like as is_list_like
 from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype, CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, PeriodDtype as PeriodDtype
-from pandas.core.dtypes.generic import ABCSeries as ABCSeries
-from pandas.core.indexes.datetimes import DatetimeIndex as DatetimeIndex
-from pandas.core.indexes.timedeltas import TimedeltaIndex as TimedeltaIndex
-from pandas.util._exceptions import find_stack_level as find_stack_level
 
 class Properties(PandasDelegate, PandasObject, NoNewAttributesMixin):
     _hidden_attrs: Incomplete

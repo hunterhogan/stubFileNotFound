@@ -2,8 +2,6 @@ import ast
 from _typeshed import Incomplete
 from collections.abc import Generator
 from numba.core import compiler as compiler, ir as ir, rewrites as rewrites, targetconfig as targetconfig, types as types
-from numba.core.typing import npydecl as npydecl
-from numba.np.ufunc.dufunc import DUFunc as DUFunc
 
 def _is_ufunc(func): ...
 

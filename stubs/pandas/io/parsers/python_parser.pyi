@@ -4,15 +4,11 @@ from _typeshed import Incomplete
 from collections import abc
 from collections.abc import Hashable, Iterator, Mapping, Sequence
 from pandas import Index as Index, MultiIndex as MultiIndex
-from pandas._libs import lib as lib
 from pandas._typing import ArrayLike as ArrayLike, ReadCsvBuffer as ReadCsvBuffer, Scalar as Scalar
 from pandas.core.dtypes.common import is_bool_dtype as is_bool_dtype, is_integer as is_integer, is_numeric_dtype as is_numeric_dtype
-from pandas.core.dtypes.inference import is_dict_like as is_dict_like
 from pandas.errors import EmptyDataError as EmptyDataError, ParserError as ParserError, ParserWarning as ParserWarning
 from pandas.io.common import dedup_names as dedup_names, is_potential_multi_index as is_potential_multi_index
 from pandas.io.parsers.base_parser import ParserBase as ParserBase, parser_defaults as parser_defaults
-from pandas.util._decorators import cache_readonly as cache_readonly
-from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import IO, Literal
 
 _BOM: str

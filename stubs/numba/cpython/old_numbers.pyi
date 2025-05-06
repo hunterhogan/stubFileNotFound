@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, errors as errors, optional as optional, types as types, typing as typing, utils as utils
 from numba.core.extending import intrinsic as intrinsic, overload_method as overload_method
 from numba.core.imputils import impl_ret_borrowed as impl_ret_borrowed, impl_ret_untracked as impl_ret_untracked, lower_builtin as lower_builtin, lower_cast as lower_cast, lower_constant as lower_constant, lower_getattr as lower_getattr, lower_getattr_generic as lower_getattr_generic
-from numba.cpython.unsafe.numbers import viewer as viewer
 
 def _int_arith_flags(rettype):
     """

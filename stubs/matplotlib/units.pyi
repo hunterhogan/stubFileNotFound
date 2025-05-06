@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from matplotlib import cbook as cbook
 
 class ConversionError(TypeError): ...
 

@@ -1,14 +1,10 @@
 from .common import MatrixCommon as MatrixCommon
 from .determinant import _adjugate as _adjugate, _charpoly as _charpoly, _cofactor as _cofactor, _cofactor_matrix as _cofactor_matrix, _det as _det, _det_LU as _det_LU, _det_bareiss as _det_bareiss, _det_berkowitz as _det_berkowitz, _det_bird as _det_bird, _det_laplace as _det_laplace, _find_reasonable_pivot as _find_reasonable_pivot, _find_reasonable_pivot_naive as _find_reasonable_pivot_naive, _minor as _minor, _minor_submatrix as _minor_submatrix, _per as _per
 from .eigen import _bidiagonal_decomposition as _bidiagonal_decomposition, _bidiagonalize as _bidiagonalize, _diagonalize as _diagonalize, _eigenvals as _eigenvals, _eigenvects as _eigenvects, _is_diagonalizable as _is_diagonalizable, _is_indefinite as _is_indefinite, _is_negative_definite as _is_negative_definite, _is_negative_semidefinite as _is_negative_semidefinite, _is_positive_definite as _is_positive_definite, _is_positive_semidefinite as _is_positive_semidefinite, _jordan_form as _jordan_form, _left_eigenvects as _left_eigenvects, _singular_values as _singular_values
-from .exceptions import NonSquareMatrixError as NonSquareMatrixError
-from .matrixbase import MatrixBase as MatrixBase
 from .reductions import _echelon_form as _echelon_form, _is_echelon as _is_echelon, _rank as _rank, _rref as _rref
 from .subspaces import _columnspace as _columnspace, _nullspace as _nullspace, _orthogonalize as _orthogonalize, _rowspace as _rowspace
 from .utilities import _is_zero_after_expand_mul as _is_zero_after_expand_mul, _iszero as _iszero, _simplify as _simplify
 from _typeshed import Incomplete
-from sympy.core.basic import Basic as Basic
-from sympy.core.symbol import Dummy as Dummy
 
 __doctest_requires__: Incomplete
 

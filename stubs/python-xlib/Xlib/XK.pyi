@@ -1,6 +1,3 @@
-from Xlib.keysymdef.latin1 import *
-from Xlib.keysymdef.miscellany import *
-from Xlib.X import NoSymbol as NoSymbol
 
 def string_to_keysym(keysym: str) -> int: ...
 def load_keysym_group(group: str) -> None: ...

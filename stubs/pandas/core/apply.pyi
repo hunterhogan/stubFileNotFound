@@ -3,23 +3,14 @@ import numpy as np
 from _typeshed import Incomplete
 from collections.abc import Generator, Hashable, Iterable, MutableMapping, Sequence
 from pandas import DataFrame as DataFrame, Index as Index, Series as Series
-from pandas._config import option_context as option_context
 from pandas._libs import lib as lib
-from pandas._libs.internals import BlockValuesRefs as BlockValuesRefs
 from pandas._typing import AggFuncType as AggFuncType, AggFuncTypeBase as AggFuncTypeBase, AggFuncTypeDict as AggFuncTypeDict, AggObjType as AggObjType, Axis as Axis, AxisInt as AxisInt, NDFrameT as NDFrameT, npt as npt
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
-from pandas.core._numba.executor import generate_apply_looper as generate_apply_looper
-from pandas.core.construction import ensure_wrapped_if_datetimelike as ensure_wrapped_if_datetimelike
-from pandas.core.dtypes.cast import is_nested_object as is_nested_object
 from pandas.core.dtypes.common import is_dict_like as is_dict_like, is_extension_array_dtype as is_extension_array_dtype, is_list_like as is_list_like, is_numeric_dtype as is_numeric_dtype, is_sequence as is_sequence
 from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCNDFrame as ABCNDFrame, ABCSeries as ABCSeries
 from pandas.core.groupby import GroupBy as GroupBy
 from pandas.core.resample import Resampler as Resampler
 from pandas.core.window.rolling import BaseWindow as BaseWindow
-from pandas.errors import SpecificationError as SpecificationError
-from pandas.util._decorators import cache_readonly as cache_readonly
-from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Any, Literal
 
 from collections.abc import Callable

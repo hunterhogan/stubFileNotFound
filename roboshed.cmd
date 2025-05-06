@@ -22,3 +22,5 @@ call deactivate
 CALL .venv\Scripts\activate.bat
 
 forfiles /p stubs /m *.pyi /s /c "CMD /c pyupgrade --py310-plus @path"
+
+forfiles /p stubs /m *.pyi /s /c "CMD /c autoflake --remove-all-unused-imports --expand-star-imports --ignore-init-module-imports --in-place @path"

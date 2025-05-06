@@ -1,8 +1,5 @@
 from _typeshed import Incomplete
 from sympy.core import Eq as Eq, Ge as Ge, S as S
-from sympy.core.mul import Mul as Mul
-from sympy.core.sympify import _sympify as _sympify
-from sympy.functions.special.tensor_functions import KroneckerDelta as KroneckerDelta
 from sympy.matrices.expressions import MatrixExpr as MatrixExpr
 
 class DiagonalMatrix(MatrixExpr):

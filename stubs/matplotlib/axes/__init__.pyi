@@ -1,4 +1,3 @@
-from . import _base as _base
 from ._axes import Axes as Axes
 
 Subplot = Axes

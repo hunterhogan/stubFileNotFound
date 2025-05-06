@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
 from matplotlib import _api as _api, _docstring as _docstring, transforms as transforms
 from matplotlib.axes._base import _AxesBase as _AxesBase, _TransformedBoundsLocator as _TransformedBoundsLocator
-from matplotlib.axis import Axis as Axis
-from matplotlib.transforms import Transform as Transform
 
 class SecondaryAxis(_AxesBase):
     """

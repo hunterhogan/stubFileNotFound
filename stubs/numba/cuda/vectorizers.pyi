@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from numba import cuda as cuda
 from numba.cuda import deviceufunc as deviceufunc
 from numba.cuda.deviceufunc import GUFuncCallSteps as GUFuncCallSteps, GeneralizedUFunc as GeneralizedUFunc, UFuncMechanism as UFuncMechanism
 

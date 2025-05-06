@@ -1,14 +1,8 @@
 from sympy.core import Add as Add, Mul as Mul, Pow as Pow, S as S
-from sympy.core.basic import Basic as Basic
 from sympy.core.expr import Expr as Expr
 from sympy.core.numbers import _sympifyit as _sympifyit, oo as oo, zoo as zoo
 from sympy.core.relational import is_ge as is_ge, is_gt as is_gt, is_le as is_le, is_lt as is_lt
-from sympy.core.sympify import _sympify as _sympify
 from sympy.functions.elementary.miscellaneous import Max as Max, Min as Min
-from sympy.logic.boolalg import And as And
-from sympy.multipledispatch import dispatch as dispatch
-from sympy.series.order import Order as Order
-from sympy.sets.sets import FiniteSet as FiniteSet
 
 class AccumulationBounds(Expr):
     """An accumulation bounds.

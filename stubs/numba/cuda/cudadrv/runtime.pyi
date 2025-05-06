@@ -1,10 +1,6 @@
 from _typeshed import Incomplete
-from numba.core import config as config
-from numba.cuda.cudadrv import enums as enums
 from numba.cuda.cudadrv.driver import ERROR_MAP as ERROR_MAP, make_logger as make_logger
 from numba.cuda.cudadrv.error import CudaRuntimeError as CudaRuntimeError, CudaSupportError as CudaSupportError
-from numba.cuda.cudadrv.libs import open_cudalib as open_cudalib
-from numba.cuda.cudadrv.rtapi import API_PROTOTYPES as API_PROTOTYPES
 
 class CudaRuntimeAPIError(CudaRuntimeError):
     """

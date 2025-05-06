@@ -1,4 +1,3 @@
-import sys
 from _typeshed import StrPath
 from py_compile import PycInvalidationMode
 from typing import Any, Protocol

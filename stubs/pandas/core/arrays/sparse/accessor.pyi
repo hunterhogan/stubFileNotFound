@@ -1,10 +1,6 @@
 from _typeshed import Incomplete
 from pandas import DataFrame as DataFrame, Series as Series
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core.accessor import PandasDelegate as PandasDelegate, delegate_names as delegate_names
-from pandas.core.arrays.sparse.array import SparseArray as SparseArray
-from pandas.core.dtypes.cast import find_common_type as find_common_type
-from pandas.core.dtypes.dtypes import SparseDtype as SparseDtype
 
 class BaseAccessor:
     _validation_msg: str

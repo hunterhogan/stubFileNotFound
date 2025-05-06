@@ -1,8 +1,5 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, types as types
-from numba.core.errors import NumbaWarning as NumbaWarning
-from numba.core.imputils import Registry as Registry
-from numba.cuda import nvvmutils as nvvmutils
 
 registry: Incomplete
 lower: Incomplete

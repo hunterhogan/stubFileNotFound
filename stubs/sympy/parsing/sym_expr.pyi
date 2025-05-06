@@ -1,9 +1,5 @@
 from _typeshed import Incomplete
-from sympy.external import import_module as import_module
-from sympy.parsing.c.c_parser import parse_c as parse_c
-from sympy.parsing.fortran.fortran_parser import src_to_sympy as src_to_sympy
 from sympy.printing import ccode as ccode, fcode as fcode, pycode as pycode
-from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
 
 lfortran: Incomplete
 cin: Incomplete

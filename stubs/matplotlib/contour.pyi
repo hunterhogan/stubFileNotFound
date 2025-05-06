@@ -1,10 +1,6 @@
 import matplotlib.collections as mcoll
 from _typeshed import Incomplete
 from matplotlib import _api as _api, _docstring as _docstring
-from matplotlib.backend_bases import MouseButton as MouseButton
-from matplotlib.lines import Line2D as Line2D
-from matplotlib.path import Path as Path
-from matplotlib.text import Text as Text
 
 def _contour_labeler_event_handler(cs, inline, inline_spacing, event) -> None: ...
 

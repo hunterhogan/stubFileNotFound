@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from sympy.polys.agca.modules import FreeModule as FreeModule, Module as Module, QuotientModule as QuotientModule, SubModule as SubModule, SubQuotientModule as SubQuotientModule
-from sympy.polys.polyerrors import CoercionFailed as CoercionFailed
 
 class ModuleHomomorphism:
     """

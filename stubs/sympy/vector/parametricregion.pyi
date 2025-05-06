@@ -1,11 +1,5 @@
 from sympy.core import Basic as Basic, Tuple as Tuple
-from sympy.core.numbers import pi as pi
-from sympy.core.symbol import _symbol as _symbol
-from sympy.functions.elementary.trigonometric import tan as tan
 from sympy.geometry import Curve as Curve, Ellipse as Ellipse, Point as Point, Polygon as Polygon, Segment as Segment
-from sympy.simplify import trigsimp as trigsimp
-from sympy.solvers import solve as solve
-from sympy.vector import ImplicitRegion as ImplicitRegion
 
 class ParametricRegion(Basic):
     """

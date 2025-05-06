@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
-from llvmlite import opaque_pointers_enabled as opaque_pointers_enabled
 from llvmlite.binding import ffi as ffi
 from llvmlite.binding.common import _decode_string as _decode_string, _encode_string as _encode_string
-from llvmlite.binding.initfini import llvm_version_info as llvm_version_info
 from typing import NamedTuple
 
 class Triple(NamedTuple):

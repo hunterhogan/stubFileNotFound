@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 from docutils import nodes
 from docutils.parsers.rst import Directive
 from matplotlib import _api as _api, mathtext as mathtext
-from matplotlib.rcsetup import validate_float_or_None as validate_float_or_None
 
 class latex_math(nodes.General, nodes.Element): ...
 

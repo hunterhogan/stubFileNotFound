@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, types as types
-from numba.core.datamodel.registry import register_default as register_default
-from numba.np import numpy_support as numpy_support
 
 class DataModel:
     '''

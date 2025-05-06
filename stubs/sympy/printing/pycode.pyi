@@ -1,9 +1,6 @@
 from .codeprinter import CodePrinter as CodePrinter
-from .precedence import precedence as precedence
 from _typeshed import Incomplete
 from collections.abc import Generator
-from sympy.core import S as S
-from sympy.core.mod import Mod as Mod
 
 _kw: Incomplete
 _known_functions: Incomplete

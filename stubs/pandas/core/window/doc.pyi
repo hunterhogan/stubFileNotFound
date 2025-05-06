@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from pandas.core.shared_docs import _shared_docs as _shared_docs
 
 def create_section_header(header: str) -> str:
     """Create numpydoc section header"""

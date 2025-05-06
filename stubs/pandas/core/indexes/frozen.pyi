@@ -1,6 +1,5 @@
 from pandas._typing import Self as Self
 from pandas.core.base import PandasObject as PandasObject
-from pandas.io.formats.printing import pprint_thing as pprint_thing
 from typing import NoReturn
 
 class FrozenList(PandasObject, list):

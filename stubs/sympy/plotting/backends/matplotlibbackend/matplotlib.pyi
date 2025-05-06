@@ -1,8 +1,5 @@
 import sympy.plotting.backends.base_backend as base_backend
 from _typeshed import Incomplete
-from sympy.core.basic import Basic as Basic
-from sympy.external import import_module as import_module
-from sympy.printing.latex import latex as latex
 
 def _str_or_latex(label): ...
 def _matplotlib_list(interval_list):

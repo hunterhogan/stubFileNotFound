@@ -3,7 +3,6 @@ import datetime
 from _typeshed import Incomplete
 from pandas._libs.tslibs.fields import RoundTo as RoundTo, round_nsint64 as round_nsint64
 from pandas._libs.tslibs.np_datetime import OutOfBoundsDatetime as OutOfBoundsDatetime, OutOfBoundsTimedelta as OutOfBoundsTimedelta
-from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Any, ClassVar, overload
 
 __pyx_capi__: dict

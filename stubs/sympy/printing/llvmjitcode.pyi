@@ -1,9 +1,5 @@
 from _typeshed import Incomplete
-from sympy.core.singleton import S as S
-from sympy.external import import_module as import_module
 from sympy.printing.printer import Printer as Printer
-from sympy.tensor.indexed import IndexedBase as IndexedBase
-from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
 
 llvmlite: Incomplete
 ll: Incomplete

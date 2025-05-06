@@ -1,8 +1,4 @@
 from _typeshed import Incomplete
-from sympy.core.containers import Tuple as Tuple
-from sympy.core.singleton import S as S
-from sympy.core.symbol import Symbol as Symbol
-from sympy.core.sympify import SympifyError as SympifyError
 
 class TableForm:
     """

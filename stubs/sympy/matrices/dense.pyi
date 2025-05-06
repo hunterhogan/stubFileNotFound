@@ -1,17 +1,8 @@
 from .decompositions import _LDLdecomposition as _LDLdecomposition, _cholesky as _cholesky
-from .exceptions import ShapeError as ShapeError
-from .matrixbase import MatrixBase as MatrixBase
 from .repmatrix import MutableRepMatrix as MutableRepMatrix, RepMatrix as RepMatrix
 from .solvers import _lower_triangular_solve as _lower_triangular_solve, _upper_triangular_solve as _upper_triangular_solve
 from _typeshed import Incomplete
-from sympy.core.basic import Basic as Basic
-from sympy.core.singleton import S as S
-from sympy.core.symbol import Symbol as Symbol
-from sympy.core.sympify import sympify as sympify
 from sympy.functions.elementary.trigonometric import cos as cos, sin as sin
-from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
-from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
-from sympy.utilities.iterables import is_sequence as is_sequence
 
 __doctest_requires__: Incomplete
 

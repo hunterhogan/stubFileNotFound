@@ -3,7 +3,6 @@ from typing import Final, Literal
 
 from .biffh import BaseObject
 from .book import Book
-from .timemachine import *
 
 DEBUG: Final[int]
 excel_default_palette_b5: Final[tuple[tuple[int, int, int], ...]]

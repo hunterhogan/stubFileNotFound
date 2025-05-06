@@ -1,14 +1,6 @@
 from _typeshed import Incomplete
 from sympy.core.evalf import _evalf_with_bounded_error as _evalf_with_bounded_error, evalf as evalf, fastlog as fastlog, quad_to_mpmath as quad_to_mpmath
 from sympy.core.symbol import Dummy as Dummy, symbols as symbols
-from sympy.polys.densetools import dup_eval as dup_eval
-from sympy.polys.domains import ZZ as ZZ
-from sympy.polys.orderings import lex as lex
-from sympy.polys.polyroots import preprocess_roots as preprocess_roots
-from sympy.polys.polytools import Poly as Poly
-from sympy.polys.rings import xring as xring
-from sympy.polys.specialpolys import symmetric_poly as symmetric_poly
-from sympy.utilities.lambdify import lambdify as lambdify
 
 class GaloisGroupException(Exception): ...
 class ResolventException(GaloisGroupException): ...

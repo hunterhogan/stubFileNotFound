@@ -1,9 +1,7 @@
 from _typeshed import Incomplete
-from numba import njit as njit
 from numba.core import cgutils as cgutils, imputils as imputils, types as types
 from numba.core.datamodel import default_manager as default_manager, models as models
 from numba.core.extending import NativeValue as NativeValue, box as box, infer_getattr as infer_getattr, intrinsic as intrinsic, lower_getattr_generic as lower_getattr_generic, lower_setattr_generic as lower_setattr_generic, overload as overload, unbox as unbox
-from numba.core.typing.templates import AttributeTemplate as AttributeTemplate
 
 class _Utils:
     """Internal builder-code utils for structref definitions.

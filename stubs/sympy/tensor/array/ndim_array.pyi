@@ -1,12 +1,7 @@
 from _typeshed import Incomplete
 from sympy.core.basic import Basic as Basic
 from sympy.core.containers import Dict as Dict, Tuple as Tuple
-from sympy.core.expr import Expr as Expr
 from sympy.core.kind import Kind as Kind, NumberKind as NumberKind, UndefinedKind as UndefinedKind
-from sympy.core.numbers import Integer as Integer
-from sympy.core.singleton import S as S
-from sympy.core.sympify import sympify as sympify
-from sympy.external.gmpy import SYMPY_INTS as SYMPY_INTS
 from sympy.printing.defaults import Printable as Printable
 
 class ArrayKind(Kind):

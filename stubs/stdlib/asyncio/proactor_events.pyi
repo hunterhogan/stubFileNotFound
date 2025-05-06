@@ -1,4 +1,3 @@
-import sys
 from collections.abc import Mapping
 from socket import socket
 from typing import Any, ClassVar, Literal

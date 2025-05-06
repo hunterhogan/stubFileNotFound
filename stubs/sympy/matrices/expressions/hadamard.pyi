@@ -1,13 +1,8 @@
 from _typeshed import Incomplete
 from sympy.core import Mul as Mul, sympify as sympify
-from sympy.core.add import Add as Add
-from sympy.core.expr import ExprBuilder as ExprBuilder
-from sympy.core.sorting import default_sort_key as default_sort_key
-from sympy.functions.elementary.exponential import log as log
 from sympy.matrices.expressions.matexpr import MatrixExpr as MatrixExpr
 from sympy.matrices.expressions.special import OneMatrix as OneMatrix, ZeroMatrix as ZeroMatrix
 from sympy.strategies import condition as condition, exhaust as exhaust, flatten as flatten, rm_id as rm_id, sort as sort, unpack as unpack
-from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 
 def hadamard_product(*matrices):
     """

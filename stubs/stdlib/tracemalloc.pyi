@@ -1,5 +1,5 @@
 import sys
-from _tracemalloc import *
+from _tracemalloc import Frame, Snapshot, Traceback
 from collections.abc import Sequence
 from typing import Any, SupportsIndex, overload
 from typing import TypeAlias

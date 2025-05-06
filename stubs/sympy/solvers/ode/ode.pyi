@@ -1,29 +1,18 @@
 from .single import SingleODEProblem as SingleODEProblem, SingleODESolver as SingleODESolver, solver_map as solver_map
 from _typeshed import Incomplete
 from sympy.core import Add as Add, Mul as Mul, Pow as Pow, S as S, oo as oo
-from sympy.core.containers import Tuple as Tuple
 from sympy.core.expr import AtomicExpr as AtomicExpr, Expr as Expr
 from sympy.core.function import AppliedUndef as AppliedUndef, Derivative as Derivative, Function as Function, Subs as Subs, diff as diff, expand as expand, expand_mul as expand_mul
-from sympy.core.multidimensional import vectorize as vectorize
 from sympy.core.numbers import Number as Number, nan as nan, zoo as zoo
 from sympy.core.relational import Eq as Eq, Equality as Equality
 from sympy.core.sorting import default_sort_key as default_sort_key, ordered as ordered
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, Wild as Wild, symbols as symbols
-from sympy.core.sympify import sympify as sympify
-from sympy.core.traversal import preorder_traversal as preorder_traversal
 from sympy.functions import exp as exp, log as log, sqrt as sqrt
-from sympy.functions.combinatorial.factorials import factorial as factorial
-from sympy.integrals.integrals import Integral as Integral
 from sympy.logic.boolalg import BooleanAtom as BooleanAtom, BooleanFalse as BooleanFalse, BooleanTrue as BooleanTrue
 from sympy.polys import Poly as Poly, PolynomialError as PolynomialError, lcm as lcm, terms_gcd as terms_gcd
-from sympy.polys.polytools import cancel as cancel
-from sympy.series import Order as Order
-from sympy.series.series import series as series
 from sympy.simplify import collect as collect, cse as cse, logcombine as logcombine, powsimp as powsimp, separatevars as separatevars, simplify as simplify
-from sympy.simplify.radsimp import collect_const as collect_const
 from sympy.solvers import checksol as checksol, solve as solve
 from sympy.solvers.deutils import _desolve as _desolve, _preprocess as _preprocess, ode_order as ode_order
-from sympy.utilities import numbered_symbols as numbered_symbols
 from sympy.utilities.iterables import iterable as iterable, sift as sift, uniq as uniq
 
 allhints: Incomplete

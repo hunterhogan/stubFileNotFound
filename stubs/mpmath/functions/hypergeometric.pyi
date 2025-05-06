@@ -1,4 +1,3 @@
-from ..libmp.backend import xrange as xrange
 from .functions import defun as defun, defun_wrapped as defun_wrapped
 from _typeshed import Incomplete
 

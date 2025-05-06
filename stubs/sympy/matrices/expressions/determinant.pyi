@@ -1,11 +1,5 @@
 from sympy.assumptions.ask import Q as Q, ask as ask
-from sympy.assumptions.refine import handlers_dict as handlers_dict
-from sympy.core.basic import Basic as Basic
 from sympy.core.expr import Expr as Expr
-from sympy.core.singleton import S as S
-from sympy.core.sympify import sympify as sympify
-from sympy.matrices.exceptions import NonSquareMatrixError as NonSquareMatrixError
-from sympy.matrices.matrixbase import MatrixBase as MatrixBase
 
 class Determinant(Expr):
     """Matrix Determinant

@@ -1,3 +1,2 @@
-from sympy.utilities.decorator import deprecated as deprecated
 
 def get_resource(identifier, pkgname=...): ...

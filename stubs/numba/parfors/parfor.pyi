@@ -1,22 +1,15 @@
 from _typeshed import Incomplete
-from collections import OrderedDict as OrderedDict
 from collections.abc import Generator
 from numba import pndindex as pndindex, prange as prange
 from numba.core import analysis as analysis, config as config, errors as errors, ir as ir, ir_utils as ir_utils, postproc as postproc, rewrites as rewrites, typeinfer as typeinfer, types as types, typing as typing, utils as utils
 from numba.core.analysis import compute_cfg_from_blocks as compute_cfg_from_blocks, compute_dead_maps as compute_dead_maps, compute_live_map as compute_live_map, compute_use_defs as compute_use_defs
-from numba.core.controlflow import CFGraph as CFGraph
 from numba.core.extending import lower_builtin as lower_builtin, overload as overload, register_jitable as register_jitable
-from numba.core.imputils import impl_ret_untracked as impl_ret_untracked
 from numba.core.ir_utils import GuardException as GuardException, add_offset_to_labels as add_offset_to_labels, apply_copy_propagate as apply_copy_propagate, build_definitions as build_definitions, canonicalize_array_math as canonicalize_array_math, compile_to_numba_ir as compile_to_numba_ir, copy_propagate as copy_propagate, dprint_func_ir as dprint_func_ir, find_build_sequence as find_build_sequence, find_callname as find_callname, find_potential_aliases as find_potential_aliases, find_topo_order as find_topo_order, get_block_copies as get_block_copies, get_call_table as get_call_table, get_definition as get_definition, get_name_var_table as get_name_var_table, get_np_ufunc_typ as get_np_ufunc_typ, get_stmt_writes as get_stmt_writes, guard as guard, has_no_side_effect as has_no_side_effect, index_var_of_get_setitem as index_var_of_get_setitem, is_get_setitem as is_get_setitem, is_getitem as is_getitem, is_setitem as is_setitem, mk_alloc as mk_alloc, mk_loop_header as mk_loop_header, mk_range_block as mk_range_block, mk_unique_var as mk_unique_var, next_label as next_label, remove_dead as remove_dead, rename_labels as rename_labels, replace_arg_nodes as replace_arg_nodes, replace_returns as replace_returns, replace_var_names as replace_var_names, replace_vars as replace_vars, replace_vars_inner as replace_vars_inner, require as require, set_index_var_of_get_setitem as set_index_var_of_get_setitem, simplify as simplify, simplify_CFG as simplify_CFG, transfer_scope as transfer_scope, visit_vars as visit_vars, visit_vars_inner as visit_vars_inner
-from numba.core.types.functions import Function as Function
 from numba.core.typing import npydecl as npydecl, signature as signature
 from numba.core.typing.templates import AbstractTemplate as AbstractTemplate, infer_global as infer_global
 from numba.np.npdatetime_helpers import datetime_maximum as datetime_maximum, datetime_minimum as datetime_minimum
 from numba.np.numpy_support import as_dtype as as_dtype, numpy_version as numpy_version
-from numba.parfors import array_analysis as array_analysis
 from numba.parfors.array_analysis import assert_equiv as assert_equiv, random_1arg_size as random_1arg_size, random_2arg_sizelast as random_2arg_sizelast, random_3arg_sizelast as random_3arg_sizelast, random_calls as random_calls, random_int_args as random_int_args
-from numba.stencils import stencilparfor as stencilparfor
-from numba.stencils.stencilparfor import StencilPass as StencilPass
 from typing import NamedTuple
 
 _termwidth: int

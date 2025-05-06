@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from itertools import zip_longest as zip_longest
 
 text_type = str
 string_type = str

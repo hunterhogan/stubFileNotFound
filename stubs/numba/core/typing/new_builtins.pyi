@@ -1,9 +1,7 @@
 from _typeshed import Incomplete
-from numba import prange as prange
 from numba.core import config as config, errors as errors, types as types
 from numba.core.extending import make_attribute_wrapper as make_attribute_wrapper, models as models, register_model as register_model, type_callable as type_callable, typeof_impl as typeof_impl
 from numba.core.typing.templates import AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, ConcreteTemplate as ConcreteTemplate, bound_function as bound_function, infer as infer, infer_getattr as infer_getattr, infer_global as infer_global, make_callable_template as make_callable_template, signature as signature
-from numba.parfors.parfor import internal_prange as internal_prange
 
 class Print(AbstractTemplate):
     def generic(self, args, kws): ...

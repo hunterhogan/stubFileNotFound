@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 from sympy.polys.densearith import dmp_add as dmp_add, dmp_add_term as dmp_add_term, dmp_expand as dmp_expand, dmp_exquo_ground as dmp_exquo_ground, dmp_mul as dmp_mul, dmp_mul_ground as dmp_mul_ground, dmp_quo_ground as dmp_quo_ground, dmp_rem as dmp_rem, dmp_sub as dmp_sub, dup_add as dup_add, dup_add_term as dup_add_term, dup_div as dup_div, dup_exquo_ground as dup_exquo_ground, dup_lshift as dup_lshift, dup_mul as dup_mul, dup_mul_ground as dup_mul_ground, dup_quo_ground as dup_quo_ground, dup_rem as dup_rem, dup_sqr as dup_sqr, dup_sub as dup_sub
 from sympy.polys.densebasic import dmp_LC as dmp_LC, dmp_TC as dmp_TC, dmp_convert as dmp_convert, dmp_degree as dmp_degree, dmp_from_dict as dmp_from_dict, dmp_ground as dmp_ground, dmp_ground_LC as dmp_ground_LC, dmp_strip as dmp_strip, dmp_to_dict as dmp_to_dict, dmp_zero as dmp_zero, dmp_zero_p as dmp_zero_p, dmp_zeros as dmp_zeros, dup_LC as dup_LC, dup_TC as dup_TC, dup_convert as dup_convert, dup_degree as dup_degree, dup_from_raw_dict as dup_from_raw_dict, dup_strip as dup_strip, dup_to_raw_dict as dup_to_raw_dict
 from sympy.polys.polyerrors import DomainError as DomainError, MultivariatePolynomialError as MultivariatePolynomialError
-from sympy.utilities import variations as variations
 
 def dup_integrate(f, m, K):
     '''

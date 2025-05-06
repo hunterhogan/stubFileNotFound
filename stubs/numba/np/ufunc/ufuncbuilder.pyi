@@ -2,17 +2,9 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from numba.core import compiler as compiler, config as config, serialize as serialize, sigutils as sigutils, targetconfig as targetconfig, types as types, utils as utils
 from numba.core.caching import FunctionCache as FunctionCache, NullCache as NullCache
-from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
-from numba.core.decorators import jit as jit
 from numba.core.descriptors import TargetDescriptor as TargetDescriptor
-from numba.core.errors import NumbaDeprecationWarning as NumbaDeprecationWarning
-from numba.core.extending import is_jitted as is_jitted
 from numba.core.options import TargetOptions as TargetOptions, include_default_options as include_default_options
-from numba.core.registry import cpu_target as cpu_target
 from numba.core.target_extension import dispatcher_registry as dispatcher_registry, target_registry as target_registry
-from numba.np.numpy_support import as_dtype as as_dtype
-from numba.np.ufunc import _internal as _internal
-from numba.np.ufunc.sigparse import parse_signature as parse_signature
 from numba.np.ufunc.wrappers import build_gufunc_wrapper as build_gufunc_wrapper, build_ufunc_wrapper as build_ufunc_wrapper
 
 _options_mixin: Incomplete

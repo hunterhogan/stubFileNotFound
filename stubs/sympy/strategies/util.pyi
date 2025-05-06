@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from sympy.core.basic import Basic as Basic
 
 new: Incomplete
 

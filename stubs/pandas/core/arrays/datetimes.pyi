@@ -5,18 +5,11 @@ from datetime import tzinfo
 from pandas import DataFrame as DataFrame
 from pandas._libs import lib as lib, tslib as tslib
 from pandas._libs.tslibs import BaseOffset as BaseOffset, NaT as NaT, NaTType as NaTType, Resolution as Resolution, Timestamp as Timestamp, astype_overflowsafe as astype_overflowsafe, fields as fields, get_resolution as get_resolution, get_supported_dtype as get_supported_dtype, get_unit_from_dtype as get_unit_from_dtype, ints_to_pydatetime as ints_to_pydatetime, is_date_array_normalized as is_date_array_normalized, is_supported_dtype as is_supported_dtype, is_unitless as is_unitless, normalize_i8_timestamps as normalize_i8_timestamps, timezones as timezones, to_offset as to_offset, tz_convert_from_utc as tz_convert_from_utc, tzconversion as tzconversion
-from pandas._libs.tslibs.dtypes import abbrev_to_npy_unit as abbrev_to_npy_unit
 from pandas._typing import ArrayLike as ArrayLike, DateTimeErrorChoices as DateTimeErrorChoices, DtypeObj as DtypeObj, IntervalClosedType as IntervalClosedType, Self as Self, TimeAmbiguous as TimeAmbiguous, TimeNonexistent as TimeNonexistent, npt as npt
 from pandas.core.arrays import PeriodArray as PeriodArray, datetimelike as dtl
-from pandas.core.arrays._ranges import generate_regular_range as generate_regular_range
 from pandas.core.dtypes.common import DT64NS_DTYPE as DT64NS_DTYPE, INT64_DTYPE as INT64_DTYPE, is_bool_dtype as is_bool_dtype, is_float_dtype as is_float_dtype, is_string_dtype as is_string_dtype, pandas_dtype as pandas_dtype
 from pandas.core.dtypes.dtypes import DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype, PeriodDtype as PeriodDtype
-from pandas.core.dtypes.missing import isna as isna
-from pandas.errors import PerformanceWarning as PerformanceWarning
-from pandas.tseries.frequencies import get_period_alias as get_period_alias
 from pandas.tseries.offsets import Day as Day, Tick as Tick
-from pandas.util._exceptions import find_stack_level as find_stack_level
-from pandas.util._validators import validate_inclusive as validate_inclusive
 from typing import overload
 
 _ITER_CHUNKSIZE: int

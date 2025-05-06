@@ -1,5 +1,4 @@
 from numba.core import cgutils as cgutils, errors as errors, types as types
-from numba.core.extending import intrinsic as intrinsic
 
 def exception_check(typingctx):
     """An intrinsic to check if an exception is raised

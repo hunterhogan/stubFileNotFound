@@ -1,13 +1,9 @@
 from _typeshed import Incomplete
-from numba._helperlib import _import_cython_function as _import_cython_function
 from numba.core import config as config, errors as errors, types as types, utils as utils
-from numba.core.datamodel import models as models
 from numba.core.imputils import lower_builtin as lower_builtin, lower_cast as lower_cast, lower_getattr as lower_getattr, lower_getattr_generic as lower_getattr_generic, lower_setattr as lower_setattr, lower_setattr_generic as lower_setattr_generic
 from numba.core.pythonapi import NativeValue as NativeValue, box as box, reflect as reflect, unbox as unbox
 from numba.core.serialize import ReduceMixin as ReduceMixin
-from numba.core.typing.asnumbatype import as_numba_type as as_numba_type
 from numba.core.typing.templates import infer as infer, infer_getattr as infer_getattr
-from numba.core.typing.typeof import typeof_impl as typeof_impl
 from typing import NamedTuple
 
 def type_callable(func):

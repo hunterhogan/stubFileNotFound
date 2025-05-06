@@ -1,4 +1,3 @@
-from .cartan_type import CartanType as CartanType
 
 def CartanMatrix(ct):
     '''Access the Cartan matrix of a specific Lie algebra

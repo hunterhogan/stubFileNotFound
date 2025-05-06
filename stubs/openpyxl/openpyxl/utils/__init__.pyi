@@ -10,4 +10,3 @@ from .cell import (
     range_to_tuple as range_to_tuple,
     rows_from_range as rows_from_range,
 )
-from .formulas import FORMULAE as FORMULAE

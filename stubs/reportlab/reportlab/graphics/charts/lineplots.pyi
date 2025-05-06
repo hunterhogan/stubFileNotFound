@@ -2,12 +2,9 @@ from _typeshed import Incomplete
 from typing import Final
 
 from reportlab.graphics.charts.linecharts import AbstractLineChart
-from reportlab.graphics.charts.utils import *
 from reportlab.graphics.shapes import Polygon, _SetKeyWordArgs
 from reportlab.graphics.widgetbase import PropHolder
 from reportlab.graphics.widgets.grids import ShadedPolygon
-from reportlab.lib.attrmap import *
-from reportlab.lib.validators import *
 
 __version__: Final[str]
 

@@ -7,7 +7,6 @@ overrides for client language op code generators.
 
 import builtins
 import collections.abc
-import sys
 import typing
 
 import google.protobuf.descriptor

@@ -8,13 +8,11 @@ from datetime import datetime, tzinfo
 from matplotlib.axis import Axis
 from matplotlib.ticker import Formatter, Locator
 from pandas import Index as Index, Series as Series, get_option as get_option
-from pandas._libs import lib as lib
 from pandas._libs.tslibs import Timestamp as Timestamp, to_offset as to_offset
 from pandas._libs.tslibs.dtypes import FreqGroup as FreqGroup, periods_per_day as periods_per_day
 from pandas._libs.tslibs.offsets import BaseOffset as BaseOffset
 from pandas._typing import F as F, npt as npt
 from pandas.core.dtypes.common import is_float as is_float, is_float_dtype as is_float_dtype, is_integer as is_integer, is_integer_dtype as is_integer_dtype, is_nested_list_like as is_nested_list_like
-from pandas.core.indexes.datetimes import date_range as date_range
 from pandas.core.indexes.period import Period as Period, PeriodIndex as PeriodIndex, period_range as period_range
 from typing import Any
 

@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from numba.core import types as types
 from numba.core.typeconv import Conversion as Conversion, _typeconv as _typeconv, castgraph as castgraph
 
 base_url: str

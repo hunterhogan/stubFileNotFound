@@ -1,10 +1,5 @@
 from numba import cuda as cuda, types as types
-from numba.core import cgutils as cgutils
 from numba.core.errors import NumbaValueError as NumbaValueError, RequireLiteralValue as RequireLiteralValue
-from numba.core.extending import overload_attribute as overload_attribute
-from numba.core.typing import signature as signature
-from numba.cuda import nvvmutils as nvvmutils
-from numba.cuda.extending import intrinsic as intrinsic
 
 def _type_grid_function(ndim): ...
 def grid(typingctx, ndim):

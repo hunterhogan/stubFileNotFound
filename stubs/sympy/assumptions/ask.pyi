@@ -2,11 +2,7 @@ from _typeshed import Incomplete
 from sympy.assumptions.ask_generated import get_all_known_facts as get_all_known_facts, get_known_facts_dict as get_known_facts_dict
 from sympy.assumptions.assume import AppliedPredicate as AppliedPredicate, Predicate as Predicate, global_assumptions as global_assumptions
 from sympy.assumptions.cnf import CNF as CNF, EncodedCNF as EncodedCNF, Literal as Literal
-from sympy.core import sympify as sympify
-from sympy.core.kind import BooleanKind as BooleanKind
 from sympy.core.relational import Eq as Eq, Ge as Ge, Gt as Gt, Le as Le, Lt as Lt, Ne as Ne
-from sympy.logic.inference import satisfiable as satisfiable
-from sympy.utilities.decorator import memoize_property as memoize_property
 from sympy.utilities.exceptions import SymPyDeprecationWarning as SymPyDeprecationWarning, ignore_warnings as ignore_warnings, sympy_deprecation_warning as sympy_deprecation_warning
 
 class AssumptionKeys:

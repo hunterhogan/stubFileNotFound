@@ -2,18 +2,7 @@ from .exceptions import ClosureFailure as ClosureFailure, MissingUnityError as M
 from .utilities import AlgIntPowers as AlgIntPowers, get_num_denom as get_num_denom, is_rat as is_rat
 from _typeshed import Incomplete
 from sympy.core.intfunc import igcd as igcd, ilcm as ilcm
-from sympy.core.symbol import Dummy as Dummy
-from sympy.polys.densetools import dup_clear_denoms as dup_clear_denoms
-from sympy.polys.domains.algebraicfield import AlgebraicField as AlgebraicField
-from sympy.polys.domains.finitefield import FF as FF
-from sympy.polys.domains.integerring import ZZ as ZZ
-from sympy.polys.domains.rationalfield import QQ as QQ
-from sympy.polys.matrices.domainmatrix import DomainMatrix as DomainMatrix
-from sympy.polys.matrices.exceptions import DMBadInputError as DMBadInputError
-from sympy.polys.matrices.normalforms import hermite_normal_form as hermite_normal_form
-from sympy.polys.polyclasses import ANP as ANP
 from sympy.polys.polyerrors import CoercionFailed as CoercionFailed, UnificationFailed as UnificationFailed
-from sympy.polys.polytools import Poly as Poly
 from sympy.polys.polyutils import IntegerPowerable as IntegerPowerable
 
 def to_col(coeffs):

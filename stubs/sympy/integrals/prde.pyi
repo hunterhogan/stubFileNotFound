@@ -1,10 +1,8 @@
 from _typeshed import Incomplete
 from sympy.core import Add as Add, Dummy as Dummy, Mul as Mul, Pow as Pow, S as S
-from sympy.core.intfunc import ilcm as ilcm
 from sympy.integrals.rde import bound_degree as bound_degree, order_at as order_at, order_at_oo as order_at_oo, weak_normalizer as weak_normalizer
 from sympy.integrals.risch import DecrementLevel as DecrementLevel, derivation as derivation, frac_in as frac_in, gcdex_diophantine as gcdex_diophantine, recognize_log_derivative as recognize_log_derivative, residue_reduce as residue_reduce, residue_reduce_derivation as residue_reduce_derivation, splitfactor as splitfactor
 from sympy.polys import Poly as Poly, cancel as cancel, lcm as lcm, sqf_list as sqf_list
-from sympy.solvers import solve as solve
 
 zeros: Incomplete
 eye: Incomplete

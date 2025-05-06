@@ -1,11 +1,7 @@
 from _typeshed import Incomplete
 from numba.core import config as config, ir as ir, ir_utils as ir_utils, rewrites as rewrites, types as types, typing as typing, utils as utils
-from numba.core.errors import NumbaValueError as NumbaValueError
 from numba.core.ir_utils import GuardException as GuardException, compile_to_numba_ir as compile_to_numba_ir, find_callname as find_callname, find_const as find_const, get_call_table as get_call_table, guard as guard, mk_unique_var as mk_unique_var, replace_arg_nodes as replace_arg_nodes, require as require
-from numba.core.typing import signature as signature
 from numba.core.typing.templates import AbstractTemplate as AbstractTemplate, infer_global as infer_global
-from numba.core.utils import OPERATORS_TO_BUILTINS as OPERATORS_TO_BUILTINS
-from numba.np import numpy_support as numpy_support
 
 def _compute_last_ind(dim_size, index_const): ...
 

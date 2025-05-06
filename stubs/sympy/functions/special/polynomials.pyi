@@ -1,16 +1,7 @@
 from _typeshed import Incomplete
-from sympy.core import Rational as Rational
 from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function
-from sympy.core.singleton import S as S
-from sympy.core.symbol import Dummy as Dummy
 from sympy.functions.combinatorial.factorials import RisingFactorial as RisingFactorial, binomial as binomial, factorial as factorial
-from sympy.functions.elementary.complexes import re as re
-from sympy.functions.elementary.exponential import exp as exp
-from sympy.functions.elementary.integers import floor as floor
-from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.functions.elementary.trigonometric import cos as cos, sec as sec
-from sympy.functions.special.gamma_functions import gamma as gamma
-from sympy.functions.special.hyper import hyper as hyper
 from sympy.polys.orthopolys import chebyshevt_poly as chebyshevt_poly, chebyshevu_poly as chebyshevu_poly, gegenbauer_poly as gegenbauer_poly, hermite_poly as hermite_poly, hermite_prob_poly as hermite_prob_poly, jacobi_poly as jacobi_poly, laguerre_poly as laguerre_poly, legendre_poly as legendre_poly
 
 _x: Incomplete

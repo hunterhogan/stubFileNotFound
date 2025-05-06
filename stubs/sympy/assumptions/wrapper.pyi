@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from sympy.assumptions import Q as Q, ask as ask
 from sympy.core.basic import Basic as Basic
-from sympy.core.sympify import _sympify as _sympify
 
 def make_eval_method(fact): ...
 

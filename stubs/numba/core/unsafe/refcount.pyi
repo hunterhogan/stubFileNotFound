@@ -1,6 +1,4 @@
 from numba.core import cgutils as cgutils, types as types
-from numba.core.extending import intrinsic as intrinsic
-from numba.core.runtime.nrtdynmod import _meminfo_struct_type as _meminfo_struct_type
 
 def dump_refcount(typingctx, obj):
     """Dump the refcount of an object to stdout.

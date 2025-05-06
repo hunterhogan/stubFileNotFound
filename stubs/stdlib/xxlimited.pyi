@@ -1,5 +1,5 @@
 import sys
-from typing import Any, ClassVar, final
+from typing import Any, final
 
 class Str(str): ...
 

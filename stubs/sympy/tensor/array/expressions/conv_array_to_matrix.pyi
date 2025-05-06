@@ -1,6 +1,4 @@
 from _typeshed import Incomplete
-from sympy.tensor.array.expressions import from_array_to_matrix as from_array_to_matrix
-from sympy.tensor.array.expressions.conv_array_to_indexed import _conv_to_from_decorator as _conv_to_from_decorator
 
 convert_array_to_matrix: Incomplete
 _array2matrix: Incomplete

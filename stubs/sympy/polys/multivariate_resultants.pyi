@@ -1,13 +1,7 @@
 from _typeshed import Incomplete
-from sympy.core.mul import Mul as Mul
-from sympy.functions.combinatorial.factorials import binomial as binomial
 from sympy.matrices.dense import Matrix as Matrix, diag as diag
 from sympy.polys.monomials import itermonomials as itermonomials, monomial_deg as monomial_deg
-from sympy.polys.orderings import monomial_key as monomial_key
 from sympy.polys.polytools import Poly as Poly, degree_list as degree_list, poly_from_expr as poly_from_expr, rem as rem, total_degree as total_degree
-from sympy.simplify.simplify import simplify as simplify
-from sympy.tensor.indexed import IndexedBase as IndexedBase
-from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 
 class DixonResultant:
     """

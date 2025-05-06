@@ -1,5 +1,4 @@
 from collections.abc import Hashable, MutableMapping, Sequence
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core.dtypes.common import is_integer as is_integer, is_list_like as is_list_like
 from pandas.io.excel._base import ExcelWriter as ExcelWriter
 from typing import Any, Literal, TypeVar, overload

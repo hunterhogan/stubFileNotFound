@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from docutils import nodes
-from matplotlib import rcParamsDefault as rcParamsDefault
 
 class _QueryReference(nodes.Inline, nodes.TextElement):
     """

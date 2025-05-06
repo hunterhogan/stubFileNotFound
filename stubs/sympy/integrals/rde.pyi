@@ -1,8 +1,5 @@
 from _typeshed import Incomplete
-from sympy.core import oo as oo
-from sympy.core.symbol import Dummy as Dummy
 from sympy.functions.elementary.complexes import im as im, re as re
-from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.integrals.risch import DecrementLevel as DecrementLevel, NonElementaryIntegralException as NonElementaryIntegralException, derivation as derivation, frac_in as frac_in, gcdex_diophantine as gcdex_diophantine, recognize_log_derivative as recognize_log_derivative, splitfactor as splitfactor
 from sympy.polys import Poly as Poly, ZZ as ZZ, cancel as cancel, gcd as gcd
 

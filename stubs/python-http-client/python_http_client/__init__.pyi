@@ -1,6 +1,5 @@
 from typing import Final
 
-from .client import Client as Client
 from .exceptions import (
     BadRequestsError as BadRequestsError,
     ForbiddenError as ForbiddenError,

@@ -1,10 +1,6 @@
-from .determinant import _find_reasonable_pivot_naive as _find_reasonable_pivot_naive
 from .exceptions import NonPositiveDefiniteMatrixError as NonPositiveDefiniteMatrixError, NonSquareMatrixError as NonSquareMatrixError
 from .utilities import _get_intermediate_simp as _get_intermediate_simp, _iszero as _iszero
 from _typeshed import Incomplete
-from sympy.core import S as S
-from sympy.core.function import expand_mul as expand_mul
-from sympy.functions.elementary.complexes import sign as sign
 from sympy.functions.elementary.miscellaneous import Min as Min, sqrt as sqrt
 
 def _rank_decomposition(M, iszerofunc=..., simplify: bool = False):

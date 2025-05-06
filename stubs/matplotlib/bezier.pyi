@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from matplotlib import _api as _api
 
 def _comb(n, k): ...
 

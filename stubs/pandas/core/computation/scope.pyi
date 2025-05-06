@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
 from collections import ChainMap
-from pandas._libs.tslibs import Timestamp as Timestamp
-from pandas.errors import UndefinedVariableError as UndefinedVariableError
 from typing import TypeVar
 
 _KT = TypeVar('_KT')

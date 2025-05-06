@@ -1,9 +1,6 @@
 from _typeshed import Incomplete
 from functools import cached_property as cached_property
-from numba.core import utils as utils
-from numba.core.typeconv import Conversion as Conversion
 from numba.core.types.abstract import Dummy as Dummy, Hashable as Hashable, Literal as Literal, Number as Number, Type as Type
-from numba.np import npdatetime_helpers as npdatetime_helpers
 
 class Boolean(Hashable): ...
 

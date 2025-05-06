@@ -1,12 +1,9 @@
 from _typeshed import Incomplete
 from pandas import Index as Index
 from pandas._libs import missing as libmissing
-from pandas._libs.hashtable import object_hash as object_hash
-from pandas._libs.properties import cache_readonly as cache_readonly
 from pandas._typing import DtypeObj as DtypeObj, Self as Self, Shape as Shape, npt as npt, type_t as type_t
 from pandas.core.arrays import ExtensionArray as ExtensionArray
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCIndex as ABCIndex, ABCSeries as ABCSeries
-from pandas.errors import AbstractMethodError as AbstractMethodError
 from typing import Any, TypeVar, overload
 
 ExtensionDtypeT = TypeVar('ExtensionDtypeT', bound='ExtensionDtype')

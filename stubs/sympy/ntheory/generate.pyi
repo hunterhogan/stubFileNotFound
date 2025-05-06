@@ -1,10 +1,5 @@
-from .primetest import isprime as isprime
 from _typeshed import Incomplete
 from collections.abc import Generator
-from sympy.core.random import randint as randint
-from sympy.external.gmpy import sqrt as sqrt
-from sympy.utilities.decorator import deprecated as deprecated
-from sympy.utilities.misc import as_int as as_int
 
 def _as_int_ceiling(a):
     """ Wrapping ceiling in as_int will raise an error if there was a problem

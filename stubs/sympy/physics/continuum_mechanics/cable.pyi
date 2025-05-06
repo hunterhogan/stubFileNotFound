@@ -1,10 +1,5 @@
 from _typeshed import Incomplete
 from sympy import atan as atan, cos as cos, diff as diff, pi as pi, sin as sin
-from sympy.core.symbol import Symbol as Symbol
-from sympy.core.sympify import sympify as sympify
-from sympy.functions.elementary.miscellaneous import sqrt as sqrt
-from sympy.matrices import Matrix as Matrix
-from sympy.solvers.solveset import linsolve as linsolve
 
 class Cable:
     """

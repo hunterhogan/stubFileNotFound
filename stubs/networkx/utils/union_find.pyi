@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from networkx.utils import groups as groups
 
 class UnionFind:
     """Union-find data structure.

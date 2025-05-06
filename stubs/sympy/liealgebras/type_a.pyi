@@ -1,4 +1,3 @@
-from sympy.core.backend import eye as eye
 from sympy.liealgebras.cartan_type import Standard_Cartan as Standard_Cartan
 
 class TypeA(Standard_Cartan):

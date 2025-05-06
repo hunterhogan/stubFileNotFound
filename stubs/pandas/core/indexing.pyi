@@ -4,21 +4,14 @@ from collections.abc import Hashable
 from pandas import DataFrame as DataFrame, Series as Series
 from pandas._config import using_copy_on_write as using_copy_on_write, warn_copy_on_write as warn_copy_on_write
 from pandas._libs.indexing import NDFrameIndexerBase as NDFrameIndexerBase
-from pandas._libs.lib import item_from_zerodim as item_from_zerodim
 from pandas._typing import Axis as Axis, AxisInt as AxisInt, Self as Self, npt as npt
-from pandas.compat import PYPY as PYPY
-from pandas.core.construction import extract_array as extract_array
 from pandas.core.dtypes.cast import can_hold_element as can_hold_element, maybe_promote as maybe_promote
 from pandas.core.dtypes.common import is_array_like as is_array_like, is_bool_dtype as is_bool_dtype, is_hashable as is_hashable, is_integer as is_integer, is_iterator as is_iterator, is_list_like as is_list_like, is_numeric_dtype as is_numeric_dtype, is_object_dtype as is_object_dtype, is_scalar as is_scalar, is_sequence as is_sequence
-from pandas.core.dtypes.concat import concat_compat as concat_compat
-from pandas.core.dtypes.dtypes import ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCSeries as ABCSeries
 from pandas.core.dtypes.missing import construct_1d_array_from_inferred_fill_value as construct_1d_array_from_inferred_fill_value, infer_fill_value as infer_fill_value, is_valid_na_for_dtype as is_valid_na_for_dtype, isna as isna, na_value_for_dtype as na_value_for_dtype
 from pandas.core.indexers import check_array_indexer as check_array_indexer, is_list_like_indexer as is_list_like_indexer, is_scalar_indexer as is_scalar_indexer, length_of_indexer as length_of_indexer
 from pandas.core.indexes.api import Index as Index, MultiIndex as MultiIndex
 from pandas.errors import AbstractMethodError as AbstractMethodError, ChainedAssignmentError as ChainedAssignmentError, IndexingError as IndexingError, InvalidIndexError as InvalidIndexError, LossySetitemError as LossySetitemError, _chained_assignment_msg as _chained_assignment_msg, _chained_assignment_warning_msg as _chained_assignment_warning_msg, _check_cacher as _check_cacher
-from pandas.util._decorators import doc as doc
-from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Any, TypeVar
 
 T = TypeVar('T')

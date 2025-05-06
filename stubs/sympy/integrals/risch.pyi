@@ -1,23 +1,11 @@
-from .heurisch import _symbols as _symbols
 from .integrals import Integral as Integral, integrate as integrate
 from _typeshed import Incomplete
-from sympy.core.function import Lambda as Lambda
-from sympy.core.intfunc import ilcm as ilcm
-from sympy.core.mul import Mul as Mul
-from sympy.core.numbers import I as I
-from sympy.core.power import Pow as Pow
-from sympy.core.relational import Ne as Ne
-from sympy.core.singleton import S as S
 from sympy.core.sorting import default_sort_key as default_sort_key, ordered as ordered
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol
 from sympy.functions.elementary.exponential import exp as exp, log as log
 from sympy.functions.elementary.hyperbolic import cosh as cosh, coth as coth, sinh as sinh, tanh as tanh
-from sympy.functions.elementary.piecewise import Piecewise as Piecewise
 from sympy.functions.elementary.trigonometric import acos as acos, acot as acot, asin as asin, atan as atan, cos as cos, cot as cot, sin as sin, tan as tan
-from sympy.polys.polyerrors import PolynomialError as PolynomialError
 from sympy.polys.polytools import Poly as Poly, cancel as cancel, gcd as gcd, real_roots as real_roots, reduced as reduced
-from sympy.polys.rootoftools import RootSum as RootSum
-from sympy.utilities.iterables import numbered_symbols as numbered_symbols
 
 def integer_powers(exprs):
     """

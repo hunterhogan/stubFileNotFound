@@ -3,17 +3,11 @@ import re
 from _typeshed import Incomplete
 from collections.abc import Hashable, Iterator
 from pandas import DataFrame as DataFrame, Index as Index, Series as Series
-from pandas._libs import lib as lib
 from pandas._typing import AlignJoin as AlignJoin, DtypeObj as DtypeObj, F as F, Scalar as Scalar, npt as npt
-from pandas.core.arrays import ExtensionArray as ExtensionArray
 from pandas.core.base import NoNewAttributesMixin as NoNewAttributesMixin
-from pandas.core.construction import extract_array as extract_array
 from pandas.core.dtypes.common import ensure_object as ensure_object, is_bool_dtype as is_bool_dtype, is_integer as is_integer, is_list_like as is_list_like, is_object_dtype as is_object_dtype, is_re as is_re
 from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype, CategoricalDtype as CategoricalDtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCIndex as ABCIndex, ABCMultiIndex as ABCMultiIndex, ABCSeries as ABCSeries
-from pandas.core.dtypes.missing import isna as isna
-from pandas.util._decorators import Appender as Appender
-from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Literal
 
 from collections.abc import Callable

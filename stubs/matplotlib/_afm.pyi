@@ -1,4 +1,3 @@
-from ._mathtext_data import uni2type1 as uni2type1
 from _typeshed import Incomplete
 from typing import NamedTuple
 

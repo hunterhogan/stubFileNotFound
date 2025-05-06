@@ -3,11 +3,7 @@ from _typeshed import Incomplete
 from abc import abstractmethod
 from numba import _dispatcher as _dispatcher
 from numba.core import compiler as compiler, config as config, entrypoints as entrypoints, errors as errors, serialize as serialize, sigutils as sigutils, types as types, typing as typing, utils as utils
-from numba.core.bytecode import get_code_object as get_code_object
 from numba.core.caching import FunctionCache as FunctionCache, NullCache as NullCache
-from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
-from numba.core.typeconv.rules import default_type_manager as default_type_manager
-from numba.core.typing.templates import fold_arguments as fold_arguments
 from numba.core.typing.typeof import Purpose as Purpose, typeof as typeof
 from typing import NamedTuple
 

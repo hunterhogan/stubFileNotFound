@@ -1,6 +1,4 @@
-from sympy.core.cache import cacheit as cacheit
 from sympy.core.expr import Expr as Expr
-from sympy.core.singleton import S as S
 
 class SeriesBase(Expr):
     """Base Class for series"""

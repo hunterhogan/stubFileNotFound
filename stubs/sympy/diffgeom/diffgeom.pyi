@@ -1,13 +1,6 @@
 from _typeshed import Incomplete
-from sympy.combinatorics import Permutation as Permutation
 from sympy.core import Add as Add, Basic as Basic, Dict as Dict, Expr as Expr, Function as Function, Lambda as Lambda, Mul as Mul, Pow as Pow, S as S, Tuple as Tuple, diff as diff
-from sympy.core.cache import cacheit as cacheit
 from sympy.core.symbol import Dummy as Dummy, Str as Str, Symbol as Symbol
-from sympy.core.sympify import _sympify as _sympify
-from sympy.functions import factorial as factorial
-from sympy.simplify.simplify import simplify as simplify
-from sympy.solvers import solve as solve
-from sympy.tensor.array import ImmutableDenseNDimArray as ImmutableDenseNDimArray
 from sympy.utilities.exceptions import SymPyDeprecationWarning as SymPyDeprecationWarning, ignore_warnings as ignore_warnings, sympy_deprecation_warning as sympy_deprecation_warning
 from typing import Any
 

@@ -1,11 +1,7 @@
 import pickle as pkl
 from _typeshed import Incomplete
 from collections.abc import Generator
-from pandas import Index as Index
-from pandas._libs.arrays import NDArrayBacked as NDArrayBacked
-from pandas._libs.tslibs import BaseOffset as BaseOffset
 from pandas.core.arrays import DatetimeArray as DatetimeArray, PeriodArray as PeriodArray, TimedeltaArray as TimedeltaArray
-from pandas.core.internals import BlockManager as BlockManager
 
 def load_reduce(self) -> None: ...
 

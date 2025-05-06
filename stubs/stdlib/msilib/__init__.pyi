@@ -4,7 +4,7 @@ from types import ModuleType
 from typing import Any, Literal
 
 if sys.platform == "win32":
-    from _msi import *
+    from _msi import Dialog, Feature
     from _msi import _Database
 
     AMD64: bool

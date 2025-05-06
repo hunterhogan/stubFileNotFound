@@ -1,8 +1,5 @@
 from sympy.core.expr import Expr as Expr
-from sympy.core.numbers import Integer as Integer
-from sympy.core.relational import Eq as Eq
 from sympy.logic.boolalg import And as And, Boolean as Boolean
-from sympy.matrices.exceptions import ShapeError as ShapeError
 from sympy.matrices.expressions.matexpr import MatrixExpr as MatrixExpr
 
 def is_matadd_valid(*args: MatrixExpr) -> Boolean:

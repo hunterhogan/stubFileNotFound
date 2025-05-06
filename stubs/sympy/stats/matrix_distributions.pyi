@@ -1,11 +1,5 @@
 from _typeshed import Incomplete
-from sympy.core.basic import Basic as Basic
-from sympy.core.numbers import pi as pi
-from sympy.core.singleton import S as S
 from sympy.core.sympify import _sympify as _sympify, sympify as sympify
-from sympy.external import import_module as import_module
-from sympy.functions.elementary.exponential import exp as exp
-from sympy.functions.special.gamma_functions import multigamma as multigamma
 from sympy.matrices import Determinant as Determinant, ImmutableMatrix as ImmutableMatrix, Inverse as Inverse, MatrixBase as MatrixBase, MatrixSet as MatrixSet, MatrixSymbol as MatrixSymbol, Trace as Trace, Transpose as Transpose, matrix2numpy as matrix2numpy
 from sympy.stats.rv import Distribution as Distribution, MatrixDomain as MatrixDomain, NamedArgsMixin as NamedArgsMixin, PSpace as PSpace, RandomMatrixSymbol as RandomMatrixSymbol, _symbol_converter as _symbol_converter, _value_check as _value_check
 

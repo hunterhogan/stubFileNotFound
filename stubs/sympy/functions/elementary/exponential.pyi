@@ -1,21 +1,11 @@
 from _typeshed import Incomplete
-from sympy.core.add import Add as Add
-from sympy.core.cache import cacheit as cacheit
 from sympy.core.expr import Expr as Expr
 from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function, FunctionClass as FunctionClass, PoleError as PoleError, expand_complex as expand_complex, expand_log as expand_log, expand_mul as expand_mul, expand_multinomial as expand_multinomial
 from sympy.core.logic import fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
-from sympy.core.mul import Mul as Mul
 from sympy.core.numbers import I as I, Integer as Integer, Rational as Rational, pi as pi
-from sympy.core.parameters import global_parameters as global_parameters
-from sympy.core.power import Pow as Pow
-from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy, Wild as Wild
-from sympy.core.sympify import sympify as sympify
-from sympy.functions.combinatorial.factorials import factorial as factorial
 from sympy.functions.elementary.complexes import Abs as Abs, arg as arg, im as im, re as re, unpolarify as unpolarify
-from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.ntheory import multiplicity as multiplicity, perfect_power as perfect_power
-from sympy.ntheory.factor_ import factorint as factorint
 
 class ExpBase(Function):
     unbranched: bool

@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from sympy.core import S as S
 from sympy.core.numbers import Integer as Integer, IntegerConstant as IntegerConstant, equal_valued as equal_valued
 from sympy.printing.codeprinter import CodePrinter as CodePrinter
 from sympy.printing.precedence import PRECEDENCE as PRECEDENCE, precedence as precedence

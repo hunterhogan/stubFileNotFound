@@ -1,5 +1,4 @@
 import sys
-from html import escape as escape
 from io import FileIO, TextIOWrapper
 from queue import Empty as Empty, Queue as Queue
 from typing import IO

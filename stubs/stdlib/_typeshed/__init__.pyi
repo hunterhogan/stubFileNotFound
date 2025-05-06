@@ -19,7 +19,6 @@ from typing import (
     SupportsIndex,
     SupportsInt,
     TypeVar,
-    final,
     overload,
 )
 from typing_extensions import Buffer, LiteralString, Self as _Self
@@ -306,7 +305,6 @@ ExcInfo: TypeAlias = tuple[type[BaseException], BaseException, TracebackType]
 OptExcInfo: TypeAlias = ExcInfo | tuple[None, None, None]
 
 # stable
-from types import NoneType as NoneType
 
 # This is an internal CPython type that is like, but subtly different from, a NamedTuple
 # Subclasses of this type are found in multiple modules.

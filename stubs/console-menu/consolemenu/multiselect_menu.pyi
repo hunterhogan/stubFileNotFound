@@ -1,6 +1,5 @@
 from consolemenu import ConsoleMenu as ConsoleMenu
 from consolemenu.console_menu import MenuItem
-from consolemenu.items import SubmenuItem as SubmenuItem
 from consolemenu.menu_formatter import MenuFormatBuilder
 
 class MultiSelectMenu(ConsoleMenu):

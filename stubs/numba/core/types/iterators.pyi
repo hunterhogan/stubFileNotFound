@@ -1,4 +1,3 @@
-from ..errors import TypingError as TypingError
 from .common import SimpleIterableType as SimpleIterableType, SimpleIteratorType as SimpleIteratorType
 from _typeshed import Incomplete
 

@@ -1,9 +1,5 @@
 from sympy.core import S as S, preorder_traversal as preorder_traversal, sympify as sympify
-from sympy.core.add import Add as Add
 from sympy.core.expr import Expr as Expr
-from sympy.core.function import Derivative as Derivative
-from sympy.core.mul import Mul as Mul
-from sympy.vector.coordsysrect import CoordSys3D as CoordSys3D
 from sympy.vector.vector import Cross as Cross, Dot as Dot, Vector as Vector, VectorAdd as VectorAdd, VectorMul as VectorMul
 
 def _get_coord_systems(expr): ...

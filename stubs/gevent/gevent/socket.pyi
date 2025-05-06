@@ -1,4 +1,3 @@
-from socket import *
 
 from gevent._hub_primitives import (
     wait_on_watcher,

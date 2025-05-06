@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from matplotlib.transforms import Bbox as Bbox
 
 _log: Incomplete
 

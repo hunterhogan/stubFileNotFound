@@ -2,10 +2,7 @@ from _typeshed import Incomplete
 from functools import cached_property as cached_property
 from numba.core import compiler as compiler, registry as registry
 from numba.core.caching import FunctionCache as FunctionCache, NullCache as NullCache
-from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
 from numba.core.dispatcher import _FunctionCompiler as _FunctionCompiler
-from numba.core.typing import signature as signature
-from numba.core.typing.ctypes_utils import to_ctypes as to_ctypes
 
 class _CFuncCompiler(_FunctionCompiler):
     def _customize_flags(self, flags): ...

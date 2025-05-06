@@ -1,13 +1,9 @@
-from .cudadrv import nvvm as nvvm
 from _typeshed import Incomplete
 from functools import cached_property as cached_property
 from numba.core import cgutils as cgutils, config as config, datamodel as datamodel, debuginfo as debuginfo, itanium_mangler as itanium_mangler, types as types, typing as typing, utils as utils
 from numba.core.base import BaseContext as BaseContext
 from numba.core.callconv import BaseCallConv as BaseCallConv, MinimalCallConv as MinimalCallConv
-from numba.core.dispatcher import Dispatcher as Dispatcher
-from numba.core.typing import cmathdecl as cmathdecl
 from numba.cuda import codegen as codegen, nvvmutils as nvvmutils, ufuncs as ufuncs
-from numba.cuda.models import cuda_data_manager as cuda_data_manager
 
 class CUDATypingContext(typing.BaseContext):
     def load_additional_registries(self) -> None: ...

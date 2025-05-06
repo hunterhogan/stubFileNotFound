@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from . import operator as operator
 from cytoolz import apply as apply, comp as comp, complement as complement, compose as compose, compose_left as compose_left, concat as concat, concatv as concatv, count as count, curry as curry, diff as diff, first as first, flip as flip, frequencies as frequencies, identity as identity, interleave as interleave, isdistinct as isdistinct, isiterable as isiterable, juxt as juxt, last as last, memoize as memoize, merge_sorted as merge_sorted, peek as peek, pipe as pipe, second as second, thread_first as thread_first, thread_last as thread_last
 from .exceptions import merge as merge, merge_with as merge_with
 """

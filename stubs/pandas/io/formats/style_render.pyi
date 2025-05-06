@@ -1,13 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Sequence
 from pandas import DataFrame as DataFrame, Index as Index, IndexSlice as IndexSlice, MultiIndex as MultiIndex, Series as Series, isna as isna
-from pandas._config import get_option as get_option
-from pandas._libs import lib as lib
 from pandas._typing import Axis as Axis, Level as Level
-from pandas.api.types import is_list_like as is_list_like
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core.dtypes.common import is_complex as is_complex, is_float as is_float, is_integer as is_integer
-from pandas.core.dtypes.generic import ABCSeries as ABCSeries
 from typing import Any, DefaultDict, TypedDict
 
 from collections.abc import Callable

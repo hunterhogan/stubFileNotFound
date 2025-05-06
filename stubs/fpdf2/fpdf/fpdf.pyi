@@ -45,7 +45,6 @@ from .enums import (
     YPos as YPos,
     _Align,
 )
-from .errors import FPDFException as FPDFException
 from .fonts import CoreFont, FontFace, TextStyle, TitleStyle as TitleStyle, TTFFont
 from .graphics_state import GraphicsStateMixin
 from .html import HTML2FPDF

@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
 from pandas.io.formats.format import DataFrameFormatter as DataFrameFormatter
-from pandas.io.formats.printing import pprint_thing as pprint_thing
 
 class StringFormatter:
     """Formatter for string representation of a dataframe."""

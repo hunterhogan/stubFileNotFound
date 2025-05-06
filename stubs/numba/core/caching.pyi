@@ -3,12 +3,6 @@ from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from collections.abc import Generator
 from numba.core import compiler as compiler, config as config
-from numba.core.base import BaseContext as BaseContext
-from numba.core.codegen import CodeLibrary as CodeLibrary
-from numba.core.compiler import CompileResult as CompileResult
-from numba.core.errors import NumbaWarning as NumbaWarning
-from numba.core.serialize import dumps as dumps
-from numba.misc.appdirs import AppDirs as AppDirs
 
 def _cache_log(msg, *args) -> None: ...
 

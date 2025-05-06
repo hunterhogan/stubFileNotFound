@@ -1,8 +1,5 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from sympy.core.numbers import Float as Float
-from sympy.core.symbol import Dummy as Dummy
-from sympy.utilities.lambdify import lambdify as lambdify
 
 def is_valid(x):
     """Check if a floating point number is valid"""

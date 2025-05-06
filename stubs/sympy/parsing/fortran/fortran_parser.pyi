@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
 from sympy.codegen.ast import Assignment as Assignment, FloatBaseType as FloatBaseType, FunctionDefinition as FunctionDefinition, IntBaseType as IntBaseType, Return as Return, String as String, Variable as Variable
 from sympy.core import Add as Add, Float as Float, Integer as Integer, Mul as Mul
-from sympy.core.symbol import Symbol as Symbol
-from sympy.external import import_module as import_module
 
 lfortran: Incomplete
 asr_mod: Incomplete

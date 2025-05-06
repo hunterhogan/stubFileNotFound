@@ -5,7 +5,6 @@ isort:skip_file
 
 import builtins
 import collections.abc
-import sys
 import typing
 
 import google.protobuf.descriptor

@@ -1,9 +1,5 @@
 import _cython_3_0_11
 import datetime
-from pandas._config.config import get_option as get_option
-from pandas._libs.tslibs.np_datetime import OutOfBoundsDatetime as OutOfBoundsDatetime
-from pandas._libs.tslibs.strptime import array_strptime as array_strptime
-from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import ClassVar
 
 _DATEUTIL_LEXER_SPLIT: method

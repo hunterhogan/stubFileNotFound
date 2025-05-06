@@ -1,9 +1,3 @@
-from .matexpr import MatrixExpr as MatrixExpr
-from sympy.core.assumptions import check_assumptions as check_assumptions
-from sympy.core.kind import NumberKind as NumberKind
-from sympy.core.logic import fuzzy_and as fuzzy_and
-from sympy.core.sympify import _sympify as _sympify
-from sympy.matrices.kind import MatrixKind as MatrixKind
 from sympy.sets.sets import Set as Set, SetKind as SetKind
 
 class MatrixSet(Set):

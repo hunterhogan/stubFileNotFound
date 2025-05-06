@@ -2,9 +2,6 @@ from _typeshed import Incomplete
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 from pandas import DataFrame as DataFrame, Index as Index, Series as Series
-from pandas.core.dtypes.missing import notna as notna
-from pandas.io.formats.printing import pprint_thing as pprint_thing
-from pandas.plotting._matplotlib.style import get_standard_colors as get_standard_colors
 from pandas.plotting._matplotlib.tools import create_subplots as create_subplots, do_adjust_figure as do_adjust_figure, maybe_adjust_figure as maybe_adjust_figure, set_ticks_props as set_ticks_props
 
 def scatter_matrix(frame: DataFrame, alpha: float = 0.5, figsize: tuple[float, float] | None = None, ax: Incomplete | None = None, grid: bool = False, diagonal: str = 'hist', marker: str = '.', density_kwds: Incomplete | None = None, hist_kwds: Incomplete | None = None, range_padding: float = 0.05, **kwds): ...

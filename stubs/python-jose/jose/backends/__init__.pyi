@@ -1,6 +1,5 @@
 from collections.abc import Callable
 
-from .base import DIRKey as DIRKey
 from .cryptography_backend import (
     CryptographyAESKey as CryptographyAESKey,
     CryptographyECKey as CryptographyECKey,

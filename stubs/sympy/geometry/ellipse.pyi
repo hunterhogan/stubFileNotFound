@@ -1,27 +1,17 @@
 from .entity import GeometryEntity as GeometryEntity, GeometrySet as GeometrySet
-from .exceptions import GeometryError as GeometryError
 from .line import Line as Line, Line2D as Line2D, LinearEntity3D as LinearEntity3D, Ray2D as Ray2D, Segment as Segment, Segment2D as Segment2D
 from .point import Point as Point, Point2D as Point2D, Point3D as Point3D
 from .polygon import Polygon as Polygon, Triangle as Triangle
 from .util import find as find, idiff as idiff
 from _typeshed import Incomplete
 from sympy.core import S as S, pi as pi, sympify as sympify
-from sympy.core.evalf import N as N
-from sympy.core.expr import Expr as Expr
-from sympy.core.logic import fuzzy_bool as fuzzy_bool
 from sympy.core.numbers import Rational as Rational, oo as oo
-from sympy.core.parameters import global_parameters as global_parameters
-from sympy.core.relational import Eq as Eq
-from sympy.core.sorting import ordered as ordered
 from sympy.core.symbol import Dummy as Dummy, _symbol as _symbol, uniquely_named_symbol as uniquely_named_symbol
 from sympy.functions.elementary.miscellaneous import Max as Max, sqrt as sqrt
 from sympy.functions.elementary.trigonometric import cos as cos, sin as sin
-from sympy.functions.special.elliptic_integrals import elliptic_e as elliptic_e
 from sympy.polys import DomainError as DomainError, Poly as Poly, PolynomialError as PolynomialError
 from sympy.polys.polyutils import _not_a_coeff as _not_a_coeff, _nsort as _nsort
 from sympy.simplify import simplify as simplify, trigsimp as trigsimp
-from sympy.solvers import solve as solve
-from sympy.solvers.solveset import linear_coeffs as linear_coeffs
 from sympy.utilities.misc import filldedent as filldedent, func_name as func_name
 
 x: Incomplete

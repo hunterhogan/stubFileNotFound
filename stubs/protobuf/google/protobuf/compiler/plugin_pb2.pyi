@@ -17,7 +17,6 @@ flag "--${NAME}_out" is passed to protoc.
 
 import builtins
 import collections.abc
-import sys
 import typing
 
 import google.protobuf.descriptor

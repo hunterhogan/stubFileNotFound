@@ -17,7 +17,6 @@ protos as JSON, which includes the field names in the serialization.
 
 import builtins
 import collections.abc
-import sys
 import typing
 
 import google.protobuf.any_pb2

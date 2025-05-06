@@ -6,7 +6,6 @@ from typing import TypeAlias
 
 from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, utils
 from .models import Response
-from .structures import CaseInsensitiveDict as CaseInsensitiveDict
 
 _BaseAdapter: TypeAlias = adapters.BaseAdapter
 OrderedDict = compat.OrderedDict

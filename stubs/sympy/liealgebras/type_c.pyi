@@ -1,5 +1,4 @@
 from .cartan_type import Standard_Cartan as Standard_Cartan
-from sympy.core.backend import eye as eye
 
 class TypeC(Standard_Cartan):
     def __new__(cls, n): ...

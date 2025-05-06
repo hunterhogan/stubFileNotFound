@@ -206,7 +206,6 @@ if sys.version_info >= (3, 11):
         SQLITE_WARNING as SQLITE_WARNING,
         SQLITE_WARNING_AUTOINDEX as SQLITE_WARNING_AUTOINDEX,
     )
-    from sqlite3 import Blob as Blob
 
 if sys.version_info < (3, 14):
     # Deprecated and removed from _sqlite3 in 3.12, but removed from here in 3.14.

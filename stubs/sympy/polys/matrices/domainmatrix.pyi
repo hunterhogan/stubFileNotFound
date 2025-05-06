@@ -1,21 +1,12 @@
-from ..constructor import construct_domain as construct_domain
 from ..domains import Domain as Domain
 from .ddm import DDM as DDM
 from .dfm import DFM as DFM
-from .domainscalar import DomainScalar as DomainScalar
 from .exceptions import DMBadInputError as DMBadInputError, DMDomainError as DMDomainError, DMFormatError as DMFormatError, DMNonInvertibleMatrixError as DMNonInvertibleMatrixError, DMNonSquareMatrixError as DMNonSquareMatrixError, DMNotAField as DMNotAField, DMShapeError as DMShapeError
 from .rref import _dm_rref as _dm_rref, _dm_rref_den as _dm_rref_den
 from .sdm import SDM as SDM
 from _typeshed import Incomplete
-from sympy.core.sympify import _sympify as _sympify
-from sympy.external.gmpy import GROUND_TYPES as GROUND_TYPES
-from sympy.polys.densearith import dup_mul as dup_mul
-from sympy.polys.densebasic import dup_convert as dup_convert
 from sympy.polys.densetools import dup_clear_denoms as dup_clear_denoms, dup_content as dup_content, dup_mul_ground as dup_mul_ground, dup_primitive as dup_primitive, dup_quo_ground as dup_quo_ground, dup_transform as dup_transform
 from sympy.polys.domains import EXRAW as EXRAW, QQ as QQ, ZZ as ZZ
-from sympy.polys.factortools import dup_factor_list as dup_factor_list
-from sympy.polys.polyutils import _sort_factors as _sort_factors
-from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
 
 __doctest_skip__: Incomplete
 

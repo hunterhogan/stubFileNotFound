@@ -1,4 +1,3 @@
-from .cudadrv import nvvm as nvvm
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, targetconfig as targetconfig
 

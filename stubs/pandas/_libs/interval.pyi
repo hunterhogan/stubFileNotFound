@@ -1,6 +1,5 @@
 import _cython_3_0_11
 from _typeshed import Incomplete
-from pandas._libs.algos import is_monotonic as is_monotonic
 from typing import Any, ClassVar, overload
 
 NODE_CLASSES: dict

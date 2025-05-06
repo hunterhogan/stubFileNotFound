@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
-from sympy.core.numbers import equal_valued as equal_valued
 from sympy.printing.codeprinter import CodePrinter as CodePrinter
 from sympy.printing.precedence import PRECEDENCE as PRECEDENCE, precedence as precedence
-from sympy.sets.fancysets import Range as Range
 from typing import Any
 
 known_functions: Incomplete

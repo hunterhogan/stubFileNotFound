@@ -2,8 +2,6 @@ import matplotlib.artist as martist
 import matplotlib.text as mtext
 from _typeshed import Incomplete
 from matplotlib import _api as _api, _docstring as _docstring
-from matplotlib.font_manager import FontProperties as FontProperties
-from matplotlib.image import BboxImage as BboxImage
 from matplotlib.patches import FancyArrowPatch as FancyArrowPatch, FancyBboxPatch as FancyBboxPatch
 from matplotlib.transforms import Bbox as Bbox, BboxBase as BboxBase, TransformedBbox as TransformedBbox
 

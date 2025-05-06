@@ -1,5 +1,4 @@
 import _cython_3_0_11
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 
 __pyx_capi__: dict
 __test__: dict

@@ -1,8 +1,6 @@
-from . import qt_compat as qt_compat
 from .qt_compat import QT_API as QT_API, QtCore as QtCore, QtGui as QtGui, QtWidgets as QtWidgets, __version__ as __version__, _isdeleted as _isdeleted, _to_int as _to_int
 from _typeshed import Incomplete
 from matplotlib import _api as _api, backend_tools as backend_tools, cbook as cbook
-from matplotlib._pylab_helpers import Gcf as Gcf
 from matplotlib.backend_bases import CloseEvent as CloseEvent, FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, KeyEvent as KeyEvent, LocationEvent as LocationEvent, MouseButton as MouseButton, MouseEvent as MouseEvent, NavigationToolbar2 as NavigationToolbar2, ResizeEvent as ResizeEvent, TimerBase as TimerBase, ToolContainerBase as ToolContainerBase, _Backend as _Backend, _allow_interrupt as _allow_interrupt, cursors as cursors
 
 SPECIAL_KEYS: Incomplete

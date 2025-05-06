@@ -1,10 +1,5 @@
 from _typeshed import Incomplete
-from sympy.core.symbol import Dummy as Dummy
-from sympy.ntheory import nextprime as nextprime
-from sympy.ntheory.modular import crt as crt
-from sympy.polys.domains import PolynomialRing as PolynomialRing
 from sympy.polys.galoistools import gf_div as gf_div, gf_from_dict as gf_from_dict, gf_gcd as gf_gcd, gf_gcdex as gf_gcdex, gf_lcm as gf_lcm
-from sympy.polys.polyerrors import ModularGCDFailed as ModularGCDFailed
 
 def _trivial_gcd(f, g):
     """

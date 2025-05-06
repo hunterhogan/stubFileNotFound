@@ -1,4 +1,3 @@
-from win32.lib.pywintypes import error as error
 
 def GetHandle(*args): ...  # incomplete
 def GetTracer(): ...

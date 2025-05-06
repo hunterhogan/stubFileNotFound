@@ -1,27 +1,13 @@
 from _typeshed import Incomplete
-from sympy.core.add import Add as Add
 from sympy.core.basic import Basic as Basic
-from sympy.core.containers import Tuple as Tuple
 from sympy.core.expr import Expr as Expr
 from sympy.core.function import Function as Function, Lambda as Lambda
-from sympy.core.logic import fuzzy_and as fuzzy_and
-from sympy.core.mul import Mul as Mul
 from sympy.core.relational import Eq as Eq, Ne as Ne, Relational as Relational
-from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol
 from sympy.core.sympify import _sympify as _sympify, sympify as sympify
-from sympy.external import import_module as import_module
-from sympy.functions.special.delta_functions import DiracDelta as DiracDelta
-from sympy.functions.special.tensor_functions import KroneckerDelta as KroneckerDelta
 from sympy.logic.boolalg import And as And, Or as Or
 from sympy.matrices.expressions.matexpr import MatrixSymbol as MatrixSymbol
 from sympy.sets.sets import FiniteSet as FiniteSet, Intersection as Intersection, ProductSet as ProductSet
-from sympy.solvers.solveset import solveset as solveset
-from sympy.tensor.indexed import Indexed as Indexed
-from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
-from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
-from sympy.utilities.iterables import iterable as iterable
-from sympy.utilities.lambdify import lambdify as lambdify
 
 __doctest_requires__: Incomplete
 x: Incomplete

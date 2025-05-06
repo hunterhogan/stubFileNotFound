@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
 
 __doctest_requires__: Incomplete
 

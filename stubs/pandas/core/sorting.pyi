@@ -3,13 +3,10 @@ from _typeshed import Incomplete
 from collections.abc import Hashable, Iterable, Sequence
 from pandas import MultiIndex as MultiIndex, Series as Series
 from pandas._libs import algos as algos, hashtable as hashtable, lib as lib
-from pandas._libs.hashtable import unique_label_indices as unique_label_indices
 from pandas._typing import ArrayLike as ArrayLike, AxisInt as AxisInt, IndexKeyFunc as IndexKeyFunc, Level as Level, NaPosition as NaPosition, Shape as Shape, SortKind as SortKind, npt as npt
 from pandas.core.arrays import ExtensionArray as ExtensionArray
-from pandas.core.construction import extract_array as extract_array
 from pandas.core.dtypes.common import ensure_int64 as ensure_int64, ensure_platform_int as ensure_platform_int
 from pandas.core.dtypes.generic import ABCMultiIndex as ABCMultiIndex, ABCRangeIndex as ABCRangeIndex
-from pandas.core.dtypes.missing import isna as isna
 from pandas.core.indexes.base import Index as Index
 from collections.abc import Callable
 

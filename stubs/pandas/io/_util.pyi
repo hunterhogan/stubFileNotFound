@@ -1,4 +1,3 @@
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from collections.abc import Callable
 
 def _arrow_dtype_mapping() -> dict: ...

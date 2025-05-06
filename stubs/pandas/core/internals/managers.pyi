@@ -4,25 +4,18 @@ from collections.abc import Hashable, Sequence
 from pandas._config import using_copy_on_write as using_copy_on_write, warn_copy_on_write as warn_copy_on_write
 from pandas._libs import internals as libinternals, lib as lib
 from pandas._libs.internals import BlockPlacement as BlockPlacement, BlockValuesRefs as BlockValuesRefs
-from pandas._libs.tslibs import Timestamp as Timestamp
 from pandas._typing import ArrayLike as ArrayLike, AxisInt as AxisInt, DtypeObj as DtypeObj, QuantileInterpolation as QuantileInterpolation, Self as Self, Shape as Shape, npt as npt
 from pandas.api.extensions import ExtensionArray as ExtensionArray
 from pandas.core.arrays import ArrowExtensionArray as ArrowExtensionArray, ArrowStringArray as ArrowStringArray, DatetimeArray as DatetimeArray
-from pandas.core.arrays._mixins import NDArrayBackedExtensionArray as NDArrayBackedExtensionArray
 from pandas.core.construction import ensure_wrapped_if_datetimelike as ensure_wrapped_if_datetimelike, extract_array as extract_array
-from pandas.core.dtypes.cast import infer_dtype_from_scalar as infer_dtype_from_scalar
 from pandas.core.dtypes.common import ensure_platform_int as ensure_platform_int, is_1d_only_ea_dtype as is_1d_only_ea_dtype, is_list_like as is_list_like
 from pandas.core.dtypes.dtypes import DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCSeries as ABCSeries
 from pandas.core.dtypes.missing import array_equals as array_equals, isna as isna
-from pandas.core.indexers import maybe_convert_indices as maybe_convert_indices
 from pandas.core.indexes.api import Index as Index, ensure_index as ensure_index
 from pandas.core.internals.base import DataManager as DataManager, SingleDataManager as SingleDataManager, ensure_np_dtype as ensure_np_dtype, interleaved_dtype as interleaved_dtype
 from pandas.core.internals.blocks import Block as Block, COW_WARNING_GENERAL_MSG as COW_WARNING_GENERAL_MSG, COW_WARNING_SETITEM_MSG as COW_WARNING_SETITEM_MSG, NumpyBlock as NumpyBlock, ensure_block_shape as ensure_block_shape, extend_blocks as extend_blocks, get_block_type as get_block_type, maybe_coerce_values as maybe_coerce_values, new_block as new_block, new_block_2d as new_block_2d
 from pandas.core.internals.ops import blockwise_all as blockwise_all, operate_blockwise as operate_blockwise
-from pandas.errors import PerformanceWarning as PerformanceWarning
-from pandas.util._decorators import cache_readonly as cache_readonly
-from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Literal
 
 from collections.abc import Callable

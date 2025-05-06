@@ -1,4 +1,3 @@
-from logging import NullHandler as NullHandler
 from typing import Any
 
 OFF: int

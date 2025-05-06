@@ -1,7 +1,5 @@
 import types
 from _typeshed import Incomplete
-from pandas.util._exceptions import find_stack_level as find_stack_level
-from pandas.util.version import Version as Version
 
 VERSIONS: Incomplete
 INSTALL_MAPPING: Incomplete

@@ -3,16 +3,11 @@ from _typeshed import Incomplete
 from collections.abc import Generator, Hashable, Sequence
 from matplotlib.colors import Colormap
 from pandas import ExcelWriter as ExcelWriter, IndexSlice as IndexSlice, RangeIndex as RangeIndex
-from pandas._config import get_option as get_option
 from pandas._typing import Axis as Axis, AxisInt as AxisInt, FilePath as FilePath, IndexLabel as IndexLabel, IntervalClosedType as IntervalClosedType, Level as Level, QuantileInterpolation as QuantileInterpolation, Scalar as Scalar, StorageOptions as StorageOptions, WriteBuffer as WriteBuffer, WriteExcelBuffer as WriteExcelBuffer
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core.frame import DataFrame as DataFrame, Series as Series
 from pandas.core.generic import NDFrame as NDFrame
-from pandas.core.shared_docs import _shared_docs as _shared_docs
-from pandas.io.formats.format import save_to_buffer as save_to_buffer
 from pandas.io.formats.style_render import CSSProperties as CSSProperties, CSSStyles as CSSStyles, ExtFormatter as ExtFormatter, StylerRenderer as StylerRenderer, Subset as Subset, Tooltips as Tooltips, format_table_styles as format_table_styles, maybe_convert_css_to_tuples as maybe_convert_css_to_tuples, non_reducing_slice as non_reducing_slice, refactor_levels as refactor_levels
 from pandas.util._decorators import Substitution as Substitution, doc as doc
-from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Any, overload
 
 from collections.abc import Callable

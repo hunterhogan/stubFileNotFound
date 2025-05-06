@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 from numpy import ndarray
 from pandas._libs.lib import is_bool as is_bool, is_integer as is_integer
 from pandas._typing import Axis as Axis, AxisInt as AxisInt
-from pandas.errors import UnsupportedFunctionCall as UnsupportedFunctionCall
 from pandas.util._validators import validate_args as validate_args, validate_args_and_kwargs as validate_args_and_kwargs, validate_kwargs as validate_kwargs
 from typing import Any, TypeVar, overload
 

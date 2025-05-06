@@ -1,4 +1,3 @@
-import sys
 from collections.abc import Mapping, Sequence
 
 __all__ = ["readmodule", "readmodule_ex", "Class", "Function"]

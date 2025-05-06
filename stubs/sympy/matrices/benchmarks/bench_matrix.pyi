@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from sympy.core.numbers import Integer as Integer
 from sympy.matrices.dense import eye as eye, zeros as zeros
 
 i3: Incomplete

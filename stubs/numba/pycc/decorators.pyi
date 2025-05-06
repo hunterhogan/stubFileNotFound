@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from numba.core import sigutils as sigutils, typing as typing
-from numba.pycc.compiler import ExportEntry as ExportEntry
 
 export_registry: Incomplete
 

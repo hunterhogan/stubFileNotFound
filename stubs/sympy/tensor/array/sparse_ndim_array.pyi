@@ -1,11 +1,7 @@
 from _typeshed import Incomplete
-from sympy.core.basic import Basic as Basic
 from sympy.core.containers import Dict as Dict, Tuple as Tuple
-from sympy.core.singleton import S as S
-from sympy.core.sympify import _sympify as _sympify
 from sympy.tensor.array.mutable_ndim_array import MutableNDimArray as MutableNDimArray
 from sympy.tensor.array.ndim_array import ImmutableNDimArray as ImmutableNDimArray, NDimArray as NDimArray
-from sympy.utilities.iterables import flatten as flatten
 
 class SparseNDimArray(NDimArray):
     def __new__(self, *args, **kwargs): ...

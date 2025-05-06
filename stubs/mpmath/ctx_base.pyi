@@ -7,7 +7,6 @@ from .calculus.quadrature import QuadratureMethods as QuadratureMethods
 from .functions.functions import SpecialFunctions as SpecialFunctions
 from .functions.rszeta import RSCache as RSCache
 from .identification import IdentificationMethods as IdentificationMethods
-from .libmp.backend import xrange as xrange
 from .matrices.calculus import MatrixCalculusMethods as MatrixCalculusMethods
 from .matrices.eigen import Eigen as Eigen
 from .matrices.linalg import LinearAlgebraMethods as LinearAlgebraMethods

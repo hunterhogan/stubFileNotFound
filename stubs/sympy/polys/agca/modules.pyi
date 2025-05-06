@@ -1,11 +1,5 @@
 from _typeshed import Incomplete
-from sympy.core.basic import _aresame as _aresame
-from sympy.polys.agca.ideals import Ideal as Ideal
-from sympy.polys.domains.field import Field as Field
 from sympy.polys.orderings import ProductOrder as ProductOrder, monomial_key as monomial_key
-from sympy.polys.polyclasses import DMP as DMP
-from sympy.polys.polyerrors import CoercionFailed as CoercionFailed
-from sympy.utilities.iterables import iterable as iterable
 
 class Module:
     """

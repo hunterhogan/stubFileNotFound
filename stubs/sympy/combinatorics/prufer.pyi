@@ -1,10 +1,6 @@
 from _typeshed import Incomplete
 from sympy.core import Basic as Basic
-from sympy.core.containers import Tuple as Tuple
-from sympy.core.sympify import _sympify as _sympify
-from sympy.tensor.array import Array as Array
 from sympy.utilities.iterables import flatten as flatten, iterable as iterable
-from sympy.utilities.misc import as_int as as_int
 
 class Prufer(Basic):
     """

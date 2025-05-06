@@ -1,9 +1,4 @@
 from _typeshed import Incomplete
-from numba.core import types as types
-from numba.core.extending import overload as overload
-from numba.core.imputils import impl_ret_untracked as impl_ret_untracked
-from numba.core.typing import signature as signature
-from numba.cpython import mathimpl as mathimpl
 
 def is_nan(builder, z): ...
 def is_inf(builder, z): ...

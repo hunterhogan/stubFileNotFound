@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from docutils.parsers.rst import Directive
 from matplotlib import _pylab_helpers as _pylab_helpers, cbook as cbook
-from matplotlib.backend_bases import FigureManagerBase as FigureManagerBase
 
 __version__: int
 

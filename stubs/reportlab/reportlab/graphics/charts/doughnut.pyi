@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 from typing import Final
 
 from reportlab.graphics.charts.piecharts import AbstractPieChart, WedgeProperties
-from reportlab.lib.attrmap import *
 
 __version__: Final[str]
 

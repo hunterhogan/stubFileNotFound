@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
-from sympy.core import igcd as igcd
 from sympy.polys.monomials import monomial_div as monomial_div, monomial_min as monomial_min
-from sympy.polys.orderings import monomial_key as monomial_key
 
 ninf: Incomplete
 

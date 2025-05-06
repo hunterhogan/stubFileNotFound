@@ -2,9 +2,7 @@ import numpy as np
 from _typeshed import Incomplete
 from collections.abc import Hashable, Iterator, Sequence
 from pandas import DataFrame as DataFrame, Index as Index, Series as Series
-from pandas._config import get_option as get_option
 from pandas._libs import NaT as NaT, lib as lib
-from pandas._libs.arrays import NDArrayBacked as NDArrayBacked
 from pandas._typing import ArrayLike as ArrayLike, AstypeArg as AstypeArg, AxisInt as AxisInt, Dtype as Dtype, DtypeObj as DtypeObj, NpDtype as NpDtype, Ordered as Ordered, Self as Self, Shape as Shape, SortKind as SortKind, npt as npt
 from pandas.core import algorithms as algorithms, arraylike as arraylike, ops as ops
 from pandas.core.accessor import PandasDelegate as PandasDelegate, delegate_names as delegate_names
@@ -17,12 +15,7 @@ from pandas.core.dtypes.common import ensure_int64 as ensure_int64, ensure_platf
 from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype, CategoricalDtype as CategoricalDtype, CategoricalDtypeType as CategoricalDtypeType, ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.generic import ABCIndex as ABCIndex, ABCSeries as ABCSeries
 from pandas.core.dtypes.missing import is_valid_na_for_dtype as is_valid_na_for_dtype, isna as isna
-from pandas.core.ops.common import unpack_zerodim_and_defer as unpack_zerodim_and_defer
-from pandas.core.sorting import nargsort as nargsort
 from pandas.core.strings.object_array import ObjectStringArrayMixin as ObjectStringArrayMixin
-from pandas.io.formats import console as console
-from pandas.util._exceptions import find_stack_level as find_stack_level
-from pandas.util._validators import validate_bool_kwarg as validate_bool_kwarg
 from typing import Literal, overload
 
 def _cat_compare_op(op): ...

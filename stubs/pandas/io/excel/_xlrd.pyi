@@ -1,8 +1,5 @@
 from pandas._typing import Scalar as Scalar, StorageOptions as StorageOptions
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
-from pandas.core.shared_docs import _shared_docs as _shared_docs
 from pandas.io.excel._base import BaseExcelReader as BaseExcelReader
-from pandas.util._decorators import doc as doc
 from xlrd import Book
 
 class XlrdReader(BaseExcelReader['Book']):

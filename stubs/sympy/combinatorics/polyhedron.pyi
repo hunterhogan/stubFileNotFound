@@ -1,9 +1,6 @@
 from _typeshed import Incomplete
-from sympy.combinatorics.perm_groups import PermutationGroup as PermutationGroup
 from sympy.core import Basic as Basic, Tuple as Tuple, default_sort_key as default_sort_key
-from sympy.sets import FiniteSet as FiniteSet
 from sympy.utilities.iterables import flatten as flatten, minlex as minlex, unflatten as unflatten
-from sympy.utilities.misc import as_int as as_int
 
 rmul: Incomplete
 

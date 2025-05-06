@@ -3,14 +3,9 @@ from sympy.core import Add as Add, S as S
 from sympy.core.function import AppliedUndef as AppliedUndef, Function as Function, Subs as Subs, expand as expand
 from sympy.core.relational import Eq as Eq, Equality as Equality
 from sympy.core.symbol import Symbol as Symbol, Wild as Wild, symbols as symbols
-from sympy.functions import exp as exp
 from sympy.integrals.integrals import Integral as Integral, integrate as integrate
-from sympy.simplify import simplify as simplify
-from sympy.simplify.radsimp import collect as collect
 from sympy.solvers.deutils import _desolve as _desolve, _preprocess as _preprocess, ode_order as ode_order
-from sympy.solvers.solvers import solve as solve
 from sympy.utilities.iterables import has_dups as has_dups, is_sequence as is_sequence
-from sympy.utilities.misc import filldedent as filldedent
 
 allhints: Incomplete
 

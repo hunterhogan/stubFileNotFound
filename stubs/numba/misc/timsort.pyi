@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from numba.core import types as types
 from typing import NamedTuple
 
 class TimsortImplementation(NamedTuple):

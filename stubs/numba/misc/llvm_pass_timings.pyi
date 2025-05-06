@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator, Sequence
 from functools import cached_property as cached_property
-from numba.core import config as config
 from typing import NamedTuple
 
 class RecordLLVMPassTimings:

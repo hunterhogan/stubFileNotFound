@@ -1,5 +1,3 @@
-from sympy.external import import_module as import_module
-from sympy.plotting.intervalmath import interval as interval
 
 def Abs(x): ...
 def exp(x):

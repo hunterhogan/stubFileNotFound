@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from llvmlite import opaque_pointers_enabled as opaque_pointers_enabled
 from llvmlite.ir._utils import _StrCaching as _StrCaching
 
 def _wrapname(x): ...

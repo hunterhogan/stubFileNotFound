@@ -3,13 +3,6 @@ from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from collections.abc import Generator
 from numba.core import cgutils as cgutils, config as config, utils as utils
-from numba.core.compiler_lock import require_global_compiler_lock as require_global_compiler_lock
-from numba.core.errors import NumbaInvalidConfigWarning as NumbaInvalidConfigWarning
-from numba.core.llvm_bindings import create_pass_manager_builder as create_pass_manager_builder
-from numba.core.runtime import rtsys as rtsys
-from numba.core.runtime.nrtopt import remove_redundant_nrt_refct as remove_redundant_nrt_refct
-from numba.misc.inspection import disassemble_elf_to_cfg as disassemble_elf_to_cfg
-from numba.misc.llvm_pass_timings import PassTimingsCollection as PassTimingsCollection
 
 _x86arch: Incomplete
 

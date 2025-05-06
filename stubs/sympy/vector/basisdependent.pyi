@@ -1,9 +1,7 @@
 from _typeshed import Incomplete
 from sympy.core import Add as Add, Mul as Mul, S as S
-from sympy.core.assumptions import StdFactKB as StdFactKB
 from sympy.core.decorators import _sympifyit as _sympifyit, call_highest_priority as call_highest_priority
 from sympy.core.expr import Expr as Expr
-from sympy.integrals.integrals import Integral as Integral
 from sympy.vector.vector import BaseVector as BaseVector
 
 class BasisDependent(Expr):

@@ -8,8 +8,6 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import TypeSpec
 from tensorflow._aliases import ContainerGeneric, ScalarTensorCompatible, TensorCompatible
-from tensorflow.data import experimental as experimental
-from tensorflow.data.experimental import AUTOTUNE as AUTOTUNE
 from tensorflow.dtypes import DType
 from tensorflow.io import _CompressionTypes
 from tensorflow.python.trackable.base import Trackable

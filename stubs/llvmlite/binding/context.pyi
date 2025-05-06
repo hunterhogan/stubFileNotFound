@@ -1,4 +1,3 @@
-from llvmlite import opaque_pointers_enabled as opaque_pointers_enabled
 from llvmlite.binding import ffi as ffi
 
 def create_context(): ...

@@ -1,28 +1,19 @@
 import numpy as np
 from _typeshed import Incomplete
 from collections.abc import Hashable, Mapping, Sequence
-from pandas import Categorical as Categorical
 from pandas._libs import Interval as Interval, lib as lib
-from pandas._libs.hashtable import duplicated as duplicated
 from pandas._typing import ArrayLike as ArrayLike, Axis as Axis, AxisInt as AxisInt, CorrelationMethod as CorrelationMethod, FillnaOptions as FillnaOptions, IndexLabel as IndexLabel, Manager as Manager, Manager2D as Manager2D, SingleManager as SingleManager, TakeIndexer as TakeIndexer
-from pandas.core import algorithms as algorithms
 from pandas.core.apply import GroupByApply as GroupByApply, maybe_mangle_lambdas as maybe_mangle_lambdas, reconstruct_func as reconstruct_func, validate_func_kwargs as validate_func_kwargs, warn_alias_replacement as warn_alias_replacement
 from pandas.core.dtypes.common import ensure_int64 as ensure_int64, is_bool as is_bool, is_dict_like as is_dict_like, is_integer_dtype as is_integer_dtype, is_list_like as is_list_like, is_numeric_dtype as is_numeric_dtype, is_scalar as is_scalar
 from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, IntervalDtype as IntervalDtype
-from pandas.core.dtypes.inference import is_hashable as is_hashable
 from pandas.core.dtypes.missing import isna as isna, notna as notna
 from pandas.core.frame import DataFrame as DataFrame
-from pandas.core.generic import NDFrame as NDFrame
 from pandas.core.groupby import base as base, ops as ops
 from pandas.core.groupby.groupby import GroupBy as GroupBy, GroupByPlot as GroupByPlot, _agg_template_frame as _agg_template_frame, _agg_template_series as _agg_template_series, _apply_docs as _apply_docs, _transform_template as _transform_template
 from pandas.core.indexes.api import Index as Index, MultiIndex as MultiIndex, all_indexes_same as all_indexes_same, default_index as default_index
 from pandas.core.series import Series as Series
-from pandas.core.sorting import get_group_index as get_group_index
-from pandas.core.util.numba_ import maybe_use_numba as maybe_use_numba
-from pandas.errors import SpecificationError as SpecificationError
 from pandas.plotting import boxplot_frame_groupby as boxplot_frame_groupby
 from pandas.util._decorators import Appender as Appender, Substitution as Substitution, doc as doc
-from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Any, Literal, NamedTuple, TypeVar
 
 from collections.abc import Callable

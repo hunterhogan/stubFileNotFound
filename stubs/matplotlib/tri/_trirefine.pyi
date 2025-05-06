@@ -1,6 +1,4 @@
 from _typeshed import Incomplete
-from matplotlib import _api as _api
-from matplotlib.tri._triangulation import Triangulation as Triangulation
 
 class TriRefiner:
     """

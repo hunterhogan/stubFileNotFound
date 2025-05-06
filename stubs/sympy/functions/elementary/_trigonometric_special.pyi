@@ -1,9 +1,4 @@
-from sympy.core.cache import cacheit as cacheit
 from sympy.core.expr import Expr as Expr
-from sympy.core.intfunc import igcdex as igcdex
-from sympy.core.numbers import Integer as Integer
-from sympy.core.singleton import S as S
-from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from collections.abc import Callable
 
 def migcdex(*x: int) -> tuple[tuple[int, ...], int]:

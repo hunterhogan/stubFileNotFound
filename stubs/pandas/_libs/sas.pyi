@@ -1,5 +1,4 @@
 import _cython_3_0_11
-import pandas.io.sas.sas_constants as const
 from typing import ClassVar
 
 __reduce_cython__: _cython_3_0_11.cython_function_or_method

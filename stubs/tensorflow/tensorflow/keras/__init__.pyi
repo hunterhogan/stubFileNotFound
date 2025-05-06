@@ -12,6 +12,5 @@ from tensorflow.keras import (
     optimizers as optimizers,
     regularizers as regularizers,
 )
-from tensorflow.keras.models import Model as Model
 
 def __getattr__(name: str) -> Incomplete: ...

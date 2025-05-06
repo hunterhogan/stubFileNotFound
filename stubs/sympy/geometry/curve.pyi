@@ -1,13 +1,6 @@
 from _typeshed import Incomplete
-from sympy.core import diff as diff
-from sympy.core.containers import Tuple as Tuple
-from sympy.core.symbol import _symbol as _symbol
-from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.geometry.entity import GeometryEntity as GeometryEntity, GeometrySet as GeometrySet
-from sympy.geometry.point import Point as Point
-from sympy.integrals import integrate as integrate
 from sympy.matrices import Matrix as Matrix, rot_axis3 as rot_axis3
-from sympy.utilities.iterables import is_sequence as is_sequence
 
 class Curve(GeometrySet):
     """A curve in space.

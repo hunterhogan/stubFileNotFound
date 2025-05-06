@@ -1,5 +1,4 @@
 import _cython_3_0_11
-import cytoolz as cytoolz
 
 __pyx_capi__: dict
 __test__: dict

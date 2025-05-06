@@ -4,10 +4,6 @@ from collections.abc import Hashable
 from pandas._libs import index as libindex
 from pandas._typing import Dtype as Dtype, DtypeObj as DtypeObj, Self as Self, npt as npt
 from pandas.core.arrays.categorical import Categorical as Categorical, contains as contains
-from pandas.core.construction import extract_array as extract_array
-from pandas.core.dtypes.common import is_scalar as is_scalar
-from pandas.core.dtypes.concat import concat_compat as concat_compat
-from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype
 from pandas.core.dtypes.missing import is_valid_na_for_dtype as is_valid_na_for_dtype, isna as isna
 from pandas.core.indexes.base import Index as Index, maybe_extract_name as maybe_extract_name
 from pandas.core.indexes.extension import NDArrayBackedExtensionIndex as NDArrayBackedExtensionIndex, inherit_names as inherit_names

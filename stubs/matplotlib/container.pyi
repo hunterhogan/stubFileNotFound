@@ -1,6 +1,4 @@
 from _typeshed import Incomplete
-from matplotlib import cbook as cbook
-from matplotlib.artist import Artist as Artist
 
 class Container(tuple):
     """

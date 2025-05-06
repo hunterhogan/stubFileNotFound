@@ -1,10 +1,8 @@
 from _typeshed import Incomplete
 from sympy.abc import x as x, y as y, z as z
 from sympy.core import Expr as Expr, S as S, Symbol as Symbol, diff as diff
-from sympy.core.sympify import _sympify as _sympify
 from sympy.geometry import Point as Point, Point2D as Point2D, Polygon as Polygon, Segment2D as Segment2D
 from sympy.polys.polytools import LC as LC, Poly as Poly, degree_list as degree_list, gcd_list as gcd_list
-from sympy.simplify.simplify import nsimplify as nsimplify
 
 def polytope_integrate(poly, expr: Incomplete | None = None, *, clockwise: bool = False, max_degree: Incomplete | None = None):
     """Integrates polynomials over 2/3-Polytopes.

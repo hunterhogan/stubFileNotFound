@@ -1,10 +1,5 @@
 from .matexpr import MatrixExpr as MatrixExpr
 from sympy.assumptions.ask import Q as Q, ask as ask
-from sympy.core.relational import Eq as Eq
-from sympy.core.singleton import S as S
-from sympy.core.sympify import _sympify as _sympify
-from sympy.functions.special.tensor_functions import KroneckerDelta as KroneckerDelta
-from sympy.matrices.exceptions import NonInvertibleMatrixError as NonInvertibleMatrixError
 
 class ZeroMatrix(MatrixExpr):
     """The Matrix Zero 0 - additive identity

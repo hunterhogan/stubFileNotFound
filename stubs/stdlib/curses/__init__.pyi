@@ -1,5 +1,3 @@
-import sys
-from _curses import *
 from _curses import window as window
 from _typeshed import structseq
 from collections.abc import Callable

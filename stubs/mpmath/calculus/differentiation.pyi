@@ -1,5 +1,3 @@
-from ..libmp.backend import xrange as xrange
-from .calculus import defun as defun
 from _typeshed import Incomplete
 from collections.abc import Generator
 

@@ -1,14 +1,8 @@
 from _typeshed import Incomplete
 from sympy.core import Basic as Basic, Mul as Mul, PoleError as PoleError, S as S, expand_mul as expand_mul
-from sympy.core.cache import cacheit as cacheit
-from sympy.core.intfunc import ilcm as ilcm
 from sympy.core.numbers import I as I, oo as oo
 from sympy.core.symbol import Dummy as Dummy, Wild as Wild
-from sympy.core.traversal import bottom_up as bottom_up
 from sympy.functions import exp as exp, log as log
-from sympy.series.order import Order as Order
-from sympy.utilities.exceptions import SymPyDeprecationWarning as SymPyDeprecationWarning
-from sympy.utilities.timeutils import timethis as timethis
 
 timeit: Incomplete
 

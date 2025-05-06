@@ -1,8 +1,5 @@
 from _typeshed import Incomplete
 from numba.core import errors as errors, ir as ir, ir_utils as ir_utils, sigutils as sigutils, types as types
-from numba.core.ir_utils import build_definitions as build_definitions
-from numba.core.transforms import find_region_inout_vars as find_region_inout_vars
-from numba.core.typing.typeof import typeof_impl as typeof_impl
 
 class WithContext:
     """A dummy object for use as contextmanager.

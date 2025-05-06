@@ -1,7 +1,4 @@
-from .latex import latex as latex
 from _typeshed import Incomplete
-from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
-from sympy.utilities.misc import debug as debug
 
 __doctest_requires__: Incomplete
 

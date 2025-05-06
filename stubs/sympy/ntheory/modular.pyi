@@ -1,8 +1,5 @@
 from sympy.external.gmpy import gcd as gcd, gcdext as gcdext
-from sympy.ntheory.primetest import isprime as isprime
-from sympy.polys.domains import ZZ as ZZ
 from sympy.polys.galoistools import gf_crt as gf_crt, gf_crt1 as gf_crt1, gf_crt2 as gf_crt2
-from sympy.utilities.misc import as_int as as_int
 
 def symmetric_residue(a, m):
     """Return the residual mod m such that it is within half of the modulus.

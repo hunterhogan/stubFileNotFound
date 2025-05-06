@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from numba import config as config
 from numba.core import errors as errors, ir as ir, ir_utils as ir_utils
-from numba.core.analysis import compute_cfg_from_blocks as compute_cfg_from_blocks
 from numba.core.utils import OrderedSet as OrderedSet, _lazy_pformat as _lazy_pformat
 
 _logger: Incomplete

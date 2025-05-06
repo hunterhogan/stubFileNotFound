@@ -3,7 +3,6 @@ import json
 from _typeshed import Incomplete
 from matplotlib import _afm as _afm, _api as _api, cbook as cbook, ft2font as ft2font
 from matplotlib._fontconfig_pattern import generate_fontconfig_pattern as generate_fontconfig_pattern, parse_fontconfig_pattern as parse_fontconfig_pattern
-from matplotlib.rcsetup import _validators as _validators
 
 _log: Incomplete
 font_scalings: Incomplete

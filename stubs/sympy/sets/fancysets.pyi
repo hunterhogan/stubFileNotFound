@@ -1,13 +1,6 @@
 from .sets import FiniteSet as FiniteSet, Interval as Interval, ProductSet as ProductSet, Set as Set, SetKind as SetKind, Union as Union, tfn as tfn
 from _typeshed import Incomplete
-from sympy.core.basic import Basic as Basic
-from sympy.core.containers import Tuple as Tuple
-from sympy.core.expr import Expr as Expr
-from sympy.core.function import Lambda as Lambda
-from sympy.core.intfunc import igcd as igcd
-from sympy.core.kind import NumberKind as NumberKind
 from sympy.core.logic import fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
-from sympy.core.mod import Mod as Mod
 from sympy.core.numbers import Rational as Rational, oo as oo
 from sympy.core.relational import Eq as Eq, is_eq as is_eq
 from sympy.core.singleton import S as S, Singleton as Singleton
@@ -16,7 +9,6 @@ from sympy.core.sympify import _sympify as _sympify, _sympy_converter as _sympy_
 from sympy.functions.elementary.integers import ceiling as ceiling, floor as floor
 from sympy.functions.elementary.trigonometric import cos as cos, sin as sin
 from sympy.logic.boolalg import And as And, Or as Or
-from sympy.utilities.misc import filldedent as filldedent
 
 class Rationals(Set, metaclass=Singleton):
     """

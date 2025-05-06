@@ -1,5 +1,4 @@
 import sys
-from _stat import *
 from typing import Final
 
 if sys.version_info >= (3, 13):

@@ -1,9 +1,5 @@
 from sympy.core import Basic as Basic, Tuple as Tuple
-from sympy.core.expr import Expr as Expr
-from sympy.core.numbers import Integer as Integer
-from sympy.core.symbol import Symbol as Symbol
 from sympy.core.sympify import _sympify as _sympify, sympify as sympify
-from sympy.tensor.array import ImmutableDenseNDimArray as ImmutableDenseNDimArray
 
 class ArrayComprehension(Basic):
     """

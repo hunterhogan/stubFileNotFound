@@ -3,7 +3,6 @@ from typing import Final
 
 from reportlab.graphics.charts.utils import CustomDrawChanger
 from reportlab.graphics.widgetbase import PropHolder, Widget
-from reportlab.lib.attrmap import *
 
 __version__: Final[str]
 

@@ -1,7 +1,5 @@
 import typing as T
-from . import _api as _api
 from _typeshed import Incomplete
-from matplotlib.cbook import _format_approx as _format_approx
 
 _log: Incomplete
 

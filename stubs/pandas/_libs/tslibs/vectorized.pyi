@@ -1,5 +1,4 @@
 import _cython_3_0_11
-from pandas._libs.tslibs.dtypes import Resolution as Resolution
 
 __test__: dict
 dt64arr_to_periodarr: _cython_3_0_11.cython_function_or_method

@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from llvmlite.ir.transforms import CallVisitor
-from numba.core import types as types
 
 class _MarkNrtCallVisitor(CallVisitor):
     """

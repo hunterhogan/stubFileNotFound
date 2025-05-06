@@ -1,9 +1,7 @@
 from _typeshed import Incomplete
 from enum import IntEnum
 from numba.core import cgutils as cgutils, config as config, types as types
-from numba.core.errors import TypingError as TypingError
 from numba.core.extending import intrinsic as intrinsic, overload as overload, register_jitable as register_jitable
-from numba.core.imputils import impl_ret_untracked as impl_ret_untracked
 from typing import NamedTuple
 
 class typerecord(NamedTuple):

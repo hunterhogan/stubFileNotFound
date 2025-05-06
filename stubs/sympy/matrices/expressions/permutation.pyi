@@ -1,8 +1,5 @@
 from .matexpr import MatrixExpr as MatrixExpr
 from .special import Identity as Identity, OneMatrix as OneMatrix, ZeroMatrix as ZeroMatrix
-from sympy.core import S as S
-from sympy.core.sympify import _sympify as _sympify
-from sympy.functions import KroneckerDelta as KroneckerDelta
 
 class PermutationMatrix(MatrixExpr):
     """A Permutation Matrix

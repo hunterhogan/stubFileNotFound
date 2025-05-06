@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from sympy.combinatorics.graycode import GrayCode as GrayCode
 
 class Subset:
     """

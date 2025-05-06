@@ -1,4 +1,3 @@
-from reportlab.graphics.samples.excelcolors import *
 from reportlab.graphics.shapes import Drawing, _DrawingEditorMixin
 
 class LineChartWithMarkers(_DrawingEditorMixin, Drawing):

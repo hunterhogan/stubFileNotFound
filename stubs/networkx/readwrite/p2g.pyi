@@ -1,4 +1,3 @@
-from networkx.utils import open_file as open_file
 
 def write_p2g(G, path, encoding: str = 'utf-8') -> None:
     """Write NetworkX graph in p2g format.

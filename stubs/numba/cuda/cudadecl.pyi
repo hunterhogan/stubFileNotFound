@@ -1,10 +1,7 @@
 from _typeshed import Incomplete
 from numba import cuda as cuda
-from numba.core import types as types
-from numba.core.typeconv import Conversion as Conversion
 from numba.core.typing.npydecl import bit_twiddling_functions as bit_twiddling_functions, comparison_functions as comparison_functions, math_operations as math_operations, parse_dtype as parse_dtype, parse_shape as parse_shape, register_number_classes as register_number_classes, register_numpy_ufunc as register_numpy_ufunc, trigonometric_functions as trigonometric_functions
 from numba.core.typing.templates import AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, CallableTemplate as CallableTemplate, ConcreteTemplate as ConcreteTemplate, Registry as Registry, signature as signature
-from numba.cuda.compiler import declare_device_function_template as declare_device_function_template
 from numba.cuda.types import dim3 as dim3
 
 registry: Incomplete

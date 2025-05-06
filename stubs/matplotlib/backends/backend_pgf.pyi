@@ -1,12 +1,6 @@
 from _typeshed import Incomplete
-from matplotlib import cbook as cbook
-from matplotlib._pylab_helpers import Gcf as Gcf
 from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, RendererBase as RendererBase, _Backend as _Backend
-from matplotlib.backends.backend_mixed import MixedModeRenderer as MixedModeRenderer
 from matplotlib.backends.backend_pdf import _create_pdf_info_dict as _create_pdf_info_dict, _datetime_to_pdf as _datetime_to_pdf
-from matplotlib.figure import Figure as Figure
-from matplotlib.font_manager import FontProperties as FontProperties
-from matplotlib.path import Path as Path
 
 _log: Incomplete
 _DOCUMENTCLASS: str

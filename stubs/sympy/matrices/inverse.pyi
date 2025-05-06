@@ -1,8 +1,5 @@
 from .exceptions import MatrixError as MatrixError, NonInvertibleMatrixError as NonInvertibleMatrixError, NonSquareMatrixError as NonSquareMatrixError
-from .utilities import _iszero as _iszero
 from _typeshed import Incomplete
-from sympy.polys.domains import EX as EX
-from sympy.polys.matrices.exceptions import DMNonInvertibleMatrixError as DMNonInvertibleMatrixError
 
 def _pinv_full_rank(M):
     """Subroutine for full row or column rank matrices.

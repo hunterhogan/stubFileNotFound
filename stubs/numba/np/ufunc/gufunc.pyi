@@ -1,12 +1,7 @@
 from _typeshed import Incomplete
-from numba import typeof as typeof
 from numba.core import errors as errors, serialize as serialize, types as types
-from numba.core.typing import npydecl as npydecl
 from numba.core.typing.templates import AbstractTemplate as AbstractTemplate, signature as signature
-from numba.np.numpy_support import ufunc_find_matching_loop as ufunc_find_matching_loop
-from numba.np.ufunc.sigparse import parse_signature as parse_signature
 from numba.np.ufunc.ufunc_base import UfuncBase as UfuncBase, UfuncLowererBase as UfuncLowererBase
-from numba.np.ufunc.ufuncbuilder import GUFuncBuilder as GUFuncBuilder
 
 def make_gufunc_kernel(_dufunc): ...
 

@@ -5,15 +5,8 @@ from lxml import etree as etree
 from pandas import DataFrame as DataFrame
 from pandas._libs import lib as lib
 from pandas._typing import CompressionOptions as CompressionOptions, ConvertersArg as ConvertersArg, DtypeArg as DtypeArg, DtypeBackend as DtypeBackend, FilePath as FilePath, ParseDatesArg as ParseDatesArg, ReadBuffer as ReadBuffer, StorageOptions as StorageOptions, XMLParsers as XMLParsers
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
-from pandas.core.dtypes.common import is_list_like as is_list_like
-from pandas.core.shared_docs import _shared_docs as _shared_docs
 from pandas.errors import AbstractMethodError as AbstractMethodError, ParserError as ParserError
 from pandas.io.common import file_exists as file_exists, get_handle as get_handle, infer_compression as infer_compression, is_file_like as is_file_like, is_fsspec_url as is_fsspec_url, is_url as is_url, stringify_path as stringify_path
-from pandas.io.parsers import TextParser as TextParser
-from pandas.util._decorators import doc as doc
-from pandas.util._exceptions import find_stack_level as find_stack_level
-from pandas.util._validators import check_dtype_backend as check_dtype_backend
 from typing import Any
 
 from collections.abc import Callable

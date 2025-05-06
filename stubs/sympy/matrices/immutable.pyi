@@ -1,14 +1,9 @@
 from _typeshed import Incomplete
 from sympy.core import Basic as Basic, Dict as Dict, Tuple as Tuple
-from sympy.core.cache import cacheit as cacheit
-from sympy.core.numbers import Integer as Integer
-from sympy.core.sympify import _sympify as _sympify
 from sympy.matrices.dense import DenseMatrix as DenseMatrix
 from sympy.matrices.expressions import MatrixExpr as MatrixExpr
-from sympy.matrices.matrixbase import MatrixBase as MatrixBase
 from sympy.matrices.repmatrix import RepMatrix as RepMatrix
 from sympy.matrices.sparse import SparseRepMatrix as SparseRepMatrix
-from sympy.multipledispatch import dispatch as dispatch
 
 def sympify_matrix(arg): ...
 def sympify_mpmath_matrix(arg): ...

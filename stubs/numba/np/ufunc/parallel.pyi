@@ -1,10 +1,7 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, config as config, errors as errors, types as types
-from numba.core.typing import signature as signature
 from numba.extending import intrinsic as intrinsic, overload as overload
-from numba.np.numpy_support import as_dtype as as_dtype
 from numba.np.ufunc import ufuncbuilder as ufuncbuilder
-from numba.np.ufunc.wrappers import _wrapper_info as _wrapper_info
 
 _IS_OSX: Incomplete
 _IS_LINUX: Incomplete

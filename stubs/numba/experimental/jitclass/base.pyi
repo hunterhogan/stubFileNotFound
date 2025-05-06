@@ -1,12 +1,7 @@
 from _typeshed import Incomplete
-from numba import njit as njit
 from numba.core import cgutils as cgutils, errors as errors, imputils as imputils, types as types, utils as utils
 from numba.core.datamodel import default_manager as default_manager, models as models
-from numba.core.registry import cpu_target as cpu_target
-from numba.core.serialize import disable_pickling as disable_pickling
 from numba.core.typing import templates as templates
-from numba.core.typing.asnumbatype import as_numba_type as as_numba_type
-from numba.experimental.jitclass import _box as _box
 
 class InstanceModel(models.StructModel):
     def __init__(self, dmm, fe_typ) -> None: ...

@@ -1,6 +1,4 @@
 import _cython_3_0_11
-import pandas._libs.algos as algos
-import pandas._libs.hashtable as _hash
 from _typeshed import Incomplete
 from typing import ClassVar
 

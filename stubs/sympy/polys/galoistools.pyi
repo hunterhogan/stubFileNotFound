@@ -1,9 +1,6 @@
 from _typeshed import Incomplete
 from sympy.core.random import _randint as _randint, uniform as uniform
 from sympy.external.gmpy import MPZ as MPZ, SYMPY_INTS as SYMPY_INTS, invert as invert
-from sympy.polys.polyconfig import query as query
-from sympy.polys.polyerrors import ExactQuotientFailed as ExactQuotientFailed
-from sympy.polys.polyutils import _sort_factors as _sort_factors
 
 def gf_crt(U, M, K: Incomplete | None = None):
     """

@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 from sympy.polys.domains.domain import Domain as Domain
 from sympy.polys.domains.domainelement import DomainElement as DomainElement
 from sympy.polys.polyerrors import CoercionFailed as CoercionFailed, GeneratorsError as GeneratorsError, NotInvertible as NotInvertible
-from sympy.polys.polytools import Poly as Poly
 from sympy.printing.defaults import DefaultPrinting as DefaultPrinting
 
 class ExtensionElement(DomainElement, DefaultPrinting):

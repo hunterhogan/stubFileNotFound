@@ -1,9 +1,5 @@
 from _typeshed import Incomplete
 from sympy.core.expr import AtomicExpr as AtomicExpr
-from sympy.core.symbol import Symbol as Symbol
-from sympy.core.sympify import sympify as sympify
-from sympy.physics.units.dimensions import _QuantityMapper as _QuantityMapper
-from sympy.physics.units.prefixes import Prefix as Prefix
 
 class Quantity(AtomicExpr):
     """

@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 from collections.abc import Iterable
 
 import _win32typing
-from win32.lib.pywintypes import error as error
 
 def GetThreadDesktop(ThreadId: int, /) -> _win32typing.PyHDESK: ...
 def EnumWindowStations() -> tuple[tuple[str, Incomplete], ...]: ...

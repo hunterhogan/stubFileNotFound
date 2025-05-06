@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, config as config, errors as errors, ir as ir, types as types
-from numba.core.analysis import compute_cfg_from_blocks as compute_cfg_from_blocks
-from numba.core.extending import intrinsic as intrinsic
 from numba.core.ir_utils import GuardException as GuardException, build_definitions as build_definitions, dprint_func_ir as dprint_func_ir, find_build_sequence as find_build_sequence, find_callname as find_callname, find_const as find_const, find_potential_aliases as find_potential_aliases, find_topo_order as find_topo_order, get_canonical_alias as get_canonical_alias, get_definition as get_definition, get_global_func_typ as get_global_func_typ, guard as guard, is_namedtuple_class as is_namedtuple_class, mk_unique_var as mk_unique_var, require as require
 from numba.core.typing import npydecl as npydecl, signature as signature
 

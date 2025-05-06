@@ -1,10 +1,6 @@
 from _typeshed import Incomplete
-from numba import typeof as typeof
 from numba.core import cgutils as cgutils, config as config, types as types, utils as utils
-from numba.core.extending import overload as overload
 from numba.core.imputils import Registry as Registry, impl_ret_untracked as impl_ret_untracked
-from numba.core.typing import signature as signature
-from numba.cpython.unsafe.numbers import trailing_zeros as trailing_zeros
 
 registry: Incomplete
 lower: Incomplete

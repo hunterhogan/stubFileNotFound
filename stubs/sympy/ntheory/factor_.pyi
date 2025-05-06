@@ -1,18 +1,9 @@
-from .digits import digits as digits
-from .ecm import _ecm_one_factor as _ecm_one_factor
 from .generate import nextprime as nextprime, primerange as primerange, sieve as sieve
 from .primetest import MERSENNE_PRIME_EXPONENTS as MERSENNE_PRIME_EXPONENTS, is_mersenne_prime as is_mersenne_prime, isprime as isprime
 from _typeshed import Incomplete
 from collections.abc import Generator
-from sympy.core.intfunc import num_digits as num_digits
-from sympy.core.mul import Mul as Mul
 from sympy.core.numbers import Integer as Integer, Rational as Rational
-from sympy.core.power import Pow as Pow
-from sympy.core.random import _randint as _randint
-from sympy.core.singleton import S as S
 from sympy.external.gmpy import SYMPY_INTS as SYMPY_INTS, bit_scan1 as bit_scan1, gcd as gcd, iroot as iroot, remove as remove, sqrtrem as sqrtrem
-from sympy.utilities.decorator import deprecated as deprecated
-from sympy.utilities.iterables import flatten as flatten
 from sympy.utilities.misc import as_int as as_int, filldedent as filldedent
 
 def smoothness(n: int) -> tuple[int, int]:

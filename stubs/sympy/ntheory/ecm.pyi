@@ -1,9 +1,6 @@
 from .generate import primerange as primerange, sieve as sieve
-from .primetest import isprime as isprime
 from _typeshed import Incomplete
-from sympy.core.random import _randint as _randint
 from sympy.external.gmpy import gcd as gcd, invert as invert, sqrt as sqrt
-from sympy.utilities.misc import as_int as as_int
 
 class Point:
     """Montgomery form of Points in an elliptic curve.

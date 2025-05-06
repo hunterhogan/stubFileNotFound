@@ -10,4 +10,3 @@ from braintree.graphql.types import (
     CustomerRecommendationsPayload as CustomerRecommendationsPayload,
     PaymentOptions as PaymentOptions,
 )
-from braintree.graphql.unions import CustomerRecommendations as CustomerRecommendations

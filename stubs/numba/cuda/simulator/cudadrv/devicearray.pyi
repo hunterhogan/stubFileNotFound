@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from numba.np.numpy_support import numpy_version as numpy_version
 
 DeviceRecord: Incomplete
 from_record_like: Incomplete

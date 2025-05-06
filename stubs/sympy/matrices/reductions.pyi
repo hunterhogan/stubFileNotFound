@@ -1,7 +1,5 @@
-from .determinant import _find_reasonable_pivot as _find_reasonable_pivot
 from .utilities import _dotprodsimp as _dotprodsimp, _get_intermediate_simp as _get_intermediate_simp, _iszero as _iszero, _simplify as _simplify
 from sympy.polys.domains import QQ as QQ, ZZ as ZZ
-from sympy.polys.polyerrors import CoercionFailed as CoercionFailed
 
 def _row_reduce_list(mat, rows, cols, one, iszerofunc, simpfunc, normalize_last: bool = True, normalize: bool = True, zero_above: bool = True):
     """Row reduce a flat list representation of a matrix and return a tuple

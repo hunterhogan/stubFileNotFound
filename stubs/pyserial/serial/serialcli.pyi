@@ -1,7 +1,7 @@
 from _typeshed import ReadableBuffer
 from typing import Any
 
-from serial.serialutil import *
+from serial.serialutil import SerialBase
 
 sab: Any  # IronPython object
 

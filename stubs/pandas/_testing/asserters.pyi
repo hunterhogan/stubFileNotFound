@@ -1,18 +1,10 @@
 from _typeshed import Incomplete
 from pandas import Categorical as Categorical, DataFrame as DataFrame, DatetimeIndex as DatetimeIndex, Index as Index, IntervalDtype as IntervalDtype, IntervalIndex as IntervalIndex, MultiIndex as MultiIndex, PeriodIndex as PeriodIndex, RangeIndex as RangeIndex, Series as Series, TimedeltaIndex as TimedeltaIndex
 from pandas._libs import lib as lib
-from pandas._libs.missing import is_matching_na as is_matching_na
-from pandas._libs.sparse import SparseIndex as SparseIndex
-from pandas._libs.tslibs.np_datetime import compare_mismatched_resolutions as compare_mismatched_resolutions
 from pandas._typing import DtypeObj as DtypeObj
 from pandas.core.arrays import DatetimeArray as DatetimeArray, ExtensionArray as ExtensionArray, IntervalArray as IntervalArray, PeriodArray as PeriodArray, TimedeltaArray as TimedeltaArray
-from pandas.core.arrays.datetimelike import DatetimeLikeArrayMixin as DatetimeLikeArrayMixin
-from pandas.core.arrays.string_ import StringDtype as StringDtype
 from pandas.core.dtypes.common import is_bool as is_bool, is_float_dtype as is_float_dtype, is_integer_dtype as is_integer_dtype, is_number as is_number, is_numeric_dtype as is_numeric_dtype, needs_i8_conversion as needs_i8_conversion
 from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype, NumpyEADtype as NumpyEADtype
-from pandas.core.dtypes.missing import array_equivalent as array_equivalent
-from pandas.core.indexes.api import safe_sort_index as safe_sort_index
-from pandas.io.formats.printing import pprint_thing as pprint_thing
 from typing import Literal, NoReturn
 
 def assert_almost_equal(left, right, check_dtype: bool | Literal['equiv'] = 'equiv', rtol: float = 1e-05, atol: float = 1e-08, **kwargs) -> None:

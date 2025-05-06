@@ -3,7 +3,6 @@ from ._enums import CapStyle as CapStyle, JoinStyle as JoinStyle
 from .artist import Artist as Artist, allow_rasterization as allow_rasterization
 from .cbook import STEP_LOOKUP_MAP as STEP_LOOKUP_MAP, _to_unmasked_float_array as _to_unmasked_float_array, ls_mapper as ls_mapper, ls_mapper_r as ls_mapper_r
 from .markers import CARETDOWN as CARETDOWN, CARETDOWNBASE as CARETDOWNBASE, CARETLEFT as CARETLEFT, CARETLEFTBASE as CARETLEFTBASE, CARETRIGHT as CARETRIGHT, CARETRIGHTBASE as CARETRIGHTBASE, CARETUP as CARETUP, CARETUPBASE as CARETUPBASE, MarkerStyle as MarkerStyle, TICKDOWN as TICKDOWN, TICKLEFT as TICKLEFT, TICKRIGHT as TICKRIGHT, TICKUP as TICKUP
-from .path import Path as Path
 from .transforms import Bbox as Bbox, BboxTransformTo as BboxTransformTo, TransformedPath as TransformedPath
 from _typeshed import Incomplete
 

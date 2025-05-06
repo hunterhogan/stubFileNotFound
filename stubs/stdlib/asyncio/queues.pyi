@@ -1,5 +1,4 @@
 import sys
-from asyncio.events import AbstractEventLoop
 from types import GenericAlias
 from typing import Any, Generic, TypeVar
 

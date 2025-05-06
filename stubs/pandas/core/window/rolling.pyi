@@ -4,27 +4,17 @@ from collections.abc import Hashable, Iterator, Sized
 from pandas import DataFrame as DataFrame, Series as Series
 from pandas._libs.tslibs import BaseOffset as BaseOffset, Timedelta as Timedelta, to_offset as to_offset
 from pandas._typing import ArrayLike as ArrayLike, Axis as Axis, NDFrameT as NDFrameT, QuantileInterpolation as QuantileInterpolation, WindowingRankType as WindowingRankType, npt as npt
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
-from pandas.core._numba import executor as executor
-from pandas.core.algorithms import factorize as factorize
-from pandas.core.apply import ResamplerWindowApply as ResamplerWindowApply
-from pandas.core.arrays import ExtensionArray as ExtensionArray
-from pandas.core.arrays.datetimelike import dtype_to_unit as dtype_to_unit
 from pandas.core.base import SelectionMixin as SelectionMixin
 from pandas.core.dtypes.common import ensure_float64 as ensure_float64, is_bool as is_bool, is_integer as is_integer, is_numeric_dtype as is_numeric_dtype, needs_i8_conversion as needs_i8_conversion
-from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCSeries as ABCSeries
-from pandas.core.dtypes.missing import notna as notna
 from pandas.core.generic import NDFrame as NDFrame
 from pandas.core.groupby.ops import BaseGrouper as BaseGrouper
 from pandas.core.indexers.objects import BaseIndexer as BaseIndexer, FixedWindowIndexer as FixedWindowIndexer, GroupbyIndexer as GroupbyIndexer, VariableWindowIndexer as VariableWindowIndexer
 from pandas.core.indexes.api import DatetimeIndex as DatetimeIndex, Index as Index, MultiIndex as MultiIndex, PeriodIndex as PeriodIndex, TimedeltaIndex as TimedeltaIndex
-from pandas.core.reshape.concat import concat as concat
 from pandas.core.util.numba_ import get_jit_arguments as get_jit_arguments, maybe_use_numba as maybe_use_numba
 from pandas.core.window.common import flex_binary_moment as flex_binary_moment, zsqrt as zsqrt
 from pandas.core.window.doc import _shared_docs as _shared_docs, create_section_header as create_section_header, kwargs_numeric_only as kwargs_numeric_only, kwargs_scipy as kwargs_scipy, numba_notes as numba_notes, template_header as template_header, template_returns as template_returns, template_see_also as template_see_also, window_agg_numba_parameters as window_agg_numba_parameters, window_apply_parameters as window_apply_parameters
 from pandas.core.window.numba_ import generate_manual_numpy_nan_agg_with_axis as generate_manual_numpy_nan_agg_with_axis, generate_numba_apply_func as generate_numba_apply_func, generate_numba_table_func as generate_numba_table_func
-from pandas.errors import DataError as DataError
 from pandas.util._decorators import deprecate_kwarg as deprecate_kwarg, doc as doc
 from typing import Any, Literal
 

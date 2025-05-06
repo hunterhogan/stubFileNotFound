@@ -1,6 +1,4 @@
 import numpy as np
-from pandas.errors import PerformanceWarning as PerformanceWarning
-from pandas.util._exceptions import find_stack_level as find_stack_level
 
 def fallback_performancewarning(version: str | None = None) -> None:
     """

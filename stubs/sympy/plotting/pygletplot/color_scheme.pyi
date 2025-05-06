@@ -1,9 +1,6 @@
 from .util import create_bounds as create_bounds, interpolate as interpolate, rinterpolate as rinterpolate, update_bounds as update_bounds
 from _typeshed import Incomplete
-from sympy.core.basic import Basic as Basic
 from sympy.core.symbol import Symbol as Symbol, symbols as symbols
-from sympy.utilities.iterables import sift as sift
-from sympy.utilities.lambdify import lambdify as lambdify
 
 class ColorGradient:
     colors: Incomplete

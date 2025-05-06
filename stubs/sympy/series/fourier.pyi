@@ -1,16 +1,8 @@
 from _typeshed import Incomplete
-from sympy.core.add import Add as Add
-from sympy.core.containers import Tuple as Tuple
-from sympy.core.expr import Expr as Expr
 from sympy.core.numbers import oo as oo, pi as pi
-from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, Wild as Wild
-from sympy.core.sympify import sympify as sympify
 from sympy.functions.elementary.trigonometric import cos as cos, sin as sin, sinc as sinc
-from sympy.series.sequences import SeqFormula as SeqFormula
 from sympy.series.series_class import SeriesBase as SeriesBase
-from sympy.sets.sets import Interval as Interval
-from sympy.utilities.iterables import is_sequence as is_sequence
 
 __doctest_requires__: Incomplete
 

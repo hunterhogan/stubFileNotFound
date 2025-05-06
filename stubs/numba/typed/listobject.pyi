@@ -5,7 +5,6 @@ from numba.core.errors import NumbaTypeError as NumbaTypeError, TypingError as T
 from numba.core.extending import intrinsic as intrinsic, lower_builtin as lower_builtin, models as models, overload as overload, overload_attribute as overload_attribute, overload_method as overload_method, register_jitable as register_jitable, register_model as register_model
 from numba.core.imputils import RefType as RefType, impl_ret_borrowed as impl_ret_borrowed, iternext_impl as iternext_impl
 from numba.core.types import ListType as ListType, ListTypeIterableType as ListTypeIterableType, ListTypeIteratorType as ListTypeIteratorType, NoneType as NoneType, Type as Type
-from numba.cpython import listobj as listobj
 from numba.typed.typedobjectutils import _as_bytes as _as_bytes, _cast as _cast, _container_get_data as _container_get_data, _container_get_meminfo as _container_get_meminfo, _get_incref_decref as _get_incref_decref, _nonoptional as _nonoptional
 
 ll_list_type: Incomplete

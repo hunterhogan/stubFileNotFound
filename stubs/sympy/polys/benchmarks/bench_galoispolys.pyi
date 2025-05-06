@@ -1,7 +1,4 @@
 from _typeshed import Incomplete
-from sympy.core.numbers import pi as pi
-from sympy.ntheory.generate import nextprime as nextprime
-from sympy.polys.domains import ZZ as ZZ
 from sympy.polys.galoistools import gf_factor_sqf as gf_factor_sqf, gf_from_dict as gf_from_dict
 
 def gathen_poly(n, p, K): ...

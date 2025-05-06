@@ -1,6 +1,5 @@
 import bz2
 import lzma
-from pandas.compat._constants import PY310 as PY310
 from pickle import PickleBuffer
 
 has_bz2: bool

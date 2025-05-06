@@ -3,7 +3,6 @@ from collections.abc import Iterable, Sequence
 from pandas import DataFrame as DataFrame, Index as Index
 from pandas.core.interchange.column import PandasColumn as PandasColumn
 from pandas.core.interchange.dataframe_protocol import DataFrame as DataFrameXchg
-from pandas.core.interchange.utils import maybe_rechunk as maybe_rechunk
 
 class PandasDataFrameXchg(DataFrameXchg):
     """

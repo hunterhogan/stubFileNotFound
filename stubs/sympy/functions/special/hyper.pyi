@@ -1,22 +1,10 @@
 from _typeshed import Incomplete
-from sympy import ordered as ordered
 from sympy.core import Mod as Mod, S as S
-from sympy.core.add import Add as Add
 from sympy.core.containers import Tuple as Tuple
-from sympy.core.expr import Expr as Expr
 from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Derivative as Derivative, Function as Function
-from sympy.core.mul import Mul as Mul
 from sympy.core.numbers import I as I, oo as oo, pi as pi, zoo as zoo
-from sympy.core.parameters import global_parameters as global_parameters
-from sympy.core.relational import Ne as Ne
-from sympy.core.sorting import default_sort_key as default_sort_key
-from sympy.core.symbol import Dummy as Dummy
-from sympy.external.gmpy import lcm as lcm
 from sympy.functions import RisingFactorial as RisingFactorial, acosh as acosh, acoth as acoth, asin as asin, asinh as asinh, atan as atan, atanh as atanh, cos as cos, cosh as cosh, exp as exp, factorial as factorial, log as log, sin as sin, sinh as sinh, sqrt as sqrt
 from sympy.functions.elementary.complexes import Abs as Abs, re as re, unpolarify as unpolarify
-from sympy.functions.elementary.exponential import exp_polar as exp_polar
-from sympy.functions.elementary.integers import ceiling as ceiling
-from sympy.functions.elementary.piecewise import Piecewise as Piecewise
 from sympy.logic.boolalg import And as And, Or as Or
 
 class TupleArg(Tuple):

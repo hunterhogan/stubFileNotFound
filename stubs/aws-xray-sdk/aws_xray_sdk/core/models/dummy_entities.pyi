@@ -1,7 +1,5 @@
-from .noop_traceid import NoOpTraceId as NoOpTraceId
 from .segment import Segment as Segment
 from .subsegment import Subsegment as Subsegment
-from .traceid import TraceId as TraceId
 
 class DummySegment(Segment):
     sampled: bool

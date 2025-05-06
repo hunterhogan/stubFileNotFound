@@ -1,6 +1,4 @@
 from _typeshed import Incomplete
-from llvmlite.binding import ffi as ffi
-from llvmlite.binding.module import parse_assembly as parse_assembly
 
 def get_function_cfg(func, show_inst: bool = True):
     """Return a string of the control-flow graph of the function in DOT

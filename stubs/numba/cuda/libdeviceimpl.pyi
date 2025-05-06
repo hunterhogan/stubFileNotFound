@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, types as types
-from numba.core.imputils import Registry as Registry
 from numba.cuda import libdevice as libdevice, libdevicefuncs as libdevicefuncs
 
 registry: Incomplete

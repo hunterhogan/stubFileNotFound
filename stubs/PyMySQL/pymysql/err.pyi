@@ -1,7 +1,6 @@
 import builtins
 from typing import NoReturn
 
-from .constants import ER as ER
 
 class MySQLError(Exception): ...
 class Warning(builtins.Warning, MySQLError): ...

@@ -21,7 +21,7 @@ from typing import Any, Final, Literal, TypeVar, overload
 from typing import TypeAlias
 
 if sys.version_info >= (3, 11):
-    from sqlite3 import Blob as Blob
+    pass
 
 _T = TypeVar("_T")
 _ConnectionT = TypeVar("_ConnectionT", bound=Connection)

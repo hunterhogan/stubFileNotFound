@@ -1,8 +1,6 @@
 from pandas import DataFrame as DataFrame, Series as Series
-from pandas._testing.contexts import ensure_clean as ensure_clean
 from pandas._typing import FilePath as FilePath, ReadPickleBuffer as ReadPickleBuffer
 from pandas.compat import get_bz2_file as get_bz2_file, get_lzma_file as get_lzma_file
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from typing import Any
 
 def round_trip_pickle(obj: Any, path: FilePath | ReadPickleBuffer | None = None) -> DataFrame | Series:

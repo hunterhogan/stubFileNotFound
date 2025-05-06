@@ -2,7 +2,6 @@ from .cudadrv import devices as devices, driver as driver, nvvm as nvvm, runtime
 from _typeshed import Incomplete
 from numba.core import config as config, serialize as serialize
 from numba.core.codegen import CodeLibrary as CodeLibrary, Codegen as Codegen
-from numba.cuda.cudadrv.libs import get_cudalib as get_cudalib
 
 CUDA_TRIPLE: str
 

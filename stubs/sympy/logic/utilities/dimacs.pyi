@@ -1,4 +1,3 @@
-from sympy.core import Symbol as Symbol
 from sympy.logic.boolalg import And as And, Or as Or
 
 def load(s):

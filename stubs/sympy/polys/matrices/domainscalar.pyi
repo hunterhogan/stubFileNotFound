@@ -1,4 +1,3 @@
-from ..constructor import construct_domain as construct_domain
 from sympy.polys.domains import Domain as Domain, ZZ as ZZ
 
 class DomainScalar:

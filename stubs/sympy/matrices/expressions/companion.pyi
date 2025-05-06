@@ -1,7 +1,4 @@
 from .matexpr import MatrixExpr as MatrixExpr
-from sympy.core.singleton import S as S
-from sympy.core.sympify import _sympify as _sympify
-from sympy.polys.polytools import Poly as Poly
 
 class CompanionMatrix(MatrixExpr):
     """A symbolic companion matrix of a polynomial.

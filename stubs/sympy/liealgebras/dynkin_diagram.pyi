@@ -1,4 +1,3 @@
-from .cartan_type import CartanType as CartanType
 
 def DynkinDiagram(t):
     '''Display the Dynkin diagram of a given Lie algebra

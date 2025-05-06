@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from llvmlite.binding.common import _decode_string as _decode_string, _is_shutting_down as _is_shutting_down
-from llvmlite.utils import get_library_name as get_library_name
 
 def _make_opaque_ref(name): ...
 

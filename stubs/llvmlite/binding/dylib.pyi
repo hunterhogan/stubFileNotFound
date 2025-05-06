@@ -1,5 +1,3 @@
-from llvmlite.binding import ffi as ffi
-from llvmlite.binding.common import _encode_string as _encode_string
 
 def address_of_symbol(name):
     """

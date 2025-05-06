@@ -1,11 +1,8 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, types as types
 from numba.core.cgutils import is_empty_tuple as is_empty_tuple, is_nonelike as is_nonelike
-from numba.core.errors import NumbaTypeError as NumbaTypeError
 from numba.core.extending import intrinsic as intrinsic, overload as overload, register_jitable as register_jitable
 from numba.core.imputils import Registry as Registry, impl_ret_new_ref as impl_ret_new_ref, impl_ret_untracked as impl_ret_untracked
-from numba.core.typing import signature as signature
-from numba.np.random._constants import LONG_MAX as LONG_MAX
 
 registry: Incomplete
 lower: Incomplete

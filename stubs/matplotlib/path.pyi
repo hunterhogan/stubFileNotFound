@@ -1,5 +1,4 @@
 from . import _api as _api, _path as _path
-from .bezier import BezierSegment as BezierSegment
 from .cbook import _to_unmasked_float_array as _to_unmasked_float_array, simple_linear_interpolation as simple_linear_interpolation
 from _typeshed import Incomplete
 from collections.abc import Generator

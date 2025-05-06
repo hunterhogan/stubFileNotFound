@@ -1,4 +1,3 @@
-from numba.core.registry import cpu_target as cpu_target
 from numba.cuda.cudadrv import devices as devices, driver as driver
 
 def _calc_array_sizeof(ndim):

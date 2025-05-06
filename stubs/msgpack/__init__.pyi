@@ -1,8 +1,4 @@
 import os
-from .exceptions import *
-from .ext import ExtType, Timestamp
-from .fallback import Packer, Unpacker, unpackb
-from ._cmsgpack import Packer, Unpacker, unpackb
 
 version = ...
 __version__ = ...

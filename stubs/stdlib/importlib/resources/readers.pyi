@@ -7,7 +7,7 @@ from collections.abc import Iterable, Iterator
 from typing import TypeVar
 
 if sys.version_info >= (3, 11):
-    from importlib.readers import *
+    pass
 
     _T = TypeVar("_T")
 

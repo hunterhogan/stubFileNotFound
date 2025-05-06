@@ -1,11 +1,5 @@
 from typing import Final
 
-from . import affinity as affinity
-from ._geometry import *
-from .constructive import *
-from .coordinates import *
-from .creation import *
-from .errors import setup_signal_checks as setup_signal_checks
 from .geometry import (
     GeometryCollection as GeometryCollection,
     LinearRing as LinearRing,
@@ -16,7 +10,6 @@ from .geometry import (
     Point as Point,
     Polygon as Polygon,
 )
-from .io import *
 from .lib import (
     Geometry as Geometry,
     GEOSException as GEOSException,
@@ -25,10 +18,5 @@ from .lib import (
     geos_version as geos_version,
     geos_version_string as geos_version_string,
 )
-from .linear import *
-from .measurement import *
-from .predicates import *
-from .set_operations import *
-from .strtree import *
 
 __version__: Final[str]

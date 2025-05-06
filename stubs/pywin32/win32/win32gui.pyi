@@ -3,7 +3,6 @@ from collections.abc import Callable
 from typing import Any, Literal, TypeVar
 
 import _win32typing
-from win32.lib.pywintypes import error as error
 
 _T = TypeVar("_T")
 

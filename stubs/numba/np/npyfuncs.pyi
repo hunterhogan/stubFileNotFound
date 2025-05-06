@@ -1,10 +1,7 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, config as config, errors as errors, lowering as lowering, types as types, typing as typing
 from numba.core.extending import overload as overload, register_jitable as register_jitable
-from numba.core.imputils import impl_ret_untracked as impl_ret_untracked
-from numba.np import npdatetime as npdatetime
 from numba.np.math import cmathimpl as cmathimpl, mathimpl as mathimpl, numbers as numbers
-from numba.np.numpy_support import numpy_version as numpy_version
 
 _NPY_LOG2E: float
 _NPY_LOG10E: float

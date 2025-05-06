@@ -1,8 +1,4 @@
 from _typeshed import Incomplete
-from sympy.external.importtools import version_tuple as version_tuple
-from sympy.printing.defaults import Printable as Printable
-from sympy.printing.preview import preview as preview
-from sympy.utilities.misc import debug as debug
 
 def _init_python_printing(stringify_func, **settings) -> None:
     """Setup printing in Python interactive session. """

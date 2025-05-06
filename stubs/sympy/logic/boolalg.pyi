@@ -1,19 +1,13 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from sympy.core.add import Add as Add
 from sympy.core.basic import Basic as Basic
-from sympy.core.cache import cacheit as cacheit
-from sympy.core.containers import Tuple as Tuple
 from sympy.core.decorators import sympify_method_args as sympify_method_args, sympify_return as sympify_return
 from sympy.core.function import Application as Application, Derivative as Derivative
 from sympy.core.kind import BooleanKind as BooleanKind, NumberKind as NumberKind
-from sympy.core.numbers import Number as Number
 from sympy.core.operations import LatticeOp as LatticeOp
 from sympy.core.singleton import S as S, Singleton as Singleton
-from sympy.core.sorting import ordered as ordered
 from sympy.core.sympify import _sympify as _sympify, _sympy_converter as _sympy_converter, sympify as sympify
 from sympy.utilities.iterables import ibin as ibin, sift as sift
-from sympy.utilities.misc import filldedent as filldedent
 
 def as_Boolean(e):
     """Like ``bool``, return the Boolean value of an expression, e,

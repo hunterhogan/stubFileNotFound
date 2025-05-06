@@ -1,22 +1,11 @@
-from .add import Add as Add
 from .basic import Atom as Atom, Basic as Basic
-from .cache import cacheit as cacheit
 from .decorators import call_highest_priority as call_highest_priority, sympify_method_args as sympify_method_args, sympify_return as sympify_return
 from .evalf import DEFAULT_MAXPREC as DEFAULT_MAXPREC, EvalfMixin as EvalfMixin, pure_complex as pure_complex
-from .exprtools import factor_terms as factor_terms
 from .function import Function as Function, _derivative_dispatch as _derivative_dispatch
-from .intfunc import mod_inverse as mod_inverse
-from .kind import NumberKind as NumberKind
-from .mod import Mod as Mod
-from .mul import Mul as Mul
 from .numbers import Float as Float, Integer as Integer, Number as Number, Rational as Rational, _illegal as _illegal, int_valued as int_valued
-from .power import Pow as Pow
-from .singleton import S as S
-from .sorting import default_sort_key as default_sort_key
 from .sympify import _sympify as _sympify, sympify as sympify
 from _typeshed import Incomplete
 from collections.abc import Generator
-from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.iterables import has_variety as has_variety, sift as sift
 from sympy.utilities.misc import as_int as as_int, filldedent as filldedent, func_name as func_name
 

@@ -1,10 +1,7 @@
 from _typeshed import Incomplete
 from numba.core.errors import LiteralTypingError as LiteralTypingError, TypingError as TypingError
-from numba.core.ir import UndefinedType as UndefinedType
-from numba.core.typeconv import Conversion as Conversion
 from numba.core.types.abstract import Callable as Callable, Hashable as Hashable, Literal as Literal, Type as Type
 from numba.core.types.common import Dummy as Dummy, IterableType as IterableType, Opaque as Opaque, SimpleIteratorType as SimpleIteratorType
-from numba.core.utils import get_hashable_key as get_hashable_key
 
 class PyObject(Dummy):
     """

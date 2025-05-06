@@ -1,6 +1,4 @@
 from _typeshed import Incomplete
-from cffconvert.behavior_1_0_x.ris_author import RisAuthor as RisAuthor
-from cffconvert.behavior_1_0_x.ris_url import RisUrl as RisUrl
 from cffconvert.behavior_shared.ris_object_shared import RisObjectShared as Shared
 
 class RisObject(Shared):

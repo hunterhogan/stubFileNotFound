@@ -1,22 +1,12 @@
-from .add import Add as Add
-from .cache import cacheit as cacheit
-from .evalf import PrecisionExhausted as PrecisionExhausted
 from .expr import Expr as Expr
 from .function import PoleError as PoleError, _mexpand as _mexpand, expand_complex as expand_complex, expand_mul as expand_mul, expand_multinomial as expand_multinomial
 from .kind import NumberKind as NumberKind, UndefinedKind as UndefinedKind
 from .logic import fuzzy_and as fuzzy_and, fuzzy_bool as fuzzy_bool, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
 from .mul import Mul as Mul, _keep_coeff as _keep_coeff
 from .numbers import Integer as Integer, Rational as Rational
-from .parameters import global_parameters as global_parameters
 from .relational import is_gt as is_gt, is_lt as is_lt
-from .singleton import S as S
 from .symbol import Dummy as Dummy, Symbol as Symbol, symbols as symbols
-from .sympify import _sympify as _sympify
 from _typeshed import Incomplete
-from sympy.multipledispatch import Dispatcher as Dispatcher
-from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
-from sympy.utilities.iterables import sift as sift
-from sympy.utilities.misc import as_int as as_int
 
 class Pow(Expr):
     '''

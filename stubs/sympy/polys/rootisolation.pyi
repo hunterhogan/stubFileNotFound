@@ -2,8 +2,6 @@ from _typeshed import Incomplete
 from sympy.polys.densearith import dup_l2_norm_squared as dup_l2_norm_squared, dup_neg as dup_neg, dup_rem as dup_rem, dup_rshift as dup_rshift
 from sympy.polys.densebasic import dup_LC as dup_LC, dup_TC as dup_TC, dup_convert as dup_convert, dup_degree as dup_degree, dup_reverse as dup_reverse, dup_strip as dup_strip, dup_terms_gcd as dup_terms_gcd
 from sympy.polys.densetools import dmp_eval_in as dmp_eval_in, dup_clear_denoms as dup_clear_denoms, dup_diff as dup_diff, dup_eval as dup_eval, dup_mirror as dup_mirror, dup_real_imag as dup_real_imag, dup_scale as dup_scale, dup_shift as dup_shift, dup_sign_variations as dup_sign_variations, dup_transform as dup_transform
-from sympy.polys.euclidtools import dup_discriminant as dup_discriminant
-from sympy.polys.factortools import dup_factor_list as dup_factor_list
 from sympy.polys.polyerrors import DomainError as DomainError, PolynomialError as PolynomialError, RefinementFailed as RefinementFailed
 from sympy.polys.sqfreetools import dup_sqf_list as dup_sqf_list, dup_sqf_part as dup_sqf_part
 

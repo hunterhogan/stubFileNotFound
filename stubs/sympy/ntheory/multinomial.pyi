@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from sympy.utilities.misc import as_int as as_int
 
 def binomial_coefficients(n):
     """Return a dictionary containing pairs :math:`{(k1,k2) : C_kn}` where

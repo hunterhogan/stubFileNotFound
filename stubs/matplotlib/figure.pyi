@@ -1,12 +1,9 @@
 from _typeshed import Incomplete
 from matplotlib import _blocking_input as _blocking_input, _docstring as _docstring, backend_bases as backend_bases, projections as projections
 from matplotlib.artist import Artist as Artist, _finalize_rasterization as _finalize_rasterization, allow_rasterization as allow_rasterization
-from matplotlib.axes import Axes as Axes
 from matplotlib.backend_bases import DrawEvent as DrawEvent, FigureCanvasBase as FigureCanvasBase, MouseButton as MouseButton, NonGuiException as NonGuiException, _get_renderer as _get_renderer
 from matplotlib.gridspec import GridSpec as GridSpec, SubplotParams as SubplotParams
 from matplotlib.layout_engine import ConstrainedLayoutEngine as ConstrainedLayoutEngine, LayoutEngine as LayoutEngine, PlaceHolderLayoutEngine as PlaceHolderLayoutEngine, TightLayoutEngine as TightLayoutEngine
-from matplotlib.patches import Rectangle as Rectangle
-from matplotlib.text import Text as Text
 from matplotlib.transforms import Affine2D as Affine2D, Bbox as Bbox, BboxTransformTo as BboxTransformTo, TransformedBbox as TransformedBbox
 
 _log: Incomplete

@@ -1,8 +1,6 @@
 from collections.abc import Collection, Iterator
 from matplotlib.colors import Colormap
 from pandas._typing import MatplotlibColor as Color
-from pandas.core.dtypes.common import is_list_like as is_list_like
-from pandas.util._exceptions import find_stack_level as find_stack_level
 
 def get_standard_colors(num_colors: int, colormap: Colormap | None = None, color_type: str = 'default', color: dict[str, Color] | Color | Collection[Color] | None = None):
     '''

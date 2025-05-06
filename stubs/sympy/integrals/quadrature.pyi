@@ -1,10 +1,6 @@
 from sympy.core import Dummy as Dummy, S as S, pi as pi
-from sympy.functions.combinatorial.factorials import factorial as factorial
-from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.functions.elementary.trigonometric import cos as cos, sin as sin
-from sympy.functions.special.gamma_functions import gamma as gamma
 from sympy.polys.orthopolys import hermite_poly as hermite_poly, jacobi_poly as jacobi_poly, laguerre_poly as laguerre_poly, legendre_poly as legendre_poly
-from sympy.polys.rootoftools import RootOf as RootOf
 
 def gauss_legendre(n, n_digits):
     """

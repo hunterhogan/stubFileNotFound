@@ -1,22 +1,12 @@
-from .add import Add as Add
 from .basic import Basic as Basic
 from .cache import cacheit as cacheit, clear_cache as clear_cache
-from .containers import Tuple as Tuple
-from .decorators import _sympifyit as _sympifyit
-from .evalf import pure_complex as pure_complex
 from .expr import AtomicExpr as AtomicExpr, Expr as Expr
 from .intfunc import igcd as igcd, ilcm as ilcm, integer_nthroot as integer_nthroot, mod_inverse as mod_inverse, num_digits as num_digits
 from .kind import NumberKind as NumberKind
-from .logic import fuzzy_not as fuzzy_not
-from .mul import Mul as Mul
-from .parameters import global_parameters as global_parameters
-from .power import Pow as Pow
 from .singleton import S as S, Singleton as Singleton
 from .sympify import SympifyError as SympifyError, _convert_numpy_types as _convert_numpy_types, _is_numpy_instance as _is_numpy_instance, _sympify as _sympify, _sympy_converter as _sympy_converter, sympify as sympify
 from _typeshed import Incomplete
 from sympy.external.gmpy import SYMPY_INTS as SYMPY_INTS, flint as flint, gmpy as gmpy
-from sympy.multipledispatch import dispatch as dispatch
-from sympy.utilities.misc import debug as debug
 
 _LOG2: Incomplete
 

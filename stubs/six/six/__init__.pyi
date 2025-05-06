@@ -5,13 +5,10 @@ import unittest
 from _typeshed import IdentityFunction, SupportsGetItem, Unused
 from builtins import next as next
 from collections.abc import Callable, ItemsView, Iterable, Iterator as _Iterator, KeysView, Mapping, ValuesView
-from functools import wraps as wraps
-from importlib.util import spec_from_loader as spec_from_loader
 from io import BytesIO as BytesIO, StringIO as StringIO
 from re import Pattern
 from typing import Any, AnyStr, Literal, NoReturn, TypeVar, overload
 
-from six import moves as moves
 
 _T = TypeVar("_T")
 _K = TypeVar("_K")

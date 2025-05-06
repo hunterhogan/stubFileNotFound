@@ -3,12 +3,7 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from numba import _devicearray as _devicearray
 from numba.core import config as config, types as types
-from numba.core.errors import NumbaPerformanceWarning as NumbaPerformanceWarning
-from numba.cuda.api_util import prepare_shape_strides_dtype as prepare_shape_strides_dtype
 from numba.cuda.cudadrv import devices as devices, dummyarray as dummyarray
-from numba.np import numpy_support as numpy_support
-from numba.np.numpy_support import numpy_version as numpy_version
-from numba.np.unsafe.ndarray import to_fixed_tuple as to_fixed_tuple
 
 lru_cache: Incomplete
 

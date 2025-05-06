@@ -1,6 +1,5 @@
 from _typeshed import ConvertibleToInt
 
-from qrcode import image as image
 from qrcode.constants import (
     ERROR_CORRECT_H as ERROR_CORRECT_H,
     ERROR_CORRECT_L as ERROR_CORRECT_L,

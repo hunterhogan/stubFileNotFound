@@ -1,41 +1,20 @@
 import abc
-from .integrals import Integral as Integral
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from sympy.core.add import Add as Add
-from sympy.core.cache import cacheit as cacheit
-from sympy.core.containers import Dict as Dict
 from sympy.core.expr import Expr as Expr
-from sympy.core.function import Derivative as Derivative
-from sympy.core.logic import fuzzy_not as fuzzy_not
-from sympy.core.mul import Mul as Mul
 from sympy.core.numbers import E as E, Integer as Integer, Number as Number
-from sympy.core.power import Pow as Pow
 from sympy.core.relational import Boolean as Boolean, Eq as Eq, Ne as Ne
-from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, Wild as Wild
-from sympy.functions.elementary.complexes import Abs as Abs
 from sympy.functions.elementary.exponential import exp as exp, log as log
 from sympy.functions.elementary.hyperbolic import HyperbolicFunction as HyperbolicFunction, asinh as asinh, cosh as cosh, coth as coth, csch as csch, sech as sech, sinh as sinh, tanh as tanh
-from sympy.functions.elementary.miscellaneous import sqrt as sqrt
-from sympy.functions.elementary.piecewise import Piecewise as Piecewise
 from sympy.functions.elementary.trigonometric import TrigonometricFunction as TrigonometricFunction, acos as acos, acot as acot, acsc as acsc, asec as asec, asin as asin, atan as atan, cos as cos, cot as cot, csc as csc, sec as sec, sin as sin, tan as tan
 from sympy.functions.special.delta_functions import DiracDelta as DiracDelta, Heaviside as Heaviside
 from sympy.functions.special.elliptic_integrals import elliptic_e as elliptic_e, elliptic_f as elliptic_f
 from sympy.functions.special.error_functions import Chi as Chi, Ci as Ci, Ei as Ei, Shi as Shi, Si as Si, erf as erf, erfi as erfi, fresnelc as fresnelc, fresnels as fresnels, li as li
-from sympy.functions.special.gamma_functions import uppergamma as uppergamma
 from sympy.functions.special.polynomials import OrthogonalPolynomial as OrthogonalPolynomial, assoc_laguerre as assoc_laguerre, chebyshevt as chebyshevt, chebyshevu as chebyshevu, gegenbauer as gegenbauer, hermite as hermite, jacobi as jacobi, laguerre as laguerre, legendre as legendre
-from sympy.functions.special.zeta_functions import polylog as polylog
-from sympy.logic.boolalg import And as And
-from sympy.ntheory.factor_ import primefactors as primefactors
 from sympy.polys.polytools import Poly as Poly, degree as degree, gcd_list as gcd_list, lcm_list as lcm_list
-from sympy.simplify.radsimp import fraction as fraction
-from sympy.simplify.simplify import simplify as simplify
-from sympy.solvers.solvers import solve as solve
 from sympy.strategies.core import condition as condition, do_one as do_one, null_safe as null_safe, switch as switch
-from sympy.utilities.iterables import iterable as iterable
-from sympy.utilities.misc import debug as debug
 from typing import NamedTuple
 
 from collections.abc import Callable, Sequence

@@ -1,9 +1,7 @@
 from ..args import In as In, InOut as InOut, Out as Out
 from .cudadrv.devices import gpus as gpus, require_context as require_context, reset as reset
-from .kernel import FakeCUDAKernel as FakeCUDAKernel
 from _typeshed import Incomplete
 from collections.abc import Generator
-from numba.core.sigutils import is_signature as is_signature
 
 def select_device(dev: int = 0) -> None: ...
 def is_float16_supported(): ...

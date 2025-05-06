@@ -1,6 +1,4 @@
 from _typeshed import Incomplete
-from sympy.combinatorics import Permutation as Permutation
-from sympy.combinatorics.util import _distribute_gens_by_base as _distribute_gens_by_base
 
 rmul: Incomplete
 

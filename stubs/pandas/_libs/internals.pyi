@@ -1,6 +1,5 @@
 import _cython_3_0_11
 from _typeshed import Incomplete
-from pandas._libs.algos import ensure_int64 as ensure_int64
 from typing import ClassVar
 
 __reduce_cython__: _cython_3_0_11.cython_function_or_method

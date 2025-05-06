@@ -1,16 +1,7 @@
 from _typeshed import Incomplete
-from sympy.assumptions import Predicate as Predicate
-from sympy.assumptions.ask import Q as Q
-from sympy.assumptions.assume import AppliedPredicate as AppliedPredicate
-from sympy.core import Dummy as Dummy
-from sympy.core.add import Add as Add
-from sympy.core.mul import Mul as Mul
 from sympy.core.numbers import Rational as Rational, oo as oo
 from sympy.core.relational import Eq as Eq, Ne as Ne
-from sympy.core.singleton import S as S
-from sympy.core.sympify import sympify as sympify
 from sympy.matrices.dense import Matrix as Matrix, eye as eye
-from sympy.solvers.solveset import linear_eq_to_matrix as linear_eq_to_matrix
 
 class UnhandledInput(Exception):
     """

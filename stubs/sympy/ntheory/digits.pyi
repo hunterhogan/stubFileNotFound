@@ -1,6 +1,4 @@
 from _typeshed import Incomplete
-from sympy.utilities.iterables import multiset as multiset
-from sympy.utilities.misc import as_int as as_int
 
 def digits(n, b: int = 10, digits: Incomplete | None = None):
     """

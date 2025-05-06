@@ -1,8 +1,6 @@
 import array
 from _typeshed import Incomplete
 
-from MySQLdb._exceptions import ProgrammingError as ProgrammingError
-from MySQLdb._mysql import string_literal as string_literal
 from MySQLdb.constants import FIELD_TYPE as FIELD_TYPE, FLAG as FLAG
 from MySQLdb.times import (
     Date as Date,

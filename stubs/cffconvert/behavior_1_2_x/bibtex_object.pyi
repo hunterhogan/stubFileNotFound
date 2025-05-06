@@ -1,5 +1,3 @@
-from cffconvert.behavior_1_2_x.bibtex_author import BibtexAuthor as BibtexAuthor
-from cffconvert.behavior_1_2_x.bibtex_url import BibtexUrl as BibtexUrl
 from cffconvert.behavior_shared.bibtex_object_shared import BibtexObjectShared as Shared
 
 class BibtexObject(Shared):

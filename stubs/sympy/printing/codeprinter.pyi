@@ -1,12 +1,5 @@
 from _typeshed import Incomplete
 from sympy.core import Add as Add, Float as Float, Mul as Mul, Pow as Pow, S as S, sympify as sympify
-from sympy.core.basic import Basic as Basic
-from sympy.core.expr import UnevaluatedExpr as UnevaluatedExpr
-from sympy.core.function import Lambda as Lambda
-from sympy.core.mul import _keep_coeff as _keep_coeff
-from sympy.core.sorting import default_sort_key as default_sort_key
-from sympy.core.symbol import Symbol as Symbol
-from sympy.functions.elementary.complexes import re as re
 from sympy.printing.precedence import PRECEDENCE as PRECEDENCE, precedence as precedence
 from sympy.printing.str import StrPrinter as StrPrinter
 from typing import Any

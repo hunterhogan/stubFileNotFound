@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from llvmlite import binding as binding
 from numba.core import cgutils as cgutils, config as config, types as types
 
 _word_type: Incomplete

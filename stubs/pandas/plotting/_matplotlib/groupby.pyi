@@ -2,8 +2,6 @@ import numpy as np
 from collections.abc import Hashable
 from pandas import DataFrame as DataFrame, MultiIndex as MultiIndex, Series as Series, concat as concat
 from pandas._typing import IndexLabel as IndexLabel
-from pandas.core.dtypes.missing import remove_na_arraylike as remove_na_arraylike
-from pandas.plotting._matplotlib.misc import unpack_single_str_list as unpack_single_str_list
 
 def create_iter_data_given_by(data: DataFrame, kind: str = 'hist') -> dict[Hashable, DataFrame | Series]:
     """

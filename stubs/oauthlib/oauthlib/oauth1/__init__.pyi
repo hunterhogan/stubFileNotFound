@@ -28,4 +28,3 @@ from .rfc5849.errors import (
     InvalidSignatureMethodError as InvalidSignatureMethodError,
     OAuth1Error as OAuth1Error,
 )
-from .rfc5849.request_validator import RequestValidator as RequestValidator

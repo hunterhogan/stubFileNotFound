@@ -1,39 +1,18 @@
 from _typeshed import Incomplete
-from sympy.concrete.products import Product as Product
-from sympy.concrete.summations import Sum as Sum
 from sympy.core import Add as Add, Basic as Basic, Dummy as Dummy, Eq as Eq, Expr as Expr, Function as Function, Mul as Mul, Pow as Pow, S as S, Symbol as Symbol, expand_func as expand_func, expand_power_exp as expand_power_exp, factor_terms as factor_terms, sympify as sympify
-from sympy.core.exprtools import factor_nc as factor_nc
 from sympy.core.function import _mexpand as _mexpand, count_ops as count_ops, expand as expand, expand_log as expand_log, expand_mul as expand_mul, nfloat as nfloat
 from sympy.core.numbers import Float as Float, I as I, Rational as Rational, equal_valued as equal_valued, pi as pi
-from sympy.core.parameters import global_parameters as global_parameters
-from sympy.core.relational import Relational as Relational
-from sympy.core.rules import Transform as Transform
-from sympy.core.sorting import ordered as ordered
-from sympy.core.sympify import _sympify as _sympify
 from sympy.functions import exp as exp, exp_polar as exp_polar, gamma as gamma, log as log, re as re, sqrt as sqrt
-from sympy.functions.combinatorial.factorials import CombinatorialFunction as CombinatorialFunction
 from sympy.functions.elementary.complexes import Abs as Abs, sign as sign, unpolarify as unpolarify
-from sympy.functions.elementary.exponential import ExpBase as ExpBase
-from sympy.functions.elementary.hyperbolic import HyperbolicFunction as HyperbolicFunction
-from sympy.functions.elementary.integers import ceiling as ceiling
 from sympy.functions.elementary.piecewise import Piecewise as Piecewise, piecewise_fold as piecewise_fold, piecewise_simplify as piecewise_simplify
-from sympy.functions.elementary.trigonometric import TrigonometricFunction as TrigonometricFunction
 from sympy.functions.special.bessel import BesselBase as BesselBase, besseli as besseli, besselj as besselj, besselk as besselk, bessely as bessely, jn as jn
-from sympy.functions.special.tensor_functions import KroneckerDelta as KroneckerDelta
-from sympy.integrals.integrals import Integral as Integral
 from sympy.matrices.expressions import MatAdd as MatAdd, MatMul as MatMul, MatPow as MatPow, MatrixExpr as MatrixExpr, MatrixSymbol as MatrixSymbol
 from sympy.polys import cancel as cancel, factor as factor, together as together
 from sympy.polys.numberfields.minpoly import _is_sum_surds as _is_sum_surds, _minimal_polynomial_sq as _minimal_polynomial_sq
-from sympy.simplify.combsimp import combsimp as combsimp
 from sympy.simplify.cse_opts import sub_post as sub_post, sub_pre as sub_pre
-from sympy.simplify.hyperexpand import hyperexpand as hyperexpand
-from sympy.simplify.powsimp import powsimp as powsimp
 from sympy.simplify.radsimp import collect_abs as collect_abs, fraction as fraction, radsimp as radsimp
-from sympy.simplify.sqrtdenest import sqrtdenest as sqrtdenest
 from sympy.simplify.trigsimp import exptrigsimp as exptrigsimp, trigsimp as trigsimp
-from sympy.utilities.decorator import deprecated as deprecated
 from sympy.utilities.iterables import has_variety as has_variety, iterable as iterable, sift as sift, subsets as subsets
-from sympy.utilities.misc import as_int as as_int
 
 def separatevars(expr, symbols=[], dict: bool = False, force: bool = False):
     """

@@ -1,13 +1,8 @@
 import numpy as np
 from _typeshed import Incomplete
-from pandas._libs import lib as lib
 from pandas._typing import ArrayLike as ArrayLike, AxisInt as AxisInt, npt as npt
-from pandas.core.arrays._mixins import NDArrayBackedExtensionArray as NDArrayBackedExtensionArray
 from pandas.core.arrays.base import ExtensionArray as ExtensionArray
-from pandas.core.construction import ensure_wrapped_if_datetimelike as ensure_wrapped_if_datetimelike
-from pandas.core.dtypes.cast import maybe_promote as maybe_promote
 from pandas.core.dtypes.common import ensure_platform_int as ensure_platform_int, is_1d_only_ea_dtype as is_1d_only_ea_dtype
-from pandas.core.dtypes.missing import na_value_for_dtype as na_value_for_dtype
 from typing import overload
 
 @overload

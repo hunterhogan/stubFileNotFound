@@ -6,7 +6,6 @@ from typing import Literal, overload
 import tensorflow as tf
 from tensorflow import RaggedTensor, Tensor, norm as norm
 from tensorflow._aliases import DTypeLike, IntArray, Integer, ScalarTensorCompatible, TensorCompatible
-from tensorflow.math import l2_normalize as l2_normalize
 
 @overload
 def matmul(

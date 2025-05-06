@@ -1,24 +1,9 @@
 from _typeshed import Incomplete
-from sympy import SYMPY_DEBUG as SYMPY_DEBUG
-from sympy.core.add import Add as Add
-from sympy.core.expr import Expr as Expr
 from sympy.core.exprtools import Factors as Factors, factor_terms as factor_terms, gcd_terms as gcd_terms
-from sympy.core.function import expand_mul as expand_mul
-from sympy.core.mul import Mul as Mul
 from sympy.core.numbers import I as I, pi as pi
-from sympy.core.power import Pow as Pow
-from sympy.core.singleton import S as S
-from sympy.core.sorting import ordered as ordered
-from sympy.core.symbol import Dummy as Dummy
-from sympy.core.sympify import sympify as sympify
-from sympy.core.traversal import bottom_up as bottom_up
-from sympy.functions.combinatorial.factorials import binomial as binomial
 from sympy.functions.elementary.hyperbolic import HyperbolicFunction as HyperbolicFunction, cosh as cosh, coth as coth, csch as csch, sech as sech, sinh as sinh, tanh as tanh
 from sympy.functions.elementary.trigonometric import TrigonometricFunction as TrigonometricFunction, cos as cos, cot as cot, csc as csc, sec as sec, sin as sin, sqrt as sqrt, tan as tan
-from sympy.ntheory.factor_ import perfect_power as perfect_power
-from sympy.polys.polytools import factor as factor
 from sympy.strategies.core import debug as debug, identity as identity
-from sympy.strategies.tree import greedy as greedy
 
 def TR0(rv):
     """Simplification of rational polynomials, trying to simplify

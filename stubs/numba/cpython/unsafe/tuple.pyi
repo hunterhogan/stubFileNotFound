@@ -1,6 +1,4 @@
 from numba.core import errors as errors, types as types, typing as typing
-from numba.core.cgutils import alloca_once as alloca_once
-from numba.core.extending import intrinsic as intrinsic
 
 def tuple_setitem(typingctx, tup, idx, val):
     """Return a copy of the tuple with item at *idx* replaced with *val*.

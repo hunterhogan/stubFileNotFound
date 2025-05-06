@@ -1,7 +1,4 @@
-from .backend_agg import RendererAgg as RendererAgg
 from _typeshed import Incomplete
-from matplotlib import cbook as cbook
-from matplotlib._tight_bbox import process_figure_for_rasterizing as process_figure_for_rasterizing
 
 class MixedModeRenderer:
     """

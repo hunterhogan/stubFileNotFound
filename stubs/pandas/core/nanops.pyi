@@ -1,12 +1,9 @@
 import numpy as np
 from _typeshed import Incomplete
-from pandas._config import get_option as get_option
 from pandas._libs import NaT as NaT, NaTType as NaTType, iNaT as iNaT, lib as lib
 from pandas._typing import ArrayLike as ArrayLike, AxisInt as AxisInt, CorrelationMethod as CorrelationMethod, Dtype as Dtype, DtypeObj as DtypeObj, F as F, Scalar as Scalar, Shape as Shape, npt as npt
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core.dtypes.common import is_complex as is_complex, is_float as is_float, is_float_dtype as is_float_dtype, is_integer as is_integer, is_numeric_dtype as is_numeric_dtype, is_object_dtype as is_object_dtype, needs_i8_conversion as needs_i8_conversion, pandas_dtype as pandas_dtype
 from pandas.core.dtypes.missing import isna as isna, na_value_for_dtype as na_value_for_dtype, notna as notna
-from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Any
 
 from collections.abc import Callable

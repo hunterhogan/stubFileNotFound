@@ -3,8 +3,6 @@ from _typeshed import Incomplete
 from collections.abc import Generator, Sequence
 from numba.core import errors as errors, types as types, utils as utils
 from numba.core.typeconv import Conversion as Conversion, rules as rules
-from numba.core.typing import templates as templates
-from numba.core.utils import order_by_target_specificity as order_by_target_specificity
 
 class Rating:
     __slots__: Incomplete

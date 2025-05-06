@@ -1,6 +1,3 @@
-from sympy.assumptions.ask import Q as Q
-from sympy.assumptions.cnf import Literal as Literal
-from sympy.core.cache import cacheit as cacheit
 
 def get_all_known_facts():
     """

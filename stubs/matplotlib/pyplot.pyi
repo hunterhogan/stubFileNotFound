@@ -9,7 +9,6 @@ from .ticker import AutoLocator as AutoLocator, FixedFormatter as FixedFormatter
 from _typeshed import Incomplete
 from collections.abc import Callable as Callable, Hashable, Iterable, Sequence
 from contextlib import AbstractContextManager, ExitStack
-from cycler import cycler as cycler
 from matplotlib import _api as _api, _docstring as _docstring, _pylab_helpers as _pylab_helpers, cbook as cbook, interactive as interactive, mlab as mlab, rcParamsDefault as rcParamsDefault, rcParamsOrig as rcParamsOrig, rcsetup as rcsetup
 from matplotlib.artist import Artist as Artist
 from matplotlib.axes import Axes as Axes, Subplot as Subplot
@@ -31,7 +30,6 @@ from matplotlib.legend import Legend as Legend
 from matplotlib.lines import AxLine as AxLine, Line2D as Line2D
 from matplotlib.mlab import GaussianKDE as GaussianKDE
 from matplotlib.patches import Arrow as Arrow, Circle as Circle, FancyArrow as FancyArrow, Polygon as Polygon, Rectangle as Rectangle, StepPatch as StepPatch, Wedge as Wedge
-from matplotlib.projections import PolarAxes as PolarAxes
 from matplotlib.quiver import Barbs as Barbs, Quiver as Quiver, QuiverKey as QuiverKey
 from matplotlib.scale import ScaleBase as ScaleBase, get_scale_names as get_scale_names
 from matplotlib.text import Annotation as Annotation, Text as Text

@@ -1,6 +1,5 @@
 import builtins
 import codecs
-import sys
 from _typeshed import FileDescriptorOrPath, MaybeNone, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator
 from io import BufferedIOBase, RawIOBase, TextIOBase, UnsupportedOperation as UnsupportedOperation

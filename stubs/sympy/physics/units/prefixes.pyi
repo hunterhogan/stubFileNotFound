@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
 from sympy.core.expr import Expr as Expr
-from sympy.core.singleton import S as S
-from sympy.core.sympify import sympify as sympify
 
 class Prefix(Expr):
     """

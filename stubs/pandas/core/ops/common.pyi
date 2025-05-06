@@ -1,5 +1,3 @@
-from pandas._libs.lib import item_from_zerodim as item_from_zerodim
-from pandas._libs.missing import is_matching_na as is_matching_na
 from pandas._typing import F as F
 from pandas.core.dtypes.generic import ABCIndex as ABCIndex, ABCSeries as ABCSeries
 from collections.abc import Callable

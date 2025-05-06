@@ -1,6 +1,5 @@
 import numpy as np
 from pandas._typing import AxisInt as AxisInt, npt as npt
-from pandas.core.nanops import check_below_min_count as check_below_min_count
 from collections.abc import Callable
 
 def _reductions(func: Callable, values: np.ndarray, mask: npt.NDArray[np.bool_], *, skipna: bool = True, min_count: int = 0, axis: AxisInt | None = None, **kwargs):

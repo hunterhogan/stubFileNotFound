@@ -3,7 +3,6 @@ from typing import Final
 
 from reportlab.graphics.charts.textlabels import PMVLabel
 from reportlab.graphics.widgetbase import Widget
-from reportlab.lib.attrmap import *
 from reportlab.lib.validators import Validator
 
 __version__: Final[str]

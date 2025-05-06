@@ -1,6 +1,5 @@
 import sys
 
-from serial.serialutil import *
 
 if sys.platform == "win32":
     from serial.serialwin32 import Serial as Serial

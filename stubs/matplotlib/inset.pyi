@@ -1,7 +1,6 @@
 from . import _api as _api, artist as artist, transforms as transforms
 from _typeshed import Incomplete
 from matplotlib.patches import ConnectionPatch as ConnectionPatch, PathPatch as PathPatch, Rectangle as Rectangle
-from matplotlib.path import Path as Path
 
 _shared_properties: Incomplete
 

@@ -1,8 +1,5 @@
 from _typeshed import Incomplete
-from sympy.core import Pow as Pow
 from sympy.core.function import AppliedUndef as AppliedUndef, Derivative as Derivative
-from sympy.core.relational import Equality as Equality
-from sympy.core.symbol import Wild as Wild
 
 def _preprocess(expr, func: Incomplete | None = None, hint: str = '_Integral'):
     '''Prepare expr for solving by making sure that differentiation

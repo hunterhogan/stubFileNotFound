@@ -1,9 +1,6 @@
 from _typeshed import Incomplete
-from numba import cext as cext
 from numba.core import sigutils as sigutils, typing as typing
-from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
 from numba.pycc.compiler import ExportEntry as ExportEntry, ModuleCompiler as ModuleCompiler
-from numba.pycc.platform import Toolchain as Toolchain
 from setuptools.extension import Extension
 
 dir_util: Incomplete

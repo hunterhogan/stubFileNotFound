@@ -1,8 +1,5 @@
 from _typeshed import Incomplete
 from sympy.polys.domains import QQ as QQ, ZZ as ZZ
-from sympy.polys.fields import field as field
-from sympy.polys.rings import ring as ring
-from sympy.polys.solvers import solve_lin_sys as solve_lin_sys
 
 R_165: Incomplete
 uk_0: Incomplete

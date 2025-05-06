@@ -1,4 +1,3 @@
-from .decorators import jit as jit
 
 def all_sync(mask, predicate):
     """

@@ -1,9 +1,6 @@
 from _typeshed import Incomplete
 from sympy.core import Basic as Basic, S as S
-from sympy.core.function import Lambda as Lambda
-from sympy.core.numbers import equal_valued as equal_valued
 from sympy.printing.codeprinter import CodePrinter as CodePrinter
-from sympy.printing.precedence import precedence as precedence
 
 known_functions: Incomplete
 

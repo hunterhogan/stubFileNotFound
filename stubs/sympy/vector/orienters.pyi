@@ -1,7 +1,4 @@
 from sympy.core.basic import Basic as Basic
-from sympy.core.cache import cacheit as cacheit
-from sympy.core.symbol import Str as Str
-from sympy.core.sympify import sympify as sympify
 from sympy.functions.elementary.trigonometric import cos as cos, sin as sin
 from sympy.matrices.dense import eye as eye, rot_axis1 as rot_axis1, rot_axis2 as rot_axis2, rot_axis3 as rot_axis3
 

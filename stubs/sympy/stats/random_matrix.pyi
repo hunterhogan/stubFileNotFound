@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from sympy.core.basic import Basic as Basic
 from sympy.stats.rv import PSpace as PSpace, RandomMatrixSymbol as RandomMatrixSymbol, _symbol_converter as _symbol_converter
 
 class RandomMatrixPSpace(PSpace):

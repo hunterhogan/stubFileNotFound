@@ -1,10 +1,7 @@
-from .eigen import _fuzzy_positive_definite as _fuzzy_positive_definite
 from .exceptions import NonInvertibleMatrixError as NonInvertibleMatrixError, NonSquareMatrixError as NonSquareMatrixError, ShapeError as ShapeError
 from .utilities import _get_intermediate_simp as _get_intermediate_simp, _iszero as _iszero
 from _typeshed import Incomplete
-from sympy.core.function import expand_mul as expand_mul
 from sympy.core.symbol import Dummy as Dummy, symbols as symbols, uniquely_named_symbol as uniquely_named_symbol
-from sympy.utilities.iterables import numbered_symbols as numbered_symbols
 
 def _diagonal_solve(M, rhs):
     """Solves ``Ax = B`` efficiently, where A is a diagonal Matrix,

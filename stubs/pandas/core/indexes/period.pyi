@@ -4,19 +4,12 @@ from collections.abc import Hashable
 from datetime import datetime
 from pandas._libs import index as libindex
 from pandas._libs.tslibs import BaseOffset as BaseOffset, NaT as NaT, Period as Period, Resolution as Resolution, Tick as Tick
-from pandas._libs.tslibs.dtypes import OFFSET_TO_PERIOD_FREQSTR as OFFSET_TO_PERIOD_FREQSTR
 from pandas._typing import Dtype as Dtype, DtypeObj as DtypeObj, Self as Self, npt as npt
 from pandas.core.arrays.period import PeriodArray as PeriodArray, period_array as period_array, raise_on_incompatible as raise_on_incompatible, validate_dtype_freq as validate_dtype_freq
-from pandas.core.dtypes.common import is_integer as is_integer
 from pandas.core.dtypes.dtypes import PeriodDtype as PeriodDtype
-from pandas.core.dtypes.generic import ABCSeries as ABCSeries
-from pandas.core.dtypes.missing import is_valid_na_for_dtype as is_valid_na_for_dtype
-from pandas.core.indexes.base import maybe_extract_name as maybe_extract_name
 from pandas.core.indexes.datetimelike import DatetimeIndexOpsMixin as DatetimeIndexOpsMixin
 from pandas.core.indexes.datetimes import DatetimeIndex as DatetimeIndex, Index as Index
-from pandas.core.indexes.extension import inherit_names as inherit_names
 from pandas.util._decorators import cache_readonly as cache_readonly, doc as doc
-from pandas.util._exceptions import find_stack_level as find_stack_level
 
 _index_doc_kwargs: Incomplete
 _shared_doc_kwargs: Incomplete

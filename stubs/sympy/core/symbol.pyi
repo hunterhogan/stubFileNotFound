@@ -1,18 +1,11 @@
 from .assumptions import StdFactKB as StdFactKB, _assume_defined as _assume_defined
 from .basic import Atom as Atom, Basic as Basic
-from .cache import cacheit as cacheit
-from .containers import Tuple as Tuple
 from .expr import AtomicExpr as AtomicExpr, Expr as Expr
 from .function import AppliedUndef as AppliedUndef, FunctionClass as FunctionClass
 from .kind import NumberKind as NumberKind, UndefinedKind as UndefinedKind
-from .logic import fuzzy_bool as fuzzy_bool
-from .singleton import S as S
-from .sorting import ordered as ordered
-from .sympify import sympify as sympify
 from _typeshed import Incomplete
 from sympy.logic.boolalg import Boolean as Boolean
 from sympy.utilities.iterables import is_sequence as is_sequence, sift as sift
-from sympy.utilities.misc import filldedent as filldedent
 from typing import Any
 
 class Str(Atom):

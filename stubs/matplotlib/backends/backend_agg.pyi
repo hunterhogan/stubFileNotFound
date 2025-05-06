@@ -1,10 +1,6 @@
 from _typeshed import Incomplete
 from matplotlib import _api as _api, cbook as cbook
 from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, RendererBase as RendererBase, _Backend as _Backend
-from matplotlib.font_manager import get_font as get_font
-from matplotlib.ft2font import LoadFlags as LoadFlags
-from matplotlib.mathtext import MathTextParser as MathTextParser
-from matplotlib.path import Path as Path
 from matplotlib.transforms import Bbox as Bbox, BboxBase as BboxBase
 
 def get_hinting_flag(): ...

@@ -3,22 +3,17 @@ from _typeshed import Incomplete
 from collections.abc import Hashable
 from pandas._libs import NaT as NaT, lib as lib
 from pandas._typing import ArrayLike as ArrayLike, AxisInt as AxisInt, DtypeObj as DtypeObj, QuantileInterpolation as QuantileInterpolation, Self as Self, npt as npt
-from pandas.core.array_algos.quantile import quantile_compat as quantile_compat
-from pandas.core.array_algos.take import take_1d as take_1d
 from pandas.core.arrays import DatetimeArray as DatetimeArray, ExtensionArray as ExtensionArray, NumpyExtensionArray as NumpyExtensionArray, TimedeltaArray as TimedeltaArray
 from pandas.core.construction import ensure_wrapped_if_datetimelike as ensure_wrapped_if_datetimelike, extract_array as extract_array, sanitize_array as sanitize_array
 from pandas.core.dtypes.astype import astype_array as astype_array, astype_array_safe as astype_array_safe
 from pandas.core.dtypes.cast import ensure_dtype_can_hold_na as ensure_dtype_can_hold_na, find_common_type as find_common_type, infer_dtype_from_scalar as infer_dtype_from_scalar, np_find_common_type as np_find_common_type
 from pandas.core.dtypes.common import ensure_platform_int as ensure_platform_int, is_datetime64_ns_dtype as is_datetime64_ns_dtype, is_integer as is_integer, is_numeric_dtype as is_numeric_dtype, is_object_dtype as is_object_dtype, is_timedelta64_ns_dtype as is_timedelta64_ns_dtype
-from pandas.core.dtypes.dtypes import ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCSeries as ABCSeries
 from pandas.core.dtypes.missing import array_equals as array_equals, isna as isna, na_value_for_dtype as na_value_for_dtype
 from pandas.core.indexers import maybe_convert_indices as maybe_convert_indices, validate_indices as validate_indices
 from pandas.core.indexes.api import Index as Index, ensure_index as ensure_index
-from pandas.core.indexes.base import get_values_for_csv as get_values_for_csv
 from pandas.core.internals.base import DataManager as DataManager, SingleDataManager as SingleDataManager, ensure_np_dtype as ensure_np_dtype, interleaved_dtype as interleaved_dtype
 from pandas.core.internals.blocks import BlockPlacement as BlockPlacement, ensure_block_shape as ensure_block_shape, external_values as external_values, extract_pandas_array as extract_pandas_array, maybe_coerce_values as maybe_coerce_values, new_block as new_block
-from pandas.core.internals.managers import make_na_array as make_na_array
 from typing import Literal
 
 from collections.abc import Callable

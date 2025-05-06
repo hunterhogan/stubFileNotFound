@@ -12,7 +12,6 @@ without any other information (e.g. without reading its imports).
 
 import builtins
 import collections.abc
-import sys
 import typing
 
 import google.protobuf.descriptor
