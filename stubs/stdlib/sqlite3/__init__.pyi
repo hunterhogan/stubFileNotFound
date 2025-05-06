@@ -65,7 +65,6 @@ from sqlite3.dbapi2 import (
 from types import TracebackType
 from typing import Any, Literal, Protocol, SupportsIndex, TypeVar, final, overload, type_check_only
 from typing_extensions import Self
-
 from typing import TypeAlias
 
 if sys.version_info >= (3, 12):

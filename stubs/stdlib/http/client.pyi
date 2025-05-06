@@ -9,7 +9,6 @@ from email._policybase import _MessageT
 from socket import socket
 from typing import BinaryIO, Literal, TypeVar, overload
 from typing_extensions import Self
-
 from typing import TypeAlias
 
 __all__ = [

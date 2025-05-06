@@ -7,7 +7,6 @@ from reprlib import Repr
 from types import MethodType, ModuleType, TracebackType
 from typing import IO, Any, AnyStr, Final, NoReturn, Protocol, TypeVar
 from typing_extensions import deprecated
-
 from typing import TypeGuard
 
 __all__ = ["help"]

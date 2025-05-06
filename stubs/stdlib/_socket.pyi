@@ -4,7 +4,6 @@ from collections.abc import Iterable
 from socket import error as error, gaierror as gaierror, herror as herror, timeout as timeout
 from typing import Any, SupportsIndex, overload
 from typing_extensions import CapsuleType
-
 from typing import TypeAlias
 
 _CMSG: TypeAlias = tuple[int, int, bytes]

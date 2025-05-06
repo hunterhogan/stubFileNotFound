@@ -5,7 +5,6 @@ from contextlib import _GeneratorContextManager
 from types import TracebackType
 from typing import Any, ClassVar, Final, Generic, Literal, TypeVar, overload
 from typing_extensions import ParamSpec, Self
-
 from typing import TypeAlias
 
 _T = TypeVar("_T")

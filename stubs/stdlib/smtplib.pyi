@@ -9,7 +9,6 @@ from ssl import SSLContext
 from types import TracebackType
 from typing import Any, Protocol, overload
 from typing_extensions import Self
-
 from typing import TypeAlias
 
 __all__ = [

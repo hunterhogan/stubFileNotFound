@@ -29,7 +29,6 @@ from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from collections.abc import Callable, Iterable
 from typing import Any, Literal, NamedTuple, TypedDict, overload, type_check_only
 from typing_extensions import Never, Self, deprecated
-
 from typing import TypeAlias
 
 if sys.version_info >= (3, 13):

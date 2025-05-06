@@ -6,7 +6,6 @@ from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMappin
 from types import GenericAlias, TracebackType
 from typing import Any, AnyStr, ClassVar, Generic, SupportsIndex, TypeVar, overload
 from typing_extensions import Self
-
 from typing import TypeAlias
 
 from . import pool

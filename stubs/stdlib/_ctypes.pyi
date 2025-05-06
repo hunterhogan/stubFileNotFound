@@ -7,7 +7,6 @@ from ctypes import CDLL, ArgumentError as ArgumentError, c_void_p
 from types import GenericAlias
 from typing import Any, ClassVar, Generic, TypeVar, final, overload, type_check_only
 from typing_extensions import Self
-
 from typing import TypeAlias
 
 _T = TypeVar("_T")

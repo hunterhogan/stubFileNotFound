@@ -4,7 +4,6 @@ from collections.abc import Callable
 from types import ModuleType
 from typing import AnyStr, Protocol, final, overload, type_check_only
 from typing_extensions import Self
-
 from typing import TypeAlias
 
 _DigestMod: TypeAlias = str | Callable[[], _HashObject] | ModuleType | None

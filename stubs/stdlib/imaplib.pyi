@@ -11,7 +11,6 @@ from ssl import SSLContext, SSLSocket
 from types import TracebackType
 from typing import IO, Any, Literal, SupportsAbs, SupportsInt
 from typing_extensions import Self
-
 from typing import TypeAlias
 
 __all__ = ["IMAP4", "IMAP4_stream", "Internaldate2tuple", "Int2AP", "ParseFlags", "Time2Internaldate", "IMAP4_SSL"]

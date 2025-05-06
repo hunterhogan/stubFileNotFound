@@ -5,7 +5,6 @@ from contextvars import Context
 from types import FrameType, GenericAlias
 from typing import Any, Literal, TextIO, TypeVar
 from typing_extensions import Self
-
 from typing import TypeAlias
 
 _T = TypeVar("_T")

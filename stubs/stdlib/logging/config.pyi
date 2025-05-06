@@ -6,7 +6,6 @@ from re import Pattern
 from threading import Thread
 from typing import IO, Any, Final, Literal, SupportsIndex, TypedDict, overload, type_check_only
 from typing_extensions import Required
-
 from typing import TypeAlias
 
 from . import Filter, Filterer, Formatter, Handler, Logger, _FilterType, _FormatStyle, _Level

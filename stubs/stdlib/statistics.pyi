@@ -5,7 +5,6 @@ from decimal import Decimal
 from fractions import Fraction
 from typing import Literal, NamedTuple, SupportsFloat, SupportsIndex, TypeVar
 from typing_extensions import Self
-
 from typing import TypeAlias
 
 __all__ = [

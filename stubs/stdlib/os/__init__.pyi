@@ -41,7 +41,6 @@ from typing import (
     runtime_checkable,
 )
 from typing_extensions import Self, Unpack, deprecated
-
 from typing import TypeAlias
 
 from . import path as _path

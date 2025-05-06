@@ -4,7 +4,6 @@ from collections.abc import Callable, Container, Iterable, MutableMapping, Mutab
 from operator import attrgetter as attrgetter, itemgetter as itemgetter, methodcaller as methodcaller
 from typing import Any, AnyStr, Protocol, SupportsAbs, SupportsIndex, TypeVar, overload
 from typing_extensions import ParamSpec, TypeIs
-
 from typing import TypeAlias
 
 _R = TypeVar("_R")

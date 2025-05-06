@@ -8,7 +8,6 @@ from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _
 from types import TracebackType
 from typing import IO, ClassVar, Literal, Protocol, overload
 from typing_extensions import Self, deprecated
-
 from typing import TypeAlias
 
 __all__ = [
@@ -539,7 +538,7 @@ class TarFile:
         members: Iterable[TarInfo] | None = None,
         *,
         numeric_owner: bool = False,
-        filter: _TarfileFilter | None = None,
+        filter: _TarfileFilter | None = ...,
     ) -> None: ...
     # Same situation as for `extractall`.
     def extract(
@@ -549,7 +548,7 @@ class TarFile:
         set_attrs: bool = True,
         *,
         numeric_owner: bool = False,
-        filter: _TarfileFilter | None = None,
+        filter: _TarfileFilter | None = ...,
     ) -> None: ...
     def _extract_member(
         self, tarinfo: TarInfo, targetpath: str, set_attrs: bool = True, numeric_owner: bool = False

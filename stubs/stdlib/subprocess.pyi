@@ -4,7 +4,6 @@ from collections.abc import Callable, Collection, Iterable, Mapping, Sequence
 from types import GenericAlias, TracebackType
 from typing import IO, Any, AnyStr, Final, Generic, Literal, TypeVar, overload
 from typing_extensions import Self
-
 from typing import TypeAlias
 
 __all__ = [

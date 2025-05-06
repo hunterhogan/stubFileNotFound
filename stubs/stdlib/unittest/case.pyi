@@ -8,7 +8,6 @@ from re import Pattern
 from types import GenericAlias, TracebackType
 from typing import Any, AnyStr, Final, Generic, NoReturn, Protocol, SupportsAbs, SupportsRound, TypeVar, overload
 from typing_extensions import Never, ParamSpec, Self
-
 from typing import TypeAlias
 from unittest._log import _AssertLogsContext, _LoggingWatcher
 from warnings import WarningMessage

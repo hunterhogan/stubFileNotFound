@@ -3,7 +3,6 @@ from _typeshed import ReadableBuffer, Unused
 from types import TracebackType
 from typing import Any, Final, Literal, final, overload
 from typing_extensions import Self
-
 from typing import TypeAlias
 
 if sys.platform == "win32":

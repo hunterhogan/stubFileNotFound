@@ -2,7 +2,6 @@ from _typeshed import StrOrBytesPath
 from collections.abc import Callable, Mapping
 from typing import Any, TypeVar
 from typing_extensions import ParamSpec, Self
-
 from typing import TypeAlias
 
 __all__ = ["run", "runctx", "Profile"]

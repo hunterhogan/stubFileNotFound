@@ -7,7 +7,6 @@ from io import TextIOWrapper
 from types import FrameType, ModuleType, TracebackType
 from typing import Any, Final, Literal, NoReturn, Protocol, TextIO, TypeVar, final, type_check_only
 from typing_extensions import LiteralString
-
 from typing import TypeAlias
 
 _T = TypeVar("_T")

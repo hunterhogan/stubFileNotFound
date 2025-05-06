@@ -8,7 +8,6 @@ from email._policybase import _MessageT
 from types import GenericAlias, TracebackType
 from typing import IO, Any, AnyStr, Generic, Literal, Protocol, TypeVar, overload
 from typing_extensions import Self
-
 from typing import TypeAlias
 
 __all__ = [

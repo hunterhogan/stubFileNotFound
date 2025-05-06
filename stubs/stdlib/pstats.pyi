@@ -6,7 +6,6 @@ from dataclasses import dataclass
 from profile import Profile
 from typing import IO, Any, Literal, overload
 from typing_extensions import Self
-
 from typing import TypeAlias
 
 if sys.version_info >= (3, 11):

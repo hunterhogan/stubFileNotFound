@@ -4,7 +4,6 @@ import sys
 import tkinter
 from typing import Any, ClassVar, Final, Literal, TypedDict, overload
 from typing_extensions import Unpack
-
 from typing import TypeAlias
 
 __all__ = ["NORMAL", "ROMAN", "BOLD", "ITALIC", "nametofont", "Font", "families", "names"]

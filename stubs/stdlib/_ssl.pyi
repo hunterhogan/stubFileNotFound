@@ -14,7 +14,6 @@ from ssl import (
 )
 from typing import Any, ClassVar, Literal, TypedDict, final, overload
 from typing_extensions import NotRequired, Self
-
 from typing import TypeAlias
 
 _PasswordType: TypeAlias = Callable[[], str | bytes | bytearray] | str | bytes | bytearray

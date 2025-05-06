@@ -5,7 +5,6 @@ from collections.abc import Callable, Iterable, Sequence
 from tarfile import _TarfileFilter
 from typing import Any, AnyStr, NamedTuple, NoReturn, Protocol, TypeVar, overload
 from typing_extensions import deprecated
-
 from typing import TypeAlias
 
 __all__ = [

@@ -4,7 +4,6 @@ from collections.abc import Generator, Iterable, Iterator, Mapping
 from types import FrameType, TracebackType
 from typing import Any, ClassVar, Literal, overload
 from typing_extensions import Self, deprecated
-
 from typing import TypeAlias
 
 __all__ = [

@@ -5,7 +5,6 @@ from collections.abc import Iterable
 from types import TracebackType
 from typing import Any, Generic, SupportsIndex, TypeVar
 from typing_extensions import Self
-
 from typing import TypeAlias
 
 __all__ = ["Client", "Listener", "Pipe", "wait"]

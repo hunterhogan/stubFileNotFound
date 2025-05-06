@@ -27,7 +27,6 @@ from types import (
 )
 from typing import Any, ClassVar, Final, Literal, NamedTuple, Protocol, TypeVar, overload
 from typing_extensions import ParamSpec, Self, TypeIs
-
 from typing import TypeAlias, TypeGuard
 
 if sys.version_info >= (3, 11):

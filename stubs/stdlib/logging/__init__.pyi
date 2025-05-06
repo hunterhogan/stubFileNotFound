@@ -9,7 +9,6 @@ from time import struct_time
 from types import FrameType, GenericAlias, TracebackType
 from typing import Any, ClassVar, Final, Generic, Literal, Protocol, TextIO, TypeVar, overload
 from typing_extensions import Self, deprecated
-
 from typing import TypeAlias
 
 __all__ = [

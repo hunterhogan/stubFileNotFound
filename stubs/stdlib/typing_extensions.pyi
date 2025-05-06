@@ -62,7 +62,6 @@ from typing import (  # noqa: Y022,Y037,Y038,Y039,UP035
     overload as overload,
     type_check_only,
 )
-
 from collections import ChainMap as ChainMap, Counter as Counter
 from collections.abc import Callable as Callable
 

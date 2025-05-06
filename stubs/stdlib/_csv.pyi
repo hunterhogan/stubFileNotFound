@@ -4,7 +4,6 @@ from _typeshed import SupportsWrite
 from collections.abc import Iterable
 from typing import Any, Final, type_check_only
 from typing_extensions import Self
-
 from typing import TypeAlias
 
 __version__: Final[str]

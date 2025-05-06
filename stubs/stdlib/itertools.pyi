@@ -4,7 +4,6 @@ from collections.abc import Callable, Iterable, Iterator
 from types import GenericAlias
 from typing import Any, Generic, Literal, SupportsComplex, SupportsFloat, SupportsIndex, SupportsInt, TypeVar, overload
 from typing_extensions import Self
-
 from typing import TypeAlias
 
 _T = TypeVar("_T")

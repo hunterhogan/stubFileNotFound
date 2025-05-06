@@ -5,7 +5,6 @@ from collections.abc import Sequence
 from types import ModuleType, TracebackType
 from typing import Any, Generic, Literal, TextIO, overload
 from typing_extensions import LiteralString, TypeVar
-
 from typing import TypeAlias
 
 __all__ = [
