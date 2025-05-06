@@ -2,7 +2,7 @@ import sys
 from collections.abc import Callable, Iterable
 from ctypes import c_long
 from typing import Literal, SupportsInt, TypeVar
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from ._generic import GenericListener as _GenericListener
 from ._mouse_event import (
@@ -48,9 +48,9 @@ def on_button(
     callback: Callable[..., None],
     args: _Ts = (),
     # Omitting default: Darwin has no x and x2
-    buttons: list[_MouseButton] | tuple[_MouseButton, ...] | _MouseButton = ...,
+    buttons: list[_MouseButton] | tuple[_MouseButton, ...] | _MouseButton = ('left', 'middle', 'right', 'x', 'x2'),
     # Omitting default: Darwin and Linux don't have "double", yet the defaults includes it
-    types: list[_MouseEventType] | tuple[_MouseEventType, ...] | _MouseEventType = ...,
+    types: list[_MouseEventType] | tuple[_MouseEventType, ...] | _MouseEventType = ('up', 'down', 'double'),
 ) -> _Callback: ...
 def on_click(callback: Callable[..., None], args: _Ts = ()) -> _Callback: ...
 def on_double_click(callback: Callable[..., None], args: _Ts = ()) -> _Callback: ...
@@ -59,7 +59,7 @@ def on_middle_click(callback: Callable[..., None], args: _Ts = ()) -> _Callback:
 def wait(
     button: _MouseButton = "left",
     # Omitting default: Darwin and Linux don't have "double", yet the defaults includes it
-    target_types: tuple[_MouseEventType, ...] = ...,
+    target_types: tuple[_MouseEventType, ...] = ('up', 'down', 'double'),
 ) -> None: ...
 
 if sys.platform == "win32":

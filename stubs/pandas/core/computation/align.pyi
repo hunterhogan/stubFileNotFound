@@ -8,7 +8,7 @@ from pandas.core.generic import NDFrame as NDFrame
 from pandas.core.indexes.api import Index as Index
 from pandas.errors import PerformanceWarning as PerformanceWarning
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Callable
+from collections.abc import Callable
 
 def _align_core_single_unary_op(term) -> tuple[partial | type[NDFrame], dict[str, Index] | None]: ...
 def _zip_axes_from_type(typ: type[NDFrame], new_axes: Sequence[Index]) -> dict[str, Index]: ...

@@ -12,7 +12,9 @@ from pandas.core.dtypes.generic import ABCTimedeltaIndex as ABCTimedeltaIndex
 from pandas.core.indexes.base import Index as Index, maybe_extract_name as maybe_extract_name
 from pandas.core.ops.common import unpack_zerodim_and_defer as unpack_zerodim_and_defer
 from pandas.util._decorators import cache_readonly as cache_readonly, deprecate_nonkeyword_arguments as deprecate_nonkeyword_arguments, doc as doc
-from typing import Any, Callable, Literal, overload
+from typing import Any, Literal, overload
+
+from collections.abc import Callable
 
 _empty_range: Incomplete
 _dtype_int64: Incomplete

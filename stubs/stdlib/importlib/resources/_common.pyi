@@ -8,7 +8,9 @@ if sys.version_info >= (3, 11):
     from importlib.abc import ResourceReader, Traversable
     from pathlib import Path
     from typing import Literal, overload
-    from typing_extensions import TypeAlias, deprecated
+    from typing_extensions import deprecated
+
+    from typing import TypeAlias
 
     Package: TypeAlias = str | types.ModuleType
 

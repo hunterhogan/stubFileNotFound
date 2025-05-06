@@ -2,7 +2,9 @@ from _typeshed import Incomplete
 from collections.abc import Mapping
 from pandas._libs.properties import cache_readonly as cache_readonly
 from pandas._typing import F, T
-from typing import Any, Callable
+from typing import Any
+
+from collections.abc import Callable
 
 __all__ = ['Appender', 'cache_readonly', 'deprecate', 'deprecate_kwarg', 'deprecate_nonkeyword_arguments', 'doc', 'future_version_msg', 'Substitution']
 

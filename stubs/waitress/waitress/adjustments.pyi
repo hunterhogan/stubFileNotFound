@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Iterable, Sequence
 from socket import socket
 from typing import Final
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 # Really complex, consider unpacking a TypedDict
 _AdjustmentsParams: TypeAlias = Incomplete

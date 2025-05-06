@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
 from typing import TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from tensorflow import IndexedSlices, RaggedTensor, Tensor
 from tensorflow._aliases import DTypeLike, ShapeLike, TensorCompatible

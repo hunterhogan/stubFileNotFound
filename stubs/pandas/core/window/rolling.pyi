@@ -26,7 +26,9 @@ from pandas.core.window.doc import _shared_docs as _shared_docs, create_section_
 from pandas.core.window.numba_ import generate_manual_numpy_nan_agg_with_axis as generate_manual_numpy_nan_agg_with_axis, generate_numba_apply_func as generate_numba_apply_func, generate_numba_table_func as generate_numba_table_func
 from pandas.errors import DataError as DataError
 from pandas.util._decorators import deprecate_kwarg as deprecate_kwarg, doc as doc
-from typing import Any, Callable, Literal
+from typing import Any, Literal
+
+from collections.abc import Callable
 
 class BaseWindow(SelectionMixin):
     """Provides utilities for performing windowing operations."""

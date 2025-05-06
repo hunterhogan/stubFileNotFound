@@ -10,7 +10,9 @@ from pandas.core.dtypes.dtypes import ExtensionDtype
 from pandas.core.dtypes.missing import isna
 from pandas.core.indexes.frozen import FrozenList
 from pandas.io.formats.printing import PrettyDict
-from typing import Any, Callable, ClassVar, Literal, NoReturn, overload
+from typing import Any, ClassVar, Literal, NoReturn, overload
+
+from collections.abc import Callable
 
 __all__ = ['Index']
 

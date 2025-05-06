@@ -9,7 +9,9 @@ from pandas.core.dtypes.cast import construct_1d_object_array_from_listlike as c
 from pandas.core.dtypes.common import is_bool_dtype as is_bool_dtype, is_integer as is_integer
 from pandas.core.dtypes.generic import ABCExtensionArray as ABCExtensionArray, ABCIndex as ABCIndex, ABCMultiIndex as ABCMultiIndex, ABCSeries as ABCSeries
 from pandas.core.dtypes.inference import iterable_not_string as iterable_not_string
-from typing import Any, Callable, overload
+from typing import Any, overload
+
+from collections.abc import Callable
 
 def flatten(line) -> Generator[Incomplete, Incomplete]:
     """

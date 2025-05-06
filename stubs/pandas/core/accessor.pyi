@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from pandas.util._decorators import doc as doc
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Callable
+from collections.abc import Callable
 
 class DirNamesMixin:
     _accessors: set[str]

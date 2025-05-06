@@ -5,7 +5,9 @@ from abc import abstractmethod
 from collections import Counter
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping, Sequence
 from typing import Any, ClassVar, Literal, Protocol, SupportsIndex, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 from docutils.frontend import Values
 from docutils.transforms import Transform, Transformer

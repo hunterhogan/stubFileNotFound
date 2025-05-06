@@ -2,7 +2,7 @@ import datetime as dt
 from _typeshed import Incomplete, StrOrBytesPath
 from collections.abc import Callable, Mapping
 from typing import ClassVar, Literal, Protocol, TypeVar, type_check_only
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from m3u8.mixins import BasePathMixin, GroupedBasePathMixin
 from m3u8.protocol import ext_x_map, ext_x_session_key

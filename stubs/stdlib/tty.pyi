@@ -1,7 +1,7 @@
 import sys
 import termios
 from typing import IO, Final
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 if sys.platform != "win32":
     __all__ = ["setraw", "setcbreak"]

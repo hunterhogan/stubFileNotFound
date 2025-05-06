@@ -4,7 +4,9 @@ from collections.abc import Iterator, Sequence
 from functools import partial
 from logging import Logger
 from typing import Any, ClassVar, Generic, Literal, NoReturn, TypeVar, overload
-from typing_extensions import TypeAlias, deprecated
+from typing_extensions import deprecated
+
+from typing import TypeAlias
 
 from django.db.models import Field as DjangoField, Model, QuerySet
 from django.utils.safestring import SafeString

@@ -21,7 +21,9 @@ from pandas.io.common import get_handle as get_handle
 from pandas.util._decorators import Appender as Appender, doc as doc
 from pandas.util._exceptions import find_stack_level as find_stack_level
 from types import TracebackType
-from typing import AnyStr, Callable, Final, IO, Literal
+from typing import AnyStr, Final, IO, Literal
+
+from collections.abc import Callable
 
 _version_error: str
 _statafile_processing_params1: str

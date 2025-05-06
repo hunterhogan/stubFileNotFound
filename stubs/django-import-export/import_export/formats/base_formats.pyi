@@ -1,7 +1,9 @@
 from _typeshed import Incomplete, ReadableBuffer
 from logging import Logger
 from typing import IO, Any, ClassVar
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 Dataset: TypeAlias = Incomplete  # tablib.Dataset
 

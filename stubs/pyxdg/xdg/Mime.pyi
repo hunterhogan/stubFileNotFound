@@ -4,7 +4,8 @@ from collections import defaultdict
 from collections.abc import Collection, Iterable
 from io import BytesIO
 from typing import Literal
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+from typing import TypeAlias
 
 FREE_NS: str
 types: dict[str, MIMEtype]

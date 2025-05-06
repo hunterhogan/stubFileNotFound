@@ -1,7 +1,8 @@
 from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
 from collections.abc import Callable, Iterable, Mapping
 from typing import Any, Generic, overload
-from typing_extensions import Concatenate, Never, ParamSpec, Self, TypeAlias, TypeVar
+from typing_extensions import Never, ParamSpec, Self, TypeVar
+from typing import Concatenate, TypeAlias
 
 from webob.request import BaseRequest, Request
 from webob.response import Response

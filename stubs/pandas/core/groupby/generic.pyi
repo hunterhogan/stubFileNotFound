@@ -23,7 +23,9 @@ from pandas.errors import SpecificationError as SpecificationError
 from pandas.plotting import boxplot_frame_groupby as boxplot_frame_groupby
 from pandas.util._decorators import Appender as Appender, Substitution as Substitution, doc as doc
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Any, Callable, Literal, NamedTuple, TypeVar
+from typing import Any, Literal, NamedTuple, TypeVar
+
+from collections.abc import Callable
 
 AggScalar = str | Callable[..., Any]
 ScalarResult = TypeVar('ScalarResult')

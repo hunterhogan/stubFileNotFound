@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
 from datetime import date, datetime, timedelta
 from typing import Any, Protocol, type_check_only
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from matplotlib.colors import Colormap, Normalize
 from numpy import ndarray

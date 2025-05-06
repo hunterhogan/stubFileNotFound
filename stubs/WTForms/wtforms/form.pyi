@@ -1,7 +1,7 @@
 from _typeshed import SupportsItems
 from collections.abc import Iterable, Iterator, Mapping, Sequence
 from typing import Any, ClassVar, Protocol, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from wtforms.fields.core import Field, UnboundField
 from wtforms.meta import DefaultMeta, _MultiDictLike

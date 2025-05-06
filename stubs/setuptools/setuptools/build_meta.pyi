@@ -2,7 +2,7 @@ from _typeshed import Incomplete, StrPath
 from collections.abc import Mapping
 from contextlib import _GeneratorContextManager
 from typing import NoReturn
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from . import dist
 

@@ -1,7 +1,7 @@
 import builtins
 import sys
 from enum import Enum
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 _FieldsType: TypeAlias = tuple[int, int, int, int, int, int]
 

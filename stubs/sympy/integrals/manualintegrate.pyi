@@ -36,7 +36,9 @@ from sympy.solvers.solvers import solve as solve
 from sympy.strategies.core import condition as condition, do_one as do_one, null_safe as null_safe, switch as switch
 from sympy.utilities.iterables import iterable as iterable
 from sympy.utilities.misc import debug as debug
-from typing import Callable, NamedTuple, Sequence
+from typing import NamedTuple
+
+from collections.abc import Callable, Sequence
 
 @dataclass
 class Rule(ABC, metaclass=abc.ABCMeta):

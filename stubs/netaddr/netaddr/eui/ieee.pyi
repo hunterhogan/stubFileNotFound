@@ -2,7 +2,7 @@ import _csv
 from _typeshed import FileDescriptorOrPath, StrOrBytesPath
 from collections.abc import Iterable
 from typing import Any, BinaryIO, TextIO
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from netaddr.core import Publisher, Subscriber
 

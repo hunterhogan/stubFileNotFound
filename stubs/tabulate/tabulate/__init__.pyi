@@ -1,6 +1,7 @@
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence
 from typing import Any, Final, NamedTuple
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+from typing import TypeAlias
 
 from .version import __version__ as __version__
 

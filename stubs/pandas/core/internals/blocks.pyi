@@ -29,7 +29,9 @@ from pandas.errors import AbstractMethodError as AbstractMethodError
 from pandas.util._decorators import cache_readonly as cache_readonly
 from pandas.util._exceptions import find_stack_level as find_stack_level
 from pandas.util._validators import validate_bool_kwarg as validate_bool_kwarg
-from typing import Any, Callable, Literal
+from typing import Any, Literal
+
+from collections.abc import Callable
 
 _dtype_obj: Incomplete
 COW_WARNING_GENERAL_MSG: str

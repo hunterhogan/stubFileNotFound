@@ -20,7 +20,7 @@ from decimal import (
     _ContextManager,
 )
 from typing import Final
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 _TrapType: TypeAlias = type[DecimalException]
 

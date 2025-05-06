@@ -4,7 +4,7 @@ from sympy.core.intfunc import igcdex as igcdex
 from sympy.core.numbers import Integer as Integer
 from sympy.core.singleton import S as S
 from sympy.functions.elementary.miscellaneous import sqrt as sqrt
-from typing import Callable
+from collections.abc import Callable
 
 def migcdex(*x: int) -> tuple[tuple[int, ...], int]:
     """Compute extended gcd for multiple integers.

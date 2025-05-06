@@ -2,7 +2,9 @@ import _cython_3_0_11
 import enum
 from _typeshed import Incomplete
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Callable, ClassVar
+from typing import ClassVar
+
+from collections.abc import Callable
 
 OFFSET_TO_PERIOD_FREQSTR: dict
 __pyx_capi__: dict

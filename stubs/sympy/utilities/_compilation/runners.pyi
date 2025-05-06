@@ -1,6 +1,6 @@
 from .util import CompileError as CompileError, find_binary_of_command as find_binary_of_command, unique_list as unique_list
 from _typeshed import Incomplete
-from typing import Callable
+from collections.abc import Callable
 
 class CompilerRunner:
     """ CompilerRunner base class.

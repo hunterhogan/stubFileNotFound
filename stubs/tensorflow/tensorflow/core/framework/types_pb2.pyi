@@ -11,10 +11,7 @@ import google.protobuf.descriptor
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
-else:
-    import typing_extensions
+import typing as typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -214,11 +211,7 @@ class SerializedDType(google.protobuf.message.Message):
 
     DATATYPE_FIELD_NUMBER: builtins.int
     datatype: global___DataType.ValueType
-    def __init__(
-        self,
-        *,
-        datatype: global___DataType.ValueType | None = ...,
-    ) -> None: ...
+    def __init__(self, *, datatype: global___DataType.ValueType | None = ...) -> None: ...
     def ClearField(self, field_name: typing.Literal["datatype", b"datatype"]) -> None: ...
 
 global___SerializedDType = SerializedDType

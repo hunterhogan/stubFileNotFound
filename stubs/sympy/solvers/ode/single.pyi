@@ -24,7 +24,9 @@ from sympy.simplify.radsimp import fraction as fraction
 from sympy.solvers.deutils import _preprocess as _preprocess, ode_order as ode_order
 from sympy.solvers.solvers import solve as solve
 from sympy.utilities import numbered_symbols as numbered_symbols
-from typing import ClassVar, Iterator
+from typing import ClassVar
+
+from collections.abc import Iterator
 
 class ODEMatchError(NotImplementedError):
     """Raised if a SingleODESolver is asked to solve an ODE it does not match"""

@@ -14,7 +14,9 @@ from pandas.core.series import Series as Series
 from pandas.core.sorting import compress_group_index as compress_group_index, decons_obs_group_ids as decons_obs_group_ids, get_flattened_list as get_flattened_list, get_group_index as get_group_index, get_group_index_sorter as get_group_index_sorter, get_indexer_dict as get_indexer_dict
 from pandas.errors import AbstractMethodError as AbstractMethodError
 from pandas.util._decorators import cache_readonly as cache_readonly
-from typing import Callable, Generic
+from typing import Generic
+
+from collections.abc import Callable
 
 def check_result_array(obj, dtype) -> None: ...
 def extract_result(res):

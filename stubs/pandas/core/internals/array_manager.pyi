@@ -19,7 +19,9 @@ from pandas.core.indexes.base import get_values_for_csv as get_values_for_csv
 from pandas.core.internals.base import DataManager as DataManager, SingleDataManager as SingleDataManager, ensure_np_dtype as ensure_np_dtype, interleaved_dtype as interleaved_dtype
 from pandas.core.internals.blocks import BlockPlacement as BlockPlacement, ensure_block_shape as ensure_block_shape, external_values as external_values, extract_pandas_array as extract_pandas_array, maybe_coerce_values as maybe_coerce_values, new_block as new_block
 from pandas.core.internals.managers import make_na_array as make_na_array
-from typing import Callable, Literal
+from typing import Literal
+
+from collections.abc import Callable
 
 class BaseArrayManager(DataManager):
     """

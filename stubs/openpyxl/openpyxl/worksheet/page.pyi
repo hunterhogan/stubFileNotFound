@@ -1,6 +1,7 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete
 from typing import ClassVar, Literal
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+from typing import TypeAlias
 
 from openpyxl.descriptors.base import Bool, Float, Integer, NoneSet, _ConvertibleToBool
 from openpyxl.descriptors.serialisable import Serialisable, _ChildSerialisableTreeElement

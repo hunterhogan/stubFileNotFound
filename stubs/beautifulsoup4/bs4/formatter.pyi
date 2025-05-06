@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from .dammit import EntitySubstitution as EntitySubstitution
 
@@ -31,9 +31,9 @@ class HTMLFormatter(Formatter):
     REGISTRY: dict[str, HTMLFormatter]
     def __init__(
         self,
-        entity_substitution: _EntitySubstitution | None = ...,
-        void_element_close_prefix: str | None = ...,
-        cdata_containing_tags: list[str] | None = ...,
+        entity_substitution: _EntitySubstitution | None = None,
+        void_element_close_prefix: str | None = '/',
+        cdata_containing_tags: list[str] | None = None,
         empty_attributes_are_booleans: bool = False,
         indent: int = 1,
     ) -> None: ...
@@ -42,9 +42,9 @@ class XMLFormatter(Formatter):
     REGISTRY: dict[str, XMLFormatter]
     def __init__(
         self,
-        entity_substitution: _EntitySubstitution | None = ...,
-        void_element_close_prefix: str | None = ...,
-        cdata_containing_tags: list[str] | None = ...,
+        entity_substitution: _EntitySubstitution | None = None,
+        void_element_close_prefix: str | None = '/',
+        cdata_containing_tags: list[str] | None = None,
         empty_attributes_are_booleans: bool = False,
         indent: int = 1,
     ) -> None: ...

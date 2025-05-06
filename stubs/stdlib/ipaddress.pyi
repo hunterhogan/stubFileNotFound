@@ -1,7 +1,9 @@
 import sys
 from collections.abc import Iterable, Iterator
 from typing import Any, Final, Generic, Literal, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 # Undocumented length constants
 IPV4LENGTH: Final = 32
@@ -132,7 +134,7 @@ class IPv4Address(_BaseV4, _BaseAddress):
         def ipv6_mapped(self) -> IPv6Address: ...
 
 class IPv4Network(_BaseV4, _BaseNetwork[IPv4Address]):
-    def __init__(self, address: object, strict: bool = ...) -> None: ...
+    def __init__(self, address: object, strict: bool = True) -> None: ...
 
 class IPv4Interface(IPv4Address):
     netmask: IPv4Address
@@ -188,7 +190,7 @@ class IPv6Address(_BaseV6, _BaseAddress):
     def __eq__(self, other: object) -> bool: ...
 
 class IPv6Network(_BaseV6, _BaseNetwork[IPv6Address]):
-    def __init__(self, address: object, strict: bool = ...) -> None: ...
+    def __init__(self, address: object, strict: bool = True) -> None: ...
     @property
     def is_site_local(self) -> bool: ...
 

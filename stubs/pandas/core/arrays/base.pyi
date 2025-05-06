@@ -19,7 +19,9 @@ from pandas.errors import AbstractMethodError as AbstractMethodError
 from pandas.util._decorators import Appender as Appender, Substitution as Substitution, cache_readonly as cache_readonly
 from pandas.util._exceptions import find_stack_level as find_stack_level
 from pandas.util._validators import validate_bool_kwarg as validate_bool_kwarg, validate_fillna_kwargs as validate_fillna_kwargs, validate_insert_loc as validate_insert_loc
-from typing import Any, Callable, ClassVar, Literal, overload
+from typing import Any, ClassVar, Literal, overload
+
+from collections.abc import Callable
 
 _extension_array_shared_docs: dict[str, str]
 

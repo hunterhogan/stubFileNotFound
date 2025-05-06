@@ -2,7 +2,8 @@ from _typeshed import Incomplete
 from abc import abstractmethod
 from collections.abc import Collection, Iterable, Sequence
 from typing import Any, Literal, overload
-from typing_extensions import TypeAlias, Unpack
+from typing_extensions import Unpack
+from typing import TypeAlias
 
 from reportlab.lib.colors import Color
 from reportlab.lib.styles import PropertySet

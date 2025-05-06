@@ -3,7 +3,9 @@ from _typeshed import Incomplete
 from collections import defaultdict
 from collections.abc import Callable, Container, Iterable, Iterator, Mapping, Sequence
 from typing import Any, Literal, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 from urllib.parse import ParseResult, SplitResult
 
 from vobject.base import VBase

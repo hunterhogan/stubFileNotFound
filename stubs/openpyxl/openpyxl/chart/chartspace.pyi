@@ -1,6 +1,6 @@
 from _typeshed import ConvertibleToFloat, Incomplete, Unused
 from typing import ClassVar, Literal, overload
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from openpyxl.chart._3d import Surface, View3D
 from openpyxl.chart.legend import Legend

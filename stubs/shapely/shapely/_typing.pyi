@@ -2,7 +2,7 @@ import sys
 from _typeshed import SupportsWrite as SupportsWrite
 from collections.abc import Sequence
 from typing import Any, Protocol, TypeVar, type_check_only
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 import numpy as np
 from numpy.typing import NDArray

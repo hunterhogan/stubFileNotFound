@@ -1,6 +1,6 @@
 from collections.abc import MutableMapping
 from typing import Protocol
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from bleach import _HTMLAttrKey
 

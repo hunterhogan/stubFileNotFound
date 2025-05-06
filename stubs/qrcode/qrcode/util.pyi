@@ -1,7 +1,7 @@
 from collections.abc import Callable, Generator
 from re import Pattern
 from typing import Final, Literal, overload
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from ._types import ErrorCorrect, MaskPattern
 from .base import RSBlock as RSBlock

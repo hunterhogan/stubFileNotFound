@@ -4,7 +4,7 @@ from collections.abc import Collection, ItemsView, Iterator, KeysView, MutableMa
 from datetime import date, datetime, timedelta
 from time import _TimeTuple, struct_time
 from typing import Any, Literal, Protocol, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from webob._types import AsymmetricProperty
 from webob.request import BaseRequest

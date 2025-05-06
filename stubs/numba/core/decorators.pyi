@@ -7,34 +7,34 @@ _msg_deprecated_signature_arg: str
 
 @overload
 def jit(signature_or_function: None = None,
-		locals: Dict[str, Any] = {},
+		locals: dict[str, Any] = {},
 		cache: bool = False,
-		pipeline_class: Optional[Any] = None,
-		boundscheck: Optional[Any] = None,
-		**options: Union[bool, str, Callable[..., Any], None]) -> Callable[..., Any]: ...
+		pipeline_class: Any | None = None,
+		boundscheck: Any | None = None,
+		**options: bool | str | Callable[..., Any] | None) -> Callable[..., Any]: ...
 
 @overload
-def jit(signature_or_function: Union[str, List[str]],
-		locals: Dict[str, Any] = {},
+def jit(signature_or_function: str | list[str],
+		locals: dict[str, Any] = {},
 		cache: bool = False,
-		pipeline_class: Optional[Any] = None,
-		boundscheck: Optional[Any] = None,
-		**options: Union[bool, str, Callable[..., Any], None]) -> Callable[..., Any]: ...
+		pipeline_class: Any | None = None,
+		boundscheck: Any | None = None,
+		**options: bool | str | Callable[..., Any] | None) -> Callable[..., Any]: ...
 
 @overload
 def jit(signature_or_function: Callable[..., Any],
-		locals: Dict[str, Any] = {},
+		locals: dict[str, Any] = {},
 		cache: bool = False,
-		pipeline_class: Optional[Any] = None,
-		boundscheck: Optional[Any] = None,
-		**options: Union[bool, str, Callable[..., Any], None]) -> Any: ...
+		pipeline_class: Any | None = None,
+		boundscheck: Any | None = None,
+		**options: bool | str | Callable[..., Any] | None) -> Any: ...
 
-def jit(signature_or_function: Optional[Union[Callable[..., Any], str, List[str]]] = None,
-		locals: Dict[str, Any] = {},
+def jit(signature_or_function: Callable[..., Any] | str | list[str] | None = None,
+		locals: dict[str, Any] = {},
 		cache: bool = False,
-		pipeline_class: Optional[Any] = None,
-		boundscheck: Optional[Any] = None,
-		**options: Union[bool, str, Callable[..., Any], None]) -> Union[Callable[..., Any], Any]:
+		pipeline_class: Any | None = None,
+		boundscheck: Any | None = None,
+		**options: bool | str | Callable[..., Any] | None) -> Callable[..., Any] | Any:
 	'''
 	This decorator is used to compile a Python function into native code.
 
@@ -197,28 +197,28 @@ def jit(signature_or_function: Optional[Union[Callable[..., Any], str, List[str]
 
 	'''
 
-def _jit(sigs: Optional[Union[List[str], str]],
-		 locals: Dict[str, Any],
+def _jit(sigs: list[str] | str | None,
+		 locals: dict[str, Any],
 		 target: str,
 		 cache: bool,
-		 targetoptions: Dict[str, Any],
+		 targetoptions: dict[str, Any],
 		 **dispatcher_args: Any) -> Callable[..., Any]: ...
 
 @overload
 def njit(function: Callable[..., Any], **kws: Any) -> Any: ...
 
 @overload
-def njit(signature_or_function: Optional[Union[str, List[str]]] = None, **kws: Any) -> Callable[..., Any]: ...
+def njit(signature_or_function: str | list[str] | None = None, **kws: Any) -> Callable[..., Any]: ...
 
-def njit(*args: Any, **kws: Any) -> Union[Any, Callable[..., Any]]:
+def njit(*args: Any, **kws: Any) -> Any | Callable[..., Any]:
 	"""
 	Equivalent to jit(nopython=True)
 
 	See documentation for jit function/decorator for full description.
 	"""
 
-def cfunc(sig: str, locals: Dict[str, Any] = {}, cache: bool = False,
-		  pipeline_class: Optional[Any] = None, **options: Any) -> Callable[..., Any]:
+def cfunc(sig: str, locals: dict[str, Any] = {}, cache: bool = False,
+		  pipeline_class: Any | None = None, **options: Any) -> Callable[..., Any]:
 	'''
 	This decorator is used to compile a Python function into a C callback
 	usable with foreign C libraries.

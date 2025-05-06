@@ -11,7 +11,9 @@ from pandas.core.dtypes.common import is_integer as is_integer, is_list_like as 
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCSeries as ABCSeries
 from pandas.core.groupby.generic import DataFrameGroupBy as DataFrameGroupBy
 from pandas.util._decorators import Appender as Appender, Substitution as Substitution
-from typing import Callable, Literal
+from typing import Literal
+
+from collections.abc import Callable
 
 def hist_series(self, by: Incomplete | None = None, ax: Incomplete | None = None, grid: bool = True, xlabelsize: int | None = None, xrot: float | None = None, ylabelsize: int | None = None, yrot: float | None = None, figsize: tuple[int, int] | None = None, bins: int | Sequence[int] = 10, backend: str | None = None, legend: bool = False, **kwargs):
     """

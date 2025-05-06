@@ -2,7 +2,8 @@
 from _typeshed import Incomplete, Unused
 from collections.abc import Iterable, Sequence
 from typing import Literal, NoReturn, SupportsIndex, final, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from typing_extensions import Self, deprecated
+from typing import TypeAlias
 
 from win32.lib.pywintypes import TimeType
 

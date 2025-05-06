@@ -3,36 +3,15 @@ from abc import abstractmethod
 from types import MappingProxyType
 from typing import (  # noqa: Y022,Y038,UP035
     AbstractSet as Set,
-    AsyncGenerator as AsyncGenerator,
-    AsyncIterable as AsyncIterable,
-    AsyncIterator as AsyncIterator,
-    Awaitable as Awaitable,
-    Callable as Callable,
     ClassVar,
-    Collection as Collection,
-    Container as Container,
-    Coroutine as Coroutine,
-    Generator as Generator,
     Generic,
-    Hashable as Hashable,
-    ItemsView as ItemsView,
-    Iterable as Iterable,
-    Iterator as Iterator,
-    KeysView as KeysView,
-    Mapping as Mapping,
-    MappingView as MappingView,
-    MutableMapping as MutableMapping,
-    MutableSequence as MutableSequence,
-    MutableSet as MutableSet,
     Protocol,
-    Reversible as Reversible,
-    Sequence as Sequence,
-    Sized as Sized,
     TypeVar,
-    ValuesView as ValuesView,
     final,
     runtime_checkable,
 )
+
+from collections.abc import AsyncGenerator as AsyncGenerator, AsyncIterable as AsyncIterable, AsyncIterator as AsyncIterator, Awaitable as Awaitable, Callable as Callable, Collection as Collection, Container as Container, Coroutine as Coroutine, Generator as Generator, Hashable as Hashable, ItemsView as ItemsView, Iterable as Iterable, Iterator as Iterator, KeysView as KeysView, Mapping as Mapping, MappingView as MappingView, MutableMapping as MutableMapping, MutableSequence as MutableSequence, MutableSet as MutableSet, Reversible as Reversible, Sequence as Sequence, Sized as Sized, ValuesView as ValuesView
 
 __all__ = [
     "Awaitable",
@@ -61,7 +40,7 @@ __all__ = [
     "MutableSequence",
 ]
 if sys.version_info < (3, 14):
-    from typing import ByteString as ByteString  # noqa: Y057,UP035
+    from collections.abc import ByteString as ByteString  # noqa: Y057,UP035
 
     __all__ += ["ByteString"]
 
@@ -78,16 +57,14 @@ class dict_keys(KeysView[_KT_co], Generic[_KT_co, _VT_co]):  # undocumented
     __hash__: ClassVar[None]  # type: ignore[assignment]
     if sys.version_info >= (3, 13):
         def isdisjoint(self, other: Iterable[_KT_co], /) -> bool: ...
-    if sys.version_info >= (3, 10):
-        @property
-        def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...
+    @property
+    def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...
 
 @final
 class dict_values(ValuesView[_VT_co], Generic[_KT_co, _VT_co]):  # undocumented
     def __reversed__(self) -> Iterator[_VT_co]: ...
-    if sys.version_info >= (3, 10):
-        @property
-        def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...
+    @property
+    def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...
 
 @final
 class dict_items(ItemsView[_KT_co, _VT_co]):  # undocumented
@@ -96,9 +73,8 @@ class dict_items(ItemsView[_KT_co, _VT_co]):  # undocumented
     __hash__: ClassVar[None]  # type: ignore[assignment]
     if sys.version_info >= (3, 13):
         def isdisjoint(self, other: Iterable[tuple[_KT_co, _VT_co]], /) -> bool: ...
-    if sys.version_info >= (3, 10):
-        @property
-        def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...
+    @property
+    def mapping(self) -> MappingProxyType[_KT_co, _VT_co]: ...
 
 if sys.version_info >= (3, 12):
     @runtime_checkable

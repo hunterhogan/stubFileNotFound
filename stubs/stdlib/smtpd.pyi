@@ -4,7 +4,7 @@ import socket
 import sys
 from collections import defaultdict
 from typing import Any
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 if sys.version_info >= (3, 11):
     __all__ = ["SMTPChannel", "SMTPServer", "DebuggingServer", "PureProxy"]

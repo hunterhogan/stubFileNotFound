@@ -6,7 +6,7 @@ from _typeshed import MaybeNone, ReadableBuffer
 from collections.abc import Callable, Iterator, Mapping
 from types import GenericAlias
 from typing import Any, AnyStr, Final, Generic, Literal, TypeVar, final, overload
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 __all__ = [
     "match",

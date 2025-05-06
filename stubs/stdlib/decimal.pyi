@@ -26,7 +26,9 @@ from _decimal import (
 from collections.abc import Container, Sequence
 from types import TracebackType
 from typing import Any, ClassVar, Literal, NamedTuple, final, overload, type_check_only
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 _Decimal: TypeAlias = Decimal | int
 _DecimalNew: TypeAlias = Decimal | float | str | tuple[int, Sequence[int], int]

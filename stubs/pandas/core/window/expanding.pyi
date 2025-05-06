@@ -6,7 +6,9 @@ from pandas.core.indexers.objects import BaseIndexer as BaseIndexer, ExpandingIn
 from pandas.core.window.doc import _shared_docs as _shared_docs, create_section_header as create_section_header, kwargs_numeric_only as kwargs_numeric_only, numba_notes as numba_notes, template_header as template_header, template_returns as template_returns, template_see_also as template_see_also, window_agg_numba_parameters as window_agg_numba_parameters, window_apply_parameters as window_apply_parameters
 from pandas.core.window.rolling import BaseWindowGroupby as BaseWindowGroupby, RollingAndExpandingMixin as RollingAndExpandingMixin
 from pandas.util._decorators import deprecate_kwarg as deprecate_kwarg, doc as doc
-from typing import Any, Callable, Literal
+from typing import Any, Literal
+
+from collections.abc import Callable
 
 class Expanding(RollingAndExpandingMixin):
     '''

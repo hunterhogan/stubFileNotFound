@@ -3,7 +3,7 @@ from collections.abc import Callable, Iterable
 from threading import local
 from types import ModuleType
 from typing import Literal, NewType
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from fanstatic.compiler import Compiler, Minifier
 
@@ -188,7 +188,7 @@ class NeededResources:
         recompute_hashes: bool = True,
         base_url: str | None = None,
         script_name: str | None = None,
-        publisher_signature: str = ...,
+        publisher_signature: str = 'fanstatic',
         resources: Iterable[Dependable] | None = None,
     ) -> None: ...
     def has_resources(self) -> bool: ...

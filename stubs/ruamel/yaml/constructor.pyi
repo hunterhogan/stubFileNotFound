@@ -7,7 +7,9 @@ from ruamel.yaml.error import MarkedYAMLError, MarkedYAMLFutureWarning
 from ruamel.yaml.scalarbool import ScalarBoolean
 from ruamel.yaml.timestamp import TimeStamp
 from ruamel.yaml.util import timestamp_regexp
-from typing import Any, Iterator
+from typing import Any
+
+from collections.abc import Iterator
 
 __all__ = ['BaseConstructor', 'SafeConstructor', 'Constructor', 'ConstructorError', 'RoundTripConstructor']
 

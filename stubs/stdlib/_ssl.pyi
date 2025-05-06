@@ -13,7 +13,9 @@ from ssl import (
     SSLZeroReturnError as SSLZeroReturnError,
 )
 from typing import Any, ClassVar, Literal, TypedDict, final, overload
-from typing_extensions import NotRequired, Self, TypeAlias
+from typing_extensions import NotRequired, Self
+
+from typing import TypeAlias
 
 _PasswordType: TypeAlias = Callable[[], str | bytes | bytearray] | str | bytes | bytearray
 _PCTRTT: TypeAlias = tuple[tuple[str, str], ...]
@@ -51,9 +53,6 @@ def RAND_bytes(n: int, /) -> bytes: ...
 if sys.version_info < (3, 12):
     def RAND_pseudo_bytes(n: int, /) -> tuple[bytes, bool]: ...
 
-if sys.version_info < (3, 10):
-    def RAND_egd(path: str) -> None: ...
-
 def RAND_status() -> bool: ...
 def get_default_verify_paths() -> tuple[str, str, str, str]: ...
 
@@ -74,8 +73,7 @@ class _SSLContext:
     options: int
     post_handshake_auth: bool
     protocol: int
-    if sys.version_info >= (3, 10):
-        security_level: int
+    security_level: int
     sni_callback: Callable[[SSLObject, str, SSLContext], None | int] | None
     verify_flags: int
     verify_mode: int
@@ -141,18 +139,17 @@ class SSLSession:
 #
 # You can find a _ssl._SSLSocket object as the _sslobj attribute of a ssl.SSLSocket object
 
-if sys.version_info >= (3, 10):
-    @final
-    class Certificate:
-        def get_info(self) -> _CertInfo: ...
-        @overload
-        def public_bytes(self) -> str: ...
-        @overload
-        def public_bytes(self, format: Literal[1] = 1, /) -> str: ...  # ENCODING_PEM
-        @overload
-        def public_bytes(self, format: Literal[2], /) -> bytes: ...  # ENCODING_DER
-        @overload
-        def public_bytes(self, format: int, /) -> str | bytes: ...
+@final
+class Certificate:
+    def get_info(self) -> _CertInfo: ...
+    @overload
+    def public_bytes(self) -> str: ...
+    @overload
+    def public_bytes(self, format: Literal[1] = 1, /) -> str: ...  # ENCODING_PEM
+    @overload
+    def public_bytes(self, format: Literal[2], /) -> bytes: ...  # ENCODING_DER
+    @overload
+    def public_bytes(self, format: int, /) -> str | bytes: ...
 
 if sys.version_info < (3, 12):
     err_codes_to_names: dict[tuple[int, int], str]
@@ -183,9 +180,8 @@ VERIFY_CRL_CHECK_LEAF: int
 VERIFY_CRL_CHECK_CHAIN: int
 VERIFY_X509_STRICT: int
 VERIFY_X509_TRUSTED_FIRST: int
-if sys.version_info >= (3, 10):
-    VERIFY_ALLOW_PROXY_CERTS: int
-    VERIFY_X509_PARTIAL_CHAIN: int
+VERIFY_ALLOW_PROXY_CERTS: int
+VERIFY_X509_PARTIAL_CHAIN: int
 
 # alert descriptions
 ALERT_DESCRIPTION_CLOSE_NOTIFY: int
@@ -254,11 +250,10 @@ HOSTFLAG_NO_PARTIAL_WILDCARDS: int
 HOSTFLAG_MULTI_LABEL_WILDCARDS: int
 HOSTFLAG_SINGLE_LABEL_SUBDOMAINS: int
 
-if sys.version_info >= (3, 10):
-    # certificate file types
-    # Typed as Literal so the overload on Certificate.public_bytes can work properly.
-    ENCODING_PEM: Literal[1]
-    ENCODING_DER: Literal[2]
+# certificate file types
+# Typed as Literal so the overload on Certificate.public_bytes can work properly.
+ENCODING_PEM: Literal[1]
+ENCODING_DER: Literal[2]
 
 # protocol versions
 PROTO_MINIMUM_SUPPORTED: int

@@ -7,7 +7,9 @@ from pandas.compat._optional import import_optional_dependency as import_optiona
 from pandas.core.dtypes.common import is_complex as is_complex, is_float as is_float, is_float_dtype as is_float_dtype, is_integer as is_integer, is_numeric_dtype as is_numeric_dtype, is_object_dtype as is_object_dtype, needs_i8_conversion as needs_i8_conversion, pandas_dtype as pandas_dtype
 from pandas.core.dtypes.missing import isna as isna, na_value_for_dtype as na_value_for_dtype, notna as notna
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Any, Callable
+from typing import Any
+
+from collections.abc import Callable
 
 bn: Incomplete
 _BOTTLENECK_INSTALLED: Incomplete

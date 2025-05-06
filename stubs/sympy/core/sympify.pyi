@@ -3,7 +3,9 @@ from .parameters import global_parameters as global_parameters
 from _typeshed import Incomplete
 from sympy.core.random import choice as choice
 from sympy.utilities.iterables import iterable as iterable
-from typing import Any, Callable
+from typing import Any
+
+from collections.abc import Callable
 
 class SympifyError(ValueError):
     expr: Incomplete

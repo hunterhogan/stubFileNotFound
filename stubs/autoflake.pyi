@@ -1,7 +1,9 @@
 import pyflakes.messages
 import pyflakes.reporter
 from _typeshed import Incomplete
-from typing import Any, Callable, IO, Iterable, Mapping, MutableMapping, Sequence
+from typing import Any, IO
+
+from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 
 __version__: str
 _LOGGER: Incomplete

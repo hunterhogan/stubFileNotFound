@@ -1,4 +1,4 @@
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 # Actually Tuple[(int,) * 625]
 _State: TypeAlias = tuple[int, ...]

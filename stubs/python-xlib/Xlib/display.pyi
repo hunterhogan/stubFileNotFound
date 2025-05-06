@@ -2,7 +2,7 @@ from collections.abc import Callable, Iterable, Sequence
 from re import Pattern
 from types import FunctionType, MethodType
 from typing import Any, Literal, TypedDict, overload
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from Xlib import error
 from Xlib._typing import ErrorHandler

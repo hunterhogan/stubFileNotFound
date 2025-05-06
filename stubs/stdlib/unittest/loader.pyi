@@ -5,7 +5,9 @@ from collections.abc import Callable, Sequence
 from re import Pattern
 from types import ModuleType
 from typing import Any, Final
-from typing_extensions import TypeAlias, deprecated
+from typing_extensions import deprecated
+
+from typing import TypeAlias
 
 _SortComparisonMethod: TypeAlias = Callable[[str, str], int]
 _SuiteClass: TypeAlias = Callable[[list[unittest.case.TestCase]], unittest.suite.TestSuite]

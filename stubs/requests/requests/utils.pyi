@@ -4,7 +4,7 @@ from collections.abc import Generator, Iterable, Mapping
 from contextlib import _GeneratorContextManager
 from io import BufferedWriter
 from typing import AnyStr
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from . import compat, cookies, exceptions, structures
 from .models import PreparedRequest, Request

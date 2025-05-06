@@ -26,7 +26,9 @@ from pandas.util._decorators import doc as doc
 from pandas.util._exceptions import find_stack_level as find_stack_level
 from pandas.util._validators import validate_bool_kwarg as validate_bool_kwarg, validate_insert_loc as validate_insert_loc
 from scipy.sparse import spmatrix
-from typing import Any, Callable, Literal, overload
+from typing import Any, Literal, overload
+
+from collections.abc import Callable
 
 class ellipsis(Enum):
     Ellipsis = '...'

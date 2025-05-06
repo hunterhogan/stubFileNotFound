@@ -3,7 +3,7 @@ import sys
 import types
 from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
 from typing import Any
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 version: int
 

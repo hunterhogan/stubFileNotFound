@@ -11,7 +11,7 @@ from pandas.core.dtypes.common import ensure_int64 as ensure_int64, ensure_platf
 from pandas.core.dtypes.generic import ABCMultiIndex as ABCMultiIndex, ABCRangeIndex as ABCRangeIndex
 from pandas.core.dtypes.missing import isna as isna
 from pandas.core.indexes.base import Index as Index
-from typing import Callable
+from collections.abc import Callable
 
 def get_indexer_indexer(target: Index, level: Level | list[Level] | None, ascending: list[bool] | bool, kind: SortKind, na_position: NaPosition, sort_remaining: bool, key: IndexKeyFunc) -> npt.NDArray[np.intp] | None:
     """

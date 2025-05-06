@@ -1,7 +1,9 @@
 from _typeshed import Incomplete
 from collections.abc import Callable
 from typing import Any, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 from tensorflow import Tensor
 from tensorflow._aliases import DTypeLike, ShapeLike, TensorCompatible

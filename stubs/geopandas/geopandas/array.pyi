@@ -2,7 +2,9 @@ import builtins
 from _typeshed import Incomplete, Unused
 from collections.abc import Callable, Sequence
 from typing import Any, ClassVar, Literal, NoReturn, SupportsIndex, TypeVar, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from typing_extensions import Self, deprecated
+
+from typing import TypeAlias
 
 import numpy as np
 import pandas as pd

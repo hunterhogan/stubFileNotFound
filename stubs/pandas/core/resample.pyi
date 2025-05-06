@@ -26,7 +26,9 @@ from pandas.tseries.frequencies import is_subperiod as is_subperiod, is_superper
 from pandas.tseries.offsets import Day as Day, Tick as Tick
 from pandas.util._decorators import Appender as Appender, Substitution as Substitution, doc as doc
 from pandas.util._exceptions import find_stack_level as find_stack_level, rewrite_warning as rewrite_warning
-from typing import Callable, Literal
+from typing import Literal
+
+from collections.abc import Callable
 
 _shared_docs_kwargs: dict[str, str]
 

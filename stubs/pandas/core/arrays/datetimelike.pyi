@@ -33,7 +33,9 @@ from pandas.errors import AbstractMethodError as AbstractMethodError, InvalidCom
 from pandas.tseries import frequencies as frequencies
 from pandas.util._decorators import Appender as Appender, Substitution as Substitution, cache_readonly as cache_readonly
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Any, Callable, Literal, overload
+from typing import Any, Literal, overload
+
+from collections.abc import Callable
 
 DTScalarOrNaT = DatetimeLikeScalar | NaTType
 

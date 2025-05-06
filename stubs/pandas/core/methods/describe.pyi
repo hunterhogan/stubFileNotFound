@@ -12,7 +12,7 @@ from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype, DatetimeTZDtype 
 from pandas.core.reshape.concat import concat as concat
 from pandas.io.formats.format import format_percentiles as format_percentiles
 from pandas.util._validators import validate_percentile as validate_percentile
-from typing import Callable
+from collections.abc import Callable
 
 def describe_ndframe(*, obj: NDFrameT, include: str | Sequence[str] | None, exclude: str | Sequence[str] | None, percentiles: Sequence[float] | np.ndarray | None) -> NDFrameT:
     """Describe series or dataframe.

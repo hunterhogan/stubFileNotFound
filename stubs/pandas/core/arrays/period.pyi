@@ -18,7 +18,9 @@ from pandas.core.dtypes.generic import ABCIndex as ABCIndex, ABCPeriodIndex as A
 from pandas.core.dtypes.missing import isna as isna
 from pandas.util._decorators import cache_readonly as cache_readonly, doc as doc
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Any, Callable, Literal, TypeVar, overload
+from typing import Any, Literal, TypeVar, overload
+
+from collections.abc import Callable
 
 BaseOffsetT = TypeVar('BaseOffsetT', bound=BaseOffset)
 _shared_doc_kwargs: Incomplete

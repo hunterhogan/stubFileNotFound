@@ -12,14 +12,9 @@ FORMATTER_ENTRY_POINT: str
 STYLE_ENTRY_POINT: str
 FILTER_ENTRY_POINT: str
 
-if sys.version_info >= (3, 10):
-    from importlib.metadata import EntryPoints
-    def iter_entry_points(group_name: str) -> EntryPoints: ...
+from importlib.metadata import EntryPoints
+def iter_entry_points(group_name: str) -> EntryPoints: ...
 
-else:
-    from importlib.metadata import EntryPoint
-
-    def iter_entry_points(group_name: str) -> tuple[EntryPoint, ...] | list[EntryPoint]: ...
 
 def find_plugin_lexers() -> Generator[type[Lexer], None, None]: ...
 def find_plugin_formatters() -> Generator[tuple[str, type[Formatter[Any]]], None, None]: ...

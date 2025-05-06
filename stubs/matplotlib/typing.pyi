@@ -5,7 +5,9 @@ from .backend_bases import RendererBase as RendererBase
 from .markers import MarkerStyle as MarkerStyle
 from .transforms import Bbox as Bbox, Transform as Transform
 from collections.abc import Hashable
-from typing import Callable, TypeAlias, TypeVar
+from typing import TypeAlias, TypeVar
+
+from collections.abc import Callable
 
 RGBColorType: TypeAlias
 RGBAColorType: TypeAlias

@@ -2,7 +2,8 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from typing import Any, ClassVar
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+from typing import TypeAlias
 
 from matplotlib.axis import Ticker
 from matplotlib.scale import ScaleBase

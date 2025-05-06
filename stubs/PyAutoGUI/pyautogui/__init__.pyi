@@ -3,7 +3,8 @@ from _typeshed import ConvertibleToInt
 from collections.abc import Callable, Iterable, Sequence
 from datetime import datetime
 from typing import Final, NamedTuple, SupportsIndex, SupportsInt, TypeVar
-from typing_extensions import ParamSpec, TypeAlias
+from typing_extensions import ParamSpec
+from typing import TypeAlias
 
 from pyscreeze import (
     center as center,

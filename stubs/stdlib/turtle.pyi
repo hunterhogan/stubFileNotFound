@@ -2,7 +2,9 @@ import sys
 from collections.abc import Callable, Sequence
 from tkinter import Canvas, Frame, Misc, PhotoImage, Scrollbar
 from typing import Any, ClassVar, Literal, TypedDict, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 __all__ = [
     "ScrolledCanvas",

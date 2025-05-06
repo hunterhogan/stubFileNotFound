@@ -7,7 +7,9 @@ from datetime import datetime
 from io import BytesIO
 from types import TracebackType
 from typing import Any, ClassVar, Final, Literal, Protocol, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 class _SupportsTimeTuple(Protocol):
     def timetuple(self) -> time.struct_time: ...

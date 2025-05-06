@@ -49,7 +49,9 @@ from pandas.io.formats.style import Styler as Styler
 from pandas.util._decorators import Appender as Appender, Substitution as Substitution, deprecate_nonkeyword_arguments as deprecate_nonkeyword_arguments, doc as doc
 from pandas.util._exceptions import find_stack_level as find_stack_level, rewrite_warning as rewrite_warning
 from pandas.util._validators import validate_ascending as validate_ascending, validate_bool_kwarg as validate_bool_kwarg, validate_percentile as validate_percentile
-from typing import Any, Callable, Literal, overload
+from typing import Any, Literal, overload
+
+from collections.abc import Callable
 
 _shared_doc_kwargs: Incomplete
 _merge_doc: str

@@ -2,7 +2,7 @@ from _typeshed import Incomplete, SupportsKeysAndGetItem
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping
 from contextlib import contextmanager
 from typing import Any, ClassVar
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from referencing.jsonschema import Schema, SchemaRegistry
 from referencing.typing import URI
@@ -60,7 +60,7 @@ def create(
     meta_schema: Schema,
     validators: Mapping[str, _ValidatorCallback] | tuple[()] = (),
     version: Incomplete | None = None,
-    type_checker: TypeChecker = ...,
+    type_checker: TypeChecker = None,
     format_checker: FormatChecker = ...,
     id_of: Callable[[Schema], str] = ...,
     applicable_validators: Callable[[Schema], Iterable[tuple[str, _ValidatorCallback]]] = ...,
@@ -92,7 +92,7 @@ class RefResolver:
         self,
         base_uri: str,
         referrer: dict[str, Incomplete],
-        store: SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]] = ...,
+        store: SupportsKeysAndGetItem[str, str] | Iterable[tuple[str, str]] = (),
         cache_remote: bool = True,
         handlers: SupportsKeysAndGetItem[str, _Handler] | Iterable[tuple[str, _Handler]] = (),
         urljoin_cache: Incomplete | None = None,

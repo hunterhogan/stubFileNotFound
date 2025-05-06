@@ -2,7 +2,7 @@ import sys
 from collections.abc import Iterable, Mapping, Sequence
 from types import GenericAlias
 from typing import Any, AnyStr, Generic, Literal, NamedTuple, Protocol, overload, type_check_only
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 __all__ = [
     "urlparse",

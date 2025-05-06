@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from typing import Final
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 import _win32typing
 from pythoncom import com_record

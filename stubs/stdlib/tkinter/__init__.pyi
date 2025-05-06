@@ -6,7 +6,9 @@ from tkinter.constants import *
 from tkinter.font import _FontDescription
 from types import TracebackType
 from typing import Any, ClassVar, Generic, Literal, NamedTuple, Protocol, TypedDict, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias, TypeVarTuple, Unpack, deprecated
+from typing_extensions import TypeVarTuple, Unpack, deprecated
+
+from typing import TypeAlias
 
 if sys.version_info >= (3, 11):
     from enum import StrEnum

@@ -3,7 +3,9 @@ import sys
 from _typeshed import SupportsWrite
 from collections.abc import Callable
 from typing import Any, Literal, TypeVar
-from typing_extensions import Concatenate, ParamSpec, deprecated
+from typing_extensions import ParamSpec, deprecated
+
+from typing import Concatenate
 
 _T = TypeVar("_T")
 _R_co = TypeVar("_R_co", covariant=True)
@@ -47,5 +49,4 @@ class ABC(metaclass=ABCMeta):
 
 def get_cache_token() -> object: ...
 
-if sys.version_info >= (3, 10):
-    def update_abstractmethods(cls: type[_T]) -> type[_T]: ...
+def update_abstractmethods(cls: type[_T]) -> type[_T]: ...

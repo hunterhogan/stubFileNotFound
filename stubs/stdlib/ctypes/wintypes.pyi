@@ -22,7 +22,9 @@ from ctypes import (
     c_wchar_p,
 )
 from typing import Any, TypeVar
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 if sys.version_info >= (3, 12):
     from ctypes import c_ubyte

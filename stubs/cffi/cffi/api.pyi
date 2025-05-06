@@ -3,7 +3,7 @@ import types
 from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Hashable
 from typing import Any, Literal, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 import _cffi_backend
 from setuptools._distutils.extension import Extension

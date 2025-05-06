@@ -1,4 +1,6 @@
-from typing import Callable, Optional, Union, Dict, Tuple
+from typing import Optional, Union, Dict, Tuple
+
+from collections.abc import Callable
 import numpy as np
 from numpy.typing import NDArray
 
@@ -7,15 +9,15 @@ __all__ = ['get_filter', 'clear_cache', 'sinc_window']
 """Filter construction and loading."""
 
 # Dictionary to cache loaded filters
-FILTER_CACHE: Dict[str, Tuple[NDArray[np.floating], int, float]] = {}
+FILTER_CACHE: dict[str, tuple[NDArray[np.floating], int, float]] = {}
 
 # List of filter functions available
 FILTER_FUNCTIONS = ['sinc_window']
 
 def sinc_window(num_zeros: int = 64,
                 precision: int = 9,
-                window: Optional[Callable] = None,
-                rolloff: float = 0.945) -> Tuple[NDArray[np.floating], int, float]:
+                window: Callable | None = None,
+                rolloff: float = 0.945) -> tuple[NDArray[np.floating], int, float]:
     """Construct a windowed sinc interpolation filter
 
     Parameters
@@ -48,8 +50,8 @@ def sinc_window(num_zeros: int = 64,
     """
     ...
 
-def get_filter(name_or_function: Union[str, Callable[..., Tuple[NDArray[np.floating], int, float]]],
-               **kwargs) -> Tuple[NDArray[np.floating], int, float]:
+def get_filter(name_or_function: str | Callable[..., tuple[NDArray[np.floating], int, float]],
+               **kwargs) -> tuple[NDArray[np.floating], int, float]:
     """Retrieve a window given its name or function handle.
 
     Parameters
@@ -86,7 +88,7 @@ def get_filter(name_or_function: Union[str, Callable[..., Tuple[NDArray[np.float
     """
     ...
 
-def load_filter(filter_name: str) -> Tuple[NDArray[np.floating], int, float]:
+def load_filter(filter_name: str) -> tuple[NDArray[np.floating], int, float]:
     """Retrieve a pre-computed filter.
 
     Parameters

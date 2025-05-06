@@ -1,6 +1,6 @@
 from collections.abc import MutableSequence, Sequence
 from typing import Any, Final, TypeVar
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 _T = TypeVar("_T")
 _Mismatch: TypeAlias = tuple[_T, _T, int]

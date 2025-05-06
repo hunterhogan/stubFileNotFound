@@ -14,7 +14,9 @@ from pandas.io.parsers import TextParser as TextParser
 from pandas.util._decorators import doc as doc
 from pandas.util._exceptions import find_stack_level as find_stack_level
 from pandas.util._validators import check_dtype_backend as check_dtype_backend
-from typing import Any, Callable
+from typing import Any
+
+from collections.abc import Callable
 from xml.etree.ElementTree import Element
 
 class _XMLFrameParser:

@@ -1,7 +1,7 @@
 import random
 from _typeshed import Incomplete
 from types import ModuleType
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 import numpy
 

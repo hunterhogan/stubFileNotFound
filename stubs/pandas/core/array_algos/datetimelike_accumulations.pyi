@@ -1,7 +1,7 @@
 import numpy as np
 from pandas._libs import iNaT as iNaT
 from pandas.core.dtypes.missing import isna as isna
-from typing import Callable
+from collections.abc import Callable
 
 def _cum_func(func: Callable, values: np.ndarray, *, skipna: bool = True):
     """

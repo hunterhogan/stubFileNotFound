@@ -17,10 +17,7 @@ import tensorflow.core.framework.tensor_slice_pb2
 import tensorflow.core.framework.types_pb2
 import tensorflow.core.framework.versions_pb2
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
-else:
-    import typing_extensions
+import typing as typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -43,7 +40,9 @@ class BundleHeaderProto(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _EndiannessEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BundleHeaderProto._Endianness.ValueType], builtins.type):
+    class _EndiannessEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[BundleHeaderProto._Endianness.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         LITTLE: BundleHeaderProto._Endianness.ValueType  # 0
         BIG: BundleHeaderProto._Endianness.ValueType  # 1
@@ -77,7 +76,9 @@ class BundleHeaderProto(google.protobuf.message.Message):
         version: tensorflow.core.framework.versions_pb2.VersionDef | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["version", b"version"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["endianness", b"endianness", "num_shards", b"num_shards", "version", b"version"]) -> None: ...
+    def ClearField(
+        self, field_name: typing.Literal["endianness", b"endianness", "num_shards", b"num_shards", "version", b"version"]
+    ) -> None: ...
 
 global___BundleHeaderProto = BundleHeaderProto
 
@@ -107,7 +108,11 @@ class BundleEntryProto(google.protobuf.message.Message):
     @property
     def shape(self) -> tensorflow.core.framework.tensor_shape_pb2.TensorShapeProto: ...
     @property
-    def slices(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[tensorflow.core.framework.tensor_slice_pb2.TensorSliceProto]:
+    def slices(
+        self,
+    ) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[
+        tensorflow.core.framework.tensor_slice_pb2.TensorSliceProto
+    ]:
         """Iff present, this entry represents a partitioned tensor.  The previous
         fields are interpreted as follows:
 
@@ -129,6 +134,24 @@ class BundleEntryProto(google.protobuf.message.Message):
         slices: collections.abc.Iterable[tensorflow.core.framework.tensor_slice_pb2.TensorSliceProto] | None = ...,
     ) -> None: ...
     def HasField(self, field_name: typing.Literal["shape", b"shape"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing.Literal["crc32c", b"crc32c", "dtype", b"dtype", "offset", b"offset", "shape", b"shape", "shard_id", b"shard_id", "size", b"size", "slices", b"slices"]) -> None: ...
+    def ClearField(
+        self,
+        field_name: typing.Literal[
+            "crc32c",
+            b"crc32c",
+            "dtype",
+            b"dtype",
+            "offset",
+            b"offset",
+            "shape",
+            b"shape",
+            "shard_id",
+            b"shard_id",
+            "size",
+            b"size",
+            "slices",
+            b"slices",
+        ],
+    ) -> None: ...
 
 global___BundleEntryProto = BundleEntryProto

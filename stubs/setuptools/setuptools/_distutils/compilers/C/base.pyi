@@ -1,7 +1,8 @@
 from _typeshed import BytesPath, Incomplete, StrPath, Unused
 from collections.abc import Callable, Iterable, MutableSequence, Sequence
 from typing import ClassVar, Final, Literal, TypeVar, overload
-from typing_extensions import TypeAlias, TypeVarTuple, Unpack
+from typing_extensions import TypeVarTuple, Unpack
+from typing import TypeAlias
 
 _Macro: TypeAlias = tuple[str] | tuple[str, str | None]
 _StrPathT = TypeVar("_StrPathT", bound=StrPath)

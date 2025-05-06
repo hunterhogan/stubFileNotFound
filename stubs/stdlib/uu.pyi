@@ -1,5 +1,5 @@
 from typing import BinaryIO
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 __all__ = ["Error", "encode", "decode"]
 

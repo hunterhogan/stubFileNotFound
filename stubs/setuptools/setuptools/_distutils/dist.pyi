@@ -2,7 +2,7 @@ from _typeshed import Incomplete, StrOrBytesPath, StrPath, SupportsWrite
 from collections.abc import Iterable, MutableMapping
 from re import Pattern
 from typing import IO, ClassVar, Literal, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from .cmd import Command
 

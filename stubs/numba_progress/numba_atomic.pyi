@@ -7,7 +7,7 @@ T = TypeVar('T', bound=np.number[Any])
 
 __all__ = ['atomic_add', 'atomic_sub', 'atomic_max', 'atomic_min', 'atomic_xchg']
 
-def atomic_add(ary: NDArray[T], i: Union[int, tuple[int,...]], v: T) -> T:
+def atomic_add(ary: NDArray[T], i: int | tuple[int,...], v: T) -> T:
     """
     Atomically, perform `ary[i] += v` and return the previous v of `ary[i]`.
 
@@ -16,7 +16,7 @@ def atomic_add(ary: NDArray[T], i: Union[int, tuple[int,...]], v: T) -> T:
     This should be used from numba compiled code.
     """
 
-def atomic_sub(ary: NDArray[T], i: Union[int, tuple[int,...]], v: T) -> T:
+def atomic_sub(ary: NDArray[T], i: int | tuple[int,...], v: T) -> T:
     """
     Atomically, perform `ary[i] -= v` and return the previous v of `ary[i]`.
 
@@ -25,7 +25,7 @@ def atomic_sub(ary: NDArray[T], i: Union[int, tuple[int,...]], v: T) -> T:
     This should be used from numba compiled code.
     """
 
-def atomic_max(ary: NDArray[T], i: Union[int, tuple[int,...]], v: T) -> T:
+def atomic_max(ary: NDArray[T], i: int | tuple[int,...], v: T) -> T:
     """
     Atomically, perform `ary[i] = max(ary[i], v)` and return the previous v of `ary[i]`.
     This operation does not support floating-point values.
@@ -35,7 +35,7 @@ def atomic_max(ary: NDArray[T], i: Union[int, tuple[int,...]], v: T) -> T:
     This should be used from numba compiled code.
     """
 
-def atomic_min(ary: NDArray[T], i: Union[int, tuple[int,...]], v: T) -> T:
+def atomic_min(ary: NDArray[T], i: int | tuple[int,...], v: T) -> T:
     """
     Atomically, perform `ary[i] = min(ary[i], v)` and return the previous v of `ary[i]`.
     This operation does not support floating-point values.
@@ -45,7 +45,7 @@ def atomic_min(ary: NDArray[T], i: Union[int, tuple[int,...]], v: T) -> T:
     This should be used from numba compiled code.
     """
 
-def atomic_xchg(ary: NDArray[T], i: Union[int, tuple[int,...]], v: T) -> T:
+def atomic_xchg(ary: NDArray[T], i: int | tuple[int,...], v: T) -> T:
     """
     Atomically, perform `ary[i] = v` and return the previous v of `ary[i]`.
 

@@ -6,7 +6,9 @@ from collections.abc import MutableSet
 from sympy.core.kind import Kind as Kind
 from sympy.utilities.iterables import iterable as iterable
 from sympy.utilities.misc import as_int as as_int
-from typing import Any, Callable
+from typing import Any
+
+from collections.abc import Callable
 
 class Tuple(Basic):
     """

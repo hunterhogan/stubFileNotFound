@@ -7,7 +7,9 @@ from collections.abc import Callable, Iterable, Iterator, Mapping
 from gzip import _ReadableFileobj as _GzipReadableFileobj, _WritableFileobj as _GzipWritableFileobj
 from types import TracebackType
 from typing import IO, ClassVar, Literal, Protocol, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from typing_extensions import Self, deprecated
+
+from typing import TypeAlias
 
 __all__ = [
     "TarFile",
@@ -537,7 +539,7 @@ class TarFile:
         members: Iterable[TarInfo] | None = None,
         *,
         numeric_owner: bool = False,
-        filter: _TarfileFilter | None = ...,
+        filter: _TarfileFilter | None = None,
     ) -> None: ...
     # Same situation as for `extractall`.
     def extract(
@@ -547,7 +549,7 @@ class TarFile:
         set_attrs: bool = True,
         *,
         numeric_owner: bool = False,
-        filter: _TarfileFilter | None = ...,
+        filter: _TarfileFilter | None = None,
     ) -> None: ...
     def _extract_member(
         self, tarinfo: TarInfo, targetpath: str, set_attrs: bool = True, numeric_owner: bool = False

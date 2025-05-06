@@ -25,7 +25,9 @@ from pandas.core.util.hashing import hash_array as hash_array
 from pandas.errors import AbstractMethodError as AbstractMethodError
 from pandas.util._decorators import doc as doc
 from pandas.util._validators import validate_fillna_kwargs as validate_fillna_kwargs
-from typing import Any, Callable, Literal, overload
+from typing import Any, Literal, overload
+
+from collections.abc import Callable
 
 class BaseMaskedArray(OpsMixin, ExtensionArray):
     """

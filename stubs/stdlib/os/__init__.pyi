@@ -40,7 +40,9 @@ from typing import (
     overload,
     runtime_checkable,
 )
-from typing_extensions import Self, TypeAlias, Unpack, deprecated
+from typing_extensions import Self, Unpack, deprecated
+
+from typing import TypeAlias
 
 from . import path as _path
 
@@ -776,8 +778,7 @@ class stat_result(structseq[float], tuple[int, int, int, int, int, int, int, flo
     # st_uid, st_gid, st_size, st_atime, st_mtime, st_ctime.
     #
     # More items may be added at the end by some implementations.
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("st_mode", "st_ino", "st_dev", "st_nlink", "st_uid", "st_gid", "st_size")
+    __match_args__: Final = ("st_mode", "st_ino", "st_dev", "st_nlink", "st_uid", "st_gid", "st_size")
 
     @property
     def st_mode(self) -> int: ...  # protection bits,
@@ -883,19 +884,18 @@ class DirEntry(Generic[AnyStr]):
 
 @final
 class statvfs_result(structseq[int], tuple[int, int, int, int, int, int, int, int, int, int, int]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = (
-            "f_bsize",
-            "f_frsize",
-            "f_blocks",
-            "f_bfree",
-            "f_bavail",
-            "f_files",
-            "f_ffree",
-            "f_favail",
-            "f_flag",
-            "f_namemax",
-        )
+    __match_args__: Final = (
+        "f_bsize",
+        "f_frsize",
+        "f_blocks",
+        "f_bfree",
+        "f_bavail",
+        "f_files",
+        "f_ffree",
+        "f_favail",
+        "f_flag",
+        "f_namemax",
+    )
 
     @property
     def f_bsize(self) -> int: ...
@@ -937,8 +937,7 @@ def strerror(code: int, /) -> str: ...
 def umask(mask: int, /) -> int: ...
 @final
 class uname_result(structseq[str], tuple[str, str, str, str, str]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("sysname", "nodename", "release", "version", "machine")
+    __match_args__: Final = ("sysname", "nodename", "release", "version", "machine")
 
     @property
     def sysname(self) -> str: ...
@@ -1126,8 +1125,7 @@ if sys.platform != "win32":
     def preadv(fd: int, buffers: SupportsLenAndGetItem[WriteableBuffer], offset: int, flags: int = 0, /) -> int: ...
     def pwritev(fd: int, buffers: SupportsLenAndGetItem[ReadableBuffer], offset: int, flags: int = 0, /) -> int: ...
     if sys.platform != "darwin":
-        if sys.version_info >= (3, 10):
-            RWF_APPEND: int  # docs say available on 3.7+, stubtest says otherwise
+        RWF_APPEND: int  # docs say available on 3.7+, stubtest says otherwise
         RWF_DSYNC: int
         RWF_SYNC: int
         RWF_HIPRI: int
@@ -1151,8 +1149,7 @@ if sys.platform != "win32":
 
 @final
 class terminal_size(structseq[int], tuple[int, int]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("columns", "lines")
+    __match_args__: Final = ("columns", "lines")
 
     @property
     def columns(self) -> int: ...
@@ -1391,8 +1388,7 @@ else:
 def system(command: StrOrBytesPath) -> int: ...
 @final
 class times_result(structseq[float], tuple[float, float, float, float, float]):
-    if sys.version_info >= (3, 10):
-        __match_args__: Final = ("user", "system", "children_user", "children_system", "elapsed")
+    __match_args__: Final = ("user", "system", "children_user", "children_system", "elapsed")
 
     @property
     def user(self) -> float: ...
@@ -1409,16 +1405,13 @@ def times() -> times_result: ...
 def waitpid(pid: int, options: int, /) -> tuple[int, int]: ...
 
 if sys.platform == "win32":
-    if sys.version_info >= (3, 10):
-        def startfile(
-            filepath: StrOrBytesPath,
-            operation: str = ...,
-            arguments: str = "",
-            cwd: StrOrBytesPath | None = None,
-            show_cmd: int = 1,
-        ) -> None: ...
-    else:
-        def startfile(filepath: StrOrBytesPath, operation: str = ...) -> None: ...
+    def startfile(
+        filepath: StrOrBytesPath,
+        operation: str = ...,
+        arguments: str = "",
+        cwd: StrOrBytesPath | None = None,
+        show_cmd: int = 1,
+    ) -> None: ...
 
 else:
     def spawnlp(mode: int, file: StrOrBytesPath, arg0: StrOrBytesPath, *args: StrOrBytesPath) -> int: ...
@@ -1430,8 +1423,7 @@ else:
     if sys.platform != "darwin" or sys.version_info >= (3, 13):
         @final
         class waitid_result(structseq[int], tuple[int, int, int, int, int]):
-            if sys.version_info >= (3, 10):
-                __match_args__: Final = ("si_pid", "si_uid", "si_signo", "si_status", "si_code")
+            __match_args__: Final = ("si_pid", "si_uid", "si_signo", "si_status", "si_code")
 
             @property
             def si_pid(self) -> int: ...
@@ -1493,8 +1485,7 @@ else:
 if sys.platform != "win32":
     @final
     class sched_param(structseq[int], tuple[int]):
-        if sys.version_info >= (3, 10):
-            __match_args__: Final = ("sched_priority",)
+        __match_args__: Final = ("sched_priority",)
 
         def __new__(cls, sched_priority: int) -> Self: ...
         @property

@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Generator, Iterable, Iterator
 from pandas.errors import CSSWarning as CSSWarning
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Callable
+from collections.abc import Callable
 
 def _side_expander(prop_fmt: str) -> Callable:
     """

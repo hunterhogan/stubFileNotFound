@@ -1,6 +1,6 @@
 from _typeshed import ConvertibleToInt, Incomplete, Unused
 from typing import ClassVar, Literal
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from openpyxl.chart.shapes import GraphicalProperties
 from openpyxl.chart.text import RichText

@@ -5,7 +5,9 @@ from pandas._libs.interval import Interval as Interval
 from pandas._libs.missing import check_na_tuples_nonequal as check_na_tuples_nonequal
 from pandas._libs.tslibs.np_datetime import OutOfBoundsDatetime as OutOfBoundsDatetime, OutOfBoundsTimedelta as OutOfBoundsTimedelta
 from pandas._libs.tslibs.period import Period as Period
-from typing import Callable, ClassVar
+from typing import ClassVar
+
+from collections.abc import Callable
 
 _TYPE_MAP: dict
 __pyx_capi__: dict

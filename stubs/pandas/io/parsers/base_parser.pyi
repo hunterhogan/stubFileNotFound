@@ -19,7 +19,9 @@ from pandas.core.series import Series as Series
 from pandas.errors import ParserError as ParserError, ParserWarning as ParserWarning
 from pandas.io.common import is_potential_multi_index as is_potential_multi_index
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Callable, overload
+from typing import overload
+
+from collections.abc import Callable
 
 class ParserBase:
     class BadLineHandleMethod(Enum):

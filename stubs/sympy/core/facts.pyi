@@ -1,7 +1,7 @@
 from .logic import And as And, Logic as Logic, Not as Not, Or as Or
 from _typeshed import Incomplete
 from collections.abc import Generator
-from typing import Iterator
+from collections.abc import Iterator
 
 def _base_fact(atom):
     """Return the literal fact of an atom.

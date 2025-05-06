@@ -4,7 +4,9 @@ from _compression import BaseStream
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from collections.abc import Iterable
 from typing import IO, Literal, Protocol, SupportsIndex, TextIO, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 __all__ = ["BZ2File", "BZ2Compressor", "BZ2Decompressor", "open", "compress", "decompress"]
 

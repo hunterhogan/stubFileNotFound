@@ -1,7 +1,7 @@
 from collections.abc import Callable, Container, Iterable, Iterator
 from re import Pattern
 from typing import Final, Protocol
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from html5lib.filters.base import Filter
 from html5lib.filters.sanitizer import Filter as SanitizerFilter
@@ -44,7 +44,7 @@ class Cleaner:
     def __init__(
         self,
         tags: Iterable[str] = ...,
-        attributes: _Attributes = ...,
+        attributes: _Attributes = {'a': ['href', 'title'], 'abbr': ['title'], 'acronym': ['title']},
         protocols: Iterable[str] = ...,
         strip: bool = False,
         strip_comments: bool = True,
@@ -69,7 +69,7 @@ class BleachSanitizerFilter(SanitizerFilter):
         self,
         source: TreeWalker,
         allowed_tags: Iterable[str] = ...,
-        attributes: _Attributes = ...,
+        attributes: _Attributes = {'a': ['href', 'title'], 'abbr': ['title'], 'acronym': ['title']},
         allowed_protocols: Iterable[str] = ...,
         attr_val_is_uri: frozenset[_HTMLAttrKey] = ...,
         svg_attr_val_allows_ref: frozenset[_HTMLAttrKey] = ...,

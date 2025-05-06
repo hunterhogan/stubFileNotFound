@@ -1,7 +1,9 @@
 from _typeshed import ReadableBuffer
 from collections.abc import Mapping
 from typing import Generic, Literal, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 from xml.sax import _Source, _SupportsReadClose
 from xml.sax.handler import _ContentHandlerProtocol, _DTDHandlerProtocol, _EntityResolverProtocol, _ErrorHandlerProtocol
 

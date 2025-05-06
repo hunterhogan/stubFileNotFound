@@ -2,7 +2,7 @@ __all__ = ["copy", "paste", "set_clipboard", "determine_clipboard"]
 
 from collections.abc import Callable
 from typing import Literal
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 class PyperclipException(RuntimeError): ...
 

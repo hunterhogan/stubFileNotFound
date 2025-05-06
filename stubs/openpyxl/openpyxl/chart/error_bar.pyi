@@ -1,6 +1,6 @@
 from _typeshed import ConvertibleToFloat, Unused
 from typing import ClassVar, Literal
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from openpyxl.chart.data_source import NumDataSource
 from openpyxl.chart.shapes import GraphicalProperties

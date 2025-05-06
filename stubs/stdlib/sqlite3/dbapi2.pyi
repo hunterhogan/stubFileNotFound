@@ -213,14 +213,8 @@ if sys.version_info < (3, 14):
     version: str
 
 if sys.version_info < (3, 12):
-    if sys.version_info >= (3, 10):
-        # deprecation wrapper that has a different name for the argument...
-        def enable_shared_cache(enable: int) -> None: ...
-    else:
-        from _sqlite3 import enable_shared_cache as enable_shared_cache
-
-if sys.version_info < (3, 10):
-    from _sqlite3 import OptimizedUnicode as OptimizedUnicode
+    # deprecation wrapper that has a different name for the argument...
+    def enable_shared_cache(enable: int) -> None: ...
 
 paramstyle: str
 threadsafety: int

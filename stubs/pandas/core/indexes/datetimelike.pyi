@@ -22,7 +22,9 @@ from pandas.core.tools.timedeltas import to_timedelta as to_timedelta
 from pandas.errors import InvalidIndexError as InvalidIndexError, NullFrequencyError as NullFrequencyError
 from pandas.util._decorators import Appender as Appender, cache_readonly as cache_readonly, doc as doc
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Any, Callable
+from typing import Any
+
+from collections.abc import Callable
 
 _index_doc_kwargs: Incomplete
 

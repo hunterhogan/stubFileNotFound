@@ -8,7 +8,9 @@ from string import Template
 from time import struct_time
 from types import FrameType, GenericAlias, TracebackType
 from typing import Any, ClassVar, Final, Generic, Literal, Protocol, TextIO, TypeVar, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from typing_extensions import Self, deprecated
+
+from typing import TypeAlias
 
 __all__ = [
     "BASIC_FORMAT",
@@ -272,20 +274,15 @@ class Formatter:
     default_time_format: str
     default_msec_format: str | None
 
-    if sys.version_info >= (3, 10):
-        def __init__(
-            self,
-            fmt: str | None = None,
-            datefmt: str | None = None,
-            style: _FormatStyle = "%",
-            validate: bool = True,
-            *,
-            defaults: Mapping[str, Any] | None = None,
-        ) -> None: ...
-    else:
-        def __init__(
-            self, fmt: str | None = None, datefmt: str | None = None, style: _FormatStyle = "%", validate: bool = True
-        ) -> None: ...
+    def __init__(
+        self,
+        fmt: str | None = None,
+        datefmt: str | None = None,
+        style: _FormatStyle = "%",
+        validate: bool = True,
+        *,
+        defaults: Mapping[str, Any] | None = None,
+    ) -> None: ...
 
     def format(self, record: LogRecord) -> str: ...
     def formatTime(self, record: LogRecord, datefmt: str | None = None) -> str: ...
@@ -363,15 +360,10 @@ class LoggerAdapter(Generic[_L]):
 
     if sys.version_info >= (3, 13):
         def __init__(self, logger: _L, extra: Mapping[str, object] | None = None, merge_extra: bool = False) -> None: ...
-    elif sys.version_info >= (3, 10):
+    else:
         def __init__(self, logger: _L, extra: Mapping[str, object] | None = None) -> None: ...
-    else:
-        def __init__(self, logger: _L, extra: Mapping[str, object]) -> None: ...
 
-    if sys.version_info >= (3, 10):
-        extra: Mapping[str, object] | None
-    else:
-        extra: Mapping[str, object]
+    extra: Mapping[str, object] | None
 
     def process(self, msg: Any, kwargs: MutableMapping[str, Any]) -> tuple[Any, MutableMapping[str, Any]]: ...
     def debug(
@@ -636,10 +628,7 @@ class PercentStyle:  # undocumented
     asctime_search: str
     validation_pattern: Pattern[str]
     _fmt: str
-    if sys.version_info >= (3, 10):
-        def __init__(self, fmt: str, *, defaults: Mapping[str, Any] | None = None) -> None: ...
-    else:
-        def __init__(self, fmt: str) -> None: ...
+    def __init__(self, fmt: str, *, defaults: Mapping[str, Any] | None = None) -> None: ...
 
     def usesTime(self) -> bool: ...
     def validate(self) -> None: ...

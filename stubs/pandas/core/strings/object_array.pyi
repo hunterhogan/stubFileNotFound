@@ -6,7 +6,9 @@ from pandas._libs import lib as lib
 from pandas._typing import NpDtype as NpDtype, Scalar as Scalar
 from pandas.core.dtypes.missing import isna as isna
 from pandas.core.strings.base import BaseStringArrayMethods as BaseStringArrayMethods
-from typing import Callable, Literal
+from typing import Literal
+
+from collections.abc import Callable
 
 class ObjectStringArrayMixin(BaseStringArrayMethods):
     """

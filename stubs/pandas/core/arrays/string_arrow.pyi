@@ -19,7 +19,7 @@ from pandas.core.dtypes.missing import isna as isna
 from pandas.core.ops import invalid_comparison as invalid_comparison
 from pandas.core.strings.object_array import ObjectStringArrayMixin as ObjectStringArrayMixin
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Callable
+from collections.abc import Callable
 
 ArrowStringScalarOrNAT: Incomplete
 

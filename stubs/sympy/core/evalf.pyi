@@ -20,7 +20,9 @@ from sympy.integrals.integrals import Integral as Integral
 from sympy.utilities.iterables import is_sequence as is_sequence
 from sympy.utilities.lambdify import lambdify as lambdify
 from sympy.utilities.misc import as_int as as_int
-from typing import Any, Callable, overload
+from typing import Any, overload
+
+from collections.abc import Callable
 
 LG10: Incomplete
 rnd = round_nearest

@@ -1,6 +1,6 @@
 from _typeshed import SupportsRead
 from typing import Any
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from yaml.error import YAMLError
 

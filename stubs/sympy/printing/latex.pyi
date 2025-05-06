@@ -14,7 +14,9 @@ from sympy.printing.printer import Printer as Printer, print_function as print_f
 from sympy.tensor.array import NDimArray as NDimArray
 from sympy.utilities.iterables import has_variety as has_variety, sift as sift
 from sympy.vector.basisdependent import BasisDependent as BasisDependent
-from typing import Any, Callable
+from typing import Any
+
+from collections.abc import Callable
 
 accepted_latex_functions: Incomplete
 tex_greek_dictionary: Incomplete

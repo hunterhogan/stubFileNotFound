@@ -1,7 +1,9 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
 from typing import Any, ClassVar
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 _Element: TypeAlias = Any  # actually lxml.etree._Element
 

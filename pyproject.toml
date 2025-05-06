@@ -18,7 +18,7 @@ classifiers = [
 	"Programming Language :: Python :: 3.12",
 	"Programming Language :: Python :: 3.13",
 	"Typing :: Typed",]
-dependencies = ["AST-Stubgen", "MonkeyType", "mypy", "pyright", "pytype", "stubdefaulter", "stubgen-pyx", "typeshed_client"]
+dependencies = ["AST-Stubgen", "autoflake", "MonkeyType", "mypy", "pyright", "pytype", "stubdefaulter", "stubgen-pyx", "typeshed_client"]
 description = "Crowdsourced stub type files for third-party Python packages."
 keywords = []
 license = { 'text' = "CC-BY-NC-4.0" }

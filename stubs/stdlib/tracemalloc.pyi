@@ -2,7 +2,7 @@ import sys
 from _tracemalloc import *
 from collections.abc import Sequence
 from typing import Any, SupportsIndex, overload
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 def get_object_traceback(obj: object) -> Traceback | None: ...
 def take_snapshot() -> Snapshot: ...

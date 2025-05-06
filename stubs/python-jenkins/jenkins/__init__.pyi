@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Mapping, MutableMapping, Sequence
 from re import Pattern
 from typing import Any, Final, Literal, overload
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 import requests
 from requests.models import Request, Response

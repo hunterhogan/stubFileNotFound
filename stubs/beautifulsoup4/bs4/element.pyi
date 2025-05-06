@@ -2,7 +2,9 @@ from _typeshed import Incomplete, ReadableBuffer
 from collections.abc import Callable, Iterable, Iterator
 from re import Pattern
 from typing import Any, Literal, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 from . import BeautifulSoup
 from .builder import TreeBuilder
@@ -54,7 +56,7 @@ class PageElement:
     previousSibling: PageElement | None
     @property
     def stripped_strings(self) -> Iterator[str]: ...
-    def get_text(self, separator: str = "", strip: bool = False, types: tuple[type[NavigableString], ...] = ...) -> str: ...
+    def get_text(self, separator: str = "", strip: bool = False, types: tuple[type[NavigableString], ...] = ()) -> str: ...
     getText = get_text
     @property
     def text(self) -> str: ...

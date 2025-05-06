@@ -4,7 +4,9 @@ from collections import OrderedDict
 from collections.abc import Generator
 from re import Match, Pattern
 from typing import Any, Final, Generic, Literal, Protocol, TypeVar, overload
-from typing_extensions import Never, Self, TypeAlias
+from typing_extensions import Never, Self
+
+from typing import TypeAlias
 
 _R_co = TypeVar("_R_co", float, datetime.datetime, default=float, covariant=True)
 _R2_co = TypeVar("_R2_co", float, datetime.datetime, covariant=True)

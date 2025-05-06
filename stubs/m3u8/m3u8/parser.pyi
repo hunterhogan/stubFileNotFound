@@ -1,7 +1,7 @@
 from collections.abc import Callable
 from re import Pattern
 from typing import Any
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 ATTRIBUTELISTPATTERN: Pattern[str]
 _CustomTagsParser: TypeAlias = Callable[[str, int, dict[str, Any], dict[str, Any]], object]

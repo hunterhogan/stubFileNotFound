@@ -18,7 +18,9 @@ from pandas.core.series import Series as Series
 from pandas.core.window.rolling import BaseWindow as BaseWindow
 from pandas.io.formats.format import EngFormatter as EngFormatter
 from pandas.tseries.holiday import AbstractHolidayCalendar as AbstractHolidayCalendar
-from typing import Any, Callable, Protocol, SupportsIndex, TypeVar, overload
+from typing import Any, Protocol, SupportsIndex, TypeVar, overload
+
+from collections.abc import Callable
 
 ScalarLike_co = int | float | complex | str | bytes | np.generic
 NumpyValueArrayLike: Incomplete

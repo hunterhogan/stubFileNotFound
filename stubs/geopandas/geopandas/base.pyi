@@ -1,7 +1,9 @@
 from _typeshed import Incomplete, SupportsGetItem
 from collections.abc import Callable, Hashable, Iterable, Mapping, Sequence
 from typing import Any, Literal, Protocol, SupportsIndex, overload, type_check_only
-from typing_extensions import Self, TypeAlias, deprecated
+from typing_extensions import Self, deprecated
+
+from typing import TypeAlias
 
 import numpy as np
 import pandas as pd

@@ -1,6 +1,6 @@
 from _typeshed import ConvertibleToInt, Incomplete
 from typing import ClassVar, Literal, Protocol
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from openpyxl.descriptors.base import (
     Alias,

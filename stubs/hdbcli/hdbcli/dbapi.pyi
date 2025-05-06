@@ -4,7 +4,9 @@ from collections.abc import Callable, Sequence
 from datetime import date, datetime, time
 from types import TracebackType
 from typing import Any, Final, Literal, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 from .resultrow import ResultRow
 

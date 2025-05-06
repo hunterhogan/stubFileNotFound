@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, SupportsRead
 from codecs import CodecInfo
 from typing import Any, Protocol, overload
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 # Is actually webencodings.Encoding
 class _Encoding(Protocol):

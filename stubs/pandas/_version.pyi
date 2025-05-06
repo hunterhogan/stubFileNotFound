@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Callable
+from collections.abc import Callable
 
 def get_keywords():
     """Get the keywords needed to look up the version information."""

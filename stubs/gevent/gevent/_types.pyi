@@ -3,7 +3,8 @@ from _typeshed import FileDescriptor, StrOrBytesPath
 from collections.abc import Callable
 from types import TracebackType
 from typing import Any, Literal, Protocol, overload
-from typing_extensions import TypeAlias, TypeVarTuple, Unpack
+from typing_extensions import TypeVarTuple, Unpack
+from typing import TypeAlias
 
 _Ts = TypeVarTuple("_Ts")
 

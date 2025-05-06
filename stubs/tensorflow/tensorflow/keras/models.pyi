@@ -2,7 +2,9 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Container, Iterator
 from pathlib import Path
 from typing import Any, Literal
-from typing_extensions import Self, TypeAlias, deprecated
+from typing_extensions import Self, deprecated
+
+from typing import TypeAlias
 
 import numpy as np
 import numpy.typing as npt

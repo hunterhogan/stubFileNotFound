@@ -2,7 +2,7 @@ import abc
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from numba.core import config as config, ir as ir
-from typing import Callable, Sequence
+from collections.abc import Callable, Sequence
 
 coverage_available: bool
 

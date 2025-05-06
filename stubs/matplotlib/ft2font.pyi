@@ -1,6 +1,8 @@
 import enum
 import numpy
-from typing import Callable, ClassVar
+from typing import ClassVar
+
+from collections.abc import Callable
 
 __freetype_build_type__: str
 __freetype_version__: str

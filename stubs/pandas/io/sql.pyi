@@ -23,7 +23,9 @@ from pandas.util._exceptions import find_stack_level as find_stack_level
 from pandas.util._validators import check_dtype_backend as check_dtype_backend
 from sqlalchemy import Table
 from sqlalchemy.sql.expression import Select as Select, TextClause as TextClause
-from typing import Any, Callable, Literal, overload
+from typing import Any, Literal, overload
+
+from collections.abc import Callable
 
 def _process_parse_dates_argument(parse_dates):
     """Process parse_dates argument for read_sql functions"""

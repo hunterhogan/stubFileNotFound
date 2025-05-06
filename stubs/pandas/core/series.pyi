@@ -11,7 +11,9 @@ from pandas.core.frame import DataFrame
 from pandas.core.generic import NDFrame
 from pandas.core.groupby.generic import SeriesGroupBy
 from pandas.core.indexes.api import Index
-from typing import Any, Callable, IO, Literal, overload
+from typing import Any, IO, Literal, overload
+
+from collections.abc import Callable
 
 __all__ = ['Series']
 

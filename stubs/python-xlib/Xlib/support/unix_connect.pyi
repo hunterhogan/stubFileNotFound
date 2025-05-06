@@ -5,7 +5,7 @@ from platform import uname_result
 from re import Pattern
 from socket import socket
 from typing import Final, Literal
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 if sys.platform == "darwin":
     SUPPORTED_PROTOCOLS: Final[tuple[None, Literal["tcp"], Literal["unix"], Literal["darwin"]]]

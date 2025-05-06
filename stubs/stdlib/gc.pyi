@@ -1,6 +1,6 @@
 from collections.abc import Callable
 from typing import Any, Final, Literal
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 DEBUG_COLLECTABLE: Final = 2
 DEBUG_LEAK: Final = 38

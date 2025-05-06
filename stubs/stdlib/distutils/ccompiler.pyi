@@ -2,7 +2,8 @@ from _typeshed import BytesPath, StrPath, Unused
 from collections.abc import Callable, Iterable, Sequence
 from distutils.file_util import _BytesPathT, _StrPathT
 from typing import Literal, overload
-from typing_extensions import TypeAlias, TypeVarTuple, Unpack
+from typing_extensions import TypeVarTuple, Unpack
+from typing import TypeAlias
 
 _Macro: TypeAlias = tuple[str] | tuple[str, str | None]
 _Ts = TypeVarTuple("_Ts")

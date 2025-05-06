@@ -1,5 +1,7 @@
 from typing import Any
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 __tracebackhide__: bool
 

@@ -2,7 +2,9 @@ import sys
 from abc import abstractmethod
 from time import struct_time
 from typing import ClassVar, Final, NoReturn, SupportsIndex, final, overload, type_check_only
-from typing_extensions import CapsuleType, Self, TypeAlias, deprecated
+from typing_extensions import CapsuleType, Self, deprecated
+
+from typing import TypeAlias
 
 if sys.version_info >= (3, 11):
     __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR", "UTC")

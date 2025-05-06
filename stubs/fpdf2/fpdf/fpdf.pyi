@@ -6,7 +6,9 @@ from io import BytesIO
 from pathlib import PurePath
 from re import Pattern
 from typing import Any, ClassVar, Final, Literal, NamedTuple, overload
-from typing_extensions import TypeAlias, deprecated
+from typing_extensions import deprecated
+
+from typing import TypeAlias
 
 from fpdf import ViewerPreferences
 from fpdf.outline import OutlineSection

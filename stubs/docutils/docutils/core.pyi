@@ -90,8 +90,8 @@ def publish_cmdline(
     config_section: Incomplete | None = None,
     enable_exit_status: bool = True,
     argv: Incomplete | None = None,
-    usage=...,
-    description=...,
+    usage='%prog [options] [<source> [<destination>]]',
+    description='Reads from <source> (default is stdin) and writes to <destination> (default is stdout).  See https://docutils.sourceforge.io/docs/user/config.html for a detailed settings reference.',
 ): ...
 def publish_file(
     source: Incomplete | None = None,
@@ -181,8 +181,8 @@ def publish_cmdline_to_binary(
     config_section: Incomplete | None = None,
     enable_exit_status: bool = True,
     argv: Incomplete | None = None,
-    usage=...,
-    description=...,
+    usage='%prog [options] [<source> [<destination>]]',
+    description='Reads from <source> (default is stdin) and writes to <destination> (default is stdout).  See https://docutils.sourceforge.io/docs/user/config.html for a detailed settings reference.',
     destination: Incomplete | None = None,
     destination_class=...,
 ): ...

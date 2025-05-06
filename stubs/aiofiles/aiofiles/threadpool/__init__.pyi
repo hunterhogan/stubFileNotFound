@@ -10,7 +10,7 @@ from _typeshed import (
 from asyncio import AbstractEventLoop
 from collections.abc import Callable
 from typing import Literal, overload
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from ..base import AiofilesContextManager
 from .binary import AsyncBufferedIOBase, AsyncBufferedReader, AsyncFileIO, AsyncIndirectBufferedIOBase, _UnknownAsyncBinaryIO

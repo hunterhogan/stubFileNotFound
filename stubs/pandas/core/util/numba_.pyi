@@ -1,6 +1,6 @@
 from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.errors import NumbaUtilError as NumbaUtilError
-from typing import Callable
+from collections.abc import Callable
 
 GLOBAL_USE_NUMBA: bool
 

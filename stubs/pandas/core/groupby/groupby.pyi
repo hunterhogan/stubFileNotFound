@@ -31,7 +31,9 @@ from pandas.core.window import ExpandingGroupby as ExpandingGroupby, Exponential
 from pandas.errors import AbstractMethodError as AbstractMethodError, DataError as DataError
 from pandas.util._decorators import Appender as Appender, Substitution as Substitution, cache_readonly as cache_readonly, doc as doc
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Any, Callable, Literal, TypeVar
+from typing import Any, Literal, TypeVar
+
+from collections.abc import Callable
 
 _common_see_also: str
 _apply_docs: Incomplete

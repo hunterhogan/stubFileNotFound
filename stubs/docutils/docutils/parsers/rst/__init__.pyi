@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
 from typing import Any, ClassVar, Literal
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from docutils import nodes, parsers
 from docutils.parsers.rst.states import Inliner, RSTState, RSTStateMachine

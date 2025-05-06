@@ -3,7 +3,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable
 from mmap import mmap
 from typing import Protocol
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 __all__ = ["BufferWrapper"]
 

@@ -8,7 +8,9 @@ from pandas.core.arrays.masked import BaseMaskedArray as BaseMaskedArray, BaseMa
 from pandas.core.dtypes.common import is_integer_dtype as is_integer_dtype, is_string_dtype as is_string_dtype, pandas_dtype as pandas_dtype
 from pandas.errors import AbstractMethodError as AbstractMethodError
 from pandas.util._decorators import cache_readonly as cache_readonly
-from typing import Any, Callable
+from typing import Any
+
+from collections.abc import Callable
 
 class NumericDtype(BaseMaskedDtype):
     _default_np_dtype: np.dtype

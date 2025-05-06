@@ -5,7 +5,9 @@ import unittest.suite
 from _typeshed import SupportsFlush, SupportsWrite
 from collections.abc import Callable, Iterable
 from typing import Any, Generic, Protocol, TypeVar
-from typing_extensions import Never, TypeAlias
+from typing_extensions import Never
+
+from typing import TypeAlias
 from warnings import _ActionKind
 
 _ResultClassType: TypeAlias = Callable[[_TextTestStream, bool, int], TextTestResult[Any]]

@@ -3,7 +3,9 @@ from collections.abc import Iterable, Mapping, Sequence
 from pandas._config import get_option as get_option
 from pandas.core.dtypes.inference import is_sequence as is_sequence
 from pandas.io.formats.console import get_console_size as get_console_size
-from typing import Any, Callable, TypeVar
+from typing import Any, TypeVar
+
+from collections.abc import Callable
 
 EscapeChars = Mapping[str, str] | Iterable[str]
 _KT = TypeVar('_KT')

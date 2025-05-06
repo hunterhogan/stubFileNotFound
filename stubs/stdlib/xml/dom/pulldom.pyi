@@ -2,7 +2,9 @@ import sys
 from _typeshed import Incomplete, Unused
 from collections.abc import MutableSequence, Sequence
 from typing import Final, Literal, NoReturn
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 from xml.dom.minidom import Comment, Document, DOMImplementation, Element, ProcessingInstruction, Text
 from xml.sax import _SupportsReadClose
 from xml.sax.handler import ContentHandler

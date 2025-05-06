@@ -1,6 +1,7 @@
 from types import TracebackType
 from typing import IO, Any, Literal, NamedTuple, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+from typing import TypeAlias
 
 __all__ = ["Error", "open"]
 

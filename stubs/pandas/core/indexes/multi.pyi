@@ -24,7 +24,9 @@ from pandas.errors import InvalidIndexError as InvalidIndexError, PerformanceWar
 from pandas.io.formats.printing import get_adjustment as get_adjustment, pprint_thing as pprint_thing
 from pandas.util._decorators import Appender as Appender, cache_readonly as cache_readonly, doc as doc
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Any, Callable, Literal
+from typing import Any, Literal
+
+from collections.abc import Callable
 
 _index_doc_kwargs: Incomplete
 

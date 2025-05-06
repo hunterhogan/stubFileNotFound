@@ -1,5 +1,5 @@
 from collections.abc import Container, Iterable
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from .callbacks import _Callback
 from .css_sanitizer import CSSSanitizer
@@ -22,7 +22,7 @@ _HTMLAttrKey: TypeAlias = tuple[str | None, str]  # noqa: Y047
 def clean(
     text: str,
     tags: Iterable[str] = ...,
-    attributes: _Attributes = ...,
+    attributes: _Attributes = {'a': ['href', 'title'], 'abbr': ['title'], 'acronym': ['title']},
     protocols: Iterable[str] = ...,
     strip: bool = False,
     strip_comments: bool = True,

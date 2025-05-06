@@ -1,6 +1,7 @@
 from collections.abc import Iterable, Iterator
 from typing import Final, Literal, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+from typing import TypeAlias
 
 _ColorT = TypeVar("_ColorT", bound=Color)
 # NOTE: Reportlab is very inconsistent and sometimes uses the interpretation

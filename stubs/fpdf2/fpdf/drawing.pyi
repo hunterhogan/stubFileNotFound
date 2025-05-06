@@ -5,7 +5,9 @@ from collections.abc import Callable, Generator, Sequence
 from contextlib import contextmanager
 from re import Pattern
 from typing import Any, ClassVar, Literal, NamedTuple, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 from .syntax import Name, Raw
 

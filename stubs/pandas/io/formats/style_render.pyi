@@ -8,7 +8,9 @@ from pandas.api.types import is_list_like as is_list_like
 from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core.dtypes.common import is_complex as is_complex, is_float as is_float, is_integer as is_integer
 from pandas.core.dtypes.generic import ABCSeries as ABCSeries
-from typing import Any, Callable, DefaultDict, TypedDict
+from typing import Any, DefaultDict, TypedDict
+
+from collections.abc import Callable
 
 jinja2: Incomplete
 BaseFormatter = str | Callable

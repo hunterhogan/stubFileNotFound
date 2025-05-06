@@ -3,7 +3,9 @@ from _collections_abc import dict_keys
 from _typeshed import FileDescriptorOrPath, ReadableBuffer, SupportsRead, SupportsWrite
 from collections.abc import Callable, Generator, ItemsView, Iterable, Iterator, Mapping, Sequence
 from typing import Any, Final, Generic, Literal, Protocol, SupportsIndex, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias, TypeGuard, deprecated
+from typing_extensions import deprecated
+
+from typing import TypeAlias, TypeGuard
 from xml.parsers.expat import XMLParserType
 
 __all__ = [

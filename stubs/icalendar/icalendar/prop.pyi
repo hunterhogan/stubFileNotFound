@@ -4,7 +4,9 @@ from collections.abc import Iterable, Iterator
 from enum import Enum
 from re import Pattern
 from typing import Any, ClassVar, Final, Literal, Protocol, SupportsIndex, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 from .caselessdict import CaselessDict
 from .parser import Parameters

@@ -1,6 +1,7 @@
 from _typeshed import ConvertibleToFloat, ConvertibleToInt
 from typing import ClassVar, Final, Literal
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+from typing import TypeAlias
 
 from openpyxl.descriptors.base import Alias, _ConvertibleToBool
 from openpyxl.descriptors.nested import (

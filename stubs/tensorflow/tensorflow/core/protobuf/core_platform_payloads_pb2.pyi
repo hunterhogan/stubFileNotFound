@@ -11,10 +11,7 @@ import google.protobuf.descriptor
 import google.protobuf.internal.enum_type_wrapper
 import google.protobuf.message
 
-if sys.version_info >= (3, 10):
-    import typing as typing_extensions
-else:
-    import typing_extensions
+import typing as typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
@@ -31,7 +28,9 @@ class ErrorSourceProto(google.protobuf.message.Message):
         ValueType = typing.NewType("ValueType", builtins.int)
         V: typing_extensions.TypeAlias = ValueType
 
-    class _ErrorSourceEnumTypeWrapper(google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ErrorSourceProto._ErrorSource.ValueType], builtins.type):
+    class _ErrorSourceEnumTypeWrapper(
+        google.protobuf.internal.enum_type_wrapper._EnumTypeWrapper[ErrorSourceProto._ErrorSource.ValueType], builtins.type
+    ):
         DESCRIPTOR: google.protobuf.descriptor.EnumDescriptor
         UNKNOWN: ErrorSourceProto._ErrorSource.ValueType  # 0
         TPU_COMPILE_OP: ErrorSourceProto._ErrorSource.ValueType  # 1
@@ -58,11 +57,7 @@ class ErrorSourceProto(google.protobuf.message.Message):
 
     ERROR_SOURCE_FIELD_NUMBER: builtins.int
     error_source: global___ErrorSourceProto.ErrorSource.ValueType
-    def __init__(
-        self,
-        *,
-        error_source: global___ErrorSourceProto.ErrorSource.ValueType | None = ...,
-    ) -> None: ...
+    def __init__(self, *, error_source: global___ErrorSourceProto.ErrorSource.ValueType | None = ...) -> None: ...
     def ClearField(self, field_name: typing.Literal["error_source", b"error_source"]) -> None: ...
 
 global___ErrorSourceProto = ErrorSourceProto

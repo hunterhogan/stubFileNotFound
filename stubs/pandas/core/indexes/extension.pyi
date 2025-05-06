@@ -5,7 +5,9 @@ from pandas.core.arrays._mixins import NDArrayBackedExtensionArray as NDArrayBac
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame
 from pandas.core.indexes.base import Index as Index
 from pandas.util._decorators import cache_readonly as cache_readonly
-from typing import Callable, TypeVar
+from typing import TypeVar
+
+from collections.abc import Callable
 
 _ExtensionIndexT = TypeVar('_ExtensionIndexT', bound='ExtensionIndex')
 

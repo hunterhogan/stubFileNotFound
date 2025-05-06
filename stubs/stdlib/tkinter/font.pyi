@@ -3,7 +3,9 @@ import itertools
 import sys
 import tkinter
 from typing import Any, ClassVar, Final, Literal, TypedDict, overload
-from typing_extensions import TypeAlias, Unpack
+from typing_extensions import Unpack
+
+from typing import TypeAlias
 
 __all__ = ["NORMAL", "ROMAN", "BOLD", "ITALIC", "nametofont", "Font", "families", "names"]
 
@@ -111,8 +113,5 @@ class Font:
 def families(root: tkinter.Misc | None = None, displayof: tkinter.Misc | None = None) -> tuple[str, ...]: ...
 def names(root: tkinter.Misc | None = None) -> tuple[str, ...]: ...
 
-if sys.version_info >= (3, 10):
-    def nametofont(name: str, root: tkinter.Misc | None = None) -> Font: ...
+def nametofont(name: str, root: tkinter.Misc | None = None) -> Font: ...
 
-else:
-    def nametofont(name: str) -> Font: ...

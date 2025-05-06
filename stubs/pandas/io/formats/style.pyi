@@ -13,7 +13,9 @@ from pandas.io.formats.format import save_to_buffer as save_to_buffer
 from pandas.io.formats.style_render import CSSProperties as CSSProperties, CSSStyles as CSSStyles, ExtFormatter as ExtFormatter, StylerRenderer as StylerRenderer, Subset as Subset, Tooltips as Tooltips, format_table_styles as format_table_styles, maybe_convert_css_to_tuples as maybe_convert_css_to_tuples, non_reducing_slice as non_reducing_slice, refactor_levels as refactor_levels
 from pandas.util._decorators import Substitution as Substitution, doc as doc
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Any, Callable, overload
+from typing import Any, overload
+
+from collections.abc import Callable
 
 jinja2: Incomplete
 has_mpl: bool

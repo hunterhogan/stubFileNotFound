@@ -3,7 +3,9 @@ from collections.abc import Callable
 from decimal import Decimal
 from numbers import Rational, Real
 from typing import Any, Literal, Protocol, SupportsIndex, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 _ComparableNum: TypeAlias = int | float | Decimal | Real
 

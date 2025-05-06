@@ -1,6 +1,8 @@
 from _typeshed import ReadableBuffer, Unused
 from typing import IO, Any, BinaryIO, Final, Literal, NamedTuple, NoReturn, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from typing_extensions import Self, deprecated
+
+from typing import TypeAlias
 
 __all__ = ["open", "Error", "Wave_read", "Wave_write"]
 

@@ -1,6 +1,6 @@
 import numpy as np
 from pandas._typing import npt as npt
-from typing import Callable
+from collections.abc import Callable
 
 def _cum_func(func: Callable, values: np.ndarray, mask: npt.NDArray[np.bool_], *, skipna: bool = True):
     """

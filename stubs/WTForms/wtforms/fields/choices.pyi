@@ -1,6 +1,7 @@
 from collections.abc import Callable, Iterable, Iterator, Sequence
 from typing import Any
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+from typing import TypeAlias
 
 from wtforms.fields.core import Field, _Filter, _FormT, _Validator, _Widget
 from wtforms.form import BaseForm

@@ -2,7 +2,8 @@ from _typeshed import Incomplete
 from abc import abstractmethod
 from collections.abc import Callable
 from typing import IO, Any, Literal, Protocol
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+from typing import TypeAlias
 
 from reportlab.pdfgen.canvas import Canvas
 from reportlab.platypus.flowables import Flowable

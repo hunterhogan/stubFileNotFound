@@ -1,6 +1,8 @@
 from threading import RLock
 from typing import Any
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 from weakref import ReferenceType
 
 __all__ = ["local"]

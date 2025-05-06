@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
-from typing import Callable, NamedTuple
+from typing import NamedTuple
+
+from collections.abc import Callable
 
 __all__ = ['parse', 'Version', 'LegacyVersion', 'InvalidVersion', 'VERSION_PATTERN']
 

@@ -12,7 +12,9 @@ from pandas.io.formats.format import get_level_lengths as get_level_lengths
 from pandas.io.formats.printing import pprint_thing as pprint_thing
 from pandas.util._decorators import doc as doc
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Any, Callable
+from typing import Any
+
+from collections.abc import Callable
 
 class ExcelCell:
     __fields__: Incomplete

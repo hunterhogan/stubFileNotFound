@@ -1,7 +1,9 @@
 from collections.abc import Callable, Sequence
 from enum import Enum
 from typing import Any, Literal, NamedTuple, TypeVar, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from typing_extensions import Self, deprecated
+
+from typing import TypeAlias
 
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import ec, rsa

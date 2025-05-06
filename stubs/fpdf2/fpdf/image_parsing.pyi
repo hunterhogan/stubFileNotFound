@@ -5,7 +5,7 @@ from io import BytesIO
 from logging import Logger
 from types import TracebackType
 from typing import Any, Final, Literal
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from PIL import Image
 

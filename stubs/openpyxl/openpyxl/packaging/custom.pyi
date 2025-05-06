@@ -2,7 +2,8 @@ from _typeshed import ConvertibleToFloat, ConvertibleToInt, Incomplete
 from collections.abc import Iterator
 from datetime import datetime
 from typing import Any, Final, Generic, Literal, TypeVar
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+from typing import TypeAlias
 
 from openpyxl.descriptors import Sequence, Strict
 from openpyxl.descriptors.base import Bool, DateTime, Float, Integer, String, _ConvertibleToBool

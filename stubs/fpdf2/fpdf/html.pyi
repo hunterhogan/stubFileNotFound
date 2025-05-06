@@ -3,7 +3,7 @@ from collections.abc import Callable, Iterable, Mapping
 from html.parser import HTMLParser
 from logging import Logger
 from typing import ClassVar, Final, Literal
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from fpdf import FPDF
 

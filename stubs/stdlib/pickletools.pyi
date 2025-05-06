@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Callable, Iterator, MutableMapping
 from typing import IO, Any
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 __all__ = ["dis", "genops", "optimize"]
 

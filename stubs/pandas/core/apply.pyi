@@ -20,7 +20,9 @@ from pandas.core.window.rolling import BaseWindow as BaseWindow
 from pandas.errors import SpecificationError as SpecificationError
 from pandas.util._decorators import cache_readonly as cache_readonly
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Any, Callable, Literal
+from typing import Any, Literal
+
+from collections.abc import Callable
 
 ResType = dict[int, Any]
 

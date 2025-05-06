@@ -22,7 +22,9 @@ from sympy.utilities.decorator import deprecated as deprecated
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.iterables import iproduct as iproduct, iterable as iterable, roundrobin as roundrobin, sift as sift, subsets as subsets
 from sympy.utilities.misc import filldedent as filldedent, func_name as func_name
-from typing import Any, Callable
+from typing import Any
+
+from collections.abc import Callable
 
 tfn: Incomplete
 

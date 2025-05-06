@@ -23,7 +23,9 @@ from pandas.core.internals.ops import blockwise_all as blockwise_all, operate_bl
 from pandas.errors import PerformanceWarning as PerformanceWarning
 from pandas.util._decorators import cache_readonly as cache_readonly
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Callable, Literal
+from typing import Literal
+
+from collections.abc import Callable
 
 class BaseBlockManager(DataManager):
     """

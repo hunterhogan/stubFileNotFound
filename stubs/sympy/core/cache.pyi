@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from typing import Callable
+from collections.abc import Callable
 
 class _cache(list):
     """ List of cached functions """

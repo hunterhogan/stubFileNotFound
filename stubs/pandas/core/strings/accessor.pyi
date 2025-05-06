@@ -14,7 +14,9 @@ from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCIndex as
 from pandas.core.dtypes.missing import isna as isna
 from pandas.util._decorators import Appender as Appender
 from pandas.util._exceptions import find_stack_level as find_stack_level
-from typing import Callable, Literal
+from typing import Literal
+
+from collections.abc import Callable
 
 _shared_docs: dict[str, str]
 _cpython_optimized_encoders: Incomplete

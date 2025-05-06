@@ -5,7 +5,7 @@ from re import Pattern
 from token import *
 from token import EXACT_TOKEN_TYPES as EXACT_TOKEN_TYPES
 from typing import Any, NamedTuple, TextIO, type_check_only
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 __all__ = [
     "AMPER",
@@ -84,8 +84,7 @@ __all__ = [
 if sys.version_info < (3, 13):
     __all__ += ["ASYNC", "AWAIT"]
 
-if sys.version_info >= (3, 10):
-    __all__ += ["SOFT_KEYWORD"]
+__all__ += ["SOFT_KEYWORD"]
 
 if sys.version_info >= (3, 12):
     __all__ += ["EXCLAMATION", "FSTRING_END", "FSTRING_MIDDLE", "FSTRING_START", "EXACT_TOKEN_TYPES"]

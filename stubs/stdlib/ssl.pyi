@@ -28,16 +28,15 @@ from _ssl import (
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from collections.abc import Callable, Iterable
 from typing import Any, Literal, NamedTuple, TypedDict, overload, type_check_only
-from typing_extensions import Never, Self, TypeAlias, deprecated
+from typing_extensions import Never, Self, deprecated
+
+from typing import TypeAlias
 
 if sys.version_info >= (3, 13):
     from _ssl import HAS_PSK as HAS_PSK
 
 if sys.version_info < (3, 12):
     from _ssl import RAND_pseudo_bytes as RAND_pseudo_bytes
-
-if sys.version_info < (3, 10):
-    from _ssl import RAND_egd as RAND_egd
 
 if sys.platform == "win32":
     from _ssl import enum_certificates as enum_certificates, enum_crls as enum_crls
@@ -101,33 +100,19 @@ def create_default_context(
     cadata: str | ReadableBuffer | None = None,
 ) -> SSLContext: ...
 
-if sys.version_info >= (3, 10):
-    def _create_unverified_context(
-        protocol: int | None = None,
-        *,
-        cert_reqs: int = ...,
-        check_hostname: bool = False,
-        purpose: Purpose = ...,
-        certfile: StrOrBytesPath | None = None,
-        keyfile: StrOrBytesPath | None = None,
-        cafile: StrOrBytesPath | None = None,
-        capath: StrOrBytesPath | None = None,
-        cadata: str | ReadableBuffer | None = None,
-    ) -> SSLContext: ...
+def _create_unverified_context(
+    protocol: int | None = None,
+    *,
+    cert_reqs: int = ...,
+    check_hostname: bool = False,
+    purpose: Purpose = ...,
+    certfile: StrOrBytesPath | None = None,
+    keyfile: StrOrBytesPath | None = None,
+    cafile: StrOrBytesPath | None = None,
+    capath: StrOrBytesPath | None = None,
+    cadata: str | ReadableBuffer | None = None,
+) -> SSLContext: ...
 
-else:
-    def _create_unverified_context(
-        protocol: int = ...,
-        *,
-        cert_reqs: int = ...,
-        check_hostname: bool = False,
-        purpose: Purpose = ...,
-        certfile: StrOrBytesPath | None = None,
-        keyfile: StrOrBytesPath | None = None,
-        cafile: StrOrBytesPath | None = None,
-        capath: StrOrBytesPath | None = None,
-        cadata: str | ReadableBuffer | None = None,
-    ) -> SSLContext: ...
 
 _create_default_https_context: Callable[..., SSLContext]
 
@@ -136,13 +121,10 @@ if sys.version_info < (3, 12):
 
 def cert_time_to_seconds(cert_time: str) -> int: ...
 
-if sys.version_info >= (3, 10):
-    def get_server_certificate(
-        addr: tuple[str, int], ssl_version: int = ..., ca_certs: str | None = None, timeout: float = ...
-    ) -> str: ...
+def get_server_certificate(
+    addr: tuple[str, int], ssl_version: int = ..., ca_certs: str | None = None, timeout: float = ...
+) -> str: ...
 
-else:
-    def get_server_certificate(addr: tuple[str, int], ssl_version: int = ..., ca_certs: str | None = None) -> str: ...
 
 def DER_cert_to_PEM_cert(der_cert_bytes: ReadableBuffer) -> str: ...
 def PEM_cert_to_DER_cert(pem_cert_string: str) -> bytes: ...
@@ -172,9 +154,8 @@ class VerifyFlags(enum.IntFlag):
     VERIFY_CRL_CHECK_CHAIN = 12
     VERIFY_X509_STRICT = 32
     VERIFY_X509_TRUSTED_FIRST = 32768
-    if sys.version_info >= (3, 10):
-        VERIFY_ALLOW_PROXY_CERTS = 64
-        VERIFY_X509_PARTIAL_CHAIN = 524288
+    VERIFY_ALLOW_PROXY_CERTS = 64
+    VERIFY_X509_PARTIAL_CHAIN = 524288
 
 VERIFY_DEFAULT: VerifyFlags
 VERIFY_CRL_CHECK_LEAF: VerifyFlags
@@ -182,9 +163,8 @@ VERIFY_CRL_CHECK_CHAIN: VerifyFlags
 VERIFY_X509_STRICT: VerifyFlags
 VERIFY_X509_TRUSTED_FIRST: VerifyFlags
 
-if sys.version_info >= (3, 10):
-    VERIFY_ALLOW_PROXY_CERTS: VerifyFlags
-    VERIFY_X509_PARTIAL_CHAIN: VerifyFlags
+VERIFY_ALLOW_PROXY_CERTS: VerifyFlags
+VERIFY_X509_PARTIAL_CHAIN: VerifyFlags
 
 class _SSLMethod(enum.IntEnum):
     PROTOCOL_SSLv23 = 2
@@ -369,11 +349,8 @@ class SSLSocket(socket.socket):
     def compression(self) -> str | None: ...
     def get_channel_binding(self, cb_type: str = "tls-unique") -> bytes | None: ...
     def selected_alpn_protocol(self) -> str | None: ...
-    if sys.version_info >= (3, 10):
-        @deprecated("Deprecated in 3.10. Use ALPN instead.")
-        def selected_npn_protocol(self) -> str | None: ...
-    else:
-        def selected_npn_protocol(self) -> str | None: ...
+    @deprecated("Deprecated in 3.10. Use ALPN instead.")
+    def selected_npn_protocol(self) -> str | None: ...
 
     def accept(self) -> tuple[SSLSocket, socket._RetAddress]: ...
     def unwrap(self) -> socket.socket: ...
@@ -413,14 +390,10 @@ class SSLContext(_SSLContext):
     sslsocket_class: type[SSLSocket]
     keylog_filename: str
     post_handshake_auth: bool
-    if sys.version_info >= (3, 10):
-        security_level: int
-    if sys.version_info >= (3, 10):
-        # Using the default (None) for the `protocol` parameter is deprecated,
-        # but there isn't a good way of marking that in the stub unless/until PEP 702 is accepted
-        def __new__(cls, protocol: int | None = None, *args: Any, **kwargs: Any) -> Self: ...
-    else:
-        def __new__(cls, protocol: int = ..., *args: Any, **kwargs: Any) -> Self: ...
+    security_level: int
+    # Using the default (None) for the `protocol` parameter is deprecated,
+    # but there isn't a good way of marking that in the stub unless/until PEP 702 is accepted
+    def __new__(cls, protocol: int | None = None, *args: Any, **kwargs: Any) -> Self: ...
 
     def load_default_certs(self, purpose: Purpose = ...) -> None: ...
     def load_verify_locations(
@@ -439,11 +412,8 @@ class SSLContext(_SSLContext):
     def set_default_verify_paths(self) -> None: ...
     def set_ciphers(self, cipherlist: str, /) -> None: ...
     def set_alpn_protocols(self, alpn_protocols: Iterable[str]) -> None: ...
-    if sys.version_info >= (3, 10):
-        @deprecated("Deprecated in 3.10. Use ALPN instead.")
-        def set_npn_protocols(self, npn_protocols: Iterable[str]) -> None: ...
-    else:
-        def set_npn_protocols(self, npn_protocols: Iterable[str]) -> None: ...
+    @deprecated("Deprecated in 3.10. Use ALPN instead.")
+    def set_npn_protocols(self, npn_protocols: Iterable[str]) -> None: ...
 
     def set_servername_callback(self, server_name_callback: _SrvnmeCbType | None) -> None: ...
     def load_dh_params(self, path: str, /) -> None: ...
@@ -485,11 +455,8 @@ class SSLObject:
     @overload
     def getpeercert(self, binary_form: bool) -> _PeerCertRetType: ...
     def selected_alpn_protocol(self) -> str | None: ...
-    if sys.version_info >= (3, 10):
-        @deprecated("Deprecated in 3.10. Use ALPN instead.")
-        def selected_npn_protocol(self) -> str | None: ...
-    else:
-        def selected_npn_protocol(self) -> str | None: ...
+    @deprecated("Deprecated in 3.10. Use ALPN instead.")
+    def selected_npn_protocol(self) -> str | None: ...
 
     def cipher(self) -> tuple[str, str, int] | None: ...
     def shared_ciphers(self) -> list[tuple[str, str, int]] | None: ...

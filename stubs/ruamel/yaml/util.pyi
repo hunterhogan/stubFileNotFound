@@ -1,7 +1,9 @@
 import datetime
 from .compat import StreamTextType as StreamTextType
 from _typeshed import Incomplete
-from typing import Any, Callable
+from typing import Any
+
+from collections.abc import Callable
 
 class LazyEval:
     """

@@ -4,7 +4,9 @@ from _typeshed import SupportsAllComparisons, SupportsItems
 from collections.abc import Callable, Hashable, Iterable, Sized
 from types import GenericAlias
 from typing import Any, Generic, Literal, NamedTuple, TypedDict, TypeVar, final, overload
-from typing_extensions import ParamSpec, Self, TypeAlias
+from typing_extensions import ParamSpec, Self
+
+from typing import TypeAlias
 
 __all__ = [
     "update_wrapper",

@@ -23,7 +23,7 @@ from distutils.command.sdist import sdist
 from distutils.command.upload import upload
 from re import Pattern
 from typing import IO, ClassVar, Literal, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 command_re: Pattern[str]
 

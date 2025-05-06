@@ -1,6 +1,8 @@
 from .exceptions import DMDomainError as DMDomainError, DMNonInvertibleMatrixError as DMNonInvertibleMatrixError, DMNonSquareMatrixError as DMNonSquareMatrixError, DMShapeError as DMShapeError
 from sympy.polys.matrices._typing import RingElement as RingElement
-from typing import Sequence, TypeVar
+from typing import TypeVar
+
+from collections.abc import Sequence
 
 T = TypeVar('T')
 R = TypeVar('R', bound=RingElement)

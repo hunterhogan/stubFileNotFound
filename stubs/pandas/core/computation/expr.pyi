@@ -5,7 +5,9 @@ from pandas.core.computation.parsing import clean_backtick_quoted_toks as clean_
 from pandas.core.computation.scope import Scope as Scope
 from pandas.errors import UndefinedVariableError as UndefinedVariableError
 from pandas.io.formats import printing as printing
-from typing import Callable, ClassVar, TypeVar
+from typing import ClassVar, TypeVar
+
+from collections.abc import Callable
 
 def _rewrite_assign(tok: tuple[int, str]) -> tuple[int, str]:
     """

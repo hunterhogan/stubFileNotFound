@@ -21,7 +21,9 @@ from pandas.core.indexes.timedeltas import TimedeltaIndex as TimedeltaIndex
 from pandas.core.reshape.concat import concat as concat
 from pandas.io.common import check_parent_directory as check_parent_directory, stringify_path as stringify_path
 from pandas.io.formats import printing as printing
-from typing import Any, Callable, Final
+from typing import Any, Final
+
+from collections.abc import Callable
 
 common_docstring: Final[str]
 VALID_JUSTIFY_PARAMETERS: Incomplete

@@ -3,7 +3,7 @@ from _typeshed import ReadableBuffer, SizedBuffer
 from collections.abc import Callable
 from types import ModuleType
 from typing import overload
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 _DigestMod: TypeAlias = str | Callable[[], _HashObject] | ModuleType
 

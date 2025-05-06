@@ -2,7 +2,9 @@ from _typeshed import Incomplete
 from collections.abc import Mapping, MutableSet, Set, Sized
 from ruamel.yaml.compat import MutableSliceableSequence, ordereddict
 from ruamel.yaml.tag import Tag
-from typing import Any, Iterator
+from typing import Any
+
+from collections.abc import Iterator
 
 __all__ = ['CommentedSeq', 'CommentedKeySeq', 'CommentedMap', 'CommentedOrderedMap', 'CommentedSet', 'comment_attrib', 'merge_attrib', 'TaggedScalar', 'C_POST', 'C_PRE', 'C_SPLIT_ON_FIRST_BLANK', 'C_BLANK_LINE_PRESERVE_SPACE']
 

@@ -2,7 +2,8 @@ import collections.abc
 from collections.abc import Callable, Mapping
 from re import Pattern
 from typing import Any
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+from typing import TypeAlias
 
 from parsimonious.exceptions import ParseError
 from parsimonious.grammar import Grammar

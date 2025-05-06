@@ -21,7 +21,9 @@ from pandas.util._decorators import Appender as Appender
 from pandas.util._exceptions import find_stack_level as find_stack_level
 from pandas.util._validators import check_dtype_backend as check_dtype_backend
 from types import TracebackType
-from typing import Any, Callable, IO, Literal, NamedTuple, TypedDict, overload
+from typing import Any, IO, Literal, NamedTuple, TypedDict, overload
+
+from collections.abc import Callable
 
 _doc_read_csv_and_table: Incomplete
 

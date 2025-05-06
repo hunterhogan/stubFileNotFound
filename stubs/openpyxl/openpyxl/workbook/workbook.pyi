@@ -2,7 +2,8 @@ from _typeshed import Incomplete, Unused
 from collections.abc import Iterator
 from datetime import datetime
 from typing import Any, Final, type_check_only
-from typing_extensions import TypeAlias, deprecated
+from typing_extensions import deprecated
+from typing import TypeAlias
 from zipfile import ZipFile
 
 from openpyxl import _Decodable, _ZipFileFileWriteProtocol

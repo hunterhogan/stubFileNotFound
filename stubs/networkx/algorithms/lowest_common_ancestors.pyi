@@ -1,5 +1,7 @@
 from collections.abc import Generator, Iterable
-from typing import Any, Hashable
+from typing import Any
+
+from collections.abc import Hashable
 
 __all__ = ['all_pairs_lowest_common_ancestor', 'tree_all_pairs_lowest_common_ancestor', 'lowest_common_ancestor']
 

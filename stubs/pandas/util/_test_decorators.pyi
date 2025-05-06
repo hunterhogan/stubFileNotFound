@@ -5,7 +5,7 @@ from pandas._config.config import _get_option as _get_option
 from pandas._typing import F as F
 from pandas.compat import IS64 as IS64, is_platform_windows as is_platform_windows
 from pandas.compat._optional import import_optional_dependency as import_optional_dependency
-from typing import Callable
+from collections.abc import Callable
 
 def skip_if_installed(package: str) -> pytest.MarkDecorator:
     """

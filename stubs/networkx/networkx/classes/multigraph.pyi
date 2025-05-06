@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from functools import cached_property
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from networkx.classes.coreviews import MultiAdjacencyView
 from networkx.classes.graph import Graph, _Node

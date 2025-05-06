@@ -28,7 +28,9 @@ from pandas.io._util import _arrow_dtype_mapping as _arrow_dtype_mapping
 from pandas.tseries.frequencies import to_offset as to_offset
 from pandas.util._decorators import doc as doc
 from pandas.util._validators import validate_fillna_kwargs as validate_fillna_kwargs
-from typing import Any, Callable, Literal
+from typing import Any, Literal
+
+from collections.abc import Callable
 
 ARROW_CMP_FUNCS: Incomplete
 ARROW_LOGICAL_FUNCS: Incomplete

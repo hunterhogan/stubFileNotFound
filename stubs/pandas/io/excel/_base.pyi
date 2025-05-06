@@ -24,7 +24,9 @@ from pandas.util._exceptions import find_stack_level as find_stack_level
 from pandas.util._validators import check_dtype_backend as check_dtype_backend
 from pandas.util.version import Version as Version
 from types import TracebackType
-from typing import Any, Callable, Generic, Literal, TypeVar, overload
+from typing import Any, Generic, Literal, TypeVar, overload
+
+from collections.abc import Callable
 
 _read_excel_doc: Incomplete
 

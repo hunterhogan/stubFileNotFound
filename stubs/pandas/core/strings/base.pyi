@@ -4,7 +4,9 @@ from _typeshed import Incomplete
 from collections.abc import Sequence
 from pandas import Series as Series
 from pandas._typing import Scalar as Scalar
-from typing import Callable, Literal
+from typing import Literal
+
+from collections.abc import Callable
 
 class BaseStringArrayMethods(abc.ABC, metaclass=abc.ABCMeta):
     """

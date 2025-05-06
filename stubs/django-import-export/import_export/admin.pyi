@@ -2,7 +2,8 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Sequence
 from logging import Logger
 from typing import Any, Literal, TypeVar
-from typing_extensions import TypeAlias, deprecated
+from typing_extensions import deprecated
+from typing import TypeAlias
 
 from django.contrib import admin
 from django.contrib.admin.helpers import ActionForm

@@ -1,6 +1,6 @@
 import sys
 from _typeshed import ReadableBuffer
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 # Many functions in binascii accept buffer objects
 # or ASCII-only strings.

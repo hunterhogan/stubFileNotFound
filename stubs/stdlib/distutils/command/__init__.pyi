@@ -42,7 +42,3 @@ __all__ = [
     "upload",
 ]
 
-if sys.version_info < (3, 10):
-    from . import bdist_wininst
-
-    __all__ += ["bdist_wininst"]

@@ -17,7 +17,9 @@ from sympy.functions.special.error_functions import Ei as Ei, erfc as erfc, erfi
 from sympy.integrals.integrals import Integral as Integral
 from sympy.printing.repr import srepr as srepr
 from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
-from typing import Any, Callable, NamedTuple
+from typing import Any, NamedTuple
+
+from collections.abc import Callable
 
 matchpy: Incomplete
 __doctest_requires__: Incomplete

@@ -2,7 +2,8 @@ from _typeshed import ConvertibleToInt, Unused
 from abc import abstractmethod
 from collections.abc import Iterable, Iterator
 from typing import Literal, SupportsIndex, SupportsInt, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+from typing import TypeAlias
 
 from netaddr.core import DictDotLookup
 from netaddr.strategy.ipv6 import ipv6_verbose

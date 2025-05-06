@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from typing import Any, Protocol, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 import _win32typing
 from win32.lib.pywintypes import IIDType

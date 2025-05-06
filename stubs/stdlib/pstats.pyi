@@ -5,7 +5,9 @@ from cProfile import Profile as _cProfile
 from dataclasses import dataclass
 from profile import Profile
 from typing import IO, Any, Literal, overload
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 if sys.version_info >= (3, 11):
     from enum import StrEnum

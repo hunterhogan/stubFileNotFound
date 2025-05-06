@@ -6,7 +6,9 @@ from collections.abc import Callable
 from io import BufferedIOBase
 from socket import socket as _socket
 from typing import Any, ClassVar
-from typing_extensions import Self, TypeAlias
+from typing_extensions import Self
+
+from typing import TypeAlias
 
 __all__ = [
     "BaseServer",

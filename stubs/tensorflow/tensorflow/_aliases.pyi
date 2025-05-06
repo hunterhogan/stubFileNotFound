@@ -3,7 +3,7 @@
 
 from collections.abc import Iterable, Mapping, Sequence
 from typing import Any, Protocol, TypeVar
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 import numpy  # pytype needs the unaliased import to resolve DTypeLike
 import numpy as np

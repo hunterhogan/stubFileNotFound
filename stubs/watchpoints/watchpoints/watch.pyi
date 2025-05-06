@@ -4,7 +4,7 @@ from collections.abc import Callable
 from pdb import Pdb
 from types import FrameType
 from typing import Any, Literal, Protocol, TypeVar
-from typing_extensions import TypeAlias
+from typing import TypeAlias
 
 from .watch_element import WatchElement
 
@@ -51,7 +51,7 @@ class Watch:
         self,
         *,
         callback: Callable[[FrameType, WatchElement, tuple[str, str, int | None]], None] = ...,
-        pdb: Literal[True] = True,
+        pdb: Literal[True] = ...,
         file: str | SupportsWrite[str] = ...,
         stack_limit: int | None = 5,
         custom_printer: Callable[[Any], None] = ...,  # User-defined printing callback

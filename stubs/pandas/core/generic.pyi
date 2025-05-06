@@ -42,7 +42,9 @@ from pandas.io.formats.printing import pprint_thing as pprint_thing
 from pandas.util._decorators import deprecate_nonkeyword_arguments as deprecate_nonkeyword_arguments, doc as doc
 from pandas.util._exceptions import find_stack_level as find_stack_level
 from pandas.util._validators import check_dtype_backend as check_dtype_backend, validate_ascending as validate_ascending, validate_bool_kwarg as validate_bool_kwarg, validate_fillna_kwargs as validate_fillna_kwargs, validate_inclusive as validate_inclusive
-from typing import Any, Callable, ClassVar, Literal, NoReturn, overload
+from typing import Any, ClassVar, Literal, NoReturn, overload
+
+from collections.abc import Callable
 
 _shared_doc_kwargs: Incomplete
 bool_t = bool
