@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from ruamel.yaml.tag import Tag as Tag
 from typing import Any
 
 SHOW_LINES: bool

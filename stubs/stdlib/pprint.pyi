@@ -1,3 +1,4 @@
+import sys
 from typing import IO
 
 __all__ = ["pprint", "pformat", "isreadable", "isrecursive", "saferepr", "PrettyPrinter", "pp"]

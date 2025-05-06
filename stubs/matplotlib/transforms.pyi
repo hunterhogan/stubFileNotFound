@@ -1,5 +1,7 @@
+from .path import Path as Path
 from _typeshed import Incomplete
 from collections.abc import Generator
+from matplotlib import _api as _api
 from matplotlib._path import affine_transform as affine_transform, count_bboxes_overlapping_bbox as count_bboxes_overlapping_bbox, update_path_extents as update_path_extents
 
 DEBUG: bool

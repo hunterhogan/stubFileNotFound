@@ -2,7 +2,9 @@ from _typeshed import Incomplete
 from logging import Logger
 from typing import Any
 
+from oauthlib.oauth2.rfc6749.errors import InvalidRequestError as InvalidRequestError
 
+from ..request_validator import RequestValidator as RequestValidator
 from .base import GrantTypeBase as GrantTypeBase
 
 log: Logger

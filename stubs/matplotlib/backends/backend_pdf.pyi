@@ -2,8 +2,15 @@ from . import _backend_pdf_ps as _backend_pdf_ps
 from _typeshed import Incomplete
 from enum import Enum
 from matplotlib import _api as _api, _path as _path, _text_helpers as _text_helpers, _type1font as _type1font, cbook as cbook, dviread as dviread
+from matplotlib._afm import AFM as AFM
+from matplotlib._pylab_helpers import Gcf as Gcf
 from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, GraphicsContextBase as GraphicsContextBase, RendererBase as RendererBase, _Backend as _Backend
+from matplotlib.backends.backend_mixed import MixedModeRenderer as MixedModeRenderer
+from matplotlib.dates import UTC as UTC
+from matplotlib.figure import Figure as Figure
+from matplotlib.font_manager import get_font as get_font
 from matplotlib.ft2font import FT2Font as FT2Font, FaceFlags as FaceFlags, Kerning as Kerning, LoadFlags as LoadFlags, StyleFlags as StyleFlags
+from matplotlib.path import Path as Path
 from matplotlib.transforms import Affine2D as Affine2D, BboxBase as BboxBase
 
 _log: Incomplete

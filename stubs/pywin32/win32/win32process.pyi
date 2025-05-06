@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 
 import _win32typing
+from win32.lib.pywintypes import error as error
 
 def STARTUPINFO() -> _win32typing.PySTARTUPINFO: ...
 def beginthreadex(sa: _win32typing.PySECURITY_ATTRIBUTES, stackSize, entryPoint, args, flags, /) -> tuple[int, Incomplete]: ...

@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 
 from reportlab.graphics.charts.areas import PlotArea
+from reportlab.lib.attrmap import *
 
 class Ean13BarcodeWidget(PlotArea):
     codeName: str

@@ -1,4 +1,5 @@
 from .. import font_manager as font_manager, ft2font as ft2font
+from .._afm import AFM as AFM
 from ..backend_bases import RendererBase as RendererBase
 from _typeshed import Incomplete
 

@@ -2,6 +2,8 @@ from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from collections.abc import Generator
 from numba.core import sigutils as sigutils, types as types
+from numba.core.typing import signature as signature
+from numba.np.ufunc.sigparse import parse_signature as parse_signature
 from numba.np.ufunc.ufuncbuilder import _BaseUFuncBuilder as _BaseUFuncBuilder, parse_identity as parse_identity
 
 def _broadcast_axis(a, b):

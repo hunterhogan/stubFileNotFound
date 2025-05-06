@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from llvmlite.binding import ffi as ffi
 
 def initialize() -> None:
     """

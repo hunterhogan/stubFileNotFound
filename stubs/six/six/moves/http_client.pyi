@@ -1,4 +1,5 @@
 # Many definitions are not included in http.client.__all__
+from http.client import *
 from http.client import (
     ACCEPTED as ACCEPTED,
     BAD_GATEWAY as BAD_GATEWAY,

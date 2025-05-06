@@ -1,5 +1,8 @@
 from _typeshed import Incomplete
+from numba.core import types as types
+from numba.core.errors import TypingError as TypingError
 from numba.core.typing import templates as templates
+from numba.np import numpy_support as numpy_support
 
 ffi: Incomplete
 SUPPORTED: Incomplete

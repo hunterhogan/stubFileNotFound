@@ -1,6 +1,11 @@
 import ast
 from _typeshed import Incomplete
+from sympy.assumptions.ask import AssumptionKeys as AssumptionKeys
+from sympy.core import Symbol as Symbol
+from sympy.core.basic import Basic as Basic
+from sympy.core.function import Function as Function
 from sympy.functions.elementary.miscellaneous import Max as Max, Min as Min
+from sympy.utilities.misc import func_name as func_name
 from typing import Any
 
 from collections.abc import Callable

@@ -1,9 +1,18 @@
 from .factor_ import _perfect_power as _perfect_power, factorint as factorint
+from .generate import primerange as primerange
+from .modular import crt as crt
+from .primetest import isprime as isprime
 from _typeshed import Incomplete
 from collections.abc import Generator
 from sympy.core.random import _randint as _randint, randint as randint
 from sympy.external.gmpy import bit_scan1 as bit_scan1, gcd as gcd, invert as invert, jacobi as jacobi, lcm as lcm, remove as remove, sqrt as sqrt
+from sympy.polys import Poly as Poly
+from sympy.polys.domains import ZZ as ZZ
 from sympy.polys.galoistools import gf_crt1 as gf_crt1, gf_crt2 as gf_crt2, gf_csolve as gf_csolve, linear_congruence as linear_congruence
+from sympy.utilities.decorator import deprecated as deprecated
+from sympy.utilities.iterables import iproduct as iproduct
+from sympy.utilities.memoization import recurrence_memo as recurrence_memo
+from sympy.utilities.misc import as_int as as_int
 
 def n_order(a, n):
     """ Returns the order of ``a`` modulo ``n``.

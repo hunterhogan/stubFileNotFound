@@ -1,13 +1,23 @@
 from _typeshed import Incomplete
+from sympy.core import S as S
+from sympy.core.add import Add as Add
+from sympy.core.cache import cacheit as cacheit
+from sympy.core.expr import Expr as Expr
 from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function, _mexpand as _mexpand
 from sympy.core.logic import fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
 from sympy.core.numbers import I as I, Rational as Rational, pi as pi
+from sympy.core.power import Pow as Pow
 from sympy.core.symbol import Dummy as Dummy, Wild as Wild, uniquely_named_symbol as uniquely_named_symbol
+from sympy.core.sympify import sympify as sympify
+from sympy.functions.combinatorial.factorials import factorial as factorial
 from sympy.functions.elementary.complexes import Abs as Abs, im as im, polar_lift as polar_lift, re as re, unpolarify as unpolarify
 from sympy.functions.elementary.exponential import exp as exp, log as log
+from sympy.functions.elementary.integers import ceiling as ceiling
 from sympy.functions.elementary.miscellaneous import cbrt as cbrt, root as root, sqrt as sqrt
 from sympy.functions.elementary.trigonometric import cos as cos, cot as cot, csc as csc, sin as sin
 from sympy.functions.special.gamma_functions import digamma as digamma, gamma as gamma, uppergamma as uppergamma
+from sympy.functions.special.hyper import hyper as hyper
+from sympy.polys.orthopolys import spherical_bessel_fn as spherical_bessel_fn
 
 class BesselBase(Function):
     """

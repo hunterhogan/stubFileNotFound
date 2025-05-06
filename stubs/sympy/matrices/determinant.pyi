@@ -1,7 +1,15 @@
+from .exceptions import NonSquareMatrixError as NonSquareMatrixError
 from .utilities import _dotprodsimp as _dotprodsimp, _get_intermediate_simp as _get_intermediate_simp, _get_intermediate_simp_bool as _get_intermediate_simp_bool, _is_zero_after_expand_mul as _is_zero_after_expand_mul, _iszero as _iszero, _simplify as _simplify
 from _typeshed import Incomplete
+from sympy.core.cache import cacheit as cacheit
+from sympy.core.mul import Mul as Mul
 from sympy.core.numbers import Float as Float, Integer as Integer
+from sympy.core.singleton import S as S
+from sympy.core.symbol import uniquely_named_symbol as uniquely_named_symbol
+from sympy.functions.combinatorial.numbers import nC as nC
 from sympy.polys import PurePoly as PurePoly, cancel as cancel
+from sympy.polys.matrices.ddm import DDM as DDM
+from sympy.polys.matrices.domainmatrix import DomainMatrix as DomainMatrix
 
 def _find_reasonable_pivot(col, iszerofunc=..., simpfunc=...):
     """ Find the lowest index of an item in ``col`` that is

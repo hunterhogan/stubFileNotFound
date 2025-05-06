@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, config as config, types as types
+from numba.core.cgutils import is_nonelike as is_nonelike
 from numba.core.extending import intrinsic as intrinsic, lower_cast as lower_cast, overload as overload, overload_method as overload_method, register_jitable as register_jitable
+from numba.cpython import unicode as unicode
 
 s1_dtype: Incomplete
 bytes_type: Incomplete

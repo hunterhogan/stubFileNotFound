@@ -1,7 +1,13 @@
 from _typeshed import Incomplete
+from sympy.assumptions.ask import Q as Q
 from sympy.assumptions.assume import AppliedPredicate as AppliedPredicate, global_assumptions as global_assumptions
 from sympy.assumptions.cnf import CNF as CNF, EncodedCNF as EncodedCNF
+from sympy.core.kind import NumberKind as NumberKind
+from sympy.core.mul import Mul as Mul
+from sympy.core.singleton import S as S
 from sympy.logic.algorithms.lra_theory import ALLOWED_PRED as ALLOWED_PRED, UnhandledInput as UnhandledInput
+from sympy.logic.inference import satisfiable as satisfiable
+from sympy.matrices.kind import MatrixKind as MatrixKind
 
 def lra_satask(proposition, assumptions: bool = True, context=...):
     """

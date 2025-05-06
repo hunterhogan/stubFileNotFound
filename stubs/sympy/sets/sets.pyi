@@ -3,17 +3,23 @@ from sympy.core.basic import Basic as Basic
 from sympy.core.containers import Tuple as Tuple, TupleKind as TupleKind
 from sympy.core.decorators import sympify_method_args as sympify_method_args, sympify_return as sympify_return
 from sympy.core.evalf import EvalfMixin as EvalfMixin
+from sympy.core.expr import Expr as Expr
+from sympy.core.function import Lambda as Lambda
 from sympy.core.kind import Kind as Kind, NumberKind as NumberKind, UndefinedKind as UndefinedKind
 from sympy.core.logic import FuzzyBool as FuzzyBool, fuzzy_and as fuzzy_and, fuzzy_bool as fuzzy_bool, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
 from sympy.core.numbers import Float as Float, Integer as Integer
 from sympy.core.operations import LatticeOp as LatticeOp
+from sympy.core.parameters import global_parameters as global_parameters
 from sympy.core.relational import Eq as Eq, Ne as Ne, is_lt as is_lt
 from sympy.core.singleton import S as S, Singleton as Singleton
+from sympy.core.sorting import ordered as ordered
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, symbols as symbols, uniquely_named_symbol as uniquely_named_symbol
 from sympy.core.sympify import _sympify as _sympify, _sympy_converter as _sympy_converter, sympify as sympify
 from sympy.functions.elementary.exponential import exp as exp, log as log
 from sympy.functions.elementary.miscellaneous import Max as Max, Min as Min
 from sympy.logic.boolalg import And as And, Not as Not, Or as Or, Xor as Xor, false as false, true as true
+from sympy.utilities.decorator import deprecated as deprecated
+from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.iterables import iproduct as iproduct, iterable as iterable, roundrobin as roundrobin, sift as sift, subsets as subsets
 from sympy.utilities.misc import filldedent as filldedent, func_name as func_name
 from typing import Any

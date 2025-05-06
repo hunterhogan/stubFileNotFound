@@ -1,5 +1,7 @@
 import numpy as np
 from pandas._typing import Scalar as Scalar
+from pandas.compat._optional import import_optional_dependency as import_optional_dependency
+from pandas.core.util.numba_ import jit_user_function as jit_user_function
 from collections.abc import Callable
 
 def generate_numba_apply_func(func: Callable[..., Scalar], nopython: bool, nogil: bool, parallel: bool):

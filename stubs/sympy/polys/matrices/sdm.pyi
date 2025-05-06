@@ -1,6 +1,11 @@
+from .ddm import DDM as DDM
 from .exceptions import DMBadInputError as DMBadInputError, DMDomainError as DMDomainError, DMShapeError as DMShapeError
 from _typeshed import Incomplete
 from collections.abc import Generator
+from sympy.external.gmpy import GROUND_TYPES as GROUND_TYPES
+from sympy.polys.domains import QQ as QQ
+from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
+from sympy.utilities.iterables import _strongly_connected_components as _strongly_connected_components
 
 __doctest_skip__: Incomplete
 

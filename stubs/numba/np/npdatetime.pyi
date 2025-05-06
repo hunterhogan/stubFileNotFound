@@ -1,6 +1,10 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, types as types
+from numba.core.cgutils import create_constant_array as create_constant_array
+from numba.core.config import IS_32BITS as IS_32BITS
+from numba.core.errors import LoweringError as LoweringError
 from numba.core.imputils import impl_ret_untracked as impl_ret_untracked, lower_builtin as lower_builtin, lower_cast as lower_cast, lower_constant as lower_constant
+from numba.extending import overload_method as overload_method
 from numba.np import npdatetime_helpers as npdatetime_helpers, npyfuncs as npyfuncs, numpy_support as numpy_support
 
 DATETIME64: Incomplete

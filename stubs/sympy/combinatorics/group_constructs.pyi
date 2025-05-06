@@ -1,4 +1,7 @@
 from _typeshed import Incomplete
+from sympy.combinatorics.perm_groups import PermutationGroup as PermutationGroup
+from sympy.combinatorics.permutations import Permutation as Permutation
+from sympy.utilities.iterables import uniq as uniq
 
 _af_new: Incomplete
 

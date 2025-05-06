@@ -1,5 +1,6 @@
 from .pretty_symbology import center as center, hobj as hobj, line_width as line_width, pretty_use_unicode as pretty_use_unicode, vobj as vobj, xobj as xobj, xsym as xsym
 from _typeshed import Incomplete
+from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 
 _GLOBAL_WRAP_LINE: Incomplete
 

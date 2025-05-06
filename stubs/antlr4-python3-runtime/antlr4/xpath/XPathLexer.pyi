@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing import TextIO
 
-from antlr4 import Lexer, RuleContext
+from antlr4 import *
 
 def serializedATN(): ...
 

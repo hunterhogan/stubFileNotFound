@@ -1,5 +1,7 @@
 import _cython_3_0_11
 import _strptime
+from pandas._libs.tslibs.np_datetime import OutOfBoundsDatetime as OutOfBoundsDatetime
+from pandas._libs.tslibs.timestamps import Timestamp as Timestamp
 from typing import ClassVar
 
 _CACHE_MAX_SIZE: int

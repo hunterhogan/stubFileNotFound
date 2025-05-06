@@ -1,7 +1,13 @@
 from _typeshed import Incomplete
 from sympy.core import Dummy as Dummy, Mod as Mod, S as S, sympify as sympify
+from sympy.core.cache import cacheit as cacheit
 from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function, PoleError as PoleError
+from sympy.core.logic import fuzzy_and as fuzzy_and
 from sympy.core.numbers import I as I, Integer as Integer, pi as pi
+from sympy.core.relational import Eq as Eq
+from sympy.ntheory import sieve as sieve
+from sympy.ntheory.residue_ntheory import binomial_mod as binomial_mod
+from sympy.polys.polytools import Poly as Poly
 
 class CombinatorialFunction(Function):
     """Base class for combinatorial functions. """

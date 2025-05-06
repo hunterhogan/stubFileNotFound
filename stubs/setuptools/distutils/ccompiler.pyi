@@ -1,4 +1,5 @@
 from setuptools._distutils.ccompiler import *
+from setuptools._distutils.ccompiler import CCompiler as CCompiler
 
 __all__ = [
     "CompileError",

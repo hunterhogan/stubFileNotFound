@@ -1,5 +1,6 @@
 from typing import Any, Literal
 
+from .abstract.attrDef import AttrDef as AttrDef
 from .abstract.attribute import (
     Attribute as Attribute,
     OperationalAttribute as OperationalAttribute,
@@ -7,6 +8,12 @@ from .abstract.attribute import (
 )
 from .abstract.cursor import Reader as Reader, Writer as Writer
 from .abstract.entry import Entry as Entry, WritableEntry as WritableEntry
+from .abstract.objectDef import ObjectDef as ObjectDef
+from .core.connection import Connection as Connection
+from .core.pooling import ServerPool as ServerPool
+from .core.rdns import ReverseDnsSetting as ReverseDnsSetting
+from .core.server import Server as Server
+from .core.tls import Tls as Tls
 from .protocol.rfc4512 import DsaInfo as DsaInfo, SchemaInfo as SchemaInfo
 from .utils.config import get_config_parameter as get_config_parameter, set_config_parameter as set_config_parameter
 from .version import __description__ as __description__, __status__ as __status__, __url__ as __url__

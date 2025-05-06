@@ -1,5 +1,6 @@
+import sys
 from collections.abc import Callable
-from typing import Any, NamedTuple
+from typing import Any, ClassVar, NamedTuple, type_check_only
 from typing import TypeAlias
 
 __all__ = ["scheduler"]

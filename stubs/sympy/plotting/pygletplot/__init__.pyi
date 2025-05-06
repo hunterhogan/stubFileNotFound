@@ -1,3 +1,4 @@
+from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
 
 def PygletPlot(*args, **kwargs):
     """

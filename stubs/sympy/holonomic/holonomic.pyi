@@ -3,14 +3,34 @@ from .recurrence import HolonomicSequence as HolonomicSequence, RecurrenceOperat
 from _typeshed import Incomplete
 from sympy.core import Add as Add, Mul as Mul, Pow as Pow
 from sympy.core.numbers import Float as Float, I as I, Infinity as Infinity, NaN as NaN, NegativeInfinity as NegativeInfinity, equal_valued as equal_valued, int_valued as int_valued, pi as pi
+from sympy.core.singleton import S as S
+from sympy.core.sorting import ordered as ordered
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol
+from sympy.core.sympify import sympify as sympify
 from sympy.functions.combinatorial.factorials import binomial as binomial, factorial as factorial, rf as rf
 from sympy.functions.elementary.exponential import exp as exp, exp_polar as exp_polar, log as log
 from sympy.functions.elementary.hyperbolic import cosh as cosh, sinh as sinh
+from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.functions.elementary.trigonometric import cos as cos, sin as sin, sinc as sinc
 from sympy.functions.special.error_functions import Ci as Ci, Shi as Shi, Si as Si, erf as erf, erfc as erfc, erfi as erfi
+from sympy.functions.special.gamma_functions import gamma as gamma
 from sympy.functions.special.hyper import hyper as hyper, meijerg as meijerg
+from sympy.integrals import meijerint as meijerint
+from sympy.integrals.meijerint import _mytype as _mytype
+from sympy.matrices import Matrix as Matrix
 from sympy.polys.domains import QQ as QQ, RR as RR
+from sympy.polys.fields import FracElement as FracElement
+from sympy.polys.matrices import DomainMatrix as DomainMatrix
+from sympy.polys.polyclasses import DMF as DMF
+from sympy.polys.polyroots import roots as roots
+from sympy.polys.polytools import Poly as Poly
+from sympy.polys.rings import PolyElement as PolyElement
+from sympy.printing import sstr as sstr
+from sympy.series.limits import limit as limit
+from sympy.series.order import Order as Order
+from sympy.simplify.hyperexpand import hyperexpand as hyperexpand
+from sympy.simplify.simplify import nsimplify as nsimplify
+from sympy.solvers.solvers import solve as solve
 
 def _find_nonzero_solution(r, homosys): ...
 def DifferentialOperators(base, generator):

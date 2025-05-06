@@ -1,7 +1,11 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
 from pandas import MultiIndex as MultiIndex, option_context as option_context
+from pandas._config import get_option as get_option
+from pandas._libs import lib as lib
+from pandas.io.common import is_url as is_url
 from pandas.io.formats.format import DataFrameFormatter as DataFrameFormatter, get_level_lengths as get_level_lengths
+from pandas.io.formats.printing import pprint_thing as pprint_thing
 from typing import Any, Final
 
 class HTMLFormatter:

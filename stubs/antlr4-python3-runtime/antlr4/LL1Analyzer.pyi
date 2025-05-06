@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 
 from antlr4.atn.ATN import ATN as ATN
+from antlr4.atn.ATNConfig import ATNConfig as ATNConfig
 from antlr4.atn.ATNState import ATNState as ATNState, RuleStopState as RuleStopState
 from antlr4.atn.Transition import (
     AbstractPredicateTransition as AbstractPredicateTransition,
@@ -8,12 +9,14 @@ from antlr4.atn.Transition import (
     RuleTransition as RuleTransition,
     WildcardTransition as WildcardTransition,
 )
+from antlr4.IntervalSet import IntervalSet as IntervalSet
 from antlr4.PredictionContext import (
     PredictionContext as PredictionContext,
     PredictionContextFromRuleContext as PredictionContextFromRuleContext,
     SingletonPredictionContext as SingletonPredictionContext,
 )
 from antlr4.RuleContext import RuleContext as RuleContext
+from antlr4.Token import Token as Token
 
 class LL1Analyzer:
     HIT_PRED: Incomplete

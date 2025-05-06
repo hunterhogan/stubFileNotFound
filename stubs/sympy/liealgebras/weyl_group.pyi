@@ -1,3 +1,4 @@
+from .cartan_type import CartanType as CartanType
 from sympy.core.backend import Matrix as Matrix, Rational as Rational, eye as eye, igcd as igcd
 from sympy.core.basic import Atom as Atom
 

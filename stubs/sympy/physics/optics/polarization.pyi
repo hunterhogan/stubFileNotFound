@@ -1,6 +1,11 @@
 from sympy.core.numbers import I as I, pi as pi
 from sympy.functions.elementary.complexes import Abs as Abs, im as im, re as re
+from sympy.functions.elementary.exponential import exp as exp
+from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.functions.elementary.trigonometric import cos as cos, sin as sin
+from sympy.matrices.dense import Matrix as Matrix
+from sympy.physics.quantum import TensorProduct as TensorProduct
+from sympy.simplify.simplify import simplify as simplify
 
 def jones_vector(psi, chi):
     '''A Jones vector corresponding to a polarization ellipse with `psi` tilt,

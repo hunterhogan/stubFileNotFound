@@ -1,6 +1,7 @@
 from _typeshed import Incomplete, SupportsLenAndGetItem
 
 from antlr4.atn.ATN import ATN as ATN
+from antlr4.error.Errors import IllegalStateException as IllegalStateException
 from antlr4.RuleContext import RuleContext as RuleContext
 
 class PredictionContext:

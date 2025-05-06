@@ -2,7 +2,9 @@ import ast
 from _typeshed import Incomplete
 from matplotlib import _api as _api, cbook as cbook
 from matplotlib._enums import CapStyle as CapStyle, JoinStyle as JoinStyle
+from matplotlib._fontconfig_pattern import parse_fontconfig_pattern as parse_fontconfig_pattern
 from matplotlib.backends import BackendFilter as BackendFilter, backend_registry as backend_registry
+from matplotlib.cbook import ls_mapper as ls_mapper
 from matplotlib.colors import Colormap as Colormap, is_color_like as is_color_like
 
 class __getattr__:

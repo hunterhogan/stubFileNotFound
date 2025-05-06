@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from numba import _helperlib as _helperlib
 from numba.core import cgutils as cgutils, config as config, imputils as imputils, lowering as lowering, serialize as serialize, types as types, utils as utils
+from numba.core.utils import PYVERSION as PYVERSION
 from typing import NamedTuple
 
 PY_UNICODE_1BYTE_KIND: Incomplete

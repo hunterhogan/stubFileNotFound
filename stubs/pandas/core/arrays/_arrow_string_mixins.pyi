@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from pandas.compat import pa_version_under10p1 as pa_version_under10p1
 from typing import Literal
 
 class ArrowStringArrayMixin:

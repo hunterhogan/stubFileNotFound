@@ -1,5 +1,6 @@
 from .ast import Token as Token
 from _typeshed import Incomplete
+from sympy.core.sympify import sympify as sympify
 from sympy.matrices import MatrixExpr as MatrixExpr
 
 class MatrixSolve(Token, MatrixExpr):

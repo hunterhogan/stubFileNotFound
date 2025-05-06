@@ -1,7 +1,10 @@
 from odf.opendocument import OpenDocument
 from pandas._libs.tslibs.nattype import NaTType as NaTType
 from pandas._typing import FilePath as FilePath, ReadBuffer as ReadBuffer, Scalar as Scalar, StorageOptions as StorageOptions
+from pandas.compat._optional import import_optional_dependency as import_optional_dependency
+from pandas.core.shared_docs import _shared_docs as _shared_docs
 from pandas.io.excel._base import BaseExcelReader as BaseExcelReader
+from pandas.util._decorators import doc as doc
 
 class ODFReader(BaseExcelReader['OpenDocument']):
     def __init__(self, filepath_or_buffer: FilePath | ReadBuffer[bytes], storage_options: StorageOptions | None = None, engine_kwargs: dict | None = None) -> None:

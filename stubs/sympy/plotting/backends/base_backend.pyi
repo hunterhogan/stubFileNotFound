@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
 from sympy.plotting.series import BaseSeries as BaseSeries, GenericDataSeries as GenericDataSeries
+from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
+from sympy.utilities.iterables import is_sequence as is_sequence
 
 __doctest_requires__: Incomplete
 _show: bool

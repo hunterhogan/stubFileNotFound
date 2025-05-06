@@ -4,6 +4,8 @@ import matplotlib.transforms as mtransforms
 from _typeshed import Incomplete
 from matplotlib import _api as _api, cbook as cbook
 from matplotlib.axes import Axes as Axes
+from matplotlib.path import Path as Path
+from matplotlib.spines import Spine as Spine
 
 def _apply_theta_transforms_warn() -> None: ...
 

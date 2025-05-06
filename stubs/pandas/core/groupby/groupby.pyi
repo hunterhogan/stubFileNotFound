@@ -1,10 +1,16 @@
 import numpy as np
 from _typeshed import Incomplete
 from collections.abc import Hashable, Iterator, Mapping, Sequence
+from pandas._config.config import option_context as option_context
 from pandas._libs import Timestamp as Timestamp, lib as lib
+from pandas._libs.algos import rank_1d as rank_1d
+from pandas._libs.missing import NA as NA
 from pandas._typing import AnyArrayLike as AnyArrayLike, ArrayLike as ArrayLike, Axis as Axis, AxisInt as AxisInt, DtypeObj as DtypeObj, FillnaOptions as FillnaOptions, IndexLabel as IndexLabel, NDFrameT as NDFrameT, PositionalIndexer as PositionalIndexer, RandomState as RandomState, Scalar as Scalar, T as T, npt as npt
 from pandas.core import algorithms as algorithms, sample as sample
+from pandas.core._numba import executor as executor
+from pandas.core.apply import warn_alias_replacement as warn_alias_replacement
 from pandas.core.arrays import ArrowExtensionArray as ArrowExtensionArray, BaseMaskedArray as BaseMaskedArray, Categorical as Categorical, ExtensionArray as ExtensionArray, FloatingArray as FloatingArray, IntegerArray as IntegerArray, SparseArray as SparseArray
+from pandas.core.arrays.string_ import StringDtype as StringDtype
 from pandas.core.arrays.string_arrow import ArrowStringArray as ArrowStringArray, ArrowStringArrayNumpySemantics as ArrowStringArrayNumpySemantics
 from pandas.core.base import PandasObject as PandasObject, SelectionMixin as SelectionMixin
 from pandas.core.dtypes.cast import coerce_indexer_dtype as coerce_indexer_dtype, ensure_dtype_can_hold_na as ensure_dtype_can_hold_na
@@ -13,14 +19,18 @@ from pandas.core.dtypes.missing import isna as isna, na_value_for_dtype as na_va
 from pandas.core.frame import DataFrame as DataFrame
 from pandas.core.generic import NDFrame as NDFrame
 from pandas.core.groupby import base as base, numba_ as numba_, ops as ops
+from pandas.core.groupby.grouper import get_grouper as get_grouper
 from pandas.core.groupby.indexing import GroupByIndexingMixin as GroupByIndexingMixin, GroupByNthSelector as GroupByNthSelector
 from pandas.core.indexes.api import CategoricalIndex as CategoricalIndex, Index as Index, MultiIndex as MultiIndex, RangeIndex as RangeIndex, default_index as default_index
+from pandas.core.internals.blocks import ensure_block_shape as ensure_block_shape
 from pandas.core.resample import Resampler as Resampler
 from pandas.core.series import Series as Series
+from pandas.core.sorting import get_group_index_sorter as get_group_index_sorter
 from pandas.core.util.numba_ import get_jit_arguments as get_jit_arguments, maybe_use_numba as maybe_use_numba
 from pandas.core.window import ExpandingGroupby as ExpandingGroupby, ExponentialMovingWindowGroupby as ExponentialMovingWindowGroupby, RollingGroupby as RollingGroupby
 from pandas.errors import AbstractMethodError as AbstractMethodError, DataError as DataError
 from pandas.util._decorators import Appender as Appender, Substitution as Substitution, cache_readonly as cache_readonly, doc as doc
+from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Any, Literal, TypeVar
 
 from collections.abc import Callable

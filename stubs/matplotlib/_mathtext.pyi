@@ -1,6 +1,7 @@
 import abc
 import enum
 import typing as T
+from . import cbook as cbook
 from ._mathtext_data import latex_to_bakoma as latex_to_bakoma, stix_glyph_fixes as stix_glyph_fixes, stix_virtual_fonts as stix_virtual_fonts, tex2uni as tex2uni
 from .font_manager import FontProperties as FontProperties, findfont as findfont, get_font as get_font
 from .ft2font import FT2Font as FT2Font, FT2Image as FT2Image, Glyph as Glyph, Kerning as Kerning, LoadFlags as LoadFlags

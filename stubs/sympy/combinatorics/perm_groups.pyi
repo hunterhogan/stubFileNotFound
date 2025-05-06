@@ -1,11 +1,16 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from sympy.combinatorics import Permutation as Permutation
 from sympy.combinatorics.permutations import Cycle as Cycle, _af_commutes_with as _af_commutes_with, _af_invert as _af_invert, _af_pow as _af_pow, _af_rmul as _af_rmul, _af_rmuln as _af_rmuln
 from sympy.combinatorics.util import _base_ordering as _base_ordering, _check_cycles_alt_sym as _check_cycles_alt_sym, _distribute_gens_by_base as _distribute_gens_by_base, _handle_precomputed_bsgs as _handle_precomputed_bsgs, _orbits_transversals_from_bsgs as _orbits_transversals_from_bsgs, _strip as _strip, _strip_af as _strip_af, _strong_gens_from_distr as _strong_gens_from_distr
 from sympy.core import Basic as Basic
 from sympy.core.random import _randrange as _randrange, choice as choice, randrange as randrange
+from sympy.core.symbol import Symbol as Symbol
+from sympy.core.sympify import _sympify as _sympify
+from sympy.functions.combinatorial.factorials import factorial as factorial
 from sympy.ntheory import primefactors as primefactors, sieve as sieve
 from sympy.ntheory.factor_ import factorint as factorint, multiplicity as multiplicity
+from sympy.ntheory.primetest import isprime as isprime
 from sympy.utilities.iterables import has_variety as has_variety, is_sequence as is_sequence, uniq as uniq
 
 rmul: Incomplete

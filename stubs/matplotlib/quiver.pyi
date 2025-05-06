@@ -2,6 +2,7 @@ import matplotlib.artist as martist
 import matplotlib.collections as mcollections
 from _typeshed import Incomplete
 from matplotlib import _api as _api, _docstring as _docstring, cbook as cbook
+from matplotlib.patches import CirclePolygon as CirclePolygon
 
 _quiver_doc: Incomplete
 

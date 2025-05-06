@@ -8,8 +8,10 @@ from collections.abc import Callable
 from .repository import Repository as Repository  # isort: skip
 
 from . import enums
+from ._build import __version__ as __version__
 from ._pygit2 import *  # type: ignore[assignment]
 from .blame import Blame as Blame, BlameHunk as BlameHunk
+from .blob import BlobIO as BlobIO
 from .callbacks import (
     CheckoutCallbacks as CheckoutCallbacks,
     Payload as Payload,
@@ -17,12 +19,17 @@ from .callbacks import (
     StashApplyCallbacks as StashApplyCallbacks,
     get_credentials as get_credentials,
 )
+from .config import Config as Config
 from .credentials import *
+from .errors import Passthrough as Passthrough
+from .filter import Filter as Filter
 from .index import Index as Index, IndexEntry as IndexEntry
 from .legacyenums import *
+from .packbuilder import PackBuilder as PackBuilder
 from .remotes import Remote as Remote
 from .repository import Repository as Repository  # noqa: F811 # intentional workaround
 from .settings import Settings
+from .submodules import Submodule as Submodule
 
 features: enums.Feature
 LIBGIT2_VER: tuple[int, int, int]

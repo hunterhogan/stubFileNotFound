@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 
+from reportlab.graphics.samples.excelcolors import *
 from reportlab.graphics.shapes import Drawing, _DrawingEditorMixin
 
 class SimplePie(_DrawingEditorMixin, Drawing):

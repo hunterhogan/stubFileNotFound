@@ -1,6 +1,11 @@
 from _typeshed import Incomplete
 from numba.core import config as config, ir as ir, ir_utils as ir_utils, registry as registry, types as types, typing as typing, utils as utils
+from numba.core.errors import NumbaValueError as NumbaValueError
+from numba.core.extending import register_jitable as register_jitable
+from numba.core.imputils import lower_builtin as lower_builtin
 from numba.core.typing.templates import AbstractTemplate as AbstractTemplate, CallableTemplate as CallableTemplate, infer_global as infer_global, signature as signature
+from numba.misc.special import literal_unroll as literal_unroll
+from numba.np import numpy_support as numpy_support
 
 class StencilFuncLowerer:
     """Callable class responsible for lowering calls to a specific StencilFunc.

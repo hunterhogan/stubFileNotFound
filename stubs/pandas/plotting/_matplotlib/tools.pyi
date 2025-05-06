@@ -7,7 +7,9 @@ from matplotlib.figure import Figure
 from matplotlib.lines import Line2D
 from matplotlib.table import Table
 from pandas import DataFrame as DataFrame, Series as Series
+from pandas.core.dtypes.common import is_list_like as is_list_like
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCIndex as ABCIndex, ABCSeries as ABCSeries
+from pandas.util._exceptions import find_stack_level as find_stack_level
 
 def do_adjust_figure(fig: Figure) -> bool:
     """Whether fig has constrained_layout enabled."""

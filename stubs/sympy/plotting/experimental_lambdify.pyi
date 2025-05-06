@@ -1,5 +1,8 @@
 from _typeshed import Incomplete
 from sympy.core.numbers import I as I, NumberSymbol as NumberSymbol, oo as oo, zoo as zoo
+from sympy.core.symbol import Symbol as Symbol
+from sympy.external import import_module as import_module
+from sympy.utilities.iterables import numbered_symbols as numbered_symbols
 
 class vectorized_lambdify:
     """ Return a sufficiently smart, vectorized and lambdified function.

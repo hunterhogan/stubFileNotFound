@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from moisesdb.activity import compute_activity_signal as compute_activity_signal
 from moisesdb.defaults import all_stems as all_stems, default_data_path as default_data_path
 from moisesdb.utils import load_audio as load_audio, load_json as load_json, save_audio as save_audio
 from numpy import bool_ as bool_, floating as floating

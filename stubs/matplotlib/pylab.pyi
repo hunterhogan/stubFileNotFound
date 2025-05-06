@@ -1,3 +1,8 @@
+from matplotlib.pyplot import *
+from numpy import *
+from numpy.fft import *
+from numpy.random import *
+from numpy.linalg import *
 from _typeshed import Incomplete
 from matplotlib import cbook as cbook, mlab as mlab
 from matplotlib.cbook import flatten as flatten, silent_list as silent_list

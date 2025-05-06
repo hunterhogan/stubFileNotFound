@@ -5,6 +5,7 @@ from numba.core import cgutils as cgutils, config as config, types as types
 from numba.core.errors import NumbaPerformanceWarning as NumbaPerformanceWarning, NumbaTypeError as NumbaTypeError, TypingError as TypingError
 from numba.core.extending import intrinsic as intrinsic, overload as overload, register_jitable as register_jitable
 from numba.core.imputils import impl_ret_borrowed as impl_ret_borrowed, impl_ret_new_ref as impl_ret_new_ref, impl_ret_untracked as impl_ret_untracked, lower_builtin as lower_builtin
+from numba.core.typing import signature as signature
 
 ll_char: Incomplete
 ll_char_p: Incomplete

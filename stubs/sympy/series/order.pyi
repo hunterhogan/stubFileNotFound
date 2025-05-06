@@ -1,7 +1,11 @@
 from _typeshed import Incomplete
 from sympy.core import Add as Add, Dummy as Dummy, Expr as Expr, Mul as Mul, S as S, sympify as sympify
+from sympy.core.cache import cacheit as cacheit
+from sympy.core.containers import Tuple as Tuple
 from sympy.core.function import Function as Function, PoleError as PoleError, expand_log as expand_log, expand_power_base as expand_power_base
+from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.functions.elementary.exponential import exp as exp, log as log
+from sympy.sets.sets import Complement as Complement
 from sympy.utilities.iterables import is_sequence as is_sequence, uniq as uniq
 
 class Order(Expr):

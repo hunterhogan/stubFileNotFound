@@ -1,9 +1,17 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 from string import printable
+from sympy.core import Symbol as Symbol
+from sympy.core.numbers import Rational as Rational
 from sympy.core.random import _randint as _randint, _randrange as _randrange
 from sympy.external.gmpy import GROUND_TYPES as GROUND_TYPES, gcd as gcd, invert as invert
+from sympy.matrices import Matrix as Matrix
 from sympy.ntheory import factorint as factorint, isprime as isprime, primitive_root as primitive_root
+from sympy.ntheory.generate import nextprime as nextprime
+from sympy.ntheory.modular import crt as crt
+from sympy.polys.domains import FF as FF
+from sympy.polys.polytools import Poly as Poly
+from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
 from sympy.utilities.iterables import multiset as multiset, uniq as uniq
 from sympy.utilities.misc import as_int as as_int, filldedent as filldedent, translate as translate
 

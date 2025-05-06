@@ -1,3 +1,4 @@
+from .std import TqdmDeprecationWarning as TqdmDeprecationWarning
 from .utils import (
     CUR_OS as CUR_OS,
     IS_NIX as IS_NIX,

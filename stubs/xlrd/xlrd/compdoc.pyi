@@ -2,6 +2,7 @@ import sys
 from _typeshed import SupportsWrite
 from typing import Final
 
+from .timemachine import *
 
 SIGNATURE: Final[bytes]
 EOCSID: Final[int]

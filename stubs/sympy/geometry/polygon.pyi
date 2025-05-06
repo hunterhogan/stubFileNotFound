@@ -1,10 +1,20 @@
+from .ellipse import Circle as Circle
 from .entity import GeometryEntity as GeometryEntity, GeometrySet as GeometrySet
+from .exceptions import GeometryError as GeometryError
 from .line import Line as Line, Ray as Ray, Segment as Segment
+from .point import Point as Point
 from _typeshed import Incomplete
 from sympy.core import Expr as Expr, S as S, oo as oo, pi as pi, sympify as sympify
+from sympy.core.evalf import N as N
 from sympy.core.sorting import default_sort_key as default_sort_key, ordered as ordered
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, _symbol as _symbol
+from sympy.functions.elementary.complexes import sign as sign
+from sympy.functions.elementary.piecewise import Piecewise as Piecewise
 from sympy.functions.elementary.trigonometric import cos as cos, sin as sin, tan as tan
+from sympy.logic import And as And
+from sympy.matrices import Matrix as Matrix
+from sympy.simplify.simplify import simplify as simplify
+from sympy.solvers.solvers import solve as solve
 from sympy.utilities.iterables import has_dups as has_dups, has_variety as has_variety, least_rotation as least_rotation, rotate_left as rotate_left, uniq as uniq
 from sympy.utilities.misc import as_int as as_int, func_name as func_name
 

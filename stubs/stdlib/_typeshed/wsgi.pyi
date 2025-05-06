@@ -15,7 +15,7 @@ class _Readable(Protocol):
     # Optional: def close(self) -> object: ...
 
 if sys.version_info >= (3, 11):
-    pass
+    from wsgiref.types import *
 else:
     # stable
     class StartResponse(Protocol):

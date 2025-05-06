@@ -1,10 +1,17 @@
 from _typeshed import Incomplete
 from collections.abc import Hashable, Iterable, Mapping, Sequence
 from pandas import DataFrame as DataFrame, ExcelWriter as ExcelWriter, Index as Index, MultiIndex as MultiIndex, PeriodIndex as PeriodIndex
+from pandas._libs.lib import is_list_like as is_list_like
 from pandas._typing import FilePath as FilePath, IndexLabel as IndexLabel, StorageOptions as StorageOptions, WriteExcelBuffer as WriteExcelBuffer
+from pandas.core.dtypes import missing as missing
 from pandas.core.dtypes.common import is_float as is_float, is_scalar as is_scalar
+from pandas.core.shared_docs import _shared_docs as _shared_docs
 from pandas.io.formats._color_data import CSS4_COLORS as CSS4_COLORS
 from pandas.io.formats.css import CSSResolver as CSSResolver, CSSWarning as CSSWarning
+from pandas.io.formats.format import get_level_lengths as get_level_lengths
+from pandas.io.formats.printing import pprint_thing as pprint_thing
+from pandas.util._decorators import doc as doc
+from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Any
 
 from collections.abc import Callable

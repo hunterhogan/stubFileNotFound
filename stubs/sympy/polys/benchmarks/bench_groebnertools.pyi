@@ -1,4 +1,7 @@
 from _typeshed import Incomplete
+from sympy.polys.domains import QQ as QQ
+from sympy.polys.groebnertools import groebner as groebner
+from sympy.polys.rings import ring as ring
 
 R: Incomplete
 x1: Incomplete

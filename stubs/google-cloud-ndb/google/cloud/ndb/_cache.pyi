@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from typing import Any
 
+from google.cloud.ndb import tasklets as tasklets
 
 class ContextCache:
     def get_and_validate(self, key): ...

@@ -4,6 +4,7 @@ from sympy.core import Add as Add, Basic as Basic, Mul as Mul, Pow as Pow
 from sympy.core.operations import AssocOp as AssocOp, LatticeOp as LatticeOp
 from sympy.matrices import MatAdd as MatAdd, MatMul as MatMul, MatrixExpr as MatrixExpr
 from sympy.sets.sets import FiniteSet as FiniteSet, Intersection as Intersection, Union as Union
+from sympy.unify import core as core
 from sympy.unify.core import Compound as Compound, CondVariable as CondVariable, Variable as Variable
 
 basic_new_legal: Incomplete

@@ -1,6 +1,7 @@
-from collections.abc import Iterable, Iterator
+from collections.abc import Callable, Hashable, Iterable, Iterator, Mapping
 from functools import cached_property
-from typing import Any
+from typing import Any, TypeVar, overload
+from typing_extensions import Self
 
 from networkx.classes.coreviews import AdjacencyView
 from networkx.classes.graph import Graph, _Node # type: ignore[reportPrivateUsage]

@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from sympy.combinatorics.permutations import Permutation as Permutation, _af_invert as _af_invert, _af_rmul as _af_rmul
+from sympy.ntheory import isprime as isprime
 
 rmul: Incomplete
 _af_new: Incomplete

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from numba.core.config import IS_WIN32 as IS_WIN32
 from numba.misc.findlib import find_file as find_file, find_lib as find_lib
 from typing import NamedTuple
 

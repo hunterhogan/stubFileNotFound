@@ -1,5 +1,11 @@
 import numpy as np
 from _typeshed import Incomplete
+from pandas._libs import lib as lib
+from pandas._libs.ops_dispatch import maybe_dispatch_ufunc_to_dunder_op as maybe_dispatch_ufunc_to_dunder_op
+from pandas.core import roperator as roperator
+from pandas.core.construction import extract_array as extract_array
+from pandas.core.dtypes.generic import ABCNDFrame as ABCNDFrame
+from pandas.core.ops.common import unpack_zerodim_and_defer as unpack_zerodim_and_defer
 from typing import Any
 
 REDUCTION_ALIASES: Incomplete

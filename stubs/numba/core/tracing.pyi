@@ -1,5 +1,6 @@
 import threading
 from _typeshed import Incomplete
+from numba.core import config as config
 
 class TLS(threading.local):
     """Use a subclass to properly initialize the TLS variables in all threads."""

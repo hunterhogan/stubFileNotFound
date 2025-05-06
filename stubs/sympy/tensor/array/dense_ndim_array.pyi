@@ -1,7 +1,11 @@
 from _typeshed import Incomplete
 from sympy.core.basic import Basic as Basic
+from sympy.core.containers import Tuple as Tuple
+from sympy.core.singleton import S as S
+from sympy.core.sympify import _sympify as _sympify
 from sympy.tensor.array.mutable_ndim_array import MutableNDimArray as MutableNDimArray
 from sympy.tensor.array.ndim_array import ArrayKind as ArrayKind, ImmutableNDimArray as ImmutableNDimArray, NDimArray as NDimArray
+from sympy.utilities.iterables import flatten as flatten
 
 class DenseNDimArray(NDimArray):
     _array: list[Basic]

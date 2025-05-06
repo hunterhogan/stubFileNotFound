@@ -1,6 +1,11 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from pandas import set_option as set_option
+from pandas._config import using_copy_on_write as using_copy_on_write
 from pandas._typing import BaseBuffer as BaseBuffer, CompressionOptions as CompressionOptions, FilePath as FilePath
+from pandas.compat import PYPY as PYPY
+from pandas.errors import ChainedAssignmentError as ChainedAssignmentError
+from pandas.io.common import get_handle as get_handle
 from typing import Any, IO
 
 def decompress_file(path: FilePath | BaseBuffer, compression: CompressionOptions) -> Generator[IO[bytes], None, None]:

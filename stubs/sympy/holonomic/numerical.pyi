@@ -1,3 +1,5 @@
+from sympy.core.sympify import sympify as sympify
+from sympy.holonomic.holonomic import DMFsubs as DMFsubs
 
 def _evalf(func, points, derivatives: bool = False, method: str = 'RK4'):
     """

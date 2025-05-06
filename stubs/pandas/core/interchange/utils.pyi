@@ -1,5 +1,6 @@
 import pandas as pd
 from _typeshed import Incomplete
+from pandas._libs import lib as lib
 from pandas._typing import DtypeObj as DtypeObj
 from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype, CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype
 

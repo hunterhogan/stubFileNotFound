@@ -1,5 +1,6 @@
 import functools
 from _typeshed import Incomplete
+from functools import total_ordering as total_ordering
 
 NO_DEFAULT: Incomplete
 

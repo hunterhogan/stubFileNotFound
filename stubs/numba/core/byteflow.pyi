@@ -2,6 +2,8 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from enum import Enum
 from numba.core.controlflow import CFGraph as CFGraph, NEW_BLOCKERS as NEW_BLOCKERS
+from numba.core.errors import UnsupportedBytecodeError as UnsupportedBytecodeError
+from numba.core.ir import Loc as Loc
 from numba.core.utils import ALL_BINOPS_TO_OPERATORS as ALL_BINOPS_TO_OPERATORS, PYVERSION as PYVERSION, UniqueDict as UniqueDict, _lazy_pformat as _lazy_pformat
 from typing import NamedTuple
 

@@ -4,6 +4,7 @@ from collections.abc import Generator
 from typing import Final
 
 from .error import CDefError as CDefError, VerificationError as VerificationError, VerificationMissing as VerificationMissing
+from .lock import allocate_lock as allocate_lock
 
 Q_CONST: Final = 1
 Q_RESTRICT: Final = 2

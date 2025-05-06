@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from matplotlib import _api as _api, _pylab_helpers as _pylab_helpers, _tight_layout as _tight_layout
+from matplotlib.transforms import Bbox as Bbox
 
 _log: Incomplete
 

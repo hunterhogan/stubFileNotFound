@@ -2,6 +2,7 @@ import enum
 from _typeshed import Incomplete
 from llvmlite.binding import ffi as ffi
 from llvmlite.binding.common import _decode_string as _decode_string, _encode_string as _encode_string
+from llvmlite.binding.typeref import TypeRef as TypeRef
 
 class Linkage(enum.IntEnum):
     external = 0

@@ -1,6 +1,10 @@
 from . import _api as _api, _docstring as _docstring
 from .artist import Artist as Artist, allow_rasterization as allow_rasterization
+from .cbook import _is_pandas_dataframe as _is_pandas_dataframe
 from .patches import Rectangle as Rectangle
+from .path import Path as Path
+from .text import Text as Text
+from .transforms import Bbox as Bbox
 from _typeshed import Incomplete
 
 class Cell(Rectangle):

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 
 def threaded_factory(func, use_add):
     """A factory for ``threaded`` decorators. """

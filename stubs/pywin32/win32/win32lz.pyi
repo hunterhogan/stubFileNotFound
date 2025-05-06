@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 
+from win32.lib.pywintypes import error as error
 
 def GetExpandedName(Source, /) -> str: ...
 def Close(handle, /) -> None: ...

@@ -1,6 +1,8 @@
 from sympy.core import S as S, sympify as sympify
 from sympy.core.symbol import Dummy as Dummy, symbols as symbols
 from sympy.functions import Piecewise as Piecewise, piecewise_fold as piecewise_fold
+from sympy.logic.boolalg import And as And
+from sympy.sets.sets import Interval as Interval
 
 def _ivl(cond, x):
     """return the interval corresponding to the condition

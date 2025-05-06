@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from ctypes import Structure, Union
+from numba import literal_unroll as literal_unroll
 from numba.core import errors as errors, types as types
 from numba.core.extending import intrinsic as intrinsic, overload as overload, overload_method as overload_method, register_jitable as register_jitable
 from numba.core.unsafe.bytes import grab_byte as grab_byte, grab_uint64_t as grab_uint64_t

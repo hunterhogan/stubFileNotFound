@@ -1,5 +1,8 @@
 from _typeshed import Incomplete
+from sympy.core.singleton import S as S
 from sympy.core.symbol import Symbol as Symbol, symbols as symbols
+from sympy.core.sympify import sympify as sympify
+from sympy.printing import sstr as sstr
 
 def RecurrenceOperators(base, generator):
     """

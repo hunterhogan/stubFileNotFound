@@ -1,4 +1,9 @@
 import _cython_3_0_11
+from pandas._libs.tslibs.dtypes import Resolution as Resolution
+from pandas._libs.tslibs.np_datetime import OutOfBoundsDatetime as OutOfBoundsDatetime
+from pandas._libs.tslibs.timestamps import Timestamp as Timestamp
+from pandas._libs.tslibs.vectorized import get_resolution as get_resolution
+from pandas.util._exceptions import find_stack_level as find_stack_level
 
 __test__: dict
 _test_parse_iso8601: _cython_3_0_11.cython_function_or_method

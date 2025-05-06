@@ -1,5 +1,6 @@
 from . import _api as _api, cbook as cbook
 from ._enums import CapStyle as CapStyle, JoinStyle as JoinStyle
+from .path import Path as Path
 from .transforms import Affine2D as Affine2D, IdentityTransform as IdentityTransform
 from _typeshed import Incomplete
 

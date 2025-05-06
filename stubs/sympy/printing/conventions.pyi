@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from sympy.core.function import Derivative as Derivative
 
 _name_with_digits_p: Incomplete
 

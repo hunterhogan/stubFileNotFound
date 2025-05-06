@@ -120,7 +120,7 @@ if sys.version_info >= (3, 12):
     )
 
 if sys.version_info >= (3, 11):
-    pass
+    from ast import TryStar as TryStar
 
 from ast import (
     Match as Match,

@@ -1,13 +1,17 @@
-from typing import Any, TextIO
+from typing import Any, Optional, TextIO, TypeVar, Union, Dict
 from threading import Thread, Event
 from types import TracebackType
 import numpy as np
 from numpy.typing import NDArray
+import sys
 from tqdm import tqdm
 from tqdm.notebook import tqdm as tqdm_notebook
+from numba import types
 from numba.core.types.abstract import Type
 from numba.core.datamodel.new_models import StructModel
+from numba.extending import models
 
+from .numba_atomic import atomic_add, atomic_xchg
 
 def is_notebook() -> bool:
     """Determine if we're running within an IPython kernel.

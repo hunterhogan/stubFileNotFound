@@ -1,5 +1,13 @@
+from .factor_ import divisors as divisors
+from .residue_ntheory import polynomial_congruence as polynomial_congruence
 from _typeshed import Incomplete
+from sympy.core.numbers import oo as oo
+from sympy.core.symbol import symbols as symbols
 from sympy.polys.domains import FF as FF, FiniteField as FiniteField, QQ as QQ, RationalField as RationalField
+from sympy.polys.polytools import Poly as Poly
+from sympy.solvers.solvers import solve as solve
+from sympy.utilities.iterables import is_sequence as is_sequence
+from sympy.utilities.misc import as_int as as_int
 
 class EllipticCurve:
     '''

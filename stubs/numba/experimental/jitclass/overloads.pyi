@@ -1,3 +1,5 @@
+from numba.core.extending import overload as overload
+from numba.core.types import ClassInstanceType as ClassInstanceType
 
 def _get_args(n_args): ...
 def class_instance_overload(target):

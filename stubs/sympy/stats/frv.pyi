@@ -1,8 +1,18 @@
 from _typeshed import Incomplete
+from sympy.concrete.summations import Sum as Sum
+from sympy.core.basic import Basic as Basic
+from sympy.core.cache import cacheit as cacheit
+from sympy.core.containers import Dict as Dict
+from sympy.core.function import Lambda as Lambda
+from sympy.core.logic import Logic as Logic
+from sympy.core.mul import Mul as Mul
 from sympy.core.numbers import I as I, nan as nan
 from sympy.core.relational import Eq as Eq, Relational as Relational
+from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol
 from sympy.core.sympify import _sympify as _sympify, sympify as sympify
+from sympy.functions.elementary.exponential import exp as exp
+from sympy.functions.elementary.piecewise import Piecewise as Piecewise
 from sympy.logic.boolalg import And as And, Or as Or
 from sympy.sets.sets import FiniteSet as FiniteSet, Intersection as Intersection
 from sympy.stats.rv import ConditionalDomain as ConditionalDomain, Density as Density, Distribution as Distribution, IndependentProductPSpace as IndependentProductPSpace, NamedArgsMixin as NamedArgsMixin, PSpace as PSpace, ProductDomain as ProductDomain, RandomDomain as RandomDomain, SinglePSpace as SinglePSpace, random_symbols as random_symbols, rv_subs as rv_subs, sumsets as sumsets

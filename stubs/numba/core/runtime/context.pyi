@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, config as config, errors as errors, types as types
+from numba.core.utils import PYVERSION as PYVERSION
 from typing import NamedTuple
 
 class _NRT_Meminfo_Functions(NamedTuple):

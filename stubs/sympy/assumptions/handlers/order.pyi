@@ -5,6 +5,8 @@ from sympy.core.logic import fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not, fuz
 from sympy.core.numbers import E as E, I as I, ImaginaryUnit as ImaginaryUnit, NaN as NaN, pi as pi
 from sympy.functions import Abs as Abs, acos as acos, acot as acot, asin as asin, atan as atan, exp as exp, factorial as factorial, log as log
 from sympy.matrices import Determinant as Determinant, Trace as Trace
+from sympy.matrices.expressions.matexpr import MatrixElement as MatrixElement
+from sympy.multipledispatch import MDNotImplementedError as MDNotImplementedError
 
 def _NegativePredicate_number(expr, assumptions): ...
 def _(expr, assumptions): ...

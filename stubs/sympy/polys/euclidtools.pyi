@@ -2,6 +2,7 @@ from sympy.polys.densearith import dmp_add as dmp_add, dmp_div as dmp_div, dmp_m
 from sympy.polys.densebasic import dmp_LC as dmp_LC, dmp_apply_pairs as dmp_apply_pairs, dmp_convert as dmp_convert, dmp_degree as dmp_degree, dmp_degree_in as dmp_degree_in, dmp_ground as dmp_ground, dmp_ground_LC as dmp_ground_LC, dmp_inflate as dmp_inflate, dmp_multi_deflate as dmp_multi_deflate, dmp_one as dmp_one, dmp_one_p as dmp_one_p, dmp_raise as dmp_raise, dmp_zero as dmp_zero, dmp_zero_p as dmp_zero_p, dmp_zeros as dmp_zeros, dup_LC as dup_LC, dup_convert as dup_convert, dup_degree as dup_degree, dup_strip as dup_strip
 from sympy.polys.densetools import dmp_clear_denoms as dmp_clear_denoms, dmp_diff as dmp_diff, dmp_eval as dmp_eval, dmp_eval_in as dmp_eval_in, dmp_ground_extract as dmp_ground_extract, dmp_ground_monic as dmp_ground_monic, dmp_ground_primitive as dmp_ground_primitive, dmp_ground_trunc as dmp_ground_trunc, dup_clear_denoms as dup_clear_denoms, dup_diff as dup_diff, dup_eval as dup_eval, dup_extract as dup_extract, dup_monic as dup_monic, dup_primitive as dup_primitive, dup_trunc as dup_trunc
 from sympy.polys.galoistools import gf_crt as gf_crt, gf_int as gf_int
+from sympy.polys.polyconfig import query as query
 from sympy.polys.polyerrors import DomainError as DomainError, HeuristicGCDFailed as HeuristicGCDFailed, HomomorphismFailed as HomomorphismFailed, MultivariatePolynomialError as MultivariatePolynomialError, NotInvertible as NotInvertible
 
 def dup_half_gcdex(f, g, K):

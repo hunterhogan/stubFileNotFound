@@ -1,5 +1,8 @@
+from .errors import LaTeXParsingError as LaTeXParsingError
 from _typeshed import Incomplete
+from sympy.external import import_module as import_module
 from sympy.physics.quantum.state import Bra as Bra, Ket as Ket
+from sympy.printing.str import StrPrinter as StrPrinter
 
 LaTeXParser: Incomplete
 LaTeXLexer: Incomplete

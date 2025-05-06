@@ -1,6 +1,8 @@
 from ._mathtext import RasterParse as RasterParse, VectorParse as VectorParse, get_unicode_index as get_unicode_index
 from _typeshed import Incomplete
 from matplotlib import _api as _api, _mathtext as _mathtext
+from matplotlib.font_manager import FontProperties as FontProperties
+from matplotlib.ft2font import LoadFlags as LoadFlags
 
 _log: Incomplete
 

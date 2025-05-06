@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from numba.core import config as config
 
 class Rewrite:
     """Defines the abstract base class for Numba rewrites.

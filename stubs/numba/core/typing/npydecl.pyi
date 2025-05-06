@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from numba import pndindex as pndindex
 from numba.core import config as config, types as types, utils as utils
 from numba.core.errors import NumbaAssertionError as NumbaAssertionError, NumbaPerformanceWarning as NumbaPerformanceWarning, NumbaTypeError as NumbaTypeError, TypingError as TypingError
 from numba.core.typing.templates import AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, CallableTemplate as CallableTemplate, Registry as Registry, signature as signature

@@ -1,6 +1,6 @@
 # pyright: reportDeprecated = false
 from numpy.typing import NDArray
-from typing import Any, TypeVar
+from typing import Any, Union, TypeVar
 import numpy as np
 
 T = TypeVar('T', bound=np.number[Any])

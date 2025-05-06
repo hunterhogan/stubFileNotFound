@@ -1,3 +1,4 @@
+from numba.core.errors import NumbaWarning as NumbaWarning
 
 def disassemble_elf_to_cfg(elf, mangled_symbol):
     """

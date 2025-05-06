@@ -1,7 +1,9 @@
 import numpy as np
 import pandas as pd
+from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core.interchange.dataframe_protocol import Buffer as Buffer, Column as Column, ColumnNullType as ColumnNullType, DataFrame as DataFrameXchg, DtypeKind as DtypeKind
 from pandas.core.interchange.utils import ArrowCTypes as ArrowCTypes, Endianness as Endianness
+from pandas.errors import SettingWithCopyError as SettingWithCopyError
 from typing import Any
 
 _NP_DTYPES: dict[DtypeKind, dict[int, Any]]

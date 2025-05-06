@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from numba import _helperlib as _helperlib
 from typing import NamedTuple
 
 class Extent(NamedTuple):

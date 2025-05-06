@@ -1,5 +1,7 @@
 from .printer import Printer as Printer, print_function as print_function
 from _typeshed import Incomplete
+from sympy.core.function import AppliedUndef as AppliedUndef
+from sympy.core.mul import Mul as Mul
 from typing import Any
 
 class ReprPrinter(Printer):

@@ -2,8 +2,11 @@ from _typeshed import Incomplete
 from openpyxl import Workbook
 from openpyxl.descriptors.serialisable import Serialisable as Serialisable
 from pandas._typing import ExcelWriterIfSheetExists as ExcelWriterIfSheetExists, FilePath as FilePath, ReadBuffer as ReadBuffer, Scalar as Scalar, StorageOptions as StorageOptions, WriteExcelBuffer as WriteExcelBuffer
+from pandas.compat._optional import import_optional_dependency as import_optional_dependency
+from pandas.core.shared_docs import _shared_docs as _shared_docs
 from pandas.io.excel._base import BaseExcelReader as BaseExcelReader, ExcelWriter as ExcelWriter
 from pandas.io.excel._util import combine_kwargs as combine_kwargs, validate_freeze_panes as validate_freeze_panes
+from pandas.util._decorators import doc as doc
 from typing import Any
 
 class OpenpyxlWriter(ExcelWriter):

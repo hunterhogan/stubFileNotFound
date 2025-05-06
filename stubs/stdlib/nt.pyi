@@ -98,7 +98,7 @@ if sys.platform == "win32":
     )
 
     if sys.version_info >= (3, 11):
-        pass
+        from os import EX_OK as EX_OK
     if sys.version_info >= (3, 12):
         from os import (
             get_blocking as get_blocking,

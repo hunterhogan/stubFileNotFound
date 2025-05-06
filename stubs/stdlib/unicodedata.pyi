@@ -1,5 +1,6 @@
+import sys
 from _typeshed import ReadOnlyBuffer
-from typing import Literal, TypeVar, final, overload
+from typing import Any, Literal, TypeVar, final, overload
 from typing import TypeAlias
 
 ucd_3_2_0: UCD

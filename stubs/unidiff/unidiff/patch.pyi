@@ -9,6 +9,7 @@ from unidiff.constants import (
     LINE_TYPE_CONTEXT as LINE_TYPE_CONTEXT,
     LINE_TYPE_REMOVED as LINE_TYPE_REMOVED,
 )
+from unidiff.errors import UnidiffParseError as UnidiffParseError
 
 class Line:
     source_line_no: int | None

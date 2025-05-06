@@ -1,5 +1,6 @@
 from typing import ClassVar
 
+from sassutils.builder import Manifest as Manifest
 from setuptools import Command, Distribution
 
 def validate_manifests(dist: Distribution, attr: str, value: object) -> None: ...

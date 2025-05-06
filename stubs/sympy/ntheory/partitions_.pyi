@@ -1,5 +1,7 @@
 from .residue_ntheory import _sqrt_mod_prime_power as _sqrt_mod_prime_power, is_quad_residue as is_quad_residue
 from sympy.external.gmpy import gcd as gcd, jacobi as jacobi, legendre as legendre
+from sympy.utilities.decorator import deprecated as deprecated
+from sympy.utilities.memoization import recurrence_memo as recurrence_memo
 
 def _pre() -> None: ...
 def _a(n, k, prec):

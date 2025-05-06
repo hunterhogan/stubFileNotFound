@@ -1,9 +1,16 @@
 from _typeshed import Incomplete
+from numba._helperlib import c_helpers as c_helpers
 from numba.core import cgutils as cgutils, config as config, types as types
+from numba.core.cgutils import is_nonelike as is_nonelike
 from numba.core.datamodel import StructModel as StructModel, register_default as register_default
+from numba.core.errors import TypingError as TypingError
 from numba.core.extending import NativeValue as NativeValue, box as box, intrinsic as intrinsic, make_attribute_wrapper as make_attribute_wrapper, models as models, overload as overload, overload_method as overload_method, register_jitable as register_jitable, register_model as register_model, unbox as unbox
 from numba.core.imputils import RefType as RefType, impl_ret_new_ref as impl_ret_new_ref, iternext_impl as iternext_impl, lower_builtin as lower_builtin, lower_cast as lower_cast, lower_constant as lower_constant
 from numba.core.pythonapi import PY_UNICODE_1BYTE_KIND as PY_UNICODE_1BYTE_KIND, PY_UNICODE_2BYTE_KIND as PY_UNICODE_2BYTE_KIND, PY_UNICODE_4BYTE_KIND as PY_UNICODE_4BYTE_KIND, PY_UNICODE_WCHAR_KIND as PY_UNICODE_WCHAR_KIND
+from numba.core.unsafe.bytes import memcpy_region as memcpy_region
+from numba.core.utils import PYVERSION as PYVERSION
+from numba.cpython import slicing as slicing
+from numba.cpython.hashing import _Py_hash_t as _Py_hash_t
 from numba.cpython.unicode_support import _PyUnicode_IsAlpha as _PyUnicode_IsAlpha, _PyUnicode_IsCaseIgnorable as _PyUnicode_IsCaseIgnorable, _PyUnicode_IsCased as _PyUnicode_IsCased, _PyUnicode_IsDecimalDigit as _PyUnicode_IsDecimalDigit, _PyUnicode_IsDigit as _PyUnicode_IsDigit, _PyUnicode_IsLineBreak as _PyUnicode_IsLineBreak, _PyUnicode_IsLowercase as _PyUnicode_IsLowercase, _PyUnicode_IsNumeric as _PyUnicode_IsNumeric, _PyUnicode_IsPrintable as _PyUnicode_IsPrintable, _PyUnicode_IsSpace as _PyUnicode_IsSpace, _PyUnicode_IsTitlecase as _PyUnicode_IsTitlecase, _PyUnicode_IsUppercase as _PyUnicode_IsUppercase, _PyUnicode_IsXidContinue as _PyUnicode_IsXidContinue, _PyUnicode_IsXidStart as _PyUnicode_IsXidStart, _PyUnicode_ToFoldedFull as _PyUnicode_ToFoldedFull, _PyUnicode_ToLowerFull as _PyUnicode_ToLowerFull, _PyUnicode_ToTitleFull as _PyUnicode_ToTitleFull, _PyUnicode_ToUpperFull as _PyUnicode_ToUpperFull, _Py_CARRIAGE_RETURN as _Py_CARRIAGE_RETURN, _Py_ISALNUM as _Py_ISALNUM, _Py_ISALPHA as _Py_ISALPHA, _Py_ISCARRIAGERETURN as _Py_ISCARRIAGERETURN, _Py_ISLINEBREAK as _Py_ISLINEBREAK, _Py_ISLINEFEED as _Py_ISLINEFEED, _Py_ISLOWER as _Py_ISLOWER, _Py_ISSPACE as _Py_ISSPACE, _Py_ISUPPER as _Py_ISUPPER, _Py_LINEFEED as _Py_LINEFEED, _Py_SPACE as _Py_SPACE, _Py_TAB as _Py_TAB, _Py_TOLOWER as _Py_TOLOWER, _Py_TOUPPER as _Py_TOUPPER, _Py_UCS4 as _Py_UCS4
 
 _MAX_UNICODE: int

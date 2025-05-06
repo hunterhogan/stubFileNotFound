@@ -1,12 +1,19 @@
+from .ode import checkinfsol as checkinfsol
 from _typeshed import Incomplete
 from sympy.core import Add as Add, Mul as Mul, Pow as Pow, S as S
+from sympy.core.exprtools import factor_terms as factor_terms
 from sympy.core.function import AppliedUndef as AppliedUndef, Function as Function, expand as expand
 from sympy.core.relational import Eq as Eq, Equality as Equality
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, Wild as Wild, symbols as symbols
 from sympy.functions import exp as exp, log as log
+from sympy.integrals.integrals import integrate as integrate
+from sympy.polys import Poly as Poly
 from sympy.polys.polytools import cancel as cancel, div as div
 from sympy.simplify import collect as collect, powsimp as powsimp, separatevars as separatevars, simplify as simplify
+from sympy.solvers import solve as solve
 from sympy.solvers.deutils import _preprocess as _preprocess, ode_order as ode_order
+from sympy.solvers.pde import pdsolve as pdsolve
+from sympy.utilities import numbered_symbols as numbered_symbols
 
 lie_heuristics: Incomplete
 

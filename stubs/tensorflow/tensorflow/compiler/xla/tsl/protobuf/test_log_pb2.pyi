@@ -5,6 +5,7 @@ Protocol messages for describing the results of benchmarks and unit tests."""
 
 import builtins
 import collections.abc
+import sys
 import typing
 
 import google.protobuf.any_pb2

@@ -1,5 +1,9 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, config as config, types as types
+from numba.core.extending import overload as overload
+from numba.core.imputils import impl_ret_untracked as impl_ret_untracked
+from numba.core.typing import signature as signature
+from numba.cpython.unsafe.numbers import trailing_zeros as trailing_zeros
 
 _NP_FLT_FINFO: Incomplete
 FLT_MAX: Incomplete

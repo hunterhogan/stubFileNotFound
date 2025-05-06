@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
 from numba.core import types as types, utils as utils
+from numba.core.cgutils import is_nonelike as is_nonelike
 from numba.core.errors import NumbaAssertionError as NumbaAssertionError, NumbaIndexError as NumbaIndexError, NumbaKeyError as NumbaKeyError, NumbaNotImplementedError as NumbaNotImplementedError, NumbaTypeError as NumbaTypeError, NumbaValueError as NumbaValueError, RequireLiteralValue as RequireLiteralValue, TypingError as TypingError
+from numba.core.typing import collections as collections
 from numba.core.typing.templates import AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, bound_function as bound_function, infer as infer, infer_getattr as infer_getattr, infer_global as infer_global, signature as signature
 from typing import NamedTuple
 

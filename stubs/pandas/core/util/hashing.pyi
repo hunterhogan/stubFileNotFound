@@ -1,7 +1,10 @@
 import numpy as np
 from collections.abc import Hashable, Iterable, Iterator
 from pandas import DataFrame as DataFrame, Index as Index, MultiIndex as MultiIndex, Series as Series
+from pandas._libs.hashing import hash_object_array as hash_object_array
 from pandas._typing import ArrayLike as ArrayLike, npt as npt
+from pandas.core.dtypes.common import is_list_like as is_list_like
+from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCExtensionArray as ABCExtensionArray, ABCIndex as ABCIndex, ABCMultiIndex as ABCMultiIndex, ABCSeries as ABCSeries
 
 _default_hash_key: str

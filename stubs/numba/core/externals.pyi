@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from numba import _helperlib as _helperlib
 from numba.core import intrinsics as intrinsics, utils as utils
 
 def _add_missing_symbol(symbol, addr) -> None:

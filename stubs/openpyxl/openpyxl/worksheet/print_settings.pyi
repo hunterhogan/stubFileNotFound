@@ -5,6 +5,7 @@ from typing_extensions import Self
 
 from openpyxl.descriptors import Integer, Strict, String
 from openpyxl.descriptors.base import Typed
+from openpyxl.utils.cell import SHEETRANGE_RE as SHEETRANGE_RE
 
 from .cell_range import MultiCellRange
 

@@ -1,13 +1,18 @@
 from _typeshed import Incomplete
 from sympy.core import S as S, cacheit as cacheit, sympify as sympify
+from sympy.core.add import Add as Add
 from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function
 from sympy.core.logic import FuzzyBool as FuzzyBool, fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
 from sympy.core.numbers import I as I, Rational as Rational, pi as pi
+from sympy.core.symbol import Dummy as Dummy
 from sympy.functions.combinatorial.factorials import RisingFactorial as RisingFactorial, binomial as binomial, factorial as factorial
 from sympy.functions.combinatorial.numbers import bernoulli as bernoulli, euler as euler, nC as nC
 from sympy.functions.elementary.complexes import Abs as Abs, im as im, re as re
 from sympy.functions.elementary.exponential import exp as exp, log as log, match_real_imag as match_real_imag
+from sympy.functions.elementary.integers import floor as floor
+from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.functions.elementary.trigonometric import _imaginary_unit_as_coefficient as _imaginary_unit_as_coefficient, acos as acos, acot as acot, asin as asin, atan as atan, cos as cos, cot as cot, csc as csc, sec as sec, sin as sin, tan as tan
+from sympy.polys.specialpolys import symmetric_poly as symmetric_poly
 
 def _rewrite_hyperbolics_as_exp(expr): ...
 def _acosh_table(): ...

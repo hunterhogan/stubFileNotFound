@@ -1,8 +1,13 @@
 from _typeshed import Incomplete
 from numba.core import compiler as compiler, config as config, funcdesc as funcdesc, sigutils as sigutils, types as types, typing as typing
 from numba.core.compiler import CompileResult as CompileResult, CompilerBase as CompilerBase, DefaultPassBuilder as DefaultPassBuilder, Flags as Flags, Option as Option, sanitize_compile_result_entries as sanitize_compile_result_entries
+from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
 from numba.core.compiler_machinery import LoweringPass as LoweringPass, PassManager as PassManager, register_pass as register_pass
+from numba.core.errors import NumbaInvalidConfigWarning as NumbaInvalidConfigWarning
 from numba.core.typed_passes import AnnotateTypes as AnnotateTypes, IRLegalization as IRLegalization, NativeLowering as NativeLowering
+from numba.core.typing.templates import ConcreteTemplate as ConcreteTemplate
+from numba.cuda.api import get_current_device as get_current_device
+from numba.cuda.target import CUDACABICallConv as CUDACABICallConv
 
 def _nvvm_options_type(x): ...
 

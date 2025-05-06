@@ -1,6 +1,12 @@
 from _typeshed import Incomplete
 from sympy.core._print_helpers import Printable as Printable
+from sympy.core.containers import Tuple as Tuple
+from sympy.core.function import diff as diff
+from sympy.core.singleton import S as S
+from sympy.core.sympify import _sympify as _sympify
 from sympy.tensor.array.dense_ndim_array import DenseNDimArray as DenseNDimArray, ImmutableDenseNDimArray as ImmutableDenseNDimArray
+from sympy.tensor.array.ndim_array import NDimArray as NDimArray
+from sympy.tensor.array.sparse_ndim_array import SparseNDimArray as SparseNDimArray
 
 def _arrayfy(a): ...
 def tensorproduct(*args):

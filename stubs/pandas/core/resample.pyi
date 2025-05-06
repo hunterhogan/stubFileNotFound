@@ -2,20 +2,26 @@ import numpy as np
 from _typeshed import Incomplete
 from collections.abc import Hashable
 from pandas import DataFrame as DataFrame, Series as Series
+from pandas._libs import lib as lib
 from pandas._libs.tslibs import BaseOffset as BaseOffset, IncompatibleFrequency as IncompatibleFrequency, NaT as NaT, Period as Period, Timedelta as Timedelta, Timestamp as Timestamp, to_offset as to_offset
+from pandas._libs.tslibs.dtypes import freq_to_period_freqstr as freq_to_period_freqstr
 from pandas._typing import AnyArrayLike as AnyArrayLike, Axis as Axis, AxisInt as AxisInt, Frequency as Frequency, IndexLabel as IndexLabel, InterpolateOptions as InterpolateOptions, NDFrameT as NDFrameT, T as T, TimeGrouperOrigin as TimeGrouperOrigin, TimedeltaConvertibleTypes as TimedeltaConvertibleTypes, TimestampConvertibleTypes as TimestampConvertibleTypes, npt as npt
 from pandas.core.apply import ResamplerWindowApply as ResamplerWindowApply, warn_alias_replacement as warn_alias_replacement
+from pandas.core.arrays import ArrowExtensionArray as ArrowExtensionArray
 from pandas.core.base import PandasObject as PandasObject, SelectionMixin as SelectionMixin
 from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCSeries as ABCSeries
 from pandas.core.generic import NDFrame as NDFrame, _shared_docs as _shared_docs
+from pandas.core.groupby.generic import SeriesGroupBy as SeriesGroupBy
 from pandas.core.groupby.groupby import BaseGroupBy as BaseGroupBy, GroupBy as GroupBy, _apply_groupings_depr as _apply_groupings_depr, _pipe_template as _pipe_template, get_groupby as get_groupby
 from pandas.core.groupby.grouper import Grouper as Grouper
 from pandas.core.groupby.ops import BinGrouper as BinGrouper
+from pandas.core.indexes.api import MultiIndex as MultiIndex
 from pandas.core.indexes.base import Index as Index
 from pandas.core.indexes.datetimes import DatetimeIndex as DatetimeIndex, date_range as date_range
 from pandas.core.indexes.period import PeriodIndex as PeriodIndex, period_range as period_range
 from pandas.core.indexes.timedeltas import TimedeltaIndex as TimedeltaIndex, timedelta_range as timedelta_range
+from pandas.errors import AbstractMethodError as AbstractMethodError
 from pandas.tseries.frequencies import is_subperiod as is_subperiod, is_superperiod as is_superperiod
 from pandas.tseries.offsets import Day as Day, Tick as Tick
 from pandas.util._decorators import Appender as Appender, Substitution as Substitution, doc as doc

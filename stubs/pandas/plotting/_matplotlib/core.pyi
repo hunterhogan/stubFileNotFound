@@ -13,9 +13,20 @@ from pandas._typing import IndexLabel as IndexLabel, NDFrameT as NDFrameT, Plott
 from pandas.core.dtypes.common import is_any_real_numeric_dtype as is_any_real_numeric_dtype, is_bool as is_bool, is_float as is_float, is_float_dtype as is_float_dtype, is_hashable as is_hashable, is_integer as is_integer, is_integer_dtype as is_integer_dtype, is_iterator as is_iterator, is_list_like as is_list_like, is_number as is_number, is_numeric_dtype as is_numeric_dtype
 from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCDatetimeIndex as ABCDatetimeIndex, ABCIndex as ABCIndex, ABCMultiIndex as ABCMultiIndex, ABCPeriodIndex as ABCPeriodIndex, ABCSeries as ABCSeries
+from pandas.core.dtypes.missing import isna as isna
 from pandas.core.frame import DataFrame as DataFrame
+from pandas.errors import AbstractMethodError as AbstractMethodError
+from pandas.io.formats.printing import pprint_thing as pprint_thing
+from pandas.plotting._matplotlib import tools as tools
+from pandas.plotting._matplotlib.converter import register_pandas_matplotlib_converters as register_pandas_matplotlib_converters
+from pandas.plotting._matplotlib.groupby import reconstruct_data_with_by as reconstruct_data_with_by
+from pandas.plotting._matplotlib.misc import unpack_single_str_list as unpack_single_str_list
+from pandas.plotting._matplotlib.style import get_standard_colors as get_standard_colors
 from pandas.plotting._matplotlib.timeseries import decorate_axes as decorate_axes, format_dateaxis as format_dateaxis, maybe_convert_index as maybe_convert_index, maybe_resample as maybe_resample, use_dynamic_x as use_dynamic_x
 from pandas.plotting._matplotlib.tools import create_subplots as create_subplots, flatten_axes as flatten_axes, format_date_labels as format_date_labels, get_all_lines as get_all_lines, get_xlim as get_xlim, handle_shared_axes as handle_shared_axes
+from pandas.util._decorators import cache_readonly as cache_readonly
+from pandas.util._exceptions import find_stack_level as find_stack_level
+from pandas.util.version import Version as Version
 from typing import Any, Literal
 
 def _color_in_style(style: str) -> bool:

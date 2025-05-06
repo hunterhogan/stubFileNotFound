@@ -1,5 +1,9 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from numba._version import get_versions as get_versions
+from numba.core import errors as errors
+from numba.core.registry import cpu_target as cpu_target
+from numba.tests.support import captured_stdout as captured_stdout
 
 def _get_commit(): ...
 

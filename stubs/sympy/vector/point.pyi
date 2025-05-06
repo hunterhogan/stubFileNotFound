@@ -1,5 +1,10 @@
 from _typeshed import Incomplete
 from sympy.core.basic import Basic as Basic
+from sympy.core.cache import cacheit as cacheit
+from sympy.core.symbol import Str as Str
+from sympy.vector.coordsysrect import CoordSys3D as CoordSys3D
+from sympy.vector.functions import _path as _path
+from sympy.vector.vector import Vector as Vector
 
 class Point(Basic):
     """

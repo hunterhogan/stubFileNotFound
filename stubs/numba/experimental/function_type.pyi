@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, errors as errors, types as types
+from numba.core.ccallback import CFunc as CFunc
+from numba.core.dispatcher import Dispatcher as Dispatcher
 from numba.core.imputils import lower_cast as lower_cast, lower_constant as lower_constant
 from numba.core.types import FunctionPrototype as FunctionPrototype, FunctionType as FunctionType, UndefinedFunctionType as UndefinedFunctionType, WrapperAddressProtocol as WrapperAddressProtocol
 from numba.extending import NativeValue as NativeValue, box as box, models as models, register_model as register_model, typeof_impl as typeof_impl, unbox as unbox

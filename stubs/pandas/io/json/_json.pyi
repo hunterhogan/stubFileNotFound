@@ -5,11 +5,22 @@ from collections.abc import Hashable, Mapping
 from pandas import ArrowDtype as ArrowDtype, DataFrame as DataFrame, Index as Index, MultiIndex as MultiIndex, Series as Series, isna as isna, notna as notna, to_datetime as to_datetime
 from pandas._libs import lib as lib
 from pandas._libs.json import ujson_dumps as ujson_dumps, ujson_loads as ujson_loads
+from pandas._libs.tslibs import iNaT as iNaT
 from pandas._typing import CompressionOptions as CompressionOptions, DtypeArg as DtypeArg, DtypeBackend as DtypeBackend, FilePath as FilePath, IndexLabel as IndexLabel, JSONEngine as JSONEngine, JSONSerializable as JSONSerializable, ReadBuffer as ReadBuffer, Self as Self, StorageOptions as StorageOptions, WriteBuffer as WriteBuffer
+from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core.dtypes.common import ensure_str as ensure_str, is_string_dtype as is_string_dtype
+from pandas.core.dtypes.dtypes import PeriodDtype as PeriodDtype
 from pandas.core.generic import NDFrame as NDFrame
+from pandas.core.reshape.concat import concat as concat
+from pandas.core.shared_docs import _shared_docs as _shared_docs
+from pandas.errors import AbstractMethodError as AbstractMethodError
 from pandas.io.common import IOHandles as IOHandles, dedup_names as dedup_names, extension_to_compression as extension_to_compression, file_exists as file_exists, get_handle as get_handle, is_fsspec_url as is_fsspec_url, is_potential_multi_index as is_potential_multi_index, is_url as is_url, stringify_path as stringify_path
+from pandas.io.json._normalize import convert_to_line_delimits as convert_to_line_delimits
 from pandas.io.json._table_schema import build_table_schema as build_table_schema, parse_table_schema as parse_table_schema
+from pandas.io.parsers.readers import validate_integer as validate_integer
+from pandas.util._decorators import doc as doc
+from pandas.util._exceptions import find_stack_level as find_stack_level
+from pandas.util._validators import check_dtype_backend as check_dtype_backend
 from types import TracebackType
 from typing import Any, Generic, Literal, TypeVar, overload
 

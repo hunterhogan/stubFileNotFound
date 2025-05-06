@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from llvmlite.ir import types as types
 from llvmlite.ir._utils import _HasMetadata as _HasMetadata
 from llvmlite.ir.values import ArgumentAttributes as ArgumentAttributes, AttributeSet as AttributeSet, Block as Block, Constant as Constant, Function as Function, MetaDataArgument as MetaDataArgument, MetaDataString as MetaDataString, NamedValue as NamedValue, Undefined as Undefined, Value as Value
 

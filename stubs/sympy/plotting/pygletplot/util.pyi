@@ -1,3 +1,4 @@
+from sympy.core import S as S
 
 def get_model_matrix(array_type=..., glGetMethod=...):
     """

@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from typing import NamedTuple
 
+from tensorflow.config import experimental as experimental
 
 class PhysicalDevice(NamedTuple):
     name: str

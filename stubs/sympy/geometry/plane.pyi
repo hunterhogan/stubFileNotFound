@@ -3,7 +3,10 @@ from .line import Line as Line, Line3D as Line3D, LinearEntity as LinearEntity, 
 from .point import Point as Point, Point3D as Point3D
 from _typeshed import Incomplete
 from sympy.core import Dummy as Dummy, Rational as Rational, S as S, Symbol as Symbol
+from sympy.core.symbol import _symbol as _symbol
 from sympy.functions.elementary.trigonometric import acos as acos, asin as asin, cos as cos, sin as sin, sqrt as sqrt
+from sympy.matrices import Matrix as Matrix
+from sympy.polys.polytools import cancel as cancel
 from sympy.solvers import linsolve as linsolve, solve as solve
 from sympy.utilities.iterables import is_sequence as is_sequence, uniq as uniq
 from sympy.utilities.misc import Undecidable as Undecidable, filldedent as filldedent, func_name as func_name

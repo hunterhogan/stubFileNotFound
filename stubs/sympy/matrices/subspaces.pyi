@@ -1,3 +1,4 @@
+from .utilities import _iszero as _iszero
 
 def _columnspace(M, simplify: bool = False):
     """Returns a list of vectors (Matrix objects) that span columnspace of ``M``

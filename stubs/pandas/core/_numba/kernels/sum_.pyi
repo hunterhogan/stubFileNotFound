@@ -1,5 +1,6 @@
 import numpy as np
 from pandas._typing import npt as npt
+from pandas.core._numba.kernels.shared import is_monotonic_increasing as is_monotonic_increasing
 from typing import Any
 
 def add_sum(val: Any, nobs: int, sum_x: Any, compensation: Any, num_consecutive_same_value: int, prev_value: Any) -> tuple[int, Any, Any, int, Any]: ...

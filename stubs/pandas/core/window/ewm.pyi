@@ -1,15 +1,23 @@
 import numpy as np
 from _typeshed import Incomplete
 from pandas import DataFrame as DataFrame, Series as Series
+from pandas._libs.tslibs import Timedelta as Timedelta
 from pandas._typing import Axis as Axis, TimedeltaConvertibleTypes as TimedeltaConvertibleTypes, npt as npt
+from pandas.core import common as common
+from pandas.core.arrays.datetimelike import dtype_to_unit as dtype_to_unit
 from pandas.core.dtypes.common import is_datetime64_dtype as is_datetime64_dtype, is_numeric_dtype as is_numeric_dtype
+from pandas.core.dtypes.dtypes import DatetimeTZDtype as DatetimeTZDtype
+from pandas.core.dtypes.generic import ABCSeries as ABCSeries
+from pandas.core.dtypes.missing import isna as isna
 from pandas.core.generic import NDFrame as NDFrame
 from pandas.core.indexers.objects import BaseIndexer as BaseIndexer, ExponentialMovingWindowIndexer as ExponentialMovingWindowIndexer, GroupbyIndexer as GroupbyIndexer
 from pandas.core.util.numba_ import get_jit_arguments as get_jit_arguments, maybe_use_numba as maybe_use_numba
+from pandas.core.window.common import zsqrt as zsqrt
 from pandas.core.window.doc import _shared_docs as _shared_docs, create_section_header as create_section_header, kwargs_numeric_only as kwargs_numeric_only, numba_notes as numba_notes, template_header as template_header, template_returns as template_returns, template_see_also as template_see_also, window_agg_numba_parameters as window_agg_numba_parameters
 from pandas.core.window.numba_ import generate_numba_ewm_func as generate_numba_ewm_func, generate_numba_ewm_table_func as generate_numba_ewm_table_func
 from pandas.core.window.online import EWMMeanState as EWMMeanState, generate_online_numba_ewma_func as generate_online_numba_ewma_func
 from pandas.core.window.rolling import BaseWindow as BaseWindow, BaseWindowGroupby as BaseWindowGroupby
+from pandas.util._decorators import doc as doc
 
 def get_center_of_mass(comass: float | None, span: float | None, halflife: float | None, alpha: float | None) -> float: ...
 def _calculate_deltas(times: np.ndarray | NDFrame, halflife: float | TimedeltaConvertibleTypes | None) -> npt.NDArray[np.float64]:

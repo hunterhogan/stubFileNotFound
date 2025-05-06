@@ -1,9 +1,11 @@
 from _typeshed import Incomplete
 from sympy.core import S as S, Symbol as Symbol, sympify as sympify
+from sympy.core.function import expand_mul as expand_mul
 from sympy.core.numbers import I as I, pi as pi
 from sympy.functions.elementary.trigonometric import cos as cos, sin as sin
 from sympy.ntheory import isprime as isprime, primitive_root as primitive_root
 from sympy.utilities.iterables import ibin as ibin, iterable as iterable
+from sympy.utilities.misc import as_int as as_int
 
 def _fourier_transform(seq, dps, inverse: bool = False):
     """Utility function for the Discrete Fourier Transform"""

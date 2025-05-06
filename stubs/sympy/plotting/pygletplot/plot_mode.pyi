@@ -1,5 +1,11 @@
+from .plot_interval import PlotInterval as PlotInterval
 from .plot_object import PlotObject as PlotObject
+from .util import parse_option_string as parse_option_string
 from _typeshed import Incomplete
+from sympy.core.symbol import Symbol as Symbol
+from sympy.core.sympify import sympify as sympify
+from sympy.geometry.entity import GeometryEntity as GeometryEntity
+from sympy.utilities.iterables import is_sequence as is_sequence
 
 class PlotMode(PlotObject):
     """

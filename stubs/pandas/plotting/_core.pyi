@@ -4,6 +4,7 @@ from _typeshed import Incomplete
 from collections.abc import Hashable, Sequence
 from matplotlib.axes import Axes
 from pandas import DataFrame as DataFrame, Series as Series
+from pandas._config import get_option as get_option
 from pandas._typing import IndexLabel as IndexLabel
 from pandas.core.base import PandasObject as PandasObject
 from pandas.core.dtypes.common import is_integer as is_integer, is_list_like as is_list_like

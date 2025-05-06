@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
+from sympy.external import import_module as import_module
 from sympy.printing.printer import Printer as Printer
+from sympy.utilities.iterables import is_sequence as is_sequence
 from typing import Any
 
 aesara: Incomplete

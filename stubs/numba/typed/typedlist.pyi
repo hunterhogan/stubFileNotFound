@@ -3,8 +3,13 @@ from _typeshed import Incomplete
 from collections.abc import MutableSequence
 from numba import njit as njit, typeof as typeof
 from numba.core import cgutils as cgutils, config as config, types as types
+from numba.core.dispatcher import Dispatcher as Dispatcher
 from numba.core.errors import LoweringError as LoweringError, TypingError as TypingError
 from numba.core.extending import NativeValue as NativeValue, box as box, overload as overload, overload_classmethod as overload_classmethod, type_callable as type_callable, unbox as unbox
+from numba.core.imputils import numba_typeref_ctor as numba_typeref_ctor
+from numba.core.types import ListType as ListType
+from numba.core.typing.templates import Signature as Signature
+from numba.typed import listobject as listobject
 
 Int_or_Slice: Incomplete
 T_co = pt.TypeVar('T_co', covariant=True)

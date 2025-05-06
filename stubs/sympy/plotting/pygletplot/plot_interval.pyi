@@ -1,5 +1,9 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from sympy.core.numbers import Integer as Integer
+from sympy.core.singleton import S as S
+from sympy.core.symbol import Symbol as Symbol
+from sympy.core.sympify import sympify as sympify
 
 class PlotInterval:
     """

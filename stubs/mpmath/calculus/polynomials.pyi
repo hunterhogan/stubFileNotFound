@@ -1,3 +1,5 @@
+from ..libmp.backend import xrange as xrange
+from .calculus import defun as defun
 from _typeshed import Incomplete
 
 def polyval(ctx, coeffs, x, derivative: bool = False):

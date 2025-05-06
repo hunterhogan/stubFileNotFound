@@ -1,3 +1,5 @@
+from ..libmp.backend import xrange as xrange
+from .eigen import defun as defun
 
 def r_sy_tridiag(ctx, A, D, E, calc_ev: bool = True) -> None:
     """

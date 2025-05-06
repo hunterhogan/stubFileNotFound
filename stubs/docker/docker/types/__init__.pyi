@@ -5,6 +5,8 @@ from .containers import (
     LogConfig as LogConfig,
     Ulimit as Ulimit,
 )
+from .daemon import CancellableStream as CancellableStream
+from .healthcheck import Healthcheck as Healthcheck
 from .networks import (
     EndpointConfig as EndpointConfig,
     IPAMConfig as IPAMConfig,

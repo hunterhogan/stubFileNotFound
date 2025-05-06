@@ -5,13 +5,22 @@ from abc import ABC, abstractmethod
 from collections.abc import Generator, Iterator, Mapping
 from contextlib import ExitStack
 from pandas import Index as Index, get_option as get_option
+from pandas._config import using_pyarrow_string_dtype as using_pyarrow_string_dtype
 from pandas._libs import lib as lib
 from pandas._typing import DateTimeErrorChoices as DateTimeErrorChoices, DtypeArg as DtypeArg, DtypeBackend as DtypeBackend, IndexLabel as IndexLabel, Self as Self
+from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core.api import DataFrame as DataFrame, Series as Series
+from pandas.core.arrays import ArrowExtensionArray as ArrowExtensionArray
 from pandas.core.base import PandasObject as PandasObject
+from pandas.core.common import maybe_make_list as maybe_make_list
 from pandas.core.dtypes.common import is_dict_like as is_dict_like, is_list_like as is_list_like
 from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype, DatetimeTZDtype as DatetimeTZDtype
+from pandas.core.dtypes.missing import isna as isna
+from pandas.core.internals.construction import convert_object_array as convert_object_array
+from pandas.core.tools.datetimes import to_datetime as to_datetime
 from pandas.errors import AbstractMethodError as AbstractMethodError, DatabaseError as DatabaseError
+from pandas.util._exceptions import find_stack_level as find_stack_level
+from pandas.util._validators import check_dtype_backend as check_dtype_backend
 from sqlalchemy import Table
 from sqlalchemy.sql.expression import Select as Select, TextClause as TextClause
 from typing import Any, Literal, overload

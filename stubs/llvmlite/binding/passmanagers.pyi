@@ -2,6 +2,8 @@ from _typeshed import Incomplete
 from ctypes import Structure
 from enum import IntFlag
 from llvmlite.binding import ffi as ffi
+from llvmlite.binding.common import _encode_string as _encode_string
+from llvmlite.binding.initfini import llvm_version_info as llvm_version_info
 from typing import NamedTuple
 
 llvm_version_major: Incomplete

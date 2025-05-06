@@ -1,4 +1,5 @@
 from . import _api as _api, cbook as cbook
+from .path import Path as Path
 from .transforms import Bbox as Bbox, BboxBase as BboxBase, IdentityTransform as IdentityTransform, Transform as Transform, TransformedBbox as TransformedBbox, TransformedPatchPath as TransformedPatchPath, TransformedPath as TransformedPath
 from _typeshed import Incomplete
 from collections.abc import Generator

@@ -2,12 +2,22 @@ import numpy as np
 from _typeshed import Incomplete
 from collections.abc import Hashable, Iterator, Mapping, MutableMapping, Sequence
 from datetime import date, tzinfo
+from pandas import Interval as Interval
 from pandas._libs import NaTType as NaTType, Period as Period, Timedelta as Timedelta, Timestamp as Timestamp
+from pandas._libs.tslibs import BaseOffset as BaseOffset
 from pandas.arrays import DatetimeArray as DatetimeArray, TimedeltaArray as TimedeltaArray
+from pandas.core.arrays.base import ExtensionArray as ExtensionArray
+from pandas.core.dtypes.dtypes import ExtensionDtype as ExtensionDtype
+from pandas.core.frame import DataFrame as DataFrame
 from pandas.core.generic import NDFrame as NDFrame
 from pandas.core.groupby.generic import DataFrameGroupBy as DataFrameGroupBy, GroupBy as GroupBy, SeriesGroupBy as SeriesGroupBy
 from pandas.core.indexes.base import Index as Index
 from pandas.core.internals import ArrayManager as ArrayManager, BlockManager as BlockManager, SingleArrayManager as SingleArrayManager, SingleBlockManager as SingleBlockManager
+from pandas.core.resample import Resampler as Resampler
+from pandas.core.series import Series as Series
+from pandas.core.window.rolling import BaseWindow as BaseWindow
+from pandas.io.formats.format import EngFormatter as EngFormatter
+from pandas.tseries.holiday import AbstractHolidayCalendar as AbstractHolidayCalendar
 from typing import Any, Protocol, SupportsIndex, TypeVar, overload
 
 from collections.abc import Callable

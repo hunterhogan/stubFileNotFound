@@ -1,3 +1,4 @@
+from ..utils.search_pattern import wildcard_match as wildcard_match
 
 class DefaultDynamicNaming:
     def __init__(self, pattern, fallback) -> None: ...

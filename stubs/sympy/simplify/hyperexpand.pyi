@@ -1,10 +1,16 @@
 from _typeshed import Incomplete
+from sympy import SYMPY_DEBUG as SYMPY_DEBUG
 from sympy.core import Add as Add, Dummy as Dummy, EulerGamma as EulerGamma, Expr as Expr, I as I, Mul as Mul, Rational as Rational, S as S, Tuple as Tuple, expand as expand, expand_func as expand_func, nan as nan, oo as oo, pi as pi, symbols as symbols, sympify as sympify, zoo as zoo
+from sympy.core.mod import Mod as Mod
+from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.functions import Chi as Chi, Ci as Ci, Ei as Ei, Piecewise as Piecewise, Shi as Shi, Si as Si, besseli as besseli, besselj as besselj, ceiling as ceiling, cos as cos, cosh as cosh, elliptic_e as elliptic_e, elliptic_k as elliptic_k, erf as erf, exp as exp, exp_polar as exp_polar, expint as expint, factorial as factorial, floor as floor, fresnelc as fresnelc, fresnels as fresnels, gamma as gamma, lerchphi as lerchphi, log as log, lowergamma as lowergamma, polar_lift as polar_lift, re as re, rf as rf, root as root, sin as sin, sinh as sinh, sqrt as sqrt, uppergamma as uppergamma
 from sympy.functions.elementary.complexes import polarify as polarify, unpolarify as unpolarify
 from sympy.functions.special.hyper import HyperRep_asin1 as HyperRep_asin1, HyperRep_asin2 as HyperRep_asin2, HyperRep_atanh as HyperRep_atanh, HyperRep_cosasin as HyperRep_cosasin, HyperRep_log1 as HyperRep_log1, HyperRep_log2 as HyperRep_log2, HyperRep_power1 as HyperRep_power1, HyperRep_power2 as HyperRep_power2, HyperRep_sinasin as HyperRep_sinasin, HyperRep_sqrts1 as HyperRep_sqrts1, HyperRep_sqrts2 as HyperRep_sqrts2, hyper as hyper, meijerg as meijerg
 from sympy.matrices import Matrix as Matrix, eye as eye, zeros as zeros
 from sympy.polys import Poly as Poly, apart as apart, poly as poly
+from sympy.series import residue as residue
+from sympy.simplify.powsimp import powdenest as powdenest
+from sympy.utilities.iterables import sift as sift
 
 def _mod1(x): ...
 def add_formulae(formulae):

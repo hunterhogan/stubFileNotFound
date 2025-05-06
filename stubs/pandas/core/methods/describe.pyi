@@ -4,9 +4,14 @@ from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from collections.abc import Hashable, Sequence
 from pandas import DataFrame as DataFrame, Series as Series
+from pandas._libs.tslibs import Timestamp as Timestamp
 from pandas._typing import DtypeObj as DtypeObj, NDFrameT as NDFrameT, npt as npt
+from pandas.core.arrays.floating import Float64Dtype as Float64Dtype
 from pandas.core.dtypes.common import is_bool_dtype as is_bool_dtype, is_numeric_dtype as is_numeric_dtype
 from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype, DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype
+from pandas.core.reshape.concat import concat as concat
+from pandas.io.formats.format import format_percentiles as format_percentiles
+from pandas.util._validators import validate_percentile as validate_percentile
 from collections.abc import Callable
 
 def describe_ndframe(*, obj: NDFrameT, include: str | Sequence[str] | None, exclude: str | Sequence[str] | None, percentiles: Sequence[float] | np.ndarray | None) -> NDFrameT:

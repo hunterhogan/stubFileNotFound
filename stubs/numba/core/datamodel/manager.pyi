@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from numba.core import types as types
 
 class DataModelManager:
     """Manages mapping of FE types to their corresponding data model

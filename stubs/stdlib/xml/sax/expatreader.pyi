@@ -1,3 +1,4 @@
+import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Mapping
 from typing import Any, Literal, overload

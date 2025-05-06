@@ -1,5 +1,7 @@
+from collections.abc import Sequence as Sequence
 from moisesdb.defaults import default_data_path as default_data_path, default_sample_rate as default_sample_rate
 from moisesdb.track import MoisesDBTrack as MoisesDBTrack
+from moisesdb.utils import get_fs as get_fs
 from os import PathLike
 from typing import Any
 

@@ -1,5 +1,9 @@
 from _typeshed import Incomplete
+from sympy.external import import_module as import_module
+from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
+from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.iterables import NotIterable as NotIterable, flatten as flatten, is_sequence as is_sequence, iterable as iterable
+from sympy.utilities.misc import filldedent as filldedent
 from typing import Any
 
 __doctest_requires__: Incomplete

@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 
 import _win32typing
+from win32.lib.pywintypes import error as error
 
 def CreatePhonebookEntry(hWnd: int, fileName: str | None = ..., /) -> None: ...
 def Dial(

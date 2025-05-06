@@ -3,7 +3,9 @@ from numba.core import cgutils as cgutils, types as types
 from numba.core.errors import NumbaNotImplementedError as NumbaNotImplementedError, NumbaTypeError as NumbaTypeError, NumbaValueError as NumbaValueError, RequireLiteralValue as RequireLiteralValue, TypingError as TypingError
 from numba.core.extending import intrinsic as intrinsic, overload as overload, overload_method as overload_method, register_jitable as register_jitable
 from numba.core.imputils import impl_ret_borrowed as impl_ret_borrowed, impl_ret_new_ref as impl_ret_new_ref, impl_ret_untracked as impl_ret_untracked, lower_builtin as lower_builtin
+from numba.cpython.unsafe.tuple import tuple_setitem as tuple_setitem
 from numba.np.arrayobj import _empty_nd_impl as _empty_nd_impl, load_item as load_item, make_array as make_array, store_item as store_item
+from numba.np.linalg import ensure_blas as ensure_blas
 from numba.np.numpy_support import as_dtype as as_dtype, check_is_integer as check_is_integer, is_nonelike as is_nonelike, lt_complex as lt_complex, lt_floats as lt_floats, numpy_version as numpy_version, type_can_asarray as type_can_asarray, type_is_scalar as type_is_scalar
 
 def _check_blas(): ...

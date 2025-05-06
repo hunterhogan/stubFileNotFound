@@ -1,7 +1,16 @@
 from .entity import GeometryEntity as GeometryEntity
 from _typeshed import Incomplete
 from sympy.core import Expr as Expr, S as S, sympify as sympify
+from sympy.core.add import Add as Add
+from sympy.core.containers import Tuple as Tuple
+from sympy.core.numbers import Float as Float
+from sympy.core.parameters import global_parameters as global_parameters
+from sympy.functions.elementary.complexes import im as im
+from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.functions.elementary.trigonometric import cos as cos, sin as sin
+from sympy.geometry.exceptions import GeometryError as GeometryError
+from sympy.matrices import Matrix as Matrix
+from sympy.matrices.expressions import Transpose as Transpose
 from sympy.simplify import nsimplify as nsimplify, simplify as simplify
 from sympy.utilities.iterables import is_sequence as is_sequence, uniq as uniq
 from sympy.utilities.misc import Undecidable as Undecidable, filldedent as filldedent, func_name as func_name

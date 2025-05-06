@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from numba.core import config as config, types as types
+from numba.core.errors import NumbaValueError as NumbaValueError
 
 _pep3118_int_types: Incomplete
 _pep3118_scalar_map: Incomplete

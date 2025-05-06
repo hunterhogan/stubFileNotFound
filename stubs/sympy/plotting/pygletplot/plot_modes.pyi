@@ -1,7 +1,9 @@
 from _typeshed import Incomplete
+from sympy.core.numbers import pi as pi
 from sympy.functions import cos as cos, sin as sin
 from sympy.plotting.pygletplot.plot_curve import PlotCurve as PlotCurve
 from sympy.plotting.pygletplot.plot_surface import PlotSurface as PlotSurface
+from sympy.utilities.lambdify import lambdify as lambdify
 
 def float_vec3(f): ...
 

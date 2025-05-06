@@ -1,8 +1,25 @@
 from _typeshed import Incomplete
 from sympy.core import S as S, Symbol as Symbol, diff as diff, symbols as symbols
+from sympy.core.add import Add as Add
+from sympy.core.expr import Expr as Expr
 from sympy.core.function import Derivative as Derivative, Function as Function
+from sympy.core.mul import Mul as Mul
+from sympy.core.relational import Eq as Eq
+from sympy.core.sympify import sympify as sympify
+from sympy.external import import_module as import_module
 from sympy.functions import Piecewise as Piecewise, SingularityFunction as SingularityFunction, factorial as factorial
+from sympy.geometry.entity import GeometryEntity as GeometryEntity
+from sympy.integrals import integrate as integrate
 from sympy.plotting import PlotGrid as PlotGrid, plot as plot
+from sympy.printing import sstr as sstr
+from sympy.series import limit as limit
+from sympy.sets.sets import Interval as Interval
+from sympy.solvers import linsolve as linsolve
+from sympy.solvers.ode.ode import dsolve as dsolve
+from sympy.solvers.solvers import solve as solve
+from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
+from sympy.utilities.iterables import iterable as iterable
+from sympy.utilities.lambdify import lambdify as lambdify
 
 __doctest_requires__: Incomplete
 numpy: Incomplete

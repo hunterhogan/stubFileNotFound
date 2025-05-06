@@ -15,6 +15,6 @@ from importlib._bootstrap_external import (
 )
 
 if sys.version_info >= (3, 11):
-    pass
+    from importlib._bootstrap_external import NamespaceLoader as NamespaceLoader
 
 def all_suffixes() -> list[str]: ...

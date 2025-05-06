@@ -4,12 +4,21 @@ from _typeshed import Incomplete
 from collections.abc import Hashable
 from pandas._libs import NaT as NaT, Period as Period, Timestamp as Timestamp, index as libindex, lib as lib
 from pandas._libs.tslibs import Resolution as Resolution, Tick as Tick, Timedelta as Timedelta, periods_per_day as periods_per_day, timezones as timezones, to_offset as to_offset
+from pandas._libs.tslibs.dtypes import OFFSET_TO_PERIOD_FREQSTR as OFFSET_TO_PERIOD_FREQSTR
+from pandas._libs.tslibs.offsets import prefix_mapping as prefix_mapping
 from pandas._typing import Dtype as Dtype, DtypeObj as DtypeObj, Frequency as Frequency, IntervalClosedType as IntervalClosedType, Self as Self, TimeAmbiguous as TimeAmbiguous, TimeNonexistent as TimeNonexistent, npt as npt
 from pandas.core.api import DataFrame as DataFrame, PeriodIndex as PeriodIndex
 from pandas.core.arrays.datetimes import DatetimeArray as DatetimeArray, tz_to_dtype as tz_to_dtype
+from pandas.core.dtypes.common import is_scalar as is_scalar
+from pandas.core.dtypes.dtypes import DatetimeTZDtype as DatetimeTZDtype
+from pandas.core.dtypes.generic import ABCSeries as ABCSeries
+from pandas.core.dtypes.missing import is_valid_na_for_dtype as is_valid_na_for_dtype
 from pandas.core.indexes.base import Index as Index, maybe_extract_name as maybe_extract_name
 from pandas.core.indexes.datetimelike import DatetimeTimedeltaMixin as DatetimeTimedeltaMixin
+from pandas.core.indexes.extension import inherit_names as inherit_names
+from pandas.core.tools.times import to_time as to_time
 from pandas.util._decorators import cache_readonly as cache_readonly, doc as doc
+from pandas.util._exceptions import find_stack_level as find_stack_level
 
 def _new_DatetimeIndex(cls, d):
     """

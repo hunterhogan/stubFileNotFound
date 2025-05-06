@@ -1,5 +1,16 @@
 from _typeshed import Incomplete
 from sympy import Matrix as Matrix, cos as cos, pi as pi, sin as sin
+from sympy.core.add import Add as Add
+from sympy.core.evalf import INF as INF
+from sympy.core.mul import Mul as Mul
+from sympy.core.symbol import Symbol as Symbol
+from sympy.core.sympify import sympify as sympify
+from sympy.external.importtools import import_module as import_module
+from sympy.functions.elementary.miscellaneous import sqrt as sqrt
+from sympy.matrices.dense import zeros as zeros
+from sympy.physics.units.quantities import Quantity as Quantity
+from sympy.plotting import plot as plot
+from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
 
 __doctest_requires__: Incomplete
 numpy: Incomplete

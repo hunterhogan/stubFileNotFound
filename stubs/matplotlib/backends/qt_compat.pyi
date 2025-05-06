@@ -1,3 +1,4 @@
+from . import _QT_FORCE_QT5_BINDING as _QT_FORCE_QT5_BINDING
 from _typeshed import Incomplete
 
 QT_API_PYQT6: str

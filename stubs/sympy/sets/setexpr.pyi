@@ -1,3 +1,4 @@
+from .fancysets import ImageSet as ImageSet
 from .sets import set_add as set_add, set_div as set_div, set_function as set_function, set_mul as set_mul, set_pow as set_pow, set_sub as set_sub
 from _typeshed import Incomplete
 from sympy.core import Expr as Expr

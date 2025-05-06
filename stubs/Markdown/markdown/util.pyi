@@ -1,3 +1,4 @@
+import sys
 from collections.abc import Iterator
 from re import Pattern
 from typing import Final, Generic, TypedDict, TypeVar, overload

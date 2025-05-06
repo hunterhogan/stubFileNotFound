@@ -3,6 +3,8 @@ from _typeshed import Incomplete
 from numba.core import analysis as analysis, config as config, ir as ir, postproc as postproc, rewrites as rewrites, types as types, typing as typing
 from numba.core.analysis import compute_cfg_from_blocks as compute_cfg_from_blocks, compute_live_map as compute_live_map, compute_use_defs as compute_use_defs
 from numba.core.errors import CompilerError as CompilerError, NumbaPendingDeprecationWarning as NumbaPendingDeprecationWarning, TypingError as TypingError, UnsupportedError as UnsupportedError
+from numba.core.extending import _Intrinsic as _Intrinsic
+from numba.core.typing.templates import signature as signature
 
 _unique_var_count: int
 

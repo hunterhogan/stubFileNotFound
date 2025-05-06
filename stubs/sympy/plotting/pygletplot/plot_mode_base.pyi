@@ -1,5 +1,8 @@
 from _typeshed import Incomplete
+from sympy.core import S as S
+from sympy.plotting.pygletplot.color_scheme import ColorScheme as ColorScheme
 from sympy.plotting.pygletplot.plot_mode import PlotMode as PlotMode
+from sympy.utilities.iterables import is_sequence as is_sequence
 
 class PlotModeBase(PlotMode):
     """

@@ -1,4 +1,5 @@
 import _cython_3_0_11
+from pandas._libs.algos import groupsort_indexer as groupsort_indexer
 
 __test__: dict
 asof_join_backward_on_X_by_Y: _cython_3_0_11.fused_cython_function

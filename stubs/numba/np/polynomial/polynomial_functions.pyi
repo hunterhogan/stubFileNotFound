@@ -1,4 +1,6 @@
+from numba import literal_unroll as literal_unroll
 from numba.core import errors as errors, types as types
+from numba.core.extending import overload as overload
 from numba.np.numpy_support import as_dtype as as_dtype, from_dtype as from_dtype, type_can_asarray as type_can_asarray
 
 def roots_impl(p): ...

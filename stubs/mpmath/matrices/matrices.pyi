@@ -1,3 +1,4 @@
+from ..libmp.backend import xrange as xrange
 from _typeshed import Incomplete
 
 rowsep: str

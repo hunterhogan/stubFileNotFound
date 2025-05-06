@@ -1,4 +1,4 @@
-from antlr4 import ParseTreeListener
+from antlr4 import *
 from autolevparser import AutolevParser as AutolevParser
 
 class AutolevListener(ParseTreeListener):

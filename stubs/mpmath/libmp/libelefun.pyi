@@ -1,6 +1,8 @@
 from .backend import BACKEND as BACKEND, MPZ as MPZ, MPZ_FIVE as MPZ_FIVE, MPZ_ONE as MPZ_ONE, MPZ_TWO as MPZ_TWO, MPZ_ZERO as MPZ_ZERO, xrange as xrange
+from .libintmath import ifib as ifib
 from .libmpf import ComplexResult as ComplexResult, bctable as bctable, bitcount as bitcount, fhalf as fhalf, finf as finf, fnan as fnan, fninf as fninf, fnone as fnone, fone as fone, from_float as from_float, from_int as from_int, from_man_exp as from_man_exp, from_rational as from_rational, fzero as fzero, giant_steps as giant_steps, isqrt_fast as isqrt_fast, lshift as lshift, mpf_abs as mpf_abs, mpf_add as mpf_add, mpf_cmp as mpf_cmp, mpf_div as mpf_div, mpf_mul as mpf_mul, mpf_neg as mpf_neg, mpf_perturb as mpf_perturb, mpf_pos as mpf_pos, mpf_pow_int as mpf_pow_int, mpf_rdiv_int as mpf_rdiv_int, mpf_shift as mpf_shift, mpf_sign as mpf_sign, mpf_sqrt as mpf_sqrt, mpf_sub as mpf_sub, negative_rnd as negative_rnd, normalize as normalize, reciprocal_rnd as reciprocal_rnd, round_ceiling as round_ceiling, round_down as round_down, round_fast as round_fast, round_floor as round_floor, round_nearest as round_nearest, round_up as round_up, rshift as rshift, sqrt_fixed as sqrt_fixed, to_fixed as to_fixed, to_float as to_float, to_int as to_int
 from _typeshed import Incomplete
+from bisect import bisect as bisect
 
 EXP_COSH_CUTOFF: int
 EXP_SERIES_U_CUTOFF: int

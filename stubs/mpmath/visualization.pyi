@@ -1,4 +1,7 @@
+from .libmp import NoConvergence as NoConvergence
+from .libmp.backend import xrange as xrange
 from _typeshed import Incomplete
+from colorsys import hsv_to_rgb as hsv_to_rgb
 
 class VisualizationMethods:
     plot_ignore: Incomplete

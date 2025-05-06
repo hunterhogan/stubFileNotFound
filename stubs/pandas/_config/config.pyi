@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Generator, Iterable
 from contextlib import ContextDecorator
 from pandas._typing import F as F, T as T
+from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Any, Generic, NamedTuple
 
 from collections.abc import Callable

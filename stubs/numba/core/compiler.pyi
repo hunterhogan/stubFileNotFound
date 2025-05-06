@@ -1,9 +1,14 @@
 from _typeshed import Incomplete
 from numba.core import bytecode as bytecode, callconv as callconv, config as config, cpu as cpu, errors as errors, interpreter as interpreter, postproc as postproc
+from numba.core.compiler_machinery import PassManager as PassManager
+from numba.core.environment import lookup_environment as lookup_environment
+from numba.core.errors import CompilerError as CompilerError
 from numba.core.object_mode_passes import ObjectModeBackEnd as ObjectModeBackEnd, ObjectModeFrontEnd as ObjectModeFrontEnd
 from numba.core.targetconfig import ConfigStack as ConfigStack, Option as Option, TargetConfig as TargetConfig
+from numba.core.tracing import event as event
 from numba.core.typed_passes import AnnotateTypes as AnnotateTypes, DumpParforDiagnostics as DumpParforDiagnostics, IRLegalization as IRLegalization, InlineOverloads as InlineOverloads, NativeLowering as NativeLowering, NativeParforLowering as NativeParforLowering, NoPythonBackend as NoPythonBackend, NoPythonSupportedFeatureValidation as NoPythonSupportedFeatureValidation, NopythonRewrites as NopythonRewrites, NopythonTypeInference as NopythonTypeInference, ParforFusionPass as ParforFusionPass, ParforPass as ParforPass, ParforPreLoweringPass as ParforPreLoweringPass, PreLowerStripPhis as PreLowerStripPhis, PreParforPass as PreParforPass
 from numba.core.untyped_passes import CanonicalizeLoopEntry as CanonicalizeLoopEntry, CanonicalizeLoopExit as CanonicalizeLoopExit, DeadBranchPrune as DeadBranchPrune, ExtractByteCode as ExtractByteCode, FindLiterallyCalls as FindLiterallyCalls, FixupArgs as FixupArgs, GenericRewrites as GenericRewrites, IRProcessing as IRProcessing, InlineClosureLikes as InlineClosureLikes, InlineInlinables as InlineInlinables, LiteralPropagationSubPipelinePass as LiteralPropagationSubPipelinePass, LiteralUnroll as LiteralUnroll, MakeFunctionToJitFunction as MakeFunctionToJitFunction, ReconstructSSA as ReconstructSSA, RewriteDynamicRaises as RewriteDynamicRaises, RewriteSemanticConstants as RewriteSemanticConstants, TranslateByteCode as TranslateByteCode, WithLifting as WithLifting
+from numba.parfors.parfor import ParforDiagnostics as ParforDiagnostics
 from typing import NamedTuple
 
 class Flags(TargetConfig):

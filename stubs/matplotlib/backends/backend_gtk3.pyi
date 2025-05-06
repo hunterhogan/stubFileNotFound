@@ -1,3 +1,4 @@
+from . import _backend_gtk as _backend_gtk
 from ._backend_gtk import _BackendGTK as _BackendGTK, _FigureCanvasGTK as _FigureCanvasGTK, _FigureManagerGTK as _FigureManagerGTK, _NavigationToolbar2GTK as _NavigationToolbar2GTK
 from _typeshed import Incomplete
 from gi.repository import Gtk

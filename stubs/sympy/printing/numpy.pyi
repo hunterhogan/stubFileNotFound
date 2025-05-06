@@ -1,5 +1,9 @@
+from .codeprinter import CodePrinter as CodePrinter
 from .pycode import ArrayPrinter as ArrayPrinter, PythonCodePrinter as PythonCodePrinter, _known_functions_math as _known_functions_math, _print_known_const as _print_known_const, _print_known_func as _print_known_func, _unpack_integral_limits as _unpack_integral_limits
 from _typeshed import Incomplete
+from sympy.core import S as S
+from sympy.core.function import Lambda as Lambda
+from sympy.core.power import Pow as Pow
 
 _not_in_numpy: Incomplete
 _in_numpy: Incomplete

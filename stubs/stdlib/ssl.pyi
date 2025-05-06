@@ -33,10 +33,10 @@ from typing_extensions import Never, Self, deprecated
 from typing import TypeAlias
 
 if sys.version_info >= (3, 13):
-    pass
+    from _ssl import HAS_PSK as HAS_PSK
 
 if sys.version_info < (3, 12):
-    pass
+    from _ssl import RAND_pseudo_bytes as RAND_pseudo_bytes
 
 if sys.platform == "win32":
     from _ssl import enum_certificates as enum_certificates, enum_crls as enum_crls

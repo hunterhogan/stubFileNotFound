@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+from typing import Literal
 
+from platformdirs import PlatformDirs
+from platformdirs.version import __version__
 
 PROPS: tuple[str, ...] = (
     "user_data_dir",

@@ -2,6 +2,8 @@ import io
 from _typeshed import Incomplete
 from collections.abc import Generator
 
+from pyasn1 import error as error
+from pyasn1.type import univ as univ
 
 class CachingStreamWrapper(io.IOBase):
     def __init__(self, raw) -> None: ...

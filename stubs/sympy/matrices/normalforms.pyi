@@ -1,4 +1,7 @@
 from _typeshed import Incomplete
+from sympy.polys.domains.integerring import ZZ as ZZ
+from sympy.polys.matrices import DomainMatrix as DomainMatrix
+from sympy.polys.polytools import Poly as Poly
 
 def _to_domain(m, domain: Incomplete | None = None):
     """Convert Matrix to DomainMatrix"""

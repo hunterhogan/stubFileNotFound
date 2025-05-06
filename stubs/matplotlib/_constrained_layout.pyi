@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from matplotlib import _api as _api
 
 _log: Incomplete
 

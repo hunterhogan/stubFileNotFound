@@ -1,7 +1,11 @@
 from _typeshed import Incomplete
 from numba import types
 from numba.core.datamodel import models
+from pandas._libs import lib as lib
 from pandas.core.indexes.base import Index as Index
+from pandas.core.indexing import _iLocIndexer as _iLocIndexer
+from pandas.core.internals import SingleBlockManager as SingleBlockManager
+from pandas.core.series import Series as Series
 
 def set_numba_data(index: Index): ...
 

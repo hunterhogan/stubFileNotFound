@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 
+from antlr4.Token import CommonToken as CommonToken
 
 class TokenFactory: ...
 

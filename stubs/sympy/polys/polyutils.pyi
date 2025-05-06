@@ -1,7 +1,11 @@
 from _typeshed import Incomplete
 from sympy.core import Add as Add, Eq as Eq, Expr as Expr, Mul as Mul, Pow as Pow, S as S, expand_mul as expand_mul, expand_multinomial as expand_multinomial
 from sympy.core.exprtools import decompose_power as decompose_power, decompose_power_rat as decompose_power_rat
+from sympy.core.numbers import _illegal as _illegal
+from sympy.external.gmpy import GROUND_TYPES as GROUND_TYPES
+from sympy.polys.domains.modularinteger import ModularInteger as ModularInteger
 from sympy.polys.polyerrors import GeneratorsError as GeneratorsError, PolynomialError as PolynomialError
+from sympy.polys.polyoptions import build_options as build_options
 
 _gens_order: Incomplete
 _max_order: int

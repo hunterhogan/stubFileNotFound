@@ -1,10 +1,14 @@
 from _typeshed import Incomplete
 from sympy.codegen.ast import Attribute as Attribute, CodeBlock as CodeBlock, FunctionCall as FunctionCall, Node as Node, String as String, Token as Token, Variable as Variable, _mk_Tuple as _mk_Tuple, none as none
 from sympy.core.basic import Basic as Basic
+from sympy.core.containers import Tuple as Tuple
 from sympy.core.expr import Expr as Expr
 from sympy.core.function import Function as Function
 from sympy.core.numbers import Float as Float, Integer as Integer
+from sympy.core.symbol import Str as Str
+from sympy.core.sympify import sympify as sympify
 from sympy.logic import false as false, true as true
+from sympy.utilities.iterables import iterable as iterable
 
 pure: Incomplete
 elemental: Incomplete

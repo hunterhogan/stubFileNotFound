@@ -1,8 +1,14 @@
+from .cudadrv import nvvm as nvvm
 from _typeshed import Incomplete
+from numba import cuda as cuda
 from numba.core import cgutils as cgutils, types as types
+from numba.core.datamodel import models as models
 from numba.core.imputils import Registry as Registry, lower_cast as lower_cast
+from numba.core.typing.npydecl import parse_dtype as parse_dtype
 from numba.cuda import errors as errors, nvvmutils as nvvmutils, stubs as stubs
 from numba.cuda.types import CUDADispatcher as CUDADispatcher, dim3 as dim3
+from numba.np import ufunc_db as ufunc_db
+from numba.np.npyimpl import register_ufuncs as register_ufuncs
 
 registry: Incomplete
 lower: Incomplete

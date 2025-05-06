@@ -2,6 +2,9 @@ import collections
 import functools
 from _typeshed import Incomplete
 from collections.abc import Generator
+from numba.core.errors import UnsupportedError as UnsupportedError
+from numba.core.ir import Loc as Loc
+from numba.core.utils import PYVERSION as PYVERSION
 from typing import NamedTuple
 
 NEW_BLOCKERS: Incomplete

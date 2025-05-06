@@ -1,5 +1,7 @@
+from .typeof import typeof_impl as typeof_impl
 from _typeshed import Incomplete
 from numba.core import config as config, types as types
+from numba.core.typing import templates as templates
 
 _FROM_CTYPES: Incomplete
 _TO_CTYPES: Incomplete

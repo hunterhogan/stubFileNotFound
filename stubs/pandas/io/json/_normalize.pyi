@@ -1,4 +1,5 @@
 from pandas import DataFrame as DataFrame
+from pandas._libs.writers import convert_json_to_lines as convert_json_to_lines
 from pandas._typing import IgnoreRaise as IgnoreRaise, Scalar as Scalar
 from typing import Any
 

@@ -2,6 +2,13 @@ from _typeshed import Incomplete
 from sympy.core.basic import Basic as Basic
 from sympy.core.containers import Dict as Dict, Tuple as Tuple
 from sympy.core.expr import Expr as Expr
+from sympy.core.power import Pow as Pow
+from sympy.core.singleton import S as S
+from sympy.core.sorting import default_sort_key as default_sort_key
+from sympy.core.symbol import Symbol as Symbol
+from sympy.core.sympify import sympify as sympify
+from sympy.functions.elementary.trigonometric import TrigonometricFunction as TrigonometricFunction
+from sympy.matrices.dense import Matrix as Matrix
 
 class _QuantityMapper:
     _quantity_scale_factors_global: dict[Expr, Expr]

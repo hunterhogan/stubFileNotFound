@@ -4,6 +4,7 @@ from typing_extensions import LiteralString, NotRequired
 
 if sys.platform == "win32":
     import winreg as winreg
+    from os import environ as environ
 else:
     class winreg:
         HKEY_USERS: Final[None]

@@ -1,8 +1,10 @@
 from ..predicates.common import CommutativePredicate as CommutativePredicate, IsTruePredicate as IsTruePredicate
 from sympy.assumptions import AppliedPredicate as AppliedPredicate, Q as Q, ask as ask
 from sympy.core import Basic as Basic, Symbol as Symbol
+from sympy.core.logic import _fuzzy_group as _fuzzy_group
 from sympy.core.numbers import NaN as NaN, Number as Number
 from sympy.logic.boolalg import And as And, BooleanFalse as BooleanFalse, BooleanTrue as BooleanTrue, Equivalent as Equivalent, Implies as Implies, Not as Not, Or as Or, conjuncts as conjuncts
+from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 
 class AskHandler:
     """Base class that all Ask Handlers must inherit."""

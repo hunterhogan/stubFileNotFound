@@ -1,4 +1,7 @@
 from _typeshed import Incomplete
+from matplotlib import cbook as cbook
+from matplotlib.lines import Line2D as Line2D
+from matplotlib.patches import Rectangle as Rectangle
 
 def update_from_first_child(tgt, src) -> None: ...
 

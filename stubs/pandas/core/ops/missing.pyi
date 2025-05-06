@@ -1,4 +1,5 @@
 import numpy as np
+from pandas.core import roperator as roperator
 
 def _fill_zeros(result: np.ndarray, x, y):
     """

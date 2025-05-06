@@ -1,6 +1,13 @@
 from _typeshed import Incomplete
 from sympy.core import Integer as Integer, S as S
 from sympy.core.function import Function as Function
+from sympy.core.logic import fuzzy_not as fuzzy_not
+from sympy.core.relational import Ne as Ne
+from sympy.core.sorting import default_sort_key as default_sort_key
+from sympy.external.gmpy import SYMPY_INTS as SYMPY_INTS
+from sympy.functions.combinatorial.factorials import factorial as factorial
+from sympy.functions.elementary.piecewise import Piecewise as Piecewise
+from sympy.utilities.iterables import has_dups as has_dups
 
 def Eijk(*args, **kwargs):
     """

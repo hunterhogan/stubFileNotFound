@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
 from sympy.codegen.ast import Attribute as Attribute, CodeBlock as CodeBlock, Declaration as Declaration, FunctionCall as FunctionCall, Node as Node, String as String, Token as Token, Type as Type, none as none
 from sympy.core.basic import Basic as Basic
+from sympy.core.containers import Tuple as Tuple
+from sympy.core.sympify import sympify as sympify
 
 void: Incomplete
 restrict: Incomplete

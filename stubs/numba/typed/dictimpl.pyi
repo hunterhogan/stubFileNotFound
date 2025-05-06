@@ -1,4 +1,6 @@
 from _typeshed import Incomplete
+from numba.core import types as types
+from numba.core.imputils import lower_builtin as lower_builtin
 
 _message_dict_support: Incomplete
 

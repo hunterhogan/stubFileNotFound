@@ -1,7 +1,13 @@
 from _typeshed import Incomplete
+from sympy.core.cache import cacheit as cacheit
+from sympy.core.function import Lambda as Lambda
+from sympy.core.relational import Eq as Eq
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol
 from sympy.tensor.indexed import Idx as Idx, IndexedBase as IndexedBase
 from sympy.utilities.codegen import C99CodeGen as C99CodeGen, CodeGenArgumentListError as CodeGenArgumentListError, InOutArgument as InOutArgument, InputArgument as InputArgument, OutputArgument as OutputArgument, Result as Result, ResultBase as ResultBase, get_code_generator as get_code_generator, make_routine as make_routine
+from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
+from sympy.utilities.iterables import iterable as iterable
+from sympy.utilities.lambdify import implemented_function as implemented_function
 
 _doctest_depends_on: Incomplete
 

@@ -1,7 +1,10 @@
 import wx
 from _typeshed import Incomplete
 from matplotlib import _api as _api, _c_internal_utils as _c_internal_utils, backend_tools as backend_tools, cbook as cbook
+from matplotlib._pylab_helpers import Gcf as Gcf
 from matplotlib.backend_bases import CloseEvent as CloseEvent, FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, GraphicsContextBase as GraphicsContextBase, KeyEvent as KeyEvent, LocationEvent as LocationEvent, MouseButton as MouseButton, MouseEvent as MouseEvent, NavigationToolbar2 as NavigationToolbar2, RendererBase as RendererBase, ResizeEvent as ResizeEvent, TimerBase as TimerBase, ToolContainerBase as ToolContainerBase, _Backend as _Backend, cursors as cursors
+from matplotlib.path import Path as Path
+from matplotlib.transforms import Affine2D as Affine2D
 
 _log: Incomplete
 PIXELS_PER_INCH: int

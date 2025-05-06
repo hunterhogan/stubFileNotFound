@@ -1,6 +1,8 @@
 import inspect
 from _typeshed import Incomplete
 from collections.abc import Generator
+from sympy.core.add import Add as Add
+from sympy.core.basic import Basic as Basic
 from sympy.core.function import AppliedUndef as AppliedUndef, Function as Function, UndefinedFunction as UndefinedFunction
 from typing import Any
 

@@ -1,4 +1,5 @@
 from .geo import AitoffAxes as AitoffAxes, HammerAxes as HammerAxes, LambertAxes as LambertAxes, MollweideAxes as MollweideAxes
+from .polar import PolarAxes as PolarAxes
 from _typeshed import Incomplete
 
 class ProjectionRegistry:

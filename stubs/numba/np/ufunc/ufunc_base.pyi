@@ -1,4 +1,6 @@
 from _typeshed import Incomplete
+from numba.core import types as types
+from numba.np import numpy_support as numpy_support
 
 class UfuncLowererBase:
     """Callable class responsible for lowering calls to a specific gufunc.

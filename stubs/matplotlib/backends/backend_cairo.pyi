@@ -1,6 +1,9 @@
 from .. import _api as _api, cbook as cbook, font_manager as font_manager
 from _typeshed import Incomplete
 from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, GraphicsContextBase as GraphicsContextBase, RendererBase as RendererBase, _Backend as _Backend
+from matplotlib.font_manager import ttfFontProperty as ttfFontProperty
+from matplotlib.path import Path as Path
+from matplotlib.transforms import Affine2D as Affine2D
 
 def _set_rgba(ctx, color, alpha, forced_alpha) -> None: ...
 def _append_path(ctx, path, transform, clip: Incomplete | None = None) -> None: ...

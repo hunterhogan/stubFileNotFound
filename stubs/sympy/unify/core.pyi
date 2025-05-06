@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from sympy.utilities.iterables import kbins as kbins
 
 class Compound:
     """ A little class to represent an interior node in the tree

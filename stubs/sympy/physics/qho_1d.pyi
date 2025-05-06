@@ -1,5 +1,6 @@
 from sympy.core import Rational as Rational, S as S, pi as pi
 from sympy.functions import Abs as Abs, exp as exp, factorial as factorial, hermite as hermite, sqrt as sqrt
+from sympy.physics.quantum.constants import hbar as hbar
 
 def psi_n(n, x, m, omega):
     '''

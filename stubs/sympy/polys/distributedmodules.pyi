@@ -1,5 +1,9 @@
 from _typeshed import Incomplete
+from sympy.core.singleton import S as S
+from sympy.core.sympify import sympify as sympify
 from sympy.polys.monomials import monomial_deg as monomial_deg, monomial_div as monomial_div, monomial_lcm as monomial_lcm, monomial_mul as monomial_mul
+from sympy.polys.polytools import Poly as Poly
+from sympy.polys.polyutils import parallel_dict_from_expr as parallel_dict_from_expr
 
 def sdm_monomial_mul(M, X):
     """

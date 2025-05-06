@@ -9,9 +9,16 @@ from antlr4 import (
     PredictionContextCache as PredictionContextCache,
     TerminalNode as TerminalNode,
 )
+from antlr4.atn.ATNDeserializer import ATNDeserializer as ATNDeserializer
+from antlr4.error.ErrorListener import ErrorListener as ErrorListener
+from antlr4.error.Errors import LexerNoViableAltException as LexerNoViableAltException
+from antlr4.InputStream import InputStream as InputStream
 from antlr4.Parser import Parser as Parser
+from antlr4.RuleContext import RuleContext as RuleContext
 from antlr4.Token import Token as Token
 from antlr4.tree.Tree import ParseTree as ParseTree
+from antlr4.tree.Trees import Trees as Trees
+from antlr4.xpath.XPathLexer import XPathLexer as XPathLexer
 
 class XPath:
     WILDCARD: str

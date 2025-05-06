@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
 from sympy.core import Basic as Basic, Expr as Expr, Float as Float
+from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.printing.codeprinter import CodePrinter as CodePrinter
+from sympy.printing.precedence import precedence as precedence
 from typing import Any
 
 known_functions: Incomplete

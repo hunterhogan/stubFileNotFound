@@ -1,5 +1,8 @@
 from _typeshed import Incomplete
 from numba.core import config as config, types as types
+from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
+from numba.core.runtime import nrtdynmod as nrtdynmod
+from numba.core.typing.typeof import typeof_impl as typeof_impl
 from typing import NamedTuple
 
 class _nrt_mstats(NamedTuple):

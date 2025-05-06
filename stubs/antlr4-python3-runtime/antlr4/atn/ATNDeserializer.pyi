@@ -3,8 +3,10 @@ from _typeshed import Incomplete
 from antlr4.atn.ATN import ATN as ATN
 from antlr4.atn.ATNDeserializationOptions import ATNDeserializationOptions as ATNDeserializationOptions
 from antlr4.atn.ATNState import *
+from antlr4.atn.ATNType import ATNType as ATNType
 from antlr4.atn.LexerAction import *
 from antlr4.atn.Transition import *
+from antlr4.Token import Token as Token
 
 SERIALIZED_VERSION: int
 

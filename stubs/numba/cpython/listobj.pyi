@@ -1,7 +1,11 @@
 from _typeshed import Incomplete
+from functools import cached_property as cached_property
+from numba import literal_unroll as literal_unroll
 from numba.core import cgutils as cgutils, config as config, errors as errors, types as types, typing as typing
 from numba.core.extending import overload as overload, overload_method as overload_method
 from numba.core.imputils import RefType as RefType, impl_ret_borrowed as impl_ret_borrowed, impl_ret_new_ref as impl_ret_new_ref, impl_ret_untracked as impl_ret_untracked, iternext_impl as iternext_impl, lower_builtin as lower_builtin, lower_cast as lower_cast
+from numba.cpython import slicing as slicing
+from numba.misc import quicksort as quicksort
 
 def get_list_payload(context, builder, list_type, value):
     """

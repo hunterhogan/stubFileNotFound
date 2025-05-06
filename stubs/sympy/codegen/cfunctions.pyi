@@ -1,6 +1,10 @@
 from _typeshed import Incomplete
 from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function
+from sympy.core.numbers import Rational as Rational
+from sympy.core.power import Pow as Pow
+from sympy.core.singleton import S as S
 from sympy.functions.elementary.exponential import exp as exp, log as log
+from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 
 def _expm1(x): ...
 

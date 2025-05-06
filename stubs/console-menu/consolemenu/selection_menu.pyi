@@ -1,6 +1,7 @@
 from collections.abc import Iterable
 
 from consolemenu import ConsoleMenu as ConsoleMenu
+from consolemenu.items import SelectionItem as SelectionItem
 from consolemenu.menu_formatter import MenuFormatBuilder
 from consolemenu.screen import Screen
 

@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 from numba.core import errors as errors, serialize as serialize, utils as utils
+from numba.core.utils import PYVERSION as PYVERSION
 from typing import NamedTuple
 
 INSTR_LEN: int

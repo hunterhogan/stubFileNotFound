@@ -1,5 +1,13 @@
 from _typeshed import Incomplete
+from sympy.core.add import Add as Add
+from sympy.core.expr import Expr as Expr
+from sympy.core.mul import Mul as Mul
+from sympy.core.singleton import S as S
+from sympy.core.sympify import _sympify as _sympify
+from sympy.matrices.exceptions import ShapeError as ShapeError
 from sympy.matrices.expressions.matexpr import MatrixExpr as MatrixExpr
+from sympy.matrices.expressions.matmul import MatMul as MatMul
+from sympy.matrices.expressions.special import ZeroMatrix as ZeroMatrix
 from sympy.stats.rv import RandomSymbol as RandomSymbol, is_random as is_random
 from sympy.stats.symbolic_probability import Covariance as Covariance, Expectation as Expectation, Variance as Variance
 

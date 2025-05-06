@@ -1,5 +1,10 @@
 from _typeshed import Incomplete
 from sympy.combinatorics.fp_groups import FpGroup as FpGroup, FpSubgroup as FpSubgroup, simplify_presentation as simplify_presentation
+from sympy.combinatorics.free_groups import FreeGroup as FreeGroup
+from sympy.combinatorics.perm_groups import PermutationGroup as PermutationGroup
+from sympy.core.intfunc import igcd as igcd
+from sympy.core.singleton import S as S
+from sympy.functions.combinatorial.numbers import totient as totient
 
 class GroupHomomorphism:
     """

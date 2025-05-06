@@ -4,9 +4,18 @@ from collections.abc import Collection
 from matplotlib.axes import Axes
 from matplotlib.figure import Figure
 from matplotlib.lines import Line2D
+from pandas._libs import lib as lib
 from pandas._typing import MatplotlibColor as MatplotlibColor
+from pandas.core.dtypes.common import is_dict_like as is_dict_like
+from pandas.core.dtypes.generic import ABCSeries as ABCSeries
+from pandas.core.dtypes.missing import remove_na_arraylike as remove_na_arraylike
+from pandas.io.formats.printing import pprint_thing as pprint_thing
 from pandas.plotting._matplotlib.core import LinePlot as LinePlot, MPLPlot as MPLPlot
+from pandas.plotting._matplotlib.groupby import create_iter_data_given_by as create_iter_data_given_by
+from pandas.plotting._matplotlib.style import get_standard_colors as get_standard_colors
 from pandas.plotting._matplotlib.tools import create_subplots as create_subplots, flatten_axes as flatten_axes, maybe_adjust_figure as maybe_adjust_figure
+from pandas.util._decorators import cache_readonly as cache_readonly
+from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Literal, NamedTuple
 
 def _set_ticklabels(ax: Axes, labels: list[str], is_vertical: bool, **kwargs) -> None:

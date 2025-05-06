@@ -1,7 +1,11 @@
 import numpy as np
 import scipy.sparse
 from collections.abc import Iterable
+from pandas._libs import lib as lib
 from pandas._typing import IndexLabel as IndexLabel, npt as npt
+from pandas.core.algorithms import factorize as factorize
+from pandas.core.dtypes.missing import notna as notna
+from pandas.core.indexes.api import MultiIndex as MultiIndex
 from pandas.core.series import Series as Series
 
 def _check_is_partition(parts: Iterable, whole: Iterable): ...

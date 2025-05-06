@@ -1,7 +1,17 @@
+from .matadd import MatAdd as MatAdd
+from .matmul import MatMul as MatMul
+from .matpow import MatPow as MatPow
 from _typeshed import Incomplete
 from sympy.core import Mul as Mul, sympify as sympify
+from sympy.functions import adjoint as adjoint
+from sympy.matrices.exceptions import ShapeError as ShapeError
 from sympy.matrices.expressions.matexpr import MatrixExpr as MatrixExpr
+from sympy.matrices.expressions.special import Identity as Identity
+from sympy.matrices.expressions.transpose import transpose as transpose
+from sympy.matrices.matrixbase import MatrixBase as MatrixBase
 from sympy.strategies import canon as canon, condition as condition, distribute as distribute, do_one as do_one, exhaust as exhaust, flatten as flatten, typed as typed, unpack as unpack
+from sympy.strategies.traverse import bottom_up as bottom_up
+from sympy.utilities import sift as sift
 
 def kronecker_product(*matrices):
     """

@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from sympy.assumptions.assume import AppliedPredicate as AppliedPredicate, Predicate as Predicate
 from sympy.core.relational import Eq as Eq, Ge as Ge, Gt as Gt, Le as Le, Lt as Lt, Ne as Ne
+from sympy.core.singleton import S as S
 from sympy.logic.boolalg import And as And, Equivalent as Equivalent, ITE as ITE, Implies as Implies, Nand as Nand, Nor as Nor, Not as Not, Or as Or, Xnor as Xnor, Xor as Xor
 
 class Literal:

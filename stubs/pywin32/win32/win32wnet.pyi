@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 
 import _win32typing
+from win32.lib.pywintypes import error as error
 
 def NCBBuffer(size, /): ...
 def Netbios(ncb: _win32typing.NCB, /): ...

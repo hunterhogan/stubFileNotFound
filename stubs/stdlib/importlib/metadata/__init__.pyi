@@ -5,8 +5,10 @@ import types
 from _collections_abc import dict_keys, dict_values
 from _typeshed import StrPath
 from collections.abc import Iterable, Iterator, Mapping
+from email.message import Message
 from importlib.abc import MetaPathFinder
 from os import PathLike
+from pathlib import Path
 from re import Pattern
 from typing import Any, ClassVar, Generic, NamedTuple, TypeVar, overload
 from typing_extensions import Self

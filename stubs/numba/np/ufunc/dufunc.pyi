@@ -1,10 +1,15 @@
 from _typeshed import Incomplete
 from numba import jit as jit, typeof as typeof
 from numba.core import cgutils as cgutils, errors as errors, serialize as serialize, sigutils as sigutils, types as types
+from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
 from numba.core.extending import intrinsic as intrinsic, is_jitted as is_jitted, overload_attribute as overload_attribute, overload_method as overload_method, register_jitable as register_jitable
+from numba.core.typing import npydecl as npydecl
 from numba.core.typing.templates import AbstractTemplate as AbstractTemplate, signature as signature
+from numba.cpython.unsafe.tuple import tuple_setitem as tuple_setitem
+from numba.np import numpy_support as numpy_support
 from numba.np.ufunc import _internal as _internal, ufuncbuilder as ufuncbuilder
 from numba.np.ufunc.ufunc_base import UfuncBase as UfuncBase, UfuncLowererBase as UfuncLowererBase
+from numba.parfors import array_analysis as array_analysis
 
 class UfuncAtIterator:
     ufunc: Incomplete

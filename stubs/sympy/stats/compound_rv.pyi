@@ -1,7 +1,15 @@
 from _typeshed import Incomplete
+from sympy.concrete.summations import Sum as Sum
+from sympy.core.basic import Basic as Basic
+from sympy.core.function import Lambda as Lambda
+from sympy.core.symbol import Dummy as Dummy
+from sympy.integrals.integrals import Integral as Integral
 from sympy.stats.crv import ContinuousDistribution as ContinuousDistribution, SingleContinuousPSpace as SingleContinuousPSpace
+from sympy.stats.crv_types import ContinuousDistributionHandmade as ContinuousDistributionHandmade
 from sympy.stats.drv import DiscreteDistribution as DiscreteDistribution, SingleDiscretePSpace as SingleDiscretePSpace
+from sympy.stats.drv_types import DiscreteDistributionHandmade as DiscreteDistributionHandmade
 from sympy.stats.frv import SingleFiniteDistribution as SingleFiniteDistribution, SingleFinitePSpace as SingleFinitePSpace
+from sympy.stats.frv_types import FiniteDistributionHandmade as FiniteDistributionHandmade
 from sympy.stats.rv import Distribution as Distribution, NamedArgsMixin as NamedArgsMixin, PSpace as PSpace, RandomSymbol as RandomSymbol, _symbol_converter as _symbol_converter, is_random as is_random, random_symbols as random_symbols
 
 class CompoundPSpace(PSpace):

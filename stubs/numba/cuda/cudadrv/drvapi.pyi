@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from ctypes import c_int, c_size_t, c_void_p
+from numba.cuda.cudadrv import _extras as _extras
 
 cu_device = c_int
 cu_device_attribute = c_int

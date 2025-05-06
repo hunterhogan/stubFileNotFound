@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from pandas import DataFrame as DataFrame, Series as Series
 from pandas._typing import DtypeObj as DtypeObj, IndexLabel as IndexLabel
 from pandas.core.dtypes.common import is_bool_dtype as is_bool_dtype, is_complex_dtype as is_complex_dtype, is_integer_dtype as is_integer_dtype, is_list_like as is_list_like, is_numeric_dtype as is_numeric_dtype, needs_i8_conversion as needs_i8_conversion
+from pandas.core.dtypes.dtypes import BaseMaskedDtype as BaseMaskedDtype
 
 class SelectN:
     obj: Incomplete

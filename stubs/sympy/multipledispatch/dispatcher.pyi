@@ -1,4 +1,5 @@
 from .conflict import AmbiguityWarning as AmbiguityWarning, ambiguities as ambiguities, ordering as ordering, super_signature as super_signature
+from .utils import expand_tuples as expand_tuples
 from _typeshed import Incomplete
 from collections.abc import Generator
 

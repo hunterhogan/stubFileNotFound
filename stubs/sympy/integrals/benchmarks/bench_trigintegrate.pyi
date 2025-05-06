@@ -1,4 +1,7 @@
 from _typeshed import Incomplete
+from sympy.core.symbol import Symbol as Symbol
+from sympy.functions.elementary.trigonometric import sin as sin
+from sympy.integrals.trigonometry import trigintegrate as trigintegrate
 
 x: Incomplete
 

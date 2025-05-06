@@ -1,7 +1,11 @@
 from _typeshed import Incomplete
 from matplotlib import _text_helpers as _text_helpers, dviread as dviread
 from matplotlib.font_manager import FontProperties as FontProperties, get_font as get_font
+from matplotlib.ft2font import LoadFlags as LoadFlags
+from matplotlib.mathtext import MathTextParser as MathTextParser
 from matplotlib.path import Path as Path
+from matplotlib.texmanager import TexManager as TexManager
+from matplotlib.transforms import Affine2D as Affine2D
 
 _log: Incomplete
 

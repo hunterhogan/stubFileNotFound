@@ -1,9 +1,14 @@
 from _typeshed import Incomplete
 from sympy.core import Add as Add, Basic as Basic, Dummy as Dummy, Mul as Mul, S as S, Symbol as Symbol, sympify as sympify
 from sympy.core.expr import Expr as Expr
+from sympy.core.exprtools import factor_terms as factor_terms
 from sympy.core.function import AppliedUndef as AppliedUndef, ArgumentIndexError as ArgumentIndexError, Derivative as Derivative, Function as Function, expand_mul as expand_mul
 from sympy.core.logic import fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
 from sympy.core.numbers import I as I, oo as oo, pi as pi
+from sympy.core.power import Pow as Pow
+from sympy.core.relational import Eq as Eq
+from sympy.functions.elementary.miscellaneous import sqrt as sqrt
+from sympy.functions.elementary.piecewise import Piecewise as Piecewise
 
 class re(Function):
     """

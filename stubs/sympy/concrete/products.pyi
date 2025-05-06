@@ -2,8 +2,14 @@ from .expr_with_intlimits import ExprWithIntLimits as ExprWithIntLimits
 from .summations import Sum as Sum, _dummy_with_inherited_properties_concrete as _dummy_with_inherited_properties_concrete, summation as summation
 from _typeshed import Incomplete
 from sympy.core.expr import Expr as Expr
+from sympy.core.exprtools import factor_terms as factor_terms
+from sympy.core.function import Derivative as Derivative
+from sympy.core.mul import Mul as Mul
+from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol
+from sympy.functions.combinatorial.factorials import RisingFactorial as RisingFactorial
 from sympy.functions.elementary.exponential import exp as exp, log as log
+from sympy.functions.special.tensor_functions import KroneckerDelta as KroneckerDelta
 from sympy.polys import quo as quo, roots as roots
 
 class Product(ExprWithIntLimits):

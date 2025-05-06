@@ -9,3 +9,4 @@ from .assertpy import (
     soft_assertions as soft_assertions,
     soft_fail as soft_fail,
 )
+from .file import contents_of as contents_of

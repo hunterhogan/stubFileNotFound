@@ -3,6 +3,7 @@ import tornado.websocket
 from . import backend_webagg_core as core
 from .backend_webagg_core import TimerAsyncio as TimerAsyncio, TimerTornado as TimerTornado
 from _typeshed import Incomplete
+from matplotlib._pylab_helpers import Gcf as Gcf
 from matplotlib.backend_bases import _Backend as _Backend
 
 webagg_server_thread: Incomplete

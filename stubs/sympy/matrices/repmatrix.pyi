@@ -2,11 +2,17 @@ from .exceptions import NonInvertibleMatrixError as NonInvertibleMatrixError, No
 from .kind import MatrixKind as MatrixKind
 from .matrixbase import MatrixBase as MatrixBase, classof as classof
 from _typeshed import Incomplete
+from sympy.core.expr import Expr as Expr
 from sympy.core.kind import Kind as Kind, NumberKind as NumberKind, UndefinedKind as UndefinedKind
 from sympy.core.numbers import Integer as Integer, Rational as Rational
+from sympy.core.singleton import S as S
 from sympy.core.sympify import SympifyError as SympifyError, _sympify as _sympify
 from sympy.polys.domains import EXRAW as EXRAW, GF as GF, QQ as QQ, ZZ as ZZ
 from sympy.polys.matrices import DomainMatrix as DomainMatrix
+from sympy.polys.matrices.exceptions import DMNonInvertibleMatrixError as DMNonInvertibleMatrixError
+from sympy.polys.polyerrors import CoercionFailed as CoercionFailed
+from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
+from sympy.utilities.iterables import is_sequence as is_sequence
 from sympy.utilities.misc import as_int as as_int, filldedent as filldedent
 
 class RepMatrix(MatrixBase):

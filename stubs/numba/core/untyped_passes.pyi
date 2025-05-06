@@ -4,6 +4,8 @@ from numba.core import bytecode as bytecode, config as config, consts as consts,
 from numba.core.analysis import compute_cfg_from_blocks as compute_cfg_from_blocks, compute_use_defs as compute_use_defs, dead_branch_prune as dead_branch_prune, find_literally_calls as find_literally_calls, rewrite_semantic_constants as rewrite_semantic_constants
 from numba.core.compiler_machinery import AnalysisPass as AnalysisPass, FunctionPass as FunctionPass, SSACompliantMixin as SSACompliantMixin, register_pass as register_pass
 from numba.core.ir_utils import GuardException as GuardException, build_definitions as build_definitions, compile_to_numba_ir as compile_to_numba_ir, convert_code_obj_to_function as convert_code_obj_to_function, find_max_label as find_max_label, fixup_var_define_in_scope as fixup_var_define_in_scope, get_definition as get_definition, get_name_var_table as get_name_var_table, guard as guard, rename_labels as rename_labels, replace_var_names as replace_var_names, resolve_func_from_module as resolve_func_from_module, simplify_CFG as simplify_CFG, transfer_scope as transfer_scope
+from numba.core.ssa import reconstruct_ssa as reconstruct_ssa
+from numba.misc.special import literal_unroll as literal_unroll
 
 def fallback_context(state, msg) -> Generator[None]:
     """

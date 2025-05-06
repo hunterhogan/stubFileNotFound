@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from numba.core import cgutils as cgutils
 
 _regex_incref: Incomplete
 _regex_decref: Incomplete

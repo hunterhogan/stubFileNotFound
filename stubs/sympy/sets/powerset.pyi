@@ -1,5 +1,10 @@
 from .sets import FiniteSet as FiniteSet, Set as Set, SetKind as SetKind
 from _typeshed import Incomplete
+from sympy.core.decorators import _sympifyit as _sympifyit
+from sympy.core.logic import fuzzy_bool as fuzzy_bool
+from sympy.core.parameters import global_parameters as global_parameters
+from sympy.core.singleton import S as S
+from sympy.core.sympify import _sympify as _sympify
 
 class PowerSet(Set):
     """A symbolic object representing a power set.

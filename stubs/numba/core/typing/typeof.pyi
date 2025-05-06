@@ -1,6 +1,7 @@
 import enum
 from _typeshed import Incomplete
 from numba.core import config as config, errors as errors, types as types, utils as utils
+from numba.np import numpy_support as numpy_support
 from typing import NamedTuple
 
 _termcolor: Incomplete

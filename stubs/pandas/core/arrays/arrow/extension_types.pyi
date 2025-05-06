@@ -1,6 +1,8 @@
 import pyarrow
 from _typeshed import Incomplete
 from pandas._typing import IntervalClosedType as IntervalClosedType
+from pandas.compat import pa_version_under14p1 as pa_version_under14p1
+from pandas.core.arrays.interval import VALID_CLOSED as VALID_CLOSED
 from pandas.core.dtypes.dtypes import IntervalDtype as IntervalDtype, PeriodDtype as PeriodDtype
 
 class ArrowPeriodType(pyarrow.ExtensionType):

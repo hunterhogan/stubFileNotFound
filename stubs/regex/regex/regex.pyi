@@ -5,7 +5,7 @@ from typing import Any, AnyStr, Generic, Literal, TypeVar, final, overload
 from typing_extensions import Self
 
 from . import _regex
-from ._regex_core import Match, Pattern
+from ._regex_core import *
 
 _T = TypeVar("_T")
 

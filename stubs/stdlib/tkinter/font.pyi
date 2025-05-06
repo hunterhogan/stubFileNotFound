@@ -1,5 +1,6 @@
 import _tkinter
 import itertools
+import sys
 import tkinter
 from typing import Any, ClassVar, Final, Literal, TypedDict, overload
 from typing_extensions import Unpack

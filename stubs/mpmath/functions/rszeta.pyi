@@ -1,3 +1,4 @@
+from .functions import defun as defun
 
 class RSCache:
     def __init__(ctx) -> None: ...

@@ -1,6 +1,9 @@
 from _typeshed import Incomplete
+from pandas._config import get_option as get_option
 from pandas._typing import FuncType as FuncType
+from pandas.core import roperator as roperator
 from pandas.core.computation.check import NUMEXPR_INSTALLED as NUMEXPR_INSTALLED
+from pandas.util._exceptions import find_stack_level as find_stack_level
 
 _TEST_MODE: bool | None
 _TEST_RESULT: list[bool]

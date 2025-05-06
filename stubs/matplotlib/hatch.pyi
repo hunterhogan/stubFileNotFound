@@ -1,4 +1,6 @@
 from _typeshed import Incomplete
+from matplotlib import _api as _api
+from matplotlib.path import Path as Path
 
 class HatchPatternBase:
     """The base class for a hatch pattern."""

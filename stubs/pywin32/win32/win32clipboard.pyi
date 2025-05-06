@@ -1,5 +1,6 @@
 from typing import Any, Final
 
+from win32.lib.pywintypes import error as error
 
 def ChangeClipboardChain(hWndRemove: int, hWndNewNext: int, /): ...
 def CloseClipboard(): ...

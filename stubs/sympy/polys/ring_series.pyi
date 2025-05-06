@@ -1,9 +1,13 @@
 from _typeshed import Incomplete
 from sympy.core import Expr as Expr, Function as Function, PoleError as PoleError
+from sympy.core.intfunc import igcd as igcd
+from sympy.core.numbers import Rational as Rational
 from sympy.functions import atan as atan, atanh as atanh, ceiling as ceiling, cos as cos, exp as exp, log as log, sin as sin, tan as tan, tanh as tanh
 from sympy.polys.domains import EX as EX, QQ as QQ
 from sympy.polys.monomials import monomial_div as monomial_div, monomial_ldiv as monomial_ldiv, monomial_min as monomial_min, monomial_mul as monomial_mul
+from sympy.polys.polyerrors import DomainError as DomainError
 from sympy.polys.rings import PolyElement as PolyElement, ring as ring, sring as sring
+from sympy.utilities.misc import as_int as as_int
 
 def _invert_monoms(p1):
     """

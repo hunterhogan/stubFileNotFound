@@ -4,6 +4,8 @@ from .sympify import SympifyError as SympifyError, _sympify as _sympify, _sympy_
 from _typeshed import Incomplete
 from collections.abc import MutableSet
 from sympy.core.kind import Kind as Kind
+from sympy.utilities.iterables import iterable as iterable
+from sympy.utilities.misc import as_int as as_int
 from typing import Any
 
 from collections.abc import Callable

@@ -1,3 +1,4 @@
+import sys
 from _typeshed import SupportsLenAndGetItem, SupportsRichComparisonT
 from collections.abc import Callable, MutableSequence
 from typing import TypeVar, overload

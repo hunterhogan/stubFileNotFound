@@ -3,7 +3,10 @@ from numba import literal_unroll as literal_unroll, pndindex as pndindex
 from numba.core import cgutils as cgutils, config as config, errors as errors, extending as extending, types as types, typing as typing
 from numba.core.extending import intrinsic as intrinsic, overload as overload, overload_attribute as overload_attribute, overload_classmethod as overload_classmethod, overload_method as overload_method, register_jitable as register_jitable
 from numba.core.imputils import RefType as RefType, impl_ret_borrowed as impl_ret_borrowed, impl_ret_new_ref as impl_ret_new_ref, impl_ret_untracked as impl_ret_untracked, iternext_impl as iternext_impl, lower_builtin as lower_builtin, lower_cast as lower_cast, lower_constant as lower_constant, lower_getattr as lower_getattr, lower_getattr_generic as lower_getattr_generic, lower_setattr_generic as lower_setattr_generic
+from numba.core.types import StringLiteral as StringLiteral
+from numba.core.typing import signature as signature
 from numba.core.typing.npydecl import _choose_concatenation_layout as _choose_concatenation_layout, _parse_nested_sequence as _parse_nested_sequence, _sequence_of_arrays as _sequence_of_arrays
+from numba.cpython import slicing as slicing
 from numba.cpython.unsafe.tuple import build_full_slice_tuple as build_full_slice_tuple, tuple_setitem as tuple_setitem
 from numba.misc import mergesort as mergesort, quicksort as quicksort
 from numba.np.numpy_support import as_dtype as as_dtype, carray as carray, check_is_integer as check_is_integer, farray as farray, from_dtype as from_dtype, is_contiguous as is_contiguous, is_fortran as is_fortran, is_nonelike as is_nonelike, lt_complex as lt_complex, lt_floats as lt_floats, numpy_version as numpy_version, type_can_asarray as type_can_asarray, type_is_scalar as type_is_scalar

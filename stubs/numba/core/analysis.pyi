@@ -1,6 +1,8 @@
+from .controlflow import CFGraph as CFGraph
 from _typeshed import Incomplete
 from collections.abc import Generator
 from numba.core import consts as consts, errors as errors, ir as ir, types as types
+from numba.misc import special as special
 from typing import NamedTuple
 
 class _use_defs_result(NamedTuple):

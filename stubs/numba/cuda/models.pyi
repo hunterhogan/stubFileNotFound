@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from numba.core import types as types
 from numba.core.datamodel.registry import DataModelManager as DataModelManager, register as register
 from numba.core.extending import models as models
 from numba.cuda.types import CUDADispatcher as CUDADispatcher, Dim3 as Dim3, GridGroup as GridGroup

@@ -2,8 +2,13 @@ from _typeshed import Incomplete
 from pandas._libs.tslibs import Timedelta as Timedelta, Timestamp as Timestamp
 from pandas._typing import Self as Self, npt as npt
 from pandas.core.computation import expr as expr, ops as ops, scope as _scope
+from pandas.core.computation.common import ensure_decoded as ensure_decoded
 from pandas.core.computation.expr import BaseExprVisitor as BaseExprVisitor
+from pandas.core.computation.ops import is_term as is_term
+from pandas.core.construction import extract_array as extract_array
+from pandas.core.dtypes.common import is_list_like as is_list_like
 from pandas.core.indexes.base import Index as Index
+from pandas.errors import UndefinedVariableError as UndefinedVariableError
 from pandas.io.formats.printing import pprint_thing as pprint_thing, pprint_thing_encoded as pprint_thing_encoded
 from typing import Any, ClassVar
 

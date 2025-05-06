@@ -1,3 +1,4 @@
+from binascii import hexlify as hexlify
 from typing import Final, Literal, overload
 
 from passlib.handlers.windows import nthash as nthash

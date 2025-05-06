@@ -3,7 +3,10 @@ from collections.abc import Generator
 from functools import cached_property as cached_property
 from numba import _dynfunc as _dynfunc, _helperlib as _helperlib
 from numba.core import cgutils as cgutils, config as config, datamodel as datamodel, debuginfo as debuginfo, errors as errors, event as event, funcdesc as funcdesc, imputils as imputils, targetconfig as targetconfig, types as types, utils as utils
+from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
 from numba.core.imputils import RegistryLoader as RegistryLoader, builtin_registry as builtin_registry, impl_ret_borrowed as impl_ret_borrowed, user_function as user_function, user_generator as user_generator
+from numba.core.pythonapi import PythonAPI as PythonAPI
+from numba.cpython import builtins as builtins
 
 GENERIC_POINTER: Incomplete
 PYOBJECT = GENERIC_POINTER

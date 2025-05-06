@@ -1,8 +1,20 @@
 from _typeshed import Incomplete
+from sympy.concrete.summations import Sum as Sum
+from sympy.core.add import Add as Add
 from sympy.core.function import Function as Function
 from sympy.core.numbers import Float as Float, I as I, Integer as Integer, Rational as Rational, int_valued as int_valued, pi as pi
+from sympy.core.singleton import S as S
+from sympy.core.symbol import Dummy as Dummy
+from sympy.core.sympify import sympify as sympify
 from sympy.functions.combinatorial.factorials import binomial as binomial, factorial as factorial
+from sympy.functions.elementary.complexes import re as re
+from sympy.functions.elementary.exponential import exp as exp
+from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.functions.elementary.trigonometric import cos as cos, sin as sin
+from sympy.functions.special.spherical_harmonics import Ynm as Ynm
+from sympy.matrices.dense import zeros as zeros
+from sympy.matrices.immutable import ImmutableMatrix as ImmutableMatrix
+from sympy.utilities.misc import as_int as as_int
 
 _Factlist: Incomplete
 

@@ -1,4 +1,5 @@
 from collections.abc import Generator
+from pandas._config.config import options as options
 
 def set_locale(new_locale: str | tuple[str, str], lc_var: int = ...) -> Generator[str | tuple[str, str], None, None]:
     '''

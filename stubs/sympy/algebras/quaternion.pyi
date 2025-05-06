@@ -1,9 +1,17 @@
 from _typeshed import Incomplete
 from sympy.core.expr import Expr as Expr
 from sympy.core.logic import fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
+from sympy.core.numbers import Rational as Rational
+from sympy.core.relational import is_eq as is_eq
+from sympy.core.singleton import S as S
 from sympy.core.sympify import _sympify as _sympify, sympify as sympify
 from sympy.functions.elementary.complexes import conjugate as conjugate, im as im, re as re, sign as sign
+from sympy.functions.elementary.exponential import exp as exp
+from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.functions.elementary.trigonometric import acos as acos, asin as asin, atan2 as atan2, cos as cos, sin as sin
+from sympy.integrals.integrals import integrate as integrate
+from sympy.simplify.trigsimp import trigsimp as trigsimp
+from sympy.utilities.misc import as_int as as_int
 
 def _check_norm(elements, norm) -> None:
     """validate if input norm is consistent"""

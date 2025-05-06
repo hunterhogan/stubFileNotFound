@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
 from sympy.concrete.expr_with_limits import ExprWithLimits as ExprWithLimits
+from sympy.core.relational import Eq as Eq
+from sympy.core.singleton import S as S
 
 class ReorderError(NotImplementedError):
     """

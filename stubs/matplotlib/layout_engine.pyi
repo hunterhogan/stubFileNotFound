@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from matplotlib._constrained_layout import do_constrained_layout as do_constrained_layout
 from matplotlib._tight_layout import get_subplotspec_list as get_subplotspec_list, get_tight_layout_figure as get_tight_layout_figure
 
 class LayoutEngine:

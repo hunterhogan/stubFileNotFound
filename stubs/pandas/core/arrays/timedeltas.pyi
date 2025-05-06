@@ -4,12 +4,19 @@ from collections.abc import Iterator
 from pandas import DataFrame as DataFrame
 from pandas._libs import lib as lib, tslibs as tslibs
 from pandas._libs.tslibs import NaT as NaT, NaTType as NaTType, Tick as Tick, Timedelta as Timedelta, astype_overflowsafe as astype_overflowsafe, get_supported_dtype as get_supported_dtype, iNaT as iNaT, is_supported_dtype as is_supported_dtype, periods_per_second as periods_per_second
+from pandas._libs.tslibs.conversion import cast_from_unit_vectorized as cast_from_unit_vectorized
 from pandas._libs.tslibs.fields import get_timedelta_days as get_timedelta_days, get_timedelta_field as get_timedelta_field
 from pandas._libs.tslibs.timedeltas import array_to_timedelta64 as array_to_timedelta64, floordiv_object_array as floordiv_object_array, ints_to_pytimedelta as ints_to_pytimedelta, parse_timedelta_unit as parse_timedelta_unit, truediv_object_array as truediv_object_array
 from pandas._typing import AxisInt as AxisInt, DateTimeErrorChoices as DateTimeErrorChoices, DtypeObj as DtypeObj, NpDtype as NpDtype, Self as Self, npt as npt
 from pandas.core import nanops as nanops, roperator as roperator
+from pandas.core.array_algos import datetimelike_accumulations as datetimelike_accumulations
 from pandas.core.arrays import datetimelike as dtl
+from pandas.core.arrays._ranges import generate_regular_range as generate_regular_range
 from pandas.core.dtypes.common import TD64NS_DTYPE as TD64NS_DTYPE, is_float_dtype as is_float_dtype, is_integer_dtype as is_integer_dtype, is_object_dtype as is_object_dtype, is_scalar as is_scalar, is_string_dtype as is_string_dtype, pandas_dtype as pandas_dtype
+from pandas.core.dtypes.dtypes import ExtensionDtype as ExtensionDtype
+from pandas.core.dtypes.missing import isna as isna
+from pandas.core.ops.common import unpack_zerodim_and_defer as unpack_zerodim_and_defer
+from pandas.util._validators import validate_endpoints as validate_endpoints
 
 def _field_accessor(name: str, alias: str, docstring: str): ...
 

@@ -1,5 +1,9 @@
 from _typeshed import Incomplete
 from numba.core import config as config, errors as errors, types as types
+from numba.core.cgutils import is_nonelike as is_nonelike
+from numba.core.errors import TypingError as TypingError
+from numba.core.typing.templates import signature as signature
+from numba.np import npdatetime_helpers as npdatetime_helpers
 from typing import NamedTuple
 
 numpy_version: Incomplete

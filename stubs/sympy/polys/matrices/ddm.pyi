@@ -1,8 +1,13 @@
 from .dense import ddm_berk as ddm_berk, ddm_iadd as ddm_iadd, ddm_idet as ddm_idet, ddm_iinv as ddm_iinv, ddm_ilu_solve as ddm_ilu_solve, ddm_ilu_split as ddm_ilu_split, ddm_imatmul as ddm_imatmul, ddm_imul as ddm_imul, ddm_ineg as ddm_ineg, ddm_irmul as ddm_irmul, ddm_irref as ddm_irref, ddm_irref_den as ddm_irref_den, ddm_isub as ddm_isub, ddm_transpose as ddm_transpose
+from .dfm import DFM as DFM
 from .exceptions import DMBadInputError as DMBadInputError, DMDomainError as DMDomainError, DMNonSquareMatrixError as DMNonSquareMatrixError, DMShapeError as DMShapeError
 from .lll import ddm_lll as ddm_lll, ddm_lll_transform as ddm_lll_transform
+from .sdm import SDM as SDM
 from _typeshed import Incomplete
 from collections.abc import Generator
+from sympy.external.gmpy import GROUND_TYPES as GROUND_TYPES
+from sympy.polys.domains import QQ as QQ
+from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
 
 __doctest_skip__: Incomplete
 

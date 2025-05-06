@@ -2,16 +2,20 @@ import numpy as np
 from _typeshed import Incomplete
 from collections.abc import Sequence, Sized
 from pandas import Index as Index
+from pandas._config import using_pyarrow_string_dtype as using_pyarrow_string_dtype
 from pandas._libs import Interval as Interval, Period as Period, lib as lib
 from pandas._libs.missing import NA as NA, NAType as NAType, checknull as checknull
 from pandas._libs.tslibs import NaT as NaT, OutOfBoundsDatetime as OutOfBoundsDatetime, OutOfBoundsTimedelta as OutOfBoundsTimedelta, Timedelta as Timedelta, Timestamp as Timestamp, is_supported_dtype as is_supported_dtype
+from pandas._libs.tslibs.timedeltas import array_to_timedelta64 as array_to_timedelta64
 from pandas._typing import ArrayLike as ArrayLike, Dtype as Dtype, DtypeObj as DtypeObj, NumpyIndexT as NumpyIndexT, Scalar as Scalar, npt as npt
 from pandas.core.arrays import Categorical as Categorical, DatetimeArray as DatetimeArray, ExtensionArray as ExtensionArray, IntervalArray as IntervalArray, PeriodArray as PeriodArray, TimedeltaArray as TimedeltaArray
 from pandas.core.dtypes.common import ensure_int16 as ensure_int16, ensure_int32 as ensure_int32, ensure_int64 as ensure_int64, ensure_int8 as ensure_int8, ensure_object as ensure_object, ensure_str as ensure_str, is_bool as is_bool, is_complex as is_complex, is_float as is_float, is_integer as is_integer, is_object_dtype as is_object_dtype, is_scalar as is_scalar, is_string_dtype as is_string_dtype
 from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype, BaseMaskedDtype as BaseMaskedDtype, CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype, IntervalDtype as IntervalDtype, PandasExtensionDtype as PandasExtensionDtype, PeriodDtype as PeriodDtype
 from pandas.core.dtypes.generic import ABCExtensionArray as ABCExtensionArray, ABCIndex as ABCIndex, ABCSeries as ABCSeries
+from pandas.core.dtypes.inference import is_list_like as is_list_like
 from pandas.core.dtypes.missing import is_valid_na_for_dtype as is_valid_na_for_dtype, isna as isna, na_value_for_dtype as na_value_for_dtype, notna as notna
 from pandas.errors import IntCastingNaNError as IntCastingNaNError, LossySetitemError as LossySetitemError
+from pandas.io._util import _arrow_dtype_mapping as _arrow_dtype_mapping
 from typing import Any, Literal, TypeVar, overload
 
 _int8_max: Incomplete

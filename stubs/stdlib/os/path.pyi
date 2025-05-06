@@ -1,6 +1,8 @@
 import sys
 
 if sys.platform == "win32":
-    pass
+    from ntpath import *
+    from ntpath import __all__ as __all__
 else:
-    pass
+    from posixpath import *
+    from posixpath import __all__ as __all__

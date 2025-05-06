@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from numba.core import errors as errors, types as types
+from numba.core.typing.typeof import typeof as typeof
 
 class AsNumbaTypeRegistry:
     """

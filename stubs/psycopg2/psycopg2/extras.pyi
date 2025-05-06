@@ -3,6 +3,7 @@ from collections import OrderedDict
 from collections.abc import Callable
 from typing import Any, NamedTuple, TypeVar, overload
 
+from psycopg2._ipaddress import register_ipaddress as register_ipaddress
 from psycopg2._json import (
     Json as Json,
     register_default_json as register_default_json,

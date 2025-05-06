@@ -3,7 +3,9 @@ from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from collections.abc import Iterable, Iterator, Mapping, Sequence
 from pandas import DataFrame as DataFrame, Index as Index, Series as Series
+from pandas._config import get_option as get_option
 from pandas._typing import Dtype as Dtype, WriteBuffer as WriteBuffer
+from pandas.io.formats.printing import pprint_thing as pprint_thing
 
 frame_max_cols_sub: Incomplete
 show_counts_sub: Incomplete

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from matplotlib import _api as _api
 from matplotlib.backends.qt_compat import QtCore as QtCore, QtGui as QtGui, QtWidgets as QtWidgets, _to_int as _to_int
 
 __version__: str

@@ -3,6 +3,13 @@ from collections.abc import Generator
 from enum import Enum, IntEnum
 from matplotlib import _api as _api, _docstring as _docstring, _tight_bbox as _tight_bbox, cbook as cbook, colors as colors, is_interactive as is_interactive, rcParams as rcParams, text as text, transforms as transforms, widgets as widgets
 from matplotlib._enums import CapStyle as CapStyle, JoinStyle as JoinStyle
+from matplotlib._pylab_helpers import Gcf as Gcf
+from matplotlib.backend_managers import ToolManager as ToolManager
+from matplotlib.cbook import _setattr_cm as _setattr_cm
+from matplotlib.layout_engine import ConstrainedLayoutEngine as ConstrainedLayoutEngine
+from matplotlib.path import Path as Path
+from matplotlib.texmanager import TexManager as TexManager
+from matplotlib.transforms import Affine2D as Affine2D
 from typing import NamedTuple
 
 _log: Incomplete

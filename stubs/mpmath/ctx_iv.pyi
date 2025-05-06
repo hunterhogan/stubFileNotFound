@@ -1,5 +1,8 @@
+from . import libmp as libmp
 from .ctx_base import StandardBaseContext as StandardBaseContext
 from .libmp import ComplexResult as ComplexResult, MPZ_ONE as MPZ_ONE, dps_to_prec as dps_to_prec, finf as finf, fnan as fnan, fninf as fninf, from_float as from_float, from_int as from_int, from_rational as from_rational, from_str as from_str, fzero as fzero, int_types as int_types, mpc_hash as mpc_hash, mpci_abs as mpci_abs, mpci_add as mpci_add, mpci_div as mpci_div, mpci_exp as mpci_exp, mpci_log as mpci_log, mpci_mul as mpci_mul, mpci_neg as mpci_neg, mpci_pos as mpci_pos, mpci_pow as mpci_pow, mpci_sub as mpci_sub, mpf_hash as mpf_hash, mpf_le as mpf_le, mpf_neg as mpf_neg, mpi_abs as mpi_abs, mpi_add as mpi_add, mpi_delta as mpi_delta, mpi_div as mpi_div, mpi_from_str as mpi_from_str, mpi_mid as mpi_mid, mpi_mul as mpi_mul, mpi_neg as mpi_neg, mpi_pos as mpi_pos, mpi_pow as mpi_pow, mpi_pow_int as mpi_pow_int, mpi_str as mpi_str, mpi_sub as mpi_sub, prec_to_dps as prec_to_dps, repr_dps as repr_dps, round_ceiling as round_ceiling, round_floor as round_floor
+from .libmp.backend import basestring as basestring
+from .matrices.matrices import _matrix as _matrix
 from _typeshed import Incomplete
 
 mpi_zero: Incomplete

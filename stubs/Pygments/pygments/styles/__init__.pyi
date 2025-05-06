@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Iterator, Mapping
 
 from pygments.style import Style
+from pygments.util import ClassNotFound as ClassNotFound
 
 STYLE_MAP: Mapping[str, str]
 

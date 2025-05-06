@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from sympy.assumptions.ask import Q as Q
 from sympy.matrices.expressions import MatrixExpr as MatrixExpr
 
 class Factorization(MatrixExpr):

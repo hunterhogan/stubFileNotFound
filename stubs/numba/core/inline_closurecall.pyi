@@ -1,7 +1,14 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, config as config, errors as errors, ir as ir, ir_utils as ir_utils, postproc as postproc, rewrites as rewrites, types as types, typing as typing
 from numba.core.analysis import compute_cfg_from_blocks as compute_cfg_from_blocks, compute_live_variables as compute_live_variables, compute_use_defs as compute_use_defs
+from numba.core.extending import intrinsic as intrinsic
+from numba.core.imputils import impl_ret_untracked as impl_ret_untracked
 from numba.core.ir_utils import GuardException as GuardException, add_offset_to_labels as add_offset_to_labels, canonicalize_array_math as canonicalize_array_math, dead_code_elimination as dead_code_elimination, find_build_sequence as find_build_sequence, find_callname as find_callname, find_topo_order as find_topo_order, get_definition as get_definition, get_ir_of_code as get_ir_of_code, get_np_ufunc_typ as get_np_ufunc_typ, guard as guard, merge_adjacent_blocks as merge_adjacent_blocks, next_label as next_label, remove_dels as remove_dels, rename_labels as rename_labels, replace_vars as replace_vars, require as require, simplify_CFG as simplify_CFG
+from numba.core.typing import signature as signature
+from numba.cpython.listobj import ListIterInstance as ListIterInstance
+from numba.cpython.rangeobj import range_impl_map as range_impl_map
+from numba.np.arrayobj import make_array as make_array
+from numba.parfors.parfor import internal_prange as internal_prange
 
 enable_inline_arraycall: bool
 

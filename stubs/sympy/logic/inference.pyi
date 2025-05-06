@@ -1,4 +1,7 @@
 from _typeshed import Incomplete
+from sympy.core.sorting import ordered as ordered
+from sympy.core.sympify import sympify as sympify
+from sympy.external.importtools import import_module as import_module
 from sympy.logic.boolalg import And as And, BooleanFunction as BooleanFunction, Not as Not, conjuncts as conjuncts, to_cnf as to_cnf
 
 def literal_symbol(literal):

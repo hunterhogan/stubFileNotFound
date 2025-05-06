@@ -227,9 +227,10 @@ if sys.platform != "win32":
         writev as writev,
     )
 
+    from os import O_FSYNC as O_FSYNC
 
     if sys.version_info >= (3, 11):
-        pass
+        from os import login_tty as login_tty
 
     if sys.version_info >= (3, 13):
         from os import grantpt as grantpt, posix_openpt as posix_openpt, ptsname as ptsname, unlockpt as unlockpt
@@ -295,6 +296,7 @@ if sys.platform != "win32":
             setresuid as setresuid,
         )
 
+        from os import RWF_APPEND as RWF_APPEND
 
     if sys.platform != "darwin" or sys.version_info >= (3, 13):
         from os import waitid as waitid, waitid_result as waitid_result

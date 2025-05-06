@@ -1,11 +1,15 @@
 from _typeshed import Incomplete
 from sympy.core import Add as Add, S as S
+from sympy.core.basic import Basic as Basic
 from sympy.core.evalf import PrecisionExhausted as PrecisionExhausted, get_integer_part as get_integer_part
 from sympy.core.expr import Expr as Expr
 from sympy.core.function import Function as Function
+from sympy.core.logic import fuzzy_or as fuzzy_or
 from sympy.core.numbers import Integer as Integer, int_valued as int_valued
 from sympy.core.relational import Ge as Ge, Gt as Gt, Le as Le, Lt as Lt, Relational as Relational, is_eq as is_eq
+from sympy.core.sympify import _sympify as _sympify
 from sympy.functions.elementary.complexes import im as im, re as re
+from sympy.multipledispatch import dispatch as dispatch
 
 class RoundFunction(Function):
     """Abstract base class for rounding functions."""

@@ -1,7 +1,11 @@
 from .abstract import DTypeSpec as DTypeSpec, IteratorType as IteratorType, MutableSequence as MutableSequence, Number as Number, Type as Type
 from .common import Buffer as Buffer, Opaque as Opaque, SimpleIteratorType as SimpleIteratorType
+from .containers import Bytes as Bytes
+from .misc import UnicodeType as UnicodeType
 from _typeshed import Incomplete
 from functools import cached_property as cached_property
+from numba.core import utils as utils
+from numba.core.typeconv import Conversion as Conversion
 from typing import NamedTuple
 
 class CharSeq(Type):

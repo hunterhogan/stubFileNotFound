@@ -1,6 +1,11 @@
 from _typeshed import Incomplete
 from pandas import DataFrame as DataFrame
 from pandas._typing import CompressionOptions as CompressionOptions, FilePath as FilePath, ReadBuffer as ReadBuffer, StorageOptions as StorageOptions, WriteBuffer as WriteBuffer
+from pandas.core.dtypes.common import is_list_like as is_list_like
+from pandas.core.dtypes.missing import isna as isna
+from pandas.core.shared_docs import _shared_docs as _shared_docs
+from pandas.errors import AbstractMethodError as AbstractMethodError
+from pandas.io.common import get_handle as get_handle
 from pandas.io.xml import get_data_from_filepath as get_data_from_filepath, preprocess_data as preprocess_data
 from pandas.util._decorators import cache_readonly as cache_readonly, doc as doc
 from typing import Any

@@ -1,6 +1,8 @@
+from . import path as path
 from ._enums import CapStyle as CapStyle, JoinStyle as JoinStyle
 from .artist import Artist as Artist
 from .backend_bases import RendererBase as RendererBase
+from .markers import MarkerStyle as MarkerStyle
 from .transforms import Bbox as Bbox, Transform as Transform
 from collections.abc import Hashable
 from typing import TypeAlias, TypeVar

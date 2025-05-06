@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from sympy.testing.pytest import XFAIL as XFAIL
 from typing import NamedTuple
 
 def may_xfail(func): ...

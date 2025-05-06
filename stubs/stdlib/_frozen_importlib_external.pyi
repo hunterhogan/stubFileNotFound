@@ -1,15 +1,16 @@
 import _ast
+import _io
 import importlib.abc
 import importlib.machinery
 import sys
 import types
 from _typeshed import ReadableBuffer, StrOrBytesPath, StrPath
 from _typeshed.importlib import LoaderProtocol
-from collections.abc import Callable, Iterable, Mapping, MutableSequence, Sequence
+from collections.abc import Callable, Iterable, Iterator, Mapping, MutableSequence, Sequence
 from importlib.machinery import ModuleSpec
 from importlib.metadata import DistributionFinder, PathDistribution
 from typing import Any, Literal
-from typing_extensions import deprecated
+from typing_extensions import Self, deprecated
 
 import importlib.readers
 

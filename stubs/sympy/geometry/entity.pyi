@@ -1,8 +1,20 @@
 from _typeshed import Incomplete
 from sympy.core.basic import Basic as Basic
+from sympy.core.containers import Tuple as Tuple
 from sympy.core.evalf import EvalfMixin as EvalfMixin, N as N
+from sympy.core.numbers import oo as oo
+from sympy.core.symbol import Dummy as Dummy
+from sympy.core.sympify import sympify as sympify
 from sympy.functions.elementary.trigonometric import atan as atan, cos as cos, sin as sin
+from sympy.matrices import eye as eye
+from sympy.multipledispatch import dispatch as dispatch
+from sympy.printing import sstr as sstr
 from sympy.sets import FiniteSet as FiniteSet, Set as Set, Union as Union
+from sympy.sets.handlers.intersection import intersection_sets as intersection_sets
+from sympy.sets.handlers.union import union_sets as union_sets
+from sympy.solvers.solvers import solve as solve
+from sympy.utilities.iterables import is_sequence as is_sequence
+from sympy.utilities.misc import func_name as func_name
 
 ordering_of_classes: Incomplete
 x: Incomplete

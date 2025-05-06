@@ -1,5 +1,8 @@
+from .vector_types import vector_types as vector_types
 from _typeshed import Incomplete
 from collections.abc import Generator
+from numba.core import types as types
+from numba.np import numpy_support as numpy_support
 
 class Dim3:
     """

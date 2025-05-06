@@ -3,6 +3,8 @@ from _typeshed import Incomplete
 from pandas.core.computation.align import align_terms as align_terms, reconstruct_object as reconstruct_object
 from pandas.core.computation.expr import Expr as Expr
 from pandas.core.computation.ops import MATHOPS as MATHOPS, REDUCTIONS as REDUCTIONS
+from pandas.errors import NumExprClobberingError as NumExprClobberingError
+from pandas.io.formats import printing as printing
 
 _ne_builtins: Incomplete
 

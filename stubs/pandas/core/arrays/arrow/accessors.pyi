@@ -4,6 +4,8 @@ from abc import ABCMeta, abstractmethod
 from collections.abc import Iterator
 from pandas import DataFrame as DataFrame, Series as Series
 from pandas.compat import pa_version_under10p1 as pa_version_under10p1, pa_version_under11p0 as pa_version_under11p0
+from pandas.core.dtypes.common import is_list_like as is_list_like
+from pandas.core.dtypes.dtypes import ArrowDtype as ArrowDtype
 
 class ArrowAccessor(metaclass=ABCMeta):
     _data: Incomplete

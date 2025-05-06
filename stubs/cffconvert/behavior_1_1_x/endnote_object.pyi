@@ -1,4 +1,6 @@
 from _typeshed import Incomplete
+from cffconvert.behavior_1_1_x.endnote_author import EndnoteAuthor as EndnoteAuthor
+from cffconvert.behavior_1_1_x.endnote_url import EndnoteUrl as EndnoteUrl
 from cffconvert.behavior_shared.endnote_object_shared import EndnoteObjectShared as Shared
 
 class EndnoteObject(Shared):

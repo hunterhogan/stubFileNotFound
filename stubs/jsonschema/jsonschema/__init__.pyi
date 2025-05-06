@@ -7,6 +7,7 @@ from jsonschema._format import (
     draft201909_format_checker as draft201909_format_checker,
     draft202012_format_checker as draft202012_format_checker,
 )
+from jsonschema._types import TypeChecker as TypeChecker
 from jsonschema.exceptions import (
     ErrorTree as ErrorTree,
     FormatError as FormatError,
@@ -14,6 +15,7 @@ from jsonschema.exceptions import (
     SchemaError as SchemaError,
     ValidationError as ValidationError,
 )
+from jsonschema.protocols import Validator as Validator
 from jsonschema.validators import (
     Draft3Validator as Draft3Validator,
     Draft4Validator as Draft4Validator,

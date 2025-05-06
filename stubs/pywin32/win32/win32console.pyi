@@ -1,6 +1,7 @@
 from typing import Literal, NoReturn, overload
 
 import _win32typing
+from win32.lib.pywintypes import error as error
 
 def GetConsoleProcessList() -> tuple[int, ...]: ...
 def CreateConsoleScreenBuffer(

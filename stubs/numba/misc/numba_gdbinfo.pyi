@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from numba import config as config
 
 _fields: str
 _gdb_info: Incomplete

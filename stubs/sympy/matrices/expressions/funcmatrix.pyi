@@ -1,7 +1,9 @@
 from .matexpr import MatrixExpr as MatrixExpr
 from sympy.core.function import FunctionClass as FunctionClass, Lambda as Lambda
+from sympy.core.symbol import Dummy as Dummy
 from sympy.core.sympify import _sympify as _sympify, sympify as sympify
 from sympy.functions.elementary.complexes import im as im, re as re
+from sympy.matrices import Matrix as Matrix
 
 class FunctionMatrix(MatrixExpr):
     """Represents a matrix using a function (``Lambda``) which gives

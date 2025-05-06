@@ -3,6 +3,10 @@ from collections.abc import MutableMapping
 from numba import njit as njit, typeof as typeof
 from numba.core import cgutils as cgutils, config as config, errors as errors, types as types
 from numba.core.extending import NativeValue as NativeValue, box as box, overload as overload, overload_classmethod as overload_classmethod, type_callable as type_callable, unbox as unbox
+from numba.core.imputils import numba_typeref_ctor as numba_typeref_ctor
+from numba.core.types import DictType as DictType
+from numba.core.typing import signature as signature
+from numba.typed import dictobject as dictobject
 
 def _make_dict(keyty, valty, n_keys: int = 0): ...
 def _length(d): ...

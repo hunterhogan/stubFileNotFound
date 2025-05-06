@@ -3,8 +3,11 @@ from _typeshed import Incomplete
 from collections.abc import Hashable, Iterable, Iterator, Sequence
 from pandas._typing import CompressionOptions as CompressionOptions, FilePath as FilePath, FloatFormatType as FloatFormatType, IndexLabel as IndexLabel, SequenceNotStr as SequenceNotStr, StorageOptions as StorageOptions, WriteBuffer as WriteBuffer, npt as npt
 from pandas.core.dtypes.generic import ABCDatetimeIndex as ABCDatetimeIndex, ABCIndex as ABCIndex, ABCMultiIndex as ABCMultiIndex, ABCPeriodIndex as ABCPeriodIndex
+from pandas.core.dtypes.missing import notna as notna
 from pandas.core.indexes.api import Index as Index
+from pandas.io.common import get_handle as get_handle
 from pandas.io.formats.format import DataFrameFormatter as DataFrameFormatter
+from pandas.util._decorators import cache_readonly as cache_readonly
 from typing import Any
 
 _DEFAULT_CHUNKSIZE_CELLS: int

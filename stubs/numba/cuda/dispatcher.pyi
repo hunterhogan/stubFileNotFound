@@ -2,9 +2,15 @@ from _typeshed import Incomplete
 from numba import _dispatcher as _dispatcher, cuda as cuda
 from numba.core import config as config, serialize as serialize, sigutils as sigutils, types as types, typing as typing, utils as utils
 from numba.core.caching import Cache as Cache, CacheImpl as CacheImpl
+from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
 from numba.core.dispatcher import Dispatcher as Dispatcher
+from numba.core.errors import NumbaPerformanceWarning as NumbaPerformanceWarning
 from numba.core.typing.typeof import Purpose as Purpose, typeof as typeof
+from numba.cuda.api import get_current_device as get_current_device
+from numba.cuda.args import wrap_arg as wrap_arg
 from numba.cuda.compiler import CUDACompiler as CUDACompiler, compile_cuda as compile_cuda
+from numba.cuda.cudadrv import driver as driver
+from numba.cuda.cudadrv.devices import get_context as get_context
 from numba.cuda.descriptor import cuda_target as cuda_target
 from numba.cuda.errors import missing_launch_config_msg as missing_launch_config_msg, normalize_kernel_dimensions as normalize_kernel_dimensions
 

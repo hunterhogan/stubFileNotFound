@@ -1,6 +1,8 @@
 from .c import C89CodePrinter as C89CodePrinter, C99CodePrinter as C99CodePrinter
+from .codeprinter import requires as requires
 from _typeshed import Incomplete
 from sympy.codegen.ast import Type as Type, none as none
+from sympy.printing.codeprinter import cxxcode as cxxcode
 
 reserved: Incomplete
 _math_functions: Incomplete

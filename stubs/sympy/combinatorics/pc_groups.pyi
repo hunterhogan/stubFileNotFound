@@ -1,4 +1,7 @@
 from _typeshed import Incomplete
+from sympy.combinatorics.free_groups import free_group as free_group
+from sympy.combinatorics.perm_groups import PermutationGroup as PermutationGroup
+from sympy.ntheory.primetest import isprime as isprime
 from sympy.printing.defaults import DefaultPrinting as DefaultPrinting
 
 class PolycyclicGroup(DefaultPrinting):

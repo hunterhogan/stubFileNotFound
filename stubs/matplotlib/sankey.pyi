@@ -1,4 +1,8 @@
 from _typeshed import Incomplete
+from matplotlib import _docstring as _docstring
+from matplotlib.patches import PathPatch as PathPatch
+from matplotlib.path import Path as Path
+from matplotlib.transforms import Affine2D as Affine2D
 
 _log: Incomplete
 __author__: str

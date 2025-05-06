@@ -4,12 +4,22 @@ from collections import abc
 from collections.abc import Hashable, Sequence
 from datetime import datetime
 from pandas import Categorical as Categorical, DatetimeIndex as DatetimeIndex, NaT as NaT, Timestamp as Timestamp, isna as isna, to_datetime as to_datetime, to_timedelta as to_timedelta
+from pandas._libs import lib as lib
+from pandas._libs.lib import infer_dtype as infer_dtype
+from pandas._libs.writers import max_len_string_array as max_len_string_array
 from pandas._typing import CompressionOptions as CompressionOptions, FilePath as FilePath, ReadBuffer as ReadBuffer, Self as Self, StorageOptions as StorageOptions, WriteBuffer as WriteBuffer
+from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.common import ensure_object as ensure_object, is_numeric_dtype as is_numeric_dtype, is_string_dtype as is_string_dtype
+from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype
 from pandas.core.frame import DataFrame as DataFrame
+from pandas.core.indexes.base import Index as Index
+from pandas.core.indexes.range import RangeIndex as RangeIndex
 from pandas.core.series import Series as Series
+from pandas.core.shared_docs import _shared_docs as _shared_docs
 from pandas.errors import CategoricalConversionWarning as CategoricalConversionWarning, InvalidColumnName as InvalidColumnName, PossiblePrecisionLoss as PossiblePrecisionLoss, ValueLabelTypeMismatch as ValueLabelTypeMismatch
+from pandas.io.common import get_handle as get_handle
 from pandas.util._decorators import Appender as Appender, doc as doc
+from pandas.util._exceptions import find_stack_level as find_stack_level
 from types import TracebackType
 from typing import AnyStr, Final, IO, Literal
 

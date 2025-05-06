@@ -17,7 +17,7 @@ from gevent.hub import (
 from gevent.timeout import Timeout as Timeout, with_timeout as with_timeout
 
 if sys.platform != "win32":
-    pass
+    from gevent.os import fork
 
     __all__ = [
         "Greenlet",

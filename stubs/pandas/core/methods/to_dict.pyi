@@ -1,6 +1,9 @@
 from pandas import DataFrame as DataFrame
+from pandas._libs import lib as lib
 from pandas._typing import MutableMappingT as MutableMappingT
+from pandas.core.dtypes.cast import maybe_box_native as maybe_box_native
 from pandas.core.dtypes.dtypes import BaseMaskedDtype as BaseMaskedDtype, ExtensionDtype as ExtensionDtype
+from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Literal, overload
 
 @overload

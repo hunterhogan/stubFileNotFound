@@ -4,6 +4,8 @@ from .propagation import (
     SpanContextCorruptedException as SpanContextCorruptedException,
     UnsupportedFormatException as UnsupportedFormatException,
 )
+from .scope import Scope as Scope
+from .scope_manager import ScopeManager as ScopeManager
 from .span import Span as Span, SpanContext as SpanContext
 from .tracer import (
     Reference as Reference,

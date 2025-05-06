@@ -1,9 +1,21 @@
 from _typeshed import Incomplete
 from sympy.core import Dummy as Dummy, Lambda as Lambda, S as S
 from sympy.core.basic import Basic as Basic
+from sympy.core.cache import cacheit as cacheit
+from sympy.core.containers import Tuple as Tuple
+from sympy.core.function import diff as diff
 from sympy.core.symbol import Str as Str, symbols as symbols
+from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.functions.elementary.trigonometric import acos as acos, atan2 as atan2, cos as cos, sin as sin
+from sympy.matrices.dense import eye as eye
+from sympy.matrices.immutable import ImmutableDenseMatrix as ImmutableDenseMatrix
+from sympy.matrices.matrixbase import MatrixBase as MatrixBase
+from sympy.simplify.simplify import simplify as simplify
+from sympy.simplify.trigsimp import trigsimp as trigsimp
+from sympy.solvers import solve as solve
 from sympy.vector.orienters import AxisOrienter as AxisOrienter, BodyOrienter as BodyOrienter, Orienter as Orienter, QuaternionOrienter as QuaternionOrienter, SpaceOrienter as SpaceOrienter
+from sympy.vector.scalar import BaseScalar as BaseScalar
+from sympy.vector.vector import BaseVector as BaseVector
 
 class CoordSys3D(Basic):
     """

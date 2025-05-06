@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
+from matplotlib import _docstring as _docstring
 from matplotlib.contour import ContourSet as ContourSet
+from matplotlib.tri._triangulation import Triangulation as Triangulation
 
 class TriContourSet(ContourSet):
     """

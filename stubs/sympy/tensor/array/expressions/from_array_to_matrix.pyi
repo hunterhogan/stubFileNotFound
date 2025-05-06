@@ -1,10 +1,18 @@
 from sympy import Basic as Basic, KroneckerProduct as KroneckerProduct, MatMul as MatMul, Wild as Wild
 from sympy.assumptions.ask import Q as Q, ask as ask
 from sympy.combinatorics.permutations import Permutation as Permutation, _af_invert as _af_invert
+from sympy.core.mul import Mul as Mul
+from sympy.core.singleton import S as S
+from sympy.matrices.expressions.applyfunc import ElementwiseApplyFunction as ElementwiseApplyFunction
+from sympy.matrices.expressions.diagonal import DiagMatrix as DiagMatrix
 from sympy.matrices.expressions.hadamard import HadamardPower as HadamardPower, hadamard_product as hadamard_product
 from sympy.matrices.expressions.matexpr import MatrixElement as MatrixElement, MatrixExpr as MatrixExpr
 from sympy.matrices.expressions.special import Identity as Identity, OneMatrix as OneMatrix, ZeroMatrix as ZeroMatrix
+from sympy.matrices.expressions.trace import Trace as Trace
+from sympy.matrices.expressions.transpose import Transpose as Transpose
+from sympy.matrices.matrixbase import MatrixBase as MatrixBase
 from sympy.tensor.array.expressions.array_expressions import ArrayAdd as ArrayAdd, ArrayContraction as ArrayContraction, ArrayDiagonal as ArrayDiagonal, ArrayElement as ArrayElement, ArrayElementwiseApplyFunc as ArrayElementwiseApplyFunc, ArrayTensorProduct as ArrayTensorProduct, OneArray as OneArray, PermuteDims as PermuteDims, ZeroArray as ZeroArray, _ArgE as _ArgE, _ArrayExpr as _ArrayExpr, _CodegenArrayAbstract as _CodegenArrayAbstract, _EditArrayContraction as _EditArrayContraction, _array_add as _array_add, _array_contraction as _array_contraction, _array_diagonal as _array_diagonal, _array_tensor_product as _array_tensor_product, _get_subrank as _get_subrank, _permute_dims as _permute_dims, get_rank as get_rank, get_shape as get_shape
+from sympy.tensor.array.expressions.utils import _get_mapping_from_subranks as _get_mapping_from_subranks
 
 def _get_candidate_for_matmul_from_contraction(scan_indices: list[int | None], remaining_args: list[_ArgE]) -> tuple[_ArgE | None, bool, int]: ...
 def _insert_candidate_into_editor(editor: _EditArrayContraction, arg_with_ind: _ArgE, candidate: _ArgE, transpose1: bool, transpose2: bool): ...

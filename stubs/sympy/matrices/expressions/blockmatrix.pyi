@@ -1,13 +1,24 @@
 from sympy.assumptions.ask import Q as Q, ask as ask
 from sympy.core import Add as Add, Basic as Basic, Mul as Mul, S as S
+from sympy.core.sympify import _sympify as _sympify
+from sympy.functions import adjoint as adjoint
 from sympy.functions.elementary.complexes import im as im, re as re
 from sympy.matrices import Matrix as Matrix, ShapeError as ShapeError
+from sympy.matrices.exceptions import NonInvertibleMatrixError as NonInvertibleMatrixError
 from sympy.matrices.expressions.determinant import Determinant as Determinant, det as det
+from sympy.matrices.expressions.inverse import Inverse as Inverse
+from sympy.matrices.expressions.matadd import MatAdd as MatAdd
 from sympy.matrices.expressions.matexpr import MatrixElement as MatrixElement, MatrixExpr as MatrixExpr
+from sympy.matrices.expressions.matmul import MatMul as MatMul
+from sympy.matrices.expressions.matpow import MatPow as MatPow
+from sympy.matrices.expressions.slice import MatrixSlice as MatrixSlice
 from sympy.matrices.expressions.special import Identity as Identity, ZeroMatrix as ZeroMatrix
+from sympy.matrices.expressions.trace import trace as trace
 from sympy.matrices.expressions.transpose import Transpose as Transpose, transpose as transpose
 from sympy.strategies import condition as condition, do_one as do_one, exhaust as exhaust, typed as typed, unpack as unpack
+from sympy.strategies.traverse import bottom_up as bottom_up
 from sympy.utilities.iterables import is_sequence as is_sequence, sift as sift
+from sympy.utilities.misc import filldedent as filldedent
 
 class BlockMatrix(MatrixExpr):
     """A BlockMatrix is a Matrix comprised of other matrices.

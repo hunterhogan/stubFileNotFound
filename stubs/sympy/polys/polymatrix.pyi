@@ -1,4 +1,11 @@
 from _typeshed import Incomplete
+from sympy.core.expr import Expr as Expr
+from sympy.core.symbol import Dummy as Dummy
+from sympy.core.sympify import _sympify as _sympify
+from sympy.polys.domains import QQ as QQ
+from sympy.polys.matrices import DomainMatrix as DomainMatrix
+from sympy.polys.matrices.domainscalar import DomainScalar as DomainScalar
+from sympy.polys.polyerrors import CoercionFailed as CoercionFailed
 from sympy.polys.polytools import Poly as Poly, parallel_poly_from_expr as parallel_poly_from_expr
 
 class MutablePolyDenseMatrix:

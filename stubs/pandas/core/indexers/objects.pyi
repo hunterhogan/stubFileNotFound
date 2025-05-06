@@ -1,7 +1,11 @@
 import numpy as np
 from _typeshed import Incomplete
 from pandas._libs.tslibs import BaseOffset as BaseOffset
+from pandas._libs.window.indexers import calculate_variable_window_bounds as calculate_variable_window_bounds
+from pandas.core.dtypes.common import ensure_platform_int as ensure_platform_int
 from pandas.core.indexes.datetimes import DatetimeIndex as DatetimeIndex
+from pandas.tseries.offsets import Nano as Nano
+from pandas.util._decorators import Appender as Appender
 
 get_window_bounds_doc: str
 

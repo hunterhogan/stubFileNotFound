@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from sympy.core import Float as Float, Lambda as Lambda, Rational as Rational, S as S
+from sympy.core.numbers import equal_valued as equal_valued
 from sympy.printing.codeprinter import CodePrinter as CodePrinter
 from typing import Any
 

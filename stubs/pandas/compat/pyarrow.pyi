@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from pandas.util.version import Version as Version
 
 _palv: Incomplete
 pa_version_under10p1: Incomplete

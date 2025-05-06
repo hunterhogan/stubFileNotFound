@@ -5,6 +5,7 @@ LINT: LEGACY_NAMES"""
 
 import builtins
 import collections.abc
+import sys
 import typing
 
 import google.protobuf.descriptor

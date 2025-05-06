@@ -1,7 +1,17 @@
 from _typeshed import Incomplete
+from sympy.core import S as S
+from sympy.core.add import Add as Add
+from sympy.core.function import count_ops as count_ops
 from sympy.core.numbers import Float as Float, oo as oo
+from sympy.core.relational import Eq as Eq
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, symbols as symbols
 from sympy.functions import exp as exp, sqrt as sqrt
+from sympy.functions.elementary.complexes import sign as sign
+from sympy.integrals.integrals import Integral as Integral
+from sympy.polys.domains import ZZ as ZZ
+from sympy.polys.polyroots import roots as roots
+from sympy.polys.polytools import Poly as Poly
+from sympy.solvers.solveset import linsolve as linsolve
 
 def riccati_normal(w, x, b1, b2):
     """

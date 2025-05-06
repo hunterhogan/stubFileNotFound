@@ -2,20 +2,28 @@ import numpy as np
 from _typeshed import Incomplete
 from collections.abc import Generator, Hashable, Iterable, Sequence
 from pandas import CategoricalIndex as CategoricalIndex, DataFrame as DataFrame, Series as Series
+from pandas._config import get_option as get_option
 from pandas._libs import index as libindex, lib as lib
+from pandas._libs.hashtable import duplicated as duplicated
 from pandas._typing import AnyAll as AnyAll, AnyArrayLike as AnyArrayLike, Axis as Axis, DropKeep as DropKeep, DtypeObj as DtypeObj, F as F, IgnoreRaise as IgnoreRaise, IndexLabel as IndexLabel, Scalar as Scalar, Self as Self, Shape as Shape, npt as npt
+from pandas.core.array_algos.putmask import validate_putmask as validate_putmask
 from pandas.core.arrays import Categorical as Categorical, ExtensionArray as ExtensionArray
 from pandas.core.arrays.categorical import factorize_from_iterables as factorize_from_iterables, recode_for_categories as recode_for_categories
+from pandas.core.construction import sanitize_array as sanitize_array
+from pandas.core.dtypes.cast import coerce_indexer_dtype as coerce_indexer_dtype
 from pandas.core.dtypes.common import ensure_int64 as ensure_int64, ensure_platform_int as ensure_platform_int, is_hashable as is_hashable, is_integer as is_integer, is_iterator as is_iterator, is_list_like as is_list_like, is_object_dtype as is_object_dtype, is_scalar as is_scalar, pandas_dtype as pandas_dtype
 from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCSeries as ABCSeries
+from pandas.core.dtypes.inference import is_array_like as is_array_like
 from pandas.core.dtypes.missing import array_equivalent as array_equivalent, isna as isna
 from pandas.core.indexes.base import Index as Index, _index_shared_docs as _index_shared_docs, ensure_index as ensure_index, get_unanimous_names as get_unanimous_names
 from pandas.core.indexes.frozen import FrozenList as FrozenList
+from pandas.core.ops.invalid import make_invalid_op as make_invalid_op
 from pandas.core.sorting import get_group_index as get_group_index, lexsort_indexer as lexsort_indexer
 from pandas.errors import InvalidIndexError as InvalidIndexError, PerformanceWarning as PerformanceWarning, UnsortedIndexError as UnsortedIndexError
 from pandas.io.formats.printing import get_adjustment as get_adjustment, pprint_thing as pprint_thing
 from pandas.util._decorators import Appender as Appender, cache_readonly as cache_readonly, doc as doc
+from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import Any, Literal
 
 from collections.abc import Callable

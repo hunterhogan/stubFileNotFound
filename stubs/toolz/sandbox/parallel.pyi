@@ -1,4 +1,6 @@
 from _typeshed import Incomplete
+from toolz.itertoolz import partition_all as partition_all
+from toolz.utils import no_default as no_default
 
 def _reduce(func, seq, initial: Incomplete | None = None): ...
 def fold(binop, seq, default=..., map=..., chunksize: int = 128, combine: Incomplete | None = None):

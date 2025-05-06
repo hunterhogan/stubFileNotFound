@@ -5,3 +5,4 @@ from .constants import (
     PROGRAM_PREFIX as PROGRAM_PREFIX,
 )
 from .errors import CredentialsNotFound as CredentialsNotFound, StoreError as StoreError
+from .store import Store as Store

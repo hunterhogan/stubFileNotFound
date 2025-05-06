@@ -5,6 +5,7 @@ from _typeshed import Incomplete
 from collections.abc import Generator, Sequence
 from matplotlib import _api as _api, _docstring as _docstring, cbook as cbook, offsetbox as offsetbox
 from matplotlib.cbook import _OrderedSet as _OrderedSet, _check_1d as _check_1d, index_of as index_of
+from matplotlib.gridspec import SubplotSpec as SubplotSpec
 from matplotlib.rcsetup import cycler as cycler, validate_axisbelow as validate_axisbelow
 
 _log: Incomplete

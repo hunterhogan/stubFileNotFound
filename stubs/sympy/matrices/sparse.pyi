@@ -1,7 +1,13 @@
 from .decompositions import _LDLdecomposition_sparse as _LDLdecomposition_sparse, _cholesky_sparse as _cholesky_sparse, _liupc as _liupc, _row_structure_symbolic_cholesky as _row_structure_symbolic_cholesky
+from .matrixbase import MatrixBase as MatrixBase
 from .repmatrix import MutableRepMatrix as MutableRepMatrix, RepMatrix as RepMatrix
 from .solvers import _lower_triangular_solve_sparse as _lower_triangular_solve_sparse, _upper_triangular_solve_sparse as _upper_triangular_solve_sparse
+from .utilities import _iszero as _iszero
 from _typeshed import Incomplete
+from sympy.core.containers import Dict as Dict
+from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
+from sympy.utilities.iterables import is_sequence as is_sequence
+from sympy.utilities.misc import as_int as as_int
 
 class SparseRepMatrix(RepMatrix):
     """

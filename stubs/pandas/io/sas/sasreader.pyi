@@ -3,6 +3,9 @@ from abc import ABC, abstractmethod
 from collections.abc import Hashable
 from pandas import DataFrame as DataFrame
 from pandas._typing import CompressionOptions as CompressionOptions, FilePath as FilePath, ReadBuffer as ReadBuffer, Self as Self
+from pandas.core.shared_docs import _shared_docs as _shared_docs
+from pandas.io.common import stringify_path as stringify_path
+from pandas.util._decorators import doc as doc
 from types import TracebackType
 from typing import overload
 

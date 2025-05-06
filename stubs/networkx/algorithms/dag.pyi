@@ -1,4 +1,4 @@
-from collections.abc import Generator, Iterable, Callable
+from collections.abc import Generator, Hashable, Iterable, Callable
 from networkx.classes.graph import Graph, _Node # type: ignore[reportPrivateUsage]
 from networkx.classes.digraph import DiGraph
 

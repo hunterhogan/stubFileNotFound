@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
 from sympy.plotting.pygletplot.managed_window import ManagedWindow as ManagedWindow
+from sympy.plotting.pygletplot.plot_camera import PlotCamera as PlotCamera
+from sympy.plotting.pygletplot.plot_controller import PlotController as PlotController
 
 class PlotWindow(ManagedWindow):
     plot: Incomplete

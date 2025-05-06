@@ -1,3 +1,4 @@
+from reportlab.graphics.samples.excelcolors import *
 from reportlab.graphics.shapes import Drawing, _DrawingEditorMixin
 
 class ScatterLinesMarkers(_DrawingEditorMixin, Drawing):

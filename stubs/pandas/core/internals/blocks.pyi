@@ -4,13 +4,18 @@ from collections.abc import Iterable, Sequence
 from pandas._config import get_option as get_option, using_copy_on_write as using_copy_on_write, warn_copy_on_write as warn_copy_on_write
 from pandas._libs import NaT as NaT, internals as libinternals, lib as lib
 from pandas._libs.internals import BlockPlacement as BlockPlacement, BlockValuesRefs as BlockValuesRefs
+from pandas._libs.missing import NA as NA
 from pandas._typing import ArrayLike as ArrayLike, AxisInt as AxisInt, DtypeBackend as DtypeBackend, DtypeObj as DtypeObj, F as F, FillnaOptions as FillnaOptions, IgnoreRaise as IgnoreRaise, InterpolateOptions as InterpolateOptions, QuantileInterpolation as QuantileInterpolation, Self as Self, Shape as Shape, npt as npt
+from pandas.core import missing as missing
 from pandas.core.api import Index as Index
 from pandas.core.array_algos.putmask import extract_bool_array as extract_bool_array, putmask_inplace as putmask_inplace, putmask_without_repeat as putmask_without_repeat, setitem_datetimelike_compat as setitem_datetimelike_compat, validate_putmask as validate_putmask
+from pandas.core.array_algos.quantile import quantile_compat as quantile_compat
 from pandas.core.array_algos.replace import compare_or_regex_search as compare_or_regex_search, replace_regex as replace_regex, should_use_regex as should_use_regex
+from pandas.core.array_algos.transforms import shift as shift
 from pandas.core.arrays import Categorical as Categorical, DatetimeArray as DatetimeArray, ExtensionArray as ExtensionArray, IntervalArray as IntervalArray, NumpyExtensionArray as NumpyExtensionArray, PeriodArray as PeriodArray, TimedeltaArray as TimedeltaArray
 from pandas.core.arrays._mixins import NDArrayBackedExtensionArray as NDArrayBackedExtensionArray
 from pandas.core.base import PandasObject as PandasObject
+from pandas.core.computation import expressions as expressions
 from pandas.core.construction import ensure_wrapped_if_datetimelike as ensure_wrapped_if_datetimelike, extract_array as extract_array
 from pandas.core.dtypes.astype import astype_array_safe as astype_array_safe, astype_is_view as astype_is_view
 from pandas.core.dtypes.cast import LossySetitemError as LossySetitemError, can_hold_element as can_hold_element, convert_dtypes as convert_dtypes, find_result_type as find_result_type, maybe_downcast_to_dtype as maybe_downcast_to_dtype, np_can_hold_element as np_can_hold_element
@@ -18,6 +23,12 @@ from pandas.core.dtypes.common import is_1d_only_ea_dtype as is_1d_only_ea_dtype
 from pandas.core.dtypes.dtypes import DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype, IntervalDtype as IntervalDtype, NumpyEADtype as NumpyEADtype, PeriodDtype as PeriodDtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCIndex as ABCIndex, ABCNumpyExtensionArray as ABCNumpyExtensionArray, ABCSeries as ABCSeries
 from pandas.core.dtypes.missing import is_valid_na_for_dtype as is_valid_na_for_dtype, isna as isna, na_value_for_dtype as na_value_for_dtype
+from pandas.core.indexers import check_setitem_lengths as check_setitem_lengths
+from pandas.core.indexes.base import get_values_for_csv as get_values_for_csv
+from pandas.errors import AbstractMethodError as AbstractMethodError
+from pandas.util._decorators import cache_readonly as cache_readonly
+from pandas.util._exceptions import find_stack_level as find_stack_level
+from pandas.util._validators import validate_bool_kwarg as validate_bool_kwarg
 from typing import Any, Literal
 
 from collections.abc import Callable

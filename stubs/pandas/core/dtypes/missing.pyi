@@ -1,11 +1,14 @@
 import numpy as np
 from _typeshed import Incomplete
 from pandas import Series as Series
+from pandas._config import get_option as get_option
+from pandas._libs import lib as lib
 from pandas._libs.tslibs import NaT as NaT, iNaT as iNaT
 from pandas._typing import ArrayLike as ArrayLike, DtypeObj as DtypeObj, NDFrame as NDFrame, NDFrameT as NDFrameT, Scalar as Scalar, npt as npt
 from pandas.core.dtypes.common import DT64NS_DTYPE as DT64NS_DTYPE, TD64NS_DTYPE as TD64NS_DTYPE, ensure_object as ensure_object, is_scalar as is_scalar, is_string_or_object_np_dtype as is_string_or_object_np_dtype
 from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype, DatetimeTZDtype as DatetimeTZDtype, ExtensionDtype as ExtensionDtype, IntervalDtype as IntervalDtype, PeriodDtype as PeriodDtype
 from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame, ABCExtensionArray as ABCExtensionArray, ABCIndex as ABCIndex, ABCMultiIndex as ABCMultiIndex, ABCSeries as ABCSeries
+from pandas.core.dtypes.inference import is_list_like as is_list_like
 from pandas.core.indexes.base import Index as Index
 from re import Pattern
 from typing import overload

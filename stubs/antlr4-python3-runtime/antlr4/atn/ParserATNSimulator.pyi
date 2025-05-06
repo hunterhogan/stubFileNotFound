@@ -6,6 +6,7 @@ from antlr4.atn.ATNConfig import ATNConfig as ATNConfig
 from antlr4.atn.ATNConfigSet import ATNConfigSet as ATNConfigSet
 from antlr4.atn.ATNSimulator import ATNSimulator as ATNSimulator
 from antlr4.atn.ATNState import ATNState as ATNState, DecisionState as DecisionState, RuleStopState as RuleStopState
+from antlr4.atn.PredictionMode import PredictionMode as PredictionMode
 from antlr4.atn.SemanticContext import SemanticContext as SemanticContext, andContext as andContext, orContext as orContext
 from antlr4.atn.Transition import (
     ActionTransition as ActionTransition,
@@ -29,6 +30,8 @@ from antlr4.PredictionContext import (
     SingletonPredictionContext as SingletonPredictionContext,
 )
 from antlr4.RuleContext import RuleContext as RuleContext
+from antlr4.Token import Token as Token
+from antlr4.Utils import str_list as str_list
 
 class ParserATNSimulator(ATNSimulator):
     debug: bool

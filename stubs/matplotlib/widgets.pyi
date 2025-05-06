@@ -1,4 +1,5 @@
 from . import _api as _api, _docstring as _docstring, backend_tools as backend_tools, cbook as cbook, collections as collections, colors as colors, ticker as ticker, transforms as transforms
+from .lines import Line2D as Line2D
 from .patches import Ellipse as Ellipse, Polygon as Polygon, Rectangle as Rectangle
 from .transforms import Affine2D as Affine2D, TransformedPatchPath as TransformedPatchPath
 from _typeshed import Incomplete

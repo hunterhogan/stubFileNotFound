@@ -1,3 +1,4 @@
+from .cartan_type import CartanType as CartanType
 from sympy.core.basic import Atom as Atom
 
 class RootSystem(Atom):

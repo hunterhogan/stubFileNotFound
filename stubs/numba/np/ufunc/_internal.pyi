@@ -1,3 +1,4 @@
+from numba import _DUFunc as _DUFunc
 
 PyUFunc_None: int
 PyUFunc_One: int

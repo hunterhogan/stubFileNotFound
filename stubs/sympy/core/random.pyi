@@ -1,4 +1,6 @@
 from _typeshed import Incomplete
+from sympy.utilities.iterables import is_sequence as is_sequence
+from sympy.utilities.misc import as_int as as_int
 
 rng: Incomplete
 choice: Incomplete

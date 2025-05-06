@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from sympy.utilities.decorator import deprecated as deprecated
 from sympy.utilities.enumerative import MultisetPartitionTraverser as MultisetPartitionTraverser, list_visitor as list_visitor, multiset_partitions_taocp as multiset_partitions_taocp
+from sympy.utilities.misc import as_int as as_int
 
 def is_palindromic(s, i: int = 0, j: Incomplete | None = None):
     """

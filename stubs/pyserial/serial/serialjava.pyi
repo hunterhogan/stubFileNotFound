@@ -2,7 +2,7 @@ from _typeshed import ReadableBuffer
 from collections.abc import Iterable
 from typing import Any
 
-from serial.serialutil import SerialBase
+from serial.serialutil import *
 
 def my_import(name: str) -> Any: ...  # Java object
 def detect_java_comm(names: Iterable[str]) -> Any: ...  # Java object

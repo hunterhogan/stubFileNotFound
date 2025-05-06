@@ -1,7 +1,9 @@
 import numpy as np
 from _typeshed import Incomplete
+from pandas._libs import lib as lib
 from pandas._typing import AnyArrayLike as AnyArrayLike
 from pandas.core.dtypes.common import is_array_like as is_array_like, is_bool_dtype as is_bool_dtype, is_integer as is_integer, is_integer_dtype as is_integer_dtype, is_list_like as is_list_like
+from pandas.core.dtypes.dtypes import ExtensionDtype as ExtensionDtype
 from pandas.core.dtypes.generic import ABCIndex as ABCIndex, ABCSeries as ABCSeries
 from pandas.core.frame import DataFrame as DataFrame
 from pandas.core.indexes.base import Index as Index

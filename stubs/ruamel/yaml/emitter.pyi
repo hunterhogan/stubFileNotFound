@@ -1,3 +1,4 @@
+from ruamel.yaml.events import *
 from _typeshed import Incomplete
 from ruamel.yaml.compat import StreamType
 from ruamel.yaml.error import YAMLError

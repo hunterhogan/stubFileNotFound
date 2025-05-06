@@ -1,4 +1,8 @@
 from _typeshed import Incomplete
+from sympy.external.gmpy import GROUND_TYPES as GROUND_TYPES
+from sympy.external.importtools import version_tuple as version_tuple
+from sympy.interactive.printing import init_printing as init_printing
+from sympy.utilities.misc import ARCH as ARCH
 
 preexec_source: str
 verbose_message: str

@@ -1,5 +1,7 @@
 from enum import Enum
 from sympy.combinatorics.named_groups import AlternatingGroup as AlternatingGroup, CyclicGroup as CyclicGroup, DihedralGroup as DihedralGroup, SymmetricGroup as SymmetricGroup, set_alternating_group_properties as set_alternating_group_properties, set_symmetric_group_properties as set_symmetric_group_properties
+from sympy.combinatorics.perm_groups import PermutationGroup as PermutationGroup
+from sympy.combinatorics.permutations import Permutation as Permutation
 
 class S1TransitiveSubgroups(Enum):
     """

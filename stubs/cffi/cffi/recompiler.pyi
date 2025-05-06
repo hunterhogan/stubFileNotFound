@@ -3,6 +3,8 @@ from _typeshed import Incomplete, StrPath
 from typing import Final
 from typing import TypeAlias
 
+from .cffi_opcode import *
+from .error import VerificationError as VerificationError
 
 VERSION_BASE: Final = 9729
 VERSION_EMBEDDED: Final = 9985

@@ -1,4 +1,7 @@
 from _typeshed import Incomplete
+from sympy.concrete.products import product as product
+from sympy.concrete.summations import Sum as Sum
+from sympy.core.sympify import sympify as sympify
 from sympy.functions.elementary.trigonometric import cos as cos, sin as sin
 
 class MaximaHelpers:

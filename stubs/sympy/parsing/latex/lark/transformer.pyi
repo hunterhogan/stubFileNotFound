@@ -1,6 +1,8 @@
 import sympy
 from _typeshed import Incomplete
 from lark import Transformer
+from sympy.external import import_module as import_module
+from sympy.parsing.latex.errors import LaTeXParsingError as LaTeXParsingError
 
 lark: Incomplete
 

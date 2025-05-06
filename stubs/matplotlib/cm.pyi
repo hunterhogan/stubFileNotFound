@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping
 from matplotlib import _api as _api, colors as colors
+from matplotlib._cm import datad as datad
 
 _LUTSIZE: Incomplete
 

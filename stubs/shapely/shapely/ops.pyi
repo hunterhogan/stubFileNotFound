@@ -2,6 +2,7 @@ from collections.abc import Callable, Iterable
 from typing import Any, Literal, overload
 
 from ._typing import GeoT, OptGeoArrayLike, SupportsGeoInterface
+from .algorithms.polylabel import polylabel as polylabel
 from .geometry import GeometryCollection, LineString, MultiLineString, Point, Polygon
 from .geometry.base import BaseGeometry, BaseMultipartGeometry, GeometrySequence
 from .geometry.linestring import _ConvertibleToLineString

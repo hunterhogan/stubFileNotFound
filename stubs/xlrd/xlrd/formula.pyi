@@ -2,6 +2,7 @@ from typing import Final
 from typing_extensions import Self
 
 from .book import Book, Name
+from .timemachine import *
 
 __all__ = [
     "oBOOL",

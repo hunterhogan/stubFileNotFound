@@ -1,8 +1,17 @@
 from _typeshed import Incomplete
 from pandas import DataFrame as DataFrame, get_option as get_option
+from pandas._config import using_pyarrow_string_dtype as using_pyarrow_string_dtype
+from pandas._config.config import _get_option as _get_option
 from pandas._libs import lib as lib
 from pandas._typing import DtypeBackend as DtypeBackend, FilePath as FilePath, ReadBuffer as ReadBuffer, StorageOptions as StorageOptions, WriteBuffer as WriteBuffer
+from pandas.compat._optional import import_optional_dependency as import_optional_dependency
+from pandas.core.shared_docs import _shared_docs as _shared_docs
+from pandas.errors import AbstractMethodError as AbstractMethodError
+from pandas.io._util import arrow_string_types_mapper as arrow_string_types_mapper
 from pandas.io.common import IOHandles as IOHandles, get_handle as get_handle, is_fsspec_url as is_fsspec_url, is_url as is_url, stringify_path as stringify_path
+from pandas.util._decorators import doc as doc
+from pandas.util._exceptions import find_stack_level as find_stack_level
+from pandas.util._validators import check_dtype_backend as check_dtype_backend
 from typing import Any, Literal
 
 def get_engine(engine: str) -> BaseImpl:

@@ -1,4 +1,6 @@
 from _typeshed import Incomplete
+from sympy.external import import_module as import_module
+from sympy.parsing.latex.lark.transformer import TransformToSymPyExpr as TransformToSymPyExpr
 
 _lark: Incomplete
 

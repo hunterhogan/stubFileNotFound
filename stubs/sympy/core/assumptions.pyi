@@ -1,5 +1,7 @@
 from .facts import FactKB as FactKB, FactRules as FactRules
+from .sympify import sympify as sympify
 from _typeshed import Incomplete
+from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 
 def _load_pre_generated_assumption_rules() -> FactRules:
     """ Load the assumption rules from pre-generated data

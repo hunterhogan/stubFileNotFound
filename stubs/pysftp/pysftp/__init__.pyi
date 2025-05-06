@@ -1,11 +1,13 @@
 from collections.abc import Callable, Sequence
 from contextlib import AbstractContextManager
+from stat import S_IMODE as S_IMODE
 from types import TracebackType
 from typing import IO, Literal
 from typing_extensions import Self
 from typing import TypeAlias
 
 import paramiko
+from paramiko import AuthenticationException as AuthenticationException
 from pysftp.exceptions import (
     ConnectionException as ConnectionException,
     CredentialException as CredentialException,

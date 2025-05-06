@@ -1,6 +1,10 @@
 import _cython_3_0_11
 import enum
+from pandas._config import using_pyarrow_string_dtype as using_pyarrow_string_dtype
+from pandas._libs.interval import Interval as Interval
+from pandas._libs.missing import check_na_tuples_nonequal as check_na_tuples_nonequal
 from pandas._libs.tslibs.np_datetime import OutOfBoundsDatetime as OutOfBoundsDatetime, OutOfBoundsTimedelta as OutOfBoundsTimedelta
+from pandas._libs.tslibs.period import Period as Period
 from typing import ClassVar
 
 from collections.abc import Callable

@@ -34,6 +34,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import builtins
 import collections.abc
+import sys
 import typing
 
 import google.protobuf.descriptor

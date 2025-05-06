@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from matplotlib.backend_bases import RendererBase as RendererBase
+from matplotlib.path import Path as Path
 
 class AbstractPathEffect:
     """

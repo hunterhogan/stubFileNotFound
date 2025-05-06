@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from sympy.core import S as S
 from sympy.plotting.pygletplot.plot_mode_base import PlotModeBase as PlotModeBase
 
 class PlotCurve(PlotModeBase):

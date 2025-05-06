@@ -1,3 +1,4 @@
+import sys
 from typing import Literal, NoReturn, Protocol, type_check_only
 from xml.sax import xmlreader
 

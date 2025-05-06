@@ -3,6 +3,7 @@ import weakref
 from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from functools import cached_property as cached_property
+from numba.core.utils import get_hashable_key as get_hashable_key
 
 _typecodes: Incomplete
 

@@ -2,7 +2,14 @@ from _typeshed import Incomplete
 from sympy.core.basic import Atom as Atom
 from sympy.core.expr import Expr as Expr
 from sympy.core.numbers import Integer as Integer, int_valued as int_valued
+from sympy.core.parameters import global_parameters as global_parameters
+from sympy.core.sympify import _sympify as _sympify
+from sympy.matrices import zeros as zeros
+from sympy.multipledispatch import dispatch as dispatch
+from sympy.polys.polytools import lcm as lcm
+from sympy.printing.repr import srepr as srepr
 from sympy.utilities.iterables import flatten as flatten, has_dups as has_dups, has_variety as has_variety, is_sequence as is_sequence, minlex as minlex, runs as runs
+from sympy.utilities.misc import as_int as as_int
 
 def _af_rmul(a, b):
     """

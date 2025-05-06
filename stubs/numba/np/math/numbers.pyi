@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, errors as errors, types as types, typing as typing
+from numba.core.imputils import impl_ret_untracked as impl_ret_untracked
+from numba.cpython.unsafe.numbers import viewer as viewer
 
 def _int_arith_flags(rettype):
     """

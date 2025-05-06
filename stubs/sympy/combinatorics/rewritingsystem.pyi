@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from sympy.combinatorics.rewritingsystem_fsm import StateMachine as StateMachine
 
 class RewritingSystem:
     """

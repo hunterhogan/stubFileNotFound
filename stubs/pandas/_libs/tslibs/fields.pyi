@@ -1,4 +1,5 @@
 import _cython_3_0_11
+from pandas._config.localization import set_locale as set_locale
 
 DAYS_FULL: list
 LC_TIME: int

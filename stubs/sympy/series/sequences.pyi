@@ -1,10 +1,21 @@
 from _typeshed import Incomplete
 from sympy.core.basic import Basic as Basic
+from sympy.core.cache import cacheit as cacheit
+from sympy.core.containers import Tuple as Tuple
+from sympy.core.decorators import call_highest_priority as call_highest_priority
 from sympy.core.function import AppliedUndef as AppliedUndef, expand as expand
+from sympy.core.mul import Mul as Mul
+from sympy.core.numbers import Integer as Integer
+from sympy.core.parameters import global_parameters as global_parameters
+from sympy.core.relational import Eq as Eq
 from sympy.core.singleton import S as S, Singleton as Singleton
+from sympy.core.sorting import ordered as ordered
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, Wild as Wild
+from sympy.core.sympify import sympify as sympify
+from sympy.matrices import Matrix as Matrix
 from sympy.polys import factor as factor, lcm as lcm
 from sympy.sets.sets import Intersection as Intersection, Interval as Interval
+from sympy.tensor.indexed import Idx as Idx
 from sympy.utilities.iterables import flatten as flatten, is_sequence as is_sequence, iterable as iterable
 
 class SeqBase(Basic):

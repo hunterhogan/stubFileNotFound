@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from sympy.polys.polyerrors import CoercionFailed as CoercionFailed
 from sympy.polys.polyutils import IntegerPowerable as IntegerPowerable
 
 class Ideal(IntegerPowerable):

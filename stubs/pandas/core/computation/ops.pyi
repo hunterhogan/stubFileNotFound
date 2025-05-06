@@ -1,7 +1,9 @@
 import numpy as np
 from _typeshed import Incomplete
 from collections.abc import Iterable, Iterator
+from pandas._libs.tslibs import Timestamp as Timestamp
 from pandas.core.computation.common import ensure_decoded as ensure_decoded, result_type_many as result_type_many
+from pandas.core.computation.scope import DEFAULT_GLOBALS as DEFAULT_GLOBALS
 from pandas.core.dtypes.common import is_list_like as is_list_like, is_scalar as is_scalar
 from pandas.io.formats.printing import pprint_thing as pprint_thing, pprint_thing_encoded as pprint_thing_encoded
 from typing import Literal

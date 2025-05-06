@@ -1,4 +1,5 @@
 import sys
+from re import error as error
 from typing import Final
 from typing_extensions import Self
 

@@ -2,7 +2,13 @@ from _typeshed import Incomplete
 from sympy.assumptions.ask_generated import get_all_known_matrix_facts as get_all_known_matrix_facts, get_all_known_number_facts as get_all_known_number_facts
 from sympy.assumptions.assume import AppliedPredicate as AppliedPredicate, global_assumptions as global_assumptions
 from sympy.assumptions.cnf import CNF as CNF, EncodedCNF as EncodedCNF
+from sympy.assumptions.sathandlers import class_fact_registry as class_fact_registry
+from sympy.core import oo as oo
 from sympy.core.kind import NumberKind as NumberKind, UndefinedKind as UndefinedKind
+from sympy.core.singleton import S as S
+from sympy.core.symbol import Symbol as Symbol
+from sympy.logic.inference import satisfiable as satisfiable
+from sympy.matrices.kind import MatrixKind as MatrixKind
 
 def satask(proposition, assumptions: bool = True, context=..., use_known_facts: bool = True, iterations=...):
     """

@@ -2,6 +2,7 @@ import sys
 from collections.abc import Callable
 from typing import Any, Final, TextIO
 
+from .timemachine import *
 
 DEBUG: Final[int]
 

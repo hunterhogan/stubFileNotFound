@@ -1,4 +1,6 @@
 from .numbers import AlgebraicNumber as AlgebraicNumber, Float as Float, Integer as Integer, Number as Number, Rational as Rational
+from .singleton import S as S
+from .sympify import sympify as sympify
 from _typeshed import Incomplete
 from mpmath import mpc, mpf
 from mpmath.libmp import round_nearest
@@ -9,11 +11,15 @@ from sympy.core.expr import Expr as Expr
 from sympy.core.mul import Mul as Mul
 from sympy.core.power import Pow as Pow
 from sympy.core.symbol import Symbol as Symbol
+from sympy.external.gmpy import SYMPY_INTS as SYMPY_INTS
 from sympy.functions.elementary.complexes import Abs as Abs, im as im, re as re
 from sympy.functions.elementary.exponential import exp as exp, log as log
 from sympy.functions.elementary.integers import ceiling as ceiling, floor as floor
 from sympy.functions.elementary.trigonometric import atan as atan
 from sympy.integrals.integrals import Integral as Integral
+from sympy.utilities.iterables import is_sequence as is_sequence
+from sympy.utilities.lambdify import lambdify as lambdify
+from sympy.utilities.misc import as_int as as_int
 from typing import Any, overload
 
 from collections.abc import Callable

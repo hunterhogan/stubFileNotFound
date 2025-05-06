@@ -1,6 +1,7 @@
 from .backend import BACKEND as BACKEND, HASH_BITS as HASH_BITS, HASH_MODULUS as HASH_MODULUS, MPZ as MPZ, MPZ_FIVE as MPZ_FIVE, MPZ_ONE as MPZ_ONE, MPZ_TWO as MPZ_TWO, MPZ_TYPE as MPZ_TYPE, MPZ_ZERO as MPZ_ZERO, STRICT as STRICT, gmpy as gmpy, sage as sage, sage_utils as sage_utils
 from .libintmath import bctable as bctable, bin_to_radix as bin_to_radix, bitcount as bitcount, giant_steps as giant_steps, isqrt as isqrt, isqrt_fast as isqrt_fast, lshift as lshift, numeral as numeral, rshift as rshift, sqrt_fixed as sqrt_fixed, sqrtrem as sqrtrem, trailing as trailing, trailtable as trailtable
 from _typeshed import Incomplete
+from bisect import bisect as bisect
 
 __docformat__: str
 getrandbits: Incomplete

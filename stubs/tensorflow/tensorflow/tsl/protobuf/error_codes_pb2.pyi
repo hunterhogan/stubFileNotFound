@@ -6,6 +6,7 @@ migrate.
 """
 
 import builtins
+import sys
 import typing
 
 import google.protobuf.descriptor

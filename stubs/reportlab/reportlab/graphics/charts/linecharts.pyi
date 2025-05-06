@@ -3,6 +3,7 @@ from typing import Final
 
 from reportlab.graphics.charts.areas import PlotArea
 from reportlab.graphics.widgetbase import PropHolder
+from reportlab.lib.attrmap import *
 
 __version__: Final[str]
 

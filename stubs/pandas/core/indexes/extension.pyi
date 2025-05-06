@@ -2,7 +2,9 @@ import numpy as np
 from pandas._typing import ArrayLike as ArrayLike, npt as npt
 from pandas.core.arrays import IntervalArray as IntervalArray
 from pandas.core.arrays._mixins import NDArrayBackedExtensionArray as NDArrayBackedExtensionArray
+from pandas.core.dtypes.generic import ABCDataFrame as ABCDataFrame
 from pandas.core.indexes.base import Index as Index
+from pandas.util._decorators import cache_readonly as cache_readonly
 from typing import TypeVar
 
 from collections.abc import Callable

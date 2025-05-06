@@ -1,4 +1,14 @@
 from _typeshed import Incomplete
+from sympy.core.numbers import Integer as Integer
+from sympy.external.gmpy import SYMPY_INTS as SYMPY_INTS
+from sympy.geometry.entity import GeometryEntity as GeometryEntity
+from sympy.plotting.pygletplot.plot_axes import PlotAxes as PlotAxes
+from sympy.plotting.pygletplot.plot_mode import PlotMode as PlotMode
+from sympy.plotting.pygletplot.plot_object import PlotObject as PlotObject
+from sympy.plotting.pygletplot.plot_window import PlotWindow as PlotWindow
+from sympy.plotting.pygletplot.util import parse_option_string as parse_option_string
+from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
+from sympy.utilities.iterables import is_sequence as is_sequence
 
 class PygletPlot:
     """

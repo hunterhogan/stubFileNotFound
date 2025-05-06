@@ -1,4 +1,6 @@
 from sympy.core import Basic as Basic, Expr as Expr
+from sympy.core.sympify import _sympify as _sympify
+from sympy.matrices.expressions.transpose import transpose as transpose
 
 class DotProduct(Expr):
     """

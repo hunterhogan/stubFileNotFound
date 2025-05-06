@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from cffconvert.behavior_1_2_x.zenodo_creator import ZenodoCreator as ZenodoCreator
 from cffconvert.behavior_shared.zenodo_object_shared import ZenodoObjectShared as Shared
 
 class ZenodoObject(Shared):

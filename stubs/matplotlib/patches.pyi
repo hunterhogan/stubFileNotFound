@@ -1,7 +1,9 @@
 from . import _api as _api, _docstring as _docstring, artist as artist, cbook as cbook, colors as colors, transforms as transforms
 from ._enums import CapStyle as CapStyle, JoinStyle as JoinStyle
 from .bezier import NonIntersectingPathException as NonIntersectingPathException, get_cos_sin as get_cos_sin, get_intersection as get_intersection, get_parallels as get_parallels, inside_circle as inside_circle, make_wedged_bezier2 as make_wedged_bezier2, split_bezier_intersecting_with_closedpath as split_bezier_intersecting_with_closedpath, split_path_inout as split_path_inout
+from .path import Path as Path
 from _typeshed import Incomplete
+from matplotlib.transforms import Affine2D as Affine2D
 
 class Patch(artist.Artist):
     """

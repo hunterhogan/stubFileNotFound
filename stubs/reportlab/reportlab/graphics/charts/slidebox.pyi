@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
 
 from reportlab.graphics.widgetbase import Widget
+from reportlab.lib.attrmap import *
+from reportlab.lib.validators import *
 
 class SlideBox(Widget):
     labelFontName: str

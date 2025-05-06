@@ -1,2 +1,3 @@
+from .gpio import *
 
 VERSION: str = ...

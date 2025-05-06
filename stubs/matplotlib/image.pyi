@@ -1,6 +1,8 @@
+from matplotlib._image import *
 import matplotlib.colorizer as mcolorizer
 from _typeshed import Incomplete
 from matplotlib import _api as _api, _image as _image, cbook as cbook
+from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase
 from matplotlib.transforms import Affine2D as Affine2D, Bbox as Bbox, BboxBase as BboxBase, BboxTransform as BboxTransform, BboxTransformTo as BboxTransformTo, IdentityTransform as IdentityTransform, TransformedBbox as TransformedBbox
 
 _log: Incomplete

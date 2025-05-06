@@ -1,7 +1,11 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, config as config, debuginfo as debuginfo, funcdesc as funcdesc, generators as generators, ir as ir, ir_utils as ir_utils, removerefctpass as removerefctpass, targetconfig as targetconfig, types as types, typing as typing, utils as utils
 from numba.core.analysis import compute_use_defs as compute_use_defs, must_use_alloca as must_use_alloca
+from numba.core.environment import Environment as Environment
 from numba.core.errors import LiteralTypingError as LiteralTypingError, LoweringError as LoweringError, NumbaDebugInfoWarning as NumbaDebugInfoWarning, TypingError as TypingError, UnsupportedError as UnsupportedError, new_error_context as new_error_context
+from numba.core.funcdesc import default_mangler as default_mangler
+from numba.misc.coverage_support import get_registered_loc_notify as get_registered_loc_notify
+from numba.misc.firstlinefinder import get_func_body_first_lineno as get_func_body_first_lineno
 from typing import NamedTuple
 
 class _VarArgItem(NamedTuple):

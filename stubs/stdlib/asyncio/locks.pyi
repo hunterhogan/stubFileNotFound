@@ -7,6 +7,7 @@ from types import TracebackType
 from typing import Any, Literal, TypeVar
 from typing_extensions import Self
 
+from .events import AbstractEventLoop
 from .futures import Future
 
 from .mixins import _LoopBoundMixin

@@ -1,3 +1,4 @@
+from .cache import cacheit as cacheit
 from _typeshed import Incomplete
 from sympy.multipledispatch.dispatcher import Dispatcher as Dispatcher, RaiseNotImplementedError as RaiseNotImplementedError, ambiguity_register_error_ignore_dup as ambiguity_register_error_ignore_dup, ambiguity_warn as ambiguity_warn, str_signature as str_signature
 

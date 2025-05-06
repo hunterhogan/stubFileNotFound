@@ -1,3 +1,4 @@
+import sys
 from collections.abc import Mapping
 from distutils.ccompiler import CCompiler
 from typing import Final, Literal, overload

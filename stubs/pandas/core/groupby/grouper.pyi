@@ -3,12 +3,22 @@ from _typeshed import Incomplete
 from collections.abc import Hashable, Iterator
 from pandas._config import using_copy_on_write as using_copy_on_write, warn_copy_on_write as warn_copy_on_write
 from pandas._libs import lib as lib
+from pandas._libs.tslibs import OutOfBoundsDatetime as OutOfBoundsDatetime
 from pandas._typing import ArrayLike as ArrayLike, Axis as Axis, NDFrameT as NDFrameT, npt as npt
+from pandas.core import algorithms as algorithms
 from pandas.core.arrays import Categorical as Categorical, ExtensionArray as ExtensionArray
 from pandas.core.dtypes.common import is_list_like as is_list_like, is_scalar as is_scalar
+from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype
+from pandas.core.frame import DataFrame as DataFrame
 from pandas.core.generic import NDFrame as NDFrame
 from pandas.core.groupby import ops as ops
+from pandas.core.groupby.categorical import recode_for_groupby as recode_for_groupby
 from pandas.core.indexes.api import CategoricalIndex as CategoricalIndex, Index as Index, MultiIndex as MultiIndex
+from pandas.core.series import Series as Series
+from pandas.errors import InvalidIndexError as InvalidIndexError
+from pandas.io.formats.printing import pprint_thing as pprint_thing
+from pandas.util._decorators import cache_readonly as cache_readonly
+from pandas.util._exceptions import find_stack_level as find_stack_level
 
 class Grouper:
     '''

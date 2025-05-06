@@ -1,15 +1,21 @@
 import abc
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
+from sympy.combinatorics import Permutation as Permutation
 from sympy.combinatorics.tensor_can import bsgs_direct_product as bsgs_direct_product, canonicalize as canonicalize, get_symmetric_group_sgs as get_symmetric_group_sgs, riemann_bsgs as riemann_bsgs
 from sympy.core import Add as Add, Basic as Basic, Expr as Expr, Mul as Mul, S as S, sympify as sympify
+from sympy.core.cache import clear_cache as clear_cache
 from sympy.core.containers import Dict as Dict, Tuple as Tuple
 from sympy.core.numbers import Integer as Integer, Rational as Rational
 from sympy.core.operations import AssocOp as AssocOp
+from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.core.symbol import Symbol as Symbol, symbols as symbols
 from sympy.core.sympify import CantSympify as CantSympify, _sympify as _sympify
+from sympy.external.gmpy import SYMPY_INTS as SYMPY_INTS
+from sympy.matrices import eye as eye
 from sympy.utilities.decorator import deprecated as deprecated, memoize_property as memoize_property
 from sympy.utilities.exceptions import SymPyDeprecationWarning as SymPyDeprecationWarning, ignore_warnings as ignore_warnings, sympy_deprecation_warning as sympy_deprecation_warning
+from sympy.utilities.iterables import sift as sift
 from typing import Any
 
 def deprecate_data() -> None: ...

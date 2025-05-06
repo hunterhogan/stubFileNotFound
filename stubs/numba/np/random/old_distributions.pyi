@@ -1,4 +1,6 @@
 from numba import float32 as float32, int64 as int64
+from numba.core.extending import register_jitable as register_jitable
+from numba.np.numpy_support import numpy_version as numpy_version
 from numba.np.random._constants import INT64_MAX as INT64_MAX, fe_double as fe_double, fe_float as fe_float, fi_double as fi_double, fi_float as fi_float, ke_double as ke_double, ke_float as ke_float, ki_double as ki_double, ki_float as ki_float, we_double as we_double, we_float as we_float, wi_double as wi_double, wi_float as wi_float, ziggurat_exp_r as ziggurat_exp_r, ziggurat_exp_r_f as ziggurat_exp_r_f, ziggurat_nor_inv_r as ziggurat_nor_inv_r, ziggurat_nor_inv_r_f as ziggurat_nor_inv_r_f, ziggurat_nor_r as ziggurat_nor_r, ziggurat_nor_r_f as ziggurat_nor_r_f
 from numba.np.random.generator_core import next_double as next_double, next_float as next_float, next_uint32 as next_uint32, next_uint64 as next_uint64
 

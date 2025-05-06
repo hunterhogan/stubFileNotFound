@@ -1,5 +1,6 @@
 import numpy as np
 from pandas._typing import Scalar as Scalar
+from pandas.compat._optional import import_optional_dependency as import_optional_dependency
 from pandas.core.util.numba_ import NumbaUtilError as NumbaUtilError, jit_user_function as jit_user_function
 from typing import Any
 

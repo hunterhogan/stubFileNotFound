@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from numba.core import ir as ir, types as types
+from numba.core.typing import signature as signature
 from typing import NamedTuple
 
 class _CallableNode(NamedTuple):

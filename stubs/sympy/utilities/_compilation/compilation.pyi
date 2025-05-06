@@ -1,6 +1,7 @@
 from .runners import CCompilerRunner as CCompilerRunner, CppCompilerRunner as CppCompilerRunner, FortranCompilerRunner as FortranCompilerRunner
 from .util import ArbitraryDepthGlob as ArbitraryDepthGlob, CompileError as CompileError, Glob as Glob, copy as copy, get_abspath as get_abspath, glob_at_depth as glob_at_depth, import_module_from_file as import_module_from_file, make_dirs as make_dirs, pyx_is_cplus as pyx_is_cplus, sha256_of_file as sha256_of_file, sha256_of_string as sha256_of_string
 from _typeshed import Incomplete
+from sysconfig import get_config_vars as get_config_vars
 
 objext: str
 

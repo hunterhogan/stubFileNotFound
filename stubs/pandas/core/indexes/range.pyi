@@ -2,9 +2,15 @@ import numpy as np
 from _typeshed import Incomplete
 from collections.abc import Hashable, Iterator
 from pandas._libs import index as libindex, lib as lib
+from pandas._libs.algos import unique_deltas as unique_deltas
+from pandas._libs.lib import no_default as no_default
 from pandas._typing import Axis as Axis, Dtype as Dtype, NaPosition as NaPosition, Self as Self, npt as npt
+from pandas.core import ops as ops
+from pandas.core.construction import extract_array as extract_array
 from pandas.core.dtypes.common import ensure_platform_int as ensure_platform_int, ensure_python_int as ensure_python_int, is_float as is_float, is_integer as is_integer, is_scalar as is_scalar, is_signed_integer_dtype as is_signed_integer_dtype
+from pandas.core.dtypes.generic import ABCTimedeltaIndex as ABCTimedeltaIndex
 from pandas.core.indexes.base import Index as Index, maybe_extract_name as maybe_extract_name
+from pandas.core.ops.common import unpack_zerodim_and_defer as unpack_zerodim_and_defer
 from pandas.util._decorators import cache_readonly as cache_readonly, deprecate_nonkeyword_arguments as deprecate_nonkeyword_arguments, doc as doc
 from typing import Any, Literal, overload
 

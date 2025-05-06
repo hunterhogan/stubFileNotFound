@@ -1,5 +1,6 @@
 import numpy as np
 from collections.abc import Iterable, Sequence
+from pandas._libs import lib as lib
 from pandas.core.dtypes.common import is_bool as is_bool, is_integer as is_integer
 from typing import TypeVar, overload
 

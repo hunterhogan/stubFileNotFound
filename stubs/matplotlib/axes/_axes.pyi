@@ -1,7 +1,9 @@
 from _typeshed import Incomplete
 from matplotlib import _api as _api, _docstring as _docstring, _preprocess_data as _preprocess_data
 from matplotlib.axes._base import _AxesBase as _AxesBase, _TransformedBoundsLocator as _TransformedBoundsLocator, _process_plot_format as _process_plot_format
+from matplotlib.axes._secondary_axes import SecondaryAxis as SecondaryAxis
 from matplotlib.container import BarContainer as BarContainer, ErrorbarContainer as ErrorbarContainer, StemContainer as StemContainer
+from matplotlib.transforms import _ScaledRotation as _ScaledRotation
 
 _log: Incomplete
 

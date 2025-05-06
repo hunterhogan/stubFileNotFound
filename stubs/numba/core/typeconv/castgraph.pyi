@@ -1,5 +1,6 @@
 import enum
 from _typeshed import Incomplete
+from functools import total_ordering as total_ordering
 
 class Conversion(enum.IntEnum):
     """

@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from numba.np.numpy_support import from_dtype as from_dtype
 
 _WARPSIZE: int
 _NUMWARPS: int

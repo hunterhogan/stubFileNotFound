@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 
+from antlr4.Token import Token as Token
 
 class InputStream:
     name: str

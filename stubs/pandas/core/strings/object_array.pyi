@@ -2,7 +2,9 @@ import re
 from _typeshed import Incomplete
 from collections.abc import Sequence
 from pandas import Series as Series
+from pandas._libs import lib as lib
 from pandas._typing import NpDtype as NpDtype, Scalar as Scalar
+from pandas.core.dtypes.missing import isna as isna
 from pandas.core.strings.base import BaseStringArrayMethods as BaseStringArrayMethods
 from typing import Literal
 

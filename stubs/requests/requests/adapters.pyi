@@ -6,6 +6,7 @@ from typing_extensions import NotRequired, deprecated
 
 import urllib3
 from urllib3.connectionpool import ConnectionPool
+from urllib3.contrib.socks import SOCKSProxyManager as SOCKSProxyManager
 from urllib3.exceptions import (
     ConnectTimeoutError as ConnectTimeoutError,
     MaxRetryError as MaxRetryError,
@@ -16,6 +17,7 @@ from urllib3.exceptions import (
 from urllib3.poolmanager import PoolManager as PoolManager, proxy_from_url as proxy_from_url
 from urllib3.util.retry import Retry as Retry
 
+from .cookies import extract_cookies_to_jar as extract_cookies_to_jar
 from .exceptions import (
     ConnectionError as ConnectionError,
     ConnectTimeout as ConnectTimeout,
@@ -25,6 +27,7 @@ from .exceptions import (
     SSLError as SSLError,
 )
 from .models import PreparedRequest, Response as Response
+from .structures import CaseInsensitiveDict as CaseInsensitiveDict
 from .utils import (
     DEFAULT_CA_BUNDLE_PATH as DEFAULT_CA_BUNDLE_PATH,
     _Uri,

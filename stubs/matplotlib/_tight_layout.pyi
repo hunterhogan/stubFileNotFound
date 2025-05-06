@@ -1,4 +1,7 @@
 from _typeshed import Incomplete
+from matplotlib import _api as _api
+from matplotlib.font_manager import FontProperties as FontProperties
+from matplotlib.transforms import Bbox as Bbox
 
 def _auto_adjust_subplotpars(fig, renderer, shape, span_pairs, subplot_list, ax_bbox_list: Incomplete | None = None, pad: float = 1.08, h_pad: Incomplete | None = None, w_pad: Incomplete | None = None, rect: Incomplete | None = None):
     """

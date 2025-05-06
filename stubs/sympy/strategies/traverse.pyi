@@ -1,4 +1,5 @@
 from sympy.strategies.core import chain as chain, do_one as do_one
+from sympy.strategies.util import basic_fns as basic_fns
 
 def top_down(rule, fns=...):
     """Apply a rule down a tree running it on the top nodes first."""

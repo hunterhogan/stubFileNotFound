@@ -1,5 +1,6 @@
 import threading
 from ..args import ArgHint as ArgHint, wrap_arg as wrap_arg
+from ..errors import normalize_kernel_dimensions as normalize_kernel_dimensions
 from .cudadrv.devicearray import FakeCUDAArray as FakeCUDAArray, FakeWithinKernelCUDAArray as FakeWithinKernelCUDAArray
 from .kernelapi import Dim3 as Dim3, FakeCUDAModule as FakeCUDAModule, swapped_cuda_module as swapped_cuda_module
 from _typeshed import Incomplete

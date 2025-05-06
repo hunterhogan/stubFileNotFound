@@ -1,7 +1,10 @@
 from _typeshed import Incomplete
+from numba.core import types as types
+from numba.core.errors import TypingError as TypingError
 from numba.core.extending import overload_method as overload_method, register_jitable as register_jitable
 from numba.core.types.containers import Tuple as Tuple, UniTuple as UniTuple
 from numba.np.numpy_support import as_dtype as as_dtype, from_dtype as from_dtype, is_nonelike as is_nonelike
+from numba.np.random import random_methods as random_methods
 from numba.np.random.distributions import random_beta as random_beta, random_binomial as random_binomial, random_chisquare as random_chisquare, random_exponential as random_exponential, random_f as random_f, random_gamma as random_gamma, random_geometric as random_geometric, random_laplace as random_laplace, random_logistic as random_logistic, random_lognormal as random_lognormal, random_logseries as random_logseries, random_negative_binomial as random_negative_binomial, random_noncentral_chisquare as random_noncentral_chisquare, random_noncentral_f as random_noncentral_f, random_normal as random_normal, random_pareto as random_pareto, random_poisson as random_poisson, random_power as random_power, random_rayleigh as random_rayleigh, random_standard_cauchy as random_standard_cauchy, random_standard_exponential as random_standard_exponential, random_standard_exponential_f as random_standard_exponential_f, random_standard_exponential_inv as random_standard_exponential_inv, random_standard_exponential_inv_f as random_standard_exponential_inv_f, random_standard_gamma as random_standard_gamma, random_standard_gamma_f as random_standard_gamma_f, random_standard_normal as random_standard_normal, random_standard_normal_f as random_standard_normal_f, random_standard_t as random_standard_t, random_triangular as random_triangular, random_uniform as random_uniform, random_wald as random_wald, random_weibull as random_weibull, random_zipf as random_zipf
 from numba.np.random.generator_core import next_double as next_double, next_float as next_float
 

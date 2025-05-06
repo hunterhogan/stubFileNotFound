@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
 
+from antlr4.CommonTokenStream import CommonTokenStream as CommonTokenStream
+from antlr4.Token import Token as Token
 
 class TokenStreamRewriter:
     DEFAULT_PROGRAM_NAME: str

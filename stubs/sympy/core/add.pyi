@@ -1,9 +1,14 @@
+from .basic import _args_sortkey as _args_sortkey
+from .cache import cacheit as cacheit
 from .expr import Expr as Expr
 from .intfunc import igcd as igcd, ilcm as ilcm
+from .kind import UndefinedKind as UndefinedKind
 from .logic import _fuzzy_group as _fuzzy_group, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
 from .mul import Mul as Mul, _keep_coeff as _keep_coeff, _unevaluated_Mul as _unevaluated_Mul
 from .numbers import Rational as Rational, equal_valued as equal_valued
 from .operations import AssocOp as AssocOp, AssocOpDispatcher as AssocOpDispatcher
+from .parameters import global_parameters as global_parameters
+from .singleton import S as S
 from _typeshed import Incomplete
 from sympy.utilities.iterables import is_sequence as is_sequence, sift as sift
 

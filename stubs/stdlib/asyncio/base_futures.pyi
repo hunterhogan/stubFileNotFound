@@ -9,6 +9,7 @@ __all__ = ()
 # asyncio defines 'isfuture()' in base_futures.py and re-imports it in futures.py
 # but it leads to circular import error in pytype tool.
 # That's why the import order is reversed.
+from .futures import isfuture as isfuture
 
 _PENDING: Final = "PENDING"  # undocumented
 _CANCELLED: Final = "CANCELLED"  # undocumented

@@ -1,10 +1,28 @@
 from _typeshed import Incomplete
 from sympy.concrete.summations import Sum as Sum, summation as summation
+from sympy.core.basic import Basic as Basic
+from sympy.core.cache import cacheit as cacheit
+from sympy.core.function import Lambda as Lambda
+from sympy.core.numbers import I as I
 from sympy.core.relational import Eq as Eq, Ne as Ne
+from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy, symbols as symbols
 from sympy.core.sympify import _sympify as _sympify, sympify as sympify
+from sympy.functions.combinatorial.factorials import factorial as factorial
+from sympy.functions.elementary.exponential import exp as exp
+from sympy.functions.elementary.integers import floor as floor
+from sympy.functions.elementary.piecewise import Piecewise as Piecewise
+from sympy.logic.boolalg import And as And
+from sympy.polys.polyerrors import PolynomialError as PolynomialError
+from sympy.polys.polytools import poly as poly
+from sympy.series.series import series as series
+from sympy.sets.contains import Contains as Contains
 from sympy.sets.fancysets import FiniteSet as FiniteSet, Range as Range
+from sympy.sets.sets import Union as Union
+from sympy.stats.crv import reduce_rational_inequalities_wrap as reduce_rational_inequalities_wrap
 from sympy.stats.rv import ConditionalDomain as ConditionalDomain, Distribution as Distribution, NamedArgsMixin as NamedArgsMixin, PSpace as PSpace, ProductDomain as ProductDomain, RandomDomain as RandomDomain, SingleDomain as SingleDomain, SinglePSpace as SinglePSpace, random_symbols as random_symbols
+from sympy.stats.symbolic_probability import Probability as Probability
+from sympy.utilities import filldedent as filldedent
 
 class DiscreteDistribution(Distribution):
     def __call__(self, *args): ...

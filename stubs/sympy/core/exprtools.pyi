@@ -1,9 +1,19 @@
+from .add import Add as Add
+from .basic import Basic as Basic
 from .containers import Dict as Dict, Tuple as Tuple
+from .coreerrors import NonCommutativeExpression as NonCommutativeExpression
 from .expr import Expr as Expr
+from .function import expand_power_exp as expand_power_exp
 from .mul import Mul as Mul, _keep_coeff as _keep_coeff
 from .numbers import I as I, Integer as Integer, Number as Number, Rational as Rational, equal_valued as equal_valued
+from .power import Pow as Pow
+from .singleton import S as S
 from .sorting import default_sort_key as default_sort_key, ordered as ordered
+from .symbol import Dummy as Dummy
+from .sympify import sympify as sympify
+from .traversal import preorder_traversal as preorder_traversal
 from _typeshed import Incomplete
+from sympy.external.gmpy import SYMPY_INTS as SYMPY_INTS
 from sympy.utilities.iterables import common_prefix as common_prefix, common_suffix as common_suffix, is_sequence as is_sequence, iterable as iterable, variations as variations
 
 _eps: Incomplete

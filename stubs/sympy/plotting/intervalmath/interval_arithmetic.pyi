@@ -1,4 +1,8 @@
+from .interval_membership import intervalMembership as intervalMembership
 from _typeshed import Incomplete
+from sympy.core.logic import fuzzy_and as fuzzy_and
+from sympy.core.numbers import int_valued as int_valued
+from sympy.simplify.simplify import nsimplify as nsimplify
 
 class interval:
     """ Represents an interval containing floating points as start and

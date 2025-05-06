@@ -2,6 +2,7 @@ from . import _macosx as _macosx
 from .backend_agg import FigureCanvasAgg as FigureCanvasAgg
 from _typeshed import Incomplete
 from matplotlib import _api as _api, cbook as cbook
+from matplotlib._pylab_helpers import Gcf as Gcf
 from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, NavigationToolbar2 as NavigationToolbar2, ResizeEvent as ResizeEvent, TimerBase as TimerBase, _Backend as _Backend, _allow_interrupt as _allow_interrupt
 
 class TimerMac(_macosx.Timer, TimerBase):

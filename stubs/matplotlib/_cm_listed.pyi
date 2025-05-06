@@ -1,3 +1,4 @@
+from .colors import ListedColormap as ListedColormap
 from _typeshed import Incomplete
 
 _magma_data: Incomplete

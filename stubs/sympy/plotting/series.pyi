@@ -1,10 +1,25 @@
+from .intervalmath import interval as interval
 from _typeshed import Incomplete
+from sympy.calculus.util import continuous_domain as continuous_domain
 from sympy.concrete import Product as Product, Sum as Sum
+from sympy.core.containers import Tuple as Tuple
+from sympy.core.expr import Expr as Expr
+from sympy.core.function import arity as arity
 from sympy.core.relational import Equality as Equality, GreaterThan as GreaterThan, LessThan as LessThan, Ne as Ne, Relational as Relational
+from sympy.core.sorting import default_sort_key as default_sort_key
+from sympy.core.symbol import Symbol as Symbol
+from sympy.core.sympify import sympify as sympify
+from sympy.external import import_module as import_module
 from sympy.functions import atan2 as atan2, ceiling as ceiling, floor as floor, frac as frac, im as im, zeta as zeta
+from sympy.logic.boolalg import BooleanFunction as BooleanFunction
 from sympy.plotting.utils import _get_free_symbols as _get_free_symbols, extract_solution as extract_solution
+from sympy.printing.latex import latex as latex
+from sympy.printing.precedence import precedence as precedence
 from sympy.printing.pycode import PythonCodePrinter as PythonCodePrinter
 from sympy.sets.sets import Interval as Interval, Set as Set, Union as Union
+from sympy.simplify.simplify import nsimplify as nsimplify
+from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
+from sympy.utilities.lambdify import lambdify as lambdify
 
 class IntervalMathPrinter(PythonCodePrinter):
     """A printer to be used inside `plot_implicit` when `adaptive=True`,

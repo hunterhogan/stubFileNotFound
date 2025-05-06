@@ -1,7 +1,9 @@
 from _typeshed import Incomplete
 
+from antlr4.atn.ATNConfigSet import ATNConfigSet as ATNConfigSet
 from antlr4.atn.ATNState import DecisionState as DecisionState, StarLoopEntryState as StarLoopEntryState
 from antlr4.dfa.DFAState import DFAState as DFAState
+from antlr4.error.Errors import IllegalStateException as IllegalStateException
 
 class DFA:
     atnStartState: Incomplete

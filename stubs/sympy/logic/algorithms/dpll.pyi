@@ -1,3 +1,5 @@
+from sympy.assumptions.cnf import CNF as CNF
+from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.logic.boolalg import Not as Not, Or as Or, _find_predicates as _find_predicates, conjuncts as conjuncts, disjuncts as disjuncts, to_cnf as to_cnf, to_int_repr as to_int_repr
 from sympy.logic.inference import literal_symbol as literal_symbol, pl_true as pl_true
 

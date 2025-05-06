@@ -1,5 +1,7 @@
 from sympy.core import Basic as Basic, Dict as Dict, S as S, Symbol as Symbol, Tuple as Tuple, sympify as sympify
+from sympy.core.symbol import Str as Str
 from sympy.sets import EmptySet as EmptySet, FiniteSet as FiniteSet, Set as Set
+from sympy.utilities.iterables import iterable as iterable
 
 class Class(Set):
     """

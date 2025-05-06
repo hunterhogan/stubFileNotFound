@@ -1,7 +1,16 @@
 import _cython_3_0_11
+import pandas._libs.lib as lib
 from _typeshed import Incomplete
+from pandas.core.arrays.arrow.array import ArrowExtensionArray as ArrowExtensionArray
 from pandas.core.arrays.boolean import BooleanArray as BooleanArray, BooleanDtype as BooleanDtype
+from pandas.core.arrays.floating import FloatingArray as FloatingArray
+from pandas.core.arrays.integer import IntegerArray as IntegerArray
+from pandas.core.arrays.string_ import StringDtype as StringDtype
+from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
+from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype
+from pandas.core.dtypes.inference import is_dict_like as is_dict_like
 from pandas.errors import EmptyDataError as EmptyDataError, ParserError as ParserError, ParserWarning as ParserWarning
+from pandas.util._exceptions import find_stack_level as find_stack_level
 from typing import ClassVar
 
 DEFAULT_BUFFER_HEURISTIC: int

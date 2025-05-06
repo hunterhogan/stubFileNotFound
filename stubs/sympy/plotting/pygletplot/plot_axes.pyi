@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
+from sympy.core import S as S
 from sympy.plotting.pygletplot.plot_object import PlotObject as PlotObject
 from sympy.plotting.pygletplot.util import billboard_matrix as billboard_matrix, dot_product as dot_product, get_direction_vectors as get_direction_vectors, strided_range as strided_range, vec_mag as vec_mag, vec_sub as vec_sub
+from sympy.utilities.iterables import is_sequence as is_sequence
 
 class PlotAxes(PlotObject):
     _render_object: Incomplete

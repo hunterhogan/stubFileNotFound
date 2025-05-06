@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping
+from numba.core import ir as ir
 
 class SourceLines(Mapping):
     lines: Incomplete
