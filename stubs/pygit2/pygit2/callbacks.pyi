@@ -2,8 +2,7 @@ from _typeshed import StrOrBytesPath
 from collections.abc import Callable
 from contextlib import AbstractContextManager
 from typing import Protocol
-from typing_extensions import ParamSpec, Self
-from typing import TypeAlias
+from typing_extensions import ParamSpec, Self, TypeAlias
 
 from _cffi_backend import _CDataBase
 

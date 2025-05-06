@@ -1,6 +1,6 @@
 from collections.abc import Callable, Iterable
 from typing import Any, Protocol
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from jsonschema.protocols import Validator
 from referencing.jsonschema import Schema

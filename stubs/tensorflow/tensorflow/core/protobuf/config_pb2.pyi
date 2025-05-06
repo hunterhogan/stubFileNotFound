@@ -21,7 +21,10 @@ import tensorflow.core.protobuf.rewriter_config_pb2
 import tensorflow.tsl.protobuf.coordination_config_pb2
 import tensorflow.tsl.protobuf.rpc_options_pb2
 
-import typing as typing_extensions
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 

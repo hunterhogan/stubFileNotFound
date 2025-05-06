@@ -26,8 +26,7 @@ from types import (
     WrapperDescriptorType,
 )
 from typing import Any, ClassVar, Final, Literal, NamedTuple, Protocol, TypeVar, overload
-from typing_extensions import ParamSpec, Self, TypeIs
-from typing import TypeAlias, TypeGuard
+from typing_extensions import ParamSpec, Self, TypeAlias, TypeGuard, TypeIs
 
 if sys.version_info >= (3, 11):
     __all__ = [
@@ -295,15 +294,18 @@ _IntrospectableCallable: TypeAlias = Callable[..., Any]
 #
 # Introspecting callables with the Signature object
 #
-def signature(
-    obj: _IntrospectableCallable,
-    *,
-    follow_wrapped: bool = True,
-    globals: Mapping[str, Any] | None = None,
-    locals: Mapping[str, Any] | None = None,
-    eval_str: bool = False,
-) -> Signature: ...
+if sys.version_info >= (3, 10):
+    def signature(
+        obj: _IntrospectableCallable,
+        *,
+        follow_wrapped: bool = True,
+        globals: Mapping[str, Any] | None = None,
+        locals: Mapping[str, Any] | None = None,
+        eval_str: bool = False,
+    ) -> Signature: ...
 
+else:
+    def signature(obj: _IntrospectableCallable, *, follow_wrapped: bool = True) -> Signature: ...
 
 class _void: ...
 class _empty: ...
@@ -321,29 +323,34 @@ class Signature:
     def bind_partial(self, *args: Any, **kwargs: Any) -> BoundArguments: ...
     def replace(self, *, parameters: Sequence[Parameter] | type[_void] | None = ..., return_annotation: Any = ...) -> Self: ...
     __replace__ = replace
-    @classmethod
-    def from_callable(
-        cls,
-        obj: _IntrospectableCallable,
-        *,
-        follow_wrapped: bool = True,
-        globals: Mapping[str, Any] | None = None,
-        locals: Mapping[str, Any] | None = None,
-        eval_str: bool = False,
-    ) -> Self: ...
+    if sys.version_info >= (3, 10):
+        @classmethod
+        def from_callable(
+            cls,
+            obj: _IntrospectableCallable,
+            *,
+            follow_wrapped: bool = True,
+            globals: Mapping[str, Any] | None = None,
+            locals: Mapping[str, Any] | None = None,
+            eval_str: bool = False,
+        ) -> Self: ...
+    else:
+        @classmethod
+        def from_callable(cls, obj: _IntrospectableCallable, *, follow_wrapped: bool = True) -> Self: ...
     if sys.version_info >= (3, 13):
         def format(self, *, max_width: int | None = None) -> str: ...
 
     def __eq__(self, other: object) -> bool: ...
     def __hash__(self) -> int: ...
 
-def get_annotations(
-    obj: Callable[..., object] | type[object] | ModuleType,  # any callable, class, or module
-    *,
-    globals: Mapping[str, Any] | None = None,  # value types depend on the key
-    locals: Mapping[str, Any] | None = None,  # value types depend on the key
-    eval_str: bool = False,
-) -> dict[str, Any]: ...  # values are type expressions
+if sys.version_info >= (3, 10):
+    def get_annotations(
+        obj: Callable[..., object] | type[object] | ModuleType,  # any callable, class, or module
+        *,
+        globals: Mapping[str, Any] | None = None,  # value types depend on the key
+        locals: Mapping[str, Any] | None = None,  # value types depend on the key
+        eval_str: bool = False,
+    ) -> dict[str, Any]: ...  # values are type expressions
 
 # The name is the same as the enum's name in CPython
 class _ParameterKind(enum.IntEnum):

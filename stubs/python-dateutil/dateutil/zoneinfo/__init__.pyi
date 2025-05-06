@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from typing import IO
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 __all__ = ["get_zonefile_instance", "gettz", "gettz_db_metadata"]
 

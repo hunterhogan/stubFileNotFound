@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from typing import Any
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from django.db.models import Model, QuerySet
 

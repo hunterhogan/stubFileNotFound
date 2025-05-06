@@ -1,4 +1,7 @@
 import sys
 from unittest import IsolatedAsyncioTestCase as IsolatedAsyncioTestCase
 
-from inspect import iscoroutinefunction as iscoroutinefunction
+if sys.version_info >= (3, 10):
+    from inspect import iscoroutinefunction as iscoroutinefunction
+else:
+    from asyncio import iscoroutinefunction as iscoroutinefunction

@@ -1,5 +1,5 @@
 from typing import Any, Literal, overload
-from typing import TypeGuard
+from typing_extensions import TypeGuard
 
 import numpy as np
 from numpy.typing import NDArray

@@ -3,7 +3,7 @@ import types
 from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Hashable
 from typing import Any, ClassVar, Literal, Protocol, SupportsIndex, TypeVar, final, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 _T = TypeVar("_T")
 

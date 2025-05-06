@@ -3,9 +3,7 @@ import types
 from collections.abc import Callable, Iterator
 from opcode import *  # `dis` re-exports it as a part of public API
 from typing import IO, Any, NamedTuple
-from typing_extensions import Self
-
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "code_info",

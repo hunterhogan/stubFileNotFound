@@ -6,9 +6,7 @@ from email.contentmanager import ContentManager
 from email.errors import MessageDefect
 from email.policy import Policy
 from typing import Any, Generic, Literal, Protocol, TypeVar, overload
-from typing_extensions import Self
-
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __all__ = ["Message", "EmailMessage"]
 

@@ -3,7 +3,7 @@ from _typeshed import MaybeNone, StrOrBytesPath, SupportsWrite
 from collections.abc import Callable, ItemsView, Iterable, Iterator, Mapping, MutableMapping, Sequence
 from re import Pattern
 from typing import Any, ClassVar, Final, Literal, TypeVar, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 13):
     __all__ = (

@@ -3,9 +3,7 @@ from _typeshed import StrOrBytesPath, Unused
 from collections.abc import Callable, Mapping
 from types import CodeType
 from typing import Any, TypeVar
-from typing_extensions import ParamSpec, Self
-
-from typing import TypeAlias
+from typing_extensions import ParamSpec, Self, TypeAlias
 
 __all__ = ["run", "runctx", "Profile"]
 

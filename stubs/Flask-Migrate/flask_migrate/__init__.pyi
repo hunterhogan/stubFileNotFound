@@ -6,9 +6,7 @@ from argparse import Namespace
 from collections.abc import Callable, Iterable, Sequence
 from logging import Logger
 from typing import Any, Protocol, TypeVar
-from typing_extensions import ParamSpec
-
-from typing import TypeAlias
+from typing_extensions import ParamSpec, TypeAlias
 
 import flask
 from flask_sqlalchemy import SQLAlchemy

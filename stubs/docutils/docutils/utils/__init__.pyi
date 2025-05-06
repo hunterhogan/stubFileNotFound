@@ -3,7 +3,7 @@ from _typeshed import StrPath, SupportsWrite, Unused
 from collections.abc import Callable, Iterable, Mapping
 from re import Pattern
 from typing import Any, Literal, TypeVar
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from docutils import ApplicationError, DataError, nodes
 from docutils.frontend import Values

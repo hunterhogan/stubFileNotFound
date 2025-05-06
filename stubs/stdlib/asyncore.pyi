@@ -2,7 +2,7 @@ import sys
 from _typeshed import FileDescriptorLike, ReadableBuffer
 from socket import socket
 from typing import Any, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 # cyclic dependence with asynchat
 _MapType: TypeAlias = dict[int, Any]

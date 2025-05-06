@@ -1,6 +1,6 @@
 from collections.abc import Callable, Hashable
 from typing import Any, SupportsInt, TypeVar
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 _T = TypeVar("_T")
 _Reduce: TypeAlias = tuple[Callable[..., _T], tuple[Any, ...]] | tuple[Callable[..., _T], tuple[Any, ...], Any | None]

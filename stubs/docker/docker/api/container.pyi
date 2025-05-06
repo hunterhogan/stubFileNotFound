@@ -1,7 +1,7 @@
 import datetime
 from _typeshed import Incomplete
 from typing import Any, Literal, TypedDict, overload, type_check_only
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from docker._types import WaitContainerResponse
 from docker.types.daemon import CancellableStream

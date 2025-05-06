@@ -7,12 +7,12 @@ from contextlib import AbstractContextManager
 from re import Pattern
 from types import GenericAlias, TracebackType
 from typing import Any, AnyStr, Final, Generic, NoReturn, Protocol, SupportsAbs, SupportsRound, TypeVar, overload
-from typing_extensions import Never, ParamSpec, Self
-from typing import TypeAlias
+from typing_extensions import Never, ParamSpec, Self, TypeAlias
 from unittest._log import _AssertLogsContext, _LoggingWatcher
 from warnings import WarningMessage
 
-from types import UnionType
+if sys.version_info >= (3, 10):
+    from types import UnionType
 
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=SupportsSub[Any, Any])
@@ -62,7 +62,10 @@ class _SupportsAbsAndDunderGE(SupportsDunderGE[Any], SupportsAbs[Any], Protocol)
 # Keep this alias in sync with builtins._ClassInfo
 # We can't import it from builtins or pytype crashes,
 # due to the fact that pytype uses a custom builtins stub rather than typeshed's builtins stub
-_ClassInfo: TypeAlias = type | UnionType | tuple[_ClassInfo, ...]
+if sys.version_info >= (3, 10):
+    _ClassInfo: TypeAlias = type | UnionType | tuple[_ClassInfo, ...]
+else:
+    _ClassInfo: TypeAlias = type | tuple[_ClassInfo, ...]
 
 class TestCase:
     failureException: type[BaseException]
@@ -173,9 +176,10 @@ class TestCase:
     def assertLogs(
         self, logger: str | logging.Logger | None = None, level: int | str | None = None
     ) -> _AssertLogsContext[_LoggingWatcher]: ...
-    def assertNoLogs(
-        self, logger: str | logging.Logger | None = None, level: int | str | None = None
-    ) -> _AssertLogsContext[None]: ...
+    if sys.version_info >= (3, 10):
+        def assertNoLogs(
+            self, logger: str | logging.Logger | None = None, level: int | str | None = None
+        ) -> _AssertLogsContext[None]: ...
 
     @overload
     def assertAlmostEqual(self, first: _S, second: _S, places: None, msg: Any, delta: _SupportsAbsAndDunderGE) -> None: ...
@@ -281,8 +285,9 @@ class TestCase:
             self, subset: Mapping[Any, Any], dictionary: Mapping[Any, Any], msg: object = None
         ) -> None: ...
 
-    # Runtime has *args, **kwargs, but will error if any are supplied
-    def __init_subclass__(cls, *args: Never, **kwargs: Never) -> None: ...
+    if sys.version_info >= (3, 10):
+        # Runtime has *args, **kwargs, but will error if any are supplied
+        def __init_subclass__(cls, *args: Never, **kwargs: Never) -> None: ...
 
 class FunctionTestCase(TestCase):
     def __init__(

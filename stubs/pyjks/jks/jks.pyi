@@ -1,8 +1,7 @@
 from _typeshed import SupportsKeysAndGetItem, Unused
 from collections.abc import Iterable
 from typing import Final, Literal, NoReturn, overload
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from .util import AbstractKeystore, AbstractKeystoreEntry
 

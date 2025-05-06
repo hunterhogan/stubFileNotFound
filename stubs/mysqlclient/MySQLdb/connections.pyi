@@ -2,8 +2,7 @@ from _typeshed import Incomplete
 from re import Pattern
 from types import TracebackType
 from typing import Any
-from typing_extensions import LiteralString, Self
-from typing import TypeAlias
+from typing_extensions import LiteralString, Self, TypeAlias
 
 from . import _mysql, cursors
 from ._exceptions import (

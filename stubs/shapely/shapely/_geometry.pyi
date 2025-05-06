@@ -1,6 +1,6 @@
 from enum import IntEnum
 from typing import Any, Literal, SupportsIndex, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 import numpy as np
 from numpy.typing import NDArray

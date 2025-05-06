@@ -2,7 +2,7 @@ from asyncio import ReadTransport
 from collections.abc import Awaitable, Callable, Iterable
 from re import Match, Pattern
 from typing import IO, AnyStr, Generic, Literal, Protocol, TextIO, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from ._async import PatternWaiter
 from .exceptions import EOF, TIMEOUT

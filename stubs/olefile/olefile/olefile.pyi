@@ -5,8 +5,7 @@ import logging
 import traceback
 from collections.abc import Sequence
 from typing import IO, AnyStr, Generic
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __date__: str
 __version__: str

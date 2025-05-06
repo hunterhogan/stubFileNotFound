@@ -8,8 +8,7 @@ from collections.abc import Callable, Iterable, Iterator, Mapping
 from email._policybase import _MessageT
 from socket import socket
 from typing import BinaryIO, Literal, TypeVar, overload
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "HTTPResponse",

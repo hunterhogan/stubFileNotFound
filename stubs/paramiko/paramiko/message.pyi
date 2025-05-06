@@ -2,7 +2,7 @@ from _typeshed import ReadableBuffer
 from collections.abc import Iterable
 from io import BytesIO
 from typing import Any, Protocol
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 class _SupportsAsBytes(Protocol):
     def asbytes(self) -> bytes: ...

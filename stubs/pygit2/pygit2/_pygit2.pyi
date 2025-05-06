@@ -2,7 +2,7 @@ from _typeshed import StrOrBytesPath
 from collections.abc import Iterator
 from io import IOBase
 from typing import Any, Literal, final, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from . import Index
 from .enums import (

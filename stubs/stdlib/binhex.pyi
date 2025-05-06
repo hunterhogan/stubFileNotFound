@@ -1,6 +1,6 @@
 from _typeshed import SizedBuffer
 from typing import IO, Any, Final
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 __all__ = ["binhex", "hexbin", "Error"]
 

@@ -127,21 +127,22 @@ if sys.platform == "win32":
     WAIT_OBJECT_0: Final = 0
     WAIT_TIMEOUT: Final = 258
 
-    LOCALE_NAME_INVARIANT: str
-    LOCALE_NAME_MAX_LENGTH: int
-    LOCALE_NAME_SYSTEM_DEFAULT: str
-    LOCALE_NAME_USER_DEFAULT: str | None
+    if sys.version_info >= (3, 10):
+        LOCALE_NAME_INVARIANT: str
+        LOCALE_NAME_MAX_LENGTH: int
+        LOCALE_NAME_SYSTEM_DEFAULT: str
+        LOCALE_NAME_USER_DEFAULT: str | None
 
-    LCMAP_FULLWIDTH: int
-    LCMAP_HALFWIDTH: int
-    LCMAP_HIRAGANA: int
-    LCMAP_KATAKANA: int
-    LCMAP_LINGUISTIC_CASING: int
-    LCMAP_LOWERCASE: int
-    LCMAP_SIMPLIFIED_CHINESE: int
-    LCMAP_TITLECASE: int
-    LCMAP_TRADITIONAL_CHINESE: int
-    LCMAP_UPPERCASE: int
+        LCMAP_FULLWIDTH: int
+        LCMAP_HALFWIDTH: int
+        LCMAP_HIRAGANA: int
+        LCMAP_KATAKANA: int
+        LCMAP_LINGUISTIC_CASING: int
+        LCMAP_LOWERCASE: int
+        LCMAP_SIMPLIFIED_CHINESE: int
+        LCMAP_TITLECASE: int
+        LCMAP_TRADITIONAL_CHINESE: int
+        LCMAP_UPPERCASE: int
 
     if sys.version_info >= (3, 12):
         COPYFILE2_CALLBACK_CHUNK_STARTED: Final = 1
@@ -233,8 +234,9 @@ if sys.platform == "win32":
     def GetVersion() -> int: ...
     def OpenProcess(desired_access: int, inherit_handle: bool, process_id: int, /) -> int: ...
     def PeekNamedPipe(handle: int, size: int = 0, /) -> tuple[int, int] | tuple[bytes, int, int]: ...
-    def LCMapStringEx(locale: str, flags: int, src: str) -> str: ...
-    def UnmapViewOfFile(address: int, /) -> None: ...
+    if sys.version_info >= (3, 10):
+        def LCMapStringEx(locale: str, flags: int, src: str) -> str: ...
+        def UnmapViewOfFile(address: int, /) -> None: ...
 
     @overload
     def ReadFile(handle: int, size: int, overlapped: Literal[True]) -> tuple[Overlapped, int]: ...

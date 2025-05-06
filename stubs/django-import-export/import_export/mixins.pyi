@@ -1,9 +1,7 @@
 from _typeshed import Incomplete, SupportsGetItem
 from logging import Logger
 from typing import Any, Generic, TypeVar
-from typing_extensions import deprecated
-
-from typing import TypeAlias
+from typing_extensions import TypeAlias, deprecated
 
 from django.db.models import Model, QuerySet
 from django.forms import BaseForm, Form

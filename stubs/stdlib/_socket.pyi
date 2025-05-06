@@ -3,8 +3,7 @@ from _typeshed import ReadableBuffer, WriteableBuffer
 from collections.abc import Iterable
 from socket import error as error, gaierror as gaierror, herror as herror, timeout as timeout
 from typing import Any, SupportsIndex, overload
-from typing_extensions import CapsuleType
-from typing import TypeAlias
+from typing_extensions import CapsuleType, TypeAlias
 
 _CMSG: TypeAlias = tuple[int, int, bytes]
 _CMSGArg: TypeAlias = tuple[int, int, ReadableBuffer]
@@ -219,7 +218,8 @@ IP_MULTICAST_TTL: int
 IP_OPTIONS: int
 if sys.platform != "linux":
     IP_RECVDSTADDR: int
-IP_RECVTOS: int
+if sys.version_info >= (3, 10):
+    IP_RECVTOS: int
 IP_TOS: int
 IP_TTL: int
 if sys.platform != "win32":

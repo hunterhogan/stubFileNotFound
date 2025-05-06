@@ -1,7 +1,7 @@
 import enum
 from collections.abc import Callable
 from typing import Any, AnyStr, Generic
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from .regex import Pattern
 

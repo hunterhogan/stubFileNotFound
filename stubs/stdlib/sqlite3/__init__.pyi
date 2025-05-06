@@ -64,8 +64,7 @@ from sqlite3.dbapi2 import (
 )
 from types import TracebackType
 from typing import Any, Literal, Protocol, SupportsIndex, TypeVar, final, overload, type_check_only
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 if sys.version_info >= (3, 12):
     from sqlite3.dbapi2 import (
@@ -209,6 +208,9 @@ if sys.version_info >= (3, 11):
 
 if sys.version_info < (3, 12):
     from sqlite3.dbapi2 import enable_shared_cache as enable_shared_cache, version as version
+
+if sys.version_info < (3, 10):
+    from sqlite3.dbapi2 import OptimizedUnicode as OptimizedUnicode
 
 _CursorT = TypeVar("_CursorT", bound=Cursor)
 _SqliteData: TypeAlias = str | ReadableBuffer | int | float | None

@@ -5,8 +5,7 @@ from configparser import RawConfigParser
 from re import Pattern
 from threading import Thread
 from typing import IO, Any, Final, Literal, SupportsIndex, TypedDict, overload, type_check_only
-from typing_extensions import Required
-from typing import TypeAlias
+from typing_extensions import Required, TypeAlias
 
 from . import Filter, Filterer, Formatter, Handler, Logger, _FilterType, _FormatStyle, _Level
 
@@ -66,13 +65,20 @@ class _DictConfigArgs(TypedDict, total=False):
 # types, and for somewhat stricter type checking of dict literals.
 def dictConfig(config: _DictConfigArgs | dict[str, Any]) -> None: ...
 
-def fileConfig(
-    fname: StrOrBytesPath | IO[str] | RawConfigParser,
-    defaults: Mapping[str, str] | None = None,
-    disable_existing_loggers: bool = True,
-    encoding: str | None = None,
-) -> None: ...
+if sys.version_info >= (3, 10):
+    def fileConfig(
+        fname: StrOrBytesPath | IO[str] | RawConfigParser,
+        defaults: Mapping[str, str] | None = None,
+        disable_existing_loggers: bool = True,
+        encoding: str | None = None,
+    ) -> None: ...
 
+else:
+    def fileConfig(
+        fname: StrOrBytesPath | IO[str] | RawConfigParser,
+        defaults: Mapping[str, str] | None = None,
+        disable_existing_loggers: bool = True,
+    ) -> None: ...
 
 def valid_ident(s: str) -> Literal[True]: ...  # undocumented
 def listen(port: int = 9030, verify: Callable[[bytes], bytes | None] | None = None) -> Thread: ...

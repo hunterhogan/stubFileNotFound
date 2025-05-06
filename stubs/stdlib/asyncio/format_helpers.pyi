@@ -4,7 +4,7 @@ import traceback
 from collections.abc import Iterable
 from types import FrameType, FunctionType
 from typing import Any, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 class _HasWrapper:
     __wrapper__: _HasWrapper | FunctionType

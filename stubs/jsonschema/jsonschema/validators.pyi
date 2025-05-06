@@ -2,7 +2,7 @@ from _typeshed import Incomplete, SupportsKeysAndGetItem
 from collections.abc import Callable, Generator, Iterable, Iterator, Mapping
 from contextlib import contextmanager
 from typing import Any, ClassVar
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from referencing.jsonschema import Schema, SchemaRegistry
 from referencing.typing import URI

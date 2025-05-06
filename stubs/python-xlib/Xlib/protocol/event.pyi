@@ -1,5 +1,5 @@
 from typing import Final
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from Xlib.protocol import rq
 

@@ -1,6 +1,6 @@
 from re import Pattern
 from typing import ClassVar
-from typing import TypeGuard
+from typing_extensions import TypeGuard
 from xml.etree.ElementTree import Element
 
 from markdown import util

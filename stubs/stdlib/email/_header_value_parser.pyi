@@ -22,8 +22,9 @@ NLSET: Final[set[str]]
 # Added in Python 3.9.20, 3.10.15, 3.11.10, 3.12.5
 SPECIALSNL: Final[set[str]]
 
-# Added in Python 3.10.17, 3.11.12, 3.12.9, 3.13.2 (may still be backported to 3.9)
-def make_quoted_pairs(value: Any) -> str: ...
+if sys.version_info >= (3, 10):
+    # Added in Python 3.10.17, 3.11.12, 3.12.9, 3.13.2 (may still be backported to 3.9)
+    def make_quoted_pairs(value: Any) -> str: ...
 
 def quote_string(value: Any) -> str: ...
 

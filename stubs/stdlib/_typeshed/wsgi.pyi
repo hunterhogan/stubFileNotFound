@@ -8,7 +8,7 @@ import sys
 from _typeshed import OptExcInfo
 from collections.abc import Callable, Iterable, Iterator
 from typing import Any, Protocol
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 class _Readable(Protocol):
     def read(self, size: int = ..., /) -> bytes: ...

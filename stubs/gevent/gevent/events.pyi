@@ -2,7 +2,7 @@ import sys
 from collections.abc import Callable, Mapping, Sequence
 from types import ModuleType
 from typing import Any, Protocol, TypeVar
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from gevent.hub import Hub
 from greenlet import greenlet as greenlet_t

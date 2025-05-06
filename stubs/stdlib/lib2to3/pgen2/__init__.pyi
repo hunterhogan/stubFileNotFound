@@ -1,6 +1,6 @@
 from collections.abc import Callable
 from typing import Any
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from ..pytree import _RawNode
 from .grammar import Grammar

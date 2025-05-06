@@ -227,7 +227,8 @@ if sys.platform != "win32":
         writev as writev,
     )
 
-    from os import O_FSYNC as O_FSYNC
+    if sys.version_info >= (3, 10):
+        from os import O_FSYNC as O_FSYNC
 
     if sys.version_info >= (3, 11):
         from os import login_tty as login_tty
@@ -296,7 +297,8 @@ if sys.platform != "win32":
             setresuid as setresuid,
         )
 
-        from os import RWF_APPEND as RWF_APPEND
+        if sys.version_info >= (3, 10):
+            from os import RWF_APPEND as RWF_APPEND
 
     if sys.platform != "darwin" or sys.version_info >= (3, 13):
         from os import waitid as waitid, waitid_result as waitid_result
@@ -346,18 +348,19 @@ if sys.platform != "win32":
             setxattr as setxattr,
         )
 
-        from os import (
-            EFD_CLOEXEC as EFD_CLOEXEC,
-            EFD_NONBLOCK as EFD_NONBLOCK,
-            EFD_SEMAPHORE as EFD_SEMAPHORE,
-            SPLICE_F_MORE as SPLICE_F_MORE,
-            SPLICE_F_MOVE as SPLICE_F_MOVE,
-            SPLICE_F_NONBLOCK as SPLICE_F_NONBLOCK,
-            eventfd as eventfd,
-            eventfd_read as eventfd_read,
-            eventfd_write as eventfd_write,
-            splice as splice,
-        )
+        if sys.version_info >= (3, 10):
+            from os import (
+                EFD_CLOEXEC as EFD_CLOEXEC,
+                EFD_NONBLOCK as EFD_NONBLOCK,
+                EFD_SEMAPHORE as EFD_SEMAPHORE,
+                SPLICE_F_MORE as SPLICE_F_MORE,
+                SPLICE_F_MOVE as SPLICE_F_MOVE,
+                SPLICE_F_NONBLOCK as SPLICE_F_NONBLOCK,
+                eventfd as eventfd,
+                eventfd_read as eventfd_read,
+                eventfd_write as eventfd_write,
+                splice as splice,
+            )
 
         if sys.version_info >= (3, 12):
             from os import (

@@ -3,7 +3,7 @@ from email._policybase import _MessageT
 from email.message import Message
 from email.policy import Policy
 from typing import IO, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 # At runtime, listing submodules in __all__ without them being imported is
 # valid, and causes them to be included in a star import. See #6523

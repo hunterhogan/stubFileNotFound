@@ -3,9 +3,7 @@ from _typeshed import SupportsWrite, sentinel
 from collections.abc import Callable, Generator, Iterable, Sequence
 from re import Pattern
 from typing import IO, Any, ClassVar, Final, Generic, NoReturn, Protocol, TypeVar, overload
-from typing_extensions import Self, deprecated
-
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias, deprecated
 
 __all__ = [
     "ArgumentParser",

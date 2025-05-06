@@ -2,9 +2,7 @@ from _typeshed import Incomplete, ReadableBuffer
 from collections.abc import Callable, Iterable, Iterator
 from re import Pattern
 from typing import Any, Literal, TypeVar, overload
-from typing_extensions import Self
-
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from . import BeautifulSoup
 from .builder import TreeBuilder

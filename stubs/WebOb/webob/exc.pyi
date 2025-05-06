@@ -3,8 +3,7 @@ from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
 from collections.abc import Iterable
 from string import Template
 from typing import Any, Literal, Protocol
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from webob.response import Response
 

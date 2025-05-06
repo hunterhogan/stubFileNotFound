@@ -21,4 +21,4 @@ call deactivate
 
 CALL .venv\Scripts\activate.bat
 
-forfiles /p stubs /m *.pyi /s /c "CMD /c pyupgrade --py310-plus @path"
+@REM forfiles /p stubs /m *.pyi /s /c "CMD /c pyupgrade --py310-plus @path"

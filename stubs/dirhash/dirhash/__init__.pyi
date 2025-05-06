@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Generator, Iterable
 from os import PathLike
 from typing import TypeVar
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 _DirNode: TypeAlias = Incomplete  # scantree.DirNode
 _RecursionPath: TypeAlias = Incomplete  # scantree.RecursionPath

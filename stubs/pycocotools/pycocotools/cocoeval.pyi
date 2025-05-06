@@ -1,5 +1,5 @@
 from typing import Literal, TypedDict
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 import numpy as np
 import numpy.typing as npt

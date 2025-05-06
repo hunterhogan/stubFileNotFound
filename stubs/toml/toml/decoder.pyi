@@ -3,7 +3,7 @@ from collections.abc import Callable, MutableMapping
 from pathlib import PurePath
 from re import Pattern
 from typing import Any, Generic, TypeVar, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 _MutableMappingT = TypeVar("_MutableMappingT", bound=MutableMapping[str, Any])
 _PathLike: TypeAlias = str | bytes | PurePath

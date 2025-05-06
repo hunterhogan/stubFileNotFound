@@ -4,8 +4,7 @@ from collections.abc import Callable, Hashable, Iterable, Sequence
 from decimal import Decimal
 from fractions import Fraction
 from typing import Literal, NamedTuple, SupportsFloat, SupportsIndex, TypeVar
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "StatisticsError",
@@ -27,7 +26,8 @@ __all__ = [
     "quantiles",
 ]
 
-__all__ += ["covariance", "correlation", "linear_regression"]
+if sys.version_info >= (3, 10):
+    __all__ += ["covariance", "correlation", "linear_regression"]
 if sys.version_info >= (3, 13):
     __all__ += ["kde", "kde_random"]
 
@@ -52,8 +52,11 @@ else:
 def geometric_mean(data: Iterable[SupportsFloat]) -> float: ...
 def mean(data: Iterable[_NumberT]) -> _NumberT: ...
 
-def harmonic_mean(data: Iterable[_NumberT], weights: Iterable[_Number] | None = None) -> _NumberT: ...
+if sys.version_info >= (3, 10):
+    def harmonic_mean(data: Iterable[_NumberT], weights: Iterable[_Number] | None = None) -> _NumberT: ...
 
+else:
+    def harmonic_mean(data: Iterable[_NumberT]) -> _NumberT: ...
 
 def median(data: Iterable[_NumberT]) -> _NumberT: ...
 def median_low(data: Iterable[SupportsRichComparisonT]) -> SupportsRichComparisonT: ...
@@ -113,21 +116,22 @@ if sys.version_info >= (3, 12):
         x: Sequence[_Number], y: Sequence[_Number], /, *, method: Literal["linear", "ranked"] = "linear"
     ) -> float: ...
 
-else:
+elif sys.version_info >= (3, 10):
     def correlation(x: Sequence[_Number], y: Sequence[_Number], /) -> float: ...
 
-def covariance(x: Sequence[_Number], y: Sequence[_Number], /) -> float: ...
+if sys.version_info >= (3, 10):
+    def covariance(x: Sequence[_Number], y: Sequence[_Number], /) -> float: ...
 
-class LinearRegression(NamedTuple):
-    slope: float
-    intercept: float
+    class LinearRegression(NamedTuple):
+        slope: float
+        intercept: float
 
 if sys.version_info >= (3, 11):
     def linear_regression(
         regressor: Sequence[_Number], dependent_variable: Sequence[_Number], /, *, proportional: bool = False
     ) -> LinearRegression: ...
 
-else:
+elif sys.version_info >= (3, 10):
     def linear_regression(regressor: Sequence[_Number], dependent_variable: Sequence[_Number], /) -> LinearRegression: ...
 
 if sys.version_info >= (3, 13):

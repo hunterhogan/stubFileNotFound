@@ -2,7 +2,7 @@ from _typeshed import StrOrBytesPath
 from collections.abc import Callable, Iterator
 from tarfile import TarInfo
 from typing import IO, Any, Protocol
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from ._pygit2 import Blob, Commit, Diff, Object, Oid, Reference, Repository as _Repository, Signature, Tree, _OidArg
 from .blame import Blame

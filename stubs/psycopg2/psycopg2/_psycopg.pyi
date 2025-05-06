@@ -3,8 +3,7 @@ from _typeshed import ConvertibleToInt, Incomplete, SupportsRead, SupportsReadli
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from types import TracebackType
 from typing import Any, Literal, NoReturn, Protocol, TextIO, TypeVar, overload, type_check_only
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from psycopg2.extras import ReplicationCursor as extras_ReplicationCursor
 from psycopg2.sql import Composable

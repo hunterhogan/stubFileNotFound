@@ -5,8 +5,7 @@ from _typeshed.wsgi import WSGIApplication, WSGIEnvironment
 from collections.abc import Iterable, Mapping
 from re import Pattern
 from typing import IO, Any, ClassVar, Literal, Protocol, TypedDict, TypeVar, overload
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from webob._types import AsymmetricProperty, AsymmetricPropertyWithDelete, SymmetricProperty, SymmetricPropertyWithDelete
 from webob.acceptparse import _AcceptCharsetProperty, _AcceptEncodingProperty, _AcceptLanguageProperty, _AcceptProperty

@@ -2,7 +2,7 @@ from collections.abc import Callable, Iterable
 from datetime import date, datetime, timedelta
 from time import _TimeTuple, struct_time
 from typing import Any, NamedTuple, TypeVar, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from webob._types import AsymmetricProperty, AsymmetricPropertyWithDelete, SymmetricProperty, SymmetricPropertyWithDelete
 from webob.byterange import ContentRange, Range

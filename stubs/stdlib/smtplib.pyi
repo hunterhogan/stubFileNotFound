@@ -8,8 +8,7 @@ from socket import socket
 from ssl import SSLContext
 from types import TracebackType
 from typing import Any, Protocol, overload
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "SMTPException",

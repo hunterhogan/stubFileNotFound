@@ -1,6 +1,6 @@
 from collections.abc import Callable
 from threading import Event
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from paramiko.pkey import PKey
 from paramiko.ssh_gss import _SSH_GSSAuth

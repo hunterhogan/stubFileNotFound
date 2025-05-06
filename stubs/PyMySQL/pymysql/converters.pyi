@@ -4,8 +4,7 @@ from _typeshed import Unused
 from collections.abc import Callable, Mapping, Sequence
 from decimal import Decimal
 from typing import Any, NoReturn, TypeVar
-from typing_extensions import deprecated
-from typing import TypeAlias
+from typing_extensions import TypeAlias, deprecated
 
 _EscaperMapping: TypeAlias = Mapping[type[object], Callable[..., str]] | None
 _T = TypeVar("_T")

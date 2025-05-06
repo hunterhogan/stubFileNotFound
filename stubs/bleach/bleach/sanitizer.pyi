@@ -1,7 +1,7 @@
 from collections.abc import Callable, Container, Iterable, Iterator
 from re import Pattern
 from typing import Final, Protocol
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from html5lib.filters.base import Filter
 from html5lib.filters.sanitizer import Filter as SanitizerFilter

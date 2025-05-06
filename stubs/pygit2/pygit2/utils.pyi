@@ -3,7 +3,7 @@ import types
 from _typeshed import StrOrBytesPath, StrPath
 from collections.abc import Generator
 from typing import Generic, TypeVar
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from _cffi_backend import _CDataBase
 

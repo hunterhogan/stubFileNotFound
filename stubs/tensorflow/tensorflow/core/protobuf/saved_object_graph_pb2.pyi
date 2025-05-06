@@ -20,7 +20,10 @@ import tensorflow.core.framework.versions_pb2
 import tensorflow.core.protobuf.struct_pb2
 import tensorflow.core.protobuf.trackable_object_graph_pb2
 
-import typing as typing_extensions
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 

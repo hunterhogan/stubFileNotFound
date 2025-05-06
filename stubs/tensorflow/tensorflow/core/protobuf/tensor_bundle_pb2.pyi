@@ -17,7 +17,10 @@ import tensorflow.core.framework.tensor_slice_pb2
 import tensorflow.core.framework.types_pb2
 import tensorflow.core.framework.versions_pb2
 
-import typing as typing_extensions
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 

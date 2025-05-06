@@ -4,9 +4,7 @@ from _typeshed import ReadableBuffer, StrPath
 from collections.abc import Awaitable, Callable, Iterable, Sequence, Sized
 from types import ModuleType
 from typing import Any, Protocol, SupportsIndex
-from typing_extensions import Self
-
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from . import events, protocols, transports
 from .base_events import Server
@@ -29,32 +27,66 @@ _ClientConnectedCallback: TypeAlias = Callable[[StreamReader, StreamWriter], Awa
 
 class _ReaduntilBuffer(ReadableBuffer, Sized, Protocol): ...
 
-async def open_connection(
-    host: str | None = None,
-    port: int | str | None = None,
-    *,
-    limit: int = 65536,
-    ssl_handshake_timeout: float | None = ...,
-    **kwds: Any,
-) -> tuple[StreamReader, StreamWriter]: ...
-async def start_server(
-    client_connected_cb: _ClientConnectedCallback,
-    host: str | Sequence[str] | None = None,
-    port: int | str | None = None,
-    *,
-    limit: int = 65536,
-    ssl_handshake_timeout: float | None = ...,
-    **kwds: Any,
-) -> Server: ...
+if sys.version_info >= (3, 10):
+    async def open_connection(
+        host: str | None = None,
+        port: int | str | None = None,
+        *,
+        limit: int = 65536,
+        ssl_handshake_timeout: float | None = ...,
+        **kwds: Any,
+    ) -> tuple[StreamReader, StreamWriter]: ...
+    async def start_server(
+        client_connected_cb: _ClientConnectedCallback,
+        host: str | Sequence[str] | None = None,
+        port: int | str | None = None,
+        *,
+        limit: int = 65536,
+        ssl_handshake_timeout: float | None = ...,
+        **kwds: Any,
+    ) -> Server: ...
 
+else:
+    async def open_connection(
+        host: str | None = None,
+        port: int | str | None = None,
+        *,
+        loop: events.AbstractEventLoop | None = None,
+        limit: int = 65536,
+        ssl_handshake_timeout: float | None = ...,
+        **kwds: Any,
+    ) -> tuple[StreamReader, StreamWriter]: ...
+    async def start_server(
+        client_connected_cb: _ClientConnectedCallback,
+        host: str | None = None,
+        port: int | str | None = None,
+        *,
+        loop: events.AbstractEventLoop | None = None,
+        limit: int = 65536,
+        ssl_handshake_timeout: float | None = ...,
+        **kwds: Any,
+    ) -> Server: ...
 
 if sys.platform != "win32":
-    async def open_unix_connection(
-        path: StrPath | None = None, *, limit: int = 65536, **kwds: Any
-    ) -> tuple[StreamReader, StreamWriter]: ...
-    async def start_unix_server(
-        client_connected_cb: _ClientConnectedCallback, path: StrPath | None = None, *, limit: int = 65536, **kwds: Any
-    ) -> Server: ...
+    if sys.version_info >= (3, 10):
+        async def open_unix_connection(
+            path: StrPath | None = None, *, limit: int = 65536, **kwds: Any
+        ) -> tuple[StreamReader, StreamWriter]: ...
+        async def start_unix_server(
+            client_connected_cb: _ClientConnectedCallback, path: StrPath | None = None, *, limit: int = 65536, **kwds: Any
+        ) -> Server: ...
+    else:
+        async def open_unix_connection(
+            path: StrPath | None = None, *, loop: events.AbstractEventLoop | None = None, limit: int = 65536, **kwds: Any
+        ) -> tuple[StreamReader, StreamWriter]: ...
+        async def start_unix_server(
+            client_connected_cb: _ClientConnectedCallback,
+            path: StrPath | None = None,
+            *,
+            loop: events.AbstractEventLoop | None = None,
+            limit: int = 65536,
+            **kwds: Any,
+        ) -> Server: ...
 
 class FlowControlMixin(protocols.Protocol):
     def __init__(self, loop: events.AbstractEventLoop | None = None) -> None: ...

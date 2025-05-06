@@ -28,9 +28,7 @@ from _typeshed import StrPath
 from ctypes._endian import BigEndianStructure as BigEndianStructure, LittleEndianStructure as LittleEndianStructure
 from types import GenericAlias
 from typing import Any, ClassVar, Generic, Literal, TypeVar, type_check_only
-from typing_extensions import Self, deprecated
-
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias, deprecated
 
 if sys.platform == "win32":
     from _ctypes import FormatError as FormatError, get_last_error as get_last_error, set_last_error as set_last_error

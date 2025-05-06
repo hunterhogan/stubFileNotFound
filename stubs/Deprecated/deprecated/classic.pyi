@@ -1,6 +1,6 @@
 from collections.abc import Callable
 from typing import Any, Literal, TypeVar, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 _F = TypeVar("_F", bound=Callable[..., Any])
 _Actions: TypeAlias = Literal["default", "error", "ignore", "always", "module", "once"]

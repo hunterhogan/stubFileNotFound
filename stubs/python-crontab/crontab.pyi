@@ -8,8 +8,7 @@ from datetime import datetime
 from logging import Logger
 from types import TracebackType
 from typing import Any, SupportsIndex, overload
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from cronlog import CronLog
 

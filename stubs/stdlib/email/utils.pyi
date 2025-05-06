@@ -5,9 +5,7 @@ from collections.abc import Iterable
 from email import _ParamType
 from email.charset import Charset
 from typing import overload
-from typing_extensions import deprecated
-
-from typing import TypeAlias
+from typing_extensions import TypeAlias, deprecated
 
 __all__ = [
     "collapse_rfc2231_value",
@@ -47,11 +45,14 @@ def parsedate_tz(data: None) -> None: ...
 @overload
 def parsedate_tz(data: str) -> _PDTZ | None: ...
 
-@overload
-def parsedate_to_datetime(data: None) -> None: ...
-@overload
-def parsedate_to_datetime(data: str) -> datetime.datetime: ...
+if sys.version_info >= (3, 10):
+    @overload
+    def parsedate_to_datetime(data: None) -> None: ...
+    @overload
+    def parsedate_to_datetime(data: str) -> datetime.datetime: ...
 
+else:
+    def parsedate_to_datetime(data: str) -> datetime.datetime: ...
 
 def mktime_tz(data: _PDTZ) -> int: ...
 def formatdate(timeval: float | None = None, localtime: bool = False, usegmt: bool = False) -> str: ...

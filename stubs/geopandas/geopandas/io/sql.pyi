@@ -3,7 +3,7 @@ from _typeshed import Incomplete, SupportsLenAndGetItem
 from collections.abc import Container, Iterator, Mapping
 from contextlib import AbstractContextManager
 from typing import Any, Protocol, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from pandas._typing import Scalar
 

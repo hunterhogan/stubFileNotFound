@@ -4,9 +4,7 @@ from _typeshed import ReadableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Generator, Iterable
 from typing import Any, BinaryIO, ClassVar, Final, Literal, Protocol, TextIO, overload
-from typing_extensions import Self
-
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "register",

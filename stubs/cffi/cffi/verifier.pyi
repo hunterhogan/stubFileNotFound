@@ -2,7 +2,7 @@ import io
 import os
 from _typeshed import Incomplete, StrPath
 from typing import AnyStr
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 NativeIO: TypeAlias = io.StringIO
 

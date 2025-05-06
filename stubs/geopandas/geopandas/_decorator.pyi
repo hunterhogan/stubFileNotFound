@@ -1,6 +1,6 @@
 from collections.abc import Callable
 from typing import TypeVar, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 _AnyCallable: TypeAlias = Callable[..., object]
 _Func = TypeVar("_Func", bound=_AnyCallable)

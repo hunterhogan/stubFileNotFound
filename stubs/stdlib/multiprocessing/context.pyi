@@ -10,7 +10,7 @@ from multiprocessing.pool import Pool as _Pool
 from multiprocessing.process import BaseProcess
 from multiprocessing.sharedctypes import Synchronized, SynchronizedArray, SynchronizedString
 from typing import Any, ClassVar, Literal, TypeVar, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 if sys.platform != "win32":
     from multiprocessing.connection import Connection

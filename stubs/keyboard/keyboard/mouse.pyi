@@ -2,7 +2,7 @@ import sys
 from collections.abc import Callable, Iterable
 from ctypes import c_long
 from typing import Literal, SupportsInt, TypeVar
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from ._generic import GenericListener as _GenericListener
 from ._mouse_event import (

@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from dataclasses import dataclass
 from typing import Any, TypeVar
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from numpy.typing import NDArray
 from pandas import DataFrame

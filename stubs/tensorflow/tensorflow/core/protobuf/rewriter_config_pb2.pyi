@@ -15,7 +15,10 @@ import google.protobuf.message
 import tensorflow.core.framework.attr_value_pb2
 import tensorflow.core.protobuf.verifier_config_pb2
 
-import typing as typing_extensions
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 

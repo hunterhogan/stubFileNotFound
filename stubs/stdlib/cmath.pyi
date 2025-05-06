@@ -1,5 +1,5 @@
 from typing import Final, SupportsComplex, SupportsFloat, SupportsIndex
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 e: Final[float]
 pi: Final[float]

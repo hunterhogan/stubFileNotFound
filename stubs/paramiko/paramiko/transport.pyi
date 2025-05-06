@@ -5,7 +5,7 @@ from socket import socket
 from threading import Condition, Event, Lock, Thread
 from types import ModuleType
 from typing import Any, Protocol
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from paramiko.auth_handler import AuthHandler, _InteractiveCallback
 from paramiko.channel import Channel

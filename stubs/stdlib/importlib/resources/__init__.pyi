@@ -6,7 +6,7 @@ from importlib.abc import Traversable
 from pathlib import Path
 from types import ModuleType
 from typing import Any, BinaryIO, Literal, TextIO
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 if sys.version_info >= (3, 11):
     from importlib.resources._common import Package as Package
@@ -26,7 +26,8 @@ __all__ = [
     "read_text",
 ]
 
-__all__ += ["ResourceReader"]
+if sys.version_info >= (3, 10):
+    __all__ += ["ResourceReader"]
 
 if sys.version_info < (3, 13):
     __all__ += ["Resource"]
@@ -71,4 +72,5 @@ if sys.version_info >= (3, 11):
 else:
     def files(package: Package) -> Traversable: ...
 
-from importlib.abc import ResourceReader as ResourceReader
+if sys.version_info >= (3, 10):
+    from importlib.abc import ResourceReader as ResourceReader

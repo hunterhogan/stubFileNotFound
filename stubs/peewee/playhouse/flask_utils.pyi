@@ -1,7 +1,7 @@
 from _typeshed import Unused
 from collections.abc import Container
 from typing import Any
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from peewee import Database, ModelBase, Proxy
 

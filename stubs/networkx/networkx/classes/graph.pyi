@@ -2,8 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Collection, Hashable, Iterable, Iterator, Mapping, MutableMapping
 from functools import cached_property
 from typing import Any, ClassVar, TypeVar, overload
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 import numpy
 from networkx.classes.coreviews import AdjacencyView, AtlasView

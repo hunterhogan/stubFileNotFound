@@ -72,7 +72,8 @@ __all__ = [
 if sys.version_info < (3, 13):
     __all__ += ["ASYNC", "AWAIT"]
 
-__all__ += ["SOFT_KEYWORD"]
+if sys.version_info >= (3, 10):
+    __all__ += ["SOFT_KEYWORD"]
 
 if sys.version_info >= (3, 12):
     __all__ += ["EXCLAMATION", "FSTRING_END", "FSTRING_MIDDLE", "FSTRING_START", "EXACT_TOKEN_TYPES"]
@@ -145,7 +146,8 @@ TYPE_COMMENT: int
 TYPE_IGNORE: int
 COLONEQUAL: int
 EXACT_TOKEN_TYPES: dict[str, int]
-SOFT_KEYWORD: int
+if sys.version_info >= (3, 10):
+    SOFT_KEYWORD: int
 
 if sys.version_info >= (3, 12):
     EXCLAMATION: int

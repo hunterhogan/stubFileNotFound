@@ -2,8 +2,7 @@ from _typeshed import ReadableBuffer, SupportsRead
 from collections.abc import Callable
 from pyexpat import errors as errors, model as model
 from typing import Any, Final, final
-from typing_extensions import CapsuleType
-from typing import TypeAlias
+from typing_extensions import CapsuleType, TypeAlias
 from xml.parsers.expat import ExpatError as ExpatError
 
 EXPAT_VERSION: Final[str]  # undocumented

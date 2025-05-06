@@ -3,9 +3,7 @@ from collections.abc import Callable
 from logging import Logger
 from threading import Thread
 from typing import Any, Literal, Protocol, TypedDict, TypeVar, overload
-from typing_extensions import ParamSpec, Unpack
-
-from typing import TypeAlias
+from typing_extensions import ParamSpec, TypeAlias, Unpack
 
 from flask import Flask
 from flask.testing import FlaskClient

@@ -3,7 +3,7 @@ from array import array
 from collections import deque
 from collections.abc import Callable
 from typing import Any
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 __all__ = ["Repr", "repr", "recursive_repr"]
 

@@ -4,8 +4,7 @@ from _typeshed import Incomplete, ReadableBuffer, SupportsRead, SupportsWrite
 from collections.abc import Iterable, Sequence
 from types import TracebackType
 from typing import Any, ClassVar, Generic, Literal, NoReturn, Protocol, TypeVar, overload
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 from xml.dom.minicompat import EmptyNodeList, NodeList
 from xml.dom.xmlbuilder import DocumentLS, DOMImplementationLS
 from xml.sax.xmlreader import XMLReader

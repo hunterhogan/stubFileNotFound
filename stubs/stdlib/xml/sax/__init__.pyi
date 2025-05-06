@@ -1,7 +1,7 @@
 from _typeshed import ReadableBuffer, StrPath, SupportsRead, _T_co
 from collections.abc import Iterable
 from typing import Protocol
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 from xml.sax._exceptions import (
     SAXException as SAXException,
     SAXNotRecognizedException as SAXNotRecognizedException,

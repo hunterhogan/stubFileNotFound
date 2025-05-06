@@ -1,7 +1,7 @@
 import sys
 from collections.abc import Callable
 from typing import Any, ClassVar, Final, final
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 # _tkinter is meant to be only used internally by tkinter, but some tkinter
 # functions e.g. return _tkinter.Tcl_Obj objects. Tcl_Obj represents a Tcl

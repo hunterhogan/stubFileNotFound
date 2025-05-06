@@ -1,7 +1,7 @@
 from collections.abc import Callable, Mapping
 from datetime import datetime, tzinfo
 from typing import IO, Any
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from .isoparser import isoparse as isoparse, isoparser as isoparser
 

@@ -1,10 +1,13 @@
 import sys
 from _typeshed import ReadOnlyBuffer
 from typing import Any, Literal, TypeVar, final, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 ucd_3_2_0: UCD
 unidata_version: str
+
+if sys.version_info < (3, 10):
+    ucnhash_CAPI: Any
 
 _T = TypeVar("_T")
 

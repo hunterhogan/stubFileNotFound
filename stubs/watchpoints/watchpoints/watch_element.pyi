@@ -2,7 +2,7 @@ import ast
 from collections.abc import Callable, Iterable
 from types import FrameType
 from typing import Any, Literal, TypeVar
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from .watch_print import WatchPrint
 

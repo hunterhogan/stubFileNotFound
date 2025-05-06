@@ -4,7 +4,7 @@ from _typeshed import Incomplete, MaybeNone
 from collections.abc import Callable
 from tkinter.font import _FontDescription
 from typing import Any, Literal, TypedDict, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 __all__ = [
     "Button",

@@ -2,7 +2,7 @@ from _typeshed import Incomplete, SupportsLenAndGetItem
 from collections.abc import Generator, Iterable
 from logging import Logger
 from typing import ClassVar, Protocol, TypeVar, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from .enums import AccessPermission, EncryptionMethod
 from .fpdf import FPDF

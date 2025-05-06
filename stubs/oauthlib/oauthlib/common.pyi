@@ -3,7 +3,7 @@ from _typeshed import Incomplete, SupportsLenAndGetItem
 from collections.abc import Iterable, Mapping
 from logging import Logger
 from typing import Any, Final, Literal, TypeVar, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 _T = TypeVar("_T")
 _V = TypeVar("_V")

@@ -1,6 +1,6 @@
 from re import Pattern
 from typing import overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 _HeaderList: TypeAlias = list[tuple[str, str]]
 

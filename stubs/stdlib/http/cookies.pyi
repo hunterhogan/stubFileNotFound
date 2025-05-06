@@ -1,7 +1,7 @@
 from collections.abc import Iterable, Mapping
 from types import GenericAlias
 from typing import Any, Generic, TypeVar, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 __all__ = ["CookieError", "BaseCookie", "SimpleCookie"]
 

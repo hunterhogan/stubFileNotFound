@@ -1,7 +1,7 @@
 from collections.abc import Callable, Generator, Iterable
 from re import Pattern
 from typing import Any, Literal, TypeVar, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 from xml.etree.ElementTree import Element
 
 xpath_tokenizer_re: Pattern[str]

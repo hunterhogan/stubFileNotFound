@@ -2,8 +2,7 @@ import enum
 from _typeshed import ConvertibleToFloat, SupportsKeysAndGetItem
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence, Set as AbstractSet
 from typing import Any, Generic, Literal, NamedTuple, TypeVar, overload, type_check_only
-from typing_extensions import ParamSpec, Self
-from typing import TypeAlias
+from typing_extensions import ParamSpec, Self, TypeAlias
 
 _T = TypeVar("_T")
 _KT = TypeVar("_KT")

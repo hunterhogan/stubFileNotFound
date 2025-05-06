@@ -1,7 +1,7 @@
 from collections.abc import Generator, Mapping, MutableMapping
 from io import StringIO
 from typing import ClassVar, Literal
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 def b2u(string: bytes | str) -> str: ...
 def u2b(string: str | bytes) -> bytes: ...

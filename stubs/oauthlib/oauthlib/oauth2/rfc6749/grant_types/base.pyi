@@ -3,7 +3,7 @@ from collections.abc import Callable, Iterable
 from itertools import chain
 from logging import Logger
 from typing import TypeVar
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from oauthlib.common import Request
 

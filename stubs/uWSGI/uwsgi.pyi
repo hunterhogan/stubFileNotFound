@@ -3,8 +3,7 @@ from _typeshed.wsgi import WSGIApplication
 from collections.abc import Callable
 from types import ModuleType
 from typing import Any, Literal, Protocol, final, overload
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 import uwsgidecorators
 

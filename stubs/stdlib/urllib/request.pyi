@@ -7,7 +7,7 @@ from http.client import HTTPConnection, HTTPMessage, HTTPResponse
 from http.cookiejar import CookieJar
 from re import Pattern
 from typing import IO, Any, ClassVar, NoReturn, Protocol, TypeVar, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 from urllib.error import HTTPError as HTTPError
 from urllib.response import addclosehook, addinfourl
 

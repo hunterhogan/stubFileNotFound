@@ -5,9 +5,7 @@ from collections.abc import AsyncIterable, AsyncIterator, Awaitable, Callable, G
 from concurrent import futures
 from types import TracebackType
 from typing import Any, Generic, NoReturn, TypeVar, overload, type_check_only
-from typing_extensions import Self
-
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from grpc import (
     CallCredentials,

@@ -4,7 +4,7 @@ import zlib
 from _typeshed import ReadableBuffer, SizedBuffer, StrOrBytesPath
 from io import FileIO, TextIOWrapper
 from typing import Final, Literal, Protocol, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 __all__ = ["BadGzipFile", "GzipFile", "open", "compress", "decompress"]
 

@@ -4,8 +4,7 @@ from enum import Enum
 from pathlib import Path
 from types import TracebackType
 from typing import ClassVar, Protocol
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from .. import Command, errors, namespaces
 from ..dist import Distribution

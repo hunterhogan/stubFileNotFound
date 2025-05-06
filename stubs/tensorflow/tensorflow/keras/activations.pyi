@@ -1,6 +1,6 @@
 from collections.abc import Callable
 from typing import Any
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 import numpy as np
 from tensorflow import Tensor

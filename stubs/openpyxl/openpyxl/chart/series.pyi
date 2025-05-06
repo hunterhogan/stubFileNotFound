@@ -1,6 +1,6 @@
 from _typeshed import ConvertibleToInt, Incomplete, Unused
 from typing import ClassVar, Literal
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from openpyxl.chart.data_source import AxDataSource, NumDataSource, StrRef
 from openpyxl.chart.error_bar import ErrorBars

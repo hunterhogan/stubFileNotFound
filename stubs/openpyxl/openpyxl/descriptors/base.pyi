@@ -3,7 +3,7 @@ from collections.abc import Iterable, Sized
 from datetime import datetime
 from re import Pattern
 from typing import Any, Generic, Literal, TypeVar, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from openpyxl.descriptors import Strict
 from openpyxl.descriptors.serialisable import Serialisable

@@ -4,8 +4,7 @@ from collections.abc import Awaitable, Callable, Coroutine, Generator
 from contextvars import Context
 from types import FrameType, GenericAlias
 from typing import Any, Literal, TextIO, TypeVar
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)

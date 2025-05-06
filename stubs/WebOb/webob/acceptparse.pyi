@@ -1,8 +1,7 @@
 from _typeshed import SupportsItems
 from collections.abc import Callable, Iterable, Iterator, Sequence
 from typing import Any, Literal, NamedTuple, Protocol, TypeVar, overload
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from webob._types import AsymmetricPropertyWithDelete
 

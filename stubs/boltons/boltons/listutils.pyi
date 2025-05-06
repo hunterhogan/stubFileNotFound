@@ -1,8 +1,6 @@
 from collections.abc import Iterable
 from typing import SupportsIndex, TypeVar
-from typing_extensions import Self
-
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 _T = TypeVar("_T")
 

@@ -1,5 +1,5 @@
 from collections.abc import Collection
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from authlib.oauth2 import OAuth2Request
 from authlib.oauth2.rfc6749 import AuthorizationEndpointMixin, BaseGrant, ClientMixin, TokenEndpointMixin

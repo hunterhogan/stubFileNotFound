@@ -36,8 +36,7 @@ from _lzma import (
 )
 from _typeshed import ReadableBuffer, StrOrBytesPath
 from typing import IO, Literal, TextIO, overload
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
     "CHECK_NONE",

@@ -1,7 +1,7 @@
 import datetime
 from _typeshed import Incomplete
 from collections.abc import Iterable, Iterator, Sequence
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from ._common import weekday as weekdaybase
 

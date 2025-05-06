@@ -1,7 +1,7 @@
 from _typeshed import Incomplete, SupportsRead
 from collections.abc import Mapping, Sequence
 from typing import IO, Any
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from ._yaml import CEmitter, CParser
 from .constructor import BaseConstructor, FullConstructor, SafeConstructor, UnsafeConstructor

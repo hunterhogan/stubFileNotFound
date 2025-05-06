@@ -1,6 +1,6 @@
 from decimal import Decimal
 from typing import Final
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 # NOTE: Can't specify numpy as a dependency because openpyxl doesn't declare it as one
 # import numpy

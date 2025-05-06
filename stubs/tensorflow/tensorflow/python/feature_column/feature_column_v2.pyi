@@ -6,9 +6,7 @@ from _typeshed import Incomplete
 from abc import ABC, ABCMeta, abstractmethod
 from collections.abc import Callable, Sequence
 from typing import Literal
-from typing_extensions import Self
-
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 import tensorflow as tf
 from tensorflow._aliases import ShapeLike

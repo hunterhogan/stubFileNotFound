@@ -1,5 +1,5 @@
 from typing import Any
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 _Data: TypeAlias = str | bytes | bytearray
 

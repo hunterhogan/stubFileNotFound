@@ -3,8 +3,7 @@ from collections.abc import Iterable, Iterator, Mapping
 from decimal import Decimal
 from pathlib import Path
 from typing import Any, Final, Literal, overload
-from typing_extensions import deprecated
-from typing import TypeAlias
+from typing_extensions import TypeAlias, deprecated
 
 from qrcode.image.svg import SvgPathImage
 

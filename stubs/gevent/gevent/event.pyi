@@ -1,6 +1,6 @@
 from types import TracebackType
 from typing import Generic, Literal, Protocol, TypeVar, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from gevent._abstract_linkable import AbstractLinkable
 

@@ -4,7 +4,7 @@ from collections.abc import Callable
 from pdb import Pdb
 from types import FrameType
 from typing import Any, Literal, Protocol, TypeVar
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from .watch_element import WatchElement
 

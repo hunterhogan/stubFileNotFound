@@ -1,7 +1,7 @@
 from collections.abc import Sequence
 from enum import Enum
 from typing import Literal
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 import numpy as np
 import numpy.typing as npt

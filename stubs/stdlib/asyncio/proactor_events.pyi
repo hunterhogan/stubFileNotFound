@@ -20,16 +20,27 @@ class _ProactorBasePipeTransport(transports._FlowControlMixin, transports.BaseTr
     def __del__(self) -> None: ...
 
 class _ProactorReadPipeTransport(_ProactorBasePipeTransport, transports.ReadTransport):
-    def __init__(
-        self,
-        loop: events.AbstractEventLoop,
-        sock: socket,
-        protocol: streams.StreamReaderProtocol,
-        waiter: futures.Future[Any] | None = None,
-        extra: Mapping[Any, Any] | None = None,
-        server: events.AbstractServer | None = None,
-        buffer_size: int = 65536,
-    ) -> None: ...
+    if sys.version_info >= (3, 10):
+        def __init__(
+            self,
+            loop: events.AbstractEventLoop,
+            sock: socket,
+            protocol: streams.StreamReaderProtocol,
+            waiter: futures.Future[Any] | None = None,
+            extra: Mapping[Any, Any] | None = None,
+            server: events.AbstractServer | None = None,
+            buffer_size: int = 65536,
+        ) -> None: ...
+    else:
+        def __init__(
+            self,
+            loop: events.AbstractEventLoop,
+            sock: socket,
+            protocol: streams.StreamReaderProtocol,
+            waiter: futures.Future[Any] | None = None,
+            extra: Mapping[Any, Any] | None = None,
+            server: events.AbstractServer | None = None,
+        ) -> None: ...
 
 class _ProactorBaseWritePipeTransport(_ProactorBasePipeTransport, transports.WriteTransport): ...
 class _ProactorWritePipeTransport(_ProactorBaseWritePipeTransport): ...

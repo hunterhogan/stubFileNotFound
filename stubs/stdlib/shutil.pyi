@@ -4,8 +4,7 @@ from _typeshed import BytesPath, ExcInfo, FileDescriptorOrPath, MaybeNone, StrOr
 from collections.abc import Callable, Iterable, Sequence
 from tarfile import _TarfileFilter
 from typing import Any, AnyStr, NamedTuple, NoReturn, Protocol, TypeVar, overload
-from typing_extensions import deprecated
-from typing import TypeAlias
+from typing_extensions import TypeAlias, deprecated
 
 __all__ = [
     "copyfileobj",

@@ -2,9 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
 from types import TracebackType
 from typing import Literal, NamedTuple
-from typing_extensions import Self
-
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from tensorflow._aliases import DTypeLike, ShapeLike, TensorCompatible, TensorLike
 from tensorflow.io import gfile as gfile

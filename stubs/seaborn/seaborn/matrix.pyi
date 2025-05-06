@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Hashable, Iterable, Mapping, Sequence
 from typing import Literal
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 import numpy as np
 from matplotlib.axes import Axes

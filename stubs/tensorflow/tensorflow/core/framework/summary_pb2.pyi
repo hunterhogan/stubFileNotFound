@@ -15,7 +15,10 @@ import google.protobuf.message
 import tensorflow.core.framework.tensor_pb2
 import tensorflow.tsl.protobuf.histogram_pb2
 
-import typing as typing_extensions
+if sys.version_info >= (3, 10):
+    import typing as typing_extensions
+else:
+    import typing_extensions
 from tensorflow.tsl.protobuf.histogram_pb2 import HistogramProto as HistogramProto
 
 DESCRIPTOR: google.protobuf.descriptor.FileDescriptor

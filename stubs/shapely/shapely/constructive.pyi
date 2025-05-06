@@ -1,6 +1,6 @@
 from collections.abc import Sequence
 from typing import Any, Literal, SupportsIndex, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from ._enum import ParamEnum
 from ._typing import ArrayLike, ArrayLikeSeq, GeoArray, OptGeoArrayLike, OptGeoArrayLikeSeq, OptGeoT

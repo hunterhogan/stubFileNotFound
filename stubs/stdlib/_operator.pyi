@@ -3,8 +3,7 @@ from _typeshed import SupportsGetItem
 from collections.abc import Callable, Container, Iterable, MutableMapping, MutableSequence, Sequence
 from operator import attrgetter as attrgetter, itemgetter as itemgetter, methodcaller as methodcaller
 from typing import Any, AnyStr, Protocol, SupportsAbs, SupportsIndex, TypeVar, overload
-from typing_extensions import ParamSpec, TypeIs
-from typing import TypeAlias
+from typing_extensions import ParamSpec, TypeAlias, TypeIs
 
 _R = TypeVar("_R")
 _T = TypeVar("_T")

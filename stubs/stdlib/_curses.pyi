@@ -2,7 +2,7 @@ import sys
 from _typeshed import ReadOnlyBuffer, SupportsRead, SupportsWrite
 from curses import _ncurses_version
 from typing import Any, final, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 # NOTE: This module is ordinarily only available on Unix, but the windows-curses
 # package makes it available on Windows as well with the same contents.
@@ -96,12 +96,13 @@ BUTTON4_PRESSED: int
 BUTTON4_RELEASED: int
 BUTTON4_TRIPLE_CLICKED: int
 # Darwin ncurses doesn't provide BUTTON5_* constants prior to 3.12.10 and 3.13.3
-if sys.version_info >= (3, 12) or sys.platform != "darwin":
-    BUTTON5_PRESSED: int
-    BUTTON5_RELEASED: int
-    BUTTON5_CLICKED: int
-    BUTTON5_DOUBLE_CLICKED: int
-    BUTTON5_TRIPLE_CLICKED: int
+if sys.version_info >= (3, 10):
+    if sys.version_info >= (3, 12) or sys.platform != "darwin":
+        BUTTON5_PRESSED: int
+        BUTTON5_RELEASED: int
+        BUTTON5_CLICKED: int
+        BUTTON5_DOUBLE_CLICKED: int
+        BUTTON5_TRIPLE_CLICKED: int
 BUTTON_ALT: int
 BUTTON_CTRL: int
 BUTTON_SHIFT: int
@@ -300,7 +301,8 @@ def getwin(file: SupportsRead[bytes], /) -> window: ...
 def halfdelay(tenths: int, /) -> None: ...
 def has_colors() -> bool: ...
 
-def has_extended_color_support() -> bool: ...
+if sys.version_info >= (3, 10):
+    def has_extended_color_support() -> bool: ...
 
 def has_ic() -> bool: ...
 def has_il() -> bool: ...

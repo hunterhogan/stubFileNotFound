@@ -7,8 +7,7 @@ from _typeshed import SupportsWrite
 from contextlib import _GeneratorContextManager
 from types import TracebackType
 from typing import Any, Final, Literal, Protocol, TextIO, TypeVar, overload
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 STDOUT: Final = 2
 PIPE: Final = 3

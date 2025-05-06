@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable
 from typing import Any, Literal, TypedDict, type_check_only
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from docker.types import IPAMConfig
 

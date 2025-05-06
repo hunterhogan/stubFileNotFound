@@ -3,8 +3,7 @@ from _typeshed.wsgi import StartResponse, WSGIApplication, WSGIEnvironment
 from collections.abc import Iterable, Iterator, Sequence
 from datetime import timedelta
 from typing import IO, Any, Literal, Protocol, TypedDict, TypeVar, overload
-from typing_extensions import Self
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias
 
 from webob._types import AsymmetricProperty, AsymmetricPropertyWithDelete, SymmetricProperty, SymmetricPropertyWithDelete
 from webob.byterange import ContentRange

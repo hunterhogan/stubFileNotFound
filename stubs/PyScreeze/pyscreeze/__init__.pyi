@@ -2,8 +2,7 @@ import sys
 from _typeshed import ConvertibleToFloat, Incomplete, StrOrBytesPath, Unused
 from collections.abc import Callable, Generator
 from typing import Final, NamedTuple, TypeVar, overload
-from typing_extensions import ParamSpec
-from typing import TypeAlias
+from typing_extensions import ParamSpec, TypeAlias
 
 from PIL import Image
 

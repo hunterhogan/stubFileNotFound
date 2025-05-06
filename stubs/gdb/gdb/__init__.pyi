@@ -8,8 +8,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Iterator, Mapping, Sequence
 from contextlib import AbstractContextManager
 from typing import Any, Final, Generic, Literal, Protocol, TypeVar, final, overload, type_check_only
-from typing_extensions import deprecated
-from typing import TypeAlias
+from typing_extensions import TypeAlias, deprecated
 
 import gdb.FrameDecorator
 import gdb.types

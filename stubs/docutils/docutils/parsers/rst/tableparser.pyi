@@ -1,6 +1,6 @@
 from re import Pattern
 from typing import ClassVar
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 from docutils import DataError
 from docutils.statemachine import StringList

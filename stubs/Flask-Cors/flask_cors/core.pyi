@@ -3,7 +3,7 @@ from datetime import timedelta
 from logging import Logger
 from re import Pattern
 from typing import Any, Final, Literal, TypedDict, TypeVar, overload
-from typing import TypeAlias
+from typing_extensions import TypeAlias
 
 import flask
 

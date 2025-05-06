@@ -2,9 +2,7 @@ from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Iterable, Sequence
 from typing import Any, Literal
-from typing_extensions import Self, override
-
-from typing import TypeAlias
+from typing_extensions import Self, TypeAlias, override
 
 import tensorflow as tf
 from tensorflow import Operation, Tensor
