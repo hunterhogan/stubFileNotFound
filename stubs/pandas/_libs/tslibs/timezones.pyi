@@ -1,14 +1,21 @@
-import _cython_3_0_11
-from pandas.compat._optional import import_optional_dependency as import_optional_dependency
+from datetime import (
+    datetime,
+    tzinfo,
+)
+from typing import Callable
 
-__pyx_capi__: dict
-__test__: dict
-_p_tz_cache_key: _cython_3_0_11.cython_function_or_method
-dst_cache: dict
-get_timezone: _cython_3_0_11.cython_function_or_method
-infer_tzinfo: _cython_3_0_11.cython_function_or_method
-is_fixed_offset: _cython_3_0_11.cython_function_or_method
-is_utc: _cython_3_0_11.cython_function_or_method
-maybe_get_tz: _cython_3_0_11.cython_function_or_method
-tz_compare: _cython_3_0_11.cython_function_or_method
-tz_standardize: _cython_3_0_11.cython_function_or_method
+import numpy as np
+
+# imported from dateutil.tz
+dateutil_gettz: Callable[[str], tzinfo]
+
+def tz_standardize(tz: tzinfo) -> tzinfo: ...
+def tz_compare(start: tzinfo | None, end: tzinfo | None) -> bool: ...
+def infer_tzinfo(
+    start: datetime | None,
+    end: datetime | None,
+) -> tzinfo | None: ...
+def maybe_get_tz(tz: str | int | np.int64 | tzinfo | None) -> tzinfo | None: ...
+def get_timezone(tz: tzinfo) -> tzinfo | str: ...
+def is_utc(tz: tzinfo | None) -> bool: ...
+def is_fixed_offset(tz: tzinfo) -> bool: ...

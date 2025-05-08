@@ -1,4 +1,23 @@
-def ujson_dumps(*args, **kwargs):
-    """Converts arbitrary object recursively into JSON. Use ensure_ascii=false to output UTF-8. Pass in double_precision to alter the maximum digit precision of doubles. Set encode_html_chars=True to encode < > & as unicode escape sequences."""
-def ujson_loads(*args, **kwargs):
-    """Converts JSON as string to dict object structure. Use precise_float=True to use high precision float decoder."""
+from typing import (
+    Any,
+    Callable,
+)
+
+def ujson_dumps(
+    obj: Any,
+    ensure_ascii: bool = ...,
+    double_precision: int = ...,
+    indent: int = ...,
+    orient: str = ...,
+    date_unit: str = ...,
+    iso_dates: bool = ...,
+    default_handler: None
+    | Callable[[Any], str | float | bool | list | dict | None] = ...,
+) -> str: ...
+def ujson_loads(
+    s: str,
+    precise_float: bool = ...,
+    numpy: bool = ...,
+    dtype: None = ...,
+    labelled: bool = ...,
+) -> Any: ...

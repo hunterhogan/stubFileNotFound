@@ -1,50 +1,34 @@
-import _cython_3_0_11
-import enum
-import numpy as np
-from collections.abc import Callable
-from pandas._config import using_pyarrow_string_dtype as using_pyarrow_string_dtype
-from pandas._libs.interval import Interval as Interval
-from pandas._libs.missing import check_na_tuples_nonequal as check_na_tuples_nonequal
-from pandas._libs.tslibs.np_datetime import OutOfBoundsDatetime as OutOfBoundsDatetime, OutOfBoundsTimedelta as OutOfBoundsTimedelta
-from pandas._libs.tslibs.period import Period as Period
-from pandas._typing import (
-    ArrayLike,
-    DtypeObj,
-)
-import numpy.typing as npt
+# TODO(npdtypes): Many types specified here can be made more specific/accurate;
+#  the more specific versions are specified in comments
 from decimal import Decimal
 from typing import (
     Any,
-    ClassVar,
+    Callable,
     Final,
     Generator,
     Hashable,
     Literal,
-    overload,
     TypeAlias,
-    TypeGuard,
+    overload,
 )
-from enum import Enum
 
+import numpy as np
+
+from pandas._libs.interval import Interval
+from pandas._libs.tslibs import Period
+from pandas._typing import (
+    ArrayLike,
+    DtypeObj,
+    TypeGuard,
+    npt,
+)
+
+# placeholder until we can specify np.ndarray[object, ndim=2]
 ndarray_obj_2d = np.ndarray
 
+from enum import Enum
 
-class _NoDefault(enum.Enum):
-    __new__: ClassVar[Callable] = ...
-    _generate_next_value_: ClassVar[Callable] = ...
-    _hashable_values_: ClassVar[list] = ...
-    _member_map_: ClassVar[dict] = ...
-    _member_names_: ClassVar[list] = ...
-    _member_type_: ClassVar[type[object]] = ...
-    _unhashable_values_: ClassVar[list] = ...
-    _unhashable_values_map_: ClassVar[dict] = ...
-    _use_args_: ClassVar[bool] = ...
-    _value2member_map_: ClassVar[dict] = ...
-    _value_repr_: ClassVar[None] = ...
-    no_default: ClassVar[_NoDefault] = ...
-    @classmethod
-    def _new_member_(cls, *args, **kwargs):
-        """Create and return a new object.  See help(type) for accurate signature."""
+class _NoDefault(Enum):
     no_default = ...
 
 no_default: Final = _NoDefault.no_default
@@ -52,11 +36,7 @@ NoDefault: TypeAlias = Literal[_NoDefault.no_default]
 
 i8max: int
 u8max: int
-pa: None
 
-_TYPE_MAP: dict
-__pyx_capi__: dict
-__test__: dict
 def is_np_dtype(dtype: object, kinds: str | None = ...) -> TypeGuard[np.dtype]: ...
 def item_from_zerodim(val: object) -> object: ...
 def infer_dtype(value: object, skipna: bool = ...) -> str: ...

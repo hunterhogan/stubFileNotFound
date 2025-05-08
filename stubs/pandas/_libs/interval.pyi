@@ -1,359 +1,174 @@
-import _cython_3_0_11
-from _typeshed import Incomplete
-from pandas._libs.algos import is_monotonic as is_monotonic
-from typing import Any, ClassVar, overload
+from typing import (
+    Any,
+    Generic,
+    TypeVar,
+    overload,
+)
 
-NODE_CLASSES: dict
-VALID_CLOSED: frozenset
-__pyx_unpickle_Float64ClosedBothIntervalNode: _cython_3_0_11.cython_function_or_method
-__pyx_unpickle_Float64ClosedLeftIntervalNode: _cython_3_0_11.cython_function_or_method
-__pyx_unpickle_Float64ClosedNeitherIntervalNode: _cython_3_0_11.cython_function_or_method
-__pyx_unpickle_Float64ClosedRightIntervalNode: _cython_3_0_11.cython_function_or_method
-__pyx_unpickle_Int64ClosedBothIntervalNode: _cython_3_0_11.cython_function_or_method
-__pyx_unpickle_Int64ClosedLeftIntervalNode: _cython_3_0_11.cython_function_or_method
-__pyx_unpickle_Int64ClosedNeitherIntervalNode: _cython_3_0_11.cython_function_or_method
-__pyx_unpickle_Int64ClosedRightIntervalNode: _cython_3_0_11.cython_function_or_method
-__pyx_unpickle_IntervalMixin: _cython_3_0_11.cython_function_or_method
-__pyx_unpickle_IntervalNode: _cython_3_0_11.cython_function_or_method
-__pyx_unpickle_IntervalTree: _cython_3_0_11.cython_function_or_method
-__pyx_unpickle_Uint64ClosedBothIntervalNode: _cython_3_0_11.cython_function_or_method
-__pyx_unpickle_Uint64ClosedLeftIntervalNode: _cython_3_0_11.cython_function_or_method
-__pyx_unpickle_Uint64ClosedNeitherIntervalNode: _cython_3_0_11.cython_function_or_method
-__pyx_unpickle_Uint64ClosedRightIntervalNode: _cython_3_0_11.cython_function_or_method
-__test__: dict
-intervals_to_interval_bounds: _cython_3_0_11.cython_function_or_method
+import numpy as np
+import numpy.typing as npt
 
-class Interval(IntervalMixin):
-    _typ: ClassVar[str] = ...
-    __array_priority__: ClassVar[int] = ...
-    closed: Incomplete
-    left: Incomplete
-    right: Incomplete
+from pandas._typing import (
+    IntervalClosedType,
+    Timedelta,
+    Timestamp,
+)
+
+VALID_CLOSED: frozenset[str]
+
+_OrderableScalarT = TypeVar("_OrderableScalarT", int, float)
+_OrderableTimesT = TypeVar("_OrderableTimesT", Timestamp, Timedelta)
+_OrderableT = TypeVar("_OrderableT", int, float, Timestamp, Timedelta)
+
+class _LengthDescriptor:
     @overload
-    def __init__(self, left=..., right=...) -> Any:
-        """Initialize self.  See help(type(self)) for accurate signature."""
+    def __get__(
+        self, instance: Interval[_OrderableScalarT], owner: Any
+    ) -> _OrderableScalarT: ...
     @overload
-    def __init__(self, left=..., right=..., closed=...) -> Any:
-        """Initialize self.  See help(type(self)) for accurate signature."""
-    def _validate_endpoint(self, *args, **kwargs): ...
+    def __get__(
+        self, instance: Interval[_OrderableTimesT], owner: Any
+    ) -> Timedelta: ...
+
+class _MidDescriptor:
     @overload
-    def overlaps(self, i2) -> Any:
-        """
-        Check whether two Interval objects overlap.
-
-        Two intervals overlap if they share a common point, including closed
-        endpoints. Intervals that only have an open endpoint in common do not
-        overlap.
-
-        Parameters
-        ----------
-        other : Interval
-            Interval to check against for an overlap.
-
-        Returns
-        -------
-        bool
-            True if the two intervals overlap.
-
-        See Also
-        --------
-        IntervalArray.overlaps : The corresponding method for IntervalArray.
-        IntervalIndex.overlaps : The corresponding method for IntervalIndex.
-
-        Examples
-        --------
-        >>> i1 = pd.Interval(0, 2)
-        >>> i2 = pd.Interval(1, 3)
-        >>> i1.overlaps(i2)
-        True
-        >>> i3 = pd.Interval(4, 5)
-        >>> i1.overlaps(i3)
-        False
-
-        Intervals that share closed endpoints overlap:
-
-        >>> i4 = pd.Interval(0, 1, closed='both')
-        >>> i5 = pd.Interval(1, 2, closed='both')
-        >>> i4.overlaps(i5)
-        True
-
-        Intervals that only have an open endpoint in common do not overlap:
-
-        >>> i6 = pd.Interval(1, 2, closed='neither')
-        >>> i4.overlaps(i6)
-        False
-        """
+    def __get__(self, instance: Interval[_OrderableScalarT], owner: Any) -> float: ...
     @overload
-    def overlaps(self, i3) -> Any:
-        """
-        Check whether two Interval objects overlap.
-
-        Two intervals overlap if they share a common point, including closed
-        endpoints. Intervals that only have an open endpoint in common do not
-        overlap.
-
-        Parameters
-        ----------
-        other : Interval
-            Interval to check against for an overlap.
-
-        Returns
-        -------
-        bool
-            True if the two intervals overlap.
-
-        See Also
-        --------
-        IntervalArray.overlaps : The corresponding method for IntervalArray.
-        IntervalIndex.overlaps : The corresponding method for IntervalIndex.
-
-        Examples
-        --------
-        >>> i1 = pd.Interval(0, 2)
-        >>> i2 = pd.Interval(1, 3)
-        >>> i1.overlaps(i2)
-        True
-        >>> i3 = pd.Interval(4, 5)
-        >>> i1.overlaps(i3)
-        False
-
-        Intervals that share closed endpoints overlap:
-
-        >>> i4 = pd.Interval(0, 1, closed='both')
-        >>> i5 = pd.Interval(1, 2, closed='both')
-        >>> i4.overlaps(i5)
-        True
-
-        Intervals that only have an open endpoint in common do not overlap:
-
-        >>> i6 = pd.Interval(1, 2, closed='neither')
-        >>> i4.overlaps(i6)
-        False
-        """
-    @overload
-    def overlaps(self, i5) -> Any:
-        """
-        Check whether two Interval objects overlap.
-
-        Two intervals overlap if they share a common point, including closed
-        endpoints. Intervals that only have an open endpoint in common do not
-        overlap.
-
-        Parameters
-        ----------
-        other : Interval
-            Interval to check against for an overlap.
-
-        Returns
-        -------
-        bool
-            True if the two intervals overlap.
-
-        See Also
-        --------
-        IntervalArray.overlaps : The corresponding method for IntervalArray.
-        IntervalIndex.overlaps : The corresponding method for IntervalIndex.
-
-        Examples
-        --------
-        >>> i1 = pd.Interval(0, 2)
-        >>> i2 = pd.Interval(1, 3)
-        >>> i1.overlaps(i2)
-        True
-        >>> i3 = pd.Interval(4, 5)
-        >>> i1.overlaps(i3)
-        False
-
-        Intervals that share closed endpoints overlap:
-
-        >>> i4 = pd.Interval(0, 1, closed='both')
-        >>> i5 = pd.Interval(1, 2, closed='both')
-        >>> i4.overlaps(i5)
-        True
-
-        Intervals that only have an open endpoint in common do not overlap:
-
-        >>> i6 = pd.Interval(1, 2, closed='neither')
-        >>> i4.overlaps(i6)
-        False
-        """
-    @overload
-    def overlaps(self, i6) -> Any:
-        """
-        Check whether two Interval objects overlap.
-
-        Two intervals overlap if they share a common point, including closed
-        endpoints. Intervals that only have an open endpoint in common do not
-        overlap.
-
-        Parameters
-        ----------
-        other : Interval
-            Interval to check against for an overlap.
-
-        Returns
-        -------
-        bool
-            True if the two intervals overlap.
-
-        See Also
-        --------
-        IntervalArray.overlaps : The corresponding method for IntervalArray.
-        IntervalIndex.overlaps : The corresponding method for IntervalIndex.
-
-        Examples
-        --------
-        >>> i1 = pd.Interval(0, 2)
-        >>> i2 = pd.Interval(1, 3)
-        >>> i1.overlaps(i2)
-        True
-        >>> i3 = pd.Interval(4, 5)
-        >>> i1.overlaps(i3)
-        False
-
-        Intervals that share closed endpoints overlap:
-
-        >>> i4 = pd.Interval(0, 1, closed='both')
-        >>> i5 = pd.Interval(1, 2, closed='both')
-        >>> i4.overlaps(i5)
-        True
-
-        Intervals that only have an open endpoint in common do not overlap:
-
-        >>> i6 = pd.Interval(1, 2, closed='neither')
-        >>> i4.overlaps(i6)
-        False
-        """
-    def __add__(self, other):
-        """Return self+value."""
-    def __contains__(self, other) -> bool:
-        """Return bool(key in self)."""
-    def __eq__(self, other: object) -> bool:
-        """Return self==value."""
-    def __floordiv__(self, other):
-        """Return self//value."""
-    def __ge__(self, other: object) -> bool:
-        """Return self>=value."""
-    def __gt__(self, other: object) -> bool:
-        """Return self>value."""
-    def __hash__(self) -> int:
-        """Return hash(self)."""
-    def __le__(self, other: object) -> bool:
-        """Return self<=value."""
-    def __lt__(self, other: object) -> bool:
-        """Return self<value."""
-    def __mul__(self, other):
-        """Return self*value."""
-    def __ne__(self, other: object) -> bool:
-        """Return self!=value."""
-    def __radd__(self, other): ...
-    def __reduce__(self): ...
-    def __rfloordiv__(self, other):
-        """Return value//self."""
-    def __rmul__(self, other): ...
-    def __rsub__(self, other):
-        """Return value-self."""
-    def __rtruediv__(self, other):
-        """Return value/self."""
-    def __sub__(self, other):
-        """Return self-value."""
-    def __truediv__(self, other):
-        """Return self/value."""
+    def __get__(
+        self, instance: Interval[_OrderableTimesT], owner: Any
+    ) -> _OrderableTimesT: ...
 
 class IntervalMixin:
-    closed_left: Incomplete
-    closed_right: Incomplete
-    is_empty: Incomplete
-    length: Incomplete
-    mid: Incomplete
-    open_left: Incomplete
-    open_right: Incomplete
-    @classmethod
-    def __init__(cls, *args, **kwargs) -> None:
-        """Create and return a new object.  See help(type) for accurate signature."""
-    def _check_closed_matches(self, *args, **kwargs):
-        """
-        Check if the closed attribute of `other` matches.
+    @property
+    def closed_left(self) -> bool: ...
+    @property
+    def closed_right(self) -> bool: ...
+    @property
+    def open_left(self) -> bool: ...
+    @property
+    def open_right(self) -> bool: ...
+    @property
+    def is_empty(self) -> bool: ...
+    def _check_closed_matches(self, other: IntervalMixin, name: str = ...) -> None: ...
 
-        Note that 'left' and 'right' are considered different from 'both'.
+class Interval(IntervalMixin, Generic[_OrderableT]):
+    @property
+    def left(self: Interval[_OrderableT]) -> _OrderableT: ...
+    @property
+    def right(self: Interval[_OrderableT]) -> _OrderableT: ...
+    @property
+    def closed(self) -> IntervalClosedType: ...
+    mid: _MidDescriptor
+    length: _LengthDescriptor
+    def __init__(
+        self,
+        left: _OrderableT,
+        right: _OrderableT,
+        closed: IntervalClosedType = ...,
+    ) -> None: ...
+    def __hash__(self) -> int: ...
+    @overload
+    def __contains__(
+        self: Interval[Timedelta], key: Timedelta | Interval[Timedelta]
+    ) -> bool: ...
+    @overload
+    def __contains__(
+        self: Interval[Timestamp], key: Timestamp | Interval[Timestamp]
+    ) -> bool: ...
+    @overload
+    def __contains__(
+        self: Interval[_OrderableScalarT],
+        key: _OrderableScalarT | Interval[_OrderableScalarT],
+    ) -> bool: ...
+    @overload
+    def __add__(
+        self: Interval[_OrderableTimesT], y: Timedelta
+    ) -> Interval[_OrderableTimesT]: ...
+    @overload
+    def __add__(
+        self: Interval[int], y: _OrderableScalarT
+    ) -> Interval[_OrderableScalarT]: ...
+    @overload
+    def __add__(self: Interval[float], y: float) -> Interval[float]: ...
+    @overload
+    def __radd__(
+        self: Interval[_OrderableTimesT], y: Timedelta
+    ) -> Interval[_OrderableTimesT]: ...
+    @overload
+    def __radd__(
+        self: Interval[int], y: _OrderableScalarT
+    ) -> Interval[_OrderableScalarT]: ...
+    @overload
+    def __radd__(self: Interval[float], y: float) -> Interval[float]: ...
+    @overload
+    def __sub__(
+        self: Interval[_OrderableTimesT], y: Timedelta
+    ) -> Interval[_OrderableTimesT]: ...
+    @overload
+    def __sub__(
+        self: Interval[int], y: _OrderableScalarT
+    ) -> Interval[_OrderableScalarT]: ...
+    @overload
+    def __sub__(self: Interval[float], y: float) -> Interval[float]: ...
+    @overload
+    def __rsub__(
+        self: Interval[_OrderableTimesT], y: Timedelta
+    ) -> Interval[_OrderableTimesT]: ...
+    @overload
+    def __rsub__(
+        self: Interval[int], y: _OrderableScalarT
+    ) -> Interval[_OrderableScalarT]: ...
+    @overload
+    def __rsub__(self: Interval[float], y: float) -> Interval[float]: ...
+    @overload
+    def __mul__(
+        self: Interval[int], y: _OrderableScalarT
+    ) -> Interval[_OrderableScalarT]: ...
+    @overload
+    def __mul__(self: Interval[float], y: float) -> Interval[float]: ...
+    @overload
+    def __rmul__(
+        self: Interval[int], y: _OrderableScalarT
+    ) -> Interval[_OrderableScalarT]: ...
+    @overload
+    def __rmul__(self: Interval[float], y: float) -> Interval[float]: ...
+    @overload
+    def __truediv__(
+        self: Interval[int], y: _OrderableScalarT
+    ) -> Interval[_OrderableScalarT]: ...
+    @overload
+    def __truediv__(self: Interval[float], y: float) -> Interval[float]: ...
+    @overload
+    def __floordiv__(
+        self: Interval[int], y: _OrderableScalarT
+    ) -> Interval[_OrderableScalarT]: ...
+    @overload
+    def __floordiv__(self: Interval[float], y: float) -> Interval[float]: ...
+    def overlaps(self: Interval[_OrderableT], other: Interval[_OrderableT]) -> bool: ...
 
-        Parameters
-        ----------
-        other : Interval, IntervalIndex, IntervalArray
-        name : str
-            Name to use for 'other' in the error message.
-
-        Raises
-        ------
-        ValueError
-            When `other` is not closed exactly the same as self.
-        """
-    def __reduce__(self): ...
-    def __reduce_cython__(self, *args, **kwargs): ...
-    def __setstate_cython__(self, *args, **kwargs): ...
+def intervals_to_interval_bounds(
+    intervals: np.ndarray, validate_closed: bool = ...
+) -> tuple[np.ndarray, np.ndarray, IntervalClosedType]: ...
 
 class IntervalTree(IntervalMixin):
-    _is_overlapping: Incomplete
-    _left_sorter: Incomplete
-    _na_count: Incomplete
-    _right_sorter: Incomplete
-    closed: Incomplete
-    dtype: Incomplete
-    is_monotonic_increasing: Incomplete
-    is_overlapping: Incomplete
-    left: Incomplete
-    left_sorter: Incomplete
-    right: Incomplete
-    right_sorter: Incomplete
-    root: Incomplete
-    def __init__(self, *args, **kwargs) -> None:
-        """
-        Parameters
-        ----------
-        left, right : np.ndarray[ndim=1]
-            Left and right bounds for each interval. Assumed to contain no
-            NaNs.
-        closed : {'left', 'right', 'both', 'neither'}, optional
-            Whether the intervals are closed on the left-side, right-side, both
-            or neither. Defaults to 'right'.
-        leaf_size : int, optional
-            Parameter that controls when the tree switches from creating nodes
-            to brute-force search. Tune this parameter to optimize query
-            performance.
-        """
-    def __pyx_fuse_0get_indexer(self, *args, **kwargs):
-        """Return the positions corresponding to unique intervals that overlap
-                with the given array of scalar targets.
-        """
-    def __pyx_fuse_0get_indexer_non_unique(self, *args, **kwargs):
-        """Return the positions corresponding to intervals that overlap with
-                the given array of scalar targets. Non-unique positions are repeated.
-        """
-    def __pyx_fuse_1get_indexer(self, *args, **kwargs):
-        """Return the positions corresponding to unique intervals that overlap
-                with the given array of scalar targets.
-        """
-    def __pyx_fuse_1get_indexer_non_unique(self, *args, **kwargs):
-        """Return the positions corresponding to intervals that overlap with
-                the given array of scalar targets. Non-unique positions are repeated.
-        """
-    def __pyx_fuse_2get_indexer(self, *args, **kwargs):
-        """Return the positions corresponding to unique intervals that overlap
-                with the given array of scalar targets.
-        """
-    def __pyx_fuse_2get_indexer_non_unique(self, *args, **kwargs):
-        """Return the positions corresponding to intervals that overlap with
-                the given array of scalar targets. Non-unique positions are repeated.
-        """
-    def clear_mapping(self, *args, **kwargs): ...
-    def get_indexer(self, *args, **kwargs):
-        """Return the positions corresponding to unique intervals that overlap
-                with the given array of scalar targets.
-        """
-    def get_indexer_non_unique(self, *args, **kwargs):
-        """Return the positions corresponding to intervals that overlap with
-                the given array of scalar targets. Non-unique positions are repeated.
-        """
-    def __reduce__(self): ...
-    def __reduce_cython__(self, *args, **kwargs): ...
-    def __setstate_cython__(self, *args, **kwargs): ...
+    def __init__(
+        self,
+        left: np.ndarray,
+        right: np.ndarray,
+        closed: IntervalClosedType = ...,
+        leaf_size: int = ...,
+    ) -> None: ...
+    @property
+    def mid(self) -> np.ndarray: ...
+    @property
+    def length(self) -> np.ndarray: ...
+    def get_indexer(self, target) -> npt.NDArray[np.intp]: ...
+    def get_indexer_non_unique(
+        self, target
+    ) -> tuple[npt.NDArray[np.intp], npt.NDArray[np.intp]]: ...
+    _na_count: int
+    @property
+    def is_overlapping(self) -> bool: ...
+    @property
+    def is_monotonic_increasing(self) -> bool: ...
+    def clear_mapping(self) -> None: ...

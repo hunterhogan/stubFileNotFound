@@ -1,15 +1,17 @@
-import _cython_3_0_11
-from _typeshed import Incomplete
+from typing import (
+    Generic,
+    TypeVar,
+)
 
-__pyx_unpickle_NDFrameIndexerBase: _cython_3_0_11.cython_function_or_method
-__test__: dict
+from pandas.core.indexing import IndexingMixin
 
-class NDFrameIndexerBase:
-    name: Incomplete
-    ndim: Incomplete
-    obj: Incomplete
-    def __init__(self, *args, **kwargs) -> None:
-        """Initialize self.  See help(type(self)) for accurate signature."""
-    def __reduce__(self): ...
-    def __reduce_cython__(self, *args, **kwargs): ...
-    def __setstate_cython__(self, *args, **kwargs): ...
+_IndexingMixinT = TypeVar("_IndexingMixinT", bound=IndexingMixin)
+
+class NDFrameIndexerBase(Generic[_IndexingMixinT]):
+    name: str
+    # in practice obj is either a DataFrame or a Series
+    obj: _IndexingMixinT
+
+    def __init__(self, name: str, obj: _IndexingMixinT) -> None: ...
+    @property
+    def ndim(self) -> int: ...

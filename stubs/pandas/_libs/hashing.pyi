@@ -1,4 +1,9 @@
-import _cython_3_0_11
+import numpy as np
 
-__test__: dict
-hash_object_array: _cython_3_0_11.cython_function_or_method
+from pandas._typing import npt
+
+def hash_object_array(
+    arr: npt.NDArray[np.object_],
+    key: str,
+    encoding: str = ...,
+) -> npt.NDArray[np.uint64]: ...

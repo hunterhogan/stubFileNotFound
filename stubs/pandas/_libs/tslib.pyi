@@ -1,14 +1,37 @@
-import _cython_3_0_11
-from pandas._libs.tslibs.dtypes import Resolution as Resolution
-from pandas._libs.tslibs.np_datetime import OutOfBoundsDatetime as OutOfBoundsDatetime
-from pandas._libs.tslibs.timestamps import Timestamp as Timestamp
-from pandas._libs.tslibs.vectorized import get_resolution as get_resolution
-from pandas.util._exceptions import find_stack_level as find_stack_level
+from datetime import tzinfo
 
-__test__: dict
-_test_parse_iso8601: _cython_3_0_11.cython_function_or_method
-array_to_datetime: _cython_3_0_11.cython_function_or_method
-array_to_datetime_with_tz: _cython_3_0_11.cython_function_or_method
-array_with_unit_to_datetime: _cython_3_0_11.cython_function_or_method
-first_non_null: _cython_3_0_11.cython_function_or_method
-format_array_from_datetime: _cython_3_0_11.cython_function_or_method
+import numpy as np
+
+from pandas._typing import npt
+
+def format_array_from_datetime(
+    values: npt.NDArray[np.int64],
+    tz: tzinfo | None = ...,
+    format: str | None = ...,
+    na_rep: str | float = ...,
+    reso: int = ...,  # NPY_DATETIMEUNIT
+) -> npt.NDArray[np.object_]: ...
+def array_with_unit_to_datetime(
+    values: npt.NDArray[np.object_],
+    unit: str,
+    errors: str = ...,
+) -> tuple[np.ndarray, tzinfo | None]: ...
+def first_non_null(values: np.ndarray) -> int: ...
+def array_to_datetime(
+    values: npt.NDArray[np.object_],
+    errors: str = ...,
+    dayfirst: bool = ...,
+    yearfirst: bool = ...,
+    utc: bool = ...,
+    creso: int = ...,
+) -> tuple[np.ndarray, tzinfo | None]: ...
+
+# returned ndarray may be object dtype or datetime64[ns]
+
+def array_to_datetime_with_tz(
+    values: npt.NDArray[np.object_],
+    tz: tzinfo,
+    dayfirst: bool,
+    yearfirst: bool,
+    creso: int,
+) -> npt.NDArray[np.int64]: ...

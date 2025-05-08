@@ -1,18 +1,12 @@
-import _cython_3_0_11
+DAYS: list[str]
+MONTH_ALIASES: dict[int, str]
+MONTH_NUMBERS: dict[str, int]
+MONTHS: list[str]
+int_to_weekday: dict[int, str]
 
-DAYS: list
-DAYS_FULL: list
-MONTHS: list
-MONTHS_FULL: list
-MONTH_ALIASES: dict
-MONTH_NUMBERS: dict
-__pyx_capi__: dict
-__test__: dict
-get_day_of_year: _cython_3_0_11.cython_function_or_method
-get_days_in_month: _cython_3_0_11.cython_function_or_method
-get_firstbday: _cython_3_0_11.cython_function_or_method
-get_iso_calendar: _cython_3_0_11.cython_function_or_method
-get_lastbday: _cython_3_0_11.cython_function_or_method
-get_week_of_year: _cython_3_0_11.cython_function_or_method
-int_to_weekday: dict
-weekday_to_int: dict
+def get_firstbday(year: int, month: int) -> int: ...
+def get_lastbday(year: int, month: int) -> int: ...
+def get_day_of_year(year: int, month: int, day: int) -> int: ...
+def get_iso_calendar(year: int, month: int, day: int) -> tuple[int, int, int]: ...
+def get_week_of_year(year: int, month: int, day: int) -> int: ...
+def get_days_in_month(year: int, month: int) -> int: ...

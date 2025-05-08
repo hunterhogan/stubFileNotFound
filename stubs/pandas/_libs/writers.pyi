@@ -1,8 +1,20 @@
-import _cython_3_0_11
+import numpy as np
 
-__test__: dict
-convert_json_to_lines: _cython_3_0_11.cython_function_or_method
-max_len_string_array: _cython_3_0_11.fused_cython_function
-string_array_replace_from_nan_rep: _cython_3_0_11.cython_function_or_method
-word_len: _cython_3_0_11.cython_function_or_method
-write_csv_rows: _cython_3_0_11.cython_function_or_method
+from pandas._typing import ArrayLike
+
+def write_csv_rows(
+    data: list[ArrayLike],
+    data_index: np.ndarray,
+    nlevels: int,
+    cols: np.ndarray,
+    writer: object,  # _csv.writer
+) -> None: ...
+def convert_json_to_lines(arr: str) -> str: ...
+def max_len_string_array(
+    arr: np.ndarray,  # pandas_string[:]
+) -> int: ...
+def word_len(val: object) -> int: ...
+def string_array_replace_from_nan_rep(
+    arr: np.ndarray,  # np.ndarray[object, ndim=1]
+    nan_rep: object,
+) -> None: ...

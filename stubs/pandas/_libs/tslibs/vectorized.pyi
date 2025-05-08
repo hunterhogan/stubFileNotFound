@@ -1,10 +1,43 @@
-import _cython_3_0_11
-from pandas._libs.tslibs.dtypes import Resolution as Resolution
+"""
+For cython types that cannot be represented precisely, closest-available
+python equivalents are used, and the precise types kept as adjacent comments.
+"""
+from datetime import tzinfo
 
-__test__: dict
-dt64arr_to_periodarr: _cython_3_0_11.cython_function_or_method
-get_resolution: _cython_3_0_11.cython_function_or_method
-ints_to_pydatetime: _cython_3_0_11.cython_function_or_method
-is_date_array_normalized: _cython_3_0_11.cython_function_or_method
-normalize_i8_timestamps: _cython_3_0_11.cython_function_or_method
-tz_convert_from_utc: _cython_3_0_11.cython_function_or_method
+import numpy as np
+
+from pandas._libs.tslibs.dtypes import Resolution
+from pandas._typing import npt
+
+def dt64arr_to_periodarr(
+    stamps: npt.NDArray[np.int64],
+    freq: int,
+    tz: tzinfo | None,
+    reso: int = ...,  # NPY_DATETIMEUNIT
+) -> npt.NDArray[np.int64]: ...
+def is_date_array_normalized(
+    stamps: npt.NDArray[np.int64],
+    tz: tzinfo | None,
+    reso: int,  # NPY_DATETIMEUNIT
+) -> bool: ...
+def normalize_i8_timestamps(
+    stamps: npt.NDArray[np.int64],
+    tz: tzinfo | None,
+    reso: int,  # NPY_DATETIMEUNIT
+) -> npt.NDArray[np.int64]: ...
+def get_resolution(
+    stamps: npt.NDArray[np.int64],
+    tz: tzinfo | None = ...,
+    reso: int = ...,  # NPY_DATETIMEUNIT
+) -> Resolution: ...
+def ints_to_pydatetime(
+    stamps: npt.NDArray[np.int64],
+    tz: tzinfo | None = ...,
+    box: str = ...,
+    reso: int = ...,  # NPY_DATETIMEUNIT
+) -> npt.NDArray[np.object_]: ...
+def tz_convert_from_utc(
+    stamps: npt.NDArray[np.int64],
+    tz: tzinfo | None,
+    reso: int = ...,  # NPY_DATETIMEUNIT
+) -> npt.NDArray[np.int64]: ...

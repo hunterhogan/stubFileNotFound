@@ -1,16 +1,21 @@
-import _cython_3_0_11
-from typing import ClassVar
+from datetime import (
+    timedelta,
+    tzinfo,
+)
+from typing import Iterable
 
-__pyx_capi__: dict
-__reduce_cython__: _cython_3_0_11.cython_function_or_method
-__setstate_cython__: _cython_3_0_11.cython_function_or_method
-__test__: dict
-tz_convert_from_utc_single: _cython_3_0_11.cython_function_or_method
-tz_localize_to_utc: _cython_3_0_11.cython_function_or_method
+import numpy as np
 
-class Localizer:
-    __pyx_vtable__: ClassVar[PyCapsule] = ...
-    @classmethod
-    def __init__(cls, *args, **kwargs) -> None:
-        """Create and return a new object.  See help(type) for accurate signature."""
-    def __reduce__(self): ...
+from pandas._typing import npt
+
+# tz_convert_from_utc_single exposed for testing
+def tz_convert_from_utc_single(
+    utc_val: np.int64, tz: tzinfo, creso: int = ...
+) -> np.int64: ...
+def tz_localize_to_utc(
+    vals: npt.NDArray[np.int64],
+    tz: tzinfo | None,
+    ambiguous: str | bool | Iterable[bool] | None = ...,
+    nonexistent: str | timedelta | np.timedelta64 | None = ...,
+    creso: int = ...,  # NPY_DATETIMEUNIT
+) -> npt.NDArray[np.int64]: ...
