@@ -20,11 +20,12 @@ _EdgePlus: TypeAlias = _Edge[_Node] | _EdgeWithData[_Node]
 _MapFactory: TypeAlias = Callable[[], MutableMapping[str, Any]]
 _NBunch: TypeAlias = _Node | Iterable[_Node] | None
 _Data: TypeAlias = (
-	'Graph[_Node]' |
-	dict[_Node, dict[_Node, dict[str, Any]]] |
-	dict[_Node, Iterable[_Node]] |
-	Iterable[_EdgePlus[_Node]] |
-	numpy.ndarray[Any, Any]
+    Graph[_Node]
+    | dict[_Node, dict[_Node, dict[str, Any]]]
+    | dict[_Node, Iterable[_Node]]
+    | Iterable[_EdgePlus[_Node]]
+    | numpy.ndarray[Any, Any]
+    # | scipy.sparse.base.spmatrix
 )
 
 class _CachedPropertyResetterAdj:

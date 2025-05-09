@@ -1,8 +1,21 @@
 from _typeshed import Incomplete
+from collections.abc import Callable, Collection, Iterable
+from networkx.classes.graph import Graph, _Data, _Node
+from networkx.utils.backends import _dispatchable
 
-__all__ = ['to_networkx_graph', 'from_dict_of_dicts', 'to_dict_of_dicts', 'from_dict_of_lists', 'to_dict_of_lists', 'from_edgelist', 'to_edgelist']
+__all__ = [
+    "to_networkx_graph",
+    "from_dict_of_dicts",
+    "to_dict_of_dicts",
+    "from_dict_of_lists",
+    "to_dict_of_lists",
+    "from_edgelist",
+    "to_edgelist",
+]
 
-def to_networkx_graph(data, create_using: Incomplete | None = None, multigraph_input: bool = False):
+def to_networkx_graph(
+    data: _Data[_Node], create_using: Graph[_Node] | Callable[[], Graph[_Node]] | None = None, multigraph_input: bool = False
+) -> Graph[_Node]:
     '''Make a NetworkX graph from a known data structure.
 
     The preferred way to call this is automatically
@@ -41,6 +54,8 @@ def to_networkx_graph(data, create_using: Incomplete | None = None, multigraph_i
         a multigraph from a multigraph.
 
     '''
+    ...
+@_dispatchable
 def to_dict_of_lists(G, nodelist: Incomplete | None = None):
     """Returns adjacency representation of graph as a dictionary of lists.
 
@@ -57,6 +72,8 @@ def to_dict_of_lists(G, nodelist: Incomplete | None = None):
     Completely ignores edge data for MultiGraph and MultiDiGraph.
 
     """
+    ...
+@_dispatchable    
 def from_dict_of_lists(d, create_using: Incomplete | None = None):
     """Returns a graph from a dictionary of lists.
 
@@ -78,6 +95,8 @@ def from_dict_of_lists(d, create_using: Incomplete | None = None):
     >>> G = nx.Graph(dol)  # use Graph constructor
 
     """
+    ...
+@_dispatchable    
 def to_dict_of_dicts(G, nodelist: Incomplete | None = None, edge_data: Incomplete | None = None):
     '''Returns adjacency representation of graph as a dictionary of dictionaries.
 
@@ -175,6 +194,8 @@ def to_dict_of_dicts(G, nodelist: Incomplete | None = None, edge_data: Incomplet
     >>> d
     {0: {1: 10}, 1: {0: 10}}
     '''
+    ...
+@_dispatchable    
 def from_dict_of_dicts(d, create_using: Incomplete | None = None, multigraph_input: bool = False):
     '''Returns a graph from a dictionary of dictionaries.
 
@@ -203,6 +224,8 @@ def from_dict_of_dicts(d, create_using: Incomplete | None = None, multigraph_inp
     >>> G = nx.Graph(dod)  # use Graph constructor
 
     '''
+    ...
+@_dispatchable    
 def to_edgelist(G, nodelist: Incomplete | None = None):
     """Returns a list of edges in the graph.
 
@@ -215,6 +238,8 @@ def to_edgelist(G, nodelist: Incomplete | None = None):
        Use only nodes specified in nodelist
 
     """
+    ...
+@_dispatchable    
 def from_edgelist(edgelist, create_using: Incomplete | None = None):
     """Returns a graph from a list of edges.
 
@@ -236,3 +261,4 @@ def from_edgelist(edgelist, create_using: Incomplete | None = None):
     >>> G = nx.Graph(edgelist)  # use Graph constructor
 
     """
+	...

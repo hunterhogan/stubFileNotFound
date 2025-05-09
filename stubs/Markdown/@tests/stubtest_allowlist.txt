@@ -1,3 +1,0 @@
-# Deprecated types are infered as functions:
-markdown.extensions.abbr.AbbrPreprocessor
-markdown.extensions.abbr.AbbrInlineProcessor
