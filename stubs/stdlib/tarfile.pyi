@@ -537,7 +537,7 @@ class TarFile:
         members: Iterable[TarInfo] | None = None,
         *,
         numeric_owner: bool = False,
-        filter: _TarfileFilter | None = ...,
+        filter: _TarfileFilter | None = None,
     ) -> None: ...
     # Same situation as for `extractall`.
     def extract(
@@ -547,7 +547,7 @@ class TarFile:
         set_attrs: bool = True,
         *,
         numeric_owner: bool = False,
-        filter: _TarfileFilter | None = ...,
+        filter: _TarfileFilter | None = None,
     ) -> None: ...
     def _extract_member(
         self, tarinfo: TarInfo, targetpath: str, set_attrs: bool = True, numeric_owner: bool = False
