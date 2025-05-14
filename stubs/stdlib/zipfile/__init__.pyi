@@ -150,7 +150,7 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | _ZipWritable,
-            mode: Literal["w", "x"] = 'r',
+            mode: Literal["w", "x"] = ...,
             compression: int = 0,
             allowZip64: bool = True,
             compresslevel: int | None = None,
@@ -162,7 +162,7 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | _ZipReadableTellable,
-            mode: Literal["a"] = "a",
+            mode: Literal["a"] = ...,
             compression: int = 0,
             allowZip64: bool = True,
             compresslevel: int | None = None,
@@ -208,7 +208,7 @@ class ZipFile:
         def __init__(
             self,
             file: StrPath | _ZipReadableTellable,
-            mode: Literal["a"] = "a",
+            mode: Literal["a"] = ...,
             compression: int = 0,
             allowZip64: bool = True,
             compresslevel: int | None = None,
