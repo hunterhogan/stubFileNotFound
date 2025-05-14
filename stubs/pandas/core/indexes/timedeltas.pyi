@@ -42,7 +42,7 @@ class TimedeltaIndex(DatetimeTimedeltaMixin[Timedelta], TimedeltaIndexProperties
         ) = ...,
         freq: str | BaseOffset = ...,
         closed: object = ...,
-        dtype: Literal["<m8[ns]"] = ...,
+        dtype: Literal["<m8[ns]"] = "<m8[ns]",
         copy: bool = ...,
         name: str = ...,
     ) -> Self: ...

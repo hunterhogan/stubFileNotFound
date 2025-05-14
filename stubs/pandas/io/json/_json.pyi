@@ -48,7 +48,7 @@ def read_json(
     nrows: int | None = ...,
     storage_options: StorageOptions = ...,
     dtype_backend: DtypeBackend | NoDefault = ...,
-    engine: Literal["ujson"] = ...,
+    engine: Literal["ujson"] = "ujson",
 ) -> JsonReader[Series]: ...
 @overload
 def read_json(
@@ -80,7 +80,7 @@ def read_json(
     path_or_buf: FilePath | ReadBuffer[bytes],
     *,
     orient: JsonFrameOrient | None = ...,
-    typ: Literal["frame"] = ...,
+    typ: Literal["frame"] = "frame",
     dtype: bool | Mapping[HashableT, DtypeArg] | None = ...,
     convert_axes: bool | None = ...,
     convert_dates: bool | list[str] = ...,
@@ -98,14 +98,14 @@ def read_json(
     nrows: int | None = ...,
     storage_options: StorageOptions = ...,
     dtype_backend: DtypeBackend | NoDefault = ...,
-    engine: Literal["ujson"] = ...,
+    engine: Literal["ujson"] = "ujson",
 ) -> JsonReader[DataFrame]: ...
 @overload
 def read_json(
     path_or_buf: FilePath | ReadBuffer[bytes],
     *,
     orient: JsonFrameOrient | None = ...,
-    typ: Literal["frame"] = ...,
+    typ: Literal["frame"] = "frame",
     dtype: bool | Mapping[HashableT, DtypeArg] | None = ...,
     convert_axes: bool | None = ...,
     convert_dates: bool | list[str] = ...,
@@ -143,12 +143,12 @@ def read_json(
         | None
     ) = ...,
     lines: bool = ...,
-    chunksize: None = ...,
+    chunksize: None = None,
     compression: CompressionOptions = ...,
     nrows: int | None = ...,
     storage_options: StorageOptions = ...,
     dtype_backend: DtypeBackend | NoDefault = ...,
-    engine: Literal["ujson"] = ...,
+    engine: Literal["ujson"] = "ujson",
 ) -> Series: ...
 @overload
 def read_json(
@@ -168,7 +168,7 @@ def read_json(
         | None
     ) = ...,
     lines: Literal[True],
-    chunksize: None = ...,
+    chunksize: None = None,
     compression: CompressionOptions = ...,
     nrows: int | None = ...,
     storage_options: StorageOptions = ...,
@@ -180,7 +180,7 @@ def read_json(
     path_or_buf: FilePath | ReadBuffer[str] | ReadBuffer[bytes],
     *,
     orient: JsonFrameOrient | None = ...,
-    typ: Literal["frame"] = ...,
+    typ: Literal["frame"] = "frame",
     dtype: bool | Mapping[HashableT, DtypeArg] | None = ...,
     convert_axes: bool | None = ...,
     convert_dates: bool | list[str] = ...,
@@ -193,19 +193,19 @@ def read_json(
         | None
     ) = ...,
     lines: bool = ...,
-    chunksize: None = ...,
+    chunksize: None = None,
     compression: CompressionOptions = ...,
     nrows: int | None = ...,
     storage_options: StorageOptions = ...,
     dtype_backend: DtypeBackend | NoDefault = ...,
-    engine: Literal["ujson"] = ...,
+    engine: Literal["ujson"] = "ujson",
 ) -> DataFrame: ...
 @overload
 def read_json(
     path_or_buf: FilePath | ReadBuffer[bytes],
     *,
     orient: JsonFrameOrient | None = ...,
-    typ: Literal["frame"] = ...,
+    typ: Literal["frame"] = "frame",
     dtype: bool | Mapping[HashableT, DtypeArg] | None = ...,
     convert_axes: bool | None = ...,
     convert_dates: bool | list[str] = ...,
@@ -218,7 +218,7 @@ def read_json(
         | None
     ) = ...,
     lines: Literal[True],
-    chunksize: None = ...,
+    chunksize: None = None,
     compression: CompressionOptions = ...,
     nrows: int | None = ...,
     storage_options: StorageOptions = ...,

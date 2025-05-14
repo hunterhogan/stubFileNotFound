@@ -208,7 +208,7 @@ class Index(IndexOpsMixin[S1]):
         cls,
         data: Sequence[Interval[_OrderableT]] | IndexOpsMixin[Interval[_OrderableT]],
         *,
-        dtype: Literal["Interval"] = ...,
+        dtype: Literal["Interval"] = "Interval",
         copy: bool = ...,
         name: Hashable = ...,
         tupleize_cols: bool = ...,

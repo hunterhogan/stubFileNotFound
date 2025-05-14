@@ -320,7 +320,7 @@ def interval_range(  # pyright: ignore[reportOverlappingOverload]
 def interval_range(  # pyright: ignore[reportOverlappingOverload]
     start: int,
     *,
-    end: None = ...,
+    end: None = None,
     periods: int | None = ...,
     freq: int | None = ...,
     name: Hashable = ...,
@@ -329,7 +329,7 @@ def interval_range(  # pyright: ignore[reportOverlappingOverload]
 @overload
 def interval_range(  # pyright: ignore[reportOverlappingOverload]
     *,
-    start: None = ...,
+    start: None = None,
     end: int,
     periods: int | None = ...,
     freq: int | None = ...,
@@ -349,7 +349,7 @@ def interval_range(
 def interval_range(
     start: float,
     *,
-    end: None = ...,
+    end: None = None,
     periods: int | None = ...,
     freq: int | None = ...,
     name: Hashable = ...,
@@ -358,7 +358,7 @@ def interval_range(
 @overload
 def interval_range(
     *,
-    start: None = ...,
+    start: None = None,
     end: float,
     periods: int | None = ...,
     freq: int | None = ...,
@@ -377,7 +377,7 @@ def interval_range(
 @overload
 def interval_range(
     *,
-    start: None = ...,
+    start: None = None,
     end: _TimestampLike,
     periods: int | None = ...,
     freq: str | BaseOffset | pd.Timedelta | dt.timedelta | None = ...,
@@ -388,7 +388,7 @@ def interval_range(
 def interval_range(
     start: _TimestampLike,
     *,
-    end: None = ...,
+    end: None = None,
     periods: int | None = ...,
     freq: str | BaseOffset | pd.Timedelta | dt.timedelta | None = ...,
     name: Hashable = ...,
@@ -406,7 +406,7 @@ def interval_range(
 @overload
 def interval_range(
     *,
-    start: None = ...,
+    start: None = None,
     end: _TimedeltaLike,
     periods: int | None = ...,
     freq: str | BaseOffset | pd.Timedelta | dt.timedelta | None = ...,
@@ -417,7 +417,7 @@ def interval_range(
 def interval_range(
     start: _TimedeltaLike,
     *,
-    end: None = ...,
+    end: None = None,
     periods: int | None = ...,
     freq: str | BaseOffset | pd.Timedelta | dt.timedelta | None = ...,
     name: Hashable = ...,

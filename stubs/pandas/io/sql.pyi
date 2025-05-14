@@ -57,7 +57,7 @@ def read_sql_table(
     coerce_float: bool = ...,
     parse_dates: list[str] | dict[str, str] | dict[str, dict[str, Any]] | None = ...,
     columns: list[str] | None = ...,
-    chunksize: None = ...,
+    chunksize: None = None,
     dtype_backend: DtypeBackend | NoDefault = ...,
 ) -> DataFrame: ...
 @overload
@@ -95,7 +95,7 @@ def read_sql_query(
         | None
     ) = ...,
     parse_dates: list[str] | dict[str, str] | dict[str, dict[str, Any]] | None = ...,
-    chunksize: None = ...,
+    chunksize: None = None,
     dtype: DtypeArg | None = ...,
     dtype_backend: DtypeBackend | NoDefault = ...,
 ) -> DataFrame: ...
@@ -136,7 +136,7 @@ def read_sql(
     ) = ...,
     parse_dates: list[str] | dict[str, str] | dict[str, dict[str, Any]] | None = ...,
     columns: list[str] = ...,
-    chunksize: None = ...,
+    chunksize: None = None,
     dtype: DtypeArg | None = ...,
     dtype_backend: DtypeBackend | NoDefault = ...,
 ) -> DataFrame: ...

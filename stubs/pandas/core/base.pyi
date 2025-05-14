@@ -82,7 +82,7 @@ class IndexOpsMixin(OpsMixin, Generic[S1]):
     @overload
     def value_counts(
         self,
-        normalize: Literal[False] = ...,
+        normalize: Literal[False] = False,
         sort: bool = ...,
         ascending: bool = ...,
         bins=...,

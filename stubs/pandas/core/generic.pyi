@@ -146,7 +146,7 @@ class NDFrame(indexing.IndexingMixin):
     @overload
     def to_markdown(
         self,
-        buf: None = ...,
+        buf: None = None,
         mode: FileWriteMode | None = ...,
         index: _bool = ...,
         storage_options: StorageOptions = ...,
@@ -209,7 +209,7 @@ class NDFrame(indexing.IndexingMixin):
     @overload
     def to_latex(
         self,
-        buf: None = ...,
+        buf: None = None,
         columns: list[_str] | None = ...,
         header: _bool | list[_str] = ...,
         index: _bool = ...,
@@ -259,7 +259,7 @@ class NDFrame(indexing.IndexingMixin):
     @overload
     def to_csv(
         self,
-        path_or_buf: None = ...,
+        path_or_buf: None = None,
         sep: _str = ...,
         na_rep: _str = ...,
         float_format: _str | Callable[[object], _str] | None = ...,
@@ -285,7 +285,7 @@ class NDFrame(indexing.IndexingMixin):
     @overload
     def drop(
         self,
-        labels: None = ...,
+        labels: None = None,
         *,
         axis: Axis = ...,
         index: Hashable | Sequence[Hashable] | Index[Any] = ...,
@@ -297,7 +297,7 @@ class NDFrame(indexing.IndexingMixin):
     @overload
     def drop(
         self,
-        labels: None = ...,
+        labels: None = None,
         *,
         axis: Axis = ...,
         index: Hashable | Sequence[Hashable] | Index[Any],
@@ -312,8 +312,8 @@ class NDFrame(indexing.IndexingMixin):
         labels: Hashable | Sequence[Hashable] | Index[Any],
         *,
         axis: Axis = ...,
-        index: None = ...,
-        columns: None = ...,
+        index: None = None,
+        columns: None = None,
         level: Level | None = ...,
         inplace: Literal[True],
         errors: IgnoreRaise = ...,
@@ -321,25 +321,25 @@ class NDFrame(indexing.IndexingMixin):
     @overload
     def drop(
         self,
-        labels: None = ...,
+        labels: None = None,
         *,
         axis: Axis = ...,
         index: Hashable | Sequence[Hashable] | Index[Any] = ...,
         columns: Hashable | Iterable[Hashable],
         level: Level | None = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
         errors: IgnoreRaise = ...,
     ) -> Self: ...
     @overload
     def drop(
         self,
-        labels: None = ...,
+        labels: None = None,
         *,
         axis: Axis = ...,
         index: Hashable | Sequence[Hashable] | Index[Any],
         columns: Hashable | Iterable[Hashable] = ...,
         level: Level | None = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
         errors: IgnoreRaise = ...,
     ) -> Self: ...
     @overload
@@ -348,10 +348,10 @@ class NDFrame(indexing.IndexingMixin):
         labels: Hashable | Sequence[Hashable] | Index[Any],
         *,
         axis: Axis = ...,
-        index: None = ...,
-        columns: None = ...,
+        index: None = None,
+        columns: None = None,
         level: Level | None = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
         errors: IgnoreRaise = ...,
     ) -> Self: ...
     @overload

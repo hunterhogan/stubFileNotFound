@@ -343,7 +343,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         ),
         index: Axes | None = ...,
         *,
-        dtype: Literal["Interval"] = ...,
+        dtype: Literal["Interval"] = "Interval",
         name: Hashable = ...,
         copy: bool = ...,
     ) -> IntervalSeries[_OrderableT]: ...
@@ -480,7 +480,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def __getitem__(self, idx: Scalar) -> S1: ...
     def __setitem__(self, key, value) -> None: ...
     @overload
-    def get(self, key: Hashable, default: None = ...) -> S1 | None: ...
+    def get(self, key: Hashable, default: None = None) -> S1 | None: ...
     @overload
     def get(self, key: Hashable, default: S1) -> S1: ...
     @overload
@@ -497,9 +497,9 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         level: Sequence[Level] | Level | None = ...,
         *,
-        drop: Literal[False] = ...,
+        drop: Literal[False] = False,
         name: Level = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
         allow_duplicates: bool = ...,
     ) -> DataFrame: ...
     @overload
@@ -509,7 +509,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         *,
         drop: Literal[True],
         name: Level = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
         allow_duplicates: bool = ...,
     ) -> Series[S1]: ...
     @overload
@@ -539,7 +539,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def to_string(
         self,
-        buf: None = ...,
+        buf: None = None,
         na_rep: _str = ...,
         float_format: Callable[[float], str] = ...,
         header: _bool = ...,
@@ -572,7 +572,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def to_json(
         self,
-        path_or_buf: None = ...,
+        path_or_buf: None = None,
         *,
         orient: Literal["records"],
         date_format: Literal["epoch", "iso"] | None = ...,
@@ -604,12 +604,12 @@ class Series(IndexOpsMixin[S1], NDFrame):
         compression: CompressionOptions = ...,
         index: _bool = ...,
         indent: int | None = ...,
-        mode: Literal["w"] = ...,
+        mode: Literal["w"] = "w",
     ) -> None: ...
     @overload
     def to_json(
         self,
-        path_or_buf: None = ...,
+        path_or_buf: None = None,
         orient: JsonSeriesOrient | None = ...,
         date_format: Literal["epoch", "iso"] | None = ...,
         double_precision: int = ...,
@@ -622,7 +622,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         compression: CompressionOptions = ...,
         index: _bool = ...,
         indent: int | None = ...,
-        mode: Literal["w"] = ...,
+        mode: Literal["w"] = "w",
     ) -> _str: ...
     def to_xarray(self) -> xr.DataArray: ...
     def items(self) -> Iterable[tuple[Hashable, S1]]: ...
@@ -721,7 +721,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def groupby(
         self,
-        by: None = ...,
+        by: None = None,
         axis: AxisIndex = ...,
         *,
         level: IndexLabel,  # level is required when by=None (passed as keyword)
@@ -757,7 +757,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> SeriesGroupBy[S1, Any]: ...
     # need the ignore because None is Hashable
     @overload
-    def count(self, level: None = ...) -> int: ...  # type: ignore[overload-overlap]
+    def count(self, level: None = None) -> int: ...  # type: ignore[overload-overlap]
     @overload
     def count(self, level: Hashable) -> Series[S1]: ...
     def mode(self, dropna=...) -> Series[S1]: ...
@@ -775,7 +775,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         *,
         keep: NaPosition | Literal[False] = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
         ignore_index: _bool = ...,
     ) -> Series[S1]: ...
     def duplicated(self, keep: NaPosition | Literal[False] = ...) -> Series[_bool]: ...
@@ -896,7 +896,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         kind: SortKind = ...,
         na_position: NaPosition = ...,
         ignore_index: _bool = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
         key: Callable | None = ...,
     ) -> Series[S1]: ...
     @overload
@@ -924,14 +924,14 @@ class Series(IndexOpsMixin[S1], NDFrame):
         na_position: NaPosition = ...,
         sort_remaining: _bool = ...,
         ignore_index: _bool = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
         key: Callable | None = ...,
     ) -> Series[S1]: ...
     def argsort(
         self,
         axis: AxisIndex = ...,
         kind: SortKind = ...,
-        order: None = ...,
+        order: None = None,
     ) -> Series[int]: ...
     def nlargest(
         self, n: int = ..., keep: NaPosition | Literal["all"] = ...
@@ -953,13 +953,13 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def map(
         self,
         arg: Callable[[S1], S2 | NAType] | Mapping[S1, S2] | Series[S2],
-        na_action: Literal["ignore"] = ...,
+        na_action: Literal["ignore"] = "ignore",
     ) -> Series[S2]: ...
     @overload
     def map(
         self,
         arg: Callable[[S1 | NAType], S2 | NAType] | Mapping[S1, S2] | Series[S2],
-        na_action: None = ...,
+        na_action: None = None,
     ) -> Series[S2]: ...
     @overload
     def aggregate(
@@ -1077,7 +1077,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         *,
         axis: Axis | None = ...,
         copy: bool = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
         level: Level | None = ...,
         errors: IgnoreRaise = ...,
     ) -> Self: ...
@@ -1105,7 +1105,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         *,
         axis: AxisIndex = ...,
         limit: int | None = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
     ) -> Series[S1]: ...
     @overload
     def replace(
@@ -1123,7 +1123,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         value: ReplaceValue = ...,
         *,
         regex: ReplaceValue = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
     ) -> Series[S1]: ...
     def shift(
         self,
@@ -1165,7 +1165,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         *,
         axis: AxisIndex = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
         how: Literal["any", "all"] | None = ...,
         ignore_index: _bool = ...,
     ) -> Series[S1]: ...
@@ -1323,7 +1323,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         *,
         axis: AxisIndex | None = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
         limit: int | None = ...,
         limit_area: Literal["inside", "outside"] | None = ...,
     ) -> Series[S1]: ...
@@ -1341,7 +1341,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         *,
         axis: AxisIndex | None = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
         limit: int | None = ...,
         limit_area: Literal["inside", "outside"] | None = ...,
     ) -> Series[S1]: ...
@@ -1364,7 +1364,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         *,
         axis: AxisIndex | None = ...,
         limit: int | None = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
         limit_direction: Literal["forward", "backward", "both"] | None = ...,
         limit_area: Literal["inside", "outside"] | None = ...,
         **kwargs,
@@ -1391,7 +1391,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         upper: AnyArrayLike | float | None = ...,
         *,
         axis: AxisIndex | None = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
         **kwargs,
     ) -> Series[S1]: ...
     def asfreq(
@@ -1453,7 +1453,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         ),
         other=...,
         *,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
         axis: AxisIndex | None = ...,
         level: Level | None = ...,
     ) -> Self: ...
@@ -1485,7 +1485,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         ),
         other: Scalar | Series[S1] | DataFrame | Callable | NAType | None = ...,
         *,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
         axis: AxisIndex | None = ...,
         level: Level | None = ...,
     ) -> Series[S1]: ...
@@ -1543,7 +1543,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def value_counts(
         self,
-        normalize: Literal[False] = ...,
+        normalize: Literal[False] = False,
         sort: _bool = ...,
         ascending: _bool = ...,
         bins: int | None = ...,
@@ -1797,7 +1797,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool = ...,
-        level: None = ...,
+        level: None = None,
         numeric_only: _bool = ...,
         **kwargs,
     ) -> Scalar: ...
@@ -1805,7 +1805,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool = ...,
-        level: None = ...,
+        level: None = None,
         numeric_only: _bool = ...,
         **kwargs,
     ) -> Scalar: ...
@@ -1827,7 +1827,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool = ...,
-        level: None = ...,
+        level: None = None,
         numeric_only: _bool = ...,
         **kwargs,
     ) -> S1: ...
@@ -1835,7 +1835,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool = ...,
-        level: None = ...,
+        level: None = None,
         numeric_only: _bool = ...,
         **kwargs,
     ) -> float: ...
@@ -1843,7 +1843,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool = ...,
-        level: None = ...,
+        level: None = None,
         numeric_only: _bool = ...,
         **kwargs,
     ) -> float: ...
@@ -1851,7 +1851,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool = ...,
-        level: None = ...,
+        level: None = None,
         numeric_only: _bool = ...,
         **kwargs,
     ) -> S1: ...
@@ -1904,7 +1904,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool | None = ...,
-        level: None = ...,
+        level: None = None,
         numeric_only: _bool = ...,
         min_count: int = ...,
         **kwargs,
@@ -1913,7 +1913,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool | None = ...,
-        level: None = ...,
+        level: None = None,
         numeric_only: _bool = ...,
         min_count: int = ...,
         **kwargs,
@@ -1986,7 +1986,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         step: int | None = ...,
         method: CalculationMethod = ...,
         *,
-        win_type: None = ...,
+        win_type: None = None,
     ) -> Rolling[Series]: ...
     def rpow(
         self,
@@ -2013,7 +2013,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool | None = ...,
-        level: None = ...,
+        level: None = None,
         ddof: int = ...,
         numeric_only: _bool = ...,
         **kwargs,
@@ -2022,7 +2022,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool | None = ...,
-        level: None = ...,
+        level: None = None,
         numeric_only: _bool = ...,
         **kwargs,
     ) -> Scalar: ...
@@ -2030,7 +2030,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool | None = ...,
-        level: None = ...,
+        level: None = None,
         ddof: int = ...,
         numeric_only: _bool = ...,
         **kwargs,
@@ -2055,7 +2055,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self: Series[Never],
         axis: AxisIndex | None = ...,
         skipna: _bool | None = ...,
-        level: None = ...,
+        level: None = None,
         numeric_only: _bool = ...,
         min_count: int = ...,
         **kwargs,
@@ -2067,7 +2067,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self: Series[bool],
         axis: AxisIndex | None = ...,
         skipna: _bool | None = ...,
-        level: None = ...,
+        level: None = None,
         numeric_only: _bool = ...,
         min_count: int = ...,
         **kwargs,
@@ -2077,7 +2077,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self: Series[S1],
         axis: AxisIndex | None = ...,
         skipna: _bool | None = ...,
-        level: None = ...,
+        level: None = None,
         numeric_only: _bool = ...,
         min_count: int = ...,
         **kwargs,
@@ -2102,7 +2102,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool | None = ...,
-        level: None = ...,
+        level: None = None,
         ddof: int = ...,
         numeric_only: _bool = ...,
         **kwargs,
@@ -2125,7 +2125,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         *,
         axis: AxisIndex | None = ...,
         copy: _bool = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
     ) -> Self: ...
     # Rename axis with `index` and `inplace=True`
     @overload
@@ -2143,7 +2143,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         *,
         index: Scalar | ListLike | Callable | dict | None = ...,
         copy: _bool = ...,
-        inplace: Literal[False] = ...,
+        inplace: Literal[False] = False,
     ) -> Self: ...
     def set_axis(self, labels, *, axis: Axis = ..., copy: _bool = ...) -> Self: ...
     def __iter__(self) -> Iterator[S1]: ...
@@ -2179,7 +2179,7 @@ class TimestampSeries(Series[Timestamp]):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool = ...,
-        level: None = ...,
+        level: None = None,
         numeric_only: _bool = ...,
         **kwargs,
     ) -> Timestamp: ...
@@ -2187,7 +2187,7 @@ class TimestampSeries(Series[Timestamp]):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool = ...,
-        level: None = ...,
+        level: None = None,
         numeric_only: _bool = ...,
         **kwargs,
     ) -> Timestamp: ...
@@ -2195,7 +2195,7 @@ class TimestampSeries(Series[Timestamp]):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool | None = ...,
-        level: None = ...,
+        level: None = None,
         ddof: int = ...,
         numeric_only: _bool = ...,
         **kwargs,
@@ -2277,7 +2277,7 @@ class TimedeltaSeries(Series[Timedelta]):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool = ...,
-        level: None = ...,
+        level: None = None,
         numeric_only: _bool = ...,
         **kwargs,
     ) -> Timedelta: ...
@@ -2285,7 +2285,7 @@ class TimedeltaSeries(Series[Timedelta]):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool = ...,
-        level: None = ...,
+        level: None = None,
         numeric_only: _bool = ...,
         **kwargs,
     ) -> Timedelta: ...
@@ -2293,7 +2293,7 @@ class TimedeltaSeries(Series[Timedelta]):
         self,
         axis: AxisIndex | None = ...,
         skipna: _bool | None = ...,
-        level: None = ...,
+        level: None = None,
         ddof: int = ...,
         numeric_only: _bool = ...,
         **kwargs,

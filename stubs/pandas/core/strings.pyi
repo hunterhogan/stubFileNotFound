@@ -49,7 +49,7 @@ class StringMethods(NoNewAttributesMixin, Generic[T, _TS, _TM, _TS2]):
     @overload
     def cat(
         self,
-        others: Literal[None] = ...,
+        others: Literal[None] = None,
         *,
         sep: str,
         na_rep: str | None = ...,
@@ -73,14 +73,14 @@ class StringMethods(NoNewAttributesMixin, Generic[T, _TS, _TM, _TS2]):
         pat: str = ...,
         *,
         n: int = ...,
-        expand: Literal[False] = ...,
+        expand: Literal[False] = False,
         regex: bool = ...,
     ) -> _TS2: ...
     @overload
     def rsplit(self, pat: str = ..., *, n: int = ..., expand: Literal[True]) -> _TS: ...
     @overload
     def rsplit(
-        self, pat: str = ..., *, n: int = ..., expand: Literal[False] = ...
+        self, pat: str = ..., *, n: int = ..., expand: Literal[False] = False
     ) -> _TS2: ...
     @overload
     def partition(self, sep: str = ...) -> pd.DataFrame: ...
@@ -163,7 +163,7 @@ class StringMethods(NoNewAttributesMixin, Generic[T, _TS, _TM, _TS2]):
     def findall(self, pat: str, flags: int = ...) -> Series: ...
     @overload
     def extract(
-        self, pat: str, flags: int = ..., *, expand: Literal[True] = ...
+        self, pat: str, flags: int = ..., *, expand: Literal[True] = True
     ) -> pd.DataFrame: ...
     @overload
     def extract(self, pat: str, flags: int, expand: Literal[False]) -> T: ...

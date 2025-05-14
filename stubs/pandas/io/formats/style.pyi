@@ -127,7 +127,7 @@ class Styler(StylerRenderer):
     @overload
     def to_latex(
         self,
-        buf: None = ...,
+        buf: None = None,
         *,
         column_format: str | None = ...,
         position: str | None = ...,
@@ -168,7 +168,7 @@ class Styler(StylerRenderer):
     @overload
     def to_html(
         self,
-        buf: None = ...,
+        buf: None = None,
         *,
         table_uuid: str | None = ...,
         table_attributes: str | None = ...,
@@ -198,7 +198,7 @@ class Styler(StylerRenderer):
     @overload
     def to_string(
         self,
-        buf: None = ...,
+        buf: None = None,
         *,
         encoding: str | None = ...,
         sparse_index: bool | None = ...,
