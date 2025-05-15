@@ -378,7 +378,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         orient: Literal["records"],
         *,
-        into: MutableMapping | type[MutableMapping],
+        into: MutableMapping[Hashable, Any] | type[MutableMapping[Hashable, Any]],
         index: Literal[True] = True,
     ) -> list[MutableMapping[Hashable, Any]]: ...
     @overload
@@ -386,7 +386,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         orient: Literal["records"],
         *,
-        into: type[dict] = dict,
+        into: type[dict[Hashable, Any]] = dict,
         index: Literal[True] = True
     ) -> list[dict[Hashable, Any]]: ...
     @overload
@@ -394,7 +394,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         orient: Literal["dict", "list", "series", "index"],
         *,
-        into: MutableMapping | type[MutableMapping],
+        into: MutableMapping[Hashable, Any] | type[MutableMapping[Hashable, Any]],
         index: Literal[True] = True,
     ) -> MutableMapping[Hashable, Any]: ...
     @overload
@@ -402,7 +402,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         orient: Literal["split", "tight"],
         *,
-        into: MutableMapping | type[MutableMapping],
+        into: MutableMapping[Hashable, Any] | type[MutableMapping[Hashable, Any]],
         index: bool = ...,
     ) -> MutableMapping[Hashable, Any]: ...
     @overload
@@ -410,7 +410,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         orient: Literal["dict", "list", "series", "index"] = ...,
         *,
-        into: MutableMapping | type[MutableMapping],
+        into: MutableMapping[Hashable, Any] | type[MutableMapping[Hashable, Any]],
         index: Literal[True] = True,
     ) -> MutableMapping[Hashable, Any]: ...
     @overload
@@ -418,7 +418,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         orient: Literal["split", "tight"] = ...,
         *,
-        into: MutableMapping | type[MutableMapping],
+        into: MutableMapping[Hashable, Any] | type[MutableMapping[Hashable, Any]],
         index: bool = ...,
     ) -> MutableMapping[Hashable, Any]: ...
     @overload
@@ -426,7 +426,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         orient: Literal["dict", "list", "series", "index"] = ...,
         *,
-        into: type[dict] = ...,
+        into: type[dict[Hashable, Any]] = ...,
         index: Literal[True] = True,
     ) -> dict[Hashable, Any]: ...
     @overload
@@ -434,7 +434,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         orient: Literal["split", "tight"] = ...,
         *,
-        into: type[dict] = ...,
+        into: type[dict[Hashable, Any]] = ...,
         index: bool = ...,
     ) -> dict[Hashable, Any]: ...
     def to_gbq(
