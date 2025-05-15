@@ -680,16 +680,16 @@ SeriesByT = TypeVar(
     | Interval[int | float | Timestamp | Timedelta],
 )
 GroupByObjectNonScalar: TypeAlias = (
-    tuple
+    tuple[Any, ...]
     | list[_HashableTa]
     | Function
     | list[Function]
-    | list[Series]
-    | np.ndarray
-    | list[np.ndarray]
+    | list[Series[SeriesByT]]
+    | np.ndarray[Any, Any]
+    | list[np.ndarray[Any, Any]]
     | Mapping[Label, Any]
     | list[Mapping[Label, Any]]
-    | list[Index]
+    | list[Index[Any]]
     | Grouper
     | list[Grouper]
 )
