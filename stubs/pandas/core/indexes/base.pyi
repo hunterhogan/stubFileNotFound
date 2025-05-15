@@ -13,6 +13,7 @@ from typing import (
     Any,
     ClassVar,
     Literal,
+    TypeAlias,
     final,
     overload,
 )
@@ -41,6 +42,7 @@ from typing_extensions import (
 from pandas._libs.interval import _OrderableT
 from pandas._typing import (
     S1,
+    Axes,
     Dtype,
     DtypeArg,
     DtypeObj,
@@ -80,7 +82,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: Iterable,
+        data: Axes,
         *,
         dtype: Literal["int"] | type_t[int | np.integer],
         copy: bool = ...,
@@ -102,7 +104,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: Iterable,
+        data: Axes,
         *,
         dtype: Literal["float"] | type_t[float | np.floating],
         copy: bool = ...,
@@ -128,7 +130,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: Iterable,
+        data: Axes,
         *,
         dtype: Literal["complex"] | type_t[complex | np.complexfloating],
         copy: bool = ...,
@@ -151,7 +153,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: Iterable,
+        data: Axes,
         *,
         dtype: TimestampDtypeArg,
         copy: bool = ...,
@@ -173,7 +175,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: Iterable,
+        data: Axes,
         *,
         dtype: PeriodDtype,
         copy: bool = ...,
@@ -195,7 +197,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: Iterable,
+        data: Axes,
         *,
         dtype: TimedeltaDtypeArg,
         copy: bool = ...,
@@ -217,7 +219,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: Iterable,
+        data: Axes,
         *,
         dtype: Literal["Interval"],
         copy: bool = ...,
@@ -240,7 +242,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: Iterable = ...,
+        data: Axes = ...,
         *,
         dtype: type[S1],
         copy: bool = ...,
@@ -252,7 +254,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: Iterable,
+        data: Axes,
         *,
         dtype=...,
         copy: bool = ...,
@@ -263,7 +265,16 @@ class Index(IndexOpsMixin[S1]):
     @property
     def str(
         self,
-    ) -> StringMethods[Self, MultiIndex, np_ndarray_bool, Index[list[str]]]: ...
+    ) -> StringMethods[
+        Self,
+        MultiIndex,
+        np_ndarray_bool,
+        Index[list[str]],
+        Index[int],
+        Index[bytes],
+        Index[str],
+        Index[type[object]],
+    ]: ...
     def is_(self, other) -> bool: ...
     def __len__(self) -> int: ...
     def __array__(self, dtype=...) -> np.ndarray: ...
@@ -383,7 +394,6 @@ class Index(IndexOpsMixin[S1]):
     def asof_locs(self, where, mask): ...
     def sort_values(self, return_indexer: bool = ..., ascending: bool = ...): ...
     def sort(self, *args, **kwargs) -> None: ...
-    def shift(self, periods: int = ..., freq=...) -> None: ...
     def argsort(self, *args, **kwargs): ...
     def get_indexer_non_unique(self, target): ...
     def get_indexer_for(self, target, **kwargs): ...
@@ -394,8 +404,8 @@ class Index(IndexOpsMixin[S1]):
     def slice_indexer(self, start=..., end=..., step=...): ...
     def get_slice_bound(self, label, side): ...
     def slice_locs(self, start=..., end=..., step=...): ...
-    def delete(self, loc): ...
-    def insert(self, loc, item): ...
+    def delete(self, loc) -> Self: ...
+    def insert(self, loc, item) -> Self: ...
     def drop(self, labels, errors: _str = ...) -> Self: ...
     @property
     def shape(self) -> tuple[int, ...]: ...
@@ -454,6 +464,8 @@ class Index(IndexOpsMixin[S1]):
             | Sequence[float]
         ),
     ) -> Self: ...
+
+UnknownIndex: TypeAlias = Index[Any]
 
 def ensure_index_from_sequences(
     sequences: Sequence[Sequence[Dtype]], names: list[str] = ...

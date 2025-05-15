@@ -46,6 +46,7 @@ from pandas._typing import (
     P,
     StorageOptions,
     T,
+    TakeIndexer,
     TimedeltaConvertibleTypes,
     TimeGrouperOrigin,
     TimestampConvention,
@@ -179,7 +180,29 @@ class NDFrame(indexing.IndexingMixin):
         storage_options: StorageOptions = ...,
     ) -> None: ...
     def to_clipboard(
-        self, excel: _bool = ..., sep: _str | None = ..., **kwargs
+        self,
+        excel: _bool = ...,
+        sep: _str | None = ...,
+        *,
+        na_rep: _str = ...,
+        float_format: _str | Callable[[object], _str] | None = ...,
+        columns: list[HashableT1] | None = ...,
+        header: _bool | list[_str] = ...,
+        index: _bool = ...,
+        index_label: Literal[False] | _str | list[HashableT2] | None = ...,
+        mode: FileWriteMode = ...,
+        encoding: _str | None = ...,
+        compression: CompressionOptions = ...,
+        quoting: CSVQuoting = ...,
+        quotechar: _str = ...,
+        lineterminator: _str | None = ...,
+        chunksize: int | None = ...,
+        date_format: _str | None = ...,
+        doublequote: _bool = ...,
+        escapechar: _str | None = ...,
+        decimal: _str = ...,
+        errors: _str = ...,
+        storage_options: StorageOptions = ...,
     ) -> None: ...
     @overload
     def to_latex(
@@ -396,3 +419,5 @@ class NDFrame(indexing.IndexingMixin):
         offset: TimedeltaConvertibleTypes | None = ...,
         group_keys: _bool = ...,
     ) -> DatetimeIndexResampler[Self]: ...
+    @final
+    def take(self, indices: TakeIndexer, axis: Axis = ..., **kwargs: Any) -> Self: ...

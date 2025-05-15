@@ -25,6 +25,7 @@ from typing import (
 )
 
 from _typing import (
+    FloatFormatType,
     Label,
     ReplaceValue,
     TimeZones,
@@ -64,6 +65,7 @@ from pandas.core.indexes.accessors import (
     TimedeltaProperties,
     TimestampProperties,
 )
+from pandas.core.indexes.base import UnknownIndex
 from pandas.core.indexes.category import CategoricalIndex
 from pandas.core.indexes.datetimes import DatetimeIndex
 from pandas.core.indexes.interval import IntervalIndex
@@ -101,6 +103,7 @@ from pandas._libs.lib import NoDefault
 from pandas._libs.missing import NAType
 from pandas._libs.tslibs import BaseOffset
 from pandas._libs.tslibs.nattype import NaTType
+from pandas._libs.tslibs.offsets import DateOffset
 from pandas._typing import (
     S1,
     S2,
@@ -124,7 +127,6 @@ from pandas._typing import (
     FilePath,
     FillnaOptions,
     FloatDtypeArg,
-    Frequency,
     GroupByObjectNonScalar,
     HashableT1,
     IgnoreRaise,
@@ -244,7 +246,6 @@ class Series(IndexOpsMixin[S1], NDFrame):
         cls,
         data: npt.NDArray[np.float64],
         index: Axes | None = ...,
-        *,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -254,17 +255,15 @@ class Series(IndexOpsMixin[S1], NDFrame):
         cls,
         data: Sequence[Never],
         index: Axes | None = ...,
-        *,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
-    ) -> Series[Any]: ...
+    ) -> UnknownSeries: ...
     @overload
     def __new__(
         cls,
         data: Sequence[list[str]],
         index: Axes | None = ...,
-        *,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -274,7 +273,6 @@ class Series(IndexOpsMixin[S1], NDFrame):
         cls,
         data: Sequence[str],
         index: Axes | None = ...,
-        *,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -291,7 +289,6 @@ class Series(IndexOpsMixin[S1], NDFrame):
             | date
         ),
         index: Axes | None = ...,
-        *,
         dtype: TimestampDtypeArg = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -311,7 +308,6 @@ class Series(IndexOpsMixin[S1], NDFrame):
         cls,
         data: PeriodIndex | Sequence[Period],
         index: Axes | None = ...,
-        *,
         dtype: PeriodDtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -327,7 +323,6 @@ class Series(IndexOpsMixin[S1], NDFrame):
             | timedelta
         ),
         index: Axes | None = ...,
-        *,
         dtype: TimedeltaDtypeArg = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -342,7 +337,6 @@ class Series(IndexOpsMixin[S1], NDFrame):
             | dict[HashableT1, Interval[_OrderableT]]
         ),
         index: Axes | None = ...,
-        *,
         dtype: Literal["Interval"] = "Interval",
         name: Hashable = ...,
         copy: bool = ...,
@@ -362,7 +356,6 @@ class Series(IndexOpsMixin[S1], NDFrame):
         cls,
         data: Sequence[bool],
         index: Axes | None = ...,
-        *,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -372,7 +365,6 @@ class Series(IndexOpsMixin[S1], NDFrame):
         cls,
         data: Sequence[int],
         index: Axes | None = ...,
-        *,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -382,7 +374,6 @@ class Series(IndexOpsMixin[S1], NDFrame):
         cls,
         data: Sequence[float],
         index: Axes | None = ...,
-        *,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -392,7 +383,6 @@ class Series(IndexOpsMixin[S1], NDFrame):
         cls,
         data: Sequence[int | float],
         index: Axes | None = ...,
-        *,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -402,7 +392,6 @@ class Series(IndexOpsMixin[S1], NDFrame):
         cls,
         data: S1 | _ListLike[S1] | dict[HashableT1, S1] | dict_keys[S1, Any],
         index: Axes | None = ...,
-        *,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -420,11 +409,10 @@ class Series(IndexOpsMixin[S1], NDFrame):
             | None
         ) = ...,
         index: Axes | None = ...,
-        *,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
-    ) -> Series: ...
+    ) -> UnknownSeries: ...
     @property
     def hasnans(self) -> bool: ...
     def div(
@@ -456,13 +444,12 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def ravel(self, order: _str = ...) -> np.ndarray: ...
     def __len__(self) -> int: ...
     def view(self, dtype=...) -> Series[S1]: ...
-    def __array_ufunc__(self, ufunc: Callable, method: _str, *inputs, **kwargs): ...
+    def __array_ufunc__(
+        self, ufunc: Callable, method: _str, *inputs: Any, **kwargs: Any
+    ): ...
     def __array__(self, dtype=...) -> np.ndarray: ...
     @property
     def axes(self) -> list: ...
-    def take(
-        self, indices: Sequence, axis: AxisIndex = ..., **kwargs
-    ) -> Series[S1]: ...
     def __getattr__(self, name: _str) -> S1: ...
     @overload
     def __getitem__(
@@ -527,7 +514,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         buf: FilePath | WriteBuffer[str],
         na_rep: _str = ...,
-        float_format: Callable[[float], str] = ...,
+        float_format: FloatFormatType = ...,
         header: _bool = ...,
         index: _bool = ...,
         length: _bool = ...,
@@ -541,7 +528,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         buf: None = None,
         na_rep: _str = ...,
-        float_format: Callable[[float], str] = ...,
+        float_format: FloatFormatType = ...,
         header: _bool = ...,
         index: _bool = ...,
         length: _bool = ...,
@@ -591,7 +578,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def to_json(
         self,
-        path_or_buf: FilePath | WriteBuffer[str],
+        path_or_buf: FilePath | WriteBuffer[str] | WriteBuffer[bytes],
         orient: JsonSeriesOrient | None = ...,
         date_format: Literal["epoch", "iso"] | None = ...,
         double_precision: int = ...,
@@ -746,7 +733,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def groupby(
         self,
-        by: CategoricalIndex | Index | Series,
+        by: CategoricalIndex | UnknownIndex | UnknownSeries,
         axis: AxisIndex = ...,
         level: IndexLabel | None = ...,
         as_index: _bool = ...,
@@ -780,12 +767,12 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> Series[S1]: ...
     def duplicated(self, keep: NaPosition | Literal[False] = ...) -> Series[_bool]: ...
     def idxmax(
-        self, axis: AxisIndex = ..., skipna: _bool = ..., *args, **kwargs
+        self, axis: AxisIndex = ..., skipna: _bool = ..., *args: Any, **kwargs: Any
     ) -> int | _str: ...
     def idxmin(
-        self, axis: AxisIndex = ..., skipna: _bool = ..., *args, **kwargs
+        self, axis: AxisIndex = ..., skipna: _bool = ..., *args: Any, **kwargs: Any
     ) -> int | _str: ...
-    def round(self, decimals: int = ..., *args, **kwargs) -> Series[S1]: ...
+    def round(self, decimals: int = ..., *args: Any, **kwargs: Any) -> Series[S1]: ...
     @overload
     def quantile(
         self,
@@ -829,15 +816,15 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self, other: ArrayLike | dict[_str, np.ndarray] | Sequence[S1] | Index[S1]
     ) -> np.ndarray: ...
     @overload
-    def __matmul__(self, other: Series) -> Scalar: ...
+    def __matmul__(self, other: UnknownSeries) -> Scalar: ...
     @overload
-    def __matmul__(self, other: DataFrame) -> Series: ...
+    def __matmul__(self, other: DataFrame) -> UnknownSeries: ...
     @overload
     def __matmul__(self, other: np.ndarray) -> np.ndarray: ...
     @overload
-    def __rmatmul__(self, other: Series) -> Scalar: ...
+    def __rmatmul__(self, other: UnknownSeries) -> Scalar: ...
     @overload
-    def __rmatmul__(self, other: DataFrame) -> Series: ...
+    def __rmatmul__(self, other: DataFrame) -> UnknownSeries: ...
     @overload
     def __rmatmul__(self, other: np.ndarray) -> np.ndarray: ...
     @overload
@@ -857,15 +844,15 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def compare(
         self,
-        other: Series,
+        other: UnknownSeries,
         align_axis: AxisIndex,
         keep_shape: bool = ...,
         keep_equal: bool = ...,
-    ) -> Series: ...
+    ) -> UnknownSeries: ...
     @overload
     def compare(
         self,
-        other: Series,
+        other: UnknownSeries,
         align_axis: AxisColumn = ...,
         keep_shape: bool = ...,
         keep_equal: bool = ...,
@@ -962,45 +949,51 @@ class Series(IndexOpsMixin[S1], NDFrame):
         na_action: None = None,
     ) -> Series[S2]: ...
     @overload
+    def map(
+        self,
+        arg: Callable[[Any], Any] | Mapping[Any, Any] | UnknownSeries,
+        na_action: Literal["ignore"] | None = ...,
+    ) -> UnknownSeries: ...
+    @overload
     def aggregate(
         self: Series[int],
         func: Literal["mean"],
         axis: AxisIndex = ...,
-        *args,
-        **kwargs,
+        *args: Any,
+        **kwargs: Any,
     ) -> float: ...
     @overload
     def aggregate(
         self,
         func: AggFuncTypeBase,
         axis: AxisIndex = ...,
-        *args,
-        **kwargs,
+        *args: Any,
+        **kwargs: Any,
     ) -> S1: ...
     @overload
     def aggregate(
         self,
         func: AggFuncTypeSeriesToFrame = ...,
         axis: AxisIndex = ...,
-        *args,
-        **kwargs,
-    ) -> Series: ...
+        *args: Any,
+        **kwargs: Any,
+    ) -> UnknownSeries: ...
     agg = aggregate
     @overload
     def transform(
         self,
         func: AggFuncTypeBase,
         axis: AxisIndex = ...,
-        *args,
-        **kwargs,
+        *args: Any,
+        **kwargs: Any,
     ) -> Series[S1]: ...
     @overload
     def transform(
         self,
         func: list[AggFuncTypeBase] | AggFuncTypeDictFrame,
         axis: AxisIndex = ...,
-        *args,
-        **kwargs,
+        *args: Any,
+        **kwargs: Any,
     ) -> DataFrame: ...
     @overload
     def apply(
@@ -1010,33 +1003,33 @@ class Series(IndexOpsMixin[S1], NDFrame):
         ],
         convertDType: _bool = ...,
         args: tuple = ...,
-        **kwds,
-    ) -> Series: ...
+        **kwargs: Any,
+    ) -> UnknownSeries: ...
     @overload
     def apply(
         self,
         func: Callable[..., BaseOffset],
         convertDType: _bool = ...,
         args: tuple = ...,
-        **kwds,
+        **kwargs: Any,
     ) -> OffsetSeries: ...
     @overload
     def apply(
         self,
-        func: Callable[..., Series],
+        func: Callable[..., UnknownSeries],
         convertDType: _bool = ...,
         args: tuple = ...,
-        **kwds,
+        **kwargs: Any,
     ) -> DataFrame: ...
     def align(
         self,
-        other: DataFrame | Series,
+        other: DataFrame | UnknownSeries,
         join: JoinHow = ...,
         axis: Axis | None = ...,
         level: Level | None = ...,
         copy: _bool = ...,
         fill_value: Scalar | NAType | None = ...,
-    ) -> tuple[Series, Series]: ...
+    ) -> tuple[UnknownSeries, UnknownSeries]: ...
     @overload
     def rename(
         self,
@@ -1127,11 +1120,11 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> Series[S1]: ...
     def shift(
         self,
-        periods: int = ...,
-        freq: Frequency | timedelta | None = ...,
-        axis: AxisIndex = ...,
-        fill_value: object | None = ...,
-    ) -> Series: ...
+        periods: int | Sequence[int] = ...,
+        freq: DateOffset | timedelta | _str | None = ...,
+        axis: Axis = ...,
+        fill_value: Scalar | NAType | None = ...,
+    ) -> UnknownSeries: ...
     def info(
         self,
         verbose: bool | None = ...,
@@ -1179,7 +1172,16 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @property
     def str(
         self,
-    ) -> StringMethods[Series, DataFrame, Series[bool], Series[list[str]]]: ...
+    ) -> StringMethods[
+        Self,
+        DataFrame,
+        Series[bool],
+        Series[list[str]],
+        Series[int],
+        Series[bytes],
+        Series[str],
+        Series[type[object]],
+    ]: ...
     @property
     def dt(self) -> CombinedDatetimelikeProperties: ...
     @property
@@ -1197,14 +1199,14 @@ class Series(IndexOpsMixin[S1], NDFrame):
         figsize: tuple[float, float] | None = ...,
         bins: int | Sequence = ...,
         backend: _str | None = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> SubplotBase: ...
     def swapaxes(
         self, axis1: AxisIndex, axis2: AxisIndex, copy: _bool = ...
     ) -> Series[S1]: ...
     def droplevel(self, level: Level | list[Level], axis: AxisIndex = ...) -> Self: ...
     def pop(self, item: Hashable) -> S1: ...
-    def squeeze(self, axis: AxisIndex | None = ...) -> Scalar: ...
+    def squeeze(self) -> Series[S1] | Scalar: ...
     def __abs__(self) -> Series[S1]: ...
     def add_prefix(self, prefix: _str, axis: AxisIndex | None = ...) -> Series[S1]: ...
     def add_suffix(self, suffix: _str, axis: AxisIndex | None = ...) -> Series[S1]: ...
@@ -1355,7 +1357,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         inplace: Literal[True],
         limit_direction: Literal["forward", "backward", "both"] | None = ...,
         limit_area: Literal["inside", "outside"] | None = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> None: ...
     @overload
     def interpolate(
@@ -1367,13 +1369,23 @@ class Series(IndexOpsMixin[S1], NDFrame):
         inplace: Literal[False] = False,
         limit_direction: Literal["forward", "backward", "both"] | None = ...,
         limit_area: Literal["inside", "outside"] | None = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Series[S1]: ...
     def asof(
         self,
         where: Scalar | Sequence[Scalar],
         subset: _str | Sequence[_str] | None = ...,
     ) -> Scalar | Series[S1]: ...
+    @overload
+    def clip(  # pyright: ignore[reportOverlappingOverload]
+        self,
+        lower: None = None,
+        upper: None = None,
+        *,
+        axis: AxisIndex | None = ...,
+        inplace: Literal[True],
+        **kwargs: Any,
+    ) -> Self: ...
     @overload
     def clip(
         self,
@@ -1382,7 +1394,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         *,
         axis: AxisIndex | None = ...,
         inplace: Literal[True],
-        **kwargs,
+        **kwargs: Any,
     ) -> None: ...
     @overload
     def clip(
@@ -1392,7 +1404,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         *,
         axis: AxisIndex | None = ...,
         inplace: Literal[False] = False,
-        **kwargs,
+        **kwargs: Any,
     ) -> Series[S1]: ...
     def asfreq(
         self,
@@ -1495,11 +1507,15 @@ class Series(IndexOpsMixin[S1], NDFrame):
             tuple[
                 Sequence[bool]
                 | Series[bool]
-                | Callable[[Series], Series | np.ndarray | Sequence[bool]],
-                ListLikeU | Scalar | Callable[[Series], Series | np.ndarray],
+                | Callable[
+                    [UnknownSeries], UnknownSeries | np.ndarray | Sequence[bool]
+                ],
+                ListLikeU
+                | Scalar
+                | Callable[[UnknownSeries], UnknownSeries | np.ndarray],
             ],
         ],
-    ) -> Series: ...
+    ) -> UnknownSeries: ...
     def truncate(
         self,
         before: date | _str | int | None = ...,
@@ -1533,11 +1549,11 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def pct_change(
         self,
         periods: int = ...,
-        fill_method: _str = ...,
-        limit: int | None = ...,
-        freq=...,
-        **kwargs,
-    ) -> Series[S1]: ...
+        fill_method: None = None,
+        freq: DateOffset | timedelta | _str | None = ...,
+        *,
+        fill_value: Scalar | NAType | None = ...,
+    ) -> Series[float]: ...
     def first_valid_index(self) -> Scalar: ...
     def last_valid_index(self) -> Scalar: ...
     @overload
@@ -1570,31 +1586,37 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def __add__(
         self,
-        other: num | _str | timedelta | Timedelta | _ListLike | Series | np.timedelta64,
-    ) -> Series: ...
+        other: (
+            num
+            | _str
+            | timedelta
+            | Timedelta
+            | _ListLike
+            | UnknownSeries
+            | np.timedelta64
+        ),
+    ) -> UnknownSeries: ...
     # ignore needed for mypy as we want different results based on the arguments
     @overload  # type: ignore[override]
     def __and__(  # pyright: ignore[reportOverlappingOverload]
         self, other: bool | list[int] | MaskType
     ) -> Series[bool]: ...
     @overload
-    def __and__(  # pyright: ignore[reportIncompatibleMethodOverride]
-        self, other: int | np_ndarray_anyint | Series[int]
-    ) -> Series[int]: ...
+    def __and__(self, other: int | np_ndarray_anyint | Series[int]) -> Series[int]: ...
     # def __array__(self, dtype: Optional[_bool] = ...) -> _np_ndarray
     def __div__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
     def __eq__(self, other: object) -> Series[_bool]: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
     def __floordiv__(self, other: num | _ListLike | Series[S1]) -> Series[int]: ...
-    def __ge__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
+    def __ge__(  # type: ignore[override]
         self, other: S1 | _ListLike | Series[S1] | datetime | timedelta | date
     ) -> Series[_bool]: ...
-    def __gt__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
+    def __gt__(  # type: ignore[override]
         self, other: S1 | _ListLike | Series[S1] | datetime | timedelta | date
     ) -> Series[_bool]: ...
-    def __le__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
+    def __le__(  # type: ignore[override]
         self, other: S1 | _ListLike | Series[S1] | datetime | timedelta | date
     ) -> Series[_bool]: ...
-    def __lt__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
+    def __lt__(  # type: ignore[override]
         self, other: S1 | _ListLike | Series[S1] | datetime | timedelta | date
     ) -> Series[_bool]: ...
     @overload
@@ -1602,7 +1624,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self, other: timedelta | Timedelta | TimedeltaSeries | np.timedelta64
     ) -> TimedeltaSeries: ...
     @overload
-    def __mul__(self, other: num | _ListLike | Series) -> Series: ...
+    def __mul__(self, other: num | _ListLike | UnknownSeries) -> UnknownSeries: ...
     def __mod__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
     def __ne__(self, other: object) -> Series[_bool]: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
     def __pow__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
@@ -1612,22 +1634,20 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self, other: bool | list[int] | MaskType
     ) -> Series[bool]: ...
     @overload
-    def __or__(  # pyright: ignore[reportIncompatibleMethodOverride]
-        self, other: int | np_ndarray_anyint | Series[int]
-    ) -> Series[int]: ...
+    def __or__(self, other: int | np_ndarray_anyint | Series[int]) -> Series[int]: ...
     @overload
     def __radd__(self, other: S1 | Series[S1]) -> Self: ...
     @overload
-    def __radd__(self, other: num | _str | _ListLike | Series) -> Series: ...
+    def __radd__(
+        self, other: num | _str | _ListLike | UnknownSeries
+    ) -> UnknownSeries: ...
     # ignore needed for mypy as we want different results based on the arguments
     @overload  # type: ignore[override]
     def __rand__(  # pyright: ignore[reportOverlappingOverload]
         self, other: bool | MaskType | list[int]
     ) -> Series[bool]: ...
     @overload
-    def __rand__(  # pyright: ignore[reportIncompatibleMethodOverride]
-        self, other: int | np_ndarray_anyint | Series[int]
-    ) -> Series[int]: ...
+    def __rand__(self, other: int | np_ndarray_anyint | Series[int]) -> Series[int]: ...
     def __rdiv__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
     def __rdivmod__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
     def __rfloordiv__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
@@ -1637,7 +1657,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self, other: timedelta | Timedelta | TimedeltaSeries | np.timedelta64
     ) -> TimedeltaSeries: ...
     @overload
-    def __rmul__(self, other: num | _ListLike | Series) -> Series: ...
+    def __rmul__(self, other: num | _ListLike | UnknownSeries) -> UnknownSeries: ...
     def __rnatmul__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
     def __rpow__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
     # ignore needed for mypy as we want different results based on the arguments
@@ -1646,20 +1666,18 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self, other: bool | MaskType | list[int]
     ) -> Series[bool]: ...
     @overload
-    def __ror__(  # pyright: ignore[reportIncompatibleMethodOverride]
-        self, other: int | np_ndarray_anyint | Series[int]
-    ) -> Series[int]: ...
-    def __rsub__(self, other: num | _ListLike | Series[S1]) -> Series: ...
-    def __rtruediv__(self, other: num | _ListLike | Series[S1] | Path) -> Series: ...
+    def __ror__(self, other: int | np_ndarray_anyint | Series[int]) -> Series[int]: ...
+    def __rsub__(self, other: num | _ListLike | Series[S1]) -> UnknownSeries: ...
+    def __rtruediv__(
+        self, other: num | _ListLike | Series[S1] | Path
+    ) -> UnknownSeries: ...
     # ignore needed for mypy as we want different results based on the arguments
     @overload  # type: ignore[override]
     def __rxor__(  # pyright: ignore[reportOverlappingOverload]
         self, other: bool | MaskType | list[int]
     ) -> Series[bool]: ...
     @overload
-    def __rxor__(  # pyright: ignore[reportIncompatibleMethodOverride]
-        self, other: int | np_ndarray_anyint | Series[int]
-    ) -> Series[int]: ...
+    def __rxor__(self, other: int | np_ndarray_anyint | Series[int]) -> Series[int]: ...
     @overload
     def __sub__(
         self: Series[Timestamp],
@@ -1675,17 +1693,17 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self, other: Timestamp | datetime | TimestampSeries
     ) -> TimedeltaSeries: ...
     @overload
-    def __sub__(self, other: num | _ListLike | Series) -> Series: ...
-    def __truediv__(self, other: num | _ListLike | Series[S1] | Path) -> Series: ...
+    def __sub__(self, other: num | _ListLike | UnknownSeries) -> UnknownSeries: ...
+    def __truediv__(
+        self, other: num | _ListLike | Series[S1] | Path
+    ) -> UnknownSeries: ...
     # ignore needed for mypy as we want different results based on the arguments
     @overload  # type: ignore[override]
     def __xor__(  # pyright: ignore[reportOverlappingOverload]
         self, other: bool | MaskType | list[int]
     ) -> Series[bool]: ...
     @overload
-    def __xor__(  # pyright: ignore[reportIncompatibleMethodOverride]
-        self, other: int | np_ndarray_anyint | Series[int]
-    ) -> Series[int]: ...
+    def __xor__(self, other: int | np_ndarray_anyint | Series[int]) -> Series[int]: ...
     def __invert__(self) -> Series[bool]: ...
     # properties
     # @property
@@ -1713,27 +1731,43 @@ class Series(IndexOpsMixin[S1], NDFrame):
         axis: AxisIndex = ...,
         bool_only: _bool | None = ...,
         skipna: _bool = ...,
-        **kwargs,
-    ) -> _bool: ...
+        **kwargs: Any,
+    ) -> np.bool: ...
     def any(
         self,
         *,
         axis: AxisIndex = ...,
         bool_only: _bool | None = ...,
         skipna: _bool = ...,
-        **kwargs,
-    ) -> _bool: ...
+        **kwargs: Any,
+    ) -> np.bool: ...
     def cummax(
-        self, axis: AxisIndex | None = ..., skipna: _bool = ..., *args, **kwargs
+        self,
+        axis: AxisIndex | None = ...,
+        skipna: _bool = ...,
+        *args: Any,
+        **kwargs: Any,
     ) -> Series[S1]: ...
     def cummin(
-        self, axis: AxisIndex | None = ..., skipna: _bool = ..., *args, **kwargs
+        self,
+        axis: AxisIndex | None = ...,
+        skipna: _bool = ...,
+        *args: Any,
+        **kwargs: Any,
     ) -> Series[S1]: ...
     def cumprod(
-        self, axis: AxisIndex | None = ..., skipna: _bool = ..., *args, **kwargs
+        self,
+        axis: AxisIndex | None = ...,
+        skipna: _bool = ...,
+        *args: Any,
+        **kwargs: Any,
     ) -> Series[S1]: ...
     def cumsum(
-        self, axis: AxisIndex | None = ..., skipna: _bool = ..., *args, **kwargs
+        self,
+        axis: AxisIndex | None = ...,
+        skipna: _bool = ...,
+        *args: Any,
+        **kwargs: Any,
     ) -> Series[S1]: ...
     def divide(
         self,
@@ -1765,12 +1799,12 @@ class Series(IndexOpsMixin[S1], NDFrame):
         min_periods: int = ...,
         adjust: _bool = ...,
         ignore_na: _bool = ...,
-    ) -> ExponentialMovingWindow[Series]: ...
+    ) -> ExponentialMovingWindow[UnknownSeries]: ...
     def expanding(
         self,
         min_periods: int = ...,
         method: CalculationMethod = ...,
-    ) -> Expanding[Series]: ...
+    ) -> Expanding[UnknownSeries]: ...
     def floordiv(
         self,
         other: num | _ListLike | Series[S1],
@@ -1799,7 +1833,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         skipna: _bool = ...,
         level: None = None,
         numeric_only: _bool = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Scalar: ...
     def kurtosis(
         self,
@@ -1807,7 +1841,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         skipna: _bool = ...,
         level: None = None,
         numeric_only: _bool = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Scalar: ...
     def le(
         self,
@@ -1829,7 +1863,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         skipna: _bool = ...,
         level: None = None,
         numeric_only: _bool = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> S1: ...
     def mean(
         self,
@@ -1837,7 +1871,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         skipna: _bool = ...,
         level: None = None,
         numeric_only: _bool = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> float: ...
     def median(
         self,
@@ -1845,7 +1879,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         skipna: _bool = ...,
         level: None = None,
         numeric_only: _bool = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> float: ...
     def min(
         self,
@@ -1853,7 +1887,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         skipna: _bool = ...,
         level: None = None,
         numeric_only: _bool = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> S1: ...
     def mod(
         self,
@@ -1873,11 +1907,11 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def mul(
         self,
-        other: num | _ListLike | Series,
+        other: num | _ListLike | UnknownSeries,
         level: Level | None = ...,
         fill_value: float | None = ...,
         axis: AxisIndex | None = ...,
-    ) -> Series: ...
+    ) -> UnknownSeries: ...
     def multiply(
         self,
         other: num | _ListLike | Series[S1],
@@ -1907,7 +1941,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         level: None = None,
         numeric_only: _bool = ...,
         min_count: int = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Scalar: ...
     def product(
         self,
@@ -1916,7 +1950,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         level: None = None,
         numeric_only: _bool = ...,
         min_count: int = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Scalar: ...
     def radd(
         self,
@@ -1957,11 +1991,11 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def rmul(
         self,
-        other: num | _ListLike | Series,
+        other: num | _ListLike | UnknownSeries,
         level: Level | None = ...,
         fill_value: float | None = ...,
         axis: AxisIndex = ...,
-    ) -> Series: ...
+    ) -> UnknownSeries: ...
     @overload
     def rolling(
         self,
@@ -1974,7 +2008,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         method: CalculationMethod = ...,
         *,
         win_type: _str,
-    ) -> Window[Series]: ...
+    ) -> Window[UnknownSeries]: ...
     @overload
     def rolling(
         self,
@@ -1987,7 +2021,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         method: CalculationMethod = ...,
         *,
         win_type: None = None,
-    ) -> Rolling[Series]: ...
+    ) -> Rolling[UnknownSeries]: ...
     def rpow(
         self,
         other: Series[S1] | Scalar,
@@ -2016,7 +2050,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         level: None = None,
         ddof: int = ...,
         numeric_only: _bool = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Scalar: ...
     def skew(
         self,
@@ -2024,7 +2058,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         skipna: _bool | None = ...,
         level: None = None,
         numeric_only: _bool = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Scalar: ...
     def std(
         self,
@@ -2033,7 +2067,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         level: None = None,
         ddof: int = ...,
         numeric_only: _bool = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> float: ...
     def sub(
         self,
@@ -2058,7 +2092,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         level: None = None,
         numeric_only: _bool = ...,
         min_count: int = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Any: ...
     # ignore needed because of mypy, for overlapping overloads
     # between `Series[bool]` and `Series[int]`.
@@ -2070,7 +2104,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         level: None = None,
         numeric_only: _bool = ...,
         min_count: int = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> int: ...
     @overload
     def sum(
@@ -2080,7 +2114,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         level: None = None,
         numeric_only: _bool = ...,
         min_count: int = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> S1: ...
     def to_list(self) -> list[S1]: ...
     def to_numpy(
@@ -2088,7 +2122,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         dtype: npt.DTypeLike | None = ...,
         copy: bool = ...,
         na_value: Scalar = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> np.ndarray: ...
     def tolist(self) -> list[S1]: ...
     def truediv(
@@ -2105,7 +2139,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         level: None = None,
         ddof: int = ...,
         numeric_only: _bool = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Scalar: ...
     # Rename axis with `mapper`, `axis`, and `inplace=True`
     @overload
@@ -2181,7 +2215,7 @@ class TimestampSeries(Series[Timestamp]):
         skipna: _bool = ...,
         level: None = None,
         numeric_only: _bool = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Timestamp: ...
     def median(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
         self,
@@ -2189,7 +2223,7 @@ class TimestampSeries(Series[Timestamp]):
         skipna: _bool = ...,
         level: None = None,
         numeric_only: _bool = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Timestamp: ...
     def std(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
         self,
@@ -2198,7 +2232,7 @@ class TimestampSeries(Series[Timestamp]):
         level: None = None,
         ddof: int = ...,
         numeric_only: _bool = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Timedelta: ...
     def diff(self, periods: int = ...) -> TimedeltaSeries: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
 
@@ -2279,7 +2313,7 @@ class TimedeltaSeries(Series[Timedelta]):
         skipna: _bool = ...,
         level: None = None,
         numeric_only: _bool = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Timedelta: ...
     def median(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
         self,
@@ -2287,7 +2321,7 @@ class TimedeltaSeries(Series[Timedelta]):
         skipna: _bool = ...,
         level: None = None,
         numeric_only: _bool = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Timedelta: ...
     def std(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
         self,
@@ -2296,7 +2330,7 @@ class TimedeltaSeries(Series[Timedelta]):
         level: None = None,
         ddof: int = ...,
         numeric_only: _bool = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Timedelta: ...
     def diff(self, periods: int = ...) -> TimedeltaSeries: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
 
@@ -2318,3 +2352,5 @@ class IntervalSeries(Series[Interval[_OrderableT]], Generic[_OrderableT]):
     @property
     def array(self) -> IntervalArray: ...
     def diff(self, periods: int = ...) -> Never: ...
+
+UnknownSeries: TypeAlias = Series[Any]

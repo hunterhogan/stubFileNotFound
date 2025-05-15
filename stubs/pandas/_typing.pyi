@@ -31,6 +31,7 @@ from pandas.core.generic import NDFrame
 from pandas.core.groupby.grouper import Grouper
 from pandas.core.indexes.base import Index
 from pandas.core.series import Series
+from pandas.core.tools.datetimes import FulldatetimeDict
 from typing_extensions import (
     ParamSpec,
     TypeAlias,
@@ -57,7 +58,7 @@ from pandas.io.formats.format import EngFormatter
 # where it is the only acceptable type.
 Incomplete: TypeAlias = Any
 
-ArrayLike: TypeAlias = ExtensionArray | np.ndarray[Any, Any]
+ArrayLike: TypeAlias = ExtensionArray | np.ndarray
 AnyArrayLike: TypeAlias = ArrayLike | Index[Any] | Series[Any]
 PythonScalar: TypeAlias = str | bool | complex
 DatetimeLikeScalar = TypeVar("DatetimeLikeScalar", bound=Period | Timestamp | Timedelta)
@@ -72,22 +73,6 @@ DatetimeDictArg: TypeAlias = (
     Sequence[int] | Sequence[float] | list[str] | tuple[Scalar, ...] | AnyArrayLike
 )
 DictConvertible: TypeAlias = FulldatetimeDict | DataFrame
-
-class YearMonthDayDict(TypedDict, total=True):
-    year: DatetimeDictArg
-    month: DatetimeDictArg
-    day: DatetimeDictArg
-
-class FulldatetimeDict(YearMonthDayDict, total=False):
-    hour: DatetimeDictArg
-    hours: DatetimeDictArg
-    minute: DatetimeDictArg
-    minutes: DatetimeDictArg
-    second: DatetimeDictArg
-    seconds: DatetimeDictArg
-    ms: DatetimeDictArg
-    us: DatetimeDictArg
-    ns: DatetimeDictArg
 
 CorrelationMethod: TypeAlias = (
     Literal["pearson", "kendall", "spearman"]
@@ -414,15 +399,15 @@ AnyStr_con = TypeVar("AnyStr_con", str, bytes, contravariant=True)
 class BaseBuffer(Protocol):
     @property
     def mode(self) -> str: ...
-    def seek(self, __offset: int, __whence: int = ...) -> int: ...
+    def seek(self, offset: int, whence: int = ..., /) -> int: ...
     def seekable(self) -> bool: ...
     def tell(self) -> int: ...
 
 class ReadBuffer(BaseBuffer, Protocol[AnyStr_cov]):
-    def read(self, __n: int = ...) -> AnyStr_cov: ...
+    def read(self, n: int = ..., /) -> AnyStr_cov: ...
 
 class WriteBuffer(BaseBuffer, Protocol[AnyStr_con]):
-    def write(self, __b: AnyStr_con) -> Any: ...
+    def write(self, b: AnyStr_con, /) -> Any: ...
     def flush(self) -> Any: ...
 
 class ReadPickleBuffer(ReadBuffer[bytes], Protocol):
@@ -497,7 +482,7 @@ KeysArgType: TypeAlias = Any
 ListLike: TypeAlias = Sequence | np.ndarray | Series | Index
 ListLikeT = TypeVar("ListLikeT", bound=ListLike)
 ListLikeExceptSeriesAndStr: TypeAlias = (
-    MutableSequence[Any] | np.ndarray[Any, Any] | tuple[Any, ...] | Index[Any]
+    MutableSequence[Any] | np.ndarray | tuple[Any, ...] | Index[Any]
 )
 ListLikeU: TypeAlias = Sequence | np.ndarray | Series | Index
 ListLikeHashable: TypeAlias = (
@@ -518,7 +503,9 @@ IndexIterScalar: TypeAlias = (
     | Timestamp
     | Timedelta
 )
-Scalar: TypeAlias = IndexIterScalar | complex
+Scalar: TypeAlias = (
+    IndexIterScalar | complex | np.integer | np.floating | np.complexfloating
+)
 ScalarT = TypeVar("ScalarT", bound=Scalar)
 # Refine the definitions below in 3.9 to use the specialized type.
 np_ndarray_int64: TypeAlias = npt.NDArray[np.int64]
@@ -624,7 +611,7 @@ CompressionOptions: TypeAlias = (
 FormattersType: TypeAlias = (
     list[Callable] | tuple[Callable, ...] | Mapping[str | int, Callable]
 )
-FloatFormatType: TypeAlias = str | Callable | EngFormatter
+FloatFormatType: TypeAlias = str | Callable[[float], str] | EngFormatter
 # converters
 ConvertersArg: TypeAlias = dict[Hashable, Callable[[Dtype], Dtype]]
 
@@ -740,7 +727,7 @@ ReplaceValue: TypeAlias = (
     | Pattern
     | NAType
     | Sequence[Scalar | Pattern]
-    | Mapping[Hashable, Scalar]
+    | Mapping[HashableT, ScalarT]
     | Series[Any]
     | None
 )
@@ -766,10 +753,10 @@ CSVEngine: TypeAlias = Literal["c", "python", "pyarrow", "python-fwf"]
 # QUOTE_STRINGS = 4
 # QUOTE_NOTNULL = 5
 CSVQuotingCompat: TypeAlias = Literal[0, 1, 2, 3]
-if sys.version_info < (3, 12):
-    CSVQuoting: TypeAlias = CSVQuotingCompat
-else:
+if sys.version_info >= (3, 12):
     CSVQuoting: TypeAlias = CSVQuotingCompat | Literal[4, 5]
+else:
+    CSVQuoting: TypeAlias = CSVQuotingCompat
 
 HDFCompLib: TypeAlias = Literal["zlib", "lzo", "bzip2", "blosc"]
 ParquetEngine: TypeAlias = Literal["auto", "pyarrow", "fastparquet"]
@@ -833,6 +820,13 @@ TimeGrouperOrigin: TypeAlias = (
 ExcelReadEngine: TypeAlias = Literal["xlrd", "openpyxl", "odf", "pyxlsb", "calamine"]
 ExcelWriteEngine: TypeAlias = Literal["openpyxl", "odf", "xlsxwriter"]
 
+# Repeated in `timestamps.pyi` so as to satisfy mixed strict / non-strict paths.
+# https://github.com/pandas-dev/pandas-stubs/pull/1151#issuecomment-2715130190
 TimeZones: TypeAlias = str | tzinfo | None | int
+
+# Evaluates to a DataFrame column in DataFrame.assign context.
+IntoColumn: TypeAlias = (
+    AnyArrayLike | Scalar | Callable[[DataFrame], AnyArrayLike | Scalar]
+)
 
 __all__ = ["npt", "type_t"]
