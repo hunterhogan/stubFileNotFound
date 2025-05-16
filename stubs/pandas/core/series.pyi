@@ -748,7 +748,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def count(self, level: Hashable) -> Series[S1]: ...
     def mode(self, dropna=...) -> Series[S1]: ...
-    def unique(self) -> np.ndarray: ...
+    def unique(self) -> np.ndarray[Any, Any]: ...
     @overload
     def drop_duplicates(
         self,
@@ -1443,11 +1443,11 @@ class Series(IndexOpsMixin[S1], NDFrame):
         cond: (
             Series[S1]
             | Series[_bool]
-            | np.ndarray
+            | np.ndarray[Any, Any]
             | Callable[[Series[S1]], Series[bool]]
             | Callable[[S1], bool]
         ),
-        other=...,
+        other:Any=...,
         *,
         inplace: Literal[True],
         axis: AxisIndex | None = ...,
@@ -1459,11 +1459,11 @@ class Series(IndexOpsMixin[S1], NDFrame):
         cond: (
             Series[S1]
             | Series[_bool]
-            | np.ndarray
+            | np.ndarray[Any, Any]
             | Callable[[Series[S1]], Series[bool]]
             | Callable[[S1], bool]
         ),
-        other=...,
+        other:Any=...,
         *,
         inplace: Literal[False] = False,
         axis: AxisIndex | None = ...,

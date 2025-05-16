@@ -2479,13 +2479,13 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def where(
         self,
         cond: (
-            Series
+            Series[S1]
             | DataFrame
-            | np.ndarray
+            | np.ndarray[Any, Any]
             | Callable[[DataFrame], DataFrame]
             | Callable[[Any], _bool]
         ),
-        other=...,
+        other:Any=...,
         *,
         inplace: Literal[True],
         axis: Axis | None = ...,
@@ -2495,13 +2495,13 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def where(
         self,
         cond: (
-            Series
+            Series[S1]
             | DataFrame
-            | np.ndarray
+            | np.ndarray[Any, Any]
             | Callable[[DataFrame], DataFrame]
             | Callable[[Any], _bool]
         ),
-        other=...,
+        other:Any=...,
         *,
         inplace: Literal[False] = False,
         axis: Axis | None = ...,
