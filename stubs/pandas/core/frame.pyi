@@ -32,7 +32,6 @@ from pandas import (
 from pandas.core.arraylike import OpsMixin
 from pandas.core.generic import NDFrame
 from pandas.core.groupby.generic import DataFrameGroupBy
-from pandas.core.groupby.grouper import Grouper
 from pandas.core.indexers import BaseIndexer
 from pandas.core.indexes.base import (
     Index,
@@ -50,6 +49,11 @@ from pandas.core.indexing import (
     _LocIndexer,
 )
 from pandas.core.interchange.dataframe_protocol import DataFrame as DataFrameXchg
+from pandas.core.reshape.pivot import (
+    _PivotTableColumnsTypes,
+    _PivotTableIndexTypes,
+    _PivotTableValuesTypes,
+)
 from pandas.core.series import Series
 from pandas.core.window import (
     Expanding,
@@ -1111,7 +1115,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[Scalar, Literal[False]]: ...
     @overload
-    def groupby(
+    def groupby(  # pyright: ignore reportOverlappingOverload
         self,
         by: DatetimeIndex,
         axis: AxisIndex | NoDefault = ...,
@@ -1123,7 +1127,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[Timestamp, Literal[True]]: ...
     @overload
-    def groupby(
+    def groupby(  # pyright: ignore reportOverlappingOverload
         self,
         by: DatetimeIndex,
         axis: AxisIndex | NoDefault = ...,
@@ -1135,7 +1139,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[Timestamp, Literal[False]]: ...
     @overload
-    def groupby(
+    def groupby(  # pyright: ignore reportOverlappingOverload
         self,
         by: TimedeltaIndex,
         axis: AxisIndex | NoDefault = ...,
@@ -1159,7 +1163,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[Timedelta, Literal[False]]: ...
     @overload
-    def groupby(
+    def groupby(  # pyright: ignore reportOverlappingOverload
         self,
         by: PeriodIndex,
         axis: AxisIndex | NoDefault = ...,
@@ -1183,7 +1187,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[Period, Literal[False]]: ...
     @overload
-    def groupby(
+    def groupby(  # pyright: ignore reportOverlappingOverload
         self,
         by: IntervalIndex[IntervalT],
         axis: AxisIndex | NoDefault = ...,
@@ -1207,7 +1211,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[IntervalT, Literal[False]]: ...
     @overload
-    def groupby(
+    def groupby(  # type: ignore[overload-overlap] # pyright: ignore reportOverlappingOverload
         self,
         by: MultiIndex | GroupByObjectNonScalar[Any] | None = ...,
         axis: AxisIndex | NoDefault = ...,
@@ -1287,9 +1291,9 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     ) -> Self: ...
     def pivot_table(
         self,
-        values: _str | None | Sequence[_str] = ...,
-        index: _str | Grouper | Sequence | None = ...,
-        columns: _str | Grouper | Sequence | None = ...,
+        values: _PivotTableValuesTypes = ...,
+        index: _PivotTableIndexTypes = ...,
+        columns: _PivotTableColumnsTypes = ...,
         aggfunc=...,
         fill_value: Scalar | None = ...,
         margins: _bool = ...,
@@ -1312,7 +1316,8 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def unstack(
         self,
         level: Level = ...,
-        fill_value: int | _str | dict | None = ...,
+        fill_value: Scalar | None = ...,
+        sort: _bool = ...,
     ) -> Self | Series: ...
     def melt(
         self,
