@@ -333,7 +333,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @property
     def style(self) -> Styler: ...
     def items(self) -> Iterable[tuple[Hashable, Series]]: ...
-    def iterrows(self) -> Iterable[tuple[Hashable, Series[Any]]]: ...
+    def iterrows(self) -> Iterable[tuple[Hashable, Series]]: ...
     @overload
     def itertuples(
         self, index: _bool = ..., name: _str = ...
@@ -390,8 +390,8 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         orient: Literal["records"],
         *,
-        into: type[dict[Hashable, Any]] = dict,
-        index: Literal[True] = True
+        into: type[dict[Hashable, Any]] = ...,
+        index: Literal[True] = True,
     ) -> list[dict[Hashable, Any]]: ...
     @overload
     def to_dict(
@@ -683,7 +683,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def info(
         self,
         verbose: bool | None = ...,
-        buf: WriteBuffer[str] = ...,
+        buf: WriteBuffer[str] | None = ...,
         max_cols: int | None = ...,
         memory_usage: bool | Literal["deep"] | None = ...,
         show_counts: bool | None = ...,
@@ -1004,7 +1004,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         na_position: NaPosition = ...,
         ignore_index: _bool = ...,
         inplace: Literal[False] = False,
-        key: Callable[[Series[Any]], Series[Any]] | None = None,
+        key: Callable | None = ...,
     ) -> Self: ...
     @overload
     def sort_index(
@@ -1213,7 +1213,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def groupby(  # type: ignore[overload-overlap] # pyright: ignore reportOverlappingOverload
         self,
-        by: MultiIndex | GroupByObjectNonScalar[Any] | None = ...,
+        by: MultiIndex | GroupByObjectNonScalar | None = ...,
         axis: AxisIndex | NoDefault = ...,
         level: IndexLabel | None = ...,
         as_index: Literal[True] = True,
@@ -1261,7 +1261,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def groupby(
         self,
-        by: CategoricalIndex[Any] | Index[Any] | Series[SeriesByT],
+        by: CategoricalIndex | Index | Series,
         axis: AxisIndex | NoDefault = ...,
         level: IndexLabel | None = ...,
         as_index: Literal[True] = True,
@@ -1273,7 +1273,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def groupby(
         self,
-        by: CategoricalIndex[Any] | Index[Any] | Series[SeriesByT],
+        by: CategoricalIndex | Index | Series,
         axis: AxisIndex | NoDefault = ...,
         level: IndexLabel | None = ...,
         as_index: Literal[False] = False,
