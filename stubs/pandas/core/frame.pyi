@@ -333,7 +333,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @property
     def style(self) -> Styler: ...
     def items(self) -> Iterable[tuple[Hashable, Series]]: ...
-    def iterrows(self) -> Iterable[tuple[Hashable, Series]]: ...
+    def iterrows(self) -> Iterable[tuple[Hashable, Series[S1]]]: ...
     @overload
     def itertuples(
         self, index: _bool = ..., name: _str = ...
@@ -1213,7 +1213,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def groupby(  # type: ignore[overload-overlap] # pyright: ignore reportOverlappingOverload
         self,
-        by: MultiIndex | GroupByObjectNonScalar | None = ...,
+        by: MultiIndex | GroupByObjectNonScalar[Any, Any] | None = ...,
         axis: AxisIndex | NoDefault = ...,
         level: IndexLabel | None = ...,
         as_index: Literal[True] = True,
@@ -1225,7 +1225,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def groupby(  # type: ignore[overload-overlap]
         self,
-        by: MultiIndex | GroupByObjectNonScalar[Any] | None = ...,
+        by: MultiIndex | GroupByObjectNonScalar[Any, Any] | None = ...,
         axis: AxisIndex | NoDefault = ...,
         level: IndexLabel | None = ...,
         as_index: Literal[False] = False,
@@ -1261,7 +1261,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def groupby(
         self,
-        by: CategoricalIndex | Index | Series,
+        by: CategoricalIndex[Any] | Index[Any] | Series[SeriesByT],
         axis: AxisIndex | NoDefault = ...,
         level: IndexLabel | None = ...,
         as_index: Literal[True] = True,
@@ -1269,11 +1269,11 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         group_keys: _bool = ...,
         observed: _bool | NoDefault = ...,
         dropna: _bool = ...,
-    ) -> DataFrameGroupBy[Any, Literal[True]]: ...
+    ) -> DataFrameGroupBy[SeriesByT, Literal[True]]: ...
     @overload
     def groupby(
         self,
-        by: CategoricalIndex | Index | Series,
+        by: CategoricalIndex[Any] | Index[Any] | Series[SeriesByT],
         axis: AxisIndex | NoDefault = ...,
         level: IndexLabel | None = ...,
         as_index: Literal[False] = False,
@@ -1281,7 +1281,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         group_keys: _bool = ...,
         observed: _bool | NoDefault = ...,
         dropna: _bool = ...,
-    ) -> DataFrameGroupBy[Any, Literal[False]]: ...
+    ) -> DataFrameGroupBy[SeriesByT, Literal[False]]: ...
     def pivot(
         self,
         *,
@@ -1335,7 +1335,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         func: AggFuncTypeBase | AggFuncTypeDictSeries,
         axis: Axis = ...,
         **kwargs: Any,
-    ) -> Series: ...
+    ) -> Series[Any]: ...
     @overload
     def agg(
         self,
@@ -1349,7 +1349,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         func: AggFuncTypeBase | AggFuncTypeDictSeries,
         axis: Axis = ...,
         **kwargs: Any,
-    ) -> Series: ...
+    ) -> Series[Any]: ...
     @overload
     def aggregate(
         self,

@@ -56,29 +56,29 @@ class SeriesGroupBy(GroupBy[Series[S1]], Generic[S1, ByT]):
     def aggregate(
         self,
         func: list[AggFuncTypeBase],
-        *args,
+        *args: Any,
         engine: WindowingEngine = ...,
         engine_kwargs: WindowingEngineKwargs = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> DataFrame: ...
     @overload
     def aggregate(
         self,
         func: AggFuncTypeBase | None = ...,
-        *args,
+        *args: Any,
         engine: WindowingEngine = ...,
         engine_kwargs: WindowingEngineKwargs = ...,
-        **kwargs,
-    ) -> Series: ...
+        **kwargs: Any,
+    ) -> Series[S1]: ...
     agg = aggregate
     def transform(
         self,
-        func: Callable | str,
-        *args,
+        func: Callable[..., Any] | str,
+        *args:Any,
         engine: WindowingEngine = ...,
         engine_kwargs: WindowingEngineKwargs = ...,
-        **kwargs,
-    ) -> Series: ...
+        **kwargs:Any,
+    ) -> Series[S1]: ...
     def filter(
         self, func: Callable | str, dropna: bool = ..., *args, **kwargs
     ) -> Series: ...

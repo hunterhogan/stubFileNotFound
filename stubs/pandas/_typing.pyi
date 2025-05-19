@@ -460,7 +460,7 @@ HashableT3 = TypeVar("HashableT3", bound=Hashable)
 HashableT4 = TypeVar("HashableT4", bound=Hashable)
 HashableT5 = TypeVar("HashableT5", bound=Hashable)
 
-AggFuncTypeBase: TypeAlias = Callable | str | np.ufunc
+AggFuncTypeBase: TypeAlias = Callable[..., Any] | str | np.ufunc
 AggFuncTypeDictSeries: TypeAlias = Mapping[HashableT, AggFuncTypeBase]
 AggFuncTypeDictFrame: TypeAlias = Mapping[
     HashableT, AggFuncTypeBase | list[AggFuncTypeBase]
