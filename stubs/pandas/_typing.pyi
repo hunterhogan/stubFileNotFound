@@ -801,7 +801,7 @@ DtypeNp = TypeVar("DtypeNp", bound=np.dtype[np.generic])
 KeysArgType: TypeAlias = Any
 ListLikeT = TypeVar("ListLikeT", bound=ListLike)
 ListLikeExceptSeriesAndStr: TypeAlias = (
-    MutableSequence[Any] | np.ndarray | tuple[Any, ...] | Index[Any]
+    MutableSequence[Any] | np.ndarray[Any, Any] | tuple[Any, ...] | Index[Any]
 )
 ListLikeU: TypeAlias = Sequence | np.ndarray | Series | Index
 ListLikeHashable: TypeAlias = (
@@ -838,7 +838,7 @@ S1 = TypeVar(
     | datetime.datetime  # includes pd.Timestamp
     | datetime.timedelta  # includes pd.Timedelta
     | Period
-    | Interval
+    | Interval[Any]
     | CategoricalDtype
     | BaseOffset
     | list[str],
@@ -909,16 +909,16 @@ SeriesByT = TypeVar(
     | Interval[int | float | Timestamp | Timedelta],
 )
 GroupByObjectNonScalar: TypeAlias = (
-    tuple
+    tuple[Any, ...]
     | list[_HashableTa]
     | Function
     | list[Function]
-    | list[Series]
-    | np.ndarray
-    | list[np.ndarray]
+    | list[Series[Any]]
+    | np.ndarray[Any, Any]
+    | list[np.ndarray[Any, Any]]
     | Mapping[Label, Any]
     | list[Mapping[Label, Any]]
-    | list[Index]
+    | list[Index[Any]]
     | Grouper
     | list[Grouper]
 )

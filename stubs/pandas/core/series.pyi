@@ -242,7 +242,7 @@ class _LocIndexerSeries(_LocIndexer, Generic[S1]):
     ) -> None: ...
 
 _ListLike: TypeAlias = (
-    ArrayLike | dict[_str, np.ndarray] | Sequence[S1] | IndexOpsMixin[S1]
+    ArrayLike | dict[_str, np.ndarray[Any, Any]] | Sequence[S1] | IndexOpsMixin[S1]
 )
 
 class Series(IndexOpsMixin[S1], NDFrame):
@@ -1000,10 +1000,10 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def apply(
         self,
         func: Callable[
-            ..., Scalar | Sequence | set | Mapping | NAType | frozenset | None
+            ..., Scalar | Sequence[Any] | set[Any] | Mapping[Any, Any] | NAType | frozenset[Any] | None
         ],
         convertDType: _bool = ...,
-        args: tuple = ...,
+        args: tuple[Any, ...] = ...,
         **kwargs: Any,
     ) -> UnknownSeries: ...
     @overload
@@ -1011,7 +1011,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         func: Callable[..., BaseOffset],
         convertDType: _bool = ...,
-        args: tuple = ...,
+        args: tuple[Any, ...] = ...,
         **kwargs: Any,
     ) -> OffsetSeries: ...
     @overload
@@ -1019,7 +1019,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         func: Callable[..., UnknownSeries],
         convertDType: _bool = ...,
-        args: tuple = ...,
+        args: tuple[Any, ...] = ...,
         **kwargs: Any,
     ) -> DataFrame: ...
     def align(

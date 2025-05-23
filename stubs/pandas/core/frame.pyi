@@ -1223,7 +1223,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def groupby(  # type: ignore[overload-overlap] # pyright: ignore reportOverlappingOverload
         self,
-        by: MultiIndex | GroupByObjectNonScalar[Any, Any] | None = ...,
+        by: MultiIndex | GroupByObjectNonScalar[Any] | None = ...,
         axis: AxisIndex | NoDefault = ...,
         level: IndexLabel | None = ...,
         as_index: Literal[True] = True,
@@ -1235,7 +1235,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def groupby(  # type: ignore[overload-overlap]
         self,
-        by: MultiIndex | GroupByObjectNonScalar[Any, Any] | None = ...,
+        by: MultiIndex | GroupByObjectNonScalar[Any] | None = ...,
         axis: AxisIndex | NoDefault = ...,
         level: IndexLabel | None = ...,
         as_index: Literal[False] = False,
