@@ -24,13 +24,6 @@ from typing import (
     overload,
 )
 
-from _typing import (
-    FloatFormatType,
-    Label,
-    ReplaceValue,
-    Suffixes,
-    TimeZones,
-)
 from matplotlib.axes import (
     Axes as PlotAxes,
     SubplotBase,
@@ -130,6 +123,7 @@ from pandas._typing import (
     FilePath,
     FillnaOptions,
     FloatDtypeArg,
+    FloatFormatType,
     GroupByObjectNonScalar,
     HashableT1,
     IgnoreRaise,
@@ -143,6 +137,7 @@ from pandas._typing import (
     JoinHow,
     JSONSerializable,
     JsonSeriesOrient,
+    Label,
     Level,
     ListLike,
     ListLikeU,
@@ -154,6 +149,7 @@ from pandas._typing import (
     RandomState,
     ReindexMethod,
     Renamer,
+    ReplaceValue,
     Scalar,
     ScalarT,
     SequenceNotStr,
@@ -161,11 +157,13 @@ from pandas._typing import (
     SortKind,
     StrDtypeArg,
     StrLike,
+    Suffixes,
     T,
     TimeAmbiguous,
     TimedeltaDtypeArg,
     TimestampDtypeArg,
     TimeUnit,
+    TimeZones,
     ToTimestampHow,
     UIntDtypeArg,
     ValueKeyFunc,
@@ -613,7 +611,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         mode: Literal["w"] = "w",
     ) -> _str: ...
     def to_xarray(self) -> xr.DataArray: ...
-    def items(self) -> Iterable[tuple[Hashable, S1]]: ...
+    def items(self) -> Iterator[tuple[Hashable, S1]]: ...
     def keys(self) -> Index: ...
     @overload
     def to_dict(self, *, into: type[dict[Any, S1]] = ...) -> dict[Any, S1]: ...

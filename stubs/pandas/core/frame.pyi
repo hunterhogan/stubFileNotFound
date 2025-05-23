@@ -18,10 +18,6 @@ from typing import (
     overload,
 )
 
-from _typing import (
-    FloatFormatType,
-    TimeZones,
-)
 from matplotlib.axes import Axes as PlotAxes
 import numpy as np
 from pandas import (
@@ -97,6 +93,7 @@ from pandas._typing import (
     Dtype,
     FilePath,
     FillnaOptions,
+    FloatFormatType,
     FormattersType,
     GroupByObjectNonScalar,
     HashableT,
@@ -147,6 +144,7 @@ from pandas._typing import (
     TimeAmbiguous,
     TimeNonexistent,
     TimeUnit,
+    TimeZones,
     ToStataByteorder,
     ToTimestampHow,
     UpdateJoin,
@@ -344,16 +342,16 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def shape(self) -> tuple[int, int]: ...
     @property
     def style(self) -> Styler: ...
-    def items(self) -> Iterable[tuple[Hashable, Series]]: ...
-    def iterrows(self) -> Iterable[tuple[Hashable, Series[S1]]]: ...
+    def items(self) -> Iterator[tuple[Hashable, Series[S1]]]: ...
+    def iterrows(self) -> Iterator[tuple[Hashable, Series[S1]]]: ...
     @overload
     def itertuples(
         self, index: _bool = ..., name: _str = ...
-    ) -> Iterable[_PandasNamedTuple]: ...
+    ) -> Iterator[_PandasNamedTuple]: ...
     @overload
     def itertuples(
         self, index: _bool = ..., name: None = None
-    ) -> Iterable[tuple[Any, ...]]: ...
+    ) -> Iterator[tuple[Any, ...]]: ...
     def __len__(self) -> int: ...
     @overload
     def dot(self, other: DataFrame | ArrayLike) -> Self: ...
