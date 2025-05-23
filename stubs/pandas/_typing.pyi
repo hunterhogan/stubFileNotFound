@@ -64,7 +64,7 @@ HashableT5 = TypeVar("HashableT5", bound=Hashable)
 
 # array-like
 
-ArrayLike: TypeAlias = ExtensionArray | np.ndarray
+ArrayLike: TypeAlias = ExtensionArray | npt.NDArray[Any]
 AnyArrayLike: TypeAlias = ArrayLike | Index[Any] | Series[Any]
 
 # list-like
@@ -508,7 +508,7 @@ TypeT = TypeVar("TypeT", bound=type)
 
 # types of vectorized key functions for DataFrame::sort_values and
 # DataFrame::sort_index, among others
-ValueKeyFunc: TypeAlias = Callable[[Series], Series | AnyArrayLike] | None
+ValueKeyFunc: TypeAlias = Callable[[Series[Any]], Series[Any] | AnyArrayLike] | None
 IndexKeyFunc: TypeAlias = Callable[[Index], Index | AnyArrayLike] | None
 
 # types of `func` kwarg for DataFrame.aggregate and Series.aggregate
