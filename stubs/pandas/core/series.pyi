@@ -187,14 +187,14 @@ class _iLocIndexerSeries(_iLocIndexer, Generic[S1]):
     @overload
     def __getitem__(self, idx: IndexingInt) -> S1: ...
     @overload
-    def __getitem__(self, idx: Index | slice | np_ndarray_anyint) -> Series[S1]: ...
+    def __getitem__(self, idx: Index[int] | slice | np_ndarray_anyint) -> Series[S1]: ...
     # set item
     @overload
     def __setitem__(self, idx: int, value: S1 | None) -> None: ...
     @overload
     def __setitem__(
         self,
-        idx: Index | slice | np_ndarray_anyint | list[int],
+        idx: Index[int] | slice | np_ndarray_anyint | list[int],
         value: S1 | Series[S1] | None,
     ) -> None: ...
 
