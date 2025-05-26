@@ -509,7 +509,7 @@ TypeT = TypeVar("TypeT", bound=type)
 # types of vectorized key functions for DataFrame::sort_values and
 # DataFrame::sort_index, among others
 ValueKeyFunc: TypeAlias = Callable[[Series[Any]], Series[Any] | AnyArrayLike] | None
-IndexKeyFunc: TypeAlias = Callable[[Index], Index | AnyArrayLike] | None
+IndexKeyFunc: TypeAlias = Callable[[Index[Any]], Index[Any] | AnyArrayLike] | None
 
 # types of `func` kwarg for DataFrame.aggregate and Series.aggregate
 # More specific than what is in pandas
@@ -518,7 +518,7 @@ AggFuncTypeDictSeries: TypeAlias = Mapping[HashableT, AggFuncTypeBase]
 AggFuncTypeDictFrame: TypeAlias = Mapping[
     HashableT, AggFuncTypeBase | list[AggFuncTypeBase]
 ]
-AggFuncTypeSeriesToFrame: TypeAlias = list[AggFuncTypeBase] | AggFuncTypeDictSeries
+AggFuncTypeSeriesToFrame: TypeAlias = list[AggFuncTypeBase] | AggFuncTypeDictSeries[Any]
 AggFuncTypeFrame: TypeAlias = (
     AggFuncTypeBase | list[AggFuncTypeBase] | AggFuncTypeDictFrame
 )
@@ -803,7 +803,7 @@ ListLikeT = TypeVar("ListLikeT", bound=ListLike)
 ListLikeExceptSeriesAndStr: TypeAlias = (
     MutableSequence[Any] | np.ndarray[Any, Any] | tuple[Any, ...] | Index[Any]
 )
-ListLikeU: TypeAlias = Sequence | np.ndarray | Series | Index
+ListLikeU: TypeAlias = Sequence[Any] | np.ndarray[Any, Any] | Series[Any] | Index[Any]
 ListLikeHashable: TypeAlias = (
     MutableSequence[HashableT] | np.ndarray | tuple[HashableT, ...] | range
 )
@@ -819,7 +819,7 @@ np_ndarray_complex: TypeAlias = npt.NDArray[np.complexfloating]
 np_ndarray_bool: TypeAlias = npt.NDArray[np.bool_]
 np_ndarray_str: TypeAlias = npt.NDArray[np.str_]
 
-IndexType: TypeAlias = slice | np_ndarray_anyint | Index | list[int] | Series[int]
+IndexType: TypeAlias = slice | np_ndarray_anyint | Index[Any] | list[int] | Series[int]
 MaskType: TypeAlias = Series[bool] | np_ndarray_bool | list[bool]
 
 # Scratch types for generics
@@ -945,9 +945,9 @@ StataDateFormat: TypeAlias = Literal[
 # `DataFrame.replace` also accepts mappings of these.
 ReplaceValue: TypeAlias = (
     Scalar
-    | Pattern
+    | Pattern[Any]
     | NAType
-    | Sequence[Scalar | Pattern]
+    | Sequence[Scalar | Pattern[Any]]
     | Mapping[HashableT, ScalarT]
     | Series[Any]
     | None
