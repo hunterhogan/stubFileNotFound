@@ -215,9 +215,9 @@ class _LocIndexerSeries(_LocIndexer, Generic[S1]):
             | Index[Any]
             | SequenceNotStr[float | str | Timestamp]
             | slice
-            | _IndexSliceTuple
-            | Sequence[_IndexSliceTuple]
-            | Callable
+            | _IndexSliceTuple[ScalarT]
+            | Sequence[_IndexSliceTuple[ScalarT]]
+            | Callable[..., Any]
         ),
         # _IndexSliceTuple is when having a tuple that includes a slice.  Could just
         # be s.loc[1, :], or s.loc[pd.IndexSlice[1, :]]
@@ -237,7 +237,7 @@ class _LocIndexerSeries(_LocIndexer, Generic[S1]):
     @overload
     def __setitem__(
         self,
-        idx: MaskType | StrLike | _IndexSliceTuple | list[ScalarT],
+        idx: MaskType | StrLike | _IndexSliceTuple[ScalarT] | list[ScalarT],
         value: S1 | ArrayLike | Series[S1] | None,
     ) -> None: ...
 
