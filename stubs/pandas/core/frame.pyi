@@ -1520,7 +1520,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
 
     # Add spacing between apply() overloads and remaining annotations
     def map(
-        self, func: Callable, na_action: Literal["ignore"] | None = ..., **kwargs: Any
+        self, func: Callable[..., Any], na_action: Literal["ignore"] | None = ..., **kwargs: Any
     ) -> Self: ...
     def join(
         self,
