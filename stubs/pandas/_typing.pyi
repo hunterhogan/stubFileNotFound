@@ -520,9 +520,9 @@ AggFuncTypeDictFrame: TypeAlias = Mapping[
 ]
 AggFuncTypeSeriesToFrame: TypeAlias = list[AggFuncTypeBase] | AggFuncTypeDictSeries[Any]
 AggFuncTypeFrame: TypeAlias = (
-    AggFuncTypeBase | list[AggFuncTypeBase] | AggFuncTypeDictFrame
+    AggFuncTypeBase | list[AggFuncTypeBase] | AggFuncTypeDictFrame[Any]
 )
-AggFuncTypeDict: TypeAlias = AggFuncTypeDictSeries | AggFuncTypeDictFrame
+AggFuncTypeDict: TypeAlias = AggFuncTypeDictSeries[Any] | AggFuncTypeDictFrame[Any]
 AggFuncType: TypeAlias = AggFuncTypeBase | list[AggFuncTypeBase] | AggFuncTypeDict
 
 # Not used in stubs

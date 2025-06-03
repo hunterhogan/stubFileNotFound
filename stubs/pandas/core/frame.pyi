@@ -50,7 +50,10 @@ from pandas.core.reshape.pivot import (
     _PivotTableIndexTypes,
     _PivotTableValuesTypes,
 )
-from pandas.core.series import Series
+from pandas.core.series import (
+    Series,
+    UnknownSeries,
+)
 from pandas.core.window import (
     Expanding,
     ExponentialMovingWindow,
@@ -716,7 +719,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         engine: Literal["python", "numexpr"] | None = ...,
         local_dict: dict[_str, Any] | None = ...,
         global_dict: dict[_str, Any] | None = ...,
-        resolvers: list[Mapping[Hashable, Any]] | None = ...,
+        resolvers: list[Mapping[HashableT, Any]] | None = ...,
         level: int = ...,
         target: object | None = ...,
         inplace: Literal[True],
@@ -731,7 +734,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         engine: Literal["python", "numexpr"] | None = ...,
         local_dict: dict[_str, Any] | None = ...,
         global_dict: dict[_str, Any] | None = ...,
-        resolvers: list[Mapping[Hashable, Any]] | None = ...,
+        resolvers: list[Mapping[HashableT, Any]] | None = ...,
         level: int = ...,
         target: object | None = ...,
     ) -> Self: ...
@@ -843,7 +846,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def fillna(
         self,
-        value: Scalar | NAType | dict | Series | DataFrame | None = ...,
+        value: Scalar | NAType | dict[Any, Any] | Series[Any] | DataFrame | None = ...,
         *,
         axis: Axis | None = ...,
         limit: int = ...,
@@ -852,7 +855,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def fillna(
         self,
-        value: Scalar | NAType | dict | Series | DataFrame | None = ...,
+        value: Scalar | NAType | dict[Any, Any] | Series[Any] | DataFrame | None = ...,
         *,
         axis: Axis | None = ...,
         limit: int = ...,
@@ -861,20 +864,20 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def replace(
         self,
-        to_replace: ReplaceValue | Mapping[HashableT2, ReplaceValue] = ...,
-        value: ReplaceValue | Mapping[HashableT3, ReplaceValue] = ...,
+        to_replace: ReplaceValue[HashableT2, Any] | Mapping[HashableT2, ReplaceValue[HashableT2, Any]] = ...,
+        value: ReplaceValue[HashableT3, Any] | Mapping[HashableT3, ReplaceValue[HashableT3, Any]] = ...,
         *,
         inplace: Literal[True],
-        regex: ReplaceValue | Mapping[HashableT3, ReplaceValue] = ...,
+        regex: ReplaceValue[HashableT3, Any] | Mapping[HashableT3, ReplaceValue[HashableT3, Any]] = ...,
     ) -> None: ...
     @overload
     def replace(
         self,
-        to_replace: ReplaceValue | Mapping[HashableT2, ReplaceValue] = ...,
-        value: ReplaceValue | Mapping[HashableT3, ReplaceValue] = ...,
+        to_replace: ReplaceValue[HashableT2, Any] | Mapping[HashableT2, ReplaceValue[HashableT2, Any]] = ...,
+        value: ReplaceValue[HashableT3, Any] | Mapping[HashableT3, ReplaceValue[HashableT3, Any]] = ...,
         *,
         inplace: Literal[False] = False,
-        regex: ReplaceValue | Mapping[HashableT3, ReplaceValue] = ...,
+        regex: ReplaceValue[HashableT3, Any] | Mapping[HashableT3, ReplaceValue[HashableT3, Any]] = ...,
     ) -> Self: ...
     def shift(
         self,
@@ -1342,28 +1345,28 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def agg(  # pyright: ignore[reportOverlappingOverload]
         self,
-        func: AggFuncTypeBase | AggFuncTypeDictSeries,
+        func: AggFuncTypeBase | AggFuncTypeDictSeries[Any],
         axis: Axis = ...,
         **kwargs: Any,
     ) -> Series[Any]: ...
     @overload
     def agg(
         self,
-        func: list[AggFuncTypeBase] | AggFuncTypeDictFrame = ...,
+        func: list[AggFuncTypeBase] | AggFuncTypeDictFrame[Any] = ...,
         axis: Axis = ...,
         **kwargs: Any,
     ) -> Self: ...
     @overload
     def aggregate(  # pyright: ignore[reportOverlappingOverload]
         self,
-        func: AggFuncTypeBase | AggFuncTypeDictSeries,
+        func: AggFuncTypeBase | AggFuncTypeDictSeries[Any],
         axis: Axis = ...,
         **kwargs: Any,
     ) -> Series[Any]: ...
     @overload
     def aggregate(
         self,
-        func: list[AggFuncTypeBase] | AggFuncTypeDictFrame,
+        func: list[AggFuncTypeBase] | AggFuncTypeDictFrame[Any],
         axis: Axis = ...,
         **kwargs: Any,
     ) -> Self: ...
@@ -1739,7 +1742,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def asof(self, where, subset: _str | list[_str] | None = ...) -> Self: ...
     def asfreq(
         self,
-        freq,
+        freq: Any,
         method: FillnaOptions | None = ...,
         how: Literal["start", "end"] | None = ...,
         normalize: _bool = ...,
@@ -2002,13 +2005,13 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def mask(
         self,
         cond: (
-            Series
+            Series[Any]
             | DataFrame
-            | np.ndarray
+            | np.ndarray[Any, Any]
             | Callable[[DataFrame], DataFrame]
             | Callable[[Any], _bool]
         ),
-        other: Scalar | Series[S1] | DataFrame | Callable | NAType | None = ...,
+        other: Scalar | UnknownSeries | DataFrame | Callable[..., Any] | NAType | None = ...,
         *,
         inplace: Literal[True],
         axis: Axis | None = ...,
@@ -2018,13 +2021,13 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def mask(
         self,
         cond: (
-            Series
+            Series[Any]
             | DataFrame
-            | np.ndarray
+            | np.ndarray[Any, Any]
             | Callable[[DataFrame], DataFrame]
             | Callable[[Any], _bool]
         ),
-        other: Scalar | Series[S1] | DataFrame | Callable | NAType | None = ...,
+        other: Scalar | UnknownSeries | DataFrame | Callable[..., Any] | NAType | None = ...,
         *,
         inplace: Literal[False] = False,
         axis: Axis | None = ...,
@@ -2037,7 +2040,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         level: None = None,
         numeric_only: _bool = ...,
         **kwargs: Any,
-    ) -> Series: ...
+    ) -> Series[S1]: ...
     def mean(
         self,
         axis: Axis | None = ...,
@@ -2045,7 +2048,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         level: None = None,
         numeric_only: _bool = ...,
         **kwargs: Any,
-    ) -> Series: ...
+    ) -> Series[S1]: ...
     def median(
         self,
         axis: Axis | None = ...,
@@ -2053,7 +2056,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         level: None = None,
         numeric_only: _bool = ...,
         **kwargs: Any,
-    ) -> Series: ...
+    ) -> Series[S1]: ...
     def min(
         self,
         axis: Axis | None = ...,

@@ -225,7 +225,7 @@ class _LocIndexerSeries(_LocIndexer, Generic[S1]):
     @overload
     def __setitem__(
         self,
-        idx: Index[Any]| MaskType | slice,
+        idx: Index | MaskType | slice,
         value: S1 | ArrayLike | Series[S1] | None,
     ) -> None: ...
     @overload
@@ -237,12 +237,12 @@ class _LocIndexerSeries(_LocIndexer, Generic[S1]):
     @overload
     def __setitem__(
         self,
-        idx: MaskType | StrLike | _IndexSliceTuple[ScalarT] | list[ScalarT],
+        idx: MaskType | StrLike | _IndexSliceTuple | list[ScalarT],
         value: S1 | ArrayLike | Series[S1] | None,
     ) -> None: ...
 
 _ListLike: TypeAlias = (
-    ArrayLike | dict[_str, np.ndarray[Any, Any]] | Sequence[S1] | IndexOpsMixin[S1]
+    ArrayLike | dict[_str, np.ndarray] | Sequence[S1] | IndexOpsMixin[S1]
 )
 
 class Series(IndexOpsMixin[S1], NDFrame):
@@ -303,7 +303,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def __new__(
         cls,
-        data: _ListLike[Any],
+        data: _ListLike,
         index: Axes | None = ...,
         *,
         dtype: TimestampDtypeArg,
@@ -351,7 +351,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def __new__(  # type: ignore[overload-overlap]
         cls,
-        data: Scalar | _ListLike[Any] | dict[HashableT1, Any] | None,
+        data: Scalar | _ListLike | dict[HashableT1, Any] | None,
         index: Axes | None = ...,
         *,
         dtype: type[S1],
@@ -408,9 +408,9 @@ class Series(IndexOpsMixin[S1], NDFrame):
         cls,
         data: (
             Scalar
-            | _ListLike[Any]
+            | _ListLike
             | Mapping[HashableT1, Any]
-            | BaseGroupBy[Any]
+            | BaseGroupBy
             | NaTType
             | NAType
             | None
@@ -424,7 +424,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def hasnans(self) -> bool: ...
     def div(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = ...,
         fill_value: float | None = ...,
         axis: AxisIndex = ...,
@@ -452,18 +452,18 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def __len__(self) -> int: ...
     def view(self, dtype=...) -> Series[S1]: ...
     def __array_ufunc__(
-        self, ufunc: Callable[..., Any], method: _str, *inputs: Any, **kwargs: Any
+        self, ufunc: Callable, method: _str, *inputs: Any, **kwargs: Any
     ): ...
     def __array__(self, dtype=...) -> np.ndarray: ...
     @property
-    def axes(self) -> list[Any]: ...
+    def axes(self) -> list: ...
     def __getattr__(self, name: _str) -> S1: ...
     @overload
     def __getitem__(
         self,
         idx: (
             list[_str]
-            | Index[S1]
+            | Index
             | Series[S1]
             | slice
             | MaskType
@@ -483,9 +483,9 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self, repeats: int | list[int], axis: AxisIndex | None = ...
     ) -> Series[S1]: ...
     @property
-    def index(self) -> Index[S1] | MultiIndex: ...
+    def index(self) -> Index | MultiIndex: ...
     @index.setter
-    def index(self, idx: Index[S1]) -> None: ...
+    def index(self, idx: Index) -> None: ...
     @overload
     def reset_index(
         self,
@@ -612,12 +612,12 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> _str: ...
     def to_xarray(self) -> xr.DataArray: ...
     def items(self) -> Iterator[tuple[Hashable, S1]]: ...
-    def keys(self) -> Index[Any]: ...
+    def keys(self) -> Index: ...
     @overload
-    def to_dict(self, *, into: type[dict[Any, S1]] = ...) -> dict[Any, S1]: ...
+    def to_dict(self, *, into: type[dict] = ...) -> dict[Any, S1]: ...
     @overload
     def to_dict(
-        self, *, into: type[MutableMapping[Hashable, S1]] | MutableMapping[Hashable, S1]
+        self, *, into: type[MutableMapping] | MutableMapping
     ) -> MutableMapping[Hashable, S1]: ...
     def to_frame(self, name: object | None = ...) -> DataFrame: ...
     @overload
@@ -683,7 +683,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def groupby(
         self,
-        by: MultiIndex | GroupByObjectNonScalar[Any],
+        by: MultiIndex | GroupByObjectNonScalar,
         axis: AxisIndex = ...,
         level: IndexLabel | None = ...,
         as_index: _bool = ...,
@@ -691,7 +691,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         group_keys: _bool = ...,
         observed: _bool | NoDefault = ...,
         dropna: _bool = ...,
-    ) -> SeriesGroupBy[S1, tuple[Any, ...]]: ...
+    ) -> SeriesGroupBy[S1, tuple]: ...
     @overload
     def groupby(
         self,
@@ -732,7 +732,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def groupby(
         self,
-        by: CategoricalIndex[Any] | UnknownIndex | UnknownSeries,
+        by: CategoricalIndex | UnknownIndex | UnknownSeries,
         axis: AxisIndex = ...,
         level: IndexLabel | None = ...,
         as_index: _bool = ...,
@@ -746,8 +746,8 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def count(self, level: None = None) -> int: ...  # type: ignore[overload-overlap]
     @overload
     def count(self, level: Hashable) -> Series[S1]: ...
-    def mode(self, dropna:Any=...) -> Series[S1]: ...
-    def unique(self) -> np.ndarray[Any, Any]: ...
+    def mode(self, dropna=...) -> Series[S1]: ...
+    def unique(self) -> np.ndarray: ...
     @overload
     def drop_duplicates(
         self,
@@ -781,7 +781,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def quantile(
         self,
-        q: _ListLike[Any],
+        q: _ListLike,
         interpolation: QuantileInterpolation = ...,
     ) -> Series[S1]: ...
     def corr(
@@ -829,16 +829,16 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def searchsorted(
         self,
-        value: _ListLike[Any],
+        value: _ListLike,
         side: Literal["left", "right"] = ...,
-        sorter: _ListLike[Any] | None = ...,
+        sorter: _ListLike | None = ...,
     ) -> list[int]: ...
     @overload
     def searchsorted(
         self,
         value: Scalar,
         side: Literal["left", "right"] = ...,
-        sorter: _ListLike[Any] | None = ...,
+        sorter: _ListLike | None = ...,
     ) -> int: ...
     @overload
     def compare(
@@ -859,7 +859,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         result_names: Suffixes = ...,
     ) -> DataFrame: ...
     def combine(
-        self, other: Series[S1], func: Callable[..., Any], fill_value: Scalar | None = ...
+        self, other: Series[S1], func: Callable, fill_value: Scalar | None = ...
     ) -> Series[S1]: ...
     def combine_first(self, other: Series[S1]) -> Series[S1]: ...
     def update(self, other: Series[S1] | Sequence[S1] | Mapping[int, S1]) -> None: ...
@@ -930,12 +930,12 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def swaplevel(
         self, i: Level = ..., j: Level = ..., copy: _bool = ...
     ) -> Series[S1]: ...
-    def reorder_levels(self, order: list[Any]) -> Series[S1]: ...
+    def reorder_levels(self, order: list) -> Series[S1]: ...
     def explode(self) -> Series[S1]: ...
     def unstack(
         self,
         level: Level = ...,
-        fill_value: int | _str | dict[Any, Any] | None = ...,
+        fill_value: int | _str | dict | None = ...,
     ) -> DataFrame: ...
     @overload
     def map(
@@ -991,7 +991,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def transform(
         self,
-        func: list[AggFuncTypeBase] | AggFuncTypeDictFrame[Any],
+        func: list[AggFuncTypeBase] | AggFuncTypeDictFrame,
         axis: AxisIndex = ...,
         *args: Any,
         **kwargs: Any,
@@ -1000,10 +1000,10 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def apply(
         self,
         func: Callable[
-            ..., Scalar | Sequence[Any] | set[Any] | Mapping[Any, Any] | NAType | frozenset[Any] | None
+            ..., Scalar | Sequence | set | Mapping | NAType | frozenset | None
         ],
         convertDType: _bool = ...,
-        args: tuple[Any, ...] = ...,
+        args: tuple = ...,
         **kwargs: Any,
     ) -> UnknownSeries: ...
     @overload
@@ -1011,7 +1011,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         func: Callable[..., BaseOffset],
         convertDType: _bool = ...,
-        args: tuple[Any, ...] = ...,
+        args: tuple = ...,
         **kwargs: Any,
     ) -> OffsetSeries: ...
     @overload
@@ -1019,7 +1019,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         func: Callable[..., UnknownSeries],
         convertDType: _bool = ...,
-        args: tuple[Any, ...] = ...,
+        args: tuple = ...,
         **kwargs: Any,
     ) -> DataFrame: ...
     def align(
@@ -1086,7 +1086,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def fillna(
         self,
-        value: Scalar | NAType | dict[Any, Any] | Series[S1] | DataFrame | None = ...,
+        value: Scalar | NAType | dict | Series[S1] | DataFrame | None = ...,
         *,
         axis: AxisIndex = ...,
         limit: int | None = ...,
@@ -1095,7 +1095,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def fillna(
         self,
-        value: Scalar | NAType | dict[Any, Any] | Series[S1] | DataFrame | None = ...,
+        value: Scalar | NAType | dict | Series[S1] | DataFrame | None = ...,
         *,
         axis: AxisIndex = ...,
         limit: int | None = ...,
@@ -1104,19 +1104,19 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def replace(
         self,
-        to_replace: ReplaceValue[Any, Any] = ...,
-        value: ReplaceValue[Any, Any] = ...,
+        to_replace: ReplaceValue = ...,
+        value: ReplaceValue = ...,
         *,
-        regex: ReplaceValue[Any, Any] = ...,
+        regex: ReplaceValue = ...,
         inplace: Literal[True],
     ) -> None: ...
     @overload
     def replace(
         self,
-        to_replace: ReplaceValue[Any, Any] = ...,
-        value: ReplaceValue[Any, Any] = ...,
+        to_replace: ReplaceValue = ...,
+        value: ReplaceValue = ...,
         *,
-        regex: ReplaceValue[Any, Any] = ...,
+        regex: ReplaceValue = ...,
         inplace: Literal[False] = False,
     ) -> Series[S1]: ...
     def shift(
@@ -1134,7 +1134,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         show_counts: bool | None = ...,
     ) -> None: ...
     def memory_usage(self, index: _bool = ..., deep: _bool = ...) -> int: ...
-    def isin(self, values: Iterable[Any] | Series[S1] | dict[Any, Any]) -> Series[_bool]: ...
+    def isin(self, values: Iterable | Series[S1] | dict) -> Series[_bool]: ...
     def between(
         self,
         left: Scalar | ListLikeU,
@@ -1165,7 +1165,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> Series[S1]: ...
     def to_timestamp(
         self,
-        freq:Any=...,
+        freq=...,
         how: ToTimestampHow = ...,
         copy: _bool = ...,
     ) -> Series[S1]: ...
@@ -1198,7 +1198,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         ylabelsize: float | _str | None = ...,
         yrot: float | None = ...,
         figsize: tuple[float, float] | None = ...,
-        bins: int | Sequence[int] = ...,
+        bins: int | Sequence = ...,
         backend: _str | None = ...,
         **kwargs: Any,
     ) -> SubplotBase: ...
@@ -1223,7 +1223,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> Series[S1]: ...
     def filter(
         self,
-        items: _ListLike[Any] | None = ...,
+        items: _ListLike | None = ...,
         like: _str | None = ...,
         regex: _str | None = ...,
         axis: AxisIndex | None = ...,
@@ -1235,7 +1235,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         n: int | None = ...,
         frac: float | None = ...,
         replace: _bool = ...,
-        weights: _str | _ListLike[Any] | np.ndarray[Any, Any] | None = ...,
+        weights: _str | _ListLike | np.ndarray | None = ...,
         random_state: RandomState | None = ...,
         axis: AxisIndex | None = ...,
         ignore_index: _bool = ...,
@@ -1409,7 +1409,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> Series[S1]: ...
     def asfreq(
         self,
-        freq: Any,
+        freq,
         method: FillnaOptions | None = ...,
         how: Literal["start", "end"] | None = ...,
         normalize: _bool = ...,
@@ -1444,11 +1444,11 @@ class Series(IndexOpsMixin[S1], NDFrame):
         cond: (
             Series[S1]
             | Series[_bool]
-            | np.ndarray[Any, Any]
+            | np.ndarray
             | Callable[[Series[S1]], Series[bool]]
             | Callable[[S1], bool]
         ),
-        other:Any=...,
+        other=...,
         *,
         inplace: Literal[True],
         axis: AxisIndex | None = ...,
@@ -1460,11 +1460,11 @@ class Series(IndexOpsMixin[S1], NDFrame):
         cond: (
             Series[S1]
             | Series[_bool]
-            | np.ndarray[Any, Any]
+            | np.ndarray
             | Callable[[Series[S1]], Series[bool]]
             | Callable[[S1], bool]
         ),
-        other:Any=...,
+        other=...,
         *,
         inplace: Literal[False] = False,
         axis: AxisIndex | None = ...,
@@ -1592,7 +1592,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
             | _str
             | timedelta
             | Timedelta
-            | _ListLike[Any]
+            | _ListLike
             | UnknownSeries
             | np.timedelta64
         ),
@@ -1605,30 +1605,30 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def __and__(self, other: int | np_ndarray_anyint | Series[int]) -> Series[int]: ...
     # def __array__(self, dtype: Optional[_bool] = ...) -> _np_ndarray
-    def __div__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...
+    def __div__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
     def __eq__(self, other: object) -> Series[_bool]: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
-    def __floordiv__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[int]: ...
+    def __floordiv__(self, other: num | _ListLike | Series[S1]) -> Series[int]: ...
     def __ge__(  # type: ignore[override]
-        self, other: S1 | _ListLike[Any] | Series[S1] | datetime | timedelta | date
+        self, other: S1 | _ListLike | Series[S1] | datetime | timedelta | date
     ) -> Series[_bool]: ...
     def __gt__(  # type: ignore[override]
-        self, other: S1 | _ListLike[Any] | Series[S1] | datetime | timedelta | date
+        self, other: S1 | _ListLike | Series[S1] | datetime | timedelta | date
     ) -> Series[_bool]: ...
     def __le__(  # type: ignore[override]
-        self, other: S1 | _ListLike[Any] | Series[S1] | datetime | timedelta | date
+        self, other: S1 | _ListLike | Series[S1] | datetime | timedelta | date
     ) -> Series[_bool]: ...
     def __lt__(  # type: ignore[override]
-        self, other: S1 | _ListLike[Any] | Series[S1] | datetime | timedelta | date
+        self, other: S1 | _ListLike | Series[S1] | datetime | timedelta | date
     ) -> Series[_bool]: ...
     @overload
     def __mul__(
         self, other: timedelta | Timedelta | TimedeltaSeries | np.timedelta64
     ) -> TimedeltaSeries: ...
     @overload
-    def __mul__(self, other: num | _ListLike[Any] | UnknownSeries) -> UnknownSeries: ...
-    def __mod__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...
+    def __mul__(self, other: num | _ListLike | UnknownSeries) -> UnknownSeries: ...
+    def __mod__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
     def __ne__(self, other: object) -> Series[_bool]: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
-    def __pow__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...
+    def __pow__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
     # ignore needed for mypy as we want different results based on the arguments
     @overload  # type: ignore[override]
     def __or__(  # pyright: ignore[reportOverlappingOverload]
@@ -1640,7 +1640,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def __radd__(self, other: S1 | Series[S1]) -> Self: ...
     @overload
     def __radd__(
-        self, other: num | _str | _ListLike[Any] | UnknownSeries
+        self, other: num | _str | _ListLike | UnknownSeries
     ) -> UnknownSeries: ...
     # ignore needed for mypy as we want different results based on the arguments
     @overload  # type: ignore[override]
@@ -1649,18 +1649,18 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> Series[bool]: ...
     @overload
     def __rand__(self, other: int | np_ndarray_anyint | Series[int]) -> Series[int]: ...
-    def __rdiv__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...
-    def __rdivmod__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
-    def __rfloordiv__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...
-    def __rmod__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...
+    def __rdiv__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
+    def __rdivmod__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
+    def __rfloordiv__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
+    def __rmod__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
     @overload
     def __rmul__(
         self, other: timedelta | Timedelta | TimedeltaSeries | np.timedelta64
     ) -> TimedeltaSeries: ...
     @overload
-    def __rmul__(self, other: num | _ListLike[Any] | UnknownSeries) -> UnknownSeries: ...
-    def __rnatmul__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...
-    def __rpow__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...
+    def __rmul__(self, other: num | _ListLike | UnknownSeries) -> UnknownSeries: ...
+    def __rnatmul__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
+    def __rpow__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
     # ignore needed for mypy as we want different results based on the arguments
     @overload  # type: ignore[override]
     def __ror__(  # pyright: ignore[reportOverlappingOverload]
@@ -1668,9 +1668,9 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> Series[bool]: ...
     @overload
     def __ror__(self, other: int | np_ndarray_anyint | Series[int]) -> Series[int]: ...
-    def __rsub__(self, other: num | _ListLike[Any] | Series[S1]) -> UnknownSeries: ...
+    def __rsub__(self, other: num | _ListLike | Series[S1]) -> UnknownSeries: ...
     def __rtruediv__(
-        self, other: num | _ListLike[Any] | Series[S1] | Path
+        self, other: num | _ListLike | Series[S1] | Path
     ) -> UnknownSeries: ...
     # ignore needed for mypy as we want different results based on the arguments
     @overload  # type: ignore[override]
@@ -1694,9 +1694,9 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self, other: Timestamp | datetime | TimestampSeries
     ) -> TimedeltaSeries: ...
     @overload
-    def __sub__(self, other: num | _ListLike[Any] | UnknownSeries) -> UnknownSeries: ...
+    def __sub__(self, other: num | _ListLike | UnknownSeries) -> UnknownSeries: ...
     def __truediv__(
-        self, other: num | _ListLike[Any] | Series[S1] | Path
+        self, other: num | _ListLike | Series[S1] | Path
     ) -> UnknownSeries: ...
     # ignore needed for mypy as we want different results based on the arguments
     @overload  # type: ignore[override]
@@ -1772,14 +1772,14 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> Series[S1]: ...
     def divide(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = ...,
         fill_value: float | None = ...,
         axis: AxisIndex = ...,
     ) -> Series[float]: ...
     def divmod(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = ...,
         fill_value: float | None = ...,
         axis: AxisIndex = ...,
@@ -1808,7 +1808,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> Expanding[UnknownSeries]: ...
     def floordiv(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = ...,
         fill_value: float | None = ...,
         axis: AxisIndex | None = ...,
@@ -1892,7 +1892,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> S1: ...
     def mod(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = ...,
         fill_value: float | None = ...,
         axis: AxisIndex | None = ...,
@@ -1908,14 +1908,14 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def mul(
         self,
-        other: num | _ListLike[Any] | UnknownSeries,
+        other: num | _ListLike | UnknownSeries,
         level: Level | None = ...,
         fill_value: float | None = ...,
         axis: AxisIndex | None = ...,
     ) -> UnknownSeries: ...
     def multiply(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = ...,
         fill_value: float | None = ...,
         axis: AxisIndex | None = ...,
@@ -1930,7 +1930,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def nunique(self, dropna: _bool = ...) -> int: ...
     def pow(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = ...,
         fill_value: float | None = ...,
         axis: AxisIndex | None = ...,
@@ -1992,7 +1992,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def rmul(
         self,
-        other: num | _ListLike[Any] | UnknownSeries,
+        other: num | _ListLike | UnknownSeries,
         level: Level | None = ...,
         fill_value: float | None = ...,
         axis: AxisIndex = ...,
@@ -2072,14 +2072,14 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> float: ...
     def sub(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = ...,
         fill_value: float | None = ...,
         axis: AxisIndex | None = ...,
     ) -> Series[S1]: ...
     def subtract(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = ...,
         fill_value: float | None = ...,
         axis: AxisIndex | None = ...,

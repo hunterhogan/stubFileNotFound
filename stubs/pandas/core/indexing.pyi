@@ -12,10 +12,10 @@ from pandas._typing import (
 )
 
 _IndexSliceTuple: TypeAlias = tuple[
-    Index[int] | MaskType | Scalar | list[ScalarT] | slice | tuple[Scalar, ...], ...
+    Index | MaskType | Scalar | list[ScalarT] | slice | tuple[Scalar, ...], ...
 ]
 
-_IndexSliceUnion: TypeAlias = slice | _IndexSliceTuple[ScalarT]
+_IndexSliceUnion: TypeAlias = slice | _IndexSliceTuple
 
 _IndexSliceUnionT = TypeVar("_IndexSliceUnionT", bound=_IndexSliceUnion)
 
