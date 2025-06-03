@@ -2061,7 +2061,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         level: None = None,
         numeric_only: _bool = ...,
         **kwargs: Any,
-    ) -> Series: ...
+    ) -> Series[S1]: ...
     def mod(
         self,
         other: num | ListLike | DataFrame,

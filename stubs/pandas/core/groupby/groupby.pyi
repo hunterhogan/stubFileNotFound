@@ -143,7 +143,7 @@ class BaseGroupBy(SelectionMixin[NDFrameT], GroupByIndexingMixin):
     @overload
     def __getitem__(
         self: BaseGroupBy[DataFrame], key: Iterable[Hashable]
-    ) -> generic.DataFrameGroupBy: ...
+    ) -> generic.DataFrameGroupBy[Any, Any]: ...
     @overload
     def __getitem__(
         self: BaseGroupBy[Series[S1]],
