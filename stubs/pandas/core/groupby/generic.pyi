@@ -70,19 +70,19 @@ class SeriesGroupBy(GroupBy[Series[S1]], Generic[S1, ByT]):
         engine: WindowingEngine = ...,
         engine_kwargs: WindowingEngineKwargs = ...,
         **kwargs: Any,
-    ) -> Series[S1]: ...
+    ) -> Series[Any]: ...
     agg = aggregate
     def transform(
         self,
         func: Callable[..., Any] | str,
-        *args:Any,
+        *args: Any,
         engine: WindowingEngine = ...,
         engine_kwargs: WindowingEngineKwargs = ...,
-        **kwargs:Any,
-    ) -> Series[S1]: ...
+        **kwargs: Any,
+    ) -> Series[Any]: ...
     def filter(
-        self, func: Callable | str, dropna: bool = ..., *args, **kwargs
-    ) -> Series: ...
+        self, func: Callable[..., Any] | str, dropna: bool = ..., *args: Any, **kwargs: Any
+    ) -> Series[Any]: ...
     def nunique(self, dropna: bool = ...) -> Series[int]: ...
     # describe delegates to super() method but here it has keyword-only parameters
     def describe(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
@@ -113,14 +113,14 @@ class SeriesGroupBy(GroupBy[Series[S1]], Generic[S1, ByT]):
     def take(
         self,
         indices: TakeIndexer,
-        **kwargs,
+        **kwargs: Any,
     ) -> Series[S1]: ...
     def skew(
         self,
         skipna: bool = ...,
         numeric_only: bool = ...,
-        **kwargs,
-    ) -> Series: ...
+        **kwargs: Any,
+    ) -> Series[Any]: ...
     @property
     def plot(self) -> GroupByPlot[Self]: ...
     def nlargest(
@@ -129,17 +129,17 @@ class SeriesGroupBy(GroupBy[Series[S1]], Generic[S1, ByT]):
     def nsmallest(
         self, n: int = ..., keep: NsmallestNlargestKeep = ...
     ) -> Series[S1]: ...
-    def idxmin(self, skipna: bool = ...) -> Series: ...
-    def idxmax(self, skipna: bool = ...) -> Series: ...
+    def idxmin(self, skipna: bool = ...) -> Series[Any]: ...
+    def idxmax(self, skipna: bool = ...) -> Series[Any]: ...
     def corr(
         self,
-        other: Series,
+        other: Series[Any],
         method: CorrelationMethod = ...,
         min_periods: int | None = ...,
-    ) -> Series: ...
+    ) -> Series[Any]: ...
     def cov(
-        self, other: Series, min_periods: int | None = ..., ddof: int | None = ...
-    ) -> Series: ...
+        self, other: Series[Any], min_periods: int | None = ..., ddof: int | None = ...
+    ) -> Series[Any]: ...
     @property
     def is_monotonic_increasing(self) -> Series[bool]: ...
     @property
@@ -157,10 +157,10 @@ class SeriesGroupBy(GroupBy[Series[S1]], Generic[S1, ByT]):
         bins: int | Sequence[int] = ...,
         backend: str | None = ...,
         legend: bool = ...,
-        **kwargs,
-    ) -> Series: ...  # Series[Axes] but this is not allowed
+        **kwargs: Any,
+    ) -> Series[Any]: ...  # Series[Axes] but this is not allowed
     @property
-    def dtype(self) -> Series[Dtype]: ...
+    def dtype(self) -> Series[Any]: ...
     def unique(self) -> Series[Any]: ...
     # Overrides that provide more precise return types over the GroupBy class
     @final  # type: ignore[misc]
@@ -175,47 +175,47 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
     @overload  # type: ignore[override]
     def apply(
         self,
-        func: Callable[[DataFrame], Scalar | list | dict],
-        *args,
-        **kwargs,
-    ) -> Series: ...
+        func: Callable[[DataFrame], Scalar | list[Any] | dict[Any, Any]],
+        *args: Any,
+        **kwargs: Any,
+    ) -> Series[Any]: ...
     @overload
     def apply(
         self,
-        func: Callable[[DataFrame], Series | DataFrame],
-        *args,
-        **kwargs,
+        func: Callable[[DataFrame], Series[Any] | DataFrame],
+        *args: Any,
+        **kwargs: Any,
     ) -> DataFrame: ...
     @overload
     def apply(  # pyright: ignore[reportOverlappingOverload]
         self,
-        func: Callable[[Iterable], float],
-        *args,
-        **kwargs,
+        func: Callable[[Iterable[Any]], float],
+        *args: Any,
+        **kwargs: Any,
     ) -> DataFrame: ...
     # error: overload 1 overlaps overload 2 because of different return types
     @overload
-    def aggregate(self, func: Literal["size"]) -> Series: ...  # type: ignore[overload-overlap]
+    def aggregate(self, func: Literal["size"]) -> Series[Any]: ...  # type: ignore[overload-overlap]
     @overload
     def aggregate(
         self,
         func: AggFuncTypeFrame | None = ...,
-        *args,
+        *args: Any,
         engine: WindowingEngine = ...,
         engine_kwargs: WindowingEngineKwargs = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> DataFrame: ...
     agg = aggregate
     def transform(
         self,
-        func: Callable | str,
-        *args,
+        func: Callable[..., Any] | str,
+        *args: Any,
         engine: WindowingEngine = ...,
         engine_kwargs: WindowingEngineKwargs = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> DataFrame: ...
     def filter(
-        self, func: Callable, dropna: bool = ..., *args, **kwargs
+        self, func: Callable[..., Any], dropna: bool = ..., *args: Any, **kwargs: Any
     ) -> DataFrame: ...
     @overload
     def __getitem__(self, key: Scalar) -> SeriesGroupBy[Any, ByT]: ...  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
@@ -248,8 +248,8 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         sharex: bool = ...,
         sharey: bool = ...,
         backend: str | None = ...,
-        **kwargs,
-    ) -> Series: ...  # Series[PlotAxes] but this is not allowed
+        **kwargs: Any,
+    ) -> Series[Any]: ...  # Series[PlotAxes] but this is not allowed
     @overload
     def boxplot(
         self,
@@ -264,7 +264,7 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         sharex: bool = ...,
         sharey: bool = ...,
         backend: str | None = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> PlotAxes: ...
     @overload
     def boxplot(
@@ -280,8 +280,8 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         sharex: bool = ...,
         sharey: bool = ...,
         backend: str | None = ...,
-        **kwargs,
-    ) -> PlotAxes | Series: ...  # Series[PlotAxes]
+        **kwargs: Any,
+    ) -> PlotAxes | Series[Any]: ...  # Series[PlotAxes]
     @overload
     def value_counts(
         self: DataFrameGroupBy[ByT, Literal[True]],
@@ -318,7 +318,7 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         ascending: bool = ...,
         dropna: bool = ...,
     ) -> DataFrame: ...
-    def take(self, indices: TakeIndexer, **kwargs) -> DataFrame: ...
+    def take(self, indices: TakeIndexer, **kwargs: Any) -> DataFrame: ...
     @overload
     def skew(
         self,
@@ -326,7 +326,7 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         numeric_only: bool = ...,
         *,
         level: Level,
-        **kwargs,
+        **kwargs: Any,
     ) -> DataFrame: ...
     @overload
     def skew(
@@ -335,13 +335,13 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         numeric_only: bool = ...,
         *,
         level: None = None,
-        **kwargs,
-    ) -> Series: ...
+        **kwargs: Any,
+    ) -> Series[Any]: ...
     @property
     def plot(self) -> GroupByPlot[Self]: ...
     def corr(
         self,
-        method: str | Callable[[np.ndarray, np.ndarray], float] = ...,
+        method: str | Callable[[np.ndarray[Any, Any], np.ndarray[Any, Any]], float] = ...,
         min_periods: int = ...,
         numeric_only: bool = ...,
     ) -> DataFrame: ...
@@ -368,10 +368,10 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         bins: int | Sequence[int] = ...,
         backend: str | None = ...,
         legend: bool = ...,
-        **kwargs,
-    ) -> Series: ...  # Series[Axes] but this is not allowed
+        **kwargs: Any,
+    ) -> Series[Any]: ...  # Series[Axes] but this is not allowed
     @property
-    def dtypes(self) -> Series: ...
+    def dtypes(self) -> Series[Any]: ...
     def __getattr__(self, name: str) -> SeriesGroupBy[Any, ByT]: ...
     # Overrides that provide more precise return types over the GroupBy class
     @final  # type: ignore[misc]

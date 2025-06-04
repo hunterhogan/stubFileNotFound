@@ -89,7 +89,7 @@ ListLike: TypeAlias = AnyArrayLike | SequenceNotStr[Any] | range
 
 PythonScalar: TypeAlias = str | bool | complex
 DatetimeLikeScalar: TypeAlias = Period | Timestamp | Timedelta
-PandasScalar: TypeAlias = Period | Timestamp | Timedelta | Interval
+PandasScalar: TypeAlias = Period | Timestamp | Timedelta | Interval[Any]
 
 _IndexIterScalar: TypeAlias = (
     str
@@ -141,7 +141,7 @@ ToTimestampHow: TypeAlias = Literal["s", "e", "start", "end"]
 # passed in, a DataFrame is always returned.
 NDFrameT = TypeVar("NDFrameT", bound=NDFrame)
 
-IndexT = TypeVar("IndexT", bound=Index)
+IndexT = TypeVar("IndexT", bound=Index[Any])
 
 # From _typing.py, not used here:
 # FreqIndexT = TypeVar("FreqIndexT", "DatetimeIndex", "PeriodIndex", "TimedeltaIndex")
@@ -156,7 +156,7 @@ Level: TypeAlias = Hashable
 Shape: TypeAlias = tuple[int, ...]
 Suffixes: TypeAlias = tuple[str | None, str | None] | list[str | None]
 Ordered: TypeAlias = bool | None
-JSONSerializable: TypeAlias = PythonScalar | list | dict
+JSONSerializable: TypeAlias = PythonScalar | list[Any] | dict[Any, Any]
 Frequency: TypeAlias = str | BaseOffset
 Axes: TypeAlias = ListLike
 
@@ -610,7 +610,7 @@ CompressionOptions: TypeAlias = (
 
 # types in DataFrameFormatter
 FormattersType: TypeAlias = (
-    list[Callable] | tuple[Callable, ...] | Mapping[str | int, Callable]
+    list[Callable[..., Any]] | tuple[Callable[..., Any], ...] | Mapping[str | int, Callable[..., Any]]
 )
 # ColspaceType = Mapping[Hashable, Union[str, int]] not used in stubs
 FloatFormatType: TypeAlias = str | Callable[[float], str] | EngFormatter
@@ -657,7 +657,7 @@ InterpolateOptions: TypeAlias = Literal[
 # Using List[int] here rather than Sequence[int] to disallow tuples.
 
 ScalarIndexer: TypeAlias = int | np.integer
-SequenceIndexer: TypeAlias = slice | list[int] | np.ndarray
+SequenceIndexer: TypeAlias = slice | list[int] | np.ndarray[Any, Any]
 PositionalIndexer: TypeAlias = ScalarIndexer | SequenceIndexer
 PositionalIndexerTuple: TypeAlias = tuple[PositionalIndexer, PositionalIndexer]
 # PositionalIndexer2D = Union[PositionalIndexer, PositionalIndexerTuple] Not used in stubs
@@ -682,7 +682,7 @@ XMLParsers: TypeAlias = Literal["lxml", "etree"]
 HTMLFlavors: TypeAlias = Literal["lxml", "html5lib", "bs4"]
 
 # Interval closed type
-IntervalT = TypeVar("IntervalT", bound=Interval)
+IntervalT = TypeVar("IntervalT", bound=Interval[Any])
 IntervalLeftRight: TypeAlias = Literal["left", "right"]
 IntervalClosedType: TypeAlias = IntervalLeftRight | Literal["both", "neither"]
 
@@ -743,7 +743,7 @@ TimeNonexistent: TypeAlias = (
 DropKeep: TypeAlias = Literal["first", "last", False]
 CorrelationMethod: TypeAlias = (
     Literal["pearson", "kendall", "spearman"]
-    | Callable[[np.ndarray, np.ndarray], float]
+    | Callable[[np.ndarray[Any, Any], np.ndarray[Any, Any]], float]
 )
 AlignJoin: TypeAlias = Literal["outer", "inner", "left", "right"]
 DtypeBackend: TypeAlias = Literal["pyarrow", "numpy_nullable"]
@@ -795,7 +795,7 @@ SliceType: TypeAlias = Hashable | None
 num: TypeAlias = complex
 
 # AxesData is used for data for Index
-AxesData: TypeAlias = Axes | dict
+AxesData: TypeAlias = Axes | dict[Any, Any]
 
 DtypeNp = TypeVar("DtypeNp", bound=np.dtype[np.generic])
 KeysArgType: TypeAlias = Any
@@ -805,7 +805,7 @@ ListLikeExceptSeriesAndStr: TypeAlias = (
 )
 ListLikeU: TypeAlias = Sequence[Any] | np.ndarray[Any, Any] | Series[Any] | Index[Any]
 ListLikeHashable: TypeAlias = (
-    MutableSequence[HashableT] | np.ndarray | tuple[HashableT, ...] | range
+    MutableSequence[HashableT] | np.ndarray[Any, Any] | tuple[HashableT, ...] | range
 )
 StrLike: TypeAlias = str | np.str_
 
@@ -858,7 +858,7 @@ S2 = TypeVar(
     | datetime.datetime  # includes pd.Timestamp
     | datetime.timedelta  # includes pd.Timedelta
     | Period
-    | Interval
+    | Interval[Any]
     | CategoricalDtype
     | BaseOffset
     | list[str],
@@ -890,7 +890,7 @@ ByT = TypeVar(
     | Scalar
     | Period
     | Interval[int | float | Timestamp | Timedelta]
-    | tuple,
+    | tuple[Any, ...],
 )
 # Use a distinct SeriesByT when using groupby with Series of known dtype.
 # Essentially, an intersection between Series S1 TypeVar, and ByT TypeVar
@@ -922,7 +922,7 @@ GroupByObjectNonScalar: TypeAlias = (
     | Grouper
     | list[Grouper]
 )
-GroupByObject: TypeAlias = Scalar | Index | GroupByObjectNonScalar | Series
+GroupByObject: TypeAlias = Scalar | Index[Any] | GroupByObjectNonScalar[Any] | Series[Any]
 
 StataDateFormat: TypeAlias = Literal[
     "tc",
