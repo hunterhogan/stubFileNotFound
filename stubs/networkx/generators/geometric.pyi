@@ -702,16 +702,4 @@ def geometric_soft_configuration_graph(*, beta, n: Incomplete | None = None, gam
     Create a geometric soft configuration graph with 100 nodes. The $\\beta$ parameter
     is set to 2.5 and all nodes with hidden degree $\\kappa=10$.
 
-
-    References
-    ----------
-    .. [1] Serrano, M. Á., Krioukov, D., & Boguñá, M. (2008). Self-similarity
-       of complex networks and hidden metric spaces. Physical review letters, 100(7), 078701.
-
-    .. [2] van der Kolk, J., Serrano, M. Á., & Boguñá, M. (2022). An anomalous
-       topological phase transition in spatial random graphs. Communications Physics, 5(1), 245.
-
-    .. [3] Krioukov, D., Papadopoulos, F., Kitsak, M., Vahdat, A., & Boguná, M. (2010).
-       Hyperbolic geometry of complex networks. Physical Review E, 82(3), 036106.
-
     """

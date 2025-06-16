@@ -18,7 +18,7 @@ import numpy as np
 import pandas as pd
 from pandas import Series
 from pandas.core.frame import DataFrame
-from scipy.stats.kde import gaussian_kde
+from scipy.stats import gaussian_kde
 from typing_extensions import TypeAlias
 
 from pandas._typing import (
@@ -42,28 +42,28 @@ _PlotAccessorColor: TypeAlias = str | list[_SingleColor] | dict[HashableT, _Sing
 @overload
 def boxplot(
     data: DataFrame,
-    column: Hashable | list[HashableT1] | None = ...,
-    by: Hashable | list[HashableT2] | None = ...,
-    ax: Axes | None = ...,
-    fontsize: float | str | None = ...,
-    rot: float = ...,
-    grid: bool = ...,
-    figsize: tuple[float, float] | None = ...,
-    layout: tuple[int, int] | None = ...,
-    return_type: Literal["axes"] | None = ...,
+    column: Hashable | list[HashableT1] | None = None,
+    by: Hashable | list[HashableT2] | None = None,
+    ax: Axes | None = None,
+    fontsize: float | str | None = None,
+    rot: float = 0,
+    grid: bool = True,
+    figsize: tuple[float, float] | None = None,
+    layout: tuple[int, int] | None = None,
+    return_type: Literal["axes"] | None = None,
     **kwargs,
 ) -> Axes: ...
 @overload
 def boxplot(
     data: DataFrame,
-    column: Hashable | list[HashableT1] | None = ...,
-    by: Hashable | list[HashableT2] | None = ...,
-    ax: Axes | None = ...,
-    fontsize: float | str | None = ...,
-    rot: float = ...,
-    grid: bool = ...,
-    figsize: tuple[float, float] | None = ...,
-    layout: tuple[int, int] | None = ...,
+    column: Hashable | list[HashableT1] | None = None,
+    by: Hashable | list[HashableT2] | None = None,
+    ax: Axes | None = None,
+    fontsize: float | str | None = None,
+    rot: float = 0,
+    grid: bool = True,
+    figsize: tuple[float, float] | None = None,
+    layout: tuple[int, int] | None = None,
     *,
     return_type: Literal["dict"],
     **kwargs,
@@ -71,14 +71,14 @@ def boxplot(
 @overload
 def boxplot(
     data: DataFrame,
-    column: Hashable | list[HashableT1] | None = ...,
-    by: Hashable | list[HashableT2] | None = ...,
-    ax: Axes | None = ...,
-    fontsize: float | str | None = ...,
-    rot: float = ...,
-    grid: bool = ...,
-    figsize: tuple[float, float] | None = ...,
-    layout: tuple[int, int] | None = ...,
+    column: Hashable | list[HashableT1] | None = None,
+    by: Hashable | list[HashableT2] | None = None,
+    ax: Axes | None = None,
+    fontsize: float | str | None = None,
+    rot: float = 0,
+    grid: bool = True,
+    figsize: tuple[float, float] | None = None,
+    layout: tuple[int, int] | None = None,
     *,
     return_type: Literal["both"],
     **kwargs,
@@ -241,8 +241,8 @@ class PlotAccessor:
     @overload
     def line(
         self,
-        x: Hashable = ...,
-        y: Hashable = ...,
+        x: Hashable = None,
+        y: Hashable = None,
         color: _PlotAccessorColor = ...,
         *,
         subplots: Literal[False] | None = ...,
@@ -251,8 +251,8 @@ class PlotAccessor:
     @overload
     def line(
         self,
-        x: Hashable = ...,
-        y: Hashable = ...,
+        x: Hashable = None,
+        y: Hashable = None,
         color: _PlotAccessorColor = ...,
         *,
         subplots: Literal[True],
@@ -261,8 +261,8 @@ class PlotAccessor:
     @overload
     def bar(
         self,
-        x: Hashable = ...,
-        y: Hashable = ...,
+        x: Hashable = None,
+        y: Hashable = None,
         color: _PlotAccessorColor = ...,
         *,
         subplots: Literal[False] | None = ...,
@@ -271,8 +271,8 @@ class PlotAccessor:
     @overload
     def bar(
         self,
-        x: Hashable = ...,
-        y: Hashable = ...,
+        x: Hashable = None,
+        y: Hashable = None,
         color: _PlotAccessorColor = ...,
         *,
         subplots: Literal[True],
@@ -281,8 +281,8 @@ class PlotAccessor:
     @overload
     def barh(
         self,
-        x: Hashable = ...,
-        y: Hashable = ...,
+        x: Hashable = None,
+        y: Hashable = None,
         color: _PlotAccessorColor = ...,
         subplots: Literal[False] | None = ...,
         **kwargs,
@@ -290,8 +290,8 @@ class PlotAccessor:
     @overload
     def barh(
         self,
-        x: Hashable = ...,
-        y: Hashable = ...,
+        x: Hashable = None,
+        y: Hashable = None,
         color: _PlotAccessorColor = ...,
         *,
         subplots: Literal[True],
@@ -300,7 +300,7 @@ class PlotAccessor:
     @overload
     def box(
         self,
-        by: Hashable | list[HashableT] = ...,
+        by: Hashable | list[HashableT] = None,
         *,
         subplots: Literal[False] | None = ...,
         **kwargs,
@@ -308,7 +308,7 @@ class PlotAccessor:
     @overload
     def box(
         self,
-        by: Hashable | list[HashableT] = ...,
+        by: Hashable | list[HashableT] = None,
         *,
         subplots: Literal[True],
         **kwargs,
@@ -316,8 +316,8 @@ class PlotAccessor:
     @overload
     def hist(
         self,
-        by: Hashable | list[HashableT] | None = ...,
-        bins: int = ...,
+        by: Hashable | list[HashableT] | None = None,
+        bins: int = 10,
         *,
         subplots: Literal[False] | None = ...,
         **kwargs,
@@ -325,8 +325,8 @@ class PlotAccessor:
     @overload
     def hist(
         self,
-        by: Hashable | list[HashableT] | None = ...,
-        bins: int = ...,
+        by: Hashable | list[HashableT] | None = None,
+        bins: int = 10,
         *,
         subplots: Literal[True],
         **kwargs,
@@ -339,8 +339,8 @@ class PlotAccessor:
             | float
             | Callable[[gaussian_kde], float]
             | None
-        ) = ...,
-        ind: npt.NDArray[np.double] | int | None = ...,
+        ) = None,
+        ind: npt.NDArray[np.double] | int | None = None,
         *,
         subplots: Literal[False] | None = ...,
         **kwargs,
@@ -353,8 +353,8 @@ class PlotAccessor:
             | float
             | Callable[[gaussian_kde], float]
             | None
-        ) = ...,
-        ind: npt.NDArray[np.double] | int | None = ...,
+        ) = None,
+        ind: npt.NDArray[np.double] | int | None = None,
         *,
         subplots: Literal[True],
         **kwargs,
@@ -362,9 +362,9 @@ class PlotAccessor:
     @overload
     def area(
         self,
-        x: Hashable | None = ...,
-        y: Hashable | None = ...,
-        stacked: bool = ...,
+        x: Hashable | None = None,
+        y: Hashable | None = None,
+        stacked: bool = True,
         *,
         subplots: Literal[False] | None = ...,
         **kwargs,
@@ -372,9 +372,9 @@ class PlotAccessor:
     @overload
     def area(
         self,
-        x: Hashable | None = ...,
-        y: Hashable | None = ...,
-        stacked: bool = ...,
+        x: Hashable | None = None,
+        y: Hashable | None = None,
+        stacked: bool = True,
         *,
         subplots: Literal[True],
         **kwargs,
@@ -392,8 +392,8 @@ class PlotAccessor:
         self,
         x: Hashable,
         y: Hashable,
-        s: Hashable | Sequence[float] | None = ...,
-        c: Hashable | list[str] = ...,
+        s: Hashable | Sequence[float] | None = None,
+        c: Hashable | list[str] = None,
         *,
         subplots: Literal[False] | None = ...,
         **kwargs,
@@ -403,8 +403,8 @@ class PlotAccessor:
         self,
         x: Hashable,
         y: Hashable,
-        s: Hashable | Sequence[float] | None = ...,
-        c: Hashable | list[str] = ...,
+        s: Hashable | Sequence[float] | None = None,
+        c: Hashable | list[str] = None,
         *,
         subplots: Literal[True],
         **kwargs,
@@ -414,9 +414,9 @@ class PlotAccessor:
         self,
         x: Hashable,
         y: Hashable,
-        C: Hashable | None = ...,
-        reduce_C_function: Callable[[list], float] | None = ...,
-        gridsize: int | tuple[int, int] | None = ...,
+        C: Hashable | None = None,
+        reduce_C_function: Callable[[list], float] | None = None,
+        gridsize: int | tuple[int, int] | None = None,
         *,
         subplots: Literal[False] | None = ...,
         **kwargs,
@@ -426,9 +426,9 @@ class PlotAccessor:
         self,
         x: Hashable,
         y: Hashable,
-        C: Hashable | None = ...,
-        reduce_C_function: Callable[[list], float] | None = ...,
-        gridsize: int | tuple[int, int] | None = ...,
+        C: Hashable | None = None,
+        reduce_C_function: Callable[[list], float] | None = None,
+        gridsize: int | tuple[int, int] | None = None,
         *,
         subplots: Literal[True],
         **kwargs,

@@ -37,12 +37,12 @@ class TimedeltaIndex(DatetimeTimedeltaMixin[Timedelta], TimedeltaIndexProperties
         cls,
         data: (
             Sequence[dt.timedelta | Timedelta | np.timedelta64 | float] | AxesData
-        ) = ...,
+        ) = None,
         freq: str | BaseOffset = ...,
         closed: object = ...,
         dtype: Literal["<m8[ns]"] = "<m8[ns]",
-        copy: bool = ...,
-        name: str = ...,
+        copy: bool = False,
+        name: str = None,
     ) -> Self: ...
     # various ignores needed for mypy, as we do want to restrict what can be used in
     # arithmetic for these types
@@ -69,18 +69,18 @@ class TimedeltaIndex(DatetimeTimedeltaMixin[Timedelta], TimedeltaIndexProperties
         self, other: dt.timedelta | Sequence[dt.timedelta]
     ) -> Index[int]: ...
     def __rfloordiv__(self, other: dt.timedelta | Sequence[dt.timedelta]) -> Index[int]: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
-    def astype(self, dtype, copy: bool = ...): ...
-    def searchsorted(self, value, side: str = ..., sorter=...): ...
+    def astype(self, dtype, copy: bool = True): ...
+    def searchsorted(self, value, side: str = 'left', sorter=None): ...
     @property
     def inferred_type(self) -> str: ...
-    def to_series(self, index=..., name: Hashable = ...) -> TimedeltaSeries: ...
-    def shift(self, periods: int = ..., freq=...) -> Self: ...
+    def to_series(self, index=None, name: Hashable = None) -> TimedeltaSeries: ...
+    def shift(self, periods: int = 1, freq=None) -> Self: ...
 
 def timedelta_range(
-    start: TimedeltaConvertibleTypes = ...,
-    end: TimedeltaConvertibleTypes = ...,
-    periods: int | None = ...,
-    freq: str | DateOffset | Timedelta | dt.timedelta | None = ...,
-    name: Hashable | None = ...,
-    closed: Literal["left", "right"] | None = ...,
+    start: TimedeltaConvertibleTypes = None,
+    end: TimedeltaConvertibleTypes = None,
+    periods: int | None = None,
+    freq: str | DateOffset | Timedelta | dt.timedelta | None = None,
+    name: Hashable | None = None,
+    closed: Literal["left", "right"] | None = None,
 ) -> TimedeltaIndex: ...

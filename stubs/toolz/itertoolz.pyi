@@ -11,7 +11,7 @@ def remove(predicate, seq):
     >>> list(remove(iseven, [1, 2, 3, 4]))
     [1, 3]
     """
-def accumulate(binop, seq, initial=...) -> Generator[Incomplete]:
+def accumulate(binop, seq, initial='__no__default__') -> Generator[Incomplete]:
     """ Repeatedly apply binary function to a sequence, accumulating results
 
     >>> from operator import add, mul
@@ -188,7 +188,7 @@ def last(seq):
     >>> last('ABC')
     'C'
     """
-def get(ind, seq, default=...):
+def get(ind, seq, default='__no__default__'):
     """ Get element in a sequence or dict
 
     Provides standard indexing
@@ -274,7 +274,7 @@ def frequencies(seq):
         countby
         groupby
     """
-def reduceby(key, binop, seq, init=...):
+def reduceby(key, binop, seq, init='__no__default__'):
     """ Perform a simultaneous groupby and reduction
 
     The computation:
@@ -373,7 +373,7 @@ def sliding_window(n, seq):
     >>> list(map(mean, sliding_window(2, [1, 2, 3, 4])))
     [1.5, 2.5, 3.5]
     """
-def partition(n, seq, pad=...):
+def partition(n, seq, pad='__no__pad__'):
     """ Partition sequence into tuples of length n
 
     >>> list(partition(2, [1, 2, 3, 4]))
@@ -415,7 +415,7 @@ def count(seq):
     See also:
         len
     """
-def pluck(ind, seqs, default=...):
+def pluck(ind, seqs, default='__no__default__'):
     """ plucks an element or several elements from each item in a sequence.
 
     ``pluck`` maps ``itertoolz.get`` over a sequence and returns one or more
@@ -438,7 +438,7 @@ def pluck(ind, seqs, default=...):
         get
         map
     """
-def join(leftkey, leftseq, rightkey, rightseq, left_default=..., right_default=...) -> Generator[Incomplete]:
+def join(leftkey, leftseq, rightkey, rightseq, left_default='__no__default__', right_default='__no__default__') -> Generator[Incomplete]:
     """ Join two sequences on common attributes
 
     This is a semi-streaming operation.  The LEFT sequence is fully evaluated

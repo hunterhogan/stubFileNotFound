@@ -1,6 +1,6 @@
 __all__ = ['adjacency_data', 'adjacency_graph']
 
-def adjacency_data(G, attrs=...):
+def adjacency_data(G, attrs={'id': 'id', 'key': 'key'}):
     """Returns data in adjacency format that is suitable for JSON serialization
     and use in JavaScript documents.
 
@@ -50,7 +50,7 @@ def adjacency_data(G, attrs=...):
     --------
     adjacency_graph, node_link_data, tree_data
     """
-def adjacency_graph(data, directed: bool = False, multigraph: bool = True, attrs=...):
+def adjacency_graph(data, directed: bool = False, multigraph: bool = True, attrs={'id': 'id', 'key': 'key'}):
     """Returns graph from adjacency data format.
 
     Parameters

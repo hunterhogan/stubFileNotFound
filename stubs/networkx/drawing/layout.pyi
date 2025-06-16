@@ -129,7 +129,7 @@ def shell_layout(G, nlist: Incomplete | None = None, rotate: Incomplete | None =
     try to minimize edge crossings.
 
     """
-def bipartite_layout(G, nodes, align: str = 'vertical', scale: int = 1, center: Incomplete | None = None, aspect_ratio=...):
+def bipartite_layout(G, nodes, align: str = 'vertical', scale: int = 1, center: Incomplete | None = None, aspect_ratio=1.3333333333333333):
     """Position nodes in two straight lines.
 
     Parameters

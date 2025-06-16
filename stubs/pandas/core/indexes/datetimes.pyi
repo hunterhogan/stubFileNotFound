@@ -5,7 +5,7 @@ from collections.abc import (
 from datetime import (
     datetime,
     timedelta,
-    tzinfo,
+    tzinfo as _tzinfo,
 )
 from typing import overload
 
@@ -52,7 +52,7 @@ class DatetimeIndex(DatetimeTimedeltaMixin[Timestamp], DatetimeIndexProperties):
         copy: bool = ...,
         name: Hashable = ...,
     ) -> None: ...
-    def __array__(self, dtype=...) -> np.ndarray: ...
+    def __array__(self, dtype=None) -> np.ndarray: ...
     def __reduce__(self): ...
     # various ignores needed for mypy, as we do want to restrict what can be used in
     # arithmetic for these types
@@ -72,59 +72,59 @@ class DatetimeIndex(DatetimeTimedeltaMixin[Timestamp], DatetimeIndexProperties):
     def __sub__(
         self, other: datetime | Timestamp | DatetimeIndex
     ) -> TimedeltaIndex: ...
-    def to_series(self, index=..., name: Hashable = ...) -> TimestampSeries: ...
-    def snap(self, freq: str = ...): ...
-    def slice_indexer(self, start=..., end=..., step=...): ...
-    def searchsorted(self, value, side: str = ..., sorter=...): ...
+    def to_series(self, index=None, name: Hashable = None) -> TimestampSeries: ...
+    def snap(self, freq: str = 'S'): ...
+    def slice_indexer(self, start=None, end=None, step=None): ...
+    def searchsorted(self, value, side: str = 'left', sorter=None): ...
     @property
     def inferred_type(self) -> str: ...
-    def indexer_at_time(self, time, asof: bool = ...): ...
+    def indexer_at_time(self, time, asof: bool = False): ...
     def indexer_between_time(
-        self, start_time, end_time, include_start: bool = ..., include_end: bool = ...
+        self, start_time, end_time, include_start: bool = True, include_end: bool = True
     ): ...
     def to_julian_date(self) -> Index[float]: ...
     def isocalendar(self) -> DataFrame: ...
     @property
-    def tzinfo(self) -> tzinfo | None: ...
+    def tzinfo(self) -> _tzinfo | None: ...
     @property
     def dtype(self) -> np.dtype | DatetimeTZDtype: ...
-    def shift(self, periods: int = ..., freq=...) -> Self: ...
+    def shift(self, periods: int = 1, freq=None) -> Self: ...
 
 def date_range(
-    start: str | DateAndDatetimeLike | None = ...,
-    end: str | DateAndDatetimeLike | None = ...,
-    periods: int | None = ...,
-    freq: str | timedelta | Timedelta | BaseOffset = ...,
-    tz: TimeZones = ...,
-    normalize: bool = ...,
-    name: Hashable | None = ...,
-    inclusive: IntervalClosedType = ...,
-    unit: TimeUnit | None = ...,
+    start: str | DateAndDatetimeLike | None = None,
+    end: str | DateAndDatetimeLike | None = None,
+    periods: int | None = None,
+    freq: str | timedelta | Timedelta | BaseOffset = None,
+    tz: TimeZones = None,
+    normalize: bool = False,
+    name: Hashable | None = None,
+    inclusive: IntervalClosedType = 'both',
+    unit: TimeUnit | None = None,
 ) -> DatetimeIndex: ...
 @overload
 def bdate_range(
-    start: str | DateAndDatetimeLike | None = ...,
-    end: str | DateAndDatetimeLike | None = ...,
-    periods: int | None = ...,
-    freq: str | timedelta | Timedelta | BaseOffset = ...,
-    tz: TimeZones = ...,
-    normalize: bool = ...,
-    name: Hashable | None = ...,
-    weekmask: str | None = ...,
+    start: str | DateAndDatetimeLike | None = None,
+    end: str | DateAndDatetimeLike | None = None,
+    periods: int | None = None,
+    freq: str | timedelta | Timedelta | BaseOffset = 'B',
+    tz: TimeZones = None,
+    normalize: bool = True,
+    name: Hashable | None = None,
+    weekmask: str | None = None,
     holidays: None = None,
-    inclusive: IntervalClosedType = ...,
+    inclusive: IntervalClosedType = 'both',
 ) -> DatetimeIndex: ...
 @overload
 def bdate_range(
-    start: str | DateAndDatetimeLike | None = ...,
-    end: str | DateAndDatetimeLike | None = ...,
-    periods: int | None = ...,
+    start: str | DateAndDatetimeLike | None = None,
+    end: str | DateAndDatetimeLike | None = None,
+    periods: int | None = None,
     *,
     freq: str | timedelta | Timedelta | BaseOffset,
-    tz: TimeZones = ...,
-    normalize: bool = ...,
-    name: Hashable | None = ...,
-    weekmask: str | None = ...,
+    tz: TimeZones = None,
+    normalize: bool = True,
+    name: Hashable | None = None,
+    weekmask: str | None = None,
     holidays: Sequence[str | DateAndDatetimeLike],
-    inclusive: IntervalClosedType = ...,
+    inclusive: IntervalClosedType = 'both',
 ) -> DatetimeIndex: ...

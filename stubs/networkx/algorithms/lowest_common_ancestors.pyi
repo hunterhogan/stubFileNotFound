@@ -9,7 +9,7 @@ def all_pairs_lowest_common_ancestor(
 	G: Any,
 	pairs: Iterable[tuple[Hashable, Hashable]] | None = None
 ) -> Generator[tuple[tuple[Hashable, Hashable], Hashable | None], None, None]:
-	"""Return the lowest common ancestor of all pairs or the provided pairs
+    """Return the lowest common ancestor of all pairs or the provided pairs
 
 	Parameters
 	----------
@@ -63,7 +63,7 @@ def lowest_common_ancestor(
 	node2: Hashable,
 	default: Hashable | None = None
 ) -> Hashable | None:
-	"""Compute the lowest common ancestor of the given pair of nodes.
+    """Compute the lowest common ancestor of the given pair of nodes.
 
 	Parameters
 	----------
@@ -96,7 +96,7 @@ def tree_all_pairs_lowest_common_ancestor(
 	root: Hashable | None = None,
 	pairs: Iterable[tuple[Hashable, Hashable]] | None = None
 ) -> Generator[tuple[tuple[Hashable, Hashable], Hashable], None, None]:
-	'''Yield the lowest common ancestor for sets of pairs in a tree.
+    '''Yield the lowest common ancestor for sets of pairs in a tree.
 
 	Parameters
 	----------

@@ -1,3 +1,7 @@
+from builtins import (
+    bool as _bool,
+    str as _str,
+)
 from collections.abc import (
     Callable,
     Hashable,
@@ -160,9 +164,6 @@ from pandas._typing import (
 
 from pandas.io.formats.style import Styler
 from pandas.plotting import PlotAccessor
-
-_str = str
-_bool = bool
 
 class _iLocIndexerFrame(_iLocIndexer, Generic[_T]):
     @overload
@@ -336,7 +337,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         copy: _bool = ...,
     ) -> Self: ...
     def __dataframe__(
-        self, nan_as_null: bool = ..., allow_copy: bool = ...
+        self, nan_as_null: bool = False, allow_copy: bool = True
     ) -> DataFrameXchg: ...
     def __arrow_c_stream__(self, requested_schema: object | None = None) -> object: ...
     @property
@@ -349,11 +350,11 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def iterrows(self) -> Iterator[tuple[Hashable, Series[S1]]]: ...
     @overload
     def itertuples(
-        self, index: _bool = ..., name: _str = ...
+        self, index: _bool = True, name: _str = 'Pandas'
     ) -> Iterator[_PandasNamedTuple]: ...
     @overload
     def itertuples(
-        self, index: _bool = ..., name: None = None
+        self, index: _bool = True, name: None = None
     ) -> Iterator[tuple[Any, ...]]: ...
     def __len__(self) -> int: ...
     @overload
@@ -373,21 +374,21 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         cls,
         data: dict[Any, Any],
         orient: Literal["index"],
-        dtype: AstypeArg | None = ...,
-        columns: Axes | None = ...,
+        dtype: AstypeArg | None = None,
+        columns: Axes | None = None,
     ) -> Self: ...
     @overload
     @classmethod
     def from_dict(
         cls,
         data: dict[Any, Any],
-        orient: Literal["columns", "tight"] = ...,
-        dtype: AstypeArg | None = ...,
+        orient: Literal["columns", "tight"] = 'columns',
+        dtype: AstypeArg | None = None,
     ) -> Self: ...
     def to_numpy(
         self,
-        dtype: npt.DTypeLike | None = ...,
-        copy: bool = ...,
+        dtype: npt.DTypeLike | None = None,
+        copy: bool = False,
         na_value: Scalar = ...,
     ) -> np.ndarray[Any, Any]: ...
     @overload
@@ -425,7 +426,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def to_dict(
         self,
-        orient: Literal["dict", "list", "series", "index"] = ...,
+        orient: Literal["dict", "list", "series", "index"] = 'dict',
         *,
         into: MutableMapping[Hashable, Any] | type[MutableMapping[Hashable, Any]],
         index: Literal[True] = True,
@@ -433,7 +434,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def to_dict(
         self,
-        orient: Literal["split", "tight"] = ...,
+        orient: Literal["split", "tight"] = 'dict',
         *,
         into: MutableMapping[Hashable, Any] | type[MutableMapping[Hashable, Any]],
         index: bool = ...,
@@ -441,7 +442,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def to_dict(
         self,
-        orient: Literal["dict", "list", "series", "index"] = ...,
+        orient: Literal["dict", "list", "series", "index"] = 'dict',
         *,
         into: type[dict[Hashable, Any]] = ...,
         index: Literal[True] = True,
@@ -449,7 +450,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def to_dict(
         self,
-        orient: Literal["split", "tight"] = ...,
+        orient: Literal["split", "tight"] = 'dict',
         *,
         into: type[dict[Hashable, Any]] = ...,
         index: bool = ...,
@@ -457,27 +458,27 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def to_gbq(
         self,
         destination_table: str,
-        project_id: str | None = ...,
-        chunksize: int | None = ...,
-        reauth: bool = ...,
-        if_exists: Literal["fail", "replace", "append"] = ...,
-        auth_local_webserver: bool = ...,
-        table_schema: list[dict[str, str]] | None = ...,
-        location: str | None = ...,
-        progress_bar: bool = ...,
+        project_id: str | None = None,
+        chunksize: int | None = None,
+        reauth: bool = False,
+        if_exists: Literal["fail", "replace", "append"] = 'fail',
+        auth_local_webserver: bool = True,
+        table_schema: list[dict[str, str]] | None = None,
+        location: str | None = None,
+        progress_bar: bool = True,
         # Google type, not available
-        credentials: Any = ...,
+        credentials: Any = None,
     ) -> None: ...
     @classmethod
     def from_records(
-        cls, data: Any, index: Any = ..., exclude: Any = ..., columns: Any = ..., coerce_float: Any = ..., nrows: Any = ...
+        cls, data, index=None, exclude=None, columns=None, coerce_float=False, nrows=None
     ) -> Self: ...
     def to_records(
         self,
-        index: _bool = ...,
+        index: _bool = True,
         column_dtypes: (
             _str | npt.DTypeLike | Mapping[HashableT1, npt.DTypeLike] | None
-        ) = ...,
+        ) = None,
         index_dtypes: (
             _str | npt.DTypeLike | Mapping[HashableT2, npt.DTypeLike] | None
         ) = ...,
@@ -487,34 +488,34 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         path: FilePath | WriteBuffer[bytes],
         *,
-        convert_dates: dict[HashableT1, StataDateFormat] | None = ...,
-        write_index: _bool = ...,
-        byteorder: ToStataByteorder | None = ...,
-        time_stamp: dt.datetime | None = ...,
-        data_label: _str | None = ...,
-        variable_labels: dict[HashableT2, str] | None = ...,
+        convert_dates: dict[HashableT1, StataDateFormat] | None = None,
+        write_index: _bool = True,
+        byteorder: ToStataByteorder | None = None,
+        time_stamp: dt.datetime | None = None,
+        data_label: _str | None = None,
+        variable_labels: dict[HashableT2, str] | None = None,
         version: Literal[117, 118, 119],
-        convert_strl: SequenceNotStr[Hashable] | None = ...,
-        compression: CompressionOptions = ...,
-        storage_options: StorageOptions = ...,
-        value_labels: dict[Hashable, dict[float, str]] | None = ...,
+        convert_strl: SequenceNotStr[Hashable] | None = None,
+        compression: CompressionOptions = 'infer',
+        storage_options: StorageOptions = None,
+        value_labels: dict[Hashable, dict[float, str]] | None = None,
     ) -> None: ...
     @overload
     def to_stata(
         self,
         path: FilePath | WriteBuffer[bytes],
         *,
-        convert_dates: dict[HashableT1, StataDateFormat] | None = ...,
-        write_index: _bool = ...,
-        byteorder: Literal["<", ">", "little", "big"] | None = ...,
-        time_stamp: dt.datetime | None = ...,
-        data_label: _str | None = ...,
-        variable_labels: dict[HashableT2, str] | None = ...,
-        version: Literal[114, 117, 118, 119] | None = ...,
+        convert_dates: dict[HashableT1, StataDateFormat] | None = None,
+        write_index: _bool = True,
+        byteorder: Literal["<", ">", "little", "big"] | None = None,
+        time_stamp: dt.datetime | None = None,
+        data_label: _str | None = None,
+        variable_labels: dict[HashableT2, str] | None = None,
+        version: Literal[114, 117, 118, 119] | None = 114,
         convert_strl: None = None,
-        compression: CompressionOptions = ...,
-        storage_options: StorageOptions = ...,
-        value_labels: dict[Hashable, dict[float, str]] | None = ...,
+        compression: CompressionOptions = 'infer',
+        storage_options: StorageOptions = None,
+        value_labels: dict[Hashable, dict[float, str]] | None = None,
     ) -> None: ...
     def to_feather(
         self, path: FilePath | WriteBuffer[bytes], **kwargs: Any
@@ -523,22 +524,22 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def to_parquet(
         self,
         path: FilePath | WriteBuffer[bytes],
-        engine: ParquetEngine = ...,
-        compression: Literal["snappy", "gzip", "brotli", "lz4", "zstd"] | None = ...,
-        index: bool | None = ...,
-        partition_cols: Sequence[Hashable] | None = ...,
-        storage_options: StorageOptions = ...,
+        engine: ParquetEngine = 'auto',
+        compression: Literal["snappy", "gzip", "brotli", "lz4", "zstd"] | None = 'snappy',
+        index: bool | None = None,
+        partition_cols: Sequence[Hashable] | None = None,
+        storage_options: StorageOptions = None,
         **kwargs: Any,
     ) -> None: ...
     @overload
     def to_parquet(
         self,
         path: None = None,
-        engine: ParquetEngine = ...,
-        compression: Literal["snappy", "gzip", "brotli", "lz4", "zstd"] | None = ...,
-        index: bool | None = ...,
-        partition_cols: Sequence[Hashable] | None = ...,
-        storage_options: StorageOptions = ...,
+        engine: ParquetEngine = 'auto',
+        compression: Literal["snappy", "gzip", "brotli", "lz4", "zstd"] | None = 'snappy',
+        index: bool | None = None,
+        partition_cols: Sequence[Hashable] | None = None,
+        storage_options: StorageOptions = None,
         **kwargs: Any,
     ) -> bytes: ...
     @overload
@@ -547,8 +548,8 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         path: FilePath | WriteBuffer[bytes],
         *,
         engine: Literal["pyarrow"] = "pyarrow",
-        index: bool | None = ...,
-        engine_kwargs: dict[str, Any] | None = ...,
+        index: bool | None = None,
+        engine_kwargs: dict[str, Any] | None = None,
     ) -> None: ...
     @overload
     def to_orc(
@@ -556,8 +557,8 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         path: None = None,
         *,
         engine: Literal["pyarrow"] = "pyarrow",
-        index: bool | None = ...,
-        engine_kwargs: dict[str, Any] | None = ...,
+        index: bool | None = None,
+        engine_kwargs: dict[str, Any] | None = None,
     ) -> bytes: ...
     @overload
     def to_html(
@@ -573,10 +574,10 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
             | tuple[Callable[[object], str], ...]
             | Mapping[Hashable, Callable[[object], str]]
             | None
-        ) = ...,
-        float_format: Callable[[float], str] | None = ...,
-        sparsify: _bool | None = ...,
-        index_names: _bool = ...,
+        ) = None,
+        float_format: Callable[[float], str] | None = None,
+        sparsify: _bool | None = None,
+        index_names: _bool = True,
         justify: (
             Literal[
                 "left",
@@ -592,38 +593,38 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
                 "unset",
             ]
             | None
-        ) = ...,
-        max_rows: int | None = ...,
-        max_cols: int | None = ...,
-        show_dimensions: _bool = ...,
-        decimal: _str = ...,
-        bold_rows: _bool = ...,
-        classes: Sequence[str] | None = ...,
-        escape: _bool = ...,
-        notebook: _bool = ...,
-        border: int | None = ...,
-        table_id: _str | None = ...,
-        render_links: _bool = ...,
-        encoding: _str | None = ...,
+        ) = None,
+        max_rows: int | None = None,
+        max_cols: int | None = None,
+        show_dimensions: _bool = False,
+        decimal: _str = '.',
+        bold_rows: _bool = True,
+        classes: Sequence[str] | None = None,
+        escape: _bool = True,
+        notebook: _bool = False,
+        border: int | None = None,
+        table_id: _str | None = None,
+        render_links: _bool = False,
+        encoding: _str | None = None,
     ) -> None: ...
     @overload
     def to_html(
         self,
         buf: None = None,
-        columns: Sequence[Hashable] | None = ...,
-        col_space: ColspaceArgType | None = ...,
-        header: _bool = ...,
-        index: _bool = ...,
-        na_rep: _str = ...,
+        columns: Sequence[Hashable] | None = None,
+        col_space: ColspaceArgType | None = None,
+        header: _bool = True,
+        index: _bool = True,
+        na_rep: _str = 'NaN',
         formatters: (
             list[Callable[[object], str]]
             | tuple[Callable[[object], str], ...]
             | Mapping[Hashable, Callable[[object], str]]
             | None
-        ) = ...,
-        float_format: Callable[[float], str] | None = ...,
-        sparsify: _bool | None = ...,
-        index_names: _bool = ...,
+        ) = None,
+        float_format: Callable[[float], str] | None = None,
+        sparsify: _bool | None = None,
+        index_names: _bool = True,
         justify: (
             Literal[
                 "left",
@@ -639,67 +640,67 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
                 "unset",
             ]
             | None
-        ) = ...,
-        max_rows: int | None = ...,
-        max_cols: int | None = ...,
-        show_dimensions: _bool = ...,
-        decimal: _str = ...,
-        bold_rows: _bool = ...,
-        classes: Sequence[str] | None = ...,
-        escape: _bool = ...,
-        notebook: _bool = ...,
-        border: int | None = ...,
-        table_id: _str | None = ...,
-        render_links: _bool = ...,
-        encoding: _str | None = ...,
+        ) = None,
+        max_rows: int | None = None,
+        max_cols: int | None = None,
+        show_dimensions: _bool = False,
+        decimal: _str = '.',
+        bold_rows: _bool = True,
+        classes: Sequence[str] | None = None,
+        escape: _bool = True,
+        notebook: _bool = False,
+        border: int | None = None,
+        table_id: _str | None = None,
+        render_links: _bool = False,
+        encoding: _str | None = None,
     ) -> _str: ...
     @overload
     def to_xml(
         self,
         path_or_buffer: FilePath | WriteBuffer[bytes] | WriteBuffer[str],
-        index: bool = ...,
-        root_name: str = ...,
-        row_name: str = ...,
-        na_rep: str | None = ...,
-        attr_cols: SequenceNotStr[Hashable] | None = ...,
-        elem_cols: SequenceNotStr[Hashable] | None = ...,
-        namespaces: dict[str | None, str] | None = ...,
-        prefix: str | None = ...,
-        encoding: str = ...,
-        xml_declaration: bool = ...,
-        pretty_print: bool = ...,
-        parser: XMLParsers = ...,
-        stylesheet: FilePath | ReadBuffer[str] | ReadBuffer[bytes] | None = ...,
-        compression: CompressionOptions = ...,
-        storage_options: StorageOptions = ...,
+        index: bool = True,
+        root_name: str = 'data',
+        row_name: str = 'row',
+        na_rep: str | None = None,
+        attr_cols: SequenceNotStr[Hashable] | None = None,
+        elem_cols: SequenceNotStr[Hashable] | None = None,
+        namespaces: dict[str | None, str] | None = None,
+        prefix: str | None = None,
+        encoding: str = 'utf-8',
+        xml_declaration: bool = True,
+        pretty_print: bool = True,
+        parser: XMLParsers = 'lxml',
+        stylesheet: FilePath | ReadBuffer[str] | ReadBuffer[bytes] | None = None,
+        compression: CompressionOptions = 'infer',
+        storage_options: StorageOptions = None,
     ) -> None: ...
     @overload
     def to_xml(
         self,
         path_or_buffer: Literal[None] = None,
-        index: bool = ...,
-        root_name: str | None = ...,
-        row_name: str | None = ...,
-        na_rep: str | None = ...,
-        attr_cols: list[Hashable] | None = ...,
-        elem_cols: list[Hashable] | None = ...,
-        namespaces: dict[str | None, str] | None = ...,
-        prefix: str | None = ...,
-        encoding: str = ...,
-        xml_declaration: bool | None = ...,
-        pretty_print: bool | None = ...,
-        parser: str | None = ...,
-        stylesheet: FilePath | ReadBuffer[str] | ReadBuffer[bytes] | None = ...,
-        compression: CompressionOptions = ...,
-        storage_options: StorageOptions = ...,
+        index: bool = True,
+        root_name: str | None = 'data',
+        row_name: str | None = 'row',
+        na_rep: str | None = None,
+        attr_cols: list[Hashable] | None = None,
+        elem_cols: list[Hashable] | None = None,
+        namespaces: dict[str | None, str] | None = None,
+        prefix: str | None = None,
+        encoding: str = 'utf-8',
+        xml_declaration: bool | None = True,
+        pretty_print: bool | None = True,
+        parser: str | None = 'lxml',
+        stylesheet: FilePath | ReadBuffer[str] | ReadBuffer[bytes] | None = None,
+        compression: CompressionOptions = 'infer',
+        storage_options: StorageOptions = None,
     ) -> str: ...
     def info(
         self,
-        verbose: bool | None = ...,
-        buf: WriteBuffer[str] | None = ...,
-        max_cols: int | None = ...,
-        memory_usage: bool | Literal["deep"] | None = ...,
-        show_counts: bool | None = ...,
+        verbose: bool | None = None,
+        buf: WriteBuffer[str] | None = None,
+        max_cols: int | None = None,
+        memory_usage: bool | Literal["deep"] | None = None,
+        show_counts: bool | None = None,
     ) -> None: ...
     def memory_usage(self, index: _bool = ..., deep: _bool = ...) -> Series[Any]: ...
     def transpose(self, *args: Any, copy: _bool = ...) -> Self: ...
@@ -760,7 +761,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     AstypeArgExtList: TypeAlias = AstypeArgExt | list[AstypeArgExt]
     @overload
     def select_dtypes(
-        self, include: StrDtypeArg, exclude: AstypeArgExtList | None = ...
+        self, include: StrDtypeArg, exclude: AstypeArgExtList | None = None
     ) -> Never: ...
     @overload
     def select_dtypes(
@@ -774,7 +775,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def select_dtypes(
         self,
         include: AstypeArgExtList,
-        exclude: AstypeArgExtList | None = ...,
+        exclude: AstypeArgExtList | None = None,
     ) -> Self: ...
     @overload
     def select_dtypes(
@@ -794,62 +795,62 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         value: Scalar | ListLikeU | None,
         allow_duplicates: _bool = ...,
     ) -> None: ...
-    def assign(self, **kwargs: IntoColumn | None) -> Self: ...
+    def assign(self, **kwargs: IntoColumn) -> Self: ...
     def align(
         self,
         other: NDFrameT,
-        join: AlignJoin = ...,
-        axis: Axis | None = ...,
-        level: Level | None = ...,
-        copy: _bool = ...,
-        fill_value: Scalar | NAType | None = ...,
+        join: AlignJoin = 'outer',
+        axis: Axis | None = None,
+        level: Level | None = None,
+        copy: _bool = None,
+        fill_value: Scalar | NAType | None = None,
     ) -> tuple[Self, NDFrameT]: ...
     def reindex(
         self,
-        labels: Axes | None = ...,
-        index: Axes | None = ...,
-        columns: Axes | None = ...,
-        axis: Axis | None = ...,
-        method: ReindexMethod | None = ...,
-        copy: bool = ...,
-        level: int | _str = ...,
+        labels: Axes | None = None,
+        index: Axes | None = None,
+        columns: Axes | None = None,
+        axis: Axis | None = None,
+        method: ReindexMethod | None = None,
+        copy: bool = None,
+        level: int | _str = None,
         fill_value: Scalar | None = ...,
-        limit: int | None = ...,
-        tolerance: float | None = ...,
+        limit: int | None = None,
+        tolerance: float | None = None,
     ) -> Self: ...
     @overload
     def rename(
         self,
-        mapper: Renamer | None = ...,
+        mapper: Renamer | None = None,
         *,
-        index: Renamer | None = ...,
-        columns: Renamer | None = ...,
-        axis: Axis | None = ...,
-        copy: bool = ...,
+        index: Renamer | None = None,
+        columns: Renamer | None = None,
+        axis: Axis | None = None,
+        copy: bool = None,
         inplace: Literal[True],
-        level: Level | None = ...,
-        errors: IgnoreRaise = ...,
+        level: Level | None = None,
+        errors: IgnoreRaise = 'ignore',
     ) -> None: ...
     @overload
     def rename(
         self,
-        mapper: Renamer | None = ...,
+        mapper: Renamer | None = None,
         *,
-        index: Renamer | None = ...,
-        columns: Renamer | None = ...,
-        axis: Axis | None = ...,
-        copy: bool = ...,
+        index: Renamer | None = None,
+        columns: Renamer | None = None,
+        axis: Axis | None = None,
+        copy: bool = None,
         inplace: Literal[False] = False,
-        level: Level | None = ...,
-        errors: IgnoreRaise = ...,
+        level: Level | None = None,
+        errors: IgnoreRaise = 'ignore',
     ) -> Self: ...
     @overload
     def fillna(
         self,
         value: Scalar | NAType | dict[Any, Any] | Series[Any] | DataFrame | None = ...,
         *,
-        axis: Axis | None = ...,
-        limit: int = ...,
+        axis: Axis | None = None,
+        limit: int = None,
         inplace: Literal[True],
     ) -> None: ...
     @overload
@@ -857,8 +858,8 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         value: Scalar | NAType | dict[Any, Any] | Series[Any] | DataFrame | None = ...,
         *,
-        axis: Axis | None = ...,
-        limit: int = ...,
+        axis: Axis | None = None,
+        limit: int = None,
         inplace: Literal[False] = False,
     ) -> Self: ...
     @overload
@@ -881,9 +882,9 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     ) -> Self: ...
     def shift(
         self,
-        periods: int | Sequence[int] = ...,
-        freq: DateOffset | dt.timedelta | _str | None = ...,
-        axis: Axis = ...,
+        periods: int | Sequence[int] = 1,
+        freq: DateOffset | dt.timedelta | _str | None = None,
+        axis: Axis = 0,
         fill_value: Scalar | NAType | None = ...,
     ) -> Self: ...
     @overload
@@ -898,9 +899,9 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
             | Sequence[Hashable]
         ),
         *,
-        drop: _bool = ...,
-        append: _bool = ...,
-        verify_integrity: _bool = ...,
+        drop: _bool = True,
+        append: _bool = False,
+        verify_integrity: _bool = False,
         inplace: Literal[True],
     ) -> None: ...
     @overload
@@ -915,34 +916,34 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
             | Sequence[Hashable]
         ),
         *,
-        drop: _bool = ...,
-        append: _bool = ...,
-        verify_integrity: _bool = ...,
+        drop: _bool = True,
+        append: _bool = False,
+        verify_integrity: _bool = False,
         inplace: Literal[False] = False,
     ) -> Self: ...
     @overload
     def reset_index(
         self,
-        level: Level | Sequence[Level] = ...,
+        level: Level | Sequence[Level] = None,
         *,
-        drop: _bool = ...,
-        col_level: int | _str = ...,
-        col_fill: Hashable = ...,
+        drop: _bool = False,
+        col_level: int | _str = 0,
+        col_fill: Hashable = '',
         inplace: Literal[True],
         allow_duplicates: _bool = ...,
-        names: Hashable | Sequence[Hashable] = ...,
+        names: Hashable | Sequence[Hashable] = None,
     ) -> None: ...
     @overload
     def reset_index(
         self,
-        level: Level | Sequence[Level] = ...,
+        level: Level | Sequence[Level] = None,
         *,
-        col_level: int | _str = ...,
-        col_fill: Hashable = ...,
-        drop: _bool = ...,
+        col_level: int | _str = 0,
+        col_fill: Hashable = '',
+        drop: _bool = False,
         inplace: Literal[False] = False,
         allow_duplicates: _bool = ...,
-        names: Hashable | Sequence[Hashable] = ...,
+        names: Hashable | Sequence[Hashable] = None,
     ) -> Self: ...
     def isna(self) -> Self: ...
     def isnull(self) -> Self: ...
@@ -952,41 +953,41 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def dropna(
         self,
         *,
-        axis: Axis = ...,
+        axis: Axis = 0,
         how: AnyAll = ...,
         thresh: int | None = ...,
-        subset: ListLikeU | Scalar | None = ...,
+        subset: ListLikeU | Scalar | None = None,
         inplace: Literal[True],
-        ignore_index: _bool = ...,
+        ignore_index: _bool = False,
     ) -> None: ...
     @overload
     def dropna(
         self,
         *,
-        axis: Axis = ...,
+        axis: Axis = 0,
         how: AnyAll = ...,
         thresh: int | None = ...,
-        subset: ListLikeU | Scalar | None = ...,
+        subset: ListLikeU | Scalar | None = None,
         inplace: Literal[False] = False,
-        ignore_index: _bool = ...,
+        ignore_index: _bool = False,
     ) -> Self: ...
     @overload
     def drop_duplicates(
         self,
-        subset: Hashable | Iterable[Hashable] | None = ...,
+        subset: Hashable | Iterable[Hashable] | None = None,
         *,
-        keep: DropKeep = ...,
+        keep: DropKeep = 'first',
         inplace: Literal[True],
-        ignore_index: _bool = ...,
+        ignore_index: _bool = False,
     ) -> None: ...
     @overload
     def drop_duplicates(
         self,
-        subset: Hashable | Iterable[Hashable] | None = ...,
+        subset: Hashable | Iterable[Hashable] | None = None,
         *,
-        keep: DropKeep = ...,
+        keep: DropKeep = 'first',
         inplace: Literal[False] = False,
-        ignore_index: _bool = ...,
+        ignore_index: _bool = False,
     ) -> Self: ...
     def duplicated(
         self,
@@ -998,94 +999,94 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         by: _str | Sequence[_str],
         *,
-        axis: Axis = ...,
-        ascending: _bool | Sequence[_bool] = ...,
-        kind: SortKind = ...,
-        na_position: NaPosition = ...,
-        ignore_index: _bool = ...,
+        axis: Axis = 0,
+        ascending: _bool | Sequence[_bool] = True,
+        kind: SortKind = 'quicksort',
+        na_position: NaPosition = 'last',
+        ignore_index: _bool = False,
         inplace: Literal[True],
-        key: ValueKeyFunc = ...,
+        key: ValueKeyFunc = None,
     ) -> None: ...
     @overload
     def sort_values(
         self,
         by: _str | Sequence[_str],
         *,
-        axis: Axis = ...,
-        ascending: _bool | Sequence[_bool] = ...,
-        kind: SortKind = ...,
-        na_position: NaPosition = ...,
-        ignore_index: _bool = ...,
+        axis: Axis = 0,
+        ascending: _bool | Sequence[_bool] = True,
+        kind: SortKind = 'quicksort',
+        na_position: NaPosition = 'last',
+        ignore_index: _bool = False,
         inplace: Literal[False] = False,
-        key: ValueKeyFunc = ...,
+        key: ValueKeyFunc = None,
     ) -> Self: ...
     @overload
     def sort_index(
         self,
         *,
-        axis: Axis = ...,
-        level: Level | None = ...,
-        ascending: _bool | Sequence[_bool] = ...,
-        kind: SortKind = ...,
-        na_position: NaPosition = ...,
-        sort_remaining: _bool = ...,
-        ignore_index: _bool = ...,
+        axis: Axis = 0,
+        level: Level | None = None,
+        ascending: _bool | Sequence[_bool] = True,
+        kind: SortKind = 'quicksort',
+        na_position: NaPosition = 'last',
+        sort_remaining: _bool = True,
+        ignore_index: _bool = False,
         inplace: Literal[True],
-        key: IndexKeyFunc = ...,
+        key: IndexKeyFunc = None,
     ) -> None: ...
     @overload
     def sort_index(
         self,
         *,
-        axis: Axis = ...,
-        level: Level | list[int] | list[_str] | None = ...,
-        ascending: _bool | Sequence[_bool] = ...,
-        kind: SortKind = ...,
-        na_position: NaPosition = ...,
-        sort_remaining: _bool = ...,
-        ignore_index: _bool = ...,
+        axis: Axis = 0,
+        level: Level | list[int] | list[_str] | None = None,
+        ascending: _bool | Sequence[_bool] = True,
+        kind: SortKind = 'quicksort',
+        na_position: NaPosition = 'last',
+        sort_remaining: _bool = True,
+        ignore_index: _bool = False,
         inplace: Literal[False] = False,
-        key: IndexKeyFunc = ...,
+        key: IndexKeyFunc = None,
     ) -> Self: ...
     @overload
     def value_counts(
         self,
-        subset: Sequence[Hashable] | None = ...,
+        subset: Sequence[Hashable] | None = None,
         normalize: Literal[False] = False,
-        sort: _bool = ...,
-        ascending: _bool = ...,
-        dropna: _bool = ...,
+        sort: _bool = True,
+        ascending: _bool = False,
+        dropna: _bool = True,
     ) -> Series[int]: ...
     @overload
     def value_counts(
         self,
         normalize: Literal[True],
-        subset: Sequence[Hashable] | None = ...,
-        sort: _bool = ...,
-        ascending: _bool = ...,
-        dropna: _bool = ...,
+        subset: Sequence[Hashable] | None = None,
+        sort: _bool = True,
+        ascending: _bool = False,
+        dropna: _bool = True,
     ) -> Series[float]: ...
     def nlargest(
         self,
         n: int,
         columns: _str | list[_str],
-        keep: NsmallestNlargestKeep = ...,
+        keep: NsmallestNlargestKeep = 'first',
     ) -> Self: ...
     def nsmallest(
         self,
         n: int,
         columns: _str | list[_str],
-        keep: NsmallestNlargestKeep = ...,
+        keep: NsmallestNlargestKeep = 'first',
     ) -> Self: ...
     def swaplevel(self, i: Level = ..., j: Level = ..., axis: Axis = ...) -> Self: ...
     def reorder_levels(self, order: list[Any], axis: Axis = ...) -> Self: ...
     def compare(
         self,
         other: DataFrame,
-        align_axis: Axis = ...,
-        keep_shape: bool = ...,
-        keep_equal: bool = ...,
-        result_names: Suffixes = ...,
+        align_axis: Axis = 1,
+        keep_shape: bool = False,
+        keep_equal: bool = False,
+        result_names: Suffixes = ('self', 'other'),
     ) -> Self: ...
     def combine(
         self,
@@ -1108,130 +1109,130 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         by: Scalar,
         axis: AxisIndex | NoDefault = ...,
-        level: IndexLabel | None = ...,
+        level: IndexLabel | None = None,
         as_index: Literal[True] = True,
-        sort: _bool = ...,
-        group_keys: _bool = ...,
+        sort: _bool = True,
+        group_keys: _bool = True,
         observed: _bool | NoDefault = ...,
-        dropna: _bool = ...,
+        dropna: _bool = True,
     ) -> DataFrameGroupBy[Scalar, Literal[True]]: ...
     @overload
     def groupby(
         self,
         by: Scalar,
         axis: AxisIndex | NoDefault = ...,
-        level: IndexLabel | None = ...,
+        level: IndexLabel | None = None,
         as_index: Literal[False] = False,
-        sort: _bool = ...,
-        group_keys: _bool = ...,
+        sort: _bool = True,
+        group_keys: _bool = True,
         observed: _bool | NoDefault = ...,
-        dropna: _bool = ...,
+        dropna: _bool = True,
     ) -> DataFrameGroupBy[Scalar, Literal[False]]: ...
     @overload
     def groupby(  # pyright: ignore reportOverlappingOverload
         self,
         by: DatetimeIndex,
         axis: AxisIndex | NoDefault = ...,
-        level: IndexLabel | None = ...,
+        level: IndexLabel | None = None,
         as_index: Literal[True] = True,
-        sort: _bool = ...,
-        group_keys: _bool = ...,
+        sort: _bool = True,
+        group_keys: _bool = True,
         observed: _bool | NoDefault = ...,
-        dropna: _bool = ...,
+        dropna: _bool = True,
     ) -> DataFrameGroupBy[Timestamp, Literal[True]]: ...
     @overload
     def groupby(  # pyright: ignore reportOverlappingOverload
         self,
         by: DatetimeIndex,
         axis: AxisIndex | NoDefault = ...,
-        level: IndexLabel | None = ...,
+        level: IndexLabel | None = None,
         as_index: Literal[False] = False,
-        sort: _bool = ...,
-        group_keys: _bool = ...,
+        sort: _bool = True,
+        group_keys: _bool = True,
         observed: _bool | NoDefault = ...,
-        dropna: _bool = ...,
+        dropna: _bool = True,
     ) -> DataFrameGroupBy[Timestamp, Literal[False]]: ...
     @overload
     def groupby(  # pyright: ignore reportOverlappingOverload
         self,
         by: TimedeltaIndex,
         axis: AxisIndex | NoDefault = ...,
-        level: IndexLabel | None = ...,
+        level: IndexLabel | None = None,
         as_index: Literal[True] = True,
-        sort: _bool = ...,
-        group_keys: _bool = ...,
+        sort: _bool = True,
+        group_keys: _bool = True,
         observed: _bool | NoDefault = ...,
-        dropna: _bool = ...,
+        dropna: _bool = True,
     ) -> DataFrameGroupBy[Timedelta, Literal[True]]: ...
     @overload
     def groupby(
         self,
         by: TimedeltaIndex,
         axis: AxisIndex | NoDefault = ...,
-        level: IndexLabel | None = ...,
+        level: IndexLabel | None = None,
         as_index: Literal[False] = False,
-        sort: _bool = ...,
-        group_keys: _bool = ...,
+        sort: _bool = True,
+        group_keys: _bool = True,
         observed: _bool | NoDefault = ...,
-        dropna: _bool = ...,
+        dropna: _bool = True,
     ) -> DataFrameGroupBy[Timedelta, Literal[False]]: ...
     @overload
     def groupby(  # pyright: ignore reportOverlappingOverload
         self,
         by: PeriodIndex,
         axis: AxisIndex | NoDefault = ...,
-        level: IndexLabel | None = ...,
+        level: IndexLabel | None = None,
         as_index: Literal[True] = True,
-        sort: _bool = ...,
-        group_keys: _bool = ...,
+        sort: _bool = True,
+        group_keys: _bool = True,
         observed: _bool | NoDefault = ...,
-        dropna: _bool = ...,
+        dropna: _bool = True,
     ) -> DataFrameGroupBy[Period, Literal[True]]: ...
     @overload
     def groupby(
         self,
         by: PeriodIndex,
         axis: AxisIndex | NoDefault = ...,
-        level: IndexLabel | None = ...,
+        level: IndexLabel | None = None,
         as_index: Literal[False] = False,
-        sort: _bool = ...,
-        group_keys: _bool = ...,
+        sort: _bool = True,
+        group_keys: _bool = True,
         observed: _bool | NoDefault = ...,
-        dropna: _bool = ...,
+        dropna: _bool = True,
     ) -> DataFrameGroupBy[Period, Literal[False]]: ...
     @overload
     def groupby(  # pyright: ignore reportOverlappingOverload
         self,
         by: IntervalIndex[IntervalT],
         axis: AxisIndex | NoDefault = ...,
-        level: IndexLabel | None = ...,
+        level: IndexLabel | None = None,
         as_index: Literal[True] = True,
-        sort: _bool = ...,
-        group_keys: _bool = ...,
+        sort: _bool = True,
+        group_keys: _bool = True,
         observed: _bool | NoDefault = ...,
-        dropna: _bool = ...,
+        dropna: _bool = True,
     ) -> DataFrameGroupBy[IntervalT, Literal[True]]: ...
     @overload
     def groupby(
         self,
         by: IntervalIndex[IntervalT],
         axis: AxisIndex | NoDefault = ...,
-        level: IndexLabel | None = ...,
+        level: IndexLabel | None = None,
         as_index: Literal[False] = False,
-        sort: _bool = ...,
-        group_keys: _bool = ...,
+        sort: _bool = True,
+        group_keys: _bool = True,
         observed: _bool | NoDefault = ...,
-        dropna: _bool = ...,
+        dropna: _bool = True,
     ) -> DataFrameGroupBy[IntervalT, Literal[False]]: ...
     @overload
     def groupby(  # type: ignore[overload-overlap] # pyright: ignore reportOverlappingOverload
         self,
         by: MultiIndex | GroupByObjectNonScalar[Any] | None = ...,
         axis: AxisIndex | NoDefault = ...,
-        level: IndexLabel | None = ...,
+        level: IndexLabel | None = None,
         as_index: Literal[True] = True,
-        sort: _bool = ...,
-        group_keys: _bool = ...,
+        sort: _bool = True,
+        group_keys: _bool = True,
         observed: _bool | NoDefault = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[tuple[Any, ...], Literal[True]]: ...
@@ -1240,10 +1241,10 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         by: MultiIndex | GroupByObjectNonScalar[Any] | None = ...,
         axis: AxisIndex | NoDefault = ...,
-        level: IndexLabel | None = ...,
+        level: IndexLabel | None = None,
         as_index: Literal[False] = False,
-        sort: _bool = ...,
-        group_keys: _bool = ...,
+        sort: _bool = True,
+        group_keys: _bool = True,
         observed: _bool | NoDefault = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[tuple[Any, ...], Literal[False]]: ...
@@ -1252,48 +1253,48 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         by: Series[SeriesByT],
         axis: AxisIndex | NoDefault = ...,
-        level: IndexLabel | None = ...,
+        level: IndexLabel | None = None,
         as_index: Literal[True] = True,
-        sort: _bool = ...,
-        group_keys: _bool = ...,
+        sort: _bool = True,
+        group_keys: _bool = True,
         observed: _bool | NoDefault = ...,
-        dropna: _bool = ...,
+        dropna: _bool = True,
     ) -> DataFrameGroupBy[SeriesByT, Literal[True]]: ...
     @overload
     def groupby(
         self,
         by: Series[SeriesByT],
         axis: AxisIndex | NoDefault = ...,
-        level: IndexLabel | None = ...,
+        level: IndexLabel | None = None,
         as_index: Literal[False] = False,
-        sort: _bool = ...,
-        group_keys: _bool = ...,
+        sort: _bool = True,
+        group_keys: _bool = True,
         observed: _bool | NoDefault = ...,
-        dropna: _bool = ...,
+        dropna: _bool = True,
     ) -> DataFrameGroupBy[SeriesByT, Literal[False]]: ...
     @overload
     def groupby(
         self,
         by: CategoricalIndex[Any] | Index[Any] | Series[SeriesByT],
         axis: AxisIndex | NoDefault = ...,
-        level: IndexLabel | None = ...,
+        level: IndexLabel | None = None,
         as_index: Literal[True] = True,
-        sort: _bool = ...,
-        group_keys: _bool = ...,
+        sort: _bool = True,
+        group_keys: _bool = True,
         observed: _bool | NoDefault = ...,
-        dropna: _bool = ...,
+        dropna: _bool = True,
     ) -> DataFrameGroupBy[Any, Literal[True]]: ...
     @overload
     def groupby(
         self,
         by: CategoricalIndex[Any] | Index[Any] | Series[SeriesByT],
         axis: AxisIndex | NoDefault = ...,
-        level: IndexLabel | None = ...,
+        level: IndexLabel | None = None,
         as_index: Literal[False] = False,
-        sort: _bool = ...,
-        group_keys: _bool = ...,
+        sort: _bool = True,
+        group_keys: _bool = True,
         observed: _bool | NoDefault = ...,
-        dropna: _bool = ...,
+        dropna: _bool = True,
     ) -> DataFrameGroupBy[Any, Literal[False]]: ...
     def pivot(
         self,
@@ -1313,18 +1314,18 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         dropna: _bool = ...,
         margins_name: _str = ...,
         observed: _bool = ...,
-        sort: _bool = ...,
+        sort: _bool = True,
     ) -> Self: ...
     @overload
     def stack(
-        self, level: Level | list[Level] = ..., dropna: _bool = ..., sort: _bool = ...
+        self, level: Level | list[Level] = -1, dropna: _bool = ..., sort: _bool = ...
     ) -> Self | Series[Any]: ...
     @overload
     def stack(
-        self, level: Level | list[Level] = ..., future_stack: _bool = ...
+        self, level: Level | list[Level] = -1, future_stack: _bool = False
     ) -> Self | Series[Any]: ...
     def explode(
-        self, column: Sequence[Hashable], ignore_index: _bool = ...
+        self, column: Sequence[Hashable], ignore_index: _bool = False
     ) -> Self: ...
     def unstack(
         self,
@@ -1341,7 +1342,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         col_level: int | _str | None = ...,
         ignore_index: _bool = ...,
     ) -> Self: ...
-    def diff(self, periods: int = ..., axis: Axis = ...) -> Self: ...
+    def diff(self, periods: int = 1, axis: Axis = 0) -> Self: ...
     @overload
     def agg(  # pyright: ignore[reportOverlappingOverload]
         self,
@@ -1373,7 +1374,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def transform(
         self,
         func: AggFuncTypeFrame,
-        axis: Axis = ...,
+        axis: Axis = 0,
         *args: Any,
         **kwargs: Any,
     ) -> Self: ...
@@ -1383,20 +1384,20 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def apply(
         self,
         f: Callable[..., ListLikeExceptSeriesAndStr | Series[Any]],
-        axis: AxisIndex = ...,
-        raw: _bool = ...,
+        axis: AxisIndex = 0,
+        raw: _bool = False,
         result_type: None = None,
-        args: Any = ...,
+        args: Any = (),
         **kwargs: Any,
     ) -> Self: ...
     @overload
     def apply(
         self,
         f: Callable[..., S1 | NAType],
-        axis: AxisIndex = ...,
-        raw: _bool = ...,
+        axis: AxisIndex = 0,
+        raw: _bool = False,
         result_type: None = None,
-        args: Any = ...,
+        args: Any = (),
         **kwargs: Any,
     ) -> Series[S1]: ...
     # Since non-scalar type T is not supported in Series[T],
@@ -1405,10 +1406,10 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def apply(
         self,
         f: Callable[..., Mapping[Any, Any]],
-        axis: AxisIndex = ...,
-        raw: _bool = ...,
+        axis: AxisIndex = 0,
+        raw: _bool = False,
         result_type: None = None,
-        args: Any = ...,
+        args: Any = (),
         **kwargs: Any,
     ) -> Series[Any]: ...
 
@@ -1417,9 +1418,9 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def apply(
         self,
         f: Callable[..., S1 | NAType],
-        axis: Axis = ...,
-        raw: _bool = ...,
-        args: Any = ...,
+        axis: Axis = 0,
+        raw: _bool = False,
+        args: Any = (),
         *,
         result_type: Literal["expand", "reduce"],
         **kwargs: Any,
@@ -1428,9 +1429,9 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def apply(
         self,
         f: Callable[..., ListLikeExceptSeriesAndStr | Series[Any] | Mapping[Any, Any]],
-        axis: Axis = ...,
-        raw: _bool = ...,
-        args: Any = ...,
+        axis: Axis = 0,
+        raw: _bool = False,
+        args: Any = (),
         *,
         result_type: Literal["expand"],
         **kwargs: Any,
@@ -1439,9 +1440,9 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def apply(
         self,
         f: Callable[..., ListLikeExceptSeriesAndStr | Mapping[Any, Any]],
-        axis: Axis = ...,
-        raw: _bool = ...,
-        args: Any = ...,
+        axis: Axis = 0,
+        raw: _bool = False,
+        args: Any = (),
         *,
         result_type: Literal["reduce"],
         **kwargs: Any,
@@ -1452,9 +1453,9 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         f: Callable[
             ..., ListLikeExceptSeriesAndStr | Series[Any] | Scalar | Mapping[Any, Any]
         ],
-        axis: Axis = ...,
-        raw: _bool = ...,
-        args: Any = ...,
+        axis: Axis = 0,
+        raw: _bool = False,
+        args: Any = (),
         *,
         result_type: Literal["broadcast"],
         **kwargs: Any,
@@ -1465,9 +1466,9 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def apply(
         self,
         f: Callable[..., Series[Any]],
-        axis: AxisIndex = ...,
-        raw: _bool = ...,
-        args: Any = ...,
+        axis: AxisIndex = 0,
+        raw: _bool = False,
+        args: Any = (),
         *,
         result_type: Literal["reduce"],
         **kwargs: Any,
@@ -1478,9 +1479,9 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def apply(
         self,
         f: Callable[..., S1 | NAType],
-        raw: _bool = ...,
+        raw: _bool = False,
         result_type: None = None,
-        args: Any = ...,
+        args: Any = (),
         *,
         axis: AxisColumn,
         **kwargs: Any,
@@ -1489,9 +1490,9 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def apply(
         self,
         f: Callable[..., ListLikeExceptSeriesAndStr | Mapping[Any, Any]],
-        raw: _bool = ...,
+        raw: _bool = False,
         result_type: None = None,
-        args: Any = ...,
+        args: Any = (),
         *,
         axis: AxisColumn,
         **kwargs: Any,
@@ -1500,9 +1501,9 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def apply(
         self,
         f: Callable[..., Series[Any]],
-        raw: _bool = ...,
+        raw: _bool = False,
         result_type: None = None,
-        args: Any = ...,
+        args: Any = (),
         *,
         axis: AxisColumn,
         **kwargs: Any,
@@ -1513,8 +1514,8 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def apply(
         self,
         f: Callable[..., Series[Any]],
-        raw: _bool = ...,
-        args: Any = ...,
+        raw: _bool = False,
+        args: Any = (),
         *,
         axis: AxisColumn,
         result_type: Literal["reduce"],
@@ -1538,29 +1539,29 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def merge(
         self,
         right: DataFrame | Series[Any],
-        how: MergeHow = ...,
-        on: IndexLabel | AnyArrayLike | None = ...,
-        left_on: IndexLabel | AnyArrayLike | None = ...,
-        right_on: IndexLabel | AnyArrayLike | None = ...,
-        left_index: _bool = ...,
-        right_index: _bool = ...,
-        sort: _bool = ...,
-        suffixes: Suffixes = ...,
-        copy: _bool = ...,
-        indicator: _bool | _str = ...,
-        validate: MergeValidate | None = ...,
+        how: MergeHow = 'inner',
+        on: IndexLabel | AnyArrayLike | None = None,
+        left_on: IndexLabel | AnyArrayLike | None = None,
+        right_on: IndexLabel | AnyArrayLike | None = None,
+        left_index: _bool = False,
+        right_index: _bool = False,
+        sort: _bool = False,
+        suffixes: Suffixes = ('_x', '_y'),
+        copy: _bool = None,
+        indicator: _bool | _str = False,
+        validate: MergeValidate | None = None,
     ) -> Self: ...
     def round(
         self, decimals: int | dict[Any, Any] | Series[Any] = ..., *args: Any, **kwargs: Any
     ) -> Self: ...
     def corr(
         self,
-        method: Literal["pearson", "kendall", "spearman"] = ...,
-        min_periods: int = ...,
-        numeric_only: _bool = ...,
+        method: Literal["pearson", "kendall", "spearman"] = 'pearson',
+        min_periods: int = 1,
+        numeric_only: _bool = False,
     ) -> Self: ...
     def cov(
-        self, min_periods: int | None = ..., ddof: int = ..., numeric_only: _bool = ...
+        self, min_periods: int | None = None, ddof: int = 1, numeric_only: _bool = False
     ) -> Self: ...
     def corrwith(
         self,
@@ -1572,7 +1573,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     ) -> Series[Any]: ...
     @overload
     def count(
-        self, axis: Axis = ..., numeric_only: _bool = ..., *, level: Level
+        self, axis: Axis = 0, numeric_only: _bool = False, *, level: Level
     ) -> Self: ...
     @overload
     def count(
@@ -1617,7 +1618,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         copy: _bool = ...,
     ) -> Self: ...
     def to_period(
-        self, freq: _str | None = ..., axis: Axis = ..., copy: _bool = ...
+        self, freq: _str | None = None, axis: Axis = 0, copy: _bool = None
     ) -> Self: ...
     def isin(self, values: Iterable[Any] | Series[Any] | DataFrame | dict[Any, Any]) -> Self: ...
     @property
@@ -1642,16 +1643,16 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     ) -> Any: ...
     def boxplot(
         self,
-        column: _str | list[_str] | None = ...,
-        by: _str | ListLike | None = ...,
-        ax: PlotAxes | None = ...,
-        fontsize: float | _str | None = ...,
-        rot: float = ...,
-        grid: _bool = ...,
-        figsize: tuple[float, float] | None = ...,
-        layout: tuple[int, int] | None = ...,
-        return_type: Literal["axes", "dict", "both"] | None = ...,
-        backend: _str | None = ...,
+        column: _str | list[_str] | None = None,
+        by: _str | ListLike | None = None,
+        ax: PlotAxes | None = None,
+        fontsize: float | _str | None = None,
+        rot: float = 0,
+        grid: _bool = True,
+        figsize: tuple[float, float] | None = None,
+        layout: tuple[int, int] | None = None,
+        return_type: Literal["axes", "dict", "both"] | None = None,
+        backend: _str | None = None,
         **kwargs: Any,
     ) -> Any: ...
     sparse = ...
@@ -1699,9 +1700,9 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def add(
         self,
         other: num | ListLike | DataFrame,
-        axis: Axis | None = ...,
-        level: Level | None = ...,
-        fill_value: float | None = ...,
+        axis: Axis | None = 'columns',
+        level: Level | None = None,
+        fill_value: float | None = None,
     ) -> Self: ...
     def add_prefix(self, prefix: _str, axis: Axis | None = None) -> Self: ...
     def add_suffix(self, suffix: _str, axis: Axis | None = None) -> Self: ...
@@ -1709,16 +1710,16 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def all(
         self,
         axis: None,
-        bool_only: _bool | None = ...,
-        skipna: _bool = ...,
+        bool_only: _bool | None = False,
+        skipna: _bool = True,
         **kwargs: Any,
     ) -> np.bool: ...
     @overload
     def all(
         self,
-        axis: Axis = ...,
-        bool_only: _bool | None = ...,
-        skipna: _bool = ...,
+        axis: Axis = 0,
+        bool_only: _bool | None = False,
+        skipna: _bool = True,
         **kwargs: Any,
     ) -> Series[_bool]: ...
     @overload
@@ -1726,17 +1727,17 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         *,
         axis: None,
-        bool_only: _bool | None = ...,
-        skipna: _bool = ...,
+        bool_only: _bool | None = False,
+        skipna: _bool = True,
         **kwargs: Any,
     ) -> np.bool: ...
     @overload
     def any(
         self,
         *,
-        axis: Axis = ...,
-        bool_only: _bool | None = ...,
-        skipna: _bool = ...,
+        axis: Axis = 0,
+        bool_only: _bool | None = False,
+        skipna: _bool = True,
         **kwargs: Any,
     ) -> Series[_bool]: ...
     def asof(self, where: Any, subset: _str | list[_str] | None = ...) -> Self: ...
@@ -1757,60 +1758,60 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def at_time(
         self,
         time: _str | dt.time,
-        asof: _bool = ...,
-        axis: Axis | None = ...,
+        asof: _bool = False,
+        axis: Axis | None = None,
     ) -> Self: ...
     def between_time(
         self,
         start_time: _str | dt.time,
         end_time: _str | dt.time,
-        axis: Axis | None = ...,
+        axis: Axis | None = None,
     ) -> Self: ...
     @overload
     def bfill(
         self,
         *,
-        axis: Axis | None = ...,
+        axis: Axis | None = None,
         inplace: Literal[True],
-        limit: int | None = ...,
-        limit_area: Literal["inside", "outside"] | None = ...,
+        limit: int | None = None,
+        limit_area: Literal["inside", "outside"] | None = None,
     ) -> None: ...
     @overload
     def bfill(
         self,
         *,
-        axis: Axis | None = ...,
+        axis: Axis | None = None,
         inplace: Literal[False] = False,
-        limit: int | None = ...,
-        limit_area: Literal["inside", "outside"] | None = ...,
+        limit: int | None = None,
+        limit_area: Literal["inside", "outside"] | None = None,
     ) -> Self: ...
     @overload
     def clip(
         self,
-        lower: float | None = ...,
-        upper: float | None = ...,
+        lower: float | None = None,
+        upper: float | None = None,
         *,
-        axis: Axis | None = ...,
-        inplace: Literal[False] = False,
-        **kwargs: Any,
-    ) -> Self: ...
-    @overload
-    def clip(
-        self,
-        lower: AnyArrayLike = ...,
-        upper: AnyArrayLike | None = ...,
-        *,
-        axis: Axis = ...,
+        axis: Axis | None = None,
         inplace: Literal[False] = False,
         **kwargs: Any,
     ) -> Self: ...
     @overload
     def clip(
         self,
-        lower: AnyArrayLike | None = ...,
-        upper: AnyArrayLike = ...,
+        lower: AnyArrayLike = None,
+        upper: AnyArrayLike | None = None,
         *,
-        axis: Axis = ...,
+        axis: Axis = None,
+        inplace: Literal[False] = False,
+        **kwargs: Any,
+    ) -> Self: ...
+    @overload
+    def clip(
+        self,
+        lower: AnyArrayLike | None = None,
+        upper: AnyArrayLike = None,
+        *,
+        axis: Axis = None,
         inplace: Literal[False] = False,
         **kwargs: Any,
     ) -> Self: ...
@@ -1820,126 +1821,126 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         lower: None = None,
         upper: None = None,
         *,
-        axis: Axis | None = ...,
+        axis: Axis | None = None,
         inplace: Literal[True],
         **kwargs: Any,
     ) -> Self: ...
     @overload
     def clip(
         self,
-        lower: float | None = ...,
-        upper: float | None = ...,
+        lower: float | None = None,
+        upper: float | None = None,
         *,
-        axis: Axis | None = ...,
+        axis: Axis | None = None,
         inplace: Literal[True],
         **kwargs: Any,
     ) -> None: ...
     @overload
     def clip(
         self,
-        lower: AnyArrayLike = ...,
-        upper: AnyArrayLike | None = ...,
+        lower: AnyArrayLike = None,
+        upper: AnyArrayLike | None = None,
         *,
-        axis: Axis = ...,
+        axis: Axis = None,
         inplace: Literal[True],
         **kwargs: Any,
     ) -> None: ...
     @overload
     def clip(
         self,
-        lower: AnyArrayLike | None = ...,
-        upper: AnyArrayLike = ...,
+        lower: AnyArrayLike | None = None,
+        upper: AnyArrayLike = None,
         *,
-        axis: Axis = ...,
+        axis: Axis = None,
         inplace: Literal[True],
         **kwargs: Any,
     ) -> None: ...
-    def copy(self, deep: _bool = ...) -> Self: ...
+    def copy(self, deep: _bool = True) -> Self: ...
     def cummax(
-        self, axis: Axis | None = ..., skipna: _bool = ..., *args: Any, **kwargs: Any
+        self, axis: Axis | None = None, skipna: _bool = True, *args: Any, **kwargs: Any
     ) -> Self: ...
     def cummin(
-        self, axis: Axis | None = ..., skipna: _bool = ..., *args: Any, **kwargs: Any
+        self, axis: Axis | None = None, skipna: _bool = True, *args: Any, **kwargs: Any
     ) -> Self: ...
     def cumprod(
-        self, axis: Axis | None = ..., skipna: _bool = ..., *args: Any, **kwargs: Any
+        self, axis: Axis | None = None, skipna: _bool = True, *args: Any, **kwargs: Any
     ) -> Self: ...
     def cumsum(
-        self, axis: Axis | None = ..., skipna: _bool = ..., *args: Any, **kwargs: Any
+        self, axis: Axis | None = None, skipna: _bool = True, *args: Any, **kwargs: Any
     ) -> Self: ...
     def describe(
         self,
-        percentiles: list[float] | None = ...,
-        include: Literal["all"] | list[Dtype] | None = ...,
-        exclude: list[Dtype] | None = ...,
+        percentiles: list[float] | None = None,
+        include: Literal["all"] | list[Dtype] | None = None,
+        exclude: list[Dtype] | None = None,
     ) -> Self: ...
     def div(
         self,
         other: num | ListLike | DataFrame,
-        axis: Axis | None = ...,
-        level: Level | None = ...,
-        fill_value: float | None = ...,
+        axis: Axis | None = 'columns',
+        level: Level | None = None,
+        fill_value: float | None = None,
     ) -> Self: ...
     def divide(
         self,
         other: num | ListLike | DataFrame,
-        axis: Axis | None = ...,
-        level: Level | None = ...,
-        fill_value: float | None = ...,
+        axis: Axis | None = 'columns',
+        level: Level | None = None,
+        fill_value: float | None = None,
     ) -> Self: ...
     def droplevel(self, level: Level | list[Level], axis: Axis = ...) -> Self: ...
     def eq(self, other: Any, axis: Axis = ..., level: Level | None = ...) -> Self: ...
     def equals(self, other: Series[Any] | DataFrame) -> _bool: ...
     def ewm(
         self,
-        com: float | None = ...,
-        span: float | None = ...,
-        halflife: float | None = ...,
-        alpha: float | None = ...,
-        min_periods: int = ...,
-        adjust: _bool = ...,
-        ignore_na: _bool = ...,
+        com: float | None = None,
+        span: float | None = None,
+        halflife: float | None = None,
+        alpha: float | None = None,
+        min_periods: int = 0,
+        adjust: _bool = True,
+        ignore_na: _bool = False,
         axis: Axis = ...,
     ) -> ExponentialMovingWindow[Self]: ...
     def expanding(
         self,
-        min_periods: int = ...,
+        min_periods: int = 1,
         axis: AxisIndex = ...,
-        method: CalculationMethod = ...,
+        method: CalculationMethod = 'single',
     ) -> Expanding[Self]: ...
     @overload
     def ffill(
         self,
         *,
-        axis: Axis | None = ...,
+        axis: Axis | None = None,
         inplace: Literal[True],
-        limit: int | None = ...,
-        limit_area: Literal["inside", "outside"] | None = ...,
+        limit: int | None = None,
+        limit_area: Literal["inside", "outside"] | None = None,
     ) -> None: ...
     @overload
     def ffill(
         self,
         *,
-        axis: Axis | None = ...,
+        axis: Axis | None = None,
         inplace: Literal[False] = False,
-        limit: int | None = ...,
-        limit_area: Literal["inside", "outside"] | None = ...,
+        limit: int | None = None,
+        limit_area: Literal["inside", "outside"] | None = None,
     ) -> Self: ...
     def filter(
         self,
-        items: ListLike | None = ...,
-        like: _str | None = ...,
-        regex: _str | None = ...,
-        axis: Axis | None = ...,
+        items: ListLike | None = None,
+        like: _str | None = None,
+        regex: _str | None = None,
+        axis: Axis | None = None,
     ) -> Self: ...
     def first(self, offset: Timedelta | None = ...) -> Self: ...
     def first_valid_index(self) -> Scalar: ...
     def floordiv(
         self,
         other: num | ListLike | DataFrame,
-        axis: Axis | None = ...,
-        level: Level | None = ...,
-        fill_value: float | None = ...,
+        axis: Axis | None = 'columns',
+        level: Level | None = None,
+        fill_value: float | None = None,
     ) -> Self: ...
     # def from_dict
     # def from_records
@@ -1959,42 +1960,42 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def interpolate(
         self,
-        method: InterpolateOptions = ...,
+        method: InterpolateOptions = 'linear',
         *,
-        axis: Axis = ...,
-        limit: int | None = ...,
-        limit_direction: Literal["forward", "backward", "both"] = ...,
-        limit_area: Literal["inside", "outside"] | None = ...,
+        axis: Axis = 0,
+        limit: int | None = None,
+        limit_direction: Literal["forward", "backward", "both"] = None,
+        limit_area: Literal["inside", "outside"] | None = None,
         inplace: Literal[True],
         **kwargs: Any,
     ) -> None: ...
     @overload
     def interpolate(
         self,
-        method: InterpolateOptions = ...,
+        method: InterpolateOptions = 'linear',
         *,
-        axis: Axis = ...,
-        limit: int | None = ...,
-        limit_direction: Literal["forward", "backward", "both"] = ...,
-        limit_area: Literal["inside", "outside"] | None = ...,
+        axis: Axis = 0,
+        limit: int | None = None,
+        limit_direction: Literal["forward", "backward", "both"] = None,
+        limit_area: Literal["inside", "outside"] | None = None,
         inplace: Literal[False] = False,
         **kwargs: Any,
     ) -> Self: ...
     def keys(self) -> Index[Any]: ...
     def kurt(
         self,
-        axis: Axis | None = ...,
-        skipna: _bool | None = ...,
+        axis: Axis | None = 0,
+        skipna: _bool | None = True,
         level: None = None,
-        numeric_only: _bool = ...,
+        numeric_only: _bool = False,
         **kwargs: Any,
     ) -> Series[Any]: ...
     def kurtosis(
         self,
-        axis: Axis | None = ...,
-        skipna: _bool | None = ...,
+        axis: Axis | None = 0,
+        skipna: _bool | None = True,
         level: None = None,
-        numeric_only: _bool = ...,
+        numeric_only: _bool = False,
         **kwargs: Any,
     ) -> Series[Any]: ...
     def last(self, offset: Timedelta | None = ...) -> Self: ...
@@ -2014,8 +2015,8 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         other: Scalar | UnknownSeries | DataFrame | Callable[..., Any] | NAType | None = ...,
         *,
         inplace: Literal[True],
-        axis: Axis | None = ...,
-        level: Level | None = ...,
+        axis: Axis | None = None,
+        level: Level | None = None,
     ) -> None: ...
     @overload
     def mask(
@@ -2030,68 +2031,68 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         other: Scalar | UnknownSeries | DataFrame | Callable[..., Any] | NAType | None = ...,
         *,
         inplace: Literal[False] = False,
-        axis: Axis | None = ...,
-        level: Level | None = ...,
+        axis: Axis | None = None,
+        level: Level | None = None,
     ) -> Self: ...
     def max(
         self,
-        axis: Axis | None = ...,
-        skipna: _bool | None = ...,
+        axis: Axis | None = 0,
+        skipna: _bool | None = True,
         level: None = None,
-        numeric_only: _bool = ...,
+        numeric_only: _bool = False,
         **kwargs: Any,
     ) -> Series[S1]: ...
     def mean(
         self,
-        axis: Axis | None = ...,
-        skipna: _bool | None = ...,
+        axis: Axis | None = 0,
+        skipna: _bool | None = True,
         level: None = None,
-        numeric_only: _bool = ...,
+        numeric_only: _bool = False,
         **kwargs: Any,
     ) -> Series[S1]: ...
     def median(
         self,
-        axis: Axis | None = ...,
-        skipna: _bool | None = ...,
+        axis: Axis | None = 0,
+        skipna: _bool | None = True,
         level: None = None,
-        numeric_only: _bool = ...,
+        numeric_only: _bool = False,
         **kwargs: Any,
     ) -> Series[S1]: ...
     def min(
         self,
-        axis: Axis | None = ...,
-        skipna: _bool | None = ...,
+        axis: Axis | None = 0,
+        skipna: _bool | None = True,
         level: None = None,
-        numeric_only: _bool = ...,
+        numeric_only: _bool = False,
         **kwargs: Any,
     ) -> Series[S1]: ...
     def mod(
         self,
         other: num | ListLike | DataFrame,
-        axis: Axis | None = ...,
-        level: Level | None = ...,
-        fill_value: float | None = ...,
+        axis: Axis | None = 'columns',
+        level: Level | None = None,
+        fill_value: float | None = None,
     ) -> Self: ...
     def mul(
         self,
         other: num | ListLike | DataFrame,
-        axis: Axis | None = ...,
-        level: Level | None = ...,
-        fill_value: float | None = ...,
+        axis: Axis | None = 'columns',
+        level: Level | None = None,
+        fill_value: float | None = None,
     ) -> Self: ...
     def multiply(
         self,
         other: num | ListLike | DataFrame,
-        axis: Axis | None = ...,
-        level: Level | None = ...,
-        fill_value: float | None = ...,
+        axis: Axis | None = 'columns',
+        level: Level | None = None,
+        fill_value: float | None = None,
     ) -> Self: ...
     def ne(self, other: Any, axis: Axis = ..., level: Level | None = ...) -> Self: ...
     def pct_change(
         self,
-        periods: int = ...,
+        periods: int = 1,
         fill_method: None = None,
-        freq: DateOffset | dt.timedelta | _str | None = ...,
+        freq: DateOffset | dt.timedelta | _str | None = None,
         *,
         axis: Axis = ...,
         fill_value: Scalar | NAType | None = ...,
@@ -2100,26 +2101,26 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def pow(
         self,
         other: num | ListLike | DataFrame,
-        axis: Axis | None = ...,
-        level: Level | None = ...,
-        fill_value: float | None = ...,
+        axis: Axis | None = 'columns',
+        level: Level | None = None,
+        fill_value: float | None = None,
     ) -> Self: ...
     def prod(
         self,
-        axis: Axis | None = ...,
-        skipna: _bool | None = ...,
+        axis: Axis | None = 0,
+        skipna: _bool | None = True,
         level: None = None,
-        numeric_only: _bool = ...,
-        min_count: int = ...,
+        numeric_only: _bool = False,
+        min_count: int = 0,
         **kwargs: Any,
     ) -> Series[Any]: ...
     def product(
         self,
-        axis: Axis | None = ...,
-        skipna: _bool = ...,
+        axis: Axis | None = 0,
+        skipna: _bool = True,
         level: None = None,
-        numeric_only: _bool = ...,
-        min_count: int = ...,
+        numeric_only: _bool = False,
+        min_count: int = 0,
         **kwargs: Any,
     ) -> Series[Any]: ...
     def radd(
@@ -2131,12 +2132,12 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     ) -> Self: ...
     def rank(
         self,
-        axis: Axis = ...,
-        method: Literal["average", "min", "max", "first", "dense"] = ...,
-        numeric_only: _bool = ...,
-        na_option: Literal["keep", "top", "bottom"] = ...,
-        ascending: _bool = ...,
-        pct: _bool = ...,
+        axis: Axis = 0,
+        method: Literal["average", "min", "max", "first", "dense"] = 'average',
+        numeric_only: _bool = False,
+        na_option: Literal["keep", "top", "bottom"] = 'keep',
+        ascending: _bool = True,
+        pct: _bool = False,
     ) -> Self: ...
     def rdiv(
         self,
@@ -2159,8 +2160,8 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         mapper: Scalar | ListLike | None = ...,
         *,
-        axis: Axis | None = ...,
-        copy: _bool = ...,
+        axis: Axis | None = 0,
+        copy: _bool = None,
         inplace: Literal[True],
     ) -> None: ...
     # Rename axis with `mapper`, `axis`, and `inplace=False`
@@ -2169,8 +2170,8 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         mapper: Scalar | ListLike | None = ...,
         *,
-        axis: Axis | None = ...,
-        copy: _bool = ...,
+        axis: Axis | None = 0,
+        copy: _bool = None,
         inplace: Literal[False] = False,
     ) -> Self: ...
     # Rename axis with `index` and/or `columns` and `inplace=True`
@@ -2218,13 +2219,13 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def rolling(
         self,
         window: int | str | dt.timedelta | BaseOffset | BaseIndexer,
-        min_periods: int | None = ...,
-        center: _bool = ...,
-        on: Hashable | None = ...,
+        min_periods: int | None = None,
+        center: _bool = False,
+        on: Hashable | None = None,
         axis: AxisIndex = ...,
-        closed: IntervalClosedType | None = ...,
-        step: int | None = ...,
-        method: CalculationMethod = ...,
+        closed: IntervalClosedType | None = None,
+        step: int | None = None,
+        method: CalculationMethod = 'single',
         *,
         win_type: _str,
     ) -> Window[Self]: ...
@@ -2232,22 +2233,22 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def rolling(
         self,
         window: int | str | dt.timedelta | BaseOffset | BaseIndexer,
-        min_periods: int | None = ...,
-        center: _bool = ...,
-        on: Hashable | None = ...,
+        min_periods: int | None = None,
+        center: _bool = False,
+        on: Hashable | None = None,
         axis: AxisIndex = ...,
-        closed: IntervalClosedType | None = ...,
-        step: int | None = ...,
-        method: CalculationMethod = ...,
+        closed: IntervalClosedType | None = None,
+        step: int | None = None,
+        method: CalculationMethod = 'single',
         *,
         win_type: None = None,
     ) -> Rolling[Self]: ...
     def rpow(
         self,
-        other: Any,
-        axis: Axis = ...,
-        level: Level | None = ...,
-        fill_value: float | None = ...,
+        other,
+        axis: Axis = 'columns',
+        level: Level | None = None,
+        fill_value: float | None = None,
     ) -> Self: ...
     def rsub(
         self,
@@ -2266,64 +2267,64 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     # sample is missing a weights arg
     def sample(
         self,
-        n: int | None = ...,
-        frac: float | None = ...,
-        replace: _bool = ...,
-        weights: _str | ListLike | None = ...,
-        random_state: RandomState | None = ...,
-        axis: AxisIndex | None = ...,
-        ignore_index: _bool = ...,
+        n: int | None = None,
+        frac: float | None = None,
+        replace: _bool = False,
+        weights: _str | ListLike | None = None,
+        random_state: RandomState | None = None,
+        axis: AxisIndex | None = None,
+        ignore_index: _bool = False,
     ) -> Self: ...
     def sem(
         self,
-        axis: Axis | None = ...,
-        skipna: _bool | None = ...,
+        axis: Axis | None = 0,
+        skipna: _bool | None = True,
         level: None = None,
-        ddof: int = ...,
-        numeric_only: _bool = ...,
+        ddof: int = 1,
+        numeric_only: _bool = False,
         **kwargs: Any,
     ) -> Series[Any]: ...
     # Not actually positional, but used to handle removal of deprecated
     def set_axis(self, labels: Any, *, axis: Axis, copy: _bool = ...) -> Self: ...
     def skew(
         self,
-        axis: Axis | None = ...,
-        skipna: _bool | None = ...,
+        axis: Axis | None = 0,
+        skipna: _bool | None = True,
         level: None = None,
-        numeric_only: _bool = ...,
+        numeric_only: _bool = False,
         **kwargs: Any,
     ) -> Series[Any]: ...
     def squeeze(self, axis: Axis | None = ...) -> DataFrame | Series[Any] | Scalar: ...
     def std(
         self,
-        axis: Axis = ...,
-        skipna: _bool = ...,
+        axis: Axis = 0,
+        skipna: _bool = True,
         level: None = None,
-        ddof: int = ...,
-        numeric_only: _bool = ...,
+        ddof: int = 1,
+        numeric_only: _bool = False,
         **kwargs: Any,
     ) -> Series[Any]: ...
     def sub(
         self,
         other: num | ListLike | DataFrame,
-        axis: Axis | None = ...,
-        level: Level | None = ...,
-        fill_value: float | None = ...,
+        axis: Axis | None = 'columns',
+        level: Level | None = None,
+        fill_value: float | None = None,
     ) -> Self: ...
     def subtract(
         self,
         other: num | ListLike | DataFrame,
-        axis: Axis | None = ...,
-        level: Level | None = ...,
-        fill_value: float | None = ...,
+        axis: Axis | None = 'columns',
+        level: Level | None = None,
+        fill_value: float | None = None,
     ) -> Self: ...
     def sum(
         self,
-        axis: Axis | None = ...,
-        skipna: _bool | None = ...,
+        axis: Axis | None = 0,
+        skipna: _bool | None = True,
         level: None = None,
-        numeric_only: _bool = ...,
-        min_count: int = ...,
+        numeric_only: _bool = False,
+        min_count: int = 0,
         **kwargs: Any,
     ) -> Series[Any]: ...
     def swapaxes(self, axis1: Axis, axis2: Axis, copy: _bool = ...) -> Self: ...
@@ -2334,15 +2335,15 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         path_or_buf: FilePath | WriteBuffer[str],
         *,
         orient: Literal["records"],
-        date_format: Literal["epoch", "iso"] | None = ...,
-        double_precision: int = ...,
-        force_ascii: _bool = ...,
-        date_unit: TimeUnit = ...,
-        default_handler: Callable[[Any], JSONSerializable] | None = ...,
+        date_format: Literal["epoch", "iso"] | None = None,
+        double_precision: int = 10,
+        force_ascii: _bool = True,
+        date_unit: TimeUnit = 'ms',
+        default_handler: Callable[[Any], JSONSerializable] | None = None,
         lines: Literal[True],
-        compression: CompressionOptions = ...,
-        index: _bool = ...,
-        indent: int | None = ...,
+        compression: CompressionOptions = 'infer',
+        index: _bool = None,
+        indent: int | None = None,
         mode: Literal["a"],
     ) -> None: ...
     @overload
@@ -2351,47 +2352,47 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         path_or_buf: None = None,
         *,
         orient: Literal["records"],
-        date_format: Literal["epoch", "iso"] | None = ...,
-        double_precision: int = ...,
-        force_ascii: _bool = ...,
-        date_unit: TimeUnit = ...,
-        default_handler: Callable[[Any], JSONSerializable] | None = ...,
+        date_format: Literal["epoch", "iso"] | None = None,
+        double_precision: int = 10,
+        force_ascii: _bool = True,
+        date_unit: TimeUnit = 'ms',
+        default_handler: Callable[[Any], JSONSerializable] | None = None,
         lines: Literal[True],
-        compression: CompressionOptions = ...,
-        index: _bool = ...,
-        indent: int | None = ...,
+        compression: CompressionOptions = 'infer',
+        index: _bool = None,
+        indent: int | None = None,
         mode: Literal["a"],
     ) -> _str: ...
     @overload
     def to_json(
         self,
         path_or_buf: None = None,
-        orient: JsonFrameOrient | None = ...,
-        date_format: Literal["epoch", "iso"] | None = ...,
-        double_precision: int = ...,
-        force_ascii: _bool = ...,
-        date_unit: TimeUnit = ...,
-        default_handler: Callable[[Any], JSONSerializable] | None = ...,
-        lines: _bool = ...,
-        compression: CompressionOptions = ...,
-        index: _bool = ...,
-        indent: int | None = ...,
+        orient: JsonFrameOrient | None = None,
+        date_format: Literal["epoch", "iso"] | None = None,
+        double_precision: int = 10,
+        force_ascii: _bool = True,
+        date_unit: TimeUnit = 'ms',
+        default_handler: Callable[[Any], JSONSerializable] | None = None,
+        lines: _bool = False,
+        compression: CompressionOptions = 'infer',
+        index: _bool = None,
+        indent: int | None = None,
         mode: Literal["w"] = "w",
     ) -> _str: ...
     @overload
     def to_json(
         self,
         path_or_buf: FilePath | WriteBuffer[str] | WriteBuffer[bytes],
-        orient: JsonFrameOrient | None = ...,
-        date_format: Literal["epoch", "iso"] | None = ...,
-        double_precision: int = ...,
-        force_ascii: _bool = ...,
-        date_unit: TimeUnit = ...,
-        default_handler: Callable[[Any], JSONSerializable] | None = ...,
-        lines: _bool = ...,
-        compression: CompressionOptions = ...,
-        index: _bool = ...,
-        indent: int | None = ...,
+        orient: JsonFrameOrient | None = None,
+        date_format: Literal["epoch", "iso"] | None = None,
+        double_precision: int = 10,
+        force_ascii: _bool = True,
+        date_unit: TimeUnit = 'ms',
+        default_handler: Callable[[Any], JSONSerializable] | None = None,
+        lines: _bool = False,
+        compression: CompressionOptions = 'infer',
+        index: _bool = None,
+        indent: int | None = None,
         mode: Literal["w"] = "w",
     ) -> None: ...
     @overload
@@ -2444,40 +2445,40 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def truediv(
         self,
         other: num | ListLike | DataFrame,
-        axis: Axis | None = ...,
-        level: Level | None = ...,
-        fill_value: float | None = ...,
+        axis: Axis | None = 'columns',
+        level: Level | None = None,
+        fill_value: float | None = None,
     ) -> Self: ...
     def truncate(
         self,
-        before: dt.date | _str | int | None = ...,
-        after: dt.date | _str | int | None = ...,
-        axis: Axis | None = ...,
-        copy: _bool = ...,
+        before: dt.date | _str | int | None = None,
+        after: dt.date | _str | int | None = None,
+        axis: Axis | None = None,
+        copy: _bool = None,
     ) -> Self: ...
     def tz_convert(
         self,
         tz: TimeZones,
-        axis: Axis = ...,
-        level: Level | None = ...,
-        copy: _bool = ...,
+        axis: Axis = 0,
+        level: Level | None = None,
+        copy: _bool = None,
     ) -> Self: ...
     def tz_localize(
         self,
         tz: TimeZones,
-        axis: Axis = ...,
-        level: Level | None = ...,
-        copy: _bool = ...,
-        ambiguous: TimeAmbiguous = ...,
-        nonexistent: TimeNonexistent = ...,
+        axis: Axis = 0,
+        level: Level | None = None,
+        copy: _bool = None,
+        ambiguous: TimeAmbiguous = 'raise',
+        nonexistent: TimeNonexistent = 'raise',
     ) -> Self: ...
     def var(
         self,
-        axis: Axis | None = ...,
-        skipna: _bool | None = ...,
+        axis: Axis | None = 0,
+        skipna: _bool | None = True,
         level: None = None,
-        ddof: int = ...,
-        numeric_only: _bool = ...,
+        ddof: int = 1,
+        numeric_only: _bool = False,
         **kwargs: Any,
     ) -> Series[Any]: ...
     @overload
@@ -2493,8 +2494,8 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         other:Any=...,
         *,
         inplace: Literal[True],
-        axis: Axis | None = ...,
-        level: Level | None = ...,
+        axis: Axis | None = None,
+        level: Level | None = None,
     ) -> None: ...
     @overload
     def where(
@@ -2509,8 +2510,8 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         other:Any=...,
         *,
         inplace: Literal[False] = False,
-        axis: Axis | None = ...,
-        level: Level | None = ...,
+        axis: Axis | None = None,
+        level: Level | None = None,
     ) -> Self: ...
     # Move from generic because Series is Generic and it returns Series[bool] there
     def __invert__(self) -> Self: ...

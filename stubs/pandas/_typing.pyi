@@ -19,6 +19,7 @@ from typing import (
     SupportsIndex,
     TypedDict,
     TypeVar,
+    Union,
     overload,
 )
 
@@ -79,7 +80,7 @@ class SequenceNotStr(Protocol[_T_co]):
     def __contains__(self, value: object, /) -> bool: ...
     def __len__(self) -> int: ...
     def __iter__(self) -> Iterator[_T_co]: ...
-    def index(self, value: Any, start: int = ..., stop: int = ..., /) -> int: ...
+    def index(self, value: Any, start: int = 0, stop: int = ..., /) -> int: ...
     def count(self, value: Any, /) -> int: ...
     def __reversed__(self) -> Iterator[_T_co]: ...
 
@@ -463,6 +464,10 @@ VoidDtypeArg: TypeAlias = (
     | Literal["V", "void", "void0"]
 )
 
+# DtypeArg specifies all allowable dtypes in a functions its dtype argument
+DtypeArg: TypeAlias = Dtype | Mapping[Hashable, Dtype]
+DtypeObj: TypeAlias = np.dtype[np.generic] | ExtensionDtype
+
 AstypeArg: TypeAlias = (
     BooleanDtypeArg
     | IntDtypeArg
@@ -478,10 +483,6 @@ AstypeArg: TypeAlias = (
     | VoidDtypeArg
     | DtypeObj
 )
-
-# DtypeArg specifies all allowable dtypes in a functions its dtype argument
-DtypeArg: TypeAlias = Dtype | Mapping[Hashable, Dtype]
-DtypeObj: TypeAlias = np.dtype[np.generic] | ExtensionDtype
 
 # converters
 ConvertersArg: TypeAlias = Mapping[Hashable, Callable[[Dtype], Dtype]]
@@ -513,7 +514,8 @@ IndexKeyFunc: TypeAlias = Callable[[Index[Any]], Index[Any] | AnyArrayLike] | No
 
 # types of `func` kwarg for DataFrame.aggregate and Series.aggregate
 # More specific than what is in pandas
-AggFuncTypeBase: TypeAlias = Callable[..., Any] | str | np.ufunc
+# following Union is here to make it ty compliant https://github.com/astral-sh/ty/issues/591
+AggFuncTypeBase: TypeAlias = Union[Callable[..., Any], str, np.ufunc]  # noqa: UP007
 AggFuncTypeDictSeries: TypeAlias = Mapping[HashableT, AggFuncTypeBase]
 AggFuncTypeDictFrame: TypeAlias = Mapping[
     HashableT, AggFuncTypeBase | list[AggFuncTypeBase]

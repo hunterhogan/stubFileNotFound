@@ -32,8 +32,8 @@ Term = PyTablesExpr
 @overload
 def read_hdf(
     path_or_buf: FilePath | HDFStore,
-    key: Any | None = ...,
-    mode: Literal["r", "r+", "a"] = ...,
+    key: Any | None = None,
+    mode: Literal["r", "r+", "a"] = 'r',
     errors: Literal[
         "strict",
         "ignore",
@@ -42,21 +42,21 @@ def read_hdf(
         "xmlcharrefreplace",
         "backslashreplace",
         "namereplace",
-    ] = ...,
-    where: str | Term | Sequence[Term] | None = ...,
-    start: int | None = ...,
-    stop: int | None = ...,
-    columns: list[HashableT] | None = ...,
+    ] = 'strict',
+    where: str | Term | Sequence[Term] | None = None,
+    start: int | None = None,
+    stop: int | None = None,
+    columns: list[HashableT] | None = None,
     *,
     iterator: Literal[True],
-    chunksize: int | None = ...,
+    chunksize: int | None = None,
     **kwargs: Any,
 ) -> TableIterator: ...
 @overload
 def read_hdf(
     path_or_buf: FilePath | HDFStore,
-    key: Any | None = ...,
-    mode: Literal["r", "r+", "a"] = ...,
+    key: Any | None = None,
+    mode: Literal["r", "r+", "a"] = 'r',
     errors: Literal[
         "strict",
         "ignore",
@@ -65,12 +65,12 @@ def read_hdf(
         "xmlcharrefreplace",
         "backslashreplace",
         "namereplace",
-    ] = ...,
-    where: str | Term | Sequence[Term] | None = ...,
-    start: int | None = ...,
-    stop: int | None = ...,
-    columns: list[HashableT] | None = ...,
-    iterator: bool = ...,
+    ] = 'strict',
+    where: str | Term | Sequence[Term] | None = None,
+    start: int | None = None,
+    stop: int | None = None,
+    columns: list[HashableT] | None = None,
+    iterator: bool = False,
     *,
     chunksize: int,
     **kwargs: Any,
@@ -78,8 +78,8 @@ def read_hdf(
 @overload
 def read_hdf(
     path_or_buf: FilePath | HDFStore,
-    key: Any | None = ...,
-    mode: Literal["r", "r+", "a"] = ...,
+    key: Any | None = None,
+    mode: Literal["r", "r+", "a"] = 'r',
     errors: Literal[
         "strict",
         "ignore",
@@ -88,11 +88,11 @@ def read_hdf(
         "xmlcharrefreplace",
         "backslashreplace",
         "namereplace",
-    ] = ...,
-    where: str | Term | Sequence[Term] | None = ...,
-    start: int | None = ...,
-    stop: int | None = ...,
-    columns: list[HashableT] | None = ...,
+    ] = 'strict',
+    where: str | Term | Sequence[Term] | None = None,
+    start: int | None = None,
+    stop: int | None = None,
+    columns: list[HashableT] | None = None,
     iterator: Literal[False] = False,
     chunksize: None = None,
     **kwargs: Any,
@@ -102,10 +102,10 @@ class HDFStore:
     def __init__(
         self,
         path,
-        mode: Literal["a", "w", "r", "r+"] = ...,
-        complevel: int | None = ...,
-        complib: HDFCompLib | None = ...,
-        fletcher32: bool = ...,
+        mode: Literal["a", "w", "r", "r+"] = 'a',
+        complevel: int | None = None,
+        complib: HDFCompLib | None = None,
+        fletcher32: bool = False,
         **kwargs,
     ) -> None: ...
     def __fspath__(self) -> str: ...
@@ -124,7 +124,7 @@ class HDFStore:
     ) -> None: ...
     def keys(self) -> list[str]: ...
     def __iter__(self) -> Iterator[str]: ...
-    def open(self, mode: Literal["a", "w", "r", "r+"] = ..., **kwargs) -> None: ...
+    def open(self, mode: Literal["a", "w", "r", "r+"] = 'a', **kwargs) -> None: ...
     def close(self) -> None: ...
     @property
     def is_open(self) -> bool: ...
@@ -133,53 +133,53 @@ class HDFStore:
     def select(
         self,
         key: str,
-        where: str | Term | Sequence[Term] | None = ...,
-        start: int | None = ...,
-        stop: int | None = ...,
-        columns: list[HashableT] | None = ...,
+        where: str | Term | Sequence[Term] | None = None,
+        start: int | None = None,
+        stop: int | None = None,
+        columns: list[HashableT] | None = None,
         *,
         iterator: Literal[True],
-        chunksize: int | None = ...,
-        auto_close: bool = ...,
+        chunksize: int | None = None,
+        auto_close: bool = False,
     ) -> TableIterator: ...
     @overload
     def select(
         self,
         key: str,
-        where: str | Term | Sequence[Term] | None = ...,
-        start: int | None = ...,
-        stop: int | None = ...,
-        columns: list[HashableT] | None = ...,
-        iterator: bool = ...,
+        where: str | Term | Sequence[Term] | None = None,
+        start: int | None = None,
+        stop: int | None = None,
+        columns: list[HashableT] | None = None,
+        iterator: bool = False,
         *,
         chunksize: int,
-        auto_close: bool = ...,
+        auto_close: bool = False,
     ) -> TableIterator: ...
     @overload
     def select(
         self,
         key: str,
-        where: str | Term | Sequence[Term] | None = ...,
-        start: int | None = ...,
-        stop: int | None = ...,
-        columns: list[HashableT] | None = ...,
+        where: str | Term | Sequence[Term] | None = None,
+        start: int | None = None,
+        stop: int | None = None,
+        columns: list[HashableT] | None = None,
         iterator: Literal[False] = False,
         chunksize: None = None,
-        auto_close: bool = ...,
+        auto_close: bool = False,
     ) -> DataFrame | Series: ...
     def put(
         self,
         key: str,
         value: NDFrame,
-        format: Literal["t", "table", "f", "fixed"] = ...,
-        index: bool = ...,
-        append: bool = ...,
-        complib: HDFCompLib | None = ...,
-        complevel: int | None = ...,
-        min_itemsize: int | dict[HashableT1, int] | None = ...,
-        nan_rep: str | None = ...,
-        data_columns: Literal[True] | list[HashableT2] | None = ...,
-        encoding: str | None = ...,
+        format: Literal["t", "table", "f", "fixed"] = None,
+        index: bool = True,
+        append: bool = False,
+        complib: HDFCompLib | None = None,
+        complevel: int | None = None,
+        min_itemsize: int | dict[HashableT1, int] | None = None,
+        nan_rep: str | None = None,
+        data_columns: Literal[True] | list[HashableT2] | None = None,
+        encoding: str | None = None,
         errors: Literal[
             "strict",
             "ignore",
@@ -188,28 +188,28 @@ class HDFStore:
             "xmlcharrefreplace",
             "backslashreplace",
             "namereplace",
-        ] = ...,
-        track_times: bool = ...,
-        dropna: bool = ...,
+        ] = 'strict',
+        track_times: bool = True,
+        dropna: bool = False,
     ) -> None: ...
     def append(
         self,
         key: str,
         value: NDFrame,
-        format: Literal["t", "table", "f", "fixed"] = ...,
-        axes: int | None = ...,
-        index: bool = ...,
-        append: bool = ...,
-        complib: HDFCompLib | None = ...,
-        complevel: int | None = ...,
-        columns: list[HashableT1] | None = ...,
-        min_itemsize: int | dict[HashableT2, int] | None = ...,
-        nan_rep: str | None = ...,
-        chunksize: int | None = ...,
-        expectedrows: int | None = ...,
-        dropna: bool | None = ...,
-        data_columns: Literal[True] | list[HashableT3] | None = ...,
-        encoding: str | None = ...,
+        format: Literal["t", "table", "f", "fixed"] = None,
+        axes: int | None = None,
+        index: bool = True,
+        append: bool = True,
+        complib: HDFCompLib | None = None,
+        complevel: int | None = None,
+        columns: list[HashableT1] | None = None,
+        min_itemsize: int | dict[HashableT2, int] | None = None,
+        nan_rep: str | None = None,
+        chunksize: int | None = None,
+        expectedrows: int | None = None,
+        dropna: bool | None = None,
+        data_columns: Literal[True] | list[HashableT3] | None = None,
+        encoding: str | None = None,
         errors: Literal[
             "strict",
             "ignore",
@@ -218,11 +218,11 @@ class HDFStore:
             "xmlcharrefreplace",
             "backslashreplace",
             "namereplace",
-        ] = ...,
+        ] = 'strict',
     ) -> None: ...
     def groups(self) -> list: ...
     def walk(
-        self, where: str = ...
+        self, where: str = '/'
     ) -> Generator[tuple[str, list, list[str]], None, None]: ...
     def info(self) -> str: ...
 

@@ -8,7 +8,11 @@ from typing import (
     TypedDict,
 )
 
-import jinja2
+from jinja2.environment import (
+    Environment,
+    Template,
+)
+from jinja2.loaders import PackageLoader
 from pandas import Index
 from pandas.core.indexing import _IndexSlice
 from typing_extensions import (
@@ -46,40 +50,40 @@ CSSStyles: TypeAlias = list[CSSDict]
 Subset: TypeAlias = _IndexSlice | slice | tuple[slice, ...] | list[HashableT] | Index
 
 class StylerRenderer:
-    loader: jinja2.loaders.PackageLoader
-    env: jinja2.environment.Environment
-    template_html: jinja2.environment.Template
-    template_html_table: jinja2.environment.Template
-    template_html_style: jinja2.environment.Template
-    template_latex: jinja2.environment.Template
+    loader: PackageLoader
+    env: Environment
+    template_html: Template
+    template_html_table: Template
+    template_html_style: Template
+    template_latex: Template
     def format(
         self,
-        formatter: ExtFormatter | None = ...,
-        subset: Subset | None = ...,
-        na_rep: str | None = ...,
-        precision: int | None = ...,
-        decimal: str = ...,
-        thousands: str | None = ...,
-        escape: str | None = ...,
-        hyperlinks: Literal["html", "latex"] | None = ...,
+        formatter: ExtFormatter | None = None,
+        subset: Subset | None = None,
+        na_rep: str | None = None,
+        precision: int | None = None,
+        decimal: str = '.',
+        thousands: str | None = None,
+        escape: str | None = None,
+        hyperlinks: Literal["html", "latex"] | None = None,
     ) -> Self: ...
     def format_index(
         self,
-        formatter: ExtFormatter | None = ...,
-        axis: Axis = ...,
-        level: Level | list[Level] | None = ...,
-        na_rep: str | None = ...,
-        precision: int | None = ...,
-        decimal: str = ...,
-        thousands: str | None = ...,
-        escape: str | None = ...,
-        hyperlinks: Literal["html", "latex"] | None = ...,
+        formatter: ExtFormatter | None = None,
+        axis: Axis = 0,
+        level: Level | list[Level] | None = None,
+        na_rep: str | None = None,
+        precision: int | None = None,
+        decimal: str = '.',
+        thousands: str | None = None,
+        escape: str | None = None,
+        hyperlinks: Literal["html", "latex"] | None = None,
     ) -> Self: ...
     def relabel_index(
         self,
         labels: Sequence[str] | Index,
-        axis: Axis = ...,
-        level: Level | list[Level] | None = ...,
+        axis: Axis = 0,
+        level: Level | list[Level] | None = None,
     ) -> Self: ...
     @property
     def columns(self) -> Index[Any]: ...

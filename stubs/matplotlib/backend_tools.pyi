@@ -391,7 +391,7 @@ def add_tools_to_manager(toolmanager, tools=...) -> None:
         The tools to add in a {name: tool} dict, see
         `.backend_managers.ToolManager.add_tool` for more info.
     """
-def add_tools_to_container(container, tools=...) -> None:
+def add_tools_to_container(container, tools=[['navigation', ['home', 'back', 'forward']], ['zoompan', ['pan', 'zoom', 'subplots']], ['io', ['save', 'help']]]) -> None:
     """
     Add multiple tools to the container.
 

@@ -44,31 +44,31 @@ def unique(values: ExtensionArray) -> ExtensionArray: ...
 @overload
 def factorize(
     values: np.ndarray,
-    sort: bool = ...,
-    use_na_sentinel: bool = ...,
-    size_hint: int | None = ...,
+    sort: bool = False,
+    use_na_sentinel: bool = True,
+    size_hint: int | None = None,
 ) -> tuple[np.ndarray, np.ndarray]: ...
 @overload
 def factorize(
     values: Index | Series,
-    sort: bool = ...,
-    use_na_sentinel: bool = ...,
-    size_hint: int | None = ...,
+    sort: bool = False,
+    use_na_sentinel: bool = True,
+    size_hint: int | None = None,
 ) -> tuple[np.ndarray, Index]: ...
 @overload
 def factorize(
     values: Categorical,
-    sort: bool = ...,
-    use_na_sentinel: bool = ...,
-    size_hint: int | None = ...,
+    sort: bool = False,
+    use_na_sentinel: bool = True,
+    size_hint: int | None = None,
 ) -> tuple[np.ndarray, Categorical]: ...
 def value_counts(
     values: AnyArrayLike | list | tuple,
-    sort: bool = ...,
-    ascending: bool = ...,
-    normalize: bool = ...,
-    bins: int | None = ...,
-    dropna: bool = ...,
+    sort: bool = True,
+    ascending: bool = False,
+    normalize: bool = False,
+    bins: int | None = None,
+    dropna: bool = True,
 ) -> Series: ...
 def take(
     arr,

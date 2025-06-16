@@ -102,38 +102,6 @@ def _rewrite_return(func_ir, target_block_label):
 
     The input situation is:
 
-    ┌───────────────┐
-    │   top         │
-    │   POP_BLOCK   │
-    │   bottom      │
-    └───────┬───────┘
-            │
-    ┌───────▼───────┐
-    │               │
-    │    RETURN     │
-    │               │
-    └───────────────┘
-
-    If such a pattern is detected in IR, it means there is a `return` statement
-    within a `with` context. The basic idea is to rewrite the CFG as follows:
-
-    ┌───────────────┐
-    │   top         │
-    │   POP_BLOCK   │
-    │               │
-    └───────┬───────┘
-            │
-    ┌───────▼───────┐
-    │               │
-    │     bottom    │
-    │               │
-    └───────┬───────┘
-            │
-    ┌───────▼───────┐
-    │               │
-    │    RETURN     │
-    │               │
-    └───────────────┘
 
     We split the block that contains the `POP_BLOCK` statement into two blocks.
     Everything from the beginning of the block up to and including the

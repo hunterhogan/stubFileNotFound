@@ -68,99 +68,99 @@ class BaseWindow(SelectionMixin[NDFrameT]):
 class BaseWindowGroupby(BaseWindow[NDFrameT]): ...
 
 class Window(BaseWindow[NDFrameT]):
-    def sum(self, numeric_only: bool = ..., **kwargs: Any) -> NDFrameT: ...
-    def mean(self, numeric_only: bool = ..., **kwargs: Any) -> NDFrameT: ...
+    def sum(self, numeric_only: bool = False, **kwargs: Any) -> NDFrameT: ...
+    def mean(self, numeric_only: bool = False, **kwargs: Any) -> NDFrameT: ...
     def var(
-        self, ddof: int = ..., numeric_only: bool = ..., **kwargs: Any
+        self, ddof: int = 1, numeric_only: bool = False, **kwargs: Any
     ) -> NDFrameT: ...
     def std(
-        self, ddof: int = ..., numeric_only: bool = ..., **kwargs: Any
+        self, ddof: int = 1, numeric_only: bool = False, **kwargs: Any
     ) -> NDFrameT: ...
 
 class RollingAndExpandingMixin(BaseWindow[NDFrameT]):
-    def count(self, numeric_only: bool = ...) -> NDFrameT: ...
+    def count(self, numeric_only: bool = False) -> NDFrameT: ...
     def apply(
         self,
         func: Callable[..., Any],
-        raw: bool = ...,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
-        args: tuple[Any, ...] | None = ...,
-        kwargs: dict[str, Any] | None = ...,
+        raw: bool = False,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
+        args: tuple[Any, ...] | None = None,
+        kwargs: dict[str, Any] | None = None,
     ) -> NDFrameT: ...
     def sum(
         self,
-        numeric_only: bool = ...,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        numeric_only: bool = False,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
     ) -> NDFrameT: ...
     def max(
         self,
-        numeric_only: bool = ...,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        numeric_only: bool = False,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
     ) -> NDFrameT: ...
     def min(
         self,
-        numeric_only: bool = ...,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        numeric_only: bool = False,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
     ) -> NDFrameT: ...
     def mean(
         self,
-        numeric_only: bool = ...,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        numeric_only: bool = False,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
     ) -> NDFrameT: ...
     def median(
         self,
-        numeric_only: bool = ...,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        numeric_only: bool = False,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
     ) -> NDFrameT: ...
     def std(
         self,
-        ddof: int = ...,
-        numeric_only: bool = ...,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        ddof: int = 1,
+        numeric_only: bool = False,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
     ) -> NDFrameT: ...
     def var(
         self,
-        ddof: int = ...,
-        numeric_only: bool = ...,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        ddof: int = 1,
+        numeric_only: bool = False,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
     ) -> NDFrameT: ...
-    def skew(self, numeric_only: bool = ...) -> NDFrameT: ...
-    def sem(self, ddof: int = ..., numeric_only: bool = ...) -> NDFrameT: ...
-    def kurt(self, numeric_only: bool = ...) -> NDFrameT: ...
+    def skew(self, numeric_only: bool = False) -> NDFrameT: ...
+    def sem(self, ddof: int = 1, numeric_only: bool = False) -> NDFrameT: ...
+    def kurt(self, numeric_only: bool = False) -> NDFrameT: ...
     def quantile(
         self,
         q: float,
-        interpolation: QuantileInterpolation = ...,
-        numeric_only: bool = ...,
+        interpolation: QuantileInterpolation = 'linear',
+        numeric_only: bool = False,
     ) -> NDFrameT: ...
     def rank(
         self,
-        method: WindowingRankType = ...,
-        ascending: bool = ...,
-        pct: bool = ...,
-        numeric_only: bool = ...,
+        method: WindowingRankType = 'average',
+        ascending: bool = True,
+        pct: bool = False,
+        numeric_only: bool = False,
     ) -> NDFrameT: ...
     def cov(
         self,
-        other: DataFrame | Series | None = ...,
-        pairwise: bool | None = ...,
-        ddof: int = ...,
-        numeric_only: bool = ...,
+        other: DataFrame | Series | None = None,
+        pairwise: bool | None = None,
+        ddof: int = 1,
+        numeric_only: bool = False,
     ) -> NDFrameT: ...
     def corr(
         self,
-        other: DataFrame | Series | None = ...,
-        pairwise: bool | None = ...,
-        ddof: int = ...,
-        numeric_only: bool = ...,
+        other: DataFrame | Series | None = None,
+        pairwise: bool | None = None,
+        ddof: int = 1,
+        numeric_only: bool = False,
     ) -> NDFrameT: ...
 
 class Rolling(RollingAndExpandingMixin[NDFrameT]): ...

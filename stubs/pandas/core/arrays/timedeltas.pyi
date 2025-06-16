@@ -10,37 +10,37 @@ class TimedeltaArray(DatetimeLikeArrayMixin, TimelikeOps):
     __array_priority__: int = ...
     @property
     def dtype(self): ...
-    def __init__(self, values, dtype=..., freq=..., copy: bool = ...) -> None: ...
-    def astype(self, dtype, copy: bool = ...): ...
+    def __init__(self, values, dtype=None, freq=..., copy: bool = False) -> None: ...
+    def astype(self, dtype, copy: bool = True): ...
     def sum(
         self,
         *,
-        axis=...,
-        dtype=...,
-        out=...,
-        keepdims: bool = ...,
-        initial=...,
-        skipna: bool = ...,
-        min_count: int = ...,
+        axis=None,
+        dtype=None,
+        out=None,
+        keepdims: bool = False,
+        initial=None,
+        skipna: bool = True,
+        min_count: int = 0,
     ): ...
     def std(
         self,
         *,
-        axis=...,
-        dtype=...,
-        out=...,
-        ddof: int = ...,
-        keepdims: bool = ...,
-        skipna: bool = ...,
+        axis=None,
+        dtype=None,
+        out=None,
+        ddof: int = 1,
+        keepdims: bool = False,
+        skipna: bool = True,
     ): ...
     def median(
         self,
         *,
-        axis=...,
+        axis=None,
         out=...,
         overwrite_input: bool = ...,
         keepdims: bool = ...,
-        skipna: bool = ...,
+        skipna: bool = True,
     ): ...
     def __mul__(self, other): ...
     __rmul__ = ...
@@ -64,6 +64,6 @@ class TimedeltaArray(DatetimeLikeArrayMixin, TimelikeOps):
     @property
     def components(self) -> int: ...
 
-def sequence_to_td64ns(data, copy: bool = ..., unit: str = ..., errors: str = ...): ...
+def sequence_to_td64ns(data, copy: bool = False, unit: str = None, errors: str = 'raise'): ...
 def ints_to_td64ns(data, unit: str = ...): ...
 def objects_to_td64ns(data, unit: str = ..., errors: str = ...): ...

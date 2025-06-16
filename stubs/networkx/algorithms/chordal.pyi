@@ -62,7 +62,7 @@ def is_chordal(G):
        selectively reduce acyclic hypergraphs, SIAM J. Comput., 13 (1984),
        pp. 566–579.
     """
-def find_induced_nodes(G, s, t, treewidth_bound=...):
+def find_induced_nodes(G, s, t, treewidth_bound=9223372036854775807):
     """Returns the set of induced nodes in the path from s to t.
 
     Parameters

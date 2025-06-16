@@ -9,7 +9,7 @@ def read_gml(
 	label: str = 'label',
 	destringizer: Callable[[str], Any] | None = None
 ) -> Any:
-	'''Read graph in GML format from `path`.
+    '''Read graph in GML format from `path`.
 
 	Parameters
 	----------
@@ -78,7 +78,7 @@ def parse_gml(
 	label: str = 'label',
 	destringizer: Callable[[str], Any] | None = None
 ) -> Any:
-	"""Parse GML graph from a string or iterable.
+    """Parse GML graph from a string or iterable.
 
 	Parameters
 	----------
@@ -146,7 +146,7 @@ def generate_gml(
 	graphTarget: Any,
 	stringizer: Callable[[Any], str] | None = None
 ) -> Generator[str, None, None]:
-	'''Generate a single entry of the graph `G` in GML format.
+    '''Generate a single entry of the graph `G` in GML format.
 
 	Parameters
 	----------
@@ -233,7 +233,7 @@ def write_gml(
 	path: str | IO[str],
 	stringizer: Callable[[Any], str] | None = None
 ) -> None:
-	'''Write a graph `G` in GML format to the file or file handle `path`.
+    '''Write a graph `G` in GML format to the file or file handle `path`.
 
 	Parameters
 	----------

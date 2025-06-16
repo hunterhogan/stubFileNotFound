@@ -685,87 +685,6 @@ def wigner_d_small(J, beta):
     >>> half = 1/Integer(2)
     >>> beta = symbols("beta", real=True)
     >>> pprint(wigner_d_small(half, beta), use_unicode=True)
-    ⎡   ⎛β⎞      ⎛β⎞⎤
-    ⎢cos⎜─⎟   sin⎜─⎟⎥
-    ⎢   ⎝2⎠      ⎝2⎠⎥
-    ⎢               ⎥
-    ⎢    ⎛β⎞     ⎛β⎞⎥
-    ⎢-sin⎜─⎟  cos⎜─⎟⎥
-    ⎣    ⎝2⎠     ⎝2⎠⎦
-
-    >>> pprint(wigner_d_small(2*half, beta), use_unicode=True)
-    ⎡        2⎛β⎞              ⎛β⎞    ⎛β⎞           2⎛β⎞     ⎤
-    ⎢     cos ⎜─⎟        √2⋅sin⎜─⎟⋅cos⎜─⎟        sin ⎜─⎟     ⎥
-    ⎢         ⎝2⎠              ⎝2⎠    ⎝2⎠            ⎝2⎠     ⎥
-    ⎢                                                        ⎥
-    ⎢       ⎛β⎞    ⎛β⎞       2⎛β⎞      2⎛β⎞        ⎛β⎞    ⎛β⎞⎥
-    ⎢-√2⋅sin⎜─⎟⋅cos⎜─⎟  - sin ⎜─⎟ + cos ⎜─⎟  √2⋅sin⎜─⎟⋅cos⎜─⎟⎥
-    ⎢       ⎝2⎠    ⎝2⎠        ⎝2⎠       ⎝2⎠        ⎝2⎠    ⎝2⎠⎥
-    ⎢                                                        ⎥
-    ⎢        2⎛β⎞               ⎛β⎞    ⎛β⎞          2⎛β⎞     ⎥
-    ⎢     sin ⎜─⎟        -√2⋅sin⎜─⎟⋅cos⎜─⎟       cos ⎜─⎟     ⎥
-    ⎣         ⎝2⎠               ⎝2⎠    ⎝2⎠           ⎝2⎠     ⎦
-
-    From table 4 in [Edmonds74]_
-
-    >>> pprint(wigner_d_small(half, beta).subs({beta:pi/2}), use_unicode=True)
-    ⎡ √2   √2⎤
-    ⎢ ──   ──⎥
-    ⎢ 2    2 ⎥
-    ⎢        ⎥
-    ⎢-√2   √2⎥
-    ⎢────  ──⎥
-    ⎣ 2    2 ⎦
-
-    >>> pprint(wigner_d_small(2*half, beta).subs({beta:pi/2}),
-    ... use_unicode=True)
-    ⎡       √2      ⎤
-    ⎢1/2    ──   1/2⎥
-    ⎢       2       ⎥
-    ⎢               ⎥
-    ⎢-√2         √2 ⎥
-    ⎢────   0    ── ⎥
-    ⎢ 2          2  ⎥
-    ⎢               ⎥
-    ⎢      -√2      ⎥
-    ⎢1/2   ────  1/2⎥
-    ⎣       2       ⎦
-
-    >>> pprint(wigner_d_small(3*half, beta).subs({beta:pi/2}),
-    ... use_unicode=True)
-    ⎡ √2    √6    √6   √2⎤
-    ⎢ ──    ──    ──   ──⎥
-    ⎢ 4     4     4    4 ⎥
-    ⎢                    ⎥
-    ⎢-√6   -√2    √2   √6⎥
-    ⎢────  ────   ──   ──⎥
-    ⎢ 4     4     4    4 ⎥
-    ⎢                    ⎥
-    ⎢ √6   -√2   -√2   √6⎥
-    ⎢ ──   ────  ────  ──⎥
-    ⎢ 4     4     4    4 ⎥
-    ⎢                    ⎥
-    ⎢-√2    √6   -√6   √2⎥
-    ⎢────   ──   ────  ──⎥
-    ⎣ 4     4     4    4 ⎦
-
-    >>> pprint(wigner_d_small(4*half, beta).subs({beta:pi/2}),
-    ... use_unicode=True)
-    ⎡             √6            ⎤
-    ⎢1/4   1/2    ──   1/2   1/4⎥
-    ⎢             4             ⎥
-    ⎢                           ⎥
-    ⎢-1/2  -1/2   0    1/2   1/2⎥
-    ⎢                           ⎥
-    ⎢ √6                     √6 ⎥
-    ⎢ ──    0    -1/2   0    ── ⎥
-    ⎢ 4                      4  ⎥
-    ⎢                           ⎥
-    ⎢-1/2  1/2    0    -1/2  1/2⎥
-    ⎢                           ⎥
-    ⎢             √6            ⎥
-    ⎢1/4   -1/2   ──   -1/2  1/4⎥
-    ⎣             4             ⎦
 
     '''
 def wigner_d(J, alpha, beta, gamma):
@@ -806,16 +725,5 @@ def wigner_d(J, alpha, beta, gamma):
     >>> half = 1/Integer(2)
     >>> alpha, beta, gamma = symbols("alpha, beta, gamma", real=True)
     >>> pprint(wigner_d(half, alpha, beta, gamma), use_unicode=True)
-    ⎡  ⅈ⋅α  ⅈ⋅γ             ⅈ⋅α  -ⅈ⋅γ         ⎤
-    ⎢  ───  ───             ───  ─────        ⎥
-    ⎢   2    2     ⎛β⎞       2     2      ⎛β⎞ ⎥
-    ⎢ ℯ   ⋅ℯ   ⋅cos⎜─⎟     ℯ   ⋅ℯ     ⋅sin⎜─⎟ ⎥
-    ⎢              ⎝2⎠                    ⎝2⎠ ⎥
-    ⎢                                         ⎥
-    ⎢  -ⅈ⋅α   ⅈ⋅γ          -ⅈ⋅α   -ⅈ⋅γ        ⎥
-    ⎢  ─────  ───          ─────  ─────       ⎥
-    ⎢    2     2     ⎛β⎞     2      2      ⎛β⎞⎥
-    ⎢-ℯ     ⋅ℯ   ⋅sin⎜─⎟  ℯ     ⋅ℯ     ⋅cos⎜─⎟⎥
-    ⎣                ⎝2⎠                   ⎝2⎠⎦
 
     '''

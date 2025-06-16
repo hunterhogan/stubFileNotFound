@@ -73,7 +73,7 @@ def to_dict_of_lists(G, nodelist: Incomplete | None = None):
 
     """
     ...
-@_dispatchable    
+@_dispatchable
 def from_dict_of_lists(d, create_using: Incomplete | None = None):
     """Returns a graph from a dictionary of lists.
 
@@ -96,7 +96,7 @@ def from_dict_of_lists(d, create_using: Incomplete | None = None):
 
     """
     ...
-@_dispatchable    
+@_dispatchable
 def to_dict_of_dicts(G, nodelist: Incomplete | None = None, edge_data: Incomplete | None = None):
     '''Returns adjacency representation of graph as a dictionary of dictionaries.
 
@@ -195,7 +195,7 @@ def to_dict_of_dicts(G, nodelist: Incomplete | None = None, edge_data: Incomplet
     {0: {1: 10}, 1: {0: 10}}
     '''
     ...
-@_dispatchable    
+@_dispatchable
 def from_dict_of_dicts(d, create_using: Incomplete | None = None, multigraph_input: bool = False):
     '''Returns a graph from a dictionary of dictionaries.
 
@@ -225,7 +225,7 @@ def from_dict_of_dicts(d, create_using: Incomplete | None = None, multigraph_inp
 
     '''
     ...
-@_dispatchable    
+@_dispatchable
 def to_edgelist(G, nodelist: Incomplete | None = None):
     """Returns a list of edges in the graph.
 
@@ -239,7 +239,7 @@ def to_edgelist(G, nodelist: Incomplete | None = None):
 
     """
     ...
-@_dispatchable    
+@_dispatchable
 def from_edgelist(edgelist, create_using: Incomplete | None = None):
     """Returns a graph from a list of edges.
 
@@ -261,4 +261,4 @@ def from_edgelist(edgelist, create_using: Incomplete | None = None):
     >>> G = nx.Graph(edgelist)  # use Graph constructor
 
     """
-	...
+    ...

@@ -5,7 +5,7 @@ from networkx.classes.digraph import DiGraph
 __all__ = ['descendants', 'ancestors', 'topological_sort', 'lexicographical_topological_sort', 'all_topological_sorts', 'topological_generations', 'is_directed_acyclic_graph', 'is_aperiodic', 'transitive_closure', 'transitive_closure_dag', 'transitive_reduction', 'antichains', 'dag_longest_path', 'dag_longest_path_length', 'dag_to_branching', 'compute_v_structures']
 
 def descendants(G: Graph[_Node], source: _Node) -> set[_Node]:
-	"""Returns all nodes reachable from `source` in `G`.
+    """Returns all nodes reachable from `source` in `G`.
 
 	Parameters
 	----------
@@ -39,7 +39,7 @@ def descendants(G: Graph[_Node], source: _Node) -> set[_Node]:
 	"""
 
 def ancestors(G: Graph[_Node], source: _Node) -> set[_Node]:
-	"""Returns all nodes having a path to `source` in `G`.
+    """Returns all nodes having a path to `source` in `G`.
 
 	Parameters
 	----------
@@ -72,7 +72,7 @@ def ancestors(G: Graph[_Node], source: _Node) -> set[_Node]:
 	"""
 
 def is_directed_acyclic_graph(G: Graph[_Node]) -> bool:
-	"""Returns True if the graph `G` is a directed acyclic graph (DAG), False otherwise.
+    """Returns True if the graph `G` is a directed acyclic graph (DAG), False otherwise.
 
 	Parameters
 	----------
@@ -109,7 +109,7 @@ def is_directed_acyclic_graph(G: Graph[_Node]) -> bool:
 	"""
 
 def topological_generations(G: DiGraph[_Node]) -> Generator[set[_Node], None, None]:
-	"""Yields sets of nodes representing each topological generation in a DAG.
+    """Yields sets of nodes representing each topological generation in a DAG.
 Stratifies a DAG into generations.
 
 	A topological generation is node collection in which ancestors of a node in each
@@ -158,7 +158,7 @@ Stratifies a DAG into generations.
 	"""
 
 def topological_sort(G: DiGraph[_Node]) -> Generator[_Node, None, None]:
-	"""Yields nodes in topologically sorted order for a DAG.
+    """Yields nodes in topologically sorted order for a DAG.
 Returns a generator of nodes in topologically sorted order.
 
 	A topological sort is a nonunique permutation of the nodes of a
@@ -222,7 +222,7 @@ Returns a generator of nodes in topologically sorted order.
 	"""
 
 def lexicographical_topological_sort(G: DiGraph[_Node], key: Callable[[_Node], _Node] | None = None) -> Generator[_Node, None, None]:
-	"""Yields nodes in lexicographical topological sort order for a DAG.
+    """Yields nodes in lexicographical topological sort order for a DAG.
 Generate the nodes in the unique lexicographical topological sort order.
 
 	Generates a unique ordering of nodes by first sorting topologically (for which there are often
@@ -315,7 +315,7 @@ Generate the nodes in the unique lexicographical topological sort order.
 	"""
 
 def all_topological_sorts(G: DiGraph[_Node]) -> Generator[list[_Node], None, None]:
-	"""Yields all possible topological sorts of the directed graph G.
+    """Yields all possible topological sorts of the directed graph G.
 
 	Parameters
 	----------
@@ -356,7 +356,7 @@ def all_topological_sorts(G: DiGraph[_Node]) -> Generator[list[_Node], None, Non
 	"""
 
 def is_aperiodic(G: DiGraph[_Node]) -> bool:
-	"""Returns True if `G` is aperiodic, False otherwise.
+    """Returns True if `G` is aperiodic, False otherwise.
 
 	Parameters
 	----------
@@ -370,7 +370,7 @@ def is_aperiodic(G: DiGraph[_Node]) -> bool:
 	"""
 
 def transitive_closure(G: Graph[_Node], reflexive: bool = False) -> Graph[_Node]:
-	"""Returns the transitive closure of a graph.
+    """Returns the transitive closure of a graph.
 
 	The transitive closure of G = (V,E) is a graph G+ = (V,E+) such that
 	for all v, w in V there is an edge (v, w) in E+ if and only if there
@@ -444,7 +444,7 @@ def transitive_closure(G: Graph[_Node], reflexive: bool = False) -> Graph[_Node]
 	"""
 
 def transitive_closure_dag(G: DiGraph[_Node], topo_order: Iterable[_Node] | None = None) -> DiGraph[_Node]:
-	"""Returns the transitive closure of a directed acyclic graph (DAG).
+    """Returns the transitive closure of a directed acyclic graph (DAG).
 
 	This function is faster than the function `transitive_closure`, but fails
 	if the graph has a cycle.
@@ -486,7 +486,7 @@ def transitive_closure_dag(G: DiGraph[_Node], topo_order: Iterable[_Node] | None
 	"""
 
 def transitive_reduction(G: DiGraph[_Node]) -> DiGraph[_Node]:
-	"""Returns the transitive reduction of a directed acyclic graph (DAG).
+    """Returns the transitive reduction of a directed acyclic graph (DAG).
 
 	Parameters
 	----------
@@ -531,7 +531,7 @@ def transitive_reduction(G: DiGraph[_Node]) -> DiGraph[_Node]:
 	"""
 
 def antichains(G: DiGraph[_Node], topo_order: Iterable[_Node] | None = None) -> Generator[list[_Node], None, None]:
-	"""Generates antichains from a directed acyclic graph (DAG).
+    """Generates antichains from a directed acyclic graph (DAG).
 
 	An antichain is a subset of a partially ordered set such that _Node
 	two elements in the subset are incomparable.
@@ -576,7 +576,7 @@ def antichains(G: DiGraph[_Node], topo_order: Iterable[_Node] | None = None) -> 
 	"""
 
 def dag_longest_path(G: DiGraph[_Node], weight: str = 'weight', default_weight: int = 1, topo_order: Iterable[_Node] | None = None) -> list[_Node]:
-	"""Returns the longest path in a directed acyclic graph (DAG).
+    """Returns the longest path in a directed acyclic graph (DAG).
 	If `G` has edges with `weight` attribute the edge data are used as
 	weight values.
 
@@ -630,7 +630,7 @@ def dag_longest_path(G: DiGraph[_Node], weight: str = 'weight', default_weight: 
 	"""
 
 def dag_longest_path_length(G: DiGraph[_Node], weight: str = 'weight', default_weight: int = 1) -> int:
-	"""Returns the length of the longest path in a DAG.
+    """Returns the length of the longest path in a DAG.
 
 	Parameters
 	----------
@@ -669,7 +669,7 @@ def dag_longest_path_length(G: DiGraph[_Node], weight: str = 'weight', default_w
 	"""
 
 def dag_to_branching(G: Graph[_Node]) -> Graph[_Node]:
-	"""Returns a branching representing all (overlapping) paths from root nodes to leaf nodes in the given DAG.
+    """Returns a branching representing all (overlapping) paths from root nodes to leaf nodes in the given DAG.
 	As described in :mod:`networkx.algorithms.tree.recognition`, a
 	*branching* is a directed forest in which each node has at most one
 	parent. In other words, a branching is a disjoint union of
@@ -751,7 +751,7 @@ def dag_to_branching(G: Graph[_Node]) -> Graph[_Node]:
 	"""
 
 def compute_v_structures(G: Graph[_Node]) -> Generator[tuple[_Node, _Node, _Node], None, None]:
-	"""Yields 3-node tuples that represent the v-structures in `G`.
+    """Yields 3-node tuples that represent the v-structures in `G`.
 	.. deprecated:: 3.4
 
 	   `compute_v_structures` actually yields colliders. It will be removed in

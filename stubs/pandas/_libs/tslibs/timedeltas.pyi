@@ -104,7 +104,7 @@ class Timedelta(timedelta):
     def __new__(
         cls,
         value: str | float | Timedelta | timedelta | np.timedelta64 = ...,
-        unit: TimeDeltaUnitChoices = ...,
+        unit: TimeDeltaUnitChoices = None,
         *,
         days: float | np.integer | np.floating = ...,
         seconds: float | np.integer | np.floating = ...,
@@ -388,4 +388,4 @@ class Timedelta(timedelta):
     def view(self, dtype: npt.DTypeLike = ...) -> object: ...
     @property
     def unit(self) -> TimeUnit: ...
-    def as_unit(self, unit: TimeUnit, round_ok: bool = ...) -> Self: ...
+    def as_unit(self, unit: TimeUnit, round_ok: bool = True) -> Self: ...

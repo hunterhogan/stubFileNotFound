@@ -49,16 +49,6 @@ def directed_edge_swap(G, *, nswap: int = 1, max_tries: int = 100, seed: Incompl
 
     A later swap is allowed to undo a previous swap.
 
-    References
-    ----------
-    .. [1] Erdős, Péter L., et al. “A Simple Havel-Hakimi Type Algorithm to Realize
-           Graphical Degree Sequences of Directed Graphs.” ArXiv:0905.4913 [Math],
-           Jan. 2010. https://doi.org/10.48550/arXiv.0905.4913.
-           Published  2010 in Elec. J. Combinatorics (17(1)). R66.
-           http://www.combinatorics.org/Volume_17/PDF/v17i1r66.pdf
-    .. [2] “Combinatorics - Reaching All Possible Simple Directed Graphs with a given
-           Degree Sequence with 2-Edge Swaps.” Mathematics Stack Exchange,
-           https://math.stackexchange.com/questions/22272/. Accessed 30 May 2022.
     """
 def double_edge_swap(G, nswap: int = 1, max_tries: int = 100, seed: Incomplete | None = None):
     """Swap two edges in the graph while keeping the node degrees fixed.

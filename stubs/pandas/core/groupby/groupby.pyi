@@ -75,8 +75,6 @@ from pandas._typing import (
 
 from pandas.plotting import PlotAccessor
 
-_GroupByT = TypeVar("_GroupByT", bound=GroupBy[Any])
-
 _KeysArgType: TypeAlias = (
     Hashable
     | list[Hashable]
@@ -91,67 +89,6 @@ _ResamplerGroupBy: TypeAlias = (
     | TimedeltaIndexResamplerGroupby[NDFrameT]
 )
 
-# GroupByPlot does not really inherit from PlotAccessor but it delegates
-# to it using __call__ and __getattr__. We lie here to avoid repeating the
-# whole stub of PlotAccessor
-@final
-class GroupByPlot(PlotAccessor, Generic[_GroupByT]):
-    def __init__(self, groupby: _GroupByT) -> None: ...
-    # The following methods are inherited from the fake parent class PlotAccessor
-    # def __call__(self, *args, **kwargs): ...
-    # def __getattr__(self, name: str): ...
-
-class BaseGroupBy(SelectionMixin[NDFrameT], GroupByIndexingMixin):
-    axis: AxisInt
-    grouper: ops.BaseGrouper
-    keys: _KeysArgType | None
-    level: IndexLabel | None
-    group_keys: bool
-    @final
-    def __len__(self) -> int: ...
-    @final
-    def __repr__(self) -> str: ...  # noqa: PYI029 __repr__ here is final
-    @final
-    @property
-    def groups(self) -> dict[Hashable, Index[Any]]: ...
-    @final
-    @property
-    def ngroups(self) -> int: ...
-    @final
-    @property
-    def indices(self) -> dict[Hashable, Index[Any] | npt.NDArray[np.int_] | list[int]]: ...
-    @overload
-    def pipe(
-        self,
-        func: Callable[Concatenate[Self, P], T],
-        *args: P.args,
-        **kwargs: P.kwargs,
-    ) -> T: ...
-    @overload
-    def pipe(
-        self,
-        func: tuple[Callable[..., T], str],
-        *args: Any,
-        **kwargs: Any,
-    ) -> T: ...
-    @final
-    def get_group(self, name: Any, obj: NDFrameT | None = ...) -> NDFrameT: ...
-    @final
-    def __iter__(self) -> Iterator[tuple[Hashable, NDFrameT]]: ...
-    @overload
-    def __getitem__(self: BaseGroupBy[DataFrame], key: Scalar) -> generic.SeriesGroupBy[Any, Any]: ...  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
-    @overload
-    def __getitem__(
-        self: BaseGroupBy[DataFrame], key: Iterable[Hashable]
-    ) -> generic.DataFrameGroupBy[Any, Any]: ...
-    @overload
-    def __getitem__(
-        self: BaseGroupBy[Series[S1]],
-        idx: list[str] | Index[Any] | Series[S1] | MaskType | tuple[Hashable | slice, ...],
-    ) -> generic.SeriesGroupBy[Any, Any]: ...
-    @overload
-    def __getitem__(self: BaseGroupBy[Series[S1]], idx: Scalar) -> S1: ...
-
 class GroupBy(BaseGroupBy[NDFrameT]):
     as_index: bool
     sort: bool
@@ -162,12 +99,12 @@ class GroupBy(BaseGroupBy[NDFrameT]):
     @overload
     def any(self: GroupBy[Series[Any]], skipna: bool = ...) -> Series[bool]: ...
     @overload
-    def any(self: GroupBy[DataFrame], skipna: bool = ...) -> DataFrame: ...
+    def any(self: GroupBy[DataFrame], skipna: bool = True) -> DataFrame: ...
     @final
     @overload
     def all(self: GroupBy[Series[Any]], skipna: bool = ...) -> Series[bool]: ...
     @overload
-    def all(self: GroupBy[DataFrame], skipna: bool = ...) -> DataFrame: ...
+    def all(self: GroupBy[DataFrame], skipna: bool = True) -> DataFrame: ...
     @final
     @overload
     def count(self: GroupBy[Series[Any]]) -> Series[int]: ...
@@ -176,12 +113,12 @@ class GroupBy(BaseGroupBy[NDFrameT]):
     @final
     def mean(
         self,
-        numeric_only: bool = ...,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        numeric_only: bool = False,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
     ) -> NDFrameT: ...
     @final
-    def median(self, numeric_only: bool = ...) -> NDFrameT: ...
+    def median(self, numeric_only: bool = False) -> NDFrameT: ...
     @final
     @overload
     def std(
@@ -194,10 +131,10 @@ class GroupBy(BaseGroupBy[NDFrameT]):
     @overload
     def std(
         self: GroupBy[DataFrame],
-        ddof: int = ...,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
-        numeric_only: bool = ...,
+        ddof: int = 1,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
+        numeric_only: bool = False,
     ) -> DataFrame: ...
     @final
     @overload
@@ -211,10 +148,10 @@ class GroupBy(BaseGroupBy[NDFrameT]):
     @overload
     def var(
         self: GroupBy[DataFrame],
-        ddof: int = ...,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
-        numeric_only: bool = ...,
+        ddof: int = 1,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
+        numeric_only: bool = False,
     ) -> DataFrame: ...
     @final
     @overload
@@ -223,46 +160,46 @@ class GroupBy(BaseGroupBy[NDFrameT]):
     ) -> Series[float]: ...
     @overload
     def sem(
-        self: GroupBy[DataFrame], ddof: int = ..., numeric_only: bool = ...
+        self: GroupBy[DataFrame], ddof: int = 1, numeric_only: bool = False
     ) -> DataFrame: ...
     def size(self: GroupBy[Series[Any]]) -> Series[int]: ...
     @final
     def sum(
         self,
-        numeric_only: bool = ...,
-        min_count: int = ...,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        numeric_only: bool = False,
+        min_count: int = 0,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
     ) -> NDFrameT: ...
     @final
-    def prod(self, numeric_only: bool = ..., min_count: int = ...) -> NDFrameT: ...
+    def prod(self, numeric_only: bool = False, min_count: int = 0) -> NDFrameT: ...
     @final
     def min(
         self,
-        numeric_only: bool = ...,
-        min_count: int = ...,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        numeric_only: bool = False,
+        min_count: int = -1,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
     ) -> NDFrameT: ...
     @final
     def max(
         self,
-        numeric_only: bool = ...,
-        min_count: int = ...,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        numeric_only: bool = False,
+        min_count: int = -1,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
     ) -> NDFrameT: ...
     @final
-    def first(self, numeric_only: bool = ..., min_count: int = ...) -> NDFrameT: ...
+    def first(self, numeric_only: bool = False, min_count: int = -1) -> NDFrameT: ...
     @final
-    def last(self, numeric_only: bool = ..., min_count: int = ...) -> NDFrameT: ...
+    def last(self, numeric_only: bool = False, min_count: int = -1) -> NDFrameT: ...
     @final
     def ohlc(self) -> DataFrame: ...
     def describe(
         self,
-        percentiles: Iterable[float] | None = ...,
-        include: Literal["all"] | list[Dtype] | None = ...,
-        exclude: list[Dtype] | None = ...,
+        percentiles: Iterable[float] | None = None,
+        include: Literal["all"] | list[Dtype] | None = None,
+        exclude: list[Dtype] | None = None,
     ) -> DataFrame: ...
     @final
     def resample(
@@ -322,30 +259,30 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         selection: IndexLabel | None = ...,
     ) -> ExponentialMovingWindowGroupby[NDFrameT]: ...
     @final
-    def ffill(self, limit: int | None = ...) -> NDFrameT: ...
+    def ffill(self, limit: int | None = None) -> NDFrameT: ...
     @final
-    def bfill(self, limit: int | None = ...) -> NDFrameT: ...
+    def bfill(self, limit: int | None = None) -> NDFrameT: ...
     @final
     @property
     def nth(self) -> GroupByNthSelector[Self]: ...
     @final
     def quantile(
         self,
-        q: float | AnyArrayLike = ...,
-        interpolation: str = ...,
-        numeric_only: bool = ...,
+        q: float | AnyArrayLike = 0.5,
+        interpolation: str = 'linear',
+        numeric_only: bool = False,
     ) -> NDFrameT: ...
     @final
-    def ngroup(self, ascending: bool = ...) -> Series[int]: ...
+    def ngroup(self, ascending: bool = True) -> Series[int]: ...
     @final
-    def cumcount(self, ascending: bool = ...) -> Series[int]: ...
+    def cumcount(self, ascending: bool = True) -> Series[int]: ...
     @final
     def rank(
         self,
-        method: str = ...,
-        ascending: bool = ...,
-        na_option: str = ...,
-        pct: bool = ...,
+        method: str = 'average',
+        ascending: bool = True,
+        na_option: str = 'keep',
+        pct: bool = False,
         axis: AxisInt | NoDefault = ...,
     ) -> NDFrameT: ...
     @final
@@ -363,27 +300,27 @@ class GroupBy(BaseGroupBy[NDFrameT]):
     @final
     def shift(
         self,
-        periods: int | Sequence[int] = ...,
-        freq: Frequency | None = ...,
+        periods: int | Sequence[int] = 1,
+        freq: Frequency | None = None,
         axis: Axis | NoDefault = ...,
         fill_value: Any = ...,
         suffix: str | None = ...,
     ) -> NDFrameT: ...
     @final
-    def diff(self, periods: int = ..., axis: AxisInt | NoDefault = ...) -> NDFrameT: ...
+    def diff(self, periods: int = 1, axis: AxisInt | NoDefault = ...) -> NDFrameT: ...
     @final
     def pct_change(
         self,
-        periods: int = ...,
+        periods: int = 1,
         fill_method: Literal["bfill", "ffill"] | None | NoDefault = ...,
         limit: int | None | NoDefault = ...,
         freq: Any=...,
         axis: Axis | NoDefault = ...,
     ) -> NDFrameT: ...
     @final
-    def head(self, n: int = ...) -> NDFrameT: ...
+    def head(self, n: int = 5) -> NDFrameT: ...
     @final
-    def tail(self, n: int = ...) -> NDFrameT: ...
+    def tail(self, n: int = 5) -> NDFrameT: ...
     @final
     def sample(
         self,
@@ -393,3 +330,66 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         weights: Sequence[Any] | Series[Any] | None = ...,
         random_state: RandomState | None = ...,
     ) -> NDFrameT: ...
+
+_GroupByT = TypeVar("_GroupByT", bound=GroupBy)
+
+# GroupByPlot does not really inherit from PlotAccessor but it delegates
+# to it using __call__ and __getattr__. We lie here to avoid repeating the
+# whole stub of PlotAccessor
+@final
+class GroupByPlot(PlotAccessor, Generic[_GroupByT]):
+    def __init__(self, groupby: _GroupByT) -> None: ...
+    # The following methods are inherited from the fake parent class PlotAccessor
+    # def __call__(self, *args, **kwargs): ...
+    # def __getattr__(self, name: str): ...
+
+class BaseGroupBy(SelectionMixin[NDFrameT], GroupByIndexingMixin):
+    axis: AxisInt
+    grouper: ops.BaseGrouper
+    keys: _KeysArgType | None
+    level: IndexLabel | None
+    group_keys: bool
+    @final
+    def __len__(self) -> int: ...
+    @final
+    def __repr__(self) -> str: ...  # noqa: PYI029 __repr__ here is final
+    @final
+    @property
+    def groups(self) -> dict[Hashable, Index]: ...
+    @final
+    @property
+    def ngroups(self) -> int: ...
+    @final
+    @property
+    def indices(self) -> dict[Hashable, Index | npt.NDArray[np.int_] | list[int]]: ...
+    @overload
+    def pipe(
+        self,
+        func: Callable[Concatenate[Self, P], T],
+        *args: P.args,
+        **kwargs: P.kwargs,
+    ) -> T: ...
+    @overload
+    def pipe(
+        self,
+        func: tuple[Callable[..., T], str],
+        *args: Any,
+        **kwargs: Any,
+    ) -> T: ...
+    @final
+    def get_group(self, name, obj: NDFrameT | None = None) -> NDFrameT: ...
+    @final
+    def __iter__(self) -> Iterator[tuple[Hashable, NDFrameT]]: ...
+    @overload
+    def __getitem__(self: BaseGroupBy[DataFrame], key: Scalar) -> generic.SeriesGroupBy: ...  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
+    @overload
+    def __getitem__(
+        self: BaseGroupBy[DataFrame], key: Iterable[Hashable]
+    ) -> generic.DataFrameGroupBy: ...
+    @overload
+    def __getitem__(
+        self: BaseGroupBy[Series[S1]],
+        idx: list[str] | Index | Series[S1] | MaskType | tuple[Hashable | slice, ...],
+    ) -> generic.SeriesGroupBy: ...
+    @overload
+    def __getitem__(self: BaseGroupBy[Series[S1]], idx: Scalar) -> S1: ...

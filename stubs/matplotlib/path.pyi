@@ -31,11 +31,11 @@ class Path:
         Draw a line from the current position to the given vertex.
 
     - `CURVE3` :  1 control point, 1 endpoint
-        Draw a quadratic Bézier curve from the current position, with the given
+        Draw a quadratic B�zier curve from the current position, with the given
         control point, to the given end point.
 
     - `CURVE4` :  2 control points, 1 endpoint
-        Draw a cubic Bézier curve from the current position, with the given
+        Draw a cubic B�zier curve from the current position, with the given
         control points, to the given end point.
 
     - `CLOSEPOLY` : 1 vertex (ignored)
@@ -234,7 +234,7 @@ class Path:
         """
     def iter_bezier(self, **kwargs) -> Generator[Incomplete]:
         """
-        Iterate over each Bézier curve (lines included) in a `Path`.
+        Iterate over each B�zier curve (lines included) in a `Path`.
 
         Parameters
         ----------
@@ -244,13 +244,13 @@ class Path:
         Yields
         ------
         B : `~matplotlib.bezier.BezierSegment`
-            The Bézier curves that make up the current path. Note in particular
-            that freestanding points are Bézier curves of order 0, and lines
-            are Bézier curves of order 1 (with two control points).
+            The B�zier curves that make up the current path. Note in particular
+            that freestanding points are B�zier curves of order 0, and lines
+            are B�zier curves of order 1 (with two control points).
         code : `~matplotlib.path.Path.code_type`
             The code describing what kind of curve is being returned.
             `MOVETO`, `LINETO`, `CURVE3`, and `CURVE4` correspond to
-            Bézier curves with 1, 2, 3, and 4 control points (respectively).
+            B�zier curves with 1, 2, 3, and 4 control points (respectively).
             `CLOSEPOLY` is a `LINETO` with the control points correctly
             chosen based on the start/end points of the current stroke.
         """
@@ -404,7 +404,7 @@ class Path:
         polygon/polyline is an (N, 2) array of vertices.  In other words,
         each polygon has no `MOVETO` instructions or curves.  This
         is useful for displaying in backends that do not support
-        compound paths or Bézier curves.
+        compound paths or B�zier curves.
 
         If *width* and *height* are both non-zero then the lines will
         be simplified so that vertices outside of (0, 0), (width,
@@ -473,7 +473,7 @@ class Path:
 
         Notes
         -----
-        The circle is approximated using 8 cubic Bézier curves, as described in
+        The circle is approximated using 8 cubic B�zier curves, as described in
 
           Lancaster, Don.  `Approximating a Circle or an Ellipse Using Four
           Bezier Cubic Splines <https://www.tinaja.com/glib/ellipse4.pdf>`_.
@@ -560,10 +560,4 @@ def get_path_collection_extents(master_transform, paths, transforms, offsets, of
     -----
     The way that *paths*, *transforms* and *offsets* are combined follows the same
     method as for collections: each is iterated over independently, so if you have 3
-    paths (A, B, C), 2 transforms (α, β) and 1 offset (O), their combinations are as
-    follows:
-
-    - (A, α, O)
-    - (B, β, O)
-    - (C, α, O)
     """

@@ -850,13 +850,6 @@ class _AxesBase(martist.Artist):
             ('SW', southwest, is bottom left, etc.).  str inputs are shorthands
             for (*x*, *y*) coordinates, as shown in the following diagram::
 
-               ┌─────────────────┬─────────────────┬─────────────────┐
-               │ 'NW' (0.0, 1.0) │ 'N' (0.5, 1.0)  │ 'NE' (1.0, 1.0) │
-               ├─────────────────┼─────────────────┼─────────────────┤
-               │ 'W'  (0.0, 0.5) │ 'C' (0.5, 0.5)  │ 'E'  (1.0, 0.5) │
-               ├─────────────────┼─────────────────┼─────────────────┤
-               │ 'SW' (0.0, 0.0) │ 'S' (0.5, 0.0)  │ 'SE' (1.0, 0.0) │
-               └─────────────────┴─────────────────┴─────────────────┘
 
         share : bool, default: False
             If ``True``, apply the settings to all shared Axes.

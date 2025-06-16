@@ -3443,9 +3443,9 @@ class Axes(_AxesBase):
             The coordinates of the corners of quadrilaterals of a pcolormesh::
 
                 (X[i+1, j], Y[i+1, j])       (X[i+1, j+1], Y[i+1, j+1])
-                                      ●╶───╴●
+                                      0-----0
                                       │     │
-                                      ●╶───╴●
+                                      0-----0
                     (X[i, j], Y[i, j])       (X[i, j+1], Y[i, j+1])
 
             Note that the column index corresponds to the x-coordinate, and
@@ -3597,9 +3597,9 @@ class Axes(_AxesBase):
             The coordinates of the corners of quadrilaterals of a pcolormesh::
 
                 (X[i+1, j], Y[i+1, j])       (X[i+1, j+1], Y[i+1, j+1])
-                                      ●╶───╴●
+                                      0╶───╴0
                                       │     │
-                                      ●╶───╴●
+                                      0╶───╴0
                     (X[i, j], Y[i, j])       (X[i, j+1], Y[i, j+1])
 
             Note that the column index corresponds to the x-coordinate, and

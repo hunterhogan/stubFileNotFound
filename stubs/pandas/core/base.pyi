@@ -59,8 +59,8 @@ class IndexOpsMixin(OpsMixin, Generic[S1]):
     def array(self) -> ExtensionArray: ...
     def to_numpy(
         self,
-        dtype: npt.DTypeLike | None = ...,
-        copy: bool = ...,
+        dtype: npt.DTypeLike | None = None,
+        copy: bool = False,
         na_value: Scalar = ...,
         **kwargs,
     ) -> np.ndarray: ...
@@ -69,10 +69,10 @@ class IndexOpsMixin(OpsMixin, Generic[S1]):
     def max(self, axis=..., skipna: bool = ..., **kwargs): ...
     def min(self, axis=..., skipna: bool = ..., **kwargs): ...
     def argmax(
-        self, axis: AxisIndex | None = ..., skipna: bool = ..., *args, **kwargs
+        self, axis: AxisIndex | None = None, skipna: bool = True, *args, **kwargs
     ) -> np.int64: ...
     def argmin(
-        self, axis: AxisIndex | None = ..., skipna: bool = ..., *args, **kwargs
+        self, axis: AxisIndex | None = None, skipna: bool = True, *args, **kwargs
     ) -> np.int64: ...
     def tolist(self) -> list[S1]: ...
     def to_list(self) -> list[S1]: ...
@@ -83,21 +83,21 @@ class IndexOpsMixin(OpsMixin, Generic[S1]):
     def value_counts(
         self,
         normalize: Literal[False] = False,
-        sort: bool = ...,
-        ascending: bool = ...,
-        bins=...,
-        dropna: bool = ...,
+        sort: bool = True,
+        ascending: bool = False,
+        bins=None,
+        dropna: bool = True,
     ) -> Series[int]: ...
     @overload
     def value_counts(
         self,
         normalize: Literal[True],
-        sort: bool = ...,
-        ascending: bool = ...,
-        bins=...,
-        dropna: bool = ...,
+        sort: bool = True,
+        ascending: bool = False,
+        bins=None,
+        dropna: bool = True,
     ) -> Series[float]: ...
-    def nunique(self, dropna: bool = ...) -> int: ...
+    def nunique(self, dropna: bool = True) -> int: ...
     @property
     def is_unique(self) -> bool: ...
     @property
@@ -105,9 +105,9 @@ class IndexOpsMixin(OpsMixin, Generic[S1]):
     @property
     def is_monotonic_increasing(self) -> bool: ...
     def factorize(
-        self, sort: bool = ..., use_na_sentinel: bool = ...
+        self, sort: bool = False, use_na_sentinel: bool = True
     ) -> tuple[np.ndarray, np.ndarray | Index | Categorical]: ...
     def searchsorted(
-        self, value, side: Literal["left", "right"] = ..., sorter=...
+        self, value, side: Literal["left", "right"] = 'left', sorter=None
     ) -> int | list[int]: ...
-    def drop_duplicates(self, *, keep: DropKeep = ...) -> Self: ...
+    def drop_duplicates(self, *, keep: DropKeep = 'first') -> Self: ...

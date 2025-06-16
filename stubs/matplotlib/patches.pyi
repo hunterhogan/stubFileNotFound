@@ -30,7 +30,7 @@ class Patch(artist.Artist):
         """
         Return a copy of the vertices used in this patch.
 
-        If the patch contains BÃ©zier curves, the curves will be interpolated by
+        If the patch contains Bézier curves, the curves will be interpolated by
         line segments.  To access the curves as curves, use `get_path`.
         """
     def _process_radius(self, radius): ...
@@ -1437,7 +1437,7 @@ class ConnectionStyle(_Style):
             """
     class Arc3(_Base):
         """
-        Creates a simple quadratic BÃ©zier curve between two
+        Creates a simple quadratic Bézier curve between two
         points. The curve is created so that the middle control point
         (C1) is located at the same distance from the start (C0) and
         end points(C2) and the distance of the C1 to the line
@@ -1454,7 +1454,7 @@ class ConnectionStyle(_Style):
         def connect(self, posA, posB): ...
     class Angle3(_Base):
         """
-        Creates a simple quadratic BÃ©zier curve between two points. The middle
+        Creates a simple quadratic Bézier curve between two points. The middle
         control point is placed at the intersecting point of two lines which
         cross the start and end point, and have a slope of *angleA* and
         *angleB*, respectively.
@@ -1474,7 +1474,7 @@ class ConnectionStyle(_Style):
         def connect(self, posA, posB): ...
     class Angle(_Base):
         """
-        Creates a piecewise continuous quadratic BÃ©zier path between two
+        Creates a piecewise continuous quadratic Bézier path between two
         points. The path has a one passing-through point placed at the
         intersecting point of two lines which cross the start and end point,
         and have a slope of *angleA* and *angleB*, respectively.
@@ -1499,7 +1499,7 @@ class ConnectionStyle(_Style):
         def connect(self, posA, posB): ...
     class Arc(_Base):
         """
-        Creates a piecewise continuous quadratic BÃ©zier path between two
+        Creates a piecewise continuous quadratic Bézier path between two
         points. The path can have two passing-through points, a
         point placed at the distance of *armA* and angle of *angleA* from
         point A, another point with respect to point B. The edges are
@@ -1628,9 +1628,9 @@ class ArrowStyle(_Style):
         def ensure_quadratic_bezier(path):
             """
             Some ArrowStyle classes only works with a simple quadratic
-            BÃ©zier curve (created with `.ConnectionStyle.Arc3` or
+            Bézier curve (created with `.ConnectionStyle.Arc3` or
             `.ConnectionStyle.Angle3`). This static method checks if the
-            provided path is a simple quadratic BÃ©zier curve and returns its
+            provided path is a simple quadratic Bézier curve and returns its
             control points if true.
             """
         def transmute(self, path, mutation_size, linewidth) -> None:
@@ -1808,7 +1808,7 @@ class ArrowStyle(_Style):
                 0 degrees means perpendicular to the line.
             """
     class Simple(_Base):
-        """A simple arrow. Only works with a quadratic BÃ©zier curve."""
+        """A simple arrow. Only works with a quadratic Bézier curve."""
         def __init__(self, head_length: float = 0.5, head_width: float = 0.5, tail_width: float = 0.2) -> None:
             """
             Parameters
@@ -1824,7 +1824,7 @@ class ArrowStyle(_Style):
             """
         def transmute(self, path, mutation_size, linewidth): ...
     class Fancy(_Base):
-        """A fancy arrow. Only works with a quadratic BÃ©zier curve."""
+        """A fancy arrow. Only works with a quadratic Bézier curve."""
         def __init__(self, head_length: float = 0.4, head_width: float = 0.4, tail_width: float = 0.4) -> None:
             """
             Parameters
@@ -1841,7 +1841,7 @@ class ArrowStyle(_Style):
         def transmute(self, path, mutation_size, linewidth): ...
     class Wedge(_Base):
         """
-        Wedge(?) shape. Only works with a quadratic BÃ©zier curve.  The
+        Wedge(?) shape. Only works with a quadratic Bézier curve.  The
         start point has a width of the *tail_width* and the end point has a
         width of 0. At the middle, the width is *shrink_factor*x*tail_width*.
         """

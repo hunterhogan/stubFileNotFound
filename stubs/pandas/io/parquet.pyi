@@ -11,8 +11,8 @@ from pandas._typing import (
 
 def read_parquet(
     path: FilePath | ReadBuffer[bytes],
-    engine: ParquetEngine = ...,
-    columns: list[str] | None = ...,
-    storage_options: StorageOptions = ...,
+    engine: ParquetEngine = 'auto',
+    columns: list[str] | None = None,
+    storage_options: StorageOptions = None,
     **kwargs: Any,
 ) -> DataFrame: ...
