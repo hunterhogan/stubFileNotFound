@@ -7,6 +7,7 @@ from collections.abc import (
 )
 from typing import (
     Any,
+    Concatenate,
     Generic,
     Literal,
     NamedTuple,
@@ -18,11 +19,15 @@ from typing import (
 from matplotlib.axes import Axes as PlotAxes
 import numpy as np
 from pandas.core.frame import DataFrame
+from pandas.core.groupby.base import TransformReductionListType
 from pandas.core.groupby.groupby import (
     GroupBy,
     GroupByPlot,
 )
-from pandas.core.series import Series
+from pandas.core.series import (
+    Series,
+    UnknownSeries,
+)
 from typing_extensions import (
     Self,
     TypeAlias,
@@ -31,6 +36,7 @@ from typing_extensions import (
 from pandas._libs.tslibs.timestamps import Timestamp
 from pandas._typing import (
     S1,
+    S2,
     AggFuncTypeBase,
     AggFuncTypeFrame,
     ByT,
@@ -40,6 +46,7 @@ from pandas._typing import (
     Level,
     ListLike,
     NsmallestNlargestKeep,
+    P,
     Scalar,
     TakeIndexer,
     WindowingEngine,
@@ -56,6 +63,25 @@ class SeriesGroupBy(GroupBy[Series[S1]], Generic[S1, ByT]):
     @overload
     def aggregate(
         self,
+        func: Callable[Concatenate[Series[S1], P], S2],
+        /,
+        *args,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
+        **kwargs,
+    ) -> Series[S2]: ...
+    @overload
+    def aggregate(
+        self,
+        func: Callable[[Series], S2],
+        *args,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
+        **kwargs,
+    ) -> Series[S2]: ...
+    @overload
+    def aggregate(
+        self,
         func: list[AggFuncTypeBase],
         *args: Any,
         engine: WindowingEngine = ...,
@@ -65,50 +91,64 @@ class SeriesGroupBy(GroupBy[Series[S1]], Generic[S1, ByT]):
     @overload
     def aggregate(
         self,
-        func: AggFuncTypeBase | None = ...,
+        func: AggFuncTypeBase | None = None,
+        /,
         *args: Any,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
         **kwargs: Any,
-    ) -> Series[Any]: ...
+    ) -> UnknownSeries: ...
     agg = aggregate
+    @overload
+    def transform(
+        self,
+        func: Callable[Concatenate[Series[S1], P], Series[S2]],
+        /,
+        *args: Any,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
+        **kwargs: Any,
+    ) -> Series[S2]: ...
+    @overload
     def transform(
         self,
         func: Callable[..., Any] | str,
         *args: Any,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
         **kwargs: Any,
-    ) -> Series[Any]: ...
+    ) -> UnknownSeries: ...
+    @overload
+    def transform(
+        self, func: TransformReductionListType, *args, **kwargs
+    ) -> UnknownSeries: ...
     def filter(
-        self, func: Callable[..., Any] | str, dropna: bool = ..., *args: Any, **kwargs: Any
+        self, func: Callable | str, dropna: bool = True, *args: Any, **kwargs: Any
     ) -> Series[Any]: ...
-    def nunique(self, dropna: bool = ...) -> Series[int]: ...
+    def nunique(self, dropna: bool = True) -> Series[int]: ...
     # describe delegates to super() method but here it has keyword-only parameters
     def describe(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
         self,
         *,
-        percentiles: Iterable[float] | None = ...,
-        include: Literal["all"] | list[Dtype] | None = ...,
-        exclude: list[Dtype] | None = ...,
+        percentiles: Iterable[float] | None = None,
+        include: Literal["all"] | list[Dtype] | None = None,
+        exclude: list[Dtype] | None = None,
     ) -> DataFrame: ...
     @overload
     def value_counts(
         self,
         normalize: Literal[False] = False,
-        sort: bool = ...,
-        ascending: bool = ...,
-        bins: int | Sequence[int] | None = ...,
-        dropna: bool = ...,
+        sort: bool = True,
+        ascending: bool = False,
+        bins: int | Sequence[int] | None = None,
+        dropna: bool = True,
     ) -> Series[int]: ...
     @overload
     def value_counts(
         self,
         normalize: Literal[True],
-        sort: bool = ...,
-        ascending: bool = ...,
-        bins: int | Sequence[int] | None = ...,
-        dropna: bool = ...,
+        sort: bool = True,
+        ascending: bool = False,
+        bins: int | Sequence[int] | None = None,
+        dropna: bool = True,
     ) -> Series[float]: ...
     def take(
         self,
@@ -124,10 +164,10 @@ class SeriesGroupBy(GroupBy[Series[S1]], Generic[S1, ByT]):
     @property
     def plot(self) -> GroupByPlot[Self]: ...
     def nlargest(
-        self, n: int = ..., keep: NsmallestNlargestKeep = ...
+        self, n: int = 5, keep: NsmallestNlargestKeep = 'first'
     ) -> Series[S1]: ...
     def nsmallest(
-        self, n: int = ..., keep: NsmallestNlargestKeep = ...
+        self, n: int = 5, keep: NsmallestNlargestKeep = 'first'
     ) -> Series[S1]: ...
     def idxmin(self, skipna: bool = ...) -> Series[Any]: ...
     def idxmax(self, skipna: bool = ...) -> Series[Any]: ...
@@ -146,17 +186,17 @@ class SeriesGroupBy(GroupBy[Series[S1]], Generic[S1, ByT]):
     def is_monotonic_decreasing(self) -> Series[bool]: ...
     def hist(
         self,
-        by: IndexLabel | None = ...,
-        ax: PlotAxes | None = ...,
-        grid: bool = ...,
-        xlabelsize: float | str | None = ...,
-        xrot: float | None = ...,
-        ylabelsize: float | str | None = ...,
-        yrot: float | None = ...,
-        figsize: tuple[float, float] | None = ...,
-        bins: int | Sequence[int] = ...,
-        backend: str | None = ...,
-        legend: bool = ...,
+        by: IndexLabel | None = None,
+        ax: PlotAxes | None = None,
+        grid: bool = True,
+        xlabelsize: float | str | None = None,
+        xrot: float | None = None,
+        ylabelsize: float | str | None = None,
+        yrot: float | None = None,
+        figsize: tuple[float, float] | None = None,
+        bins: int | Sequence[int] = 10,
+        backend: str | None = None,
+        legend: bool = False,
         **kwargs: Any,
     ) -> Series[Any]: ...  # Series[Axes] but this is not allowed
     @property
@@ -199,20 +239,32 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
     @overload
     def aggregate(
         self,
-        func: AggFuncTypeFrame | None = ...,
+        func: AggFuncTypeFrame | None = None,
         *args: Any,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
         **kwargs: Any,
     ) -> DataFrame: ...
     agg = aggregate
+    @overload
+    def transform(
+        self,
+        func: Callable[Concatenate[DataFrame, P], DataFrame],
+        *args: Any,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
+        **kwargs: Any,
+    ) -> DataFrame: ...
+    @overload
     def transform(
         self,
         func: Callable[..., Any] | str,
         *args: Any,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
         **kwargs: Any,
+    ) -> DataFrame: ...
+    @overload
+    def transform(
+        self, func: TransformReductionListType, *args, **kwargs
     ) -> DataFrame: ...
     def filter(
         self, func: Callable[..., Any], dropna: bool = ..., *args: Any, **kwargs: Any
@@ -223,107 +275,107 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
     def __getitem__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, key: Iterable[Hashable]
     ) -> DataFrameGroupBy[ByT, bool]: ...
-    def nunique(self, dropna: bool = ...) -> DataFrame: ...
+    def nunique(self, dropna: bool = True) -> DataFrame: ...
     def idxmax(
         self,
-        skipna: bool = ...,
-        numeric_only: bool = ...,
+        skipna: bool = True,
+        numeric_only: bool = False,
     ) -> DataFrame: ...
     def idxmin(
         self,
-        skipna: bool = ...,
-        numeric_only: bool = ...,
+        skipna: bool = True,
+        numeric_only: bool = False,
     ) -> DataFrame: ...
     @overload
     def boxplot(
         self,
         subplots: Literal[True] = True,
-        column: IndexLabel | None = ...,
-        fontsize: float | str | None = ...,
-        rot: float = ...,
-        grid: bool = ...,
-        ax: PlotAxes | None = ...,
-        figsize: tuple[float, float] | None = ...,
-        layout: tuple[int, int] | None = ...,
-        sharex: bool = ...,
-        sharey: bool = ...,
-        backend: str | None = ...,
+        column: IndexLabel | None = None,
+        fontsize: float | str | None = None,
+        rot: float = 0,
+        grid: bool = True,
+        ax: PlotAxes | None = None,
+        figsize: tuple[float, float] | None = None,
+        layout: tuple[int, int] | None = None,
+        sharex: bool = False,
+        sharey: bool = True,
+        backend: str | None = None,
         **kwargs: Any,
     ) -> Series[Any]: ...  # Series[PlotAxes] but this is not allowed
     @overload
     def boxplot(
         self,
         subplots: Literal[False],
-        column: IndexLabel | None = ...,
-        fontsize: float | str | None = ...,
-        rot: float = ...,
-        grid: bool = ...,
-        ax: PlotAxes | None = ...,
-        figsize: tuple[float, float] | None = ...,
-        layout: tuple[int, int] | None = ...,
-        sharex: bool = ...,
-        sharey: bool = ...,
-        backend: str | None = ...,
+        column: IndexLabel | None = None,
+        fontsize: float | str | None = None,
+        rot: float = 0,
+        grid: bool = True,
+        ax: PlotAxes | None = None,
+        figsize: tuple[float, float] | None = None,
+        layout: tuple[int, int] | None = None,
+        sharex: bool = False,
+        sharey: bool = True,
+        backend: str | None = None,
         **kwargs: Any,
     ) -> PlotAxes: ...
     @overload
     def boxplot(
         self,
         subplots: bool,
-        column: IndexLabel | None = ...,
-        fontsize: float | str | None = ...,
-        rot: float = ...,
-        grid: bool = ...,
-        ax: PlotAxes | None = ...,
-        figsize: tuple[float, float] | None = ...,
-        layout: tuple[int, int] | None = ...,
-        sharex: bool = ...,
-        sharey: bool = ...,
-        backend: str | None = ...,
+        column: IndexLabel | None = None,
+        fontsize: float | str | None = None,
+        rot: float = 0,
+        grid: bool = True,
+        ax: PlotAxes | None = None,
+        figsize: tuple[float, float] | None = None,
+        layout: tuple[int, int] | None = None,
+        sharex: bool = False,
+        sharey: bool = True,
+        backend: str | None = None,
         **kwargs: Any,
     ) -> PlotAxes | Series[Any]: ...  # Series[PlotAxes]
     @overload
     def value_counts(
         self: DataFrameGroupBy[ByT, Literal[True]],
-        subset: ListLike | None = ...,
+        subset: ListLike | None = None,
         normalize: Literal[False] = False,
-        sort: bool = ...,
-        ascending: bool = ...,
-        dropna: bool = ...,
+        sort: bool = True,
+        ascending: bool = False,
+        dropna: bool = True,
     ) -> Series[int]: ...
     @overload
     def value_counts(
         self: DataFrameGroupBy[ByT, Literal[True]],
         subset: ListLike | None,
         normalize: Literal[True],
-        sort: bool = ...,
-        ascending: bool = ...,
-        dropna: bool = ...,
+        sort: bool = True,
+        ascending: bool = False,
+        dropna: bool = True,
     ) -> Series[float]: ...
     @overload
     def value_counts(
         self: DataFrameGroupBy[ByT, Literal[False]],
-        subset: ListLike | None = ...,
+        subset: ListLike | None = None,
         normalize: Literal[False] = False,
-        sort: bool = ...,
-        ascending: bool = ...,
-        dropna: bool = ...,
+        sort: bool = True,
+        ascending: bool = False,
+        dropna: bool = True,
     ) -> DataFrame: ...
     @overload
     def value_counts(
         self: DataFrameGroupBy[ByT, Literal[False]],
         subset: ListLike | None,
         normalize: Literal[True],
-        sort: bool = ...,
-        ascending: bool = ...,
-        dropna: bool = ...,
+        sort: bool = True,
+        ascending: bool = False,
+        dropna: bool = True,
     ) -> DataFrame: ...
     def take(self, indices: TakeIndexer, **kwargs: Any) -> DataFrame: ...
     @overload
     def skew(
         self,
-        skipna: bool = ...,
-        numeric_only: bool = ...,
+        skipna: bool = True,
+        numeric_only: bool = False,
         *,
         level: Level,
         **kwargs: Any,
@@ -331,8 +383,8 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
     @overload
     def skew(
         self,
-        skipna: bool = ...,
-        numeric_only: bool = ...,
+        skipna: bool = True,
+        numeric_only: bool = False,
         *,
         level: None = None,
         **kwargs: Any,
@@ -347,27 +399,27 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
     ) -> DataFrame: ...
     def cov(
         self,
-        min_periods: int | None = ...,
-        ddof: int | None = ...,
-        numeric_only: bool = ...,
+        min_periods: int | None = None,
+        ddof: int | None = 1,
+        numeric_only: bool = False,
     ) -> DataFrame: ...
     def hist(
         self,
-        column: IndexLabel | None = ...,
-        by: IndexLabel | None = ...,
-        grid: bool = ...,
-        xlabelsize: float | str | None = ...,
-        xrot: float | None = ...,
-        ylabelsize: float | str | None = ...,
-        yrot: float | None = ...,
-        ax: PlotAxes | None = ...,
-        sharex: bool = ...,
-        sharey: bool = ...,
-        figsize: tuple[float, float] | None = ...,
-        layout: tuple[int, int] | None = ...,
-        bins: int | Sequence[int] = ...,
-        backend: str | None = ...,
-        legend: bool = ...,
+        column: IndexLabel | None = None,
+        by: IndexLabel | None = None,
+        grid: bool = True,
+        xlabelsize: float | str | None = None,
+        xrot: float | None = None,
+        ylabelsize: float | str | None = None,
+        yrot: float | None = None,
+        ax: PlotAxes | None = None,
+        sharex: bool = False,
+        sharey: bool = False,
+        figsize: tuple[float, float] | None = None,
+        layout: tuple[int, int] | None = None,
+        bins: int | Sequence[int] = 10,
+        backend: str | None = None,
+        legend: bool = False,
         **kwargs: Any,
     ) -> Series[Any]: ...  # Series[Axes] but this is not allowed
     @property
