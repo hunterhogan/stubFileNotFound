@@ -65,19 +65,19 @@ class SeriesGroupBy(GroupBy[Series[S1]], Generic[S1, ByT]):
         self,
         func: Callable[Concatenate[Series[S1], P], S2],
         /,
-        *args,
+        *args: Any,
         engine: WindowingEngine = None,
         engine_kwargs: WindowingEngineKwargs = None,
-        **kwargs,
+        **kwargs: Any,
     ) -> Series[S2]: ...
     @overload
     def aggregate(
         self,
         func: Callable[[Series], S2],
-        *args,
+        *args: Any,
         engine: WindowingEngine = None,
         engine_kwargs: WindowingEngineKwargs = None,
-        **kwargs,
+        **kwargs: Any,
     ) -> Series[S2]: ...
     @overload
     def aggregate(
@@ -118,10 +118,10 @@ class SeriesGroupBy(GroupBy[Series[S1]], Generic[S1, ByT]):
     ) -> UnknownSeries: ...
     @overload
     def transform(
-        self, func: TransformReductionListType, *args, **kwargs
+        self, func: TransformReductionListType, *args: Any, **kwargs: Any
     ) -> UnknownSeries: ...
     def filter(
-        self, func: Callable | str, dropna: bool = True, *args: Any, **kwargs: Any
+        self, func: Callable[..., Any] | str, dropna: bool = True, *args: Any, **kwargs: Any
     ) -> Series[Any]: ...
     def nunique(self, dropna: bool = True) -> Series[int]: ...
     # describe delegates to super() method but here it has keyword-only parameters
@@ -264,7 +264,7 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
     ) -> DataFrame: ...
     @overload
     def transform(
-        self, func: TransformReductionListType, *args, **kwargs
+        self, func: TransformReductionListType, *args: Any, **kwargs: Any
     ) -> DataFrame: ...
     def filter(
         self, func: Callable[..., Any], dropna: bool = ..., *args: Any, **kwargs: Any
