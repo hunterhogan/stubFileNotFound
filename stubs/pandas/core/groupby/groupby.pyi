@@ -97,17 +97,17 @@ class GroupBy(BaseGroupBy[NDFrameT]):
     def apply(self, func: Callable[..., Any] | str, *args: Any, **kwargs: Any) -> NDFrameT: ...
     @final
     @overload
-    def any(self: GroupBy[Series[Any]], skipna: bool = ...) -> Series[bool]: ...
+    def any(self: GroupBy[Series], skipna: bool = True) -> Series[bool]: ...
     @overload
     def any(self: GroupBy[DataFrame], skipna: bool = True) -> DataFrame: ...
     @final
     @overload
-    def all(self: GroupBy[Series[Any]], skipna: bool = ...) -> Series[bool]: ...
+    def all(self: GroupBy[Series], skipna: bool = True) -> Series[bool]: ...
     @overload
     def all(self: GroupBy[DataFrame], skipna: bool = True) -> DataFrame: ...
     @final
     @overload
-    def count(self: GroupBy[Series[Any]]) -> Series[int]: ...
+    def count(self: GroupBy[Series]) -> Series[int]: ...
     @overload
     def count(self: GroupBy[DataFrame]) -> DataFrame: ...
     @final
@@ -122,11 +122,11 @@ class GroupBy(BaseGroupBy[NDFrameT]):
     @final
     @overload
     def std(
-        self: GroupBy[Series[Any]],
-        ddof: int = ...,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
-        numeric_only: bool = ...,
+        self: GroupBy[Series],
+        ddof: int = 1,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
+        numeric_only: bool = False,
     ) -> Series[float]: ...
     @overload
     def std(
@@ -139,11 +139,11 @@ class GroupBy(BaseGroupBy[NDFrameT]):
     @final
     @overload
     def var(
-        self: GroupBy[Series[Any]],
-        ddof: int = ...,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
-        numeric_only: bool = ...,
+        self: GroupBy[Series],
+        ddof: int = 1,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
+        numeric_only: bool = False,
     ) -> Series[float]: ...
     @overload
     def var(
@@ -156,13 +156,13 @@ class GroupBy(BaseGroupBy[NDFrameT]):
     @final
     @overload
     def sem(
-        self: GroupBy[Series[Any]], ddof: int = ..., numeric_only: bool = ...
+        self: GroupBy[Series], ddof: int = 1, numeric_only: bool = False
     ) -> Series[float]: ...
     @overload
     def sem(
         self: GroupBy[DataFrame], ddof: int = 1, numeric_only: bool = False
     ) -> DataFrame: ...
-    def size(self: GroupBy[Series[Any]]) -> Series[int]: ...
+    def size(self: GroupBy[Series]) -> Series[int]: ...
     @final
     def sum(
         self,
@@ -218,7 +218,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         origin: TimeGrouperOrigin | TimestampConvertibleTypes = ...,
         offset: TimedeltaConvertibleTypes | None = ...,
         group_keys: bool = ...,
-        **kwargs: Any,
+        **kwargs,
     ) -> _ResamplerGroupBy[NDFrameT]: ...
     @final
     def rolling(
@@ -228,7 +228,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         center: bool | None = ...,
         win_type: str | None = ...,
         axis: Axis = ...,
-        on: str | Index[Any] | None = ...,
+        on: str | Index | None = ...,
         closed: IntervalClosedType | None = ...,
         method: CalculationMethod = ...,
         *,
@@ -253,7 +253,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         adjust: bool = ...,
         ignore_na: bool = ...,
         axis: Axis = ...,
-        times: str | np.ndarray[Any, Any] | Series[Any] | np.timedelta64 | None = ...,
+        times: str | np.ndarray | Series | np.timedelta64 | None = ...,
         method: CalculationMethod = ...,
         *,
         selection: IndexLabel | None = ...,
@@ -286,16 +286,16 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         axis: AxisInt | NoDefault = ...,
     ) -> NDFrameT: ...
     @final
-    def cumprod(self, axis: Axis | NoDefault = ..., *args: Any, **kwargs: Any) -> NDFrameT: ...
+    def cumprod(self, axis: Axis | NoDefault = ..., *args, **kwargs) -> NDFrameT: ...
     @final
-    def cumsum(self, axis: Axis | NoDefault = ..., *args: Any, **kwargs: Any) -> NDFrameT: ...
+    def cumsum(self, axis: Axis | NoDefault = ..., *args, **kwargs) -> NDFrameT: ...
     @final
     def cummin(
-        self, axis: AxisInt | NoDefault = ..., numeric_only: bool = ..., **kwargs: Any
+        self, axis: AxisInt | NoDefault = ..., numeric_only: bool = False, **kwargs
     ) -> NDFrameT: ...
     @final
     def cummax(
-        self, axis: AxisInt | NoDefault = ..., numeric_only: bool = ..., **kwargs: Any
+        self, axis: AxisInt | NoDefault = ..., numeric_only: bool = False, **kwargs
     ) -> NDFrameT: ...
     @final
     def shift(
@@ -303,8 +303,8 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         periods: int | Sequence[int] = 1,
         freq: Frequency | None = None,
         axis: Axis | NoDefault = ...,
-        fill_value: Any = ...,
-        suffix: str | None = ...,
+        fill_value=...,
+        suffix: str | None = None,
     ) -> NDFrameT: ...
     @final
     def diff(self, periods: int = 1, axis: AxisInt | NoDefault = ...) -> NDFrameT: ...
@@ -314,7 +314,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         periods: int = 1,
         fill_method: Literal["bfill", "ffill"] | None | NoDefault = ...,
         limit: int | None | NoDefault = ...,
-        freq: Any=...,
+        freq=None,
         axis: Axis | NoDefault = ...,
     ) -> NDFrameT: ...
     @final
@@ -324,11 +324,11 @@ class GroupBy(BaseGroupBy[NDFrameT]):
     @final
     def sample(
         self,
-        n: int | None = ...,
-        frac: float | None = ...,
-        replace: bool = ...,
-        weights: Sequence[Any] | Series[Any] | None = ...,
-        random_state: RandomState | None = ...,
+        n: int | None = None,
+        frac: float | None = None,
+        replace: bool = False,
+        weights: Sequence | Series | None = None,
+        random_state: RandomState | None = None,
     ) -> NDFrameT: ...
 
 _GroupByT = TypeVar("_GroupByT", bound=GroupBy)

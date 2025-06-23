@@ -5,7 +5,6 @@ from collections.abc import (
     Sequence,
 )
 from typing import (
-    Any,
     overload,
 )
 
@@ -27,7 +26,7 @@ from pandas._typing import (
     np_ndarray_bool,
 )
 
-class MultiIndex(Index[Any]):
+class MultiIndex(Index):
     def __new__(
         cls,
         levels: Sequence[SequenceNotStr[Hashable]] = None,
@@ -55,7 +54,7 @@ class MultiIndex(Index[Any]):
     @classmethod
     def from_product(
         cls,
-        iterables: Sequence[SequenceNotStr[Hashable]],
+        iterables: Sequence[SequenceNotStr[Hashable] | pd.Series | pd.Index],
         sortorder: int | None = None,
         names: SequenceNotStr[Hashable] = ...,
     ) -> Self: ...
@@ -163,5 +162,3 @@ class MultiIndex(Index[Any]):
     def insert(self, loc, item): ...
     def delete(self, loc): ...
     def isin(self, values, level=None) -> np_ndarray_bool: ...
-
-def maybe_droplevels(index, key): ...

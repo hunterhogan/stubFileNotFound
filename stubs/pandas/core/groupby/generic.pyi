@@ -24,10 +24,7 @@ from pandas.core.groupby.groupby import (
     GroupBy,
     GroupByPlot,
 )
-from pandas.core.series import (
-    Series,
-    UnknownSeries,
-)
+from pandas.core.series import Series
 from typing_extensions import (
     Self,
     TypeAlias,
@@ -35,8 +32,8 @@ from typing_extensions import (
 
 from pandas._libs.tslibs.timestamps import Timestamp
 from pandas._typing import (
-    S1,
     S2,
+    S3,
     AggFuncTypeBase,
     AggFuncTypeFrame,
     ByT,
@@ -59,33 +56,34 @@ class NamedAgg(NamedTuple):
     column: str
     aggfunc: AggScalar
 
-class SeriesGroupBy(GroupBy[Series[S1]], Generic[S1, ByT]):
+class SeriesGroupBy(GroupBy[Series[S2]], Generic[S2, ByT]):
     @overload
     def aggregate(
         self,
-        func: Callable[Concatenate[Series[S1], P], S2],
+        func: Callable[Concatenate[Series[S2], P], S3],
         /,
         *args: Any,
         engine: WindowingEngine = None,
         engine_kwargs: WindowingEngineKwargs = None,
         **kwargs: Any,
-    ) -> Series[S2]: ...
+    ) -> Series[S3]: ...
     @overload
     def aggregate(
         self,
-        func: Callable[[Series], S2],
+        func: Callable[[Series], S3],
         *args: Any,
         engine: WindowingEngine = None,
         engine_kwargs: WindowingEngineKwargs = None,
         **kwargs: Any,
-    ) -> Series[S2]: ...
+    ) -> Series[S3]: ...
     @overload
     def aggregate(
         self,
         func: list[AggFuncTypeBase],
+        /,
         *args: Any,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
         **kwargs: Any,
     ) -> DataFrame: ...
     @overload
@@ -97,31 +95,31 @@ class SeriesGroupBy(GroupBy[Series[S1]], Generic[S1, ByT]):
         engine: WindowingEngine = None,
         engine_kwargs: WindowingEngineKwargs = None,
         **kwargs: Any,
-    ) -> UnknownSeries: ...
+    ) -> Series[Any]: ...
     agg = aggregate
     @overload
     def transform(
         self,
-        func: Callable[Concatenate[Series[S1], P], Series[S2]],
+        func: Callable[Concatenate[Series[S2], P], Series[S3]],
         /,
         *args: Any,
         engine: WindowingEngine = None,
         engine_kwargs: WindowingEngineKwargs = None,
         **kwargs: Any,
-    ) -> Series[S2]: ...
+    ) -> Series[S3]: ...
     @overload
     def transform(
         self,
         func: Callable[..., Any] | str,
         *args: Any,
         **kwargs: Any,
-    ) -> UnknownSeries: ...
+    ) -> Series[Any]: ...
     @overload
     def transform(
         self, func: TransformReductionListType, *args: Any, **kwargs: Any
-    ) -> UnknownSeries: ...
+    ) -> Series[Any]: ...
     def filter(
-        self, func: Callable[..., Any] | str, dropna: bool = True, *args: Any, **kwargs: Any
+        self, func: Callable | str, dropna: bool = True, *args: Any, **kwargs: Any
     ) -> Series[Any]: ...
     def nunique(self, dropna: bool = True) -> Series[int]: ...
     # describe delegates to super() method but here it has keyword-only parameters
@@ -154,31 +152,31 @@ class SeriesGroupBy(GroupBy[Series[S1]], Generic[S1, ByT]):
         self,
         indices: TakeIndexer,
         **kwargs: Any,
-    ) -> Series[S1]: ...
+    ) -> Series[S2]: ...
     def skew(
         self,
-        skipna: bool = ...,
-        numeric_only: bool = ...,
+        skipna: bool = True,
+        numeric_only: bool = False,
         **kwargs: Any,
     ) -> Series[Any]: ...
     @property
     def plot(self) -> GroupByPlot[Self]: ...
     def nlargest(
         self, n: int = 5, keep: NsmallestNlargestKeep = 'first'
-    ) -> Series[S1]: ...
+    ) -> Series[S2]: ...
     def nsmallest(
         self, n: int = 5, keep: NsmallestNlargestKeep = 'first'
-    ) -> Series[S1]: ...
-    def idxmin(self, skipna: bool = ...) -> Series[Any]: ...
-    def idxmax(self, skipna: bool = ...) -> Series[Any]: ...
+    ) -> Series[S2]: ...
+    def idxmin(self, skipna: bool = True) -> Series[Any]: ...
+    def idxmax(self, skipna: bool = True) -> Series[Any]: ...
     def corr(
         self,
         other: Series[Any],
-        method: CorrelationMethod = ...,
-        min_periods: int | None = ...,
+        method: CorrelationMethod = 'pearson',
+        min_periods: int | None = None,
     ) -> Series[Any]: ...
     def cov(
-        self, other: Series[Any], min_periods: int | None = ..., ddof: int | None = ...
+        self, other: Series[Any], min_periods: int | None = None, ddof: int | None = 1
     ) -> Series[Any]: ...
     @property
     def is_monotonic_increasing(self) -> Series[bool]: ...
@@ -206,7 +204,7 @@ class SeriesGroupBy(GroupBy[Series[S1]], Generic[S1, ByT]):
     @final  # type: ignore[misc]
     def __iter__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self,
-    ) -> Iterator[tuple[ByT, Series[S1]]]: ...
+    ) -> Iterator[tuple[ByT, Series[S2]]]: ...
 
 _TT = TypeVar("_TT", bound=Literal[True, False])
 
@@ -267,14 +265,14 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         self, func: TransformReductionListType, *args: Any, **kwargs: Any
     ) -> DataFrame: ...
     def filter(
-        self, func: Callable[..., Any], dropna: bool = ..., *args: Any, **kwargs: Any
+        self, func: Callable[..., Any], dropna: bool = True, *args: Any, **kwargs: Any
     ) -> DataFrame: ...
     @overload
     def __getitem__(self, key: Scalar) -> SeriesGroupBy[Any, ByT]: ...  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
     @overload
     def __getitem__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, key: Iterable[Hashable]
-    ) -> DataFrameGroupBy[ByT, bool]: ...
+    ) -> DataFrameGroupBy[ByT, _TT]: ...
     def nunique(self, dropna: bool = True) -> DataFrame: ...
     def idxmax(
         self,
@@ -393,9 +391,9 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
     def plot(self) -> GroupByPlot[Self]: ...
     def corr(
         self,
-        method: str | Callable[[np.ndarray[Any, Any], np.ndarray[Any, Any]], float] = ...,
-        min_periods: int = ...,
-        numeric_only: bool = ...,
+        method: str | Callable[[np.ndarray[Any, Any], np.ndarray[Any, Any]], float] = 'pearson',
+        min_periods: int = 1,
+        numeric_only: bool = False,
     ) -> DataFrame: ...
     def cov(
         self,
