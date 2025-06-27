@@ -8,7 +8,6 @@ import datetime
 from typing import (
     Literal,
     overload,
-    Any,
 )
 
 import numpy as np
@@ -34,7 +33,7 @@ from pandas._typing import (
 _PivotAggCallable: TypeAlias = Callable[[Series], ScalarT]
 
 _PivotAggFunc: TypeAlias = (
-    _PivotAggCallable[Any]
+    _PivotAggCallable
     | np.ufunc
     | Literal["mean", "sum", "count", "min", "max", "median", "std", "var"]
 )
@@ -65,9 +64,9 @@ _ExtendedAnyArrayLike: TypeAlias = AnyArrayLike | ArrayLike
 @overload
 def pivot_table(
     data: DataFrame,
-    values: _PivotTableValuesTypes[Any] = None,
-    index: _PivotTableIndexTypes[Any] = None,
-    columns: _PivotTableColumnsTypes[Any] = None,
+    values: _PivotTableValuesTypes = None,
+    index: _PivotTableIndexTypes = None,
+    columns: _PivotTableColumnsTypes = None,
     aggfunc: (
         _PivotAggFunc | Sequence[_PivotAggFunc] | Mapping[Hashable, _PivotAggFunc]
     ) = 'mean',
@@ -83,10 +82,10 @@ def pivot_table(
 @overload
 def pivot_table(
     data: DataFrame,
-    values: _PivotTableValuesTypes[Any] = None,
+    values: _PivotTableValuesTypes = None,
     *,
     index: Grouper,
-    columns: _PivotTableColumnsTypes[Any] | Index | npt.NDArray[Any] = None,
+    columns: _PivotTableColumnsTypes | Index | npt.NDArray = None,
     aggfunc: (
         _PivotAggFunc | Sequence[_PivotAggFunc] | Mapping[Hashable, _PivotAggFunc]
     ) = 'mean',
@@ -100,8 +99,8 @@ def pivot_table(
 @overload
 def pivot_table(
     data: DataFrame,
-    values: _PivotTableValuesTypes[Any] = None,
-    index: _PivotTableIndexTypes[Any] | Index | npt.NDArray[Any] = None,
+    values: _PivotTableValuesTypes = None,
+    index: _PivotTableIndexTypes | Index | npt.NDArray = None,
     *,
     columns: Grouper,
     aggfunc: (
@@ -123,9 +122,9 @@ def pivot(
 ) -> DataFrame: ...
 @overload
 def crosstab(
-    index: list[Any] | _ExtendedAnyArrayLike | list[Sequence[Any] | _ExtendedAnyArrayLike],
-    columns: list[Any] | _ExtendedAnyArrayLike | list[Sequence[Any] | _ExtendedAnyArrayLike],
-    values: list[Any] | _ExtendedAnyArrayLike,
+    index: list | _ExtendedAnyArrayLike | list[Sequence | _ExtendedAnyArrayLike],
+    columns: list | _ExtendedAnyArrayLike | list[Sequence | _ExtendedAnyArrayLike],
+    values: list | _ExtendedAnyArrayLike,
     rownames: list[HashableT1] | None = None,
     colnames: list[HashableT2] | None = None,
     *,
@@ -137,8 +136,8 @@ def crosstab(
 ) -> DataFrame: ...
 @overload
 def crosstab(
-    index: list[Any] | _ExtendedAnyArrayLike | list[Sequence[Any] | _ExtendedAnyArrayLike],
-    columns: list[Any] | _ExtendedAnyArrayLike | list[Sequence[Any] | _ExtendedAnyArrayLike],
+    index: list | _ExtendedAnyArrayLike | list[Sequence | _ExtendedAnyArrayLike],
+    columns: list | _ExtendedAnyArrayLike | list[Sequence | _ExtendedAnyArrayLike],
     values: None = None,
     rownames: list[HashableT1] | None = None,
     colnames: list[HashableT2] | None = None,

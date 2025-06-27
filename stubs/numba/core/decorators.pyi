@@ -35,7 +35,7 @@ def jit(signature_or_function: Callable[..., Any] | str | list[str] | None = Non
 		pipeline_class: Any | None = None,
 		boundscheck: Any | None = None,
 		**options: bool | str | Callable[..., Any] | None) -> Callable[..., Any] | Any:
-	'''
+    '''
 	This decorator is used to compile a Python function into native code.
 
 	Args
@@ -211,7 +211,7 @@ def njit(function: Callable[..., Any], **kws: Any) -> Any: ...
 def njit(signature_or_function: str | list[str] | None = None, **kws: Any) -> Callable[..., Any]: ...
 
 def njit(*args: Any, **kws: Any) -> Any | Callable[..., Any]:
-	"""
+    """
 	Equivalent to jit(nopython=True)
 
 	See documentation for jit function/decorator for full description.
@@ -219,7 +219,7 @@ def njit(*args: Any, **kws: Any) -> Any | Callable[..., Any]:
 
 def cfunc(sig: str, locals: dict[str, Any] = {}, cache: bool = False,
 		  pipeline_class: Any | None = None, **options: Any) -> Callable[..., Any]:
-	'''
+    '''
 	This decorator is used to compile a Python function into a C callback
 	usable with foreign C libraries.
 
@@ -253,7 +253,7 @@ def cfunc(sig: str, locals: dict[str, Any] = {}, cache: bool = False,
 	'''
 
 def jit_module(**kwargs: Any) -> None:
-	""" Automatically ``jit``-wraps functions defined in a Python module
+    """ Automatically ``jit``-wraps functions defined in a Python module
 
 	Note that ``jit_module`` should only be called at the end of the module to
 	be jitted. In addition, only functions which are defined in the module

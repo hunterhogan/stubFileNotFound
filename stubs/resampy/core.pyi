@@ -10,7 +10,7 @@ _FloatArray = TypeVar('_FloatArray', bound=NDArray[np.floating[Any]])
 _FilterType = Union[str, Callable[..., tuple[NDArray[np.floating[Any]], int, float]]]
 
 def resample(x: _FloatArray, sr_orig: int | float, sr_new: int | float, axis: int = -1, filter: _FilterType = 'kaiser_best', parallel: bool = False, **kwargs: Any) -> _FloatArray:
-	"""Resample a signal x from sr_orig to sr_new along a given axis.
+    """Resample a signal x from sr_orig to sr_new along a given axis.
 
 	Parameters
 	----------
@@ -88,10 +88,10 @@ def resample(x: _FloatArray, sr_orig: int | float, sr_new: int | float, axis: in
 	>>> y_stereo.shape
 	(2, 110250)
 	"""
-	...
+    ...
 
 def resample_nu(x: _FloatArray, sr_orig: int | float, t_out: NDArray[np.floating[Any]], axis: int = -1, filter: _FilterType = 'kaiser_best', parallel: bool = False, **kwargs: Any) -> _FloatArray:
-	"""Interpolate a signal x at specified positions (t_out) along a given axis.
+    """Interpolate a signal x at specified positions (t_out) along a given axis.
 
 	Parameters
 	----------
@@ -156,4 +156,4 @@ def resample_nu(x: _FloatArray, sr_orig: int | float, t_out: NDArray[np.floating
 	>>> resampy.resample_nu(x, sr_orig, t_new)
 	array([ 0.001,  0.427,  0.76 , ..., -0.3  , -0.372, -0.442])
 	"""
-	...
+    ...

@@ -11,7 +11,7 @@ def erase_traceback(exc_value):
     """
     Erase the traceback and hanging locals from the given exception instance.
     """
-def safe_relpath(path, start=...):
+def safe_relpath(path, start='.'):
     '''
     Produces a "safe" relative path, on windows relpath doesn\'t work across
     drives as technically they don\'t share the same root.

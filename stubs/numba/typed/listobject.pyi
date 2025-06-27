@@ -62,7 +62,7 @@ def _call_list_free(context, builder, ptr) -> None:
 def _imp_dtor(context, module):
     """Define the dtor for list
     """
-def new_list(item, allocated=...):
+def new_list(item, allocated=0):
     """Construct a new list. (Not implemented in the interpreter yet)
 
     Parameters
@@ -98,7 +98,7 @@ def _list_new(typingctx, itemty, allocated):
         number of items to pre-allocate
 
     """
-def impl_new_list(item, allocated=...):
+def impl_new_list(item, allocated=0):
     """Creates a new list.
 
     Parameters

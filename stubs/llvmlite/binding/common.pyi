@@ -6,7 +6,7 @@ def _decode_string(b): ...
 _shutting_down: Incomplete
 
 def _at_shutdown() -> None: ...
-def _is_shutting_down(_shutting_down=...):
+def _is_shutting_down(_shutting_down=[False]):
     """
     Whether the interpreter is currently shutting down.
     For use in finalizers, __del__ methods, and similar; it is advised
