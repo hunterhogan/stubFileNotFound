@@ -218,7 +218,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         origin: TimeGrouperOrigin | TimestampConvertibleTypes = ...,
         offset: TimedeltaConvertibleTypes | None = ...,
         group_keys: bool = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> _ResamplerGroupBy[NDFrameT]: ...
     @final
     def rolling(
@@ -253,7 +253,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         adjust: bool = ...,
         ignore_na: bool = ...,
         axis: Axis = ...,
-        times: str | np.ndarray | Series | np.timedelta64 | None = ...,
+        times: str | np.ndarray[Any, Any] | Series | np.timedelta64 | None = ...,
         method: CalculationMethod = ...,
         *,
         selection: IndexLabel | None = ...,
@@ -286,16 +286,16 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         axis: AxisInt | NoDefault = ...,
     ) -> NDFrameT: ...
     @final
-    def cumprod(self, axis: Axis | NoDefault = ..., *args, **kwargs) -> NDFrameT: ...
+    def cumprod(self, axis: Axis | NoDefault = ..., *args: Any, **kwargs: Any) -> NDFrameT: ...
     @final
-    def cumsum(self, axis: Axis | NoDefault = ..., *args, **kwargs) -> NDFrameT: ...
+    def cumsum(self, axis: Axis | NoDefault = ..., *args: Any, **kwargs: Any) -> NDFrameT: ...
     @final
     def cummin(
-        self, axis: AxisInt | NoDefault = ..., numeric_only: bool = False, **kwargs
+        self, axis: AxisInt | NoDefault = ..., numeric_only: bool = False, **kwargs: Any
     ) -> NDFrameT: ...
     @final
     def cummax(
-        self, axis: AxisInt | NoDefault = ..., numeric_only: bool = False, **kwargs
+        self, axis: AxisInt | NoDefault = ..., numeric_only: bool = False, **kwargs: Any
     ) -> NDFrameT: ...
     @final
     def shift(
@@ -303,7 +303,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         periods: int | Sequence[int] = 1,
         freq: Frequency | None = None,
         axis: Axis | NoDefault = ...,
-        fill_value=...,
+        fill_value: Any = ...,
         suffix: str | None = None,
     ) -> NDFrameT: ...
     @final
@@ -314,7 +314,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         periods: int = 1,
         fill_method: Literal["bfill", "ffill"] | None | NoDefault = ...,
         limit: int | None | NoDefault = ...,
-        freq=None,
+        freq: Any = None,
         axis: Axis | NoDefault = ...,
     ) -> NDFrameT: ...
     @final
@@ -327,11 +327,11 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         n: int | None = None,
         frac: float | None = None,
         replace: bool = False,
-        weights: Sequence | Series | None = None,
+        weights: Sequence[Any] | Series | None = None,
         random_state: RandomState | None = None,
     ) -> NDFrameT: ...
 
-_GroupByT = TypeVar("_GroupByT", bound=GroupBy)
+_GroupByT = TypeVar("_GroupByT", bound=GroupBy[Any])
 
 # GroupByPlot does not really inherit from PlotAccessor but it delegates
 # to it using __call__ and __getattr__. We lie here to avoid repeating the
@@ -340,7 +340,7 @@ _GroupByT = TypeVar("_GroupByT", bound=GroupBy)
 class GroupByPlot(PlotAccessor, Generic[_GroupByT]):
     def __init__(self, groupby: _GroupByT) -> None: ...
     # The following methods are inherited from the fake parent class PlotAccessor
-    # def __call__(self, *args, **kwargs): ...
+    # def __call__(self, *args: Any, **kwargs: Any): ...
     # def __getattr__(self, name: str): ...
 
 class BaseGroupBy(SelectionMixin[NDFrameT], GroupByIndexingMixin):
@@ -377,19 +377,19 @@ class BaseGroupBy(SelectionMixin[NDFrameT], GroupByIndexingMixin):
         **kwargs: Any,
     ) -> T: ...
     @final
-    def get_group(self, name, obj: NDFrameT | None = None) -> NDFrameT: ...
+    def get_group(self, name: Any, obj: NDFrameT | None = None) -> NDFrameT: ...
     @final
     def __iter__(self) -> Iterator[tuple[Hashable, NDFrameT]]: ...
     @overload
-    def __getitem__(self: BaseGroupBy[DataFrame], key: Scalar) -> generic.SeriesGroupBy: ...  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
+    def __getitem__(self: BaseGroupBy[DataFrame], key: Scalar) -> generic.SeriesGroupBy[Any, Any]: ...  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
     @overload
     def __getitem__(
         self: BaseGroupBy[DataFrame], key: Iterable[Hashable]
-    ) -> generic.DataFrameGroupBy: ...
+    ) -> generic.DataFrameGroupBy[Any, Any]: ...
     @overload
     def __getitem__(
         self: BaseGroupBy[Series[S1]],
         idx: list[str] | Index | Series[S1] | MaskType | tuple[Hashable | slice, ...],
-    ) -> generic.SeriesGroupBy: ...
+    ) -> generic.SeriesGroupBy[Any, Any]: ...
     @overload
     def __getitem__(self: BaseGroupBy[Series[S1]], idx: Scalar) -> S1: ...
