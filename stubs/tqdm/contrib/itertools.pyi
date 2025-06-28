@@ -1,13 +1,6 @@
 from _typeshed import Incomplete
-from collections.abc import Generator
+from collections.abc import Generator, Iterable
 
-__all__ = ['product']
+__all__ = ["product"]
 
-def product(*iterables, **tqdm_kwargs) -> Generator[Incomplete]:
-    """
-    Equivalent of `itertools.product`.
-
-    Parameters
-    ----------
-    tqdm_class  : [default: tqdm.auto.tqdm].
-    """
+def product(*iterables: Iterable[Incomplete], **tqdm_kwargs) -> Generator[Incomplete, None, None]: ...

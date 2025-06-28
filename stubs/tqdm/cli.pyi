@@ -1,11 +1,5 @@
-from _typeshed import Incomplete
+from collections.abc import Sequence
 
-__all__ = ['main']
+__all__ = ["main"]
 
-def main(fp=..., argv: Incomplete | None = None) -> None:
-    """
-    Parameters (internal use only)
-    ---------
-    fp  : file-like object for tqdm
-    argv  : list (default: sys.argv[1:])
-    """
+def main(fp=..., argv: Sequence[str] | None = None) -> None: ...

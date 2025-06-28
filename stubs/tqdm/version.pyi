@@ -1,1 +1,1 @@
-from ._dist_ver import __version__ as __version__
+__version__: str
