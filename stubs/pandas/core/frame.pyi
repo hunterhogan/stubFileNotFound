@@ -1,3 +1,6 @@
+# pyright: reportOverlappingOverload=false
+# pyright: reportArgumentType=false
+# pyright: reportInvalidTypeArguments=false
 from builtins import (
     bool as _bool,
     str as _str,
@@ -1345,7 +1348,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def agg(  # pyright: ignore[reportOverlappingOverload]
         self,
-        func: AggFuncTypeBase | AggFuncTypeDictSeries,
+        func: AggFuncTypeBase | AggFuncTypeDictSeries[Any],
         axis: Axis = 0,
         **kwargs: Any,
     ) -> Series: ...
@@ -1359,7 +1362,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def aggregate(  # pyright: ignore[reportOverlappingOverload]
         self,
-        func: AggFuncTypeBase | AggFuncTypeDictSeries,
+        func: AggFuncTypeBase | AggFuncTypeDictSeries[Any],
         axis: Axis = 0,
         **kwargs: Any,
     ) -> Series: ...

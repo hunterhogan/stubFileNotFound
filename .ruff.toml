@@ -1,0 +1,2 @@
+[lint.per-file-ignores]
+"stubs/pandas/*.pyi" = ["PYI001", "UP035", "ERA001", "RUF013"]

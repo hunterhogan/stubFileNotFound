@@ -2,7 +2,7 @@
 name = "stubFileNotFound"
 version = "0.0.1"
 description = "Crowdsourced stub type files for third-party Python packages."
-readme = { file = "README.md", content-type = "text/markdown" }
+readme = "README.md"
 requires-python = ">=3.10"
 license = { 'text' = "CC-BY-NC-4.0" }
 authors = [{ name = "Hunter Hogan", email = "HunterHogan@pm.me" }]
@@ -20,7 +20,8 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
-  "Typing :: Typed",]
+  "Typing :: Typed",
+]
 urls = { Donate = "https://www.patreon.com/integrated", Homepage = "https://github.com/hunterhogan/stubFileNotFound", Repository = "https://github.com/hunterhogan/stubFileNotFound.git" }
 dependencies = [
   "AST-Stubgen",
@@ -32,13 +33,15 @@ dependencies = [
   "stub-generator",
   "stubdefaulter",
   "stubgen-pyx",
-  "typeshed_client",]
+  "typeshed_client",
+]
 optional-dependencies = { testing = [
   "pytest",
   "pytest-cov",
   "pytest-xdist",
   "pyupgrade",
-  "setuptools-scm",] }
+  "setuptools-scm",
+] }
 
 [build-system]
 requires = ["setuptools"]
@@ -56,7 +59,8 @@ run = { branch = true, concurrency = [
   "tests/*",
   "typings/*",
 ], parallel = true, source = [
-  ".",] }
+  ".",
+] }
 xml = { output = "tests/coverage/coverage.xml" }
 
 [tool.pytest.ini_options]

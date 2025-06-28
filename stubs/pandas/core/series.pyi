@@ -1,3 +1,5 @@
+# pyright: reportArgumentType=false
+# pyright: reportInvalidTypeArguments=false
 from builtins import (
     bool as _bool,
     str as _str,
@@ -253,7 +255,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def __new__(
         cls,
         data: npt.NDArray[np.float64],
-        index: AxesData | None = ...,
+        index: AxesData[Any] | None = ...,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -262,7 +264,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def __new__(  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
         cls,
         data: Sequence[Never],
-        index: AxesData | None = ...,
+        index: AxesData[Any] | None = ...,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -271,7 +273,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def __new__(
         cls,
         data: Sequence[list[_str]],
-        index: AxesData | None = ...,
+        index: AxesData[Any] | None = ...,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -280,7 +282,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def __new__(
         cls,
         data: Sequence[_str],
-        index: AxesData | None = ...,
+        index: AxesData[Any] | None = ...,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -296,7 +298,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
             | datetime
             | date
         ),
-        index: AxesData | None = ...,
+        index: AxesData[Any] | None = ...,
         dtype: TimestampDtypeArg = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -305,7 +307,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def __new__(
         cls,
         data: _ListLike[Any],
-        index: AxesData | None = ...,
+        index: AxesData[Any] | None = ...,
         *,
         dtype: TimestampDtypeArg,
         name: Hashable = ...,
@@ -315,7 +317,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def __new__(
         cls,
         data: PeriodIndex | Sequence[Period],
-        index: AxesData | None = ...,
+        index: AxesData[Any] | None = ...,
         dtype: PeriodDtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -330,7 +332,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
             | np.timedelta64
             | timedelta
         ),
-        index: AxesData | None = ...,
+        index: AxesData[Any] | None = ...,
         dtype: TimedeltaDtypeArg = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -344,7 +346,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
             | Sequence[Interval[_OrderableT]]
             | dict[HashableT1, Interval[_OrderableT]]
         ),
-        index: AxesData | None = ...,
+        index: AxesData[Any] | None = ...,
         dtype: Literal["Interval"] = "Interval",
         name: Hashable = ...,
         copy: bool = ...,
@@ -353,7 +355,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def __new__(  # type: ignore[overload-overlap]
         cls,
         data: Scalar | _ListLike[Any] | dict[HashableT1, Any] | None,
-        index: AxesData | None = ...,
+        index: AxesData[Any] | None = ...,
         *,
         dtype: type[S1],
         name: Hashable = ...,
@@ -363,7 +365,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def __new__(  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
         cls,
         data: Sequence[bool],
-        index: AxesData | None = ...,
+        index: AxesData[Any] | None = ...,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -372,7 +374,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def __new__(  # type: ignore[overload-overlap]
         cls,
         data: Sequence[int],
-        index: AxesData | None = ...,
+        index: AxesData[Any] | None = ...,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -381,7 +383,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def __new__(
         cls,
         data: Sequence[float],
-        index: AxesData | None = ...,
+        index: AxesData[Any] | None = ...,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -390,7 +392,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def __new__(  # type: ignore[overload-cannot-match] # pyright: ignore[reportOverlappingOverload]
         cls,
         data: Sequence[int | float],
-        index: AxesData | None = ...,
+        index: AxesData[Any] | None = ...,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -399,7 +401,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def __new__(
         cls,
         data: S1 | _ListLike[S1] | dict[HashableT1, S1] | dict_keys[S1, Any],
-        index: AxesData | None = ...,
+        index: AxesData[Any] | None = ...,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -416,7 +418,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
             | NAType
             | None
         ) = ...,
-        index: AxesData | None = ...,
+        index: AxesData[Any] | None = ...,
         dtype: Dtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
@@ -522,7 +524,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         buf: FilePath | WriteBuffer[_str],
         na_rep: _str = 'NaN',
-        float_format: FloatFormatType = None,
+        float_format: FloatFormatType = None, # pyright: ignore[reportArgumentType]
         header: _bool = True,
         index: _bool = True,
         length: _bool = False,
@@ -536,7 +538,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         buf: None = None,
         na_rep: _str = 'NaN',
-        float_format: FloatFormatType = None,
+        float_format: FloatFormatType = None, # pyright: ignore[reportArgumentType]
         header: _bool = True,
         index: _bool = True,
         length: _bool = False,
@@ -1564,7 +1566,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         dropna: _bool = True,
     ) -> Series[int]: ...
     @overload
-    def value_counts(
+    def value_counts( # pyright: ignore[reportIncompatibleMethodOverride]
         self,
         normalize: Literal[True],
         sort: _bool = True,

@@ -516,7 +516,7 @@ IndexKeyFunc: TypeAlias = Callable[[Index[Any]], Index[Any] | AnyArrayLike] | No
 # types of `func` kwarg for DataFrame.aggregate and Series.aggregate
 # More specific than what is in pandas
 # following Union is here to make it ty compliant https://github.com/astral-sh/ty/issues/591
-AggFuncTypeBase: TypeAlias = Union[Callable[..., Any], str, np.ufunc]  # noqa: UP007
+AggFuncTypeBase: TypeAlias = Union[Callable[..., Any], str, np.ufunc]  # pyright: ignore[reportDeprecated] # noqa: UP007
 AggFuncTypeDictSeries: TypeAlias = Mapping[HashableT, AggFuncTypeBase]
 AggFuncTypeDictFrame: TypeAlias = Mapping[
     HashableT, AggFuncTypeBase | list[AggFuncTypeBase]
@@ -852,7 +852,7 @@ IndexingInt: TypeAlias = (
 )
 
 # AxesData is used for data for Index
-AxesData: TypeAlias = Mapping[S3, Any] | Axes | KeysView
+AxesData: TypeAlias = Mapping[S3, Any] | Axes | KeysView[Any]
 
 # Any plain Python or numpy function
 Function: TypeAlias = np.ufunc | Callable[..., Any]

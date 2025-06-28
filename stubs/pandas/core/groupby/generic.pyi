@@ -115,7 +115,7 @@ class SeriesGroupBy(GroupBy[Series[S2]], Generic[S2, ByT]):
         **kwargs: Any,
     ) -> Series[Any]: ...
     @overload
-    def transform(
+    def transform( # pyright: ignore[reportOverlappingOverload]
         self, func: TransformReductionListType, *args: Any, **kwargs: Any
     ) -> Series[Any]: ...
     def filter(
@@ -261,7 +261,7 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         **kwargs: Any,
     ) -> DataFrame: ...
     @overload
-    def transform(
+    def transform( # pyright: ignore[reportOverlappingOverload]
         self, func: TransformReductionListType, *args: Any, **kwargs: Any
     ) -> DataFrame: ...
     def filter(

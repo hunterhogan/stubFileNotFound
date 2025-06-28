@@ -264,7 +264,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
     def bfill(self, limit: int | None = None) -> NDFrameT: ...
     @final
     @property
-    def nth(self) -> GroupByNthSelector[Self]: ...
+    def nth(self) -> GroupByNthSelector[Self]: ... # pyright: ignore[reportInvalidTypeArguments]
     @final
     def quantile(
         self,
