@@ -1,13 +1,9 @@
-# pyright: reportUnknownMemberType=false
-# pyright: reportMissingTypeArgument=false
-# pyright: reportUnknownParameterType=false
-# pyright: reportMissingParameterType=false
 from _typeshed import Incomplete
 from collections.abc import Generator
 from numpy.compat import unicode
 from os import PathLike
+from typeshed.stubs.cffi import _cffi_backend
 from typing import Any, ClassVar, Literal, overload
-import _cffi_backend
 import numpy
 
 __version__: str
@@ -313,9 +309,9 @@ class SoundFile:
 
     """
     _name: str | int | Any
-    _mode: Incomplete
-    _compression_level: Incomplete
-    _bitrate_mode: Incomplete
+    _mode: str
+    _compression_level: float
+    _bitrate_mode: str
     _info: Incomplete
     _file: ClassVar[None] = ...
     def __init__(self, file: str | int | PathLike[Any], mode: str = 'r', samplerate: int | None = None, channels: int | None = None, subtype: str | None = None, endian: str | None = None, format: str | None = None, closefd: bool = True, compression_level: float | None = None, bitrate_mode: str | None = None) -> None:
@@ -423,7 +419,7 @@ class SoundFile:
     @property
     def name(self) -> str | int | Any: ...
     @property
-    def mode(self): ...
+    def mode(self) -> str: ...
     @property
     def samplerate(self) -> int: ...
     @property
@@ -443,11 +439,11 @@ class SoundFile:
     @property
     def sections(self) -> int: ...
     @property
-    def closed(self): ...
+    def closed(self) -> bool: ...
     @property
-    def compression_level(self): ...
+    def compression_level(self) -> float: ...
     @property
-    def bitrate_mode(self): ...
+    def bitrate_mode(self) -> str: ...
     @property
     def extra_info(self) -> str: ...
     """Retrieve the log string generated when opening the file."""
