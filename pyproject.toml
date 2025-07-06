@@ -32,7 +32,6 @@ dependencies = [
   "pytype",
   "stub-generator",
   "stubdefaulter",
-  "stubgen-pyx",
   "typeshed_client",
 ]
 optional-dependencies = { testing = [
