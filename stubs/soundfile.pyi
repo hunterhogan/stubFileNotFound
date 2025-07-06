@@ -4,11 +4,11 @@
 # pyright: reportMissingParameterType=false
 from _typeshed import Incomplete
 from collections.abc import Generator
-from numpy import dtype, ndarray
 from numpy.compat import unicode
-from typing import Any, ClassVar
+from os import PathLike
+from typing import Any, ClassVar, Literal, overload
 import _cffi_backend
-import numpy.typing
+import numpy
 
 __version__: str
 SEEK_SET: int
@@ -32,7 +32,10 @@ _libname: Incomplete
 _explicit_libname: str
 _hbrew_path: Incomplete
 __libsndfile_version__: str
-def read(file: str | int | Any, frames: int = -1, start: int = 0, stop: int | None = None, dtype: str = 'float64', always_2d: bool = False, fill_value: float | None = None, out: numpy.typing.NDArray[Any] | None = None, samplerate: int | None = None, channels: int | None = None, format: str | None = None, subtype: str | None = None, endian: str | None = None, closefd: bool = True) -> tuple[numpy.typing.NDArray[Any], int]:
+@overload
+def read(file: str | int | PathLike[Any], frames: int = -1, start: int = 0, stop: int | None = None, dtype: Literal['float64', 'float32', 'int32', 'int16'] = 'float64', always_2d: Literal[True] = True, fill_value: float | None = None, out: numpy.ndarray[tuple[int, int], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]] | None = None, samplerate: int | None = None, channels: int | None = None, format: str | None = None, subtype: str | None = None, endian: str | None = None, closefd: bool = True) -> tuple[numpy.ndarray[tuple[int, int], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]], int]:...
+@overload
+def read(file: str | int | PathLike[Any], frames: int = -1, start: int = 0, stop: int | None = None, dtype: Literal['float64', 'float32', 'int32', 'int16'] = 'float64', always_2d: bool = False, fill_value: float | None = None, out: numpy.ndarray[tuple[int, ...], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]] | None = None, samplerate: int | None = None, channels: int | None = None, format: str | None = None, subtype: str | None = None, endian: str | None = None, closefd: bool = True) -> tuple[numpy.ndarray[tuple[int, ...], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]], int]:
     """Provide audio data from a sound file as NumPy array.
 
     By default, the whole file is read from the beginning, but the
@@ -117,7 +120,7 @@ def read(file: str | int | Any, frames: int = -1, start: int = 0, stop: int | No
 
     """
 
-def write(file: str | int | Any, data: numpy.typing.ArrayLike, samplerate: int, subtype: str | None = None, endian: str | None = None, format: str | None = None, closefd: bool = True, compression_level: float | None = None, bitrate_mode: str | None = None) -> None:
+def write(file: str | int | PathLike[Any], data: numpy.typing.ArrayLike, samplerate: int, subtype: str | None = None, endian: str | None = None, format: str | None = None, closefd: bool = True, compression_level: float | None = None, bitrate_mode: str | None = None) -> None:
     """Write data to a sound file.
 
     .. note:: If *file* exists, it will be truncated and overwritten!
@@ -162,7 +165,7 @@ def write(file: str | int | Any, data: numpy.typing.ArrayLike, samplerate: int, 
 
     """
 
-def blocks(file: str | int | Any, blocksize: int | None = None, overlap: int = 0, frames: int = -1, start: int = 0, stop: int | None = None, dtype: str = 'float64', always_2d: bool = False, fill_value: float | None = None, out: numpy.typing.NDArray[Any] | None = None, samplerate: int | None = None, channels: int | None = None, format: str | None = None, subtype: str | None = None, endian: str | None = None, closefd: bool = True) -> Generator[numpy.typing.NDArray[Any], None, None]:
+def blocks(file: str | int | PathLike[Any], blocksize: int | None = None, overlap: int = 0, frames: int = -1, start: int = 0, stop: int | None = None, dtype: str = 'float64', always_2d: bool = False, fill_value: float | None = None, out: numpy.ndarray[tuple[int, ...], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]] | None = None, samplerate: int | None = None, channels: int | None = None, format: str | None = None, subtype: str | None = None, endian: str | None = None, closefd: bool = True) -> Generator[numpy.ndarray[tuple[int, ...], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]], None, None]:
     """Return a generator for block-wise reading.
 
     By default, iteration starts at the beginning and stops at the end
@@ -226,12 +229,12 @@ class _SoundFileInfo:
     subtype_info: str
     sections: int
     extra_info: str
-    def __init__(self, file: str | int | Any, verbose: bool) -> None: ...
+    def __init__(self, file: str | int | PathLike[Any], verbose: bool) -> None: ...
     @property
     def _duration_str(self) -> str: ...
     def __repr__(self) -> str: ...
 
-def info(file: str | int | Any, verbose: bool = False) -> _SoundFileInfo:
+def info(file: str | int | PathLike[Any], verbose: bool = False) -> _SoundFileInfo:
     """Returns an object with information about a `SoundFile`.
 
     Parameters
@@ -315,7 +318,7 @@ class SoundFile:
     _bitrate_mode: Incomplete
     _info: Incomplete
     _file: ClassVar[None] = ...
-    def __init__(self, file: str | int | Any, mode: str = 'r', samplerate: int | None = None, channels: int | None = None, subtype: str | None = None, endian: str | None = None, format: str | None = None, closefd: bool = True, compression_level: float | None = None, bitrate_mode: str | None = None) -> None:
+    def __init__(self, file: str | int | PathLike[Any], mode: str = 'r', samplerate: int | None = None, channels: int | None = None, subtype: str | None = None, endian: str | None = None, format: str | None = None, closefd: bool = True, compression_level: float | None = None, bitrate_mode: str | None = None) -> None:
         '''Open a sound file.
 
         If a file is opened with `mode` ``\'r\'`` (the default) or
@@ -499,7 +502,10 @@ class SoundFile:
         """
     def tell(self) -> int:
         """Return the current read/write position."""
-    def read(self, frames: int = -1, dtype: str = 'float64', always_2d: bool = False, fill_value: float | None = None, out: numpy.typing.NDArray[Any] | None = None) -> numpy.typing.NDArray[Any]:
+    @overload
+    def read(self, frames: int = -1, dtype: Literal['float64', 'float32', 'int32', 'int16'] = 'float64', always_2d: Literal[True] = True, fill_value: float | None = None, out: numpy.ndarray[tuple[int, int], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]] | None = None) -> numpy.ndarray[tuple[int, int], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]]:...
+    @overload
+    def read(self, frames: int = -1, dtype: Literal['float64', 'float32', 'int32', 'int16'] = 'float64', always_2d: bool = False, fill_value: float | None = None, out: numpy.ndarray[tuple[int, ...], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]] | None = None) -> numpy.ndarray[tuple[int, ...], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]]:
         """Read from the file and return data as NumPy array.
 
         Reads the given number of frames in the given data format
@@ -701,7 +707,7 @@ class SoundFile:
         .write, buffer_read
 
         """
-    def blocks(self, blocksize: int | None = None, overlap: int = 0, frames: int = -1, dtype: str = 'float64', always_2d: bool = False, fill_value: float | None = None, out: numpy.typing.NDArray[Any] | None = None) -> Generator[ndarray[Any, dtype[Any]], Any, None]:
+    def blocks(self, blocksize: int | None = None, overlap: int = 0, frames: int = -1, dtype: str = 'float64', always_2d: bool = False, fill_value: float | None = None, out: numpy.ndarray[tuple[int, ...], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]] | None = None) -> Generator[numpy.ndarray[tuple[int, ...], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]], Any, None]:
         """Return a generator for block-wise reading.
 
         By default, the generator yields blocks of the given
@@ -776,7 +782,7 @@ class SoundFile:
         """
     def close(self) -> None:
         """Close the file.  Can be called multiple times."""
-    def _open(self, file: str | int | Any, mode_int: int, closefd: bool) -> Any:
+    def _open(self, file: str | int | PathLike[Any], mode_int: int, closefd: bool) -> Any:
         """Call the appropriate sf_open*() function from libsndfile."""
     _virtual_io: Incomplete
     def _init_virtual_io(self, file: Any) -> Any:
@@ -797,11 +803,11 @@ class SoundFile:
         """Reduce frames to no more than are available in the file."""
     def _check_buffer(self, data: bytes | memoryview, ctype: str) -> tuple[Any, int]:
         """Convert buffer to cdata and check for valid size."""
-    def _create_empty_array(self, frames: int, always_2d: bool, dtype: str) -> numpy.typing.NDArray[Any]:
+    def _create_empty_array(self, frames: int, always_2d: bool, dtype: str) -> numpy.ndarray[tuple[int, ...], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]]:
         """Create an empty array with appropriate shape."""
     def _check_dtype(self, dtype: str) -> str:
         """Check if dtype string is valid and return ctype string."""
-    def _array_io(self, action: str, array: numpy.typing.NDArray[Any], frames: int) -> int:
+    def _array_io(self, action: str, array: numpy.ndarray[tuple[int, ...], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]], frames: int) -> int:
         """Check array and call low-level IO function."""
     def _cdata_io(self, action: str, data: Any, ctype: str, frames: int) -> int:
         """Call one of libsndfile's read/write functions."""
@@ -831,9 +837,9 @@ def _format_int(format: str, subtype: str | None, endian: str | None) -> int:
     """Return numeric ID for given format|subtype|endian combo."""
 def _check_mode(mode: str) -> int:
     """Check if mode is valid and return its integer representation."""
-def _create_info_struct(file: str | int | Any, mode: str, samplerate: int | None, channels: int | None, format: str | None, subtype: str | None, endian: str | None) -> Any:
+def _create_info_struct(file: str | int | PathLike[Any], mode: str, samplerate: int | None, channels: int | None, format: str | None, subtype: str | None, endian: str | None) -> Any:
     """Check arguments and create SF_INFO struct."""
-def _get_format_from_filename(file: str | int | Any, mode: str) -> str:
+def _get_format_from_filename(file: str | int | PathLike[Any], mode: str) -> str:
     """Return a format string obtained from file (or file.name).
 
     If file already exists (= read mode), an empty string is returned on
