@@ -12,6 +12,7 @@ from pandas._typing import (
     WindowingEngine,
     WindowingEngineKwargs,
 )
+from typing import Any
 
 class ExponentialMovingWindow(BaseWindow[NDFrameT]):
     def online(
@@ -53,7 +54,7 @@ class ExponentialMovingWindowGroupby(
 
 class OnlineExponentialMovingWindow(ExponentialMovingWindow[NDFrameT]):
     def reset(self) -> None: ...
-    def aggregate(self, func, *args, **kwargs): ...
+    def aggregate(self, func: Any, *args, **kwargs): ...
     def std(self, bias: bool = False, *args, **kwargs): ...  # pyrefly: ignore
     def corr(
         self,

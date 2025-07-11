@@ -101,7 +101,7 @@ def read_hdf(
 class HDFStore:
     def __init__(
         self,
-        path,
+        path: Any,
         mode: Literal["a", "w", "r", "r+"] = 'a',
         complevel: int | None = None,
         complib: HDFCompLib | None = None,

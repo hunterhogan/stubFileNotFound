@@ -37,6 +37,7 @@ from pandas._typing import (
 )
 
 from pandas.core.dtypes.dtypes import IntervalDtype as IntervalDtype
+from typing import Any
 
 _EdgesInt: TypeAlias = (
     Sequence[int]
@@ -226,14 +227,14 @@ class IntervalIndex(ExtensionIndex[IntervalT], IntervalMixin):
         self,
         key: Label,
         method: FillnaOptions | Literal["nearest"] | None = ...,
-        tolerance=...,
+        tolerance: Any=...,
     ) -> int | slice | npt.NDArray[np.bool_]: ...
     def get_indexer(
         self,
         target: Index,
         method: FillnaOptions | Literal["nearest"] | None = None,
         limit: int | None = None,
-        tolerance=None,
+        tolerance: Any=None,
     ) -> npt.NDArray[np.intp]: ...
     def get_indexer_non_unique(
         self, target: Index

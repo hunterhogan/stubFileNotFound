@@ -149,9 +149,9 @@ class PandasSQL:
         name: str,
         if_exists: Literal["fail", "replace", "append"] = 'fail',
         index: bool = True,
-        index_label=None,
+        index_label: Any=None,
         schema: str | None = None,
-        chunksize=None,
+        chunksize: Any=None,
         dtype: DtypeArg | None = None,
         method: (
             Literal["multi"]

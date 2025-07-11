@@ -6,6 +6,7 @@ from pandas.core.arrays.base import (
 )
 
 from pandas.core.dtypes.dtypes import ExtensionDtype
+from typing import Any
 
 class PandasDtype(ExtensionDtype):
     @property
@@ -14,4 +15,4 @@ class PandasDtype(ExtensionDtype):
     def itemsize(self) -> int: ...
 
 class PandasArray(ExtensionArray, ExtensionOpsMixin, NDArrayOperatorsMixin):
-    def __array_ufunc__(self, ufunc, method, *inputs, **kwargs): ...
+    def __array_ufunc__(self, ufunc: Any, method: Any, *inputs, **kwargs): ...

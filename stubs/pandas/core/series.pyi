@@ -524,7 +524,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         buf: FilePath | WriteBuffer[_str],
         na_rep: _str = 'NaN',
-        float_format: FloatFormatType = None, # pyright: ignore[reportArgumentType]
+        float_format: FloatFormatType = None,
         header: _bool = True,
         index: _bool = True,
         length: _bool = False,
@@ -538,7 +538,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         buf: None = None,
         na_rep: _str = 'NaN',
-        float_format: FloatFormatType = None, # pyright: ignore[reportArgumentType]
+        float_format: FloatFormatType = None,
         header: _bool = True,
         index: _bool = True,
         length: _bool = False,
@@ -955,7 +955,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def map(
         self,
-        arg: Callable[[Any], Any] | Mapping[Any, Any] | Series,
+        arg: Callable[..., Any] | Mapping[Any, Any] | Series,
         na_action: Literal["ignore"] | None = None,
     ) -> Series: ...
     @overload
@@ -1168,7 +1168,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> Series[S1]: ...
     def to_timestamp(
         self,
-        freq: Any = None,
+        freq: Any=None,
         how: ToTimestampHow = 'start',
         copy: _bool = None,
     ) -> Series[S1]: ...
@@ -1201,7 +1201,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         ylabelsize: float | _str | None = None,
         yrot: float | None = None,
         figsize: tuple[float, float] | None = None,
-        bins: int | Sequence[int] = 10,
+        bins: int | Sequence[Any] = 10,
         backend: _str | None = None,
         **kwargs: Any,
     ) -> SubplotBase: ...
@@ -1557,7 +1557,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def first_valid_index(self) -> Scalar: ...
     def last_valid_index(self) -> Scalar: ...
     @overload
-    def value_counts(
+    def value_counts(  # pyrefly: ignore
         self,
         normalize: Literal[False] = False,
         sort: _bool = True,
@@ -1741,6 +1741,15 @@ class Series(IndexOpsMixin[S1], NDFrame):
         *args: Any,
         **kwargs: Any,
     ) -> Series[S1]: ...
+    @overload
+    def cumprod(
+        self: Series[_str],
+        axis: AxisIndex = None,
+        skipna: _bool = True,
+        *args: Any,
+        **kwargs: Any,
+    ) -> Never: ...
+    @overload
     def cumprod(
         self,
         axis: AxisIndex | None = None,
@@ -2221,6 +2230,13 @@ class TimestampSeries(Series[Timestamp]):
         **kwargs: Any,
     ) -> Timedelta: ...
     def diff(self, periods: int = ...) -> TimedeltaSeries: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
+    def cumprod(
+        self,
+        axis: AxisIndex = ...,
+        skipna: _bool = ...,
+        *args: Any,
+        **kwargs: Any,
+    ) -> Never: ...
 
 class TimedeltaSeries(Series[Timedelta]):
     # ignores needed because of mypy
@@ -2326,12 +2342,26 @@ class TimedeltaSeries(Series[Timedelta]):
         *args: Any,
         **kwargs: Any,
     ) -> TimedeltaSeries: ...
+    def cumprod(
+        self,
+        axis: AxisIndex = ...,
+        skipna: _bool = ...,
+        *args: Any,
+        **kwargs: Any,
+    ) -> Never: ...
 
 class PeriodSeries(Series[Period]):
     @property
     def dt(self) -> PeriodProperties: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
     def __sub__(self, other: PeriodSeries) -> OffsetSeries: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
     def diff(self, periods: int = ...) -> OffsetSeries: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
+    def cumprod(
+        self,
+        axis: AxisIndex = ...,
+        skipna: _bool = ...,
+        *args: Any,
+        **kwargs: Any,
+    ) -> Never: ...
 
 class OffsetSeries(Series[BaseOffset]):
     @overload  # type: ignore[override]
@@ -2340,6 +2370,13 @@ class OffsetSeries(Series[BaseOffset]):
     def __radd__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, other: BaseOffset
     ) -> OffsetSeries: ...
+    def cumprod(
+        self,
+        axis: AxisIndex = ...,
+        skipna: _bool = ...,
+        *args: Any,
+        **kwargs: Any,
+    ) -> Never: ...
 
 class IntervalSeries(Series[Interval[_OrderableT]], Generic[_OrderableT]):
     @property

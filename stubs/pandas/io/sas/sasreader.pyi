@@ -19,6 +19,7 @@ from pandas._typing import (
 
 from pandas.io.sas.sas7bdat import SAS7BDATReader
 from pandas.io.sas.sas_xport import XportReader
+from typing import Any
 
 class ReaderBase(metaclass=ABCMeta):
     @abstractmethod
@@ -26,7 +27,7 @@ class ReaderBase(metaclass=ABCMeta):
     @abstractmethod
     def close(self) -> None: ...
     def __enter__(self) -> Self: ...
-    def __exit__(self, exc_type, exc_value, traceback) -> None: ...
+    def __exit__(self, exc_type: Any, exc_value: Any, traceback: Any) -> None: ...
 
 @overload
 def read_sas(

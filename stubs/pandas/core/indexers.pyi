@@ -1,6 +1,7 @@
 import numpy as np
+from typing import Any
 
-def check_array_indexer(arrayArrayLike, indexer): ...
+def check_array_indexer(arrayArrayLike: Any, indexer: Any): ...
 
 class BaseIndexer:
     def __init__(
@@ -22,8 +23,8 @@ class VariableOffsetWindowIndexer(BaseIndexer):
         self,
         index_array: np.ndarray | None = ...,
         window_size: int = ...,
-        index=...,
-        offset=...,
+        index: Any=...,
+        offset: Any=...,
         **kwargs,
     ) -> None: ...
     def get_window_bounds(

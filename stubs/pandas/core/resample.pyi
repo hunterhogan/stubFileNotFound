@@ -32,6 +32,7 @@ from pandas._typing import (
     TimestampConvention,
     npt,
 )
+from typing import Any
 
 _FrameGroupByFunc: TypeAlias = (
     Callable[[DataFrame], Scalar]
@@ -145,7 +146,7 @@ class Resampler(BaseGroupBy[NDFrameT]):
 # attributes via setattr
 class _GroupByMixin(Resampler[NDFrameT]):
     key: str | list[str] | None
-    def __getitem__(self, key) -> Self: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
+    def __getitem__(self, key: Any) -> Self: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
 
 class DatetimeIndexResampler(Resampler[NDFrameT]): ...
 
