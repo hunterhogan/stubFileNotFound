@@ -1993,7 +1993,6 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         axis: Axis | None = 0,
         skipna: _bool | None = True,
-        level: None = None,
         numeric_only: _bool = False,
         **kwargs: Any,
     ) -> Series: ...
@@ -2001,7 +2000,6 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         axis: Axis | None = 0,
         skipna: _bool | None = True,
-        level: None = None,
         numeric_only: _bool = False,
         **kwargs: Any,
     ) -> Series: ...
@@ -2045,7 +2043,6 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         axis: Axis | None = 0,
         skipna: _bool | None = True,
-        level: None = None,
         numeric_only: _bool = False,
         **kwargs: Any,
     ) -> Series: ...
@@ -2053,7 +2050,6 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         axis: Axis | None = 0,
         skipna: _bool | None = True,
-        level: None = None,
         numeric_only: _bool = False,
         **kwargs: Any,
     ) -> Series: ...

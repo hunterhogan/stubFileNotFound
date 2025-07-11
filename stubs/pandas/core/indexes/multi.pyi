@@ -4,9 +4,7 @@ from collections.abc import (
     Iterable,
     Sequence,
 )
-from typing import (
-    overload,
-)
+from typing import overload
 
 import numpy as np
 import pandas as pd
@@ -20,7 +18,9 @@ from pandas._typing import (
     Dtype,
     DtypeArg,
     HashableT,
+    Level,
     MaskType,
+    NaPosition,
     SequenceNotStr,
     np_ndarray_anyint,
     np_ndarray_bool,
@@ -140,7 +140,11 @@ class MultiIndex(Index):
     def swaplevel(self, i: int = -2, j: int = -1): ...
     def reorder_levels(self, order): ...
     def sortlevel(
-        self, level: int = 0, ascending: bool = True, sort_remaining: bool = True
+        self,
+        level: Level | Sequence[Level] = 0,
+        ascending: bool = True,
+        sort_remaining: bool = True,
+        na_position: NaPosition = 'first',
     ): ...
     def get_indexer(self, target, method=None, limit=None, tolerance=None): ...
     def get_indexer_non_unique(self, target): ...
@@ -155,7 +159,7 @@ class MultiIndex(Index):
     def equal_levels(self, other): ...
     def union(self, other, sort=None): ...  # pyrefly: ignore
     def intersection(  # pyright: ignore[reportIncompatibleMethodOverride]
-        self, other: list | Self, sort: bool = False
+        self, other: list | Self, sort: bool | None = False
     ): ...
     def difference(self, other, sort=None): ...
     def astype(self, dtype: DtypeArg, copy: bool = True) -> Self: ...

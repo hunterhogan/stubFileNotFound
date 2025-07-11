@@ -1,0 +1,1 @@
+from stubFileNotFound._theSSOT import settingsPackage

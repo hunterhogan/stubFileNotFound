@@ -11,17 +11,12 @@ from typing import (
 import numpy as np
 from pandas import (
     DataFrame,
-    DatetimeIndex,
-    Index,
-    PeriodIndex,
     Series,
     Timedelta,
-    TimedeltaIndex,
 )
 from pandas.core.groupby.generic import SeriesGroupBy
 from pandas.core.groupby.groupby import BaseGroupBy
 from pandas.core.groupby.grouper import Grouper
-from pandas.core.groupby.ops import BinGrouper
 from typing_extensions import (
     Self,
     TypeAlias,
@@ -62,10 +57,6 @@ _SeriesGroupByFuncArgs: TypeAlias = (
 )
 
 class Resampler(BaseGroupBy[NDFrameT]):
-    grouper: BinGrouper  # pyright: ignore[reportIncompatibleVariableOverride]  # pyrefly: ignore  # variance incompatibility
-    binner: DatetimeIndex | TimedeltaIndex | PeriodIndex
-    exclusions: frozenset[Hashable]
-    ax: Index
     def __getattr__(self, attr: str) -> SeriesGroupBy: ...
     @overload
     def aggregate(
@@ -123,8 +114,12 @@ class Resampler(BaseGroupBy[NDFrameT]):
     def prod(self, numeric_only: bool = False, min_count: int = 0) -> NDFrameT: ...
     def min(self, numeric_only: bool = False, min_count: int = 0) -> NDFrameT: ...
     def max(self, numeric_only: bool = False, min_count: int = 0) -> NDFrameT: ...
-    def first(self, numeric_only: bool = False, min_count: int = 0) -> NDFrameT: ...
-    def last(self, numeric_only: bool = False, min_count: int = 0) -> NDFrameT: ...
+    def first(
+        self, numeric_only: bool = False, min_count: int = 0, skipna: bool = True
+    ) -> NDFrameT: ...
+    def last(
+        self, numeric_only: bool = False, min_count: int = 0, skipna: bool = True
+    ) -> NDFrameT: ...
     def median(self, numeric_only: bool = False) -> NDFrameT: ...
     def mean(self, numeric_only: bool = False) -> NDFrameT: ...
     def std(self, ddof: int = 1, numeric_only: bool = False) -> NDFrameT: ...

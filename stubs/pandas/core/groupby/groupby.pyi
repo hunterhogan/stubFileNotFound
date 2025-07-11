@@ -3,7 +3,6 @@ from collections.abc import (
     Hashable,
     Iterable,
     Iterator,
-    Mapping,
     Sequence,
 )
 import datetime as dt
@@ -21,7 +20,6 @@ from pandas.core.base import SelectionMixin
 from pandas.core.frame import DataFrame
 from pandas.core.groupby import (
     generic,
-    ops,
 )
 from pandas.core.groupby.indexing import (
     GroupByIndexingMixin,
@@ -75,14 +73,6 @@ from pandas._typing import (
 
 from pandas.plotting import PlotAccessor
 
-_KeysArgType: TypeAlias = (
-    Hashable
-    | list[Hashable]
-    | Callable[[Hashable], Hashable]
-    | list[Callable[[Hashable], Hashable]]
-    | Mapping[Hashable, Hashable]
-)
-
 _ResamplerGroupBy: TypeAlias = (
     DatetimeIndexResamplerGroupby[NDFrameT]
     | PeriodIndexResamplerGroupby[NDFrameT]
@@ -90,9 +80,6 @@ _ResamplerGroupBy: TypeAlias = (
 )
 
 class GroupBy(BaseGroupBy[NDFrameT]):
-    as_index: bool
-    sort: bool
-    observed: bool
     def __getattr__(self, attr: str) -> Any: ...
     def apply(self, func: Callable[..., Any] | str, *args: Any, **kwargs: Any) -> NDFrameT: ...
     @final
@@ -286,16 +273,26 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         axis: AxisInt | _NoDefaultDoNotUse = ...,
     ) -> NDFrameT: ...
     @final
-    def cumprod(self, axis: Axis | _NoDefaultDoNotUse = ..., *args: Any, **kwargs: Any) -> NDFrameT: ...
+    def cumprod(
+        self, axis: Axis | _NoDefaultDoNotUse = ..., *args: Any, **kwargs: Any
+    ) -> NDFrameT: ...
     @final
-    def cumsum(self, axis: Axis | _NoDefaultDoNotUse = ..., *args: Any, **kwargs: Any) -> NDFrameT: ...
+    def cumsum(
+        self, axis: Axis | _NoDefaultDoNotUse = ..., *args: Any, **kwargs: Any
+    ) -> NDFrameT: ...
     @final
     def cummin(
-        self, axis: AxisInt | _NoDefaultDoNotUse = ..., numeric_only: bool = False, **kwargs: Any
+        self,
+        axis: AxisInt | _NoDefaultDoNotUse = ...,
+        numeric_only: bool = False,
+        **kwargs: Any,
     ) -> NDFrameT: ...
     @final
     def cummax(
-        self, axis: AxisInt | _NoDefaultDoNotUse = ..., numeric_only: bool = False, **kwargs: Any
+        self,
+        axis: AxisInt | _NoDefaultDoNotUse = ...,
+        numeric_only: bool = False,
+        **kwargs: Any,
     ) -> NDFrameT: ...
     @final
     def shift(
@@ -307,7 +304,9 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         suffix: str | None = None,
     ) -> NDFrameT: ...
     @final
-    def diff(self, periods: int = 1, axis: AxisInt | _NoDefaultDoNotUse = ...) -> NDFrameT: ...
+    def diff(
+        self, periods: int = 1, axis: AxisInt | _NoDefaultDoNotUse = ...
+    ) -> NDFrameT: ...
     @final
     def pct_change(
         self,
@@ -340,15 +339,10 @@ _GroupByT = TypeVar("_GroupByT", bound=GroupBy[Any])
 class GroupByPlot(PlotAccessor, Generic[_GroupByT]):
     def __init__(self, groupby: _GroupByT) -> None: ...
     # The following methods are inherited from the fake parent class PlotAccessor
-    # def __call__(self, *args: Any, **kwargs: Any): ...
+    # def __call__(self, *args, **kwargs): ...
     # def __getattr__(self, name: str): ...
 
 class BaseGroupBy(SelectionMixin[NDFrameT], GroupByIndexingMixin):
-    axis: AxisInt
-    grouper: ops.BaseGrouper
-    keys: _KeysArgType | None
-    level: IndexLabel | None
-    group_keys: bool
     @final
     def __len__(self) -> int: ...
     @final
