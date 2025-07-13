@@ -77,11 +77,11 @@ class HTTPAdapter(BaseAdapter):
     _pool_connections: Incomplete
     _pool_maxsize: Incomplete
     _pool_block: Incomplete
-    def __init__(self, pool_connections=..., pool_maxsize=..., max_retries=..., pool_block=...) -> None: ...
+    def __init__(self, pool_connections=10, pool_maxsize=10, max_retries=0, pool_block=False) -> None: ...
     def __getstate__(self): ...
     def __setstate__(self, state) -> None: ...
     poolmanager: Incomplete
-    def init_poolmanager(self, connections, maxsize, block=..., **pool_kwargs) -> None:
+    def init_poolmanager(self, connections, maxsize, block=False, **pool_kwargs) -> None:
         """Initializes a urllib3 PoolManager.
 
         This method should not be called from user code, and is only

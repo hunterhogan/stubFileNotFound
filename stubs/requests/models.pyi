@@ -229,7 +229,7 @@ class Response:
         If decode_unicode is True, content will be decoded using the best
         available encoding based on the response.
         """
-    def iter_lines(self, chunk_size=..., decode_unicode: bool = False, delimiter: Incomplete | None = None) -> Generator[Incomplete, Incomplete]:
+    def iter_lines(self, chunk_size=512, decode_unicode: bool = False, delimiter: Incomplete | None = None) -> Generator[Incomplete, Incomplete]:
         """Iterates over the response data, one line at a time.  When
         stream=True is set on the request, this avoids reading the
         content at once into memory for large responses.
