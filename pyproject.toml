@@ -26,21 +26,29 @@ urls = { Donate = "https://www.patreon.com/integrated", Homepage = "https://gith
 dependencies = [
   "AST-Stubgen",
   "MonkeyType",
-  "autoflake",
+  "hunterMakesPy",
+  "libcst",
   "mypy",
   "pyright",
   "pytype",
+  "pyupgrade",
   "stub-generator",
   "stubdefaulter",
-  "tomli",
   "typeshed_client",
 ]
-optional-dependencies = { testing = [
+optional-dependencies = { development = [
+  "setuptools-scm",
+], stubdefaulter = [
+  "cffconvert",
+  "networkx",
+  "pandas",
+  "requests",
+  "resampy",
+  "tqdm",
+], testing = [
   "pytest",
   "pytest-cov",
   "pytest-xdist",
-  "pyupgrade",
-  "setuptools-scm",
 ] }
 
 [build-system]
