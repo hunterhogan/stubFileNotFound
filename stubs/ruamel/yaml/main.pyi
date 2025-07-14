@@ -62,11 +62,11 @@ class YAML:
 	def __init__(self, *, typ: list[str] | str | None = None, pure: Any = False, output: Any = None, plug_ins: Any = None) -> None:
 		"""
 		typ: 'rt'/None -> RoundTripLoader/RoundTripDumper,  (default)
-			 'safe'    -> SafeLoader/SafeDumper,
-			 'unsafe'  -> normal/unsafe Loader/Dumper (pending deprecation)
-			 'full'    -> full Dumper only, including python built-ins that are
-						  potentially unsafe to load
-			 'base'    -> baseloader
+			'safe'    -> SafeLoader/SafeDumper,
+			'unsafe'  -> normal/unsafe Loader/Dumper (pending deprecation)
+			'full'    -> full Dumper only, including python built-ins that are
+						potentially unsafe to load
+			'base'    -> baseloader
 		pure: if True only use Python modules
 		input/output: needed to work as context manager
 		plug_ins: a list of plug-in files
@@ -285,7 +285,7 @@ def emit(events: Any, stream: StreamType | None = None, Dumper: Any = ..., canon
 
 enc: Incomplete
 
-def serialize_all(nodes: Any, stream: StreamType | None = None, Dumper: Any = ..., canonical: Any = None, indent: int | None = None, width: int | None = None, allow_unicode: bool | None = None, line_break: Any = None, encoding: Any = ..., explicit_start: bool | None = None, explicit_end: bool | None = None, version: VersionType | None = None, tags: Any = None) -> Any:
+def serialize_all(nodes: Any, stream: StreamType | None = None, Dumper: Any = ..., canonical: Any = None, indent: int | None = None, width: int | None = None, allow_unicode: bool | None = None, line_break: Any = None, encoding: Any = None, explicit_start: bool | None = None, explicit_end: bool | None = None, version: VersionType | None = None, tags: Any = None) -> Any:
 	"""
 	Serialize a sequence of representation trees into a YAML stream.
 	If stream is None, return the produced string instead.
@@ -295,12 +295,12 @@ def serialize(node: Any, stream: StreamType | None = None, Dumper: Any = ..., **
 	Serialize a representation tree into a YAML stream.
 	If stream is None, return the produced string instead.
 	"""
-def dump_all(documents: Any, stream: StreamType | None = None, Dumper: Any = ..., default_style: Any = None, default_flow_style: Any = None, canonical: bool | None = None, indent: int | None = None, width: int | None = None, allow_unicode: bool | None = None, line_break: Any = None, encoding: Any = ..., explicit_start: bool | None = None, explicit_end: bool | None = None, version: Any = None, tags: Any = None, block_seq_indent: Any = None, top_level_colon_align: Any = None, prefix_colon: Any = None) -> Any:
+def dump_all(documents: Any, stream: StreamType | None = None, Dumper: Any = ..., default_style: Any = None, default_flow_style: Any = None, canonical: bool | None = None, indent: int | None = None, width: int | None = None, allow_unicode: bool | None = None, line_break: Any = None, encoding: Any = None, explicit_start: bool | None = None, explicit_end: bool | None = None, version: Any = None, tags: Any = None, block_seq_indent: Any = None, top_level_colon_align: Any = None, prefix_colon: Any = None) -> Any:
 	"""
 	Serialize a sequence of Python objects into a YAML stream.
 	If stream is None, return the produced string instead.
 	"""
-def dump(data: Any, stream: StreamType | None = None, Dumper: Any = ..., default_style: Any = None, default_flow_style: Any = None, canonical: bool | None = None, indent: int | None = None, width: int | None = None, allow_unicode: bool | None = None, line_break: Any = None, encoding: Any = ..., explicit_start: bool | None = None, explicit_end: bool | None = None, version: VersionType | None = None, tags: Any = None, block_seq_indent: Any = None) -> Any:
+def dump(data: Any, stream: StreamType | None = None, Dumper: Any = ..., default_style: Any = None, default_flow_style: Any = None, canonical: bool | None = None, indent: int | None = None, width: int | None = None, allow_unicode: bool | None = None, line_break: Any = None, encoding: Any = None, explicit_start: bool | None = None, explicit_end: bool | None = None, version: VersionType | None = None, tags: Any = None, block_seq_indent: Any = None) -> Any:
 	'''
 	Serialize a Python object into a YAML stream.
 	If stream is None, return the produced string instead.
@@ -314,7 +314,7 @@ def safe_dump(data: Any, stream: StreamType | None = None, **kwds: Any) -> Any:
 	Produce only basic YAML tags.
 	If stream is None, return the produced string instead.
 	"""
-def round_trip_dump(data: Any, stream: StreamType | None = None, Dumper: Any = ..., default_style: Any = None, default_flow_style: Any = None, canonical: bool | None = None, indent: int | None = None, width: int | None = None, allow_unicode: bool | None = None, line_break: Any = None, encoding: Any = ..., explicit_start: bool | None = None, explicit_end: bool | None = None, version: VersionType | None = None, tags: Any = None, block_seq_indent: Any = None, top_level_colon_align: Any = None, prefix_colon: Any = None) -> Any: ...
+def round_trip_dump(data: Any, stream: StreamType | None = None, Dumper: Any = ..., default_style: Any = None, default_flow_style: Any = None, canonical: bool | None = None, indent: int | None = None, width: int | None = None, allow_unicode: bool | None = None, line_break: Any = None, encoding: Any = None, explicit_start: bool | None = None, explicit_end: bool | None = None, version: VersionType | None = None, tags: Any = None, block_seq_indent: Any = None, top_level_colon_align: Any = None, prefix_colon: Any = None) -> Any: ...
 def add_implicit_resolver(tag: Any, regexp: Any, first: Any = None, Loader: Any = None, Dumper: Any = None, resolver: Any = ...) -> None:
 	"""
 	Add an implicit scalar detector.
