@@ -41,7 +41,9 @@ optional-dependencies = { development = [
 ], stubdefaulter = [
   "cffconvert",
   "networkx",
+  "odf",
   "pandas",
+  "pyxlsb",
   "requests",
   "resampy",
   "sqlalchemy",
