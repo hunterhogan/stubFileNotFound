@@ -33,7 +33,7 @@ from pandas._typing import (
 )
 
 class BaseWindow(SelectionMixin[NDFrameT]):
-    on: str | Index | None
+    on: str | Index[Any] | None
     closed: IntervalClosedType | None
     step: int | None
     window: int | dt.timedelta | str | BaseOffset | BaseIndexer | None

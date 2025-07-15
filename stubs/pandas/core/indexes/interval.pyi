@@ -210,7 +210,7 @@ class IntervalIndex(ExtensionIndex[IntervalT], IntervalMixin):
         copy: bool = False,
         dtype: IntervalDtype | None = None,
     ) -> IntervalIndex[pd.Interval[pd.Timedelta]]: ...
-    def to_tuples(self, na_tuple: bool = ...) -> pd.Index: ...
+    def to_tuples(self, na_tuple: bool = ...) -> pd.Index[Any]: ...
     @overload
     def __contains__(self, key: IntervalT) -> bool: ...  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
     @overload
@@ -231,22 +231,22 @@ class IntervalIndex(ExtensionIndex[IntervalT], IntervalMixin):
     ) -> int | slice | npt.NDArray[np.bool_]: ...
     def get_indexer(
         self,
-        target: Index,
+        target: Index[Any],
         method: FillnaOptions | Literal["nearest"] | None = None,
         limit: int | None = None,
         tolerance: Any=None,
     ) -> npt.NDArray[np.intp]: ...
     def get_indexer_non_unique(
-        self, target: Index
+        self, target: Index[Any]
     ) -> tuple[npt.NDArray[np.intp], npt.NDArray[np.intp]]: ...
     @property
-    def left(self) -> Index: ...
+    def left(self) -> Index[Any]: ...
     @property
-    def right(self) -> Index: ...
+    def right(self) -> Index[Any]: ...
     @property
-    def mid(self) -> Index: ...
+    def mid(self) -> Index[Any]: ...
     @property
-    def length(self) -> Index: ...
+    def length(self) -> Index[Any]: ...
     @overload  # type: ignore[override]
     def __getitem__(
         self,
@@ -254,7 +254,7 @@ class IntervalIndex(ExtensionIndex[IntervalT], IntervalMixin):
             slice
             | np_ndarray_anyint
             | Sequence[int]
-            | Index
+            | Index[Any]
             | MaskType
             | np_ndarray_bool
         ),

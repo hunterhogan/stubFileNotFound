@@ -16,6 +16,7 @@ from pandas._typing import (
     RaiseCoerce,
     SequenceNotStr,
 )
+from typing import Any
 
 @overload
 def to_timedelta(
@@ -37,7 +38,7 @@ def to_timedelta(
         | tuple[str | float | timedelta, ...]
         | range
         | ArrayLike
-        | Index
+        | Index[Any]
     ),
     unit: TimeDeltaUnitChoices | None = None,
     errors: RaiseCoerce = 'raise',

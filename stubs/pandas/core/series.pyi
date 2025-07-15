@@ -1,5 +1,4 @@
 # pyright: reportArgumentType=false
-# pyright: reportInvalidTypeArguments=false
 from builtins import (
     bool as _bool,
     str as _str,
@@ -306,7 +305,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def __new__(
         cls,
-        data: _ListLike[Any],
+        data: _ListLike,
         index: AxesData[Any] | None = ...,
         *,
         dtype: TimestampDtypeArg,
@@ -354,7 +353,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def __new__(  # type: ignore[overload-overlap]
         cls,
-        data: Scalar | _ListLike[Any] | dict[HashableT1, Any] | None,
+        data: Scalar | _ListLike | dict[HashableT1, Any] | None,
         index: AxesData[Any] | None = ...,
         *,
         dtype: type[S1],
@@ -411,7 +410,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         cls,
         data: (
             Scalar
-            | _ListLike[Any]
+            | _ListLike
             | Mapping[HashableT1, Any]
             | BaseGroupBy[Any]
             | NaTType
@@ -427,7 +426,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def hasnans(self) -> bool: ...
     def div(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = None,
         fill_value: float | None = None,
         axis: AxisIndex = 0,
@@ -475,7 +474,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> Self: ...
     @overload
     def __getitem__(self, idx: Scalar) -> S1: ...
-    def __setitem__(self, key: Any, value: Any ) -> None: ...
+    def __setitem__(self, key: Any, value: Any) -> None: ...
     @overload
     def get(self, key: Hashable, default: None = None) -> S1 | None: ...
     @overload
@@ -832,16 +831,16 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def searchsorted(
         self,
-        value: _ListLike[Any],
+        value: _ListLike,
         side: Literal["left", "right"] = 'left',
-        sorter: _ListLike[Any] | None = None,
+        sorter: _ListLike | None = None,
     ) -> list[int]: ...
     @overload
     def searchsorted(
         self,
         value: Scalar,
         side: Literal["left", "right"] = 'left',
-        sorter: _ListLike[Any] | None = None,
+        sorter: _ListLike | None = None,
     ) -> int: ...
     @overload
     def compare(
@@ -1226,7 +1225,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> Series[S1]: ...
     def filter(
         self,
-        items: _ListLike[Any] | None = None,
+        items: _ListLike | None = None,
         like: _str | None = None,
         regex: _str | None = None,
         axis: AxisIndex | None = None,
@@ -1238,7 +1237,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         n: int | None = None,
         frac: float | None = None,
         replace: _bool = False,
-        weights: _str | _ListLike[Any] | np.ndarray[Any, Any] | None = None,
+        weights: _str | _ListLike | np.ndarray[Any, Any] | None = None,
         random_state: RandomState | None = None,
         axis: AxisIndex | None = None,
         ignore_index: _bool = False,
@@ -1430,8 +1429,8 @@ class Series(IndexOpsMixin[S1], NDFrame):
         end_time: _str | time,
         axis: AxisIndex | None = None,
     ) -> Series[S1]: ...
-    def first(self, offset: _str | int | None = ...) -> Series[S1]: ...
-    def last(self, offset: _str | int | None = ...) -> Series[S1]: ...
+    def first(self, offset: Any) -> Series[S1]: ...
+    def last(self, offset: Any) -> Series[S1]: ...
     def rank(
         self,
         axis: AxisIndex = 0,
@@ -1566,7 +1565,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         dropna: _bool = True,
     ) -> Series[int]: ...
     @overload
-    def value_counts( # pyright: ignore[reportIncompatibleMethodOverride]
+    def value_counts(
         self,
         normalize: Literal[True],
         sort: _bool = True,
@@ -1586,7 +1585,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def __add__(
         self,
-        other: num | _str | timedelta | Timedelta | _ListLike[Any] | Series | np.timedelta64,
+        other: num | _str | timedelta | Timedelta | _ListLike | Series | np.timedelta64,
     ) -> Series: ...
     # ignore needed for mypy as we want different results based on the arguments
     @overload  # type: ignore[override]
@@ -1596,30 +1595,30 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def __and__(self, other: int | np_ndarray_anyint | Series[int]) -> Series[int]: ...
     # def __array__(self, dtype: Optional[_bool] = ...) -> _np_ndarray
-    def __div__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...
+    def __div__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
     def __eq__(self, other: object) -> Series[_bool]: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
-    def __floordiv__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[int]: ...
+    def __floordiv__(self, other: num | _ListLike | Series[S1]) -> Series[int]: ...
     def __ge__(  # type: ignore[override]
-        self, other: S1 | _ListLike[Any] | Series[S1] | datetime | timedelta | date
+        self, other: S1 | _ListLike | Series[S1] | datetime | timedelta | date
     ) -> Series[_bool]: ...
     def __gt__(  # type: ignore[override]
-        self, other: S1 | _ListLike[Any] | Series[S1] | datetime | timedelta | date
+        self, other: S1 | _ListLike | Series[S1] | datetime | timedelta | date
     ) -> Series[_bool]: ...
     def __le__(  # type: ignore[override]
-        self, other: S1 | _ListLike[Any] | Series[S1] | datetime | timedelta | date
+        self, other: S1 | _ListLike | Series[S1] | datetime | timedelta | date
     ) -> Series[_bool]: ...
     def __lt__(  # type: ignore[override]
-        self, other: S1 | _ListLike[Any] | Series[S1] | datetime | timedelta | date
+        self, other: S1 | _ListLike | Series[S1] | datetime | timedelta | date
     ) -> Series[_bool]: ...
     @overload
     def __mul__(
         self, other: timedelta | Timedelta | TimedeltaSeries | np.timedelta64
     ) -> TimedeltaSeries: ...
     @overload
-    def __mul__(self, other: num | _ListLike[Any] | Series) -> Series: ...
-    def __mod__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...
+    def __mul__(self, other: num | _ListLike | Series) -> Series: ...
+    def __mod__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
     def __ne__(self, other: object) -> Series[_bool]: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
-    def __pow__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...
+    def __pow__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
     # ignore needed for mypy as we want different results based on the arguments
     @overload  # type: ignore[override]
     def __or__(  # pyright: ignore[reportOverlappingOverload]
@@ -1630,7 +1629,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def __radd__(self, other: S1 | Series[S1]) -> Self: ...
     @overload
-    def __radd__(self, other: num | _str | _ListLike[Any] | Series) -> Series: ...
+    def __radd__(self, other: num | _str | _ListLike | Series) -> Series: ...
     # ignore needed for mypy as we want different results based on the arguments
     @overload  # type: ignore[override]
     def __rand__(  # pyright: ignore[reportOverlappingOverload]
@@ -1638,18 +1637,18 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> Series[bool]: ...
     @overload
     def __rand__(self, other: int | np_ndarray_anyint | Series[int]) -> Series[int]: ...
-    def __rdiv__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...
-    def __rdivmod__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
-    def __rfloordiv__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...
-    def __rmod__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...
+    def __rdiv__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
+    def __rdivmod__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
+    def __rfloordiv__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
+    def __rmod__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
     @overload
     def __rmul__(
         self, other: timedelta | Timedelta | TimedeltaSeries | np.timedelta64
     ) -> TimedeltaSeries: ...
     @overload
-    def __rmul__(self, other: num | _ListLike[Any] | Series) -> Series: ...
-    def __rnatmul__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...
-    def __rpow__(self, other: num | _ListLike[Any] | Series[S1]) -> Series[S1]: ...
+    def __rmul__(self, other: num | _ListLike | Series) -> Series: ...
+    def __rnatmul__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
+    def __rpow__(self, other: num | _ListLike | Series[S1]) -> Series[S1]: ...
     # ignore needed for mypy as we want different results based on the arguments
     @overload  # type: ignore[override]
     def __ror__(  # pyright: ignore[reportOverlappingOverload]
@@ -1657,8 +1656,8 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> Series[bool]: ...
     @overload
     def __ror__(self, other: int | np_ndarray_anyint | Series[int]) -> Series[int]: ...
-    def __rsub__(self, other: num | _ListLike[Any] | Series[S1]) -> Series: ...
-    def __rtruediv__(self, other: num | _ListLike[Any] | Series[S1] | Path) -> Series: ...
+    def __rsub__(self, other: num | _ListLike | Series[S1]) -> Series: ...
+    def __rtruediv__(self, other: num | _ListLike | Series[S1] | Path) -> Series: ...
     # ignore needed for mypy as we want different results based on the arguments
     @overload  # type: ignore[override]
     def __rxor__(  # pyright: ignore[reportOverlappingOverload]
@@ -1681,8 +1680,8 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self, other: Timestamp | datetime | TimestampSeries
     ) -> TimedeltaSeries: ...
     @overload
-    def __sub__(self, other: num | _ListLike[Any] | Series) -> Series: ...
-    def __truediv__(self, other: num | _ListLike[Any] | Series[S1] | Path) -> Series: ...
+    def __sub__(self, other: num | _ListLike | Series) -> Series: ...
+    def __truediv__(self, other: num | _ListLike | Series[S1] | Path) -> Series: ...
     # ignore needed for mypy as we want different results based on the arguments
     @overload  # type: ignore[override]
     def __xor__(  # pyright: ignore[reportOverlappingOverload]
@@ -1752,7 +1751,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def cumprod(
         self,
-        axis: AxisIndex | None = None,
+        axis: AxisIndex = None,
         skipna: _bool = True,
         *args: Any,
         **kwargs: Any,
@@ -1766,14 +1765,14 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> Series[S1]: ...
     def divide(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = None,
         fill_value: float | None = None,
         axis: AxisIndex = 0,
     ) -> Series[float]: ...
     def divmod(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = None,
         fill_value: float | None = None,
         axis: AxisIndex = 0,
@@ -1802,7 +1801,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> Expanding[Series]: ...
     def floordiv(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = None,
         fill_value: float | None = None,
         axis: AxisIndex | None = 0,
@@ -1886,7 +1885,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> S1: ...
     def mod(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = None,
         fill_value: float | None = None,
         axis: AxisIndex | None = 0,
@@ -1902,14 +1901,14 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def mul(
         self,
-        other: num | _ListLike[Any] | Series,
+        other: num | _ListLike | Series,
         level: Level | None = None,
         fill_value: float | None = None,
         axis: AxisIndex | None = 0,
     ) -> Series: ...
     def multiply(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = None,
         fill_value: float | None = None,
         axis: AxisIndex | None = 0,
@@ -1924,7 +1923,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def nunique(self, dropna: _bool = True) -> int: ...
     def pow(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = None,
         fill_value: float | None = None,
         axis: AxisIndex | None = 0,
@@ -1986,7 +1985,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def rmul(
         self,
-        other: num | _ListLike[Any] | Series,
+        other: num | _ListLike | Series,
         level: Level | None = None,
         fill_value: float | None = None,
         axis: AxisIndex = 0,
@@ -2066,14 +2065,14 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> float: ...
     def sub(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = None,
         fill_value: float | None = None,
         axis: AxisIndex | None = 0,
     ) -> Series[S1]: ...
     def subtract(
         self,
-        other: num | _ListLike[Any] | Series[S1],
+        other: num | _ListLike | Series[S1],
         level: Level | None = None,
         fill_value: float | None = None,
         axis: AxisIndex | None = 0,

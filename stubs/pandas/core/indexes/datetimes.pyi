@@ -43,7 +43,7 @@ from typing import Any
 class DatetimeIndex(DatetimeTimedeltaMixin[Timestamp], DatetimeIndexProperties):
     def __init__(
         self,
-        data: AxesData,
+        data: AxesData[Any],
         freq: Frequency = ...,
         tz: TimeZones = ...,
         ambiguous: str = ...,
@@ -53,7 +53,7 @@ class DatetimeIndex(DatetimeTimedeltaMixin[Timestamp], DatetimeIndexProperties):
         copy: bool = ...,
         name: Hashable = ...,
     ) -> None: ...
-    def __array__(self, dtype: Any=None) -> np.ndarray: ...
+    def __array__(self, dtype: Any=None) -> np.ndarray[Any, Any]: ...
     def __reduce__(self): ...
     # various ignores needed for mypy, as we do want to restrict what can be used in
     # arithmetic for these types

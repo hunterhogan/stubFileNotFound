@@ -33,25 +33,25 @@ def unique(values: CategoricalIndex) -> CategoricalIndex: ...  # type: ignore[ov
 @overload
 def unique(values: IntervalIndex[IntervalT]) -> IntervalIndex[IntervalT]: ...
 @overload
-def unique(values: Index) -> np.ndarray: ...
+def unique(values: Index[Any]) -> np.ndarray[Any, Any]: ...
 @overload
 def unique(values: Categorical) -> Categorical: ...
 @overload
-def unique(values: Series) -> np.ndarray | ExtensionArray: ...
+def unique(values: Series) -> np.ndarray[Any, Any] | ExtensionArray: ...
 @overload
-def unique(values: np.ndarray) -> np.ndarray: ...
+def unique(values: np.ndarray[Any, Any]) -> np.ndarray[Any, Any]: ...
 @overload
 def unique(values: ExtensionArray) -> ExtensionArray: ...
 @overload
 def factorize(
-    values: np.ndarray,
+    values: np.ndarray[Any, Any],
     sort: bool = False,
     use_na_sentinel: bool = True,
     size_hint: int | None = None,
 ) -> tuple[np.ndarray, np.ndarray]: ...
 @overload
 def factorize(
-    values: Index | Series,
+    values: Index[Any] | Series,
     sort: bool = False,
     use_na_sentinel: bool = True,
     size_hint: int | None = None,
@@ -64,7 +64,7 @@ def factorize(
     size_hint: int | None = None,
 ) -> tuple[np.ndarray, Categorical]: ...
 def value_counts(
-    values: AnyArrayLike | list | tuple,
+    values: AnyArrayLike | list[Any] | tuple[Any, ...],
     sort: bool = True,
     ascending: bool = False,
     normalize: bool = False,

@@ -4,11 +4,12 @@ import numpy as np
 from pandas.core.frame import DataFrame
 
 from pandas._typing import HashableT
+from typing import Any
 
 def melt(
     frame: DataFrame,
-    id_vars: tuple | list | np.ndarray | None = None,
-    value_vars: tuple | list | np.ndarray | None = None,
+    id_vars: tuple[Any, ...] | list[Any] | np.ndarray[Any, Any] | None = None,
+    value_vars: tuple[Any, ...] | list[Any] | np.ndarray[Any, Any] | None = None,
     var_name: str | None = None,
     value_name: Hashable = 'value',
     col_level: int | str | None = None,

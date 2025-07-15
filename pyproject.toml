@@ -44,6 +44,7 @@ optional-dependencies = { development = [
   "pandas",
   "requests",
   "resampy",
+  "sqlalchemy",
   "tqdm",
   "xarray",
 ], testing = [

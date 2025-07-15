@@ -15,7 +15,7 @@ class BooleanDtype(ExtensionDtype):
 
 class BooleanArray(BaseMaskedArray):
     def __init__(
-        self, values: np.ndarray, mask: np.ndarray, copy: bool = False
+        self, values: np.ndarray[Any, Any], mask: np.ndarray[Any, Any], copy: bool = False
     ) -> None: ...
     @property
     def dtype(self): ...

@@ -96,7 +96,7 @@ class SeriesGroupBy(GroupBy[Series[S2]], Generic[S2, ByT]):
         engine: WindowingEngine = None,
         engine_kwargs: WindowingEngineKwargs = None,
         **kwargs: Any,
-    ) -> Series[Any]: ...
+    ) -> Series: ...
     agg = aggregate
     @overload
     def transform(
@@ -114,14 +114,14 @@ class SeriesGroupBy(GroupBy[Series[S2]], Generic[S2, ByT]):
         func: Callable[..., Any],
         *args: Any,
         **kwargs: Any,
-    ) -> Series[Any]: ...
+    ) -> Series: ...
     @overload
     def transform(
         self, func: TransformReductionListType, *args: Any, **kwargs: Any
-    ) -> Series[Any]: ...
+    ) -> Series: ...
     def filter(
         self, func: Callable[..., Any] | str, dropna: bool = True, *args: Any, **kwargs: Any
-    ) -> Series[Any]: ...
+    ) -> Series: ...
     def nunique(self, dropna: bool = True) -> Series[int]: ...
     # describe delegates to super() method but here it has keyword-only parameters
     def describe(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
@@ -159,7 +159,7 @@ class SeriesGroupBy(GroupBy[Series[S2]], Generic[S2, ByT]):
         skipna: bool = True,
         numeric_only: bool = False,
         **kwargs: Any,
-    ) -> Series[Any]: ...
+    ) -> Series: ...
     @property
     def plot(self) -> GroupByPlot[Self]: ...
     def nlargest(
@@ -168,17 +168,17 @@ class SeriesGroupBy(GroupBy[Series[S2]], Generic[S2, ByT]):
     def nsmallest(
         self, n: int = 5, keep: NsmallestNlargestKeep = 'first'
     ) -> Series[S2]: ...
-    def idxmin(self, skipna: bool = True) -> Series[Any]: ...
-    def idxmax(self, skipna: bool = True) -> Series[Any]: ...
+    def idxmin(self, skipna: bool = True) -> Series: ...
+    def idxmax(self, skipna: bool = True) -> Series: ...
     def corr(
         self,
-        other: Series[Any],
+        other: Series,
         method: CorrelationMethod = 'pearson',
         min_periods: int | None = None,
-    ) -> Series[Any]: ...
+    ) -> Series: ...
     def cov(
-        self, other: Series[Any], min_periods: int | None = None, ddof: int | None = 1
-    ) -> Series[Any]: ...
+        self, other: Series, min_periods: int | None = None, ddof: int | None = 1
+    ) -> Series: ...
     @property
     def is_monotonic_increasing(self) -> Series[bool]: ...
     @property
@@ -197,10 +197,10 @@ class SeriesGroupBy(GroupBy[Series[S2]], Generic[S2, ByT]):
         backend: str | None = None,
         legend: bool = False,
         **kwargs: Any,
-    ) -> Series[Any]: ...  # Series[Axes] but this is not allowed
+    ) -> Series: ...  # Series[Axes] but this is not allowed
     @property
-    def dtype(self) -> Series[Any]: ...
-    def unique(self) -> Series[Any]: ...
+    def dtype(self) -> Series: ...
+    def unique(self) -> Series: ...
     # Overrides that provide more precise return types over the GroupBy class
     @final  # type: ignore[misc]
     def __iter__(  # pyright: ignore[reportIncompatibleMethodOverride]
@@ -218,7 +218,7 @@ class DFCallable1(Protocol[P]):  # ty: ignore[invalid-argument-type]
 class DFCallable2(Protocol[P]):  # ty: ignore[invalid-argument-type]
     def __call__(
         self, df: DataFrame, /, *args: P.args, **kwargs: P.kwargs
-    ) -> DataFrame | Series[Any]: ...
+    ) -> DataFrame | Series: ...
 
 class DFCallable3(Protocol[P]):  # ty: ignore[invalid-argument-type]
     def __call__(self, df: Iterable[Any], /, *args: P.args, **kwargs: P.kwargs) -> float: ...
@@ -232,7 +232,7 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         /,
         *args: P.args,
         **kwargs: P.kwargs,
-    ) -> Series[Any]: ...
+    ) -> Series: ...
     @overload
     def apply(
         self,
@@ -251,7 +251,7 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
     ) -> DataFrame: ...
     # error: overload 1 overlaps overload 2 because of different return types
     @overload
-    def aggregate(self, func: Literal["size"]) -> Series[Any]: ...  # type: ignore[overload-overlap]
+    def aggregate(self, func: Literal["size"]) -> Series: ...  # type: ignore[overload-overlap]
     @overload
     def aggregate(
         self,
@@ -317,7 +317,7 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         sharey: bool = True,
         backend: str | None = None,
         **kwargs: Any,
-    ) -> Series[Any]: ...  # Series[PlotAxes] but this is not allowed
+    ) -> Series: ...  # Series[PlotAxes] but this is not allowed
     @overload
     def boxplot(
         self,
@@ -349,7 +349,7 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         sharey: bool = True,
         backend: str | None = None,
         **kwargs: Any,
-    ) -> PlotAxes | Series[Any]: ...  # Series[PlotAxes]
+    ) -> PlotAxes | Series: ...  # Series[PlotAxes]
     @overload
     def value_counts(
         self: DataFrameGroupBy[ByT, Literal[True]],
@@ -404,7 +404,7 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         *,
         level: None = None,
         **kwargs: Any,
-    ) -> Series[Any]: ...
+    ) -> Series: ...
     @property
     def plot(self) -> GroupByPlot[Self]: ...
     def corr(
@@ -437,9 +437,9 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         backend: str | None = None,
         legend: bool = False,
         **kwargs: Any,
-    ) -> Series[Any]: ...  # Series[Axes] but this is not allowed
+    ) -> Series: ...  # Series[Axes] but this is not allowed
     @property
-    def dtypes(self) -> Series[Any]: ...
+    def dtypes(self) -> Series: ...
     def __getattr__(self, name: str) -> SeriesGroupBy[Any, ByT]: ...
     # Overrides that provide more precise return types over the GroupBy class
     @final  # type: ignore[misc]

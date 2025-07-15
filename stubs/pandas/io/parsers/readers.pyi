@@ -469,7 +469,7 @@ class TextFileReader(abc.Iterator):
     handles: IOHandles | None
     def __init__(
         self,
-        f: FilePath | ReadCsvBuffer[bytes] | ReadCsvBuffer[str] | list,
+        f: FilePath | ReadCsvBuffer[bytes] | ReadCsvBuffer[str] | list[Any],
         engine: CSVEngine | None = None,
         **kwds: Any,
     ) -> None: ...

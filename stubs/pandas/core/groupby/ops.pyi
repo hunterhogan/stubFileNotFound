@@ -25,15 +25,16 @@ from pandas._typing import (
     npt,
 )
 from pandas.util._decorators import cache_readonly
+from typing import Any
 
 class BaseGrouper:
-    axis: Index
+    axis: Index[Any]
     dropna: bool
     @property
     def groupings(self) -> list[grouper.Grouping]: ...
     @property
     def shape(self) -> Shape: ...
-    def __iter__(self) -> Iterator: ...
+    def __iter__(self) -> Iterator[Any]: ...
     @property
     def nkeys(self) -> int: ...
     def get_iterator(
@@ -52,7 +53,7 @@ class BaseGrouper:
     @property
     def levels(self) -> list[Index]: ...
     @property
-    def names(self) -> list: ...
+    def names(self) -> list[Any]: ...
     @final
     def size(self) -> Series: ...
     @cache_readonly
@@ -73,7 +74,7 @@ class BaseGrouper:
     @property
     def reconstructed_codes(self) -> list[npt.NDArray[np.intp]]: ...
     @cache_readonly
-    def result_index(self) -> Index: ...
+    def result_index(self) -> Index[Any]: ...
     @final
     def get_group_levels(self) -> list[ArrayLike]: ...
     @final
@@ -90,7 +91,7 @@ class BaseGrouper:
 
 class BinGrouper(BaseGrouper):
     bins: npt.NDArray[np.int64]
-    binlabels: Index
+    binlabels: Index[Any]
     indexer: npt.NDArray[np.intp]
     @cache_readonly
     def indices(self) -> dict[Incomplete, list[int]]: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]

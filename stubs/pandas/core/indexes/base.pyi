@@ -83,7 +83,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: AxesData,
+        data: AxesData[Any],
         *,
         dtype: Literal["int"] | type_t[int | np.integer],
         copy: bool = False,
@@ -105,7 +105,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: AxesData,
+        data: AxesData[Any],
         *,
         dtype: Literal["float"] | type_t[float | np.floating],
         copy: bool = False,
@@ -131,7 +131,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: AxesData,
+        data: AxesData[Any],
         *,
         dtype: Literal["complex"] | type_t[complex | np.complexfloating],
         copy: bool = False,
@@ -154,7 +154,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: AxesData,
+        data: AxesData[Any],
         *,
         dtype: TimestampDtypeArg,
         copy: bool = False,
@@ -176,7 +176,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: AxesData,
+        data: AxesData[Any],
         *,
         dtype: PeriodDtype,
         copy: bool = False,
@@ -198,7 +198,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: AxesData,
+        data: AxesData[Any],
         *,
         dtype: TimedeltaDtypeArg,
         copy: bool = False,
@@ -220,7 +220,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: AxesData,
+        data: AxesData[Any],
         *,
         dtype: Literal["Interval"],
         copy: bool = False,
@@ -243,7 +243,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: AxesData = None,
+        data: AxesData[Any] = None,
         *,
         dtype: type[S1],
         copy: bool = False,
@@ -255,7 +255,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: AxesData,
+        data: AxesData[Any],
         *,
         dtype=None,
         copy: bool = False,
@@ -278,13 +278,13 @@ class Index(IndexOpsMixin[S1]):
     ]: ...
     def is_(self, other: Any) -> bool: ...
     def __len__(self) -> int: ...
-    def __array__(self, dtype: Any=None) -> np.ndarray: ...
+    def __array__(self, dtype: Any=None) -> np.ndarray[Any, Any]: ...
     def __array_wrap__(self, result: Any, context: Any=None): ...
     @property
     def dtype(self) -> DtypeObj: ...
     def ravel(self, order: _str = 'C'): ...
     def view(self, cls: Any=None): ...
-    def astype(self, dtype: DtypeArg, copy: bool = True) -> Index: ...
+    def astype(self, dtype: DtypeArg, copy: bool = True) -> Index[Any]: ...
     def take(
         self, indices: Any, axis: int = 0, allow_fill: bool = True, fill_value: Any=None, **kwargs
     ): ...
@@ -293,7 +293,7 @@ class Index(IndexOpsMixin[S1]):
     def __copy__(self, **kwargs): ...
     def __deepcopy__(self, memo: Any=None): ...
     def format(
-        self, name: bool = False, formatter: Callable | None = None, na_rep: _str = 'NaN'
+        self, name: bool = False, formatter: Callable[..., Any] | None = None, na_rep: _str = 'NaN'
     ) -> list[_str]: ...
     def to_flat_index(self): ...
     def to_series(self, index: Any=None, name: Hashable = None) -> Series: ...
@@ -313,7 +313,7 @@ class Index(IndexOpsMixin[S1]):
     def rename(self, name: Any, inplace: Literal[True]) -> None: ...
     @property
     def nlevels(self) -> int: ...
-    def get_level_values(self, level: int | _str) -> Index: ...
+    def get_level_values(self, level: int | _str) -> Index[Any]: ...
     def droplevel(self, level: Level | list[Level] = 0): ...
     @property
     def is_monotonic_increasing(self) -> bool: ...
@@ -348,9 +348,9 @@ class Index(IndexOpsMixin[S1]):
     __bool__ = ...
     def union(
         self, other: list[HashableT] | Self, sort: bool | None = None
-    ) -> Index: ...
+    ) -> Index[Any]: ...
     def intersection(self, other: list[S1] | Self, sort: bool | None = False) -> Self: ...
-    def difference(self, other: list | Self, sort: bool | None = None) -> Self: ...
+    def difference(self, other: list[Any] | Self, sort: bool | None = None) -> Self: ...
     def symmetric_difference(
         self,
         other: list[S1] | Self,
@@ -379,7 +379,7 @@ class Index(IndexOpsMixin[S1]):
         sort: bool = False,
     ): ...
     @property
-    def values(self) -> np.ndarray: ...
+    def values(self) -> np.ndarray[Any, Any]: ...
     @property
     def array(self) -> ExtensionArray: ...
     def memory_usage(self, deep: bool = False): ...
@@ -389,7 +389,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __getitem__(
         self,
-        idx: slice | np_ndarray_anyint | Sequence[int] | Index | MaskType,
+        idx: slice | np_ndarray_anyint | Sequence[int] | Index[Any] | MaskType,
     ) -> Self: ...
     @overload
     def __getitem__(self, idx: int | tuple[np_ndarray_anyint, ...]) -> S1: ...
@@ -413,7 +413,7 @@ class Index(IndexOpsMixin[S1]):
     def get_indexer_for(self, target: Any, **kwargs): ...
     @final
     def groupby(self, values: Any) -> dict[Hashable, np.ndarray]: ...
-    def map(self, mapper: Any, na_action: Any=None) -> Index: ...
+    def map(self, mapper: Any, na_action: Any=None) -> Index[Any]: ...
     def isin(self, values: Any, level: Any=None) -> np_ndarray_bool: ...
     def slice_indexer(self, start: Any=None, end: Any=None, step: Any=None): ...
     def get_slice_bound(self, label: Any, side: Any): ...

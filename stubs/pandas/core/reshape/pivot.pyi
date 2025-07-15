@@ -6,7 +6,6 @@ from collections.abc import (
 )
 import datetime
 from typing import (
-    Any,
     Literal,
     overload,
 )
@@ -30,6 +29,7 @@ from pandas._typing import (
     ScalarT,
     npt,
 )
+from typing import Any
 
 _PivotAggCallable: TypeAlias = Callable[[Series], ScalarT]
 
@@ -86,7 +86,7 @@ def pivot_table(
     values: _PivotTableValuesTypes[Any] = None,
     *,
     index: Grouper,
-    columns: _PivotTableColumnsTypes[Any] | Index | npt.NDArray[Any] = None,
+    columns: _PivotTableColumnsTypes[Any] | Index[Any] | npt.NDArray[Any] = None,
     aggfunc: (
         _PivotAggFunc | Sequence[_PivotAggFunc] | Mapping[Hashable, _PivotAggFunc]
     ) = 'mean',
@@ -101,7 +101,7 @@ def pivot_table(
 def pivot_table(
     data: DataFrame,
     values: _PivotTableValuesTypes[Any] = None,
-    index: _PivotTableIndexTypes[Any] | Index | npt.NDArray[Any] = None,
+    index: _PivotTableIndexTypes[Any] | Index[Any] | npt.NDArray[Any] = None,
     *,
     columns: Grouper,
     aggfunc: (

@@ -1,6 +1,5 @@
 # pyright: reportOverlappingOverload=false
 # pyright: reportArgumentType=false
-# pyright: reportInvalidTypeArguments=false
 from builtins import (
     bool as _bool,
     str as _str,
@@ -326,7 +325,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         ) = ...,
         index: Axes | None = ...,
         columns: Axes | None = ...,
-        dtype: Any = ...,
+        dtype: Any=...,
         copy: _bool = ...,
     ) -> Self: ...
     @overload
@@ -335,7 +334,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         data: Scalar,
         index: Axes,
         columns: Axes,
-        dtype: Any = ...,
+        dtype: Any=...,
         copy: _bool = ...,
     ) -> Self: ...
     def __dataframe__(
@@ -473,7 +472,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     ) -> None: ...
     @classmethod
     def from_records(
-        cls, data: Any, index: Any = None, exclude: Any = None, columns: Any = None, coerce_float: Any = False, nrows: Any = None
+        cls, data: Any, index: Any=None, exclude: Any=None, columns: Any=None, coerce_float: Any=False, nrows: Any=None
     ) -> Self: ...
     def to_records(
         self,
@@ -1310,7 +1309,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         values: _PivotTableValuesTypes[Any] = None,
         index: _PivotTableIndexTypes[Any] = None,
         columns: _PivotTableColumnsTypes[Any] = None,
-        aggfunc: Any = 'mean',
+        aggfunc: Any='mean',
         fill_value: Scalar | None = None,
         margins: _bool = False,
         dropna: _bool = True,
@@ -1617,7 +1616,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     ) -> Self: ...
     def to_timestamp(
         self,
-        freq: Any = None,
+        freq: Any=None,
         how: ToTimestampHow = 'start',
         axis: Axis = 0,
         copy: _bool = None,

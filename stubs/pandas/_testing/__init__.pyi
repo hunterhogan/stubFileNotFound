@@ -41,10 +41,10 @@ def assert_almost_equal(
     atol: float = 1e-08,
     **kwargs,
 ) -> None: ...
-def assert_dict_equal(left: dict, right: dict, compare_keys: bool = True) -> None: ...
+def assert_dict_equal(left: dict[Any, Any], right: dict[Any, Any], compare_keys: bool = True) -> None: ...
 def assert_index_equal(
-    left: Index,
-    right: Index,
+    left: Index[Any],
+    right: Index[Any],
     exact: bool | Literal["equiv"] = 'equiv',
     check_names: bool = True,
     check_exact: bool = True,
@@ -61,7 +61,7 @@ def assert_attr_equal(
     attr: str, left: object, right: object, obj: str = 'Attributes'
 ) -> None: ...
 def assert_is_valid_plot_return_object(
-    objs: Series | np.ndarray | Artist | tuple | dict,
+    objs: Series | np.ndarray[Any, Any] | Artist | tuple[Any, ...] | dict[Any, Any],
 ) -> None: ...
 def assert_is_sorted(seq: AnyArrayLike) -> None: ...
 def assert_categorical_equal(
@@ -94,13 +94,13 @@ def assert_numpy_array_equal(
     err_msg: str | None = None,
     check_same: Literal["copy", "same"] | None = None,
     obj: str = 'numpy array',
-    index_values: Index | np.ndarray | None = None,
+    index_values: Index[Any] | np.ndarray[Any, Any] | None = None,
 ) -> None: ...
 def assert_extension_array_equal(
     left: ExtensionArray,
     right: ExtensionArray,
     check_dtype: bool | Literal["equiv"] = True,
-    index_values: Index | np.ndarray | None = None,
+    index_values: Index[Any] | np.ndarray[Any, Any] | None = None,
     check_exact: bool = ...,
     rtol: float = ...,
     atol: float = ...,

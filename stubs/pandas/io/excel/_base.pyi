@@ -276,7 +276,7 @@ class ExcelFile:
             | Sequence[Sequence[str] | Sequence[int]]
             | dict[str, Sequence[int] | list[str]]
         ) = False,
-        date_parser: Callable | None = ...,
+        date_parser: Callable[..., Any] | None = ...,
         thousands: str | None = None,
         comment: str | None = None,
         skipfooter: int = 0,
@@ -304,7 +304,7 @@ class ExcelFile:
             | Sequence[Sequence[str] | Sequence[int]]
             | dict[str, Sequence[int] | list[str]]
         ) = False,
-        date_parser: Callable | None = ...,
+        date_parser: Callable[..., Any] | None = ...,
         thousands: str | None = None,
         comment: str | None = None,
         skipfooter: int = 0,

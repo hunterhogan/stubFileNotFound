@@ -37,7 +37,7 @@ class TimedeltaIndex(DatetimeTimedeltaMixin[Timedelta], TimedeltaIndexProperties
     def __new__(
         cls,
         data: (
-            Sequence[dt.timedelta | Timedelta | np.timedelta64 | float] | AxesData
+            Sequence[dt.timedelta | Timedelta | np.timedelta64 | float] | AxesData[Any]
         ) = None,
         freq: str | BaseOffset = ...,
         closed: object = ...,

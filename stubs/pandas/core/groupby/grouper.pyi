@@ -28,6 +28,7 @@ from pandas._typing import (
     npt,
 )
 from pandas.util._decorators import cache_readonly
+from typing import Any
 
 class Grouper:
     key: KeysArgType | None
@@ -69,6 +70,6 @@ class Grouping:
     @cache_readonly
     def group_arraylike(self) -> ArrayLike: ...
     @cache_readonly
-    def result_index(self) -> Index: ...
+    def result_index(self) -> Index[Any]: ...
     @cache_readonly
-    def group_index(self) -> Index: ...
+    def group_index(self) -> Index[Any]: ...

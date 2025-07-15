@@ -9,9 +9,10 @@ from pandas._typing import (
     ArrayLike,
     npt,
 )
+from typing import Any
 
 def hash_pandas_object(
-    obj: Index | Series | DataFrame,
+    obj: Index[Any] | Series | DataFrame,
     index: bool = True,
     encoding: str = 'utf8',
     hash_key: str | None = '0123456789123456',

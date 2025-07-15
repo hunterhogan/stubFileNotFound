@@ -58,7 +58,7 @@ _SeriesGroupByFuncArgs: TypeAlias = (
 )
 
 class Resampler(BaseGroupBy[NDFrameT]):
-    def __getattr__(self, attr: str) -> SeriesGroupBy: ...
+    def __getattr__(self, attr: str) -> SeriesGroupBy[Any, Any]: ...
     @overload
     def aggregate(
         self: Resampler[DataFrame],

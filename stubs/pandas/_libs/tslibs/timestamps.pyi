@@ -45,6 +45,7 @@ from pandas._typing import (
     np_ndarray_bool,
     npt,
 )
+from typing import Any
 
 _Ambiguous: TypeAlias = bool | Literal["raise", "NaT"]
 
@@ -236,7 +237,7 @@ class Timestamp(datetime, SupportsIndex):
     @overload
     def __eq__(self, other: TimestampSeries) -> Series[bool]: ...  # type: ignore[overload-overlap]
     @overload
-    def __eq__(self, other: npt.NDArray[np.datetime64] | Index) -> np_ndarray_bool: ...  # type: ignore[overload-overlap]
+    def __eq__(self, other: npt.NDArray[np.datetime64] | Index[Any]) -> np_ndarray_bool: ...  # type: ignore[overload-overlap]
     @overload
     def __eq__(self, other: object) -> Literal[False]: ...
     @overload
@@ -244,7 +245,7 @@ class Timestamp(datetime, SupportsIndex):
     @overload
     def __ne__(self, other: TimestampSeries) -> Series[bool]: ...  # type: ignore[overload-overlap]
     @overload
-    def __ne__(self, other: npt.NDArray[np.datetime64] | Index) -> np_ndarray_bool: ...  # type: ignore[overload-overlap]
+    def __ne__(self, other: npt.NDArray[np.datetime64] | Index[Any]) -> np_ndarray_bool: ...  # type: ignore[overload-overlap]
     @overload
     def __ne__(self, other: object) -> Literal[True]: ...
     def __hash__(self) -> int: ...

@@ -215,7 +215,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         center: bool | None = ...,
         win_type: str | None = ...,
         axis: Axis = ...,
-        on: str | Index | None = ...,
+        on: str | Index[Any] | None = ...,
         closed: IntervalClosedType | None = ...,
         method: CalculationMethod = ...,
         *,
@@ -251,7 +251,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
     def bfill(self, limit: int | None = None) -> NDFrameT: ...
     @final
     @property
-    def nth(self) -> GroupByNthSelector[Self]: ... # pyright: ignore[reportInvalidTypeArguments]
+    def nth(self) -> GroupByNthSelector[Self]: ...
     @final
     def quantile(
         self,
@@ -300,7 +300,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         periods: int | Sequence[int] = 1,
         freq: Frequency | None = None,
         axis: Axis | _NoDefaultDoNotUse = ...,
-        fill_value: Any = ...,
+        fill_value: Any=...,
         suffix: str | None = None,
     ) -> NDFrameT: ...
     @final
@@ -313,7 +313,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         periods: int = 1,
         fill_method: Literal["bfill", "ffill"] | None | _NoDefaultDoNotUse = ...,
         limit: int | None | _NoDefaultDoNotUse = ...,
-        freq: Any = None,
+        freq: Any=None,
         axis: Axis | _NoDefaultDoNotUse = ...,
     ) -> NDFrameT: ...
     @final
@@ -339,7 +339,7 @@ _GroupByT = TypeVar("_GroupByT", bound=GroupBy[Any])
 class GroupByPlot(PlotAccessor, Generic[_GroupByT]):
     def __init__(self, groupby: _GroupByT) -> None: ...
     # The following methods are inherited from the fake parent class PlotAccessor
-    # def __call__(self, *args, **kwargs): ...
+    # def __call__(self, *args: Any, **kwargs: Any): ...
     # def __getattr__(self, name: str): ...
 
 class BaseGroupBy(SelectionMixin[NDFrameT], GroupByIndexingMixin):
@@ -383,7 +383,7 @@ class BaseGroupBy(SelectionMixin[NDFrameT], GroupByIndexingMixin):
     @overload
     def __getitem__(
         self: BaseGroupBy[Series[S1]],
-        idx: list[str] | Index | Series[S1] | MaskType | tuple[Hashable | slice, ...],
+        idx: list[str] | Index[Any] | Series[S1] | MaskType | tuple[Hashable | slice, ...],
     ) -> generic.SeriesGroupBy[Any, Any]: ...
     @overload
     def __getitem__(self: BaseGroupBy[Series[S1]], idx: Scalar) -> S1: ...

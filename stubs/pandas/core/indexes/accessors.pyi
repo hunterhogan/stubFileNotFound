@@ -42,6 +42,7 @@ from pandas._typing import (
     TimeZones,
     np_ndarray_bool,
 )
+from typing import Any
 
 class Properties(PandasDelegate, NoNewAttributesMixin): ...
 
@@ -126,10 +127,10 @@ class _DatetimeObjectOps(
 ): ...
 
 _DTOtherOpsDateReturnType = TypeVar(
-    "_DTOtherOpsDateReturnType", bound=Series[dt.date] | np.ndarray
+    "_DTOtherOpsDateReturnType", bound=Series[dt.date] | np.ndarray[Any, Any]
 )
 _DTOtherOpsTimeReturnType = TypeVar(
-    "_DTOtherOpsTimeReturnType", bound=Series[dt.time] | np.ndarray
+    "_DTOtherOpsTimeReturnType", bound=Series[dt.time] | np.ndarray[Any, Any]
 )
 
 class _DatetimeOtherOps(Generic[_DTOtherOpsDateReturnType, _DTOtherOpsTimeReturnType]):
@@ -200,7 +201,7 @@ class _DatetimeRoundingMethods(Generic[_DTTimestampTimedeltaReturnType]):
 _DTNormalizeReturnType = TypeVar(
     "_DTNormalizeReturnType", TimestampSeries, DatetimeIndex
 )
-_DTStrKindReturnType = TypeVar("_DTStrKindReturnType", bound=Series[str] | Index)
+_DTStrKindReturnType = TypeVar("_DTStrKindReturnType", bound=Series[str] | Index[Any])
 _DTToPeriodReturnType = TypeVar(
     "_DTToPeriodReturnType", bound=PeriodSeries | PeriodIndex
 )
@@ -281,23 +282,23 @@ class DatetimeProperties(
         _DTToPeriodReturnType,
     ],
 ):
-    def to_pydatetime(self) -> np.ndarray: ...
+    def to_pydatetime(self) -> np.ndarray[Any, Any]: ...
     def isocalendar(self) -> DataFrame: ...
     @property
     def unit(self) -> TimeUnit: ...
     def as_unit(self, unit: TimeUnit) -> _DTTimestampTimedeltaReturnType: ...
 
 _TDNoRoundingMethodReturnType = TypeVar(
-    "_TDNoRoundingMethodReturnType", bound=Series[int] | Index
+    "_TDNoRoundingMethodReturnType", bound=Series[int] | Index[Any]
 )
 _TDTotalSecondsReturnType = TypeVar(
-    "_TDTotalSecondsReturnType", bound=Series[float] | Index
+    "_TDTotalSecondsReturnType", bound=Series[float] | Index[Any]
 )
 
 class _TimedeltaPropertiesNoRounding(
     Generic[_TDNoRoundingMethodReturnType, _TDTotalSecondsReturnType]
 ):
-    def to_pytimedelta(self) -> np.ndarray: ...
+    def to_pytimedelta(self) -> np.ndarray[Any, Any]: ...
     @property
     def components(self) -> DataFrame: ...
     @property
@@ -323,7 +324,7 @@ _PeriodDTReturnTypes = TypeVar(
     "_PeriodDTReturnTypes", bound=TimestampSeries | DatetimeIndex
 )
 _PeriodIntReturnTypes = TypeVar("_PeriodIntReturnTypes", bound=Series[int] | Index[int])
-_PeriodStrReturnTypes = TypeVar("_PeriodStrReturnTypes", bound=Series[str] | Index)
+_PeriodStrReturnTypes = TypeVar("_PeriodStrReturnTypes", bound=Series[str] | Index[Any])
 _PeriodDTAReturnTypes = TypeVar(
     "_PeriodDTAReturnTypes", bound=DatetimeArray | DatetimeIndex
 )

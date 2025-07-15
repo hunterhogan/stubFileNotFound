@@ -155,7 +155,7 @@ class PandasSQL:
         dtype: DtypeArg | None = None,
         method: (
             Literal["multi"]
-            | Callable[[SQLTable, Any, list[str], Iterable], int | None]
+            | Callable[[SQLTable, Any, list[str], Iterable[Any]], int | None]
             | None
         ) = None,
         engine: str = 'auto',

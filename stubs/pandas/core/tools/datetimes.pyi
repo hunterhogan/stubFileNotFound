@@ -31,6 +31,7 @@ from pandas._typing import (
     TimestampConvertibleTypes,
     npt,
 )
+from typing import Any
 
 ArrayConvertible: TypeAlias = list | tuple | AnyArrayLike
 Scalar: TypeAlias = float | str
@@ -104,7 +105,7 @@ def to_datetime(
         | npt.NDArray[np.datetime64]
         | npt.NDArray[np.str_]
         | npt.NDArray[np.int_]
-        | Index
+        | Index[Any]
         | ExtensionArray
     ),
     errors: RaiseCoerce = 'raise',

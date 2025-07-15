@@ -30,12 +30,12 @@ def concat(  # type: ignore[overload-overlap]
     axis: Axis = 0,
     join: Literal["inner", "outer"] = 'outer',
     ignore_index: bool = False,
-    keys: Iterable[HashableT2] | None = None,
-    levels: Sequence[list[HashableT3] | tuple[HashableT3, ...]] | None = None,
+    keys: Iterable[HashableT2] = None,
+    levels: Sequence[list[HashableT3] | tuple[HashableT3, ...]] = None,
     names: list[HashableT4] | None = None,
     verify_integrity: bool = False,
     sort: bool = False,
-    copy: bool | None = None,
+    copy: bool = None,
 ) -> DataFrame: ...
 @overload
 def concat(  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
@@ -44,12 +44,12 @@ def concat(  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappin
     axis: AxisIndex = 0,
     join: Literal["inner", "outer"] = 'outer',
     ignore_index: bool = False,
-    keys: Iterable[HashableT2] | None = None,
-    levels: Sequence[list[HashableT3] | tuple[HashableT3, ...]] | None = None,
+    keys: Iterable[HashableT2] = None,
+    levels: Sequence[list[HashableT3] | tuple[HashableT3, ...]] = None,
     names: list[HashableT4] | None = None,
     verify_integrity: bool = False,
     sort: bool = False,
-    copy: bool | None = None,
+    copy: bool = None,
 ) -> Series: ...
 @overload
 def concat(  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
@@ -58,12 +58,12 @@ def concat(  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappin
     axis: Axis = 0,
     join: Literal["inner", "outer"] = 'outer',
     ignore_index: bool = False,
-    keys: Iterable[HashableT2] | None = None,
-    levels: Sequence[list[HashableT3] | tuple[HashableT3, ...]] | None = None,
+    keys: Iterable[HashableT2] = None,
+    levels: Sequence[list[HashableT3] | tuple[HashableT3, ...]] = None,
     names: list[HashableT4] | None = None,
     verify_integrity: bool = False,
     sort: bool = False,
-    copy: bool | None = None,
+    copy: bool = None,
 ) -> DataFrame: ...
 @overload
 def concat(
@@ -72,12 +72,12 @@ def concat(
     axis: Axis = 0,
     join: Literal["inner", "outer"] = 'outer',
     ignore_index: bool = False,
-    keys: Iterable[HashableT2] | None = None,
-    levels: Sequence[list[HashableT3] | tuple[HashableT3, ...]] | None = None,
+    keys: Iterable[HashableT2] = None,
+    levels: Sequence[list[HashableT3] | tuple[HashableT3, ...]] = None,
     names: list[HashableT4] | None = None,
     verify_integrity: bool = False,
     sort: bool = False,
-    copy: bool | None = None,
+    copy: bool = None,
 ) -> Never: ...
 @overload
 def concat(  # type: ignore[overload-overlap]
@@ -86,12 +86,12 @@ def concat(  # type: ignore[overload-overlap]
     axis: Axis = 0,
     join: Literal["inner", "outer"] = 'outer',
     ignore_index: bool = False,
-    keys: Iterable[HashableT2] | None = None,
-    levels: Sequence[list[HashableT3] | tuple[HashableT3, ...]] | None = None,
+    keys: Iterable[HashableT2] = None,
+    levels: Sequence[list[HashableT3] | tuple[HashableT3, ...]] = None,
     names: list[HashableT4] | None = None,
     verify_integrity: bool = False,
     sort: bool = False,
-    copy: bool | None = None,
+    copy: bool = None,
 ) -> DataFrame: ...
 @overload
 def concat(  # type: ignore[overload-overlap]
@@ -100,12 +100,12 @@ def concat(  # type: ignore[overload-overlap]
     axis: AxisIndex = 0,
     join: Literal["inner", "outer"] = 'outer',
     ignore_index: bool = False,
-    keys: Iterable[HashableT2] | None = None,
-    levels: Sequence[list[HashableT3] | tuple[HashableT3, ...]] | None = None,
+    keys: Iterable[HashableT2] = None,
+    levels: Sequence[list[HashableT3] | tuple[HashableT3, ...]] = None,
     names: list[HashableT4] | None = None,
     verify_integrity: bool = False,
     sort: bool = False,
-    copy: bool | None = None,
+    copy: bool = None,
 ) -> Series: ...
 @overload
 def concat(
@@ -117,12 +117,12 @@ def concat(
     axis: Axis = 0,
     join: Literal["inner", "outer"] = 'outer',
     ignore_index: bool = False,
-    keys: Iterable[HashableT2] | None = None,
-    levels: Sequence[list[HashableT3] | tuple[HashableT3, ...]] | None = None,
+    keys: Iterable[HashableT2] = None,
+    levels: Sequence[list[HashableT3] | tuple[HashableT3, ...]] = None,
     names: list[HashableT4] | None = None,
     verify_integrity: bool = False,
     sort: bool = False,
-    copy: bool | None = None,
+    copy: bool = None,
 ) -> DataFrame: ...
 
 # Including either of the next 2 overloads causes mypy to complain about

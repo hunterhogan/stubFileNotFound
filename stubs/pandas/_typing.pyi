@@ -67,7 +67,7 @@ HashableT5 = TypeVar("HashableT5", bound=Hashable)
 # array-like
 
 ArrayLike: TypeAlias = ExtensionArray | npt.NDArray[Any]
-AnyArrayLike: TypeAlias = ArrayLike | Index[Any] | Series[Any]
+AnyArrayLike: TypeAlias = ArrayLike | Index[Any] | Series
 
 # list-like
 
@@ -510,7 +510,7 @@ TypeT = TypeVar("TypeT", bound=type)
 
 # types of vectorized key functions for DataFrame::sort_values and
 # DataFrame::sort_index, among others
-ValueKeyFunc: TypeAlias = Callable[[Series[Any]], Series[Any] | AnyArrayLike] | None
+ValueKeyFunc: TypeAlias = Callable[[Series], Series | AnyArrayLike] | None
 IndexKeyFunc: TypeAlias = Callable[[Index[Any]], Index[Any] | AnyArrayLike] | None
 
 # types of `func` kwarg for DataFrame.aggregate and Series.aggregate
@@ -899,7 +899,7 @@ GroupByObjectNonScalar: TypeAlias = (
     | list[_HashableTa]
     | Function
     | list[Function]
-    | list[Series[Any]]
+    | list[Series]
     | np.ndarray[Any, Any]
     | list[np.ndarray[Any, Any]]
     | Mapping[Label, Any]
@@ -908,7 +908,7 @@ GroupByObjectNonScalar: TypeAlias = (
     | Grouper
     | list[Grouper]
 )
-GroupByObject: TypeAlias = Scalar | Index[Any] | GroupByObjectNonScalar[Any] | Series[Any]
+GroupByObject: TypeAlias = Scalar | Index[Any] | GroupByObjectNonScalar[Any] | Series
 
 StataDateFormat: TypeAlias = Literal[
     "tc",

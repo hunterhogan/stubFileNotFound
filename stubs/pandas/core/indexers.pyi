@@ -6,7 +6,7 @@ def check_array_indexer(arrayArrayLike: Any, indexer: Any): ...
 class BaseIndexer:
     def __init__(
         self,
-        index_array: np.ndarray | None = ...,
+        index_array: np.ndarray[Any, Any] | None = ...,
         window_size: int = ...,
         **kwargs,
     ) -> None: ...
@@ -21,7 +21,7 @@ class BaseIndexer:
 class VariableOffsetWindowIndexer(BaseIndexer):
     def __init__(
         self,
-        index_array: np.ndarray | None = ...,
+        index_array: np.ndarray[Any, Any] | None = ...,
         window_size: int = ...,
         index: Any=...,
         offset: Any=...,

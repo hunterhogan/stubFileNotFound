@@ -14,6 +14,7 @@ from pandas._typing import (
     Scalar,
     npt,
 )
+from typing import Any
 
 _Downcast: TypeAlias = Literal["integer", "signed", "unsigned", "float"] | None
 
@@ -26,11 +27,11 @@ def to_numeric(
 ) -> float: ...
 @overload
 def to_numeric(
-    arg: list | tuple | np.ndarray,
+    arg: list[Any] | tuple[Any, ...] | np.ndarray[Any, Any],
     errors: RaiseCoerce = 'raise',
     downcast: _Downcast = None,
     dtype_backend: DtypeBackend | _NoDefaultDoNotUse = ...,
-) -> npt.NDArray: ...
+) -> npt.NDArray[Any]: ...
 @overload
 def to_numeric(
     arg: pd.Series,
