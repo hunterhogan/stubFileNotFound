@@ -16,6 +16,12 @@ Examples:
 
 Separate file handling from libcst operations.
 Leverage existing packages, such as `mypy`, `pyright`, and `hunterMakesPy` for everything and anything: write as little new code as possible.
+
+```
+  c:/apps/stubFileNotFound/stubs/pandas/core/reshape/concat.pyi:125:18 - error: Expression of type "None" cannot be assigned to parameter of type "bool"
+    "None" is not assignable to "bool" (reportArgumentType)
+```
+
 """
 
 pathStubs = Path(settingsPackage.pathPackage / '..' / 'stubs').resolve()

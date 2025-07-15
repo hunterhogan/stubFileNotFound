@@ -19,12 +19,12 @@ def get_normal_points(cx, cy, cos_t, sin_t, length):
 def _de_casteljau1(beta, t): ...
 def split_de_casteljau(beta, t):
     """
-    Split a Bézier segment defined by its control points *beta* into two
+    Split a Bezier segment defined by its control points *beta* into two
     separate segments divided at *t* and return their control points.
     """
 def find_bezier_t_intersecting_with_closedpath(bezier_point_at_t, inside_closedpath, t0: float = 0.0, t1: float = 1.0, tolerance: float = 0.01):
     """
-    Find the intersection of the Bézier curve with a closed path.
+    Find the intersection of the Bezier curve with a closed path.
 
     The intersection point *t* is approximated by two parameters *t0*, *t1*
     such that *t0* <= *t* <= *t1*.
@@ -37,7 +37,7 @@ def find_bezier_t_intersecting_with_closedpath(bezier_point_at_t, inside_closedp
     Parameters
     ----------
     bezier_point_at_t : callable
-        A function returning x, y coordinates of the Bézier at parameter *t*.
+        A function returning x, y coordinates of the Bezier at parameter *t*.
         It must have the signature::
 
             bezier_point_at_t(t: float) -> tuple[float, float]
@@ -57,12 +57,12 @@ def find_bezier_t_intersecting_with_closedpath(bezier_point_at_t, inside_closedp
     Returns
     -------
     t0, t1 : float
-        The Bézier path parameters.
+        The Bezier path parameters.
     """
 
 class BezierSegment:
     """
-    A d-dimensional Bézier segment.
+    A d-dimensional Bezier segment.
 
     Parameters
     ----------
@@ -75,7 +75,7 @@ class BezierSegment:
     def __init__(self, control_points) -> None: ...
     def __call__(self, t):
         """
-        Evaluate the Bézier curve at point(s) *t* in [0, 1].
+        Evaluate the Bezier curve at point(s) *t* in [0, 1].
 
         Parameters
         ----------
@@ -103,7 +103,7 @@ class BezierSegment:
     @property
     def polynomial_coefficients(self):
         """
-        The polynomial coefficients of the Bézier curve.
+        The polynomial coefficients of the Bezier curve.
 
         .. warning:: Follows opposite convention from `numpy.polyval`.
 
@@ -111,7 +111,7 @@ class BezierSegment:
         -------
         (n+1, d) array
             Coefficients after expanding in polynomial basis, where :math:`n`
-            is the degree of the Bézier curve and :math:`d` its dimension.
+            is the degree of the Bezier curve and :math:`d` its dimension.
             These are the numbers (:math:`C_j`) such that the curve can be
             written :math:`\\sum_{j=0}^n C_j t^j`.
 
@@ -144,12 +144,12 @@ class BezierSegment:
 
 def split_bezier_intersecting_with_closedpath(bezier, inside_closedpath, tolerance: float = 0.01):
     """
-    Split a Bézier curve into two at the intersection with a closed path.
+    Split a Bezier curve into two at the intersection with a closed path.
 
     Parameters
     ----------
     bezier : (N, 2) array-like
-        Control points of the Bézier segment. See `.BezierSegment`.
+        Control points of the Bezier segment. See `.BezierSegment`.
     inside_closedpath : callable
         A function returning True if a given point (x, y) is inside the
         closed path. See also `.find_bezier_t_intersecting_with_closedpath`.
@@ -160,7 +160,7 @@ def split_bezier_intersecting_with_closedpath(bezier, inside_closedpath, toleran
     Returns
     -------
     left, right
-        Lists of control points for the two Bézier segments.
+        Lists of control points for the two Bezier segments.
     """
 def split_path_inout(path, inside, tolerance: float = 0.01, reorder_inout: bool = False):
     """
@@ -198,18 +198,18 @@ def check_if_parallel(dx1, dy1, dx2, dy2, tolerance: float = 1e-05):
     """
 def get_parallels(bezier2, width):
     """
-    Given the quadratic Bézier control points *bezier2*, returns
-    control points of quadratic Bézier lines roughly parallel to given
+    Given the quadratic Bezier control points *bezier2*, returns
+    control points of quadratic Bezier lines roughly parallel to given
     one separated by *width*.
     """
 def find_control_points(c1x, c1y, mmx, mmy, c2x, c2y):
     """
-    Find control points of the Bézier curve passing through (*c1x*, *c1y*),
+    Find control points of the Bezier curve passing through (*c1x*, *c1y*),
     (*mmx*, *mmy*), and (*c2x*, *c2y*), at parametric values 0, 0.5, and 1.
     """
 def make_wedged_bezier2(bezier2, width, w1: float = 1.0, wm: float = 0.5, w2: float = 0.0):
     """
     Being similar to `get_parallels`, returns control points of two quadratic
-    Bézier lines having a width roughly parallel to given one separated by
+    Bezier lines having a width roughly parallel to given one separated by
     *width*.
     """

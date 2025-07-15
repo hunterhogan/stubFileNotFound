@@ -45,6 +45,7 @@ optional-dependencies = { development = [
   "requests",
   "resampy",
   "tqdm",
+  "xarray",
 ], testing = [
   "pytest",
   "pytest-cov",

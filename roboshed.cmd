@@ -8,3 +8,5 @@ IF NOT DEFINED VIRTUAL_ENV exit CALL .venv\Scripts\activate.bat
 pushd stubs
 stubdefaulter --stdlib-path stdlib --packages .
 popd
+
+stubFileNotFound\missing2Any.py
