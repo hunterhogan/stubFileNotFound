@@ -17,11 +17,6 @@ Examples:
 Separate file handling from libcst operations.
 Leverage existing packages, such as `mypy`, `pyright`, and `hunterMakesPy` for everything and anything: write as little new code as possible.
 
-```
-  c:/apps/stubFileNotFound/stubs/pandas/core/reshape/concat.pyi:125:18 - error: Expression of type "None" cannot be assigned to parameter of type "bool"
-    "None" is not assignable to "bool" (reportArgumentType)
-```
-
 """
 
 pathStubs = Path(settingsPackage.pathPackage / '..' / 'stubs').resolve()
@@ -76,16 +71,40 @@ class TypingImportAdder(libcst.CSTTransformer):
 		return updated_node
 
 	def visit_FunctionDef(self, node: libcst.FunctionDef) -> None:
-		"""Check if function parameters need Any annotations."""
+		"""Check if function parameters or return need Any annotations."""
+		# Check regular parameters
 		for indexParameter, parameterFunction in enumerate(node.params.params):
 			if parameterFunction.annotation is None and not self._isImplicitParameter(parameterFunction, indexParameter):
 				self.needsTypingAnyImport = True
 
+		# Check posonlyargs
+		for parameterFunction in node.params.posonly_params:
+			if parameterFunction.annotation is None:
+				self.needsTypingAnyImport = True
+
+		# Check kwonlyargs
+		for parameterFunction in node.params.kwonly_params:
+			if parameterFunction.annotation is None:
+				self.needsTypingAnyImport = True
+
+		# Check *args
+		if node.params.star_arg and isinstance(node.params.star_arg, libcst.Param) and node.params.star_arg.annotation is None:
+			self.needsTypingAnyImport = True
+
+		# Check **kwargs
+		if node.params.star_kwarg and node.params.star_kwarg.annotation is None:
+			self.needsTypingAnyImport = True
+
+		# Check return annotation
+		if node.returns is None:
+			self.needsTypingAnyImport = True
+
 	def leave_FunctionDef(self, original_node: libcst.FunctionDef, updated_node: libcst.FunctionDef) -> libcst.FunctionDef:
-		"""Add Any annotations to parameters that lack type annotations."""
+		"""Add Any annotations to parameters and return that lack type annotations."""
 		listParametersUpdated: list[libcst.Param] = []
 		wasParameterModified: bool = False
 
+		# Handle regular parameters
 		for indexParameter, parameterFunction in enumerate(updated_node.params.params):
 			if parameterFunction.annotation is None and not self._isImplicitParameter(parameterFunction, indexParameter):
 				parameterUpdated = parameterFunction.with_changes(
@@ -97,9 +116,68 @@ class TypingImportAdder(libcst.CSTTransformer):
 			else:
 				listParametersUpdated.append(parameterFunction)
 
+		# Handle posonlyargs
+		listPosOnlyParamsUpdated: list[libcst.Param] = []
+		for parameterFunction in updated_node.params.posonly_params:
+			if parameterFunction.annotation is None:
+				parameterUpdated = parameterFunction.with_changes(
+					annotation=libcst.Annotation(annotation=libcst.Name("Any"))
+				)
+				listPosOnlyParamsUpdated.append(parameterUpdated)
+				wasParameterModified = True
+				self.needsTypingAnyImport = True
+			else:
+				listPosOnlyParamsUpdated.append(parameterFunction)
+
+		# Handle kwonlyargs
+		listKwOnlyParamsUpdated: list[libcst.Param] = []
+		for parameterFunction in updated_node.params.kwonly_params:
+			if parameterFunction.annotation is None:
+				parameterUpdated = parameterFunction.with_changes(
+					annotation=libcst.Annotation(annotation=libcst.Name("Any"))
+				)
+				listKwOnlyParamsUpdated.append(parameterUpdated)
+				wasParameterModified = True
+				self.needsTypingAnyImport = True
+			else:
+				listKwOnlyParamsUpdated.append(parameterFunction)
+
+		# Handle *args
+		starArgUpdated = updated_node.params.star_arg
+		if (starArgUpdated and
+			isinstance(starArgUpdated, libcst.Param) and
+			starArgUpdated.annotation is None):
+			starArgUpdated = starArgUpdated.with_changes(
+				annotation=libcst.Annotation(annotation=libcst.Name("Any"))
+			)
+			wasParameterModified = True
+			self.needsTypingAnyImport = True
+
+		# Handle **kwargs
+		starKwargUpdated = updated_node.params.star_kwarg
+		if starKwargUpdated and starKwargUpdated.annotation is None:
+			starKwargUpdated = starKwargUpdated.with_changes(
+				annotation=libcst.Annotation(annotation=libcst.Name("Any"))
+			)
+			wasParameterModified = True
+			self.needsTypingAnyImport = True
+
+		# Handle return annotation
+		returnsUpdated = updated_node.returns
+		if returnsUpdated is None:
+			returnsUpdated = libcst.Annotation(annotation=libcst.Name("Any"))
+			wasParameterModified = True
+			self.needsTypingAnyImport = True
+
 		if wasParameterModified:
-			parametersUpdated = updated_node.params.with_changes(params=listParametersUpdated)
-			return updated_node.with_changes(params=parametersUpdated)
+			parametersUpdated = updated_node.params.with_changes(
+				params=listParametersUpdated,
+				posonly_params=listPosOnlyParamsUpdated,
+				kwonly_params=listKwOnlyParamsUpdated,
+				star_arg=starArgUpdated,
+				star_kwarg=starKwargUpdated
+			)
+			return updated_node.with_changes(params=parametersUpdated, returns=returnsUpdated)
 
 		return updated_node
 
@@ -213,6 +291,7 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
             'frozenset': [libcst.Name("Any")],
             'Generator': [libcst.Name("Any"), libcst.Name("Any"), libcst.Name("Any")],
             'GroupByObjectNonScalar': [libcst.Name("Any")],
+            'GroupBy': [libcst.Name("Any")],
             'Index': [libcst.Name("Any")],
             'ItemsView': [libcst.Name("Any"), libcst.Name("Any")],
             'Iterable': [libcst.Name("Any")],
