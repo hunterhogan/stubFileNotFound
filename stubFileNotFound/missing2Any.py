@@ -177,172 +177,179 @@ class ImplicitParameterCleaner(libcst.CSTTransformer):
 		return False
 
 class GenericTypeArgumentAdder(libcst.CSTTransformer):
-	"""Add missing type arguments to generic classes with appropriate Any equivalents."""
+    """Add missing type arguments to generic classes with appropriate Any equivalents."""
 
-	def __init__(self) -> None:
-		super().__init__()
-		self.needsTypingAnyImport: bool = False
-		self.currentContext: str = "unknown"
-		self.insideSubscript: bool = False
-		self.insideImport: bool = False
-		# Mapping of generic types to their appropriate Any-equivalent type arguments
-		self.genericTypeArgumentMapping: dict[str, list[libcst.BaseExpression]] = {
-			'_IndexSliceTuple': [libcst.Name("Any")],
-			'_PivotTableColumnsTypes': [libcst.Name("Any")],
-			'_PivotTableIndexTypes': [libcst.Name("Any")],
-			'_PivotTableValuesTypes': [libcst.Name("Any")],
-			'AbstractSet': [libcst.Name("Any")],
-			'AggFuncTypeDictFrame': [libcst.Name("Any")],
-			'AggFuncTypeDictSeries': [libcst.Name("Any")],
-			'AsyncContextManager': [libcst.Name("Any")],
-			'AsyncGenerator': [libcst.Name("Any"), libcst.Name("Any")],
-			'AsyncIterable': [libcst.Name("Any")],
-			'AsyncIterator': [libcst.Name("Any")],
-			'Awaitable': [libcst.Name("Any")],
-			'AxesData': [libcst.Name("Any")],
-			'BaseGroupBy': [libcst.Name("Any")],
-			'Callable': [libcst.Ellipsis(), libcst.Name("Any")],
-			'CategoricalIndex': [libcst.Name("Any")],
-			'Collection': [libcst.Name("Any")],
-			'Container': [libcst.Name("Any")],
-			'ContextManager': [libcst.Name("Any")],
-			'Coroutine': [libcst.Name("Any"), libcst.Name("Any"), libcst.Name("Any")],
-			'DataFrameGroupBy': [libcst.Name("Any"), libcst.Name("Any")],
-			'dict': [libcst.Name("Any"), libcst.Name("Any")],
-			'frozenset': [libcst.Name("Any")],
-			'Generator': [libcst.Name("Any"), libcst.Name("Any"), libcst.Name("Any")],
-			'GroupByObjectNonScalar': [libcst.Name("Any")],
-			'Index': [libcst.Name("Any")],
-			'ItemsView': [libcst.Name("Any"), libcst.Name("Any")],
-			'Iterable': [libcst.Name("Any")],
-			'Iterator': [libcst.Name("Any")],
-			'KeysView': [libcst.Name("Any")],
-			'list': [libcst.Name("Any")],
-			'Mapping': [libcst.Name("Any"), libcst.Name("Any")],
-			'MutableMapping': [libcst.Name("Any"), libcst.Name("Any")],
-			'MutableSequence': [libcst.Name("Any")],
-			'MutableSet': [libcst.Name("Any")],
-			'ndarray': [libcst.Name("Any"), libcst.Name("Any")],
-			'NDArray': [libcst.Name("Any")],
-			'Pattern': [libcst.Name("Any")],
-			'recarray': [libcst.Name("Any"), libcst.Name("Any")],
-			'ReplaceValue': [libcst.Name("Any"), libcst.Name("Any")],
-			'Reversible': [libcst.Name("Any")],
-			'Sequence': [libcst.Name("Any")],
-			'SeriesGroupBy': [libcst.Name("Any"), libcst.Name("Any")],
-			'set': [libcst.Name("Any")],
-			'tuple': [libcst.Name("Any"), libcst.Ellipsis()],
-			'ValuesView': [libcst.Name("Any")],
-		}
+    def __init__(self) -> None:
+        super().__init__()
+        self.needsTypingAnyImport: bool = False
+        self.currentContext: str = "unknown"
+        self.insideSubscript: bool = False
+        self.insideImport: bool = False
+        self.insideTypeAlias: bool = False
+        # Mapping of generic types to their appropriate Any-equivalent type arguments
+        self.genericTypeArgumentMapping: dict[str, list[libcst.BaseExpression]] = {
+            '_IndexSliceTuple': [libcst.Name("Any")],
+            '_PivotTableColumnsTypes': [libcst.Name("Any")],
+            '_PivotTableIndexTypes': [libcst.Name("Any")],
+            '_PivotTableValuesTypes': [libcst.Name("Any")],
+            'AbstractSet': [libcst.Name("Any")],
+            'AggFuncTypeDictFrame': [libcst.Name("Any")],
+            'AggFuncTypeDictSeries': [libcst.Name("Any")],
+            'AsyncContextManager': [libcst.Name("Any")],
+            'AsyncGenerator': [libcst.Name("Any"), libcst.Name("Any")],
+            'AsyncIterable': [libcst.Name("Any")],
+            'AsyncIterator': [libcst.Name("Any")],
+            'Awaitable': [libcst.Name("Any")],
+            'AxesData': [libcst.Name("Any")],
+            'BaseGroupBy': [libcst.Name("Any")],
+            'Callable': [libcst.Ellipsis(), libcst.Name("Any")],
+            'CategoricalIndex': [libcst.Name("Any")],
+            'Collection': [libcst.Name("Any")],
+            'Container': [libcst.Name("Any")],
+            'ContextManager': [libcst.Name("Any")],
+            'Coroutine': [libcst.Name("Any"), libcst.Name("Any"), libcst.Name("Any")],
+            'DataFrameGroupBy': [libcst.Name("Any"), libcst.Name("Any")],
+            'dict': [libcst.Name("Any"), libcst.Name("Any")],
+            'frozenset': [libcst.Name("Any")],
+            'Generator': [libcst.Name("Any"), libcst.Name("Any"), libcst.Name("Any")],
+            'GroupByObjectNonScalar': [libcst.Name("Any")],
+            'Index': [libcst.Name("Any")],
+            'ItemsView': [libcst.Name("Any"), libcst.Name("Any")],
+            'Iterable': [libcst.Name("Any")],
+            'Iterator': [libcst.Name("Any")],
+            'KeysView': [libcst.Name("Any")],
+            'list': [libcst.Name("Any")],
+            'Mapping': [libcst.Name("Any"), libcst.Name("Any")],
+            'MutableMapping': [libcst.Name("Any"), libcst.Name("Any")],
+            'MutableSequence': [libcst.Name("Any")],
+            'MutableSet': [libcst.Name("Any")],
+            'ndarray': [libcst.Name("Any"), libcst.Name("Any")],
+            'NDArray': [libcst.Name("Any")],
+            'Pattern': [libcst.Name("Any")],
+            'recarray': [libcst.Name("Any"), libcst.Name("Any")],
+            'ReplaceValue': [libcst.Name("Any"), libcst.Name("Any")],
+            'Reversible': [libcst.Name("Any")],
+            'Sequence': [libcst.Name("Any")],
+            'SeriesGroupBy': [libcst.Name("Any"), libcst.Name("Any")],
+            'set': [libcst.Name("Any")],
+            'tuple': [libcst.Name("Any"), libcst.Ellipsis()],
+            'ValuesView': [libcst.Name("Any")],
+        }
 
-	def visit_Subscript(self, node: libcst.Subscript) -> None:
-		"""Track when we're inside a subscript to avoid transforming already-subscripted types."""
-		self.insideSubscript = True
+    def visit_Subscript(self, node: libcst.Subscript) -> None:
+        """Track when we're inside a subscript to avoid transforming already-subscripted types."""
+        self.insideSubscript = True
 
-	def leave_Subscript(self, original_node: libcst.Subscript, updated_node: libcst.Subscript) -> libcst.Subscript:
-		"""Reset subscript flag when leaving."""
-		self.insideSubscript = False
-		return updated_node
+    def leave_Subscript(self, original_node: libcst.Subscript, updated_node: libcst.Subscript) -> libcst.Subscript:
+        """Reset subscript flag when leaving."""
+        self.insideSubscript = False
+        return updated_node
 
-	def visit_ImportFrom(self, node: libcst.ImportFrom) -> None:
-		"""Track when we're inside an import statement."""
-		self.insideImport = True
+    def visit_ImportFrom(self, node: libcst.ImportFrom) -> None:
+        """Track when we're inside an import statement."""
+        self.insideImport = True
 
-	def leave_ImportFrom(self, original_node: libcst.ImportFrom, updated_node: libcst.ImportFrom) -> libcst.ImportFrom:
-		"""Reset import flag when leaving."""
-		self.insideImport = False
-		return updated_node
+    def leave_ImportFrom(self, original_node: libcst.ImportFrom, updated_node: libcst.ImportFrom) -> libcst.ImportFrom:
+        """Reset import flag when leaving."""
+        self.insideImport = False
+        return updated_node
 
-	def visit_Import(self, node: libcst.Import) -> None:
-		"""Track when we're inside an import statement."""
-		self.insideImport = True
+    def visit_Import(self, node: libcst.Import) -> None:
+        """Track when we're inside an import statement."""
+        self.insideImport = True
 
-	def leave_Import(self, original_node: libcst.Import, updated_node: libcst.Import) -> libcst.Import:
-		"""Reset import flag when leaving."""
-		self.insideImport = False
-		return updated_node
+    def leave_Import(self, original_node: libcst.Import, updated_node: libcst.Import) -> libcst.Import:
+        """Reset import flag when leaving."""
+        self.insideImport = False
+        return updated_node
 
-	def visit_AnnAssign(self, node: libcst.AnnAssign) -> None:
-		"""Track when we're visiting type annotations."""
-		# Check if this is a TypeAlias assignment
-		if (node.annotation and
-			isinstance(node.annotation.annotation, libcst.Name) and
-			node.annotation.annotation.value == "TypeAlias"):
-			self.currentContext = "type_annotation"
-		else:
-			self.currentContext = "type_annotation"
+    def visit_AnnAssign(self, node: libcst.AnnAssign) -> None:
+        """Track when we're visiting type annotations."""
+        # Check if this is a TypeAlias assignment
+        if (node.annotation and
+            isinstance(node.annotation.annotation, libcst.Name) and
+            node.annotation.annotation.value == "TypeAlias"):
+            self.currentContext = "type_annotation"
+            self.insideTypeAlias = True
+        else:
+            self.currentContext = "type_annotation"
 
-	def leave_AnnAssign(self, original_node: libcst.AnnAssign, updated_node: libcst.AnnAssign) -> libcst.AnnAssign:
-		"""Reset context after leaving type annotations."""
-		self.currentContext = "unknown"
-		return updated_node
+    def leave_AnnAssign(self, original_node: libcst.AnnAssign, updated_node: libcst.AnnAssign) -> libcst.AnnAssign:
+        """Reset context after leaving type annotations."""
+        self.currentContext = "unknown"
+        self.insideTypeAlias = False
+        return updated_node
 
-	def visit_Annotation(self, node: libcst.Annotation) -> None:
-		"""Track when we're in annotation context."""
-		self.currentContext = "type_annotation"
+    def visit_Annotation(self, node: libcst.Annotation) -> None:
+        """Track when we're in annotation context."""
+        self.currentContext = "type_annotation"
 
-	def leave_Annotation(self, original_node: libcst.Annotation, updated_node: libcst.Annotation) -> libcst.Annotation:
-		"""Reset context after leaving annotations."""
-		self.currentContext = "unknown"
-		return updated_node
+    def leave_Annotation(self, original_node: libcst.Annotation, updated_node: libcst.Annotation) -> libcst.Annotation:
+        """Reset context after leaving annotations."""
+        self.currentContext = "unknown"
+        return updated_node
 
-	def visit_SimpleStatementLine(self, node: libcst.SimpleStatementLine) -> None:
-		"""Track when we're in a type alias or other type-related statement."""
-		for statement in node.body:
-			if isinstance(statement, libcst.AnnAssign):
-				if (statement.annotation and
-					isinstance(statement.annotation.annotation, libcst.Name) and
-					statement.annotation.annotation.value == "TypeAlias"):
-					self.currentContext = "type_annotation"
-			elif isinstance(statement, libcst.Assign):
-				# Check if this is a type alias assignment without annotation
-				for target in statement.targets:
-					if isinstance(target.target, libcst.Name):
-						# This could be a TypeAlias - we'll treat assignments in stub files as type-related
-						self.currentContext = "type_annotation"
+    def visit_SimpleStatementLine(self, node: libcst.SimpleStatementLine) -> None:
+        """Track when we're in a type alias or other type-related statement."""
+        for statement in node.body:
+            if isinstance(statement, libcst.AnnAssign):
+                if (statement.annotation and
+                    isinstance(statement.annotation.annotation, libcst.Name) and
+                    statement.annotation.annotation.value == "TypeAlias"):
+                    self.currentContext = "type_annotation"
+                    self.insideTypeAlias = True
+            elif isinstance(statement, libcst.Assign):
+                # Check if this is a type alias assignment without annotation
+                for target in statement.targets:
+                    if isinstance(target.target, libcst.Name):
+                        # This could be a TypeAlias - we'll treat assignments in stub files as type-related
+                        self.currentContext = "type_annotation"
 
-	def leave_SimpleStatementLine(self, original_node: libcst.SimpleStatementLine, updated_node: libcst.SimpleStatementLine) -> libcst.SimpleStatementLine:
-		"""Reset context after leaving statements."""
-		self.currentContext = "unknown"
-		return updated_node
+    def leave_SimpleStatementLine(self, original_node: libcst.SimpleStatementLine, updated_node: libcst.SimpleStatementLine) -> libcst.SimpleStatementLine:
+        """Reset context after leaving statements."""
+        self.currentContext = "unknown"
+        self.insideTypeAlias = False
+        return updated_node
 
-	def visit_FunctionDef(self, node: libcst.FunctionDef) -> None:
-		"""Track when we're in function definition context."""
-		self.currentContext = "function_def"
+    def visit_FunctionDef(self, node: libcst.FunctionDef) -> None:
+        """Track when we're in function definition context."""
+        self.currentContext = "function_def"
 
-	def leave_FunctionDef(self, original_node: libcst.FunctionDef, updated_node: libcst.FunctionDef) -> libcst.FunctionDef:
-		"""Reset context after leaving function definition."""
-		self.currentContext = "unknown"
-		return updated_node
+    def leave_FunctionDef(self, original_node: libcst.FunctionDef, updated_node: libcst.FunctionDef) -> libcst.FunctionDef:
+        """Reset context after leaving function definition."""
+        self.currentContext = "unknown"
+        return updated_node
 
-	def leave_Name(self, original_node: libcst.Name, updated_node: libcst.Name) -> libcst.Name | libcst.Subscript:
-		"""Transform bare generic type names to include appropriate type arguments."""
-		nameType = updated_node.value
+    def leave_Name(self, original_node: libcst.Name, updated_node: libcst.Name) -> libcst.Name | libcst.Subscript:
+        """Transform bare generic type names to include appropriate type arguments."""
+        nameType = updated_node.value
 
-		# Only transform if:
-		# 1. It's a known generic type
-		# 2. We're in a type annotation context
-		# 3. We're not already inside a subscript (already has type args)
-		# 4. We're not in an import statement
-		if (nameType in self.genericTypeArgumentMapping and
-			self.currentContext == "type_annotation" and
-			not self.insideSubscript and
-			not self.insideImport):
+        # Only transform if:
+        # 1. It's a known generic type
+        # 2. We're in a type annotation context
+        # 3. We're not already inside a subscript (already has type args)
+        # 4. We're not in an import statement
+        # 5. We're not in a TypeAlias assignment (left-hand side)
+        if (nameType in self.genericTypeArgumentMapping and
+            self.currentContext == "type_annotation" and
+            not self.insideSubscript and
+            not self.insideImport and
+            not self.insideTypeAlias):
 
-			argumentsType = self.genericTypeArgumentMapping[nameType]
-			self.needsTypingAnyImport = True
+            argumentsType = self.genericTypeArgumentMapping[nameType]
+            self.needsTypingAnyImport = True
 
-			return libcst.Subscript(
-				value=updated_node,
-				slice=[
-					libcst.SubscriptElement(
-						slice=libcst.Index(value=argumentType)
-					)
-					for argumentType in argumentsType
-				]
-			)
+            return libcst.Subscript(
+                value=updated_node,
+                slice=[
+                    libcst.SubscriptElement(
+                        slice=libcst.Index(value=argumentType)
+                    )
+                    for argumentType in argumentsType
+                ]
+            )
 
-		return updated_node
+        return updated_node
 
 class CombinedStubTransformer(libcst.CSTTransformer):
 	"""Combined transformer that applies all stub file transformations."""
@@ -438,3 +445,9 @@ def processAllStubFiles() -> None:
 
 if __name__ == "__main__":
 	processAllStubFiles()
+
+
+
+# stubgen --ignore-errors --include-private --include-docstrings --output stubs --package
+# stubgen --ignore-errors --include-private --include-docstrings --output stubs --inspect-mode --package
+

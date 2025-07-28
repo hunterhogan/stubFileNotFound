@@ -17,7 +17,7 @@ class _mpf(mpnumeric):
     arithmetic.
     """
     __slots__: Incomplete
-    def __new__(cls, val=..., **kwargs):
+    def __new__(cls, val=(0, 0, 0, 0), **kwargs):
         """A new mpf can be created from a Python float, an int, a
         or a decimal string representing a number in floating-point
         format."""

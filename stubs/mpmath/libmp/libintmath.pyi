@@ -62,10 +62,10 @@ def bin_to_radix(x, xbits, base, bdigits):
 
 stddigits: str
 
-def small_numeral(n, base: int = 10, digits=...):
+def small_numeral(n, base: int = 10, digits='0123456789abcdefghijklmnopqrstuvwxyz'):
     """Return the string numeral of a positive integer in an arbitrary
     base. Most efficient for small input."""
-def numeral_python(n, base: int = 10, size: int = 0, digits=...):
+def numeral_python(n, base: int = 10, size: int = 0, digits='0123456789abcdefghijklmnopqrstuvwxyz'):
     """Represent the integer n as a string of digits in the given base.
     Recursive division is used to make this function about 3x faster
     than Python's str() for converting integers to decimal strings.
@@ -73,7 +73,7 @@ def numeral_python(n, base: int = 10, size: int = 0, digits=...):
     The 'size' parameters specifies the number of digits in n; this
     number is only used to determine splitting points and need not be
     exact."""
-def numeral_gmpy(n, base: int = 10, size: int = 0, digits=...):
+def numeral_gmpy(n, base: int = 10, size: int = 0, digits='0123456789abcdefghijklmnopqrstuvwxyz'):
     """Represent the integer n as a string of digits in the given base.
     Recursive division is used to make this function about 3x faster
     than Python's str() for converting integers to decimal strings.
@@ -164,7 +164,7 @@ def gcd(*args): ...
 
 MAX_EULER_CACHE: int
 
-def eulernum(m, _cache=...):
+def eulernum(m, _cache={0: 1}):
     """
     Computes the Euler numbers `E(n)`, which can be defined as
     coefficients of the Taylor expansion of `1/cosh x`:

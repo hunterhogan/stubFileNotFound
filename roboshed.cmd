@@ -6,7 +6,8 @@ robocopy C:\clones\typeshed\stubs\tqdm stubs /S /MT /XD "@tests" /XF "METADATA.t
 IF NOT DEFINED VIRTUAL_ENV exit CALL .venv\Scripts\activate.bat
 
 pushd stubs
-stubdefaulter --stdlib-path stdlib --packages .
+start /MIN "stubdefaulter" stubdefaulter --stdlib-path stdlib
+stubdefaulter --packages .
 popd
 
 stubFileNotFound\missing2Any.py

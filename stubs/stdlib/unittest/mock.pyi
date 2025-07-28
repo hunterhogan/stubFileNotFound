@@ -327,7 +327,7 @@ class _patcher:
         create: bool = ...,
         spec_set: Any | None = ...,
         autospec: Any | None = ...,
-        new_callable: None = ...,
+        new_callable: None = None,
         **kwargs: Any,
     ) -> _patch_pass_arg[MagicMock | AsyncMock]: ...
     @overload
@@ -366,7 +366,7 @@ class _patcher:
         create: bool = ...,
         spec_set: Any | None = ...,
         autospec: Any | None = ...,
-        new_callable: None = ...,
+        new_callable: None = None,
         **kwargs: Any,
     ) -> _patch_pass_arg[MagicMock | AsyncMock]: ...
     @staticmethod
