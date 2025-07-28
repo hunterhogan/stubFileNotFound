@@ -1,4 +1,6 @@
 from _typeshed import Incomplete
+from collections.abc import Callable
+from typing import Any, Mapping
 
 __all__ = ['merge', 'merge_with', 'valmap', 'keymap', 'itemmap', 'valfilter', 'keyfilter', 'itemfilter', 'assoc', 'dissoc', 'assoc_in', 'update_in', 'get_in']
 
@@ -16,7 +18,7 @@ def merge(*dicts, **kwargs):
     See Also:
         merge_with
     """
-def merge_with(func, *dicts, **kwargs):
+def merge_with(func: Callable[[list[Any]], Any], *dicts: Mapping[int, Any], **kwargs: Any) -> dict[int, Any]:
     """ Merge dictionaries and apply function to combined values
 
     A key may occur in more than one dict, and all values mapped from the key
