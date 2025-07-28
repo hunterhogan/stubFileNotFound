@@ -1,14 +1,14 @@
 import numpy as np
 from typing import Any
 
-def check_array_indexer(arrayArrayLike: Any, indexer: Any): ...
+def check_array_indexer(arrayArrayLike: Any, indexer: Any) -> Any: ...
 
 class BaseIndexer:
     def __init__(
         self,
         index_array: np.ndarray[Any, Any] | None = ...,
         window_size: int = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> None: ...
     def get_window_bounds(
         self,
@@ -25,7 +25,7 @@ class VariableOffsetWindowIndexer(BaseIndexer):
         window_size: int = ...,
         index: Any=...,
         offset: Any=...,
-        **kwargs,
+        **kwargs: Any,
     ) -> None: ...
     def get_window_bounds(
         self,

@@ -5,6 +5,7 @@ from collections.abc import (
 import datetime as dt
 from typing import (
     Literal,
+    final,
     overload,
 )
 
@@ -215,7 +216,7 @@ class IntervalIndex(ExtensionIndex[IntervalT], IntervalMixin):
     def __contains__(self, key: IntervalT) -> bool: ...  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
     @overload
     def __contains__(self, key: object) -> Literal[False]: ...
-    def astype(self, dtype: DtypeArg, copy: bool = True) -> IntervalIndex: ...
+    def astype(self, dtype: DtypeArg, copy: bool = True) -> IntervalIndex[Any]: ...
     @property
     def inferred_type(self) -> str: ...
     def memory_usage(self, deep: bool = False) -> int: ...
@@ -229,6 +230,7 @@ class IntervalIndex(ExtensionIndex[IntervalT], IntervalMixin):
         method: FillnaOptions | Literal["nearest"] | None = ...,
         tolerance: Any=...,
     ) -> int | slice | npt.NDArray[np.bool_]: ...
+    @final
     def get_indexer(
         self,
         target: Index[Any],

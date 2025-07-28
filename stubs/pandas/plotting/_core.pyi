@@ -51,7 +51,7 @@ def boxplot(
     figsize: tuple[float, float] | None = None,
     layout: tuple[int, int] | None = None,
     return_type: Literal["axes"] | None = None,
-    **kwargs,
+    **kwargs: Any,
 ) -> Axes: ...
 @overload
 def boxplot(
@@ -66,7 +66,7 @@ def boxplot(
     layout: tuple[int, int] | None = None,
     *,
     return_type: Literal["dict"],
-    **kwargs,
+    **kwargs: Any,
 ) -> dict[str, list[Line2D]]: ...
 @overload
 def boxplot(
@@ -81,7 +81,7 @@ def boxplot(
     layout: tuple[int, int] | None = None,
     *,
     return_type: Literal["both"],
-    **kwargs,
+    **kwargs: Any,
 ) -> _BoxPlotT: ...
 
 class PlotAccessor:
@@ -243,59 +243,59 @@ class PlotAccessor:
         self,
         x: Hashable = None,
         y: Hashable = None,
-        color: _PlotAccessorColor = ...,
+        color: _PlotAccessorColor[Any] = ...,
         *,
         subplots: Literal[False] | None = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Axes: ...
     @overload
     def line(
         self,
         x: Hashable = None,
         y: Hashable = None,
-        color: _PlotAccessorColor = ...,
+        color: _PlotAccessorColor[Any] = ...,
         *,
         subplots: Literal[True],
-        **kwargs,
+        **kwargs: Any,
     ) -> npt.NDArray[np.object_]: ...
     @overload
     def bar(
         self,
         x: Hashable = None,
         y: Hashable = None,
-        color: _PlotAccessorColor = ...,
+        color: _PlotAccessorColor[Any] = ...,
         *,
         subplots: Literal[False] | None = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Axes: ...
     @overload
     def bar(
         self,
         x: Hashable = None,
         y: Hashable = None,
-        color: _PlotAccessorColor = ...,
+        color: _PlotAccessorColor[Any] = ...,
         *,
         subplots: Literal[True],
-        **kwargs,
+        **kwargs: Any,
     ) -> npt.NDArray[np.object_]: ...
     @overload
     def barh(
         self,
         x: Hashable = None,
         y: Hashable = None,
-        color: _PlotAccessorColor = ...,
+        color: _PlotAccessorColor[Any] = ...,
         subplots: Literal[False] | None = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Axes: ...
     @overload
     def barh(
         self,
         x: Hashable = None,
         y: Hashable = None,
-        color: _PlotAccessorColor = ...,
+        color: _PlotAccessorColor[Any] = ...,
         *,
         subplots: Literal[True],
-        **kwargs,
+        **kwargs: Any,
     ) -> npt.NDArray[np.object_]: ...
     @overload
     def box(
@@ -303,7 +303,7 @@ class PlotAccessor:
         by: Hashable | list[HashableT] = None,
         *,
         subplots: Literal[False] | None = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Axes: ...
     @overload
     def box(
@@ -311,7 +311,7 @@ class PlotAccessor:
         by: Hashable | list[HashableT] = None,
         *,
         subplots: Literal[True],
-        **kwargs,
+        **kwargs: Any,
     ) -> Series: ...
     @overload
     def hist(
@@ -320,7 +320,7 @@ class PlotAccessor:
         bins: int = 10,
         *,
         subplots: Literal[False] | None = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Axes: ...
     @overload
     def hist(
@@ -329,7 +329,7 @@ class PlotAccessor:
         bins: int = 10,
         *,
         subplots: Literal[True],
-        **kwargs,
+        **kwargs: Any,
     ) -> npt.NDArray[np.object_]: ...
     @overload
     def kde(
@@ -343,7 +343,7 @@ class PlotAccessor:
         ind: npt.NDArray[np.double] | int | None = None,
         *,
         subplots: Literal[False] | None = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Axes: ...
     @overload
     def kde(
@@ -357,7 +357,7 @@ class PlotAccessor:
         ind: npt.NDArray[np.double] | int | None = None,
         *,
         subplots: Literal[True],
-        **kwargs,
+        **kwargs: Any,
     ) -> npt.NDArray[np.object_]: ...
     @overload
     def area(
@@ -367,7 +367,7 @@ class PlotAccessor:
         stacked: bool = True,
         *,
         subplots: Literal[False] | None = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Axes: ...
     @overload
     def area(
@@ -377,15 +377,15 @@ class PlotAccessor:
         stacked: bool = True,
         *,
         subplots: Literal[True],
-        **kwargs,
+        **kwargs: Any,
     ) -> npt.NDArray[np.object_]: ...
     @overload
     def pie(
-        self, y: Hashable, *, subplots: Literal[False] | None = ..., **kwargs
+        self, y: Hashable, *, subplots: Literal[False] | None = ..., **kwargs: Any
     ) -> Axes: ...
     @overload
     def pie(
-        self, y: Hashable, *, subplots: Literal[True], **kwargs
+        self, y: Hashable, *, subplots: Literal[True], **kwargs: Any
     ) -> npt.NDArray[np.object_]: ...
     @overload
     def scatter(
@@ -396,7 +396,7 @@ class PlotAccessor:
         c: Hashable | list[str] = None,
         *,
         subplots: Literal[False] | None = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Axes: ...
     @overload
     def scatter(
@@ -407,7 +407,7 @@ class PlotAccessor:
         c: Hashable | list[str] = None,
         *,
         subplots: Literal[True],
-        **kwargs,
+        **kwargs: Any,
     ) -> npt.NDArray[np.object_]: ...
     @overload
     def hexbin(
@@ -419,7 +419,7 @@ class PlotAccessor:
         gridsize: int | tuple[int, int] | None = None,
         *,
         subplots: Literal[False] | None = ...,
-        **kwargs,
+        **kwargs: Any,
     ) -> Axes: ...
     @overload
     def hexbin(
@@ -431,7 +431,7 @@ class PlotAccessor:
         gridsize: int | tuple[int, int] | None = None,
         *,
         subplots: Literal[True],
-        **kwargs,
+        **kwargs: Any,
     ) -> npt.NDArray[np.object_]: ...
 
     density = kde

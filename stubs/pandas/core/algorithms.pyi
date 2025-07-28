@@ -29,7 +29,7 @@ def unique(  # pyright: ignore[reportOverlappingOverload]
     values: PeriodIndex,
 ) -> PeriodIndex: ...
 @overload
-def unique(values: CategoricalIndex) -> CategoricalIndex: ...  # type: ignore[overload-overlap]
+def unique(values: CategoricalIndex[Any]) -> CategoricalIndex[Any]: ...  # type: ignore[overload-overlap]
 @overload
 def unique(values: IntervalIndex[IntervalT]) -> IntervalIndex[IntervalT]: ...
 @overload
@@ -77,4 +77,4 @@ def take(
     axis: Literal[0, 1] = 0,
     allow_fill: bool = False,
     fill_value: Any=None,
-): ...
+) -> Any: ...

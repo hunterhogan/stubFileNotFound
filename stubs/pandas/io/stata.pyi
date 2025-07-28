@@ -23,6 +23,7 @@ from pandas._typing import (
     StorageOptions,
     WriteBuffer,
 )
+from typing import Any
 
 @overload
 def read_stata(
@@ -112,7 +113,7 @@ class StataReader(StataParser, abc.Iterator):
         preserve_dtypes: bool | None = None,
         columns: list[str] | None = None,
         order_categoricals: bool | None = None,
-    ): ...
+    ) -> Any: ...
     @property
     def data_label(self) -> str: ...
     def variable_labels(self) -> dict[str, str]: ...

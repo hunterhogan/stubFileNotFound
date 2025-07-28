@@ -1,47 +1,15 @@
-from collections.abc import (
-    Callable,
-    Sequence,
-)
-from typing import (
-    Any,
-    Literal,
-    Protocol,
-    overload,
-)
-
+from collections.abc import Callable, Sequence
 from matplotlib.colors import Colormap
-import numpy as np
+from pandas._typing import (
+	Axis, ExcelWriterMergeCells, FilePath, HashableT, HashableT1, HashableT2, IndexLabel, IntervalClosedType, Level, npt,
+	QuantileInterpolation, Scalar, StorageOptions, T, WriteBuffer, WriteExcelBuffer)
 from pandas.core.frame import DataFrame
 from pandas.core.series import Series
-
-from pandas._typing import (
-    Axis,
-    ExcelWriterMergeCells,
-    FilePath,
-    HashableT,
-    HashableT1,
-    HashableT2,
-    IndexLabel,
-    IntervalClosedType,
-    Level,
-    QuantileInterpolation,
-    Scalar,
-    StorageOptions,
-    T,
-    WriteBuffer,
-    WriteExcelBuffer,
-    npt,
-)
-
 from pandas.io.excel import ExcelWriter
 from pandas.io.formats.style_render import (
-    CSSProperties,
-    CSSStyles,
-    ExtFormatter,
-    StyleExportDict,
-    StylerRenderer,
-    Subset,
-)
+	CSSProperties, CSSStyles, ExtFormatter, StyleExportDict, StylerRenderer, Subset)
+from typing import Any, Literal, overload, Protocol
+import numpy as np
 
 class _SeriesFunc(Protocol):
     def __call__(
@@ -80,13 +48,13 @@ class Styler(StylerRenderer):
     def map(
         self,
         func: Callable[[Scalar], str | None],
-        subset: Subset | None = None,
+        subset: Subset[Any] | None = None,
     ) -> Styler: ...
     @overload
     def map(
         self,
         func: _MapCallable,
-        subset: Subset | None = None,
+        subset: Subset[Any] | None = None,
         **kwargs: Any,
     ) -> Styler: ...
     def set_tooltips(
@@ -231,7 +199,7 @@ class Styler(StylerRenderer):
         self,
         func: _SeriesFunc | Callable[[Series], list | Series],
         axis: Axis = 0,
-        subset: Subset | None = None,
+        subset: Subset[Any] | None = None,
         **kwargs: Any,
     ) -> Styler: ...
     @overload
@@ -239,7 +207,7 @@ class Styler(StylerRenderer):
         self,
         func: _DataFrameFunc | Callable[[DataFrame], npt.NDArray | DataFrame],
         axis: None,
-        subset: Subset | None = None,
+        subset: Subset[Any] | None = None,
         **kwargs: Any,
     ) -> Styler: ...
     def apply_index(
@@ -254,7 +222,7 @@ class Styler(StylerRenderer):
         func: Callable[[Scalar], str | None],
         axis: Axis = 0,
         level: Level | list[Level] | None = None,
-        **kwargs,
+        **kwargs: Any,
     ) -> Styler: ...
     def set_table_attributes(self, attributes: str) -> Styler: ...
     def export(self) -> StyleExportDict: ...
@@ -276,7 +244,7 @@ class Styler(StylerRenderer):
     ) -> Styler: ...
     def hide(
         self,
-        subset: Subset | None = None,
+        subset: Subset[Any] | None = None,
         axis: Axis = 0,
         level: Level | list[Level] | None = None,
         names: bool = False,
@@ -287,7 +255,7 @@ class Styler(StylerRenderer):
         low: float = 0,
         high: float = 0,
         axis: Axis | None = 0,
-        subset: Subset | None = None,
+        subset: Subset[Any] | None = None,
         text_color_threshold: float = 0.408,
         vmin: float | None = None,
         vmax: float | None = None,
@@ -306,7 +274,7 @@ class Styler(StylerRenderer):
         low: float = 0,
         high: float = 0,
         axis: Axis | None = 0,
-        subset: Subset | None = None,
+        subset: Subset[Any] | None = None,
         # In docs but not in function declaration
         # text_color_threshold: float
         vmin: float | None = None,
@@ -321,11 +289,11 @@ class Styler(StylerRenderer):
         ) = None,
     ) -> Styler: ...
     def set_properties(
-        self, subset: Subset | None = None, **kwargs: str | int
+        self, subset: Subset[Any] | None = None, **kwargs: str | int
     ) -> Styler: ...
     def bar(
         self,
-        subset: Subset | None = None,
+        subset: Subset[Any] | None = None,
         axis: Axis | None = 0,
         *,
         color: str | list[str] | tuple[str, str] | None = None,
@@ -344,26 +312,26 @@ class Styler(StylerRenderer):
     def highlight_null(
         self,
         color: str | None = 'red',
-        subset: Subset | None = None,
+        subset: Subset[Any] | None = None,
         props: str | None = None,
     ) -> Styler: ...
     def highlight_max(
         self,
-        subset: Subset | None = None,
+        subset: Subset[Any] | None = None,
         color: str = 'yellow',
         axis: Axis | None = 0,
         props: str | None = None,
     ) -> Styler: ...
     def highlight_min(
         self,
-        subset: Subset | None = None,
+        subset: Subset[Any] | None = None,
         color: str = 'yellow',
         axis: Axis | None = 0,
         props: str | None = None,
     ) -> Styler: ...
     def highlight_between(
         self,
-        subset: Subset | None = None,
+        subset: Subset[Any] | None = None,
         color: str = 'yellow',
         axis: Axis | None = 0,
         left: Scalar | list[Scalar] | None = None,
@@ -373,7 +341,7 @@ class Styler(StylerRenderer):
     ) -> Styler: ...
     def highlight_quantile(
         self,
-        subset: Subset | None = None,
+        subset: Subset[Any] | None = None,
         color: str = 'yellow',
         axis: Axis | None = 0,
         q_left: float = 0.0,

@@ -144,7 +144,7 @@ def cut(
         | Index[float]
         | Sequence[int]
         | Sequence[float]
-        | IntervalIndex
+        | IntervalIndex[Any]
     ),
     right: bool = True,
     *,
@@ -184,7 +184,7 @@ def cut(
         | Index[float]
         | Sequence[int]
         | Sequence[float]
-        | IntervalIndex
+        | IntervalIndex[Any]
     ),
     right: bool = True,
     labels: Literal[False] | Sequence[Label] | None = None,
@@ -204,7 +204,7 @@ def cut(
         | Index[float]
         | Sequence[int]
         | Sequence[float]
-        | IntervalIndex
+        | IntervalIndex[Any]
     ),
     right: bool = True,
     labels: Sequence[Label] | None = None,
