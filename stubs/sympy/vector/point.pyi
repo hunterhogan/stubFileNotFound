@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core.basic import Basic as Basic
 from sympy.core.cache import cacheit as cacheit
 from sympy.core.symbol import Str as Str
@@ -10,7 +9,8 @@ class Point(Basic):
     """
     Represents a point in 3-D space.
     """
-    def __new__(cls, name, position=..., parent_point: Incomplete | None = None): ...
+    def __new__(cls, name, position=..., parent_point=None): ...
+    @cacheit
     def position_wrt(self, other):
         """
         Returns the position vector of this Point with respect to

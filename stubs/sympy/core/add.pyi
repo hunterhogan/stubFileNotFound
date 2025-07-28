@@ -5,12 +5,15 @@ from .intfunc import igcd as igcd, ilcm as ilcm
 from .kind import UndefinedKind as UndefinedKind
 from .logic import _fuzzy_group as _fuzzy_group, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
 from .mul import Mul as Mul, _keep_coeff as _keep_coeff, _unevaluated_Mul as _unevaluated_Mul
-from .numbers import Rational as Rational, equal_valued as equal_valued
+from .numbers import Rational as Rational
 from .operations import AssocOp as AssocOp, AssocOpDispatcher as AssocOpDispatcher
 from .parameters import global_parameters as global_parameters
 from .singleton import S as S
 from _typeshed import Incomplete
+from sympy.core.numbers import Number as Number
+from sympy.series.order import Order as Order
 from sympy.utilities.iterables import is_sequence as is_sequence, sift as sift
+from typing import ClassVar
 
 def _could_extract_minus_sign(expr): ...
 def _addsort(args) -> None: ...
@@ -131,11 +134,14 @@ class Add(Expr, AssocOp):
 
     """
     __slots__: Incomplete
-    args: tuple[Expr, ...]
     is_Add: bool
     _args_type = Expr
+    identity: ClassVar[Expr]
+    def __new__(cls, *args: Expr | complex, evaluate: bool = True) -> Expr: ...
+    @property
+    def args(self) -> tuple[Expr, ...]: ...
     @classmethod
-    def flatten(cls, seq):
+    def flatten(cls, seq: list[Expr]) -> tuple[list[Expr], list[Expr], None]:
         '''
         Takes the sequence "seq" of nested Adds and returns a flatten list.
 
@@ -157,6 +163,7 @@ class Add(Expr, AssocOp):
     @property
     def kind(self): ...
     def could_extract_minus_sign(self): ...
+    @cacheit
     def as_coeff_add(self, *deps):
         """
         Returns a tuple (coeff, args) where self is treated as an Add and coeff
@@ -171,21 +178,23 @@ class Add(Expr, AssocOp):
         >>> (7*x).as_coeff_add()
         (0, (7*x,))
         """
-    def as_coeff_Add(self, rational: bool = False, deps: Incomplete | None = None):
+    def as_coeff_Add(self, rational: bool = False, deps=None) -> tuple[Number, Expr]:
         """
         Efficiently extract the coefficient of a summation.
         """
-    def _eval_power(self, e): ...
+    def _eval_power(self, expt): ...
+    @cacheit
     def _eval_derivative(self, s): ...
     def _eval_nseries(self, x, n, logx, cdir: int = 0): ...
     def _matches_simple(self, expr, repl_dict): ...
-    def matches(self, expr, repl_dict: Incomplete | None = None, old: bool = False): ...
+    def matches(self, expr, repl_dict=None, old: bool = False): ...
     @staticmethod
     def _combine_inverse(lhs, rhs):
         """
         Returns lhs - rhs, but treats oo like a symbol so oo - oo
         returns 0, instead of a nan.
         """
+    @cacheit
     def as_two_terms(self):
         """Return head and tail of self.
 
@@ -203,7 +212,7 @@ class Add(Expr, AssocOp):
         >>> (3*x - 2*y + 5).as_two_terms()
         (5, 3*x - 2*y)
         """
-    def as_numer_denom(self):
+    def as_numer_denom(self) -> tuple[Expr, Expr]:
         """
         Decomposes an expression to its numerator part and its
         denominator part.
@@ -249,7 +258,8 @@ class Add(Expr, AssocOp):
     def _eval_subs(self, old, new): ...
     def removeO(self): ...
     def getO(self): ...
-    def extract_leading_order(self, symbols, point: Incomplete | None = None):
+    @cacheit
+    def extract_leading_order(self, symbols, point=None):
         """
         Returns the leading term and its order.
 
@@ -280,7 +290,7 @@ class Add(Expr, AssocOp):
         >>> ((1 + 2*I)*(1 + 3*I)).as_real_imag()
         (-5, 5)
         """
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0): ...
+    def _eval_as_leading_term(self, x, logx, cdir): ...
     def _eval_adjoint(self): ...
     def _eval_conjugate(self): ...
     def _eval_transpose(self): ...

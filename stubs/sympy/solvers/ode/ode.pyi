@@ -38,7 +38,7 @@ def iter_numbered_constants(eq, start: int = 1, prefix: str = 'C'):
     Returns an iterator of constants that do not occur
     in eq already.
     """
-def dsolve(eq, func: Incomplete | None = None, hint: str = 'default', simplify: bool = True, ics: Incomplete | None = None, xi: Incomplete | None = None, eta: Incomplete | None = None, x0: int = 0, n: int = 6, **kwargs):
+def dsolve(eq, func=None, hint: str = 'default', simplify: bool = True, ics=None, xi=None, eta=None, x0: int = 0, n: int = 6, **kwargs):
     '''
     Solves any (supported) kind of ordinary differential equation and
     system of ordinary differential equations.
@@ -231,7 +231,7 @@ def dsolve(eq, func: Incomplete | None = None, hint: str = 'default', simplify: 
     >>> dsolve(eq)
     {Eq(x(t), -exp(C1)/(C2*exp(C1) - cos(t))), Eq(y(t), -1/(C1 - cos(t)))}
     '''
-def _helper_simplify(eq, hint, match, simplify: bool = True, ics: Incomplete | None = None, **kwargs):
+def _helper_simplify(eq, hint, match, simplify: bool = True, ics=None, **kwargs):
     """
     Helper function of dsolve that calls the respective
     :py:mod:`~sympy.solvers.ode` functions to solve for the ordinary
@@ -273,7 +273,7 @@ def solve_ics(sols, funcs, constants, ics):
     Eq(f(x), 2*exp(x))
 
     """
-def classify_ode(eq, func: Incomplete | None = None, dict: bool = False, ics: Incomplete | None = None, *, prep: bool = True, xi: Incomplete | None = None, eta: Incomplete | None = None, n: Incomplete | None = None, **kwargs):
+def classify_ode(eq, func=None, dict: bool = False, ics=None, *, prep: bool = True, xi=None, eta=None, n=None, **kwargs):
     """
     Returns a tuple of possible :py:meth:`~sympy.solvers.ode.dsolve`
     classifications for an ODE.
@@ -400,7 +400,7 @@ def classify_ode(eq, func: Incomplete | None = None, dict: bool = False, ics: In
     'nth_linear_constant_coeff_variation_of_parameters_Integral')
 
     """
-def classify_sysode(eq, funcs: Incomplete | None = None, **kwargs):
+def classify_sysode(eq, funcs=None, **kwargs):
     '''
     Returns a dictionary of parameter names and values that define the system
     of ordinary differential equations in ``eq``.
@@ -673,7 +673,7 @@ def constantsimp(expr, constants):
     C1 + C3*x
 
     '''
-def constant_renumber(expr, variables: Incomplete | None = None, newconstants: Incomplete | None = None):
+def constant_renumber(expr, variables=None, newconstants=None):
     """
     Renumber arbitrary constants in ``expr`` to use the symbol names as given
     in ``newconstants``. In the process, this reorders expression terms in a
@@ -855,7 +855,7 @@ def ode_2nd_power_series_regular(eq, func, order, match):
       Historical Notes", p.p 176 - 184
 
     '''
-def _frobenius(n, m, p0, q0, p, q, x0, x, c, check: Incomplete | None = None):
+def _frobenius(n, m, p0, q0, p, q, x0, x, c, check=None):
     """
     Returns a dict with keys as coefficients and values as their values in terms of C0
     """
@@ -925,7 +925,7 @@ def ode_1st_power_series(eq, func, order, match):
       differential equations, p.p 17, 18
 
     """
-def checkinfsol(eq, infinitesimals, func: Incomplete | None = None, order: Incomplete | None = None):
+def checkinfsol(eq, infinitesimals, func=None, order=None):
     """
     This function is used to check if the given infinitesimals are the
     actual infinitesimals of the given first order differential equation.

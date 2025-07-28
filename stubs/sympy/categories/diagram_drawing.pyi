@@ -414,7 +414,7 @@ class DiagramGrid:
         """
     _morphisms: Incomplete
     _grid: Incomplete
-    def __init__(self, diagram, groups: Incomplete | None = None, **hints) -> None: ...
+    def __init__(self, diagram, groups=None, **hints) -> None: ...
     @property
     def width(self):
         '''
@@ -839,7 +839,7 @@ class XypicDiagramDrawer:
         describing the morphisms of a diagram and the object layout
         information of a diagram, produces the final Xy-pic picture.
         """
-    def draw(self, diagram, grid, masked: Incomplete | None = None, diagram_format: str = ''):
+    def draw(self, diagram, grid, masked=None, diagram_format: str = ''):
         '''
         Returns the Xy-pic representation of ``diagram`` laid out in
         ``grid``.
@@ -887,7 +887,7 @@ class XypicDiagramDrawer:
 
         '''
 
-def xypic_draw_diagram(diagram, masked: Incomplete | None = None, diagram_format: str = '', groups: Incomplete | None = None, **hints):
+def xypic_draw_diagram(diagram, masked=None, diagram_format: str = '', groups=None, **hints):
     '''
     Provides a shortcut combining :class:`DiagramGrid` and
     :class:`XypicDiagramDrawer`.  Returns an Xy-pic presentation of
@@ -921,7 +921,7 @@ def xypic_draw_diagram(diagram, masked: Incomplete | None = None, diagram_format
 
     XypicDiagramDrawer, DiagramGrid
     '''
-def preview_diagram(diagram, masked: Incomplete | None = None, diagram_format: str = '', groups: Incomplete | None = None, output: str = 'png', viewer: Incomplete | None = None, euler: bool = True, **hints) -> None:
+def preview_diagram(diagram, masked=None, diagram_format: str = '', groups=None, output: str = 'png', viewer=None, euler: bool = True, **hints) -> None:
     '''
     Combines the functionality of ``xypic_draw_diagram`` and
     ``sympy.printing.preview``.  The arguments ``masked``,

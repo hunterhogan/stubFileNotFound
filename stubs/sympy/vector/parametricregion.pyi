@@ -1,3 +1,4 @@
+from functools import singledispatch
 from sympy.core import Basic as Basic, Tuple as Tuple
 from sympy.core.numbers import pi as pi
 from sympy.core.symbol import _symbol as _symbol
@@ -59,6 +60,7 @@ class ParametricRegion(Basic):
     @property
     def dimensions(self): ...
 
+@singledispatch
 def parametric_region_list(reg) -> None:
     """
     Returns a list of ParametricRegion objects representing the geometric region.

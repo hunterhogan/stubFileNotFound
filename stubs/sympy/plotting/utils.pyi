@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core.basic import Basic as Basic
 from sympy.core.containers import Tuple as Tuple
 from sympy.core.expr import Expr as Expr
@@ -46,7 +45,7 @@ def _plot_sympify(args):
     In particular, whenever a special character like $, {, }, ... is used in
     the `label`, sympify will raise an error.
     """
-def _create_ranges(exprs, ranges, npar, label: str = '', params: Incomplete | None = None):
+def _create_ranges(exprs, ranges, npar, label: str = '', params=None):
     """This function does two things:
 
     1. Check if the number of free symbols is in agreement with the type of

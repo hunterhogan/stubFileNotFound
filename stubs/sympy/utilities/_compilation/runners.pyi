@@ -1,6 +1,6 @@
 from .util import CompileError as CompileError, find_binary_of_command as find_binary_of_command, unique_list as unique_list
 from _typeshed import Incomplete
-from collections.abc import Callable
+from typing import Callable
 
 class CompilerRunner:
     """ CompilerRunner base class.
@@ -62,9 +62,9 @@ class CompilerRunner:
     std: Incomplete
     run_linker: Incomplete
     linkline: Incomplete
-    def __init__(self, sources, out, flags: Incomplete | None = None, run_linker: bool = True, compiler: Incomplete | None = None, cwd: str = '.', include_dirs: Incomplete | None = None, libraries: Incomplete | None = None, library_dirs: Incomplete | None = None, std: Incomplete | None = None, define: Incomplete | None = None, undef: Incomplete | None = None, strict_aliasing: Incomplete | None = None, preferred_vendor: Incomplete | None = None, linkline: Incomplete | None = None, **kwargs) -> None: ...
+    def __init__(self, sources, out, flags=None, run_linker: bool = True, compiler=None, cwd: str = '.', include_dirs=None, libraries=None, library_dirs=None, std=None, define=None, undef=None, strict_aliasing=None, preferred_vendor=None, linkline=None, **kwargs) -> None: ...
     @classmethod
-    def find_compiler(cls, preferred_vendor: Incomplete | None = None):
+    def find_compiler(cls, preferred_vendor=None):
         """ Identify a suitable C/fortran/other compiler. """
     def cmd(self):
         """ List of arguments (str) to be passed to e.g. ``subprocess.Popen``. """

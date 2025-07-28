@@ -1,5 +1,6 @@
 from .cartan_type import Standard_Cartan as Standard_Cartan
 from sympy.core.backend import Rational as Rational, eye as eye
+from sympy.core.singleton import S as S
 
 class TypeE(Standard_Cartan):
     def __new__(cls, n): ...
@@ -23,7 +24,7 @@ class TypeE(Standard_Cartan):
         """
     def simple_root(self, i):
         '''
-        Every lie algebra has a unique root system.
+        Every Lie algebra has a unique root system.
         Given a root system Q, there is a subset of the
         roots such that an element of Q is called a
         simple root if it cannot be written as the sum

@@ -61,7 +61,7 @@ class RewritingSystem:
 
         """
     def _check_confluence(self): ...
-    def reduce(self, word, exclude: Incomplete | None = None):
+    def reduce(self, word, exclude=None):
         """
         Apply reduction rules to `word` excluding the reduction rule
         for the lhs equal to `exclude`

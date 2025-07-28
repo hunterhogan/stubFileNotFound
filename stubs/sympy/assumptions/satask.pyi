@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.assumptions.ask_generated import get_all_known_matrix_facts as get_all_known_matrix_facts, get_all_known_number_facts as get_all_known_number_facts
 from sympy.assumptions.assume import AppliedPredicate as AppliedPredicate, global_assumptions as global_assumptions
 from sympy.assumptions.cnf import CNF as CNF, EncodedCNF as EncodedCNF
@@ -60,7 +59,7 @@ def satask(proposition, assumptions: bool = True, context=..., use_known_facts: 
 
     """
 def check_satisfiability(prop, _prop, factbase): ...
-def extract_predargs(proposition, assumptions: Incomplete | None = None, context: Incomplete | None = None):
+def extract_predargs(proposition, assumptions=None, context=None):
     """
     Extract every expression in the argument of predicates from *proposition*,
     *assumptions* and *context*.
@@ -98,7 +97,7 @@ def find_symbols(pred):
     pred : sympy.assumptions.cnf.CNF, or any Expr.
 
     """
-def get_relevant_clsfacts(exprs, relevant_facts: Incomplete | None = None):
+def get_relevant_clsfacts(exprs, relevant_facts=None):
     """
     Extract relevant facts from the items in *exprs*. Facts are defined in
     ``assumptions.sathandlers`` module.

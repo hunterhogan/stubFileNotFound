@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core.basic import Basic as Basic
 from sympy.core.cache import cacheit as cacheit
 from sympy.core.containers import Tuple as Tuple
@@ -65,6 +64,7 @@ class SeqBase(Basic):
         >>> SeqFormula(m*n**2, (n, 0, 5)).free_symbols
         {m}
         """
+    @cacheit
     def coeff(self, pt):
         """Returns the coefficient at point pt"""
     def _eval_coeff(self, pt) -> None: ...
@@ -202,7 +202,7 @@ class SeqBase(Basic):
     def __rmul__(self, other): ...
     def __iter__(self): ...
     def __getitem__(self, index): ...
-    def find_linear_recurrence(self, n, d: Incomplete | None = None, gfvar: Incomplete | None = None):
+    def find_linear_recurrence(self, n, d=None, gfvar=None):
         """
         Finds the shortest linear recurrence that satisfies the first n
         terms of sequence of order `\\leq` ``n/2`` if possible.
@@ -351,7 +351,7 @@ class SeqPer(SeqExpr):
 
     sympy.series.sequences.SeqFormula
     """
-    def __new__(cls, periodical, limits: Incomplete | None = None): ...
+    def __new__(cls, periodical, limits=None): ...
     @property
     def period(self): ...
     @property
@@ -404,7 +404,7 @@ class SeqFormula(SeqExpr):
 
     sympy.series.sequences.SeqPer
     """
-    def __new__(cls, formula, limits: Incomplete | None = None): ...
+    def __new__(cls, formula, limits=None): ...
     @property
     def formula(self): ...
     def _eval_coeff(self, pt): ...
@@ -492,7 +492,7 @@ class RecursiveSeq(SeqBase):
     sympy.series.sequences.SeqFormula
 
     '''
-    def __new__(cls, recurrence, yn, n, initial: Incomplete | None = None, start: int = 0): ...
+    def __new__(cls, recurrence, yn, n, initial=None, start: int = 0): ...
     @property
     def _recurrence(self):
         """Equation defining recurrence."""
@@ -523,7 +523,7 @@ class RecursiveSeq(SeqBase):
     def _eval_coeff(self, index): ...
     def __iter__(self): ...
 
-def sequence(seq, limits: Incomplete | None = None):
+def sequence(seq, limits=None):
     """
     Returns appropriate sequence object.
 

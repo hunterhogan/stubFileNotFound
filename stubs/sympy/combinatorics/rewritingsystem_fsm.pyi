@@ -16,7 +16,7 @@ class State:
     state_machine: Incomplete
     state_type: Incomplete
     rh_rule: Incomplete
-    def __init__(self, name, state_machine, state_type: Incomplete | None = None, rh_rule: Incomplete | None = None) -> None: ...
+    def __init__(self, name, state_machine, state_type=None, rh_rule=None) -> None: ...
     def add_transition(self, letter, state) -> None:
         """
         Add a transition from the current state to a new state.
@@ -39,7 +39,7 @@ class StateMachine:
     automaton_alphabet: Incomplete
     states: Incomplete
     def __init__(self, name, automaton_alphabet) -> None: ...
-    def add_state(self, state_name, state_type: Incomplete | None = None, rh_rule: Incomplete | None = None) -> None:
+    def add_state(self, state_name, state_type=None, rh_rule=None) -> None:
         """
         Instantiate a state object and stores it in the 'states' dictionary.
 

@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from sympy.polys.polyutils import IntegerPowerable
+from sympy.utilities.decorator import public
 
 __all__ = ['prime_valuation', 'prime_decomp']
 
@@ -13,7 +14,7 @@ class PrimeIdeal(IntegerPowerable):
     f: Incomplete
     _test_factor: Incomplete
     e: Incomplete
-    def __init__(self, ZK, p, alpha, f, e: Incomplete | None = None) -> None:
+    def __init__(self, ZK, p, alpha, f, e=None) -> None:
         """
         Parameters
         ==========
@@ -38,7 +39,7 @@ class PrimeIdeal(IntegerPowerable):
         Say whether the rational prime we divide is inert, i.e. stays prime in
         our ring of integers.
         """
-    def repr(self, field_gen: Incomplete | None = None, just_gens: bool = False):
+    def repr(self, field_gen=None, just_gens: bool = False):
         '''
         Print a representation of this prime ideal.
 
@@ -262,6 +263,7 @@ class PrimeIdeal(IntegerPowerable):
 
         '''
 
+@public
 def prime_valuation(I, P):
     """
     Compute the *P*-adic valuation for an integral ideal *I*.
@@ -303,7 +305,8 @@ def prime_valuation(I, P):
        (See Algorithm 4.8.17.)
 
     """
-def prime_decomp(p, T: Incomplete | None = None, ZK: Incomplete | None = None, dK: Incomplete | None = None, radical: Incomplete | None = None):
+@public
+def prime_decomp(p, T=None, ZK=None, dK=None, radical=None):
     """
     Compute the decomposition of rational prime *p* in a number field.
 

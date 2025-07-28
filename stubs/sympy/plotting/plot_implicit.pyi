@@ -9,7 +9,7 @@ from sympy.utilities.iterables import flatten as flatten
 
 __doctest_requires__: Incomplete
 
-def plot_implicit(expr, x_var: Incomplete | None = None, y_var: Incomplete | None = None, adaptive: bool = True, depth: int = 0, n: int = 300, line_color: str = 'blue', show: bool = True, **kwargs):
+def plot_implicit(expr, x_var=None, y_var=None, adaptive: bool = True, depth: int = 0, n: int = 300, line_color: str = 'blue', show: bool = True, **kwargs):
     '''A plot function to plot implicit equations / inequalities.
 
     Arguments

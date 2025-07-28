@@ -27,7 +27,7 @@ class MatplotlibBackend(base_backend.Plot):
     ax: Incomplete
     def _create_figure(self) -> None: ...
     @staticmethod
-    def get_segments(x, y, z: Incomplete | None = None):
+    def get_segments(x, y, z=None):
         """ Convert two list of coordinates to a list of segments to be used
         with Matplotlib's :external:class:`~matplotlib.collections.LineCollection`.
 

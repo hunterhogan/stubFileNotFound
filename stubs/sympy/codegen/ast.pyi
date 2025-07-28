@@ -67,7 +67,7 @@ class Token(CodegenAST):
     def _sympyrepr(self, printer, *args, joiner: str = ', ', **kwargs): ...
     _sympystr = _sympyrepr
     def __repr__(self) -> str: ...
-    def kwargs(self, exclude=(), apply: Incomplete | None = None):
+    def kwargs(self, exclude=(), apply=None):
         """ Get instance's attributes as dict of keyword arguments.
 
         Parameters
@@ -206,7 +206,7 @@ class AugmentedAssignment(AssignmentBase):
        Symbol for binary operation being applied in the assignment, such as "+",
        "*", etc.
     '''
-    binop: str
+    binop: str | None
     @property
     def op(self): ...
 
@@ -346,7 +346,7 @@ class CodeBlock(CodegenAST):
         )
 
         """
-    def cse(self, symbols: Incomplete | None = None, optimizations: Incomplete | None = None, postprocess: Incomplete | None = None, order: str = 'canonical'):
+    def cse(self, symbols=None, optimizations=None, postprocess=None, order: str = 'canonical'):
         """
         Return a new code block with common subexpressions eliminated.
 
@@ -462,7 +462,7 @@ class String(Atom, Token):
     @classmethod
     def _construct_text(cls, text): ...
     def _sympystr(self, printer, *args, **kwargs): ...
-    def kwargs(self, exclude=(), apply: Incomplete | None = None): ...
+    def kwargs(self, exclude=(), apply=None): ...
     @property
     def func(self): ...
     def _latex(self, printer): ...
@@ -589,7 +589,7 @@ class Type(Token):
 
         """
     def _check(self, value) -> None: ...
-    def cast_check(self, value, rtol: Incomplete | None = None, atol: int = 0, precision_targets: Incomplete | None = None):
+    def cast_check(self, value, rtol=None, atol: int = 0, precision_targets=None):
         """ Casts a value to the data type of the instance.
 
         Parameters
@@ -881,7 +881,7 @@ class Variable(Node):
     _construct_symbol: Incomplete
     _construct_value: Incomplete
     @classmethod
-    def deduced(cls, symbol, value: Incomplete | None = None, attrs=..., cast_check: bool = True):
+    def deduced(cls, symbol, value=None, attrs=..., cast_check: bool = True):
         """ Alt. constructor with type deduction from ``Type.from_expr``.
 
         Deduces type primarily from ``symbol``, secondarily from ``value``.

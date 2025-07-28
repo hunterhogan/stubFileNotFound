@@ -1,7 +1,8 @@
-from _typeshed import Incomplete
+from sympy.utilities import public
 
 __all__ = ['symmetrize', 'horner', 'interpolate', 'rational_interpolate', 'viete']
 
+@public
 def symmetrize(F, *gens, **args):
     """
     Rewrite a polynomial in terms of elementary symmetric polynomials.
@@ -34,6 +35,7 @@ def symmetrize(F, *gens, **args):
     (s1**2 - 2*s2, -2*y**2, [(s1, x + y), (s2, x*y)])
 
     """
+@public
 def horner(f, *gens, **args):
     """
     Rewrite a polynomial in Horner form.
@@ -66,6 +68,7 @@ def horner(f, *gens, **args):
     [1] - https://en.wikipedia.org/wiki/Horner_scheme
 
     """
+@public
 def interpolate(data, x):
     """
     Construct an interpolating polynomial for the data points
@@ -107,6 +110,7 @@ def interpolate(data, x):
     >>> [(i,interpolate((a, b), i)) for i in range(1, 4)]
     [(1, a), (2, b), (3, -a + 2*b)]
     """
+@public
 def rational_interpolate(data, degnum, X=...):
     '''
     Returns a rational interpolation, where the data points are element of
@@ -147,7 +151,8 @@ def rational_interpolate(data, degnum, X=...):
            http://axiom-wiki.newsynthesis.org/RationalInterpolation
 
     '''
-def viete(f, roots: Incomplete | None = None, *gens, **args):
+@public
+def viete(f, roots=None, *gens, **args):
     """
     Generate Viete's formulas for ``f``.
 

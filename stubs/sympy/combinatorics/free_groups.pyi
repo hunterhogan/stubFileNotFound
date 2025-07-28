@@ -2,9 +2,11 @@ from _typeshed import Incomplete
 from sympy.core.expr import Expr
 from sympy.core.sympify import CantSympify
 from sympy.printing.defaults import DefaultPrinting
+from sympy.utilities import public
 
 __all__ = ['free_group', 'xfree_group', 'vfree_group']
 
+@public
 def free_group(symbols):
     '''Construct a free group returning ``(FreeGroup, (f_0, f_1, ..., f_(n-1))``.
 
@@ -26,6 +28,7 @@ def free_group(symbols):
     <class \'sympy.combinatorics.free_groups.FreeGroupElement\'>
 
     '''
+@public
 def xfree_group(symbols):
     '''Construct a free group returning ``(FreeGroup, (f_0, f_1, ..., f_(n-1)))``.
 
@@ -47,6 +50,7 @@ def xfree_group(symbols):
     <class \'sympy.combinatorics.free_groups.FreeGroupElement\'>
 
     '''
+@public
 def vfree_group(symbols):
     '''Construct a free group and inject ``f_0, f_1, ..., f_(n-1)`` as symbols
     into the global namespace.
@@ -94,6 +98,9 @@ class FreeGroup(DefaultPrinting):
     is_PermutationGroup: bool
     relators: list[Expr]
     def __new__(cls, symbols): ...
+    def __getnewargs__(self):
+        """Return a tuple of arguments that must be passed to __new__ in order to support pickling this object."""
+    def __getstate__(self) -> None: ...
     def _generators(group):
         '''Returns the generators of the FreeGroup.
 
@@ -106,7 +113,7 @@ class FreeGroup(DefaultPrinting):
         (x, y, z)
 
         '''
-    def clone(self, symbols: Incomplete | None = None): ...
+    def clone(self, symbols=None): ...
     def __contains__(self, i) -> bool:
         """Return True if ``i`` is contained in FreeGroup."""
     def __hash__(self): ...
@@ -210,6 +217,7 @@ class FreeGroupElement(CantSympify, DefaultPrinting, tuple):
     `FreeGroup` class.
 
     """
+    __slots__: Incomplete
     is_assoc_word: bool
     def new(self, init): ...
     _hash: Incomplete
@@ -346,7 +354,7 @@ class FreeGroupElement(CantSympify, DefaultPrinting, tuple):
         If words is a list, replace the words by the identity.
 
         """
-    def eliminate_word(self, gen, by: Incomplete | None = None, _all: bool = False, inverse: bool = True):
+    def eliminate_word(self, gen, by=None, _all: bool = False, inverse: bool = True):
         '''
         For an associative word `self`, a subword `gen`, and an associative
         word `by` (identity by default), return the associative word obtained by

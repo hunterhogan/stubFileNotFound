@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core.basic import Basic
 
 __all__ = ['Medium']
@@ -51,7 +50,7 @@ class Medium(Basic):
     .. [1] https://en.wikipedia.org/wiki/Optical_medium
 
     """
-    def __new__(cls, name, permittivity: Incomplete | None = None, permeability: Incomplete | None = None, n: Incomplete | None = None): ...
+    def __new__(cls, name, permittivity=None, permeability=None, n=None): ...
     @property
     def name(self): ...
     @property

@@ -97,7 +97,7 @@ class PicklableWithSlots:
 
     """
     __slots__: Incomplete
-    def __getstate__(self, cls: Incomplete | None = None): ...
+    def __getstate__(self, cls=None): ...
     def __setstate__(self, d) -> None: ...
 
 class IntegerPowerable:
@@ -110,8 +110,8 @@ class IntegerPowerable:
     first, zeroth, or negative powers, override the corresponding methods,
     `_first_power`, `_zeroth_power`, `_negative_power`, below.
     """
-    def __pow__(self, e, modulo: Incomplete | None = None): ...
-    def _negative_power(self, e, modulo: Incomplete | None = None) -> None:
+    def __pow__(self, e, modulo=None): ...
+    def _negative_power(self, e, modulo=None) -> None:
         """
         Compute inverse of self, then raise that to the abs(e) power.
         For example, if the class has an `inv()` method,

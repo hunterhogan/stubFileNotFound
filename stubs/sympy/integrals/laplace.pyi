@@ -68,24 +68,28 @@ def _simplifyconds(expr, s, a):
     >>> _simplifyconds(Ne(1, x**3), x, 0)
     Ne(1, x**3)
     """
+@DEBUG_WRAP
 def expand_dirac_delta(expr):
     """
     Expand an expression involving DiractDelta to get it as a linear
     combination of DiracDelta functions.
     """
+@DEBUG_WRAP
 def _laplace_transform_integration(f, t, s_, *, simplify):
     """ The backend function for doing Laplace transforms by integration.
 
     This backend assumes that the frontend has already split sums
     such that `f` is to an addition anymore.
     """
+@DEBUG_WRAP
 def _laplace_deep_collect(f, t):
     """
-    This is an internal helper function that traverses through the epression
+    This is an internal helper function that traverses through the expression
     tree of `f(t)` and collects arguments. The purpose of it is that
     anything like `f(w*t-1*t-c)` will be written as `f((w-1)*t-c)` such that
     it can match `f(a*t+b)`.
     """
+@cacheit
 def _laplace_build_rules():
     """
     This is an internal helper function that returns the table of Laplace
@@ -103,12 +107,14 @@ def _laplace_build_rules():
     to the expression before matching. For most rules it should be
     ``_laplace_deep_collect``.
     """
+@DEBUG_WRAP
 def _laplace_rule_timescale(f, t, s):
     """
     This function applies the time-scaling rule of the Laplace transform in
     a straight-forward way. For example, if it gets ``(f(a*t), t, s)``, it will
     compute ``LaplaceTransform(f(t)/a, t, s/a)`` if ``a>0``.
     """
+@DEBUG_WRAP
 def _laplace_rule_heaviside(f, t, s):
     """
     This function deals with time-shifted Heaviside step functions. If the time
@@ -122,6 +128,7 @@ def _laplace_rule_heaviside(f, t, s):
     The function does not remove a factor ``Heaviside(t)``; this is done by
     the simple rules.
     """
+@DEBUG_WRAP
 def _laplace_rule_exp(f, t, s):
     """
     If this function finds a factor ``exp(a*t)``, it applies the
@@ -129,6 +136,7 @@ def _laplace_rule_exp(f, t, s):
     plane accordingly.  For example, if it gets ``(exp(-a*t)*f(t), t, s)``, it
     will compute ``LaplaceTransform(f(t), t, s+a)``.
     """
+@DEBUG_WRAP
 def _laplace_rule_delta(f, t, s):
     """
     If this function finds a factor ``DiracDelta(b*t-a)``, it applies the
@@ -136,12 +144,14 @@ def _laplace_rule_delta(f, t, s):
     ``(DiracDelta(t-a)*f(t), t, s)``, it will return
     ``(f(a)*exp(-a*s), -a, True)``.
     """
+@DEBUG_WRAP
 def _laplace_trig_split(fn):
     """
     Helper function for `_laplace_rule_trig`.  This function returns two terms
     `f` and `g`.  `f` contains all product terms with sin, cos, sinh, cosh in
     them; `g` contains everything else.
     """
+@DEBUG_WRAP
 def _laplace_trig_expsum(f, t):
     """
     Helper function for `_laplace_rule_trig`.  This function expects the `f`
@@ -151,6 +161,7 @@ def _laplace_trig_expsum(f, t):
     that form, which may happen, e.g., when a trigonometric function has
     another function in its argument.
     """
+@DEBUG_WRAP
 def _laplace_trig_ltex(xm, t, s):
     """
     Helper function for `_laplace_rule_trig`.  This function takes the list of
@@ -158,12 +169,14 @@ def _laplace_trig_ltex(xm, t, s):
     conjugate and real symmetric poles.  It returns the result as a sum and
     the convergence plane.
     """
+@DEBUG_WRAP
 def _laplace_rule_trig(fn, t_, s):
     """
     This rule covers trigonometric factors by splitting everything into a
     sum of exponential functions and collecting complex conjugate poles and
     real symmetric poles.
     """
+@DEBUG_WRAP
 def _laplace_rule_diff(f, t, s):
     """
     This function looks for derivatives in the time domain and replaces it
@@ -171,6 +184,7 @@ def _laplace_rule_diff(f, t, s):
     example, if it gets ``(diff(f(t), t), t, s)``, it will compute
     ``s*LaplaceTransform(f(t), t, s) - f(0)``.
     """
+@DEBUG_WRAP
 def _laplace_rule_sdiff(f, t, s):
     """
     This function looks for multiplications with polynoimials in `t` as they
@@ -178,26 +192,30 @@ def _laplace_rule_sdiff(f, t, s):
     gets ``(t*f(t), t, s)``, it will compute
     ``-Derivative(LaplaceTransform(f(t), t, s), s)``.
     """
+@DEBUG_WRAP
 def _laplace_expand(f, t, s):
     """
     This function tries to expand its argument with successively stronger
     methods: first it will expand on the top level, then it will expand any
-    multiplications in depth, then it will try all avilable expansion methods,
+    multiplications in depth, then it will try all available expansion methods,
     and finally it will try to expand trigonometric functions.
 
     If it can expand, it will then compute the Laplace transform of the
     expanded term.
     """
+@DEBUG_WRAP
 def _laplace_apply_prog_rules(f, t, s):
     """
     This function applies all program rules and returns the result if one
     of them gives a result.
     """
+@DEBUG_WRAP
 def _laplace_apply_simple_rules(f, t, s):
     """
     This function applies all simple rules and returns the result if one
     of them gives a result.
     """
+@DEBUG_WRAP
 def _piecewise_to_heaviside(f, t):
     """
     This function converts a Piecewise expression to an expression written
@@ -274,6 +292,7 @@ def laplace_initial_conds(f, t, fdict, /):
     >>> laplace_initial_conds(g, t, {y: [2, 4, 8, 16, 32]})
     s**3*Y(s) - 2*s**2 - 4*s - 8
     '''
+@DEBUG_WRAP
 def _laplace_transform(fn, t_, s_, *, simplify):
     """
     Front-end function of the Laplace transform. It tries to apply all known
@@ -412,55 +431,69 @@ def laplace_transform(f, t, s, legacy_matrix: bool = True, **hints):
     hankel_transform, inverse_hankel_transform
 
     """
+@DEBUG_WRAP
 def _inverse_laplace_transform_integration(F, s, t_, plane, *, simplify):
     """ The backend function for inverse Laplace transforms. """
+@DEBUG_WRAP
 def _complete_the_square_in_denom(f, s): ...
+@cacheit
 def _inverse_laplace_build_rules():
     """
     This is an internal helper function that returns the table of inverse
     Laplace transform rules in terms of the time variable `t` and the
     frequency variable `s`.  It is used by `_inverse_laplace_apply_rules`.
     """
+@DEBUG_WRAP
 def _inverse_laplace_apply_simple_rules(f, s, t):
     """
     Helper function for the class InverseLaplaceTransform.
     """
+@DEBUG_WRAP
 def _inverse_laplace_diff(f, s, t, plane):
     """
     Helper function for the class InverseLaplaceTransform.
     """
+@DEBUG_WRAP
 def _inverse_laplace_time_shift(F, s, t, plane):
     """
     Helper function for the class InverseLaplaceTransform.
     """
+@DEBUG_WRAP
 def _inverse_laplace_freq_shift(F, s, t, plane):
     """
     Helper function for the class InverseLaplaceTransform.
     """
+@DEBUG_WRAP
 def _inverse_laplace_time_diff(F, s, t, plane):
     """
     Helper function for the class InverseLaplaceTransform.
     """
+@DEBUG_WRAP
 def _inverse_laplace_irrational(fn, s, t, plane):
     """
     Helper function for the class InverseLaplaceTransform.
     """
+@DEBUG_WRAP
 def _inverse_laplace_early_prog_rules(F, s, t, plane):
     """
     Helper function for the class InverseLaplaceTransform.
     """
+@DEBUG_WRAP
 def _inverse_laplace_apply_prog_rules(F, s, t, plane):
     """
     Helper function for the class InverseLaplaceTransform.
     """
+@DEBUG_WRAP
 def _inverse_laplace_expand(fn, s, t, plane):
     """
     Helper function for the class InverseLaplaceTransform.
     """
+@DEBUG_WRAP
 def _inverse_laplace_rational(fn, s, t, plane, *, simplify):
     """
     Helper function for the class InverseLaplaceTransform.
     """
+@DEBUG_WRAP
 def _inverse_laplace_transform(fn, s_, t_, plane, *, simplify, dorational):
     """
     Front-end function of the inverse Laplace transform. It tries to apply all
@@ -498,7 +531,7 @@ class InverseLaplaceTransform(IntegralTransform):
         default setting is `False`.
         """
 
-def inverse_laplace_transform(F, s, t, plane: Incomplete | None = None, **hints):
+def inverse_laplace_transform(F, s, t, plane=None, **hints):
     """
     Compute the inverse Laplace transform of `F(s)`, defined as
 

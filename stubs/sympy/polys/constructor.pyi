@@ -1,5 +1,8 @@
+from sympy.utilities import public
+
 __all__ = ['construct_domain']
 
+@public
 def construct_domain(obj, **args):
     """Construct a minimal domain for a list of expressions.
 

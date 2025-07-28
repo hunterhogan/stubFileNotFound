@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core import S as S
 from sympy.core.add import Add as Add
 from sympy.core.function import count_ops as count_ops
@@ -30,7 +29,7 @@ def riccati_normal(w, x, b1, b2):
 
     .. math:: y(x) = -b_2(x)*w(x) - b'_2(x)/(2*b_2(x)) - b_1(x)/2
     """
-def riccati_inverse_normal(y, x, b1, b2, bp: Incomplete | None = None):
+def riccati_inverse_normal(y, x, b1, b2, bp=None):
     """
     Inverse transforming the solution to the normal
     Riccati ODE to get the solution to the Riccati ODE.

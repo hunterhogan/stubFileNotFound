@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core import Expr as Expr, S as S, Tuple as Tuple, sympify as sympify
 from sympy.core.assumptions import StdFactKB as StdFactKB
 from sympy.core.logic import fuzzy_bool as fuzzy_bool, fuzzy_not as fuzzy_not
@@ -208,7 +207,7 @@ class IndexedBase(Expr, NotIterable):
     @staticmethod
     def _set_assumptions(obj, assumptions) -> None:
         """Set assumptions on obj, making sure to apply consistent values."""
-    def __new__(cls, label, shape: Incomplete | None = None, *, offset=..., strides: Incomplete | None = None, **kw_args): ...
+    def __new__(cls, label, shape=None, *, offset=..., strides=None, **kw_args): ...
     @property
     def name(self): ...
     def _hashable_content(self): ...
@@ -351,7 +350,7 @@ class Idx(Expr):
     is_symbol: bool
     is_Atom: bool
     _diff_wrt: bool
-    def __new__(cls, label, range: Incomplete | None = None, **kw_args): ...
+    def __new__(cls, label, range=None, **kw_args): ...
     @property
     def label(self):
         """Returns the label (Integer or integer expression) of the Idx object.

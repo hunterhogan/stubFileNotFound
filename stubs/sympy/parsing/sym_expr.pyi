@@ -88,7 +88,7 @@ class SymPyExpression:
 
     """
     _expr: Incomplete
-    def __init__(self, source_code: Incomplete | None = None, mode: Incomplete | None = None) -> None:
+    def __init__(self, source_code=None, mode=None) -> None:
         """Constructor for SymPyExpression class"""
     def convert_to_expr(self, src_code, mode) -> None:
         """Converts the given source code to SymPy Expressions

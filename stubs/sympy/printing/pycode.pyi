@@ -4,6 +4,7 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from sympy.core import S as S
 from sympy.core.mod import Mod as Mod
+from sympy.printing.pycode import PythonCodePrinter as PythonCodePrinter
 
 _kw: Incomplete
 _known_functions: Incomplete
@@ -27,7 +28,7 @@ class AbstractPythonCodePrinter(CodePrinter):
     module_imports: Incomplete
     known_functions: Incomplete
     known_constants: Incomplete
-    def __init__(self, settings: Incomplete | None = None) -> None: ...
+    def __init__(self, settings=None) -> None: ...
     def _declare_number_const(self, name, value): ...
     def _module_format(self, fqn, register: bool = True): ...
     def _format_code(self, lines): ...
@@ -49,7 +50,7 @@ class AbstractPythonCodePrinter(CodePrinter):
         """
     def _expand_reduce_binary_op(self, op, args):
         """
-        This method expands a reductin on binary operations.
+        This method expands a reduction on binary operations.
 
         Notice: this is NOT the same as ``functools.reduce``.
 
@@ -190,6 +191,24 @@ def pycode(expr, **settings):
 
     """
 
+_known_functions_cmath: Incomplete
+_known_constants_cmath: Incomplete
+
+class CmathPrinter(PythonCodePrinter):
+    """ Printer for Python's cmath module """
+    printmethod: str
+    language: str
+    _kf: Incomplete
+    _kc: Incomplete
+    def _print_Pow(self, expr, rational: bool = False): ...
+    def _print_Float(self, e): ...
+    def _print_known_func(self, expr): ...
+    def _print_known_const(self, expr): ...
+    def _print_re(self, expr):
+        """Prints `re(z)` as `z.real`"""
+    def _print_im(self, expr):
+        """Prints `im(z)` as `z.imag`"""
+
 _not_in_mpmath: Incomplete
 _in_mpmath: Incomplete
 _known_functions_mpmath: Incomplete
@@ -220,6 +239,7 @@ class MpmathPrinter(PythonCodePrinter):
     def _print_log1p(self, e): ...
     def _print_Pow(self, expr, rational: bool = False): ...
     def _print_Integral(self, e): ...
+    def _print_Derivative_zeta(self, args, seq_orders): ...
 
 class SymPyPrinter(AbstractPythonCodePrinter):
     language: str

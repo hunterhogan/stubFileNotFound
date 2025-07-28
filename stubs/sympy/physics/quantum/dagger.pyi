@@ -72,5 +72,7 @@ class Dagger(adjoint):
     .. [1] https://en.wikipedia.org/wiki/Hermitian_adjoint
     .. [2] https://en.wikipedia.org/wiki/Hermitian_transpose
     """
+    @property
+    def kind(self):
+        """Find the kind of a dagger of something (just the kind of the something)."""
     def __new__(cls, arg, evaluate: bool = True): ...
-    def __mul__(self, other): ...

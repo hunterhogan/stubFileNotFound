@@ -1,6 +1,4 @@
-__all__ = ['pole_zero_numerical_data', 'pole_zero_plot', 'step_response_numerical_data', 'step_response_plot', 'impulse_response_numerical_data', 'impulse_response_plot', 'ramp_response_numerical_data', 'ramp_response_plot', 'bode_magnitude_numerical_data', 'bode_phase_numerical_data', 'bode_magnitude_plot', 'bode_phase_plot', 'bode_plot']
-
-np = numpy
+__all__ = ['pole_zero_numerical_data', 'pole_zero_plot', 'step_response_numerical_data', 'step_response_plot', 'impulse_response_numerical_data', 'impulse_response_plot', 'ramp_response_numerical_data', 'ramp_response_plot', 'bode_magnitude_numerical_data', 'bode_phase_numerical_data', 'bode_magnitude_plot', 'bode_phase_plot', 'bode_plot', 'nyquist_plot_expr', 'nyquist_plot', 'nichols_plot_expr', 'nichols_plot']
 
 def pole_zero_numerical_data(system):
     """
@@ -20,8 +18,8 @@ def pole_zero_numerical_data(system):
     =======
 
     tuple : (zeros, poles)
-        zeros = Zeros of the system. NumPy array of complex numbers.
-        poles = Poles of the system. NumPy array of complex numbers.
+        zeros = Zeros of the system as a list of Python float/complex.
+        poles = Poles of the system as a list of Python float/complex.
 
     Raises
     ======
@@ -43,8 +41,8 @@ def pole_zero_numerical_data(system):
     >>> from sympy.physics.control.lti import TransferFunction
     >>> from sympy.physics.control.control_plots import pole_zero_numerical_data
     >>> tf1 = TransferFunction(s**2 + 1, s**4 + 4*s**3 + 6*s**2 + 5*s + 2, s)
-    >>> pole_zero_numerical_data(tf1)   # doctest: +SKIP
-    ([-0.+1.j  0.-1.j], [-2. +0.j        -0.5+0.8660254j -0.5-0.8660254j -1. +0.j       ])
+    >>> pole_zero_numerical_data(tf1)
+    ([-1j, 1j], [-2.0, -1.0, (-0.5-0.8660254037844386j), (-0.5+0.8660254037844386j)])
 
     See Also
     ========
@@ -658,5 +656,93 @@ def bode_plot(system, initial_exp: int = -5, final_exp: int = 5, grid: bool = Tr
     ========
 
     bode_magnitude_plot, bode_phase_plot
+
+    """
+def nyquist_plot_expr(system):
+    """Function to get the expression for Nyquist plot."""
+def nichols_plot_expr(system):
+    """Function to get the expression for Nichols plot."""
+def nyquist_plot(system, initial_omega: float = 0.01, final_omega: int = 100, show: bool = True, color: str = 'b', **kwargs):
+    """
+    Generates the Nyquist plot for a continuous-time system.
+
+    Parameters
+    ==========
+
+    system : SISOLinearTimeInvariant
+        The LTI SISO system for which the Nyquist plot is to be generated.
+    initial_omega : float, optional
+        The starting frequency value. Defaults to 0.01.
+    final_omega : float, optional
+        The ending frequency value. Defaults to 100.
+    show : bool, optional
+        If True, the plot is displayed. Default is True.
+    color : str, optional
+        The color of the Nyquist plot. Default is 'b' (blue).
+    grid : bool, optional
+        If True, grid lines are displayed. Default is False.
+    **kwargs
+        Additional keyword arguments for customization.
+
+    Examples
+    ========
+
+    .. plot::
+        :context: close-figs
+        :format: doctest
+        :include-source: True
+
+        >>> from sympy.abc import s
+        >>> from sympy.physics.control.lti import TransferFunction
+        >>> from sympy.physics.control.control_plots import nyquist_plot
+        >>> tf1 = TransferFunction(2*s**2 + 5*s + 1, s**2 + 2*s + 3, s)
+        >>> nyquist_plot(tf1)   # doctest: +SKIP
+
+    See Also
+    ========
+
+    nichols_plot, bode_plot
+
+    """
+def nichols_plot(system, initial_omega: float = 0.01, final_omega: int = 100, show: bool = True, color: str = 'b', **kwargs):
+    """
+    Generates the Nichols plot for a LTI system.
+
+    Parameters
+    ==========
+
+    system : SISOLinearTimeInvariant
+        The LTI SISO system for which the Nyquist plot is to be generated.
+    initial_omega : float, optional
+        The starting frequency value. Defaults to 0.01.
+    final_omega : float, optional
+        The ending frequency value. Defaults to 100.
+    show : bool, optional
+        If True, the plot is displayed. Default is True.
+    color : str, optional
+        The color of the Nyquist plot. Default is 'b' (blue).
+    grid : bool, optional
+        If True, grid lines are displayed. Default is False.
+    **kwargs
+        Additional keyword arguments for customization.
+
+    Examples
+    ========
+
+    .. plot::
+        :context: close-figs
+        :format: doctest
+        :include-source: True
+
+        >>> from sympy.abc import s
+        >>> from sympy.physics.control.lti import TransferFunction
+        >>> from sympy.physics.control.control_plots import nichols_plot
+        >>> tf1 = TransferFunction(1.5, s**2+14*s+40.02, s)
+        >>> nichols_plot(tf1)   # doctest: +SKIP
+
+    See Also
+    ========
+
+    nyquist_plot, bode_plot
 
     """

@@ -24,7 +24,7 @@ class MatrixPSpace(PSpace):
     @property
     def values(self): ...
     def compute_density(self, expr, *args): ...
-    def sample(self, size=(), library: str = 'scipy', seed: Incomplete | None = None):
+    def sample(self, size=(), library: str = 'scipy', seed=None):
         """
         Internal sample method
 
@@ -35,21 +35,21 @@ def rv(symbol, cls, args): ...
 
 class SampleMatrixScipy:
     """Returns the sample from scipy of the given distribution"""
-    def __new__(cls, dist, size, seed: Incomplete | None = None): ...
+    def __new__(cls, dist, size, seed=None): ...
     @classmethod
     def _sample_scipy(cls, dist, size, seed):
         """Sample from SciPy."""
 
 class SampleMatrixNumpy:
     """Returns the sample from numpy of the given distribution"""
-    def __new__(cls, dist, size, seed: Incomplete | None = None): ...
+    def __new__(cls, dist, size, seed=None): ...
     @classmethod
     def _sample_numpy(cls, dist, size, seed):
         """Sample from NumPy."""
 
 class SampleMatrixPymc:
     """Returns the sample from pymc of the given distribution"""
-    def __new__(cls, dist, size, seed: Incomplete | None = None): ...
+    def __new__(cls, dist, size, seed=None): ...
     @classmethod
     def _sample_pymc(cls, dist, size, seed):
         """Sample from PyMC."""
@@ -64,7 +64,7 @@ class MatrixDistribution(Distribution, NamedArgsMixin):
     @staticmethod
     def check(*args) -> None: ...
     def __call__(self, expr): ...
-    def sample(self, size=(), library: str = 'scipy', seed: Incomplete | None = None):
+    def sample(self, size=(), library: str = 'scipy', seed=None):
         """
         Internal sample method
 

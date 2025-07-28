@@ -100,7 +100,7 @@ class Factors:
     __slots__: Incomplete
     factors: Incomplete
     gens: Incomplete
-    def __init__(self, factors: Incomplete | None = None) -> None:
+    def __init__(self, factors=None) -> None:
         """Initialize Factors from dict or expr.
 
         Examples
@@ -316,7 +316,7 @@ class Term:
     coeff: Incomplete
     numer: Incomplete
     denom: Incomplete
-    def __init__(self, term, numer: Incomplete | None = None, denom: Incomplete | None = None) -> None: ...
+    def __init__(self, term, numer=None, denom=None) -> None: ...
     def __hash__(self): ...
     def __repr__(self) -> str: ...
     def as_expr(self): ...
@@ -439,7 +439,7 @@ def _factor_sum_int(expr, **kwargs):
     >>> eq.subs(y, x).doit()
     6
     """
-def factor_terms(expr, radical: bool = False, clear: bool = False, fraction: bool = False, sign: bool = True):
+def factor_terms(expr: Expr | complex, radical: bool = False, clear: bool = False, fraction: bool = False, sign: bool = True) -> Expr:
     """Remove common factors from terms in all arguments without
     changing the underlying structure of the expr. No expansion or
     simplification (and no processing of non-commutatives) is performed.
@@ -500,7 +500,7 @@ def factor_terms(expr, radical: bool = False, clear: bool = False, fraction: boo
     gcd_terms, sympy.polys.polytools.terms_gcd
 
     """
-def _mask_nc(eq, name: Incomplete | None = None):
+def _mask_nc(eq, name=None):
     """
     Return ``eq`` with non-commutative objects replaced with Dummy
     symbols. A dictionary that can be used to restore the original

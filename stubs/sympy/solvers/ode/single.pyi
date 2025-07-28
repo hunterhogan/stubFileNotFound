@@ -24,9 +24,7 @@ from sympy.simplify.radsimp import fraction as fraction
 from sympy.solvers.deutils import _preprocess as _preprocess, ode_order as ode_order
 from sympy.solvers.solvers import solve as solve
 from sympy.utilities import numbered_symbols as numbered_symbols
-from typing import ClassVar
-
-from collections.abc import Iterator
+from typing import ClassVar, Iterator
 
 class ODEMatchError(NotImplementedError):
     """Raised if a SingleODESolver is asked to solve an ODE it does not match"""
@@ -70,9 +68,13 @@ class SingleODEProblem:
     prep: Incomplete
     params: Incomplete
     def __init__(self, eq, func, sym, prep: bool = True, **kwargs) -> None: ...
+    @cached_property
     def order(self) -> int: ...
+    @cached_property
     def eq_preprocessed(self) -> Expr: ...
+    @cached_property
     def eq_high_order_free(self) -> Expr: ...
+    @cached_property
     def eq_expanded(self) -> Expr: ...
     def _get_eq_preprocessed(self) -> Expr: ...
     def get_numbered_constants(self, num: int = 1, start: int = 1, prefix: str = 'C') -> list[Symbol]:
@@ -85,6 +87,7 @@ class SingleODEProblem:
         Returns an iterator of constants that do not occur
         in eq already.
         """
+    @cached_property
     def is_autonomous(self): ...
     def get_linear_coefficients(self, eq, func, order):
         """

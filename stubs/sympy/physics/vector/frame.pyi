@@ -79,7 +79,7 @@ class ReferenceFrame:
     _z: Incomplete
     varlist: Incomplete
     index: Incomplete
-    def __init__(self, name, indices: Incomplete | None = None, latexs: Incomplete | None = None, variables: Incomplete | None = None) -> None:
+    def __init__(self, name, indices=None, latexs=None, variables=None) -> None:
         """ReferenceFrame initialization method.
 
         A ReferenceFrame has a set of orthonormal basis vectors, along with
@@ -831,7 +831,7 @@ class ReferenceFrame:
             If the orientation creates a kinematic loop.
 
         '''
-    def orientnew(self, newname, rot_type, amounts, rot_order: str = '', variables: Incomplete | None = None, indices: Incomplete | None = None, latexs: Incomplete | None = None):
+    def orientnew(self, newname, rot_type, amounts, rot_order: str = '', variables=None, indices=None, latexs=None):
         '''Returns a new reference frame oriented with respect to this
         reference frame.
 

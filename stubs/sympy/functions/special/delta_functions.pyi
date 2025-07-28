@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 from sympy.core import S as S, diff as diff
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function
+from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction
 from sympy.core.logic import fuzzy_not as fuzzy_not
 from sympy.core.relational import Eq as Eq, Ne as Ne
 from sympy.functions.elementary.complexes import im as im, sign as sign
@@ -9,7 +8,7 @@ from sympy.polys.polyerrors import PolynomialError as PolynomialError
 from sympy.polys.polyroots import roots as roots
 from sympy.utilities.misc import filldedent as filldedent
 
-class DiracDelta(Function):
+class DiracDelta(DefinedFunction):
     """
     The DiracDelta function and its derivatives.
 
@@ -286,7 +285,7 @@ class DiracDelta(Function):
 
         """
 
-class Heaviside(Function):
+class Heaviside(DefinedFunction):
     """
     Heaviside step function.
 
@@ -425,7 +424,7 @@ class Heaviside(Function):
         H0 : value of Heaviside(0)
 
         """
-    def _eval_rewrite_as_Piecewise(self, arg, H0: Incomplete | None = None, **kwargs):
+    def _eval_rewrite_as_Piecewise(self, arg, H0=None, **kwargs):
         """
         Represents Heaviside in a Piecewise form.
 

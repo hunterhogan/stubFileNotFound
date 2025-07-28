@@ -217,7 +217,7 @@ class System(_Methods):
     _loads: Incomplete
     _actuators: Incomplete
     _eom_method: Incomplete
-    def __init__(self, frame: Incomplete | None = None, fixed_point: Incomplete | None = None) -> None:
+    def __init__(self, frame=None, fixed_point=None) -> None:
         """Initialize the system.
 
         Parameters
@@ -253,21 +253,25 @@ class System(_Methods):
     def bodies(self):
         """Tuple of all bodies that have been added to the system."""
     @bodies.setter
+    @_reset_eom_method
     def bodies(self, bodies) -> None: ...
     @property
     def joints(self):
         """Tuple of all joints that have been added to the system."""
     @joints.setter
+    @_reset_eom_method
     def joints(self, joints) -> None: ...
     @property
     def loads(self):
         """Tuple of loads that have been applied on the system."""
     @loads.setter
+    @_reset_eom_method
     def loads(self, loads) -> None: ...
     @property
     def actuators(self):
         """Tuple of actuators present in the system."""
     @actuators.setter
+    @_reset_eom_method
     def actuators(self, actuators) -> None: ...
     @property
     def q(self):
@@ -281,26 +285,31 @@ class System(_Methods):
     def q_ind(self):
         """Matrix of the independent generalized coordinates."""
     @q_ind.setter
+    @_reset_eom_method
     def q_ind(self, q_ind) -> None: ...
     @property
     def q_dep(self):
         """Matrix of the dependent generalized coordinates."""
     @q_dep.setter
+    @_reset_eom_method
     def q_dep(self, q_dep) -> None: ...
     @property
     def u_ind(self):
         """Matrix of the independent generalized speeds."""
     @u_ind.setter
+    @_reset_eom_method
     def u_ind(self, u_ind) -> None: ...
     @property
     def u_dep(self):
         """Matrix of the dependent generalized speeds."""
     @u_dep.setter
+    @_reset_eom_method
     def u_dep(self, u_dep) -> None: ...
     @property
     def u_aux(self):
         """Matrix of auxiliary generalized speeds."""
     @u_aux.setter
+    @_reset_eom_method
     def u_aux(self, u_aux) -> None: ...
     @property
     def kdes(self):
@@ -308,18 +317,21 @@ class System(_Methods):
         matrix. These equations describe the coupling between the generalized
         coordinates and the generalized speeds."""
     @kdes.setter
+    @_reset_eom_method
     def kdes(self, kdes) -> None: ...
     @property
     def holonomic_constraints(self):
         """Matrix with the holonomic constraints as expressions equated to the
         zero matrix."""
     @holonomic_constraints.setter
+    @_reset_eom_method
     def holonomic_constraints(self, constraints) -> None: ...
     @property
     def nonholonomic_constraints(self):
         """Matrix with the nonholonomic constraints as expressions equated to
         the zero matrix."""
     @nonholonomic_constraints.setter
+    @_reset_eom_method
     def nonholonomic_constraints(self, constraints) -> None: ...
     @property
     def velocity_constraints(self):
@@ -328,6 +340,7 @@ class System(_Methods):
         holonomic and nonholonomic constraints unless they are explicitly set.
         """
     @velocity_constraints.setter
+    @_reset_eom_method
     def velocity_constraints(self, constraints) -> None: ...
     @property
     def eom_method(self):
@@ -367,6 +380,7 @@ class System(_Methods):
     @staticmethod
     def _parse_expressions(new_expressions, old_expressions, name, check_negatives: bool = False):
         """Helper to parse expressions like constraints."""
+    @_reset_eom_method
     def add_coordinates(self, *coordinates, independent: bool = True) -> None:
         """Add generalized coordinate(s) to the system.
 
@@ -381,6 +395,7 @@ class System(_Methods):
             default.
 
         """
+    @_reset_eom_method
     def add_speeds(self, *speeds, independent: bool = True) -> None:
         """Add generalized speed(s) to the system.
 
@@ -394,6 +409,7 @@ class System(_Methods):
             True, so the speeds are added as independent by default.
 
         """
+    @_reset_eom_method
     def add_auxiliary_speeds(self, *speeds) -> None:
         """Add auxiliary speed(s) to the system.
 
@@ -404,6 +420,7 @@ class System(_Methods):
             One or more auxiliary speeds to be added to the system.
 
         """
+    @_reset_eom_method
     def add_kdes(self, *kdes) -> None:
         """Add kinematic differential equation(s) to the system.
 
@@ -414,6 +431,7 @@ class System(_Methods):
             One or more kinematic differential equations.
 
         """
+    @_reset_eom_method
     def add_holonomic_constraints(self, *constraints) -> None:
         """Add holonomic constraint(s) to the system.
 
@@ -425,6 +443,7 @@ class System(_Methods):
             be zero.
 
         """
+    @_reset_eom_method
     def add_nonholonomic_constraints(self, *constraints) -> None:
         """Add nonholonomic constraint(s) to the system.
 
@@ -436,6 +455,7 @@ class System(_Methods):
             should be zero.
 
         """
+    @_reset_eom_method
     def add_bodies(self, *bodies) -> None:
         """Add body(ies) to the system.
 
@@ -446,6 +466,7 @@ class System(_Methods):
             One or more bodies.
 
         """
+    @_reset_eom_method
     def add_loads(self, *loads) -> None:
         """Add load(s) to the system.
 
@@ -456,6 +477,7 @@ class System(_Methods):
             One or more loads.
 
         """
+    @_reset_eom_method
     def apply_uniform_gravity(self, acceleration) -> None:
         """Apply uniform gravity to all bodies in the system by adding loads.
 
@@ -466,6 +488,7 @@ class System(_Methods):
             The acceleration due to gravity.
 
         """
+    @_reset_eom_method
     def add_actuators(self, *actuators) -> None:
         """Add actuator(s) to the system.
 
@@ -476,6 +499,7 @@ class System(_Methods):
             One or more actuators.
 
         """
+    @_reset_eom_method
     def add_joints(self, *joints) -> None:
         """Add joint(s) to the system.
 
@@ -581,7 +605,7 @@ class System(_Methods):
         [(b*Derivative(q(t), t) - k*q(t))/m]])
 
         """
-    def rhs(self, inv_method: Incomplete | None = None):
+    def rhs(self, inv_method=None):
         """Compute the equations of motion in the explicit form.
 
         Parameters
@@ -909,7 +933,7 @@ class SymbolicSystem:
     output_eqns: Incomplete
     _bodies: Incomplete
     _loads: Incomplete
-    def __init__(self, coord_states, right_hand_side, speeds: Incomplete | None = None, mass_matrix: Incomplete | None = None, coordinate_derivatives: Incomplete | None = None, alg_con: Incomplete | None = None, output_eqns={}, coord_idxs: Incomplete | None = None, speed_idxs: Incomplete | None = None, bodies: Incomplete | None = None, loads: Incomplete | None = None) -> None:
+    def __init__(self, coord_states, right_hand_side, speeds=None, mass_matrix=None, coordinate_derivatives=None, alg_con=None, output_eqns={}, coord_idxs=None, speed_idxs=None, bodies=None, loads=None) -> None:
         """Initializes a SymbolicSystem object"""
     @property
     def coordinates(self):

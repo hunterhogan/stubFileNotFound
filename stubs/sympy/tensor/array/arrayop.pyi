@@ -162,7 +162,7 @@ def derive_by_array(expr, dx):
     [[[1, 0], [0, 2*y*z]], [[0, y**2], [0, 0]]]
 
     """
-def permutedims(expr, perm: Incomplete | None = None, index_order_old: Incomplete | None = None, index_order_new: Incomplete | None = None):
+def permutedims(expr, perm=None, index_order_old=None, index_order_new=None):
     '''
     Permutes the indices of an array.
 

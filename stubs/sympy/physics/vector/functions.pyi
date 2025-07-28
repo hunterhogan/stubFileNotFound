@@ -1,5 +1,4 @@
 from .printing import init_vprinting as init_vprinting, vlatex as vlatex, vpprint as vpprint, vprint as vprint, vsprint as vsprint
-from _typeshed import Incomplete
 
 __all__ = ['cross', 'dot', 'express', 'time_derivative', 'outer', 'kinematic_equations', 'get_motion_params', 'partial_velocity', 'dynamicsymbols', 'vprint', 'vsprint', 'vpprint', 'vlatex', 'init_vprinting']
 
@@ -9,7 +8,7 @@ def cross(vec1, vec2):
 def dot(vec1, vec2):
     """Dot product convenience wrapper for Vector.dot(): 
 """
-def express(expr, frame, frame2: Incomplete | None = None, variables: bool = False):
+def express(expr, frame, frame2=None, variables: bool = False):
     """
     Global function for 'express' functionality.
 

@@ -1,3 +1,4 @@
+import contextlib
 from _typeshed import Incomplete
 from collections.abc import Generator
 
@@ -159,6 +160,7 @@ def sympy_deprecation_warning(message, *, deprecated_since_version, active_depre
     sympy.testing.pytest.warns_deprecated_sympy
 
     '''
+@contextlib.contextmanager
 def ignore_warnings(warningcls) -> Generator[None]:
     """
     Context manager to suppress warnings during tests.

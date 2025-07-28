@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core.basic import Atom
 from sympy.physics.quantum.gate import Gate
 
@@ -158,7 +157,7 @@ def grover_iteration(qstate, oracle):
         |2>
 
     """
-def apply_grover(oracle, nqubits, iterations: Incomplete | None = None):
+def apply_grover(oracle, nqubits, iterations=None):
     """Applies grover's algorithm.
 
     Parameters

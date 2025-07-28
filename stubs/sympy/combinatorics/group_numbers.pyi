@@ -168,7 +168,7 @@ def groups_count(n):
     ValueError
         Number of groups of order ``n`` is unknown or not implemented.
         For example, gnu(`2^{11}`) is not yet known.
-        On the other hand, gnu(12) is known to be 5,
+        On the other hand, gnu(99) is known to be 2,
         but this has not yet been implemented in this function.
 
     Examples

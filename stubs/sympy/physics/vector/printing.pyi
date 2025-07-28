@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.printing.latex import LatexPrinter
 from sympy.printing.pretty.pretty import PrettyPrinter
 from sympy.printing.str import StrPrinter
@@ -16,7 +15,7 @@ class VectorStrReprPrinter(VectorStrPrinter):
 
 class VectorLatexPrinter(LatexPrinter):
     """Latex Printer for vector expressions. """
-    def _print_Function(self, expr, exp: Incomplete | None = None): ...
+    def _print_Function(self, expr, exp=None): ...
     def _print_Derivative(self, der_expr): ...
 
 class VectorPrettyPrinter(PrettyPrinter):

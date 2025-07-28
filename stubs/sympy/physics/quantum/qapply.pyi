@@ -19,6 +19,9 @@ def qapply(e, **options):
           (default: False).
         * ``ip_doit``: call ``.doit()`` in inner products when they are
           encountered (default: True).
+        * ``sum_doit``: call ``.doit()`` on sums when they are encountered
+          (default: False). This is helpful for collapsing sums over Kronecker
+          delta's that are created when calling ``qapply``.
 
     Returns
     =======
@@ -37,8 +40,6 @@ def qapply(e, **options):
         |k><b|
         >>> qapply(A * b.dual / (b * b.dual))
         |k>
-        >>> qapply(k.dual * A / (k.dual * k), dagger=True)
-        <b|
         >>> qapply(k.dual * A / (k.dual * k))
-        <k|*|k><b|/<k|k>
+        <b|
     """

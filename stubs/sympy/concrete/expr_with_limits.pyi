@@ -22,7 +22,7 @@ def _common_new(cls, function, *symbols, discrete, **assumptions):
     """Return either a special return value or the tuple,
     (function, limits, orientation). This code is common to
     both ExprWithLimits and AddWithLimits."""
-def _process_limits(*symbols, discrete: Incomplete | None = None):
+def _process_limits(*symbols, discrete=None):
     """Process the list of symbols and convert them to canonical limits,
     storing them as Tuple(symbol, lower, upper). The orientation of
     the function is also returned when the upper limit is missing

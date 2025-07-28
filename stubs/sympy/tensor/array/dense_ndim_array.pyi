@@ -88,7 +88,7 @@ class DenseNDimArray(NDimArray):
         """
 
 class ImmutableDenseNDimArray(DenseNDimArray, ImmutableNDimArray):
-    def __new__(cls, iterable, shape: Incomplete | None = None, **kwargs): ...
+    def __new__(cls, iterable, shape=None, **kwargs): ...
     _shape: Incomplete
     _array: Incomplete
     _rank: Incomplete
@@ -100,7 +100,7 @@ class ImmutableDenseNDimArray(DenseNDimArray, ImmutableNDimArray):
     def _eval_simplify(self, **kwargs): ...
 
 class MutableDenseNDimArray(DenseNDimArray, MutableNDimArray):
-    def __new__(cls, iterable: Incomplete | None = None, shape: Incomplete | None = None, **kwargs): ...
+    def __new__(cls, iterable=None, shape=None, **kwargs): ...
     _shape: Incomplete
     _array: Incomplete
     _rank: Incomplete

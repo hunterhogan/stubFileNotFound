@@ -2,10 +2,11 @@ from _typeshed import Incomplete
 from sympy.core import Expr as Expr, Function as Function, PoleError as PoleError
 from sympy.core.intfunc import igcd as igcd
 from sympy.core.numbers import Rational as Rational
-from sympy.functions import atan as atan, atanh as atanh, ceiling as ceiling, cos as cos, exp as exp, log as log, sin as sin, tan as tan, tanh as tanh
+from sympy.functions import asinh as asinh, atan as atan, atanh as atanh, ceiling as ceiling, cos as cos, cosh as cosh, exp as exp, log as log, sin as sin, sinh as sinh, tan as tan, tanh as tanh
 from sympy.polys.domains import EX as EX, QQ as QQ
 from sympy.polys.monomials import monomial_div as monomial_div, monomial_ldiv as monomial_ldiv, monomial_min as monomial_min, monomial_mul as monomial_mul
 from sympy.polys.polyerrors import DomainError as DomainError
+from sympy.polys.puiseux import PuiseuxPoly as PuiseuxPoly
 from sympy.polys.rings import PolyElement as PolyElement, ring as ring, sring as sring
 from sympy.utilities.misc import as_int as as_int
 
@@ -59,9 +60,9 @@ def rs_is_puiseux(p, x):
     ========
 
     >>> from sympy.polys.domains import QQ
-    >>> from sympy.polys.rings import ring
+    >>> from sympy.polys.puiseux import puiseux_ring
     >>> from sympy.polys.ring_series import rs_is_puiseux
-    >>> R, x = ring('x', QQ)
+    >>> R, x = puiseux_ring('x', QQ)
     >>> p = x**QQ(2,5) + x**QQ(2,3) + x
     >>> rs_is_puiseux(p, x)
     True
@@ -76,12 +77,12 @@ def rs_puiseux(f, p, x, prec):
     ========
 
     >>> from sympy.polys.domains import QQ
-    >>> from sympy.polys.rings import ring
+    >>> from sympy.polys.puiseux import puiseux_ring
     >>> from sympy.polys.ring_series import rs_puiseux, rs_exp
-    >>> R, x = ring('x', QQ)
+    >>> R, x = puiseux_ring('x', QQ)
     >>> p = x**QQ(2,5) + x**QQ(2,3) + x
     >>> rs_puiseux(rs_exp,p, x, 1)
-    1/2*x**(4/5) + x**(2/3) + x**(2/5) + 1
+    1 + x**(2/5) + x**(2/3) + 1/2*x**(4/5)
     """
 def rs_puiseux2(f, p, q, x, prec):
     """
@@ -316,6 +317,11 @@ def rs_series_from_list(p, c, x, prec, concur: int = 1):
     >>> rs_trunc(pc.compose(x, p), x, 4)
     6*x**3 + 11*x**2 + 8*x + 6
 
+    See Also
+    ========
+
+    sympy.polys.rings.PolyRing.compose
+
     """
 def rs_diff(p, x):
     """
@@ -398,13 +404,13 @@ def mul_xin(p, i, n):
 def pow_xin(p, i, n):
     """
     >>> from sympy.polys.domains import QQ
-    >>> from sympy.polys.rings import ring
+    >>> from sympy.polys.puiseux import puiseux_ring
     >>> from sympy.polys.ring_series import pow_xin
-    >>> R, x, y = ring('x, y', QQ)
+    >>> R, x, y = puiseux_ring('x, y', QQ)
     >>> p = x**QQ(2,5) + x + x**QQ(2,3)
     >>> index = p.ring.gens.index(x)
     >>> pow_xin(p, index, 15)
-    x**15 + x**10 + x**6
+    x**6 + x**10 + x**15
     """
 def _nth_root1(p, n, x, prec):
     """
@@ -461,13 +467,13 @@ def rs_log(p, x, prec):
     ========
 
     >>> from sympy.polys.domains import QQ
-    >>> from sympy.polys.rings import ring
+    >>> from sympy.polys.puiseux import puiseux_ring
     >>> from sympy.polys.ring_series import rs_log
-    >>> R, x = ring('x', QQ)
+    >>> R, x = puiseux_ring('x', QQ)
     >>> rs_log(1 + x, x, 8)
-    1/7*x**7 - 1/6*x**6 + 1/5*x**5 - 1/4*x**4 + 1/3*x**3 - 1/2*x**2 + x
+    x + -1/2*x**2 + 1/3*x**3 + -1/4*x**4 + 1/5*x**5 + -1/6*x**6 + 1/7*x**7
     >>> rs_log(x**QQ(3, 2) + 1, x, 5)
-    1/3*x**(9/2) - 1/2*x**3 + x**(3/2)
+    x**(3/2) + -1/2*x**3 + 1/3*x**(9/2)
     """
 def rs_LambertW(p, x, prec):
     """
@@ -618,13 +624,13 @@ def rs_sin(p, x, prec):
     ========
 
     >>> from sympy.polys.domains import QQ
-    >>> from sympy.polys.rings import ring
+    >>> from sympy.polys.puiseux import puiseux_ring
     >>> from sympy.polys.ring_series import rs_sin
-    >>> R, x, y = ring('x, y', QQ)
+    >>> R, x, y = puiseux_ring('x, y', QQ)
     >>> rs_sin(x + x*y, x, 4)
-    -1/6*x**3*y**3 - 1/2*x**3*y**2 - 1/2*x**3*y - 1/6*x**3 + x*y + x
+    x + x*y + -1/6*x**3 + -1/2*x**3*y + -1/2*x**3*y**2 + -1/6*x**3*y**3
     >>> rs_sin(x**QQ(3, 2) + x*y**QQ(7, 5), x, 4)
-    -1/2*x**(7/2)*y**(14/5) - 1/6*x**3*y**(21/5) + x**(3/2) + x*y**(7/5)
+    x*y**(7/5) + x**(3/2) + -1/6*x**3*y**(21/5) + -1/2*x**(7/2)*y**(14/5)
 
     See Also
     ========
@@ -641,13 +647,13 @@ def rs_cos(p, x, prec):
     ========
 
     >>> from sympy.polys.domains import QQ
-    >>> from sympy.polys.rings import ring
+    >>> from sympy.polys.puiseux import puiseux_ring
     >>> from sympy.polys.ring_series import rs_cos
-    >>> R, x, y = ring('x, y', QQ)
+    >>> R, x, y = puiseux_ring('x, y', QQ)
     >>> rs_cos(x + x*y, x, 4)
-    -1/2*x**2*y**2 - x**2*y - 1/2*x**2 + 1
+    1 + -1/2*x**2 + -1*x**2*y + -1/2*x**2*y**2
     >>> rs_cos(x + x*y, x, 4)/x**QQ(7, 5)
-    -1/2*x**(3/5)*y**2 - x**(3/5)*y - 1/2*x**(3/5) + x**(-7/5)
+    x**(-7/5) + -1/2*x**(3/5) + -1*x**(3/5)*y + -1/2*x**(3/5)*y**2
 
     See Also
     ========
@@ -656,9 +662,27 @@ def rs_cos(p, x, prec):
     """
 def rs_cos_sin(p, x, prec):
     """
-    Return the tuple ``(rs_cos(p, x, prec)`, `rs_sin(p, x, prec))``.
+    Cosine and sine of a series
 
-    Is faster than calling rs_cos and rs_sin separately
+    Return the series expansion of the cosine and sine of ``p``, about 0.
+
+    Examples
+    ========
+
+    >>> from sympy.polys.domains import QQ
+    >>> from sympy.polys.rings import ring
+    >>> from sympy.polys.ring_series import rs_cos_sin
+    >>> R, x, y = ring('x, y', QQ)
+    >>> c, s = rs_cos_sin(x + x*y, x, 4)
+    >>> c
+    -1/2*x**2*y**2 - x**2*y - 1/2*x**2 + 1
+    >>> s
+    -1/6*x**3*y**3 - 1/2*x**3*y**2 - 1/2*x**3*y - 1/6*x**3 + x*y + x
+
+    See Also
+    ========
+
+    rs_cos, rs_sin
     """
 def _atanh(p, x, prec):
     """
@@ -686,6 +710,27 @@ def rs_atanh(p, x, prec):
     ========
 
     atanh
+    """
+def rs_asinh(p, x, prec):
+    """
+    Hyperbolic arcsine of a series
+
+    Return the series expansion of the arcsinh of ``p``, about 0.
+
+    Examples
+    ========
+
+    >>> from sympy.polys.domains import QQ
+    >>> from sympy.polys.rings import ring
+    >>> from sympy.polys.ring_series import rs_asinh
+    >>> R, x = ring('x', QQ)
+    >>> rs_asinh(x, x, 9)
+    -5/112*x**7 + 3/40*x**5 - 1/6*x**3 + x
+
+    See Also
+    ========
+
+    asinh
     """
 def rs_sinh(p, x, prec):
     """
@@ -728,6 +773,30 @@ def rs_cosh(p, x, prec):
     ========
 
     cosh
+    """
+def rs_cosh_sinh(p, x, prec):
+    """
+    Hyperbolic cosine and sine of a series
+
+    Return the series expansion of the hyperbolic cosine and sine of ``p``, about 0.
+
+    Examples
+    ========
+
+    >>> from sympy.polys.domains import QQ
+    >>> from sympy.polys.rings import ring
+    >>> from sympy.polys.ring_series import rs_cosh_sinh
+    >>> R, x, y = ring('x, y', QQ)
+    >>> c, s = rs_cosh_sinh(x + x*y, x, 4)
+    >>> c
+    1/2*x**2*y**2 + x**2*y + 1/2*x**2 + 1
+    >>> s
+    1/6*x**3*y**3 + 1/2*x**3*y**2 + 1/2*x**3*y + 1/6*x**3 + x*y + x
+
+    See Also
+    ========
+
+    rs_cosh, rs_sinh
     """
 def _tanh(p, x, prec):
     """
@@ -783,7 +852,7 @@ def rs_hadamard_exp(p1, inverse: bool = False):
     Return ``sum f_i/i!*x**i`` from ``sum f_i*x**i``,
     where ``x`` is the first variable.
 
-    If ``invers=True`` return ``sum f_i*i!*x**i``
+    If ``inverse=True`` return ``sum f_i*i!*x**i``
 
     Examples
     ========
@@ -832,8 +901,8 @@ def rs_series(expr, a, prec):
     Parameters
     ==========
 
-    expr : :class:`Expr`
-    a : :class:`Symbol` with respect to which expr is to be expanded
+    expr : :class:`~.Expr`
+    a : :class:`~.Symbol` with respect to which expr is to be expanded
     prec : order of the series expansion
 
     Currently supports multivariate Taylor series expansion. This is much

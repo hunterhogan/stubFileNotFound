@@ -49,7 +49,7 @@ class RigidBody(BodyBase):
     >>> B.mass = m2
 
     """
-    def __init__(self, name, masscenter: Incomplete | None = None, frame: Incomplete | None = None, mass: Incomplete | None = None, inertia: Incomplete | None = None) -> None: ...
+    def __init__(self, name, masscenter=None, frame=None, mass=None, inertia=None) -> None: ...
     def __repr__(self) -> str: ...
     @property
     def frame(self):
@@ -204,7 +204,7 @@ class RigidBody(BodyBase):
         """
     potential_energy: Incomplete
     def set_potential_energy(self, scalar) -> None: ...
-    def parallel_axis(self, point, frame: Incomplete | None = None):
+    def parallel_axis(self, point, frame=None):
         """Returns the inertia dyadic of the body with respect to another point.
 
         Parameters

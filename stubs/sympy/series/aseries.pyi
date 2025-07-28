@@ -1,7 +1,6 @@
-from _typeshed import Incomplete
 from sympy.core.sympify import sympify as sympify
 
-def aseries(expr, x: Incomplete | None = None, n: int = 6, bound: int = 0, hir: bool = False):
+def aseries(expr, x=None, n: int = 6, bound: int = 0, hir: bool = False):
     """
     See the docstring of Expr.aseries() for complete details of this wrapper.
 

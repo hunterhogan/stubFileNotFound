@@ -108,7 +108,7 @@ class Body(RigidBody, Particle):
     _loads: Incomplete
     frame: Incomplete
     _central_inertia: Incomplete
-    def __init__(self, name, masscenter: Incomplete | None = None, mass: Incomplete | None = None, frame: Incomplete | None = None, central_inertia: Incomplete | None = None) -> None: ...
+    def __init__(self, name, masscenter=None, mass=None, frame=None, central_inertia=None) -> None: ...
     def __repr__(self) -> str: ...
     @property
     def loads(self): ...
@@ -175,7 +175,7 @@ class Body(RigidBody, Particle):
         sympy.physics.mechanics : Particle, RigidBody
 
         """
-    def apply_force(self, force, point: Incomplete | None = None, reaction_body: Incomplete | None = None, reaction_point: Incomplete | None = None) -> None:
+    def apply_force(self, force, point=None, reaction_body=None, reaction_point=None) -> None:
         """Add force to the body(s).
 
         Explanation
@@ -267,7 +267,7 @@ class Body(RigidBody, Particle):
         force on that point.
 
         """
-    def apply_torque(self, torque, reaction_body: Incomplete | None = None) -> None:
+    def apply_torque(self, torque, reaction_body=None) -> None:
         """Add torque to the body(s).
 
         Explanation
@@ -374,7 +374,7 @@ class Body(RigidBody, Particle):
         []
 
         """
-    def remove_load(self, about: Incomplete | None = None) -> None:
+    def remove_load(self, about=None) -> None:
         """
         Remove load about a point or frame.
 
@@ -513,7 +513,7 @@ class Body(RigidBody, Particle):
         [0, -sin(5), cos(5)]])
 
         """
-    def parallel_axis(self, point, frame: Incomplete | None = None):
+    def parallel_axis(self, point, frame=None):
         """Returns the inertia dyadic of the body with respect to another
         point.
 

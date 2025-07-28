@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core.expr import Expr
 from sympy.matrices.dense import MutableDenseMatrix
 
@@ -396,7 +395,7 @@ class BeamParameter(Expr):
     .. [1] https://en.wikipedia.org/wiki/Complex_beam_parameter
     .. [2] https://en.wikipedia.org/wiki/Gaussian_beam
     """
-    def __new__(cls, wavelen, z, z_r: Incomplete | None = None, w: Incomplete | None = None, n: int = 1): ...
+    def __new__(cls, wavelen, z, z_r=None, w=None, n: int = 1): ...
     @property
     def wavelen(self): ...
     @property

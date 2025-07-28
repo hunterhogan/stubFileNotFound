@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
 from sympy.core import Expr
+from sympy.core.cache import cacheit
+from sympy.utilities import public
 
 __all__ = ['CRootOf', 'rootof', 'RootOf', 'ComplexRootOf', 'RootSum']
 
@@ -54,7 +56,8 @@ class _pure_key_dict:
     def __setitem__(self, k, v) -> None: ...
     def __contains__(self, k) -> bool: ...
 
-def rootof(f, x, index: Incomplete | None = None, radicals: bool = True, expand: bool = True):
+@public
+def rootof(f, x, index=None, radicals: bool = True, expand: bool = True):
     """An indexed root of a univariate polynomial.
 
     Returns either a :obj:`ComplexRootOf` object or an explicit
@@ -81,7 +84,7 @@ class RootOf(Expr):
     Only complex roots are currently supported.
     """
     __slots__: Incomplete
-    def __new__(cls, f, x, index: Incomplete | None = None, radicals: bool = True, expand: bool = True):
+    def __new__(cls, f, x, index=None, radicals: bool = True, expand: bool = True):
         """Construct a new ``CRootOf`` object for ``k``-th root of ``f``."""
 
 class ComplexRootOf(RootOf):
@@ -218,7 +221,8 @@ class ComplexRootOf(RootOf):
     is_complex: bool
     is_number: bool
     is_finite: bool
-    def __new__(cls, f, x, index: Incomplete | None = None, radicals: bool = False, expand: bool = True):
+    is_algebraic: bool
+    def __new__(cls, f, x, index=None, radicals: bool = False, expand: bool = True):
         """ Construct an indexed complex root of a polynomial.
 
         See ``rootof`` for the parameters.
@@ -306,6 +310,7 @@ class ComplexRootOf(RootOf):
     def _all_roots(cls, poly, use_cache: bool = True):
         """Get real and complex roots of a composite polynomial. """
     @classmethod
+    @cacheit
     def _roots_trivial(cls, poly, radicals):
         """Compute roots in linear, quadratic and binomial cases. """
     @classmethod
@@ -317,6 +322,19 @@ class ComplexRootOf(RootOf):
     @classmethod
     def _get_roots(cls, method, poly, radicals):
         """Return postprocessed roots of specified kind. """
+    @classmethod
+    def _get_roots_qq(cls, method, poly, radicals):
+        """Return postprocessed roots of specified kind
+         for polynomials with rational coefficients. """
+    @classmethod
+    def _get_roots_alg(cls, method, poly, radicals):
+        """Return postprocessed roots of specified kind
+         for polynomials with algebraic coefficients. It assumes
+         the domain is already an algebraic field. First it
+         finds the roots using _get_roots_qq, then uses the
+         square-free factors to filter roots and get the correct
+         multiplicity.
+         """
     @classmethod
     def clear_cache(cls) -> None:
         """Reset cache for reals and complexes.
@@ -347,7 +365,7 @@ class ComplexRootOf(RootOf):
         """
     def _eval_evalf(self, prec, **kwargs):
         """Evaluate this complex root to the given precision."""
-    def eval_rational(self, dx: Incomplete | None = None, dy: Incomplete | None = None, n: int = 15):
+    def eval_rational(self, dx=None, dy=None, n: int = 15):
         '''
         Return a Rational approximation of ``self`` that has real
         and imaginary component approximations that are within ``dx``
@@ -385,7 +403,7 @@ CRootOf = ComplexRootOf
 class RootSum(Expr):
     """Represents a sum of all roots of a univariate polynomial. """
     __slots__: Incomplete
-    def __new__(cls, expr, func: Incomplete | None = None, x: Incomplete | None = None, auto: bool = True, quadratic: bool = False):
+    def __new__(cls, expr, func=None, x=None, auto: bool = True, quadratic: bool = False):
         """Construct a new ``RootSum`` instance of roots of a polynomial."""
     @classmethod
     def _new(cls, poly, func, auto: bool = True):

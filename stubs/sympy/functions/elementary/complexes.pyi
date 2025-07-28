@@ -1,8 +1,7 @@
-from _typeshed import Incomplete
 from sympy.core import Add as Add, Basic as Basic, Dummy as Dummy, Mul as Mul, S as S, Symbol as Symbol, sympify as sympify
 from sympy.core.expr import Expr as Expr
 from sympy.core.exprtools import factor_terms as factor_terms
-from sympy.core.function import AppliedUndef as AppliedUndef, ArgumentIndexError as ArgumentIndexError, Derivative as Derivative, Function as Function, expand_mul as expand_mul
+from sympy.core.function import AppliedUndef as AppliedUndef, ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, Derivative as Derivative, PoleError as PoleError, expand_mul as expand_mul
 from sympy.core.logic import fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
 from sympy.core.numbers import I as I, oo as oo, pi as pi
 from sympy.core.power import Pow as Pow
@@ -10,7 +9,7 @@ from sympy.core.relational import Eq as Eq
 from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.functions.elementary.piecewise import Piecewise as Piecewise
 
-class re(Function):
+class re(DefinedFunction):
     """
     Returns real part of expression. This function performs only
     elementary analysis and so it will fail to decompose properly
@@ -69,7 +68,7 @@ class re(Function):
     def _eval_is_finite(self): ...
     def _eval_is_complex(self): ...
 
-class im(Function):
+class im(DefinedFunction):
     """
     Returns imaginary part of expression. This function performs only
     elementary analysis and so it will fail to decompose properly more
@@ -128,7 +127,7 @@ class im(Function):
     def _eval_is_finite(self): ...
     def _eval_is_complex(self): ...
 
-class sign(Function):
+class sign(DefinedFunction):
     """
     Returns the complex sign of an expression:
 
@@ -202,7 +201,7 @@ class sign(Function):
     def _eval_rewrite_as_Abs(self, arg, **kwargs): ...
     def _eval_simplify(self, **kwargs): ...
 
-class Abs(Function):
+class Abs(DefinedFunction):
     """
     Return the absolute value of the argument.
 
@@ -289,7 +288,7 @@ class Abs(Function):
     def _eval_rewrite_as_sign(self, arg, **kwargs): ...
     def _eval_rewrite_as_conjugate(self, arg, **kwargs): ...
 
-class arg(Function):
+class arg(DefinedFunction):
     """
     Returns the argument (in radians) of a complex number. The argument is
     evaluated in consistent convention with ``atan2`` where the branch-cut is
@@ -344,8 +343,10 @@ class arg(Function):
     def eval(cls, arg): ...
     def _eval_derivative(self, t): ...
     def _eval_rewrite_as_atan2(self, arg, **kwargs): ...
+    def _eval_as_leading_term(self, x, logx, cdir): ...
+    def _eval_nseries(self, x, n, logx, cdir: int = 0): ...
 
-class conjugate(Function):
+class conjugate(DefinedFunction):
     """
     Returns the *complex conjugate* [1]_ of an argument.
     In mathematics, the complex conjugate of a complex number
@@ -400,7 +401,7 @@ class conjugate(Function):
     def _eval_transpose(self): ...
     def _eval_is_algebraic(self): ...
 
-class transpose(Function):
+class transpose(DefinedFunction):
     """
     Linear map transposition.
 
@@ -446,7 +447,7 @@ class transpose(Function):
     def _eval_conjugate(self): ...
     def _eval_transpose(self): ...
 
-class adjoint(Function):
+class adjoint(DefinedFunction):
     """
     Conjugate transpose or Hermite conjugation.
 
@@ -477,10 +478,10 @@ class adjoint(Function):
     def _eval_adjoint(self): ...
     def _eval_conjugate(self): ...
     def _eval_transpose(self): ...
-    def _latex(self, printer, exp: Incomplete | None = None, *args): ...
+    def _latex(self, printer, exp=None, *args): ...
     def _pretty(self, printer, *args): ...
 
-class polar_lift(Function):
+class polar_lift(DefinedFunction):
     """
     Lift argument to the Riemann surface of the logarithm, using the
     standard branch.
@@ -525,7 +526,7 @@ class polar_lift(Function):
         """ Careful! any evalf of polar numbers is flaky """
     def _eval_Abs(self): ...
 
-class periodic_argument(Function):
+class periodic_argument(DefinedFunction):
     """
     Represent the argument on a quotient of the Riemann surface of the
     logarithm. That is, given a period $P$, always return a value in
@@ -591,7 +592,7 @@ def unbranched_argument(arg):
     periodic_argument
     """
 
-class principal_branch(Function):
+class principal_branch(DefinedFunction):
     """
     Represent a polar number reduced to its principal branch on a quotient
     of the Riemann surface of the logarithm.
@@ -679,7 +680,7 @@ def polarify(eq, subs: bool = True, lift: bool = False):
     (sin(_x*polar_lift(1 + I)) + 1, {_x: x})
     """
 def _unpolarify(eq, exponents_only, pause: bool = False): ...
-def unpolarify(eq, subs: Incomplete | None = None, exponents_only: bool = False):
+def unpolarify(eq, subs=None, exponents_only: bool = False):
     """
     If `p` denotes the projection from the Riemann surface of the logarithm to
     the complex line, return a simplified version `eq'` of `eq` such that

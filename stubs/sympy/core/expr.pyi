@@ -7,6 +7,7 @@ from .exprtools import factor_terms as factor_terms
 from .function import Function as Function, _derivative_dispatch as _derivative_dispatch
 from .intfunc import mod_inverse as mod_inverse
 from .kind import NumberKind as NumberKind
+from .logic import fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
 from .mod import Mod as Mod
 from .mul import Mul as Mul
 from .numbers import Float as Float, Integer as Integer, Number as Number, Rational as Rational, _illegal as _illegal, int_valued as int_valued
@@ -15,10 +16,12 @@ from .singleton import S as S
 from .sorting import default_sort_key as default_sort_key
 from .sympify import _sympify as _sympify, sympify as sympify
 from _typeshed import Incomplete
-from collections.abc import Generator
+from collections.abc import Generator, Iterable, Mapping
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.iterables import has_variety as has_variety, sift as sift
 from sympy.utilities.misc import as_int as as_int, filldedent as filldedent, func_name as func_name
+from typing import Any, overload
+from typing_extensions import Self
 
 def _corem(eq, c): ...
 
@@ -45,6 +48,22 @@ class Expr(Basic, EvalfMixin):
     sympy.core.basic.Basic
     """
     __slots__: tuple[str, ...]
+    def __new__(cls, *args: Basic) -> Self: ...
+    @overload
+    def subs(self, arg1: Mapping[Basic | complex, Expr | complex], arg2: None = None) -> Expr: ...
+    @overload
+    def subs(self, arg1: Iterable[tuple[Basic | complex, Expr | complex]], arg2: None = None, **kwargs: Any) -> Expr: ...
+    @overload
+    def subs(self, arg1: Expr | complex, arg2: Expr | complex) -> Expr: ...
+    @overload
+    def subs(self, arg1: Mapping[Basic | complex, Basic | complex], arg2: None = None, **kwargs: Any) -> Basic: ...
+    @overload
+    def subs(self, arg1: Iterable[tuple[Basic | complex, Basic | complex]], arg2: None = None, **kwargs: Any) -> Basic: ...
+    @overload
+    def subs(self, arg1: Basic | complex, arg2: Basic | complex, **kwargs: Any) -> Basic: ...
+    def simplify(self, **kwargs) -> Expr: ...
+    def evalf(self, n: int = 15, subs: dict[Basic, Basic | float] | None = None, maxn: int = 100, chop: bool = False, strict: bool = False, quad: str | None = None, verbose: bool = False) -> Expr: ...
+    n = evalf
     is_scalar: bool
     @property
     def _diff_wrt(self):
@@ -87,7 +106,8 @@ class Expr(Basic, EvalfMixin):
         >>> MySymbol().diff(MySymbol())
         Derivative(MySymbol(), MySymbol())
         """
-    def sort_key(self, order: Incomplete | None = None): ...
+    @cacheit
+    def sort_key(self, order=None): ...
     def _hashable_content(self):
         """Return a tuple of information about self that can be used to
         compute the hash. If a class defines additional attributes,
@@ -100,26 +120,26 @@ class Expr(Basic, EvalfMixin):
     def _add_handler(self): ...
     @property
     def _mul_handler(self): ...
-    def __pos__(self): ...
-    def __neg__(self): ...
+    def __pos__(self) -> Expr: ...
+    def __neg__(self) -> Expr: ...
     def __abs__(self) -> Expr: ...
-    def __add__(self, other): ...
-    def __radd__(self, other): ...
-    def __sub__(self, other): ...
-    def __rsub__(self, other): ...
-    def __mul__(self, other): ...
-    def __rmul__(self, other): ...
+    def __add__(self, other) -> Expr: ...
+    def __radd__(self, other) -> Expr: ...
+    def __sub__(self, other) -> Expr: ...
+    def __rsub__(self, other) -> Expr: ...
+    def __mul__(self, other) -> Expr: ...
+    def __rmul__(self, other) -> Expr: ...
     def _pow(self, other): ...
-    def __pow__(self, other, mod: Incomplete | None = None) -> Expr: ...
-    def __rpow__(self, other): ...
-    def __truediv__(self, other): ...
-    def __rtruediv__(self, other): ...
-    def __mod__(self, other): ...
-    def __rmod__(self, other): ...
-    def __floordiv__(self, other): ...
-    def __rfloordiv__(self, other): ...
-    def __divmod__(self, other): ...
-    def __rdivmod__(self, other): ...
+    def __pow__(self, other, mod=None) -> Expr: ...
+    def __rpow__(self, other) -> Expr: ...
+    def __truediv__(self, other) -> Expr: ...
+    def __rtruediv__(self, other) -> Expr: ...
+    def __mod__(self, other) -> Expr: ...
+    def __rmod__(self, other) -> Expr: ...
+    def __floordiv__(self, other) -> Expr: ...
+    def __rfloordiv__(self, other) -> Expr: ...
+    def __divmod__(self, other) -> tuple[Expr, Expr]: ...
+    def __rdivmod__(self, other) -> tuple[Expr, Expr]: ...
     def __int__(self) -> int: ...
     def __float__(self) -> float: ...
     def __complex__(self) -> complex: ...
@@ -181,7 +201,8 @@ class Expr(Basic, EvalfMixin):
 
         sympy.core.basic.Basic.is_comparable
         """
-    def _random(self, n: Incomplete | None = None, re_min: int = -1, im_min: int = -1, re_max: int = 1, im_max: int = 1):
+    def _eval_is_comparable(self): ...
+    def _random(self, n=None, re_min: int = -1, im_min: int = -1, re_max: int = 1, im_max: int = 1):
         """Return self evaluated, if possible, replacing free symbols with
         random complex values, if necessary.
 
@@ -324,7 +345,7 @@ class Expr(Basic, EvalfMixin):
         respectively.
 
         """
-    def _eval_power(self, other) -> None: ...
+    def _eval_power(self, expt) -> Expr | None: ...
     def _eval_conjugate(self): ...
     def conjugate(self):
         """Returns the complex conjugate of 'self'."""
@@ -336,7 +357,7 @@ class Expr(Basic, EvalfMixin):
     @classmethod
     def _parse_order(cls, order):
         """Parse and configure the ordering of terms. """
-    def as_ordered_factors(self, order: Incomplete | None = None):
+    def as_ordered_factors(self, order=None):
         """Return list of ordered factors (if Mul) else [self]."""
     def as_poly(self, *gens, **args):
         """Converts ``self`` to a polynomial or returns ``None``.
@@ -357,7 +378,7 @@ class Expr(Basic, EvalfMixin):
         None
 
         """
-    def as_ordered_terms(self, order: Incomplete | None = None, data: bool = False):
+    def as_ordered_terms(self, order=None, data: bool = False):
         """
         Transform an expression to an ordered list of terms.
 
@@ -373,9 +394,9 @@ class Expr(Basic, EvalfMixin):
         """
     def as_terms(self):
         """Transform an expression to a list of terms. """
-    def removeO(self):
+    def removeO(self) -> Expr:
         """Removes the additive O(..) symbol if there is one"""
-    def getO(self) -> None:
+    def getO(self) -> Expr | None:
         """Returns the additive O(..) symbol if there is one, else None."""
     def getn(self):
         """
@@ -397,7 +418,7 @@ class Expr(Basic, EvalfMixin):
         >>> (1 + x).getn()
 
         """
-    def count_ops(self, visual: Incomplete | None = None): ...
+    def count_ops(self, visual: bool = False): ...
     def args_cnc(self, cset: bool = False, warn: bool = True, split_1: bool = True):
         """Return [commutative factors, non-commutative factors] of self.
 
@@ -436,7 +457,7 @@ class Expr(Basic, EvalfMixin):
         >>> (-oo).args_cnc() # -oo is a singleton
         [[-1, oo], []]
         """
-    def coeff(self, x, n: int = 1, right: bool = False, _first: bool = True):
+    def coeff(self, x: Expr, n: int = 1, right: bool = False, _first: bool = True):
         """
         Returns the coefficient from the term(s) containing ``x**n``. If ``n``
         is zero then all terms independent of ``x`` will be returned.
@@ -566,7 +587,7 @@ class Expr(Basic, EvalfMixin):
         sin(x)
 
         """
-    def as_coefficient(self, expr):
+    def as_coefficient(self, expr: Expr) -> Expr | None:
         """
         Extracts symbolic coefficient at the given expression. In
         other words, this functions separates 'self' into the product
@@ -763,7 +784,7 @@ class Expr(Basic, EvalfMixin):
         sympy.core.mul.Mul.as_two_terms
         as_coeff_mul
         """
-    def as_real_imag(self, deep: bool = True, **hints):
+    def as_real_imag(self, deep: bool = True, **hints) -> tuple[Expr, Expr]:
         """Performs complex expansion on 'self' and returns a tuple
            containing collected both real and imaginary parts. This
            method cannot be confused with re() and im() functions,
@@ -889,7 +910,7 @@ class Expr(Basic, EvalfMixin):
         (y + 3, ())
 
         """
-    def primitive(self):
+    def primitive(self) -> tuple[Number, Expr]:
         """Return the positive Rational that can be extracted non-recursively
         from every term of self (i.e., self is treated like an Add). This is
         like the as_coeff_Mul() method but primitive always extracts a positive
@@ -963,7 +984,7 @@ class Expr(Basic, EvalfMixin):
         >>> (x/2 + y).as_content_primitive(clear=False)
         (1, x/2 + y)
         """
-    def as_numer_denom(self):
+    def as_numer_denom(self) -> tuple[Expr, Expr]:
         """Return the numerator and the denominator of an expression.
 
         expression -> a/b -> a, b
@@ -988,7 +1009,7 @@ class Expr(Basic, EvalfMixin):
         as_numer_denom: return ``(a, b)`` instead of ``a/b``
 
         """
-    def extract_multiplicatively(self, c):
+    def extract_multiplicatively(self, c: Expr) -> Expr | None:
         """Return None if it's not possible to make self in the form
            c * something in a nice way, i.e. preserving the properties
            of arguments of self.
@@ -1061,7 +1082,7 @@ class Expr(Basic, EvalfMixin):
         >>> t.free_symbols
         {x, y}
         """
-    def could_extract_minus_sign(self):
+    def could_extract_minus_sign(self) -> bool:
         """Return True if self has -1 as a leading factor or has
         more literal negative signs than positive signs in a sum,
         otherwise False.
@@ -1185,7 +1206,7 @@ class Expr(Basic, EvalfMixin):
         See also .is_rational_function()
 
         '''
-    def _eval_is_polynomial(self, syms): ...
+    def _eval_is_polynomial(self, syms) -> bool | None: ...
     def is_rational_function(self, *syms):
         '''
         Test whether function is a ratio of two polynomials in the given
@@ -1237,7 +1258,7 @@ class Expr(Basic, EvalfMixin):
         See also is_algebraic_expr().
 
         '''
-    def _eval_is_rational_function(self, syms): ...
+    def _eval_is_rational_function(self, syms) -> bool | None: ...
     def is_meromorphic(self, x, a):
         """
         This tests whether an expression is meromorphic as
@@ -1293,7 +1314,7 @@ class Expr(Basic, EvalfMixin):
         False
 
         """
-    def _eval_is_meromorphic(self, x, a): ...
+    def _eval_is_meromorphic(self, x, a) -> bool | None: ...
     def is_algebraic_expr(self, *syms):
         '''
         This tests whether a given expression is algebraic or not, in the
@@ -1337,8 +1358,8 @@ class Expr(Basic, EvalfMixin):
         .. [1] https://en.wikipedia.org/wiki/Algebraic_expression
 
         '''
-    def _eval_is_algebraic_expr(self, syms): ...
-    def series(self, x: Incomplete | None = None, x0: int = 0, n: int = 6, dir: str = '+', logx: Incomplete | None = None, cdir: int = 0):
+    def _eval_is_algebraic_expr(self, syms) -> bool | None: ...
+    def series(self, x=None, x0: int = 0, n: int = 6, dir: str = '+', logx=None, cdir: int = 0):
         '''
         Series expansion of "self" around ``x = x0`` yielding either terms of
         the series one by one (the lazy series given when n=None), else
@@ -1444,7 +1465,7 @@ class Expr(Basic, EvalfMixin):
             If "x0" is an infinity object
 
         '''
-    def aseries(self, x: Incomplete | None = None, n: int = 6, bound: int = 0, hir: bool = False):
+    def aseries(self, x=None, n: int = 6, bound: int = 0, hir: bool = False):
         """Asymptotic Series expansion of self.
         This is equivalent to ``self.series(x, oo, n)``.
 
@@ -1538,7 +1559,7 @@ class Expr(Basic, EvalfMixin):
         This method is slow, because it differentiates n-times. Subclasses can
         redefine it to make it faster by using the "previous_terms".
         '''
-    def lseries(self, x: Incomplete | None = None, x0: int = 0, dir: str = '+', logx: Incomplete | None = None, cdir: int = 0):
+    def lseries(self, x=None, x0: int = 0, dir: str = '+', logx=None, cdir: int = 0):
         '''
         Wrapper for series yielding an iterator of the terms of the series.
 
@@ -1556,8 +1577,8 @@ class Expr(Basic, EvalfMixin):
 
         See also nseries().
         '''
-    def _eval_lseries(self, x, logx: Incomplete | None = None, cdir: int = 0) -> Generator[Incomplete]: ...
-    def nseries(self, x: Incomplete | None = None, x0: int = 0, n: int = 6, dir: str = '+', logx: Incomplete | None = None, cdir: int = 0):
+    def _eval_lseries(self, x, logx=None, cdir: int = 0) -> Generator[Incomplete]: ...
+    def nseries(self, x=None, x0: int = 0, n: int = 6, dir: str = '+', logx=None, cdir: int = 0):
         '''
         Wrapper to _eval_nseries if assumptions allow, else to series.
 
@@ -1629,13 +1650,8 @@ class Expr(Basic, EvalfMixin):
     def limit(self, x, xlim, dir: str = '+'):
         """ Compute limit x->xlim.
         """
-    def compute_leading_term(self, x, logx: Incomplete | None = None):
-        """Deprecated function to compute the leading term of a series.
-
-        as_leading_term is only allowed for results of .series()
-        This is a wrapper to compute a series first.
-        """
-    def as_leading_term(self, *symbols, logx: Incomplete | None = None, cdir: int = 0):
+    @cacheit
+    def as_leading_term(self, *symbols, logx=None, cdir: int = 0):
         """
         Returns the leading (nonzero) term of the series expansion of self.
 
@@ -1652,11 +1668,11 @@ class Expr(Basic, EvalfMixin):
         x**(-2)
 
         """
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0): ...
+    def _eval_as_leading_term(self, x, logx, cdir): ...
     def as_coeff_exponent(self, x) -> tuple[Expr, Expr]:
         """ ``c*x**e -> c,e`` where x can be any symbolic expression.
         """
-    def leadterm(self, x, logx: Incomplete | None = None, cdir: int = 0):
+    def leadterm(self, x, logx=None, cdir: int = 0):
         """
         Returns the leading term a*x**b as a tuple (a, b).
 
@@ -1674,14 +1690,14 @@ class Expr(Basic, EvalfMixin):
         """Efficiently extract the coefficient of a product."""
     def as_coeff_Add(self, rational: bool = False) -> tuple['Number', Expr]:
         """Efficiently extract the coefficient of a summation."""
-    def fps(self, x: Incomplete | None = None, x0: int = 0, dir: int = 1, hyper: bool = True, order: int = 4, rational: bool = True, full: bool = False):
+    def fps(self, x=None, x0: int = 0, dir: int = 1, hyper: bool = True, order: int = 4, rational: bool = True, full: bool = False):
         """
         Compute formal power power series of self.
 
         See the docstring of the :func:`fps` function in sympy.series.formal for
         more information.
         """
-    def fourier_series(self, limits: Incomplete | None = None):
+    def fourier_series(self, limits=None):
         """Compute fourier sine/cosine series of self.
 
         See the docstring of the :func:`fourier_series` in sympy.series.fourier
@@ -1698,7 +1714,8 @@ class Expr(Basic, EvalfMixin):
         ``expr`` and ``hit`` is ``True`` if ``expr`` was truly expanded and
         ``False`` otherwise.
         """
-    def expand(self, deep: bool = True, modulus: Incomplete | None = None, power_base: bool = True, power_exp: bool = True, mul: bool = True, log: bool = True, multinomial: bool = True, basic: bool = True, **hints):
+    @cacheit
+    def expand(self, deep: bool = True, modulus=None, power_base: bool = True, power_exp: bool = True, mul: bool = True, log: bool = True, multinomial: bool = True, basic: bool = True, **hints):
         """
         Expand an expression using hints.
 
@@ -1708,15 +1725,15 @@ class Expr(Basic, EvalfMixin):
         """
     def integrate(self, *args, **kwargs):
         """See the integrate function in sympy.integrals"""
-    def nsimplify(self, constants=(), tolerance: Incomplete | None = None, full: bool = False):
+    def nsimplify(self, constants=(), tolerance=None, full: bool = False):
         """See the nsimplify function in sympy.simplify"""
     def separate(self, deep: bool = False, force: bool = False):
         """See the separate function in sympy.simplify"""
-    def collect(self, syms, func: Incomplete | None = None, evaluate: bool = True, exact: bool = False, distribute_order_term: bool = True):
+    def collect(self, syms, func=None, evaluate: bool = True, exact: bool = False, distribute_order_term: bool = True):
         """See the collect function in sympy.simplify"""
     def together(self, *args, **kwargs):
         """See the together function in sympy.polys"""
-    def apart(self, x: Incomplete | None = None, **args):
+    def apart(self, x=None, **args):
         """See the apart function in sympy.polys"""
     def ratsimp(self):
         """See the ratsimp function in sympy.simplify"""
@@ -1742,7 +1759,7 @@ class Expr(Basic, EvalfMixin):
         ========
         sympy.core.intfunc.mod_inverse, sympy.polys.polytools.invert
         """
-    def round(self, n: Incomplete | None = None):
+    def round(self, n=None):
         """Return x rounded to the given decimal place.
 
         If a complex number would results, apply round to the real
@@ -1864,7 +1881,7 @@ class ExprBuilder:
     op: Incomplete
     args: Incomplete
     validator: Incomplete
-    def __init__(self, op, args: Incomplete | None = None, validator: Incomplete | None = None, check: bool = True) -> None: ...
+    def __init__(self, op, args=None, validator=None, check: bool = True) -> None: ...
     @staticmethod
     def _build_args(args): ...
     def validate(self) -> None: ...

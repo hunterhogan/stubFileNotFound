@@ -1,14 +1,14 @@
 from .add import Add as Add
 from .exprtools import gcd_terms as gcd_terms
-from .function import Function as Function
+from .function import DefinedFunction as DefinedFunction
 from .kind import NumberKind as NumberKind
 from .logic import fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not
 from .mul import Mul as Mul
 from .numbers import equal_valued as equal_valued
+from .relational import is_ge as is_ge, is_gt as is_gt, is_le as is_le, is_lt as is_lt
 from .singleton import S as S
-from _typeshed import Incomplete
 
-class Mod(Function):
+class Mod(DefinedFunction):
     """Represents a modulo operation on symbolic expressions.
 
     Parameters
@@ -55,5 +55,5 @@ class Mod(Function):
     def _eval_is_nonnegative(self): ...
     def _eval_is_nonpositive(self): ...
     def _eval_rewrite_as_floor(self, a, b, **kwargs): ...
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0): ...
+    def _eval_as_leading_term(self, x, logx, cdir): ...
     def _eval_nseries(self, x, n, logx, cdir: int = 0): ...

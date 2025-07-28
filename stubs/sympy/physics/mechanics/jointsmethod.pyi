@@ -185,7 +185,7 @@ class JointsMethod(_Methods):
         [(-b*Derivative(q(t), t) - k*q(t))/m]])
 
         """
-    def rhs(self, inv_method: Incomplete | None = None):
+    def rhs(self, inv_method=None):
         """Returns equations that can be solved numerically.
 
         Parameters

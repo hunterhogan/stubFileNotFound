@@ -529,7 +529,7 @@ class MatrixBase(Printable):
     @classmethod
     def _eval_wilkinson(cls, n): ...
     @classmethod
-    def diag(kls, *args, strict: bool = False, unpack: bool = True, rows: Incomplete | None = None, cols: Incomplete | None = None, **kwargs):
+    def diag(kls, *args, strict: bool = False, unpack: bool = True, rows=None, cols=None, **kwargs):
         '''Returns a matrix with the specified diagonal.
         If matrices are passed, a block-diagonal matrix
         is created (i.e. the "direct sum" of the matrices).
@@ -621,7 +621,7 @@ class MatrixBase(Printable):
         .sparsetools.banded
        '''
     @classmethod
-    def eye(kls, rows, cols: Incomplete | None = None, **kwargs):
+    def eye(kls, rows, cols=None, **kwargs):
         """Returns an identity matrix.
 
         Parameters
@@ -635,7 +635,7 @@ class MatrixBase(Printable):
         cls : class of the returned matrix
         """
     @classmethod
-    def jordan_block(kls, size: Incomplete | None = None, eigenvalue: Incomplete | None = None, *, band: str = 'upper', **kwargs):
+    def jordan_block(kls, size=None, eigenvalue=None, *, band: str = 'upper', **kwargs):
         """Returns a Jordan block
 
         Parameters
@@ -714,7 +714,7 @@ class MatrixBase(Printable):
         .. [1] https://en.wikipedia.org/wiki/Jordan_matrix
         """
     @classmethod
-    def ones(kls, rows, cols: Incomplete | None = None, **kwargs):
+    def ones(kls, rows, cols=None, **kwargs):
         """Returns a matrix of ones.
 
         Parameters
@@ -728,7 +728,7 @@ class MatrixBase(Printable):
         cls : class of the returned matrix
         """
     @classmethod
-    def zeros(kls, rows, cols: Incomplete | None = None, **kwargs):
+    def zeros(kls, rows, cols=None, **kwargs):
         """Returns a matrix of zeros.
 
         Parameters
@@ -1442,9 +1442,9 @@ class MatrixBase(Printable):
         sympy.matrices.matrixbase.MatrixBase.D: Dirac conjugation
         """
     def doit(self, **hints): ...
-    def evalf(self, n: int = 15, subs: Incomplete | None = None, maxn: int = 100, chop: bool = False, strict: bool = False, quad: Incomplete | None = None, verbose: bool = False):
+    def evalf(self, n: int = 15, subs=None, maxn: int = 100, chop: bool = False, strict: bool = False, quad=None, verbose: bool = False):
         """Apply evalf() to each element of self."""
-    def expand(self, deep: bool = True, modulus: Incomplete | None = None, power_base: bool = True, power_exp: bool = True, mul: bool = True, log: bool = True, multinomial: bool = True, basic: bool = True, **hints):
+    def expand(self, deep: bool = True, modulus=None, power_base: bool = True, power_exp: bool = True, mul: bool = True, log: bool = True, multinomial: bool = True, basic: bool = True, **hints):
         """Apply core.function.expand to each entry of the matrix.
 
         Examples
@@ -1615,7 +1615,7 @@ class MatrixBase(Printable):
         [Abs(x),   x**2]])
 
         """
-    def replace(self, F, G, map: bool = False, simultaneous: bool = True, exact: Incomplete | None = None):
+    def replace(self, F, G, map: bool = False, simultaneous: bool = True, exact=None):
         """Replaces Function F in Matrix entries with Function G.
 
         Examples
@@ -1838,7 +1838,7 @@ class MatrixBase(Printable):
     def _eval_matrix_rmul(self, other): ...
     def _eval_pow_by_recursion(self, num): ...
     def _eval_pow_by_cayley(self, exp): ...
-    def _eval_pow_by_recursion_dotprodsimp(self, num, prevsimp: Incomplete | None = None): ...
+    def _eval_pow_by_recursion_dotprodsimp(self, num, prevsimp=None): ...
     def _eval_scalar_mul(self, other): ...
     def _eval_scalar_rmul(self, other): ...
     def _eval_Mod(self, other): ...
@@ -1876,7 +1876,7 @@ class MatrixBase(Printable):
 
         matrix_multiply_elementwise
         """
-    def multiply(self, other, dotprodsimp: Incomplete | None = None):
+    def multiply(self, other, dotprodsimp=None):
         """Same as __mul__() but with optional simplification.
 
         Parameters
@@ -1911,7 +1911,7 @@ class MatrixBase(Printable):
     def __neg__(self): ...
     def __pow__(self, exp):
         """Return self**exp a scalar or symbol."""
-    def pow(self, exp, method: Incomplete | None = None):
+    def pow(self, exp, method=None):
         """Return self**exp a scalar or symbol.
 
         Parameters
@@ -1932,7 +1932,7 @@ class MatrixBase(Printable):
     def __radd__(self, other): ...
     def __rmatmul__(self, other): ...
     def __rmul__(self, other): ...
-    def rmultiply(self, other, dotprodsimp: Incomplete | None = None):
+    def rmultiply(self, other, dotprodsimp=None):
         """Same as __rmul__() but with optional simplification.
 
         Parameters
@@ -1947,7 +1947,7 @@ class MatrixBase(Printable):
     def __sub__(self, a): ...
     def _eval_det_bareiss(self, iszerofunc=...): ...
     def _eval_det_berkowitz(self): ...
-    def _eval_det_lu(self, iszerofunc=..., simpfunc: Incomplete | None = None): ...
+    def _eval_det_lu(self, iszerofunc=..., simpfunc=None): ...
     def _eval_det_bird(self): ...
     def _eval_det_laplace(self): ...
     def _eval_determinant(self): ...
@@ -1955,7 +1955,7 @@ class MatrixBase(Printable):
     def charpoly(self, x: str = 'lambda', simplify=...): ...
     def cofactor(self, i, j, method: str = 'berkowitz'): ...
     def cofactor_matrix(self, method: str = 'berkowitz'): ...
-    def det(self, method: str = 'bareiss', iszerofunc: Incomplete | None = None): ...
+    def det(self, method: str = 'bareiss', iszerofunc=None): ...
     def per(self): ...
     def minor(self, i, j, method: str = 'berkowitz'): ...
     def minor_submatrix(self, i, j): ...
@@ -1990,7 +1990,7 @@ class MatrixBase(Printable):
     def _eval_row_op_swap(self, row1, row2): ...
     def _eval_row_op_multiply_row_by_const(self, row, k): ...
     def _eval_row_op_add_multiple_to_other_row(self, row, k, row2): ...
-    def elementary_col_op(self, op: str = 'n->kn', col: Incomplete | None = None, k: Incomplete | None = None, col1: Incomplete | None = None, col2: Incomplete | None = None):
+    def elementary_col_op(self, op: str = 'n->kn', col=None, k=None, col1=None, col2=None):
         '''Performs the elementary column operation `op`.
 
         `op` may be one of
@@ -2009,7 +2009,7 @@ class MatrixBase(Printable):
         col2 : second column of a column swap or column "m" in the column operation
                "n->n+km"
         '''
-    def elementary_row_op(self, op: str = 'n->kn', row: Incomplete | None = None, k: Incomplete | None = None, row1: Incomplete | None = None, row2: Incomplete | None = None):
+    def elementary_row_op(self, op: str = 'n->kn', row=None, k=None, row1=None, row2=None):
         '''Performs the elementary row operation `op`.
 
         `op` may be one of
@@ -2217,7 +2217,7 @@ class MatrixBase(Printable):
         tolist
         values
         """
-    def __array__(self, dtype=..., copy: Incomplete | None = None): ...
+    def __array__(self, dtype=..., copy=None): ...
     def __len__(self) -> int:
         """Return the number of elements of ``self``.
 
@@ -2225,26 +2225,26 @@ class MatrixBase(Printable):
         """
     def _matrix_pow_by_jordan_blocks(self, num): ...
     def __str__(self) -> str: ...
-    def _format_str(self, printer: Incomplete | None = None): ...
+    def _format_str(self, printer=None): ...
     @classmethod
     def irregular(cls, ntop, *matrices, **kwargs):
         """Return a matrix filled by the given matrices which
-      are listed in order of appearance from left to right, top to
-      bottom as they first appear in the matrix. They must fill the
-      matrix completely.
+        are listed in order of appearance from left to right, top to
+        bottom as they first appear in the matrix. They must fill the
+        matrix completely.
 
-      Examples
-      ========
+        Examples
+        ========
 
-      >>> from sympy import ones, Matrix
-      >>> Matrix.irregular(3, ones(2,1), ones(3,3)*2, ones(2,2)*3,
-      ...   ones(1,1)*4, ones(2,2)*5, ones(1,2)*6, ones(1,2)*7)
-      Matrix([
-        [1, 2, 2, 2, 3, 3],
-        [1, 2, 2, 2, 3, 3],
-        [4, 2, 2, 2, 5, 5],
-        [6, 6, 7, 7, 5, 5]])
-      """
+        >>> from sympy import ones, Matrix
+        >>> Matrix.irregular(3, ones(2,1), ones(3,3)*2, ones(2,2)*3,
+        ...   ones(1,1)*4, ones(2,2)*5, ones(1,2)*6, ones(1,2)*7)
+        Matrix([
+            [1, 2, 2, 2, 3, 3],
+            [1, 2, 2, 2, 3, 3],
+            [4, 2, 2, 2, 5, 5],
+            [6, 6, 7, 7, 5, 5]])
+        """
     @classmethod
     def _handle_ndarray(cls, arg): ...
     @classmethod
@@ -2481,7 +2481,7 @@ class MatrixBase(Printable):
         [sin(theta(t)),  cos(theta(t)), 0],
         [            0,              0, 1]])
 
-        We can retrive the angular velocity:
+        We can retrieve the angular velocity:
 
         >>> Omega = R.T * R.diff()
         >>> Omega = trigsimp(Omega)
@@ -2534,7 +2534,7 @@ class MatrixBase(Printable):
         sympy.matrices.matrixbase.MatrixBase.conjugate: By-element conjugation
         sympy.matrices.matrixbase.MatrixBase.H: Hermite conjugation
         """
-    def dot(self, b, hermitian: Incomplete | None = None, conjugate_convention: Incomplete | None = None):
+    def dot(self, b, hermitian=None, conjugate_convention=None):
         '''Return the dot or inner product of two vectors of equal length.
         Here ``self`` must be a ``Matrix`` of size 1 x n or n x 1, and ``b``
         must be either a matrix of size 1 x n, n x 1, or a list/tuple of length n.
@@ -2816,7 +2816,7 @@ class MatrixBase(Printable):
 
         norm
         """
-    def norm(self, ord: Incomplete | None = None):
+    def norm(self, ord=None):
         """Return the Norm of a Matrix or Vector.
 
         In the simplest case this is the geometric size of the vector
@@ -2956,8 +2956,8 @@ class MatrixBase(Printable):
     def rank_decomposition(self, iszerofunc=..., simplify: bool = False): ...
     def cholesky(self, hermitian: bool = True) -> None: ...
     def LDLdecomposition(self, hermitian: bool = True) -> None: ...
-    def LUdecomposition(self, iszerofunc=..., simpfunc: Incomplete | None = None, rankcheck: bool = False): ...
-    def LUdecomposition_Simple(self, iszerofunc=..., simpfunc: Incomplete | None = None, rankcheck: bool = False): ...
+    def LUdecomposition(self, iszerofunc=..., simpfunc=None, rankcheck: bool = False): ...
+    def LUdecomposition_Simple(self, iszerofunc=..., simpfunc=None, rankcheck: bool = False): ...
     def LUdecompositionFF(self): ...
     def singular_value_decomposition(self): ...
     def QRdecomposition(self): ...
@@ -2970,7 +2970,7 @@ class MatrixBase(Printable):
     def LUsolve(self, rhs, iszerofunc=...): ...
     def QRsolve(self, b): ...
     def gauss_jordan_solve(self, B, freevar: bool = False): ...
-    def pinv_solve(self, B, arbitrary_matrix: Incomplete | None = None): ...
+    def pinv_solve(self, B, arbitrary_matrix=None): ...
     def cramer_solve(self, rhs, det_method: str = 'laplace'): ...
     def solve(self, rhs, method: str = 'GJ'): ...
     def solve_least_squares(self, rhs, method: str = 'CH'): ...
@@ -2982,7 +2982,7 @@ class MatrixBase(Printable):
     def inverse_CH(self, iszerofunc=...): ...
     def inverse_LDL(self, iszerofunc=...): ...
     def inverse_QR(self, iszerofunc=...): ...
-    def inv(self, method: Incomplete | None = None, iszerofunc=..., try_block_diag: bool = False): ...
+    def inv(self, method=None, iszerofunc=..., try_block_diag: bool = False): ...
     def connected_components(self): ...
     def connected_components_decomposition(self): ...
     def strongly_connected_components(self): ...
@@ -3013,7 +3013,7 @@ def classof(A, B):
     """
 def _unify_with_other(self, other):
     """Unify self and other into a single matrix type, or check for scalar."""
-def a2idx(j, n: Incomplete | None = None):
+def a2idx(j, n=None):
     """Return integer after making positive and validating against n."""
 
 class DeferredVector(Symbol, NotIterable):

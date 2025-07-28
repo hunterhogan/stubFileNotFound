@@ -38,7 +38,7 @@ class Integral(AddWithLimits):
     """Represents unevaluated integral."""
     __slots__: Incomplete
     args: tuple[Expr, Tuple]
-    def __new__(cls, function, *symbols, **assumptions):
+    def __new__(cls, function, *symbols, **assumptions) -> Integral:
         '''Create an unevaluated integral.
 
         Explanation
@@ -266,7 +266,7 @@ class Integral(AddWithLimits):
         2*x**3/3 - x/2 - 1/6
 
         """
-    def _eval_integral(self, f, x, meijerg: Incomplete | None = None, risch: Incomplete | None = None, manual: Incomplete | None = None, heurisch: Incomplete | None = None, conds: str = 'piecewise', final: Incomplete | None = None):
+    def _eval_integral(self, f, x, meijerg=None, risch=None, manual=None, heurisch=None, conds: str = 'piecewise', final=None):
         '''
         Calculate the anti-derivative to the function f(x).
 
@@ -356,11 +356,11 @@ class Integral(AddWithLimits):
              method. Set heurisch=False to not use it.
 
         '''
-    def _eval_lseries(self, x, logx: Incomplete | None = None, cdir: int = 0) -> Generator[Incomplete]: ...
-    def _eval_nseries(self, x, n, logx: Incomplete | None = None, cdir: int = 0): ...
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0): ...
+    def _eval_lseries(self, x, logx=None, cdir: int = 0) -> Generator[Incomplete]: ...
+    def _eval_nseries(self, x, n, logx=None, cdir: int = 0): ...
+    def _eval_as_leading_term(self, x, logx, cdir): ...
     def _eval_simplify(self, **kwargs): ...
-    def as_sum(self, n: Incomplete | None = None, method: str = 'midpoint', evaluate: bool = True):
+    def as_sum(self, n=None, method: str = 'midpoint', evaluate: bool = True):
         """
         Approximates a definite integral by a sum.
 
@@ -497,7 +497,7 @@ class Integral(AddWithLimits):
         .. [2] https://mathworld.wolfram.com/CauchyPrincipalValue.html
         """
 
-def integrate(*args, meijerg: Incomplete | None = None, conds: str = 'piecewise', risch: Incomplete | None = None, heurisch: Incomplete | None = None, manual: Incomplete | None = None, **kwargs):
+def integrate(*args, meijerg=None, conds: str = 'piecewise', risch=None, heurisch=None, manual=None, **kwargs):
     """integrate(f, var, ...)
 
     .. deprecated:: 1.6

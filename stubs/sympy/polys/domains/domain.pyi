@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from typing import Any
 
 __all__ = ['Domain']
@@ -103,7 +102,7 @@ class Domain:
     ZZ[x]
     >>> type(K)             # class of the domain
     <class 'sympy.polys.domains.polynomialring.PolynomialRing'>
-    >>> K.dtype             # class of the elements
+    >>> K.dtype             # doctest: +SKIP
     <class 'sympy.polys.rings.PolyElement'>
     >>> p_expr = x**2 + 1   # Expr
     >>> p_expr
@@ -226,7 +225,7 @@ class Domain:
     def normal(self, *args): ...
     def convert_from(self, element, base):
         """Convert ``element`` to ``self.dtype`` given the base domain. """
-    def convert(self, element, base: Incomplete | None = None):
+    def convert(self, element, base=None):
         """Convert ``element`` to ``self.dtype``. """
     def of_type(self, element):
         """Check if ``a`` is of type ``dtype``. """
@@ -386,7 +385,7 @@ class Domain:
     def unify_with_symbols(K0, K1, symbols): ...
     def unify_composite(K0, K1):
         """Unify two domains where at least one is composite."""
-    def unify(K0, K1, symbols: Incomplete | None = None):
+    def unify(K0, K1, symbols=None):
         """
         Construct a minimal domain that contains elements of ``K0`` and ``K1``.
 
@@ -425,9 +424,9 @@ class Domain:
         """Returns a polynomial ring, i.e. `K[X]`. """
     def old_frac_field(self, *symbols, **kwargs):
         """Returns a fraction field, i.e. `K(X)`. """
-    def algebraic_field(self, *extension, alias: Incomplete | None = None) -> None:
+    def algebraic_field(self, *extension, alias=None) -> None:
         """Returns an algebraic field, i.e. `K(\\alpha, \\ldots)`. """
-    def alg_field_from_poly(self, poly, alias: Incomplete | None = None, root_index: int = -1):
+    def alg_field_from_poly(self, poly, alias=None, root_index: int = -1):
         '''
         Convenience method to construct an algebraic extension on a root of a
         polynomial, chosen by root index.
@@ -464,7 +463,7 @@ class Domain:
         alpha**2 + alpha + 1
 
         '''
-    def cyclotomic_field(self, n, ss: bool = False, alias: str = 'zeta', gen: Incomplete | None = None, root_index: int = -1):
+    def cyclotomic_field(self, n, ss: bool = False, alias: str = 'zeta', gen=None, root_index: int = -1):
         '''
         Convenience method to construct a cyclotomic field.
 
@@ -792,12 +791,12 @@ class Domain:
         ========
         sqrt, is_square
         '''
-    def evalf(self, a, prec: Incomplete | None = None, **options):
+    def evalf(self, a, prec=None, **options):
         """Returns numerical approximation of ``a``. """
     n = evalf
     def real(self, a): ...
     def imag(self, a): ...
-    def almosteq(self, a, b, tolerance: Incomplete | None = None):
+    def almosteq(self, a, b, tolerance=None):
         """Check if ``a`` and ``b`` are almost equal. """
     def characteristic(self) -> None:
         """Return the characteristic of this domain. """

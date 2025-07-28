@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core import Pow as Pow, S as S
 from sympy.core.function import AppliedUndef as AppliedUndef, Derivative as Derivative, diff as diff
 from sympy.core.relational import Eq as Eq, Equality as Equality
@@ -35,7 +34,7 @@ def sub_func_doit(eq, func, new):
     x*(-1/(x**2*(z + 1/x)) + 1/(x**3*(z + 1/x)**2)) + 1/(x*(z + 1/x))
     ...- 1/(x**2*(z + 1/x)**2)
     """
-def checkodesol(ode, sol, func: Incomplete | None = None, order: str = 'auto', solve_for_func: bool = True):
+def checkodesol(ode, sol, func=None, order: str = 'auto', solve_for_func: bool = True):
     """
     Substitutes ``sol`` into ``ode`` and checks that the result is ``0``.
 
@@ -100,7 +99,7 @@ def checkodesol(ode, sol, func: Incomplete | None = None, order: str = 'auto', s
     (True, [0, 0])
 
     """
-def checksysodesol(eqs, sols, func: Incomplete | None = None):
+def checksysodesol(eqs, sols, func=None):
     """
     Substitutes corresponding ``sols`` for each functions into each ``eqs`` and
     checks that the result of substitutions for each equation is ``0``. The

@@ -1,8 +1,6 @@
-from _typeshed import Incomplete
-
 __all__ = ['refraction_angle', 'deviation', 'fresnel_coefficients', 'brewster_angle', 'critical_angle', 'lens_makers_formula', 'mirror_formula', 'lens_formula', 'hyperfocal_distance', 'transverse_magnification']
 
-def refraction_angle(incident, medium1, medium2, normal: Incomplete | None = None, plane: Incomplete | None = None):
+def refraction_angle(incident, medium1, medium2, normal=None, plane=None):
     """
     This function calculates transmitted vector after refraction at planar
     surface. ``medium1`` and ``medium2`` can be ``Medium`` or any sympifiable object.
@@ -117,7 +115,7 @@ def fresnel_coefficients(angle_of_incidence, medium1, medium2):
 
     .. [1] https://en.wikipedia.org/wiki/Fresnel_equations
     """
-def deviation(incident, medium1, medium2, normal: Incomplete | None = None, plane: Incomplete | None = None):
+def deviation(incident, medium1, medium2, normal=None, plane=None):
     """
     This function calculates the angle of deviation of a ray
     due to refraction at planar surface.
@@ -230,7 +228,7 @@ def lens_makers_formula(n_lens, n_surr, r1, r2, d: int = 0):
     15.3418463277618
 
     """
-def mirror_formula(focal_length: Incomplete | None = None, u: Incomplete | None = None, v: Incomplete | None = None):
+def mirror_formula(focal_length=None, u=None, v=None):
     """
     This function provides one of the three parameters
     when two of them are supplied.
@@ -261,7 +259,7 @@ def mirror_formula(focal_length: Incomplete | None = None, u: Incomplete | None 
     u*v/(u + v)
 
     """
-def lens_formula(focal_length: Incomplete | None = None, u: Incomplete | None = None, v: Incomplete | None = None):
+def lens_formula(focal_length=None, u=None, v=None):
     """
     This function provides one of the three parameters
     when two of them are supplied.

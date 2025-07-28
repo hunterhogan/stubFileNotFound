@@ -4,7 +4,7 @@ from sympy.core.intfunc import igcdex as igcdex
 from sympy.core.numbers import Integer as Integer
 from sympy.core.singleton import S as S
 from sympy.functions.elementary.miscellaneous import sqrt as sqrt
-from collections.abc import Callable
+from typing import Callable
 
 def migcdex(*x: int) -> tuple[tuple[int, ...], int]:
     """Compute extended gcd for multiple integers.
@@ -99,12 +99,16 @@ def fermat_coords(n: int) -> list[int] | None:
     multiplicity of each being 1, return those primes, else
     None
     """
+@cacheit
 def cos_3() -> Expr:
     """Computes $\\cos \\frac{\\pi}{3}$ in square roots"""
+@cacheit
 def cos_5() -> Expr:
     """Computes $\\cos \\frac{\\pi}{5}$ in square roots"""
+@cacheit
 def cos_17() -> Expr:
     """Computes $\\cos \\frac{\\pi}{17}$ in square roots"""
+@cacheit
 def cos_257() -> Expr:
     """Computes $\\cos \\frac{\\pi}{257}$ in square roots
 

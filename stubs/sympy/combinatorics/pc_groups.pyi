@@ -11,7 +11,7 @@ class PolycyclicGroup(DefaultPrinting):
     pc_series: Incomplete
     relative_order: Incomplete
     collector: Incomplete
-    def __init__(self, pc_sequence, pc_series, relative_order, collector: Incomplete | None = None) -> None:
+    def __init__(self, pc_sequence, pc_series, relative_order, collector=None) -> None:
         """
 
         Parameters
@@ -47,7 +47,7 @@ class Collector(DefaultPrinting):
     free_group: Incomplete
     index: Incomplete
     pc_presentation: Incomplete
-    def __init__(self, pcgs, pc_series, relative_order, free_group_: Incomplete | None = None, pc_presentation: Incomplete | None = None) -> None:
+    def __init__(self, pcgs, pc_series, relative_order, free_group_=None, pc_presentation=None) -> None:
         """
 
         Most of the parameters for the Collector class are the same as for PolycyclicGroup.
@@ -153,7 +153,7 @@ class Collector(DefaultPrinting):
 
         (i, j)
             A tuple containing starting and ending index of ``w``
-            in the given word.
+            in the given word. If not exists, (-1,-1) is returned.
 
         Examples
         ========
@@ -171,6 +171,9 @@ class Collector(DefaultPrinting):
         >>> w = x1**7
         >>> collector.subword_index(word, w)
         (2, 9)
+        >>> w = x1**8
+        >>> collector.subword_index(word, w)
+        (-1, -1)
 
         '''
     def map_relation(self, w):

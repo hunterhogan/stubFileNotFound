@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core import sympify as sympify
 from sympy.core.exprtools import factor_terms as factor_terms
 from sympy.core.relational import Eq as Eq, Ge as Ge, Le as Le
@@ -13,7 +12,7 @@ from sympy.utilities.misc import filldedent as filldedent
 
 class UnboundedLPError(Exception):
     """
-    A linear programing problem is said to be unbounded if its objective
+    A linear programming problem is said to be unbounded if its objective
     function can assume arbitrarily large values.
 
     Example
@@ -28,9 +27,9 @@ class UnboundedLPError(Exception):
     """
 class InfeasibleLPError(Exception):
     """
-    A linear programing problem is considered infeasible if its
+    A linear programming problem is considered infeasible if its
     constraint set is empty. That is, if the set of all vectors
-    satisfying the contraints is empty, then the problem is infeasible.
+    satisfying the constraints is empty, then the problem is infeasible.
 
     Example
     =======
@@ -67,7 +66,7 @@ def _pivot(M, i, j):
     [-g/d,  h - e*g/d,  i - f*g/d]])
     """
 def _choose_pivot_row(A, B, candidate_rows, pivot_col, Y): ...
-def _simplex(A, B, C, D: Incomplete | None = None, dual: bool = False):
+def _simplex(A, B, C, D=None, dual: bool = False):
     '''Return ``(o, x, y)`` obtained from the two-phase simplex method
     using Bland\'s rule: ``o`` is the minimum value of primal,
     ``Cx - D``, under constraints ``Ax <= B`` (with ``x >= 0``) and
@@ -148,7 +147,7 @@ def _simplex(A, B, C, D: Incomplete | None = None, dual: bool = False):
     >>> [i <= j for i, j in zip(a*y,b)]
     [2*y <= 1, y <= 1]
 
-    In this 1-dimensional dual system, the more restrictive contraint is
+    In this 1-dimensional dual system, the more restrictive constraint is
     the first which limits ``y`` between 0 and 1/2 and the maximum of
     ``F`` is attained at the nonzero value, hence is ``4*(1/2) + 1 = 3``.
 
@@ -214,7 +213,7 @@ def _abcd(M, list: bool = False):
     >>> L = a, b, c, d = _abcd(m, list=True); L
     ([[0, 1], [3, 4]], [2, 5], [[6, 7]], [8])
     """
-def _m(a, b, c, d: Incomplete | None = None):
+def _m(a, b, c, d=None):
     """return Matrix([[a, b], [c, d]]) from matrices
     in Matrix or list form.
 
@@ -412,7 +411,7 @@ def lpmin(f, constr):
     (1/3, {x: 1/3, y: 5/9})
 
     Negative values for variables are permitted unless explicitly
-    exluding, so minimizing ``x`` for ``x <= 3`` is an
+    excluding, so minimizing ``x`` for ``x <= 3`` is an
     unbounded problem while the following has a bounded solution:
 
     >>> lpmin(x, [x >= 0, x <= 3])
@@ -447,7 +446,7 @@ def lpmax(f, constr):
     (4/5, {x: 4/5, y: 2/5})
 
     Negative values for variables are permitted unless explicitly
-    exluding:
+    excluding:
 
     >>> lpmax(x, [x <= -1])
     (-1, {x: -1})
@@ -465,7 +464,7 @@ def lpmax(f, constr):
     linprog, lpmin
     """
 def _handle_bounds(bounds): ...
-def linprog(c, A: Incomplete | None = None, b: Incomplete | None = None, A_eq: Incomplete | None = None, b_eq: Incomplete | None = None, bounds: Incomplete | None = None):
+def linprog(c, A=None, b=None, A_eq=None, b_eq=None, bounds=None):
     """Return the minimization of ``c*x`` with the given
     constraints ``A*x <= b`` and ``A_eq*x = b_eq``. Unless bounds
     are given, variables will have nonnegative values in the solution.
@@ -507,4 +506,4 @@ def linprog(c, A: Incomplete | None = None, b: Incomplete | None = None, A_eq: I
     ========
     lpmin, lpmax
     """
-def show_linprog(c, A: Incomplete | None = None, b: Incomplete | None = None, A_eq: Incomplete | None = None, b_eq: Incomplete | None = None, bounds: Incomplete | None = None): ...
+def show_linprog(c, A=None, b=None, A_eq=None, b_eq=None, bounds=None): ...

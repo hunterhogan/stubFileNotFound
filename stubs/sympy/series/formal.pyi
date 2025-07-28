@@ -483,9 +483,9 @@ class FormalPowerSeries(SeriesBase):
     def zero_coeff(self): ...
     def _eval_term(self, pt): ...
     def _eval_subs(self, old, new): ...
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0): ...
+    def _eval_as_leading_term(self, x, logx, cdir): ...
     def _eval_derivative(self, x): ...
-    def integrate(self, x: Incomplete | None = None, **kwargs):
+    def integrate(self, x=None, **kwargs):
         """
         Integrate Formal Power Series.
 
@@ -500,7 +500,7 @@ class FormalPowerSeries(SeriesBase):
         >>> integrate(f, (x, 0, 1))
         1 - cos(1)
         """
-    def product(self, other, x: Incomplete | None = None, n: int = 6):
+    def product(self, other, x=None, n: int = 6):
         """
         Multiplies two Formal Power Series, using discrete convolution and
         return the truncated terms upto specified order.
@@ -555,7 +555,7 @@ class FormalPowerSeries(SeriesBase):
         sympy.functions.combinatorial.numbers.bell
 
         '''
-    def compose(self, other, x: Incomplete | None = None, n: int = 6):
+    def compose(self, other, x=None, n: int = 6):
         """
         Returns the truncated terms of the formal power series of the composed function,
         up to specified ``n``.
@@ -603,7 +603,7 @@ class FormalPowerSeries(SeriesBase):
         .. [1] Comtet, Louis: Advanced combinatorics; the art of finite and infinite expansions. Reidel, 1974.
 
         """
-    def inverse(self, x: Incomplete | None = None, n: int = 6):
+    def inverse(self, x=None, n: int = 6):
         """
         Returns the truncated terms of the inverse of the formal power series,
         up to specified ``n``.
@@ -858,7 +858,7 @@ class FormalPowerSeriesInverse(FiniteFormalPowerSeries):
 
         """
 
-def fps(f, x: Incomplete | None = None, x0: int = 0, dir: int = 1, hyper: bool = True, order: int = 4, rational: bool = True, full: bool = False):
+def fps(f, x=None, x0: int = 0, dir: int = 1, hyper: bool = True, order: int = 4, rational: bool = True, full: bool = False):
     """
     Generates Formal Power Series of ``f``.
 

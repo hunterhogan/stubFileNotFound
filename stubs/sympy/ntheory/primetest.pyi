@@ -402,6 +402,9 @@ def is_mersenne_prime(n):
     .. [1] https://mathworld.wolfram.com/MersennePrime.html
 
     """
+
+_MR_BASES_32: Incomplete
+
 def isprime(n):
     '''
     Test if n is a prime number (True) or not (False). For n < 2^64 the

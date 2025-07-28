@@ -19,7 +19,7 @@ lie_heuristics: Incomplete
 
 def _ode_lie_group_try_heuristic(eq, heuristic, func, match, inf): ...
 def _ode_lie_group(s, func, order, match): ...
-def infinitesimals(eq, func: Incomplete | None = None, order: Incomplete | None = None, hint: str = 'default', match: Incomplete | None = None):
+def infinitesimals(eq, func=None, order=None, hint: str = 'default', match=None):
     """
     The infinitesimal functions of an ordinary differential equation, `\\xi(x,y)`
     and `\\eta(x,y)`, are the infinitesimals of the Lie group of point transformations

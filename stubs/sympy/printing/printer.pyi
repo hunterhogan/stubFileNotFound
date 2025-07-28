@@ -1,11 +1,13 @@
 import inspect
 from _typeshed import Incomplete
 from collections.abc import Generator
+from contextlib import contextmanager
 from sympy.core.add import Add as Add
 from sympy.core.basic import Basic as Basic
 from sympy.core.function import AppliedUndef as AppliedUndef, Function as Function, UndefinedFunction as UndefinedFunction
 from typing import Any
 
+@contextmanager
 def printer_context(printer, **kwargs) -> Generator[None]: ...
 
 class Printer:
@@ -25,7 +27,7 @@ class Printer:
     _settings: Incomplete
     _context: Incomplete
     _print_level: int
-    def __init__(self, settings: Incomplete | None = None) -> None: ...
+    def __init__(self, settings=None) -> None: ...
     @classmethod
     def set_global_settings(cls, **settings) -> None:
         """Set system-wide printing settings. """
@@ -42,8 +44,16 @@ class Printer:
             3. As fall-back use the emptyPrinter method for the printer.
         """
     def emptyPrinter(self, expr): ...
-    def _as_ordered_terms(self, expr, order: Incomplete | None = None):
+    def _as_ordered_terms(self, expr, order=None):
         """A compatibility function for ordering terms in Add. """
+    def _compare_pretty(self, a, b):
+        """return -1, 0, 1 if a is canonically less, equal or
+        greater than b. This is used when 'order=old' is selected
+        for printing. This puts Order last, orders Rationals
+        according to value, puts terms in order wrt the power of
+        the last power appearing in a term. Ties are broken using
+        Basic.compare.
+        """
 
 class _PrintFunction:
     """

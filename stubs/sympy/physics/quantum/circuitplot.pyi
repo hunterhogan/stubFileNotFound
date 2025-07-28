@@ -105,8 +105,8 @@ class Mx(OneQubitGate):
     gate_name_latex: str
 
 class CreateOneQubitGate(type):
-    def __new__(mcl, name, latexname: Incomplete | None = None): ...
+    def __new__(mcl, name, latexname=None): ...
 
-def CreateCGate(name, latexname: Incomplete | None = None):
+def CreateCGate(name, latexname=None):
     """Use a lexical closure to make a controlled gate.
     """

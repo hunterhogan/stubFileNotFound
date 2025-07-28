@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core import Basic as Basic, Eq as Eq, Integer as Integer, Tuple as Tuple, diff as diff, expand as expand
 from sympy.core.numbers import Rational as Rational
 from sympy.core.singleton import S as S
@@ -125,7 +124,7 @@ class ImplicitRegion(Basic):
         2
 
         """
-    def rational_parametrization(self, parameters=('t', 's'), reg_point: Incomplete | None = None):
+    def rational_parametrization(self, parameters=('t', 's'), reg_point=None):
         '''
         Returns the rational parametrization of implicit region.
 

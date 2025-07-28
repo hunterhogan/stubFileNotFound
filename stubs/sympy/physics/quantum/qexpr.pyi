@@ -10,8 +10,6 @@ class QExpr(Expr):
     __slots__: Incomplete
     is_commutative: bool
     _label_separator: str
-    @property
-    def free_symbols(self): ...
     def __new__(cls, *args, **kwargs):
         """Construct a new quantum object.
 
@@ -118,7 +116,7 @@ class QExpr(Expr):
     def _pretty(self, printer, *args): ...
     def _latex(self, printer, *args): ...
     def _represent_default_basis(self, **options) -> None: ...
-    def _represent(self, *, basis: Incomplete | None = None, **options):
+    def _represent(self, *, basis=None, **options):
         '''Represent this object in a given basis.
 
         This method dispatches to the actual methods that perform the

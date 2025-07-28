@@ -27,7 +27,9 @@ class ComplexField(Field, CharacteristicZero, SimpleDomain):
     _dtype: Incomplete
     zero: Incomplete
     one: Incomplete
-    def __init__(self, prec=..., dps: Incomplete | None = None, tol: Incomplete | None = None) -> None: ...
+    _max_denom: Incomplete
+    _tolerance: Incomplete
+    def __init__(self, prec=None, dps=None, tol=None) -> None: ...
     @property
     def tp(self): ...
     def dtype(self, x, y: int = 0): ...
@@ -64,7 +66,7 @@ class ComplexField(Field, CharacteristicZero, SimpleDomain):
         """Returns GCD of ``a`` and ``b``. """
     def lcm(self, a, b):
         """Returns LCM of ``a`` and ``b``. """
-    def almosteq(self, a, b, tolerance: Incomplete | None = None):
+    def almosteq(self, a, b, tolerance=None):
         """Check if ``a`` and ``b`` are almost equal. """
     def is_square(self, a):
         """Returns ``True``. Every complex number has a complex square root."""

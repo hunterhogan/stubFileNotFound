@@ -1,14 +1,16 @@
-from _typeshed import Incomplete
+from sympy.utilities import public, xthreaded
 
 __all__ = ['apart', 'apart_list', 'assemble_partfrac_list']
 
-def apart(f, x: Incomplete | None = None, full: bool = False, **options):
+@xthreaded
+@public
+def apart(f, x=None, full: bool = False, **options):
     """
     Compute partial fraction decomposition of a rational function.
 
     Given a rational function ``f``, computes the partial fraction
     decomposition of ``f``. Two algorithms are available: One is based on the
-    undertermined coefficients method, the other is Bronstein's full partial
+    undetermined coefficients method, the other is Bronstein's full partial
     fraction decomposition algorithm.
 
     The undetermined coefficients method (selected by ``full=False``) uses
@@ -56,7 +58,8 @@ def apart(f, x: Incomplete | None = None, full: bool = False, **options):
 
     apart_list, assemble_partfrac_list
     """
-def apart_list(f, x: Incomplete | None = None, dummies: Incomplete | None = None, **options):
+@public
+def apart_list(f, x=None, dummies=None, **options):
     """
     Compute partial fraction decomposition of a rational function
     and return the result in structured form.
@@ -160,6 +163,7 @@ def apart_list(f, x: Incomplete | None = None, dummies: Incomplete | None = None
     .. [1] [Bronstein93]_
 
     """
+@public
 def assemble_partfrac_list(partial_list):
     '''Reassemble a full partial fraction decomposition
     from a structured result obtained by the function ``apart_list``.

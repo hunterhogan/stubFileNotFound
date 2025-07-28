@@ -1,11 +1,10 @@
-from _typeshed import Incomplete
 from sympy.core.symbol import Dummy as Dummy
 from sympy.polys.monomials import monomial_divides as monomial_divides, monomial_lcm as monomial_lcm, monomial_mul as monomial_mul, term_div as term_div
 from sympy.polys.orderings import lex as lex
 from sympy.polys.polyconfig import query as query
 from sympy.polys.polyerrors import DomainError as DomainError
 
-def groebner(seq, ring, method: Incomplete | None = None):
+def groebner(seq, ring, method=None):
     """
     Computes Groebner basis for a set of polynomials in `K[X]`.
 

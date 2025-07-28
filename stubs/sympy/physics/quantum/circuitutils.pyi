@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 __all__ = ['kmp_table', 'find_subcircuit', 'replace_subcircuit', 'convert_to_symbolic_indices', 'convert_to_real_indices', 'random_reduce', 'random_insert']
 
 def kmp_table(word):
@@ -63,7 +61,7 @@ def find_subcircuit(circuit, subcircuit, start: int = 0, end: int = 0):
     >>> find_subcircuit(circuit, subcircuit, start=2, end=2)
     -1
     """
-def replace_subcircuit(circuit, subcircuit, replace: Incomplete | None = None, pos: int = 0):
+def replace_subcircuit(circuit, subcircuit, replace=None, pos: int = 0):
     """Replaces a subcircuit with another subcircuit in circuit,
     if it exists.
 
@@ -118,7 +116,7 @@ def replace_subcircuit(circuit, subcircuit, replace: Incomplete | None = None, p
     >>> replace_subcircuit(circuit, subcircuit, replace=replacement)
     (X(0), H(0), Z(0), H(0), X(0), H(0), Y(0))
     """
-def convert_to_symbolic_indices(seq, start: Incomplete | None = None, gen: Incomplete | None = None, qubit_map: Incomplete | None = None):
+def convert_to_symbolic_indices(seq, start=None, gen=None, qubit_map=None):
     """Returns the circuit with symbolic indices and the
     dictionary mapping symbolic indices to real indices.
 
@@ -163,7 +161,7 @@ def convert_to_real_indices(seq, qubit_map):
     >>> convert_to_real_indices(X(i0)*Y(i1)*H(i0)*X(i1), index_map)
     (X(0), Y(1), H(0), X(1))
     """
-def random_reduce(circuit, gate_ids, seed: Incomplete | None = None):
+def random_reduce(circuit, gate_ids, seed=None):
     """Shorten the length of a quantum circuit.
 
     Explanation
@@ -186,7 +184,7 @@ def random_reduce(circuit, gate_ids, seed: Incomplete | None = None):
         given by the list
 
     """
-def random_insert(circuit, choices, seed: Incomplete | None = None):
+def random_insert(circuit, choices, seed=None):
     """Insert a circuit into another quantum circuit.
 
     Explanation

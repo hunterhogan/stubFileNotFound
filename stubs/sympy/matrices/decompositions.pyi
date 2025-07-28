@@ -1,7 +1,6 @@
 from .determinant import _find_reasonable_pivot_naive as _find_reasonable_pivot_naive
 from .exceptions import NonPositiveDefiniteMatrixError as NonPositiveDefiniteMatrixError, NonSquareMatrixError as NonSquareMatrixError
 from .utilities import _get_intermediate_simp as _get_intermediate_simp, _iszero as _iszero
-from _typeshed import Incomplete
 from sympy.core import S as S
 from sympy.core.function import expand_mul as expand_mul
 from sympy.functions.elementary.complexes import sign as sign
@@ -327,7 +326,7 @@ def _LDLdecomposition_sparse(M, hermitian: bool = True):
     True
 
     """
-def _LUdecomposition(M, iszerofunc=..., simpfunc: Incomplete | None = None, rankcheck: bool = False):
+def _LUdecomposition(M, iszerofunc=..., simpfunc=None, rankcheck: bool = False):
     """Returns (L, U, perm) where L is a lower triangular matrix with unit
     diagonal, U is an upper triangular matrix, and perm is a list of row
     swap index pairs. If A is the original matrix, then
@@ -396,7 +395,7 @@ def _LUdecomposition(M, iszerofunc=..., simpfunc: Incomplete | None = None, rank
     LUdecompositionFF
     LUsolve
     """
-def _LUdecomposition_Simple(M, iszerofunc=..., simpfunc: Incomplete | None = None, rankcheck: bool = False):
+def _LUdecomposition_Simple(M, iszerofunc=..., simpfunc=None, rankcheck: bool = False):
     """Compute the PLU decomposition of the matrix.
 
     Parameters

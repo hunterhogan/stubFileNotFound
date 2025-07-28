@@ -1,9 +1,8 @@
 from .rv import cdf as cdf, characteristic_function as characteristic_function, density as density, dependent as dependent, expectation, given as given, independent as independent, moment_generating_function as moment_generating_function, probability, pspace as pspace, quantile as quantile, random_symbols as random_symbols, sample as sample, sample_iter as sample_iter, sample_stochastic_process as sample_stochastic_process, sampling_density as sampling_density, where as where
-from _typeshed import Incomplete
 
 __all__ = ['P', 'E', 'H', 'density', 'where', 'given', 'sample', 'cdf', 'characteristic_function', 'pspace', 'sample_iter', 'variance', 'std', 'skewness', 'kurtosis', 'covariance', 'dependent', 'entropy', 'median', 'independent', 'random_symbols', 'correlation', 'factorial_moment', 'moment', 'cmoment', 'sampling_density', 'moment_generating_function', 'smoment', 'quantile', 'sample_stochastic_process']
 
-def moment(X, n, c: int = 0, condition: Incomplete | None = None, *, evaluate: bool = True, **kwargs):
+def moment(X, n, c: int = 0, condition=None, *, evaluate: bool = True, **kwargs):
     """
     Return the nth moment of a random expression about c.
 
@@ -24,7 +23,7 @@ def moment(X, n, c: int = 0, condition: Incomplete | None = None, *, evaluate: b
     >>> moment(X, 1) == E(X)
     True
     """
-def variance(X, condition: Incomplete | None = None, **kwargs):
+def variance(X, condition=None, **kwargs):
     """
     Variance of a random expression.
 
@@ -49,9 +48,9 @@ def variance(X, condition: Incomplete | None = None, **kwargs):
     """
 std = standard_deviation
 
-def entropy(expr, condition: Incomplete | None = None, **kwargs):
+def entropy(expr, condition=None, **kwargs):
     """
-    Calculuates entropy of a probability distribution.
+    Calculates entropy of a probability distribution.
 
     Parameters
     ==========
@@ -85,7 +84,7 @@ def entropy(expr, condition: Incomplete | None = None, **kwargs):
     .. [2] https://www.crmarsh.com/static/pdf/Charles_Marsh_Continuous_Entropy.pdf
     .. [3] https://kconrad.math.uconn.edu/blurbs/analysis/entropypost.pdf
     """
-def covariance(X, Y, condition: Incomplete | None = None, **kwargs):
+def covariance(X, Y, condition=None, **kwargs):
     """
     Covariance of two random expressions.
 
@@ -114,7 +113,7 @@ def covariance(X, Y, condition: Incomplete | None = None, **kwargs):
     >>> covariance(X, Y + rate*X)
     1/lambda
     """
-def correlation(X, Y, condition: Incomplete | None = None, **kwargs):
+def correlation(X, Y, condition=None, **kwargs):
     """
     Correlation of two random expressions, also known as correlation
     coefficient or Pearson's correlation.
@@ -145,7 +144,7 @@ def correlation(X, Y, condition: Incomplete | None = None, **kwargs):
     >>> correlation(X, Y + rate*X)
     1/sqrt(1 + lambda**(-2))
     """
-def cmoment(X, n, condition: Incomplete | None = None, *, evaluate: bool = True, **kwargs):
+def cmoment(X, n, condition=None, *, evaluate: bool = True, **kwargs):
     """
     Return the nth central moment of a random expression about its mean.
 
@@ -164,7 +163,7 @@ def cmoment(X, n, condition: Incomplete | None = None, *, evaluate: bool = True,
     >>> cmoment(X, 2) == variance(X)
     True
     """
-def smoment(X, n, condition: Incomplete | None = None, **kwargs):
+def smoment(X, n, condition=None, **kwargs):
     """
     Return the nth Standardized moment of a random expression.
 
@@ -185,7 +184,7 @@ def smoment(X, n, condition: Incomplete | None = None, **kwargs):
     >>> smoment(Y, 3) == skewness(Y)
     True
     """
-def skewness(X, condition: Incomplete | None = None, **kwargs):
+def skewness(X, condition=None, **kwargs):
     """
     Measure of the asymmetry of the probability distribution.
 
@@ -220,7 +219,7 @@ def skewness(X, condition: Incomplete | None = None, **kwargs):
     >>> skewness(Y)
     2
     """
-def kurtosis(X, condition: Incomplete | None = None, **kwargs):
+def kurtosis(X, condition=None, **kwargs):
     """
     Characterizes the tails/outliers of a probability distribution.
 
@@ -262,7 +261,7 @@ def kurtosis(X, condition: Incomplete | None = None, **kwargs):
     .. [1] https://en.wikipedia.org/wiki/Kurtosis
     .. [2] https://mathworld.wolfram.com/Kurtosis.html
     """
-def factorial_moment(X, n, condition: Incomplete | None = None, **kwargs):
+def factorial_moment(X, n, condition=None, **kwargs):
     """
     The factorial moment is a mathematical quantity defined as the expectation
     or average of the falling factorial of a random variable.
@@ -301,7 +300,7 @@ def factorial_moment(X, n, condition: Incomplete | None = None, **kwargs):
     """
 def median(X, evaluate: bool = True, **kwargs):
     """
-    Calculuates the median of the probability distribution.
+    Calculates the median of the probability distribution.
 
     Explanation
     ===========

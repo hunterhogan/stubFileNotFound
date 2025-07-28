@@ -1,5 +1,4 @@
 from .sets import FiniteSet as FiniteSet, Set as Set, SetKind as SetKind
-from _typeshed import Incomplete
 from sympy.core.decorators import _sympifyit as _sympifyit
 from sympy.core.logic import fuzzy_bool as fuzzy_bool
 from sympy.core.parameters import global_parameters as global_parameters
@@ -65,7 +64,7 @@ class PowerSet(Set):
 
     .. [2] https://en.wikipedia.org/wiki/Axiom_of_power_set
     """
-    def __new__(cls, arg, evaluate: Incomplete | None = None): ...
+    def __new__(cls, arg, evaluate=None): ...
     @property
     def arg(self): ...
     def _eval_rewrite_as_FiniteSet(self, *args, **kwargs): ...

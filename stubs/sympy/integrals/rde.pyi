@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core import oo as oo
 from sympy.core.symbol import Dummy as Dummy
 from sympy.functions.elementary.complexes import im as im, re as re
@@ -26,7 +25,7 @@ def order_at_oo(a, d, t):
     For f in k(t), the order or f at oo is defined as deg(d) - deg(a), where
     f == a/d.
     """
-def weak_normalizer(a, d, DE, z: Incomplete | None = None):
+def weak_normalizer(a, d, DE, z=None):
     '''
     Weak normalization.
 

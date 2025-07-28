@@ -52,7 +52,7 @@ _symbols_cache: dict[str, list[Dummy]]
 
 def _symbols(name, n):
     """get vector of symbols local to this module"""
-def heurisch_wrapper(f, x, rewrite: bool = False, hints: Incomplete | None = None, mappings: Incomplete | None = None, retries: int = 3, degree_offset: int = 0, unnecessary_permutations: Incomplete | None = None, _try_heurisch: Incomplete | None = None):
+def heurisch_wrapper(f, x, rewrite: bool = False, hints=None, mappings=None, retries: int = 3, degree_offset: int = 0, unnecessary_permutations=None, _try_heurisch=None):
     """
     A wrapper around the heurisch integration algorithm.
 
@@ -124,7 +124,7 @@ class DiffCache:
     def __init__(self, x) -> None: ...
     def get_diff(self, f): ...
 
-def heurisch(f, x, rewrite: bool = False, hints: Incomplete | None = None, mappings: Incomplete | None = None, retries: int = 3, degree_offset: int = 0, unnecessary_permutations: Incomplete | None = None, _try_heurisch: Incomplete | None = None):
+def heurisch(f, x, rewrite: bool = False, hints=None, mappings=None, retries: int = 3, degree_offset: int = 0, unnecessary_permutations=None, _try_heurisch=None):
     '''
     Compute indefinite integral using heuristic Risch algorithm.
 

@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from collections.abc import Callable as Callable, Mapping
 from typing import TypeVar
 
@@ -23,7 +22,7 @@ def chain(*rules: Callable[[_T], _T]) -> Callable[[_T], _T]:
     """
     Compose a sequence of rules so that they apply to the expr sequentially
     """
-def debug(rule, file: Incomplete | None = None):
+def debug(rule, file=None):
     """ Print out before and after expressions each time rule is used """
 def null_safe(rule: Callable[[_T], _T | None]) -> Callable[[_T], _T]:
     """ Return original expr if rule returns None """

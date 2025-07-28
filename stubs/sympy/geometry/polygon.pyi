@@ -282,7 +282,7 @@ class Polygon(GeometrySet):
         Point2D(31/18, 11/18)
 
         """
-    def second_moment_of_area(self, point: Incomplete | None = None):
+    def second_moment_of_area(self, point=None):
         '''Returns the second moment and product moment of area of a two dimensional polygon.
 
         Parameters
@@ -318,7 +318,7 @@ class Polygon(GeometrySet):
         .. [1] https://en.wikipedia.org/wiki/Second_moment_of_area
 
         '''
-    def first_moment_of_area(self, point: Incomplete | None = None):
+    def first_moment_of_area(self, point=None):
         """
         Returns the first moment of area of a two-dimensional polygon with
         respect to a certain point of interest.
@@ -393,7 +393,7 @@ class Polygon(GeometrySet):
         .. [1] https://en.wikipedia.org/wiki/Polar_moment_of_inertia
 
         """
-    def section_modulus(self, point: Incomplete | None = None):
+    def section_modulus(self, point=None):
         '''Returns a tuple with the section modulus of a two-dimensional
         polygon.
 
@@ -796,7 +796,7 @@ class Polygon(GeometrySet):
         True
 
         """
-    def bisectors(p, prec: Incomplete | None = None):
+    def bisectors(p, prec=None):
         """Returns angle bisectors of a polygon. If prec is given
         then approximate the point defining the ray to that precision.
 
@@ -1251,7 +1251,7 @@ class RegularPolygon(Polygon):
         rotate : Creates a copy of the RegularPolygon rotated about a Point
 
         """
-    def rotate(self, angle, pt: Incomplete | None = None):
+    def rotate(self, angle, pt=None):
         """Override GeometryEntity.rotate to first rotate the RegularPolygon
         about its center.
 
@@ -1269,7 +1269,7 @@ class RegularPolygon(Polygon):
         spin : Rotates a RegularPolygon in place
 
         """
-    def scale(self, x: int = 1, y: int = 1, pt: Incomplete | None = None):
+    def scale(self, x: int = 1, y: int = 1, pt=None):
         """Override GeometryEntity.scale since it is the radius that must be
         scaled (if x == y) or else a new Polygon must be returned.
 

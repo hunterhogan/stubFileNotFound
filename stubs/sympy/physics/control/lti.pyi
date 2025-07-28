@@ -1,8 +1,7 @@
-from _typeshed import Incomplete
 from sympy.core.basic import Basic
 from sympy.core.evalf import EvalfMixin
 
-__all__ = ['TransferFunction', 'Series', 'MIMOSeries', 'Parallel', 'MIMOParallel', 'Feedback', 'MIMOFeedback', 'TransferFunctionMatrix', 'StateSpace', 'gbt', 'bilinear', 'forward_diff', 'backward_diff', 'phase_margin', 'gain_margin']
+__all__ = ['TransferFunction', 'PIDController', 'Series', 'MIMOSeries', 'Parallel', 'MIMOParallel', 'Feedback', 'MIMOFeedback', 'TransferFunctionMatrix', 'StateSpace', 'gbt', 'bilinear', 'forward_diff', 'backward_diff', 'phase_margin', 'gain_margin']
 
 def gbt(tf, sample_per, alpha):
     """
@@ -248,6 +247,12 @@ class LinearTimeInvariant(Basic, EvalfMixin):
 
 class SISOLinearTimeInvariant(LinearTimeInvariant):
     """A common class for all the SISO Linear Time-Invariant Dynamical Systems."""
+    @property
+    def num_inputs(self):
+        """Return the number of inputs for SISOLinearTimeInvariant."""
+    @property
+    def num_outputs(self):
+        """Return the number of outputs for SISOLinearTimeInvariant."""
     _is_SISO: bool
 
 class MIMOLinearTimeInvariant(LinearTimeInvariant):
@@ -270,8 +275,8 @@ class TransferFunction(SISOLinearTimeInvariant):
     Generally, a dynamical system representing a physical model can be described in terms of Linear
     Ordinary Differential Equations like -
 
-            $\\small{b_{m}y^{\\left(m\\right)}+b_{m-1}y^{\\left(m-1\\right)}+\\dots+b_{1}y^{\\left(1\\right)}+b_{0}y=
-            a_{n}x^{\\left(n\\right)}+a_{n-1}x^{\\left(n-1\\right)}+\\dots+a_{1}x^{\\left(1\\right)}+a_{0}x}$
+            $b_{m}y^{\\left(m\\right)}+b_{m-1}y^{\\left(m-1\\right)}+\\dots+b_{1}y^{\\left(1\\right)}+b_{0}y=
+            a_{n}x^{\\left(n\\right)}+a_{n-1}x^{\\left(n-1\\right)}+\\dots+a_{1}x^{\\left(1\\right)}+a_{0}x$
 
     Here, $x$ is the input signal and $y$ is the output signal and superscript on both is the order of derivative
     (not exponent). Derivative is taken with respect to the independent variable, $t$. Also, generally $m$ is greater
@@ -281,20 +286,20 @@ class TransferFunction(SISOLinearTimeInvariant):
     mathematical tools like Laplace transform to get a better perspective. Taking the Laplace transform
     of both the sides in the equation (at zero initial conditions), we get -
 
-            $\\small{\\mathcal{L}[b_{m}y^{\\left(m\\right)}+b_{m-1}y^{\\left(m-1\\right)}+\\dots+b_{1}y^{\\left(1\\right)}+b_{0}y]=
-            \\mathcal{L}[a_{n}x^{\\left(n\\right)}+a_{n-1}x^{\\left(n-1\\right)}+\\dots+a_{1}x^{\\left(1\\right)}+a_{0}x]}$
+            $\\mathcal{L}[b_{m}y^{\\left(m\\right)}+b_{m-1}y^{\\left(m-1\\right)}+\\dots+b_{1}y^{\\left(1\\right)}+b_{0}y]=
+            \\mathcal{L}[a_{n}x^{\\left(n\\right)}+a_{n-1}x^{\\left(n-1\\right)}+\\dots+a_{1}x^{\\left(1\\right)}+a_{0}x]$
 
     Using the linearity property of Laplace transform and also considering zero initial conditions
-    (i.e. $\\small{y(0^{-}) = 0}$, $\\small{y'(0^{-}) = 0}$ and so on), the equation
+    (i.e. $y(0^{-}) = 0$, $y'(0^{-}) = 0$ and so on), the equation
     above gets translated to -
 
-            $\\small{b_{m}\\mathcal{L}[y^{\\left(m\\right)}]+\\dots+b_{1}\\mathcal{L}[y^{\\left(1\\right)}]+b_{0}\\mathcal{L}[y]=
-            a_{n}\\mathcal{L}[x^{\\left(n\\right)}]+\\dots+a_{1}\\mathcal{L}[x^{\\left(1\\right)}]+a_{0}\\mathcal{L}[x]}$
+            $b_{m}\\mathcal{L}[y^{\\left(m\\right)}]+\\dots+b_{1}\\mathcal{L}[y^{\\left(1\\right)}]+b_{0}\\mathcal{L}[y]=
+            a_{n}\\mathcal{L}[x^{\\left(n\\right)}]+\\dots+a_{1}\\mathcal{L}[x^{\\left(1\\right)}]+a_{0}\\mathcal{L}[x]$
 
     Now, applying Derivative property of Laplace transform,
 
-            $\\small{b_{m}s^{m}\\mathcal{L}[y]+\\dots+b_{1}s\\mathcal{L}[y]+b_{0}\\mathcal{L}[y]=
-            a_{n}s^{n}\\mathcal{L}[x]+\\dots+a_{1}s\\mathcal{L}[x]+a_{0}\\mathcal{L}[x]}$
+            $b_{m}s^{m}\\mathcal{L}[y]+\\dots+b_{1}s\\mathcal{L}[y]+b_{0}\\mathcal{L}[y]=
+            a_{n}s^{n}\\mathcal{L}[x]+\\dots+a_{1}s\\mathcal{L}[x]+a_{0}\\mathcal{L}[x]$
 
     Here, the superscript on $s$ is **exponent**. Note that the zero initial conditions assumption, mentioned above, is very important
     and cannot be ignored otherwise the dynamical system cannot be considered time-independent and the simplified equation above
@@ -442,7 +447,7 @@ class TransferFunction(SISOLinearTimeInvariant):
     """
     def __new__(cls, num, den, var): ...
     @classmethod
-    def from_rational_expression(cls, expr, var: Incomplete | None = None):
+    def from_rational_expression(cls, expr, var=None):
         """
         Creates a new ``TransferFunction`` efficiently from a rational expression.
 
@@ -535,8 +540,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         >>> tf = TransferFunction.from_coeff_lists(num, den, s)
         >>> tf
         TransferFunction(s**2 + 2, 3*s**3 + 2*s**2 + 2*s + 1, s)
-
-        # Create a Transfer Function with more than one variable
+        >>> #Create a Transfer Function with more than one variable
         >>> tf1 = TransferFunction.from_coeff_lists([p, 1], [2*p, 0, 4], s)
         >>> tf1
         TransferFunction(p*s + 1, 2*p*s**2 + 4, s)
@@ -571,13 +575,11 @@ class TransferFunction(SISOLinearTimeInvariant):
         >>> tf = TransferFunction.from_zpk(zeros, poles, gain, s)
         >>> tf
         TransferFunction(7*(s - 3)*(s - 2)*(s - 1), (s - 6)*(s - 5)*(s - 4), s)
-
-        # Create a Transfer Function with variable poles and zeros
+        >>> #Create a Transfer Function with variable poles and zeros
         >>> tf1 = TransferFunction.from_zpk([p, k], [p + k, p - k], 2, s)
         >>> tf1
         TransferFunction(2*(-k + s)*(-p + s), (-k - p + s)*(k - p + s), s)
-
-        # Complex poles or zeros are acceptable
+        >>> #Complex poles or zeros are acceptable
         >>> tf2 = TransferFunction.from_zpk([0], [1-1j, 1+1j, 2], -2, s)
         >>> tf2
         TransferFunction(-2*s, (s - 2)*(s - 1.0 - 1.0*I)*(s - 1.0 + 1.0*I), s)
@@ -643,8 +645,8 @@ class TransferFunction(SISOLinearTimeInvariant):
     def _eval_simplify(self, **kwargs): ...
     def _eval_rewrite_as_StateSpace(self, *args):
         """
-        Returns the equivalent space space model of the transfer function model.
-        The state space model will be returned in the controllable cannonical form.
+        Returns the equivalent space model of the transfer function model.
+        The state space model will be returned in the controllable canonical form.
 
         Unlike the space state to transfer function model conversion, the transfer function
         to state space model conversion is not unique. There can be multiple state space
@@ -887,6 +889,96 @@ class TransferFunction(SISOLinearTimeInvariant):
 
         """
 
+class PIDController(TransferFunction):
+    """
+    A class for representing PID (Proportional-Integral-Derivative)
+    controllers in control systems. The PIDController class is a subclass
+    of TransferFunction, representing the controller's transfer function
+    in the Laplace domain. The arguments are ``kp``, ``ki``, ``kd``,
+    ``tf``, and ``var``, where ``kp``, ``ki``, and ``kd`` are the
+    proportional, integral, and derivative gains respectively.``tf``
+    is the derivative filter time constant, which can be used to
+    filter out the noise and ``var`` is the complex variable used in
+    the transfer function.
+
+    Parameters
+    ==========
+
+    kp : Expr, Number
+        Proportional gain. Defaults to ``Symbol('kp')`` if not specified.
+    ki : Expr, Number
+        Integral gain. Defaults to ``Symbol('ki')`` if not specified.
+    kd : Expr, Number
+        Derivative gain. Defaults to ``Symbol('kd')`` if not specified.
+    tf : Expr, Number
+        Derivative filter time constant.  Defaults to ``0`` if not specified.
+    var : Symbol
+        The complex frequency variable.  Defaults to ``s`` if not specified.
+
+    Examples
+    ========
+
+    >>> from sympy import symbols
+    >>> from sympy.physics.control.lti import PIDController
+    >>> kp, ki, kd = symbols('kp ki kd')
+    >>> p1 = PIDController(kp, ki, kd)
+    >>> print(p1)
+    PIDController(kp, ki, kd, 0, s)
+    >>> p1.doit()
+    TransferFunction(kd*s**2 + ki + kp*s, s, s)
+    >>> p1.kp
+    kp
+    >>> p1.ki
+    ki
+    >>> p1.kd
+    kd
+    >>> p1.tf
+    0
+    >>> p1.var
+    s
+    >>> p1.to_expr()
+    (kd*s**2 + ki + kp*s)/s
+
+    See Also
+    ========
+
+    TransferFunction
+
+    References
+    ==========
+
+    .. [1] https://en.wikipedia.org/wiki/PID_controller
+    .. [2] https://in.mathworks.com/help/control/ug/proportional-integral-derivative-pid-controllers.html
+
+    """
+    def __new__(cls, kp=..., ki=..., kd=..., tf: int = 0, var=...): ...
+    def __repr__(self) -> str: ...
+    __str__ = __repr__
+    @property
+    def kp(self):
+        """
+        Returns the Proportional gain (kp) of the PIDController.
+        """
+    @property
+    def ki(self):
+        """
+        Returns the Integral gain (ki) of the PIDController.
+        """
+    @property
+    def kd(self):
+        """
+        Returns the Derivative gain (kd) of the PIDController.
+        """
+    @property
+    def tf(self):
+        """
+        Returns the Derivative filter time constant (tf) of the PIDController.
+        """
+    def doit(self):
+        """
+        Convert the PIDController into TransferFunction.
+        """
+
 class Series(SISOLinearTimeInvariant):
     """
     A class for representing a series configuration of SISO systems.
@@ -918,7 +1010,8 @@ class Series(SISOLinearTimeInvariant):
     ========
 
     >>> from sympy.abc import s, p, a, b
-    >>> from sympy.physics.control.lti import TransferFunction, Series, Parallel
+    >>> from sympy import Matrix
+    >>> from sympy.physics.control.lti import TransferFunction, Series, Parallel, StateSpace
     >>> tf1 = TransferFunction(a*p**2 + b*s, s - p, s)
     >>> tf2 = TransferFunction(s**3 - 2, s**4 + 5*s + 6, s)
     >>> tf3 = TransferFunction(p**2, p + s, s)
@@ -947,6 +1040,28 @@ class Series(SISOLinearTimeInvariant):
     >>> S4.doit()
     TransferFunction((s**3 - 2)*(-p**2*(-p + s) + (p + s)*(a*p**2 + b*s)), (-p + s)*(p + s)*(s**4 + 5*s + 6), s)
 
+    You can also connect StateSpace which results in SISO
+
+    >>> A1 = Matrix([[-1]])
+    >>> B1 = Matrix([[1]])
+    >>> C1 = Matrix([[-1]])
+    >>> D1 = Matrix([1])
+    >>> A2 = Matrix([[0]])
+    >>> B2 = Matrix([[1]])
+    >>> C2 = Matrix([[1]])
+    >>> D2 = Matrix([[0]])
+    >>> ss1 = StateSpace(A1, B1, C1, D1)
+    >>> ss2 = StateSpace(A2, B2, C2, D2)
+    >>> S5 = Series(ss1, ss2)
+    >>> S5
+    Series(StateSpace(Matrix([[-1]]), Matrix([[1]]), Matrix([[-1]]), Matrix([[1]])), StateSpace(Matrix([[0]]), Matrix([[1]]), Matrix([[1]]), Matrix([[0]])))
+    >>> S5.doit()
+    StateSpace(Matrix([
+    [-1,  0],
+    [-1, 0]]), Matrix([
+    [1],
+    [1]]), Matrix([[0, 1]]), Matrix([[0]]))
+
     Notes
     =====
 
@@ -960,6 +1075,8 @@ class Series(SISOLinearTimeInvariant):
 
     """
     def __new__(cls, *args, evaluate: bool = False): ...
+    def __repr__(self) -> str: ...
+    __str__ = __repr__
     @property
     def var(self):
         """
@@ -981,8 +1098,8 @@ class Series(SISOLinearTimeInvariant):
         """
     def doit(self, **hints):
         """
-        Returns the resultant transfer function obtained after evaluating
-        the transfer functions in series configuration.
+        Returns the resultant transfer function or StateSpace obtained after evaluating
+        the series interconnection.
 
         Examples
         ========
@@ -996,12 +1113,22 @@ class Series(SISOLinearTimeInvariant):
         >>> Series(-tf1, -tf2).doit()
         TransferFunction((2 - s**3)*(-a*p**2 - b*s), (-p + s)*(s**4 + 5*s + 6), s)
 
+        Notes
+        =====
+
+        If a series connection contains only TransferFunction components, the equivalent system returned
+        will be a TransferFunction. However, if a StateSpace object is used in any of the arguments,
+        the output will be a StateSpace object.
+
         """
     def _eval_rewrite_as_TransferFunction(self, *args, **kwargs): ...
+    @_check_other_SISO
     def __add__(self, other): ...
     __radd__ = __add__
+    @_check_other_SISO
     def __sub__(self, other): ...
     def __rsub__(self, other): ...
+    @_check_other_SISO
     def __mul__(self, other): ...
     def __truediv__(self, other): ...
     def __neg__(self): ...
@@ -1076,6 +1203,8 @@ class Series(SISOLinearTimeInvariant):
         True
 
         """
+    @property
+    def is_StateSpace_object(self): ...
 
 class MIMOSeries(MIMOLinearTimeInvariant):
     """
@@ -1112,7 +1241,7 @@ class MIMOSeries(MIMOLinearTimeInvariant):
     ========
 
     >>> from sympy.abc import s
-    >>> from sympy.physics.control.lti import MIMOSeries, TransferFunctionMatrix
+    >>> from sympy.physics.control.lti import MIMOSeries, TransferFunctionMatrix, StateSpace
     >>> from sympy import Matrix, pprint
     >>> mat_a = Matrix([[5*s], [5]])  # 2 Outputs 1 Input
     >>> mat_b = Matrix([[5, 1/(6*s**2)]])  # 1 Output 2 Inputs
@@ -1144,6 +1273,53 @@ class MIMOSeries(MIMOLinearTimeInvariant):
     [ -----------    ---------- ]
     [        3             2    ]
     [     6*s           6*s     ]{t}
+    >>> a1 = Matrix([[4, 1], [2, -3]])
+    >>> b1 = Matrix([[5, 2], [-3, -3]])
+    >>> c1 = Matrix([[2, -4], [0, 1]])
+    >>> d1 = Matrix([[3, 2], [1, -1]])
+    >>> a2 = Matrix([[-3, 4, 2], [-1, -3, 0], [2, 5, 3]])
+    >>> b2 = Matrix([[1, 4], [-3, -3], [-2, 1]])
+    >>> c2 = Matrix([[4, 2, -3], [1, 4, 3]])
+    >>> d2 = Matrix([[-2, 4], [0, 1]])
+    >>> ss1 = StateSpace(a1, b1, c1, d1) #2 inputs, 2 outputs
+    >>> ss2 = StateSpace(a2, b2, c2, d2) #2 inputs, 2 outputs
+    >>> S1 = MIMOSeries(ss1, ss2) #(2 inputs, 2 outputs) -> (2 inputs, 2 outputs)
+    >>> S1
+    MIMOSeries(StateSpace(Matrix([
+            [4,  1],
+            [2, -3]]), Matrix([
+            [ 5,  2],
+            [-3, -3]]), Matrix([
+            [2, -4],
+            [0,  1]]), Matrix([
+            [3,  2],
+            [1, -1]])), StateSpace(Matrix([
+            [-3,  4, 2],
+            [-1, -3, 0],
+            [ 2,  5, 3]]), Matrix([
+            [ 1,  4],
+            [-3, -3],
+            [-2,  1]]), Matrix([
+            [4, 2, -3],
+            [1, 4,  3]]), Matrix([
+            [-2, 4],
+            [ 0, 1]])))
+    >>> S1.doit()
+    StateSpace(Matrix([
+    [ 4,  1,  0,  0, 0],
+    [ 2, -3,  0,  0, 0],
+    [ 2,  0, -3,  4, 2],
+    [-6,  9, -1, -3, 0],
+    [-4,  9,  2,  5, 3]]), Matrix([
+    [  5,  2],
+    [ -3, -3],
+    [  7, -2],
+    [-12, -3],
+    [ -5, -5]]), Matrix([
+    [-4, 12, 4, 2, -3],
+    [ 0,  1, 1, 4,  3]]), Matrix([
+    [-2, -8],
+    [ 1, -1]]))
 
     Notes
     =====
@@ -1187,10 +1363,13 @@ class MIMOSeries(MIMOLinearTimeInvariant):
     @property
     def shape(self):
         """Returns the shape of the equivalent MIMO system."""
+    @property
+    def is_StateSpace_object(self): ...
     def doit(self, cancel: bool = False, **kwargs):
         """
-        Returns the resultant transfer function matrix obtained after evaluating
-        the MIMO systems arranged in a series configuration.
+        Returns the resultant obtained after evaluating the MIMO systems arranged
+        in a series configuration. For TransferFunction systems it returns a TransferFunctionMatrix
+        and for StateSpace systems it returns the resultant StateSpace system.
 
         Examples
         ========
@@ -1206,10 +1385,13 @@ class MIMOSeries(MIMOLinearTimeInvariant):
 
         """
     def _eval_rewrite_as_TransferFunctionMatrix(self, *args, **kwargs): ...
+    @_check_other_MIMO
     def __add__(self, other): ...
     __radd__ = __add__
+    @_check_other_MIMO
     def __sub__(self, other): ...
     def __rsub__(self, other): ...
+    @_check_other_MIMO
     def __mul__(self, other): ...
     def __neg__(self): ...
 
@@ -1243,8 +1425,9 @@ class Parallel(SISOLinearTimeInvariant):
     Examples
     ========
 
+    >>> from sympy import Matrix
     >>> from sympy.abc import s, p, a, b
-    >>> from sympy.physics.control.lti import TransferFunction, Parallel, Series
+    >>> from sympy.physics.control.lti import TransferFunction, Parallel, Series, StateSpace
     >>> tf1 = TransferFunction(a*p**2 + b*s, s - p, s)
     >>> tf2 = TransferFunction(s**3 - 2, s**4 + 5*s + 6, s)
     >>> tf3 = TransferFunction(p**2, p + s, s)
@@ -1271,6 +1454,33 @@ class Parallel(SISOLinearTimeInvariant):
     >>> Parallel(tf2, Series(tf1, -tf3)).doit()
     TransferFunction(-p**2*(a*p**2 + b*s)*(s**4 + 5*s + 6) + (-p + s)*(p + s)*(s**3 - 2), (-p + s)*(p + s)*(s**4 + 5*s + 6), s)
 
+    Parallel can be used to connect SISO ``StateSpace`` systems together.
+
+    >>> A1 = Matrix([[-1]])
+    >>> B1 = Matrix([[1]])
+    >>> C1 = Matrix([[-1]])
+    >>> D1 = Matrix([1])
+    >>> A2 = Matrix([[0]])
+    >>> B2 = Matrix([[1]])
+    >>> C2 = Matrix([[1]])
+    >>> D2 = Matrix([[0]])
+    >>> ss1 = StateSpace(A1, B1, C1, D1)
+    >>> ss2 = StateSpace(A2, B2, C2, D2)
+    >>> P4 = Parallel(ss1, ss2)
+    >>> P4
+    Parallel(StateSpace(Matrix([[-1]]), Matrix([[1]]), Matrix([[-1]]), Matrix([[1]])), StateSpace(Matrix([[0]]), Matrix([[1]]), Matrix([[1]]), Matrix([[0]])))
+
+    ``doit()`` can be used to find ``StateSpace`` equivalent for the system containing ``StateSpace`` objects.
+
+    >>> P4.doit()
+    StateSpace(Matrix([
+    [-1, 0],
+    [ 0, 0]]), Matrix([
+    [1],
+    [1]]), Matrix([[-1, 1]]), Matrix([[1]]))
+    >>> P4.rewrite(TransferFunction)
+    TransferFunction(s*(s + 1) + 1, s*(s + 1), s)
+
     Notes
     =====
 
@@ -1284,6 +1494,8 @@ class Parallel(SISOLinearTimeInvariant):
 
     """
     def __new__(cls, *args, evaluate: bool = False): ...
+    def __repr__(self) -> str: ...
+    __str__ = __repr__
     @property
     def var(self):
         """
@@ -1305,8 +1517,8 @@ class Parallel(SISOLinearTimeInvariant):
         """
     def doit(self, **hints):
         """
-        Returns the resultant transfer function obtained after evaluating
-        the transfer functions in parallel configuration.
+        Returns the resultant transfer function or state space obtained by
+        parallel connection of transfer functions or state space objects.
 
         Examples
         ========
@@ -1322,10 +1534,13 @@ class Parallel(SISOLinearTimeInvariant):
 
         """
     def _eval_rewrite_as_TransferFunction(self, *args, **kwargs): ...
+    @_check_other_SISO
     def __add__(self, other): ...
     __radd__ = __add__
+    @_check_other_SISO
     def __sub__(self, other): ...
     def __rsub__(self, other): ...
+    @_check_other_SISO
     def __mul__(self, other): ...
     def __neg__(self): ...
     def to_expr(self):
@@ -1399,6 +1614,8 @@ class Parallel(SISOLinearTimeInvariant):
         False
 
         """
+    @property
+    def is_StateSpace_object(self): ...
 
 class MIMOParallel(MIMOLinearTimeInvariant):
     """
@@ -1433,7 +1650,7 @@ class MIMOParallel(MIMOLinearTimeInvariant):
     ========
 
     >>> from sympy.abc import s
-    >>> from sympy.physics.control.lti import TransferFunctionMatrix, MIMOParallel
+    >>> from sympy.physics.control.lti import TransferFunctionMatrix, MIMOParallel, StateSpace
     >>> from sympy import Matrix, pprint
     >>> expr_1 = 1/s
     >>> expr_2 = s/(s**2-1)
@@ -1468,6 +1685,59 @@ class MIMOParallel(MIMOLinearTimeInvariant):
     [---------------------------------      --------------     ]
     [              / 2    \\                      2             ]
     [            s*\\s  - 1/                     s  - 1         ]{t}
+
+    ``MIMOParallel`` can also be used to connect MIMO ``StateSpace`` systems.
+
+    >>> A1 = Matrix([[4, 1], [2, -3]])
+    >>> B1 = Matrix([[5, 2], [-3, -3]])
+    >>> C1 = Matrix([[2, -4], [0, 1]])
+    >>> D1 = Matrix([[3, 2], [1, -1]])
+    >>> A2 = Matrix([[-3, 4, 2], [-1, -3, 0], [2, 5, 3]])
+    >>> B2 = Matrix([[1, 4], [-3, -3], [-2, 1]])
+    >>> C2 = Matrix([[4, 2, -3], [1, 4, 3]])
+    >>> D2 = Matrix([[-2, 4], [0, 1]])
+    >>> ss1 = StateSpace(A1, B1, C1, D1)
+    >>> ss2 = StateSpace(A2, B2, C2, D2)
+    >>> p1 = MIMOParallel(ss1, ss2)
+    >>> p1
+    MIMOParallel(StateSpace(Matrix([
+    [4,  1],
+    [2, -3]]), Matrix([
+    [ 5,  2],
+    [-3, -3]]), Matrix([
+    [2, -4],
+    [0,  1]]), Matrix([
+    [3,  2],
+    [1, -1]])), StateSpace(Matrix([
+    [-3,  4, 2],
+    [-1, -3, 0],
+    [ 2,  5, 3]]), Matrix([
+    [ 1,  4],
+    [-3, -3],
+    [-2,  1]]), Matrix([
+    [4, 2, -3],
+    [1, 4,  3]]), Matrix([
+    [-2, 4],
+    [ 0, 1]])))
+
+    ``doit()`` can be used to find ``StateSpace`` equivalent for the system containing ``StateSpace`` objects.
+
+    >>> p1.doit()
+    StateSpace(Matrix([
+    [4,  1,  0,  0, 0],
+    [2, -3,  0,  0, 0],
+    [0,  0, -3,  4, 2],
+    [0,  0, -1, -3, 0],
+    [0,  0,  2,  5, 3]]), Matrix([
+    [ 5,  2],
+    [-3, -3],
+    [ 1,  4],
+    [-3, -3],
+    [-2,  1]]), Matrix([
+    [2, -4, 4, 2, -3],
+    [0,  1, 1, 4,  3]]), Matrix([
+    [1, 6],
+    [1, 0]]))
 
     Notes
     =====
@@ -1511,9 +1781,11 @@ class MIMOParallel(MIMOLinearTimeInvariant):
     @property
     def shape(self):
         """Returns the shape of the equivalent MIMO system."""
+    @property
+    def is_StateSpace_object(self): ...
     def doit(self, **hints):
         """
-        Returns the resultant transfer function matrix obtained after evaluating
+        Returns the resultant transfer function matrix or StateSpace obtained after evaluating
         the MIMO systems arranged in a parallel configuration.
 
         Examples
@@ -1530,14 +1802,17 @@ class MIMOParallel(MIMOLinearTimeInvariant):
 
         """
     def _eval_rewrite_as_TransferFunctionMatrix(self, *args, **kwargs): ...
+    @_check_other_MIMO
     def __add__(self, other): ...
     __radd__ = __add__
+    @_check_other_MIMO
     def __sub__(self, other): ...
     def __rsub__(self, other): ...
+    @_check_other_MIMO
     def __mul__(self, other): ...
     def __neg__(self): ...
 
-class Feedback(TransferFunction):
+class Feedback(SISOLinearTimeInvariant):
     """
     A class for representing closed-loop feedback interconnection between two
     SISO input/output systems.
@@ -1546,14 +1821,14 @@ class Feedback(TransferFunction):
     system or in simple words, the dynamical model representing the process
     to be controlled. The second argument, ``sys2``, is the feedback system
     and controls the fed back signal to ``sys1``. Both ``sys1`` and ``sys2``
-    can either be ``Series`` or ``TransferFunction`` objects.
+    can either be ``Series``, ``StateSpace`` or ``TransferFunction`` objects.
 
     Parameters
     ==========
 
-    sys1 : Series, TransferFunction
+    sys1 : Series, StateSpace, TransferFunction
         The feedforward path system.
-    sys2 : Series, TransferFunction, optional
+    sys2 : Series, StateSpace, TransferFunction, optional
         The feedback path system (often a feedback controller).
         It is the model sitting on the feedback path.
 
@@ -1575,14 +1850,15 @@ class Feedback(TransferFunction):
         zero denominator.
 
     TypeError
-        When either ``sys1`` or ``sys2`` is not a ``Series`` or a
+        When either ``sys1`` or ``sys2`` is not a ``Series``, ``StateSpace`` or
         ``TransferFunction`` object.
 
     Examples
     ========
 
+    >>> from sympy import Matrix
     >>> from sympy.abc import s
-    >>> from sympy.physics.control.lti import TransferFunction, Feedback
+    >>> from sympy.physics.control.lti import StateSpace, TransferFunction, Feedback
     >>> plant = TransferFunction(3*s**2 + 7*s - 3, s**2 - 4*s + 2, s)
     >>> controller = TransferFunction(5*s - 10, s + 7, s)
     >>> F1 = Feedback(plant, controller)
@@ -1618,13 +1894,45 @@ class Feedback(TransferFunction):
     >>> -F2
     Feedback(Series(TransferFunction(-1, 1, s), TransferFunction(2*s**2 + 5*s + 1, s**2 + 2*s + 3, s), TransferFunction(5*s + 10, s + 10, s)), TransferFunction(-1, 1, s), -1)
 
+    ``Feedback`` can also be used to connect SISO ``StateSpace`` systems together.
+
+    >>> A1 = Matrix([[-1]])
+    >>> B1 = Matrix([[1]])
+    >>> C1 = Matrix([[-1]])
+    >>> D1 = Matrix([1])
+    >>> A2 = Matrix([[0]])
+    >>> B2 = Matrix([[1]])
+    >>> C2 = Matrix([[1]])
+    >>> D2 = Matrix([[0]])
+    >>> ss1 = StateSpace(A1, B1, C1, D1)
+    >>> ss2 = StateSpace(A2, B2, C2, D2)
+    >>> F3 = Feedback(ss1, ss2)
+    >>> F3
+    Feedback(StateSpace(Matrix([[-1]]), Matrix([[1]]), Matrix([[-1]]), Matrix([[1]])), StateSpace(Matrix([[0]]), Matrix([[1]]), Matrix([[1]]), Matrix([[0]])), -1)
+
+    ``doit()`` can be used to find ``StateSpace`` equivalent for the system containing ``StateSpace`` objects.
+
+    >>> F3.doit()
+    StateSpace(Matrix([
+    [-1, -1],
+    [-1, -1]]), Matrix([
+    [1],
+    [1]]), Matrix([[-1, -1]]), Matrix([[1]]))
+
+    We can also find the equivalent ``TransferFunction`` by using ``rewrite(TransferFunction)`` method.
+
+    >>> F3.rewrite(TransferFunction)
+    TransferFunction(s, s + 2, s)
+
     See Also
     ========
 
     MIMOFeedback, Series, Parallel
 
     """
-    def __new__(cls, sys1, sys2: Incomplete | None = None, sign: int = -1): ...
+    def __new__(cls, sys1, sys2=None, sign: int = -1): ...
+    def __repr__(self) -> str: ...
+    __str__ = __repr__
     @property
     def sys1(self):
         """
@@ -1738,14 +2046,15 @@ class Feedback(TransferFunction):
         """
     def doit(self, cancel: bool = False, expand: bool = False, **hints):
         """
-        Returns the resultant transfer function obtained by the
-        feedback interconnection.
+        Returns the resultant transfer function or state space obtained by
+        feedback connection of transfer functions or state space objects.
 
         Examples
         ========
 
         >>> from sympy.abc import s
-        >>> from sympy.physics.control.lti import TransferFunction, Feedback
+        >>> from sympy import Matrix
+        >>> from sympy.physics.control.lti import TransferFunction, Feedback, StateSpace
         >>> plant = TransferFunction(3*s**2 + 7*s - 3, s**2 - 4*s + 2, s)
         >>> controller = TransferFunction(5*s - 10, s + 7, s)
         >>> F1 = Feedback(plant, controller)
@@ -1764,6 +2073,29 @@ class Feedback(TransferFunction):
         TransferFunction(2*s**2 + 5*s + 1, 3*s**2 + 7*s + 4, s)
         >>> F2.doit(expand=True)
         TransferFunction(2*s**4 + 9*s**3 + 17*s**2 + 17*s + 3, 3*s**4 + 13*s**3 + 27*s**2 + 29*s + 12, s)
+
+        If the connection contain any ``StateSpace`` object then ``doit()``
+        will return the equivalent ``StateSpace`` object.
+
+        >>> A1 = Matrix([[-1.5, -2], [1, 0]])
+        >>> B1 = Matrix([0.5, 0])
+        >>> C1 = Matrix([[0, 1]])
+        >>> A2 = Matrix([[0, 1], [-5, -2]])
+        >>> B2 = Matrix([0, 3])
+        >>> C2 = Matrix([[0, 1]])
+        >>> ss1 = StateSpace(A1, B1, C1)
+        >>> ss2 = StateSpace(A2, B2, C2)
+        >>> F3 = Feedback(ss1, ss2)
+        >>> F3.doit()
+        StateSpace(Matrix([
+        [-1.5, -2,  0, -0.5],
+        [   1,  0,  0,    0],
+        [   0,  0,  0,    1],
+        [   0,  3, -5,   -2]]), Matrix([
+        [0.5],
+        [  0],
+        [  0],
+        [  0]]), Matrix([[0, 1, 0, 0]]), Matrix([[0]]))
 
         """
     def _eval_rewrite_as_TransferFunction(self, num, den, sign, **kwargs): ...
@@ -1795,9 +2127,9 @@ class MIMOFeedback(MIMOLinearTimeInvariant):
     Parameters
     ==========
 
-    sys1 : MIMOSeries, TransferFunctionMatrix
+    sys1 : MIMOSeries, TransferFunctionMatrix, StateSpace
         The MIMO system placed on the feedforward path.
-    sys2 : MIMOSeries, TransferFunctionMatrix
+    sys2 : MIMOSeries, TransferFunctionMatrix, StateSpace
         The system placed on the feedback path
         (often a feedback controller).
     sign : int, optional
@@ -1820,15 +2152,15 @@ class MIMOFeedback(MIMOLinearTimeInvariant):
         When the equivalent MIMO system is not invertible.
 
     TypeError
-        When either ``sys1`` or ``sys2`` is not a ``MIMOSeries`` or a
-        ``TransferFunctionMatrix`` object.
+        When either ``sys1`` or ``sys2`` is not a ``MIMOSeries``,
+        ``TransferFunctionMatrix`` or a ``StateSpace`` object.
 
     Examples
     ========
 
     >>> from sympy import Matrix, pprint
     >>> from sympy.abc import s
-    >>> from sympy.physics.control.lti import TransferFunctionMatrix, MIMOFeedback
+    >>> from sympy.physics.control.lti import StateSpace, TransferFunctionMatrix, MIMOFeedback
     >>> plant_mat = Matrix([[1, 1/s], [0, 1]])
     >>> controller_mat = Matrix([[10, 0], [0, 10]])  # Constant Gain
     >>> plant = TransferFunctionMatrix.from_Matrix(plant_mat, s)
@@ -1865,6 +2197,59 @@ class MIMOFeedback(MIMOLinearTimeInvariant):
     [ 0    -1  ]
     [ -    --- ]
     [ 1    11  ]{t}
+
+    ``MIMOFeedback`` can also be used to connect MIMO ``StateSpace`` systems.
+
+    >>> A1 = Matrix([[4, 1], [2, -3]])
+    >>> B1 = Matrix([[5, 2], [-3, -3]])
+    >>> C1 = Matrix([[2, -4], [0, 1]])
+    >>> D1 = Matrix([[3, 2], [1, -1]])
+    >>> A2 = Matrix([[-3, 4, 2], [-1, -3, 0], [2, 5, 3]])
+    >>> B2 = Matrix([[1, 4], [-3, -3], [-2, 1]])
+    >>> C2 = Matrix([[4, 2, -3], [1, 4, 3]])
+    >>> D2 = Matrix([[-2, 4], [0, 1]])
+    >>> ss1 = StateSpace(A1, B1, C1, D1)
+    >>> ss2 = StateSpace(A2, B2, C2, D2)
+    >>> F1 = MIMOFeedback(ss1, ss2)
+    >>> F1
+    MIMOFeedback(StateSpace(Matrix([
+    [4,  1],
+    [2, -3]]), Matrix([
+    [ 5,  2],
+    [-3, -3]]), Matrix([
+    [2, -4],
+    [0,  1]]), Matrix([
+    [3,  2],
+    [1, -1]])), StateSpace(Matrix([
+    [-3,  4, 2],
+    [-1, -3, 0],
+    [ 2,  5, 3]]), Matrix([
+    [ 1,  4],
+    [-3, -3],
+    [-2,  1]]), Matrix([
+    [4, 2, -3],
+    [1, 4,  3]]), Matrix([
+    [-2, 4],
+    [ 0, 1]])), -1)
+
+    ``doit()`` can be used to find ``StateSpace`` equivalent for the system containing ``StateSpace`` objects.
+
+    >>> F1.doit()
+    StateSpace(Matrix([
+    [   3,  -3/4, -15/4, -37/2, -15],
+    [ 7/2, -39/8,   9/8,  39/4,   9],
+    [   3, -41/4, -45/4, -51/2, -19],
+    [-9/2, 129/8,  73/8, 171/4,  36],
+    [-3/2,  47/8,  31/8,  85/4,  18]]), Matrix([
+    [-1/4,  19/4],
+    [ 3/8, -21/8],
+    [ 1/4,  29/4],
+    [ 3/8, -93/8],
+    [ 5/8, -35/8]]), Matrix([
+    [  1, -15/4,  -7/4, -21/2, -9],
+    [1/2, -13/8, -13/8, -19/4, -3]]), Matrix([
+    [-1/4, 11/4],
+    [ 1/8,  9/8]]))
 
     See Also
     ========
@@ -2015,6 +2400,12 @@ class MIMOFeedback(MIMOLinearTimeInvariant):
         [  p  - 3*p  + 2*p - 1        p  - 3*p  + 2*p - 1    ]
 
         """
+    @property
+    def num_inputs(self):
+        """Returns the number of inputs of the system."""
+    @property
+    def num_outputs(self):
+        """Returns the number of outputs of the system."""
     def doit(self, cancel: bool = True, expand: bool = False, **hints):
         """
         Returns the resultant transfer function matrix obtained by the
@@ -2571,8 +2962,11 @@ class TransferFunctionMatrix(MIMOLinearTimeInvariant):
 
         """
     def __neg__(self): ...
+    @_check_other_MIMO
     def __add__(self, other): ...
+    @_check_other_MIMO
     def __sub__(self, other): ...
+    @_check_other_MIMO
     def __mul__(self, other): ...
     def __getitem__(self, key): ...
     def transpose(self):
@@ -2674,8 +3068,10 @@ class StateSpace(LinearTimeInvariant):
 
     Represents the standard state-space model with A, B, C, D as state-space matrices.
     This makes the linear control system:
+
         (1) x'(t) = A * x(t) + B * u(t);    x in R^n , u in R^k
         (2) y(t)  = C * x(t) + D * u(t);    y in R^m
+
     where u(t) is any input signal, y(t) the corresponding output, and x(t) the system's state.
 
     Parameters
@@ -2709,7 +3105,6 @@ class StateSpace(LinearTimeInvariant):
     [1],
     [1]]), Matrix([[0, 1]]), Matrix([[0]]))
 
-
     One can use less matrices. The rest will be filled with a minimum of zeros:
 
     >>> StateSpace(A, B)
@@ -2719,7 +3114,6 @@ class StateSpace(LinearTimeInvariant):
     [1],
     [1]]), Matrix([[0, 0]]), Matrix([[0]]))
 
-
     See Also
     ========
 
@@ -2727,11 +3121,12 @@ class StateSpace(LinearTimeInvariant):
 
     References
     ==========
+
     .. [1] https://en.wikipedia.org/wiki/State-space_representation
     .. [2] https://in.mathworks.com/help/control/ref/ss.html
 
     """
-    def __new__(cls, A: Incomplete | None = None, B: Incomplete | None = None, C: Incomplete | None = None, D: Incomplete | None = None): ...
+    def __new__(cls, A=None, B=None, C=None, D=None): ...
     @property
     def state_matrix(self):
         """
@@ -2812,6 +3207,10 @@ class StateSpace(LinearTimeInvariant):
         Matrix([[0]])
 
         """
+    A = state_matrix
+    B = input_matrix
+    C = output_matrix
+    D = feedforward_matrix
     @property
     def num_states(self):
         """
@@ -2867,6 +3266,50 @@ class StateSpace(LinearTimeInvariant):
         >>> ss = StateSpace(A, B, C, D)
         >>> ss.num_outputs
         1
+
+        """
+    @property
+    def shape(self):
+        """Returns the shape of the equivalent StateSpace system."""
+    def dsolve(self, initial_conditions=None, input_vector=None, var=...):
+        """
+        Returns `y(t)` or output of StateSpace given by the solution of equations:
+            x'(t) = A * x(t) + B * u(t)
+            y(t)  = C * x(t) + D * u(t)
+
+        Parameters
+        ============
+
+        initial_conditions : Matrix
+            The initial conditions of `x` state vector. If not provided, it defaults to a zero vector.
+        input_vector : Matrix
+            The input vector for state space. If not provided, it defaults to a zero vector.
+        var : Symbol
+            The symbol representing time. If not provided, it defaults to `t`.
+
+        Examples
+        ==========
+
+        >>> from sympy import Matrix
+        >>> from sympy.physics.control import StateSpace
+        >>> A = Matrix([[-2, 0], [1, -1]])
+        >>> B = Matrix([[1], [0]])
+        >>> C = Matrix([[2, 1]])
+        >>> ip = Matrix([5])
+        >>> i = Matrix([0, 0])
+        >>> ss = StateSpace(A, B, C)
+        >>> ss.dsolve(input_vector=ip, initial_conditions=i).simplify()
+        Matrix([[15/2 - 5*exp(-t) - 5*exp(-2*t)/2]])
+
+        If no input is provided it defaults to solving the system with zero initial conditions and zero input.
+
+        >>> ss.dsolve()
+        Matrix([[0]])
+
+        References
+        ==========
+        .. [1] https://web.mit.edu/2.14/www/Handouts/StateSpaceResponse.pdf
+        .. [2] https://docs.sympy.org/latest/modules/solvers/ode.html#sympy.solvers.ode.systems.linodesolve
 
         """
     def _eval_evalf(self, prec):

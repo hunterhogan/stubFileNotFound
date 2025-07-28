@@ -4,11 +4,9 @@ from sympy.core.sympify import _sympify as _sympify, sympify as sympify
 from sympy.functions.special.bessel import airybiprime as airybiprime
 from sympy.functions.special.error_functions import li as li
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
-from typing import Any
+from typing import Any, Callable
 
-from collections.abc import Callable
-
-def mathematica(s, additional_translations: Incomplete | None = None): ...
+def mathematica(s, additional_translations=None): ...
 def parse_mathematica(s):
     '''
     Translate a string containing a Wolfram Mathematica expression to a SymPy
@@ -95,7 +93,7 @@ class MathematicaParser:
     @classmethod
     def _initialize_class(cls) -> None: ...
     translations: Incomplete
-    def __init__(self, additional_translations: Incomplete | None = None) -> None: ...
+    def __init__(self, additional_translations=None) -> None: ...
     @classmethod
     def _compile_dictionary(cls, dic): ...
     def _convert_function(self, s):

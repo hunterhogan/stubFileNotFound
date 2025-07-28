@@ -3,7 +3,7 @@ from sympy.core import Add as Add, Dummy as Dummy, S as S, Symbol as Symbol
 from sympy.core.cache import cacheit as cacheit
 from sympy.core.containers import Dict as Dict
 from sympy.core.expr import Expr as Expr
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function, expand_mul as expand_mul
+from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, expand_mul as expand_mul
 from sympy.core.logic import fuzzy_not as fuzzy_not
 from sympy.core.mul import Mul as Mul
 from sympy.core.numbers import E as E, I as I, Integer as Integer, Rational as Rational, oo as oo, pi as pi
@@ -23,12 +23,13 @@ from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprec
 from sympy.utilities.iterables import iterable as iterable, multiset as multiset, multiset_derangements as multiset_derangements
 from sympy.utilities.memoization import recurrence_memo as recurrence_memo
 from sympy.utilities.misc import as_int as as_int
+from typing import Callable
 
 def _product(a, b): ...
 
 _sym: Incomplete
 
-class carmichael(Function):
+class carmichael(DefinedFunction):
     """
     Carmichael Numbers:
 
@@ -91,7 +92,7 @@ class carmichael(Function):
     @staticmethod
     def find_first_n_carmichaels(n): ...
 
-class fibonacci(Function):
+class fibonacci(DefinedFunction):
     """
     Fibonacci numbers / Fibonacci polynomials
 
@@ -137,12 +138,12 @@ class fibonacci(Function):
     @staticmethod
     def _fibpoly(n, prev): ...
     @classmethod
-    def eval(cls, n, sym: Incomplete | None = None): ...
+    def eval(cls, n, sym=None): ...
     def _eval_rewrite_as_tractable(self, n, **kwargs): ...
     def _eval_rewrite_as_sqrt(self, n, **kwargs): ...
     def _eval_rewrite_as_GoldenRatio(self, n, **kwargs): ...
 
-class lucas(Function):
+class lucas(DefinedFunction):
     """
     Lucas numbers
 
@@ -177,7 +178,7 @@ class lucas(Function):
     def eval(cls, n): ...
     def _eval_rewrite_as_sqrt(self, n, **kwargs): ...
 
-class tribonacci(Function):
+class tribonacci(DefinedFunction):
     """
     Tribonacci numbers / Tribonacci polynomials
 
@@ -220,11 +221,11 @@ class tribonacci(Function):
     @staticmethod
     def _tribpoly(n, prev): ...
     @classmethod
-    def eval(cls, n, sym: Incomplete | None = None): ...
+    def eval(cls, n, sym=None): ...
     def _eval_rewrite_as_sqrt(self, n, **kwargs): ...
     def _eval_rewrite_as_TribonacciConstant(self, n, **kwargs): ...
 
-class bernoulli(Function):
+class bernoulli(DefinedFunction):
     '''
     Bernoulli numbers / Bernoulli polynomials / Bernoulli function
 
@@ -329,11 +330,11 @@ class bernoulli(Function):
     _cache: Incomplete
     _highest: Incomplete
     @classmethod
-    def eval(cls, n, x: Incomplete | None = None): ...
+    def eval(cls, n, x=None): ...
     def _eval_rewrite_as_zeta(self, n, x: int = 1, **kwargs): ...
     def _eval_evalf(self, prec): ...
 
-class bell(Function):
+class bell(DefinedFunction):
     '''
     Bell numbers / Bell polynomials
 
@@ -419,10 +420,10 @@ class bell(Function):
 
         """
     @classmethod
-    def eval(cls, n, k_sym: Incomplete | None = None, symbols: Incomplete | None = None): ...
-    def _eval_rewrite_as_Sum(self, n, k_sym: Incomplete | None = None, symbols: Incomplete | None = None, **kwargs): ...
+    def eval(cls, n, k_sym=None, symbols=None): ...
+    def _eval_rewrite_as_Sum(self, n, k_sym=None, symbols=None, **kwargs): ...
 
-class harmonic(Function):
+class harmonic(DefinedFunction):
     '''
     Harmonic numbers
 
@@ -553,19 +554,20 @@ class harmonic(Function):
     .. [3] https://functions.wolfram.com/GammaBetaErf/HarmonicNumber2/
 
     '''
+    harmonic_cache: dict[Integer, Callable[[int], Rational]]
     @classmethod
-    def eval(cls, n, m: Incomplete | None = None): ...
+    def eval(cls, n, m=None): ...
     def _eval_rewrite_as_polygamma(self, n, m=..., **kwargs): ...
     def _eval_rewrite_as_digamma(self, n, m: int = 1, **kwargs): ...
     def _eval_rewrite_as_trigamma(self, n, m: int = 1, **kwargs): ...
-    def _eval_rewrite_as_Sum(self, n, m: Incomplete | None = None, **kwargs): ...
+    def _eval_rewrite_as_Sum(self, n, m=None, **kwargs): ...
     def _eval_rewrite_as_zeta(self, n, m=..., **kwargs): ...
     def _eval_expand_func(self, **hints): ...
-    def _eval_rewrite_as_tractable(self, n, m: int = 1, limitvar: Incomplete | None = None, **kwargs): ...
+    def _eval_rewrite_as_tractable(self, n, m: int = 1, limitvar=None, **kwargs): ...
     def _eval_evalf(self, prec): ...
     def fdiff(self, argindex: int = 1): ...
 
-class euler(Function):
+class euler(DefinedFunction):
     '''
     Euler numbers / Euler polynomials / Euler function
 
@@ -647,12 +649,12 @@ class euler(Function):
 
     '''
     @classmethod
-    def eval(cls, n, x: Incomplete | None = None): ...
-    def _eval_rewrite_as_Sum(self, n, x: Incomplete | None = None, **kwargs): ...
-    def _eval_rewrite_as_genocchi(self, n, x: Incomplete | None = None, **kwargs): ...
+    def eval(cls, n, x=None): ...
+    def _eval_rewrite_as_Sum(self, n, x=None, **kwargs): ...
+    def _eval_rewrite_as_genocchi(self, n, x=None, **kwargs): ...
     def _eval_evalf(self, prec): ...
 
-class catalan(Function):
+class catalan(DefinedFunction):
     '''
     Catalan numbers
 
@@ -744,7 +746,7 @@ class catalan(Function):
     def _eval_is_composite(self): ...
     def _eval_evalf(self, prec): ...
 
-class genocchi(Function):
+class genocchi(DefinedFunction):
     '''
     Genocchi numbers / Genocchi polynomials / Genocchi function
 
@@ -795,7 +797,7 @@ class genocchi(Function):
 
     '''
     @classmethod
-    def eval(cls, n, x: Incomplete | None = None): ...
+    def eval(cls, n, x=None): ...
     def _eval_rewrite_as_bernoulli(self, n, x: int = 1, **kwargs): ...
     def _eval_rewrite_as_dirichlet_eta(self, n, x: int = 1, **kwargs): ...
     def _eval_is_integer(self): ...
@@ -806,7 +808,7 @@ class genocchi(Function):
     def _eval_is_prime(self): ...
     def _eval_evalf(self, prec): ...
 
-class andre(Function):
+class andre(DefinedFunction):
     '''
     Andre numbers / Andre function
 
@@ -871,7 +873,7 @@ class andre(Function):
     def _eval_is_positive(self): ...
     def _eval_evalf(self, prec): ...
 
-class partition(Function):
+class partition(DefinedFunction):
     """
     Partition numbers
 
@@ -908,8 +910,9 @@ class partition(Function):
     @classmethod
     def eval(cls, n): ...
     def _eval_is_positive(self): ...
+    def _eval_Mod(self, q): ...
 
-class divisor_sigma(Function):
+class divisor_sigma(DefinedFunction):
     """
     Calculate the divisor function `\\sigma_k(n)` for positive integer n
 
@@ -955,7 +958,7 @@ class divisor_sigma(Function):
     @classmethod
     def eval(cls, n, k=...): ...
 
-class udivisor_sigma(Function):
+class udivisor_sigma(DefinedFunction):
     """
     Calculate the unitary divisor function `\\sigma_k^*(n)` for positive integer n
 
@@ -1013,7 +1016,7 @@ class udivisor_sigma(Function):
     @classmethod
     def eval(cls, n, k=...): ...
 
-class legendre_symbol(Function):
+class legendre_symbol(DefinedFunction):
     """
     Returns the Legendre symbol `(a / p)`.
 
@@ -1045,7 +1048,7 @@ class legendre_symbol(Function):
     @classmethod
     def eval(cls, a, p): ...
 
-class jacobi_symbol(Function):
+class jacobi_symbol(DefinedFunction):
     """
     Returns the Jacobi symbol `(m / n)`.
 
@@ -1102,7 +1105,7 @@ class jacobi_symbol(Function):
     @classmethod
     def eval(cls, m, n): ...
 
-class kronecker_symbol(Function):
+class kronecker_symbol(DefinedFunction):
     """
     Returns the Kronecker symbol `(a / n)`.
 
@@ -1131,7 +1134,7 @@ class kronecker_symbol(Function):
     @classmethod
     def eval(cls, a, n): ...
 
-class mobius(Function):
+class mobius(DefinedFunction):
     '''
     Mobius function maps natural number to {-1, 0, 1}
 
@@ -1181,7 +1184,7 @@ class mobius(Function):
     @classmethod
     def eval(cls, n): ...
 
-class primenu(Function):
+class primenu(DefinedFunction):
     """
     Calculate the number of distinct prime factors for a positive integer n.
 
@@ -1221,7 +1224,7 @@ class primenu(Function):
     @classmethod
     def eval(cls, n): ...
 
-class primeomega(Function):
+class primeomega(DefinedFunction):
     """
     Calculate the number of prime factors counting multiplicities for a
     positive integer n.
@@ -1262,7 +1265,7 @@ class primeomega(Function):
     @classmethod
     def eval(cls, n): ...
 
-class totient(Function):
+class totient(DefinedFunction):
     """
     Calculate the Euler totient function phi(n)
 
@@ -1298,7 +1301,7 @@ class totient(Function):
     @classmethod
     def eval(cls, n): ...
 
-class reduced_totient(Function):
+class reduced_totient(DefinedFunction):
     """
     Calculate the Carmichael reduced totient function lambda(n)
 
@@ -1334,7 +1337,7 @@ class reduced_totient(Function):
     @classmethod
     def eval(cls, n): ...
 
-class primepi(Function):
+class primepi(DefinedFunction):
     """ Represents the prime counting function pi(n) = the number
     of prime numbers less than or equal to n.
 
@@ -1375,7 +1378,8 @@ class primepi(Function):
     @classmethod
     def eval(cls, n): ...
 
-class _MultisetHistogram(tuple): ...
+class _MultisetHistogram(tuple):
+    __slots__: Incomplete
 
 _N: int
 _ITEMS: int
@@ -1389,7 +1393,7 @@ def _multiset_histogram(n):
     The data is stored in a class deriving from tuple so it is easily
     recognized and so it can be converted easily to a list.
     """
-def nP(n, k: Incomplete | None = None, replacement: bool = False):
+def nP(n, k=None, replacement: bool = False):
     """Return the number of permutations of ``n`` items taken ``k`` at a time.
 
     Possible values for ``n``:
@@ -1448,7 +1452,9 @@ def nP(n, k: Incomplete | None = None, replacement: bool = False):
     .. [1] https://en.wikipedia.org/wiki/Permutation
 
     """
-def _nP(n, k: Incomplete | None = None, replacement: bool = False): ...
+@cacheit
+def _nP(n, k=None, replacement: bool = False): ...
+@cacheit
 def _AOP_product(n):
     """for n = (m1, m2, .., mk) return the coefficients of the polynomial,
     prod(sum(x**i for i in range(nj + 1)) for nj in n); i.e. the coefficients
@@ -1474,7 +1480,7 @@ def _AOP_product(n):
     https://tinyurl.com/cep849r, but in a refactored form.
 
     """
-def nC(n, k: Incomplete | None = None, replacement: bool = False):
+def nC(n, k=None, replacement: bool = False):
     """Return the number of combinations of ``n`` items taken ``k`` at a time.
 
     Possible values for ``n``:
@@ -1540,10 +1546,12 @@ def nC(n, k: Incomplete | None = None, replacement: bool = False):
 
     """
 def _eval_stirling1(n, k): ...
+@cacheit
 def _stirling1(n, k): ...
 def _eval_stirling2(n, k): ...
+@cacheit
 def _stirling2(n, k): ...
-def stirling(n, k, d: Incomplete | None = None, kind: int = 2, signed: bool = False):
+def stirling(n, k, d=None, kind: int = 2, signed: bool = False):
     '''Return Stirling number $S(n, k)$ of the first or second (default) kind.
 
     The sum of all Stirling numbers of the second kind for $k = 1$
@@ -1627,10 +1635,11 @@ def stirling(n, k, d: Incomplete | None = None, kind: int = 2, signed: bool = Fa
     .. [2] https://en.wikipedia.org/wiki/Stirling_numbers_of_the_second_kind
 
     '''
+@cacheit
 def _nT(n, k):
     """Return the partitions of ``n`` items into ``k`` parts. This
     is used by ``nT`` for the case when ``n`` is an integer."""
-def nT(n, k: Incomplete | None = None):
+def nT(n, k=None):
     '''Return the number of ``k``-sized partitions of ``n`` items.
 
     Possible values for ``n``:
@@ -1703,7 +1712,7 @@ def nT(n, k: Incomplete | None = None):
 
     '''
 
-class motzkin(Function):
+class motzkin(DefinedFunction):
     """
     The nth Motzkin number is the number
     of ways of drawing non-intersecting chords
@@ -1750,7 +1759,7 @@ class motzkin(Function):
     @classmethod
     def eval(cls, n): ...
 
-def nD(i: Incomplete | None = None, brute: Incomplete | None = None, *, n: Incomplete | None = None, m: Incomplete | None = None):
+def nD(i=None, brute=None, *, n=None, m=None):
     """return the number of derangements for: ``n`` unique items, ``i``
     items (as a sequence or multiset), or multiplicities, ``m`` given
     as a sequence or multiset.

@@ -150,9 +150,9 @@ class MusculotendonBase(ForceActuator, _NamedMixin, metaclass=abc.ABCMeta):
     _with_defaults: Incomplete
     _musculotendon_dynamics: Incomplete
     _force: Incomplete
-    def __init__(self, name, pathway, activation_dynamics, *, musculotendon_dynamics=..., tendon_slack_length: Incomplete | None = None, peak_isometric_force: Incomplete | None = None, optimal_fiber_length: Incomplete | None = None, maximal_fiber_velocity: Incomplete | None = None, optimal_pennation_angle: Incomplete | None = None, fiber_damping_coefficient: Incomplete | None = None, with_defaults: bool = False) -> None: ...
+    def __init__(self, name, pathway, activation_dynamics, *, musculotendon_dynamics=..., tendon_slack_length=None, peak_isometric_force=None, optimal_fiber_length=None, maximal_fiber_velocity=None, optimal_pennation_angle=None, fiber_damping_coefficient=None, with_defaults: bool = False) -> None: ...
     @classmethod
-    def with_defaults(cls, name, pathway, activation_dynamics, *, musculotendon_dynamics=..., tendon_slack_length: Incomplete | None = None, peak_isometric_force: Incomplete | None = None, optimal_fiber_length: Incomplete | None = None, maximal_fiber_velocity=..., optimal_pennation_angle=..., fiber_damping_coefficient=...):
+    def with_defaults(cls, name, pathway, activation_dynamics, *, musculotendon_dynamics=..., tendon_slack_length=None, peak_isometric_force=None, optimal_fiber_length=None, maximal_fiber_velocity=..., optimal_pennation_angle=..., fiber_damping_coefficient=...):
         """Recommended constructor that will use the published constants.
 
         Explanation

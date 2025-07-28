@@ -5,6 +5,7 @@ from sympy.core.power import Pow as Pow
 from sympy.core.singleton import S as S
 from sympy.functions.elementary.exponential import exp as exp, log as log
 from sympy.functions.elementary.miscellaneous import sqrt as sqrt
+from sympy.logic.boolalg import BooleanFunction as BooleanFunction, false as false, true as true
 
 def _expm1(x): ...
 
@@ -208,7 +209,7 @@ class fma(Function):
         Returns the first derivative of this function.
         """
     def _eval_expand_func(self, **hints): ...
-    def _eval_rewrite_as_tractable(self, arg, limitvar: Incomplete | None = None, **kwargs): ...
+    def _eval_rewrite_as_tractable(self, arg, limitvar=None, **kwargs): ...
 
 _Ten: Incomplete
 
@@ -353,5 +354,12 @@ class hypot(Function):
     def _eval_rewrite_as_Pow(self, arg, **kwargs): ...
     _eval_rewrite_as_tractable = _eval_rewrite_as_Pow
 
-class isnan(Function):
+class isnan(BooleanFunction):
     nargs: int
+    @classmethod
+    def eval(cls, arg): ...
+
+class isinf(BooleanFunction):
+    nargs: int
+    @classmethod
+    def eval(cls, arg): ...

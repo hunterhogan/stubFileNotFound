@@ -1,13 +1,12 @@
-from _typeshed import Incomplete
 from sympy.core import S as S, diff as diff, oo as oo
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function
+from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction
 from sympy.core.logic import fuzzy_not as fuzzy_not
 from sympy.core.relational import Eq as Eq
 from sympy.functions.elementary.complexes import im as im
 from sympy.functions.elementary.piecewise import Piecewise as Piecewise
 from sympy.functions.special.delta_functions import Heaviside as Heaviside
 
-class SingularityFunction(Function):
+class SingularityFunction(DefinedFunction):
     """
     Singularity functions are a class of discontinuous functions.
 
@@ -146,7 +145,7 @@ class SingularityFunction(Function):
         Rewrites a Singularity Function expression using Heavisides and DiracDeltas.
 
         """
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0): ...
-    def _eval_nseries(self, x, n, logx: Incomplete | None = None, cdir: int = 0): ...
+    def _eval_as_leading_term(self, x, logx, cdir): ...
+    def _eval_nseries(self, x, n, logx=None, cdir: int = 0): ...
     _eval_rewrite_as_DiracDelta = _eval_rewrite_as_Heaviside
     _eval_rewrite_as_HeavisideDiracDelta = _eval_rewrite_as_Heaviside

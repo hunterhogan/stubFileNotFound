@@ -163,7 +163,7 @@ class Formula:
     z: Incomplete
     symbols: Incomplete
     func: Incomplete
-    def __init__(self, func, z, res, symbols, B: Incomplete | None = None, C: Incomplete | None = None, M: Incomplete | None = None) -> None: ...
+    def __init__(self, func, z, res, symbols, B=None, C=None, M=None) -> None: ...
     @property
     def closed_form(self): ...
     def find_instantiations(self, func):
@@ -600,7 +600,7 @@ def devise_plan_meijer(fro, to, z):
 
 _meijercollection: Incomplete
 
-def _meijergexpand(func, z0, allow_hyper: bool = False, rewrite: str = 'default', place: Incomplete | None = None):
+def _meijergexpand(func, z0, allow_hyper: bool = False, rewrite: str = 'default', place=None):
     """
     Try to find an expression for the Meijer G function specified
     by the G_Function ``func``. If ``allow_hyper`` is True, then returning
@@ -610,7 +610,7 @@ def _meijergexpand(func, z0, allow_hyper: bool = False, rewrite: str = 'default'
     If expansions exist both at zero and at infinity, ``place``
     can be set to ``0`` or ``zoo`` for the preferred choice.
     """
-def hyperexpand(f, allow_hyper: bool = False, rewrite: str = 'default', place: Incomplete | None = None):
+def hyperexpand(f, allow_hyper: bool = False, rewrite: str = 'default', place=None):
     """
     Expand hypergeometric functions. If allow_hyper is True, allow partial
     simplification (that is a result different from input,

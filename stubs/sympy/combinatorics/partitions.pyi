@@ -59,7 +59,7 @@ class Partition(FiniteSet):
         >>> Partition(a, b)
         Partition({4, 5}, {1, 2, 3})
         """
-    def sort_key(self, order: Incomplete | None = None):
+    def sort_key(self, order=None):
         """Return a canonical key that can be used for sorting.
 
         Ordering is based on the size and sorted elements of the partition
@@ -253,7 +253,7 @@ class IntegerPartition(Basic):
     """
     _dict: Incomplete
     _keys: Incomplete
-    def __new__(cls, partition, integer: Incomplete | None = None):
+    def __new__(cls, partition, integer=None):
         """
         Generates a new IntegerPartition object from a list or dictionary.
 
@@ -383,7 +383,7 @@ class IntegerPartition(Basic):
         """
     def __str__(self) -> str: ...
 
-def random_integer_partition(n, seed: Incomplete | None = None):
+def random_integer_partition(n, seed=None):
     """
     Generates a random integer partition summing to ``n`` as a list
     of reverse-sorted integers.

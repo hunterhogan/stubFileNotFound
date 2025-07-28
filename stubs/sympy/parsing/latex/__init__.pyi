@@ -4,6 +4,21 @@ from sympy.external import import_module as import_module
 from sympy.parsing.latex.lark import LarkLaTeXParser as LarkLaTeXParser, TransformToSymPyExpr as TransformToSymPyExpr, parse_latex_lark as parse_latex_lark
 from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
 
+IGNORE_L: str
+IGNORE_R: str
+NO_LEFT: str
+BEGIN_AMS_MAT: str
+END_AMS_MAT: str
+BEGIN_ARR: str
+END_ARR: str
+MATRIX_DELIMS: Incomplete
+MATRIX_DELIMS_INV: Incomplete
+BEGIN_DELIM_REPR: Incomplete
+END_DELIM_REPR: Incomplete
+
+def check_matrix_delimiters(latex_str):
+    """Report mismatched, excess, or missing matrix delimiters."""
+
 __doctest_requires__: Incomplete
 
 def parse_latex(s, strict: bool = False, backend: str = 'antlr'):

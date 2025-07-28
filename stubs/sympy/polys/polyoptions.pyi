@@ -1,4 +1,6 @@
+import sympy.polys
 from _typeshed import Incomplete
+from sympy.core.expr import Expr
 
 __all__ = ['Options', 'Options']
 
@@ -79,7 +81,9 @@ class Options(dict):
     """
     __order__: Incomplete
     __options__: dict[str, type[Option]]
-    def __init__(self, gens, args, flags: Incomplete | None = None, strict: bool = False) -> None: ...
+    gens: tuple[Expr, ...]
+    domain: sympy.polys.domains.Domain
+    def __init__(self, gens, args, flags=None, strict: bool = False) -> None: ...
     @classmethod
     def _init_dependencies_order(cls) -> None:
         """Resolve the order of options' processing. """

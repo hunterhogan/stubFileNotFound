@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core import Pow as Pow, S as S
 from sympy.core.expr import AtomicExpr as AtomicExpr
 from sympy.vector.basisdependent import BasisDependent as BasisDependent, BasisDependentAdd as BasisDependentAdd, BasisDependentMul as BasisDependentMul, BasisDependentZero as BasisDependentZero
@@ -79,7 +78,7 @@ class Dyadic(BasisDependent):
 
         """
     def __xor__(self, other): ...
-    def to_matrix(self, system, second_system: Incomplete | None = None):
+    def to_matrix(self, system, second_system=None):
         """
         Returns the matrix form of the dyadic with respect to one or two
         coordinate systems.

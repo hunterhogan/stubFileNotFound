@@ -5,7 +5,7 @@ from sympy.core.symbol import symbols as symbols
 from sympy.matrices import Matrix as Matrix
 from sympy.utilities.iterables import rotate_left as rotate_left, variations as variations
 
-def symmetric(n) -> Generator[Incomplete]:
+def symmetric(n) -> Generator[Incomplete, Incomplete]:
     """
     Generates the symmetric group of order n, Sn.
 

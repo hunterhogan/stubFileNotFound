@@ -1,5 +1,4 @@
 from .subscheck import sub_func_doit as sub_func_doit
-from _typeshed import Incomplete
 from sympy.core import Add as Add, S as S
 from sympy.core.function import _mexpand as _mexpand, diff as diff, expand as expand, expand_mul as expand_mul
 from sympy.core.relational import Eq as Eq
@@ -69,7 +68,7 @@ def _get_simplified_sol(sol, func, collectterms):
     the multiplicity of the root, reroot is real part and imroot being the imaginary part.
 
     """
-def _undetermined_coefficients_match(expr, x, func: Incomplete | None = None, eq_homogeneous=...):
+def _undetermined_coefficients_match(expr, x, func=None, eq_homogeneous=...):
     """
     Returns a trial function match if undetermined coefficients can be applied
     to ``expr``, and ``None`` otherwise.

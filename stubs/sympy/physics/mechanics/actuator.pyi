@@ -2,7 +2,7 @@ import abc
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 
-__all__ = ['ActuatorBase', 'ForceActuator', 'LinearDamper', 'LinearSpring', 'TorqueActuator', 'DuffingSpring']
+__all__ = ['ActuatorBase', 'ForceActuator', 'LinearDamper', 'LinearSpring', 'TorqueActuator', 'DuffingSpring', 'CoulombKineticFriction']
 
 class ActuatorBase(ABC, metaclass=abc.ABCMeta):
     """Abstract base class for all actuator classes to inherit from.
@@ -517,7 +517,7 @@ class TorqueActuator(ActuatorBase):
         that the (equal and opposite) reaction torque is applied to this frame.
 
     """
-    def __init__(self, torque, axis, target_frame, reaction_frame: Incomplete | None = None) -> None:
+    def __init__(self, torque, axis, target_frame, reaction_frame=None) -> None:
         """Initializer for ``TorqueActuator``.
 
         Parameters
@@ -538,7 +538,7 @@ class TorqueActuator(ActuatorBase):
         """
     @classmethod
     def at_pin_joint(cls, torque, pin_joint):
-        """Alternate construtor to instantiate from a ``PinJoint`` instance.
+        """Alternate constructor to instantiate from a ``PinJoint`` instance.
 
         Examples
         ========
@@ -720,6 +720,136 @@ class DuffingSpring(ForceActuator):
     def force(self):
         """The force produced by the Duffing spring."""
     _force: Incomplete
+    @force.setter
+    def force(self, force) -> None: ...
+    def __repr__(self) -> str: ...
+
+class CoulombKineticFriction(ForceActuator):
+    '''Coulomb kinetic friction with Stribeck and viscous effects.
+
+    Explanation
+    ===========
+
+    This represents a Coulomb kinetic friction with the Stribeck and viscous effect,
+    described by the function:
+
+    .. math::
+        F = (\\mu_k f_n + (\\mu_s - \\mu_k) f_n e^{-(\\frac{v}{v_s})^2}) \\text{sign}(v) + \\sigma  v
+
+    where :math:`\\mu_k` is the coefficient of kinetic friction, :math:`\\mu_s` is the
+    coefficient of static friction, :math:`f_n` is the normal force, :math:`v` is the
+    relative velocity, :math:`v_s` is the Stribeck friction coefficient, and
+    :math:`\\sigma` is the viscous friction constant.
+
+    The default friction force is :math:`F = \\mu_k f_n`.
+    When specified, the actuator includes:
+
+    - Stribeck effect: :math:`(\\mu_s - \\mu_k) f_n e^{-(\\frac{v}{v_s})^2}`
+    - Viscous effect: :math:`\\sigma v`
+
+    Notes
+    =====
+
+    The actuator makes the following assumptions:
+
+    - The actuator assumes relative motion is non-zero.
+    - The normal force is assumed to be a non-negative scalar.
+    - The resultant friction force is opposite to the velocity direction.
+    - Each point in the pathway is fixed within separate objects that are sliding relative to each other. In other words, these two points are fixed in the mutually sliding objects.
+
+    This actuator has been tested for straightforward motions, like a block sliding
+    on a surface.
+
+    The friction force is defined to always oppose the direction of relative velocity :math:`v`.
+    Specifically:
+
+    - The default Coulomb friction force :math:`\\mu_k f_n \\text{sign}(v)` is opposite to :math:`v`.
+    - The Stribeck effect :math:`(\\mu_s - \\mu_k) f_n e^{-(\\frac{v}{v_s})^2} \\text{sign}(v)` is also opposite to :math:`v`.
+    - The viscous friction term :math:`\\sigma v` is opposite to :math:`v`.
+
+    Examples
+    ========
+
+    The below example shows how to generate the loads produced by a Coulomb kinetic
+    friction actuator in a mass-spring system with friction.
+
+    >>> import sympy as sm
+    >>> from sympy.physics.mechanics import (dynamicsymbols, ReferenceFrame, Point,
+    ...     LinearPathway, CoulombKineticFriction, LinearSpring, KanesMethod, Particle)
+
+    >>> x, v = dynamicsymbols(\'x, v\', real=True)
+    >>> m, g, k, mu_k, mu_s, v_s, sigma = sm.symbols(\'m, g, k, mu_k, mu_s, v_s, sigma\')
+
+    >>> N = ReferenceFrame(\'N\')
+    >>> O, P = Point(\'O\'), Point(\'P\')
+    >>> O.set_vel(N, 0)
+    >>> P.set_pos(O, x*N.x)
+
+    >>> pathway = LinearPathway(O, P)
+    >>> friction = CoulombKineticFriction(mu_k, m*g, pathway, v_s=v_s, sigma=sigma, mu_s=mu_k)
+    >>> spring = LinearSpring(k, pathway)
+    >>> block = Particle(\'block\', point=P, mass=m)
+
+    >>> kane = KanesMethod(N, (x,), (v,), kd_eqs=(x.diff() - v,))
+    >>> friction.to_loads()
+        [(O, (g*m*mu_k*sign(sign(x(t))*Derivative(x(t), t)) + sigma*sign(x(t))*Derivative(x(t), t))*x(t)/Abs(x(t))*N.x), (P, (-g*m*mu_k*sign(sign(x(t))*Derivative(x(t), t)) - sigma*sign(x(t))*Derivative(x(t), t))*x(t)/Abs(x(t))*N.x)]
+    >>> loads = friction.to_loads() + spring.to_loads()
+    >>> fr, frstar = kane.kanes_equations([block], loads)
+    >>> eom = fr + frstar
+    >>> eom
+        Matrix([[-k*x(t) - m*Derivative(v(t), t) + (-g*m*mu_k*sign(v(t)*sign(x(t))) - sigma*v(t)*sign(x(t)))*x(t)/Abs(x(t))]])
+
+    Parameters
+    ==========
+
+    f_n : sympifiable
+        The normal force between the surfaces. It should always be a non-negative scalar.
+    mu_k : sympifiable
+        The coefficient of kinetic friction.
+    pathway : PathwayBase
+        The pathway that the actuator follows.
+    v_s : sympifiable, optional
+        The Stribeck friction coefficient.
+    sigma : sympifiable, optional
+        The viscous friction coefficient.
+    mu_s : sympifiable, optional
+        The coefficient of static friction. Defaults to mu_k, meaning the Stribeck effect evaluates to 0 by default.
+
+    References
+    ==========
+
+    .. [Moore2022] https://moorepants.github.io/learn-multibody-dynamics/loads.html#friction.
+    .. [Flores2023] Paulo Flores, Jorge Ambrosio, Hamid M. Lankarani,
+            "Contact-impact events with friction in multibody dynamics: Back to basics",
+            Mechanism and Machine Theory, vol. 184, 2023. https://doi.org/10.1016/j.mechmachtheory.2023.105305.
+    .. [Rogner2017] I. Rogner, "Friction modelling for robotic applications with planar motion",
+            Chalmers University of Technology, Department of Electrical Engineering, 2017.
+
+    '''
+    _mu_k: Incomplete
+    _mu_s: Incomplete
+    _f_n: Incomplete
+    _sigma: Incomplete
+    _v_s: Incomplete
+    pathway: Incomplete
+    def __init__(self, mu_k, f_n, pathway, *, v_s=None, sigma=None, mu_s=None) -> None: ...
+    @property
+    def mu_k(self):
+        """The coefficient of kinetic friction."""
+    @property
+    def mu_s(self):
+        """The coefficient of static friction."""
+    @property
+    def f_n(self):
+        """The normal force between the surfaces."""
+    @property
+    def sigma(self):
+        """The viscous friction coefficient."""
+    @property
+    def v_s(self):
+        """The Stribeck friction coefficient."""
+    @property
+    def force(self): ...
     @force.setter
     def force(self, force) -> None: ...
     def __repr__(self) -> str: ...

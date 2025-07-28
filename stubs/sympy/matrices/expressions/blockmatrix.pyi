@@ -1,7 +1,6 @@
 from sympy.assumptions.ask import Q as Q, ask as ask
 from sympy.core import Add as Add, Basic as Basic, Mul as Mul, S as S
 from sympy.core.sympify import _sympify as _sympify
-from sympy.functions import adjoint as adjoint
 from sympy.functions.elementary.complexes import im as im, re as re
 from sympy.matrices import Matrix as Matrix, ShapeError as ShapeError
 from sympy.matrices.exceptions import NonInvertibleMatrixError as NonInvertibleMatrixError

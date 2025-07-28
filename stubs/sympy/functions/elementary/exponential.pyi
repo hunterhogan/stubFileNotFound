@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from sympy.core.add import Add as Add
 from sympy.core.cache import cacheit as cacheit
 from sympy.core.expr import Expr as Expr
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function, FunctionClass as FunctionClass, PoleError as PoleError, expand_complex as expand_complex, expand_log as expand_log, expand_mul as expand_mul, expand_multinomial as expand_multinomial
+from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, FunctionClass as FunctionClass, PoleError as PoleError, expand_complex as expand_complex, expand_log as expand_log, expand_mul as expand_mul, expand_multinomial as expand_multinomial
 from sympy.core.logic import fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
 from sympy.core.mul import Mul as Mul
 from sympy.core.numbers import I as I, Integer as Integer, Rational as Rational, pi as pi
@@ -17,7 +17,7 @@ from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.ntheory import multiplicity as multiplicity, perfect_power as perfect_power
 from sympy.ntheory.factor_ import factorint as factorint
 
-class ExpBase(Function):
+class ExpBase(DefinedFunction):
     unbranched: bool
     _singularities: Incomplete
     @property
@@ -148,6 +148,7 @@ class exp(ExpBase, metaclass=ExpMeta):
         Returns the base of the exponential function.
         """
     @staticmethod
+    @cacheit
     def taylor_term(n, x, *previous_terms):
         """
         Calculates the next term in the Taylor series expansion.
@@ -183,7 +184,7 @@ class exp(ExpBase, metaclass=ExpMeta):
     def _eval_is_extended_positive(self): ...
     def _eval_nseries(self, x, n, logx, cdir: int = 0): ...
     def _taylor(self, x, n): ...
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0): ...
+    def _eval_as_leading_term(self, x, logx, cdir): ...
     def _eval_rewrite_as_sin(self, arg, **kwargs): ...
     def _eval_rewrite_as_cos(self, arg, **kwargs): ...
     def _eval_rewrite_as_tanh(self, arg, **kwargs): ...
@@ -202,7 +203,7 @@ def match_real_imag(expr):
 
     """
 
-class log(Function):
+class log(DefinedFunction):
     """
     The natural logarithm function `\\ln(x)` or `\\log(x)`.
 
@@ -246,12 +247,9 @@ class log(Function):
         Returns `e^x`, the inverse function of `\\log(x)`.
         """
     @classmethod
-    def eval(cls, arg, base: Incomplete | None = None): ...
-    def as_base_exp(self):
-        """
-        Returns this function in the form (base, exponent).
-        """
+    def eval(cls, arg, base=None): ...
     @staticmethod
+    @cacheit
     def taylor_term(n, x, *previous_terms):
         """
         Returns the next term in the Taylor series expansion of `\\log(1+x)`.
@@ -286,9 +284,9 @@ class log(Function):
     def _eval_is_zero(self): ...
     def _eval_is_extended_nonnegative(self): ...
     def _eval_nseries(self, x, n, logx, cdir: int = 0): ...
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0): ...
+    def _eval_as_leading_term(self, x, logx, cdir): ...
 
-class LambertW(Function):
+class LambertW(DefinedFunction):
     """
     The Lambert W function $W(z)$ is defined as the inverse
     function of $w \\exp(w)$ [1]_.
@@ -325,7 +323,7 @@ class LambertW(Function):
     """
     _singularities: Incomplete
     @classmethod
-    def eval(cls, x, k: Incomplete | None = None): ...
+    def eval(cls, x, k=None): ...
     def fdiff(self, argindex: int = 1):
         """
         Return the first derivative of this function.
@@ -333,8 +331,9 @@ class LambertW(Function):
     def _eval_is_extended_real(self): ...
     def _eval_is_finite(self): ...
     def _eval_is_algebraic(self): ...
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0): ...
+    def _eval_as_leading_term(self, x, logx, cdir): ...
     def _eval_nseries(self, x, n, logx, cdir: int = 0): ...
     def _eval_is_zero(self): ...
 
+@cacheit
 def _log_atan_table(): ...

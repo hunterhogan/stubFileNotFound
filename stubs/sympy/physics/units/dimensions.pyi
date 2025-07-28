@@ -47,7 +47,7 @@ class Dimension(Expr):
 
     For example, in classical mechanics we know that time is different from
     temperature and dimensions make this difference (but they do not provide
-    any measure of these quantites.
+    any measure of these quantities.
 
         >>> from sympy.physics.units import Dimension
         >>> length = Dimension('length')
@@ -87,7 +87,7 @@ class Dimension(Expr):
     is_number: bool
     is_positive: bool
     is_real: bool
-    def __new__(cls, name, symbol: Incomplete | None = None): ...
+    def __new__(cls, name, symbol=None): ...
     @property
     def name(self): ...
     @property
@@ -144,7 +144,7 @@ class DimensionSystem(Basic, _QuantityMapper):
     def _get_dimensional_dependencies_for_name(self, dimension): ...
     def get_dimensional_dependencies(self, name, mark_dimensionless: bool = False): ...
     def equivalent_dims(self, dim1, dim2): ...
-    def extend(self, new_base_dims, new_derived_dims=(), new_dim_deps: Incomplete | None = None): ...
+    def extend(self, new_base_dims, new_derived_dims=(), new_dim_deps=None): ...
     def is_dimensionless(self, dimension):
         """
         Check if the dimension object really has a dimension.

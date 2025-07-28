@@ -77,7 +77,7 @@ class CodeSignature:
 
 def _llvm_jit_code(args, expr, signature, callback_type):
     """Create a native code function from a SymPy expression"""
-def llvm_callable(args, expr, callback_type: Incomplete | None = None):
+def llvm_callable(args, expr, callback_type=None):
     """Compile function from a SymPy expression
 
     Expressions are evaluated using double precision arithmetic.

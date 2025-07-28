@@ -78,7 +78,7 @@ class Dispatcher:
     _cache: Incomplete
     ordering: Incomplete
     doc: Incomplete
-    def __init__(self, name, doc: Incomplete | None = None) -> None: ...
+    def __init__(self, name, doc=None) -> None: ...
     def register(self, *types, **kwargs):
         """ Register dispatcher with new implementation
 

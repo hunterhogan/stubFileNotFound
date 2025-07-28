@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core.random import _randint as _randint
 from sympy.external.gmpy import GROUND_TYPES as GROUND_TYPES
 from sympy.polys.densearith import dmp_add as dmp_add, dmp_add_mul as dmp_add_mul, dmp_div as dmp_div, dmp_expand as dmp_expand, dmp_max_norm as dmp_max_norm, dmp_mul as dmp_mul, dmp_mul_ground as dmp_mul_ground, dmp_neg as dmp_neg, dmp_pow as dmp_pow, dmp_quo as dmp_quo, dmp_quo_ground as dmp_quo_ground, dmp_sub as dmp_sub, dmp_sub_mul as dmp_sub_mul, dup_add as dup_add, dup_div as dup_div, dup_l1_norm as dup_l1_norm, dup_lshift as dup_lshift, dup_max_norm as dup_max_norm, dup_mul as dup_mul, dup_mul_ground as dup_mul_ground, dup_neg as dup_neg, dup_quo as dup_quo, dup_quo_ground as dup_quo_ground, dup_sqr as dup_sqr, dup_sub as dup_sub, dup_sub_mul as dup_sub_mul
@@ -232,7 +231,7 @@ def dmp_zz_diophantine(F, c, A, d, p, u, K):
     """Wang/EEZ: Solve multivariate Diophantine equations. """
 def dmp_zz_wang_hensel_lifting(f, H, LC, A, p, u, K):
     """Wang/EEZ: Parallel Hensel lifting algorithm. """
-def dmp_zz_wang(f, u, K, mod: Incomplete | None = None, seed: Incomplete | None = None):
+def dmp_zz_wang(f, u, K, mod=None, seed=None):
     """
     Factor primitive square-free polynomials in `Z[X]`.
 

@@ -26,13 +26,13 @@ class ColorScheme:
     def _sort_args(self, args): ...
     def _test_color_function(self) -> None: ...
     def __call__(self, x, y, z, u, v): ...
-    def apply_to_curve(self, verts, u_set, set_len: Incomplete | None = None, inc_pos: Incomplete | None = None):
+    def apply_to_curve(self, verts, u_set, set_len=None, inc_pos=None):
         """
         Apply this color scheme to a
         set of vertices over a single
         independent variable u.
         """
-    def apply_to_surface(self, verts, u_set, v_set, set_len: Incomplete | None = None, inc_pos: Incomplete | None = None):
+    def apply_to_surface(self, verts, u_set, v_set, set_len=None, inc_pos=None):
         """
         Apply this color scheme to a
         set of vertices over two

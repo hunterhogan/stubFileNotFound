@@ -6,9 +6,14 @@ from .sorting import ordered as ordered
 from .sympify import sympify as sympify
 from _typeshed import Incomplete
 from collections.abc import Generator
+from sympy.core.add import Add as Add
+from sympy.core.expr import Expr as Expr
+from sympy.core.mul import Mul as Mul
+from sympy.logic.boolalg import And as And, Boolean as Boolean, Or as Or
 from sympy.multipledispatch.dispatcher import Dispatcher as Dispatcher, RaiseNotImplementedError as RaiseNotImplementedError, ambiguity_register_error_ignore_dup as ambiguity_register_error_ignore_dup, str_signature as str_signature
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.iterables import sift as sift
+from typing import overload
 
 class AssocOp(Basic):
     """ Associative operations, can separate noncommutative and
@@ -38,9 +43,10 @@ class AssocOp(Basic):
     """
     __slots__: tuple[str, ...]
     _args_type: type[Basic] | None
-    def __new__(cls, *args, evaluate: Incomplete | None = None, _sympify: bool = True): ...
+    @cacheit
+    def __new__(cls, *args, evaluate=None, _sympify: bool = True): ...
     @classmethod
-    def _from_args(cls, args, is_commutative: Incomplete | None = None):
+    def _from_args(cls, args, is_commutative=None):
         """Create new instance with already-processed args.
         If the args are not in canonical order, then a non-canonical
         result will be returned, so use with caution. The order of
@@ -93,7 +99,7 @@ class AssocOp(Basic):
         """Return seq so that none of the elements are of type `cls`. This is
         the vanilla routine that will be used if a class derived from AssocOp
         does not define its own flatten routine."""
-    def _matches_commutative(self, expr, repl_dict: Incomplete | None = None, old: bool = False):
+    def _matches_commutative(self, expr, repl_dict=None, old: bool = False):
         '''
         Matches Add/Mul "pattern" to an expression "expr".
 
@@ -150,25 +156,18 @@ class AssocOp(Basic):
         walks the args of the non-number part recursively (doing the same
         thing).
         """
+    @overload
     @classmethod
-    def make_args(cls, expr):
-        """
-        Return a sequence of elements `args` such that cls(*args) == expr
-
-        Examples
-        ========
-
-        >>> from sympy import Symbol, Mul, Add
-        >>> x, y = map(Symbol, 'xy')
-
-        >>> Mul.make_args(x*y)
-        (x, y)
-        >>> Add.make_args(x*y)
-        (x*y,)
-        >>> set(Add.make_args(x*y + y)) == set([y, x*y])
-        True
-
-        """
+    def make_args(cls, expr: Expr) -> tuple[Expr, ...]: ...
+    @overload
+    @classmethod
+    def make_args(cls, expr: Expr) -> tuple[Expr, ...]: ...
+    @overload
+    @classmethod
+    def make_args(cls, expr: Boolean) -> tuple[Boolean, ...]: ...
+    @overload
+    @classmethod
+    def make_args(cls, expr: Boolean) -> tuple[Boolean, ...]: ...
     def doit(self, **hints): ...
 
 class ShortCircuit(Exception): ...
@@ -214,7 +213,7 @@ class LatticeOp(AssocOp):
     is_commutative: bool
     def __new__(cls, *args, **options): ...
     @classmethod
-    def _new_args_filter(cls, arg_sequence, call_cls: Incomplete | None = None) -> Generator[Incomplete, Incomplete]:
+    def _new_args_filter(cls, arg_sequence, call_cls=None) -> Generator[Incomplete, Incomplete]:
         """Generator filtering args"""
     @classmethod
     def make_args(cls, expr):
@@ -265,7 +264,7 @@ class AssocOpDispatcher:
     handlerattr: Incomplete
     _handlergetter: Incomplete
     _dispatcher: Incomplete
-    def __init__(self, name, doc: Incomplete | None = None) -> None: ...
+    def __init__(self, name, doc=None) -> None: ...
     def __repr__(self) -> str: ...
     def register_handlerclass(self, classes, typ, on_ambiguity=...) -> None:
         """
@@ -281,6 +280,7 @@ class AssocOpDispatcher:
             Class which is registered to represent *cls1* and *cls2*.
             Handler method of *self* must be implemented in this class.
         """
+    @cacheit
     def __call__(self, *args, _sympify: bool = True, **kwargs):
         """
         Parameters
@@ -289,6 +289,7 @@ class AssocOpDispatcher:
         *args :
             Arguments which are operated
         """
+    @cacheit
     def dispatch(self, handlers):
         """
         Select the handler class, and return its handler method.

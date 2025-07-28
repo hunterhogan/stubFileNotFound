@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 from sympy.core import Integer as Integer, S as S
-from sympy.core.function import Function as Function
+from sympy.core.function import DefinedFunction as DefinedFunction
 from sympy.core.logic import fuzzy_not as fuzzy_not
 from sympy.core.relational import Ne as Ne
 from sympy.core.sorting import default_sort_key as default_sort_key
@@ -24,7 +23,7 @@ def Eijk(*args, **kwargs):
 def eval_levicivita(*args):
     """Evaluate Levi-Civita symbol."""
 
-class LeviCivita(Function):
+class LeviCivita(DefinedFunction):
     """
     Represent the Levi-Civita symbol.
 
@@ -63,7 +62,7 @@ class LeviCivita(Function):
     def eval(cls, *args): ...
     def doit(self, **hints): ...
 
-class KroneckerDelta(Function):
+class KroneckerDelta(DefinedFunction):
     """
     The discrete, or Kronecker, delta function.
 
@@ -118,7 +117,7 @@ class KroneckerDelta(Function):
     """
     is_integer: bool
     @classmethod
-    def eval(cls, i, j, delta_range: Incomplete | None = None):
+    def eval(cls, i, j, delta_range=None):
         """
         Evaluates the discrete delta function.
 

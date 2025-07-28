@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
-from sympy.core import Dummy as Dummy, Function as Function, Mul as Mul, S as S, Tuple as Tuple, diff as diff
+from sympy.core import Dummy as Dummy, Mul as Mul, S as S, Tuple as Tuple, diff as diff
 from sympy.core.basic import Basic as Basic, as_Basic as as_Basic
+from sympy.core.function import DefinedFunction as DefinedFunction
 from sympy.core.numbers import NumberSymbol as NumberSymbol, Rational as Rational, _illegal as _illegal
 from sympy.core.parameters import global_parameters as global_parameters
 from sympy.core.relational import Eq as Eq, Gt as Gt, Lt as Lt, Ne as Ne, Relational as Relational, _canonical as _canonical, _canonical_coeff as _canonical_coeff
@@ -30,7 +31,7 @@ class ExprCondPair(Tuple):
     def __iter__(self): ...
     def _eval_simplify(self, **kwargs): ...
 
-class Piecewise(Function):
+class Piecewise(DefinedFunction):
     """
     Represents a piecewise function.
 
@@ -128,7 +129,7 @@ class Piecewise(Function):
         Evaluate this piecewise function.
         """
     def _eval_simplify(self, **kwargs): ...
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0): ...
+    def _eval_as_leading_term(self, x, logx, cdir): ...
     def _eval_adjoint(self): ...
     def _eval_conjugate(self): ...
     def _eval_derivative(self, x): ...
@@ -251,7 +252,7 @@ class Piecewise(Function):
     @classmethod
     def __eval_cond(cls, cond):
         """Return the truth value of the condition."""
-    def as_expr_set_pairs(self, domain: Incomplete | None = None):
+    def as_expr_set_pairs(self, domain=None):
         """Return tuples for each argument of self that give
         the expression and the interval in which it is valid
         which is contained within the given domain.

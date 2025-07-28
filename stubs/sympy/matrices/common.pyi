@@ -496,7 +496,7 @@ class MatrixSpecial(MatrixRequired):
     @classmethod
     def _eval_wilkinson(cls, n): ...
     @classmethod
-    def diag(kls, *args, strict: bool = False, unpack: bool = True, rows: Incomplete | None = None, cols: Incomplete | None = None, **kwargs):
+    def diag(kls, *args, strict: bool = False, unpack: bool = True, rows=None, cols=None, **kwargs):
         '''Returns a matrix with the specified diagonal.
         If matrices are passed, a block-diagonal matrix
         is created (i.e. the "direct sum" of the matrices).
@@ -588,7 +588,7 @@ class MatrixSpecial(MatrixRequired):
         .sparsetools.banded
        '''
     @classmethod
-    def eye(kls, rows, cols: Incomplete | None = None, **kwargs):
+    def eye(kls, rows, cols=None, **kwargs):
         """Returns an identity matrix.
 
         Parameters
@@ -602,7 +602,7 @@ class MatrixSpecial(MatrixRequired):
         cls : class of the returned matrix
         """
     @classmethod
-    def jordan_block(kls, size: Incomplete | None = None, eigenvalue: Incomplete | None = None, *, band: str = 'upper', **kwargs):
+    def jordan_block(kls, size=None, eigenvalue=None, *, band: str = 'upper', **kwargs):
         """Returns a Jordan block
 
         Parameters
@@ -681,7 +681,7 @@ class MatrixSpecial(MatrixRequired):
         .. [1] https://en.wikipedia.org/wiki/Jordan_matrix
         """
     @classmethod
-    def ones(kls, rows, cols: Incomplete | None = None, **kwargs):
+    def ones(kls, rows, cols=None, **kwargs):
         """Returns a matrix of ones.
 
         Parameters
@@ -695,7 +695,7 @@ class MatrixSpecial(MatrixRequired):
         cls : class of the returned matrix
         """
     @classmethod
-    def zeros(kls, rows, cols: Incomplete | None = None, **kwargs):
+    def zeros(kls, rows, cols=None, **kwargs):
         """Returns a matrix of zeros.
 
         Parameters
@@ -1363,9 +1363,9 @@ class MatrixOperations(MatrixRequired):
         sympy.matrices.matrixbase.MatrixBase.D: Dirac conjugation
         """
     def doit(self, **hints): ...
-    def evalf(self, n: int = 15, subs: Incomplete | None = None, maxn: int = 100, chop: bool = False, strict: bool = False, quad: Incomplete | None = None, verbose: bool = False):
+    def evalf(self, n: int = 15, subs=None, maxn: int = 100, chop: bool = False, strict: bool = False, quad=None, verbose: bool = False):
         """Apply evalf() to each element of self."""
-    def expand(self, deep: bool = True, modulus: Incomplete | None = None, power_base: bool = True, power_exp: bool = True, mul: bool = True, log: bool = True, multinomial: bool = True, basic: bool = True, **hints):
+    def expand(self, deep: bool = True, modulus=None, power_base: bool = True, power_exp: bool = True, mul: bool = True, log: bool = True, multinomial: bool = True, basic: bool = True, **hints):
         """Apply core.function.expand to each entry of the matrix.
 
         Examples
@@ -1536,7 +1536,7 @@ class MatrixOperations(MatrixRequired):
         [Abs(x),   x**2]])
 
         """
-    def replace(self, F, G, map: bool = False, simultaneous: bool = True, exact: Incomplete | None = None):
+    def replace(self, F, G, map: bool = False, simultaneous: bool = True, exact=None):
         """Replaces Function F in Matrix entries with Function G.
 
         Examples
@@ -1764,7 +1764,7 @@ class MatrixArithmetic(MatrixRequired):
     def _eval_matrix_rmul(self, other): ...
     def _eval_pow_by_recursion(self, num): ...
     def _eval_pow_by_cayley(self, exp): ...
-    def _eval_pow_by_recursion_dotprodsimp(self, num, prevsimp: Incomplete | None = None): ...
+    def _eval_pow_by_recursion_dotprodsimp(self, num, prevsimp=None): ...
     def _eval_scalar_mul(self, other): ...
     def _eval_scalar_rmul(self, other): ...
     def _eval_Mod(self, other): ...
@@ -1802,7 +1802,7 @@ class MatrixArithmetic(MatrixRequired):
 
         matrix_multiply_elementwise
         """
-    def multiply(self, other, dotprodsimp: Incomplete | None = None):
+    def multiply(self, other, dotprodsimp=None):
         """Same as __mul__() but with optional simplification.
 
         Parameters
@@ -1837,7 +1837,7 @@ class MatrixArithmetic(MatrixRequired):
     def __neg__(self): ...
     def __pow__(self, exp):
         """Return self**exp a scalar or symbol."""
-    def pow(self, exp, method: Incomplete | None = None):
+    def pow(self, exp, method=None):
         """Return self**exp a scalar or symbol.
 
         Parameters
@@ -1858,7 +1858,7 @@ class MatrixArithmetic(MatrixRequired):
     def __radd__(self, other): ...
     def __rmatmul__(self, other): ...
     def __rmul__(self, other): ...
-    def rmultiply(self, other, dotprodsimp: Incomplete | None = None):
+    def rmultiply(self, other, dotprodsimp=None):
         """Same as __rmul__() but with optional simplification.
 
         Parameters
@@ -1896,7 +1896,7 @@ class _MinimalMatrix:
     @classmethod
     def _new(cls, *args, **kwargs): ...
     mat: Incomplete
-    def __init__(self, rows, cols: Incomplete | None = None, mat: Incomplete | None = None, copy: bool = False) -> None: ...
+    def __init__(self, rows, cols=None, mat=None, copy: bool = False) -> None: ...
     def __getitem__(self, key): ...
     def __eq__(self, other): ...
     def __len__(self) -> int: ...
@@ -1927,7 +1927,7 @@ def _matrixify(mat):
     """If `mat` is a Matrix or is matrix-like,
     return a Matrix or MatrixWrapper object.  Otherwise
     `mat` is passed through without modification."""
-def a2idx(j, n: Incomplete | None = None):
+def a2idx(j, n=None):
     """Return integer after making positive and validating against n."""
 def classof(A, B):
     """

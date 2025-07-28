@@ -1,5 +1,4 @@
 from .sets import Set as Set
-from _typeshed import Incomplete
 from sympy.core import S as S
 from sympy.core.parameters import global_parameters as global_parameters
 from sympy.core.relational import Eq as Eq, Ne as Ne
@@ -28,7 +27,7 @@ class Contains(Boolean):
 
     .. [1] https://en.wikipedia.org/wiki/Element_%28mathematics%29
     """
-    def __new__(cls, x, s, evaluate: Incomplete | None = None): ...
+    def __new__(cls, x, s, evaluate=None): ...
     @property
     def binary_symbols(self): ...
     def as_set(self): ...

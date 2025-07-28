@@ -215,7 +215,7 @@ class ZerothOrderActivation(ActivationBase):
     exictation to activation. As a result, no additional state equations are
     introduced to your system. They also remove a potential source of delay
     between the input and dynamics of your system as no (ordinary) differential
-    equations are involed.
+    equations are involved.
 
     """
     _a: Incomplete
@@ -439,7 +439,7 @@ class FirstOrderActivationDeGroote2016(ActivationBase):
            engineering, 44(10), (2016) pp. 2922-2936
 
     """
-    def __init__(self, name, activation_time_constant: Incomplete | None = None, deactivation_time_constant: Incomplete | None = None, smoothing_rate: Incomplete | None = None) -> None:
+    def __init__(self, name, activation_time_constant=None, deactivation_time_constant=None, smoothing_rate=None) -> None:
         """Initializer for ``FirstOrderActivationDeGroote2016``.
 
         Parameters

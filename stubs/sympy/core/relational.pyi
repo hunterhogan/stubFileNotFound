@@ -89,7 +89,7 @@ class Relational(Boolean, EvalfMixin):
     __slots__: Incomplete
     ValidRelationOperator: dict[str | None, type[Relational]]
     is_Relational: bool
-    def __new__(cls, lhs, rhs, rop: Incomplete | None = None, **assumptions): ...
+    def __new__(cls, lhs, rhs, rop=None, **assumptions): ...
     @property
     def lhs(self):
         """The left-hand side of the relation."""

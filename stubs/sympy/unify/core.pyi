@@ -35,7 +35,7 @@ class CondVariable:
     def __hash__(self): ...
     def __str__(self) -> str: ...
 
-def unify(x, y, s: Incomplete | None = None, **fns) -> Generator[Incomplete, Incomplete, Incomplete]:
+def unify(x, y, s=None, **fns) -> Generator[Incomplete, Incomplete, Incomplete]:
     ''' Unify two expressions.
 
     Parameters

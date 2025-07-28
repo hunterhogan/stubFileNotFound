@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 from sympy.core import I as I, Rational as Rational, S as S, pi as pi
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function
+from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction
 from sympy.core.symbol import Dummy as Dummy, uniquely_named_symbol as uniquely_named_symbol
 from sympy.functions.elementary.complexes import sign as sign
 from sympy.functions.elementary.hyperbolic import atanh as atanh
@@ -9,7 +8,7 @@ from sympy.functions.elementary.trigonometric import sin as sin, tan as tan
 from sympy.functions.special.gamma_functions import gamma as gamma
 from sympy.functions.special.hyper import hyper as hyper, meijerg as meijerg
 
-class elliptic_k(Function):
+class elliptic_k(DefinedFunction):
     """
     The complete elliptic integral of the first kind, defined by
 
@@ -63,7 +62,7 @@ class elliptic_k(Function):
     def _eval_is_zero(self): ...
     def _eval_rewrite_as_Integral(self, *args, **kwargs): ...
 
-class elliptic_f(Function):
+class elliptic_f(DefinedFunction):
     """
     The Legendre incomplete elliptic integral of the first
     kind, defined by
@@ -111,7 +110,7 @@ class elliptic_f(Function):
     def _eval_rewrite_as_Integral(self, *args, **kwargs): ...
     def _eval_is_zero(self): ...
 
-class elliptic_e(Function):
+class elliptic_e(DefinedFunction):
     """
     Called with two arguments $z$ and $m$, evaluates the
     incomplete elliptic integral of the second kind, defined by
@@ -159,7 +158,7 @@ class elliptic_e(Function):
 
     """
     @classmethod
-    def eval(cls, m, z: Incomplete | None = None): ...
+    def eval(cls, m, z=None): ...
     def fdiff(self, argindex: int = 1): ...
     def _eval_conjugate(self): ...
     def _eval_nseries(self, x, n, logx, cdir: int = 0): ...
@@ -167,7 +166,7 @@ class elliptic_e(Function):
     def _eval_rewrite_as_meijerg(self, *args, **kwargs): ...
     def _eval_rewrite_as_Integral(self, *args, **kwargs): ...
 
-class elliptic_pi(Function):
+class elliptic_pi(DefinedFunction):
     """
     Called with three arguments $n$, $z$ and $m$, evaluates the
     Legendre incomplete elliptic integral of the third kind, defined by
@@ -212,7 +211,7 @@ class elliptic_pi(Function):
 
     """
     @classmethod
-    def eval(cls, n, m, z: Incomplete | None = None): ...
+    def eval(cls, n, m, z=None): ...
     def _eval_conjugate(self): ...
     def fdiff(self, argindex: int = 1): ...
     def _eval_rewrite_as_Integral(self, *args, **kwargs): ...

@@ -1,7 +1,6 @@
 from .eigen import _fuzzy_positive_definite as _fuzzy_positive_definite
 from .exceptions import NonInvertibleMatrixError as NonInvertibleMatrixError, NonSquareMatrixError as NonSquareMatrixError, ShapeError as ShapeError
 from .utilities import _get_intermediate_simp as _get_intermediate_simp, _iszero as _iszero
-from _typeshed import Incomplete
 from sympy.core.function import expand_mul as expand_mul
 from sympy.core.symbol import Dummy as Dummy, symbols as symbols, uniquely_named_symbol as uniquely_named_symbol
 from sympy.utilities.iterables import numbered_symbols as numbered_symbols
@@ -323,7 +322,7 @@ def _gauss_jordan_solve(M, B, freevar: bool = False):
     .. [1] https://en.wikipedia.org/wiki/Gaussian_elimination
 
     """
-def _pinv_solve(M, B, arbitrary_matrix: Incomplete | None = None):
+def _pinv_solve(M, B, arbitrary_matrix=None):
     """Solve ``Ax = B`` using the Moore-Penrose pseudoinverse.
 
     There may be zero, one, or infinite solutions.  If one solution

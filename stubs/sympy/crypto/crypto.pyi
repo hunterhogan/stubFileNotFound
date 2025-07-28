@@ -24,7 +24,7 @@ class NonInvertibleCipherWarning(RuntimeWarning):
     def __str__(self) -> str: ...
     def warn(self, stacklevel: int = 3) -> None: ...
 
-def AZ(s: Incomplete | None = None):
+def AZ(s=None):
     """Return the letters of ``s`` in uppercase. In case more than
     one string is passed, each of them will be processed and a list
     of upper case strings will be returned.
@@ -67,7 +67,7 @@ def padded_key(key, symbols):
     ValueError: duplicate characters in symbols: T
 
     """
-def check_and_join(phrase, symbols: Incomplete | None = None, filter: Incomplete | None = None):
+def check_and_join(phrase, symbols=None, filter=None):
     '''
     Joins characters of ``phrase`` and if ``symbols`` is given, raises
     an error if any character in ``phrase`` is not in ``symbols``.
@@ -99,7 +99,7 @@ def check_and_join(phrase, symbols: Incomplete | None = None, filter: Incomplete
     ValueError: characters in phrase but not symbols: "!HPS"
 
     '''
-def _prep(msg, key, alp, default: Incomplete | None = None): ...
+def _prep(msg, key, alp, default=None): ...
 def cycle_list(k, n):
     """
     Returns the elements of the list ``range(n)`` shifted to the
@@ -113,7 +113,7 @@ def cycle_list(k, n):
     [3, 4, 5, 6, 7, 8, 9, 0, 1, 2]
 
     """
-def encipher_shift(msg, key, symbols: Incomplete | None = None):
+def encipher_shift(msg, key, symbols=None):
     '''
     Performs shift cipher encryption on plaintext msg, and returns the
     ciphertext.
@@ -184,7 +184,7 @@ def encipher_shift(msg, key, symbols: Incomplete | None = None):
     decipher_shift
 
     '''
-def decipher_shift(msg, key, symbols: Incomplete | None = None):
+def decipher_shift(msg, key, symbols=None):
     '''
     Return the text by shifting the characters of ``msg`` to the
     left by the amount given by ``key``.
@@ -208,7 +208,7 @@ def decipher_shift(msg, key, symbols: Incomplete | None = None):
     \'GONAVYBEATARMY\'
 
     '''
-def encipher_rot13(msg, symbols: Incomplete | None = None):
+def encipher_rot13(msg, symbols=None):
     """
     Performs the ROT13 encryption on a given plaintext ``msg``.
 
@@ -234,7 +234,7 @@ def encipher_rot13(msg, symbols: Incomplete | None = None):
     encipher_shift
 
     """
-def decipher_rot13(msg, symbols: Incomplete | None = None):
+def decipher_rot13(msg, symbols=None):
     """
     Performs the ROT13 decryption on a given plaintext ``msg``.
 
@@ -262,7 +262,7 @@ def decipher_rot13(msg, symbols: Incomplete | None = None):
     True
 
     """
-def encipher_affine(msg, key, symbols: Incomplete | None = None, _inverse: bool = False):
+def encipher_affine(msg, key, symbols=None, _inverse: bool = False):
     """
     Performs the affine cipher encryption on plaintext ``msg``, and
     returns the ciphertext.
@@ -329,7 +329,7 @@ def encipher_affine(msg, key, symbols: Incomplete | None = None, _inverse: bool 
     decipher_affine
 
     """
-def decipher_affine(msg, key, symbols: Incomplete | None = None):
+def decipher_affine(msg, key, symbols=None):
     '''
     Return the deciphered text that was made from the mapping,
     `x \\rightarrow ax+b` (mod `N`), where ``N`` is the
@@ -354,7 +354,7 @@ def decipher_affine(msg, key, symbols: Incomplete | None = None):
     encipher_affine
 
     '''
-def encipher_atbash(msg, symbols: Incomplete | None = None):
+def encipher_atbash(msg, symbols=None):
     """
     Enciphers a given ``msg`` into its Atbash ciphertext and returns it.
 
@@ -374,7 +374,7 @@ def encipher_atbash(msg, symbols: Incomplete | None = None):
     decipher_atbash
 
     """
-def decipher_atbash(msg, symbols: Incomplete | None = None):
+def decipher_atbash(msg, symbols=None):
     """
     Deciphers a given ``msg`` using Atbash cipher and returns it.
 
@@ -410,7 +410,7 @@ def decipher_atbash(msg, symbols: Incomplete | None = None):
     encipher_atbash
 
     """
-def encipher_substitution(msg, old, new: Incomplete | None = None):
+def encipher_substitution(msg, old, new=None):
     '''
     Returns the ciphertext obtained by replacing each character that
     appears in ``old`` with the corresponding character in ``new``.
@@ -466,7 +466,7 @@ def encipher_substitution(msg, old, new: Incomplete | None = None):
     .. [1] https://en.wikipedia.org/wiki/Substitution_cipher
 
     '''
-def encipher_vigenere(msg, key, symbols: Incomplete | None = None):
+def encipher_vigenere(msg, key, symbols=None):
     '''
     Performs the Vigenere cipher encryption on plaintext ``msg``, and
     returns the ciphertext.
@@ -621,7 +621,7 @@ def encipher_vigenere(msg, key, symbols: Incomplete | None = None):
        (short URL: https://goo.gl/ijr22d)
 
     '''
-def decipher_vigenere(msg, key, symbols: Incomplete | None = None):
+def decipher_vigenere(msg, key, symbols=None):
     '''
     Decode using the Vigenere cipher.
 
@@ -635,7 +635,7 @@ def decipher_vigenere(msg, key, symbols: Incomplete | None = None):
     \'MEETMEONMONDAY\'
 
     '''
-def encipher_hill(msg, key, symbols: Incomplete | None = None, pad: str = 'Q'):
+def encipher_hill(msg, key, symbols=None, pad: str = 'Q'):
     '''
     Return the Hill cipher encryption of ``msg``.
 
@@ -712,7 +712,7 @@ def encipher_hill(msg, key, symbols: Incomplete | None = None, pad: str = 'Q'):
     decipher_hill
 
     '''
-def decipher_hill(msg, key, symbols: Incomplete | None = None):
+def decipher_hill(msg, key, symbols=None):
     '''
     Deciphering is the same as enciphering but using the inverse of the
     key matrix.
@@ -763,7 +763,7 @@ def decipher_hill(msg, key, symbols: Incomplete | None = None):
     encipher_hill
 
     '''
-def encipher_bifid(msg, key, symbols: Incomplete | None = None):
+def encipher_bifid(msg, key, symbols=None):
     """
     Performs the Bifid cipher encryption on plaintext ``msg``, and
     returns the ciphertext.
@@ -805,7 +805,7 @@ def encipher_bifid(msg, key, symbols: Incomplete | None = None):
     .. [1] https://en.wikipedia.org/wiki/Bifid_cipher
 
     """
-def decipher_bifid(msg, key, symbols: Incomplete | None = None):
+def decipher_bifid(msg, key, symbols=None):
     '''
     Performs the Bifid cipher decryption on ciphertext ``msg``, and
     returns the plaintext.
@@ -1056,7 +1056,7 @@ def decipher_bifid5(msg, key):
     \'MEETMEONMONDAY\'
 
     '''
-def bifid5_square(key: Incomplete | None = None):
+def bifid5_square(key=None):
     '''
     5x5 Polybius square.
 
@@ -1145,7 +1145,7 @@ def decipher_bifid6(msg, key):
     \'MEETMEONMONDAYAT8AM\'
 
     '''
-def bifid6_square(key: Incomplete | None = None):
+def bifid6_square(key=None):
     '''
     6x6 Polybius square.
 
@@ -1204,7 +1204,7 @@ def _decipher_rsa_crt(i, d, factors):
     >>> decrypted
     65
     """
-def _rsa_key(*args, public: bool = True, private: bool = True, totient: str = 'Euler', index: Incomplete | None = None, multipower: Incomplete | None = None):
+def _rsa_key(*args, public: bool = True, private: bool = True, totient: str = 'Euler', index=None, multipower=None):
     """A private subroutine to generate RSA key
 
     Parameters
@@ -1507,8 +1507,8 @@ def rsa_private_key(*args, **kwargs):
 
     .. [4] https://www.itiis.org/digital-library/manuscript/1381
     """
-def _encipher_decipher_rsa(i, key, factors: Incomplete | None = None): ...
-def encipher_rsa(i, key, factors: Incomplete | None = None):
+def _encipher_decipher_rsa(i, key, factors=None): ...
+def encipher_rsa(i, key, factors=None):
     """Encrypt the plaintext with RSA.
 
     Parameters
@@ -1574,7 +1574,7 @@ def encipher_rsa(i, key, factors: Incomplete | None = None):
     >>> encipher_rsa(msg, prk, factors=[p, q])
     3
     """
-def decipher_rsa(i, key, factors: Incomplete | None = None):
+def decipher_rsa(i, key, factors=None):
     """Decrypt the ciphertext with RSA.
 
     Parameters
@@ -1757,7 +1757,7 @@ def decipher_kid_rsa(msg, key):
 morse_char: Incomplete
 char_morse: Incomplete
 
-def encode_morse(msg, sep: str = '|', mapping: Incomplete | None = None):
+def encode_morse(msg, sep: str = '|', mapping=None):
     """
     Encodes a plaintext into popular Morse Code with letters
     separated by ``sep`` and words by a double ``sep``.
@@ -1776,7 +1776,7 @@ def encode_morse(msg, sep: str = '|', mapping: Incomplete | None = None):
     .. [1] https://en.wikipedia.org/wiki/Morse_code
 
     """
-def decode_morse(msg, sep: str = '|', mapping: Incomplete | None = None):
+def decode_morse(msg, sep: str = '|', mapping=None):
     """
     Decodes a Morse Code with letters separated by ``sep``
     (default is '|') and words by `word_sep` (default is '||)
@@ -1976,7 +1976,7 @@ def lfsr_connection_polynomial(s):
         Jan 1969.
 
     '''
-def elgamal_private_key(digit: int = 10, seed: Incomplete | None = None):
+def elgamal_private_key(digit: int = 10, seed=None):
     """
     Return three number tuple as private key.
 
@@ -2052,7 +2052,7 @@ def elgamal_public_key(key):
     (1031, 14, 212)
 
     """
-def encipher_elgamal(i, key, seed: Incomplete | None = None):
+def encipher_elgamal(i, key, seed=None):
     """
     Encrypt message with public key.
 
@@ -2062,7 +2062,7 @@ def encipher_elgamal(i, key, seed: Incomplete | None = None):
     ``i`` is a plaintext message expressed as an integer.
     ``key`` is public key (p, r, e). In order to encrypt
     a message, a random number ``a`` in ``range(2, p)``
-    is generated and the encryped message is returned as
+    is generated and the encrypted message is returned as
     `c_{1}` and `c_{2}` where:
 
     `c_{1} \\equiv r^{a} \\pmod p`
@@ -2136,7 +2136,7 @@ def decipher_elgamal(msg, key):
     True
 
     """
-def dh_private_key(digit: int = 10, seed: Incomplete | None = None):
+def dh_private_key(digit: int = 10, seed=None):
     """
     Return three integer tuple as private key.
 
@@ -2289,8 +2289,8 @@ def _legendre(a, p):
         Legendre symbol (a / p).
 
     """
-def _random_coprime_stream(n, seed: Incomplete | None = None) -> Generator[Incomplete]: ...
-def gm_private_key(p, q, a: Incomplete | None = None):
+def _random_coprime_stream(n, seed=None) -> Generator[Incomplete]: ...
+def gm_private_key(p, q, a=None):
     """
     Check if ``p`` and ``q`` can be used as private keys for
     the Goldwasser-Micali encryption. The method works
@@ -2349,7 +2349,7 @@ def gm_private_key(p, q, a: Incomplete | None = None):
         If ``p`` and ``q`` are not distinct odd primes.
 
     """
-def gm_public_key(p, q, a: Incomplete | None = None, seed: Incomplete | None = None):
+def gm_public_key(p, q, a=None, seed=None):
     """
     Compute public keys for ``p`` and ``q``.
     Note that in Goldwasser-Micali Encryption,
@@ -2371,7 +2371,7 @@ def gm_public_key(p, q, a: Incomplete | None = None, seed: Incomplete | None = N
         ``N`` is the product of ``p`` and ``q``.
 
     """
-def encipher_gm(i, key, seed: Incomplete | None = None):
+def encipher_gm(i, key, seed=None):
     """
     Encrypt integer 'i' using public_key 'key'
     Note that gm uses random encryption.
@@ -2521,7 +2521,7 @@ def bg_public_key(p, q):
         The public key.
 
     """
-def encipher_bg(i, key, seed: Incomplete | None = None):
+def encipher_bg(i, key, seed=None):
     """
     Encrypts the message using public key and seed.
 

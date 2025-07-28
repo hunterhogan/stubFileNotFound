@@ -248,7 +248,7 @@ class Cycle(dict):
         (1 3 2)(4 5)
 
         """
-    def list(self, size: Incomplete | None = None):
+    def list(self, size=None):
         """Return the cycles as an explicit list starting from 0 up
         to the greater of the largest value in the cycles and size.
 
@@ -739,7 +739,7 @@ class Permutation(Atom):
     _cycle_structure: Incomplete
     _size: Incomplete
     _rank: Incomplete
-    def __new__(cls, *args, size: Incomplete | None = None, **kwargs):
+    def __new__(cls, *args, size=None, **kwargs):
         """
         Constructor for the Permutation object from a list or a
         list of lists in which all elements of the permutation may
@@ -828,7 +828,7 @@ class Permutation(Atom):
         >>> Permutation([[1, 2], [4, 5]]).array_form
         [0, 2, 1, 3, 5, 4]
         """
-    def list(self, size: Incomplete | None = None):
+    def list(self, size=None):
         """Return the permutation as an explicit list, possibly
         trimming unmoved elements if size is less than the maximum
         element in the permutation; if this is desired, setting
@@ -1190,7 +1190,7 @@ class Permutation(Atom):
 
         """
     @classmethod
-    def from_sequence(self, i, key: Incomplete | None = None):
+    def from_sequence(self, i, key=None):
         '''Return the permutation needed to obtain ``i`` from the sorted
         elements of ``i``. If custom sorting is desired, a key can be given.
 
@@ -1352,7 +1352,7 @@ class Permutation(Atom):
 
         next_nonlex, rank_nonlex
         """
-    def rank_nonlex(self, inv_perm: Incomplete | None = None):
+    def rank_nonlex(self, inv_perm=None):
         """
         This is a linear time ranking algorithm that does not
         enforce lexicographic order [3].
@@ -2267,6 +2267,6 @@ class AppliedPermutation(Expr):
     >>> _.subs(x, 1)
     2
     """
-    def __new__(cls, perm, x, evaluate: Incomplete | None = None): ...
+    def __new__(cls, perm, x, evaluate=None): ...
 
 def _eval_is_eq(lhs, rhs): ...

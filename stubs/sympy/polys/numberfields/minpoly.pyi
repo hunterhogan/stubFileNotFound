@@ -1,8 +1,9 @@
-from _typeshed import Incomplete
+from sympy.utilities import public
 
 __all__ = ['minimal_polynomial', 'minpoly']
 
-def minimal_polynomial(ex, x: Incomplete | None = None, compose: bool = True, polys: bool = False, domain: Incomplete | None = None):
+@public
+def minimal_polynomial(ex, x=None, compose: bool = True, polys: bool = False, domain=None):
     """
     Computes the minimal polynomial of an algebraic element.
 
@@ -55,5 +56,6 @@ def minimal_polynomial(ex, x: Incomplete | None = None, compose: bool = True, po
     x**2 - y
 
     """
-def minpoly(ex, x: Incomplete | None = None, compose: bool = True, polys: bool = False, domain: Incomplete | None = None):
+@public
+def minpoly(ex, x=None, compose: bool = True, polys: bool = False, domain=None):
     """This is a synonym for :py:func:`~.minimal_polynomial`."""

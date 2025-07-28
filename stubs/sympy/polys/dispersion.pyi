@@ -1,8 +1,7 @@
-from _typeshed import Incomplete
 from sympy.core import S as S
 from sympy.polys import Poly as Poly
 
-def dispersionset(p, q: Incomplete | None = None, *gens, **args):
+def dispersionset(p, q=None, *gens, **args):
     """Compute the *dispersion set* of two polynomials.
 
     For two polynomials `f(x)` and `g(x)` with `\\deg f > 0`
@@ -73,7 +72,7 @@ def dispersionset(p, q: Incomplete | None = None, *gens, **args):
     .. [3] [Abramov71]_
     .. [4] [Man93]_
     """
-def dispersion(p, q: Incomplete | None = None, *gens, **args):
+def dispersion(p, q=None, *gens, **args):
     """Compute the *dispersion* of polynomials.
 
     For two polynomials `f(x)` and `g(x)` with `\\deg f > 0`

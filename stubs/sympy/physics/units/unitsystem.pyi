@@ -24,7 +24,7 @@ class UnitSystem(_QuantityMapper):
     _dimension_system: Incomplete
     _units: Incomplete
     _derived_units: Incomplete
-    def __init__(self, base_units, units=(), name: str = '', descr: str = '', dimension_system: Incomplete | None = None, derived_units: dict[Dimension, Quantity] = {}) -> None: ...
+    def __init__(self, base_units, units=(), name: str = '', descr: str = '', dimension_system=None, derived_units: dict[Dimension, Quantity] = {}) -> None: ...
     def __str__(self) -> str:
         """
         Return the name of the system.
@@ -33,7 +33,7 @@ class UnitSystem(_QuantityMapper):
         the base dimensions.
         """
     def __repr__(self) -> str: ...
-    def extend(self, base, units=(), name: str = '', description: str = '', dimension_system: Incomplete | None = None, derived_units: dict[Dimension, Quantity] = {}):
+    def extend(self, base, units=(), name: str = '', description: str = '', dimension_system=None, derived_units: dict[Dimension, Quantity] = {}):
         """Extend the current system into a new one.
 
         Take the base and normal units of the current system to merge

@@ -1,4 +1,4 @@
-from .codeprinter import ccode as ccode, cxxcode as cxxcode, fcode as fcode, print_ccode as print_ccode, print_fcode as print_fcode
+from .codeprinter import ccode as ccode, cxxcode as cxxcode, fcode as fcode, print_ccode as print_ccode, print_fcode as print_fcode, rust_code as rust_code
 from .dot import dotprint as dotprint
 from .glsl import glsl_code as glsl_code, print_glsl as print_glsl
 from .gtk import print_gtk as print_gtk
@@ -15,10 +15,9 @@ from .pycode import pycode as pycode
 from .python import print_python as print_python, python as python
 from .rcode import print_rcode as print_rcode, rcode as rcode
 from .repr import srepr as srepr
-from .rust import rust_code as rust_code
 from .smtlib import smtlib_code as smtlib_code
 from .str import StrPrinter as StrPrinter, sstr as sstr, sstrrepr as sstrrepr
 from .tableform import TableForm as TableForm
 from .tree import print_tree as print_tree
 
-__all__ = ['pager_print', 'pretty', 'pretty_print', 'pprint', 'pprint_use_unicode', 'pprint_try_use_unicode', 'latex', 'print_latex', 'multiline_latex', 'mathml', 'print_mathml', 'python', 'print_python', 'pycode', 'ccode', 'print_ccode', 'cxxcode', 'fcode', 'print_fcode', 'smtlib_code', 'glsl_code', 'print_glsl', 'rcode', 'print_rcode', 'jscode', 'print_jscode', 'julia_code', 'mathematica_code', 'octave_code', 'rust_code', 'print_gtk', 'preview', 'srepr', 'print_tree', 'StrPrinter', 'sstr', 'sstrrepr', 'TableForm', 'dotprint', 'maple_code', 'print_maple_code']
+__all__ = ['pager_print', 'pretty', 'pretty_print', 'pprint', 'pprint_use_unicode', 'pprint_try_use_unicode', 'latex', 'print_latex', 'multiline_latex', 'mathml', 'print_mathml', 'python', 'print_python', 'pycode', 'ccode', 'print_ccode', 'cxxcode', 'fcode', 'print_fcode', 'rust_code', 'smtlib_code', 'glsl_code', 'print_glsl', 'rcode', 'print_rcode', 'jscode', 'print_jscode', 'julia_code', 'mathematica_code', 'octave_code', 'print_gtk', 'preview', 'srepr', 'print_tree', 'StrPrinter', 'sstr', 'sstrrepr', 'TableForm', 'dotprint', 'maple_code', 'print_maple_code']

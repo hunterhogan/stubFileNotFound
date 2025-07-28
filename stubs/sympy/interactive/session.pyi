@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.external.gmpy import GROUND_TYPES as GROUND_TYPES
 from sympy.external.importtools import version_tuple as version_tuple
 from sympy.interactive.printing import init_printing as init_printing
@@ -8,7 +7,7 @@ preexec_source: str
 verbose_message: str
 no_ipython: str
 
-def _make_message(ipython: bool = True, quiet: bool = False, source: Incomplete | None = None):
+def _make_message(ipython: bool = True, quiet: bool = False, source=None):
     """Create a banner for an interactive session. """
 def int_to_Integer(s):
     """
@@ -41,11 +40,11 @@ def enable_automatic_int_sympification(shell):
     """
 def enable_automatic_symbols(shell) -> None:
     """Allow IPython to automatically create symbols (``isympy -a``). """
-def init_ipython_session(shell: Incomplete | None = None, argv=[], auto_symbols: bool = False, auto_int_to_Integer: bool = False):
+def init_ipython_session(shell=None, argv=[], auto_symbols: bool = False, auto_int_to_Integer: bool = False):
     """Construct new IPython session. """
 def init_python_session():
     """Construct new Python session. """
-def init_session(ipython: Incomplete | None = None, pretty_print: bool = True, order: Incomplete | None = None, use_unicode: Incomplete | None = None, use_latex: Incomplete | None = None, quiet: bool = False, auto_symbols: bool = False, auto_int_to_Integer: bool = False, str_printer: Incomplete | None = None, pretty_printer: Incomplete | None = None, latex_printer: Incomplete | None = None, argv=[]):
+def init_session(ipython=None, pretty_print: bool = True, order=None, use_unicode=None, use_latex=None, quiet: bool = False, auto_symbols: bool = False, auto_int_to_Integer: bool = False, str_printer=None, pretty_printer=None, latex_printer=None, argv=[]):
     """
     Initialize an embedded IPython or Python session. The IPython session is
     initiated with the --pylab option, without the numpy imports, so that

@@ -5,7 +5,7 @@ from sysconfig import get_config_vars as get_config_vars
 
 objext: str
 
-def compile_sources(files, Runner: Incomplete | None = None, destdir: Incomplete | None = None, cwd: Incomplete | None = None, keep_dir_struct: bool = False, per_file_kwargs: Incomplete | None = None, **kwargs):
+def compile_sources(files, Runner=None, destdir=None, cwd=None, keep_dir_struct: bool = False, per_file_kwargs=None, **kwargs):
     """ Compile source code files to object files.
 
     Parameters
@@ -32,8 +32,8 @@ def compile_sources(files, Runner: Incomplete | None = None, destdir: Incomplete
     =======
     List of strings (paths of object files).
     """
-def get_mixed_fort_c_linker(vendor: Incomplete | None = None, cplus: bool = False, cwd: Incomplete | None = None): ...
-def link(obj_files, out_file: Incomplete | None = None, shared: bool = False, Runner: Incomplete | None = None, cwd: Incomplete | None = None, cplus: bool = False, fort: bool = False, extra_objs: Incomplete | None = None, **kwargs):
+def get_mixed_fort_c_linker(vendor=None, cplus: bool = False, cwd=None): ...
+def link(obj_files, out_file=None, shared: bool = False, Runner=None, cwd=None, cplus: bool = False, fort: bool = False, extra_objs=None, **kwargs):
     """ Link object files.
 
     Parameters
@@ -66,7 +66,7 @@ def link(obj_files, out_file: Incomplete | None = None, shared: bool = False, Ru
     The absolute path to the generated shared object / executable.
 
     """
-def link_py_so(obj_files, so_file: Incomplete | None = None, cwd: Incomplete | None = None, libraries: Incomplete | None = None, cplus: bool = False, fort: bool = False, extra_objs: Incomplete | None = None, **kwargs):
+def link_py_so(obj_files, so_file=None, cwd=None, libraries=None, cplus: bool = False, fort: bool = False, extra_objs=None, **kwargs):
     """ Link Python extension module (shared object) for importing
 
     Parameters
@@ -96,7 +96,7 @@ def link_py_so(obj_files, so_file: Incomplete | None = None, cwd: Incomplete | N
 
     Absolute path to the generate shared object.
     """
-def simple_cythonize(src, destdir: Incomplete | None = None, cwd: Incomplete | None = None, **cy_kwargs):
+def simple_cythonize(src, destdir=None, cwd=None, **cy_kwargs):
     """ Generates a C file from a Cython source file.
 
     Parameters
@@ -115,7 +115,7 @@ def simple_cythonize(src, destdir: Incomplete | None = None, cwd: Incomplete | N
 
 extension_mapping: Incomplete
 
-def src2obj(srcpath, Runner: Incomplete | None = None, objpath: Incomplete | None = None, cwd: Incomplete | None = None, inc_py: bool = False, **kwargs):
+def src2obj(srcpath, Runner=None, objpath=None, cwd=None, inc_py: bool = False, **kwargs):
     ''' Compiles a source code file to an object file.
 
     Files ending with \'.pyx\' assumed to be cython files and
@@ -138,7 +138,7 @@ def src2obj(srcpath, Runner: Incomplete | None = None, objpath: Incomplete | Non
         keyword arguments passed to Runner or pyx2obj
 
     '''
-def pyx2obj(pyxpath, objpath: Incomplete | None = None, destdir: Incomplete | None = None, cwd: Incomplete | None = None, include_dirs: Incomplete | None = None, cy_kwargs: Incomplete | None = None, cplus: Incomplete | None = None, **kwargs):
+def pyx2obj(pyxpath, objpath=None, destdir=None, cwd=None, include_dirs=None, cy_kwargs=None, cplus=None, **kwargs):
     """
     Convenience function
 
@@ -177,7 +177,7 @@ def pyx2obj(pyxpath, objpath: Incomplete | None = None, destdir: Incomplete | No
 def _any_X(srcs, cls): ...
 def any_fortran_src(srcs): ...
 def any_cplus_src(srcs): ...
-def compile_link_import_py_ext(sources, extname: Incomplete | None = None, build_dir: str = '.', compile_kwargs: Incomplete | None = None, link_kwargs: Incomplete | None = None, extra_objs: Incomplete | None = None):
+def compile_link_import_py_ext(sources, extname=None, build_dir: str = '.', compile_kwargs=None, link_kwargs=None, extra_objs=None):
     """ Compiles sources to a shared object (Python extension) and imports it
 
     Sources in ``sources`` which is imported. If shared object is newer than the sources, they
@@ -206,7 +206,7 @@ def compile_link_import_py_ext(sources, extname: Incomplete | None = None, build
     The imported module from of the Python extension.
     """
 def _write_sources_to_build_dir(sources, build_dir): ...
-def compile_link_import_strings(sources, build_dir: Incomplete | None = None, **kwargs):
+def compile_link_import_strings(sources, build_dir=None, **kwargs):
     """ Compiles, links and imports extension module from source.
 
     Parameters
@@ -227,7 +227,7 @@ def compile_link_import_strings(sources, build_dir: Incomplete | None = None, **
         Containing ``build_dir`` as 'build_dir'.
 
     """
-def compile_run_strings(sources, build_dir: Incomplete | None = None, clean: bool = False, compile_kwargs: Incomplete | None = None, link_kwargs: Incomplete | None = None):
+def compile_run_strings(sources, build_dir=None, clean: bool = False, compile_kwargs=None, link_kwargs=None):
     """ Compiles, links and runs a program built from sources.
 
     Parameters

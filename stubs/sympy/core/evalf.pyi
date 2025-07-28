@@ -20,9 +20,7 @@ from sympy.integrals.integrals import Integral as Integral
 from sympy.utilities.iterables import is_sequence as is_sequence
 from sympy.utilities.lambdify import lambdify as lambdify
 from sympy.utilities.misc import as_int as as_int
-from typing import Any, overload
-
-from collections.abc import Callable
+from typing import Any, Callable, overload
 
 LG10: Incomplete
 rnd = round_nearest
@@ -70,7 +68,7 @@ def fastlog(x: MPF_TUP | None) -> int | Any:
     >>> n, (log(n)/log(2)).evalf(2), fastlog((s, m, e, bc))
     (10, 3.3, 4)
     '''
-def pure_complex(v: Expr, or_real: bool = False) -> tuple['Number', 'Number'] | None:
+def pure_complex(v: Expr, or_real: bool = False) -> tuple[Number, Number] | None:
     """Return a and b if v matches a + I*b where b is not zero and
     a and b are Numbers, else None. If `or_real` is True then 0 will
     be returned for `b` if `v` is a real number.
@@ -162,9 +160,8 @@ def evalf_pow(v: Pow, prec: int, options) -> TMP_RES: ...
 def evalf_exp(expr: exp, prec: int, options: OPT_DICT) -> TMP_RES: ...
 def evalf_trig(v: Expr, prec: int, options: OPT_DICT) -> TMP_RES:
     """
-    This function handles sin and cos of complex arguments.
+    This function handles sin , cos and tan of complex arguments.
 
-    TODO: should also handle tan of complex arguments.
     """
 def evalf_log(expr: log, prec: int, options: OPT_DICT) -> TMP_RES: ...
 def evalf_atan(v: atan, prec: int, options: OPT_DICT) -> TMP_RES: ...
@@ -209,7 +206,7 @@ def evalf_prod(expr: Product, prec: int, options: OPT_DICT) -> TMP_RES: ...
 def evalf_sum(expr: Sum, prec: int, options: OPT_DICT) -> TMP_RES: ...
 def evalf_symbol(x: Expr, prec: int, options: OPT_DICT) -> TMP_RES: ...
 
-evalf_table: dict[type['Expr'], Callable[[Expr, int, OPT_DICT], TMP_RES]]
+evalf_table: dict[type[Expr], Callable[[Expr, int, OPT_DICT], TMP_RES]]
 
 def _create_evalf_table(): ...
 def evalf(x: Expr, prec: int, options: OPT_DICT) -> TMP_RES:
@@ -243,13 +240,13 @@ def evalf(x: Expr, prec: int, options: OPT_DICT) -> TMP_RES:
     If all values are ``None``, then that represents 0.
     Note that 0 is also represented as ``fzero = (0, 0, 0, 0)``.
     """
-def quad_to_mpmath(q, ctx: Incomplete | None = None):
+def quad_to_mpmath(q, ctx=None):
     """Turn the quad returned by ``evalf`` into an ``mpf`` or ``mpc``. """
 
 class EvalfMixin:
     """Mixin class adding evalf capability."""
     __slots__: tuple[str, ...]
-    def evalf(self, n: int = 15, subs: Incomplete | None = None, maxn: int = 100, chop: bool = False, strict: bool = False, quad: Incomplete | None = None, verbose: bool = False):
+    def evalf(self, n: int = 15, subs=None, maxn: int = 100, chop: bool = False, strict: bool = False, quad=None, verbose: bool = False):
         '''
         Evaluate the given formula to an accuracy of *n* digits.
 
@@ -315,9 +312,9 @@ class EvalfMixin:
         1.00000000000000
         '''
     n = evalf
-    def _evalf(self, prec):
+    def _evalf(self, prec: int) -> Expr:
         """Helper for evalf. Does the same thing but takes binary precision"""
-    def _eval_evalf(self, prec) -> None: ...
+    def _eval_evalf(self, prec: int) -> Expr | None: ...
     def _to_mpmath(self, prec, allow_ints: bool = True): ...
 
 def N(x, n: int = 15, **options):

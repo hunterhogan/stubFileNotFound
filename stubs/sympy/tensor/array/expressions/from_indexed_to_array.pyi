@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy import Function as Function
 from sympy.combinatorics import Permutation as Permutation
 from sympy.combinatorics.permutations import _af_invert as _af_invert
@@ -15,7 +14,7 @@ from sympy.tensor.array.expressions.array_expressions import ArrayAdd as ArrayAd
 from sympy.tensor.array.expressions.utils import _get_argindex as _get_argindex, _get_diagonal_indices as _get_diagonal_indices
 from sympy.tensor.indexed import Indexed as Indexed, IndexedBase as IndexedBase
 
-def convert_indexed_to_array(expr, first_indices: Incomplete | None = None):
+def convert_indexed_to_array(expr, first_indices=None):
     '''
     Parse indexed expression into a form useful for code generation.
 

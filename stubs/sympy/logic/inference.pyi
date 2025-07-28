@@ -19,7 +19,7 @@ def literal_symbol(literal):
     A
 
     """
-def satisfiable(expr, algorithm: Incomplete | None = None, all_models: bool = False, minimal: bool = False, use_lra_theory: bool = False):
+def satisfiable(expr, algorithm=None, all_models: bool = False, minimal: bool = False, use_lra_theory: bool = False):
     '''
     Check satisfiability of a propositional sentence.
     Returns a model when it succeeds.
@@ -82,7 +82,7 @@ def valid(expr):
     .. [1] https://en.wikipedia.org/wiki/Validity
 
     """
-def pl_true(expr, model: Incomplete | None = None, deep: bool = False):
+def pl_true(expr, model=None, deep: bool = False):
     """
     Returns whether the given assignment is a model or not.
 
@@ -121,7 +121,7 @@ def pl_true(expr, model: Incomplete | None = None, deep: bool = False):
     False
 
     """
-def entails(expr, formula_set: Incomplete | None = None):
+def entails(expr, formula_set=None):
     """
     Check whether the given expr_set entail an expr.
     If formula_set is empty then it returns the validity of expr.
@@ -150,7 +150,7 @@ def entails(expr, formula_set: Incomplete | None = None):
 class KB:
     """Base class for all knowledge bases"""
     clauses_: Incomplete
-    def __init__(self, sentence: Incomplete | None = None) -> None: ...
+    def __init__(self, sentence=None) -> None: ...
     def tell(self, sentence) -> None: ...
     def ask(self, query) -> None: ...
     def retract(self, sentence) -> None: ...

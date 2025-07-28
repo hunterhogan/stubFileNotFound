@@ -51,7 +51,7 @@ def FlorySchulz(name, a):
     >>> X = FlorySchulz("x", a)
 
     >>> density(X)(z)
-    (5/4)**(1 - z)*z/25
+    (4/5)**(z - 1)*z/25
 
     >>> E(X)
     9
@@ -108,7 +108,7 @@ def Geometric(name, p):
     >>> X = Geometric("x", p)
 
     >>> density(X)(z)
-    (5/4)**(1 - z)/5
+    (4/5)**(z - 1)/5
 
     >>> E(X)
     5
@@ -263,13 +263,15 @@ def NegativeBinomial(name, r, p):
     The density of the Negative Binomial distribution is given by
 
     .. math::
-        f(k) := \\binom{k + r - 1}{k} (1 - p)^r p^k
+        f(k) := \\binom{k + r - 1}{k} (1 - p)^k p^r
 
     Parameters
     ==========
 
     r : A positive value
+        Number of successes until the experiment is stopped.
     p : A value between 0 and 1
+        Probability of success.
 
     Returns
     =======
@@ -283,19 +285,19 @@ def NegativeBinomial(name, r, p):
     >>> from sympy import Symbol, S
 
     >>> r = 5
-    >>> p = S.One / 5
+    >>> p = S.One / 3
     >>> z = Symbol("z")
 
     >>> X = NegativeBinomial("x", r, p)
 
     >>> density(X)(z)
-    1024*binomial(z + 4, z)/(3125*5**z)
+    (2/3)**z*binomial(z + 4, z)/243
 
     >>> E(X)
-    5/4
+    10
 
     >>> variance(X)
-    25/16
+    30
 
     References
     ==========
@@ -313,6 +315,7 @@ class PoissonDistribution(SingleDiscreteDistribution):
     def pdf(self, k): ...
     def _characteristic_function(self, t): ...
     def _moment_generating_function(self, t): ...
+    def expectation(self, expr, var, evaluate: bool = True, **kwargs): ...
 
 def Poisson(name, lamda):
     '''

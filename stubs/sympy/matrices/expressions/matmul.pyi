@@ -33,7 +33,7 @@ class MatMul(MatrixExpr, Mul):
     """
     is_MatMul: bool
     identity: Incomplete
-    def __new__(cls, *args, evaluate: bool = False, check: Incomplete | None = None, _sympify: bool = True): ...
+    def __new__(cls, *args, evaluate: bool = False, check=None, _sympify: bool = True): ...
     @classmethod
     def _evaluate(cls, expr): ...
     @property
@@ -103,7 +103,7 @@ def remove_ids(mul):
     """ Remove Identities from a MatMul
 
     This is a modified version of sympy.strategies.rm_id.
-    This is necesssary because MatMul may contain both MatrixExprs and Exprs
+    This is necessary because MatMul may contain both MatrixExprs and Exprs
     as args.
 
     See Also

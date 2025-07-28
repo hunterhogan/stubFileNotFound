@@ -197,7 +197,7 @@ def _rec_validate(f, g, i, K):
     """Recursive helper for :func:`dmp_validate`."""
 def _rec_strip(g, v):
     """Recursive helper for :func:`_rec_strip`."""
-def dmp_validate(f, K: Incomplete | None = None):
+def dmp_validate(f, K=None):
     """
     Return the number of levels in ``f`` and recursively strip it.
 
@@ -643,7 +643,7 @@ def dmp_from_dict(f, u, K):
     []
 
     """
-def dup_to_dict(f, K: Incomplete | None = None, zero: bool = False):
+def dup_to_dict(f, K=None, zero: bool = False):
     """
     Convert ``K[x]`` polynomial to a ``dict``.
 
@@ -658,7 +658,7 @@ def dup_to_dict(f, K: Incomplete | None = None, zero: bool = False):
     {}
 
     """
-def dup_to_raw_dict(f, K: Incomplete | None = None, zero: bool = False):
+def dup_to_raw_dict(f, K=None, zero: bool = False):
     """
     Convert a ``K[x]`` polynomial to a raw ``dict``.
 
@@ -671,7 +671,7 @@ def dup_to_raw_dict(f, K: Incomplete | None = None, zero: bool = False):
     {0: 7, 2: 5, 4: 1}
 
     """
-def dmp_to_dict(f, u, K: Incomplete | None = None, zero: bool = False):
+def dmp_to_dict(f, u, K=None, zero: bool = False):
     """
     Convert a ``K[X]`` polynomial to a ``dict````.
 
@@ -955,7 +955,7 @@ def dmp_terms_gcd(f, u, K):
     """
 def _rec_list_terms(g, v, monom):
     """Recursive helper for :func:`dmp_list_terms`."""
-def dmp_list_terms(f, u, K, order: Incomplete | None = None):
+def dmp_list_terms(f, u, K, order=None):
     """
     List all non-zero terms from ``f`` in the given order ``order``.
 

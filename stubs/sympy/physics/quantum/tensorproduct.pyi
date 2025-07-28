@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from sympy.core.expr import Expr
 
 __all__ = ['TensorProduct', 'tensor_product_simp']
@@ -71,6 +72,10 @@ class TensorProduct(Expr):
         AxC + BxC
     """
     is_commutative: bool
+    _kind_dispatcher: Incomplete
+    @property
+    def kind(self):
+        """Calculate the kind of a tensor product by looking at its children."""
     def __new__(cls, *args): ...
     @classmethod
     def flatten(cls, args): ...
@@ -85,36 +90,14 @@ class TensorProduct(Expr):
     def _eval_trace(self, **kwargs): ...
 
 def tensor_product_simp(e, **hints):
-    """Try to simplify and combine TensorProducts.
+    """Try to simplify and combine tensor products.
 
-    In general this will try to pull expressions inside of ``TensorProducts``.
-    It currently only works for relatively simple cases where the products have
+    .. deprecated:: 1.14.
+        The transformations applied by this function are not done automatically
+        when tensor products are combined.
+
+    Originally, this function tried to pull expressions inside of ``TensorProducts``.
+    It only worked for relatively simple cases where the products have
     only scalars, raw ``TensorProducts``, not ``Add``, ``Pow``, ``Commutators``
-    of ``TensorProducts``. It is best to see what it does by showing examples.
-
-    Examples
-    ========
-
-    >>> from sympy.physics.quantum import tensor_product_simp
-    >>> from sympy.physics.quantum import TensorProduct
-    >>> from sympy import Symbol
-    >>> A = Symbol('A',commutative=False)
-    >>> B = Symbol('B',commutative=False)
-    >>> C = Symbol('C',commutative=False)
-    >>> D = Symbol('D',commutative=False)
-
-    First see what happens to products of tensor products:
-
-    >>> e = TensorProduct(A,B)*TensorProduct(C,D)
-    >>> e
-    AxB*CxD
-    >>> tensor_product_simp(e)
-    (A*C)x(B*D)
-
-    This is the core logic of this function, and it works inside, powers, sums,
-    commutators and anticommutators as well:
-
-    >>> tensor_product_simp(e**2)
-    (A*C)x(B*D)**2
-
+    of ``TensorProducts``.
     """

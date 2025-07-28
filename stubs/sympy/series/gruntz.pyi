@@ -1,13 +1,14 @@
 from _typeshed import Incomplete
-from sympy.core import Basic as Basic, Mul as Mul, PoleError as PoleError, S as S, expand_mul as expand_mul
+from sympy.core import Basic as Basic, Mul as Mul, PoleError as PoleError, S as S
 from sympy.core.cache import cacheit as cacheit
+from sympy.core.function import AppliedUndef as AppliedUndef
 from sympy.core.intfunc import ilcm as ilcm
 from sympy.core.numbers import I as I, oo as oo
 from sympy.core.symbol import Dummy as Dummy, Wild as Wild
 from sympy.core.traversal import bottom_up as bottom_up
 from sympy.functions import exp as exp, log as log
 from sympy.series.order import Order as Order
-from sympy.utilities.exceptions import SymPyDeprecationWarning as SymPyDeprecationWarning
+from sympy.utilities.misc import debug_decorator as debug
 from sympy.utilities.timeutils import timethis as timethis
 
 timeit: Incomplete
@@ -70,11 +71,12 @@ class SubsSet(dict):
         """Substitute the variables with expressions"""
     def meets(self, s2):
         """Tell whether or not self and s2 have non-empty intersection"""
-    def union(self, s2, exps: Incomplete | None = None):
+    def union(self, s2, exps=None):
         """Compute the union of self and s2, adjusting exps"""
     def copy(self):
         """Create a shallow copy of SubsSet"""
 
+@debug
 def mrv(e, x):
     """Returns a SubsSet of most rapidly varying (mrv) subexpressions of 'e',
        and e rewritten in terms of these"""
@@ -92,6 +94,9 @@ def mrv_max1(f, g, exps, x):
     of the union of both, if they have the same order of variation.
     Also returns exps, with the appropriate substitutions made.
     """
+@debug
+@cacheit
+@timeit
 def sign(e, x):
     """
     Returns a sign of an expression e(x) for x->oo.
@@ -109,15 +114,16 @@ def sign(e, x):
     for x sufficiently large. [If e is constant, of course, this is just
     the same thing as the sign of e.]
     """
+@debug
+@timeit
+@cacheit
 def limitinf(e, x):
     """Limit e(x) for x-> oo."""
 def moveup2(s, x): ...
 def moveup(l, x): ...
-def calculate_series(e, x, logx: Incomplete | None = None):
-    """ Calculates at least one term of the series of ``e`` in ``x``.
-
-    This is a place that fails most often, so it is in its own function.
-    """
+@debug
+@timeit
+@cacheit
 def mrv_leadterm(e, x):
     """Returns (c0, e0) for e."""
 def build_expression_tree(Omega, rewrites):
@@ -134,6 +140,8 @@ def build_expression_tree(Omega, rewrites):
 
     This function builds the tree, rewrites then sorts the nodes.
     """
+@debug
+@timeit
 def rewrite(e, Omega, x, wsym):
     """e(x) ... the function
     Omega ... the mrv set

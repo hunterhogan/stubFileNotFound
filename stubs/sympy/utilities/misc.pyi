@@ -123,7 +123,7 @@ def debugf(string, args) -> None:
     Print ``string%args`` if SYMPY_DEBUG is True, else do nothing. This is
     intended for debug messages using formatted strings.
     """
-def find_executable(executable, path: Incomplete | None = None):
+def find_executable(executable, path=None):
     """Try to find 'executable' in the directories listed in 'path' (a
     string listing directories separated by 'os.pathsep'; defaults to
     os.environ['PATH']).  Returns the complete filename or None if not
@@ -193,7 +193,7 @@ def replace(string, *reps):
 
     .. [1] https://stackoverflow.com/questions/6116978/how-to-replace-multiple-substrings-of-a-string
     '''
-def translate(s, a, b: Incomplete | None = None, c: Incomplete | None = None):
+def translate(s, a, b=None, c=None):
     """Return ``s`` where characters have been replaced or deleted.
 
     SYNTAX

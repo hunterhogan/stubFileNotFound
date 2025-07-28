@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core import Rational as Rational, S as S, sympify as sympify
 from sympy.core.function import expand_mul as expand_mul
 from sympy.discrete.transforms import fft as fft, fwht as fwht, ifft as ifft, ifwht as ifwht, intt as intt, inverse_mobius_transform as inverse_mobius_transform, mobius_transform as mobius_transform, ntt as ntt
@@ -6,7 +5,7 @@ from sympy.external.gmpy import MPZ as MPZ, lcm as lcm
 from sympy.utilities.iterables import iterable as iterable
 from sympy.utilities.misc import as_int as as_int
 
-def convolution(a, b, cycle: int = 0, dps: Incomplete | None = None, prime: Incomplete | None = None, dyadic: Incomplete | None = None, subset: Incomplete | None = None):
+def convolution(a, b, cycle: int = 0, dps=None, prime=None, dyadic=None, subset=None):
     """
     Performs convolution by determining the type of desired
     convolution using hints.
@@ -63,7 +62,7 @@ def convolution(a, b, cycle: int = 0, dps: Incomplete | None = None, prime: Inco
     [u*x + v*z + w*y, u*y + v*x, u*z + w*x]
 
     """
-def convolution_fft(a, b, dps: Incomplete | None = None):
+def convolution_fft(a, b, dps=None):
     """
     Performs linear convolution using Fast Fourier Transform.
 

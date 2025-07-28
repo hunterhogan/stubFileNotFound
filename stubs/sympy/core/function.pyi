@@ -153,6 +153,7 @@ class Application(Basic, metaclass=FunctionClass):
     any type to any object.
     """
     is_Function: bool
+    @cacheit
     def __new__(cls, *args, **options): ...
     @classmethod
     def eval(cls, *args) -> None:
@@ -247,7 +248,10 @@ class Function(Application, Expr):
     """
     @property
     def _diff_wrt(self): ...
-    def __new__(cls, *args, **options): ...
+    @cacheit
+    def __new__(cls, *args, **options) -> type[AppliedUndef]: ...
+    @classmethod
+    def _new_(cls, *args, **options) -> Expr: ...
     @classmethod
     def _should_evalf(cls, arg):
         """
@@ -274,10 +278,6 @@ class Function(Application, Expr):
         """
         Tests whether the argument is an essential singularity
         or a branch point, or the functions is non-holomorphic.
-        """
-    def as_base_exp(self):
-        """
-        Returns the method as the 2-tuple (base, exponent).
         """
     def _eval_aseries(self, n, args0, x, logx) -> None:
         """
@@ -313,12 +313,17 @@ class Function(Application, Expr):
         """
         Returns the first derivative of the function.
         """
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0):
+    def _eval_as_leading_term(self, x, logx, cdir):
         """Stub that should be overridden by new Functions to return
         the first non-zero term in a series if ever an x-dependent
         argument whose leading term vanishes as x -> 0 might be encountered.
         See, for example, cos._eval_as_leading_term.
         """
+
+class DefinedFunction(Function):
+    """Base class for defined functions like ``sin``, ``cos``, ..."""
+    @cacheit
+    def __new__(cls, *args, **options) -> Expr: ...
 
 class AppliedUndef(Function):
     """
@@ -326,8 +331,9 @@ class AppliedUndef(Function):
     function.
     """
     is_number: bool
-    def __new__(cls, *args, **options): ...
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0): ...
+    name: str
+    def __new__(cls, *args, **options) -> Expr: ...
+    def _eval_as_leading_term(self, x, logx, cdir): ...
     @property
     def _diff_wrt(self):
         """
@@ -357,7 +363,9 @@ class UndefinedFunction(FunctionClass):
     """
     The (meta)class of undefined functions.
     """
-    def __new__(mcl, name, bases=..., __dict__: Incomplete | None = None, **kwargs): ...
+    name: str
+    _sage_: UndefSageHelper
+    def __new__(mcl, name, bases=..., __dict__=None, **kwargs) -> type[AppliedUndef]: ...
     def __instancecheck__(cls, instance): ...
     _kwargs: dict[str, bool | None]
     def __hash__(self): ...
@@ -365,6 +373,9 @@ class UndefinedFunction(FunctionClass):
     def __ne__(self, other): ...
     @property
     def _diff_wrt(self): ...
+
+def _reduce_undef(f): ...
+def _rebuild_undef(name, kwargs): ...
 
 class WildFunction(Function, AtomicExpr):
     """
@@ -415,7 +426,7 @@ class WildFunction(Function, AtomicExpr):
     """
     include: set[Any]
     def __init__(cls, name, **assumptions) -> None: ...
-    def matches(self, expr, repl_dict: Incomplete | None = None, old: bool = False): ...
+    def matches(self, expr, repl_dict=None, old: bool = False): ...
 
 class Derivative(Expr):
     """
@@ -454,7 +465,7 @@ class Derivative(Expr):
         2*f(x)
 
     Such derivatives will show up when the chain rule is used to
-    evalulate a derivative:
+    evaluate a derivative:
 
         >>> f(g(x)).diff(x)
         Derivative(f(g(x)), g(x))*Derivative(g(x), x)
@@ -707,8 +718,8 @@ class Derivative(Expr):
     def _eval_subs(self, old, new): ...
     def _eval_lseries(self, x, logx, cdir: int = 0) -> Generator[Incomplete]: ...
     def _eval_nseries(self, x, n, logx, cdir: int = 0): ...
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0): ...
-    def as_finite_difference(self, points: int = 1, x0: Incomplete | None = None, wrt: Incomplete | None = None):
+    def _eval_as_leading_term(self, x, logx, cdir): ...
+    def as_finite_difference(self, points: int = 1, x0=None, wrt=None):
         ''' Expresses a Derivative instance as a finite difference.
 
         Parameters
@@ -840,7 +851,7 @@ class Lambda(Expr):
 
     """
     is_Function: bool
-    def __new__(cls, signature, expr): ...
+    def __new__(cls, signature, expr) -> Lambda: ...
     @classmethod
     def _check_signature(cls, sig) -> None: ...
     @property
@@ -952,7 +963,7 @@ class Subs(Expr):
     def __new__(cls, expr, variables, point, **assumptions): ...
     def _eval_is_commutative(self): ...
     def doit(self, **hints): ...
-    def evalf(self, prec: Incomplete | None = None, **options): ...
+    def evalf(self, prec=None, **options): ...
     n = evalf
     @property
     def variables(self):
@@ -975,7 +986,7 @@ class Subs(Expr):
     def _eval_subs(self, old, new): ...
     def _eval_derivative(self, s): ...
     def _eval_nseries(self, x, n, logx, cdir: int = 0): ...
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0): ...
+    def _eval_as_leading_term(self, x, logx, cdir): ...
 
 def diff(f, *symbols, **kwargs):
     """
@@ -1041,7 +1052,7 @@ def diff(f, *symbols, **kwargs):
     idiff: computes the derivative implicitly
 
     """
-def expand(e, deep: bool = True, modulus: Incomplete | None = None, power_base: bool = True, power_exp: bool = True, mul: bool = True, log: bool = True, multinomial: bool = True, basic: bool = True, **hints):
+def expand(e, deep: bool = True, modulus=None, power_base: bool = True, power_exp: bool = True, mul: bool = True, log: bool = True, multinomial: bool = True, basic: bool = True, **hints):
     """
     Expand an expression using methods given as hints.
 

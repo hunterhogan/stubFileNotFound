@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core import Derivative as Derivative, Mul as Mul, Pow as Pow, S as S, sympify as sympify
 from sympy.core.add import Add as Add, _unevaluated_Add as _unevaluated_Add
 from sympy.core.assumptions import assumptions as assumptions
@@ -15,7 +14,7 @@ from sympy.polys import gcd as gcd
 from sympy.simplify.sqrtdenest import sqrtdenest as sqrtdenest
 from sympy.utilities.iterables import iterable as iterable, sift as sift
 
-def collect(expr, syms, func: Incomplete | None = None, evaluate: Incomplete | None = None, exact: bool = False, distribute_order_term: bool = True):
+def collect(expr, syms, func=None, evaluate=None, exact: bool = False, distribute_order_term: bool = True):
     """
     Collect additive terms of an expression.
 
@@ -185,7 +184,7 @@ def rcollect(expr, *vars):
 
     collect, collect_const, collect_sqrt
     """
-def collect_sqrt(expr, evaluate: Incomplete | None = None):
+def collect_sqrt(expr, evaluate=None):
     """Return expr with terms having common square roots collected together.
     If ``evaluate`` is False a count indicating the number of sqrt-containing
     terms will be returned and, if non-zero, the terms of the Add will be

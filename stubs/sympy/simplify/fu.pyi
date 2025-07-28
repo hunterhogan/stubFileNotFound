@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from sympy import SYMPY_DEBUG as SYMPY_DEBUG
 from sympy.core.add import Add as Add
+from sympy.core.cache import cacheit as cacheit
 from sympy.core.expr import Expr as Expr
 from sympy.core.exprtools import Factors as Factors, factor_terms as factor_terms, gcd_terms as gcd_terms
 from sympy.core.function import expand_mul as expand_mul
@@ -268,7 +269,7 @@ def TR10i(rv):
     2*sqrt(2)*x*sin(x + pi/6)
 
     """
-def TR11(rv, base: Incomplete | None = None):
+def TR11(rv, base=None):
     """Function of double angle to product. The ``base`` argument can be used
     to indicate what is the un-doubled argument, e.g. if 3*pi/7 is the base
     then cosine and sine functions with argument 6*pi/7 will be replaced.
@@ -648,7 +649,7 @@ def fu(rv, measure=...):
 
     .. [1] https://www.sciencedirect.com/science/article/pii/S0895717706001609
     """
-def process_common_addends(rv, do, key2: Incomplete | None = None, key1: bool = True):
+def process_common_addends(rv, do, key2=None, key1: bool = True):
     """Apply ``do`` to addends of ``rv`` that (if ``key1=True``) share at least
     a common absolute value of their coefficient and the value of ``key2`` when
     applied to the argument. If ``key1`` is False ``key2`` must be supplied and
@@ -658,10 +659,12 @@ def process_common_addends(rv, do, key2: Incomplete | None = None, key1: bool = 
 fufuncs: Incomplete
 FU: Incomplete
 
-def _roots() -> None: ...
-
-_ROOT2: Incomplete
-
+@cacheit
+def _ROOT2(): ...
+@cacheit
+def _ROOT3(): ...
+@cacheit
+def _invROOT3(): ...
 def trig_split(a, b, two: bool = False):
     """Return the gcd, s1, s2, a1, a2, bool where
 

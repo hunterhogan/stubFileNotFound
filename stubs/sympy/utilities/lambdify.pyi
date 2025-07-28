@@ -8,30 +8,36 @@ from typing import Any
 
 __doctest_requires__: Incomplete
 MATH_DEFAULT: dict[str, Any]
+CMATH_DEFAULT: dict[str, Any]
 MPMATH_DEFAULT: dict[str, Any]
 NUMPY_DEFAULT: dict[str, Any]
 SCIPY_DEFAULT: dict[str, Any]
 CUPY_DEFAULT: dict[str, Any]
 JAX_DEFAULT: dict[str, Any]
 TENSORFLOW_DEFAULT: dict[str, Any]
+TORCH_DEFAULT: dict[str, Any]
 SYMPY_DEFAULT: dict[str, Any]
 NUMEXPR_DEFAULT: dict[str, Any]
 MATH: Incomplete
+CMATH: Incomplete
 MPMATH: Incomplete
 NUMPY: Incomplete
 SCIPY: Incomplete
 CUPY: Incomplete
 JAX: Incomplete
 TENSORFLOW: Incomplete
+TORCH: Incomplete
 SYMPY: Incomplete
 NUMEXPR: Incomplete
 MATH_TRANSLATIONS: Incomplete
+CMATH_TRANSLATIONS: dict[str, str]
 MPMATH_TRANSLATIONS: Incomplete
 NUMPY_TRANSLATIONS: dict[str, str]
 SCIPY_TRANSLATIONS: dict[str, str]
 CUPY_TRANSLATIONS: dict[str, str]
 JAX_TRANSLATIONS: dict[str, str]
 TENSORFLOW_TRANSLATIONS: dict[str, str]
+TORCH_TRANSLATIONS: dict[str, str]
 NUMEXPR_TRANSLATIONS: dict[str, str]
 MODULES: Incomplete
 
@@ -39,7 +45,7 @@ def _import(module, reload: bool = False) -> None:
     '''
     Creates a global translation dictionary for module.
 
-    The argument module has to be one of the following strings: "math",
+    The argument module has to be one of the following strings: "math","cmath"
     "mpmath", "numpy", "sympy", "tensorflow", "jax".
     These dictionaries map names of Python functions to their equivalent in
     other modules.
@@ -47,7 +53,7 @@ def _import(module, reload: bool = False) -> None:
 
 _lambdify_generated_counter: int
 
-def lambdify(args, expr, modules: Incomplete | None = None, printer: Incomplete | None = None, use_imps: bool = True, dummify: bool = False, cse: bool = False, docstring_limit: int = 1000):
+def lambdify(args, expr, modules=None, printer=None, use_imps: bool = True, dummify: bool = False, cse: bool = False, docstring_limit: int = 1000):
     '''Convert a SymPy expression into a function that allows for fast
     numeric evaluation.
 
@@ -172,15 +178,15 @@ def lambdify(args, expr, modules: Incomplete | None = None, printer: Incomplete 
 
         - ``["scipy", "numpy"]`` if SciPy is installed
         - ``["numpy"]`` if only NumPy is installed
-        - ``["math", "mpmath", "sympy"]`` if neither is installed.
+        - ``["math","cmath", "mpmath", "sympy"]`` if neither is installed.
 
         That is, SymPy functions are replaced as far as possible by
         either ``scipy`` or ``numpy`` functions if available, and Python\'s
-        standard library ``math``, or ``mpmath`` functions otherwise.
+        standard library ``math`` and ``cmath``, or ``mpmath`` functions otherwise.
 
         *modules* can be one of the following types:
 
-        - The strings ``"math"``, ``"mpmath"``, ``"numpy"``, ``"numexpr"``,
+        - The strings ``"math"``, ``"cmath"``, ``"mpmath"``, ``"numpy"``, ``"numexpr"``,
           ``"scipy"``, ``"sympy"``, or ``"tensorflow"`` or ``"jax"``. This uses the
           corresponding printer and namespace mapping for that module.
         - A module (e.g., ``math``). This uses the global namespace of the
@@ -629,7 +635,7 @@ def _recursive_to_string(doprint, arg):
     """Functions in lambdify accept both SymPy types and non-SymPy types such as python
     lists and tuples. This method ensures that we only call the doprint method of the
     printer with SymPy types (so that the printer safely can use SymPy-methods)."""
-def lambdastr(args, expr, printer: Incomplete | None = None, dummify: Incomplete | None = None):
+def lambdastr(args, expr, printer=None, dummify=None):
     """
     Returns a string that can be evaluated to a lambda function.
 
@@ -655,14 +661,14 @@ class _EvaluatorPrinter:
     _dummify: Incomplete
     _exprrepr: Incomplete
     _argrepr: Incomplete
-    def __init__(self, printer: Incomplete | None = None, dummify: bool = False) -> None: ...
+    def __init__(self, printer=None, dummify: bool = False) -> None: ...
     def doprint(self, funcname, args, expr, *, cses=()):
         """
         Returns the function definition code as a string.
         """
     @classmethod
     def _is_safe_ident(cls, ident): ...
-    def _preprocess(self, args, expr):
+    def _preprocess(self, args, expr, cses=(), _dummies_dict=None):
         """Preprocess args, expr to replace arguments that do not map
         to valid Python identifiers.
 
@@ -684,16 +690,18 @@ class _EvaluatorPrinter:
         unpackto is a list or nested lists of the variable names (strings) to
         unpack to.
         """
+    def _handle_Subs(self, expr, out):
+        """Any instance of Subs is extracted and returned as assignment pairs."""
 
 class _TensorflowEvaluatorPrinter(_EvaluatorPrinter):
     def _print_unpacking(self, lvalues, rvalue):
         """Generate argument unpacking code.
 
-        This method is used when the input value is not interable,
+        This method is used when the input value is not iterable,
         but can be indexed (see issue #14655).
         """
 
-def _imp_namespace(expr, namespace: Incomplete | None = None):
+def _imp_namespace(expr, namespace=None):
     """ Return namespace dict with function implementations
 
     We need to search for functions in anything that can be thrown at

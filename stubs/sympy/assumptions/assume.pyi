@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from contextlib import contextmanager
 from sympy.core.symbol import Str as Str
 from sympy.core.sympify import _sympify as _sympify
 from sympy.logic.boolalg import Boolean as Boolean, false as false, true as true
@@ -255,7 +256,7 @@ class UndefinedPredicate(Predicate):
 
     """
     handler: Incomplete
-    def __new__(cls, name, handlers: Incomplete | None = None): ...
+    def __new__(cls, name, handlers=None): ...
     @property
     def name(self): ...
     def _hashable_content(self): ...
@@ -265,6 +266,7 @@ class UndefinedPredicate(Predicate):
     def remove_handler(self, handler) -> None: ...
     def eval(self, args, assumptions: bool = True): ...
 
+@contextmanager
 def assuming(*assumptions) -> Generator[None]:
     """
     Context manager for assumptions.

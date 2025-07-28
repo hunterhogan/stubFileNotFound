@@ -1,8 +1,9 @@
-from _typeshed import Incomplete
+from sympy.utilities import public
 
 __all__ = ['swinnerton_dyer_poly', 'cyclotomic_poly', 'symmetric_poly', 'random_poly', 'interpolating_poly']
 
-def swinnerton_dyer_poly(n, x: Incomplete | None = None, polys: bool = False):
+@public
+def swinnerton_dyer_poly(n, x=None, polys: bool = False):
     """Generates n-th Swinnerton-Dyer polynomial in `x`.
 
     Parameters
@@ -14,7 +15,8 @@ def swinnerton_dyer_poly(n, x: Incomplete | None = None, polys: bool = False):
         ``polys=True`` returns an expression, otherwise
         (default) returns an expression.
     """
-def cyclotomic_poly(n, x: Incomplete | None = None, polys: bool = False):
+@public
+def cyclotomic_poly(n, x=None, polys: bool = False):
     """Generates cyclotomic polynomial of order `n` in `x`.
 
     Parameters
@@ -26,6 +28,7 @@ def cyclotomic_poly(n, x: Incomplete | None = None, polys: bool = False):
         ``polys=True`` returns an expression, otherwise
         (default) returns an expression.
     """
+@public
 def symmetric_poly(n, *gens, polys: bool = False):
     """
     Generates symmetric polynomial of order `n`.
@@ -37,6 +40,7 @@ def symmetric_poly(n, *gens, polys: bool = False):
         Returns a Poly object when ``polys=True``, otherwise
         (default) returns an expression.
     """
+@public
 def random_poly(x, n, inf, sup, domain=..., polys: bool = False):
     """Generates a polynomial of degree ``n`` with coefficients in
     ``[inf, sup]``.
@@ -58,6 +62,7 @@ def random_poly(x, n, inf, sup, domain=..., polys: bool = False):
         ``polys=True`` returns an expression, otherwise
         (default) returns an expression.
     """
+@public
 def interpolating_poly(n, x, X: str = 'x', Y: str = 'y'):
     """Construct Lagrange interpolating polynomial for ``n``
     data points. If a sequence of values are given for ``X`` and ``Y``

@@ -214,7 +214,7 @@ class CoordSystem(Basic):
     .. [1] https://en.wikipedia.org/wiki/Coordinate_system
 
     """
-    def __new__(cls, name, patch, symbols: Incomplete | None = None, relations={}, **kwargs): ...
+    def __new__(cls, name, patch, symbols=None, relations={}, **kwargs): ...
     @property
     def name(self): ...
     @property
@@ -256,6 +256,7 @@ class CoordSystem(Basic):
     @classmethod
     def _inverse_transformation(cls, sys1, sys2): ...
     @classmethod
+    @cacheit
     def _indirect_transformation(cls, sys1, sys2): ...
     @staticmethod
     def _dijkstra(sys1, sys2): ...
@@ -264,7 +265,7 @@ class CoordSystem(Basic):
     def _inv_transf(from_coords, to_exprs): ...
     @staticmethod
     def _fill_gaps_in_transformations() -> None: ...
-    def transform(self, sys, coordinates: Incomplete | None = None):
+    def transform(self, sys, coordinates=None):
         """
         Return the result of coordinate transformation from *self* to *sys*.
         If coordinates are not given, coordinate symbols of *self* are used.
@@ -297,7 +298,7 @@ class CoordSystem(Basic):
         """
     def coord_tuple_transform_to(self, to_sys, coords):
         """Transform ``coords`` to coord system ``to_sys``."""
-    def jacobian(self, sys, coordinates: Incomplete | None = None):
+    def jacobian(self, sys, coordinates=None):
         """
         Return the jacobian matrix of a transformation on given coordinates.
         If coordinates are not given, coordinate symbols of *self* are used.
@@ -329,7 +330,7 @@ class CoordSystem(Basic):
 
         """
     jacobian_matrix = jacobian
-    def jacobian_determinant(self, sys, coordinates: Incomplete | None = None):
+    def jacobian_determinant(self, sys, coordinates=None):
         """
         Return the jacobian determinant of a transformation on given
         coordinates. If coordinates are not given, coordinate symbols of *self*
@@ -499,11 +500,11 @@ class Point(Basic):
     def manifold(self): ...
     @property
     def dim(self): ...
-    def coords(self, sys: Incomplete | None = None):
+    def coords(self, sys=None):
         """
         Coordinates of the point in given coordinate system. If coordinate system
         is not passed, it returns the coordinates in the coordinate system in which
-        the poin was defined.
+        the point was defined.
         """
     @property
     def free_symbols(self): ...
@@ -999,7 +1000,7 @@ class CovarDerivativeOp(Expr):
     def christoffel(self): ...
     def __call__(self, field): ...
 
-def intcurve_series(vector_field, param, start_point, n: int = 6, coord_sys: Incomplete | None = None, coeffs: bool = False):
+def intcurve_series(vector_field, param, start_point, n: int = 6, coord_sys=None, coeffs: bool = False):
     """Return the series expansion for an integral curve of the field.
 
     Explanation
@@ -1100,7 +1101,7 @@ def intcurve_series(vector_field, param, start_point, n: int = 6, coord_sys: Inc
     intcurve_diffequ
 
     """
-def intcurve_diffequ(vector_field, param, start_point, coord_sys: Incomplete | None = None):
+def intcurve_diffequ(vector_field, param, start_point, coord_sys=None):
     """Return the differential equation for an integral curve of the field.
 
     Explanation

@@ -5,7 +5,7 @@ def identity(x) -> Generator[Incomplete]: ...
 def exhaust(brule):
     """ Apply a branching rule repeatedly until it has no effect """
 def onaction(brule, fn): ...
-def debug(brule, file: Incomplete | None = None):
+def debug(brule, file=None):
     """ Print the input and output expressions at each rule application """
 def multiplex(*brules):
     """ Multiplex many branching rules into one """

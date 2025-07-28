@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core.basic import Basic as Basic
 from sympy.stats.joint_rv import ProductPSpace as ProductPSpace
 from sympy.stats.rv import Distribution as Distribution, ProductDomain as ProductDomain, _symbol_converter as _symbol_converter
@@ -19,7 +18,7 @@ class StochasticPSpace(ProductPSpace):
     Bernoulli distribution. For processes with memory, this
     parameter should not be passed.
     """
-    def __new__(cls, sym, process, distribution: Incomplete | None = None): ...
+    def __new__(cls, sym, process, distribution=None): ...
     @property
     def process(self):
         """
@@ -31,13 +30,13 @@ class StochasticPSpace(ProductPSpace):
     def symbol(self): ...
     @property
     def distribution(self): ...
-    def probability(self, condition, given_condition: Incomplete | None = None, evaluate: bool = True, **kwargs):
+    def probability(self, condition, given_condition=None, evaluate: bool = True, **kwargs):
         """
         Transfers the task of handling queries to the specific stochastic
         process because every process has their own logic of handling such
         queries.
         """
-    def compute_expectation(self, expr, condition: Incomplete | None = None, evaluate: bool = True, **kwargs):
+    def compute_expectation(self, expr, condition=None, evaluate: bool = True, **kwargs):
         """
         Transfers the task of handling queries to the specific stochastic
         process because every process has their own logic of handling such

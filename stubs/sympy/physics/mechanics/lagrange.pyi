@@ -114,7 +114,7 @@ class LagrangesMethod(_Methods):
     _qdoubledots: Incomplete
     coneqs: Incomplete
     _hol_coneqs: Incomplete
-    def __init__(self, Lagrangian, qs, forcelist: Incomplete | None = None, bodies: Incomplete | None = None, frame: Incomplete | None = None, hol_coneqs: Incomplete | None = None, nonhol_coneqs: Incomplete | None = None) -> None:
+    def __init__(self, Lagrangian, qs, forcelist=None, bodies=None, frame=None, hol_coneqs=None, nonhol_coneqs=None) -> None:
         """Supply the following for the initialization of LagrangesMethod.
 
         Lagrangian : Sympifyable
@@ -174,7 +174,7 @@ class LagrangesMethod(_Methods):
     @property
     def forcing_full(self):
         """Augments qdots to the forcing vector above."""
-    def to_linearizer(self, q_ind: Incomplete | None = None, qd_ind: Incomplete | None = None, q_dep: Incomplete | None = None, qd_dep: Incomplete | None = None, linear_solver: str = 'LU'):
+    def to_linearizer(self, q_ind=None, qd_ind=None, q_dep=None, qd_dep=None, linear_solver: str = 'LU'):
         """Returns an instance of the Linearizer class, initiated from the data
         in the LagrangesMethod class. This may be more desirable than using the
         linearize class method, as the Linearizer object will allow more
@@ -205,7 +205,7 @@ class LagrangesMethod(_Methods):
             :class:`sympy.physics.mechanics.linearize.Linearizer`.
 
         """
-    def linearize(self, q_ind: Incomplete | None = None, qd_ind: Incomplete | None = None, q_dep: Incomplete | None = None, qd_dep: Incomplete | None = None, linear_solver: str = 'LU', **kwargs):
+    def linearize(self, q_ind=None, qd_ind=None, q_dep=None, qd_dep=None, linear_solver: str = 'LU', **kwargs):
         """Linearize the equations of motion about a symbolic operating point.
 
         Parameters
@@ -248,7 +248,7 @@ class LagrangesMethod(_Methods):
         you can specify beforehand, the faster this computation will run.
 
         For more documentation, please see the ``Linearizer`` class."""
-    def solve_multipliers(self, op_point: Incomplete | None = None, sol_type: str = 'dict'):
+    def solve_multipliers(self, op_point=None, sol_type: str = 'dict'):
         """Solves for the values of the lagrange multipliers symbolically at
         the specified operating point.
 
@@ -266,7 +266,7 @@ class LagrangesMethod(_Methods):
             - 'Matrix': An ordered column matrix of the solution
         """
     _rhs: Incomplete
-    def rhs(self, inv_method: Incomplete | None = None, **kwargs):
+    def rhs(self, inv_method=None, **kwargs):
         """Returns equations that can be solved numerically.
 
         Parameters

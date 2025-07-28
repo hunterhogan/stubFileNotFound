@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from contextlib import contextmanager
 from sympy.core.function import expand_mul as expand_mul
 from threading import local
 
@@ -9,10 +10,11 @@ class DotProdSimpState(local):
 
 _dotprodsimp_state: Incomplete
 
+@contextmanager
 def dotprodsimp(x) -> Generator[None]: ...
 def _dotprodsimp(expr, withsimp: bool = False):
     """Wrapper for simplify.dotprodsimp to avoid circular imports."""
-def _get_intermediate_simp(deffunc=..., offfunc=..., onfunc=..., dotprodsimp: Incomplete | None = None):
+def _get_intermediate_simp(deffunc=..., offfunc=..., onfunc=..., dotprodsimp=None):
     """Support function for controlling intermediate simplification. Returns a
     simplification function according to the global setting of dotprodsimp
     operation.
@@ -23,7 +25,7 @@ def _get_intermediate_simp(deffunc=..., offfunc=..., onfunc=..., dotprodsimp: In
     ``dotprodsimp`` - True, False or None. Will be overridden by global
                       _dotprodsimp_state.state if that is not None.
     """
-def _get_intermediate_simp_bool(default: bool = False, dotprodsimp: Incomplete | None = None):
+def _get_intermediate_simp_bool(default: bool = False, dotprodsimp=None):
     """Same as ``_get_intermediate_simp`` but returns bools instead of functions
     by default."""
 def _iszero(x):

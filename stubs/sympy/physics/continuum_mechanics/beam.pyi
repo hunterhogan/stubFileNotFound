@@ -61,7 +61,7 @@ class Beam:
     >>> b.apply_load(R2, 4, -1)
     >>> b.bc_deflection = [(0, 0), (4, 0)]
     >>> b.boundary_conditions
-    {\'deflection\': [(0, 0), (4, 0)], \'slope\': []}
+    {\'bending_moment\': [], \'deflection\': [(0, 0), (4, 0)], \'shear_force\': [], \'slope\': []}
     >>> b.load
     R1*SingularityFunction(x, 0, -1) + R2*SingularityFunction(x, 4, -1) + 6*SingularityFunction(x, 2, 0)
     >>> b.solve_for_reaction_loads(R1, R2)
@@ -117,10 +117,15 @@ class Beam:
     >>> print(b.reaction_loads[R2])
     (-5*L**2*q1 + 7*L**2*q2 - 8*L*P1 + 4*L*P2 + 32*M1 - 32*M2)/(32*L)
     '''
+    ild_variable: Incomplete
     _base_char: Incomplete
     _boundary_conditions: Incomplete
     _load: int
     _applied_supports: Incomplete
+    _applied_rotation_hinges: Incomplete
+    _applied_sliding_hinges: Incomplete
+    _rotation_hinge_symbols: Incomplete
+    _sliding_hinge_symbols: Incomplete
     _support_as_loads: Incomplete
     _applied_loads: Incomplete
     _reaction_loads: Incomplete
@@ -128,9 +133,8 @@ class Beam:
     _ild_shear: int
     _ild_moment: int
     _original_load: int
-    _composite_type: Incomplete
-    _hinge_position: Incomplete
-    def __init__(self, length, elastic_modulus, second_moment, area=..., variable=..., base_char: str = 'C') -> None:
+    _joined_beam: bool
+    def __init__(self, length, elastic_modulus, second_moment, area=..., variable=..., base_char: str = 'C', ild_variable=...) -> None:
         """Initializes the class.
 
         Parameters
@@ -168,17 +172,50 @@ class Beam:
             A String that will be used as base character to generate sequential
             symbols for integration constants in cases where boundary conditions
             are not sufficient to solve them.
+
+        ild_variable : Symbol, optional
+            A Symbol object that will be used as the variable specifying the
+            location of the moving load in ILD calculations. By default, it
+            is set to ``Symbol('a')``.
         """
     def __str__(self) -> str: ...
     @property
     def reaction_loads(self):
         """ Returns the reaction forces in a dictionary."""
     @property
+    def rotation_jumps(self):
+        """
+        Returns the value for the rotation jumps in rotation hinges in a dictionary.
+        The rotation jump is the rotation (in radian) in a rotation hinge. This can
+        be seen as a jump in the slope plot.
+        """
+    @property
+    def deflection_jumps(self):
+        """
+        Returns the deflection jumps in sliding hinges in a dictionary.
+        The deflection jump is the deflection (in meters) in a sliding hinge.
+        This can be seen as a jump in the deflection plot.
+        """
+    @property
     def ild_shear(self):
         """ Returns the I.L.D. shear equation."""
     @property
     def ild_reactions(self):
         """ Returns the I.L.D. reaction forces in a dictionary."""
+    @property
+    def ild_rotation_jumps(self):
+        """
+        Returns the I.L.D. rotation jumps in rotation hinges in a dictionary.
+        The rotation jump is the rotation (in radian) in a rotation hinge. This can
+        be seen as a jump in the slope plot.
+        """
+    @property
+    def ild_deflection_jumps(self):
+        """
+        Returns the I.L.D. deflection jumps in sliding hinges in a dictionary.
+        The deflection jump is the deflection (in meters) in a sliding hinge.
+        This can be seen as a jump in the deflection plot.
+        """
     @property
     def ild_moment(self):
         """ Returns the I.L.D. moment equation."""
@@ -262,11 +299,19 @@ class Beam:
         >>> b.bc_deflection = [(0, 2)]
         >>> b.bc_slope = [(0, 1)]
         >>> b.boundary_conditions
-        {'deflection': [(0, 2)], 'slope': [(0, 1)]}
+        {'bending_moment': [], 'deflection': [(0, 2)], 'shear_force': [], 'slope': [(0, 1)]}
 
         Here the deflection of the beam should be ``2`` at ``0``.
         Similarly, the slope of the beam should be ``1`` at ``0``.
         """
+    @property
+    def bc_shear_force(self): ...
+    @bc_shear_force.setter
+    def bc_shear_force(self, sf_bcs) -> None: ...
+    @property
+    def bc_bending_moment(self): ...
+    @bc_bending_moment.setter
+    def bc_bending_moment(self, bm_bcs) -> None: ...
     @property
     def bc_slope(self): ...
     @bc_slope.setter
@@ -290,7 +335,7 @@ class Beam:
         via : String
             States the way two Beam object would get connected
             - For axially fixed Beams, via="fixed"
-            - For Beams connected via hinge, via="hinge"
+            - For Beams connected via rotation hinge, via="hinge"
 
         Examples
         ========
@@ -369,7 +414,104 @@ class Beam:
         - 8*SingularityFunction(x, 10, -1) + 100*SingularityFunction(x, 20, -2)
         + 10*SingularityFunction(x, 20, -1)
         '''
-    def apply_load(self, value, start, order, end: Incomplete | None = None) -> None:
+    def _get_I(self, loc):
+        """
+        Helper function that returns the Second moment (I) at a location in the beam.
+        """
+    def apply_rotation_hinge(self, loc):
+        """
+        This method applies a rotation hinge at a single location on the beam.
+
+        Parameters
+        ----------
+        loc : Sympifyable
+            Location of point at which hinge is applied.
+
+        Returns
+        =======
+        Symbol
+            The unknown rotation jump multiplied by the elastic modulus and second moment as a symbol.
+
+        Examples
+        ========
+        There is a beam of length 15 meters. Pin supports are placed at distances
+        of 0 and 10 meters. There is a fixed support at the end. There are two rotation hinges
+        in the structure, one at 5 meters and one at 10 meters. A pointload of magnitude
+        10 kN is applied on the hinge at 5 meters. A distributed load of 5 kN works on
+        the structure from 10 meters to the end.
+
+        Using the sign convention of upward forces and clockwise moment
+        being positive.
+
+        >>> from sympy.physics.continuum_mechanics.beam import Beam
+        >>> from sympy import Symbol
+        >>> E = Symbol('E')
+        >>> I = Symbol('I')
+        >>> b = Beam(15, E, I)
+        >>> r0 = b.apply_support(0, type='pin')
+        >>> r10 = b.apply_support(10, type='pin')
+        >>> r15, m15 = b.apply_support(15, type='fixed')
+        >>> p5 = b.apply_rotation_hinge(5)
+        >>> p12 = b.apply_rotation_hinge(12)
+        >>> b.apply_load(-10, 5, -1)
+        >>> b.apply_load(-5, 10, 0, 15)
+        >>> b.solve_for_reaction_loads(r0, r10, r15, m15)
+        >>> b.reaction_loads
+        {M_15: -75/2, R_0: 0, R_10: 40, R_15: -5}
+        >>> b.rotation_jumps
+        {P_12: -1875/(16*E*I), P_5: 9625/(24*E*I)}
+        >>> b.rotation_jumps[p12]
+        -1875/(16*E*I)
+        >>> b.bending_moment()
+        -9625*SingularityFunction(x, 5, -1)/24 + 10*SingularityFunction(x, 5, 1)
+        - 40*SingularityFunction(x, 10, 1) + 5*SingularityFunction(x, 10, 2)/2
+        + 1875*SingularityFunction(x, 12, -1)/16 + 75*SingularityFunction(x, 15, 0)/2
+        + 5*SingularityFunction(x, 15, 1) - 5*SingularityFunction(x, 15, 2)/2
+        """
+    def apply_sliding_hinge(self, loc):
+        '''
+        This method applies a sliding hinge at a single location on the beam.
+
+        Parameters
+        ----------
+        loc : Sympifyable
+            Location of point at which hinge is applied.
+
+        Returns
+        =======
+        Symbol
+            The unknown deflection jump multiplied by the elastic modulus and second moment as a symbol.
+
+        Examples
+        ========
+        There is a beam of length 13 meters. A fixed support is placed at the beginning.
+        There is a pin support at the end. There is a sliding hinge at a location of 8 meters.
+        A pointload of magnitude 10 kN is applied on the hinge at 5 meters.
+
+        Using the sign convention of upward forces and clockwise moment
+        being positive.
+
+        >>> from sympy.physics.continuum_mechanics.beam import Beam
+        >>> b = Beam(13, 20, 20)
+        >>> r0, m0 = b.apply_support(0, type="fixed")
+        >>> s8 = b.apply_sliding_hinge(8)
+        >>> r13 = b.apply_support(13, type="pin")
+        >>> b.apply_load(-10, 5, -1)
+        >>> b.solve_for_reaction_loads(r0, m0, r13)
+        >>> b.reaction_loads
+        {M_0: -50, R_0: 10, R_13: 0}
+        >>> b.deflection_jumps
+        {W_8: 85/24}
+        >>> b.deflection_jumps[s8]
+        85/24
+        >>> b.bending_moment()
+        50*SingularityFunction(x, 0, 0) - 10*SingularityFunction(x, 0, 1)
+        + 10*SingularityFunction(x, 5, 1) - 4250*SingularityFunction(x, 8, -2)/3
+        >>> b.deflection()
+        -SingularityFunction(x, 0, 2)/16 + SingularityFunction(x, 0, 3)/240
+        - SingularityFunction(x, 5, 3)/240 + 85*SingularityFunction(x, 8, 0)/24
+        '''
+    def apply_load(self, value, start, order, end=None) -> None:
         """
         This method adds up the loads given to a particular beam object.
 
@@ -424,7 +566,7 @@ class Beam:
         -3*SingularityFunction(x, 0, -2) + 4*SingularityFunction(x, 2, -1) - 2*SingularityFunction(x, 2, 2) + 2*SingularityFunction(x, 3, 0) + 4*SingularityFunction(x, 3, 1) + 2*SingularityFunction(x, 3, 2)
 
         """
-    def remove_load(self, value, start, order, end: Incomplete | None = None) -> None:
+    def remove_load(self, value, start, order, end=None) -> None:
         """
         This method removes a particular load present on the beam object.
         Returns a ValueError if the load passed as an argument is not
@@ -528,55 +670,9 @@ class Beam:
         >>> b.applied_loads
         [(-3, 0, -2, None), (4, 2, -1, None), (5, 2, -1, None)]
         """
-    _hinge_beam_slope: Incomplete
-    _hinge_beam_deflection: Incomplete
-    def _solve_hinge_beams(self, *reactions) -> None:
-        '''Method to find integration constants and reactional variables in a
-        composite beam connected via hinge.
-        This method resolves the composite Beam into its sub-beams and then
-        equations of shear force, bending moment, slope and deflection are
-        evaluated for both of them separately. These equations are then solved
-        for unknown reactions and integration constants using the boundary
-        conditions applied on the Beam. Equal deflection of both sub-beams
-        at the hinge joint gives us another equation to solve the system.
-
-        Examples
-        ========
-        A combined beam, with constant fkexural rigidity E*I, is formed by joining
-        a Beam of length 2*l to the right of another Beam of length l. The whole beam
-        is fixed at both of its both end. A point load of magnitude P is also applied
-        from the top at a distance of 2*l from starting point.
-
-        >>> from sympy.physics.continuum_mechanics.beam import Beam
-        >>> from sympy import symbols
-        >>> E, I = symbols(\'E, I\')
-        >>> l=symbols(\'l\', positive=True)
-        >>> b1=Beam(l, E, I)
-        >>> b2=Beam(2*l, E, I)
-        >>> b=b1.join(b2,"hinge")
-        >>> M1, A1, M2, A2, P = symbols(\'M1 A1 M2 A2 P\')
-        >>> b.apply_load(A1,0,-1)
-        >>> b.apply_load(M1,0,-2)
-        >>> b.apply_load(P,2*l,-1)
-        >>> b.apply_load(A2,3*l,-1)
-        >>> b.apply_load(M2,3*l,-2)
-        >>> b.bc_slope=[(0,0), (3*l, 0)]
-        >>> b.bc_deflection=[(0,0), (3*l, 0)]
-        >>> b.solve_for_reaction_loads(M1, A1, M2, A2)
-        >>> b.reaction_loads
-        {A1: -5*P/18, A2: -13*P/18, M1: 5*P*l/18, M2: -4*P*l/9}
-        >>> b.slope()
-        (5*P*l*SingularityFunction(x, 0, 1)/18 - 5*P*SingularityFunction(x, 0, 2)/36 + 5*P*SingularityFunction(x, l, 2)/36)*SingularityFunction(x, 0, 0)/(E*I)
-        - (5*P*l*SingularityFunction(x, 0, 1)/18 - 5*P*SingularityFunction(x, 0, 2)/36 + 5*P*SingularityFunction(x, l, 2)/36)*SingularityFunction(x, l, 0)/(E*I)
-        + (P*l**2/18 - 4*P*l*SingularityFunction(-l + x, 2*l, 1)/9 - 5*P*SingularityFunction(-l + x, 0, 2)/36 + P*SingularityFunction(-l + x, l, 2)/2
-        - 13*P*SingularityFunction(-l + x, 2*l, 2)/36)*SingularityFunction(x, l, 0)/(E*I)
-        >>> b.deflection()
-        (5*P*l*SingularityFunction(x, 0, 2)/36 - 5*P*SingularityFunction(x, 0, 3)/108 + 5*P*SingularityFunction(x, l, 3)/108)*SingularityFunction(x, 0, 0)/(E*I)
-        - (5*P*l*SingularityFunction(x, 0, 2)/36 - 5*P*SingularityFunction(x, 0, 3)/108 + 5*P*SingularityFunction(x, l, 3)/108)*SingularityFunction(x, l, 0)/(E*I)
-        + (5*P*l**3/54 + P*l**2*(-l + x)/18 - 2*P*l*SingularityFunction(-l + x, 2*l, 2)/9 - 5*P*SingularityFunction(-l + x, 0, 3)/108 + P*SingularityFunction(-l + x, l, 3)/6
-        - 13*P*SingularityFunction(-l + x, 2*l, 3)/108)*SingularityFunction(x, l, 0)/(E*I)
-        '''
-    def solve_for_reaction_loads(self, *reactions):
+    _rotation_jumps: Incomplete
+    _deflection_jumps: Incomplete
+    def solve_for_reaction_loads(self, *reactions) -> None:
         """
         Solves for the reaction forces.
 
@@ -785,7 +881,7 @@ class Beam:
         Returns an expression representing the Shear Stress
         curve of the Beam object.
         """
-    def plot_shear_stress(self, subs: Incomplete | None = None):
+    def plot_shear_stress(self, subs=None):
         """
 
         Returns a plot of shear stress present in the beam object.
@@ -829,7 +925,7 @@ class Beam:
             - 5000*SingularityFunction(x, 4, 1) + 15625*SingularityFunction(x, 8, 0)
             + 5000*SingularityFunction(x, 8, 1) for x over (0.0, 8.0)
         """
-    def plot_shear_force(self, subs: Incomplete | None = None):
+    def plot_shear_force(self, subs=None):
         """
 
         Returns a plot for Shear force present in the Beam object.
@@ -872,7 +968,7 @@ class Beam:
             - 10000*SingularityFunction(x, 4, 1) + 31250*SingularityFunction(x, 8, 0)
             + 10000*SingularityFunction(x, 8, 1) for x over (0.0, 8.0)
         """
-    def plot_bending_moment(self, subs: Incomplete | None = None):
+    def plot_bending_moment(self, subs=None):
         """
 
         Returns a plot for Bending moment present in the Beam object.
@@ -915,7 +1011,7 @@ class Beam:
             - 5000*SingularityFunction(x, 4, 2) + 31250*SingularityFunction(x, 8, 1)
             + 5000*SingularityFunction(x, 8, 2) for x over (0.0, 8.0)
         """
-    def plot_slope(self, subs: Incomplete | None = None):
+    def plot_slope(self, subs=None):
         """
 
         Returns a plot for slope of deflection curve of the Beam object.
@@ -958,7 +1054,7 @@ class Beam:
             + 2.08333333333333e-5*SingularityFunction(x, 4, 3) - 0.0001953125*SingularityFunction(x, 8, 2)
             - 2.08333333333333e-5*SingularityFunction(x, 8, 3) + 0.00138541666666667 for x over (0.0, 8.0)
         """
-    def plot_deflection(self, subs: Incomplete | None = None):
+    def plot_deflection(self, subs=None):
         """
 
         Returns a plot for deflection curve of the Beam object.
@@ -1002,7 +1098,7 @@ class Beam:
             - 6.51041666666667e-5*SingularityFunction(x, 8, 3) - 5.20833333333333e-6*SingularityFunction(x, 8, 4)
             for x over (0.0, 8.0)
         """
-    def plot_loading_results(self, subs: Incomplete | None = None):
+    def plot_loading_results(self, subs=None):
         """
         Returns a subplot of Shear Force, Bending Moment,
         Slope and Deflection of the Beam object.
@@ -1043,13 +1139,15 @@ class Beam:
             >>> b.solve_for_reaction_loads(R1, R2)
             >>> axes = b.plot_loading_results()
         """
-    def _solve_for_ild_equations(self):
+    def _solve_for_ild_equations(self, value):
         """
 
         Helper function for I.L.D. It takes the unsubstituted
         copy of the load equation and uses it to calculate shear force and bending
         moment equations.
         """
+    _ild_rotations_jumps: Incomplete
+    _ild_deflection_jumps: Incomplete
     def solve_for_ild_reactions(self, value, *reactions) -> None:
         """
 
@@ -1062,6 +1160,11 @@ class Beam:
             Magnitude of moving load
         reactions :
             The reaction forces applied on the beam.
+
+        Warning
+        =======
+        This method creates equations that can give incorrect results when
+        substituting a = 0 or a = l, with l the length of the beam.
 
         Examples
         ========
@@ -1083,14 +1186,15 @@ class Beam:
             >>> E, I = symbols('E, I')
             >>> R_0, R_10 = symbols('R_0, R_10')
             >>> b = Beam(10, E, I)
-            >>> p0 = b.apply_support(0, 'roller')
+            >>> p0 = b.apply_support(0, 'pin')
             >>> p10 = b.apply_support(10, 'roller')
             >>> b.solve_for_ild_reactions(1,R_0,R_10)
             >>> b.ild_reactions
-            {R_0: x/10 - 1, R_10: -x/10}
+            {R_0: -SingularityFunction(a, 0, 0) + SingularityFunction(a, 0, 1)/10 - SingularityFunction(a, 10, 1)/10,
+            R_10: -SingularityFunction(a, 0, 1)/10 + SingularityFunction(a, 10, 0) + SingularityFunction(a, 10, 1)/10}
 
         """
-    def plot_ild_reactions(self, subs: Incomplete | None = None):
+    def plot_ild_reactions(self, subs=None):
         """
 
         Plots the Influence Line Diagram of Reaction Forces
@@ -1103,6 +1207,11 @@ class Beam:
         subs : dictionary
                Python dictionary containing Symbols as key and their
                corresponding values.
+
+        Warning
+        =======
+        The values for a = 0 and a = l, with l the length of the beam, in
+        the plot can be incorrect.
 
         Examples
         ========
@@ -1132,13 +1241,17 @@ class Beam:
             >>> b.apply_load(5,4,-1)
             >>> b.solve_for_ild_reactions(1,R_0,R_7)
             >>> b.ild_reactions
-            {R_0: x/7 - 22/7, R_7: -x/7 - 20/7}
+            {R_0: -SingularityFunction(a, 0, 0) + SingularityFunction(a, 0, 1)/7
+            - 3*SingularityFunction(a, 10, 0)/7  - SingularityFunction(a, 10, 1)/7 - 15/7,
+            R_7: -SingularityFunction(a, 0, 1)/7 + 10*SingularityFunction(a, 10, 0)/7 + SingularityFunction(a, 10, 1)/7 - 20/7}
             >>> b.plot_ild_reactions()
             PlotGrid object containing:
             Plot[0]:Plot object containing:
-            [0]: cartesian line: x/7 - 22/7 for x over (0.0, 10.0)
+            [0]: cartesian line: -SingularityFunction(a, 0, 0) + SingularityFunction(a, 0, 1)/7
+            - 3*SingularityFunction(a, 10, 0)/7 - SingularityFunction(a, 10, 1)/7 - 15/7 for a over (0.0, 10.0)
             Plot[1]:Plot object containing:
-            [0]: cartesian line: -x/7 - 20/7 for x over (0.0, 10.0)
+            [0]: cartesian line: -SingularityFunction(a, 0, 1)/7 + 10*SingularityFunction(a, 10, 0)/7
+            + SingularityFunction(a, 10, 1)/7 - 20/7 for a over (0.0, 10.0)
 
         """
     def solve_for_ild_shear(self, distance, value, *reactions) -> None:
@@ -1156,6 +1269,11 @@ class Beam:
             Magnitude of moving load
         reactions :
             The reaction forces applied on the beam.
+
+        Warning
+        =======
+        This method creates equations that can give incorrect results when
+        substituting a = 0 or a = l, with l the length of the beam.
 
         Examples
         ========
@@ -1182,10 +1300,12 @@ class Beam:
             >>> b.solve_for_ild_reactions(1, R_0, R_8)
             >>> b.solve_for_ild_shear(4, 1, R_0, R_8)
             >>> b.ild_shear
-            Piecewise((x/8, x < 4), (x/8 - 1, x > 4))
+            -(-SingularityFunction(a, 0, 0) + SingularityFunction(a, 12, 0) + 2)*SingularityFunction(a, 4, 0)
+            - SingularityFunction(-a, 0, 0) - SingularityFunction(a, 0, 0) + SingularityFunction(a, 0, 1)/8
+            + SingularityFunction(a, 12, 0)/2 - SingularityFunction(a, 12, 1)/8 + 1
 
         """
-    def plot_ild_shear(self, subs: Incomplete | None = None):
+    def plot_ild_shear(self, subs=None):
         """
 
         Plots the Influence Line Diagram for Shear under the effect
@@ -1198,6 +1318,11 @@ class Beam:
         subs : dictionary
                Python dictionary containing Symbols as key and their
                corresponding values.
+
+        Warning
+        =======
+        The values for a = 0 and a = l, with l the length of the beam, in
+        the plot can be incorrect.
 
         Examples
         ========
@@ -1224,10 +1349,14 @@ class Beam:
             >>> b.solve_for_ild_reactions(1, R_0, R_8)
             >>> b.solve_for_ild_shear(4, 1, R_0, R_8)
             >>> b.ild_shear
-            Piecewise((x/8, x < 4), (x/8 - 1, x > 4))
+            -(-SingularityFunction(a, 0, 0) + SingularityFunction(a, 12, 0) + 2)*SingularityFunction(a, 4, 0)
+            - SingularityFunction(-a, 0, 0) - SingularityFunction(a, 0, 0) + SingularityFunction(a, 0, 1)/8
+            + SingularityFunction(a, 12, 0)/2 - SingularityFunction(a, 12, 1)/8 + 1
             >>> b.plot_ild_shear()
             Plot object containing:
-            [0]: cartesian line: Piecewise((x/8, x < 4), (x/8 - 1, x > 4)) for x over (0.0, 12.0)
+            [0]: cartesian line: -(-SingularityFunction(a, 0, 0) + SingularityFunction(a, 12, 0) + 2)*SingularityFunction(a, 4, 0)
+            - SingularityFunction(-a, 0, 0) - SingularityFunction(a, 0, 0) + SingularityFunction(a, 0, 1)/8
+            + SingularityFunction(a, 12, 0)/2 - SingularityFunction(a, 12, 1)/8 + 1 for a over (0.0, 12.0)
 
         """
     def solve_for_ild_moment(self, distance, value, *reactions) -> None:
@@ -1245,6 +1374,11 @@ class Beam:
             Magnitude of moving load
         reactions :
             The reaction forces applied on the beam.
+
+        Warning
+        =======
+        This method creates equations that can give incorrect results when
+        substituting a = 0 or a = l, with l the length of the beam.
 
         Examples
         ========
@@ -1271,10 +1405,12 @@ class Beam:
             >>> b.solve_for_ild_reactions(1, R_0, R_8)
             >>> b.solve_for_ild_moment(4, 1, R_0, R_8)
             >>> b.ild_moment
-            Piecewise((-x/2, x < 4), (x/2 - 4, x > 4))
+            -(4*SingularityFunction(a, 0, 0) - SingularityFunction(a, 0, 1) + SingularityFunction(a, 4, 1))*SingularityFunction(a, 4, 0)
+            - SingularityFunction(a, 0, 1)/2 + SingularityFunction(a, 4, 1) - 2*SingularityFunction(a, 12, 0)
+            - SingularityFunction(a, 12, 1)/2
 
         """
-    def plot_ild_moment(self, subs: Incomplete | None = None):
+    def plot_ild_moment(self, subs=None):
         """
 
         Plots the Influence Line Diagram for Moment under the effect
@@ -1287,6 +1423,11 @@ class Beam:
         subs : dictionary
                Python dictionary containing Symbols as key and their
                corresponding values.
+
+        Warning
+        =======
+        The values for a = 0 and a = l, with l the length of the beam, in
+        the plot can be incorrect.
 
         Examples
         ========
@@ -1313,10 +1454,14 @@ class Beam:
             >>> b.solve_for_ild_reactions(1, R_0, R_8)
             >>> b.solve_for_ild_moment(4, 1, R_0, R_8)
             >>> b.ild_moment
-            Piecewise((-x/2, x < 4), (x/2 - 4, x > 4))
+            -(4*SingularityFunction(a, 0, 0) - SingularityFunction(a, 0, 1) + SingularityFunction(a, 4, 1))*SingularityFunction(a, 4, 0)
+            - SingularityFunction(a, 0, 1)/2 + SingularityFunction(a, 4, 1) - 2*SingularityFunction(a, 12, 0)
+            - SingularityFunction(a, 12, 1)/2
             >>> b.plot_ild_moment()
             Plot object containing:
-            [0]: cartesian line: Piecewise((-x/2, x < 4), (x/2 - 4, x > 4)) for x over (0.0, 12.0)
+            [0]: cartesian line: -(4*SingularityFunction(a, 0, 0) - SingularityFunction(a, 0, 1)
+            + SingularityFunction(a, 4, 1))*SingularityFunction(a, 4, 0) - SingularityFunction(a, 0, 1)/2
+            + SingularityFunction(a, 4, 1) - 2*SingularityFunction(a, 12, 0) - SingularityFunction(a, 12, 1)/2 for a over (0.0, 12.0)
 
         """
     def draw(self, pictorial: bool = True):
@@ -1543,7 +1688,7 @@ class Beam3D(Beam):
         >>> b.bc_slope = [(0, (4, 0, 0))]
         >>> b.bc_deflection = [(4, [0, 0, 0])]
         >>> b.boundary_conditions
-        {'deflection': [(4, [0, 0, 0])], 'slope': [(0, (4, 0, 0))]}
+        {'bending_moment': [], 'deflection': [(4, [0, 0, 0])], 'shear_force': [], 'slope': [(0, (4, 0, 0))]}
 
         Here the deflection of the beam should be ``0`` along all the three axes at ``4``.
         Similarly, the slope of the beam should be ``4`` along x-axis and ``0``
@@ -1698,8 +1843,8 @@ class Beam3D(Beam):
         Returns a function in x depicting how the angular deflection, due to moments
         in the x-axis on the beam, varies with x.
         """
-    def _plot_shear_force(self, dir, subs: Incomplete | None = None): ...
-    def plot_shear_force(self, dir: str = 'all', subs: Incomplete | None = None):
+    def _plot_shear_force(self, dir, subs=None): ...
+    def plot_shear_force(self, dir: str = 'all', subs=None):
         '''
 
         Returns a plot for Shear force along all three directions
@@ -1749,8 +1894,8 @@ class Beam3D(Beam):
             [0]: cartesian line: -15*x for x over (0.0, 20.0)
 
         '''
-    def _plot_bending_moment(self, dir, subs: Incomplete | None = None): ...
-    def plot_bending_moment(self, dir: str = 'all', subs: Incomplete | None = None):
+    def _plot_bending_moment(self, dir, subs=None): ...
+    def plot_bending_moment(self, dir: str = 'all', subs=None):
         '''
 
         Returns a plot for bending moment along all three directions
@@ -1800,8 +1945,8 @@ class Beam3D(Beam):
             [0]: cartesian line: 2*x**3 for x over (0.0, 20.0)
 
         '''
-    def _plot_slope(self, dir, subs: Incomplete | None = None): ...
-    def plot_slope(self, dir: str = 'all', subs: Incomplete | None = None):
+    def _plot_slope(self, dir, subs=None): ...
+    def plot_slope(self, dir: str = 'all', subs=None):
         '''
 
         Returns a plot for Slope along all three directions
@@ -1852,8 +1997,8 @@ class Beam3D(Beam):
             [0]: cartesian line: x**4/8000 - 19*x**2/172 + 52*x/43 for x over (0.0, 20.0)
 
         '''
-    def _plot_deflection(self, dir, subs: Incomplete | None = None): ...
-    def plot_deflection(self, dir: str = 'all', subs: Incomplete | None = None):
+    def _plot_deflection(self, dir, subs=None): ...
+    def plot_deflection(self, dir: str = 'all', subs=None):
         '''
 
         Returns a plot for Deflection along all three directions
@@ -1905,7 +2050,7 @@ class Beam3D(Beam):
 
 
         '''
-    def plot_loading_results(self, dir: str = 'x', subs: Incomplete | None = None):
+    def plot_loading_results(self, dir: str = 'x', subs=None):
         '''
 
         Returns a subplot of Shear Force, Bending Moment,
@@ -1960,8 +2105,8 @@ class Beam3D(Beam):
             [0]: cartesian line: x**5/40000 - 4013*x**3/90300 + 26*x**2/43 + 1520*x/903 for x over (0.0, 20.0)
 
         '''
-    def _plot_shear_stress(self, dir, subs: Incomplete | None = None): ...
-    def plot_shear_stress(self, dir: str = 'all', subs: Incomplete | None = None):
+    def _plot_shear_stress(self, dir, subs=None): ...
+    def plot_shear_stress(self, dir: str = 'all', subs=None):
         '''
 
         Returns a plot for Shear Stress along all three directions

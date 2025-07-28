@@ -4,7 +4,7 @@ from sympy.utilities.decorator import deprecated as deprecated
 from sympy.utilities.enumerative import MultisetPartitionTraverser as MultisetPartitionTraverser, list_visitor as list_visitor, multiset_partitions_taocp as multiset_partitions_taocp
 from sympy.utilities.misc import as_int as as_int
 
-def is_palindromic(s, i: int = 0, j: Incomplete | None = None):
+def is_palindromic(s, i: int = 0, j=None):
     """
     Return True if the sequence is the same from left to right as it
     is from right to left in the whole sequence (default) or in the
@@ -35,7 +35,7 @@ def is_palindromic(s, i: int = 0, j: Incomplete | None = None):
     sympy.ntheory.digits.is_palindromic: tests integers
 
     """
-def flatten(iterable, levels: Incomplete | None = None, cls: Incomplete | None = None):
+def flatten(iterable, levels=None, cls=None):
     """
     Recursively denest iterable containers.
 
@@ -181,7 +181,7 @@ def multiset(seq):
     group
 
     """
-def ibin(n, bits: Incomplete | None = None, str: bool = False):
+def ibin(n, bits=None, str: bool = False):
     """Return a list of length ``bits`` corresponding to the binary value
     of ``n`` with small bits to the right (last). If bits is omitted, the
     length will be the number required to represent ``n``. If the bits are
@@ -260,7 +260,7 @@ def variations(seq, n, repetition: bool = False):
        `itertools.product
        <https://docs.python.org/3/library/itertools.html#itertools.product>`_
     """
-def subsets(seq, k: Incomplete | None = None, repetition: bool = False):
+def subsets(seq, k=None, repetition: bool = False):
     '''Generates all `k`-subsets (combinations) from an `n`-element set, ``seq``.
 
     A `k`-subset of an `n`-element set is any subset of length exactly `k`. The
@@ -321,7 +321,7 @@ def filter_symbols(iterator, exclude) -> Generator[Incomplete]:
     iterator : iterator
         filtered iterator
     """
-def numbered_symbols(prefix: str = 'x', cls: Incomplete | None = None, start: int = 0, exclude=(), *args, **assumptions) -> Generator[Incomplete]:
+def numbered_symbols(prefix: str = 'x', cls=None, start: int = 0, exclude=(), *args, **assumptions) -> Generator[Incomplete]:
     '''
     Generate an infinite stream of Symbols consisting of a prefix and
     increasing subscripts provided that they do not occur in ``exclude``.
@@ -499,7 +499,7 @@ def postfixes(seq) -> Generator[Incomplete]:
     [[4], [3, 4], [2, 3, 4], [1, 2, 3, 4]]
 
     """
-def topological_sort(graph, key: Incomplete | None = None):
+def topological_sort(graph, key=None):
     """
     Topological sort of graph's vertices.
 
@@ -748,7 +748,7 @@ def rotate_right(x, y):
     >>> rotate_right(a, 1)
     [2, 0, 1]
     """
-def least_rotation(x, key: Incomplete | None = None):
+def least_rotation(x, key=None):
     """
     Returns the number of steps of left rotation required to
     obtain lexicographically minimal string/list/tuple, etc.
@@ -769,7 +769,7 @@ def least_rotation(x, key: Incomplete | None = None):
     .. [1] https://en.wikipedia.org/wiki/Lexicographically_minimal_string_rotation
 
     """
-def multiset_combinations(m, n, g: Incomplete | None = None) -> Generator[Incomplete]:
+def multiset_combinations(m, n, g=None) -> Generator[Incomplete]:
     """
     Return the unique combinations of size ``n`` from multiset ``m``.
 
@@ -795,7 +795,7 @@ def multiset_combinations(m, n, g: Incomplete | None = None) -> Generator[Incomp
     (165, 54)
 
     """
-def multiset_permutations(m, size: Incomplete | None = None, g: Incomplete | None = None) -> Generator[Incomplete]:
+def multiset_permutations(m, size=None, g=None) -> Generator[Incomplete]:
     """
     Return the unique permutations of multiset ``m``.
 
@@ -811,7 +811,7 @@ def multiset_permutations(m, size: Incomplete | None = None, g: Incomplete | Non
     >>> len(list(multiset_permutations('banana')))
     60
     """
-def _partition(seq, vector, m: Incomplete | None = None):
+def _partition(seq, vector, m=None):
     """
     Return the partition of seq as specified by the partition vector.
 
@@ -893,7 +893,7 @@ def _set_partitions(n) -> Generator[Incomplete]:
         November 17, 2012).
 
     '''
-def multiset_partitions(multiset, m: Incomplete | None = None) -> Generator[Incomplete]:
+def multiset_partitions(multiset, m=None) -> Generator[Incomplete]:
     """
     Return unique partitions of the given multiset (in list form).
     If ``m`` is None, all multisets will be returned, otherwise only
@@ -968,7 +968,7 @@ def multiset_partitions(multiset, m: Incomplete | None = None) -> Generator[Inco
     sympy.functions.combinatorial.numbers.nT
 
     """
-def partitions(n, m: Incomplete | None = None, k: Incomplete | None = None, size: bool = False) -> Generator[Incomplete]:
+def partitions(n, m=None, k=None, size: bool = False) -> Generator[Incomplete]:
     '''Generate all partitions of positive integer, n.
 
     Each partition is represented as a dictionary, mapping an integer
@@ -1027,7 +1027,7 @@ def partitions(n, m: Incomplete | None = None, k: Incomplete | None = None, size
     sympy.combinatorics.partitions.IntegerPartition
 
     '''
-def ordered_partitions(n, m: Incomplete | None = None, sort: bool = True) -> Generator[Incomplete]:
+def ordered_partitions(n, m=None, sort: bool = True) -> Generator[Incomplete]:
     '''Generates ordered partitions of integer *n*.
 
     Parameters
@@ -1158,7 +1158,7 @@ def has_variety(seq):
     >>> has_variety((1, 1, 1))
     False
     """
-def uniq(seq, result: Incomplete | None = None) -> Generator[Incomplete, Incomplete]:
+def uniq(seq, result=None) -> Generator[Incomplete, Incomplete]:
     """
     Yield unique elements from ``seq`` as an iterator. The second
     parameter ``result``  is used internally; it is not necessary
@@ -1296,7 +1296,7 @@ def multiset_derangements(s) -> Generator[Incomplete, Incomplete, Incomplete]:
     >>> [''.join(i) for i in multiset_derangements('1233')]
     ['3312', '3321']
     """
-def random_derangement(t, choice: Incomplete | None = None, strict: bool = True):
+def random_derangement(t, choice=None, strict: bool = True):
     """Return a list of elements in which none are in the same positions
     as they were originally. If an element fills more than half of the positions
     then an error will be raised since no derangement is possible. To obtain
@@ -1426,7 +1426,7 @@ def generate_oriented_forest(n) -> Generator[Incomplete]:
     .. [2] https://stackoverflow.com/questions/1633833/oriented-forest-taocp-algorithm-in-python
 
     """
-def minlex(seq, directed: bool = True, key: Incomplete | None = None):
+def minlex(seq, directed: bool = True, key=None):
     """
     Return the rotation of the sequence in which the lexically smallest
     elements appear first, e.g. `cba \\rightarrow acb`.
@@ -1581,7 +1581,7 @@ def sequence_partitions_empty(l, n, /) -> Generator[Incomplete]:
 
     sequence_partitions
     """
-def kbins(l, k, ordered: Incomplete | None = None) -> Generator[Incomplete, Incomplete]:
+def kbins(l, k, ordered=None) -> Generator[Incomplete, Incomplete]:
     """
     Return sequence ``l`` partitioned into ``k`` bins.
 
@@ -1767,7 +1767,7 @@ def iterable(i, exclude=...):
     False
 
     '''
-def is_sequence(i, include: Incomplete | None = None):
+def is_sequence(i, include=None):
     """
     Return a boolean indicating whether ``i`` is a sequence in the SymPy
     sense. If anything that fails the test below should be included as
@@ -1801,7 +1801,7 @@ def is_sequence(i, include: Incomplete | None = None):
     True
 
     """
-def postorder_traversal(node, keys: Incomplete | None = None): ...
+def postorder_traversal(node, keys=None): ...
 def interactive_traversal(expr): ...
 def default_sort_key(*args, **kwargs): ...
 def ordered(*args, **kwargs): ...

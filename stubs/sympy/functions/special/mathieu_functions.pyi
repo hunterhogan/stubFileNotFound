@@ -1,8 +1,8 @@
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function
+from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction
 from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.functions.elementary.trigonometric import cos as cos, sin as sin
 
-class MathieuBase(Function):
+class MathieuBase(DefinedFunction):
     """
     Abstract base class for Mathieu functions.
 

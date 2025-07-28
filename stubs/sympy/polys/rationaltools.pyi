@@ -1,5 +1,8 @@
+from sympy.utilities import public
+
 __all__ = ['together']
 
+@public
 def together(expr, deep: bool = False, fraction: bool = True):
     """
     Denest and combine rational expressions using symbolic methods.

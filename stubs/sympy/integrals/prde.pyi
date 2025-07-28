@@ -204,7 +204,7 @@ def limited_integrate(fa, fd, G, DE):
     """
     Solves the limited integration problem:  f = Dv + Sum(ci*wi, (i, 1, n))
     """
-def parametric_log_deriv_heu(fa, fd, wa, wd, DE, c1: Incomplete | None = None):
+def parametric_log_deriv_heu(fa, fd, wa, wd, DE, c1=None):
     """
     Parametric logarithmic derivative heuristic.
 
@@ -344,7 +344,7 @@ def is_log_deriv_k_t_radical(fa, fd, DE, Df: bool = True):
     is_log_deriv_k_t_radical_in_field, is_deriv_k
 
     """
-def is_log_deriv_k_t_radical_in_field(fa, fd, DE, case: str = 'auto', z: Incomplete | None = None):
+def is_log_deriv_k_t_radical_in_field(fa, fd, DE, case: str = 'auto', z=None):
     '''
     Checks if f can be written as the logarithmic derivative of a k(t)-radical.
 

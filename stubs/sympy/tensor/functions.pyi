@@ -1,3 +1,4 @@
+from functools import singledispatch
 from sympy.core.expr import Expr as Expr
 from sympy.core.mul import Mul as Mul
 from sympy.core.parameters import global_parameters as global_parameters
@@ -16,6 +17,7 @@ class TensorProduct(Expr):
     def shape(self): ...
     def __getitem__(self, index): ...
 
+@singledispatch
 def shape(expr):
     """
     Return the shape of the *expr* as a tuple. *expr* should represent

@@ -8,7 +8,7 @@ from sympy.core.intfunc import igcd as igcd
 from sympy.core.kind import NumberKind as NumberKind
 from sympy.core.logic import fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
 from sympy.core.mod import Mod as Mod
-from sympy.core.numbers import Rational as Rational, oo as oo
+from sympy.core.numbers import Integer as Integer, Rational as Rational, oo as oo
 from sympy.core.relational import Eq as Eq, is_eq as is_eq
 from sympy.core.singleton import S as S, Singleton as Singleton
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, symbols as symbols
@@ -73,7 +73,7 @@ class Naturals(Set, metaclass=Singleton):
     Integers : also includes negative integers
     """
     is_iterable: bool
-    _inf: Incomplete
+    _inf: Integer
     _sup: Incomplete
     is_empty: bool
     is_finite_set: bool

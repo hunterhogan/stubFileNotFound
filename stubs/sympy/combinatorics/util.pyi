@@ -125,7 +125,7 @@ def _distribute_gens_by_base(base, gens):
     _handle_precomputed_bsgs
 
     """
-def _handle_precomputed_bsgs(base, strong_gens, transversals: Incomplete | None = None, basic_orbits: Incomplete | None = None, strong_gens_distr: Incomplete | None = None):
+def _handle_precomputed_bsgs(base, strong_gens, transversals=None, basic_orbits=None, strong_gens_distr=None):
     """
     Calculate BSGS-related structures from those present.
 
@@ -212,7 +212,7 @@ def _orbits_transversals_from_bsgs(base, strong_gens_distr, transversals_only: b
     _distribute_gens_by_base, _handle_precomputed_bsgs
 
     """
-def _remove_gens(base, strong_gens, basic_orbits: Incomplete | None = None, strong_gens_distr: Incomplete | None = None):
+def _remove_gens(base, strong_gens, basic_orbits=None, strong_gens_distr=None):
     '''
     Remove redundant generators from a strong generating set.
 

@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core.add import Add as Add
 from sympy.core.exprtools import factor_terms as factor_terms
 from sympy.core.function import _mexpand as _mexpand, expand_log as expand_log
@@ -30,7 +29,7 @@ def _filtered_gens(poly, symbol):
     {x, exp(x)}
 
     """
-def _mostfunc(lhs, func, X: Incomplete | None = None):
+def _mostfunc(lhs, func, X=None):
     """Returns the term in lhs which contains the most of the
     func-type things e.g. log(log(x)) wins over log(x) if both terms appear.
 

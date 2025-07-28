@@ -28,9 +28,9 @@ class Joint(ABC, metaclass=abc.ABCMeta):
 
     name : string
         A unique name for the joint.
-    parent : Particle or RigidBody or Body
+    parent : Particle or RigidBody
         The parent body of joint.
-    child : Particle or RigidBody or Body
+    child : Particle or RigidBody
         The child body of joint.
     coordinates : iterable of dynamicsymbols, optional
         Generalized coordinates of the joint.
@@ -84,9 +84,9 @@ class Joint(ABC, metaclass=abc.ABCMeta):
 
     name : string
         The joint's name.
-    parent : Particle or RigidBody or Body
+    parent : Particle or RigidBody
         The joint's parent body.
-    child : Particle or RigidBody or Body
+    child : Particle or RigidBody
         The joint's child body.
     coordinates : Matrix
         Matrix of the joint's generalized coordinates.
@@ -134,7 +134,7 @@ class Joint(ABC, metaclass=abc.ABCMeta):
     _coordinates: Incomplete
     _speeds: Incomplete
     _kdes: Incomplete
-    def __init__(self, name, parent, child, coordinates: Incomplete | None = None, speeds: Incomplete | None = None, parent_point: Incomplete | None = None, child_point: Incomplete | None = None, parent_interframe: Incomplete | None = None, child_interframe: Incomplete | None = None, parent_axis: Incomplete | None = None, child_axis: Incomplete | None = None, parent_joint_pos: Incomplete | None = None, child_joint_pos: Incomplete | None = None) -> None: ...
+    def __init__(self, name, parent, child, coordinates=None, speeds=None, parent_point=None, child_point=None, parent_interframe=None, child_interframe=None, parent_axis=None, child_axis=None, parent_joint_pos=None, child_joint_pos=None) -> None: ...
     def __str__(self) -> str: ...
     def __repr__(self) -> str: ...
     @property
@@ -195,7 +195,7 @@ class Joint(ABC, metaclass=abc.ABCMeta):
     @staticmethod
     def _choose_rotation_axis(frame, axis): ...
     @staticmethod
-    def _create_aligned_interframe(frame, align_axis, frame_axis: Incomplete | None = None, frame_name: Incomplete | None = None):
+    def _create_aligned_interframe(frame, align_axis, frame_axis=None, frame_name=None):
         '''
         Returns an intermediate frame, where the ``frame_axis`` defined in
         ``frame`` is aligned with ``axis``. By default this means that the X
@@ -280,9 +280,9 @@ class Joint(ABC, metaclass=abc.ABCMeta):
         '''
     def _generate_kdes(self):
         """Generate kinematical differential equations."""
-    def _locate_joint_pos(self, body, joint_pos, body_frame: Incomplete | None = None):
+    def _locate_joint_pos(self, body, joint_pos, body_frame=None):
         """Returns the attachment point of a body."""
-    def _locate_joint_frame(self, body, interframe, body_frame: Incomplete | None = None):
+    def _locate_joint_frame(self, body, interframe, body_frame=None):
         """Returns the attachment frame of a body."""
     def _fill_coordinate_list(self, coordinates, n_coords, label: str = 'q', offset: int = 0, number_single: bool = False):
         """Helper method for _generate_coordinates and _generate_speeds.
@@ -309,7 +309,7 @@ class PinJoint(Joint):
     """Pin (Revolute) Joint.
 
     .. raw:: html
-        :file: ../../../doc/src/modules/physics/mechanics/api/PinJoint.svg
+        :file: ../../../doc/src/explanation/modules/physics/mechanics/PinJoint.svg
 
     Explanation
     ===========
@@ -328,9 +328,9 @@ class PinJoint(Joint):
 
     name : string
         A unique name for the joint.
-    parent : Particle or RigidBody or Body
+    parent : Particle or RigidBody
         The parent body of joint.
-    child : Particle or RigidBody or Body
+    child : Particle or RigidBody
         The child body of joint.
     coordinates : dynamicsymbol, optional
         Generalized coordinates of the joint.
@@ -387,9 +387,9 @@ class PinJoint(Joint):
 
     name : string
         The joint's name.
-    parent : Particle or RigidBody or Body
+    parent : Particle or RigidBody
         The joint's parent body.
-    child : Particle or RigidBody or Body
+    child : Particle or RigidBody
         The joint's child body.
     coordinates : Matrix
         Matrix of the joint's generalized coordinates. The default value is
@@ -528,7 +528,7 @@ class PinJoint(Joint):
 
     """
     _joint_axis: Incomplete
-    def __init__(self, name, parent, child, coordinates: Incomplete | None = None, speeds: Incomplete | None = None, parent_point: Incomplete | None = None, child_point: Incomplete | None = None, parent_interframe: Incomplete | None = None, child_interframe: Incomplete | None = None, parent_axis: Incomplete | None = None, child_axis: Incomplete | None = None, joint_axis: Incomplete | None = None, parent_joint_pos: Incomplete | None = None, child_joint_pos: Incomplete | None = None) -> None: ...
+    def __init__(self, name, parent, child, coordinates=None, speeds=None, parent_point=None, child_point=None, parent_interframe=None, child_interframe=None, parent_axis=None, child_axis=None, joint_axis=None, parent_joint_pos=None, child_joint_pos=None) -> None: ...
     def __str__(self) -> str: ...
     @property
     def joint_axis(self):
@@ -561,9 +561,9 @@ class PrismaticJoint(Joint):
 
     name : string
         A unique name for the joint.
-    parent : Particle or RigidBody or Body
+    parent : Particle or RigidBody
         The parent body of joint.
-    child : Particle or RigidBody or Body
+    child : Particle or RigidBody
         The child body of joint.
     coordinates : dynamicsymbol, optional
         Generalized coordinates of the joint. The default value is
@@ -622,9 +622,9 @@ class PrismaticJoint(Joint):
 
     name : string
         The joint's name.
-    parent : Particle or RigidBody or Body
+    parent : Particle or RigidBody
         The joint's parent body.
-    child : Particle or RigidBody or Body
+    child : Particle or RigidBody
         The joint's child body.
     coordinates : Matrix
         Matrix of the joint's generalized coordinates.
@@ -759,7 +759,7 @@ class PrismaticJoint(Joint):
 
     """
     _joint_axis: Incomplete
-    def __init__(self, name, parent, child, coordinates: Incomplete | None = None, speeds: Incomplete | None = None, parent_point: Incomplete | None = None, child_point: Incomplete | None = None, parent_interframe: Incomplete | None = None, child_interframe: Incomplete | None = None, parent_axis: Incomplete | None = None, child_axis: Incomplete | None = None, joint_axis: Incomplete | None = None, parent_joint_pos: Incomplete | None = None, child_joint_pos: Incomplete | None = None) -> None: ...
+    def __init__(self, name, parent, child, coordinates=None, speeds=None, parent_point=None, child_point=None, parent_interframe=None, child_interframe=None, parent_axis=None, child_axis=None, joint_axis=None, parent_joint_pos=None, child_joint_pos=None) -> None: ...
     def __str__(self) -> str: ...
     @property
     def joint_axis(self):
@@ -795,9 +795,9 @@ class CylindricalJoint(Joint):
 
     name : string
         A unique name for the joint.
-    parent : Particle or RigidBody or Body
+    parent : Particle or RigidBody
         The parent body of joint.
-    child : Particle or RigidBody or Body
+    child : Particle or RigidBody
         The child body of joint.
     rotation_coordinate : dynamicsymbol, optional
         Generalized coordinate corresponding to the rotation angle. The default
@@ -840,9 +840,9 @@ class CylindricalJoint(Joint):
 
     name : string
         The joint's name.
-    parent : Particle or RigidBody or Body
+    parent : Particle or RigidBody
         The joint's parent body.
-    child : Particle or RigidBody or Body
+    child : Particle or RigidBody
         The joint's child body.
     rotation_coordinate : dynamicsymbol
         Generalized coordinate corresponding to the rotation angle.
@@ -996,7 +996,7 @@ class CylindricalJoint(Joint):
 
     """
     _joint_axis: Incomplete
-    def __init__(self, name, parent, child, rotation_coordinate: Incomplete | None = None, translation_coordinate: Incomplete | None = None, rotation_speed: Incomplete | None = None, translation_speed: Incomplete | None = None, parent_point: Incomplete | None = None, child_point: Incomplete | None = None, parent_interframe: Incomplete | None = None, child_interframe: Incomplete | None = None, joint_axis: Incomplete | None = None) -> None: ...
+    def __init__(self, name, parent, child, rotation_coordinate=None, translation_coordinate=None, rotation_speed=None, translation_speed=None, parent_point=None, child_point=None, parent_interframe=None, child_interframe=None, joint_axis=None) -> None: ...
     def __str__(self) -> str: ...
     @property
     def joint_axis(self):
@@ -1063,9 +1063,9 @@ class PlanarJoint(Joint):
 
     name : string
         A unique name for the joint.
-    parent : Particle or RigidBody or Body
+    parent : Particle or RigidBody
         The parent body of joint.
-    child : Particle or RigidBody or Body
+    child : Particle or RigidBody
         The child body of joint.
     rotation_coordinate : dynamicsymbol, optional
         Generalized coordinate corresponding to the rotation angle. The default
@@ -1105,9 +1105,9 @@ class PlanarJoint(Joint):
 
     name : string
         The joint's name.
-    parent : Particle or RigidBody or Body
+    parent : Particle or RigidBody
         The joint's parent body.
-    child : Particle or RigidBody or Body
+    child : Particle or RigidBody
         The joint's child body.
     rotation_coordinate : dynamicsymbol
         Generalized coordinate corresponding to the rotation angle.
@@ -1293,7 +1293,7 @@ class PlanarJoint(Joint):
     [-sin(a)*cos(q0_PC(t)), -sin(q0_PC(t)), cos(a)*cos(q0_PC(t))]])
 
     """
-    def __init__(self, name, parent, child, rotation_coordinate: Incomplete | None = None, planar_coordinates: Incomplete | None = None, rotation_speed: Incomplete | None = None, planar_speeds: Incomplete | None = None, parent_point: Incomplete | None = None, child_point: Incomplete | None = None, parent_interframe: Incomplete | None = None, child_interframe: Incomplete | None = None) -> None: ...
+    def __init__(self, name, parent, child, rotation_coordinate=None, planar_coordinates=None, rotation_speed=None, planar_speeds=None, parent_point=None, child_point=None, parent_interframe=None, child_interframe=None) -> None: ...
     def __str__(self) -> str: ...
     @property
     def rotation_coordinate(self):
@@ -1346,9 +1346,9 @@ class SphericalJoint(Joint):
 
     name : string
         A unique name for the joint.
-    parent : Particle or RigidBody or Body
+    parent : Particle or RigidBody
         The parent body of joint.
-    child : Particle or RigidBody or Body
+    child : Particle or RigidBody
         The child body of joint.
     coordinates: iterable of dynamicsymbols, optional
         Generalized coordinates of the joint.
@@ -1403,9 +1403,9 @@ class SphericalJoint(Joint):
 
     name : string
         The joint\'s name.
-    parent : Particle or RigidBody or Body
+    parent : Particle or RigidBody
         The joint\'s parent body.
-    child : Particle or RigidBody or Body
+    child : Particle or RigidBody
         The joint\'s child body.
     coordinates : Matrix
         Matrix of the joint\'s generalized coordinates.
@@ -1526,7 +1526,7 @@ class SphericalJoint(Joint):
     _rot_type: Incomplete
     _amounts: Incomplete
     _rot_order: Incomplete
-    def __init__(self, name, parent, child, coordinates: Incomplete | None = None, speeds: Incomplete | None = None, parent_point: Incomplete | None = None, child_point: Incomplete | None = None, parent_interframe: Incomplete | None = None, child_interframe: Incomplete | None = None, rot_type: str = 'BODY', amounts: Incomplete | None = None, rot_order: int = 123) -> None: ...
+    def __init__(self, name, parent, child, coordinates=None, speeds=None, parent_point=None, child_point=None, parent_interframe=None, child_interframe=None, rot_type: str = 'BODY', amounts=None, rot_order: int = 123) -> None: ...
     def __str__(self) -> str: ...
     def _generate_coordinates(self, coordinates): ...
     def _generate_speeds(self, speeds): ...
@@ -1555,9 +1555,9 @@ class WeldJoint(Joint):
 
     name : string
         A unique name for the joint.
-    parent : Particle or RigidBody or Body
+    parent : Particle or RigidBody
         The parent body of joint.
-    child : Particle or RigidBody or Body
+    child : Particle or RigidBody
         The child body of joint.
     parent_point : Point or Vector, optional
         Attachment point where the joint is fixed to the parent body. If a
@@ -1585,9 +1585,9 @@ class WeldJoint(Joint):
 
     name : string
         The joint's name.
-    parent : Particle or RigidBody or Body
+    parent : Particle or RigidBody
         The joint's parent body.
-    child : Particle or RigidBody or Body
+    child : Particle or RigidBody
         The joint's child body.
     coordinates : Matrix
         Matrix of the joint's generalized coordinates. The default value is
@@ -1703,7 +1703,7 @@ class WeldJoint(Joint):
 
     """
     _kdes: Incomplete
-    def __init__(self, name, parent, child, parent_point: Incomplete | None = None, child_point: Incomplete | None = None, parent_interframe: Incomplete | None = None, child_interframe: Incomplete | None = None) -> None: ...
+    def __init__(self, name, parent, child, parent_point=None, child_point=None, parent_interframe=None, child_interframe=None) -> None: ...
     def __str__(self) -> str: ...
     def _generate_coordinates(self, coordinate): ...
     def _generate_speeds(self, speed): ...

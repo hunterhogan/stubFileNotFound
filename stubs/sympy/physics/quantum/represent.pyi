@@ -1,5 +1,3 @@
-from _typeshed import Incomplete
-
 __all__ = ['represent', 'rep_innerproduct', 'rep_expectation', 'integrate_result', 'get_basis', 'enumerate_states']
 
 def represent(expr, **options):
@@ -83,9 +81,6 @@ def represent(expr, **options):
     >>> y = XBra('y')
     >>> represent(X*x)
     x*DiracDelta(x - x_2)
-    >>> represent(X*x*y)
-    x*DiracDelta(x - x_3)*DiracDelta(x_1 - y)
-
     """
 def rep_innerproduct(expr, **options):
     """
@@ -178,7 +173,7 @@ def integrate_result(orig_expr, result, **options):
     x*DiracDelta(x - x_2)
 
     """
-def get_basis(expr, *, basis: Incomplete | None = None, replace_none: bool = True, **options):
+def get_basis(expr, *, basis=None, replace_none: bool = True, **options):
     """
     Returns a basis state instance corresponding to the basis specified in
     options=s. If no basis is specified, the function tries to form a default

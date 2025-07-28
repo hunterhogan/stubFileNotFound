@@ -1,10 +1,9 @@
-from _typeshed import Incomplete
 from sympy.core import Pow as Pow
 from sympy.core.function import AppliedUndef as AppliedUndef, Derivative as Derivative
 from sympy.core.relational import Equality as Equality
 from sympy.core.symbol import Wild as Wild
 
-def _preprocess(expr, func: Incomplete | None = None, hint: str = '_Integral'):
+def _preprocess(expr, func=None, hint: str = '_Integral'):
     '''Prepare expr for solving by making sure that differentiation
     is done so that only func remains in unevaluated derivatives and
     (if hint does not end with _Integral) that doit is applied to all
@@ -85,7 +84,7 @@ def ode_order(expr, func):
     3
 
     """
-def _desolve(eq, func: Incomplete | None = None, hint: str = 'default', ics: Incomplete | None = None, simplify: bool = True, *, prep: bool = True, **kwargs):
+def _desolve(eq, func=None, hint: str = 'default', ics=None, simplify: bool = True, *, prep: bool = True, **kwargs):
     '''This is a helper function to dsolve and pdsolve in the ode
     and pde modules.
 

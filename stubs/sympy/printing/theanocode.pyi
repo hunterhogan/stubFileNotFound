@@ -42,7 +42,7 @@ class TheanoPrinter(Printer):
     printmethod: str
     cache: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
-    def _get_key(self, s, name: Incomplete | None = None, dtype: Incomplete | None = None, broadcastable: Incomplete | None = None):
+    def _get_key(self, s, name=None, dtype=None, broadcastable=None):
         """ Get the cache key for a SymPy object.
 
         Parameters
@@ -54,7 +54,7 @@ class TheanoPrinter(Printer):
         name : str
             Name of object, if it does not have a ``name`` attribute.
         """
-    def _get_or_create(self, s, name: Incomplete | None = None, dtype: Incomplete | None = None, broadcastable: Incomplete | None = None):
+    def _get_or_create(self, s, name=None, dtype=None, broadcastable=None):
         """
         Get the Theano variable for a SymPy symbol from the cache, or create it
         if it does not exist.
@@ -80,7 +80,7 @@ class TheanoPrinter(Printer):
     def _print_factorial(self, expr, **kwargs): ...
     def _print_Derivative(self, deriv, **kwargs): ...
     def emptyPrinter(self, expr): ...
-    def doprint(self, expr, dtypes: Incomplete | None = None, broadcastables: Incomplete | None = None):
+    def doprint(self, expr, dtypes=None, broadcastables=None):
         """ Convert a SymPy expression to a Theano graph variable.
 
         The ``dtypes`` and ``broadcastables`` arguments are used to specify the
@@ -123,7 +123,7 @@ class TheanoPrinter(Printer):
 
 global_cache: dict[Any, Any]
 
-def theano_code(expr, cache: Incomplete | None = None, **kwargs):
+def theano_code(expr, cache=None, **kwargs):
     """
     Convert a SymPy expression into a Theano graph variable.
 
@@ -157,7 +157,7 @@ def theano_code(expr, cache: Incomplete | None = None, **kwargs):
         expression graph.
 
     """
-def dim_handling(inputs, dim: Incomplete | None = None, dims: Incomplete | None = None, broadcastables: Incomplete | None = None):
+def dim_handling(inputs, dim=None, dims=None, broadcastables=None):
     '''
     Get value of ``broadcastables`` argument to :func:`.theano_code` from
     keyword arguments to :func:`.theano_function`.
@@ -188,7 +188,7 @@ def dim_handling(inputs, dim: Incomplete | None = None, dims: Incomplete | None 
         Dictionary mapping elements of ``inputs`` to their "broadcastable"
         values (tuple of ``bool``\\ s).
     '''
-def theano_function(inputs, outputs, scalar: bool = False, *, dim: Incomplete | None = None, dims: Incomplete | None = None, broadcastables: Incomplete | None = None, **kwargs):
+def theano_function(inputs, outputs, scalar: bool = False, *, dim=None, dims=None, broadcastables=None, **kwargs):
     """
     Create a Theano function from SymPy expressions.
 

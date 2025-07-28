@@ -1,5 +1,5 @@
 from ..predicates.sets import AlgebraicPredicate as AlgebraicPredicate, AntihermitianPredicate as AntihermitianPredicate, ComplexPredicate as ComplexPredicate, ExtendedRealPredicate as ExtendedRealPredicate, HermitianPredicate as HermitianPredicate, ImaginaryPredicate as ImaginaryPredicate, IntegerPredicate as IntegerPredicate, IrrationalPredicate as IrrationalPredicate, RationalPredicate as RationalPredicate, RealPredicate as RealPredicate
-from .common import test_closed_group as test_closed_group
+from .common import ask_all as ask_all, ask_any as ask_any, test_closed_group as test_closed_group
 from sympy.assumptions import Q as Q, ask as ask
 from sympy.core import Add as Add, Basic as Basic, Expr as Expr, Mul as Mul, Pow as Pow, S as S
 from sympy.core.logic import fuzzy_bool as fuzzy_bool

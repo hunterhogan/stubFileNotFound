@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from sympy.external import import_module as import_module
 from sympy.printing.printer import Printer as Printer
+from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.iterables import is_sequence as is_sequence
 from typing import Any
 
@@ -11,7 +12,12 @@ true_divide: Incomplete
 mapping: Incomplete
 
 class AesaraPrinter(Printer):
-    """ Code printer which creates Aesara symbolic expression graphs.
+    """
+    .. deprecated:: 1.14.
+        The ``Aesara Code printing`` is deprecated.See its documentation for
+        more information. See :ref:`deprecated-aesaraprinter` for details.
+
+    Code printer which creates Aesara symbolic expression graphs.
 
     Parameters
     ==========
@@ -40,7 +46,7 @@ class AesaraPrinter(Printer):
     printmethod: str
     cache: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
-    def _get_key(self, s, name: Incomplete | None = None, dtype: Incomplete | None = None, broadcastable: Incomplete | None = None):
+    def _get_key(self, s, name=None, dtype=None, broadcastable=None):
         """ Get the cache key for a SymPy object.
 
         Parameters
@@ -52,7 +58,7 @@ class AesaraPrinter(Printer):
         name : str
             Name of object, if it does not have a ``name`` attribute.
         """
-    def _get_or_create(self, s, name: Incomplete | None = None, dtype: Incomplete | None = None, broadcastable: Incomplete | None = None):
+    def _get_or_create(self, s, name=None, dtype=None, broadcastable=None):
         """
         Get the Aesara variable for a SymPy symbol from the cache, or create it
         if it does not exist.
@@ -77,7 +83,7 @@ class AesaraPrinter(Printer):
     def _print_factorial(self, expr, **kwargs): ...
     def _print_Derivative(self, deriv, **kwargs): ...
     def emptyPrinter(self, expr): ...
-    def doprint(self, expr, dtypes: Incomplete | None = None, broadcastables: Incomplete | None = None):
+    def doprint(self, expr, dtypes=None, broadcastables=None):
         """ Convert a SymPy expression to a Aesara graph variable.
 
         The ``dtypes`` and ``broadcastables`` arguments are used to specify the
@@ -121,7 +127,7 @@ class AesaraPrinter(Printer):
 
 global_cache: dict[Any, Any]
 
-def aesara_code(expr, cache: Incomplete | None = None, **kwargs):
+def aesara_code(expr, cache=None, **kwargs):
     """
     Convert a SymPy expression into a Aesara graph variable.
 
@@ -149,7 +155,7 @@ def aesara_code(expr, cache: Incomplete | None = None, **kwargs):
         expression graph.
 
     """
-def dim_handling(inputs, dim: Incomplete | None = None, dims: Incomplete | None = None, broadcastables: Incomplete | None = None):
+def dim_handling(inputs, dim=None, dims=None, broadcastables=None):
     '''
     Get value of ``broadcastables`` argument to :func:`.aesara_code` from
     keyword arguments to :func:`.aesara_function`.
@@ -180,7 +186,7 @@ def dim_handling(inputs, dim: Incomplete | None = None, dims: Incomplete | None 
         Dictionary mapping elements of ``inputs`` to their "broadcastable"
         values (tuple of ``bool``\\ s).
     '''
-def aesara_function(inputs, outputs, scalar: bool = False, *, dim: Incomplete | None = None, dims: Incomplete | None = None, broadcastables: Incomplete | None = None, **kwargs):
+def aesara_function(inputs, outputs, scalar: bool = False, *, dim=None, dims=None, broadcastables=None, **kwargs):
     """
     Create a Aesara function from SymPy expressions.
 

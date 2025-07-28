@@ -21,7 +21,7 @@ class ExprWithIntLimits(ExprWithLimits):
     sympy.concrete.summations.Sum
     """
     __slots__: Incomplete
-    def change_index(self, var, trafo, newvar: Incomplete | None = None):
+    def change_index(self, var, trafo, newvar=None):
         """
         Change index of a Sum or Product.
 

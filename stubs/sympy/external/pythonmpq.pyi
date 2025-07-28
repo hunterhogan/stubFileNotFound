@@ -12,7 +12,7 @@ class PythonMPQ:
     prevent mutation (since that might slow down calculations).
     """
     __slots__: Incomplete
-    def __new__(cls, numerator, denominator: Incomplete | None = None):
+    def __new__(cls, numerator, denominator=None):
         """Construct PythonMPQ with gcd computation and checks"""
     @classmethod
     def _new_check(cls, numerator, denominator):

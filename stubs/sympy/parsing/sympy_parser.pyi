@@ -6,9 +6,7 @@ from sympy.core.basic import Basic as Basic
 from sympy.core.function import Function as Function
 from sympy.functions.elementary.miscellaneous import Max as Max, Min as Min
 from sympy.utilities.misc import func_name as func_name
-from typing import Any
-
-from collections.abc import Callable
+from typing import Any, Callable
 
 null: str
 TOKEN = tuple[int, str]
@@ -23,7 +21,7 @@ def _token_splittable(token_name: str) -> bool:
     it is not the name of a Greek letter. This is used to implicitly convert
     expressions like 'xyz' into 'x*y*z'.
     """
-def _token_callable(token: TOKEN, local_dict: DICT, global_dict: DICT, nextToken: Incomplete | None = None):
+def _token_callable(token: TOKEN, local_dict: DICT, global_dict: DICT, nextToken=None):
     """
     Predicate for whether a token name represents a callable function.
 
@@ -45,7 +43,7 @@ class AppliedFunction:
     args: Incomplete
     exponent: Incomplete
     items: Incomplete
-    def __init__(self, function: TOKEN, args: ParenthesisGroup, exponent: Incomplete | None = None) -> None: ...
+    def __init__(self, function: TOKEN, args: ParenthesisGroup, exponent=None) -> None: ...
     def expand(self) -> list[TOKEN]:
         """Return a list of tokens representing the function"""
     def __getitem__(self, index): ...
@@ -257,6 +255,10 @@ def eval_expr(code, local_dict: DICT, global_dict: DICT):
 def parse_expr(s: str, local_dict: DICT | None = None, transformations: tuple[TRANS, ...] | str = ..., global_dict: DICT | None = None, evaluate: bool = True):
     '''Converts the string ``s`` to a SymPy expression, in ``local_dict``.
 
+    .. warning::
+        Note that this function uses ``eval``, and thus shouldn\'t be used on
+        unsanitized input.
+
     Parameters
     ==========
 
@@ -307,7 +309,7 @@ def parse_expr(s: str, local_dict: DICT | None = None, transformations: tuple[TR
     This feature allows one to tell exactly how the expression was entered:
 
     >>> a = parse_expr(\'1 + x\', evaluate=False)
-    >>> b = parse_expr(\'x + 1\', evaluate=0)
+    >>> b = parse_expr(\'x + 1\', evaluate=False)
     >>> a == b
     False
     >>> a.args

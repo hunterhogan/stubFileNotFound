@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core.symbol import Dummy as Dummy
 from sympy.ntheory import nextprime as nextprime
 from sympy.ntheory.modular import crt as crt
@@ -781,7 +780,7 @@ def _euclidean_algorithm(f, g, minpoly, p):
         are in `\\left[ -\\frac{p-1} 2, \\frac{p-1} 2 \\right]`
 
     """
-def _trial_division(f, h, minpoly, p: Incomplete | None = None):
+def _trial_division(f, h, minpoly, p=None):
     """
     Check if `h` divides `f` in
     `\\mathbb K[t_1, \\ldots, t_k][z]/(m_{\\alpha}(z))`, where `\\mathbb K` is
@@ -1078,7 +1077,7 @@ def func_field_modgcd(f, g):
     This is done by calculating the GCD in
     `\\mathbb{Z}_p(x_1, \\ldots, x_{n-1})[z]/(\\check m_{\\alpha}(z))[x_0]` for
     suitable primes `p` and then reconstructing the coefficients with the
-    Chinese Remainder Theorem and Rational Reconstuction. The GCD over
+    Chinese Remainder Theorem and Rational Reconstruction. The GCD over
     `\\mathbb{Z}_p(x_1, \\ldots, x_{n-1})[z]/(\\check m_{\\alpha}(z))[x_0]` is
     computed with a recursive subroutine, which evaluates the polynomials at
     `x_{n-1} = a` for suitable evaluation points `a \\in \\mathbb Z_p` and

@@ -14,6 +14,7 @@ from .sympify import sympify as sympify
 from .traversal import bottom_up as bottom_up
 from _typeshed import Incomplete
 from sympy.utilities.iterables import sift as sift
+from typing import ClassVar
 
 class NC_Marker:
     is_Order: bool
@@ -126,12 +127,15 @@ class Mul(Expr, AssocOp):
 
     """
     __slots__: Incomplete
-    args: tuple[Expr, ...]
     is_Mul: bool
     _args_type = Expr
     _kind_dispatcher: Incomplete
+    identity: ClassVar[Expr]
     @property
     def kind(self): ...
+    def __new__(cls, *args: Expr | complex, evaluate: bool = True) -> Expr: ...
+    @property
+    def args(self) -> tuple[Expr, ...]: ...
     def could_extract_minus_sign(self): ...
     def __neg__(self): ...
     @classmethod
@@ -212,7 +216,7 @@ class Mul(Expr, AssocOp):
 
               Removal of 1 from the sequence is already handled by AssocOp.__new__.
         """
-    def _eval_power(self, e): ...
+    def _eval_power(self, expt): ...
     @classmethod
     def class_key(cls): ...
     def _eval_evalf(self, prec): ...
@@ -221,6 +225,7 @@ class Mul(Expr, AssocOp):
         """
         Convert self to an mpmath mpc if possible
         """
+    @cacheit
     def as_two_terms(self):
         """Return head and tail of self.
 
@@ -241,6 +246,7 @@ class Mul(Expr, AssocOp):
         >>> (3*x*y).as_two_terms()
         (3, x*y)
         """
+    @cacheit
     def as_coeff_mul(self, *deps, rational: bool = True, **kwargs): ...
     def as_coeff_Mul(self, rational: bool = False):
         """
@@ -255,15 +261,17 @@ class Mul(Expr, AssocOp):
         sums must be a list of instances of Basic.
         """
     def _eval_expand_mul(self, **hints): ...
+    @cacheit
     def _eval_derivative(self, s): ...
+    @cacheit
     def _eval_derivative_n_times(self, s, n): ...
     def _eval_difference_delta(self, n, step): ...
     def _matches_simple(self, expr, repl_dict): ...
-    def matches(self, expr, repl_dict: Incomplete | None = None, old: bool = False): ...
+    def matches(self, expr, repl_dict=None, old: bool = False): ...
     @staticmethod
     def _matches_expand_pows(arg_list): ...
     @staticmethod
-    def _matches_noncomm(nodes, targets, repl_dict: Incomplete | None = None):
+    def _matches_noncomm(nodes, targets, repl_dict=None):
         """Non-commutative multiplication matcher.
 
         `nodes` is a list of symbols within the matcher multiplication
@@ -339,7 +347,7 @@ class Mul(Expr, AssocOp):
         """
     def _eval_subs(self, old, new): ...
     def _eval_nseries(self, x, n, logx, cdir: int = 0): ...
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0): ...
+    def _eval_as_leading_term(self, x, logx, cdir): ...
     def _eval_conjugate(self): ...
     def _eval_transpose(self): ...
     def _eval_adjoint(self): ...
@@ -356,7 +364,7 @@ class Mul(Expr, AssocOp):
 
         See docstring of Expr.as_content_primitive for more examples.
         """
-    def as_ordered_factors(self, order: Incomplete | None = None):
+    def as_ordered_factors(self, order=None):
         """Transform an expression into an ordered list of factors.
 
         Examples

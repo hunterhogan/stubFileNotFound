@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core import Mul as Mul, sympify as sympify
 from sympy.core.add import Add as Add
 from sympy.core.expr import ExprBuilder as ExprBuilder
@@ -50,7 +49,7 @@ class HadamardProduct(MatrixExpr):
     ``hadamard_product()`` or ``HadamardProduct.doit``
     """
     is_HadamardProduct: bool
-    def __new__(cls, *args, evaluate: bool = False, check: Incomplete | None = None): ...
+    def __new__(cls, *args, evaluate: bool = False, check=None): ...
     @property
     def shape(self): ...
     def _entry(self, i, j, **kwargs): ...

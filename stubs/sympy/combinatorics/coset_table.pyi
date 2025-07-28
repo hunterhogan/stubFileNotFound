@@ -38,7 +38,7 @@ class CosetTable(DefaultPrinting):
     deduction_stack: Incomplete
     _grp: Incomplete
     p_p: Incomplete
-    def __init__(self, fp_grp, subgroup, max_cosets: Incomplete | None = None) -> None: ...
+    def __init__(self, fp_grp, subgroup, max_cosets=None) -> None: ...
     @property
     def omega(self):
         """Set of live cosets. """
@@ -117,7 +117,7 @@ class CosetTable(DefaultPrinting):
         coincidence
 
         """
-    def scan(self, alpha, word, y: Incomplete | None = None, fill: bool = False, modified: bool = False) -> None:
+    def scan(self, alpha, word, y=None, fill: bool = False, modified: bool = False) -> None:
         """
         ``scan`` performs a scanning process on the input ``word``.
         It first locates the largest prefix ``s`` of ``word`` for which
@@ -174,7 +174,7 @@ class CosetTable(DefaultPrinting):
         scan, scan_c, scan_and_fill, scan_and_fill_c
 
         """
-    def merge(self, k, lamda, q, w: Incomplete | None = None, modified: bool = False) -> None:
+    def merge(self, k, lamda, q, w=None, modified: bool = False) -> None:
         """
         Merge two classes with representatives ``k`` and ``lamda``, described
         on Pg. 157 [1] (for pseudocode), start by putting ``p[k] = lamda``.
@@ -243,7 +243,7 @@ class CosetTable(DefaultPrinting):
         coincidence, merge
 
         """
-    def coincidence(self, alpha, beta, w: Incomplete | None = None, modified: bool = False) -> None:
+    def coincidence(self, alpha, beta, w=None, modified: bool = False) -> None:
         """
         The third situation described in ``scan`` routine is handled by this
         routine, described on Pg. 156-161 [1].
@@ -462,7 +462,7 @@ class CosetTable(DefaultPrinting):
 
         """
 
-def coset_enumeration_r(fp_grp, Y, max_cosets: Incomplete | None = None, draft: Incomplete | None = None, incomplete: bool = False, modified: bool = False):
+def coset_enumeration_r(fp_grp, Y, max_cosets=None, draft=None, incomplete: bool = False, modified: bool = False):
     '''
     This is easier of the two implemented methods of coset enumeration.
     and is often called the HLT method, after Hazelgrove, Leech, Trotter
@@ -615,7 +615,7 @@ def coset_enumeration_r(fp_grp, Y, max_cosets: Incomplete | None = None, draft: 
            "Handbook of computational group theory"
 
     '''
-def modified_coset_enumeration_r(fp_grp, Y, max_cosets: Incomplete | None = None, draft: Incomplete | None = None, incomplete: bool = False):
+def modified_coset_enumeration_r(fp_grp, Y, max_cosets=None, draft=None, incomplete: bool = False):
     '''
     Introduce a new set of symbols y \\in Y that correspond to the
     generators of the subgroup. Store the elements of Y as a
@@ -646,7 +646,7 @@ def modified_coset_enumeration_r(fp_grp, Y, max_cosets: Incomplete | None = None
            "Handbook of Computational Group Theory",
            Section 5.3.2
     '''
-def coset_enumeration_c(fp_grp, Y, max_cosets: Incomplete | None = None, draft: Incomplete | None = None, incomplete: bool = False):
+def coset_enumeration_c(fp_grp, Y, max_cosets=None, draft=None, incomplete: bool = False):
     '''
     >>> from sympy.combinatorics.free_groups import free_group
     >>> from sympy.combinatorics.fp_groups import FpGroup, coset_enumeration_c

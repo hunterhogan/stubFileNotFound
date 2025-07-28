@@ -60,7 +60,7 @@ class IntegerRing(Ring, CharacteristicZero, SimpleDomain):
         >>> ZZ.get_field()
         QQ
         """
-    def algebraic_field(self, *extension, alias: Incomplete | None = None):
+    def algebraic_field(self, *extension, alias=None):
         """Returns an algebraic field, i.e. `\\mathbb{Q}(\\alpha, \\ldots)`.
 
         Parameters

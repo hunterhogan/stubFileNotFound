@@ -115,7 +115,7 @@ class DFM:
     def from_dok(cls, dok, shape, domain):
         """Inverse of :math:`to_dod`."""
     def iter_values(self) -> Generator[Incomplete]:
-        """Iterater over the non-zero values of the matrix."""
+        """Iterate over the non-zero values of the matrix."""
     def iter_items(self) -> Generator[Incomplete]:
         """Iterate over indices and values of nonzero elements of the matrix."""
     def convert_to(self, domain):
@@ -306,6 +306,8 @@ class DFM:
         """
     def lu(self):
         """Return the LU decomposition of the matrix."""
+    def qr(self):
+        """Return the QR decomposition of the matrix."""
     def lu_solve(self, rhs):
         """
         Solve a matrix equation using FLINT.
@@ -351,9 +353,24 @@ class DFM:
         sympy.polys.matrices.domainmatrix.DomainMatrix.lu_solve
             Higher level interface to solve a matrix equation.
         """
+    def fflu(self):
+        """
+        Fraction-free LU decomposition of DFM.
+
+        Explanation
+        ===========
+
+        Uses `python-flint` if possible for a matrix of
+        integers otherwise uses the DDM method.
+
+        See Also
+        ========
+
+        sympy.polys.matrices.ddm.DDM.fflu
+        """
     def nullspace(self):
         """Return a basis for the nullspace of the matrix."""
-    def nullspace_from_rref(self, pivots: Incomplete | None = None):
+    def nullspace_from_rref(self, pivots=None):
         """Return a basis for the nullspace of the matrix."""
     def particular(self):
         """Return a particular solution to the system."""

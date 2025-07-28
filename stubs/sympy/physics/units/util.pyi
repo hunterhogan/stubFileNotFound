@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy import default_sort_key as default_sort_key
 from sympy.core.add import Add as Add
 from sympy.core.containers import Tuple as Tuple
@@ -59,7 +58,7 @@ def convert_to(expr, target_units, unit_system: str = 'SI'):
     7.62963087839509e-20*hbar**0.5*speed_of_light**0.5/gravitational_constant**0.5
 
     """
-def quantity_simplify(expr, across_dimensions: bool = False, unit_system: Incomplete | None = None):
+def quantity_simplify(expr, across_dimensions: bool = False, unit_system=None):
     '''Return an equivalent expression in which prefixes are replaced
     with numerical values and all units of a given dimension are the
     unified in a canonical manner by default. `across_dimensions` allows

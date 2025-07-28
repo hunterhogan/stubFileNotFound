@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.concrete import product as product
 from sympy.core.add import Add as Add
 from sympy.core.mul import Mul as Mul
@@ -175,7 +174,7 @@ def rsolve_hyper(coeffs, f, n, **hints):
 
     .. [2] M. Petkovsek, H. S. Wilf, D. Zeilberger, A = B, 1996.
     """
-def rsolve(f, y, init: Incomplete | None = None):
+def rsolve(f, y, init=None):
     """
     Solve univariate recurrence with rational coefficients.
 

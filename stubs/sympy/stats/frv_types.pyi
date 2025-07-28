@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from sympy.core.cache import cacheit
 from sympy.stats.frv import SingleFiniteDistribution
 
 __all__ = ['FiniteRV', 'DiscreteUniform', 'Die', 'Bernoulli', 'Coin', 'Binomial', 'BetaBinomial', 'Hypergeometric', 'Rademacher', 'IdealSoliton', 'RobustSoliton']
@@ -54,6 +55,7 @@ class DiscreteUniformDistribution(SingleFiniteDistribution):
     @property
     def p(self): ...
     @property
+    @cacheit
     def dict(self): ...
     @property
     def set(self): ...
@@ -200,6 +202,9 @@ def Coin(name, p=...):
     '''
     Create a Finite Random Variable representing a Coin toss.
 
+    This is an equivalent of a Bernoulli random variable with
+    "H" and "T" as success and failure events respectively.
+
     Parameters
     ==========
 
@@ -251,6 +256,7 @@ class BinomialDistribution(SingleFiniteDistribution):
     def set(self): ...
     def pmf(self, x): ...
     @property
+    @cacheit
     def dict(self): ...
 
 def Binomial(name, n, p, succ: int = 1, fail: int = 0):
@@ -446,6 +452,7 @@ class IdealSolitonDistribution(SingleFiniteDistribution):
     @property
     def set(self): ...
     @property
+    @cacheit
     def dict(self): ...
     def pmf(self, x): ...
 

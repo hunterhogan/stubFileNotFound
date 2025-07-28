@@ -50,7 +50,7 @@ class LinearEntity(GeometrySet):
     sympy.geometry.entity.GeometryEntity
 
     """
-    def __new__(cls, p1, p2: Incomplete | None = None, **kwargs): ...
+    def __new__(cls, p1, p2=None, **kwargs): ...
     def __contains__(self, other) -> bool:
         """Return a definitive answer or else raise an error if it cannot
         be determined that other is on the boundaries of self."""
@@ -717,7 +717,7 @@ class LinearEntity(GeometrySet):
         Segment3D(Point3D(10/3, 10/3, 13/3), Point3D(5, 5, 6))
 
         """
-    def random_point(self, seed: Incomplete | None = None):
+    def random_point(self, seed=None):
         """A random point on a LinearEntity.
 
         Returns
@@ -982,7 +982,7 @@ class Ray(LinearEntity):
     1
 
     """
-    def __new__(cls, p1, p2: Incomplete | None = None, **kwargs): ...
+    def __new__(cls, p1, p2=None, **kwargs): ...
     def _svg(self, scale_factor: float = 1.0, fill_color: str = '#66cc99'):
         '''Returns SVG path element for the LinearEntity.
 
@@ -1260,7 +1260,7 @@ class Segment(LinearEntity):
         Point3D(2, 3/2, 3/2)
 
         """
-    def perpendicular_bisector(self, p: Incomplete | None = None):
+    def perpendicular_bisector(self, p=None):
         """The perpendicular bisector of this segment.
 
         If no point is specified or the point specified is not on the
@@ -1465,7 +1465,7 @@ class Line2D(LinearEntity2D, Line):
     >>> Line(s).equation()
     x
     """
-    def __new__(cls, p1, pt: Incomplete | None = None, slope: Incomplete | None = None, **kwargs): ...
+    def __new__(cls, p1, pt=None, slope=None, **kwargs): ...
     def _svg(self, scale_factor: float = 1.0, fill_color: str = '#66cc99'):
         '''Returns SVG path element for the LinearEntity.
 
@@ -1581,7 +1581,7 @@ class Ray2D(LinearEntity2D, Ray):
     1
 
     """
-    def __new__(cls, p1, pt: Incomplete | None = None, angle: Incomplete | None = None, **kwargs): ...
+    def __new__(cls, p1, pt=None, angle=None, **kwargs): ...
     @property
     def xdirection(self):
         """The x direction of the ray.
@@ -1806,7 +1806,7 @@ class Line3D(LinearEntity3D, Line):
     >>> L.points
     (Point3D(2, 3, 4), Point3D(3, 5, 1))
     """
-    def __new__(cls, p1, pt: Incomplete | None = None, direction_ratio=(), **kwargs): ...
+    def __new__(cls, p1, pt=None, direction_ratio=(), **kwargs): ...
     def equation(self, x: str = 'x', y: str = 'y', z: str = 'z'):
         """Return the equations that define the line in 3D.
 
@@ -1927,7 +1927,7 @@ class Ray3D(LinearEntity3D, Ray):
     [1, 2, -4]
 
     """
-    def __new__(cls, p1, pt: Incomplete | None = None, direction_ratio=(), **kwargs): ...
+    def __new__(cls, p1, pt=None, direction_ratio=(), **kwargs): ...
     @property
     def xdirection(self):
         """The x direction of the ray.

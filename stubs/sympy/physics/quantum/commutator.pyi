@@ -1,3 +1,4 @@
+from _typeshed import Incomplete
 from sympy.core.expr import Expr
 
 __all__ = ['Commutator']
@@ -75,6 +76,9 @@ class Commutator(Expr):
     .. [1] https://en.wikipedia.org/wiki/Commutator
     """
     is_commutative: bool
+    _kind_dispatcher: Incomplete
+    @property
+    def kind(self): ...
     def __new__(cls, A, B): ...
     @classmethod
     def eval(cls, a, b): ...

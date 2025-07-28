@@ -89,7 +89,7 @@ class stringPict:
     def leftslash(self):
         """Precede object by a slash of the proper size.
         """
-    def root(self, n: Incomplete | None = None):
+    def root(self, n=None):
         """Produce a nice root symbol.
         Produces ugly results for big n inserts.
         """
@@ -138,7 +138,7 @@ class prettyForm(stringPict):
     OPEN: Incomplete
     binding: Incomplete
     _unicode: Incomplete
-    def __init__(self, s, baseline: int = 0, binding: int = 0, unicode: Incomplete | None = None) -> None:
+    def __init__(self, s, baseline: int = 0, binding: int = 0, unicode=None) -> None:
         """Initialize from stringPict and binding power."""
     @property
     def unicode(self): ...

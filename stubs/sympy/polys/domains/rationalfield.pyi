@@ -43,7 +43,7 @@ class RationalField(Field, CharacteristicZero, SimpleDomain):
         """Convert ``a`` to a SymPy object. """
     def from_sympy(self, a):
         """Convert SymPy's Integer to ``dtype``. """
-    def algebraic_field(self, *extension, alias: Incomplete | None = None):
+    def algebraic_field(self, *extension, alias=None):
         """Returns an algebraic field, i.e. `\\mathbb{Q}(\\alpha, \\ldots)`.
 
         Parameters

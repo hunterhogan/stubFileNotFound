@@ -425,7 +425,7 @@ class Truss:
         >>> t.internal_forces
         {\'member_1\': 20/3, \'member_2\': 20/3, \'member_3\': -20*sqrt(2)/3, \'member_4\': -10*sqrt(5)/3, \'member_5\': 10}
         '''
-    def draw(self, subs_dict: Incomplete | None = None):
+    def draw(self, subs_dict=None):
         '''
         Returns a plot object of the Truss with all its nodes, members,
         supports and loads.

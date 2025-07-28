@@ -274,6 +274,7 @@ _one: Incomplete
 def _match_div_rewrite(expr, i):
     """helper for __trigsimp"""
 def _trigsimp(expr, deep: bool = False): ...
+@cacheit
 def __trigsimp(expr, deep: bool = False):
     """recursive helper for trigsimp"""
 def futrig(e, *, hyper: bool = True, **kwargs):
@@ -301,6 +302,6 @@ def _futrig(e):
 def _is_Expr(e):
     """_eapply helper to tell whether ``e`` and all its args
     are Exprs."""
-def _eapply(func, e, cond: Incomplete | None = None):
+def _eapply(func, e, cond=None):
     """Apply ``func`` to ``e`` if all args are Exprs else only
     apply it to those args that *are* Exprs."""

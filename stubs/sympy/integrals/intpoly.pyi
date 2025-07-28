@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.abc import x as x, y as y, z as z
 from sympy.core import Expr as Expr, S as S, Symbol as Symbol, diff as diff
 from sympy.core.sympify import _sympify as _sympify
@@ -6,7 +5,7 @@ from sympy.geometry import Point as Point, Point2D as Point2D, Polygon as Polygo
 from sympy.polys.polytools import LC as LC, Poly as Poly, degree_list as degree_list, gcd_list as gcd_list
 from sympy.simplify.simplify import nsimplify as nsimplify
 
-def polytope_integrate(poly, expr: Incomplete | None = None, *, clockwise: bool = False, max_degree: Incomplete | None = None):
+def polytope_integrate(poly, expr=None, *, clockwise: bool = False, max_degree=None):
     """Integrates polynomials over 2/3-Polytopes.
 
     Explanation
@@ -43,7 +42,7 @@ def polytope_integrate(poly, expr: Incomplete | None = None, *, clockwise: bool 
     """
 def strip(monom): ...
 def _polynomial_integrate(polynomials, facets, hp_params): ...
-def main_integrate3d(expr, facets, vertices, hp_params, max_degree: Incomplete | None = None):
+def main_integrate3d(expr, facets, vertices, hp_params, max_degree=None):
     """Function to translate the problem of integrating uni/bi/tri-variate
     polynomials over a 3-Polytope to integrating over its faces.
     This is done using Generalized Stokes' Theorem and Euler's Theorem.
@@ -73,7 +72,7 @@ def main_integrate3d(expr, facets, vertices, hp_params, max_degree: Incomplete |
     >>> main_integrate3d(1, faces, vertices, hp_params)
     -125
     """
-def main_integrate(expr, facets, hp_params, max_degree: Incomplete | None = None):
+def main_integrate(expr, facets, hp_params, max_degree=None):
     """Function to translate the problem of integrating univariate/bivariate
     polynomials over a 2-Polytope to integrating over its boundary facets.
     This is done using Generalized Stokes's Theorem and Euler's Theorem.
@@ -237,7 +236,7 @@ def left_integral2D(m, index, facets, x0, expr, gens):
     >>> left_integral2D(3, 0, facets, facets[0].points[0], 1, (x, y))
     5
     """
-def integration_reduction_dynamic(facets, index, a, b, expr, degree, dims, x_index, y_index, max_index, x0, monomial_values, monom_index, vertices: Incomplete | None = None, hp_param: Incomplete | None = None):
+def integration_reduction_dynamic(facets, index, a, b, expr, degree, dims, x_index, y_index, max_index, x0, monomial_values, monom_index, vertices=None, hp_param=None):
     """The same integration_reduction function which uses a dynamic
     programming approach to compute terms by using the values of the integral
     of previously computed terms.
@@ -351,7 +350,7 @@ def gradient_terms(binomial_power: int = 0, no_of_gens: int = 2):
     [z**2, 0, 0, 2, 2, 0, 2, 0]], [[x*y, 1, 1, 0, 2, 1, 0, 0],
     [x*z, 1, 0, 1, 2, 1, 1, 0]], [[x**2, 2, 0, 0, 2, 2, 0, 0]]]]
     """
-def hyperplane_parameters(poly, vertices: Incomplete | None = None):
+def hyperplane_parameters(poly, vertices=None):
     """A helper function to return the hyperplane parameters
     of which the facets of the polytope are a part of.
 
@@ -464,7 +463,7 @@ def decompose(expr, separate: bool = False):
     >>> decompose(x**2 + x*y + x + y + x**3*y**2 + y**5, True)
     {x, x**2, y, y**5, x*y, x**3*y**2}
     """
-def point_sort(poly, normal: Incomplete | None = None, clockwise: bool = True):
+def point_sort(poly, normal=None, clockwise: bool = True):
     """Returns the same polygon with points sorted in clockwise or
     anti-clockwise order.
 

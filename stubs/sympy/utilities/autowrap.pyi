@@ -26,7 +26,7 @@ class CodeWrapper:
     filepath: Incomplete
     flags: Incomplete
     quiet: Incomplete
-    def __init__(self, generator, filepath: Incomplete | None = None, flags=[], verbose: bool = False) -> None:
+    def __init__(self, generator, filepath=None, flags=[], verbose: bool = False) -> None:
         """
         generator -- the code generator to use
         """
@@ -35,7 +35,7 @@ class CodeWrapper:
     @property
     def include_empty(self): ...
     def _generate_code(self, main_routine, routines) -> None: ...
-    def wrap_code(self, routine, helpers: Incomplete | None = None): ...
+    def wrap_code(self, routine, helpers=None): ...
     def _process_files(self, routine) -> None: ...
 
 class DummyWrapper(CodeWrapper):
@@ -95,7 +95,7 @@ class CythonCodeWrapper(CodeWrapper):
         '''
     @property
     def command(self): ...
-    def _prepare_files(self, routine, build_dir=...) -> None: ...
+    def _prepare_files(self, routine, build_dir='.') -> None: ...
     @classmethod
     def _get_wrapped_function(cls, mod, name): ...
     def dump_pyx(self, routines, f, prefix) -> None:
@@ -136,7 +136,8 @@ def _infer_language(backend):
     """For a given backend, return the top choice of language"""
 def _validate_backend_language(backend, language) -> None:
     """Throws error if backend and language are incompatible"""
-def autowrap(expr, language: Incomplete | None = None, backend: str = 'f2py', tempdir: Incomplete | None = None, args: Incomplete | None = None, flags: Incomplete | None = None, verbose: bool = False, helpers: Incomplete | None = None, code_gen: Incomplete | None = None, **kwargs):
+@cacheit
+def autowrap(expr, language=None, backend: str = 'f2py', tempdir=None, args=None, flags=None, verbose: bool = False, helpers=None, code_gen=None, **kwargs):
     '''Generates Python callable binaries based on the math expression.
 
     Parameters
@@ -164,13 +165,13 @@ def autowrap(expr, language: Incomplete | None = None, backend: str = 'f2py', te
         If True, autowrap will not mute the command line backends. This can be
         helpful for debugging.
     helpers : 3-tuple or iterable of 3-tuples, optional
-        Used to define auxiliary expressions needed for the main expr. If the
-        main expression needs to call a specialized function it should be
-        passed in via ``helpers``. Autowrap will then make sure that the
-        compiled main expression can link to the helper routine. Items should
-        be 3-tuples with (<function_name>, <sympy_expression>,
-        <argument_tuple>). It is mandatory to supply an argument sequence to
-        helper routines.
+        Used to define auxiliary functions needed for the main expression.
+        Each tuple should be of the form (name, expr, args) where:
+
+        - name : str, the function name
+        - expr : sympy expression, the function
+        - args : iterable, the function arguments (can be any iterable of symbols)
+
     code_gen : CodeGen instance
         An instance of a CodeGen subclass. Overrides ``language``.
     include_dirs : [string]
@@ -194,12 +195,43 @@ def autowrap(expr, language: Incomplete | None = None, backend: str = 'f2py', te
     Examples
     ========
 
+    Basic usage:
+
     >>> from sympy.abc import x, y, z
     >>> from sympy.utilities.autowrap import autowrap
     >>> expr = ((x - y + z)**(13)).expand()
     >>> binary_func = autowrap(expr)
     >>> binary_func(1, 4, 2)
     -1.0
+
+    Using helper functions:
+
+    >>> from sympy.abc import x, t
+    >>> from sympy import Function
+    >>> helper_func = Function(\'helper_func\')  # Define symbolic function
+    >>> expr = 3*x + helper_func(t)  # Main expression using helper function
+    >>> # Define helper_func(x) = 4*x using f2py backend
+    >>> binary_func = autowrap(expr, args=[x, t],
+    ...                       helpers=(\'helper_func\', 4*x, [x]))
+    >>> binary_func(2, 5)  # 3*2 + helper_func(5) = 6 + 20
+    26.0
+    >>> # Same example using cython backend
+    >>> binary_func = autowrap(expr, args=[x, t], backend=\'cython\',
+    ...                       helpers=[(\'helper_func\', 4*x, [x])])
+    >>> binary_func(2, 5)  # 3*2 + helper_func(5) = 6 + 20
+    26.0
+
+    Type handling example:
+
+    >>> import numpy as np
+    >>> expr = x + y
+    >>> f_cython = autowrap(expr, backend=\'cython\')
+    >>> f_cython(1, 2)  # doctest: +ELLIPSIS
+    Traceback (most recent call last):
+      ...
+    TypeError: Argument \'_x\' has incorrect type (expected numpy.ndarray, got int)
+    >>> f_cython(np.array([1.0]), np.array([2.0]))
+    array([ 3.])
 
     '''
 def binary_function(symfunc, expr, **kwargs):
@@ -247,13 +279,13 @@ class UfuncifyCodeWrapper(CodeWrapper):
     def __init__(self, *args, **kwargs) -> None: ...
     @property
     def command(self): ...
-    def wrap_code(self, routines, helpers: Incomplete | None = None): ...
+    def wrap_code(self, routines, helpers=None): ...
     def _generate_code(self, main_routines, helper_routines) -> None: ...
     def _prepare_files(self, routines, funcname) -> None: ...
     @classmethod
     def _get_wrapped_function(cls, mod, name): ...
     def dump_setup(self, f) -> None: ...
-    def dump_c(self, routines, f, prefix, funcname: Incomplete | None = None) -> None:
+    def dump_c(self, routines, f, prefix, funcname=None) -> None:
         """Write a C file with Python wrappers
 
         This file contains all the definitions of the routines in c code.
@@ -272,7 +304,8 @@ class UfuncifyCodeWrapper(CodeWrapper):
     def _partition_args(self, args):
         """Group function arguments into categories."""
 
-def ufuncify(args, expr, language: Incomplete | None = None, backend: str = 'numpy', tempdir: Incomplete | None = None, flags: Incomplete | None = None, verbose: bool = False, helpers: Incomplete | None = None, **kwargs):
+@cacheit
+def ufuncify(args, expr, language=None, backend: str = 'numpy', tempdir=None, flags=None, verbose: bool = False, helpers=None, **kwargs):
     '''Generates a binary function that supports broadcasting on numpy arrays.
 
     Parameters
@@ -299,14 +332,14 @@ def ufuncify(args, expr, language: Incomplete | None = None, backend: str = 'num
     verbose : bool, optional
         If True, autowrap will not mute the command line backends. This can
         be helpful for debugging.
-    helpers : iterable, optional
-        Used to define auxiliary expressions needed for the main expr. If
-        the main expression needs to call a specialized function it should
-        be put in the ``helpers`` iterable. Autowrap will then make sure
-        that the compiled main expression can link to the helper routine.
-        Items should be tuples with (<funtion_name>, <sympy_expression>,
-        <arguments>). It is mandatory to supply an argument sequence to
-        helper routines.
+    helpers : 3-tuple or iterable of 3-tuples, optional
+        Used to define auxiliary functions needed for the main expression.
+        Each tuple should be of the form (name, expr, args) where:
+
+        - name : str, the function name
+        - expr : sympy expression, the function
+        - args : iterable, the function arguments (can be any iterable of symbols)
+
     kwargs : dict
         These kwargs will be passed to autowrap if the `f2py` or `cython`
         backend is used and ignored if the `numpy` backend is used.
@@ -328,6 +361,8 @@ def ufuncify(args, expr, language: Incomplete | None = None, backend: str = 'num
     Examples
     ========
 
+    Basic usage:
+
     >>> from sympy.utilities.autowrap import ufuncify
     >>> from sympy.abc import x, y
     >>> import numpy as np
@@ -338,6 +373,18 @@ def ufuncify(args, expr, language: Incomplete | None = None, backend: str = 'num
     array([  3.,   6.,  11.])
     >>> f(np.arange(5), 3)
     array([  3.,   4.,   7.,  12.,  19.])
+
+    Using helper functions:
+
+    >>> from sympy import Function
+    >>> helper_func = Function(\'helper_func\')  # Define symbolic function
+    >>> expr = x**2 + y*helper_func(x)  # Main expression using helper function
+    >>> # Define helper_func(x) = x**3
+    >>> f = ufuncify((x, y), expr, helpers=[(\'helper_func\', x**3, [x])])
+    >>> f([1, 2], [3, 4])
+    array([  4.,  36.])
+
+    Type handling with different backends:
 
     For the \'f2py\' and \'cython\' backends, inputs are required to be equal length
     1-dimensional arrays. The \'f2py\' backend will perform type conversion, but

@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core import diff as diff
 from sympy.core.containers import Tuple as Tuple
 from sympy.core.symbol import _symbol as _symbol
@@ -273,7 +272,7 @@ class Curve(GeometrySet):
         limits : Returns limits of the parameter interval
 
         """
-    def rotate(self, angle: int = 0, pt: Incomplete | None = None):
+    def rotate(self, angle: int = 0, pt=None):
         """This function is used to rotate a curve along given point ``pt`` at given angle(in radian).
 
         Parameters
@@ -302,7 +301,7 @@ class Curve(GeometrySet):
         Curve((-x, x), (x, 0, 1))
 
         """
-    def scale(self, x: int = 1, y: int = 1, pt: Incomplete | None = None):
+    def scale(self, x: int = 1, y: int = 1, pt=None):
         """Override GeometryEntity.scale since Curve is not made up of Points.
 
         Returns

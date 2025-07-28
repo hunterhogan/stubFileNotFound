@@ -1,7 +1,12 @@
 from .sympify import SympifyError as SympifyError, sympify as sympify
 from _typeshed import Incomplete
+from typing import Callable, TypeVar
 
-def _sympifyit(arg, retval: Incomplete | None = None):
+T1 = TypeVar('T1')
+T2 = TypeVar('T2')
+T3 = TypeVar('T3')
+
+def _sympifyit(arg, retval=None) -> Callable[[Callable[[T1, T2], T3]], Callable[[T1, T2], T3]]:
     """
     decorator to smartly _sympify function arguments
 
@@ -24,12 +29,12 @@ def _sympifyit(arg, retval: Incomplete | None = None):
 
     __sympifyit
     """
-def __sympifyit(func, arg, retval: Incomplete | None = None):
+def __sympifyit(func, arg, retval=None):
     """Decorator to _sympify `arg` argument for function `func`.
 
        Do not use directly -- use _sympifyit instead.
     """
-def call_highest_priority(method_name):
+def call_highest_priority(method_name: str) -> Callable[[Callable[[T1, T2], T3]], Callable[[T1, T2], T3]]:
     """A decorator for binary special methods to handle _op_priority.
 
     Explanation
@@ -55,7 +60,7 @@ def call_highest_priority(method_name):
         def __rmul__(self, other):
         ...
     """
-def sympify_method_args(cls):
+def sympify_method_args(cls) -> type[T1]:
     """Decorator for a class with methods that sympify arguments.
 
     Explanation

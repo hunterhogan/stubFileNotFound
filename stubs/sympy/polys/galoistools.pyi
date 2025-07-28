@@ -5,7 +5,7 @@ from sympy.polys.polyconfig import query as query
 from sympy.polys.polyerrors import ExactQuotientFailed as ExactQuotientFailed
 from sympy.polys.polyutils import _sort_factors as _sort_factors
 
-def gf_crt(U, M, K: Incomplete | None = None):
+def gf_crt(U, M, K=None):
     """
     Chinese Remainder Theorem.
 
@@ -1172,7 +1172,7 @@ def gf_shoup(f, p, K):
 
 _factor_methods: Incomplete
 
-def gf_factor_sqf(f, p, K, method: Incomplete | None = None):
+def gf_factor_sqf(f, p, K, method=None):
     """
     Factor a square-free polynomial ``f`` in ``GF(p)[x]``.
 
@@ -1305,7 +1305,7 @@ def _raise_mod_power(x, s, p, f):
     [1, 4, 7]
 
     """
-def _csolve_prime_las_vegas(f, p, seed: Incomplete | None = None):
+def _csolve_prime_las_vegas(f, p, seed=None):
     ''' Solutions of `f(x) \\equiv 0 \\pmod{p}`, `f(0) \\not\\equiv 0 \\pmod{p}`.
 
     Explanation

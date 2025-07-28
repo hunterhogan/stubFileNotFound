@@ -116,7 +116,7 @@ class Point:
         17
         """
 
-def _ecm_one_factor(n, B1: int = 10000, B2: int = 100000, max_curve: int = 200, seed: Incomplete | None = None):
+def _ecm_one_factor(n, B1: int = 10000, B2: int = 100000, max_curve: int = 200, seed=None):
     """Returns one factor of n using
     Lenstra's 2 Stage Elliptic curve Factorization
     with Suyama's Parameterization. Here Montgomery
@@ -150,7 +150,7 @@ def _ecm_one_factor(n, B1: int = 10000, B2: int = 100000, max_curve: int = 200, 
     Parameters
     ==========
 
-    n : Number to be Factored
+    n : Number to be Factored. Assume that it is a composite number.
     B1 : Stage 1 Bound. Must be an even number.
     B2 : Stage 2 Bound. Must be an even number.
     max_curve : Maximum number of curves generated
@@ -158,7 +158,7 @@ def _ecm_one_factor(n, B1: int = 10000, B2: int = 100000, max_curve: int = 200, 
     Returns
     =======
 
-    integer | None : ``n`` (if it is prime) else a non-trivial divisor of ``n``. ``None`` if not found
+    integer | None : a non-trivial divisor of ``n``. ``None`` if not found
 
     References
     ==========

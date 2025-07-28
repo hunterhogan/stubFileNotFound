@@ -4,7 +4,7 @@ from sympy.core.assumptions import check_assumptions as check_assumptions
 from sympy.core.exprtools import factor_terms as factor_terms
 from sympy.core.function import AppliedUndef as AppliedUndef, Derivative as Derivative, Function as Function, UndefinedFunction as UndefinedFunction, _mexpand as _mexpand, expand as expand, expand_func as expand_func, expand_log as expand_log, expand_mul as expand_mul, expand_power_exp as expand_power_exp, nfloat as nfloat
 from sympy.core.intfunc import ilcm as ilcm, integer_log as integer_log
-from sympy.core.logic import fuzzy_not as fuzzy_not
+from sympy.core.logic import fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not
 from sympy.core.numbers import Float as Float, Rational as Rational, _illegal as _illegal
 from sympy.core.power import Pow as Pow
 from sympy.core.relational import Eq as Eq, Ne as Ne
@@ -94,7 +94,7 @@ def denoms(eq, *symbols):
     {y, z}
 
     """
-def checksol(f, symbol, sol: Incomplete | None = None, **flags):
+def checksol(f, symbol, sol=None, **flags):
     """
     Checks whether sol is a solution of equation f == 0.
 
@@ -581,7 +581,7 @@ def solve(f, *symbols, **flags):
             Allows ``solve`` to return a solution for a pattern in terms of
             other functions that contain that pattern; this is only
             needed if the pattern is inside of some invertible function
-            like cos, exp, ect.
+            like cos, exp, etc.
         particular=True (default is False)
             Instructs ``solve`` to try to find a particular solution to
             a linear system with as many zeros as possible; this is very
@@ -604,7 +604,7 @@ def solve(f, *symbols, **flags):
     ========
 
     rsolve: For solving recurrence relationships
-    dsolve: For solving differential equations
+    sympy.solvers.ode.dsolve: For solving differential equations
 
     '''
 def _solve_undetermined(g, symbols, flags):
@@ -921,7 +921,7 @@ def det_minor(M):
     det_quick
 
     """
-def det_quick(M, method: Incomplete | None = None):
+def det_quick(M, method=None):
     """
     Return ``det(M)`` assuming that either
     there are lots of zeros or the size of the matrix
@@ -973,6 +973,7 @@ def _tsolve(eq, sym, **flags):
     [LambertW(2)/2]
 
     """
+@conserve_mpmath_dps
 def nsolve(*args, dict: bool = False, **kwargs):
     """
     Solve a nonlinear equation system numerically: ``nsolve(f, [args,] x0,

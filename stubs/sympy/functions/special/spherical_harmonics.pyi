@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from sympy.core.expr import Expr as Expr
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function
+from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction
 from sympy.core.numbers import I as I, pi as pi
 from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy
@@ -13,7 +13,7 @@ from sympy.functions.elementary.trigonometric import cos as cos, cot as cot, sin
 
 _x: Incomplete
 
-class Ynm(Function):
+class Ynm(DefinedFunction):
     '''
     Spherical harmonics defined as
 
@@ -186,7 +186,7 @@ def Ynm_c(n, m, theta, phi):
 
     '''
 
-class Znm(Function):
+class Znm(DefinedFunction):
     '''
     Real spherical harmonics defined as
 

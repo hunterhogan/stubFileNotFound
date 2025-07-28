@@ -256,7 +256,7 @@ class HolonomicFunction:
     x0: Incomplete
     annihilator: Incomplete
     x: Incomplete
-    def __init__(self, annihilator, x, x0: int = 0, y0: Incomplete | None = None) -> None:
+    def __init__(self, annihilator, x, x0: int = 0, y0=None) -> None:
         """
 
         Parameters
@@ -430,7 +430,7 @@ class HolonomicFunction:
 
         """
     def _frobenius(self, lb: bool = True): ...
-    def series(self, n: int = 6, coefficient: bool = False, order: bool = True, _recur: Incomplete | None = None):
+    def series(self, n: int = 6, coefficient: bool = False, order: bool = True, _recur=None):
         """
         Finds the power series expansion of given holonomic function about :math:`x_0`.
 
@@ -516,7 +516,7 @@ class HolonomicFunction:
         """
         Substitute `x + a` for `x`.
         """
-    def to_hyper(self, as_list: bool = False, _recur: Incomplete | None = None):
+    def to_hyper(self, as_list: bool = False, _recur=None):
         """
         Returns a hypergeometric function (or linear combination of them)
         representing the given holonomic function.
@@ -568,7 +568,7 @@ class HolonomicFunction:
         x*log(x + 1) + log(x + 1) + 1
 
         """
-    def change_ics(self, b, lenics: Incomplete | None = None):
+    def change_ics(self, b, lenics=None):
         """
         Changes the point `x0` to ``b`` for initial conditions.
 
@@ -641,7 +641,7 @@ x_1: Incomplete
 _lookup_table: Incomplete
 domain_for_table: Incomplete
 
-def expr_to_holonomic(func, x: Incomplete | None = None, x0: int = 0, y0: Incomplete | None = None, lenics: Incomplete | None = None, domain: Incomplete | None = None, initcond: bool = True):
+def expr_to_holonomic(func, x=None, x0: int = 0, y0=None, lenics=None, domain=None, initcond: bool = True):
     """
     Converts a function or an expression to a holonomic function.
 
@@ -709,7 +709,7 @@ def _extend_y0(Holonomic, n):
     """
 def DMFdiff(frac, K): ...
 def DMFsubs(frac, x0, mpm: bool = False): ...
-def _convert_poly_rat_alg(func, x, x0: int = 0, y0: Incomplete | None = None, lenics: Incomplete | None = None, domain=..., initcond: bool = True):
+def _convert_poly_rat_alg(func, x, x0: int = 0, y0=None, lenics=None, domain=..., initcond: bool = True):
     """
     Converts polynomials, rationals and algebraic functions to holonomic.
     """
@@ -719,4 +719,4 @@ def _create_table(table, domain=...) -> None:
     Creates the look-up table. For a similar implementation
     see meijerint._create_lookup_table.
     """
-def _find_conditions(func, x, x0, order): ...
+def _find_conditions(func, x, x0, order, evalf: bool = False, use_limit: bool = True): ...

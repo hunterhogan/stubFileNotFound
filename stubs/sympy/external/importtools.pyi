@@ -8,7 +8,7 @@ def __sympy_debug(): ...
 _component_re: Incomplete
 
 def version_tuple(vstring): ...
-def import_module(module, min_module_version: Incomplete | None = None, min_python_version: Incomplete | None = None, warn_not_installed: Incomplete | None = None, warn_old_version: Incomplete | None = None, module_version_attr: str = '__version__', module_version_attr_call_args: Incomplete | None = None, import_kwargs={}, catch=()):
+def import_module(module, min_module_version=None, min_python_version=None, warn_not_installed=None, warn_old_version=None, module_version_attr: str = '__version__', module_version_attr_call_args=None, import_kwargs={}, catch=()):
     """
     Import and return a module if it is installed.
 

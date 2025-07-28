@@ -1,8 +1,9 @@
-from _typeshed import Incomplete
+from sympy.utilities.decorator import public
 
 __all__ = ['round_two']
 
-def round_two(T, radicals: Incomplete | None = None):
+@public
+def round_two(T, radicals=None):
     '''
     Zassenhaus\'s "Round 2" algorithm.
 

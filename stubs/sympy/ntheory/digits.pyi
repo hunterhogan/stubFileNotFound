@@ -1,8 +1,7 @@
-from _typeshed import Incomplete
 from sympy.utilities.iterables import multiset as multiset
 from sympy.utilities.misc import as_int as as_int
 
-def digits(n, b: int = 10, digits: Incomplete | None = None):
+def digits(n, b: int = 10, digits=None):
     """
     Return a list of the digits of ``n`` in base ``b``. The first
     element in the list is ``b`` (or ``-b`` if ``n`` is negative).

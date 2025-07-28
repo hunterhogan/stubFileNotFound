@@ -8,7 +8,6 @@ from sympy.physics.quantum.dagger import Dagger as Dagger
 from sympy.physics.quantum.matrixutils import numpy_ndarray as numpy_ndarray, scipy_sparse_matrix as scipy_sparse_matrix, to_numpy as to_numpy
 from sympy.physics.quantum.operator import HermitianOperator as HermitianOperator
 from sympy.physics.quantum.represent import represent as represent
-from sympy.physics.quantum.tensorproduct import TensorProduct as TensorProduct, tensor_product_simp as tensor_product_simp
 from sympy.physics.quantum.trace import Tr as Tr
 from sympy.printing.pretty.stringpict import prettyForm as prettyForm
 

@@ -25,7 +25,7 @@ def rebuild(s):
 
     This removes harm caused by Expr-Rules interactions.
     """
-def unify(x, y, s: Incomplete | None = None, variables=(), **kwargs) -> Generator[Incomplete, None, Incomplete]:
+def unify(x, y, s=None, variables=(), **kwargs) -> Generator[Incomplete, None, Incomplete]:
     """ Structural unification of two expressions/patterns.
 
     Examples

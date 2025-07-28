@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
-from sympy import atan as atan, cos as cos, diff as diff, pi as pi, sin as sin
-from sympy.core.symbol import Symbol as Symbol
+from sympy import Piecewise as Piecewise, atan as atan, cos as cos, diff as diff, pi as pi, rad as rad, sin as sin, solve as solve
+from sympy.core.symbol import Symbol as Symbol, symbols as symbols
 from sympy.core.sympify import sympify as sympify
 from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.matrices import Matrix as Matrix
+from sympy.plotting import plot as plot
 from sympy.solvers.solveset import linsolve as linsolve
 
 class Cable:
@@ -43,6 +44,9 @@ class Cable:
     _reaction_loads: Incomplete
     _tension: Incomplete
     _lowest_x_global: Incomplete
+    _lowest_y_global: Incomplete
+    _cable_eqn: Incomplete
+    _tension_func: Incomplete
     def __init__(self, support_1, support_2) -> None:
         """
         Initializes the class.
@@ -286,11 +290,83 @@ class Cable:
         >>> from sympy.physics.continuum_mechanics.cable import Cable
         >>> c=Cable(("A", 0, 40),("B", 100, 20))
         >>> c.apply_load(0, ("X", 850))
-        >>> c.solve(58.58, 0)
+        >>> c.solve(58.58)
         >>> c.tension
-        {\'distributed\': 36456.8485*sqrt(0.000543529004799705*(X + 0.00135624381275735)**2 + 1)}
+        {\'distributed\': 36465.0*sqrt(0.00054335718671383*X**2 + 1)}
         >>> c.tension_at(0)
-        61709.0363315913
+        61717.4130533677
         >>> c.reaction_loads
-        {R_A_x: 36456.8485, R_A_y: -49788.5866682485, R_B_x: 44389.8401587246, R_B_y: 42866.621696333}
+        {R_A_x: 36465.0, R_A_y: -49793.0, R_B_x: 44399.9537590861, R_B_y: 42868.2071025955}
+        '''
+    def draw(self):
+        '''
+        This method is used to obtain a plot for the specified cable with its supports,
+        shape and loads.
+
+        Examples
+        ========
+
+        For point loads,
+
+        >>> from sympy.physics.continuum_mechanics.cable import Cable
+        >>> c = Cable(("A", 0, 10), ("B", 10, 10))
+        >>> c.apply_load(-1, (\'Z\', 2, 7.26, 3, 270))
+        >>> c.apply_load(-1, (\'X\', 4, 6, 8, 270))
+        >>> c.solve()
+        >>> p = c.draw()
+        >>> p  # doctest: +ELLIPSIS
+        Plot object containing:
+        [0]: cartesian line: Piecewise((10 - 1.37*x, x <= 2), (8.52 - 0.63*x, x <= 4), (2*x/3 + 10/3, x <= 10)) for x over (0.0, 10.0)
+        ...
+        >>> p.show()
+
+        For uniformly distributed loads,
+
+        >>> from sympy.physics.continuum_mechanics.cable import Cable
+        >>> c=Cable(("A", 0, 40),("B", 100, 20))
+        >>> c.apply_load(0, ("X", 850))
+        >>> c.solve(58.58)
+        >>> p = c.draw()
+        >>> p # doctest: +ELLIPSIS
+        Plot object containing:
+        [0]: cartesian line: 0.0116550116550117*(x - 58.58)**2 + 0.00447086247086247 for x over (0.0, 100.0)
+        [1]: cartesian line: -7.49552913752915 for x over (0.0, 100.0)
+        ...
+        >>> p.show()
+        '''
+    def _draw_supports(self): ...
+    def _draw_cable(self, order): ...
+    def _draw_loads(self, order): ...
+    def plot_tension(self):
+        '''
+        Returns the diagram/plot of the tension generated in the cable at various points.
+
+        Examples
+        ========
+
+        For point loads,
+
+        >>> from sympy.physics.continuum_mechanics.cable import Cable
+        >>> c = Cable(("A", 0, 10), ("B", 10, 10))
+        >>> c.apply_load(-1, (\'Z\', 2, 7.26, 3, 270))
+        >>> c.apply_load(-1, (\'X\', 4, 6, 8, 270))
+        >>> c.solve()
+        >>> p = c.plot_tension()
+        >>> p
+        Plot object containing:
+        [0]: cartesian line: Piecewise((8.91403453669861, x <= 2), (4.79150773600774, x <= 4), (19*sqrt(13)/10, x <= 10)) for x over (0.0, 10.0)
+        >>> p.show()
+
+        For uniformly distributed loads,
+
+        >>> from sympy.physics.continuum_mechanics.cable import Cable
+        >>> c=Cable(("A", 0, 40),("B", 100, 20))
+        >>> c.apply_load(0, ("X", 850))
+        >>> c.solve(58.58)
+        >>> p = c.plot_tension()
+        >>> p
+        Plot object containing:
+        [0]: cartesian line: 36465.0*sqrt(0.00054335718671383*X**2 + 1) for X over (0.0, 100.0)
+        >>> p.show()
+
         '''

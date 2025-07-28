@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Callable
+from typing import Callable
 
 class _cache(list):
     """ List of cached functions """
@@ -36,7 +36,7 @@ def __cacheit(maxsize):
 def __cacheit_nocache(func): ...
 def __cacheit_debug(maxsize):
     """cacheit + code to check cache consistency"""
-def _getenv(key, default: Incomplete | None = None): ...
+def _getenv(key, default=None): ...
 
 USE_CACHE: Incomplete
 scs: Incomplete

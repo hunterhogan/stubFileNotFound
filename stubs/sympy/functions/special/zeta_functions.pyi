@@ -1,7 +1,7 @@
-from _typeshed import Incomplete
 from sympy.core.add import Add as Add
 from sympy.core.cache import cacheit as cacheit
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function, expand_mul as expand_mul
+from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, expand_mul as expand_mul
+from sympy.core.logic import fuzzy_not as fuzzy_not
 from sympy.core.numbers import I as I, Integer as Integer, pi as pi
 from sympy.core.relational import Eq as Eq
 from sympy.core.singleton import S as S
@@ -15,7 +15,7 @@ from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.functions.elementary.piecewise import Piecewise as Piecewise
 from sympy.polys.polytools import Poly as Poly
 
-class lerchphi(Function):
+class lerchphi(DefinedFunction):
     """
     Lerch transcendent (Lerch phi function).
 
@@ -126,7 +126,7 @@ class lerchphi(Function):
     def _eval_rewrite_as_zeta(self, z, s, a, **kwargs): ...
     def _eval_rewrite_as_polylog(self, z, s, a, **kwargs): ...
 
-class polylog(Function):
+class polylog(DefinedFunction):
     """
     Polylogarithm function.
 
@@ -203,7 +203,7 @@ class polylog(Function):
     def _eval_is_zero(self): ...
     def _eval_nseries(self, x, n, logx, cdir: int = 0): ...
 
-class zeta(Function):
+class zeta(DefinedFunction):
     """
     Hurwitz zeta function (or Riemann zeta function).
 
@@ -310,16 +310,16 @@ class zeta(Function):
 
     """
     @classmethod
-    def eval(cls, s, a: Incomplete | None = None): ...
+    def eval(cls, s, a=None): ...
     def _eval_rewrite_as_bernoulli(self, s, a: int = 1, **kwargs): ...
     def _eval_rewrite_as_dirichlet_eta(self, s, a: int = 1, **kwargs): ...
     def _eval_rewrite_as_lerchphi(self, s, a: int = 1, **kwargs): ...
     def _eval_is_finite(self): ...
     def _eval_expand_func(self, **hints): ...
     def fdiff(self, argindex: int = 1): ...
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0): ...
+    def _eval_as_leading_term(self, x, logx, cdir): ...
 
-class dirichlet_eta(Function):
+class dirichlet_eta(DefinedFunction):
     '''
     Dirichlet eta function.
 
@@ -366,12 +366,12 @@ class dirichlet_eta(Function):
 
     '''
     @classmethod
-    def eval(cls, s, a: Incomplete | None = None): ...
+    def eval(cls, s, a=None): ...
     def _eval_rewrite_as_zeta(self, s, a: int = 1, **kwargs): ...
     def _eval_rewrite_as_genocchi(self, s, a=..., **kwargs): ...
     def _eval_evalf(self, prec): ...
 
-class riemann_xi(Function):
+class riemann_xi(DefinedFunction):
     """
     Riemann Xi function.
 
@@ -397,7 +397,7 @@ class riemann_xi(Function):
     def eval(cls, s): ...
     def _eval_rewrite_as_zeta(self, s, **kwargs): ...
 
-class stieltjes(Function):
+class stieltjes(DefinedFunction):
     """
     Represents Stieltjes constants, $\\gamma_{k}$ that occur in
     Laurent Series expansion of the Riemann zeta function.
@@ -434,6 +434,7 @@ class stieltjes(Function):
 
     """
     @classmethod
-    def eval(cls, n, a: Incomplete | None = None): ...
+    def eval(cls, n, a=None): ...
 
+@cacheit
 def _dilogtable(): ...

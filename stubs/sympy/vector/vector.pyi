@@ -1,5 +1,4 @@
-from _typeshed import Incomplete
-from sympy.core.add import Add as Add
+from sympy.core import Add as Add, Basic as Basic
 from sympy.core.assumptions import StdFactKB as StdFactKB
 from sympy.core.expr import AtomicExpr as AtomicExpr, Expr as Expr
 from sympy.core.power import Pow as Pow
@@ -10,6 +9,7 @@ from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.vector.basisdependent import BasisDependent as BasisDependent, BasisDependentAdd as BasisDependentAdd, BasisDependentMul as BasisDependentMul, BasisDependentZero as BasisDependentZero
 from sympy.vector.coordsysrect import CoordSys3D as CoordSys3D
 from sympy.vector.dyadic import BaseDyadic as BaseDyadic, Dyadic as Dyadic, DyadicAdd as DyadicAdd
+from sympy.vector.kind import VectorKind as VectorKind
 
 class Vector(BasisDependent):
     """
@@ -26,6 +26,7 @@ class Vector(BasisDependent):
     _zero_func: type[Vector]
     _base_func: type[Vector]
     zero: VectorZero
+    kind: VectorKind
     @property
     def components(self):
         """
@@ -50,6 +51,69 @@ class Vector(BasisDependent):
     def normalize(self):
         """
         Returns the normalized version of this vector.
+        """
+    def equals(self, other):
+        """
+        Check if ``self`` and ``other`` are identically equal vectors.
+
+        Explanation
+        ===========
+
+        Checks if two vector expressions are equal for all possible values of
+        the symbols present in the expressions.
+
+        Examples
+        ========
+
+        >>> from sympy.vector import CoordSys3D
+        >>> from sympy.abc import x, y
+        >>> from sympy import pi
+        >>> C = CoordSys3D('C')
+
+        Compare vectors that are equal or not:
+
+        >>> C.i.equals(C.j)
+        False
+        >>> C.i.equals(C.i)
+        True
+
+        These two vectors are equal if `x = y` but are not identically equal
+        as expressions since for some values of `x` and `y` they are unequal:
+
+        >>> v1 = x*C.i + C.j
+        >>> v2 = y*C.i + C.j
+        >>> v1.equals(v1)
+        True
+        >>> v1.equals(v2)
+        False
+
+        Vectors from different coordinate systems can be compared:
+
+        >>> D = C.orient_new_axis('D', pi/2, C.i)
+        >>> D.j.equals(C.j)
+        False
+        >>> D.j.equals(C.k)
+        True
+
+        Parameters
+        ==========
+
+        other: Vector
+            The other vector expression to compare with.
+
+        Returns
+        =======
+
+        ``True``, ``False`` or ``None``. A return value of ``True`` indicates
+        that the two vectors are identically equal. A return value of ``False``
+        indicates that they are not. In some cases it is not possible to
+        determine if the two vectors are identically equal and ``None`` is
+        returned.
+
+        See Also
+        ========
+
+        sympy.core.expr.Expr.equals
         """
     def dot(self, other):
         """
@@ -229,18 +293,21 @@ class Vector(BasisDependent):
     def _div_helper(one, other):
         """ Helper for division involving vectors. """
 
+def get_postprocessor(cls): ...
+
 class BaseVector(Vector, AtomicExpr):
     """
     Class to denote a base vector.
 
     """
-    def __new__(cls, index, system, pretty_str: Incomplete | None = None, latex_str: Incomplete | None = None): ...
+    def __new__(cls, index, system, pretty_str=None, latex_str=None): ...
     @property
     def system(self): ...
     def _sympystr(self, printer): ...
     def _sympyrepr(self, printer): ...
     @property
     def free_symbols(self): ...
+    def _eval_conjugate(self): ...
 
 class VectorAdd(BasisDependentAdd, Vector):
     """

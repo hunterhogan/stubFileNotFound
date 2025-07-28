@@ -255,7 +255,7 @@ class DDM(list):
         """
     def iter_values(self) -> Generator[Incomplete, Incomplete]:
         """
-        Iterater over the non-zero values of the matrix.
+        Iterate over the non-zero values of the matrix.
 
         Examples
         ========
@@ -518,7 +518,7 @@ class DDM(list):
         rref
         sympy.polys.matrices.domainmatrix.DomainMatrix.nullspace
         """
-    def nullspace_from_rref(a, pivots: Incomplete | None = None):
+    def nullspace_from_rref(a, pivots=None):
         """Compute the nullspace of a matrix from its rref.
 
         The domain of the matrix can be any domain.
@@ -538,6 +538,39 @@ class DDM(list):
         """Inverse of a"""
     def lu(a):
         """L, U decomposition of a"""
+    def _fflu(self):
+        """
+        Private method for Phase 1 of fraction-free LU decomposition.
+        Performs row operations and elimination to compute U and permutation indices.
+
+        Returns:
+            LU : decomposition as a single matrix.
+            perm (list): Permutation indices for row swaps.
+        """
+    def fflu(self):
+        """
+        Fraction-free LU decomposition of DDM.
+
+        See Also
+        ========
+
+        sympy.polys.matrices.domainmatrix.DomainMatrix.fflu
+            The higher-level interface to this function.
+        """
+    def qr(self):
+        """
+        QR decomposition for DDM.
+
+        Returns:
+            - Q: Orthogonal matrix as a DDM.
+            - R: Upper triangular matrix as a DDM.
+
+        See Also
+        ========
+
+        sympy.polys.matrices.domainmatrix.DomainMatrix.qr
+            The higher-level interface to this function.
+        """
     def lu_solve(a, b):
         """x where a*x = b"""
     def charpoly(a):

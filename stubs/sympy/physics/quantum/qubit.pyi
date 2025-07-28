@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.physics.quantum.state import Bra, Ket, State
 
 __all__ = ['Qubit', 'QubitBra', 'IntQubit', 'IntQubitBra', 'qubit_to_matrix', 'matrix_to_qubit', 'matrix_to_density', 'measure_all', 'measure_partial', 'measure_partial_oneshot', 'measure_all_oneshot']
@@ -114,7 +113,7 @@ class QubitBra(QubitState, Bra):
 class IntQubitState(QubitState):
     """A base class for qubits that work with binary representations."""
     @classmethod
-    def _eval_args(cls, args, nqubits: Incomplete | None = None): ...
+    def _eval_args(cls, args, nqubits=None): ...
     @classmethod
     def _eval_args_with_nqubits(cls, number, nqubits): ...
     def as_int(self):

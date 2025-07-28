@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Iterable, Mapping
 from sympy.core.basic import Basic as Basic
 from sympy.core.containers import Tuple as Tuple, TupleKind as TupleKind
 from sympy.core.decorators import sympify_method_args as sympify_method_args, sympify_return as sympify_return
@@ -22,9 +23,7 @@ from sympy.utilities.decorator import deprecated as deprecated
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.iterables import iproduct as iproduct, iterable as iterable, roundrobin as roundrobin, sift as sift, subsets as subsets
 from sympy.utilities.misc import filldedent as filldedent, func_name as func_name
-from typing import Any
-
-from collections.abc import Callable
+from typing import Any, Callable, overload
 
 tfn: Incomplete
 
@@ -42,7 +41,7 @@ class Set(Basic, EvalfMixin):
     sets by the :class:`Union` class. The empty set is represented by the
     :class:`EmptySet` class and available as a singleton as ``S.EmptySet``.
     """
-    __slots__: Incomplete
+    __slots__: tuple[()]
     is_number: bool
     is_iterable: bool
     is_interval: bool
@@ -58,6 +57,22 @@ class Set(Basic, EvalfMixin):
     is_finite_set: FuzzyBool
     @property
     def is_EmptySet(self) -> None: ...
+    def __new__(cls, *args: Basic | complex) -> Set: ...
+    @overload
+    def subs(self, arg1: Mapping[Basic | complex, Set | complex], arg2: None = None) -> Set: ...
+    @overload
+    def subs(self, arg1: Iterable[tuple[Basic | complex, Set | complex]], arg2: None = None, **kwargs: Any) -> Set: ...
+    @overload
+    def subs(self, arg1: Set | complex, arg2: Set | complex) -> Set: ...
+    @overload
+    def subs(self, arg1: Mapping[Basic | complex, Basic | complex], arg2: None = None, **kwargs: Any) -> Basic: ...
+    @overload
+    def subs(self, arg1: Iterable[tuple[Basic | complex, Basic | complex]], arg2: None = None, **kwargs: Any) -> Basic: ...
+    @overload
+    def subs(self, arg1: Basic | complex, arg2: Basic | complex, **kwargs: Any) -> Basic: ...
+    def simplify(self, **kwargs) -> Set: ...
+    def evalf(self, n: int = 15, subs: dict[Basic, Basic | float] | None = None, maxn: int = 100, chop: bool = False, strict: bool = False, quad: str | None = None, verbose: bool = False) -> Set: ...
+    n = evalf
     @staticmethod
     def _infimum_key(expr):
         """
@@ -922,7 +937,7 @@ class Intersection(Set, LatticeOp):
     def identity(self): ...
     @property
     def zero(self): ...
-    def __new__(cls, *args, evaluate: Incomplete | None = None): ...
+    def __new__(cls, *args, evaluate=None): ...
     @property
     def args(self): ...
     @property
@@ -1389,5 +1404,5 @@ class SetKind(Kind):
     sympy.matrices.kind.MatrixKind
     sympy.core.containers.TupleKind
     """
-    def __new__(cls, element_kind: Incomplete | None = None): ...
+    def __new__(cls, element_kind=None): ...
     def __repr__(self) -> str: ...

@@ -21,9 +21,9 @@ def get_abspath(path, cwd: str = '.'):
     """
 def make_dirs(path) -> None:
     """ Create directories (equivalent of ``mkdir -p``). """
-def missing_or_other_newer(path, other_path, cwd: Incomplete | None = None):
+def missing_or_other_newer(path, other_path, cwd=None):
     """
-    Investigate if path is non-existant or older than provided reference
+    Investigate if path is non-existent or older than provided reference
     path.
 
     Parameters
@@ -39,7 +39,7 @@ def missing_or_other_newer(path, other_path, cwd: Incomplete | None = None):
     =======
     True if path is older or missing.
     """
-def copy(src, dst, only_update: bool = False, copystat: bool = True, cwd: Incomplete | None = None, dest_is_dir: bool = False, create_dest_dirs: bool = False):
+def copy(src, dst, only_update: bool = False, copystat: bool = True, cwd=None, dest_is_dir: bool = False, create_dest_dirs: bool = False):
     """ Variation of ``shutil.copy`` with extra options.
 
     Parameters
@@ -74,7 +74,7 @@ class Glob(NamedTuple):
 class ArbitraryDepthGlob(NamedTuple):
     filename: Incomplete
 
-def glob_at_depth(filename_glob, cwd: Incomplete | None = None): ...
+def glob_at_depth(filename_glob, cwd=None): ...
 def sha256_of_file(path, nblocks: int = 128):
     """ Computes the SHA256 hash of a file.
 
@@ -102,7 +102,7 @@ def pyx_is_cplus(path):
 
     Returns True if such a file is present in the file, else False.
     """
-def import_module_from_file(filename, only_if_newer_than: Incomplete | None = None):
+def import_module_from_file(filename, only_if_newer_than=None):
     """ Imports Python extension (from shared object file)
 
     Provide a list of paths in `only_if_newer_than` to check

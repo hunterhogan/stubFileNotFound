@@ -7,6 +7,7 @@ from sympy.polys.domains.field import Field as Field
 from sympy.polys.domains.integerring import ZZ as ZZ
 from sympy.polys.domains.rationalfield import QQ as QQ
 from sympy.polys.domains.ring import Ring as Ring
+from sympy.polys.polyclasses import DMP as DMP
 from sympy.polys.polyerrors import CoercionFailed as CoercionFailed
 
 class GaussianElement(DomainElement):
@@ -217,6 +218,7 @@ class GaussianIntegerRing(GaussianDomain, Ring):
 
     """
     dom = ZZ
+    mod: Incomplete
     dtype = GaussianInteger
     zero: Incomplete
     one: Incomplete
@@ -225,6 +227,7 @@ class GaussianIntegerRing(GaussianDomain, Ring):
     rep: str
     is_GaussianRing: bool
     is_ZZ_I: bool
+    is_PID: bool
     def __init__(self) -> None:
         """For constructing ZZ_I."""
     def __eq__(self, other):
@@ -245,6 +248,8 @@ class GaussianIntegerRing(GaussianDomain, Ring):
         """
     def gcd(self, a, b):
         """Greatest common divisor of a and b over ZZ_I."""
+    def gcdex(self, a, b):
+        """Return x, y, g such that x * a + y * b = g = gcd(a, b)"""
     def lcm(self, a, b):
         """Least common multiple of a and b over ZZ_I."""
     def from_GaussianIntegerRing(K1, a, K0):
@@ -372,6 +377,7 @@ class GaussianRationalField(GaussianDomain, Field):
     .. _Gaussian rationals: https://en.wikipedia.org/wiki/Gaussian_rational
     """
     dom = QQ
+    mod: Incomplete
     dtype = GaussianRational
     zero: Incomplete
     one: Incomplete

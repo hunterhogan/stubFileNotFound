@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core import Add as Add, Mul as Mul, S as S
 from sympy.core.assumptions import StdFactKB as StdFactKB
 from sympy.core.decorators import _sympifyit as _sympifyit, call_highest_priority as call_highest_priority
@@ -23,7 +22,7 @@ class BasisDependent(Expr):
     def __neg__(self): ...
     def __truediv__(self, other): ...
     def __rtruediv__(self, other): ...
-    def evalf(self, n: int = 15, subs: Incomplete | None = None, maxn: int = 100, chop: bool = False, strict: bool = False, quad: Incomplete | None = None, verbose: bool = False):
+    def evalf(self, n: int = 15, subs=None, maxn: int = 100, chop: bool = False, strict: bool = False, quad=None, verbose: bool = False):
         """
         Implements the SymPy evalf routine for this quantity.
 
@@ -96,6 +95,9 @@ class BasisDependentMul(BasisDependent, Mul):
     Denotes product of base- basis dependent quantity with a scalar.
     """
     def __new__(cls, *args, **options): ...
+    def _new_rawargs(self, *args): ...
+    @classmethod
+    def _new(cls, *args, **options): ...
     def _sympystr(self, printer): ...
 
 class BasisDependentZero(BasisDependent):

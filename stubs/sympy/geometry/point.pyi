@@ -1,5 +1,4 @@
 from .entity import GeometryEntity as GeometryEntity
-from _typeshed import Incomplete
 from sympy.core import Expr as Expr, S as S, sympify as sympify
 from sympy.core.add import Add as Add
 from sympy.core.containers import Tuple as Tuple
@@ -11,7 +10,7 @@ from sympy.functions.elementary.trigonometric import cos as cos, sin as sin
 from sympy.geometry.exceptions import GeometryError as GeometryError
 from sympy.matrices import Matrix as Matrix
 from sympy.matrices.expressions import Transpose as Transpose
-from sympy.simplify import nsimplify as nsimplify, simplify as simplify
+from sympy.simplify.simplify import nsimplify as nsimplify, simplify as simplify
 from sympy.utilities.iterables import is_sequence as is_sequence, uniq as uniq
 from sympy.utilities.misc import Undecidable as Undecidable, filldedent as filldedent, func_name as func_name
 
@@ -620,7 +619,7 @@ class Point2D(Point):
         rectangle for the geometric figure.
 
         """
-    def rotate(self, angle, pt: Incomplete | None = None):
+    def rotate(self, angle, pt=None):
         """Rotate ``angle`` radians counterclockwise about Point ``pt``.
 
         See Also
@@ -639,7 +638,7 @@ class Point2D(Point):
         Point2D(2, -1)
 
         """
-    def scale(self, x: int = 1, y: int = 1, pt: Incomplete | None = None):
+    def scale(self, x: int = 1, y: int = 1, pt=None):
         """Scale the coordinates of the Point by multiplying by
         ``x`` and ``y`` after subtracting ``pt`` -- default is (0, 0) --
         and then adding ``pt`` back again (i.e. ``pt`` is the point of
@@ -888,7 +887,7 @@ class Point3D(Point):
         [Point3D(0, 0, 0)]
 
         """
-    def scale(self, x: int = 1, y: int = 1, z: int = 1, pt: Incomplete | None = None):
+    def scale(self, x: int = 1, y: int = 1, z: int = 1, pt=None):
         """Scale the coordinates of the Point by multiplying by
         ``x`` and ``y`` after subtracting ``pt`` -- default is (0, 0) --
         and then adding ``pt`` back again (i.e. ``pt`` is the point of

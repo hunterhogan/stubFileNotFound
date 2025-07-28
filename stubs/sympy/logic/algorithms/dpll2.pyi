@@ -47,7 +47,7 @@ class SATSolver:
     num_learned_clauses: int
     original_num_clauses: Incomplete
     lra: Incomplete
-    def __init__(self, clauses, variables, var_settings, symbols: Incomplete | None = None, heuristic: str = 'vsids', clause_learning: str = 'none', INTERVAL: int = 500, lra_theory: Incomplete | None = None) -> None: ...
+    def __init__(self, clauses, variables, var_settings, symbols=None, heuristic: str = 'vsids', clause_learning: str = 'none', INTERVAL: int = 500, lra_theory=None) -> None: ...
     sentinels: Incomplete
     occurrence_count: Incomplete
     variable_set: Incomplete

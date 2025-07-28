@@ -69,7 +69,7 @@ class Quaternion(Expr):
     """
     _op_priority: float
     is_commutative: bool
-    def __new__(cls, a: int = 0, b: int = 0, c: int = 0, d: int = 0, real_field: bool = True, norm: Incomplete | None = None): ...
+    def __new__(cls, a: int = 0, b: int = 0, c: int = 0, d: int = 0, real_field: bool = True, norm=None): ...
     _norm: Incomplete
     def set_norm(self, norm) -> None:
         """Sets norm of an already instantiated quaternion.
@@ -777,7 +777,7 @@ class Quaternion(Expr):
         2*pi/3
 
         """
-    def to_rotation_matrix(self, v: Incomplete | None = None, homogeneous: bool = True):
+    def to_rotation_matrix(self, v=None, homogeneous: bool = True):
         """Returns the equivalent rotation transformation matrix of the quaternion
         which represents rotation about the origin if ``v`` is not passed.
 

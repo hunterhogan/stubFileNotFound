@@ -83,13 +83,13 @@ def _mobius_to_interval(M, field):
     """Convert a Mobius transform to an open interval. """
 def dup_step_refine_real_root(f, M, K, fast: bool = False):
     """One step of positive real root refinement algorithm. """
-def dup_inner_refine_real_root(f, M, K, eps: Incomplete | None = None, steps: Incomplete | None = None, disjoint: Incomplete | None = None, fast: bool = False, mobius: bool = False):
+def dup_inner_refine_real_root(f, M, K, eps=None, steps=None, disjoint=None, fast: bool = False, mobius: bool = False):
     """Refine a positive root of `f` given a Mobius transform or an interval. """
-def dup_outer_refine_real_root(f, s, t, K, eps: Incomplete | None = None, steps: Incomplete | None = None, disjoint: Incomplete | None = None, fast: bool = False):
+def dup_outer_refine_real_root(f, s, t, K, eps=None, steps=None, disjoint=None, fast: bool = False):
     """Refine a positive root of `f` given an interval `(s, t)`. """
-def dup_refine_real_root(f, s, t, K, eps: Incomplete | None = None, steps: Incomplete | None = None, disjoint: Incomplete | None = None, fast: bool = False):
+def dup_refine_real_root(f, s, t, K, eps=None, steps=None, disjoint=None, fast: bool = False):
     """Refine real root's approximating interval to the given precision. """
-def dup_inner_isolate_real_roots(f, K, eps: Incomplete | None = None, fast: bool = False):
+def dup_inner_isolate_real_roots(f, K, eps=None, fast: bool = False):
     """Internal function for isolation positive roots up to given precision.
 
        References
@@ -102,13 +102,13 @@ def dup_inner_isolate_real_roots(f, K, eps: Incomplete | None = None, fast: bool
     """
 def _discard_if_outside_interval(f, M, inf, sup, K, negative, fast, mobius):
     """Discard an isolating interval if outside ``(inf, sup)``. """
-def dup_inner_isolate_positive_roots(f, K, eps: Incomplete | None = None, inf: Incomplete | None = None, sup: Incomplete | None = None, fast: bool = False, mobius: bool = False):
+def dup_inner_isolate_positive_roots(f, K, eps=None, inf=None, sup=None, fast: bool = False, mobius: bool = False):
     """Iteratively compute disjoint positive root isolation intervals. """
-def dup_inner_isolate_negative_roots(f, K, inf: Incomplete | None = None, sup: Incomplete | None = None, eps: Incomplete | None = None, fast: bool = False, mobius: bool = False):
+def dup_inner_isolate_negative_roots(f, K, inf=None, sup=None, eps=None, fast: bool = False, mobius: bool = False):
     """Iteratively compute disjoint negative root isolation intervals. """
 def _isolate_zero(f, K, inf, sup, basis: bool = False, sqf: bool = False):
     """Handle special case of CF algorithm when ``f`` is homogeneous. """
-def dup_isolate_real_roots_sqf(f, K, eps: Incomplete | None = None, inf: Incomplete | None = None, sup: Incomplete | None = None, fast: bool = False, blackbox: bool = False):
+def dup_isolate_real_roots_sqf(f, K, eps=None, inf=None, sup=None, fast: bool = False, blackbox: bool = False):
     """Isolate real roots of a square-free polynomial using the Vincent-Akritas-Strzebonski (VAS) CF approach.
 
        References
@@ -122,7 +122,7 @@ def dup_isolate_real_roots_sqf(f, K, eps: Incomplete | None = None, inf: Incompl
               Modelling and Control, Vol. 13, No. 3, 265-279, 2008.
 
     """
-def dup_isolate_real_roots(f, K, eps: Incomplete | None = None, inf: Incomplete | None = None, sup: Incomplete | None = None, basis: bool = False, fast: bool = False):
+def dup_isolate_real_roots(f, K, eps=None, inf=None, sup=None, basis: bool = False, fast: bool = False):
     """Isolate real roots using Vincent-Akritas-Strzebonski (VAS) continued fractions approach.
 
        References
@@ -137,8 +137,8 @@ def dup_isolate_real_roots(f, K, eps: Incomplete | None = None, inf: Incomplete 
               Nonlinear Analysis: Modelling and Control, Vol. 13, No. 3, 265-279, 2008.
 
     """
-def dup_isolate_real_roots_list(polys, K, eps: Incomplete | None = None, inf: Incomplete | None = None, sup: Incomplete | None = None, strict: bool = False, basis: bool = False, fast: bool = False):
-    """Isolate real roots of a list of square-free polynomial using Vincent-Akritas-Strzebonski (VAS) CF approach.
+def dup_isolate_real_roots_list(polys, K, eps=None, inf=None, sup=None, strict: bool = False, basis: bool = False, fast: bool = False):
+    """Isolate real roots of a list of polynomial using Vincent-Akritas-Strzebonski (VAS) CF approach.
 
        References
        ==========
@@ -154,9 +154,9 @@ def dup_isolate_real_roots_list(polys, K, eps: Incomplete | None = None, inf: In
     """
 def _disjoint_p(M, N, strict: bool = False):
     """Check if Mobius transforms define disjoint intervals. """
-def _real_isolate_and_disjoin(factors, K, eps: Incomplete | None = None, inf: Incomplete | None = None, sup: Incomplete | None = None, strict: bool = False, basis: bool = False, fast: bool = False):
+def _real_isolate_and_disjoin(factors, K, eps=None, inf=None, sup=None, strict: bool = False, basis: bool = False, fast: bool = False):
     """Isolate real roots of a list of polynomials and disjoin intervals. """
-def dup_count_real_roots(f, K, inf: Incomplete | None = None, sup: Incomplete | None = None):
+def dup_count_real_roots(f, K, inf=None, sup=None):
     """Returns the number of distinct real roots of ``f`` in ``[inf, sup]``. """
 
 OO: str
@@ -176,13 +176,13 @@ def _classify_point(re, im):
     """Return the half-axis (or origin) on which (re, im) point is located. """
 def _intervals_to_quadrants(intervals, f1, f2, s, t, F):
     """Generate a sequence of extended quadrants from a list of critical points. """
-def _traverse_quadrants(Q_L1, Q_L2, Q_L3, Q_L4, exclude: Incomplete | None = None):
+def _traverse_quadrants(Q_L1, Q_L2, Q_L3, Q_L4, exclude=None):
     """Transform sequences of quadrants to a sequence of rules. """
 def _reverse_intervals(intervals):
     """Reverse intervals for traversal from right to left and from top to bottom. """
 def _winding_number(T, field):
     """Compute the winding number of the input polynomial, i.e. the number of roots. """
-def dup_count_complex_roots(f, K, inf: Incomplete | None = None, sup: Incomplete | None = None, exclude: Incomplete | None = None):
+def dup_count_complex_roots(f, K, inf=None, sup=None, exclude=None):
     """Count all roots in [u + v*I, s + t*I] rectangle using Collins-Krandick algorithm. """
 def _vertical_bisection(N, a, b, I, Q, F1, F2, f1, f2, F):
     """Vertical bisection step in Collins-Krandick root isolation algorithm. """
@@ -192,11 +192,11 @@ def _depth_first_select(rectangles):
     """Find a rectangle of minimum area for bisection. """
 def _rectangle_small_p(a, b, eps):
     """Return ``True`` if the given rectangle is small enough. """
-def dup_isolate_complex_roots_sqf(f, K, eps: Incomplete | None = None, inf: Incomplete | None = None, sup: Incomplete | None = None, blackbox: bool = False):
+def dup_isolate_complex_roots_sqf(f, K, eps=None, inf=None, sup=None, blackbox: bool = False):
     """Isolate complex roots of a square-free polynomial using Collins-Krandick algorithm. """
-def dup_isolate_all_roots_sqf(f, K, eps: Incomplete | None = None, inf: Incomplete | None = None, sup: Incomplete | None = None, fast: bool = False, blackbox: bool = False):
+def dup_isolate_all_roots_sqf(f, K, eps=None, inf=None, sup=None, fast: bool = False, blackbox: bool = False):
     """Isolate real and complex roots of a square-free polynomial ``f``. """
-def dup_isolate_all_roots(f, K, eps: Incomplete | None = None, inf: Incomplete | None = None, sup: Incomplete | None = None, fast: bool = False):
+def dup_isolate_all_roots(f, K, eps=None, inf=None, sup=None, fast: bool = False):
     """Isolate real and complex roots of a non-square-free polynomial ``f``. """
 
 class RealInterval:
@@ -442,7 +442,7 @@ class ComplexInterval:
         """Internal one step complex root refinement procedure. """
     def refine_disjoint(self, other):
         """Refine an isolating interval until it is disjoint with another one. """
-    def refine_size(self, dx, dy: Incomplete | None = None):
+    def refine_size(self, dx, dy=None):
         """Refine an isolating interval until it is of sufficiently small size. """
     def refine_step(self, steps: int = 1):
         """Perform several steps of complex root refinement algorithm. """

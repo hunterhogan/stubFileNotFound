@@ -135,6 +135,7 @@ def _noconds_(default):
 _noconds: Incomplete
 
 def _default_integrator(f, x): ...
+@_noconds
 def _mellin_transform(f, x, s_, integrator=..., simplify: bool = True):
     """ Backend function to compute Mellin transforms. """
 

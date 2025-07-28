@@ -1,4 +1,5 @@
 from sympy.core.expr import Expr
+from sympy.core.kind import NumberKind
 
 __all__ = ['InnerProduct']
 
@@ -29,23 +30,17 @@ class InnerProduct(Expr):
         >>> ip.ket
         |k>
 
-    In simple products of kets and bras inner products will be automatically
+    In quantum expressions, inner products will be automatically
     identified and created::
 
         >>> b*k
         <b|k>
 
-    But in more complex expressions, there is ambiguity in whether inner or
-    outer products should be created::
+    In more complex expressions, where there is ambiguity in whether inner or
+    outer products should be created, inner products have high priority::
 
         >>> k*b*k*b
-        |k><b|*|k>*<b|
-
-    A user can force the creation of a inner products in a complex expression
-    by using parentheses to group the bra and ket::
-
-        >>> k*(b*k)*b
-        <b|k>*|k>*<b|
+        <b|k>*|k><b|
 
     Notice how the inner product <b|k> moved to the left of the expression
     because inner products are commutative complex numbers.
@@ -55,6 +50,7 @@ class InnerProduct(Expr):
 
     .. [1] https://en.wikipedia.org/wiki/Inner_product
     """
+    kind = NumberKind
     is_complex: bool
     def __new__(cls, bra, ket): ...
     @property

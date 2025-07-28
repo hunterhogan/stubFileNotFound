@@ -181,7 +181,7 @@ def clebsch_gordan(j_1, j_2, j_3, m_1, m_2, m_3):
 
     - Jens Rasch (2009-03-24): initial version
     """
-def _big_delta_coeff(aa, bb, cc, prec: Incomplete | None = None):
+def _big_delta_coeff(aa, bb, cc, prec=None):
     """
     Calculates the Delta coefficient of the 3 angular momenta for
     Racah symbols. Also checks that the differences are of integer
@@ -211,7 +211,7 @@ def _big_delta_coeff(aa, bb, cc, prec: Incomplete | None = None):
         sage: _big_delta_coeff(1,1,1)
         1/2*sqrt(1/6)
     """
-def racah(aa, bb, cc, dd, ee, ff, prec: Incomplete | None = None):
+def racah(aa, bb, cc, dd, ee, ff, prec=None):
     """
     Calculate the Racah symbol `W(a,b,c,d;e,f)`.
 
@@ -264,7 +264,7 @@ def racah(aa, bb, cc, dd, ee, ff, prec: Incomplete | None = None):
 
     - Jens Rasch (2009-03-24): initial version
     """
-def wigner_6j(j_1, j_2, j_3, j_4, j_5, j_6, prec: Incomplete | None = None):
+def wigner_6j(j_1, j_2, j_3, j_4, j_5, j_6, prec=None):
     """
     Calculate the Wigner 6j symbol `\\operatorname{Wigner6j}(j_1,j_2,j_3,j_4,j_5,j_6)`.
 
@@ -332,10 +332,10 @@ def wigner_6j(j_1, j_2, j_3, j_4, j_5, j_6, prec: Incomplete | None = None):
 
       .. math::
 
+         \\begin{aligned}
          \\operatorname{Wigner6j}(j_1,j_2,j_3,j_4,j_5,j_6)
-          =\\operatorname{Wigner6j}(j_1,j_5,j_6,j_4,j_2,j_3)
-          =\\operatorname{Wigner6j}(j_4,j_2,j_6,j_1,j_5,j_3)
-          =\\operatorname{Wigner6j}(j_4,j_5,j_3,j_1,j_2,j_6)
+          &=\\operatorname{Wigner6j}(j_1,j_5,j_6,j_4,j_2,j_3)\\\\\n          &=\\operatorname{Wigner6j}(j_4,j_2,j_6,j_1,j_5,j_3)\\\\\n          &=\\operatorname{Wigner6j}(j_4,j_5,j_3,j_1,j_2,j_6)
+         \\end{aligned}
 
     - additional 6 symmetries [Regge59]_ giving rise to 144 symmetries
       in total
@@ -352,7 +352,7 @@ def wigner_6j(j_1, j_2, j_3, j_4, j_5, j_6, prec: Incomplete | None = None):
     algebra system [Rasch03]_.
 
     """
-def wigner_9j(j_1, j_2, j_3, j_4, j_5, j_6, j_7, j_8, j_9, prec: Incomplete | None = None):
+def wigner_9j(j_1, j_2, j_3, j_4, j_5, j_6, j_7, j_8, j_9, prec=None):
     """
     Calculate the Wigner 9j symbol
     `\\operatorname{Wigner9j}(j_1,j_2,j_3,j_4,j_5,j_6,j_7,j_8,j_9)`.
@@ -403,7 +403,7 @@ def wigner_9j(j_1, j_2, j_3, j_4, j_5, j_6, j_7, j_8, j_9, prec: Incomplete | No
     for finite precision arithmetic and only useful for a computer
     algebra system [Rasch03]_.
     """
-def gaunt(l_1, l_2, l_3, m_1, m_2, m_3, prec: Incomplete | None = None):
+def gaunt(l_1, l_2, l_3, m_1, m_2, m_3, prec=None):
     """
     Calculate the Gaunt coefficient.
 
@@ -502,7 +502,7 @@ def gaunt(l_1, l_2, l_3, m_1, m_2, m_3, prec: Incomplete | None = None):
 
     Jens Rasch (2009-03-24): initial version for Sage.
     """
-def real_gaunt(l_1, l_2, l_3, m_1, m_2, m_3, prec: Incomplete | None = None):
+def real_gaunt(l_1, l_2, l_3, mu_1, mu_2, mu_3, prec=None):
     """
     Calculate the real Gaunt coefficient.
 
@@ -514,21 +514,21 @@ def real_gaunt(l_1, l_2, l_3, m_1, m_2, m_3, prec: Incomplete | None = None):
 
     .. math::
         \\begin{aligned}
-        \\operatorname{RealGaunt}(l_1,l_2,l_3,m_1,m_2,m_3)
-        &=\\int Z^{m_1}_{l_1}(\\Omega)
-         Z^{m_2}_{l_2}(\\Omega) Z^{m_3}_{l_3}(\\Omega) \\,d\\Omega \\\\\n        \\end{aligned}
+        \\operatorname{RealGaunt}(l_1,l_2,l_3,\\mu_1,\\mu_2,\\mu_3)
+        &=\\int Z^{\\mu_1}_{l_1}(\\Omega)
+         Z^{\\mu_2}_{l_2}(\\Omega) Z^{\\mu_3}_{l_3}(\\Omega) \\,d\\Omega \\\\\n        \\end{aligned}
 
     Alternatively, it can be defined in terms of the standard Gaunt
     coefficient by relating the real spherical harmonics to the standard
     spherical harmonics via a unitary transformation `U`, i.e.
-    `Z^{m}_{l}(\\Omega)=\\sum_{m'}U^{m}_{m'}Y^{m'}_{l}(\\Omega)` [Homeier96]_.
+    `Z^{\\mu}_{l}(\\Omega)=\\sum_{m'}U^{\\mu}_{m'}Y^{m'}_{l}(\\Omega)` [Homeier96]_.
     The real Gaunt coefficient is then defined as
 
     .. math::
         \\begin{aligned}
-        \\operatorname{RealGaunt}(l_1,l_2,l_3,m_1,m_2,m_3)
-        &=\\int Z^{m_1}_{l_1}(\\Omega)
-         Z^{m_2}_{l_2}(\\Omega) Z^{m_3}_{l_3}(\\Omega) \\,d\\Omega \\\\\n        &=\\sum_{m'_1 m'_2 m'_3} U^{m_1}_{m'_1}U^{m_2}_{m'_2}U^{m_3}_{m'_3}
+        \\operatorname{RealGaunt}(l_1,l_2,l_3,\\mu_1,\\mu_2,\\mu_3)
+        &=\\int Z^{\\mu_1}_{l_1}(\\Omega)
+         Z^{\\mu_2}_{l_2}(\\Omega) Z^{\\mu_3}_{l_3}(\\Omega) \\,d\\Omega \\\\\n        &=\\sum_{m'_1 m'_2 m'_3} U^{\\mu_1}_{m'_1}U^{\\mu_2}_{m'_2}U^{\\mu_3}_{m'_3}
          \\operatorname{Gaunt}(l_1,l_2,l_3,m'_1,m'_2,m'_3)
         \\end{aligned}
 
@@ -536,10 +536,10 @@ def real_gaunt(l_1, l_2, l_3, m_1, m_2, m_3, prec: Incomplete | None = None):
 
     .. math::
         \\begin{aligned}
-        U^m_{m'} = \\delta_{|m||m'|}*(\\delta_{m'0}\\delta_{m0} + \\frac{1}{\\sqrt{2}}\\big[\\Theta(m)
-        \\big(\\delta_{m'm}+(-1)^{m'}\\delta_{m'-m}\\big)+i\\Theta(-m)\\big((-1)^{-m}
-        \\delta_{m'-m}-\\delta_{m'm}*(-1)^{m'-m}\\big)\\big])
+        U^\\mu_{m} = \\delta_{|\\mu||m|}*(\\delta_{m0}\\delta_{\\mu 0} + \\frac{1}{\\sqrt{2}}\\big[\\Theta(\\mu)\\big(\\delta_{m\\mu}+(-1)^{m}\\delta_{m-\\mu}\\big)
+        +i \\Theta(-\\mu)\\big((-1)^{m}\\delta_{m\\mu}-\\delta_{m-\\mu}\\big)\\big])
         \\end{aligned}
+
 
     where `\\delta_{ij}` is the Kronecker delta symbol and `\\Theta` is a step
     function defined as
@@ -552,8 +552,8 @@ def real_gaunt(l_1, l_2, l_3, m_1, m_2, m_3, prec: Incomplete | None = None):
     Parameters
     ==========
 
-    l_1, l_2, l_3, m_1, m_2, m_3 :
-        Integer.
+    l_1, l_2, l_3, mu_1, mu_2, mu_3 :
+        Integer degree and order
 
     prec - precision, default: ``None``.
         Providing a precision can
@@ -566,46 +566,46 @@ def real_gaunt(l_1, l_2, l_3, m_1, m_2, m_3, prec: Incomplete | None = None):
 
     Examples
     ========
-
     >>> from sympy.physics.wigner import real_gaunt
-    >>> real_gaunt(2,2,4,-1,-1,0)
-    -2/(7*sqrt(pi))
-    >>> real_gaunt(10,10,20,-9,-9,0).n(64)
+    >>> real_gaunt(1,1,2,-1,1,-2)
+    sqrt(15)/(10*sqrt(pi))
+    >>> real_gaunt(10,10,20,-9,-9,0,prec=64)
     -0.00002480019791932209313156167176797577821140084216297395518482071448
 
-    It is an error to use non-integer values for `l` and `m`::
+    It is an error to use non-integer values for `l` and `\\mu`::
         real_gaunt(2.8,0.5,1.3,0,0,0)
         Traceback (most recent call last):
         ...
         ValueError: l values must be integer
+
         real_gaunt(2,2,4,0.7,1,-3.4)
         Traceback (most recent call last):
         ...
-        ValueError: m values must be integer
+        ValueError: mu values must be integer
 
     Notes
     =====
 
     The real Gaunt coefficient inherits from the standard Gaunt coefficient,
-    the invariance under any permutation of the pairs `(l_i, m_i)` and the
+    the invariance under any permutation of the pairs `(l_i, \\mu_i)` and the
     requirement that the sum of the `l_i` be even to yield a non-zero value.
     It also obeys the following symmetry rules:
 
-    - zero for `l_1`, `l_2`, `l_3` not fulfiling the condition
+    - zero for `l_1`, `l_2`, `l_3` not fulfilling the condition
       `l_1 \\in \\{l_{\\text{max}}, l_{\\text{max}}-2, \\ldots, l_{\\text{min}}\\}`,
       where `l_{\\text{max}} = l_2+l_3`,
 
       .. math::
           \\begin{aligned}
-          l_{\\text{min}} = \\begin{cases} \\kappa(l_2, l_3, m_2, m_3) & \\text{if}\\,
-          \\kappa(l_2, l_3, m_2, m_3) + l_{\\text{max}}\\, \\text{is even} \\\\\n          \\kappa(l_2, l_3, m_2, m_3)+1 & \\text{if}\\, \\kappa(l_2, l_3, m_2, m_3) +
+          l_{\\text{min}} = \\begin{cases} \\kappa(l_2, l_3, \\mu_2, \\mu_3) & \\text{if}\\,
+          \\kappa(l_2, l_3, \\mu_2, \\mu_3) + l_{\\text{max}}\\, \\text{is even} \\\\\n          \\kappa(l_2, l_3, \\mu_2, \\mu_3)+1 & \\text{if}\\, \\kappa(l_2, l_3, \\mu_2, \\mu_3) +
           l_{\\text{max}}\\, \\text{is odd}\\end{cases}
           \\end{aligned}
 
-      and `\\kappa(l_2, l_3, m_2, m_3) = \\max{\\big(|l_2-l_3|, \\min{\\big(|m_2+m_3|,
-      |m_2-m_3|\\big)}\\big)}`
+      and `\\kappa(l_2, l_3, \\mu_2, \\mu_3) = \\max{\\big(|l_2-l_3|, \\min{\\big(|\\mu_2+\\mu_3|,
+      |\\mu_2-\\mu_3|\\big)}\\big)}`
 
-    - zero for an odd number of negative `m_i`
+    - zero for an odd number of negative `\\mu_i`
 
     Algorithms
     ==========
@@ -674,6 +674,11 @@ def wigner_d_small(J, beta):
     .. math ::
         \\mathcal{d}_{\\beta} = \\exp\\big( \\frac{i\\beta}{\\hbar} J_y\\big)
 
+    such that
+
+    .. math ::
+        d^{(J)}_{m\',m}(\\beta) = \\mathtt{wigner\\_d\\_small(J,beta)[J-mprime,J-m]}
+
     The components are calculated using the general form [Edmonds74]_,
     equation 4.1.15.
 
@@ -685,6 +690,87 @@ def wigner_d_small(J, beta):
     >>> half = 1/Integer(2)
     >>> beta = symbols("beta", real=True)
     >>> pprint(wigner_d_small(half, beta), use_unicode=True)
+    ⎡   ⎛β⎞      ⎛β⎞⎤
+    ⎢cos⎜─⎟   sin⎜─⎟⎥
+    ⎢   |2⎠      |2⎠⎥
+    ⎢               ⎥
+    ⎢    ⎛β⎞     ⎛β⎞⎥
+    ⎢-sin⎜─⎟  cos⎜─⎟⎥
+    ⎣    |2⎠     |2⎠⎦
+
+    >>> pprint(wigner_d_small(2*half, beta), use_unicode=True)
+    ⎡        2⎛β⎞              ⎛β⎞    ⎛β⎞           2⎛β⎞     ⎤
+    ⎢     cos ⎜─⎟        √2⋅sin⎜─⎟⋅cos⎜─⎟        sin ⎜─⎟     ⎥
+    ⎢         |2⎠              |2⎠    |2⎠            |2⎠     ⎥
+    ⎢                                                        ⎥
+    ⎢       ⎛β⎞    ⎛β⎞       2⎛β⎞      2⎛β⎞        ⎛β⎞    ⎛β⎞⎥
+    ⎢-√2⋅sin⎜─⎟⋅cos⎜─⎟  - sin ⎜─⎟ + cos ⎜─⎟  √2⋅sin⎜─⎟⋅cos⎜─⎟⎥
+    ⎢       |2⎠    |2⎠        |2⎠       |2⎠        |2⎠    |2⎠⎥
+    ⎢                                                        ⎥
+    ⎢        2⎛β⎞               ⎛β⎞    ⎛β⎞          2⎛β⎞     ⎥
+    ⎢     sin ⎜─⎟        -√2⋅sin⎜─⎟⋅cos⎜─⎟       cos ⎜─⎟     ⎥
+    ⎣         |2⎠               |2⎠    |2⎠           |2⎠     ⎦
+
+    From table 4 in [Edmonds74]_
+
+    >>> pprint(wigner_d_small(half, beta).subs({beta:pi/2}), use_unicode=True)
+    ⎡ √2   √2⎤
+    ⎢ ──   ──⎥
+    ⎢ 2    2 ⎥
+    ⎢        ⎥
+    ⎢-√2   √2⎥
+    ⎢────  ──⎥
+    ⎣ 2    2 ⎦
+
+    >>> pprint(wigner_d_small(2*half, beta).subs({beta:pi/2}),
+    ... use_unicode=True)
+    ⎡       √2      ⎤
+    ⎢1/2    ──   1/2⎥
+    ⎢       2       ⎥
+    ⎢               ⎥
+    ⎢-√2         √2 ⎥
+    ⎢────   0    ── ⎥
+    ⎢ 2          2  ⎥
+    ⎢               ⎥
+    ⎢      -√2      ⎥
+    ⎢1/2   ────  1/2⎥
+    ⎣       2       ⎦
+
+    >>> pprint(wigner_d_small(3*half, beta).subs({beta:pi/2}),
+    ... use_unicode=True)
+    ⎡ √2    √6    √6   √2⎤
+    ⎢ ──    ──    ──   ──⎥
+    ⎢ 4     4     4    4 ⎥
+    ⎢                    ⎥
+    ⎢-√6   -√2    √2   √6⎥
+    ⎢────  ────   ──   ──⎥
+    ⎢ 4     4     4    4 ⎥
+    ⎢                    ⎥
+    ⎢ √6   -√2   -√2   √6⎥
+    ⎢ ──   ────  ────  ──⎥
+    ⎢ 4     4     4    4 ⎥
+    ⎢                    ⎥
+    ⎢-√2    √6   -√6   √2⎥
+    ⎢────   ──   ────  ──⎥
+    ⎣ 4     4     4    4 ⎦
+
+    >>> pprint(wigner_d_small(4*half, beta).subs({beta:pi/2}),
+    ... use_unicode=True)
+    ⎡             √6            ⎤
+    ⎢1/4   1/2    ──   1/2   1/4⎥
+    ⎢             4             ⎥
+    ⎢                           ⎥
+    ⎢-1/2  -1/2   0    1/2   1/2⎥
+    ⎢                           ⎥
+    ⎢ √6                     √6 ⎥
+    ⎢ ──    0    -1/2   0    ── ⎥
+    ⎢ 4                      4  ⎥
+    ⎢                           ⎥
+    ⎢-1/2  1/2    0    -1/2  1/2⎥
+    ⎢                           ⎥
+    ⎢             √6            ⎥
+    ⎢1/4   -1/2   ──   -1/2  1/4⎥
+    ⎣             4             ⎦
 
     '''
 def wigner_d(J, alpha, beta, gamma):
@@ -697,13 +783,14 @@ def wigner_d(J, alpha, beta, gamma):
         An integer, half-integer, or SymPy symbol for the total angular
         momentum of the angular momentum space being rotated.
     alpha, beta, gamma - Real numbers representing the Euler.
-        Angles of rotation about the so-called vertical, line of nodes, and
-        figure axes. See [Edmonds74]_.
+        Angles of rotation about the so-called figure axis, line of nodes,
+        and vertical. See [Edmonds74]_, however note that the symbols alpha
+        and gamma are swapped in this implementation.
 
     Returns
     =======
 
-    A matrix representing the corresponding Euler angle rotation( in the basis
+    A matrix representing the corresponding Euler angle rotation (in the basis
     of eigenvectors of `J_z`).
 
     .. math ::
@@ -712,8 +799,15 @@ def wigner_d(J, alpha, beta, gamma):
         \\exp\\big( \\frac{i\\beta}{\\hbar} J_y\\big)
         \\exp\\big( \\frac{i\\gamma}{\\hbar} J_z\\big)
 
+    such that
+
+    .. math ::
+        \\mathcal{D}^{(J)}_{m\',m}(\\alpha, \\beta, \\gamma) =
+        \\mathtt{wigner_d(J, alpha, beta, gamma)[J-mprime,J-m]}
+
     The components are calculated using the general form [Edmonds74]_,
-    equation 4.1.12.
+    equation 4.1.12, however note that the angles alpha and gamma are swapped
+    in this implementation.
 
     Examples
     ========
@@ -725,5 +819,16 @@ def wigner_d(J, alpha, beta, gamma):
     >>> half = 1/Integer(2)
     >>> alpha, beta, gamma = symbols("alpha, beta, gamma", real=True)
     >>> pprint(wigner_d(half, alpha, beta, gamma), use_unicode=True)
+    ⎡  ⅈ⋅α  ⅈ⋅γ             ⅈ⋅α  -ⅈ⋅γ         ⎤
+    ⎢  ───  ───             ───  ─────        ⎥
+    ⎢   2    2     ⎛β⎞       2     2      ⎛β⎞ ⎥
+    ⎢ ℯ   ⋅ℯ   ⋅cos⎜─⎟     ℯ   ⋅ℯ     ⋅sin⎜─⎟ ⎥
+    ⎢              |2⎠                    |2⎠ ⎥
+    ⎢                                         ⎥
+    ⎢  -ⅈ⋅α   ⅈ⋅γ          -ⅈ⋅α   -ⅈ⋅γ        ⎥
+    ⎢  ─────  ───          ─────  ─────       ⎥
+    ⎢    2     2     ⎛β⎞     2      2      ⎛β⎞⎥
+    ⎢-ℯ     ⋅ℯ   ⋅sin⎜─⎟  ℯ     ⋅ℯ     ⋅cos⎜─⎟⎥
+    ⎣                |2⎠                   |2⎠⎦
 
     '''

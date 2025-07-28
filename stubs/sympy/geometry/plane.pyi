@@ -43,7 +43,7 @@ class Plane(GeometryEntity):
     Plane(Point3D(1, 1, 1), (1, 4, 7))
 
     """
-    def __new__(cls, p1, a: Incomplete | None = None, b: Incomplete | None = None, **kwargs): ...
+    def __new__(cls, p1, a=None, b=None, **kwargs): ...
     def __contains__(self, o) -> bool: ...
     def _eval_evalf(self, prec: int = 15, **options): ...
     def angle_between(self, o):
@@ -77,7 +77,7 @@ class Plane(GeometryEntity):
         -asin(sqrt(21)/6)
 
         """
-    def arbitrary_point(self, u: Incomplete | None = None, v: Incomplete | None = None):
+    def arbitrary_point(self, u=None, v=None):
         """ Returns an arbitrary point on the Plane. If given two
         parameters, the point ranges over the entire plane. If given 1
         or no parameters, returns a point with one parameter which,
@@ -191,7 +191,7 @@ class Plane(GeometryEntity):
         >>> a.equals(c)
         False
         """
-    def equation(self, x: Incomplete | None = None, y: Incomplete | None = None, z: Incomplete | None = None):
+    def equation(self, x=None, y=None, z=None):
         """The equation of the Plane.
 
         Examples
@@ -480,7 +480,7 @@ class Plane(GeometryEntity):
         >>> XY.projection((1, 1, 2))
         Point3D(1, 1, 0)
         """
-    def random_point(self, seed: Incomplete | None = None):
+    def random_point(self, seed=None):
         """ Returns a random point on the Plane.
 
         Returns
@@ -504,7 +504,7 @@ class Plane(GeometryEntity):
         >>> c.distance(p.p1).equals(1)
         True
         """
-    def parameter_value(self, other, u, v: Incomplete | None = None):
+    def parameter_value(self, other, u, v=None):
         """Return the parameter(s) corresponding to the given point.
 
         Examples

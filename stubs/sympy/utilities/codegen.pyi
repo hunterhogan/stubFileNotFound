@@ -78,7 +78,7 @@ class DataType:
 
 default_datatypes: Incomplete
 
-def get_default_datatype(expr, complex_allowed: Incomplete | None = None):
+def get_default_datatype(expr, complex_allowed=None):
     """Derives an appropriate datatype based on the expression."""
 
 class Variable:
@@ -87,7 +87,7 @@ class Variable:
     _datatype: Incomplete
     dimensions: Incomplete
     precision: Incomplete
-    def __init__(self, name, datatype: Incomplete | None = None, dimensions: Incomplete | None = None, precision: Incomplete | None = None) -> None:
+    def __init__(self, name, datatype=None, dimensions=None, precision=None) -> None:
         """Return a new variable.
 
         Parameters
@@ -152,7 +152,7 @@ class ResultBase:
 
 class OutputArgument(Argument, ResultBase):
     """OutputArgument are always initialized in the routine."""
-    def __init__(self, name, result_var, expr, datatype: Incomplete | None = None, dimensions: Incomplete | None = None, precision: Incomplete | None = None) -> None:
+    def __init__(self, name, result_var, expr, datatype=None, dimensions=None, precision=None) -> None:
         '''Return a new variable.
 
         Parameters
@@ -190,7 +190,7 @@ class OutputArgument(Argument, ResultBase):
 
 class InOutArgument(Argument, ResultBase):
     """InOutArgument are never initialized in the routine."""
-    def __init__(self, name, result_var, expr, datatype: Incomplete | None = None, dimensions: Incomplete | None = None, precision: Incomplete | None = None) -> None: ...
+    def __init__(self, name, result_var, expr, datatype=None, dimensions=None, precision=None) -> None: ...
     def __str__(self) -> str: ...
     __repr__ = __str__
 
@@ -204,7 +204,7 @@ class Result(Variable, ResultBase):
     might return a value without ever naming it).
 
     '''
-    def __init__(self, expr, name: Incomplete | None = None, result_var: Incomplete | None = None, datatype: Incomplete | None = None, dimensions: Incomplete | None = None, precision: Incomplete | None = None) -> None:
+    def __init__(self, expr, name=None, result_var=None, datatype=None, dimensions=None, precision=None) -> None:
         '''Initialize a return value.
 
         Parameters
@@ -243,7 +243,7 @@ class CodeGen:
     """Abstract class for the code generators."""
     printer: Incomplete
     def _indent_code(self, codelines): ...
-    def _printer_method_with_settings(self, method, settings: Incomplete | None = None, *args, **kwargs): ...
+    def _printer_method_with_settings(self, method, settings=None, *args, **kwargs): ...
     def _get_symbol(self, s):
         """Returns the symbol as fcode prints it."""
     project: Incomplete
@@ -255,7 +255,7 @@ class CodeGen:
         code.
 
         """
-    def routine(self, name, expr, argument_sequence: Incomplete | None = None, global_vars: Incomplete | None = None):
+    def routine(self, name, expr, argument_sequence=None, global_vars=None):
         """Creates an Routine object that is appropriate for this language.
 
         This implementation is appropriate for at least C/Fortran.  Subclasses
@@ -345,7 +345,7 @@ class CCodeGen(CodeGen):
     standard: str
     printer: Incomplete
     preprocessor_statements: Incomplete
-    def __init__(self, project: str = 'project', printer: Incomplete | None = None, preprocessor_statements: Incomplete | None = None, cse: bool = False) -> None: ...
+    def __init__(self, project: str = 'project', printer=None, preprocessor_statements=None, cse: bool = False) -> None: ...
     def _get_header(self):
         """Writes a common header for the generated files."""
     def get_prototype(self, routine):
@@ -410,7 +410,7 @@ class FCodeGen(CodeGen):
     code_extension: str
     interface_extension: str
     printer: Incomplete
-    def __init__(self, project: str = 'project', printer: Incomplete | None = None) -> None: ...
+    def __init__(self, project: str = 'project', printer=None) -> None: ...
     def _get_header(self):
         """Writes a common header for the generated files."""
     def _preprocessor_statements(self, prefix): ...
@@ -471,7 +471,7 @@ class JuliaCodeGen(CodeGen):
     """
     code_extension: str
     printer: Incomplete
-    def __init__(self, project: str = 'project', printer: Incomplete | None = None) -> None: ...
+    def __init__(self, project: str = 'project', printer=None) -> None: ...
     def routine(self, name, expr, argument_sequence, global_vars):
         """Specialized Routine creation for Julia."""
     def _get_header(self):
@@ -505,7 +505,7 @@ class OctaveCodeGen(CodeGen):
     """
     code_extension: str
     printer: Incomplete
-    def __init__(self, project: str = 'project', printer: Incomplete | None = None) -> None: ...
+    def __init__(self, project: str = 'project', printer=None) -> None: ...
     def routine(self, name, expr, argument_sequence, global_vars):
         """Specialized Routine creation for Octave."""
     def _get_header(self):
@@ -531,7 +531,7 @@ class RustCodeGen(CodeGen):
     """
     code_extension: str
     printer: Incomplete
-    def __init__(self, project: str = 'project', printer: Incomplete | None = None) -> None: ...
+    def __init__(self, project: str = 'project', printer=None) -> None: ...
     def routine(self, name, expr, argument_sequence, global_vars):
         """Specialized Routine creation for Rust."""
     def _get_header(self):
@@ -555,7 +555,7 @@ class RustCodeGen(CodeGen):
     def dump_rs(self, routines, f, prefix, header: bool = True, empty: bool = True) -> None: ...
     dump_fns: Incomplete
 
-def codegen(name_expr, language: Incomplete | None = None, prefix: Incomplete | None = None, project: str = 'project', to_files: bool = False, header: bool = True, empty: bool = True, argument_sequence: Incomplete | None = None, global_vars: Incomplete | None = None, standard: Incomplete | None = None, code_gen: Incomplete | None = None, printer: Incomplete | None = None):
+def codegen(name_expr, language=None, prefix=None, project: str = 'project', to_files: bool = False, header: bool = True, empty: bool = True, argument_sequence=None, global_vars=None, standard=None, code_gen=None, printer=None):
     '''Generate source code for expressions in a given language.
 
     Parameters
@@ -684,7 +684,7 @@ def codegen(name_expr, language: Incomplete | None = None, prefix: Incomplete | 
     <BLANKLINE>
 
     '''
-def make_routine(name, expr, argument_sequence: Incomplete | None = None, global_vars: Incomplete | None = None, language: str = 'F95'):
+def make_routine(name, expr, argument_sequence=None, global_vars=None, language: str = 'F95'):
     '''A factory that makes an appropriate Routine from an expression.
 
     Parameters

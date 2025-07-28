@@ -8,10 +8,12 @@ from sympy.polys.polytools import factor as factor
 from sympy.sets.sets import Interval as Interval
 from sympy.solvers.solvers import solve as solve
 
+@cacheit
 def _expand_delta(expr, index):
     """
     Expand the first Add containing a simple KroneckerDelta.
     """
+@cacheit
 def _extract_delta(expr, index):
     """
     Extract a simple KroneckerDelta from the expression.
@@ -45,25 +47,30 @@ def _extract_delta(expr, index):
     deltaproduct
     deltasummation
     """
+@cacheit
 def _has_simple_delta(expr, index):
     """
     Returns True if ``expr`` is an expression that contains a KroneckerDelta
     that is simple in the index ``index``, meaning that this KroneckerDelta
     is nonzero for a single value of the index ``index``.
     """
+@cacheit
 def _is_simple_delta(delta, index):
     """
     Returns True if ``delta`` is a KroneckerDelta and is nonzero for a single
     value of the index ``index``.
     """
+@cacheit
 def _remove_multiple_delta(expr):
     """
     Evaluate products of KroneckerDelta's.
     """
+@cacheit
 def _simplify_delta(expr):
     """
     Rewrite a KroneckerDelta's indices in its simplest form.
     """
+@cacheit
 def deltaproduct(f, limit):
     """
     Handle products containing a KroneckerDelta.
@@ -75,6 +82,7 @@ def deltaproduct(f, limit):
     sympy.functions.special.tensor_functions.KroneckerDelta
     sympy.concrete.products.product
     """
+@cacheit
 def deltasummation(f, limit, no_piecewise: bool = False):
     """
     Handle summations containing a KroneckerDelta.

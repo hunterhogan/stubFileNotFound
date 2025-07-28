@@ -29,7 +29,7 @@ class IntervalMathPrinter(PythonCodePrinter):
     def _print_And(self, expr): ...
     def _print_Or(self, expr): ...
 
-def _uniform_eval(f1, f2, *args, modules: Incomplete | None = None, force_real_eval: bool = False, has_sum: bool = False):
+def _uniform_eval(f1, f2, *args, modules=None, force_real_eval: bool = False, has_sum: bool = False):
     """
     Note: this is an experimental function, as such it is prone to changes.
     Please, do not use it in your code.
@@ -109,7 +109,7 @@ class BaseSeries:
         processing of numerical functions.
         """
     def _check_fs(self) -> None:
-        """ Checks if there are enogh parameters and free symbols.
+        """ Checks if there are enough parameters and free symbols.
         """
     def _create_lambda_func(self):
         """Create the lambda functions to be used by the uniform meshing
@@ -151,7 +151,7 @@ class BaseSeries:
         """
     def _aggregate_args(self):
         """Create a list of arguments to be passed to the lambda function,
-        sorted accoring to self._signature.
+        sorted according to self._signature.
         """
     @property
     def expr(self):
@@ -326,7 +326,7 @@ class BaseSeries:
         """
     def _str_helper(self, s): ...
 
-def _detect_poles_numerical_helper(x, y, eps: float = 0.01, expr: Incomplete | None = None, symb: Incomplete | None = None, symbolic: bool = False):
+def _detect_poles_numerical_helper(x, y, eps: float = 0.01, expr=None, symb=None, symbolic: bool = False):
     """Compute the steepness of each segment. If it's greater than a
     threshold, set the right-point y-value non NaN and record the
     corresponding x-location for further processing.
@@ -344,7 +344,7 @@ def _detect_poles_symbolic_helper(expr, symb, start, end):
     Returns
     =======
     pole : list
-        List of symbolic poles, possibily empty.
+        List of symbolic poles, possibly empty.
     """
 
 class Line2DBaseSeries(BaseSeries):
@@ -396,7 +396,7 @@ class Line2DBaseSeries(BaseSeries):
     def get_segments(self): ...
     def _insert_exclusions(self, points):
         """Add NaN to each of the exclusion point. Practically, this adds a
-        NaN to the exlusion point, plus two other nearby points evaluated with
+        NaN to the exclusion point, plus two other nearby points evaluated with
         the numerical functions associated to this data series.
         These nearby points are important when the number of discretization
         points is low, or the scale is logarithm.
@@ -754,11 +754,11 @@ class GenericDataSeries(BaseSeries):
        :include-source: True
 
        p = plot(cos(x), backend="matplotlib")
-       fig, ax = p._backend.fig, p._backend.ax[0]
+       fig, ax = p._backend.fig, p._backend.ax
        ax.plot([0, 1, 2], [0, 1, -1], "*")
        fig
 
-    Which is far better in terms of readibility. Also, it gives access to the
+    Which is far better in terms of readability. Also, it gives access to the
     full plotting library capabilities, without the need to reinvent the wheel.
     '''
     is_generic: bool
@@ -850,7 +850,7 @@ class ImplicitSeries(BaseSeries):
             The rewritten expression
 
         equality : Boolean
-            Wheter the original expression was an Equality or not.
+            Whether the original expression was an Equality or not.
         """
     def get_label(self, use_latex: bool = False, wrapper: str = '$%s$'):
         '''Return the label to be used to display the expression.

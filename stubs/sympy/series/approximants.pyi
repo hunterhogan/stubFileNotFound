@@ -1,8 +1,10 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from sympy.utilities import public
 
 __all__ = ['approximants']
 
+@public
 def approximants(l, X=..., simplify: bool = False) -> Generator[Incomplete]:
     '''
     Return a generator for consecutive Pade approximants for a series.

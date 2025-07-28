@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from sympy.polys.domains.compositedomain import CompositeDomain
 from sympy.polys.domains.ring import Ring
 from sympy.polys.polyclasses import DMF, DMP
+from sympy.utilities import public
 
 __all__ = ['PolynomialRingBase', 'GlobalPolynomialRing', 'PolynomialRing']
 
@@ -193,6 +194,7 @@ class GeneralizedPolynomialRing(PolynomialRingBase):
           2, 1), 1)]
         """
 
+@public
 def PolynomialRing(dom, *gens, **opts):
     '''
     Create a generalized multivariate polynomial ring.

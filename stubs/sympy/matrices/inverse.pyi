@@ -1,6 +1,5 @@
 from .exceptions import MatrixError as MatrixError, NonInvertibleMatrixError as NonInvertibleMatrixError, NonSquareMatrixError as NonSquareMatrixError
 from .utilities import _iszero as _iszero
-from _typeshed import Incomplete
 from sympy.polys.domains import EX as EX
 from sympy.polys.matrices.exceptions import DMNonInvertibleMatrixError as DMNonInvertibleMatrixError
 
@@ -182,7 +181,7 @@ def _inv_block(M, iszerofunc=...):
     inverse_CH
     inverse_LDL
     """
-def _inv(M, method: Incomplete | None = None, iszerofunc=..., try_block_diag: bool = False):
+def _inv(M, method=None, iszerofunc=..., try_block_diag: bool = False):
     """
     Return the inverse of a matrix using the method indicated. The default
     is DM if a suitable domain is found or otherwise GE for dense matrices

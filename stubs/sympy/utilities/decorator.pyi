@@ -1,5 +1,8 @@
 from _typeshed import Incomplete
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
+from typing import TypeVar
+
+T = TypeVar('T')
 
 def threaded_factory(func, use_add):
     """A factory for ``threaded`` decorators. """
@@ -63,9 +66,9 @@ class no_attrs_in_subclass:
     cls: Incomplete
     f: Incomplete
     def __init__(self, cls, f) -> None: ...
-    def __get__(self, instance, owner: Incomplete | None = None): ...
+    def __get__(self, instance, owner=None): ...
 
-def doctest_depends_on(exe: Incomplete | None = None, modules: Incomplete | None = None, disable_viewers: Incomplete | None = None, python_version: Incomplete | None = None, ground_types: Incomplete | None = None):
+def doctest_depends_on(exe=None, modules=None, disable_viewers=None, python_version=None, ground_types=None):
     """
     Adds metadata about the dependencies which need to be met for doctesting
     the docstrings of the decorated objects.
@@ -79,7 +82,7 @@ def doctest_depends_on(exe: Incomplete | None = None, modules: Incomplete | None
     ``python_version`` should be the minimum Python version required, as a tuple
     (like ``(3, 0)``)
     """
-def public(obj):
+def public(obj: T) -> T:
     """
     Append ``obj``'s name to global ``__all__`` variable (call site).
 

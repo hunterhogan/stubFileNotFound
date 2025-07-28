@@ -301,6 +301,8 @@ def _int_inversion(g, x, t):
 
 _lookup_table: Incomplete
 
+@cacheit
+@timeit
 def _rewrite_single(f, x, recursive: bool = True):
     """
     Try to rewrite f as a sum of single G functions of the form
@@ -341,6 +343,7 @@ def meijerint_indefinite(f, x):
     """
 def _meijerint_indefinite_1(f, x):
     """ Helper that does not attempt any substitution. """
+@timeit
 def meijerint_definite(f, x, a, b):
     """
     Integrate ``f`` over the interval [``a``, ``b``], by rewriting it as a product
@@ -384,6 +387,7 @@ def _meijerint_definite_3(f, x):
     integral. If this fails, it tries using linearity.
     """
 def _my_unpolarify(f): ...
+@timeit
 def _meijerint_definite_4(f, x, only_double: bool = False):
     """
     Try to integrate f dx from zero to infinity.

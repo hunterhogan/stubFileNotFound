@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.calculus.accumulationbounds import AccumulationBounds as AccumulationBounds
 from sympy.core.add import Add as Add
 from sympy.core.function import PoleError as PoleError
@@ -14,7 +13,7 @@ from sympy.functions.elementary.trigonometric import cos as cos, sin as sin
 from sympy.functions.special.gamma_functions import gamma as gamma
 from sympy.series.limits import Limit as Limit
 
-def difference_delta(expr, n: Incomplete | None = None, step: int = 1):
+def difference_delta(expr, n=None, step: int = 1):
     """Difference Operator.
 
     Explanation
@@ -69,7 +68,7 @@ def dominant(expr, n):
     """
 def _limit_inf(expr, n): ...
 def _limit_seq(expr, n, trials): ...
-def limit_seq(expr, n: Incomplete | None = None, trials: int = 5):
+def limit_seq(expr, n=None, trials: int = 5):
     """Finds the limit of a sequence as index ``n`` tends to infinity.
 
     Parameters

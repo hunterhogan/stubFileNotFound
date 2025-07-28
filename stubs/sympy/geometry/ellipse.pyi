@@ -19,7 +19,8 @@ from sympy.functions.elementary.trigonometric import cos as cos, sin as sin
 from sympy.functions.special.elliptic_integrals import elliptic_e as elliptic_e
 from sympy.polys import DomainError as DomainError, Poly as Poly, PolynomialError as PolynomialError
 from sympy.polys.polyutils import _not_a_coeff as _not_a_coeff, _nsort as _nsort
-from sympy.simplify import simplify as simplify, trigsimp as trigsimp
+from sympy.simplify.simplify import simplify as simplify
+from sympy.simplify.trigsimp import trigsimp as trigsimp
 from sympy.solvers import solve as solve
 from sympy.solvers.solveset import linear_coeffs as linear_coeffs
 from sympy.utilities.misc import filldedent as filldedent, func_name as func_name
@@ -96,7 +97,7 @@ class Ellipse(GeometrySet):
     def __eq__(self, o):
         """Is the other GeometryEntity the same as this ellipse?"""
     def __hash__(self): ...
-    def __new__(cls, center: Incomplete | None = None, hradius: Incomplete | None = None, vradius: Incomplete | None = None, eccentricity: Incomplete | None = None, **kwargs): ...
+    def __new__(cls, center=None, hradius=None, vradius=None, eccentricity=None, **kwargs): ...
     def _svg(self, scale_factor: float = 1.0, fill_color: str = '#66cc99'):
         '''Returns SVG ellipse element for the Ellipse.
 
@@ -289,7 +290,7 @@ class Ellipse(GeometrySet):
         False
 
         """
-    def equation(self, x: str = 'x', y: str = 'y', _slope: Incomplete | None = None):
+    def equation(self, x: str = 'x', y: str = 'y', _slope=None):
         """
         Returns the equation of an ellipse aligned with the x and y axes;
         when slope is given, the equation returned corresponds to an ellipse
@@ -609,7 +610,7 @@ class Ellipse(GeometrySet):
         m
 
         """
-    def normal_lines(self, p, prec: Incomplete | None = None):
+    def normal_lines(self, p, prec=None):
         """Normal lines between `p` and the ellipse.
 
         Parameters
@@ -773,7 +774,7 @@ class Ellipse(GeometrySet):
         [t, -pi, pi]
 
         """
-    def random_point(self, seed: Incomplete | None = None):
+    def random_point(self, seed=None):
         """A random point on the ellipse.
 
         Returns
@@ -842,7 +843,7 @@ class Ellipse(GeometrySet):
         zeros define the rotated ellipse is given.
 
         """
-    def rotate(self, angle: int = 0, pt: Incomplete | None = None):
+    def rotate(self, angle: int = 0, pt=None):
         """Rotate ``angle`` radians counterclockwise about Point ``pt``.
 
         Note: since the general ellipse is not supported, only rotations that
@@ -857,7 +858,7 @@ class Ellipse(GeometrySet):
         >>> Ellipse((1, 0), 2, 1).rotate(pi)
         Ellipse(Point2D(-1, 0), 2, 1)
         """
-    def scale(self, x: int = 1, y: int = 1, pt: Incomplete | None = None):
+    def scale(self, x: int = 1, y: int = 1, pt=None):
         """Override GeometryEntity.scale since it is the major and minor
         axes which must be scaled and they are not GeometryEntities.
 
@@ -931,7 +932,7 @@ class Ellipse(GeometrySet):
         1
 
         """
-    def second_moment_of_area(self, point: Incomplete | None = None):
+    def second_moment_of_area(self, point=None):
         '''Returns the second moment and product moment area of an ellipse.
 
         Parameters
@@ -994,7 +995,7 @@ class Ellipse(GeometrySet):
         .. [1] https://en.wikipedia.org/wiki/Polar_moment_of_inertia
 
         """
-    def section_modulus(self, point: Incomplete | None = None):
+    def section_modulus(self, point=None):
         '''Returns a tuple with the section modulus of an ellipse
 
         Section modulus is a geometric property of an ellipse defined as the
@@ -1091,7 +1092,7 @@ class Circle(Ellipse):
     (sqrt(2)/2, sqrt(2)/2, sqrt(2)/2, Point2D(1/2, 1/2))
 
     A circle can be constructed from an equation in the form
-    `a*x**2 + by**2 + gx + hy + c = 0`, too:
+    `ax^2 + by^2 + gx + hy + c = 0`, too:
 
     >>> Circle(x**2 + y**2 - 25)
     Circle(Point2D(0, 0), 5)
@@ -1211,7 +1212,7 @@ class Circle(Ellipse):
         >>> Circle((0, 1), 1).reflect(Line((0, 0), (1, 1)))
         Circle(Point2D(1, 0), -1)
         """
-    def scale(self, x: int = 1, y: int = 1, pt: Incomplete | None = None):
+    def scale(self, x: int = 1, y: int = 1, pt=None):
         """Override GeometryEntity.scale since the radius
         is not a GeometryEntity.
 

@@ -1,3 +1,4 @@
+import types
 from .heurisch import _symbols as _symbols
 from .integrals import Integral as Integral, integrate as integrate
 from _typeshed import Incomplete
@@ -101,7 +102,7 @@ class DifferentialExtension:
     x: Incomplete
     dummy: Incomplete
     newf: Incomplete
-    def __init__(self, f: Incomplete | None = None, x: Incomplete | None = None, handle_first: str = 'log', dummy: bool = False, extension: Incomplete | None = None, rewrite_complex: Incomplete | None = None) -> None:
+    def __init__(self, f=None, x=None, handle_first: str = 'log', dummy: bool = False, extension=None, rewrite_complex=None) -> None:
         """
         Tries to build a transcendental extension tower from ``f`` with respect to ``x``.
 
@@ -347,7 +348,7 @@ def get_case(d, t):
     Returns one of {'exp', 'tan', 'base', 'primitive', 'other_linear',
     'other_nonlinear'}.
     """
-def splitfactor(p, DE, coefficientD: bool = False, z: Incomplete | None = None):
+def splitfactor(p, DE, coefficientD: bool = False, z=None):
     """
     Splitting factorization.
 
@@ -360,7 +361,7 @@ def splitfactor(p, DE, coefficientD: bool = False, z: Incomplete | None = None):
 
     Page. 100
     """
-def splitfactor_sqf(p, DE, coefficientD: bool = False, z: Incomplete | None = None, basic: bool = False):
+def splitfactor_sqf(p, DE, coefficientD: bool = False, z=None, basic: bool = False):
     """
     Splitting Square-free Factorization.
 
@@ -416,7 +417,7 @@ def laurent_series(a, d, F, n, DE):
     free factorization of D, return the principal parts of the Laurent series of
     A/D at all the zeros of ``F``.
     """
-def recognize_derivative(a, d, DE, z: Incomplete | None = None):
+def recognize_derivative(a, d, DE, z=None):
     """
     Compute the squarefree factorization of the denominator of f
     and for each Di the polynomial H in K[x] (see Theorem 2.7.1), using the
@@ -426,7 +427,7 @@ def recognize_derivative(a, d, DE, z: Incomplete | None = None):
     rational function if and only if Ei = 1 for each i, which is equivalent to
     Di | H[-1] for each i.
     """
-def recognize_log_derivative(a, d, DE, z: Incomplete | None = None):
+def recognize_log_derivative(a, d, DE, z=None):
     """
     There exists a v in K(x)* such that f = dv/v
     where f a rational function if and only if f can be written as f = A/D
@@ -435,7 +436,7 @@ def recognize_log_derivative(a, d, DE, z: Incomplete | None = None):
     any of the Rothstein-Trager, Lazard-Rioboo-Trager or Czichowski algorithm
     produces u in K(x) such that du/dx = uf.
     """
-def residue_reduce(a, d, DE, z: Incomplete | None = None, invert: bool = True):
+def residue_reduce(a, d, DE, z=None, invert: bool = True):
     """
     Lazard-Rioboo-Rothstein-Trager resultant reduction.
 
@@ -480,7 +481,7 @@ def integrate_primitive_polynomial(p, DE):
     True, or r = p - Dq does not have an elementary integral over k(t) if b is
     False.
     """
-def integrate_primitive(a, d, DE, z: Incomplete | None = None):
+def integrate_primitive(a, d, DE, z=None):
     """
     Integration of primitive functions.
 
@@ -508,7 +509,7 @@ def integrate_hyperexponential_polynomial(p, DE, z):
     k[t, 1/t] and a bool b in {True, False} such that p - Dq in k if b is True,
     or p - Dq does not have an elementary integral over k(t) if b is False.
     """
-def integrate_hyperexponential(a, d, DE, z: Incomplete | None = None, conds: str = 'piecewise'):
+def integrate_hyperexponential(a, d, DE, z=None, conds: str = 'piecewise'):
     """
     Integration of hyperexponential functions.
 
@@ -537,7 +538,7 @@ def integrate_hypertangent_polynomial(p, DE):
     c in k such that p - Dq - c*D(t**2 + 1)/(t**1 + 1) is in k and p -
     Dq does not have an elementary integral over k(t) if Dc != 0.
     """
-def integrate_nonlinear_no_specials(a, d, DE, z: Incomplete | None = None):
+def integrate_nonlinear_no_specials(a, d, DE, z=None):
     """
     Integration of nonlinear monomials with no specials.
 
@@ -600,7 +601,7 @@ class NonElementaryIntegral(Integral):
 
     """
 
-def risch_integrate(f, x, extension: Incomplete | None = None, handle_first: str = 'log', separate_integral: bool = False, rewrite_complex: Incomplete | None = None, conds: str = 'piecewise'):
+def risch_integrate(f, x, extension=None, handle_first: str = 'log', separate_integral: bool = False, rewrite_complex=None, conds: str = 'piecewise'):
     """
     The Risch Integration Algorithm.
 

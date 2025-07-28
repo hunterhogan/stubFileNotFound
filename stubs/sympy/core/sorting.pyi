@@ -3,7 +3,7 @@ from collections.abc import Generator
 
 __all__ = ['default_sort_key', 'ordered']
 
-def default_sort_key(item, order: Incomplete | None = None):
+def default_sort_key(item, order=None):
     """Return a key that can be used for sorting.
 
     The key has the structure:
@@ -116,7 +116,7 @@ def default_sort_key(item, order: Incomplete | None = None):
     ordered, sympy.core.expr.Expr.as_ordered_factors, sympy.core.expr.Expr.as_ordered_terms
 
     """
-def ordered(seq, keys: Incomplete | None = None, default: bool = True, warn: bool = False) -> Generator[Incomplete, Incomplete]:
+def ordered(seq, keys=None, default: bool = True, warn: bool = False) -> Generator[Incomplete, Incomplete]:
     """Return an iterator of the seq where keys are used to break ties
     in a conservative fashion: if, after applying a key, there are no
     ties then no other keys will be computed.

@@ -1,11 +1,11 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from sympy.core import Function as Function, NumberKind as NumberKind, S as S, sympify as sympify
+from sympy.core import NumberKind as NumberKind, S as S, sympify as sympify
 from sympy.core.add import Add as Add
 from sympy.core.containers import Tuple as Tuple
 from sympy.core.expr import Expr as Expr
 from sympy.core.exprtools import factor_terms as factor_terms
-from sympy.core.function import Application as Application, ArgumentIndexError as ArgumentIndexError, Lambda as Lambda
+from sympy.core.function import Application as Application, ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, Lambda as Lambda
 from sympy.core.logic import _torf as _torf, fuzzy_and as fuzzy_and, fuzzy_or as fuzzy_or
 from sympy.core.mod import Mod as Mod
 from sympy.core.mul import Mul as Mul
@@ -44,7 +44,7 @@ class IdentityFunction(Lambda, metaclass=Singleton):
 
 Id: Incomplete
 
-def sqrt(arg, evaluate: Incomplete | None = None):
+def sqrt(arg, evaluate=None):
     """Returns the principal square root.
 
     Parameters
@@ -128,7 +128,7 @@ def sqrt(arg, evaluate: Incomplete | None = None):
     .. [1] https://en.wikipedia.org/wiki/Square_root
     .. [2] https://en.wikipedia.org/wiki/Principal_value
     """
-def cbrt(arg, evaluate: Incomplete | None = None):
+def cbrt(arg, evaluate=None):
     """Returns the principal cube root.
 
     Parameters
@@ -182,7 +182,7 @@ def cbrt(arg, evaluate: Incomplete | None = None):
     .. [2] https://en.wikipedia.org/wiki/Principal_value
 
     """
-def root(arg, n, k: int = 0, evaluate: Incomplete | None = None):
+def root(arg, n, k: int = 0, evaluate=None):
     """Returns the *k*-th *n*-th root of ``arg``.
 
     Parameters
@@ -276,7 +276,7 @@ def root(arg, n, k: int = 0, evaluate: Incomplete | None = None):
     .. [5] https://mathworld.wolfram.com/CubeRoot.html
 
     """
-def real_root(arg, n: Incomplete | None = None, evaluate: Incomplete | None = None):
+def real_root(arg, n=None, evaluate=None):
     """Return the real *n*'th-root of *arg* if possible.
 
     Parameters
@@ -535,7 +535,7 @@ class Min(MinMaxBase, Application):
     def _eval_is_nonnegative(self): ...
     def _eval_is_negative(self): ...
 
-class Rem(Function):
+class Rem(DefinedFunction):
     """Returns the remainder when ``p`` is divided by ``q`` where ``p`` is finite
     and ``q`` is not equal to zero. The result, ``p - int(p/q)*q``, has the same sign
     as the divisor.

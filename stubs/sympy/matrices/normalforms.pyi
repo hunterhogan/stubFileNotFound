@@ -1,11 +1,10 @@
-from _typeshed import Incomplete
 from sympy.polys.domains.integerring import ZZ as ZZ
 from sympy.polys.matrices import DomainMatrix as DomainMatrix
 from sympy.polys.polytools import Poly as Poly
 
-def _to_domain(m, domain: Incomplete | None = None):
+def _to_domain(m, domain=None):
     """Convert Matrix to DomainMatrix"""
-def smith_normal_form(m, domain: Incomplete | None = None):
+def smith_normal_form(m, domain=None):
     """
     Return the Smith Normal Form of a matrix `m` over the ring `domain`.
     This will only work if the ring is a principal ideal domain.
@@ -17,10 +16,28 @@ def smith_normal_form(m, domain: Incomplete | None = None):
     >>> from sympy.matrices.normalforms import smith_normal_form
     >>> m = Matrix([[12, 6, 4], [3, 9, 6], [2, 16, 14]])
     >>> print(smith_normal_form(m, domain=ZZ))
-    Matrix([[1, 0, 0], [0, 10, 0], [0, 0, -30]])
+    Matrix([[1, 0, 0], [0, 10, 0], [0, 0, 30]])
 
     """
-def invariant_factors(m, domain: Incomplete | None = None):
+def is_smith_normal_form(m, domain=None):
+    """
+    Checks that the matrix is in Smith Normal Form
+    """
+def smith_normal_decomp(m, domain=None):
+    """
+    Return the Smith Normal Decomposition of a matrix `m` over the ring
+    `domain`. This will only work if the ring is a principal ideal domain.
+
+    Examples
+    ========
+
+    >>> from sympy import Matrix, ZZ
+    >>> from sympy.matrices.normalforms import smith_normal_decomp
+    >>> m = Matrix([[12, 6, 4], [3, 9, 6], [2, 16, 14]])
+    >>> a, s, t = smith_normal_decomp(m, domain=ZZ)
+    >>> assert a == s * m * t
+    """
+def invariant_factors(m, domain=None):
     """
     Return the tuple of abelian invariants for a matrix `m`
     (as in the Smith-Normal form)
@@ -32,7 +49,7 @@ def invariant_factors(m, domain: Incomplete | None = None):
     .. [2] https://web.archive.org/web/20200331143852/https://sierra.nmsu.edu/morandi/notes/SmithNormalForm.pdf
 
     """
-def hermite_normal_form(A, *, D: Incomplete | None = None, check_rank: bool = False):
+def hermite_normal_form(A, *, D=None, check_rank: bool = False):
     """
     Compute the Hermite Normal Form of a Matrix *A* of integers.
 

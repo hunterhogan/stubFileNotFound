@@ -1,6 +1,8 @@
+import types
 from .cache import clear_cache as clear_cache
 from _typeshed import Incomplete
 from collections.abc import Generator
+from contextlib import contextmanager
 from threading import local
 
 class _global_parameters(local):
@@ -91,6 +93,7 @@ class evaluate:
     def __enter__(self) -> None: ...
     def __exit__(self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: types.TracebackType | None) -> None: ...
 
+@contextmanager
 def distribute(x) -> Generator[None]:
     """ Control automatic distribution of Number over Add
 
@@ -112,6 +115,7 @@ def distribute(x) -> Generator[None]:
     ...     print(2*(x + 1))
     2*(x + 1)
     """
+@contextmanager
 def _exp_is_pow(x) -> Generator[None]:
     """
     Control whether `e^x` should be represented as ``exp(x)`` or a ``Pow(E, x)``.

@@ -115,7 +115,7 @@ class Dyadic(Printable, EvalfMixin):
 
         """
     __xor__ = cross
-    def express(self, frame1, frame2: Incomplete | None = None):
+    def express(self, frame1, frame2=None):
         """Expresses this Dyadic in alternate frame(s)
 
         The first frame is the list side expression, the second frame is the
@@ -147,7 +147,7 @@ class Dyadic(Printable, EvalfMixin):
         cos(q)*(B.x|N.x) - sin(q)*(B.y|N.x)
 
         """
-    def to_matrix(self, reference_frame, second_reference_frame: Incomplete | None = None):
+    def to_matrix(self, reference_frame, second_reference_frame=None):
         """Returns the matrix form of the dyadic with respect to one or two
         reference frames.
 

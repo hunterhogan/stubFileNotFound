@@ -14,7 +14,7 @@ from sympy.utilities.misc import filldedent as filldedent
 
 allhints: Incomplete
 
-def pdsolve(eq, func: Incomplete | None = None, hint: str = 'default', dict: bool = False, solvefun: Incomplete | None = None, **kwargs):
+def pdsolve(eq, func=None, hint: str = 'default', dict: bool = False, solvefun=None, **kwargs):
     '''
     Solves any (supported) kind of partial differential equation.
 
@@ -127,7 +127,7 @@ def _handle_Integral(expr, func, order, hint):
 
     Simplifies the integral mainly using doit()
     """
-def classify_pde(eq, func: Incomplete | None = None, dict: bool = False, *, prep: bool = True, **kwargs):
+def classify_pde(eq, func=None, dict: bool = False, *, prep: bool = True, **kwargs):
     '''
     Returns a tuple of possible pdsolve() classifications for a PDE.
 
@@ -165,7 +165,7 @@ def classify_pde(eq, func: Incomplete | None = None, dict: bool = False, *, prep
     >>> classify_pde(eq)
     (\'1st_linear_constant_coeff_homogeneous\',)
     '''
-def checkpdesol(pde, sol, func: Incomplete | None = None, solve_for_func: bool = True):
+def checkpdesol(pde, sol, func=None, solve_for_func: bool = True):
     """
     Checks if the given solution satisfies the partial differential
     equation.

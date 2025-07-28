@@ -22,7 +22,7 @@ from sympy.matrices.matrixbase import MatrixBase as MatrixBase
 from sympy.multipledispatch import dispatch as dispatch
 from sympy.utilities.misc import filldedent as filldedent
 
-def _sympifyit(arg, retval: Incomplete | None = None): ...
+def _sympifyit(arg, retval=None): ...
 
 class MatrixExpr(Expr):
     """Superclass for Matrix Expressions
@@ -169,7 +169,7 @@ class MatrixExpr(Expr):
         ========
         as_explicit: returns ImmutableDenseMatrix
         """
-    def __array__(self, dtype=..., copy: Incomplete | None = None): ...
+    def __array__(self, dtype=..., copy=None): ...
     def equals(self, other):
         """
         Test elementwise equality between matrices, potentially of different
@@ -182,7 +182,7 @@ class MatrixExpr(Expr):
     def canonicalize(self): ...
     def as_coeff_mmul(self): ...
     @staticmethod
-    def from_index_summation(expr, first_index: Incomplete | None = None, last_index: Incomplete | None = None, dimensions: Incomplete | None = None):
+    def from_index_summation(expr, first_index=None, last_index=None, dimensions=None):
         '''
         Parse expression of matrices with explicitly summed indices into a
         matrix expression without indices, if possible.

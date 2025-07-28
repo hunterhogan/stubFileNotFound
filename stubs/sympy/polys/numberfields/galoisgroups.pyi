@@ -1,9 +1,11 @@
 from sympy.polys.numberfields.galois_resolvents import GaloisGroupException
+from sympy.utilities import public
 
 __all__ = ['galois_group']
 
 class MaxTriesException(GaloisGroupException): ...
 
+@public
 def galois_group(f, *gens, by_name: bool = False, max_tries: int = 30, randomize: bool = False, **args):
     """
     Compute the Galois group for polynomials *f* up to degree 6.

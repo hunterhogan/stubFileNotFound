@@ -1,7 +1,8 @@
-from _typeshed import Incomplete
+from sympy.utilities import public
 
 __all__ = ['find_simple_recurrence_vector', 'find_simple_recurrence', 'rationalize', 'guess_generating_function_rational', 'guess_generating_function', 'guess']
 
+@public
 def find_simple_recurrence_vector(l):
     """
     This function is used internally by other functions from the
@@ -39,6 +40,7 @@ def find_simple_recurrence_vector(l):
     user-friendly.
 
     """
+@public
 def find_simple_recurrence(v, A=..., N=...):
     """
     Detects and returns a recurrence relation from a sequence of several integer
@@ -61,6 +63,7 @@ def find_simple_recurrence(v, A=..., N=...):
     -8*f(i) + 3*f(i + 1) - 5*f(i + 2) + f(i + 3)
 
     """
+@public
 def rationalize(x, maxcoeff: int = 10000):
     '''
     Helps identifying a rational number from a float (or mpmath.mpf) value by
@@ -108,6 +111,7 @@ def rationalize(x, maxcoeff: int = 10000):
     on getting simple fractions, other methods may be more convenient.
 
     '''
+@public
 def guess_generating_function_rational(v, X=...):
     '''
     Tries to "guess" a rational generating function for a sequence of rational
@@ -129,6 +133,7 @@ def guess_generating_function_rational(v, X=...):
     mpmath.pade
 
     '''
+@public
 def guess_generating_function(v, X=..., types=['all'], maxsqrtn: int = 2):
     '''
     Tries to "guess" a generating function for a sequence of rational numbers v.
@@ -202,7 +207,8 @@ def guess_generating_function(v, X=..., types=['all'], maxsqrtn: int = 2):
     .. [2] https://oeis.org/wiki/Generating_functions
 
     '''
-def guess(l, all: bool = False, evaluate: bool = True, niter: int = 2, variables: Incomplete | None = None):
+@public
+def guess(l, all: bool = False, evaluate: bool = True, niter: int = 2, variables=None):
     '''
     This function is adapted from the Rate.m package for Mathematica
     written by Christian Krattenthaler.

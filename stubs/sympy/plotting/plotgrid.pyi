@@ -86,7 +86,7 @@ class PlotGrid:
     _fig: Incomplete
     args: Incomplete
     size: Incomplete
-    def __init__(self, nrows, ncolumns, *args, show: bool = True, size: Incomplete | None = None, **kwargs) -> None:
+    def __init__(self, nrows, ncolumns, *args, show: bool = True, size=None, **kwargs) -> None:
         """
         Parameters
         ==========

@@ -58,7 +58,7 @@ def _verify_bsgs(group, base, gens):
     sympy.combinatorics.perm_groups.PermutationGroup.schreier_sims
 
     """
-def _verify_centralizer(group, arg, centr: Incomplete | None = None):
+def _verify_centralizer(group, arg, centr=None):
     """
     Verify the centralizer of a group/set/element inside another group.
 
@@ -87,7 +87,7 @@ def _verify_centralizer(group, arg, centr: Incomplete | None = None):
     _cmp_perm_lists
 
     """
-def _verify_normal_closure(group, arg, closure: Incomplete | None = None): ...
+def _verify_normal_closure(group, arg, closure=None): ...
 def canonicalize_naive(g, dummies, sym, *v):
     """
     Canonicalize tensor formed by tensors of the different types.

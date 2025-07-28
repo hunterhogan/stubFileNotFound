@@ -14,12 +14,14 @@ from sympy.polys.rootisolation import dup_cauchy_lower_bound as dup_cauchy_lower
 from sympy.polys.sqfreetools import dmp_norm as dmp_norm, dmp_sqf_list as dmp_sqf_list, dmp_sqf_list_include as dmp_sqf_list_include, dmp_sqf_norm as dmp_sqf_norm, dmp_sqf_p as dmp_sqf_p, dmp_sqf_part as dmp_sqf_part, dup_gff_list as dup_gff_list
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 
-_flint_domains: tuple[Domain, ...]
+def _supported_flint_domain(D): ...
 
 class DMP(CantSympify):
     """Dense Multivariate Polynomials over `K`. """
     __slots__: Incomplete
-    def __new__(cls, rep, dom, lev: Incomplete | None = None): ...
+    lev: int
+    dom: Domain
+    def __new__(cls, rep, dom, lev=None): ...
     @classmethod
     def new(cls, rep, dom, lev): ...
     @property
@@ -82,13 +84,13 @@ class DMP(CantSympify):
         """Take a continuous subsequence of terms of ``f``. """
     def _slice(f, m, n) -> None: ...
     def _slice_lev(f, m, n, j) -> None: ...
-    def coeffs(f, order: Incomplete | None = None):
+    def coeffs(f, order=None):
         """Returns all non-zero coefficients from ``f`` in lex order. """
-    def monoms(f, order: Incomplete | None = None):
+    def monoms(f, order=None):
         """Returns all non-zero monomials from ``f`` in lex order. """
-    def terms(f, order: Incomplete | None = None):
+    def terms(f, order=None):
         """Returns all non-zero terms from ``f`` in lex order. """
-    def _terms(f, order: Incomplete | None = None) -> None: ...
+    def _terms(f, order=None) -> None: ...
     def all_coeffs(f):
         """Returns all coefficients from ``f``. """
     def all_monoms(f):
@@ -320,13 +322,13 @@ class DMP(CantSympify):
         """Returns a list of irreducible factors of ``f``. """
     def factor_list_include(f) -> None:
         """Returns a list of irreducible factors of ``f``. """
-    def intervals(f, all: bool = False, eps: Incomplete | None = None, inf: Incomplete | None = None, sup: Incomplete | None = None, fast: bool = False, sqf: bool = False):
+    def intervals(f, all: bool = False, eps=None, inf=None, sup=None, fast: bool = False, sqf: bool = False):
         """Compute isolating intervals for roots of ``f``. """
     def _isolate_all_roots(f, eps, inf, sup, fast) -> None: ...
     def _isolate_all_roots_sqf(f, eps, inf, sup, fast) -> None: ...
     def _isolate_real_roots(f, eps, inf, sup, fast) -> None: ...
     def _isolate_real_roots_sqf(f, eps, inf, sup, fast) -> None: ...
-    def refine_root(f, s, t, eps: Incomplete | None = None, steps: Incomplete | None = None, fast: bool = False):
+    def refine_root(f, s, t, eps=None, steps=None, fast: bool = False):
         """
         Refine an isolating interval to the given precision.
 
@@ -334,9 +336,9 @@ class DMP(CantSympify):
 
         """
     def _refine_real_root(f, s, t, eps, steps, fast) -> None: ...
-    def count_real_roots(f, inf: Incomplete | None = None, sup: Incomplete | None = None) -> None:
+    def count_real_roots(f, inf=None, sup=None) -> None:
         """Return the number of real roots of ``f`` in ``[inf, sup]``. """
-    def count_complex_roots(f, inf: Incomplete | None = None, sup: Incomplete | None = None) -> None:
+    def count_complex_roots(f, inf=None, sup=None) -> None:
         """Return the number of complex roots of ``f`` in ``[inf, sup]``. """
     @property
     def is_zero(f) -> None:
@@ -423,7 +425,7 @@ class DMP_Python(DMP):
         """Take a continuous subsequence of terms of ``f``. """
     def _slice_lev(f, m, n, j):
         """Take a continuous subsequence of terms of ``f``. """
-    def _terms(f, order: Incomplete | None = None):
+    def _terms(f, order=None):
         """Returns all non-zero terms from ``f`` in lex order. """
     def _lift(f):
         """Convert algebraic coefficients to rationals. """
@@ -577,9 +579,9 @@ class DMP_Python(DMP):
     def _isolate_all_roots(f, eps, inf, sup, fast): ...
     def _isolate_all_roots_sqf(f, eps, inf, sup, fast): ...
     def _refine_real_root(f, s, t, eps, steps, fast): ...
-    def count_real_roots(f, inf: Incomplete | None = None, sup: Incomplete | None = None):
+    def count_real_roots(f, inf=None, sup=None):
         """Return the number of real roots of ``f`` in ``[inf, sup]``. """
-    def count_complex_roots(f, inf: Incomplete | None = None, sup: Incomplete | None = None):
+    def count_complex_roots(f, inf=None, sup=None):
         """Return the number of complex roots of ``f`` in ``[inf, sup]``. """
     @property
     def is_zero(f):
@@ -650,7 +652,7 @@ class DUP_Flint(DMP):
         """Take a continuous subsequence of terms of ``f``. """
     def _slice_lev(f, m, n, j) -> None:
         """Take a continuous subsequence of terms of ``f``. """
-    def _terms(f, order: Incomplete | None = None):
+    def _terms(f, order=None):
         """Returns all non-zero terms from ``f`` in lex order. """
     def _lift(f) -> None:
         """Convert algebraic coefficients to rationals. """
@@ -675,7 +677,7 @@ class DUP_Flint(DMP):
     def _quo_ground(f, c):
         """Quotient of ``f`` by a an element of the ground domain. """
     def _exquo_ground(f, c):
-        """Exact quotient of ``f`` by a an element of the ground domain. """
+        """Exact quotient of ``f`` by an element of the ground domain. """
     def abs(f):
         """Make all coefficients in ``f`` positive. """
     def neg(f):
@@ -805,9 +807,9 @@ class DUP_Flint(DMP):
     def _isolate_all_roots(f, eps, inf, sup, fast): ...
     def _isolate_all_roots_sqf(f, eps, inf, sup, fast): ...
     def _refine_real_root(f, s, t, eps, steps, fast): ...
-    def count_real_roots(f, inf: Incomplete | None = None, sup: Incomplete | None = None):
+    def count_real_roots(f, inf=None, sup=None):
         """Return the number of real roots of ``f`` in ``[inf, sup]``. """
-    def count_complex_roots(f, inf: Incomplete | None = None, sup: Incomplete | None = None):
+    def count_complex_roots(f, inf=None, sup=None):
         """Return the number of complex roots of ``f`` in ``[inf, sup]``. """
     @property
     def is_zero(f):
@@ -855,12 +857,12 @@ class DMF(PicklableWithSlots, CantSympify):
     den: Incomplete
     lev: Incomplete
     dom: Incomplete
-    def __init__(self, rep, dom, lev: Incomplete | None = None) -> None: ...
+    def __init__(self, rep, dom, lev=None) -> None: ...
     @classmethod
-    def new(cls, rep, dom, lev: Incomplete | None = None): ...
+    def new(cls, rep, dom, lev=None): ...
     def ground_new(self, rep): ...
     @classmethod
-    def _parse(cls, rep, dom, lev: Incomplete | None = None): ...
+    def _parse(cls, rep, dom, lev=None): ...
     def __repr__(f) -> str: ...
     def __hash__(f): ...
     def poly_unify(f, g):

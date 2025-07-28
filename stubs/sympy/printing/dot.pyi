@@ -1,8 +1,6 @@
-from _typeshed import Incomplete
-
 __all__ = ['dotprint']
 
-def dotprint(expr, styles=..., atom=..., maxdepth: Incomplete | None = None, repeat: bool = True, labelfunc=..., **kwargs):
+def dotprint(expr, styles=..., atom=..., maxdepth=None, repeat: bool = True, labelfunc=..., **kwargs):
     '''DOT description of a SymPy expression tree
 
     Parameters

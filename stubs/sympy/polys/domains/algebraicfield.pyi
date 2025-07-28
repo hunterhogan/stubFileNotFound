@@ -252,7 +252,7 @@ class AlgebraicField(Field, CharacteristicZero, SimpleDomain):
     _maximal_order: Incomplete
     _discriminant: Incomplete
     _nilradicals_mod_p: Incomplete
-    def __init__(self, dom, *ext, alias: Incomplete | None = None) -> None:
+    def __init__(self, dom, *ext, alias=None) -> None:
         """
         Parameters
         ==========
@@ -276,7 +276,7 @@ class AlgebraicField(Field, CharacteristicZero, SimpleDomain):
     def __hash__(self): ...
     def __eq__(self, other):
         """Returns ``True`` if two domains are equivalent. """
-    def algebraic_field(self, *extension, alias: Incomplete | None = None):
+    def algebraic_field(self, *extension, alias=None):
         """Returns an algebraic field, i.e. `\\mathbb{Q}(\\alpha, \\ldots)`. """
     def to_alg_num(self, a):
         """Convert ``a`` of ``dtype`` to an :py:class:`~.AlgebraicNumber`. """
@@ -335,7 +335,7 @@ class AlgebraicField(Field, CharacteristicZero, SimpleDomain):
         integral_basis
 
         """
-    def integral_basis(self, fmt: Incomplete | None = None):
+    def integral_basis(self, fmt=None):
         '''
         Get an integral basis for the field.
 

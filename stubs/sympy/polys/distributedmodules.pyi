@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core.singleton import S as S
 from sympy.core.sympify import sympify as sympify
 from sympy.polys.monomials import monomial_deg as monomial_deg, monomial_div as monomial_div, monomial_lcm as monomial_lcm, monomial_mul as monomial_mul
@@ -251,7 +250,7 @@ def sdm_from_vector(vec, O, K, **opts):
     >>> sdm_from_vector([x**2+y**2, 2*z], lex, QQ)
     [((1, 0, 0, 1), 2), ((0, 2, 0, 0), 1), ((0, 0, 2, 0), 1)]
     """
-def sdm_to_vector(f, gens, K, n: Incomplete | None = None):
+def sdm_to_vector(f, gens, K, n=None):
     """
     Convert sdm ``f`` into a list of polynomial expressions.
 
@@ -269,7 +268,7 @@ def sdm_to_vector(f, gens, K, n: Incomplete | None = None):
     >>> sdm_to_vector(f, [x, y, z], QQ)
     [x**2 + y**2, 2*z]
     """
-def sdm_spoly(f, g, O, K, phantom: Incomplete | None = None):
+def sdm_spoly(f, g, O, K, phantom=None):
     """
     Compute the generalized s-polynomial of ``f`` and ``g``.
 
@@ -318,7 +317,7 @@ def sdm_ecart(f):
     >>> sdm_ecart([((2, 2, 1), 1), ((1, 5, 1), 1)])
     3
     """
-def sdm_nf_mora(f, G, O, K, phantom: Incomplete | None = None):
+def sdm_nf_mora(f, G, O, K, phantom=None):
     '''
     Compute a weak normal form of ``f`` with respect to ``G`` and order ``O``.
 
@@ -343,7 +342,7 @@ def sdm_nf_mora(f, G, O, K, phantom: Incomplete | None = None):
     on which to perform the same computations as on ``f``, ``G``, both results
     are then returned.
     '''
-def sdm_nf_buchberger(f, G, O, K, phantom: Incomplete | None = None):
+def sdm_nf_buchberger(f, G, O, K, phantom=None):
     '''
     Compute a weak normal form of ``f`` with respect to ``G`` and order ``O``.
 

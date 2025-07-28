@@ -47,6 +47,7 @@ class AxisOrienter(Orienter):
         >>> B = N.orient_new('B', (orienter, ))
 
         """
+    @cacheit
     def rotation_matrix(self, system):
         """
         The rotation matrix corresponding to this orienter

@@ -1,4 +1,6 @@
+from sympy.core.cache import cacheit
 from sympy.core.function import Function
+from sympy.physics.quantum.kind import BraKind, KetKind
 from sympy.physics.quantum.qexpr import QExpr
 
 __all__ = ['KetBase', 'BraBase', 'StateBase', 'State', 'Ket', 'Bra', 'TimeDepState', 'TimeDepBra', 'TimeDepKet', 'OrthogonalKet', 'OrthogonalBra', 'OrthogonalState', 'Wavefunction']
@@ -58,6 +60,7 @@ class KetBase(StateBase):
     an abstract base class and you should not instantiate it directly, instead
     use Ket.
     """
+    kind = KetKind
     lbracket = _straight_bracket
     rbracket = _rbracket
     lbracket_ucode = _straight_bracket_ucode
@@ -68,10 +71,6 @@ class KetBase(StateBase):
     def default_args(self): ...
     @classmethod
     def dual_class(self): ...
-    def __mul__(self, other):
-        """KetBase*other"""
-    def __rmul__(self, other):
-        """other*KetBase"""
     def _eval_innerproduct(self, bra, **hints):
         """Evaluate the inner product between this ket and a bra.
 
@@ -111,6 +110,7 @@ class BraBase(StateBase):
     is an abstract base class and you should not instantiate it directly,
     instead use Bra.
     """
+    kind = BraKind
     lbracket = _lbracket
     rbracket = _straight_bracket
     lbracket_ucode = _lbracket_ucode
@@ -125,10 +125,6 @@ class BraBase(StateBase):
     def default_args(self): ...
     @classmethod
     def dual_class(self): ...
-    def __mul__(self, other):
-        """BraBase*other"""
-    def __rmul__(self, other):
-        """other*BraBase"""
     def _represent(self, **options):
         """A default represent that uses the Ket's version."""
 
@@ -362,7 +358,7 @@ class TimeDepBra(TimeDepState, BraBase):
     @classmethod
     def dual_class(self): ...
 
-class OrthogonalState(State, StateBase):
+class OrthogonalState(State):
     """General abstract quantum state used as a base class for Ket and Bra."""
 
 class OrthogonalKet(OrthogonalState, KetBase):
@@ -480,8 +476,6 @@ class Wavefunction(Function):
     def _eval_conjugate(self): ...
     def _eval_transpose(self): ...
     @property
-    def free_symbols(self): ...
-    @property
     def is_commutative(self):
         """
         Override Function's is_commutative so that order is preserved in
@@ -567,6 +561,7 @@ class Wavefunction(Function):
 
         """
     @property
+    @cacheit
     def norm(self):
         """
         Return the normalization of the specified functional form.

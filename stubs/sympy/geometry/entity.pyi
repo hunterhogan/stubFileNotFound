@@ -168,7 +168,7 @@ class GeometryEntity(Basic, EvalfMixin):
         Circle(Point2D(-pi, pi), -5)
 
         """
-    def rotate(self, angle, pt: Incomplete | None = None):
+    def rotate(self, angle, pt=None):
         """Rotate ``angle`` radians counterclockwise about Point ``pt``.
 
         The default pt is the origin, Point(0, 0)
@@ -189,7 +189,7 @@ class GeometryEntity(Basic, EvalfMixin):
         Triangle(Point2D(0, 1), Point2D(-sqrt(3)/2, -1/2), Point2D(sqrt(3)/2, -1/2))
 
         """
-    def scale(self, x: int = 1, y: int = 1, pt: Incomplete | None = None):
+    def scale(self, x: int = 1, y: int = 1, pt=None):
         """Scale the object by multiplying the x,y-coordinates by x and y.
 
         If pt is given, the scaling is done relative to that point; the
@@ -262,7 +262,7 @@ class GeometrySet(GeometryEntity, Set):
 
 def translate(x, y):
     """Return the matrix to translate a 2-D point by x and y."""
-def scale(x, y, pt: Incomplete | None = None):
+def scale(x, y, pt=None):
     """Return the matrix to multiply a 2-D point's coordinates by x and y.
 
     If pt is given, the scaling is done relative to that point."""

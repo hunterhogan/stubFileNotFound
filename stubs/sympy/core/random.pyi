@@ -13,8 +13,8 @@ uniform: Incomplete
 _assumptions_rng: Incomplete
 _assumptions_shuffle: Incomplete
 
-def seed(a: Incomplete | None = None, version: int = 2) -> None: ...
-def random_complex_number(a: int = 2, b: int = -1, c: int = 3, d: int = 1, rational: bool = False, tolerance: Incomplete | None = None):
+def seed(a=None, version: int = 2) -> None: ...
+def random_complex_number(a: int = 2, b: int = -1, c: int = 3, d: int = 1, rational: bool = False, tolerance=None):
     """
     Return a random complex number.
 
@@ -24,7 +24,7 @@ def random_complex_number(a: int = 2, b: int = -1, c: int = 3, d: int = 1, ratio
     When rational is True, a rational approximation to a random number
     is obtained within specified tolerance, if any.
     """
-def verify_numerically(f, g, z: Incomplete | None = None, tol: float = 1e-06, a: int = 2, b: int = -1, c: int = 3, d: int = 1):
+def verify_numerically(f, g, z=None, tol: float = 1e-06, a: int = 2, b: int = -1, c: int = 3, d: int = 1):
     """
     Test numerically that f and g agree when evaluated in the argument z.
 
@@ -60,7 +60,7 @@ def test_derivative_numerically(f, z, tol: float = 1e-06, a: int = 2, b: int = -
     >>> td(sin(x), x)
     True
     """
-def _randrange(seed: Incomplete | None = None):
+def _randrange(seed=None):
     """Return a randrange generator.
 
     ``seed`` can be
@@ -84,7 +84,7 @@ def _randrange(seed: Incomplete | None = None):
     >>> rr(3), rr(3)
     (0, 1)
     """
-def _randint(seed: Incomplete | None = None):
+def _randint(seed=None):
     """Return a randint generator.
 
     ``seed`` can be

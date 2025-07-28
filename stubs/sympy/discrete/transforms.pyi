@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core import S as S, Symbol as Symbol, sympify as sympify
 from sympy.core.function import expand_mul as expand_mul
 from sympy.core.numbers import I as I, pi as pi
@@ -9,7 +8,7 @@ from sympy.utilities.misc import as_int as as_int
 
 def _fourier_transform(seq, dps, inverse: bool = False):
     """Utility function for the Discrete Fourier Transform"""
-def fft(seq, dps: Incomplete | None = None):
+def fft(seq, dps=None):
     """
     Performs the Discrete Fourier Transform (**DFT**) in the complex domain.
 
@@ -54,7 +53,7 @@ def fft(seq, dps: Incomplete | None = None):
     .. [2] https://mathworld.wolfram.com/FastFourierTransform.html
 
     """
-def ifft(seq, dps: Incomplete | None = None): ...
+def ifft(seq, dps=None): ...
 def _number_theoretic_transform(seq, prime, inverse: bool = False):
     """Utility function for the Number Theoretic Transform"""
 def ntt(seq, prime):

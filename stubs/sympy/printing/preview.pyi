@@ -14,11 +14,11 @@ def system_default_viewer(fname, fmt) -> None:
     it, and this function does not attempt to block.
     """
 def pyglet_viewer(fname, fmt) -> None: ...
-def _get_latex_main(expr, *, preamble: Incomplete | None = None, packages=(), extra_preamble: Incomplete | None = None, euler: bool = True, fontsize: Incomplete | None = None, **latex_settings):
+def _get_latex_main(expr, *, preamble=None, packages=(), extra_preamble=None, euler: bool = True, fontsize=None, **latex_settings):
     """
     Generate string of a LaTeX document rendering ``expr``.
     """
-def preview(expr, output: str = 'png', viewer: Incomplete | None = None, euler: bool = True, packages=(), filename: Incomplete | None = None, outputbuffer: Incomplete | None = None, preamble: Incomplete | None = None, dvioptions: Incomplete | None = None, outputTexFile: Incomplete | None = None, extra_preamble: Incomplete | None = None, fontsize: Incomplete | None = None, **latex_settings) -> None:
+def preview(expr, output: str = 'png', viewer=None, euler: bool = True, packages=(), filename=None, outputbuffer=None, preamble=None, dvioptions=None, outputTexFile=None, extra_preamble=None, fontsize=None, **latex_settings) -> None:
     '''
     View expression or LaTeX markup in PNG, DVI, PostScript or PDF form.
 

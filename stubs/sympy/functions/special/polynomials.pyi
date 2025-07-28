@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from sympy.core import Rational as Rational
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function
+from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction
 from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy
 from sympy.functions.combinatorial.factorials import RisingFactorial as RisingFactorial, binomial as binomial, factorial as factorial
@@ -15,7 +15,7 @@ from sympy.polys.orthopolys import chebyshevt_poly as chebyshevt_poly, chebyshev
 
 _x: Incomplete
 
-class OrthogonalPolynomial(Function):
+class OrthogonalPolynomial(DefinedFunction):
     """Base class for orthogonal polynomials.
     """
     @classmethod
@@ -400,7 +400,7 @@ class chebyshevu(OrthogonalPolynomial):
     def _eval_rewrite_as_Sum(self, n, x, **kwargs): ...
     def _eval_rewrite_as_polynomial(self, n, x, **kwargs): ...
 
-class chebyshevt_root(Function):
+class chebyshevt_root(DefinedFunction):
     """
     ``chebyshev_root(n, k)`` returns the $k$th root (indexed from zero) of
     the $n$th Chebyshev polynomial of the first kind; that is, if
@@ -435,7 +435,7 @@ class chebyshevt_root(Function):
     @classmethod
     def eval(cls, n, k): ...
 
-class chebyshevu_root(Function):
+class chebyshevu_root(DefinedFunction):
     """
     ``chebyshevu_root(n, k)`` returns the $k$th root (indexed from zero) of the
     $n$th Chebyshev polynomial of the second kind; that is, if $0 \\le k < n$,
@@ -529,7 +529,7 @@ class legendre(OrthogonalPolynomial):
     def _eval_rewrite_as_Sum(self, n, x, **kwargs): ...
     def _eval_rewrite_as_polynomial(self, n, x, **kwargs): ...
 
-class assoc_legendre(Function):
+class assoc_legendre(DefinedFunction):
     """
     ``assoc_legendre(n, m, x)`` gives $P_n^m(x)$, where $n$ and $m$ are
     the degree and order or an expression which is related to the nth

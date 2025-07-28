@@ -755,14 +755,14 @@ def mobius(n):
     .. [2] Thomas Koshy "Elementary Number Theory with Applications"
 
     '''
-def _discrete_log_trial_mul(n, a, b, order: Incomplete | None = None):
+def _discrete_log_trial_mul(n, a, b, order=None):
     '''
     Trial multiplication algorithm for computing the discrete logarithm of
     ``a`` to the base ``b`` modulo ``n``.
 
     The algorithm finds the discrete logarithm using exhaustive search. This
     naive method is used as fallback algorithm of ``discrete_log`` when the
-    group order is very small.
+    group order is very small. The value ``n`` must be greater than 1.
 
     Examples
     ========
@@ -782,7 +782,7 @@ def _discrete_log_trial_mul(n, a, b, order: Incomplete | None = None):
     .. [1] "Handbook of applied cryptography", Menezes, A. J., Van, O. P. C., &
         Vanstone, S. A. (1997).
     '''
-def _discrete_log_shanks_steps(n, a, b, order: Incomplete | None = None):
+def _discrete_log_shanks_steps(n, a, b, order=None):
     '''
     Baby-step giant-step algorithm for computing the discrete logarithm of
     ``a`` to the base ``b`` modulo ``n``.
@@ -808,7 +808,7 @@ def _discrete_log_shanks_steps(n, a, b, order: Incomplete | None = None):
     .. [1] "Handbook of applied cryptography", Menezes, A. J., Van, O. P. C., &
         Vanstone, S. A. (1997).
     '''
-def _discrete_log_pollard_rho(n, a, b, order: Incomplete | None = None, retries: int = 10, rseed: Incomplete | None = None):
+def _discrete_log_pollard_rho(n, a, b, order=None, retries: int = 10, rseed=None):
     '''
     Pollard\'s Rho algorithm for computing the discrete logarithm of ``a`` to
     the base ``b`` modulo ``n``.
@@ -836,9 +836,9 @@ def _discrete_log_pollard_rho(n, a, b, order: Incomplete | None = None, retries:
     '''
 def _discrete_log_is_smooth(n: int, factorbase: list):
     """Try to factor n with respect to a given factorbase.
-    Upon success a list of exponents with repect to the factorbase is returned.
+    Upon success a list of exponents with respect to the factorbase is returned.
     Otherwise None."""
-def _discrete_log_index_calculus(n, a, b, order, rseed: Incomplete | None = None):
+def _discrete_log_index_calculus(n, a, b, order, rseed=None):
     '''
     Index Calculus algorithm for computing the discrete logarithm of ``a`` to
     the base ``b`` modulo ``n``.
@@ -864,7 +864,7 @@ def _discrete_log_index_calculus(n, a, b, order, rseed: Incomplete | None = None
     .. [1] "Handbook of applied cryptography", Menezes, A. J., Van, O. P. C., &
         Vanstone, S. A. (1997).
     '''
-def _discrete_log_pohlig_hellman(n, a, b, order: Incomplete | None = None, order_factors: Incomplete | None = None):
+def _discrete_log_pohlig_hellman(n, a, b, order=None, order_factors=None):
     '''
     Pohlig-Hellman algorithm for computing the discrete logarithm of ``a`` to
     the base ``b`` modulo ``n``.
@@ -891,7 +891,7 @@ def _discrete_log_pohlig_hellman(n, a, b, order: Incomplete | None = None, order
     .. [1] "Handbook of applied cryptography", Menezes, A. J., Van, O. P. C., &
         Vanstone, S. A. (1997).
     '''
-def discrete_log(n, a, b, order: Incomplete | None = None, prime_order: Incomplete | None = None):
+def discrete_log(n, a, b, order=None, prime_order=None):
     '''
     Compute the discrete logarithm of ``a`` to the base ``b`` modulo ``n``.
 

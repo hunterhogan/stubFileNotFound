@@ -2,7 +2,7 @@ from sympy.assumptions import Q as Q, ask as ask
 from sympy.core import Add as Add, Basic as Basic, Expr as Expr, Mul as Mul, Pow as Pow, Rational as Rational, S as S
 from sympy.core.logic import fuzzy_not as fuzzy_not
 from sympy.logic.boolalg import Boolean as Boolean
-from collections.abc import Callable
+from typing import Callable
 
 def refine(expr, assumptions: bool = True):
     """

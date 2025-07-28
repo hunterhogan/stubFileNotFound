@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core.basic import Basic
 
 __all__ = ['generate_gate_rules', 'generate_equivalent_ids', 'GateIdentity', 'bfs_identity_search', 'random_identity_search', 'is_scalar_sparse_matrix', 'is_scalar_nonsparse_matrix', 'is_degenerate', 'is_reducible']
@@ -24,7 +23,7 @@ def is_scalar_sparse_matrix(circuit, nqubits, identity_only, eps: float = 1e-11)
         The tolerance value for zeroing out elements in the matrix.
         Values in the range [-eps, +eps] will be changed to a zero.
     """
-def is_scalar_nonsparse_matrix(circuit, nqubits, identity_only, eps: Incomplete | None = None):
+def is_scalar_nonsparse_matrix(circuit, nqubits, identity_only, eps=None):
     """Checks if a given circuit, in matrix form, is equivalent to
     a scalar value.
 
@@ -288,7 +287,7 @@ def is_reducible(circuit, nqubits, begin, end):
     >>> is_reducible((x, y, y), 1, 1, 3)
     True
     """
-def bfs_identity_search(gate_list, nqubits, max_depth: Incomplete | None = None, identity_only: bool = False):
+def bfs_identity_search(gate_list, nqubits, max_depth=None, identity_only: bool = False):
     """Constructs a set of gate identities from the list of possible gates.
 
     Performs a breadth first search over the space of gate identities.

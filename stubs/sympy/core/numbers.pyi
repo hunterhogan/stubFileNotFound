@@ -12,15 +12,18 @@ from .mul import Mul as Mul
 from .parameters import global_parameters as global_parameters
 from .power import Pow as Pow
 from .singleton import S as S, Singleton as Singleton
+from .sorting import ordered as ordered
 from .sympify import SympifyError as SympifyError, _convert_numpy_types as _convert_numpy_types, _is_numpy_instance as _is_numpy_instance, _sympify as _sympify, _sympy_converter as _sympy_converter, sympify as sympify
 from _typeshed import Incomplete
 from sympy.external.gmpy import SYMPY_INTS as SYMPY_INTS, flint as flint, gmpy as gmpy
 from sympy.multipledispatch import dispatch as dispatch
+from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.misc import debug as debug
+from typing import overload
 
 _LOG2: Incomplete
 
-def comp(z1, z2, tol: Incomplete | None = None):
+def comp(z1, z2, tol=None):
     """Return a bool indicating whether the error between z1 and z2
     is $\\le$ ``tol``.
 
@@ -182,8 +185,13 @@ class Number(AtomicExpr):
     def _eval_subs(self, old, new): ...
     @classmethod
     def class_key(cls): ...
-    def sort_key(self, order: Incomplete | None = None): ...
-    def __add__(self, other): ...
+    @cacheit
+    def sort_key(self, order=None): ...
+    def __neg__(self) -> Number: ...
+    @overload
+    def __add__(self, other: Number | int | float) -> Number: ...
+    @overload
+    def __add__(self, other: Expr) -> Expr: ...
     def __sub__(self, other): ...
     def __mul__(self, other): ...
     def __truediv__(self, other): ...
@@ -383,7 +391,7 @@ class Float(Number):
     is_extended_real: bool
     is_Float: bool
     _remove_non_digits: Incomplete
-    def __new__(cls, num, dps: Incomplete | None = None, precision: Incomplete | None = None): ...
+    def __new__(cls, num, dps=None, precision=None): ...
     @classmethod
     def _new(cls, _mpf_, _prec, zero: bool = True): ...
     def __getnewargs_ex__(self): ...
@@ -512,16 +520,6 @@ class Rational(Number):
     >>> r.p/r.q
     0.75
 
-    If an unevaluated Rational is desired, ``gcd=1`` can be passed and
-    this will keep common divisors of the numerator and denominator
-    from being eliminated. It is not possible, however, to leave a
-    negative value in the denominator.
-
-    >>> Rational(2, 4, gcd=1)
-    2/4
-    >>> Rational(2, -4, gcd=1).q
-    4
-
     See Also
     ========
     sympy.core.sympify.sympify, sympy.simplify.simplify.nsimplify
@@ -534,7 +532,22 @@ class Rational(Number):
     p: int
     q: int
     is_Rational: bool
-    def __new__(cls, p, q: Incomplete | None = None, gcd: Incomplete | None = None): ...
+    @cacheit
+    def __new__(cls, p, q=None, gcd=None): ...
+    @classmethod
+    def _new(cls, p, q, gcd=None): ...
+    @classmethod
+    def from_coprime_ints(cls, p: int, q: int) -> Rational:
+        """Create a Rational from a pair of coprime integers.
+
+        Both ``p`` and ``q`` should be strictly of type ``int``.
+
+        The caller should ensure that ``gcd(p,q) == 1`` and ``q > 0``.
+
+        This may be more efficient than ``Rational(p, q)``. The validity of the
+        arguments may or may not be checked so it should not be relied upon to
+        pass unvalidated or invalid arguments to this function.
+        """
     def limit_denominator(self, max_denominator: int = 1000000):
         """Closest Rational to self with denominator at most max_denominator.
 
@@ -580,7 +593,7 @@ class Rational(Number):
     def __lt__(self, other): ...
     def __le__(self, other): ...
     def __hash__(self): ...
-    def factors(self, limit: Incomplete | None = None, use_trial: bool = True, use_rho: bool = False, use_pm1: bool = False, verbose: bool = False, visual: bool = False):
+    def factors(self, limit=None, use_trial: bool = True, use_rho: bool = False, use_pm1: bool = False, verbose: bool = False, visual: bool = False):
         """A wrapper to factorint which return factors of self that are
         smaller than limit (or cheap to compute). Special methods of
         factoring are disabled by default so that only trial division is used.
@@ -644,6 +657,7 @@ class Integer(Rational):
     __slots__: Incomplete
     def _as_mpf_val(self, prec): ...
     def _mpmath_(self, prec, rnd): ...
+    @cacheit
     def __new__(cls, i): ...
     def __getnewargs__(self): ...
     def __int__(self) -> int: ...
@@ -733,7 +747,7 @@ class AlgebraicNumber(Expr):
     is_number: bool
     kind = NumberKind
     free_symbols: set[Basic]
-    def __new__(cls, expr, coeffs: Incomplete | None = None, alias: Incomplete | None = None, **args):
+    def __new__(cls, expr, coeffs=None, alias=None, **args):
         """
         Construct a new algebraic number $\\alpha$ belonging to a number field
         $k = \\mathbb{Q}(\\theta)$.
@@ -907,9 +921,9 @@ class AlgebraicNumber(Expr):
     @property
     def is_aliased(self):
         """Returns ``True`` if ``alias`` was set. """
-    def as_poly(self, x: Incomplete | None = None):
+    def as_poly(self, x=None):
         """Create a Poly instance from ``self``. """
-    def as_expr(self, x: Incomplete | None = None):
+    def as_expr(self, x=None):
         """Create a Basic expression from ``self``. """
     def coeffs(self):
         """Returns all SymPy coefficients of an algebraic number. """
@@ -1054,7 +1068,7 @@ class AlgebraicNumber(Expr):
         polynomial for $\\alpha$.
 
         """
-    def to_root(self, radicals: bool = True, minpoly: Incomplete | None = None):
+    def to_root(self, radicals: bool = True, minpoly=None):
         """
         Convert to an :py:class:`~.Expr` that is not an
         :py:class:`~.AlgebraicNumber`, specifically, either a
@@ -1155,7 +1169,7 @@ class One(IntegerConstant, metaclass=Singleton):
     def _eval_power(self, expt): ...
     def _eval_order(self, *symbols) -> None: ...
     @staticmethod
-    def factors(limit: Incomplete | None = None, use_trial: bool = True, use_rho: bool = False, use_pm1: bool = False, verbose: bool = False, visual: bool = False): ...
+    def factors(limit=None, use_trial: bool = True, use_rho: bool = False, use_pm1: bool = False, verbose: bool = False, visual: bool = False): ...
 
 class NegativeOne(IntegerConstant, metaclass=Singleton):
     """The number negative one.
@@ -1268,8 +1282,8 @@ class Infinity(Number, metaclass=Singleton):
     def __new__(cls): ...
     def _latex(self, printer): ...
     def _eval_subs(self, old, new): ...
-    def _eval_evalf(self, prec: Incomplete | None = None): ...
-    def evalf(self, prec: Incomplete | None = None, **options): ...
+    def _eval_evalf(self, prec=None): ...
+    def evalf(self, prec=None, **options): ...
     def __add__(self, other): ...
     __radd__ = __add__
     def __sub__(self, other): ...
@@ -1335,8 +1349,8 @@ class NegativeInfinity(Number, metaclass=Singleton):
     def __new__(cls): ...
     def _latex(self, printer): ...
     def _eval_subs(self, old, new): ...
-    def _eval_evalf(self, prec: Incomplete | None = None): ...
-    def evalf(self, prec: Incomplete | None = None, **options): ...
+    def _eval_evalf(self, prec=None): ...
+    def evalf(self, prec=None, **options): ...
     def __add__(self, other): ...
     __radd__ = __add__
     def __sub__(self, other): ...
@@ -1812,7 +1826,7 @@ class Catalan(NumberSymbol, metaclass=Singleton):
     def __int__(self) -> int: ...
     def _as_mpf_val(self, prec): ...
     def approximation_interval(self, number_cls): ...
-    def _eval_rewrite_as_Sum(self, k_sym: Incomplete | None = None, symbols: Incomplete | None = None, **hints): ...
+    def _eval_rewrite_as_Sum(self, k_sym=None, symbols=None, **hints): ...
     def _latex(self, printer): ...
 
 class ImaginaryUnit(AtomicExpr, metaclass=Singleton):
@@ -1910,7 +1924,7 @@ def equal_valued(x, y):
     Explanation
     ===========
 
-    In future SymPy verions Float and Rational might compare unequal and floats
+    In future SymPy versions Float and Rational might compare unequal and floats
     with different precisions might compare unequal. In that context a function
     is needed that can check if a number is equal to 1 or 0 etc. The idea is
     that instead of testing ``if x == 1:`` if we want to accept floats like
@@ -1930,7 +1944,8 @@ def all_close(expr1, expr2, rtol: float = 1e-05, atol: float = 1e-08):
 
     The expressions must have the same structure, but any Rational, Integer, or
     Float numbers they contain are compared approximately using rtol and atol.
-    Any other parts of expressions are compared exactly.
+    Any other parts of expressions are compared exactly. However, allowance is
+    made to allow for the additive and multiplicative identities.
 
     Relative tolerance is measured with respect to expr2 so when used in
     testing expr2 should be the expected correct answer.
@@ -1951,6 +1966,16 @@ def all_close(expr1, expr2, rtol: float = 1e-05, atol: float = 1e-08):
     False
     >>> all_close(expr1, expr2)
     True
+
+    Identities are automatically supplied:
+
+    >>> all_close(x, x + 1e-10)
+    True
+    >>> all_close(x, 1.0*x)
+    True
+    >>> all_close(x, 1.0*x + 1e-10)
+    True
+
     """
 def sympify_fractions(f): ...
 def sympify_mpz(x): ...

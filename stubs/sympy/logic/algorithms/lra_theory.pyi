@@ -176,7 +176,7 @@ class LRASolver:
     def _pivot(M, i, j):
         """
         Performs a pivot operation about entry i, j of M by performing
-        a series of row operations on a copy of M and returing the result.
+        a series of row operations on a copy of M and returning the result.
         The original M is left unmodified.
 
         Conceptually, M represents a system of equations and pivoting
@@ -253,7 +253,7 @@ class Boundary:
     strict: Incomplete
     upper: Incomplete
     equality: Incomplete
-    def __init__(self, var, const, upper, equality, strict: Incomplete | None = None) -> None: ...
+    def __init__(self, var, const, upper, equality, strict=None) -> None: ...
     @staticmethod
     def from_upper(var): ...
     @staticmethod

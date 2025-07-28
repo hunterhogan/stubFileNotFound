@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core.expr import AtomicExpr as AtomicExpr
 from sympy.core.symbol import Symbol as Symbol
 from sympy.core.sympify import sympify as sympify
@@ -15,7 +14,7 @@ class Quantity(AtomicExpr):
     is_nonzero: bool
     is_physical_constant: bool
     _diff_wrt: bool
-    def __new__(cls, name, abbrev: Incomplete | None = None, latex_repr: Incomplete | None = None, pretty_unicode_repr: Incomplete | None = None, pretty_ascii_repr: Incomplete | None = None, mathml_presentation_repr: Incomplete | None = None, is_prefixed: bool = False, **assumptions): ...
+    def __new__(cls, name, abbrev=None, latex_repr=None, pretty_unicode_repr=None, pretty_ascii_repr=None, mathml_presentation_repr=None, is_prefixed: bool = False, **assumptions): ...
     def set_global_dimension(self, dimension) -> None: ...
     _is_prefixed: bool
     def set_global_relative_scale_factor(self, scale_factor, reference_quantity):

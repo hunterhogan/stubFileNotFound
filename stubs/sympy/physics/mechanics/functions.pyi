@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.physics.vector.printing import vlatex, vpprint, vprint, vsprint
 
 __all__ = ['linear_momentum', 'angular_momentum', 'kinetic_energy', 'potential_energy', 'Lagrangian', 'mechanics_printing', 'mprint', 'msprint', 'mpprint', 'mlatex', 'msubs', 'find_dynamicsymbols']
@@ -242,7 +241,7 @@ def Lagrangian(frame, *body):
     -M*g*h - g*h*m + 350
 
     """
-def find_dynamicsymbols(expression, exclude: Incomplete | None = None, reference_frame: Incomplete | None = None):
+def find_dynamicsymbols(expression, exclude=None, reference_frame=None):
     """Find all dynamicsymbols in expression.
 
     Explanation

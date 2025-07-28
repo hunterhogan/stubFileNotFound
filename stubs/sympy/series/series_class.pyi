@@ -25,6 +25,7 @@ class SeriesBase(Expr):
         This method returns the symbols in the object, excluding those
         that take on a specific value (i.e. the dummy symbols).
         """
+    @cacheit
     def term(self, pt):
         """Term at point pt of a series"""
     def _eval_term(self, pt) -> None: ...

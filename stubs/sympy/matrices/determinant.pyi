@@ -1,6 +1,5 @@
 from .exceptions import NonSquareMatrixError as NonSquareMatrixError
 from .utilities import _dotprodsimp as _dotprodsimp, _get_intermediate_simp as _get_intermediate_simp, _get_intermediate_simp_bool as _get_intermediate_simp_bool, _is_zero_after_expand_mul as _is_zero_after_expand_mul, _iszero as _iszero, _simplify as _simplify
-from _typeshed import Incomplete
 from sympy.core.cache import cacheit as cacheit
 from sympy.core.mul import Mul as Mul
 from sympy.core.numbers import Float as Float, Integer as Integer
@@ -28,7 +27,7 @@ def _find_reasonable_pivot(col, iszerofunc=..., simpfunc=...):
     was made without being proved, and newly_determined are
     elements that were simplified during the process of pivot
     finding."""
-def _find_reasonable_pivot_naive(col, iszerofunc=..., simpfunc: Incomplete | None = None):
+def _find_reasonable_pivot_naive(col, iszerofunc=..., simpfunc=None):
     """
     Helper that computes the pivot value and location from a
     sequence of contiguous matrix column elements. As a side effect
@@ -286,7 +285,7 @@ def _per(M):
     .. [4] Permanent of a rectangular matrix : https://arxiv.org/pdf/0904.3251.pdf
     """
 def _det_DOM(M): ...
-def _det(M, method: str = 'bareiss', iszerofunc: Incomplete | None = None):
+def _det(M, method: str = 'bareiss', iszerofunc=None):
     '''Computes the determinant of a matrix if ``M`` is a concrete matrix object
     otherwise return an expressions ``Determinant(M)`` if ``M`` is a
     ``MatrixSymbol`` or other expression.
@@ -393,7 +392,7 @@ def _det_bareiss(M, iszerofunc=...):
     """
 def _det_berkowitz(M):
     """ Use the Berkowitz algorithm to compute the determinant."""
-def _det_LU(M, iszerofunc=..., simpfunc: Incomplete | None = None):
+def _det_LU(M, iszerofunc=..., simpfunc=None):
     """ Computes the determinant of a matrix from its LU decomposition.
     This function uses the LU decomposition computed by
     LUDecomposition_Simple().
@@ -418,6 +417,7 @@ def _det_LU(M, iszerofunc=..., simpfunc: Incomplete | None = None):
     simpfunc : function, optional
         The simplification function to use when looking for zeros for pivots.
     """
+@cacheit
 def __det_laplace(M):
     """Compute the determinant of a matrix using Laplace expansion.
 

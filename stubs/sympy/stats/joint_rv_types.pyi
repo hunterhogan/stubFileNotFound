@@ -9,7 +9,7 @@ class JointDistributionHandmade(JointDistribution):
     @property
     def set(self): ...
 
-def JointRV(symbol, pdf, _set: Incomplete | None = None):
+def JointRV(symbol, pdf, _set=None):
     """
     Create a Joint Random Variable where each of its component is continuous,
     given the following:

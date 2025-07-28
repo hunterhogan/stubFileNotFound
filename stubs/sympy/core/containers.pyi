@@ -6,9 +6,7 @@ from collections.abc import MutableSet
 from sympy.core.kind import Kind as Kind
 from sympy.utilities.iterables import iterable as iterable
 from sympy.utilities.misc import as_int as as_int
-from typing import Any
-
-from collections.abc import Callable
+from typing import Any, Callable
 
 class Tuple(Basic):
     """
@@ -57,7 +55,7 @@ class Tuple(Basic):
     def __le__(self, other): ...
     def tuple_count(self, value) -> int:
         """Return number of occurrences of value."""
-    def index(self, value, start: Incomplete | None = None, stop: Incomplete | None = None):
+    def index(self, value, start=None, stop=None):
         """Searches and returns the first index of the value."""
     @property
     def kind(self):
@@ -148,6 +146,8 @@ class Dict(Basic):
     one
 
     """
+    elements: frozenset[Tuple]
+    _dict: dict[Basic, Basic]
     def __new__(cls, *args): ...
     def __getitem__(self, key):
         """x.__getitem__(y) <==> x[y]"""
@@ -163,7 +163,7 @@ class Dict(Basic):
         """x.__iter__() <==> iter(x)"""
     def __len__(self) -> int:
         """x.__len__() <==> len(x)"""
-    def get(self, key, default: Incomplete | None = None):
+    def get(self, key, default=None):
         """Returns the value for key if the key is in the dictionary."""
     def __contains__(self, key) -> bool:
         """D.__contains__(k) -> True if D has a key k, else False"""
@@ -175,7 +175,7 @@ class Dict(Basic):
 
 class OrderedSet(MutableSet):
     map: Incomplete
-    def __init__(self, iterable: Incomplete | None = None) -> None: ...
+    def __init__(self, iterable=None) -> None: ...
     def __len__(self) -> int: ...
     def __contains__(self, key) -> bool: ...
     def add(self, key) -> None: ...

@@ -102,6 +102,8 @@ class FiniteField(Field, SimpleDomain):
     dom: Incomplete
     mod: Incomplete
     dtype: Incomplete
+    _poly_ctx: Incomplete
+    _is_flint: Incomplete
     zero: Incomplete
     one: Incomplete
     sym: Incomplete
@@ -109,6 +111,9 @@ class FiniteField(Field, SimpleDomain):
     def __init__(self, mod, symmetric: bool = True) -> None: ...
     @property
     def tp(self): ...
+    _is_field: Incomplete
+    @property
+    def is_Field(self): ...
     def __str__(self) -> str: ...
     def __hash__(self): ...
     def __eq__(self, other):
@@ -131,23 +136,23 @@ class FiniteField(Field, SimpleDomain):
         """Returns True if ``a`` is negative. """
     def is_nonpositive(self, a):
         """Returns True if ``a`` is non-positive. """
-    def from_FF(K1, a, K0: Incomplete | None = None):
+    def from_FF(K1, a, K0=None):
         """Convert ``ModularInteger(int)`` to ``dtype``. """
-    def from_FF_python(K1, a, K0: Incomplete | None = None):
+    def from_FF_python(K1, a, K0=None):
         """Convert ``ModularInteger(int)`` to ``dtype``. """
-    def from_ZZ(K1, a, K0: Incomplete | None = None):
+    def from_ZZ(K1, a, K0=None):
         """Convert Python's ``int`` to ``dtype``. """
-    def from_ZZ_python(K1, a, K0: Incomplete | None = None):
+    def from_ZZ_python(K1, a, K0=None):
         """Convert Python's ``int`` to ``dtype``. """
-    def from_QQ(K1, a, K0: Incomplete | None = None):
+    def from_QQ(K1, a, K0=None):
         """Convert Python's ``Fraction`` to ``dtype``. """
-    def from_QQ_python(K1, a, K0: Incomplete | None = None):
+    def from_QQ_python(K1, a, K0=None):
         """Convert Python's ``Fraction`` to ``dtype``. """
-    def from_FF_gmpy(K1, a, K0: Incomplete | None = None):
+    def from_FF_gmpy(K1, a, K0=None):
         """Convert ``ModularInteger(mpz)`` to ``dtype``. """
-    def from_ZZ_gmpy(K1, a, K0: Incomplete | None = None):
+    def from_ZZ_gmpy(K1, a, K0=None):
         """Convert GMPY's ``mpz`` to ``dtype``. """
-    def from_QQ_gmpy(K1, a, K0: Incomplete | None = None):
+    def from_QQ_gmpy(K1, a, K0=None):
         """Convert GMPY's ``mpq`` to ``dtype``. """
     def from_RealField(K1, a, K0):
         """Convert mpmath's ``mpf`` to ``dtype``. """

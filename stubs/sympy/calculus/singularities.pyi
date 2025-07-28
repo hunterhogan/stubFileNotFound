@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core.power import Pow as Pow
 from sympy.core.singleton import S as S
 from sympy.core.symbol import Symbol as Symbol
@@ -8,7 +7,7 @@ from sympy.functions.elementary.hyperbolic import acoth as acoth, acsch as acsch
 from sympy.functions.elementary.trigonometric import cos as cos, cot as cot, csc as csc, sec as sec, tan as tan
 from sympy.utilities.misc import filldedent as filldedent
 
-def singularities(expression, symbol, domain: Incomplete | None = None):
+def singularities(expression, symbol, domain=None):
     """
     Find singularities of a given function.
 
@@ -68,7 +67,7 @@ def singularities(expression, symbol, domain: Incomplete | None = None):
     {0}
 
     """
-def monotonicity_helper(expression, predicate, interval=..., symbol: Incomplete | None = None):
+def monotonicity_helper(expression, predicate, interval=..., symbol=None):
     """
     Helper function for functions checking function monotonicity.
 
@@ -99,7 +98,7 @@ def monotonicity_helper(expression, predicate, interval=..., symbol: Incomplete 
         is varied in ``range``, False otherwise.
 
     """
-def is_increasing(expression, interval=..., symbol: Incomplete | None = None):
+def is_increasing(expression, interval=..., symbol=None):
     """
     Return whether the function is increasing in the given interval.
 
@@ -139,7 +138,7 @@ def is_increasing(expression, interval=..., symbol: Incomplete | None = None):
     True
 
     """
-def is_strictly_increasing(expression, interval=..., symbol: Incomplete | None = None):
+def is_strictly_increasing(expression, interval=..., symbol=None):
     """
     Return whether the function is strictly increasing in the given interval.
 
@@ -179,7 +178,7 @@ def is_strictly_increasing(expression, interval=..., symbol: Incomplete | None =
     False
 
     """
-def is_decreasing(expression, interval=..., symbol: Incomplete | None = None):
+def is_decreasing(expression, interval=..., symbol=None):
     """
     Return whether the function is decreasing in the given interval.
 
@@ -223,7 +222,7 @@ def is_decreasing(expression, interval=..., symbol: Incomplete | None = None):
     False
 
     """
-def is_strictly_decreasing(expression, interval=..., symbol: Incomplete | None = None):
+def is_strictly_decreasing(expression, interval=..., symbol=None):
     """
     Return whether the function is strictly decreasing in the given interval.
 
@@ -263,7 +262,7 @@ def is_strictly_decreasing(expression, interval=..., symbol: Incomplete | None =
     False
 
     """
-def is_monotonic(expression, interval=..., symbol: Incomplete | None = None):
+def is_monotonic(expression, interval=..., symbol=None):
     """
     Return whether the function is monotonic in the given interval.
 

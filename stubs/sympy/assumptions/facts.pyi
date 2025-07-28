@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.assumptions.ask import Q as Q
 from sympy.assumptions.assume import AppliedPredicate as AppliedPredicate
 from sympy.core.cache import cacheit as cacheit
@@ -6,8 +5,10 @@ from sympy.core.symbol import Symbol as Symbol
 from sympy.logic.boolalg import And as And, Equivalent as Equivalent, Exclusive as Exclusive, Implies as Implies, Not as Not, to_cnf as to_cnf
 from sympy.logic.inference import satisfiable as satisfiable
 
+@cacheit
 def get_composite_predicates(): ...
-def get_known_facts(x: Incomplete | None = None):
+@cacheit
+def get_known_facts(x=None):
     """
     Facts between unary predicates.
 
@@ -23,7 +24,8 @@ def get_known_facts(x: Incomplete | None = None):
     fact : Known facts in conjugated normal form.
 
     """
-def get_number_facts(x: Incomplete | None = None):
+@cacheit
+def get_number_facts(x=None):
     """
     Facts between unary number predicates.
 
@@ -39,7 +41,8 @@ def get_number_facts(x: Incomplete | None = None):
     fact : Known facts in conjugated normal form.
 
     """
-def get_matrix_facts(x: Incomplete | None = None):
+@cacheit
+def get_matrix_facts(x=None):
     """
     Facts between unary matrix predicates.
 
@@ -88,6 +91,7 @@ def generate_known_facts_dict(keys, fact):
      Q.odd: ({Q.odd}, {Q.even, Q.zero}),
      Q.zero: ({Q.even, Q.zero}, {Q.odd})}
     """
+@cacheit
 def get_known_facts_keys():
     """
     Return every unary predicates registered to ``Q``.

@@ -21,9 +21,9 @@ def _generate_assumption_rules():
 _assume_rules: Incomplete
 _assume_defined: Incomplete
 
-def assumptions(expr, _check: Incomplete | None = None):
+def assumptions(expr, _check=None):
     """return the T/F assumptions of ``expr``"""
-def common_assumptions(exprs, check: Incomplete | None = None):
+def common_assumptions(exprs, check=None):
     """return those assumptions which have the same True or False
     value for all the given expressions.
 
@@ -66,7 +66,7 @@ def failing_assumptions(expr, **assumptions):
     {}
 
     """
-def check_assumptions(expr, against: Incomplete | None = None, **assume):
+def check_assumptions(expr, against=None, **assume):
     """
     Checks whether assumptions of ``expr`` match the T/F assumptions
     given (or possessed by ``against``). True is returned if all
@@ -130,7 +130,7 @@ class StdFactKB(FactKB):
     This is the only kind of FactKB that Basic objects should use.
     """
     _generator: Incomplete
-    def __init__(self, facts: Incomplete | None = None) -> None: ...
+    def __init__(self, facts=None) -> None: ...
     def copy(self): ...
     @property
     def generator(self): ...

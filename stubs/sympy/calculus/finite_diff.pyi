@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core.function import Derivative as Derivative, Subs as Subs
 from sympy.core.singleton import S as S
 from sympy.core.traversal import preorder_traversal as preorder_traversal
@@ -210,7 +209,7 @@ def apply_finite_diff(order, x_list, y_list, x0=...):
     .. _finitediff: https://github.com/bjodah/finitediff
 
     """
-def _as_finite_diff(derivative, points: int = 1, x0: Incomplete | None = None, wrt: Incomplete | None = None):
+def _as_finite_diff(derivative, points: int = 1, x0=None, wrt=None):
     '''
     Returns an approximation of a derivative of a function in
     the form of a finite difference formula. The expression is a
@@ -286,7 +285,7 @@ def _as_finite_diff(derivative, points: int = 1, x0: Incomplete | None = None, w
     sympy.calculus.finite_diff.finite_diff_weights
 
     '''
-def differentiate_finite(expr, *symbols, points: int = 1, x0: Incomplete | None = None, wrt: Incomplete | None = None, evaluate: bool = False):
+def differentiate_finite(expr, *symbols, points: int = 1, x0=None, wrt=None, evaluate: bool = False):
     """ Differentiate expr and replace Derivatives with finite differences.
 
     Parameters

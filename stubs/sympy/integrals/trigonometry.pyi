@@ -4,6 +4,7 @@ from sympy.core import Dummy as Dummy, Integer as Integer, Ne as Ne, Rational as
 from sympy.functions import Abs as Abs, Piecewise as Piecewise, binomial as binomial, cos as cos, sin as sin
 
 def _integer_instance(n): ...
+@cacheit
 def _pat_sincos(x): ...
 
 _u: Incomplete

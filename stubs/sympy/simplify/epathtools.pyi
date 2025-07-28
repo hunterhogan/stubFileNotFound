@@ -27,13 +27,13 @@ class EPath:
     def __repr__(self) -> str: ...
     def _get_ordered_args(self, expr):
         """Sort ``expr.args`` using printing order. """
-    def _hasattrs(self, expr, attrs):
+    def _hasattrs(self, expr, attrs) -> bool:
         """Check if ``expr`` has any of ``attrs``. """
     def _hastypes(self, expr, types):
         """Check if ``expr`` is any of ``types``. """
     def _has(self, expr, attrs, types):
         """Apply ``_hasattrs`` and ``_hastypes`` to ``expr``. """
-    def apply(self, expr, func, args: Incomplete | None = None, kwargs: Incomplete | None = None):
+    def apply(self, expr, func, args=None, kwargs=None):
         '''
         Modify parts of an expression selected by a path.
 
@@ -82,7 +82,7 @@ class EPath:
 
         '''
 
-def epath(path, expr: Incomplete | None = None, func: Incomplete | None = None, args: Incomplete | None = None, kwargs: Incomplete | None = None):
+def epath(path, expr=None, func=None, args=None, kwargs=None):
     '''
     Manipulate parts of an expression selected by a path.
 

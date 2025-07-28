@@ -40,6 +40,10 @@ class Field(Ring):
         (2/9, 3*x + 2)
 
         """
+    def gcdex(self, a, b):
+        """
+        Returns x, y, g such that a * x + b * y == g == gcd(a, b)
+        """
     def lcm(self, a, b):
         """
         Returns LCM of ``a`` and ``b``.

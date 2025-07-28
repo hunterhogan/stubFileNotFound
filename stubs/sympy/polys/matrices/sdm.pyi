@@ -504,7 +504,7 @@ class SDM(dict):
 
         """
     @classmethod
-    def diag(cls, diagonal, domain, shape: Incomplete | None = None): ...
+    def diag(cls, diagonal, domain, shape=None): ...
     def transpose(M):
         """
 
@@ -744,6 +744,14 @@ class SDM(dict):
         ({0: {0: 1}, 1: {0: 3, 1: 1}}, {0: {0: 1, 1: 2}, 1: {1: -2}}, [])
 
         """
+    def qr(self):
+        """
+        QR decomposition for SDM (Sparse Domain Matrix).
+
+        Returns:
+            - Q: Orthogonal matrix as a SDM.
+            - R: Upper triangular matrix as a SDM.
+        """
     def lu_solve(A, b):
         """
 
@@ -759,6 +767,17 @@ class SDM(dict):
         >>> A.lu_solve(b)
         {1: {0: 1/2}}
 
+        """
+    def fflu(self):
+        """
+        Fraction free LU decomposition of SDM.
+
+        Uses DDM implementation.
+
+        See Also
+        ========
+
+        sympy.polys.matrices.ddm.DDM.fflu
         """
     def nullspace(A):
         """
@@ -786,7 +805,7 @@ class SDM(dict):
             The preferred way to get the nullspace of a matrix.
 
         """
-    def nullspace_from_rref(A, pivots: Incomplete | None = None):
+    def nullspace_from_rref(A, pivots=None):
         """
         Returns nullspace for a :py:class:`~.SDM` matrix ``A`` in RREF.
 

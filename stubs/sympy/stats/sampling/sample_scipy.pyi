@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from functools import singledispatch
 from sympy.core.symbol import Dummy as Dummy
 from sympy.external import import_module as import_module
 from sympy.functions.elementary.exponential import exp as exp
@@ -11,5 +12,6 @@ from sympy.utilities.lambdify import lambdify as lambdify
 
 scipy: Incomplete
 
+@singledispatch
 def do_sample_scipy(dist, size, seed) -> None: ...
 def _(dist: SingleContinuousDistribution, size, seed): ...

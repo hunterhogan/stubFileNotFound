@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core import Add as Add, Mul as Mul, S as S
 from sympy.core.containers import Tuple as Tuple
 from sympy.core.exprtools import factor_terms as factor_terms
@@ -33,7 +32,7 @@ def _simpsol(soleq): ...
 def _solsimp(e, t): ...
 def simpsol(sol, wrt1, wrt2, doit: bool = True):
     """Simplify solutions from dsolve_system."""
-def linodesolve_type(A, t, b: Incomplete | None = None):
+def linodesolve_type(A, t, b=None):
     '''
     Helper function that determines the type of the system of ODEs for solving with :obj:`sympy.solvers.ode.systems.linodesolve()`
 
@@ -122,7 +121,7 @@ def linodesolve_type(A, t, b: Incomplete | None = None):
     linodesolve: Function for which linodesolve_type gets the information
 
     '''
-def _first_order_type5_6_subs(A, t, b: Incomplete | None = None): ...
+def _first_order_type5_6_subs(A, t, b=None): ...
 def linear_ode_to_matrix(eqs, funcs, t, order):
     """
     Convert a linear system of ODEs to matrix form
@@ -363,7 +362,7 @@ def matrix_exp_jordan_form(A, t):
     .. [3] https://en.wikipedia.org/wiki/Jordan_normal_form
 
     """
-def linodesolve(A, t, b: Incomplete | None = None, B: Incomplete | None = None, type: str = 'auto', doit: bool = False, tau: Incomplete | None = None):
+def linodesolve(A, t, b=None, B=None, type: str = 'auto', doit: bool = False, tau=None):
     '''
     System of n equations linear first-order differential equations
 
@@ -677,7 +676,7 @@ def _is_commutative_anti_derivative(A, t):
 def _factor_matrix(A, t): ...
 def _is_second_order_type2(A, t): ...
 def _get_poly_coeffs(poly, order): ...
-def _match_second_order_type(A1, A0, t, b: Incomplete | None = None):
+def _match_second_order_type(A1, A0, t, b=None):
     """
     Works only for second order system in its canonical form.
 
@@ -860,7 +859,7 @@ def _strong_component_solver(eqs, funcs, t): ...
 def _get_funcs_from_canon(eqs): ...
 def _weak_component_solver(wcc, t): ...
 def _component_solver(eqs, funcs, t): ...
-def _second_order_to_first_order(eqs, funcs, t, type: str = 'auto', A1: Incomplete | None = None, A0: Incomplete | None = None, b: Incomplete | None = None, t_: Incomplete | None = None):
+def _second_order_to_first_order(eqs, funcs, t, type: str = 'auto', A1=None, A0=None, b=None, t_=None):
     '''
     Expects the system to be in second order and in canonical form
 
@@ -890,9 +889,9 @@ def _second_order_to_first_order(eqs, funcs, t, type: str = 'auto', A1: Incomple
     system will be assumed homogeneous.
 
     '''
-def _higher_order_type2_to_sub_systems(J, f_t, funcs, t, max_order, b: Incomplete | None = None, P: Incomplete | None = None): ...
-def _higher_order_to_first_order(eqs, sys_order, t, funcs: Incomplete | None = None, type: str = 'type0', **kwargs): ...
-def dsolve_system(eqs, funcs: Incomplete | None = None, t: Incomplete | None = None, ics: Incomplete | None = None, doit: bool = False, simplify: bool = True):
+def _higher_order_type2_to_sub_systems(J, f_t, funcs, t, max_order, b=None, P=None): ...
+def _higher_order_to_first_order(eqs, sys_order, t, funcs=None, type: str = 'type0', **kwargs): ...
+def dsolve_system(eqs, funcs=None, t=None, ics=None, doit: bool = False, simplify: bool = True):
     '''
     Solves any(supported) system of Ordinary Differential Equations
 

@@ -2,6 +2,7 @@ from .basic import Basic as Basic
 from .core import Registry as Registry
 from .sympify import sympify as sympify
 from _typeshed import Incomplete
+from sympy.core.numbers import ComplexInfinity as _ComplexInfinity, Half as _Half, Infinity as _Infinity, NaN as _NaN, NegativeInfinity as _NegativeInfinity, NegativeOne as _NegativeOne, One as _One, Zero as _Zero
 
 class SingletonRegistry(Registry):
     '''
@@ -80,6 +81,14 @@ class SingletonRegistry(Registry):
 
     '''
     __slots__: Incomplete
+    Zero: _Zero
+    One: _One
+    NegativeOne: _NegativeOne
+    Half: _Half
+    Infinity: _Infinity
+    NegativeInfinity: _NegativeInfinity
+    ComplexInfinity: _ComplexInfinity
+    NaN: _NaN
     __call__: Incomplete
     _classes_to_install: Incomplete
     def __init__(self) -> None: ...

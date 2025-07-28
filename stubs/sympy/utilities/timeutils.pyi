@@ -3,7 +3,7 @@ from _typeshed import Incomplete
 _scales: Incomplete
 _units: Incomplete
 
-def timed(func, setup: str = 'pass', limit: Incomplete | None = None):
+def timed(func, setup: str = 'pass', limit=None):
     """Adaptively measure execution time of a function. """
 def __do_timings(): ...
 

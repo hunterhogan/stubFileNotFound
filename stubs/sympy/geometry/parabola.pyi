@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core import S as S
 from sympy.core.sorting import ordered as ordered
 from sympy.core.symbol import _symbol as _symbol, symbols as symbols
@@ -7,7 +6,7 @@ from sympy.geometry.ellipse import Ellipse as Ellipse
 from sympy.geometry.entity import GeometryEntity as GeometryEntity, GeometrySet as GeometrySet
 from sympy.geometry.line import Line as Line, Line2D as Line2D, LinearEntity3D as LinearEntity3D, Ray2D as Ray2D, Segment2D as Segment2D
 from sympy.geometry.point import Point as Point, Point2D as Point2D
-from sympy.simplify import simplify as simplify
+from sympy.simplify.simplify import simplify as simplify
 from sympy.solvers.solvers import solve as solve
 
 class Parabola(GeometrySet):
@@ -54,7 +53,7 @@ class Parabola(GeometrySet):
     Line2D(Point2D(5, 8), Point2D(7, 8))
 
     """
-    def __new__(cls, focus: Incomplete | None = None, directrix: Incomplete | None = None, **kwargs): ...
+    def __new__(cls, focus=None, directrix=None, **kwargs): ...
     @property
     def ambient_dimension(self):
         """Returns the ambient dimension of parabola.

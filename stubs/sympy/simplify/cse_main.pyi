@@ -156,7 +156,7 @@ class FuncArgTracker:
         ``argset``. Entries have at least 2 items in common.  All keys have
         value at least ``min_func_i``.
         """
-    def get_subset_candidates(self, argset, restrict_to_funcset: Incomplete | None = None):
+    def get_subset_candidates(self, argset, restrict_to_funcset=None):
         """
         Return a set of functions each of which whose argument list contains
         ``argset``, optionally filtered only to contain functions in
@@ -232,7 +232,7 @@ def opt_cse(exprs, order: str = 'canonical'):
     >>> print((k, v.as_unevaluated_basic()))
     (x**(-2), 1/(x**2))
     """
-def tree_cse(exprs, symbols, opt_subs: Incomplete | None = None, order: str = 'canonical', ignore=()):
+def tree_cse(exprs, symbols, opt_subs=None, order: str = 'canonical', ignore=()):
     """Perform raw CSE on expression tree, taking opt_subs into account.
 
     Parameters
@@ -251,7 +251,7 @@ def tree_cse(exprs, symbols, opt_subs: Incomplete | None = None, order: str = 'c
     ignore : iterable of Symbols
         Substitutions containing any Symbol from ``ignore`` will be ignored.
     """
-def cse(exprs, symbols: Incomplete | None = None, optimizations: Incomplete | None = None, postprocess: Incomplete | None = None, order: str = 'canonical', ignore=(), list: bool = True):
+def cse(exprs, symbols=None, optimizations=None, postprocess=None, order: str = 'canonical', ignore=(), list: bool = True):
     ''' Perform common subexpression elimination on an expression.
 
     Parameters

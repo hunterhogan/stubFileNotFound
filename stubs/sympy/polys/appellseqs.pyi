@@ -1,8 +1,9 @@
-from _typeshed import Incomplete
+from sympy.utilities import public
 
 __all__ = ['bernoulli_poly', 'bernoulli_c_poly', 'genocchi_poly', 'euler_poly', 'andre_poly']
 
-def bernoulli_poly(n, x: Incomplete | None = None, polys: bool = False):
+@public
+def bernoulli_poly(n, x=None, polys: bool = False):
     """Generates the Bernoulli polynomial `\\operatorname{B}_n(x)`.
 
     `\\operatorname{B}_n(x)` is the unique polynomial satisfying
@@ -60,7 +61,8 @@ def bernoulli_poly(n, x: Incomplete | None = None, polys: bool = False):
 
     .. [1] https://en.wikipedia.org/wiki/Bernoulli_polynomials
     """
-def bernoulli_c_poly(n, x: Incomplete | None = None, polys: bool = False):
+@public
+def bernoulli_c_poly(n, x=None, polys: bool = False):
     """Generates the central Bernoulli polynomial `\\operatorname{B}_n^c(x)`.
 
     These are scaled and shifted versions of the plain Bernoulli polynomials,
@@ -79,7 +81,8 @@ def bernoulli_c_poly(n, x: Incomplete | None = None, polys: bool = False):
     polys : bool, optional
         If True, return a Poly, otherwise (default) return an expression.
     """
-def genocchi_poly(n, x: Incomplete | None = None, polys: bool = False):
+@public
+def genocchi_poly(n, x=None, polys: bool = False):
     """Generates the Genocchi polynomial `\\operatorname{G}_n(x)`.
 
     `\\operatorname{G}_n(x)` is twice the difference between the plain and
@@ -105,7 +108,8 @@ def genocchi_poly(n, x: Incomplete | None = None, polys: bool = False):
 
     sympy.functions.combinatorial.numbers.genocchi
     """
-def euler_poly(n, x: Incomplete | None = None, polys: bool = False):
+@public
+def euler_poly(n, x=None, polys: bool = False):
     """Generates the Euler polynomial `\\operatorname{E}_n(x)`.
 
     These are scaled and reindexed versions of the Genocchi polynomials:
@@ -126,7 +130,8 @@ def euler_poly(n, x: Incomplete | None = None, polys: bool = False):
 
     sympy.functions.combinatorial.numbers.euler
     """
-def andre_poly(n, x: Incomplete | None = None, polys: bool = False):
+@public
+def andre_poly(n, x=None, polys: bool = False):
     '''Generates the Andre polynomial `\\mathcal{A}_n(x)`.
 
     This is the Appell sequence where the constant coefficients form the sequence

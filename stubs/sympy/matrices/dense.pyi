@@ -116,7 +116,7 @@ def rot_givens(i, j, theta, dim: int = 3):
     j : int between ``0`` and ``dim - 1``
         Represents second axis
     dim : int bigger than 1
-        Number of dimentions. Defaults to 3.
+        Number of dimensions. Defaults to 3.
 
     Examples
     ========
@@ -731,7 +731,7 @@ def ones(*args, **kwargs):
     eye
     diag
     """
-def randMatrix(r, c: Incomplete | None = None, min: int = 0, max: int = 99, seed: Incomplete | None = None, symmetric: bool = False, percent: int = 100, prng: Incomplete | None = None):
+def randMatrix(r, c=None, min: int = 0, max: int = 99, seed=None, symmetric: bool = False, percent: int = 100, prng=None):
     """Create random matrix with dimensions ``r`` x ``c``. If ``c`` is omitted
     the matrix will be square. If ``symmetric`` is True the matrix must be
     square. If ``percent`` is less than 100 then only approximately the given

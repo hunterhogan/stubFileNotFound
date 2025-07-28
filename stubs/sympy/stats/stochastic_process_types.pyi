@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 from sympy.core.basic import Basic
+from sympy.core.cache import cacheit
 from sympy.core.function import Lambda
 from sympy.core.numbers import Integer
 from sympy.core.symbol import Symbol
@@ -37,7 +38,7 @@ class StochasticProcess(Basic):
     @property
     def state_space(self) -> FiniteSet | Range: ...
     def _deprecation_warn_distribution(self) -> None: ...
-    def distribution(self, key: Incomplete | None = None): ...
+    def distribution(self, key=None): ...
     def density(self, x): ...
     def __call__(self, time) -> None:
         """
@@ -157,12 +158,13 @@ class MarkovProcess(StochasticProcess):
         Helper function to extract state space if there
         is a random symbol in the given condition.
         """
+    @cacheit
     def _preprocess(self, given_condition, evaluate):
         """
         Helper function for pre-processing the information.
         """
     def replace_with_index(self, condition): ...
-    def probability(self, condition, given_condition: Incomplete | None = None, evaluate: bool = True, **kwargs):
+    def probability(self, condition, given_condition=None, evaluate: bool = True, **kwargs):
         """
         Handles probability queries for Markov process.
 
@@ -189,7 +191,7 @@ class MarkovProcess(StochasticProcess):
         using StochasticStateSpaceOf in given_condition using & or And.
         """
     def _symbolic_probability(self, condition, new_given_condition, rv, min_key_rv): ...
-    def expectation(self, expr, condition: Incomplete | None = None, evaluate: bool = True, **kwargs):
+    def expectation(self, expr, condition=None, evaluate: bool = True, **kwargs):
         """
         Handles expectation queries for markov process.
 
@@ -341,7 +343,7 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
     .. [2] https://web.archive.org/web/20201230182007/https://www.dartmouth.edu/~chance/teaching_aids/books_articles/probability_book/Chapter11.pdf
     '''
     index_set: Incomplete
-    def __new__(cls, sym, state_space: Incomplete | None = None, trans_probs: Incomplete | None = None): ...
+    def __new__(cls, sym, state_space=None, trans_probs=None): ...
     @property
     def transition_probabilities(self):
         """
@@ -568,7 +570,7 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
 
         This means that state 2 is the only absorbing state
         (since A is a 1x1 matrix). B is a 4x1 matrix since
-        the 4 remaining transient states all merge into reccurent
+        the 4 remaining transient states all merge into recurrent
         state 2. And C is the 4x4 matrix that shows how the
         transient states 0, 1, 3, 4 all interact.
 
@@ -763,10 +765,11 @@ class ContinuousMarkovChain(ContinuousTimeStochasticProcess, MarkovProcess):
     .. [2] https://u.math.biu.ac.il/~amirgi/CTMCnotes.pdf
     """
     index_set: Incomplete
-    def __new__(cls, sym, state_space: Incomplete | None = None, gen_mat: Incomplete | None = None): ...
+    def __new__(cls, sym, state_space=None, gen_mat=None): ...
     @property
     def generator_matrix(self): ...
-    def transition_probabilities(self, gen_mat: Incomplete | None = None): ...
+    @cacheit
+    def transition_probabilities(self, gen_mat=None): ...
     def limiting_distribution(self): ...
 
 class BernoulliProcess(DiscreteTimeStochasticProcess):
@@ -842,9 +845,9 @@ class BernoulliProcess(DiscreteTimeStochasticProcess):
     def failure(self): ...
     @property
     def state_space(self): ...
-    def distribution(self, key: Incomplete | None = None): ...
+    def distribution(self, key=None): ...
     def simple_rv(self, rv): ...
-    def expectation(self, expr, condition: Incomplete | None = None, evaluate: bool = True, **kwargs):
+    def expectation(self, expr, condition=None, evaluate: bool = True, **kwargs):
         """
         Computes expectation.
 
@@ -863,7 +866,7 @@ class BernoulliProcess(DiscreteTimeStochasticProcess):
         Expectation of the RandomIndexedSymbol.
 
         """
-    def probability(self, condition, given_condition: Incomplete | None = None, evaluate: bool = True, **kwargs):
+    def probability(self, condition, given_condition=None, evaluate: bool = True, **kwargs):
         """
         Computes probability.
 
@@ -890,7 +893,7 @@ class _SubstituteRV:
     by substitution.
     """
     @staticmethod
-    def _rvindexed_subs(expr, condition: Incomplete | None = None):
+    def _rvindexed_subs(expr, condition=None):
         """
         Substitutes the RandomIndexedSymbol with the RandomSymbol with
         same name, distribution and probability as RandomIndexedSymbol.
@@ -906,7 +909,7 @@ class _SubstituteRV:
 
         """
     @classmethod
-    def _expectation(self, expr, condition: Incomplete | None = None, evaluate: bool = True, **kwargs):
+    def _expectation(self, expr, condition=None, evaluate: bool = True, **kwargs):
         """
         Internal method for computing expectation of indexed RV.
 
@@ -926,7 +929,7 @@ class _SubstituteRV:
 
         """
     @classmethod
-    def _probability(self, condition, given_condition: Incomplete | None = None, evaluate: bool = True, **kwargs):
+    def _probability(self, condition, given_condition=None, evaluate: bool = True, **kwargs):
         """
         Internal method for computing probability of indexed RV
 
@@ -954,7 +957,7 @@ class CountingProcess(ContinuousTimeStochasticProcess):
     index_set: Incomplete
     @property
     def symbol(self): ...
-    def expectation(self, expr, condition: Incomplete | None = None, evaluate: bool = True, **kwargs):
+    def expectation(self, expr, condition=None, evaluate: bool = True, **kwargs):
         """
         Computes expectation
 
@@ -975,8 +978,8 @@ class CountingProcess(ContinuousTimeStochasticProcess):
 
         """
     def _solve_argwith_tworvs(self, arg): ...
-    def _solve_numerical(self, condition, given_condition: Incomplete | None = None): ...
-    def probability(self, condition, given_condition: Incomplete | None = None, evaluate: bool = True, **kwargs):
+    def _solve_numerical(self, condition, given_condition=None): ...
+    def probability(self, condition, given_condition=None, evaluate: bool = True, **kwargs):
         """
         Computes probability.
 

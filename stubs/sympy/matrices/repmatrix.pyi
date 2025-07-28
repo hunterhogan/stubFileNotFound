@@ -10,7 +10,7 @@ from sympy.core.sympify import SympifyError as SympifyError, _sympify as _sympif
 from sympy.polys.domains import EXRAW as EXRAW, GF as GF, QQ as QQ, ZZ as ZZ
 from sympy.polys.matrices import DomainMatrix as DomainMatrix
 from sympy.polys.matrices.exceptions import DMNonInvertibleMatrixError as DMNonInvertibleMatrixError
-from sympy.polys.polyerrors import CoercionFailed as CoercionFailed
+from sympy.polys.polyerrors import CoercionFailed as CoercionFailed, NotInvertible as NotInvertible
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.iterables import is_sequence as is_sequence
 from sympy.utilities.misc import as_int as as_int, filldedent as filldedent
@@ -25,7 +25,7 @@ class RepMatrix(MatrixBase):
     """
     _rep: DomainMatrix
     def __eq__(self, other): ...
-    def to_DM(self, domain: Incomplete | None = None, **kwargs):
+    def to_DM(self, domain=None, **kwargs):
         """Convert to a :class:`~.DomainMatrix`.
 
         Examples

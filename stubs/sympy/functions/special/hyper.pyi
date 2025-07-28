@@ -1,10 +1,9 @@
-from _typeshed import Incomplete
 from sympy import ordered as ordered
 from sympy.core import Mod as Mod, S as S
 from sympy.core.add import Add as Add
 from sympy.core.containers import Tuple as Tuple
 from sympy.core.expr import Expr as Expr
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Derivative as Derivative, Function as Function
+from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, Derivative as Derivative
 from sympy.core.mul import Mul as Mul
 from sympy.core.numbers import I as I, oo as oo, pi as pi, zoo as zoo
 from sympy.core.parameters import global_parameters as global_parameters
@@ -20,7 +19,7 @@ from sympy.functions.elementary.piecewise import Piecewise as Piecewise
 from sympy.logic.boolalg import And as And, Or as Or
 
 class TupleArg(Tuple):
-    def as_leading_term(self, *x, logx: Incomplete | None = None, cdir: int = 0): ...
+    def as_leading_term(self, *x, logx=None, cdir: int = 0): ...
     def limit(self, x, xlim, dir: str = '+'):
         """ Compute limit x->xlim.
         """
@@ -43,7 +42,7 @@ def _prep_tuple(v):
 
     """
 
-class TupleParametersBase(Function):
+class TupleParametersBase(DefinedFunction):
     """ Base class that takes care of differentiation, when some of
         the arguments are actually tuples. """
     is_commutative: bool
@@ -171,7 +170,7 @@ class hyper(TupleParametersBase):
     def fdiff(self, argindex: int = 3): ...
     def _eval_expand_func(self, **hints): ...
     def _eval_rewrite_as_Sum(self, ap, bq, z, **kwargs): ...
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0): ...
+    def _eval_as_leading_term(self, x, logx, cdir): ...
     def _eval_nseries(self, x, n, logx, cdir: int = 0): ...
     @property
     def argument(self):
@@ -368,7 +367,7 @@ class meijerg(TupleParametersBase):
         """
     def _eval_expand_func(self, **hints): ...
     def _eval_evalf(self, prec): ...
-    def _eval_as_leading_term(self, x, logx: Incomplete | None = None, cdir: int = 0): ...
+    def _eval_as_leading_term(self, x, logx, cdir): ...
     def integrand(self, s):
         """ Get the defining integrand D(s). """
     @property
@@ -406,7 +405,7 @@ class meijerg(TupleParametersBase):
     def is_number(self):
         """ Returns true if expression has numeric data only. """
 
-class HyperRep(Function):
+class HyperRep(DefinedFunction):
     '''
     A base class for "hyper representation functions".
 
@@ -557,7 +556,7 @@ class HyperRep_sinasin(HyperRep):
     @classmethod
     def _expr_big_minus(cls, a, z, n): ...
 
-class appellf1(Function):
+class appellf1(DefinedFunction):
     """
     This is the Appell hypergeometric function of two variables as:
 

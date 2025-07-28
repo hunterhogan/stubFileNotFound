@@ -1,12 +1,18 @@
 from _typeshed import Incomplete
+from sympy.core.cache import cacheit
+from sympy.core.expr import Expr
 from sympy.core.sympify import CantSympify
 from sympy.polys.compatibility import IPolys
+from sympy.polys.domains.domain import Domain
 from sympy.polys.domains.domainelement import DomainElement
+from sympy.polys.orderings import MonomialOrder
 from sympy.printing.defaults import DefaultPrinting
+from sympy.utilities import public
 
 __all__ = ['ring', 'xring', 'vring', 'sring']
 
-def ring(symbols, domain, order=...):
+@public
+def ring(symbols, domain, order: MonomialOrder | str = ...):
     '''Construct a polynomial ring returning ``(ring, x_1, ..., x_n)``.
 
     Parameters
@@ -33,6 +39,7 @@ def ring(symbols, domain, order=...):
     <class \'sympy.polys.rings.PolyElement\'>
 
     '''
+@public
 def xring(symbols, domain, order=...):
     '''Construct a polynomial ring returning ``(ring, (x_1, ..., x_n))``.
 
@@ -60,6 +67,7 @@ def xring(symbols, domain, order=...):
     <class \'sympy.polys.rings.PolyElement\'>
 
     '''
+@public
 def vring(symbols, domain, order=...):
     '''Construct a polynomial ring and inject ``x_1, ..., x_n`` into the global namespace.
 
@@ -86,6 +94,7 @@ def vring(symbols, domain, order=...):
     <class \'sympy.polys.rings.PolyElement\'>
 
     '''
+@public
 def sring(exprs, *symbols, **options):
     '''Construct a ring deriving generators and domain from options and input expressions.
 
@@ -114,6 +123,11 @@ def sring(exprs, *symbols, **options):
 
 class PolyRing(DefaultPrinting, IPolys):
     """Multivariate distributed polynomial ring. """
+    gens: tuple[PolyElement, ...]
+    symbols: tuple[Expr, ...]
+    ngens: int
+    domain: Domain
+    order: MonomialOrder
     def __new__(cls, symbols, domain, order=...): ...
     def _gens(self):
         """Return a list of polynomial generators. """
@@ -122,20 +136,24 @@ class PolyRing(DefaultPrinting, IPolys):
     def __hash__(self): ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...
-    def clone(self, symbols: Incomplete | None = None, domain: Incomplete | None = None, order: Incomplete | None = None): ...
+    def clone(self, symbols=None, domain=None, order=None): ...
+    @cacheit
+    def _clone(self, symbols, domain, order): ...
     def monomial_basis(self, i):
         """Return the ith-basis element. """
     @property
     def zero(self): ...
     @property
     def one(self): ...
-    def domain_new(self, element, orig_domain: Incomplete | None = None): ...
+    def is_element(self, element):
+        """True if ``element`` is an element of this ring. False otherwise. """
+    def domain_new(self, element, orig_domain=None): ...
     def ground_new(self, coeff): ...
     def term_new(self, monom, coeff): ...
     def ring_new(self, element): ...
     __call__ = ring_new
-    def from_dict(self, element, orig_domain: Incomplete | None = None): ...
-    def from_terms(self, element, orig_domain: Incomplete | None = None): ...
+    def from_dict(self, element, orig_domain=None): ...
+    def from_terms(self, element, orig_domain=None): ...
     def from_list(self, element): ...
     def _rebuild_expr(self, expr, mapping): ...
     def from_expr(self, expr): ...
@@ -202,6 +220,9 @@ class PolyRing(DefaultPrinting, IPolys):
 
 class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
     """Element of multivariate distributed polynomial ring. """
+    ring: Incomplete
+    def __init__(self, ring, init) -> None: ...
+    def _check(self) -> None: ...
     def new(self, init): ...
     def parent(self): ...
     def __getnewargs__(self): ...
@@ -257,7 +278,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
 
         """
     def __ne__(p1, p2): ...
-    def almosteq(p1, p2, tolerance: Incomplete | None = None):
+    def almosteq(p1, p2, tolerance=None):
         """Approximate equality test for polynomials. """
     def sort_key(self): ...
     def _cmp(p1, p2, op): ...
@@ -421,10 +442,10 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
     def __rdivmod__(p1, p2): ...
     def __mod__(p1, p2): ...
     def __rmod__(p1, p2): ...
+    def __floordiv__(p1, p2): ...
+    def __rfloordiv__(p1, p2): ...
     def __truediv__(p1, p2): ...
     def __rtruediv__(p1, p2): ...
-    __floordiv__ = __truediv__
-    __rfloordiv__ = __rtruediv__
     def _term_div(self): ...
     def div(self, fv):
         """Division algorithm, see [CLO] p64.
@@ -506,7 +527,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         x**4 + 3*x*y**3*z**3 + 3*x*y**2*z**4 + 2*y
 
         """
-    def degree(f, x: Incomplete | None = None):
+    def degree(f, x=None):
         """
         The leading degree in ``x`` or the main variable.
 
@@ -520,7 +541,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         Note that the degree of 0 is negative infinity (``float('-inf')``)
 
         """
-    def tail_degree(f, x: Incomplete | None = None):
+    def tail_degree(f, x=None):
         """
         The tail degree in ``x`` or the main variable.
 
@@ -614,7 +635,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
 
         """
     def _sorted(self, seq, order): ...
-    def coeffs(self, order: Incomplete | None = None):
+    def coeffs(self, order=None):
         '''Ordered list of polynomial coefficients.
 
         Parameters
@@ -638,7 +659,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         [1, 2]
 
         '''
-    def monoms(self, order: Incomplete | None = None):
+    def monoms(self, order=None):
         '''Ordered list of polynomial monomials.
 
         Parameters
@@ -662,7 +683,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         [(1, 7), (2, 3)]
 
         '''
-    def terms(self, order: Incomplete | None = None):
+    def terms(self, order=None):
         '''Ordered list of polynomial terms.
 
         Parameters
@@ -782,8 +803,8 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
 
         '''
     def __call__(f, *values): ...
-    def evaluate(self, x, a: Incomplete | None = None): ...
-    def subs(self, x, a: Incomplete | None = None): ...
+    def evaluate(self, x, a=None): ...
+    def subs(self, x, a=None): ...
     def symmetrize(self):
         '''
         Rewrite *self* in terms of elementary symmetric polynomials.
@@ -843,7 +864,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
             https://dl.acm.org/doi/pdf/10.1145/800205.806342
 
         '''
-    def compose(f, x, a: Incomplete | None = None): ...
+    def compose(f, x, a=None): ...
     def coeff_wrt(self, x, deg):
         '''
         Coefficient of ``self`` with respect to ``x**deg``.
@@ -886,7 +907,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         coeff, coeffs
 
         '''
-    def prem(self, g, x: Incomplete | None = None):
+    def prem(self, g, x=None):
         '''
         Pseudo-remainder of the polynomial ``self`` with respect to ``g``.
 
@@ -927,7 +948,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         >>> g = 2*x + 2
         >>> f.prem(g) # first generator is chosen by default if it is not given
         -4*y + 4
-        >>> f.rem(g) # shows the differnce between prem and rem
+        >>> f.rem(g) # shows the difference between prem and rem
         x**2 + x*y
         >>> f.prem(g, y) # generator is given
         0
@@ -940,7 +961,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         pdiv, pquo, pexquo, sympy.polys.domains.ring.Ring.rem
 
         '''
-    def pdiv(self, g, x: Incomplete | None = None):
+    def pdiv(self, g, x=None):
         '''
         Computes the pseudo-division of the polynomial ``self`` with respect to ``g``.
 
@@ -1020,7 +1041,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
             Returns quotient and remainder of f and g polynomials.
 
         '''
-    def pquo(self, g, x: Incomplete | None = None):
+    def pquo(self, g, x=None):
         '''
         Polynomial pseudo-quotient in multivariate polynomial ring.
 
@@ -1047,7 +1068,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         prem, pdiv, pexquo, sympy.polys.domains.ring.Ring.quo
 
         '''
-    def pexquo(self, g, x: Incomplete | None = None):
+    def pexquo(self, g, x=None):
         '''
         Polynomial exact pseudo-quotient in multivariate polynomial ring.
 
@@ -1061,7 +1082,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         >>> h = 2*x + 2
         >>> f.pexquo(g)
         2*x
-        >>> f.exquo(g) # shows the differnce between pexquo and exquo
+        >>> f.exquo(g) # shows the difference between pexquo and exquo
         Traceback (most recent call last):
         ...
         ExactQuotientFailed: 2*x + 2*y does not divide x**2 + x*y
@@ -1076,7 +1097,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         prem, pdiv, pquo, sympy.polys.domains.ring.Ring.exquo
 
         '''
-    def subresultants(self, g, x: Incomplete | None = None):
+    def subresultants(self, g, x=None):
         '''
         Computes the subresultant PRS of two polynomials ``self`` and ``g``.
 

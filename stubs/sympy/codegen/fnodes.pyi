@@ -274,7 +274,7 @@ def dimension(*args):
 
 assumed_size: Incomplete
 
-def array(symbol, dim, intent: Incomplete | None = None, *, attrs=(), value: Incomplete | None = None, type: Incomplete | None = None):
+def array(symbol, dim, intent=None, *, attrs=(), value=None, type=None):
     """ Convenience function for creating a Variable instance for a Fortran array.
 
     Parameters
@@ -317,7 +317,7 @@ def allocated(array):
     \'allocated(x)\'
 
     '''
-def lbound(array, dim: Incomplete | None = None, kind: Incomplete | None = None):
+def lbound(array, dim=None, kind=None):
     ''' Creates an AST node for a function call to Fortran\'s "lbound(...)"
 
     Parameters
@@ -337,8 +337,8 @@ def lbound(array, dim: Incomplete | None = None, kind: Incomplete | None = None)
     \'lbound(arr, 2)\'
 
     '''
-def ubound(array, dim: Incomplete | None = None, kind: Incomplete | None = None): ...
-def shape(source, kind: Incomplete | None = None):
+def ubound(array, dim=None, kind=None): ...
+def shape(source, kind=None):
     ''' Creates an AST node for a function call to Fortran\'s "shape(...)"
 
     Parameters
@@ -357,7 +357,7 @@ def shape(source, kind: Incomplete | None = None):
     \'shape(x)\'
 
     '''
-def size(array, dim: Incomplete | None = None, kind: Incomplete | None = None):
+def size(array, dim=None, kind=None):
     ''' Creates an AST node for a function call to Fortran\'s "size(...)"
 
     Examples
@@ -377,7 +377,7 @@ def size(array, dim: Incomplete | None = None, kind: Incomplete | None = None):
     end function
 
     '''
-def reshape(source, shape, pad: Incomplete | None = None, order: Incomplete | None = None):
+def reshape(source, shape, pad=None, order=None):
     ''' Creates an AST node for a function call to Fortran\'s "reshape(...)"
 
     Parameters
@@ -387,7 +387,7 @@ def reshape(source, shape, pad: Incomplete | None = None, order: Incomplete | No
     shape : ArrayExpr
 
     '''
-def bind_C(name: Incomplete | None = None):
+def bind_C(name=None):
     ''' Creates an Attribute ``bind_C`` with a name.
 
     Parameters

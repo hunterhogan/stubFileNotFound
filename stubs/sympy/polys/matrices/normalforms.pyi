@@ -1,6 +1,5 @@
 from .domainmatrix import DomainMatrix as DomainMatrix
 from .exceptions import DMDomainError as DMDomainError, DMShapeError as DMShapeError
-from _typeshed import Incomplete
 from sympy.ntheory.modular import symmetric_residue as symmetric_residue
 from sympy.polys.domains import QQ as QQ, ZZ as ZZ
 
@@ -19,8 +18,12 @@ def smith_normal_form(m):
     ...                   [ZZ(3), ZZ(9), ZZ(6)],
     ...                   [ZZ(2), ZZ(16), ZZ(14)]], (3, 3), ZZ)
     >>> print(smith_normal_form(m).to_Matrix())
-    Matrix([[1, 0, 0], [0, 10, 0], [0, 0, -30]])
+    Matrix([[1, 0, 0], [0, 10, 0], [0, 0, 30]])
 
+    """
+def is_smith_normal_form(m):
+    """
+    Checks that the matrix is in Smith Normal Form
     """
 def add_columns(m, i, j, a, b, c, d) -> None: ...
 def invariant_factors(m):
@@ -34,6 +37,29 @@ def invariant_factors(m):
     [1] https://en.wikipedia.org/wiki/Smith_normal_form#Algorithm
     [2] https://web.archive.org/web/20200331143852/https://sierra.nmsu.edu/morandi/notes/SmithNormalForm.pdf
 
+    """
+def smith_normal_decomp(m):
+    """
+    Return the Smith-Normal form decomposition of matrix `m`.
+
+    Examples
+    ========
+
+    >>> from sympy import ZZ
+    >>> from sympy.polys.matrices import DomainMatrix
+    >>> from sympy.polys.matrices.normalforms import smith_normal_decomp
+    >>> m = DomainMatrix([[ZZ(12), ZZ(6), ZZ(4)],
+    ...                   [ZZ(3), ZZ(9), ZZ(6)],
+    ...                   [ZZ(2), ZZ(16), ZZ(14)]], (3, 3), ZZ)
+    >>> a, s, t = smith_normal_decomp(m)
+    >>> assert a == s * m * t
+    """
+def _smith_normal_decomp(m, domain, shape, full):
+    """
+    Return the tuple of abelian invariants for a matrix `m`
+    (as in the Smith-Normal form). If `full=True` then invertible matrices
+    ``s, t`` such that the product ``s, m, t`` is the Smith Normal Form
+    are also returned.
     """
 def _gcdex(a, b):
     """
@@ -122,7 +148,7 @@ def _hermite_normal_form_modulo_D(A, D):
        (See Algorithm 2.4.8.)
 
     """
-def hermite_normal_form(A, *, D: Incomplete | None = None, check_rank: bool = False):
+def hermite_normal_form(A, *, D=None, check_rank: bool = False):
     """
     Compute the Hermite Normal Form of :py:class:`~.DomainMatrix` *A* over
     :ref:`ZZ`.

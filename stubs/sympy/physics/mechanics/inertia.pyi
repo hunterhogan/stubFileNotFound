@@ -99,6 +99,7 @@ class Inertia(NamedTuple('Inertia', [('dyadic', Incomplete), ('point', Incomplet
     ((N.x|N.x) + (N.y|N.y) + (N.z|N.z), Po)
 
     """
+    __slots__: Incomplete
     def __new__(cls, dyadic, point): ...
     @classmethod
     def from_inertia_scalars(cls, point, frame, ixx, iyy, izz, ixy: int = 0, iyz: int = 0, izx: int = 0):

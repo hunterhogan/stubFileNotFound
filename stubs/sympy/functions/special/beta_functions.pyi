@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
 from sympy.core import S as S
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, Function as Function
+from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction
 from sympy.core.symbol import Dummy as Dummy, uniquely_named_symbol as uniquely_named_symbol
 from sympy.functions.combinatorial.numbers import catalan as catalan
 from sympy.functions.elementary.complexes import conjugate as conjugate
@@ -8,7 +7,7 @@ from sympy.functions.special.gamma_functions import digamma as digamma, gamma as
 
 def betainc_mpmath_fix(a, b, x1, x2, reg: int = 0): ...
 
-class beta(Function):
+class beta(DefinedFunction):
     """
     The beta integral is called the Eulerian integral of the first kind by
     Legendre:
@@ -96,7 +95,7 @@ class beta(Function):
     unbranched: bool
     def fdiff(self, argindex): ...
     @classmethod
-    def eval(cls, x, y: Incomplete | None = None): ...
+    def eval(cls, x, y=None): ...
     def doit(self, **hints): ...
     def _eval_expand_func(self, **hints): ...
     def _eval_is_real(self): ...
@@ -104,7 +103,7 @@ class beta(Function):
     def _eval_rewrite_as_gamma(self, x, y, piecewise: bool = True, **kwargs): ...
     def _eval_rewrite_as_Integral(self, x, y, **kwargs): ...
 
-class betainc(Function):
+class betainc(DefinedFunction):
     """
     The Generalized Incomplete Beta function is defined as
 
@@ -185,7 +184,7 @@ class betainc(Function):
     def _eval_rewrite_as_Integral(self, a, b, x1, x2, **kwargs): ...
     def _eval_rewrite_as_hyper(self, a, b, x1, x2, **kwargs): ...
 
-class betainc_regularized(Function):
+class betainc_regularized(DefinedFunction):
     """
     The Generalized Regularized Incomplete Beta function is given by
 

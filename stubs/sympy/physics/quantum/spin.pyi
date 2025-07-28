@@ -832,7 +832,7 @@ class JzBraCoupled(CoupledSpinState, Bra):
     @classmethod
     def uncoupled_class(self): ...
 
-def couple(expr, jcoupling_list: Incomplete | None = None):
+def couple(expr, jcoupling_list=None):
     """ Couple a tensor product of spin states
 
     This function can be used to couple an uncoupled tensor product of spin
@@ -890,7 +890,7 @@ def couple(expr, jcoupling_list: Incomplete | None = None):
         Sum(CG(j1, m1, j2, m2, j, m1 + m2)*|j,m1 + m2,j1=j1,j2=j2>, (j, m1 + m2, j1 + j2))
 
     """
-def uncouple(expr, jn: Incomplete | None = None, jcoupling_list: Incomplete | None = None):
+def uncouple(expr, jn=None, jcoupling_list=None):
     """ Uncouple a coupled spin state
 
     Gives the uncoupled representation of a coupled spin state. Arguments must

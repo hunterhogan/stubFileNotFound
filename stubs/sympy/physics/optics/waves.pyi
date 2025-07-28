@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from sympy.core.expr import Expr
 
 __all__ = ['TWave']
@@ -63,7 +62,7 @@ class TWave(Expr):
     2*pi*f
 
     """
-    def __new__(cls, amplitude, frequency: Incomplete | None = None, phase=..., time_period: Incomplete | None = None, n=...): ...
+    def __new__(cls, amplitude, frequency=None, phase=..., time_period=None, n=...): ...
     @property
     def amplitude(self):
         """

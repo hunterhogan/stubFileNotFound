@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from functools import singledispatch
 from sympy.core.add import Add as Add
 from sympy.core.basic import Basic as Basic
 from sympy.core.containers import Tuple as Tuple
@@ -26,6 +27,7 @@ from sympy.utilities.lambdify import lambdify as lambdify
 __doctest_requires__: Incomplete
 x: Incomplete
 
+@singledispatch
 def is_random(x): ...
 def _(x): ...
 
@@ -117,10 +119,10 @@ class PSpace(Basic):
     sympy.stats.crv.ContinuousPSpace
     sympy.stats.frv.FinitePSpace
     """
-    is_Finite: bool
-    is_Continuous: bool
-    is_Discrete: bool
-    is_real: bool
+    is_Finite: bool | None
+    is_Continuous: bool | None
+    is_Discrete: bool | None
+    is_real: bool | None
     @property
     def domain(self): ...
     @property
@@ -131,7 +133,7 @@ class PSpace(Basic):
     def symbols(self): ...
     def where(self, condition) -> None: ...
     def compute_density(self, expr) -> None: ...
-    def sample(self, size=(), library: str = 'scipy', seed: Incomplete | None = None) -> None: ...
+    def sample(self, size=(), library: str = 'scipy', seed=None) -> None: ...
     def probability(self, condition) -> None: ...
     def compute_expectation(self, expr) -> None: ...
 
@@ -178,7 +180,7 @@ class RandomSymbol(Expr):
     Traditionally a user does not even do this but instead calls one of the
     convenience functions Normal, Exponential, Coin, Die, FiniteRV, etc....
     """
-    def __new__(cls, symbol, pspace: Incomplete | None = None): ...
+    def __new__(cls, symbol, pspace=None): ...
     is_finite: bool
     is_symbol: bool
     is_Atom: bool
@@ -195,7 +197,7 @@ class RandomSymbol(Expr):
     def free_symbols(self): ...
 
 class RandomIndexedSymbol(RandomSymbol):
-    def __new__(cls, idx_obj, pspace: Incomplete | None = None): ...
+    def __new__(cls, idx_obj, pspace=None): ...
     symbol: Incomplete
     name: Incomplete
     @property
@@ -206,7 +208,7 @@ class RandomIndexedSymbol(RandomSymbol):
     def pspace(self): ...
 
 class RandomMatrixSymbol(RandomSymbol, MatrixSymbol):
-    def __new__(cls, symbol, n, m, pspace: Incomplete | None = None): ...
+    def __new__(cls, symbol, n, m, pspace=None): ...
     symbol: Incomplete
     pspace: Incomplete
 
@@ -240,12 +242,12 @@ class IndependentProductPSpace(ProductPSpace):
     def spaces(self): ...
     @property
     def values(self): ...
-    def compute_expectation(self, expr, rvs: Incomplete | None = None, evaluate: bool = False, **kwargs): ...
+    def compute_expectation(self, expr, rvs=None, evaluate: bool = False, **kwargs): ...
     @property
     def domain(self): ...
     @property
     def density(self) -> None: ...
-    def sample(self, size=(), library: str = 'scipy', seed: Incomplete | None = None): ...
+    def sample(self, size=(), library: str = 'scipy', seed=None): ...
     def probability(self, condition, **kwargs): ...
     def compute_density(self, expr, **kwargs): ...
     def compute_cdf(self, expr, **kwargs) -> None: ...
@@ -308,7 +310,7 @@ def rs_swap(a, b):
     Inputs: collections a and b of random variables which share common symbols
     Output: dict mapping RVs in a to RVs in b
     """
-def given(expr, condition: Incomplete | None = None, **kwargs):
+def given(expr, condition=None, **kwargs):
     """ Conditional Random Expression.
 
     Explanation
@@ -346,7 +348,7 @@ def given(expr, condition: Incomplete | None = None, **kwargs):
              ____
          2*\\/ pi
     """
-def expectation(expr, condition: Incomplete | None = None, numsamples: Incomplete | None = None, evaluate: bool = True, **kwargs):
+def expectation(expr, condition=None, numsamples=None, evaluate: bool = True, **kwargs):
     """
     Returns the expected value of a random expression.
 
@@ -377,7 +379,7 @@ def expectation(expr, condition: Incomplete | None = None, numsamples: Incomplet
     >>> E(X, X > 3) # Expectation of X given that it is above 3
     5
     """
-def probability(condition, given_condition: Incomplete | None = None, numsamples: Incomplete | None = None, evaluate: bool = True, **kwargs):
+def probability(condition, given_condition=None, numsamples=None, evaluate: bool = True, **kwargs):
     """
     Probability that a condition is true, optionally given a second condition.
 
@@ -410,12 +412,12 @@ def probability(condition, given_condition: Incomplete | None = None, numsamples
 
 class Density(Basic):
     expr: Incomplete
-    def __new__(cls, expr, condition: Incomplete | None = None): ...
+    def __new__(cls, expr, condition=None): ...
     @property
     def condition(self): ...
     def doit(self, evaluate: bool = True, **kwargs): ...
 
-def density(expr, condition: Incomplete | None = None, evaluate: bool = True, numsamples: Incomplete | None = None, **kwargs):
+def density(expr, condition=None, evaluate: bool = True, numsamples=None, **kwargs):
     """
     Probability density of a random expression, optionally given a second
     condition.
@@ -455,7 +457,7 @@ def density(expr, condition: Incomplete | None = None, evaluate: bool = True, nu
     >>> density(X)(x)
     sqrt(2)*exp(-x**2/2)/(2*sqrt(pi))
     """
-def cdf(expr, condition: Incomplete | None = None, evaluate: bool = True, **kwargs):
+def cdf(expr, condition=None, evaluate: bool = True, **kwargs):
     """
     Cumulative Distribution Function of a random expression.
 
@@ -487,7 +489,7 @@ def cdf(expr, condition: Incomplete | None = None, evaluate: bool = True, **kwar
     >>> cdf(X)
     Lambda(_z, erf(sqrt(2)*_z/2)/2 + 1/2)
     """
-def characteristic_function(expr, condition: Incomplete | None = None, evaluate: bool = True, **kwargs):
+def characteristic_function(expr, condition=None, evaluate: bool = True, **kwargs):
     """
     Characteristic function of a random expression, optionally given a second condition.
 
@@ -510,8 +512,8 @@ def characteristic_function(expr, condition: Incomplete | None = None, evaluate:
     >>> characteristic_function(Z)
     Lambda(_t, exp(2*exp(_t*I) - 2))
     """
-def moment_generating_function(expr, condition: Incomplete | None = None, evaluate: bool = True, **kwargs): ...
-def where(condition, given_condition: Incomplete | None = None, **kwargs):
+def moment_generating_function(expr, condition=None, evaluate: bool = True, **kwargs): ...
+def where(condition, given_condition=None, **kwargs):
     """
     Returns the domain where a condition is True.
 
@@ -534,7 +536,7 @@ def where(condition, given_condition: Incomplete | None = None, **kwargs):
     >>> where(And(D1<=D2, D2<3))
     Domain: (Eq(a, 1) & Eq(b, 1)) | (Eq(a, 1) & Eq(b, 2)) | (Eq(a, 2) & Eq(b, 2))
     """
-def sample(expr, condition: Incomplete | None = None, size=(), library: str = 'scipy', numsamples: int = 1, seed: Incomplete | None = None, **kwargs):
+def sample(expr, condition=None, size=(), library: str = 'scipy', numsamples: int = 1, seed=None, **kwargs):
     '''
     A realization of the random expression.
 
@@ -672,7 +674,7 @@ def quantile(expr, evaluate: bool = True, **kwargs):
     \\ 6        for p <= 1
 
     '''
-def sample_iter(expr, condition: Incomplete | None = None, size=(), library: str = 'scipy', numsamples=..., seed: Incomplete | None = None, **kwargs):
+def sample_iter(expr, condition=None, size=(), library: str = 'scipy', numsamples=..., seed=None, **kwargs):
     """
     Returns an iterator of realizations from the expression given a condition.
 
@@ -724,9 +726,9 @@ def sample_iter(expr, condition: Incomplete | None = None, size=(), library: str
     sampling_E
 
     """
-def sample_iter_lambdify(expr, condition: Incomplete | None = None, size=(), numsamples=..., seed: Incomplete | None = None, **kwargs): ...
-def sample_iter_subs(expr, condition: Incomplete | None = None, size=(), numsamples=..., seed: Incomplete | None = None, **kwargs): ...
-def sampling_P(condition, given_condition: Incomplete | None = None, library: str = 'scipy', numsamples: int = 1, evalf: bool = True, seed: Incomplete | None = None, **kwargs):
+def sample_iter_lambdify(expr, condition=None, size=(), numsamples=..., seed=None, **kwargs): ...
+def sample_iter_subs(expr, condition=None, size=(), numsamples=..., seed=None, **kwargs): ...
+def sampling_P(condition, given_condition=None, library: str = 'scipy', numsamples: int = 1, evalf: bool = True, seed=None, **kwargs):
     """
     Sampling version of P.
 
@@ -738,7 +740,7 @@ def sampling_P(condition, given_condition: Incomplete | None = None, library: st
     sampling_density
 
     """
-def sampling_E(expr, given_condition: Incomplete | None = None, library: str = 'scipy', numsamples: int = 1, evalf: bool = True, seed: Incomplete | None = None, **kwargs):
+def sampling_E(expr, given_condition=None, library: str = 'scipy', numsamples: int = 1, evalf: bool = True, seed=None, **kwargs):
     """
     Sampling version of E.
 
@@ -749,7 +751,7 @@ def sampling_E(expr, given_condition: Incomplete | None = None, library: str = '
     sampling_P
     sampling_density
     """
-def sampling_density(expr, given_condition: Incomplete | None = None, library: str = 'scipy', numsamples: int = 1, seed: Incomplete | None = None, **kwargs):
+def sampling_density(expr, given_condition=None, library: str = 'scipy', numsamples: int = 1, seed=None, **kwargs):
     """
     Sampling version of density.
 
@@ -825,7 +827,7 @@ def pspace_independent(a, b):
     pspace_independent(a, b) implies independent(a, b)
     independent(a, b) does not imply pspace_independent(a, b)
     """
-def rv_subs(expr, symbols: Incomplete | None = None):
+def rv_subs(expr, symbols=None):
     """
     Given a random expression replace all random variables with their symbols.
 
@@ -837,7 +839,7 @@ class NamedArgsMixin:
     def __getattr__(self, attr): ...
 
 class Distribution(Basic):
-    def sample(self, size=(), library: str = 'scipy', seed: Incomplete | None = None):
+    def sample(self, size=(), library: str = 'scipy', seed=None):
         """ A random realization from the distribution """
 
 def _value_check(condition, message):

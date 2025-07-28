@@ -41,7 +41,7 @@ class Particle(BodyBase):
 
     """
     point: Incomplete
-    def __init__(self, name, point: Incomplete | None = None, mass: Incomplete | None = None) -> None: ...
+    def __init__(self, name, point=None, mass=None) -> None: ...
     def linear_momentum(self, frame):
         """Linear momentum of the particle.
 

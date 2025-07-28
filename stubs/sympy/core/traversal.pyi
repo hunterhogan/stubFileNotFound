@@ -4,6 +4,7 @@ from .sympify import sympify as sympify
 from _typeshed import Incomplete
 from collections.abc import Generator
 from sympy.utilities.iterables import iterable as iterable
+from typing import Iterator
 
 def iterargs(expr) -> Generator[Incomplete]:
     """Yield the args of a Basic object in a breadth-first traversal.
@@ -92,7 +93,7 @@ class preorder_traversal:
     """
     _skip_flag: bool
     _pt: Incomplete
-    def __init__(self, node, keys: Incomplete | None = None) -> None: ...
+    def __init__(self, node, keys=None) -> None: ...
     def _preorder_traversal(self, node, keys) -> Generator[Incomplete, Incomplete]: ...
     def skip(self) -> None:
         """
@@ -113,7 +114,7 @@ class preorder_traversal:
         x + y*z
         """
     def __next__(self): ...
-    def __iter__(self): ...
+    def __iter__(self) -> Iterator[Basic]: ...
 
 def use(expr, func, level: int = 0, args=(), kwargs={}):
     """
@@ -159,7 +160,7 @@ def bottom_up(rv, F, atoms: bool = False, nonbasic: bool = False):
     bottom up. If ``atoms`` is True, apply ``F`` even if there are no args;
     if ``nonbasic`` is True, try to apply ``F`` to non-Basic objects.
     """
-def postorder_traversal(node, keys: Incomplete | None = None) -> Generator[Incomplete, Incomplete]:
+def postorder_traversal(node, keys=None) -> Generator[Incomplete, Incomplete]:
     """
     Do a postorder traversal of a tree.
 

@@ -1,8 +1,10 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from sympy.utilities.decorator import public
 
 __all__ = ['extract_fundamental_discriminant', 'AlgIntPowers', 'coeff_search', 'isolate']
 
+@public
 def extract_fundamental_discriminant(a):
     """
     Extract a fundamental discriminant from an integer *a*.
@@ -101,7 +103,7 @@ class AlgIntPowers:
     n: Incomplete
     powers_n_and_up: Incomplete
     max_so_far: Incomplete
-    def __init__(self, T, modulus: Incomplete | None = None) -> None:
+    def __init__(self, T, modulus=None) -> None:
         """
         Parameters
         ==========
@@ -120,6 +122,7 @@ class AlgIntPowers:
     def get(self, e): ...
     def __getitem__(self, item): ...
 
+@public
 def coeff_search(m, R) -> Generator[Incomplete]:
     """
     Generate coefficients for searching through polynomials.
@@ -156,7 +159,8 @@ def coeff_search(m, R) -> Generator[Incomplete]:
         Infinite generator of lists of coefficients.
 
     """
-def isolate(alg, eps: Incomplete | None = None, fast: bool = False):
+@public
+def isolate(alg, eps=None, fast: bool = False):
     """
     Find a rational isolating interval for a real algebraic number.
 

@@ -21,7 +21,7 @@ class CoordSys3D(Basic):
     """
     Represents a coordinate system in 3-D space.
     """
-    def __new__(cls, name, transformation: Incomplete | None = None, parent: Incomplete | None = None, location: Incomplete | None = None, rotation_matrix: Incomplete | None = None, vector_names: Incomplete | None = None, variable_names: Incomplete | None = None):
+    def __new__(cls, name, transformation=None, parent=None, location=None, rotation_matrix=None, vector_names=None, variable_names=None):
         """
         The orientation/location parameters are necessary if this system
         is being defined at a certain orientation or location wrt another.
@@ -190,6 +190,7 @@ class CoordSys3D(Basic):
         [0, sin(q1),  cos(q1)]])
 
         """
+    @cacheit
     def position_wrt(self, other):
         """
         Returns the position vector of the origin of this coordinate
@@ -237,7 +238,7 @@ class CoordSys3D(Basic):
         {A.x: B.x*cos(q) - B.y*sin(q), A.y: B.x*sin(q) + B.y*cos(q), A.z: B.z}
 
         """
-    def locate_new(self, name, position, vector_names: Incomplete | None = None, variable_names: Incomplete | None = None):
+    def locate_new(self, name, position, vector_names=None, variable_names=None):
         """
         Returns a CoordSys3D with its origin located at the given
         position wrt this coordinate system's origin.
@@ -267,7 +268,7 @@ class CoordSys3D(Basic):
         10*A.i
 
         """
-    def orient_new(self, name, orienters, location: Incomplete | None = None, vector_names: Incomplete | None = None, variable_names: Incomplete | None = None):
+    def orient_new(self, name, orienters, location=None, vector_names=None, variable_names=None):
         """
         Creates a new CoordSys3D oriented in the user-specified way
         with respect to this system.
@@ -331,7 +332,7 @@ class CoordSys3D(Basic):
         >>> q_orienter = QuaternionOrienter(q0, q1, q2, q3)
         >>> D = N.orient_new('D', (q_orienter, ))
         """
-    def orient_new_axis(self, name, angle, axis, location: Incomplete | None = None, vector_names: Incomplete | None = None, variable_names: Incomplete | None = None):
+    def orient_new_axis(self, name, angle, axis, location=None, vector_names=None, variable_names=None):
         """
         Axis rotation is a rotation about an arbitrary axis by
         some angle. The angle is supplied as a SymPy expr scalar, and
@@ -369,7 +370,7 @@ class CoordSys3D(Basic):
         >>> B = N.orient_new_axis('B', q1, N.i + 2 * N.j)
 
         """
-    def orient_new_body(self, name, angle1, angle2, angle3, rotation_order, location: Incomplete | None = None, vector_names: Incomplete | None = None, variable_names: Incomplete | None = None):
+    def orient_new_body(self, name, angle1, angle2, angle3, rotation_order, location=None, vector_names=None, variable_names=None):
         """
         Body orientation takes this coordinate system through three
         successive simple rotations.
@@ -431,7 +432,7 @@ class CoordSys3D(Basic):
         >>> B = N.orient_new_body('B', 0, 0, 0, 'XYX')
 
         """
-    def orient_new_space(self, name, angle1, angle2, angle3, rotation_order, location: Incomplete | None = None, vector_names: Incomplete | None = None, variable_names: Incomplete | None = None):
+    def orient_new_space(self, name, angle1, angle2, angle3, rotation_order, location=None, vector_names=None, variable_names=None):
         """
         Space rotation is similar to Body rotation, but the rotations
         are applied in the opposite order.
@@ -487,7 +488,7 @@ class CoordSys3D(Basic):
         >>> D = C.orient_new_axis('D', q3, N.k)
 
         """
-    def orient_new_quaternion(self, name, q0, q1, q2, q3, location: Incomplete | None = None, vector_names: Incomplete | None = None, variable_names: Incomplete | None = None):
+    def orient_new_quaternion(self, name, q0, q1, q2, q3, location=None, vector_names=None, variable_names=None):
         """
         Quaternion orientation orients the new CoordSys3D with
         Quaternions, defined as a finite rotation about lambda, a unit
@@ -534,7 +535,7 @@ class CoordSys3D(Basic):
         >>> B = N.orient_new_quaternion('B', q0, q1, q2, q3)
 
         """
-    def create_new(self, name, transformation, variable_names: Incomplete | None = None, vector_names: Incomplete | None = None):
+    def create_new(self, name, transformation, variable_names=None, vector_names=None):
         """
         Returns a CoordSys3D which is connected to self by transformation.
 
@@ -565,7 +566,7 @@ class CoordSys3D(Basic):
         (sqrt(a.x**2 + a.y**2 + a.z**2), acos(a.z/sqrt(a.x**2 + a.y**2 + a.z**2)), atan2(a.y, a.x))
 
         """
-    def __init__(self, name, location: Incomplete | None = None, rotation_matrix: Incomplete | None = None, parent: Incomplete | None = None, vector_names: Incomplete | None = None, variable_names: Incomplete | None = None, latex_vects: Incomplete | None = None, pretty_vects: Incomplete | None = None, latex_scalars: Incomplete | None = None, pretty_scalars: Incomplete | None = None, transformation: Incomplete | None = None) -> None: ...
+    def __init__(self, name, location=None, rotation_matrix=None, parent=None, vector_names=None, variable_names=None, latex_vects=None, pretty_vects=None, latex_scalars=None, pretty_scalars=None, transformation=None) -> None: ...
     @staticmethod
     def _compose_rotation_and_translation(rot, translation, parent): ...
 

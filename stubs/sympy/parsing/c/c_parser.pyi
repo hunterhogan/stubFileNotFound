@@ -34,7 +34,7 @@ class CCodeConverter(BaseParser):
             It takes the filename as an attribute and creates a Clang AST
             Translation Unit parsing the file.
             Then the transformation function is called on the translation unit,
-            whose reults are collected into a list which is returned by the
+            whose results are collected into a list which is returned by the
             function.
 
             Parameters
@@ -59,7 +59,7 @@ class CCodeConverter(BaseParser):
             It takes the source code as an attribute, stores it in a temporary
             file and creates a Clang AST Translation Unit parsing the file.
             Then the transformation function is called on the translation unit,
-            whose reults are collected into a list which is returned by the
+            whose results are collected into a list which is returned by the
             function.
 
             Parameters
@@ -247,7 +247,7 @@ class CCodeConverter(BaseParser):
                 the result from the wrapped expression
 
             None : NoneType
-                No childs are found for the node
+                No children are found for the node
 
             Raises
             ======
@@ -273,7 +273,7 @@ class CCodeConverter(BaseParser):
     def transform_return_stmt(self, node):
         """Returns the Return Node for a return statement"""
     def transform_compound_stmt(self, node):
-        """Transformation function for compond statemets
+        """Transformation function for compound statements
 
             Returns
             =======

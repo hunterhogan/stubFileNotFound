@@ -26,6 +26,7 @@ class PlotInterval:
     def set_v_max(self, v_max) -> None: ...
     def get_v_steps(self): ...
     def set_v_steps(self, v_steps) -> None: ...
+    @require_all_args
     def get_v_len(self): ...
     v_len: Incomplete
     def fill_from(self, b) -> None: ...
@@ -44,12 +45,15 @@ class PlotInterval:
         """
         A string representing the interval in list form.
         """
+    @require_all_args
     def assert_complete(self) -> None: ...
+    @require_all_args
     def vrange(self) -> Generator[Incomplete]:
         """
         Yields v_steps+1 SymPy numbers ranging from
         v_min to v_max.
         """
+    @require_all_args
     def vrange2(self) -> Generator[Incomplete]:
         """
         Yields v_steps pairs of SymPy numbers ranging from

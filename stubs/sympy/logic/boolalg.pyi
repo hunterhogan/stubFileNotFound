@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from collections.abc import Generator
+from collections.abc import Generator, Iterable, Mapping
 from sympy.core.add import Add as Add
 from sympy.core.basic import Basic as Basic
 from sympy.core.cache import cacheit as cacheit
@@ -14,6 +14,7 @@ from sympy.core.sorting import ordered as ordered
 from sympy.core.sympify import _sympify as _sympify, _sympy_converter as _sympy_converter, sympify as sympify
 from sympy.utilities.iterables import ibin as ibin, sift as sift
 from sympy.utilities.misc import filldedent as filldedent
+from typing import Any, overload
 
 def as_Boolean(e):
     """Like ``bool``, return the Boolean value of an expression, e,
@@ -46,6 +47,20 @@ class Boolean(Basic):
     """A Boolean object is an object for which logic operations make sense."""
     __slots__: Incomplete
     kind = BooleanKind
+    def __new__(cls, *args: Basic | complex) -> Boolean: ...
+    @overload
+    def subs(self, arg1: Mapping[Basic | complex, Boolean | complex], arg2: None = None) -> Boolean: ...
+    @overload
+    def subs(self, arg1: Iterable[tuple[Basic | complex, Boolean | complex]], arg2: None = None, **kwargs: Any) -> Boolean: ...
+    @overload
+    def subs(self, arg1: Boolean | complex, arg2: Boolean | complex) -> Boolean: ...
+    @overload
+    def subs(self, arg1: Mapping[Basic | complex, Basic | complex], arg2: None = None, **kwargs: Any) -> Basic: ...
+    @overload
+    def subs(self, arg1: Iterable[tuple[Basic | complex, Basic | complex]], arg2: None = None, **kwargs: Any) -> Basic: ...
+    @overload
+    def subs(self, arg1: Basic | complex, arg2: Basic | complex, **kwargs: Any) -> Basic: ...
+    def simplify(self, **kwargs) -> Boolean: ...
     def __and__(self, other): ...
     __rand__ = __and__
     def __or__(self, other): ...
@@ -111,7 +126,7 @@ class BooleanAtom(Boolean):
     def expand(self, *a, **kw): ...
     @property
     def canonical(self): ...
-    def _noop(self, other: Incomplete | None = None) -> None: ...
+    def _noop(self, other=None) -> None: ...
     __add__ = _noop
     __radd__ = _noop
     __sub__ = _noop
@@ -349,6 +364,9 @@ class And(LatticeOp, BooleanFunction):
     zero = false
     identity = true
     nargs: Incomplete
+    def __new__(cls, *args: Boolean | bool) -> Boolean: ...
+    @property
+    def args(self) -> tuple[Boolean, ...]: ...
     @classmethod
     def _new_args_filter(cls, args): ...
     def _eval_subs(self, old, new): ...
@@ -386,6 +404,9 @@ class Or(LatticeOp, BooleanFunction):
     """
     zero = true
     identity = false
+    def __new__(cls, *args: Boolean | bool) -> Boolean: ...
+    @property
+    def args(self) -> tuple[Boolean, ...]: ...
     @classmethod
     def _new_args_filter(cls, args): ...
     def _eval_subs(self, old, new): ...
@@ -503,6 +524,7 @@ class Xor(BooleanFunction):
     """
     def __new__(cls, *args, remove_true: bool = True, **kwargs): ...
     @property
+    @cacheit
     def args(self): ...
     def to_nnf(self, simplify: bool = True): ...
     def _eval_rewrite_as_Or(self, *args, **kwargs): ...
@@ -678,6 +700,7 @@ class Equivalent(BooleanFunction):
     """
     def __new__(cls, *args, **options): ...
     @property
+    @cacheit
     def args(self): ...
     def to_nnf(self, simplify: bool = True): ...
     def to_anf(self, deep: bool = True): ...
@@ -1196,7 +1219,7 @@ def _rem_redundancy(l1, terms):
     and return the essential arguments.
     """
 def _input_to_binlist(inputlist, variables): ...
-def SOPform(variables, minterms, dontcares: Incomplete | None = None):
+def SOPform(variables, minterms, dontcares=None):
     '''
     The SOPform function uses simplified_pairs and a redundant group-
     eliminating algorithm to convert the list of all input combos that
@@ -1257,7 +1280,7 @@ def SOPform(variables, minterms, dontcares: Incomplete | None = None):
 
     '''
 def _sop_form(variables, minterms, dontcares): ...
-def POSform(variables, minterms, dontcares: Incomplete | None = None):
+def POSform(variables, minterms, dontcares=None):
     '''
     The POSform function uses simplified_pairs and a redundant-group
     eliminating algorithm to convert the list of all input combinations
@@ -1495,7 +1518,7 @@ def _find_predicates(expr):
     that is not a BooleanFunction itself.
 
     """
-def simplify_logic(expr, form: Incomplete | None = None, deep: bool = True, force: bool = False, dontcare: Incomplete | None = None):
+def simplify_logic(expr, form=None, deep: bool = True, force: bool = False, dontcare=None):
     """
     This function simplifies a boolean function to its simplified version
     in SOP or POS form. The return type is an :py:class:`~.Or` or
@@ -1633,7 +1656,7 @@ def bool_map(bool1, bool2):
     (c & d & (a | b) & (~a | ~b), {a: a, b: b, c: d, d: x})
 
     """
-def _apply_patternbased_simplification(rv, patterns, measure, dominatingvalue, replacementvalue: Incomplete | None = None, threeterm_patterns: Incomplete | None = None):
+def _apply_patternbased_simplification(rv, patterns, measure, dominatingvalue, replacementvalue=None, threeterm_patterns=None):
     """
     Replace patterns of Relational
 
@@ -1673,12 +1696,16 @@ def _apply_patternbased_twoterm_simplification(Rel, patterns, func, dominatingva
     """ Apply pattern-based two-term simplification."""
 def _apply_patternbased_threeterm_simplification(Rel, patterns, func, dominatingvalue, replacementvalue, measure):
     """ Apply pattern-based three-term simplification."""
+@cacheit
 def _simplify_patterns_and():
     """ Two-term patterns for And."""
+@cacheit
 def _simplify_patterns_and3():
     """ Three-term patterns for And."""
+@cacheit
 def _simplify_patterns_or():
     """ Two-term patterns for Or."""
+@cacheit
 def _simplify_patterns_xor():
     """ Two-term patterns for Xor."""
 def simplify_univariate(expr):

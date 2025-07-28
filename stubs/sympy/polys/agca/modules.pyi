@@ -35,7 +35,7 @@ class Module:
     """
     ring: Incomplete
     def __init__(self, ring) -> None: ...
-    def convert(self, elem, M: Incomplete | None = None):
+    def convert(self, elem, M=None):
         """
         Convert ``elem`` into internal representation of this module.
 
@@ -164,7 +164,7 @@ class FreeModule(Module):
         >>> M.is_submodule(F)
         False
         """
-    def convert(self, elem, M: Incomplete | None = None):
+    def convert(self, elem, M=None):
         """
         Convert ``elem`` into the internal representation.
 
@@ -412,7 +412,7 @@ class SubModule(Module):
         """Implementation of syzygy computation wrt self generators."""
     def _in_terms_of_generators(self, e) -> None:
         """Implementation of expression in terms of generators."""
-    def convert(self, elem, M: Incomplete | None = None):
+    def convert(self, elem, M=None):
         """
         Convert ``elem`` into the internal represantition.
 
@@ -784,7 +784,7 @@ class SubModulePolyRing(SubModule):
         """Compute syzygies. See [SCA, algorithm 2.5.4]."""
     def _in_terms_of_generators(self, e):
         """Expression in terms of generators. See [SCA, 2.8.1]."""
-    def reduce_element(self, x, NF: Incomplete | None = None):
+    def reduce_element(self, x, NF=None):
         """
         Reduce the element ``x`` of our container modulo ``self``.
 
@@ -895,7 +895,7 @@ class QuotientModule(Module):
         >>> Q.submodule([x, 0])
         <[x, 0] + <[x, x]>>
         """
-    def convert(self, elem, M: Incomplete | None = None):
+    def convert(self, elem, M=None):
         """
         Convert ``elem`` into the internal representation.
 

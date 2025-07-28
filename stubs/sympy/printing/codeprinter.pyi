@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from sympy.core import Add as Add, Float as Float, Mul as Mul, Pow as Pow, S as S, sympify as sympify
 from sympy.core.basic import Basic as Basic
-from sympy.core.expr import UnevaluatedExpr as UnevaluatedExpr
+from sympy.core.expr import Expr as Expr, UnevaluatedExpr as UnevaluatedExpr
 from sympy.core.function import Lambda as Lambda
 from sympy.core.mul import _keep_coeff as _keep_coeff
 from sympy.core.sorting import default_sort_key as default_sort_key
@@ -36,11 +36,11 @@ class CodePrinter(StrPrinter):
     _default_settings: dict[str, Any]
     _rewriteable_functions: Incomplete
     reserved_words: Incomplete
-    def __init__(self, settings: Incomplete | None = None) -> None: ...
+    def __init__(self, settings=None) -> None: ...
     def _handle_UnevaluatedExpr(self, expr): ...
     _not_supported: Incomplete
     _number_symbols: Incomplete
-    def doprint(self, expr, assign_to: Incomplete | None = None):
+    def doprint(self, expr, assign_to=None):
         """
         Print the expression as code.
 
@@ -53,7 +53,7 @@ class CodePrinter(StrPrinter):
             If provided, the printed code will set the expression to a variable or multiple variables
             with the name or names given in ``assign_to``.
         """
-    def _doprint_loops(self, expr, assign_to: Incomplete | None = None): ...
+    def _doprint_loops(self, expr, assign_to=None): ...
     def _get_expression_indices(self, expr, assign_to): ...
     def _sort_optimized(self, indices, expr): ...
     def _rate_index_position(self, p) -> None:
@@ -76,6 +76,7 @@ class CodePrinter(StrPrinter):
         """Returns a tuple (open_lines, close_lines) containing lists
         of codelines"""
     def _print_Dummy(self, expr): ...
+    def _print_Idx(self, expr): ...
     def _print_CodeBlock(self, expr): ...
     def _print_String(self, string): ...
     def _print_QuotedString(self, arg): ...
@@ -90,6 +91,7 @@ class CodePrinter(StrPrinter):
             printing method. Used to check if rewriting is possible."""
     def _print_Function(self, expr): ...
     _print_Expr = _print_Function
+    def _print_Derivative(self, expr): ...
     _print_Heaviside: Incomplete
     def _print_NumberSymbol(self, expr): ...
     def _print_Catalan(self, expr): ...
@@ -104,11 +106,12 @@ class CodePrinter(StrPrinter):
     def _print_Equivalent(self, expr): ...
     def _print_Not(self, expr): ...
     def _print_BooleanFunction(self, expr): ...
+    def _print_isnan(self, arg): ...
+    def _print_isinf(self, arg): ...
     def _print_Mul(self, expr): ...
     def _print_not_supported(self, expr): ...
     _print_Basic = _print_not_supported
     _print_ComplexInfinity = _print_not_supported
-    _print_Derivative = _print_not_supported
     _print_ExprCondPair = _print_not_supported
     _print_GeometryEntity = _print_not_supported
     _print_Infinity = _print_not_supported
@@ -130,7 +133,7 @@ class CodePrinter(StrPrinter):
     _print_WildFunction = _print_not_supported
     _print_Relational = _print_not_supported
 
-def ccode(expr, assign_to: Incomplete | None = None, standard: str = 'c99', **settings):
+def ccode(expr, assign_to=None, standard: str = 'c99', **settings):
     '''Converts an expr to a string of c code
 
     Parameters
@@ -262,7 +265,7 @@ def ccode(expr, assign_to: Incomplete | None = None, standard: str = 'c99', **se
     '''
 def print_ccode(expr, **settings) -> None:
     """Prints C representation of the given expression."""
-def fcode(expr, assign_to: Incomplete | None = None, **settings):
+def fcode(expr, assign_to=None, **settings):
     '''Converts an expr to a string of fortran code
 
     Parameters
@@ -383,5 +386,115 @@ def print_fcode(expr, **settings) -> None:
 
        See fcode for the meaning of the optional arguments.
     """
-def cxxcode(expr, assign_to: Incomplete | None = None, standard: str = 'c++11', **settings):
+def cxxcode(expr, assign_to=None, standard: str = 'c++11', **settings):
     """ C++ equivalent of :func:`~.ccode`. """
+def rust_code(expr, assign_to=None, **settings):
+    '''Converts an expr to a string of Rust code
+
+    Parameters
+    ==========
+
+    expr : Expr
+        A SymPy expression to be converted.
+    assign_to : optional
+        When given, the argument is used as the name of the variable to which
+        the expression is assigned. Can be a string, ``Symbol``,
+        ``MatrixSymbol``, or ``Indexed`` type. This is helpful in case of
+        line-wrapping, or for expressions that generate multi-line statements.
+    precision : integer, optional
+        The precision for numbers such as pi [default=15].
+    user_functions : dict, optional
+        A dictionary where the keys are string representations of either
+        ``FunctionClass`` or ``UndefinedFunction`` instances and the values
+        are their desired C string representations. Alternatively, the
+        dictionary value can be a list of tuples i.e. [(argument_test,
+        cfunction_string)].  See below for examples.
+    dereference : iterable, optional
+        An iterable of symbols that should be dereferenced in the printed code
+        expression. These would be values passed by address to the function.
+        For example, if ``dereference=[a]``, the resulting code would print
+        ``(*a)`` instead of ``a``.
+    human : bool, optional
+        If True, the result is a single string that may contain some constant
+        declarations for the number symbols. If False, the same information is
+        returned in a tuple of (symbols_to_declare, not_supported_functions,
+        code_text). [default=True].
+    contract: bool, optional
+        If True, ``Indexed`` instances are assumed to obey tensor contraction
+        rules and the corresponding nested loops over indices are generated.
+        Setting contract=False will not generate loops, instead the user is
+        responsible to provide values for the indices in the code.
+        [default=True].
+
+    Examples
+    ========
+
+    >>> from sympy import rust_code, symbols, Rational, sin, ceiling, Abs, Function
+    >>> x, tau = symbols("x, tau")
+    >>> rust_code((2*tau)**Rational(7, 2))
+    \'8.0*1.4142135623731*tau.powf(7_f64/2.0)\'
+    >>> rust_code(sin(x), assign_to="s")
+    \'s = x.sin();\'
+
+    Simple custom printing can be defined for certain types by passing a
+    dictionary of {"type" : "function"} to the ``user_functions`` kwarg.
+    Alternatively, the dictionary value can be a list of tuples i.e.
+    [(argument_test, cfunction_string)].
+
+    >>> custom_functions = {
+    ...   "ceiling": "CEIL",
+    ...   "Abs": [(lambda x: not x.is_integer, "fabs", 4),
+    ...           (lambda x: x.is_integer, "ABS", 4)],
+    ...   "func": "f"
+    ... }
+    >>> func = Function(\'func\')
+    >>> rust_code(func(Abs(x) + ceiling(x)), user_functions=custom_functions)
+    \'(fabs(x) + x.ceil()).f()\'
+
+    ``Piecewise`` expressions are converted into conditionals. If an
+    ``assign_to`` variable is provided an if statement is created, otherwise
+    the ternary operator is used. Note that if the ``Piecewise`` lacks a
+    default term, represented by ``(expr, True)`` then an error will be thrown.
+    This is to prevent generating an expression that may not evaluate to
+    anything.
+
+    >>> from sympy import Piecewise
+    >>> expr = Piecewise((x + 1, x > 0), (x, True))
+    >>> print(rust_code(expr, tau))
+    tau = if (x > 0.0) {
+        x + 1
+    } else {
+        x
+    };
+
+    Support for loops is provided through ``Indexed`` types. With
+    ``contract=True`` these expressions will be turned into loops, whereas
+    ``contract=False`` will just print the assignment expression that should be
+    looped over:
+
+    >>> from sympy import Eq, IndexedBase, Idx
+    >>> len_y = 5
+    >>> y = IndexedBase(\'y\', shape=(len_y,))
+    >>> t = IndexedBase(\'t\', shape=(len_y,))
+    >>> Dy = IndexedBase(\'Dy\', shape=(len_y-1,))
+    >>> i = Idx(\'i\', len_y-1)
+    >>> e=Eq(Dy[i], (y[i+1]-y[i])/(t[i+1]-t[i]))
+    >>> rust_code(e.rhs, assign_to=e.lhs, contract=False)
+    \'Dy[i] = (y[i + 1] - y[i])/(t[i + 1] - t[i]);\'
+
+    Matrices are also supported, but a ``MatrixSymbol`` of the same dimensions
+    must be provided to ``assign_to``. Note that any expression that can be
+    generated normally can also exist inside a Matrix:
+
+    >>> from sympy import Matrix, MatrixSymbol
+    >>> mat = Matrix([x**2, Piecewise((x + 1, x > 0), (x, True)), sin(x)])
+    >>> A = MatrixSymbol(\'A\', 3, 1)
+    >>> print(rust_code(mat, A))
+    A = [x.powi(2), if (x > 0.0) {
+        x + 1
+    } else {
+        x
+    }, x.sin()];
+    '''
+def print_rust_code(expr, **settings) -> None:
+    """Prints Rust representation of the given expression."""

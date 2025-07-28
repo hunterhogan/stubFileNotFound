@@ -198,7 +198,7 @@ class KanesMethod(_Methods):
     _bodylist: Incomplete
     explicit_kinematics: Incomplete
     _constraint_solver: Incomplete
-    def __init__(self, frame, q_ind, u_ind, kd_eqs: Incomplete | None = None, q_dependent: Incomplete | None = None, configuration_constraints: Incomplete | None = None, u_dependent: Incomplete | None = None, velocity_constraints: Incomplete | None = None, acceleration_constraints: Incomplete | None = None, u_auxiliary: Incomplete | None = None, bodies: Incomplete | None = None, forcelist: Incomplete | None = None, explicit_kinematics: bool = True, kd_eqs_solver: str = 'LU', constraint_solver: str = 'LU') -> None:
+    def __init__(self, frame, q_ind, u_ind, kd_eqs=None, q_dependent=None, configuration_constraints=None, u_dependent=None, velocity_constraints=None, acceleration_constraints=None, u_auxiliary=None, bodies=None, forcelist=None, explicit_kinematics: bool = True, kd_eqs_solver: str = 'LU', constraint_solver: str = 'LU') -> None:
         """Please read the online documentation. """
     _qdep: Incomplete
     _q: Incomplete
@@ -211,10 +211,10 @@ class KanesMethod(_Methods):
         """Initialize the coordinate and speed vectors."""
     _f_h: Incomplete
     _f_nh: Incomplete
-    _k_nh: Incomplete
     _f_dnh: Incomplete
     _k_dnh: Incomplete
     _Ars: Incomplete
+    _k_nh: Incomplete
     def _initialize_constraint_matrices(self, config, vel, acc, linear_solver: str = 'LU'):
         """Initializes constraint matrices."""
     _f_k_implicit: Incomplete
@@ -231,8 +231,8 @@ class KanesMethod(_Methods):
         ==========
         kdeqs : sequence of sympy expressions
             Kinematic differential equations in the form of f(u,q',q,t) where
-            f() = 0. The equations have to be linear in the generalized
-            coordinates and generalized speeds.
+            f() = 0. The equations have to be linear in the time-derivatives of
+            the generalized coordinates and in the generalized speeds.
 
         """
     def _form_fr(self, fl):
@@ -267,7 +267,7 @@ class KanesMethod(_Methods):
             :class:`sympy.physics.mechanics.linearize.Linearizer`.
 
         """
-    def linearize(self, *, new_method: Incomplete | None = None, linear_solver: str = 'LU', **kwargs):
+    def linearize(self, *, new_method=None, linear_solver: str = 'LU', **kwargs):
         """ Linearize the equations of motion about a symbolic operating point.
 
         Parameters
@@ -316,7 +316,7 @@ class KanesMethod(_Methods):
         """
     _km: Incomplete
     _aux_eq: Incomplete
-    def kanes_equations(self, bodies: Incomplete | None = None, loads: Incomplete | None = None):
+    def kanes_equations(self, bodies=None, loads=None):
         """ Method to form Kane's equations, Fr + Fr* = 0.
 
         Explanation
@@ -342,7 +342,7 @@ class KanesMethod(_Methods):
             to a system with no constraints.
         """
     def _form_eoms(self): ...
-    def rhs(self, inv_method: Incomplete | None = None):
+    def rhs(self, inv_method=None):
         """Returns the system's equations of motion in first order form. The
         output is the right hand side of::
 
