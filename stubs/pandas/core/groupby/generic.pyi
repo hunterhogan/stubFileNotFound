@@ -1,16 +1,55 @@
-from collections.abc import Callable, Hashable, Iterable, Iterator, Sequence
+from collections.abc import (
+    Callable,
+    Hashable,
+    Iterable,
+    Iterator,
+    Sequence,
+)
+from typing import (
+    Any,
+    Concatenate,
+    Generic,
+    Literal,
+    NamedTuple,
+    Protocol,
+    TypeVar,
+    final,
+    overload,
+)
+
 from matplotlib.axes import Axes as PlotAxes
-from pandas._libs.tslibs.timestamps import Timestamp
-from pandas._typing import (
-	AggFuncTypeBase, AggFuncTypeFrame, ByT, CorrelationMethod, Dtype, IndexLabel, Level, ListLike, NsmallestNlargestKeep,
-	P, S2, S3, Scalar, TakeIndexer, WindowingEngine, WindowingEngineKwargs)
+import numpy as np
 from pandas.core.frame import DataFrame
 from pandas.core.groupby.base import TransformReductionListType
-from pandas.core.groupby.groupby import GroupBy, GroupByPlot
+from pandas.core.groupby.groupby import (
+    GroupBy,
+    GroupByPlot,
+)
 from pandas.core.series import Series
-from typing import Any, Concatenate, final, Generic, Literal, NamedTuple, overload, Protocol, TypeVar
-from typing_extensions import Self, TypeAlias
-import numpy as np
+from typing_extensions import (
+    Self,
+    TypeAlias,
+)
+
+from pandas._libs.tslibs.timestamps import Timestamp
+from pandas._typing import (
+    S2,
+    S3,
+    AggFuncTypeBase,
+    AggFuncTypeFrame,
+    ByT,
+    CorrelationMethod,
+    Dtype,
+    IndexLabel,
+    Level,
+    ListLike,
+    NsmallestNlargestKeep,
+    P,
+    Scalar,
+    TakeIndexer,
+    WindowingEngine,
+    WindowingEngineKwargs,
+)
 
 AggScalar: TypeAlias = str | Callable[..., Any]
 
@@ -370,7 +409,7 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
     def plot(self) -> GroupByPlot[Self]: ...
     def corr(
         self,
-        method: str | Callable[[np.ndarray, np.ndarray], float] = 'pearson',
+        method: str | Callable[[np.ndarray[Any, Any], np.ndarray[Any, Any]], float] = 'pearson',
         min_periods: int = 1,
         numeric_only: bool = False,
     ) -> DataFrame: ...

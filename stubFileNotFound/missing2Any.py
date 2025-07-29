@@ -17,12 +17,19 @@ Examples:
 Separate file handling from libcst operations.
 Leverage existing packages, such as `mypy`, `pyright`, and `hunterMakesPy` for everything and anything: write as little new code as possible.
 
+TODO:
+- after stubdefaulter: Expression of type "None" cannot be assigned to parameter of type "bool"
+- don't change `self` or `cls`
+- nested generics; e.g., list[Callable]
+- apply to variables in classes
+- TypeAlias
+
 """
 
 pathStubs = Path(settingsPackage.pathPackage / '..' / 'stubs').resolve()
 pathSuffix: str = 'pyi'
 
-listRelativePaths: list[str] = ['redis']
+listRelativePaths: list[str] = ['pandas']
 
 def discoverStubFiles() -> list[Path]:
 	"""Discover all stub files based on configured paths and suffix."""

@@ -1,14 +1,20 @@
-# stubFileNotFound: Crowdsourced Stub Type Files for Third-Party Python Packages
+# stubFileNotFound: Stub Type Files that reduce complaints from Pylance and Ruff
 
-`stubFileNotFound` is a collaborative project for creating and sharing [Python stub files](https://typing.python.org/en/latest/spec/distributing.html) (`.pyi`) for third-party Python packages. Stub files provide type hints and docstrings for modules, enabling better static analysis with tools like PyLance, pyright, and mypy and making it easier for developers to use the package.
+- I usually run [stubdefaulter](https://github.com/JelleZijlstra/stubdefaulter).
+- I sometimes add missing annotations.
+- I sometimes use `Any` for missing annotations so type checkers don't complain about "UNKNOWN".
+- Most changes are automated, but not sophisticated.
+
+This is a useful tool for me, but I haven't really figured out how to make it useful for more people.
 
 ## How to Contribute
 
 1. Create or improve a stub file.
-
 2. Submit a Pull Request.
 
 ## Usage
+
+The following might work for you, but I don't really know for sure.
 
 To use the stub files from this repository:
 
@@ -94,4 +100,4 @@ Coding One Step at a Time:
 2. Write good code.
 3. When revising, write better code.
 
-[![CC-BY-NC-4.0](https://github.com/hunterhogan/stubFileNotFound/blob/main/CC-BY-NC-4.0.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
+[![CC-BY-NC-4.0](https://github.com/hunterhogan/stubFileNotFound/main/CC-BY-NC-4.0.svg)](https://creativecommons.org/licenses/by-nc/4.0/)

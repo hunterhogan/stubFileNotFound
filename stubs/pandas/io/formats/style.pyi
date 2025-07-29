@@ -1,29 +1,61 @@
-from collections.abc import Callable, Sequence
+from collections.abc import (
+    Callable,
+    Sequence,
+)
+from typing import (
+    Any,
+    Literal,
+    Protocol,
+    overload,
+)
+
 from matplotlib.colors import Colormap
-from pandas._typing import (
-	Axis, ExcelWriterMergeCells, FilePath, HashableT, HashableT1, HashableT2, IndexLabel, IntervalClosedType, Level, npt,
-	QuantileInterpolation, Scalar, StorageOptions, T, WriteBuffer, WriteExcelBuffer)
+import numpy as np
 from pandas.core.frame import DataFrame
 from pandas.core.series import Series
+
+from pandas._typing import (
+    Axis,
+    ExcelWriterMergeCells,
+    FilePath,
+    HashableT,
+    HashableT1,
+    HashableT2,
+    IndexLabel,
+    IntervalClosedType,
+    Level,
+    QuantileInterpolation,
+    Scalar,
+    StorageOptions,
+    T,
+    WriteBuffer,
+    WriteExcelBuffer,
+    npt,
+)
+
 from pandas.io.excel import ExcelWriter
 from pandas.io.formats.style_render import (
-	CSSProperties, CSSStyles, ExtFormatter, StyleExportDict, StylerRenderer, Subset)
-from typing import Any, Literal, overload, Protocol
-import numpy as np
+    CSSProperties,
+    CSSStyles,
+    ExtFormatter,
+    StyleExportDict,
+    StylerRenderer,
+    Subset,
+)
 
 class _SeriesFunc(Protocol):
     def __call__(
-        self, series: Series, /, *args: Any, **kwargs: Any
+        self: Any, series: Series, /, *args: Any, **kwargs: Any
     ) -> list[Any] | Series: ...
 
 class _DataFrameFunc(Protocol):
     def __call__(
-        self, series: DataFrame, /, *args: Any, **kwargs: Any
+        self: Any, series: DataFrame, /, *args: Any, **kwargs: Any
     ) -> npt.NDArray[Any] | DataFrame: ...
 
 class _MapCallable(Protocol):
     def __call__(
-        self, first_arg: Scalar, /, *args: Any, **kwargs: Any
+        self: Any, first_arg: Scalar, /, *args: Any, **kwargs: Any
     ) -> str | None: ...
 
 class Styler(StylerRenderer):
@@ -197,7 +229,7 @@ class Styler(StylerRenderer):
     @overload
     def apply(
         self,
-        func: _SeriesFunc | Callable[[Series], list | Series],
+        func: _SeriesFunc | Callable[[Series], list[Any] | Series],
         axis: Axis = 0,
         subset: Subset[Any] | None = None,
         **kwargs: Any,
@@ -205,7 +237,7 @@ class Styler(StylerRenderer):
     @overload
     def apply(
         self,
-        func: _DataFrameFunc | Callable[[DataFrame], npt.NDArray | DataFrame],
+        func: _DataFrameFunc | Callable[[DataFrame], npt.NDArray[Any] | DataFrame],
         axis: None,
         subset: Subset[Any] | None = None,
         **kwargs: Any,
@@ -303,7 +335,7 @@ class Styler(StylerRenderer):
         align: (
             Literal["left", "right", "zero", "mid", "mean"]
             | float
-            | Callable[[Series | npt.NDArray | DataFrame], float]
+            | Callable[[Series | npt.NDArray[Any] | DataFrame], float]
         ) = 'mid',
         vmin: float | None = None,
         vmax: float | None = None,

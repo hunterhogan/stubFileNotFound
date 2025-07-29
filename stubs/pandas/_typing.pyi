@@ -1,27 +1,59 @@
 from builtins import type as type_t
-from collections.abc import Callable, Hashable, Iterator, KeysView, Mapping, MutableSequence, Sequence
+from collections.abc import (
+    Callable,
+    Hashable,
+    Iterator,
+    KeysView,
+    Mapping,
+    MutableSequence,
+    Sequence,
+)
+import datetime
 from datetime import tzinfo
-from numpy import typing as npt
 from os import PathLike
-from pandas._libs.interval import Interval
-from pandas._libs.missing import NAType
-from pandas._libs.tslibs import BaseOffset, Period, Timedelta, Timestamp
+from re import Pattern
+import sys
+from typing import (
+    Any,
+    Literal,
+    Protocol,
+    SupportsIndex,
+    TypedDict,
+    Union,
+    overload,
+)
+
+import numpy as np
+from numpy import typing as npt
+import pandas as pd
 from pandas.core.arrays import ExtensionArray
-from pandas.core.dtypes.dtypes import CategoricalDtype, ExtensionDtype
 from pandas.core.frame import DataFrame
 from pandas.core.generic import NDFrame
 from pandas.core.groupby.grouper import Grouper
 from pandas.core.indexes.base import Index
 from pandas.core.series import Series
 from pandas.core.tools.datetimes import FulldatetimeDict
+from typing_extensions import (
+    ParamSpec,
+    TypeAlias,
+    TypeVar,
+)
+
+from pandas._libs.interval import Interval
+from pandas._libs.missing import NAType
+from pandas._libs.tslibs import (
+    BaseOffset,
+    Period,
+    Timedelta,
+    Timestamp,
+)
+
+from pandas.core.dtypes.dtypes import (
+    CategoricalDtype,
+    ExtensionDtype,
+)
+
 from pandas.io.formats.format import EngFormatter
-from re import Pattern
-from typing import Any, Literal, overload, Protocol, SupportsIndex, TypedDict, Union
-from typing_extensions import ParamSpec, TypeAlias, TypeVar
-import datetime
-import numpy as np
-import pandas as pd
-import sys
 
 P = ParamSpec("P")
 
@@ -876,7 +908,7 @@ GroupByObjectNonScalar: TypeAlias = (
     | Grouper
     | list[Grouper]
 )
-GroupByObject: TypeAlias = Scalar | Index[Any] | GroupByObjectNonScalar[Any] | Series
+GroupByObject: TypeAlias = Scalar | Index | GroupByObjectNonScalar[Any] | Series
 
 StataDateFormat: TypeAlias = Literal[
     "tc",
