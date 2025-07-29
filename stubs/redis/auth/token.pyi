@@ -1,7 +1,8 @@
-import abc
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from redis.auth.err import InvalidTokenSchemaErr as InvalidTokenSchemaErr
+from typing import Any
+import abc
 
 class TokenInterface(ABC, metaclass=abc.ABCMeta):
     @abstractmethod
@@ -28,7 +29,7 @@ class SimpleToken(TokenInterface):
     expires_at: Incomplete
     received_at: Incomplete
     claims: Incomplete
-    def __init__(self, value: str, expires_at_ms: float, received_at_ms: float, claims: dict) -> None: ...
+    def __init__(self, value: str, expires_at_ms: float, received_at_ms: float, claims: dict[Any, Any]) -> None: ...
     def ttl(self) -> float: ...
     def is_expired(self) -> bool: ...
     def try_get(self, key: str) -> str: ...

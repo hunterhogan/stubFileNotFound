@@ -1,22 +1,37 @@
-import OpenSSL
-import ssl
-import threading
 from _typeshed import Incomplete
 from collections.abc import Generator
 from redis._parsers.encoders import Encoder as Encoder
-from redis._parsers.helpers import _RedisCallbacks as _RedisCallbacks, _RedisCallbacksRESP2 as _RedisCallbacksRESP2, _RedisCallbacksRESP3 as _RedisCallbacksRESP3, bool_ok as bool_ok
+from redis._parsers.helpers import (
+	_RedisCallbacks as _RedisCallbacks, _RedisCallbacksRESP2 as _RedisCallbacksRESP2,
+	_RedisCallbacksRESP3 as _RedisCallbacksRESP3, bool_ok as bool_ok)
 from redis.backoff import ExponentialWithJitterBackoff as ExponentialWithJitterBackoff
 from redis.cache import CacheConfig as CacheConfig, CacheInterface as CacheInterface
-from redis.commands import CoreCommands as CoreCommands, RedisModuleCommands as RedisModuleCommands, SentinelCommands as SentinelCommands, list_or_args as list_or_args
+from redis.commands import (
+	CoreCommands as CoreCommands, list_or_args as list_or_args, RedisModuleCommands as RedisModuleCommands,
+	SentinelCommands as SentinelCommands)
 from redis.commands.core import Script as Script
-from redis.connection import AbstractConnection as AbstractConnection, Connection as Connection, ConnectionPool as ConnectionPool, SSLConnection as SSLConnection, UnixDomainSocketConnection as UnixDomainSocketConnection
+from redis.connection import (
+	AbstractConnection as AbstractConnection, Connection as Connection, ConnectionPool as ConnectionPool,
+	SSLConnection as SSLConnection, UnixDomainSocketConnection as UnixDomainSocketConnection)
 from redis.credentials import CredentialProvider as CredentialProvider
-from redis.event import AfterPooledConnectionsInstantiationEvent as AfterPooledConnectionsInstantiationEvent, AfterPubSubConnectionInstantiationEvent as AfterPubSubConnectionInstantiationEvent, AfterSingleConnectionInstantiationEvent as AfterSingleConnectionInstantiationEvent, ClientType as ClientType, EventDispatcher as EventDispatcher
-from redis.exceptions import ConnectionError as ConnectionError, ExecAbortError as ExecAbortError, PubSubError as PubSubError, RedisError as RedisError, ResponseError as ResponseError, WatchError as WatchError
+from redis.event import (
+	AfterPooledConnectionsInstantiationEvent as AfterPooledConnectionsInstantiationEvent,
+	AfterPubSubConnectionInstantiationEvent as AfterPubSubConnectionInstantiationEvent,
+	AfterSingleConnectionInstantiationEvent as AfterSingleConnectionInstantiationEvent, ClientType as ClientType,
+	EventDispatcher as EventDispatcher)
+from redis.exceptions import (
+	ConnectionError as ConnectionError, ExecAbortError as ExecAbortError, PubSubError as PubSubError,
+	RedisError as RedisError, ResponseError as ResponseError, WatchError as WatchError)
 from redis.lock import Lock as Lock
 from redis.retry import Retry as Retry
-from redis.utils import _set_info_logger as _set_info_logger, deprecated_args as deprecated_args, get_lib_version as get_lib_version, safe_str as safe_str, str_if_bytes as str_if_bytes, truncate_text as truncate_text
+from redis.utils import (
+	_set_info_logger as _set_info_logger, deprecated_args as deprecated_args, get_lib_version as get_lib_version,
+	safe_str as safe_str, str_if_bytes as str_if_bytes, truncate_text as truncate_text)
 from typing import Any, Callable, Mapping
+import OpenSSL
+import ssl
+import threading
+import types
 
 SYM_EMPTY: bytes
 EMPTY_RESPONSE: str
@@ -25,12 +40,12 @@ NEVER_DECODE: str
 class CaseInsensitiveDict(dict):
     """Case insensitive dict implementation. Assumes string keys only."""
     def __init__(self, data: dict[str, str]) -> None: ...
-    def __contains__(self, k) -> bool: ...
-    def __delitem__(self, k) -> None: ...
-    def __getitem__(self, k): ...
-    def get(self, k, default: Incomplete | None = None): ...
-    def __setitem__(self, k, v) -> None: ...
-    def update(self, data) -> None: ...
+    def __contains__(self, k: Any) -> bool: ...
+    def __delitem__(self, k: Any) -> None: ...
+    def __getitem__(self, k: Any) -> Any: ...
+    def get(self, k: Any, default: Incomplete | None = None) -> Any: ...
+    def __setitem__(self, k: Any, v: Any) -> None: ...
+    def update(self, data: Any) -> None: ... # pyright: ignore[reportIncompatibleMethodOverride]
 
 class AbstractRedis: ...
 
@@ -49,7 +64,7 @@ class Redis(RedisModuleCommands, CoreCommands, SentinelCommands):
     It is not safe to pass PubSub or Pipeline objects between threads.
     """
     @classmethod
-    def from_url(cls, url: str, **kwargs) -> Redis:
+    def from_url(cls, url: str, **kwargs: Any) -> Redis:
         '''
         Return a Redis client object configured from the given URL
 
@@ -135,13 +150,13 @@ class Redis(RedisModuleCommands, CoreCommands, SentinelCommands):
     def __repr__(self) -> str: ...
     def get_encoder(self) -> Encoder:
         """Get the connection pool's encoder"""
-    def get_connection_kwargs(self) -> dict:
+    def get_connection_kwargs(self) -> dict[Any, Any]:
         """Get the connection's key-word arguments"""
     def get_retry(self) -> Retry | None: ...
     def set_retry(self, retry: Retry) -> None: ...
-    def set_response_callback(self, command: str, callback: Callable) -> None:
+    def set_response_callback(self, command: str, callback: Callable[..., Any]) -> None:
         """Set a custom Response Callback"""
-    def load_external_module(self, funcname, func) -> None:
+    def load_external_module(self, funcname: Any, func: Any) -> None:
         '''
         This function can be used to add externally defined redis modules,
         and their namespaces to the redis client.
@@ -170,13 +185,13 @@ class Redis(RedisModuleCommands, CoreCommands, SentinelCommands):
         atomic, pipelines are useful for reducing the back-and-forth overhead
         between the client and server.
         """
-    def transaction(self, func: Callable[[Pipeline], None], *watches, **kwargs) -> None:
+    def transaction(self, func: Callable[[Pipeline], None], *watches: Any, **kwargs: Any) -> None:
         """
         Convenience method for executing the callable `func` as a transaction
         while watching all keys specified in `watches`. The 'func' callable
         should expect a single argument which is a Pipeline object.
         """
-    def lock(self, name: str, timeout: float | None = None, sleep: float = 0.1, blocking: bool = True, blocking_timeout: float | None = None, lock_class: None | Any = None, thread_local: bool = True, raise_on_release_error: bool = True):
+    def lock(self, name: str, timeout: float | None = None, sleep: float = 0.1, blocking: bool = True, blocking_timeout: float | None = None, lock_class: None | Any = None, thread_local: bool = True, raise_on_release_error: bool = True) -> Any:
         '''
         Return a new Lock object using key ``name`` that mimics
         the behavior of threading.Lock.
@@ -234,23 +249,23 @@ class Redis(RedisModuleCommands, CoreCommands, SentinelCommands):
         the token set by the thread that acquired the lock. Our assumption
         is that these cases aren\'t common and as such default to using
         thread local storage.'''
-    def pubsub(self, **kwargs):
+    def pubsub(self, **kwargs: Any) -> Any:
         """
         Return a Publish/Subscribe object. With this object, you can
         subscribe to channels and listen for messages that get published to
         them.
         """
-    def monitor(self): ...
-    def client(self): ...
-    def __enter__(self): ...
+    def monitor(self) -> Any: ...
+    def client(self) -> Any: ...
+    def __enter__(self) -> Any: ...
     def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: types.TracebackType | None) -> None: ...
     def __del__(self) -> None: ...
     def close(self) -> None: ...
-    def _send_command_parse_response(self, conn, command_name, *args, **options):
+    def _send_command_parse_response(self, conn: Any, command_name: Any, *args: Any, **options: Any) -> Any:
         """
         Send a command and parse the response
         """
-    def _close_connection(self, conn) -> None:
+    def _close_connection(self, conn: Any) -> None:
         """
         Close the connection before retrying.
 
@@ -260,10 +275,10 @@ class Redis(RedisModuleCommands, CoreCommands, SentinelCommands):
         After we disconnect the connection, it will try to reconnect and
         do a health check as part of the send_command logic(on connection level).
         """
-    def execute_command(self, *args, **options): ...
-    def _execute_command(self, *args, **options):
+    def execute_command(self, *args: Any, **options: Any) -> Any: ...
+    def _execute_command(self, *args: Any, **options: Any) -> Any:
         """Execute a command and return a parsed response"""
-    def parse_response(self, connection, command_name, **options):
+    def parse_response(self, connection: Any, command_name: Any, **options: Any) -> Any:
         """Parses a response from the Redis server"""
     def get_cache(self) -> CacheInterface | None: ...
 StrictRedis = Redis
@@ -278,10 +293,10 @@ class Monitor:
     command_re: Incomplete
     connection_pool: Incomplete
     connection: Incomplete
-    def __init__(self, connection_pool) -> None: ...
-    def __enter__(self): ...
-    def __exit__(self, *args) -> None: ...
-    def next_command(self):
+    def __init__(self, connection_pool: Any) -> None: ...
+    def __enter__(self) -> Any: ...
+    def __exit__(self, *args: Any) -> None: ...
+    def next_command(self) -> Any:
         """Parse the response from a monitor command"""
     def listen(self) -> Generator[Incomplete]:
         """Listen for commands coming to the server."""
@@ -308,7 +323,7 @@ class PubSub:
     _lock: Incomplete
     health_check_response_b: Incomplete
     health_check_response: Incomplete
-    def __init__(self, connection_pool, shard_hint: Incomplete | None = None, ignore_subscribe_messages: bool = False, encoder: Encoder | None = None, push_handler_func: None | Callable[[str], None] = None, event_dispatcher: EventDispatcher | None = None) -> None: ...
+    def __init__(self, connection_pool: Any, shard_hint: Incomplete | None = None, ignore_subscribe_messages: bool = False, encoder: Encoder | None = None, push_handler_func: None | Callable[[str], None] = None, event_dispatcher: EventDispatcher | None = None) -> None: ...
     def __enter__(self) -> PubSub: ...
     def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: types.TracebackType | None) -> None: ...
     def __del__(self) -> None: ...
@@ -321,25 +336,25 @@ class PubSub:
     pending_unsubscribe_patterns: Incomplete
     def reset(self) -> None: ...
     def close(self) -> None: ...
-    def on_connect(self, connection) -> None:
+    def on_connect(self, connection: Any) -> None:
         """Re-subscribe to any channels and patterns previously subscribed to"""
     @property
     def subscribed(self) -> bool:
         """Indicates if there are subscriptions to any channels or patterns"""
-    def execute_command(self, *args) -> None:
+    def execute_command(self, *args: Any) -> None:
         """Execute a publish/subscribe command"""
     def clean_health_check_responses(self) -> None:
         """
         If any health check responses are present, clean them
         """
-    def _reconnect(self, conn) -> None:
+    def _reconnect(self, conn: Any) -> None:
         """
         The supported exceptions are already checked in the
         retry object so we don't need to do it here.
 
         In this error handler we are trying to reconnect to the server.
         """
-    def _execute(self, conn, command, *args, **kwargs):
+    def _execute(self, conn: Any, command: Any, *args: Any, **kwargs: Any) -> Any:
         """
         Connect manually upon disconnection. If the Redis server is down,
         this will fail and raise a ConnectionError as desired.
@@ -347,22 +362,22 @@ class PubSub:
         called by the # connection to resubscribe us to any channels and
         patterns we were previously listening to
         """
-    def parse_response(self, block: bool = True, timeout: int = 0):
+    def parse_response(self, block: bool = True, timeout: int = 0) -> Any:
         """Parse the response from a publish/subscribe command"""
-    def is_health_check_response(self, response) -> bool:
+    def is_health_check_response(self, response: Any) -> bool:
         '''
         Check if the response is a health check response.
         If there are no subscriptions redis responds to PING command with a
         bulk response, instead of a multi-bulk with "pong" and the response.
         '''
     def check_health(self) -> None: ...
-    def _normalize_keys(self, data) -> dict:
+    def _normalize_keys(self, data: Any) -> dict[Any, Any]:
         """
         normalize channel/pattern names to be either bytes or strings
         based on whether responses are automatically decoded. this saves us
         from coercing the value for each message coming in.
         """
-    def psubscribe(self, *args, **kwargs):
+    def psubscribe(self, *args: Any, **kwargs: Any) -> Any:
         """
         Subscribe to channel patterns. Patterns supplied as keyword arguments
         expect a pattern name as the key and a callable as the value. A
@@ -370,12 +385,12 @@ class PubSub:
         received on that pattern rather than producing a message via
         ``listen()``.
         """
-    def punsubscribe(self, *args):
+    def punsubscribe(self, *args: Any) -> Any:
         """
         Unsubscribe from the supplied patterns. If empty, unsubscribe from
         all patterns.
         """
-    def subscribe(self, *args, **kwargs):
+    def subscribe(self, *args: Any, **kwargs: Any) -> Any:
         """
         Subscribe to channels. Channels supplied as keyword arguments expect
         a channel name as the key and a callable as the value. A channel's
@@ -383,12 +398,12 @@ class PubSub:
         that channel rather than producing a message via ``listen()`` or
         ``get_message()``.
         """
-    def unsubscribe(self, *args):
+    def unsubscribe(self, *args: Any) -> Any:
         """
         Unsubscribe from the supplied channels. If empty, unsubscribe from
         all channels
         """
-    def ssubscribe(self, *args, target_node: Incomplete | None = None, **kwargs):
+    def ssubscribe(self, *args: Any, target_node: Incomplete | None = None, **kwargs: Any) -> Any:
         """
         Subscribes the client to the specified shard channels.
         Channels supplied as keyword arguments expect a channel name as the key
@@ -396,14 +411,14 @@ class PubSub:
         when a message is received on that channel rather than producing a message via
         ``listen()`` or ``get_sharded_message()``.
         """
-    def sunsubscribe(self, *args, target_node: Incomplete | None = None):
+    def sunsubscribe(self, *args: Any, target_node: Incomplete | None = None) -> Any:
         """
         Unsubscribe from the supplied shard_channels. If empty, unsubscribe from
         all shard_channels
         """
     def listen(self) -> Generator[Incomplete]:
         """Listen for messages on channels this client has been subscribed to"""
-    def get_message(self, ignore_subscribe_messages: bool = False, timeout: float = 0.0):
+    def get_message(self, ignore_subscribe_messages: bool = False, timeout: float = 0.0) -> Any:
         """
         Get the next message if one is available, otherwise None.
 
@@ -416,13 +431,13 @@ class PubSub:
         """
         Ping the Redis server
         """
-    def handle_message(self, response, ignore_subscribe_messages: bool = False):
+    def handle_message(self, response: Any, ignore_subscribe_messages: bool = False) -> Any:
         """
         Parses a pub/sub message. If the channel or pattern was subscribed to
         with a message handler, the handler is invoked instead of a parsed
         message being returned.
         """
-    def run_in_thread(self, sleep_time: float = 0.0, daemon: bool = False, exception_handler: Callable | None = None) -> PubSubWorkerThread: ...
+    def run_in_thread(self, sleep_time: float = 0.0, daemon: bool = False, exception_handler: Callable[..., Any] | None = None) -> PubSubWorkerThread: ...
 
 class PubSubWorkerThread(threading.Thread):
     daemon: Incomplete
@@ -430,7 +445,7 @@ class PubSubWorkerThread(threading.Thread):
     sleep_time: Incomplete
     exception_handler: Incomplete
     _running: Incomplete
-    def __init__(self, pubsub, sleep_time: float, daemon: bool = False, exception_handler: Callable[[Exception, PubSub, PubSubWorkerThread], None] | None = None) -> None: ...
+    def __init__(self, pubsub: Any, sleep_time: float, daemon: bool = False, exception_handler: Callable[[Exception, PubSub, PubSubWorkerThread], None] | None = None) -> None: ...
     def run(self) -> None: ...
     def stop(self) -> None: ...
 
@@ -463,7 +478,7 @@ class Pipeline(Redis):
     command_stack: Incomplete
     scripts: set[Script]
     explicit_transaction: bool
-    def __init__(self, connection_pool: ConnectionPool, response_callbacks, transaction, shard_hint) -> None: ...
+    def __init__(self, connection_pool: ConnectionPool, response_callbacks: Any, transaction: Any, shard_hint: Any) -> None: ...
     def __enter__(self) -> Pipeline: ...
     def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: types.TracebackType | None) -> None: ...
     def __del__(self) -> None: ...
@@ -478,7 +493,7 @@ class Pipeline(Redis):
         Start a transactional block of the pipeline after WATCH commands
         are issued. End the transactional block with `execute`.
         """
-    def execute_command(self, *args, **kwargs): ...
+    def execute_command(self, *args: Any, **kwargs: Any) -> Any: ...
     def _disconnect_reset_raise_on_watching(self, conn: AbstractConnection, error: Exception) -> None:
         """
         Close the connection reset watching state and
@@ -490,14 +505,14 @@ class Pipeline(Redis):
         After we disconnect the connection, it will try to reconnect and
         do a health check as part of the send_command logic(on connection level).
         """
-    def immediate_execute_command(self, *args, **options):
+    def immediate_execute_command(self, *args: Any, **options: Any) -> Any:
         """
         Execute a command immediately, but don't auto-retry on the supported
         errors for retry if we're already WATCHing a variable.
         Used when issuing WATCH or subsequent commands retrieving their values but before
         MULTI is called.
         """
-    def pipeline_execute_command(self, *args, **options) -> Pipeline:
+    def pipeline_execute_command(self, *args: Any, **options: Any) -> Pipeline:
         """
         Stage a command to be executed when execute() is next called
 
@@ -509,11 +524,11 @@ class Pipeline(Redis):
         At some other point, you can then run: pipe.execute(),
         which will execute all commands queued in the pipe.
         """
-    def _execute_transaction(self, connection: Connection, commands, raise_on_error) -> list: ...
-    def _execute_pipeline(self, connection, commands, raise_on_error): ...
-    def raise_first_error(self, commands, response) -> None: ...
-    def annotate_exception(self, exception, number, command) -> None: ...
-    def parse_response(self, connection, command_name, **options): ...
+    def _execute_transaction(self, connection: Connection, commands: Any, raise_on_error: Any) -> list[Any]: ...
+    def _execute_pipeline(self, connection: Any, commands: Any, raise_on_error: Any) -> Any: ...
+    def raise_first_error(self, commands: Any, response: Any) -> None: ...
+    def annotate_exception(self, exception: Any, number: Any, command: Any) -> None: ...
+    def parse_response(self, connection: Any, command_name: Any, **options: Any) -> Any: ...
     def load_scripts(self) -> None: ...
     def _disconnect_raise_on_watching(self, conn: AbstractConnection, error: Exception) -> None:
         """
@@ -532,7 +547,7 @@ class Pipeline(Redis):
         Flushes all previously queued commands
         See: https://redis.io/commands/DISCARD
         """
-    def watch(self, *names):
+    def watch(self, *names: Any) -> Any:
         """Watches the values at keys ``names``"""
-    def unwatch(self) -> bool:
+    def unwatch(self) -> bool: # pyright: ignore[reportIncompatibleMethodOverride]
         """Unwatches all previously specified keys"""

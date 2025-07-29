@@ -22,7 +22,7 @@ Leverage existing packages, such as `mypy`, `pyright`, and `hunterMakesPy` for e
 pathStubs = Path(settingsPackage.pathPackage / '..' / 'stubs').resolve()
 pathSuffix: str = 'pyi'
 
-listRelativePaths: list[str] = ['pandas']
+listRelativePaths: list[str] = ['redis']
 
 def discoverStubFiles() -> list[Path]:
 	"""Discover all stub files based on configured paths and suffix."""
@@ -276,6 +276,7 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
             'AggFuncTypeDictSeries': [libcst.Name("Any")],
             'AsyncContextManager': [libcst.Name("Any")],
             'AsyncGenerator': [libcst.Name("Any"), libcst.Name("Any")],
+            'OrderedDict': [libcst.Name("Any"), libcst.Name("Any")],
             'AsyncIterable': [libcst.Name("Any")],
             'AsyncIterator': [libcst.Name("Any")],
             'Awaitable': [libcst.Name("Any")],

@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from redis.commands.search.dialect import DEFAULT_DIALECT as DEFAULT_DIALECT
+from typing import Any
 
 FIELDNAME: Incomplete
 
@@ -7,7 +8,7 @@ class Limit:
     offset: Incomplete
     count: Incomplete
     def __init__(self, offset: int = 0, count: int = 0) -> None: ...
-    def build_args(self): ...
+    def build_args(self) -> Any: ...
 
 class Reducer:
     """
@@ -108,7 +109,7 @@ class AggregateRequest:
         - **reducers**: One or more reducers. Reducers may be found in the
             `aggregation` module.
         """
-    def apply(self, **kwexpr) -> AggregateRequest:
+    def apply(self, **kwexpr: Any) -> AggregateRequest:
         '''
         Specify one or more projection expressions to add to each result
 
@@ -155,7 +156,7 @@ class AggregateRequest:
         `sort_by()` instead.
 
         '''
-    def sort_by(self, *fields: list[str], **kwargs) -> AggregateRequest:
+    def sort_by(self, *fields: list[str], **kwargs: Any) -> AggregateRequest:
         '''
         Indicate how the results should be sorted. This can also be used for
         *top-N* style queries
@@ -223,11 +224,11 @@ class Cursor:
     max_idle: int
     count: int
     def __init__(self, cid: int) -> None: ...
-    def build_args(self): ...
+    def build_args(self) -> Any: ...
 
 class AggregateResult:
     rows: Incomplete
     cursor: Incomplete
     schema: Incomplete
-    def __init__(self, rows, cursor: Cursor, schema) -> None: ...
+    def __init__(self, rows: Any, cursor: Cursor, schema: Any) -> None: ...
     def __repr__(self) -> tuple[str, str]: ...

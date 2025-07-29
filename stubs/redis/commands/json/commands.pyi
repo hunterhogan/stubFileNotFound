@@ -3,6 +3,7 @@ from .decoders import decode_dict_keys as decode_dict_keys
 from .path import Path as Path
 from redis.exceptions import DataError as DataError
 from redis.utils import deprecated_function as deprecated_function
+from typing import Any
 
 class JSONCommands:
     """json commands."""
@@ -51,7 +52,7 @@ class JSONCommands:
 
         For more information see `JSON.TYPE <https://redis.io/commands/json.type>`_.
         """
-    def resp(self, name: str, path: str | None = ...) -> list:
+    def resp(self, name: str, path: str | None = ...) -> list[Any]:
         """Return the JSON value under ``path`` at key ``name``.
 
         For more information see `JSON.RESP <https://redis.io/commands/json.resp>`_.
@@ -95,7 +96,7 @@ class JSONCommands:
         For more information see `JSON.DEL <https://redis.io/commands/json.del>`_.
         """
     forget = delete
-    def get(self, name: str, *args, no_escape: bool | None = False) -> list[JsonType] | None:
+    def get(self, name: str, *args: Any, no_escape: bool | None = False) -> list[JsonType] | None:
         """
         Get the object stored as a JSON value at key ``name``.
 
@@ -195,6 +196,6 @@ class JSONCommands:
 
         For more information see `JSON.DEBUG <https://redis.io/commands/json.debug>`_.
         """
-    def jsonget(self, *args, **kwargs): ...
-    def jsonmget(self, *args, **kwargs): ...
-    def jsonset(self, *args, **kwargs): ...
+    def jsonget(self, *args: Any, **kwargs: Any) -> Any: ...
+    def jsonmget(self, *args: Any, **kwargs: Any) -> Any: ...
+    def jsonset(self, *args: Any, **kwargs: Any) -> Any: ...

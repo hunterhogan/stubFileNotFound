@@ -19,7 +19,7 @@ class Retry:
         You can specify the types of supported errors which trigger
         a retry with the `supported_errors` parameter.
         """
-    def update_supported_errors(self, specified_errors: list):
+    def update_supported_errors(self, specified_errors: list[Any]) -> Any:
         """
         Updates the supported errors with the specified error types
         """

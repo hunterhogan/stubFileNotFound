@@ -3,6 +3,7 @@ from redis.asyncio import Redis as Redis, RedisCluster as RedisCluster
 from redis.exceptions import LockError as LockError, LockNotOwnedError as LockNotOwnedError
 from redis.typing import Number as Number
 from typing import Awaitable
+from typing import Any
 
 logger: Incomplete
 
@@ -86,9 +87,9 @@ class Lock:
         thread local storage.
         '''
     def register_scripts(self) -> None: ...
-    async def __aenter__(self): ...
-    async def __aexit__(self, exc_type, exc_value, traceback) -> None: ...
-    async def acquire(self, blocking: bool | None = None, blocking_timeout: Number | None = None, token: str | bytes | None = None):
+    async def __aenter__(self) -> Any: ...
+    async def __aexit__(self, exc_type: Any, exc_value: Any, traceback: Any) -> None: ...
+    async def acquire(self, blocking: bool | None = None, blocking_timeout: Number | None = None, token: str | bytes | None = None) -> Any:
         """
         Use Redis to hold a shared, distributed lock named ``name``.
         Returns True once the lock is acquired.
@@ -127,7 +128,7 @@ class Lock:
         the lock's existing ttl. If True, replace the lock's ttl with
         `additional_time`.
         """
-    async def do_extend(self, additional_time, replace_ttl) -> bool: ...
+    async def do_extend(self, additional_time: Any, replace_ttl: Any) -> bool: ...
     def reacquire(self) -> Awaitable[bool]:
         """
         Resets a TTL of an already acquired lock back to a timeout value.

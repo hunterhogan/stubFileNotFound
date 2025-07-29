@@ -10,7 +10,7 @@ HIREDIS_AVAILABLE: Incomplete
 SSL_AVAILABLE: bool
 CRYPTOGRAPHY_AVAILABLE: bool
 
-def from_url(url, **kwargs):
+def from_url(url: Any, **kwargs: Any) -> Any:
     """
     Returns an active Redis client generated from the given database URL.
 
@@ -18,17 +18,17 @@ def from_url(url, **kwargs):
     none is provided.
     """
 @contextmanager
-def pipeline(redis_obj) -> Generator[Incomplete]: ...
+def pipeline(redis_obj: Any) -> Generator[Incomplete]: ...
 def str_if_bytes(value: str | bytes) -> str: ...
-def safe_str(value): ...
+def safe_str(value: Any) -> Any: ...
 def dict_merge(*dicts: Mapping[str, Any]) -> dict[str, Any]:
     """
     Merge all provided dicts into 1 dict.
     *dicts : `dict`
         dictionaries to merge
     """
-def list_keys_to_dict(key_list, callback): ...
-def merge_result(command, res):
+def list_keys_to_dict(key_list: Any, callback: Any) -> Any: ...
+def merge_result(command: Any, res: Any) -> Any:
     """
     Merge all items in `res` into a list.
 
@@ -37,13 +37,13 @@ def merge_result(command, res):
 
     res : 'dict'
     """
-def warn_deprecated(name, reason: str = '', version: str = '', stacklevel: int = 2) -> None: ...
-def deprecated_function(reason: str = '', version: str = '', name: Incomplete | None = None):
+def warn_deprecated(name: Any, reason: str = '', version: str = '', stacklevel: int = 2) -> None: ...
+def deprecated_function(reason: str = '', version: str = '', name: Incomplete | None = None) -> Any:
     """
     Decorator to mark a function as deprecated.
     """
-def warn_deprecated_arg_usage(arg_name: list | str, function_name: str, reason: str = '', version: str = '', stacklevel: int = 2): ...
-def deprecated_args(args_to_warn: list = ['*'], allowed_args: list = [], reason: str = '', version: str = ''):
+def warn_deprecated_arg_usage(arg_name: list[Any] | str, function_name: str, reason: str = '', version: str = '', stacklevel: int = 2) -> Any: ...
+def deprecated_args(args_to_warn: list[Any] = ['*'], allowed_args: list[Any] = [], reason: str = '', version: str = '') -> Any:
     """
     Decorator to mark specified args of a function as deprecated.
     If '*' is in args_to_warn, all arguments will be marked as deprecated.
@@ -53,7 +53,7 @@ def _set_info_logger() -> None:
     Set up a logger that log info logs to stdout.
     (This is used by the default push response handler)
     """
-def get_lib_version(): ...
+def get_lib_version() -> Any: ...
 def format_error_message(host_error: str, exception: BaseException) -> str: ...
 def compare_versions(version1: str, version2: str) -> int:
     """
@@ -63,6 +63,6 @@ def compare_versions(version1: str, version2: str) -> int:
              0 if both versions are equal
              1 if version1 < version2
     """
-def ensure_string(key): ...
+def ensure_string(key: Any) -> Any: ...
 def extract_expire_flags(ex: ExpiryT | None = None, px: ExpiryT | None = None, exat: AbsExpiryT | None = None, pxat: AbsExpiryT | None = None) -> list[EncodableT]: ...
-def truncate_text(txt, max_length: int = 100): ...
+def truncate_text(txt: Any, max_length: int = 100) -> Any: ...

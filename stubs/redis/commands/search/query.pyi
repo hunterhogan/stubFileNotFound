@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from redis.commands.search.dialect import DEFAULT_DIALECT as DEFAULT_DIALECT
+from typing import Any
 
 class Query:
     '''
@@ -20,16 +21,16 @@ class Query:
     _with_payloads: bool
     _with_scores: bool
     _scorer: str | None
-    _filters: list
+    _filters: list[Any]
     _ids: list[str] | None
     _slop: int
     _timeout: float | None
     _in_order: bool
     _sortby: SortbyField | None
-    _return_fields: list
-    _return_fields_decode_as: dict
-    _summarize_fields: list
-    _highlight_fields: list
+    _return_fields: list[Any]
+    _return_fields_decode_as: dict[Any, Any]
+    _summarize_fields: list[Any]
+    _highlight_fields: list[Any]
     _language: str | None
     _expander: str | None
     _dialect: int
@@ -41,10 +42,10 @@ class Query:
         """
     def query_string(self) -> str:
         """Return the query string of this query only."""
-    def limit_ids(self, *ids) -> Query:
+    def limit_ids(self, *ids: Any) -> Query:
         """Limit the results to a specific set of pre-known document
         ids of any length."""
-    def return_fields(self, *fields) -> Query:
+    def return_fields(self, *fields: Any) -> Query:
         """Add fields to return fields."""
     def return_field(self, field: str, as_field: str | None = None, decode_field: bool | None = True, encoding: str | None = 'utf8') -> Query:
         """
@@ -55,8 +56,8 @@ class Query:
         - **decode_field**: Whether to decode the field from bytes to string
         - **encoding**: The encoding to use when decoding the field
         """
-    def _mk_field_list(self, fields: list[str]) -> list: ...
-    def summarize(self, fields: list | None = None, context_len: int | None = None, num_frags: int | None = None, sep: str | None = None) -> Query:
+    def _mk_field_list(self, fields: list[str]) -> list[Any]: ...
+    def summarize(self, fields: list[Any] | None = None, context_len: int | None = None, num_frags: int | None = None, sep: str | None = None) -> Query:
         """
         Return an abridged format of the field, containing only the segments of
         the field which contain the matching term(s).

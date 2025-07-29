@@ -1,14 +1,16 @@
-from .bf import BFBloom as BFBloom, CFBloom as CFBloom, CMSBloom as CMSBloom, TDigestBloom as TDigestBloom, TOPKBloom as TOPKBloom
+from .bf import (
+	BFBloom as BFBloom, CFBloom as CFBloom, CMSBloom as CMSBloom, TDigestBloom as TDigestBloom, TOPKBloom as TOPKBloom)
 from .json import JSON as JSON
 from .search import AsyncSearch as AsyncSearch, Search as Search
 from .timeseries import TimeSeries as TimeSeries
 from .vectorset import VectorSet as VectorSet
+from typing import Any
 
 class RedisModuleCommands:
     """This class contains the wrapper functions to bring supported redis
     modules into the command namespace.
     """
-    def json(self, encoder=..., decoder=...) -> JSON:
+    def json(self, encoder: Any=..., decoder: Any=...) -> JSON:
         """Access the json namespace, providing support for redis json."""
     def ft(self, index_name: str = 'idx') -> Search:
         """Access the search namespace, providing support for redis search."""

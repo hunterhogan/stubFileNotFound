@@ -6,6 +6,7 @@ from _typeshed import Incomplete
 from abc import ABC
 from asyncio import StreamReader
 from typing import Callable, Protocol
+from typing import Any
 
 MODULE_LOAD_ERROR: str
 NO_SUCH_MODULE_ERROR: str
@@ -16,10 +17,10 @@ NO_AUTH_SET_ERROR: Incomplete
 class BaseParser(ABC):
     EXCEPTION_CLASSES: Incomplete
     @classmethod
-    def parse_error(cls, response):
+    def parse_error(cls, response: Any) -> Any:
         """Parse an error response"""
     def on_disconnect(self) -> None: ...
-    def on_connect(self, connection) -> None: ...
+    def on_connect(self, connection: Any) -> None: ...
 
 class _RESPBase(BaseParser):
     """Base class for sync-based resp parsing"""
@@ -27,13 +28,13 @@ class _RESPBase(BaseParser):
     encoder: Incomplete
     _sock: Incomplete
     _buffer: Incomplete
-    def __init__(self, socket_read_size) -> None: ...
+    def __init__(self, socket_read_size: Any) -> None: ...
     def __del__(self) -> None: ...
-    def on_connect(self, connection) -> None:
+    def on_connect(self, connection: Any) -> None:
         """Called when the socket connects"""
     def on_disconnect(self) -> None:
         """Called when the socket disconnects"""
-    def can_read(self, timeout): ...
+    def can_read(self, timeout: Any) -> Any: ...
 
 class AsyncBaseParser(BaseParser):
     """Base parsing class for the python-backed async parser"""
@@ -48,25 +49,25 @@ _INVALIDATION_MESSAGE: Incomplete
 
 class PushNotificationsParser(Protocol):
     """Protocol defining RESP3-specific parsing functionality"""
-    pubsub_push_handler_func: Callable
-    invalidation_push_handler_func: Callable | None
-    def handle_pubsub_push_response(self, response):
+    pubsub_push_handler_func: Callable[..., Any]
+    invalidation_push_handler_func: Callable[..., Any] | None
+    def handle_pubsub_push_response(self, response: Any) -> Any:
         """Handle pubsub push responses"""
-    def handle_push_response(self, response, **kwargs): ...
-    def set_pubsub_push_handler(self, pubsub_push_handler_func) -> None: ...
-    def set_invalidation_push_handler(self, invalidation_push_handler_func) -> None: ...
+    def handle_push_response(self, response: Any, **kwargs: Any) -> Any: ...
+    def set_pubsub_push_handler(self, pubsub_push_handler_func: Any) -> None: ...
+    def set_invalidation_push_handler(self, invalidation_push_handler_func: Any) -> None: ...
 
 class AsyncPushNotificationsParser(Protocol):
     """Protocol defining async RESP3-specific parsing functionality"""
-    pubsub_push_handler_func: Callable
-    invalidation_push_handler_func: Callable | None
-    async def handle_pubsub_push_response(self, response):
+    pubsub_push_handler_func: Callable[..., Any]
+    invalidation_push_handler_func: Callable[..., Any] | None
+    async def handle_pubsub_push_response(self, response: Any) -> Any:
         """Handle pubsub push responses asynchronously"""
-    async def handle_push_response(self, response, **kwargs):
+    async def handle_push_response(self, response: Any, **kwargs: Any) -> Any:
         """Handle push responses asynchronously"""
-    def set_pubsub_push_handler(self, pubsub_push_handler_func) -> None:
+    def set_pubsub_push_handler(self, pubsub_push_handler_func: Any) -> None:
         """Set the pubsub push handler function"""
-    def set_invalidation_push_handler(self, invalidation_push_handler_func) -> None:
+    def set_invalidation_push_handler(self, invalidation_push_handler_func: Any) -> None:
         """Set the invalidation push handler function"""
 
 class _AsyncRESPBase(AsyncBaseParser):
@@ -80,7 +81,7 @@ class _AsyncRESPBase(AsyncBaseParser):
     def _clear(self) -> None: ...
     _stream: Incomplete
     _connected: bool
-    def on_connect(self, connection) -> None:
+    def on_connect(self, connection: Any) -> None:
         """Called when the stream connects"""
     def on_disconnect(self) -> None:
         """Called when the stream disconnects"""

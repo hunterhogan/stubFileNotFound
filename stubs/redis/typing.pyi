@@ -29,7 +29,7 @@ AnyChannelT = TypeVar('AnyChannelT', bytes, str, memoryview)
 ExceptionMappingT = Mapping[str, type[Exception] | Mapping[str, type[Exception]]]
 
 class CommandsProtocol(Protocol):
-    def execute_command(self, *args, **options) -> ResponseT: ...
+    def execute_command(self, *args: Any, **options: Any) -> ResponseT: ...
 
 class ClusterCommandsProtocol(CommandsProtocol, metaclass=abc.ABCMeta):
     encoder: Encoder

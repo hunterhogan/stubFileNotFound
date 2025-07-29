@@ -1,6 +1,6 @@
-import abc
 from abc import ABC, abstractmethod
 from redis.auth.token import TokenInterface as TokenInterface
+import abc
 
 class IdentityProviderInterface(ABC, metaclass=abc.ABCMeta):
     """

@@ -3,6 +3,7 @@ from ..helpers import get_protocol_version as get_protocol_version, nativestr as
 from .commands import JSONCommands as JSONCommands
 from .decoders import bulk_of_jsons as bulk_of_jsons, decode_list as decode_list
 from _typeshed import Incomplete
+from typing import Any
 
 class JSON(JSONCommands):
     """
@@ -20,7 +21,7 @@ class JSON(JSONCommands):
     MODULE_VERSION: Incomplete
     __encoder__: Incomplete
     __decoder__: Incomplete
-    def __init__(self, client, version: Incomplete | None = None, decoder=..., encoder=...) -> None:
+    def __init__(self, client: Any, version: Incomplete | None = None, decoder: Any=..., encoder: Any=...) -> None:
         """
         Create a client for talking to json.
 
@@ -30,11 +31,11 @@ class JSON(JSONCommands):
         :param encoder:
         :type json.JSONEncoder: An instance of json.JSONEncoder
         """
-    def _decode(self, obj):
+    def _decode(self, obj: Any) -> Any:
         """Get the decoder."""
-    def _encode(self, obj):
+    def _encode(self, obj: Any) -> Any:
         """Get the encoder."""
-    def pipeline(self, transaction: bool = True, shard_hint: Incomplete | None = None):
+    def pipeline(self, transaction: bool = True, shard_hint: Incomplete | None = None) -> Any:
         """Creates a pipeline for the JSON module, that can be used for executing
         JSON commands, as well as classic core commands.
 

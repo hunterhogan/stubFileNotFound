@@ -1,20 +1,26 @@
-import abc
-import redis.asyncio.client
-import redis.client
 from .helpers import list_or_args as list_or_args
 from _typeshed import Incomplete
 from enum import Enum
-from redis.exceptions import ConnectionError as ConnectionError, DataError as DataError, NoScriptError as NoScriptError, RedisError as RedisError
-from redis.typing import AbsExpiryT as AbsExpiryT, AnyKeyT as AnyKeyT, BitfieldOffsetT as BitfieldOffsetT, ChannelT as ChannelT, CommandsProtocol as CommandsProtocol, ConsumerT as ConsumerT, EncodableT as EncodableT, ExpiryT as ExpiryT, FieldT as FieldT, GroupT as GroupT, KeyT as KeyT, KeysT as KeysT, Number as Number, PatternT as PatternT, ResponseT as ResponseT, ScriptTextT as ScriptTextT, StreamIdT as StreamIdT, TimeoutSecT as TimeoutSecT, ZScoreBoundT as ZScoreBoundT
+from redis.exceptions import (
+	ConnectionError as ConnectionError, DataError as DataError, NoScriptError as NoScriptError, RedisError as RedisError)
+from redis.typing import (
+	AbsExpiryT as AbsExpiryT, AnyKeyT as AnyKeyT, BitfieldOffsetT as BitfieldOffsetT, ChannelT as ChannelT,
+	CommandsProtocol as CommandsProtocol, ConsumerT as ConsumerT, EncodableT as EncodableT, ExpiryT as ExpiryT,
+	FieldT as FieldT, GroupT as GroupT, KeysT as KeysT, KeyT as KeyT, Number as Number, PatternT as PatternT,
+	ResponseT as ResponseT, ScriptTextT as ScriptTextT, StreamIdT as StreamIdT, TimeoutSecT as TimeoutSecT,
+	ZScoreBoundT as ZScoreBoundT)
 from redis.utils import deprecated_function as deprecated_function, extract_expire_flags as extract_expire_flags
 from typing import Any, AsyncIterator, Awaitable, Callable, Iterable, Iterator, Literal, Mapping, Sequence
+import abc
+import redis.asyncio.client
+import redis.client
 
 class ACLCommands(CommandsProtocol, metaclass=abc.ABCMeta):
     """
     Redis Access Control List (ACL) commands.
     see: https://redis.io/topics/acl
     """
-    def acl_cat(self, category: str | None = None, **kwargs) -> ResponseT:
+    def acl_cat(self, category: str | None = None, **kwargs: Any) -> ResponseT:
         """
         Returns a list of categories or commands within a category.
 
@@ -24,25 +30,25 @@ class ACLCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/acl-cat
         """
-    def acl_dryrun(self, username, *args, **kwargs):
+    def acl_dryrun(self, username: Any, *args: Any, **kwargs: Any) -> Any:
         """
         Simulate the execution of a given command by a given ``username``.
 
         For more information see https://redis.io/commands/acl-dryrun
         """
-    def acl_deluser(self, *username: str, **kwargs) -> ResponseT:
+    def acl_deluser(self, *username: str, **kwargs: Any) -> ResponseT:
         """
         Delete the ACL for the specified ``username``\\s
 
         For more information see https://redis.io/commands/acl-deluser
         """
-    def acl_genpass(self, bits: int | None = None, **kwargs) -> ResponseT:
+    def acl_genpass(self, bits: int | None = None, **kwargs: Any) -> ResponseT:
         """Generate a random password value.
         If ``bits`` is supplied then use this number of bits, rounded to
         the next multiple of 4.
         See: https://redis.io/commands/acl-genpass
         """
-    def acl_getuser(self, username: str, **kwargs) -> ResponseT:
+    def acl_getuser(self, username: str, **kwargs: Any) -> ResponseT:
         """
         Get the ACL details for the specified ``username``.
 
@@ -50,19 +56,19 @@ class ACLCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/acl-getuser
         """
-    def acl_help(self, **kwargs) -> ResponseT:
+    def acl_help(self, **kwargs: Any) -> ResponseT:
         """The ACL HELP command returns helpful text describing
         the different subcommands.
 
         For more information see https://redis.io/commands/acl-help
         """
-    def acl_list(self, **kwargs) -> ResponseT:
+    def acl_list(self, **kwargs: Any) -> ResponseT:
         """
         Return a list of all ACLs on the server
 
         For more information see https://redis.io/commands/acl-list
         """
-    def acl_log(self, count: int | None = None, **kwargs) -> ResponseT:
+    def acl_log(self, count: int | None = None, **kwargs: Any) -> ResponseT:
         """
         Get ACL logs as a list.
         :param int count: Get logs[0:count].
@@ -70,14 +76,14 @@ class ACLCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/acl-log
         """
-    def acl_log_reset(self, **kwargs) -> ResponseT:
+    def acl_log_reset(self, **kwargs: Any) -> ResponseT:
         """
         Reset ACL logs.
         :rtype: Boolean.
 
         For more information see https://redis.io/commands/acl-log
         """
-    def acl_load(self, **kwargs) -> ResponseT:
+    def acl_load(self, **kwargs: Any) -> ResponseT:
         """
         Load ACL rules from the configured ``aclfile``.
 
@@ -86,7 +92,7 @@ class ACLCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/acl-load
         """
-    def acl_save(self, **kwargs) -> ResponseT:
+    def acl_save(self, **kwargs: Any) -> ResponseT:
         """
         Save ACL rules to the configured ``aclfile``.
 
@@ -95,7 +101,7 @@ class ACLCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/acl-save
         """
-    def acl_setuser(self, username: str, enabled: bool = False, nopass: bool = False, passwords: str | Iterable[str] | None = None, hashed_passwords: str | Iterable[str] | None = None, categories: Iterable[str] | None = None, commands: Iterable[str] | None = None, keys: Iterable[KeyT] | None = None, channels: Iterable[ChannelT] | None = None, selectors: Iterable[tuple[str, KeyT]] | None = None, reset: bool = False, reset_keys: bool = False, reset_channels: bool = False, reset_passwords: bool = False, **kwargs) -> ResponseT:
+    def acl_setuser(self, username: str, enabled: bool = False, nopass: bool = False, passwords: str | Iterable[str] | None = None, hashed_passwords: str | Iterable[str] | None = None, categories: Iterable[str] | None = None, commands: Iterable[str] | None = None, keys: Iterable[KeyT] | None = None, channels: Iterable[ChannelT] | None = None, selectors: Iterable[tuple[str, KeyT]] | None = None, reset: bool = False, reset_keys: bool = False, reset_channels: bool = False, reset_passwords: bool = False, **kwargs: Any) -> ResponseT:
         """
         Create or update an ACL user.
 
@@ -153,12 +159,12 @@ class ACLCommands(CommandsProtocol, metaclass=abc.ABCMeta):
                              status will be kept and any new specified passwords or
                              hashed passwords will be applied on top.
         """
-    def acl_users(self, **kwargs) -> ResponseT:
+    def acl_users(self, **kwargs: Any) -> ResponseT:
         """Returns a list of all registered users on the server.
 
         For more information see https://redis.io/commands/acl-users
         """
-    def acl_whoami(self, **kwargs) -> ResponseT:
+    def acl_whoami(self, **kwargs: Any) -> ResponseT:
         """Get the username for the current connection
 
         For more information see https://redis.io/commands/acl-whoami
@@ -169,19 +175,19 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
     """
     Redis management commands
     """
-    def auth(self, password: str, username: str | None = None, **kwargs):
+    def auth(self, password: str, username: str | None = None, **kwargs: Any) -> Any:
         '''
         Authenticates the user. If you do not pass username, Redis will try to
         authenticate for the "default" user. If you do pass username, it will
         authenticate for the given user.
         For more information see https://redis.io/commands/auth
         '''
-    def bgrewriteaof(self, **kwargs):
+    def bgrewriteaof(self, **kwargs: Any) -> Any:
         """Tell the Redis server to rewrite the AOF file from data in memory.
 
         For more information see https://redis.io/commands/bgrewriteaof
         """
-    def bgsave(self, schedule: bool = True, **kwargs) -> ResponseT:
+    def bgsave(self, schedule: bool = True, **kwargs: Any) -> ResponseT:
         """
         Tell the Redis server to save its data to disk.  Unlike save(),
         this method is asynchronous and returns immediately.
@@ -196,12 +202,12 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/role
         """
-    def client_kill(self, address: str, **kwargs) -> ResponseT:
+    def client_kill(self, address: str, **kwargs: Any) -> ResponseT:
         """Disconnects the client at ``address`` (ip:port)
 
         For more information see https://redis.io/commands/client-kill
         """
-    def client_kill_filter(self, _id: str | None = None, _type: str | None = None, addr: str | None = None, skipme: bool | None = None, laddr: bool | None = None, user: str | None = None, maxage: int | None = None, **kwargs) -> ResponseT:
+    def client_kill_filter(self, _id: str | None = None, _type: str | None = None, addr: str | None = None, skipme: bool | None = None, laddr: bool | None = None, user: str | None = None, maxage: int | None = None, **kwargs: Any) -> ResponseT:
         """
         Disconnects client(s) using a variety of filter options
         :param _id: Kills a client by its unique ID field
@@ -215,14 +221,14 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
         :param user: Kills a client for a specific user name
         :param maxage: Kills clients that are older than the specified age in seconds
         """
-    def client_info(self, **kwargs) -> ResponseT:
+    def client_info(self, **kwargs: Any) -> ResponseT:
         """
         Returns information and statistics about the current
         client connection.
 
         For more information see https://redis.io/commands/client-info
         """
-    def client_list(self, _type: str | None = None, client_id: list[EncodableT] = [], **kwargs) -> ResponseT:
+    def client_list(self, _type: str | None = None, client_id: list[EncodableT] = [], **kwargs: Any) -> ResponseT:
         """
         Returns a list of currently connected clients.
         If type of client specified, only that type will be returned.
@@ -233,20 +239,20 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/client-list
         """
-    def client_getname(self, **kwargs) -> ResponseT:
+    def client_getname(self, **kwargs: Any) -> ResponseT:
         """
         Returns the current connection name
 
         For more information see https://redis.io/commands/client-getname
         """
-    def client_getredir(self, **kwargs) -> ResponseT:
+    def client_getredir(self, **kwargs: Any) -> ResponseT:
         """
         Returns the ID (an integer) of the client to whom we are
         redirecting tracking notifications.
 
         see: https://redis.io/commands/client-getredir
         """
-    def client_reply(self, reply: Literal['ON'] | Literal['OFF'] | Literal['SKIP'], **kwargs) -> ResponseT:
+    def client_reply(self, reply: Literal['ON'] | Literal['OFF'] | Literal['SKIP'], **kwargs: Any) -> ResponseT:
         """
         Enable and disable redis server replies.
 
@@ -263,7 +269,7 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         See https://redis.io/commands/client-reply
         """
-    def client_id(self, **kwargs) -> ResponseT:
+    def client_id(self, **kwargs: Any) -> ResponseT:
         """
         Returns the current connection id
 
@@ -283,12 +289,12 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         See https://redis.io/commands/client-tracking
         """
-    def client_tracking(self, on: bool = True, clientid: int | None = None, prefix: Sequence[KeyT] = [], bcast: bool = False, optin: bool = False, optout: bool = False, noloop: bool = False, **kwargs) -> ResponseT:
+    def client_tracking(self, on: bool = True, clientid: int | None = None, prefix: Sequence[KeyT] = [], bcast: bool = False, optin: bool = False, optout: bool = False, noloop: bool = False, **kwargs: Any) -> ResponseT:
         """
         Enables the tracking feature of the Redis server, that is used
         for server assisted client side caching.
 
-        ``on`` indicate for tracking on or tracking off. The dafualt is on.
+        ``on`` indicate for tracking on or tracking off. The default is on.
 
         ``clientid`` send invalidation messages to the connection with
         the specified ID.
@@ -313,14 +319,14 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         See https://redis.io/commands/client-tracking
         """
-    def client_trackinginfo(self, **kwargs) -> ResponseT:
+    def client_trackinginfo(self, **kwargs: Any) -> ResponseT:
         """
         Returns the information about the current client connection's
         use of the server assisted client side cache.
 
         See https://redis.io/commands/client-trackinginfo
         """
-    def client_setname(self, name: str, **kwargs) -> ResponseT:
+    def client_setname(self, name: str, **kwargs: Any) -> ResponseT:
         """
         Sets the current connection name
 
@@ -332,12 +338,12 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
            If you want to set a common name for all connections managed
            by this client, use ``client_name`` constructor argument.
         """
-    def client_setinfo(self, attr: str, value: str, **kwargs) -> ResponseT:
+    def client_setinfo(self, attr: str, value: str, **kwargs: Any) -> ResponseT:
         """
         Sets the current connection library name or version
         For mor information see https://redis.io/commands/client-setinfo
         """
-    def client_unblock(self, client_id: int, error: bool = False, **kwargs) -> ResponseT:
+    def client_unblock(self, client_id: int, error: bool = False, **kwargs: Any) -> ResponseT:
         """
         Unblocks a connection by its client id.
         If ``error`` is True, unblocks the client with a special error message.
@@ -346,7 +352,7 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/client-unblock
         """
-    def client_pause(self, timeout: int, all: bool = True, **kwargs) -> ResponseT:
+    def client_pause(self, timeout: int, all: bool = True, **kwargs: Any) -> ResponseT:
         """
         Suspend all the Redis clients for the specified amount of time.
 
@@ -367,7 +373,7 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
         * WAIT: Acknowledgments will be delayed, so this command will
             appear blocked.
         """
-    def client_unpause(self, **kwargs) -> ResponseT:
+    def client_unpause(self, **kwargs: Any) -> ResponseT:
         """
         Unpause all redis clients
 
@@ -388,14 +394,14 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/client-no-touch
         """
-    def command(self, **kwargs):
+    def command(self, **kwargs: Any) -> Any:
         """
         Returns dict reply of details about all Redis commands.
 
         For more information see https://redis.io/commands/command
         """
-    def command_info(self, **kwargs) -> None: ...
-    def command_count(self, **kwargs) -> ResponseT: ...
+    def command_info(self, **kwargs: Any) -> None: ...
+    def command_count(self, **kwargs: Any) -> ResponseT: ...
     def command_list(self, module: str | None = None, category: str | None = None, pattern: str | None = None) -> ResponseT:
         """
         Return an array of the server's command names.
@@ -412,54 +418,54 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/command-getkeysandflags
         """
-    def command_docs(self, *args) -> None:
+    def command_docs(self, *args: Any) -> None:
         """
         This function throws a NotImplementedError since it is intentionally
         not supported.
         """
-    def config_get(self, pattern: PatternT = '*', *args: list[PatternT], **kwargs) -> ResponseT:
+    def config_get(self, pattern: PatternT = '*', *args: list[PatternT], **kwargs: Any) -> ResponseT:
         """
         Return a dictionary of configuration based on the ``pattern``
 
         For more information see https://redis.io/commands/config-get
         """
-    def config_set(self, name: KeyT, value: EncodableT, *args: list[KeyT | EncodableT], **kwargs) -> ResponseT:
+    def config_set(self, name: KeyT, value: EncodableT, *args: list[KeyT | EncodableT], **kwargs: Any) -> ResponseT:
         """Set config item ``name`` with ``value``
 
         For more information see https://redis.io/commands/config-set
         """
-    def config_resetstat(self, **kwargs) -> ResponseT:
+    def config_resetstat(self, **kwargs: Any) -> ResponseT:
         """
         Reset runtime statistics
 
         For more information see https://redis.io/commands/config-resetstat
         """
-    def config_rewrite(self, **kwargs) -> ResponseT:
+    def config_rewrite(self, **kwargs: Any) -> ResponseT:
         """
         Rewrite config file with the minimal change to reflect running config.
 
         For more information see https://redis.io/commands/config-rewrite
         """
-    def dbsize(self, **kwargs) -> ResponseT:
+    def dbsize(self, **kwargs: Any) -> ResponseT:
         """
         Returns the number of keys in the current database
 
         For more information see https://redis.io/commands/dbsize
         """
-    def debug_object(self, key: KeyT, **kwargs) -> ResponseT:
+    def debug_object(self, key: KeyT, **kwargs: Any) -> ResponseT:
         """
         Returns version specific meta information about a given key
 
         For more information see https://redis.io/commands/debug-object
         """
-    def debug_segfault(self, **kwargs) -> None: ...
-    def echo(self, value: EncodableT, **kwargs) -> ResponseT:
+    def debug_segfault(self, **kwargs: Any) -> None: ...
+    def echo(self, value: EncodableT, **kwargs: Any) -> ResponseT:
         """
         Echo the string back from the server
 
         For more information see https://redis.io/commands/echo
         """
-    def flushall(self, asynchronous: bool = False, **kwargs) -> ResponseT:
+    def flushall(self, asynchronous: bool = False, **kwargs: Any) -> ResponseT:
         """
         Delete all keys in all databases on the current host.
 
@@ -468,7 +474,7 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/flushall
         """
-    def flushdb(self, asynchronous: bool = False, **kwargs) -> ResponseT:
+    def flushdb(self, asynchronous: bool = False, **kwargs: Any) -> ResponseT:
         """
         Delete all keys in the current database.
 
@@ -483,25 +489,25 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/sync
         """
-    def psync(self, replicationid: str, offset: int):
+    def psync(self, replicationid: str, offset: int) -> Any:
         """
         Initiates a replication stream from the master.
         Newer version for `sync`.
 
         For more information see https://redis.io/commands/sync
         """
-    def swapdb(self, first: int, second: int, **kwargs) -> ResponseT:
+    def swapdb(self, first: int, second: int, **kwargs: Any) -> ResponseT:
         """
         Swap two databases
 
         For more information see https://redis.io/commands/swapdb
         """
-    def select(self, index: int, **kwargs) -> ResponseT:
+    def select(self, index: int, **kwargs: Any) -> ResponseT:
         """Select the Redis logical database at index.
 
         See: https://redis.io/commands/select
         """
-    def info(self, section: str | None = None, *args: list[str], **kwargs) -> ResponseT:
+    def info(self, section: str | None = None, *args: list[str], **kwargs: Any) -> ResponseT:
         """
         Returns a dictionary containing information about the Redis server
 
@@ -513,7 +519,7 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/info
         """
-    def lastsave(self, **kwargs) -> ResponseT:
+    def lastsave(self, **kwargs: Any) -> ResponseT:
         """
         Return a Python datetime object representing the last time the
         Redis database was saved to disk
@@ -522,28 +528,28 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
         """
     def latency_doctor(self) -> None:
         """Raise a NotImplementedError, as the client will not support LATENCY DOCTOR.
-        This funcion is best used within the redis-cli.
+        This function is best used within the redis-cli.
 
         For more information see https://redis.io/commands/latency-doctor
         """
     def latency_graph(self) -> None:
         """Raise a NotImplementedError, as the client will not support LATENCY GRAPH.
-        This funcion is best used within the redis-cli.
+        This function is best used within the redis-cli.
 
         For more information see https://redis.io/commands/latency-graph.
         """
-    def lolwut(self, *version_numbers: str | float, **kwargs) -> ResponseT:
+    def lolwut(self, *version_numbers: str | float, **kwargs: Any) -> ResponseT:
         """
         Get the Redis version and a piece of generative computer art
 
         See: https://redis.io/commands/lolwut
         """
     def reset(self) -> ResponseT:
-        """Perform a full reset on the connection's server side contenxt.
+        """Perform a full reset on the connection's server side context.
 
         See: https://redis.io/commands/reset
         """
-    def migrate(self, host: str, port: int, keys: KeysT, destination_db: int, timeout: int, copy: bool = False, replace: bool = False, auth: str | None = None, **kwargs) -> ResponseT:
+    def migrate(self, host: str, port: int, keys: KeysT, destination_db: int, timeout: int, copy: bool = False, replace: bool = False, auth: str | None = None, **kwargs: Any) -> ResponseT:
         """
         Migrate 1 or more keys from the current Redis server to a different
         server specified by the ``host``, ``port`` and ``destination_db``.
@@ -563,25 +569,25 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/migrate
         """
-    def object(self, infotype: str, key: KeyT, **kwargs) -> ResponseT:
+    def object(self, infotype: str, key: KeyT, **kwargs: Any) -> ResponseT:
         """
         Return the encoding, idletime, or refcount about the key
         """
-    def memory_doctor(self, **kwargs) -> None: ...
-    def memory_help(self, **kwargs) -> None: ...
-    def memory_stats(self, **kwargs) -> ResponseT:
+    def memory_doctor(self, **kwargs: Any) -> None: ...
+    def memory_help(self, **kwargs: Any) -> None: ...
+    def memory_stats(self, **kwargs: Any) -> ResponseT:
         """
         Return a dictionary of memory stats
 
         For more information see https://redis.io/commands/memory-stats
         """
-    def memory_malloc_stats(self, **kwargs) -> ResponseT:
+    def memory_malloc_stats(self, **kwargs: Any) -> ResponseT:
         """
         Return an internal statistics report from the memory allocator.
 
         See: https://redis.io/commands/memory-malloc-stats
         """
-    def memory_usage(self, key: KeyT, samples: int | None = None, **kwargs) -> ResponseT:
+    def memory_usage(self, key: KeyT, samples: int | None = None, **kwargs: Any) -> ResponseT:
         """
         Return the total memory usage for key, its value and associated
         administrative overheads.
@@ -592,13 +598,13 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/memory-usage
         """
-    def memory_purge(self, **kwargs) -> ResponseT:
+    def memory_purge(self, **kwargs: Any) -> ResponseT:
         """
         Attempts to purge dirty pages for reclamation by allocator
 
         For more information see https://redis.io/commands/memory-purge
         """
-    def latency_histogram(self, *args) -> None:
+    def latency_histogram(self, *args: Any) -> None:
         """
         This function throws a NotImplementedError since it is intentionally
         not supported.
@@ -621,19 +627,19 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/latency-reset
         """
-    def ping(self, **kwargs) -> ResponseT:
+    def ping(self, **kwargs: Any) -> ResponseT:
         """
         Ping the Redis server
 
         For more information see https://redis.io/commands/ping
         """
-    def quit(self, **kwargs) -> ResponseT:
+    def quit(self, **kwargs: Any) -> ResponseT:
         """
         Ask the server to close the connection.
 
         For more information see https://redis.io/commands/quit
         """
-    def replicaof(self, *args, **kwargs) -> ResponseT:
+    def replicaof(self, *args: Any, **kwargs: Any) -> ResponseT:
         """
         Update the replication settings of a redis replica, on the fly.
 
@@ -644,14 +650,14 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see  https://redis.io/commands/replicaof
         """
-    def save(self, **kwargs) -> ResponseT:
+    def save(self, **kwargs: Any) -> ResponseT:
         """
         Tell the Redis server to save its data to disk,
         blocking until the save is complete
 
         For more information see https://redis.io/commands/save
         """
-    def shutdown(self, save: bool = False, nosave: bool = False, now: bool = False, force: bool = False, abort: bool = False, **kwargs) -> None:
+    def shutdown(self, save: bool = False, nosave: bool = False, now: bool = False, force: bool = False, abort: bool = False, **kwargs: Any) -> None:
         """Shutdown the Redis server.  If Redis has persistence configured,
         data will be flushed before shutdown.
         It is possible to specify modifiers to alter the behavior of the command:
@@ -665,7 +671,7 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/shutdown
         """
-    def slaveof(self, host: str | None = None, port: int | None = None, **kwargs) -> ResponseT:
+    def slaveof(self, host: str | None = None, port: int | None = None, **kwargs: Any) -> ResponseT:
         """
         Set the server to be a replicated slave of the instance identified
         by the ``host`` and ``port``. If called without arguments, the
@@ -673,33 +679,33 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/slaveof
         """
-    def slowlog_get(self, num: int | None = None, **kwargs) -> ResponseT:
+    def slowlog_get(self, num: int | None = None, **kwargs: Any) -> ResponseT:
         """
         Get the entries from the slowlog. If ``num`` is specified, get the
         most recent ``num`` items.
 
         For more information see https://redis.io/commands/slowlog-get
         """
-    def slowlog_len(self, **kwargs) -> ResponseT:
+    def slowlog_len(self, **kwargs: Any) -> ResponseT:
         """
         Get the number of items in the slowlog
 
         For more information see https://redis.io/commands/slowlog-len
         """
-    def slowlog_reset(self, **kwargs) -> ResponseT:
+    def slowlog_reset(self, **kwargs: Any) -> ResponseT:
         """
         Remove all items in the slowlog
 
         For more information see https://redis.io/commands/slowlog-reset
         """
-    def time(self, **kwargs) -> ResponseT:
+    def time(self, **kwargs: Any) -> ResponseT:
         """
         Returns the server time as a 2-item tuple of ints:
         (seconds since epoch, microseconds into this second).
 
         For more information see https://redis.io/commands/time
         """
-    def wait(self, num_replicas: int, timeout: int, **kwargs) -> ResponseT:
+    def wait(self, num_replicas: int, timeout: int, **kwargs: Any) -> ResponseT:
         """
         Redis synchronous replication
         That returns the number of replicas that processed the query when
@@ -708,7 +714,7 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/wait
         """
-    def waitaof(self, num_local: int, num_replicas: int, timeout: int, **kwargs) -> ResponseT:
+    def waitaof(self, num_local: int, num_replicas: int, timeout: int, **kwargs: Any) -> ResponseT:
         """
         This command blocks the current client until all previous write
         commands by that client are acknowledged as having been fsynced
@@ -729,11 +735,11 @@ class ManagementCommands(CommandsProtocol, metaclass=abc.ABCMeta):
         """
 
 class AsyncManagementCommands(ManagementCommands, metaclass=abc.ABCMeta):
-    async def command_info(self, **kwargs) -> None: ...
-    async def debug_segfault(self, **kwargs) -> None: ...
-    async def memory_doctor(self, **kwargs) -> None: ...
-    async def memory_help(self, **kwargs) -> None: ...
-    async def shutdown(self, save: bool = False, nosave: bool = False, now: bool = False, force: bool = False, abort: bool = False, **kwargs) -> None:
+    async def command_info(self, **kwargs: Any) -> None: ...
+    async def debug_segfault(self, **kwargs: Any) -> None: ...
+    async def memory_doctor(self, **kwargs: Any) -> None: ...
+    async def memory_help(self, **kwargs: Any) -> None: ...
+    async def shutdown(self, save: bool = False, nosave: bool = False, now: bool = False, force: bool = False, abort: bool = False, **kwargs: Any) -> None:
         '''Shutdown the Redis server.  If Redis has persistence configured,
         data will be flushed before shutdown.  If the "save" option is set,
         a data flush will be attempted even if there is no persistence
@@ -757,14 +763,14 @@ class BitFieldOperation:
         """
         Reset the state of the instance to when it was constructed
         """
-    def overflow(self, overflow: str):
+    def overflow(self, overflow: str) -> Any:
         """
         Update the overflow algorithm of successive INCRBY operations
         :param overflow: Overflow algorithm, one of WRAP, SAT, FAIL. See the
             Redis docs for descriptions of these algorithmsself.
         :returns: a :py:class:`BitFieldOperation` instance.
         """
-    def incrby(self, fmt: str, offset: BitfieldOffsetT, increment: int, overflow: str | None = None):
+    def incrby(self, fmt: str, offset: BitfieldOffsetT, increment: int, overflow: str | None = None) -> Any:
         """
         Increment a bitfield by a given amount.
         :param fmt: format-string for the bitfield being updated, e.g. 'u8'
@@ -778,7 +784,7 @@ class BitFieldOperation:
             descriptions of these algorithms.
         :returns: a :py:class:`BitFieldOperation` instance.
         """
-    def get(self, fmt: str, offset: BitfieldOffsetT):
+    def get(self, fmt: str, offset: BitfieldOffsetT) -> Any:
         """
         Get the value of a given bitfield.
         :param fmt: format-string for the bitfield being read, e.g. 'u8' for
@@ -788,7 +794,7 @@ class BitFieldOperation:
             fmt='u8', offset='#2', the offset will be 16.
         :returns: a :py:class:`BitFieldOperation` instance.
         """
-    def set(self, fmt: str, offset: BitfieldOffsetT, value: int):
+    def set(self, fmt: str, offset: BitfieldOffsetT, value: int) -> Any:
         """
         Set the value of a given bitfield.
         :param fmt: format-string for the bitfield being read, e.g. 'u8' for
@@ -800,7 +806,7 @@ class BitFieldOperation:
         :returns: a :py:class:`BitFieldOperation` instance.
         """
     @property
-    def command(self): ...
+    def command(self) -> Any: ...
     def execute(self) -> ResponseT:
         """
         Execute the operation(s) in a single BITFIELD command. The return value
@@ -835,7 +841,7 @@ class BasicKeyCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/bitfield
         """
-    def bitfield_ro(self, key: KeyT, encoding: str, offset: BitfieldOffsetT, items: list | None = None) -> ResponseT:
+    def bitfield_ro(self, key: KeyT, encoding: str, offset: BitfieldOffsetT, items: list[Any] | None = None) -> ResponseT:
         """
         Return an array of the specified bitfield values
         where the first value is found using ``encoding`` and ``offset``
@@ -886,7 +892,7 @@ class BasicKeyCommands(CommandsProtocol, metaclass=abc.ABCMeta):
         """
         Delete one or more keys specified by ``names``
         """
-    def __delitem__(self, name: KeyT): ...
+    def __delitem__(self, name: KeyT) -> Any: ...
     def dump(self, name: KeyT) -> ResponseT:
         """
         Return a serialized version of the value stored at the specified key.
@@ -972,7 +978,7 @@ class BasicKeyCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/getex
         """
-    def __getitem__(self, name: KeyT):
+    def __getitem__(self, name: KeyT) -> Any:
         """
         Return the value at key ``name``, raises a KeyError if the key
         doesn't exist.
@@ -1015,7 +1021,7 @@ class BasicKeyCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/incrbyfloat
         """
-    def keys(self, pattern: PatternT = '*', **kwargs) -> ResponseT:
+    def keys(self, pattern: PatternT = '*', **kwargs: Any) -> ResponseT:
         """
         Returns a list of keys matching ``pattern``
 
@@ -1105,7 +1111,7 @@ class BasicKeyCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/pexpiretime
         """
-    def psetex(self, name: KeyT, time_ms: ExpiryT, value: EncodableT):
+    def psetex(self, name: KeyT, time_ms: ExpiryT, value: EncodableT) -> Any:
         """
         Set the value of key ``name`` to ``value`` that expires in ``time_ms``
         milliseconds. ``time_ms`` can be represented by an integer or a Python
@@ -1133,7 +1139,7 @@ class BasicKeyCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/hrandfield
         """
-    def randomkey(self, **kwargs) -> ResponseT:
+    def randomkey(self, **kwargs: Any) -> ResponseT:
         """
         Returns the name of a random key
 
@@ -1145,7 +1151,7 @@ class BasicKeyCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/rename
         """
-    def renamenx(self, src: KeyT, dst: KeyT):
+    def renamenx(self, src: KeyT, dst: KeyT) -> Any:
         """
         Rename key ``src`` to ``dst`` if ``dst`` doesn't already exist
 
@@ -1200,7 +1206,7 @@ class BasicKeyCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/set
         """
-    def __setitem__(self, name: KeyT, value: EncodableT): ...
+    def __setitem__(self, name: KeyT, value: EncodableT) -> Any: ...
     def setbit(self, name: KeyT, offset: int, value: int) -> ResponseT:
         """
         Flag the ``offset`` in ``name`` as ``value``. Returns an integer
@@ -1235,7 +1241,7 @@ class BasicKeyCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/setrange
         """
-    def stralgo(self, algo: Literal['LCS'], value1: KeyT, value2: KeyT, specific_argument: Literal['strings'] | Literal['keys'] = 'strings', len: bool = False, idx: bool = False, minmatchlen: int | None = None, withmatchlen: bool = False, **kwargs) -> ResponseT:
+    def stralgo(self, algo: Literal['LCS'], value1: KeyT, value2: KeyT, specific_argument: Literal['strings'] | Literal['keys'] = 'strings', len: bool = False, idx: bool = False, minmatchlen: int | None = None, withmatchlen: bool = False, **kwargs: Any) -> ResponseT:
         """
         Implements complex algorithms that operate on strings.
         Right now the only algorithm implemented is the LCS algorithm
@@ -1303,7 +1309,7 @@ class BasicKeyCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/unlink
         """
-    def lcs(self, key1: str, key2: str, len: bool | None = False, idx: bool | None = False, minmatchlen: int | None = 0, withmatchlen: bool | None = False) -> str | int | list:
+    def lcs(self, key1: str, key2: str, len: bool | None = False, idx: bool | None = False, minmatchlen: int | None = 0, withmatchlen: bool | None = False) -> str | int | list[Any]:
         """
         Find the longest common subsequence between ``key1`` and ``key2``.
         If ``len`` is true the length of the match will will be returned.
@@ -1315,10 +1321,10 @@ class BasicKeyCommands(CommandsProtocol, metaclass=abc.ABCMeta):
         """
 
 class AsyncBasicKeyCommands(BasicKeyCommands, metaclass=abc.ABCMeta):
-    def __delitem__(self, name: KeyT): ...
-    def __contains__(self, name: KeyT): ...
-    def __getitem__(self, name: KeyT): ...
-    def __setitem__(self, name: KeyT, value: EncodableT): ...
+    def __delitem__(self, name: KeyT) -> Any: ...
+    def __contains__(self, name: KeyT) -> Any: ...
+    def __getitem__(self, name: KeyT) -> Any: ...
+    def __setitem__(self, name: KeyT, value: EncodableT) -> Any: ...
     async def watch(self, *names: KeyT) -> None: ...
     async def unwatch(self) -> None: ...
 
@@ -1327,7 +1333,7 @@ class ListCommands(CommandsProtocol, metaclass=abc.ABCMeta):
     Redis commands for List data type.
     see: https://redis.io/topics/data-types#lists
     """
-    def blpop(self, keys: list, timeout: Number | None = 0) -> Awaitable[list] | list:
+    def blpop(self, keys: list[Any], timeout: Number | None = 0) -> Awaitable[list[Any]] | list[Any]:
         """
         LPOP a value off of the first non-empty list
         named in the ``keys`` list.
@@ -1340,7 +1346,7 @@ class ListCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/blpop
         """
-    def brpop(self, keys: list, timeout: Number | None = 0) -> Awaitable[list] | list:
+    def brpop(self, keys: list[Any], timeout: Number | None = 0) -> Awaitable[list[Any]] | list[Any]:
         """
         RPOP a value off of the first non-empty list
         named in the ``keys`` list.
@@ -1364,7 +1370,7 @@ class ListCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/brpoplpush
         """
-    def blmpop(self, timeout: float, numkeys: int, *args: list[str], direction: str, count: int | None = 1) -> list | None:
+    def blmpop(self, timeout: float, numkeys: int, *args: list[str], direction: str, count: int | None = 1) -> list[Any] | None:
         """
         Pop ``count`` values (default 1) from first non-empty in the list
         of provided key names.
@@ -1374,7 +1380,7 @@ class ListCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/blmpop
         """
-    def lmpop(self, num_keys: int, *args: list[str], direction: str, count: int | None = 1) -> Awaitable[list] | list:
+    def lmpop(self, num_keys: int, *args: list[str], direction: str, count: int | None = 1) -> Awaitable[list[Any]] | list[Any]:
         """
         Pop ``count`` values (default 1) first non-empty list key from the list
         of args provided key names.
@@ -1406,7 +1412,7 @@ class ListCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/llen
         """
-    def lpop(self, name: str, count: int | None = None) -> Awaitable[str | list | None] | str | list | None:
+    def lpop(self, name: str, count: int | None = None) -> Awaitable[str | list[Any] | None] | str | list[Any] | None:
         """
         Removes and returns the first elements of the list ``name``.
 
@@ -1428,7 +1434,7 @@ class ListCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/lpushx
         """
-    def lrange(self, name: str, start: int, end: int) -> Awaitable[list] | list:
+    def lrange(self, name: str, start: int, end: int) -> Awaitable[list[Any]] | list[Any]:
         """
         Return a slice of the list ``name`` between
         position ``start`` and ``end``
@@ -1466,7 +1472,7 @@ class ListCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/ltrim
         """
-    def rpop(self, name: str, count: int | None = None) -> Awaitable[str | list | None] | str | list | None:
+    def rpop(self, name: str, count: int | None = None) -> Awaitable[str | list[Any] | None] | str | list[Any] | None:
         """
         Removes and returns the last elements of the list ``name``.
 
@@ -1495,7 +1501,7 @@ class ListCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/rpushx
         """
-    def lpos(self, name: str, value: str, rank: int | None = None, count: int | None = None, maxlen: int | None = None) -> str | list | None:
+    def lpos(self, name: str, value: str, rank: int | None = None, count: int | None = None, maxlen: int | None = None) -> str | list[Any] | None:
         '''
         Get position of ``value`` within the list ``name``
 
@@ -1521,7 +1527,7 @@ class ListCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
          For more information see https://redis.io/commands/lpos
         '''
-    def sort(self, name: str, start: int | None = None, num: int | None = None, by: str | None = None, get: list[str] | None = None, desc: bool = False, alpha: bool = False, store: str | None = None, groups: bool | None = False) -> list | int:
+    def sort(self, name: str, start: int | None = None, num: int | None = None, by: str | None = None, get: list[str] | None = None, desc: bool = False, alpha: bool = False, store: str | None = None, groups: bool | None = False) -> list[Any] | int:
         '''
         Sort and return the list, set or sorted set at ``name``.
 
@@ -1547,7 +1553,7 @@ class ListCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/sort
         '''
-    def sort_ro(self, key: str, start: int | None = None, num: int | None = None, by: str | None = None, get: list[str] | None = None, desc: bool = False, alpha: bool = False) -> list:
+    def sort_ro(self, key: str, start: int | None = None, num: int | None = None, by: str | None = None, get: list[str] | None = None, desc: bool = False, alpha: bool = False) -> list[Any]:
         '''
         Returns the elements contained in the list, set or sorted set at key.
         (read-only variant of the SORT command)
@@ -1574,7 +1580,7 @@ class ScanCommands(CommandsProtocol, metaclass=abc.ABCMeta):
     Redis SCAN commands.
     see: https://redis.io/commands/scan
     """
-    def scan(self, cursor: int = 0, match: PatternT | None = None, count: int | None = None, _type: str | None = None, **kwargs) -> ResponseT:
+    def scan(self, cursor: int = 0, match: PatternT | None = None, count: int | None = None, _type: str | None = None, **kwargs: Any) -> ResponseT:
         """
         Incrementally return lists of key names. Also return a cursor
         indicating the scan position.
@@ -1591,7 +1597,7 @@ class ScanCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/scan
         """
-    def scan_iter(self, match: PatternT | None = None, count: int | None = None, _type: str | None = None, **kwargs) -> Iterator:
+    def scan_iter(self, match: PatternT | None = None, count: int | None = None, _type: str | None = None, **kwargs: Any) -> Iterator[Any]:
         """
         Make an iterator using the SCAN command so that the client doesn't
         need to remember the cursor position.
@@ -1617,7 +1623,7 @@ class ScanCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/sscan
         """
-    def sscan_iter(self, name: KeyT, match: PatternT | None = None, count: int | None = None) -> Iterator:
+    def sscan_iter(self, name: KeyT, match: PatternT | None = None, count: int | None = None) -> Iterator[Any]:
         """
         Make an iterator using the SSCAN command so that the client doesn't
         need to remember the cursor position.
@@ -1639,7 +1645,7 @@ class ScanCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/hscan
         """
-    def hscan_iter(self, name: str, match: PatternT | None = None, count: int | None = None, no_values: bool | None = None) -> Iterator:
+    def hscan_iter(self, name: str, match: PatternT | None = None, count: int | None = None, no_values: bool | None = None) -> Iterator[Any]:
         """
         Make an iterator using the HSCAN command so that the client doesn't
         need to remember the cursor position.
@@ -1650,7 +1656,7 @@ class ScanCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         ``no_values`` indicates to return only the keys, without values
         """
-    def zscan(self, name: KeyT, cursor: int = 0, match: PatternT | None = None, count: int | None = None, score_cast_func: type | Callable = ...) -> ResponseT:
+    def zscan(self, name: KeyT, cursor: int = 0, match: PatternT | None = None, count: int | None = None, score_cast_func: type | Callable[..., Any] = ...) -> ResponseT:
         """
         Incrementally return lists of elements in a sorted set. Also return a
         cursor indicating the scan position.
@@ -1663,7 +1669,7 @@ class ScanCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/zscan
         """
-    def zscan_iter(self, name: KeyT, match: PatternT | None = None, count: int | None = None, score_cast_func: type | Callable = ...) -> Iterator:
+    def zscan_iter(self, name: KeyT, match: PatternT | None = None, count: int | None = None, score_cast_func: type | Callable[..., Any] = ...) -> Iterator[Any]:
         """
         Make an iterator using the ZSCAN command so that the client doesn't
         need to remember the cursor position.
@@ -1676,7 +1682,7 @@ class ScanCommands(CommandsProtocol, metaclass=abc.ABCMeta):
         """
 
 class AsyncScanCommands(ScanCommands, metaclass=abc.ABCMeta):
-    async def scan_iter(self, match: PatternT | None = None, count: int | None = None, _type: str | None = None, **kwargs) -> AsyncIterator:
+    async def scan_iter(self, match: PatternT | None = None, count: int | None = None, _type: str | None = None, **kwargs: Any) -> AsyncIterator[Any]:
         """
         Make an iterator using the SCAN command so that the client doesn't
         need to remember the cursor position.
@@ -1691,7 +1697,7 @@ class AsyncScanCommands(ScanCommands, metaclass=abc.ABCMeta):
             HASH, LIST, SET, STREAM, STRING, ZSET
             Additionally, Redis modules can expose other types as well.
         """
-    async def sscan_iter(self, name: KeyT, match: PatternT | None = None, count: int | None = None) -> AsyncIterator:
+    async def sscan_iter(self, name: KeyT, match: PatternT | None = None, count: int | None = None) -> AsyncIterator[Any]:
         """
         Make an iterator using the SSCAN command so that the client doesn't
         need to remember the cursor position.
@@ -1700,7 +1706,7 @@ class AsyncScanCommands(ScanCommands, metaclass=abc.ABCMeta):
 
         ``count`` allows for hint the minimum number of returns
         """
-    async def hscan_iter(self, name: str, match: PatternT | None = None, count: int | None = None, no_values: bool | None = None) -> AsyncIterator:
+    async def hscan_iter(self, name: str, match: PatternT | None = None, count: int | None = None, no_values: bool | None = None) -> AsyncIterator[Any]:
         """
         Make an iterator using the HSCAN command so that the client doesn't
         need to remember the cursor position.
@@ -1711,7 +1717,7 @@ class AsyncScanCommands(ScanCommands, metaclass=abc.ABCMeta):
 
         ``no_values`` indicates to return only the keys, without values
         """
-    async def zscan_iter(self, name: KeyT, match: PatternT | None = None, count: int | None = None, score_cast_func: type | Callable = ...) -> AsyncIterator:
+    async def zscan_iter(self, name: KeyT, match: PatternT | None = None, count: int | None = None, score_cast_func: type | Callable[..., Any] = ...) -> AsyncIterator[Any]:
         """
         Make an iterator using the ZSCAN command so that the client doesn't
         need to remember the cursor position.
@@ -1740,20 +1746,20 @@ class SetCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/scard
         """
-    def sdiff(self, keys: list, *args: list) -> Awaitable[list] | list:
+    def sdiff(self, keys: list[Any], *args: list[Any]) -> Awaitable[list[Any]] | list[Any]:
         """
         Return the difference of sets specified by ``keys``
 
         For more information see https://redis.io/commands/sdiff
         """
-    def sdiffstore(self, dest: str, keys: list, *args: list) -> Awaitable[int] | int:
+    def sdiffstore(self, dest: str, keys: list[Any], *args: list[Any]) -> Awaitable[int] | int:
         """
         Store the difference of sets specified by ``keys`` into a new
         set named ``dest``.  Returns the number of keys in the new set.
 
         For more information see https://redis.io/commands/sdiffstore
         """
-    def sinter(self, keys: list, *args: list) -> Awaitable[list] | list:
+    def sinter(self, keys: list[Any], *args: list[Any]) -> Awaitable[list[Any]] | list[Any]:
         """
         Return the intersection of sets specified by ``keys``
 
@@ -1769,7 +1775,7 @@ class SetCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/sintercard
         """
-    def sinterstore(self, dest: str, keys: list, *args: list) -> Awaitable[int] | int:
+    def sinterstore(self, dest: str, keys: list[Any], *args: list[Any]) -> Awaitable[int] | int:
         """
         Store the intersection of sets specified by ``keys`` into a new
         set named ``dest``.  Returns the number of keys in the new set.
@@ -1784,13 +1790,13 @@ class SetCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/sismember
         """
-    def smembers(self, name: str) -> Awaitable[set] | set:
+    def smembers(self, name: str) -> Awaitable[set[Any]] | set[Any]:
         """
         Return all members of the set ``name``
 
         For more information see https://redis.io/commands/smembers
         """
-    def smismember(self, name: str, values: list, *args: list) -> Awaitable[list[Literal[0] | Literal[1]]] | list[Literal[0] | Literal[1]]:
+    def smismember(self, name: str, values: list[Any], *args: list[Any]) -> Awaitable[list[Literal[0] | Literal[1]]] | list[Literal[0] | Literal[1]]:
         """
         Return whether each value in ``values`` is a member of the set ``name``
         as a list of ``int`` in the order of ``values``:
@@ -1805,13 +1811,13 @@ class SetCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/smove
         """
-    def spop(self, name: str, count: int | None = None) -> str | list | None:
+    def spop(self, name: str, count: int | None = None) -> str | list[Any] | None:
         """
         Remove and return a random member of set ``name``
 
         For more information see https://redis.io/commands/spop
         """
-    def srandmember(self, name: str, number: int | None = None) -> str | list | None:
+    def srandmember(self, name: str, number: int | None = None) -> str | list[Any] | None:
         """
         If ``number`` is None, returns a random member of set ``name``.
 
@@ -1827,13 +1833,13 @@ class SetCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/srem
         """
-    def sunion(self, keys: list, *args: list) -> Awaitable[list] | list:
+    def sunion(self, keys: list[Any], *args: list[Any]) -> Awaitable[list[Any]] | list[Any]:
         """
         Return the union of sets specified by ``keys``
 
         For more information see https://redis.io/commands/sunion
         """
-    def sunionstore(self, dest: str, keys: list, *args: list) -> Awaitable[int] | int:
+    def sunionstore(self, dest: str, keys: list[Any], *args: list[Any]) -> Awaitable[int] | int:
         """
         Store the union of sets specified by ``keys`` into a new
         set named ``dest``.  Returns the number of keys in the new set.
@@ -2224,7 +2230,7 @@ class SortedSetCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/zintercard
         """
-    def zlexcount(self, name, min, max):
+    def zlexcount(self, name: Any, min: Any, max: Any) -> Any:
         """
         Return the number of items in the sorted set ``name`` between the
         lexicographical range ``min`` and ``max``.
@@ -2287,13 +2293,13 @@ class SortedSetCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/bzpopmin
         """
-    def zmpop(self, num_keys: int, keys: list[str], min: bool | None = False, max: bool | None = False, count: int | None = 1) -> Awaitable[list] | list:
+    def zmpop(self, num_keys: int, keys: list[str], min: bool | None = False, max: bool | None = False, count: int | None = 1) -> Awaitable[list[Any]] | list[Any]:
         """
         Pop ``count`` values (default 1) off of the first non-empty sorted set
         named in the ``keys`` list.
         For more information see https://redis.io/commands/zmpop
         """
-    def bzmpop(self, timeout: float, numkeys: int, keys: list[str], min: bool | None = False, max: bool | None = False, count: int | None = 1) -> list | None:
+    def bzmpop(self, timeout: float, numkeys: int, keys: list[str], min: bool | None = False, max: bool | None = False, count: int | None = 1) -> list[Any] | None:
         """
         Pop ``count`` values (default 1) off of the first non-empty sorted set
         named in the ``keys`` list.
@@ -2306,8 +2312,8 @@ class SortedSetCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/bzmpop
         """
-    def _zrange(self, command, dest: KeyT | None, name: KeyT, start: int, end: int, desc: bool = False, byscore: bool = False, bylex: bool = False, withscores: bool = False, score_cast_func: type | Callable | None = ..., offset: int | None = None, num: int | None = None) -> ResponseT: ...
-    def zrange(self, name: KeyT, start: int, end: int, desc: bool = False, withscores: bool = False, score_cast_func: type | Callable = ..., byscore: bool = False, bylex: bool = False, offset: int | None = None, num: int | None = None) -> ResponseT:
+    def _zrange(self, command: Any, dest: KeyT | None, name: KeyT, start: int, end: int, desc: bool = False, byscore: bool = False, bylex: bool = False, withscores: bool = False, score_cast_func: type | Callable[..., Any] | None = ..., offset: int | None = None, num: int | None = None) -> ResponseT: ...
+    def zrange(self, name: KeyT, start: int, end: int, desc: bool = False, withscores: bool = False, score_cast_func: type | Callable[..., Any] = ..., byscore: bool = False, bylex: bool = False, offset: int | None = None, num: int | None = None) -> ResponseT:
         """
         Return a range of values from sorted set ``name`` between
         ``start`` and ``end`` sorted in ascending order.
@@ -2336,7 +2342,7 @@ class SortedSetCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/zrange
         """
-    def zrevrange(self, name: KeyT, start: int, end: int, withscores: bool = False, score_cast_func: type | Callable = ...) -> ResponseT:
+    def zrevrange(self, name: KeyT, start: int, end: int, withscores: bool = False, score_cast_func: type | Callable[..., Any] = ...) -> ResponseT:
         """
         Return a range of values from sorted set ``name`` between
         ``start`` and ``end`` sorted in descending order.
@@ -2394,7 +2400,7 @@ class SortedSetCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/zrevrangebylex
         """
-    def zrangebyscore(self, name: KeyT, min: ZScoreBoundT, max: ZScoreBoundT, start: int | None = None, num: int | None = None, withscores: bool = False, score_cast_func: type | Callable = ...) -> ResponseT:
+    def zrangebyscore(self, name: KeyT, min: ZScoreBoundT, max: ZScoreBoundT, start: int | None = None, num: int | None = None, withscores: bool = False, score_cast_func: type | Callable[..., Any] = ...) -> ResponseT:
         """
         Return a range of values from the sorted set ``name`` with scores
         between ``min`` and ``max``.
@@ -2409,7 +2415,7 @@ class SortedSetCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/zrangebyscore
         """
-    def zrevrangebyscore(self, name: KeyT, max: ZScoreBoundT, min: ZScoreBoundT, start: int | None = None, num: int | None = None, withscores: bool = False, score_cast_func: type | Callable = ...):
+    def zrevrangebyscore(self, name: KeyT, max: ZScoreBoundT, min: ZScoreBoundT, start: int | None = None, num: int | None = None, withscores: bool = False, score_cast_func: type | Callable[..., Any] = ...) -> Any:
         """
         Return a range of values from the sorted set ``name`` with scores
         between ``min`` and ``max`` in descending order.
@@ -2507,7 +2513,7 @@ class SortedSetCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/zmscore
         """
-    def _zaggregate(self, command: str, dest: KeyT | None, keys: Sequence[KeyT] | Mapping[AnyKeyT, float], aggregate: str | None = None, **options) -> ResponseT: ...
+    def _zaggregate(self, command: str, dest: KeyT | None, keys: Sequence[KeyT] | Mapping[AnyKeyT, float], aggregate: str | None = None, **options: Any) -> ResponseT: ...
 AsyncSortedSetCommands = SortedSetCommands
 
 class HyperlogCommands(CommandsProtocol, metaclass=abc.ABCMeta):
@@ -2563,7 +2569,7 @@ class HashCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/hget
         """
-    def hgetall(self, name: str) -> Awaitable[dict] | dict:
+    def hgetall(self, name: str) -> Awaitable[dict[Any, Any]] | dict[Any, Any]:
         """
         Return a Python dict of the hash's name/value pairs
 
@@ -2611,7 +2617,7 @@ class HashCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/hincrbyfloat
         """
-    def hkeys(self, name: str) -> Awaitable[list] | list:
+    def hkeys(self, name: str) -> Awaitable[list[Any]] | list[Any]:
         """
         Return the list of keys within hash ``name``
 
@@ -2623,7 +2629,7 @@ class HashCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/hlen
         """
-    def hset(self, name: str, key: str | None = None, value: str | None = None, mapping: dict | None = None, items: list | None = None) -> Awaitable[int] | int:
+    def hset(self, name: str, key: str | None = None, value: str | None = None, mapping: dict[Any, Any] | None = None, items: list[Any] | None = None) -> Awaitable[int] | int:
         """
         Set ``key`` to ``value`` within hash ``name``,
         ``mapping`` accepts a dict of key/value pairs that will be
@@ -2634,7 +2640,7 @@ class HashCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/hset
         """
-    def hsetex(self, name: str, key: str | None = None, value: str | None = None, mapping: dict | None = None, items: list | None = None, ex: ExpiryT | None = None, px: ExpiryT | None = None, exat: AbsExpiryT | None = None, pxat: AbsExpiryT | None = None, data_persist_option: HashDataPersistOptions | None = None, keepttl: bool = False) -> Awaitable[int] | int:
+    def hsetex(self, name: str, key: str | None = None, value: str | None = None, mapping: dict[Any, Any] | None = None, items: list[Any] | None = None, ex: ExpiryT | None = None, px: ExpiryT | None = None, exat: AbsExpiryT | None = None, pxat: AbsExpiryT | None = None, data_persist_option: HashDataPersistOptions | None = None, keepttl: bool = False) -> Awaitable[int] | int:
         """
         Set ``key`` to ``value`` within hash ``name``
 
@@ -2675,20 +2681,20 @@ class HashCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/hsetnx
         """
-    def hmset(self, name: str, mapping: dict) -> Awaitable[str] | str:
+    def hmset(self, name: str, mapping: dict[Any, Any]) -> Awaitable[str] | str:
         """
         Set key to value within hash ``name`` for each corresponding
         key and value from the ``mapping`` dict.
 
         For more information see https://redis.io/commands/hmset
         """
-    def hmget(self, name: str, keys: list, *args: list) -> Awaitable[list] | list:
+    def hmget(self, name: str, keys: list[Any], *args: list[Any]) -> Awaitable[list[Any]] | list[Any]:
         """
         Returns a list of values ordered identically to ``keys``
 
         For more information see https://redis.io/commands/hmget
         """
-    def hvals(self, name: str) -> Awaitable[list] | list:
+    def hvals(self, name: str) -> Awaitable[list[Any]] | list[Any]:
         """
         Return the list of values within hash ``name``
 
@@ -2920,9 +2926,9 @@ class Script:
     script: Incomplete
     sha: Incomplete
     def __init__(self, registered_client: redis.client.Redis, script: ScriptTextT) -> None: ...
-    def __call__(self, keys: Sequence[KeyT] | None = None, args: Iterable[EncodableT] | None = None, client: redis.client.Redis | None = None):
+    def __call__(self, keys: Sequence[KeyT] | None = None, args: Iterable[EncodableT] | None = None, client: redis.client.Redis | None = None) -> Any:
         """Execute the script, passing any required ``args``"""
-    def get_encoder(self):
+    def get_encoder(self) -> Any:
         """Get the encoder to encode string scripts into bytes."""
 
 class AsyncScript:
@@ -2933,7 +2939,7 @@ class AsyncScript:
     script: Incomplete
     sha: Incomplete
     def __init__(self, registered_client: redis.asyncio.client.Redis, script: ScriptTextT) -> None: ...
-    async def __call__(self, keys: Sequence[KeyT] | None = None, args: Iterable[EncodableT] | None = None, client: redis.asyncio.client.Redis | None = None):
+    async def __call__(self, keys: Sequence[KeyT] | None = None, args: Iterable[EncodableT] | None = None, client: redis.asyncio.client.Redis | None = None) -> Any:
         """Execute the script, passing any required ``args``"""
 
 class PubSubCommands(CommandsProtocol, metaclass=abc.ABCMeta):
@@ -2941,7 +2947,7 @@ class PubSubCommands(CommandsProtocol, metaclass=abc.ABCMeta):
     Redis PubSub commands.
     see https://redis.io/topics/pubsub
     """
-    def publish(self, channel: ChannelT, message: EncodableT, **kwargs) -> ResponseT:
+    def publish(self, channel: ChannelT, message: EncodableT, **kwargs: Any) -> ResponseT:
         """
         Publish ``message`` on ``channel``.
         Returns the number of subscribers the message was delivered to.
@@ -2955,32 +2961,32 @@ class PubSubCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/spublish
         """
-    def pubsub_channels(self, pattern: PatternT = '*', **kwargs) -> ResponseT:
+    def pubsub_channels(self, pattern: PatternT = '*', **kwargs: Any) -> ResponseT:
         """
         Return a list of channels that have at least one subscriber
 
         For more information see https://redis.io/commands/pubsub-channels
         """
-    def pubsub_shardchannels(self, pattern: PatternT = '*', **kwargs) -> ResponseT:
+    def pubsub_shardchannels(self, pattern: PatternT = '*', **kwargs: Any) -> ResponseT:
         """
         Return a list of shard_channels that have at least one subscriber
 
         For more information see https://redis.io/commands/pubsub-shardchannels
         """
-    def pubsub_numpat(self, **kwargs) -> ResponseT:
+    def pubsub_numpat(self, **kwargs: Any) -> ResponseT:
         """
         Returns the number of subscriptions to patterns
 
         For more information see https://redis.io/commands/pubsub-numpat
         """
-    def pubsub_numsub(self, *args: ChannelT, **kwargs) -> ResponseT:
+    def pubsub_numsub(self, *args: ChannelT, **kwargs: Any) -> ResponseT:
         """
         Return a list of (channel, number of subscribers) tuples
         for each channel given in ``*args``
 
         For more information see https://redis.io/commands/pubsub-numsub
         """
-    def pubsub_shardnumsub(self, *args: ChannelT, **kwargs) -> ResponseT:
+    def pubsub_shardnumsub(self, *args: ChannelT, **kwargs: Any) -> ResponseT:
         """
         Return a list of (shard_channel, number of subscribers) tuples
         for each channel given in ``*args``
@@ -3016,7 +3022,7 @@ class ScriptCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see  https://redis.io/commands/eval_ro
         """
-    def _evalsha(self, command: str, sha: str, numkeys: int, *keys_and_args: list) -> Awaitable[str] | str: ...
+    def _evalsha(self, command: str, sha: str, numkeys: int, *keys_and_args: list[Any]) -> Awaitable[str] | str: ...
     def evalsha(self, sha: str, numkeys: int, *keys_and_args: str) -> Awaitable[str] | str:
         """
         Use the ``sha`` to execute a Lua script already registered via EVAL
@@ -3048,7 +3054,7 @@ class ScriptCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see  https://redis.io/commands/script-exists
         """
-    def script_debug(self, *args) -> None: ...
+    def script_debug(self, *args: Any) -> None: ...
     def script_flush(self, sync_type: Literal['SYNC'] | Literal['ASYNC'] = None) -> ResponseT:
         """Flush all scripts from the script cache_data.
 
@@ -3078,7 +3084,7 @@ class ScriptCommands(CommandsProtocol, metaclass=abc.ABCMeta):
         """
 
 class AsyncScriptCommands(ScriptCommands, metaclass=abc.ABCMeta):
-    async def script_debug(self, *args) -> None: ...
+    async def script_debug(self, *args: Any) -> None: ...
     def register_script(self, script: ScriptTextT) -> AsyncScript:
         """
         Register a Lua ``script`` specifying the ``keys`` it will touch.
@@ -3241,7 +3247,7 @@ class ModuleCommands(CommandsProtocol, metaclass=abc.ABCMeta):
     Redis Module commands.
     see: https://redis.io/topics/modules-intro
     """
-    def module_load(self, path, *args) -> ResponseT:
+    def module_load(self, path: Any, *args: Any) -> ResponseT:
         """
         Loads the module from ``path``.
         Passes all ``*args`` to the module, during loading.
@@ -3255,7 +3261,7 @@ class ModuleCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/module-loadex
         """
-    def module_unload(self, name) -> ResponseT:
+    def module_unload(self, name: Any) -> ResponseT:
         """
         Unloads the module ``name``.
         Raises ``ModuleError`` if ``name`` is not in loaded modules.
@@ -3271,7 +3277,7 @@ class ModuleCommands(CommandsProtocol, metaclass=abc.ABCMeta):
         """
     def command_info(self) -> None: ...
     def command_count(self) -> ResponseT: ...
-    def command_getkeys(self, *args) -> ResponseT: ...
+    def command_getkeys(self, *args: Any) -> ResponseT: ...
     def command(self) -> ResponseT: ...
 
 class AsyncModuleCommands(ModuleCommands, metaclass=abc.ABCMeta):
@@ -3281,14 +3287,14 @@ class ClusterCommands(CommandsProtocol, metaclass=abc.ABCMeta):
     """
     Class for Redis Cluster commands
     """
-    def cluster(self, cluster_arg, *args, **kwargs) -> ResponseT: ...
-    def readwrite(self, **kwargs) -> ResponseT:
+    def cluster(self, cluster_arg: Any, *args: Any, **kwargs: Any) -> ResponseT: ...
+    def readwrite(self, **kwargs: Any) -> ResponseT:
         """
         Disables read queries for a connection to a Redis Cluster slave node.
 
         For more information see https://redis.io/commands/readwrite
         """
-    def readonly(self, **kwargs) -> ResponseT:
+    def readonly(self, **kwargs: Any) -> ResponseT:
         """
         Enables read queries for a connection to a Redis Cluster replica node.
 
@@ -3323,7 +3329,7 @@ class FunctionCommands:
 
         For more information see https://redis.io/commands/function-flush
         """
-    def function_list(self, library: str | None = '*', withcode: bool | None = False) -> Awaitable[list] | list:
+    def function_list(self, library: str | None = '*', withcode: bool | None = False) -> Awaitable[list[Any]] | list[Any]:
         """
         Return information about the functions and libraries.
 
@@ -3333,14 +3339,14 @@ class FunctionCommands:
             withcode: cause the server to include the libraries source implementation
                 in the reply
         """
-    def _fcall(self, command: str, function, numkeys: int, *keys_and_args: Any) -> Awaitable[str] | str: ...
-    def fcall(self, function, numkeys: int, *keys_and_args: Any) -> Awaitable[str] | str:
+    def _fcall(self, command: str, function: Any, numkeys: int, *keys_and_args: Any) -> Awaitable[str] | str: ...
+    def fcall(self, function: Any, numkeys: int, *keys_and_args: Any) -> Awaitable[str] | str:
         """
         Invoke a function.
 
         For more information see https://redis.io/commands/fcall
         """
-    def fcall_ro(self, function, numkeys: int, *keys_and_args: Any) -> Awaitable[str] | str:
+    def fcall_ro(self, function: Any, numkeys: int, *keys_and_args: Any) -> Awaitable[str] | str:
         """
         This is a read-only variant of the FCALL command that cannot
         execute commands that modify data.
@@ -3367,7 +3373,7 @@ class FunctionCommands:
 
         For more information see https://redis.io/commands/function-kill
         """
-    def function_stats(self) -> Awaitable[list] | list:
+    def function_stats(self) -> Awaitable[list[Any]] | list[Any]:
         """
         Return information about the function that's currently running
         and information about the available execution engines.

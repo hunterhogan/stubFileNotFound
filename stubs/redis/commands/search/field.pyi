@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from redis import DataError as DataError
+from typing import Any
 
 class Field:
     """
@@ -36,8 +37,8 @@ class Field:
                          have this field empty.
             as_name: If provided, this alias will be used for the field.
         """
-    def append_arg(self, value) -> None: ...
-    def redis_args(self): ...
+    def append_arg(self, value: Any) -> None: ...
+    def redis_args(self) -> Any: ...
 
 class TextField(Field):
     """
@@ -45,13 +46,13 @@ class TextField(Field):
     """
     NOSTEM: str
     PHONETIC: str
-    def __init__(self, name: str, weight: float = 1.0, no_stem: bool = False, phonetic_matcher: str = None, withsuffixtrie: bool = False, **kwargs) -> None: ...
+    def __init__(self, name: str, weight: float = 1.0, no_stem: bool = False, phonetic_matcher: str = None, withsuffixtrie: bool = False, **kwargs: Any) -> None: ...
 
 class NumericField(Field):
     """
     NumericField is used to define a numeric field in a schema definition
     """
-    def __init__(self, name: str, **kwargs) -> None: ...
+    def __init__(self, name: str, **kwargs: Any) -> None: ...
 
 class GeoShapeField(Field):
     """
@@ -59,13 +60,13 @@ class GeoShapeField(Field):
     """
     SPHERICAL: str
     FLAT: str
-    def __init__(self, name: str, coord_system: Incomplete | None = None, **kwargs) -> None: ...
+    def __init__(self, name: str, coord_system: Incomplete | None = None, **kwargs: Any) -> None: ...
 
 class GeoField(Field):
     """
     GeoField is used to define a geo-indexing field in a schema definition
     """
-    def __init__(self, name: str, **kwargs) -> None: ...
+    def __init__(self, name: str, **kwargs: Any) -> None: ...
 
 class TagField(Field):
     """
@@ -74,14 +75,14 @@ class TagField(Field):
     """
     SEPARATOR: str
     CASESENSITIVE: str
-    def __init__(self, name: str, separator: str = ',', case_sensitive: bool = False, withsuffixtrie: bool = False, **kwargs) -> None: ...
+    def __init__(self, name: str, separator: str = ',', case_sensitive: bool = False, withsuffixtrie: bool = False, **kwargs: Any) -> None: ...
 
 class VectorField(Field):
     """
     Allows vector similarity queries against the value in this attribute.
     See https://oss.redis.com/redisearch/Vectors/#vector_fields.
     """
-    def __init__(self, name: str, algorithm: str, attributes: dict, **kwargs) -> None:
+    def __init__(self, name: str, algorithm: str, attributes: dict[Any, Any], **kwargs: Any) -> None:
         '''
         Create Vector Field. Notice that Vector cannot have sortable or no_index tag,
         although it\'s also a Field.

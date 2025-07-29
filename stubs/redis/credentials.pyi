@@ -17,7 +17,7 @@ class StreamingCredentialProvider(CredentialProvider, ABC, metaclass=abc.ABCMeta
     Credential provider that streams credentials in the background.
     """
     @abstractmethod
-    def on_next(self, callback: Callable[[Any], None]):
+    def on_next(self, callback: Callable[[Any], None]) -> Any:
         """
         Specifies the callback that should be invoked
         when the next credentials will be retrieved.
@@ -26,7 +26,7 @@ class StreamingCredentialProvider(CredentialProvider, ABC, metaclass=abc.ABCMeta
         :return:
         """
     @abstractmethod
-    def on_error(self, callback: Callable[[Exception], None]): ...
+    def on_error(self, callback: Callable[[Exception], None]) -> Any: ...
     @abstractmethod
     def is_streaming(self) -> bool: ...
 
@@ -38,5 +38,5 @@ class UsernamePasswordCredentialProvider(CredentialProvider):
     username: Incomplete
     password: Incomplete
     def __init__(self, username: str | None = None, password: str | None = None) -> None: ...
-    def get_credentials(self): ...
+    def get_credentials(self) -> Any: ...
     async def get_credentials_async(self) -> tuple[str] | tuple[str, str]: ...

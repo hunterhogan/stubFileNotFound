@@ -1,5 +1,6 @@
 from ._util import to_string as to_string
 from _typeshed import Incomplete
+from typing import Any
 
 class Suggestion:
     """
@@ -24,5 +25,5 @@ class SuggestionParser:
     _scoreidx: int
     _payloadidx: int
     _sugs: Incomplete
-    def __init__(self, with_scores: bool, with_payloads: bool, ret) -> None: ...
-    def __iter__(self): ...
+    def __init__(self, with_scores: bool, with_payloads: bool, ret: Any) -> None: ...
+    def __iter__(self) -> Any: ...

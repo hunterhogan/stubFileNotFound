@@ -11,6 +11,7 @@ from .suggestion import SuggestionParser as SuggestionParser
 from _typeshed import Incomplete
 from redis.client import NEVER_DECODE as NEVER_DECODE, Pipeline as Pipeline
 from redis.utils import deprecated_function as deprecated_function
+from typing import Any
 
 NUMERIC: str
 CREATE_CMD: str
@@ -56,19 +57,19 @@ WITHPAYLOADS: str
 
 class SearchCommands:
     """Search commands."""
-    def _parse_results(self, cmd, res, **kwargs): ...
-    def _parse_info(self, res, **kwargs): ...
-    def _parse_search(self, res, **kwargs): ...
-    def _parse_aggregate(self, res, **kwargs): ...
-    def _parse_profile(self, res, **kwargs): ...
-    def _parse_spellcheck(self, res, **kwargs): ...
-    def _parse_config_get(self, res, **kwargs): ...
-    def _parse_syndump(self, res, **kwargs): ...
-    def batch_indexer(self, chunk_size: int = 100):
+    def _parse_results(self, cmd: Any, res: Any, **kwargs: Any) -> Any: ...
+    def _parse_info(self, res: Any, **kwargs: Any) -> Any: ...
+    def _parse_search(self, res: Any, **kwargs: Any) -> Any: ...
+    def _parse_aggregate(self, res: Any, **kwargs: Any) -> Any: ...
+    def _parse_profile(self, res: Any, **kwargs: Any) -> Any: ...
+    def _parse_spellcheck(self, res: Any, **kwargs: Any) -> Any: ...
+    def _parse_config_get(self, res: Any, **kwargs: Any) -> Any: ...
+    def _parse_syndump(self, res: Any, **kwargs: Any) -> Any: ...
+    def batch_indexer(self, chunk_size: int = 100) -> Any:
         """
         Create a new batch indexer from the client with a given chunk size
         """
-    def create_index(self, fields: list[Field], no_term_offsets: bool = False, no_field_flags: bool = False, stopwords: list[str] | None = None, definition: IndexDefinition | None = None, max_text_fields: bool = False, temporary: Incomplete | None = None, no_highlight: bool = False, no_term_frequencies: bool = False, skip_initial_scan: bool = False):
+    def create_index(self, fields: list[Field], no_term_offsets: bool = False, no_field_flags: bool = False, stopwords: list[str] | None = None, definition: IndexDefinition | None = None, max_text_fields: bool = False, temporary: Incomplete | None = None, no_highlight: bool = False, no_term_frequencies: bool = False, skip_initial_scan: bool = False) -> Any:
         """
         Creates the search index. The index must not already exist.
 
@@ -95,7 +96,7 @@ class SearchCommands:
             skip_initial_scan: If true, the initial scan and indexing will be skipped.
 
         """
-    def alter_schema_add(self, fields: list[str]):
+    def alter_schema_add(self, fields: list[str]) -> Any:
         """
         Alter the existing search index by adding new fields. The index
         must already exist.
@@ -106,7 +107,7 @@ class SearchCommands:
 
         For more information see `FT.ALTER <https://redis.io/commands/ft.alter>`_.
         """
-    def dropindex(self, delete_documents: bool = False):
+    def dropindex(self, delete_documents: bool = False) -> Any:
         """
         Drop the index if it exists.
         Replaced `drop_index` in RediSearch 2.0.
@@ -118,15 +119,15 @@ class SearchCommands:
 
         For more information see `FT.DROPINDEX <https://redis.io/commands/ft.dropindex>`_.
         """
-    def _add_document(self, doc_id, conn: Incomplete | None = None, nosave: bool = False, score: float = 1.0, payload: Incomplete | None = None, replace: bool = False, partial: bool = False, language: Incomplete | None = None, no_create: bool = False, **fields):
+    def _add_document(self, doc_id: Any, conn: Incomplete | None = None, nosave: bool = False, score: float = 1.0, payload: Incomplete | None = None, replace: bool = False, partial: bool = False, language: Incomplete | None = None, no_create: bool = False, **fields: Any) -> Any:
         """
         Internal add_document used for both batch and single doc indexing
         """
-    def _add_document_hash(self, doc_id, conn: Incomplete | None = None, score: float = 1.0, language: Incomplete | None = None, replace: bool = False):
+    def _add_document_hash(self, doc_id: Any, conn: Incomplete | None = None, score: float = 1.0, language: Incomplete | None = None, replace: bool = False) -> Any:
         """
         Internal add_document_hash used for both batch and single doc indexing
         """
-    def add_document(self, doc_id: str, nosave: bool = False, score: float = 1.0, payload: bool = None, replace: bool = False, partial: bool = False, language: str | None = None, no_create: str = False, **fields: list[str]):
+    def add_document(self, doc_id: str, nosave: bool = False, score: float = 1.0, payload: bool = None, replace: bool = False, partial: bool = False, language: str | None = None, no_create: str = False, **fields: list[str]) -> Any:
         '''
         Add a single document to the index.
 
@@ -155,7 +156,7 @@ class SearchCommands:
                     and/or indexed.
                     NOTE: Geo points shoule be encoded as strings of "lon,lat"
         '''
-    def add_document_hash(self, doc_id, score: float = 1.0, language: Incomplete | None = None, replace: bool = False):
+    def add_document_hash(self, doc_id: Any, score: float = 1.0, language: Incomplete | None = None, replace: bool = False) -> Any:
         """
         Add a hash document to the index.
 
@@ -168,7 +169,7 @@ class SearchCommands:
                       perform an update and reindex the document
         - **language**: Specify the language used for document tokenization.
         """
-    def delete_document(self, doc_id, conn: Incomplete | None = None, delete_actual_document: bool = False):
+    def delete_document(self, doc_id: Any, conn: Incomplete | None = None, delete_actual_document: bool = False) -> Any:
         """
         Delete a document from index
         Returns 1 if the document was deleted, 0 if not
@@ -178,11 +179,11 @@ class SearchCommands:
         - **delete_actual_document**: if set to True, RediSearch also delete
                                       the actual document if it is in the index
         """
-    def load_document(self, id):
+    def load_document(self, id: Any) -> Any:
         """
         Load a single document by id
         """
-    def get(self, *ids):
+    def get(self, *ids: Any) -> Any:
         """
         Returns the full contents of multiple documents.
 
@@ -191,16 +192,16 @@ class SearchCommands:
         - **ids**: the ids of the saved documents.
 
         """
-    def info(self):
+    def info(self) -> Any:
         """
         Get info an stats about the the current index, including the number of
         documents, memory consumption, etc
 
         For more information see `FT.INFO <https://redis.io/commands/ft.info>`_.
         """
-    def get_params_args(self, query_params: dict[str, str | int | float | bytes] | None): ...
-    def _mk_query_args(self, query, query_params: dict[str, str | int | float | bytes] | None): ...
-    def search(self, query: str | Query, query_params: dict[str, str | int | float | bytes] | None = None):
+    def get_params_args(self, query_params: dict[str, str | int | float | bytes] | None) -> Any: ...
+    def _mk_query_args(self, query: Any, query_params: dict[str, str | int | float | bytes] | None) -> Any: ...
+    def search(self, query: str | Query, query_params: dict[str, str | int | float | bytes] | None = None) -> Any:
         """
         Search the index for a given query, and return a result of documents
 
@@ -212,13 +213,13 @@ class SearchCommands:
 
         For more information see `FT.SEARCH <https://redis.io/commands/ft.search>`_.
         """
-    def explain(self, query: str | Query, query_params: dict[str, str | int | float] = None):
+    def explain(self, query: str | Query, query_params: dict[str, str | int | float] = None) -> Any:
         """Returns the execution plan for a complex query.
 
         For more information see `FT.EXPLAIN <https://redis.io/commands/ft.explain>`_.
         """
-    def explain_cli(self, query: str | Query): ...
-    def aggregate(self, query: str | Query, query_params: dict[str, str | int | float] = None):
+    def explain_cli(self, query: str | Query) -> Any: ...
+    def aggregate(self, query: str | Query, query_params: dict[str, str | int | float] = None) -> Any:
         """
         Issue an aggregation query.
 
@@ -231,8 +232,8 @@ class SearchCommands:
 
         For more information see `FT.AGGREGATE <https://redis.io/commands/ft.aggregate>`_.
         """
-    def _get_aggregate_result(self, raw: list, query: str | Query | AggregateRequest, has_cursor: bool): ...
-    def profile(self, query: Query | AggregateRequest, limited: bool = False, query_params: dict[str, str | int | float] | None = None):
+    def _get_aggregate_result(self, raw: list[Any], query: str | Query | AggregateRequest, has_cursor: bool) -> Any: ...
+    def profile(self, query: Query | AggregateRequest, limited: bool = False, query_params: dict[str, str | int | float] | None = None) -> Any:
         """
         Performs a search or aggregate command and collects performance
         information.
@@ -245,7 +246,7 @@ class SearchCommands:
         Each parameter has a name and a value.
 
         """
-    def spellcheck(self, query, distance: Incomplete | None = None, include: Incomplete | None = None, exclude: Incomplete | None = None):
+    def spellcheck(self, query: Any, distance: Incomplete | None = None, include: Incomplete | None = None, exclude: Incomplete | None = None) -> Any:
         """
         Issue a spellcheck query
 
@@ -259,7 +260,7 @@ class SearchCommands:
 
         For more information see `FT.SPELLCHECK <https://redis.io/commands/ft.spellcheck>`_.
         """
-    def dict_add(self, name: str, *terms: list[str]):
+    def dict_add(self, name: str, *terms: list[str]) -> Any:
         """Adds terms to a dictionary.
 
         ### Parameters
@@ -269,7 +270,7 @@ class SearchCommands:
 
         For more information see `FT.DICTADD <https://redis.io/commands/ft.dictadd>`_.
         """
-    def dict_del(self, name: str, *terms: list[str]):
+    def dict_del(self, name: str, *terms: list[str]) -> Any:
         """Deletes terms from a dictionary.
 
         ### Parameters
@@ -279,7 +280,7 @@ class SearchCommands:
 
         For more information see `FT.DICTDEL <https://redis.io/commands/ft.dictdel>`_.
         """
-    def dict_dump(self, name: str):
+    def dict_dump(self, name: str) -> Any:
         """Dumps all terms in the given dictionary.
 
         ### Parameters
@@ -307,7 +308,7 @@ class SearchCommands:
 
         For more information see `FT.CONFIG GET <https://redis.io/commands/ft.config-get>`_.
         """
-    def tagvals(self, tagfield: str):
+    def tagvals(self, tagfield: str) -> Any:
         """
         Return a list of all possible tag values
 
@@ -317,7 +318,7 @@ class SearchCommands:
 
         For more information see `FT.TAGVALS <https://redis.io/commands/ft.tagvals>`_.
         """
-    def aliasadd(self, alias: str):
+    def aliasadd(self, alias: str) -> Any:
         """
         Alias a search index - will fail if alias already exists
 
@@ -327,7 +328,7 @@ class SearchCommands:
 
         For more information see `FT.ALIASADD <https://redis.io/commands/ft.aliasadd>`_.
         """
-    def aliasupdate(self, alias: str):
+    def aliasupdate(self, alias: str) -> Any:
         """
         Updates an alias - will fail if alias does not already exist
 
@@ -337,7 +338,7 @@ class SearchCommands:
 
         For more information see `FT.ALIASUPDATE <https://redis.io/commands/ft.aliasupdate>`_.
         """
-    def aliasdel(self, alias: str):
+    def aliasdel(self, alias: str) -> Any:
         """
         Removes an alias to a search index
 
@@ -347,7 +348,7 @@ class SearchCommands:
 
         For more information see `FT.ALIASDEL <https://redis.io/commands/ft.aliasdel>`_.
         """
-    def sugadd(self, key, *suggestions, **kwargs):
+    def sugadd(self, key: Any, *suggestions: Any, **kwargs: Any) -> Any:
         '''
         Add suggestion terms to the AutoCompleter engine. Each suggestion has
         a score and string.
@@ -401,7 +402,7 @@ class SearchCommands:
 
         For more information see `FT.SUGGET <https://redis.io/commands/ft.sugget>`_.
         """
-    def synupdate(self, groupid: str, skipinitial: bool = False, *terms: list[str]):
+    def synupdate(self, groupid: str, skipinitial: bool = False, *terms: list[str]) -> Any:
         """
         Updates a synonym group.
         The command is used to create or update a synonym group with
@@ -419,7 +420,7 @@ class SearchCommands:
 
         For more information see `FT.SYNUPDATE <https://redis.io/commands/ft.synupdate>`_.
         """
-    def syndump(self):
+    def syndump(self) -> Any:
         """
         Dumps the contents of a synonym group.
 
@@ -430,14 +431,14 @@ class SearchCommands:
         """
 
 class AsyncSearchCommands(SearchCommands):
-    async def info(self):
+    async def info(self) -> Any:
         """
         Get info an stats about the the current index, including the number of
         documents, memory consumption, etc
 
         For more information see `FT.INFO <https://redis.io/commands/ft.info>`_.
         """
-    async def search(self, query: str | Query, query_params: dict[str, str | int | float] = None):
+    async def search(self, query: str | Query, query_params: dict[str, str | int | float] = None) -> Any:
         """
         Search the index for a given query, and return a result of documents
 
@@ -449,7 +450,7 @@ class AsyncSearchCommands(SearchCommands):
 
         For more information see `FT.SEARCH <https://redis.io/commands/ft.search>`_.
         """
-    async def aggregate(self, query: str | Query, query_params: dict[str, str | int | float] = None):
+    async def aggregate(self, query: str | Query, query_params: dict[str, str | int | float] = None) -> Any:
         """
         Issue an aggregation query.
 
@@ -462,7 +463,7 @@ class AsyncSearchCommands(SearchCommands):
 
         For more information see `FT.AGGREGATE <https://redis.io/commands/ft.aggregate>`_.
         """
-    async def spellcheck(self, query, distance: Incomplete | None = None, include: Incomplete | None = None, exclude: Incomplete | None = None):
+    async def spellcheck(self, query: Any, distance: Incomplete | None = None, include: Incomplete | None = None, exclude: Incomplete | None = None) -> Any:
         """
         Issue a spellcheck query
 
@@ -495,11 +496,11 @@ class AsyncSearchCommands(SearchCommands):
 
         For more information see `FT.CONFIG GET <https://redis.io/commands/ft.config-get>`_.
         """
-    async def load_document(self, id):
+    async def load_document(self, id: Any) -> Any:
         """
         Load a single document by id
         """
-    async def sugadd(self, key, *suggestions, **kwargs):
+    async def sugadd(self, key: Any, *suggestions: Any, **kwargs: Any) -> Any:
         '''
         Add suggestion terms to the AutoCompleter engine. Each suggestion has
         a score and string.

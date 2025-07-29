@@ -1,13 +1,22 @@
-import abc
-from .core import ACLCommands as ACLCommands, AsyncACLCommands as AsyncACLCommands, AsyncDataAccessCommands as AsyncDataAccessCommands, AsyncFunctionCommands as AsyncFunctionCommands, AsyncManagementCommands as AsyncManagementCommands, AsyncModuleCommands as AsyncModuleCommands, AsyncScriptCommands as AsyncScriptCommands, DataAccessCommands as DataAccessCommands, FunctionCommands as FunctionCommands, ManagementCommands as ManagementCommands, ModuleCommands as ModuleCommands, PubSubCommands as PubSubCommands, ScriptCommands as ScriptCommands
+from .core import (
+	ACLCommands as ACLCommands, AsyncACLCommands as AsyncACLCommands, AsyncDataAccessCommands as AsyncDataAccessCommands,
+	AsyncFunctionCommands as AsyncFunctionCommands, AsyncManagementCommands as AsyncManagementCommands,
+	AsyncModuleCommands as AsyncModuleCommands, AsyncScriptCommands as AsyncScriptCommands,
+	DataAccessCommands as DataAccessCommands, FunctionCommands as FunctionCommands,
+	ManagementCommands as ManagementCommands, ModuleCommands as ModuleCommands, PubSubCommands as PubSubCommands,
+	ScriptCommands as ScriptCommands)
 from .helpers import list_or_args as list_or_args
-from .redismodules import AsyncRedisModuleCommands as AsyncRedisModuleCommands, RedisModuleCommands as RedisModuleCommands
+from .redismodules import (
+	AsyncRedisModuleCommands as AsyncRedisModuleCommands, RedisModuleCommands as RedisModuleCommands)
 from _typeshed import Incomplete
 from redis.asyncio.cluster import TargetNodesT as TargetNodesT
 from redis.crc import key_slot as key_slot
 from redis.exceptions import RedisClusterException as RedisClusterException, RedisError as RedisError
-from redis.typing import AnyKeyT as AnyKeyT, ClusterCommandsProtocol as ClusterCommandsProtocol, EncodableT as EncodableT, KeyT as KeyT, KeysT as KeysT, PatternT as PatternT, ResponseT as ResponseT
+from redis.typing import (
+	AnyKeyT as AnyKeyT, ClusterCommandsProtocol as ClusterCommandsProtocol, EncodableT as EncodableT, KeysT as KeysT,
+	KeyT as KeyT, PatternT as PatternT, ResponseT as ResponseT)
 from typing import Any, AsyncIterator, Iterable, Iterator, Literal, Mapping, NoReturn
+import abc
 
 READ_COMMANDS: Incomplete
 
@@ -133,19 +142,19 @@ class ClusterManagementCommands(ManagementCommands, metaclass=abc.ABCMeta):
     The class inherits from Redis's core ManagementCommands class and do the
     required adjustments to work with cluster mode
     """
-    def slaveof(self, *args, **kwargs) -> NoReturn:
+    def slaveof(self, *args: Any, **kwargs: Any) -> NoReturn:
         """
         Make the server a replica of another instance, or promote it as master.
 
         For more information see https://redis.io/commands/slaveof
         """
-    def replicaof(self, *args, **kwargs) -> NoReturn:
+    def replicaof(self, *args: Any, **kwargs: Any) -> NoReturn:
         """
         Make the server a replica of another instance, or promote it as master.
 
         For more information see https://redis.io/commands/replicaof
         """
-    def swapdb(self, *args, **kwargs) -> NoReturn:
+    def swapdb(self, *args: Any, **kwargs: Any) -> NoReturn:
         """
         Swaps two Redis databases.
 
@@ -314,13 +323,13 @@ class ClusterManagementCommands(ManagementCommands, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/cluster-slots
         """
-    def cluster_shards(self, target_nodes: Incomplete | None = None):
+    def cluster_shards(self, target_nodes: Incomplete | None = None) -> Any:
         """
         Returns details about the shards of the cluster.
 
         For more information see https://redis.io/commands/cluster-shards
         """
-    def cluster_myshardid(self, target_nodes: Incomplete | None = None):
+    def cluster_myshardid(self, target_nodes: Incomplete | None = None) -> Any:
         """
         Returns the shard ID of the node.
 
@@ -380,7 +389,7 @@ class ClusterDataAccessCommands(DataAccessCommands, metaclass=abc.ABCMeta):
     The class inherits from Redis's core DataAccessCommand class and do the
     required adjustments to work with cluster mode
     """
-    def stralgo(self, algo: Literal['LCS'], value1: KeyT, value2: KeyT, specific_argument: Literal['strings'] | Literal['keys'] = 'strings', len: bool = False, idx: bool = False, minmatchlen: int | None = None, withmatchlen: bool = False, **kwargs) -> ResponseT:
+    def stralgo(self, algo: Literal['LCS'], value1: KeyT, value2: KeyT, specific_argument: Literal['strings'] | Literal['keys'] = 'strings', len: bool = False, idx: bool = False, minmatchlen: int | None = None, withmatchlen: bool = False, **kwargs: Any) -> ResponseT:
         """
         Implements complex algorithms that operate on strings.
         Right now the only algorithm implemented is the LCS algorithm
@@ -400,7 +409,7 @@ class ClusterDataAccessCommands(DataAccessCommands, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/stralgo
         """
-    def scan_iter(self, match: PatternT | None = None, count: int | None = None, _type: str | None = None, **kwargs) -> Iterator: ...
+    def scan_iter(self, match: PatternT | None = None, count: int | None = None, _type: str | None = None, **kwargs: Any) -> Iterator[Any]: ...
 
 class AsyncClusterDataAccessCommands(ClusterDataAccessCommands, AsyncDataAccessCommands, metaclass=abc.ABCMeta):
     """
@@ -409,7 +418,7 @@ class AsyncClusterDataAccessCommands(ClusterDataAccessCommands, AsyncDataAccessC
     The class inherits from Redis's core DataAccessCommand class and do the
     required adjustments to work with cluster mode
     """
-    async def scan_iter(self, match: PatternT | None = None, count: int | None = None, _type: str | None = None, **kwargs) -> AsyncIterator: ...
+    async def scan_iter(self, match: PatternT | None = None, count: int | None = None, _type: str | None = None, **kwargs: Any) -> AsyncIterator[Any]: ...
 
 class RedisClusterCommands(ClusterMultiKeyCommands, ClusterManagementCommands, ACLCommands, PubSubCommands, ClusterDataAccessCommands, ScriptCommands, FunctionCommands, ModuleCommands, RedisModuleCommands, metaclass=abc.ABCMeta):
     """

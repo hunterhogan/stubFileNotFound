@@ -1,6 +1,7 @@
 from ..helpers import nativestr as nativestr
 from .utils import list_to_dict as list_to_dict
 from _typeshed import Incomplete
+from typing import Any
 
 class TSInfo:
     """
@@ -23,7 +24,7 @@ class TSInfo:
     source_key: Incomplete
     last_timestamp: Incomplete
     first_timestamp: Incomplete
-    def __init__(self, args) -> None:
+    def __init__(self, args: Any) -> None:
         """
         Hold information and statistics on the time-series.
 
@@ -59,5 +60,5 @@ class TSInfo:
         Can read more about on
         https://redis.io/docs/latest/develop/data-types/timeseries/configuration/#duplicate_policy
         """
-    def get(self, item): ...
-    def __getitem__(self, item): ...
+    def get(self, item: Any) -> Any: ...
+    def __getitem__(self, item: Any) -> Any: ...

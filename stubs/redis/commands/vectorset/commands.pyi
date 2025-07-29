@@ -1,10 +1,10 @@
-import abc
 from enum import Enum
 from redis.client import NEVER_DECODE as NEVER_DECODE
 from redis.commands.helpers import get_protocol_version as get_protocol_version
 from redis.exceptions import DataError as DataError
 from redis.typing import CommandsProtocol as CommandsProtocol, EncodableT as EncodableT, KeyT as KeyT, Number as Number
-from typing import Awaitable
+from typing import Any, Awaitable
+import abc
 
 VADD_CMD: str
 VSIM_CMD: str
@@ -33,7 +33,7 @@ class CallbacksOptions(Enum):
 
 class VectorSetCommands(CommandsProtocol, metaclass=abc.ABCMeta):
     """Redis VectorSet commands"""
-    def vadd(self, key: KeyT, vector: list[float] | bytes, element: str, reduce_dim: int | None = None, cas: bool | None = False, quantization: QuantizationOptions | None = None, ef: Number | None = None, attributes: dict | str | None = None, numlinks: int | None = None) -> Awaitable[int] | int:
+    def vadd(self, key: KeyT, vector: list[float] | bytes, element: str, reduce_dim: int | None = None, cas: bool | None = False, quantization: QuantizationOptions | None = None, ef: Number | None = None, attributes: dict[Any, Any] | str | None = None, numlinks: int | None = None) -> Awaitable[int] | int:
         """
         Add vector ``vector`` for element ``element`` to a vector set ``key``.
 
@@ -114,7 +114,7 @@ class VectorSetCommands(CommandsProtocol, metaclass=abc.ABCMeta):
         Get the approximated vector of an element ``element`` from vector set ``key``.
 
         ``raw`` is a boolean flag that indicates whether to return the
-                interal representation used by the vector.
+                internal representation used by the vector.
 
 
         For more information see https://redis.io/commands/vembed
@@ -131,22 +131,22 @@ class VectorSetCommands(CommandsProtocol, metaclass=abc.ABCMeta):
 
         For more information see https://redis.io/commands/vlinks
         """
-    def vinfo(self, key: KeyT) -> Awaitable[dict] | dict:
+    def vinfo(self, key: KeyT) -> Awaitable[dict[Any, Any]] | dict[Any, Any]:
         """
         Get information about a vector set.
 
         For more information see https://redis.io/commands/vinfo
         """
-    def vsetattr(self, key: KeyT, element: str, attributes: dict | str | None = None) -> Awaitable[int] | int:
+    def vsetattr(self, key: KeyT, element: str, attributes: dict[Any, Any] | str | None = None) -> Awaitable[int] | int:
         """
         Associate or remove JSON attributes ``attributes`` of element ``element``
         for vector set ``key``.
 
         For more information see https://redis.io/commands/vsetattr
         """
-    def vgetattr(self, key: KeyT, element: str) -> Awaitable[dict] | None | dict | None:
+    def vgetattr(self, key: KeyT, element: str) -> Awaitable[dict[Any, Any]] | None | dict[Any, Any] | None:
         """
-        Retrieve the JSON attributes of an element ``elemet`` for vector set ``key``.
+        Retrieve the JSON attributes of an element ``element`` for vector set ``key``.
 
         If the element does not exist, or if the vector set does not exist, None is
         returned.

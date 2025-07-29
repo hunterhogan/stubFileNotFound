@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from redis.exceptions import LockError as LockError, LockNotOwnedError as LockNotOwnedError
 from redis.typing import Number as Number
 from types import TracebackType
+from typing import Any
 
 logger: Incomplete
 
@@ -28,7 +29,7 @@ class Lock:
     thread_local: Incomplete
     raise_on_release_error: Incomplete
     local: Incomplete
-    def __init__(self, redis, name: str, timeout: Number | None = None, sleep: Number = 0.1, blocking: bool = True, blocking_timeout: Number | None = None, thread_local: bool = True, raise_on_release_error: bool = True) -> None:
+    def __init__(self, redis: Any, name: str, timeout: Number | None = None, sleep: Number = 0.1, blocking: bool = True, blocking_timeout: Number | None = None, thread_local: bool = True, raise_on_release_error: bool = True) -> None:
         '''
         Create a new Lock instance named ``name`` using the Redis client
         supplied by ``redis``.
@@ -87,7 +88,7 @@ class Lock:
     def register_scripts(self) -> None: ...
     def __enter__(self) -> Lock: ...
     def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None) -> None: ...
-    def acquire(self, sleep: Number | None = None, blocking: bool | None = None, blocking_timeout: Number | None = None, token: str | None = None):
+    def acquire(self, sleep: Number | None = None, blocking: bool | None = None, blocking_timeout: Number | None = None, token: str | None = None) -> Any:
         """
         Use Redis to hold a shared, distributed lock named ``name``.
         Returns True once the lock is acquired.

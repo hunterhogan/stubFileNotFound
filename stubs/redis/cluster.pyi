@@ -1,4 +1,3 @@
-import abc
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from collections.abc import Generator
@@ -6,29 +5,45 @@ from enum import Enum
 from redis._parsers import CommandsParser as CommandsParser, Encoder as Encoder
 from redis._parsers.helpers import parse_scan as parse_scan
 from redis.backoff import ExponentialWithJitterBackoff as ExponentialWithJitterBackoff, NoBackoff as NoBackoff
-from redis.cache import CacheConfig as CacheConfig, CacheFactory as CacheFactory, CacheFactoryInterface as CacheFactoryInterface, CacheInterface as CacheInterface
-from redis.client import CaseInsensitiveDict as CaseInsensitiveDict, EMPTY_RESPONSE as EMPTY_RESPONSE, PubSub as PubSub, Redis as Redis
+from redis.cache import (
+	CacheConfig as CacheConfig, CacheFactory as CacheFactory, CacheFactoryInterface as CacheFactoryInterface,
+	CacheInterface as CacheInterface)
+from redis.client import (
+	CaseInsensitiveDict as CaseInsensitiveDict, EMPTY_RESPONSE as EMPTY_RESPONSE, PubSub as PubSub, Redis as Redis)
 from redis.commands import READ_COMMANDS as READ_COMMANDS, RedisClusterCommands as RedisClusterCommands
 from redis.commands.helpers import list_or_args as list_or_args
 from redis.connection import Connection as Connection, ConnectionPool as ConnectionPool, parse_url as parse_url
-from redis.crc import REDIS_CLUSTER_HASH_SLOTS as REDIS_CLUSTER_HASH_SLOTS, key_slot as key_slot
-from redis.event import AfterPooledConnectionsInstantiationEvent as AfterPooledConnectionsInstantiationEvent, AfterPubSubConnectionInstantiationEvent as AfterPubSubConnectionInstantiationEvent, ClientType as ClientType, EventDispatcher as EventDispatcher
-from redis.exceptions import AskError as AskError, AuthenticationError as AuthenticationError, ClusterDownError as ClusterDownError, ClusterError as ClusterError, ConnectionError as ConnectionError, CrossSlotTransactionError as CrossSlotTransactionError, DataError as DataError, ExecAbortError as ExecAbortError, InvalidPipelineStack as InvalidPipelineStack, MovedError as MovedError, RedisClusterException as RedisClusterException, RedisError as RedisError, ResponseError as ResponseError, SlotNotCoveredError as SlotNotCoveredError, TimeoutError as TimeoutError, TryAgainError as TryAgainError, WatchError as WatchError
+from redis.crc import key_slot as key_slot, REDIS_CLUSTER_HASH_SLOTS as REDIS_CLUSTER_HASH_SLOTS
+from redis.event import (
+	AfterPooledConnectionsInstantiationEvent as AfterPooledConnectionsInstantiationEvent,
+	AfterPubSubConnectionInstantiationEvent as AfterPubSubConnectionInstantiationEvent, ClientType as ClientType,
+	EventDispatcher as EventDispatcher)
+from redis.exceptions import (
+	AskError as AskError, AuthenticationError as AuthenticationError, ClusterDownError as ClusterDownError,
+	ClusterError as ClusterError, ConnectionError as ConnectionError,
+	CrossSlotTransactionError as CrossSlotTransactionError, DataError as DataError, ExecAbortError as ExecAbortError,
+	InvalidPipelineStack as InvalidPipelineStack, MovedError as MovedError, RedisClusterException as RedisClusterException,
+	RedisError as RedisError, ResponseError as ResponseError, SlotNotCoveredError as SlotNotCoveredError,
+	TimeoutError as TimeoutError, TryAgainError as TryAgainError, WatchError as WatchError)
 from redis.lock import Lock as Lock
 from redis.retry import Retry as Retry
-from redis.utils import deprecated_args as deprecated_args, dict_merge as dict_merge, list_keys_to_dict as list_keys_to_dict, merge_result as merge_result, safe_str as safe_str, str_if_bytes as str_if_bytes, truncate_text as truncate_text
+from redis.utils import (
+	deprecated_args as deprecated_args, dict_merge as dict_merge, list_keys_to_dict as list_keys_to_dict,
+	merge_result as merge_result, safe_str as safe_str, str_if_bytes as str_if_bytes, truncate_text as truncate_text)
 from typing import Any, Callable
+import abc
+import types
 
 def get_node_name(host: str, port: str | int) -> str: ...
-def get_connection(redis_node: Redis, *args, **options) -> Connection: ...
-def parse_scan_result(command, res, **options): ...
-def parse_pubsub_numsub(command, res, **options): ...
+def get_connection(redis_node: Redis, *args: Any, **options: Any) -> Connection: ...
+def parse_scan_result(command: Any, res: Any, **options: Any) -> Any: ...
+def parse_pubsub_numsub(command: Any, res: Any, **options: Any) -> Any: ...
 def parse_cluster_slots(resp: Any, **options: Any) -> dict[tuple[int, int], dict[str, Any]]: ...
-def parse_cluster_shards(resp, **options):
+def parse_cluster_shards(resp: Any, **options: Any) -> Any:
     """
     Parse CLUSTER SHARDS response.
     """
-def parse_cluster_myshardid(resp, **options):
+def parse_cluster_myshardid(resp: Any, **options: Any) -> Any:
     """
     Parse CLUSTER MYSHARDID response.
     """
@@ -39,7 +54,7 @@ SLOT_ID: str
 REDIS_ALLOWED_KEYS: Incomplete
 KWARGS_DISABLED_KEYS: Incomplete
 
-def cleanup_kwargs(**kwargs):
+def cleanup_kwargs(**kwargs: Any) -> Any:
     """
     Remove unsupported or disabled keys from kwargs
     """
@@ -57,7 +72,7 @@ class AbstractRedisCluster:
     CLUSTER_COMMANDS_RESPONSE_CALLBACKS: Incomplete
     RESULT_CALLBACKS: Incomplete
     ERRORS_ALLOW_RETRY: Incomplete
-    def replace_default_node(self, target_node: ClusterNode = None) -> None:
+    def replace_default_node(self, target_node: ClusterNode | None = None) -> None:
         """Replace the default cluster node.
         A random cluster node will be chosen if target_node isn't passed, and primaries
         will be prioritized. The default node will not be changed if there are no other
@@ -70,7 +85,7 @@ class AbstractRedisCluster:
 
 class RedisCluster(AbstractRedisCluster, RedisClusterCommands):
     @classmethod
-    def from_url(cls, url, **kwargs):
+    def from_url(cls, url: Any, **kwargs: Any) -> Any:
         '''
         Return a Redis client object configured from the given URL
 
@@ -126,7 +141,7 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands):
     result_callbacks: Incomplete
     commands_parser: Incomplete
     _lock: Incomplete
-    def __init__(self, host: str | None = None, port: int = 6379, startup_nodes: list['ClusterNode'] | None = None, cluster_error_retry_attempts: int = 3, retry: Retry | None = None, require_full_coverage: bool = True, reinitialize_steps: int = 5, read_from_replicas: bool = False, load_balancing_strategy: LoadBalancingStrategy | None = None, dynamic_startup_nodes: bool = True, url: str | None = None, address_remap: Callable[[tuple[str, int]], tuple[str, int]] | None = None, cache: CacheInterface | None = None, cache_config: CacheConfig | None = None, event_dispatcher: EventDispatcher | None = None, **kwargs) -> None:
+    def __init__(self, host: str | None = None, port: int = 6379, startup_nodes: list['ClusterNode'] | None = None, cluster_error_retry_attempts: int = 3, retry: Retry | None = None, require_full_coverage: bool = True, reinitialize_steps: int = 5, read_from_replicas: bool = False, load_balancing_strategy: LoadBalancingStrategy | None = None, dynamic_startup_nodes: bool = True, url: str | None = None, address_remap: Callable[[tuple[str, int]], tuple[str, int]] | None = None, cache: CacheInterface | None = None, cache_config: CacheConfig | None = None, event_dispatcher: EventDispatcher | None = None, **kwargs: Any) -> None:
         """
          Initialize a new RedisCluster client.
 
@@ -204,39 +219,39 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands):
              RedisClusterException:
                  - db (Redis do not support database SELECT in cluster mode)
         """
-    def __enter__(self): ...
+    def __enter__(self) -> Any: ...
     def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: types.TracebackType | None) -> None: ...
     def __del__(self) -> None: ...
     def disconnect_connection_pools(self) -> None: ...
-    def on_connect(self, connection) -> None:
+    def on_connect(self, connection: Any) -> None:
         """
         Initialize the connection, authenticate and select a database and send
          READONLY if it is set during object initialization.
         """
     def get_redis_connection(self, node: ClusterNode) -> Redis: ...
-    def get_node(self, host: Incomplete | None = None, port: Incomplete | None = None, node_name: Incomplete | None = None): ...
-    def get_primaries(self): ...
-    def get_replicas(self): ...
-    def get_random_node(self): ...
-    def get_nodes(self): ...
-    def get_node_from_key(self, key, replica: bool = False):
+    def get_node(self, host: Incomplete | None = None, port: Incomplete | None = None, node_name: Incomplete | None = None) -> Any: ...
+    def get_primaries(self) -> Any: ...
+    def get_replicas(self) -> Any: ...
+    def get_random_node(self) -> Any: ...
+    def get_nodes(self) -> Any: ...
+    def get_node_from_key(self, key: Any, replica: bool = False) -> Any:
         """
         Get the node that holds the key's slot.
         If replica set to True but the slot doesn't have any replicas, None is
         returned.
         """
-    def get_default_node(self):
+    def get_default_node(self) -> Any:
         """
         Get the cluster's default node
         """
-    def set_default_node(self, node):
+    def set_default_node(self, node: Any) -> Any:
         """
         Set the default node of the cluster.
         :param node: 'ClusterNode'
         :return True if the default node was set, else False
         """
     def set_retry(self, retry: Retry) -> None: ...
-    def monitor(self, target_node: Incomplete | None = None):
+    def monitor(self, target_node: Incomplete | None = None) -> Any:
         """
         Returns a Monitor object for the specified target node.
         The default cluster node will be selected if no target node was
@@ -245,12 +260,12 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands):
         next_command() method returns one command from monitor
         listen() method yields commands from monitor.
         """
-    def pubsub(self, node: Incomplete | None = None, host: Incomplete | None = None, port: Incomplete | None = None, **kwargs):
+    def pubsub(self, node: Incomplete | None = None, host: Incomplete | None = None, port: Incomplete | None = None, **kwargs: Any) -> Any:
         """
         Allows passing a ClusterNode, or host&port, to get a pubsub instance
         connected to the specified node
         """
-    def pipeline(self, transaction: Incomplete | None = None, shard_hint: Incomplete | None = None):
+    def pipeline(self, transaction: Incomplete | None = None, shard_hint: Incomplete | None = None) -> Any:
         """
         Cluster impl:
             Pipelines do not work in cluster mode the same way they
@@ -259,7 +274,7 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands):
             command will be called directly when used and
             when calling execute() will only return the result stack.
         """
-    def lock(self, name, timeout: Incomplete | None = None, sleep: float = 0.1, blocking: bool = True, blocking_timeout: Incomplete | None = None, lock_class: Incomplete | None = None, thread_local: bool = True, raise_on_release_error: bool = True):
+    def lock(self, name: Any, timeout: Incomplete | None = None, sleep: float = 0.1, blocking: bool = True, blocking_timeout: Incomplete | None = None, lock_class: Incomplete | None = None, thread_local: bool = True, raise_on_release_error: bool = True) -> Any:
         '''
         Return a new Lock object using key ``name`` that mimics
         the behavior of threading.Lock.
@@ -317,16 +332,16 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands):
         the token set by the thread that acquired the lock. Our assumption
         is that these cases aren\'t common and as such default to using
         thread local storage.'''
-    def set_response_callback(self, command, callback) -> None:
+    def set_response_callback(self, command: Any, callback: Any) -> None:
         """Set a custom Response Callback"""
-    def _determine_nodes(self, *args, **kwargs) -> list['ClusterNode']: ...
-    def _should_reinitialized(self): ...
-    def keyslot(self, key):
+    def _determine_nodes(self, *args: Any, **kwargs: Any) -> list['ClusterNode']: ...
+    def _should_reinitialized(self) -> Any: ...
+    def keyslot(self, key: Any) -> Any:
         """
         Calculate keyslot for a given key.
         See Keys distribution model in https://redis.io/topics/cluster-spec
         """
-    def _get_command_keys(self, *args):
+    def _get_command_keys(self, *args: Any) -> Any:
         """
         Get the keys in the command. If the command has no keys in in, None is
         returned.
@@ -338,7 +353,7 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands):
 
         So, don't use this function with EVAL or EVALSHA.
         """
-    def determine_slot(self, *args) -> int:
+    def determine_slot(self, *args: Any) -> int:
         """
         Figure out what slot to use based on args.
 
@@ -346,18 +361,18 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands):
             determine what slots to map the command to; or, if the keys don't
             all map to the same key slot.
         """
-    def get_encoder(self):
+    def get_encoder(self) -> Any:
         """
         Get the connections' encoder
         """
-    def get_connection_kwargs(self):
+    def get_connection_kwargs(self) -> Any:
         """
         Get the connections' key-word arguments
         """
-    def _is_nodes_flag(self, target_nodes): ...
-    def _parse_target_nodes(self, target_nodes): ...
-    def execute_command(self, *args, **kwargs): ...
-    def _internal_execute_command(self, *args, **kwargs):
+    def _is_nodes_flag(self, target_nodes: Any) -> Any: ...
+    def _parse_target_nodes(self, target_nodes: Any) -> Any: ...
+    def execute_command(self, *args: Any, **kwargs: Any) -> Any: ...
+    def _internal_execute_command(self, *args: Any, **kwargs: Any) -> Any:
         '''
         Wrapper for ERRORS_ALLOW_RETRY error handling.
 
@@ -373,12 +388,12 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands):
             list<ClusterNode>
             dict<Any, ClusterNode>
         '''
-    def _execute_command(self, target_node, *args, **kwargs):
+    def _execute_command(self, target_node: Any, *args: Any, **kwargs: Any) -> Any:
         """
         Send a command to a node in the cluster
         """
     def close(self) -> None: ...
-    def _process_result(self, command, res, **kwargs):
+    def _process_result(self, command: Any, res: Any, **kwargs: Any) -> Any:
         """
         Process the result of the executed command.
         The function would return a dict or a single value.
@@ -389,7 +404,7 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands):
         `res` should be in the following format:
             Dict<node_name, command_result>
         """
-    def load_external_module(self, funcname, func) -> None:
+    def load_external_module(self, funcname: Any, func: Any) -> None:
         """
         This function can be used to add externally defined redis modules,
         and their namespaces to the redis client.
@@ -397,7 +412,7 @@ class RedisCluster(AbstractRedisCluster, RedisClusterCommands):
         ``funcname`` - A string containing the name of the function to create
         ``func`` - The function, being added to this class.
         """
-    def transaction(self, func, *watches, **kwargs):
+    def transaction(self, func: Any, *watches: Any, **kwargs: Any) -> Any:
         """
         Convenience method for executing the callable `func` as a transaction
         while watching all keys specified in `watches`. The 'func' callable
@@ -410,9 +425,9 @@ class ClusterNode:
     name: Incomplete
     server_type: Incomplete
     redis_connection: Incomplete
-    def __init__(self, host, port, server_type: Incomplete | None = None, redis_connection: Incomplete | None = None) -> None: ...
+    def __init__(self, host: Any, port: Any, server_type: Incomplete | None = None, redis_connection: Incomplete | None = None) -> None: ...
     def __repr__(self) -> str: ...
-    def __eq__(self, obj): ...
+    def __eq__(self, obj: Any) -> Any: ...
     def __del__(self) -> None: ...
 
 class LoadBalancingStrategy(Enum):
@@ -451,39 +466,39 @@ class NodesManager:
     _lock: Incomplete
     _event_dispatcher: Incomplete
     _credential_provider: Incomplete
-    def __init__(self, startup_nodes, from_url: bool = False, require_full_coverage: bool = False, lock: Incomplete | None = None, dynamic_startup_nodes: bool = True, connection_pool_class=..., address_remap: Callable[[tuple[str, int]], tuple[str, int]] | None = None, cache: CacheInterface | None = None, cache_config: CacheConfig | None = None, cache_factory: CacheFactoryInterface | None = None, event_dispatcher: EventDispatcher | None = None, **kwargs) -> None: ...
-    def get_node(self, host: Incomplete | None = None, port: Incomplete | None = None, node_name: Incomplete | None = None):
+    def __init__(self, startup_nodes: Any, from_url: bool = False, require_full_coverage: bool = False, lock: Incomplete | None = None, dynamic_startup_nodes: bool = True, connection_pool_class: Any=..., address_remap: Callable[[tuple[str, int]], tuple[str, int]] | None = None, cache: CacheInterface | None = None, cache_config: CacheConfig | None = None, cache_factory: CacheFactoryInterface | None = None, event_dispatcher: EventDispatcher | None = None, **kwargs: Any) -> None: ...
+    def get_node(self, host: Incomplete | None = None, port: Incomplete | None = None, node_name: Incomplete | None = None) -> Any:
         """
         Get the requested node from the cluster's nodes.
         nodes.
         :return: ClusterNode if the node exists, else None
         """
-    def update_moved_exception(self, exception) -> None: ...
+    def update_moved_exception(self, exception: Any) -> None: ...
     def _update_moved_slots(self) -> None:
         """
         Update the slot's node with the redirected one
         """
-    def get_node_from_slot(self, slot, read_from_replicas: bool = False, load_balancing_strategy: Incomplete | None = None, server_type: Incomplete | None = None) -> ClusterNode:
+    def get_node_from_slot(self, slot: Any, read_from_replicas: bool = False, load_balancing_strategy: Incomplete | None = None, server_type: Incomplete | None = None) -> ClusterNode:
         """
         Gets a node that servers this hash slot
         """
-    def get_nodes_by_server_type(self, server_type):
+    def get_nodes_by_server_type(self, server_type: Any) -> Any:
         """
         Get all nodes with the specified server type
         :param server_type: 'primary' or 'replica'
         :return: list of ClusterNode
         """
-    def populate_startup_nodes(self, nodes) -> None:
+    def populate_startup_nodes(self, nodes: Any) -> None:
         """
         Populate all startup nodes and filters out any duplicates
         """
-    def check_slots_coverage(self, slots_cache): ...
-    def create_redis_connections(self, nodes) -> None:
+    def check_slots_coverage(self, slots_cache: Any) -> Any: ...
+    def create_redis_connections(self, nodes: Any) -> None:
         """
         This function will create a redis connection to all nodes in :nodes:
         """
-    def create_redis_node(self, host, port, **kwargs): ...
-    def _get_or_create_cluster_node(self, host, port, role, tmp_nodes_cache): ...
+    def create_redis_node(self, host: Any, port: Any, **kwargs: Any) -> Any: ...
+    def _get_or_create_cluster_node(self, host: Any, port: Any, role: Any, tmp_nodes_cache: Any) -> Any: ...
     def initialize(self) -> None:
         """
         Initializes the nodes cache, slots cache and redis connections.
@@ -512,7 +527,7 @@ class ClusterPubSub(PubSub):
     cluster: Incomplete
     node_pubsub_mapping: Incomplete
     _event_dispatcher: Incomplete
-    def __init__(self, redis_cluster, node: Incomplete | None = None, host: Incomplete | None = None, port: Incomplete | None = None, push_handler_func: Incomplete | None = None, event_dispatcher: EventDispatcher | None = None, **kwargs) -> None:
+    def __init__(self, redis_cluster: Any, node: Incomplete | None = None, host: Incomplete | None = None, port: Incomplete | None = None, push_handler_func: Incomplete | None = None, event_dispatcher: EventDispatcher | None = None, **kwargs: Any) -> None:
         """
         When a pubsub instance is created without specifying a node, a single
         node will be transparently chosen for the pubsub connection on the
@@ -526,7 +541,7 @@ class ClusterPubSub(PubSub):
         :type host: str
         :type port: int
         """
-    def set_pubsub_node(self, cluster, node: Incomplete | None = None, host: Incomplete | None = None, port: Incomplete | None = None) -> None:
+    def set_pubsub_node(self, cluster: Any, node: Incomplete | None = None, host: Incomplete | None = None, port: Incomplete | None = None) -> None:
         """
         The pubsub node will be set according to the passed node, host and port
         When none of the node, host, or port are specified - the node is set
@@ -541,31 +556,31 @@ class ClusterPubSub(PubSub):
         :type host: str
         :type port: int
         """
-    def get_pubsub_node(self):
+    def get_pubsub_node(self) -> Any:
         """
         Get the node that is being used as the pubsub connection
         """
-    def _raise_on_invalid_node(self, redis_cluster, node, host, port) -> None:
+    def _raise_on_invalid_node(self, redis_cluster: Any, node: Any, host: Any, port: Any) -> None:
         """
         Raise a RedisClusterException if the node is None or doesn't exist in
         the cluster.
         """
     connection_pool: Incomplete
     connection: Incomplete
-    def execute_command(self, *args) -> None:
+    def execute_command(self, *args: Any) -> None:
         """
         Execute a subscribe/unsubscribe command.
 
         Taken code from redis-py and tweak to make it work within a cluster.
         """
-    def _get_node_pubsub(self, node): ...
-    def _sharded_message_generator(self): ...
+    def _get_node_pubsub(self, node: Any) -> Any: ...
+    def _sharded_message_generator(self) -> Any: ...
     def _pubsubs_generator(self) -> Generator[Incomplete, Incomplete]: ...
-    def get_sharded_message(self, ignore_subscribe_messages: bool = False, timeout: float = 0.0, target_node: Incomplete | None = None): ...
+    def get_sharded_message(self, ignore_subscribe_messages: bool = False, timeout: float = 0.0, target_node: Incomplete | None = None) -> Any: ...
     health_check_response_counter: int
-    def ssubscribe(self, *args, **kwargs) -> None: ...
-    def sunsubscribe(self, *args) -> None: ...
-    def get_redis_connection(self):
+    def ssubscribe(self, *args: Any, **kwargs: Any) -> None: ...
+    def sunsubscribe(self, *args: Any) -> None: ... # pyright: ignore[reportIncompatibleMethodOverride]
+    def get_redis_connection(self) -> Any:
         """
         Get the Redis connection of the pubsub connected node.
         """
@@ -600,11 +615,11 @@ class ClusterPipeline(RedisCluster):
     _lock: Incomplete
     parent_execute_command: Incomplete
     _execution_strategy: ExecutionStrategy
-    def __init__(self, nodes_manager: NodesManager, commands_parser: CommandsParser, result_callbacks: dict[str, Callable] | None = None, cluster_response_callbacks: dict[str, Callable] | None = None, startup_nodes: list['ClusterNode'] | None = None, read_from_replicas: bool = False, load_balancing_strategy: LoadBalancingStrategy | None = None, cluster_error_retry_attempts: int = 3, reinitialize_steps: int = 5, retry: Retry | None = None, lock: Incomplete | None = None, transaction: bool = False, **kwargs) -> None:
+    def __init__(self, nodes_manager: NodesManager, commands_parser: CommandsParser, result_callbacks: dict[str, Callable[..., Any]] | None = None, cluster_response_callbacks: dict[str, Callable[..., Any]] | None = None, startup_nodes: list['ClusterNode'] | None = None, read_from_replicas: bool = False, load_balancing_strategy: LoadBalancingStrategy | None = None, cluster_error_retry_attempts: int = 3, reinitialize_steps: int = 5, retry: Retry | None = None, lock: Incomplete | None = None, transaction: bool = False, **kwargs: Any) -> None:
         """ """
     def __repr__(self) -> str:
         """ """
-    def __enter__(self):
+    def __enter__(self) -> Any:
         """ """
     def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: types.TracebackType | None) -> None:
         """ """
@@ -613,11 +628,11 @@ class ClusterPipeline(RedisCluster):
         """ """
     def __bool__(self) -> bool:
         """Pipeline instances should  always evaluate to True on Python 3+"""
-    def execute_command(self, *args, **kwargs):
+    def execute_command(self, *args: Any, **kwargs: Any) -> Any:
         """
         Wrapper function for pipeline_execute_command
         """
-    def pipeline_execute_command(self, *args, **options):
+    def pipeline_execute_command(self, *args: Any, **options: Any) -> Any:
         """
         Stage a command to be executed when execute() is next called
 
@@ -629,7 +644,7 @@ class ClusterPipeline(RedisCluster):
         At some other point, you can then run: pipe.execute(),
         which will execute all commands queued in the pipe.
         """
-    def annotate_exception(self, exception, number, command) -> None:
+    def annotate_exception(self, exception: Any, number: Any, command: Any) -> None:
         """
         Provides extra context to the exception prior to it being handled
         """
@@ -641,9 +656,9 @@ class ClusterPipeline(RedisCluster):
         """
         Reset back to empty pipeline.
         """
-    def send_cluster_commands(self, stack, raise_on_error: bool = True, allow_redirections: bool = True): ...
-    def exists(self, *keys): ...
-    def eval(self):
+    def send_cluster_commands(self, stack: Any, raise_on_error: bool = True, allow_redirections: bool = True) -> Any: ...
+    def exists(self, *keys: Any) -> Any: ...
+    def eval(self) -> Any: # pyright: ignore[reportIncompatibleMethodOverride]
         """ """
     def multi(self) -> None:
         """
@@ -654,13 +669,13 @@ class ClusterPipeline(RedisCluster):
         """ """
     def discard(self) -> None:
         """ """
-    def watch(self, *names) -> None:
+    def watch(self, *names: Any) -> None:
         """Watches the values at keys ``names``"""
     def unwatch(self) -> None:
         """Unwatches all previously specified keys"""
-    def script_load_for_pipeline(self, *args, **kwargs) -> None: ...
-    def delete(self, *names) -> None: ...
-    def unlink(self, *names) -> None: ...
+    def script_load_for_pipeline(self, *args: Any, **kwargs: Any) -> None: ...
+    def delete(self, *names: Any) -> None: ...
+    def unlink(self, *names: Any) -> None: ...
 
 def block_pipeline_command(name: str) -> Callable[..., Any]:
     """
@@ -679,7 +694,7 @@ class PipelineCommand:
     result: Incomplete
     node: Incomplete
     asking: bool
-    def __init__(self, args, options: Incomplete | None = None, position: Incomplete | None = None) -> None: ...
+    def __init__(self, args: Any, options: Incomplete | None = None, position: Incomplete | None = None) -> None: ...
 
 class NodeCommands:
     """ """
@@ -687,9 +702,9 @@ class NodeCommands:
     connection_pool: Incomplete
     connection: Incomplete
     commands: Incomplete
-    def __init__(self, parse_response, connection_pool, connection) -> None:
+    def __init__(self, parse_response: Any, connection_pool: Any, connection: Any) -> None:
         """ """
-    def append(self, c) -> None:
+    def append(self, c: Any) -> None:
         """ """
     def write(self) -> None:
         """
@@ -701,23 +716,23 @@ class NodeCommands:
 class ExecutionStrategy(ABC, metaclass=abc.ABCMeta):
     @property
     @abstractmethod
-    def command_queue(self): ...
+    def command_queue(self) -> Any: ...
     @abstractmethod
-    def execute_command(self, *args, **kwargs):
+    def execute_command(self, *args: Any, **kwargs: Any) -> Any:
         """
         Execution flow for current execution strategy.
 
         See: ClusterPipeline.execute_command()
         """
     @abstractmethod
-    def annotate_exception(self, exception, number, command):
+    def annotate_exception(self, exception: Any, number: Any, command: Any) -> Any:
         """
         Annotate exception according to current execution strategy.
 
         See: ClusterPipeline.annotate_exception()
         """
     @abstractmethod
-    def pipeline_execute_command(self, *args, **options):
+    def pipeline_execute_command(self, *args: Any, **options: Any) -> Any:
         """
         Pipeline execution flow for current execution strategy.
 
@@ -731,59 +746,59 @@ class ExecutionStrategy(ABC, metaclass=abc.ABCMeta):
         See: ClusterPipeline.execute()
         """
     @abstractmethod
-    def send_cluster_commands(self, stack, raise_on_error: bool = True, allow_redirections: bool = True):
+    def send_cluster_commands(self, stack: Any, raise_on_error: bool = True, allow_redirections: bool = True) -> Any:
         """
         Sends commands according to current execution strategy.
 
         See: ClusterPipeline.send_cluster_commands()
         """
     @abstractmethod
-    def reset(self):
+    def reset(self) -> Any:
         """
         Resets current execution strategy.
 
         See: ClusterPipeline.reset()
         """
     @abstractmethod
-    def exists(self, *keys): ...
+    def exists(self, *keys: Any) -> Any: ...
     @abstractmethod
-    def eval(self): ...
+    def eval(self) -> Any: ...
     @abstractmethod
-    def multi(self):
+    def multi(self) -> Any:
         """
         Starts transactional context.
 
         See: ClusterPipeline.multi()
         """
     @abstractmethod
-    def load_scripts(self): ...
+    def load_scripts(self) -> Any: ...
     @abstractmethod
-    def watch(self, *names): ...
+    def watch(self, *names: Any) -> Any: ...
     @abstractmethod
-    def unwatch(self):
+    def unwatch(self) -> Any:
         """
         Unwatches all previously specified keys
 
         See: ClusterPipeline.unwatch()
         """
     @abstractmethod
-    def script_load_for_pipeline(self, *args, **kwargs): ...
+    def script_load_for_pipeline(self, *args: Any, **kwargs: Any) -> Any: ...
     @abstractmethod
-    def delete(self, *names):
+    def delete(self, *names: Any) -> Any:
         '''
         "Delete a key specified by ``names``"
 
         See: ClusterPipeline.delete()
         '''
     @abstractmethod
-    def unlink(self, *names):
+    def unlink(self, *names: Any) -> Any:
         '''
         "Unlink a key specified by ``names``"
 
         See: ClusterPipeline.unlink()
         '''
     @abstractmethod
-    def discard(self): ...
+    def discard(self) -> Any: ...
 
 class AbstractStrategy(ExecutionStrategy, metaclass=abc.ABCMeta):
     _command_queue: list[PipelineCommand]
@@ -791,26 +806,26 @@ class AbstractStrategy(ExecutionStrategy, metaclass=abc.ABCMeta):
     _nodes_manager: Incomplete
     def __init__(self, pipe: ClusterPipeline) -> None: ...
     @property
-    def command_queue(self): ...
+    def command_queue(self) -> Any: ...
     @command_queue.setter
-    def command_queue(self, queue: list[PipelineCommand]): ...
+    def command_queue(self, queue: list[PipelineCommand]) -> Any: ...
     @abstractmethod
-    def execute_command(self, *args, **kwargs): ...
-    def pipeline_execute_command(self, *args, **options): ...
+    def execute_command(self, *args: Any, **kwargs: Any) -> Any: ...
+    def pipeline_execute_command(self, *args: Any, **options: Any) -> Any: ...
     @abstractmethod
     def execute(self, raise_on_error: bool = True) -> list[Any]: ...
     @abstractmethod
-    def send_cluster_commands(self, stack, raise_on_error: bool = True, allow_redirections: bool = True): ...
+    def send_cluster_commands(self, stack: Any, raise_on_error: bool = True, allow_redirections: bool = True) -> Any: ...
     @abstractmethod
-    def reset(self): ...
-    def exists(self, *keys): ...
+    def reset(self) -> Any: ...
+    def exists(self, *keys: Any) -> Any: ...
     def eval(self) -> None:
         """ """
     def load_scripts(self) -> None:
         """ """
-    def script_load_for_pipeline(self, *args, **kwargs) -> None:
+    def script_load_for_pipeline(self, *args: Any, **kwargs: Any) -> None:
         """ """
-    def annotate_exception(self, exception, number, command) -> None:
+    def annotate_exception(self, exception: Any, number: Any, command: Any) -> None:
         """
         Provides extra context to the exception prior to it being handled
         """
@@ -818,8 +833,8 @@ class AbstractStrategy(ExecutionStrategy, metaclass=abc.ABCMeta):
 class PipelineStrategy(AbstractStrategy):
     command_flags: Incomplete
     def __init__(self, pipe: ClusterPipeline) -> None: ...
-    def execute_command(self, *args, **kwargs): ...
-    def _raise_first_error(self, stack) -> None:
+    def execute_command(self, *args: Any, **kwargs: Any) -> Any: ...
+    def _raise_first_error(self, stack: Any) -> None:
         """
         Raise the first exception on the stack
         """
@@ -829,7 +844,7 @@ class PipelineStrategy(AbstractStrategy):
         """
         Reset back to empty pipeline.
         """
-    def send_cluster_commands(self, stack, raise_on_error: bool = True, allow_redirections: bool = True):
+    def send_cluster_commands(self, stack: Any, raise_on_error: bool = True, allow_redirections: bool = True) -> Any:
         '''
         Wrapper for RedisCluster.ERRORS_ALLOW_RETRY errors handling.
 
@@ -845,7 +860,7 @@ class PipelineStrategy(AbstractStrategy):
         If it reaches the number of times, the command will
         raises ClusterDownException.
         '''
-    def _send_cluster_commands(self, stack, raise_on_error: bool = True, allow_redirections: bool = True):
+    def _send_cluster_commands(self, stack: Any, raise_on_error: bool = True, allow_redirections: bool = True) -> Any:
         """
         Send a bunch of cluster commands to the redis cluster.
 
@@ -853,15 +868,15 @@ class PipelineStrategy(AbstractStrategy):
         `ASK` & `MOVED` responses automatically. If set
         to false it will raise RedisClusterException.
         """
-    def _is_nodes_flag(self, target_nodes): ...
-    def _parse_target_nodes(self, target_nodes): ...
-    def _determine_nodes(self, *args, **kwargs) -> list['ClusterNode']: ...
+    def _is_nodes_flag(self, target_nodes: Any) -> Any: ...
+    def _parse_target_nodes(self, target_nodes: Any) -> Any: ...
+    def _determine_nodes(self, *args: Any, **kwargs: Any) -> list['ClusterNode']: ...
     def multi(self) -> None: ...
     def discard(self) -> None: ...
-    def watch(self, *names) -> None: ...
-    def unwatch(self, *names) -> None: ...
-    def delete(self, *names): ...
-    def unlink(self, *names): ...
+    def watch(self, *names: Any) -> None: ...
+    def unwatch(self, *names: Any) -> None: ...
+    def delete(self, *names: Any) -> Any: ...
+    def unlink(self, *names: Any) -> Any: ...
 
 class TransactionStrategy(AbstractStrategy):
     NO_SLOTS_COMMANDS: Incomplete
@@ -885,29 +900,29 @@ class TransactionStrategy(AbstractStrategy):
         connection. So once we start watching a key, we fetch a connection to the
         node that owns that slot and reuse it.
         """
-    def execute_command(self, *args, **kwargs): ...
+    def execute_command(self, *args: Any, **kwargs: Any) -> Any: ...
     def _validate_watch(self) -> None: ...
-    def _immediate_execute_command(self, *args, **options): ...
-    def _get_connection_and_send_command(self, *args, **options): ...
-    def _send_command_parse_response(self, conn, redis_node: Redis, command_name, *args, **options):
+    def _immediate_execute_command(self, *args: Any, **options: Any) -> Any: ...
+    def _get_connection_and_send_command(self, *args: Any, **options: Any) -> Any: ...
+    def _send_command_parse_response(self, conn: Any, redis_node: Redis, command_name: Any, *args: Any, **options: Any) -> Any:
         """
         Send a command and parse the response
         """
     reinitialize_counter: int
-    def _reinitialize_on_error(self, error) -> None: ...
-    def _raise_first_error(self, responses, stack) -> None:
+    def _reinitialize_on_error(self, error: Any) -> None: ...
+    def _raise_first_error(self, responses: Any, stack: Any) -> None:
         """
         Raise the first exception on the stack
         """
     def execute(self, raise_on_error: bool = True) -> list[Any]: ...
-    def _execute_transaction_with_retries(self, stack: list['PipelineCommand'], raise_on_error: bool): ...
-    def _execute_transaction(self, stack: list['PipelineCommand'], raise_on_error: bool): ...
+    def _execute_transaction_with_retries(self, stack: list['PipelineCommand'], raise_on_error: bool) -> Any: ...
+    def _execute_transaction(self, stack: list['PipelineCommand'], raise_on_error: bool) -> Any: ...
     _command_queue: Incomplete
     def reset(self) -> None: ...
-    def send_cluster_commands(self, stack, raise_on_error: bool = True, allow_redirections: bool = True) -> None: ...
+    def send_cluster_commands(self, stack: Any, raise_on_error: bool = True, allow_redirections: bool = True) -> None: ...
     def multi(self) -> None: ...
-    def watch(self, *names): ...
-    def unwatch(self): ...
+    def watch(self, *names: Any) -> Any: ...
+    def unwatch(self) -> Any: ...
     def discard(self) -> None: ...
-    def delete(self, *names): ...
-    def unlink(self, *names): ...
+    def delete(self, *names: Any) -> Any: ...
+    def unlink(self, *names: Any) -> Any: ...

@@ -1,27 +1,29 @@
+from typing import Any
+
 class SentinelCommands:
     """
     A class containing the commands specific to redis sentinel. This class is
     to be used as a mixin.
     """
-    def sentinel(self, *args) -> None:
+    def sentinel(self, *args: Any) -> None:
         """Redis Sentinel's SENTINEL command."""
-    def sentinel_get_master_addr_by_name(self, service_name):
+    def sentinel_get_master_addr_by_name(self, service_name: Any) -> Any:
         """Returns a (host, port) pair for the given ``service_name``"""
-    def sentinel_master(self, service_name):
+    def sentinel_master(self, service_name: Any) -> Any:
         """Returns a dictionary containing the specified masters state."""
-    def sentinel_masters(self):
+    def sentinel_masters(self) -> Any:
         """Returns a list of dictionaries containing each master's state."""
-    def sentinel_monitor(self, name, ip, port, quorum):
+    def sentinel_monitor(self, name: Any, ip: Any, port: Any, quorum: Any) -> Any:
         """Add a new master to Sentinel to be monitored"""
-    def sentinel_remove(self, name):
+    def sentinel_remove(self, name: Any) -> Any:
         """Remove a master from Sentinel's monitoring"""
-    def sentinel_sentinels(self, service_name):
+    def sentinel_sentinels(self, service_name: Any) -> Any:
         """Returns a list of sentinels for ``service_name``"""
-    def sentinel_set(self, name, option, value):
+    def sentinel_set(self, name: Any, option: Any, value: Any) -> Any:
         """Set Sentinel monitoring parameters for a given master"""
-    def sentinel_slaves(self, service_name):
+    def sentinel_slaves(self, service_name: Any) -> Any:
         """Returns a list of slaves for ``service_name``"""
-    def sentinel_reset(self, pattern):
+    def sentinel_reset(self, pattern: Any) -> Any:
         """
         This command will reset all the masters with matching name.
         The pattern argument is a glob-style pattern.
@@ -30,14 +32,14 @@ class SentinelCommands:
         failover in progress), and removes every slave and sentinel already
         discovered and associated with the master.
         """
-    def sentinel_failover(self, new_master_name):
+    def sentinel_failover(self, new_master_name: Any) -> Any:
         """
         Force a failover as if the master was not reachable, and without
         asking for agreement to other Sentinels (however a new version of the
         configuration will be published so that the other Sentinels will
         update their configurations).
         """
-    def sentinel_ckquorum(self, new_master_name):
+    def sentinel_ckquorum(self, new_master_name: Any) -> Any:
         """
         Check if the current Sentinel configuration is able to reach the
         quorum needed to failover a master, and the majority needed to
@@ -46,7 +48,7 @@ class SentinelCommands:
         This command should be used in monitoring systems to check if a
         Sentinel deployment is ok.
         """
-    def sentinel_flushconfig(self):
+    def sentinel_flushconfig(self) -> Any:
         """
         Force Sentinel to rewrite its configuration on disk, including the
         current Sentinel state.
@@ -64,5 +66,5 @@ class SentinelCommands:
         """
 
 class AsyncSentinelCommands(SentinelCommands):
-    async def sentinel(self, *args) -> None:
+    async def sentinel(self, *args: Any) -> None:
         """Redis Sentinel's SENTINEL command."""

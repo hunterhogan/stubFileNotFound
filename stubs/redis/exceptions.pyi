@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from typing import Any
 
 class RedisError(Exception): ...
 class ConnectionError(RedisError): ...
@@ -62,7 +63,7 @@ class ClusterDownError(ClusterError, ResponseError):
     """
     args: Incomplete
     message: Incomplete
-    def __init__(self, resp) -> None: ...
+    def __init__(self, resp: Any) -> None: ...
 
 class AskError(ResponseError):
     """
@@ -83,7 +84,7 @@ class AskError(ResponseError):
     message: Incomplete
     slot_id: Incomplete
     node_addr: Incomplete
-    def __init__(self, resp) -> None:
+    def __init__(self, resp: Any) -> None:
         """should only redirect to master node"""
 
 class TryAgainError(ResponseError):
@@ -92,7 +93,7 @@ class TryAgainError(ResponseError):
     Operations on keys that don't exist or are - during resharding - split
     between the source and destination nodes, will generate a -TRYAGAIN error.
     """
-    def __init__(self, *args, **kwargs) -> None: ...
+    def __init__(self, *args: Any, **kwargs: Any) -> None: ...
 
 class ClusterCrossSlotError(ResponseError):
     """

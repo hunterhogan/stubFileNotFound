@@ -5,14 +5,14 @@ from redis.utils import str_if_bytes as str_if_bytes
 from typing import Any
 
 class AbstractCommandsParser:
-    def _get_pubsub_keys(self, *args):
+    def _get_pubsub_keys(self, *args: Any) -> Any:
         """
         Get the keys from pubsub command.
         Although PubSub commands have predetermined key locations, they are not
         supported in the 'COMMAND's output, so the key positions are hardcoded
         in this method
         """
-    def parse_subcommand(self, command, **options): ...
+    def parse_subcommand(self, command: Any, **options: Any) -> Any: ...
 
 class CommandsParser(AbstractCommandsParser):
     """
@@ -23,9 +23,9 @@ class CommandsParser(AbstractCommandsParser):
     'COMMAND GETKEYS'.
     """
     commands: Incomplete
-    def __init__(self, redis_connection) -> None: ...
-    def initialize(self, r) -> None: ...
-    def get_keys(self, redis_conn, *args):
+    def __init__(self, redis_connection: Any) -> None: ...
+    def initialize(self, r: Any) -> None: ...
+    def get_keys(self, redis_conn: Any, *args: Any) -> Any:
         """
         Get the keys from the passed command.
 
@@ -36,7 +36,7 @@ class CommandsParser(AbstractCommandsParser):
 
         So, don't use this function with EVAL or EVALSHA.
         """
-    def _get_moveable_keys(self, redis_conn, *args):
+    def _get_moveable_keys(self, redis_conn: Any, *args: Any) -> Any:
         """
         NOTE: Due to a bug in redis<7.0, this function does not work properly
         for EVAL or EVALSHA when the `numkeys` arg is 0.

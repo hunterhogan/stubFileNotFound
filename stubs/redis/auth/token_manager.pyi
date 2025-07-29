@@ -1,9 +1,9 @@
-import asyncio
 from _typeshed import Incomplete
 from redis.auth.err import RequestTokenErr as RequestTokenErr, TokenRenewalErr as TokenRenewalErr
 from redis.auth.idp import IdentityProviderInterface as IdentityProviderInterface
 from redis.auth.token import TokenResponse as TokenResponse
 from typing import Any, Awaitable, Callable
+import asyncio
 
 logger: Incomplete
 
@@ -16,13 +16,13 @@ class CredentialsListener:
     _on_error: Incomplete
     def __init__(self) -> None: ...
     @property
-    def on_next(self) -> Callable[[Any], None] | Awaitable: ...
+    def on_next(self) -> Callable[[Any], None] | Awaitable[Any]: ...
     @on_next.setter
-    def on_next(self, callback: Callable[[Any], None] | Awaitable) -> None: ...
+    def on_next(self, callback: Callable[[Any], None] | Awaitable[Any]) -> None: ...
     @property
-    def on_error(self) -> Callable[[Exception], None] | Awaitable: ...
+    def on_error(self) -> Callable[[Exception], None] | Awaitable[Any]: ...
     @on_error.setter
-    def on_error(self, callback: Callable[[Exception], None] | Awaitable) -> None: ...
+    def on_error(self, callback: Callable[[Exception], None] | Awaitable[Any]) -> None: ...
 
 class RetryPolicy:
     max_attempts: Incomplete
@@ -95,20 +95,20 @@ class TokenManager:
     def acquire_token(self, force_refresh: bool = False) -> TokenResponse: ...
     async def acquire_token_async(self, force_refresh: bool = False) -> TokenResponse: ...
     def _calculate_renewal_delay(self, expire_date: float, issue_date: float) -> float: ...
-    def _delay_for_lower_refresh(self, expire_date: float): ...
-    def _delay_for_ratio_refresh(self, expire_date: float, issue_date: float): ...
-    def _renew_token(self, skip_initial: bool = False, init_event: asyncio.Event = None):
+    def _delay_for_lower_refresh(self, expire_date: float) -> Any: ...
+    def _delay_for_ratio_refresh(self, expire_date: float, issue_date: float) -> Any: ...
+    def _renew_token(self, skip_initial: bool = False, init_event: asyncio.Event = None) -> Any:
         """
         Task to renew token from identity provider.
         Schedules renewal tasks based on token TTL.
         """
-    async def _renew_token_async(self, skip_initial: bool = False, init_event: asyncio.Event = None):
+    async def _renew_token_async(self, skip_initial: bool = False, init_event: asyncio.Event = None) -> Any:
         """
         Async task to renew tokens from identity provider.
         Schedules renewal tasks based on token TTL.
         """
 
-def _async_to_sync_wrapper(loop, coro_func, *args, **kwargs):
+def _async_to_sync_wrapper(loop: Any, coro_func: Any, *args: Any, **kwargs: Any) -> Any:
     """
     Wraps an asynchronous function so it can be used with loop.call_later.
 
@@ -118,7 +118,7 @@ def _async_to_sync_wrapper(loop, coro_func, *args, **kwargs):
     :param kwargs: Keyword arguments to pass to the coroutine function.
     :return: A regular function suitable for loop.call_later.
     """
-def _start_event_loop_in_thread(event_loop: asyncio.AbstractEventLoop):
+def _start_event_loop_in_thread(event_loop: asyncio.AbstractEventLoop) -> Any:
     """
     Starts event loop in a thread.
     Used to be able to schedule tasks using loop.call_later.

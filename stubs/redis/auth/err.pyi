@@ -1,10 +1,10 @@
-from typing import Iterable
+from typing import Any, Iterable
 
 class RequestTokenErr(Exception):
     """
     Represents an exception during token request.
     """
-    def __init__(self, *args) -> None: ...
+    def __init__(self, *args: Any) -> None: ...
 
 class InvalidTokenSchemaErr(Exception):
     """
@@ -16,4 +16,4 @@ class TokenRenewalErr(Exception):
     """
     Represents an exception during token renewal process.
     """
-    def __init__(self, *args) -> None: ...
+    def __init__(self, *args: Any) -> None: ...

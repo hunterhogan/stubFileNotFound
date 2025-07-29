@@ -1,10 +1,16 @@
-import redis
 from ..helpers import get_protocol_version as get_protocol_version, parse_to_list as parse_to_list
-from .commands import ALTER_CMD as ALTER_CMD, CREATERULE_CMD as CREATERULE_CMD, CREATE_CMD as CREATE_CMD, DELETERULE_CMD as DELETERULE_CMD, DEL_CMD as DEL_CMD, GET_CMD as GET_CMD, INFO_CMD as INFO_CMD, MGET_CMD as MGET_CMD, MRANGE_CMD as MRANGE_CMD, MREVRANGE_CMD as MREVRANGE_CMD, QUERYINDEX_CMD as QUERYINDEX_CMD, RANGE_CMD as RANGE_CMD, REVRANGE_CMD as REVRANGE_CMD, TimeSeriesCommands as TimeSeriesCommands
+from .commands import (
+	ALTER_CMD as ALTER_CMD, CREATE_CMD as CREATE_CMD, CREATERULE_CMD as CREATERULE_CMD, DEL_CMD as DEL_CMD,
+	DELETERULE_CMD as DELETERULE_CMD, GET_CMD as GET_CMD, INFO_CMD as INFO_CMD, MGET_CMD as MGET_CMD,
+	MRANGE_CMD as MRANGE_CMD, MREVRANGE_CMD as MREVRANGE_CMD, QUERYINDEX_CMD as QUERYINDEX_CMD, RANGE_CMD as RANGE_CMD,
+	REVRANGE_CMD as REVRANGE_CMD, TimeSeriesCommands as TimeSeriesCommands)
 from .info import TSInfo as TSInfo
-from .utils import parse_get as parse_get, parse_m_get as parse_m_get, parse_m_range as parse_m_range, parse_range as parse_range
+from .utils import (
+	parse_get as parse_get, parse_m_get as parse_m_get, parse_m_range as parse_m_range, parse_range as parse_range)
 from _typeshed import Incomplete
 from redis._parsers.helpers import bool_ok as bool_ok
+from typing import Any
+import redis
 
 class TimeSeries(TimeSeriesCommands):
     '''
@@ -16,9 +22,9 @@ class TimeSeries(TimeSeriesCommands):
     _MODULE_CALLBACKS: Incomplete
     client: Incomplete
     execute_command: Incomplete
-    def __init__(self, client: Incomplete | None = None, **kwargs) -> None:
+    def __init__(self, client: Incomplete | None = None, **kwargs: Any) -> None:
         """Create a new RedisTimeSeries client."""
-    def pipeline(self, transaction: bool = True, shard_hint: Incomplete | None = None):
+    def pipeline(self, transaction: bool = True, shard_hint: Incomplete | None = None) -> Any:
         '''Creates a pipeline for the TimeSeries module, that can be used
         for executing only TimeSeries commands and core commands.
 
