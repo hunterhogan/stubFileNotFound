@@ -1,86 +1,42 @@
-from .compat import JSONDecodeError as CompatJSONDecodeError
-from _typeshed import Incomplete
+from typing import Any
+
 from urllib3.exceptions import HTTPError as BaseHTTPError
 
-class RequestException(IOError):
-    """There was an ambiguous exception that occurred while handling your
-    request.
-    """
-    response: Incomplete
-    request: Incomplete
-    def __init__(self, *args, **kwargs) -> None:
-        """Initialize RequestException with `request` and `response` objects."""
+from .models import Request, Response
+from .sessions import PreparedRequest
 
-class InvalidJSONError(RequestException):
-    """A JSON error occurred."""
+class RequestException(OSError):
+    response: Response | None
+    request: Request | PreparedRequest | None
+    def __init__(
+        self, *args: object, request: Request | PreparedRequest | None = ..., response: Response | None = ...
+    ) -> None: ...
 
-class JSONDecodeError(InvalidJSONError, CompatJSONDecodeError):
-    """Couldn't decode the text into json"""
-    def __init__(self, *args, **kwargs) -> None:
-        """
-        Construct the JSONDecodeError instance first with all
-        args. Then use it's args to construct the IOError so that
-        the json specific args aren't used as IOError specific args
-        and the error message from JSONDecodeError is preserved.
-        """
-    def __reduce__(self):
-        """
-        The __reduce__ method called when pickling the object must
-        be the one from the JSONDecodeError (be it json/simplejson)
-        as it expects all the arguments for instantiation, not just
-        one like the IOError, and the MRO would by default call the
-        __reduce__ method from the IOError due to the inheritance order.
-        """
+class InvalidJSONError(RequestException): ...
+class JSONDecodeError(InvalidJSONError): ...
 
 class HTTPError(RequestException):
-    """An HTTP error occurred."""
-class ConnectionError(RequestException):
-    """A Connection error occurred."""
-class ProxyError(ConnectionError):
-    """A proxy error occurred."""
-class SSLError(ConnectionError):
-    """An SSL error occurred."""
-class Timeout(RequestException):
-    """The request timed out.
+    request: Request | PreparedRequest | Any
+    response: Response | Any
 
-    Catching this error will catch both
-    :exc:`~requests.exceptions.ConnectTimeout` and
-    :exc:`~requests.exceptions.ReadTimeout` errors.
-    """
-class ConnectTimeout(ConnectionError, Timeout):
-    """The request timed out while trying to connect to the remote server.
-
-    Requests that produced this error are safe to retry.
-    """
-class ReadTimeout(Timeout):
-    """The server did not send any data in the allotted amount of time."""
-class URLRequired(RequestException):
-    """A valid URL is required to make a request."""
-class TooManyRedirects(RequestException):
-    """Too many redirects."""
-class MissingSchema(RequestException, ValueError):
-    """The URL scheme (e.g. http or https) is missing."""
-class InvalidSchema(RequestException, ValueError):
-    """The URL scheme provided is either invalid or unsupported."""
-class InvalidURL(RequestException, ValueError):
-    """The URL provided was somehow invalid."""
-class InvalidHeader(RequestException, ValueError):
-    """The header value provided was somehow invalid."""
-class InvalidProxyURL(InvalidURL):
-    """The proxy URL provided is invalid."""
-class ChunkedEncodingError(RequestException):
-    """The server declared chunked encoding but sent an invalid chunk."""
-class ContentDecodingError(RequestException, BaseHTTPError):
-    """Failed to decode response content."""
-class StreamConsumedError(RequestException, TypeError):
-    """The content for this response was already consumed."""
-class RetryError(RequestException):
-    """Custom retries logic failed"""
-class UnrewindableBodyError(RequestException):
-    """Requests encountered an error when trying to rewind a body."""
-class RequestsWarning(Warning):
-    """Base warning for Requests."""
-class FileModeWarning(RequestsWarning, DeprecationWarning):
-    """A file was opened in text mode, but Requests determined its binary length."""
-class RequestsDependencyWarning(RequestsWarning):
-    """An imported dependency doesn't match the expected version range."""
+class ConnectionError(RequestException): ...
+class ProxyError(ConnectionError): ...
+class SSLError(ConnectionError): ...
+class Timeout(RequestException): ...
+class ConnectTimeout(ConnectionError, Timeout): ...
+class ReadTimeout(Timeout): ...
+class URLRequired(RequestException): ...
+class TooManyRedirects(RequestException): ...
+class MissingSchema(RequestException, ValueError): ...
+class InvalidSchema(RequestException, ValueError): ...
+class InvalidURL(RequestException, ValueError): ...
+class InvalidHeader(RequestException, ValueError): ...
+class InvalidProxyURL(InvalidURL): ...
+class ChunkedEncodingError(RequestException): ...
+class ContentDecodingError(RequestException, BaseHTTPError): ...
+class StreamConsumedError(RequestException, TypeError): ...
+class RetryError(RequestException): ...
+class UnrewindableBodyError(RequestException): ...
+class RequestsWarning(Warning): ...
+class FileModeWarning(RequestsWarning, DeprecationWarning): ...
+class RequestsDependencyWarning(RequestsWarning): ...

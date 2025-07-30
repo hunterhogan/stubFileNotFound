@@ -1,6 +1,3 @@
-from .compat import chardet as chardet
-from _typeshed import Incomplete
-
-target: Incomplete
-imported_mod: Incomplete
-mod: Incomplete
+# requests also imports urllib3, idna, and chardet below
+# requests.packages. The stubs don't reflect that and it's recommended to
+# import these packages directly if needed.

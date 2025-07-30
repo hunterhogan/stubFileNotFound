@@ -1,24 +1,27 @@
-from _typeshed import Incomplete
+from builtins import bytes as bytes, str as str
 from collections import OrderedDict as OrderedDict
-from collections.abc import Callable as Callable, Mapping as Mapping, MutableMapping as MutableMapping
-from http.cookies import Morsel as Morsel
-from io import StringIO as StringIO
-from urllib.parse import quote as quote, quote_plus as quote_plus, unquote as unquote, unquote_plus as unquote_plus, urldefrag as urldefrag, urlencode as urlencode, urljoin as urljoin, urlparse as urlparse, urlsplit as urlsplit, urlunparse as urlunparse
-from urllib.request import getproxies as getproxies, getproxies_environment as getproxies_environment, parse_http_list as parse_http_list, proxy_bypass as proxy_bypass, proxy_bypass_environment as proxy_bypass_environment
+from typing import Literal
+from typing_extensions import TypeAlias
+from urllib.parse import (
+    quote as quote,
+    quote_plus as quote_plus,
+    unquote as unquote,
+    unquote_plus as unquote_plus,
+    urldefrag as urldefrag,
+    urlencode as urlencode,
+    urljoin as urljoin,
+    urlparse as urlparse,
+    urlsplit as urlsplit,
+    urlunparse as urlunparse,
+)
+from urllib.request import getproxies as getproxies, parse_http_list as parse_http_list, proxy_bypass as proxy_bypass
 
-is_urllib3_1: Incomplete
-
-def _resolve_char_detection():
-    """Find supported character detection libraries."""
-
-chardet: Incomplete
-_ver: Incomplete
-is_py2: Incomplete
-is_py3: Incomplete
+is_urllib3_1: bool
+is_py2: Literal[False]
+is_py3: Literal[True]
 has_simplejson: bool
-builtin_str = str
-str = str
-bytes = bytes
-basestring: Incomplete
-numeric_types: Incomplete
-integer_types: Incomplete
+
+builtin_str: TypeAlias = str  # noqa: Y042
+basestring: tuple[type, ...]
+numeric_types: tuple[type, ...]
+integer_types: tuple[type, ...]

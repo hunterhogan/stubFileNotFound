@@ -1,7 +1,3 @@
-from .structures import LookupDict as LookupDict
-from _typeshed import Incomplete
+from typing import Any
 
-_codes: Incomplete
-codes: Incomplete
-
-def _init(): ...
+codes: Any

@@ -1,57 +1,39 @@
-"""
-requests.auth
-~~~~~~~~~~~~~
+from typing import Any
 
-This module contains the authentication handlers for Requests.
-"""
-from ._internal_utils import to_native_string as to_native_string
-from .compat import basestring as basestring, str as str, urlparse as urlparse
-from .cookies import extract_cookies_to_jar as extract_cookies_to_jar
-from .utils import parse_dict_header as parse_dict_header
-from _typeshed import Incomplete
+from . import cookies, models, utils
 
-CONTENT_TYPE_FORM_URLENCODED: str
-CONTENT_TYPE_MULTI_PART: str
+extract_cookies_to_jar = cookies.extract_cookies_to_jar
+parse_dict_header = utils.parse_dict_header
+to_native_string = utils.to_native_string
 
-def _basic_auth_str(username, password):
-    """Returns a Basic Auth string."""
+CONTENT_TYPE_FORM_URLENCODED: Any
+CONTENT_TYPE_MULTI_PART: Any
+
+def _basic_auth_str(username: bytes | str, password: bytes | str) -> str: ...
 
 class AuthBase:
-    """Base class that all auth implementations derive from"""
-    def __call__(self, r) -> None: ...
+    def __call__(self, r: models.PreparedRequest) -> models.PreparedRequest: ...
 
 class HTTPBasicAuth(AuthBase):
-    """Attaches HTTP Basic Authentication to the given Request object."""
-    username: Incomplete
-    password: Incomplete
-    def __init__(self, username, password) -> None: ...
-    def __eq__(self, other): ...
-    def __ne__(self, other): ...
+    username: bytes | str
+    password: bytes | str
+    def __init__(self, username: bytes | str, password: bytes | str) -> None: ...
     def __call__(self, r): ...
 
 class HTTPProxyAuth(HTTPBasicAuth):
-    """Attaches HTTP Proxy Authentication to a given Request object."""
     def __call__(self, r): ...
 
 class HTTPDigestAuth(AuthBase):
-    """Attaches HTTP Digest Authentication to the given Request object."""
-    username: Incomplete
-    password: Incomplete
-    _thread_local: Incomplete
-    def __init__(self, username, password) -> None: ...
-    def init_per_thread_state(self) -> None: ...
-    def build_digest_header(self, method, url):
-        """
-        :rtype: str
-        """
-    def handle_redirect(self, r, **kwargs) -> None:
-        """Reset num_401_calls counter on redirects."""
-    def handle_401(self, r, **kwargs):
-        """
-        Takes the given response and tries digest-auth, if needed.
-
-        :rtype: requests.Response
-        """
+    username: bytes | str
+    password: bytes | str
+    last_nonce: Any
+    nonce_count: Any
+    chal: Any
+    pos: Any
+    num_401_calls: Any
+    def __init__(self, username: bytes | str, password: bytes | str) -> None: ...
+    def build_digest_header(self, method, url): ...
+    def handle_redirect(self, r, **kwargs): ...
+    def handle_401(self, r, **kwargs): ...
     def __call__(self, r): ...
-    def __eq__(self, other): ...
-    def __ne__(self, other): ...
+    def init_per_thread_state(self) -> None: ...

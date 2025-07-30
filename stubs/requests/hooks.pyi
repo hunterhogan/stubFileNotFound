@@ -1,7 +1,6 @@
-from _typeshed import Incomplete
+from typing import Any
 
-HOOKS: Incomplete
+HOOKS: Any
 
 def default_hooks(): ...
-def dispatch_hook(key, hooks, hook_data, **kwargs):
-    """Dispatches a hook dictionary on a given piece of data."""
+def dispatch_hook(key, hooks, hook_data, **kwargs): ...

@@ -1,20 +1,34 @@
-from _typeshed import Incomplete
+from typing import TypedDict
 
-OpenSSL: Incomplete
-cryptography: Incomplete
+class _VersionDict(TypedDict):
+    version: str
 
-def _implementation():
-    """Return a dict with the Python implementation and version.
+class _OptionalVersionDict(TypedDict):
+    version: str | None
 
-    Provide both the name and the version of the Python implementation
-    currently running. For example, on CPython 3.10.3 it will return
-    {'name': 'CPython', 'version': '3.10.3'}.
+class _PlatformDict(TypedDict):
+    system: str
+    release: str
 
-    This function works best on CPython and PyPy: in particular, it probably
-    doesn't work for Jython or IronPython. Future investigation should be done
-    to work out the correct shape of the code for those platforms.
-    """
-def info():
-    """Generate information for a bug report."""
-def main() -> None:
-    """Pretty-print the bug information as JSON."""
+class _ImplementationDict(_VersionDict):
+    name: str
+
+class _PyOpenSSLDict(_OptionalVersionDict):
+    openssl_version: str
+
+class _InfoDict(TypedDict):
+    platform: _PlatformDict
+    implementation: _ImplementationDict
+    system_ssl: _VersionDict
+    using_pyopenssl: bool
+    using_charset_normalizer: bool
+    pyOpenSSL: _PyOpenSSLDict
+    urllib3: _VersionDict
+    chardet: _OptionalVersionDict
+    charset_normalizer: _OptionalVersionDict
+    cryptography: _VersionDict
+    idna: _VersionDict
+    requests: _VersionDict
+
+def info() -> _InfoDict: ...
+def main() -> None: ...
