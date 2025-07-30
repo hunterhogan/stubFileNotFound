@@ -11,3 +11,7 @@ stubdefaulter --packages .
 popd
 
 stubFileNotFound\missing2Any.py
+
+
+@REM # stubgen --ignore-errors --include-private --include-docstrings --output stubs --package
+@REM # stubgen --ignore-errors --include-private --include-docstrings --output stubs --inspect-mode --package

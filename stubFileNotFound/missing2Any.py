@@ -18,6 +18,7 @@ Separate file handling from libcst operations.
 Leverage existing packages, such as `mypy`, `pyright`, and `hunterMakesPy` for everything and anything: write as little new code as possible.
 
 TODO:
+- Refactor with better organization and more room for expansion.
 - after stubdefaulter: Expression of type "None" cannot be assigned to parameter of type "bool"
 - don't change `self` or `cls`
 - nested generics; e.g., list[Callable]
@@ -539,9 +540,4 @@ def processAllStubFiles() -> None:
 
 if __name__ == "__main__":
 	processAllStubFiles()
-
-
-
-# stubgen --ignore-errors --include-private --include-docstrings --output stubs --package
-# stubgen --ignore-errors --include-private --include-docstrings --output stubs --inspect-mode --package
 
