@@ -2,7 +2,7 @@
 robocopy C:\clones\typeshed\stdlib stubs\stdlib /S /MT
 robocopy C:\clones\pandas-stubs\pandas-stubs stubs\pandas /S /MT
 robocopy C:\clones\typeshed\stubs\tqdm stubs /S /MT /XD "@tests" /XF "METADATA.toml"
-robocopy C:\clones\typeshed\stubs\tqdm stubs /S /MT /XD "@tests" /XF "METADATA.toml"
+robocopy C:\clones\typeshed\stubs\networkx stubs /S /MT /XD "@tests" /XF "METADATA.toml" "lowest_common_ancestors.pyi" "graph.pyi" "digraph.pyi"
 
 IF NOT DEFINED VIRTUAL_ENV exit CALL .venv\Scripts\activate.bat
 

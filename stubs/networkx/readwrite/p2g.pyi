@@ -1,29 +1,11 @@
-from networkx.utils import open_file as open_file
+from _typeshed import Incomplete
 
-def write_p2g(G, path, encoding: str = 'utf-8') -> None:
-    """Write NetworkX graph in p2g format.
+from networkx.utils.backends import _dispatchable
 
-    Notes
-    -----
-    This format is meant to be used with directed graphs with
-    possible self loops.
-    """
-def read_p2g(path, encoding: str = 'utf-8'):
-    """Read graph in p2g format from path.
+from ..classes.multidigraph import MultiDiGraph
 
-    Returns
-    -------
-    MultiDiGraph
-
-    Notes
-    -----
-    If you want a DiGraph (with no self loops allowed and no edge data)
-    use D=nx.DiGraph(read_p2g(path))
-    """
-def parse_p2g(lines):
-    """Parse p2g format graph from string or iterable.
-
-    Returns
-    -------
-    MultiDiGraph
-    """
+def write_p2g(G, path, encoding: str = "utf-8") -> None: ...
+@_dispatchable
+def read_p2g(path, encoding: str = "utf-8") -> MultiDiGraph[Incomplete]: ...
+@_dispatchable
+def parse_p2g(lines) -> MultiDiGraph[Incomplete]: ...

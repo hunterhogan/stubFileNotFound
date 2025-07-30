@@ -3,11 +3,9 @@ from functools import cached_property
 from networkx.classes.coreviews import AdjacencyView, AtlasView
 from networkx.classes.digraph import DiGraph
 from networkx.classes.reportviews import DegreeView, EdgeView, NodeView
-from typing import Any, ClassVar, overload, TypeAlias, TypeVar
-from typing_extensions import Self
+from typing import Any, ClassVar, overload, TypeVar
+from typing_extensions import Self, TypeAlias
 import numpy
-
-__all__ = ['Graph']
 
 _Node = TypeVar("_Node", bound=Hashable)
 _NodeWithData: TypeAlias = tuple[_Node, dict[str, Any]]
@@ -25,6 +23,8 @@ _Data: TypeAlias = (
     | numpy.ndarray[Any, Any]
     # | scipy.sparse.base.spmatrix
 )
+
+__all__ = ['Graph']
 
 class _CachedPropertyResetterAdj:
     """Data Descriptor class for _adj that resets ``adj`` cached_property when needed
@@ -77,7 +77,7 @@ class Graph(Collection[_Node]):
     `MultiDiGraph`
     """
 
-    # Class variables for custom dict factories
+    __networkx_backend__: ClassVar[str]
     node_dict_factory: ClassVar[_MapFactory]
     node_attr_dict_factory: ClassVar[_MapFactory]
     adjlist_outer_dict_factory: ClassVar[_MapFactory]
@@ -88,8 +88,34 @@ class Graph(Collection[_Node]):
     # Instance variables
     _adj: dict[_Node, dict[_Node, dict[str, Any]]]  # Type descriptor
     _node: dict[_Node, dict[str, Any]]  # Dictionary for node attributes
-    graph: dict[str, Any]  # Dictionary for graph attributes
+    graph: dict[str, Any]
     __networkx_cache__: dict[str, Any]
+
+    def to_directed_class(self) -> type[DiGraph[_Node]]:
+        """Returns the class to use for directed copies of this graph.
+
+        When creating a directed version of the graph with functions like `to_directed()`, this provides the class that will be
+        used.
+
+        Returns
+        -------
+        type
+            A directed graph class.
+        """
+        ...
+
+    def to_undirected_class(self) -> type[Graph[_Node]]:
+        """Returns the class to use for undirected copies of this graph.
+
+        When creating an undirected version of the graph with functions like `to_undirected()`, this provides the class that will
+        be used.
+
+        Returns
+        -------
+        type
+            An undirected graph class.
+        """
+        ...
 
     def __init__(self, incoming_graph_data: _Data[_Node] | None = None, **attr: Any) -> None:
         """Initialize a graph with edges, `name`, or graph attributes.
@@ -110,34 +136,8 @@ class Graph(Collection[_Node]):
         """
         ...
 
-    def to_directed_class(self) -> type['DiGraph[_Node]']:
-        """Returns the class to use for directed copies of this graph.
-
-        When creating a directed version of the graph with functions like `to_directed()`, this provides the class that will be
-        used.
-
-        Returns
-        -------
-        type
-            A directed graph class.
-        """
-        ...
-
-    def to_undirected_class(self) -> type['Graph[_Node]']:
-        """Returns the class to use for undirected copies of this graph.
-
-        When creating an undirected version of the graph with functions like `to_undirected()`, this provides the class that will
-        be used.
-
-        Returns
-        -------
-        type
-            An undirected graph class.
-        """
-        ...
-
     @cached_property
-    def adj(self) -> AdjacencyView:
+    def adj(self) -> AdjacencyView[_Node, _Node, dict[str, Any]]:
         """Graph adjacency object holding the neighbors of each node.
 
         This object is a read-only dict-like structure with node keys and neighbor-dict values. The neighbor-dict is keyed by
@@ -173,7 +173,7 @@ class Graph(Collection[_Node]):
         """
         ...
 
-    def __getitem__(self, n: _Node) -> AtlasView:
+    def __getitem__(self, n: _Node) -> AtlasView[_Node, str, Any]:
         """Returns a dict of neighbors of node n.
 
         This allows the syntax G[n] to access the neighbors of node n.
@@ -246,7 +246,7 @@ class Graph(Collection[_Node]):
         ...
 
     @cached_property
-    def nodes(self) -> NodeView:
+    def nodes(self) -> NodeView[_Node]:
         """A `NodeView` of the `Graph` as `G.nodes` or `G.nodes()`.
 
         The `NodeView` provides set-like operations, a dictionary interface, and a convenient way to iterate through node attributes.
@@ -521,10 +521,10 @@ class Graph(Collection[_Node]):
         ...
 
     @overload
-    def update(self, edges: 'Graph[_Node]', nodes: None = None) -> None: ...
+    def update(self, edges: Graph[_Node], nodes: None = None) -> None: ...
 
     @overload
-    def update(self, edges: 'Graph[_Node] | Iterable[_EdgePlus[_Node]] | None' = None,
+    def update(self, edges: Graph[_Node] | Iterable[_EdgePlus[_Node]] | None = None,
            nodes: Iterable[_Node] | None = None) -> None: ...
 
     def update(self, edges: Any = None, nodes: Any = None) -> None:
@@ -681,7 +681,7 @@ class Graph(Collection[_Node]):
         ...
 
     @cached_property
-    def edges(self) -> EdgeView:
+    def edges(self) -> EdgeView[_Node]:
         """An EdgeView of the Graph as G.edges or G.edges().
 
         edges(self, nbunch=None, data=False, default=None)
@@ -771,7 +771,7 @@ class Graph(Collection[_Node]):
         ...
 
     @cached_property
-    def degree(self) -> DegreeView:
+    def degree(self) -> int | DegreeView[_Node]:
         """A DegreeView for the Graph as G.degree or G.degree().
 
         The node degree is the number of edges adjacent to the node. The weighted node degree is the sum of the edge weights for
@@ -784,7 +784,7 @@ class Graph(Collection[_Node]):
         nbunch : single node, container, or all nodes (default= all nodes)
             The view will only report edges incident to these nodes.
         weight : string or None, optional (default=None)
-           The name of an edge attribute that holds the numerical value used as a weight.  If None, then each edge has weight 1.
+            The name of an edge attribute that holds the numerical value used as a weight.  If None, then each edge has weight 1.
 
         Returns
         -------
@@ -870,7 +870,7 @@ class Graph(Collection[_Node]):
         """
         ...
 
-    def to_directed(self, as_view: bool = False) -> 'DiGraph[_Node]':
+    def to_directed(self, as_view: bool = False) -> DiGraph[_Node]:
         """Returns a directed representation of the graph.
 
         Returns
@@ -918,7 +918,7 @@ class Graph(Collection[_Node]):
         """
         ...
 
-    def to_undirected(self, as_view: bool = False) -> Self:
+    def to_undirected(self, as_view: bool = False) -> Graph[_Node]:
         """Returns an undirected copy of the graph.
 
         Parameters
@@ -961,7 +961,7 @@ class Graph(Collection[_Node]):
         """
         ...
 
-    def subgraph(self, nodes: Iterable[_Node]) -> 'Graph[_Node]':
+    def subgraph(self, nodes: Iterable[_Node]) -> Graph[_Node]:
         """Returns a SubGraph view of the subgraph induced on `nodes`.
 
         The induced subgraph of the graph contains the nodes in `nodes`
@@ -1006,7 +1006,7 @@ class Graph(Collection[_Node]):
         """
         ...
 
-    def edge_subgraph(self, edges: Iterable[_Edge[_Node]]) -> 'Graph[_Node]':
+    def edge_subgraph(self, edges: Iterable[_Edge[_Node]]) -> Graph[_Node]:
         """Returns the subgraph induced by the specified edges.
 
         The induced subgraph contains each edge in `edges` and each

@@ -1,63 +1,40 @@
-from _typeshed import Incomplete
+from collections.abc import Sequence
 
-__all__ = ['is_threshold_graph', 'find_threshold_graph']
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
+from numpy.random import RandomState
 
-def is_threshold_graph(G):
-    """
-    Returns `True` if `G` is a threshold graph.
+__all__ = ["is_threshold_graph", "find_threshold_graph"]
 
-    Parameters
-    ----------
-    G : NetworkX graph instance
-        An instance of `Graph`, `DiGraph`, `MultiGraph` or `MultiDiGraph`
-
-    Returns
-    -------
-    bool
-        `True` if `G` is a threshold graph, `False` otherwise.
-
-    Examples
-    --------
-    >>> from networkx.algorithms.threshold import is_threshold_graph
-    >>> G = nx.path_graph(3)
-    >>> is_threshold_graph(G)
-    True
-    >>> G = nx.barbell_graph(3, 3)
-    >>> is_threshold_graph(G)
-    False
-
-    References
-    ----------
-    .. [1] Threshold graphs: https://en.wikipedia.org/wiki/Threshold_graph
-    """
-def find_threshold_graph(G, create_using: Incomplete | None = None):
-    """
-    Returns a threshold subgraph that is close to largest in `G`.
-
-    The threshold graph will contain the largest degree node in G.
-
-    Parameters
-    ----------
-    G : NetworkX graph instance
-        An instance of `Graph`, or `MultiDiGraph`
-    create_using : NetworkX graph class or `None` (default), optional
-        Type of graph to use when constructing the threshold graph.
-        If `None`, infer the appropriate graph type from the input.
-
-    Returns
-    -------
-    graph :
-        A graph instance representing the threshold graph
-
-    Examples
-    --------
-    >>> from networkx.algorithms.threshold import find_threshold_graph
-    >>> G = nx.barbell_graph(3, 3)
-    >>> T = find_threshold_graph(G)
-    >>> T.nodes  # may vary
-    NodeView((7, 8, 5, 6))
-
-    References
-    ----------
-    .. [1] Threshold graphs: https://en.wikipedia.org/wiki/Threshold_graph
-    """
+@_dispatchable
+def is_threshold_graph(G: Graph[_Node]) -> bool: ...
+def is_threshold_sequence(degree_sequence: Sequence[list[int]]) -> bool: ...
+def creation_sequence(degree_sequence, with_labels=False, compact=False): ...
+def make_compact(creation_sequence): ...
+def uncompact(creation_sequence): ...
+def creation_sequence_to_weights(creation_sequence): ...
+def weights_to_creation_sequence(weights, threshold=1, with_labels=False, compact=False): ...
+@_dispatchable
+def threshold_graph(creation_sequence, create_using=None): ...
+@_dispatchable
+def find_alternating_4_cycle(G: Graph[_Node]): ...
+@_dispatchable
+def find_threshold_graph(G: Graph[_Node], create_using: Graph[_Node] | None = None): ...
+@_dispatchable
+def find_creation_sequence(G: Graph[_Node]): ...
+def triangles(creation_sequence): ...
+def triangle_sequence(creation_sequence): ...
+def cluster_sequence(creation_sequence): ...
+def degree_sequence(creation_sequence): ...
+def density(creation_sequence): ...
+def degree_correlation(creation_sequence): ...
+def shortest_path(creation_sequence, u, v): ...
+def shortest_path_length(creation_sequence, i): ...
+def betweenness_sequence(creation_sequence, normalized=True): ...
+def eigenvectors(creation_sequence): ...
+def spectral_projection(u, eigenpairs): ...
+def eigenvalues(creation_sequence): ...
+def random_threshold_sequence(n, p, seed: int | RandomState | None = None): ...
+def right_d_threshold_sequence(n: int, m: int) -> list[str]: ...
+def left_d_threshold_sequence(n: int, m: int) -> list[str]: ...
+def swap_d(cs, p_split=1.0, p_combine=1.0, seed: int | RandomState | None = None): ...
