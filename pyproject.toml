@@ -33,7 +33,7 @@ dependencies = [
   "pytype",
   "pyupgrade",
   "stub-generator",
-  "stubdefaulter",
+  "stubdefaulter@git+https://github.com/JelleZijlstra/stubdefaulter.git",
   "typeshed_client",
 ]
 optional-dependencies = { development = [

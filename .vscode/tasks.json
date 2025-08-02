@@ -1,0 +1,42 @@
+{
+    // See https://code.visualstudio.com/docs/editor/tasks for more examples
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "stubgen: Generate Stubs",
+            "type": "shell",
+            "command": "stubgen",
+            "args": [
+                "--ignore-errors",
+                "--include-private",
+                "--include-docstrings",
+                "--output", "stubs",
+                "--package", "${input:packageName}"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "stubgen: Inspect Mode",
+            "type": "shell",
+            "command": "stubgen",
+            "args": [
+                "--ignore-errors",
+                "--include-private",
+                "--include-docstrings",
+                "--output", "stubs",
+                "--inspect-mode",
+                "--package", "${input:packageName}"
+            ],
+            "group": "build",
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "packageName",
+            "type": "promptString",
+            "description": "Enter the package name for stubgen"
+        }
+    ]
+}

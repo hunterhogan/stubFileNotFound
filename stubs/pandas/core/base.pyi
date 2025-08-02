@@ -1,34 +1,13 @@
-from collections.abc import (
-    Hashable,
-    Iterator,
-)
-from typing import (
-    Any,
-    Generic,
-    Literal,
-    final,
-    overload,
-)
-
-import numpy as np
-from pandas import (
-    Index,
-    Series,
-)
+from collections.abc import Hashable, Iterator
+from pandas import Index, Series
+from pandas._typing import AxisIndex, DropKeep, NDFrameT, npt, S1, Scalar
 from pandas.core.arraylike import OpsMixin
 from pandas.core.arrays import ExtensionArray
 from pandas.core.arrays.categorical import Categorical
-from typing_extensions import Self
-
-from pandas._typing import (
-    S1,
-    AxisIndex,
-    DropKeep,
-    NDFrameT,
-    Scalar,
-    npt,
-)
 from pandas.util._decorators import cache_readonly
+from typing import Any, final, Generic, Literal, overload
+from typing_extensions import Self
+import numpy as np
 
 class NoNewAttributesMixin:
     def __setattr__(self, key: str, value: Any) -> None: ...

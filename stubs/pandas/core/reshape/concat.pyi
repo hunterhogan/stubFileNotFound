@@ -1,27 +1,8 @@
-from collections.abc import (
-    Iterable,
-    Mapping,
-    Sequence,
-)
-from typing import (
-    Literal,
-    overload,
-)
-
-from pandas import (
-    DataFrame,
-    Series,
-)
+from collections.abc import Iterable, Mapping, Sequence
+from pandas import DataFrame, Series
+from pandas._typing import Axis, AxisIndex, HashableT1, HashableT2, HashableT3, HashableT4, S2
+from typing import Literal, overload
 from typing_extensions import Never
-
-from pandas._typing import (
-    Axis,
-    AxisIndex,
-    HashableT1,
-    HashableT2,
-    HashableT3,
-    HashableT4,
-)
 
 @overload
 def concat(  # type: ignore[overload-overlap]
@@ -38,7 +19,21 @@ def concat(  # type: ignore[overload-overlap]
     copy: bool = None,
 ) -> DataFrame: ...
 @overload
-def concat(  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
+def concat(  # pyright: ignore[reportOverlappingOverload]
+    objs: Iterable[Series[S2]],
+    *,
+    axis: AxisIndex = 0,
+    join: Literal["inner", "outer"] = 'outer',
+    ignore_index: bool = False,
+    keys: Iterable[HashableT2] = None,
+    levels: Sequence[list[HashableT3] | tuple[HashableT3, ...]] = None,
+    names: list[HashableT4] | None = None,
+    verify_integrity: bool = False,
+    sort: bool = False,
+    copy: bool = None,
+) -> Series[S2]: ...
+@overload
+def concat(  # type: ignore[overload-overlap]
     objs: Iterable[Series] | Mapping[HashableT1, Series],
     *,
     axis: AxisIndex = 0,

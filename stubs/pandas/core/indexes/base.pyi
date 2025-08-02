@@ -1,69 +1,20 @@
 from builtins import str as _str
-from collections.abc import (
-    Callable,
-    Hashable,
-    Iterable,
-    Iterator,
-    Sequence,
-)
-from datetime import (
-    datetime,
-    timedelta,
-)
-from typing import (
-    Any,
-    ClassVar,
-    Literal,
-    TypeAlias,
-    final,
-    overload,
-)
-
-import numpy as np
+from collections.abc import Callable, Hashable, Iterable, Iterator, Sequence
+from datetime import datetime, timedelta
 from pandas import (
-    DataFrame,
-    DatetimeIndex,
-    Interval,
-    IntervalIndex,
-    MultiIndex,
-    Period,
-    PeriodDtype,
-    PeriodIndex,
-    Series,
-    TimedeltaIndex,
-)
+	DataFrame, DatetimeIndex, Interval, IntervalIndex, MultiIndex, Period, PeriodDtype, PeriodIndex, Series,
+	TimedeltaIndex)
+from pandas._libs.interval import _OrderableT
+from pandas._typing import (
+	AnyAll, AxesData, C2, DropKeep, DtypeArg, DtypeObj, HashableT, Label, Level, MaskType, NaPosition, np_ndarray_anyint,
+	np_ndarray_bool, np_ndarray_complex, np_ndarray_float, ReindexMethod, S1, SliceType, TimedeltaDtypeArg,
+	TimestampDtypeArg, type_t)
 from pandas.core.arrays import ExtensionArray
 from pandas.core.base import IndexOpsMixin
 from pandas.core.strings.accessor import StringMethods
-from typing_extensions import (
-    Never,
-    Self,
-)
-
-from pandas._libs.interval import _OrderableT
-from pandas._typing import (
-    C2,
-    S1,
-    AnyAll,
-    AxesData,
-    DropKeep,
-    DtypeArg,
-    DtypeObj,
-    HashableT,
-    Label,
-    Level,
-    MaskType,
-    NaPosition,
-    ReindexMethod,
-    SliceType,
-    TimedeltaDtypeArg,
-    TimestampDtypeArg,
-    np_ndarray_anyint,
-    np_ndarray_bool,
-    np_ndarray_complex,
-    np_ndarray_float,
-    type_t,
-)
+from typing import Any, ClassVar, final, Literal, overload, TypeAlias
+from typing_extensions import Never, Self
+import numpy as np
 
 class InvalidIndexError(Exception): ...
 

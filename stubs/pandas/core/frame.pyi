@@ -1,169 +1,48 @@
-from builtins import (
-    bool as _bool,
-    str as _str,
-)
-from collections.abc import (
-    Callable,
-    Hashable,
-    Iterable,
-    Iterator,
-    Mapping,
-    MutableMapping,
-    Sequence,
-)
-import datetime as dt
-import sys
-from typing import (
-    Any,
-    ClassVar,
-    Generic,
-    Literal,
-    NoReturn,
-    final,
-    overload,
-)
-
+from builtins import bool as _bool, str as _str
+from collections.abc import Callable, Hashable, Iterable, Iterator, Mapping, MutableMapping, Sequence
 from matplotlib.axes import Axes as PlotAxes
-import numpy as np
-from pandas import (
-    Period,
-    Timedelta,
-    Timestamp,
-)
-from pandas.core.arraylike import OpsMixin
-from pandas.core.generic import NDFrame
-from pandas.core.groupby.generic import DataFrameGroupBy
-from pandas.core.indexers import BaseIndexer
-from pandas.core.indexes.base import (
-    Index,
-    UnknownIndex,
-)
-from pandas.core.indexes.category import CategoricalIndex
-from pandas.core.indexes.datetimes import DatetimeIndex
-from pandas.core.indexes.interval import IntervalIndex
-from pandas.core.indexes.multi import MultiIndex
-from pandas.core.indexes.period import PeriodIndex
-from pandas.core.indexes.timedeltas import TimedeltaIndex
-from pandas.core.indexing import (
-    _iLocIndexer,
-    _IndexSliceTuple,
-    _LocIndexer,
-)
-from pandas.core.interchange.dataframe_protocol import DataFrame as DataFrameXchg
-from pandas.core.reshape.pivot import (
-    _PivotTableColumnsTypes,
-    _PivotTableIndexTypes,
-    _PivotTableValuesTypes,
-)
-from pandas.core.series import (
-    Series,
-)
-from pandas.core.window import (
-    Expanding,
-    ExponentialMovingWindow,
-)
-from pandas.core.window.rolling import (
-    Rolling,
-    Window,
-)
-from typing_extensions import (
-    Never,
-    Self,
-    TypeAlias,
-)
-import xarray as xr
-
+from pandas import Period, Timedelta, Timestamp
 from pandas._libs.lib import _NoDefaultDoNotUse
 from pandas._libs.missing import NAType
 from pandas._libs.tslibs import BaseOffset
 from pandas._libs.tslibs.nattype import NaTType
 from pandas._libs.tslibs.offsets import DateOffset
 from pandas._typing import (
-    S2,
-    AggFuncTypeBase,
-    AggFuncTypeDictFrame,
-    AggFuncTypeDictSeries,
-    AggFuncTypeFrame,
-    AlignJoin,
-    AnyAll,
-    AnyArrayLike,
-    ArrayLike,
-    AstypeArg,
-    Axes,
-    Axis,
-    AxisColumn,
-    AxisIndex,
-    CalculationMethod,
-    ColspaceArgType,
-    CompressionOptions,
-    DropKeep,
-    Dtype,
-    FilePath,
-    FillnaOptions,
-    FloatFormatType,
-    FormattersType,
-    GroupByObjectNonScalar,
-    HashableT,
-    HashableT1,
-    HashableT2,
-    HashableT3,
-    IgnoreRaise,
-    IndexingInt,
-    IndexKeyFunc,
-    IndexLabel,
-    IndexType,
-    InterpolateOptions,
-    IntervalClosedType,
-    IntervalT,
-    IntoColumn,
-    JoinValidate,
-    JsonFrameOrient,
-    JSONSerializable,
-    Label,
-    Level,
-    ListLike,
-    ListLikeExceptSeriesAndStr,
-    ListLikeU,
-    MaskType,
-    MergeHow,
-    MergeValidate,
-    NaPosition,
-    NDFrameT,
-    NsmallestNlargestKeep,
-    ParquetEngine,
-    QuantileInterpolation,
-    RandomState,
-    ReadBuffer,
-    ReindexMethod,
-    Renamer,
-    ReplaceValue,
-    Scalar,
-    ScalarT,
-    SequenceNotStr,
-    SeriesByT,
-    SortKind,
-    StataDateFormat,
-    StorageOptions,
-    StrDtypeArg,
-    StrLike,
-    Suffixes,
-    T as _T,
-    TimeAmbiguous,
-    TimeNonexistent,
-    TimeUnit,
-    TimeZones,
-    ToStataByteorder,
-    ToTimestampHow,
-    UpdateJoin,
-    ValueKeyFunc,
-    WriteBuffer,
-    XMLParsers,
-    npt,
-    num,
-)
-
+	AggFuncTypeBase, AggFuncTypeDictFrame, AggFuncTypeDictSeries, AggFuncTypeFrame, AlignJoin, AnyAll, AnyArrayLike,
+	ArrayLike, AstypeArg, Axes, Axis, AxisColumn, AxisIndex, CalculationMethod, ColspaceArgType, CompressionOptions,
+	DropKeep, Dtype, FilePath, FillnaOptions, FloatFormatType, FormattersType, GroupByObjectNonScalar, HashableT,
+	HashableT1, HashableT2, HashableT3, IgnoreRaise, IndexingInt, IndexKeyFunc, IndexLabel, IndexType, InterpolateOptions,
+	IntervalClosedType, IntervalT, IntoColumn, JoinValidate, JsonFrameOrient, JSONSerializable, Label, Level, ListLike,
+	ListLikeExceptSeriesAndStr, ListLikeU, MaskType, MergeHow, MergeValidate, NaPosition, NDFrameT, npt,
+	NsmallestNlargestKeep, num, ParquetEngine, QuantileInterpolation, RandomState, ReadBuffer, ReindexMethod, Renamer,
+	ReplaceValue, S2, Scalar, ScalarT, SequenceNotStr, SeriesByT, SortKind, StataDateFormat, StorageOptions, StrDtypeArg,
+	StrLike, Suffixes, T as _T, TimeAmbiguous, TimeNonexistent, TimeUnit, TimeZones, ToStataByteorder, ToTimestampHow,
+	UpdateJoin, ValueKeyFunc, WriteBuffer, XMLParsers)
+from pandas.core.arraylike import OpsMixin
+from pandas.core.generic import NDFrame
+from pandas.core.groupby.generic import DataFrameGroupBy
+from pandas.core.indexers import BaseIndexer
+from pandas.core.indexes.base import Index, UnknownIndex
+from pandas.core.indexes.category import CategoricalIndex
+from pandas.core.indexes.datetimes import DatetimeIndex
+from pandas.core.indexes.interval import IntervalIndex
+from pandas.core.indexes.multi import MultiIndex
+from pandas.core.indexes.period import PeriodIndex
+from pandas.core.indexes.timedeltas import TimedeltaIndex
+from pandas.core.indexing import _iLocIndexer, _IndexSliceTuple, _LocIndexer
+from pandas.core.interchange.dataframe_protocol import DataFrame as DataFrameXchg
+from pandas.core.reshape.pivot import _PivotTableColumnsTypes, _PivotTableIndexTypes, _PivotTableValuesTypes
+from pandas.core.series import Series
+from pandas.core.window import Expanding, ExponentialMovingWindow
+from pandas.core.window.rolling import Rolling, Window
 from pandas.io.formats.style import Styler
 from pandas.plotting import PlotAccessor
+from typing import Any, ClassVar, final, Generic, Literal, NoReturn, overload
+from typing_extensions import Never, Self, TypeAlias
+import datetime as dt
+import numpy as np
+import sys
+import xarray as xr
 
 class _iLocIndexerFrame(_iLocIndexer, Generic[_T]):
     @overload
@@ -892,7 +771,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def shift(
         self,
         periods: int | Sequence[int] = 1,
-        freq: DateOffset | dt.timedelta | _str | None = None,
+        freq: BaseOffset | dt.timedelta | _str | None = None,
         axis: Axis = 0,
         fill_value: Scalar | NAType | None = ...,
     ) -> Self: ...
