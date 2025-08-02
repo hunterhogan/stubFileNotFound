@@ -3,235 +3,235 @@ from _typeshed import Incomplete
 import types
 
 class Averager:
-    '''Recipe for calculating a running average.
+	'''Recipe for calculating a running average.
 
-    Sometimes known as "online statistics," the running average maintains the
-    total and count. The average can then be calculated at any time.
+	Sometimes known as "online statistics," the running average maintains the
+	total and count. The average can then be calculated at any time.
 
-    Assumes the key will not be evicted. Set the eviction policy to \'none\' on
-    the cache to guarantee the key is not evicted.
+	Assumes the key will not be evicted. Set the eviction policy to \'none\' on
+	the cache to guarantee the key is not evicted.
 
-    >>> import diskcache
-    >>> cache = diskcache.FanoutCache()
-    >>> ave = Averager(cache, \'latency\')
-    >>> ave.add(0.080)
-    >>> ave.add(0.120)
-    >>> ave.get()
-    0.1
-    >>> ave.add(0.160)
-    >>> ave.pop()
-    0.12
-    >>> print(ave.get())
-    None
+	>>> import diskcache
+	>>> cache = diskcache.FanoutCache()
+	>>> ave = Averager(cache, \'latency\')
+	>>> ave.add(0.080)
+	>>> ave.add(0.120)
+	>>> ave.get()
+	0.1
+	>>> ave.add(0.160)
+	>>> ave.pop()
+	0.12
+	>>> print(ave.get())
+	None
 
-    '''
-    _cache: Incomplete
-    _key: Incomplete
-    _expire: Incomplete
-    _tag: Incomplete
-    def __init__(self, cache, key, expire=None, tag=None) -> None: ...
-    def add(self, value) -> None:
-        """Add `value` to average."""
-    def get(self):
-        """Get current average or return `None` if count equals zero."""
-    def pop(self):
-        """Return current average and delete key."""
+	'''
+	_cache: Incomplete
+	_key: Incomplete
+	_expire: Incomplete
+	_tag: Incomplete
+	def __init__(self, cache, key, expire=None, tag=None) -> None: ...
+	def add(self, value) -> None:
+		"""Add `value` to average."""
+	def get(self):
+		"""Get current average or return `None` if count equals zero."""
+	def pop(self):
+		"""Return current average and delete key."""
 
 class Lock:
-    """Recipe for cross-process and cross-thread lock.
+	"""Recipe for cross-process and cross-thread lock.
 
-    Assumes the key will not be evicted. Set the eviction policy to 'none' on
-    the cache to guarantee the key is not evicted.
+	Assumes the key will not be evicted. Set the eviction policy to 'none' on
+	the cache to guarantee the key is not evicted.
 
-    >>> import diskcache
-    >>> cache = diskcache.Cache()
-    >>> lock = Lock(cache, 'report-123')
-    >>> lock.acquire()
-    >>> lock.release()
-    >>> with lock:
-    ...     pass
+	>>> import diskcache
+	>>> cache = diskcache.Cache()
+	>>> lock = Lock(cache, 'report-123')
+	>>> lock.acquire()
+	>>> lock.release()
+	>>> with lock:
+	...     pass
 
-    """
-    _cache: Incomplete
-    _key: Incomplete
-    _expire: Incomplete
-    _tag: Incomplete
-    def __init__(self, cache, key, expire=None, tag=None) -> None: ...
-    def acquire(self) -> None:
-        """Acquire lock using spin-lock algorithm."""
-    def release(self) -> None:
-        """Release lock by deleting key."""
-    def locked(self):
-        """Return true if the lock is acquired."""
-    def __enter__(self) -> None: ...
-    def __exit__(self, *exc_info) -> None: ...
+	"""
+	_cache: Incomplete
+	_key: Incomplete
+	_expire: Incomplete
+	_tag: Incomplete
+	def __init__(self, cache, key, expire=None, tag=None) -> None: ...
+	def acquire(self) -> None:
+		"""Acquire lock using spin-lock algorithm."""
+	def release(self) -> None:
+		"""Release lock by deleting key."""
+	def locked(self):
+		"""Return true if the lock is acquired."""
+	def __enter__(self) -> None: ...
+	def __exit__(self, *exc_info) -> None: ...
 
 class RLock:
-    """Recipe for cross-process and cross-thread re-entrant lock.
+	"""Recipe for cross-process and cross-thread re-entrant lock.
 
-    Assumes the key will not be evicted. Set the eviction policy to 'none' on
-    the cache to guarantee the key is not evicted.
+	Assumes the key will not be evicted. Set the eviction policy to 'none' on
+	the cache to guarantee the key is not evicted.
 
-    >>> import diskcache
-    >>> cache = diskcache.Cache()
-    >>> rlock = RLock(cache, 'user-123')
-    >>> rlock.acquire()
-    >>> rlock.acquire()
-    >>> rlock.release()
-    >>> with rlock:
-    ...     pass
-    >>> rlock.release()
-    >>> rlock.release()
-    Traceback (most recent call last):
-      ...
-    AssertionError: cannot release un-acquired lock
+	>>> import diskcache
+	>>> cache = diskcache.Cache()
+	>>> rlock = RLock(cache, 'user-123')
+	>>> rlock.acquire()
+	>>> rlock.acquire()
+	>>> rlock.release()
+	>>> with rlock:
+	...     pass
+	>>> rlock.release()
+	>>> rlock.release()
+	Traceback (most recent call last):
+	  ...
+	AssertionError: cannot release un-acquired lock
 
-    """
-    _cache: Incomplete
-    _key: Incomplete
-    _expire: Incomplete
-    _tag: Incomplete
-    def __init__(self, cache, key, expire=None, tag=None) -> None: ...
-    def acquire(self) -> None:
-        """Acquire lock by incrementing count using spin-lock algorithm."""
-    def release(self) -> None:
-        """Release lock by decrementing count."""
-    def __enter__(self) -> None: ...
-    def __exit__(self, *exc_info) -> None: ...
+	"""
+	_cache: Incomplete
+	_key: Incomplete
+	_expire: Incomplete
+	_tag: Incomplete
+	def __init__(self, cache, key, expire=None, tag=None) -> None: ...
+	def acquire(self) -> None:
+		"""Acquire lock by incrementing count using spin-lock algorithm."""
+	def release(self) -> None:
+		"""Release lock by decrementing count."""
+	def __enter__(self) -> None: ...
+	def __exit__(self, *exc_info) -> None: ...
 
 class BoundedSemaphore:
-    """Recipe for cross-process and cross-thread bounded semaphore.
+	"""Recipe for cross-process and cross-thread bounded semaphore.
 
-    Assumes the key will not be evicted. Set the eviction policy to 'none' on
-    the cache to guarantee the key is not evicted.
+	Assumes the key will not be evicted. Set the eviction policy to 'none' on
+	the cache to guarantee the key is not evicted.
 
-    >>> import diskcache
-    >>> cache = diskcache.Cache()
-    >>> semaphore = BoundedSemaphore(cache, 'max-cons', value=2)
-    >>> semaphore.acquire()
-    >>> semaphore.acquire()
-    >>> semaphore.release()
-    >>> with semaphore:
-    ...     pass
-    >>> semaphore.release()
-    >>> semaphore.release()
-    Traceback (most recent call last):
-      ...
-    AssertionError: cannot release un-acquired semaphore
+	>>> import diskcache
+	>>> cache = diskcache.Cache()
+	>>> semaphore = BoundedSemaphore(cache, 'max-cons', value=2)
+	>>> semaphore.acquire()
+	>>> semaphore.acquire()
+	>>> semaphore.release()
+	>>> with semaphore:
+	...     pass
+	>>> semaphore.release()
+	>>> semaphore.release()
+	Traceback (most recent call last):
+	  ...
+	AssertionError: cannot release un-acquired semaphore
 
-    """
-    _cache: Incomplete
-    _key: Incomplete
-    _value: Incomplete
-    _expire: Incomplete
-    _tag: Incomplete
-    def __init__(self, cache, key, value: int = 1, expire=None, tag=None) -> None: ...
-    def acquire(self) -> None:
-        """Acquire semaphore by decrementing value using spin-lock algorithm."""
-    def release(self) -> None:
-        """Release semaphore by incrementing value."""
-    def __enter__(self) -> None: ...
-    def __exit__(self, *exc_info) -> None: ...
+	"""
+	_cache: Incomplete
+	_key: Incomplete
+	_value: Incomplete
+	_expire: Incomplete
+	_tag: Incomplete
+	def __init__(self, cache, key, value: int = 1, expire=None, tag=None) -> None: ...
+	def acquire(self) -> None:
+		"""Acquire semaphore by decrementing value using spin-lock algorithm."""
+	def release(self) -> None:
+		"""Release semaphore by incrementing value."""
+	def __enter__(self) -> None: ...
+	def __exit__(self, *exc_info) -> None: ...
 
 def throttle(cache, count, seconds, name=None, expire=None, tag=None, time_func=..., sleep_func=...):
-    """Decorator to throttle calls to function.
+	"""Decorator to throttle calls to function.
 
-    Assumes keys will not be evicted. Set the eviction policy to 'none' on the
-    cache to guarantee the keys are not evicted.
+	Assumes keys will not be evicted. Set the eviction policy to 'none' on the
+	cache to guarantee the keys are not evicted.
 
-    >>> import diskcache, time
-    >>> cache = diskcache.Cache()
-    >>> count = 0
-    >>> @throttle(cache, 2, 1)  # 2 calls per 1 second
-    ... def increment():
-    ...     global count
-    ...     count += 1
-    >>> start = time.time()
-    >>> while (time.time() - start) <= 2:
-    ...     increment()
-    >>> count in (6, 7)  # 6 or 7 calls depending on CPU load
-    True
+	>>> import diskcache, time
+	>>> cache = diskcache.Cache()
+	>>> count = 0
+	>>> @throttle(cache, 2, 1)  # 2 calls per 1 second
+	... def increment():
+	...     global count
+	...     count += 1
+	>>> start = time.time()
+	>>> while (time.time() - start) <= 2:
+	...     increment()
+	>>> count in (6, 7)  # 6 or 7 calls depending on CPU load
+	True
 
-    """
+	"""
 def barrier(cache, lock_factory, name=None, expire=None, tag=None):
-    """Barrier to calling decorated function.
+	"""Barrier to calling decorated function.
 
-    Supports different kinds of locks: Lock, RLock, BoundedSemaphore.
+	Supports different kinds of locks: Lock, RLock, BoundedSemaphore.
 
-    Assumes keys will not be evicted. Set the eviction policy to 'none' on the
-    cache to guarantee the keys are not evicted.
+	Assumes keys will not be evicted. Set the eviction policy to 'none' on the
+	cache to guarantee the keys are not evicted.
 
-    >>> import diskcache, time
-    >>> cache = diskcache.Cache()
-    >>> @barrier(cache, Lock)
-    ... def work(num):
-    ...     print('worker started')
-    ...     time.sleep(1)
-    ...     print('worker finished')
-    >>> import multiprocessing.pool
-    >>> pool = multiprocessing.pool.ThreadPool(2)
-    >>> _ = pool.map(work, range(2))
-    worker started
-    worker finished
-    worker started
-    worker finished
-    >>> pool.terminate()
+	>>> import diskcache, time
+	>>> cache = diskcache.Cache()
+	>>> @barrier(cache, Lock)
+	... def work(num):
+	...     print('worker started')
+	...     time.sleep(1)
+	...     print('worker finished')
+	>>> import multiprocessing.pool
+	>>> pool = multiprocessing.pool.ThreadPool(2)
+	>>> _ = pool.map(work, range(2))
+	worker started
+	worker finished
+	worker started
+	worker finished
+	>>> pool.terminate()
 
-    """
+	"""
 def memoize_stampede(cache, expire, name=None, typed: bool = False, tag=None, beta: int = 1, ignore=()):
-    """Memoizing cache decorator with cache stampede protection.
+	"""Memoizing cache decorator with cache stampede protection.
 
-    Cache stampedes are a type of system overload that can occur when parallel
-    computing systems using memoization come under heavy load. This behaviour
-    is sometimes also called dog-piling, cache miss storm, cache choking, or
-    the thundering herd problem.
+	Cache stampedes are a type of system overload that can occur when parallel
+	computing systems using memoization come under heavy load. This behaviour
+	is sometimes also called dog-piling, cache miss storm, cache choking, or
+	the thundering herd problem.
 
-    The memoization decorator implements cache stampede protection through
-    early recomputation. Early recomputation of function results will occur
-    probabilistically before expiration in a background thread of
-    execution. Early probabilistic recomputation is based on research by
-    Vattani, A.; Chierichetti, F.; Lowenstein, K. (2015), Optimal Probabilistic
-    Cache Stampede Prevention, VLDB, pp. 886-897, ISSN 2150-8097
+	The memoization decorator implements cache stampede protection through
+	early recomputation. Early recomputation of function results will occur
+	probabilistically before expiration in a background thread of
+	execution. Early probabilistic recomputation is based on research by
+	Vattani, A.; Chierichetti, F.; Lowenstein, K. (2015), Optimal Probabilistic
+	Cache Stampede Prevention, VLDB, pp. 886-897, ISSN 2150-8097
 
-    If name is set to None (default), the callable name will be determined
-    automatically.
+	If name is set to None (default), the callable name will be determined
+	automatically.
 
-    If typed is set to True, function arguments of different types will be
-    cached separately. For example, f(3) and f(3.0) will be treated as distinct
-    calls with distinct results.
+	If typed is set to True, function arguments of different types will be
+	cached separately. For example, f(3) and f(3.0) will be treated as distinct
+	calls with distinct results.
 
-    The original underlying function is accessible through the `__wrapped__`
-    attribute. This is useful for introspection, for bypassing the cache, or
-    for rewrapping the function with a different cache.
+	The original underlying function is accessible through the `__wrapped__`
+	attribute. This is useful for introspection, for bypassing the cache, or
+	for rewrapping the function with a different cache.
 
-    >>> from diskcache import Cache
-    >>> cache = Cache()
-    >>> @memoize_stampede(cache, expire=1)
-    ... def fib(number):
-    ...     if number == 0:
-    ...         return 0
-    ...     elif number == 1:
-    ...         return 1
-    ...     else:
-    ...         return fib(number - 1) + fib(number - 2)
-    >>> print(fib(100))
-    354224848179261915075
+	>>> from diskcache import Cache
+	>>> cache = Cache()
+	>>> @memoize_stampede(cache, expire=1)
+	... def fib(number):
+	...     if number == 0:
+	...         return 0
+	...     elif number == 1:
+	...         return 1
+	...     else:
+	...         return fib(number - 1) + fib(number - 2)
+	>>> print(fib(100))
+	354224848179261915075
 
-    An additional `__cache_key__` attribute can be used to generate the cache
-    key used for the given arguments.
+	An additional `__cache_key__` attribute can be used to generate the cache
+	key used for the given arguments.
 
-    >>> key = fib.__cache_key__(100)
-    >>> del cache[key]
+	>>> key = fib.__cache_key__(100)
+	>>> del cache[key]
 
-    Remember to call memoize when decorating a callable. If you forget, then a
-    TypeError will occur.
+	Remember to call memoize when decorating a callable. If you forget, then a
+	TypeError will occur.
 
-    :param cache: cache to store callable arguments and return values
-    :param float expire: seconds until arguments expire
-    :param str name: name given for callable (default None, automatic)
-    :param bool typed: cache different types separately (default False)
-    :param str tag: text to associate with arguments (default None)
-    :param set ignore: positional or keyword args to ignore (default ())
-    :return: callable decorator
+	:param cache: cache to store callable arguments and return values
+	:param float expire: seconds until arguments expire
+	:param str name: name given for callable (default None, automatic)
+	:param bool typed: cache different types separately (default False)
+	:param str tag: text to associate with arguments (default None)
+	:param set ignore: positional or keyword args to ignore (default ())
+	:return: callable decorator
 
-    """
+	"""

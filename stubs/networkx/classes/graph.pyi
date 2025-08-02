@@ -1,4 +1,4 @@
-from collections.abc import Callable, Collection, Hashable, Iterable, Iterator, MutableMapping
+from collections.abc import Callable, Collection, Hashable, Iterable, Iterator, Mapping, MutableMapping
 from functools import cached_property
 from networkx.classes.coreviews import AdjacencyView, AtlasView
 from networkx.classes.digraph import DiGraph
@@ -137,7 +137,7 @@ class Graph(Collection[_Node]):
         ...
 
     @cached_property
-    def adj(self) -> AdjacencyView[_Node, _Node, dict[str, Any]]:
+    def adj(self) -> AdjacencyView[_Node, _Node, Mapping[str, Any]]:
         """Graph adjacency object holding the neighbors of each node.
 
         This object is a read-only dict-like structure with node keys and neighbor-dict values. The neighbor-dict is keyed by
@@ -493,7 +493,7 @@ class Graph(Collection[_Node]):
         """
         ...
 
-    def remove_edges_from(self, ebunch: Iterable[_Edge[_Node]]) -> None:
+    def remove_edges_from(self, ebunch: Iterable[_EdgePlus[_Node]]) -> None:
         """Remove all edges specified in `ebunch`.
 
         Parameters
@@ -524,8 +524,7 @@ class Graph(Collection[_Node]):
     def update(self, edges: Graph[_Node], nodes: None = None) -> None: ...
 
     @overload
-    def update(self, edges: Graph[_Node] | Iterable[_EdgePlus[_Node]] | None = None,
-           nodes: Iterable[_Node] | None = None) -> None: ...
+    def update(self, edges: Graph[_Node] | Iterable[_EdgePlus[_Node]] | None = None, nodes: Iterable[_Node] | None = None) -> None: ...
 
     def update(self, edges: Any = None, nodes: Any = None) -> None:
         """Update the graph using nodes/edges/graphs as input.

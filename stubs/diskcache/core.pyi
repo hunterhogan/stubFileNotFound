@@ -8,12 +8,12 @@ import types
 from stdlib._io import _BufferedReaderStream
 
 def full_name(func):
-    """Return full name of `func` by adding the module and function name."""
+	"""Return full name of `func` by adding the module and function name."""
 
 class Constant(tuple):
-    """Pretty display of immutable constant."""
-    def __new__(cls, name) -> Self: ...
-    def __repr__(self) -> str: ...
+	"""Pretty display of immutable constant."""
+	def __new__(cls, name) -> Self: ...
+	def __repr__(self) -> str: ...
 
 DBNAME: str
 ENOVAL: Incomplete
@@ -28,842 +28,812 @@ METADATA: Incomplete
 EVICTION_POLICY: Incomplete
 
 class Disk:
-    """Cache key and value serialization for SQLite database and files."""
-    _directory: Incomplete
-    min_file_size: Incomplete
-    pickle_protocol: Incomplete
-    def __init__(self, directory, min_file_size: int = 0, pickle_protocol: int = 0) -> None:
-        """Initialize disk instance.
+	"""Cache key and value serialization for SQLite database and files."""
+	_directory: Incomplete
+	min_file_size: Incomplete
+	pickle_protocol: Incomplete
+	def __init__(self, directory, min_file_size: int = 0, pickle_protocol: int = 0) -> None:
+		"""Initialize disk instance.
 
-        :param str directory: directory path
-        :param int min_file_size: minimum size for file use
-        :param int pickle_protocol: pickle protocol for serialization
+		:param str directory: directory path
+		:param int min_file_size: minimum size for file use
+		:param int pickle_protocol: pickle protocol for serialization
 
-        """
-        ...
+		"""
+		...
 
-    def hash(self, key): # -> int:
-        """Compute portable hash for `key`.
+	def hash(self, key) -> int:
+		"""Compute portable hash for `key`.
 
-        :param key: key to hash
-        :return: hash value
+		:param key: key to hash
+		:return: hash value
 
-        """
-        ...
+		"""
+		...
 
-    def put(self, key): # -> tuple[memoryview[int], Literal[True]] | tuple[Any, Literal[True]] | tuple[memoryview[int], Literal[False]]:
-        """Convert `key` to fields key and raw for Cache table.
+	def put(self, key) -> tuple[memoryview[int], Literal[True]] | tuple[Any, Literal[True]] | tuple[memoryview[int], Literal[False]]:
+		"""Convert `key` to fields key and raw for Cache table.
 
-        :param key: key to convert
-        :return: (database key, raw boolean) pair
+		:param key: key to convert
+		:return: (database key, raw boolean) pair
 
-        """
-        ...
+		"""
+		...
 
-    def get(self, key, raw): # -> bytes | Any:
-        """Convert fields `key` and `raw` from Cache table to key.
+	def get(self, key, raw) -> bytes | Any:
+		"""Convert fields `key` and `raw` from Cache table to key.
 
-        :param key: database key to convert
-        :param bool raw: flag indicating raw database storage
-        :return: corresponding Python key
+		:param key: database key to convert
+		:param bool raw: flag indicating raw database storage
+		:return: corresponding Python key
 
-        """
-        ...
+		"""
+		...
 
-    def store(self, value, read, key=...): # -> tuple[Literal[0], Literal[1], None, Any] | tuple[Literal[0], Literal[1], None, memoryview[int]] | tuple[int, Literal[2], str, None] | tuple[int, Literal[3], str, None] | tuple[int | None, Literal[2], str, None] | tuple[Literal[0], Literal[4], None, memoryview[int]] | tuple[int, Literal[4], str, None]:
-        """Convert `value` to fields size, mode, filename, and value for Cache
-        table.
+	def store(self, value, read, key=...) -> tuple[Literal[0], Literal[1], None, Any] | tuple[Literal[0], Literal[1], None, memoryview[int]] | tuple[int, Literal[2], str, None] | tuple[int, Literal[3], str, None] | tuple[int | None, Literal[2], str, None] | tuple[Literal[0], Literal[4], None, memoryview[int]] | tuple[int, Literal[4], str, None]:
+		"""Convert `value` to fields size, mode, filename, and value for Cache
+		table.
 
-        :param value: value to convert
-        :param bool read: True when value is file-like object
-        :param key: key for item (default UNKNOWN)
-        :return: (size, mode, filename, value) tuple for Cache table
+		:param value: value to convert
+		:param bool read: True when value is file-like object
+		:param key: key for item (default UNKNOWN)
+		:return: (size, mode, filename, value) tuple for Cache table
 
-        """
-    def _write(self, full_path, iterator, mode, encoding=None): ...
-    def fetch(self, mode, filename, value, read) -> bytes | BufferedReader[_BufferedReaderStream] | str | Any | None:
-        """Convert fields `mode`, `filename`, and `value` from Cache table to
-        value.
+		"""
+	def _write(self, full_path, iterator, mode, encoding=None): ...
+	def fetch(self, mode, filename, value, read) -> bytes | BufferedReader[_BufferedReaderStream] | str | Any | None:
+		"""Convert fields `mode`, `filename`, and `value` from Cache table to
+		value.
 
-        :param int mode: value mode raw, binary, text, or pickle
-        :param str filename: filename of corresponding value
-        :param value: database value
-        :param bool read: when True, return an open file handle
-        :return: corresponding Python value
-        :raises: IOError if the value cannot be read
+		:param int mode: value mode raw, binary, text, or pickle
+		:param str filename: filename of corresponding value
+		:param value: database value
+		:param bool read: when True, return an open file handle
+		:return: corresponding Python value
+		:raises: IOError if the value cannot be read
 
-        """
-        ...
+		"""
+		...
 
-    def filename(self, key=..., value=...): # -> tuple[str, str]:
-        """Return filename and full-path tuple for file storage.
+	def filename(self, key=..., value=...) -> tuple[str, str]:
+		"""Return filename and full-path tuple for file storage.
 
-        Filename will be a randomly generated 28 character hexadecimal string
-        with ".val" suffixed. Two levels of sub-directories will be used to
-        reduce the size of directories. On older filesystems, lookups in
-        directories with many files may be slow.
+		Filename will be a randomly generated 28 character hexadecimal string
+		with ".val" suffixed. Two levels of sub-directories will be used to
+		reduce the size of directories. On older filesystems, lookups in
+		directories with many files may be slow.
 
-        The default implementation ignores the `key` and `value` parameters.
+		The default implementation ignores the `key` and `value` parameters.
 
-        In some scenarios, for example :meth:`Cache.push
-        <diskcache.Cache.push>`, the `key` or `value` may not be known when the
-        item is stored in the cache.
+		In some scenarios, for example :meth:`Cache.push
+		<diskcache.Cache.push>`, the `key` or `value` may not be known when the
+		item is stored in the cache.
 
-        :param key: key for item (default UNKNOWN)
-        :param value: value for item (default UNKNOWN)
+		:param key: key for item (default UNKNOWN)
+		:param value: value for item (default UNKNOWN)
 
-        """
-    def remove(self, file_path) -> None:
-        """Remove a file given by `file_path`.
+		"""
+	def remove(self, file_path) -> None:
+		"""Remove a file given by `file_path`.
 
-        This method is cross-thread and cross-process safe. If an OSError
-        occurs, it is suppressed.
+		This method is cross-thread and cross-process safe. If an OSError
+		occurs, it is suppressed.
 
-        :param str file_path: relative path to file
+		:param str file_path: relative path to file
 
-        """
+		"""
 
 class JSONDisk(Disk):
-    """Cache key and value using JSON serialization with zlib compression."""
-    compress_level: Incomplete
-    def __init__(self, directory, compress_level: int = 1, **kwargs) -> None:
-        """Initialize JSON disk instance.
+	"""Cache key and value using JSON serialization with zlib compression."""
+	compress_level: Incomplete
+	def __init__(self, directory, compress_level: int = 1, **kwargs) -> None:
+		"""Initialize JSON disk instance.
 
-        Keys and values are compressed using the zlib library. The
-        `compress_level` is an integer from 0 to 9 controlling the level of
-        compression; 1 is fastest and produces the least compression, 9 is
-        slowest and produces the most compression, and 0 is no compression.
+		Keys and values are compressed using the zlib library. The
+		`compress_level` is an integer from 0 to 9 controlling the level of
+		compression; 1 is fastest and produces the least compression, 9 is
+		slowest and produces the most compression, and 0 is no compression.
 
-        :param str directory: directory path
-        :param int compress_level: zlib compression level (default 1)
-        :param kwargs: super class arguments
+		:param str directory: directory path
+		:param int compress_level: zlib compression level (default 1)
+		:param kwargs: super class arguments
 
-        """
-        ...
+		"""
+		...
 
-    def put(self, key): # -> tuple[memoryview[int], Literal[True]] | tuple[Any, Literal[True]] | tuple[memoryview[int], Literal[False]]:
-        ...
+	def put(self, key) -> tuple[memoryview[int], Literal[True]] | tuple[Any, Literal[True]] | tuple[memoryview[int], Literal[False]]:
+		...
 
-    def get(self, key, raw): # -> Any:
-        ...
+	def get(self, key, raw) -> Any:
+		...
 
-    def store(self, value, read, key=...): # -> tuple[Literal[0], Literal[1], None, Any] | tuple[Literal[0], Literal[1], None, memoryview[int]] | tuple[int, Literal[2], str, None] | tuple[int, Literal[3], str, None] | tuple[int | None, Literal[2], str, None] | tuple[Literal[0], Literal[4], None, memoryview[int]] | tuple[int, Literal[4], str, None]:
-        ...
+	def store(self, value, read, key=...) -> tuple[Literal[0], Literal[1], None, Any] | tuple[Literal[0], Literal[1], None, memoryview[int]] | tuple[int, Literal[2], str, None] | tuple[int, Literal[3], str, None] | tuple[int | None, Literal[2], str, None] | tuple[Literal[0], Literal[4], None, memoryview[int]] | tuple[int, Literal[4], str, None]:
+		...
 
-    def fetch(self, mode, filename, value, read): # -> Any | bytes | BufferedReader[_BufferedReaderStream] | str | None:
-        ...
-
-
+	def fetch(self, mode, filename, value, read) -> Any | bytes | BufferedReader[_BufferedReaderStream] | str | None:
+		...
 
 class Timeout(Exception):
-    """Database timeout expired."""
+	"""Database timeout expired."""
 class UnknownFileWarning(UserWarning):
-    """Warning used by Cache.check for unknown files."""
+	"""Warning used by Cache.check for unknown files."""
 class EmptyDirWarning(UserWarning):
-    """Warning used by Cache.check for empty directories."""
+	"""Warning used by Cache.check for empty directories."""
 
 def args_to_key(base, args, kwargs, typed, ignore):
-    """Create cache key out of function arguments.
+	"""Create cache key out of function arguments.
 
-    :param tuple base: base of key
-    :param tuple args: function arguments
-    :param dict kwargs: function keyword arguments
-    :param bool typed: include types in cache key
-    :param set ignore: positional or keyword args to ignore
-    :return: cache key tuple
+	:param tuple base: base of key
+	:param tuple args: function arguments
+	:param dict kwargs: function keyword arguments
+	:param bool typed: include types in cache key
+	:param set ignore: positional or keyword args to ignore
+	:return: cache key tuple
 
-    """
+	"""
 
 class Cache:
-    """Disk and file backed cache."""
-    _directory: Incomplete
-    _timeout: int
-    _local: Incomplete
-    _txn_id: Incomplete
-    _disk: Incomplete
-    def __init__(self, directory=None, timeout: int = 60, disk=..., **settings) -> None:
-        """Initialize cache instance.
-
-        :param str directory: cache directory
-        :param float timeout: SQLite connection timeout
-        :param disk: Disk type or subclass for serialization
-        :param settings: any of DEFAULT_SETTINGS
-
-        """
-    @property
-    def directory(self): # -> str:
-        """Cache directory."""
-    @property
-    def timeout(self): # -> int:
-        """SQLite connection timeout value in seconds."""
-    @property
-    def disk(self): # -> Disk:
-        """Disk used for serialization."""
-    @property
-    def _con(self): ...
-    @property
-    def _sql(self): ...
-    @property
-    def _sql_retry(self): ...
-    @cl.contextmanager
-    def transact(self, retry: bool = False) -> Generator[None]:
-        """Context manager to perform a transaction by locking the cache.
-
-        While the cache is locked, no other write operation is permitted.
-        Transactions should therefore be as short as possible. Read and write
-        operations performed in a transaction are atomic. Read operations may
-        occur concurrent to a transaction.
-
-        Transactions may be nested and may not be shared between threads.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        >>> cache = Cache()
-        >>> with cache.transact():  # Atomically increment two keys.
-        ...     _ = cache.incr('total', 123.4)
-        ...     _ = cache.incr('count', 1)
-        >>> with cache.transact():  # Atomically calculate average.
-        ...     average = cache['total'] / cache['count']
-        >>> average
-        123.4
-
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: context manager for use in `with` statement
-        :raises Timeout: if database timeout occurs
-
-        """
-    @cl.contextmanager
-    def _transact(self, retry: bool = False, filename=None) -> Generator[Incomplete]: ...
-    def set(self, key, value, expire=None, read: bool = False, tag=None, retry: bool = False) -> Literal[True] | None:
-        """Set `key` and `value` item in cache.
-
-        When `read` is `True`, `value` should be a file-like object opened
-        for reading in binary mode.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        :param key: key for item
-        :param value: value for item
-        :param float expire: seconds until item expires
-            (default None, no expiry)
-        :param bool read: read value as bytes from file (default False)
-        :param str tag: text to associate with key (default None)
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: True if item was set
-        :raises Timeout: if database timeout occurs
-
-        """
-    def __setitem__(self, key, value) -> None:
-        """Set corresponding `value` for `key` in cache.
-
-        :param key: key for item
-        :param value: value for item
-        :return: corresponding value
-        :raises KeyError: if key is not found
-
-        """
-    def _row_update(self, rowid, now, columns) -> None: ...
-    def _row_insert(self, key, raw, now, columns) -> None: ...
-    def _cull(self, now, sql, cleanup, limit=None) -> None: ...
-    def touch(self, key, expire=None, retry: bool = False) -> bool:
-        """Touch `key` in cache and update `expire` time.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        :param key: key for item
-        :param float expire: seconds until item expires
-            (default None, no expiry)
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: True if key was touched
-        :raises Timeout: if database timeout occurs
-
-        """
-    def add(self, key, value, expire=None, read: bool = False, tag=None, retry: bool = False) -> bool:
-        """Add `key` and `value` item to cache.
-
-        Similar to `set`, but only add to cache if key not present.
-
-        Operation is atomic. Only one concurrent add operation for a given key
-        will succeed.
-
-        When `read` is `True`, `value` should be a file-like object opened
-        for reading in binary mode.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        :param key: key for item
-        :param value: value for item
-        :param float expire: seconds until the key expires
-            (default None, no expiry)
-        :param bool read: read value as bytes from file (default False)
-        :param str tag: text to associate with key (default None)
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: True if item was added
-        :raises Timeout: if database timeout occurs
-
-        """
-    def incr(self, key, delta: int = 1, default: int = 0, retry: bool = False):
-        """Increment value by delta for item with key.
-
-        If key is missing and default is None then raise KeyError. Else if key
-        is missing and default is not None then use default for value.
-
-        Operation is atomic. All concurrent increment operations will be
-        counted individually.
-
-        Assumes value may be stored in a SQLite column. Most builds that target
-        machines with 64-bit pointer widths will support 64-bit signed
-        integers.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        :param key: key for item
-        :param int delta: amount to increment (default 1)
-        :param int default: value if key is missing (default 0)
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: new value for item
-        :raises KeyError: if key is not found and default is None
-        :raises Timeout: if database timeout occurs
-
-        """
-    def decr(self, key, delta: int = 1, default: int = 0, retry: bool = False):
-        """Decrement value by delta for item with key.
-
-        If key is missing and default is None then raise KeyError. Else if key
-        is missing and default is not None then use default for value.
-
-        Operation is atomic. All concurrent decrement operations will be
-        counted individually.
-
-        Unlike Memcached, negative values are supported. Value may be
-        decremented below zero.
-
-        Assumes value may be stored in a SQLite column. Most builds that target
-        machines with 64-bit pointer widths will support 64-bit signed
-        integers.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        :param key: key for item
-        :param int delta: amount to decrement (default 1)
-        :param int default: value if key is missing (default 0)
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: new value for item
-        :raises KeyError: if key is not found and default is None
-        :raises Timeout: if database timeout occurs
-
-        """
-    def get(self, key, default=None, read: bool = False, expire_time: bool = False, tag: bool = False, retry: bool = False):
-        """Retrieve value from cache. If `key` is missing, return `default`.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        :param key: key for item
-        :param default: value to return if key is missing (default None)
-        :param bool read: if True, return file handle to value
-            (default False)
-        :param bool expire_time: if True, return expire_time in tuple
-            (default False)
-        :param bool tag: if True, return tag in tuple (default False)
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: value for item or default if key not found
-        :raises Timeout: if database timeout occurs
+	"""Disk and file backed cache."""
+	_directory: str
+	_timeout: int
+	_local: Any
+	_txn_id: Any
+	_disk: Disk
+	def __init__(self, directory: str | None = None, timeout: int = 60, disk: type[Disk] = Disk, **settings: Any) -> None:
+		"""Initialize cache instance.
+
+		:param str directory: cache directory
+		:param float timeout: SQLite connection timeout
+		:param disk: Disk type or subclass for serialization
+		:param settings: any of DEFAULT_SETTINGS
+
+		"""
+	@property
+	def directory(self) -> str:
+		"""Cache directory."""
+	@property
+	def timeout(self) -> int: ...
+	@property
+	def disk(self) -> Disk: ...
+	@property
+	def _con(self) -> Any: ...
+	@property
+	def _sql(self) -> Any: ...
+	@property
+	def _sql_retry(self) -> Any: ...
+	@cl.contextmanager
+	def transact(self, retry: bool = False) -> Generator[None, None, None]: ...
+	@cl.contextmanager
+	def _transact(self, retry: bool = False, filename: str | None = None) -> Generator[Any, None, None]: ...
+	def set(self, key: Any, value: Any, expire: float | None = None, read: bool = False, tag: str | None = None, retry: bool = False) -> Literal[True] | None: ...
+		"""Set `key` and `value` item in cache.
+
+		When `read` is `True`, `value` should be a file-like object opened
+		for reading in binary mode.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		:param key: key for item
+		:param value: value for item
+		:param float expire: seconds until item expires
+			(default None, no expiry)
+		:param bool read: read value as bytes from file (default False)
+		:param str tag: text to associate with key (default None)
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: True if item was set
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def __setitem__(self, key: Any, value: Any) -> None:
+		"""Set corresponding `value` for `key` in cache.
+
+		:param key: key for item
+		:param value: value for item
+		:return: corresponding value
+		:raises KeyError: if key is not found
+
+		"""
+	def _row_update(self, rowid: int, now: float, columns: Any) -> None: ...
+	def _row_insert(self, key: Any, raw: bool, now: float, columns: Any) -> None: ...
+	def _cull(self, now: float, sql: str, cleanup: Any, limit: int | None = None) -> None: ...
+	def touch(self, key, expire=None, retry: bool = False) -> bool:
+		"""Touch `key` in cache and update `expire` time.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		:param key: key for item
+		:param float expire: seconds until item expires
+			(default None, no expiry)
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: True if key was touched
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def add(self, key, value, expire=None, read: bool = False, tag=None, retry: bool = False) -> bool:
+		"""Add `key` and `value` item to cache.
+
+		Similar to `set`, but only add to cache if key not present.
+
+		Operation is atomic. Only one concurrent add operation for a given key
+		will succeed.
+
+		When `read` is `True`, `value` should be a file-like object opened
+		for reading in binary mode.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		:param key: key for item
+		:param value: value for item
+		:param float expire: seconds until the key expires
+			(default None, no expiry)
+		:param bool read: read value as bytes from file (default False)
+		:param str tag: text to associate with key (default None)
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: True if item was added
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def incr(self, key, delta: int = 1, default: int = 0, retry: bool = False):
+		"""Increment value by delta for item with key.
+
+		If key is missing and default is None then raise KeyError. Else if key
+		is missing and default is not None then use default for value.
+
+		Operation is atomic. All concurrent increment operations will be
+		counted individually.
 
-        """
-        ...
-
-    def __getitem__(self, key): # -> tuple[Any | None, None, None] | tuple[Any | None, None] | tuple[bytes | Any | BufferedReader[_BufferedReaderStream] | str | None, Any, Any] | tuple[bytes | Any | BufferedReader[_BufferedReaderStream] | str | None, Any] | bytes | BufferedReader[_BufferedReaderStream] | str | Any | None:
-        """Return corresponding value for `key` from cache.
-
-        :param key: key matching item
-        :return: corresponding value
-        :raises KeyError: if key is not found
-
-        """
-    def read(self, key, retry: bool = False):
-        """Return file handle value corresponding to `key` from cache.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        :param key: key matching item
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: file open for reading in binary mode
-        :raises KeyError: if key is not found
-        :raises Timeout: if database timeout occurs
-
-        """
-    def __contains__(self, key) -> bool:
-        """Return `True` if `key` matching item is found in cache.
-
-        :param key: key matching item
-        :return: True if key matching item
-
-        """
-    def pop(self, key, default=None, expire_time: bool = False, tag: bool = False, retry: bool = False):
-        """Remove corresponding item for `key` from cache and return value.
-
-        If `key` is missing, return `default`.
-
-        Operation is atomic. Concurrent operations will be serialized.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        :param key: key for item
-        :param default: value to return if key is missing (default None)
-        :param bool expire_time: if True, return expire_time in tuple
-            (default False)
-        :param bool tag: if True, return tag in tuple (default False)
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: value for item or default if key not found
-        :raises Timeout: if database timeout occurs
-
-        """
-    def __delitem__(self, key, retry: bool = True) -> None:
-        """Delete corresponding item for `key` from cache.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default `True`).
-
-        :param key: key matching item
-        :param bool retry: retry if database timeout occurs (default True)
-        :raises KeyError: if key is not found
-        :raises Timeout: if database timeout occurs
-
-        """
-    def delete(self, key, retry: bool = False):
-        """Delete corresponding item for `key` from cache.
-
-        Missing keys are ignored.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        :param key: key matching item
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: True if item was deleted
-        :raises Timeout: if database timeout occurs
-
-        """
-    def push(self, value, prefix=None, side: str = 'back', expire=None, read: bool = False, tag=None, retry: bool = False):
-        """Push `value` onto `side` of queue identified by `prefix` in cache.
-
-        When prefix is None, integer keys are used. Otherwise, string keys are
-        used in the format "prefix-integer". Integer starts at 500 trillion.
-
-        Defaults to pushing value on back of queue. Set side to \'front\' to push
-        value on front of queue. Side must be one of \'back\' or \'front\'.
-
-        Operation is atomic. Concurrent operations will be serialized.
-
-        When `read` is `True`, `value` should be a file-like object opened
-        for reading in binary mode.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        See also `Cache.pull`.
-
-        >>> cache = Cache()
-        >>> print(cache.push(\'first value\'))
-        500000000000000
-        >>> cache.get(500000000000000)
-        \'first value\'
-        >>> print(cache.push(\'second value\'))
-        500000000000001
-        >>> print(cache.push(\'third value\', side=\'front\'))
-        499999999999999
-        >>> cache.push(1234, prefix=\'userids\')
-        \'userids-500000000000000\'
-
-        :param value: value for item
-        :param str prefix: key prefix (default None, key is integer)
-        :param str side: either \'back\' or \'front\' (default \'back\')
-        :param float expire: seconds until the key expires
-            (default None, no expiry)
-        :param bool read: read value as bytes from file (default False)
-        :param str tag: text to associate with key (default None)
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: key for item in cache
-        :raises Timeout: if database timeout occurs
-
-        """
-    def pull(self, prefix=None, default=(None, None), side: str = 'front', expire_time: bool = False, tag: bool = False, retry: bool = False):
-        """Pull key and value item pair from `side` of queue in cache.
-
-        When prefix is None, integer keys are used. Otherwise, string keys are
-        used in the format "prefix-integer". Integer starts at 500 trillion.
-
-        If queue is empty, return default.
-
-        Defaults to pulling key and value item pairs from front of queue. Set
-        side to \'back\' to pull from back of queue. Side must be one of \'front\'
-        or \'back\'.
-
-        Operation is atomic. Concurrent operations will be serialized.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        See also `Cache.push` and `Cache.get`.
-
-        >>> cache = Cache()
-        >>> cache.pull()
-        (None, None)
-        >>> for letter in \'abc\':
-        ...     print(cache.push(letter))
-        500000000000000
-        500000000000001
-        500000000000002
-        >>> key, value = cache.pull()
-        >>> print(key)
-        500000000000000
-        >>> value
-        \'a\'
-        >>> _, value = cache.pull(side=\'back\')
-        >>> value
-        \'c\'
-        >>> cache.push(1234, \'userids\')
-        \'userids-500000000000000\'
-        >>> _, value = cache.pull(\'userids\')
-        >>> value
-        1234
-
-        :param str prefix: key prefix (default None, key is integer)
-        :param default: value to return if key is missing
-            (default (None, None))
-        :param str side: either \'front\' or \'back\' (default \'front\')
-        :param bool expire_time: if True, return expire_time in tuple
-            (default False)
-        :param bool tag: if True, return tag in tuple (default False)
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: key and value item pair or default if queue is empty
-        :raises Timeout: if database timeout occurs
-
-        """
-    def peek(self, prefix=None, default=(None, None), side: str = 'front', expire_time: bool = False, tag: bool = False, retry: bool = False):
-        """Peek at key and value item pair from `side` of queue in cache.
-
-        When prefix is None, integer keys are used. Otherwise, string keys are
-        used in the format "prefix-integer". Integer starts at 500 trillion.
-
-        If queue is empty, return default.
-
-        Defaults to peeking at key and value item pairs from front of queue.
-        Set side to \'back\' to pull from back of queue. Side must be one of
-        \'front\' or \'back\'.
-
-        Expired items are deleted from cache. Operation is atomic. Concurrent
-        operations will be serialized.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        See also `Cache.pull` and `Cache.push`.
-
-        >>> cache = Cache()
-        >>> for letter in \'abc\':
-        ...     print(cache.push(letter))
-        500000000000000
-        500000000000001
-        500000000000002
-        >>> key, value = cache.peek()
-        >>> print(key)
-        500000000000000
-        >>> value
-        \'a\'
-        >>> key, value = cache.peek(side=\'back\')
-        >>> print(key)
-        500000000000002
-        >>> value
-        \'c\'
-
-        :param str prefix: key prefix (default None, key is integer)
-        :param default: value to return if key is missing
-            (default (None, None))
-        :param str side: either \'front\' or \'back\' (default \'front\')
-        :param bool expire_time: if True, return expire_time in tuple
-            (default False)
-        :param bool tag: if True, return tag in tuple (default False)
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: key and value item pair or default if queue is empty
-        :raises Timeout: if database timeout occurs
-
-        """
-    def peekitem(self, last: bool = True, expire_time: bool = False, tag: bool = False, retry: bool = False):
-        """Peek at key and value item pair in cache based on iteration order.
-
-        Expired items are deleted from cache. Operation is atomic. Concurrent
-        operations will be serialized.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        >>> cache = Cache()
-        >>> for num, letter in enumerate('abc'):
-        ...     cache[letter] = num
-        >>> cache.peekitem()
-        ('c', 2)
-        >>> cache.peekitem(last=False)
-        ('a', 0)
-
-        :param bool last: last item in iteration order (default True)
-        :param bool expire_time: if True, return expire_time in tuple
-            (default False)
-        :param bool tag: if True, return tag in tuple (default False)
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: key and value item pair
-        :raises KeyError: if cache is empty
-        :raises Timeout: if database timeout occurs
-
-        """
-    def memoize(self, name=None, typed: bool = False, expire=None, tag=None, ignore=()):
-        """Memoizing cache decorator.
-
-        Decorator to wrap callable with memoizing function using cache.
-        Repeated calls with the same arguments will lookup result in cache and
-        avoid function evaluation.
-
-        If name is set to None (default), the callable name will be determined
-        automatically.
-
-        When expire is set to zero, function results will not be set in the
-        cache. Cache lookups still occur, however. Read
-        :doc:`case-study-landing-page-caching` for example usage.
-
-        If typed is set to True, function arguments of different types will be
-        cached separately. For example, f(3) and f(3.0) will be treated as
-        distinct calls with distinct results.
-
-        The original underlying function is accessible through the __wrapped__
-        attribute. This is useful for introspection, for bypassing the cache,
-        or for rewrapping the function with a different cache.
-
-        >>> from diskcache import Cache
-        >>> cache = Cache()
-        >>> @cache.memoize(expire=1, tag='fib')
-        ... def fibonacci(number):
-        ...     if number == 0:
-        ...         return 0
-        ...     elif number == 1:
-        ...         return 1
-        ...     else:
-        ...         return fibonacci(number - 1) + fibonacci(number - 2)
-        >>> print(fibonacci(100))
-        354224848179261915075
-
-        An additional `__cache_key__` attribute can be used to generate the
-        cache key used for the given arguments.
-
-        >>> key = fibonacci.__cache_key__(100)
-        >>> print(cache[key])
-        354224848179261915075
-
-        Remember to call memoize when decorating a callable. If you forget,
-        then a TypeError will occur. Note the lack of parenthenses after
-        memoize below:
-
-        >>> @cache.memoize
-        ... def test():
-        ...     pass
-        Traceback (most recent call last):
-            ...
-        TypeError: name cannot be callable
-
-        :param cache: cache to store callable arguments and return values
-        :param str name: name given for callable (default None, automatic)
-        :param bool typed: cache different types separately (default False)
-        :param float expire: seconds until arguments expire
-            (default None, no expiry)
-        :param str tag: text to associate with arguments (default None)
-        :param set ignore: positional or keyword args to ignore (default ())
-        :return: callable decorator
-
-        """
-    def check(self, fix: bool = False, retry: bool = False):
-        """Check database and file system consistency.
-
-        Intended for use in testing and post-mortem error analysis.
-
-        While checking the Cache table for consistency, a writer lock is held
-        on the database. The lock blocks other cache clients from writing to
-        the database. For caches with many file references, the lock may be
-        held for a long time. For example, local benchmarking shows that a
-        cache with 1,000 file references takes ~60ms to check.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        :param bool fix: correct inconsistencies
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: list of warnings
-        :raises Timeout: if database timeout occurs
-
-        """
-    def create_tag_index(self) -> None:
-        """Create tag index on cache database.
-
-        It is better to initialize cache with `tag_index=True` than use this.
-
-        :raises Timeout: if database timeout occurs
-
-        """
-    def drop_tag_index(self) -> None:
-        """Drop tag index on cache database.
-
-        :raises Timeout: if database timeout occurs
-
-        """
-    def evict(self, tag, retry: bool = False):
-        """Remove items with matching `tag` from cache.
-
-        Removing items is an iterative process. In each iteration, a subset of
-        items is removed. Concurrent writes may occur between iterations.
-
-        If a :exc:`Timeout` occurs, the first element of the exception's
-        `args` attribute will be the number of items removed before the
-        exception occurred.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        :param str tag: tag identifying items
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: count of rows removed
-        :raises Timeout: if database timeout occurs
-
-        """
-    def expire(self, now=None, retry: bool = False):
-        """Remove expired items from cache.
-
-        Removing items is an iterative process. In each iteration, a subset of
-        items is removed. Concurrent writes may occur between iterations.
-
-        If a :exc:`Timeout` occurs, the first element of the exception's
-        `args` attribute will be the number of items removed before the
-        exception occurred.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        :param float now: current time (default None, ``time.time()`` used)
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: count of items removed
-        :raises Timeout: if database timeout occurs
-
-        """
-    def cull(self, retry: bool = False):
-        """Cull items from cache until volume is less than size limit.
-
-        Removing items is an iterative process. In each iteration, a subset of
-        items is removed. Concurrent writes may occur between iterations.
-
-        If a :exc:`Timeout` occurs, the first element of the exception's
-        `args` attribute will be the number of items removed before the
-        exception occurred.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: count of items removed
-        :raises Timeout: if database timeout occurs
-
-        """
-    def clear(self, retry: bool = False):
-        """Remove all items from cache.
-
-        Removing items is an iterative process. In each iteration, a subset of
-        items is removed. Concurrent writes may occur between iterations.
-
-        If a :exc:`Timeout` occurs, the first element of the exception's
-        `args` attribute will be the number of items removed before the
-        exception occurred.
-
-        Raises :exc:`Timeout` error when database timeout occurs and `retry` is
-        `False` (default).
-
-        :param bool retry: retry if database timeout occurs (default False)
-        :return: count of rows removed
-        :raises Timeout: if database timeout occurs
-
-        """
-    def _select_delete(self, select, args, row_index: int = 0, arg_index: int = 0, retry: bool = False): ...
-    def iterkeys(self, reverse: bool = False) -> Generator[bytes | Any, Any, None]:
-        """Iterate Cache keys in database sort order.
-
-        >>> cache = Cache()
-        >>> for key in [4, 1, 3, 0, 2]:
-        ...     cache[key] = key
-        >>> list(cache.iterkeys())
-        [0, 1, 2, 3, 4]
-        >>> list(cache.iterkeys(reverse=True))
-        [4, 3, 2, 1, 0]
-
-        :param bool reverse: reverse sort order (default False)
-        :return: iterator of Cache keys
-
-        """
-    def _iter(self, ascending: bool = True) -> Generator[Incomplete]: ...
-    def __iter__(self)-> Generator[bytes | Any | None, Any, None]:
-        """Iterate keys in cache including expired items."""
-    def __reversed__(self)-> Generator[bytes | Any | None, Any, None]:
-        """Reverse iterate keys in cache including expired items."""
-    def stats(self, enable: bool = True, reset: bool = False):
-        """Return cache statistics hits and misses.
-
-        :param bool enable: enable collecting statistics (default True)
-        :param bool reset: reset hits and misses to 0 (default False)
-        :return: (hits, misses)
-
-        """
-    def volume(self) -> int:
-        """Return estimated total size of cache on disk.
-
-        :return: size in bytes
-
-        """
-    def close(self) -> None:
-        """Close database connection."""
-    def __enter__(self) -> Self: ...
-    def __exit__(self, *exception) -> None: ...
-    def __len__(self) -> int:
-        """Count of items in cache including expired items."""
-    def __getstate__(self): ...
-    def __setstate__(self, state) -> None: ...
-    def reset(self, key, value=..., update: bool = True):
-        """Reset `key` and `value` item from Settings table.
-
-        Use `reset` to update the value of Cache settings correctly. Cache
-        settings are stored in the Settings table of the SQLite database. If
-        `update` is ``False`` then no attempt is made to update the database.
-
-        If `value` is not given, it is reloaded from the Settings
-        table. Otherwise, the Settings table is updated.
-
-        Settings with the ``disk_`` prefix correspond to Disk
-        attributes. Updating the value will change the unprefixed attribute on
-        the associated Disk instance.
-
-        Settings with the ``sqlite_`` prefix correspond to SQLite
-        pragmas. Updating the value will execute the corresponding PRAGMA
-        statement.
-
-        SQLite PRAGMA statements may be executed before the Settings table
-        exists in the database by setting `update` to ``False``.
-
-        :param str key: Settings key for item
-        :param value: value for item (optional)
-        :param bool update: update database Settings table (default True)
-        :return: updated value for item
-        :raises Timeout: if database timeout occurs
-
-        """
+		Assumes value may be stored in a SQLite column. Most builds that target
+		machines with 64-bit pointer widths will support 64-bit signed
+		integers.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		:param key: key for item
+		:param int delta: amount to increment (default 1)
+		:param int default: value if key is missing (default 0)
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: new value for item
+		:raises KeyError: if key is not found and default is None
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def decr(self, key, delta: int = 1, default: int = 0, retry: bool = False):
+		"""Decrement value by delta for item with key.
+
+		If key is missing and default is None then raise KeyError. Else if key
+		is missing and default is not None then use default for value.
+
+		Operation is atomic. All concurrent decrement operations will be
+		counted individually.
+
+		Unlike Memcached, negative values are supported. Value may be
+		decremented below zero.
+
+		Assumes value may be stored in a SQLite column. Most builds that target
+		machines with 64-bit pointer widths will support 64-bit signed
+		integers.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		:param key: key for item
+		:param int delta: amount to decrement (default 1)
+		:param int default: value if key is missing (default 0)
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: new value for item
+		:raises KeyError: if key is not found and default is None
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def get(self, key, default=None, read: bool = False, expire_time: bool = False, tag: bool = False, retry: bool = False):
+		"""Retrieve value from cache. If `key` is missing, return `default`.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		:param key: key for item
+		:param default: value to return if key is missing (default None)
+		:param bool read: if True, return file handle to value
+			(default False)
+		:param bool expire_time: if True, return expire_time in tuple
+			(default False)
+		:param bool tag: if True, return tag in tuple (default False)
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: value for item or default if key not found
+		:raises Timeout: if database timeout occurs
+
+		"""
+		...
+
+	def __getitem__(self, key) -> tuple[Any | None, None, None] | tuple[Any | None, None] | tuple[bytes | Any | BufferedReader[_BufferedReaderStream] | str | None, Any, Any] | tuple[bytes | Any | BufferedReader[_BufferedReaderStream] | str | None, Any] | bytes | BufferedReader[_BufferedReaderStream] | str | Any | None:
+		"""Return corresponding value for `key` from cache.
+
+		:param key: key matching item
+		:return: corresponding value
+		:raises KeyError: if key is not found
+
+		"""
+	def read(self, key, retry: bool = False):
+		"""Return file handle value corresponding to `key` from cache.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		:param key: key matching item
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: file open for reading in binary mode
+		:raises KeyError: if key is not found
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def __contains__(self, key) -> bool:
+		"""Return `True` if `key` matching item is found in cache.
+
+		:param key: key matching item
+		:return: True if key matching item
+
+		"""
+	def pop(self, key, default=None, expire_time: bool = False, tag: bool = False, retry: bool = False):
+		"""Remove corresponding item for `key` from cache and return value.
+
+		If `key` is missing, return `default`.
+
+		Operation is atomic. Concurrent operations will be serialized.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		:param key: key for item
+		:param default: value to return if key is missing (default None)
+		:param bool expire_time: if True, return expire_time in tuple
+			(default False)
+		:param bool tag: if True, return tag in tuple (default False)
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: value for item or default if key not found
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def __delitem__(self, key, retry: bool = True) -> None:
+		"""Delete corresponding item for `key` from cache.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default `True`).
+
+		:param key: key matching item
+		:param bool retry: retry if database timeout occurs (default True)
+		:raises KeyError: if key is not found
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def delete(self, key, retry: bool = False):
+		"""Delete corresponding item for `key` from cache.
+
+		Missing keys are ignored.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		:param key: key matching item
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: True if item was deleted
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def push(self, value, prefix=None, side: str = 'back', expire=None, read: bool = False, tag=None, retry: bool = False):
+		"""Push `value` onto `side` of queue identified by `prefix` in cache.
+
+		When prefix is None, integer keys are used. Otherwise, string keys are
+		used in the format "prefix-integer". Integer starts at 500 trillion.
+
+		Defaults to pushing value on back of queue. Set side to \'front\' to push
+		value on front of queue. Side must be one of \'back\' or \'front\'.
+
+		Operation is atomic. Concurrent operations will be serialized.
+
+		When `read` is `True`, `value` should be a file-like object opened
+		for reading in binary mode.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		See also `Cache.pull`.
+
+		>>> cache = Cache()
+		>>> print(cache.push(\'first value\'))
+		500000000000000
+		>>> cache.get(500000000000000)
+		\'first value\'
+		>>> print(cache.push(\'second value\'))
+		500000000000001
+		>>> print(cache.push(\'third value\', side=\'front\'))
+		499999999999999
+		>>> cache.push(1234, prefix=\'userids\')
+		\'userids-500000000000000\'
+
+		:param value: value for item
+		:param str prefix: key prefix (default None, key is integer)
+		:param str side: either \'back\' or \'front\' (default \'back\')
+		:param float expire: seconds until the key expires
+			(default None, no expiry)
+		:param bool read: read value as bytes from file (default False)
+		:param str tag: text to associate with key (default None)
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: key for item in cache
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def pull(self, prefix=None, default=(None, None), side: str = 'front', expire_time: bool = False, tag: bool = False, retry: bool = False):
+		"""Pull key and value item pair from `side` of queue in cache.
+
+		When prefix is None, integer keys are used. Otherwise, string keys are
+		used in the format "prefix-integer". Integer starts at 500 trillion.
+
+		If queue is empty, return default.
+
+		Defaults to pulling key and value item pairs from front of queue. Set
+		side to \'back\' to pull from back of queue. Side must be one of \'front\'
+		or \'back\'.
+
+		Operation is atomic. Concurrent operations will be serialized.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		See also `Cache.push` and `Cache.get`.
+
+		>>> cache = Cache()
+		>>> cache.pull()
+		(None, None)
+		>>> for letter in \'abc\':
+		...     print(cache.push(letter))
+		500000000000000
+		500000000000001
+		500000000000002
+		>>> key, value = cache.pull()
+		>>> print(key)
+		500000000000000
+		>>> value
+		\'a\'
+		>>> _, value = cache.pull(side=\'back\')
+		>>> value
+		\'c\'
+		>>> cache.push(1234, \'userids\')
+		\'userids-500000000000000\'
+		>>> _, value = cache.pull(\'userids\')
+		>>> value
+		1234
+
+		:param str prefix: key prefix (default None, key is integer)
+		:param default: value to return if key is missing
+			(default (None, None))
+		:param str side: either \'front\' or \'back\' (default \'front\')
+		:param bool expire_time: if True, return expire_time in tuple
+			(default False)
+		:param bool tag: if True, return tag in tuple (default False)
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: key and value item pair or default if queue is empty
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def peek(self, prefix=None, default=(None, None), side: str = 'front', expire_time: bool = False, tag: bool = False, retry: bool = False):
+		"""Peek at key and value item pair from `side` of queue in cache.
+
+		When prefix is None, integer keys are used. Otherwise, string keys are
+		used in the format "prefix-integer". Integer starts at 500 trillion.
+
+		If queue is empty, return default.
+
+		Defaults to peeking at key and value item pairs from front of queue.
+		Set side to \'back\' to pull from back of queue. Side must be one of
+		\'front\' or \'back\'.
+
+		Expired items are deleted from cache. Operation is atomic. Concurrent
+		operations will be serialized.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		See also `Cache.pull` and `Cache.push`.
+
+		>>> cache = Cache()
+		>>> for letter in \'abc\':
+		...     print(cache.push(letter))
+		500000000000000
+		500000000000001
+		500000000000002
+		>>> key, value = cache.peek()
+		>>> print(key)
+		500000000000000
+		>>> value
+		\'a\'
+		>>> key, value = cache.peek(side=\'back\')
+		>>> print(key)
+		500000000000002
+		>>> value
+		\'c\'
+
+		:param str prefix: key prefix (default None, key is integer)
+		:param default: value to return if key is missing
+			(default (None, None))
+		:param str side: either \'front\' or \'back\' (default \'front\')
+		:param bool expire_time: if True, return expire_time in tuple
+			(default False)
+		:param bool tag: if True, return tag in tuple (default False)
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: key and value item pair or default if queue is empty
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def peekitem(self, last: bool = True, expire_time: bool = False, tag: bool = False, retry: bool = False):
+		"""Peek at key and value item pair in cache based on iteration order.
+
+		Expired items are deleted from cache. Operation is atomic. Concurrent
+		operations will be serialized.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		>>> cache = Cache()
+		>>> for num, letter in enumerate('abc'):
+		...     cache[letter] = num
+		>>> cache.peekitem()
+		('c', 2)
+		>>> cache.peekitem(last=False)
+		('a', 0)
+
+		:param bool last: last item in iteration order (default True)
+		:param bool expire_time: if True, return expire_time in tuple
+			(default False)
+		:param bool tag: if True, return tag in tuple (default False)
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: key and value item pair
+		:raises KeyError: if cache is empty
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def memoize(self, name=None, typed: bool = False, expire=None, tag=None, ignore=()):
+		"""Memoizing cache decorator.
+
+		Decorator to wrap callable with memoizing function using cache.
+		Repeated calls with the same arguments will lookup result in cache and
+		avoid function evaluation.
+
+		If name is set to None (default), the callable name will be determined
+		automatically.
+
+		When expire is set to zero, function results will not be set in the
+		cache. Cache lookups still occur, however. Read
+		:doc:`case-study-landing-page-caching` for example usage.
+
+		If typed is set to True, function arguments of different types will be
+		cached separately. For example, f(3) and f(3.0) will be treated as
+		distinct calls with distinct results.
+
+		The original underlying function is accessible through the __wrapped__
+		attribute. This is useful for introspection, for bypassing the cache,
+		or for rewrapping the function with a different cache.
+
+		>>> from diskcache import Cache
+		>>> cache = Cache()
+		>>> @cache.memoize(expire=1, tag='fib')
+		... def fibonacci(number):
+		...     if number == 0:
+		...         return 0
+		...     elif number == 1:
+		...         return 1
+		...     else:
+		...         return fibonacci(number - 1) + fibonacci(number - 2)
+		>>> print(fibonacci(100))
+		354224848179261915075
+
+		An additional `__cache_key__` attribute can be used to generate the
+		cache key used for the given arguments.
+
+		>>> key = fibonacci.__cache_key__(100)
+		>>> print(cache[key])
+		354224848179261915075
+
+		Remember to call memoize when decorating a callable. If you forget,
+		then a TypeError will occur. Note the lack of parenthenses after
+		memoize below:
+
+		>>> @cache.memoize
+		... def test():
+		...     pass
+		Traceback (most recent call last):
+			...
+		TypeError: name cannot be callable
+
+		:param cache: cache to store callable arguments and return values
+		:param str name: name given for callable (default None, automatic)
+		:param bool typed: cache different types separately (default False)
+		:param float expire: seconds until arguments expire
+			(default None, no expiry)
+		:param str tag: text to associate with arguments (default None)
+		:param set ignore: positional or keyword args to ignore (default ())
+		:return: callable decorator
+
+		"""
+	def check(self, fix: bool = False, retry: bool = False):
+		"""Check database and file system consistency.
+
+		Intended for use in testing and post-mortem error analysis.
+
+		While checking the Cache table for consistency, a writer lock is held
+		on the database. The lock blocks other cache clients from writing to
+		the database. For caches with many file references, the lock may be
+		held for a long time. For example, local benchmarking shows that a
+		cache with 1,000 file references takes ~60ms to check.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		:param bool fix: correct inconsistencies
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: list of warnings
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def create_tag_index(self) -> None:
+		"""Create tag index on cache database.
+
+		It is better to initialize cache with `tag_index=True` than use this.
+
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def drop_tag_index(self) -> None:
+		"""Drop tag index on cache database.
+
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def evict(self, tag, retry: bool = False):
+		"""Remove items with matching `tag` from cache.
+
+		Removing items is an iterative process. In each iteration, a subset of
+		items is removed. Concurrent writes may occur between iterations.
+
+		If a :exc:`Timeout` occurs, the first element of the exception's
+		`args` attribute will be the number of items removed before the
+		exception occurred.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		:param str tag: tag identifying items
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: count of rows removed
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def expire(self, now=None, retry: bool = False):
+		"""Remove expired items from cache.
+
+		Removing items is an iterative process. In each iteration, a subset of
+		items is removed. Concurrent writes may occur between iterations.
+
+		If a :exc:`Timeout` occurs, the first element of the exception's
+		`args` attribute will be the number of items removed before the
+		exception occurred.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		:param float now: current time (default None, ``time.time()`` used)
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: count of items removed
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def cull(self, retry: bool = False):
+		"""Cull items from cache until volume is less than size limit.
+
+		Removing items is an iterative process. In each iteration, a subset of
+		items is removed. Concurrent writes may occur between iterations.
+
+		If a :exc:`Timeout` occurs, the first element of the exception's
+		`args` attribute will be the number of items removed before the
+		exception occurred.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: count of items removed
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def clear(self, retry: bool = False):
+		"""Remove all items from cache.
+
+		Removing items is an iterative process. In each iteration, a subset of
+		items is removed. Concurrent writes may occur between iterations.
+
+		If a :exc:`Timeout` occurs, the first element of the exception's
+		`args` attribute will be the number of items removed before the
+		exception occurred.
+
+		Raises :exc:`Timeout` error when database timeout occurs and `retry` is
+		`False` (default).
+
+		:param bool retry: retry if database timeout occurs (default False)
+		:return: count of rows removed
+		:raises Timeout: if database timeout occurs
+
+		"""
+	def _select_delete(self, select, args, row_index: int = 0, arg_index: int = 0, retry: bool = False): ...
+	def iterkeys(self, reverse: bool = False) -> Generator[bytes | Any, Any, None]:
+		"""Iterate Cache keys in database sort order.
+
+		>>> cache = Cache()
+		>>> for key in [4, 1, 3, 0, 2]:
+		...     cache[key] = key
+		>>> list(cache.iterkeys())
+		[0, 1, 2, 3, 4]
+		>>> list(cache.iterkeys(reverse=True))
+		[4, 3, 2, 1, 0]
+
+		:param bool reverse: reverse sort order (default False)
+		:return: iterator of Cache keys
+
+		"""
+	def _iter(self, ascending: bool = True) -> Generator[Incomplete]: ...
+	def __iter__(self)-> Generator[bytes | Any | None, Any, None]:
+		"""Iterate keys in cache including expired items."""
+	def __reversed__(self)-> Generator[bytes | Any | None, Any, None]:
+		"""Reverse iterate keys in cache including expired items."""
+	def stats(self, enable: bool = True, reset: bool = False):
+		"""Return cache statistics hits and misses.
+
+		:param bool enable: enable collecting statistics (default True)
+		:param bool reset: reset hits and misses to 0 (default False)
+		:return: (hits, misses)
+
+		"""
+	def volume(self) -> int:
+		"""Return estimated total size of cache on disk.
+
+		:return: size in bytes
+
+		"""
+	def close(self) -> None:
+		"""Close database connection."""
+	def __enter__(self) -> Self: ...
+	def __exit__(self, *exception) -> None: ...
+	def __len__(self) -> int:
+		"""Count of items in cache including expired items."""
+	def __getstate__(self): ...
+	def __setstate__(self, state) -> None: ...
+	def reset(self, key, value=..., update: bool = True):
+		"""Reset `key` and `value` item from Settings table.
+
+		Use `reset` to update the value of Cache settings correctly. Cache
+		settings are stored in the Settings table of the SQLite database. If
+		`update` is ``False`` then no attempt is made to update the database.
+
+		If `value` is not given, it is reloaded from the Settings
+		table. Otherwise, the Settings table is updated.
+
+		Settings with the ``disk_`` prefix correspond to Disk
+		attributes. Updating the value will change the unprefixed attribute on
+		the associated Disk instance.
+
+		Settings with the ``sqlite_`` prefix correspond to SQLite
+		pragmas. Updating the value will execute the corresponding PRAGMA
+		statement.
+
+		SQLite PRAGMA statements may be executed before the Settings table
+		exists in the database by setting `update` to ``False``.
+
+		:param str key: Settings key for item
+		:param value: value for item (optional)
+		:param bool update: update database Settings table (default True)
+		:return: updated value for item
+		:raises Timeout: if database timeout occurs
+
+		"""

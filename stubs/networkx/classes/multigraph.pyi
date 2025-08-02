@@ -1,13 +1,12 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping
 from functools import cached_property
-from typing import ClassVar
-from typing_extensions import TypeAlias
-
 from networkx.classes.coreviews import MultiAdjacencyView
-from networkx.classes.graph import Graph, _MapFactory, _Node
+from networkx.classes.graph import _MapFactory, _Node, Graph
 from networkx.classes.multidigraph import MultiDiGraph
 from networkx.classes.reportviews import OutMultiEdgeView
+from typing import ClassVar
+from typing_extensions import TypeAlias
 
 _MultiEdge: TypeAlias = tuple[_Node, _Node, int]  # noqa: Y047
 
