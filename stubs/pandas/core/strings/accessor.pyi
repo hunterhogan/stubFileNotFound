@@ -1,36 +1,15 @@
 # pyright: strict
 from builtins import slice as _slice
-from collections.abc import (
-    Callable,
-    Sequence,
-)
-import re
-from typing import (
-    Any,
-    Generic,
-    Literal,
-    TypeVar,
-    overload,
-)
-
+from collections.abc import Callable, Hashable, Mapping, Sequence
+from pandas import DataFrame, Index, MultiIndex, Series
+from pandas._libs.tslibs.nattype import NaTType
+from pandas._typing import AlignJoin, DtypeObj, np_ndarray_bool, Scalar, T
+from pandas.core.base import NoNewAttributesMixin
+from typing import Any, Generic, Literal, overload, TypeVar
 import numpy as np
 import numpy.typing as npt
 import pandas as pd
-from pandas import (
-    DataFrame,
-    Index,
-    MultiIndex,
-    Series,
-)
-from pandas.core.base import NoNewAttributesMixin
-
-from pandas._libs.tslibs.nattype import NaTType
-from pandas._typing import (
-    AlignJoin,
-    Scalar,
-    T,
-    np_ndarray_bool,
-)
+import re
 
 # Used for the result of str.split with expand=True
 _T_EXPANDING = TypeVar("_T_EXPANDING", bound=DataFrame | MultiIndex)
@@ -45,7 +24,7 @@ _T_BYTES = TypeVar("_T_BYTES", bound=Series[bytes] | Index[bytes])
 # Used for the result of str.decode
 _T_STR = TypeVar("_T_STR", bound=Series[str] | Index[str])
 # Used for the result of str.partition
-_T_OBJECT = TypeVar("_T_OBJECT", bound=Series[type[object]] | Index[type[object]])
+_T_OBJECT = TypeVar("_T_OBJECT", bound=Series | Index[Any])
 
 class StringMethods(
     NoNewAttributesMixin,
@@ -57,19 +36,10 @@ class StringMethods(
     @overload
     def cat(
         self,
-        *,
-        sep: str,
+        others: None = None,
+        sep: str | None = None,
         na_rep: str | None = None,
-        join: AlignJoin = 'left',
-    ) -> str: ...
-    @overload
-    def cat(
-        self,
-        others: Literal[None] = None,
-        *,
-        sep: str,
-        na_rep: str | None = None,
-        join: AlignJoin = 'left',
+        join: AlignJoin = "left",
     ) -> str: ...
     @overload
     def cat(
@@ -77,57 +47,53 @@ class StringMethods(
         others: (
             Series[str] | Index[str] | pd.DataFrame | npt.NDArray[np.str_] | list[str]
         ),
-        sep: str = None,
+        sep: str | None = None,
         na_rep: str | None = None,
-        join: AlignJoin = 'left',
+        join: AlignJoin = "left",
     ) -> _T_STR: ...
     @overload
     def split(
         self,
-        pat: str | re.Pattern[str] = None,
+        pat: str | re.Pattern[str] | None = None,
         *,
         n: int = -1,
         expand: Literal[True],
-        regex: bool = None,
+        regex: bool | None = None,
     ) -> _T_EXPANDING: ...
     @overload
     def split(
         self,
-        pat: str | re.Pattern[str] = None,
+        pat: str | re.Pattern[str] | None = None,
         *,
         n: int = -1,
         expand: Literal[False] = False,
-        regex: bool = None,
+        regex: bool | None = None,
     ) -> _T_LIST_STR: ...
     @overload
     def rsplit(
-        self, pat: str = None, *, n: int = -1, expand: Literal[True]
+        self, pat: str | None = None, *, n: int = -1, expand: Literal[True]
     ) -> _T_EXPANDING: ...
     @overload
     def rsplit(
-        self, pat: str = None, *, n: int = -1, expand: Literal[False] = False
+        self, pat: str | None = None, *, n: int = -1, expand: Literal[False] = False
     ) -> _T_LIST_STR: ...
-    @overload
-    def partition(self, sep: str = ' ') -> _T_EXPANDING: ...
-    @overload
-    def partition(self, *, expand: Literal[True]) -> _T_EXPANDING: ...
-    @overload
-    def partition(self, sep: str, expand: Literal[True]) -> _T_EXPANDING: ...
-    @overload
+    @overload  # expand=True
+    def partition(
+        self, sep: str = " ", expand: Literal[True] = True
+    ) -> _T_EXPANDING: ...
+    @overload  # expand=False (positional argument)
     def partition(self, sep: str, expand: Literal[False]) -> _T_OBJECT: ...
-    @overload
-    def partition(self, *, expand: Literal[False]) -> _T_OBJECT: ...
-    @overload
-    def rpartition(self, sep: str = ' ') -> _T_EXPANDING: ...
-    @overload
-    def rpartition(self, *, expand: Literal[True]) -> _T_EXPANDING: ...
-    @overload
-    def rpartition(self, sep: str, expand: Literal[True]) -> _T_EXPANDING: ...
-    @overload
+    @overload  # expand=False (keyword argument)
+    def partition(self, sep: str = " ", *, expand: Literal[False]) -> _T_OBJECT: ...
+    @overload  # expand=True
+    def rpartition(
+        self, sep: str = " ", expand: Literal[True] = True
+    ) -> _T_EXPANDING: ...
+    @overload  # expand=False (positional argument)
     def rpartition(self, sep: str, expand: Literal[False]) -> _T_OBJECT: ...
-    @overload
-    def rpartition(self, *, expand: Literal[False]) -> _T_OBJECT: ...
-    def get(self, i: int) -> _T_STR: ...
+    @overload  # expand=False (keyword argument)
+    def rpartition(self, sep: str = " ", *, expand: Literal[False]) -> _T_OBJECT: ...
+    def get(self, i: int | Hashable) -> _T_STR: ...
     def join(self, sep: str) -> _T_STR: ...
     def contains(
         self,
@@ -142,7 +108,14 @@ class StringMethods(
         pat: str | re.Pattern[str],
         case: bool = True,
         flags: int = 0,
-        na: Any = ...,
+        na: Scalar | NaTType | None = ...,
+    ) -> _T_BOOL: ...
+    def fullmatch(
+        self,
+        pat: str | re.Pattern[str],
+        case: bool = True,
+        flags: int = 0,
+        na: Scalar | NaTType | None = ...,
     ) -> _T_BOOL: ...
     def replace(
         self,
@@ -157,12 +130,12 @@ class StringMethods(
     def pad(
         self,
         width: int,
-        side: Literal["left", "right", "both"] = 'left',
-        fillchar: str = ' ',
+        side: Literal["left", "right", "both"] = "left",
+        fillchar: str = " ",
     ) -> _T_STR: ...
-    def center(self, width: int, fillchar: str = ' ') -> _T_STR: ...
-    def ljust(self, width: int, fillchar: str = ' ') -> _T_STR: ...
-    def rjust(self, width: int, fillchar: str = ' ') -> _T_STR: ...
+    def center(self, width: int, fillchar: str = " ") -> _T_STR: ...
+    def ljust(self, width: int, fillchar: str = " ") -> _T_STR: ...
+    def rjust(self, width: int, fillchar: str = " ") -> _T_STR: ...
     def zfill(self, width: int) -> _T_STR: ...
     def slice(
         self, start: int | None = None, stop: int | None = None, step: int | None = None
@@ -170,39 +143,45 @@ class StringMethods(
     def slice_replace(
         self, start: int | None = None, stop: int | None = None, repl: str | None = None
     ) -> _T_STR: ...
-    def decode(self, encoding: str, errors: str = 'strict') -> _T_STR: ...
-    def encode(self, encoding: str, errors: str = 'strict') -> _T_BYTES: ...
+    def decode(
+        self, encoding: str, errors: str = "strict", dtype: str | DtypeObj | None = None
+    ) -> _T_STR: ...
+    def encode(self, encoding: str, errors: str = "strict") -> _T_BYTES: ...
     def strip(self, to_strip: str | None = None) -> _T_STR: ...
     def lstrip(self, to_strip: str | None = None) -> _T_STR: ...
     def rstrip(self, to_strip: str | None = None) -> _T_STR: ...
+    def removeprefix(self, prefix: str) -> _T_STR: ...
+    def removesuffix(self, suffix: str) -> _T_STR: ...
     def wrap(
         self,
         width: int,
-        expand_tabs: bool | None = ...,
-        replace_whitespace: bool | None = ...,
-        drop_whitespace: bool | None = ...,
-        break_long_words: bool | None = ...,
-        break_on_hyphens: bool | None = ...,
-    ) -> _T_STR: ...
-    def get_dummies(self, sep: str = '|') -> _T_EXPANDING: ...
-    def translate(self, table: dict[int, int | str | None] | None) -> _T_STR: ...
-    def count(self, pat: str, flags: int = 0) -> _T_INT: ...
-    def startswith(self, pat: str | tuple[str, ...], na: Any = ...) -> _T_BOOL: ...
-    def endswith(self, pat: str | tuple[str, ...], na: Any = ...) -> _T_BOOL: ...
-    def findall(self, pat: str | re.Pattern[str], flags: int = 0) -> _T_LIST_STR: ...
-    @overload
-    def extract(
-        self,
-        pat: str | re.Pattern[str],
-        flags: int = 0,
         *,
-        expand: Literal[True] = True,
+        # kwargs passed to textwrap.TextWrapper
+        expand_tabs: bool = True,
+        replace_whitespace: bool = True,
+        drop_whitespace: bool = True,
+        break_long_words: bool = True,
+        break_on_hyphens: bool = True,
+    ) -> _T_STR: ...
+    def get_dummies(self, sep: str = "|") -> _T_EXPANDING: ...
+    def translate(self, table: Mapping[int, int | str | None] | None) -> _T_STR: ...
+    def count(self, pat: str, flags: int = 0) -> _T_INT: ...
+    def startswith(
+        self, pat: str | tuple[str, ...], na: Scalar | NaTType | None = ...
+    ) -> _T_BOOL: ...
+    def endswith(
+        self, pat: str | tuple[str, ...], na: Scalar | NaTType | None = ...
+    ) -> _T_BOOL: ...
+    def findall(self, pat: str | re.Pattern[str], flags: int = 0) -> _T_LIST_STR: ...
+    @overload  # expand=True
+    def extract(
+        self, pat: str | re.Pattern[str], flags: int = 0, expand: Literal[True] = True
     ) -> pd.DataFrame: ...
-    @overload
+    @overload  # expand=False (positional argument)
     def extract(
         self, pat: str | re.Pattern[str], flags: int, expand: Literal[False]
     ) -> _T_OBJECT: ...
-    @overload
+    @overload  # expand=False (keyword argument)
     def extract(
         self, pat: str | re.Pattern[str], flags: int = 0, *, expand: Literal[False]
     ) -> _T_OBJECT: ...
@@ -230,12 +209,3 @@ class StringMethods(
     def istitle(self) -> _T_BOOL: ...
     def isnumeric(self) -> _T_BOOL: ...
     def isdecimal(self) -> _T_BOOL: ...
-    def fullmatch(
-        self,
-        pat: str | re.Pattern[str],
-        case: bool = True,
-        flags: int = 0,
-        na: Any = ...,
-    ) -> _T_BOOL: ...
-    def removeprefix(self, prefix: str) -> _T_STR: ...
-    def removesuffix(self, suffix: str) -> _T_STR: ...

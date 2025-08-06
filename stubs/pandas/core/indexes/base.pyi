@@ -226,7 +226,7 @@ class Index(IndexOpsMixin[S1]):
         Index[int],
         Index[bytes],
         Index[_str],
-        Index[type[object]],
+        Index[Any],
     ]: ...
     @final
     def is_(self, other: Any) -> bool: ...

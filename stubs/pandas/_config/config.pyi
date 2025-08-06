@@ -1,13 +1,6 @@
-from collections.abc import (
-    Callable,
-    Iterable,
-)
+from collections.abc import Callable, Iterable
 from contextlib import ContextDecorator
-from typing import (
-    Any,
-    Literal,
-    overload,
-)
+from typing import Any, Literal, overload
 
 def get_option(pat: str) -> Any: ...
 def set_option(pat: str, val: object) -> None: ...
@@ -177,7 +170,7 @@ class Options(DictWrapper):
 options: Options
 
 class option_context(ContextDecorator):
-    def __init__(self: Any, /, pat: str, val: Any, *args: Any) -> None: ...
+    def __init__(self, /, pat: str, val: Any, *args: Any) -> None: ...
     def __enter__(self) -> None: ...
     def __exit__(self, *args: object) -> None: ...
 

@@ -2,7 +2,8 @@ from _typeshed import Incomplete
 from sympy.concrete.summations import Sum as Sum
 from sympy.core.add import Add as Add
 from sympy.core.function import Function as Function
-from sympy.core.numbers import Float as Float, I as I, Integer as Integer, Rational as Rational, int_valued as int_valued, pi as pi
+from sympy.core.numbers import (
+	Float as Float, I as I, int_valued as int_valued, Integer as Integer, pi as pi, Rational as Rational)
 from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy
 from sympy.core.sympify import sympify as sympify

@@ -195,16 +195,8 @@ class TypingImportAdder(libcst.CSTTransformer):
 			The function definition to analyze for missing annotations.
 
 		"""
-		for indexParameter, parameterFunction in enumerate(node.params.params):
-			if parameterFunction.annotation is None and not self._isImplicitParameter(parameterFunction, indexParameter):
-				self.needsTypingAnyImport = True
-
-		for parameterFunction in node.params.posonly_params:
-			if parameterFunction.annotation is None:
-				self.needsTypingAnyImport = True
-
-		for parameterFunction in node.params.kwonly_params:
-			if parameterFunction.annotation is None:
+		for parameterFunction in [*node.params.params, *node.params.posonly_params, *node.params.kwonly_params]:
+			if parameterFunction.annotation is None and parameterFunction.name.value not in ("self", "cls"):
 				self.needsTypingAnyImport = True
 
 		if node.params.star_arg and isinstance(node.params.star_arg, libcst.Param) and node.params.star_arg.annotation is None:
@@ -237,8 +229,8 @@ class TypingImportAdder(libcst.CSTTransformer):
 		listParametersUpdated: list[libcst.Param] = []
 		wasParameterModified: bool = False
 
-		for indexParameter, parameterFunction in enumerate(updated_node.params.params):
-			if parameterFunction.annotation is None and not self._isImplicitParameter(parameterFunction, indexParameter):
+		for parameterFunction in updated_node.params.params:
+			if parameterFunction.annotation is None and parameterFunction.name.value not in ("self", "cls"):
 				parameterUpdated = parameterFunction.with_changes(
 					annotation=libcst.Annotation(annotation=libcst.Name("Any"))
 				)
@@ -250,7 +242,7 @@ class TypingImportAdder(libcst.CSTTransformer):
 
 		listPosOnlyParamsUpdated: list[libcst.Param] = []
 		for parameterFunction in updated_node.params.posonly_params:
-			if parameterFunction.annotation is None:
+			if parameterFunction.annotation is None and parameterFunction.name.value not in ("self", "cls"):
 				parameterUpdated = parameterFunction.with_changes(
 					annotation=libcst.Annotation(annotation=libcst.Name("Any"))
 				)
@@ -262,7 +254,7 @@ class TypingImportAdder(libcst.CSTTransformer):
 
 		listKwOnlyParamsUpdated: list[libcst.Param] = []
 		for parameterFunction in updated_node.params.kwonly_params:
-			if parameterFunction.annotation is None:
+			if parameterFunction.annotation is None and parameterFunction.name.value not in ("self", "cls"):
 				parameterUpdated = parameterFunction.with_changes(
 					annotation=libcst.Annotation(annotation=libcst.Name("Any"))
 				)
@@ -307,29 +299,6 @@ class TypingImportAdder(libcst.CSTTransformer):
 			return updated_node.with_changes(params=parametersUpdated, returns=returnsUpdated)
 
 		return updated_node
-
-	def _isImplicitParameter(self, parameterFunction: libcst.Param, indexParameter: int) -> bool:
-		"""Check if parameter is an implicit parameter (self, cls) that should not be annotated.
-
-		(AI generated docstring)
-
-		Parameters
-		----------
-		parameterFunction : libcst.Param
-			The parameter to check.
-		indexParameter : int
-			The index position of the parameter in the function signature.
-
-		Returns
-		-------
-		isImplicitParameter : bool
-			True if the parameter should not receive type annotations.
-
-		"""
-		if indexParameter == 0 and isinstance(parameterFunction.name, libcst.Name):
-			nameParameter = parameterFunction.name.value
-			return nameParameter in ("self", "cls")
-		return False
 
 	def leave_Module(self, original_node: libcst.Module, updated_node: libcst.Module) -> libcst.Module:
 		"""Add typing import at the top if needed and not already present.

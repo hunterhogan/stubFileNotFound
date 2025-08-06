@@ -13,17 +13,17 @@ import numpy as np
 
 class _SeriesFunc(Protocol):
     def __call__(
-        self: Any, series: Series, /, *args: Any, **kwargs: Any
+        self, series: Series, /, *args: Any, **kwargs: Any
     ) -> list[Any] | Series: ...
 
 class _DataFrameFunc(Protocol):
     def __call__(
-        self: Any, series: DataFrame, /, *args: Any, **kwargs: Any
+        self, series: DataFrame, /, *args: Any, **kwargs: Any
     ) -> npt.NDArray[Any] | DataFrame: ...
 
 class _MapCallable(Protocol):
     def __call__(
-        self: Any, first_arg: Scalar, /, *args: Any, **kwargs: Any
+        self, first_arg: Scalar, /, *args: Any, **kwargs: Any
     ) -> str | None: ...
 
 class Styler(StylerRenderer):
