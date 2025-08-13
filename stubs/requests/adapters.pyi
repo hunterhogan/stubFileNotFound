@@ -1,48 +1,35 @@
-from _typeshed import Incomplete
-from collections.abc import Mapping
-from ssl import SSLContext
-from typing import Literal, TypedDict
-from typing_extensions import NotRequired, deprecated
-
-import urllib3
-from urllib3.connectionpool import ConnectionPool
-from urllib3.contrib.socks import SOCKSProxyManager as SOCKSProxyManager
-from urllib3.exceptions import (
-    ConnectTimeoutError as ConnectTimeoutError,
-    MaxRetryError as MaxRetryError,
-    ProtocolError as ProtocolError,
-    ReadTimeoutError as ReadTimeoutError,
-    ResponseError as ResponseError,
-)
-from urllib3.poolmanager import PoolManager as PoolManager, proxy_from_url as proxy_from_url
-from urllib3.util.retry import Retry as Retry
-
 from .cookies import extract_cookies_to_jar as extract_cookies_to_jar
 from .exceptions import (
-    ConnectionError as ConnectionError,
-    ConnectTimeout as ConnectTimeout,
-    ProxyError as ProxyError,
-    ReadTimeout as ReadTimeout,
-    RetryError as RetryError,
-    SSLError as SSLError,
-)
+	ConnectionError as ConnectionError, ConnectTimeout as ConnectTimeout, ProxyError as ProxyError,
+	ReadTimeout as ReadTimeout, RetryError as RetryError, SSLError as SSLError)
 from .models import PreparedRequest, Response as Response
 from .structures import CaseInsensitiveDict as CaseInsensitiveDict
 from .utils import (
-    DEFAULT_CA_BUNDLE_PATH as DEFAULT_CA_BUNDLE_PATH,
-    _Uri,
-    get_auth_from_url as get_auth_from_url,
-    get_encoding_from_headers as get_encoding_from_headers,
-    prepend_scheme_if_needed as prepend_scheme_if_needed,
-    urldefragauth as urldefragauth,
-)
+	_Uri, DEFAULT_CA_BUNDLE_PATH as DEFAULT_CA_BUNDLE_PATH, get_auth_from_url as get_auth_from_url,
+	get_encoding_from_headers as get_encoding_from_headers, prepend_scheme_if_needed as prepend_scheme_if_needed,
+	urldefragauth as urldefragauth)
+from _typeshed import Incomplete
+from collections.abc import Mapping
+from ssl import SSLContext
+from typing import Literal, type_check_only, TypedDict
+from typing_extensions import deprecated, NotRequired
+from urllib3.connectionpool import ConnectionPool
+from urllib3.contrib.socks import SOCKSProxyManager as SOCKSProxyManager
+from urllib3.exceptions import (
+	ConnectTimeoutError as ConnectTimeoutError, MaxRetryError as MaxRetryError, ProtocolError as ProtocolError,
+	ReadTimeoutError as ReadTimeoutError, ResponseError as ResponseError)
+from urllib3.poolmanager import PoolManager as PoolManager, proxy_from_url as proxy_from_url
+from urllib3.util.retry import Retry as Retry
+import urllib3
 
 # Arguments to urllib3 connection_from_host() functions (except pool_kwargs).
+@type_check_only
 class _HostParams(TypedDict):
     host: str
     scheme: str
     port: int
 
+@type_check_only
 class _PoolKwargs(TypedDict):
     ssl_context: NotRequired[SSLContext]
     ca_certs: NotRequired[str]

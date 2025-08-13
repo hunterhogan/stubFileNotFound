@@ -1,21 +1,27 @@
-from typing import TypedDict
+from typing import type_check_only, TypedDict
 
+@type_check_only
 class _VersionDict(TypedDict):
     version: str
 
+@type_check_only
 class _OptionalVersionDict(TypedDict):
     version: str | None
 
+@type_check_only
 class _PlatformDict(TypedDict):
     system: str
     release: str
 
+@type_check_only
 class _ImplementationDict(_VersionDict):
     name: str
 
+@type_check_only
 class _PyOpenSSLDict(_OptionalVersionDict):
     openssl_version: str
 
+@type_check_only
 class _InfoDict(TypedDict):
     platform: _PlatformDict
     implementation: _ImplementationDict

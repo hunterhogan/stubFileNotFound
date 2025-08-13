@@ -1,23 +1,26 @@
 from _typeshed import Incomplete
 from logging import Logger
-from typing import Any, Literal, Protocol, TypedDict, overload
-from typing_extensions import TypeAlias
-
-import requests
 from oauthlib.oauth2 import Client
 from requests.cookies import RequestsCookieJar
+from typing import Any, Literal, overload, Protocol, type_check_only, TypedDict
+from typing_extensions import TypeAlias
+import requests
 
 _Token: TypeAlias = dict[str, Incomplete]  # oauthlib.oauth2.Client.token
 
+@type_check_only
 class _AccessTokenResponseHook(Protocol):
     def __call__(self, response: requests.Response, /) -> requests.Response: ...
 
+@type_check_only
 class _RefreshTokenResponseHook(Protocol):
     def __call__(self, response: requests.Response, /) -> requests.Response: ...
 
+@type_check_only
 class _ProtectedRequestHook(Protocol):
     def __call__(self, url, headers, data, /) -> tuple[Incomplete, Incomplete, Incomplete]: ...
 
+@type_check_only
 class _ComplianceHooks(TypedDict):
     access_token_response: set[_AccessTokenResponseHook]
     refresh_token_response: set[_RefreshTokenResponseHook]

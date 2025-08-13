@@ -1,16 +1,15 @@
+from . import OAuth1
 from _typeshed import Incomplete
 from logging import Logger
-from typing import TypedDict
-from typing_extensions import TypeAlias
-
-import requests
 from oauthlib.oauth1 import Client
-
-from . import OAuth1
+from typing import type_check_only, TypedDict
+from typing_extensions import TypeAlias
+import requests
 
 # should be dict[str, str] but could look different
 _ParsedToken: TypeAlias = dict[str, Incomplete]
 
+@type_check_only
 class _TokenDict(TypedDict, total=False):
     oauth_token: Incomplete  # oauthlib.oauth1.Client.resource_owner_key
     oauth_token_secret: Incomplete  # oauthlib.oauth1.Client.resource_token_secret
