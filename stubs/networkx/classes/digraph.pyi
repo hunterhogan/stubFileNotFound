@@ -1,7 +1,7 @@
 from collections.abc import Iterable, Iterator
 from functools import cached_property
 from networkx.classes.coreviews import AdjacencyView
-from networkx.classes.graph import _Node, Graph  # type: ignore[reportPrivateUsage]
+from networkx.classes.graph import _EdgePlus, _Node, _NodePlus, Graph  # type: ignore[reportPrivateUsage]
 from networkx.classes.reportviews import (
 	DiDegreeView, InDegreeView, InEdgeView, InMultiDegreeView, OutDegreeView, OutEdgeView, OutMultiDegreeView)
 from typing import Any
@@ -254,14 +254,11 @@ class DiGraph(Graph[_Node]):
 	>>> G[2][1] is G[2][2]
 	True
 	"""
-	# Type descriptors
 	_adj: dict[_Node, dict[_Node, dict[str, Any]]]
 	_succ: dict[_Node, dict[_Node, dict[str, Any]]]
 	_pred: dict[_Node, dict[_Node, dict[str, Any]]]
-	# Dictionaries for graph, node attributes
 	graph: dict[str, Any]
 	_node: dict[_Node, dict[str, Any]]
-	# Cache for property lookup
 	__networkx_cache__: dict[str, Any]
 
 	def __init__(self, incoming_graph_data: Any | None = None, **attr: Any) -> None:
@@ -568,7 +565,7 @@ class DiGraph(Graph[_Node]):
 		"""
 		...
 
-	def copy(self, as_view: bool = False) -> DiGraph[_Node]: ...
+	def copy(self, as_view: bool = False) -> Self: ...
 
 	@cached_property
 	def adj(self) -> AdjacencyView[_Node, _Node, dict[str, Any]]:
@@ -598,7 +595,7 @@ class DiGraph(Graph[_Node]):
 		"""
 		...
 
-	def add_nodes_from(self, nodes_for_adding: Iterable[_Node | tuple[_Node, dict[str, Any]]], **attr: Any) -> None:
+	def add_nodes_from(self, nodes_for_adding: Iterable[_NodePlus[_Node]], **attr: Any) -> None:
 		"""Add multiple nodes.
 
 		Parameters
@@ -688,7 +685,7 @@ class DiGraph(Graph[_Node]):
 		"""
 		...
 
-	def add_edges_from(self, ebunch_to_add: Iterable[tuple[_Node, _Node] | tuple[_Node, _Node, dict[str, Any]]], **attr: Any) -> None:
+	def add_edges_from(self, ebunch_to_add: Iterable[_EdgePlus[_Node]], **attr: Any) -> None:
 		"""Add all the edges in ebunch_to_add.
 
 		Parameters
@@ -752,7 +749,7 @@ class DiGraph(Graph[_Node]):
 		"""
 		...
 
-	def remove_edges_from(self, ebunch: Iterable[tuple[_Node, _Node] | tuple[_Node, _Node, dict[str, Any]]]) -> None:
+	def remove_edges_from(self, ebunch: Iterable[_EdgePlus[_Node]]) -> None:
 		"""Remove all edges specified in ebunch.
 
 		Parameters
