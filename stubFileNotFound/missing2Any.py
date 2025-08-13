@@ -18,7 +18,6 @@ Separate file handling from libcst operations.
 Leverage existing packages, such as `mypy`, `pyright`, and `hunterMakesPy` for everything and anything: write as little new code as possible.
 
 TODO:
-- don't change `self` or `cls`
 - nested generics; e.g., list[Callable]
 - apply to variables in classes
 - TypeAlias
