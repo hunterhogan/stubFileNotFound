@@ -1,33 +1,16 @@
-import pandas as pd
+from pandas._typing import ArrayLike, Dtype, DtypeObj, npt
 from pandas.api.extensions import ExtensionDtype
-from typing_extensions import TypeAlias
-
-from pandas._typing import (
-    ArrayLike,
-    Dtype,
-    DtypeObj,
-    npt,
-)
-
 from pandas.core.dtypes.inference import (
-    is_bool as is_bool,
-    is_complex as is_complex,
-    is_dict_like as is_dict_like,
-    is_file_like as is_file_like,
-    is_float as is_float,
-    is_hashable as is_hashable,
-    is_integer as is_integer,
-    is_iterator as is_iterator,
-    is_list_like as is_list_like,
-    is_named_tuple as is_named_tuple,
-    is_number as is_number,
-    is_re as is_re,
-    is_re_compilable as is_re_compilable,
-    is_scalar as is_scalar,
-)
+	is_bool as is_bool, is_complex as is_complex, is_dict_like as is_dict_like, is_file_like as is_file_like,
+	is_float as is_float, is_hashable as is_hashable, is_integer as is_integer, is_iterator as is_iterator,
+	is_list_like as is_list_like, is_named_tuple as is_named_tuple, is_number as is_number, is_re as is_re,
+	is_re_compilable as is_re_compilable, is_scalar as is_scalar)
+from typing import Any
+from typing_extensions import TypeAlias
+import pandas as pd
 
 _ArrayOrDtype: TypeAlias = (
-    ArrayLike | npt.DTypeLike | pd.Series | pd.DataFrame | pd.Index | ExtensionDtype
+    ArrayLike | npt.DTypeLike | pd.Series | pd.DataFrame | pd.Index[Any] | ExtensionDtype
 )
 
 def is_object_dtype(arr_or_dtype: _ArrayOrDtype) -> bool: ...

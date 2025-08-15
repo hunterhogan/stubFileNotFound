@@ -1,29 +1,13 @@
-import datetime
-from typing import (
-    Literal,
-    overload,
-)
-
-import numpy as np
-from pandas import (
-    Index,
-    PeriodIndex,
-    Series,
-    Timedelta,
-    TimedeltaIndex,
-)
-from pandas.core.series import (
-    OffsetSeries,
-    PeriodSeries,
-    TimedeltaSeries,
-)
-from typing_extensions import TypeAlias
-
+from pandas import Index, PeriodIndex, Series, Timedelta, TimedeltaIndex
 from pandas._libs.tslibs import NaTType
 from pandas._libs.tslibs.offsets import BaseOffset
 from pandas._libs.tslibs.timestamps import Timestamp
 from pandas._typing import npt
-from typing import Any
+from pandas.core.series import OffsetSeries, PeriodSeries, TimedeltaSeries
+from typing import Any, Literal, overload
+from typing_extensions import TypeAlias
+import datetime
+import numpy as np
 
 class IncompatibleFrequency(ValueError): ...
 
@@ -31,8 +15,7 @@ _PeriodAddSub: TypeAlias = (
     Timedelta | datetime.timedelta | np.timedelta64 | np.int64 | int | BaseOffset
 )
 
-_PeriodFreqHow: TypeAlias = Literal[
-    "S",
+_PeriodFreqHow: TypeAlias = Literal["S",
     "E",
     "start",
     "end",
@@ -40,8 +23,7 @@ _PeriodFreqHow: TypeAlias = Literal[
 
 _PeriodToTimestampHow: TypeAlias = (
     _PeriodFreqHow
-    | Literal[
-        "Start",
+    | Literal["Start",
         "Finish",
         "Begin",
         "End",
@@ -198,12 +180,12 @@ class Period(PeriodMixin):
     def day_of_year(self) -> int: ...
     @property
     def day_of_week(self) -> int: ...
-    def asfreq(self, freq: str | BaseOffset, how: _PeriodFreqHow = 'E') -> Period: ...
+    def asfreq(self, freq: str | BaseOffset, how: _PeriodFreqHow = "end") -> Period: ...
     @classmethod
     def now(cls, freq: str | BaseOffset = ...) -> Period: ...
     def strftime(self, fmt: str) -> str: ...
     def to_timestamp(
         self,
         freq: str | BaseOffset | None = None,
-        how: _PeriodToTimestampHow = 'start',
+        how: _PeriodToTimestampHow = "S",
     ) -> Timestamp: ...

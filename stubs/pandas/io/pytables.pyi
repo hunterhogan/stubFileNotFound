@@ -1,31 +1,11 @@
-from collections.abc import (
-    Generator,
-    Iterator,
-    Sequence,
-)
-from types import TracebackType
-from typing import (
-    Any,
-    Literal,
-    overload,
-)
-
-from pandas import (
-    DataFrame,
-    Series,
-)
+from collections.abc import Generator, Iterator, Sequence
+from pandas import DataFrame, Series
+from pandas._typing import FilePath, HashableT, HashableT1, HashableT2, HashableT3, HDFCompLib
 from pandas.core.computation.pytables import PyTablesExpr
 from pandas.core.generic import NDFrame
+from types import TracebackType
+from typing import Any, Literal, overload
 from typing_extensions import Self
-
-from pandas._typing import (
-    FilePath,
-    HashableT,
-    HashableT1,
-    HashableT2,
-    HashableT3,
-    HDFCompLib,
-)
 
 Term = PyTablesExpr
 
@@ -34,8 +14,7 @@ def read_hdf(
     path_or_buf: FilePath | HDFStore,
     key: Any | None = None,
     mode: Literal["r", "r+", "a"] = 'r',
-    errors: Literal[
-        "strict",
+    errors: Literal["strict",
         "ignore",
         "replace",
         "surrogateescape",
@@ -57,8 +36,7 @@ def read_hdf(
     path_or_buf: FilePath | HDFStore,
     key: Any | None = None,
     mode: Literal["r", "r+", "a"] = 'r',
-    errors: Literal[
-        "strict",
+    errors: Literal["strict",
         "ignore",
         "replace",
         "surrogateescape",
@@ -80,8 +58,7 @@ def read_hdf(
     path_or_buf: FilePath | HDFStore,
     key: Any | None = None,
     mode: Literal["r", "r+", "a"] = 'r',
-    errors: Literal[
-        "strict",
+    errors: Literal["strict",
         "ignore",
         "replace",
         "surrogateescape",
@@ -122,9 +99,8 @@ class HDFStore:
         exc_value: BaseException | None,
         traceback: TracebackType | None,
     ) -> None: ...
-    def keys(self, include: Any='pandas') -> list[str]: ...
+    def keys(self, include: Any="pandas") -> list[str]: ...
     def __iter__(self) -> Iterator[str]: ...
-    def open(self, mode: Literal["a", "w", "r", "r+"] = 'a', **kwargs: Any) -> None: ...
     def close(self) -> None: ...
     @property
     def is_open(self) -> bool: ...
@@ -171,7 +147,7 @@ class HDFStore:
         self,
         key: str,
         value: NDFrame,
-        format: Literal["t", "table", "f", "fixed"] = None,
+        format: Literal["t", "table", "f", "fixed"] | None = None,
         index: bool = True,
         append: bool = False,
         complib: HDFCompLib | None = None,
@@ -180,15 +156,14 @@ class HDFStore:
         nan_rep: str | None = None,
         data_columns: Literal[True] | list[HashableT2] | None = None,
         encoding: str | None = None,
-        errors: Literal[
-            "strict",
+        errors: Literal["strict",
             "ignore",
             "replace",
             "surrogateescape",
             "xmlcharrefreplace",
             "backslashreplace",
             "namereplace",
-        ] = 'strict',
+        ] = "strict",
         track_times: bool = True,
         dropna: bool = False,
     ) -> None: ...
@@ -196,7 +171,7 @@ class HDFStore:
         self,
         key: str,
         value: NDFrame,
-        format: Literal["t", "table", "f", "fixed"] = None,
+        format: Literal["t", "table", "f", "fixed"] | None = None,
         axes: int | None = None,
         index: bool = True,
         append: bool = True,
@@ -207,23 +182,22 @@ class HDFStore:
         nan_rep: str | None = None,
         chunksize: int | None = None,
         expectedrows: int | None = None,
-        dropna: bool | None = None,
+        dropna: bool | None = False,
         data_columns: Literal[True] | list[HashableT3] | None = None,
         encoding: str | None = None,
-        errors: Literal[
-            "strict",
+        errors: Literal["strict",
             "ignore",
             "replace",
             "surrogateescape",
             "xmlcharrefreplace",
             "backslashreplace",
             "namereplace",
-        ] = 'strict',
+        ] = "strict",
     ) -> None: ...
     def groups(self) -> list[Any]: ...
     def walk(
-        self, where: str = '/'
-    ) -> Generator[tuple[str, list, list[str]], None, None]: ...
+        self, where: str = "/"
+    ) -> Generator[tuple[str, list[Any], list[str]], None, None]: ...
     def info(self) -> str: ...
 
 class TableIterator:

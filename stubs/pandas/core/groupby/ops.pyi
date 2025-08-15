@@ -1,31 +1,10 @@
-from collections.abc import (
-    Callable,
-    Hashable,
-    Iterator,
-)
-from typing import (
-    Generic,
-    final,
-)
-
-import numpy as np
-from pandas import (
-    Index,
-    Series,
-)
+from collections.abc import Callable, Hashable, Iterator
+from pandas import Index, Series
+from pandas._typing import ArrayLike, AxisInt, Incomplete, NDFrameT, npt, Shape, T
 from pandas.core.groupby import grouper
-
-from pandas._typing import (
-    ArrayLike,
-    AxisInt,
-    Incomplete,
-    NDFrameT,
-    Shape,
-    T,
-    npt,
-)
 from pandas.util._decorators import cache_readonly
-from typing import Any
+from typing import Any, final, Generic
+import numpy as np
 
 class BaseGrouper:
     axis: Index[Any]
@@ -51,13 +30,13 @@ class BaseGrouper:
     @property
     def codes(self) -> list[npt.NDArray[np.signedinteger]]: ...
     @property
-    def levels(self) -> list[Index]: ...
+    def levels(self) -> list[Index[Any]]: ...
     @property
     def names(self) -> list[Any]: ...
     @final
     def size(self) -> Series: ...
     @cache_readonly
-    def groups(self) -> dict[Hashable, np.ndarray]: ...
+    def groups(self) -> dict[Hashable, np.ndarray[Any, Any]]: ...
     @final
     @cache_readonly
     def is_monotonic(self) -> bool: ...

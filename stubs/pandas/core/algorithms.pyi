@@ -1,25 +1,8 @@
-from typing import (
-    Literal,
-    overload,
-)
-
-import numpy as np
-from pandas import (
-    Categorical,
-    CategoricalIndex,
-    Index,
-    IntervalIndex,
-    PeriodIndex,
-    Series,
-)
+from pandas import Categorical, CategoricalIndex, Index, IntervalIndex, PeriodIndex, Series
+from pandas._typing import AnyArrayLike, IntervalT, TakeIndexer
 from pandas.api.extensions import ExtensionArray
-
-from pandas._typing import (
-    AnyArrayLike,
-    IntervalT,
-    TakeIndexer,
-)
-from typing import Any
+from typing import Any, Literal, overload
+import numpy as np
 
 # These are type: ignored because the Index types overlap due to inheritance but indices
 # with extension types return the same type while standard type return ndarray
@@ -48,21 +31,21 @@ def factorize(
     sort: bool = False,
     use_na_sentinel: bool = True,
     size_hint: int | None = None,
-) -> tuple[np.ndarray, np.ndarray]: ...
+) -> tuple[np.ndarray[Any, Any], np.ndarray[Any, Any]]: ...
 @overload
 def factorize(
     values: Index[Any] | Series,
     sort: bool = False,
     use_na_sentinel: bool = True,
     size_hint: int | None = None,
-) -> tuple[np.ndarray, Index]: ...
+) -> tuple[np.ndarray[Any, Any], Index[Any]]: ...
 @overload
 def factorize(
     values: Categorical,
     sort: bool = False,
     use_na_sentinel: bool = True,
     size_hint: int | None = None,
-) -> tuple[np.ndarray, Categorical]: ...
+) -> tuple[np.ndarray[Any, Any], Categorical]: ...
 def value_counts(
     values: AnyArrayLike | list[Any] | tuple[Any, ...],
     sort: bool = True,

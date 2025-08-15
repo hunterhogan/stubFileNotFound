@@ -1,21 +1,8 @@
-from typing import (
-    Any,
-    overload,
-)
-
-import numpy as np
-from typing_extensions import Self
-
-from pandas._typing import (
-    ArrayLike,
-    Scalar,
-    ScalarIndexer,
-    SequenceIndexer,
-    TakeIndexer,
-    npt,
-)
-
+from pandas._typing import ArrayLike, npt, Scalar, ScalarIndexer, SequenceIndexer, TakeIndexer
 from pandas.core.dtypes.dtypes import ExtensionDtype as ExtensionDtype
+from typing import Any, overload
+from typing_extensions import Self
+import numpy as np
 
 class ExtensionArray:
     @overload
@@ -50,7 +37,7 @@ class ExtensionArray:
     def shift(self, periods: int = 1, fill_value: object = None) -> Self: ...
     def unique(self) -> Any: ...
     def searchsorted(self, value: Any, side: str = 'left', sorter: Any=None) -> Any: ...
-    def factorize(self, use_na_sentinel: bool = True) -> tuple[np.ndarray, Self]: ...
+    def factorize(self, use_na_sentinel: bool = True) -> tuple[np.ndarray[Any, Any], Self]: ...
     def repeat(self, repeats: Any, axis: Any=None) -> Any: ...
     def take(
         self,
@@ -61,7 +48,7 @@ class ExtensionArray:
     ) -> Self: ...
     def copy(self) -> Self: ...
     def view(self, dtype: Any=None) -> Self | np.ndarray[Any, Any]: ...
-    def ravel(self, order: Any='C') -> Self: ...
+    def ravel(self, order: Any="C") -> Self: ...
     def tolist(self) -> list[Any]: ...
     def _reduce(
         self, name: str, *, skipna: bool = True, keepdims: bool = False, **kwargs: Any

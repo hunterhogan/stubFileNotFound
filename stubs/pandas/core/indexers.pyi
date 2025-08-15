@@ -1,5 +1,5 @@
-import numpy as np
 from typing import Any
+import numpy as np
 
 def check_array_indexer(arrayArrayLike: Any, indexer: Any) -> Any: ...
 
@@ -16,7 +16,7 @@ class BaseIndexer:
         min_periods: int | None = ...,
         center: bool | None = ...,
         closed: str | None = ...,
-    ) -> tuple[np.ndarray, np.ndarray]: ...
+    ) -> tuple[np.ndarray[Any, Any], np.ndarray[Any, Any]]: ...
 
 class VariableOffsetWindowIndexer(BaseIndexer):
     def __init__(
@@ -33,7 +33,7 @@ class VariableOffsetWindowIndexer(BaseIndexer):
         min_periods: int | None = ...,
         center: bool | None = ...,
         closed: str | None = ...,
-    ) -> tuple[np.ndarray, np.ndarray]: ...
+    ) -> tuple[np.ndarray[Any, Any], np.ndarray[Any, Any]]: ...
 
 class FixedForwardWindowIndexer(BaseIndexer):
     def get_window_bounds(
@@ -42,4 +42,4 @@ class FixedForwardWindowIndexer(BaseIndexer):
         min_periods: int | None = ...,
         center: bool | None = ...,
         closed: str | None = ...,
-    ) -> tuple[np.ndarray, np.ndarray]: ...
+    ) -> tuple[np.ndarray[Any, Any], np.ndarray[Any, Any]]: ...

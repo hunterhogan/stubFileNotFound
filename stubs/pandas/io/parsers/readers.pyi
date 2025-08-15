@@ -1,40 +1,15 @@
-from collections import (
-    abc,
-    defaultdict,
-)
-from collections.abc import (
-    Callable,
-    Hashable,
-    Mapping,
-    Sequence,
-)
-import csv
-from types import TracebackType
-from typing import (
-    Any,
-    Literal,
-    overload,
-)
-
-from pandas.core.frame import DataFrame
-from typing_extensions import Self
-
+from collections import abc, defaultdict
+from collections.abc import Callable, Hashable, Mapping, Sequence
 from pandas._libs.lib import _NoDefaultDoNotUse
 from pandas._typing import (
-    CompressionOptions,
-    CSVEngine,
-    CSVQuoting,
-    DtypeArg,
-    DtypeBackend,
-    FilePath,
-    HashableT,
-    ListLikeHashable,
-    ReadCsvBuffer,
-    StorageOptions,
-    UsecolsArgType,
-)
-
+	CompressionOptions, CSVEngine, CSVQuoting, DtypeArg, DtypeBackend, FilePath, HashableT, ListLikeHashable,
+	ReadCsvBuffer, StorageOptions, UsecolsArgType)
+from pandas.core.frame import DataFrame
 from pandas.io.common import IOHandles
+from types import TracebackType
+from typing import Any, Literal, overload
+from typing_extensions import Self
+import csv
 
 @overload
 def read_csv(
@@ -54,13 +29,13 @@ def read_csv(
         | Mapping[str, Callable[[str], Any]]
         | None
     ) = None,
-    true_values: list[str] = None,
-    false_values: list[str] = None,
+    true_values: list[str] | None = None,
+    false_values: list[str] | None = None,
     skipinitialspace: bool = False,
-    skiprows: int | Sequence[int] | Callable[[int], bool] = None,
+    skiprows: int | Sequence[int] | Callable[[int], bool] | None = None,
     skipfooter: int = 0,
     nrows: int | None = None,
-    na_values: Sequence[str] | Mapping[str, Sequence[str]] = None,
+    na_values: Sequence[str] | Mapping[str, Sequence[str]] | None = None,
     keep_default_na: bool = True,
     na_filter: bool = True,
     verbose: bool = ...,
@@ -71,6 +46,7 @@ def read_csv(
         | list[str]
         | Sequence[Sequence[int]]
         | Mapping[str, Sequence[int | str]]
+        | None
     ) = None,
     keep_date_col: bool = ...,
     date_format: dict[Hashable, str] | str | None = None,
@@ -89,7 +65,7 @@ def read_csv(
     comment: str | None = None,
     encoding: str | None = None,
     encoding_errors: str | None = 'strict',
-    dialect: str | csv.Dialect = None,
+    dialect: str | csv.Dialect | None = None,
     on_bad_lines: (
         Literal["error", "warn", "skip"] | Callable[[list[str]], list[str] | None]
     ) = 'error',
@@ -118,13 +94,13 @@ def read_csv(
         | Mapping[str, Callable[[str], Any]]
         | None
     ) = None,
-    true_values: list[str] = None,
-    false_values: list[str] = None,
+    true_values: list[str] | None = None,
+    false_values: list[str] | None = None,
     skipinitialspace: bool = False,
-    skiprows: int | Sequence[int] | Callable[[int], bool] = None,
+    skiprows: int | Sequence[int] | Callable[[int], bool] | None = None,
     skipfooter: int = 0,
     nrows: int | None = None,
-    na_values: Sequence[str] | Mapping[str, Sequence[str]] = None,
+    na_values: Sequence[str] | Mapping[str, Sequence[str]] | None = None,
     keep_default_na: bool = True,
     na_filter: bool = True,
     verbose: bool = ...,
@@ -135,6 +111,7 @@ def read_csv(
         | list[str]
         | Sequence[Sequence[int]]
         | Mapping[str, Sequence[int | str]]
+        | None
     ) = None,
     keep_date_col: bool = ...,
     date_format: dict[Hashable, str] | str | None = None,
@@ -153,7 +130,7 @@ def read_csv(
     comment: str | None = None,
     encoding: str | None = None,
     encoding_errors: str | None = 'strict',
-    dialect: str | csv.Dialect = None,
+    dialect: str | csv.Dialect | None = None,
     on_bad_lines: (
         Literal["error", "warn", "skip"] | Callable[[list[str]], list[str] | None]
     ) = 'error',
@@ -182,13 +159,13 @@ def read_csv(
         | Mapping[str, Callable[[str], Any]]
         | None
     ) = None,
-    true_values: list[str] = None,
-    false_values: list[str] = None,
+    true_values: list[str] | None = None,
+    false_values: list[str] | None = None,
     skipinitialspace: bool = False,
-    skiprows: int | Sequence[int] | Callable[[int], bool] = None,
+    skiprows: int | Sequence[int] | Callable[[int], bool] | None = None,
     skipfooter: int = 0,
     nrows: int | None = None,
-    na_values: Sequence[str] | Mapping[str, Sequence[str]] = None,
+    na_values: Sequence[str] | Mapping[str, Sequence[str]] | None = None,
     keep_default_na: bool = True,
     na_filter: bool = True,
     verbose: bool = ...,
@@ -199,6 +176,7 @@ def read_csv(
         | list[str]
         | Sequence[Sequence[int]]
         | Mapping[str, Sequence[int | str]]
+        | None
     ) = None,
     keep_date_col: bool = ...,
     date_format: dict[Hashable, str] | str | None = None,
@@ -217,7 +195,7 @@ def read_csv(
     comment: str | None = None,
     encoding: str | None = None,
     encoding_errors: str | None = 'strict',
-    dialect: str | csv.Dialect = None,
+    dialect: str | csv.Dialect | None = None,
     on_bad_lines: (
         Literal["error", "warn", "skip"] | Callable[[list[str]], list[str] | None]
     ) = 'error',
@@ -246,13 +224,13 @@ def read_table(
         | Mapping[str, Callable[[str], Any]]
         | None
     ) = None,
-    true_values: list[str] = None,
-    false_values: list[str] = None,
+    true_values: list[str] | None = None,
+    false_values: list[str] | None = None,
     skipinitialspace: bool = False,
-    skiprows: int | Sequence[int] | Callable[[int], bool] = None,
+    skiprows: int | Sequence[int] | Callable[[int], bool] | None = None,
     skipfooter: int = 0,
     nrows: int | None = None,
-    na_values: Sequence[str] | Mapping[str, Sequence[str]] = None,
+    na_values: Sequence[str] | Mapping[str, Sequence[str]] | None = None,
     keep_default_na: bool = True,
     na_filter: bool = True,
     verbose: bool = ...,
@@ -263,6 +241,7 @@ def read_table(
         | list[str]
         | Sequence[Sequence[int]]
         | Mapping[str, Sequence[int | str]]
+        | None
     ) = False,
     infer_datetime_format: bool = ...,
     keep_date_col: bool = ...,
@@ -282,7 +261,7 @@ def read_table(
     comment: str | None = None,
     encoding: str | None = None,
     encoding_errors: str | None = 'strict',
-    dialect: str | csv.Dialect = None,
+    dialect: str | csv.Dialect | None = None,
     on_bad_lines: (
         Literal["error", "warn", "skip"] | Callable[[list[str]], list[str] | None]
     ) = 'error',
@@ -310,13 +289,13 @@ def read_table(
         | Mapping[str, Callable[[str], Any]]
         | None
     ) = None,
-    true_values: list[str] = None,
-    false_values: list[str] = None,
+    true_values: list[str] | None = None,
+    false_values: list[str] | None = None,
     skipinitialspace: bool = False,
-    skiprows: int | Sequence[int] | Callable[[int], bool] = None,
+    skiprows: int | Sequence[int] | Callable[[int], bool] | None = None,
     skipfooter: int = 0,
     nrows: int | None = None,
-    na_values: Sequence[str] | Mapping[str, Sequence[str]] = None,
+    na_values: Sequence[str] | Mapping[str, Sequence[str]] | None = None,
     keep_default_na: bool = True,
     na_filter: bool = True,
     verbose: bool = ...,
@@ -327,6 +306,7 @@ def read_table(
         | list[str]
         | Sequence[Sequence[int]]
         | Mapping[str, Sequence[int | str]]
+        | None
     ) = False,
     infer_datetime_format: bool = ...,
     keep_date_col: bool = ...,
@@ -346,7 +326,7 @@ def read_table(
     comment: str | None = None,
     encoding: str | None = None,
     encoding_errors: str | None = 'strict',
-    dialect: str | csv.Dialect = None,
+    dialect: str | csv.Dialect | None = None,
     on_bad_lines: (
         Literal["error", "warn", "skip"] | Callable[[list[str]], list[str] | None]
     ) = 'error',
@@ -374,13 +354,13 @@ def read_table(
         | Mapping[str, Callable[[str], Any]]
         | None
     ) = None,
-    true_values: list[str] = None,
-    false_values: list[str] = None,
+    true_values: list[str] | None = None,
+    false_values: list[str] | None = None,
     skipinitialspace: bool = False,
-    skiprows: int | Sequence[int] | Callable[[int], bool] = None,
+    skiprows: int | Sequence[int] | Callable[[int], bool] | None = None,
     skipfooter: int = 0,
     nrows: int | None = None,
-    na_values: Sequence[str] | Mapping[str, Sequence[str]] = None,
+    na_values: Sequence[str] | Mapping[str, Sequence[str]] | None = None,
     keep_default_na: bool = True,
     na_filter: bool = True,
     verbose: bool = ...,
@@ -391,6 +371,7 @@ def read_table(
         | list[str]
         | Sequence[Sequence[int]]
         | Mapping[str, Sequence[int | str]]
+        | None
     ) = False,
     infer_datetime_format: bool = ...,
     keep_date_col: bool = ...,
@@ -410,7 +391,7 @@ def read_table(
     comment: str | None = None,
     encoding: str | None = None,
     encoding_errors: str | None = 'strict',
-    dialect: str | csv.Dialect = None,
+    dialect: str | csv.Dialect | None = None,
     on_bad_lines: (
         Literal["error", "warn", "skip"] | Callable[[list[str]], list[str] | None]
     ) = 'error',
@@ -460,13 +441,13 @@ def read_fwf(
     **kwds: Any,
 ) -> DataFrame: ...
 
-class TextFileReader(abc.Iterator):
+class TextFileReader(abc.Iterator[Any]):
     engine: CSVEngine
     orig_options: Mapping[str, Any]
     chunksize: int | None
     nrows: int | None
     squeeze: bool
-    handles: IOHandles | None
+    handles: IOHandles[Any] | None
     def __init__(
         self,
         f: FilePath | ReadCsvBuffer[bytes] | ReadCsvBuffer[str] | list[Any],

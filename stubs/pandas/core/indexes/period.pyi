@@ -1,24 +1,14 @@
 from collections.abc import Hashable
-import datetime
-from typing import (
-    final,
-    overload,
-)
-
-import pandas as pd
 from pandas import Index
+from pandas._libs.tslibs import BaseOffset, NaTType, Period
+from pandas._libs.tslibs.period import _PeriodAddSub
 from pandas.core.indexes.accessors import PeriodIndexFieldOps
 from pandas.core.indexes.datetimelike import DatetimeIndexOpsMixin
 from pandas.core.indexes.timedeltas import TimedeltaIndex
+from typing import Any, final, overload
 from typing_extensions import Self
-
-from pandas._libs.tslibs import (
-    BaseOffset,
-    NaTType,
-    Period,
-)
-from pandas._libs.tslibs.period import _PeriodAddSub
-from typing import Any
+import datetime
+import pandas as pd
 
 class PeriodIndex(DatetimeIndexOpsMixin[pd.Period], PeriodIndexFieldOps):
     def __new__(
@@ -56,7 +46,6 @@ class PeriodIndex(DatetimeIndexOpsMixin[pd.Period], PeriodIndexFieldOps):
     @final
     def __array_wrap__(self, result: Any, context: Any=None) -> Any: ...
     def asof_locs(self, where: Any, mask: Any) -> Any: ...
-    def astype(self, dtype: Any, copy: bool = True) -> Any: ...
     def searchsorted(self, value: Any, side: str = 'left', sorter: Any=None) -> Any: ...
     @property
     def is_full(self) -> bool: ...
@@ -76,9 +65,6 @@ class PeriodIndex(DatetimeIndexOpsMixin[pd.Period], PeriodIndexFieldOps):
         return_indexers: bool = False,
         sort: bool = False,
     ) -> Any: ...
-    @final
-    def difference(self, other: Any, sort: Any=None) -> Any: ...
-    def memory_usage(self, deep: bool = False) -> Any: ...
     @property
     def freqstr(self) -> str: ...
     def shift(self, periods: int = 1, freq: Any=None) -> Self: ...

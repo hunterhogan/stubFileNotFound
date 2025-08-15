@@ -1,48 +1,17 @@
-import datetime as dt
-from datetime import (
-    timedelta,
-    tzinfo as _tzinfo,
-)
-from typing import (
-    Generic,
-    Literal,
-    TypeVar,
-)
-
-import numpy as np
-import numpy.typing as npt
-from pandas import (
-    DatetimeIndex,
-    Index,
-    PeriodIndex,
-    Timedelta,
-    TimedeltaIndex,
-)
-from pandas.core.accessor import PandasDelegate
-from pandas.core.arrays import (
-    DatetimeArray,
-    PeriodArray,
-)
-from pandas.core.base import NoNewAttributesMixin
-from pandas.core.frame import DataFrame
-from pandas.core.series import (
-    PeriodSeries,
-    Series,
-    TimedeltaSeries,
-    TimestampSeries,
-)
-
+from datetime import timedelta, tzinfo as _tzinfo
+from pandas import DatetimeIndex, Index, PeriodIndex, Timedelta, TimedeltaIndex
 from pandas._libs.tslibs import BaseOffset
 from pandas._libs.tslibs.offsets import DateOffset
-from pandas._typing import (
-    TimeAmbiguous,
-    TimeNonexistent,
-    TimestampConvention,
-    TimeUnit,
-    TimeZones,
-    np_ndarray_bool,
-)
-from typing import Any
+from pandas._typing import np_ndarray_bool, TimeAmbiguous, TimeNonexistent, TimestampConvention, TimeUnit, TimeZones
+from pandas.core.accessor import PandasDelegate
+from pandas.core.arrays import DatetimeArray, PeriodArray
+from pandas.core.base import NoNewAttributesMixin
+from pandas.core.frame import DataFrame
+from pandas.core.series import PeriodSeries, Series, TimedeltaSeries, TimestampSeries
+from typing import Any, Generic, Literal, TypeVar
+import datetime as dt
+import numpy as np
+import numpy.typing as npt
 
 class Properties(PandasDelegate, NoNewAttributesMixin): ...
 
@@ -146,8 +115,7 @@ class _DatetimeLikeOps(
     _DatetimeObjectOps[_DTFreqReturnType],
     _DatetimeBoolOps[_DTBoolOpsReturnType],
     _DatetimeOtherOps[_DTOtherOpsDateReturnType, _DTOtherOpsTimeReturnType],
-    Generic[
-        _DTFieldOpsReturnType,
+    Generic[_DTFieldOpsReturnType,
         _DTBoolOpsReturnType,
         _DTOtherOpsDateReturnType,
         _DTOtherOpsTimeReturnType,
@@ -207,8 +175,7 @@ _DTToPeriodReturnType = TypeVar(
 
 class _DatetimeLikeNoTZMethods(
     _DatetimeRoundingMethods[_DTTimestampTimedeltaReturnType],
-    Generic[
-        _DTTimestampTimedeltaReturnType,
+    Generic[_DTTimestampTimedeltaReturnType,
         _DTNormalizeReturnType,
         _DTStrKindReturnType,
         _DTToPeriodReturnType,
@@ -230,21 +197,18 @@ class _DatetimeLikeNoTZMethods(
     def day_name(self, locale: str | None = ...) -> _DTStrKindReturnType: ...
 
 class _DatetimeNoTZProperties(
-    _DatetimeLikeOps[
-        _DTFieldOpsReturnType,
+    _DatetimeLikeOps[_DTFieldOpsReturnType,
         _DTBoolOpsReturnType,
         _DTOtherOpsDateReturnType,
         _DTOtherOpsTimeReturnType,
         _DTFreqReturnType,
     ],
-    _DatetimeLikeNoTZMethods[
-        _DTTimestampTimedeltaReturnType,
+    _DatetimeLikeNoTZMethods[_DTTimestampTimedeltaReturnType,
         _DTNormalizeReturnType,
         _DTStrKindReturnType,
         _DTToPeriodReturnType,
     ],
-    Generic[
-        _DTFieldOpsReturnType,
+    Generic[_DTFieldOpsReturnType,
         _DTBoolOpsReturnType,
         _DTTimestampTimedeltaReturnType,
         _DTOtherOpsDateReturnType,
@@ -258,8 +222,7 @@ class _DatetimeNoTZProperties(
 
 class DatetimeProperties(
     Properties,
-    _DatetimeNoTZProperties[
-        _DTFieldOpsReturnType,
+    _DatetimeNoTZProperties[_DTFieldOpsReturnType,
         _DTBoolOpsReturnType,
         _DTTimestampTimedeltaReturnType,
         _DTOtherOpsDateReturnType,
@@ -269,8 +232,7 @@ class DatetimeProperties(
         _DTStrKindReturnType,
         _DTToPeriodReturnType,
     ],
-    Generic[
-        _DTFieldOpsReturnType,
+    Generic[_DTFieldOpsReturnType,
         _DTBoolOpsReturnType,
         _DTTimestampTimedeltaReturnType,
         _DTOtherOpsDateReturnType,
@@ -330,8 +292,7 @@ _PeriodDTAReturnTypes = TypeVar(
 _PeriodPAReturnTypes = TypeVar("_PeriodPAReturnTypes", bound=PeriodArray | PeriodIndex)
 
 class _PeriodProperties(
-    Generic[
-        _PeriodDTReturnTypes,
+    Generic[_PeriodDTReturnTypes,
         _PeriodIntReturnTypes,
         _PeriodStrReturnTypes,
         _PeriodDTAReturnTypes,
@@ -358,20 +319,17 @@ class _PeriodProperties(
 
 class PeriodIndexFieldOps(
     _DayLikeFieldOps[Index[int]],
-    _PeriodProperties[DatetimeIndex, Index[int], Index, DatetimeIndex, PeriodIndex],
+    _PeriodProperties[DatetimeIndex, Index[int], Index[Any], DatetimeIndex, PeriodIndex],
 ): ...
 class PeriodProperties(
     Properties,
-    _PeriodProperties[
-        TimestampSeries, Series[int], Series[str], DatetimeArray, PeriodArray
-    ],
+    _PeriodProperties[TimestampSeries, Series[int], Series[str], DatetimeArray, PeriodArray],
     _DatetimeFieldOps[Series[int]],
-    _IsLeapYearProperty,
+    _IsLeapYearProperty[Any],
     _FreqProperty[BaseOffset],
 ): ...
 class CombinedDatetimelikeProperties(
-    DatetimeProperties[
-        Series[int],
+    DatetimeProperties[Series[int],
         Series[bool],
         Series,
         Series[dt.date],
@@ -382,11 +340,10 @@ class CombinedDatetimelikeProperties(
         PeriodSeries,
     ],
     _TimedeltaPropertiesNoRounding[Series[int], Series[float]],
-    _PeriodProperties,
+    _PeriodProperties[Any, Any, Any, Any, Any],
 ): ...
 class TimestampProperties(
-    DatetimeProperties[
-        Series[int],
+    DatetimeProperties[Series[int],
         Series[bool],
         TimestampSeries,
         Series[dt.date],
@@ -400,15 +357,14 @@ class TimestampProperties(
 
 class DatetimeIndexProperties(
     Properties,
-    _DatetimeNoTZProperties[
-        Index[int],
+    _DatetimeNoTZProperties[Index[int],
         np_ndarray_bool,
         DatetimeIndex,
-        np.ndarray,
-        np.ndarray,
+        np.ndarray[Any, Any],
+        np.ndarray[Any, Any],
         BaseOffset,
         DatetimeIndex,
-        Index,
+        Index[Any],
         PeriodIndex,
     ],
     _TZProperty,
@@ -424,6 +380,6 @@ class DatetimeIndexProperties(
 
 class TimedeltaIndexProperties(
     Properties,
-    _TimedeltaPropertiesNoRounding[Index, Index],
+    _TimedeltaPropertiesNoRounding[Index[Any], Index[Any]],
     _DatetimeRoundingMethods[TimedeltaIndex],
 ): ...

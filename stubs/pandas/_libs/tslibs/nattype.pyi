@@ -1,24 +1,10 @@
 # pyright: strict
-from datetime import (
-    datetime,
-    timedelta,
-    tzinfo as _tzinfo,
-)
-from typing import Literal
-
-import numpy as np
-from typing_extensions import (
-    Self,
-    TypeAlias,
-)
-
+from datetime import datetime, timedelta, tzinfo as _tzinfo
 from pandas._libs.tslibs.period import Period
-from pandas._typing import (
-    Frequency,
-    NpDtype,
-    TimestampNonexistent,
-    TimeUnit,
-)
+from pandas._typing import Frequency, NpDtype, TimestampNonexistent, TimeUnit
+from typing import Literal
+from typing_extensions import Self, TypeAlias
+import numpy as np
 
 NaT: NaTType
 iNaT: int
@@ -74,34 +60,34 @@ class NaTType:
     def weekday(self) -> float: ...
     def isoweekday(self) -> float: ...
     def total_seconds(self) -> float: ...
-    def today(self, tz: _tzinfo | str | None = ...) -> NaTType: ...
-    def now(self, tz: _tzinfo | str | None = ...) -> NaTType: ...
+    def today(self, tz: _tzinfo | str | None = None) -> NaTType: ...
+    def now(self, tz: _tzinfo | str | None = None) -> NaTType: ...
     def to_pydatetime(self) -> NaTType: ...
     def date(self) -> NaTType: ...
     def round(
         self,
         freq: Frequency,
-        ambiguous: bool | Literal["raise"] | NaTType = ...,
-        nonexistent: TimestampNonexistent = ...,
+        ambiguous: bool | Literal["raise"] | NaTType = "raise",
+        nonexistent: TimestampNonexistent = "raise",
     ) -> NaTType: ...
     def floor(
         self,
         freq: Frequency,
-        ambiguous: bool | Literal["raise"] | NaTType = ...,
-        nonexistent: TimestampNonexistent = ...,
+        ambiguous: bool | Literal["raise"] | NaTType = "raise",
+        nonexistent: TimestampNonexistent = "raise",
     ) -> NaTType: ...
     def ceil(
         self,
         freq: Frequency,
-        ambiguous: bool | Literal["raise"] | NaTType = ...,
-        nonexistent: TimestampNonexistent = ...,
+        ambiguous: bool | Literal["raise"] | NaTType = "raise",
+        nonexistent: TimestampNonexistent = "raise",
     ) -> NaTType: ...
     def tz_convert(self) -> NaTType: ...
     def tz_localize(
         self,
         tz: _tzinfo | str | None,
-        ambiguous: bool | Literal["raise"] | NaTType = ...,
-        nonexistent: TimestampNonexistent = ...,
+        ambiguous: bool | Literal["raise"] | NaTType = "raise",
+        nonexistent: TimestampNonexistent = "raise",
     ) -> NaTType: ...
     def replace(
         self,

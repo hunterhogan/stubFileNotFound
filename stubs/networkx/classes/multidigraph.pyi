@@ -1,29 +1,31 @@
-from _typeshed import Incomplete
 from functools import cached_property
 from networkx.classes.coreviews import MultiAdjacencyView
 from networkx.classes.digraph import DiGraph
-from networkx.classes.graph import _Node
+from networkx.classes.graph import _EdgeWithData, _Node
 from networkx.classes.multigraph import MultiGraph
-from networkx.classes.reportviews import InMultiDegreeView, OutMultiDegreeView, OutMultiEdgeView
+from networkx.classes.reportviews import (
+	InMultiDegreeView, InMultiEdgeDataView, InMultiEdgeView, OutMultiDegreeView, OutMultiEdgeView)
+from typing import Any
 
 __all__ = ["MultiDiGraph"]
 
-class MultiDiGraph(MultiGraph[_Node], DiGraph[_Node]):
+class MultiDiGraph(MultiGraph[_Node], DiGraph[_Node]): # pyright: ignore[reportIncompatibleMethodOverride]
     @cached_property
-    def succ(self) -> MultiAdjacencyView[_Node, _Node, dict[str, Incomplete]]: ...
+    def succ(self) -> MultiAdjacencyView[_Node, _Node, dict[str, Any]]: ...
     @cached_property
-    def pred(self) -> MultiAdjacencyView[_Node, _Node, dict[str, Incomplete]]: ...
+    def pred(self) -> MultiAdjacencyView[_Node, _Node, dict[str, Any]]: ...
     @cached_property
-    def edges(self) -> OutMultiEdgeView[_Node]: ...  # type: ignore[override]
+    def edges(self) -> OutMultiEdgeView[_Node]: ...  # pyright: ignore[reportIncompatibleVariableOverride] # type: ignore[override]
     # Returns: OutMultiEdgeView
     @cached_property
     def out_edges(self) -> OutMultiEdgeView[_Node]: ...
     @cached_property
-    def in_edges(self) -> OutMultiEdgeView[_Node]: ...
+    def in_edges(self) -> InMultiEdgeView[_Node] | InMultiEdgeDataView[_Node, _EdgeWithData[_Node]]: ...  # pyright: ignore[reportIncompatibleVariableOverride] # type: ignore[override]
+    # Returns : InMultiEdgeView or InMultiEdgeDataView
     @cached_property
     def in_degree(self) -> InMultiDegreeView[_Node]: ...
     @cached_property
     def out_degree(self) -> OutMultiDegreeView[_Node]: ...
-    def to_undirected(self, reciprocal: bool = False, as_view: bool = False) -> MultiGraph[_Node]: ...  # type: ignore[override]
+    def to_undirected(self, reciprocal: bool = False, as_view: bool = False) -> MultiGraph[_Node]: ...  # pyright: ignore[reportIncompatibleMethodOverride] # type: ignore[override]
     def reverse(self, copy: bool = True) -> MultiDiGraph[_Node]: ...
     def copy(self, as_view: bool = False) -> MultiDiGraph[_Node]: ...

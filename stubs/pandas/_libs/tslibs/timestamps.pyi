@@ -1,51 +1,15 @@
 # pyright: strict
-from datetime import (
-    date as _date,
-    datetime,
-    time as _time,
-    timedelta,
-    tzinfo as _tzinfo,
-)
 from datetime import _IsoCalendarDate  # pyright: ignore[reportPrivateUsage]
-import sys
+from datetime import date as _date, datetime, time as _time, timedelta, tzinfo as _tzinfo
+from pandas import DatetimeIndex, Index, TimedeltaIndex
+from pandas._libs.tslibs import BaseOffset, Period, Tick, Timedelta
+from pandas._typing import np_ndarray_bool, npt, TimestampNonexistent, TimeUnit
+from pandas.core.series import Series, TimedeltaSeries, TimestampSeries
 from time import struct_time
-from typing import (
-    ClassVar,
-    Literal,
-    SupportsIndex,
-    overload,
-)
-
+from typing import Any, ClassVar, Literal, overload, SupportsIndex
+from typing_extensions import Never, Self, TypeAlias
 import numpy as np
-from pandas import (
-    DatetimeIndex,
-    Index,
-    TimedeltaIndex,
-)
-from pandas.core.series import (
-    Series,
-    TimedeltaSeries,
-    TimestampSeries,
-)
-from typing_extensions import (
-    Never,
-    Self,
-    TypeAlias,
-)
-
-from pandas._libs.tslibs import (
-    BaseOffset,
-    Period,
-    Tick,
-    Timedelta,
-)
-from pandas._typing import (
-    TimestampNonexistent,
-    TimeUnit,
-    np_ndarray_bool,
-    npt,
-)
-from typing import Any
+import sys
 
 _Ambiguous: TypeAlias = bool | Literal["raise", "NaT"]
 
@@ -158,7 +122,19 @@ class Timestamp(datetime, SupportsIndex):
     ) -> Timestamp: ...
     def astimezone(self, tz: _tzinfo | None = ...) -> Self: ...
     def ctime(self) -> str: ...
-    def isoformat(self, sep: str = 'T', timespec: str = 'auto') -> str: ...
+    def isoformat(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
+        self,
+        sep: str = "T",
+        timespec: Literal[
+            "auto",
+            "hours",
+            "minutes",
+            "seconds",
+            "milliseconds",
+            "microseconds",
+            "nanoseconds",
+        ] = "auto",
+    ) -> str: ...
     @classmethod
     def strptime(cls, date_string: Never, format: Never) -> Never: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
     def utcoffset(self) -> timedelta | None: ...
@@ -277,28 +253,28 @@ class Timestamp(datetime, SupportsIndex):
     def tz_localize(
         self,
         tz: TimeZones,
-        ambiguous: _Ambiguous = 'raise',
-        nonexistent: TimestampNonexistent = 'raise',
+        ambiguous: _Ambiguous = "raise",
+        nonexistent: TimestampNonexistent = "raise",
     ) -> Self: ...
     def normalize(self) -> Self: ...
     # TODO: round/floor/ceil could return NaT?
     def round(
         self,
         freq: str,
-        ambiguous: _Ambiguous = 'raise',
-        nonexistent: TimestampNonexistent = 'raise',
+        ambiguous: _Ambiguous = "raise",
+        nonexistent: TimestampNonexistent = "raise",
     ) -> Self: ...
     def floor(
         self,
         freq: str,
-        ambiguous: _Ambiguous = 'raise',
-        nonexistent: TimestampNonexistent = 'raise',
+        ambiguous: _Ambiguous = "raise",
+        nonexistent: TimestampNonexistent = "raise",
     ) -> Self: ...
     def ceil(
         self,
         freq: str,
-        ambiguous: _Ambiguous = 'raise',
-        nonexistent: TimestampNonexistent = 'raise',
+        ambiguous: _Ambiguous = "raise",
+        nonexistent: TimestampNonexistent = "raise",
     ) -> Self: ...
     def day_name(self, locale: str | None = None) -> str: ...
     def month_name(self, locale: str | None = None) -> str: ...

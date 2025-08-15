@@ -1,31 +1,12 @@
-from typing import overload
-
-import numpy as np
-from pandas import (
-    Index,
-    Series,
-)
+from pandas import Index, Series
+from pandas._libs.interval import Interval as Interval, IntervalMixin as IntervalMixin
+from pandas._typing import Axis, np_ndarray_bool, Scalar, ScalarIndexer, SequenceIndexer, TakeIndexer
 from pandas.core.arrays.base import ExtensionArray as ExtensionArray
-from typing_extensions import (
-    Self,
-    TypeAlias,
-)
+from typing import Any, overload
+from typing_extensions import Self, TypeAlias
+import numpy as np
 
-from pandas._libs.interval import (
-    Interval as Interval,
-    IntervalMixin as IntervalMixin,
-)
-from pandas._typing import (
-    Axis,
-    Scalar,
-    ScalarIndexer,
-    SequenceIndexer,
-    TakeIndexer,
-    np_ndarray_bool,
-)
-from typing import Any
-
-IntervalOrNA: TypeAlias = Interval | float
+IntervalOrNA: TypeAlias = Interval[Any] | float
 
 class IntervalArray(IntervalMixin, ExtensionArray):
     can_hold_na: bool = ...
@@ -33,13 +14,30 @@ class IntervalArray(IntervalMixin, ExtensionArray):
         cls, data: Any, closed: Any=None, dtype: Any=None, copy: bool = False, verify_integrity: bool = True
     ) -> Any: ...
     @classmethod
-    def from_breaks(cls, breaks: Any, closed: str = 'right', copy: bool = False, dtype: Any=None) -> Any: ...
-    @classmethod
-    def from_arrays(
-        cls, left: Any, right: Any, closed: str = 'right', copy: bool = False, dtype: Any=None
+    def from_breaks(
+        cls,
+        breaks: Any,
+        closed: str = "right",
+        copy: bool = False,
+        dtype: Any=None,
     ) -> Any: ...
     @classmethod
-    def from_tuples(cls, data: Any, closed: str = 'right', copy: bool = False, dtype: Any=None) -> Any: ...
+    def from_arrays(
+        cls,
+        left: Any,
+        right: Any,
+        closed: str = "right",
+        copy: bool = False,
+        dtype: Any=None,
+    ) -> Any: ...
+    @classmethod
+    def from_tuples(
+        cls,
+        data: Any,
+        closed: str = "right",
+        copy: bool = False,
+        dtype: Any=None,
+    ) -> Any: ...
     def __iter__(self) -> Any: ...
     def __len__(self) -> int: ...
     @overload

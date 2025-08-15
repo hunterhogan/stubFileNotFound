@@ -1,29 +1,13 @@
 from collections import abc
 from collections.abc import Mapping
-from types import TracebackType
-from typing import (
-    Generic,
-    Literal,
-    overload,
-)
-
-from pandas.core.frame import DataFrame
-from pandas.core.series import Series
-
 from pandas._libs.lib import _NoDefaultDoNotUse
 from pandas._typing import (
-    CompressionOptions,
-    DtypeArg,
-    DtypeBackend,
-    FilePath,
-    HashableT,
-    JsonFrameOrient,
-    JsonSeriesOrient,
-    NDFrameT,
-    ReadBuffer,
-    StorageOptions,
-    TimeUnit,
-)
+	CompressionOptions, DtypeArg, DtypeBackend, FilePath, HashableT, JsonFrameOrient, JsonSeriesOrient, NDFrameT,
+	ReadBuffer, StorageOptions, TimeUnit)
+from pandas.core.frame import DataFrame
+from pandas.core.series import Series
+from types import TracebackType
+from typing import Any, Generic, Literal, overload
 
 @overload
 def read_json(
@@ -226,7 +210,7 @@ def read_json(
     engine: Literal["pyarrow"],
 ) -> DataFrame: ...
 
-class JsonReader(abc.Iterator, Generic[NDFrameT]):
+class JsonReader(abc.Iterator[Any], Generic[NDFrameT]):
     def read(self) -> NDFrameT: ...
     def close(self) -> None: ...
     def __iter__(self) -> JsonReader[NDFrameT]: ...

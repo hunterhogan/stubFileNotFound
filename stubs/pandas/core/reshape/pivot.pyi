@@ -108,7 +108,7 @@ def crosstab(
     rownames: list[HashableT1] | None = None,
     colnames: list[HashableT2] | None = None,
     *,
-    aggfunc: str | np.ufunc | Callable[[Series], float],
+    aggfunc: str | np.ufunc | Callable[..., Any],
     margins: bool = False,
     margins_name: str = 'All',
     dropna: bool = True,

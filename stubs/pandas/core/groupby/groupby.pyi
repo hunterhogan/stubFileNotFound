@@ -1,77 +1,25 @@
-from collections.abc import (
-    Callable,
-    Hashable,
-    Iterable,
-    Iterator,
-    Sequence,
-)
-import datetime as dt
-from typing import (
-    Any,
-    Generic,
-    Literal,
-    TypeVar,
-    final,
-    overload,
-)
-
-import numpy as np
-from pandas.core.base import SelectionMixin
-from pandas.core.frame import DataFrame
-from pandas.core.groupby import (
-    generic,
-)
-from pandas.core.groupby.indexing import (
-    GroupByIndexingMixin,
-    GroupByNthSelector,
-)
-from pandas.core.indexers import BaseIndexer
-from pandas.core.indexes.api import Index
-from pandas.core.resample import (
-    DatetimeIndexResamplerGroupby,
-    PeriodIndexResamplerGroupby,
-    TimedeltaIndexResamplerGroupby,
-)
-from pandas.core.series import Series
-from pandas.core.window import (
-    ExpandingGroupby,
-    ExponentialMovingWindowGroupby,
-    RollingGroupby,
-)
-from typing_extensions import (
-    Concatenate,
-    Self,
-    TypeAlias,
-)
-
+from collections.abc import Callable, Hashable, Iterable, Iterator, Sequence
 from pandas._libs.lib import _NoDefaultDoNotUse
 from pandas._libs.tslibs import BaseOffset
 from pandas._typing import (
-    S1,
-    AnyArrayLike,
-    Axis,
-    AxisInt,
-    CalculationMethod,
-    Dtype,
-    Frequency,
-    IndexLabel,
-    IntervalClosedType,
-    MaskType,
-    NDFrameT,
-    P,
-    RandomState,
-    Scalar,
-    T,
-    TimedeltaConvertibleTypes,
-    TimeGrouperOrigin,
-    TimestampConvention,
-    TimestampConvertibleTypes,
-    WindowingEngine,
-    WindowingEngineKwargs,
-    npt,
-)
-
+	AnyArrayLike, Axis, AxisInt, CalculationMethod, Dtype, Frequency, IndexLabel, IntervalClosedType, MaskType, NDFrameT,
+	npt, P, RandomState, S1, Scalar, T, TimedeltaConvertibleTypes, TimeGrouperOrigin, TimestampConvention,
+	TimestampConvertibleTypes, WindowingEngine, WindowingEngineKwargs)
+from pandas.core.base import SelectionMixin
+from pandas.core.frame import DataFrame
+from pandas.core.groupby import generic
+from pandas.core.groupby.indexing import GroupByIndexingMixin, GroupByNthSelector
+from pandas.core.indexers import BaseIndexer
+from pandas.core.indexes.api import Index
+from pandas.core.resample import (
+	DatetimeIndexResamplerGroupby, PeriodIndexResamplerGroupby, TimedeltaIndexResamplerGroupby)
+from pandas.core.series import Series
+from pandas.core.window import ExpandingGroupby, ExponentialMovingWindowGroupby, RollingGroupby
 from pandas.plotting import PlotAccessor
+from typing import Any, final, Generic, Literal, overload, TypeVar
+from typing_extensions import Concatenate, Self, TypeAlias
+import datetime as dt
+import numpy as np
 
 _ResamplerGroupBy: TypeAlias = (
     DatetimeIndexResamplerGroupby[NDFrameT]
@@ -177,9 +125,13 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         engine_kwargs: WindowingEngineKwargs = None,
     ) -> NDFrameT: ...
     @final
-    def first(self, numeric_only: bool = False, min_count: int = -1) -> NDFrameT: ...
+    def first(
+        self, numeric_only: bool = False, min_count: int = -1, skipna: bool = True
+    ) -> NDFrameT: ...
     @final
-    def last(self, numeric_only: bool = False, min_count: int = -1) -> NDFrameT: ...
+    def last(
+        self, numeric_only: bool = False, min_count: int = -1, skipna: bool = True
+    ) -> NDFrameT: ...
     @final
     def ohlc(self) -> DataFrame: ...
     def describe(
@@ -211,15 +163,15 @@ class GroupBy(BaseGroupBy[NDFrameT]):
     def rolling(
         self,
         window: int | dt.timedelta | str | BaseOffset | BaseIndexer | None = ...,
-        min_periods: int | None = ...,
-        center: bool | None = ...,
-        win_type: str | None = ...,
-        axis: Axis = ...,
-        on: str | Index[Any] | None = ...,
-        closed: IntervalClosedType | None = ...,
-        method: CalculationMethod = ...,
+        min_periods: int | None = None,
+        center: bool | None = False,
+        win_type: str | None = None,
+        axis: Axis = 0,
+        on: str | Index[Any] | None = None,
+        closed: IntervalClosedType | None = None,
+        method: CalculationMethod = "single",
         *,
-        selection: IndexLabel | None = ...,
+        selection: IndexLabel | None = None,
     ) -> RollingGroupby[NDFrameT]: ...
     @final
     def expanding(
@@ -256,7 +208,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
     def quantile(
         self,
         q: float | AnyArrayLike = 0.5,
-        interpolation: str = 'linear',
+        interpolation: str = "linear",
         numeric_only: bool = False,
     ) -> NDFrameT: ...
     @final
@@ -266,11 +218,11 @@ class GroupBy(BaseGroupBy[NDFrameT]):
     @final
     def rank(
         self,
-        method: str = 'average',
+        method: str = "average",
         ascending: bool = True,
-        na_option: str = 'keep',
+        na_option: str = "keep",
         pct: bool = False,
-        axis: AxisInt | _NoDefaultDoNotUse = ...,
+        axis: AxisInt | _NoDefaultDoNotUse = 0,
     ) -> NDFrameT: ...
     @final
     def cumprod(
@@ -299,13 +251,13 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         self,
         periods: int | Sequence[int] = 1,
         freq: Frequency | None = None,
-        axis: Axis | _NoDefaultDoNotUse = ...,
+        axis: Axis | _NoDefaultDoNotUse = 0,
         fill_value: Any=...,
         suffix: str | None = None,
     ) -> NDFrameT: ...
     @final
     def diff(
-        self, periods: int = 1, axis: AxisInt | _NoDefaultDoNotUse = ...
+        self, periods: int = 1, axis: AxisInt | _NoDefaultDoNotUse = 0
     ) -> NDFrameT: ...
     @final
     def pct_change(
@@ -349,13 +301,13 @@ class BaseGroupBy(SelectionMixin[NDFrameT], GroupByIndexingMixin):
     def __repr__(self) -> str: ...  # noqa: PYI029 __repr__ here is final
     @final
     @property
-    def groups(self) -> dict[Hashable, Index]: ...
+    def groups(self) -> dict[Hashable, Index[Any]]: ...
     @final
     @property
     def ngroups(self) -> int: ...
     @final
     @property
-    def indices(self) -> dict[Hashable, Index | npt.NDArray[np.int_] | list[int]]: ...
+    def indices(self) -> dict[Hashable, Index[Any] | npt.NDArray[np.int_] | list[int]]: ...
     @overload
     def pipe(
         self,
@@ -371,7 +323,7 @@ class BaseGroupBy(SelectionMixin[NDFrameT], GroupByIndexingMixin):
         **kwargs: Any,
     ) -> T: ...
     @final
-    def get_group(self, name: Any, obj: NDFrameT | None = None) -> NDFrameT: ...
+    def get_group(self, name: Any) -> NDFrameT: ...
     @final
     def __iter__(self) -> Iterator[tuple[Hashable, NDFrameT]]: ...
     @overload

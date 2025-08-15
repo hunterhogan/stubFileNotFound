@@ -1,30 +1,11 @@
-from collections.abc import (
-    Callable,
-    Sequence,
-)
-from typing import (
-    Any,
-    Literal,
-    TypedDict,
-)
-
-from jinja2.environment import (
-    Environment,
-    Template,
-)
+from collections.abc import Callable, Sequence
+from jinja2.environment import Environment, Template
 from jinja2.loaders import PackageLoader
 from pandas import Index
+from pandas._typing import Axis, HashableT, Level
 from pandas.core.indexing import _IndexSlice
-from typing_extensions import (
-    Self,
-    TypeAlias,
-)
-
-from pandas._typing import (
-    Axis,
-    HashableT,
-    Level,
-)
+from typing import Any, Literal, TypedDict
+from typing_extensions import Self, TypeAlias
 
 BaseFormatter: TypeAlias = str | Callable[[object], str]
 ExtFormatter: TypeAlias = BaseFormatter | dict[Any, BaseFormatter | None]
@@ -47,7 +28,7 @@ class StyleExportDict(TypedDict, total=False):
     css: dict[str, str | int]
 
 CSSStyles: TypeAlias = list[CSSDict]
-Subset: TypeAlias = _IndexSlice | slice | tuple[slice, ...] | list[HashableT] | Index
+Subset: TypeAlias = _IndexSlice | slice | tuple[slice, ...] | list[HashableT] | Index[Any]
 
 class StylerRenderer:
     loader: PackageLoader
@@ -62,7 +43,7 @@ class StylerRenderer:
         subset: Subset[Any] | None = None,
         na_rep: str | None = None,
         precision: int | None = None,
-        decimal: str = '.',
+        decimal: str = ".",
         thousands: str | None = None,
         escape: str | None = None,
         hyperlinks: Literal["html", "latex"] | None = None,
@@ -74,7 +55,7 @@ class StylerRenderer:
         level: Level | list[Level] | None = None,
         na_rep: str | None = None,
         precision: int | None = None,
-        decimal: str = '.',
+        decimal: str = ".",
         thousands: str | None = None,
         escape: str | None = None,
         hyperlinks: Literal["html", "latex"] | None = None,

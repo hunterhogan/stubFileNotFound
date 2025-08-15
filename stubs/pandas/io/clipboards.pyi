@@ -1,30 +1,12 @@
 from collections import defaultdict
-from collections.abc import (
-    Callable,
-    Sequence,
-)
-import csv
-from typing import (
-    Any,
-    Literal,
-    overload,
-)
-
-from pandas.core.frame import DataFrame
-
+from collections.abc import Callable, Sequence
 from pandas._libs.lib import _NoDefaultDoNotUse
 from pandas._typing import (
-    CompressionOptions,
-    CSVEngine,
-    CSVQuoting,
-    DtypeArg,
-    DtypeBackend,
-    ListLikeHashable,
-    StorageOptions,
-    UsecolsArgType,
-)
-
+	CompressionOptions, CSVEngine, CSVQuoting, DtypeArg, DtypeBackend, ListLikeHashable, StorageOptions, UsecolsArgType)
+from pandas.core.frame import DataFrame
 from pandas.io.parsers import TextFileReader
+from typing import Any, Literal, overload
+import csv
 
 @overload
 def read_clipboard(
@@ -203,6 +185,3 @@ def read_clipboard(
     float_precision: Literal["high", "legacy", "round_trip"] | None = ...,
     storage_options: StorageOptions | None = ...,
 ) -> DataFrame: ...
-def to_clipboard(
-    obj: Any, excel: bool = True, sep: str | None = None, **kwargs: Any
-) -> None: ...

@@ -1,29 +1,12 @@
 from datetime import timedelta
-from typing import (
-    Literal,
-    overload,
-)
-
-from pandas import (
-    DataFrame,
-    Series,
-    Timedelta,
-)
-
-from pandas._typing import (
-    AnyArrayLike,
-    HashableT,
-    JoinHow,
-    Label,
-    MergeHow,
-    Suffixes,
-    ValidationOptions,
-)
+from pandas import DataFrame, Series, Timedelta
+from pandas._typing import AnyArrayLike, HashableT, JoinHow, Label, MergeHow, Suffixes, ValidationOptions
+from typing import Literal, overload
 
 def merge(
     left: DataFrame | Series,
     right: DataFrame | Series,
-    how: MergeHow = 'inner',
+    how: MergeHow = "inner",
     on: Label | list[HashableT] | AnyArrayLike | None = None,
     left_on: Label | list[HashableT] | AnyArrayLike | None = None,
     right_on: Label | list[HashableT] | AnyArrayLike | None = None,
@@ -32,7 +15,7 @@ def merge(
     sort: bool = False,
     suffixes: Suffixes = ('_x', '_y'),
     indicator: bool | str = False,
-    validate: ValidationOptions = None,
+    validate: ValidationOptions | None = None,
 ) -> DataFrame: ...
 @overload
 def merge_ordered(
@@ -89,5 +72,5 @@ def merge_asof(
     suffixes: Suffixes = ('_x', '_y'),
     tolerance: int | timedelta | Timedelta | None = None,
     allow_exact_matches: bool = True,
-    direction: Literal["backward", "forward", "nearest"] = 'backward',
+    direction: Literal["backward", "forward", "nearest"] = "backward",
 ) -> DataFrame: ...

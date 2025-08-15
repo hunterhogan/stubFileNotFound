@@ -1,30 +1,11 @@
 from collections.abc import Sequence
-from typing import overload
-
-import numpy as np
-from pandas.core.arrays.base import (
-    ExtensionArray,
-    ExtensionOpsMixin,
-)
-from typing_extensions import (
-    Self,
-    TypeAlias,
-)
-
-from pandas._libs import (
-    NaT as NaT,
-    NaTType as NaTType,
-)
+from pandas._libs import NaT as NaT, NaTType as NaTType
 from pandas._typing import (
-    DatetimeLikeScalar,
-    PositionalIndexerTuple,
-    ScalarIndexer,
-    SequenceIndexer,
-    TimeAmbiguous,
-    TimeNonexistent,
-    TimeUnit,
-)
-from typing import Any
+	DatetimeLikeScalar, PositionalIndexerTuple, ScalarIndexer, SequenceIndexer, TimeAmbiguous, TimeNonexistent, TimeUnit)
+from pandas.core.arrays.base import ExtensionArray, ExtensionOpsMixin
+from typing import Any, overload
+from typing_extensions import Self, TypeAlias
+import numpy as np
 
 DTScalarOrNaT: TypeAlias = DatetimeLikeScalar | NaTType
 
@@ -36,13 +17,22 @@ class TimelikeOps:
     def unit(self) -> TimeUnit: ...
     def as_unit(self, unit: TimeUnit) -> Self: ...
     def round(
-        self, freq: Any, ambiguous: TimeAmbiguous = 'raise', nonexistent: TimeNonexistent = 'raise'
+        self,
+        freq: Any,
+        ambiguous: TimeAmbiguous = "raise",
+        nonexistent: TimeNonexistent = "raise",
     ) -> Any: ...
     def floor(
-        self, freq: Any, ambiguous: TimeAmbiguous = 'raise', nonexistent: TimeNonexistent = 'raise'
+        self,
+        freq: Any,
+        ambiguous: TimeAmbiguous = "raise",
+        nonexistent: TimeNonexistent = "raise",
     ) -> Any: ...
     def ceil(
-        self, freq: Any, ambiguous: TimeAmbiguous = 'raise', nonexistent: TimeNonexistent = 'raise'
+        self,
+        freq: Any,
+        ambiguous: TimeAmbiguous = "raise",
+        nonexistent: TimeNonexistent = "raise",
     ) -> Any: ...
 
 class DatetimeLikeArrayMixin(ExtensionOpsMixin, ExtensionArray):

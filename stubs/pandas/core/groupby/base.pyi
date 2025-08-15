@@ -1,17 +1,13 @@
 from collections.abc import Hashable
+from typing import Literal, TypeAlias
 import dataclasses
-from typing import (
-    Literal,
-    TypeAlias,
-)
 
 @dataclasses.dataclass(order=True, frozen=True)
 class OutputKey:
     label: Hashable
     position: int
 
-ReductionKernelType: TypeAlias = Literal[
-    "all",
+ReductionKernelType: TypeAlias = Literal["all",
     "any",
     "corrwith",
     "count",
@@ -37,8 +33,7 @@ ReductionKernelType: TypeAlias = Literal[
     "var",
 ]
 
-TransformationKernelType: TypeAlias = Literal[
-    "bfill",
+TransformationKernelType: TypeAlias = Literal["bfill",
     "cumcount",
     "cummax",
     "cummin",

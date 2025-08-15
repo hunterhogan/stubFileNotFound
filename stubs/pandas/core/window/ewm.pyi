@@ -1,25 +1,9 @@
-from pandas import (
-    DataFrame,
-    Series,
-)
-from pandas.core.window.rolling import (
-    BaseWindow,
-    BaseWindowGroupby,
-)
-
-from pandas._typing import (
-    NDFrameT,
-    WindowingEngine,
-    WindowingEngineKwargs,
-)
+from pandas import DataFrame, Series
+from pandas._typing import NDFrameT, WindowingEngine, WindowingEngineKwargs
+from pandas.core.window.rolling import BaseWindow, BaseWindowGroupby
 from typing import Any
 
 class ExponentialMovingWindow(BaseWindow[NDFrameT]):
-    def online(
-        self,
-        engine: WindowingEngine = 'numba',
-        engine_kwargs: WindowingEngineKwargs = None,
-    ) -> OnlineExponentialMovingWindow[NDFrameT]: ...
     def mean(
         self,
         numeric_only: bool = False,

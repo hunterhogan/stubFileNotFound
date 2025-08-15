@@ -1,35 +1,16 @@
-from collections.abc import (
-    Callable,
-    Sequence,
-)
-from typing import (
-    Any,
-    overload,
-)
-
-import numpy as np
+from collections.abc import Callable, Sequence
 from pandas import Series
+from pandas._typing import (
+	ArrayLike, Dtype, ListLike, np_ndarray_bool, np_ndarray_int, Ordered, PositionalIndexerTuple, Scalar, ScalarIndexer,
+	SequenceIndexer, TakeIndexer)
 from pandas.core.accessor import PandasDelegate as PandasDelegate
 from pandas.core.arrays.base import ExtensionArray as ExtensionArray
 from pandas.core.base import NoNewAttributesMixin as NoNewAttributesMixin
-from pandas.core.indexes.base import Index
-from typing_extensions import Self
-
-from pandas._typing import (
-    ArrayLike,
-    Dtype,
-    ListLike,
-    Ordered,
-    PositionalIndexerTuple,
-    Scalar,
-    ScalarIndexer,
-    SequenceIndexer,
-    TakeIndexer,
-    np_ndarray_bool,
-    np_ndarray_int,
-)
-
 from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype
+from pandas.core.indexes.base import Index
+from typing import Any, overload
+from typing_extensions import Self
+import numpy as np
 
 def contains(cat: Any, key: Any, container: Any) -> Any: ...
 
@@ -68,7 +49,10 @@ class Categorical(ExtensionArray):
     def as_ordered(self) -> Categorical: ...
     def as_unordered(self) -> Categorical: ...
     def set_categories(
-        self, new_categories: Any, ordered: bool | None = None, rename: bool = False
+        self,
+        new_categories: Any,
+        ordered: bool | None = False,
+        rename: bool = False,
     ) -> Categorical: ...
     def rename_categories(self, new_categories: Any) -> Categorical: ...
     def reorder_categories(
@@ -152,8 +136,8 @@ class CategoricalAccessor(PandasDelegate, NoNewAttributesMixin):
     def set_categories(
         self,
         new_categories: ListLike,
-        ordered: bool | None = ...,
-        rename: bool = ...,
+        ordered: bool | None = False,
+        rename: bool = False,
     ) -> Series: ...
     def as_ordered(self) -> Series: ...
     def as_unordered(self) -> Series: ...

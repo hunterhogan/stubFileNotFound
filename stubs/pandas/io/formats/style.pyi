@@ -67,8 +67,8 @@ class Styler(StylerRenderer):
     def to_excel(
         self,
         excel_writer: FilePath | WriteExcelBuffer | ExcelWriter,
-        sheet_name: str = 'Sheet1',
-        na_rep: str = '',
+        sheet_name: str = "Sheet1",
+        na_rep: str = "",
         float_format: str | None = None,
         columns: list[HashableT1] | None = None,
         header: list[HashableT2] | bool = True,
@@ -79,7 +79,7 @@ class Styler(StylerRenderer):
         engine: Literal["openpyxl", "xlsxwriter"] | None = None,
         merge_cells: ExcelWriterMergeCells = True,
         encoding: str | None = None,
-        inf_rep: str = 'inf',
+        inf_rep: str = "inf",
         verbose: bool = True,
         freeze_panes: tuple[int, int] | None = None,
         storage_options: StorageOptions | None = None,
@@ -251,7 +251,7 @@ class Styler(StylerRenderer):
     ) -> Styler: ...
     def background_gradient(
         self,
-        cmap: str | Colormap = 'PuBu',
+        cmap: str | Colormap = "PuBu",
         low: float = 0,
         high: float = 0,
         axis: Axis | None = 0,
@@ -270,13 +270,11 @@ class Styler(StylerRenderer):
     ) -> Styler: ...
     def text_gradient(
         self,
-        cmap: str | Colormap = 'PuBu',
+        cmap: str | Colormap = "PuBu",
         low: float = 0,
         high: float = 0,
         axis: Axis | None = 0,
         subset: Subset[Any] | None = None,
-        # In docs but not in function declaration
-        # text_color_threshold: float
         vmin: float | None = None,
         vmax: float | None = None,
         gmap: (
@@ -304,50 +302,50 @@ class Styler(StylerRenderer):
             Literal["left", "right", "zero", "mid", "mean"]
             | float
             | Callable[[Series | npt.NDArray[Any] | DataFrame], float]
-        ) = 'mid',
+        ) = "mid",
         vmin: float | None = None,
         vmax: float | None = None,
-        props: str = 'width: 10em;',
+        props: str = "width: 10em;",
     ) -> Styler: ...
     def highlight_null(
         self,
-        color: str | None = 'red',
+        color: str | None = "red",
         subset: Subset[Any] | None = None,
         props: str | None = None,
     ) -> Styler: ...
     def highlight_max(
         self,
         subset: Subset[Any] | None = None,
-        color: str = 'yellow',
+        color: str = "yellow",
         axis: Axis | None = 0,
         props: str | None = None,
     ) -> Styler: ...
     def highlight_min(
         self,
         subset: Subset[Any] | None = None,
-        color: str = 'yellow',
+        color: str = "yellow",
         axis: Axis | None = 0,
         props: str | None = None,
     ) -> Styler: ...
     def highlight_between(
         self,
         subset: Subset[Any] | None = None,
-        color: str = 'yellow',
+        color: str = "yellow",
         axis: Axis | None = 0,
         left: Scalar | list[Scalar] | None = None,
         right: Scalar | list[Scalar] | None = None,
-        inclusive: IntervalClosedType = 'both',
+        inclusive: IntervalClosedType = "both",
         props: str | None = None,
     ) -> Styler: ...
     def highlight_quantile(
         self,
         subset: Subset[Any] | None = None,
-        color: str = 'yellow',
+        color: str = "yellow",
         axis: Axis | None = 0,
-        q_left: float = 0.0,
-        q_right: float = 1.0,
-        interpolation: QuantileInterpolation = 'linear',
-        inclusive: IntervalClosedType = 'both',
+        q_left: float = 0,
+        q_right: float = 1,
+        interpolation: QuantileInterpolation = "linear",
+        inclusive: IntervalClosedType = "both",
         props: str | None = None,
     ) -> Styler: ...
     @classmethod

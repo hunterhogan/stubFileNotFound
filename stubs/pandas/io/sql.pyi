@@ -1,29 +1,13 @@
-from collections.abc import (
-    Callable,
-    Generator,
-    Iterable,
-    Mapping,
-)
-import sqlite3
-from typing import (
-    Any,
-    Literal,
-    overload,
-)
-
-from pandas.core.frame import DataFrame
-import sqlalchemy.engine
-from sqlalchemy.orm import FromStatement
-import sqlalchemy.sql.expression
-from typing_extensions import TypeAlias
-
+from collections.abc import Callable, Generator, Iterable, Mapping
 from pandas._libs.lib import _NoDefaultDoNotUse
-from pandas._typing import (
-    DtypeArg,
-    DtypeBackend,
-    Scalar,
-    npt,
-)
+from pandas._typing import DtypeArg, DtypeBackend, npt, Scalar
+from pandas.core.frame import DataFrame
+from sqlalchemy.orm import FromStatement
+from typing import Any, Literal, overload
+from typing_extensions import TypeAlias
+import sqlalchemy.engine
+import sqlalchemy.sql.expression
+import sqlite3
 
 _SQLConnection: TypeAlias = str | sqlalchemy.engine.Connectable | sqlite3.Connection
 
@@ -31,8 +15,8 @@ _SQLStatement: TypeAlias = (
     str
     | sqlalchemy.sql.expression.Selectable
     | sqlalchemy.sql.expression.TextClause
-    | sqlalchemy.sql.Select
-    | FromStatement
+    | sqlalchemy.sql.Select[Any]
+    | FromStatement[Any]
     | sqlalchemy.sql.expression.UpdateBase
 )
 
@@ -115,7 +99,7 @@ def read_sql(
         | None
     ) = None,
     parse_dates: list[str] | dict[str, str] | dict[str, dict[str, Any]] | None = None,
-    columns: list[str] = None,
+    columns: list[str] | None = None,
     *,
     chunksize: int,
     dtype: DtypeArg | None = None,
@@ -136,7 +120,7 @@ def read_sql(
         | None
     ) = None,
     parse_dates: list[str] | dict[str, str] | dict[str, dict[str, Any]] | None = None,
-    columns: list[str] = None,
+    columns: list[str] | None = None,
     chunksize: None = None,
     dtype: DtypeArg | None = None,
     dtype_backend: DtypeBackend | _NoDefaultDoNotUse = ...,
@@ -189,7 +173,7 @@ class SQLTable:
     def exists(self) -> bool: ...
     def sql_schema(self) -> str: ...
     def create(self) -> None: ...
-    def insert_data(self) -> tuple[list[str], list[npt.NDArray]]: ...
+    def insert_data(self) -> tuple[list[str], list[npt.NDArray[Any]]]: ...
     def insert(
         self, chunksize: int | None = None, method: str | None = None
     ) -> int | None: ...

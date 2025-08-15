@@ -1,13 +1,9 @@
-import numpy as np
 from pandas import PeriodDtype
-from pandas.core.arrays.datetimelike import (
-    DatelikeOps,
-    DatetimeLikeArrayMixin,
-)
-
 from pandas._libs.tslibs import Timestamp
 from pandas._libs.tslibs.period import Period
+from pandas.core.arrays.datetimelike import DatelikeOps, DatetimeLikeArrayMixin
 from typing import Any
+import numpy as np
 
 class PeriodArray(DatetimeLikeArrayMixin, DatelikeOps):
     __array_priority__: int = ...
@@ -39,5 +35,5 @@ class PeriodArray(DatetimeLikeArrayMixin, DatelikeOps):
     @property
     def end_time(self) -> Timestamp: ...
     def to_timestamp(self, freq: str | None = None, how: str = 'start') -> Timestamp: ...
-    def asfreq(self, freq: str | None = None, how: str = 'E') -> Period: ...
+    def asfreq(self, freq: str | None = None, how: str = "E") -> Period: ...
     def astype(self, dtype: Any, copy: bool = True) -> Any: ...

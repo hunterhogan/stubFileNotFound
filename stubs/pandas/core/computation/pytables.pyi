@@ -1,12 +1,7 @@
-from typing import Any
-
-from pandas.core.computation import (
-    expr as expr,
-    ops as ops,
-    scope as _scope,
-)
+from pandas.core.computation import expr as expr, ops as ops, scope as _scope
 from pandas.core.computation.expr import BaseExprVisitor as BaseExprVisitor
 from pandas.core.indexes.base import Index
+from typing import Any
 
 class PyTablesScope(_scope.Scope):
     queryables: dict[str, Any]
@@ -55,7 +50,7 @@ class BinOp(ops.BinOp):
     def convert_values(self) -> None: ...
 
 class FilterBinOp(BinOp):
-    filter: tuple[Any, Any, Index] | None = ...
+    filter: tuple[Any, Any, Index[Any]] | None = ...
     def invert(self) -> Any: ...
     def format(self) -> Any: ...
     def generate_filter_op(self, invert: bool = False) -> Any: ...

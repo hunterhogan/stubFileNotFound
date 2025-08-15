@@ -1,29 +1,14 @@
 from collections import abc
 from collections.abc import Sequence
-import datetime
 from io import BytesIO
-from types import TracebackType
-from typing import (
-    Literal,
-    overload,
-)
-
-from pandas.core.frame import DataFrame
-from typing_extensions import Self
-
 from pandas._typing import (
-    CompressionOptions,
-    FilePath,
-    HashableT,
-    HashableT1,
-    HashableT2,
-    HashableT3,
-    ReadBuffer,
-    StataDateFormat,
-    StorageOptions,
-    WriteBuffer,
-)
-from typing import Any
+	CompressionOptions, FilePath, HashableT, HashableT1, HashableT2, HashableT3, ReadBuffer, StataDateFormat,
+	StorageOptions, WriteBuffer)
+from pandas.core.frame import DataFrame
+from types import TracebackType
+from typing import Any, Literal, overload
+from typing_extensions import Self
+import datetime
 
 @overload
 def read_stata(
@@ -77,7 +62,7 @@ def read_stata(
 class StataParser:
     def __init__(self) -> None: ...
 
-class StataReader(StataParser, abc.Iterator):
+class StataReader(StataParser, abc.Iterator[Any]):
     col_sizes: list[int] = ...
     path_or_buf: BytesIO = ...
     def __init__(
@@ -102,18 +87,6 @@ class StataReader(StataParser, abc.Iterator):
         traceback: TracebackType | None,
     ) -> None: ...
     def __next__(self) -> DataFrame: ...
-    def get_chunk(self, size: int | None = None) -> DataFrame: ...
-    def read(
-        self,
-        nrows: int | None = None,
-        convert_dates: bool | None = None,
-        convert_categoricals: bool | None = None,
-        index_col: str | None = None,
-        convert_missing: bool | None = None,
-        preserve_dtypes: bool | None = None,
-        columns: list[str] | None = None,
-        order_categoricals: bool | None = None,
-    ) -> Any: ...
     @property
     def data_label(self) -> str: ...
     def variable_labels(self) -> dict[str, str]: ...
