@@ -1,22 +1,12 @@
 from collections.abc import Sequence
 from datetime import timedelta
-from typing import overload
-
 from pandas import Index
-from pandas.core.indexes.timedeltas import TimedeltaIndex
-from pandas.core.series import (
-    Series,
-    TimedeltaSeries,
-)
-
 from pandas._libs.tslibs import Timedelta
 from pandas._libs.tslibs.timedeltas import TimeDeltaUnitChoices
-from pandas._typing import (
-    ArrayLike,
-    RaiseCoerce,
-    SequenceNotStr,
-)
-from typing import Any
+from pandas._typing import ArrayLike, RaiseCoerce, SequenceNotStr
+from pandas.core.indexes.timedeltas import TimedeltaIndex
+from pandas.core.series import Series, TimedeltaSeries
+from typing import Any, overload
 
 @overload
 def to_timedelta(
@@ -33,7 +23,7 @@ def to_timedelta(
 @overload
 def to_timedelta(
     arg: (
-        SequenceNotStr
+        SequenceNotStr[Any]
         | Sequence[float | timedelta]
         | tuple[str | float | timedelta, ...]
         | range

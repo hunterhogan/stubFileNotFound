@@ -87,6 +87,7 @@ dictionaryGenericTypeArguments: dict[str, list[libcst.BaseExpression]] = {
 	'Reversible': [libcst.Name("Any")],
 	'Select': [libcst.Name("Any")],
 	'Sequence': [libcst.Name("Any")],
+	'SequenceNotStr': [libcst.Name("Any")],
 	'SeriesGroupBy': [libcst.Name("Any"), libcst.Name("Any")],
 	'set': [libcst.Name("Any")],
 	'Subset': [libcst.Name("Any")],
