@@ -7,6 +7,7 @@ from typing import Any, ClassVar, overload, TypeVar
 from typing_extensions import Self, TypeAlias
 import numpy
 
+_DefaultT = TypeVar("_DefaultT")
 _Node = TypeVar("_Node", bound=Hashable)
 _NodeWithData: TypeAlias = tuple[_Node, dict[str, Any]]
 _NodePlus: TypeAlias = _Node | _NodeWithData[_Node]
@@ -713,7 +714,7 @@ class Graph(Collection[_Node]):
         """
         ...
 
-    def get_edge_data(self, u: _Node, v: _Node, default: Any = None) -> dict[str, Any]:
+    def get_edge_data(self, u: _Node, v: _Node, default: _DefaultT | None = None) -> dict[str, Any] | _DefaultT:
         """Returns the attribute dictionary associated with edge (u, v).
 
         This is identical to `G[u][v]` except the default is returned instead of an exception if the edge doesn't exist.
