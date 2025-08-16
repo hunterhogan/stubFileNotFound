@@ -1,68 +1,22 @@
-from builtins import (
-    bool as _bool,
-    str as _str,
-)
-from collections.abc import (
-    Callable,
-    Hashable,
-    Iterable,
-    Mapping,
-    Sequence,
-)
-import datetime as dt
-import sqlite3
-from typing import (
-    Any,
-    ClassVar,
-    Literal,
-    final,
-    overload,
-)
-
-import numpy as np
+from builtins import bool as _bool, str as _str
+from collections.abc import Callable, Hashable, Iterable, Mapping, Sequence
 from pandas import Index
-import pandas.core.indexing as indexing
-from pandas.core.resample import DatetimeIndexResampler
-from pandas.core.series import (
-    Series,
-)
-import sqlalchemy.engine
-from typing_extensions import (
-    Concatenate,
-    Self,
-)
-
 from pandas._libs.lib import _NoDefaultDoNotUse
 from pandas._typing import (
-    Axis,
-    CompressionOptions,
-    CSVQuoting,
-    DtypeArg,
-    DtypeBackend,
-    ExcelWriterMergeCells,
-    FilePath,
-    FileWriteMode,
-    Frequency,
-    HashableT1,
-    HashableT2,
-    HDFCompLib,
-    IgnoreRaise,
-    IndexLabel,
-    Level,
-    OpenFileErrors,
-    P,
-    StorageOptions,
-    T,
-    TakeIndexer,
-    TimedeltaConvertibleTypes,
-    TimeGrouperOrigin,
-    TimestampConvertibleTypes,
-    ToTimestampHow,
-    WriteBuffer,
-)
-
+	Axis, CompressionOptions, CSVQuoting, DtypeArg, DtypeBackend, ExcelWriterMergeCells, FilePath, FileWriteMode,
+	Frequency, HashableT1, HashableT2, HDFCompLib, IgnoreRaise, IndexLabel, Level, OpenFileErrors, P, StorageOptions, T,
+	TakeIndexer, TimedeltaConvertibleTypes, TimeGrouperOrigin, TimestampConvertibleTypes, WriteBuffer)
+from pandas.core.resample import DatetimeIndexResampler
+from pandas.core.series import Series
 from pandas.io.pytables import HDFStore
 from pandas.io.sql import SQLTable
+from typing import Any, ClassVar, final, Literal, overload
+from typing_extensions import Concatenate, Self
+import datetime as dt
+import numpy as np
+import pandas.core.indexing as indexing
+import sqlalchemy.engine
+import sqlite3
 
 class NDFrame(indexing.IndexingMixin):
     __hash__: ClassVar[None]  # type: ignore[assignment] # pyright: ignore[reportIncompatibleMethodOverride]
@@ -106,8 +60,8 @@ class NDFrame(indexing.IndexingMixin):
     def to_excel(
         self,
         excel_writer: Any,
-        sheet_name: _str = 'Sheet1',
-        na_rep: _str = '',
+        sheet_name: _str = "Sheet1",
+        na_rep: _str = "",
         float_format: _str | None = None,
         columns: _str | Sequence[_str] | None = None,
         header: _bool | list[_str] = True,
@@ -117,7 +71,7 @@ class NDFrame(indexing.IndexingMixin):
         startcol: int = 0,
         engine: _str | None = None,
         merge_cells: ExcelWriterMergeCells = True,
-        inf_rep: _str = 'inf',
+        inf_rep: _str = "inf",
         freeze_panes: tuple[int, int] | None = None,
     ) -> None: ...
     @final
@@ -165,15 +119,14 @@ class NDFrame(indexing.IndexingMixin):
         name: _str,
         con: str | sqlalchemy.engine.Connectable | sqlite3.Connection,
         schema: _str | None = None,
-        if_exists: Literal["fail", "replace", "append"] = 'fail',
+        if_exists: Literal["fail", "replace", "append"] = "fail",
         index: _bool = True,
         index_label: IndexLabel = None,
         chunksize: int | None = None,
         dtype: DtypeArg | None = None,
         method: (
             Literal["multi"]
-            | Callable[
-                [SQLTable, Any, list[str], Iterable[tuple[Any, ...]]],
+            | Callable[[SQLTable, Any, list[str], Iterable[tuple[Any, ...]]],
                 int | None,
             ]
             | None
@@ -183,7 +136,7 @@ class NDFrame(indexing.IndexingMixin):
     def to_pickle(
         self,
         path: FilePath | WriteBuffer[bytes],
-        compression: CompressionOptions = 'infer',
+        compression: CompressionOptions = "infer",
         protocol: int = 5,
         storage_options: StorageOptions = None,
     ) -> None: ...
@@ -277,7 +230,7 @@ class NDFrame(indexing.IndexingMixin):
         mode: FileWriteMode = 'w',
         encoding: _str | None = None,
         compression: CompressionOptions = 'infer',
-        quoting: CSVQuoting = None,
+        quoting: CSVQuoting| None = None,
         quotechar: _str = '"',
         lineterminator: _str | None = None,
         chunksize: int | None = None,
@@ -302,7 +255,7 @@ class NDFrame(indexing.IndexingMixin):
         mode: FileWriteMode = 'w',
         encoding: _str | None = None,
         compression: CompressionOptions = 'infer',
-        quoting: CSVQuoting = None,
+        quoting: CSVQuoting| None = None,
         quotechar: _str = '"',
         lineterminator: _str | None = None,
         chunksize: int | None = None,
@@ -417,20 +370,18 @@ class NDFrame(indexing.IndexingMixin):
         convert_integer: _bool = True,
         convert_boolean: _bool = True,
         convert_floating: _bool = True,
-        dtype_backend: DtypeBackend = 'numpy_nullable',
+        dtype_backend: DtypeBackend = "numpy_nullable",
     ) -> Self: ...
     @final
     def resample(
         self,
         rule: Frequency | dt.timedelta,
-        axis: Axis | _NoDefaultDoNotUse = ...,
+        axis: Axis | _NoDefaultDoNotUse = 0,
         closed: Literal["right", "left"] | None = None,
         label: Literal["right", "left"] | None = None,
-        convention: ToTimestampHow = ...,
-        kind: Literal["period", "timestamp"] | None = ...,
         on: Level | None = None,
         level: Level | None = None,
-        origin: TimeGrouperOrigin | TimestampConvertibleTypes = 'start_day',
+        origin: TimeGrouperOrigin | TimestampConvertibleTypes = "start_day",
         offset: TimedeltaConvertibleTypes | None = None,
         group_keys: _bool = False,
     ) -> DatetimeIndexResampler[Self]: ...

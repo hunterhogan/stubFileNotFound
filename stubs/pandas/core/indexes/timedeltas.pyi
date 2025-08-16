@@ -1,50 +1,29 @@
-from collections.abc import (
-    Hashable,
-    Sequence,
-)
-import datetime as dt
-from typing import (
-    Literal,
-    final,
-    overload,
-)
-
-import numpy as np
-from pandas import (
-    DateOffset,
-    Index,
-    Period,
-)
+from collections.abc import Hashable, Sequence
+from pandas import DateOffset, Index, Period
+from pandas._libs import Timedelta, Timestamp
+from pandas._libs.tslibs import BaseOffset
+from pandas._typing import AxesData, num, TimedeltaConvertibleTypes
 from pandas.core.indexes.accessors import TimedeltaIndexProperties
 from pandas.core.indexes.datetimelike import DatetimeTimedeltaMixin
 from pandas.core.indexes.datetimes import DatetimeIndex
 from pandas.core.indexes.period import PeriodIndex
 from pandas.core.series import TimedeltaSeries
+from typing import Any, final, Literal, overload
 from typing_extensions import Self
-
-from pandas._libs import (
-    Timedelta,
-    Timestamp,
-)
-from pandas._libs.tslibs import BaseOffset
-from pandas._typing import (
-    AxesData,
-    TimedeltaConvertibleTypes,
-    num,
-)
-from typing import Any
+import datetime as dt
+import numpy as np
 
 class TimedeltaIndex(DatetimeTimedeltaMixin[Timedelta], TimedeltaIndexProperties):
     def __new__(
         cls,
         data: (
-            Sequence[dt.timedelta | Timedelta | np.timedelta64 | float] | AxesData[Any]
+            Sequence[dt.timedelta | Timedelta | np.timedelta64 | float] | AxesData[Any] | None
         ) = None,
         freq: str | BaseOffset = ...,
         closed: object = ...,
         dtype: Literal["<m8[ns]"] = "<m8[ns]",
         copy: bool = False,
-        name: str = None,
+        name: str | None = None,
     ) -> Self: ...
     # various ignores needed for mypy, as we do want to restrict what can be used in
     # arithmetic for these types
@@ -71,7 +50,6 @@ class TimedeltaIndex(DatetimeTimedeltaMixin[Timedelta], TimedeltaIndexProperties
         self, other: dt.timedelta | Sequence[dt.timedelta]
     ) -> Index[int]: ...
     def __rfloordiv__(self, other: dt.timedelta | Sequence[dt.timedelta]) -> Index[int]: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
-    def astype(self, dtype: Any, copy: bool = True) -> Any: ...
     def searchsorted(self, value: Any, side: str = 'left', sorter: Any=None) -> Any: ...
     @property
     def inferred_type(self) -> str: ...
@@ -80,8 +58,8 @@ class TimedeltaIndex(DatetimeTimedeltaMixin[Timedelta], TimedeltaIndexProperties
     def shift(self, periods: int = 1, freq: Any=None) -> Self: ...
 
 def timedelta_range(
-    start: TimedeltaConvertibleTypes = None,
-    end: TimedeltaConvertibleTypes = None,
+    start: TimedeltaConvertibleTypes | None = None,
+    end: TimedeltaConvertibleTypes | None = None,
     periods: int | None = None,
     freq: str | DateOffset | Timedelta | dt.timedelta | None = None,
     name: Hashable | None = None,

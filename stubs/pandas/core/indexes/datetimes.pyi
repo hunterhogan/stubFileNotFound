@@ -1,61 +1,30 @@
-from collections.abc import (
-    Hashable,
-    Sequence,
-)
-from datetime import (
-    datetime,
-    timedelta,
-    tzinfo as _tzinfo,
-)
-from typing import (
-    final,
-    overload,
-)
-
-import numpy as np
-from pandas import (
-    DataFrame,
-    Index,
-    Timedelta,
-    TimedeltaIndex,
-    Timestamp,
-)
+from collections.abc import Hashable, Sequence
+from datetime import datetime, timedelta, tzinfo as _tzinfo
+from pandas import DataFrame, Index, Timedelta, TimedeltaIndex, Timestamp
+from pandas._libs.tslibs.offsets import DateOffset
+from pandas._typing import AxesData, DateAndDatetimeLike, Dtype, Frequency, IntervalClosedType, TimeUnit, TimeZones
+from pandas.core.dtypes.dtypes import DatetimeTZDtype
 from pandas.core.indexes.accessors import DatetimeIndexProperties
 from pandas.core.indexes.datetimelike import DatetimeTimedeltaMixin
-from pandas.core.series import (
-    TimedeltaSeries,
-    TimestampSeries,
-)
-from typing_extensions import Self
-
-from pandas._typing import (
-    AxesData,
-    DateAndDatetimeLike,
-    Dtype,
-    Frequency,
-    IntervalClosedType,
-    TimeUnit,
-    TimeZones,
-)
-
-from pandas.core.dtypes.dtypes import DatetimeTZDtype
-
+from pandas.core.series import TimedeltaSeries, TimestampSeries
 from pandas.tseries.offsets import BaseOffset
-from typing import Any
+from typing import Any, final, overload
+from typing_extensions import Self
+import numpy as np
 
 class DatetimeIndex(DatetimeTimedeltaMixin[Timestamp], DatetimeIndexProperties):
-    def __init__(
-        self,
+    def __new__(
+        cls,
         data: AxesData[Any],
         freq: Frequency = ...,
         tz: TimeZones = ...,
-        ambiguous: str = ...,
-        dayfirst: bool = ...,
-        yearfirst: bool = ...,
-        dtype: Dtype = ...,
-        copy: bool = ...,
-        name: Hashable = ...,
-    ) -> None: ...
+        ambiguous: str = 'raise',
+        dayfirst: bool = False,
+        yearfirst: bool = False,
+        dtype: Dtype| None = None,
+        copy: bool = False,
+        name: Hashable = None,
+    ) -> Self: ...
     def __reduce__(self) -> Any: ...
     # various ignores needed for mypy, as we do want to restrict what can be used in
     # arithmetic for these types
@@ -84,7 +53,11 @@ class DatetimeIndex(DatetimeTimedeltaMixin[Timestamp], DatetimeIndexProperties):
     def inferred_type(self) -> str: ...
     def indexer_at_time(self, time: Any, asof: bool = False) -> Any: ...
     def indexer_between_time(
-        self, start_time: Any, end_time: Any, include_start: bool = True, include_end: bool = True
+        self,
+        start_time: datetime | str,
+        end_time: datetime | str,
+        include_start: bool = True,
+        include_end: bool = True,
     ) -> Any: ...
     def to_julian_date(self) -> Index[float]: ...
     def isocalendar(self) -> DataFrame: ...
@@ -92,17 +65,19 @@ class DatetimeIndex(DatetimeTimedeltaMixin[Timestamp], DatetimeIndexProperties):
     def tzinfo(self) -> _tzinfo | None: ...
     @property
     def dtype(self) -> np.dtype | DatetimeTZDtype: ...
-    def shift(self, periods: int = 1, freq: Any=None) -> Self: ...
+    def shift(
+        self, periods: int = 1, freq: DateOffset | Timedelta | str | None = None
+    ) -> Self: ...
 
 def date_range(
     start: str | DateAndDatetimeLike | None = None,
     end: str | DateAndDatetimeLike | None = None,
     periods: int | None = None,
-    freq: str | timedelta | Timedelta | BaseOffset = None,
+    freq: str | timedelta | Timedelta | BaseOffset = "D",
     tz: TimeZones = None,
     normalize: bool = False,
     name: Hashable | None = None,
-    inclusive: IntervalClosedType = 'both',
+    inclusive: IntervalClosedType = "both",
     unit: TimeUnit | None = None,
 ) -> DatetimeIndex: ...
 @overload

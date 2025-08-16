@@ -1,30 +1,18 @@
-from collections.abc import (
-    Hashable,
-    Iterable,
-)
-from typing import (
-    Literal,
-    final,
-)
-
-import numpy as np
+from collections.abc import Hashable, Iterable
+from pandas._typing import DtypeArg, S1
 from pandas.core import accessor
 from pandas.core.indexes.base import Index
 from pandas.core.indexes.extension import ExtensionIndex
+from typing import Any, final
 from typing_extensions import Self
-
-from pandas._typing import (
-    S1,
-    DtypeArg,
-)
-from typing import Any
+import numpy as np
 
 class CategoricalIndex(ExtensionIndex[S1], accessor.PandasDelegate):
     codes: np.ndarray[Any, Any] = ...
     categories: Index[Any] = ...
     def __new__(
         cls,
-        data: Iterable[S1] = None,
+        data: Iterable[S1]| None = None,
         categories: Any=None,
         ordered: Any=None,
         dtype: Any=None,
@@ -38,9 +26,8 @@ class CategoricalIndex(ExtensionIndex[S1], accessor.PandasDelegate):
     def values(self) -> Any: ...
     def __contains__(self, key: Any) -> bool: ...
     def __array__(
-        self, dtype: DtypeArg = None, copy: bool | None = None
+        self, dtype: DtypeArg| None = None, copy: bool | None = None
     ) -> np.ndarray[Any, Any]: ...
-    def astype(self, dtype: DtypeArg, copy: bool = True) -> Index[Any]: ...
     @property
     def is_unique(self) -> bool: ...
     @property
@@ -48,9 +35,6 @@ class CategoricalIndex(ExtensionIndex[S1], accessor.PandasDelegate):
     @property
     def is_monotonic_decreasing(self) -> bool: ...
     def unique(self, level: Any=None) -> Any: ...
-    def duplicated(self, keep: Literal["first", "last", False] = 'first') -> Any: ...
-    @final
-    def where(self, cond: Any, other: Any=None) -> Any: ...
     def reindex(self, target: Any, method: Any=None, level: Any=None, limit: Any=None, tolerance: Any=None) -> Any: ...
     @final
     def get_indexer(self, target: Any, method: Any=None, limit: Any=None, tolerance: Any=None) -> Any: ...

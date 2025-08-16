@@ -1,41 +1,16 @@
 # pyright: strict
-import datetime as dt
 from datetime import timedelta
-from typing import (
-    ClassVar,
-    Literal,
-    NamedTuple,
-    overload,
-)
-
-import numpy as np
-import pandas as pd
-from pandas import (
-    DatetimeIndex,
-    Index,
-    PeriodIndex,
-    Series,
-    TimedeltaIndex,
-)
-from pandas.core.series import (
-    TimedeltaSeries,
-    TimestampSeries,
-)
-from typing_extensions import (
-    Self,
-    TypeAlias,
-)
-
-from pandas._libs.tslibs import (
-    BaseOffset,
-    NaTType,
-)
+from pandas import DatetimeIndex, Index, PeriodIndex, Series, TimedeltaIndex
+from pandas._libs.tslibs import BaseOffset, NaTType
 from pandas._libs.tslibs.period import Period
 from pandas._libs.tslibs.timestamps import Timestamp
-from pandas._typing import (
-    TimeUnit,
-    npt,
-)
+from pandas._typing import npt, TimeUnit
+from pandas.core.series import TimedeltaSeries, TimestampSeries
+from typing import ClassVar, Literal, NamedTuple, overload
+from typing_extensions import Self, TypeAlias
+import datetime as dt
+import numpy as np
+import pandas as pd
 
 class Components(NamedTuple):
     days: int
@@ -48,8 +23,7 @@ class Components(NamedTuple):
 
 # This should be kept consistent with the keys in the dict timedelta_abbrevs
 # in pandas/_libs/tslibs/timedeltas.pyx
-TimeDeltaUnitChoices: TypeAlias = Literal[
-    "W",
+TimeDeltaUnitChoices: TypeAlias = Literal["W",
     "w",
     "D",
     "d",
@@ -87,8 +61,7 @@ TimeDeltaUnitChoices: TypeAlias = Literal[
 
 UnitChoices: TypeAlias = (
     TimeDeltaUnitChoices
-    | Literal[
-        "Y",
+    | Literal["Y",
         "y",
         "M",
     ]
@@ -97,14 +70,12 @@ UnitChoices: TypeAlias = (
 class Timedelta(timedelta):
     min: ClassVar[Timedelta]  # pyright: ignore[reportIncompatibleVariableOverride]
     max: ClassVar[Timedelta]  # pyright: ignore[reportIncompatibleVariableOverride]
-    resolution: ClassVar[  # pyright: ignore[reportIncompatibleVariableOverride]
-        Timedelta
-    ]
+    resolution: ClassVar[Timedelta] # pyright: ignore[reportIncompatibleVariableOverride]
     value: int
     def __new__(
         cls,
         value: str | float | Timedelta | timedelta | np.timedelta64 = ...,
-        unit: TimeDeltaUnitChoices = None,
+        unit: TimeDeltaUnitChoices | None = None,
         *,
         days: float | np.integer | np.floating = ...,
         seconds: float | np.integer | np.floating = ...,

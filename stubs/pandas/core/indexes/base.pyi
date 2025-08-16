@@ -6,9 +6,9 @@ from pandas import (
 	TimedeltaIndex)
 from pandas._libs.interval import _OrderableT
 from pandas._typing import (
-	AnyAll, AxesData, C2, DropKeep, DtypeArg, DtypeObj, HashableT, Label, Level, MaskType, NaPosition, np_ndarray_anyint,
-	np_ndarray_bool, np_ndarray_complex, np_ndarray_float, ReindexMethod, S1, SliceType, TimedeltaDtypeArg,
-	TimestampDtypeArg, type_t)
+	AnyAll, ArrayLike, AxesData, C2, DropKeep, DtypeArg, DtypeObj, HashableT, IgnoreRaise, Label, Level, MaskType,
+	NaPosition, np_ndarray_anyint, np_ndarray_bool, np_ndarray_complex, np_ndarray_float, ReindexMethod, S1, Scalar,
+	SequenceNotStr, SliceType, TimedeltaDtypeArg, TimestampDtypeArg, type_t)
 from pandas.core.arrays import ExtensionArray
 from pandas.core.base import IndexOpsMixin
 from pandas.core.strings.accessor import StringMethods
@@ -26,7 +26,7 @@ class Index(IndexOpsMixin[S1]):
         cls,
         data: Sequence[int | np.integer] | IndexOpsMixin[int] | np_ndarray_anyint,
         *,
-        dtype: Literal["int"] | type_t[int | np.integer] = None,
+        dtype: Literal["int"] | type_t[int | np.integer]| None = None,
         copy: bool = False,
         name: Hashable = None,
         tupleize_cols: bool = True,
@@ -48,7 +48,7 @@ class Index(IndexOpsMixin[S1]):
         cls,
         data: Sequence[float | np.floating] | IndexOpsMixin[float] | np_ndarray_float,
         *,
-        dtype: Literal["float"] | type_t[float | np.floating] = None,
+        dtype: Literal["float"] | type_t[float | np.floating]| None = None,
         copy: bool = False,
         name: Hashable = None,
         tupleize_cols: bool = True,
@@ -74,7 +74,7 @@ class Index(IndexOpsMixin[S1]):
             | np_ndarray_complex
         ),
         *,
-        dtype: Literal["complex"] | type_t[complex | np.complexfloating] = None,
+        dtype: Literal["complex"] | type_t[complex | np.complexfloating]| None = None,
         copy: bool = False,
         name: Hashable = None,
         tupleize_cols: bool = True,
@@ -97,7 +97,7 @@ class Index(IndexOpsMixin[S1]):
         cls,
         data: Sequence[np.datetime64 | datetime] | IndexOpsMixin[datetime],
         *,
-        dtype: TimestampDtypeArg = None,
+        dtype: TimestampDtypeArg| None = None,
         copy: bool = False,
         name: Hashable = None,
         tupleize_cols: bool = True,
@@ -119,7 +119,7 @@ class Index(IndexOpsMixin[S1]):
         cls,
         data: Sequence[Period] | IndexOpsMixin[Period],
         *,
-        dtype: PeriodDtype = None,
+        dtype: PeriodDtype| None = None,
         copy: bool = False,
         name: Hashable = None,
         tupleize_cols: bool = True,
@@ -141,7 +141,7 @@ class Index(IndexOpsMixin[S1]):
         cls,
         data: Sequence[np.timedelta64 | timedelta] | IndexOpsMixin[timedelta],
         *,
-        dtype: TimedeltaDtypeArg = None,
+        dtype: TimedeltaDtypeArg| None = None,
         copy: bool = False,
         name: Hashable = None,
         tupleize_cols: bool = True,
@@ -186,7 +186,7 @@ class Index(IndexOpsMixin[S1]):
         cls,
         data: Iterable[S1] | IndexOpsMixin[S1],
         *,
-        dtype: type[S1] = None,
+        dtype: type[S1]| None = None,
         copy: bool = False,
         name: Hashable = None,
         tupleize_cols: bool = True,
@@ -195,7 +195,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: AxesData[Any] = None,
+        data: AxesData[Any]| None = None,
         *,
         dtype: type[S1],
         copy: bool = False,
@@ -218,8 +218,7 @@ class Index(IndexOpsMixin[S1]):
     @property
     def str(
         self,
-    ) -> StringMethods[
-        Self,
+    ) -> StringMethods[Self,
         MultiIndex,
         np_ndarray_bool,
         Index[list[_str]],
@@ -232,7 +231,7 @@ class Index(IndexOpsMixin[S1]):
     def is_(self, other: Any) -> bool: ...
     def __len__(self) -> int: ...
     def __array__(
-        self, dtype: _str | np.dtype[Any] = None, copy: bool | None = None
+        self, dtype: _str | np.dtype| None = None, copy: bool | None = None
     ) -> np.ndarray[Any, Any]: ...
     def __array_wrap__(self, result: Any, context: Any=None) -> Any: ...
     @property
@@ -242,7 +241,12 @@ class Index(IndexOpsMixin[S1]):
     def view(self, cls: Any=None) -> Any: ...
     def astype(self, dtype: DtypeArg, copy: bool = True) -> Index[Any]: ...
     def take(
-        self, indices: Any, axis: int = 0, allow_fill: bool = True, fill_value: Any=None, **kwargs: Any
+        self,
+        indices: Any,
+        axis: int = 0,
+        allow_fill: bool = True,
+        fill_value: Scalar | None = None,
+        **kwargs: Any,
     ) -> Any: ...
     def repeat(self, repeats: Any, axis: Any=None) -> Any: ...
     def copy(self, name: Hashable = None, deep: bool = False) -> Self: ...
@@ -259,11 +263,11 @@ class Index(IndexOpsMixin[S1]):
     @property
     def name(self) -> Hashable | None: ...
     @name.setter
-    def name(self, value: Any) -> None: ...
+    def name(self, value: Hashable) -> None: ...
     @property
-    def names(self) -> list[Hashable]: ...
+    def names(self) -> list[Hashable | None]: ...
     @names.setter
-    def names(self, names: Sequence[Hashable]) -> None: ...
+    def names(self, names: SequenceNotStr[Hashable | None]) -> None: ...
     def set_names(self, names: Any, *, level: Any=None, inplace: bool = False) -> Any: ...
     @overload
     def rename(self, name: Any, *, inplace: Literal[False] = False) -> Self: ...
@@ -293,10 +297,10 @@ class Index(IndexOpsMixin[S1]):
     def notna(self) -> Any: ...
     notnull = ...
     def fillna(self, value: Any=None) -> Any: ...
-    def dropna(self, how: AnyAll = 'any') -> Self: ...
+    def dropna(self, how: AnyAll = "any") -> Self: ...
     def unique(self, level: Any=None) -> Self: ...
     def drop_duplicates(self, *, keep: DropKeep = 'first') -> Self: ...
-    def duplicated(self, keep: DropKeep = 'first') -> np_ndarray_bool: ...
+    def duplicated(self, keep: DropKeep = "first") -> np_ndarray_bool: ...
     def __and__(self, other: Never) -> Never: ...
     def __rand__(self, other: Never) -> Never: ...
     def __or__(self, other: Never) -> Never: ...
@@ -310,7 +314,9 @@ class Index(IndexOpsMixin[S1]):
     def union(
         self, other: list[HashableT] | Self, sort: bool | None = None
     ) -> Index[Any]: ...
-    def intersection(self, other: list[S1] | Self, sort: bool | None = False) -> Self: ...
+    def intersection(
+        self, other: list[S1] | Self, sort: bool | None = False
+    ) -> Self: ...
     def difference(self, other: list[Any] | Self, sort: bool | None = None) -> Self: ...
     def symmetric_difference(
         self,
@@ -344,7 +350,7 @@ class Index(IndexOpsMixin[S1]):
     @property
     def array(self) -> ExtensionArray: ...
     def memory_usage(self, deep: bool = False) -> Any: ...
-    def where(self, cond: Any, other: Any=None) -> Any: ...
+    def where(self, cond: Any, other: Scalar | ArrayLike | None = None) -> Any: ...
     def __contains__(self, key: Any) -> bool: ...
     @final
     def __setitem__(self, key: Any, value: Any) -> None: ...
@@ -360,7 +366,7 @@ class Index(IndexOpsMixin[S1]):
         self: Index[C2], other: Index[C2] | Sequence[Index[C2]]
     ) -> Index[C2]: ...
     @overload
-    def append(self, other: Index[Any] | Sequence[Index]) -> Index[Any]: ...
+    def append(self, other: Index[Any] | Sequence[Index[Any]]) -> Index[Any]: ...
     def putmask(self, mask: Any, value: Any) -> Any: ...
     def equals(self, other: Any) -> bool: ...
     @final
@@ -374,7 +380,7 @@ class Index(IndexOpsMixin[S1]):
         return_indexer: bool = False,
         ascending: bool = True,
         na_position: NaPosition = 'last',
-        key: Callable[[Index], Index] | None = None,
+        key: Callable[[Index], Index[Any]] | None = None,
     ) -> Any: ...
     @final
     def sort(self, *args: Any, **kwargs: Any) -> None: ...
@@ -383,15 +389,22 @@ class Index(IndexOpsMixin[S1]):
     @final
     def get_indexer_for(self, target: Any, **kwargs: Any) -> Any: ...
     @final
-    def groupby(self, values: Any) -> dict[Hashable, np.ndarray]: ...
+    def groupby(self, values: Any) -> dict[Hashable, np.ndarray[Any, Any]]: ...
     def map(self, mapper: Any, na_action: Any=None) -> Index[Any]: ...
     def isin(self, values: Any, level: Any=None) -> np_ndarray_bool: ...
-    def slice_indexer(self, start: Any=None, end: Any=None, step: Any=None) -> Any: ...
+    def slice_indexer(
+        self,
+        start: Label | None = None,
+        end: Label | None = None,
+        step: int | None = None,
+    ) -> Any: ...
     def get_slice_bound(self, label: Any, side: Any) -> Any: ...
-    def slice_locs(self, start: SliceType = None, end: SliceType = None, step: Any=None) -> Any: ...
+    def slice_locs(
+        self, start: SliceType = None, end: SliceType = None, step: int | None = None
+    ) -> Any: ...
     def delete(self, loc: Any) -> Self: ...
     def insert(self, loc: Any, item: Any) -> Self: ...
-    def drop(self, labels: Any, errors: _str = 'raise') -> Self: ...
+    def drop(self, labels: Any, errors: IgnoreRaise = "raise") -> Self: ...
     @property
     def shape(self) -> tuple[int, ...]: ...
     # Extra methods from old stubs

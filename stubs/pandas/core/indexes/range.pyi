@@ -1,29 +1,15 @@
-from collections.abc import (
-    Hashable,
-    Sequence,
-)
-from typing import (
-    final,
-    overload,
-)
-
-import numpy as np
+from collections.abc import Hashable, Sequence
+from pandas._typing import HashableT, MaskType, np_ndarray_anyint, npt
 from pandas.core.indexes.base import Index
-
-from pandas._typing import (
-    HashableT,
-    MaskType,
-    np_ndarray_anyint,
-    npt,
-)
-from typing import Any
+from typing import Any, final, overload
+import numpy as np
 
 class RangeIndex(Index[int]):
     def __new__(
         cls,
-        start: int | RangeIndex | range = None,
-        stop: int = None,
-        step: int = None,
+        start: int | RangeIndex | range| None = None,
+        stop: int| None = None,
+        step: int| None = None,
         dtype: Any=None,
         copy: bool = False,
         name: Hashable = None,
@@ -54,7 +40,6 @@ class RangeIndex(Index[int]):
     @final
     def get_indexer(self, target: Any, method: Any=None, limit: Any=None, tolerance: Any=None) -> Any: ...
     def tolist(self) -> Any: ...
-    def copy(self, name: Hashable = None, deep: bool = False) -> Any: ...
     def min(self, axis: Any=None, skipna: bool = True, *args: Any, **kwargs: Any) -> Any: ...
     def max(self, axis: Any=None, skipna: bool = True, *args: Any, **kwargs: Any) -> Any: ...
     def argsort(self, *args: Any, **kwargs: Any) -> Any: ...
@@ -80,7 +65,7 @@ class RangeIndex(Index[int]):
     def any(self, *args: Any, **kwargs: Any) -> bool: ...
     @final
     def union(  # pyrefly: ignore
-        self, other: list[HashableT] | Index[Any], sort: Any=None
+        self, other: list[HashableT] | Index[Any], sort: bool | None = None
     ) -> Index[Any] | Index[int] | RangeIndex: ...
     @overload  # type: ignore[override]
     def __getitem__(

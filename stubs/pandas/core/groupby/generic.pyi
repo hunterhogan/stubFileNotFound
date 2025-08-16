@@ -124,10 +124,10 @@ class SeriesGroupBy(GroupBy[Series[S2]], Generic[S2, ByT]):
     @property
     def plot(self) -> GroupByPlot[Self]: ...
     def nlargest(
-        self, n: int = 5, keep: NsmallestNlargestKeep = 'first'
+        self, n: int = 5, keep: NsmallestNlargestKeep = "first"
     ) -> Series[S2]: ...
     def nsmallest(
-        self, n: int = 5, keep: NsmallestNlargestKeep = 'first'
+        self, n: int = 5, keep: NsmallestNlargestKeep = "first"
     ) -> Series[S2]: ...
     def idxmin(self, skipna: bool = True) -> Series: ...
     def idxmax(self, skipna: bool = True) -> Series: ...
@@ -138,7 +138,10 @@ class SeriesGroupBy(GroupBy[Series[S2]], Generic[S2, ByT]):
         min_periods: int | None = None,
     ) -> Series: ...
     def cov(
-        self, other: Series, min_periods: int | None = None, ddof: int | None = 1
+        self,
+        other: Series,
+        min_periods: int | None = None,
+        ddof: int | None = 1,
     ) -> Series: ...
     @property
     def is_monotonic_increasing(self) -> Series[bool]: ...
@@ -370,7 +373,7 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
     def plot(self) -> GroupByPlot[Self]: ...
     def corr(
         self,
-        method: str | Callable[[np.ndarray[Any, Any], np.ndarray[Any, Any]], float] = 'pearson',
+        method: str | Callable[[np.ndarray, np.ndarray], float] = 'pearson',
         min_periods: int = 1,
         numeric_only: bool = False,
     ) -> DataFrame: ...

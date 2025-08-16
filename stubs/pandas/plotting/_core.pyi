@@ -1,34 +1,15 @@
-from collections.abc import (
-    Callable,
-    Hashable,
-    Iterable,
-    Sequence,
-)
-from typing import (
-    Any,
-    Literal,
-    NamedTuple,
-    overload,
-)
-
+from collections.abc import Callable, Hashable, Iterable, Sequence
 from matplotlib.axes import Axes
 from matplotlib.colors import Colormap
 from matplotlib.lines import Line2D
-import numpy as np
-import pandas as pd
 from pandas import Series
+from pandas._typing import ArrayLike, HashableT, HashableT1, HashableT2, HashableT3, npt
 from pandas.core.frame import DataFrame
 from scipy.stats import gaussian_kde
+from typing import Any, Literal, NamedTuple, overload
 from typing_extensions import TypeAlias
-
-from pandas._typing import (
-    ArrayLike,
-    HashableT,
-    HashableT1,
-    HashableT2,
-    HashableT3,
-    npt,
-)
+import numpy as np
+import pandas as pd
 
 class _BoxPlotT(NamedTuple):
     ax: Axes
@@ -93,8 +74,7 @@ class PlotAccessor:
         data: Series | DataFrame | None = ...,
         x: Hashable = ...,
         y: Hashable | Sequence[Hashable] = ...,
-        kind: Literal[
-            "line",
+        kind: Literal["line",
             "bar",
             "barh",
             "hist",
@@ -148,8 +128,7 @@ class PlotAccessor:
         data: Series | DataFrame | None = ...,
         x: Hashable = ...,
         y: Hashable | Sequence[Hashable] = ...,
-        kind: Literal[
-            "line",
+        kind: Literal["line",
             "bar",
             "barh",
             "hist",
@@ -415,7 +394,7 @@ class PlotAccessor:
         x: Hashable,
         y: Hashable,
         C: Hashable | None = None,
-        reduce_C_function: Callable[[list], float] | None = None,
+        reduce_C_function: Callable[[list[Any]], float] | None = None,
         gridsize: int | tuple[int, int] | None = None,
         *,
         subplots: Literal[False] | None = ...,
@@ -427,7 +406,7 @@ class PlotAccessor:
         x: Hashable,
         y: Hashable,
         C: Hashable | None = None,
-        reduce_C_function: Callable[[list], float] | None = None,
+        reduce_C_function: Callable[[list[Any]], float] | None = None,
         gridsize: int | tuple[int, int] | None = None,
         *,
         subplots: Literal[True],

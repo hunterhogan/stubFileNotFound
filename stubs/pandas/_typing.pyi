@@ -252,8 +252,7 @@ FloatDtypeArg: TypeAlias = (
     | type[np.longdouble]
     | Literal["g", "f16", "float128", "longdouble", "longfloat"]
     # PyArrow floating point types and their string aliases
-    | Literal[
-        "float[pyarrow]",
+    | Literal["float[pyarrow]",
         "double[pyarrow]",
         "float16[pyarrow]",
         "float32[pyarrow]",
@@ -274,8 +273,7 @@ ComplexDtypeArg: TypeAlias = (
     #  https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.clongdouble
     # NOTE: Alias np.complex256 only on Linux x86_64, use np.clongdouble instead
     | type[np.clongdouble]
-    | Literal[
-        "G",
+    | Literal["G",
         "c32",
         "complex256",
         "clongdouble",
@@ -284,8 +282,7 @@ ComplexDtypeArg: TypeAlias = (
     ]
 )
 # Refer to https://numpy.org/doc/stable/reference/arrays.datetime.html#datetime-units
-TimedeltaDtypeArg: TypeAlias = Literal[
-    "timedelta64[Y]",
+TimedeltaDtypeArg: TypeAlias = Literal["timedelta64[Y]",
     "timedelta64[M]",
     "timedelta64[W]",
     "timedelta64[D]",
@@ -335,8 +332,7 @@ TimedeltaDtypeArg: TypeAlias = Literal[
     "duration[us][pyarrow]",
     "duration[ns][pyarrow]",
 ]
-TimestampDtypeArg: TypeAlias = Literal[
-    "datetime64[Y]",
+TimestampDtypeArg: TypeAlias = Literal["datetime64[Y]",
     "datetime64[M]",
     "datetime64[W]",
     "datetime64[D]",
@@ -479,16 +475,14 @@ TypeT = TypeVar("TypeT", bound=type)
 # types of vectorized key functions for DataFrame::sort_values and
 # DataFrame::sort_index, among others
 ValueKeyFunc: TypeAlias = Callable[[Series], Series | AnyArrayLike] | None
-IndexKeyFunc: TypeAlias = Callable[[Index[Any]], Index[Any] | AnyArrayLike] | None
+IndexKeyFunc: TypeAlias = Callable[[Index], Index[Any] | AnyArrayLike] | None
 
 # types of `func` kwarg for DataFrame.aggregate and Series.aggregate
 # More specific than what is in pandas
 # following Union is here to make it ty compliant https://github.com/astral-sh/ty/issues/591
 AggFuncTypeBase: TypeAlias = Union[Callable[..., Any], str, np.ufunc]  # pyright: ignore[reportDeprecated] # noqa: UP007
 AggFuncTypeDictSeries: TypeAlias = Mapping[HashableT, AggFuncTypeBase]
-AggFuncTypeDictFrame: TypeAlias = Mapping[
-    HashableT, AggFuncTypeBase | list[AggFuncTypeBase]
-]
+AggFuncTypeDictFrame: TypeAlias = Mapping[HashableT, AggFuncTypeBase | list[AggFuncTypeBase]]
 AggFuncTypeSeriesToFrame: TypeAlias = list[AggFuncTypeBase] | AggFuncTypeDictSeries[Any]
 AggFuncTypeFrame: TypeAlias = (
     AggFuncTypeBase | list[AggFuncTypeBase] | AggFuncTypeDictFrame[Any]
@@ -591,8 +585,7 @@ ColspaceArgType: TypeAlias = (
 
 # Arguments for fillna()
 FillnaOptions: TypeAlias = Literal["backfill", "bfill", "ffill", "pad"]
-InterpolateOptions: TypeAlias = Literal[
-    "linear",
+InterpolateOptions: TypeAlias = Literal["linear",
     "time",
     "index",
     "values",
@@ -670,9 +663,7 @@ NaPosition: TypeAlias = Literal["first", "last"]
 NsmallestNlargestKeep: TypeAlias = Literal["first", "last", "all"]
 
 # quantile interpolation
-QuantileInterpolation: TypeAlias = Literal[
-    "linear", "lower", "higher", "midpoint", "nearest"
-]
+QuantileInterpolation: TypeAlias = Literal["linear", "lower", "higher", "midpoint", "nearest"]
 
 # plotting
 # PlottingOrientation = Literal["horizontal", "vertical"] not used in stubs
@@ -684,8 +675,7 @@ AnyAll: TypeAlias = Literal["any", "all"]
 # defined in a different manner, but equivalent to pandas
 JoinHow: TypeAlias = Literal["left", "right", "outer", "inner"]
 MergeHow: TypeAlias = JoinHow | Literal["cross", "left_anti", "right_anti"]
-ValidationOptions: TypeAlias = Literal[
-    "one_to_one",
+ValidationOptions: TypeAlias = Literal["one_to_one",
     "1:1",
     "one_to_many",
     "1:m",
@@ -714,14 +704,13 @@ TimeNonexistent: TypeAlias = (
 DropKeep: TypeAlias = Literal["first", "last", False]
 CorrelationMethod: TypeAlias = (
     Literal["pearson", "kendall", "spearman"]
-    | Callable[[np.ndarray[Any, Any], np.ndarray[Any, Any]], float]
+    | Callable[[np.ndarray, np.ndarray], float]
 )
 AlignJoin: TypeAlias = Literal["outer", "inner", "left", "right"]
 DtypeBackend: TypeAlias = Literal["pyarrow", "numpy_nullable"]
 
 TimeUnit: TypeAlias = Literal["s", "ms", "us", "ns"]
-OpenFileErrors: TypeAlias = Literal[
-    "strict",
+OpenFileErrors: TypeAlias = Literal["strict",
     "ignore",
     "replace",
     "surrogateescape",
@@ -771,7 +760,7 @@ ListLikeT = TypeVar("ListLikeT", bound=ListLike)
 ListLikeExceptSeriesAndStr: TypeAlias = (
     MutableSequence[Any] | np.ndarray[Any, Any] | tuple[Any, ...] | Index[Any]
 )
-ListLikeU: TypeAlias = Sequence[Any] | np.ndarray[Any, Any] | Series[Any] | Index[Any]
+ListLikeU: TypeAlias = Sequence[Any] | np.ndarray[Any, Any] | Series | Index[Any]
 ListLikeHashable: TypeAlias = (
     MutableSequence[HashableT] | np.ndarray[Any, Any] | tuple[HashableT, ...] | range
 )
@@ -896,10 +885,9 @@ GroupByObjectNonScalar: TypeAlias = (
     | Grouper
     | list[Grouper]
 )
-GroupByObject: TypeAlias = Scalar | Index | GroupByObjectNonScalar[Any] | Series
+GroupByObject: TypeAlias = Scalar | Index[Any] | GroupByObjectNonScalar[Any] | Series
 
-StataDateFormat: TypeAlias = Literal[
-    "tc",
+StataDateFormat: TypeAlias = Literal["tc",
     "%tc",
     "td",
     "%td",
@@ -927,9 +915,7 @@ ReplaceValue: TypeAlias = (
     | None
 )
 
-JsonFrameOrient: TypeAlias = Literal[
-    "split", "records", "index", "columns", "values", "table"
-]
+JsonFrameOrient: TypeAlias = Literal["split", "records", "index", "columns", "values", "table"]
 JsonSeriesOrient: TypeAlias = Literal["split", "records", "index", "table"]
 
 TimestampConvention: TypeAlias = Literal["start", "end", "s", "e"]
@@ -951,9 +937,7 @@ else:
 
 HDFCompLib: TypeAlias = Literal["zlib", "lzo", "bzip2", "blosc"]
 ParquetEngine: TypeAlias = Literal["auto", "pyarrow", "fastparquet"]
-FileWriteMode: TypeAlias = Literal[
-    "a", "w", "x", "at", "wt", "xt", "ab", "wb", "xb", "w+", "w+b", "a+", "a+b"
-]
+FileWriteMode: TypeAlias = Literal["a", "w", "x", "at", "wt", "xt", "ab", "wb", "xb", "w+", "w+b", "a+", "a+b"]
 
 WindowingEngine: TypeAlias = Literal["cython", "numba"] | None
 

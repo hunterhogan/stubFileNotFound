@@ -1,19 +1,10 @@
 from collections.abc import Sequence
-
-from pandas.core.frame import DataFrame
-
 from pandas._libs.lib import _NoDefaultDoNotUse
 from pandas._typing import (
-    CompressionOptions,
-    ConvertersArg,
-    DtypeArg,
-    DtypeBackend,
-    FilePath,
-    ParseDatesArg,
-    ReadBuffer,
-    StorageOptions,
-    XMLParsers,
-)
+	CompressionOptions, ConvertersArg, DtypeArg, DtypeBackend, FilePath, ParseDatesArg, ReadBuffer, StorageOptions,
+	XMLParsers)
+from pandas.core.frame import DataFrame
+from typing import Any
 
 def read_xml(
     path_or_buffer: FilePath | ReadBuffer[bytes] | ReadBuffer[str],
@@ -25,7 +16,7 @@ def read_xml(
     names: Sequence[str] | None = None,
     dtype: DtypeArg | None = None,
     converters: ConvertersArg | None = None,
-    parse_dates: ParseDatesArg | None = None,
+    parse_dates: ParseDatesArg[Any, Any] | None = None,
     # encoding can not be None for lxml and StringIO input
     encoding: str | None = 'utf-8',
     parser: XMLParsers = 'lxml',

@@ -1,44 +1,22 @@
-from collections.abc import (
-    Callable,
-    Hashable,
-    Iterable,
-    Sequence,
-)
-from typing import (
-    final,
-    overload,
-)
-
+from collections.abc import Callable, Hashable, Iterable, Sequence
+from pandas._typing import (
+	AnyAll, Axes, DropKeep, Dtype, HashableT, IndexLabel, Level, MaskType, NaPosition, np_ndarray_anyint, np_ndarray_bool,
+	SequenceNotStr)
+from pandas.core.indexes.base import Index
+from typing import Any, final, overload
+from typing_extensions import Self
 import numpy as np
 import pandas as pd
-from pandas.core.indexes.base import Index
-from typing_extensions import Self
 
-from pandas._typing import (
-    AnyAll,
-    Axes,
-    DropKeep,
-    Dtype,
-    DtypeArg,
-    HashableT,
-    Level,
-    MaskType,
-    NaPosition,
-    SequenceNotStr,
-    np_ndarray_anyint,
-    np_ndarray_bool,
-)
-from typing import Any
-
-class MultiIndex(Index):
+class MultiIndex(Index[Any]):
     def __new__(
         cls,
-        levels: Sequence[SequenceNotStr[Hashable]] = None,
-        codes: Sequence[Sequence[int]] = None,
+        levels: Sequence[SequenceNotStr[Hashable]]| None = None,
+        codes: Sequence[Sequence[int]]| None = None,
         sortorder: int | None = None,
-        names: SequenceNotStr[Hashable] = None,
+        names: SequenceNotStr[Hashable]| None = None,
         copy: bool = False,
-        name: SequenceNotStr[Hashable] = None,
+        name: SequenceNotStr[Hashable]| None = None,
         verify_integrity: bool = True,
     ) -> Self: ...
     @classmethod
@@ -53,7 +31,7 @@ class MultiIndex(Index):
         cls,
         tuples: Iterable[tuple[Hashable, ...]],
         sortorder: int | None = None,
-        names: SequenceNotStr[Hashable] = None,
+        names: SequenceNotStr[Hashable]| None = None,
     ) -> Self: ...
     @classmethod
     def from_product(
@@ -67,18 +45,18 @@ class MultiIndex(Index):
         cls,
         df: pd.DataFrame,
         sortorder: int | None = None,
-        names: SequenceNotStr[Hashable] = None,
+        names: SequenceNotStr[Hashable]| None = None,
     ) -> Self: ...
     @property
     def shape(self) -> Any: ...
     @property  # Should be read-only
-    def levels(self) -> list[Index]: ...
+    def levels(self) -> list[Index[Any]]: ...
     def set_levels(self, levels: Any, *, level: Any=None, verify_integrity: bool = True) -> Any: ...
     @property
     def codes(self) -> Any: ...
     def set_codes(self, codes: Any, *, level: Any=None, verify_integrity: bool = True) -> Any: ...
     def copy(  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore
-        self, names: SequenceNotStr[Hashable] = None, deep: bool = False
+        self, names: SequenceNotStr[Hashable]| None = None, deep: bool = False
     ) -> Self: ...
     def view(self, cls: Any=None) -> Any: ...
     def __contains__(self, key: Any) -> bool: ...
@@ -106,8 +84,8 @@ class MultiIndex(Index):
     def is_monotonic_increasing(self) -> bool: ...
     @property
     def is_monotonic_decreasing(self) -> bool: ...
-    def duplicated(self, keep: DropKeep = 'first') -> Any: ...
-    def dropna(self, how: AnyAll = 'any') -> Self: ...
+    def duplicated(self, keep: DropKeep = "first") -> Any: ...
+    def dropna(self, how: AnyAll = "any") -> Self: ...
     def get_level_values(self, level: str | int) -> Index[Any]: ...
     def unique(self, level: Any=None) -> Any: ...
     def to_frame(  # pyrefly: ignore
@@ -132,15 +110,9 @@ class MultiIndex(Index):
     def __getitem__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, key: int
     ) -> tuple[Any, ...]: ...
-    def take(
-        self, indices: Any, axis: int = 0, allow_fill: bool = True, fill_value: Any=None, **kwargs: Any
-    ) -> Any: ...
-    def argsort(self, *args: Any, na_position: NaPosition = 'last', **kwargs: Any) -> Any: ...
     def append(self, other: Any) -> Any: ...  # pyrefly: ignore
     def repeat(self, repeats: Any, axis: Any=None) -> Any: ...
-    @final
-    def where(self, cond: Any, other: Any=None) -> None: ...
-    def drop(self, codes: Any, level: Any=None, errors: str = 'raise') -> Self: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
+    def drop(self, codes: Any, level: Level | None = None, errors: str = "raise") -> Self: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
     def swaplevel(self, i: int = -2, j: int = -1) -> Any: ...
     def reorder_levels(self, order: Any) -> Any: ...
     def sortlevel(
@@ -148,7 +120,7 @@ class MultiIndex(Index):
         level: Level | Sequence[Level] = 0,
         ascending: bool = True,
         sort_remaining: bool = True,
-        na_position: NaPosition = 'first',
+        na_position: NaPosition = "first",
     ) -> Any: ...
     @final
     def get_indexer(self, target: Any, method: Any=None, limit: Any=None, tolerance: Any=None) -> Any: ...
@@ -157,20 +129,15 @@ class MultiIndex(Index):
     def get_slice_bound(
         self, label: Hashable | Sequence[Hashable], side: str
     ) -> int: ...
-    def get_loc_level(self, key: Any, level: Any=0, drop_level: bool = True) -> Any: ...
+    def get_loc_level(
+        self, key: Any, level: Level | list[Level] | None = None, drop_level: bool = True
+    ) -> Any: ...
     def get_locs(self, seq: Any) -> Any: ...
-    def truncate(self, before: Any=None, after: Any=None) -> Any: ...
+    def truncate(
+        self, before: IndexLabel | None = None, after: IndexLabel | None = None
+    ) -> Any: ...
     def equals(self, other: Any) -> bool: ...
     def equal_levels(self, other: Any) -> Any: ...
-    @final
-    def union(self, other: Any, sort: Any=None) -> Any: ...  # pyrefly: ignore
-    @final
-    def intersection(  # pyright: ignore[reportIncompatibleMethodOverride]
-        self, other: list[Any] | Self, sort: bool | None = False
-    ) -> Any: ...
-    @final
-    def difference(self, other: Any, sort: Any=None) -> Any: ...
-    def astype(self, dtype: DtypeArg, copy: bool = True) -> Self: ...
     def insert(self, loc: Any, item: Any) -> Any: ...
     def delete(self, loc: Any) -> Any: ...
     def isin(self, values: Any, level: Any=None) -> np_ndarray_bool: ...

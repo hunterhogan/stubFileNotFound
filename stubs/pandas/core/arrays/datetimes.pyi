@@ -1,20 +1,9 @@
 from datetime import tzinfo as _tzinfo
-
-import numpy as np
-from pandas.core.arrays.datetimelike import (
-    DatelikeOps,
-    DatetimeLikeArrayMixin,
-    TimelikeOps,
-)
-
-from pandas._typing import (
-    TimeAmbiguous,
-    TimeNonexistent,
-    TimeZones,
-)
-
+from pandas._typing import TimeAmbiguous, TimeNonexistent, TimeZones
+from pandas.core.arrays.datetimelike import DatelikeOps, DatetimeLikeArrayMixin, TimelikeOps
 from pandas.core.dtypes.dtypes import DatetimeTZDtype as DatetimeTZDtype
 from typing import Any
+import numpy as np
 
 class DatetimeArray(DatetimeLikeArrayMixin, TimelikeOps, DatelikeOps):
     __array_priority__: int = ...
@@ -37,8 +26,8 @@ class DatetimeArray(DatetimeLikeArrayMixin, TimelikeOps, DatelikeOps):
     def tz_localize(
         self,
         tz: TimeZones,
-        ambiguous: TimeAmbiguous = 'raise',
-        nonexistent: TimeNonexistent = 'raise',
+        ambiguous: TimeAmbiguous = "raise",
+        nonexistent: TimeNonexistent = "raise",
     ) -> Any: ...
     def to_pydatetime(self) -> Any: ...
     def normalize(self) -> Any: ...
