@@ -1,7 +1,7 @@
 from collections.abc import Generator, Iterable
 from networkx import DiGraph
 from networkx.classes.graph import _Node
-from typing import TypeVar
+from typing import overload, TypeVar
 
 _DefaultT = TypeVar("_DefaultT")
 
@@ -10,7 +10,7 @@ __all__ = ['all_pairs_lowest_common_ancestor', 'tree_all_pairs_lowest_common_anc
 def all_pairs_lowest_common_ancestor(
 	G: DiGraph[_Node],
 	pairs: Iterable[tuple[_Node, _Node]] | None = None
-) -> Generator[tuple[tuple[_Node, _Node], _Node | None], None, None]:
+) -> Generator[tuple[tuple[_Node, _Node], _Node | None]]:
 	"""Return the lowest common ancestor of all pairs or the provided pairs
 
 	Parameters
@@ -70,8 +70,13 @@ def all_pairs_lowest_common_ancestor(
 	lowest_common_ancestor
 	"""
 
+@overload
 def lowest_common_ancestor(
-    G: DiGraph[_Node], node1: _Node, node2: _Node, default: _DefaultT | None = None
+    G: DiGraph[_Node], node1: _Node, node2: _Node, default: None = None
+) -> _Node | None: ...
+@overload
+def lowest_common_ancestor(
+    G: DiGraph[_Node], node1: _Node, node2: _Node, default: _DefaultT
 ) -> _Node | _DefaultT:
 	"""Compute the lowest common ancestor of the given pair of nodes.
 
@@ -106,7 +111,7 @@ def tree_all_pairs_lowest_common_ancestor(
 	G: DiGraph[_Node],
 	root: _Node | None = None,
 	pairs: Iterable[tuple[_Node, _Node]] | None = None
-) -> Generator[tuple[tuple[_Node, _Node], _Node], None, None]:
+) -> Generator[tuple[tuple[_Node, _Node], _Node]]:
 	r"""Yield the lowest common ancestor for sets of pairs in a tree.
 
 	Parameters

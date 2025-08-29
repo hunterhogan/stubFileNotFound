@@ -714,7 +714,11 @@ class Graph(Collection[_Node]):
         """
         ...
 
-    def get_edge_data(self, u: _Node, v: _Node, default: _DefaultT | None = None) -> dict[str, Any] | _DefaultT:
+    @overload
+    def get_edge_data(self, u: _Node, v: _Node, default: None = None) -> dict[str, Any] | None: ...
+
+    @overload
+    def get_edge_data(self, u: _Node, v: _Node, default: _DefaultT) -> dict[str, Any] | _DefaultT:
         """Returns the attribute dictionary associated with edge (u, v).
 
         This is identical to `G[u][v]` except the default is returned instead of an exception if the edge doesn't exist.
