@@ -1,11 +1,12 @@
 from _typeshed import Incomplete
 from collections.abc import Collection
+from typing import Any, Literal
+
 from networkx._typing import Array2D
-from networkx.classes.graph import _Node, Graph
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 from numpy.typing import DTypeLike
 from scipy.sparse import lil_array  # type: ignore[import-untyped]  # pyright: ignore[reportMissingImports]
-from typing import Any, Literal
 
 __all__ = ["attr_matrix", "attr_sparse_matrix"]
 

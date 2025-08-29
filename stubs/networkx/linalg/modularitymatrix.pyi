@@ -1,9 +1,10 @@
 from collections.abc import Collection
+
+import numpy as np
 from networkx._typing import Array2D
 from networkx.classes.digraph import DiGraph
-from networkx.classes.graph import _Node, Graph
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
-import numpy as np
 
 __all__ = ["modularity_matrix", "directed_modularity_matrix"]
 

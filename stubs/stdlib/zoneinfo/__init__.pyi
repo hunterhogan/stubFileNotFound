@@ -1,17 +1,15 @@
-import sys
 from collections.abc import Iterable
 from datetime import datetime, timedelta, tzinfo
-from typing_extensions import Self
-from zoneinfo._common import ZoneInfoNotFoundError as ZoneInfoNotFoundError, _IOBytes
+from typing_extensions import disjoint_base, Self
+from zoneinfo._common import _IOBytes, ZoneInfoNotFoundError as ZoneInfoNotFoundError
 from zoneinfo._tzpath import (
-    TZPATH as TZPATH,
-    InvalidTZPathWarning as InvalidTZPathWarning,
-    available_timezones as available_timezones,
-    reset_tzpath as reset_tzpath,
-)
+	available_timezones as available_timezones, InvalidTZPathWarning as InvalidTZPathWarning, reset_tzpath as reset_tzpath,
+	TZPATH as TZPATH)
+import sys
 
 __all__ = ["ZoneInfo", "reset_tzpath", "available_timezones", "TZPATH", "ZoneInfoNotFoundError", "InvalidTZPathWarning"]
 
+@disjoint_base
 class ZoneInfo(tzinfo):
     @property
     def key(self) -> str: ...

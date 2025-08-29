@@ -1,7 +1,7 @@
-from networkx._typing import Array1D
-from networkx.classes.graph import _Node, Graph
-from networkx.utils.backends import _dispatchable
 import numpy as np
+from networkx._typing import Array1D
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
 
 __all__ = [
     "laplacian_spectrum",

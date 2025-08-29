@@ -1,11 +1,12 @@
 from collections.abc import Collection
+from typing import Literal
+
+import numpy as np
 from networkx._typing import Array2D
 from networkx.classes.digraph import DiGraph
-from networkx.classes.graph import _Node, Graph
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 from scipy.sparse import csr_array  # type: ignore[import-untyped]  # pyright: ignore[reportMissingImports]
-from typing import Literal
-import numpy as np
 
 __all__ = [
     "laplacian_matrix",

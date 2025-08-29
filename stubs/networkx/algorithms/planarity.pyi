@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Generator, Mapping, MutableSet, Reversible
-
 from networkx.classes.digraph import DiGraph
-from networkx.classes.graph import Graph, _Node
+from networkx.classes.graph import _Node, Graph
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["check_planarity", "is_planar", "PlanarEmbedding"]
@@ -34,6 +33,26 @@ class ConflictPair:
     def lowest(self, planarity_state): ...
 
 class LRPlanarity:
+    __slots__ = [
+        "G",
+        "roots",
+        "height",
+        "lowpt",
+        "lowpt2",
+        "nesting_depth",
+        "parent_edge",
+        "DG",
+        "adjs",
+        "ordered_adjs",
+        "ref",
+        "side",
+        "S",
+        "stack_bottom",
+        "lowpt_edge",
+        "left_ref",
+        "right_ref",
+        "embedding",
+    ]
     G: Incomplete
     roots: Incomplete
     height: Incomplete

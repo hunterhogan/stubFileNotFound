@@ -1,5 +1,6 @@
 from collections.abc import Collection, Hashable
-from networkx.classes.graph import _Node, Graph
+
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 from numpy.typing import DTypeLike
 from scipy.sparse import csc_array, csr_array  # type: ignore[import-untyped]  # pyright: ignore[reportMissingImports]

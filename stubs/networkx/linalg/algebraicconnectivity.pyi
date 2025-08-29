@@ -1,8 +1,9 @@
-from networkx._typing import Array1D, Seed
-from networkx.classes.graph import _Node, Graph
-from networkx.utils.backends import _dispatchable
 from typing import Literal
+
 import numpy as np
+from networkx._typing import Array1D, Seed
+from networkx.classes.graph import Graph, _Node
+from networkx.utils.backends import _dispatchable
 
 __all__ = ["algebraic_connectivity", "fiedler_vector", "spectral_ordering", "spectral_bisection"]
 

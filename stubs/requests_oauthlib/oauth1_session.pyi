@@ -1,10 +1,12 @@
-from . import OAuth1
 from _typeshed import Incomplete
 from logging import Logger
-from oauthlib.oauth1 import Client
-from typing import type_check_only, TypedDict
+from typing import TypedDict, type_check_only
 from typing_extensions import TypeAlias
+
 import requests
+from oauthlib.oauth1 import Client
+
+from . import OAuth1
 
 # should be dict[str, str] but could look different
 _ParsedToken: TypeAlias = dict[str, Incomplete]
