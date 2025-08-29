@@ -12,7 +12,7 @@ class CategoricalIndex(ExtensionIndex[S1], accessor.PandasDelegate):
     categories: Index[Any] = ...
     def __new__(
         cls,
-        data: Iterable[S1]| None = None,
+        data: Iterable[S1] = None,
         categories: Any=None,
         ordered: Any=None,
         dtype: Any=None,
@@ -26,7 +26,7 @@ class CategoricalIndex(ExtensionIndex[S1], accessor.PandasDelegate):
     def values(self) -> Any: ...
     def __contains__(self, key: Any) -> bool: ...
     def __array__(
-        self, dtype: DtypeArg| None = None, copy: bool | None = None
+        self, dtype: DtypeArg = None, copy: bool | None = None
     ) -> np.ndarray[Any, Any]: ...
     @property
     def is_unique(self) -> bool: ...

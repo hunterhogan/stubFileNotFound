@@ -1,6 +1,6 @@
 from collections.abc import Callable, Hashable, Iterable, Sequence
 from pandas._typing import (
-	AnyAll, Axes, DropKeep, Dtype, HashableT, IndexLabel, Level, MaskType, NaPosition, np_ndarray_anyint, np_ndarray_bool,
+	AnyAll, Axes, DropKeep, Dtype, HashableT, IndexLabel, Level, MaskType, NaPosition, np_1darray, np_ndarray_anyint,
 	SequenceNotStr)
 from pandas.core.indexes.base import Index
 from typing import Any, final, overload
@@ -11,12 +11,12 @@ import pandas as pd
 class MultiIndex(Index[Any]):
     def __new__(
         cls,
-        levels: Sequence[SequenceNotStr[Hashable]]| None = None,
-        codes: Sequence[Sequence[int]]| None = None,
+        levels: Sequence[SequenceNotStr[Hashable]] = None,
+        codes: Sequence[Sequence[int]] = None,
         sortorder: int | None = None,
-        names: SequenceNotStr[Hashable]| None = None,
+        names: SequenceNotStr[Hashable] = None,
         copy: bool = False,
-        name: SequenceNotStr[Hashable]| None = None,
+        name: SequenceNotStr[Hashable] = None,
         verify_integrity: bool = True,
     ) -> Self: ...
     @classmethod
@@ -31,7 +31,7 @@ class MultiIndex(Index[Any]):
         cls,
         tuples: Iterable[tuple[Hashable, ...]],
         sortorder: int | None = None,
-        names: SequenceNotStr[Hashable]| None = None,
+        names: SequenceNotStr[Hashable] = None,
     ) -> Self: ...
     @classmethod
     def from_product(
@@ -45,7 +45,7 @@ class MultiIndex(Index[Any]):
         cls,
         df: pd.DataFrame,
         sortorder: int | None = None,
-        names: SequenceNotStr[Hashable]| None = None,
+        names: SequenceNotStr[Hashable] = None,
     ) -> Self: ...
     @property
     def shape(self) -> Any: ...
@@ -56,9 +56,9 @@ class MultiIndex(Index[Any]):
     def codes(self) -> Any: ...
     def set_codes(self, codes: Any, *, level: Any=None, verify_integrity: bool = True) -> Any: ...
     def copy(  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore
-        self, names: SequenceNotStr[Hashable]| None = None, deep: bool = False
+        self, names: SequenceNotStr[Hashable] = None, deep: bool = False
     ) -> Self: ...
-    def view(self, cls: Any=None) -> Any: ...
+    def view(self, cls=None) -> Any: ...
     def __contains__(self, key: Any) -> bool: ...
     @property
     def dtype(self) -> np.dtype: ...
@@ -140,4 +140,4 @@ class MultiIndex(Index[Any]):
     def equal_levels(self, other: Any) -> Any: ...
     def insert(self, loc: Any, item: Any) -> Any: ...
     def delete(self, loc: Any) -> Any: ...
-    def isin(self, values: Any, level: Any=None) -> np_ndarray_bool: ...
+    def isin(self, values: Any, level: Any=None) -> np_1darray[np.bool]: ...

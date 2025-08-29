@@ -1,30 +1,28 @@
 from collections.abc import Hashable
 from pandas import Index
-from pandas._libs.tslibs import BaseOffset, NaTType, Period
+from pandas._libs.tslibs import NaTType, Period
 from pandas._libs.tslibs.period import _PeriodAddSub
+from pandas._typing import AxesData, Dtype, Frequency, np_1darray
 from pandas.core.indexes.accessors import PeriodIndexFieldOps
 from pandas.core.indexes.datetimelike import DatetimeIndexOpsMixin
 from pandas.core.indexes.timedeltas import TimedeltaIndex
-from typing import Any, final, overload
+from typing import Any, overload
 from typing_extensions import Self
 import datetime
+import numpy as np
 import pandas as pd
 
-class PeriodIndex(DatetimeIndexOpsMixin[pd.Period], PeriodIndexFieldOps):
+class PeriodIndex(DatetimeIndexOpsMixin[pd.Period, np.object_], PeriodIndexFieldOps):
     def __new__(
         cls,
-        data: Any=None,
-        ordinal: Any=None,
-        freq: Any=None,
-        tz: Any=...,
-        dtype: Any=None,
+        data: AxesData[Any] | None = None,
+        freq: Frequency | None = None,
+        dtype: Dtype | None = None,
         copy: bool = False,
-        name: Hashable = None,
-        **fields: Any,
-    ) -> Any: ...
+        name: Hashable | None = None,
+    ) -> Self: ...
     @property
-    def values(self) -> Any: ...
-    def __contains__(self, key: Any) -> bool: ...
+    def values(self) -> np_1darray[np.object_]: ...
     @overload
     def __sub__(self, other: Period) -> Index[Any]: ...
     @overload
@@ -43,31 +41,18 @@ class PeriodIndex(DatetimeIndexOpsMixin[pd.Period], PeriodIndexFieldOps):
     def __rsub__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, other: NaTType
     ) -> NaTType: ...
-    @final
-    def __array_wrap__(self, result: Any, context: Any=None) -> Any: ...
-    def asof_locs(self, where: Any, mask: Any) -> Any: ...
-    def searchsorted(self, value: Any, side: str = 'left', sorter: Any=None) -> Any: ...
+    def asof_locs(
+        self,
+        where: pd.DatetimeIndex | PeriodIndex,
+        mask: np_1darray[np.bool_],
+    ) -> np_1darray[np.intp]: ...
     @property
     def is_full(self) -> bool: ...
     @property
     def inferred_type(self) -> str: ...
-    @final
-    def get_indexer(self, target: Any, method: Any=None, limit: Any=None, tolerance: Any=None) -> Any: ...
-    def get_indexer_non_unique(self, target: Any) -> Any: ...
-    def insert(self, loc: Any, item: Any) -> Any: ...
-    @final
-    def join(
-        self,
-        other: Any,
-        *,
-        how: str = 'left',
-        level: Any=None,
-        return_indexers: bool = False,
-        sort: bool = False,
-    ) -> Any: ...
     @property
     def freqstr(self) -> str: ...
-    def shift(self, periods: int = 1, freq: Any=None) -> Self: ...
+    def shift(self, periods: int = 1, freq: Frequency | None = None) -> Self: ...
 
 def period_range(
     start: (
@@ -77,6 +62,6 @@ def period_range(
         str | datetime.datetime | datetime.date | pd.Timestamp | pd.Period | None
     ) = None,
     periods: int | None = None,
-    freq: str | BaseOffset | None = None,
+    freq: Frequency | None = None,
     name: Hashable | None = None,
 ) -> PeriodIndex: ...

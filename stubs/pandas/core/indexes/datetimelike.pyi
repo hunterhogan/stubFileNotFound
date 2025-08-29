@@ -1,17 +1,12 @@
-import numpy as np
+from pandas._libs.tslibs import BaseOffset
+from pandas._typing import AxisIndex, GenericT_co, S1, TimeUnit
 from pandas.core.indexes.extension import ExtensionIndex
 from pandas.core.indexes.timedeltas import TimedeltaIndex
-from typing_extensions import Self
-
-from pandas._libs.tslibs import BaseOffset
-from pandas._typing import (
-    S1,
-    AxisIndex,
-    TimeUnit,
-)
 from typing import Any
+from typing_extensions import Self
+import numpy as np
 
-class DatetimeIndexOpsMixin(ExtensionIndex[S1]):
+class DatetimeIndexOpsMixin(ExtensionIndex[S1, GenericT_co]):
     @property
     def freq(self) -> BaseOffset | None: ...
     @property
@@ -34,7 +29,7 @@ class DatetimeIndexOpsMixin(ExtensionIndex[S1]):
         self, other: DatetimeIndexOpsMixin
     ) -> TimedeltaIndex: ...
 
-class DatetimeTimedeltaMixin(DatetimeIndexOpsMixin[S1]):
+class DatetimeTimedeltaMixin(DatetimeIndexOpsMixin[S1, GenericT_co]):
     @property
     def unit(self) -> TimeUnit: ...
     def as_unit(self, unit: TimeUnit) -> Self: ...

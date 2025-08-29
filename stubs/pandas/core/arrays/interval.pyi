@@ -1,10 +1,29 @@
-from pandas import Index, Series
-from pandas._libs.interval import Interval as Interval, IntervalMixin as IntervalMixin
-from pandas._typing import Axis, np_ndarray_bool, Scalar, ScalarIndexer, SequenceIndexer, TakeIndexer
-from pandas.core.arrays.base import ExtensionArray as ExtensionArray
-from typing import Any, overload
-from typing_extensions import Self, TypeAlias
+from typing import overload
+
 import numpy as np
+from pandas import (
+    Index,
+    Series,
+)
+from pandas.core.arrays.base import ExtensionArray as ExtensionArray
+from typing_extensions import (
+    Self,
+    TypeAlias,
+)
+
+from pandas._libs.interval import (
+    Interval as Interval,
+    IntervalMixin as IntervalMixin,
+)
+from pandas._typing import (
+    Axis,
+    Scalar,
+    ScalarIndexer,
+    SequenceIndexer,
+    TakeIndexer,
+    np_1darray,
+)
+from typing import Any
 
 IntervalOrNA: TypeAlias = Interval[Any] | float
 
@@ -81,7 +100,7 @@ class IntervalArray(IntervalMixin, ExtensionArray):
     def mid(self) -> Index[Any]: ...
     @property
     def is_non_overlapping_monotonic(self) -> bool: ...
-    def __array__(self, dtype: Any=None) -> np.ndarray[Any, Any]: ...
+    def __array__(self, dtype: Any=None) -> np_1darray: ...
     def __arrow_array__(self, type: Any=None) -> Any: ...
     def to_tuples(self, na_tuple: bool = True) -> Any: ...
     def repeat(self, repeats: Any, axis: Axis | None = None) -> Any: ...
@@ -90,5 +109,5 @@ class IntervalArray(IntervalMixin, ExtensionArray):
     @overload
     def contains(
         self, other: Scalar | ExtensionArray | Index[Any] | np.ndarray[Any, Any]
-    ) -> np_ndarray_bool: ...
+    ) -> np_1darray[np.bool]: ...
     def overlaps(self, other: Interval[Any]) -> bool: ...

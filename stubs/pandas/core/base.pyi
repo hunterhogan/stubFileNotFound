@@ -1,6 +1,7 @@
 from collections.abc import Hashable, Iterator
 from pandas import Index, Series
-from pandas._typing import AxisIndex, DropKeep, NDFrameT, npt, S1, Scalar
+from pandas._typing import (
+	AxisIndex, DropKeep, DTypeLike, GenericT, GenericT_co, NDFrameT, np_1darray, S1, Scalar, SupportsDType)
 from pandas.core.arraylike import OpsMixin
 from pandas.core.arrays import ExtensionArray
 from pandas.core.arrays.categorical import Categorical
@@ -21,7 +22,7 @@ class SelectionMixin(Generic[NDFrameT]):
     def __getitem__(self, key: Any) -> Any: ...
     def aggregate(self, func: Any, *args: Any, **kwargs: Any) -> Any: ...
 
-class IndexOpsMixin(OpsMixin, Generic[S1]):
+class IndexOpsMixin(OpsMixin, Generic[S1, GenericT_co]):
     __array_priority__: int = ...
     @property
     def T(self) -> Self: ...
@@ -36,13 +37,30 @@ class IndexOpsMixin(OpsMixin, Generic[S1]):
     def size(self) -> int: ...
     @property
     def array(self) -> ExtensionArray: ...
+    @overload
     def to_numpy(
         self,
-        dtype: npt.DTypeLike | None = None,
+        dtype: None = None,
         copy: bool = False,
         na_value: Scalar = ...,
         **kwargs: Any,
-    ) -> np.ndarray[Any, Any]: ...
+    ) -> np_1darray[GenericT_co]: ...
+    @overload
+    def to_numpy(
+        self,
+        dtype: np.dtype[GenericT] | SupportsDType[GenericT] | type[GenericT],
+        copy: bool = False,
+        na_value: Scalar = ...,
+        **kwargs: Any,
+    ) -> np_1darray[GenericT]: ...
+    @overload
+    def to_numpy(
+        self,
+        dtype: DTypeLike,
+        copy: bool = False,
+        na_value: Scalar = ...,
+        **kwargs: Any,
+    ) -> np_1darray: ...
     @property
     def empty(self) -> bool: ...
     def max(self, axis: Any=..., skipna: bool = ..., **kwargs: Any) -> Any: ...
@@ -93,7 +111,7 @@ class IndexOpsMixin(OpsMixin, Generic[S1]):
     def is_monotonic_increasing(self) -> bool: ...
     def factorize(
         self, sort: bool = False, use_na_sentinel: bool = True
-    ) -> tuple[np.ndarray[Any, Any], np.ndarray[Any, Any] | Index[Any] | Categorical]: ...
+    ) -> tuple[np_1darray, np_1darray | Index[Any] | Categorical]: ...
     def searchsorted(
         self, value: Any, side: Literal["left", "right"] = 'left', sorter: Any=None
     ) -> int | list[int]: ...

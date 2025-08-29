@@ -1,5 +1,5 @@
 from pandas import Categorical, CategoricalIndex, Index, IntervalIndex, PeriodIndex, Series
-from pandas._typing import AnyArrayLike, IntervalT, TakeIndexer
+from pandas._typing import AnyArrayLike, IntervalT, np_1darray, TakeIndexer
 from pandas.api.extensions import ExtensionArray
 from typing import Any, Literal, overload
 import numpy as np
@@ -38,14 +38,14 @@ def factorize(
     sort: bool = False,
     use_na_sentinel: bool = True,
     size_hint: int | None = None,
-) -> tuple[np.ndarray[Any, Any], Index[Any]]: ...
+) -> tuple[np_1darray, Index[Any]]: ...
 @overload
 def factorize(
     values: Categorical,
     sort: bool = False,
     use_na_sentinel: bool = True,
     size_hint: int | None = None,
-) -> tuple[np.ndarray[Any, Any], Categorical]: ...
+) -> tuple[np_1darray, Categorical]: ...
 def value_counts(
     values: AnyArrayLike | list[Any] | tuple[Any, ...],
     sort: bool = True,

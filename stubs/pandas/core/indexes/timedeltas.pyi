@@ -13,26 +13,30 @@ from typing_extensions import Self
 import datetime as dt
 import numpy as np
 
-class TimedeltaIndex(DatetimeTimedeltaMixin[Timedelta], TimedeltaIndexProperties):
+class TimedeltaIndex(
+    DatetimeTimedeltaMixin[Timedelta, np.timedelta64], TimedeltaIndexProperties
+):
     def __new__(
         cls,
         data: (
-            Sequence[dt.timedelta | Timedelta | np.timedelta64 | float] | AxesData[Any] | None
+            Sequence[dt.timedelta | Timedelta | np.timedelta64 | float] | AxesData[Any]
         ) = None,
         freq: str | BaseOffset = ...,
         closed: object = ...,
         dtype: Literal["<m8[ns]"] = "<m8[ns]",
         copy: bool = False,
-        name: str | None = None,
+        name: str = None,
     ) -> Self: ...
     # various ignores needed for mypy, as we do want to restrict what can be used in
     # arithmetic for these types
-    @overload
+    @overload  # type: ignore[override]
     def __add__(self, other: Period) -> PeriodIndex: ...
     @overload
     def __add__(self, other: DatetimeIndex) -> DatetimeIndex: ...
     @overload
-    def __add__(self, other: dt.timedelta | Timedelta | Self) -> Self: ...
+    def __add__(  # pyright: ignore[reportIncompatibleMethodOverride]
+        self, other: dt.timedelta | Timedelta | Self
+    ) -> Self: ...
     def __radd__(self, other: dt.datetime | Timestamp | DatetimeIndex) -> DatetimeIndex: ...  # type: ignore[override]
     def __sub__(self, other: dt.timedelta | Timedelta | Self) -> Self: ...
     def __mul__(self, other: num) -> Self: ...
@@ -57,13 +61,43 @@ class TimedeltaIndex(DatetimeTimedeltaMixin[Timedelta], TimedeltaIndexProperties
     def to_series(self, index: Any=None, name: Hashable = None) -> TimedeltaSeries: ...
     def shift(self, periods: int = 1, freq: Any=None) -> Self: ...
 
+@overload
 def timedelta_range(
-    start: TimedeltaConvertibleTypes | None = None,
-    end: TimedeltaConvertibleTypes | None = None,
-    periods: int | None = None,
+    start: TimedeltaConvertibleTypes,
+    end: TimedeltaConvertibleTypes,
+    *,
     freq: str | DateOffset | Timedelta | dt.timedelta | None = None,
     name: Hashable | None = None,
     closed: Literal["left", "right"] | None = None,
+    unit: None | str = None,
+) -> TimedeltaIndex: ...
+@overload
+def timedelta_range(
     *,
+    end: TimedeltaConvertibleTypes,
+    periods: int,
+    freq: str | DateOffset | Timedelta | dt.timedelta | None = None,
+    name: Hashable | None = None,
+    closed: Literal["left", "right"] | None = None,
+    unit: None | str = None,
+) -> TimedeltaIndex: ...
+@overload
+def timedelta_range(
+    start: TimedeltaConvertibleTypes,
+    *,
+    periods: int,
+    freq: str | DateOffset | Timedelta | dt.timedelta | None = None,
+    name: Hashable | None = None,
+    closed: Literal["left", "right"] | None = None,
+    unit: None | str = None,
+) -> TimedeltaIndex: ...
+@overload
+def timedelta_range(
+    start: TimedeltaConvertibleTypes,
+    end: TimedeltaConvertibleTypes,
+    periods: int,
+    *,
+    name: Hashable | None = None,
+    closed: Literal["left", "right"] | None = None,
     unit: None | str = None,
 ) -> TimedeltaIndex: ...

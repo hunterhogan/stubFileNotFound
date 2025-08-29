@@ -225,6 +225,13 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         engine_kwargs: WindowingEngineKwargs = None,
         **kwargs: Any,
     ) -> DataFrame: ...
+    @overload
+    def aggregate(
+        self,
+        func: AggFuncTypeFrame | None = None,
+        /,
+        **kwargs: Any,
+    ) -> DataFrame: ...
     agg = aggregate
     @overload
     def transform(

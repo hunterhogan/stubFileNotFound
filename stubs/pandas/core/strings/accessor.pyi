@@ -1,22 +1,46 @@
 # pyright: strict
 from builtins import slice as _slice
-from collections.abc import Callable, Hashable, Mapping, Sequence
-from pandas import DataFrame, Index, MultiIndex, Series
-from pandas._libs.tslibs.nattype import NaTType
-from pandas._typing import AlignJoin, DtypeObj, np_ndarray_bool, Scalar, T
-from pandas.core.base import NoNewAttributesMixin
-from typing import Any, Generic, Literal, overload, TypeVar
+from collections.abc import (
+    Callable,
+    Hashable,
+    Mapping,
+    Sequence,
+)
+import re
+from typing import (
+    Generic,
+    Literal,
+    TypeVar,
+    overload,
+)
+
 import numpy as np
 import numpy.typing as npt
 import pandas as pd
-import re
+from pandas import (
+    DataFrame,
+    Index,
+    MultiIndex,
+    Series,
+)
+from pandas.core.base import NoNewAttributesMixin
+
+from pandas._libs.tslibs.nattype import NaTType
+from pandas._typing import (
+    AlignJoin,
+    DtypeObj,
+    Scalar,
+    T,
+    np_1darray,
+)
+from typing import Any
 
 # Used for the result of str.split with expand=True
 _T_EXPANDING = TypeVar("_T_EXPANDING", bound=DataFrame | MultiIndex)
 # Used for the result of str.split with expand=False
 _T_LIST_STR = TypeVar("_T_LIST_STR", bound=Series[list[str]] | Index[list[str]])
 # Used for the result of str.match
-_T_BOOL = TypeVar("_T_BOOL", bound=Series[bool] | np_ndarray_bool)
+_T_BOOL = TypeVar("_T_BOOL", bound=Series[bool] | np_1darray[np.bool])
 # Used for the result of str.index / str.find
 _T_INT = TypeVar("_T_INT", bound=Series[int] | Index[int])
 # Used for the result of str.encode

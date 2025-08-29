@@ -1,5 +1,4 @@
-from pandas.core.indexes.base import Index
+from pandas._typing import GenericT_co, S1
+from pandas.core.indexes.base import _IndexSubclassBase
 
-from pandas._typing import S1
-
-class ExtensionIndex(Index[S1]): ...
+class ExtensionIndex(_IndexSubclassBase[S1, GenericT_co]): ...

@@ -1,9 +1,13 @@
+import numpy as np
 from pandas import PeriodDtype
+from pandas.core.arrays.datetimelike import (
+    DatelikeOps,
+    DatetimeLikeArrayMixin,
+)
+
 from pandas._libs.tslibs import Timestamp
 from pandas._libs.tslibs.period import Period
-from pandas.core.arrays.datetimelike import DatelikeOps, DatetimeLikeArrayMixin
 from typing import Any
-import numpy as np
 
 class PeriodArray(DatetimeLikeArrayMixin, DatelikeOps):
     __array_priority__: int = ...

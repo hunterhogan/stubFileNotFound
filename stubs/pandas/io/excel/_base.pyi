@@ -1,5 +1,5 @@
 from collections.abc import Callable, Hashable, Iterable, Mapping, Sequence
-from odf.opendocument import OpenDocument  # pyright: ignore[reportMissingTypeStubs]
+from odf.opendocument import OpenDocument
 from openpyxl.workbook.workbook import Workbook
 from pandas._libs.lib import _NoDefaultDoNotUse
 from pandas._typing import (
@@ -10,7 +10,7 @@ from types import TracebackType
 from typing import Any, Literal, overload
 from typing_extensions import Self
 from xlrd.book import Book
-import pyxlsb.workbook  # pyright: ignore[reportMissingTypeStubs]
+import pyxlsb.workbook
 
 @overload
 def read_excel(
@@ -246,7 +246,7 @@ class ExcelFile:
         false_values: Iterable[Hashable] | None = None,
         skiprows: int | Sequence[int] | Callable[[object], bool] | None = None,
         nrows: int | None = None,
-        na_values: Sequence[str] | dict[str | int, Sequence[str]]| None = None,
+        na_values: Sequence[str] | dict[str | int, Sequence[str]] = None,
         parse_dates: (
             bool
             | Sequence[int]
@@ -274,7 +274,7 @@ class ExcelFile:
         false_values: Iterable[Hashable] | None = None,
         skiprows: int | Sequence[int] | Callable[[object], bool] | None = None,
         nrows: int | None = None,
-        na_values: Sequence[str] | dict[str | int, Sequence[str]]| None = None,
+        na_values: Sequence[str] | dict[str | int, Sequence[str]] = None,
         parse_dates: (
             bool
             | Sequence[int]

@@ -22,9 +22,9 @@ import datetime as dt
 import numpy as np
 
 _ResamplerGroupBy: TypeAlias = (
-    DatetimeIndexResamplerGroupby[NDFrameT]
-    | PeriodIndexResamplerGroupby[NDFrameT]
-    | TimedeltaIndexResamplerGroupby[NDFrameT]
+    DatetimeIndexResamplerGroupby[NDFrameT]  # ty: ignore[invalid-argument-type]
+    | PeriodIndexResamplerGroupby[NDFrameT]  # ty: ignore[invalid-argument-type]
+    | TimedeltaIndexResamplerGroupby[NDFrameT]  # ty: ignore[invalid-argument-type]
 )
 
 class GroupBy(BaseGroupBy[NDFrameT]):

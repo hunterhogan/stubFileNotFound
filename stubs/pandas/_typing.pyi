@@ -16,8 +16,8 @@ from pandas.core.series import Series
 from pandas.core.tools.datetimes import FulldatetimeDict
 from pandas.io.formats.format import EngFormatter
 from re import Pattern
-from typing import Any, Literal, overload, Protocol, SupportsIndex, TypedDict, Union
-from typing_extensions import ParamSpec, TypeAlias, TypeVar
+from typing import Any, Generic, Literal, overload, Protocol, SupportsIndex, TypedDict, Union
+from typing_extensions import override, ParamSpec, TypeAlias, TypeVar
 import datetime
 import numpy as np
 import pandas as pd
@@ -480,7 +480,7 @@ IndexKeyFunc: TypeAlias = Callable[[Index], Index[Any] | AnyArrayLike] | None
 # types of `func` kwarg for DataFrame.aggregate and Series.aggregate
 # More specific than what is in pandas
 # following Union is here to make it ty compliant https://github.com/astral-sh/ty/issues/591
-AggFuncTypeBase: TypeAlias = Union[Callable[..., Any], str, np.ufunc]  # pyright: ignore[reportDeprecated] # noqa: UP007
+AggFuncTypeBase: TypeAlias = Union[Callable[..., Any], str, np.ufunc]  # noqa: UP007
 AggFuncTypeDictSeries: TypeAlias = Mapping[HashableT, AggFuncTypeBase]
 AggFuncTypeDictFrame: TypeAlias = Mapping[HashableT, AggFuncTypeBase | list[AggFuncTypeBase]]
 AggFuncTypeSeriesToFrame: TypeAlias = list[AggFuncTypeBase] | AggFuncTypeDictSeries[Any]
@@ -775,12 +775,33 @@ np_ndarray_float: TypeAlias = npt.NDArray[np.floating]
 np_ndarray_complex: TypeAlias = npt.NDArray[np.complexfloating]
 np_ndarray_bool: TypeAlias = npt.NDArray[np.bool_]
 np_ndarray_str: TypeAlias = npt.NDArray[np.str_]
+np_ndarray_dt: TypeAlias = npt.NDArray[np.datetime64]
+np_ndarray_td: TypeAlias = npt.NDArray[np.timedelta64]
+
+# Define shape and generic type variables with defaults similar to numpy
+GenericT = TypeVar("GenericT", bound=np.generic, default=Any)
+GenericT_co = TypeVar("GenericT_co", bound=np.generic, default=Any, covariant=True)
+ShapeT = TypeVar("ShapeT", bound=tuple[int, ...], default=tuple[Any, ...])
+# Numpy ndarray with more ergonomic typevar
+np_ndarray: TypeAlias = np.ndarray[ShapeT, np.dtype[GenericT]]
+# Numpy arrays with known shape (Do not use as argument types, only as return types)
+np_1darray: TypeAlias = np.ndarray[tuple[int], np.dtype[GenericT]]
+np_2darray: TypeAlias = np.ndarray[tuple[int, int], np.dtype[GenericT]]
+
+class SupportsDType(Protocol[GenericT_co]):
+    @property
+    def dtype(self) -> np.dtype[GenericT_co]: ...
+
+# Similar to npt.DTypeLike but leaves out np.dtype and None for use in overloads
+DTypeLike: TypeAlias = type[Any] | tuple[Any, Any] | list[Any] | str
 
 IndexType: TypeAlias = slice | np_ndarray_anyint | Index[Any] | list[int] | Series[int]
 MaskType: TypeAlias = Series[bool] | np_ndarray_bool | list[bool]
 
 # Scratch types for generics
 
+T_INT = TypeVar("T_INT", bound=int)
+T_COMPLEX = TypeVar("T_COMPLEX", bound=complex)
 SeriesDType: TypeAlias = (
     str
     | bytes
@@ -829,7 +850,7 @@ IndexingInt: TypeAlias = (
 )
 
 # AxesData is used for data for Index
-AxesData: TypeAlias = Mapping[S3, Any] | Axes | KeysView[Any]
+AxesData: TypeAlias = Mapping[S3, Any] | Axes | KeysView[S3]
 
 # Any plain Python or numpy function
 Function: TypeAlias = np.ufunc | Callable[..., Any]
@@ -989,5 +1010,15 @@ DictConvertible: TypeAlias = FulldatetimeDict | DataFrame
 # know the type of yet and that should be changed in the future. Use `Any` only
 # where it is the only acceptable type.
 Incomplete: TypeAlias = Any
+
+# differentiating between bool and int/float/complex
+# https://github.com/pandas-dev/pandas-stubs/pull/1312#pullrequestreview-3126128971
+class Just(Protocol, Generic[T]):
+    @property  # type: ignore[override]
+    @override
+    def __class__(self, /) -> type[T]: ...
+    @__class__.setter
+    @override
+    def __class__(self, t: type[T], /) -> None: ...
 
 __all__ = ["npt", "type_t"]

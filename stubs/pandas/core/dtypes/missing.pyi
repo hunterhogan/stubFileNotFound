@@ -1,24 +1,11 @@
-from typing import (
-    Any,
-    overload,
-)
-
-import numpy as np
-from numpy import typing as npt
-from pandas import (
-    DataFrame,
-    Index,
-    Series,
-)
-from typing_extensions import TypeIs
-
+from pandas import DataFrame, Index, Series
 from pandas._libs.missing import NAType
 from pandas._libs.tslibs import NaTType
-from pandas._typing import (
-    ArrayLike,
-    Scalar,
-    ScalarT,
-)
+from pandas._typing import np_1darray, np_ndarray, np_ndarray_bool, Scalar, ScalarT, ShapeT
+from pandas.core.arrays import ExtensionArray
+from typing import Any, overload
+from typing_extensions import TypeIs
+import numpy as np
 
 isposinf_scalar = ...
 isneginf_scalar = ...
@@ -28,7 +15,11 @@ def isna(obj: DataFrame) -> DataFrame: ...
 @overload
 def isna(obj: Series) -> Series[bool]: ...
 @overload
-def isna(obj: Index[Any] | list[Any] | ArrayLike) -> npt.NDArray[np.bool_]: ...
+def isna(obj: Index[Any] | ExtensionArray | list[ScalarT]) -> np_1darray[np.bool]: ...
+@overload
+def isna(obj: np_ndarray[ShapeT]) -> np_ndarray[ShapeT, np.bool]: ...
+@overload
+def isna(obj: list[Any]) -> np_ndarray_bool: ...
 @overload
 def isna(
     obj: Scalar | NaTType | NAType | None,
@@ -41,7 +32,11 @@ def notna(obj: DataFrame) -> DataFrame: ...
 @overload
 def notna(obj: Series) -> Series[bool]: ...
 @overload
-def notna(obj: Index[Any] | list[Any] | ArrayLike) -> npt.NDArray[np.bool_]: ...
+def notna(obj: Index[Any] | ExtensionArray | list[ScalarT]) -> np_1darray[np.bool]: ...
+@overload
+def notna(obj: np_ndarray[ShapeT]) -> np_ndarray[ShapeT, np.bool]: ...
+@overload
+def notna(obj: list[Any]) -> np_ndarray_bool: ...
 @overload
 def notna(obj: ScalarT | NaTType | NAType | None) -> TypeIs[ScalarT]: ...
 

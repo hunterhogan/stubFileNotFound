@@ -1,9 +1,10 @@
 # pyright: strict
 from datetime import _IsoCalendarDate  # pyright: ignore[reportPrivateUsage]
 from datetime import date as _date, datetime, time as _time, timedelta, tzinfo as _tzinfo
-from pandas import DatetimeIndex, Index, TimedeltaIndex
+from pandas import DatetimeIndex, TimedeltaIndex
 from pandas._libs.tslibs import BaseOffset, Period, Tick, Timedelta
-from pandas._typing import np_ndarray_bool, npt, TimestampNonexistent, TimeUnit
+from pandas._typing import np_1darray, np_ndarray, ShapeT, TimestampNonexistent, TimeUnit
+from pandas.core.indexes.base import Index
 from pandas.core.series import Series, TimedeltaSeries, TimestampSeries
 from time import struct_time
 from typing import Any, ClassVar, Literal, overload, SupportsIndex
@@ -21,9 +22,7 @@ class Timestamp(datetime, SupportsIndex):
     min: ClassVar[Timestamp]  # pyright: ignore[reportIncompatibleVariableOverride]
     max: ClassVar[Timestamp]  # pyright: ignore[reportIncompatibleVariableOverride]
 
-    resolution: ClassVar[  # pyright: ignore[reportIncompatibleVariableOverride]
-        Timedelta
-    ]
+    resolution: ClassVar[Timedelta]
     value: int
     def __new__(
         cls,
@@ -125,8 +124,7 @@ class Timestamp(datetime, SupportsIndex):
     def isoformat(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
         self,
         sep: str = "T",
-        timespec: Literal[
-            "auto",
+        timespec: Literal["auto",
             "hours",
             "minutes",
             "seconds",
@@ -145,40 +143,48 @@ class Timestamp(datetime, SupportsIndex):
     @overload  # type: ignore[override]
     def __le__(self, other: Timestamp | datetime | np.datetime64) -> bool: ...  # type: ignore[misc]
     @overload
+    def __le__(self, other: DatetimeIndex) -> np_1darray[np.bool]: ...
+    @overload
     def __le__(
-        self, other: DatetimeIndex | npt.NDArray[np.datetime64]
-    ) -> np_ndarray_bool: ...
+        self, other: np_ndarray[ShapeT, np.datetime64]
+    ) -> np_ndarray[ShapeT, np.bool]: ...
     @overload
     def __le__(self, other: TimestampSeries) -> Series[bool]: ...
     @overload  # type: ignore[override]
     def __lt__(self, other: Timestamp | datetime | np.datetime64) -> bool: ...  # type: ignore[misc]
     @overload
+    def __lt__(self, other: DatetimeIndex) -> np_1darray[np.bool]: ...
+    @overload
     def __lt__(
-        self, other: DatetimeIndex | npt.NDArray[np.datetime64]
-    ) -> np_ndarray_bool: ...
+        self, other: np_ndarray[ShapeT, np.datetime64]
+    ) -> np_ndarray[ShapeT, np.bool]: ...
     @overload
     def __lt__(self, other: TimestampSeries) -> Series[bool]: ...
     @overload  # type: ignore[override]
     def __ge__(self, other: Timestamp | datetime | np.datetime64) -> bool: ...  # type: ignore[misc]
     @overload
+    def __ge__(self, other: DatetimeIndex) -> np_1darray[np.bool]: ...
+    @overload
     def __ge__(
-        self, other: DatetimeIndex | npt.NDArray[np.datetime64]
-    ) -> np_ndarray_bool: ...
+        self, other: np_ndarray[ShapeT, np.datetime64]
+    ) -> np_ndarray[ShapeT, np.bool]: ...
     @overload
     def __ge__(self, other: TimestampSeries) -> Series[bool]: ...
     @overload  # type: ignore[override]
     def __gt__(self, other: Timestamp | datetime | np.datetime64) -> bool: ...  # type: ignore[misc]
     @overload
+    def __gt__(self, other: DatetimeIndex) -> np_1darray[np.bool]: ...
+    @overload
     def __gt__(
-        self, other: DatetimeIndex | npt.NDArray[np.datetime64]
-    ) -> np_ndarray_bool: ...
+        self, other: np_ndarray[ShapeT, np.datetime64]
+    ) -> np_ndarray[ShapeT, np.bool]: ...
     @overload
     def __gt__(self, other: TimestampSeries) -> Series[bool]: ...
     # error: Signature of "__add__" incompatible with supertype "date"/"datetime"
     @overload  # type: ignore[override]
     def __add__(
-        self, other: npt.NDArray[np.timedelta64]
-    ) -> npt.NDArray[np.datetime64]: ...
+        self, other: np_ndarray[ShapeT, np.timedelta64]
+    ) -> np_ndarray[ShapeT, np.datetime64]: ...
     @overload
     def __add__(self, other: timedelta | np.timedelta64 | Tick) -> Self: ...
     @overload
@@ -191,8 +197,8 @@ class Timestamp(datetime, SupportsIndex):
     def __radd__(self, other: TimedeltaIndex) -> DatetimeIndex: ...
     @overload
     def __radd__(
-        self, other: npt.NDArray[np.timedelta64]
-    ) -> npt.NDArray[np.datetime64]: ...
+        self, other: np_ndarray[ShapeT, np.timedelta64]
+    ) -> np_ndarray[ShapeT, np.datetime64]: ...
     # TODO: test dt64
     @overload  # type: ignore[override]
     def __sub__(self, other: Timestamp | datetime | np.datetime64) -> Timedelta: ...
@@ -206,14 +212,16 @@ class Timestamp(datetime, SupportsIndex):
     def __sub__(self, other: TimestampSeries) -> TimedeltaSeries: ...
     @overload
     def __sub__(
-        self, other: npt.NDArray[np.timedelta64]
-    ) -> npt.NDArray[np.datetime64]: ...
+        self, other: np_ndarray[ShapeT, np.timedelta64]
+    ) -> np_ndarray[ShapeT, np.datetime64]: ...
     @overload
     def __eq__(self, other: Timestamp | datetime | np.datetime64) -> bool: ...  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
     @overload
     def __eq__(self, other: TimestampSeries) -> Series[bool]: ...  # type: ignore[overload-overlap]
     @overload
-    def __eq__(self, other: npt.NDArray[np.datetime64] | Index[Any]) -> np_ndarray_bool: ...  # type: ignore[overload-overlap]
+    def __eq__(self, other: Index[Any]) -> np_1darray[np.bool]: ...  # type: ignore[overload-overlap]
+    @overload
+    def __eq__(self, other: np_ndarray[ShapeT, np.datetime64]) -> np_ndarray[ShapeT, np.bool]: ...  # type: ignore[overload-overlap]
     @overload
     def __eq__(self, other: object) -> Literal[False]: ...
     @overload
@@ -221,7 +229,9 @@ class Timestamp(datetime, SupportsIndex):
     @overload
     def __ne__(self, other: TimestampSeries) -> Series[bool]: ...  # type: ignore[overload-overlap]
     @overload
-    def __ne__(self, other: npt.NDArray[np.datetime64] | Index[Any]) -> np_ndarray_bool: ...  # type: ignore[overload-overlap]
+    def __ne__(self, other: Index[Any]) -> np_1darray[np.bool]: ...  # type: ignore[overload-overlap]
+    @overload
+    def __ne__(self, other: np_ndarray[ShapeT, np.datetime64]) -> np_ndarray[ShapeT, np.bool]: ...  # type: ignore[overload-overlap]
     @overload
     def __ne__(self, other: object) -> Literal[True]: ...
     def __hash__(self) -> int: ...

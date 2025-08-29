@@ -1,18 +1,45 @@
-from collections.abc import Hashable, Sequence
-from pandas import Index
-from pandas._libs.interval import Interval as Interval, IntervalMixin
-from pandas._libs.tslibs.offsets import BaseOffset
-from pandas._typing import (
-	DatetimeLike, DtypeArg, FillnaOptions, IntervalClosedType, IntervalT, Label, MaskType, np_ndarray_anyint,
-	np_ndarray_bool, npt)
-from pandas.core.dtypes.dtypes import IntervalDtype as IntervalDtype
-from pandas.core.indexes.extension import ExtensionIndex
-from pandas.core.series import TimedeltaSeries, TimestampSeries
-from typing import Any, final, Literal, overload
-from typing_extensions import TypeAlias
+from collections.abc import (
+    Hashable,
+    Sequence,
+)
 import datetime as dt
+from typing import (
+    Literal,
+    final,
+    overload,
+)
+
 import numpy as np
 import pandas as pd
+from pandas import Index
+from pandas.core.indexes.extension import ExtensionIndex
+from pandas.core.series import (
+    TimedeltaSeries,
+    TimestampSeries,
+)
+from typing_extensions import TypeAlias
+
+from pandas._libs.interval import (
+    Interval as Interval,
+    IntervalMixin,
+)
+from pandas._libs.tslibs.offsets import BaseOffset
+from pandas._typing import (
+    DatetimeLike,
+    DtypeArg,
+    FillnaOptions,
+    IntervalClosedType,
+    IntervalT,
+    Label,
+    MaskType,
+    np_1darray,
+    np_ndarray_anyint,
+    np_ndarray_bool,
+    npt,
+)
+
+from pandas.core.dtypes.dtypes import IntervalDtype as IntervalDtype
+from typing import Any
 
 _EdgesInt: TypeAlias = (
     Sequence[int]
@@ -40,13 +67,13 @@ _EdgesTimedelta: TypeAlias = (
 _TimestampLike: TypeAlias = pd.Timestamp | np.datetime64 | dt.datetime
 _TimedeltaLike: TypeAlias = pd.Timedelta | np.timedelta64 | dt.timedelta
 
-class IntervalIndex(ExtensionIndex[IntervalT], IntervalMixin):
+class IntervalIndex(ExtensionIndex[IntervalT, np.object_], IntervalMixin):
     closed: IntervalClosedType
 
     def __new__(
         cls,
         data: Sequence[IntervalT],
-        closed: IntervalClosedType| None = None,
+        closed: IntervalClosedType = None,
         dtype: IntervalDtype | None = None,
         copy: bool = False,
         name: Hashable = None,
@@ -192,7 +219,7 @@ class IntervalIndex(ExtensionIndex[IntervalT], IntervalMixin):
     def memory_usage(self, deep: bool = False) -> int: ...
     @property
     def is_overlapping(self) -> bool: ...
-    def get_loc(self, key: Label) -> int | slice | npt.NDArray[np.bool_]: ...
+    def get_loc(self, key: Label) -> int | slice | np_1darray[np.bool]: ...
     @final
     def get_indexer(
         self,
@@ -231,7 +258,7 @@ class IntervalIndex(ExtensionIndex[IntervalT], IntervalMixin):
     @overload  # type: ignore[override]
     def __gt__(
         self, other: IntervalT | IntervalIndex[IntervalT]
-    ) -> np_ndarray_bool: ...
+    ) -> np_1darray[np.bool]: ...
     @overload
     def __gt__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, other: pd.Series[IntervalT]
@@ -239,7 +266,7 @@ class IntervalIndex(ExtensionIndex[IntervalT], IntervalMixin):
     @overload  # type: ignore[override]
     def __ge__(
         self, other: IntervalT | IntervalIndex[IntervalT]
-    ) -> np_ndarray_bool: ...
+    ) -> np_1darray[np.bool]: ...
     @overload
     def __ge__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, other: pd.Series[IntervalT]
@@ -247,7 +274,7 @@ class IntervalIndex(ExtensionIndex[IntervalT], IntervalMixin):
     @overload  # type: ignore[override]
     def __le__(
         self, other: IntervalT | IntervalIndex[IntervalT]
-    ) -> np_ndarray_bool: ...
+    ) -> np_1darray[np.bool]: ...
     @overload
     def __le__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, other: pd.Series[IntervalT]
@@ -255,13 +282,13 @@ class IntervalIndex(ExtensionIndex[IntervalT], IntervalMixin):
     @overload  # type: ignore[override]
     def __lt__(
         self, other: IntervalT | IntervalIndex[IntervalT]
-    ) -> np_ndarray_bool: ...
+    ) -> np_1darray[np.bool]: ...
     @overload
     def __lt__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, other: pd.Series[IntervalT]
     ) -> pd.Series[bool]: ...
     @overload  # type: ignore[override]
-    def __eq__(self, other: IntervalT | IntervalIndex[IntervalT]) -> np_ndarray_bool: ...  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
+    def __eq__(self, other: IntervalT | IntervalIndex[IntervalT]) -> np_1darray[np.bool]: ...  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
     @overload
     def __eq__(self, other: pd.Series[IntervalT]) -> pd.Series[bool]: ...  # type: ignore[overload-overlap]
     @overload
@@ -269,7 +296,7 @@ class IntervalIndex(ExtensionIndex[IntervalT], IntervalMixin):
         self, other: object
     ) -> Literal[False]: ...
     @overload  # type: ignore[override]
-    def __ne__(self, other: IntervalT | IntervalIndex[IntervalT]) -> np_ndarray_bool: ...  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
+    def __ne__(self, other: IntervalT | IntervalIndex[IntervalT]) -> np_1darray[np.bool]: ...  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
     @overload
     def __ne__(self, other: pd.Series[IntervalT]) -> pd.Series[bool]: ...  # type: ignore[overload-overlap]
     @overload

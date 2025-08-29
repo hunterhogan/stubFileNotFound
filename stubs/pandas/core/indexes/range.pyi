@@ -1,15 +1,15 @@
 from collections.abc import Hashable, Sequence
-from pandas._typing import HashableT, MaskType, np_ndarray_anyint, npt
-from pandas.core.indexes.base import Index
+from pandas._typing import HashableT, MaskType, np_1darray, np_ndarray_anyint
+from pandas.core.indexes.base import _IndexSubclassBase, Index
 from typing import Any, final, overload
 import numpy as np
 
-class RangeIndex(Index[int]):
+class RangeIndex(_IndexSubclassBase[int, np.int64]):
     def __new__(
         cls,
-        start: int | RangeIndex | range| None = None,
-        stop: int| None = None,
-        step: int| None = None,
+        start: int | RangeIndex | range = None,
+        stop: int = None,
+        step: int = None,
         dtype: Any=None,
         copy: bool = False,
         name: Hashable = None,
@@ -45,7 +45,7 @@ class RangeIndex(Index[int]):
     def argsort(self, *args: Any, **kwargs: Any) -> Any: ...
     def factorize(
         self, sort: bool = False, use_na_sentinel: bool = True
-    ) -> tuple[npt.NDArray[np.intp], RangeIndex]: ...
+    ) -> tuple[np_1darray[np.intp], RangeIndex]: ...
     def equals(self, other: Any) -> Any: ...
     @final
     def join(

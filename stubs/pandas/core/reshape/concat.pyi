@@ -16,7 +16,7 @@ def concat(  # type: ignore[overload-overlap]
     names: list[HashableT4] | None = None,
     verify_integrity: bool = False,
     sort: bool = False,
-    copy: bool| None = None,
+    copy: bool = None,
 ) -> DataFrame: ...
 @overload
 def concat(  # pyright: ignore[reportOverlappingOverload]
@@ -30,7 +30,7 @@ def concat(  # pyright: ignore[reportOverlappingOverload]
     names: list[HashableT4] | None = None,
     verify_integrity: bool = False,
     sort: bool = False,
-    copy: bool| None = None,
+    copy: bool = None,
 ) -> Series[S2]: ...
 @overload
 def concat(  # type: ignore[overload-overlap]
@@ -44,7 +44,7 @@ def concat(  # type: ignore[overload-overlap]
     names: list[HashableT4] | None = None,
     verify_integrity: bool = False,
     sort: bool = False,
-    copy: bool| None = None,
+    copy: bool = None,
 ) -> Series: ...
 @overload
 def concat(  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
@@ -58,7 +58,7 @@ def concat(  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappin
     names: list[HashableT4] | None = None,
     verify_integrity: bool = False,
     sort: bool = False,
-    copy: bool| None = None,
+    copy: bool = None,
 ) -> DataFrame: ...
 @overload
 def concat(
@@ -72,7 +72,7 @@ def concat(
     names: list[HashableT4] | None = None,
     verify_integrity: bool = False,
     sort: bool = False,
-    copy: bool| None = None,
+    copy: bool = None,
 ) -> Never: ...
 @overload
 def concat(  # type: ignore[overload-overlap]
@@ -86,7 +86,7 @@ def concat(  # type: ignore[overload-overlap]
     names: list[HashableT4] | None = None,
     verify_integrity: bool = False,
     sort: bool = False,
-    copy: bool| None = None,
+    copy: bool = None,
 ) -> DataFrame: ...
 @overload
 def concat(  # type: ignore[overload-overlap]
@@ -100,7 +100,7 @@ def concat(  # type: ignore[overload-overlap]
     names: list[HashableT4] | None = None,
     verify_integrity: bool = False,
     sort: bool = False,
-    copy: bool| None = None,
+    copy: bool = None,
 ) -> Series: ...
 @overload
 def concat(
@@ -117,7 +117,7 @@ def concat(
     names: list[HashableT4] | None = None,
     verify_integrity: bool = False,
     sort: bool = False,
-    copy: bool| None = None,
+    copy: bool = None,
 ) -> DataFrame: ...
 
 # Including either of the next 2 overloads causes mypy to complain about
