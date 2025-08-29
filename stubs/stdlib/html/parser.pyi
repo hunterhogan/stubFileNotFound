@@ -1,7 +1,7 @@
+import sys
 from _markupbase import ParserBase
 from re import Pattern
 from typing import Final
-import sys
 
 __all__ = ["HTMLParser"]
 

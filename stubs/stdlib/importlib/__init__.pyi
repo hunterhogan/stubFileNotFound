@@ -1,8 +1,8 @@
+import sys
 from importlib._bootstrap import __import__ as __import__
 from importlib.abc import Loader
 from types import ModuleType
 from typing_extensions import deprecated
-import sys
 
 __all__ = ["__import__", "import_module", "invalidate_caches", "reload"]
 

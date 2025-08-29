@@ -1,9 +1,9 @@
-from _typeshed import ReadableBuffer, SizedBuffer, StrOrBytesPath, WriteableBuffer
-from io import FileIO, TextIOWrapper
-from typing import Final, Literal, overload, Protocol, type_check_only
-from typing_extensions import deprecated, TypeAlias
 import sys
 import zlib
+from _typeshed import ReadableBuffer, SizedBuffer, StrOrBytesPath, WriteableBuffer
+from io import FileIO, TextIOWrapper
+from typing import Final, Literal, Protocol, overload, type_check_only
+from typing_extensions import TypeAlias, deprecated
 
 if sys.version_info >= (3, 14):
     from compression._common._streams import BaseStream, DecompressReader

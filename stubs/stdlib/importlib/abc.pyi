@@ -1,14 +1,14 @@
+import _ast
+import sys
+import types
 from _typeshed import ReadableBuffer, StrPath
 from abc import ABCMeta, abstractmethod
 from collections.abc import Iterator, Mapping, Sequence
 from importlib import _bootstrap_external
 from importlib.machinery import ModuleSpec
 from io import BufferedReader
-from typing import Any, IO, Literal, overload, Protocol, runtime_checkable
+from typing import IO, Any, Literal, Protocol, overload, runtime_checkable
 from typing_extensions import deprecated
-import _ast
-import sys
-import types
 
 if sys.version_info >= (3, 11):
     __all__ = [
@@ -40,7 +40,7 @@ if sys.version_info < (3, 12):
     @deprecated("Deprecated since Python 3.3; removed in Python 3.12. Use `MetaPathFinder` or `PathEntryFinder` instead.")
     class Finder(metaclass=ABCMeta): ...
 
-@deprecated("Deprecated as of Python 3.7: Use importlib.resources.abc.TraversableResources instead.")
+@deprecated("Deprecated since Python 3.7. Use `importlib.resources.abc.TraversableResources` instead.")
 class ResourceLoader(Loader):
     @abstractmethod
     def get_data(self, path: str) -> bytes: ...
@@ -61,7 +61,7 @@ class ExecutionLoader(InspectLoader):
     def get_filename(self, fullname: str) -> str: ...
 
 class SourceLoader(_bootstrap_external.SourceLoader, ResourceLoader, ExecutionLoader, metaclass=ABCMeta):  # type: ignore[misc]  # incompatible definitions of source_to_code in the base classes
-    @deprecated("Deprecated as of Python 3.3: Use importlib.resources.abc.SourceLoader.path_stats instead.")
+    @deprecated("Deprecated since Python 3.3. Use `importlib.resources.abc.SourceLoader.path_stats` instead.")
     def path_mtime(self, path: str) -> float: ...
     def set_data(self, path: str, data: bytes) -> None: ...
     def get_source(self, fullname: str) -> str | None: ...
@@ -181,4 +181,7 @@ if sys.version_info < (3, 11):
 
 elif sys.version_info < (3, 14):
     from importlib.resources.abc import (
-    	ResourceReader as ResourceReader, Traversable as Traversable, TraversableResources as TraversableResources)
+        ResourceReader as ResourceReader,
+        Traversable as Traversable,
+        TraversableResources as TraversableResources,
+    )

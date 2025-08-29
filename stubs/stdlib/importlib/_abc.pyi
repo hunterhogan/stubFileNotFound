@@ -1,8 +1,8 @@
+import sys
+import types
 from abc import ABCMeta
 from importlib.machinery import ModuleSpec
 from typing_extensions import deprecated
-import sys
-import types
 
 if sys.version_info >= (3, 10):
     class Loader(metaclass=ABCMeta):

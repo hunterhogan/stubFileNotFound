@@ -1,12 +1,12 @@
+import importlib.abc
+import importlib.machinery
+import sys
+import types
 from _typeshed.importlib import LoaderProtocol
 from collections.abc import Mapping, Sequence
 from types import ModuleType
 from typing import Any, ClassVar
 from typing_extensions import deprecated
-import importlib.abc
-import importlib.machinery
-import sys
-import types
 
 # Signature of `builtins.__import__` should be kept identical to `importlib.__import__`
 def __import__(

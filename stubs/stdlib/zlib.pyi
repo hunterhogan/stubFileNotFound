@@ -1,7 +1,7 @@
+import sys
 from _typeshed import ReadableBuffer
 from typing import Any, Final, final, type_check_only
 from typing_extensions import Self
-import sys
 
 DEFLATED: Final = 8
 DEF_MEM_LEVEL: Final[int]

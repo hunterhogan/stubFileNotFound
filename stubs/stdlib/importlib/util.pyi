@@ -1,14 +1,18 @@
+import importlib.machinery
+import sys
+import types
 from _typeshed import ReadableBuffer
 from collections.abc import Callable
 from importlib._bootstrap import module_from_spec as module_from_spec, spec_from_loader as spec_from_loader
 from importlib._bootstrap_external import (
-	cache_from_source as cache_from_source, decode_source as decode_source, MAGIC_NUMBER as MAGIC_NUMBER,
-	source_from_cache as source_from_cache, spec_from_file_location as spec_from_file_location)
+    MAGIC_NUMBER as MAGIC_NUMBER,
+    cache_from_source as cache_from_source,
+    decode_source as decode_source,
+    source_from_cache as source_from_cache,
+    spec_from_file_location as spec_from_file_location,
+)
 from importlib.abc import Loader
-from typing_extensions import deprecated, ParamSpec
-import importlib.machinery
-import sys
-import types
+from typing_extensions import ParamSpec, deprecated
 
 _P = ParamSpec("_P")
 
