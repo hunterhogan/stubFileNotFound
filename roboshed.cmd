@@ -7,6 +7,7 @@ robocopy C:\clones\typeshed\stubs\networkx stubs /S /MT /XD "@tests" /XF "METADA
 robocopy C:\clones\typeshed\stubs\requests stubs /S /MT /XD "@tests" /XF "METADATA.toml"
 robocopy C:\clones\typeshed\stubs\requests-oauthlib stubs /S /MT /XD "@tests" /XF "METADATA.toml"
 robocopy C:\clones\typeshed\stubs\tqdm stubs /S /MT /XD "@tests" /XF "METADATA.toml"
+robocopy C:\clones\typeshed\stubs\cffi stubs /S /MT /XD "@tests" /XF "METADATA.toml"
 
 IF NOT DEFINED VIRTUAL_ENV exit CALL .venv\Scripts\activate.bat
 
