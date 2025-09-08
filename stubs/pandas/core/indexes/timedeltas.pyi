@@ -2,7 +2,7 @@ from collections.abc import Hashable, Sequence
 from pandas import DateOffset, Index, Period
 from pandas._libs import Timedelta, Timestamp
 from pandas._libs.tslibs import BaseOffset
-from pandas._typing import AxesData, num, TimedeltaConvertibleTypes
+from pandas._typing import AxesData, np_ndarray_td, num, TimedeltaConvertibleTypes
 from pandas.core.indexes.accessors import TimedeltaIndexProperties
 from pandas.core.indexes.datetimelike import DatetimeTimedeltaMixin
 from pandas.core.indexes.datetimes import DatetimeIndex
@@ -20,12 +20,12 @@ class TimedeltaIndex(
         cls,
         data: (
             Sequence[dt.timedelta | Timedelta | np.timedelta64 | float] | AxesData[Any]
-        ) = None,
+        ) | None = None,
         freq: str | BaseOffset = ...,
         closed: object = ...,
         dtype: Literal["<m8[ns]"] = "<m8[ns]",
         copy: bool = False,
-        name: str = None,
+        name: str | None = None,
     ) -> Self: ...
     # various ignores needed for mypy, as we do want to restrict what can be used in
     # arithmetic for these types
@@ -38,7 +38,9 @@ class TimedeltaIndex(
         self, other: dt.timedelta | Timedelta | Self
     ) -> Self: ...
     def __radd__(self, other: dt.datetime | Timestamp | DatetimeIndex) -> DatetimeIndex: ...  # type: ignore[override]
-    def __sub__(self, other: dt.timedelta | Timedelta | Self) -> Self: ...
+    def __sub__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
+        self, other: dt.timedelta | np.timedelta64 | np_ndarray_td | Self
+    ) -> Self: ...
     def __mul__(self, other: num) -> Self: ...
     @overload  # type: ignore[override]
     def __truediv__(self, other: num | Sequence[float]) -> Self: ...

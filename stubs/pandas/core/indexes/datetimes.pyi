@@ -1,48 +1,17 @@
-from collections.abc import (
-    Hashable,
-    Sequence,
-)
-from datetime import (
-    datetime,
-    timedelta,
-    tzinfo as _tzinfo,
-)
-from typing import (
-    final,
-    overload,
-)
-
-import numpy as np
-from pandas import (
-    DataFrame,
-    Index,
-    Timedelta,
-    TimedeltaIndex,
-    Timestamp,
-)
-from pandas.core.indexes.accessors import DatetimeIndexProperties
-from pandas.core.indexes.datetimelike import DatetimeTimedeltaMixin
-from pandas.core.series import (
-    TimedeltaSeries,
-    TimestampSeries,
-)
-from typing_extensions import Self
-
+from collections.abc import Hashable, Sequence
+from datetime import datetime, timedelta, tzinfo as _tzinfo
+from pandas import DataFrame, Index, Timedelta, TimedeltaIndex, Timestamp
 from pandas._libs.tslibs.offsets import DateOffset
 from pandas._typing import (
-    AxesData,
-    DateAndDatetimeLike,
-    Dtype,
-    Frequency,
-    IntervalClosedType,
-    TimeUnit,
-    TimeZones,
-)
-
+	AxesData, DateAndDatetimeLike, Dtype, Frequency, IntervalClosedType, np_ndarray_dt, np_ndarray_td, TimeUnit, TimeZones)
 from pandas.core.dtypes.dtypes import DatetimeTZDtype
-
+from pandas.core.indexes.accessors import DatetimeIndexProperties
+from pandas.core.indexes.datetimelike import DatetimeTimedeltaMixin
+from pandas.core.series import TimedeltaSeries, TimestampSeries
 from pandas.tseries.offsets import BaseOffset
-from typing import Any
+from typing import Any, final, overload
+from typing_extensions import Self
+import numpy as np
 
 class DatetimeIndex(
     DatetimeTimedeltaMixin[Timestamp, np.datetime64], DatetimeIndexProperties
@@ -55,7 +24,7 @@ class DatetimeIndex(
         ambiguous: str = 'raise',
         dayfirst: bool = False,
         yearfirst: bool = False,
-        dtype: Dtype = None,
+        dtype: Dtype | None = None,
         copy: bool = False,
         name: Hashable = None,
     ) -> Self: ...
@@ -68,15 +37,16 @@ class DatetimeIndex(
     def __add__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, other: timedelta | Timedelta | TimedeltaIndex | BaseOffset
     ) -> DatetimeIndex: ...
-    @overload
+    @overload  # type: ignore[override]
     def __sub__(self, other: TimedeltaSeries) -> TimestampSeries: ...
     @overload
     def __sub__(
-        self, other: timedelta | Timedelta | TimedeltaIndex | BaseOffset
+        self,
+        other: timedelta | np.timedelta64 | np_ndarray_td | TimedeltaIndex | BaseOffset,
     ) -> DatetimeIndex: ...
     @overload
-    def __sub__(
-        self, other: datetime | Timestamp | DatetimeIndex
+    def __sub__(  # pyright: ignore[reportIncompatibleMethodOverride]
+        self, other: datetime | np.datetime64 | np_ndarray_dt | DatetimeIndex
     ) -> TimedeltaIndex: ...
     @final
     def to_series(self, index: Any=None, name: Hashable = None) -> TimestampSeries: ...
@@ -98,7 +68,7 @@ class DatetimeIndex(
     @property
     def tzinfo(self) -> _tzinfo | None: ...
     @property
-    def dtype(self) -> np.dtype | DatetimeTZDtype: ...
+    def dtype(self) -> np.dtype[Any] | DatetimeTZDtype: ...
     def shift(
         self, periods: int = 1, freq: DateOffset | Timedelta | str | None = None
     ) -> Self: ...

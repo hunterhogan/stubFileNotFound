@@ -7,10 +7,10 @@ import libcst
 Leverage existing packages, such as `mypy`, `pyright`, and `hunterMakesPy` for everything and anything: write as little new code as possible.
 
 TODO:
-- apply to variables in classes
 - after stubdefaulter: Expression of type "None" cannot be assigned to parameter of type "bool"
+(?<!None) = None
 - Would `astToolkit` be useful or better?
-
+- `np.dtype` without confusing with the other identifiers named `dtype`
 """
 
 # Generic Type Arguments Configuration
