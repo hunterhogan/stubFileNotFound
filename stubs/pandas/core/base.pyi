@@ -1,14 +1,17 @@
-from collections.abc import Hashable, Iterator
+from collections.abc import Hashable, Iterator, Sequence
 from pandas import Index, Series
 from pandas._typing import (
-	AxisIndex, DropKeep, DTypeLike, GenericT, GenericT_co, NDFrameT, np_1darray, S1, Scalar, SupportsDType)
+	ArrayLike, AxisIndex, DropKeep, DTypeLike, GenericT, GenericT_co, NDFrameT, np_1darray, np_ndarray_anyint,
+	np_ndarray_bool, np_ndarray_complex, np_ndarray_float, S1, Scalar, SequenceNotStr, SupportsDType)
 from pandas.core.arraylike import OpsMixin
 from pandas.core.arrays import ExtensionArray
 from pandas.core.arrays.categorical import Categorical
 from pandas.util._decorators import cache_readonly
-from typing import Any, final, Generic, Literal, overload
+from typing import Any, final, Generic, Literal, overload, TypeAlias
 from typing_extensions import Self
 import numpy as np
+
+_ListLike: TypeAlias = ArrayLike | dict[str, np.ndarray[Any, Any]] | SequenceNotStr[S1]
 
 class NoNewAttributesMixin:
     def __setattr__(self, key: str, value: Any) -> None: ...
@@ -27,7 +30,7 @@ class IndexOpsMixin(OpsMixin, Generic[S1, GenericT_co]):
     @property
     def T(self) -> Self: ...
     @property
-    def shape(self) -> tuple[Any, ...]: ...
+    def shape(self) -> tuple[int, ...]: ...
     @property
     def ndim(self) -> int: ...
     def item(self) -> S1: ...
@@ -63,8 +66,12 @@ class IndexOpsMixin(OpsMixin, Generic[S1, GenericT_co]):
     ) -> np_1darray: ...
     @property
     def empty(self) -> bool: ...
-    def max(self, axis: Any=..., skipna: bool = ..., **kwargs: Any) -> Any: ...
-    def min(self, axis: Any=..., skipna: bool = ..., **kwargs: Any) -> Any: ...
+    def max(
+        self, axis: AxisIndex | None = ..., skipna: bool = ..., **kwargs: Any
+    ) -> S1: ...
+    def min(
+        self, axis: AxisIndex | None = ..., skipna: bool = ..., **kwargs: Any
+    ) -> S1: ...
     def argmax(
         self,
         axis: AxisIndex | None = None,
@@ -90,7 +97,7 @@ class IndexOpsMixin(OpsMixin, Generic[S1, GenericT_co]):
         normalize: Literal[False] = False,
         sort: bool = True,
         ascending: bool = False,
-        bins: Any=None,
+        bins: int | None = None,
         dropna: bool = True,
     ) -> Series[int]: ...
     @overload
@@ -99,7 +106,7 @@ class IndexOpsMixin(OpsMixin, Generic[S1, GenericT_co]):
         normalize: Literal[True],
         sort: bool = True,
         ascending: bool = False,
-        bins: Any=None,
+        bins: int | None = None,
         dropna: bool = True,
     ) -> Series[float]: ...
     def nunique(self, dropna: bool = True) -> int: ...
@@ -112,7 +119,29 @@ class IndexOpsMixin(OpsMixin, Generic[S1, GenericT_co]):
     def factorize(
         self, sort: bool = False, use_na_sentinel: bool = True
     ) -> tuple[np_1darray, np_1darray | Index[Any] | Categorical]: ...
+    @overload
     def searchsorted(
-        self, value: Any, side: Literal["left", "right"] = 'left', sorter: Any=None
-    ) -> int | list[int]: ...
+        self,
+        value: _ListLike,
+        side: Literal["left", "right"] = 'left',
+        sorter: _ListLike | None = None,
+    ) -> np_1darray[np.intp]: ...
+    @overload
+    def searchsorted(
+        self,
+        value: Scalar,
+        side: Literal["left", "right"] = 'left',
+        sorter: _ListLike | None = None,
+    ) -> np.intp: ...
     def drop_duplicates(self, *, keep: DropKeep = 'first') -> Self: ...
+
+NumListLike: TypeAlias = (
+    ExtensionArray
+    | np_ndarray_bool
+    | np_ndarray_anyint
+    | np_ndarray_float
+    | np_ndarray_complex
+    | dict[str, np.ndarray[Any, Any]]
+    | Sequence[complex]
+    | IndexOpsMixin[complex]
+)
