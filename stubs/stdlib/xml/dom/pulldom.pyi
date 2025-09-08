@@ -1,3 +1,4 @@
+import sys
 from _typeshed import Incomplete, Unused
 from collections.abc import MutableSequence, Sequence
 from typing import Final, Literal, NoReturn
@@ -6,7 +7,6 @@ from xml.dom.minidom import Comment, Document, DOMImplementation, Element, Proce
 from xml.sax import _SupportsReadClose
 from xml.sax.handler import ContentHandler
 from xml.sax.xmlreader import AttributesImpl, AttributesNSImpl, Locator, XMLReader
-import sys
 
 START_ELEMENT: Final = "START_ELEMENT"
 END_ELEMENT: Final = "END_ELEMENT"

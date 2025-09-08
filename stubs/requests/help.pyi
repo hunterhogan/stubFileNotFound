@@ -1,4 +1,4 @@
-from typing import type_check_only, TypedDict
+from typing import TypedDict, type_check_only
 
 @type_check_only
 class _VersionDict(TypedDict):

@@ -1,9 +1,9 @@
-from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
-from collections.abc import Callable, Hashable
-from typing import Any, ClassVar, final, Literal, overload, Protocol, SupportsIndex, type_check_only, TypeVar
-from typing_extensions import TypeAlias
 import sys
 import types
+from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
+from collections.abc import Callable, Hashable
+from typing import Any, ClassVar, Literal, Protocol, SupportsIndex, TypeVar, final, overload, type_check_only
+from typing_extensions import TypeAlias
 
 _T = TypeVar("_T")
 

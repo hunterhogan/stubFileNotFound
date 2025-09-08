@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Generator, Mapping, MutableSet, Reversible
+
 from networkx.classes.digraph import DiGraph
-from networkx.classes.graph import _Node, Graph
+from networkx.classes.graph import Graph, _Node
 from networkx.utils.backends import _dispatchable
 
 __all__ = ["check_planarity", "is_planar", "PlanarEmbedding"]

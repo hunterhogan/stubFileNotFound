@@ -1,8 +1,9 @@
-from .std import tqdm as std_tqdm
 from _typeshed import Incomplete, SupportsWrite
 from abc import ABC, abstractmethod
 from collections.abc import Iterable, Mapping
-from typing import NoReturn, overload, type_check_only, TypeVar
+from typing import NoReturn, TypeVar, overload, type_check_only
+
+from .std import tqdm as std_tqdm
 
 __all__ = ["tqdm_rich", "trrange", "tqdm", "trange"]
 

@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Mapping
 from re import Pattern
-from typing import Protocol, type_check_only, TypeVar
+from typing import Protocol, TypeVar, type_check_only
 from typing_extensions import ParamSpec
 
 CUR_OS: str

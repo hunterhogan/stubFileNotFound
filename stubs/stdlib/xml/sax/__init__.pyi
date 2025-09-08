@@ -1,14 +1,17 @@
-from _typeshed import _T_co, ReadableBuffer, StrPath, SupportsRead
+import sys
+from _typeshed import ReadableBuffer, StrPath, SupportsRead, _T_co
 from collections.abc import Iterable
 from typing import Final, Protocol, type_check_only
 from typing_extensions import TypeAlias
 from xml.sax._exceptions import (
-	SAXException as SAXException, SAXNotRecognizedException as SAXNotRecognizedException,
-	SAXNotSupportedException as SAXNotSupportedException, SAXParseException as SAXParseException,
-	SAXReaderNotAvailable as SAXReaderNotAvailable)
+    SAXException as SAXException,
+    SAXNotRecognizedException as SAXNotRecognizedException,
+    SAXNotSupportedException as SAXNotSupportedException,
+    SAXParseException as SAXParseException,
+    SAXReaderNotAvailable as SAXReaderNotAvailable,
+)
 from xml.sax.handler import ContentHandler as ContentHandler, ErrorHandler as ErrorHandler
 from xml.sax.xmlreader import InputSource as InputSource, XMLReader
-import sys
 
 @type_check_only
 class _SupportsReadClose(SupportsRead[_T_co], Protocol[_T_co]):
