@@ -92,7 +92,7 @@ class _LocIndexerFrame(_LocIndexer, Generic[_T]):
     @overload
     def __getitem__(self, idx: Scalar) -> Series | _T: ...
     @overload
-    def __getitem__(  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
+    def __getitem__(  # type: ignore[overload-overlap]
         self,
         idx: (
             IndexType
@@ -1624,7 +1624,9 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @property
     def index(self) -> Index[Any]: ...
     @index.setter
-    def index(self, idx: Index[Any]) -> None: ...
+    def index(
+        self, idx: AnyArrayLike | SequenceNotStr[Hashable] | tuple[Hashable, ...]
+    ) -> None: ...
     @property
     def loc(self) -> _LocIndexerFrame[Self]: ...
     @property
@@ -1778,7 +1780,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         **kwargs: Any,
     ) -> Self: ...
     @overload
-    def clip( # pyright: ignore[reportOverlappingOverload]
+    def clip(
         self,
         lower: AnyArrayLike | None = None,
         upper: AnyArrayLike | None = None,
@@ -1818,7 +1820,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         **kwargs: Any,
     ) -> None: ...
     @overload
-    def clip( # pyright: ignore[reportOverlappingOverload]
+    def clip(
         self,
         lower: AnyArrayLike | None = None,
         upper: AnyArrayLike | None = None,

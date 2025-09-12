@@ -1,3 +1,4 @@
+from _typeshed import SupportsGetItem
 from builtins import bool as _bool, str as _str
 from collections.abc import (
 	Callable, Hashable, Iterable, Iterator, KeysView, Mapping, MutableMapping, Sequence, ValuesView)
@@ -11,17 +12,17 @@ from pandas._libs.tslibs import BaseOffset
 from pandas._libs.tslibs.nattype import NaTType
 from pandas._libs.tslibs.offsets import DateOffset
 from pandas._typing import (
-	AggFuncTypeBase, AggFuncTypeDictFrame, AggFuncTypeSeriesToFrame, AnyAll, AnyArrayLike, ArrayLike, Axes, AxesData, Axis,
-	AxisColumn, AxisIndex, BooleanDtypeArg, BytesDtypeArg, CalculationMethod, CategoryDtypeArg, ComplexDtypeArg,
-	CompressionOptions, DropKeep, Dtype, DTypeLike, DtypeObj, FilePath, FillnaOptions, FloatDtypeArg, FloatFormatType,
-	GenericT, GenericT_co, GroupByObjectNonScalar, HashableT1, IgnoreRaise, IndexingInt, IndexKeyFunc, IndexLabel,
-	IntDtypeArg, InterpolateOptions, IntervalClosedType, IntervalT, JoinHow, JSONSerializable, JsonSeriesOrient, Just,
-	Label, Level, ListLike, ListLikeU, MaskType, NaPosition, np_1darray, np_ndarray_anyint, np_ndarray_bool,
-	np_ndarray_complex, np_ndarray_float, np_ndarray_str, np_ndarray_td, npt, NsmallestNlargestKeep, num, ObjectDtypeArg,
-	QuantileInterpolation, RandomState, ReindexMethod, Renamer, ReplaceValue, S1, S2, Scalar, ScalarT, SequenceNotStr,
-	SeriesByT, SortKind, StrDtypeArg, StrLike, Suffixes, SupportsDType, T as _T, T_COMPLEX, T_INT, TimeAmbiguous,
-	TimedeltaDtypeArg, TimestampDtypeArg, TimeUnit, TimeZones, ToTimestampHow, UIntDtypeArg, ValueKeyFunc, VoidDtypeArg,
-	WriteBuffer)
+	_T_co, AggFuncTypeBase, AggFuncTypeDictFrame, AggFuncTypeSeriesToFrame, AnyAll, AnyArrayLike, ArrayLike, Axes,
+	AxesData, Axis, AxisColumn, AxisIndex, BooleanDtypeArg, BytesDtypeArg, CalculationMethod, CategoryDtypeArg,
+	ComplexDtypeArg, CompressionOptions, DropKeep, Dtype, DTypeLike, DtypeObj, FilePath, FillnaOptions, FloatDtypeArg,
+	FloatFormatType, GenericT, GenericT_co, GroupByObjectNonScalar, HashableT1, IgnoreRaise, IndexingInt, IndexKeyFunc,
+	IndexLabel, IntDtypeArg, InterpolateOptions, IntervalClosedType, IntervalT, JoinHow, JSONSerializable,
+	JsonSeriesOrient, Just, Label, Level, ListLike, ListLikeU, MaskType, NaPosition, np_1darray, np_ndarray_anyint,
+	np_ndarray_bool, np_ndarray_complex, np_ndarray_float, np_ndarray_str, np_ndarray_td, npt, NsmallestNlargestKeep, num,
+	ObjectDtypeArg, QuantileInterpolation, RandomState, ReindexMethod, Renamer, ReplaceValue, S1, S2, Scalar, ScalarT,
+	SequenceNotStr, SeriesByT, SortKind, StrDtypeArg, StrLike, Suffixes, SupportsDType, T as _T, T_COMPLEX, T_INT,
+	TimeAmbiguous, TimedeltaDtypeArg, TimestampDtypeArg, TimeUnit, TimeZones, ToTimestampHow, UIntDtypeArg, ValueKeyFunc,
+	VoidDtypeArg, WriteBuffer)
 from pandas.core.api import (
 	Int8Dtype as Int8Dtype, Int16Dtype as Int16Dtype, Int32Dtype as Int32Dtype, Int64Dtype as Int64Dtype)
 from pandas.core.arrays import TimedeltaArray
@@ -51,10 +52,14 @@ from pandas.core.window import Expanding, ExponentialMovingWindow
 from pandas.core.window.rolling import Rolling, Window
 from pandas.plotting import PlotAccessor
 from pathlib import Path
-from typing import Any, ClassVar, final, Generic, Literal, NoReturn, overload, type_check_only
+from typing import Any, ClassVar, final, Generic, Literal, NoReturn, overload, Protocol, type_check_only
 from typing_extensions import Never, Self, TypeAlias
 import numpy as np
 import xarray as xr
+
+@type_check_only
+class _SupportsAdd(Protocol[_T_co]):
+    def __add__(self, value: Self, /) -> _T_co: ...
 
 class _iLocIndexerSeries(_iLocIndexer, Generic[S1]):
     # get item
@@ -353,7 +358,9 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @property
     def index(self) -> Index[Any]: ...
     @index.setter
-    def index(self, idx: Index[Any]) -> None: ...
+    def index(
+        self, idx: AnyArrayLike | SequenceNotStr[Hashable] | tuple[Hashable, ...]
+    ) -> None: ...
     @overload
     def reset_index(
         self,
@@ -3599,34 +3606,14 @@ class Series(IndexOpsMixin[S1], NDFrame):
         numeric_only: _bool = False,
         **kwargs: Any,
     ) -> float: ...
-    @overload
     def sum(
-        self: Series[Never],
+        self: SupportsGetItem[Scalar, _SupportsAdd[_T]],
         axis: AxisIndex | None = 0,
         skipna: _bool | None = True,
         numeric_only: _bool = False,
         min_count: int = 0,
         **kwargs: Any,
-    ) -> Any: ...
-    # between `Series[bool]` and `Series[int]`.
-    @overload
-    def sum(
-        self: Series[bool],
-        axis: AxisIndex | None = 0,
-        skipna: _bool | None = True,
-        numeric_only: _bool = False,
-        min_count: int = 0,
-        **kwargs: Any,
-    ) -> int: ...
-    @overload
-    def sum(
-        self: Series[S1],
-        axis: AxisIndex | None = 0,
-        skipna: _bool | None = True,
-        numeric_only: _bool = False,
-        min_count: int = 0,
-        **kwargs: Any,
-    ) -> S1: ...
+    ) -> _T: ...
     def to_list(self) -> list[S1]: ...
     def tolist(self) -> list[S1]: ...
     def var(
