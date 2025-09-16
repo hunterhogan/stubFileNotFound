@@ -1,10 +1,10 @@
+import sys
 from _typeshed import StrPath
 from collections.abc import Callable, Generator, Sequence
 from contextlib import contextmanager
 from tkinter import Canvas, Frame, Misc, PhotoImage, Scrollbar
-from typing import Any, ClassVar, Literal, overload, type_check_only, TypedDict
-from typing_extensions import deprecated, disjoint_base, Self, TypeAlias
-import sys
+from typing import Any, ClassVar, Literal, TypedDict, overload, type_check_only
+from typing_extensions import Self, TypeAlias, deprecated, disjoint_base
 
 __all__ = [
     "ScrolledCanvas",

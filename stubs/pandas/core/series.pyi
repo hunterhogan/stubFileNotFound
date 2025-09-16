@@ -325,7 +325,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self, ufunc: Callable[..., Any], method: _str, *inputs: Any, **kwargs: Any
     ) -> Any: ...
     def __array__(
-        self, dtype: _str | np.dtype[Any] | None = None, copy: bool | None = None
+        self, dtype: _str | np.dtype = None, copy: bool | None = None
     ) -> np_1darray: ...
     @property
     def axes(self) -> list[Any]: ...
@@ -396,7 +396,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         buf: FilePath | WriteBuffer[_str],
         na_rep: _str = 'NaN',
-        float_format: FloatFormatType | None = None,
+        float_format: FloatFormatType = None,
         header: _bool = True,
         index: _bool = True,
         length: _bool = False,
@@ -410,7 +410,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         buf: None = None,
         na_rep: _str = 'NaN',
-        float_format: FloatFormatType | None = None,
+        float_format: FloatFormatType = None,
         header: _bool = True,
         index: _bool = True,
         length: _bool = False,
@@ -432,7 +432,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         default_handler: Callable[[Any], JSONSerializable] | None = None,
         lines: Literal[True],
         compression: CompressionOptions = 'infer',
-        index: _bool | None = None,
+        index: _bool = None,
         indent: int | None = None,
         mode: Literal["a"],
     ) -> None: ...
@@ -449,7 +449,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         default_handler: Callable[[Any], JSONSerializable] | None = None,
         lines: Literal[True],
         compression: CompressionOptions = 'infer',
-        index: _bool | None = None,
+        index: _bool = None,
         indent: int | None = None,
         mode: Literal["a"],
     ) -> _str: ...
@@ -466,7 +466,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         default_handler: Callable[[Any], JSONSerializable] | None = None,
         lines: _bool = False,
         compression: CompressionOptions = 'infer',
-        index: _bool | None = None,
+        index: _bool = None,
         indent: int | None = None,
         mode: Literal["w"] = "w",
     ) -> None: ...
@@ -483,7 +483,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         default_handler: Callable[[Any], JSONSerializable] | None = None,
         lines: _bool = False,
         compression: CompressionOptions = 'infer',
-        index: _bool | None = None,
+        index: _bool = None,
         indent: int | None = None,
         mode: Literal["w"] = "w",
     ) -> _str: ...
@@ -848,7 +848,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def aggregate(
         self,
-        func: AggFuncTypeSeriesToFrame | None = None,
+        func: AggFuncTypeSeriesToFrame = None,
         axis: AxisIndex = 0,
         *args: Any,
         **kwargs: Any,
@@ -910,7 +910,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         index: Callable[[Any], Label],
         *,
         axis: Axis | None = None,
-        copy: bool | None = None,
+        copy: bool = None,
         inplace: Literal[True],
         level: Level | None = None,
         errors: IgnoreRaise = 'ignore',
@@ -921,7 +921,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         index: Mapping[Any, Label],
         *,
         axis: Axis | None = None,
-        copy: bool | None = None,
+        copy: bool = None,
         inplace: Literal[True],
         level: Level | None = None,
         errors: IgnoreRaise = 'ignore',
@@ -932,7 +932,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         index: Scalar | tuple[Hashable, ...] | None = None,
         *,
         axis: Axis | None = None,
-        copy: bool | None = None,
+        copy: bool = None,
         inplace: Literal[True],
         level: Level | None = None,
         errors: IgnoreRaise = 'ignore',
@@ -943,7 +943,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         index: Renamer | Scalar | tuple[Hashable, ...] | None = None,
         *,
         axis: Axis | None = None,
-        copy: bool | None = None,
+        copy: bool = None,
         inplace: Literal[False] = False,
         level: Level | None = None,
         errors: IgnoreRaise = 'ignore',
@@ -962,7 +962,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         value: Scalar | NAType | dict[Any, Any] | Series[S1] | DataFrame | None = None,
         *,
-        axis: AxisIndex | None = None,
+        axis: AxisIndex = None,
         limit: int | None = None,
         inplace: Literal[True],
     ) -> None: ...
@@ -971,7 +971,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         value: Scalar | NAType | dict[Any, Any] | Series[S1] | DataFrame | None = None,
         *,
-        axis: AxisIndex | None = None,
+        axis: AxisIndex = None,
         limit: int | None = None,
         inplace: Literal[False] = False,
     ) -> Series[S1]: ...
@@ -1078,7 +1078,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     ) -> SubplotBase: ...
     @final
     def swapaxes(
-        self, axis1: AxisIndex, axis2: AxisIndex, copy: _bool | None = None
+        self, axis1: AxisIndex, axis2: AxisIndex, copy: _bool = None
     ) -> Series[S1]: ...
     @final
     def droplevel(self, level: Level | list[Level], axis: AxisIndex = 0) -> Self: ...
@@ -1127,70 +1127,70 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def astype(
         self,
         dtype: BooleanDtypeArg,
-        copy: _bool | None = None,
+        copy: _bool = None,
         errors: IgnoreRaise = 'raise',
     ) -> Series[bool]: ...
     @overload
     def astype(
         self,
         dtype: IntDtypeArg | UIntDtypeArg,
-        copy: _bool | None = None,
+        copy: _bool = None,
         errors: IgnoreRaise = 'raise',
     ) -> Series[int]: ...
     @overload
     def astype(
         self,
         dtype: StrDtypeArg,
-        copy: _bool | None = None,
+        copy: _bool = None,
         errors: IgnoreRaise = 'raise',
     ) -> Series[_str]: ...
     @overload
     def astype(
         self,
         dtype: BytesDtypeArg,
-        copy: _bool | None = None,
+        copy: _bool = None,
         errors: IgnoreRaise = 'raise',
     ) -> Series[bytes]: ...
     @overload
     def astype(
         self,
         dtype: FloatDtypeArg,
-        copy: _bool | None = None,
+        copy: _bool = None,
         errors: IgnoreRaise = 'raise',
     ) -> Series[float]: ...
     @overload
     def astype(
         self,
         dtype: ComplexDtypeArg,
-        copy: _bool | None = None,
+        copy: _bool = None,
         errors: IgnoreRaise = 'raise',
     ) -> Series[complex]: ...
     @overload
     def astype(
         self,
         dtype: TimedeltaDtypeArg,
-        copy: _bool | None = None,
+        copy: _bool = None,
         errors: IgnoreRaise = 'raise',
     ) -> TimedeltaSeries: ...
     @overload
     def astype(
         self,
         dtype: TimestampDtypeArg,
-        copy: _bool | None = None,
+        copy: _bool = None,
         errors: IgnoreRaise = 'raise',
     ) -> TimestampSeries: ...
     @overload
     def astype(
         self,
         dtype: CategoryDtypeArg,
-        copy: _bool | None = None,
+        copy: _bool = None,
         errors: IgnoreRaise = 'raise',
     ) -> Series[CategoricalDtype]: ...
     @overload
     def astype(
         self,
         dtype: ObjectDtypeArg | VoidDtypeArg | ExtensionDtype | DtypeObj,
-        copy: _bool | None = None,
+        copy: _bool = None,
         errors: IgnoreRaise = 'raise',
     ) -> Series: ...
     @final
@@ -1410,7 +1410,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         before: date | _str | int | None = None,
         after: date | _str | int | None = None,
         axis: AxisIndex | None = 0,
-        copy: _bool | None = None,
+        copy: _bool = None,
     ) -> Series[S1]: ...
     @final
     def tz_convert(
@@ -3352,7 +3352,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def cumprod(
         self: Series[_str],
-        axis: AxisIndex | None = None,
+        axis: AxisIndex = None,
         skipna: _bool = True,
         *args: Any,
         **kwargs: Any,
@@ -3360,7 +3360,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def cumprod(
         self,
-        axis: AxisIndex | None = None,
+        axis: AxisIndex = None,
         skipna: _bool = True,
         *args: Any,
         **kwargs: Any,
@@ -3662,7 +3662,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         copy: _bool = True,
         inplace: Literal[False] = False,
     ) -> Self: ...
-    def set_axis(self, labels: Any, *, axis: Axis = 0, copy: _bool | None = None) -> Self: ...
+    def set_axis(self, labels: Any, *, axis: Axis = 0, copy: _bool = None) -> Self: ...
     def __iter__(self) -> Iterator[S1]: ...
     @final
     def xs(

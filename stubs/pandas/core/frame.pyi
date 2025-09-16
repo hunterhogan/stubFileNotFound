@@ -754,7 +754,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         axis: Axis | None = None,
         method: ReindexMethod | None = None,
         copy: bool = True,
-        level: int | _str | None = None,
+        level: int | _str = None,
         fill_value: Scalar | None = ...,
         limit: int | None = None,
         tolerance: float | Timedelta | None = None,
@@ -767,7 +767,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         index: Renamer | None = None,
         columns: Renamer | None = None,
         axis: Axis | None = None,
-        copy: bool | None = None,
+        copy: bool = None,
         inplace: Literal[True],
         level: Level | None = None,
         errors: IgnoreRaise = 'ignore',
@@ -780,7 +780,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         index: Renamer | None = None,
         columns: Renamer | None = None,
         axis: Axis | None = None,
-        copy: bool | None = None,
+        copy: bool = None,
         inplace: Literal[False] = False,
         level: Level | None = None,
         errors: IgnoreRaise = 'ignore',
@@ -791,7 +791,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         value: Scalar | NAType | dict[Any, Any] | Series | DataFrame | None = None,
         *,
         axis: Axis | None = None,
-        limit: int | None = None,
+        limit: int = None,
         inplace: Literal[True],
     ) -> None: ...
     @overload
@@ -800,7 +800,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         value: Scalar | NAType | dict[Any, Any] | Series | DataFrame | None = None,
         *,
         axis: Axis | None = None,
-        limit: int | None = None,
+        limit: int = None,
         inplace: Literal[False] = False,
     ) -> Self: ...
     @overload
@@ -1285,7 +1285,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def agg(
         self,
-        func: list[AggFuncTypeBase] | AggFuncTypeDictFrame[Any] | None = None,
+        func: list[AggFuncTypeBase] | AggFuncTypeDictFrame[Any] = None,
         axis: Axis = 0,
         **kwargs: Any,
     ) -> Self: ...
@@ -1772,10 +1772,10 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def clip(
         self,
-        lower: AnyArrayLike | None = None,
+        lower: AnyArrayLike = None,
         upper: AnyArrayLike | None = None,
         *,
-        axis: Axis | None = None,
+        axis: Axis = None,
         inplace: Literal[False] = False,
         **kwargs: Any,
     ) -> Self: ...
@@ -1783,9 +1783,9 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def clip(
         self,
         lower: AnyArrayLike | None = None,
-        upper: AnyArrayLike | None = None,
+        upper: AnyArrayLike = None,
         *,
-        axis: Axis | None = None,
+        axis: Axis = None,
         inplace: Literal[False] = False,
         **kwargs: Any,
     ) -> Self: ...
@@ -1812,10 +1812,10 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     @overload
     def clip(
         self,
-        lower: AnyArrayLike | None = None,
+        lower: AnyArrayLike = None,
         upper: AnyArrayLike | None = None,
         *,
-        axis: Axis | None = None,
+        axis: Axis = None,
         inplace: Literal[True],
         **kwargs: Any,
     ) -> None: ...
@@ -1823,9 +1823,9 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def clip(
         self,
         lower: AnyArrayLike | None = None,
-        upper: AnyArrayLike | None = None,
+        upper: AnyArrayLike = None,
         *,
-        axis: Axis | None = None,
+        axis: Axis = None,
         inplace: Literal[True],
         **kwargs: Any,
     ) -> None: ...
@@ -1961,7 +1961,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         *,
         axis: Axis = 0,
         limit: int | None = None,
-        limit_direction: Literal["forward", "backward", "both"] | None = None,
+        limit_direction: Literal["forward", "backward", "both"] = None,
         limit_area: Literal["inside", "outside"] | None = None,
         inplace: Literal[True],
         **kwargs: Any,
@@ -1973,7 +1973,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         *,
         axis: Axis = 0,
         limit: int | None = None,
-        limit_direction: Literal["forward", "backward", "both"] | None = None,
+        limit_direction: Literal["forward", "backward", "both"] = None,
         limit_area: Literal["inside", "outside"] | None = None,
         inplace: Literal[False] = False,
         **kwargs: Any,
@@ -2137,7 +2137,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         method: FillnaOptions | Literal["nearest"] | None = None,
         copy: _bool = True,
         limit: int | None = None,
-        tolerance: Scalar | AnyArrayLike | Sequence[Scalar] | None = None,
+        tolerance: Scalar | AnyArrayLike | Sequence[Scalar] = None,
     ) -> Self: ...
     # Rename axis with `mapper`, `axis`, and `inplace=True`
     @overload
@@ -2146,7 +2146,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         mapper: Scalar | ListLike | None = ...,
         *,
         axis: Axis | None = 0,
-        copy: _bool | None = None,
+        copy: _bool = None,
         inplace: Literal[True],
     ) -> None: ...
     # Rename axis with `mapper`, `axis`, and `inplace=False`
@@ -2156,7 +2156,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         mapper: Scalar | ListLike | None = ...,
         *,
         axis: Axis | None = 0,
-        copy: _bool | None = None,
+        copy: _bool = None,
         inplace: Literal[False] = False,
     ) -> Self: ...
     # Rename axis with `index` and/or `columns` and `inplace=True`
@@ -2166,7 +2166,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         *,
         index: _str | Sequence[_str] | dict[_str | int, _str] | Callable[..., Any] | None = ...,
         columns: _str | Sequence[_str] | dict[_str | int, _str] | Callable[..., Any] | None = ...,
-        copy: _bool | None = None,
+        copy: _bool = None,
         inplace: Literal[True],
     ) -> None: ...
     # Rename axis with `index` and/or `columns` and `inplace=False`
@@ -2176,7 +2176,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         *,
         index: _str | Sequence[_str] | dict[_str | int, _str] | Callable[..., Any] | None = ...,
         columns: _str | Sequence[_str] | dict[_str | int, _str] | Callable[..., Any] | None = ...,
-        copy: _bool | None = None,
+        copy: _bool = None,
         inplace: Literal[False] = False,
     ) -> Self: ...
     def rfloordiv(
@@ -2262,7 +2262,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         **kwargs: Any,
     ) -> Series: ...
     # Not actually positional, but used to handle removal of deprecated
-    def set_axis(self, labels: Any, *, axis: Axis = 0, copy: _bool | None = None) -> Self: ...
+    def set_axis(self, labels: Any, *, axis: Axis = 0, copy: _bool = None) -> Self: ...
     def skew(
         self,
         axis: Axis | None = 0,
@@ -2289,7 +2289,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         **kwargs: Any,
     ) -> Series: ...
     @final
-    def swapaxes(self, axis1: Axis, axis2: Axis, copy: _bool | None = None) -> Self: ...
+    def swapaxes(self, axis1: Axis, axis2: Axis, copy: _bool = None) -> Self: ...
     @final
     def tail(self, n: int = 5) -> Self: ...
     @overload
@@ -2427,7 +2427,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         before: dt.date | _str | int | None = None,
         after: dt.date | _str | int | None = None,
         axis: Axis | None = None,
-        copy: _bool | None = None,
+        copy: _bool = None,
     ) -> Self: ...
     @final
     def tz_convert(

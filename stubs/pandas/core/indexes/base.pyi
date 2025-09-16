@@ -27,7 +27,7 @@ class Index(IndexOpsMixin[S1]):
         cls,
         data: Sequence[bool | np.bool_] | IndexOpsMixin[bool] | np_ndarray_bool,
         *,
-        dtype: Literal["bool"] | type_t[bool | np.bool_] | None = None,
+        dtype: Literal["bool"] | type_t[bool | np.bool_] = None,
         copy: bool = False,
         name: Hashable = None,
         tupleize_cols: bool = True,
@@ -37,7 +37,7 @@ class Index(IndexOpsMixin[S1]):
         cls,
         data: Sequence[int | np.integer] | IndexOpsMixin[int] | np_ndarray_anyint,
         *,
-        dtype: Literal["int"] | type_t[int | np.integer] | None = None,
+        dtype: Literal["int"] | type_t[int | np.integer] = None,
         copy: bool = False,
         name: Hashable = None,
         tupleize_cols: bool = True,
@@ -57,7 +57,7 @@ class Index(IndexOpsMixin[S1]):
         cls,
         data: Sequence[float | np.floating] | IndexOpsMixin[float] | np_ndarray_float,
         *,
-        dtype: Literal["float"] | type_t[float | np.floating] | None = None,
+        dtype: Literal["float"] | type_t[float | np.floating] = None,
         copy: bool = False,
         name: Hashable = None,
         tupleize_cols: bool = True,
@@ -81,7 +81,7 @@ class Index(IndexOpsMixin[S1]):
             | np_ndarray_complex
         ),
         *,
-        dtype: Literal["complex"] | type_t[complex | np.complexfloating] | None = None,
+        dtype: Literal["complex"] | type_t[complex | np.complexfloating] = None,
         copy: bool = False,
         name: Hashable = None,
         tupleize_cols: bool = True,
@@ -102,7 +102,7 @@ class Index(IndexOpsMixin[S1]):
         cls,
         data: Sequence[np.datetime64 | datetime] | IndexOpsMixin[datetime],
         *,
-        dtype: TimestampDtypeArg | None = None,
+        dtype: TimestampDtypeArg = None,
         copy: bool = False,
         name: Hashable = None,
         tupleize_cols: bool = True,
@@ -122,7 +122,7 @@ class Index(IndexOpsMixin[S1]):
         cls,
         data: Sequence[Period] | IndexOpsMixin[Period],
         *,
-        dtype: PeriodDtype | None = None,
+        dtype: PeriodDtype = None,
         copy: bool = False,
         name: Hashable = None,
         tupleize_cols: bool = True,
@@ -142,7 +142,7 @@ class Index(IndexOpsMixin[S1]):
         cls,
         data: Sequence[np.timedelta64 | timedelta] | IndexOpsMixin[timedelta],
         *,
-        dtype: TimedeltaDtypeArg | None = None,
+        dtype: TimedeltaDtypeArg = None,
         copy: bool = False,
         name: Hashable = None,
         tupleize_cols: bool = True,
@@ -183,7 +183,7 @@ class Index(IndexOpsMixin[S1]):
         cls,
         data: Iterable[S1] | IndexOpsMixin[S1],
         *,
-        dtype: type[S1] | None = None,
+        dtype: type[S1] = None,
         copy: bool = False,
         name: Hashable = None,
         tupleize_cols: bool = True,
@@ -191,7 +191,7 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
-        data: AxesData[Any] | None = None,
+        data: AxesData[Any] = None,
         *,
         dtype: type[S1],
         copy: bool = False,
@@ -204,7 +204,7 @@ class Index(IndexOpsMixin[S1]):
         cls,
         data: AxesData[Any],
         *,
-        dtype: Dtype | None = None,
+        dtype: Dtype = None,
         copy: bool = False,
         name: Hashable = None,
         tupleize_cols: bool = True,
@@ -225,14 +225,14 @@ class Index(IndexOpsMixin[S1]):
     def is_(self, other: Any) -> bool: ...
     def __len__(self) -> int: ...
     def __array__(
-        self, dtype: _str | np.dtype[Any] | None = None, copy: bool | None = None
+        self, dtype: _str | np.dtype = None, copy: bool | None = None
     ) -> np_1darray: ...
     def __array_wrap__(self, result: Any, context: Any=None) -> Any: ...
     @property
     def dtype(self) -> DtypeObj: ...
     @final
     def ravel(self, order: _str = 'C') -> Any: ...
-    def view(self, cls:Any=None) -> Any: ...
+    def view(self, cls=None) -> Any: ...
     def astype(self, dtype: DtypeArg, copy: bool = True) -> Index[Any]: ...
     def take(
         self,

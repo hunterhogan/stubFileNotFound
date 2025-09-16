@@ -20,12 +20,12 @@ class TimedeltaIndex(
         cls,
         data: (
             Sequence[dt.timedelta | Timedelta | np.timedelta64 | float] | AxesData[Any]
-        ) | None = None,
+        ) = None,
         freq: str | BaseOffset = ...,
         closed: object = ...,
         dtype: Literal["<m8[ns]"] = "<m8[ns]",
         copy: bool = False,
-        name: str | None = None,
+        name: str = None,
     ) -> Self: ...
     # various ignores needed for mypy, as we do want to restrict what can be used in
     # arithmetic for these types

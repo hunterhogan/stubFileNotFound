@@ -24,7 +24,7 @@ class DatetimeIndex(
         ambiguous: str = 'raise',
         dayfirst: bool = False,
         yearfirst: bool = False,
-        dtype: Dtype | None = None,
+        dtype: Dtype = None,
         copy: bool = False,
         name: Hashable = None,
     ) -> Self: ...
@@ -68,7 +68,7 @@ class DatetimeIndex(
     @property
     def tzinfo(self) -> _tzinfo | None: ...
     @property
-    def dtype(self) -> np.dtype[Any] | DatetimeTZDtype: ...
+    def dtype(self) -> np.dtype | DatetimeTZDtype: ...
     def shift(
         self, periods: int = 1, freq: DateOffset | Timedelta | str | None = None
     ) -> Self: ...

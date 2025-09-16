@@ -1,14 +1,25 @@
-from collections.abc import Hashable, Sequence
+from collections.abc import (
+    Hashable,
+    Sequence,
+)
+from typing import (
+    Any,
+    Literal,
+)
+
 from matplotlib.axes import Axes
 from matplotlib.colors import Colormap
 from matplotlib.figure import Figure
 from matplotlib.table import Table
-from pandas._typing import HashableT, npt
+import numpy as np
 from pandas.core.frame import DataFrame
 from pandas.core.series import Series
-from typing import Any, Literal
 from typing_extensions import TypeAlias
-import numpy as np
+
+from pandas._typing import (
+    HashableT,
+    npt,
+)
 
 _Color: TypeAlias = str | Sequence[float]
 

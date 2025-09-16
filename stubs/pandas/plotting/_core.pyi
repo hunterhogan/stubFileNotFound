@@ -1,15 +1,34 @@
-from collections.abc import Callable, Hashable, Iterable, Sequence
+from collections.abc import (
+    Callable,
+    Hashable,
+    Iterable,
+    Sequence,
+)
+from typing import (
+    Any,
+    Literal,
+    NamedTuple,
+    overload,
+)
+
 from matplotlib.axes import Axes
 from matplotlib.colors import Colormap
 from matplotlib.lines import Line2D
-from pandas import Series
-from pandas._typing import ArrayLike, HashableT, HashableT1, HashableT2, HashableT3, npt
-from pandas.core.frame import DataFrame
-from scipy.stats import gaussian_kde
-from typing import Any, Literal, NamedTuple, overload
-from typing_extensions import TypeAlias
 import numpy as np
 import pandas as pd
+from pandas import Series
+from pandas.core.frame import DataFrame
+from scipy.stats import gaussian_kde
+from typing_extensions import TypeAlias
+
+from pandas._typing import (
+    ArrayLike,
+    HashableT,
+    HashableT1,
+    HashableT2,
+    HashableT3,
+    npt,
+)
 
 class _BoxPlotT(NamedTuple):
     ax: Axes
