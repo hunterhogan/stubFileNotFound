@@ -742,7 +742,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         join: AlignJoin = "outer",
         axis: Axis | None = None,
         level: Level | None = None,
-        copy: _bool = True,
+        copy: _bool = False,
         fill_value: Scalar | NAType | None = None,
     ) -> tuple[Self, NDFrameT]: ...
     def reindex(
@@ -753,7 +753,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         columns: Axes | None = None,
         axis: Axis | None = None,
         method: ReindexMethod | None = None,
-        copy: bool = True,
+        copy: _bool = False,
         level: int | _str = None,
         fill_value: Scalar | None = ...,
         limit: int | None = None,
@@ -1480,7 +1480,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         right_index: _bool = False,
         sort: _bool = False,
         suffixes: Suffixes = ('_x', '_y'),
-        copy: _bool = True,
+        copy: _bool = False,
         indicator: _bool | _str = False,
         validate: MergeValidate | None = None,
     ) -> Self: ...
@@ -1550,13 +1550,13 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         freq: Any=None,
         how: ToTimestampHow = 'start',
         axis: Axis = 0,
-        copy: _bool = True,
+        copy: _bool = False,
     ) -> Self: ...
     def to_period(
         self,
         freq: _str | None = None,
         axis: Axis = 0,
-        copy: _bool = True,
+        copy: _bool = False,
     ) -> Self: ...
     def isin(self, values: Iterable[Any] | Series | DataFrame | dict[Any, Any]) -> Self: ...
     @property
@@ -1723,7 +1723,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def astype(
         self,
         dtype: AstypeArg | Mapping[Any, Dtype] | Series,
-        copy: _bool = True,
+        copy: _bool = False,
         errors: IgnoreRaise = "raise",
     ) -> Self: ...
     @final
@@ -2135,7 +2135,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         self,
         other: DataFrame,
         method: FillnaOptions | Literal["nearest"] | None = None,
-        copy: _bool = True,
+        copy: _bool = False,
         limit: int | None = None,
         tolerance: Scalar | AnyArrayLike | Sequence[Scalar] = None,
     ) -> Self: ...
@@ -2435,7 +2435,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         tz: TimeZones,
         axis: Axis = 0,
         level: Level | None = None,
-        copy: _bool = True,
+        copy: _bool = False,
     ) -> Self: ...
     @final
     def tz_localize(
@@ -2443,7 +2443,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         tz: TimeZones,
         axis: Axis = 0,
         level: Level | None = None,
-        copy: _bool = True,
+        copy: _bool = False,
         ambiguous: TimeAmbiguous = "raise",
         nonexistent: TimeNonexistent = "raise",
     ) -> Self: ...

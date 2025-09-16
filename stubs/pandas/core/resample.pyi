@@ -101,14 +101,14 @@ class Resampler(BaseGroupBy[NDFrameT]):
     def first(
         self,
         numeric_only: bool = False,
-        min_count: int = -1,
+        min_count: int = 0,
         skipna: bool = True,
     ) -> NDFrameT: ...
     @final
     def last(
         self,
         numeric_only: bool = False,
-        min_count: int = -1,
+        min_count: int = 0,
         skipna: bool = True,
     ) -> NDFrameT: ...
     @final

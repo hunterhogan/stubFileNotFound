@@ -207,5 +207,5 @@ class Period(PeriodMixin):
     def to_timestamp(
         self,
         freq: str | BaseOffset | None = None,
-        how: _PeriodToTimestampHow = "S",
+        how: _PeriodToTimestampHow = "start",
     ) -> Timestamp: ...

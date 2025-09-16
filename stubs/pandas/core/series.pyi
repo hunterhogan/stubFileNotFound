@@ -801,7 +801,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self, n: int = 5, keep: NsmallestNlargestKeep = "first"
     ) -> Series[S1]: ...
     def swaplevel(
-        self, i: Level = -2, j: Level = -1, copy: _bool = True
+        self, i: Level = -2, j: Level = -1, copy: _bool = False
     ) -> Series[S1]: ...
     def reorder_levels(self, order: list[Any]) -> Series[S1]: ...
     def explode(self, ignore_index: _bool = False) -> Series[S1]: ...
@@ -901,7 +901,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         join: JoinHow = "outer",
         axis: Axis | None = 0,
         level: Level | None = None,
-        copy: _bool = True,
+        copy: _bool = False,
         fill_value: Scalar | NAType | None = None,
     ) -> tuple[Series, Series]: ...
     @overload
@@ -953,7 +953,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         other: Series[S1],
         method: FillnaOptions | Literal["nearest"] | None = None,
-        copy: _bool = True,
+        copy: _bool = False,
         limit: int | None = None,
         tolerance: Scalar | AnyArrayLike | Sequence[Scalar] | None = None,
     ) -> Self: ...
@@ -1041,9 +1041,9 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         freq: Any=None,
         how: ToTimestampHow = "start",
-        copy: _bool = True,
+        copy: _bool = False,
     ) -> Series[S1]: ...
-    def to_period(self, freq: _str | None = None, copy: _bool = True) -> DataFrame: ...
+    def to_period(self, freq: _str | None = None, copy: _bool = False) -> DataFrame: ...
     @property
     def str(
         self,
@@ -1196,7 +1196,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @final
     def copy(self, deep: _bool = True) -> Series[S1]: ...
     @final
-    def infer_objects(self, copy: _bool = True) -> Series[S1]: ...
+    def infer_objects(self, copy: _bool = False) -> Series[S1]: ...
     @overload
     def ffill(
         self,
@@ -1418,7 +1418,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         tz: TimeZones,
         axis: AxisIndex = 0,
         level: Level | None = None,
-        copy: _bool = True,
+        copy: _bool = False,
     ) -> Series[S1]: ...
     @final
     def tz_localize(
@@ -1426,7 +1426,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         tz: TimeZones,
         axis: AxisIndex = 0,
         level: Level | None = None,
-        copy: _bool = True,
+        copy: _bool = False,
         ambiguous: TimeAmbiguous = "raise",
         nonexistent: _str = "raise",
     ) -> Series[S1]: ...
@@ -3631,7 +3631,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         mapper: Scalar | ListLike | None = ...,
         *,
         axis: AxisIndex | None = 0,
-        copy: _bool = True,
+        copy: _bool = False,
         inplace: Literal[True],
     ) -> None: ...
     # Rename axis with `mapper`, `axis`, and `inplace=False`
@@ -3641,7 +3641,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         mapper: Scalar | ListLike | None = ...,
         *,
         axis: AxisIndex | None = 0,
-        copy: _bool = True,
+        copy: _bool = False,
         inplace: Literal[False] = False,
     ) -> Self: ...
     # Rename axis with `index` and `inplace=True`
@@ -3650,7 +3650,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         *,
         index: Scalar | ListLike | Callable[..., Any] | dict[Any, Any] | None = ...,
-        copy: _bool = True,
+        copy: _bool = False,
         inplace: Literal[True],
     ) -> None: ...
     # Rename axis with `index` and `inplace=False`
@@ -3659,7 +3659,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self,
         *,
         index: Scalar | ListLike | Callable[..., Any] | dict[Any, Any] | None = ...,
-        copy: _bool = True,
+        copy: _bool = False,
         inplace: Literal[False] = False,
     ) -> Self: ...
     def set_axis(self, labels: Any, *, axis: Axis = 0, copy: _bool = None) -> Self: ...
