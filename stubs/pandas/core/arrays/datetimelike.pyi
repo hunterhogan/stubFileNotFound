@@ -1,11 +1,14 @@
 from collections.abc import Sequence
-from pandas._libs import NaT as NaT, NaTType as NaTType
-from pandas._typing import (
-	DatetimeLikeScalar, PositionalIndexerTuple, ScalarIndexer, SequenceIndexer, TimeAmbiguous, TimeNonexistent, TimeUnit)
-from pandas.core.arrays.base import ExtensionArray, ExtensionOpsMixin
 from typing import Any, overload
-from typing_extensions import Self, TypeAlias
+
 import numpy as np
+from pandas._libs import NaT as NaT
+from pandas._libs import NaTType as NaTType
+from pandas._typing import (DatetimeLikeScalar, PositionalIndexerTuple,
+                            ScalarIndexer, SequenceIndexer, TimeAmbiguous,
+                            TimeNonexistent, TimeUnit)
+from pandas.core.arrays.base import ExtensionArray, ExtensionOpsMixin
+from typing_extensions import Self, TypeAlias
 
 DTScalarOrNaT: TypeAlias = DatetimeLikeScalar | NaTType
 

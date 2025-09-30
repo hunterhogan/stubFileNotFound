@@ -1,15 +1,19 @@
 from collections.abc import Callable, Sequence
+from typing import Any, Literal, Protocol, overload
+
+import numpy as np
 from matplotlib.colors import Colormap
-from pandas._typing import (
-	Axis, ExcelWriterMergeCells, FilePath, HashableT, HashableT1, HashableT2, IndexLabel, IntervalClosedType, Level, npt,
-	QuantileInterpolation, Scalar, StorageOptions, T, WriteBuffer, WriteExcelBuffer)
+from pandas._typing import (Axis, ExcelWriterMergeCells, FilePath, HashableT,
+                            HashableT1, HashableT2, IndexLabel,
+                            IntervalClosedType, Level, QuantileInterpolation,
+                            Scalar, StorageOptions, T, WriteBuffer,
+                            WriteExcelBuffer, npt)
 from pandas.core.frame import DataFrame
 from pandas.core.series import Series
 from pandas.io.excel import ExcelWriter
-from pandas.io.formats.style_render import (
-	CSSProperties, CSSStyles, ExtFormatter, StyleExportDict, StylerRenderer, Subset)
-from typing import Any, Literal, overload, Protocol
-import numpy as np
+from pandas.io.formats.style_render import (CSSProperties, CSSStyles,
+                                            ExtFormatter, StyleExportDict,
+                                            StylerRenderer, Subset)
 
 class _SeriesFunc(Protocol):
     def __call__(

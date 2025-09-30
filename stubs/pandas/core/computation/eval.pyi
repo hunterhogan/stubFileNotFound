@@ -1,8 +1,9 @@
 from collections.abc import Mapping
-from pandas import DataFrame, Series
-from pandas._typing import npt, Scalar
-from pandas.core.computation.ops import BinOp
 from typing import Any, Literal
+
+from pandas import DataFrame, Series
+from pandas._typing import Scalar, npt
+from pandas.core.computation.ops import BinOp
 
 def eval(
     expr: str | BinOp,

@@ -1,16 +1,20 @@
 from collections.abc import Callable, Hashable, Iterable, Iterator, Sequence
+from typing import (Any, Concatenate, Generic, Literal, NamedTuple, Protocol,
+                    TypeVar, final, overload)
+
+import numpy as np
 from matplotlib.axes import Axes as PlotAxes
 from pandas._libs.tslibs.timestamps import Timestamp
-from pandas._typing import (
-	AggFuncTypeBase, AggFuncTypeFrame, ByT, CorrelationMethod, Dtype, IndexLabel, Level, ListLike, NsmallestNlargestKeep,
-	P, S2, S3, Scalar, TakeIndexer, WindowingEngine, WindowingEngineKwargs)
+from pandas._typing import (S2, S3, AggFuncTypeBase, AggFuncTypeFrame, ByT,
+                            CorrelationMethod, Dtype, IndexLabel, Level,
+                            ListLike, NsmallestNlargestKeep, P, Scalar,
+                            TakeIndexer, WindowingEngine,
+                            WindowingEngineKwargs)
 from pandas.core.frame import DataFrame
 from pandas.core.groupby.base import TransformReductionListType
 from pandas.core.groupby.groupby import GroupBy, GroupByPlot
 from pandas.core.series import Series
-from typing import Any, Concatenate, final, Generic, Literal, NamedTuple, overload, Protocol, TypeVar
 from typing_extensions import Self, TypeAlias
-import numpy as np
 
 AggScalar: TypeAlias = str | Callable[..., Any]
 

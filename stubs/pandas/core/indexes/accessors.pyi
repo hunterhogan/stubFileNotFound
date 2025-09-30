@@ -1,48 +1,23 @@
 import datetime as dt
-from datetime import (
-    timedelta,
-    tzinfo as _tzinfo,
-)
-from typing import (
-    Generic,
-    Literal,
-    TypeVar,
-)
+from datetime import timedelta
+from datetime import tzinfo as _tzinfo
+from typing import Any, Generic, Literal, TypeVar, overload
 
 import numpy as np
-from pandas import (
-    DatetimeIndex,
-    Index,
-    PeriodIndex,
-    Timedelta,
-    TimedeltaIndex,
-)
-from pandas.core.accessor import PandasDelegate
-from pandas.core.arrays import (
-    DatetimeArray,
-    PeriodArray,
-)
-from pandas.core.base import NoNewAttributesMixin
-from pandas.core.frame import DataFrame
-from pandas.core.series import (
-    PeriodSeries,
-    Series,
-    TimedeltaSeries,
-    TimestampSeries,
-)
-
+from pandas import (DatetimeIndex, Index, PeriodIndex, Timedelta,
+                    TimedeltaIndex, Timestamp)
 from pandas._libs.tslibs import BaseOffset
 from pandas._libs.tslibs.offsets import DateOffset
-from pandas._typing import (
-    TimeAmbiguous,
-    TimeNonexistent,
-    TimestampConvention,
-    TimeUnit,
-    TimeZones,
-    np_1darray,
-    np_ndarray_bool,
-)
-from typing import Any
+from pandas._libs.tslibs.period import Period
+from pandas._typing import (S1, TimeAmbiguous, TimeNonexistent,
+                            TimestampConvention, TimeUnit, TimeZones,
+                            np_1darray, np_ndarray_bool)
+from pandas.core.accessor import PandasDelegate
+from pandas.core.arrays import DatetimeArray, PeriodArray
+from pandas.core.base import NoNewAttributesMixin
+from pandas.core.frame import DataFrame
+from pandas.core.series import Series
+from typing_extensions import Never
 
 class Properties(PandasDelegate, NoNewAttributesMixin): ...
 
@@ -154,14 +129,18 @@ class _DatetimeLikeOps(
     ],
 ): ...
 
-# Ideally, the rounding methods would return TimestampSeries when `Series.dt.method`
+# Ideally, the rounding methods would return Series[Timestamp] when `Series.dt.method`
 # is invoked, but because of how Series.dt is hooked in and that we may not know the
 # type of the series, we don't know which kind of series was ...ed
 # in to the dt accessor
 
 _DTTimestampTimedeltaReturnType = TypeVar(
     "_DTTimestampTimedeltaReturnType",
-    bound=Series | TimestampSeries | TimedeltaSeries | DatetimeIndex | TimedeltaIndex,
+    bound=Series
+    | Series[Timestamp]
+    | Series[Timedelta]
+    | DatetimeIndex
+    | TimedeltaIndex,
 )
 
 class _DatetimeRoundingMethods(Generic[_DTTimestampTimedeltaReturnType]):
@@ -197,11 +176,11 @@ class _DatetimeRoundingMethods(Generic[_DTTimestampTimedeltaReturnType]):
     ) -> _DTTimestampTimedeltaReturnType: ...
 
 _DTNormalizeReturnType = TypeVar(
-    "_DTNormalizeReturnType", TimestampSeries, DatetimeIndex
+    "_DTNormalizeReturnType", Series[Timestamp], DatetimeIndex
 )
 _DTStrKindReturnType = TypeVar("_DTStrKindReturnType", bound=Series[str] | Index[Any])
 _DTToPeriodReturnType = TypeVar(
-    "_DTToPeriodReturnType", bound=PeriodSeries | PeriodIndex
+    "_DTToPeriodReturnType", bound=Series[Period] | PeriodIndex
 )
 
 class _DatetimeLikeNoTZMethods(
@@ -306,14 +285,14 @@ class _TimedeltaPropertiesNoRounding(
 class TimedeltaProperties(
     Properties,
     _TimedeltaPropertiesNoRounding[Series[int], Series[float]],
-    _DatetimeRoundingMethods[TimedeltaSeries],
+    _DatetimeRoundingMethods[Series[Timedelta]],
 ):
     @property
     def unit(self) -> TimeUnit: ...
-    def as_unit(self, unit: TimeUnit) -> TimedeltaSeries: ...
+    def as_unit(self, unit: TimeUnit) -> Series[Timedelta]: ...
 
 _PeriodDTReturnTypes = TypeVar(
-    "_PeriodDTReturnTypes", bound=TimestampSeries | DatetimeIndex
+    "_PeriodDTReturnTypes", bound=Series[Timestamp] | DatetimeIndex
 )
 _PeriodIntReturnTypes = TypeVar("_PeriodIntReturnTypes", bound=Series[int] | Index[int])
 _PeriodStrReturnTypes = TypeVar("_PeriodStrReturnTypes", bound=Series[str] | Index[Any])
@@ -354,7 +333,7 @@ class PeriodIndexFieldOps(
 ): ...
 class PeriodProperties(
     Properties,
-    _PeriodProperties[TimestampSeries, Series[int], Series[str], DatetimeArray, PeriodArray],
+    _PeriodProperties[Series[Timestamp], Series[int], Series[str], DatetimeArray, PeriodArray],
     _DatetimeFieldOps[Series[int]],
     _IsLeapYearProperty[Any],
     _FreqProperty[BaseOffset],
@@ -366,9 +345,9 @@ class CombinedDatetimelikeProperties(
         Series[dt.date],
         Series[dt.time],
         str,
-        TimestampSeries,
+        Series[Timestamp],
         Series[str],
-        PeriodSeries,
+        Series[Period],
     ],
     _TimedeltaPropertiesNoRounding[Series[int], Series[float]],
     _PeriodProperties[Any, Any, Any, Any, Any],
@@ -376,13 +355,13 @@ class CombinedDatetimelikeProperties(
 class TimestampProperties(
     DatetimeProperties[Series[int],
         Series[bool],
-        TimestampSeries,
+        Series[Timestamp],
         Series[dt.date],
         Series[dt.time],
         str,
-        TimestampSeries,
+        Series[Timestamp],
         Series[str],
-        PeriodSeries,
+        Series[Period],
     ]
 ): ...
 
@@ -414,3 +393,52 @@ class TimedeltaIndexProperties(
     _TimedeltaPropertiesNoRounding[Index[Any], Index[Any]],
     _DatetimeRoundingMethods[TimedeltaIndex],
 ): ...
+
+class _dtDescriptor(CombinedDatetimelikeProperties, Generic[S1]):
+    @overload
+    def __get__(self, instance: Series[Never], owner: Any) -> Never: ...
+    @overload
+    def __get__(self, instance: Series[Period], owner: Any) -> PeriodProperties: ...
+    @overload
+    def __get__(
+        self, instance: Series[Timestamp], owner: Any
+    ) -> TimestampProperties: ...
+    @overload
+    def __get__(
+        self, instance: Series[Timedelta], owner: Any
+    ) -> TimedeltaProperties: ...
+    @overload
+    def __get__(
+        self, instance: Series[S1], owner: Any
+    ) -> CombinedDatetimelikeProperties: ...
+    def round(
+        self,
+        freq: str | BaseOffset | None,
+        ambiguous: Literal["raise", "infer", "NaT"] | bool | np_ndarray_bool = ...,
+        nonexistent: (
+            Literal["shift_forward", "shift_backward", "NaT", "raise"]
+            | timedelta
+            | Timedelta
+        ) = ...,
+    ) -> Series[S1]: ...
+    def floor(
+        self,
+        freq: str | BaseOffset | None,
+        ambiguous: Literal["raise", "infer", "NaT"] | bool | np_ndarray_bool = ...,
+        nonexistent: (
+            Literal["shift_forward", "shift_backward", "NaT", "raise"]
+            | timedelta
+            | Timedelta
+        ) = ...,
+    ) -> Series[S1]: ...
+    def ceil(
+        self,
+        freq: str | BaseOffset | None,
+        ambiguous: Literal["raise", "infer", "NaT"] | bool | np_ndarray_bool = ...,
+        nonexistent: (
+            Literal["shift_forward", "shift_backward", "NaT", "raise"]
+            | timedelta
+            | Timedelta
+        ) = ...,
+    ) -> Series[S1]: ...
+    def as_unit(self, unit: TimeUnit) -> Series[S1]: ...

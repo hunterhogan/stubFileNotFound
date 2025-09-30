@@ -1,11 +1,12 @@
 from collections.abc import Hashable, Iterable
-from pandas._typing import DtypeArg, S1
+from typing import Any, final
+
+import numpy as np
+from pandas._typing import S1, DtypeArg
 from pandas.core import accessor
 from pandas.core.indexes.base import Index
 from pandas.core.indexes.extension import ExtensionIndex
-from typing import Any, final
 from typing_extensions import Self
-import numpy as np
 
 class CategoricalIndex(ExtensionIndex[S1], accessor.PandasDelegate):
     codes: np.ndarray[Any, Any] = ...

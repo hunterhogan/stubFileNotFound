@@ -1,8 +1,17 @@
+import datetime
+import sys
 from builtins import type as type_t
-from collections.abc import Callable, Hashable, Iterator, KeysView, Mapping, MutableSequence, Sequence
+from collections.abc import (Callable, Hashable, Iterator, KeysView, Mapping,
+                             MutableSequence, Sequence)
 from datetime import tzinfo
-from numpy import typing as npt
 from os import PathLike
+from re import Pattern
+from typing import (Any, Generic, Literal, Protocol, SupportsIndex, TypedDict,
+                    Union, overload)
+
+import numpy as np
+import pandas as pd
+from numpy import typing as npt
 from pandas._libs.interval import Interval
 from pandas._libs.missing import NAType
 from pandas._libs.tslibs import BaseOffset, Period, Timedelta, Timestamp
@@ -15,13 +24,7 @@ from pandas.core.indexes.base import Index
 from pandas.core.series import Series
 from pandas.core.tools.datetimes import FulldatetimeDict
 from pandas.io.formats.format import EngFormatter
-from re import Pattern
-from typing import Any, Generic, Literal, overload, Protocol, SupportsIndex, TypedDict, Union
-from typing_extensions import override, ParamSpec, TypeAlias, TypeVar
-import datetime
-import numpy as np
-import pandas as pd
-import sys
+from typing_extensions import ParamSpec, TypeAlias, TypeVar, override
 
 P = ParamSpec("P")
 
@@ -802,25 +805,33 @@ MaskType: TypeAlias = Series[bool] | np_ndarray_bool | list[bool]
 
 T_INT = TypeVar("T_INT", bound=int)
 T_COMPLEX = TypeVar("T_COMPLEX", bound=complex)
-SeriesDType: TypeAlias = (
+SeriesDTypeNoDateTime: TypeAlias = (
     str
     | bytes
-    | datetime.date
-    | datetime.time
     | bool
     | int
     | float
     | complex
     | Dtype
-    | datetime.datetime  # includes pd.Timestamp
-    | datetime.timedelta  # includes pd.Timedelta
     | Period
     | Interval[Any]
     | CategoricalDtype
     | BaseOffset
     | list[str]
 )
+SeriesDType: TypeAlias = (
+    SeriesDTypeNoDateTime
+    | datetime.date
+    | datetime.time
+    | datetime.datetime  # includes pd.Timestamp
+    | datetime.timedelta  # includes pd.Timedelta
+)
 S1 = TypeVar("S1", bound=SeriesDType, default=Any)
+S1_CT_NDT = TypeVar(
+    "S1_CT_NDT", bound=SeriesDTypeNoDateTime, default=Any, contravariant=True
+)
+S1_CO = TypeVar("S1_CO", bound=SeriesDType, default=Any, covariant=True)
+S1_CT = TypeVar("S1_CT", bound=SeriesDType, default=Any, contravariant=True)
 # Like S1, but without `default=Any`.
 S2 = TypeVar("S2", bound=SeriesDType)
 S3 = TypeVar("S3", bound=SeriesDType)

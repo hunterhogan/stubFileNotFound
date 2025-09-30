@@ -1,14 +1,16 @@
 from collections.abc import Sequence
 from datetime import date, datetime
+from typing import Any, Literal, TypedDict, overload
+
+import numpy as np
 from pandas import Index, Timestamp
 from pandas._libs.tslibs import NaTType
-from pandas._typing import AnyArrayLike, DictConvertible, IgnoreRaise, npt, RaiseCoerce, TimestampConvertibleTypes
+from pandas._typing import (AnyArrayLike, DictConvertible, IgnoreRaise,
+                            RaiseCoerce, TimestampConvertibleTypes, npt)
 from pandas.core.arrays import ExtensionArray
 from pandas.core.indexes.datetimes import DatetimeIndex
-from pandas.core.series import Series, TimestampSeries
-from typing import Any, Literal, overload, TypedDict
+from pandas.core.series import Series
 from typing_extensions import TypeAlias
-import numpy as np
 
 ArrayConvertible: TypeAlias = list[Any] | tuple[Any, ...] | AnyArrayLike
 Scalar: TypeAlias = float | str
@@ -74,7 +76,7 @@ def to_datetime(
     unit: str | None = None,
     origin: Literal["julian", "unix"] | TimestampConvertibleTypes = 'unix',
     cache: bool = True,
-) -> TimestampSeries: ...
+) -> Series[Timestamp]: ...
 @overload
 def to_datetime(
     arg: (

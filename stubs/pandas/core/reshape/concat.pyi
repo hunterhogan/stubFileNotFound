@@ -1,7 +1,9 @@
 from collections.abc import Iterable, Mapping, Sequence
-from pandas import DataFrame, Series
-from pandas._typing import Axis, AxisIndex, HashableT1, HashableT2, HashableT3, HashableT4, S2
 from typing import Literal, overload
+
+from pandas import DataFrame, Series
+from pandas._typing import (S2, Axis, AxisIndex, HashableT1, HashableT2,
+                            HashableT3, HashableT4)
 from typing_extensions import Never
 
 @overload

@@ -1,17 +1,19 @@
+import datetime as dt
 from collections.abc import Hashable, Sequence
+from typing import Any, Literal, final, overload
+
+import numpy as np
 from pandas import DateOffset, Index, Period
-from pandas._libs import Timedelta, Timestamp
+from pandas._libs import Timedelta
 from pandas._libs.tslibs import BaseOffset
-from pandas._typing import AxesData, np_ndarray_td, num, TimedeltaConvertibleTypes
+from pandas._typing import (AxesData, TimedeltaConvertibleTypes, np_ndarray_td,
+                            num)
 from pandas.core.indexes.accessors import TimedeltaIndexProperties
 from pandas.core.indexes.datetimelike import DatetimeTimedeltaMixin
 from pandas.core.indexes.datetimes import DatetimeIndex
 from pandas.core.indexes.period import PeriodIndex
-from pandas.core.series import TimedeltaSeries
-from typing import Any, final, Literal, overload
+from pandas.core.series import Series
 from typing_extensions import Self
-import datetime as dt
-import numpy as np
 
 class TimedeltaIndex(
     DatetimeTimedeltaMixin[Timedelta, np.timedelta64], TimedeltaIndexProperties
@@ -32,18 +34,25 @@ class TimedeltaIndex(
     @overload  # type: ignore[override]
     def __add__(self, other: Period) -> PeriodIndex: ...
     @overload
-    def __add__(self, other: DatetimeIndex) -> DatetimeIndex: ...
+    def __add__(self, other: dt.datetime | DatetimeIndex) -> DatetimeIndex: ...
     @overload
     def __add__(  # pyright: ignore[reportIncompatibleMethodOverride]
-        self, other: dt.timedelta | Timedelta | Self
+        self, other: dt.timedelta | Self
     ) -> Self: ...
-    def __radd__(self, other: dt.datetime | Timestamp | DatetimeIndex) -> DatetimeIndex: ...  # type: ignore[override]
+    @overload  # type: ignore[override]
+    def __radd__(self, other: Period) -> PeriodIndex: ...
+    @overload
+    def __radd__(self, other: dt.datetime | DatetimeIndex) -> DatetimeIndex: ...
+    @overload
+    def __radd__(  # pyright: ignore[reportIncompatibleMethodOverride]
+        self, other: dt.timedelta | Self
+    ) -> Self: ...
     def __sub__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
         self, other: dt.timedelta | np.timedelta64 | np_ndarray_td | Self
     ) -> Self: ...
-    def __mul__(self, other: num) -> Self: ...
+    def __mul__(self, other: float) -> Self: ...  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
     @overload  # type: ignore[override]
-    def __truediv__(self, other: num | Sequence[float]) -> Self: ...
+    def __truediv__(self, other: float | Sequence[float]) -> Self: ...
     @overload
     def __truediv__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, other: dt.timedelta | Sequence[dt.timedelta]
@@ -60,7 +69,7 @@ class TimedeltaIndex(
     @property
     def inferred_type(self) -> str: ...
     @final
-    def to_series(self, index: Any=None, name: Hashable = None) -> TimedeltaSeries: ...
+    def to_series(self, index: Any=None, name: Hashable = None) -> Series[Timedelta]: ...
     def shift(self, periods: int = 1, freq: Any=None) -> Self: ...
 
 @overload

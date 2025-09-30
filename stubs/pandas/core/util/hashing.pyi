@@ -1,7 +1,8 @@
+from typing import Any
+
+import numpy as np
 from pandas import DataFrame, Index, Series
 from pandas._typing import ArrayLike, npt
-from typing import Any
-import numpy as np
 
 def hash_pandas_object(
     obj: Index[Any] | Series | DataFrame,

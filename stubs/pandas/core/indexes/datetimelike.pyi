@@ -1,10 +1,11 @@
+from typing import Any
+
+import numpy as np
 from pandas._libs.tslibs import BaseOffset
-from pandas._typing import AxisIndex, GenericT_co, S1, TimeUnit
+from pandas._typing import S1, AxisIndex, GenericT_co, TimeUnit
 from pandas.core.indexes.extension import ExtensionIndex
 from pandas.core.indexes.timedeltas import TimedeltaIndex
-from typing import Any
 from typing_extensions import Self
-import numpy as np
 
 class DatetimeIndexOpsMixin(ExtensionIndex[S1, GenericT_co]):
     @property
@@ -25,7 +26,7 @@ class DatetimeIndexOpsMixin(ExtensionIndex[S1, GenericT_co]):
     def argmax(
         self, axis: AxisIndex | None = None, skipna: bool = True, *args: Any, **kwargs: Any
     ) -> np.int64: ...
-    def __rsub__(  # type: ignore[misc,override]  # pyright: ignore[reportIncompatibleMethodOverride]
+    def __rsub__(  # type: ignore[misc,override] # pyright: ignore[reportIncompatibleMethodOverride]
         self, other: DatetimeIndexOpsMixin
     ) -> TimedeltaIndex: ...
 

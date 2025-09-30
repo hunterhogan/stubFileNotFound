@@ -1,7 +1,8 @@
+from typing import Any, TypeVar
+
 from pandas._libs.indexing import _NDFrameIndexerBase
 from pandas._typing import MaskType, Scalar, ScalarT
 from pandas.core.indexes.api import Index
-from typing import Any, TypeVar
 from typing_extensions import TypeAlias
 
 _IndexSliceTuple: TypeAlias = tuple[Index[Any] | MaskType | Scalar | list[ScalarT] | slice | tuple[Scalar, ...], ...]

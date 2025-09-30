@@ -1,11 +1,13 @@
+from typing import Any, overload
+
+import numpy as np
 from pandas import DataFrame, Index, Series
 from pandas._libs.missing import NAType
 from pandas._libs.tslibs import NaTType
-from pandas._typing import np_1darray, np_ndarray, np_ndarray_bool, Scalar, ScalarT, ShapeT
+from pandas._typing import (Scalar, ScalarT, ShapeT, np_1darray, np_ndarray,
+                            np_ndarray_bool)
 from pandas.core.arrays import ExtensionArray
-from typing import Any, overload
 from typing_extensions import TypeIs
-import numpy as np
 
 isposinf_scalar = ...
 isneginf_scalar = ...

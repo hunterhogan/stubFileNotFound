@@ -1,5 +1,6 @@
-from pandas._typing import TypeT
 from typing import Callable
+
+from pandas._typing import TypeT
 
 class PandasDelegate: ...
 

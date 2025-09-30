@@ -1,16 +1,18 @@
 from collections.abc import Callable, Hashable, Iterable, Mapping, Sequence
+from types import TracebackType
+from typing import Any, Literal, overload
+
+import pyxlsb.workbook
 from odf.opendocument import OpenDocument
 from openpyxl.workbook.workbook import Workbook
 from pandas._libs.lib import _NoDefaultDoNotUse
-from pandas._typing import (
-	Dtype, DtypeBackend, ExcelReadEngine, ExcelWriteEngine, ExcelWriterIfSheetExists, FilePath, IntStrT, ListLikeHashable,
-	ReadBuffer, StorageOptions, UsecolsArgType, WriteExcelBuffer)
+from pandas._typing import (Dtype, DtypeBackend, ExcelReadEngine,
+                            ExcelWriteEngine, ExcelWriterIfSheetExists,
+                            FilePath, IntStrT, ListLikeHashable, ReadBuffer,
+                            StorageOptions, UsecolsArgType, WriteExcelBuffer)
 from pandas.core.frame import DataFrame
-from types import TracebackType
-from typing import Any, Literal, overload
 from typing_extensions import Self
 from xlrd.book import Book
-import pyxlsb.workbook
 
 @overload
 def read_excel(
@@ -31,7 +33,7 @@ def read_excel(
     usecols: str | UsecolsArgType[Any] = None,
     dtype: str | Dtype | Mapping[str, str | Dtype] | None = None,
     engine: ExcelReadEngine | None = None,
-    converters: Mapping[int | str, Callable[[object], object]] | None = None,
+    converters: Mapping[int | str, Callable[[Any], Any]] | None = None,
     true_values: Iterable[Hashable] | None = None,
     false_values: Iterable[Hashable] | None = None,
     skiprows: int | Sequence[int] | Callable[[object], bool] | None = None,
@@ -74,7 +76,7 @@ def read_excel(
     usecols: str | UsecolsArgType[Any] = None,
     dtype: str | Dtype | Mapping[str, str | Dtype] | None = None,
     engine: ExcelReadEngine | None = None,
-    converters: Mapping[int | str, Callable[[object], object]] | None = None,
+    converters: Mapping[int | str, Callable[[Any], Any]] | None = None,
     true_values: Iterable[Hashable] | None = None,
     false_values: Iterable[Hashable] | None = None,
     skiprows: int | Sequence[int] | Callable[[object], bool] | None = None,
@@ -118,7 +120,7 @@ def read_excel(  # type: ignore[overload-cannot-match]
     usecols: str | UsecolsArgType[Any] = None,
     dtype: str | Dtype | Mapping[str, str | Dtype] | None = None,
     engine: ExcelReadEngine | None = None,
-    converters: Mapping[int | str, Callable[[object], object]] | None = None,
+    converters: Mapping[int | str, Callable[[Any], Any]] | None = None,
     true_values: Iterable[Hashable] | None = None,
     false_values: Iterable[Hashable] | None = None,
     skiprows: int | Sequence[int] | Callable[[object], bool] | None = None,
@@ -161,7 +163,7 @@ def read_excel(
     usecols: str | UsecolsArgType[Any] = None,
     dtype: str | Dtype | Mapping[str, str | Dtype] | None = None,
     engine: ExcelReadEngine | None = None,
-    converters: Mapping[int | str, Callable[[object], object]] | None = None,
+    converters: Mapping[int | str, Callable[[Any], Any]] | None = None,
     true_values: Iterable[Hashable] | None = None,
     false_values: Iterable[Hashable] | None = None,
     skiprows: int | Sequence[int] | Callable[[object], bool] | None = None,
@@ -241,7 +243,7 @@ class ExcelFile:
         names: ListLikeHashable[Any] | None = None,
         index_col: int | Sequence[int] | None = None,
         usecols: str | UsecolsArgType[Any] = None,
-        converters: dict[int | str, Callable[[object], object]] | None = None,
+        converters: dict[int | str, Callable[[Any], Any]] | None = None,
         true_values: Iterable[Hashable] | None = None,
         false_values: Iterable[Hashable] | None = None,
         skiprows: int | Sequence[int] | Callable[[object], bool] | None = None,
@@ -269,7 +271,7 @@ class ExcelFile:
         names: ListLikeHashable[Any] | None = None,
         index_col: int | Sequence[int] | None = None,
         usecols: str | UsecolsArgType[Any] = None,
-        converters: dict[int | str, Callable[[object], object]] | None = None,
+        converters: dict[int | str, Callable[[Any], Any]] | None = None,
         true_values: Iterable[Hashable] | None = None,
         false_values: Iterable[Hashable] | None = None,
         skiprows: int | Sequence[int] | Callable[[object], bool] | None = None,

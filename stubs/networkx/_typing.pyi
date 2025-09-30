@@ -1,10 +1,11 @@
 # Stub-only module, can't be imported at runtime.
 
+import sys
 from collections.abc import Collection
 from typing import Any, Protocol, type_check_only
-from typing_extensions import TypeAlias, TypeVar
+
 import numpy as np
-import sys
+from typing_extensions import TypeAlias, TypeVar
 
 _ScalarT = TypeVar("_ScalarT", bound=bool | int | float | complex | str | bytes | np.generic)
 _GenericT = TypeVar("_GenericT", bound=np.generic)

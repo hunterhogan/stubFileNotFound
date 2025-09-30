@@ -1,11 +1,14 @@
+import contextlib
+from collections.abc import (Callable, Iterable, Iterator, Mapping,
+                             MutableMapping)
+from types import TracebackType
+from typing import Any, ClassVar, Generic, Literal, NoReturn, TypeVar, overload
+
+from _typeshed import Incomplete, SupportsRead, SupportsWrite
+from typing_extensions import Self
+
 from ._monitor import TMonitor
 from .utils import Comparable
-from _typeshed import Incomplete, SupportsRead, SupportsWrite
-from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
-from types import TracebackType
-from typing import Any, ClassVar, Generic, Literal, NoReturn, overload, TypeVar
-from typing_extensions import Self
-import contextlib
 
 __all__ = [
     "tqdm",
@@ -87,7 +90,7 @@ class tqdm(Comparable, Generic[_T]):
         lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = None,
         nrows: int | None = None,
         colour: str | None = None,
-        delay: float | None = 0.0,
+        delay: float | None = 0,
         gui: bool = False,
         **kwargs,
     ) -> None: ...
@@ -118,7 +121,7 @@ class tqdm(Comparable, Generic[_T]):
         lock_args: tuple[bool | None, float | None] | tuple[bool | None] | None = None,
         nrows: int | None = None,
         colour: str | None = None,
-        delay: float | None = 0.0,
+        delay: float | None = 0,
         gui: bool = False,
         **kwargs,
     ) -> None: ...

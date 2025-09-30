@@ -1,9 +1,11 @@
 from collections.abc import Sequence
-from pandas import Categorical, CategoricalDtype, DatetimeIndex, Index, Interval, IntervalIndex, Series, Timestamp
-from pandas._typing import IntervalT, Label, npt
-from pandas.core.series import TimestampSeries
 from typing import Any, Literal, overload
+
 import numpy as np
+from pandas import (Categorical, CategoricalDtype, DatetimeIndex, Index,
+                    Interval, IntervalIndex, Timestamp)
+from pandas._typing import IntervalT, Label, npt
+from pandas.core.series import Series
 
 @overload
 def cut(
@@ -33,10 +35,10 @@ def cut(
 ) -> tuple[npt.NDArray[np.intp], IntervalIndex[IntervalT]]: ...
 @overload
 def cut(  # pyright: ignore[reportOverlappingOverload]
-    x: TimestampSeries,
+    x: Series[Timestamp],
     bins: (
         int
-        | TimestampSeries
+        | Series[Timestamp]
         | DatetimeIndex
         | Sequence[Timestamp]
         | Sequence[np.datetime64]
@@ -52,7 +54,7 @@ def cut(  # pyright: ignore[reportOverlappingOverload]
 ) -> tuple[Series, DatetimeIndex]: ...
 @overload
 def cut(
-    x: TimestampSeries,
+    x: Series[Timestamp],
     bins: IntervalIndex[Interval[Timestamp]],
     right: bool = True,
     labels: Sequence[Label] | None = None,
@@ -138,10 +140,10 @@ def cut(
 ) -> npt.NDArray[np.intp]: ...
 @overload
 def cut(
-    x: TimestampSeries,
+    x: Series[Timestamp],
     bins: (
         int
-        | TimestampSeries
+        | Series[Timestamp]
         | DatetimeIndex
         | Sequence[Timestamp]
         | Sequence[np.datetime64]

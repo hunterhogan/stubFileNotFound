@@ -1,8 +1,9 @@
 from collections.abc import Hashable, Sequence
-from pandas._typing import HashableT, MaskType, np_1darray, np_ndarray_anyint
-from pandas.core.indexes.base import _IndexSubclassBase, Index
 from typing import Any, final, overload
+
 import numpy as np
+from pandas._typing import HashableT, MaskType, np_1darray, np_ndarray_anyint
+from pandas.core.indexes.base import Index, _IndexSubclassBase
 
 class RangeIndex(_IndexSubclassBase[int, np.int64]):
     def __new__(

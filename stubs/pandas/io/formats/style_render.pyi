@@ -1,10 +1,11 @@
 from collections.abc import Callable, Sequence
+from typing import Any, Literal, TypedDict
+
 from jinja2.environment import Environment, Template
 from jinja2.loaders import PackageLoader
 from pandas import Index
 from pandas._typing import Axis, HashableT, Level
 from pandas.core.indexing import _IndexSlice
-from typing import Any, Literal, TypedDict
 from typing_extensions import Self, TypeAlias
 
 BaseFormatter: TypeAlias = str | Callable[[object], str]

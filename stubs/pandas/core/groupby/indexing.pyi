@@ -1,17 +1,8 @@
-from typing import (
-    Any,
-    Generic,
-    Literal,
-    TypeVar,
-)
+from typing import Any, Generic, Literal, TypeVar
 
-from pandas import (
-    DataFrame,
-    Series,
-)
-from pandas.core.groupby import groupby
-
+from pandas import DataFrame, Series
 from pandas._typing import PositionalIndexer
+from pandas.core.groupby import groupby
 
 _GroupByT = TypeVar("_GroupByT", bound=groupby.GroupBy[Any])
 
@@ -27,6 +18,6 @@ class GroupByNthSelector(Generic[_GroupByT]):
     def __call__(
         self,
         n: PositionalIndexer | tuple[Any, ...],
-        dropna: Literal["any", "all", None] = None,
+        dropna: Literal["any", "all"] | None = None,
     ) -> DataFrame | Series: ...
     def __getitem__(self, n: PositionalIndexer | tuple[Any, ...]) -> DataFrame | Series: ...

@@ -1,12 +1,14 @@
 from collections.abc import Callable, Hashable, Mapping
+from typing import Any, Literal, final, overload
+
+import numpy as np
 from pandas import DataFrame, Series, Timedelta
-from pandas._typing import Axis, InterpolateOptions, NDFrameT, npt, S1, Scalar, TimeGrouperOrigin, TimestampConvention
+from pandas._typing import (S1, Axis, InterpolateOptions, NDFrameT, Scalar,
+                            TimeGrouperOrigin, TimestampConvention, npt)
 from pandas.core.groupby.generic import SeriesGroupBy
 from pandas.core.groupby.groupby import BaseGroupBy
 from pandas.core.groupby.grouper import Grouper
-from typing import Any, final, Literal, overload
 from typing_extensions import Self, TypeAlias
-import numpy as np
 
 _FrameGroupByFunc: TypeAlias = (
     Callable[[DataFrame], Scalar]
@@ -101,14 +103,14 @@ class Resampler(BaseGroupBy[NDFrameT]):
     def first(
         self,
         numeric_only: bool = False,
-        min_count: int = 0,
+        min_count: int = -1,
         skipna: bool = True,
     ) -> NDFrameT: ...
     @final
     def last(
         self,
         numeric_only: bool = False,
-        min_count: int = 0,
+        min_count: int = -1,
         skipna: bool = True,
     ) -> NDFrameT: ...
     @final

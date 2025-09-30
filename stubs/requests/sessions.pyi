@@ -1,10 +1,14 @@
-from . import adapters, auth as _auth, compat, cookies, exceptions, hooks, models, status_codes, utils
+from collections.abc import Callable, Iterable, Mapping, MutableMapping
+from typing import Any, TypedDict, type_check_only
+
+from _typeshed import SupportsItems, SupportsRead, Unused
+from typing_extensions import Self, TypeAlias
+
+from . import adapters
+from . import auth as _auth
+from . import compat, cookies, exceptions, hooks, models, status_codes, utils
 from .models import _JSON, Response
 from .structures import CaseInsensitiveDict as CaseInsensitiveDict
-from _typeshed import SupportsItems, SupportsRead, Unused
-from collections.abc import Callable, Iterable, Mapping, MutableMapping
-from typing import Any, type_check_only, TypedDict
-from typing_extensions import Self, TypeAlias
 
 _BaseAdapter: TypeAlias = adapters.BaseAdapter
 OrderedDict = compat.OrderedDict

@@ -1,11 +1,31 @@
-from collections.abc import Generator, Iterator, Sequence
-from pandas import DataFrame, Series
-from pandas._typing import FilePath, HashableT, HashableT1, HashableT2, HashableT3, HDFCompLib
+from collections.abc import (
+    Generator,
+    Iterator,
+    Sequence,
+)
+from types import TracebackType
+from typing import (
+    Any,
+    Literal,
+    overload,
+)
+
+from pandas import (
+    DataFrame,
+    Series,
+)
 from pandas.core.computation.pytables import PyTablesExpr
 from pandas.core.generic import NDFrame
-from types import TracebackType
-from typing import Any, Literal, overload
 from typing_extensions import Self
+
+from pandas._typing import (
+    FilePath,
+    HashableT,
+    HashableT1,
+    HashableT2,
+    HashableT3,
+    HDFCompLib,
+)
 
 Term = PyTablesExpr
 

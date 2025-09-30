@@ -1,6 +1,7 @@
+from typing import Any, Callable, Literal, overload
+
 from pandas import Index, Series
 from pandas.core.arrays.boolean import BooleanArray
-from typing import Any, Callable, Literal, overload
 from typing_extensions import Self
 
 class NAType:

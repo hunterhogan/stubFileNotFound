@@ -1,15 +1,18 @@
 from collections.abc import Hashable, Iterator, Sequence
+from typing import Any, Generic, Literal, TypeAlias, final, overload
+
+import numpy as np
 from pandas import Index, Series
-from pandas._typing import (
-	ArrayLike, AxisIndex, DropKeep, DTypeLike, GenericT, GenericT_co, NDFrameT, np_1darray, np_ndarray_anyint,
-	np_ndarray_bool, np_ndarray_complex, np_ndarray_float, S1, Scalar, SequenceNotStr, SupportsDType)
+from pandas._typing import (S1, ArrayLike, AxisIndex, DropKeep, DTypeLike,
+                            GenericT, GenericT_co, NDFrameT, Scalar,
+                            SequenceNotStr, SupportsDType, np_1darray,
+                            np_ndarray_anyint, np_ndarray_bool,
+                            np_ndarray_complex, np_ndarray_float)
 from pandas.core.arraylike import OpsMixin
 from pandas.core.arrays import ExtensionArray
 from pandas.core.arrays.categorical import Categorical
 from pandas.util._decorators import cache_readonly
-from typing import Any, final, Generic, Literal, overload, TypeAlias
 from typing_extensions import Self
-import numpy as np
 
 _ListLike: TypeAlias = ArrayLike | dict[str, np.ndarray[Any, Any]] | SequenceNotStr[S1]
 

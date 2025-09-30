@@ -1,13 +1,14 @@
+import datetime
+from typing import Any, Literal, overload
+
+import numpy as np
 from pandas import Index, PeriodIndex, Series, Timedelta, TimedeltaIndex
 from pandas._libs.tslibs import NaTType
 from pandas._libs.tslibs.offsets import BaseOffset
 from pandas._libs.tslibs.timestamps import Timestamp
-from pandas._typing import np_1darray, np_ndarray, ShapeT
-from pandas.core.series import OffsetSeries, PeriodSeries, TimedeltaSeries
-from typing import Any, Literal, overload
+from pandas._typing import ShapeT, np_1darray, np_ndarray
+from pandas.core.series import OffsetSeries
 from typing_extensions import TypeAlias
-import datetime
-import numpy as np
 
 class IncompatibleFrequency(ValueError): ...
 
@@ -65,7 +66,9 @@ class Period(PeriodMixin):
     @overload
     def __sub__(self, other: PeriodIndex) -> Index[Any]: ...
     @overload
-    def __sub__(self, other: TimedeltaSeries) -> PeriodSeries: ...
+    def __sub__(
+        self, other: Series[Timedelta]
+    ) -> Series[Period]: ...  # pyrefly: ignore[bad-specialization]
     @overload
     def __sub__(self, other: TimedeltaIndex) -> PeriodIndex: ...
     @overload
@@ -75,7 +78,9 @@ class Period(PeriodMixin):
     @overload
     def __add__(self, other: Index[Any]) -> PeriodIndex: ...
     @overload
-    def __add__(self, other: OffsetSeries | TimedeltaSeries) -> PeriodSeries: ...
+    def __add__(
+        self, other: OffsetSeries | Series[Timedelta]
+    ) -> Series[Period]: ...  # pyrefly: ignore[bad-specialization]
     #  ignore[misc] here because we know all other comparisons
     #  are False, so we use Literal[False]
     @overload
@@ -83,7 +88,7 @@ class Period(PeriodMixin):
     @overload
     def __eq__(self, other: Index[Any]) -> np_1darray[np.bool]: ...  # type: ignore[overload-overlap]
     @overload
-    def __eq__(self, other: PeriodSeries) -> Series[bool]: ...  # type: ignore[overload-overlap]
+    def __eq__(self, other: Series[Period]) -> Series[bool]: ...  # type: ignore[overload-overlap]
     @overload
     def __eq__(self, other: np_ndarray[ShapeT, np.object_]) -> np_ndarray[ShapeT, np.bool]: ...  # type: ignore[overload-overlap]
     @overload
@@ -93,7 +98,9 @@ class Period(PeriodMixin):
     @overload
     def __ge__(self, other: PeriodIndex) -> np_1darray[np.bool]: ...
     @overload
-    def __ge__(self, other: PeriodSeries) -> Series[bool]: ...
+    def __ge__(
+        self, other: Series[Period]  # pyrefly: ignore[bad-specialization]
+    ) -> Series[bool]: ...
     @overload
     def __ge__(
         self, other: np_ndarray[ShapeT, np.object_]
@@ -103,7 +110,9 @@ class Period(PeriodMixin):
     @overload
     def __gt__(self, other: PeriodIndex) -> np_1darray[np.bool]: ...
     @overload
-    def __gt__(self, other: PeriodSeries) -> Series[bool]: ...
+    def __gt__(
+        self, other: Series[Period]  # pyrefly: ignore[bad-specialization]
+    ) -> Series[bool]: ...
     @overload
     def __gt__(
         self, other: np_ndarray[ShapeT, np.object_]
@@ -113,7 +122,9 @@ class Period(PeriodMixin):
     @overload
     def __le__(self, other: PeriodIndex) -> np_1darray[np.bool]: ...
     @overload
-    def __le__(self, other: PeriodSeries) -> Series[bool]: ...
+    def __le__(
+        self, other: Series[Period]  # pyrefly: ignore[bad-specialization]
+    ) -> Series[bool]: ...
     @overload
     def __le__(
         self, other: np_ndarray[ShapeT, np.object_]
@@ -123,7 +134,9 @@ class Period(PeriodMixin):
     @overload
     def __lt__(self, other: PeriodIndex) -> np_1darray[np.bool]: ...
     @overload
-    def __lt__(self, other: PeriodSeries) -> Series[bool]: ...
+    def __lt__(
+        self, other: Series[Period]  # pyrefly: ignore[bad-specialization]
+    ) -> Series[bool]: ...
     @overload
     def __lt__(
         self, other: np_ndarray[ShapeT, np.object_]
@@ -135,7 +148,7 @@ class Period(PeriodMixin):
     @overload
     def __ne__(self, other: Index[Any]) -> np_1darray[np.bool]: ...  # type: ignore[overload-overlap]
     @overload
-    def __ne__(self, other: PeriodSeries) -> Series[bool]: ...  # type: ignore[overload-overlap]
+    def __ne__(self, other: Series[Period]) -> Series[bool]: ...  # type: ignore[overload-overlap]
     @overload
     def __ne__(self, other: np_ndarray[ShapeT, np.object_]) -> np_ndarray[ShapeT, np.bool]: ...  # type: ignore[overload-overlap]
     @overload
@@ -150,8 +163,6 @@ class Period(PeriodMixin):
     #   are unsafely overlapping
     @overload
     def __radd__(self, other: Index[Any]) -> Index[Any]: ...
-    @overload
-    def __radd__(self, other: TimedeltaSeries) -> PeriodSeries: ...
     @overload
     def __radd__(self, other: NaTType) -> NaTType: ...
     @property
@@ -207,5 +218,5 @@ class Period(PeriodMixin):
     def to_timestamp(
         self,
         freq: str | BaseOffset | None = None,
-        how: _PeriodToTimestampHow = "start",
+        how: _PeriodToTimestampHow = "S",
     ) -> Timestamp: ...

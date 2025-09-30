@@ -1,4 +1,9 @@
+import datetime
 from collections.abc import Hashable
+from typing import Any, overload
+
+import numpy as np
+import pandas as pd
 from pandas import Index
 from pandas._libs.tslibs import NaTType, Period
 from pandas._libs.tslibs.period import _PeriodAddSub
@@ -6,11 +11,7 @@ from pandas._typing import AxesData, Dtype, Frequency, np_1darray
 from pandas.core.indexes.accessors import PeriodIndexFieldOps
 from pandas.core.indexes.datetimelike import DatetimeIndexOpsMixin
 from pandas.core.indexes.timedeltas import TimedeltaIndex
-from typing import Any, overload
 from typing_extensions import Self
-import datetime
-import numpy as np
-import pandas as pd
 
 class PeriodIndex(DatetimeIndexOpsMixin[pd.Period, np.object_], PeriodIndexFieldOps):
     def __new__(
@@ -23,6 +24,12 @@ class PeriodIndex(DatetimeIndexOpsMixin[pd.Period, np.object_], PeriodIndexField
     ) -> Self: ...
     @property
     def values(self) -> np_1darray[np.object_]: ...
+    def __add__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
+        self, other: datetime.timedelta
+    ) -> Self: ...
+    def __radd__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
+        self, other: datetime.timedelta
+    ) -> Self: ...
     @overload  # type: ignore[override]
     def __sub__(self, other: Period) -> Index[Any]: ...
     @overload

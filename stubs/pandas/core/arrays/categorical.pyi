@@ -1,16 +1,17 @@
 from collections.abc import Callable, Sequence
+from typing import Any, overload
+
+import numpy as np
 from pandas import Series
-from pandas._typing import (
-	ArrayLike, Dtype, ListLike, np_1darray, Ordered, PositionalIndexerTuple, Scalar, ScalarIndexer, SequenceIndexer,
-	TakeIndexer)
+from pandas._typing import (ArrayLike, Dtype, ListLike, Ordered,
+                            PositionalIndexerTuple, Scalar, ScalarIndexer,
+                            SequenceIndexer, TakeIndexer, np_1darray)
 from pandas.core.accessor import PandasDelegate as PandasDelegate
 from pandas.core.arrays.base import ExtensionArray as ExtensionArray
 from pandas.core.base import NoNewAttributesMixin as NoNewAttributesMixin
 from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype
 from pandas.core.indexes.base import Index
-from typing import Any, overload
 from typing_extensions import Self
-import numpy as np
 
 def contains(cat: Any, key: Any, container: Any) -> Any: ...
 

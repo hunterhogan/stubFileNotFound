@@ -1,17 +1,21 @@
 from collections.abc import Hashable, Sequence
-from datetime import datetime, timedelta, tzinfo as _tzinfo
+from datetime import datetime, timedelta
+from datetime import tzinfo as _tzinfo
+from typing import Any, final, overload
+
+import numpy as np
 from pandas import DataFrame, Index, Timedelta, TimedeltaIndex, Timestamp
 from pandas._libs.tslibs.offsets import DateOffset
-from pandas._typing import (
-	AxesData, DateAndDatetimeLike, Dtype, Frequency, IntervalClosedType, np_ndarray_dt, np_ndarray_td, TimeUnit, TimeZones)
+from pandas._typing import (AxesData, DateAndDatetimeLike, Dtype, Frequency,
+                            IntervalClosedType, TimeUnit, TimeZones,
+                            np_ndarray_dt, np_ndarray_td)
+from pandas.core.arrays import DatetimeArray
 from pandas.core.dtypes.dtypes import DatetimeTZDtype
 from pandas.core.indexes.accessors import DatetimeIndexProperties
 from pandas.core.indexes.datetimelike import DatetimeTimedeltaMixin
-from pandas.core.series import TimedeltaSeries, TimestampSeries
+from pandas.core.series import Series
 from pandas.tseries.offsets import BaseOffset
-from typing import Any, final, overload
 from typing_extensions import Self
-import numpy as np
 
 class DatetimeIndex(
     DatetimeTimedeltaMixin[Timestamp, np.datetime64], DatetimeIndexProperties
@@ -29,17 +33,20 @@ class DatetimeIndex(
         name: Hashable = None,
     ) -> Self: ...
     def __reduce__(self) -> Any: ...
+
+    # Override the array property to return DatetimeArray instead of ExtensionArray
+    @property
+    def array(self) -> DatetimeArray: ...
+
     # various ignores needed for mypy, as we do want to restrict what can be used in
     # arithmetic for these types
-    @overload  # type: ignore[override]
-    def __add__(self, other: TimedeltaSeries) -> TimestampSeries: ...
-    @overload
-    def __add__(  # pyright: ignore[reportIncompatibleMethodOverride]
-        self, other: timedelta | Timedelta | TimedeltaIndex | BaseOffset
+    def __add__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
+        self, other: timedelta | TimedeltaIndex | BaseOffset
+    ) -> DatetimeIndex: ...
+    def __radd__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
+        self, other: timedelta | TimedeltaIndex | BaseOffset
     ) -> DatetimeIndex: ...
     @overload  # type: ignore[override]
-    def __sub__(self, other: TimedeltaSeries) -> TimestampSeries: ...
-    @overload
     def __sub__(
         self,
         other: timedelta | np.timedelta64 | np_ndarray_td | TimedeltaIndex | BaseOffset,
@@ -49,7 +56,7 @@ class DatetimeIndex(
         self, other: datetime | np.datetime64 | np_ndarray_dt | DatetimeIndex
     ) -> TimedeltaIndex: ...
     @final
-    def to_series(self, index: Any=None, name: Hashable = None) -> TimestampSeries: ...
+    def to_series(self, index: Any=None, name: Hashable = None) -> Series[Timestamp]: ...
     def snap(self, freq: str = 'S') -> Any: ...
     def slice_indexer(self, start: Any=None, end: Any=None, step: Any=None) -> Any: ...
     def searchsorted(self, value: Any, side: str = 'left', sorter: Any=None) -> Any: ...

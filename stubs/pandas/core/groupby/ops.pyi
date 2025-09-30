@@ -1,10 +1,12 @@
 from collections.abc import Callable, Hashable, Iterator
+from typing import Any, Generic, final
+
+import numpy as np
 from pandas import Index, Series
-from pandas._typing import ArrayLike, AxisInt, Incomplete, NDFrameT, npt, Shape, T
+from pandas._typing import (ArrayLike, AxisInt, Incomplete, NDFrameT, Shape, T,
+                            npt)
 from pandas.core.groupby import grouper
 from pandas.util._decorators import cache_readonly
-from typing import Any, final, Generic
-import numpy as np
 
 class BaseGrouper:
     axis: Index[Any]
