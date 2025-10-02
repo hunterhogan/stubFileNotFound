@@ -1,15 +1,30 @@
 from collections import abc
 from collections.abc import Mapping
 from types import TracebackType
-from typing import Any, Generic, Literal, overload
+from typing import (
+    Generic,
+    Literal,
+    overload,
+)
 
-from pandas._libs.lib import _NoDefaultDoNotUse
-from pandas._typing import (CompressionOptions, DtypeArg, DtypeBackend,
-                            FilePath, HashableT, JsonFrameOrient,
-                            JsonSeriesOrient, NDFrameT, ReadBuffer,
-                            StorageOptions, TimeUnit)
 from pandas.core.frame import DataFrame
 from pandas.core.series import Series
+
+from pandas._libs.lib import _NoDefaultDoNotUse
+from pandas._typing import (
+    CompressionOptions,
+    DtypeArg,
+    DtypeBackend,
+    FilePath,
+    HashableT,
+    JsonFrameOrient,
+    JsonSeriesOrient,
+    NDFrameT,
+    ReadBuffer,
+    StorageOptions,
+    TimeUnit,
+)
+from typing import Any
 
 @overload
 def read_json(

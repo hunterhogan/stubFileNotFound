@@ -1,6 +1,11 @@
-from pandas._libs.lib import _NoDefaultDoNotUse
-from pandas._typing import DtypeBackend, FilePath, HashableT
 from pandas.core.frame import DataFrame
+
+from pandas._libs.lib import _NoDefaultDoNotUse
+from pandas._typing import (
+    DtypeBackend,
+    FilePath,
+    HashableT,
+)
 
 def read_spss(
     path: FilePath,

@@ -1,7 +1,16 @@
-from collections.abc import Hashable, Iterable
+from collections.abc import (
+    Hashable,
+    Iterable,
+)
 
 from pandas import DataFrame
-from pandas._typing import AnyArrayLike, Dtype, HashableT1, HashableT2
+
+from pandas._typing import (
+    AnyArrayLike,
+    Dtype,
+    HashableT1,
+    HashableT2,
+)
 
 def get_dummies(
     data: AnyArrayLike | DataFrame,

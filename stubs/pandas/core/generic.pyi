@@ -1,27 +1,67 @@
+from builtins import (
+    bool as _bool,
+    str as _str,
+)
+from collections.abc import (
+    Callable,
+    Hashable,
+    Iterable,
+    Mapping,
+    Sequence,
+)
 import datetime as dt
 import sqlite3
-from builtins import bool as _bool
-from builtins import str as _str
-from collections.abc import Callable, Hashable, Iterable, Mapping, Sequence
-from typing import Any, ClassVar, Literal, final, overload
+from typing import (
+    Any,
+    ClassVar,
+    Literal,
+    final,
+    overload,
+)
 
 import numpy as np
-import pandas.core.indexing as indexing
-import sqlalchemy.engine
 from pandas import Index
-from pandas._libs.lib import _NoDefaultDoNotUse
-from pandas._typing import (Axis, CompressionOptions, CSVQuoting, DtypeArg,
-                            DtypeBackend, ExcelWriterMergeCells, FilePath,
-                            FileWriteMode, Frequency, HashableT1, HashableT2,
-                            HDFCompLib, IgnoreRaise, IndexLabel, Level,
-                            OpenFileErrors, P, StorageOptions, T, TakeIndexer,
-                            TimedeltaConvertibleTypes, TimeGrouperOrigin,
-                            TimestampConvertibleTypes, WriteBuffer)
+import pandas.core.indexing as indexing
 from pandas.core.resample import DatetimeIndexResampler
-from pandas.core.series import Series
+from pandas.core.series import (
+    Series,
+)
+import sqlalchemy.engine
+from typing_extensions import (
+    Concatenate,
+    Self,
+)
+
+from pandas._libs.lib import _NoDefaultDoNotUse
+from pandas._typing import (
+    Axis,
+    CompressionOptions,
+    CSVQuoting,
+    DtypeArg,
+    DtypeBackend,
+    ExcelWriterMergeCells,
+    FilePath,
+    FileWriteMode,
+    Frequency,
+    HashableT1,
+    HashableT2,
+    HDFCompLib,
+    IgnoreRaise,
+    IndexLabel,
+    Level,
+    OpenFileErrors,
+    P,
+    StorageOptions,
+    T,
+    TakeIndexer,
+    TimedeltaConvertibleTypes,
+    TimeGrouperOrigin,
+    TimestampConvertibleTypes,
+    WriteBuffer,
+)
+
 from pandas.io.pytables import HDFStore
 from pandas.io.sql import SQLTable
-from typing_extensions import Concatenate, Self
 
 class NDFrame(indexing.IndexingMixin):
     __hash__: ClassVar[None]  # type: ignore[assignment] # pyright: ignore[reportIncompatibleMethodOverride]

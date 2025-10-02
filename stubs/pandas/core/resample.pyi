@@ -1,14 +1,39 @@
-from collections.abc import Callable, Hashable, Mapping
-from typing import Any, Literal, final, overload
+from collections.abc import (
+    Callable,
+    Hashable,
+    Mapping,
+)
+from typing import (
+    Literal,
+    final,
+    overload,
+)
 
 import numpy as np
-from pandas import DataFrame, Series, Timedelta
-from pandas._typing import (S1, Axis, InterpolateOptions, NDFrameT, Scalar,
-                            TimeGrouperOrigin, TimestampConvention, npt)
+from pandas import (
+    DataFrame,
+    Series,
+    Timedelta,
+)
 from pandas.core.groupby.generic import SeriesGroupBy
 from pandas.core.groupby.groupby import BaseGroupBy
 from pandas.core.groupby.grouper import Grouper
-from typing_extensions import Self, TypeAlias
+from typing_extensions import (
+    Self,
+    TypeAlias,
+)
+
+from pandas._typing import (
+    S1,
+    Axis,
+    InterpolateOptions,
+    NDFrameT,
+    Scalar,
+    TimeGrouperOrigin,
+    TimestampConvention,
+    npt,
+)
+from typing import Any
 
 _FrameGroupByFunc: TypeAlias = (
     Callable[[DataFrame], Scalar]

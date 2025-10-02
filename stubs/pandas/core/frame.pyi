@@ -1,47 +1,40 @@
+from builtins import (
+    bool as _bool,
+    str as _str,
+)
+from collections import (
+    OrderedDict,
+    defaultdict,
+)
+from collections.abc import (
+    Callable,
+    Hashable,
+    Iterable,
+    Iterator,
+    Mapping,
+    MutableMapping,
+    Sequence,
+)
 import datetime as dt
 import sys
-from builtins import bool as _bool
-from builtins import str as _str
-from collections import OrderedDict, defaultdict
-from collections.abc import (Callable, Hashable, Iterable, Iterator, Mapping,
-                             MutableMapping, Sequence)
-from typing import (Any, ClassVar, Generic, Literal, NoReturn, TypeVar, final,
-                    overload)
+from typing import (
+    Any,
+    ClassVar,
+    Generic,
+    Literal,
+    NoReturn,
+    TypeVar,
+    final,
+    overload,
+)
 
-import numpy as np
-import xarray as xr
 from matplotlib.axes import Axes as PlotAxes
-from pandas import Period, Timedelta, Timestamp
-from pandas._libs.lib import _NoDefaultDoNotUse
-from pandas._libs.missing import NAType
-from pandas._libs.tslibs import BaseOffset
-from pandas._libs.tslibs.nattype import NaTType
-from pandas._libs.tslibs.offsets import DateOffset
-from pandas._typing import (S2, AggFuncTypeBase, AggFuncTypeDictFrame,
-                            AggFuncTypeDictSeries, AggFuncTypeFrame, AlignJoin,
-                            AnyAll, AnyArrayLike, ArrayLike, AstypeArg, Axes,
-                            Axis, AxisColumn, AxisIndex, CalculationMethod,
-                            ColspaceArgType, CompressionOptions, DropKeep,
-                            Dtype, FilePath, FillnaOptions, FloatFormatType,
-                            FormattersType, GroupByObjectNonScalar, HashableT,
-                            HashableT1, HashableT2, HashableT3, IgnoreRaise,
-                            IndexingInt, IndexKeyFunc, IndexLabel, IndexType,
-                            InterpolateOptions, IntervalClosedType, IntervalT,
-                            IntoColumn, JoinValidate, JsonFrameOrient,
-                            JSONSerializable, Label, Level, ListLike,
-                            ListLikeExceptSeriesAndStr, ListLikeU, MaskType,
-                            MergeHow, MergeValidate, NaPosition, NDFrameT,
-                            NsmallestNlargestKeep, ParquetEngine,
-                            QuantileInterpolation, RandomState, ReadBuffer,
-                            ReindexMethod, Renamer, ReplaceValue, Scalar,
-                            ScalarT, SequenceNotStr, SeriesByT, SortKind,
-                            StataDateFormat, StorageOptions, StrDtypeArg,
-                            StrLike, Suffixes)
-from pandas._typing import T as _T
-from pandas._typing import (TimeAmbiguous, TimeNonexistent, TimeUnit,
-                            TimeZones, ToStataByteorder, ToTimestampHow,
-                            UpdateJoin, ValueKeyFunc, WriteBuffer, XMLParsers,
-                            np_2darray, npt, num)
+import numpy as np
+from pandas import (
+    Period,
+    Timedelta,
+    Timestamp,
+)
 from pandas.core.arraylike import OpsMixin
 from pandas.core.generic import NDFrame
 from pandas.core.groupby.generic import DataFrameGroupBy
@@ -53,19 +46,129 @@ from pandas.core.indexes.interval import IntervalIndex
 from pandas.core.indexes.multi import MultiIndex
 from pandas.core.indexes.period import PeriodIndex
 from pandas.core.indexes.timedeltas import TimedeltaIndex
-from pandas.core.indexing import (_AtIndexer, _iAtIndexer, _iLocIndexer,
-                                  _IndexSliceTuple, _LocIndexer)
-from pandas.core.interchange.dataframe_protocol import \
-    DataFrame as DataFrameXchg
-from pandas.core.reshape.pivot import (_PivotTableColumnsTypes,
-                                       _PivotTableIndexTypes,
-                                       _PivotTableValuesTypes)
-from pandas.core.series import Series
-from pandas.core.window import Expanding, ExponentialMovingWindow
-from pandas.core.window.rolling import Rolling, Window
+from pandas.core.indexing import (
+    _AtIndexer,
+    _iAtIndexer,
+    _iLocIndexer,
+    _IndexSliceTuple,
+    _LocIndexer,
+)
+from pandas.core.interchange.dataframe_protocol import DataFrame as DataFrameXchg
+from pandas.core.reshape.pivot import (
+    _PivotTableColumnsTypes,
+    _PivotTableIndexTypes,
+    _PivotTableValuesTypes,
+)
+from pandas.core.series import (
+    Series,
+)
+from pandas.core.window import (
+    Expanding,
+    ExponentialMovingWindow,
+)
+from pandas.core.window.rolling import (
+    Rolling,
+    Window,
+)
+from typing_extensions import (
+    Never,
+    Self,
+    TypeAlias,
+)
+import xarray as xr
+
+from pandas._libs.lib import _NoDefaultDoNotUse
+from pandas._libs.missing import NAType
+from pandas._libs.tslibs import BaseOffset
+from pandas._libs.tslibs.nattype import NaTType
+from pandas._libs.tslibs.offsets import DateOffset
+from pandas._typing import (
+    S2,
+    AggFuncTypeBase,
+    AggFuncTypeDictFrame,
+    AggFuncTypeDictSeries,
+    AggFuncTypeFrame,
+    AlignJoin,
+    AnyAll,
+    AnyArrayLike,
+    ArrayLike,
+    AstypeArg,
+    Axes,
+    Axis,
+    AxisColumn,
+    AxisIndex,
+    CalculationMethod,
+    ColspaceArgType,
+    CompressionOptions,
+    DropKeep,
+    Dtype,
+    FilePath,
+    FillnaOptions,
+    FloatFormatType,
+    FormattersType,
+    GroupByObjectNonScalar,
+    HashableT,
+    HashableT1,
+    HashableT2,
+    HashableT3,
+    IgnoreRaise,
+    IndexingInt,
+    IndexKeyFunc,
+    IndexLabel,
+    IndexType,
+    InterpolateOptions,
+    IntervalClosedType,
+    IntervalT,
+    IntoColumn,
+    JoinValidate,
+    JsonFrameOrient,
+    JSONSerializable,
+    Label,
+    Level,
+    ListLike,
+    ListLikeExceptSeriesAndStr,
+    ListLikeU,
+    MaskType,
+    MergeHow,
+    MergeValidate,
+    NaPosition,
+    NDFrameT,
+    NsmallestNlargestKeep,
+    ParquetEngine,
+    QuantileInterpolation,
+    RandomState,
+    ReadBuffer,
+    ReindexMethod,
+    Renamer,
+    ReplaceValue,
+    Scalar,
+    ScalarT,
+    SequenceNotStr,
+    SeriesByT,
+    SortKind,
+    StataDateFormat,
+    StorageOptions,
+    StrDtypeArg,
+    StrLike,
+    Suffixes,
+    T as _T,
+    TimeAmbiguous,
+    TimeNonexistent,
+    TimeUnit,
+    TimeZones,
+    ToStataByteorder,
+    ToTimestampHow,
+    UpdateJoin,
+    ValueKeyFunc,
+    WriteBuffer,
+    XMLParsers,
+    np_2darray,
+    npt,
+    num,
+)
+
 from pandas.io.formats.style import Styler
 from pandas.plotting import PlotAccessor
-from typing_extensions import Never, Self, TypeAlias
 
 _T_MUTABLE_MAPPING = TypeVar("_T_MUTABLE_MAPPING", bound=MutableMapping[Any, Any], covariant=True)
 

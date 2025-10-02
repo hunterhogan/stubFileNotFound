@@ -1,11 +1,16 @@
-from typing import Any
-
 import numpy as np
-from pandas._libs.tslibs import BaseOffset
-from pandas._typing import S1, AxisIndex, GenericT_co, TimeUnit
 from pandas.core.indexes.extension import ExtensionIndex
 from pandas.core.indexes.timedeltas import TimedeltaIndex
 from typing_extensions import Self
+
+from pandas._libs.tslibs import BaseOffset
+from pandas._typing import (
+    S1,
+    AxisIndex,
+    GenericT_co,
+    TimeUnit,
+)
+from typing import Any
 
 class DatetimeIndexOpsMixin(ExtensionIndex[S1, GenericT_co]):
     @property

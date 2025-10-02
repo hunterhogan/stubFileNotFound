@@ -1,14 +1,30 @@
 from collections.abc import Sequence
-from typing import Any, overload
+from typing import overload
 
 import numpy as np
-from pandas._libs import NaT as NaT
-from pandas._libs import NaTType as NaTType
-from pandas._typing import (DatetimeLikeScalar, PositionalIndexerTuple,
-                            ScalarIndexer, SequenceIndexer, TimeAmbiguous,
-                            TimeNonexistent, TimeUnit)
-from pandas.core.arrays.base import ExtensionArray, ExtensionOpsMixin
-from typing_extensions import Self, TypeAlias
+from pandas.core.arrays.base import (
+    ExtensionArray,
+    ExtensionOpsMixin,
+)
+from typing_extensions import (
+    Self,
+    TypeAlias,
+)
+
+from pandas._libs import (
+    NaT as NaT,
+    NaTType as NaTType,
+)
+from pandas._typing import (
+    DatetimeLikeScalar,
+    PositionalIndexerTuple,
+    ScalarIndexer,
+    SequenceIndexer,
+    TimeAmbiguous,
+    TimeNonexistent,
+    TimeUnit,
+)
+from typing import Any
 
 DTScalarOrNaT: TypeAlias = DatetimeLikeScalar | NaTType
 
@@ -69,7 +85,6 @@ class DatetimeLikeArrayMixin(ExtensionOpsMixin, ExtensionArray):
     def unique(self) -> Any: ...
     def copy(self) -> Any: ...
     def shift(self, periods: int = 1, fill_value: Any=None, axis: int = ...) -> Any: ...
-    def searchsorted(self, value: Any, side: str = 'left', sorter: Any=None) -> Any: ...
     def repeat(self, repeats: Any, *args: Any, **kwargs: Any) -> Any: ...  # pyrefly: ignore
     def value_counts(self, dropna: bool = True) -> Any: ...
     def map(self, mapper: Any) -> Any: ...

@@ -1,10 +1,28 @@
-from collections.abc import Iterable, Mapping, Sequence
-from typing import Literal, overload
+from collections.abc import (
+    Iterable,
+    Mapping,
+    Sequence,
+)
+from typing import (
+    Literal,
+    overload,
+)
 
-from pandas import DataFrame, Series
-from pandas._typing import (S2, Axis, AxisIndex, HashableT1, HashableT2,
-                            HashableT3, HashableT4)
+from pandas import (
+    DataFrame,
+    Series,
+)
 from typing_extensions import Never
+
+from pandas._typing import (
+    S2,
+    Axis,
+    AxisIndex,
+    HashableT1,
+    HashableT2,
+    HashableT3,
+    HashableT4,
+)
 
 @overload
 def concat(  # type: ignore[overload-overlap]

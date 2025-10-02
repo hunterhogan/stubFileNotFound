@@ -1,12 +1,24 @@
 # pyright: strict
-from datetime import datetime, timedelta
-from datetime import tzinfo as _tzinfo
+from datetime import (
+    datetime,
+    timedelta,
+    tzinfo as _tzinfo,
+)
 from typing import Literal
 
 import numpy as np
+from typing_extensions import (
+    Self,
+    TypeAlias,
+)
+
 from pandas._libs.tslibs.period import Period
-from pandas._typing import Frequency, NpDtype, TimestampNonexistent, TimeUnit
-from typing_extensions import Self, TypeAlias
+from pandas._typing import (
+    Frequency,
+    NpDtype,
+    TimestampNonexistent,
+    TimeUnit,
+)
 
 NaT: NaTType
 iNaT: int

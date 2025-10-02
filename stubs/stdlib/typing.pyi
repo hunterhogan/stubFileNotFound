@@ -3,24 +3,28 @@
 # https://github.com/python/mypy/issues/16744
 import collections  # noqa: F401  # pyright: ignore[reportUnusedImport]
 import sys
-from abc import ABCMeta, abstractmethod
-from re import Match as Match
-from re import Pattern as Pattern
-from types import (BuiltinFunctionType, CodeType, FunctionType, GenericAlias,
-                   MethodDescriptorType, MethodType, MethodWrapperType,
-                   ModuleType, TracebackType, WrapperDescriptorType)
-
 import typing_extensions
 from _collections_abc import dict_items, dict_keys, dict_values
-from _typeshed import (IdentityFunction, ReadableBuffer, SupportsGetItem,
-                       SupportsGetItemViewable, SupportsKeysAndGetItem,
-                       Viewable)
-from typing_extensions import Never as _Never
-from typing_extensions import ParamSpec as _ParamSpec
-from typing_extensions import deprecated
+from _typeshed import IdentityFunction, ReadableBuffer, SupportsGetItem, SupportsGetItemViewable, SupportsKeysAndGetItem, Viewable
+from abc import ABCMeta, abstractmethod
+from re import Match as Match, Pattern as Pattern
+from types import (
+    BuiltinFunctionType,
+    CodeType,
+    FunctionType,
+    GenericAlias,
+    MethodDescriptorType,
+    MethodType,
+    MethodWrapperType,
+    ModuleType,
+    TracebackType,
+    WrapperDescriptorType,
+)
+from typing_extensions import Never as _Never, ParamSpec as _ParamSpec, deprecated
 
 if sys.version_info >= (3, 14):
     from _typeshed import EvaluateFunc
+
     from annotationlib import Format
 
 if sys.version_info >= (3, 10):
@@ -558,8 +562,7 @@ class Generator(Iterator[_YieldT_co], Protocol[_YieldT_co, _SendT_contra, _Retur
 
 # NOTE: Prior to Python 3.13 these aliases are lacking the second _ExitT_co parameter
 if sys.version_info >= (3, 13):
-    from contextlib import AbstractAsyncContextManager as AsyncContextManager
-    from contextlib import AbstractContextManager as ContextManager
+    from contextlib import AbstractAsyncContextManager as AsyncContextManager, AbstractContextManager as ContextManager
 else:
     from contextlib import AbstractAsyncContextManager, AbstractContextManager
 

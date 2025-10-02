@@ -1,6 +1,13 @@
-from collections.abc import Callable, Iterable
+from collections.abc import (
+    Callable,
+    Iterable,
+)
 from contextlib import ContextDecorator
-from typing import Any, Literal, overload
+from typing import (
+    Any,
+    Literal,
+    overload,
+)
 
 def get_option(pat: str) -> Any: ...
 def set_option(pat: str, val: object) -> None: ...

@@ -1,7 +1,7 @@
-from typing import Any
-
 from pandas import DataFrame
+
 from pandas._typing import IgnoreRaise
+from typing import Any
 
 def json_normalize(
     data: dict[Any, Any] | list[dict[Any, Any]],

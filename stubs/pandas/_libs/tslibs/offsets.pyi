@@ -1,13 +1,25 @@
 from collections.abc import Collection
-from datetime import date, datetime, time, timedelta
-from typing import Any, Literal, TypeVar, overload
+from datetime import (
+    date,
+    datetime,
+    time,
+    timedelta,
+)
+from typing import (
+    Any,
+    Literal,
+    TypeVar,
+    overload,
+)
 
-import numpy as np
 from dateutil.relativedelta import weekday as WeekdayClass
+import numpy as np
 from pandas import Timestamp
-from pandas._typing import npt
-from pandas.tseries.holiday import AbstractHolidayCalendar
 from typing_extensions import Self
+
+from pandas._typing import npt
+
+from pandas.tseries.holiday import AbstractHolidayCalendar
 
 _DatetimeT = TypeVar("_DatetimeT", bound=datetime)
 _TimedeltaT = TypeVar("_TimedeltaT", bound=timedelta)

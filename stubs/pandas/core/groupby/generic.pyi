@@ -1,20 +1,55 @@
-from collections.abc import Callable, Hashable, Iterable, Iterator, Sequence
-from typing import (Any, Concatenate, Generic, Literal, NamedTuple, Protocol,
-                    TypeVar, final, overload)
+from collections.abc import (
+    Callable,
+    Hashable,
+    Iterable,
+    Iterator,
+    Sequence,
+)
+from typing import (
+    Any,
+    Concatenate,
+    Generic,
+    Literal,
+    NamedTuple,
+    Protocol,
+    TypeVar,
+    final,
+    overload,
+)
 
-import numpy as np
 from matplotlib.axes import Axes as PlotAxes
-from pandas._libs.tslibs.timestamps import Timestamp
-from pandas._typing import (S2, S3, AggFuncTypeBase, AggFuncTypeFrame, ByT,
-                            CorrelationMethod, Dtype, IndexLabel, Level,
-                            ListLike, NsmallestNlargestKeep, P, Scalar,
-                            TakeIndexer, WindowingEngine,
-                            WindowingEngineKwargs)
+import numpy as np
 from pandas.core.frame import DataFrame
 from pandas.core.groupby.base import TransformReductionListType
-from pandas.core.groupby.groupby import GroupBy, GroupByPlot
+from pandas.core.groupby.groupby import (
+    GroupBy,
+    GroupByPlot,
+)
 from pandas.core.series import Series
-from typing_extensions import Self, TypeAlias
+from typing_extensions import (
+    Self,
+    TypeAlias,
+)
+
+from pandas._libs.tslibs.timestamps import Timestamp
+from pandas._typing import (
+    S2,
+    S3,
+    AggFuncTypeBase,
+    AggFuncTypeFrame,
+    ByT,
+    CorrelationMethod,
+    Dtype,
+    IndexLabel,
+    Level,
+    ListLike,
+    NsmallestNlargestKeep,
+    P,
+    Scalar,
+    TakeIndexer,
+    WindowingEngine,
+    WindowingEngineKwargs,
+)
 
 AggScalar: TypeAlias = str | Callable[..., Any]
 

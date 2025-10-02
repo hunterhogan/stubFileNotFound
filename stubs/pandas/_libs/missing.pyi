@@ -1,6 +1,14 @@
-from typing import Any, Callable, Literal, overload
+from typing import (
+    Any,
+    Callable,
+    Literal,
+    overload,
+)
 
-from pandas import Index, Series
+from pandas import (
+    Index,
+    Series,
+)
 from pandas.core.arrays.boolean import BooleanArray
 from typing_extensions import Self
 

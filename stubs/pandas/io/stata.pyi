@@ -1,15 +1,29 @@
-import datetime
 from collections import abc
 from collections.abc import Sequence
+import datetime
 from io import BytesIO
 from types import TracebackType
-from typing import Any, Literal, overload
+from typing import (
+    Literal,
+    overload,
+)
 
-from pandas._typing import (CompressionOptions, FilePath, HashableT,
-                            HashableT1, HashableT2, HashableT3, ReadBuffer,
-                            StataDateFormat, StorageOptions, WriteBuffer)
 from pandas.core.frame import DataFrame
 from typing_extensions import Self
+
+from pandas._typing import (
+    CompressionOptions,
+    FilePath,
+    HashableT,
+    HashableT1,
+    HashableT2,
+    HashableT3,
+    ReadBuffer,
+    StataDateFormat,
+    StorageOptions,
+    WriteBuffer,
+)
+from typing import Any
 
 @overload
 def read_stata(

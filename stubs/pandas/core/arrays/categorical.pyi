@@ -1,17 +1,34 @@
-from collections.abc import Callable, Sequence
-from typing import Any, overload
+from collections.abc import (
+    Callable,
+    Sequence,
+)
+from typing import (
+    Any,
+    overload,
+)
 
 import numpy as np
 from pandas import Series
-from pandas._typing import (ArrayLike, Dtype, ListLike, Ordered,
-                            PositionalIndexerTuple, Scalar, ScalarIndexer,
-                            SequenceIndexer, TakeIndexer, np_1darray)
 from pandas.core.accessor import PandasDelegate as PandasDelegate
 from pandas.core.arrays.base import ExtensionArray as ExtensionArray
 from pandas.core.base import NoNewAttributesMixin as NoNewAttributesMixin
-from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype
 from pandas.core.indexes.base import Index
 from typing_extensions import Self
+
+from pandas._typing import (
+    ArrayLike,
+    Dtype,
+    ListLike,
+    Ordered,
+    PositionalIndexerTuple,
+    Scalar,
+    ScalarIndexer,
+    SequenceIndexer,
+    TakeIndexer,
+    np_1darray,
+)
+
+from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype
 
 def contains(cat: Any, key: Any, container: Any) -> Any: ...
 
@@ -79,7 +96,6 @@ class Categorical(ExtensionArray):
     @property
     def nbytes(self) -> int: ...
     def memory_usage(self, deep: bool = False) -> Any: ...
-    def searchsorted(self, value: Any, side: str = 'left', sorter: Any=None) -> Any: ...
     def isna(self) -> np_1darray[np.bool]: ...
     def isnull(self) -> np_1darray[np.bool]: ...
     def notna(self) -> np_1darray[np.bool]: ...

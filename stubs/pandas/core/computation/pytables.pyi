@@ -1,8 +1,10 @@
 from typing import Any
 
-from pandas.core.computation import expr as expr
-from pandas.core.computation import ops as ops
-from pandas.core.computation import scope as _scope
+from pandas.core.computation import (
+    expr as expr,
+    ops as ops,
+    scope as _scope,
+)
 from pandas.core.computation.expr import BaseExprVisitor as BaseExprVisitor
 from pandas.core.indexes.base import Index
 

@@ -1,17 +1,40 @@
+from collections import (
+    abc,
+    defaultdict,
+)
+from collections.abc import (
+    Callable,
+    Hashable,
+    Mapping,
+    Sequence,
+)
 import csv
-from collections import abc, defaultdict
-from collections.abc import Callable, Hashable, Mapping, Sequence
 from types import TracebackType
-from typing import Any, Literal, overload
+from typing import (
+    Any,
+    Literal,
+    overload,
+)
+
+from pandas.core.frame import DataFrame
+from typing_extensions import Self
 
 from pandas._libs.lib import _NoDefaultDoNotUse
-from pandas._typing import (CompressionOptions, CSVEngine, CSVQuoting,
-                            DtypeArg, DtypeBackend, FilePath, HashableT,
-                            ListLikeHashable, ReadCsvBuffer, StorageOptions,
-                            UsecolsArgType)
-from pandas.core.frame import DataFrame
+from pandas._typing import (
+    CompressionOptions,
+    CSVEngine,
+    CSVQuoting,
+    DtypeArg,
+    DtypeBackend,
+    FilePath,
+    HashableT,
+    ListLikeHashable,
+    ReadCsvBuffer,
+    StorageOptions,
+    UsecolsArgType,
+)
+
 from pandas.io.common import IOHandles
-from typing_extensions import Self
 
 @overload
 def read_csv(

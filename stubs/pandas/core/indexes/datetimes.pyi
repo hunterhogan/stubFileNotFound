@@ -1,21 +1,47 @@
-from collections.abc import Hashable, Sequence
-from datetime import datetime, timedelta
-from datetime import tzinfo as _tzinfo
-from typing import Any, final, overload
+from collections.abc import (
+    Hashable,
+    Sequence,
+)
+from datetime import (
+    datetime,
+    timedelta,
+    tzinfo as _tzinfo,
+)
+from typing import (
+    final,
+    overload,
+)
 
 import numpy as np
-from pandas import DataFrame, Index, Timedelta, TimedeltaIndex, Timestamp
-from pandas._libs.tslibs.offsets import DateOffset
-from pandas._typing import (AxesData, DateAndDatetimeLike, Dtype, Frequency,
-                            IntervalClosedType, TimeUnit, TimeZones,
-                            np_ndarray_dt, np_ndarray_td)
-from pandas.core.arrays import DatetimeArray
-from pandas.core.dtypes.dtypes import DatetimeTZDtype
+from pandas import (
+    DataFrame,
+    Index,
+    Timedelta,
+    TimedeltaIndex,
+    Timestamp,
+)
 from pandas.core.indexes.accessors import DatetimeIndexProperties
 from pandas.core.indexes.datetimelike import DatetimeTimedeltaMixin
 from pandas.core.series import Series
-from pandas.tseries.offsets import BaseOffset
 from typing_extensions import Self
+
+from pandas._libs.tslibs.offsets import DateOffset
+from pandas._typing import (
+    AxesData,
+    DateAndDatetimeLike,
+    Dtype,
+    Frequency,
+    IntervalClosedType,
+    TimeUnit,
+    TimeZones,
+    np_ndarray_dt,
+    np_ndarray_td,
+)
+
+from pandas.core.dtypes.dtypes import DatetimeTZDtype
+
+from pandas.tseries.offsets import BaseOffset
+from typing import Any
 
 class DatetimeIndex(
     DatetimeTimedeltaMixin[Timestamp, np.datetime64], DatetimeIndexProperties
@@ -33,10 +59,6 @@ class DatetimeIndex(
         name: Hashable = None,
     ) -> Self: ...
     def __reduce__(self) -> Any: ...
-
-    # Override the array property to return DatetimeArray instead of ExtensionArray
-    @property
-    def array(self) -> DatetimeArray: ...
 
     # various ignores needed for mypy, as we do want to restrict what can be used in
     # arithmetic for these types
@@ -56,10 +78,11 @@ class DatetimeIndex(
         self, other: datetime | np.datetime64 | np_ndarray_dt | DatetimeIndex
     ) -> TimedeltaIndex: ...
     @final
-    def to_series(self, index: Any=None, name: Hashable = None) -> Series[Timestamp]: ...
+    def to_series(
+        self, index: Index[Any] | None = None, name: Hashable | None = None
+    ) -> Series[Timestamp]: ...
     def snap(self, freq: str = 'S') -> Any: ...
     def slice_indexer(self, start: Any=None, end: Any=None, step: Any=None) -> Any: ...
-    def searchsorted(self, value: Any, side: str = 'left', sorter: Any=None) -> Any: ...
     @property
     def inferred_type(self) -> str: ...
     def indexer_at_time(self, time: Any, asof: bool = False) -> Any: ...

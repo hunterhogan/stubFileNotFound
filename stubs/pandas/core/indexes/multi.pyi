@@ -1,13 +1,34 @@
-from collections.abc import Callable, Hashable, Iterable, Sequence
-from typing import Any, final, overload
+from collections.abc import (
+    Callable,
+    Hashable,
+    Iterable,
+    Sequence,
+)
+from typing import (
+    final,
+    overload,
+)
 
 import numpy as np
 import pandas as pd
-from pandas._typing import (AnyAll, Axes, DropKeep, Dtype, HashableT,
-                            IndexLabel, Level, MaskType, NaPosition,
-                            SequenceNotStr, np_1darray, np_ndarray_anyint)
 from pandas.core.indexes.base import Index
 from typing_extensions import Self
+
+from pandas._typing import (
+    AnyAll,
+    Axes,
+    DropKeep,
+    Dtype,
+    HashableT,
+    IndexLabel,
+    Level,
+    MaskType,
+    NaPosition,
+    SequenceNotStr,
+    np_1darray,
+    np_ndarray_anyint,
+)
+from typing import Any
 
 class MultiIndex(Index[Any]):
     def __new__(

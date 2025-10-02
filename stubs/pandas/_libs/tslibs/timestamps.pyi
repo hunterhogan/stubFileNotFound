@@ -1,22 +1,48 @@
 # pyright: strict
-import sys
+from datetime import (
+    date as _date,
+    datetime,
+    time as _time,
+    timedelta,
+    tzinfo as _tzinfo,
+)
 from datetime import _IsoCalendarDate  # pyright: ignore[reportPrivateUsage]
-from datetime import date as _date
-from datetime import datetime
-from datetime import time as _time
-from datetime import timedelta
-from datetime import tzinfo as _tzinfo
+import sys
 from time import struct_time
-from typing import Any, ClassVar, Literal, SupportsIndex, overload
+from typing import (
+    ClassVar,
+    Literal,
+    SupportsIndex,
+    overload,
+)
 
 import numpy as np
-from pandas import DatetimeIndex, TimedeltaIndex
-from pandas._libs.tslibs import BaseOffset, Period, Tick, Timedelta
-from pandas._typing import (ShapeT, TimestampNonexistent, TimeUnit, np_1darray,
-                            np_ndarray)
+from pandas import (
+    DatetimeIndex,
+    TimedeltaIndex,
+)
 from pandas.core.indexes.base import Index
 from pandas.core.series import Series
-from typing_extensions import Never, Self, TypeAlias
+from typing_extensions import (
+    Never,
+    Self,
+    TypeAlias,
+)
+
+from pandas._libs.tslibs import (
+    BaseOffset,
+    Period,
+    Tick,
+    Timedelta,
+)
+from pandas._typing import (
+    ShapeT,
+    TimestampNonexistent,
+    TimeUnit,
+    np_1darray,
+    np_ndarray,
+)
+from typing import Any
 
 _Ambiguous: TypeAlias = bool | Literal["raise", "NaT"]
 

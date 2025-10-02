@@ -1,8 +1,18 @@
-from typing import Any
+from pandas import (
+    DataFrame,
+    Series,
+)
+from pandas.core.window.rolling import (
+    BaseWindow,
+    BaseWindowGroupby,
+)
 
-from pandas import DataFrame, Series
-from pandas._typing import NDFrameT, WindowingEngine, WindowingEngineKwargs
-from pandas.core.window.rolling import BaseWindow, BaseWindowGroupby
+from pandas._typing import (
+    NDFrameT,
+    WindowingEngine,
+    WindowingEngineKwargs,
+)
+from typing import Any
 
 class ExponentialMovingWindow(BaseWindow[NDFrameT]):
     def mean(

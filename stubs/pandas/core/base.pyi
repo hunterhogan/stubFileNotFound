@@ -1,18 +1,47 @@
-from collections.abc import Hashable, Iterator, Sequence
-from typing import Any, Generic, Literal, TypeAlias, final, overload
+from collections.abc import (
+    Hashable,
+    Iterator,
+    Sequence,
+)
+from typing import (
+    Any,
+    Generic,
+    Literal,
+    TypeAlias,
+    final,
+    overload,
+)
 
 import numpy as np
-from pandas import Index, Series
-from pandas._typing import (S1, ArrayLike, AxisIndex, DropKeep, DTypeLike,
-                            GenericT, GenericT_co, NDFrameT, Scalar,
-                            SequenceNotStr, SupportsDType, np_1darray,
-                            np_ndarray_anyint, np_ndarray_bool,
-                            np_ndarray_complex, np_ndarray_float)
+from pandas import (
+    Index,
+    Series,
+)
 from pandas.core.arraylike import OpsMixin
 from pandas.core.arrays import ExtensionArray
 from pandas.core.arrays.categorical import Categorical
-from pandas.util._decorators import cache_readonly
+from pandas.core.indexes.accessors import ArrayDescriptor
 from typing_extensions import Self
+
+from pandas._typing import (
+    S1,
+    ArrayLike,
+    AxisIndex,
+    DropKeep,
+    DTypeLike,
+    GenericT,
+    GenericT_co,
+    NDFrameT,
+    Scalar,
+    SequenceNotStr,
+    SupportsDType,
+    np_1darray,
+    np_ndarray_anyint,
+    np_ndarray_bool,
+    np_ndarray_complex,
+    np_ndarray_float,
+)
+from pandas.util._decorators import cache_readonly
 
 _ListLike: TypeAlias = ArrayLike | dict[str, np.ndarray[Any, Any]] | SequenceNotStr[S1]
 
@@ -41,8 +70,7 @@ class IndexOpsMixin(OpsMixin, Generic[S1, GenericT_co]):
     def nbytes(self) -> int: ...
     @property
     def size(self) -> int: ...
-    @property
-    def array(self) -> ExtensionArray: ...
+    array = ArrayDescriptor()
     @overload
     def to_numpy(
         self,

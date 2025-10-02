@@ -1,23 +1,31 @@
-from typing import Any
-
 import pandas as pd
-from pandas._typing import ArrayLike, Dtype, DtypeObj, npt
 from pandas.api.extensions import ExtensionDtype
-from pandas.core.dtypes.inference import is_bool as is_bool
-from pandas.core.dtypes.inference import is_complex as is_complex
-from pandas.core.dtypes.inference import is_dict_like as is_dict_like
-from pandas.core.dtypes.inference import is_file_like as is_file_like
-from pandas.core.dtypes.inference import is_float as is_float
-from pandas.core.dtypes.inference import is_hashable as is_hashable
-from pandas.core.dtypes.inference import is_integer as is_integer
-from pandas.core.dtypes.inference import is_iterator as is_iterator
-from pandas.core.dtypes.inference import is_list_like as is_list_like
-from pandas.core.dtypes.inference import is_named_tuple as is_named_tuple
-from pandas.core.dtypes.inference import is_number as is_number
-from pandas.core.dtypes.inference import is_re as is_re
-from pandas.core.dtypes.inference import is_re_compilable as is_re_compilable
-from pandas.core.dtypes.inference import is_scalar as is_scalar
 from typing_extensions import TypeAlias
+
+from pandas._typing import (
+    ArrayLike,
+    Dtype,
+    DtypeObj,
+    npt,
+)
+
+from pandas.core.dtypes.inference import (
+    is_bool as is_bool,
+    is_complex as is_complex,
+    is_dict_like as is_dict_like,
+    is_file_like as is_file_like,
+    is_float as is_float,
+    is_hashable as is_hashable,
+    is_integer as is_integer,
+    is_iterator as is_iterator,
+    is_list_like as is_list_like,
+    is_named_tuple as is_named_tuple,
+    is_number as is_number,
+    is_re as is_re,
+    is_re_compilable as is_re_compilable,
+    is_scalar as is_scalar,
+)
+from typing import Any
 
 _ArrayOrDtype: TypeAlias = (
     ArrayLike | npt.DTypeLike | pd.Series | pd.DataFrame | pd.Index[Any] | ExtensionDtype

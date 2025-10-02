@@ -1,88 +1,224 @@
-from builtins import bool as _bool
-from builtins import str as _str
-from collections.abc import (Callable, Hashable, Iterable, Iterator, KeysView,
-                             Mapping, MutableMapping, Sequence, ValuesView)
-from datetime import date, datetime, time, timedelta
+from builtins import (
+    bool as _bool,
+    str as _str,
+)
+from collections.abc import (
+    Callable,
+    Hashable,
+    Iterable,
+    Iterator,
+    KeysView,
+    Mapping,
+    MutableMapping,
+    Sequence,
+    ValuesView,
+)
+from datetime import (
+    date,
+    datetime,
+    time,
+    timedelta,
+)
 from pathlib import Path
-from typing import (Any, ClassVar, Generic, Literal, NoReturn, Protocol, final,
-                    overload, type_check_only)
+from typing import (
+    Any,
+    ClassVar,
+    Generic,
+    Literal,
+    NoReturn,
+    Protocol,
+    TypeVar,
+    final,
+    overload,
+    type_check_only,
+)
 
+from _typeshed import (
+    SupportsAdd,
+    SupportsGetItem,
+    SupportsRAdd,
+)
+from matplotlib.axes import (
+    Axes as PlotAxes,
+    SubplotBase,
+)
 import numpy as np
-import xarray as xr
-from _typeshed import SupportsAdd, SupportsGetItem, SupportsRAdd
-from matplotlib.axes import Axes as PlotAxes
-from matplotlib.axes import SubplotBase
-from pandas import Index, Period, PeriodDtype, Timedelta, Timestamp
-from pandas._libs.interval import Interval, _OrderableT
-from pandas._libs.lib import _NoDefaultDoNotUse
-from pandas._libs.missing import NAType
-from pandas._libs.tslibs import BaseOffset
-from pandas._libs.tslibs.nattype import NaTType
-from pandas._libs.tslibs.offsets import DateOffset
-from pandas._typing import (S1, S1_CO, S1_CT, S1_CT_NDT, S2, T_COMPLEX, T_INT,
-                            AggFuncTypeBase, AggFuncTypeDictFrame,
-                            AggFuncTypeSeriesToFrame, AnyAll, AnyArrayLike,
-                            ArrayLike, Axes, AxesData, Axis, AxisColumn,
-                            AxisIndex, BooleanDtypeArg, BytesDtypeArg,
-                            CalculationMethod, CategoryDtypeArg,
-                            ComplexDtypeArg, CompressionOptions, DropKeep,
-                            Dtype, DTypeLike, DtypeObj, FilePath,
-                            FillnaOptions, FloatDtypeArg, FloatFormatType,
-                            GenericT, GenericT_co, GroupByObjectNonScalar,
-                            HashableT1, IgnoreRaise, IndexingInt, IndexKeyFunc,
-                            IndexLabel, IntDtypeArg, InterpolateOptions,
-                            IntervalClosedType, IntervalT, JoinHow,
-                            JSONSerializable, JsonSeriesOrient, Just, Label,
-                            Level, ListLike, ListLikeU, MaskType, NaPosition,
-                            NsmallestNlargestKeep, ObjectDtypeArg,
-                            QuantileInterpolation, RandomState, ReindexMethod,
-                            Renamer, ReplaceValue, Scalar, ScalarT,
-                            SequenceNotStr, SeriesByT, SortKind, StrDtypeArg,
-                            StrLike, Suffixes, SupportsDType)
-from pandas._typing import T as _T
-from pandas._typing import (TimeAmbiguous, TimedeltaDtypeArg,
-                            TimestampDtypeArg, TimeUnit, TimeZones,
-                            ToTimestampHow, UIntDtypeArg, ValueKeyFunc,
-                            VoidDtypeArg, WriteBuffer, _T_co, np_1darray,
-                            np_ndarray, np_ndarray_anyint, np_ndarray_bool,
-                            np_ndarray_complex, np_ndarray_dt,
-                            np_ndarray_float, np_ndarray_str, np_ndarray_td,
-                            npt, num)
-from pandas.core.api import Int8Dtype as Int8Dtype
-from pandas.core.api import Int16Dtype as Int16Dtype
-from pandas.core.api import Int32Dtype as Int32Dtype
-from pandas.core.api import Int64Dtype as Int64Dtype
-from pandas.core.arrays import TimedeltaArray
-from pandas.core.arrays.base import ExtensionArray
+from pandas import (
+    Index,
+    Period,
+    PeriodDtype,
+    Timedelta,
+    Timestamp,
+)
+from pandas.core.api import (
+    Int8Dtype as Int8Dtype,
+    Int16Dtype as Int16Dtype,
+    Int32Dtype as Int32Dtype,
+    Int64Dtype as Int64Dtype,
+)
+from pandas.core.arrays.boolean import BooleanDtype
 from pandas.core.arrays.categorical import CategoricalAccessor
 from pandas.core.arrays.datetimes import DatetimeArray
-from pandas.core.arrays.interval import IntervalArray
-from pandas.core.base import IndexOpsMixin, NumListLike, _ListLike
-from pandas.core.dtypes.base import ExtensionDtype
-from pandas.core.dtypes.dtypes import CategoricalDtype
+from pandas.core.arrays.timedeltas import TimedeltaArray
+from pandas.core.base import (
+    IndexOpsMixin,
+    NumListLike,
+    _ListLike,
+)
 from pandas.core.frame import DataFrame
 from pandas.core.generic import NDFrame
 from pandas.core.groupby.generic import SeriesGroupBy
 from pandas.core.groupby.groupby import BaseGroupBy
 from pandas.core.indexers import BaseIndexer
-from pandas.core.indexes.accessors import _dtDescriptor
+from pandas.core.indexes.accessors import DtDescriptor
 from pandas.core.indexes.category import CategoricalIndex
 from pandas.core.indexes.datetimes import DatetimeIndex
 from pandas.core.indexes.interval import IntervalIndex
 from pandas.core.indexes.multi import MultiIndex
 from pandas.core.indexes.period import PeriodIndex
 from pandas.core.indexes.timedeltas import TimedeltaIndex
-from pandas.core.indexing import (_AtIndexer, _iAtIndexer, _iLocIndexer,
-                                  _IndexSliceTuple, _LocIndexer)
+from pandas.core.indexing import (
+    _AtIndexer,
+    _iAtIndexer,
+    _iLocIndexer,
+    _IndexSliceTuple,
+    _LocIndexer,
+)
 from pandas.core.strings.accessor import StringMethods
-from pandas.core.window import Expanding, ExponentialMovingWindow
-from pandas.core.window.rolling import Rolling, Window
+from pandas.core.window import (
+    Expanding,
+    ExponentialMovingWindow,
+)
+from pandas.core.window.rolling import (
+    Rolling,
+    Window,
+)
+from typing_extensions import (
+    Never,
+    Self,
+    TypeAlias,
+)
+import xarray as xr
+
+from pandas._libs.interval import (
+    Interval,
+    _OrderableT,
+)
+from pandas._libs.lib import _NoDefaultDoNotUse
+from pandas._libs.missing import NAType
+from pandas._libs.tslibs import BaseOffset
+from pandas._libs.tslibs.nattype import NaTType
+from pandas._libs.tslibs.offsets import DateOffset
+from pandas._typing import (
+    S1,
+    S1_CO,
+    S1_CT,
+    S1_CT_NDT,
+    S2,
+    T_COMPLEX,
+    T_INT,
+    AggFuncTypeBase,
+    AggFuncTypeDictFrame,
+    AggFuncTypeSeriesToFrame,
+    AnyAll,
+    AnyArrayLike,
+    ArrayLike,
+    Axes,
+    AxesData,
+    Axis,
+    AxisColumn,
+    AxisIndex,
+    BooleanDtypeArg,
+    BytesDtypeArg,
+    CalculationMethod,
+    CategoryDtypeArg,
+    ComplexDtypeArg,
+    CompressionOptions,
+    DropKeep,
+    Dtype,
+    DTypeLike,
+    DtypeObj,
+    FilePath,
+    FillnaOptions,
+    FloatDtypeArg,
+    FloatFormatType,
+    GenericT,
+    GenericT_co,
+    GroupByObjectNonScalar,
+    HashableT1,
+    IgnoreRaise,
+    IndexingInt,
+    IndexKeyFunc,
+    IndexLabel,
+    IntDtypeArg,
+    InterpolateOptions,
+    IntervalClosedType,
+    IntervalT,
+    JoinHow,
+    JSONSerializable,
+    JsonSeriesOrient,
+    Just,
+    Label,
+    Level,
+    ListLike,
+    ListLikeU,
+    MaskType,
+    NaPosition,
+    NsmallestNlargestKeep,
+    ObjectDtypeArg,
+    QuantileInterpolation,
+    RandomState,
+    ReindexMethod,
+    Renamer,
+    ReplaceValue,
+    Scalar,
+    ScalarT,
+    SequenceNotStr,
+    SeriesByT,
+    SortKind,
+    StrDtypeArg,
+    StrLike,
+    Suffixes,
+    SupportsDType,
+    T as _T,
+    TimeAmbiguous,
+    TimedeltaDtypeArg,
+    TimestampDtypeArg,
+    TimeUnit,
+    TimeZones,
+    ToTimestampHow,
+    UIntDtypeArg,
+    ValueKeyFunc,
+    VoidDtypeArg,
+    WriteBuffer,
+    _T_co,
+    np_1darray,
+    np_ndarray,
+    np_ndarray_anyint,
+    np_ndarray_bool,
+    np_ndarray_complex,
+    np_ndarray_dt,
+    np_ndarray_float,
+    np_ndarray_str,
+    np_ndarray_td,
+    npt,
+    num,
+)
+
+from pandas.core.dtypes.base import ExtensionDtype
+from pandas.core.dtypes.dtypes import CategoricalDtype
+
 from pandas.plotting import PlotAccessor
-from typing_extensions import Never, Self, TypeAlias
+
+_T_INTERVAL_NP = TypeVar("_T_INTERVAL_NP", bound=np.bytes_ | np.str_)
 
 @type_check_only
 class _SupportsAdd(Protocol[_T_co]):
     def __add__(self, value: Self, /) -> _T_co: ...
+
+@type_check_only
+class SupportsSelfSub(Protocol[_T_co]):
+    def __sub__(self, x: Self, /) -> _T_co: ...
 
 @type_check_only
 class _SupportsMul(Protocol[_T_co]):
@@ -170,7 +306,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         copy: bool = ...,
     ) -> Series[float]: ...
     @overload
-    def __new__(  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
+    def __new__(
         cls,
         data: Sequence[Never],
         index: AxesData[Any] | None = ...,
@@ -225,12 +361,31 @@ class Series(IndexOpsMixin[S1], NDFrame):
     @overload
     def __new__(
         cls,
+        data: _ListLike,
+        index: AxesData[Any] | None = ...,
+        *,
+        dtype: CategoryDtypeArg,
+        name: Hashable = ...,
+        copy: bool = ...,
+    ) -> Series[CategoricalDtype]: ...
+    @overload
+    def __new__(
+        cls,
         data: PeriodIndex | Sequence[Period],
         index: AxesData[Any] | None = ...,
         dtype: PeriodDtype = ...,
         name: Hashable = ...,
         copy: bool = ...,
     ) -> Series[Period]: ...
+    @overload
+    def __new__(
+        cls,
+        data: Sequence[BaseOffset],
+        index: AxesData[Any] | None = ...,
+        dtype: PeriodDtype = ...,
+        name: Hashable = ...,
+        copy: bool = ...,
+    ) -> Series[BaseOffset]: ...
     @overload
     def __new__(
         cls,
@@ -259,7 +414,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         dtype: Literal["Interval"] = "Interval",
         name: Hashable = ...,
         copy: bool = ...,
-    ) -> IntervalSeries[_OrderableT]: ...
+    ) -> Series[Interval[_OrderableT]]: ...
     @overload
     def __new__(  # type: ignore[overload-overlap]
         cls,
@@ -346,8 +501,6 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def name(self, value: Hashable | None) -> None: ...
     @property
     def values(self) -> ArrayLike: ...
-    @property
-    def array(self) -> ExtensionArray: ...
     def ravel(self, order: _str = 'C') -> np.ndarray[Any, Any]: ...
     def __len__(self) -> int: ...
     def view(self, dtype: Any=None) -> Series[S1]: ...
@@ -704,23 +857,21 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self, other: Series[S1], min_periods: int | None = None, ddof: int = 1
     ) -> float: ...
     @overload
-    def diff(self: Series[_bool], periods: int = 1) -> Series[type[object]]: ...  # type: ignore[overload-overlap]
+    def diff(  # type: ignore[overload-overlap]
+        self: Series[Never] | Series[int], periods: int = 1
+    ) -> Series[float]: ...
     @overload
-    def diff(self: Series[complex], periods: int = 1) -> Series[complex]: ...  # type: ignore[overload-overlap]
+    def diff(self: Series[_bool], periods: int = 1) -> Series: ...
     @overload
-    def diff(self: Series[bytes], periods: int = 1) -> Never: ...
+    def diff(
+        self: Series[BooleanDtype], periods: int = 1
+    ) -> Series[BooleanDtype]: ...
     @overload
-    def diff(self: Series[type], periods: int = 1) -> Never: ...
+    def diff(self: Series[Interval[Any]], periods: int = 1) -> Never: ...
     @overload
-    def diff(self: Series[_str], periods: int = 1) -> Never: ...
-    @overload
-    def diff(self: Series[Timestamp], periods: int = 1) -> Series[Timedelta]: ...  # type: ignore[overload-overlap]
-    @overload
-    def diff(self: Series[Timedelta], periods: int = 1) -> Series[Timedelta]: ...  # type: ignore[overload-overlap]
-    @overload
-    def diff(self: Series[Period], periods: int = 1) -> OffsetSeries: ...  # type: ignore[overload-overlap]
-    @overload
-    def diff(self, periods: int = 1) -> Series[float]: ...
+    def diff(
+        self: SupportsGetItem[Scalar, SupportsSelfSub[S1_CO]], periods: int = 1
+    ) -> Series[S1_CO]: ...
     def autocorr(self, lag: int = 1) -> float: ...
     @overload
     def dot(self, other: Series[S1]) -> Scalar: ...
@@ -929,7 +1080,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         convertDType: _bool = ...,
         args: tuple[Any, ...] = (),
         **kwargs: Any,
-    ) -> OffsetSeries: ...
+    ) -> Series[BaseOffset]: ...
     @overload
     def apply(
         self,
@@ -1100,7 +1251,7 @@ class Series(IndexOpsMixin[S1], NDFrame):
         Series[_str],
         Series,
     ]: ...
-    dt = _dtDescriptor()
+    dt = DtDescriptor()
     @property
     def plot(self) -> PlotAccessor: ...
     sparse = ...
@@ -1878,6 +2029,10 @@ class Series(IndexOpsMixin[S1], NDFrame):
         self: Series[_str],
         other: _str | Sequence[_str] | np_ndarray_str | Index[_str] | Series[_str],
     ) -> Series[_str]: ...
+    @overload
+    def __radd__(self: Series[BaseOffset], other: Period) -> Series[Period]: ...
+    @overload
+    def __radd__(self: Series[BaseOffset], other: BaseOffset) -> Series[BaseOffset]: ...
     @overload
     def radd(
         self: Series[Never],
@@ -4098,9 +4253,6 @@ class Series(IndexOpsMixin[S1], NDFrame):
     def __xor__(self, other: int | np_ndarray_anyint | Series[int]) -> Series[int]: ...
     @final
     def __invert__(self) -> Series[bool]: ...
-    # properties
-    # @property
-    # def array(self) -> _npndarray
     @property
     def at(self) -> _AtIndexer: ...
     @property
@@ -4534,6 +4686,38 @@ class Series(IndexOpsMixin[S1], NDFrame):
         **kwargs: Any,
     ) -> np_1darray[np.int64]: ...
     @overload
+    def to_numpy(
+        self: Series[BaseOffset],
+        dtype: None = None,
+        copy: bool = False,
+        na_value: Scalar = ...,
+        **kwargs: Any,
+    ) -> np_1darray[np.object_]: ...
+    @overload
+    def to_numpy(
+        self: Series[BaseOffset],
+        dtype: type[np.bytes_],
+        copy: bool = False,
+        na_value: Scalar = ...,
+        **kwargs: Any,
+    ) -> np_1darray[np.bytes_]: ...
+    @overload
+    def to_numpy(
+        self: Series[Interval[Any]],
+        dtype: type[np.object_] | None = None,
+        copy: bool = False,
+        na_value: Scalar = ...,
+        **kwargs: Any,
+    ) -> np_1darray[np.object_]: ...
+    @overload
+    def to_numpy(
+        self: Series[Interval[Any]],
+        dtype: type[_T_INTERVAL_NP],
+        copy: bool = False,
+        na_value: Scalar = ...,
+        **kwargs: Any,
+    ) -> np_1darray[_T_INTERVAL_NP]: ...
+    @overload
     def to_numpy(  # pyright: ignore[reportIncompatibleMethodOverride]
         self,
         dtype: DTypeLike | None = None,
@@ -4626,18 +4810,3 @@ class _SeriesSubclassBase(Series[S1], Generic[S1, GenericT_co]):
         na_value: Scalar = ...,
         **kwargs: Any,
     ) -> np_1darray: ...
-
-class OffsetSeries(_SeriesSubclassBase[BaseOffset, np.object_]):
-    @overload  # type: ignore[override]
-    def __radd__(self, other: Period) -> Series[Period]: ...
-    @overload
-    def __radd__(  # pyright: ignore[reportIncompatibleMethodOverride]
-        self, other: BaseOffset
-    ) -> OffsetSeries: ...
-
-class IntervalSeries(
-    _SeriesSubclassBase[Interval[_OrderableT], np.object_], Generic[_OrderableT]
-):
-    @property
-    def array(self) -> IntervalArray: ...
-    def diff(self, periods: int = ...) -> Never: ...  # pyrefly: ignore

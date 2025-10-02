@@ -25,8 +25,7 @@ def smoothness(n):
     smoothness is the largest divisor raised to its multiplicity.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.factor_ import smoothness
     >>> smoothness(2**7*3**2)
     (3, 128)
@@ -36,8 +35,7 @@ def smoothness(n):
     (2, 2)
 
     See Also
-    ========
-
+    --------
     factorint, smoothness_p
     """
 def smoothness_p(n, m: int = -1, power: int = 0, visual=None):
@@ -95,8 +93,7 @@ def smoothness_p(n, m: int = -1, power: int = 0, visual=None):
         ====== ====== ======= =======
 
     See Also
-    ========
-
+    --------
     factorint, smoothness
     """
 def multiplicity(p, n):
@@ -104,8 +101,7 @@ def multiplicity(p, n):
     Find the greatest integer m such that p**m divides n.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import multiplicity, Rational
     >>> [multiplicity(5, n) for n in [8, 5, 25, 125, 250]]
     [0, 1, 2, 3, 3]
@@ -127,26 +123,23 @@ def multiplicity(p, n):
     True
 
     See Also
-    ========
-
+    --------
     trailing
 
     """
 def multiplicity_in_factorial(p, n):
-    """return the largest integer ``m`` such that ``p**m`` divides ``n!``
+    """Return the largest integer ``m`` such that ``p**m`` divides ``n!``
     without calculating the factorial of ``n``.
 
     Parameters
-    ==========
-
+    ----------
     p : Integer
         positive integer
     n : Integer
         non-negative integer
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory import multiplicity_in_factorial
     >>> from sympy import factorial
 
@@ -168,13 +161,12 @@ def multiplicity_in_factorial(p, n):
     52818775009509558395695966887
 
     See Also
-    ========
-
+    --------
     multiplicity
 
     """
 def _perfect_power(n, next_p: int = 2):
-    """ Return integers ``(b, e)`` such that ``n == b**e`` if ``n`` is a unique
+    """Return integers ``(b, e)`` such that ``n == b**e`` if ``n`` is a unique
     perfect power with ``e > 1``, else ``False`` (e.g. 1 is not a perfect power).
 
     Explanation
@@ -183,8 +175,7 @@ def _perfect_power(n, next_p: int = 2):
     This is a low-level helper for ``perfect_power``, for internal use.
 
     Parameters
-    ==========
-
+    ----------
     n : int
         assume that n is a nonnegative integer
     next_p : int
@@ -192,7 +183,7 @@ def _perfect_power(n, next_p: int = 2):
         i.e., all(n % p for p in range(2, next_p)) is True
 
     Examples
-    ========
+    --------
     >>> from sympy.ntheory.factor_ import _perfect_power
     >>> _perfect_power(16)
     (2, 4)
@@ -221,8 +212,7 @@ def perfect_power(n, candidates=None, big: bool = True, factor: bool = True):
     a factor of 2) will not be attempted.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import perfect_power, Rational
     >>> perfect_power(16)
     (2, 4)
@@ -244,8 +234,7 @@ def perfect_power(n, candidates=None, big: bool = True, factor: bool = True):
     (-3/2, 3)
 
     Notes
-    =====
-
+    -----
     To know whether an integer is a perfect power of 2 use
 
         >>> is2pow = lambda n: bool(n and not n & (n - 1))
@@ -265,13 +254,13 @@ def perfect_power(n, candidates=None, big: bool = True, factor: bool = True):
         (9, 4)
 
     See Also
-    ========
+    --------
     sympy.core.intfunc.integer_nthroot
     sympy.ntheory.primetest.is_square
     """
 
 class FactorCache(MutableMapping):
-    ''' Provides a cache for prime factors.
+    """Provides a cache for prime factors.
     ``factor_cache`` is pre-prepared as an instance of ``FactorCache``,
     and ``factorint`` internally references it to speed up
     the factorization of prime factors.
@@ -304,7 +293,8 @@ class FactorCache(MutableMapping):
     Be aware that writing this code will trigger internet access
     to factordb.com when calling ``factorint``.
 
-    '''
+    """
+
     _cache: OrderedDict[int, int]
     def __init__(self, maxsize: int | None = None) -> None: ...
     def __len__(self) -> int: ...
@@ -314,15 +304,15 @@ class FactorCache(MutableMapping):
     def __delitem__(self, n: int): ...
     def __iter__(self): ...
     def cache_clear(self) -> None:
-        """ Clear the cache """
+        """Clear the cache"""
     @property
     def maxsize(self) -> int | None:
-        """ Returns the maximum cache size; if ``None``, it is unlimited. """
+        """Returns the maximum cache size; if ``None``, it is unlimited."""
     _maxsize: Incomplete
     @maxsize.setter
     def maxsize(self, value: int | None) -> None: ...
     def get(self, n: int, default=None):
-        """ Return the prime factor of ``n``.
+        """Return the prime factor of ``n``.
         If it does not exist in the cache, return the value of ``default``.
         """
     def add(self, n: int, factors: list[int]) -> None: ...
@@ -331,7 +321,7 @@ class FactorCache(MutableMapping):
 factor_cache: Incomplete
 
 def pollard_rho(n, s: int = 2, a: int = 1, retries: int = 5, seed: int = 1234, max_steps=None, F=None):
-    '''
+    """
     Use Pollard\'s rho method to try to extract a nontrivial factor
     of ``n``. The returned factor may be a composite number. If no
     factor is found, ``None`` is returned.
@@ -392,8 +382,7 @@ def pollard_rho(n, s: int = 2, a: int = 1, retries: int = 5, seed: int = 1234, m
     is cancelled with a failure after the specified number of steps.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import pollard_rho
     >>> n=16843009
     >>> F=lambda x:(2048*pow(x,2,n) + 32767) % n
@@ -411,14 +400,14 @@ def pollard_rho(n, s: int = 2, a: int = 1, retries: int = 5, seed: int = 1234, m
     257
 
     References
-    ==========
+    ----------
 
     .. [1] Richard Crandall & Carl Pomerance (2005), "Prime Numbers:
            A Computational Perspective", Springer, 2nd edition, 229-231
 
-    '''
+    """
 def pollard_pm1(n, B: int = 10, a: int = 2, retries: int = 0, seed: int = 1234):
-    '''
+    """
     Use Pollard\'s p-1 method to try to extract a nontrivial factor
     of ``n``. Either a divisor (perhaps composite) or ``None`` is returned.
 
@@ -491,8 +480,7 @@ def pollard_pm1(n, B: int = 10, a: int = 2, retries: int = 0, seed: int = 1234):
     will yield a factor.
 
     Examples
-    ========
-
+    --------
     With the default smoothness bound, this number cannot be cracked:
 
         >>> from sympy.ntheory import pollard_pm1
@@ -538,13 +526,13 @@ def pollard_pm1(n, B: int = 10, a: int = 2, retries: int = 0, seed: int = 1234):
     division is quite fast.
 
     References
-    ==========
+    ----------
 
     .. [1] Richard Crandall & Carl Pomerance (2005), "Prime Numbers:
            A Computational Perspective", Springer, 2nd edition, 236-238
     .. [2] https://web.archive.org/web/20150716201437/http://modular.math.washington.edu/edu/2007/spring/ent/ent-html/node81.html
     .. [3] https://www.cs.toronto.edu/~yuvalf/Factorization.pdf
-    '''
+    """
 def _trial(factors, n, candidates, verbose: bool = False):
     """
     Helper function for integer factorization. Trial factors ``n`
@@ -688,8 +676,7 @@ def factorint(n, limit=None, use_trial: bool = True, use_rho: bool = True, use_p
         ====== ====== ======= =======
 
     Notes
-    =====
-
+    -----
     Algorithm:
 
     The function switches between multiple algorithms. Trial division
@@ -723,8 +710,7 @@ def factorint(n, limit=None, use_trial: bool = True, use_rho: bool = True, use_p
     If ``verbose`` is set to ``True``, detailed progress is printed.
 
     See Also
-    ========
-
+    --------
     smoothness, smoothness_p, divisors
 
     """
@@ -758,8 +744,7 @@ def primefactors(n, limit=None, verbose: bool = False, **kwargs):
     not return -1 or 0.
 
     Parameters
-    ==========
-
+    ----------
     n : integer
     limit, verbose, **kwargs :
         Additional keyword arguments to be passed to ``factorint``.
@@ -767,13 +752,11 @@ def primefactors(n, limit=None, verbose: bool = False, **kwargs):
         ``limit`` and ``verbose`` are retained for compatibility purposes.
 
     Returns
-    =======
-
+    -------
     list(int) : List of prime numbers dividing ``n``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory import primefactors, factorint, isprime
     >>> primefactors(6)
     [2, 3]
@@ -793,8 +776,7 @@ def primefactors(n, limit=None, verbose: bool = False, **kwargs):
     [101]
 
     See Also
-    ========
-
+    --------
     factorint, divisors
 
     """
@@ -802,8 +784,7 @@ def _divisors(n, proper: bool = False) -> Generator[Incomplete, Incomplete]:
     """Helper function for divisors which generates the divisors.
 
     Parameters
-    ==========
-
+    ----------
     n : int
         a nonnegative integer
     proper: bool
@@ -820,8 +801,7 @@ def divisors(n, generator: bool = False, proper: bool = False):
     factors is desired use divisor_count(n).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import divisors, divisor_count
     >>> divisors(24)
     [1, 2, 3, 4, 6, 8, 12, 24]
@@ -832,14 +812,12 @@ def divisors(n, generator: bool = False, proper: bool = False):
     [1, 2, 4, 8, 3, 6, 12, 24, 5, 10, 20, 40, 15, 30, 60, 120]
 
     Notes
-    =====
-
+    -----
     This is a slightly modified version of Tim Peters referenced at:
     https://stackoverflow.com/questions/1010381/python-factorization
 
     See Also
-    ========
-
+    --------
     primefactors, factorint, divisor_count
     """
 def divisor_count(n, modulus: int = 1, proper: bool = False):
@@ -849,8 +827,7 @@ def divisor_count(n, modulus: int = 1, proper: bool = False):
     then the divisor of ``n`` will not be counted.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import divisor_count
     >>> divisor_count(6)
     4
@@ -860,8 +837,7 @@ def divisor_count(n, modulus: int = 1, proper: bool = False):
     3
 
     See Also
-    ========
-
+    --------
     factorint, divisors, totient, proper_divisor_count
 
     """
@@ -871,8 +847,7 @@ def proper_divisors(n, generator: bool = False):
     If generator is ``True`` an unordered generator is returned.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import proper_divisors, proper_divisor_count
     >>> proper_divisors(24)
     [1, 2, 3, 4, 6, 8, 12]
@@ -882,8 +857,7 @@ def proper_divisors(n, generator: bool = False):
     [1, 2, 4, 8, 3, 6, 12, 24, 5, 10, 20, 40, 15, 30, 60]
 
     See Also
-    ========
-
+    --------
     factorint, divisors, proper_divisor_count
 
     """
@@ -892,8 +866,7 @@ def proper_divisor_count(n, modulus: int = 1):
     Return the number of proper divisors of ``n``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import proper_divisor_count
     >>> proper_divisor_count(6)
     3
@@ -901,8 +874,7 @@ def proper_divisor_count(n, modulus: int = 1):
     1
 
     See Also
-    ========
-
+    --------
     divisors, proper_divisors, divisor_count
 
     """
@@ -910,8 +882,7 @@ def _udivisors(n) -> Generator[Incomplete]:
     """Helper function for udivisors which generates the unitary divisors.
 
     Parameters
-    ==========
-
+    ----------
     n : int
         a nonnegative integer
 
@@ -926,8 +897,7 @@ def udivisors(n, generator: bool = False):
     udivisor_count(n).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.factor_ import udivisors, udivisor_count
     >>> udivisors(15)
     [1, 3, 5, 15]
@@ -938,12 +908,11 @@ def udivisors(n, generator: bool = False):
     [1, 3, 5, 8, 15, 24, 40, 120]
 
     See Also
-    ========
-
+    --------
     primefactors, factorint, divisors, divisor_count, udivisor_count
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Unitary_divisor
     .. [2] https://mathworld.wolfram.com/UnitaryDivisor.html
@@ -954,24 +923,21 @@ def udivisor_count(n):
     Return the number of unitary divisors of ``n``.
 
     Parameters
-    ==========
-
+    ----------
     n : integer
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.factor_ import udivisor_count
     >>> udivisor_count(120)
     8
 
     See Also
-    ========
-
+    --------
     factorint, divisors, udivisors, divisor_count, totient
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/UnitaryDivisorFunction.html
 
@@ -980,8 +946,7 @@ def _antidivisors(n) -> Generator[Incomplete]:
     """Helper function for antidivisors which generates the antidivisors.
 
     Parameters
-    ==========
-
+    ----------
     n : int
         a nonnegative integer
 
@@ -994,8 +959,7 @@ def antidivisors(n, generator: bool = False):
     possible margin.  If generator is True an unordered generator is returned.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.factor_ import antidivisors
     >>> antidivisors(24)
     [7, 16]
@@ -1004,12 +968,11 @@ def antidivisors(n, generator: bool = False):
     [3, 5, 15, 17, 51, 85]
 
     See Also
-    ========
-
+    --------
     primefactors, factorint, divisors, divisor_count, antidivisor_count
 
     References
-    ==========
+    ----------
 
     .. [1] definition is described in https://oeis.org/A066272/a066272a.html
 
@@ -1019,13 +982,11 @@ def antidivisor_count(n):
     Return the number of antidivisors [1]_ of ``n``.
 
     Parameters
-    ==========
-
+    ----------
     n : integer
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.factor_ import antidivisor_count
     >>> antidivisor_count(13)
     4
@@ -1033,12 +994,11 @@ def antidivisor_count(n):
     5
 
     See Also
-    ========
-
+    --------
     factorint, divisors, antidivisors, divisor_count, totient
 
     References
-    ==========
+    ----------
 
     .. [1] formula from https://oeis.org/A066272
 
@@ -1057,13 +1017,11 @@ def totient(n):
     that are relatively prime to n.
 
     Parameters
-    ==========
-
+    ----------
     n : integer
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import totient
     >>> totient(1)
     1
@@ -1073,12 +1031,11 @@ def totient(n):
     True
 
     See Also
-    ========
-
+    --------
     divisor_count
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Euler%27s_totient_function
     .. [2] https://mathworld.wolfram.com/TotientFunction.html
@@ -1098,8 +1055,7 @@ def reduced_totient(n):
     `k^m \\equiv 1 \\mod n` for all k relatively prime to n.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import reduced_totient
     >>> reduced_totient(1)
     1
@@ -1109,12 +1065,11 @@ def reduced_totient(n):
     4
 
     See Also
-    ========
-
+    --------
     totient
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Carmichael_function
     .. [2] https://mathworld.wolfram.com/CarmichaelFunction.html
@@ -1144,8 +1099,7 @@ def divisor_sigma(n, k: int = 1):
         + p_i^{m_ik}).
 
     Parameters
-    ==========
-
+    ----------
     n : integer
 
     k : integer, optional
@@ -1158,8 +1112,7 @@ def divisor_sigma(n, k: int = 1):
         Default for k is 1.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import divisor_sigma
     >>> divisor_sigma(18, 0)
     6
@@ -1171,30 +1124,27 @@ def divisor_sigma(n, k: int = 1):
     38
 
     See Also
-    ========
-
+    --------
     divisor_count, totient, divisors, factorint
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Divisor_function
 
     """
 def _divisor_sigma(n: int, k: int = 1) -> int:
-    """ Calculate the divisor function `\\sigma_k(n)` for positive integer n
+    """Calculate the divisor function `\\sigma_k(n)` for positive integer n
 
     Parameters
-    ==========
-
+    ----------
     n : int
         positive integer
     k : int
         nonnegative integer
 
     See Also
-    ========
-
+    --------
     sympy.functions.combinatorial.numbers.divisor_sigma
 
     """
@@ -1215,8 +1165,7 @@ def core(n, t: int = 2):
         core_t(n) = \\prod_{i=1}^\\omega p_i^{m_i \\mod t}.
 
     Parameters
-    ==========
-
+    ----------
     n : integer
 
     t : integer
@@ -1228,8 +1177,7 @@ def core(n, t: int = 2):
         Default for t is 2.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.factor_ import core
     >>> core(24, 2)
     6
@@ -1241,12 +1189,11 @@ def core(n, t: int = 2):
     15
 
     See Also
-    ========
-
+    --------
     factorint, sympy.solvers.diophantine.diophantine.square_factor
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Square-free_integer#Squarefree_core
 
@@ -1274,8 +1221,7 @@ def udivisor_sigma(n, k: int = 1):
         \\sigma_k^*(n) = \\prod_{i=1}^\\omega (1+ p_i^{m_ik}).
 
     Parameters
-    ==========
-
+    ----------
     k : power of divisors in the sum
 
         for k = 0, 1:
@@ -1285,8 +1231,7 @@ def udivisor_sigma(n, k: int = 1):
         Default for k is 1.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import udivisor_sigma
     >>> udivisor_sigma(18, 0)
     4
@@ -1298,13 +1243,12 @@ def udivisor_sigma(n, k: int = 1):
     152
 
     See Also
-    ========
-
+    --------
     divisor_count, totient, divisors, udivisors, udivisor_count, divisor_sigma,
     factorint
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/UnitaryDivisorFunction.html
 
@@ -1330,8 +1274,7 @@ def primenu(n):
         \\nu(n) = k.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import primenu
     >>> primenu(1)
     0
@@ -1339,12 +1282,11 @@ def primenu(n):
     3
 
     See Also
-    ========
-
+    --------
     factorint
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/PrimeFactor.html
 
@@ -1371,8 +1313,7 @@ def primeomega(n):
         \\Omega(n) = \\sum_{i=1}^k m_i.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import primeomega
     >>> primeomega(1)
     0
@@ -1380,12 +1321,11 @@ def primeomega(n):
     3
 
     See Also
-    ========
-
+    --------
     factorint
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/PrimeFactor.html
 
@@ -1395,8 +1335,7 @@ def mersenne_prime_exponent(nth):
     has the form `2^i - 1`).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.factor_ import mersenne_prime_exponent
     >>> mersenne_prime_exponent(1)
     2
@@ -1409,8 +1348,7 @@ def is_perfect(n):
     A perfect number is equal to the sum of its positive, proper divisors.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import divisor_sigma
     >>> from sympy.ntheory.factor_ import is_perfect, divisors
     >>> is_perfect(20)
@@ -1421,7 +1359,7 @@ def is_perfect(n):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/PerfectNumber.html
     .. [2] https://en.wikipedia.org/wiki/Perfect_number
@@ -1432,8 +1370,7 @@ def abundance(n):
     proper divisors of a number and the number.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory import abundance, is_perfect, is_abundant
     >>> abundance(6)
     0
@@ -1450,8 +1387,7 @@ def is_abundant(n):
     A abundant number is smaller than the sum of its positive proper divisors.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.factor_ import is_abundant
     >>> is_abundant(20)
     True
@@ -1459,7 +1395,7 @@ def is_abundant(n):
     False
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/AbundantNumber.html
 
@@ -1470,8 +1406,7 @@ def is_deficient(n):
     A deficient number is greater than the sum of its positive proper divisors.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.factor_ import is_deficient
     >>> is_deficient(20)
     False
@@ -1479,20 +1414,19 @@ def is_deficient(n):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/DeficientNumber.html
 
     """
 def is_amicable(m, n):
-    '''Returns True if the numbers `m` and `n` are "amicable", else False.
+    """Returns True if the numbers `m` and `n` are "amicable", else False.
 
     Amicable numbers are two different numbers so related that the sum
     of the proper divisors of each is equal to that of the other.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import divisor_sigma
     >>> from sympy.ntheory.factor_ import is_amicable
     >>> is_amicable(220, 284)
@@ -1501,46 +1435,42 @@ def is_amicable(m, n):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Amicable_numbers
 
-    '''
+    """
 def is_carmichael(n):
-    """ Returns True if the numbers `n` is Carmichael number, else False.
+    """Returns True if the numbers `n` is Carmichael number, else False.
 
     Parameters
-    ==========
-
+    ----------
     n : Integer
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Carmichael_number
     .. [2] https://oeis.org/A002997
 
     """
 def find_carmichael_numbers_in_range(x, y):
-    """ Returns a list of the number of Carmichael in the range
+    """Returns a list of the number of Carmichael in the range
 
     See Also
-    ========
-
+    --------
     is_carmichael
 
     """
 def find_first_n_carmichaels(n):
-    """ Returns the first n Carmichael numbers.
+    """Returns the first n Carmichael numbers.
 
     Parameters
-    ==========
-
+    ----------
     n : Integer
 
     See Also
-    ========
-
+    --------
     is_carmichael
 
     """
@@ -1552,14 +1482,13 @@ def dra(n, b):
     compute a digit sum.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.factor_ import dra
     >>> dra(3110, 12)
     8
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Digital_root
 
@@ -1572,8 +1501,7 @@ def drm(n, b):
     iteration to compute the digit multiplication.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.factor_ import drm
     >>> drm(9876, 10)
     0
@@ -1582,7 +1510,7 @@ def drm(n, b):
     8
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/MultiplicativeDigitalRoot.html
 

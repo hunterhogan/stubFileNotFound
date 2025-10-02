@@ -1,11 +1,10 @@
-from abc import ABC
-from collections.abc import Iterable, Iterator, Mapping
-from collections.abc import Set as AbstractSet
-from typing import Any, Generic, Literal, TypeVar, overload
-
 from _typeshed import Incomplete, Unused
-from networkx.classes.graph import Graph, _Edge, _NBunch, _Node
+from abc import ABC
+from collections.abc import Iterable, Iterator, Mapping, Set as AbstractSet
+from typing import Any, Generic, Literal, TypeVar, overload
 from typing_extensions import Self
+
+from networkx.classes.graph import Graph, _Edge, _NBunch, _Node
 
 _D = TypeVar("_D")
 _U = TypeVar("_U")

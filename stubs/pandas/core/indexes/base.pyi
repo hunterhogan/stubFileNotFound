@@ -1,28 +1,93 @@
 from builtins import str as _str
-from collections.abc import Callable, Hashable, Iterable, Sequence
-from datetime import datetime, timedelta
-from typing import (Any, ClassVar, Generic, Literal, final, overload,
-                    type_check_only)
+from collections.abc import (
+    Callable,
+    Hashable,
+    Iterable,
+    Sequence,
+)
+from datetime import (
+    datetime,
+    timedelta,
+)
+from typing import (
+    Any,
+    ClassVar,
+    Generic,
+    Literal,
+    final,
+    overload,
+    type_check_only,
+)
 
+from _typeshed import (
+    SupportsAdd,
+    SupportsRAdd,
+)
 import numpy as np
-from _typeshed import SupportsAdd, SupportsRAdd
-from pandas import (DataFrame, DatetimeIndex, Interval, IntervalIndex,
-                    MultiIndex, Period, PeriodDtype, PeriodIndex, Series,
-                    TimedeltaIndex)
-from pandas._libs.interval import _OrderableT
-from pandas._typing import (C2, S1, S1_CO, S1_CT, T_COMPLEX, AnyAll, ArrayLike,
-                            AxesData, DropKeep, Dtype, DtypeArg, DTypeLike,
-                            DtypeObj, GenericT, GenericT_co, HashableT,
-                            IgnoreRaise, Just, Label, Level, MaskType,
-                            NaPosition, ReindexMethod, Scalar, SequenceNotStr,
-                            SliceType, SupportsDType, TimedeltaDtypeArg,
-                            TimestampDtypeArg, np_1darray, np_ndarray_anyint,
-                            np_ndarray_bool, np_ndarray_complex,
-                            np_ndarray_float, np_ndarray_str, type_t)
-from pandas.core.arrays import ExtensionArray
-from pandas.core.base import IndexOpsMixin, NumListLike, _ListLike
+from pandas import (
+    DataFrame,
+    DatetimeIndex,
+    Interval,
+    IntervalIndex,
+    MultiIndex,
+    Period,
+    PeriodDtype,
+    PeriodIndex,
+    Series,
+    TimedeltaIndex,
+)
+from pandas.core.base import (
+    IndexOpsMixin,
+    NumListLike,
+    _ListLike,
+)
+from pandas.core.indexes.category import CategoricalIndex
 from pandas.core.strings.accessor import StringMethods
-from typing_extensions import Never, Self
+from typing_extensions import (
+    Never,
+    Self,
+)
+
+from pandas._libs.interval import _OrderableT
+from pandas._typing import (
+    C2,
+    S1,
+    S1_CO,
+    S1_CT,
+    T_COMPLEX,
+    AnyAll,
+    ArrayLike,
+    AxesData,
+    CategoryDtypeArg,
+    DropKeep,
+    Dtype,
+    DtypeArg,
+    DTypeLike,
+    DtypeObj,
+    GenericT,
+    GenericT_co,
+    HashableT,
+    IgnoreRaise,
+    Just,
+    Label,
+    Level,
+    MaskType,
+    NaPosition,
+    ReindexMethod,
+    Scalar,
+    SequenceNotStr,
+    SliceType,
+    SupportsDType,
+    TimedeltaDtypeArg,
+    TimestampDtypeArg,
+    np_1darray,
+    np_ndarray_anyint,
+    np_ndarray_bool,
+    np_ndarray_complex,
+    np_ndarray_float,
+    np_ndarray_str,
+    type_t,
+)
 
 class InvalidIndexError(Exception): ...
 
@@ -167,6 +232,16 @@ class Index(IndexOpsMixin[S1]):
     @overload
     def __new__(
         cls,
+        data: AxesData[Any],
+        *,
+        dtype: CategoryDtypeArg,
+        copy: bool = False,
+        name: Hashable = None,
+        tupleize_cols: bool = True,
+    ) -> CategoricalIndex[Any]: ...
+    @overload
+    def __new__(
+        cls,
         data: Sequence[Interval[_OrderableT]] | IndexOpsMixin[Interval[_OrderableT]],
         *,
         dtype: Literal["Interval"] = "Interval",
@@ -259,7 +334,9 @@ class Index(IndexOpsMixin[S1]):
         self, name: bool = False, formatter: Callable[..., Any] | None = None, na_rep: _str = 'NaN'
     ) -> list[_str]: ...
     def to_flat_index(self) -> Any: ...
-    def to_series(self, index: Any=None, name: Hashable = None) -> Series: ...
+    def to_series(
+        self, index: Index[Any] | None = None, name: Hashable | None = None
+    ) -> Series[S1]: ...
     def to_frame(self, index: bool = True, name: Any=...) -> DataFrame: ...
     @property
     def name(self) -> Hashable | None: ...
@@ -348,8 +425,6 @@ class Index(IndexOpsMixin[S1]):
     ) -> Any: ...
     @property
     def values(self) -> np_1darray: ...
-    @property
-    def array(self) -> ExtensionArray: ...
     def memory_usage(self, deep: bool = False) -> Any: ...
     def where(self, cond: Any, other: Scalar | ArrayLike | None = None) -> Any: ...
     def __contains__(self, key: Any) -> bool: ...

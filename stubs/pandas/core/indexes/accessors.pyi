@@ -1,23 +1,55 @@
-import datetime as dt
-from datetime import timedelta
-from datetime import tzinfo as _tzinfo
-from typing import Any, Generic, Literal, TypeVar, overload
+from datetime import (
+    date,
+    time,
+    timedelta,
+    tzinfo as _tzinfo,
+)
+from typing import (
+    Generic,
+    Literal,
+    TypeVar,
+    overload,
+    type_check_only,
+)
 
 import numpy as np
-from pandas import (DatetimeIndex, Index, PeriodIndex, Timedelta,
-                    TimedeltaIndex, Timestamp)
+from pandas.core.accessor import PandasDelegate
+from pandas.core.arrays.base import ExtensionArray
+from pandas.core.arrays.categorical import Categorical
+from pandas.core.arrays.datetimes import DatetimeArray
+from pandas.core.arrays.interval import IntervalArray
+from pandas.core.arrays.period import PeriodArray
+from pandas.core.arrays.timedeltas import TimedeltaArray
+from pandas.core.base import (
+    IndexOpsMixin,
+    NoNewAttributesMixin,
+)
+from pandas.core.frame import DataFrame
+from pandas.core.indexes.base import Index
+from pandas.core.indexes.datetimes import DatetimeIndex
+from pandas.core.indexes.period import PeriodIndex
+from pandas.core.indexes.timedeltas import TimedeltaIndex
+from pandas.core.series import Series
+from typing_extensions import Never
+
+from pandas._libs.interval import Interval
 from pandas._libs.tslibs import BaseOffset
 from pandas._libs.tslibs.offsets import DateOffset
 from pandas._libs.tslibs.period import Period
-from pandas._typing import (S1, TimeAmbiguous, TimeNonexistent,
-                            TimestampConvention, TimeUnit, TimeZones,
-                            np_1darray, np_ndarray_bool)
-from pandas.core.accessor import PandasDelegate
-from pandas.core.arrays import DatetimeArray, PeriodArray
-from pandas.core.base import NoNewAttributesMixin
-from pandas.core.frame import DataFrame
-from pandas.core.series import Series
-from typing_extensions import Never
+from pandas._libs.tslibs.timedeltas import Timedelta
+from pandas._libs.tslibs.timestamps import Timestamp
+from pandas._typing import (
+    TimeAmbiguous,
+    TimeNonexistent,
+    TimestampConvention,
+    TimeUnit,
+    TimeZones,
+    np_1darray,
+    np_ndarray_bool,
+)
+
+from pandas.core.dtypes.dtypes import CategoricalDtype
+from typing import Any
 
 class Properties(PandasDelegate, NoNewAttributesMixin): ...
 
@@ -102,10 +134,10 @@ class _DatetimeObjectOps(
 ): ...
 
 _DTOtherOpsDateReturnType = TypeVar(
-    "_DTOtherOpsDateReturnType", bound=Series[dt.date] | np_1darray[np.object_]
+    "_DTOtherOpsDateReturnType", bound=Series[date] | np_1darray[np.object_]
 )
 _DTOtherOpsTimeReturnType = TypeVar(
-    "_DTOtherOpsTimeReturnType", bound=Series[dt.time] | np_1darray[np.object_]
+    "_DTOtherOpsTimeReturnType", bound=Series[time] | np_1darray[np.object_]
 )
 
 class _DatetimeOtherOps(Generic[_DTOtherOpsDateReturnType, _DTOtherOpsTimeReturnType]):
@@ -342,8 +374,8 @@ class CombinedDatetimelikeProperties(
     DatetimeProperties[Series[int],
         Series[bool],
         Series,
-        Series[dt.date],
-        Series[dt.time],
+        Series[date],
+        Series[time],
         str,
         Series[Timestamp],
         Series[str],
@@ -352,12 +384,14 @@ class CombinedDatetimelikeProperties(
     _TimedeltaPropertiesNoRounding[Series[int], Series[float]],
     _PeriodProperties[Any, Any, Any, Any, Any],
 ): ...
+
+@type_check_only
 class TimestampProperties(
     DatetimeProperties[Series[int],
         Series[bool],
         Series[Timestamp],
-        Series[dt.date],
-        Series[dt.time],
+        Series[date],
+        Series[time],
         str,
         Series[Timestamp],
         Series[str],
@@ -394,51 +428,47 @@ class TimedeltaIndexProperties(
     _DatetimeRoundingMethods[TimedeltaIndex],
 ): ...
 
-class _dtDescriptor(CombinedDatetimelikeProperties, Generic[S1]):
+@type_check_only
+class DtDescriptor:
     @overload
-    def __get__(self, instance: Series[Never], owner: Any) -> Never: ...
-    @overload
-    def __get__(self, instance: Series[Period], owner: Any) -> PeriodProperties: ...
+    def __get__(self, instance: Series[Never], owner: type[Series]) -> Properties: ...
     @overload
     def __get__(
-        self, instance: Series[Timestamp], owner: Any
+        self, instance: Series[Timestamp], owner: type[Series]
     ) -> TimestampProperties: ...
     @overload
     def __get__(
-        self, instance: Series[Timedelta], owner: Any
+        self, instance: Series[Timedelta], owner: type[Series]
     ) -> TimedeltaProperties: ...
     @overload
     def __get__(
-        self, instance: Series[S1], owner: Any
-    ) -> CombinedDatetimelikeProperties: ...
-    def round(
-        self,
-        freq: str | BaseOffset | None,
-        ambiguous: Literal["raise", "infer", "NaT"] | bool | np_ndarray_bool = ...,
-        nonexistent: (
-            Literal["shift_forward", "shift_backward", "NaT", "raise"]
-            | timedelta
-            | Timedelta
-        ) = ...,
-    ) -> Series[S1]: ...
-    def floor(
-        self,
-        freq: str | BaseOffset | None,
-        ambiguous: Literal["raise", "infer", "NaT"] | bool | np_ndarray_bool = ...,
-        nonexistent: (
-            Literal["shift_forward", "shift_backward", "NaT", "raise"]
-            | timedelta
-            | Timedelta
-        ) = ...,
-    ) -> Series[S1]: ...
-    def ceil(
-        self,
-        freq: str | BaseOffset | None,
-        ambiguous: Literal["raise", "infer", "NaT"] | bool | np_ndarray_bool = ...,
-        nonexistent: (
-            Literal["shift_forward", "shift_backward", "NaT", "raise"]
-            | timedelta
-            | Timedelta
-        ) = ...,
-    ) -> Series[S1]: ...
-    def as_unit(self, unit: TimeUnit) -> Series[S1]: ...
+        self, instance: Series[Period], owner: type[Series]
+    ) -> PeriodProperties: ...
+
+@type_check_only
+class ArrayDescriptor:
+    @overload
+    def __get__(
+        self, instance: IndexOpsMixin[Never], owner: type[IndexOpsMixin]
+    ) -> ExtensionArray: ...
+    @overload
+    def __get__(
+        self, instance: IndexOpsMixin[CategoricalDtype], owner: type[IndexOpsMixin]
+    ) -> Categorical: ...
+    @overload
+    def __get__(
+        self, instance: IndexOpsMixin[Interval[Any]], owner: type[IndexOpsMixin]
+    ) -> IntervalArray: ...
+    @overload
+    def __get__(
+        self, instance: IndexOpsMixin[Timestamp], owner: type[IndexOpsMixin]
+    ) -> DatetimeArray: ...
+    @overload
+    def __get__(
+        self, instance: IndexOpsMixin[Timedelta], owner: type[IndexOpsMixin]
+    ) -> TimedeltaArray: ...
+    # should be NumpyExtensionArray
+    @overload
+    def __get__(
+        self, instance: IndexOpsMixin, owner: type[IndexOpsMixin]
+    ) -> ExtensionArray: ...

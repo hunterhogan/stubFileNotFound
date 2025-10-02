@@ -1,16 +1,35 @@
+from collections.abc import (
+    Callable,
+    Hashable,
+    Mapping,
+    Sequence,
+)
 import datetime
-from collections.abc import Callable, Hashable, Mapping, Sequence
-from typing import Any, Literal, overload
+from typing import (
+    Literal,
+    overload,
+)
 
 import numpy as np
 import pandas as pd
-from pandas._typing import (AnyArrayLike, ArrayLike, HashableT1, HashableT2,
-                            HashableT3, Label, Scalar, ScalarT, npt)
 from pandas.core.frame import DataFrame
 from pandas.core.groupby.grouper import Grouper
 from pandas.core.indexes.base import Index
 from pandas.core.series import Series
 from typing_extensions import TypeAlias
+
+from pandas._typing import (
+    AnyArrayLike,
+    ArrayLike,
+    HashableT1,
+    HashableT2,
+    HashableT3,
+    Label,
+    Scalar,
+    ScalarT,
+    npt,
+)
+from typing import Any
 
 _PivotAggCallable: TypeAlias = Callable[[Series], ScalarT]
 

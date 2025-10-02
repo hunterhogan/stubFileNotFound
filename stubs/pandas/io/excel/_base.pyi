@@ -1,18 +1,39 @@
-from collections.abc import Callable, Hashable, Iterable, Mapping, Sequence
+from collections.abc import (
+    Callable,
+    Hashable,
+    Iterable,
+    Mapping,
+    Sequence,
+)
 from types import TracebackType
-from typing import Any, Literal, overload
+from typing import (
+    Any,
+    Literal,
+    overload,
+)
 
-import pyxlsb.workbook
 from odf.opendocument import OpenDocument
 from openpyxl.workbook.workbook import Workbook
-from pandas._libs.lib import _NoDefaultDoNotUse
-from pandas._typing import (Dtype, DtypeBackend, ExcelReadEngine,
-                            ExcelWriteEngine, ExcelWriterIfSheetExists,
-                            FilePath, IntStrT, ListLikeHashable, ReadBuffer,
-                            StorageOptions, UsecolsArgType, WriteExcelBuffer)
 from pandas.core.frame import DataFrame
+import pyxlsb.workbook
 from typing_extensions import Self
 from xlrd.book import Book
+
+from pandas._libs.lib import _NoDefaultDoNotUse
+from pandas._typing import (
+    Dtype,
+    DtypeBackend,
+    ExcelReadEngine,
+    ExcelWriteEngine,
+    ExcelWriterIfSheetExists,
+    FilePath,
+    IntStrT,
+    ListLikeHashable,
+    ReadBuffer,
+    StorageOptions,
+    UsecolsArgType,
+    WriteExcelBuffer,
+)
 
 @overload
 def read_excel(

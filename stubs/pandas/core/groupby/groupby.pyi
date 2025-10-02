@@ -1,31 +1,77 @@
+from collections.abc import (
+    Callable,
+    Hashable,
+    Iterable,
+    Iterator,
+    Sequence,
+)
 import datetime as dt
-from collections.abc import Callable, Hashable, Iterable, Iterator, Sequence
-from typing import Any, Generic, Literal, TypeVar, final, overload
+from typing import (
+    Any,
+    Generic,
+    Literal,
+    TypeVar,
+    final,
+    overload,
+)
 
 import numpy as np
-from pandas._libs.lib import _NoDefaultDoNotUse
-from pandas._libs.tslibs import BaseOffset
-from pandas._typing import (S1, AnyArrayLike, Axis, AxisInt, CalculationMethod,
-                            Dtype, Frequency, IndexLabel, IntervalClosedType,
-                            MaskType, NDFrameT, P, RandomState, Scalar, T,
-                            TimedeltaConvertibleTypes, TimeGrouperOrigin,
-                            TimestampConvention, TimestampConvertibleTypes,
-                            WindowingEngine, WindowingEngineKwargs, npt)
 from pandas.core.base import SelectionMixin
 from pandas.core.frame import DataFrame
-from pandas.core.groupby import generic
-from pandas.core.groupby.indexing import (GroupByIndexingMixin,
-                                          GroupByNthSelector)
+from pandas.core.groupby import (
+    generic,
+)
+from pandas.core.groupby.indexing import (
+    GroupByIndexingMixin,
+    GroupByNthSelector,
+)
 from pandas.core.indexers import BaseIndexer
 from pandas.core.indexes.api import Index
-from pandas.core.resample import (DatetimeIndexResamplerGroupby,
-                                  PeriodIndexResamplerGroupby,
-                                  TimedeltaIndexResamplerGroupby)
+from pandas.core.resample import (
+    DatetimeIndexResamplerGroupby,
+    PeriodIndexResamplerGroupby,
+    TimedeltaIndexResamplerGroupby,
+)
 from pandas.core.series import Series
-from pandas.core.window import (ExpandingGroupby,
-                                ExponentialMovingWindowGroupby, RollingGroupby)
+from pandas.core.window import (
+    ExpandingGroupby,
+    ExponentialMovingWindowGroupby,
+    RollingGroupby,
+)
+from typing_extensions import (
+    Concatenate,
+    Self,
+    TypeAlias,
+)
+
+from pandas._libs.lib import _NoDefaultDoNotUse
+from pandas._libs.tslibs import BaseOffset
+from pandas._typing import (
+    S1,
+    AnyArrayLike,
+    Axis,
+    AxisInt,
+    CalculationMethod,
+    Dtype,
+    Frequency,
+    IndexLabel,
+    IntervalClosedType,
+    MaskType,
+    NDFrameT,
+    P,
+    RandomState,
+    Scalar,
+    T,
+    TimedeltaConvertibleTypes,
+    TimeGrouperOrigin,
+    TimestampConvention,
+    TimestampConvertibleTypes,
+    WindowingEngine,
+    WindowingEngineKwargs,
+    npt,
+)
+
 from pandas.plotting import PlotAccessor
-from typing_extensions import Concatenate, Self, TypeAlias
 
 _ResamplerGroupBy: TypeAlias = (
     DatetimeIndexResamplerGroupby[NDFrameT]  # ty: ignore[invalid-argument-type]

@@ -1,16 +1,41 @@
 # pyright: strict
 import datetime as dt
 from datetime import timedelta
-from typing import Any, ClassVar, Literal, NamedTuple, overload
+from typing import (
+    ClassVar,
+    Literal,
+    NamedTuple,
+    overload,
+)
 
 import numpy as np
 import pandas as pd
-from pandas import DatetimeIndex, Index, PeriodIndex, Series, TimedeltaIndex
-from pandas._libs.tslibs import BaseOffset, NaTType
+from pandas import (
+    DatetimeIndex,
+    Index,
+    PeriodIndex,
+    Series,
+    TimedeltaIndex,
+)
+from typing_extensions import (
+    Self,
+    TypeAlias,
+)
+
+from pandas._libs.tslibs import (
+    BaseOffset,
+    NaTType,
+)
 from pandas._libs.tslibs.period import Period
 from pandas._libs.tslibs.timestamps import Timestamp
-from pandas._typing import ShapeT, TimeUnit, np_1darray, np_ndarray, npt
-from typing_extensions import Self, TypeAlias
+from pandas._typing import (
+    ShapeT,
+    TimeUnit,
+    np_1darray,
+    np_ndarray,
+    npt,
+)
+from typing import Any
 
 class Components(NamedTuple):
     days: int

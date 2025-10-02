@@ -1,12 +1,30 @@
-from collections.abc import Callable, Sequence
-from typing import Any, Literal, TypedDict
+from collections.abc import (
+    Callable,
+    Sequence,
+)
+from typing import (
+    Any,
+    Literal,
+    TypedDict,
+)
 
-from jinja2.environment import Environment, Template
+from jinja2.environment import (
+    Environment,
+    Template,
+)
 from jinja2.loaders import PackageLoader
 from pandas import Index
-from pandas._typing import Axis, HashableT, Level
 from pandas.core.indexing import _IndexSlice
-from typing_extensions import Self, TypeAlias
+from typing_extensions import (
+    Self,
+    TypeAlias,
+)
+
+from pandas._typing import (
+    Axis,
+    HashableT,
+    Level,
+)
 
 BaseFormatter: TypeAlias = str | Callable[[object], str]
 ExtFormatter: TypeAlias = BaseFormatter | dict[Any, BaseFormatter | None]

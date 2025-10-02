@@ -1,16 +1,34 @@
 from collections.abc import Sequence
-from datetime import date, datetime
-from typing import Any, Literal, TypedDict, overload
+from datetime import (
+    date,
+    datetime,
+)
+from typing import (
+    Literal,
+    TypedDict,
+    overload,
+)
 
 import numpy as np
-from pandas import Index, Timestamp
-from pandas._libs.tslibs import NaTType
-from pandas._typing import (AnyArrayLike, DictConvertible, IgnoreRaise,
-                            RaiseCoerce, TimestampConvertibleTypes, npt)
+from pandas import (
+    Index,
+    Timestamp,
+)
 from pandas.core.arrays import ExtensionArray
 from pandas.core.indexes.datetimes import DatetimeIndex
 from pandas.core.series import Series
 from typing_extensions import TypeAlias
+
+from pandas._libs.tslibs import NaTType
+from pandas._typing import (
+    AnyArrayLike,
+    DictConvertible,
+    IgnoreRaise,
+    RaiseCoerce,
+    TimestampConvertibleTypes,
+    npt,
+)
+from typing import Any
 
 ArrayConvertible: TypeAlias = list[Any] | tuple[Any, ...] | AnyArrayLike
 Scalar: TypeAlias = float | str

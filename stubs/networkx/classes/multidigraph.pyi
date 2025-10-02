@@ -5,9 +5,13 @@ from networkx.classes.coreviews import MultiAdjacencyView
 from networkx.classes.digraph import DiGraph
 from networkx.classes.graph import _EdgeWithData, _Node
 from networkx.classes.multigraph import MultiGraph
-from networkx.classes.reportviews import (InMultiDegreeView,
-                                          InMultiEdgeDataView, InMultiEdgeView,
-                                          OutMultiDegreeView, OutMultiEdgeView)
+from networkx.classes.reportviews import (
+    InMultiDegreeView,
+    InMultiEdgeDataView,
+    InMultiEdgeView,
+    OutMultiDegreeView,
+    OutMultiEdgeView,
+)
 
 __all__ = ["MultiDiGraph"]
 

@@ -1,12 +1,20 @@
 from datetime import tzinfo as _tzinfo
-from typing import Any
 
 import numpy as np
-from pandas._typing import TimeAmbiguous, TimeNonexistent, TimeZones
-from pandas.core.arrays.datetimelike import (DatelikeOps,
-                                             DatetimeLikeArrayMixin,
-                                             TimelikeOps)
+from pandas.core.arrays.datetimelike import (
+    DatelikeOps,
+    DatetimeLikeArrayMixin,
+    TimelikeOps,
+)
+
+from pandas._typing import (
+    TimeAmbiguous,
+    TimeNonexistent,
+    TimeZones,
+)
+
 from pandas.core.dtypes.dtypes import DatetimeTZDtype as DatetimeTZDtype
+from typing import Any
 
 class DatetimeArray(DatetimeLikeArrayMixin, TimelikeOps, DatelikeOps):
     __array_priority__: int = ...

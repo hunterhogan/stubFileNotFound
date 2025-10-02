@@ -1,9 +1,10 @@
 from collections.abc import Hashable
-from typing import Any
 
 import numpy as np
-from pandas._typing import HashableT
 from pandas.core.frame import DataFrame
+
+from pandas._typing import HashableT
+from typing import Any
 
 def melt(
     frame: DataFrame,

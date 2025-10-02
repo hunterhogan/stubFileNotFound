@@ -1,30 +1,61 @@
-import datetime
-import sys
 from builtins import type as type_t
-from collections.abc import (Callable, Hashable, Iterator, KeysView, Mapping,
-                             MutableSequence, Sequence)
+from collections.abc import (
+    Callable,
+    Hashable,
+    Iterator,
+    KeysView,
+    Mapping,
+    MutableSequence,
+    Sequence,
+)
+import datetime
 from datetime import tzinfo
 from os import PathLike
 from re import Pattern
-from typing import (Any, Generic, Literal, Protocol, SupportsIndex, TypedDict,
-                    Union, overload)
+import sys
+from typing import (
+    Any,
+    Generic,
+    Literal,
+    Protocol,
+    SupportsIndex,
+    TypedDict,
+    Union,
+    overload,
+)
 
 import numpy as np
-import pandas as pd
 from numpy import typing as npt
-from pandas._libs.interval import Interval
-from pandas._libs.missing import NAType
-from pandas._libs.tslibs import BaseOffset, Period, Timedelta, Timestamp
+import pandas as pd
 from pandas.core.arrays import ExtensionArray
-from pandas.core.dtypes.dtypes import CategoricalDtype, ExtensionDtype
 from pandas.core.frame import DataFrame
 from pandas.core.generic import NDFrame
 from pandas.core.groupby.grouper import Grouper
 from pandas.core.indexes.base import Index
 from pandas.core.series import Series
 from pandas.core.tools.datetimes import FulldatetimeDict
+from typing_extensions import (
+    ParamSpec,
+    TypeAlias,
+    TypeVar,
+    override,
+)
+
+from pandas._libs.interval import Interval
+from pandas._libs.missing import NAType
+from pandas._libs.tslibs import (
+    BaseOffset,
+    Period,
+    Timedelta,
+    Timestamp,
+)
+
+from pandas.core.dtypes.dtypes import (
+    CategoricalDtype,
+    ExtensionDtype,
+)
+
 from pandas.io.formats.format import EngFormatter
-from typing_extensions import ParamSpec, TypeAlias, TypeVar, override
 
 P = ParamSpec("P")
 

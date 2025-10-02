@@ -1,13 +1,29 @@
-import csv
 from collections import defaultdict
-from collections.abc import Callable, Sequence
-from typing import Any, Literal, overload
+from collections.abc import (
+    Callable,
+    Sequence,
+)
+import csv
+from typing import (
+    Any,
+    Literal,
+    overload,
+)
+
+from pandas.core.frame import DataFrame
 
 from pandas._libs.lib import _NoDefaultDoNotUse
-from pandas._typing import (CompressionOptions, CSVEngine, CSVQuoting,
-                            DtypeArg, DtypeBackend, ListLikeHashable,
-                            StorageOptions, UsecolsArgType)
-from pandas.core.frame import DataFrame
+from pandas._typing import (
+    CompressionOptions,
+    CSVEngine,
+    CSVQuoting,
+    DtypeArg,
+    DtypeBackend,
+    ListLikeHashable,
+    StorageOptions,
+    UsecolsArgType,
+)
+
 from pandas.io.parsers import TextFileReader
 
 @overload

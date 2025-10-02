@@ -1,14 +1,29 @@
+from collections.abc import (
+    Callable,
+    Generator,
+    Iterable,
+    Mapping,
+)
 import sqlite3
-from collections.abc import Callable, Generator, Iterable, Mapping
-from typing import Any, Literal, overload
+from typing import (
+    Any,
+    Literal,
+    overload,
+)
 
-import sqlalchemy.engine
-import sqlalchemy.sql.expression
-from pandas._libs.lib import _NoDefaultDoNotUse
-from pandas._typing import DtypeArg, DtypeBackend, Scalar, npt
 from pandas.core.frame import DataFrame
+import sqlalchemy.engine
 from sqlalchemy.orm import FromStatement
+import sqlalchemy.sql.expression
 from typing_extensions import TypeAlias
+
+from pandas._libs.lib import _NoDefaultDoNotUse
+from pandas._typing import (
+    DtypeArg,
+    DtypeBackend,
+    Scalar,
+    npt,
+)
 
 _SQLConnection: TypeAlias = str | sqlalchemy.engine.Connectable | sqlite3.Connection
 

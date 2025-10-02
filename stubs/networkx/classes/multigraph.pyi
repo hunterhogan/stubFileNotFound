@@ -1,12 +1,12 @@
 from collections.abc import Hashable
 from functools import cached_property
 from typing import Any, ClassVar, overload
+from typing_extensions import TypeAlias, TypeVar
 
 from networkx.classes.coreviews import MultiAdjacencyView
 from networkx.classes.graph import Graph, _MapFactory, _Node
 from networkx.classes.multidigraph import MultiDiGraph
 from networkx.classes.reportviews import MultiEdgeView
-from typing_extensions import TypeAlias, TypeVar
 
 _MultiEdge: TypeAlias = tuple[_Node, _Node, int]  # noqa: Y047
 

@@ -1,20 +1,41 @@
+from collections.abc import (
+    Hashable,
+    Sequence,
+)
 import datetime as dt
-from collections.abc import Hashable, Sequence
-from typing import Any, Literal, final, overload
+from typing import (
+    Literal,
+    final,
+    overload,
+)
 
 import numpy as np
 import pandas as pd
 from pandas import Index
-from pandas._libs.interval import Interval as Interval
-from pandas._libs.interval import IntervalMixin
-from pandas._libs.tslibs.offsets import BaseOffset
-from pandas._typing import (DatetimeLike, DtypeArg, FillnaOptions,
-                            IntervalClosedType, IntervalT, Label, MaskType,
-                            np_1darray, np_ndarray_anyint, np_ndarray_bool,
-                            npt)
-from pandas.core.dtypes.dtypes import IntervalDtype as IntervalDtype
 from pandas.core.indexes.extension import ExtensionIndex
 from typing_extensions import TypeAlias
+
+from pandas._libs.interval import (
+    Interval as Interval,
+    IntervalMixin,
+)
+from pandas._libs.tslibs.offsets import BaseOffset
+from pandas._typing import (
+    DatetimeLike,
+    DtypeArg,
+    FillnaOptions,
+    IntervalClosedType,
+    IntervalT,
+    Label,
+    MaskType,
+    np_1darray,
+    np_ndarray_anyint,
+    np_ndarray_bool,
+    npt,
+)
+
+from pandas.core.dtypes.dtypes import IntervalDtype as IntervalDtype
+from typing import Any
 
 _EdgesInt: TypeAlias = (
     Sequence[int]

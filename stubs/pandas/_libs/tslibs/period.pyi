@@ -1,14 +1,28 @@
 import datetime
-from typing import Any, Literal, overload
+from typing import (
+    Literal,
+    overload,
+)
 
 import numpy as np
-from pandas import Index, PeriodIndex, Series, Timedelta, TimedeltaIndex
+from pandas import (
+    Index,
+    PeriodIndex,
+    Series,
+    Timedelta,
+    TimedeltaIndex,
+)
+from typing_extensions import TypeAlias
+
 from pandas._libs.tslibs import NaTType
 from pandas._libs.tslibs.offsets import BaseOffset
 from pandas._libs.tslibs.timestamps import Timestamp
-from pandas._typing import ShapeT, np_1darray, np_ndarray
-from pandas.core.series import OffsetSeries
-from typing_extensions import TypeAlias
+from pandas._typing import (
+    ShapeT,
+    np_1darray,
+    np_ndarray,
+)
+from typing import Any
 
 class IncompatibleFrequency(ValueError): ...
 
@@ -79,7 +93,7 @@ class Period(PeriodMixin):
     def __add__(self, other: Index[Any]) -> PeriodIndex: ...
     @overload
     def __add__(
-        self, other: OffsetSeries | Series[Timedelta]
+        self, other: Series[BaseOffset] | Series[Timedelta]
     ) -> Series[Period]: ...  # pyrefly: ignore[bad-specialization]
     #  ignore[misc] here because we know all other comparisons
     #  are False, so we use Literal[False]

@@ -1,10 +1,8 @@
 import contextlib
-from collections.abc import (Callable, Iterable, Iterator, Mapping,
-                             MutableMapping)
+from _typeshed import Incomplete, SupportsRead, SupportsWrite
+from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
 from types import TracebackType
 from typing import Any, ClassVar, Generic, Literal, NoReturn, TypeVar, overload
-
-from _typeshed import Incomplete, SupportsRead, SupportsWrite
 from typing_extensions import Self
 
 from ._monitor import TMonitor
