@@ -5,43 +5,41 @@ from stubFileNotFound import settingsPackage
 from stubFileNotFound.missing2AnyTransformers import processStubString
 
 # Configuration Settings
-pathStubs = Path(settingsPackage.pathPackage / '..' / 'stubs').resolve()
+pathStubs: Path = Path(settingsPackage.pathPackage / '..' / 'stubs').resolve()
 pathSuffix: str = 'pyi'
-listRelativePaths: list[str] = ['pandas']
 
-# File Discovery Functions
-def discoverStubFiles() -> list[Path]:
+def discoverStubFiles(listRelativePaths: list[str]) -> list[Path]:
 	"""Discover all stub files based on configured paths and suffix.
 
 	Returns
 	-------
-	listPathFilenamesStub : list[Path]
+	listPathFilenames : list[Path]
 		List of all discovered stub file paths.
-
 	"""
-	listPathFilenamesStub: list[Path] = []
+	listPathFilenames: list[Path] = []
 
 	for relativePathTarget in listRelativePaths:
-		pathTargetStubs = pathStubs / relativePathTarget
-		if pathTargetStubs.exists():
-			listPathFilenamesStub.extend(pathTargetStubs.rglob(f'*.{pathSuffix}'))
+		pathTarget: Path = pathStubs / relativePathTarget
+		if pathTarget.exists():
+			listPathFilenames.extend(pathTarget.rglob(f'*.{pathSuffix}'))
 
-	return listPathFilenamesStub
+	return listPathFilenames
 
-def processStubFile(pathFilenameStub: Path) -> None:
+def processStubFile(pathFilename: Path) -> None:
 	"""Process a single stub file to add missing Any annotations by reading from disk, processing, and writing if needed."""
-	contentOriginal: str = pathFilenameStub.read_text(encoding='utf-8')
-	contentModified: str | None = processStubString(contentOriginal)
-	if contentModified is not None:
-		pathFilenameStub.write_text(contentModified, encoding='utf-8')
-		print(f"Updated: {pathFilenameStub}")
+	pythonSource: str | None = pathFilename.read_text(encoding='utf-8')
+	pythonSource = processStubString(pythonSource)
+	if pythonSource is not None:
+		pathFilename.write_text(pythonSource, encoding='utf-8')
+		print(f"Updated: {pathFilename}")
 
-def processAllStubFiles() -> None:
+def processAllStubFiles(listRelativePaths: list[str]) -> None:
 	"""Process all discovered stub files."""
-	listPathFilenames = discoverStubFiles()
+	listPathFilenames = discoverStubFiles(listRelativePaths)
 
 	for pathFilename in listPathFilenames:
 		processStubFile(pathFilename)
 
 if __name__ == "__main__":
-	processAllStubFiles()
+	listRelativePaths: list[str] = ['pandas']
+	processAllStubFiles(listRelativePaths)

@@ -24,7 +24,6 @@ classifiers = [
 ]
 urls = { Donate = "https://www.patreon.com/integrated", Homepage = "https://github.com/hunterhogan/stubFileNotFound", Repository = "https://github.com/hunterhogan/stubFileNotFound.git" }
 dependencies = [
-  "AST-Stubgen",
   "MonkeyType",
   "hunterMakesPy",
   "libcst",
@@ -38,15 +37,15 @@ dependencies = [
 optional-dependencies = { development = [
   "setuptools-scm",
 ], stubdefaulter = [
-  "cffconvert",
   "networkx",
   "odfpy",
   "pandas",
+  "python_toolbox",
   "pyxlsb",
   "requests",
   "resampy",
-  "scipy",
   "scipy-stubs",
+  "scipy",
   "sqlalchemy",
   "tqdm",
   "xarray",

@@ -62,6 +62,8 @@ Relevant settings may include
     },
    ```
 
+   2026-10-16: "Hey, thanks, old me! I wanted the keybinding information, and here it is!"
+
 3. [pyright](https://github.com/microsoft/pyright)
    1. `pyright --createstub nameOfAnInstalledPackage`
    2. ["Quick Fix"](https://microsoft.github.io/pyright/#/type-stubs?id=generating-type-stubs-in-vs-code) in VS Code.
@@ -72,7 +74,6 @@ Relevant settings may include
 1. [MonkeyType](https://github.com/Instagram/MonkeyType)
 2. [stubgen-pyx](https://github.com/jon-edward/stubgen-pyx): `stubgen-pyx /path/to/package`
 3. [stub-generator](https://pypi.org/project/stub-generator/)
-4. [pytype](https://google.github.io/pytype/)
 
 ### Tools I probably won't use
 
@@ -91,13 +92,4 @@ Relevant settings may include
 [![Static Badge](https://img.shields.io/badge/2011_August-Homeless_since-blue?style=flat)](https://HunterThinks.com/support)
 [![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UC3Gx7kz61009NbhpRtPP7tw)](https://www.youtube.com/@HunterHogan)
 
-## How to code
-
-Coding One Step at a Time:
-
-0. WRITE CODE.
-1. Don't write stupid code that's hard to revise.
-2. Write good code.
-3. When revising, write better code.
-
-[![CC-BY-NC-4.0](https://github.com/hunterhogan/stubFileNotFound/main/CC-BY-NC-4.0.png)](https://creativecommons.org/licenses/by-nc/4.0/)
+[![CC-BY-NC-4.0](https://raw.githubusercontent.com/hunterhogan/stubFileNotFound/refs/heads/main/CC-BY-NC-4.0.png)](https://creativecommons.org/licenses/by-nc/4.0/)
