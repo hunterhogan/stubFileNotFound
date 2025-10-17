@@ -1,3 +1,5 @@
+from typing import Any
+
 import numpy as np
 from pandas.core.arrays.masked import BaseMaskedArray as BaseMaskedArray
 
@@ -5,7 +7,6 @@ from pandas._libs.missing import NAType
 from pandas._typing import type_t
 
 from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
-from typing import Any
 
 class BooleanDtype(ExtensionDtype):
     @property
@@ -19,7 +20,6 @@ class BooleanArray(BaseMaskedArray):
     ) -> None: ...
     @property
     def dtype(self) -> Any: ...
-    def __array_ufunc__(self, ufunc: Any, method: Any, *inputs: Any, **kwargs: Any) -> Any: ...
     def __setitem__(self, key: Any, value: Any) -> None: ...
     def astype(self, dtype: Any, copy: bool = True) -> Any: ...
     def any(self, *, skipna: bool = True, **kwargs: Any) -> Any: ...

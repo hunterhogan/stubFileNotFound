@@ -16,7 +16,6 @@ import numpy as np
 from pandas import (
     DataFrame,
     Index,
-    Timedelta,
     TimedeltaIndex,
     Timestamp,
 )
@@ -25,7 +24,6 @@ from pandas.core.indexes.datetimelike import DatetimeTimedeltaMixin
 from pandas.core.series import Series
 from typing_extensions import Self
 
-from pandas._libs.tslibs.offsets import DateOffset
 from pandas._typing import (
     AxesData,
     DateAndDatetimeLike,
@@ -63,20 +61,20 @@ class DatetimeIndex(
     # various ignores needed for mypy, as we do want to restrict what can be used in
     # arithmetic for these types
     def __add__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
-        self, other: timedelta | TimedeltaIndex | BaseOffset
-    ) -> DatetimeIndex: ...
-    def __radd__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
-        self, other: timedelta | TimedeltaIndex | BaseOffset
-    ) -> DatetimeIndex: ...
+        self, other: timedelta | BaseOffset
+    ) -> Self: ...
+    def __radd__(  # type: ignore[override]  # pyright: ignore[reportIncompatibleMethodOverride]
+        self, other: timedelta | BaseOffset
+    ) -> Self: ...
     @overload  # type: ignore[override]
+    # pyrefly: ignore  # bad-override
     def __sub__(
-        self,
-        other: timedelta | np.timedelta64 | np_ndarray_td | TimedeltaIndex | BaseOffset,
-    ) -> DatetimeIndex: ...
+        self, other: datetime | np.datetime64 | np_ndarray_dt | Self
+    ) -> TimedeltaIndex: ...
     @overload
     def __sub__(  # pyright: ignore[reportIncompatibleMethodOverride]
-        self, other: datetime | np.datetime64 | np_ndarray_dt | DatetimeIndex
-    ) -> TimedeltaIndex: ...
+        self, other: timedelta | np.timedelta64 | np_ndarray_td | BaseOffset
+    ) -> Self: ...
     @final
     def to_series(
         self, index: Index[Any] | None = None, name: Hashable | None = None
@@ -100,14 +98,14 @@ class DatetimeIndex(
     @property
     def dtype(self) -> np.dtype | DatetimeTZDtype: ...
     def shift(
-        self, periods: int = 1, freq: DateOffset | Timedelta | str | None = None
+        self, periods: int = 1, freq: Frequency | timedelta | None = None
     ) -> Self: ...
 
 @overload
 def date_range(
     start: str | DateAndDatetimeLike,
     end: str | DateAndDatetimeLike,
-    freq: str | timedelta | Timedelta | BaseOffset | None = None,
+    freq: Frequency | timedelta | None = None,
     tz: TimeZones = None,
     normalize: bool = False,
     name: Hashable | None = None,
@@ -130,7 +128,7 @@ def date_range(
     start: str | DateAndDatetimeLike,
     *,
     periods: int,
-    freq: str | timedelta | Timedelta | BaseOffset | None = None,
+    freq: Frequency | timedelta | None = None,
     tz: TimeZones = None,
     normalize: bool = False,
     name: Hashable | None = None,
@@ -142,7 +140,7 @@ def date_range(
     *,
     end: str | DateAndDatetimeLike,
     periods: int,
-    freq: str | timedelta | Timedelta | BaseOffset | None = None,
+    freq: Frequency | timedelta | None = None,
     tz: TimeZones = None,
     normalize: bool = False,
     name: Hashable | None = None,
@@ -154,7 +152,7 @@ def bdate_range(
     start: str | DateAndDatetimeLike | None = None,
     end: str | DateAndDatetimeLike | None = None,
     periods: int | None = None,
-    freq: str | timedelta | Timedelta | BaseOffset = 'B',
+    freq: Frequency | timedelta = 'B',
     tz: TimeZones = None,
     normalize: bool = True,
     name: Hashable | None = None,
@@ -168,7 +166,7 @@ def bdate_range(
     end: str | DateAndDatetimeLike | None = None,
     periods: int | None = None,
     *,
-    freq: str | timedelta | Timedelta | BaseOffset,
+    freq: Frequency | timedelta,
     tz: TimeZones = None,
     normalize: bool = True,
     name: Hashable | None = None,

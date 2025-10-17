@@ -2,25 +2,23 @@ from collections.abc import (
     Hashable,
     Iterable,
 )
-from typing import (
-    final,
-)
+from typing import final
 
 import numpy as np
 from pandas.core import accessor
+from pandas.core.arrays.categorical import Categorical
 from pandas.core.indexes.base import Index
 from pandas.core.indexes.extension import ExtensionIndex
 from typing_extensions import Self
 
-from pandas._typing import (
-    S1,
-    DtypeArg,
-)
+from pandas._typing import S1
 from typing import Any
 
 class CategoricalIndex(ExtensionIndex[S1], accessor.PandasDelegate):
     codes: np.ndarray[Any, Any] = ...
     categories: Index[Any] = ...
+    @property
+    def array(self) -> Categorical: ...  # type: ignore[override] # pyrefly: ignore[bad-override]
     def __new__(
         cls,
         data: Iterable[S1] = None,
@@ -36,9 +34,6 @@ class CategoricalIndex(ExtensionIndex[S1], accessor.PandasDelegate):
     @property
     def values(self) -> Any: ...
     def __contains__(self, key: Any) -> bool: ...
-    def __array__(
-        self, dtype: DtypeArg = None, copy: bool | None = None
-    ) -> np.ndarray[Any, Any]: ...
     @property
     def is_unique(self) -> bool: ...
     @property

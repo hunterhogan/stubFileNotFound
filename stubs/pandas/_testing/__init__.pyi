@@ -5,6 +5,7 @@ from collections.abc import (
 )
 from contextlib import contextmanager
 from typing import (
+    Any,
     Literal,
     overload,
 )
@@ -31,7 +32,6 @@ from pandas._typing import (
     AnyArrayLike,
     T,
 )
-from typing import Any
 
 def assert_almost_equal(
     left: T,

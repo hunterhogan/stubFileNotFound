@@ -12,6 +12,7 @@ from typing import (
     Literal,
     NamedTuple,
     Protocol,
+    TypeAlias,
     TypeVar,
     final,
     overload,
@@ -26,10 +27,7 @@ from pandas.core.groupby.groupby import (
     GroupByPlot,
 )
 from pandas.core.series import Series
-from typing_extensions import (
-    Self,
-    TypeAlias,
-)
+from typing_extensions import Self
 
 from pandas._libs.tslibs.timestamps import Timestamp
 from pandas._typing import (
@@ -59,7 +57,7 @@ class NamedAgg(NamedTuple):
 
 class SeriesGroupBy(GroupBy[Series[S2]], Generic[S2, ByT]):
     @overload
-    def aggregate(  # pyrefly: ignore
+    def aggregate(
         self,
         func: Callable[Concatenate[Series[S2], P], S3],
         /,
@@ -206,6 +204,7 @@ class SeriesGroupBy(GroupBy[Series[S2]], Generic[S2, ByT]):
     def unique(self) -> Series: ...
     # Overrides that provide more precise return types over the GroupBy class
     @final  # type: ignore[misc]
+    # pyrefly: ignore  # bad-override
     def __iter__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self,
     ) -> Iterator[tuple[ByT, Series[S2]]]: ...
@@ -453,6 +452,7 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
     def __getattr__(self, name: str) -> SeriesGroupBy[Any, ByT]: ...
     # Overrides that provide more precise return types over the GroupBy class
     @final  # type: ignore[misc]
+    # pyrefly: ignore  # bad-override
     def __iter__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self,
     ) -> Iterator[tuple[ByT, DataFrame]]: ...

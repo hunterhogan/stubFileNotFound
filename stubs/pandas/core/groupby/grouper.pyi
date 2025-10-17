@@ -3,6 +3,7 @@ from collections.abc import (
     Iterator,
 )
 from typing import (
+    Any,
     final,
     overload,
 )
@@ -28,7 +29,6 @@ from pandas._typing import (
     npt,
 )
 from pandas.util._decorators import cache_readonly
-from typing import Any
 
 class Grouper:
     key: KeysArgType | None

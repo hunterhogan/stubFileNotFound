@@ -1,3 +1,5 @@
+from typing import Any
+
 from pandas import (
     DataFrame,
     Series,
@@ -12,7 +14,6 @@ from pandas._typing import (
     WindowingEngine,
     WindowingEngineKwargs,
 )
-from typing import Any
 
 class ExponentialMovingWindow(BaseWindow[NDFrameT]):
     def mean(
@@ -50,7 +51,7 @@ class ExponentialMovingWindowGroupby(
 class OnlineExponentialMovingWindow(ExponentialMovingWindow[NDFrameT]):
     def reset(self) -> None: ...
     def aggregate(self, func: Any, *args: Any, **kwargs: Any) -> Any: ...
-    def std(self, bias: bool = False, *args: Any, **kwargs: Any) -> Any: ...  # pyrefly: ignore
+    def std(self, bias: bool = False, *args: Any, **kwargs: Any) -> Any: ...
     def corr(
         self,
         other: DataFrame | Series | None = None,
@@ -65,6 +66,10 @@ class OnlineExponentialMovingWindow(ExponentialMovingWindow[NDFrameT]):
         numeric_only: bool = False,
     ) -> Any: ...
     def var(self, bias: bool = False, numeric_only: bool = False) -> Any: ...
-    def mean(  # pyrefly: ignore
-        self, *args: Any, update: NDFrameT | None = None, update_times: None = None, **kwargs: Any
+    def mean(
+        self,
+        *args: Any,
+        update: NDFrameT | None = None,
+        update_times: None = None,
+        **kwargs: Any,
     ) -> NDFrameT: ...

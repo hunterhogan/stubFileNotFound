@@ -8,8 +8,10 @@ from collections.abc import (
 import datetime as dt
 from typing import (
     Any,
+    Concatenate,
     Generic,
     Literal,
+    TypeAlias,
     TypeVar,
     final,
     overload,
@@ -18,9 +20,7 @@ from typing import (
 import numpy as np
 from pandas.core.base import SelectionMixin
 from pandas.core.frame import DataFrame
-from pandas.core.groupby import (
-    generic,
-)
+from pandas.core.groupby import generic
 from pandas.core.groupby.indexing import (
     GroupByIndexingMixin,
     GroupByNthSelector,
@@ -38,11 +38,7 @@ from pandas.core.window import (
     ExponentialMovingWindowGroupby,
     RollingGroupby,
 )
-from typing_extensions import (
-    Concatenate,
-    Self,
-    TypeAlias,
-)
+from typing_extensions import Self
 
 from pandas._libs.lib import _NoDefaultDoNotUse
 from pandas._libs.tslibs import BaseOffset
@@ -319,7 +315,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         periods: int = 1,
         fill_method: Literal["bfill", "ffill"] | None | _NoDefaultDoNotUse = ...,
         limit: int | None | _NoDefaultDoNotUse = ...,
-        freq: Any=None,
+        freq: Frequency | None = None,
         axis: Axis | _NoDefaultDoNotUse = ...,
     ) -> NDFrameT: ...
     @final
@@ -345,7 +341,7 @@ _GroupByT = TypeVar("_GroupByT", bound=GroupBy[Any])
 class GroupByPlot(PlotAccessor, Generic[_GroupByT]):
     def __init__(self, groupby: _GroupByT) -> None: ...
     # The following methods are inherited from the fake parent class PlotAccessor
-    # def __call__(self, *args, **kwargs): ...
+    # def __call__(self, *args: Any, **kwargs: Any): ...
     # def __getattr__(self, name: str): ...
 
 class BaseGroupBy(SelectionMixin[NDFrameT], GroupByIndexingMixin):

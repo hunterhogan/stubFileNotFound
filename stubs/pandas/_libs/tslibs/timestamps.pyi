@@ -13,6 +13,7 @@ from typing import (
     ClassVar,
     Literal,
     SupportsIndex,
+    TypeAlias,
     overload,
 )
 
@@ -26,16 +27,15 @@ from pandas.core.series import Series
 from typing_extensions import (
     Never,
     Self,
-    TypeAlias,
 )
 
 from pandas._libs.tslibs import (
-    BaseOffset,
     Period,
     Tick,
     Timedelta,
 )
 from pandas._typing import (
+    PeriodFrequency,
     ShapeT,
     TimestampNonexistent,
     TimeUnit,
@@ -280,7 +280,7 @@ class Timestamp(datetime, SupportsIndex):
     def is_year_end(self) -> bool: ...
     def to_pydatetime(self, warn: bool = True) -> datetime: ...
     def to_datetime64(self) -> np.datetime64: ...
-    def to_period(self, freq: BaseOffset | str | None = None) -> Period: ...
+    def to_period(self, freq: PeriodFrequency | None = None) -> Period: ...
     def to_julian_date(self) -> np.float64: ...
     @property
     def asm8(self) -> np.datetime64: ...

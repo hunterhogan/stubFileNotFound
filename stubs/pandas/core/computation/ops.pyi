@@ -1,5 +1,6 @@
-import numpy as np
 from typing import Any
+
+import numpy as np
 
 class UndefinedVariableError(NameError):
     def __init__(self, name: Any, is_local: bool = ...) -> None: ...

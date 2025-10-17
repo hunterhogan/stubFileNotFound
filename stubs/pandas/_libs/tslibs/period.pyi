@@ -1,6 +1,7 @@
 import datetime
 from typing import (
     Literal,
+    TypeAlias,
     overload,
 )
 
@@ -12,12 +13,15 @@ from pandas import (
     Timedelta,
     TimedeltaIndex,
 )
-from typing_extensions import TypeAlias
+from typing_extensions import Self
 
 from pandas._libs.tslibs import NaTType
-from pandas._libs.tslibs.offsets import BaseOffset
+from pandas._libs.tslibs.offsets import (
+    BaseOffset,
+)
 from pandas._libs.tslibs.timestamps import Timestamp
 from pandas._typing import (
+    PeriodFrequency,
     ShapeT,
     np_1darray,
     np_ndarray,
@@ -61,7 +65,7 @@ class Period(PeriodMixin):
         value: (
             Period | str | datetime.datetime | datetime.date | Timestamp | None
         ) = ...,
-        freq: str | BaseOffset | None = ...,
+        freq: PeriodFrequency | None = None,
         ordinal: int | None = ...,
         year: int | None = ...,
         month: int | None = ...,
@@ -86,15 +90,23 @@ class Period(PeriodMixin):
     @overload
     def __sub__(self, other: TimedeltaIndex) -> PeriodIndex: ...
     @overload
-    def __add__(self, other: _PeriodAddSub) -> Period: ...
+    def __add__(self, other: _PeriodAddSub) -> Self: ...
     @overload
     def __add__(self, other: NaTType) -> NaTType: ...
     @overload
     def __add__(self, other: Index[Any]) -> PeriodIndex: ...
+    # Ignored due to indecipherable error from mypy:
+    # Forward operator "__add__" is not callable  [misc]
     @overload
-    def __add__(
-        self, other: Series[BaseOffset] | Series[Timedelta]
-    ) -> Series[Period]: ...  # pyrefly: ignore[bad-specialization]
+    def __radd__(self, other: _PeriodAddSub) -> Self: ...  # type: ignore[misc]
+    @overload
+    def __radd__(self, other: NaTType) -> NaTType: ...
+    # Real signature is -> PeriodIndex, but conflicts with Index.__add__
+    # Changing Index is very hard due to Index inheritance
+    #   Signatures of "__radd__" of "Period" and "__add__" of "Index"
+    #   are unsafely overlapping
+    @overload
+    def __radd__(self, other: Index[Any]) -> PeriodIndex: ...
     #  ignore[misc] here because we know all other comparisons
     #  are False, so we use Literal[False]
     @overload
@@ -167,18 +179,6 @@ class Period(PeriodMixin):
     def __ne__(self, other: np_ndarray[ShapeT, np.object_]) -> np_ndarray[ShapeT, np.bool]: ...  # type: ignore[overload-overlap]
     @overload
     def __ne__(self, other: object) -> Literal[True]: ...
-    # Ignored due to indecipherable error from mypy:
-    # Forward operator "__add__" is not callable  [misc]
-    @overload
-    def __radd__(self, other: _PeriodAddSub) -> Period: ...  # type: ignore[misc]
-    # Real signature is -> PeriodIndex, but conflicts with Index.__add__
-    # Changing Index is very hard due to Index inheritance
-    #   Signatures of "__radd__" of "Period" and "__add__" of "Index"
-    #   are unsafely overlapping
-    @overload
-    def __radd__(self, other: Index[Any]) -> Index[Any]: ...
-    @overload
-    def __radd__(self, other: NaTType) -> NaTType: ...
     @property
     def day(self) -> int: ...
     @property
@@ -225,12 +225,12 @@ class Period(PeriodMixin):
     def day_of_year(self) -> int: ...
     @property
     def day_of_week(self) -> int: ...
-    def asfreq(self, freq: str | BaseOffset, how: _PeriodFreqHow = "end") -> Period: ...
+    def asfreq(self, freq: PeriodFrequency, how: _PeriodFreqHow = "end") -> Period: ...
     @classmethod
-    def now(cls, freq: str | BaseOffset = ...) -> Period: ...
+    def now(cls, freq: PeriodFrequency | None = None) -> Period: ...
     def strftime(self, fmt: str) -> str: ...
     def to_timestamp(
         self,
-        freq: str | BaseOffset | None = None,
+        freq: PeriodFrequency | None = None,
         how: _PeriodToTimestampHow = "S",
     ) -> Timestamp: ...

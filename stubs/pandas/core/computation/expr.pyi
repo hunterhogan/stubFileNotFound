@@ -1,8 +1,8 @@
 import ast
+from typing import Any
 
 from pandas.core.computation.ops import Term as Term
 from pandas.core.computation.scope import Scope as Scope
-from typing import Any
 
 class BaseExprVisitor(ast.NodeVisitor):
     const_type = ...

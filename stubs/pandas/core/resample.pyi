@@ -4,7 +4,9 @@ from collections.abc import (
     Mapping,
 )
 from typing import (
+    Any,
     Literal,
+    TypeAlias,
     final,
     overload,
 )
@@ -18,10 +20,7 @@ from pandas import (
 from pandas.core.groupby.generic import SeriesGroupBy
 from pandas.core.groupby.groupby import BaseGroupBy
 from pandas.core.groupby.grouper import Grouper
-from typing_extensions import (
-    Self,
-    TypeAlias,
-)
+from typing_extensions import Self
 
 from pandas._typing import (
     S1,
@@ -33,7 +32,6 @@ from pandas._typing import (
     TimestampConvention,
     npt,
 )
-from typing import Any
 
 _FrameGroupByFunc: TypeAlias = (
     Callable[[DataFrame], Scalar]
@@ -78,11 +76,17 @@ class Resampler(BaseGroupBy[NDFrameT]):
     apply = aggregate
     @overload
     def transform(
-        self: Resampler[Series], arg: Callable[[Series], Series[S1]], *args: Any, **kwargs: Any
+        self: Resampler[Series],
+        arg: Callable[[Series], Series[S1]],
+        *args: Any,
+        **kwargs: Any,
     ) -> Series[S1]: ...
     @overload
     def transform(
-        self: Resampler[DataFrame], arg: Callable[[Series], Series[S1]], *args: Any, **kwargs: Any
+        self: Resampler[DataFrame],
+        arg: Callable[[Series], Series[S1]],
+        *args: Any,
+        **kwargs: Any,
     ) -> DataFrame: ...
     @final
     def ffill(self, limit: int | None = None) -> NDFrameT: ...

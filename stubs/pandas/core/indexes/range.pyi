@@ -3,6 +3,7 @@ from collections.abc import (
     Sequence,
 )
 from typing import (
+    Any,
     final,
     overload,
 )
@@ -19,7 +20,6 @@ from pandas._typing import (
     np_1darray,
     np_ndarray_anyint,
 )
-from typing import Any
 
 class RangeIndex(_IndexSubclassBase[int, np.int64]):
     def __new__(
@@ -74,17 +74,17 @@ class RangeIndex(_IndexSubclassBase[int, np.int64]):
         return_indexers: bool = False,
         sort: bool = False,
     ) -> Any: ...
-    def __len__(self) -> int: ...
     @property
     def size(self) -> int: ...
     def __floordiv__(self, other: Any) -> Any: ...
     def all(self, *args: Any, **kwargs: Any) -> bool: ...
     def any(self, *args: Any, **kwargs: Any) -> bool: ...
     @final
-    def union(  # pyrefly: ignore
+    def union(
         self, other: list[HashableT] | Index[Any], sort: bool | None = None
     ) -> Index[Any] | Index[int] | RangeIndex: ...
     @overload  # type: ignore[override]
+    # pyrefly: ignore  # bad-override
     def __getitem__(
         self,
         idx: slice | np_ndarray_anyint | Sequence[int] | Index[Any] | MaskType,

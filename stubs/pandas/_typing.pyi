@@ -19,6 +19,7 @@ from typing import (
     Literal,
     Protocol,
     SupportsIndex,
+    TypeAlias,
     TypedDict,
     Union,
     overload,
@@ -27,7 +28,10 @@ from typing import (
 import numpy as np
 from numpy import typing as npt
 import pandas as pd
-from pandas.core.arrays import ExtensionArray
+from pandas.core.arrays import (
+    ExtensionArray,
+    IntegerArray,
+)
 from pandas.core.frame import DataFrame
 from pandas.core.generic import NDFrame
 from pandas.core.groupby.grouper import Grouper
@@ -36,7 +40,6 @@ from pandas.core.series import Series
 from pandas.core.tools.datetimes import FulldatetimeDict
 from typing_extensions import (
     ParamSpec,
-    TypeAlias,
     TypeVar,
     override,
 )
@@ -56,6 +59,19 @@ from pandas.core.dtypes.dtypes import (
 )
 
 from pandas.io.formats.format import EngFormatter
+from pandas.tseries.offsets import (
+    Day,
+    Hour,
+    Micro,
+    Milli,
+    Minute,
+    MonthEnd,
+    Nano,
+    QuarterEnd,
+    Second,
+    Week,
+    YearEnd,
+)
 
 P = ParamSpec("P")
 
@@ -70,6 +86,9 @@ HashableT5 = TypeVar("HashableT5", bound=Hashable)
 
 ArrayLike: TypeAlias = ExtensionArray | np.ndarray[Any, Any]
 AnyArrayLike: TypeAlias = ArrayLike | Index[Any] | Series
+AnyArrayLikeInt: TypeAlias = (
+    IntegerArray | Index[int] | Series[int] | npt.NDArray[np.integer]
+)
 
 # list-like
 
@@ -162,6 +181,20 @@ Suffixes: TypeAlias = tuple[str | None, str | None] | list[str | None]
 Ordered: TypeAlias = bool | None
 JSONSerializable: TypeAlias = PythonScalar | list[Any] | dict[Any, Any]
 Frequency: TypeAlias = str | BaseOffset
+PeriodFrequency: TypeAlias = (
+    str
+    | Day
+    | Hour
+    | Minute
+    | Second
+    | Milli
+    | Micro
+    | Nano
+    | YearEnd
+    | QuarterEnd
+    | MonthEnd
+    | Week
+)
 Axes: TypeAlias = ListLike
 
 RandomState: TypeAlias = (
@@ -173,7 +206,8 @@ RandomState: TypeAlias = (
 )
 
 # dtypes
-NpDtype: TypeAlias = str | np.dtype[np.generic] | type[str | complex | bool | object]
+NpDtypeNoStr: TypeAlias = np.dtype[np.generic] | type[complex | bool | object]
+NpDtype: TypeAlias = str | NpDtypeNoStr | type[str]
 Dtype: TypeAlias = ExtensionDtype | NpDtype
 
 # AstypeArg is more carefully defined here as compared to pandas
@@ -836,19 +870,21 @@ MaskType: TypeAlias = Series[bool] | np_ndarray_bool | list[bool]
 
 T_INT = TypeVar("T_INT", bound=int)
 T_COMPLEX = TypeVar("T_COMPLEX", bound=complex)
-SeriesDTypeNoDateTime: TypeAlias = (
-    str
-    | bytes
+SeriesDTypeNoStrDateTime: TypeAlias = (
+    bytes
     | bool
     | int
     | float
     | complex
-    | Dtype
+    | NpDtypeNoStr
+    | ExtensionDtype
     | Period
     | Interval[Any]
     | CategoricalDtype
     | BaseOffset
-    | list[str]
+)
+SeriesDTypeNoDateTime: TypeAlias = (
+    str | SeriesDTypeNoStrDateTime | type[str] | list[str]
 )
 SeriesDType: TypeAlias = (
     SeriesDTypeNoDateTime
@@ -858,13 +894,11 @@ SeriesDType: TypeAlias = (
     | datetime.timedelta  # includes pd.Timedelta
 )
 S1 = TypeVar("S1", bound=SeriesDType, default=Any)
-S1_CT_NDT = TypeVar(
-    "S1_CT_NDT", bound=SeriesDTypeNoDateTime, default=Any, contravariant=True
-)
-S1_CO = TypeVar("S1_CO", bound=SeriesDType, default=Any, covariant=True)
-S1_CT = TypeVar("S1_CT", bound=SeriesDType, default=Any, contravariant=True)
 # Like S1, but without `default=Any`.
 S2 = TypeVar("S2", bound=SeriesDType)
+S2_CT = TypeVar("S2_CT", bound=SeriesDType, contravariant=True)
+S2_CT_NDT = TypeVar("S2_CT_NDT", bound=SeriesDTypeNoDateTime, contravariant=True)
+S2_NSDT = TypeVar("S2_NSDT", bound=SeriesDTypeNoStrDateTime)
 S3 = TypeVar("S3", bound=SeriesDType)
 
 # Constraint, instead of bound
@@ -1058,6 +1092,7 @@ Incomplete: TypeAlias = Any
 class Just(Protocol, Generic[T]):
     @property  # type: ignore[override]
     @override
+    # pyrefly: ignore  # bad-override
     def __class__(self, /) -> type[T]: ...
     @__class__.setter
     @override

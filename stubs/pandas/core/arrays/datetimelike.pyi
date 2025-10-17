@@ -1,15 +1,16 @@
 from collections.abc import Sequence
-from typing import overload
+from typing import (
+    Any,
+    TypeAlias,
+    overload,
+)
 
 import numpy as np
 from pandas.core.arrays.base import (
     ExtensionArray,
     ExtensionOpsMixin,
 )
-from typing_extensions import (
-    Self,
-    TypeAlias,
-)
+from typing_extensions import Self
 
 from pandas._libs import (
     NaT as NaT,
@@ -17,14 +18,15 @@ from pandas._libs import (
 )
 from pandas._typing import (
     DatetimeLikeScalar,
+    NpDtype,
     PositionalIndexerTuple,
     ScalarIndexer,
     SequenceIndexer,
     TimeAmbiguous,
     TimeNonexistent,
     TimeUnit,
+    np_1darray,
 )
-from typing import Any
 
 DTScalarOrNaT: TypeAlias = DatetimeLikeScalar | NaTType
 
@@ -60,16 +62,17 @@ class DatetimeLikeArrayMixin(ExtensionOpsMixin, ExtensionArray):
     @property
     def shape(self) -> Any: ...
     def reshape(self, *args: Any, **kwargs: Any) -> Any: ...
-    def ravel(self, *args: Any, **kwargs: Any) -> Any: ...  # pyrefly: ignore
+    def ravel(self, *args: Any, **kwargs: Any) -> Any: ...
     def __iter__(self) -> Any: ...
     @property
     def asi8(self) -> np.ndarray[Any, Any]: ...
     @property
     def nbytes(self) -> Any: ...
-    def __array__(self, dtype: Any=None) -> np.ndarray[Any, Any]: ...
+    def __array__(
+        self, dtype: NpDtype | None = None, copy: bool | None = None
+    ) -> np_1darray: ...
     @property
     def size(self) -> int: ...
-    def __len__(self) -> int: ...
     @overload
     def __getitem__(self, key: ScalarIndexer) -> DTScalarOrNaT: ...
     @overload
@@ -85,7 +88,7 @@ class DatetimeLikeArrayMixin(ExtensionOpsMixin, ExtensionArray):
     def unique(self) -> Any: ...
     def copy(self) -> Any: ...
     def shift(self, periods: int = 1, fill_value: Any=None, axis: int = ...) -> Any: ...
-    def repeat(self, repeats: Any, *args: Any, **kwargs: Any) -> Any: ...  # pyrefly: ignore
+    def repeat(self, repeats: Any, *args: Any, **kwargs: Any) -> Any: ...
     def value_counts(self, dropna: bool = True) -> Any: ...
     def map(self, mapper: Any) -> Any: ...
     def isna(self) -> Any: ...

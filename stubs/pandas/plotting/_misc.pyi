@@ -5,6 +5,7 @@ from collections.abc import (
 from typing import (
     Any,
     Literal,
+    TypeAlias,
 )
 
 from matplotlib.axes import Axes
@@ -14,7 +15,6 @@ from matplotlib.table import Table
 import numpy as np
 from pandas.core.frame import DataFrame
 from pandas.core.series import Series
-from typing_extensions import TypeAlias
 
 from pandas._typing import (
     HashableT,
@@ -81,7 +81,11 @@ def parallel_coordinates(
     sort_labels: bool = False,
     **kwargs: Any,
 ) -> Axes: ...
-def lag_plot(series: Series, lag: int = 1, ax: Axes | None = None, **kwds: Any) -> Axes: ...
-def autocorrelation_plot(series: Series, ax: Axes | None = None, **kwargs: Any) -> Axes: ...
+def lag_plot(
+    series: Series, lag: int = 1, ax: Axes | None = None, **kwds: Any
+) -> Axes: ...
+def autocorrelation_plot(
+    series: Series, ax: Axes | None = None, **kwargs: Any
+) -> Axes: ...
 
 plot_params: dict[str, Any]
