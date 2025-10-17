@@ -811,12 +811,12 @@ class Permutation(Atom):
     def __getnewargs__(self): ...
     def _hashable_content(self): ...
     @property
-    def array_form(self):
+    def array_form(self) -> list[int]:
         """
-        Return a copy of the attribute _array_form
-        Examples
-        ========
+        Return a copy of the attribute _array_form.
 
+        Examples
+        --------
         >>> from sympy.combinatorics import Permutation
         >>> p = Permutation([[2, 0], [3, 1]])
         >>> p.array_form

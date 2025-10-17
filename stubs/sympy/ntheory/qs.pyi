@@ -1,40 +1,32 @@
 from _typeshed import Incomplete
+from collections.abc import Generator
 from sympy.core.random import _randint as _randint
-from sympy.external.gmpy import gcd as gcd, invert as invert
-from sympy.ntheory import isprime as isprime
+from sympy.external.gmpy import bit_scan1 as bit_scan1, gcd as gcd, invert as invert
+from sympy.ntheory.factor_ import _perfect_power as _perfect_power
+from sympy.ntheory.primetest import isprime as isprime
 from sympy.ntheory.residue_ntheory import _sqrt_mod_prime_power as _sqrt_mod_prime_power
 
 class SievePolynomial:
-    modified_coeff: Incomplete
     a: Incomplete
     b: Incomplete
-    def __init__(self, modified_coeff=(), a: Incomplete | None = None, b: Incomplete | None = None) -> None:
-        """This class denotes the seive polynomial.
-        If ``g(x) = (a*x + b)**2 - N``. `g(x)` can be expanded
-        to ``a*x**2 + 2*a*b*x + b**2 - N``, so the coefficient
-        is stored in the form `[a**2, 2*a*b, b**2 - N]`. This
-        ensures faster `eval` method because we dont have to
-        perform `a**2, 2*a*b, b**2` every time we call the
-        `eval` method. As multiplication is more expensive
-        than addition, by using modified_coefficient we get
-        a faster seiving process.
+    a2: Incomplete
+    ab: Incomplete
+    b2: Incomplete
+    def __init__(self, a, b, N) -> None:
+        """This class denotes the sieve polynomial.
+        Provide methods to compute `(a*x + b)**2 - N` and
+        `a*x + b` when given `x`.
 
         Parameters
         ==========
 
-        modified_coeff : modified_coefficient of sieve polynomial
         a : parameter of the sieve polynomial
         b : parameter of the sieve polynomial
-        """
-    def eval(self, x):
-        """
-        Compute the value of the sieve polynomial at point x.
+        N : number to be factored
 
-        Parameters
-        ==========
-
-        x : Integer parameter for sieve polynomial
         """
+    def eval_u(self, x): ...
+    def eval_v(self, x): ...
 
 class FactorBaseElem:
     """This class stores an element of the `factor_base`.
@@ -44,7 +36,6 @@ class FactorBaseElem:
     log_p: Incomplete
     soln1: Incomplete
     soln2: Incomplete
-    a_inv: Incomplete
     b_ainv: Incomplete
     def __init__(self, prime, tmem_p, log_p) -> None:
         """
@@ -72,16 +63,10 @@ def _generate_factor_base(prime_bound, n):
     prime_bound : upper prime bound of the factor_base
     n : integer to be factored
     """
-def _initialize_first_polynomial(N, M, factor_base, idx_1000, idx_5000, seed: Incomplete | None = None):
-    """This step is the initialization of the 1st sieve polynomial.
-    Here `a` is selected as a product of several primes of the factor_base
-    such that `a` is about to ``sqrt(2*N) / M``. Other initial values of
-    factor_base elem are also initialized which includes a_inv, b_ainv, soln1,
-    soln2 which are used when the sieve polynomial is changed. The b_ainv
-    is required for fast polynomial change as we do not have to calculate
-    `2*b*invert(a, prime)` every time.
-    We also ensure that the `factor_base` primes which make `a` are between
-    1000 and 5000.
+def _generate_polynomial(N, M, factor_base, idx_1000, idx_5000, randint) -> Generator[Incomplete]:
+    """ Generate sieve polynomials indefinitely.
+    Information such as `soln1` in the `factor_base` associated with
+    the polynomial is modified in place.
 
     Parameters
     ==========
@@ -91,25 +76,8 @@ def _initialize_first_polynomial(N, M, factor_base, idx_1000, idx_5000, seed: In
     factor_base : factor_base primes
     idx_1000 : index of prime number in the factor_base near 1000
     idx_5000 : index of prime number in the factor_base near to 5000
-    seed : Generate pseudoprime numbers
-    """
-def _initialize_ith_poly(N, factor_base, i, g, B):
-    """Initialization stage of ith poly. After we finish sieving 1`st polynomial
-    here we quickly change to the next polynomial from which we will again
-    start sieving. Suppose we generated ith sieve polynomial and now we
-    want to generate (i + 1)th polynomial, where ``1 <= i <= 2**(j - 1) - 1``
-    where `j` is the number of prime factors of the coefficient `a`
-    then this function can be used to go to the next polynomial. If
-    ``i = 2**(j - 1) - 1`` then go to _initialize_first_polynomial stage.
-
-    Parameters
-    ==========
-
-    N : number to be factored
-    factor_base : factor_base primes
-    i : integer denoting ith polynomial
-    g : (i - 1)th polynomial
-    B : array that stores a//q_l*gamma
+    randint : A callable that takes two integers (a, b) and returns a random integer
+              n such that a <= n <= b, similar to `random.randint`.
     """
 def _gen_sieve_array(M, factor_base):
     """Sieve Stage of the Quadratic Sieve. For every prime in the factor_base
@@ -125,18 +93,13 @@ def _gen_sieve_array(M, factor_base):
     factor_base : factor_base primes
     """
 def _check_smoothness(num, factor_base):
-    """Here we check that if `num` is a smooth number or not. If `a` is a smooth
-    number then it returns a vector of prime exponents modulo 2. For example
-    if a = 2 * 5**2 * 7**3 and the factor base contains {2, 3, 5, 7} then
-    `a` is a smooth number and this function returns ([1, 0, 0, 1], True). If
-    `a` is a partial relation which means that `a` a has one prime factor
-    greater than the `factor_base` then it returns `(a, False)` which denotes `a`
-    is a partial relation.
+    """ Check if `num` is smooth with respect to the given `factor_base`
+    and compute its factorization vector.
 
     Parameters
     ==========
 
-    a : integer whose smootheness is to be checked
+    num : integer whose smootheness is to be checked
     factor_base : factor_base primes
     """
 def _trial_division_stage(N, M, factor_base, sieve_array, sieve_poly, partial_relations, ERROR_TERM):
@@ -162,51 +125,21 @@ def _trial_division_stage(N, M, factor_base, sieve_array, sieve_poly, partial_re
     partial_relations : stores partial relations with one large prime
     ERROR_TERM : error term for accumulated_val
     """
-def _build_matrix(smooth_relations):
-    """Build a 2D matrix from smooth relations.
+def _find_factor(N, smooth_relations, col) -> Generator[Incomplete]:
+    """ Finds proper factor of N using fast gaussian reduction for modulo 2 matrix.
 
     Parameters
     ==========
 
-    smooth_relations : Stores smooth relations
-    """
-def _gauss_mod_2(A):
-    """Fast gaussian reduction for modulo 2 matrix.
-
-    Parameters
-    ==========
-
-    A : Matrix
-
-    Examples
-    ========
-
-    >>> from sympy.ntheory.qs import _gauss_mod_2
-    >>> _gauss_mod_2([[0, 1, 1], [1, 0, 1], [0, 1, 0], [1, 1, 1]])
-    ([[[1, 0, 1], 3]],
-     [True, True, True, False],
-     [[0, 1, 0], [1, 0, 0], [0, 0, 1], [1, 0, 1]])
+    N : Number to be factored
+    smooth_relations : Smooth relations vectors matrix
+    col : Number of columns in the matrix
 
     Reference
     ==========
 
     .. [1] A fast algorithm for gaussian elimination over GF(2) and
-    its implementation on the GAPP. Cetin K.Koc, Sarath N.Arachchige"""
-def _find_factor(dependent_rows, mark, gauss_matrix, index, smooth_relations, N):
-    """Finds proper factor of N. Here, transform the dependent rows as a
-    combination of independent rows of the gauss_matrix to form the desired
-    relation of the form ``X**2 = Y**2 modN``. After obtaining the desired relation
-    we obtain a proper factor of N by `gcd(X - Y, N)`.
-
-    Parameters
-    ==========
-
-    dependent_rows : denoted dependent rows in the reduced matrix form
-    mark : boolean array to denoted dependent and independent rows
-    gauss_matrix : Reduced form of the smooth relations matrix
-    index : denoted the index of the dependent_rows
-    smooth_relations : Smooth relations vectors matrix
-    N : Number to be factored
+    its implementation on the GAPP. Cetin K.Koc, Sarath N.Arachchige
     """
 def qs(N, prime_bound, M, ERROR_TERM: int = 25, seed: int = 1234):
     """Performs factorization using Self-Initializing Quadratic Sieve.
@@ -229,8 +162,13 @@ def qs(N, prime_bound, M, ERROR_TERM: int = 25, seed: int = 1234):
     prime_bound : upper bound for primes in the factor base
     M : Sieve Interval
     ERROR_TERM : Error term for checking smoothness
-    threshold : Extra smooth relations for factorization
-    seed : generate pseudo prime numbers
+    seed : seed of random number generator
+
+    Returns
+    =======
+
+    set(int) : A set of factors of N without considering multiplicity.
+               Returns ``{N}`` if factorization fails.
 
     Examples
     ========
@@ -241,9 +179,46 @@ def qs(N, prime_bound, M, ERROR_TERM: int = 25, seed: int = 1234):
     >>> qs(9804659461513846513, 2000, 10000)
     {4641991, 2112166839943}
 
+    See Also
+    ========
+
+    qs_factor
+
     References
     ==========
 
     .. [1] https://pdfs.semanticscholar.org/5c52/8a975c1405bd35c65993abf5a4edb667c1db.pdf
     .. [2] https://www.rieselprime.de/ziki/Self-initializing_quadratic_sieve
+    """
+def qs_factor(N, prime_bound, M, ERROR_TERM: int = 25, seed: int = 1234):
+    """ Performs factorization using Self-Initializing Quadratic Sieve.
+
+    Parameters
+    ==========
+
+    N : Number to be Factored
+    prime_bound : upper bound for primes in the factor base
+    M : Sieve Interval
+    ERROR_TERM : Error term for checking smoothness
+    seed : seed of random number generator
+
+    Returns
+    =======
+
+    dict[int, int] : Factors of N.
+                     Returns ``{N: 1}`` if factorization fails.
+                     Note that the key is not always a prime number.
+
+    Examples
+    ========
+
+    >>> from sympy.ntheory import qs_factor
+    >>> qs_factor(1009 * 100003, 2000, 10000)
+    {1009: 1, 100003: 1}
+
+    See Also
+    ========
+
+    qs
+
     """

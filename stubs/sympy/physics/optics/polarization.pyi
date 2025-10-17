@@ -326,12 +326,12 @@ def phase_retarder(theta: int = 0, delta: int = 0):
     ⎡                          -ⅈ⋅δ               -ⅈ⋅δ               ⎤
     ⎢                          ─────              ─────              ⎥
     ⎢⎛ ⅈ⋅δ    2         2   ⎞    2    ⎛     ⅈ⋅δ⎞    2                ⎥
-    ⎢|ℯ   ⋅sin (θ) + cos (θ)⎠⋅ℯ       |1 - ℯ   ⎠⋅ℯ     ⋅sin(θ)⋅cos(θ)⎥
+    ⎢⎝ℯ   ⋅sin (θ) + cos (θ)⎠⋅ℯ       ⎝1 - ℯ   ⎠⋅ℯ     ⋅sin(θ)⋅cos(θ)⎥
     ⎢                                                                ⎥
     ⎢            -ⅈ⋅δ                                           -ⅈ⋅δ ⎥
     ⎢            ─────                                          ─────⎥
     ⎢⎛     ⅈ⋅δ⎞    2                  ⎛ ⅈ⋅δ    2         2   ⎞    2  ⎥
-    ⎣|1 - ℯ   ⎠⋅ℯ     ⋅sin(θ)⋅cos(θ)  |ℯ   ⋅cos (θ) + sin (θ)⎠⋅ℯ     ⎦
+    ⎣⎝1 - ℯ   ⎠⋅ℯ     ⋅sin(θ)⋅cos(θ)  ⎝ℯ   ⋅cos (θ) + sin (θ)⎠⋅ℯ     ⎦
 
     '''
 def half_wave_retarder(theta):
@@ -360,10 +360,10 @@ def half_wave_retarder(theta):
     >>> HWP = half_wave_retarder(theta)
     >>> pprint(HWP, use_unicode=True)
     ⎡   ⎛     2         2   ⎞                        ⎤
-    ⎢-ⅈ⋅|- sin (θ) + cos (θ)⎠    -2⋅ⅈ⋅sin(θ)⋅cos(θ)  ⎥
+    ⎢-ⅈ⋅⎝- sin (θ) + cos (θ)⎠    -2⋅ⅈ⋅sin(θ)⋅cos(θ)  ⎥
     ⎢                                                ⎥
     ⎢                             ⎛   2         2   ⎞⎥
-    ⎣   -2⋅ⅈ⋅sin(θ)⋅cos(θ)     -ⅈ⋅|sin (θ) - cos (θ)⎠⎦
+    ⎣   -2⋅ⅈ⋅sin(θ)⋅cos(θ)     -ⅈ⋅⎝sin (θ) - cos (θ)⎠⎦
 
     '''
 def quarter_wave_retarder(theta):
@@ -394,12 +394,12 @@ def quarter_wave_retarder(theta):
     ⎡                       -ⅈ⋅π            -ⅈ⋅π               ⎤
     ⎢                       ─────           ─────              ⎥
     ⎢⎛     2         2   ⎞    4               4                ⎥
-    ⎢|ⅈ⋅sin (θ) + cos (θ)⎠⋅ℯ       (1 - ⅈ)⋅ℯ     ⋅sin(θ)⋅cos(θ)⎥
+    ⎢⎝ⅈ⋅sin (θ) + cos (θ)⎠⋅ℯ       (1 - ⅈ)⋅ℯ     ⋅sin(θ)⋅cos(θ)⎥
     ⎢                                                          ⎥
     ⎢         -ⅈ⋅π                                        -ⅈ⋅π ⎥
     ⎢         ─────                                       ─────⎥
     ⎢           4                  ⎛   2           2   ⎞    4  ⎥
-    ⎣(1 - ⅈ)⋅ℯ     ⋅sin(θ)⋅cos(θ)  |sin (θ) + ⅈ⋅cos (θ)⎠⋅ℯ     ⎦
+    ⎣(1 - ⅈ)⋅ℯ     ⋅sin(θ)⋅cos(θ)  ⎝sin (θ) + ⅈ⋅cos (θ)⎠⋅ℯ     ⎦
 
     '''
 def transmissive_filter(T):

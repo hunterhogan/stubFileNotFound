@@ -7,7 +7,7 @@ _af_new: Incomplete
 
 def AbelianGroup(*cyclic_orders):
     """
-    Returns the direct product of cyclic groups with the given orders.
+    Return the direct product of cyclic groups with the given orders.
 
     Explanation
     ===========
@@ -17,8 +17,7 @@ def AbelianGroup(*cyclic_orders):
     finitely many cyclic groups.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.named_groups import AbelianGroup
     >>> AbelianGroup(3, 4)
     PermutationGroup([
@@ -28,18 +27,17 @@ def AbelianGroup(*cyclic_orders):
     True
 
     See Also
-    ========
-
+    --------
     DirectProduct
 
     References
-    ==========
+    ----------
 
     .. [1] https://groupprops.subwiki.org/wiki/Structure_theorem_for_finitely_generated_abelian_groups
 
     """
 def AlternatingGroup(n):
-    '''
+    """
     Generates the alternating group on ``n`` elements as a permutation group.
 
     Explanation
@@ -52,8 +50,7 @@ def AlternatingGroup(n):
     The cases ``n = 1, 2`` are handled separately.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.named_groups import AlternatingGroup
     >>> G = AlternatingGroup(4)
     >>> G.is_group
@@ -65,18 +62,17 @@ def AlternatingGroup(n):
     True
 
     See Also
-    ========
-
+    --------
     SymmetricGroup, CyclicGroup, DihedralGroup
 
     References
-    ==========
+    ----------
 
     .. [1] Armstrong, M. "Groups and Symmetry"
 
-    '''
+    """
 def set_alternating_group_properties(G, n, degree) -> None:
-    """Set known properties of an alternating group. """
+    """Set known properties of an alternating group."""
 def CyclicGroup(n):
     """
     Generates the cyclic group of order ``n`` as a permutation group.
@@ -89,8 +85,7 @@ def CyclicGroup(n):
     properties are set.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.named_groups import CyclicGroup
     >>> G = CyclicGroup(6)
     >>> G.is_group
@@ -102,14 +97,13 @@ def CyclicGroup(n):
     [3, 4, 5, 0, 1, 2], [4, 5, 0, 1, 2, 3], [5, 0, 1, 2, 3, 4]]
 
     See Also
-    ========
-
+    --------
     SymmetricGroup, DihedralGroup, AlternatingGroup
 
     """
-def DihedralGroup(n):
+def DihedralGroup(n: int) -> PermutationGroup:
     """
-    Generates the dihedral group `D_n` as a permutation group.
+    Generate the dihedral group `D_n` as a permutation group.
 
     Explanation
     ===========
@@ -123,8 +117,7 @@ def DihedralGroup(n):
     are set.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.named_groups import DihedralGroup
     >>> G = DihedralGroup(5)
     >>> G.is_group
@@ -137,19 +130,18 @@ def DihedralGroup(n):
     [[0, 3], [1, 2]]]
 
     See Also
-    ========
-
+    --------
     SymmetricGroup, CyclicGroup, AlternatingGroup
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Dihedral_group
 
     """
-def SymmetricGroup(n):
+def SymmetricGroup(n: int) -> PermutationGroup:
     """
-    Generates the symmetric group on ``n`` elements as a permutation group.
+    Generate the symmetric group on ``n`` elements as a permutation group.
 
     Explanation
     ===========
@@ -160,8 +152,7 @@ def SymmetricGroup(n):
     are set.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.named_groups import SymmetricGroup
     >>> G = SymmetricGroup(4)
     >>> G.is_group
@@ -176,18 +167,17 @@ def SymmetricGroup(n):
     [0, 3, 2, 1], [1, 0, 3, 2], [2, 1, 0, 3], [3, 0, 2, 1]]
 
     See Also
-    ========
-
+    --------
     CyclicGroup, DihedralGroup, AlternatingGroup
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Symmetric_group#Generators_and_relations
 
     """
 def set_symmetric_group_properties(G, n, degree) -> None:
-    """Set known properties of a symmetric group. """
+    """Set known properties of a symmetric group."""
 def RubikGroup(n):
     """Return a group of Rubik's cube generators
 

@@ -23,7 +23,7 @@ from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprec
 from sympy.utilities.iterables import iterable as iterable, multiset as multiset, multiset_derangements as multiset_derangements
 from sympy.utilities.memoization import recurrence_memo as recurrence_memo
 from sympy.utilities.misc import as_int as as_int
-from typing import Callable
+from collections.abc import Callable
 
 def _product(a, b): ...
 
@@ -60,8 +60,7 @@ class carmichael(DefinedFunction):
     the Miller-Rabin primality test.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.factor_ import find_first_n_carmichaels, find_carmichael_numbers_in_range
     >>> find_first_n_carmichaels(5)
     [561, 1105, 1729, 2465, 2821]
@@ -73,12 +72,13 @@ class carmichael(DefinedFunction):
     [561, 1105, 1729]
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Carmichael_number
     .. [2] https://en.wikipedia.org/wiki/Fermat_primality_test
     .. [3] https://www.jstor.org/stable/23248683?seq=1#metadata_info_tab_contents
     """
+
     @staticmethod
     def is_perfect_square(n): ...
     @staticmethod
@@ -112,8 +112,7 @@ class fibonacci(DefinedFunction):
     * ``fibonacci(n, x)`` gives the `n^{th}` Fibonacci polynomial in `x`, `F_n(x)`
 
     Examples
-    ========
-
+    --------
     >>> from sympy import fibonacci, Symbol
 
     >>> [fibonacci(x) for x in range(11)]
@@ -122,17 +121,17 @@ class fibonacci(DefinedFunction):
     t**4 + 3*t**2 + 1
 
     See Also
-    ========
-
+    --------
     bell, bernoulli, catalan, euler, harmonic, lucas, genocchi, partition, tribonacci
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Fibonacci_number
     .. [2] https://mathworld.wolfram.com/FibonacciNumber.html
 
     """
+
     @staticmethod
     def _fib(n): ...
     @staticmethod
@@ -155,25 +154,24 @@ class lucas(DefinedFunction):
     * ``lucas(n)`` gives the `n^{th}` Lucas number
 
     Examples
-    ========
-
+    --------
     >>> from sympy import lucas
 
     >>> [lucas(x) for x in range(11)]
     [2, 1, 3, 4, 7, 11, 18, 29, 47, 76, 123]
 
     See Also
-    ========
-
+    --------
     bell, bernoulli, catalan, euler, fibonacci, harmonic, genocchi, partition, tribonacci
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Lucas_number
     .. [2] https://mathworld.wolfram.com/LucasNumber.html
 
     """
+
     @classmethod
     def eval(cls, n): ...
     def _eval_rewrite_as_sqrt(self, n, **kwargs): ...
@@ -194,8 +192,7 @@ class tribonacci(DefinedFunction):
     * ``tribonacci(n, x)`` gives the `n^{th}` Tribonacci polynomial in `x`, `T_n(x)`
 
     Examples
-    ========
-
+    --------
     >>> from sympy import tribonacci, Symbol
 
     >>> [tribonacci(x) for x in range(11)]
@@ -204,18 +201,18 @@ class tribonacci(DefinedFunction):
     t**8 + 3*t**5 + 3*t**2
 
     See Also
-    ========
-
+    --------
     bell, bernoulli, catalan, euler, fibonacci, harmonic, lucas, genocchi, partition
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Generalizations_of_Fibonacci_numbers#Tribonacci_numbers
     .. [2] https://mathworld.wolfram.com/TribonacciNumber.html
     .. [3] https://oeis.org/A000073
 
     """
+
     @staticmethod
     def _trib(n, prev): ...
     @staticmethod
@@ -226,7 +223,7 @@ class tribonacci(DefinedFunction):
     def _eval_rewrite_as_TribonacciConstant(self, n, **kwargs): ...
 
 class bernoulli(DefinedFunction):
-    '''
+    """
     Bernoulli numbers / Bernoulli polynomials / Bernoulli function
 
     The Bernoulli numbers are a sequence of rational numbers
@@ -294,8 +291,7 @@ class bernoulli(DefinedFunction):
         ``(-1)**n*bernoulli(n)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import bernoulli
     >>> from sympy.abc import x
     >>> [bernoulli(n) for n in range(11)]
@@ -306,13 +302,12 @@ class bernoulli(DefinedFunction):
     x**3 - 3*x**2/2 + x/2
 
     See Also
-    ========
-
+    --------
     andre, bell, catalan, euler, fibonacci, harmonic, lucas, genocchi,
     partition, tribonacci, sympy.polys.appellseqs.bernoulli_poly
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Bernoulli_number
     .. [2] https://en.wikipedia.org/wiki/Bernoulli_polynomial
@@ -323,7 +318,8 @@ class bernoulli(DefinedFunction):
     .. [6] Peter Luschny, "An introduction to the Bernoulli function",
            https://arxiv.org/abs/2009.06743
 
-    '''
+    """
+
     args: tuple[Integer]
     @staticmethod
     def _calc_bernoulli(n): ...
@@ -335,7 +331,7 @@ class bernoulli(DefinedFunction):
     def _eval_evalf(self, prec): ...
 
 class bell(DefinedFunction):
-    '''
+    """
     Bell numbers / Bell polynomials
 
     The Bell numbers satisfy `B_0 = 1` and
@@ -366,14 +362,12 @@ class bell(DefinedFunction):
       `B_{n,k}(x_1, x_2, \\dotsc, x_{n-k+1})`.
 
     Notes
-    =====
-
+    -----
     Not to be confused with Bernoulli numbers and Bernoulli polynomials,
     which use the same notation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import bell, Symbol, symbols
 
     >>> [bell(n) for n in range(11)]
@@ -386,18 +380,18 @@ class bell(DefinedFunction):
     6*x1*x5 + 15*x2*x4 + 10*x3**2
 
     See Also
-    ========
-
+    --------
     bernoulli, catalan, euler, fibonacci, harmonic, lucas, genocchi, partition, tribonacci
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Bell_number
     .. [2] https://mathworld.wolfram.com/BellNumber.html
     .. [3] https://mathworld.wolfram.com/BellPolynomial.html
 
-    '''
+    """
+
     @staticmethod
     def _bell(n, prev): ...
     @staticmethod
@@ -424,7 +418,7 @@ class bell(DefinedFunction):
     def _eval_rewrite_as_Sum(self, n, k_sym=None, symbols=None, **kwargs): ...
 
 class harmonic(DefinedFunction):
-    '''
+    """
     Harmonic numbers
 
     The nth harmonic number is given by `\\operatorname{H}_{n} =
@@ -450,8 +444,7 @@ class harmonic(DefinedFunction):
             & m \\ne 1 \\\\ \\psi(n+1) + \\gamma & m = 1 \\end{cases}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import harmonic, oo
 
     >>> [harmonic(n) for n in range(6)]
@@ -542,18 +535,18 @@ class harmonic(DefinedFunction):
     zeta(m + 1)
 
     See Also
-    ========
-
+    --------
     bell, bernoulli, catalan, euler, fibonacci, lucas, genocchi, partition, tribonacci
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Harmonic_number
     .. [2] https://functions.wolfram.com/GammaBetaErf/HarmonicNumber/
     .. [3] https://functions.wolfram.com/GammaBetaErf/HarmonicNumber2/
 
-    '''
+    """
+
     harmonic_cache: dict[Integer, Callable[[int], Rational]]
     @classmethod
     def eval(cls, n, m=None): ...
@@ -568,7 +561,7 @@ class harmonic(DefinedFunction):
     def fdiff(self, argindex: int = 1): ...
 
 class euler(DefinedFunction):
-    '''
+    """
     Euler numbers / Euler polynomials / Euler function
 
     The Euler numbers are given by:
@@ -602,8 +595,7 @@ class euler(DefinedFunction):
     * ``euler(s, a)`` gives the generalized Euler function `\\operatorname{E}(s, a)`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import euler, Symbol, S
     >>> [euler(n) for n in range(10)]
     [1, 0, -1, 0, 5, 0, -61, 0, 1385, 0]
@@ -634,20 +626,20 @@ class euler(DefinedFunction):
     2702765
 
     See Also
-    ========
-
+    --------
     andre, bell, bernoulli, catalan, fibonacci, harmonic, lucas, genocchi,
     partition, tribonacci, sympy.polys.appellseqs.euler_poly
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Euler_numbers
     .. [2] https://mathworld.wolfram.com/EulerNumber.html
     .. [3] https://en.wikipedia.org/wiki/Alternating_permutation
     .. [4] https://mathworld.wolfram.com/AlternatingPermutation.html
 
-    '''
+    """
+
     @classmethod
     def eval(cls, n, x=None): ...
     def _eval_rewrite_as_Sum(self, n, x=None, **kwargs): ...
@@ -655,7 +647,7 @@ class euler(DefinedFunction):
     def _eval_evalf(self, prec): ...
 
 class catalan(DefinedFunction):
-    '''
+    """
     Catalan numbers
 
     The `n^{th}` catalan number is given by:
@@ -665,8 +657,7 @@ class catalan(DefinedFunction):
     * ``catalan(n)`` gives the `n^{th}` Catalan number, `C_n`
 
     Examples
-    ========
-
+    --------
     >>> from sympy import (Symbol, binomial, gamma, hyper,
     ...     catalan, diff, combsimp, Rational, I)
 
@@ -719,20 +710,20 @@ class catalan(DefinedFunction):
     0.39764993382373624267 - 0.020884341620842555705*I
 
     See Also
-    ========
-
+    --------
     andre, bell, bernoulli, euler, fibonacci, harmonic, lucas, genocchi,
     partition, tribonacci, sympy.functions.combinatorial.factorials.binomial
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Catalan_number
     .. [2] https://mathworld.wolfram.com/CatalanNumber.html
     .. [3] https://functions.wolfram.com/GammaBetaErf/CatalanNumber/
     .. [4] http://geometer.org/mathcircles/catalan.pdf
 
-    '''
+    """
+
     @classmethod
     def eval(cls, n): ...
     def fdiff(self, argindex: int = 1): ...
@@ -747,7 +738,7 @@ class catalan(DefinedFunction):
     def _eval_evalf(self, prec): ...
 
 class genocchi(DefinedFunction):
-    '''
+    """
     Genocchi numbers / Genocchi polynomials / Genocchi function
 
     The Genocchi numbers are a sequence of integers `G_n` that satisfy the
@@ -769,8 +760,7 @@ class genocchi(DefinedFunction):
         ``genocchi(1)`` gives `-1` instead of `1`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import genocchi, Symbol
     >>> [genocchi(n) for n in range(9)]
     [0, -1, -1, 0, 1, 0, -3, 0, 17]
@@ -782,20 +772,20 @@ class genocchi(DefinedFunction):
     -4*x**3 + 6*x**2 - 1
 
     See Also
-    ========
-
+    --------
     bell, bernoulli, catalan, euler, fibonacci, harmonic, lucas, partition, tribonacci
     sympy.polys.appellseqs.genocchi_poly
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Genocchi_number
     .. [2] https://mathworld.wolfram.com/GenocchiNumber.html
     .. [3] Peter Luschny, "An introduction to the Bernoulli function",
            https://arxiv.org/abs/2009.06743
 
-    '''
+    """
+
     @classmethod
     def eval(cls, n, x=None): ...
     def _eval_rewrite_as_bernoulli(self, n, x: int = 1, **kwargs): ...
@@ -809,7 +799,7 @@ class genocchi(DefinedFunction):
     def _eval_evalf(self, prec): ...
 
 class andre(DefinedFunction):
-    '''
+    """
     Andre numbers / Andre function
 
     The Andre number `\\mathcal{A}_n` is Luschny\'s name for half the number of
@@ -838,8 +828,7 @@ class andre(DefinedFunction):
             (\\zeta(s+1, 1/4) - \\zeta(s+1, 3/4) \\cos{\\pi s})
 
     Examples
-    ========
-
+    --------
     >>> from sympy import andre, euler, bernoulli
     >>> [andre(n) for n in range(11)]
     [1, 1, 1, 2, 5, 16, 61, 272, 1385, 7936, 50521]
@@ -853,18 +842,18 @@ class andre(DefinedFunction):
     [1/6, -1/30, 1/42, -1/30, 5/66, -691/2730, 7/6]
 
     See Also
-    ========
-
+    --------
     bernoulli, catalan, euler, sympy.polys.appellseqs.andre_poly
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Alternating_permutation
     .. [2] https://mathworld.wolfram.com/EulerZigzagNumber.html
     .. [3] Peter Luschny, "An introduction to the Bernoulli function",
            https://arxiv.org/abs/2009.06743
-    '''
+    """
+
     @classmethod
     def eval(cls, n): ...
     def _eval_rewrite_as_zeta(self, s, **kwargs): ...
@@ -884,8 +873,7 @@ class partition(DefinedFunction):
     .. math:: \\sum_{n=0}^\\infty p_n x^n = \\prod_{k=1}^\\infty (1 - x^k)^{-1}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import partition, Symbol
     >>> [partition(n) for n in range(9)]
     [1, 1, 2, 3, 5, 7, 11, 15, 22]
@@ -894,17 +882,17 @@ class partition(DefinedFunction):
     0
 
     See Also
-    ========
-
+    --------
     bell, bernoulli, catalan, euler, fibonacci, harmonic, lucas, genocchi, tribonacci
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Partition_(number_theory%29
     .. [2] https://en.wikipedia.org/wiki/Pentagonal_number_theorem
 
     """
+
     is_integer: bool
     is_nonnegative: bool
     @classmethod
@@ -930,8 +918,7 @@ class divisor_sigma(DefinedFunction):
         + p_i^{m_ik}).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import divisor_sigma
     >>> divisor_sigma(18, 0)
     6
@@ -943,16 +930,16 @@ class divisor_sigma(DefinedFunction):
     38
 
     See Also
-    ========
-
+    --------
     sympy.ntheory.factor_.divisor_count, totient, sympy.ntheory.factor_.divisors, sympy.ntheory.factor_.factorint
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Divisor_function
 
     """
+
     is_integer: bool
     is_positive: bool
     @classmethod
@@ -975,8 +962,7 @@ class udivisor_sigma(DefinedFunction):
         \\sigma_k^*(n) = \\prod_{i=1}^\\omega (1+ p_i^{m_ik}).
 
     Parameters
-    ==========
-
+    ----------
     k : power of divisors in the sum
 
         for k = 0, 1:
@@ -986,8 +972,7 @@ class udivisor_sigma(DefinedFunction):
         Default for k is 1.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import udivisor_sigma
     >>> udivisor_sigma(18, 0)
     4
@@ -999,18 +984,18 @@ class udivisor_sigma(DefinedFunction):
     152
 
     See Also
-    ========
-
+    --------
     sympy.ntheory.factor_.divisor_count, totient, sympy.ntheory.factor_.divisors,
     sympy.ntheory.factor_.udivisors, sympy.ntheory.factor_.udivisor_count, divisor_sigma,
     sympy.ntheory.factor_.factorint
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/UnitaryDivisorFunction.html
 
     """
+
     is_integer: bool
     is_positive: bool
     @classmethod
@@ -1029,8 +1014,7 @@ class legendre_symbol(DefinedFunction):
         \\end{cases}
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import legendre_symbol
     >>> [legendre_symbol(i, 7) for i in range(7)]
     [0, 1, 1, -1, 1, -1, -1]
@@ -1038,11 +1022,11 @@ class legendre_symbol(DefinedFunction):
     [0, 1, 2, 4]
 
     See Also
-    ========
-
+    --------
     sympy.ntheory.residue_ntheory.is_quad_residue, jacobi_symbol
 
     """
+
     is_integer: bool
     is_prime: bool
     @classmethod
@@ -1076,8 +1060,7 @@ class jacobi_symbol(DefinedFunction):
     modulo ``n``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import jacobi_symbol, legendre_symbol
     >>> from sympy import S
     >>> jacobi_symbol(45, 77)
@@ -1095,11 +1078,11 @@ class jacobi_symbol(DefinedFunction):
     True
 
     See Also
-    ========
-
+    --------
     sympy.ntheory.residue_ntheory.is_quad_residue, legendre_symbol
 
     """
+
     is_integer: bool
     is_prime: bool
     @classmethod
@@ -1110,8 +1093,7 @@ class kronecker_symbol(DefinedFunction):
     Returns the Kronecker symbol `(a / n)`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import kronecker_symbol
     >>> kronecker_symbol(45, 77)
     -1
@@ -1119,24 +1101,24 @@ class kronecker_symbol(DefinedFunction):
     1
 
     See Also
-    ========
-
+    --------
     jacobi_symbol, legendre_symbol
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Kronecker_symbol
 
     """
+
     is_integer: bool
     is_prime: bool
     @classmethod
     def eval(cls, a, n): ...
 
 class mobius(DefinedFunction):
-    '''
-    Mobius function maps natural number to {-1, 0, 1}
+    """
+    Mobius function maps natural number to {-1, 0, 1}.
 
     It is defined as follows:
         1) `1` if `n = 1`.
@@ -1150,8 +1132,7 @@ class mobius(DefinedFunction):
     concrete realization with Mobius Function model).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import mobius
     >>> mobius(13*7)
     1
@@ -1172,17 +1153,18 @@ class mobius(DefinedFunction):
     0
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/M%C3%B6bius_function
     .. [2] Thomas Koshy "Elementary Number Theory with Applications"
     .. [3] https://oeis.org/A008683
 
-    '''
+    """
+
     is_integer: bool
     is_prime: bool
     @classmethod
-    def eval(cls, n): ...
+    def eval(cls, n: int) -> int: ...
 
 class primenu(DefinedFunction):
     """
@@ -1199,8 +1181,7 @@ class primenu(DefinedFunction):
         \\nu(n) = k.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import primenu
     >>> primenu(1)
     0
@@ -1208,17 +1189,17 @@ class primenu(DefinedFunction):
     3
 
     See Also
-    ========
-
+    --------
     sympy.ntheory.factor_.factorint
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/PrimeFactor.html
     .. [2] https://oeis.org/A001221
 
     """
+
     is_integer: bool
     is_nonnegative: bool
     @classmethod
@@ -1240,8 +1221,7 @@ class primeomega(DefinedFunction):
         \\Omega(n) = \\sum_{i=1}^k m_i.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import primeomega
     >>> primeomega(1)
     0
@@ -1249,17 +1229,17 @@ class primeomega(DefinedFunction):
     3
 
     See Also
-    ========
-
+    --------
     sympy.ntheory.factor_.factorint
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/PrimeFactor.html
     .. [2] https://oeis.org/A001222
 
     """
+
     is_integer: bool
     is_nonnegative: bool
     @classmethod
@@ -1273,8 +1253,7 @@ class totient(DefinedFunction):
     that are relatively prime to n.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import totient
     >>> totient(1)
     1
@@ -1284,18 +1263,18 @@ class totient(DefinedFunction):
     True
 
     See Also
-    ========
-
+    --------
     sympy.ntheory.factor_.divisor_count
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Euler%27s_totient_function
     .. [2] https://mathworld.wolfram.com/TotientFunction.html
     .. [3] https://oeis.org/A000010
 
     """
+
     is_integer: bool
     is_positive: bool
     @classmethod
@@ -1309,8 +1288,7 @@ class reduced_totient(DefinedFunction):
     `k^m \\equiv 1 \\mod n` for all k relatively prime to n.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import reduced_totient
     >>> reduced_totient(1)
     1
@@ -1320,30 +1298,29 @@ class reduced_totient(DefinedFunction):
     4
 
     See Also
-    ========
-
+    --------
     totient
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Carmichael_function
     .. [2] https://mathworld.wolfram.com/CarmichaelFunction.html
     .. [3] https://oeis.org/A002322
 
     """
+
     is_integer: bool
     is_positive: bool
     @classmethod
     def eval(cls, n): ...
 
 class primepi(DefinedFunction):
-    """ Represents the prime counting function pi(n) = the number
+    """Represents the prime counting function pi(n) = the number
     of prime numbers less than or equal to n.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import primepi
     >>> from sympy import prime, prevprime, isprime
     >>> primepi(25)
@@ -1361,18 +1338,18 @@ class primepi(DefinedFunction):
     True
 
     See Also
-    ========
-
+    --------
     sympy.ntheory.primetest.isprime : Test if n is prime
     sympy.ntheory.generate.primerange : Generate all primes in a given range
     sympy.ntheory.generate.prime : Return the nth prime
 
     References
-    ==========
+    ----------
 
     .. [1] https://oeis.org/A000720
 
     """
+
     is_integer: bool
     is_nonnegative: bool
     @classmethod
@@ -1415,8 +1392,7 @@ def nP(n, k=None, replacement: bool = False):
     the number of elements in ``n``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import nP
     >>> from sympy.utilities.iterables import multiset_permutations, multiset
     >>> nP(3, 2)
@@ -1443,11 +1419,11 @@ def nP(n, k=None, replacement: bool = False):
     121
 
     See Also
-    ========
+    --------
     sympy.utilities.iterables.multiset_permutations
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Permutation
 
@@ -1456,7 +1432,7 @@ def nP(n, k=None, replacement: bool = False):
 def _nP(n, k=None, replacement: bool = False): ...
 @cacheit
 def _AOP_product(n):
-    """for n = (m1, m2, .., mk) return the coefficients of the polynomial,
+    """For n = (m1, m2, .., mk) return the coefficients of the polynomial,
     prod(sum(x**i for i in range(nj + 1)) for nj in n); i.e. the coefficients
     of the product of AOPs (all-one polynomials) or order given in n.  The
     resulting coefficient corresponding to x**r is the number of r-length
@@ -1465,8 +1441,7 @@ def _AOP_product(n):
     for a key that is not present, 0 will be returned).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import _AOP_product
     >>> from sympy.abc import x
     >>> n = (2, 2, 3)  # e.g. aabbccc
@@ -1502,8 +1477,7 @@ def nC(n, k=None, replacement: bool = False):
     ``n``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import nC
     >>> from sympy.utilities.iterables import multiset_combinations
     >>> nC(3, 2)
@@ -1534,12 +1508,11 @@ def nC(n, k=None, replacement: bool = False):
     16
 
     See Also
-    ========
-
+    --------
     sympy.utilities.iterables.multiset_combinations
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Combination
     .. [2] https://tinyurl.com/cep849r
@@ -1552,7 +1525,7 @@ def _eval_stirling2(n, k): ...
 @cacheit
 def _stirling2(n, k): ...
 def stirling(n, k, d=None, kind: int = 2, signed: bool = False):
-    '''Return Stirling number $S(n, k)$ of the first or second (default) kind.
+    """Return Stirling number $S(n, k)$ of the first or second (default) kind.
 
     The sum of all Stirling numbers of the second kind for $k = 1$
     through $n$ is ``bell(n)``. The recurrence relationship for these numbers
@@ -1579,8 +1552,7 @@ def stirling(n, k, d=None, kind: int = 2, signed: bool = False):
     ``signed=True``. Using this keyword automatically sets ``kind`` to 1.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import stirling, bell
     >>> from sympy.combinatorics import Permutation
     >>> from sympy.utilities.iterables import multiset_partitions, permutations
@@ -1624,23 +1596,24 @@ def stirling(n, k, d=None, kind: int = 2, signed: bool = False):
     7
 
     See Also
-    ========
+    --------
     sympy.utilities.iterables.multiset_partitions
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Stirling_numbers_of_the_first_kind
     .. [2] https://en.wikipedia.org/wiki/Stirling_numbers_of_the_second_kind
 
-    '''
+    """
 @cacheit
 def _nT(n, k):
     """Return the partitions of ``n`` items into ``k`` parts. This
-    is used by ``nT`` for the case when ``n`` is an integer."""
+    is used by ``nT`` for the case when ``n`` is an integer.
+    """
 def nT(n, k=None):
-    '''Return the number of ``k``-sized partitions of ``n`` items.
+    """Return the number of ``k``-sized partitions of ``n`` items.
 
     Possible values for ``n``:
 
@@ -1661,8 +1634,7 @@ def nT(n, k=None):
     represented in ``n`` will be returned.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import nT
 
     Partitions of the given multiset:
@@ -1700,17 +1672,17 @@ def nT(n, k=None):
     5
 
     See Also
-    ========
+    --------
     sympy.utilities.iterables.partitions
     sympy.utilities.iterables.multiset_partitions
     sympy.functions.combinatorial.numbers.partition
 
     References
-    ==========
+    ----------
 
     .. [1] https://web.archive.org/web/20210507012732/https://teaching.csse.uwa.edu.au/units/CITS7209/partition.pdf
 
-    '''
+    """
 
 class motzkin(DefinedFunction):
     """
@@ -1727,8 +1699,7 @@ class motzkin(DefinedFunction):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy import motzkin
 
     >>> motzkin.is_motzkin(5)
@@ -1742,12 +1713,13 @@ class motzkin(DefinedFunction):
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Motzkin_number
     .. [2] https://mathworld.wolfram.com/MotzkinNumber.html
 
     """
+
     @staticmethod
     def is_motzkin(n): ...
     @staticmethod
@@ -1760,13 +1732,12 @@ class motzkin(DefinedFunction):
     def eval(cls, n): ...
 
 def nD(i=None, brute=None, *, n=None, m=None):
-    """return the number of derangements for: ``n`` unique items, ``i``
+    """Return the number of derangements for: ``n`` unique items, ``i``
     items (as a sequence or multiset), or multiplicities, ``m`` given
     as a sequence or multiset.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.iterables import generate_derangements as enum
     >>> from sympy.functions.combinatorial.numbers import nD
 

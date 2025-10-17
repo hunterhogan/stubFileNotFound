@@ -2,8 +2,7 @@ from _typeshed import Incomplete
 from sympy.concrete.summations import Sum as Sum
 from sympy.core.add import Add as Add
 from sympy.core.function import Function as Function
-from sympy.core.numbers import (
-	Float as Float, I as I, int_valued as int_valued, Integer as Integer, pi as pi, Rational as Rational)
+from sympy.core.numbers import Float as Float, I as I, Integer as Integer, Rational as Rational, int_valued as int_valued, pi as pi
 from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy
 from sympy.core.sympify import sympify as sympify
@@ -693,24 +692,24 @@ def wigner_d_small(J, beta):
     >>> pprint(wigner_d_small(half, beta), use_unicode=True)
     ⎡   ⎛β⎞      ⎛β⎞⎤
     ⎢cos⎜─⎟   sin⎜─⎟⎥
-    ⎢   |2⎠      |2⎠⎥
+    ⎢   ⎝2⎠      ⎝2⎠⎥
     ⎢               ⎥
     ⎢    ⎛β⎞     ⎛β⎞⎥
     ⎢-sin⎜─⎟  cos⎜─⎟⎥
-    ⎣    |2⎠     |2⎠⎦
+    ⎣    ⎝2⎠     ⎝2⎠⎦
 
     >>> pprint(wigner_d_small(2*half, beta), use_unicode=True)
     ⎡        2⎛β⎞              ⎛β⎞    ⎛β⎞           2⎛β⎞     ⎤
     ⎢     cos ⎜─⎟        √2⋅sin⎜─⎟⋅cos⎜─⎟        sin ⎜─⎟     ⎥
-    ⎢         |2⎠              |2⎠    |2⎠            |2⎠     ⎥
+    ⎢         ⎝2⎠              ⎝2⎠    ⎝2⎠            ⎝2⎠     ⎥
     ⎢                                                        ⎥
     ⎢       ⎛β⎞    ⎛β⎞       2⎛β⎞      2⎛β⎞        ⎛β⎞    ⎛β⎞⎥
     ⎢-√2⋅sin⎜─⎟⋅cos⎜─⎟  - sin ⎜─⎟ + cos ⎜─⎟  √2⋅sin⎜─⎟⋅cos⎜─⎟⎥
-    ⎢       |2⎠    |2⎠        |2⎠       |2⎠        |2⎠    |2⎠⎥
+    ⎢       ⎝2⎠    ⎝2⎠        ⎝2⎠       ⎝2⎠        ⎝2⎠    ⎝2⎠⎥
     ⎢                                                        ⎥
     ⎢        2⎛β⎞               ⎛β⎞    ⎛β⎞          2⎛β⎞     ⎥
     ⎢     sin ⎜─⎟        -√2⋅sin⎜─⎟⋅cos⎜─⎟       cos ⎜─⎟     ⎥
-    ⎣         |2⎠               |2⎠    |2⎠           |2⎠     ⎦
+    ⎣         ⎝2⎠               ⎝2⎠    ⎝2⎠           ⎝2⎠     ⎦
 
     From table 4 in [Edmonds74]_
 
@@ -824,12 +823,12 @@ def wigner_d(J, alpha, beta, gamma):
     ⎢  ───  ───             ───  ─────        ⎥
     ⎢   2    2     ⎛β⎞       2     2      ⎛β⎞ ⎥
     ⎢ ℯ   ⋅ℯ   ⋅cos⎜─⎟     ℯ   ⋅ℯ     ⋅sin⎜─⎟ ⎥
-    ⎢              |2⎠                    |2⎠ ⎥
+    ⎢              ⎝2⎠                    ⎝2⎠ ⎥
     ⎢                                         ⎥
     ⎢  -ⅈ⋅α   ⅈ⋅γ          -ⅈ⋅α   -ⅈ⋅γ        ⎥
     ⎢  ─────  ───          ─────  ─────       ⎥
     ⎢    2     2     ⎛β⎞     2      2      ⎛β⎞⎥
     ⎢-ℯ     ⋅ℯ   ⋅sin⎜─⎟  ℯ     ⋅ℯ     ⋅cos⎜─⎟⎥
-    ⎣                |2⎠                   |2⎠⎦
+    ⎣                ⎝2⎠                   ⎝2⎠⎦
 
     '''

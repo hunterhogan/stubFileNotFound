@@ -1,16 +1,22 @@
 from ._print_helpers import Printable as Printable
-from .assumptions import _prepare_class_assumptions as _prepare_class_assumptions
+from .assumptions import StdFactKB as StdFactKB, _prepare_class_assumptions as _prepare_class_assumptions
 from .cache import cacheit as cacheit
 from .kind import Kind as Kind, UndefinedKind as UndefinedKind
 from .singleton import S as S
 from .sorting import ordered as ordered
+from .symbol import Symbol as Symbol
 from .sympify import SympifyError as SympifyError, _external_converter as _external_converter, _sympify as _sympify, sympify as sympify
 from .traversal import iterargs as iterargs, iterfreeargs as iterfreeargs
 from _typeshed import Incomplete
+from collections.abc import Iterable, Mapping
 from sympy.utilities.decorator import deprecated as deprecated
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.iterables import iterable as iterable, numbered_symbols as numbered_symbols
 from sympy.utilities.misc import filldedent as filldedent, func_name as func_name
+from typing import Any, ClassVar, TypeVar, overload
+from typing_extensions import Self
+
+Tbasic = TypeVar('Tbasic', bound='Basic')
 
 def as_Basic(expr):
     """Return expr as a Basic instance using strict sympify
@@ -42,6 +48,10 @@ def _cmp_name(x: type, y: type) -> int:
     >>> basic.ordering_of_classes = save
 
     '''
+@cacheit
+def _get_postprocessors(clsname, arg_type): ...
+@cacheit
+def _get_postprocessors_for_type(arg_type): ...
 
 class Basic(Printable):
     '''
@@ -123,11 +133,38 @@ class Basic(Printable):
     is_Point: bool
     is_MatAdd: bool
     is_MatMul: bool
-    is_real: bool | None
-    is_extended_real: bool | None
-    is_zero: bool | None
+    default_assumptions: ClassVar[StdFactKB]
+    is_composite: bool | None
+    is_noninteger: bool | None
+    is_extended_positive: bool | None
     is_negative: bool | None
+    is_complex: bool | None
+    is_extended_nonpositive: bool | None
+    is_integer: bool | None
+    is_positive: bool | None
+    is_rational: bool | None
+    is_extended_nonnegative: bool | None
+    is_infinite: bool | None
+    is_antihermitian: bool | None
+    is_extended_negative: bool | None
+    is_extended_real: bool | None
+    is_finite: bool | None
+    is_polar: bool | None
+    is_imaginary: bool | None
+    is_transcendental: bool | None
+    is_extended_nonzero: bool | None
+    is_nonzero: bool | None
+    is_odd: bool | None
+    is_algebraic: bool | None
+    is_prime: bool | None
     is_commutative: bool | None
+    is_nonnegative: bool | None
+    is_nonpositive: bool | None
+    is_hermitian: bool | None
+    is_irrational: bool | None
+    is_real: bool | None
+    is_zero: bool | None
+    is_even: bool | None
     kind: Kind
     def __new__(cls, *args): ...
     def copy(self): ...
@@ -202,15 +239,6 @@ class Basic(Printable):
         1
 
         """
-    @staticmethod
-    def _compare_pretty(a, b):
-        """return -1, 0, 1 if a is canonically less, equal or
-        greater than b. This is used when 'order=old' is selected
-        for printing. This puts Order last, orders Rationals
-        according to value, puts terms in order wrt the power of
-        the last power appearing in a term. Ties are broken using
-        Basic.compare.
-        """
     @classmethod
     def fromiter(cls, args, **assumptions):
         """
@@ -228,9 +256,10 @@ class Basic(Printable):
 
         """
     @classmethod
-    def class_key(cls):
+    def class_key(cls) -> tuple[int, int, str]:
         """Nice order of classes."""
-    def sort_key(self, order: Incomplete | None = None):
+    @cacheit
+    def sort_key(self, order=None):
         '''
         Return a sort key.
 
@@ -289,7 +318,7 @@ class Basic(Printable):
 
         but faster
         """
-    def dummy_eq(self, other, symbol: Incomplete | None = None):
+    def dummy_eq(self, other, symbol=None):
         """
         Compare two expressions and handle dummy symbols.
 
@@ -312,80 +341,15 @@ class Basic(Printable):
         False
 
         """
-    def atoms(self, *types):
-        '''Returns the atoms that form the current object.
-
-        By default, only objects that are truly atomic and cannot
-        be divided into smaller pieces are returned: symbols, numbers,
-        and number symbols like I and pi. It is possible to request
-        atoms of any type, however, as demonstrated below.
-
-        Examples
-        ========
-
-        >>> from sympy import I, pi, sin
-        >>> from sympy.abc import x, y
-        >>> (1 + x + 2*sin(y + I*pi)).atoms()
-        {1, 2, I, pi, x, y}
-
-        If one or more types are given, the results will contain only
-        those types of atoms.
-
-        >>> from sympy import Number, NumberSymbol, Symbol
-        >>> (1 + x + 2*sin(y + I*pi)).atoms(Symbol)
-        {x, y}
-
-        >>> (1 + x + 2*sin(y + I*pi)).atoms(Number)
-        {1, 2}
-
-        >>> (1 + x + 2*sin(y + I*pi)).atoms(Number, NumberSymbol)
-        {1, 2, pi}
-
-        >>> (1 + x + 2*sin(y + I*pi)).atoms(Number, NumberSymbol, I)
-        {1, 2, I, pi}
-
-        Note that I (imaginary unit) and zoo (complex infinity) are special
-        types of number symbols and are not part of the NumberSymbol class.
-
-        The type can be given implicitly, too:
-
-        >>> (1 + x + 2*sin(y + I*pi)).atoms(x) # x is a Symbol
-        {x, y}
-
-        Be careful to check your assumptions when using the implicit option
-        since ``S(1).is_Integer = True`` but ``type(S(1))`` is ``One``, a special type
-        of SymPy atom, while ``type(S(2))`` is type ``Integer`` and will find all
-        integers in an expression:
-
-        >>> from sympy import S
-        >>> (1 + x + 2*sin(y + I*pi)).atoms(S(1))
-        {1}
-
-        >>> (1 + x + 2*sin(y + I*pi)).atoms(S(2))
-        {1, 2}
-
-        Finally, arguments to atoms() can select more than atomic atoms: any
-        SymPy type (loaded in core/__init__.py) can be listed as an argument
-        and those types of "atoms" as found in scanning the arguments of the
-        expression recursively:
-
-        >>> from sympy import Function, Mul
-        >>> from sympy.core.function import AppliedUndef
-        >>> f = Function(\'f\')
-        >>> (1 + f(x) + 2*sin(y + I*pi)).atoms(Function)
-        {f(x), sin(y + I*pi)}
-        >>> (1 + f(x) + 2*sin(y + I*pi)).atoms(AppliedUndef)
-        {f(x)}
-
-        >>> (1 + x + 2*sin(y + I*pi)).atoms(Mul)
-        {I*pi, 2*sin(y + I*pi)}
-
-        '''
+    @overload
+    def atoms(self) -> set[Basic]: ...
+    @overload
+    def atoms(self, *types: Tbasic | type[Tbasic]) -> set[Tbasic]: ...
     @property
     def free_symbols(self) -> set[Basic]:
         """Return from the atoms of self those which are free symbols.
 
-        Not all free symbols are ``Symbol``. Eg: IndexedBase('I')[0].free_symbols
+        Not all free symbols are ``Symbol`` (see examples)
 
         For most expressions, all symbols are free symbols. For some classes
         this is not true. e.g. Integrals use Symbols for the dummy variables
@@ -395,10 +359,42 @@ class Basic(Printable):
         bound variables, too, so it has its own free_symbols method.
 
         Any other method that uses bound variables should implement a
-        free_symbols method."""
+        free_symbols method.
+
+        Examples
+        ========
+
+        >>> from sympy import Derivative, Integral, IndexedBase
+        >>> from sympy.abc import x, y, n
+        >>> (x + 1).free_symbols
+        {x}
+        >>> Integral(x, y).free_symbols
+        {x, y}
+
+        Not all free symbols are actually symbols:
+
+        >>> IndexedBase('F')[0].free_symbols
+        {F, F[0]}
+
+        The symbols of differentiation are not included unless they
+        appear in the expression being differentiated.
+
+        >>> Derivative(x + y, y).free_symbols
+        {x, y}
+        >>> Derivative(x, y).free_symbols
+        {x}
+        >>> Derivative(x, (y, n)).free_symbols
+        {n, x}
+
+        If you want to know if a symbol is in the variables of the
+        Derivative you can do so as follows:
+
+        >>> Derivative(x, y).has_free(y)
+        True
+        """
     @property
     def expr_free_symbols(self): ...
-    def as_dummy(self):
+    def as_dummy(self) -> Self:
         """Return the expression with any objects having structurally
         bound symbols replaced with unique, canonical symbols within
         the object in which they appear and having only the default
@@ -423,11 +419,11 @@ class Basic(Printable):
         =====
 
         Any object that has structurally bound variables should have
-        a property, `bound_symbols` that returns those symbols
+        a property, ``bound_symbols`` that returns those symbols
         appearing in the object.
         """
     @property
-    def canonical_variables(self):
+    def canonical_variables(self) -> dict[Basic, Symbol]:
         """Return a dictionary mapping any variable defined in
         ``self.bound_symbols`` to Symbols that do not clash
         with any free symbols in the expression.
@@ -455,9 +451,6 @@ class Basic(Printable):
         >>> (x + Lambda(y, 2*y)).rcall(z)
         x + 2*z
         """
-    @staticmethod
-    def _recursive_call(expr_to_call, on_args):
-        """Helper for rcall method."""
     def is_hypergeometric(self, k): ...
     @property
     def is_comparable(self):
@@ -486,6 +479,7 @@ class Basic(Printable):
         1
 
         """
+    def _eval_is_comparable(self) -> bool: ...
     @property
     def func(self):
         """
@@ -556,119 +550,13 @@ class Basic(Printable):
 
         sympy.core.expr.Expr.as_content_primitive
         """
-    def subs(self, *args, **kwargs):
-        """
-        Substitutes old for new in an expression after sympifying args.
-
-        `args` is either:
-          - two arguments, e.g. foo.subs(old, new)
-          - one iterable argument, e.g. foo.subs(iterable). The iterable may be
-             o an iterable container with (old, new) pairs. In this case the
-               replacements are processed in the order given with successive
-               patterns possibly affecting replacements already made.
-             o a dict or set whose key/value items correspond to old/new pairs.
-               In this case the old/new pairs will be sorted by op count and in
-               case of a tie, by number of args and the default_sort_key. The
-               resulting sorted list is then processed as an iterable container
-               (see previous).
-
-        If the keyword ``simultaneous`` is True, the subexpressions will not be
-        evaluated until all the substitutions have been made.
-
-        Examples
-        ========
-
-        >>> from sympy import pi, exp, limit, oo
-        >>> from sympy.abc import x, y
-        >>> (1 + x*y).subs(x, pi)
-        pi*y + 1
-        >>> (1 + x*y).subs({x:pi, y:2})
-        1 + 2*pi
-        >>> (1 + x*y).subs([(x, pi), (y, 2)])
-        1 + 2*pi
-        >>> reps = [(y, x**2), (x, 2)]
-        >>> (x + y).subs(reps)
-        6
-        >>> (x + y).subs(reversed(reps))
-        x**2 + 2
-
-        >>> (x**2 + x**4).subs(x**2, y)
-        y**2 + y
-
-        To replace only the x**2 but not the x**4, use xreplace:
-
-        >>> (x**2 + x**4).xreplace({x**2: y})
-        x**4 + y
-
-        To delay evaluation until all substitutions have been made,
-        set the keyword ``simultaneous`` to True:
-
-        >>> (x/y).subs([(x, 0), (y, 0)])
-        0
-        >>> (x/y).subs([(x, 0), (y, 0)], simultaneous=True)
-        nan
-
-        This has the added feature of not allowing subsequent substitutions
-        to affect those already made:
-
-        >>> ((x + y)/y).subs({x + y: y, y: x + y})
-        1
-        >>> ((x + y)/y).subs({x + y: y, y: x + y}, simultaneous=True)
-        y/(x + y)
-
-        In order to obtain a canonical result, unordered iterables are
-        sorted by count_op length, number of arguments and by the
-        default_sort_key to break any ties. All other iterables are left
-        unsorted.
-
-        >>> from sympy import sqrt, sin, cos
-        >>> from sympy.abc import a, b, c, d, e
-
-        >>> A = (sqrt(sin(2*x)), a)
-        >>> B = (sin(2*x), b)
-        >>> C = (cos(2*x), c)
-        >>> D = (x, d)
-        >>> E = (exp(x), e)
-
-        >>> expr = sqrt(sin(2*x))*sin(exp(x)*x)*cos(2*x) + sin(2*x)
-
-        >>> expr.subs(dict([A, B, C, D, E]))
-        a*c*sin(d*e) + b
-
-        The resulting expression represents a literal replacement of the
-        old arguments with the new arguments. This may not reflect the
-        limiting behavior of the expression:
-
-        >>> (x**3 - 3*x).subs({x: oo})
-        nan
-
-        >>> limit(x**3 - 3*x, x, oo)
-        oo
-
-        If the substitution will be followed by numerical
-        evaluation, it is better to pass the substitution to
-        evalf as
-
-        >>> (1/x).evalf(subs={x: 3.0}, n=21)
-        0.333333333333333333333
-
-        rather than
-
-        >>> (1/x).subs({x: 3.0}).evalf(21)
-        0.333333333333333314830
-
-        as the former will ensure that the desired level of precision is
-        obtained.
-
-        See Also
-        ========
-        replace: replacement capable of doing wildcard-like matching,
-                 parsing of match, and conditional replacements
-        xreplace: exact node replacement in expr tree; also capable of
-                  using matching rules
-        sympy.core.evalf.EvalfMixin.evalf: calculates the given formula to a desired level of precision
-
-        """
+    @overload
+    def subs(self, arg1: Mapping[Basic | complex, Basic | complex], arg2: None = None, **kwargs: Any) -> Basic: ...
+    @overload
+    def subs(self, arg1: Iterable[tuple[Basic | complex, Basic | complex]], arg2: None = None, **kwargs: Any) -> Basic: ...
+    @overload
+    def subs(self, arg1: Basic | complex, arg2: Basic | complex, **kwargs: Any) -> Basic: ...
+    @cacheit
     def _subs(self, old, new, **hints):
         """Substitutes an expression old -> new.
 
@@ -739,7 +627,7 @@ class Basic(Printable):
               routine uses this strategy when a substitution is attempted
               on any of its summation variables.
         """
-    def _eval_subs(self, old, new) -> None:
+    def _eval_subs(self, old, new) -> Basic | None:
         """Override this stub if you want to do anything more than
         attempt a replacement of old with new in the arguments of self.
 
@@ -814,6 +702,7 @@ class Basic(Printable):
         """
         Helper for xreplace. Tracks whether a replacement actually occurred.
         """
+    @cacheit
     def has(self, *patterns):
         '''
         Test whether any subexpression matches any of the patterns.
@@ -882,6 +771,7 @@ class Basic(Printable):
         >>> f(x + y + 1).has_xfree({x + 1})
         False
         """
+    @cacheit
     def has_free(self, *patterns):
         """Return True if self has object(s) ``x`` as a free expression
         else False.
@@ -909,7 +799,7 @@ class Basic(Printable):
         True
         """
     def _has(self, iterargs, *patterns): ...
-    def replace(self, query, value, map: bool = False, simultaneous: bool = True, exact: Incomplete | None = None):
+    def replace(self, query, value, map: bool = False, simultaneous: bool = True, exact=None) -> Basic:
         """
         Replace matching subexpressions of ``self`` with ``value``.
 
@@ -1075,7 +965,7 @@ class Basic(Printable):
         """Find all subexpressions matching a query."""
     def count(self, query):
         """Count the number of matching subexpressions."""
-    def matches(self, expr, repl_dict: Incomplete | None = None, old: bool = False):
+    def matches(self, expr, repl_dict=None, old: bool = False):
         """
         Helper method for match() that looks for a match between Wild symbols
         in self and expressions in expr.
@@ -1097,8 +987,8 @@ class Basic(Printable):
 
         Wild symbols match all.
 
-        Return ``None`` when expression (self) does not match
-        with pattern. Otherwise return a dictionary such that::
+        Return ``None`` when expression (self) does not match with pattern.
+        Otherwise return a dictionary such that::
 
           pattern.xreplace(self.match(pattern)) == self
 
@@ -1121,27 +1011,36 @@ class Basic(Printable):
         >>> (p*q**r).xreplace(e.match(p*q**r))
         4*x**2
 
-        Structurally bound symbols are ignored during matching:
+        Since match is purely structural expressions that are equivalent up to
+        bound symbols will not match:
 
-        >>> Sum(x, (x, 1, 2)).match(Sum(y, (y, 1, p)))
-        {p_: 2}
+        >>> print(Sum(x, (x, 1, 2)).match(Sum(y, (y, 1, p))))
+        None
 
-        But they can be identified if desired:
+        An expression with bound symbols can be matched if the pattern uses
+        a distinct ``Wild`` for each bound symbol:
 
         >>> Sum(x, (x, 1, 2)).match(Sum(q, (q, 1, p)))
         {p_: 2, q_: x}
 
         The ``old`` flag will give the old-style pattern matching where
-        expressions and patterns are essentially solved to give the
-        match. Both of the following give None unless ``old=True``:
+        expressions and patterns are essentially solved to give the match. Both
+        of the following give None unless ``old=True``:
 
         >>> (x - 2).match(p - x, old=True)
         {p_: 2*x - 2}
         >>> (2/x).match(p*x, old=True)
         {p_: 2/x**2}
 
+        See Also
+        ========
+
+        matches: pattern.matches(expr) is the same as expr.match(pattern)
+        xreplace: exact structural replacement
+        replace: structural replacement with pattern matching
+        Wild: symbolic placeholders for expressions in pattern matching
         '''
-    def count_ops(self, visual: Incomplete | None = None):
+    def count_ops(self, visual: bool = False):
         """Wrapper for count_ops that returns the operation count."""
     def doit(self, **hints):
         """Evaluate objects that are not evaluated by default like limits,
@@ -1162,7 +1061,7 @@ class Basic(Printable):
         2*Integral(x, x)
 
         """
-    def simplify(self, **kwargs):
+    def simplify(self, **kwargs) -> Basic:
         """See the simplify function in sympy.simplify"""
     def refine(self, assumption: bool = True):
         """See the refine function in sympy.assumptions"""
@@ -1252,8 +1151,8 @@ class Basic(Printable):
 
         This version of the method is merely a placeholder.
         """
-    def could_extract_minus_sign(self): ...
-    def is_same(a, b, approx: Incomplete | None = None):
+    def could_extract_minus_sign(self) -> bool: ...
+    def is_same(a, b, approx=None):
         """Return True if a and b are structurally the same, else False.
         If `approx` is supplied, it will be used to test whether two
         numbers are the same or not. By default, only numbers of the
@@ -1323,12 +1222,13 @@ class Atom(Basic):
     """
     is_Atom: bool
     __slots__: Incomplete
-    def matches(self, expr, repl_dict: Incomplete | None = None, old: bool = False): ...
+    def matches(self, expr, repl_dict=None, old: bool = False): ...
     def xreplace(self, rule, hack2: bool = False): ...
     def doit(self, **hints): ...
     @classmethod
     def class_key(cls): ...
-    def sort_key(self, order: Incomplete | None = None): ...
+    @cacheit
+    def sort_key(self, order=None): ...
     def _eval_simplify(self, **kwargs): ...
     @property
     def _sorted_args(self) -> None: ...

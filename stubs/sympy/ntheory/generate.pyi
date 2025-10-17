@@ -48,7 +48,7 @@ class Sieve:
 
         """
     def __repr__(self) -> str: ...
-    def _reset(self, prime: Incomplete | None = None, totient: Incomplete | None = None, mobius: Incomplete | None = None) -> None:
+    def _reset(self, prime=None, totient=None, mobius=None) -> None:
         """Reset all caches (default). To reset one or more set the
             desired keyword to True."""
     def extend(self, n) -> None:
@@ -112,7 +112,7 @@ class Sieve:
         The list is extended by 50% if it is too short, so it is
         likely that it will be longer than requested.
         """
-    def primerange(self, a, b: Incomplete | None = None) -> Generator[Incomplete, Incomplete]:
+    def primerange(self, a, b=None) -> Generator[Incomplete, Incomplete]:
         """Generate all prime numbers in the range [2, a) or [a, b).
 
         Examples
@@ -190,53 +190,46 @@ class Sieve:
 sieve: Incomplete
 
 def prime(nth):
-    """ Return the nth prime, with the primes indexed as prime(1) = 2,
-        prime(2) = 3, etc.... The nth prime is approximately $n\\log(n)$.
+    """
+    Return the nth prime number, where primes are indexed starting from 1:
+    prime(1) = 2, prime(2) = 3, etc.
 
-        Logarithmic integral of $x$ is a pretty nice approximation for number of
-        primes $\\le x$, i.e.
-        li(x) ~ pi(x)
-        In fact, for the numbers we are concerned about( x<1e11 ),
-        li(x) - pi(x) < 50000
+    Parameters
+    ==========
 
-        Also,
-        li(x) > pi(x) can be safely assumed for the numbers which
-        can be evaluated by this function.
+    nth : int
+        The position of the prime number to return (must be a positive integer).
 
-        Here, we find the least integer m such that li(m) > n using binary search.
-        Now pi(m-1) < li(m-1) <= n,
+    Returns
+    =======
 
-        We find pi(m - 1) using primepi function.
+    int
+        The nth prime number.
 
-        Starting from m, we have to find n - pi(m-1) more primes.
+    Examples
+    ========
 
-        For the inputs this implementation can handle, we will have to test
-        primality for at max about 10**5 numbers, to get our answer.
+    >>> from sympy import prime
+    >>> prime(10)
+    29
+    >>> prime(1)
+    2
+    >>> prime(100000)
+    1299709
 
-        Examples
-        ========
+    See Also
+    ========
 
-        >>> from sympy import prime
-        >>> prime(10)
-        29
-        >>> prime(1)
-        2
-        >>> prime(100000)
-        1299709
+    sympy.ntheory.primetest.isprime : Test if a number is prime.
+    primerange : Generate all primes in a given range.
+    primepi : Return the number of primes less than or equal to a given number.
 
-        See Also
-        ========
+    References
+    ==========
 
-        sympy.ntheory.primetest.isprime : Test if n is prime
-        primerange : Generate all primes in a given range
-        primepi : Return the number of primes less than or equal to n
-
-        References
-        ==========
-
-        .. [1] https://en.wikipedia.org/wiki/Prime_number_theorem#Table_of_.CF.80.28x.29.2C_x_.2F_log_x.2C_and_li.28x.29
-        .. [2] https://en.wikipedia.org/wiki/Prime_number_theorem#Approximations_for_the_nth_prime_number
-        .. [3] https://en.wikipedia.org/wiki/Skewes%27_number
+    .. [1] https://en.wikipedia.org/wiki/Prime_number_theorem
+    .. [2] https://en.wikipedia.org/wiki/Logarithmic_integral_function
+    .. [3] https://en.wikipedia.org/wiki/Skewes%27_number
     """
 def primepi(n):
     """ Represents the prime counting function pi(n) = the number
@@ -441,7 +434,7 @@ def prevprime(n):
         nextprime : Return the ith prime greater than n
         primerange : Generates all primes in a given range
     """
-def primerange(a, b: Incomplete | None = None) -> Generator[Incomplete, Incomplete]:
+def primerange(a, b=None) -> Generator[Incomplete, Incomplete]:
     """ Generate a list of all prime numbers in the range [2, a),
         or [a, b).
 
@@ -598,7 +591,7 @@ def primorial(n, nth: bool = True):
     primerange : Generate all primes in a given range
 
     """
-def cycle_length(f, x0, nmax: Incomplete | None = None, values: bool = False) -> Generator[Incomplete]:
+def cycle_length(f, x0, nmax=None, values: bool = False) -> Generator[Incomplete]:
     """For a given iterated sequence, return a generator that gives
     the length of the iterated cycle (lambda) and the length of terms
     before the cycle begins (mu); if ``values`` is True then the

@@ -1,3 +1,4 @@
+from typing import Literal, overload
 from .digits import digits as digits
 from .ecm import _ecm_one_factor as _ecm_one_factor
 from .generate import nextprime as nextprime, primerange as primerange, sieve as sieve
@@ -791,38 +792,16 @@ def _divisors(n, proper: bool = False) -> Generator[Incomplete, Incomplete]:
         If `True`, returns the generator that outputs only the proper divisor (i.e., excluding n).
 
     """
-def divisors(n, generator: bool = False, proper: bool = False):
+@overload
+def divisors(n: int, generator: Literal[True] = True, proper: bool = False) -> Generator[int, None]:...
+@overload
+def divisors(n: int, generator: Literal[False] = False, proper: bool = False) -> list[int]:...
+
+def divisor_count(n: int, modulus: int = 1, proper: bool = False) -> int:
     """
-    Return all divisors of n sorted from 1..n by default.
-    If generator is ``True`` an unordered generator is returned.
+    Return the number of divisors of ``n``.
 
-    The number of divisors of n can be quite large if there are many
-    prime factors (counting repeated factors). If only the number of
-    factors is desired use divisor_count(n).
-
-    Examples
-    --------
-    >>> from sympy import divisors, divisor_count
-    >>> divisors(24)
-    [1, 2, 3, 4, 6, 8, 12, 24]
-    >>> divisor_count(24)
-    8
-
-    >>> list(divisors(120, generator=True))
-    [1, 2, 4, 8, 3, 6, 12, 24, 5, 10, 20, 40, 15, 30, 60, 120]
-
-    Notes
-    -----
-    This is a slightly modified version of Tim Peters referenced at:
-    https://stackoverflow.com/questions/1010381/python-factorization
-
-    See Also
-    --------
-    primefactors, factorint, divisor_count
-    """
-def divisor_count(n, modulus: int = 1, proper: bool = False):
-    """
-    Return the number of divisors of ``n``. If ``modulus`` is not 1 then only
+    If ``modulus`` is not 1 then only
     those that are divisible by ``modulus`` are counted. If ``proper`` is True
     then the divisor of ``n`` will not be counted.
 

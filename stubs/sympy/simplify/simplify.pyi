@@ -21,9 +21,11 @@ from sympy.functions.elementary.trigonometric import TrigonometricFunction as Tr
 from sympy.functions.special.bessel import BesselBase as BesselBase, besseli as besseli, besselj as besselj, besselk as besselk, bessely as bessely, jn as jn
 from sympy.functions.special.tensor_functions import KroneckerDelta as KroneckerDelta
 from sympy.integrals.integrals import Integral as Integral
+from sympy.logic.boolalg import Boolean as Boolean
 from sympy.matrices.expressions import MatAdd as MatAdd, MatMul as MatMul, MatPow as MatPow, MatrixExpr as MatrixExpr, MatrixSymbol as MatrixSymbol
 from sympy.polys import cancel as cancel, factor as factor, together as together
 from sympy.polys.numberfields.minpoly import _is_sum_surds as _is_sum_surds, _minimal_polynomial_sq as _minimal_polynomial_sq
+from sympy.sets.sets import Set as Set
 from sympy.simplify.combsimp import combsimp as combsimp
 from sympy.simplify.cse_opts import sub_post as sub_post, sub_pre as sub_pre
 from sympy.simplify.hyperexpand import hyperexpand as hyperexpand
@@ -34,6 +36,7 @@ from sympy.simplify.trigsimp import exptrigsimp as exptrigsimp, trigsimp as trig
 from sympy.utilities.decorator import deprecated as deprecated
 from sympy.utilities.iterables import has_variety as has_variety, iterable as iterable, sift as sift, subsets as subsets
 from sympy.utilities.misc import as_int as as_int
+from typing import overload
 
 def separatevars(expr, symbols=[], dict: bool = False, force: bool = False):
     """
@@ -189,7 +192,7 @@ def hypersimilar(f, g, k):
     For more information see hypersimp().
 
     """
-def signsimp(expr, evaluate: Incomplete | None = None):
+def signsimp(expr, evaluate=None):
     """Make all Add sub-expressions canonical wrt sign.
 
     Explanation
@@ -239,160 +242,14 @@ def signsimp(expr, evaluate: Incomplete | None = None):
     exp(-(x - y))
 
     """
-def simplify(expr, ratio: float = 1.7, measure=..., rational: bool = False, inverse: bool = False, doit: bool = True, **kwargs):
-    '''Simplifies the given expression.
-
-    Explanation
-    ===========
-
-    Simplification is not a well defined term and the exact strategies
-    this function tries can change in the future versions of SymPy. If
-    your algorithm relies on "simplification" (whatever it is), try to
-    determine what you need exactly  -  is it powsimp()?, radsimp()?,
-    together()?, logcombine()?, or something else? And use this particular
-    function directly, because those are well defined and thus your algorithm
-    will be robust.
-
-    Nonetheless, especially for interactive use, or when you do not know
-    anything about the structure of the expression, simplify() tries to apply
-    intelligent heuristics to make the input expression "simpler".  For
-    example:
-
-    >>> from sympy import simplify, cos, sin
-    >>> from sympy.abc import x, y
-    >>> a = (x + x**2)/(x*sin(y)**2 + x*cos(y)**2)
-    >>> a
-    (x**2 + x)/(x*sin(y)**2 + x*cos(y)**2)
-    >>> simplify(a)
-    x + 1
-
-    Note that we could have obtained the same result by using specific
-    simplification functions:
-
-    >>> from sympy import trigsimp, cancel
-    >>> trigsimp(a)
-    (x**2 + x)/x
-    >>> cancel(_)
-    x + 1
-
-    In some cases, applying :func:`simplify` may actually result in some more
-    complicated expression. The default ``ratio=1.7`` prevents more extreme
-    cases: if (result length)/(input length) > ratio, then input is returned
-    unmodified.  The ``measure`` parameter lets you specify the function used
-    to determine how complex an expression is.  The function should take a
-    single argument as an expression and return a number such that if
-    expression ``a`` is more complex than expression ``b``, then
-    ``measure(a) > measure(b)``.  The default measure function is
-    :func:`~.count_ops`, which returns the total number of operations in the
-    expression.
-
-    For example, if ``ratio=1``, ``simplify`` output cannot be longer
-    than input.
-
-    ::
-
-        >>> from sympy import sqrt, simplify, count_ops, oo
-        >>> root = 1/(sqrt(2)+3)
-
-    Since ``simplify(root)`` would result in a slightly longer expression,
-    root is returned unchanged instead::
-
-       >>> simplify(root, ratio=1) == root
-       True
-
-    If ``ratio=oo``, simplify will be applied anyway::
-
-        >>> count_ops(simplify(root, ratio=oo)) > count_ops(root)
-        True
-
-    Note that the shortest expression is not necessary the simplest, so
-    setting ``ratio`` to 1 may not be a good idea.
-    Heuristically, the default value ``ratio=1.7`` seems like a reasonable
-    choice.
-
-    You can easily define your own measure function based on what you feel
-    should represent the "size" or "complexity" of the input expression.  Note
-    that some choices, such as ``lambda expr: len(str(expr))`` may appear to be
-    good metrics, but have other problems (in this case, the measure function
-    may slow down simplify too much for very large expressions).  If you do not
-    know what a good metric would be, the default, ``count_ops``, is a good
-    one.
-
-    For example:
-
-    >>> from sympy import symbols, log
-    >>> a, b = symbols(\'a b\', positive=True)
-    >>> g = log(a) + log(b) + log(a)*log(1/b)
-    >>> h = simplify(g)
-    >>> h
-    log(a*b**(1 - log(a)))
-    >>> count_ops(g)
-    8
-    >>> count_ops(h)
-    5
-
-    So you can see that ``h`` is simpler than ``g`` using the count_ops metric.
-    However, we may not like how ``simplify`` (in this case, using
-    ``logcombine``) has created the ``b**(log(1/a) + 1)`` term.  A simple way
-    to reduce this would be to give more weight to powers as operations in
-    ``count_ops``.  We can do this by using the ``visual=True`` option:
-
-    >>> print(count_ops(g, visual=True))
-    2*ADD + DIV + 4*LOG + MUL
-    >>> print(count_ops(h, visual=True))
-    2*LOG + MUL + POW + SUB
-
-    >>> from sympy import Symbol, S
-    >>> def my_measure(expr):
-    ...     POW = Symbol(\'POW\')
-    ...     # Discourage powers by giving POW a weight of 10
-    ...     count = count_ops(expr, visual=True).subs(POW, 10)
-    ...     # Every other operation gets a weight of 1 (the default)
-    ...     count = count.replace(Symbol, type(S.One))
-    ...     return count
-    >>> my_measure(g)
-    8
-    >>> my_measure(h)
-    14
-    >>> 15./8 > 1.7 # 1.7 is the default ratio
-    True
-    >>> simplify(g, measure=my_measure)
-    -log(a)*log(b) + log(a) + log(b)
-
-    Note that because ``simplify()`` internally tries many different
-    simplification strategies and then compares them using the measure
-    function, we get a completely different result that is still different
-    from the input expression by doing this.
-
-    If ``rational=True``, Floats will be recast as Rationals before simplification.
-    If ``rational=None``, Floats will be recast as Rationals but the result will
-    be recast as Floats. If rational=False(default) then nothing will be done
-    to the Floats.
-
-    If ``inverse=True``, it will be assumed that a composition of inverse
-    functions, such as sin and asin, can be cancelled in any order.
-    For example, ``asin(sin(x))`` will yield ``x`` without checking whether
-    x belongs to the set where this relation is true. The default is
-    False.
-
-    Note that ``simplify()`` automatically calls ``doit()`` on the final
-    expression. You can avoid this behavior by passing ``doit=False`` as
-    an argument.
-
-    Also, it should be noted that simplifying a boolean expression is not
-    well defined. If the expression prefers automatic evaluation (such as
-    :obj:`~.Eq()` or :obj:`~.Or()`), simplification will return ``True`` or
-    ``False`` if truth value can be determined. If the expression is not
-    evaluated by default (such as :obj:`~.Predicate()`), simplification will
-    not reduce it and you should use :func:`~.refine` or :func:`~.ask`
-    function. This inconsistency will be resolved in future version.
-
-    See Also
-    ========
-
-    sympy.assumptions.refine.refine : Simplification using assumptions.
-    sympy.assumptions.ask.ask : Query for boolean expressions using assumptions.
-    '''
+@overload
+def simplify(expr: Expr, **kwargs) -> Expr: ...
+@overload
+def simplify(expr: Boolean, **kwargs) -> Boolean: ...
+@overload
+def simplify(expr: Set, **kwargs) -> Set: ...
+@overload
+def simplify(expr: Basic, **kwargs) -> Basic: ...
 def sum_simplify(s, **kwargs):
     """Main function for Sum simplification"""
 def sum_combine(s_t):
@@ -401,7 +258,7 @@ def sum_combine(s_t):
        Attempts to simplify a list of sums, by combining limits / sum function's
        returns the simplified sum
     """
-def factor_sum(self, limits: Incomplete | None = None, radical: bool = False, clear: bool = False, fraction: bool = False, sign: bool = True):
+def factor_sum(self, limits=None, radical: bool = False, clear: bool = False, fraction: bool = False, sign: bool = True):
     """Return Sum with constant factors extracted.
 
     If ``limits`` is specified then ``self`` is the summand; the other
@@ -564,7 +421,7 @@ def nthroot(expr, n, max_len: int = 4, prec: int = 15):
     sqrt(7) + 3
 
     """
-def nsimplify(expr, constants=(), tolerance: Incomplete | None = None, full: bool = False, rational: Incomplete | None = None, rational_conversion: str = 'base10'):
+def nsimplify(expr, constants=(), tolerance=None, full: bool = False, rational=None, rational_conversion: str = 'base10'):
     """
     Find a simple representation for a number or, if there are free symbols or
     if ``rational=True``, then replace Floats with their Rational equivalents. If
@@ -617,7 +474,7 @@ def nsimplify(expr, constants=(), tolerance: Incomplete | None = None, full: boo
     sympy.core.function.nfloat
 
     """
-def _real_to_rational(expr, tolerance: Incomplete | None = None, rational_conversion: str = 'base10'):
+def _real_to_rational(expr, tolerance=None, rational_conversion: str = 'base10'):
     """
     Replace all reals in expr with rationals.
 

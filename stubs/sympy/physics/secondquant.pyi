@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 from sympy.core.basic import Basic
+from sympy.core.cache import cacheit
 from sympy.core.expr import Expr
 from sympy.core.function import Function
 from sympy.functions.special.tensor_functions import KroneckerDelta as KroneckerDelta
@@ -79,14 +80,6 @@ class AntiSymmetricTensor(TensorSymbol):
 
     """
     def __new__(cls, symbol, upper, lower): ...
-    @classmethod
-    def _sortkey(cls, index):
-        """Key for sorting of indices.
-
-        particle < hole < general
-
-        FIXME: This is a bottle-neck, can we do it faster?
-        """
     def _latex(self, printer): ...
     @property
     def symbol(self):
@@ -783,11 +776,16 @@ class FermionState(FockState):
         Adds particle/creates hole in orbit i. No input tests performed here.
         """
     @classmethod
-    def _count_holes(cls, list):
+    def _count_holes(cls, occupations):
         """
-        Returns the number of identified hole states in list.
+        Returns the number of identified hole states in occupations list.
         """
-    def _negate_holes(self, list): ...
+    def _negate_holes(self, occupations):
+        """
+        Returns the occupations list where states below the fermi level have negative labels.
+
+        For symbolic state labels, no sign is included.
+        """
     def __repr__(self) -> str: ...
     def _labels(self): ...
 
