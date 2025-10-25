@@ -1,3 +1,4 @@
+from typing import Any
 __all__ = ['isnone', 'notnone', 'inc', 'dec', 'even', 'odd']
 from typing import Literal
 
@@ -9,21 +10,21 @@ class EmptyType:
 
 
 EMPTY = ...
-def isnone(x) -> bool:
+def isnone(x: Any) -> bool:
     ...
 
-def notnone(x) -> bool:
+def notnone(x: Any) -> bool:
     ...
 
-def inc(x):
+def inc(x: Any) -> Any:
     ...
 
-def dec(x):
+def dec(x: Any) -> Any:
     ...
 
-def even(x):
+def even(x: Any) -> Any:
     ...
 
-def odd(x):
+def odd(x: Any) -> Any:
     ...
 

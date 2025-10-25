@@ -1,10 +1,11 @@
 from _typeshed import Incomplete
+from typing import Any
 
 __all__ = ['memoize', 'make_lookuper', 'silent_lookuper', 'cache']
 
 class SkipMemory(Exception): ...
 
-def memoize(_func=None, *, key_func=None):
+def memoize(_func: Any=None, *, key_func: Any=None) -> Any:
     """@memoize(key_func=None). Makes decorated function memoize its results.
 
     If key_func is specified uses key_func(*func_args, **func_kwargs) as memory key.
@@ -12,14 +13,14 @@ def memoize(_func=None, *, key_func=None):
 
     Exposes its memory via .memory attribute.
     """
-def cache(timeout, *, key_func=None):
+def cache(timeout: Any, *, key_func: Any=None) -> Any:
     """Caches a function results for timeout seconds."""
 
-class CacheMemory(dict):
+class CacheMemory(dict[Any, Any]):
     timeout: Incomplete
-    def __init__(self, timeout) -> None: ...
-    def __setitem__(self, key, value) -> None: ...
-    def __getitem__(self, key): ...
+    def __init__(self, timeout: Any) -> None: ...
+    def __setitem__(self, key: Any, value: Any) -> None: ...
+    def __getitem__(self, key: Any) -> Any: ...
     def expire(self) -> None: ...
     _keys: Incomplete
     _expires: Incomplete

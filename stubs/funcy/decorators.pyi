@@ -1,12 +1,12 @@
 from collections import defaultdict
 from collections.abc import Callable, Generator
 from contextlib import ContextDecorator as ContextDecorator, contextmanager as contextmanager
-from funcy import partial
+from functools import partial
 from inspect import unwrap as unwrap
 from typing import Any
 
 __all__ = ['decorator', 'wraps', 'unwrap', 'ContextDecorator', 'contextmanager']
-def decorator(deco) -> Callable[..., Any]:
+def decorator(deco: Any) -> Callable[..., Any]:
     """
     Transforms a flat wrapper into decorator::
 
@@ -22,7 +22,7 @@ def decorator(deco) -> Callable[..., Any]:
     """
     ...
 
-def make_decorator(deco, dargs=..., dkwargs=...) -> Callable[..., Any]:
+def make_decorator(deco: Any, dargs: Any=..., dkwargs: Any=...) -> Callable[..., Any]:
     ...
 
 class Call:
@@ -32,27 +32,27 @@ class Call:
     Call object is just a proxy for decorated function
     with call arguments saved in its attributes.
     """
-    def __init__(self, func, args, kwargs) -> None: ...
-    def __call__(self, *a, **kw): ...
-    def __getattr__(self, name) -> Any | defaultdict[Any, Any] | dict[Any, Any] | list[Any] | Generator[tuple[Any, Any], None, None]:
+    def __init__(self, func: Any, args: Any, kwargs: Any) -> None: ...
+    def __call__(self, *a: Any, **kw: Any) -> Any: ...
+    def __getattr__(self, name: Any) -> Any | defaultdict[Any, Any] | dict[Any, Any] | list[Any] | Generator[tuple[Any, Any], None, None]:
         ...
     def __str__(self) -> str: ...
     def __repr__(self) -> str: ...
-def has_single_arg(func) -> bool:
+def has_single_arg(func: Any) -> bool:
     ...
 
-def has_1pos_and_kwonly(func) -> bool:
+def has_1pos_and_kwonly(func: Any) -> bool:
     ...
 
-def get_argnames(func) -> Any:
+def get_argnames(func: Any) -> Any:
     ...
 
-def arggetter(func, _cache=...) -> Callable[..., Any | defaultdict[Any, Any] | dict[Any, Any] | list[Any] | Generator[tuple[Any, Any], None, None]]:
+def arggetter(func: Any, _cache: Any=...) -> Callable[..., Any | defaultdict[Any, Any] | dict[Any, Any] | list[Any] | Generator[tuple[Any, Any], None, None]]:
     ...
 
-def update_wrapper(wrapper, wrapped, assigned=..., updated=...):
+def update_wrapper(wrapper: Any, wrapped: Any, assigned: Any=..., updated: Any=...) -> Any:
     ...
 
-def wraps(wrapped, assigned=..., updated=...) -> partial[Any]:
+def wraps(wrapped: Any, assigned: Any=..., updated: Any=...) -> partial[Any]:
     ...
 

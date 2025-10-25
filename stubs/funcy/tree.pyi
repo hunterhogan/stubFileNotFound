@@ -3,19 +3,19 @@ from collections.abc import Generator
 from typing import Any
 
 
-def tree_leaves(root, follow=..., children=...) -> Generator[Any, Any, None]:
+def tree_leaves(root: Any, follow: Any=..., children: Any=...) -> Generator[Any, Any, None]:
     """Iterates over tree leaves."""
     ...
 
-def ltree_leaves(root, follow=..., children=...) -> list[Any]:
+def ltree_leaves(root: Any, follow: Any=..., children: Any=...) -> list[Any]:
     """Lists tree leaves."""
     ...
 
-def tree_nodes(root, follow=..., children=...) -> Generator[Any, Any, None]:
+def tree_nodes(root: Any, follow: Any=..., children: Any=...) -> Generator[Any, Any, None]:
     """Iterates over all tree nodes."""
     ...
 
-def ltree_nodes(root, follow=..., children=...) -> list[Any]:
+def ltree_nodes(root: Any, follow: Any=..., children: Any=...) -> list[Any]:
     """Lists all tree nodes."""
     ...
 

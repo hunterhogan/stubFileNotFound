@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections import Hashable as Hashable, Iterable as Iterable, Iterator as Iterator, Mapping as Mapping, Sequence as Sequence, Set as Set
-from itertools import ifilterfalse as filterfalse
+from typing import Any
 
 filter: Incomplete
 map: Incomplete
@@ -8,8 +8,8 @@ zip: Incomplete
 range: Incomplete
 basestring: Incomplete
 
-def lmap(f, *seqs): ...
-def lfilter(f, seq): ...
+def lmap(f: Any, *seqs: Any) -> Any: ...
+def lfilter(f: Any, seq: Any) -> Any: ...
 
 lmap: Incomplete
 lfilter: Incomplete
