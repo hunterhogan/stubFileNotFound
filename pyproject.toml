@@ -36,6 +36,7 @@ dependencies = [
 optional-dependencies = { development = [
   "setuptools-scm",
 ], stubdefaulter = [
+  "funcy",
   "networkx",
   "odfpy",
   "pandas",
