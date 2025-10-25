@@ -3,7 +3,7 @@ name = "stubFileNotFound"
 version = "0.0.1"
 description = "Crowdsourced (a crowd of 1) stub type-files for third-party Python packages."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 license = { 'text' = "CC-BY-NC-4.0" }
 authors = [{ name = "Hunter Hogan", email = "HunterHogan@pm.me" }]
 keywords = []
@@ -15,7 +15,6 @@ classifiers = [
   "Operating System :: OS Independent",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
