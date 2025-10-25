@@ -18,14 +18,14 @@ from typing import Any
 @overload
 def to_timedelta(
     arg: str | float | timedelta,
-    unit: TimeDeltaUnitChoices | None = None,
-    errors: RaiseCoerce = 'raise',
+    unit: TimeDeltaUnitChoices | None = ...,
+    errors: RaiseCoerce = ...,
 ) -> Timedelta: ...
 @overload
 def to_timedelta(
     arg: Series,
-    unit: TimeDeltaUnitChoices | None = None,
-    errors: RaiseCoerce = 'raise',
+    unit: TimeDeltaUnitChoices | None = ...,
+    errors: RaiseCoerce = ...,
 ) -> Series[Timedelta]: ...
 @overload
 def to_timedelta(
@@ -37,6 +37,6 @@ def to_timedelta(
         | ArrayLike
         | Index[Any]
     ),
-    unit: TimeDeltaUnitChoices | None = None,
-    errors: RaiseCoerce = 'raise',
+    unit: TimeDeltaUnitChoices | None = ...,
+    errors: RaiseCoerce = ...,
 ) -> TimedeltaIndex: ...

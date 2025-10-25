@@ -1,11 +1,19 @@
 from collections.abc import Iterator
 from functools import cached_property
-from networkx.classes.coreviews import AdjacencyView
-from networkx.classes.graph import _Node, Graph
-from networkx.classes.reportviews import (
-	DiDegreeView, InDegreeView, InEdgeView, InMultiDegreeView, OutDegreeView, OutEdgeView, OutMultiDegreeView)
 from typing import Any
 from typing_extensions import Self
+
+from networkx.classes.coreviews import AdjacencyView
+from networkx.classes.graph import Graph, _Node
+from networkx.classes.reportviews import (
+    DiDegreeView,
+    InDegreeView,
+    InEdgeView,
+    InMultiDegreeView,
+    OutDegreeView,
+    OutEdgeView,
+    OutMultiDegreeView,
+)
 
 __all__ = ["DiGraph"]
 

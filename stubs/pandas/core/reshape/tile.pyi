@@ -27,27 +27,27 @@ from typing import Any
 def cut(
     x: Index[Any] | npt.NDArray[Any] | Sequence[int] | Sequence[float],
     bins: int | Series | Index[int] | Index[float] | Sequence[int] | Sequence[float],
-    right: bool = True,
+    right: bool = ...,
     *,
     labels: Literal[False],
     retbins: Literal[True],
-    precision: int = 3,
-    include_lowest: bool = False,
-    duplicates: Literal["raise", "drop"] = 'raise',
-    ordered: bool = True,
+    precision: int = ...,
+    include_lowest: bool = ...,
+    duplicates: Literal["raise", "drop"] = ...,
+    ordered: bool = ...,
 ) -> tuple[npt.NDArray[np.intp], npt.NDArray[Any]]: ...
 @overload
 def cut(
     x: Index[Any] | npt.NDArray[Any] | Sequence[int] | Sequence[float],
     bins: IntervalIndex[IntervalT],
-    right: bool = True,
+    right: bool = ...,
     *,
     labels: Literal[False],
     retbins: Literal[True],
-    precision: int = 3,
-    include_lowest: bool = False,
-    duplicates: Literal["raise", "drop"] = 'raise',
-    ordered: bool = True,
+    precision: int = ...,
+    include_lowest: bool = ...,
+    duplicates: Literal["raise", "drop"] = ...,
+    ordered: bool = ...,
 ) -> tuple[npt.NDArray[np.intp], IntervalIndex[IntervalT]]: ...
 @overload
 def cut(  # pyright: ignore[reportOverlappingOverload]
@@ -59,79 +59,79 @@ def cut(  # pyright: ignore[reportOverlappingOverload]
         | Sequence[Timestamp]
         | Sequence[np.datetime64]
     ),
-    right: bool = True,
-    labels: Literal[False] | Sequence[Label] | None = None,
+    right: bool = ...,
+    labels: Literal[False] | Sequence[Label] | None = ...,
     *,
     retbins: Literal[True],
-    precision: int = 3,
-    include_lowest: bool = False,
-    duplicates: Literal["raise", "drop"] = 'raise',
-    ordered: bool = True,
+    precision: int = ...,
+    include_lowest: bool = ...,
+    duplicates: Literal["raise", "drop"] = ...,
+    ordered: bool = ...,
 ) -> tuple[Series, DatetimeIndex]: ...
 @overload
 def cut(
     x: Series[Timestamp],
     bins: IntervalIndex[Interval[Timestamp]],
-    right: bool = True,
-    labels: Sequence[Label] | None = None,
+    right: bool = ...,
+    labels: Sequence[Label] | None = ...,
     *,
     retbins: Literal[True],
-    precision: int = 3,
-    include_lowest: bool = False,
-    duplicates: Literal["raise", "drop"] = 'raise',
-    ordered: bool = True,
+    precision: int = ...,
+    include_lowest: bool = ...,
+    duplicates: Literal["raise", "drop"] = ...,
+    ordered: bool = ...,
 ) -> tuple[Series, DatetimeIndex]: ...
 @overload
 def cut(
     x: Series,
     bins: int | Series | Index[int] | Index[float] | Sequence[int] | Sequence[float],
-    right: bool = True,
-    labels: Literal[False] | Sequence[Label] | None = None,
+    right: bool = ...,
+    labels: Literal[False] | Sequence[Label] | None = ...,
     *,
     retbins: Literal[True],
-    precision: int = 3,
-    include_lowest: bool = False,
-    duplicates: Literal["raise", "drop"] = 'raise',
-    ordered: bool = True,
+    precision: int = ...,
+    include_lowest: bool = ...,
+    duplicates: Literal["raise", "drop"] = ...,
+    ordered: bool = ...,
 ) -> tuple[Series, npt.NDArray[Any]]: ...
 @overload
 def cut(
     x: Series,
     bins: IntervalIndex[Interval[int]] | IntervalIndex[Interval[float]],
-    right: bool = True,
-    labels: Sequence[Label] | None = None,
+    right: bool = ...,
+    labels: Sequence[Label] | None = ...,
     *,
     retbins: Literal[True],
-    precision: int = 3,
-    include_lowest: bool = False,
-    duplicates: Literal["raise", "drop"] = 'raise',
-    ordered: bool = True,
+    precision: int = ...,
+    include_lowest: bool = ...,
+    duplicates: Literal["raise", "drop"] = ...,
+    ordered: bool = ...,
 ) -> tuple[Series, IntervalIndex[Any]]: ...
 @overload
 def cut(
     x: Index[Any] | npt.NDArray[Any] | Sequence[int] | Sequence[float],
     bins: int | Series | Index[int] | Index[float] | Sequence[int] | Sequence[float],
-    right: bool = True,
-    labels: Sequence[Label] | None = None,
+    right: bool = ...,
+    labels: Sequence[Label] | None = ...,
     *,
     retbins: Literal[True],
-    precision: int = 3,
-    include_lowest: bool = False,
-    duplicates: Literal["raise", "drop"] = 'raise',
-    ordered: bool = True,
+    precision: int = ...,
+    include_lowest: bool = ...,
+    duplicates: Literal["raise", "drop"] = ...,
+    ordered: bool = ...,
 ) -> tuple[Categorical, npt.NDArray[Any]]: ...
 @overload
 def cut(
     x: Index[Any] | npt.NDArray[Any] | Sequence[int] | Sequence[float],
     bins: IntervalIndex[IntervalT],
-    right: bool = True,
-    labels: Sequence[Label] | None = None,
+    right: bool = ...,
+    labels: Sequence[Label] | None = ...,
     *,
     retbins: Literal[True],
-    precision: int = 3,
-    include_lowest: bool = False,
-    duplicates: Literal["raise", "drop"] = 'raise',
-    ordered: bool = True,
+    precision: int = ...,
+    include_lowest: bool = ...,
+    duplicates: Literal["raise", "drop"] = ...,
+    ordered: bool = ...,
 ) -> tuple[Categorical, IntervalIndex[IntervalT]]: ...
 @overload
 def cut(
@@ -145,14 +145,14 @@ def cut(
         | Sequence[float]
         | IntervalIndex[Any]
     ),
-    right: bool = True,
+    right: bool = ...,
     *,
     labels: Literal[False],
     retbins: Literal[False] = False,
-    precision: int = 3,
-    include_lowest: bool = False,
-    duplicates: Literal["raise", "drop"] = 'raise',
-    ordered: bool = True,
+    precision: int = ...,
+    include_lowest: bool = ...,
+    duplicates: Literal["raise", "drop"] = ...,
+    ordered: bool = ...,
 ) -> npt.NDArray[np.intp]: ...
 @overload
 def cut(
@@ -165,13 +165,13 @@ def cut(
         | Sequence[np.datetime64]
         | IntervalIndex[Interval[Timestamp]]
     ),
-    right: bool = True,
-    labels: Literal[False] | Sequence[Label] | None = None,
+    right: bool = ...,
+    labels: Literal[False] | Sequence[Label] | None = ...,
     retbins: Literal[False] = False,
-    precision: int = 3,
-    include_lowest: bool = False,
-    duplicates: Literal["raise", "drop"] = 'raise',
-    ordered: bool = True,
+    precision: int = ...,
+    include_lowest: bool = ...,
+    duplicates: Literal["raise", "drop"] = ...,
+    ordered: bool = ...,
 ) -> Series[CategoricalDtype]: ...
 @overload
 def cut(
@@ -185,13 +185,13 @@ def cut(
         | Sequence[float]
         | IntervalIndex[Any]
     ),
-    right: bool = True,
-    labels: Literal[False] | Sequence[Label] | None = None,
+    right: bool = ...,
+    labels: Literal[False] | Sequence[Label] | None = ...,
     retbins: Literal[False] = False,
-    precision: int = 3,
-    include_lowest: bool = False,
-    duplicates: Literal["raise", "drop"] = 'raise',
-    ordered: bool = True,
+    precision: int = ...,
+    include_lowest: bool = ...,
+    duplicates: Literal["raise", "drop"] = ...,
+    ordered: bool = ...,
 ) -> Series: ...
 @overload
 def cut(
@@ -205,13 +205,13 @@ def cut(
         | Sequence[float]
         | IntervalIndex[Any]
     ),
-    right: bool = True,
-    labels: Sequence[Label] | None = None,
+    right: bool = ...,
+    labels: Sequence[Label] | None = ...,
     retbins: Literal[False] = False,
-    precision: int = 3,
-    include_lowest: bool = False,
-    duplicates: Literal["raise", "drop"] = 'raise',
-    ordered: bool = True,
+    precision: int = ...,
+    include_lowest: bool = ...,
+    duplicates: Literal["raise", "drop"] = ...,
+    ordered: bool = ...,
 ) -> Categorical: ...
 @overload
 def qcut(
@@ -220,26 +220,26 @@ def qcut(
     *,
     labels: Literal[False],
     retbins: Literal[False] = False,
-    precision: int = 3,
-    duplicates: Literal["raise", "drop"] = 'raise',
+    precision: int = ...,
+    duplicates: Literal["raise", "drop"] = ...,
 ) -> npt.NDArray[np.intp]: ...
 @overload
 def qcut(
     x: Index[Any] | npt.NDArray[Any] | Sequence[int] | Sequence[float],
     q: int | Sequence[float] | Series[float] | Index[float] | npt.NDArray[Any],
-    labels: Sequence[Label] | None = None,
+    labels: Sequence[Label] | None = ...,
     retbins: Literal[False] = False,
-    precision: int = 3,
-    duplicates: Literal["raise", "drop"] = 'raise',
+    precision: int = ...,
+    duplicates: Literal["raise", "drop"] = ...,
 ) -> Categorical: ...
 @overload
 def qcut(
     x: Series,
     q: int | Sequence[float] | Series[float] | Index[float] | npt.NDArray[Any],
-    labels: Literal[False] | Sequence[Label] | None = None,
+    labels: Literal[False] | Sequence[Label] | None = ...,
     retbins: Literal[False] = False,
-    precision: int = 3,
-    duplicates: Literal["raise", "drop"] = 'raise',
+    precision: int = ...,
+    duplicates: Literal["raise", "drop"] = ...,
 ) -> Series: ...
 @overload
 def qcut(
@@ -248,26 +248,26 @@ def qcut(
     *,
     labels: Literal[False],
     retbins: Literal[True],
-    precision: int = 3,
-    duplicates: Literal["raise", "drop"] = 'raise',
+    precision: int = ...,
+    duplicates: Literal["raise", "drop"] = ...,
 ) -> tuple[npt.NDArray[np.intp], npt.NDArray[np.double]]: ...
 @overload
 def qcut(
     x: Series,
     q: int | Sequence[float] | Series[float] | Index[float] | npt.NDArray[Any],
-    labels: Literal[False] | Sequence[Label] | None = None,
+    labels: Literal[False] | Sequence[Label] | None = ...,
     *,
     retbins: Literal[True],
-    precision: int = 3,
-    duplicates: Literal["raise", "drop"] = 'raise',
+    precision: int = ...,
+    duplicates: Literal["raise", "drop"] = ...,
 ) -> tuple[Series, npt.NDArray[np.double]]: ...
 @overload
 def qcut(
     x: Index[Any] | npt.NDArray[Any] | Sequence[int] | Sequence[float],
     q: int | Sequence[float] | Series[float] | Index[float] | npt.NDArray[Any],
-    labels: Sequence[Label] | None = None,
+    labels: Sequence[Label] | None = ...,
     *,
     retbins: Literal[True],
-    precision: int = 3,
-    duplicates: Literal["raise", "drop"] = 'raise',
+    precision: int = ...,
+    duplicates: Literal["raise", "drop"] = ...,
 ) -> tuple[Categorical, npt.NDArray[np.double]]: ...

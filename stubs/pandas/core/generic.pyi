@@ -69,8 +69,8 @@ class NDFrame(indexing.IndexingMixin):
     def set_flags(
         self,
         *,
-        copy: _bool = False,
-        allows_duplicate_labels: _bool | None = None,
+        copy: _bool = ...,
+        allows_duplicate_labels: _bool | None = ...,
     ) -> Self: ...
     @property
     def attrs(self) -> dict[Hashable | None, Any]: ...
@@ -93,30 +93,30 @@ class NDFrame(indexing.IndexingMixin):
     def bool(self) -> _bool: ...
     def __abs__(self) -> Self: ...
     @final
-    def __round__(self, decimals: int = 0) -> Self: ...
+    def __round__(self, decimals: int = ...) -> Self: ...
     @final
     def __contains__(self, key: Any) -> _bool: ...
     @property
     def empty(self) -> _bool: ...
     __array_priority__: int = ...
-    def __array__(self, dtype: Any=None) -> np.ndarray[Any, Any]: ...
+    def __array__(self, dtype: Any=...) -> np.ndarray[Any, Any]: ...
     @final
     def to_excel(
         self,
         excel_writer: Any,
         sheet_name: _str = "Sheet1",
         na_rep: _str = "",
-        float_format: _str | None = None,
-        columns: _str | Sequence[_str] | None = None,
+        float_format: _str | None = ...,
+        columns: _str | Sequence[_str] | None = ...,
         header: _bool | list[_str] = True,
         index: _bool = True,
-        index_label: _str | Sequence[_str] | None = None,
+        index_label: _str | Sequence[_str] | None = ...,
         startrow: int = 0,
         startcol: int = 0,
-        engine: _str | None = None,
+        engine: _str | None = ...,
         merge_cells: ExcelWriterMergeCells = True,
         inf_rep: _str = "inf",
-        freeze_panes: tuple[int, int] | None = None,
+        freeze_panes: tuple[int, int] | None = ...,
     ) -> None: ...
     @final
     def to_hdf(
@@ -124,18 +124,18 @@ class NDFrame(indexing.IndexingMixin):
         path_or_buf: FilePath | HDFStore,
         *,
         key: _str,
-        mode: Literal["a", "w", "r+"] = 'a',
-        complevel: int | None = None,
-        complib: HDFCompLib | None = None,
-        append: _bool = False,
-        format: Literal["t", "table", "f", "fixed"] | None = None,
-        index: _bool = True,
-        min_itemsize: int | dict[HashableT1, int] | None = None,
-        nan_rep: _str | None = None,
-        dropna: _bool | None = None,
-        data_columns: Literal[True] | list[HashableT2] | None = None,
-        errors: OpenFileErrors = 'strict',
-        encoding: _str = 'UTF-8',
+        mode: Literal["a", "w", "r+"] = ...,
+        complevel: int | None = ...,
+        complib: HDFCompLib | None = ...,
+        append: _bool = ...,
+        format: Literal["t", "table", "f", "fixed"] | None = ...,
+        index: _bool = ...,
+        min_itemsize: int | dict[HashableT1, int] | None = ...,
+        nan_rep: _str | None = ...,
+        dropna: _bool | None = ...,
+        data_columns: Literal[True] | list[HashableT2] | None = ...,
+        errors: OpenFileErrors = ...,
+        encoding: _str = ...,
     ) -> None: ...
     @overload
     def to_markdown(
@@ -162,19 +162,19 @@ class NDFrame(indexing.IndexingMixin):
         self,
         name: _str,
         con: str | sqlalchemy.engine.Connectable | sqlite3.Connection,
-        schema: _str | None = None,
+        schema: _str | None = ...,
         if_exists: Literal["fail", "replace", "append"] = "fail",
         index: _bool = True,
         index_label: IndexLabel = None,
-        chunksize: int | None = None,
-        dtype: DtypeArg | None = None,
+        chunksize: int | None = ...,
+        dtype: DtypeArg | None = ...,
         method: (
             Literal["multi"]
             | Callable[[SQLTable, Any, list[str], Iterable[tuple[Any, ...]]],
                 int | None,
             ]
             | None
-        ) = None,
+        ) = ...,
     ) -> int | None: ...
     @final
     def to_pickle(
@@ -182,7 +182,7 @@ class NDFrame(indexing.IndexingMixin):
         path: FilePath | WriteBuffer[bytes],
         compression: CompressionOptions = "infer",
         protocol: int = 5,
-        storage_options: StorageOptions = None,
+        storage_options: StorageOptions = ...,
     ) -> None: ...
     @final
     def to_clipboard(
@@ -214,211 +214,211 @@ class NDFrame(indexing.IndexingMixin):
     def to_latex(
         self,
         buf: FilePath | WriteBuffer[str],
-        columns: list[_str] | None = None,
-        header: _bool | list[_str] = True,
-        index: _bool = True,
-        na_rep: _str = 'NaN',
-        formatters: Any=None,
-        float_format: Any=None,
-        sparsify: _bool | None = None,
-        index_names: _bool = True,
-        bold_rows: _bool = False,
-        column_format: _str | None = None,
-        longtable: _bool | None = None,
-        escape: _bool | None = None,
-        encoding: _str | None = None,
-        decimal: _str = '.',
-        multicolumn: _bool | None = None,
-        multicolumn_format: _str | None = None,
-        multirow: _bool | None = None,
-        caption: _str | tuple[_str, _str] | None = None,
-        label: _str | None = None,
-        position: _str | None = None,
+        columns: list[_str] | None = ...,
+        header: _bool | list[_str] = ...,
+        index: _bool = ...,
+        na_rep: _str = ...,
+        formatters: Any=...,
+        float_format: Any=...,
+        sparsify: _bool | None = ...,
+        index_names: _bool = ...,
+        bold_rows: _bool = ...,
+        column_format: _str | None = ...,
+        longtable: _bool | None = ...,
+        escape: _bool | None = ...,
+        encoding: _str | None = ...,
+        decimal: _str = ...,
+        multicolumn: _bool | None = ...,
+        multicolumn_format: _str | None = ...,
+        multirow: _bool | None = ...,
+        caption: _str | tuple[_str, _str] | None = ...,
+        label: _str | None = ...,
+        position: _str | None = ...,
     ) -> None: ...
     @overload
     def to_latex(
         self,
         buf: None = None,
-        columns: list[_str] | None = None,
-        header: _bool | list[_str] = True,
-        index: _bool = True,
-        na_rep: _str = 'NaN',
-        formatters: Any=None,
-        float_format: Any=None,
-        sparsify: _bool | None = None,
-        index_names: _bool = True,
-        bold_rows: _bool = False,
-        column_format: _str | None = None,
-        longtable: _bool | None = None,
-        escape: _bool | None = None,
-        encoding: _str | None = None,
-        decimal: _str = '.',
-        multicolumn: _bool | None = None,
-        multicolumn_format: _str | None = None,
-        multirow: _bool | None = None,
-        caption: _str | tuple[_str, _str] | None = None,
-        label: _str | None = None,
-        position: _str | None = None,
+        columns: list[_str] | None = ...,
+        header: _bool | list[_str] = ...,
+        index: _bool = ...,
+        na_rep: _str = ...,
+        formatters: Any=...,
+        float_format: Any=...,
+        sparsify: _bool | None = ...,
+        index_names: _bool = ...,
+        bold_rows: _bool = ...,
+        column_format: _str | None = ...,
+        longtable: _bool | None = ...,
+        escape: _bool | None = ...,
+        encoding: _str | None = ...,
+        decimal: _str = ...,
+        multicolumn: _bool | None = ...,
+        multicolumn_format: _str | None = ...,
+        multirow: _bool | None = ...,
+        caption: _str | tuple[_str, _str] | None = ...,
+        label: _str | None = ...,
+        position: _str | None = ...,
     ) -> _str: ...
     @overload
     def to_csv(
         self,
         path_or_buf: FilePath | WriteBuffer[bytes] | WriteBuffer[str],
-        sep: _str = ',',
-        na_rep: _str = '',
-        float_format: _str | Callable[[object], _str] | None = None,
-        columns: list[HashableT1] | None = None,
-        header: _bool | list[_str] = True,
-        index: _bool = True,
-        index_label: Literal[False] | _str | list[HashableT2] | None = None,
-        mode: FileWriteMode = 'w',
-        encoding: _str | None = None,
-        compression: CompressionOptions = 'infer',
-        quoting: CSVQuoting = None,
-        quotechar: _str = '"',
-        lineterminator: _str | None = None,
-        chunksize: int | None = None,
-        date_format: _str | None = None,
-        doublequote: _bool = True,
-        escapechar: _str | None = None,
-        decimal: _str = '.',
-        errors: OpenFileErrors = 'strict',
-        storage_options: StorageOptions = None,
+        sep: _str = ...,
+        na_rep: _str = ...,
+        float_format: _str | Callable[[object], _str] | None = ...,
+        columns: list[HashableT1] | None = ...,
+        header: _bool | list[_str] = ...,
+        index: _bool = ...,
+        index_label: Literal[False] | _str | list[HashableT2] | None = ...,
+        mode: FileWriteMode = ...,
+        encoding: _str | None = ...,
+        compression: CompressionOptions = ...,
+        quoting: CSVQuoting = ...,
+        quotechar: _str = ...,
+        lineterminator: _str | None = ...,
+        chunksize: int | None = ...,
+        date_format: _str | None = ...,
+        doublequote: _bool = ...,
+        escapechar: _str | None = ...,
+        decimal: _str = ...,
+        errors: OpenFileErrors = ...,
+        storage_options: StorageOptions = ...,
     ) -> None: ...
     @overload
     def to_csv(
         self,
         path_or_buf: None = None,
-        sep: _str = ',',
-        na_rep: _str = '',
-        float_format: _str | Callable[[object], _str] | None = None,
-        columns: list[HashableT1] | None = None,
-        header: _bool | list[_str] = True,
-        index: _bool = True,
-        index_label: Literal[False] | _str | list[HashableT2] | None = None,
-        mode: FileWriteMode = 'w',
-        encoding: _str | None = None,
-        compression: CompressionOptions = 'infer',
-        quoting: CSVQuoting = None,
-        quotechar: _str = '"',
-        lineterminator: _str | None = None,
-        chunksize: int | None = None,
-        date_format: _str | None = None,
-        doublequote: _bool = True,
-        escapechar: _str | None = None,
-        decimal: _str = '.',
-        errors: OpenFileErrors = 'strict',
-        storage_options: StorageOptions = None,
+        sep: _str = ...,
+        na_rep: _str = ...,
+        float_format: _str | Callable[[object], _str] | None = ...,
+        columns: list[HashableT1] | None = ...,
+        header: _bool | list[_str] = ...,
+        index: _bool = ...,
+        index_label: Literal[False] | _str | list[HashableT2] | None = ...,
+        mode: FileWriteMode = ...,
+        encoding: _str | None = ...,
+        compression: CompressionOptions = ...,
+        quoting: CSVQuoting = ...,
+        quotechar: _str = ...,
+        lineterminator: _str | None = ...,
+        chunksize: int | None = ...,
+        date_format: _str | None = ...,
+        doublequote: _bool = ...,
+        escapechar: _str | None = ...,
+        decimal: _str = ...,
+        errors: OpenFileErrors = ...,
+        storage_options: StorageOptions = ...,
     ) -> _str: ...
     @final
     def __delitem__(self, idx: Hashable) -> None: ...
     @overload
     def drop(
         self,
-        labels: Any=None,
+        labels: Any=...,
         *,
-        axis: Any=0,
+        axis: Any=...,
         index: None,
-        columns: Any=None,
-        level: Any=None,
-        inplace: Any=False,
-        errors: Any='raise',
+        columns: Any=...,
+        level: Any=...,
+        inplace: Any=...,
+        errors: Any=...,
     ) -> Never: ...
     @overload
     def drop(
         self,
-        labels: Any=None,
+        labels: Any=...,
         *,
-        axis: Any=0,
-        index: Any=None,
+        axis: Any=...,
+        index: Any=...,
         columns: None,
-        level: Any=None,
-        inplace: Any=False,
-        errors: Any='raise',
+        level: Any=...,
+        inplace: Any=...,
+        errors: Any=...,
     ) -> Never: ...
     @overload
     def drop(
         self,
         labels: None,
         *,
-        axis: Any=0,
-        index: Any=None,
-        columns: Any=None,
-        level: Any=None,
-        inplace: Any=False,
-        errors: Any='raise',
+        axis: Any=...,
+        index: Any=...,
+        columns: Any=...,
+        level: Any=...,
+        inplace: Any=...,
+        errors: Any=...,
     ) -> Never: ...
     @overload
     def drop(
         self,
         labels: None = None,
         *,
-        axis: Axis = 0,
-        index: Hashable | Sequence[Hashable] | Index[Any] = None,
+        axis: Axis = ...,
+        index: Hashable | Sequence[Hashable] | Index[Any] = ...,
         columns: Hashable | Iterable[Hashable],
-        level: Level | None = None,
+        level: Level | None = ...,
         inplace: Literal[True],
-        errors: IgnoreRaise = 'raise',
+        errors: IgnoreRaise = ...,
     ) -> None: ...
     @overload
     def drop(
         self,
         labels: None = None,
         *,
-        axis: Axis = 0,
+        axis: Axis = ...,
         index: Hashable | Sequence[Hashable] | Index[Any],
-        columns: Hashable | Iterable[Hashable] = None,
-        level: Level | None = None,
+        columns: Hashable | Iterable[Hashable] = ...,
+        level: Level | None = ...,
         inplace: Literal[True],
-        errors: IgnoreRaise = 'raise',
+        errors: IgnoreRaise = ...,
     ) -> None: ...
     @overload
     def drop(
         self,
         labels: Hashable | Sequence[Hashable] | Index[Any],
         *,
-        axis: Axis = 0,
+        axis: Axis = ...,
         index: None = None,
         columns: None = None,
-        level: Level | None = None,
+        level: Level | None = ...,
         inplace: Literal[True],
-        errors: IgnoreRaise = 'raise',
+        errors: IgnoreRaise = ...,
     ) -> None: ...
     @overload
     def drop(
         self,
         labels: None = None,
         *,
-        axis: Axis = 0,
-        index: Hashable | Sequence[Hashable] | Index[Any] = None,
+        axis: Axis = ...,
+        index: Hashable | Sequence[Hashable] | Index[Any] = ...,
         columns: Hashable | Iterable[Hashable],
-        level: Level | None = None,
+        level: Level | None = ...,
         inplace: Literal[False] = False,
-        errors: IgnoreRaise = 'raise',
+        errors: IgnoreRaise = ...,
     ) -> Self: ...
     @overload
     def drop(
         self,
         labels: None = None,
         *,
-        axis: Axis = 0,
+        axis: Axis = ...,
         index: Hashable | Sequence[Hashable] | Index[Any],
-        columns: Hashable | Iterable[Hashable] = None,
-        level: Level | None = None,
+        columns: Hashable | Iterable[Hashable] = ...,
+        level: Level | None = ...,
         inplace: Literal[False] = False,
-        errors: IgnoreRaise = 'raise',
+        errors: IgnoreRaise = ...,
     ) -> Self: ...
     @overload
     def drop(
         self,
         labels: Hashable | Sequence[Hashable] | Index[Any],
         *,
-        axis: Axis = 0,
+        axis: Axis = ...,
         index: None = None,
         columns: None = None,
-        level: Level | None = None,
+        level: Level | None = ...,
         inplace: Literal[False] = False,
-        errors: IgnoreRaise = 'raise',
+        errors: IgnoreRaise = ...,
     ) -> Self: ...
     @overload
     def pipe(
@@ -435,13 +435,13 @@ class NDFrame(indexing.IndexingMixin):
         **kwargs: Any,
     ) -> T: ...
     @final
-    def __finalize__(self, other: Any, method: Any=None, **kwargs: Any) -> Self: ...
+    def __finalize__(self, other: Any, method: Any=..., **kwargs: Any) -> Self: ...
     @final
     def __setattr__(self, name: _str, value: Any) -> None: ...
     @final
-    def __copy__(self, deep: _bool = True) -> Self: ...
+    def __copy__(self, deep: _bool = ...) -> Self: ...
     @final
-    def __deepcopy__(self, memo: Any=None) -> Self: ...
+    def __deepcopy__(self, memo: Any=...) -> Self: ...
     @final
     def convert_dtypes(
         self,

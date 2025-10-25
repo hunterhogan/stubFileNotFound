@@ -21,21 +21,21 @@ _Downcast: TypeAlias = Literal["integer", "signed", "unsigned", "float"] | None
 @overload
 def to_numeric(
     arg: Scalar,
-    errors: Literal["raise", "coerce"] = 'raise',
-    downcast: _Downcast = None,
+    errors: Literal["raise", "coerce"] = ...,
+    downcast: _Downcast = ...,
     dtype_backend: DtypeBackend | _NoDefaultDoNotUse = ...,
 ) -> float: ...
 @overload
 def to_numeric(
     arg: list[Any] | tuple[Any, ...] | np.ndarray[Any, Any],
-    errors: RaiseCoerce = 'raise',
-    downcast: _Downcast = None,
+    errors: RaiseCoerce = ...,
+    downcast: _Downcast = ...,
     dtype_backend: DtypeBackend | _NoDefaultDoNotUse = ...,
 ) -> npt.NDArray[Any]: ...
 @overload
 def to_numeric(
     arg: pd.Series,
-    errors: RaiseCoerce = 'raise',
-    downcast: _Downcast = None,
+    errors: RaiseCoerce = ...,
+    downcast: _Downcast = ...,
     dtype_backend: DtypeBackend | _NoDefaultDoNotUse = ...,
 ) -> pd.Series: ...

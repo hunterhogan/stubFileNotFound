@@ -65,54 +65,54 @@ _ExtendedAnyArrayLike: TypeAlias = AnyArrayLike | ArrayLike
 @overload
 def pivot_table(
     data: DataFrame,
-    values: _PivotTableValuesTypes[Any] = None,
-    index: _PivotTableIndexTypes[Any] = None,
-    columns: _PivotTableColumnsTypes[Any] = None,
+    values: _PivotTableValuesTypes[Any] = ...,
+    index: _PivotTableIndexTypes[Any] = ...,
+    columns: _PivotTableColumnsTypes[Any] = ...,
     aggfunc: (
         _PivotAggFunc | Sequence[_PivotAggFunc] | Mapping[Hashable, _PivotAggFunc]
-    ) = 'mean',
-    fill_value: Scalar | None = None,
-    margins: bool = False,
-    dropna: bool = True,
-    margins_name: str = 'All',
+    ) = ...,
+    fill_value: Scalar | None = ...,
+    margins: bool = ...,
+    dropna: bool = ...,
+    margins_name: str = ...,
     observed: bool = ...,
-    sort: bool = True,
+    sort: bool = ...,
 ) -> DataFrame: ...
 
 # Can only use Index or ndarray when index or columns is a Grouper
 @overload
 def pivot_table(
     data: DataFrame,
-    values: _PivotTableValuesTypes[Any] = None,
+    values: _PivotTableValuesTypes[Any] = ...,
     *,
     index: Grouper,
-    columns: _PivotTableColumnsTypes[Any] | Index[Any] | npt.NDArray[Any] = None,
+    columns: _PivotTableColumnsTypes[Any] | Index[Any] | npt.NDArray[Any] = ...,
     aggfunc: (
         _PivotAggFunc | Sequence[_PivotAggFunc] | Mapping[Hashable, _PivotAggFunc]
-    ) = 'mean',
-    fill_value: Scalar | None = None,
-    margins: bool = False,
-    dropna: bool = True,
-    margins_name: str = 'All',
+    ) = ...,
+    fill_value: Scalar | None = ...,
+    margins: bool = ...,
+    dropna: bool = ...,
+    margins_name: str = ...,
     observed: bool = ...,
-    sort: bool = True,
+    sort: bool = ...,
 ) -> DataFrame: ...
 @overload
 def pivot_table(
     data: DataFrame,
-    values: _PivotTableValuesTypes[Any] = None,
-    index: _PivotTableIndexTypes[Any] | Index[Any] | npt.NDArray[Any] = None,
+    values: _PivotTableValuesTypes[Any] = ...,
+    index: _PivotTableIndexTypes[Any] | Index[Any] | npt.NDArray[Any] = ...,
     *,
     columns: Grouper,
     aggfunc: (
         _PivotAggFunc | Sequence[_PivotAggFunc] | Mapping[Hashable, _PivotAggFunc]
-    ) = 'mean',
-    fill_value: Scalar | None = None,
-    margins: bool = False,
-    dropna: bool = True,
-    margins_name: str = 'All',
+    ) = ...,
+    fill_value: Scalar | None = ...,
+    margins: bool = ...,
+    dropna: bool = ...,
+    margins_name: str = ...,
     observed: bool = ...,
-    sort: bool = True,
+    sort: bool = ...,
 ) -> DataFrame: ...
 def pivot(
     data: DataFrame,
@@ -126,25 +126,25 @@ def crosstab(
     index: list[Any] | _ExtendedAnyArrayLike | list[Sequence[Any] | _ExtendedAnyArrayLike],
     columns: list[Any] | _ExtendedAnyArrayLike | list[Sequence[Any] | _ExtendedAnyArrayLike],
     values: list[Any] | _ExtendedAnyArrayLike,
-    rownames: list[HashableT1] | None = None,
-    colnames: list[HashableT2] | None = None,
+    rownames: list[HashableT1] | None = ...,
+    colnames: list[HashableT2] | None = ...,
     *,
     aggfunc: str | np.ufunc | Callable[[Series], float],
-    margins: bool = False,
-    margins_name: str = 'All',
-    dropna: bool = True,
-    normalize: bool | Literal[0, 1, "all", "index", "columns"] = False,
+    margins: bool = ...,
+    margins_name: str = ...,
+    dropna: bool = ...,
+    normalize: bool | Literal[0, 1, "all", "index", "columns"] = ...,
 ) -> DataFrame: ...
 @overload
 def crosstab(
     index: list[Any] | _ExtendedAnyArrayLike | list[Sequence[Any] | _ExtendedAnyArrayLike],
     columns: list[Any] | _ExtendedAnyArrayLike | list[Sequence[Any] | _ExtendedAnyArrayLike],
     values: None = None,
-    rownames: list[HashableT1] | None = None,
-    colnames: list[HashableT2] | None = None,
+    rownames: list[HashableT1] | None = ...,
+    colnames: list[HashableT2] | None = ...,
     aggfunc: None = None,
-    margins: bool = False,
-    margins_name: str = 'All',
-    dropna: bool = True,
-    normalize: bool | Literal[0, 1, "all", "index", "columns"] = False,
+    margins: bool = ...,
+    margins_name: str = ...,
+    dropna: bool = ...,
+    normalize: bool | Literal[0, 1, "all", "index", "columns"] = ...,
 ) -> DataFrame: ...

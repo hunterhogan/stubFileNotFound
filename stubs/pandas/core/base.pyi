@@ -3,6 +3,7 @@ from collections.abc import (
     Iterator,
     Sequence,
 )
+from datetime import timedelta
 from typing import (
     Any,
     Generic,
@@ -28,16 +29,15 @@ from pandas._libs.tslibs.timedeltas import Timedelta
 from pandas._typing import (
     S1,
     S2,
-    ArrayLike,
     AxisIndex,
     DropKeep,
     DTypeLike,
     GenericT,
     GenericT_co,
     Just,
+    ListLike,
     NDFrameT,
     Scalar,
-    SequenceNotStr,
     SupportsDType,
     np_1darray,
     np_ndarray_anyint,
@@ -46,8 +46,6 @@ from pandas._typing import (
     np_ndarray_float,
 )
 from pandas.util._decorators import cache_readonly
-
-_ListLike: TypeAlias = ArrayLike | dict[str, np.ndarray[Any, Any]] | SequenceNotStr[S1]
 
 class NoNewAttributesMixin:
     def __setattr__(self, key: str, value: Any) -> None: ...
@@ -109,14 +107,14 @@ class IndexOpsMixin(OpsMixin, Generic[S1, GenericT_co]):
     ) -> S1: ...
     def argmax(
         self,
-        axis: AxisIndex | None = None,
+        axis: AxisIndex | None = ...,
         skipna: bool = True,
         *args: Any,
         **kwargs: Any,
     ) -> np.int64: ...
     def argmin(
         self,
-        axis: AxisIndex | None = None,
+        axis: AxisIndex | None = ...,
         skipna: bool = True,
         *args: Any,
         **kwargs: Any,
@@ -130,19 +128,19 @@ class IndexOpsMixin(OpsMixin, Generic[S1, GenericT_co]):
     def value_counts(
         self,
         normalize: Literal[False] = False,
-        sort: bool = True,
-        ascending: bool = False,
-        bins: int | None = None,
-        dropna: bool = True,
+        sort: bool = ...,
+        ascending: bool = ...,
+        bins: int | None = ...,
+        dropna: bool = ...,
     ) -> Series[int]: ...
     @overload
     def value_counts(
         self,
         normalize: Literal[True],
-        sort: bool = True,
-        ascending: bool = False,
-        bins: int | None = None,
-        dropna: bool = True,
+        sort: bool = ...,
+        ascending: bool = ...,
+        bins: int | None = ...,
+        dropna: bool = ...,
     ) -> Series[float]: ...
     def nunique(self, dropna: bool = True) -> int: ...
     @property
@@ -157,18 +155,18 @@ class IndexOpsMixin(OpsMixin, Generic[S1, GenericT_co]):
     @overload
     def searchsorted(
         self,
-        value: _ListLike,
-        side: Literal["left", "right"] = 'left',
-        sorter: _ListLike | None = None,
+        value: ListLike,
+        side: Literal["left", "right"] = ...,
+        sorter: ListLike | None = None,
     ) -> np_1darray[np.intp]: ...
     @overload
     def searchsorted(
         self,
         value: Scalar,
-        side: Literal["left", "right"] = 'left',
-        sorter: _ListLike | None = None,
+        side: Literal["left", "right"] = ...,
+        sorter: ListLike | None = None,
     ) -> np.intp: ...
-    def drop_duplicates(self, *, keep: DropKeep = 'first') -> Self: ...
+    def drop_duplicates(self, *, keep: DropKeep = ...) -> Self: ...
 
 NumListLike: TypeAlias = (
     ExtensionArray
@@ -178,7 +176,6 @@ NumListLike: TypeAlias = (
     | np_ndarray_complex
     | dict[str, np.ndarray[Any, Any]]
     | Sequence[complex]
-    | IndexOpsMixin[complex]
 )
 
 @type_check_only
@@ -269,6 +266,38 @@ class ElementOpsMixin(Generic[S2]):
     def _proto_rmul(
         self: ElementOpsMixin[str], other: Just[int] | np.integer
     ) -> ElementOpsMixin[str]: ...
+    @overload
+    def _proto_truediv(
+        self: ElementOpsMixin[int], other: int | np.integer
+    ) -> ElementOpsMixin[float]: ...
+    @overload
+    def _proto_truediv(
+        self: ElementOpsMixin[float], other: float | np.floating
+    ) -> ElementOpsMixin[float]: ...
+    @overload
+    def _proto_truediv(
+        self: ElementOpsMixin[complex], other: complex | np.complexfloating
+    ) -> ElementOpsMixin[complex]: ...
+    @overload
+    def _proto_truediv(
+        self: ElementOpsMixin[Timedelta], other: timedelta | Timedelta | np.timedelta64
+    ) -> ElementOpsMixin[float]: ...
+    @overload
+    def _proto_rtruediv(
+        self: ElementOpsMixin[int], other: int | np.integer
+    ) -> ElementOpsMixin[float]: ...
+    @overload
+    def _proto_rtruediv(
+        self: ElementOpsMixin[float], other: float | np.floating
+    ) -> ElementOpsMixin[float]: ...
+    @overload
+    def _proto_rtruediv(
+        self: ElementOpsMixin[complex], other: complex | np.complexfloating
+    ) -> ElementOpsMixin[complex]: ...
+    @overload
+    def _proto_rtruediv(
+        self: ElementOpsMixin[Timedelta], other: timedelta | Timedelta | np.timedelta64
+    ) -> ElementOpsMixin[float]: ...
 
 @type_check_only
 class Supports_ProtoAdd(Protocol[_T_contra, S2]):
@@ -285,3 +314,11 @@ class Supports_ProtoMul(Protocol[_T_contra, S2]):
 @type_check_only
 class Supports_ProtoRMul(Protocol[_T_contra, S2]):
     def _proto_rmul(self, other: _T_contra, /) -> ElementOpsMixin[S2]: ...
+
+@type_check_only
+class Supports_ProtoTrueDiv(Protocol[_T_contra, S2]):
+    def _proto_truediv(self, other: _T_contra, /) -> ElementOpsMixin[S2]: ...
+
+@type_check_only
+class Supports_ProtoRTrueDiv(Protocol[_T_contra, S2]):
+    def _proto_rtruediv(self, other: _T_contra, /) -> ElementOpsMixin[S2]: ...

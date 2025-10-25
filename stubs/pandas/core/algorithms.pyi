@@ -46,23 +46,23 @@ def unique(values: ExtensionArray) -> ExtensionArray: ...
 @overload
 def factorize(
     values: np.ndarray[Any, Any],
-    sort: bool = False,
-    use_na_sentinel: bool = True,
-    size_hint: int | None = None,
+    sort: bool = ...,
+    use_na_sentinel: bool = ...,
+    size_hint: int | None = ...,
 ) -> tuple[np.ndarray[Any, Any], np.ndarray[Any, Any]]: ...
 @overload
 def factorize(
     values: Index[Any] | Series,
-    sort: bool = False,
-    use_na_sentinel: bool = True,
-    size_hint: int | None = None,
+    sort: bool = ...,
+    use_na_sentinel: bool = ...,
+    size_hint: int | None = ...,
 ) -> tuple[np_1darray, Index[Any]]: ...
 @overload
 def factorize(
     values: Categorical,
-    sort: bool = False,
-    use_na_sentinel: bool = True,
-    size_hint: int | None = None,
+    sort: bool = ...,
+    use_na_sentinel: bool = ...,
+    size_hint: int | None = ...,
 ) -> tuple[np_1darray, Categorical]: ...
 def value_counts(
     values: AnyArrayLike | list[Any] | tuple[Any, ...],

@@ -80,8 +80,8 @@ class StylerRenderer:
     def relabel_index(
         self,
         labels: Sequence[str] | Index[Any],
-        axis: Axis = 0,
-        level: Level | list[Level] | None = None,
+        axis: Axis = ...,
+        level: Level | list[Level] | None = ...,
     ) -> Self: ...
     @property
     def columns(self) -> Index[Any]: ...

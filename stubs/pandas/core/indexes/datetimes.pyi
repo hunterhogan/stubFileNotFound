@@ -4,6 +4,7 @@ from collections.abc import (
 )
 from datetime import (
     datetime,
+    time,
     timedelta,
     tzinfo as _tzinfo,
 )
@@ -32,6 +33,7 @@ from pandas._typing import (
     IntervalClosedType,
     TimeUnit,
     TimeZones,
+    np_1darray,
     np_ndarray_dt,
     np_ndarray_td,
 )
@@ -49,14 +51,13 @@ class DatetimeIndex(
         data: AxesData[Any],
         freq: Frequency = ...,
         tz: TimeZones = ...,
-        ambiguous: str = 'raise',
-        dayfirst: bool = False,
-        yearfirst: bool = False,
-        dtype: Dtype = None,
-        copy: bool = False,
-        name: Hashable = None,
+        ambiguous: str = ...,
+        dayfirst: bool = ...,
+        yearfirst: bool = ...,
+        dtype: Dtype = ...,
+        copy: bool = ...,
+        name: Hashable = ...,
     ) -> Self: ...
-    def __reduce__(self) -> Any: ...
 
     # various ignores needed for mypy, as we do want to restrict what can be used in
     # arithmetic for these types
@@ -79,18 +80,19 @@ class DatetimeIndex(
     def to_series(
         self, index: Index[Any] | None = None, name: Hashable | None = None
     ) -> Series[Timestamp]: ...
-    def snap(self, freq: str = 'S') -> Any: ...
-    def slice_indexer(self, start: Any=None, end: Any=None, step: Any=None) -> Any: ...
+    def snap(self, freq: Frequency = "S") -> Self: ...
     @property
     def inferred_type(self) -> str: ...
-    def indexer_at_time(self, time: Any, asof: bool = False) -> Any: ...
+    def indexer_at_time(
+        self, time: str | time, asof: bool = False
+    ) -> np_1darray[np.intp]: ...
     def indexer_between_time(
         self,
-        start_time: datetime | str,
-        end_time: datetime | str,
+        start_time: time | str,
+        end_time: time | str,
         include_start: bool = True,
         include_end: bool = True,
-    ) -> Any: ...
+    ) -> np_1darray[np.intp]: ...
     def to_julian_date(self) -> Index[float]: ...
     def isocalendar(self) -> DataFrame: ...
     @property
@@ -149,28 +151,28 @@ def date_range(
 ) -> DatetimeIndex: ...
 @overload
 def bdate_range(
-    start: str | DateAndDatetimeLike | None = None,
-    end: str | DateAndDatetimeLike | None = None,
-    periods: int | None = None,
-    freq: Frequency | timedelta = 'B',
-    tz: TimeZones = None,
-    normalize: bool = True,
-    name: Hashable | None = None,
-    weekmask: str | None = None,
+    start: str | DateAndDatetimeLike | None = ...,
+    end: str | DateAndDatetimeLike | None = ...,
+    periods: int | None = ...,
+    freq: Frequency | timedelta = ...,
+    tz: TimeZones = ...,
+    normalize: bool = ...,
+    name: Hashable | None = ...,
+    weekmask: str | None = ...,
     holidays: None = None,
-    inclusive: IntervalClosedType = 'both',
+    inclusive: IntervalClosedType = ...,
 ) -> DatetimeIndex: ...
 @overload
 def bdate_range(
-    start: str | DateAndDatetimeLike | None = None,
-    end: str | DateAndDatetimeLike | None = None,
-    periods: int | None = None,
+    start: str | DateAndDatetimeLike | None = ...,
+    end: str | DateAndDatetimeLike | None = ...,
+    periods: int | None = ...,
     *,
     freq: Frequency | timedelta,
-    tz: TimeZones = None,
-    normalize: bool = True,
-    name: Hashable | None = None,
-    weekmask: str | None = None,
+    tz: TimeZones = ...,
+    normalize: bool = ...,
+    name: Hashable | None = ...,
+    weekmask: str | None = ...,
     holidays: Sequence[str | DateAndDatetimeLike],
-    inclusive: IntervalClosedType = 'both',
+    inclusive: IntervalClosedType = ...,
 ) -> DatetimeIndex: ...

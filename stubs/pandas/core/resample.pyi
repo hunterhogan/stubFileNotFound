@@ -61,14 +61,14 @@ class Resampler(BaseGroupBy[NDFrameT]):
     @overload
     def aggregate(
         self: Resampler[DataFrame],
-        func: _FrameGroupByFuncArgs | None = None,
+        func: _FrameGroupByFuncArgs | None = ...,
         *args: Any,
         **kwargs: Any,
     ) -> DataFrame: ...
     @overload
     def aggregate(
         self: Resampler[Series],
-        func: _SeriesGroupByFuncArgs | None = None,
+        func: _SeriesGroupByFuncArgs | None = ...,
         *args: Any,
         **kwargs: Any,
     ) -> Series | DataFrame: ...
@@ -89,45 +89,45 @@ class Resampler(BaseGroupBy[NDFrameT]):
         **kwargs: Any,
     ) -> DataFrame: ...
     @final
-    def ffill(self, limit: int | None = None) -> NDFrameT: ...
+    def ffill(self, limit: int | None = ...) -> NDFrameT: ...
     @final
-    def nearest(self, limit: int | None = None) -> NDFrameT: ...
+    def nearest(self, limit: int | None = ...) -> NDFrameT: ...
     @final
-    def bfill(self, limit: int | None = None) -> NDFrameT: ...
+    def bfill(self, limit: int | None = ...) -> NDFrameT: ...
     @overload
     def interpolate(
         self,
-        method: InterpolateOptions = 'linear',
+        method: InterpolateOptions = ...,
         *,
-        axis: Axis = 0,
-        limit: int | None = None,
+        axis: Axis = ...,
+        limit: int | None = ...,
         inplace: Literal[True],
-        limit_direction: Literal["forward", "backward", "both"] = 'forward',
-        limit_area: Literal["inside", "outside"] | None = None,
+        limit_direction: Literal["forward", "backward", "both"] = ...,
+        limit_area: Literal["inside", "outside"] | None = ...,
         **kwargs: Any,
     ) -> None: ...
     @overload
     def interpolate(
         self,
-        method: InterpolateOptions = 'linear',
+        method: InterpolateOptions = ...,
         *,
-        axis: Axis = 0,
-        limit: int | None = None,
+        axis: Axis = ...,
+        limit: int | None = ...,
         inplace: Literal[False] = False,
-        limit_direction: Literal["forward", "backward", "both"] = 'forward',
-        limit_area: Literal["inside", "outside"] | None = None,
+        limit_direction: Literal["forward", "backward", "both"] = ...,
+        limit_area: Literal["inside", "outside"] | None = ...,
         **kwargs: Any,
     ) -> NDFrameT: ...
     @final
-    def asfreq(self, fill_value: Scalar | None = None) -> NDFrameT: ...
+    def asfreq(self, fill_value: Scalar | None = ...) -> NDFrameT: ...
     @final
     def sum(self, numeric_only: bool = False, min_count: int = 0) -> NDFrameT: ...
     @final
     def prod(self, numeric_only: bool = False, min_count: int = 0) -> NDFrameT: ...
     @final
-    def min(self, numeric_only: bool = False, min_count: int = 0) -> NDFrameT: ...
+    def min(self, numeric_only: bool = ..., min_count: int = ...) -> NDFrameT: ...
     @final
-    def max(self, numeric_only: bool = False, min_count: int = 0) -> NDFrameT: ...
+    def max(self, numeric_only: bool = ..., min_count: int = ...) -> NDFrameT: ...
     @final
     def first(
         self,

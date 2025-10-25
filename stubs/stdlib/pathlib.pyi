@@ -24,6 +24,7 @@ if sys.version_info >= (3, 13):
     __all__ += ["UnsupportedOperation"]
 
 class PurePath(PathLike[str]):
+    __slots__ = ('_raw_paths', '_drv', '_root', '_tail_cached', '_str', '_str_normcase_cached', '_parts_normcase_cached', '_hash')
     if sys.version_info >= (3, 13):
         parser: ClassVar[types.ModuleType]
         def full_match(self, pattern: StrPath, *, case_sensitive: bool | None = None) -> bool: ...
@@ -92,10 +93,13 @@ class PurePath(PathLike[str]):
     if sys.version_info >= (3, 12):
         def with_segments(self, *args: StrPath) -> Self: ...
 
-class PurePosixPath(PurePath): ...
-class PureWindowsPath(PurePath): ...
+class PurePosixPath(PurePath):
+    __slots__ = ()
+class PureWindowsPath(PurePath):
+    __slots__ = ()
 
 class Path(PurePath):
+    __slots__ = ()
     if sys.version_info >= (3, 12):
         def __new__(cls, *args: StrPath, **kwargs: Unused) -> Self: ...  # pyright: ignore[reportInconsistentConstructor]
     else:
@@ -289,8 +293,10 @@ class Path(PurePath):
     if sys.version_info >= (3, 14):
         def rmtree(self, ignore_errors: bool = False, on_error: Callable[[OSError], object] | None = None) -> None: ...
 
-class PosixPath(Path, PurePosixPath): ...
-class WindowsPath(Path, PureWindowsPath): ...
+class PosixPath(Path, PurePosixPath):
+    __slots__ = ()
+class WindowsPath(Path, PureWindowsPath):
+    __slots__ = ()
 
 if sys.version_info >= (3, 13):
     class UnsupportedOperation(NotImplementedError): ...

@@ -69,7 +69,7 @@ class OnlineExponentialMovingWindow(ExponentialMovingWindow[NDFrameT]):
     def mean(
         self,
         *args: Any,
-        update: NDFrameT | None = None,
+        update: NDFrameT | None = ...,
         update_times: None = None,
         **kwargs: Any,
     ) -> NDFrameT: ...

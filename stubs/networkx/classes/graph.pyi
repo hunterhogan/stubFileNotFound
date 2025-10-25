@@ -1,11 +1,12 @@
 from collections.abc import Callable, Collection, Hashable, Iterable, Iterator, MutableMapping
 from functools import cached_property
+from typing import Any, ClassVar, TypeVar, overload
+from typing_extensions import Self, TypeAlias
+
+import numpy
 from networkx.classes.coreviews import AdjacencyView, AtlasView
 from networkx.classes.digraph import DiGraph
 from networkx.classes.reportviews import DegreeView, EdgeView, NodeView
-from typing import Any, ClassVar, overload, TypeVar
-from typing_extensions import Self, TypeAlias
-import numpy
 
 _Node = TypeVar("_Node", bound=Hashable)
 _NodeWithData: TypeAlias = tuple[_Node, dict[str, Any]]

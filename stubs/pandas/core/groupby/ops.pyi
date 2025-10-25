@@ -38,7 +38,7 @@ class BaseGrouper:
     @property
     def nkeys(self) -> int: ...
     def get_iterator(
-        self, data: NDFrameT, axis: AxisInt = 0
+        self, data: NDFrameT, axis: AxisInt = ...
     ) -> Iterator[tuple[Hashable, NDFrameT]]: ...
     @final
     @cache_readonly
@@ -82,11 +82,11 @@ class BaseGrouper:
         self,
         obj: Series,
         func: Callable[[Series], object],
-        preserve_dtype: bool = False,
+        preserve_dtype: bool = ...,
     ) -> ArrayLike: ...
     @final
     def apply_groupwise(
-        self, f: Callable[[NDFrameT], T], data: NDFrameT, axis: AxisInt = 0
+        self, f: Callable[[NDFrameT], T], data: NDFrameT, axis: AxisInt = ...
     ) -> tuple[list[T], bool]: ...
 
 class BinGrouper(BaseGrouper):

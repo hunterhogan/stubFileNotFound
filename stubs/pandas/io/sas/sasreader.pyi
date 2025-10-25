@@ -23,7 +23,7 @@ from typing import Any
 
 class ReaderBase(metaclass=ABCMeta):
     @abstractmethod
-    def read(self, nrows: int | None = None) -> DataFrame: ...
+    def read(self, nrows: int | None = ...) -> DataFrame: ...
     @abstractmethod
     def close(self) -> None: ...
     def __enter__(self) -> Self: ...
@@ -34,75 +34,75 @@ def read_sas(
     filepath_or_buffer: FilePath | ReadBuffer[bytes],
     *,
     format: Literal["sas7bdat"],
-    index: Hashable | None = None,
-    encoding: str | None = None,
+    index: Hashable | None = ...,
+    encoding: str | None = ...,
     chunksize: int,
-    iterator: bool = False,
-    compression: CompressionOptions = 'infer',
+    iterator: bool = ...,
+    compression: CompressionOptions = ...,
 ) -> SAS7BDATReader: ...
 @overload
 def read_sas(
     filepath_or_buffer: FilePath | ReadBuffer[bytes],
     *,
     format: Literal["xport"],
-    index: Hashable | None = None,
-    encoding: str | None = None,
+    index: Hashable | None = ...,
+    encoding: str | None = ...,
     chunksize: int,
-    iterator: bool = False,
-    compression: CompressionOptions = 'infer',
+    iterator: bool = ...,
+    compression: CompressionOptions = ...,
 ) -> XportReader: ...
 @overload
 def read_sas(
     filepath_or_buffer: FilePath | ReadBuffer[bytes],
     *,
     format: None = None,
-    index: Hashable | None = None,
-    encoding: str | None = None,
+    index: Hashable | None = ...,
+    encoding: str | None = ...,
     chunksize: int,
-    iterator: bool = False,
-    compression: CompressionOptions = 'infer',
+    iterator: bool = ...,
+    compression: CompressionOptions = ...,
 ) -> XportReader | SAS7BDATReader: ...
 @overload
 def read_sas(
     filepath_or_buffer: FilePath | ReadBuffer[bytes],
     *,
     format: Literal["sas7bdat"],
-    index: Hashable | None = None,
-    encoding: str | None = None,
-    chunksize: int | None = None,
+    index: Hashable | None = ...,
+    encoding: str | None = ...,
+    chunksize: int | None = ...,
     iterator: Literal[True],
-    compression: CompressionOptions = 'infer',
+    compression: CompressionOptions = ...,
 ) -> SAS7BDATReader: ...
 @overload
 def read_sas(
     filepath_or_buffer: FilePath | ReadBuffer[bytes],
     *,
     format: Literal["xport"],
-    index: Hashable | None = None,
-    encoding: str | None = None,
-    chunksize: int | None = None,
+    index: Hashable | None = ...,
+    encoding: str | None = ...,
+    chunksize: int | None = ...,
     iterator: Literal[True],
-    compression: CompressionOptions = 'infer',
+    compression: CompressionOptions = ...,
 ) -> XportReader: ...
 @overload
 def read_sas(
     filepath_or_buffer: FilePath | ReadBuffer[bytes],
     *,
     format: None = None,
-    index: Hashable | None = None,
-    encoding: str | None = None,
-    chunksize: int | None = None,
+    index: Hashable | None = ...,
+    encoding: str | None = ...,
+    chunksize: int | None = ...,
     iterator: Literal[True],
-    compression: CompressionOptions = 'infer',
+    compression: CompressionOptions = ...,
 ) -> XportReader | SAS7BDATReader: ...
 @overload
 def read_sas(
     filepath_or_buffer: FilePath | ReadBuffer[bytes],
     *,
-    format: Literal["xport", "sas7bdat"] | None = None,
-    index: Hashable | None = None,
-    encoding: str | None = None,
+    format: Literal["xport", "sas7bdat"] | None = ...,
+    index: Hashable | None = ...,
+    encoding: str | None = ...,
     chunksize: None = None,
     iterator: Literal[False] = False,
-    compression: CompressionOptions = 'infer',
+    compression: CompressionOptions = ...,
 ) -> DataFrame: ...

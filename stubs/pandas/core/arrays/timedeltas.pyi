@@ -11,37 +11,36 @@ class TimedeltaArray(DatetimeLikeArrayMixin, TimelikeOps):
     __array_priority__: int = ...
     @property
     def dtype(self) -> Any: ...
-    def __init__(self, values: Any, dtype: Any=None, freq: Any=..., copy: bool = False) -> None: ...
-    def astype(self, dtype: Any, copy: bool = True) -> Any: ...
+    def __init__(self, values: Any, dtype: Any=..., freq: Any=..., copy: bool = ...) -> None: ...
     def sum(
         self,
         *,
-        axis: Any=None,
-        dtype: Any=None,
-        out: Any=None,
-        keepdims: bool = False,
-        initial: Any=None,
-        skipna: bool = True,
-        min_count: int = 0,
+        axis: Any=...,
+        dtype: Any=...,
+        out: Any=...,
+        keepdims: bool = ...,
+        initial: Any=...,
+        skipna: bool = ...,
+        min_count: int = ...,
     ) -> Any: ...
     def std(
         self,
         *,
-        axis: Any=None,
-        dtype: Any=None,
-        out: Any=None,
-        ddof: int = 1,
-        keepdims: bool = False,
-        skipna: bool = True,
+        axis: Any=...,
+        dtype: Any=...,
+        out: Any=...,
+        ddof: int = ...,
+        keepdims: bool = ...,
+        skipna: bool = ...,
     ) -> Any: ...
     def median(
         self,
         *,
-        axis: Any=None,
+        axis: Any=...,
         out: Any=...,
         overwrite_input: bool = ...,
         keepdims: bool = ...,
-        skipna: bool = True,
+        skipna: bool = ...,
     ) -> Any: ...
     def __mul__(self, other: Any) -> Any: ...
     __rmul__ = ...
