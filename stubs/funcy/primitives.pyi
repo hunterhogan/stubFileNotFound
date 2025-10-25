@@ -1,7 +1,7 @@
 from typing import Any
-__all__ = ['isnone', 'notnone', 'inc', 'dec', 'even', 'odd']
-from typing import Literal
 
+__all__ = ['dec', 'even', 'inc', 'isnone', 'notnone', 'odd']
+from typing import Literal
 
 class EmptyType:
     def __repr__(self) -> Literal['EMPTY']:

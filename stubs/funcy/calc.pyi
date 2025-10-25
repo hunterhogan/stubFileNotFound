@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing import Any
 
-__all__ = ['memoize', 'make_lookuper', 'silent_lookuper', 'cache']
+__all__ = ['cache', 'make_lookuper', 'memoize', 'silent_lookuper']
 
 class SkipMemory(Exception): ...
 

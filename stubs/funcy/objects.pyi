@@ -2,13 +2,14 @@ from _typeshed import Incomplete
 from collections.abc import Callable
 from typing import Any
 
-__all__ = ['cached_property', 'cached_readonly', 'wrap_prop', 'monkey', 'LazyObject']
+__all__ = ['LazyObject', 'cached_property', 'cached_readonly', 'monkey', 'wrap_prop']
 
 class cached_property:
     """
     Decorator that converts a method with a single self argument into
     a property cached on the instance.
     """
+
     fset: Incomplete
     fdel: Incomplete
     fget: Incomplete
@@ -18,13 +19,13 @@ class cached_property:
 
 class cached_readonly(cached_property):
     """Same as @cached_property, but protected against rewrites."""
+
     def __set__(self, instance: Any, value: Any) -> None: ...
 
 
 
 def wrap_prop(ctx: Any) -> Callable[..., WrapperProp]:
     """Wrap a property accessors with a context manager"""
-    ...
 
 def monkey(cls, name: Any=...) -> Callable[..., Any]:
     """
@@ -38,6 +39,7 @@ class LazyObject:
     A simplistic lazy init object.
     Rewrites itself when any attribute is accessed.
     """
+
     def __init__(self, init: Any) -> None: ...
     def _setup(self) -> None: ...
     def __getattr__(self, name: Any) -> Any: ...

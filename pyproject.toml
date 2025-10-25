@@ -29,6 +29,7 @@ dependencies = [
   "mypy",
   "pyright",
   "pyupgrade",
+  "ruff",
   "stub-generator",
   "stubdefaulter@git+https://github.com/JelleZijlstra/stubdefaulter.git",
   "typeshed_client",

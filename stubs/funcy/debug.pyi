@@ -4,7 +4,7 @@ from collections.abc import Callable, Generator
 from typing import Any, Self
 import types
 
-__all__ = ['tap', 'log_calls', 'print_calls', 'log_enters', 'print_enters', 'log_exits', 'print_exits', 'log_errors', 'print_errors', 'log_durations', 'print_durations', 'log_iter_durations', 'print_iter_durations']
+__all__ = ['log_calls', 'log_durations', 'log_enters', 'log_errors', 'log_exits', 'log_iter_durations', 'print_calls', 'print_durations', 'print_enters', 'print_errors', 'print_exits', 'print_iter_durations', 'tap']
 
 def tap(x: Any, label: Any=None) -> Any:
     """Prints x and then returns it."""
@@ -27,6 +27,7 @@ class LabeledContextDecorator:
     """
     A context manager which also works as decorator, passing call signature as its label.
     """
+
     print_func: Incomplete
     label: Incomplete
     repr_len: Incomplete
@@ -35,6 +36,7 @@ class LabeledContextDecorator:
     def decorator(self, func: Any) -> Callable[..., Any]: ...
 class log_errors(LabeledContextDecorator):
     """Logs or prints all errors within a function or block."""
+
     stack: Incomplete
     def __init__(self, print_func: Any, label: Any=None, stack: bool = True, repr_len: Any=...) -> None: ...
     def __enter__(self) -> Self: ...
@@ -44,12 +46,13 @@ print_errors: Incomplete
 
 class log_durations(LabeledContextDecorator):
     """Times each function call or block execution."""
+
     format_time: Incomplete
     threshold: Incomplete
     def __init__(self, print_func: Any, label: Any=None, unit: str = 'auto', threshold: int = -1, repr_len: Any=...) -> None: ...
     start: Incomplete
     def __enter__(self) -> Self: ...
-    def __exit__(self, *exc: Any) -> None: ...
+    def __exit__(self, *exc: object) -> None: ...
 
 print_durations: Incomplete
 
@@ -57,7 +60,6 @@ def log_iter_durations(seq: Any, print_func: Any, label: Any=None, unit: str = '
     """Times processing of each item in seq."""
 def print_iter_durations(seq: Any, label: Any=None, unit: str = 'auto') -> Generator[Incomplete]:
     """Times processing of each item in seq."""
-    ...
 
 def signature_repr(call: Any, repr_len: Any=...) -> str:
     ...

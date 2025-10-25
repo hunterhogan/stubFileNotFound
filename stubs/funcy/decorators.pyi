@@ -5,7 +5,7 @@ from functools import partial
 from inspect import unwrap as unwrap
 from typing import Any
 
-__all__ = ['decorator', 'wraps', 'unwrap', 'ContextDecorator', 'contextmanager']
+__all__ = ['ContextDecorator', 'contextmanager', 'decorator', 'unwrap', 'wraps']
 def decorator(deco: Any) -> Callable[..., Any]:
     """
     Transforms a flat wrapper into decorator::
@@ -20,7 +20,6 @@ def decorator(deco: Any) -> Callable[..., Any]:
             # Finally make a call:
             return call()
     """
-    ...
 
 def make_decorator(deco: Any, dargs: Any=..., dkwargs: Any=...) -> Callable[..., Any]:
     ...
@@ -32,12 +31,11 @@ class Call:
     Call object is just a proxy for decorated function
     with call arguments saved in its attributes.
     """
+
     def __init__(self, func: Any, args: Any, kwargs: Any) -> None: ...
     def __call__(self, *a: Any, **kw: Any) -> Any: ...
     def __getattr__(self, name: Any) -> Any | defaultdict[Any, Any] | dict[Any, Any] | list[Any] | Generator[tuple[Any, Any], None, None]:
         ...
-    def __str__(self) -> str: ...
-    def __repr__(self) -> str: ...
 def has_single_arg(func: Any) -> bool:
     ...
 

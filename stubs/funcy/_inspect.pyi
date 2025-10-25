@@ -1,7 +1,6 @@
 from .decorators import unwrap as unwrap
 from _typeshed import Incomplete
-from typing import NamedTuple
-from typing import Any
+from typing import Any, NamedTuple
 
 ARGS: Incomplete
 two_arg_funcs: str

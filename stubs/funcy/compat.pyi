@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from collections import Hashable as Hashable, Iterable as Iterable, Iterator as Iterator, Mapping as Mapping, Sequence as Sequence, Set as Set
+from collections.abc import (
+	Hashable as Hashable, Iterable as Iterable, Iterator as Iterator, Mapping as Mapping, Sequence as Sequence, Set as Set)
 from typing import Any
 
 filter: Incomplete
