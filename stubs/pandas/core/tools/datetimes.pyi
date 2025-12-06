@@ -4,6 +4,7 @@ from datetime import (
     datetime,
 )
 from typing import (
+    Any,
     Literal,
     TypeAlias,
     TypedDict,
@@ -26,9 +27,10 @@ from pandas._typing import (
     IgnoreRaise,
     RaiseCoerce,
     TimestampConvertibleTypes,
-    npt,
+    np_ndarray_dt,
+    np_ndarray_int64,
+    np_ndarray_str,
 )
-from typing import Any
 
 ArrayConvertible: TypeAlias = list[Any] | tuple[Any, ...] | AnyArrayLike
 Scalar: TypeAlias = float | str
@@ -101,9 +103,9 @@ def to_datetime(
         Sequence[float | date]
         | list[str]
         | tuple[float | str | date, ...]
-        | npt.NDArray[np.datetime64]
-        | npt.NDArray[np.str_]
-        | npt.NDArray[np.int_]
+        | np_ndarray_dt
+        | np_ndarray_str
+        | np_ndarray_int64
         | Index[Any]
         | ExtensionArray
     ),

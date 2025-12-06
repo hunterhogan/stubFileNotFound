@@ -12,16 +12,14 @@ from typing import (
 )
 
 import numpy as np
-from pandas import (
-    DataFrame,
-    Series,
-    Timedelta,
-)
+from pandas.core.frame import DataFrame
 from pandas.core.groupby.generic import SeriesGroupBy
 from pandas.core.groupby.groupby import BaseGroupBy
 from pandas.core.groupby.grouper import Grouper
+from pandas.core.series import Series
 from typing_extensions import Self
 
+from pandas._libs.tslibs.timedeltas import Timedelta
 from pandas._typing import (
     S1,
     Axis,
@@ -30,7 +28,7 @@ from pandas._typing import (
     Scalar,
     TimeGrouperOrigin,
     TimestampConvention,
-    npt,
+    np_ndarray_float,
 )
 
 _FrameGroupByFunc: TypeAlias = (
@@ -94,19 +92,6 @@ class Resampler(BaseGroupBy[NDFrameT]):
     def nearest(self, limit: int | None = ...) -> NDFrameT: ...
     @final
     def bfill(self, limit: int | None = ...) -> NDFrameT: ...
-    @overload
-    def interpolate(
-        self,
-        method: InterpolateOptions = ...,
-        *,
-        axis: Axis = ...,
-        limit: int | None = ...,
-        inplace: Literal[True],
-        limit_direction: Literal["forward", "backward", "both"] = ...,
-        limit_area: Literal["inside", "outside"] | None = ...,
-        **kwargs: Any,
-    ) -> None: ...
-    @overload
     def interpolate(
         self,
         method: InterpolateOptions = ...,
@@ -167,7 +152,7 @@ class Resampler(BaseGroupBy[NDFrameT]):
     @final
     def quantile(
         self,
-        q: float | list[float] | npt.NDArray[np.double] | Series[float] = 0.5,
+        q: float | list[float] | np_ndarray_float | Series[float] = 0.5,
         **kwargs: Any,
     ) -> NDFrameT: ...
 
@@ -175,7 +160,7 @@ class Resampler(BaseGroupBy[NDFrameT]):
 # attributes via setattr
 class _GroupByMixin(Resampler[NDFrameT]):
     key: str | list[str] | None
-    def __getitem__(self, key: Any) -> Self: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
+    def __getitem__(self, key: str | list[str] | None) -> Self: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
 
 class DatetimeIndexResampler(Resampler[NDFrameT]): ...
 

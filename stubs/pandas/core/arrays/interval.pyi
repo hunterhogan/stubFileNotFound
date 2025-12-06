@@ -4,12 +4,9 @@ from typing import (
     overload,
 )
 
-import numpy as np
-from pandas import (
-    Index,
-    Series,
-)
 from pandas.core.arrays.base import ExtensionArray as ExtensionArray
+from pandas.core.indexes.base import Index
+from pandas.core.series import Series
 from typing_extensions import Self
 
 from pandas._libs.interval import (
@@ -24,6 +21,8 @@ from pandas._typing import (
     SequenceIndexer,
     TakeIndexer,
     np_1darray,
+    np_1darray_bool,
+    np_ndarray,
 )
 
 IntervalOrNA: TypeAlias = Interval[Any] | float
@@ -32,7 +31,7 @@ class IntervalArray(IntervalMixin, ExtensionArray):
     can_hold_na: bool = ...
     def __new__(
         cls, data: Any, closed: Any=..., dtype: Any=..., copy: bool = ..., verify_integrity: bool = ...
-    ) -> Any: ...
+    ) -> Self: ...
     @classmethod
     def from_breaks(
         cls,
@@ -40,7 +39,7 @@ class IntervalArray(IntervalMixin, ExtensionArray):
         closed: str = "right",
         copy: bool = False,
         dtype: Any=None,
-    ) -> Any: ...
+    ) -> Self: ...
     @classmethod
     def from_arrays(
         cls,
@@ -49,7 +48,7 @@ class IntervalArray(IntervalMixin, ExtensionArray):
         closed: str = "right",
         copy: bool = False,
         dtype: Any=...,
-    ) -> Any: ...
+    ) -> Self: ...
     @classmethod
     def from_tuples(
         cls,
@@ -57,14 +56,14 @@ class IntervalArray(IntervalMixin, ExtensionArray):
         closed: str = "right",
         copy: bool = False,
         dtype: Any=None,
-    ) -> Any: ...
+    ) -> Self: ...
     def __array__(
         self, dtype: NpDtype | None = None, copy: bool | None = None
     ) -> np_1darray: ...
     @overload
-    def __getitem__(self, key: ScalarIndexer) -> IntervalOrNA: ...
+    def __getitem__(self, item: ScalarIndexer) -> IntervalOrNA: ...
     @overload
-    def __getitem__(self, key: SequenceIndexer) -> Self: ...
+    def __getitem__(self, item: SequenceIndexer) -> Self: ...
     def __setitem__(self, key: Any, value: Any) -> None: ...
     def __eq__(self, other: Any) -> Any: ...
     def __ne__(self, other: Any) -> Any: ...
@@ -107,6 +106,6 @@ class IntervalArray(IntervalMixin, ExtensionArray):
     def contains(self, other: Series) -> Series[bool]: ...
     @overload
     def contains(
-        self, other: Scalar | ExtensionArray | Index[Any] | np.ndarray[Any, Any]
-    ) -> np_1darray[np.bool]: ...
+        self, other: Scalar | ExtensionArray | Index[Any] | np_ndarray
+    ) -> np_1darray_bool: ...
     def overlaps(self, other: Interval[Any]) -> bool: ...

@@ -1,19 +1,19 @@
+from collections.abc import Sequence
 from typing import (
     TypeAlias,
     TypeVar,
 )
 
-from pandas.core.indexes.api import Index
+from pandas.core.base import IndexOpsMixin
 
 from pandas._libs.indexing import _NDFrameIndexerBase
 from pandas._typing import (
     MaskType,
     Scalar,
-    ScalarT,
 )
 from typing import Any
 
-_IndexSliceTuple: TypeAlias = tuple[Index[Any] | MaskType | Scalar | list[ScalarT] | slice | tuple[Scalar, ...], ...]
+_IndexSliceTuple: TypeAlias = tuple[IndexOpsMixin | MaskType | Scalar | Sequence[Scalar] | slice, ...]
 
 _IndexSliceUnion: TypeAlias = slice | _IndexSliceTuple[Any]
 

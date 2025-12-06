@@ -1,18 +1,20 @@
 from collections.abc import (
     Callable,
+    MutableMapping,
     Sequence,
 )
 from typing import (
     Any,
+    Concatenate,
     Literal,
     Protocol,
     overload,
 )
 
 from matplotlib.colors import Colormap
-import numpy as np
 from pandas.core.frame import DataFrame
 from pandas.core.series import Series
+from typing_extensions import Self
 
 from pandas._typing import (
     Axis,
@@ -24,13 +26,15 @@ from pandas._typing import (
     IndexLabel,
     IntervalClosedType,
     Level,
+    P,
     QuantileInterpolation,
     Scalar,
     StorageOptions,
     T,
     WriteBuffer,
     WriteExcelBuffer,
-    npt,
+    np_ndarray,
+    np_ndarray_str,
 )
 
 from pandas.io.excel import ExcelWriter
@@ -51,7 +55,7 @@ class _SeriesFunc(Protocol):
 class _DataFrameFunc(Protocol):
     def __call__(
         self, series: DataFrame, /, *args: Any, **kwargs: Any
-    ) -> npt.NDArray[Any] | DataFrame: ...
+    ) -> np_ndarray | DataFrame: ...
 
 class _MapCallable(Protocol):
     def __call__(
@@ -224,7 +228,7 @@ class Styler(StylerRenderer):
     ) -> str: ...
     def set_td_classes(self, classes: DataFrame) -> Styler: ...
     def __copy__(self) -> Styler: ...
-    def __deepcopy__(self, memo: Any) -> Styler: ...
+    def __deepcopy__(self, memo: MutableMapping[int, Any] | None) -> Styler: ...
     def clear(self) -> None: ...
     @overload
     def apply(
@@ -237,14 +241,14 @@ class Styler(StylerRenderer):
     @overload
     def apply(
         self,
-        func: _DataFrameFunc | Callable[[DataFrame], npt.NDArray[Any] | DataFrame],
+        func: _DataFrameFunc | Callable[[DataFrame], np_ndarray | DataFrame],
         axis: None,
         subset: Subset[Any] | None = ...,
         **kwargs: Any,
     ) -> Styler: ...
     def apply_index(
         self,
-        func: Callable[[Series], npt.NDArray[np.str_] | list[str] | Series[str]],
+        func: Callable[[Series], list[str] | np_ndarray_str | Series[str]],
         axis: Axis = ...,
         level: Level | list[Level] | None = ...,
         **kwargs: Any,
@@ -294,7 +298,7 @@ class Styler(StylerRenderer):
         gmap: (
             Sequence[float]
             | Sequence[Sequence[float]]
-            | npt.NDArray[Any]
+            | np_ndarray
             | DataFrame
             | Series
             | None
@@ -312,7 +316,7 @@ class Styler(StylerRenderer):
         gmap: (
             Sequence[float]
             | Sequence[Sequence[float]]
-            | npt.NDArray[Any]
+            | np_ndarray
             | DataFrame
             | Series
             | None
@@ -333,7 +337,7 @@ class Styler(StylerRenderer):
         align: (
             Literal["left", "right", "zero", "mid", "mean"]
             | float
-            | Callable[[Series | npt.NDArray[Any] | DataFrame], float]
+            | Callable[[Series | np_ndarray | DataFrame], float]
         ) = "mid",
         vmin: float | None = None,
         vmax: float | None = None,
@@ -389,7 +393,10 @@ class Styler(StylerRenderer):
     ) -> type[Styler]: ...
     def pipe(
         self,
-        func: Callable[..., T] | tuple[Callable[..., T], str],
-        *args: Any,
-        **kwargs: Any,
+        func: (
+            Callable[Concatenate[Self, P], T]
+            | tuple[Callable[Concatenate[Self, P], T], str]
+        ),
+        *args: P.args,
+        **kwargs: P.kwargs,
     ) -> T: ...

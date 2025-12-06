@@ -5,7 +5,6 @@ from typing import (
     overload,
 )
 
-import numpy as np
 from pandas.core.arrays.base import (
     ExtensionArray,
     ExtensionOpsMixin,
@@ -65,8 +64,6 @@ class DatetimeLikeArrayMixin(ExtensionOpsMixin, ExtensionArray):
     def ravel(self, *args: Any, **kwargs: Any) -> Any: ...
     def __iter__(self) -> Any: ...
     @property
-    def asi8(self) -> np.ndarray[Any, Any]: ...
-    @property
     def nbytes(self) -> Any: ...
     def __array__(
         self, dtype: NpDtype | None = None, copy: bool | None = None
@@ -76,9 +73,9 @@ class DatetimeLikeArrayMixin(ExtensionOpsMixin, ExtensionArray):
     @overload
     def __getitem__(self, key: ScalarIndexer) -> DTScalarOrNaT: ...
     @overload
-    def __getitem__(
+    def __getitem__(  # ty: ignore[invalid-method-override]
         self,
-        key: SequenceIndexer | PositionalIndexerTuple,
+        item: SequenceIndexer | PositionalIndexerTuple,
     ) -> Self: ...
     def __setitem__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride]
         self, key: int | Sequence[int] | Sequence[bool] | slice, value: Any

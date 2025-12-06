@@ -7,7 +7,7 @@ from pandas import (
 
 from pandas._typing import (
     ArrayLike,
-    npt,
+    np_1darray,
 )
 from typing import Any
 
@@ -17,10 +17,10 @@ def hash_pandas_object(
     encoding: str = "utf8",
     hash_key: str | None = "0123456789123456",
     categorize: bool = True,
-) -> Series: ...
+) -> Series[int]: ...
 def hash_array(
     vals: ArrayLike,
     encoding: str = "utf8",
     hash_key: str = "0123456789123456",
     categorize: bool = True,
-) -> npt.NDArray[np.uint64]: ...
+) -> np_1darray[np.uint64]: ...

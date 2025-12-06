@@ -12,7 +12,6 @@ from typing import (
     type_check_only,
 )
 
-import numpy as np
 from pandas.core.accessor import PandasDelegate
 from pandas.core.arrays.base import ExtensionArray
 from pandas.core.arrays.categorical import Categorical
@@ -45,7 +44,8 @@ from pandas._typing import (
     TimestampConvention,
     TimeUnit,
     TimeZones,
-    np_1darray,
+    np_1darray_bool,
+    np_1darray_object,
     np_ndarray_bool,
 )
 
@@ -97,7 +97,7 @@ class _DatetimeFieldOps(
 ): ...
 
 _DTBoolOpsReturnType = TypeVar(
-    "_DTBoolOpsReturnType", bound=Series[bool] | np_1darray[np.bool]
+    "_DTBoolOpsReturnType", bound=Series[bool] | np_1darray_bool
 )
 
 class _IsLeapYearProperty(Generic[_DTBoolOpsReturnType]):
@@ -135,10 +135,10 @@ class _DatetimeObjectOps(
 ): ...
 
 _DTOtherOpsDateReturnType = TypeVar(
-    "_DTOtherOpsDateReturnType", bound=Series[date] | np_1darray[np.object_]
+    "_DTOtherOpsDateReturnType", bound=Series[date] | np_1darray_object
 )
 _DTOtherOpsTimeReturnType = TypeVar(
-    "_DTOtherOpsTimeReturnType", bound=Series[time] | np_1darray[np.object_]
+    "_DTOtherOpsTimeReturnType", bound=Series[time] | np_1darray_object
 )
 
 class _DatetimeOtherOps(Generic[_DTOtherOpsDateReturnType, _DTOtherOpsTimeReturnType]):
@@ -286,7 +286,7 @@ class DatetimeProperties(
         _DTToPeriodReturnType,
     ],
 ):
-    def to_pydatetime(self) -> np_1darray[np.object_]: ...
+    def to_pydatetime(self) -> np_1darray_object: ...
     def isocalendar(self) -> DataFrame: ...
     @property
     def unit(self) -> TimeUnit: ...
@@ -302,7 +302,7 @@ _TDTotalSecondsReturnType = TypeVar(
 class _TimedeltaPropertiesNoRounding(
     Generic[_TDNoRoundingMethodReturnType, _TDTotalSecondsReturnType]
 ):
-    def to_pytimedelta(self) -> np_1darray[np.object_]: ...
+    def to_pytimedelta(self) -> np_1darray_object: ...
     @property
     def components(self) -> DataFrame: ...
     @property
@@ -403,10 +403,10 @@ class TimestampProperties(
 class DatetimeIndexProperties(
     Properties,
     _DatetimeNoTZProperties[Index[int],
-        np_1darray[np.bool],
+        np_1darray_bool,
         DatetimeIndex,
-        np_1darray[np.object_],
-        np_1darray[np.object_],
+        np_1darray_object,
+        np_1darray_object,
         BaseOffset,
         DatetimeIndex,
         Index[Any],
@@ -418,7 +418,7 @@ class DatetimeIndexProperties(
     def is_normalized(self) -> bool: ...
     @property
     def tzinfo(self) -> _tzinfo | None: ...
-    def to_pydatetime(self) -> np_1darray[np.object_]: ...
+    def to_pydatetime(self) -> np_1darray_object: ...
     def std(
         self, axis: int | None = ..., ddof: int = ..., skipna: bool = ...
     ) -> Timedelta: ...

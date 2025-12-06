@@ -3,6 +3,7 @@ from collections.abc import (
     Generator,
     Iterable,
     Mapping,
+    Sequence,
 )
 import sqlite3
 from typing import (
@@ -22,6 +23,7 @@ from pandas._typing import (
     DtypeArg,
     DtypeBackend,
     Scalar,
+    SequenceNotStr,
     npt,
 )
 
@@ -104,18 +106,17 @@ def read_sql_query(
 def read_sql(
     sql: _SQLStatement,
     con: _SQLConnection,
-    index_col: str | list[str] | None = ...,
-    coerce_float: bool = ...,
+    index_col: str | list[str] | None = None,
+    coerce_float: bool = True,
     params: (
-        list[Scalar]
-        | tuple[Scalar, ...]
+        Sequence[Scalar]
         | tuple[tuple[Scalar, ...], ...]
         | Mapping[str, Scalar]
         | Mapping[str, tuple[Scalar, ...]]
         | None
-    ) = ...,
-    parse_dates: list[str] | dict[str, str] | dict[str, dict[str, Any]] | None = ...,
-    columns: list[str] | None = ...,
+    ) = None,
+    parse_dates: list[str] | dict[str, str] | dict[str, dict[str, Any]] | None = None,
+    columns: list[str] | None = None,
     *,
     chunksize: int,
     dtype: DtypeArg | None = ...,
@@ -125,20 +126,19 @@ def read_sql(
 def read_sql(
     sql: _SQLStatement,
     con: _SQLConnection,
-    index_col: str | list[str] | None = ...,
-    coerce_float: bool = ...,
+    index_col: str | list[str] | None = None,
+    coerce_float: bool = True,
     params: (
-        list[Scalar]
-        | tuple[Scalar, ...]
+        Sequence[Scalar]
         | tuple[tuple[Scalar, ...], ...]
         | Mapping[str, Scalar]
         | Mapping[str, tuple[Scalar, ...]]
         | None
-    ) = ...,
-    parse_dates: list[str] | dict[str, str] | dict[str, dict[str, Any]] | None = ...,
-    columns: list[str] | None = ...,
+    ) = None,
+    parse_dates: list[str] | dict[str, str] | dict[str, dict[str, Any]] | None = None,
+    columns: list[str] | None = None,
     chunksize: None = None,
-    dtype: DtypeArg | None = ...,
+    dtype: DtypeArg | None = None,
     dtype_backend: DtypeBackend | _NoDefaultDoNotUse = ...,
 ) -> DataFrame: ...
 
@@ -147,19 +147,19 @@ class PandasSQL:
         self,
         frame: DataFrame,
         name: str,
-        if_exists: Literal["fail", "replace", "append"] = ...,
-        index: bool = ...,
-        index_label: Any=...,
-        schema: str | None = ...,
-        chunksize: Any=...,
-        dtype: DtypeArg | None = ...,
+        if_exists: Literal["fail", "replace", "append", "delete_rows"] = "fail",
+        index: bool = True,
+        index_label: str | SequenceNotStr[str] | None = None,
+        schema: str | None = None,
+        chunksize: int | None = None,
+        dtype: DtypeArg | None = None,
         method: (
             Literal["multi"]
             | Callable[[SQLTable, Any, list[str], Iterable[Any]], int | None]
             | None
-        ) = ...,
-        engine: str = ...,
-        **engine_kwargs: dict[str, Any] | None,
+        ) = None,
+        engine: str = "auto",
+        **engine_kwargs: Any,
     ) -> int | None: ...
 
 class SQLTable:
@@ -169,7 +169,7 @@ class SQLTable:
     frame: DataFrame | None
     index: list[str]
     schema: str
-    if_exists: Literal["fail", "replace", "append"]
+    if_exists: Literal["fail", "replace", "append", "delete_rows"]
     keys: list[str]
     dtype: DtypeArg | None
     table: Any  # sqlalchemy.Table
@@ -177,14 +177,14 @@ class SQLTable:
         self,
         name: str,
         pandas_sql_engine: PandasSQL,
-        frame: DataFrame | None = ...,
-        index: bool | str | list[str] | None = ...,
-        if_exists: Literal["fail", "replace", "append"] = ...,
-        prefix: str = ...,
-        index_label: str | list[str] | None = ...,
-        schema: str | None = ...,
-        keys: str | list[str] | None = ...,
-        dtype: DtypeArg | None = ...,
+        frame: DataFrame | None = None,
+        index: bool | str | list[str] | None = True,
+        if_exists: Literal["fail", "replace", "append", "delete_rows"] = "fail",
+        prefix: str = "pandas",
+        index_label: str | list[str] | None = None,
+        schema: str | None = None,
+        keys: str | list[str] | None = None,
+        dtype: DtypeArg | None = None,
     ) -> None: ...
     def exists(self) -> bool: ...
     def sql_schema(self) -> str: ...

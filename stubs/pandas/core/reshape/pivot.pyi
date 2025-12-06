@@ -6,6 +6,7 @@ from collections.abc import (
 )
 import datetime
 from typing import (
+    Any,
     Literal,
     TypeAlias,
     overload,
@@ -27,9 +28,8 @@ from pandas._typing import (
     Label,
     Scalar,
     ScalarT,
-    npt,
+    np_ndarray,
 )
-from typing import Any
 
 _PivotAggCallable: TypeAlias = Callable[[Series], ScalarT]
 
@@ -65,54 +65,54 @@ _ExtendedAnyArrayLike: TypeAlias = AnyArrayLike | ArrayLike
 @overload
 def pivot_table(
     data: DataFrame,
-    values: _PivotTableValuesTypes[Any] = ...,
-    index: _PivotTableIndexTypes[Any] = ...,
-    columns: _PivotTableColumnsTypes[Any] = ...,
+    values: _PivotTableValuesTypes[Any] = None,
+    index: _PivotTableIndexTypes[Any] = None,
+    columns: _PivotTableColumnsTypes[Any] = None,
     aggfunc: (
         _PivotAggFunc | Sequence[_PivotAggFunc] | Mapping[Hashable, _PivotAggFunc]
-    ) = ...,
-    fill_value: Scalar | None = ...,
-    margins: bool = ...,
-    dropna: bool = ...,
-    margins_name: str = ...,
-    observed: bool = ...,
-    sort: bool = ...,
+    ) = "mean",
+    fill_value: Scalar | None = None,
+    margins: bool = False,
+    dropna: bool = True,
+    margins_name: Hashable = "All",
+    observed: bool = True,
+    sort: bool = True,
 ) -> DataFrame: ...
 
 # Can only use Index or ndarray when index or columns is a Grouper
 @overload
 def pivot_table(
     data: DataFrame,
-    values: _PivotTableValuesTypes[Any] = ...,
+    values: _PivotTableValuesTypes[Any] = None,
     *,
     index: Grouper,
-    columns: _PivotTableColumnsTypes[Any] | Index[Any] | npt.NDArray[Any] = ...,
+    columns: _PivotTableColumnsTypes[Any] | np_ndarray | Index[Any] = None,
     aggfunc: (
         _PivotAggFunc | Sequence[_PivotAggFunc] | Mapping[Hashable, _PivotAggFunc]
-    ) = ...,
-    fill_value: Scalar | None = ...,
-    margins: bool = ...,
-    dropna: bool = ...,
-    margins_name: str = ...,
-    observed: bool = ...,
-    sort: bool = ...,
+    ) = "mean",
+    fill_value: Scalar | None = None,
+    margins: bool = False,
+    dropna: bool = True,
+    margins_name: Hashable = "All",
+    observed: bool = True,
+    sort: bool = True,
 ) -> DataFrame: ...
 @overload
 def pivot_table(
     data: DataFrame,
-    values: _PivotTableValuesTypes[Any] = ...,
-    index: _PivotTableIndexTypes[Any] | Index[Any] | npt.NDArray[Any] = ...,
+    values: _PivotTableValuesTypes[Any] = None,
+    index: _PivotTableIndexTypes[Any] | np_ndarray | Index[Any] = None,
     *,
     columns: Grouper,
     aggfunc: (
         _PivotAggFunc | Sequence[_PivotAggFunc] | Mapping[Hashable, _PivotAggFunc]
-    ) = ...,
-    fill_value: Scalar | None = ...,
-    margins: bool = ...,
-    dropna: bool = ...,
-    margins_name: str = ...,
-    observed: bool = ...,
-    sort: bool = ...,
+    ) = "mean",
+    fill_value: Scalar | None = None,
+    margins: bool = False,
+    dropna: bool = True,
+    margins_name: Hashable = "All",
+    observed: bool = True,
+    sort: bool = True,
 ) -> DataFrame: ...
 def pivot(
     data: DataFrame,

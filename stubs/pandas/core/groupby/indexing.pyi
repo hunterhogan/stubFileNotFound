@@ -17,16 +17,14 @@ _GroupByT = TypeVar("_GroupByT", bound=groupby.GroupBy[Any])
 
 class GroupByIndexingMixin: ...
 
-class GroupByPositionalSelector:
-    groupby_object: groupby.GroupBy[Any]
-    def __getitem__(self, arg: PositionalIndexer | tuple[Any, ...]) -> DataFrame | Series: ...
-
 class GroupByNthSelector(Generic[_GroupByT]):
     groupby_object: _GroupByT
 
     def __call__(
         self,
-        n: PositionalIndexer | tuple[Any, ...],
+        n: PositionalIndexer | tuple[int, ...],
         dropna: Literal["any", "all"] | None = ...,
     ) -> DataFrame | Series: ...
-    def __getitem__(self, n: PositionalIndexer | tuple[Any, ...]) -> DataFrame | Series: ...
+    def __getitem__(
+        self, n: PositionalIndexer | tuple[int, ...]
+    ) -> DataFrame | Series: ...

@@ -64,7 +64,8 @@ from pandas._typing import (
     TimestampConvertibleTypes,
     WindowingEngine,
     WindowingEngineKwargs,
-    npt,
+    np_ndarray_dt,
+    np_ndarray_int64,
 )
 
 from pandas.plotting import PlotAccessor
@@ -77,7 +78,12 @@ _ResamplerGroupBy: TypeAlias = (
 
 class GroupBy(BaseGroupBy[NDFrameT]):
     def __getattr__(self, attr: str) -> Any: ...
-    def apply(self, func: Callable[..., Any] | str, *args: Any, **kwargs: Any) -> NDFrameT: ...
+    def apply(
+        self,
+        func: Callable[Concatenate[NDFrameT, P], Any] | str,
+        *args: P.args,
+        **kwargs: P.kwargs,
+    ) -> NDFrameT: ...
     @final
     @overload
     def any(self: GroupBy[Series], skipna: bool = ...) -> Series[bool]: ...
@@ -240,7 +246,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         adjust: bool = ...,
         ignore_na: bool = ...,
         axis: Axis = ...,
-        times: str | np.ndarray[Any, Any] | Series | np.timedelta64 | None = ...,
+        times: str | np_ndarray_dt | Series | np.timedelta64 | None = ...,
         method: CalculationMethod = ...,
         *,
         selection: IndexLabel | None = ...,
@@ -302,7 +308,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         periods: int | Sequence[int] = 1,
         freq: Frequency | None = ...,
         axis: Axis | _NoDefaultDoNotUse = 0,
-        fill_value: Any=...,
+        fill_value: Scalar | None = None,
         suffix: str | None = ...,
     ) -> NDFrameT: ...
     @final
@@ -357,7 +363,7 @@ class BaseGroupBy(SelectionMixin[NDFrameT], GroupByIndexingMixin):
     def ngroups(self) -> int: ...
     @final
     @property
-    def indices(self) -> dict[Hashable, Index[Any] | npt.NDArray[np.int_] | list[int]]: ...
+    def indices(self) -> dict[Hashable, Index[Any] | np_ndarray_int64 | list[int]]: ...
     @overload
     def pipe(
         self,

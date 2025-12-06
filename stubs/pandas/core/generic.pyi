@@ -7,6 +7,7 @@ from collections.abc import (
     Hashable,
     Iterable,
     Mapping,
+    MutableMapping,
     Sequence,
 )
 import datetime as dt
@@ -20,7 +21,6 @@ from typing import (
     overload,
 )
 
-import numpy as np
 from pandas import Index
 import pandas.core.indexing as indexing
 from pandas.core.resample import DatetimeIndexResampler
@@ -57,6 +57,7 @@ from pandas._typing import (
     TimeGrouperOrigin,
     TimestampConvertibleTypes,
     WriteBuffer,
+    np_ndarray,
 )
 
 from pandas.io.pytables import HDFStore
@@ -99,7 +100,7 @@ class NDFrame(indexing.IndexingMixin):
     @property
     def empty(self) -> _bool: ...
     __array_priority__: int = ...
-    def __array__(self, dtype: Any=...) -> np.ndarray[Any, Any]: ...
+    def __array__(self, dtype: Any=...) -> np_ndarray: ...
     @final
     def to_excel(
         self,
@@ -162,19 +163,20 @@ class NDFrame(indexing.IndexingMixin):
         self,
         name: _str,
         con: str | sqlalchemy.engine.Connectable | sqlite3.Connection,
-        schema: _str | None = ...,
-        if_exists: Literal["fail", "replace", "append"] = "fail",
+        *,
+        schema: _str | None = None,
+        if_exists: Literal["fail", "replace", "append", "delete_rows"] = "fail",
         index: _bool = True,
         index_label: IndexLabel = None,
-        chunksize: int | None = ...,
-        dtype: DtypeArg | None = ...,
+        chunksize: int | None = None,
+        dtype: DtypeArg | None = None,
         method: (
             Literal["multi"]
             | Callable[[SQLTable, Any, list[str], Iterable[tuple[Any, ...]]],
                 int | None,
             ]
             | None
-        ) = ...,
+        ) = None,
     ) -> int | None: ...
     @final
     def to_pickle(
@@ -441,7 +443,7 @@ class NDFrame(indexing.IndexingMixin):
     @final
     def __copy__(self, deep: _bool = ...) -> Self: ...
     @final
-    def __deepcopy__(self, memo: Any=...) -> Self: ...
+    def __deepcopy__(self, memo: MutableMapping[int, Any] | None = None) -> Self: ...
     @final
     def convert_dtypes(
         self,
@@ -467,3 +469,10 @@ class NDFrame(indexing.IndexingMixin):
     ) -> DatetimeIndexResampler[Self]: ...  # pyrefly: ignore[bad-specialization]
     @final
     def take(self, indices: TakeIndexer, axis: Axis = 0, **kwargs: Any) -> Self: ...
+    def xs(
+        self,
+        key: IndexLabel,
+        axis: Axis = 0,
+        level: IndexLabel | None = None,
+        drop_level: _bool = True,
+    ) -> Self | Series: ...

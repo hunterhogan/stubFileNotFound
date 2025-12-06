@@ -4,36 +4,43 @@ from collections.abc import (
 )
 from typing import (
     Any,
-    final,
     overload,
 )
 
 import numpy as np
+from pandas.core.arrays.boolean import BooleanArray
+from pandas.core.base import IndexOpsMixin
 from pandas.core.indexes.base import (
     Index,
     _IndexSubclassBase,
 )
+from typing_extensions import Self
 
 from pandas._typing import (
+    AnyArrayLike,
+    Dtype,
     HashableT,
     MaskType,
-    np_1darray,
+    Scalar,
+    np_1darray_intp,
     np_ndarray_anyint,
+    np_ndarray_bool,
 )
 
 class RangeIndex(_IndexSubclassBase[int, np.int64]):
     def __new__(
         cls,
-        start: int | RangeIndex | range = ...,
-        stop: int = ...,
-        step: int = ...,
-        dtype: Any=...,
-        copy: bool = ...,
-        name: Hashable = ...,
-    ) -> Any: ...
+        start: int | RangeIndex | range | None = None,
+        stop: int | None = None,
+        step: int | None = None,
+        dtype: Dtype | None = None,
+        copy: bool = False,
+        name: Hashable | None = None,
+    ) -> Self: ...
     @classmethod
-    def from_range(cls, data: Any, name: Hashable = ..., dtype: Any=...) -> Any: ...
-    def __reduce__(self) -> Any: ...
+    def from_range(
+        cls, data: range, name: Hashable | None = None, dtype: Dtype | None = None
+    ) -> Self: ...
     @property
     def start(self) -> int: ...
     @property
@@ -53,43 +60,32 @@ class RangeIndex(_IndexSubclassBase[int, np.int64]):
     def is_monotonic_decreasing(self) -> bool: ...
     @property
     def has_duplicates(self) -> bool: ...
-    def __contains__(self, key: int | np.integer) -> bool: ...
-    @final
-    def get_indexer(self, target: Any, method: Any=..., limit: Any=..., tolerance: Any=...) -> Any: ...
-    def tolist(self) -> Any: ...
-    def min(self, axis: Any=..., skipna: bool = ..., *args: Any, **kwargs: Any) -> Any: ...
-    def max(self, axis: Any=..., skipna: bool = ..., *args: Any, **kwargs: Any) -> Any: ...
-    def argsort(self, *args: Any, **kwargs: Any) -> Any: ...
-    def factorize(
+    def factorize(  # ty: ignore[invalid-method-override]
         self, sort: bool = False, use_na_sentinel: bool = True
-    ) -> tuple[np_1darray[np.intp], RangeIndex]: ...
-    def equals(self, other: Any) -> Any: ...
-    @final
-    def join(
-        self,
-        other: Any,
-        *,
-        how: str = ...,
-        level: Any=...,
-        return_indexers: bool = ...,
-        sort: bool = ...,
-    ) -> Any: ...
+    ) -> tuple[np_1darray_intp, RangeIndex]: ...
     @property
     def size(self) -> int: ...
-    def __floordiv__(self, other: Any) -> Any: ...
     def all(self, *args: Any, **kwargs: Any) -> bool: ...
     def any(self, *args: Any, **kwargs: Any) -> bool: ...
-    @final
-    def union(  # type: ignore[override]
-        self, other: list[HashableT] | Index[Any], sort: bool | None = None
-    ) -> Index[Any] | Index[int] | RangeIndex: ...
     @overload  # type: ignore[override]
-    # pyrefly: ignore  # bad-override
-    def __getitem__(
+    def union(  # pyrefly: ignore[bad-override]
+        self, other: Sequence[int] | Index[int] | Self, sort: bool | None = None
+    ) -> Index[int] | Self: ...
+    @overload
+    def union(
+        self, other: Sequence[HashableT] | Index[Any], sort: bool | None = None
+    ) -> Index[Any]: ...
+    @overload  # type: ignore[override]
+    def __getitem__(  # pyrefly: ignore[bad-override]
         self,
         idx: slice | np_ndarray_anyint | Sequence[int] | Index[Any] | MaskType,
     ) -> Index[Any]: ...
     @overload
-    def __getitem__(  # pyright: ignore[reportIncompatibleMethodOverride]
+    def __getitem__(  # pyright: ignore[reportIncompatibleMethodOverride]  # ty: ignore[invalid-method-override]
         self, idx: int
     ) -> int: ...
+    def where(  # type: ignore[override]
+        self,
+        cond: Sequence[bool] | np_ndarray_bool | BooleanArray | IndexOpsMixin[bool],
+        other: Scalar | AnyArrayLike | None = None,
+    ) -> Index[Any]: ...

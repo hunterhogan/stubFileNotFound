@@ -1,10 +1,16 @@
+from collections.abc import Sequence
 from typing import Any
 
 import numpy as np
+from pandas.core.arrays.integer import IntegerArray
 from pandas.core.arrays.masked import BaseMaskedArray as BaseMaskedArray
+from typing_extensions import Self
 
 from pandas._libs.missing import NAType
-from pandas._typing import type_t
+from pandas._typing import (
+    np_ndarray_bool,
+    type_t,
+)
 
 from pandas.core.dtypes.base import ExtensionDtype as ExtensionDtype
 
@@ -16,10 +22,34 @@ class BooleanDtype(ExtensionDtype):
 
 class BooleanArray(BaseMaskedArray):
     def __init__(
-        self, values: np.ndarray[Any, Any], mask: np.ndarray[Any, Any], copy: bool = ...
+        self, values: np_ndarray_bool, mask: np_ndarray_bool, copy: bool = ...
     ) -> None: ...
     @property
     def dtype(self) -> Any: ...
     def __setitem__(self, key: Any, value: Any) -> None: ...
     def any(self, *, skipna: bool = ..., **kwargs: Any) -> Any: ...
     def all(self, *, skipna: bool = ..., **kwargs: Any) -> Any: ...
+    def __and__(
+        self,
+        other: (
+            bool
+            | np.bool
+            | NAType
+            | Sequence[bool | np.bool]
+            | np_ndarray_bool
+            | IntegerArray
+            | Self
+        ),
+    ) -> Self: ...
+    def __rand__(
+        self,
+        other: (
+            bool
+            | np.bool
+            | NAType
+            | Sequence[bool | np.bool]
+            | np_ndarray_bool
+            | IntegerArray
+            | Self
+        ),
+    ) -> Self: ...
