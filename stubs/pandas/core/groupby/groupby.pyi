@@ -18,7 +18,6 @@ from typing import (
 )
 
 import numpy as np
-from pandas.core.base import SelectionMixin
 from pandas.core.frame import DataFrame
 from pandas.core.groupby import generic
 from pandas.core.groupby.indexing import (
@@ -71,9 +70,9 @@ from pandas._typing import (
 from pandas.plotting import PlotAccessor
 
 _ResamplerGroupBy: TypeAlias = (
-    DatetimeIndexResamplerGroupby[NDFrameT]  # ty: ignore[invalid-argument-type]
-    | PeriodIndexResamplerGroupby[NDFrameT]  # ty: ignore[invalid-argument-type]
-    | TimedeltaIndexResamplerGroupby[NDFrameT]  # ty: ignore[invalid-argument-type]
+    DatetimeIndexResamplerGroupby[NDFrameT]
+    | PeriodIndexResamplerGroupby[NDFrameT]
+    | TimedeltaIndexResamplerGroupby[NDFrameT]
 )
 
 class GroupBy(BaseGroupBy[NDFrameT]):
@@ -334,7 +333,7 @@ class GroupBy(BaseGroupBy[NDFrameT]):
         n: int | None = None,
         frac: float | None = None,
         replace: bool = False,
-        weights: Sequence[Any] | Series | None = ...,
+        weights: Sequence[float] | Series | None = ...,
         random_state: RandomState | None = ...,
     ) -> NDFrameT: ...
 
@@ -350,7 +349,7 @@ class GroupByPlot(PlotAccessor, Generic[_GroupByT]):
     # def __call__(self, *args: Any, **kwargs: Any): ...
     # def __getattr__(self, name: str): ...
 
-class BaseGroupBy(SelectionMixin[NDFrameT], GroupByIndexingMixin):
+class BaseGroupBy(GroupByIndexingMixin, Generic[NDFrameT]):
     @final
     def __len__(self) -> int: ...
     @final

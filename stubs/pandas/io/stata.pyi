@@ -1,9 +1,12 @@
-from collections import abc
-from collections.abc import Sequence
+from collections.abc import (
+    Iterator,
+    Sequence,
+)
 import datetime
 from io import BytesIO
 from types import TracebackType
 from typing import (
+    Any,
     Literal,
     overload,
 )
@@ -23,7 +26,6 @@ from pandas._typing import (
     StorageOptions,
     WriteBuffer,
 )
-from typing import Any
 
 @overload
 def read_stata(
@@ -77,7 +79,7 @@ def read_stata(
 class StataParser:
     def __init__(self) -> None: ...
 
-class StataReader(StataParser, abc.Iterator[Any]):
+class StataReader(StataParser, Iterator[Any]):
     col_sizes: list[int] = ...
     path_or_buf: BytesIO = ...
     def __init__(

@@ -69,24 +69,34 @@ def unique(values: T_EXTENSION_ARRAY) -> T_EXTENSION_ARRAY: ...
 @overload
 def factorize(
     values: npt.NDArray[GenericT],
-    sort: bool = ...,
-    use_na_sentinel: bool = ...,
-    size_hint: int | None = ...,
+    sort: bool = False,
+    use_na_sentinel: bool = True,
+    size_hint: int | None = None,
 ) -> tuple[np_1darray_int64, np_1darray[GenericT]]: ...
 @overload
 def factorize(
     values: Index[Any] | Series,
-    sort: bool = ...,
-    use_na_sentinel: bool = ...,
-    size_hint: int | None = ...,
+    sort: bool = False,
+    use_na_sentinel: bool = True,
+    size_hint: int | None = None,
 ) -> tuple[np_1darray_int64, Index[Any]]: ...
 @overload
 def factorize(
     values: Categorical,
-    sort: bool = ...,
-    use_na_sentinel: bool = ...,
-    size_hint: int | None = ...,
+    sort: bool = False,
+    use_na_sentinel: bool = True,
+    size_hint: int | None = None,
 ) -> tuple[np_1darray_int64, Categorical]: ...
+
+# The following unpublished function is added to reduce type checking ignores
+def value_counts(
+    values: np_ndarray,
+    sort: bool = True,
+    ascending: bool = False,
+    normalize: bool = False,
+    bins: int | None = None,
+    dropna: bool = True,
+) -> Series[int]: ...
 def take(
     arr: np_ndarray[Any] | ExtensionArray | Index[Any] | Series,
     indices: TakeIndexer,

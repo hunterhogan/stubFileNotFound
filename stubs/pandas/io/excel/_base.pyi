@@ -8,15 +8,20 @@ from collections.abc import (
 from types import TracebackType
 from typing import (
     Any,
+    BinaryIO,
+    Generic,
     Literal,
+    TypeAlias,
     overload,
 )
 
-from odf.opendocument import OpenDocument  # pyright: ignore[reportMissingTypeStubs]
 from openpyxl.workbook.workbook import Workbook
 from pandas.core.frame import DataFrame
 import pyxlsb.workbook  # pyright: ignore[reportMissingTypeStubs]
-from typing_extensions import Self
+from typing_extensions import (
+    Self,
+    TypeVar,
+)
 from xlrd.book import Book
 
 from pandas._libs.lib import _NoDefaultDoNotUse
@@ -32,12 +37,19 @@ from pandas._typing import (
     ReadBuffer,
     StorageOptions,
     UsecolsArgType,
-    WriteExcelBuffer,
+)
+
+from xlsxwriter.workbook import (  # pyright: ignore[reportMissingTypeStubs] # isort: skip
+    Workbook as XlsxWorkbook,  # pyright: ignore[reportUnknownVariableType]
+)
+
+from odf.opendocument import (  # pyright: ignore[reportMissingTypeStubs] # isort: skip
+    OpenDocument,  # pyright: ignore[reportUnknownVariableType]
 )
 
 @overload
 def read_excel(
-    io: (
+    io: (  # pyright: ignore[reportUnknownParameterType]
         FilePath
         | ReadBuffer[bytes]
         | ExcelFile
@@ -80,7 +92,7 @@ def read_excel(
 ) -> dict[IntStrT, DataFrame]: ...
 @overload
 def read_excel(
-    io: (
+    io: (  # pyright: ignore[reportUnknownParameterType]
         FilePath
         | ReadBuffer[bytes]
         | ExcelFile
@@ -124,7 +136,7 @@ def read_excel(
 @overload
 # mypy says this won't be matched
 def read_excel(  # type: ignore[overload-cannot-match]
-    io: (
+    io: (  # pyright: ignore[reportUnknownParameterType]
         FilePath
         | ReadBuffer[bytes]
         | ExcelFile
@@ -167,7 +179,7 @@ def read_excel(  # type: ignore[overload-cannot-match]
 ) -> dict[int | str, DataFrame]: ...
 @overload
 def read_excel(
-    io: (
+    io: (  # pyright: ignore[reportUnknownParameterType]
         FilePath
         | ReadBuffer[bytes]
         | ExcelFile
@@ -209,18 +221,61 @@ def read_excel(
     engine_kwargs: dict[str, Any] | None = ...,
 ) -> DataFrame: ...
 
-class ExcelWriter:
-    def __init__(
-        self,
-        path: FilePath | WriteExcelBuffer | ExcelWriter,
-        engine: ExcelWriteEngine | Literal["auto"] | None = ...,
-        date_format: str | None = ...,
-        datetime_format: str | None = ...,
-        mode: Literal["w", "a"] = ...,
-        storage_options: StorageOptions = ...,
-        if_sheet_exists: ExcelWriterIfSheetExists | None = ...,
-        engine_kwargs: dict[str, Any] | None = ...,
-    ) -> None: ...
+ExcelWriteWorkbook: TypeAlias = (  # pyright: ignore[reportUnknownVariableType]
+    Workbook | OpenDocument | XlsxWorkbook
+)
+
+_WorkbookT = TypeVar("_WorkbookT", default=ExcelWriteWorkbook, bound=ExcelWriteWorkbook)
+
+class ExcelWriter(Generic[_WorkbookT]):
+    @overload
+    def __new__(
+        cls,
+        path: FilePath | BinaryIO,
+        engine: Literal["openpyxl"],
+        date_format: str | None = None,
+        datetime_format: str | None = None,
+        mode: Literal["w", "a"] = "w",
+        storage_options: StorageOptions = None,
+        if_sheet_exists: ExcelWriterIfSheetExists | None = None,
+        engine_kwargs: Mapping[str, Any] | None = None,
+    ) -> ExcelWriter[Workbook]: ...
+    @overload
+    def __new__(
+        cls,
+        path: FilePath | BinaryIO,
+        engine: Literal["odf"],
+        date_format: str | None = None,
+        datetime_format: str | None = None,
+        mode: Literal["w", "a"] = "w",
+        storage_options: StorageOptions = None,
+        if_sheet_exists: ExcelWriterIfSheetExists | None = None,
+        engine_kwargs: Mapping[str, Any] | None = None,
+    ) -> ExcelWriter[OpenDocument]: ...
+    @overload
+    def __new__(
+        cls,
+        path: FilePath | BinaryIO,
+        engine: Literal["xlsxwriter"],
+        date_format: str | None = None,
+        datetime_format: str | None = None,
+        mode: Literal["w", "a"] = "w",
+        storage_options: StorageOptions = None,
+        if_sheet_exists: ExcelWriterIfSheetExists | None = None,
+        engine_kwargs: Mapping[str, Any] | None = None,
+    ) -> ExcelWriter[XlsxWorkbook]: ...
+    @overload
+    def __new__(
+        cls,
+        path: FilePath | BinaryIO,
+        engine: Literal["auto"] | None = None,
+        date_format: str | None = None,
+        datetime_format: str | None = None,
+        mode: Literal["w", "a"] = "w",
+        storage_options: StorageOptions = None,
+        if_sheet_exists: ExcelWriterIfSheetExists | None = None,
+        engine_kwargs: Mapping[str, Any] | None = None,
+    ) -> ExcelWriter[ExcelWriteWorkbook]: ...
     @property
     def supported_extensions(self) -> tuple[str, ...]: ...
     @property
@@ -228,7 +283,7 @@ class ExcelWriter:
     @property
     def sheets(self) -> dict[str, Any]: ...
     @property
-    def book(self) -> Workbook | OpenDocument: ...
+    def book(self) -> _WorkbookT: ...
     @property
     def date_format(self) -> str: ...
     @property
@@ -255,7 +310,7 @@ class ExcelFile:
         storage_options: StorageOptions = ...,
         engine_kwargs: dict[str, Any] | None = ...,
     ) -> None: ...
-    def __fspath__(self) -> Any: ...
+    def __fspath__(self) -> str: ...
     @overload
     def parse(
         self,

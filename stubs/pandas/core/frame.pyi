@@ -13,6 +13,7 @@ from collections.abc import (
     Iterator,
     Mapping,
     MutableMapping,
+    MutableSequence,
     Sequence,
 )
 import datetime as dt
@@ -57,7 +58,7 @@ from pandas.core.indexing import (
     _LocIndexer,
 )
 from pandas.core.reshape.pivot import (
-    _PivotAggFunc,
+    _PivotAggFuncTypes,
     _PivotTableColumnsTypes,
     _PivotTableIndexTypes,
     _PivotTableValuesTypes,
@@ -80,7 +81,6 @@ import xarray as xr
 from pandas._libs.lib import _NoDefaultDoNotUse
 from pandas._libs.missing import NAType
 from pandas._libs.tslibs import BaseOffset
-from pandas._libs.tslibs.nattype import NaTType
 from pandas._typing import (
     S2,
     AggFuncTypeBase,
@@ -145,6 +145,7 @@ from pandas._typing import (
     Renamer,
     ReplaceValue,
     Scalar,
+    ScalarOrNA,
     ScalarT,
     SequenceNotStr,
     SeriesByT,
@@ -180,6 +181,26 @@ _T_MUTABLE_MAPPING_co = TypeVar(
     "_T_MUTABLE_MAPPING_co", bound=MutableMapping[Any, Any], covariant=True
 )
 
+_iLocSetItemKey: TypeAlias = (
+    int
+    | IndexType
+    | tuple[int, int]
+    | tuple[IndexType, int]
+    | tuple[IndexType, IndexType]
+    | tuple[int, IndexType]
+)
+_LocSetItemKey: TypeAlias = (
+    MaskType | Hashable | _IndexSliceTuple[Any] | Iterable[Scalar] | IndexingInt | slice
+)
+_SetItemValueNotDataFrame: TypeAlias = (
+    ScalarOrNA
+    | Sequence[ScalarOrNA]
+    | Sequence[Sequence[ScalarOrNA]]
+    | Mapping[Any, ScalarOrNA]
+    | ArrayLike
+    | IndexOpsMixin
+)
+
 class _iLocIndexerFrame(_iLocIndexer, Generic[_T]):
     @overload
     def __getitem__(self, key: tuple[int, int]) -> Scalar: ...
@@ -201,27 +222,13 @@ class _iLocIndexerFrame(_iLocIndexer, Generic[_T]):
     ) -> _T: ...
 
     # Keep in sync with `DataFrame.__setitem__`
+    @overload
     def __setitem__(
-        self,
-        key: (
-            int
-            | IndexType
-            | tuple[int, int]
-            | tuple[IndexType, int]
-            | tuple[IndexType, IndexType]
-            | tuple[int, IndexType]
-        ),
-        value: (
-            Scalar
-            | IndexOpsMixin
-            | Sequence[Scalar]
-            | DataFrame
-            | np_ndarray
-            | NAType
-            | NaTType
-            | Mapping[Hashable, Scalar | NAType | NaTType]
-            | None
-        ),
+        self, key: tuple[slice, Hashable], value: _SetItemValueNotDataFrame
+    ) -> None: ...
+    @overload
+    def __setitem__(
+        self, key: _iLocSetItemKey, value: _SetItemValueNotDataFrame | DataFrame
     ) -> None: ...
 
 class _LocIndexerFrame(_LocIndexer, Generic[_T]):
@@ -277,100 +284,44 @@ class _LocIndexerFrame(_LocIndexer, Generic[_T]):
     # Keep in sync with `DataFrame.__setitem__`
     @overload
     def __setitem__(
-        self,
-        key: (
-            MaskType | StrLike | _IndexSliceTuple[Any] | list[ScalarT] | IndexingInt | slice
-        ),
-        value: (
-            Scalar
-            | NAType
-            | NaTType
-            | ArrayLike
-            | IndexOpsMixin
-            | Sequence[Scalar]
-            | Sequence[Sequence[Scalar]]
-            | DataFrame
-            | Mapping[Hashable, Scalar | NAType | NaTType]
-            | None
-        ),
+        self, key: tuple[_IndexSliceTuple[Any], Hashable], value: _SetItemValueNotDataFrame
     ) -> None: ...
     @overload
     def __setitem__(
-        self,
-        key: tuple[_IndexSliceTuple[Any], Hashable],
-        value: (
-            Scalar
-            | NAType
-            | NaTType
-            | ArrayLike
-            | IndexOpsMixin
-            | Sequence[Scalar]
-            | Sequence[Sequence[Scalar]]
-            | Mapping[Hashable, Scalar | NAType | NaTType]
-            | None
-        ),
+        self, key: _LocSetItemKey, value: _SetItemValueNotDataFrame | DataFrame
     ) -> None: ...
 
 class _iAtIndexerFrame(_iAtIndexer):
-    def __getitem__(self, key: tuple[int, int]) -> Scalar: ...
-    def __setitem__(
-        self,
-        key: tuple[int, int],
-        value: Scalar | NAType | NaTType | None,
+    def __getitem__(self, key: tuple[int, int]) -> Scalar: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override]
+    def __setitem__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override]
+        self, key: tuple[int, int], value: ScalarOrNA
     ) -> None: ...
 
 class _AtIndexerFrame(_AtIndexer):
-    def __getitem__(
-        self,
-        key: tuple[int
-            | StrLike
-            | Timestamp
-            | tuple[Scalar, ...]
-            | Callable[[DataFrame], ScalarT],
-            int | StrLike | tuple[Scalar, ...],
-        ],
+    def __getitem__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override]
+        self, key: tuple[Hashable, Hashable]
     ) -> Scalar: ...
-    def __setitem__(
-        self,
-        key: (
-            MaskType | StrLike | _IndexSliceTuple[Any] | list[ScalarT] | IndexingInt | slice
-        ),
-        value: (
-            Scalar
-            | NAType
-            | NaTType
-            | ArrayLike
-            | IndexOpsMixin
-            | DataFrame
-            | Sequence[Scalar]
-            | Sequence[Sequence[Scalar]]
-            | Mapping[Hashable, Scalar | NAType | NaTType]
-            | None
-        ),
+    def __setitem__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override]
+        self, key: tuple[Hashable, Hashable], value: ScalarOrNA
     ) -> None: ...
 
-# With mypy 1.14.1 and python 3.12, the second overload needs a type-ignore statement
-if sys.version_info >= (3, 12):
-    class _GetItemHack:
-        @overload
-        def __getitem__(self, key: Scalar | tuple[Hashable, ...]) -> Series: ...  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
+class _GetItemHack:
+    @overload
+    def __getitem__(self, key: Scalar | tuple[Hashable, ...]) -> Series: ...  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
+    # With python 3.12+, the second overload needs a type-ignore statement
+    if sys.version_info >= (3, 12):
         @overload
         def __getitem__(  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
             self, key: Iterable[Hashable] | slice
         ) -> Self: ...
-        @overload
-        def __getitem__(self, key: Hashable) -> Series: ...
-
-else:
-    class _GetItemHack:
-        @overload
-        def __getitem__(self, key: Scalar | tuple[Hashable, ...]) -> Series: ...  # type: ignore[overload-overlap] # pyright: ignore[reportOverlappingOverload]
+    else:
         @overload
         def __getitem__(  # pyright: ignore[reportOverlappingOverload]
             self, key: Iterable[Hashable] | slice
         ) -> Self: ...
-        @overload
-        def __getitem__(self, key: Hashable) -> Series: ...
+
+    @overload
+    def __getitem__(self, key: Hashable) -> Series: ...
 
 _AstypeArgExt: TypeAlias = (
     AstypeArg
@@ -570,16 +521,29 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         coerce_float: bool = False,
         nrows: int | None = None,
     ) -> Self: ...
-    def to_records(
-        self,
-        index: _bool = True,
-        column_dtypes: (
-            _str | npt.DTypeLike | Mapping[HashableT1, npt.DTypeLike] | None
-        ) = None,
-        index_dtypes: (
-            _str | npt.DTypeLike | Mapping[HashableT2, npt.DTypeLike] | None
-        ) = None,
-    ) -> np.recarray[Any, Any]: ...
+    if sys.version_info >= (3, 11):
+        def to_records(
+            self,
+            index: _bool = True,
+            column_dtypes: (
+                _str | npt.DTypeLike | Mapping[HashableT1, npt.DTypeLike] | None
+            ) = None,
+            index_dtypes: (
+                _str | npt.DTypeLike | Mapping[HashableT2, npt.DTypeLike] | None
+            ) = None,
+        ) -> np.recarray[Any, Any]: ...
+    else:
+        def to_records(
+            self,
+            index: _bool = True,
+            column_dtypes: (
+                _str | npt.DTypeLike | Mapping[HashableT1, npt.DTypeLike] | None
+            ) = None,
+            index_dtypes: (
+                _str | npt.DTypeLike | Mapping[HashableT2, npt.DTypeLike] | None
+            ) = None,
+        ) -> np.recarray[Any, Any]: ...
+
     @overload
     def to_stata(
         self,
@@ -814,80 +778,26 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     # Keep in sync with `_iLocIndexerFrame.__setitem__`
     @overload
     def __setitem__(
-        self,
-        idx: (
-            int
-            | IndexType
-            | tuple[int, int]
-            | tuple[IndexType, int]
-            | tuple[IndexType, IndexType]
-            | tuple[int, IndexType]
-        ),
-        value: (
-            Scalar
-            | IndexOpsMixin
-            | Sequence[Scalar]
-            | DataFrame
-            | np_ndarray
-            | NAType
-            | NaTType
-            | Mapping[Hashable, Scalar | NAType | NaTType]
-            | None
-        ),
+        self, idex: tuple[slice, Hashable], value: _SetItemValueNotDataFrame
+    ) -> None: ...
+    @overload
+    def __setitem__(
+        self, idx: _iLocSetItemKey, value: _SetItemValueNotDataFrame | DataFrame
     ) -> None: ...
     # Keep in sync with `_LocIndexerFrame.__setitem__`
     @overload
     def __setitem__(
-        self,
-        idx: (
-            MaskType | StrLike | _IndexSliceTuple[Any] | list[ScalarT] | IndexingInt | slice
-        ),
-        value: (
-            Scalar
-            | NAType
-            | NaTType
-            | ArrayLike
-            | IndexOpsMixin
-            | Sequence[Scalar]
-            | Sequence[Sequence[Scalar]]
-            | DataFrame
-            | Mapping[Hashable, Scalar | NAType | NaTType]
-            | None
-        ),
+        self, idx: tuple[_IndexSliceTuple[Any], Hashable], value: _SetItemValueNotDataFrame
     ) -> None: ...
     @overload
     def __setitem__(
-        self,
-        idx: tuple[_IndexSliceTuple[Any], Hashable],
-        value: (
-            Scalar
-            | NAType
-            | NaTType
-            | ArrayLike
-            | IndexOpsMixin
-            | Sequence[Scalar]
-            | Sequence[Sequence[Scalar]]
-            | Mapping[Hashable, Scalar | NAType | NaTType]
-            | None
-        ),
+        self, idx: _LocSetItemKey, value: _SetItemValueNotDataFrame | DataFrame
     ) -> None: ...
     # Extra cases not supported by  `_LocIndexerFrame.__setitem__` /
     # `_iLocIndexerFrame.__setitem__`.
     @overload
     def __setitem__(
-        self,
-        idx: IndexOpsMixin | DataFrame,
-        value: (
-            Scalar
-            | NAType
-            | NaTType
-            | ArrayLike
-            | IndexOpsMixin
-            | Sequence[Scalar]
-            | Sequence[Sequence[Scalar]]
-            | Mapping[Hashable, Scalar | NAType | NaTType]
-            | None
-        ),
+        self, idx: IndexOpsMixin | DataFrame, value: _SetItemValueNotDataFrame
     ) -> None: ...
     @overload
     def query(
@@ -898,7 +808,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         engine: Literal["python", "numexpr"] | None = ...,
         local_dict: dict[_str, Any] | None = ...,
         global_dict: dict[_str, Any] | None = ...,
-        resolvers: list[Mapping[Any, Any]] | None = ...,
+        resolvers: MutableSequence[Mapping[Any, Any]] | None = ...,
         level: int = ...,
         target: object | None = ...,
         inplace: Literal[True],
@@ -913,7 +823,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         engine: Literal["python", "numexpr"] | None = ...,
         local_dict: dict[_str, Any] | None = ...,
         global_dict: dict[_str, Any] | None = ...,
-        resolvers: list[Mapping[Any, Any]] | None = ...,
+        resolvers: MutableSequence[Mapping[Any, Any]] | None = ...,
         level: int = ...,
         target: object | None = ...,
     ) -> Self: ...
@@ -1247,7 +1157,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         keep: NsmallestNlargestKeep = "first",
     ) -> Self: ...
     def swaplevel(self, i: Level = ..., j: Level = ..., axis: Axis = 0) -> Self: ...
-    def reorder_levels(self, order: list[Any], axis: Axis = 0) -> Self: ...
+    def reorder_levels(self, order: list[int] | list[str], axis: Axis = 0) -> Self: ...
     def compare(
         self,
         other: DataFrame,
@@ -1460,9 +1370,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         values: _PivotTableValuesTypes[Any] = None,
         index: _PivotTableIndexTypes[Any] = None,
         columns: _PivotTableColumnsTypes[Any] = None,
-        aggfunc: (
-            _PivotAggFunc | Sequence[_PivotAggFunc] | Mapping[Hashable, _PivotAggFunc]
-        ) = "mean",
+        aggfunc: _PivotAggFuncTypes[Scalar] = "mean",
         fill_value: Scalar | None = None,
         margins: _bool = False,
         dropna: _bool = True,
@@ -1704,7 +1612,10 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         validate: MergeValidate | None = None,
     ) -> Self: ...
     def round(
-        self, decimals: int | dict[Any, Any] | Series = ..., *args: Any, **kwargs: Any
+        self,
+        decimals: int | dict[Any, Any] | Series = ...,
+        *args: Any,
+        **kwargs: Any,
     ) -> Self: ...
     def corr(
         self,
@@ -1785,7 +1696,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def hist(
         self,
         by: _str | ListLike | None = None,
-        bins: int | list[Any] = 10,
+        bins: int | Sequence[int] = 10,
         *,
         grid: _bool = True,
         xlabelsize: float | str | None = None,
@@ -2838,8 +2749,12 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     def __rfloordiv__(
         self, other: float | DataFrame | Series[int] | Series[float] | Sequence[float]
     ) -> Self: ...
-    def __truediv__(self, other: float | DataFrame | Series | Sequence[Any]) -> Self: ...
-    def __rtruediv__(self, other: float | DataFrame | Series | Sequence[Any]) -> Self: ...
+    def __truediv__(
+        self, other: float | DataFrame | Series | Sequence[Any]
+    ) -> Self: ...
+    def __rtruediv__(
+        self, other: float | DataFrame | Series | Sequence[Any]
+    ) -> Self: ...
     @final
     def __bool__(self) -> NoReturn: ...
 

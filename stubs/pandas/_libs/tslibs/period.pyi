@@ -61,16 +61,16 @@ class Period(PeriodMixin):
         self,
         value: (
             Period | str | datetime.datetime | datetime.date | Timestamp | None
-        ) = ...,
+        ) = None,
         freq: PeriodFrequency | None = None,
-        ordinal: int | None = ...,
-        year: int | None = ...,
-        month: int | None = ...,
-        quarter: int | None = ...,
-        day: int | None = ...,
-        hour: int | None = ...,
-        minute: int | None = ...,
-        second: int | None = ...,
+        ordinal: int | None = None,
+        year: int | None = None,
+        month: int | None = None,
+        quarter: int | None = None,
+        day: int | None = None,
+        hour: int | None = None,
+        minute: int | None = None,
+        second: int | None = None,
     ) -> None: ...
     @overload
     def __sub__(self, other: _PeriodAddSub) -> Period: ...
@@ -108,7 +108,7 @@ class Period(PeriodMixin):
     @overload
     def __eq__(self, other: Index[Any]) -> np_1darray_bool: ...  # type: ignore[overload-overlap]
     @overload
-    def __eq__(self, other: Series[Period]) -> Series[bool]: ...  # type: ignore[overload-overlap]
+    def __eq__(self, other: Series[Period]) -> Series[bool]: ...  # type: ignore[overload-overlap] # pyrefly: ignore[bad-specialization]
     @overload
     def __eq__(self, other: np_ndarray[ShapeT, np.object_]) -> np_ndarray[ShapeT, np.bool]: ...  # type: ignore[overload-overlap]
     @overload
@@ -168,7 +168,7 @@ class Period(PeriodMixin):
     @overload
     def __ne__(self, other: Index[Any]) -> np_1darray_bool: ...  # type: ignore[overload-overlap]
     @overload
-    def __ne__(self, other: Series[Period]) -> Series[bool]: ...  # type: ignore[overload-overlap]
+    def __ne__(self, other: Series[Period]) -> Series[bool]: ...  # type: ignore[overload-overlap] # pyrefly: ignore[bad-specialization]
     @overload
     def __ne__(self, other: np_ndarray[ShapeT, np.object_]) -> np_ndarray[ShapeT, np.bool]: ...  # type: ignore[overload-overlap]
     @overload

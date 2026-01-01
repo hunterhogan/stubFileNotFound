@@ -1,10 +1,10 @@
 from collections import (
-    abc,
     defaultdict,
 )
 from collections.abc import (
     Callable,
     Hashable,
+    Iterator,
     Mapping,
     Sequence,
 )
@@ -452,7 +452,7 @@ def read_fwf(
     **kwds: Any,
 ) -> DataFrame: ...
 
-class TextFileReader(abc.Iterator[Any]):
+class TextFileReader(Iterator[Any]):
     engine: CSVEngine
     orig_options: Mapping[str, Any]
     chunksize: int | None
@@ -460,7 +460,7 @@ class TextFileReader(abc.Iterator[Any]):
     squeeze: bool
     def __init__(
         self,
-        f: FilePath | ReadCsvBuffer[bytes] | ReadCsvBuffer[str] | list[Any],
+        f: FilePath | ReadCsvBuffer[bytes] | ReadCsvBuffer[str] | list[str],
         engine: CSVEngine | None = ...,
         **kwds: Any,
     ) -> None: ...

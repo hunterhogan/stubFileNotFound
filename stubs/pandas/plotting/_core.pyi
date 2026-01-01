@@ -39,7 +39,7 @@ class _BoxPlotT(NamedTuple):
 _SingleColor: TypeAlias = (
     str | list[float] | tuple[float, float, float] | tuple[float, float, float, float]
 )
-_PlotAccessorColor: TypeAlias = str | list[_SingleColor] | dict[HashableT, _SingleColor]
+_PlotAccessorColor: TypeAlias = str | list[_SingleColor] | dict[Any, _SingleColor]
 
 # Keep in sync with `DataFrame.boxplot`
 @overload
@@ -452,7 +452,7 @@ class PlotAccessor:
         x: Hashable,
         y: Hashable,
         C: Hashable | None = ...,
-        reduce_C_function: Callable[[list], float] | None = ...,
+        reduce_C_function: Callable[[list[Any]], float] | None = ...,
         gridsize: int | tuple[int, int] | None = ...,
         *,
         subplots: Literal[False] | None = ...,
@@ -464,7 +464,7 @@ class PlotAccessor:
         x: Hashable,
         y: Hashable,
         C: Hashable | None = ...,
-        reduce_C_function: Callable[[list], float] | None = ...,
+        reduce_C_function: Callable[[list[Any]], float] | None = ...,
         gridsize: int | tuple[int, int] | None = ...,
         *,
         subplots: Literal[True],

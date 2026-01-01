@@ -1,4 +1,3 @@
-from collections.abc import Sequence
 from datetime import timedelta
 from typing import overload
 
@@ -18,25 +17,18 @@ from typing import Any
 @overload
 def to_timedelta(
     arg: str | float | timedelta,
-    unit: TimeDeltaUnitChoices | None = ...,
-    errors: RaiseCoerce = ...,
+    unit: TimeDeltaUnitChoices | None = None,
+    errors: RaiseCoerce = "raise",
 ) -> Timedelta: ...
 @overload
 def to_timedelta(
     arg: Series,
-    unit: TimeDeltaUnitChoices | None = ...,
-    errors: RaiseCoerce = ...,
+    unit: TimeDeltaUnitChoices | None = None,
+    errors: RaiseCoerce = "raise",
 ) -> Series[Timedelta]: ...
 @overload
 def to_timedelta(
-    arg: (
-        SequenceNotStr[Any]
-        | Sequence[float | timedelta]
-        | tuple[str | float | timedelta, ...]
-        | range
-        | ArrayLike
-        | Index[Any]
-    ),
-    unit: TimeDeltaUnitChoices | None = ...,
-    errors: RaiseCoerce = ...,
+    arg: SequenceNotStr[str | float | timedelta] | range | ArrayLike | Index[Any],
+    unit: TimeDeltaUnitChoices | None = None,
+    errors: RaiseCoerce = "raise",
 ) -> TimedeltaIndex: ...

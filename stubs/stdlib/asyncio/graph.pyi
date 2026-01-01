@@ -10,10 +10,12 @@ if sys.version_info >= (3, 14):
 
     @dataclass(frozen=True, slots=True)
     class FrameCallGraphEntry:
+        __slots__ = ('frame',)
         frame: FrameType
 
     @dataclass(frozen=True, slots=True)
     class FutureCallGraph:
+        __slots__ = ('future', 'call_stack', 'awaited_by')
         future: Future[Any]
         call_stack: tuple[FrameCallGraphEntry, ...]
         awaited_by: tuple[FutureCallGraph, ...]

@@ -7,12 +7,14 @@ from typing import (
     type_check_only,
 )
 
+import numpy as np
 from pandas import (
     IntervalIndex,
     Series,
     Timedelta,
     Timestamp,
 )
+from typing_extensions import Self
 
 from pandas._typing import (
     IntervalClosedType,
@@ -25,7 +27,9 @@ VALID_CLOSED: frozenset[str]
 
 _OrderableScalarT = TypeVar("_OrderableScalarT", bound=int | float)
 _OrderableTimesT = TypeVar("_OrderableTimesT", bound=Timestamp | Timedelta)
-_OrderableT = TypeVar("_OrderableT", bound=int | float | Timestamp | Timedelta)
+_OrderableT = TypeVar(
+    "_OrderableT", bound=int | float | Timestamp | Timedelta, default=Any
+)
 
 @type_check_only
 class _LengthDescriptor:
@@ -65,30 +69,24 @@ class IntervalMixin:
 
 class Interval(IntervalMixin, Generic[_OrderableT]):
     @property
-    def left(self: Interval[_OrderableT]) -> _OrderableT: ...
+    def left(self) -> _OrderableT: ...
     @property
-    def right(self: Interval[_OrderableT]) -> _OrderableT: ...
+    def right(self) -> _OrderableT: ...
     @property
     def closed(self) -> IntervalClosedType: ...
     mid = _MidDescriptor()
     length = _LengthDescriptor()
-    def __init__(
-        self,
+    def __new__(
+        cls,
         left: _OrderableT,
         right: _OrderableT,
-        closed: IntervalClosedType = ...,
-    ) -> None: ...
+        closed: IntervalClosedType = "right",
+    ) -> Self: ...
     def __hash__(self) -> int: ...
-    # for __contains__, it seems that we have to separate out the 4 cases to make
-    # mypy happy
     @overload
-    def __contains__(self: Interval[Timestamp], key: Timestamp) -> bool: ...
+    def __contains__(self: Interval[int], key: float | np.floating) -> bool: ...
     @overload
-    def __contains__(self: Interval[Timedelta], key: Timedelta) -> bool: ...
-    @overload
-    def __contains__(self: Interval[int], key: float) -> bool: ...
-    @overload
-    def __contains__(self: Interval[float], key: float) -> bool: ...
+    def __contains__(self, key: _OrderableT) -> bool: ...
     @overload
     def __add__(self: Interval[Timestamp], y: Timedelta) -> Interval[Timestamp]: ...
     @overload
