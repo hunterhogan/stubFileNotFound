@@ -132,7 +132,7 @@ from pandas._libs.interval import (
     Interval,
     _OrderableT,
 )
-from pandas._libs.lib import _NoDefaultDoNotUse
+from pandas._libs.lib import NoDefaultDoNotUse
 from pandas._libs.missing import NAType
 from pandas._libs.tslibs import BaseOffset
 from pandas._libs.tslibs.nattype import NaTType
@@ -554,7 +554,6 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
     def name(self, value: Hashable | None) -> None: ...
     @property
     def values(self) -> np_1darray | ExtensionArray | Categorical: ...
-    def ravel(self, order: _str = ...) -> np_1darray: ...
     def __len__(self) -> int: ...
     @final
     def __array_ufunc__(
@@ -791,7 +790,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
         as_index: _bool = ...,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> SeriesGroupBy[S1, Scalar]: ...
     @overload
@@ -802,7 +801,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
         as_index: _bool = ...,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> SeriesGroupBy[S1, Timestamp]: ...
     @overload
@@ -813,7 +812,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
         as_index: _bool = ...,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> SeriesGroupBy[S1, Timedelta]: ...
     @overload
@@ -824,7 +823,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
         as_index: _bool = ...,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> SeriesGroupBy[S1, Period]: ...
     @overload
@@ -835,7 +834,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
         as_index: _bool = ...,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> SeriesGroupBy[S1, IntervalT]: ...
     @overload
@@ -846,7 +845,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
         as_index: _bool = ...,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> SeriesGroupBy[S1, tuple[Hashable, ...]]: ...
     @overload
@@ -857,7 +856,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
         as_index: _bool = ...,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> SeriesGroupBy[S1, Scalar]: ...
     @overload
@@ -869,7 +868,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
         as_index: _bool = ...,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> SeriesGroupBy[S1, Scalar]: ...
     @overload
@@ -880,7 +879,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
         as_index: _bool = ...,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> SeriesGroupBy[S1, SeriesByT]: ...
     @overload
@@ -891,7 +890,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
         as_index: _bool = ...,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> SeriesGroupBy[S1, Any]: ...
     def count(self) -> int: ...
@@ -2422,17 +2421,10 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
         fill_value: float | None = None,
         axis: AxisIndex | None = 0,
     ) -> Series[int]: ...
-    if sys.version_info >= (3, 11):
-        @overload
-        def __rfloordiv__(  # type: ignore[overload-overlap]
-            self: Series[Never], other: ScalarArrayIndexSeriesReal
-        ) -> Series: ...
-    else:
-        @overload
-        def __rfloordiv__(
-            self: Series[Never], other: ScalarArrayIndexSeriesReal
-        ) -> Series: ...
-
+    @overload
+    def __rfloordiv__(  # type: ignore[overload-overlap]
+        self: Series[Never], other: ScalarArrayIndexSeriesReal
+    ) -> Series: ...
     @overload
     def __rfloordiv__(self, other: np_ndarray_complex | np_ndarray_dt) -> Never: ...
     @overload
@@ -4709,7 +4701,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
         labels: AxesData[Any],
         *,
         axis: Axis = 0,
-        copy: _bool | _NoDefaultDoNotUse = ...,
+        copy: _bool | NoDefaultDoNotUse = ...,
     ) -> Self: ...
     @final
     def xs(  # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override] # ty: ignore[invalid-method-override]

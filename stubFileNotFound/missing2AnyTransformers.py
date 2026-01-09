@@ -15,13 +15,13 @@ TODO:
 
 # Generic Type Arguments Configuration
 dictionaryGenericTypeArguments: dict[str, list[libcst.BaseExpression]] = {
-	'_IndexSliceTuple': [libcst.Name("Any")],
+	# '_IndexSliceTuple': [libcst.Name("Any")],
 	'_IsLeapYearProperty': [libcst.Name("Any")],
 	'_PeriodProperties': [libcst.Name("Any"), libcst.Name("Any"), libcst.Name("Any"), libcst.Name("Any"), libcst.Name("Any")],
 	'_PivotAggCallable': [libcst.Name("Any")],
-	'_PivotTableColumnsTypes': [libcst.Name("Any")],
-	'_PivotTableIndexTypes': [libcst.Name("Any")],
-	'_PivotTableValuesTypes': [libcst.Name("Any")],
+	# '_PivotTableColumnsTypes': [libcst.Name("Any")],
+	# '_PivotTableIndexTypes': [libcst.Name("Any")],
+	# '_PivotTableValuesTypes': [libcst.Name("Any")],
 	'_PlotAccessorColor': [libcst.Name("Any")],
 	'AbstractSet': [libcst.Name("Any")],
 	'AggFuncTypeDictFrame': [libcst.Name("Any")],

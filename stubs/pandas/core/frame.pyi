@@ -78,7 +78,7 @@ from typing_extensions import (
 )
 import xarray as xr
 
-from pandas._libs.lib import _NoDefaultDoNotUse
+from pandas._libs.lib import NoDefaultDoNotUse
 from pandas._libs.missing import NAType
 from pandas._libs.tslibs import BaseOffset
 from pandas._typing import (
@@ -171,6 +171,7 @@ from pandas._typing import (
     np_ndarray_bool,
     np_ndarray_float,
     np_ndarray_num,
+    np_ndarray_object,
 )
 
 from pandas.io.formats.style import Styler
@@ -190,7 +191,7 @@ _iLocSetItemKey: TypeAlias = (
     | tuple[int, IndexType]
 )
 _LocSetItemKey: TypeAlias = (
-    MaskType | Hashable | _IndexSliceTuple[Any] | Iterable[Scalar] | IndexingInt | slice
+    MaskType | Hashable | _IndexSliceTuple | Iterable[Scalar] | IndexingInt | slice
 )
 _SetItemValueNotDataFrame: TypeAlias = (
     ScalarOrNA
@@ -250,7 +251,7 @@ class _LocIndexerFrame(_LocIndexer, Generic[_T]):
             Callable[[DataFrame], ScalarT]
             | tuple[IndexType
                 | MaskType
-                | _IndexSliceTuple[Any]
+                | _IndexSliceTuple
                 | SequenceNotStr[float | str | Timestamp]
                 | Callable[[DataFrame], ScalarT | list[HashableT] | IndexType | MaskType],
                 ScalarT | None,
@@ -274,7 +275,7 @@ class _LocIndexerFrame(_LocIndexer, Generic[_T]):
                 | MaskType
                 | list[HashableT]
                 | slice
-                | _IndexSliceTuple[Any]
+                | _IndexSliceTuple
                 | Callable[..., Any],
                 MaskType | Iterable[HashableT] | IndexType | Callable[..., Any],
             ]
@@ -284,7 +285,7 @@ class _LocIndexerFrame(_LocIndexer, Generic[_T]):
     # Keep in sync with `DataFrame.__setitem__`
     @overload
     def __setitem__(
-        self, key: tuple[_IndexSliceTuple[Any], Hashable], value: _SetItemValueNotDataFrame
+        self, key: tuple[_IndexSliceTuple, Hashable], value: _SetItemValueNotDataFrame
     ) -> None: ...
     @overload
     def __setitem__(
@@ -787,7 +788,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     # Keep in sync with `_LocIndexerFrame.__setitem__`
     @overload
     def __setitem__(
-        self, idx: tuple[_IndexSliceTuple[Any], Hashable], value: _SetItemValueNotDataFrame
+        self, idx: tuple[_IndexSliceTuple, Hashable], value: _SetItemValueNotDataFrame
     ) -> None: ...
     @overload
     def __setitem__(
@@ -1190,7 +1191,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         as_index: Literal[True] = True,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[Scalar, Literal[True]]: ...
     @overload
@@ -1201,7 +1202,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         as_index: Literal[False] = False,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[Scalar, Literal[False]]: ...
     @overload
@@ -1212,7 +1213,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         as_index: Literal[True] = True,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[Timestamp, Literal[True]]: ...
     @overload
@@ -1223,7 +1224,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         as_index: Literal[False] = False,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[Timestamp, Literal[False]]: ...
     @overload
@@ -1234,7 +1235,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         as_index: Literal[True] = True,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[Timedelta, Literal[True]]: ...
     @overload
@@ -1245,7 +1246,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         as_index: Literal[False] = False,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[Timedelta, Literal[False]]: ...
     @overload
@@ -1256,7 +1257,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         as_index: Literal[True] = True,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[Period, Literal[True]]: ...
     @overload
@@ -1267,7 +1268,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         as_index: Literal[False] = False,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[Period, Literal[False]]: ...
     @overload
@@ -1278,7 +1279,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         as_index: Literal[True] = True,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[IntervalT, Literal[True]]: ...
     @overload
@@ -1289,7 +1290,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         as_index: Literal[False] = False,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[IntervalT, Literal[False]]: ...
     @overload
@@ -1300,7 +1301,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         as_index: Literal[True] = True,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[tuple[Hashable, ...], Literal[True]]: ...
     @overload
@@ -1311,7 +1312,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         as_index: Literal[False] = False,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[tuple[Hashable, ...], Literal[False]]: ...
     @overload
@@ -1322,7 +1323,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         as_index: Literal[True] = True,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[SeriesByT, Literal[True]]: ...
     @overload
@@ -1333,7 +1334,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         as_index: Literal[False] = False,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[SeriesByT, Literal[False]]: ...
     @overload
@@ -1344,7 +1345,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         as_index: Literal[True] = True,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[Any, Literal[True]]: ...
     @overload
@@ -1355,7 +1356,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         as_index: Literal[False] = False,
         sort: _bool = ...,
         group_keys: _bool = ...,
-        observed: _bool | _NoDefaultDoNotUse = ...,
+        observed: _bool | NoDefaultDoNotUse = ...,
         dropna: _bool = ...,
     ) -> DataFrameGroupBy[Any, Literal[False]]: ...
     def pivot(
@@ -1367,9 +1368,9 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
     ) -> Self: ...
     def pivot_table(
         self,
-        values: _PivotTableValuesTypes[Any] = None,
-        index: _PivotTableIndexTypes[Any] = None,
-        columns: _PivotTableColumnsTypes[Any] = None,
+        values: _PivotTableValuesTypes = None,
+        index: _PivotTableIndexTypes = None,
+        columns: _PivotTableColumnsTypes = None,
         aggfunc: _PivotAggFuncTypes[Scalar] = "mean",
         fill_value: Scalar | None = None,
         margins: _bool = False,
@@ -1711,7 +1712,7 @@ class DataFrame(NDFrame, OpsMixin, _GetItemHack):
         backend: _str | None = None,
         legend: bool = False,
         **kwargs: Any,
-    ) -> npt.NDArray[np.object_]: ...
+    ) -> np_ndarray_object: ...
 
     # Keep in sync with `pd.plotting.boxplot`
     @overload

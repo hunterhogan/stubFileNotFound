@@ -15,6 +15,7 @@ from typing import (
 import numpy as np
 import pandas as pd
 from pandas.core.frame import DataFrame
+from pandas.core.groupby.base import ReductionKernelType
 from pandas.core.groupby.grouper import Grouper
 from pandas.core.indexes.base import Index
 from pandas.core.series import Series
@@ -33,8 +34,22 @@ _PivotAggCallable: TypeAlias = Callable[[Series], ScalarT]
 _PivotAggFunc: TypeAlias = (
     _PivotAggCallable[ScalarT]
     | np.ufunc
-    | Literal["mean", "sum", "count", "min", "max", "median", "std", "var"]
+    | ReductionKernelType
+    | Literal["ohlc",
+        "quantile",
+        "bfill",
+        "cummax",
+        "cummin",
+        "cumprod",
+        "cumsum",
+        "diff",
+        "ffill",
+        "pct_change",
+        "rank",
+        "shift",
+    ]
 )
+
 _PivotAggFuncTypes: TypeAlias = (
     _PivotAggFunc[ScalarT]
     | Sequence[_PivotAggFunc[ScalarT]]
