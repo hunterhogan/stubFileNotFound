@@ -1,11 +1,11 @@
-from typing import Any
-
-import numpy as np
-from pandas.core.indexes.extension import ExtensionIndex
-from typing_extensions import (
+from typing import (
+    Any,
     Never,
     Self,
 )
+
+import numpy as np
+from pandas.core.indexes.extension import ExtensionIndex
 
 from pandas._libs.tslibs import BaseOffset
 from pandas._typing import (
@@ -51,10 +51,10 @@ class DatetimeIndexOpsMixin(ExtensionIndex[S1, GenericT_co]):
         *args: Any,
         **kwargs: Any,
     ) -> np.int64: ...
-    def __mul__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override]
+    def __mul__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override] # ty: ignore[invalid-method-override]
         self, other: np_ndarray_complex
     ) -> Never: ...
-    def __rmul__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override]
+    def __rmul__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override] # ty: ignore[invalid-method-override]
         self, other: np_ndarray_complex
     ) -> Never: ...
 

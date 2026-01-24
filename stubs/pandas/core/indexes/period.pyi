@@ -1,20 +1,22 @@
 from collections.abc import Hashable
 import datetime
-from typing import overload
+from typing import (
+    Self,
+    overload,
+)
 
 import numpy as np
 import pandas as pd
 from pandas import Index
+from pandas._stubs_only import PeriodAddSub
 from pandas.core.indexes.accessors import PeriodIndexFieldOps
 from pandas.core.indexes.datetimelike import DatetimeIndexOpsMixin
 from pandas.core.indexes.timedeltas import TimedeltaIndex
-from typing_extensions import Self
 
 from pandas._libs.tslibs import (
     NaTType,
     Period,
 )
-from pandas._libs.tslibs.period import _PeriodAddSub
 from pandas._typing import (
     AxesData,
     Dtype,
@@ -25,7 +27,7 @@ from pandas._typing import (
 )
 from typing import Any
 
-class PeriodIndex(DatetimeIndexOpsMixin[pd.Period, np.object_], PeriodIndexFieldOps):
+class PeriodIndex(DatetimeIndexOpsMixin[Period, np.object_], PeriodIndexFieldOps):
     def __new__(
         cls,
         data: AxesData[Any] | None = None,
@@ -36,10 +38,10 @@ class PeriodIndex(DatetimeIndexOpsMixin[pd.Period, np.object_], PeriodIndexField
     ) -> Self: ...
     @property
     def values(self) -> np_1darray_object: ...
-    def __add__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override]
+    def __add__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override] # ty: ignore[invalid-method-override]
         self, other: datetime.timedelta
     ) -> Self: ...
-    def __radd__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override]
+    def __radd__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override] # ty: ignore[invalid-method-override]
         self, other: datetime.timedelta
     ) -> Self: ...
     @overload  # type: ignore[override]
@@ -47,7 +49,7 @@ class PeriodIndex(DatetimeIndexOpsMixin[pd.Period, np.object_], PeriodIndexField
     @overload
     def __sub__(self, other: Self) -> Index[Any]: ...
     @overload
-    def __sub__(self, other: _PeriodAddSub) -> Self: ...
+    def __sub__(self, other: PeriodAddSub) -> Self: ...
     @overload
     def __sub__(self, other: NaTType) -> NaTType: ...
     @overload

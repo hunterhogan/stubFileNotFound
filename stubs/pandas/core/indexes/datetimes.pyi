@@ -8,10 +8,10 @@ from datetime import (
     timedelta,
     tzinfo as _tzinfo,
 )
-import sys
 from typing import (
-    Any,
     Literal,
+    Never,
+    Self,
     final,
     overload,
 )
@@ -24,10 +24,6 @@ from pandas.core.indexes.base import Index
 from pandas.core.indexes.datetimelike import DatetimeTimedeltaMixin
 from pandas.core.indexes.timedeltas import TimedeltaIndex
 from pandas.core.series import Series
-from typing_extensions import (
-    Never,
-    Self,
-)
 
 from pandas._libs.tslibs.timestamps import Timestamp
 from pandas._typing import (
@@ -47,6 +43,7 @@ from pandas._typing import (
 from pandas.core.dtypes.dtypes import DatetimeTZDtype
 
 from pandas.tseries.offsets import BaseOffset
+from typing import Any
 
 class DatetimeIndex(
     DatetimeTimedeltaMixin[Timestamp, np.datetime64], DatetimeIndexProperties
@@ -66,10 +63,10 @@ class DatetimeIndex(
 
     # various ignores needed for mypy, as we do want to restrict what can be used in
     # arithmetic for these types
-    def __add__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override]
+    def __add__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override] # ty: ignore[invalid-method-override]
         self, other: timedelta | BaseOffset
     ) -> Self: ...
-    def __radd__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override]
+    def __radd__(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override] # ty: ignore[invalid-method-override]
         self, other: timedelta | BaseOffset
     ) -> Self: ...
     @overload  # type: ignore[override]
@@ -80,10 +77,10 @@ class DatetimeIndex(
     def __sub__(  # pyright: ignore[reportIncompatibleMethodOverride] # ty: ignore[invalid-method-override]
         self, other: timedelta | np.timedelta64 | np_ndarray_td | BaseOffset
     ) -> Self: ...
-    def __truediv__(  # type: ignore[override] # pyrefly: ignore[bad-override]
+    def __truediv__(  # type: ignore[override] # pyrefly: ignore[bad-override] # ty: ignore[invalid-method-override]
         self, other: np_ndarray
     ) -> Never: ...
-    def __rtruediv__(  # type: ignore[override] # pyrefly: ignore[bad-override]
+    def __rtruediv__(  # type: ignore[override] # pyrefly: ignore[bad-override] # ty: ignore[invalid-method-override]
         self, other: np_ndarray
     ) -> Never: ...
     @final
@@ -107,13 +104,8 @@ class DatetimeIndex(
     def isocalendar(self) -> DataFrame: ...
     @property
     def tzinfo(self) -> _tzinfo | None: ...
-    if sys.version_info >= (3, 11):
-        @property
-        def dtype(self) -> np.dtype | DatetimeTZDtype: ...
-    else:
-        @property
-        def dtype(self) -> np.dtype[Any] | DatetimeTZDtype: ...
-
+    @property
+    def dtype(self) -> np.dtype | DatetimeTZDtype: ...
     def shift(
         self, periods: int = 1, freq: Frequency | timedelta | None = None
     ) -> Self: ...

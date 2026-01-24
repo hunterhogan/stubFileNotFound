@@ -6,6 +6,7 @@ from collections.abc import (
 from typing import (
     Any,
     Literal,
+    Self,
     TypeAlias,
     TypedDict,
 )
@@ -16,8 +17,9 @@ from jinja2.environment import (
 )
 from jinja2.loaders import PackageLoader
 from pandas import Index
-from pandas.core.indexing import _IndexSlice
-from typing_extensions import Self
+
+# The class is private in pandas implementation. We have to ignore the private usage in the stubs.
+from pandas.core.indexing import _IndexSlice  # pyright: ignore[reportPrivateUsage]
 
 from pandas._typing import (
     Axis,
