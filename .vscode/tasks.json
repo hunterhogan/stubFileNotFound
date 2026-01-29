@@ -5,7 +5,7 @@
         {
             "label": "stubgen: Generate Stubs",
             "type": "shell",
-            "command": "stubgen",
+            "command": "${workspaceFolder}\\.venv\\Scripts\\stubgen.exe",
             "args": [
                 "--ignore-errors",
                 "--include-private",
@@ -19,7 +19,7 @@
         {
             "label": "stubgen: Inspect Mode",
             "type": "shell",
-            "command": "stubgen",
+            "command": "${workspaceFolder}\\.venv\\Scripts\\stubgen.exe",
             "args": [
                 "--ignore-errors",
                 "--include-private",

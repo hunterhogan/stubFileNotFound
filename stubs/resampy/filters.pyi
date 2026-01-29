@@ -1,6 +1,6 @@
-from typing import Optional, Union, Dict, Tuple
 
 from collections.abc import Callable
+from typing import Any
 import numpy as np
 from numpy.typing import NDArray
 
@@ -16,7 +16,7 @@ FILTER_FUNCTIONS = ['sinc_window']
 
 def sinc_window(num_zeros: int = 64,
                 precision: int = 9,
-                window: Callable | None = None,
+                window: Callable[..., NDArray[np.floating]] | None = None,
                 rolloff: float = 0.945) -> tuple[NDArray[np.floating], int, float]:
     """Construct a windowed sinc interpolation filter
 
@@ -51,7 +51,7 @@ def sinc_window(num_zeros: int = 64,
     ...
 
 def get_filter(name_or_function: str | Callable[..., tuple[NDArray[np.floating], int, float]],
-               **kwargs) -> tuple[NDArray[np.floating], int, float]:
+               **kwargs: Any) -> tuple[NDArray[np.floating], int, float]:
     """Retrieve a window given its name or function handle.
 
     Parameters

@@ -1,4 +1,4 @@
-from typing import Any, TypeVar, Union, overload
+from typing import Any, TypeVar
 
 from collections.abc import Callable
 import numpy as np
@@ -7,7 +7,7 @@ from numpy.typing import NDArray
 __all__ = ['resample', 'resample_nu']
 
 _FloatArray = TypeVar('_FloatArray', bound=NDArray[np.floating[Any]])
-_FilterType = Union[str, Callable[..., tuple[NDArray[np.floating[Any]], int, float]]]
+_FilterType = str | Callable[..., tuple[NDArray[np.floating[Any]], int, float]]
 
 def resample(x: _FloatArray, sr_orig: int | float, sr_new: int | float, axis: int = -1, filter: _FilterType = 'kaiser_best', parallel: bool = False, **kwargs: Any) -> _FloatArray:
     """Resample a signal x from sr_orig to sr_new along a given axis.
