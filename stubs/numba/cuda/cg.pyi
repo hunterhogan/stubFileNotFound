@@ -7,12 +7,15 @@ from numba.cuda.types import grid_group as grid_group
 
 class GridGroup:
     """A cooperative group representing the entire grid"""
+
     def sync() -> None:
         """Synchronize this grid group"""
 
 def this_grid() -> GridGroup:
     """Get the current grid group."""
+@intrinsic
 def _this_grid(typingctx): ...
 def _ol_this_grid(): ...
+@intrinsic
 def _grid_group_sync(typingctx, group): ...
 def _ol_grid_group_sync(group): ...

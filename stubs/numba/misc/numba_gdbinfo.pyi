@@ -6,7 +6,9 @@ _gdb_info: Incomplete
 
 class _GDBTestWrapper:
     """Wraps the gdb binary and has methods for checking what the gdb binary
-    has support for (Python and NumPy)."""
+    has support for (Python and NumPy).
+    """
+
     _gdb_binary: Incomplete
     def __init__(self) -> None: ...
     def _run_cmd(self, cmd=()): ...

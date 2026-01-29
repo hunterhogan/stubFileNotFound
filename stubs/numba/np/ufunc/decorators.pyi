@@ -1,7 +1,9 @@
 from _typeshed import Incomplete
 from numba.core.registry import DelayedRegistry as DelayedRegistry
 from numba.np.ufunc import _internal as _internal, dufunc as dufunc, gufunc as gufunc
-from numba.np.ufunc.parallel import ParallelGUFuncBuilder as ParallelGUFuncBuilder, ParallelUFuncBuilder as ParallelUFuncBuilder
+from numba.np.ufunc.parallel import (
+	ParallelGUFuncBuilder as ParallelGUFuncBuilder, ParallelUFuncBuilder as ParallelUFuncBuilder)
+from typing import Any
 
 class _BaseVectorize:
     @classmethod
@@ -22,7 +24,7 @@ class GUVectorize(_BaseVectorize):
     def __new__(cls, func, signature, **kws): ...
 
 def vectorize(ftylist_or_function=(), **kws):
-    '''vectorize(ftylist_or_function=(), target=\'cpu\', identity=None, **kws)
+    """vectorize(ftylist_or_function=(), target=\'cpu\', identity=None, **kws)
 
     A decorator that creates a NumPy ufunc object using Numba compiled
     code.  When no arguments or only keyword arguments are given,
@@ -57,12 +59,11 @@ def vectorize(ftylist_or_function=(), **kws):
 
 
     Returns
-    --------
-
+    -------
     A NumPy universal function
 
     Examples
-    -------
+    --------
         @vectorize([\'float32(float32, float32)\',
                     \'float64(float64, float64)\'], identity=0)
         def sum(a, b):
@@ -76,9 +77,9 @@ def vectorize(ftylist_or_function=(), **kws):
         def mul(a, b):
             return a * b
 
-    '''
-def guvectorize(*args, **kwargs):
-    '''guvectorize(ftylist, signature, target=\'cpu\', identity=None, **kws)
+    """
+def guvectorize(*args: Any, **kwargs: Any) -> gufunc.GUFunc:
+    """guvectorize(ftylist, signature, target=\'cpu\', identity=None, **kws)
 
     A decorator to create NumPy generalized-ufunc object from Numba compiled
     code.
@@ -109,8 +110,7 @@ def guvectorize(*args, **kwargs):
             A string for code generation target.  Defaults to "cpu".
 
     Returns
-    --------
-
+    -------
     A NumPy generalized universal-function
 
     Example
@@ -123,4 +123,4 @@ def guvectorize(*args, **kwargs):
                 for j in range(c.shape[1]):
                     c[i, j] = a[i, j] + b[i, j]
 
-    '''
+    """

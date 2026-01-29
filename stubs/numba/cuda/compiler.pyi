@@ -1,10 +1,15 @@
 from _typeshed import Incomplete
-from numba.core import compiler as compiler, config as config, funcdesc as funcdesc, sigutils as sigutils, types as types, typing as typing
-from numba.core.compiler import CompileResult as CompileResult, CompilerBase as CompilerBase, DefaultPassBuilder as DefaultPassBuilder, Flags as Flags, Option as Option, sanitize_compile_result_entries as sanitize_compile_result_entries
+from numba.core import (
+	compiler as compiler, config as config, funcdesc as funcdesc, sigutils as sigutils, types as types, typing as typing)
+from numba.core.compiler import (
+	CompilerBase as CompilerBase, CompileResult as CompileResult, DefaultPassBuilder as DefaultPassBuilder, Flags as Flags,
+	Option as Option, sanitize_compile_result_entries as sanitize_compile_result_entries)
 from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
-from numba.core.compiler_machinery import LoweringPass as LoweringPass, PassManager as PassManager, register_pass as register_pass
+from numba.core.compiler_machinery import (
+	LoweringPass as LoweringPass, PassManager as PassManager, register_pass as register_pass)
 from numba.core.errors import NumbaInvalidConfigWarning as NumbaInvalidConfigWarning
-from numba.core.typed_passes import AnnotateTypes as AnnotateTypes, IRLegalization as IRLegalization, NativeLowering as NativeLowering
+from numba.core.typed_passes import (
+	AnnotateTypes as AnnotateTypes, IRLegalization as IRLegalization, NativeLowering as NativeLowering)
 from numba.core.typing.templates import ConcreteTemplate as ConcreteTemplate
 from numba.cuda.api import get_current_device as get_current_device
 from numba.cuda.target import CUDACABICallConv as CUDACABICallConv
@@ -35,6 +40,7 @@ class CreateLibrary(LoweringPass):
     NativeLowering pass will create a code library if none exists, but we need
     to set it up with nvvm_options from the flags if they are present.
     """
+
     _name: str
     def __init__(self) -> None: ...
     def run_pass(self, state): ...
@@ -43,15 +49,17 @@ class CUDACompiler(CompilerBase):
     def define_pipelines(self): ...
     def define_cuda_lowering_pipeline(self, state): ...
 
-def compile_cuda(pyfunc, return_type, args, debug: bool = False, lineinfo: bool = False, inline: bool = False, fastmath: bool = False, nvvm_options: Incomplete | None = None, cc: Incomplete | None = None): ...
+@global_compiler_lock
+def compile_cuda(pyfunc, return_type, args, debug: bool = False, lineinfo: bool = False, inline: bool = False, fastmath: bool = False, nvvm_options=None, cc=None): ...
 def cabi_wrap_function(context, lib, fndesc, wrapper_function_name, nvvm_options):
     """
     Wrap a Numba ABI function in a C ABI wrapper at the NVVM IR level.
 
     The C ABI wrapper will have the same name as the source Python function.
     """
-def compile(pyfunc, sig, debug: bool = False, lineinfo: bool = False, device: bool = True, fastmath: bool = False, cc: Incomplete | None = None, opt: bool = True, abi: str = 'c', abi_info: Incomplete | None = None, output: str = 'ptx'):
-    '''Compile a Python function to PTX or LTO-IR for a given set of argument
+@global_compiler_lock
+def compile(pyfunc, sig, debug: bool = False, lineinfo: bool = False, device: bool = True, fastmath: bool = False, cc=None, opt: bool = True, abi: str = 'c', abi_info=None, output: str = 'ptx'):
+    """Compile a Python function to PTX or LTO-IR for a given set of argument
     types.
 
     :param pyfunc: The Python function to compile.
@@ -92,19 +100,22 @@ def compile(pyfunc, sig, debug: bool = False, lineinfo: bool = False, device: bo
     :type output: str
     :return: (code, resty): The compiled code and inferred return type
     :rtype: tuple
-    '''
-def compile_for_current_device(pyfunc, sig, debug: bool = False, lineinfo: bool = False, device: bool = True, fastmath: bool = False, opt: bool = True, abi: str = 'c', abi_info: Incomplete | None = None, output: str = 'ptx'):
+    """
+def compile_for_current_device(pyfunc, sig, debug: bool = False, lineinfo: bool = False, device: bool = True, fastmath: bool = False, opt: bool = True, abi: str = 'c', abi_info=None, output: str = 'ptx'):
     """Compile a Python function to PTX or LTO-IR for a given signature for the
     current device's compute capabilility. This calls :func:`compile` with an
-    appropriate ``cc`` value for the current device."""
-def compile_ptx(pyfunc, sig, debug: bool = False, lineinfo: bool = False, device: bool = False, fastmath: bool = False, cc: Incomplete | None = None, opt: bool = True, abi: str = 'numba', abi_info: Incomplete | None = None):
+    appropriate ``cc`` value for the current device.
+    """
+def compile_ptx(pyfunc, sig, debug: bool = False, lineinfo: bool = False, device: bool = False, fastmath: bool = False, cc=None, opt: bool = True, abi: str = 'numba', abi_info=None):
     """Compile a Python function to PTX for a given signature. See
     :func:`compile`. The defaults for this function are to compile a kernel
     with the Numba ABI, rather than :func:`compile`'s default of compiling a
-    device function with the C ABI."""
-def compile_ptx_for_current_device(pyfunc, sig, debug: bool = False, lineinfo: bool = False, device: bool = False, fastmath: bool = False, opt: bool = True, abi: str = 'numba', abi_info: Incomplete | None = None):
+    device function with the C ABI.
+    """
+def compile_ptx_for_current_device(pyfunc, sig, debug: bool = False, lineinfo: bool = False, device: bool = False, fastmath: bool = False, opt: bool = True, abi: str = 'numba', abi_info=None):
     """Compile a Python function to PTX for a given signature for the current
-    device's compute capabilility. See :func:`compile_ptx`."""
+    device's compute capabilility. See :func:`compile_ptx`.
+    """
 def declare_device_function(name, restype, argtypes): ...
 def declare_device_function_template(name, restype, argtypes): ...
 

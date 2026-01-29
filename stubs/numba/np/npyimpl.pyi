@@ -1,11 +1,17 @@
 from _typeshed import Incomplete
-from numba.core import callconv as callconv, cgutils as cgutils, config as config, errors as errors, types as types, typing as typing, utils as utils
+from numba.core import (
+	callconv as callconv, cgutils as cgutils, config as config, errors as errors, types as types, typing as typing,
+	utils as utils)
 from numba.core.extending import intrinsic as intrinsic, overload as overload
-from numba.core.imputils import Registry as Registry, force_error_model as force_error_model, impl_ret_borrowed as impl_ret_borrowed, impl_ret_new_ref as impl_ret_new_ref
+from numba.core.imputils import (
+	force_error_model as force_error_model, impl_ret_borrowed as impl_ret_borrowed, impl_ret_new_ref as impl_ret_new_ref,
+	Registry as Registry)
 from numba.core.typing import npydecl as npydecl
 from numba.np import arrayobj as arrayobj, numpy_support as numpy_support, ufunc_db as ufunc_db
 from numba.np.arrayobj import _getitem_array_generic as _getitem_array_generic
-from numba.np.numpy_support import _ufunc_loop_sig as _ufunc_loop_sig, from_dtype as from_dtype, select_array_wrapper as select_array_wrapper, ufunc_find_matching_loop as ufunc_find_matching_loop
+from numba.np.numpy_support import (
+	_ufunc_loop_sig as _ufunc_loop_sig, from_dtype as from_dtype, select_array_wrapper as select_array_wrapper,
+	ufunc_find_matching_loop as ufunc_find_matching_loop)
 from numba.np.ufunc.sigparse import parse_signature as parse_signature
 from typing import NamedTuple
 
@@ -16,7 +22,7 @@ class _ScalarIndexingHelper:
     def as_values(self) -> None: ...
 
 class _ScalarHelper:
-    '''Helper class to handle scalar arguments (and result).
+    """Helper class to handle scalar arguments (and result).
     Note that store_data is only used when generating code for
     a scalar ufunc and to write the output value.
 
@@ -30,7 +36,8 @@ class _ScalarHelper:
     Note that it is not supported (as it is unneeded for our
     current use-cases) reading back a stored value. This class
     will always "load" the original value it got at its creation.
-    '''
+    """
+
     context: Incomplete
     builder: Incomplete
     val: Incomplete
@@ -59,6 +66,7 @@ class _ArrayHelper(NamedTuple('_ArrayHelper', [('context', Incomplete), ('builde
     It provides methods to generate code loading/storing specific
     items as well as support code for handling indices.
     """
+
     def create_iter_indices(self): ...
     def _load_effective_address(self, indices): ...
     def load_data(self, indices): ...
@@ -71,6 +79,7 @@ class _ArrayGUHelper(NamedTuple('_ArrayHelper', [('context', Incomplete), ('buil
 
     Contrary to _ArrayHelper, this class can create a view to a subarray
     """
+
     def create_iter_indices(self): ...
     def _load_effective_address(self, indices): ...
     def load_data(self, indices): ...
@@ -78,10 +87,11 @@ class _ArrayGUHelper(NamedTuple('_ArrayHelper', [('context', Incomplete), ('buil
     def guard_match_core_dims(self, other: _ArrayGUHelper, ndims: int): ...
 
 def _prepare_argument(ctxt, bld, inp, tyinp, where: str = 'input operand'):
-    """returns an instance of the appropriate Helper (either
+    """Returns an instance of the appropriate Helper (either
     _ScalarHelper or _ArrayHelper) class to handle the argument.
     using the polymorphic interface of the Helper classes, scalar
-    and array cases can be handled with the same code"""
+    and array cases can be handled with the same code
+    """
 
 _broadcast_onto_sig: Incomplete
 
@@ -156,6 +166,7 @@ def array_positive_impl(context, builder, sig, args):
     lowering functions are also registered in this module.
     """
 def register_ufuncs(ufuncs, lower) -> None: ...
+@intrinsic
 def _make_dtype_object(typingctx, desc):
     """Given a string or NumberClass description *desc*, returns the dtype object.
     """

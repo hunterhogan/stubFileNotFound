@@ -6,6 +6,7 @@ class TargetOptions:
     """Target options maps user options from decorators to the
     ``numba.core.compiler.Flags`` used by lowering and target context.
     """
+
     class Mapping:
         flag_name: Incomplete
         apply: Incomplete
@@ -35,6 +36,7 @@ _mapping = TargetOptions.Mapping
 class DefaultOptions:
     """Defines how user-level target options are mapped to the target flags.
     """
+
     nopython: Incomplete
     forceobj: Incomplete
     looplift: Incomplete

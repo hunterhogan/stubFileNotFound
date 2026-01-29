@@ -1,12 +1,14 @@
 from _typeshed import Incomplete
 from numba import cuda as cuda
 from numba.cuda import deviceufunc as deviceufunc
-from numba.cuda.deviceufunc import GUFuncCallSteps as GUFuncCallSteps, GeneralizedUFunc as GeneralizedUFunc, UFuncMechanism as UFuncMechanism
+from numba.cuda.deviceufunc import (
+	GeneralizedUFunc as GeneralizedUFunc, GUFuncCallSteps as GUFuncCallSteps, UFuncMechanism as UFuncMechanism)
 
 class CUDAUFuncDispatcher:
     """
     Invoke the CUDA ufunc specialization for the given inputs.
     """
+
     functions: Incomplete
     __name__: Incomplete
     def __init__(self, types_to_retty_kernels, pyfunc) -> None: ...
@@ -47,6 +49,7 @@ class CUDAUFuncMechanism(UFuncMechanism):
     """
     Provide CUDA specialization
     """
+
     DEFAULT_STREAM: int
     def launch(self, func, count, stream, args) -> None: ...
     def is_device_array(self, obj): ...

@@ -1,10 +1,11 @@
 from .typeof import Purpose as Purpose, typeof as typeof
 from _typeshed import Incomplete
 from collections.abc import Generator, Sequence
-from numba.core import errors as errors, types as types, utils as utils
+from numba.core import config as config, errors as errors, types as types, utils as utils
 from numba.core.typeconv import Conversion as Conversion, rules as rules
 from numba.core.typing import templates as templates
 from numba.core.utils import order_by_target_specificity as order_by_target_specificity
+import contextlib
 
 class Rating:
     __slots__: Incomplete
@@ -22,8 +23,10 @@ class CallStack(Sequence):
     """
     A compile-time call stack
     """
+
     _stack: Incomplete
     _lock: Incomplete
+    _fail_cache: Incomplete
     def __init__(self) -> None: ...
     def __getitem__(self, index):
         """
@@ -31,6 +34,7 @@ class CallStack(Sequence):
         the second item from the top.
         """
     def __len__(self) -> int: ...
+    @contextlib.contextmanager
     def register(self, target, typeinfer, func_id, args) -> Generator[None]: ...
     def finditer(self, py_func) -> Generator[Incomplete]:
         """
@@ -46,18 +50,40 @@ class CallStack(Sequence):
         Returns first function that matches *py_func* and the arguments types in
         *args*; or, None if no match.
         """
+    def lookup_resolve_cache(self, func, args, kws) -> _ResolveCache:
+        """Lookup resolution cache for the given function type and argument
+        types.
+        """
+
+class _ResolveCache:
+    """
+    A cache for function resolution result.
+    Currently only remember failed attempts.
+    """
+
+    _status: str
+    _exc: BaseException | None
+    def __init__(self) -> None: ...
+    def mark_error(self, exc) -> None:
+        """Mark the function resolution as failed with an exception."""
+    def mark_failed(self) -> None:
+        """Mark the function resolution as failed."""
+    def replay_failure(self) -> None:
+        """Replay the failure if it has been marked as failed or error."""
+    def has_failed_previously(self) -> bool:
+        """Return True if the function resolution has failed previously."""
 
 class CallFrame:
     """
     A compile-time call frame
     """
+
     typeinfer: Incomplete
     func_id: Incomplete
     args: Incomplete
     target: Incomplete
     _inferred_retty: Incomplete
     def __init__(self, target, typeinfer, func_id, args) -> None: ...
-    def __repr__(self) -> str: ...
     def add_return_type(self, return_type) -> None:
         """Add *return_type* to the list of inferred return-types.
         If there are too many, raise `TypingError`.
@@ -66,6 +92,7 @@ class CallFrame:
 class BaseContext:
     """A typing context for storing function typing constrain template.
     """
+
     _registries: Incomplete
     _functions: Incomplete
     _attributes: Incomplete
@@ -92,7 +119,7 @@ class BaseContext:
         A signature is returned.
         """
     def _resolve_builtin_function_type(self, func, args, kws): ...
-    def _resolve_user_function_type(self, func, args, kws, literals: Incomplete | None = None): ...
+    def _resolve_user_function_type(self, func, args, kws, literals=None): ...
     def _get_attribute_templates(self, typ) -> Generator[Incomplete]:
         """
         Get matching AttributeTemplates for the Numba type.

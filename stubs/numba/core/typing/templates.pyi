@@ -1,4 +1,3 @@
-import abc
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from collections.abc import Generator
@@ -6,6 +5,7 @@ from numba.core import targetconfig as targetconfig, types as types, utils as ut
 from numba.core.cpu_options import InlineOptions as InlineOptions
 from numba.core.errors import InternalError as InternalError, TypingError as TypingError
 from typing import NamedTuple
+import abc
 
 class _inline_info(NamedTuple):
     func_ir: Incomplete
@@ -18,12 +18,13 @@ class Signature:
     The signature of a function call or operation, i.e. its argument types
     and return type.
     """
+
     __slots__: Incomplete
     _return_type: Incomplete
     _args: Incomplete
     _recvr: Incomplete
     _pysig: Incomplete
-    def __init__(self, return_type, args, recvr, pysig: Incomplete | None = None) -> None: ...
+    def __init__(self, return_type, args, recvr, pysig=None) -> None: ...
     @property
     def return_type(self): ...
     @property
@@ -47,7 +48,6 @@ class Signature:
     def __hash__(self): ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...
-    def __repr__(self) -> str: ...
     @property
     def is_method(self):
         """
@@ -71,13 +71,13 @@ class Signature:
     def is_precise(self): ...
 
 def make_concrete_template(name, key, signatures): ...
-def make_callable_template(key, typer, recvr: Incomplete | None = None):
+def make_callable_template(key, typer, recvr=None):
     """
     Create a callable template with the given key and typer function.
     """
 def signature(return_type, *args, **kws): ...
 def fold_arguments(pysig, args, kws, normal_handler, default_handler, stararg_handler):
-    '''
+    """
     Given the signature *pysig*, explicit *args* and *kws*, resolve
     omitted arguments and keyword arguments. A tuple of positional
     arguments is returned.
@@ -85,7 +85,7 @@ def fold_arguments(pysig, args, kws, normal_handler, default_handler, stararg_ha
     - normal_handler(index, param, value) is called for normal arguments
     - default_handler(index, param, default) is called for omitted arguments
     - stararg_handler(index, param, values) is called for a "*args" argument
-    '''
+    """
 
 class FunctionTemplate(ABC, metaclass=abc.ABCMeta):
     unsafe_casting: bool
@@ -104,8 +104,9 @@ class FunctionTemplate(ABC, metaclass=abc.ABCMeta):
     def get_source_code_info(cls, impl):
         """
         Gets the source information about function impl.
-        Returns:
 
+        Returns
+        -------
         code - str: source code as a string
         firstlineno - int: the first line number of the function impl
         path - str: the path to file containing impl
@@ -114,7 +115,7 @@ class FunctionTemplate(ABC, metaclass=abc.ABCMeta):
         """
     @abstractmethod
     def get_template_info(self):
-        '''
+        """
         Returns a dictionary with information specific to the template that will
         govern how error messages are displayed to users. The dictionary must
         be of the form:
@@ -127,8 +128,7 @@ class FunctionTemplate(ABC, metaclass=abc.ABCMeta):
                                          end line of the source function.
             \'docstring\': "unknown" # str: The docstring of the source function
         }
-        '''
-    def __str__(self) -> str: ...
+        """
     __repr__ = __str__
 
 class AbstractTemplate(FunctionTemplate):
@@ -137,6 +137,7 @@ class AbstractTemplate(FunctionTemplate):
     signature base on input types.  The signature does not have to match the
     input types. It is compared against the input types afterwards.
     """
+
     def apply(self, args, kws): ...
     def get_template_info(self): ...
 
@@ -149,15 +150,17 @@ class CallableTemplate(FunctionTemplate):
     does not have to match the input types. It is compared against the
     input types afterwards.
     """
+
     recvr: Incomplete
     def apply(self, args, kws): ...
     def get_template_info(self): ...
 
 class ConcreteTemplate(FunctionTemplate):
-    '''
+    """
     Defines attributes "cases" as a list of signature to match against the
     given input types.
-    '''
+    """
+
     def apply(self, args, kws): ...
     def get_template_info(self): ...
 
@@ -168,6 +171,7 @@ class _OverloadFunctionTemplate(AbstractTemplate):
     """
     A base class of templates for overload functions.
     """
+
     def _validate_sigs(self, typing_func, impl_func): ...
     def generic(self, args, kws):
         """
@@ -214,7 +218,7 @@ class _OverloadFunctionTemplate(AbstractTemplate):
         """
     @classmethod
     def get_source_info(cls):
-        '''Return a dictionary with information about the source code of the
+        """Return a dictionary with information about the source code of the
         implementation.
 
         Returns
@@ -232,7 +236,7 @@ class _OverloadFunctionTemplate(AbstractTemplate):
                 First and list line number.
             - "docstring": str
                 The docstring of the definition.
-        '''
+        """
     def get_template_info(self): ...
 
 def make_overload_template(func, overload_func, jit_options, strict, inline, prefer_literal: bool = False, **kwargs):
@@ -243,6 +247,7 @@ def make_overload_template(func, overload_func, jit_options, strict, inline, pre
 
 class _TemplateTargetHelperMixin:
     """Mixin for helper methods that assist with target/registry resolution"""
+
     def _get_target_registry(self, reason):
         """Returns the registry for the current target.
 
@@ -250,6 +255,7 @@ class _TemplateTargetHelperMixin:
         ----------
         reason: str
             Reason for the resolution. Expects a noun.
+
         Returns
         -------
         reg : a registry suitable for the current target.
@@ -259,6 +265,7 @@ class _IntrinsicTemplate(_TemplateTargetHelperMixin, AbstractTemplate):
     """
     A base class of templates for intrinsic definition
     """
+
     def generic(self, args, kws):
         """
         Type the intrinsic by the arguments.
@@ -270,7 +277,7 @@ class _IntrinsicTemplate(_TemplateTargetHelperMixin, AbstractTemplate):
         """
     def get_template_info(self): ...
 
-def make_intrinsic_template(handle, defn, name, *, prefer_literal: bool = False, kwargs: Incomplete | None = None):
+def make_intrinsic_template(handle, defn, name, *, prefer_literal: bool = False, kwargs=None):
     """
     Make a template class for a intrinsic handle *handle* defined by the
     function *defn*.  The *name* is used for naming the new template class.
@@ -287,6 +294,7 @@ class _OverloadAttributeTemplate(_TemplateTargetHelperMixin, AttributeTemplate):
     """
     A base class of templates for @overload_attribute functions.
     """
+
     is_method: bool
     context: Incomplete
     def __init__(self, context) -> None: ...
@@ -301,6 +309,7 @@ class _OverloadMethodTemplate(_OverloadAttributeTemplate):
     """
     A base class of templates for @overload_method functions.
     """
+
     is_method: bool
     def _init_once(self):
         """
@@ -319,7 +328,7 @@ def make_overload_method_template(typ, attr, overload_func, inline, prefer_liter
     *overload_func*.
     """
 def bound_function(template_key):
-    '''
+    """
     Wrap an AttributeTemplate resolve_* method to allow it to
     resolve an instance method\'s signature rather than a instance attribute.
     The wrapped method must return the resolved method\'s signature
@@ -334,20 +343,21 @@ def bound_function(template_key):
 
     *template_key* (e.g. "complex.conjugate" above) will be used by the
     target to look up the method\'s implementation, as a regular function.
-    '''
+    """
 
 class Registry:
     """
     A registry of typing declarations.  The registry stores such declarations
     for functions, attributes and globals.
     """
+
     functions: Incomplete
     attributes: Incomplete
     globals: Incomplete
     def __init__(self) -> None: ...
     def register(self, item): ...
     def register_attr(self, item): ...
-    def register_global(self, val: Incomplete | None = None, typ: Incomplete | None = None, **kwargs):
+    def register_global(self, val=None, typ=None, **kwargs):
         """
         Register the typing of a global value.
         Functional usage with a Numba type::
@@ -360,7 +370,7 @@ class Registry:
         """
 
 class BaseRegistryLoader:
-    '''
+    """
     An incremental loader for a registry.  Each new call to
     new_registrations() will iterate over the not yet seen registrations.
 
@@ -372,7 +382,8 @@ class BaseRegistryLoader:
 
     Therefore each context maintains its own loaders for each existing
     registry, without duplicating the registries themselves.
-    '''
+    """
+
     _registrations: Incomplete
     def __init__(self, registry) -> None: ...
     def new_registrations(self, name) -> Generator[Incomplete]: ...
@@ -381,6 +392,7 @@ class RegistryLoader(BaseRegistryLoader):
     """
     An incremental loader for a typing registry.
     """
+
     registry_items: Incomplete
 
 builtin_registry: Incomplete

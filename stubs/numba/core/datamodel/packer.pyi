@@ -7,6 +7,7 @@ class DataPacker:
     Omitted arguments (i.e. values with the type `Omitted`) are automatically
     skipped.
     """
+
     _dmm: Incomplete
     _fe_types: Incomplete
     _models: Incomplete
@@ -17,7 +18,7 @@ class DataPacker:
         """
         Return the given values packed as a data structure.
         """
-    def _do_load(self, builder, ptr, formal_list: Incomplete | None = None): ...
+    def _do_load(self, builder, ptr, formal_list=None): ...
     def load(self, builder, ptr):
         """
         Load the packed values and return a (type, value) tuples.
@@ -40,6 +41,7 @@ class ArgPacker:
     setup from the Python side.  Functions are receiving simple primitive
     types and there are only a handful of these.
     """
+
     _dmm: Incomplete
     _fe_args: Incomplete
     _nargs: Incomplete
@@ -80,6 +82,7 @@ class _Unflattener:
     The pattern shows the nested sequence shape desired when unflattening;
     the values it contains are irrelevant.
     """
+
     _code: Incomplete
     def __init__(self, pattern) -> None: ...
     def _build_unflatten_code(self, iterable):

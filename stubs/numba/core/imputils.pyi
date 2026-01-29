@@ -4,11 +4,13 @@ from enum import Enum
 from numba.core import cgutils as cgutils, types as types, typing as typing, utils as utils
 from numba.core.typing.templates import BaseRegistryLoader as BaseRegistryLoader
 from typing import NamedTuple
+import contextlib
 
 class Registry:
     """
     A registry of function and attribute implementations.
     """
+
     name: Incomplete
     functions: Incomplete
     getattrs: Incomplete
@@ -17,14 +19,14 @@ class Registry:
     constants: Incomplete
     def __init__(self, name: str = 'unspecified') -> None: ...
     def lower(self, func, *argtys):
-        '''
+        """
         Decorate an implementation of *func* for the given argument types.
         *func* may be an actual global function object, or any
         pseudo-function supported by Numba, such as "getitem".
 
         The decorated implementation has the signature
         (context, builder, sig, args).
-        '''
+        """
     def _decorate_attr(self, impl, ty, attr, impl_list, decorator): ...
     def lower_getattr(self, ty, attr):
         """
@@ -75,12 +77,12 @@ class Registry:
         The decorated implementation will have the signature
         (context, builder, ty, pyval).
         """
-    def __repr__(self) -> str: ...
 
 class RegistryLoader(BaseRegistryLoader):
     """
     An incremental loader for a target registry.
     """
+
     registry_items: Incomplete
 
 builtin_registry: Incomplete
@@ -114,6 +116,7 @@ class _IternextResult:
     A result wrapper for iteration, passed by iternext_impl() into the
     wrapped function.
     """
+
     __slots__: Incomplete
     _context: Incomplete
     _builder: Incomplete
@@ -145,11 +148,12 @@ class RefType(Enum):
     """
     Enumerate the reference type
     """
+
     NEW = 1
     BORROWED = 2
     UNTRACKED = 3
 
-def iternext_impl(ref_type: Incomplete | None = None):
+def iternext_impl(ref_type=None):
     """
     Wrap the given iternext() implementation so that it gets passed
     an _IternextResult() object easing the returning of the iternext()
@@ -182,6 +186,7 @@ class _ForIterLoop(NamedTuple):
     value: Incomplete
     do_break: Incomplete
 
+@contextlib.contextmanager
 def for_iter(context, builder, iterable_type, val) -> Generator[Incomplete]:
     """
     Simulate a for loop on the given iterable.  Yields a namedtuple with
@@ -203,6 +208,7 @@ def impl_ret_untracked(ctx, builder, retty, ret):
     """
     The return type is not a NRT object.
     """
+@contextlib.contextmanager
 def force_error_model(context, model_name: str = 'numpy') -> Generator[None]:
     """
     Temporarily change the context's error model.

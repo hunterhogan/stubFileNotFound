@@ -1,6 +1,6 @@
-import abc
 from _typeshed import Incomplete
 from numba import cloudpickle as cloudpickle
+import abc
 
 def _rebuild_reduction(cls, *args):
     """
@@ -40,6 +40,7 @@ class _CustomPickled:
     new pickler for the object when it is already being pickled by a
     `NumbaPickler`.
     """
+
     __slots__: Incomplete
     ctor: Incomplete
     states: Incomplete
@@ -49,12 +50,12 @@ class _CustomPickled:
     def _rebuild(cls, ctor, states): ...
 
 def _unpickle__CustomPickled(serialized):
-    """standard unpickling for `_CustomPickled`.
+    """Standard unpickling for `_CustomPickled`.
 
     Uses `NumbaPickler` to load.
     """
 def _pickle__CustomPickled(cp):
-    """standard pickling for `_CustomPickled`.
+    """Standard pickling for `_CustomPickled`.
 
     Uses `NumbaPickler` to dump.
     """
@@ -87,7 +88,7 @@ def is_serialiable(obj):
     obj : object
 
     Returns
-    --------
+    -------
     can_serialize : bool
     """
 def _no_pickle(obj) -> None: ...
@@ -105,6 +106,7 @@ class ReduceMixin(abc.ABC, metaclass=abc.ABCMeta):
     """A mixin class for objects that should be reduced by the NumbaPickler
     instead of the standard pickler.
     """
+
     @abc.abstractmethod
     def _reduce_states(self): ...
     @classmethod
@@ -129,6 +131,7 @@ class PickleCallableByPath:
     >>> wrapped_fn = PickleCallableByPath(my_fn)
     >>> # refer to `wrapped_fn` instead of `my_fn`
     """
+
     _fn: Incomplete
     def __init__(self, fn) -> None: ...
     def __call__(self, *args, **kwargs): ...

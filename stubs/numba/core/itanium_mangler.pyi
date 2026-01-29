@@ -6,7 +6,7 @@ PREFIX: str
 N2CODE: Incomplete
 
 def _escape_string(text):
-    '''Escape the given string so that it only contains ASCII characters
+    """Escape the given string so that it only contains ASCII characters
     of [a-zA-Z0-9_$].
 
     The dollar symbol ($) and other invalid characters are escaped into
@@ -14,7 +14,7 @@ def _escape_string(text):
 
     Multibyte characters are encoded into utf8 and converted into the above
     hex format.
-    '''
+    """
 def _fix_lead_digit(text):
     """
     Fix text with leading digit
@@ -25,7 +25,7 @@ def _len_encoded(string):
     Add underscore if string is prefixed with digits.
     """
 def mangle_abi_tag(abi_tag: str) -> str: ...
-def mangle_identifier(ident, template_params: str = '', *, abi_tags=(), uid: Incomplete | None = None):
+def mangle_identifier(ident, template_params: str = '', *, abi_tags=(), uid=None):
     """
     Mangle the identifier with optional template parameters and abi_tags.
 
@@ -48,7 +48,7 @@ def mangle_args(argtys):
     """
     Mangle sequence of Numba type objects and arbitrary values.
     """
-def mangle(ident, argtys, *, abi_tags=(), uid: Incomplete | None = None):
+def mangle(ident, argtys, *, abi_tags=(), uid=None):
     """
     Mangle identifier with Numba type objects and abi-tags.
     """

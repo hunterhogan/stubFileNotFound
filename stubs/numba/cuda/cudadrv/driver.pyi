@@ -1,6 +1,6 @@
-import abc
-import asyncio
-from .drvapi import API_PROTOTYPES as API_PROTOTYPES, cu_occupancy_b2d_size as cu_occupancy_b2d_size, cu_stream_callback_pyobj as cu_stream_callback_pyobj, cu_uuid as cu_uuid
+from .drvapi import (
+	API_PROTOTYPES as API_PROTOTYPES, cu_occupancy_b2d_size as cu_occupancy_b2d_size,
+	cu_stream_callback_pyobj as cu_stream_callback_pyobj, cu_uuid as cu_uuid)
 from .error import CudaDriverError as CudaDriverError, CudaSupportError as CudaSupportError
 from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
@@ -9,6 +9,10 @@ from numba import mviewbuf as mviewbuf
 from numba.core import config as config, serialize as serialize, utils as utils
 from numba.cuda.cudadrv import _extras as _extras, drvapi as drvapi, enums as enums, nvrtc as nvrtc
 from typing import NamedTuple
+import abc
+import asyncio
+import contextlib
+import types
 
 USE_NV_BINDING: Incomplete
 CU_STREAM_DEFAULT: int
@@ -26,7 +30,6 @@ class CudaAPIError(CudaDriverError):
     code: Incomplete
     msg: Incomplete
     def __init__(self, code, msg) -> None: ...
-    def __str__(self) -> str: ...
 
 def locate_driver_and_loader(): ...
 def load_driver(dlloader, candidates): ...
@@ -46,6 +49,7 @@ class Driver:
     """
     Driver API functions are lazily bound.
     """
+
     _singleton: Incomplete
     def __new__(cls): ...
     devices: Incomplete
@@ -60,7 +64,7 @@ class Driver:
     @property
     def is_available(self): ...
     def __getattr__(self, fname): ...
-    def _ctypes_wrap_fn(self, fname, libfn: Incomplete | None = None): ...
+    def _ctypes_wrap_fn(self, fname, libfn=None): ...
     def _cuda_python_wrap_fn(self, fname): ...
     def _find_api(self, fname): ...
     def _detect_fork(self) -> None: ...
@@ -93,6 +97,7 @@ class _ActiveContext:
     Once entering the context, it is assumed that the active CUDA context is
     not changed until the context is exited.
     """
+
     _tls_cache: Incomplete
     _is_top: Incomplete
     context_handle: Incomplete
@@ -115,6 +120,7 @@ class Device:
     The device object owns the CUDA contexts.  This is owned by the driver
     object.  User should not construct devices directly.
     """
+
     @classmethod
     def from_identity(self, identity):
         """Create Device object from device identity created by
@@ -128,7 +134,6 @@ class Device:
     primary_context: Incomplete
     def __init__(self, devnum) -> None: ...
     def get_device_identity(self): ...
-    def __repr__(self) -> str: ...
     def __getattr__(self, attr):
         """Read attributes lazily
         """
@@ -152,6 +157,7 @@ def met_requirement_for_device(device) -> None: ...
 
 class BaseCUDAMemoryManager(metaclass=ABCMeta):
     """Abstract base class for External Memory Management (EMM) Plugins."""
+
     context: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
     @abstractmethod
@@ -270,6 +276,7 @@ class HostOnlyCUDAMemoryManager(BaseCUDAMemoryManager, metaclass=abc.ABCMeta):
     Plugin subclassing this class should implement ``interface_version``
     instead.
     """
+
     allocations: Incomplete
     deallocations: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
@@ -297,18 +304,22 @@ class HostOnlyCUDAMemoryManager(BaseCUDAMemoryManager, metaclass=abc.ABCMeta):
         context.
 
         EMM Plugins that override this method must call ``super().reset()`` to
-        ensure that host allocations are also cleaned up."""
+        ensure that host allocations are also cleaned up.
+        """
+    @contextlib.contextmanager
     def defer_cleanup(self) -> Generator[None]:
         """Returns a context manager that disables cleanup of mapped or pinned
         host memory in the current context whilst it is active.
 
         EMM Plugins that override this method must obtain the context manager
         from this method before yielding to ensure that cleanup of host
-        allocations is also deferred."""
+        allocations is also deferred.
+        """
 
 class GetIpcHandleMixin:
     """A class that provides a default implementation of ``get_ipc_handle()``.
     """
+
     def get_ipc_handle(self, memory):
         """Open an IPC memory handle by using ``cuMemGetAddressRange`` to
         determine the base pointer of the allocation. An IPC handle of type
@@ -319,7 +330,9 @@ class GetIpcHandleMixin:
 
 class NumbaCUDAMemoryManager(GetIpcHandleMixin, HostOnlyCUDAMemoryManager):
     """Internal on-device memory management for Numba. This is implemented using
-    the EMM Plugin interface, but is not part of the public API."""
+    the EMM Plugin interface, but is not part of the public API.
+    """
+
     def initialize(self) -> None: ...
     def memalloc(self, size): ...
     def get_memory_info(self): ...
@@ -344,8 +357,8 @@ class _SizeNotSet(int):
     """
     Dummy object for _PendingDeallocs when *size* is not set.
     """
+
     def __new__(cls, *args, **kwargs): ...
-    def __str__(self) -> str: ...
 
 class _PendingDeallocs:
     """
@@ -354,6 +367,7 @@ class _PendingDeallocs:
     modified later once the driver is initialized and the total memory capacity
     known.
     """
+
     _cons: Incomplete
     _disable_count: int
     _size: int
@@ -375,6 +389,7 @@ class _PendingDeallocs:
         Flush any pending deallocations unless it is disabled.
         Do nothing if disabled.
         """
+    @contextlib.contextmanager
     def disable(self) -> Generator[None]:
         """
         Context manager to temporarily disable flushing pending deallocation.
@@ -397,6 +412,7 @@ class Context:
 
     Contexts should not be constructed directly by user code.
     """
+
     device: Incomplete
     handle: Incomplete
     allocations: Incomplete
@@ -412,7 +428,7 @@ class Context:
     def get_memory_info(self):
         """Returns (free, total) memory in bytes in the context.
         """
-    def get_active_blocks_per_multiprocessor(self, func, blocksize, memsize, flags: Incomplete | None = None):
+    def get_active_blocks_per_multiprocessor(self, func, blocksize, memsize, flags=None):
         """Return occupancy of a function.
         :param func: kernel for which occupancy is calculated
         :param blocksize: block size the kernel is intended to be launched with
@@ -420,7 +436,7 @@ class Context:
         """
     def _cuda_python_active_blocks_per_multiprocessor(self, func, blocksize, memsize, flags): ...
     def _ctypes_active_blocks_per_multiprocessor(self, func, blocksize, memsize, flags): ...
-    def get_max_potential_block_size(self, func, b2d_func, memsize, blocksizelimit, flags: Incomplete | None = None):
+    def get_max_potential_block_size(self, func, b2d_func, memsize, blocksizelimit, flags=None):
         """Suggest a launch configuration with reasonable occupancy.
         :param func: kernel for which occupancy is calculated
         :param b2d_func: function that calculates how much per-block dynamic
@@ -472,19 +488,19 @@ class Context:
     def create_external_stream(self, ptr): ...
     def create_event(self, timing: bool = True): ...
     def synchronize(self) -> None: ...
+    @contextlib.contextmanager
     def defer_cleanup(self) -> Generator[None]: ...
-    def __repr__(self) -> str: ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...
 
 def load_module_image(context, image):
     """
-    image must be a pointer
+    Image must be a pointer
     """
 def load_module_image_ctypes(context, image): ...
 def load_module_image_cuda_python(context, image):
     """
-    image must be a pointer
+    Image must be a pointer
     """
 def _alloc_finalizer(memory_manager, ptr, alloc_key, size): ...
 def _hostalloc_finalizer(memory_manager, ptr, alloc_key, size, mapped):
@@ -518,6 +534,7 @@ class _CudaIpcImpl:
     """Implementation of GPU IPC using CUDA driver API.
     This requires the devices to be peer accessible.
     """
+
     base: Incomplete
     handle: Incomplete
     size: Incomplete
@@ -534,6 +551,7 @@ class _StagedIpcImpl:
     """Implementation of GPU IPC using custom staging logic to workaround
     CUDA IPC limitation on peer accessibility between devices.
     """
+
     parent: Incomplete
     base: Incomplete
     handle: Incomplete
@@ -560,13 +578,14 @@ class IpcHandle:
                    referred to by this IPC handle.
     :type offset: int
     """
+
     base: Incomplete
     handle: Incomplete
     size: Incomplete
     source_info: Incomplete
     _impl: Incomplete
     offset: Incomplete
-    def __init__(self, base, handle, size, source_info: Incomplete | None = None, offset: int = 0) -> None: ...
+    def __init__(self, base, handle, size, source_info=None, offset: int = 0) -> None: ...
     def _sentry_source_info(self) -> None: ...
     def can_access_peer(self, context):
         """Returns a bool indicating whether the active context can peer
@@ -588,7 +607,7 @@ class IpcHandle:
         If the devices are peer-accessible, it uses .open_direct().
         If the devices are not peer-accessible, it uses .open_staged().
         """
-    def open_array(self, context, shape, dtype, strides: Incomplete | None = None):
+    def open_array(self, context, shape, dtype, strides=None):
         """
         Similar to `.open()` but returns an device array.
         """
@@ -628,6 +647,7 @@ class MemoryPointer:
     :param finalizer: A function that is called when the buffer is to be freed.
     :type finalizer: function
     """
+
     __cuda_memory__: bool
     context: Incomplete
     device_pointer: Incomplete
@@ -638,7 +658,7 @@ class MemoryPointer:
     handle: Incomplete
     _owner: Incomplete
     _finalizer: Incomplete
-    def __init__(self, context, pointer, size, owner: Incomplete | None = None, finalizer: Incomplete | None = None) -> None: ...
+    def __init__(self, context, pointer, size, owner=None, finalizer=None) -> None: ...
     @property
     def owner(self): ...
     def own(self): ...
@@ -646,8 +666,8 @@ class MemoryPointer:
         """
         Forces the device memory to the trash.
         """
-    def memset(self, byte, count: Incomplete | None = None, stream: int = 0) -> None: ...
-    def view(self, start, stop: Incomplete | None = None): ...
+    def memset(self, byte, count=None, stream: int = 0) -> None: ...
+    def view(self, start, stop=None): ...
     @property
     def device_ctypes_pointer(self): ...
     @property
@@ -661,6 +681,7 @@ class AutoFreePointer(MemoryPointer):
 
     Constructor arguments are the same as for :class:`MemoryPointer`.
     """
+
     def __init__(self, *args, **kwargs) -> None: ...
 
 class MappedMemory(AutoFreePointer):
@@ -682,6 +703,7 @@ class MappedMemory(AutoFreePointer):
     :param finalizer: A function that is called when the buffer is to be freed.
     :type finalizer: function
     """
+
     __cuda_memory__: bool
     owned: Incomplete
     host_pointer: Incomplete
@@ -689,7 +711,7 @@ class MappedMemory(AutoFreePointer):
     device_pointer: Incomplete
     handle: Incomplete
     _buflen_: Incomplete
-    def __init__(self, context, pointer, size, owner: Incomplete | None = None, finalizer: Incomplete | None = None) -> None: ...
+    def __init__(self, context, pointer, size, owner=None, finalizer=None) -> None: ...
     def own(self): ...
 
 class PinnedMemory(mviewbuf.MemAlloc):
@@ -710,6 +732,7 @@ class PinnedMemory(mviewbuf.MemAlloc):
     :param finalizer: A function that is called when the buffer is to be freed.
     :type finalizer: function
     """
+
     context: Incomplete
     owned: Incomplete
     size: Incomplete
@@ -718,7 +741,7 @@ class PinnedMemory(mviewbuf.MemAlloc):
     handle: Incomplete
     _buflen_: Incomplete
     _bufptr_: Incomplete
-    def __init__(self, context, pointer, size, owner: Incomplete | None = None, finalizer: Incomplete | None = None) -> None: ...
+    def __init__(self, context, pointer, size, owner=None, finalizer=None) -> None: ...
     def own(self): ...
 
 class ManagedMemory(AutoFreePointer):
@@ -740,17 +763,18 @@ class ManagedMemory(AutoFreePointer):
     :param finalizer: A function that is called when the buffer is to be freed.
     :type finalizer: function
     """
+
     __cuda_memory__: bool
     owned: Incomplete
     _buflen_: Incomplete
     _bufptr_: Incomplete
-    def __init__(self, context, pointer, size, owner: Incomplete | None = None, finalizer: Incomplete | None = None) -> None: ...
+    def __init__(self, context, pointer, size, owner=None, finalizer=None) -> None: ...
     def own(self): ...
 
 class OwnedPointer:
     _mem: Incomplete
     _view: Incomplete
-    def __init__(self, memptr, view: Incomplete | None = None) -> None: ...
+    def __init__(self, memptr, view=None) -> None: ...
     def __getattr__(self, fname):
         """Proxy MemoryPointer methods
         """
@@ -764,18 +788,18 @@ class Stream:
     external: Incomplete
     def __init__(self, context, handle, finalizer, external: bool = False) -> None: ...
     def __int__(self) -> int: ...
-    def __repr__(self) -> str: ...
     def synchronize(self) -> None:
         """
         Wait for all commands in this stream to execute. This will commit any
         pending memory transfers.
         """
+    @contextlib.contextmanager
     def auto_synchronize(self) -> Generator[Incomplete]:
         """
         A context manager that waits for all commands in this stream to execute
         and commits any pending memory transfers upon exiting the context.
         """
-    def add_callback(self, callback, arg: Incomplete | None = None) -> None:
+    def add_callback(self, callback, arg=None) -> None:
         """
         Add a callback to a compute stream.
         The user provided function is called from a driver thread once all
@@ -796,6 +820,7 @@ class Stream:
         :param arg: Optional user data to be passed to the callback function.
         """
     @staticmethod
+    @cu_stream_callback_pyobj
     def _stream_callback(handle, status, data) -> None: ...
     def async_done(self) -> asyncio.futures.Future:
         """
@@ -806,7 +831,7 @@ class Stream:
 class Event:
     context: Incomplete
     handle: Incomplete
-    def __init__(self, context, handle, finalizer: Incomplete | None = None) -> None: ...
+    def __init__(self, context, handle, finalizer=None) -> None: ...
     def query(self):
         """
         Returns True if all work before the most recent record has completed;
@@ -838,11 +863,12 @@ def event_elapsed_time(evtstart, evtend):
 
 class Module(metaclass=ABCMeta):
     """Abstract base class for modules"""
+
     context: Incomplete
     handle: Incomplete
     info_log: Incomplete
     _finalizer: Incomplete
-    def __init__(self, context, handle, info_log, finalizer: Incomplete | None = None) -> None: ...
+    def __init__(self, context, handle, info_log, finalizer=None) -> None: ...
     def unload(self) -> None:
         """Unload this module from the context"""
     @abstractmethod
@@ -877,7 +903,6 @@ class Function(metaclass=ABCMeta):
     name: Incomplete
     attrs: Incomplete
     def __init__(self, module, handle, name) -> None: ...
-    def __repr__(self) -> str: ...
     @property
     def device(self): ...
     @abstractmethod
@@ -889,7 +914,8 @@ class Function(metaclass=ABCMeta):
     @abstractmethod
     def read_func_attr_all(self):
         """Return a FuncAttr object with the values of various function
-        attributes."""
+        attributes.
+        """
 
 class CtypesFunction(Function):
     def cache_config(self, prefer_equal: bool = False, prefer_cache: bool = False, prefer_shared: bool = False) -> None: ...
@@ -908,8 +934,9 @@ FILE_EXTENSION_MAP: Incomplete
 
 class Linker(metaclass=ABCMeta):
     """Abstract base class for linkers"""
+
     @classmethod
-    def new(cls, max_registers: int = 0, lineinfo: bool = False, cc: Incomplete | None = None): ...
+    def new(cls, max_registers: int = 0, lineinfo: bool = False, cc=None): ...
     lto: bool
     @abstractmethod
     def __init__(self, max_registers, lineinfo, cc): ...
@@ -926,7 +953,8 @@ class Linker(metaclass=ABCMeta):
         """Add PTX source in a string to the link"""
     def add_cu(self, cu, name) -> None:
         """Add CUDA source in a string to the link. The name of the source
-        file should be specified in `name`."""
+        file should be specified in `name`.
+        """
     @abstractmethod
     def add_file(self, path, kind):
         """Add code from a file to the link"""
@@ -948,9 +976,10 @@ class MVCLinker(Linker):
     Linker supporting Minor Version Compatibility, backed by the cubinlinker
     package.
     """
+
     ptx_compile_options: Incomplete
     _linker: Incomplete
-    def __init__(self, max_registers: Incomplete | None = None, lineinfo: bool = False, cc: Incomplete | None = None) -> None: ...
+    def __init__(self, max_registers=None, lineinfo: bool = False, cc=None) -> None: ...
     @property
     def info_log(self): ...
     @property
@@ -963,11 +992,12 @@ class CtypesLinker(Linker):
     """
     Links for current device if no CC given
     """
+
     handle: Incomplete
     linker_info_buf: Incomplete
     linker_errors_buf: Incomplete
     _keep_alive: Incomplete
-    def __init__(self, max_registers: int = 0, lineinfo: bool = False, cc: Incomplete | None = None) -> None: ...
+    def __init__(self, max_registers: int = 0, lineinfo: bool = False, cc=None) -> None: ...
     @property
     def info_log(self): ...
     @property
@@ -980,11 +1010,12 @@ class CudaPythonLinker(Linker):
     """
     Links for current device if no CC given
     """
+
     handle: Incomplete
     linker_info_buf: Incomplete
     linker_errors_buf: Incomplete
     _keep_alive: Incomplete
-    def __init__(self, max_registers: int = 0, lineinfo: bool = False, cc: Incomplete | None = None) -> None: ...
+    def __init__(self, max_registers: int = 0, lineinfo: bool = False, cc=None) -> None: ...
     @property
     def info_log(self): ...
     @property
@@ -1038,13 +1069,13 @@ def device_pointer(obj):
 def device_ctypes_pointer(obj):
     """Get the ctypes object for the device pointer"""
 def is_device_memory(obj):
-    '''All CUDA memory object is recognized as an instance with the attribute
+    """All CUDA memory object is recognized as an instance with the attribute
     "__cuda_memory__" defined and its value evaluated to True.
 
     All CUDA memory object should also define an attribute named
     "device_pointer" which value is an int object carrying the pointer
     value of the device memory address.  This is not tested in this method.
-    '''
+    """
 def require_device_memory(obj) -> None:
     """A sentry for methods that accept CUDA memory object.
     """
@@ -1089,6 +1120,7 @@ def profile_stop() -> None:
     """
     Disable profile collection in the current context.
     """
+@contextlib.contextmanager
 def profiling() -> Generator[None]:
     """
     Context manager that enables profiling on entry and disables profiling on

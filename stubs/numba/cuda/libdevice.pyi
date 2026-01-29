@@ -5,7 +5,7 @@ def abs(x) -> None:
     :param x: Argument.
     :type x: int32
     :rtype: int32
-"""
+    """
 def acos(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_acos.html
@@ -13,7 +13,7 @@ def acos(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def acosf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_acosf.html
@@ -21,7 +21,7 @@ def acosf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def acosh(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_acosh.html
@@ -29,7 +29,7 @@ def acosh(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def acoshf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_acoshf.html
@@ -37,7 +37,7 @@ def acoshf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def asin(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_asin.html
@@ -45,7 +45,7 @@ def asin(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def asinf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_asinf.html
@@ -53,7 +53,7 @@ def asinf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def asinh(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_asinh.html
@@ -61,7 +61,7 @@ def asinh(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def asinhf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_asinhf.html
@@ -69,7 +69,7 @@ def asinhf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def atan(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_atan.html
@@ -77,7 +77,7 @@ def atan(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def atan2(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_atan2.html
@@ -87,7 +87,7 @@ def atan2(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def atan2f(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_atan2f.html
@@ -97,7 +97,7 @@ def atan2f(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def atanf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_atanf.html
@@ -105,7 +105,7 @@ def atanf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def atanh(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_atanh.html
@@ -113,7 +113,7 @@ def atanh(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def atanhf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_atanhf.html
@@ -121,7 +121,7 @@ def atanhf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def brev(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_brev.html
@@ -129,7 +129,7 @@ def brev(x) -> None:
     :param x: Argument.
     :type x: int32
     :rtype: int32
-"""
+    """
 def brevll(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_brevll.html
@@ -137,7 +137,7 @@ def brevll(x) -> None:
     :param x: Argument.
     :type x: int64
     :rtype: int64
-"""
+    """
 def byte_perm(x, y, z) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_byte_perm.html
@@ -149,7 +149,7 @@ def byte_perm(x, y, z) -> None:
     :param z: Argument.
     :type z: int32
     :rtype: int32
-"""
+    """
 def cbrt(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_cbrt.html
@@ -157,7 +157,7 @@ def cbrt(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def cbrtf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_cbrtf.html
@@ -165,7 +165,7 @@ def cbrtf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def ceil(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ceil.html
@@ -173,7 +173,7 @@ def ceil(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def ceilf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ceilf.html
@@ -181,7 +181,7 @@ def ceilf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def clz(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_clz.html
@@ -189,7 +189,7 @@ def clz(x) -> None:
     :param x: Argument.
     :type x: int32
     :rtype: int32
-"""
+    """
 def clzll(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_clzll.html
@@ -197,7 +197,7 @@ def clzll(x) -> None:
     :param x: Argument.
     :type x: int64
     :rtype: int32
-"""
+    """
 def copysign(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_copysign.html
@@ -207,7 +207,7 @@ def copysign(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def copysignf(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_copysignf.html
@@ -217,7 +217,7 @@ def copysignf(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def cos(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_cos.html
@@ -225,7 +225,7 @@ def cos(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def cosf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_cosf.html
@@ -233,7 +233,7 @@ def cosf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def cosh(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_cosh.html
@@ -241,7 +241,7 @@ def cosh(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def coshf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_coshf.html
@@ -249,7 +249,7 @@ def coshf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def cospi(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_cospi.html
@@ -257,7 +257,7 @@ def cospi(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def cospif(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_cospif.html
@@ -265,7 +265,7 @@ def cospif(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def dadd_rd(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_dadd_rd.html
@@ -275,7 +275,7 @@ def dadd_rd(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def dadd_rn(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_dadd_rn.html
@@ -285,7 +285,7 @@ def dadd_rn(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def dadd_ru(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_dadd_ru.html
@@ -295,7 +295,7 @@ def dadd_ru(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def dadd_rz(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_dadd_rz.html
@@ -305,7 +305,7 @@ def dadd_rz(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def ddiv_rd(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ddiv_rd.html
@@ -315,7 +315,7 @@ def ddiv_rd(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def ddiv_rn(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ddiv_rn.html
@@ -325,7 +325,7 @@ def ddiv_rn(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def ddiv_ru(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ddiv_ru.html
@@ -335,7 +335,7 @@ def ddiv_ru(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def ddiv_rz(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ddiv_rz.html
@@ -345,7 +345,7 @@ def ddiv_rz(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def dmul_rd(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_dmul_rd.html
@@ -355,7 +355,7 @@ def dmul_rd(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def dmul_rn(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_dmul_rn.html
@@ -365,7 +365,7 @@ def dmul_rn(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def dmul_ru(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_dmul_ru.html
@@ -375,7 +375,7 @@ def dmul_ru(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def dmul_rz(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_dmul_rz.html
@@ -385,7 +385,7 @@ def dmul_rz(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def double2float_rd(d) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2float_rd.html
@@ -393,7 +393,7 @@ def double2float_rd(d) -> None:
     :param d: Argument.
     :type d: float64
     :rtype: float32
-"""
+    """
 def double2float_rn(d) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2float_rn.html
@@ -401,7 +401,7 @@ def double2float_rn(d) -> None:
     :param d: Argument.
     :type d: float64
     :rtype: float32
-"""
+    """
 def double2float_ru(d) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2float_ru.html
@@ -409,7 +409,7 @@ def double2float_ru(d) -> None:
     :param d: Argument.
     :type d: float64
     :rtype: float32
-"""
+    """
 def double2float_rz(d) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2float_rz.html
@@ -417,7 +417,7 @@ def double2float_rz(d) -> None:
     :param d: Argument.
     :type d: float64
     :rtype: float32
-"""
+    """
 def double2hiint(d) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2hiint.html
@@ -425,7 +425,7 @@ def double2hiint(d) -> None:
     :param d: Argument.
     :type d: float64
     :rtype: int32
-"""
+    """
 def double2int_rd(d) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2int_rd.html
@@ -433,7 +433,7 @@ def double2int_rd(d) -> None:
     :param d: Argument.
     :type d: float64
     :rtype: int32
-"""
+    """
 def double2int_rn(d) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2int_rn.html
@@ -441,7 +441,7 @@ def double2int_rn(d) -> None:
     :param d: Argument.
     :type d: float64
     :rtype: int32
-"""
+    """
 def double2int_ru(d) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2int_ru.html
@@ -449,7 +449,7 @@ def double2int_ru(d) -> None:
     :param d: Argument.
     :type d: float64
     :rtype: int32
-"""
+    """
 def double2int_rz(d) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2int_rz.html
@@ -457,7 +457,7 @@ def double2int_rz(d) -> None:
     :param d: Argument.
     :type d: float64
     :rtype: int32
-"""
+    """
 def double2ll_rd(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2ll_rd.html
@@ -465,7 +465,7 @@ def double2ll_rd(f) -> None:
     :param f: Argument.
     :type f: float64
     :rtype: int64
-"""
+    """
 def double2ll_rn(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2ll_rn.html
@@ -473,7 +473,7 @@ def double2ll_rn(f) -> None:
     :param f: Argument.
     :type f: float64
     :rtype: int64
-"""
+    """
 def double2ll_ru(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2ll_ru.html
@@ -481,7 +481,7 @@ def double2ll_ru(f) -> None:
     :param f: Argument.
     :type f: float64
     :rtype: int64
-"""
+    """
 def double2ll_rz(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2ll_rz.html
@@ -489,7 +489,7 @@ def double2ll_rz(f) -> None:
     :param f: Argument.
     :type f: float64
     :rtype: int64
-"""
+    """
 def double2loint(d) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2loint.html
@@ -497,7 +497,7 @@ def double2loint(d) -> None:
     :param d: Argument.
     :type d: float64
     :rtype: int32
-"""
+    """
 def double2uint_rd(d) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2uint_rd.html
@@ -505,7 +505,7 @@ def double2uint_rd(d) -> None:
     :param d: Argument.
     :type d: float64
     :rtype: int32
-"""
+    """
 def double2uint_rn(d) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2uint_rn.html
@@ -513,7 +513,7 @@ def double2uint_rn(d) -> None:
     :param d: Argument.
     :type d: float64
     :rtype: int32
-"""
+    """
 def double2uint_ru(d) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2uint_ru.html
@@ -521,7 +521,7 @@ def double2uint_ru(d) -> None:
     :param d: Argument.
     :type d: float64
     :rtype: int32
-"""
+    """
 def double2uint_rz(d) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2uint_rz.html
@@ -529,7 +529,7 @@ def double2uint_rz(d) -> None:
     :param d: Argument.
     :type d: float64
     :rtype: int32
-"""
+    """
 def double2ull_rd(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2ull_rd.html
@@ -537,7 +537,7 @@ def double2ull_rd(f) -> None:
     :param f: Argument.
     :type f: float64
     :rtype: int64
-"""
+    """
 def double2ull_rn(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2ull_rn.html
@@ -545,7 +545,7 @@ def double2ull_rn(f) -> None:
     :param f: Argument.
     :type f: float64
     :rtype: int64
-"""
+    """
 def double2ull_ru(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2ull_ru.html
@@ -553,7 +553,7 @@ def double2ull_ru(f) -> None:
     :param f: Argument.
     :type f: float64
     :rtype: int64
-"""
+    """
 def double2ull_rz(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double2ull_rz.html
@@ -561,7 +561,7 @@ def double2ull_rz(f) -> None:
     :param f: Argument.
     :type f: float64
     :rtype: int64
-"""
+    """
 def double_as_longlong(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_double_as_longlong.html
@@ -569,7 +569,7 @@ def double_as_longlong(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: int64
-"""
+    """
 def drcp_rd(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_drcp_rd.html
@@ -577,7 +577,7 @@ def drcp_rd(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def drcp_rn(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_drcp_rn.html
@@ -585,7 +585,7 @@ def drcp_rn(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def drcp_ru(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_drcp_ru.html
@@ -593,7 +593,7 @@ def drcp_ru(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def drcp_rz(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_drcp_rz.html
@@ -601,7 +601,7 @@ def drcp_rz(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def dsqrt_rd(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_dsqrt_rd.html
@@ -609,7 +609,7 @@ def dsqrt_rd(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def dsqrt_rn(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_dsqrt_rn.html
@@ -617,7 +617,7 @@ def dsqrt_rn(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def dsqrt_ru(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_dsqrt_ru.html
@@ -625,7 +625,7 @@ def dsqrt_ru(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def dsqrt_rz(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_dsqrt_rz.html
@@ -633,7 +633,7 @@ def dsqrt_rz(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def erf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_erf.html
@@ -641,7 +641,7 @@ def erf(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def erfc(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_erfc.html
@@ -649,7 +649,7 @@ def erfc(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def erfcf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_erfcf.html
@@ -657,7 +657,7 @@ def erfcf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def erfcinv(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_erfcinv.html
@@ -665,7 +665,7 @@ def erfcinv(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def erfcinvf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_erfcinvf.html
@@ -673,7 +673,7 @@ def erfcinvf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def erfcx(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_erfcx.html
@@ -681,7 +681,7 @@ def erfcx(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def erfcxf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_erfcxf.html
@@ -689,7 +689,7 @@ def erfcxf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def erff(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_erff.html
@@ -697,7 +697,7 @@ def erff(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def erfinv(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_erfinv.html
@@ -705,7 +705,7 @@ def erfinv(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def erfinvf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_erfinvf.html
@@ -713,7 +713,7 @@ def erfinvf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def exp(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_exp.html
@@ -721,7 +721,7 @@ def exp(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def exp10(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_exp10.html
@@ -729,7 +729,7 @@ def exp10(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def exp10f(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_exp10f.html
@@ -737,7 +737,7 @@ def exp10f(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def exp2(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_exp2.html
@@ -745,7 +745,7 @@ def exp2(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def exp2f(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_exp2f.html
@@ -753,7 +753,7 @@ def exp2f(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def expf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_expf.html
@@ -761,7 +761,7 @@ def expf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def expm1(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_expm1.html
@@ -769,7 +769,7 @@ def expm1(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def expm1f(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_expm1f.html
@@ -777,7 +777,7 @@ def expm1f(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def fabs(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fabs.html
@@ -785,7 +785,7 @@ def fabs(f) -> None:
     :param f: Argument.
     :type f: float64
     :rtype: float64
-"""
+    """
 def fabsf(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fabsf.html
@@ -793,7 +793,7 @@ def fabsf(f) -> None:
     :param f: Argument.
     :type f: float32
     :rtype: float32
-"""
+    """
 def fadd_rd(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fadd_rd.html
@@ -803,7 +803,7 @@ def fadd_rd(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fadd_rn(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fadd_rn.html
@@ -813,7 +813,7 @@ def fadd_rn(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fadd_ru(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fadd_ru.html
@@ -823,7 +823,7 @@ def fadd_ru(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fadd_rz(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fadd_rz.html
@@ -833,7 +833,7 @@ def fadd_rz(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fast_cosf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fast_cosf.html
@@ -841,7 +841,7 @@ def fast_cosf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def fast_exp10f(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fast_exp10f.html
@@ -849,7 +849,7 @@ def fast_exp10f(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def fast_expf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fast_expf.html
@@ -857,7 +857,7 @@ def fast_expf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def fast_fdividef(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fast_fdividef.html
@@ -867,7 +867,7 @@ def fast_fdividef(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fast_log10f(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fast_log10f.html
@@ -875,7 +875,7 @@ def fast_log10f(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def fast_log2f(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fast_log2f.html
@@ -883,7 +883,7 @@ def fast_log2f(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def fast_logf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fast_logf.html
@@ -891,7 +891,7 @@ def fast_logf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def fast_powf(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fast_powf.html
@@ -901,7 +901,7 @@ def fast_powf(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fast_sincosf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fast_sincosf.html
@@ -909,7 +909,7 @@ def fast_sincosf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: UniTuple(float32 x 2)
-"""
+    """
 def fast_sinf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fast_sinf.html
@@ -917,7 +917,7 @@ def fast_sinf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def fast_tanf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fast_tanf.html
@@ -925,7 +925,7 @@ def fast_tanf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def fdim(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fdim.html
@@ -935,7 +935,7 @@ def fdim(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def fdimf(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fdimf.html
@@ -945,7 +945,7 @@ def fdimf(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fdiv_rd(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fdiv_rd.html
@@ -955,7 +955,7 @@ def fdiv_rd(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fdiv_rn(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fdiv_rn.html
@@ -965,7 +965,7 @@ def fdiv_rn(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fdiv_ru(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fdiv_ru.html
@@ -975,7 +975,7 @@ def fdiv_ru(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fdiv_rz(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fdiv_rz.html
@@ -985,7 +985,7 @@ def fdiv_rz(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def ffs(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ffs.html
@@ -993,7 +993,7 @@ def ffs(x) -> None:
     :param x: Argument.
     :type x: int32
     :rtype: int32
-"""
+    """
 def ffsll(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ffsll.html
@@ -1001,7 +1001,7 @@ def ffsll(x) -> None:
     :param x: Argument.
     :type x: int64
     :rtype: int32
-"""
+    """
 def finitef(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_finitef.html
@@ -1009,7 +1009,7 @@ def finitef(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: int32
-"""
+    """
 def float2half_rn(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float2half_rn.html
@@ -1017,7 +1017,7 @@ def float2half_rn(f) -> None:
     :param f: Argument.
     :type f: float32
     :rtype: int16
-"""
+    """
 def float2int_rd(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float2int_rd.html
@@ -1025,7 +1025,7 @@ def float2int_rd(x) -> None:
     :param in: Argument.
     :type in: float32
     :rtype: int32
-"""
+    """
 def float2int_rn(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float2int_rn.html
@@ -1033,7 +1033,7 @@ def float2int_rn(x) -> None:
     :param in: Argument.
     :type in: float32
     :rtype: int32
-"""
+    """
 def float2int_ru(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float2int_ru.html
@@ -1041,7 +1041,7 @@ def float2int_ru(x) -> None:
     :param in: Argument.
     :type in: float32
     :rtype: int32
-"""
+    """
 def float2int_rz(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float2int_rz.html
@@ -1049,7 +1049,7 @@ def float2int_rz(x) -> None:
     :param in: Argument.
     :type in: float32
     :rtype: int32
-"""
+    """
 def float2ll_rd(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float2ll_rd.html
@@ -1057,7 +1057,7 @@ def float2ll_rd(f) -> None:
     :param f: Argument.
     :type f: float32
     :rtype: int64
-"""
+    """
 def float2ll_rn(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float2ll_rn.html
@@ -1065,7 +1065,7 @@ def float2ll_rn(f) -> None:
     :param f: Argument.
     :type f: float32
     :rtype: int64
-"""
+    """
 def float2ll_ru(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float2ll_ru.html
@@ -1073,7 +1073,7 @@ def float2ll_ru(f) -> None:
     :param f: Argument.
     :type f: float32
     :rtype: int64
-"""
+    """
 def float2ll_rz(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float2ll_rz.html
@@ -1081,7 +1081,7 @@ def float2ll_rz(f) -> None:
     :param f: Argument.
     :type f: float32
     :rtype: int64
-"""
+    """
 def float2uint_rd(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float2uint_rd.html
@@ -1089,7 +1089,7 @@ def float2uint_rd(x) -> None:
     :param in: Argument.
     :type in: float32
     :rtype: int32
-"""
+    """
 def float2uint_rn(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float2uint_rn.html
@@ -1097,7 +1097,7 @@ def float2uint_rn(x) -> None:
     :param in: Argument.
     :type in: float32
     :rtype: int32
-"""
+    """
 def float2uint_ru(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float2uint_ru.html
@@ -1105,7 +1105,7 @@ def float2uint_ru(x) -> None:
     :param in: Argument.
     :type in: float32
     :rtype: int32
-"""
+    """
 def float2uint_rz(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float2uint_rz.html
@@ -1113,7 +1113,7 @@ def float2uint_rz(x) -> None:
     :param in: Argument.
     :type in: float32
     :rtype: int32
-"""
+    """
 def float2ull_rd(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float2ull_rd.html
@@ -1121,7 +1121,7 @@ def float2ull_rd(f) -> None:
     :param f: Argument.
     :type f: float32
     :rtype: int64
-"""
+    """
 def float2ull_rn(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float2ull_rn.html
@@ -1129,7 +1129,7 @@ def float2ull_rn(f) -> None:
     :param f: Argument.
     :type f: float32
     :rtype: int64
-"""
+    """
 def float2ull_ru(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float2ull_ru.html
@@ -1137,7 +1137,7 @@ def float2ull_ru(f) -> None:
     :param f: Argument.
     :type f: float32
     :rtype: int64
-"""
+    """
 def float2ull_rz(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float2ull_rz.html
@@ -1145,7 +1145,7 @@ def float2ull_rz(f) -> None:
     :param f: Argument.
     :type f: float32
     :rtype: int64
-"""
+    """
 def float_as_int(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_float_as_int.html
@@ -1153,7 +1153,7 @@ def float_as_int(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: int32
-"""
+    """
 def floor(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_floor.html
@@ -1161,7 +1161,7 @@ def floor(f) -> None:
     :param f: Argument.
     :type f: float64
     :rtype: float64
-"""
+    """
 def floorf(f) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_floorf.html
@@ -1169,7 +1169,7 @@ def floorf(f) -> None:
     :param f: Argument.
     :type f: float32
     :rtype: float32
-"""
+    """
 def fma(x, y, z) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fma.html
@@ -1181,7 +1181,7 @@ def fma(x, y, z) -> None:
     :param z: Argument.
     :type z: float64
     :rtype: float64
-"""
+    """
 def fma_rd(x, y, z) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fma_rd.html
@@ -1193,7 +1193,7 @@ def fma_rd(x, y, z) -> None:
     :param z: Argument.
     :type z: float64
     :rtype: float64
-"""
+    """
 def fma_rn(x, y, z) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fma_rn.html
@@ -1205,7 +1205,7 @@ def fma_rn(x, y, z) -> None:
     :param z: Argument.
     :type z: float64
     :rtype: float64
-"""
+    """
 def fma_ru(x, y, z) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fma_ru.html
@@ -1217,7 +1217,7 @@ def fma_ru(x, y, z) -> None:
     :param z: Argument.
     :type z: float64
     :rtype: float64
-"""
+    """
 def fma_rz(x, y, z) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fma_rz.html
@@ -1229,7 +1229,7 @@ def fma_rz(x, y, z) -> None:
     :param z: Argument.
     :type z: float64
     :rtype: float64
-"""
+    """
 def fmaf(x, y, z) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fmaf.html
@@ -1241,7 +1241,7 @@ def fmaf(x, y, z) -> None:
     :param z: Argument.
     :type z: float32
     :rtype: float32
-"""
+    """
 def fmaf_rd(x, y, z) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fmaf_rd.html
@@ -1253,7 +1253,7 @@ def fmaf_rd(x, y, z) -> None:
     :param z: Argument.
     :type z: float32
     :rtype: float32
-"""
+    """
 def fmaf_rn(x, y, z) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fmaf_rn.html
@@ -1265,7 +1265,7 @@ def fmaf_rn(x, y, z) -> None:
     :param z: Argument.
     :type z: float32
     :rtype: float32
-"""
+    """
 def fmaf_ru(x, y, z) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fmaf_ru.html
@@ -1277,7 +1277,7 @@ def fmaf_ru(x, y, z) -> None:
     :param z: Argument.
     :type z: float32
     :rtype: float32
-"""
+    """
 def fmaf_rz(x, y, z) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fmaf_rz.html
@@ -1289,7 +1289,7 @@ def fmaf_rz(x, y, z) -> None:
     :param z: Argument.
     :type z: float32
     :rtype: float32
-"""
+    """
 def fmax(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fmax.html
@@ -1299,7 +1299,7 @@ def fmax(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def fmaxf(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fmaxf.html
@@ -1309,7 +1309,7 @@ def fmaxf(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fmin(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fmin.html
@@ -1319,7 +1319,7 @@ def fmin(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def fminf(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fminf.html
@@ -1329,7 +1329,7 @@ def fminf(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fmod(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fmod.html
@@ -1339,7 +1339,7 @@ def fmod(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def fmodf(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fmodf.html
@@ -1349,7 +1349,7 @@ def fmodf(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fmul_rd(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fmul_rd.html
@@ -1359,7 +1359,7 @@ def fmul_rd(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fmul_rn(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fmul_rn.html
@@ -1369,7 +1369,7 @@ def fmul_rn(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fmul_ru(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fmul_ru.html
@@ -1379,7 +1379,7 @@ def fmul_ru(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fmul_rz(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fmul_rz.html
@@ -1389,7 +1389,7 @@ def fmul_rz(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def frcp_rd(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_frcp_rd.html
@@ -1397,7 +1397,7 @@ def frcp_rd(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def frcp_rn(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_frcp_rn.html
@@ -1405,7 +1405,7 @@ def frcp_rn(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def frcp_ru(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_frcp_ru.html
@@ -1413,7 +1413,7 @@ def frcp_ru(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def frcp_rz(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_frcp_rz.html
@@ -1421,7 +1421,7 @@ def frcp_rz(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def frexp(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_frexp.html
@@ -1429,7 +1429,7 @@ def frexp(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: Tuple(float64, int32)
-"""
+    """
 def frexpf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_frexpf.html
@@ -1437,7 +1437,7 @@ def frexpf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: Tuple(float32, int32)
-"""
+    """
 def frsqrt_rn(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_frsqrt_rn.html
@@ -1445,7 +1445,7 @@ def frsqrt_rn(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def fsqrt_rd(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fsqrt_rd.html
@@ -1453,7 +1453,7 @@ def fsqrt_rd(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def fsqrt_rn(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fsqrt_rn.html
@@ -1461,7 +1461,7 @@ def fsqrt_rn(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def fsqrt_ru(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fsqrt_ru.html
@@ -1469,7 +1469,7 @@ def fsqrt_ru(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def fsqrt_rz(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fsqrt_rz.html
@@ -1477,7 +1477,7 @@ def fsqrt_rz(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def fsub_rd(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fsub_rd.html
@@ -1487,7 +1487,7 @@ def fsub_rd(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fsub_rn(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fsub_rn.html
@@ -1497,7 +1497,7 @@ def fsub_rn(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fsub_ru(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fsub_ru.html
@@ -1507,7 +1507,7 @@ def fsub_ru(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def fsub_rz(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_fsub_rz.html
@@ -1517,7 +1517,7 @@ def fsub_rz(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def hadd(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_hadd.html
@@ -1527,7 +1527,7 @@ def hadd(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: int32
-"""
+    """
 def half2float(h) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_half2float.html
@@ -1535,7 +1535,7 @@ def half2float(h) -> None:
     :param h: Argument.
     :type h: int16
     :rtype: float32
-"""
+    """
 def hiloint2double(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_hiloint2double.html
@@ -1545,7 +1545,7 @@ def hiloint2double(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: float64
-"""
+    """
 def hypot(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_hypot.html
@@ -1555,7 +1555,7 @@ def hypot(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def hypotf(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_hypotf.html
@@ -1565,7 +1565,7 @@ def hypotf(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def ilogb(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ilogb.html
@@ -1573,7 +1573,7 @@ def ilogb(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: int32
-"""
+    """
 def ilogbf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ilogbf.html
@@ -1581,7 +1581,7 @@ def ilogbf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: int32
-"""
+    """
 def int2double_rn(i) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_int2double_rn.html
@@ -1589,7 +1589,7 @@ def int2double_rn(i) -> None:
     :param i: Argument.
     :type i: int32
     :rtype: float64
-"""
+    """
 def int2float_rd(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_int2float_rd.html
@@ -1597,7 +1597,7 @@ def int2float_rd(x) -> None:
     :param in: Argument.
     :type in: int32
     :rtype: float32
-"""
+    """
 def int2float_rn(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_int2float_rn.html
@@ -1605,7 +1605,7 @@ def int2float_rn(x) -> None:
     :param in: Argument.
     :type in: int32
     :rtype: float32
-"""
+    """
 def int2float_ru(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_int2float_ru.html
@@ -1613,7 +1613,7 @@ def int2float_ru(x) -> None:
     :param in: Argument.
     :type in: int32
     :rtype: float32
-"""
+    """
 def int2float_rz(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_int2float_rz.html
@@ -1621,7 +1621,7 @@ def int2float_rz(x) -> None:
     :param in: Argument.
     :type in: int32
     :rtype: float32
-"""
+    """
 def int_as_float(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_int_as_float.html
@@ -1629,7 +1629,7 @@ def int_as_float(x) -> None:
     :param x: Argument.
     :type x: int32
     :rtype: float32
-"""
+    """
 def isfinited(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_isfinited.html
@@ -1637,7 +1637,7 @@ def isfinited(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: int32
-"""
+    """
 def isinfd(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_isinfd.html
@@ -1645,7 +1645,7 @@ def isinfd(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: int32
-"""
+    """
 def isinff(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_isinff.html
@@ -1653,7 +1653,7 @@ def isinff(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: int32
-"""
+    """
 def isnand(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_isnand.html
@@ -1661,7 +1661,7 @@ def isnand(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: int32
-"""
+    """
 def isnanf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_isnanf.html
@@ -1669,7 +1669,7 @@ def isnanf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: int32
-"""
+    """
 def j0(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_j0.html
@@ -1677,7 +1677,7 @@ def j0(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def j0f(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_j0f.html
@@ -1685,7 +1685,7 @@ def j0f(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def j1(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_j1.html
@@ -1693,7 +1693,7 @@ def j1(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def j1f(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_j1f.html
@@ -1701,7 +1701,7 @@ def j1f(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def jn(n, x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_jn.html
@@ -1711,7 +1711,7 @@ def jn(n, x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def jnf(n, x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_jnf.html
@@ -1721,7 +1721,7 @@ def jnf(n, x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def ldexp(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ldexp.html
@@ -1731,7 +1731,7 @@ def ldexp(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: float64
-"""
+    """
 def ldexpf(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ldexpf.html
@@ -1741,7 +1741,7 @@ def ldexpf(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: float32
-"""
+    """
 def lgamma(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_lgamma.html
@@ -1749,7 +1749,7 @@ def lgamma(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def lgammaf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_lgammaf.html
@@ -1757,7 +1757,7 @@ def lgammaf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def ll2double_rd(l) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ll2double_rd.html
@@ -1765,7 +1765,7 @@ def ll2double_rd(l) -> None:
     :param l: Argument.
     :type l: int64
     :rtype: float64
-"""
+    """
 def ll2double_rn(l) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ll2double_rn.html
@@ -1773,7 +1773,7 @@ def ll2double_rn(l) -> None:
     :param l: Argument.
     :type l: int64
     :rtype: float64
-"""
+    """
 def ll2double_ru(l) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ll2double_ru.html
@@ -1781,7 +1781,7 @@ def ll2double_ru(l) -> None:
     :param l: Argument.
     :type l: int64
     :rtype: float64
-"""
+    """
 def ll2double_rz(l) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ll2double_rz.html
@@ -1789,7 +1789,7 @@ def ll2double_rz(l) -> None:
     :param l: Argument.
     :type l: int64
     :rtype: float64
-"""
+    """
 def ll2float_rd(l) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ll2float_rd.html
@@ -1797,7 +1797,7 @@ def ll2float_rd(l) -> None:
     :param l: Argument.
     :type l: int64
     :rtype: float32
-"""
+    """
 def ll2float_rn(l) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ll2float_rn.html
@@ -1805,7 +1805,7 @@ def ll2float_rn(l) -> None:
     :param l: Argument.
     :type l: int64
     :rtype: float32
-"""
+    """
 def ll2float_ru(l) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ll2float_ru.html
@@ -1813,7 +1813,7 @@ def ll2float_ru(l) -> None:
     :param l: Argument.
     :type l: int64
     :rtype: float32
-"""
+    """
 def ll2float_rz(l) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ll2float_rz.html
@@ -1821,7 +1821,7 @@ def ll2float_rz(l) -> None:
     :param l: Argument.
     :type l: int64
     :rtype: float32
-"""
+    """
 def llabs(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_llabs.html
@@ -1829,7 +1829,7 @@ def llabs(x) -> None:
     :param x: Argument.
     :type x: int64
     :rtype: int64
-"""
+    """
 def llmax(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_llmax.html
@@ -1839,7 +1839,7 @@ def llmax(x, y) -> None:
     :param y: Argument.
     :type y: int64
     :rtype: int64
-"""
+    """
 def llmin(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_llmin.html
@@ -1849,7 +1849,7 @@ def llmin(x, y) -> None:
     :param y: Argument.
     :type y: int64
     :rtype: int64
-"""
+    """
 def llrint(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_llrint.html
@@ -1857,7 +1857,7 @@ def llrint(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: int64
-"""
+    """
 def llrintf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_llrintf.html
@@ -1865,7 +1865,7 @@ def llrintf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: int64
-"""
+    """
 def llround(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_llround.html
@@ -1873,7 +1873,7 @@ def llround(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: int64
-"""
+    """
 def llroundf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_llroundf.html
@@ -1881,7 +1881,7 @@ def llroundf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: int64
-"""
+    """
 def log(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_log.html
@@ -1889,7 +1889,7 @@ def log(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def log10(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_log10.html
@@ -1897,7 +1897,7 @@ def log10(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def log10f(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_log10f.html
@@ -1905,7 +1905,7 @@ def log10f(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def log1p(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_log1p.html
@@ -1913,7 +1913,7 @@ def log1p(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def log1pf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_log1pf.html
@@ -1921,7 +1921,7 @@ def log1pf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def log2(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_log2.html
@@ -1929,7 +1929,7 @@ def log2(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def log2f(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_log2f.html
@@ -1937,7 +1937,7 @@ def log2f(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def logb(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_logb.html
@@ -1945,7 +1945,7 @@ def logb(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def logbf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_logbf.html
@@ -1953,7 +1953,7 @@ def logbf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def logf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_logf.html
@@ -1961,7 +1961,7 @@ def logf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def longlong_as_double(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_longlong_as_double.html
@@ -1969,7 +1969,7 @@ def longlong_as_double(x) -> None:
     :param x: Argument.
     :type x: int64
     :rtype: float64
-"""
+    """
 def max(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_max.html
@@ -1979,7 +1979,7 @@ def max(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: int32
-"""
+    """
 def min(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_min.html
@@ -1989,7 +1989,7 @@ def min(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: int32
-"""
+    """
 def modf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_modf.html
@@ -1997,7 +1997,7 @@ def modf(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: UniTuple(float64 x 2)
-"""
+    """
 def modff(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_modff.html
@@ -2005,7 +2005,7 @@ def modff(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: UniTuple(float32 x 2)
-"""
+    """
 def mul24(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_mul24.html
@@ -2015,7 +2015,7 @@ def mul24(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: int32
-"""
+    """
 def mul64hi(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_mul64hi.html
@@ -2025,7 +2025,7 @@ def mul64hi(x, y) -> None:
     :param y: Argument.
     :type y: int64
     :rtype: int64
-"""
+    """
 def mulhi(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_mulhi.html
@@ -2035,7 +2035,7 @@ def mulhi(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: int32
-"""
+    """
 def nearbyint(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_nearbyint.html
@@ -2043,7 +2043,7 @@ def nearbyint(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def nearbyintf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_nearbyintf.html
@@ -2051,7 +2051,7 @@ def nearbyintf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def nextafter(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_nextafter.html
@@ -2061,7 +2061,7 @@ def nextafter(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def nextafterf(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_nextafterf.html
@@ -2071,7 +2071,7 @@ def nextafterf(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def normcdf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_normcdf.html
@@ -2079,7 +2079,7 @@ def normcdf(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def normcdff(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_normcdff.html
@@ -2087,7 +2087,7 @@ def normcdff(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def normcdfinv(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_normcdfinv.html
@@ -2095,7 +2095,7 @@ def normcdfinv(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def normcdfinvf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_normcdfinvf.html
@@ -2103,7 +2103,7 @@ def normcdfinvf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def popc(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_popc.html
@@ -2111,7 +2111,7 @@ def popc(x) -> None:
     :param x: Argument.
     :type x: int32
     :rtype: int32
-"""
+    """
 def popcll(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_popcll.html
@@ -2119,7 +2119,7 @@ def popcll(x) -> None:
     :param x: Argument.
     :type x: int64
     :rtype: int32
-"""
+    """
 def pow(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_pow.html
@@ -2129,7 +2129,7 @@ def pow(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def powf(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_powf.html
@@ -2139,7 +2139,7 @@ def powf(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def powi(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_powi.html
@@ -2149,7 +2149,7 @@ def powi(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: float64
-"""
+    """
 def powif(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_powif.html
@@ -2159,7 +2159,7 @@ def powif(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: float32
-"""
+    """
 def rcbrt(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_rcbrt.html
@@ -2167,7 +2167,7 @@ def rcbrt(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def rcbrtf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_rcbrtf.html
@@ -2175,7 +2175,7 @@ def rcbrtf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def remainder(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_remainder.html
@@ -2185,7 +2185,7 @@ def remainder(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: float64
-"""
+    """
 def remainderf(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_remainderf.html
@@ -2195,7 +2195,7 @@ def remainderf(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: float32
-"""
+    """
 def remquo(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_remquo.html
@@ -2205,7 +2205,7 @@ def remquo(x, y) -> None:
     :param y: Argument.
     :type y: float64
     :rtype: Tuple(float64, int32)
-"""
+    """
 def remquof(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_remquof.html
@@ -2215,7 +2215,7 @@ def remquof(x, y) -> None:
     :param y: Argument.
     :type y: float32
     :rtype: Tuple(float32, int32)
-"""
+    """
 def rhadd(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_rhadd.html
@@ -2225,7 +2225,7 @@ def rhadd(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: int32
-"""
+    """
 def rint(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_rint.html
@@ -2233,7 +2233,7 @@ def rint(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def rintf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_rintf.html
@@ -2241,7 +2241,7 @@ def rintf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def round(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_round.html
@@ -2249,7 +2249,7 @@ def round(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def roundf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_roundf.html
@@ -2257,7 +2257,7 @@ def roundf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def rsqrt(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_rsqrt.html
@@ -2265,7 +2265,7 @@ def rsqrt(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def rsqrtf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_rsqrtf.html
@@ -2273,7 +2273,7 @@ def rsqrtf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def sad(x, y, z) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_sad.html
@@ -2285,7 +2285,7 @@ def sad(x, y, z) -> None:
     :param z: Argument.
     :type z: int32
     :rtype: int32
-"""
+    """
 def saturatef(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_saturatef.html
@@ -2293,7 +2293,7 @@ def saturatef(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def scalbn(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_scalbn.html
@@ -2303,7 +2303,7 @@ def scalbn(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: float64
-"""
+    """
 def scalbnf(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_scalbnf.html
@@ -2313,7 +2313,7 @@ def scalbnf(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: float32
-"""
+    """
 def signbitd(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_signbitd.html
@@ -2321,7 +2321,7 @@ def signbitd(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: int32
-"""
+    """
 def signbitf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_signbitf.html
@@ -2329,7 +2329,7 @@ def signbitf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: int32
-"""
+    """
 def sin(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_sin.html
@@ -2337,7 +2337,7 @@ def sin(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def sincos(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_sincos.html
@@ -2345,7 +2345,7 @@ def sincos(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: UniTuple(float64 x 2)
-"""
+    """
 def sincosf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_sincosf.html
@@ -2353,7 +2353,7 @@ def sincosf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: UniTuple(float32 x 2)
-"""
+    """
 def sincospi(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_sincospi.html
@@ -2361,7 +2361,7 @@ def sincospi(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: UniTuple(float64 x 2)
-"""
+    """
 def sincospif(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_sincospif.html
@@ -2369,7 +2369,7 @@ def sincospif(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: UniTuple(float32 x 2)
-"""
+    """
 def sinf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_sinf.html
@@ -2377,7 +2377,7 @@ def sinf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def sinh(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_sinh.html
@@ -2385,7 +2385,7 @@ def sinh(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def sinhf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_sinhf.html
@@ -2393,7 +2393,7 @@ def sinhf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def sinpi(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_sinpi.html
@@ -2401,7 +2401,7 @@ def sinpi(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def sinpif(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_sinpif.html
@@ -2409,7 +2409,7 @@ def sinpif(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def sqrt(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_sqrt.html
@@ -2417,7 +2417,7 @@ def sqrt(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def sqrtf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_sqrtf.html
@@ -2425,7 +2425,7 @@ def sqrtf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def tan(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_tan.html
@@ -2433,7 +2433,7 @@ def tan(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def tanf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_tanf.html
@@ -2441,7 +2441,7 @@ def tanf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def tanh(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_tanh.html
@@ -2449,7 +2449,7 @@ def tanh(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def tanhf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_tanhf.html
@@ -2457,7 +2457,7 @@ def tanhf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def tgamma(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_tgamma.html
@@ -2465,7 +2465,7 @@ def tgamma(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def tgammaf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_tgammaf.html
@@ -2473,7 +2473,7 @@ def tgammaf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def trunc(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_trunc.html
@@ -2481,7 +2481,7 @@ def trunc(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def truncf(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_truncf.html
@@ -2489,7 +2489,7 @@ def truncf(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def uhadd(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_uhadd.html
@@ -2499,7 +2499,7 @@ def uhadd(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: int32
-"""
+    """
 def uint2double_rn(i) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_uint2double_rn.html
@@ -2507,7 +2507,7 @@ def uint2double_rn(i) -> None:
     :param i: Argument.
     :type i: int32
     :rtype: float64
-"""
+    """
 def uint2float_rd(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_uint2float_rd.html
@@ -2515,7 +2515,7 @@ def uint2float_rd(x) -> None:
     :param in: Argument.
     :type in: int32
     :rtype: float32
-"""
+    """
 def uint2float_rn(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_uint2float_rn.html
@@ -2523,7 +2523,7 @@ def uint2float_rn(x) -> None:
     :param in: Argument.
     :type in: int32
     :rtype: float32
-"""
+    """
 def uint2float_ru(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_uint2float_ru.html
@@ -2531,7 +2531,7 @@ def uint2float_ru(x) -> None:
     :param in: Argument.
     :type in: int32
     :rtype: float32
-"""
+    """
 def uint2float_rz(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_uint2float_rz.html
@@ -2539,7 +2539,7 @@ def uint2float_rz(x) -> None:
     :param in: Argument.
     :type in: int32
     :rtype: float32
-"""
+    """
 def ull2double_rd(l) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ull2double_rd.html
@@ -2547,7 +2547,7 @@ def ull2double_rd(l) -> None:
     :param l: Argument.
     :type l: int64
     :rtype: float64
-"""
+    """
 def ull2double_rn(l) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ull2double_rn.html
@@ -2555,7 +2555,7 @@ def ull2double_rn(l) -> None:
     :param l: Argument.
     :type l: int64
     :rtype: float64
-"""
+    """
 def ull2double_ru(l) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ull2double_ru.html
@@ -2563,7 +2563,7 @@ def ull2double_ru(l) -> None:
     :param l: Argument.
     :type l: int64
     :rtype: float64
-"""
+    """
 def ull2double_rz(l) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ull2double_rz.html
@@ -2571,7 +2571,7 @@ def ull2double_rz(l) -> None:
     :param l: Argument.
     :type l: int64
     :rtype: float64
-"""
+    """
 def ull2float_rd(l) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ull2float_rd.html
@@ -2579,7 +2579,7 @@ def ull2float_rd(l) -> None:
     :param l: Argument.
     :type l: int64
     :rtype: float32
-"""
+    """
 def ull2float_rn(l) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ull2float_rn.html
@@ -2587,7 +2587,7 @@ def ull2float_rn(l) -> None:
     :param l: Argument.
     :type l: int64
     :rtype: float32
-"""
+    """
 def ull2float_ru(l) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ull2float_ru.html
@@ -2595,7 +2595,7 @@ def ull2float_ru(l) -> None:
     :param l: Argument.
     :type l: int64
     :rtype: float32
-"""
+    """
 def ull2float_rz(l) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ull2float_rz.html
@@ -2603,7 +2603,7 @@ def ull2float_rz(l) -> None:
     :param l: Argument.
     :type l: int64
     :rtype: float32
-"""
+    """
 def ullmax(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ullmax.html
@@ -2613,7 +2613,7 @@ def ullmax(x, y) -> None:
     :param y: Argument.
     :type y: int64
     :rtype: int64
-"""
+    """
 def ullmin(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ullmin.html
@@ -2623,7 +2623,7 @@ def ullmin(x, y) -> None:
     :param y: Argument.
     :type y: int64
     :rtype: int64
-"""
+    """
 def umax(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_umax.html
@@ -2633,7 +2633,7 @@ def umax(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: int32
-"""
+    """
 def umin(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_umin.html
@@ -2643,7 +2643,7 @@ def umin(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: int32
-"""
+    """
 def umul24(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_umul24.html
@@ -2653,7 +2653,7 @@ def umul24(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: int32
-"""
+    """
 def umul64hi(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_umul64hi.html
@@ -2663,7 +2663,7 @@ def umul64hi(x, y) -> None:
     :param y: Argument.
     :type y: int64
     :rtype: int64
-"""
+    """
 def umulhi(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_umulhi.html
@@ -2673,7 +2673,7 @@ def umulhi(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: int32
-"""
+    """
 def urhadd(x, y) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_urhadd.html
@@ -2683,7 +2683,7 @@ def urhadd(x, y) -> None:
     :param y: Argument.
     :type y: int32
     :rtype: int32
-"""
+    """
 def usad(x, y, z) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_usad.html
@@ -2695,7 +2695,7 @@ def usad(x, y, z) -> None:
     :param z: Argument.
     :type z: int32
     :rtype: int32
-"""
+    """
 def y0(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_y0.html
@@ -2703,7 +2703,7 @@ def y0(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def y0f(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_y0f.html
@@ -2711,7 +2711,7 @@ def y0f(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def y1(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_y1.html
@@ -2719,7 +2719,7 @@ def y1(x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def y1f(x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_y1f.html
@@ -2727,7 +2727,7 @@ def y1f(x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """
 def yn(n, x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_yn.html
@@ -2737,7 +2737,7 @@ def yn(n, x) -> None:
     :param x: Argument.
     :type x: float64
     :rtype: float64
-"""
+    """
 def ynf(n, x) -> None:
     """
     See https://docs.nvidia.com/cuda/libdevice-users-guide/__nv_ynf.html
@@ -2747,4 +2747,4 @@ def ynf(n, x) -> None:
     :param x: Argument.
     :type x: float32
     :rtype: float32
-"""
+    """

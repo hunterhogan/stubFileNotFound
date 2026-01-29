@@ -1,4 +1,7 @@
-from .templates import AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, CallableTemplate as CallableTemplate, ConcreteTemplate as ConcreteTemplate, Registry as Registry, bound_function as bound_function, make_callable_template as make_callable_template, signature as signature
+from .templates import (
+	AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, bound_function as bound_function,
+	CallableTemplate as CallableTemplate, ConcreteTemplate as ConcreteTemplate,
+	make_callable_template as make_callable_template, Registry as Registry, signature as signature)
 from _typeshed import Incomplete
 from numba.core import types as types
 from numba.core.typing import collections as collections

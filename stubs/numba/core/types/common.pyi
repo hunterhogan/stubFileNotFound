@@ -1,4 +1,5 @@
-from .abstract import ArrayCompatible as ArrayCompatible, Dummy as Dummy, IterableType as IterableType, IteratorType as IteratorType
+from .abstract import (
+	ArrayCompatible as ArrayCompatible, Dummy as Dummy, IterableType as IterableType, IteratorType as IteratorType)
 from _typeshed import Incomplete
 from numba.core.errors import NumbaTypeError as NumbaTypeError, NumbaValueError as NumbaValueError
 
@@ -24,6 +25,7 @@ class Buffer(IterableType, ArrayCompatible):
     Type class for objects providing the buffer protocol.
     Derived classes exist for more specific cases.
     """
+
     mutable: bool
     slice_is_copy: bool
     aligned: bool
@@ -31,12 +33,12 @@ class Buffer(IterableType, ArrayCompatible):
     dtype: Incomplete
     ndim: Incomplete
     layout: Incomplete
-    def __init__(self, dtype, ndim, layout, readonly: bool = False, name: Incomplete | None = None) -> None: ...
+    def __init__(self, dtype, ndim, layout, readonly: bool = False, name=None) -> None: ...
     @property
     def iterator_type(self): ...
     @property
     def as_array(self): ...
-    def copy(self, dtype: Incomplete | None = None, ndim: Incomplete | None = None, layout: Incomplete | None = None): ...
+    def copy(self, dtype=None, ndim=None, layout=None): ...
     @property
     def key(self): ...
     @property

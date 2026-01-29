@@ -10,10 +10,11 @@ class ConstantInference:
 
     This shouldn't be used directly, instead call Interpreter.infer_constant().
     """
+
     _func_ir: Incomplete
     _cache: Incomplete
     def __init__(self, func_ir) -> None: ...
-    def infer_constant(self, name, loc: Incomplete | None = None):
+    def infer_constant(self, name, loc=None):
         """
         Infer a constant value for the given variable *name*.
         If no value can be inferred, numba.errors.ConstantInferenceError

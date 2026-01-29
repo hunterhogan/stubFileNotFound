@@ -13,6 +13,7 @@ def make_gufunc_kernel(_dufunc): ...
 class GUFuncLowerer(UfuncLowererBase):
     """Callable class responsible for lowering calls to a specific gufunc.
     """
+
     def __init__(self, gufunc) -> None: ...
 
 class GUFunc(serialize.ReduceMixin, UfuncBase):
@@ -22,6 +23,7 @@ class GUFunc(serialize.ReduceMixin, UfuncBase):
     of call-time (just-in-time) compilation of fast loops
     specialized to inputs.
     """
+
     ufunc: Incomplete
     _frozen: bool
     _is_dynamic: Incomplete
@@ -30,14 +32,13 @@ class GUFunc(serialize.ReduceMixin, UfuncBase):
     __name__: Incomplete
     __doc__: Incomplete
     _dispatcher: Incomplete
-    def __init__(self, py_func, signature, identity: Incomplete | None = None, cache: Incomplete | None = None, is_dynamic: bool = False, targetoptions={}, writable_args=()) -> None: ...
+    def __init__(self, py_func, signature, identity=None, cache=None, is_dynamic: bool = False, targetoptions=None, writable_args=()) -> None: ...
     _lower_me: Incomplete
     def _initialize(self, dispatcher) -> None: ...
     def _reduce_states(self): ...
     @classmethod
     def _rebuild(cls, py_func, signature, identity, cache, is_dynamic, targetoptions, writable_args, typesigs, frozen): ...
-    def __repr__(self) -> str: ...
-    def _install_type(self, typingctx: Incomplete | None = None) -> None:
+    def _install_type(self, typingctx=None) -> None:
         """Constructs and installs a typing class for a gufunc object in the
         input typing context.  If no typing context is given, then
         _install_type() installs into the typing context of the
@@ -55,7 +56,7 @@ class GUFunc(serialize.ReduceMixin, UfuncBase):
         Return the call-site signature after either validating the
         element-wise signature or compiling for it.
         """
-    def _compile_for_argtys(self, argtys, return_type: Incomplete | None = None) -> None: ...
+    def _compile_for_argtys(self, argtys, return_type=None) -> None: ...
     def match_signature(self, ewise_types, sig): ...
     @property
     def is_dynamic(self): ...

@@ -7,6 +7,7 @@ class NumbaIRLexer(RegexLexer):
     """
     Pygments style lexer for Numba IR (for use with highlighting etc).
     """
+
     name: str
     aliases: Incomplete
     filenames: Incomplete

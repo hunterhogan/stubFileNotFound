@@ -4,7 +4,9 @@ from enum import Enum
 from numba.core.controlflow import CFGraph as CFGraph, NEW_BLOCKERS as NEW_BLOCKERS
 from numba.core.errors import UnsupportedBytecodeError as UnsupportedBytecodeError
 from numba.core.ir import Loc as Loc
-from numba.core.utils import ALL_BINOPS_TO_OPERATORS as ALL_BINOPS_TO_OPERATORS, PYVERSION as PYVERSION, UniqueDict as UniqueDict, _lazy_pformat as _lazy_pformat
+from numba.core.utils import (
+	_lazy_pformat as _lazy_pformat, ALL_BINOPS_TO_OPERATORS as ALL_BINOPS_TO_OPERATORS, PYVERSION as PYVERSION,
+	UniqueDict as UniqueDict)
 from typing import NamedTuple
 
 _logger: Incomplete
@@ -21,19 +23,20 @@ ci1op = CALL_INTRINSIC_1_Operand
 class BlockKind:
     """Kinds of block to make related code safer than just `str`.
     """
+
     _members: Incomplete
     _value: Incomplete
     def __init__(self, value) -> None: ...
     def __hash__(self): ...
     def __lt__(self, other): ...
     def __eq__(self, other): ...
-    def __repr__(self) -> str: ...
 
 class Flow:
     """Data+Control Flow analysis.
 
     Simulate execution to recover dataflow and controlflow information.
     """
+
     _bytecode: Incomplete
     block_infos: Incomplete
     def __init__(self, bytecode) -> None: ...
@@ -53,16 +56,20 @@ class Flow:
     def _build_cfg(self, all_states) -> None: ...
     def _prune_phis(self, runner): ...
     def _is_implicit_new_block(self, state): ...
+    def _guard_with_as(self, state) -> None: ...
     def _guard_with_as(self, state) -> None:
-        """Checks if the next instruction after a SETUP_WITH is something other
-        than a POP_TOP, if it is something else it'll be some sort of store
-        which is not supported (this corresponds to `with CTXMGR as VAR(S)`)."""
+        """Checks if the next instruction after a SETUP_WITH is something
+        other than a POP_TOP, if it is something else it'll be some sort of
+        store which is not supported (this corresponds to `with CTXMGR as
+        VAR(S)`).
+        """
 
 def _is_null_temp_reg(reg): ...
 
 class TraceRunner:
     """Trace runner contains the states for the trace and the opcode dispatch.
     """
+
     debug_filename: Incomplete
     pending: Incomplete
     finished: Incomplete
@@ -75,6 +82,7 @@ class TraceRunner:
         by the bytecode.
         """
     def op_NOP(self, state, inst) -> None: ...
+    op_NOT_TAKEN = op_NOP
     def op_RESUME(self, state, inst) -> None: ...
     def op_CACHE(self, state, inst) -> None: ...
     def op_PRECALL(self, state, inst) -> None: ...
@@ -97,6 +105,7 @@ class TraceRunner:
         https://docs.python.org/3/library/dis.html#opcode-BUILD_STRING
         """
     def op_POP_TOP(self, state, inst) -> None: ...
+    op_POP_ITER = op_POP_TOP
     def op_TO_BOOL(self, state, inst) -> None: ...
     def op_LOAD_GLOBAL(self, state, inst) -> None: ...
     def op_LOAD_GLOBAL(self, state, inst) -> None: ...
@@ -105,6 +114,7 @@ class TraceRunner:
     def op_MAKE_CELL(self, state, inst) -> None: ...
     def op_LOAD_DEREF(self, state, inst) -> None: ...
     def op_LOAD_CONST(self, state, inst) -> None: ...
+    def op_LOAD_SMALL_INT(self, state, inst) -> None: ...
     def op_LOAD_ATTR(self, state, inst) -> None: ...
     def op_LOAD_FAST(self, state, inst) -> None: ...
     def op_LOAD_FAST_LOAD_FAST(self, state, inst) -> None: ...
@@ -112,6 +122,8 @@ class TraceRunner:
     def op_STORE_FAST_STORE_FAST(self, state, inst) -> None: ...
     op_LOAD_FAST_CHECK = op_LOAD_FAST
     op_LOAD_FAST_AND_CLEAR = op_LOAD_FAST
+    op_LOAD_FAST_BORROW = op_LOAD_FAST
+    op_LOAD_FAST_BORROW_LOAD_FAST_BORROW = op_LOAD_FAST_LOAD_FAST
     def op_DELETE_FAST(self, state, inst) -> None: ...
     def op_DELETE_ATTR(self, state, inst) -> None: ...
     def op_STORE_ATTR(self, state, inst) -> None: ...
@@ -147,19 +159,19 @@ class TraceRunner:
         """
     def op_DELETE_SLICE_0(self, state, inst) -> None:
         """
-        del TOS[:]
+        Del TOS[:]
         """
     def op_DELETE_SLICE_1(self, state, inst) -> None:
         """
-        del TOS1[TOS:]
+        Del TOS1[TOS:]
         """
     def op_DELETE_SLICE_2(self, state, inst) -> None:
         """
-        del TOS1[:TOS]
+        Del TOS1[:TOS]
         """
     def op_DELETE_SLICE_3(self, state, inst) -> None:
         """
-        del TOS2[TOS1:TOS]
+        Del TOS2[TOS1:TOS]
         """
     def op_BUILD_SLICE(self, state, inst) -> None:
         """
@@ -221,6 +233,7 @@ class TraceRunner:
     def op_CALL_KW(self, state, inst) -> None: ...
     def op_CALL_FUNCTION_EX(self, state, inst) -> None: ...
     def op_CALL_FUNCTION_EX(self, state, inst) -> None: ...
+    def op_CALL_FUNCTION_EX(self, state, inst) -> None: ...
     def _dup_topx(self, state, inst, count) -> None: ...
     def op_CALL_INTRINSIC_1(self, state, inst) -> None: ...
     def op_DUP_TOPX(self, state, inst) -> None: ...
@@ -244,6 +257,7 @@ class TraceRunner:
     def op_BUILD_MAP(self, state, inst) -> None: ...
     def op_MAP_ADD(self, state, inst) -> None: ...
     def op_BUILD_SET(self, state, inst) -> None: ...
+    def op_SET_ADD(self, state, inst) -> None: ...
     def op_SET_UPDATE(self, state, inst) -> None: ...
     def op_DICT_UPDATE(self, state, inst) -> None: ...
     def op_GET_ITER(self, state, inst) -> None: ...
@@ -306,10 +320,13 @@ class TraceRunner:
     def op_LOAD_METHOD(self, state, inst) -> None: ...
     def op_LOAD_METHOD(self, state, inst) -> None: ...
     def op_CALL_METHOD(self, state, inst) -> None: ...
+    def op_LOAD_SPECIAL(self, state, inst) -> None: ...
+    def op_LOAD_COMMON_CONSTANT(self, state, inst) -> None: ...
 
 class _State:
     """State of the trace
     """
+
     _bytecode: Incomplete
     _pc_initial: Incomplete
     _pc: Incomplete
@@ -337,7 +354,6 @@ class _State:
         blockstack : Sequence[Dict]
             A sequence of dictionary denoting entries on the blockstack.
         """
-    def __repr__(self) -> str: ...
     def get_identity(self): ...
     def __hash__(self): ...
     def __lt__(self, other): ...
@@ -405,7 +421,7 @@ class _State:
         """Reset the stack to the given stack depth.
         Returning the popped items.
         """
-    def make_block(self, kind, end, reset_stack: bool = True, handler: Incomplete | None = None):
+    def make_block(self, kind, end, reset_stack: bool = True, handler=None):
         """Make a new block
         """
     def pop_block(self):
@@ -433,7 +449,7 @@ class _State:
     def terminate(self) -> None:
         """Mark block as terminated
         """
-    def fork(self, pc, npop: int = 0, npush: int = 0, extra_block: Incomplete | None = None) -> None:
+    def fork(self, pc, npop: int = 0, npush: int = 0, extra_block=None) -> None:
         """Fork the state
         """
     def split_new_block(self) -> None:
@@ -479,6 +495,7 @@ class Edge(NamedTuple):
 class AdaptDFA:
     """Adapt Flow to the old DFA class expected by Interpreter
     """
+
     _flow: Incomplete
     def __init__(self, flow) -> None: ...
     @property
@@ -499,6 +516,7 @@ def _flatten_inst_regs(iterable) -> Generator[Incomplete]:
 class AdaptCFA:
     """Adapt Flow to the old CFA class expected by Interpreter
     """
+
     _flow: Incomplete
     _blocks: Incomplete
     _backbone: Incomplete

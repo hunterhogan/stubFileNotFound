@@ -2,21 +2,22 @@ from _typeshed import Incomplete
 from numba.core import itanium_mangler as itanium_mangler, types as types
 from numba.core.utils import _dynamic_modname as _dynamic_modname, _dynamic_module as _dynamic_module
 
-def default_mangler(name, argtypes, *, abi_tags=(), uid: Incomplete | None = None): ...
+def default_mangler(name, argtypes, *, abi_tags=(), uid=None): ...
 def qualifying_prefix(modname, qualname):
     """
     Returns a new string that is used for the first half of the mangled name.
     """
 
 class FunctionDescriptor:
-    '''
+    """
     Base class for function descriptors: an object used to carry
     useful metadata about a natively callable function.
 
     Note that while `FunctionIdentity` denotes a Python function
     which is being concretely compiled by Numba, `FunctionDescriptor`
     may be more "abstract".
-    '''
+    """
+
     __slots__: Incomplete
     native: Incomplete
     modname: Incomplete
@@ -36,7 +37,7 @@ class FunctionDescriptor:
     inline: Incomplete
     noalias: Incomplete
     abi_tags: Incomplete
-    def __init__(self, native, modname, qualname, unique_name, doc, typemap, restype, calltypes, args, kws, mangler: Incomplete | None = None, argtypes: Incomplete | None = None, inline: bool = False, noalias: bool = False, env_name: Incomplete | None = None, global_dict: Incomplete | None = None, abi_tags=(), uid: Incomplete | None = None) -> None: ...
+    def __init__(self, native, modname, qualname, unique_name, doc, typemap, restype, calltypes, args, kws, mangler=None, argtypes=None, inline: bool = False, noalias: bool = False, env_name=None, global_dict=None, abi_tags=(), uid=None) -> None: ...
     def lookup_globals(self):
         """
         Return the global dictionary of the function.
@@ -70,7 +71,6 @@ class FunctionDescriptor:
         The LLVM-registered name for a C-compatible wrapper of the
         raw function.
         """
-    def __repr__(self) -> str: ...
     @classmethod
     def _get_function_info(cls, func_ir):
         """
@@ -81,12 +81,13 @@ class FunctionDescriptor:
         ``unique_name`` must be a unique name.
         """
     @classmethod
-    def _from_python_function(cls, func_ir, typemap, restype, calltypes, native, mangler: Incomplete | None = None, inline: bool = False, noalias: bool = False, abi_tags=()): ...
+    def _from_python_function(cls, func_ir, typemap, restype, calltypes, native, mangler=None, inline: bool = False, noalias: bool = False, abi_tags=()): ...
 
 class PythonFunctionDescriptor(FunctionDescriptor):
     """
     A FunctionDescriptor subclass for Numba-compiled functions.
     """
+
     __slots__: Incomplete
     @classmethod
     def from_specialized_function(cls, func_ir, typemap, restype, calltypes, mangler, inline, noalias, abi_tags):
@@ -106,5 +107,6 @@ class ExternalFunctionDescriptor(FunctionDescriptor):
     A FunctionDescriptor subclass for opaque external functions
     (e.g. raw C functions).
     """
+
     __slots__: Incomplete
     def __init__(self, name, restype, argtypes) -> None: ...

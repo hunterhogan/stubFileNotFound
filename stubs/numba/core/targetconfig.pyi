@@ -4,6 +4,7 @@ from numba.core import utils as utils
 class Option:
     """An option to be used in ``TargetConfig``.
     """
+
     __slots__: Incomplete
     _type: Incomplete
     _default: Incomplete
@@ -35,6 +36,7 @@ class ConfigStack:
     It stores the stack in a thread-local class attribute. All instances in the
     same thread will see the same stack.
     """
+
     @classmethod
     def top_or_none(cls):
         """Get the TOS or return None if no config is set.
@@ -55,6 +57,7 @@ class _MetaTargetConfig(type):
     as class members will be parsed and corresponding getters, setters, and
     delters will be inserted.
     """
+
     def __init__(cls, name, bases, dct) -> None:
         """Invoked when subclass is created.
 
@@ -68,12 +71,12 @@ class _MetaTargetConfig(type):
         """
 
 class _NotSetType:
-    def __repr__(self) -> str: ...
+    ...
 
 _NotSet: Incomplete
 
 class TargetConfig(metaclass=_MetaTargetConfig):
-    '''Base class for ``TargetConfig``.
+    """Base class for ``TargetConfig``.
 
     Subclass should fill class members with ``Option``. For example:
 
@@ -86,11 +89,12 @@ class TargetConfig(metaclass=_MetaTargetConfig):
     >>> tc = MyTargetConfig()
     >>> tc.a_bool_option = True  # invokes the setter
     >>> print(tc.an_int_option)  # print the default
-    '''
+    """
+
     __slots__: Incomplete
     _ZLIB_CONFIG: Incomplete
     _values: Incomplete
-    def __init__(self, copy_from: Incomplete | None = None) -> None:
+    def __init__(self, copy_from=None) -> None:
         """
         Parameters
         ----------
@@ -98,7 +102,6 @@ class TargetConfig(metaclass=_MetaTargetConfig):
             if None, creates an empty ``TargetConfig``.
             Otherwise, creates a copy.
         """
-    def __repr__(self) -> str: ...
     def __hash__(self): ...
     def __eq__(self, other): ...
     def values(self):
@@ -135,7 +138,7 @@ class TargetConfig(metaclass=_MetaTargetConfig):
         """
     def _guard_option(self, name) -> None: ...
     def _summary_args(self):
-        """returns a sorted sequence of 2-tuple containing the
+        """Returns a sorted sequence of 2-tuple containing the
         ``(flag_name, flag_value)`` for flag that are set with a non-default
         value.
         """

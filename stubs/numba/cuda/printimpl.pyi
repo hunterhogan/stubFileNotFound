@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from functools import singledispatch
 from numba.core import cgutils as cgutils, types as types
 from numba.core.errors import NumbaWarning as NumbaWarning
 from numba.core.imputils import Registry as Registry
@@ -8,6 +9,7 @@ registry: Incomplete
 lower: Incomplete
 voidptr: Incomplete
 
+@singledispatch
 def print_item(ty, context, builder, val) -> None:
     """
     Handle printing of a single value of the given Numba type.
@@ -20,4 +22,5 @@ def const_print_impl(ty, context, builder, sigval): ...
 def print_varargs(context, builder, sig, args):
     """This function is a generic 'print' wrapper for arbitrary types.
     It dispatches to the appropriate 'print' implementations above
-    depending on the detected real types in the signature."""
+    depending on the detected real types in the signature.
+    """

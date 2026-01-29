@@ -1,9 +1,11 @@
-import ast
 from _typeshed import Incomplete
 from collections.abc import Generator
-from numba.core import compiler as compiler, ir as ir, rewrites as rewrites, targetconfig as targetconfig, types as types
+from numba.core import (
+	compiler as compiler, ir as ir, rewrites as rewrites, targetconfig as targetconfig, types as types)
 from numba.core.typing import npydecl as npydecl
 from numba.np.ufunc.dufunc import DUFunc as DUFunc
+import ast
+import contextlib
 
 def _is_ufunc(func): ...
 
@@ -13,6 +15,7 @@ class RewriteArrayExprs(rewrites.Rewrite):
     rewriting those expressions to a single operation that will expand
     into something similar to a ufunc call.
     """
+
     def __init__(self, state, *args, **kws) -> None: ...
     crnt_block: Incomplete
     typemap: Incomplete
@@ -65,6 +68,7 @@ def _arr_expr_to_ast(expr):
     """Build a Python expression AST from an array expression built by
     RewriteArrayExprs.
     """
+@contextlib.contextmanager
 def _legalize_parameter_names(var_list) -> Generator[Incomplete]:
     """
     Legalize names in the variable list for use as a Python function's

@@ -1,6 +1,9 @@
 from itertools import zip_longest as zip_longest
 from numba.core import cgutils as cgutils, types as types, typing as typing, utils as utils
-from numba.core.imputils import impl_ret_borrowed as impl_ret_borrowed, impl_ret_new_ref as impl_ret_new_ref, impl_ret_untracked as impl_ret_untracked, iternext_impl as iternext_impl, lower_builtin as lower_builtin, lower_cast as lower_cast, lower_constant as lower_constant, lower_getattr as lower_getattr
+from numba.core.imputils import (
+	impl_ret_borrowed as impl_ret_borrowed, impl_ret_new_ref as impl_ret_new_ref, impl_ret_untracked as impl_ret_untracked,
+	iternext_impl as iternext_impl, lower_builtin as lower_builtin, lower_cast as lower_cast,
+	lower_constant as lower_constant, lower_getattr as lower_getattr)
 
 def fix_index(builder, idx, size):
     """

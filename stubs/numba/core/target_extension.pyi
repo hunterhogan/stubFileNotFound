@@ -1,9 +1,11 @@
-import abc
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from numba.core.decorators import jit as jit
-from numba.core.errors import InternalTargetMismatchError as InternalTargetMismatchError, NonexistentTargetError as NonexistentTargetError
+from numba.core.errors import (
+	InternalTargetMismatchError as InternalTargetMismatchError, NonexistentTargetError as NonexistentTargetError)
 from numba.core.registry import CPUDispatcher as CPUDispatcher, DelayedRegistry as DelayedRegistry
+import abc
+import types
 
 _active_context: Incomplete
 _active_context_default: str
@@ -16,7 +18,9 @@ jit_registry: Incomplete
 
 class target_override:
     """Context manager to temporarily override the current target with that
-       prescribed."""
+    prescribed.
+    """
+
     _orig_target: Incomplete
     target: Incomplete
     def __init__(self, name) -> None: ...
@@ -46,6 +50,7 @@ def _get_local_target_checked(tyctx, hwstr, reason):
         target name to check against
     reason: str
         Reason for the resolution. Expects a noun.
+
     Returns
     -------
     target_hw : Target
@@ -60,7 +65,8 @@ class JitDecorator(ABC, metaclass=abc.ABCMeta):
     def __call__(self): ...
 
 class Target(ABC):
-    """ Implements a target """
+    """Implements a target"""
+
     @classmethod
     def inherits_from(cls, other):
         """Returns True if this target inherits from 'other' False otherwise"""

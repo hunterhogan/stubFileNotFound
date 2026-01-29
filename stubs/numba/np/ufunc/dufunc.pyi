@@ -1,8 +1,11 @@
 from _typeshed import Incomplete
 from numba import jit as jit, typeof as typeof
-from numba.core import cgutils as cgutils, errors as errors, serialize as serialize, sigutils as sigutils, types as types
+from numba.core import (
+	cgutils as cgutils, errors as errors, serialize as serialize, sigutils as sigutils, types as types)
 from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
-from numba.core.extending import intrinsic as intrinsic, is_jitted as is_jitted, overload_attribute as overload_attribute, overload_method as overload_method, register_jitable as register_jitable
+from numba.core.extending import (
+	intrinsic as intrinsic, is_jitted as is_jitted, overload_attribute as overload_attribute,
+	overload_method as overload_method, register_jitable as register_jitable)
 from numba.core.typing import npydecl as npydecl
 from numba.core.typing.templates import AbstractTemplate as AbstractTemplate, signature as signature
 from numba.cpython.unsafe.tuple import tuple_setitem as tuple_setitem
@@ -19,7 +22,7 @@ class UfuncAtIterator:
     indices_ty: Incomplete
     b: Incomplete
     b_ty: Incomplete
-    def __init__(self, ufunc, a, a_ty, indices, indices_ty, b: Incomplete | None = None, b_ty: Incomplete | None = None) -> None: ...
+    def __init__(self, ufunc, a, a_ty, indices, indices_ty, b=None, b_ty=None) -> None: ...
     def run(self, context, builder) -> None: ...
     def need_advanced_indexing(self): ...
     b_indice: Incomplete
@@ -37,6 +40,7 @@ def make_dufunc_kernel(_dufunc): ...
 class DUFuncLowerer(UfuncLowererBase):
     """Callable class responsible for lowering calls to a specific DUFunc.
     """
+
     def __init__(self, dufunc) -> None: ...
 
 class DUFunc(serialize.ReduceMixin, _internal._DUFunc, UfuncBase):
@@ -45,8 +49,9 @@ class DUFunc(serialize.ReduceMixin, _internal._DUFunc, UfuncBase):
     Numpy ufunc, but capable of call-time (just-in-time) compilation
     of fast loops specialized to inputs.
     """
+
     __base_kwargs: Incomplete
-    def __init__(self, py_func, identity: Incomplete | None = None, cache: bool = False, targetoptions={}) -> None: ...
+    def __init__(self, py_func, identity=None, cache: bool = False, targetoptions=None) -> None: ...
     reorderable: Incomplete
     __name__: Incomplete
     __doc__: Incomplete
@@ -96,7 +101,8 @@ class DUFunc(serialize.ReduceMixin, _internal._DUFunc, UfuncBase):
         to take control of DUFunc.__call__.
         """
     def _compile_for_args(self, *args, **kws): ...
-    def _compile_for_argtys(self, argtys, return_type: Incomplete | None = None):
+    @global_compiler_lock
+    def _compile_for_argtys(self, argtys, return_type=None):
         """
         Given a tuple of argument types (these should be the array
         dtypes, and not the array types themselves), compile the
@@ -109,8 +115,9 @@ class DUFunc(serialize.ReduceMixin, _internal._DUFunc, UfuncBase):
     def _install_ufunc_methods(self, template) -> None: ...
     def _install_ufunc_at(self, template) -> None: ...
     def _install_ufunc_reduce(self, template) -> None: ...
-    def at(self, a, indices, b: Incomplete | None = None): ...
-    def _install_type(self, typingctx: Incomplete | None = None) -> None:
+    def _install_ufunc_reduceat(self, template) -> None: ...
+    def at(self, a, indices, b=None): ...
+    def _install_type(self, typingctx=None) -> None:
         """Constructs and installs a typing class for a DUFunc object in the
         input typing context.  If no typing context is given, then
         _install_type() installs into the typing context of the

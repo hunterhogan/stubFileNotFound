@@ -7,6 +7,7 @@ from numba.cuda import nvvmutils as nvvmutils
 from numba.cuda.extending import intrinsic as intrinsic
 
 def _type_grid_function(ndim): ...
+@intrinsic
 def grid(typingctx, ndim):
     """grid(ndim)
 
@@ -22,6 +23,7 @@ def grid(typingctx, ndim):
     and is similar for the other two indices, but using the ``y`` and ``z``
     attributes.
     """
+@intrinsic
 def gridsize(typingctx, ndim):
     """gridsize(ndim)
 
@@ -37,12 +39,14 @@ def gridsize(typingctx, ndim):
     and is similar for the other two indices, but using the ``y`` and ``z``
     attributes.
     """
+@intrinsic
 def _warpsize(typingctx): ...
 def cuda_warpsize(mod):
     """
     The size of a warp. All architectures implemented to date have a warp size
     of 32.
     """
+@intrinsic
 def syncthreads(typingctx):
     """
     Synchronize all threads in the same thread block.  This function implements
@@ -51,6 +55,7 @@ def syncthreads(typingctx):
     returns control to all its callers.
     """
 def _syncthreads_predicate(typingctx, predicate, fname): ...
+@intrinsic
 def syncthreads_count(typingctx, predicate):
     """
     syncthreads_count(predicate)
@@ -58,6 +63,7 @@ def syncthreads_count(typingctx, predicate):
     An extension to numba.cuda.syncthreads where the return value is a count
     of the threads where predicate is true.
     """
+@intrinsic
 def syncthreads_and(typingctx, predicate):
     """
     syncthreads_and(predicate)
@@ -65,6 +71,7 @@ def syncthreads_and(typingctx, predicate):
     An extension to numba.cuda.syncthreads where 1 is returned if predicate is
     true for all threads or 0 otherwise.
     """
+@intrinsic
 def syncthreads_or(typingctx, predicate):
     """
     syncthreads_or(predicate)

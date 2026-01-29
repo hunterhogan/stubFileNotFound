@@ -1,8 +1,13 @@
 from _typeshed import Incomplete
 from numba import prange as prange
 from numba.core import config as config, errors as errors, types as types
-from numba.core.extending import make_attribute_wrapper as make_attribute_wrapper, models as models, register_model as register_model, type_callable as type_callable, typeof_impl as typeof_impl
-from numba.core.typing.templates import AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, ConcreteTemplate as ConcreteTemplate, bound_function as bound_function, infer as infer, infer_getattr as infer_getattr, infer_global as infer_global, make_callable_template as make_callable_template, signature as signature
+from numba.core.extending import (
+	make_attribute_wrapper as make_attribute_wrapper, models as models, register_model as register_model,
+	type_callable as type_callable, typeof_impl as typeof_impl)
+from numba.core.typing.templates import (
+	AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, bound_function as bound_function,
+	ConcreteTemplate as ConcreteTemplate, infer as infer, infer_getattr as infer_getattr, infer_global as infer_global,
+	make_callable_template as make_callable_template, signature as signature)
 from numba.parfors.parfor import internal_prange as internal_prange
 
 class Print(AbstractTemplate):
@@ -36,6 +41,7 @@ class PairFirst(AbstractTemplate):
     """
     Given a heterogeneous pair, return the first element.
     """
+
     key: str
     def generic(self, args, kws): ...
 
@@ -43,6 +49,7 @@ class PairSecond(AbstractTemplate):
     """
     Given a heterogeneous pair, return the second element.
     """
+
     key: str
     def generic(self, args, kws): ...
 
@@ -204,11 +211,12 @@ class StaticGetItemLiteralStrKeyDict(AbstractTemplate):
     def generic(self, args, kws): ...
 
 class StaticGetItemClass(AbstractTemplate):
-    '''This handles the "static_getitem" when a Numba type is subscripted e.g:
+    """This handles the "static_getitem" when a Numba type is subscripted e.g:
     var = typed.List.empty_list(float64[::1, :])
     It only allows this on simple numerical types. Compound types, like
     records, are not supported.
-    '''
+    """
+
     key: str
     def generic(self, args, kws): ...
 
@@ -330,10 +338,10 @@ class IndexValue:
     """
     Index and value
     """
+
     index: Incomplete
     value: Incomplete
     def __init__(self, ind, val) -> None: ...
-    def __repr__(self) -> str: ...
 
 class IndexValueType(types.Type):
     val_typ: Incomplete

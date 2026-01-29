@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from numba.core import errors as errors, ir as ir, types as types
-from numba.core.rewrites import Rewrite as Rewrite, register_rewrite as register_rewrite
+from numba.core.rewrites import register_rewrite as register_rewrite, Rewrite as Rewrite
 
 class RewriteConstGetitems(Rewrite):
     """
@@ -8,6 +8,7 @@ class RewriteConstGetitems(Rewrite):
     where `$constXX` is a known constant as
     `static_getitem(value=arr, index=<constant value>)`.
     """
+
     getitems: Incomplete
     block: Incomplete
     def match(self, func_ir, block, typemap, calltypes): ...
@@ -22,6 +23,7 @@ class RewriteStringLiteralGetitems(Rewrite):
     where `$XX` is a StringLiteral value as
     `static_getitem(value=arr, index=<literal value>)`.
     """
+
     getitems: Incomplete
     block: Incomplete
     calltypes: Incomplete
@@ -42,6 +44,7 @@ class RewriteStringLiteralSetitems(Rewrite):
     where `$XX` is a StringLiteral value as
     `static_setitem(value=arr, index=<literal value>, value=)`.
     """
+
     setitems: Incomplete
     block: Incomplete
     calltypes: Incomplete
@@ -62,6 +65,7 @@ class RewriteConstSetitems(Rewrite):
     where `$constXX` is a known constant as
     `static_setitem(target=arr, index=<constant value>, ...)`.
     """
+
     setitems: Incomplete
     block: Incomplete
     def match(self, func_ir, block, typemap, calltypes): ...

@@ -16,10 +16,10 @@ def clear_export_registry() -> None: ...
 re_symbol: Incomplete
 
 def parse_prototype(text):
-    '''Separate the symbol and function-type in a a string with
+    """Separate the symbol and function-type in a a string with
     "symbol function-type" (e.g. "mult float(float, float)")
 
     Returns
-    ---------
+    -------
     (symbol_string, functype_string)
-    '''
+    """

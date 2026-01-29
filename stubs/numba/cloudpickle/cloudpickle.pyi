@@ -1,6 +1,6 @@
-import pickle
 from _typeshed import Incomplete
 from collections.abc import Generator
+import pickle
 
 DEFAULT_PROTOCOL: Incomplete
 _PICKLE_BY_VALUE_MODULES: Incomplete
@@ -15,7 +15,7 @@ _extract_code_globals_cache: Incomplete
 def _get_or_create_tracker_id(class_def): ...
 def _lookup_class_or_track(class_tracker_id, class_def): ...
 def register_pickle_by_value(module) -> None:
-    """Register a module to make it functions and classes picklable by value.
+    """Register a module to make its functions and classes picklable by value.
 
     By default, functions and classes that are attributes of an importable
     module are to be pickled by reference, that is relying on re-importing
@@ -37,6 +37,7 @@ def unregister_pickle_by_value(module) -> None:
     """Unregister that the input module should be pickled by value."""
 def list_registry_pickle_by_value(): ...
 def _is_registered_pickle_by_value(module): ...
+def _getattribute(obj, name): ...
 def _whichmodule(obj, name):
     """Find the module an object belongs to.
 
@@ -46,7 +47,7 @@ def _whichmodule(obj, name):
     - Errors arising during module introspection are ignored, as those errors
       are considered unwanted side effects.
     """
-def _should_pickle_by_reference(obj, name: Incomplete | None = None):
+def _should_pickle_by_reference(obj, name=None):
     """Test whether an function or a class should be pickled by reference
 
     Pickling by reference means by that the object (typically a function or a
@@ -60,7 +61,7 @@ def _should_pickle_by_reference(obj, name: Incomplete | None = None):
     functions and classes or for attributes of modules that have been
     explicitly registered to be pickled by value.
     """
-def _lookup_module_and_qualname(obj, name: Incomplete | None = None): ...
+def _lookup_module_and_qualname(obj, name=None): ...
 def _extract_code_globals(co):
     """Find all globals names read or written to by codeblock co."""
 def _find_imported_submodules(code, top_level_dependencies):
@@ -126,6 +127,7 @@ def instance(cls):
 
 class _empty_cell_value:
     """Sentinel for empty closures."""
+
     @classmethod
     def __reduce__(cls): ...
 
@@ -133,7 +135,7 @@ def _make_function(code, globals, name, argdefs, closure): ...
 def _make_empty_cell(): ...
 def _make_cell(value=...): ...
 def _make_skeleton_class(type_constructor, name, bases, type_kwargs, class_tracker_id, extra):
-    '''Build dynamic class with an empty __dict__ to be filled once memoized
+    """Build dynamic class with an empty __dict__ to be filled once memoized
 
     If class_tracker_id is not None, try to lookup an existing class definition
     matching that id. If none is found, track a newly reconstructed class
@@ -142,9 +144,9 @@ def _make_skeleton_class(type_constructor, name, bases, type_kwargs, class_track
 
     The "extra" variable is meant to be a dict (or None) that can be used for
     forward compatibility shall the need arise.
-    '''
+    """
 def _make_skeleton_enum(bases, name, qualname, members, module, class_tracker_id, extra):
-    '''Build dynamic enum with an empty __dict__ to be filled once memoized
+    """Build dynamic enum with an empty __dict__ to be filled once memoized
 
     The creation of the enum class is inspired by the code of
     EnumMeta._create_.
@@ -156,7 +158,7 @@ def _make_skeleton_enum(bases, name, qualname, members, module, class_tracker_id
 
     The "extra" variable is meant to be a dict (or None) that can be used for
     forward compatibility shall the need arise.
-    '''
+    """
 def _make_typevar(name, bound, constraints, covariant, contravariant, class_tracker_id): ...
 def _decompose_typevar(obj): ...
 def _typevar_reduce(obj): ...
@@ -171,7 +173,7 @@ def _function_getstate(func): ...
 def _class_getstate(obj): ...
 def _enum_getstate(obj): ...
 def _code_reduce(obj):
-    """code object reducer."""
+    """Code object reducer."""
 def _cell_reduce(obj):
     """Cell (containing values of a function's free variables) reducer."""
 def _classmethod_reduce(obj): ...
@@ -233,72 +235,72 @@ class Pickler(pickle.Pickler):
     def dump(self, obj): ...
     globals_ref: Incomplete
     proto: Incomplete
-    def __init__(self, file, protocol: Incomplete | None = None, buffer_callback: Incomplete | None = None) -> None: ...
+    def __init__(self, file, protocol=None, buffer_callback=None) -> None: ...
     dispatch = dispatch_table
     def reducer_override(self, obj):
         """Type-agnostic reducing callback for function and classes.
 
-            For performance reasons, subclasses of the C `pickle.Pickler` class
-            cannot register custom reducers for functions and classes in the
-            dispatch_table attribute. Reducers for such types must instead
-            implemented via the special `reducer_override` method.
+        For performance reasons, subclasses of the C `pickle.Pickler` class
+        cannot register custom reducers for functions and classes in the
+        dispatch_table attribute. Reducers for such types must instead
+        implemented via the special `reducer_override` method.
 
-            Note that this method will be called for any object except a few
-            builtin-types (int, lists, dicts etc.), which differs from reducers
-            in the Pickler's dispatch_table, each of them being invoked for
-            objects of a specific type only.
+        Note that this method will be called for any object except a few
+        builtin-types (int, lists, dicts etc.), which differs from reducers
+        in the Pickler's dispatch_table, each of them being invoked for
+        objects of a specific type only.
 
-            This property comes in handy for classes: although most classes are
-            instances of the ``type`` metaclass, some of them can be instances
-            of other custom metaclasses (such as enum.EnumMeta for example). In
-            particular, the metaclass will likely not be known in advance, and
-            thus cannot be special-cased using an entry in the dispatch_table.
-            reducer_override, among other things, allows us to register a
-            reducer that will be called for any class, independently of its
-            type.
+        This property comes in handy for classes: although most classes are
+        instances of the ``type`` metaclass, some of them can be instances
+        of other custom metaclasses (such as enum.EnumMeta for example). In
+        particular, the metaclass will likely not be known in advance, and
+        thus cannot be special-cased using an entry in the dispatch_table.
+        reducer_override, among other things, allows us to register a
+        reducer that will be called for any class, independently of its
+        type.
 
-            Notes:
-
+        Notes
+        -----
             * reducer_override has the priority over dispatch_table-registered
-            reducers.
-            * reducer_override can be used to fix other limitations of
-              cloudpickle for other types that suffered from type-specific
-              reducers, such as Exceptions. See
-              https://github.com/cloudpipe/cloudpickle/issues/248
-            """
-    def _save_reduce_pickle5(self, func, args, state: Incomplete | None = None, listitems: Incomplete | None = None, dictitems: Incomplete | None = None, state_setter: Incomplete | None = None, obj: Incomplete | None = None) -> None: ...
-    def save_global(self, obj, name: Incomplete | None = None, pack=...):
+        reducers.
+        * reducer_override can be used to fix other limitations of
+          cloudpickle for other types that suffered from type-specific
+          reducers, such as Exceptions. See
+          https://github.com/cloudpipe/cloudpickle/issues/248
+        """
+    def _save_reduce_pickle5(self, func, args, state=None, listitems=None, dictitems=None, state_setter=None, obj=None) -> None: ...
+    def save_global(self, obj, name=None, pack=...):
         """Main dispatch method.
 
-            The name of this method is somewhat misleading: all types get
-            dispatched here.
-            """
-    def save_function(self, obj, name: Incomplete | None = None):
+        The name of this method is somewhat misleading: all types get
+        dispatched here.
+        """
+    def save_function(self, obj, name=None):
         """Registered with the dispatch to handle all function types.
 
-            Determines what kind of function obj is (e.g. lambda, defined at
-            interactive prompt, etc) and handles the pickling appropriately.
-            """
+        Determines what kind of function obj is (e.g. lambda, defined at
+        interactive prompt, etc) and handles the pickling appropriately.
+        """
     def save_pypy_builtin_func(self, obj) -> None:
         """Save pypy equivalent of builtin functions.
 
-            PyPy does not have the concept of builtin-functions. Instead,
-            builtin-functions are simple function instances, but with a
-            builtin-code attribute.
-            Most of the time, builtin functions should be pickled by attribute.
-            But PyPy has flaky support for __qualname__, so some builtin
-            functions such as float.__new__ will be classified as dynamic. For
-            this reason only, we created this special routine. Because
-            builtin-functions are not expected to have closure or globals,
-            there is no additional hack (compared the one already implemented
-            in pickle) to protect ourselves from reference cycles. A simple
-            (reconstructor, newargs, obj.__dict__) tuple is save_reduced.  Note
-            also that PyPy improved their support for __qualname__ in v3.6, so
-            this routing should be removed when cloudpickle supports only PyPy
-            3.6 and later.
-            """
+        PyPy does not have the concept of builtin-functions. Instead,
+        builtin-functions are simple function instances, but with a
+        builtin-code attribute.
+        Most of the time, builtin functions should be pickled by attribute.
+        But PyPy has flaky support for __qualname__, so some builtin
+        functions such as float.__new__ will be classified as dynamic. For
+        this reason only, we created this special routine. Because
+        builtin-functions are not expected to have closure or globals,
+        there is no additional hack (compared the one already implemented
+        in pickle) to protect ourselves from reference cycles. A simple
+        (reconstructor, newargs, obj.__dict__) tuple is save_reduced.  Note
+        also that PyPy improved their support for __qualname__ in v3.6, so
+        this routing should be removed when cloudpickle supports only PyPy
+        3.6 and later.
+        """
 
-def dump(obj, file, protocol: Incomplete | None = None, buffer_callback: Incomplete | None = None) -> None:
+def dump(obj, file, protocol=None, buffer_callback=None) -> None:
     """Serialize obj as bytes streamed into file
 
     protocol defaults to cloudpickle.DEFAULT_PROTOCOL which is an alias to
@@ -311,7 +313,7 @@ def dump(obj, file, protocol: Incomplete | None = None, buffer_callback: Incompl
     implementation details that can change from one Python version to the
     next).
     """
-def dumps(obj, protocol: Incomplete | None = None, buffer_callback: Incomplete | None = None):
+def dumps(obj, protocol=None, buffer_callback=None):
     """Serialize obj as a string of bytes allocated in memory
 
     protocol defaults to cloudpickle.DEFAULT_PROTOCOL which is an alias to

@@ -4,7 +4,7 @@ from numba.core.datamodel.registry import register_default as register_default
 from numba.np import numpy_support as numpy_support
 
 class DataModel:
-    '''
+    """
     DataModel describe how a FE type is represented in the LLVM IR at
     different contexts.
 
@@ -25,7 +25,8 @@ class DataModel:
     "value" representation.  All "from_" prefix function converts to the
     "value"  representation.
 
-    '''
+    """
+
     _dmm: Incomplete
     _fe_type: Incomplete
     def __init__(self, dmm, fe_type) -> None: ...
@@ -90,10 +91,11 @@ class DataModel:
     def __ne__(self, other): ...
 
 class OmittedArgDataModel(DataModel):
-    '''
+    """
     A data model for omitted arguments.  Only the "argument" representation
     is defined, other representations raise a NotImplementedError.
-    '''
+    """
+
     def get_value_type(self): ...
     def get_argument_type(self): ...
     def as_argument(self, builder, val): ...
@@ -117,6 +119,7 @@ class PrimitiveModel(DataModel):
     """A primitive type can be represented natively in the target in all
     usage contexts.
     """
+
     be_type: Incomplete
     def __init__(self, dmm, fe_type, be_type) -> None: ...
     def get_value_type(self): ...
@@ -131,6 +134,7 @@ class ProxyModel(DataModel):
     """
     Helper class for models which delegate to another model.
     """
+
     def get_value_type(self): ...
     def get_data_type(self): ...
     def get_return_type(self): ...
@@ -146,6 +150,7 @@ class EnumModel(ProxyModel):
     """
     Enum members are represented exactly like their values.
     """
+
     _proxied_model: Incomplete
     def __init__(self, dmm, fe_type) -> None: ...
 
@@ -153,6 +158,7 @@ class OpaqueModel(PrimitiveModel):
     """
     Passed as opaque pointers
     """
+
     _ptr_type: Incomplete
     def __init__(self, dmm, fe_type) -> None: ...
 
@@ -230,7 +236,7 @@ class StructModel(CompositeModel):
     def _as(self, methname, builder, value): ...
     def _from(self, methname, builder, value): ...
     def as_data(self, builder, value):
-        '''
+        """
         Converts the LLVM struct in `value` into a representation suited for
         storing into arrays.
 
@@ -244,14 +250,14 @@ class StructModel(CompositeModel):
         Sample usecase: Structures nested with pointers to other structures
         that can be serialized into  a flat representation when storing into
         array.
-        '''
+        """
     def from_data(self, builder, value):
-        '''
+        """
         Convert from "data" representation back into "value" representation.
         Usually invoked when loading from array.
 
         See notes in `as_data()`
-        '''
+        """
     def load_from_data_pointer(self, builder, ptr, align: Incomplete | None = None): ...
     def as_argument(self, builder, value): ...
     def from_argument(self, builder, value): ...
@@ -505,10 +511,12 @@ class DeferredStructModel(CompositeModel):
 class StructPayloadModel(StructModel):
     """Model for the payload of a mutable struct
     """
+
     def __init__(self, dmm, fe_typ) -> None: ...
 
 class StructRefModel(StructModel):
     """Model for a mutable struct.
     A reference to the payload
     """
+
     def __init__(self, dmm, fe_typ) -> None: ...

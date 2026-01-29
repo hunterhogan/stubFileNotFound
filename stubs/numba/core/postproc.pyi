@@ -22,6 +22,7 @@ class VariableLifetime:
     """
     For lazily building information of variable lifetime
     """
+
     _blocks: Incomplete
     def __init__(self, blocks) -> None: ...
     @cached_property
@@ -39,6 +40,7 @@ class PostProcessor:
     """
     A post-processor for Numba IR.
     """
+
     func_ir: Incomplete
     def __init__(self, func_ir) -> None: ...
     def run(self, emit_dels: bool = False, extend_lifetimes: bool = False):

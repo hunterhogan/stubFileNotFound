@@ -1,8 +1,9 @@
-import enum
 from _typeshed import Incomplete
+from functools import singledispatch
 from numba.core import config as config, errors as errors, types as types, utils as utils
 from numba.np import numpy_support as numpy_support
 from typing import NamedTuple
+import enum
 
 _termcolor: Incomplete
 
@@ -17,6 +18,7 @@ def typeof(val, purpose=...):
     """
     Get the Numba type of a Python value for the given purpose.
     """
+@singledispatch
 def typeof_impl(val, c):
     """
     Generic typeof() implementation.

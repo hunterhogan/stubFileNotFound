@@ -1,9 +1,11 @@
-import operator
 from itertools import product as product
 from numba.core import errors as errors, types as types
-from numba.core.typing.templates import AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, ConcreteTemplate as ConcreteTemplate, infer as infer, infer_getattr as infer_getattr, infer_global as infer_global, signature as signature
+from numba.core.typing.templates import (
+	AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, ConcreteTemplate as ConcreteTemplate,
+	infer as infer, infer_getattr as infer_getattr, infer_global as infer_global, signature as signature)
 from numba.np import npdatetime_helpers as npdatetime_helpers
 from numba.np.numpy_support import numpy_version as numpy_version
+import operator
 
 class TimedeltaUnaryOp(AbstractTemplate):
     def generic(self, args, kws): ...

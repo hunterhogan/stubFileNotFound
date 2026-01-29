@@ -72,6 +72,7 @@ def unary_math_extern(fn, f32extern, f64extern, int_restype: bool = False):
     """
 
 exp_impl: Incomplete
+exp2_impl: Incomplete
 log_impl: Incomplete
 log10_impl: Incomplete
 sin_impl: Incomplete

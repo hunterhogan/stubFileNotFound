@@ -1,15 +1,16 @@
 from .abstract import *
 from .containers import *
+from .function_type import *
 from .functions import *
 from .iterators import *
 from .misc import *
+from .new_scalars import *
 from .npytypes import *
 from .scalars import *
-from .function_type import *
-from .new_scalars import *
 from _typeshed import Incomplete
+from typing import TypeAlias
 
-__all__ = ['int8', 'int16', 'int32', 'int64', 'uint8', 'uint16', 'uint32', 'uint64', 'intp', 'uintp', 'intc', 'uintc', 'ssize_t', 'size_t', 'boolean', 'float32', 'float64', 'complex64', 'complex128', 'bool_', 'byte', 'char', 'uchar', 'short', 'ushort', 'int_', 'uint', 'long_', 'ulong', 'longlong', 'ulonglong', 'double', 'void', 'none', 'b1', 'i1', 'i2', 'i4', 'i8', 'u1', 'u2', 'u4', 'u8', 'f4', 'f8', 'c8', 'c16', 'optional', 'ffi_forced_object', 'ffi', 'deferred_type', 'bool']
+__all__ = ['b1', 'bool', 'bool_', 'boolean', 'byte', 'c8', 'c16', 'char', 'complex64', 'complex128', 'deferred_type', 'double', 'f4', 'f8', 'ffi', 'ffi_forced_object', 'float32', 'float64', 'i1', 'i2', 'i4', 'i8', 'int8', 'int16', 'int32', 'int64', 'int_', 'intc', 'intp', 'long_', 'longlong', 'none', 'optional', 'short', 'size_t', 'ssize_t', 'u1', 'u2', 'u4', 'u8', 'uchar', 'uint', 'uint8', 'uint16', 'uint32', 'uint64', 'uintc', 'uintp', 'ulong', 'ulonglong', 'ushort', 'void']
 
 ffi_forced_object: Incomplete
 ffi: Incomplete
@@ -40,8 +41,8 @@ float32: Incomplete
 float64: Incomplete
 complex64: Incomplete
 complex128: Incomplete
-integer_domain = signed_domain | unsigned_domain
-number_domain = real_domain | integer_domain | complex_domain
+integer_domain: TypeAlias = signed_domain | unsigned_domain
+number_domain: TypeAlias = real_domain | integer_domain | complex_domain
 c_bool = boolean
 py_bool = boolean
 np_bool_ = boolean
@@ -115,10 +116,10 @@ long_: Incomplete
 ulong: Incomplete
 longlong: Incomplete
 ulonglong: Incomplete
-c_integer_domain = c_signed_domain | c_unsigned_domain
-c_number_domain = c_real_domain | c_integer_domain | c_complex_domain
+c_integer_domain: TypeAlias = c_signed_domain | c_unsigned_domain
+c_number_domain: TypeAlias = c_real_domain | c_integer_domain | c_complex_domain
 py_integer_domain = py_signed_domain
-py_number_domain = py_real_domain | py_integer_domain | py_complex_domain
-np_integer_domain = np_signed_domain | np_unsigned_domain
-np_number_domain = np_real_domain | np_integer_domain | np_complex_domain
+py_number_domain: TypeAlias = py_real_domain | py_integer_domain | py_complex_domain
+np_integer_domain: TypeAlias = np_signed_domain | np_unsigned_domain
+np_number_domain: TypeAlias = np_real_domain | np_integer_domain | np_complex_domain
 np_double = np_float64

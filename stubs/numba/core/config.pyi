@@ -21,18 +21,20 @@ def _os_supports_avx():
     """
 
 class _OptLevel(int):
-    '''This class holds the "optimisation level" set in `NUMBA_OPT`. As this env
+    """This class holds the "optimisation level" set in `NUMBA_OPT`. As this env
     var can be an int or a string, but is almost always interpreted as an int,
     this class subclasses int so as to get the common behaviour but stores the
     actual value as a `_raw_value` member. The value "max" is a special case
     and the property `is_opt_max` can be queried to find if the optimisation
-    level (supplied value at construction time) is "max".'''
+    level (supplied value at construction time) is "max".
+    """
+
     def __new__(cls, *args, **kwargs): ...
     @property
     def is_opt_max(self):
-        '''Returns True if the the optimisation level is "max" False
-        otherwise.'''
-    def __repr__(self) -> str: ...
+        """Returns True if the optimisation level is "max" False
+        otherwise.
+        """
 
 def _process_opt_level(opt_level): ...
 

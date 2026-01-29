@@ -6,6 +6,7 @@ class _MarkNrtCallVisitor(CallVisitor):
     """
     A pass to mark all NRT_incref and NRT_decref.
     """
+
     marked: Incomplete
     def __init__(self) -> None: ...
     def visit_Call(self, instr) -> None: ...

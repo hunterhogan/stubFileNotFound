@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
-from numba import config as config, cuda as cuda, float32 as float32, float64 as float64, from_dtype as from_dtype, int64 as int64, jit as jit, uint32 as uint32, uint64 as uint64
+from numba import (
+	config as config, cuda as cuda, float32 as float32, float64 as float64, from_dtype as from_dtype, int64 as int64,
+	jit as jit, uint32 as uint32, uint64 as uint64)
 
 xoroshiro128p_dtype: Incomplete
 xoroshiro128p_type: Incomplete

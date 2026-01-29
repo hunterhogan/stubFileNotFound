@@ -47,7 +47,7 @@ def get_cuda_home(*subdirs):
     """
 def _get_nvvm_path(): ...
 def get_cuda_paths():
-    '''Returns a dictionary mapping component names to a 2-tuple
+    """Returns a dictionary mapping component names to a 2-tuple
     of (source_variable, info).
 
     The returned dictionary will have the following keys and infos:
@@ -56,7 +56,7 @@ def get_cuda_paths():
     - "cudalib_dir": directory_path
 
     Note: The result of the function is cached.
-    '''
+    """
 def get_debian_pkg_libdevice():
     """
     Return the Debian NVIDIA Maintainers-packaged libdevice location, if it

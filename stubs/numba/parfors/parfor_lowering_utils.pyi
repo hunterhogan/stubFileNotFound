@@ -10,6 +10,7 @@ class _CallableNode(NamedTuple):
 class ParforLoweringBuilder:
     """Helper class for building Numba-IR and lowering for Parfor.
     """
+
     _lowerer: Incomplete
     _scope: Incomplete
     _loc: Incomplete
@@ -22,7 +23,7 @@ class ParforLoweringBuilder:
     def _typemap(self): ...
     @property
     def _calltypes(self): ...
-    def bind_global_function(self, fobj, ftype, args, kws={}):
+    def bind_global_function(self, fobj, ftype, args, kws=None):
         """Binds a global function to a variable.
 
         Parameters
@@ -99,7 +100,7 @@ class ParforLoweringBuilder:
         -------
         res : ir.Var
         """
-    def call(self, callable_node, args, kws={}) -> ir.Expr:
+    def call(self, callable_node, args, kws=None) -> ir.Expr:
         """Call a bound callable
 
         Parameters

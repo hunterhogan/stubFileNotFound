@@ -1,22 +1,23 @@
-import functools
-import json
-import typing as _tp
 from _typeshed import Incomplete
 from collections.abc import Generator, Mapping, MutableMapping, MutableSet
 from numba.core import config as config, types as types
 from numba.core.config import DEVELOPER_MODE as DEVELOPER_MODE, MACHINE_BITS as MACHINE_BITS, PYVERSION as PYVERSION
 from types import ModuleType
+import contextlib
+import functools
+import json
+import typing as _tp
 
 def erase_traceback(exc_value):
     """
     Erase the traceback and hanging locals from the given exception instance.
     """
-def safe_relpath(path, start='.'):
-    '''
+def safe_relpath(path, start=...):
+    """
     Produces a "safe" relative path, on windows relpath doesn\'t work across
     drives as technically they don\'t share the same root.
     See: https://bugs.python.org/issue7195 for details.
-    '''
+    """
 
 BINOPS_TO_OPERATORS: Incomplete
 INPLACE_BINOPS_TO_OPERATORS: Incomplete
@@ -39,6 +40,7 @@ class ThreadLocalStack:
 
     Uses the BORG pattern and stores states in threadlocal storage.
     """
+
     _tls: Incomplete
     stack_name: str
     _registered: Incomplete
@@ -58,6 +60,7 @@ class ThreadLocalStack:
         of the stack beforehand.
         """
     def __len__(self) -> int: ...
+    @contextlib.contextmanager
     def enter(self, state) -> Generator[None]:
         """A contextmanager that pushes ``state`` for the duration of the
         context.
@@ -72,18 +75,17 @@ class ConfigOptions:
     def _check_attr(self, name) -> None: ...
     def __getattr__(self, name): ...
     def __setattr__(self, name, value) -> None: ...
-    def __repr__(self) -> str: ...
     def copy(self): ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...
     def __hash__(self): ...
 
 def order_by_target_specificity(target, templates, fnkey: str = ''):
-    '''This orders the given templates from most to least specific against the
+    """This orders the given templates from most to least specific against the
     current "target". "fnkey" is an indicative typing key for use in the
     exception message in the case that there\'s no usable templates for the
     current "target".
-    '''
+    """
 T = _tp.TypeVar('T')
 
 class OrderedSet(MutableSet[T]):
@@ -98,6 +100,7 @@ class OrderedSet(MutableSet[T]):
 class MutableSortedSet(MutableSet[T], _tp.Generic[T]):
     """Mutable Sorted Set
     """
+
     _values: Incomplete
     def __init__(self, values: _tp.Iterable[T] = ()) -> None: ...
     def __len__(self) -> int: ...
@@ -112,6 +115,7 @@ Tv = _tp.TypeVar('Tv')
 class SortedMap(Mapping[Tk, Tv], _tp.Generic[Tk, Tv]):
     """Immutable
     """
+
     _values: Incomplete
     _index: Incomplete
     def __init__(self, seq) -> None: ...
@@ -121,7 +125,7 @@ class SortedMap(Mapping[Tk, Tv], _tp.Generic[Tk, Tv]):
 
 class MutableSortedMap(MutableMapping[Tk, Tv], _tp.Generic[Tk, Tv]):
     _dct: dict[Tk, Tv]
-    def __init__(self, dct: Incomplete | None = None) -> None: ...
+    def __init__(self, dct=None) -> None: ...
     def __getitem__(self, k: Tk) -> Tv: ...
     def __setitem__(self, k: Tk, v: Tv): ...
     def __delitem__(self, k: Tk): ...
@@ -152,7 +156,6 @@ class BenchmarkResult:
     records: Incomplete
     best: Incomplete
     def __init__(self, func, records, loop) -> None: ...
-    def __repr__(self) -> str: ...
 
 def format_time(tm): ...
 def benchmark(func, maxsec: int = 1): ...
@@ -221,6 +224,7 @@ class _RedirectSubpackage(ModuleType):
 
     >>> from numba.old_subpackage.module import item
     """
+
     __old_module_states: Incomplete
     __new_module: Incomplete
     def __init__(self, old_module_locals, new_module) -> None: ...
@@ -228,11 +232,11 @@ class _RedirectSubpackage(ModuleType):
 
 def get_hashable_key(value):
     """
-        Given a value, returns a key that can be used
-        as a hash. If the value is hashable, we return
-        the value, otherwise we return id(value).
+    Given a value, returns a key that can be used
+    as a hash. If the value is hashable, we return
+    the value, otherwise we return id(value).
 
-        See discussion in gh #6957
+    See discussion in gh #6957
     """
 
 class threadsafe_cached_property(functools.cached_property):
@@ -243,10 +247,15 @@ class threadsafe_cached_property(functools.cached_property):
 def dump_llvm(fndesc, module) -> None: ...
 
 class _lazy_pformat:
+    """Lazily generate strings that may be useful only for debugging.
+    pformat is the default formatter but you can pass lazy_func kwarg
+    to use a different formatter.
+    """
+
+    func: Incomplete
     args: Incomplete
     kwargs: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
-    def __str__(self) -> str: ...
 
 class _LazyJSONEncoder(json.JSONEncoder):
     def default(self, obj): ...

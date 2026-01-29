@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from numba.core.typing.templates import signature as signature
-from numba.types import Tuple as Tuple, float32 as float32, float64 as float64, int16 as int16, int32 as int32, int64 as int64, void as void
+from numba.types import (
+	float32 as float32, float64 as float64, int16 as int16, int32 as int32, int64 as int64, Tuple as Tuple, void as void)
 from typing import NamedTuple
 
 class arg(NamedTuple):

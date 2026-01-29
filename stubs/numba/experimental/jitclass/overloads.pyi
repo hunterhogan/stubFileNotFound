@@ -22,7 +22,7 @@ def try_call_method(cls_type, method, n_args: int = 1):
     If not, return None.
     """
 def try_call_complex_method(cls_type, method):
-    """ __complex__ needs special treatment as the argument names are kwargs
+    """__complex__ needs special treatment as the argument names are kwargs
     and therefore specific in name and default value.
     """
 def take_first(*options):

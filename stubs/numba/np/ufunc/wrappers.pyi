@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, types as types
-from numba.core.caching import NullCache as NullCache, make_library_cache as make_library_cache
+from numba.core.caching import make_library_cache as make_library_cache, NullCache as NullCache
 from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
 from typing import NamedTuple
 
@@ -79,6 +79,7 @@ class _GufuncWrapper:
         created.
         """
     def _compile_wrapper(self, wrapper_name): ...
+    @global_compiler_lock
     def build(self): ...
     def gen_loop_body(self, builder, pyapi, func, args): ...
     def gen_prologue(self, builder, pyapi) -> None: ...
@@ -108,6 +109,7 @@ class _ScalarArgLoader:
     Note: It still has a stride because the input to the gufunc can be an array
           for this argument.
     """
+
     dtype: Incomplete
     stride: Incomplete
     def __init__(self, dtype, stride) -> None: ...
@@ -117,6 +119,7 @@ class _ArrayArgLoader:
     """
     Handle GUFunc argument loading where an array is expected.
     """
+
     dtype: Incomplete
     ndim: Incomplete
     core_step: Incomplete
@@ -128,8 +131,9 @@ class _ArrayArgLoader:
     def _shape_and_strides(self, context, builder): ...
 
 class _ArrayAsScalarArgLoader(_ArrayArgLoader):
-    '''
+    """
     Handle GUFunc argument loading where the shape signature specifies
     a scalar "()" but a 1D array is used for the type of the core function.
-    '''
+    """
+
     def _shape_and_strides(self, context, builder): ...

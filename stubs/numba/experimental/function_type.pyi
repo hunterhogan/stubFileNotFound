@@ -3,19 +3,25 @@ from numba.core import cgutils as cgutils, errors as errors, types as types
 from numba.core.ccallback import CFunc as CFunc
 from numba.core.dispatcher import Dispatcher as Dispatcher
 from numba.core.imputils import lower_cast as lower_cast, lower_constant as lower_constant
-from numba.core.types import FunctionPrototype as FunctionPrototype, FunctionType as FunctionType, UndefinedFunctionType as UndefinedFunctionType, WrapperAddressProtocol as WrapperAddressProtocol
-from numba.extending import NativeValue as NativeValue, box as box, models as models, register_model as register_model, typeof_impl as typeof_impl, unbox as unbox
+from numba.core.types import (
+	FunctionPrototype as FunctionPrototype, FunctionType as FunctionType, UndefinedFunctionType as UndefinedFunctionType,
+	WrapperAddressProtocol as WrapperAddressProtocol)
+from numba.extending import (
+	box as box, models as models, NativeValue as NativeValue, register_model as register_model, typeof_impl as typeof_impl,
+	unbox as unbox)
 
 def typeof_function_type(val, c): ...
 
 class FunctionProtoModel(models.PrimitiveModel):
     """FunctionProtoModel describes the signatures of first-class functions
     """
+
     def __init__(self, dmm, fe_type) -> None: ...
 
 class FunctionModel(models.StructModel):
     """FunctionModel holds addresses of function implementations
     """
+
     def __init__(self, dmm, fe_type) -> None: ...
 
 def lower_constant_dispatcher(context, builder, typ, pyval): ...

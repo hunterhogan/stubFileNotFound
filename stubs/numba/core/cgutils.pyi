@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from contextlib import ExitStack
+from contextlib import contextmanager, ExitStack
 from numba.core import config as config, debuginfo as debuginfo, types as types, utils as utils
 from typing import NamedTuple
 
@@ -15,7 +15,7 @@ true_byte: Incomplete
 false_byte: Incomplete
 
 def as_bool_bit(builder, value): ...
-def make_anonymous_struct(builder, values, struct_type: Incomplete | None = None):
+def make_anonymous_struct(builder, values, struct_type=None):
     """
     Create an anonymous struct containing the given LLVM *values*.
     """
@@ -30,7 +30,7 @@ def create_struct_proxy(fe_type, kind: str = 'value'):
     """
     Returns a specialized StructProxy subclass for the given fe_type.
     """
-def copy_struct(dst, src, repl={}):
+def copy_struct(dst, src, repl=None):
     """
     Copy structure from *src* to *dst* with replacement from *repl*.
     """
@@ -41,6 +41,7 @@ class _StructProxy:
     from DataModel instance.  FE type must have a data model that is a
     subclass of StructModel.
     """
+
     _fe_type: Incomplete
     _context: Incomplete
     _datamodel: Incomplete
@@ -48,7 +49,7 @@ class _StructProxy:
     _be_type: Incomplete
     _value: Incomplete
     _outer_ref: Incomplete
-    def __init__(self, context, builder, value: Incomplete | None = None, ref: Incomplete | None = None) -> None: ...
+    def __init__(self, context, builder, value=None, ref=None) -> None: ...
     def _make_refs(self, ref):
         """
         Return an (outer ref, value ref) pair.  By default, these are
@@ -97,6 +98,7 @@ class ValueStructProxy(_StructProxy):
     Create a StructProxy suitable for accessing regular values
     (e.g. LLVM values or alloca slots).
     """
+
     def _get_be_type(self, datamodel): ...
     def _cast_member_to_value(self, index, val): ...
     def _cast_member_from_value(self, index, val): ...
@@ -105,6 +107,7 @@ class DataStructProxy(_StructProxy):
     """
     Create a StructProxy suitable for accessing data persisted in memory.
     """
+
     def _get_be_type(self, datamodel): ...
     def _cast_member_to_value(self, index, val): ...
     def _cast_member_from_value(self, index, val): ...
@@ -114,6 +117,7 @@ class Structure:
     A high-level object wrapping a alloca'ed LLVM structure, including
     named fields and attribute access.
     """
+
     _type: Incomplete
     _context: Incomplete
     _builder: Incomplete
@@ -121,7 +125,7 @@ class Structure:
     _namemap: Incomplete
     _fdmap: Incomplete
     _typemap: Incomplete
-    def __init__(self, context, builder, value: Incomplete | None = None, ref: Incomplete | None = None, cast_ref: bool = False) -> None: ...
+    def __init__(self, context, builder, value=None, ref=None, cast_ref: bool = False) -> None: ...
     def _get_ptr_by_index(self, index): ...
     def _get_ptr_by_name(self, attrname): ...
     def __getattr__(self, field):
@@ -155,7 +159,7 @@ class Structure:
     def _setvalue(self, value) -> None:
         """Store the value in this structure"""
 
-def alloca_once(builder, ty, size: Incomplete | None = None, name: str = '', zfill: bool = False):
+def alloca_once(builder, ty, size=None, name: str = '', zfill: bool = False):
     """Allocate stack memory at the entry block of the current function
     pointed by ``builder`` with llvm type ``ty``.  The optional ``size`` arg
     set the number of element to allocate.  The default is 1.  The optional
@@ -201,7 +205,8 @@ class Loop(NamedTuple):
     index: Incomplete
     do_break: Incomplete
 
-def for_range(builder, count, start: Incomplete | None = None, intp: Incomplete | None = None) -> Generator[Incomplete]:
+@contextmanager
+def for_range(builder, count, start=None, intp=None) -> Generator[Incomplete]:
     """
     Generate LLVM IR for a for-loop in [start, count).
     *start* is equal to 0 by default.
@@ -210,14 +215,15 @@ def for_range(builder, count, start: Incomplete | None = None, intp: Incomplete 
     - `index` is the loop index's value
     - `do_break` is a no-argument callable to break out of the loop
     """
-def for_range_slice(builder, start, stop, step, intp: Incomplete | None = None, inc: bool = True) -> Generator[Incomplete]:
+@contextmanager
+def for_range_slice(builder, start, stop, step, intp=None, inc: bool = True) -> Generator[Incomplete]:
     """
     Generate LLVM IR for a for-loop based on a slice.  Yields a
     (index, count) tuple where `index` is the slice index's value
     inside the loop, and `count` the iteration count.
 
     Parameters
-    -------------
+    ----------
     builder : object
         IRBuilder object
     start : int
@@ -232,9 +238,10 @@ def for_range_slice(builder, start, stop, step, intp: Incomplete | None = None, 
         Signals whether the step is positive (True) or negative (False).
 
     Returns
-    -----------
+    -------
         None
     """
+@contextmanager
 def for_range_slice_generic(builder, start, stop, step) -> Generator[Incomplete]:
     """
     A helper wrapper for for_range_slice().  This is a context manager which
@@ -248,6 +255,7 @@ def for_range_slice_generic(builder, start, stop, step) -> Generator[Incomplete]
             with neg_range as (idx, count):
                 ...
     """
+@contextmanager
 def loop_nest(builder, shape, intp, order: str = 'C') -> Generator[Incomplete, None, Incomplete]:
     """
     Generate a loop nest walking a N-dimensional array.
@@ -261,8 +269,9 @@ def loop_nest(builder, shape, intp, order: str = 'C') -> Generator[Incomplete, N
     This has performance implications when walking an array as it impacts
     the spatial locality of memory accesses.
     """
+@contextmanager
 def _loop_nest(builder, shape, intp) -> Generator[Incomplete]: ...
-def pack_array(builder, values, ty: Incomplete | None = None):
+def pack_array(builder, values, ty=None):
     """
     Pack a sequence of values in a LLVM array.  *ty* should be given
     if the array may be empty, in which case the type can't be inferred
@@ -272,12 +281,12 @@ def pack_struct(builder, values):
     """
     Pack a sequence of values into a LLVM struct.
     """
-def unpack_tuple(builder, tup, count: Incomplete | None = None):
+def unpack_tuple(builder, tup, count=None):
     """
     Unpack an array or structure of values, return a Python tuple.
     """
 def get_item_pointer(context, builder, aryty, ary, inds, wraparound: bool = False, boundscheck: bool = False): ...
-def do_boundscheck(context, builder, ind, dimlen, axis: Incomplete | None = None) -> None: ...
+def do_boundscheck(context, builder, ind, dimlen, axis=None) -> None: ...
 def get_item_pointer2(context, builder, data, shape, strides, layout, inds, wraparound: bool = False, boundscheck: bool = False): ...
 def _scalar_pred_against_zero(builder, value, fpred, icond): ...
 def is_scalar_zero(builder, value):
@@ -285,10 +294,10 @@ def is_scalar_zero(builder, value):
     Return a predicate representing whether *value* is equal to zero.
     """
 def is_not_scalar_zero(builder, value):
-    '''
+    """
     Return a predicate representing whether a *value* is not equal to zero.
     (not exactly "not is_scalar_zero" because of nans)
-    '''
+    """
 def is_scalar_zero_or_nan(builder, value):
     """
     Return a predicate representing whether *value* is equal to either zero
@@ -301,6 +310,7 @@ def is_scalar_neg(builder, value):
     """
     Is *value* negative?  Assumes *value* is signed.
     """
+@contextmanager
 def early_exit_if(builder, stack: ExitStack, cond):
     """
     The Python code::
@@ -332,10 +342,11 @@ def guard_null(context, builder, value, exc_tuple) -> None:
     Guard against *value* being null or zero.
     *exc_tuple* should be a (exception type, arguments...) tuple.
     """
-def guard_memory_error(context, builder, pointer, msg: Incomplete | None = None) -> None:
+def guard_memory_error(context, builder, pointer, msg=None) -> None:
     """
     Guard against *pointer* being NULL (and raise a MemoryError).
     """
+@contextmanager
 def if_zero(builder, value, likely: bool = False) -> Generator[None]:
     """
     Execute the given block if the scalar value is zero.
@@ -357,7 +368,7 @@ def gep(builder, ptr, *inds, **kws):
     Emit a getelementptr instruction for the given pointer and indices.
     The indices can be LLVM values or Python int constants.
     """
-def pointer_add(builder, ptr, offset, return_type: Incomplete | None = None):
+def pointer_add(builder, ptr, offset, return_type=None):
     """
     Add an integral *offset* to pointer *ptr*, and return a pointer
     of *return_type* (or, if omitted, the same type as *ptr*).
@@ -447,9 +458,9 @@ def hexdump(builder, ptr, nbytes) -> None:
     as hex.
     """
 def is_nonelike(ty):
-    """ returns if 'ty' is none """
+    """Returns if 'ty' is none"""
 def is_empty_tuple(ty):
-    """ returns if 'ty' is an empty tuple """
+    """Returns if 'ty' is an empty tuple"""
 def create_constant_array(ty, val):
     """
     Create an LLVM-constant of a fixed-length array from Python values.

@@ -1,7 +1,10 @@
 from _typeshed import Incomplete
 from numba.core.typeconv import Conversion as Conversion
 from numba.core.types.abstract import Literal as Literal
-from numba.core.types.new_scalars.scalars import Boolean as Boolean, BooleanLiteral as BooleanLiteral, Complex as Complex, Float as Float, Integer as Integer, IntegerLiteral as IntegerLiteral, parse_integer_bitwidth as parse_integer_bitwidth, parse_integer_signed as parse_integer_signed
+from numba.core.types.new_scalars.scalars import (
+	Boolean as Boolean, BooleanLiteral as BooleanLiteral, Complex as Complex, Float as Float, Integer as Integer,
+	IntegerLiteral as IntegerLiteral, parse_integer_bitwidth as parse_integer_bitwidth,
+	parse_integer_signed as parse_integer_signed)
 
 class NumPyInteger(Integer):
     bitwidth: Incomplete

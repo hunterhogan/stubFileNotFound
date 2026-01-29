@@ -1,9 +1,12 @@
 from numba.core import errors as errors, types as types
 from numba.core.extending import intrinsic as intrinsic
 
+@intrinsic
 def viewer(tyctx, val, viewty):
-    """ Bitcast a scalar 'val' to the given type 'viewty'. """
+    """Bitcast a scalar 'val' to the given type 'viewty'."""
+@intrinsic
 def trailing_zeros(typeingctx, src):
     """Counts trailing zeros in the binary representation of an integer."""
+@intrinsic
 def leading_zeros(typeingctx, src):
     """Counts leading zeros in the binary representation of an integer."""

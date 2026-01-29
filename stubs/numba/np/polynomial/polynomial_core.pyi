@@ -1,6 +1,9 @@
 from numba.core import cgutils as cgutils, types as types
-from numba.core.errors import NumbaExperimentalFeatureWarning as NumbaExperimentalFeatureWarning, NumbaValueError as NumbaValueError
-from numba.extending import NativeValue as NativeValue, box as box, lower_builtin as lower_builtin, make_attribute_wrapper as make_attribute_wrapper, models as models, register_model as register_model, type_callable as type_callable, unbox as unbox
+from numba.core.errors import (
+	NumbaExperimentalFeatureWarning as NumbaExperimentalFeatureWarning, NumbaValueError as NumbaValueError)
+from numba.extending import (
+	box as box, lower_builtin as lower_builtin, make_attribute_wrapper as make_attribute_wrapper, models as models,
+	NativeValue as NativeValue, register_model as register_model, type_callable as type_callable, unbox as unbox)
 
 class PolynomialModel(models.StructModel):
     def __init__(self, dmm, fe_type) -> None: ...

@@ -5,6 +5,7 @@ class _ArgManager:
     """
     A utility class to handle argument unboxing and cleanup
     """
+
     context: Incomplete
     builder: Incomplete
     api: Incomplete
@@ -32,6 +33,7 @@ class _GilManager:
     A utility class to handle releasing the GIL and then re-acquiring it
     again.
     """
+
     builder: Incomplete
     api: Incomplete
     argman: Incomplete

@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
 from numba import types as types
 from numba.core import cgutils as cgutils
-from numba.core.extending import make_attribute_wrapper as make_attribute_wrapper, models as models, register_model as register_model
+from numba.core.extending import (
+	make_attribute_wrapper as make_attribute_wrapper, models as models, register_model as register_model)
 from numba.core.typing.templates import ConcreteTemplate as ConcreteTemplate, signature as signature
 from numba.cuda import stubs as stubs
 from numba.cuda.errors import CudaLoweringError as CudaLoweringError

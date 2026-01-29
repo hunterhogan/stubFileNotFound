@@ -1,4 +1,5 @@
-from .abstract import Callable as Callable, DTypeSpec as DTypeSpec, Dummy as Dummy, Literal as Literal, Type as Type, weakref as weakref
+from .abstract import (
+	Callable as Callable, DTypeSpec as DTypeSpec, Dummy as Dummy, Literal as Literal, Type as Type, weakref as weakref)
 from .common import Opaque as Opaque
 from .misc import unliteral as unliteral
 from _typeshed import Incomplete
@@ -34,6 +35,7 @@ def argsnkwargs_to_str(args, kwargs): ...
 class _ResolutionFailures:
     """Collect and format function resolution failures.
     """
+
     _context: Incomplete
     _function_type: Incomplete
     _args: Incomplete
@@ -71,6 +73,7 @@ class BaseFunction(Callable):
     """
     Base type class for some function types.
     """
+
     templates: Incomplete
     typing_key: Incomplete
     _impl_keys: Incomplete
@@ -100,6 +103,7 @@ class BoundFunction(Callable, Opaque):
     """
     A function with an implicit first argument (denoted as *this* below).
     """
+
     template: Incomplete
     typing_key: Incomplete
     this: Incomplete
@@ -125,6 +129,7 @@ class _PickleableWeakRef(weakref.ref):
     Note that if the object referred to is not kept alive elsewhere in the
     pickle, the weakref will immediately expire after being constructed.
     """
+
     def __getnewargs__(self): ...
 
 class WeakType(Type):
@@ -132,6 +137,7 @@ class WeakType(Type):
     Base class for types parametered by a mortal object, to which only
     a weak reference is kept.
     """
+
     _wr: Incomplete
     def _store_object(self, obj) -> None: ...
     def _get_object(self): ...
@@ -144,6 +150,7 @@ class Dispatcher(WeakType, Callable, Dummy):
     """
     Type class for @jit-compiled functions.
     """
+
     def __init__(self, dispatcher) -> None: ...
     def dump(self, tab: str = '') -> None: ...
     def get_call_type(self, context, args, kws):
@@ -180,11 +187,12 @@ class ExternalFunctionPointer(BaseFunction):
     *get_pointer* is a Python function taking an object
     and returning the raw pointer value as an int.
     """
+
     sig: Incomplete
     requires_gil: Incomplete
     get_pointer: Incomplete
     cconv: Incomplete
-    def __init__(self, sig, get_pointer, cconv: Incomplete | None = None) -> None: ...
+    def __init__(self, sig, get_pointer, cconv=None) -> None: ...
     @property
     def key(self): ...
 
@@ -193,6 +201,7 @@ class ExternalFunction(Function):
     A named native function (resolvable by LLVM) accepting an explicit
     signature. For internal use only.
     """
+
     symbol: Incomplete
     sig: Incomplete
     def __init__(self, symbol, sig) -> None: ...
@@ -203,6 +212,7 @@ class NamedTupleClass(Callable, Opaque):
     """
     Type class for namedtuple classes.
     """
+
     instance_class: Incomplete
     def __init__(self, instance_class) -> None: ...
     def get_call_type(self, context, args, kws) -> None: ...
@@ -212,9 +222,10 @@ class NamedTupleClass(Callable, Opaque):
     def key(self): ...
 
 class NumberClass(Callable, DTypeSpec, Opaque):
-    '''
+    """
     Type class for number classes (e.g. "np.float64").
-    '''
+    """
+
     instance_type: Incomplete
     def __init__(self, instance_type) -> None: ...
     def get_call_type(self, context, args, kws) -> None: ...
@@ -233,6 +244,7 @@ class RecursiveCall(Opaque):
     """
     Recursive call to a Dispatcher.
     """
+
     _overloads: Incomplete
     dispatcher_type: Incomplete
     def __init__(self, dispatcher_type) -> None: ...

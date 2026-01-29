@@ -31,6 +31,7 @@ class JitClassType(type):
     """
     The type of any jitclass.
     """
+
     def __new__(cls, name, bases, dct): ...
     def _set_init(cls) -> None:
         """
@@ -65,6 +66,7 @@ class ConstructorTemplate(templates.AbstractTemplate):
     """
     Base class for jitclass constructor templates.
     """
+
     def generic(self, args, kws): ...
 
 def _drop_ignored_attrs(dct) -> None: ...
@@ -74,6 +76,7 @@ class ClassBuilder:
     A jitclass builder for a mutable jitclass.  This will register
     typing and implementation hooks to the given typing and target contexts.
     """
+
     class_impl_registry: Incomplete
     implemented_methods: Incomplete
     class_type: Incomplete

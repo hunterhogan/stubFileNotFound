@@ -1,10 +1,14 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 from numba.core import config as config, ir as ir, types as types, typing as typing, utils as utils
-from numba.core.errors import CompilerError as CompilerError, ForceLiteralArg as ForceLiteralArg, NumbaValueError as NumbaValueError, TypingError as TypingError, UnsupportedError as UnsupportedError, UntypedAttributeError as UntypedAttributeError, new_error_context as new_error_context, termcolor as termcolor
+from numba.core.errors import (
+	CompilerError as CompilerError, ForceLiteralArg as ForceLiteralArg, new_error_context as new_error_context,
+	NumbaValueError as NumbaValueError, termcolor as termcolor, TypingError as TypingError,
+	UnsupportedError as UnsupportedError, UntypedAttributeError as UntypedAttributeError)
 from numba.core.funcdesc import qualifying_prefix as qualifying_prefix
 from numba.core.typeconv import Conversion as Conversion
 from numba.core.typing.templates import Signature as Signature
+import contextlib
 
 _logger: Incomplete
 
@@ -23,7 +27,6 @@ class TypeVar:
     def add_type(self, tp, loc): ...
     def lock(self, tp, loc, literal_value=...) -> None: ...
     def union(self, other, loc): ...
-    def __repr__(self) -> str: ...
     @property
     def defined(self): ...
     def get(self): ...
@@ -35,6 +38,7 @@ class ConstraintNetwork:
     TODO: It is possible to optimize constraint propagation to consider only
           dirty type variables.
     """
+
     constraints: Incomplete
     def __init__(self) -> None: ...
     def append(self, constraint) -> None: ...
@@ -50,6 +54,7 @@ class Propagate:
     """
     A simple constraint for direct propagation of types for assignments.
     """
+
     dst: Incomplete
     src: Incomplete
     loc: Incomplete
@@ -152,6 +157,7 @@ class CallConstraint:
     """Constraint for calling functions.
     Perform case analysis foreach combinations of argument types.
     """
+
     signature: Incomplete
     target: Incomplete
     func: Incomplete
@@ -180,12 +186,12 @@ class GetAttrConstraint:
     def __init__(self, target, attr, value, loc, inst) -> None: ...
     def __call__(self, typeinfer) -> None: ...
     def refine(self, typeinfer, target_type) -> None: ...
-    def __repr__(self) -> str: ...
 
 class SetItemRefinement:
     """A mixin class to provide the common refinement logic in setitem
     and static setitem.
     """
+
     def _refine_target_type(self, typeinfer, targetty, idxty, valty, sig) -> None:
         """Refine the target-type given the known index type and value type.
         """
@@ -248,6 +254,7 @@ class TypeVarMap(dict):
 _temporary_dispatcher_map: Incomplete
 _temporary_dispatcher_map_ref_count: Incomplete
 
+@contextlib.contextmanager
 def register_dispatcher(disp) -> Generator[None]:
     """
     Register a Dispatcher for inference while it is not yet stored
@@ -262,6 +269,7 @@ class TypeInferer:
     """
     Operates on block that shares the same ir.Scope.
     """
+
     context: Incomplete
     blocks: Incomplete
     generator_info: Incomplete
@@ -317,9 +325,9 @@ class TypeInferer:
     def _unify_return_types(self, rettypes): ...
     def get_return_type(self, typemap): ...
     def get_state_token(self):
-        '''The algorithm is monotonic.  It can only grow or "refine" the
+        """The algorithm is monotonic.  It can only grow or "refine" the
         typevar map.
-        '''
+        """
     def constrain_statement(self, inst) -> None: ...
     def typeof_setitem(self, inst) -> None: ...
     def typeof_storemap(self, inst) -> None: ...

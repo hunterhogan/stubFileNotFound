@@ -1,17 +1,42 @@
 from _typeshed import Incomplete
 from collections.abc import Generator, Sequence
+from contextlib import contextmanager
 from functools import cached_property as cached_property
 from numba.core import config as config
 from typing import NamedTuple
+import types
 
-class RecordLLVMPassTimings:
+class RecordLLVMPassTimingsLegacy:
     """A helper context manager to track LLVM pass timings.
     """
+
     __slots__: Incomplete
     def __enter__(self):
         """Enables the pass timing in LLVM.
         """
     _data: Incomplete
+    def __exit__(self, exc_val: type[BaseException] | None, exc_type: BaseException | None, exc_tb: types.TracebackType | None) -> None:
+        """Reset timings and save report internally.
+        """
+    def get(self):
+        """Retrieve timing data for processing.
+
+        Returns
+        -------
+        timings: ProcessedPassTimings
+        """
+
+class RecordLLVMPassTimings:
+    """A helper context manager to track LLVM pass timings.
+    """
+
+    __slots__: Incomplete
+    _pb: Incomplete
+    _data: Incomplete
+    def __init__(self, pb) -> None: ...
+    def __enter__(self):
+        """Enables the pass timing in LLVM.
+        """
     def __exit__(self, exc_val: type[BaseException] | None, exc_type: BaseException | None, exc_tb: types.TracebackType | None) -> None:
         """Reset timings and save report internally.
         """
@@ -52,6 +77,7 @@ class ProcessedPassTimings:
     The processing is done lazily so we don't waste time processing unused
     timing information.
     """
+
     _raw_data: Incomplete
     def __init__(self, raw_data) -> None: ...
     def __bool__(self) -> bool: ...
@@ -127,10 +153,25 @@ class PassTimingsCollection(Sequence):
     This class implements the ``Sequence`` protocol for accessing the
     individual timing records.
     """
+
     _name: Incomplete
     _records: Incomplete
     def __init__(self, name) -> None: ...
-    def record(self, name) -> Generator[None]:
+    @contextmanager
+    def record_legacy(self, name) -> Generator[None]:
+        """Record new timings and append to this collection.
+
+        Note: this is mainly for internal use inside the compiler pipeline.
+
+        See also ``RecordLLVMPassTimingsLegacy``
+
+        Parameters
+        ----------
+        name: str
+            Name for the records.
+        """
+    @contextmanager
+    def record(self, name, pb) -> Generator[None]:
         """Record new timings and append to this collection.
 
         Note: this is mainly for internal use inside the compiler pipeline.
@@ -201,4 +242,3 @@ class PassTimingsCollection(Sequence):
     def __len__(self) -> int:
         """Length of this collection.
         """
-    def __str__(self) -> str: ...

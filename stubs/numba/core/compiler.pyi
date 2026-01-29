@@ -1,13 +1,30 @@
 from _typeshed import Incomplete
-from numba.core import bytecode as bytecode, callconv as callconv, config as config, cpu as cpu, errors as errors, interpreter as interpreter, postproc as postproc
+from numba.core import (
+	bytecode as bytecode, callconv as callconv, config as config, cpu as cpu, errors as errors, interpreter as interpreter,
+	postproc as postproc)
 from numba.core.compiler_machinery import PassManager as PassManager
 from numba.core.environment import lookup_environment as lookup_environment
 from numba.core.errors import CompilerError as CompilerError
-from numba.core.object_mode_passes import ObjectModeBackEnd as ObjectModeBackEnd, ObjectModeFrontEnd as ObjectModeFrontEnd
+from numba.core.object_mode_passes import (
+	ObjectModeBackEnd as ObjectModeBackEnd, ObjectModeFrontEnd as ObjectModeFrontEnd)
 from numba.core.targetconfig import ConfigStack as ConfigStack, Option as Option, TargetConfig as TargetConfig
 from numba.core.tracing import event as event
-from numba.core.typed_passes import AnnotateTypes as AnnotateTypes, DumpParforDiagnostics as DumpParforDiagnostics, IRLegalization as IRLegalization, InlineOverloads as InlineOverloads, NativeLowering as NativeLowering, NativeParforLowering as NativeParforLowering, NoPythonBackend as NoPythonBackend, NoPythonSupportedFeatureValidation as NoPythonSupportedFeatureValidation, NopythonRewrites as NopythonRewrites, NopythonTypeInference as NopythonTypeInference, ParforFusionPass as ParforFusionPass, ParforPass as ParforPass, ParforPreLoweringPass as ParforPreLoweringPass, PreLowerStripPhis as PreLowerStripPhis, PreParforPass as PreParforPass
-from numba.core.untyped_passes import CanonicalizeLoopEntry as CanonicalizeLoopEntry, CanonicalizeLoopExit as CanonicalizeLoopExit, DeadBranchPrune as DeadBranchPrune, ExtractByteCode as ExtractByteCode, FindLiterallyCalls as FindLiterallyCalls, FixupArgs as FixupArgs, GenericRewrites as GenericRewrites, IRProcessing as IRProcessing, InlineClosureLikes as InlineClosureLikes, InlineInlinables as InlineInlinables, LiteralPropagationSubPipelinePass as LiteralPropagationSubPipelinePass, LiteralUnroll as LiteralUnroll, MakeFunctionToJitFunction as MakeFunctionToJitFunction, ReconstructSSA as ReconstructSSA, RewriteDynamicRaises as RewriteDynamicRaises, RewriteSemanticConstants as RewriteSemanticConstants, TranslateByteCode as TranslateByteCode, WithLifting as WithLifting
+from numba.core.typed_passes import (
+	AnnotateTypes as AnnotateTypes, DumpParforDiagnostics as DumpParforDiagnostics, InlineOverloads as InlineOverloads,
+	IRLegalization as IRLegalization, NativeLowering as NativeLowering, NativeParforLowering as NativeParforLowering,
+	NoPythonBackend as NoPythonBackend, NopythonRewrites as NopythonRewrites,
+	NoPythonSupportedFeatureValidation as NoPythonSupportedFeatureValidation,
+	NopythonTypeInference as NopythonTypeInference, ParforFusionPass as ParforFusionPass, ParforPass as ParforPass,
+	ParforPreLoweringPass as ParforPreLoweringPass, PreLowerStripPhis as PreLowerStripPhis, PreParforPass as PreParforPass)
+from numba.core.untyped_passes import (
+	CanonicalizeLoopEntry as CanonicalizeLoopEntry, CanonicalizeLoopExit as CanonicalizeLoopExit,
+	DeadBranchPrune as DeadBranchPrune, ExtractByteCode as ExtractByteCode, FindLiterallyCalls as FindLiterallyCalls,
+	FixupArgs as FixupArgs, GenericRewrites as GenericRewrites, InlineClosureLikes as InlineClosureLikes,
+	InlineInlinables as InlineInlinables, IRProcessing as IRProcessing,
+	LiteralPropagationSubPipelinePass as LiteralPropagationSubPipelinePass, LiteralUnroll as LiteralUnroll,
+	MakeFunctionToJitFunction as MakeFunctionToJitFunction, ReconstructSSA as ReconstructSSA,
+	RewriteDynamicRaises as RewriteDynamicRaises, RewriteSemanticConstants as RewriteSemanticConstants,
+	TranslateByteCode as TranslateByteCode, WithLifting as WithLifting)
 from numba.parfors.parfor import ParforDiagnostics as ParforDiagnostics
 from typing import NamedTuple
 
@@ -43,6 +60,7 @@ class CompileResult(Incomplete):
     """
     A structure holding results from the compilation of a function.
     """
+
     __slots__: Incomplete
     def _reduce(self):
         """
@@ -78,16 +96,17 @@ class _CompileStatus:
     """
     Describes the state of compilation. Used like a C record.
     """
+
     __slots__: Incomplete
     fail_reason: Incomplete
     can_fallback: Incomplete
     def __init__(self, can_fallback) -> None: ...
-    def __repr__(self) -> str: ...
 
 class _EarlyPipelineCompletion(Exception):
     """
     Raised to indicate that a pipeline has completed early
     """
+
     result: Incomplete
     def __init__(self, result) -> None: ...
 
@@ -96,6 +115,7 @@ class StateDict(dict):
     A dictionary that has an overloaded getattr and setattr to permit getting
     and setting key/values through the use of attributes.
     """
+
     def __getattr__(self, attr): ...
     def __setattr__(self, attr, value) -> None: ...
 
@@ -108,10 +128,11 @@ class CompilerBase:
     """
     Stores and manages states for the compiler
     """
+
     state: Incomplete
     def __init__(self, typingctx, targetctx, library, args, return_type, flags, locals) -> None: ...
     def compile_extra(self, func): ...
-    def compile_ir(self, func_ir, lifted=(), lifted_from: Incomplete | None = None): ...
+    def compile_ir(self, func_ir, lifted=(), lifted_from=None): ...
     def define_pipelines(self) -> None:
         """Child classes override this to customize the pipelines in use.
         """
@@ -131,10 +152,11 @@ class CompilerBase:
 class Compiler(CompilerBase):
     """The default compiler
     """
+
     def define_pipelines(self): ...
 
 class DefaultPassBuilder:
-    '''
+    """
     This is the default pass builder, it contains the "classic" default
     pipelines as pre-canned PassManager instances:
       - nopython
@@ -143,7 +165,8 @@ class DefaultPassBuilder:
       - typed
       - untyped
       - nopython lowering
-    '''
+    """
+
     @staticmethod
     def define_nopython_pipeline(state, name: str = 'nopython'):
         """Returns an nopython mode pipeline based PassManager
@@ -166,7 +189,7 @@ class DefaultPassBuilder:
         """Returns an object-mode pipeline based PassManager
         """
 
-def compile_extra(typingctx, targetctx, func, args, return_type, flags, locals, library: Incomplete | None = None, pipeline_class=...):
+def compile_extra(typingctx, targetctx, func, args, return_type, flags, locals, library=None, pipeline_class=...):
     """Compiler entry point
 
     Parameter
@@ -189,7 +212,7 @@ def compile_extra(typingctx, targetctx, func, args, return_type, flags, locals, 
     pipeline_class : type like numba.compiler.CompilerBase
         compiler pipeline
     """
-def compile_ir(typingctx, targetctx, func_ir, args, return_type, flags, locals, lifted=(), lifted_from: Incomplete | None = None, is_lifted_loop: bool = False, library: Incomplete | None = None, pipeline_class=...):
+def compile_ir(typingctx, targetctx, func_ir, args, return_type, flags, locals, lifted=(), lifted_from=None, is_lifted_loop: bool = False, library=None, pipeline_class=...):
     """
     Compile a function with the given IR.
 

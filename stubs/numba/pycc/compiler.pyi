@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from numba.core.compiler_lock import global_compiler_lock
 
 __all__ = ['Compiler']
 
@@ -6,11 +7,11 @@ class ExportEntry:
     """
     A simple record for exporting symbols.
     """
+
     symbol: Incomplete
     signature: Incomplete
     function: Incomplete
     def __init__(self, symbol, signature, function) -> None: ...
-    def __repr__(self) -> str: ...
 
 class _ModuleCompiler:
     """A base class to compile Python modules to a single shared library or
@@ -19,6 +20,7 @@ class _ModuleCompiler:
     :param export_entries: a list of ExportEntry instances.
     :param module_name: the name of the exported module.
     """
+
     method_def_ty: Incomplete
     method_def_ptr: Incomplete
     env_def_ty: Incomplete
@@ -39,6 +41,8 @@ class _ModuleCompiler:
     exported_function_types: Incomplete
     function_environments: Incomplete
     environment_gvs: Incomplete
+    extra_environments: Incomplete
+    @global_compiler_lock
     def _cull_exports(self):
         """Read all the exported functions/modules in the translator
         environment, and join them into a single LLVM module.
@@ -65,9 +69,9 @@ class _ModuleCompiler:
         initialization.
         """
     def _emit_module_init_code(self, llvm_module, builder, modobj, method_array, env_array, envgv_array):
-        '''
+        """
         Emit call to "external" init function, if any.
-        '''
+        """
 
 class ModuleCompiler(_ModuleCompiler):
     _ptr_fun: Incomplete

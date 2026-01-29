@@ -25,10 +25,10 @@ def _define_nrt_decref(module, atomic_decr) -> None:
 _disable_atomicity: int
 
 def _define_atomic_inc_dec(module, op, ordering):
-    '''Define a llvm function for atomic increment/decrement to the given module
+    """Define a llvm function for atomic increment/decrement to the given module
     Argument ``op`` is the operation "add"/"sub".  Argument ``ordering`` is
     the memory ordering.  The generated function returns the new value.
-    '''
+    """
 def _define_atomic_cas(module, ordering):
     """Define a llvm function for atomic compare-and-swap.
     The generated function is a direct wrapper of the LLVM cmpxchg with the

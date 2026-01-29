@@ -26,6 +26,7 @@ _nvvm_lock: Incomplete
 class NVVM:
     """Process-wide singleton.
     """
+
     _PROTOTYPES: Incomplete
     __INSTANCE: Incomplete
     def __new__(cls): ...
@@ -50,9 +51,9 @@ class CompilationUnit:
     def __del__(self) -> None: ...
     def add_module(self, buffer) -> None:
         """
-         Add a module level NVVM IR to a compilation unit.
-         - The buffer should contain an NVVM module IR either in the bitcode
-           representation (LLVM3.0) or in the text representation.
+        Add a module level NVVM IR to a compilation unit.
+        - The buffer should contain an NVVM module IR either in the bitcode
+          representation (LLVM3.0) or in the text representation.
         """
     def lazy_add_module(self, buffer) -> None:
         """
@@ -62,7 +63,7 @@ class CompilationUnit:
         """
     log: Incomplete
     def compile(self, **options):
-        '''Perform Compilation.
+        """Perform Compilation.
 
         Compilation options are accepted as keyword arguments, with the
         following considerations:
@@ -79,7 +80,7 @@ class CompilationUnit:
         Documentation:
 
         https://docs.nvidia.com/cuda/libnvvm-api/index.html#_CPPv418nvvmCompileProgram11nvvmProgramiPPKc
-        '''
+        """
     def _try_error(self, err, msg) -> None: ...
     def get_log(self): ...
 

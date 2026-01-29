@@ -1,10 +1,15 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from contextlib import contextmanager
 from functools import cached_property as cached_property
 from numba import _dynfunc as _dynfunc, _helperlib as _helperlib
-from numba.core import cgutils as cgutils, config as config, datamodel as datamodel, debuginfo as debuginfo, errors as errors, event as event, funcdesc as funcdesc, imputils as imputils, targetconfig as targetconfig, types as types, utils as utils
+from numba.core import (
+	cgutils as cgutils, config as config, datamodel as datamodel, debuginfo as debuginfo, errors as errors, event as event,
+	funcdesc as funcdesc, imputils as imputils, targetconfig as targetconfig, types as types, utils as utils)
 from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
-from numba.core.imputils import RegistryLoader as RegistryLoader, builtin_registry as builtin_registry, impl_ret_borrowed as impl_ret_borrowed, user_function as user_function, user_generator as user_generator
+from numba.core.imputils import (
+	builtin_registry as builtin_registry, impl_ret_borrowed as impl_ret_borrowed, RegistryLoader as RegistryLoader,
+	user_function as user_function, user_generator as user_generator)
 from numba.core.pythonapi import PythonAPI as PythonAPI
 from numba.cpython import builtins as builtins
 
@@ -13,14 +18,15 @@ PYOBJECT = GENERIC_POINTER
 void_ptr = GENERIC_POINTER
 
 class OverloadSelector:
-    '''
+    """
     An object matching an actual signature against a registry of formal
     signatures and choosing the best candidate, if any.
 
     In the current implementation:
     - a "signature" is a tuple of type classes or type instances
     - the "best candidate" is the most specific match
-    '''
+    """
+
     versions: Incomplete
     _cache: Incomplete
     def __init__(self) -> None: ...
@@ -44,17 +50,18 @@ class OverloadSelector:
             * dictionary containing genericity scores
         """
     def _match_arglist(self, formal_args, actual_args):
-        '''
+        """
         Returns True if the signature is "matching".
         A formal signature is "matching" if the actual signature matches exactly
         or if the formal signature is a compatible generic signature.
-        '''
+        """
     def _match(self, formal, actual): ...
     def append(self, value, sig) -> None:
         """
         Add a formal signature and its associated value.
         """
 
+@utils.runonce
 def _load_global_helpers() -> None:
     """
     Execute once to install special symbols into the LLVM symbol table.
@@ -71,11 +78,12 @@ class BaseContext:
     Only POD structure can live across function boundaries by copying the
     data.
     """
+
     strict_alignment: bool
     implement_powi_as_math_call: bool
     implement_pow_as_math_call: bool
     enable_debuginfo: bool
-    DIBuilder: Incomplete
+    DIBuilder = debuginfo.DIBuilder
     @property
     def enable_boundscheck(self): ...
     _boundscheck: Incomplete
@@ -119,7 +127,7 @@ class BaseContext:
         """
         Load target-specific registries.  Can be overridden by subclasses.
         """
-    def mangler(self, name, types, *, abi_tags=(), uid: Incomplete | None = None):
+    def mangler(self, name, types, *, abi_tags=(), uid=None):
         """
         Perform name mangling.
         """
@@ -179,7 +187,7 @@ class BaseContext:
         """
         Insert constant *string* (a str object) into module *mod*.
         """
-    def insert_const_bytes(self, mod, bytes, name: Incomplete | None = None):
+    def insert_const_bytes(self, mod, bytes, name=None):
         """
         Insert constant *byte* (a `bytes` object) into module *mod*.
         """
@@ -199,13 +207,13 @@ class BaseContext:
         is an opaque pointer (???).
         """
     def get_value_type(self, ty): ...
-    def pack_value(self, builder, ty, value, ptr, align: Incomplete | None = None) -> None:
+    def pack_value(self, builder, ty, value, ptr, align=None) -> None:
         """
         Pack value into the array storage at *ptr*.
         If *align* is given, it is the guaranteed alignment for *ptr*
         (by default, the standard ABI alignment).
         """
-    def unpack_value(self, builder, ty, ptr, align: Incomplete | None = None):
+    def unpack_value(self, builder, ty, ptr, align=None):
         """
         Unpack value from the array storage at *ptr*.
         If *align* is given, it is the guaranteed alignment for *ptr*
@@ -298,7 +306,7 @@ class BaseContext:
         """
     def call_external_function(self, builder, callee, argtys, args): ...
     def get_function_pointer_type(self, typ): ...
-    def call_function_pointer(self, builder, funcptr, args, cconv: Incomplete | None = None): ...
+    def call_function_pointer(self, builder, funcptr, args, cconv=None): ...
     def print_string(self, builder, text): ...
     def debug_print(self, builder, text) -> None: ...
     def printf(self, builder, format_string, *args): ...
@@ -308,7 +316,7 @@ class BaseContext:
         """
     def get_dummy_value(self): ...
     def get_dummy_type(self): ...
-    def _compile_subroutine_no_cache(self, builder, impl, sig, locals={}, flags: Incomplete | None = None):
+    def _compile_subroutine_no_cache(self, builder, impl, sig, locals=None, flags=None):
         """
         Invoke the compiler to compile a function to be used inside a
         nopython function, but without generating code to call that
@@ -316,7 +324,7 @@ class BaseContext:
 
         Note this context's flags are not inherited.
         """
-    def compile_subroutine(self, builder, impl, sig, locals={}, flags: Incomplete | None = None, caching: bool = True):
+    def compile_subroutine(self, builder, impl, sig, locals=None, flags=None, caching: bool = True):
         """
         Compile the function *impl* for the given *sig* (in nopython mode).
         Return an instance of CompileResult.
@@ -324,7 +332,7 @@ class BaseContext:
         If *caching* evaluates True, the function keeps the compiled function
         for reuse in *.cached_internal_func*.
         """
-    def compile_internal(self, builder, impl, sig, args, locals={}):
+    def compile_internal(self, builder, impl, sig, args, locals=None):
         """
         Like compile_subroutine(), but also call the function with the given
         *args*.
@@ -339,7 +347,7 @@ class BaseContext:
         the return status automatically.
         """
     def call_unresolved(self, builder, name, sig, args):
-        '''
+        """
         Insert a function call to an unresolved symbol with the given *name*.
 
         Note: this is used for recursive call.
@@ -368,7 +376,7 @@ class BaseContext:
         The legacy lazy JIT and the new ORC JIT would allow a declare-only
         function be used in a module as long as it is defined by the time of its
         first use.
-        '''
+        """
     def get_executable(self, func, fndesc, env) -> None: ...
     def get_python_api(self, builder): ...
     def sentry_record_alignment(self, rectyp, attr) -> None:
@@ -379,13 +387,13 @@ class BaseContext:
         """
         Get a helper class for the given *typ*.
         """
-    def _make_helper(self, builder, typ, value: Incomplete | None = None, ref: Incomplete | None = None, kind: str = 'value'): ...
-    def make_helper(self, builder, typ, value: Incomplete | None = None, ref: Incomplete | None = None):
+    def _make_helper(self, builder, typ, value=None, ref=None, kind: str = 'value'): ...
+    def make_helper(self, builder, typ, value=None, ref=None):
         """
         Get a helper object to access the *typ*'s members,
         for the given value or reference.
         """
-    def make_data_helper(self, builder, typ, ref: Incomplete | None = None):
+    def make_data_helper(self, builder, typ, ref=None):
         """
         As make_helper(), but considers the value as stored in memory,
         rather than a live value.
@@ -395,7 +403,7 @@ class BaseContext:
         """
         Populate array structure.
         """
-    def make_complex(self, builder, typ, value: Incomplete | None = None):
+    def make_complex(self, builder, typ, value=None):
         """
         Get a helper object to access the given complex numbers' members.
         """
@@ -441,6 +449,7 @@ class BaseContext:
     def active_code_library(self):
         """Get the active code library
         """
+    @contextmanager
     def push_code_library(self, lib) -> Generator[None]:
         """Push the active code library for the context
         """
@@ -471,14 +480,14 @@ class _wrap_impl:
     (context, signature) arguments.
     The wrapper also forwards attribute queries, which is important.
     """
+
     _callable: Incomplete
     _imp: Incomplete
     _context: Incomplete
     _sig: Incomplete
     def __init__(self, imp, context, sig) -> None: ...
-    def __call__(self, builder, args, loc: Incomplete | None = None): ...
+    def __call__(self, builder, args, loc=None): ...
     def __getattr__(self, item): ...
-    def __repr__(self) -> str: ...
 
 def _has_loc(fn):
     """Does function *fn* take ``loc`` argument?
@@ -491,8 +500,8 @@ class _wrap_missing_loc:
         """Wrap function for missing ``loc`` keyword argument.
         Otherwise, return the original *fn*.
         """
-    def __repr__(self) -> str: ...
 
+@utils.runonce
 def _initialize_llvm_lock_event() -> None:
     """Initial event triggers for LLVM lock
     """

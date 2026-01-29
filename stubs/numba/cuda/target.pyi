@@ -1,7 +1,9 @@
 from .cudadrv import nvvm as nvvm
 from _typeshed import Incomplete
 from functools import cached_property as cached_property
-from numba.core import cgutils as cgutils, config as config, datamodel as datamodel, debuginfo as debuginfo, itanium_mangler as itanium_mangler, types as types, typing as typing, utils as utils
+from numba.core import (
+	cgutils as cgutils, config as config, datamodel as datamodel, debuginfo as debuginfo,
+	itanium_mangler as itanium_mangler, types as types, typing as typing, utils as utils)
 from numba.core.base import BaseContext as BaseContext
 from numba.core.callconv import BaseCallConv as BaseCallConv, MinimalCallConv as MinimalCallConv
 from numba.core.dispatcher import Dispatcher as Dispatcher
@@ -41,8 +43,8 @@ class CUDATargetContext(BaseContext):
         """
     @cached_property
     def call_conv(self): ...
-    def mangler(self, name, argtypes, *, abi_tags=(), uid: Incomplete | None = None): ...
-    def prepare_cuda_kernel(self, codelib, fndesc, debug, lineinfo, nvvm_options, filename, linenum, max_registers: Incomplete | None = None):
+    def mangler(self, name, argtypes, *, abi_tags=(), uid=None): ...
+    def prepare_cuda_kernel(self, codelib, fndesc, debug, lineinfo, nvvm_options, filename, linenum, max_registers=None):
         """
         Adapt a code library ``codelib`` with the numba compiled CUDA kernel
         with name ``fname`` and arguments ``argtypes`` for NVVM.
@@ -51,8 +53,8 @@ class CUDATargetContext(BaseContext):
 
         Returns the new code library and the wrapper function.
 
-        Parameters:
-
+        Parameters
+        ----------
         codelib:       The CodeLibrary containing the device function to wrap
                        in a kernel call.
         fndesc:        The FunctionDescriptor of the source function.
@@ -102,9 +104,10 @@ class CUDACABICallConv(BaseCallConv):
 
     Exceptions are unsupported in this convention.
     """
+
     def _make_call_helper(self, builder) -> None: ...
     def return_value(self, builder, retval): ...
-    def return_user_exc(self, builder, exc, exc_args: Incomplete | None = None, loc: Incomplete | None = None, func_name: Incomplete | None = None) -> None: ...
+    def return_user_exc(self, builder, exc, exc_args=None, loc=None, func_name=None) -> None: ...
     def return_status_propagate(self, builder, status) -> None: ...
     def get_function_type(self, restype, argtypes):
         """

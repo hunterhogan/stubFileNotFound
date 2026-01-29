@@ -1,14 +1,15 @@
-import abc
 from .abstract import Type
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
+import abc
 
-__all__ = ['FunctionType', 'UndefinedFunctionType', 'FunctionPrototype', 'WrapperAddressProtocol', 'CompileResultWAP']
+__all__ = ['CompileResultWAP', 'FunctionPrototype', 'FunctionType', 'UndefinedFunctionType', 'WrapperAddressProtocol']
 
 class FunctionType(Type):
     """
     First-class function type.
     """
+
     cconv: Incomplete
     nargs: Incomplete
     signature: Incomplete
@@ -42,6 +43,7 @@ class FunctionPrototype(Type):
     Represents the prototype of a first-class function type.
     Used internally.
     """
+
     cconv: Incomplete
     rtype: Incomplete
     atypes: Incomplete
@@ -57,6 +59,7 @@ class WrapperAddressProtocol(ABC, metaclass=abc.ABCMeta):
     as first-class functions. As a minimum, the derived types must
     implement two methods ``__wrapper_address__`` and ``signature``.
     """
+
     @abstractmethod
     def __wrapper_address__(self):
         """Return the address of a first-class function.
@@ -81,6 +84,7 @@ class CompileResultWAP(WrapperAddressProtocol):
     """Wrapper of dispatcher instance compilation result to turn it a
     first-class function.
     """
+
     cres: Incomplete
     address: Incomplete
     def __init__(self, cres) -> None:

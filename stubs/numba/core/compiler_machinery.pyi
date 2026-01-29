@@ -1,4 +1,3 @@
-import abc
 from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from numba.core import config as config, errors as errors, transforms as transforms, utils as utils
@@ -7,6 +6,8 @@ from numba.core.ir_utils import enforce_no_dels as enforce_no_dels, legalize_sin
 from numba.core.postproc import PostProcessor as PostProcessor
 from numba.core.tracing import event as event
 from typing import NamedTuple
+import abc
+import types
 
 _termcolor: Incomplete
 
@@ -14,14 +15,16 @@ class SimpleTimer:
     """
     A simple context managed timer
     """
+
     ts: Incomplete
     def __enter__(self): ...
     elapsed: Incomplete
     def __exit__(self, *exc) -> None: ...
 
 class CompilerPass(metaclass=ABCMeta):
-    """ The base class for all compiler passes.
+    """The base class for all compiler passes.
     """
+
     _analysis: Incomplete
     _pass_id: Incomplete
     @abstractmethod
@@ -68,7 +71,7 @@ class CompilerPass(metaclass=ABCMeta):
         `run_pass`.
         """
     def get_analysis_usage(self, AU) -> None:
-        """ Override to set analysis usage
+        """Override to set analysis usage
         """
     def get_analysis(self, pass_name):
         """
@@ -76,22 +79,23 @@ class CompilerPass(metaclass=ABCMeta):
         """
 
 class SSACompliantMixin:
-    """ Mixin to indicate a pass is SSA form compliant. Nothing is asserted
+    """Mixin to indicate a pass is SSA form compliant. Nothing is asserted
     about this condition at present.
     """
 class FunctionPass(CompilerPass, metaclass=abc.ABCMeta):
-    """ Base class for function passes
+    """Base class for function passes
     """
 class AnalysisPass(CompilerPass, metaclass=abc.ABCMeta):
-    """ Base class for analysis passes (no modification made to state)
+    """Base class for analysis passes (no modification made to state)
     """
 class LoweringPass(CompilerPass, metaclass=abc.ABCMeta):
-    """ Base class for lowering passes
+    """Base class for lowering passes
     """
 
 class AnalysisUsage:
     """This looks and behaves like LLVM's AnalysisUsage because its like that.
     """
+
     _required: Incomplete
     _preserved: Incomplete
     def __init__(self) -> None: ...
@@ -99,7 +103,6 @@ class AnalysisUsage:
     def get_preserved_set(self): ...
     def add_required(self, pss) -> None: ...
     def add_preserved(self, pss) -> None: ...
-    def __str__(self) -> str: ...
 
 _DEBUG: bool
 
@@ -114,6 +117,7 @@ class PassManager:
     """
     The PassManager is a named instance of a particular compilation pipeline
     """
+
     _ENFORCING: bool
     passes: Incomplete
     exec_times: Incomplete
@@ -122,9 +126,9 @@ class PassManager:
     _print_after: Incomplete
     pipeline_name: Incomplete
     def __init__(self, pipeline_name) -> None:
-        '''
+        """
         Create a new pipeline with name "pipeline_name"
-        '''
+        """
     def _validate_pass(self, pass_cls) -> None: ...
     def add_pass(self, pss, description: str = '') -> None:
         """
@@ -147,6 +151,7 @@ class PassManager:
         """
         Patches the error to show the stage that it arose in.
         """
+    @global_compiler_lock
     def _runPass(self, index, pss, internal_state): ...
     def run(self, state) -> None:
         """
@@ -166,6 +171,7 @@ class PassRegistry:
     """
     Pass registry singleton class.
     """
+
     _id: int
     _registry: Incomplete
     def register(self, mutates_CFG, analysis_only): ...

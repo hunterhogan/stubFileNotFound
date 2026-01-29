@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from contextlib import contextmanager as contextmanager
 from numba.core import cgutils as cgutils, types as types
 from numba.core.errors import NumbaNotImplementedError as NumbaNotImplementedError, TypingError as TypingError
-from numba.core.pythonapi import NativeValue as NativeValue, box as box, reflect as reflect, unbox as unbox
+from numba.core.pythonapi import box as box, NativeValue as NativeValue, reflect as reflect, unbox as unbox
 from numba.core.typing.typeof import Purpose as Purpose, typeof as typeof
 from numba.cpython import listobj as listobj, setobj as setobj
 from numba.np import numpy_support as numpy_support
@@ -97,6 +97,7 @@ class _NumbaTypeHelper:
             c.pyapi.decref(the_numba_type)
         # At this point *nth* should not be used.
     """
+
     c: Incomplete
     def __init__(self, c) -> None: ...
     typeof_fn: Incomplete

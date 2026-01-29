@@ -1,6 +1,8 @@
 from numba.core import types as types
 from numba.core.extending import overload_method as overload_method
-from numba.core.imputils import impl_ret_untracked as impl_ret_untracked, lower_builtin as lower_builtin, lower_cast as lower_cast, lower_constant as lower_constant, lower_getattr as lower_getattr, lower_getattr_generic as lower_getattr_generic
+from numba.core.imputils import (
+	impl_ret_untracked as impl_ret_untracked, lower_builtin as lower_builtin, lower_cast as lower_cast,
+	lower_constant as lower_constant, lower_getattr as lower_getattr, lower_getattr_generic as lower_getattr_generic)
 
 def enum_eq(context, builder, sig, args): ...
 def enum_is(context, builder, sig, args): ...

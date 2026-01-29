@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+import types
 
 class _CompilerLock:
     _lock: Incomplete

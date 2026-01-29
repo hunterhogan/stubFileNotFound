@@ -15,12 +15,14 @@ class NRTContext:
     """
     An object providing access to NRT APIs in the lowering pass.
     """
+
     _context: Incomplete
     _enabled: Incomplete
     _meminfo_api: Incomplete
     def __init__(self, context, enabled) -> None: ...
     def _require_nrt(self) -> None: ...
     def _check_null_result(func): ...
+    @_check_null_result
     def allocate(self, builder, size):
         """
         Low-level allocate a new memory area of `size` bytes. The result of the
@@ -36,6 +38,7 @@ class NRTContext:
         """
         Low-level free a memory area allocated with allocate().
         """
+    @_check_null_result
     def meminfo_alloc(self, builder, size):
         """
         Allocate a new MemInfo with a data payload of `size` bytes.
@@ -53,6 +56,7 @@ class NRTContext:
 
         Returns NULL to indicate error/failure to allocate.
         """
+    @_check_null_result
     def meminfo_alloc_dtor(self, builder, size, dtor):
         """
         Allocate a new MemInfo with a data payload of `size` bytes and a
@@ -72,6 +76,7 @@ class NRTContext:
 
         Returns NULL to indicate error/failure to allocate.
         """
+    @_check_null_result
     def meminfo_alloc_aligned(self, builder, size, align):
         """
         Allocate a new MemInfo with an aligned data payload of `size` bytes.
@@ -93,6 +98,7 @@ class NRTContext:
 
         Returns NULL to indicate error/failure to allocate.
         """
+    @_check_null_result
     def meminfo_new_varsize(self, builder, size):
         """
         Allocate a MemInfo pointing to a variable-sized data area.  The area
@@ -114,6 +120,7 @@ class NRTContext:
 
         Returns NULL to indicate error/failure to allocate.
         """
+    @_check_null_result
     def meminfo_new_varsize_dtor(self, builder, size, dtor):
         """
         Like meminfo_new_varsize() but also set the destructor for
@@ -133,6 +140,7 @@ class NRTContext:
 
         Returns NULL to indicate error/failure to allocate.
         """
+    @_check_null_result
     def meminfo_varsize_alloc(self, builder, meminfo, size):
         """
         Allocate a new data area for a MemInfo created by meminfo_new_varsize().
@@ -160,6 +168,7 @@ class NRTContext:
 
         Returns NULL to indicate error/failure to allocate.
         """
+    @_check_null_result
     def meminfo_varsize_realloc(self, builder, meminfo, size):
         """
         Reallocate a data area allocated by meminfo_new_varsize().

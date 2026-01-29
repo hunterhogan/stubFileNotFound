@@ -15,6 +15,7 @@ class _Runtime:
     _init: bool
     def __init__(self) -> None: ...
     _library: Incomplete
+    @global_compiler_lock
     def initialize(self, ctx) -> None:
         """Initializes the NRT
 
@@ -40,7 +41,7 @@ class _Runtime:
         The release of MemInfo will release a reference on `pyobj`.
         """
     def meminfo_alloc(self, size, safe: bool = False):
-        '''
+        """
         Allocate a new memory of `size` bytes and returns a MemInfo object
         that tracks the allocation.  When there is no more reference to the
         MemInfo object, the underlying memory will be deallocated.
@@ -48,7 +49,7 @@ class _Runtime:
         If `safe` flag is True, the memory is allocated using the `safe` scheme.
         This is used for debugging and testing purposes.
         See `NRT_MemInfo_alloc_safe()` in "nrt.h" for details.
-        '''
+        """
     def get_allocation_stats(self):
         """
         Returns a namedtuple of (alloc, free, mi_alloc, mi_free) for count of

@@ -1,5 +1,7 @@
 from numba.core import cgutils as cgutils, types as types, typing as typing
-from numba.core.imputils import impl_ret_untracked as impl_ret_untracked, lower_builtin as lower_builtin, lower_cast as lower_cast, lower_getattr_generic as lower_getattr_generic, lower_setattr_generic as lower_setattr_generic
+from numba.core.imputils import (
+	impl_ret_untracked as impl_ret_untracked, lower_builtin as lower_builtin, lower_cast as lower_cast,
+	lower_getattr_generic as lower_getattr_generic, lower_setattr_generic as lower_setattr_generic)
 
 def always_return_true_impl(context, builder, sig, args): ...
 def always_return_false_impl(context, builder, sig, args): ...

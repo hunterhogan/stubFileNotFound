@@ -10,15 +10,16 @@ class CudaRuntimeAPIError(CudaRuntimeError):
     """
     Raised when there is an error accessing a C API from the CUDA Runtime.
     """
+
     code: Incomplete
     msg: Incomplete
     def __init__(self, code, msg) -> None: ...
-    def __str__(self) -> str: ...
 
 class Runtime:
     """
     Runtime object that lazily binds runtime API functions.
     """
+
     is_initialized: bool
     def __init__(self) -> None: ...
     lib: Incomplete
@@ -38,7 +39,8 @@ class Runtime:
     @property
     def supported_versions(self):
         """A tuple of all supported CUDA toolkit versions. Versions are given in
-        the form ``(major_version, minor_version)``."""
+        the form ``(major_version, minor_version)``.
+        """
 
 runtime: Incomplete
 

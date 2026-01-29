@@ -5,10 +5,10 @@ class Stub:
     A stub object to represent special objects that are meaningless
     outside the context of a CUDA kernel
     """
+
     _description_: str
     __slots__: Incomplete
     def __new__(cls) -> None: ...
-    def __repr__(self) -> str: ...
 
 def stub_function(fn):
     """
@@ -18,6 +18,7 @@ def stub_function(fn):
 
 class Dim3(Stub):
     """A triple, (x, y, z)"""
+
     _description_: str
     @property
     def x(self) -> None: ...
@@ -32,6 +33,7 @@ class threadIdx(Dim3):
     spanning the range from 0 inclusive to the corresponding value of the
     attribute in :attr:`numba.cuda.blockDim` exclusive.
     """
+
     _description_: str
 
 class blockIdx(Dim3):
@@ -40,14 +42,16 @@ class blockIdx(Dim3):
     spanning the range from 0 inclusive to the corresponding value of the
     attribute in :attr:`numba.cuda.gridDim` exclusive.
     """
+
     _description_: str
 
 class blockDim(Dim3):
-    '''
+    """
     The shape of a block of threads, as declared when instantiating the kernel.
     This value is the same for all threads in a given kernel launch, even if
     they belong to different blocks (i.e. each block is "full").
-    '''
+    """
+
     _description_: str
 
 class gridDim(Dim3):
@@ -55,6 +59,7 @@ class gridDim(Dim3):
     The shape of the grid of blocks. This value is the same for all threads in
     a given kernel launch.
     """
+
     _description_: str
 
 class warpsize(Stub):
@@ -62,6 +67,7 @@ class warpsize(Stub):
     The size of a warp. All architectures implemented to date have a warp size
     of 32.
     """
+
     _description_: str
 
 class laneid(Stub):
@@ -69,13 +75,16 @@ class laneid(Stub):
     This thread's lane within a warp. Ranges from 0 to
     :attr:`numba.cuda.warpsize` - 1.
     """
+
     _description_: str
 
 class shared(Stub):
     """
     Shared memory namespace
     """
+
     _description_: str
+    @stub_function
     def array(shape, dtype) -> None:
         """
         Allocate a shared array of the given *shape* and *type*. *shape* is
@@ -91,7 +100,9 @@ class local(Stub):
     """
     Local memory namespace
     """
+
     _description_: str
+    @stub_function
     def array(shape, dtype) -> None:
         """
         Allocate a local array of the given *shape* and *type*. The array is
@@ -104,6 +115,8 @@ class const(Stub):
     """
     Constant memory namespace
     """
+
+    @stub_function
     def array_like(ndarray) -> None:
         """
         Create a const array from *ndarry*. The resulting const array will have
@@ -116,6 +129,7 @@ class syncwarp(Stub):
 
     Synchronizes a masked subset of threads in a warp.
     """
+
     _description_: str
 
 class shfl_sync_intrinsic(Stub):
@@ -125,6 +139,7 @@ class shfl_sync_intrinsic(Stub):
     Nvvm intrinsic for shuffling data across a warp
     docs.nvidia.com/cuda/nvvm-ir-spec/index.html#nvvm-intrin-warp-level-datamove
     """
+
     _description_: str
 
 class vote_sync_intrinsic(Stub):
@@ -134,6 +149,7 @@ class vote_sync_intrinsic(Stub):
     Nvvm intrinsic for performing a reduce and broadcast across a warp
     docs.nvidia.com/cuda/nvvm-ir-spec/index.html#nvvm-intrin-warp-level-vote
     """
+
     _description_: str
 
 class match_any_sync(Stub):
@@ -144,6 +160,7 @@ class match_any_sync(Stub):
     Returns a mask of threads that have same value as the given value from
     within the masked warp.
     """
+
     _description_: str
 
 class match_all_sync(Stub):
@@ -156,6 +173,7 @@ class match_all_sync(Stub):
     all have the same value, otherwise it is 0. Pred is a boolean of whether
     or not all threads in the mask warp have the same warp.
     """
+
     _description_: str
 
 class activemask(Stub):
@@ -168,6 +186,7 @@ class activemask(Stub):
     returned mask. Threads which have exited the kernel are always marked as
     inactive.
     """
+
     _description_: str
 
 class lanemask_lt(Stub):
@@ -177,24 +196,28 @@ class lanemask_lt(Stub):
     Returns a 32-bit integer mask of all lanes (including inactive ones) with
     ID less than the current lane.
     """
+
     _description_: str
 
 class threadfence_block(Stub):
     """
     A memory fence at thread block level
     """
+
     _description_: str
 
 class threadfence_system(Stub):
     """
     A memory fence at system level: across devices
     """
+
     _description_: str
 
 class threadfence(Stub):
     """
     A memory fence at device level
     """
+
     _description_: str
 
 class popc(Stub):
@@ -237,15 +260,16 @@ class fma(Stub):
     Perform the fused multiply-add operation.
     """
 class cbrt(Stub):
-    '''"
+    """"
     cbrt(a)
 
     Perform the cube root operation.
-    '''
+    """
 
 class atomic(Stub):
     """Namespace for atomic operations
     """
+
     _description_: str
     class add(Stub):
         """add(ary, idx, val)
@@ -401,11 +425,13 @@ class nanosleep(Stub):
     Suspends the thread for a sleep duration approximately close to the delay
     `ns`, specified in nanoseconds.
     """
+
     _description_: str
 
 class fp16(Stub):
     """Namespace for fp16 operations
     """
+
     _description_: str
     class hadd(Stub):
         """hadd(a, b)

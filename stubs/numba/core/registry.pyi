@@ -1,10 +1,13 @@
 from _typeshed import Incomplete
 from numba.core import cpu as cpu, dispatcher as dispatcher, typing as typing, utils as utils
 from numba.core.descriptors import TargetDescriptor as TargetDescriptor
+from numba.core.utils import threadsafe_cached_property as cached_property
 
 class CPUTarget(TargetDescriptor):
     options = cpu.CPUTargetOptions
+    @cached_property
     def _toplevel_target_context(self): ...
+    @cached_property
     def _toplevel_typing_context(self): ...
     @property
     def target_context(self):
@@ -34,6 +37,7 @@ class DelayedRegistry(utils.UniqueDict):
         the first time it is is used.  It is used for part of a deferred
         initialization strategy.
     """
+
     ondemand: Incomplete
     key_type: Incomplete
     value_type: Incomplete

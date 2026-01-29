@@ -1,9 +1,16 @@
 from _typeshed import Incomplete
 from numba import pndindex as pndindex
 from numba.core import config as config, types as types, utils as utils
-from numba.core.errors import NumbaAssertionError as NumbaAssertionError, NumbaPerformanceWarning as NumbaPerformanceWarning, NumbaTypeError as NumbaTypeError, TypingError as TypingError
-from numba.core.typing.templates import AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, CallableTemplate as CallableTemplate, Registry as Registry, signature as signature
-from numba.np.numpy_support import _ufunc_loop_sig as _ufunc_loop_sig, as_dtype as as_dtype, carray as carray, farray as farray, from_dtype as from_dtype, resolve_output_type as resolve_output_type, supported_ufunc_loop as supported_ufunc_loop, ufunc_find_matching_loop as ufunc_find_matching_loop
+from numba.core.errors import (
+	NumbaAssertionError as NumbaAssertionError, NumbaPerformanceWarning as NumbaPerformanceWarning,
+	NumbaTypeError as NumbaTypeError, TypingError as TypingError)
+from numba.core.typing.templates import (
+	AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, CallableTemplate as CallableTemplate,
+	Registry as Registry, signature as signature)
+from numba.np.numpy_support import (
+	_ufunc_loop_sig as _ufunc_loop_sig, as_dtype as as_dtype, carray as carray, farray as farray, from_dtype as from_dtype,
+	resolve_output_type as resolve_output_type, supported_ufunc_loop as supported_ufunc_loop,
+	ufunc_find_matching_loop as ufunc_find_matching_loop)
 
 registry: Incomplete
 infer: Incomplete
@@ -71,6 +78,7 @@ class Numpy_method_redirection(AbstractTemplate):
     A template redirecting a Numpy global function (e.g. np.sum) to an
     array method of the same name (e.g. ndarray.sum).
     """
+
     prefer_literal: bool
     def generic(self, args, kws): ...
 
@@ -100,7 +108,7 @@ def _sequence_of_arrays(context, func_name, arrays, dim_chooser=...): ...
 def _choose_concatenation_layout(arrays): ...
 
 class MatMulTyperMixin:
-    def matmul_typer(self, a, b, out: Incomplete | None = None):
+    def matmul_typer(self, a, b, out=None):
         """
         Typer function for Numpy matrix multiplication.
         """

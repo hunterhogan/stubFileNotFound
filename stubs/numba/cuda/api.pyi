@@ -3,12 +3,14 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from numba.core import config as config
 from numba.cuda.api_util import prepare_shape_strides_dtype as prepare_shape_strides_dtype
+import contextlib
 
 require_context: Incomplete
 current_context: Incomplete
 gpus: Incomplete
 
-def from_cuda_array_interface(desc, owner: Incomplete | None = None, sync: bool = True):
+@require_context
+def from_cuda_array_interface(desc, owner=None, sync: bool = True):
     """Create a DeviceNDArray from a cuda-array-interface description.
     The ``owner`` is the owner of the underlying memory.
     The resulting DeviceNDArray will acquire a reference from it.
@@ -36,7 +38,8 @@ def is_float16_supported():
 
     float16 is always supported in current versions of Numba - returns True.
     """
-def to_device(obj, stream: int = 0, copy: bool = True, to: Incomplete | None = None):
+@require_context
+def to_device(obj, stream: int = 0, copy: bool = True, to=None):
     """to_device(obj, stream=0, copy=True, to=None)
 
     Allocate and transfer a numpy ndarray or structured scalar to the device.
@@ -66,12 +69,14 @@ def to_device(obj, stream: int = 0, copy: bool = True, to: Incomplete | None = N
 
         hary = d_ary.copy_to_host(stream=stream)
     """
-def device_array(shape, dtype=..., strides: Incomplete | None = None, order: str = 'C', stream: int = 0):
+@require_context
+def device_array(shape, dtype=..., strides=None, order: str = 'C', stream: int = 0):
     """device_array(shape, dtype=np.float64, strides=None, order='C', stream=0)
 
     Allocate an empty device ndarray. Similar to :meth:`numpy.empty`.
     """
-def managed_array(shape, dtype=..., strides: Incomplete | None = None, order: str = 'C', stream: int = 0, attach_global: bool = True):
+@require_context
+def managed_array(shape, dtype=..., strides=None, order: str = 'C', stream: int = 0, attach_global: bool = True):
     """managed_array(shape, dtype=np.float64, strides=None, order='C', stream=0,
                      attach_global=True)
 
@@ -87,13 +92,15 @@ def managed_array(shape, dtype=..., strides: Incomplete | None = None, order: st
                           *host*, and memory is only accessible by devices
                           with Compute Capability 6.0 and later.
     """
-def pinned_array(shape, dtype=..., strides: Incomplete | None = None, order: str = 'C'):
+@require_context
+def pinned_array(shape, dtype=..., strides=None, order: str = 'C'):
     """pinned_array(shape, dtype=np.float64, strides=None, order='C')
 
     Allocate an :class:`ndarray <numpy.ndarray>` with a buffer that is pinned
     (pagelocked).  Similar to :func:`np.empty() <numpy.empty>`.
     """
-def mapped_array(shape, dtype=..., strides: Incomplete | None = None, order: str = 'C', stream: int = 0, portable: bool = False, wc: bool = False):
+@require_context
+def mapped_array(shape, dtype=..., strides=None, order: str = 'C', stream: int = 0, portable: bool = False, wc: bool = False):
     """mapped_array(shape, dtype=np.float64, strides=None, order='C', stream=0,
                     portable=False, wc=False)
 
@@ -106,7 +113,9 @@ def mapped_array(shape, dtype=..., strides: Incomplete | None = None, order: str
         to write by the host and to read by the device, but slower to
         write by the host and slower to write by the device.
     """
-def open_ipc_array(handle, shape, dtype, strides: Incomplete | None = None, offset: int = 0) -> Generator[Incomplete]:
+@contextlib.contextmanager
+@require_context
+def open_ipc_array(handle, shape, dtype, strides=None, offset: int = 0) -> Generator[Incomplete]:
     """
     A context manager that opens a IPC *handle* (*CUipcMemHandle*) that is
     represented as a sequence of bytes (e.g. *bytes*, tuple of int)
@@ -141,10 +150,12 @@ def pinned_array_like(ary):
     Call :func:`pinned_array() <numba.cuda.pinned_array>` with the information
     from the array.
     """
+@require_context
 def stream():
     """
     Create a CUDA stream that represents a command queue for the device.
     """
+@require_context
 def default_stream():
     """
     Get the default CUDA stream. CUDA semantics in general are that the default
@@ -153,23 +164,30 @@ def default_stream():
     default stream are always the ones in use, but an option to use APIs for
     the per-thread default stream may be provided in future.
     """
+@require_context
 def legacy_default_stream():
     """
     Get the legacy default CUDA stream.
     """
+@require_context
 def per_thread_default_stream():
     """
     Get the per-thread default CUDA stream.
     """
+@require_context
 def external_stream(ptr):
     """Create a Numba stream object for a stream allocated outside Numba.
 
     :param ptr: Pointer to the external stream to wrap in a Numba Stream
     :type ptr: int
     """
+@require_context
+@contextlib.contextmanager
 def pinned(*arylist) -> Generator[None]:
     """A context manager for temporary pinning a sequence of host ndarrays.
     """
+@require_context
+@contextlib.contextmanager
 def mapped(*arylist, **kws) -> Generator[Incomplete]:
     """A context manager for temporarily mapping a sequence of host ndarrays.
     """
@@ -205,6 +223,7 @@ def detect():
 
     Returns a boolean indicating whether any supported devices were detected.
     """
+@contextlib.contextmanager
 def defer_cleanup() -> Generator[None]:
     """
     Temporarily disable memory deallocation.

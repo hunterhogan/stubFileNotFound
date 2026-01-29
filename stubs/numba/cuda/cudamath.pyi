@@ -1,7 +1,8 @@
-import math
 from _typeshed import Incomplete
 from numba.core import types as types
-from numba.core.typing.templates import ConcreteTemplate as ConcreteTemplate, Registry as Registry, signature as signature
+from numba.core.typing.templates import (
+	ConcreteTemplate as ConcreteTemplate, Registry as Registry, signature as signature)
+import math
 
 registry: Incomplete
 infer_global: Incomplete

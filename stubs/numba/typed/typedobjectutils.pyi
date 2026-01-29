@@ -1,5 +1,6 @@
 from numba.core import cgutils as cgutils, types as types, typing as typing
-from numba.core.errors import NumbaTypeError as NumbaTypeError, NumbaTypeSafetyWarning as NumbaTypeSafetyWarning, TypingError as TypingError
+from numba.core.errors import (
+	NumbaTypeError as NumbaTypeError, NumbaTypeSafetyWarning as NumbaTypeSafetyWarning, TypingError as TypingError)
 from numba.core.extending import intrinsic as intrinsic
 from numba.core.registry import cpu_target as cpu_target
 from numba.core.typeconv import Conversion as Conversion
@@ -7,6 +8,7 @@ from numba.core.typeconv import Conversion as Conversion
 def _as_bytes(builder, ptr):
     """Helper to do (void*)ptr
     """
+@intrinsic
 def _cast(typingctx, val, typ):
     """Cast *val* to *typ*
     """
@@ -16,6 +18,7 @@ def _sentry_safe_cast(fromty, toty):
 def _sentry_safe_cast_default(default, valty):
     """Similar to _sentry_safe_cast but handle default value.
     """
+@intrinsic
 def _nonoptional(typingctx, val):
     """Typing trick to cast Optional[T] to T
     """

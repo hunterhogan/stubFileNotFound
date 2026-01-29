@@ -17,8 +17,10 @@ def intrinsic_complex_unary(inner_func): ...
 NAN: Incomplete
 INF: Incomplete
 
+@intrinsic_complex_unary
 def exp_impl(x, y, x_is_finite, y_is_finite):
     """cmath.exp(x + y j)"""
+@intrinsic_complex_unary
 def log_impl(x, y, x_is_finite, y_is_finite):
     """cmath.log(x + y j)"""
 def log_base_impl(context, builder, sig, args):

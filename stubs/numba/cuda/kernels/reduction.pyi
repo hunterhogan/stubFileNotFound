@@ -11,6 +11,7 @@ class Reduce:
     function. The binary function is compiled once and cached inside this
     object. Keeping this object alive will prevent re-compilation.
     """
+
     _cache: Incomplete
     _functor: Incomplete
     def __init__(self, functor) -> None:
@@ -20,7 +21,7 @@ class Reduce:
                         function using ``cuda.jit(device=True)``.
         """
     def _compile(self, dtype): ...
-    def __call__(self, arr, size: Incomplete | None = None, res: Incomplete | None = None, init: int = 0, stream: int = 0):
+    def __call__(self, arr, size=None, res=None, init: int = 0, stream: int = 0):
         """Performs a full reduction.
 
         :param arr: A host or device array.

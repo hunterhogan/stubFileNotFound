@@ -1,9 +1,12 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 from numba import _helperlib as _helperlib
-from numba.core import cgutils as cgutils, config as config, imputils as imputils, lowering as lowering, serialize as serialize, types as types, utils as utils
+from numba.core import (
+	cgutils as cgutils, config as config, imputils as imputils, lowering as lowering, serialize as serialize,
+	types as types, utils as utils)
 from numba.core.utils import PYVERSION as PYVERSION
 from typing import NamedTuple
+import contextlib
 
 PY_UNICODE_1BYTE_KIND: Incomplete
 PY_UNICODE_2BYTE_KIND: Incomplete
@@ -14,7 +17,7 @@ class _Registry:
     functions: Incomplete
     def __init__(self) -> None: ...
     def register(self, typeclass): ...
-    def lookup(self, typeclass, default: Incomplete | None = None): ...
+    def lookup(self, typeclass, default=None): ...
 
 _boxers: Incomplete
 _unboxers: Incomplete
@@ -27,6 +30,7 @@ class _BoxContext(NamedTuple('_BoxContext', [('context', Incomplete), ('builder'
     """
     The facilities required by boxing implementations.
     """
+
     __slots__: Incomplete
     def box(self, typ, val): ...
 
@@ -34,6 +38,7 @@ class _UnboxContext(NamedTuple('_UnboxContext', [('context', Incomplete), ('buil
     """
     The facilities required by unboxing implementations.
     """
+
     __slots__: Incomplete
     def unbox(self, typ, obj): ...
 
@@ -41,6 +46,7 @@ class _ReflectContext(NamedTuple('_ReflectContext', [('context', Incomplete), ('
     """
     The facilities required by reflection implementations.
     """
+
     __slots__: Incomplete
     def set_error(self) -> None: ...
     def box(self, typ, val): ...
@@ -51,10 +57,11 @@ class NativeValue:
     Encapsulate the result of converting a Python object to a native value,
     recording whether the conversion was successful and how to cleanup.
     """
+
     value: Incomplete
     is_error: Incomplete
     cleanup: Incomplete
-    def __init__(self, value, is_error: Incomplete | None = None, cleanup: Incomplete | None = None) -> None: ...
+    def __init__(self, value, is_error=None, cleanup=None) -> None: ...
 
 class EnvironmentManager:
     pyapi: Incomplete
@@ -84,6 +91,7 @@ class PythonAPI:
     Code generation facilities to call into the CPython C API (and related
     helpers).
     """
+
     context: Incomplete
     builder: Incomplete
     module: Incomplete
@@ -121,7 +129,7 @@ class PythonAPI:
     def err_clear(self): ...
     def err_set_string(self, exctype, msg): ...
     def err_format(self, exctype, msg, *format_args): ...
-    def raise_object(self, exc: Incomplete | None = None):
+    def raise_object(self, exc=None):
         """
         Raise an arbitrary exception (type or value or (type, args)
         or None - if reraising).  A reference to the argument is consumed.
@@ -131,6 +139,7 @@ class PythonAPI:
     def err_write_unraisable(self, obj): ...
     def err_fetch(self, pty, pval, ptb): ...
     def err_restore(self, ty, val, tb): ...
+    @contextlib.contextmanager
     def err_push(self, keep_new: bool = False) -> Generator[None]:
         """
         Temporarily push the current error indicator while the code
@@ -139,11 +148,11 @@ class PythonAPI:
         error indicator is restored at the end of the block.
         """
     def get_c_object(self, name):
-        '''
+        """
         Get a Python object through its C-accessible *name*
         (e.g. "PyExc_ValueError").  The underlying variable must be
         a `PyObject *`, and the value of that pointer is returned.
-        '''
+        """
     def raise_missing_global_error(self, name) -> None: ...
     def raise_missing_name_error(self, name) -> None: ...
     def fatal_error(self, msg) -> None: ...
@@ -251,12 +260,13 @@ class PythonAPI:
         """
         Steals a reference to `item`.
         """
-    def set_new(self, iterable: Incomplete | None = None): ...
+    def set_new(self, iterable=None): ...
     def set_add(self, set, value): ...
     def set_clear(self, set): ...
     def set_size(self, set): ...
     def set_update(self, set, iterable): ...
     def set_next_entry(self, set, posptr, keyptr, hashptr): ...
+    @contextlib.contextmanager
     def set_iterate(self, set) -> Generator[Incomplete]: ...
     def gil_ensure(self):
         """
@@ -283,7 +293,7 @@ class PythonAPI:
     def import_module(self, modname): ...
     def call_function_objargs(self, callee, objargs): ...
     def call_method(self, callee, method, objargs=()): ...
-    def call(self, callee, args: Incomplete | None = None, kws: Incomplete | None = None): ...
+    def call(self, callee, args=None, kws=None): ...
     def object_type(self, obj):
         """Emit a call to ``PyObject_Type(obj)`` to get the type of ``obj``.
         """
@@ -312,7 +322,7 @@ class PythonAPI:
         """
     def object_delitem(self, obj, key):
         """
-        del obj[key]
+        Del obj[key]
         """
     def string_as_string(self, strobj): ...
     def string_as_string_and_size(self, strobj):
@@ -362,6 +372,7 @@ class PythonAPI:
         """
         Return a pointer to a stack-allocated, zero-initialized Py_buffer.
         """
+    @contextlib.contextmanager
     def if_object_ok(self, obj) -> Generator[None]: ...
     def print_object(self, obj) -> None: ...
     def print_string(self, text) -> None: ...
@@ -400,13 +411,13 @@ class PythonAPI:
         A NativeValue instance is returned.
         """
     def from_native_return(self, typ, val, env_manager): ...
-    def from_native_value(self, typ, val, env_manager: Incomplete | None = None):
+    def from_native_value(self, typ, val, env_manager=None):
         """
         Box the native value of the given Numba type.  A Python object
         pointer is returned (NULL if an error occurred).
         This method steals any native (NRT) reference embedded in *val*.
         """
-    def reflect_native_value(self, typ, val, env_manager: Incomplete | None = None):
+    def reflect_native_value(self, typ, val, env_manager=None):
         """
         Reflect the native value onto its Python original, if any.
         An error bit (as an LLVM value) is returned.
@@ -416,7 +427,7 @@ class PythonAPI:
         Extract the generator structure pointer from a generator *obj*
         (a _dynfunc.Generator instance).
         """
-    def from_native_generator(self, val, typ, env: Incomplete | None = None):
+    def from_native_generator(self, val, typ, env=None):
         """
         Make a Numba generator (a _dynfunc.Generator instance) from a
         generator structure pointer *val*.
@@ -463,6 +474,7 @@ class PythonAPI:
 class ObjModeUtils:
     """Internal utils for calling objmode dispatcher from within NPM code.
     """
+
     pyapi: Incomplete
     def __init__(self, pyapi) -> None: ...
     def load_dispatcher(self, fnty, argtypes): ...

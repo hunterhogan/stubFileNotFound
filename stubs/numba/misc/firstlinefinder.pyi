@@ -1,5 +1,5 @@
-import ast
 from _typeshed import Incomplete
+import ast
 
 class FindDefFirstLine(ast.NodeVisitor):
     """
@@ -9,10 +9,11 @@ class FindDefFirstLine(ast.NodeVisitor):
         This stores the first statement line number if the definition is found.
         Or, ``None`` if the definition is not found.
     """
+
     _co_name: Incomplete
     _co_firstlineno: Incomplete
     first_stmt_line: Incomplete
-    def __init__(self, code) -> None:
+    def __init__(self, name, firstlineno) -> None:
         """
         Parameters
         ----------

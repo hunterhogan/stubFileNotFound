@@ -1,15 +1,15 @@
-import abc
 from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from collections.abc import Generator
 from numba.core import cgutils as cgutils, config as config, utils as utils
 from numba.core.compiler_lock import require_global_compiler_lock as require_global_compiler_lock
 from numba.core.errors import NumbaInvalidConfigWarning as NumbaInvalidConfigWarning
-from numba.core.llvm_bindings import create_pass_manager_builder as create_pass_manager_builder
+from numba.core.llvm_bindings import create_pass_builder as create_pass_builder
 from numba.core.runtime import rtsys as rtsys
 from numba.core.runtime.nrtopt import remove_redundant_nrt_refct as remove_redundant_nrt_refct
 from numba.misc.inspection import disassemble_elf_to_cfg as disassemble_elf_to_cfg
 from numba.misc.llvm_pass_timings import PassTimingsCollection as PassTimingsCollection
+import abc
 
 _x86arch: Incomplete
 
@@ -34,19 +34,20 @@ class _CFG:
     the graph in DOT format.  The ``.display()`` method plots the graph in
     PDF.  If in IPython notebook, the returned image can be inlined.
     """
+
     cres: Incomplete
     name: Incomplete
     py_func: Incomplete
     dot: Incomplete
     kwargs: Incomplete
     def __init__(self, cres, name, py_func, **kwargs) -> None: ...
-    def pretty_printer(self, filename: Incomplete | None = None, view: Incomplete | None = None, render_format: Incomplete | None = None, highlight: bool = True, interleave: bool = False, strip_ir: bool = False, show_key: bool = True, fontsize: int = 10):
-        '''
+    def pretty_printer(self, filename=None, view=None, render_format=None, highlight: bool = True, interleave: bool = False, strip_ir: bool = False, show_key: bool = True, fontsize: int = 10):
+        """
         "Pretty" prints the DOT graph of the CFG.
         For explanation of the parameters see the docstring for
         numba.core.dispatcher::inspect_cfg.
-        '''
-    def display(self, filename: Incomplete | None = None, format: str = 'pdf', view: bool = False):
+        """
+    def display(self, filename=None, format: str = 'pdf', view: bool = False):
         """
         Plot the CFG.  In IPython notebook, the return image object can be
         inlined.
@@ -57,7 +58,6 @@ class _CFG:
         be any valid format string accepted by graphviz, default is 'pdf'.
         """
     def _repr_svg_(self): ...
-    def __repr__(self) -> str: ...
 
 class CodeLibrary(metaclass=ABCMeta):
     """
@@ -65,6 +65,7 @@ class CodeLibrary(metaclass=ABCMeta):
     It is tied to a *codegen* instance (e.g. JITCPUCodegen) that will
     determine how the LLVM code is transformed and linked together.
     """
+
     _finalized: bool
     _object_caching_enabled: bool
     _disable_inspection: bool
@@ -72,6 +73,7 @@ class CodeLibrary(metaclass=ABCMeta):
     _name: Incomplete
     _recorded_timings: Incomplete
     _dynamic_globals: Incomplete
+    _reload_init: Incomplete
     def __init__(self, codegen: CPUCodegen, name: str) -> None: ...
     @property
     def has_dynamic_globals(self): ...
@@ -84,7 +86,6 @@ class CodeLibrary(metaclass=ABCMeta):
         """
     @property
     def name(self): ...
-    def __repr__(self) -> str: ...
     def _raise_if_finalized(self) -> None: ...
     def _ensure_finalized(self) -> None: ...
     def create_ir_module(self, name):
@@ -144,14 +145,14 @@ class CPUCodeLibrary(CodeLibrary):
         Internal: optimize this library's final module.
         """
     def _get_module_for_linking(self):
-        '''
+        """
         Internal: get a LLVM module suitable for linking multiple times
         into another library.  Exported functions are made "linkonce_odr"
         to allow for multiple definitions, inlining, and removal of
         unused exports.
 
         See discussion in https://github.com/numba/numba/pull/890
-        '''
+        """
     def add_linking_library(self, library) -> None: ...
     def add_ir_module(self, ir_module) -> None: ...
     def add_llvm_module(self, ll_module) -> None: ...
@@ -172,7 +173,7 @@ class CPUCodeLibrary(CodeLibrary):
     def _sentry_cache_disable_inspection(self) -> None: ...
     def get_llvm_str(self): ...
     def get_asm_str(self): ...
-    def get_function_cfg(self, name, py_func: Incomplete | None = None, **kwargs):
+    def get_function_cfg(self, name, py_func=None, **kwargs):
         """
         Get control-flow graph of the LLVM function
         """
@@ -254,6 +255,7 @@ class RuntimeLinker:
     """
     For tracking unresolved symbols generated at runtime due to recursion.
     """
+
     PREFIX: str
     _unresolved: Incomplete
     _defined: Incomplete
@@ -280,6 +282,7 @@ class JitEngine:
     Since the symbol tracking is incomplete  (doesn't consider
     loaded code object), we are not putting it in llvmlite.
     """
+
     _ee: Incomplete
     _defined_symbols: Incomplete
     def __init__(self, ee) -> None: ...
@@ -312,6 +315,7 @@ class Codegen(metaclass=ABCMeta):
     ``self._data_layout``: the data layout for the target.
     ``self._target_data``: the binding layer ``TargetData`` for the target.
     """
+
     @abstractmethod
     def _create_empty_module(self, name):
         """
@@ -325,9 +329,9 @@ class Codegen(metaclass=ABCMeta):
         """
     @property
     def target_data(self):
-        '''
+        """
         The LLVM "target data" object for this codegen instance.
-        '''
+        """
     def create_library(self, name, **kwargs):
         """
         Create a :class:`CodeLibrary` object for use with this codegen
@@ -349,16 +353,8 @@ class CPUCodegen(Codegen, metaclass=abc.ABCMeta):
     def _init(self, llvm_module) -> None: ...
     def _create_empty_module(self, name): ...
     def _module_pass_manager(self, **kwargs): ...
-    def _function_pass_manager(self, llvm_module, **kwargs): ...
-    def _pass_manager_builder(self, **kwargs):
-        """
-        Create a PassManagerBuilder.
-
-        Note: a PassManagerBuilder seems good only for one use, so you
-        should call this method each time you want to populate a module
-        or function pass manager.  Otherwise some optimizations will be
-        missed...
-        """
+    def _function_pass_manager(self, **kwargs): ...
+    def _pass_builder(self, **kwargs): ...
     def _check_llvm_bugs(self) -> None:
         """
         Guard against some well-known LLVM bug(s).
@@ -377,9 +373,10 @@ class AOTCPUCodegen(CPUCodegen):
     A codegen implementation suitable for Ahead-Of-Time compilation
     (e.g. generation of object files).
     """
+
     _library_class = AOTCodeLibrary
     _cpu_name: Incomplete
-    def __init__(self, module_name, cpu_name: Incomplete | None = None) -> None: ...
+    def __init__(self, module_name, cpu_name=None) -> None: ...
     def _customize_tm_options(self, options) -> None: ...
     def _customize_tm_features(self): ...
     def _add_module(self, module) -> None: ...
@@ -388,6 +385,7 @@ class JITCPUCodegen(CPUCodegen):
     """
     A codegen implementation suitable for Just-In-Time compilation.
     """
+
     _library_class = JITCodeLibrary
     def _customize_tm_options(self, options) -> None: ...
     def _customize_tm_features(self): ...

@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
 from numba.core import types as types
-from numba.core.typing.templates import AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, Registry as Registry, signature as signature
+from numba.core.typing.templates import (
+	AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, Registry as Registry,
+	signature as signature)
 
 registry: Incomplete
 infer: Incomplete

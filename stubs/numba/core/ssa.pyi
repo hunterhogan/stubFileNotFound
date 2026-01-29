@@ -3,7 +3,7 @@ from collections.abc import Generator
 from numba import config as config
 from numba.core import errors as errors, ir as ir, ir_utils as ir_utils
 from numba.core.analysis import compute_cfg_from_blocks as compute_cfg_from_blocks
-from numba.core.utils import OrderedSet as OrderedSet, _lazy_pformat as _lazy_pformat
+from numba.core.utils import _lazy_pformat as _lazy_pformat, OrderedSet as OrderedSet
 
 _logger: Incomplete
 
@@ -50,6 +50,7 @@ def _run_ssa_block_pass(states, blk, handler) -> Generator[Incomplete]: ...
 class _BaseHandler:
     """A base handler for all the passes used here for the SSA algorithm.
     """
+
     def on_assign(self, states, assign) -> None:
         """
         Called when the pass sees an ``ir.Assign``.
@@ -57,7 +58,7 @@ class _BaseHandler:
         Subclasses should override this for custom behavior
 
         Parameters
-        -----------
+        ----------
         states : dict
         assign : numba.ir.Assign
 
@@ -74,7 +75,7 @@ class _BaseHandler:
         Subclasses should override this for custom behavior
 
         Parameters
-        -----------
+        ----------
         states : dict
         assign : numba.ir.Stmt
 
@@ -86,14 +87,15 @@ class _BaseHandler:
         """
 
 class _GatherDefsHandler(_BaseHandler):
-    '''Find all defs and uses of variable in each block
+    """Find all defs and uses of variable in each block
 
     ``states["label"]`` is a int; label of the current block
     ``states["defs"]`` is a Mapping[str, List[Tuple[ir.Assign, int]]]:
         - a mapping of the name of the assignee variable to the assignment
           IR node and the block label.
     ``states["uses"]`` is a Mapping[Set[int]]
-    '''
+    """
+
     def on_assign(self, states, assign) -> None: ...
     def on_other(self, states, stmt) -> None: ...
 
@@ -104,6 +106,7 @@ class UndefinedVariable:
 class _FreshVarHandler(_BaseHandler):
     """Replaces assignment target with new fresh variables.
     """
+
     def on_assign(self, states, assign): ...
     def on_other(self, states, stmt): ...
 
@@ -115,6 +118,7 @@ class _FixSSAVars(_BaseHandler):
     See Ch 5 of the Inria SSA book for reference. The method names used here
     are similar to the names used in the pseudocode in the book.
     """
+
     _cache_list_vars: Incomplete
     def __init__(self, cache_list_vars) -> None: ...
     def on_assign(self, states, assign): ...

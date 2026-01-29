@@ -1,17 +1,18 @@
 from numba.core.typing.asnumbatype import as_numba_type as as_numba_type
 from numba.core.typing.typeof import typeof as typeof
 
-__all__ = ['typeof', 'as_numba_type', 'prange', 'pndindex', 'gdb', 'gdb_breakpoint', 'gdb_init', 'literally', 'literal_unroll']
+__all__ = ['as_numba_type', 'gdb', 'gdb_breakpoint', 'gdb_init', 'literal_unroll', 'literally', 'pndindex', 'prange', 'typeof']
 
 def pndindex(*args):
-    """ Provides an n-dimensional parallel iterator that generates index tuples
+    """Provides an n-dimensional parallel iterator that generates index tuples
     for each iteration point. Sequentially, pndindex is identical to np.ndindex.
     """
 
 class prange:
-    """ Provides a 1D parallel iterator that generates a sequence of integers.
+    """Provides a 1D parallel iterator that generates a sequence of integers.
     In non-parallel contexts, prange is identical to range.
     """
+
     def __new__(cls, *args): ...
 
 def gdb(*args) -> None:

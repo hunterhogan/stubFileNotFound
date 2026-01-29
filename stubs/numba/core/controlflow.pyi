@@ -1,11 +1,11 @@
-import collections
-import functools
 from _typeshed import Incomplete
 from collections.abc import Generator
 from numba.core.errors import UnsupportedError as UnsupportedError
 from numba.core.ir import Loc as Loc
 from numba.core.utils import PYVERSION as PYVERSION
 from typing import NamedTuple
+import collections
+import functools
 
 NEW_BLOCKERS: Incomplete
 
@@ -16,13 +16,13 @@ class CFBlock:
     incoming_jumps: Incomplete
     terminating: bool
     def __init__(self, offset) -> None: ...
-    def __repr__(self) -> str: ...
     def __iter__(self): ...
 
 class Loop(NamedTuple('Loop', [('entries', Incomplete), ('exits', Incomplete), ('header', Incomplete), ('body', Incomplete)])):
     """
     A control flow loop, as detected by a CFGraph object.
     """
+
     __slots__: Incomplete
     def __eq__(self, other): ...
     def __hash__(self): ...
@@ -32,6 +32,7 @@ class _DictOfContainers(collections.defaultdict):
 
     Non-empty value is checked by: `bool(value_item) == True`.
     """
+
     def __eq__(self, other): ...
     def __ne__(self, other): ...
     def _non_empty_items(self): ...
@@ -40,6 +41,7 @@ class CFGraph:
     """
     Generic (almost) implementation of a Control Flow Graph.
     """
+
     _nodes: Incomplete
     _preds: Incomplete
     _succs: Incomplete
@@ -51,7 +53,7 @@ class CFGraph:
         Add *node* to the graph.  This is necessary before adding any
         edges from/to the node.  *node* can be any hashable object.
         """
-    def add_edge(self, src, dest, data: Incomplete | None = None) -> None:
+    def add_edge(self, src, dest, data=None) -> None:
         """
         Add an edge from node *src* to node *dest*, with optional
         per-edge *data*.
@@ -111,7 +113,7 @@ class CFGraph:
         """
     def dominator_tree(self):
         """
-        return a dictionary of {node -> set(nodes)} mapping each node to
+        Return a dictionary of {node -> set(nodes)} mapping each node to
         the set of nodes it immediately dominates
 
         The domtree(B) is the closest strict set of nodes that B dominates
@@ -186,7 +188,7 @@ class CFGraph:
         Iterate over the *nodes* in topological order (ignoring back edges).
         The sort isn't guaranteed to be stable.
         """
-    def dump(self, file: Incomplete | None = None) -> None:
+    def dump(self, file=None) -> None:
         """
         Dump extensive debug information.
         """
@@ -199,9 +201,9 @@ class CFGraph:
         g : graphviz.Digraph
             Use `g.view()` to open the graph in the default PDF application.
         """
-    def _add_edge(self, from_, to, data: Incomplete | None = None) -> None: ...
+    def _add_edge(self, from_, to, data=None) -> None: ...
     def _remove_node_edges(self, node) -> None: ...
-    def _dfs(self, entries: Incomplete | None = None) -> Generator[Incomplete]: ...
+    def _dfs(self, entries=None) -> Generator[Incomplete]: ...
     _dead_nodes: Incomplete
     def _eliminate_dead_blocks(self) -> None:
         """
@@ -219,7 +221,7 @@ class CFGraph:
     def _find_dominators_internal(self, post: bool = False): ...
     def _find_dominators(self): ...
     def _find_post_dominators(self): ...
-    def _find_back_edges(self, stats: Incomplete | None = None):
+    def _find_back_edges(self, stats=None):
         """
         Find back edges.  An edge (src, dest) is a back edge if and
         only if *dest* dominates *src*.
@@ -252,6 +254,7 @@ class ControlFlowAnalysis:
         The set of block that is common to all possible code path.
 
     """
+
     bytecode: Incomplete
     blocks: Incomplete
     liveblocks: Incomplete
@@ -276,7 +279,7 @@ class ControlFlowAnalysis:
         """
         Yield (incoming block, number of stack pops) pairs for *block*.
         """
-    def dump(self, file: Incomplete | None = None) -> None: ...
+    def dump(self, file=None) -> None: ...
     graph: Incomplete
     def run(self) -> None: ...
     def jump(self, target, pops: int = 0) -> None:
@@ -290,7 +293,8 @@ class ControlFlowAnalysis:
     def _guard_with_as(self, current_inst) -> None:
         """Checks if the next instruction after a SETUP_WITH is something other
         than a POP_TOP, if it is something else it'll be some sort of store
-        which is not supported (this corresponds to `with CTXMGR as VAR(S)`)."""
+        which is not supported (this corresponds to `with CTXMGR as VAR(S)`).
+        """
     def op_SETUP_LOOP(self, inst) -> None: ...
     def op_SETUP_WITH(self, inst) -> None: ...
     def op_POP_BLOCK(self, inst) -> None: ...

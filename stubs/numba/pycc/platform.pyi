@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from contextlib import contextmanager
 
 CCompiler: Incomplete
 new_compiler: Incomplete
@@ -12,12 +13,13 @@ def get_configs(arg): ...
 find_shared_ending: Incomplete
 find_pyext_ending: Incomplete
 
+@contextmanager
 def _gentmpfile(suffix) -> Generator[Incomplete]: ...
 def external_compiler_works():
-    '''
+    """
     Returns True if the "external compiler" bound in numpy.distutil is present
     and working, False otherwise.
-    '''
+    """
 
 class _DummyExtension:
     libraries: Incomplete
@@ -35,7 +37,7 @@ class Toolchain:
     @verbose.setter
     def verbose(self, value) -> None: ...
     def _raise_external_compiler_error(self) -> None: ...
-    def compile_objects(self, sources, output_dir, include_dirs=(), depends=(), macros=(), extra_cflags: Incomplete | None = None):
+    def compile_objects(self, sources, output_dir, include_dirs=(), depends=(), macros=(), extra_cflags=None):
         """
         Compile the given source files into a separate object file each,
         all beneath the *output_dir*.  A list of paths to object files
@@ -47,7 +49,7 @@ class Toolchain:
         If a 2-tuple (name, value), the given name is expanded into the
         given value by the C preprocessor.
         """
-    def link_shared(self, output, objects, libraries=(), library_dirs=(), export_symbols=(), extra_ldflags: Incomplete | None = None) -> None:
+    def link_shared(self, output, objects, libraries=(), library_dirs=(), export_symbols=(), extra_ldflags=None) -> None:
         """
         Create a shared library *output* linking the given *objects*
         and *libraries* (all strings).

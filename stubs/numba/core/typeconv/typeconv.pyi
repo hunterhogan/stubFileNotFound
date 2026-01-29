@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from numba.core import types as types
-from numba.core.typeconv import Conversion as Conversion, _typeconv as _typeconv, castgraph as castgraph
+from numba.core.typeconv import _typeconv as _typeconv, castgraph as castgraph, Conversion as Conversion
 
 base_url: str
 dev_url: Incomplete
@@ -25,6 +25,7 @@ class TypeCastingRules:
     """
     A helper for establishing type casting rules.
     """
+
     _tm: Incomplete
     _tg: Incomplete
     def __init__(self, tm) -> None: ...

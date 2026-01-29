@@ -1,4 +1,6 @@
+from functools import lru_cache
 from numba.core import typing as typing
 
 def get_ufunc_info(ufunc_key): ...
+@lru_cache
 def ufunc_db(): ...

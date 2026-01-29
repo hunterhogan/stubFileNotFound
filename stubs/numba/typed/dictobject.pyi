@@ -2,11 +2,23 @@ from _typeshed import Incomplete
 from enum import IntEnum
 from numba import _helperlib as _helperlib
 from numba.core import cgutils as cgutils, types as types, typing as typing
-from numba.core.errors import LoweringError as LoweringError, NumbaTypeError as NumbaTypeError, TypingError as TypingError
-from numba.core.extending import intrinsic as intrinsic, lower_builtin as lower_builtin, lower_cast as lower_cast, make_attribute_wrapper as make_attribute_wrapper, models as models, overload as overload, overload_attribute as overload_attribute, overload_method as overload_method, register_model as register_model
-from numba.core.imputils import RefType as RefType, impl_ret_borrowed as impl_ret_borrowed, impl_ret_untracked as impl_ret_untracked, iternext_impl as iternext_impl
-from numba.core.types import DictItemsIterableType as DictItemsIterableType, DictIteratorType as DictIteratorType, DictKeysIterableType as DictKeysIterableType, DictType as DictType, DictValuesIterableType as DictValuesIterableType, Type as Type
-from numba.typed.typedobjectutils import _as_bytes as _as_bytes, _cast as _cast, _container_get_data as _container_get_data, _get_equal as _get_equal, _get_incref_decref as _get_incref_decref, _nonoptional as _nonoptional, _sentry_safe_cast_default as _sentry_safe_cast_default
+from numba.core.errors import (
+	LoweringError as LoweringError, NumbaTypeError as NumbaTypeError, TypingError as TypingError)
+from numba.core.extending import (
+	intrinsic as intrinsic, lower_builtin as lower_builtin, lower_cast as lower_cast,
+	make_attribute_wrapper as make_attribute_wrapper, models as models, overload as overload,
+	overload_attribute as overload_attribute, overload_method as overload_method, register_model as register_model)
+from numba.core.imputils import (
+	impl_ret_borrowed as impl_ret_borrowed, impl_ret_untracked as impl_ret_untracked, iternext_impl as iternext_impl,
+	RefType as RefType)
+from numba.core.types import (
+	DictItemsIterableType as DictItemsIterableType, DictIteratorType as DictIteratorType,
+	DictKeysIterableType as DictKeysIterableType, DictType as DictType, DictValuesIterableType as DictValuesIterableType,
+	Type as Type)
+from numba.typed.typedobjectutils import (
+	_as_bytes as _as_bytes, _cast as _cast, _container_get_data as _container_get_data, _get_equal as _get_equal,
+	_get_incref_decref as _get_incref_decref, _nonoptional as _nonoptional,
+	_sentry_safe_cast_default as _sentry_safe_cast_default)
 
 ll_dict_type: Incomplete
 ll_dictiter_type: Incomplete
@@ -20,11 +32,13 @@ _meminfo_dictptr: Incomplete
 class DKIX(IntEnum):
     """Special return value of dict lookup.
     """
+
     EMPTY = -1
 
 class Status(IntEnum):
     """Status code for other dict operations.
     """
+
     OK = 0
     OK_REPLACED = 1
     ERR_NO_MEMORY = -1
@@ -54,9 +68,11 @@ class DictIterModel(models.StructModel):
 def _raise_if_error(context, builder, status, msg) -> None:
     """Raise an internal error depending on the value of *status*
     """
+@intrinsic
 def _as_meminfo(typingctx, dctobj):
     """Returns the MemInfoPointer of a dictionary.
     """
+@intrinsic
 def _from_meminfo(typingctx, mi, dicttyperef):
     """Recreate a dictionary from a MemInfoPointer
     """
@@ -66,6 +82,7 @@ def _call_dict_free(context, builder, ptr) -> None:
 def _imp_dtor(context, module):
     """Define the dtor for dictionary
     """
+@intrinsic
 def _dict_new_sized(typingctx, n_keys, keyty, valty):
     """Wrap numba_dict_new_sized.
 
@@ -80,29 +97,36 @@ def _dict_new_sized(typingctx, n_keys, keyty, valty):
         The number of keys to insert without needing a resize.
         A value of 0 creates a dict with minimum size.
     """
+@intrinsic
 def _dict_set_method_table(typingctx, dp, keyty, valty):
     """Wrap numba_dict_set_method_table
     """
+@intrinsic
 def _dict_insert(typingctx, d, key, hashval, val):
     """Wrap numba_dict_insert
     """
+@intrinsic
 def _dict_length(typingctx, d):
     """Wrap numba_dict_length
 
     Returns the length of the dictionary.
     """
+@intrinsic
 def _dict_dump(typingctx, d):
     """Dump the dictionary keys and values.
     Wraps numba_dict_dump for debugging.
     """
+@intrinsic
 def _dict_lookup(typingctx, d, key, hashval):
     """Wrap numba_dict_lookup
 
     Returns 2-tuple of (intp, ?value_type)
     """
+@intrinsic
 def _dict_popitem(typingctx, d):
     """Wrap numba_dict_popitem
     """
+@intrinsic
 def _dict_delitem(typingctx, d, hk, ix):
     """Wrap numba_dict_delitem
     """
@@ -111,12 +135,16 @@ def _iterator_codegen(resty):
 
     Populates the iterator struct and increfs.
     """
+@intrinsic
 def _dict_items(typingctx, d):
     """Get dictionary iterator for .items()"""
+@intrinsic
 def _dict_keys(typingctx, d):
     """Get dictionary iterator for .keys()"""
+@intrinsic
 def _dict_values(typingctx, d):
     """Get dictionary iterator for .values()"""
+@intrinsic
 def _make_dict(typingctx, keyty, valty, ptr):
     """Make a dictionary struct with the given *ptr*
 
@@ -140,16 +168,16 @@ def impl_len_iters(d):
     """len(dict.keys()), len(dict.values()), len(dict.items())
     """
 def impl_setitem(d, key, value): ...
-def impl_get(dct, key, default: Incomplete | None = None): ...
+def impl_get(dct, key, default=None): ...
 def impl_hash(dct): ...
 def impl_getitem(d, key): ...
 def impl_popitem(d): ...
-def impl_pop(dct, key, default: Incomplete | None = None): ...
+def impl_pop(dct, key, default=None): ...
 def impl_delitem(d, k): ...
 def impl_contains(d, k): ...
 def impl_clear(d): ...
 def impl_copy(d): ...
-def impl_setdefault(dct, key, default: Incomplete | None = None): ...
+def impl_setdefault(dct, key, default=None): ...
 def impl_items(d): ...
 def impl_keys(d): ...
 def impl_values(d): ...
@@ -164,12 +192,14 @@ def impl_dict_getiter(context, builder, sig, args):
     """
 def impl_iterator_iternext(context, builder, sig, args, result) -> None: ...
 def build_map(context, builder, dict_type, item_types, items): ...
+@intrinsic
 def _mixed_values_to_tuple(tyctx, d): ...
 def literalstrkeydict_impl_values(d): ...
 def literalstrkeydict_impl_keys(d): ...
 def literalstrkeydict_impl_equals(context, builder, sig, args): ...
 def literalstrkeydict_impl_get(dct, *args) -> None: ...
 def literalstrkeydict_impl_copy(d): ...
+@intrinsic
 def _str_items_mixed_values_to_tuple(tyctx, d): ...
 def literalstrkeydict_impl_items(d): ...
 def literalstrkeydict_impl_contains(d, k): ...

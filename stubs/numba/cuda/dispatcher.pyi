@@ -1,18 +1,20 @@
 from _typeshed import Incomplete
 from numba import _dispatcher as _dispatcher, cuda as cuda
-from numba.core import config as config, serialize as serialize, sigutils as sigutils, types as types, typing as typing, utils as utils
+from numba.core import (
+	config as config, serialize as serialize, sigutils as sigutils, types as types, typing as typing, utils as utils)
 from numba.core.caching import Cache as Cache, CacheImpl as CacheImpl
 from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
 from numba.core.dispatcher import Dispatcher as Dispatcher
-from numba.core.errors import NumbaPerformanceWarning as NumbaPerformanceWarning
+from numba.core.errors import NumbaPerformanceWarning as NumbaPerformanceWarning, NumbaValueError as NumbaValueError
 from numba.core.typing.typeof import Purpose as Purpose, typeof as typeof
 from numba.cuda.api import get_current_device as get_current_device
 from numba.cuda.args import wrap_arg as wrap_arg
-from numba.cuda.compiler import CUDACompiler as CUDACompiler, compile_cuda as compile_cuda
+from numba.cuda.compiler import compile_cuda as compile_cuda, CUDACompiler as CUDACompiler
 from numba.cuda.cudadrv import driver as driver
 from numba.cuda.cudadrv.devices import get_context as get_context
 from numba.cuda.descriptor import cuda_target as cuda_target
-from numba.cuda.errors import missing_launch_config_msg as missing_launch_config_msg, normalize_kernel_dimensions as normalize_kernel_dimensions
+from numba.cuda.errors import (
+	missing_launch_config_msg as missing_launch_config_msg, normalize_kernel_dimensions as normalize_kernel_dimensions)
 
 cuda_fp16_math_funcs: Incomplete
 
@@ -21,6 +23,7 @@ class _Kernel(serialize.ReduceMixin):
     CUDA Kernel specialized for a given set of argument types. When called, this
     object launches the kernel on the device.
     """
+
     objectmode: bool
     entry_point: Incomplete
     py_func: Incomplete
@@ -40,7 +43,8 @@ class _Kernel(serialize.ReduceMixin):
     _referenced_environments: Incomplete
     lifted: Incomplete
     reload_init: Incomplete
-    def __init__(self, py_func, argtypes, link: Incomplete | None = None, debug: bool = False, lineinfo: bool = False, inline: bool = False, fastmath: bool = False, extensions: Incomplete | None = None, max_registers: Incomplete | None = None, opt: bool = True, device: bool = False) -> None: ...
+    @global_compiler_lock
+    def __init__(self, py_func, argtypes, link=None, debug: bool = False, lineinfo: bool = False, inline: bool = False, fastmath: bool = False, extensions=None, max_registers=None, opt: bool = True, device: bool = False) -> None: ...
     @property
     def library(self): ...
     @property
@@ -112,7 +116,7 @@ class _Kernel(serialize.ReduceMixin):
 
         Requires nvdisasm to be available on the PATH.
         """
-    def inspect_types(self, file: Incomplete | None = None) -> None:
+    def inspect_types(self, file=None) -> None:
         """
         Produce a dump of the Python source of this function annotated with the
         corresponding Numba IR and type information. The dump is written to
@@ -163,6 +167,7 @@ class CUDACache(Cache):
     """
     Implements a cache that saves and loads CUDA kernels and compile results.
     """
+
     _impl_class = CUDACacheImpl
     def load_overload(self, sig, target_context): ...
 
@@ -176,6 +181,7 @@ class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
     Dispatcher objects are not to be constructed by the user, but instead are
     created using the :func:`numba.cuda.jit` decorator.
     """
+
     _fold_args: bool
     targetdescr = cuda_target
     _specialized: bool
@@ -205,7 +211,8 @@ class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
         :param sharedmem: The number of bytes of dynamic shared memory required
                           by the kernel.
         :return: A configured dispatcher, ready to launch on a set of
-                 arguments."""
+                 arguments.
+        """
     @property
     def extensions(self):
         """
@@ -242,7 +249,7 @@ class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
         """
         True if the Dispatcher has been specialized.
         """
-    def get_regs_per_thread(self, signature: Incomplete | None = None):
+    def get_regs_per_thread(self, signature=None):
         """
         Returns the number of registers used by each thread in this kernel for
         the device in the current context.
@@ -253,7 +260,7 @@ class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
         :return: The number of registers used by the compiled variant of the
                  kernel for the given signature and current device.
         """
-    def get_const_mem_size(self, signature: Incomplete | None = None):
+    def get_const_mem_size(self, signature=None):
         """
         Returns the size in bytes of constant memory used by this kernel for
         the device in the current context.
@@ -265,7 +272,7 @@ class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
                  compiled variant of the kernel for the given signature and
                  current device.
         """
-    def get_shared_mem_per_block(self, signature: Incomplete | None = None):
+    def get_shared_mem_per_block(self, signature=None):
         """
         Returns the size in bytes of statically allocated shared memory
         for this kernel.
@@ -276,7 +283,7 @@ class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
         :return: The amount of shared memory allocated by the compiled variant
                  of the kernel for the given signature and current device.
         """
-    def get_max_threads_per_block(self, signature: Incomplete | None = None):
+    def get_max_threads_per_block(self, signature=None):
         """
         Returns the maximum allowable number of threads per block
         for this kernel. Exceeding this threshold will result in
@@ -289,7 +296,7 @@ class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
                  variant of the kernel for the given signature and current
                  device.
         """
-    def get_local_mem_per_thread(self, signature: Incomplete | None = None):
+    def get_local_mem_per_thread(self, signature=None):
         """
         Returns the size in bytes of local memory per thread
         for this kernel.
@@ -307,7 +314,7 @@ class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
 
         A (template, pysig, args, kws) tuple is returned.
         """
-    def compile_device(self, args, return_type: Incomplete | None = None):
+    def compile_device(self, args, return_type=None):
         """Compile the device function for the given argument types.
 
         Each signature is compiled once by caching the compiled function inside
@@ -321,7 +328,7 @@ class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
         Compile and bind to the current context a version of this kernel
         specialized for the given signature.
         """
-    def inspect_llvm(self, signature: Incomplete | None = None):
+    def inspect_llvm(self, signature=None):
         """
         Return the LLVM IR for this kernel.
 
@@ -330,7 +337,7 @@ class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
                  for all previously-encountered signatures.
 
         """
-    def inspect_asm(self, signature: Incomplete | None = None):
+    def inspect_asm(self, signature=None):
         """
         Return this kernel's PTX assembly code for for the device in the
         current context.
@@ -339,7 +346,7 @@ class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
         :return: The PTX code for the given signature, or a dict of PTX codes
                  for all previously-encountered signatures.
         """
-    def inspect_sass_cfg(self, signature: Incomplete | None = None):
+    def inspect_sass_cfg(self, signature=None):
         """
         Return this kernel's CFG for the device in the current context.
 
@@ -351,7 +358,7 @@ class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
 
         Requires nvdisasm to be available on the PATH.
         """
-    def inspect_sass(self, signature: Incomplete | None = None):
+    def inspect_sass(self, signature=None):
         """
         Return this kernel's SASS assembly code for for the device in the
         current context.
@@ -364,7 +371,7 @@ class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
 
         Requires nvdisasm to be available on the PATH.
         """
-    def inspect_types(self, file: Incomplete | None = None) -> None:
+    def inspect_types(self, file=None) -> None:
         """
         Produce a dump of the Python source of this function annotated with the
         corresponding Numba IR and type information. The dump is written to

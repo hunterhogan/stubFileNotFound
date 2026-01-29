@@ -2,9 +2,11 @@ from _typeshed import Incomplete
 from ctypes import Structure, Union
 from numba import literal_unroll as literal_unroll
 from numba.core import errors as errors, types as types
-from numba.core.extending import intrinsic as intrinsic, overload as overload, overload_method as overload_method, register_jitable as register_jitable
+from numba.core.extending import (
+	intrinsic as intrinsic, overload as overload, overload_method as overload_method, register_jitable as register_jitable)
 from numba.core.unsafe.bytes import grab_byte as grab_byte, grab_uint64_t as grab_uint64_t
-from numba.cpython.randomimpl import const_int as const_int, get_next_int as get_next_int, get_next_int32 as get_next_int32, get_state_ptr as get_state_ptr
+from numba.cpython.randomimpl import (
+	const_int as const_int, get_next_int as get_next_int, get_next_int32 as get_next_int32, get_state_ptr as get_state_ptr)
 from typing import NamedTuple
 
 _hash_width: Incomplete
@@ -60,14 +62,14 @@ class _hashsecret_entry(NamedTuple):
     value: Incomplete
 
 def _build_hashsecret():
-    '''Read hash secret from the Python process
+    """Read hash secret from the Python process
 
     Returns
     -------
     info : dict
         - keys are "djbx33a_suffix", "siphash_k0", siphash_k1".
         - values are the namedtuple[symbol:str, value:int]
-    '''
+    """
 
 _hashsecret: Incomplete
 msg: str

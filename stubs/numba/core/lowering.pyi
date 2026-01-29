@@ -1,8 +1,13 @@
 from _typeshed import Incomplete
-from numba.core import cgutils as cgutils, config as config, debuginfo as debuginfo, funcdesc as funcdesc, generators as generators, ir as ir, ir_utils as ir_utils, removerefctpass as removerefctpass, targetconfig as targetconfig, types as types, typing as typing, utils as utils
+from numba.core import (
+	cgutils as cgutils, config as config, debuginfo as debuginfo, funcdesc as funcdesc, generators as generators, ir as ir,
+	ir_utils as ir_utils, removerefctpass as removerefctpass, targetconfig as targetconfig, types as types,
+	typing as typing, utils as utils)
 from numba.core.analysis import compute_use_defs as compute_use_defs, must_use_alloca as must_use_alloca
 from numba.core.environment import Environment as Environment
-from numba.core.errors import LiteralTypingError as LiteralTypingError, LoweringError as LoweringError, NumbaDebugInfoWarning as NumbaDebugInfoWarning, TypingError as TypingError, UnsupportedError as UnsupportedError, new_error_context as new_error_context
+from numba.core.errors import (
+	LiteralTypingError as LiteralTypingError, LoweringError as LoweringError, new_error_context as new_error_context,
+	NumbaDebugInfoWarning as NumbaDebugInfoWarning, TypingError as TypingError, UnsupportedError as UnsupportedError)
 from numba.core.funcdesc import default_mangler as default_mangler
 from numba.misc.coverage_support import get_registered_loc_notify as get_registered_loc_notify
 from numba.misc.firstlinefinder import get_func_body_first_lineno as get_func_body_first_lineno
@@ -16,6 +21,7 @@ class BaseLower:
     """
     Lower IR to LLVM
     """
+
     library: Incomplete
     fndesc: Incomplete
     blocks: Incomplete
@@ -34,7 +40,7 @@ class BaseLower:
     defn_loc: Incomplete
     debuginfo: Incomplete
     _loc_notify_registry: Incomplete
-    def __init__(self, context, library, fndesc, func_ir, metadata: Incomplete | None = None) -> None: ...
+    def __init__(self, context, library, fndesc, func_ir, metadata=None) -> None: ...
     @property
     def call_conv(self): ...
     def init(self) -> None: ...
@@ -64,11 +70,11 @@ class BaseLower:
         """
         Called after lowering a block.
         """
-    def return_dynamic_exception(self, exc_class, exc_args, nb_types, loc: Incomplete | None = None) -> None: ...
-    def return_exception(self, exc_class, exc_args: Incomplete | None = None, loc: Incomplete | None = None) -> None:
+    def return_dynamic_exception(self, exc_class, exc_args, nb_types, loc=None) -> None: ...
+    def return_exception(self, exc_class, exc_args=None, loc=None) -> None:
         """Propagate exception to the caller.
         """
-    def set_exception(self, exc_class, exc_args: Incomplete | None = None, loc: Incomplete | None = None) -> None:
+    def set_exception(self, exc_class, exc_args=None, loc=None) -> None:
         """Set exception state in the current function.
         """
     def emit_environment_object(self) -> None:
@@ -129,7 +135,8 @@ class Lower(BaseLower):
         """Flags that the SROA like optimisation that Numba performs (which
         prevent alloca and subsequent load/store for locals) should be disabled.
         Currently, this is conditional solely on the presence of a request for
-        the emission of debug information."""
+        the emission of debug information.
+        """
     _singly_assigned_vars: Incomplete
     _blk_local_varmap: Incomplete
     def _find_singly_assigned_variable(self) -> None: ...
@@ -178,7 +185,8 @@ class Lower(BaseLower):
             sig: The signature of the function.
             argvals: The argument values to pass to the function.
 
-        Returns:
+        Returns
+        -------
             The result of calling the function.
         """
     def __get_first_class_function_pointer(self, ftype, fname, sig): ...
@@ -196,7 +204,7 @@ class Lower(BaseLower):
         """
         Load the given variable's value.
         """
-    def storevar(self, value, name, argidx: Incomplete | None = None) -> None:
+    def storevar(self, value, name, argidx=None) -> None:
         """
         Store the value into the given variable.
         """
@@ -205,7 +213,7 @@ class Lower(BaseLower):
         Delete the given variable.
         """
     def alloca(self, name, type): ...
-    def alloca_lltype(self, name, lltype, datamodel: Incomplete | None = None): ...
+    def alloca_lltype(self, name, lltype, datamodel=None): ...
     def incref(self, typ, val) -> None: ...
     def decref(self, typ, val) -> None: ...
 

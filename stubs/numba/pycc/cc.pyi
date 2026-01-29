@@ -15,6 +15,7 @@ class CC:
     An ahead-of-time compiler to create extension modules that don't
     depend on Numba.
     """
+
     _mixin_sources: Incomplete
     _extra_cflags: Incomplete
     _extra_ldflags: Incomplete
@@ -29,7 +30,7 @@ class CC:
     _output_file: Incomplete
     _use_nrt: bool
     _target_cpu: str
-    def __init__(self, extension_name, source_module: Incomplete | None = None) -> None: ...
+    def __init__(self, extension_name, source_module=None) -> None: ...
     @property
     def name(self):
         """
@@ -78,7 +79,9 @@ class CC:
     def _get_extra_cflags(self): ...
     def _get_extra_ldflags(self): ...
     def _compile_mixins(self, build_dir): ...
+    @global_compiler_lock
     def _compile_object_files(self, build_dir): ...
+    @global_compiler_lock
     def compile(self) -> None:
         """
         Compile the extension module.
@@ -94,6 +97,7 @@ class _CCExtension(Extension):
     A Numba-specific Extension subclass to LLVM-compile pure Python code
     to an extension module.
     """
+
     _cc: Incomplete
     _distutils_monkey_patched: bool
     extra_objects: Incomplete

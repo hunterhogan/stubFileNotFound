@@ -1,6 +1,8 @@
-from .driver import USE_NV_BINDING as USE_NV_BINDING, driver as driver
+from .driver import driver as driver, USE_NV_BINDING as USE_NV_BINDING
 from _typeshed import Incomplete
 from collections.abc import Generator
+from contextlib import contextmanager
+import types
 
 class _DeviceList:
     lst: Incomplete
@@ -9,7 +11,6 @@ class _DeviceList:
         """
         Returns the context manager for device *devnum*.
         """
-    def __str__(self) -> str: ...
     def __iter__(self): ...
     def __len__(self) -> int: ...
     @property
@@ -28,12 +29,12 @@ class _DeviceContextManager:
 
     to copy the array *a* onto device 2, referred to by *d_a*.
     """
+
     _device: Incomplete
     def __init__(self, device) -> None: ...
     def __getattr__(self, item): ...
     def __enter__(self) -> None: ...
     def __exit__(self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: types.TracebackType | None) -> None: ...
-    def __str__(self) -> str: ...
 
 class _Runtime:
     """Emulate the CUDA runtime context management.
@@ -41,11 +42,13 @@ class _Runtime:
     It owns all Devices and Contexts.
     Keeps at most one Context per Device
     """
+
     gpus: Incomplete
     _tls: Incomplete
     _mainthread: Incomplete
     _lock: Incomplete
     def __init__(self) -> None: ...
+    @contextmanager
     def ensure_context(self) -> Generator[None]:
         """Ensure a CUDA context is available inside the context.
 
@@ -77,7 +80,7 @@ class _Runtime:
 _runtime: Incomplete
 gpus: Incomplete
 
-def get_context(devnum: Incomplete | None = None):
+def get_context(devnum=None):
     """Get the current device or use a device by device number, and
     return the CUDA context.
     """

@@ -24,16 +24,15 @@ class TypeAnnotation:
     lifted: Incomplete
     num_lifted_loops: Incomplete
     lifted_from: Incomplete
-    def __init__(self, func_ir, typemap, calltypes, lifted, lifted_from, args, return_type, html_output: Incomplete | None = None) -> None: ...
+    def __init__(self, func_ir, typemap, calltypes, lifted, lifted_from, args, return_type, html_output=None) -> None: ...
     def prepare_annotations(self): ...
     def annotate(self): ...
     def html_annotate(self, outfile) -> None: ...
     def annotate_raw(self):
-        '''
+        """
         This returns "raw" annotation information i.e. it has no output format
         specific markup included.
-        '''
-    def __str__(self) -> str: ...
+        """
 
 re_longest_white_prefix: Incomplete
 

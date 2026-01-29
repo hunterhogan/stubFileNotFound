@@ -6,6 +6,7 @@ class GeneratorDescriptor(FunctionDescriptor):
     """
     The descriptor for a generator's next function.
     """
+
     __slots__: Incomplete
     @classmethod
     def from_generator_fndesc(cls, func_ir, fndesc, gentype, mangler):
@@ -27,6 +28,7 @@ class BaseGeneratorLower:
     """
     Base support class for lowering generators.
     """
+
     context: Incomplete
     fndesc: Incomplete
     library: Incomplete
@@ -71,6 +73,7 @@ class GeneratorLower(BaseGeneratorLower):
     """
     Support class for lowering nopython generators.
     """
+
     def get_generator_type(self): ...
     def box_generator_struct(self, lower, gen_struct): ...
     def lower_finalize_func_body(self, builder, genptr) -> None:
@@ -83,11 +86,12 @@ class PyGeneratorLower(BaseGeneratorLower):
     """
     Support class for lowering object mode generators.
     """
+
     def get_generator_type(self):
-        '''
+        """
         Compute the actual generator type (the generator function\'s return
         type is simply "pyobject").
-        '''
+        """
     def box_generator_struct(self, lower, gen_struct):
         """
         Box the raw *gen_struct* as a Python object.
@@ -107,6 +111,7 @@ class LowerYield:
     """
     Support class for lowering a particular yield point.
     """
+
     lower: Incomplete
     context: Incomplete
     builder: Incomplete

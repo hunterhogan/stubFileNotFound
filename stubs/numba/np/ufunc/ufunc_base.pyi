@@ -5,6 +5,7 @@ from numba.np import numpy_support as numpy_support
 class UfuncLowererBase:
     """Callable class responsible for lowering calls to a specific gufunc.
     """
+
     ufunc: Incomplete
     make_ufunc_kernel_fn: Incomplete
     kernel: Incomplete
@@ -42,7 +43,7 @@ class UfuncBase:
         """
         Disable the compilation of new signatures at call time.
         """
-    def _install_cg(self, targetctx: Incomplete | None = None) -> None:
+    def _install_cg(self, targetctx=None) -> None:
         """
         Install an implementation function for a GUFunc/DUFunc object in the
         given target context.  If no target context is given, then

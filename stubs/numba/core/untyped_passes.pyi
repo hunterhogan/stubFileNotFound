@@ -1,12 +1,27 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from numba.core import bytecode as bytecode, config as config, consts as consts, errors as errors, interpreter as interpreter, ir as ir, postproc as postproc, rewrites as rewrites, transforms as transforms, types as types
-from numba.core.analysis import compute_cfg_from_blocks as compute_cfg_from_blocks, compute_use_defs as compute_use_defs, dead_branch_prune as dead_branch_prune, find_literally_calls as find_literally_calls, rewrite_semantic_constants as rewrite_semantic_constants
-from numba.core.compiler_machinery import AnalysisPass as AnalysisPass, FunctionPass as FunctionPass, SSACompliantMixin as SSACompliantMixin, register_pass as register_pass
-from numba.core.ir_utils import GuardException as GuardException, build_definitions as build_definitions, compile_to_numba_ir as compile_to_numba_ir, convert_code_obj_to_function as convert_code_obj_to_function, find_max_label as find_max_label, fixup_var_define_in_scope as fixup_var_define_in_scope, get_definition as get_definition, get_name_var_table as get_name_var_table, guard as guard, rename_labels as rename_labels, replace_var_names as replace_var_names, resolve_func_from_module as resolve_func_from_module, simplify_CFG as simplify_CFG, transfer_scope as transfer_scope
+from contextlib import contextmanager
+from numba.core import (
+	bytecode as bytecode, config as config, consts as consts, errors as errors, interpreter as interpreter, ir as ir,
+	postproc as postproc, rewrites as rewrites, transforms as transforms, types as types)
+from numba.core.analysis import (
+	compute_cfg_from_blocks as compute_cfg_from_blocks, compute_use_defs as compute_use_defs,
+	dead_branch_prune as dead_branch_prune, find_literally_calls as find_literally_calls,
+	rewrite_semantic_constants as rewrite_semantic_constants)
+from numba.core.compiler_machinery import (
+	AnalysisPass as AnalysisPass, FunctionPass as FunctionPass, register_pass as register_pass,
+	SSACompliantMixin as SSACompliantMixin)
+from numba.core.ir_utils import (
+	build_definitions as build_definitions, compile_to_numba_ir as compile_to_numba_ir,
+	convert_code_obj_to_function as convert_code_obj_to_function, find_max_label as find_max_label,
+	fixup_var_define_in_scope as fixup_var_define_in_scope, get_definition as get_definition,
+	get_name_var_table as get_name_var_table, guard as guard, GuardException as GuardException,
+	rename_labels as rename_labels, replace_var_names as replace_var_names,
+	resolve_func_from_module as resolve_func_from_module, simplify_CFG as simplify_CFG, transfer_scope as transfer_scope)
 from numba.core.ssa import reconstruct_ssa as reconstruct_ssa
 from numba.misc.special import literal_unroll as literal_unroll
 
+@contextmanager
 def fallback_context(state, msg) -> Generator[None]:
     """
     Wraps code that would signal a fallback to object mode
@@ -89,6 +104,7 @@ class InlineInlinables(FunctionPass):
     pass but no block level clean up is performed on the mutated IR (typing
     information is not available to do so).
     """
+
     _name: str
     _DEBUG: bool
     def __init__(self) -> None: ...
@@ -101,6 +117,7 @@ class PreserveIR(AnalysisPass):
     """
     Preserves the IR in the metadata
     """
+
     _name: str
     def __init__(self) -> None: ...
     def run_pass(self, state): ...
@@ -109,6 +126,7 @@ class FindLiterallyCalls(FunctionPass):
     """Find calls to `numba.literally()` and signal if its requirement is not
     satisfied.
     """
+
     _name: str
     def __init__(self) -> None: ...
     def run_pass(self, state): ...
@@ -116,6 +134,7 @@ class FindLiterallyCalls(FunctionPass):
 class CanonicalizeLoopExit(FunctionPass):
     """A pass to canonicalize loop exit by splitting it from function exit.
     """
+
     _name: str
     def __init__(self) -> None: ...
     def run_pass(self, state): ...
@@ -126,7 +145,9 @@ class CanonicalizeLoopEntry(FunctionPass):
 
     This is needed for loop-lifting; esp in py3.8
     """
+
     _name: str
+    _supported_globals: Incomplete
     def __init__(self) -> None: ...
     def run_pass(self, state): ...
     def _split_entry_block(self, fir, cfg, loop, entry_label) -> None: ...
@@ -138,19 +159,21 @@ class PrintIRCFG(FunctionPass):
     def run_pass(self, state): ...
 
 class MakeFunctionToJitFunction(FunctionPass):
-    '''
+    """
     This swaps an ir.Expr.op == "make_function" i.e. a closure, for a compiled
     function containing the closure body and puts it in ir.Global. It\'s a 1:1
     statement value swap. `make_function` is already untyped
-    '''
+    """
+
     _name: str
     def __init__(self) -> None: ...
     def run_pass(self, state): ...
 
 class TransformLiteralUnrollConstListToTuple(FunctionPass):
-    """ This pass spots a `literal_unroll([<constant values>])` and rewrites it
+    """This pass spots a `literal_unroll([<constant values>])` and rewrites it
     as a `literal_unroll(tuple(<constant values>))`.
     """
+
     _name: str
     _accepted_types: Incomplete
     def __init__(self) -> None: ...
@@ -165,12 +188,12 @@ class MixedContainerUnroller(FunctionPass):
         """
         Returns a map of type->list(indexes) for a typed tuple
         """
-    def add_offset_to_labels_w_ignore(self, blocks, offset, ignore: Incomplete | None = None):
-        """add an offset to all block labels and jump/branch targets
+    def add_offset_to_labels_w_ignore(self, blocks, offset, ignore=None):
+        """Add an offset to all block labels and jump/branch targets
         don't add an offset to anything in the ignore list
         """
     def inject_loop_body(self, switch_ir, loop_ir, caller_max_label, dont_replace, switch_data):
-        '''
+        """
         Injects the "loop body" held in `loop_ir` into `switch_ir` where ever
         there is a statement of the form `SENTINEL.<int> = RHS`. It also:
         * Finds and then deliberately does not relabel non-local jumps so as to
@@ -191,10 +214,11 @@ class MixedContainerUnroller(FunctionPass):
         - switch_data, the switch table data used to generated the switch_ir,
           can be generated by self.analyse_tuple.
 
-        Returns:
+        Returns
+        -------
         - A type specific switch table with each case containing a versioned
           loop body suitable for injection as a replacement for the loop_ir.
-        '''
+        """
     def gen_switch(self, data, index):
         """
         Generates a function with a switch table like
@@ -220,21 +244,23 @@ class MixedContainerUnroller(FunctionPass):
     def run_pass(self, state): ...
 
 class IterLoopCanonicalization(FunctionPass):
-    """ Transforms loops that are induced by `getiter` into range() driven loops
+    """Transforms loops that are induced by `getiter` into range() driven loops
     If the typemap is available this will only impact Tuple and UniTuple, if it
     is not available it will impact all matching loops.
     """
+
     _name: str
     _DEBUG: bool
     _accepted_types: Incomplete
     _accepted_calls: Incomplete
     def __init__(self) -> None: ...
-    def assess_loop(self, loop, func_ir, partial_typemap: Incomplete | None = None): ...
+    def assess_loop(self, loop, func_ir, partial_typemap=None): ...
     def transform(self, loop, func_ir, cfg): ...
     def run_pass(self, state): ...
 
 class PropagateLiterals(FunctionPass):
     """Implement literal propagation based on partial type inference"""
+
     _name: str
     def __init__(self) -> None: ...
     def get_analysis_usage(self, AU) -> None: ...
@@ -242,6 +268,7 @@ class PropagateLiterals(FunctionPass):
 
 class LiteralPropagationSubPipelinePass(FunctionPass):
     """Implement literal propagation based on partial type inference"""
+
     _name: str
     def __init__(self) -> None: ...
     def run_pass(self, state): ...
@@ -249,12 +276,14 @@ class LiteralPropagationSubPipelinePass(FunctionPass):
 
 class LiteralUnroll(FunctionPass):
     """Implement the literal_unroll semantics"""
+
     _name: str
     def __init__(self) -> None: ...
     def run_pass(self, state): ...
 
 class SimplifyCFG(FunctionPass):
     """Perform CFG simplification"""
+
     _name: str
     def __init__(self) -> None: ...
     def run_pass(self, state): ...
@@ -264,6 +293,7 @@ class ReconstructSSA(FunctionPass):
 
     Produces minimal SSA.
     """
+
     _name: str
     def __init__(self) -> None: ...
     def run_pass(self, state): ...
@@ -272,6 +302,7 @@ class ReconstructSSA(FunctionPass):
 class RewriteDynamicRaises(FunctionPass):
     """Replace existing raise statements by dynamic raises in Numba IR.
     """
+
     _name: str
     def __init__(self) -> None: ...
     def run_pass(self, state): ...

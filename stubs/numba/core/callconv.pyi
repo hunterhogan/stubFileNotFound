@@ -74,9 +74,10 @@ class MinimalCallConv(BaseCallConv):
     Caller is responsible for allocating a slot for the return value
     (passed as a pointer in the first argument).
     """
+
     def _make_call_helper(self, builder): ...
     def return_value(self, builder, retval) -> None: ...
-    def return_user_exc(self, builder, exc, exc_args: Incomplete | None = None, loc: Incomplete | None = None, func_name: Incomplete | None = None) -> None: ...
+    def return_user_exc(self, builder, exc, exc_args=None, loc=None, func_name=None) -> None: ...
     def return_status_propagate(self, builder, status) -> None: ...
     def _return_errcode_raw(self, builder, code) -> None: ...
     def _get_return_status(self, builder, code):
@@ -101,11 +102,12 @@ class MinimalCallConv(BaseCallConv):
         """
 
 class _MinimalCallHelper:
-    '''
+    """
     A call helper object for the "minimal" calling convention.
     User exceptions are represented as integer codes and stored in
     a mapping for retrieval from the caller.
-    '''
+    """
+
     exceptions: Incomplete
     def __init__(self) -> None: ...
     def _add_exception(self, exc, exc_args, locinfo):
@@ -156,12 +158,13 @@ class CPUCallConv(BaseCallConv):
     and the exception info pointer (passed as first and second arguments,
     respectively).
     """
+
     _status_ids: Incomplete
     def _make_call_helper(self, builder) -> None: ...
     def return_value(self, builder, retval) -> None: ...
     def build_excinfo_struct(self, exc, exc_args, loc, func_name): ...
-    def set_static_user_exc(self, builder, exc, exc_args: Incomplete | None = None, loc: Incomplete | None = None, func_name: Incomplete | None = None) -> None: ...
-    def return_user_exc(self, builder, exc, exc_args: Incomplete | None = None, loc: Incomplete | None = None, func_name: Incomplete | None = None) -> None: ...
+    def set_static_user_exc(self, builder, exc, exc_args=None, loc=None, func_name=None) -> None: ...
+    def return_user_exc(self, builder, exc, exc_args=None, loc=None, func_name=None) -> None: ...
     def unpack_dynamic_exception(self, builder, pyapi, status): ...
     def unpack_exception(self, builder, pyapi, status): ...
     def emit_unwrap_dynamic_exception_fn(self, module, st_type, nb_types): ...
@@ -169,12 +172,12 @@ class CPUCallConv(BaseCallConv):
         """
         Create an anonymous struct containing the given LLVM *values*.
         """
-    def set_dynamic_user_exc(self, builder, exc, exc_args, nb_types, loc: Incomplete | None = None, func_name: Incomplete | None = None) -> None:
+    def set_dynamic_user_exc(self, builder, exc, exc_args, nb_types, loc=None, func_name=None) -> None:
         """
         Compute the required bits to emit an exception with dynamic (runtime)
         values
         """
-    def return_dynamic_user_exc(self, builder, exc, exc_args, nb_types, loc: Incomplete | None = None, func_name: Incomplete | None = None) -> None:
+    def return_dynamic_user_exc(self, builder, exc, exc_args, nb_types, loc=None, func_name=None) -> None:
         """
         Same as ::return_user_exc but for dynamic exceptions
         """
@@ -202,26 +205,28 @@ class CPUCallConv(BaseCallConv):
         """
     def _get_return_argument(self, func): ...
     def _get_excinfo_argument(self, func): ...
-    def call_function(self, builder, callee, resty, argtys, args, attrs: Incomplete | None = None):
-        '''
+    def call_function(self, builder, callee, resty, argtys, args, attrs=None):
+        """
         Call the Numba-compiled *callee*.
-        Parameters:
-        -----------
+
+        Parameters
+        ----------
         attrs: LLVM style string or iterable of individual attributes, default
                is None which specifies no attributes. Examples:
                LLVM style string: "noinline fast"
                Equivalent iterable: ("noinline", "fast")
-        '''
+        """
 
 class ErrorModel:
     call_conv: Incomplete
     def __init__(self, call_conv) -> None: ...
-    def fp_zero_division(self, builder, exc_args: Incomplete | None = None, loc: Incomplete | None = None): ...
+    def fp_zero_division(self, builder, exc_args=None, loc=None): ...
 
 class PythonErrorModel(ErrorModel):
     """
     The Python error model.  Any invalid FP input raises an exception.
     """
+
     raise_on_fp_zero_division: bool
 
 class NumpyErrorModel(ErrorModel):
@@ -236,6 +241,7 @@ class NumpyErrorModel(ErrorModel):
         http://lists.llvm.org/pipermail/llvm-dev/2014-September/076918.html
         http://lists.llvm.org/pipermail/llvm-commits/Week-of-Mon-20140929/237997.html
     """
+
     raise_on_fp_zero_division: bool
 
 error_models: Incomplete

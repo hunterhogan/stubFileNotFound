@@ -1,5 +1,6 @@
 from numba.core.extending import register_jitable as register_jitable
-from numba.np.random._constants import UINT16_MAX as UINT16_MAX, UINT32_MAX as UINT32_MAX, UINT64_MAX as UINT64_MAX, UINT8_MAX as UINT8_MAX
+from numba.np.random._constants import (
+	UINT8_MAX as UINT8_MAX, UINT16_MAX as UINT16_MAX, UINT32_MAX as UINT32_MAX, UINT64_MAX as UINT64_MAX)
 from numba.np.random.generator_core import next_uint32 as next_uint32, next_uint64 as next_uint64
 
 def gen_mask(max): ...

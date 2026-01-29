@@ -1,8 +1,12 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 from numba.core import config as config, consts as consts, errors as errors
-from numba.core.errors import ConstantInferenceError as ConstantInferenceError, NotDefinedError as NotDefinedError, RedefinedError as RedefinedError, VerificationError as VerificationError
-from numba.core.utils import BINOPS_TO_OPERATORS as BINOPS_TO_OPERATORS, INPLACE_BINOPS_TO_OPERATORS as INPLACE_BINOPS_TO_OPERATORS, OPERATORS_TO_BUILTINS as OPERATORS_TO_BUILTINS, UNARY_BUITINS_TO_OPERATORS as UNARY_BUITINS_TO_OPERATORS
+from numba.core.errors import (
+	ConstantInferenceError as ConstantInferenceError, NotDefinedError as NotDefinedError, RedefinedError as RedefinedError,
+	VerificationError as VerificationError)
+from numba.core.utils import (
+	BINOPS_TO_OPERATORS as BINOPS_TO_OPERATORS, INPLACE_BINOPS_TO_OPERATORS as INPLACE_BINOPS_TO_OPERATORS,
+	OPERATORS_TO_BUILTINS as OPERATORS_TO_BUILTINS, UNARY_BUITINS_TO_OPERATORS as UNARY_BUITINS_TO_OPERATORS)
 
 _termcolor: Incomplete
 
@@ -10,14 +14,15 @@ class Loc:
     """Source location
 
     """
+
     _defmatcher: Incomplete
     filename: Incomplete
     line: Incomplete
     col: Incomplete
     lines: Incomplete
     maybe_decorator: Incomplete
-    def __init__(self, filename, line, col: Incomplete | None = None, maybe_decorator: bool = False) -> None:
-        """ Arguments:
+    def __init__(self, filename, line, col=None, maybe_decorator: bool = False) -> None:
+        """Arguments:
         filename - name of the file
         line - line in file
         col - column
@@ -27,14 +32,12 @@ class Loc:
     def __ne__(self, other): ...
     @classmethod
     def from_function_id(cls, func_id): ...
-    def __repr__(self) -> str: ...
-    def __str__(self) -> str: ...
     def _find_definition(self): ...
     def _raw_function_name(self): ...
     def get_lines(self): ...
     def _get_path(self): ...
     def strformat(self, nlines_up: int = 2): ...
-    def with_lineno(self, line, col: Incomplete | None = None):
+    def with_lineno(self, line, col=None):
         """
         Return a new Loc with this line number.
         """
@@ -52,7 +55,8 @@ class SlotEqualityCheckMixin:
     def __hash__(self): ...
 
 class EqualityCheckMixin:
-    """ Mixin for basic equality checking """
+    """Mixin for basic equality checking"""
+
     def __eq__(self, other): ...
     def __le__(self, other): ...
     def __hash__(self): ...
@@ -64,7 +68,6 @@ class VarMap:
     def get(self, name): ...
     def __contains__(self, name) -> bool: ...
     def __len__(self) -> int: ...
-    def __repr__(self) -> str: ...
     def __hash__(self): ...
     def __iter__(self): ...
     def __eq__(self, other): ...
@@ -79,6 +82,7 @@ class Inst(EqualityCheckMixin, AbstractRHS):
     """
     Base class for all IR instructions.
     """
+
     def list_vars(self) -> None:
         """
         List the variables used (read or written) by the instruction.
@@ -93,6 +97,7 @@ class Stmt(Inst):
     Base class for IR statements (instructions which can appear on their
     own in a Block).
     """
+
     is_terminator: bool
     is_exit: bool
     def list_vars(self): ...
@@ -107,6 +112,7 @@ class Terminator(Stmt):
     All subclass of Terminator must override `.get_targets()` to return a list
     of jump targets.
     """
+
     is_terminator: bool
     def get_targets(self) -> None: ...
 
@@ -115,6 +121,7 @@ class Expr(Inst):
     An IR expression (an instruction which can only be part of a larger
     statement).
     """
+
     op: Incomplete
     loc: Incomplete
     _kws: Incomplete
@@ -128,7 +135,7 @@ class Expr(Inst):
     @classmethod
     def unary(cls, fn, value, loc): ...
     @classmethod
-    def call(cls, func, args, kws, loc, vararg: Incomplete | None = None, varkwarg: Incomplete | None = None, target: Incomplete | None = None): ...
+    def call(cls, func, args, kws, loc, vararg=None, varkwarg=None, target=None): ...
     @classmethod
     def build_tuple(cls, items, loc): ...
     @classmethod
@@ -192,7 +199,6 @@ class Expr(Inst):
         by type inference or lowering. It's presence outside of the interpreter
         renders IR as illegal.
         """
-    def __repr__(self) -> str: ...
     def list_vars(self): ...
     def infer_constant(self) -> None: ...
 
@@ -200,34 +206,34 @@ class SetItem(Stmt):
     """
     target[index] = value
     """
+
     target: Incomplete
     index: Incomplete
     value: Incomplete
     loc: Incomplete
     def __init__(self, target, index, value, loc) -> None: ...
-    def __repr__(self) -> str: ...
 
 class StaticSetItem(Stmt):
     """
     target[constant index] = value
     """
+
     target: Incomplete
     index: Incomplete
     index_var: Incomplete
     value: Incomplete
     loc: Incomplete
     def __init__(self, target, index, index_var, value, loc) -> None: ...
-    def __repr__(self) -> str: ...
 
 class DelItem(Stmt):
     """
     del target[index]
     """
+
     target: Incomplete
     index: Incomplete
     loc: Incomplete
     def __init__(self, target, index, loc) -> None: ...
-    def __repr__(self) -> str: ...
 
 class SetAttr(Stmt):
     target: Incomplete
@@ -235,14 +241,12 @@ class SetAttr(Stmt):
     value: Incomplete
     loc: Incomplete
     def __init__(self, target, attr, value, loc) -> None: ...
-    def __repr__(self) -> str: ...
 
 class DelAttr(Stmt):
     target: Incomplete
     attr: Incomplete
     loc: Incomplete
     def __init__(self, target, attr, loc) -> None: ...
-    def __repr__(self) -> str: ...
 
 class StoreMap(Stmt):
     dct: Incomplete
@@ -250,144 +254,141 @@ class StoreMap(Stmt):
     value: Incomplete
     loc: Incomplete
     def __init__(self, dct, key, value, loc) -> None: ...
-    def __repr__(self) -> str: ...
 
 class Del(Stmt):
     value: Incomplete
     loc: Incomplete
     def __init__(self, value, loc) -> None: ...
-    def __str__(self) -> str: ...
 
 class Raise(Terminator):
     is_exit: bool
     exception: Incomplete
     loc: Incomplete
     def __init__(self, exception, loc) -> None: ...
-    def __str__(self) -> str: ...
     def get_targets(self): ...
 
 class StaticRaise(Terminator):
-    '''
+    """
     Raise an exception class and arguments known at compile-time.
     Note that if *exc_class* is None, a bare "raise" statement is implied
     (i.e. re-raise the current exception).
-    '''
+    """
+
     is_exit: bool
     exc_class: Incomplete
     exc_args: Incomplete
     loc: Incomplete
     def __init__(self, exc_class, exc_args, loc) -> None: ...
-    def __str__(self) -> str: ...
     def get_targets(self): ...
 
 class DynamicRaise(Terminator):
-    '''
+    """
     Raise an exception class and some argument *values* unknown at compile-time.
     Note that if *exc_class* is None, a bare "raise" statement is implied
     (i.e. re-raise the current exception).
-    '''
+    """
+
     is_exit: bool
     exc_class: Incomplete
     exc_args: Incomplete
     loc: Incomplete
     def __init__(self, exc_class, exc_args, loc) -> None: ...
-    def __str__(self) -> str: ...
     def get_targets(self): ...
 
 class TryRaise(Stmt):
     """A raise statement inside a try-block
     Similar to ``Raise`` but does not terminate.
     """
+
     exception: Incomplete
     loc: Incomplete
     def __init__(self, exception, loc) -> None: ...
-    def __str__(self) -> str: ...
 
 class StaticTryRaise(Stmt):
     """A raise statement inside a try-block.
     Similar to ``StaticRaise`` but does not terminate.
     """
+
     exc_class: Incomplete
     exc_args: Incomplete
     loc: Incomplete
     def __init__(self, exc_class, exc_args, loc) -> None: ...
-    def __str__(self) -> str: ...
 
 class DynamicTryRaise(Stmt):
     """A raise statement inside a try-block.
     Similar to ``DynamicRaise`` but does not terminate.
     """
+
     exc_class: Incomplete
     exc_args: Incomplete
     loc: Incomplete
     def __init__(self, exc_class, exc_args, loc) -> None: ...
-    def __str__(self) -> str: ...
 
 class Return(Terminator):
     """
     Return to caller.
     """
+
     is_exit: bool
     value: Incomplete
     loc: Incomplete
     def __init__(self, value, loc) -> None: ...
-    def __str__(self) -> str: ...
     def get_targets(self): ...
 
 class Jump(Terminator):
     """
     Unconditional branch.
     """
+
     target: Incomplete
     loc: Incomplete
     def __init__(self, target, loc) -> None: ...
-    def __str__(self) -> str: ...
     def get_targets(self): ...
 
 class Branch(Terminator):
     """
     Conditional branch.
     """
+
     cond: Incomplete
     truebr: Incomplete
     falsebr: Incomplete
     loc: Incomplete
     def __init__(self, cond, truebr, falsebr, loc) -> None: ...
-    def __str__(self) -> str: ...
     def get_targets(self): ...
 
 class Assign(Stmt):
     """
     Assign to a variable.
     """
+
     value: Incomplete
     target: Incomplete
     loc: Incomplete
     def __init__(self, value, target, loc) -> None: ...
-    def __str__(self) -> str: ...
 
 class Print(Stmt):
     """
     Print some values.
     """
+
     args: Incomplete
     vararg: Incomplete
     consts: Incomplete
     loc: Incomplete
     def __init__(self, args, vararg, loc) -> None: ...
-    def __str__(self) -> str: ...
 
 class Yield(Inst):
     value: Incomplete
     loc: Incomplete
     index: Incomplete
     def __init__(self, value, loc, index) -> None: ...
-    def __str__(self) -> str: ...
     def list_vars(self): ...
 
 class EnterWith(Stmt):
-    '''Enter a "with" context
-    '''
+    """Enter a "with" context
+    """
+
     contextmanager: Incomplete
     begin: Incomplete
     end: Incomplete
@@ -402,21 +403,19 @@ class EnterWith(Stmt):
         loc : ir.Loc instance
             Source location
         """
-    def __str__(self) -> str: ...
     def list_vars(self): ...
 
 class PopBlock(Stmt):
     """Marker statement for a pop block op code"""
+
     loc: Incomplete
     def __init__(self, loc) -> None: ...
-    def __str__(self) -> str: ...
 
 class Arg(EqualityCheckMixin, AbstractRHS):
     name: Incomplete
     index: Incomplete
     loc: Incomplete
     def __init__(self, name, index, loc) -> None: ...
-    def __repr__(self) -> str: ...
     def infer_constant(self) -> None: ...
 
 class Const(EqualityCheckMixin, AbstractRHS):
@@ -424,7 +423,6 @@ class Const(EqualityCheckMixin, AbstractRHS):
     loc: Incomplete
     use_literal_type: Incomplete
     def __init__(self, value, loc, use_literal_type: bool = True) -> None: ...
-    def __repr__(self) -> str: ...
     def infer_constant(self): ...
     def __deepcopy__(self, memo): ...
 
@@ -433,7 +431,6 @@ class Global(EqualityCheckMixin, AbstractRHS):
     value: Incomplete
     loc: Incomplete
     def __init__(self, name, value, loc) -> None: ...
-    def __str__(self) -> str: ...
     def infer_constant(self): ...
     def __deepcopy__(self, memo): ...
 
@@ -442,19 +439,19 @@ class FreeVar(EqualityCheckMixin, AbstractRHS):
     A freevar, as loaded by LOAD_DECREF.
     (i.e. a variable defined in an enclosing non-global scope)
     """
+
     index: Incomplete
     name: Incomplete
     value: Incomplete
     loc: Incomplete
     def __init__(self, index, name, value, loc) -> None: ...
-    def __str__(self) -> str: ...
     def infer_constant(self): ...
     def __deepcopy__(self, memo): ...
 
 class Var(EqualityCheckMixin, AbstractRHS):
     """
     Attributes
-    -----------
+    ----------
     - scope: Scope
 
     - name: str
@@ -462,12 +459,11 @@ class Var(EqualityCheckMixin, AbstractRHS):
     - loc: Loc
         Definition location
     """
+
     scope: Incomplete
     name: Incomplete
     loc: Incomplete
     def __init__(self, scope, name, loc) -> None: ...
-    def __repr__(self) -> str: ...
-    def __str__(self) -> str: ...
     @property
     def is_temp(self): ...
     @property
@@ -488,7 +484,7 @@ class Var(EqualityCheckMixin, AbstractRHS):
 class Scope(EqualityCheckMixin):
     """
     Attributes
-    -----------
+    ----------
     - parent: Scope
         Parent scope
 
@@ -499,6 +495,7 @@ class Scope(EqualityCheckMixin):
         Start of scope location
 
     """
+
     parent: Incomplete
     localvars: Incomplete
     loc: Incomplete
@@ -530,35 +527,35 @@ class Scope(EqualityCheckMixin):
     def make_temp(self, loc): ...
     @property
     def has_parent(self): ...
-    def __repr__(self) -> str: ...
 
 class Block(EqualityCheckMixin):
     """A code block
 
     """
+
     scope: Incomplete
     body: Incomplete
     loc: Incomplete
     def __init__(self, scope, loc) -> None: ...
     def copy(self): ...
-    def find_exprs(self, op: Incomplete | None = None) -> Generator[Incomplete]:
+    def find_exprs(self, op=None) -> Generator[Incomplete]:
         """
         Iterate over exprs of the given *op* in this block.
         """
-    def find_insts(self, cls: Incomplete | None = None) -> Generator[Incomplete]:
+    def find_insts(self, cls=None) -> Generator[Incomplete]:
         """
         Iterate over insts of the given class in this block.
         """
     def find_variable_assignment(self, name):
-        '''
+        """
         Returns the assignment inst associated with variable "name", None if
         it cannot be found.
-        '''
+        """
     def prepend(self, inst) -> None: ...
     def append(self, inst) -> None: ...
     def remove(self, inst) -> None: ...
     def clear(self) -> None: ...
-    def dump(self, file: Incomplete | None = None) -> None: ...
+    def dump(self, file=None) -> None: ...
     @property
     def terminator(self): ...
     @property
@@ -569,25 +566,24 @@ class Block(EqualityCheckMixin):
         Insert *stmt* after *other*.
         """
     def insert_before_terminator(self, stmt) -> None: ...
-    def __repr__(self) -> str: ...
 
 class Loop(SlotEqualityCheckMixin):
     """Describes a loop-block
     """
+
     __slots__: Incomplete
     entry: Incomplete
     exit: Incomplete
     def __init__(self, entry, exit) -> None: ...
-    def __repr__(self) -> str: ...
 
 class With(SlotEqualityCheckMixin):
     """Describes a with-block
     """
+
     __slots__: Incomplete
     entry: Incomplete
     exit: Incomplete
     def __init__(self, entry, exit) -> None: ...
-    def __repr__(self) -> str: ...
 
 class FunctionIR:
     blocks: Incomplete
@@ -599,7 +595,7 @@ class FunctionIR:
     _definitions: Incomplete
     def __init__(self, blocks, is_generator, func_id, loc, definitions, arg_count, arg_names) -> None: ...
     def equal_ir(self, other):
-        """ Checks that the IR contained within is equal to the IR in other.
+        """Checks that the IR contained within is equal to the IR in other.
         Equality is defined by being equal in fundamental structure (blocks,
         labels, IR node type and the order in which they are defined) and the
         IR nodes being equal. IR node equality essentially comes down to
@@ -618,7 +614,7 @@ class FunctionIR:
     variable_lifetime: Incomplete
     block_entry_vars: Incomplete
     def _reset_analysis_variables(self) -> None: ...
-    def derive(self, blocks, arg_count: Incomplete | None = None, arg_names: Incomplete | None = None, force_non_generator: bool = False, loc: Incomplete | None = None):
+    def derive(self, blocks, arg_count=None, arg_names=None, force_non_generator: bool = False, loc=None):
         """
         Derive a new function IR from this one, using the given blocks,
         and possibly modifying the argument count and generator flag.
@@ -641,14 +637,14 @@ class FunctionIR:
         A Expr instance is returned by default, but if lhs_only is set
         to True, the left-hand-side variable is returned instead.
         """
-    def get_assignee(self, rhs_value, in_blocks: Incomplete | None = None):
+    def get_assignee(self, rhs_value, in_blocks=None):
         """
         Finds the assignee for a given RHS value. If in_blocks is given the
         search will be limited to the specified blocks.
         """
-    def dump(self, file: Incomplete | None = None) -> None: ...
+    def dump(self, file=None) -> None: ...
     def dump_to_string(self): ...
-    def dump_generator_info(self, file: Incomplete | None = None) -> None: ...
+    def dump_generator_info(self, file=None) -> None: ...
     def render_dot(self, filename_prefix: str = 'numba_ir', include_ir: bool = True):
         """Render the CFG of the IR with GraphViz DOT via the
         ``graphviz`` python binding.
@@ -662,6 +658,5 @@ class FunctionIR:
 class UndefinedType(EqualityCheckMixin):
     _singleton: Incomplete
     def __new__(cls): ...
-    def __repr__(self) -> str: ...
 
 UNDEFINED: Incomplete

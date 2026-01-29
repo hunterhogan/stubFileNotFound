@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from numba.core import cgutils as cgutils, config as config, errors as errors, lowering as lowering, types as types, typing as typing
+from numba.core import (
+	cgutils as cgutils, config as config, errors as errors, lowering as lowering, types as types, typing as typing)
 from numba.core.extending import overload as overload, register_jitable as register_jitable
 from numba.core.imputils import impl_ret_untracked as impl_ret_untracked
 from numba.np import npdatetime as npdatetime
@@ -10,8 +11,8 @@ _NPY_LOG2E: float
 _NPY_LOG10E: float
 _NPY_LOGE2: float
 
-def _check_arity_and_homogeneity(sig, args, arity, return_type: Incomplete | None = None) -> None:
-    """checks that the following are true:
+def _check_arity_and_homogeneity(sig, args, arity, return_type=None) -> None:
+    """Checks that the following are true:
     - args and sig.args have arg_count elements
     - all input types are homogeneous
     - return type is 'return_type' if provided, otherwise it must be

@@ -1,8 +1,8 @@
 from ..args import In as In, InOut as InOut, Out as Out
 from .cudadrv.devices import gpus as gpus, require_context as require_context, reset as reset
 from .kernel import FakeCUDAKernel as FakeCUDAKernel
-from _typeshed import Incomplete
 from collections.abc import Generator
+from contextlib import contextmanager
 from numba.core.sigutils import is_signature as is_signature
 
 def select_device(dev: int = 0) -> None: ...
@@ -13,6 +13,8 @@ class stream:
     The stream API is supported in the simulator - however, all execution
     occurs synchronously, so synchronization requires no operation.
     """
+
+    @contextmanager
     def auto_synchronize(self) -> Generator[None]: ...
     def synchronize(self) -> None: ...
 
@@ -27,11 +29,13 @@ class Event:
     The simulator supports the event API, but they do not record timing info,
     and all simulation is synchronous. Execution time is not recorded.
     """
+
     def record(self, stream: int = 0) -> None: ...
     def wait(self, stream: int = 0) -> None: ...
     def synchronize(self) -> None: ...
     def elapsed_time(self, event): ...
 event = Event
 
-def jit(func_or_sig: Incomplete | None = None, device: bool = False, debug: bool = False, argtypes: Incomplete | None = None, inline: bool = False, restype: Incomplete | None = None, fastmath: bool = False, link: Incomplete | None = None, boundscheck: Incomplete | None = None, opt: bool = True, cache: Incomplete | None = None): ...
+def jit(func_or_sig=None, device: bool = False, debug: bool = False, argtypes=None, inline: bool = False, restype=None, fastmath: bool = False, link=None, boundscheck=None, opt: bool = True, cache=None): ...
+@contextmanager
 def defer_cleanup() -> Generator[None]: ...

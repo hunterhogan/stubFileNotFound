@@ -1,9 +1,10 @@
-import threading
 from _typeshed import Incomplete
 from numba.core import config as config
+import threading
 
 class TLS(threading.local):
     """Use a subclass to properly initialize the TLS variables in all threads."""
+
     tracing: bool
     indent: int
     def __init__(self) -> None: ...
@@ -13,7 +14,8 @@ tls: Incomplete
 def find_function_info(func, spec, args):
     """Return function meta-data in a tuple.
 
-    (name, type)"""
+    (name, type)
+    """
 def chop(value): ...
 def create_events(fname, spec, args, kwds): ...
 def dotrace(*args, **kwds):

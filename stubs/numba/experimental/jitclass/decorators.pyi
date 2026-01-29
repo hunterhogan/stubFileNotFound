@@ -1,8 +1,7 @@
-from _typeshed import Incomplete
 from numba.core import config as config, types as types
 
-def jitclass(cls_or_spec: Incomplete | None = None, spec: Incomplete | None = None):
-    '''
+def jitclass(cls_or_spec=None, spec=None):
+    """
     A function for creating a jitclass.
     Can be used as a decorator or function.
 
@@ -20,7 +19,6 @@ def jitclass(cls_or_spec: Incomplete | None = None, spec: Incomplete | None = No
 
     Examples
     --------
-
     1) ``cls_or_spec = None``, ``spec = None``
 
     >>> @jitclass()
@@ -56,4 +54,4 @@ def jitclass(cls_or_spec: Incomplete | None = None, spec: Incomplete | None = No
     returns a compiled version.
     If used as a function, returns the compiled class (an instance of
     ``JitClassType``).
-    '''
+    """

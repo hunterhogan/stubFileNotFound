@@ -2,13 +2,18 @@ from _typeshed import Incomplete
 from numba._helperlib import _import_cython_function as _import_cython_function
 from numba.core import config as config, errors as errors, types as types, utils as utils
 from numba.core.datamodel import models as models
-from numba.core.imputils import lower_builtin as lower_builtin, lower_cast as lower_cast, lower_getattr as lower_getattr, lower_getattr_generic as lower_getattr_generic, lower_setattr as lower_setattr, lower_setattr_generic as lower_setattr_generic
-from numba.core.pythonapi import NativeValue as NativeValue, box as box, reflect as reflect, unbox as unbox
+from numba.core.imputils import (
+	lower_builtin as lower_builtin, lower_cast as lower_cast, lower_getattr as lower_getattr,
+	lower_getattr_generic as lower_getattr_generic, lower_setattr as lower_setattr,
+	lower_setattr_generic as lower_setattr_generic)
+from numba.core.pythonapi import box as box, NativeValue as NativeValue, reflect as reflect, unbox as unbox
 from numba.core.serialize import ReduceMixin as ReduceMixin
 from numba.core.typing.asnumbatype import as_numba_type as as_numba_type
 from numba.core.typing.templates import infer as infer, infer_getattr as infer_getattr
 from numba.core.typing.typeof import typeof_impl as typeof_impl
 from typing import NamedTuple
+import collections
+import weakref
 
 def type_callable(func):
     """
@@ -19,7 +24,7 @@ def type_callable(func):
 
 _overload_default_jit_options: Incomplete
 
-def overload(func, jit_options={}, strict: bool = True, inline: str = 'never', prefer_literal: bool = False, **kwargs):
+def overload(func, jit_options=..., strict: bool = True, inline: str = 'never', prefer_literal: bool = False, **kwargs):
     """
     A decorator marking the decorated function as typing and implementing
     *func* in nopython mode.
@@ -132,7 +137,7 @@ def overload_method(typ, attr, **kwargs):
                 return take_impl
     """
 def overload_classmethod(typ, attr, **kwargs):
-    '''
+    """
     A decorator marking the decorated function as typing and implementing
     classmethod *attr* for the given Numba type in nopython mode.
 
@@ -154,7 +159,7 @@ def overload_classmethod(typ, attr, **kwargs):
         @njit
         def foo(n):
             return types.Array.make(n)
-    '''
+    """
 def make_attribute_wrapper(typeclass, struct_attr, python_attr):
     """
     Make an automatic attribute wrapper exposing member named *struct_attr*
@@ -166,8 +171,10 @@ class _Intrinsic(ReduceMixin):
     """
     Dummy callable for intrinsic
     """
-    _memo: Incomplete
-    _recent: Incomplete
+
+    _memo: weakref.WeakValueDictionary
+    __cache_size: Incomplete
+    _recent: collections.deque
     __uuid: Incomplete
     _ctor_kwargs: Incomplete
     _name: Incomplete
@@ -188,7 +195,6 @@ class _Intrinsic(ReduceMixin):
         """
         This is only defined to pretend to be a callable from CPython.
         """
-    def __repr__(self) -> str: ...
     def __deepcopy__(self, memo): ...
     def _reduce_states(self):
         """
@@ -274,7 +280,6 @@ class SentryLiteralArgs(NamedTuple('_SentryLiteralArgs', [('literal_args', Incom
 
     Examples
     --------
-
     The following line:
 
     >>> SentryLiteralArgs(literal_args).for_pysig(pysig).bind(*args, **kwargs)
@@ -283,6 +288,7 @@ class SentryLiteralArgs(NamedTuple('_SentryLiteralArgs', [('literal_args', Incom
 
     >>> sentry_literal_args(pysig, literal_args, args, kwargs)
     """
+
     def for_function(self, func):
         """Bind the sentry to the signature of *func*.
 
@@ -312,6 +318,7 @@ class BoundLiteralArgs(NamedTuple('BoundLiteralArgs', [('pysig', Incomplete), ('
     """
     This class is usually created by SentryLiteralArgs.
     """
+
     def bind(self, *args, **kwargs):
         """Bind to argument types.
         """

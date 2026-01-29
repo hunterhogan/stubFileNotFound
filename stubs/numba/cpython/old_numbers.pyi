@@ -1,7 +1,11 @@
 from _typeshed import Incomplete
-from numba.core import cgutils as cgutils, errors as errors, optional as optional, types as types, typing as typing, utils as utils
+from numba.core import (
+	cgutils as cgutils, errors as errors, optional as optional, types as types, typing as typing, utils as utils)
 from numba.core.extending import intrinsic as intrinsic, overload_method as overload_method
-from numba.core.imputils import impl_ret_borrowed as impl_ret_borrowed, impl_ret_untracked as impl_ret_untracked, lower_builtin as lower_builtin, lower_cast as lower_cast, lower_constant as lower_constant, lower_getattr as lower_getattr, lower_getattr_generic as lower_getattr_generic
+from numba.core.imputils import (
+	impl_ret_borrowed as impl_ret_borrowed, impl_ret_untracked as impl_ret_untracked, lower_builtin as lower_builtin,
+	lower_cast as lower_cast, lower_constant as lower_constant, lower_getattr as lower_getattr,
+	lower_getattr_generic as lower_getattr_generic)
 from numba.cpython.unsafe.numbers import viewer as viewer
 
 def _int_arith_flags(rettype):
@@ -41,11 +45,11 @@ def int_rem_impl(context, builder, sig, args): ...
 def _get_power_zerodiv_return(context, return_type): ...
 def int_power_impl(context, builder, sig, args):
     """
-    a ^ b, where a is an integer or real, and b an integer
+    A ^ b, where a is an integer or real, and b an integer
     """
 def static_power_impl(context, builder, sig, args):
     """
-    a ^ b, where a is an integer or real, and b a constant integer
+    A ^ b, where a is an integer or real, and b a constant integer
     """
 def int_slt_impl(context, builder, sig, args): ...
 def int_sle_impl(context, builder, sig, args): ...
@@ -152,4 +156,4 @@ def literal_int_to_boolean(context, builder, fromty, toty, val): ...
 def constant_complex(context, builder, ty, pyval): ...
 def constant_integer(context, builder, ty, pyval): ...
 def scalar_view(scalar, viewty):
-    """ Typing for the np scalar 'view' method. """
+    """Typing for the np scalar 'view' method."""

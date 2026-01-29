@@ -24,7 +24,7 @@ def generate_version_info(version):
     version_info: tuple
         structured version information
 
-    See also
+    See Also
     --------
     Look at the definition of 'version_info' in this module for details.
 

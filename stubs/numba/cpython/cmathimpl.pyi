@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, types as types
 from numba.core.extending import overload as overload
-from numba.core.imputils import Registry as Registry, impl_ret_untracked as impl_ret_untracked
+from numba.core.imputils import impl_ret_untracked as impl_ret_untracked, Registry as Registry
 from numba.core.typing import signature as signature
 from numba.cpython import builtins as builtins, mathimpl as mathimpl
 
@@ -20,8 +20,10 @@ def intrinsic_complex_unary(inner_func): ...
 NAN: Incomplete
 INF: Incomplete
 
+@intrinsic_complex_unary
 def exp_impl(x, y, x_is_finite, y_is_finite):
     """cmath.exp(x + y j)"""
+@intrinsic_complex_unary
 def log_impl(x, y, x_is_finite, y_is_finite):
     """cmath.log(x + y j)"""
 def log_base_impl(context, builder, sig, args):

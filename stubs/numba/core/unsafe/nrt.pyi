@@ -2,6 +2,7 @@ from numba.core import types as types
 from numba.core.extending import intrinsic as intrinsic
 from numba.core.typing import signature as signature
 
+@intrinsic
 def NRT_get_api(tyctx):
     """NRT_get_api()
 

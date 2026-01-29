@@ -25,7 +25,7 @@ _as_dtype_letters: Incomplete
 def as_dtype(nbtype):
     """
     Return a numpy dtype instance corresponding to the given Numba type.
-    NotImplementedError is if no correspondence is known.
+    NumbaNotImplementedError is if no correspondence is known.
     """
 def as_struct_dtype(rec):
     """Convert Numba Record type to NumPy structured dtype
@@ -67,13 +67,14 @@ def supported_ufunc_loop(ufunc, loop):
     """
 
 class UFuncLoopSpec(NamedTuple('_UFuncLoopSpec', [('inputs', Incomplete), ('outputs', Incomplete), ('ufunc_sig', Incomplete)])):
-    '''
+    """
     An object describing a ufunc loop\'s inner types.  Properties:
     - inputs: the inputs\' Numba types
     - outputs: the outputs\' Numba types
     - ufunc_sig: the string representing the ufunc\'s type signature, in
       Numpy format (e.g. "ii->i")
-    '''
+    """
+
     __slots__: Incomplete
     @property
     def numpy_inputs(self): ...
@@ -110,13 +111,13 @@ def _get_bytes_buffer(ptr, nbytes):
     Get a ctypes array of *nbytes* starting at *ptr*.
     """
 def _get_array_from_ptr(ptr, nbytes, dtype): ...
-def carray(ptr, shape, dtype: Incomplete | None = None):
+def carray(ptr, shape, dtype=None):
     """
     Return a Numpy array view over the data pointed to by *ptr* with the
     given *shape*, in C order.  If *dtype* is given, it is used as the
     array's dtype, otherwise the array's dtype is inferred from *ptr*'s type.
     """
-def farray(ptr, shape, dtype: Incomplete | None = None):
+def farray(ptr, shape, dtype=None):
     """
     Return a Numpy array view over the data pointed to by *ptr* with the
     given *shape*, in Fortran order.  If *dtype* is given, it is used as the
@@ -133,11 +134,11 @@ def is_fortran(dims, strides, itemsize):
     Note: The code is usable as a numba-compiled function
     """
 def type_can_asarray(arr):
-    """ Returns True if the type of 'arr' is supported by the Numba `np.asarray`
+    """Returns True if the type of 'arr' is supported by the Numba `np.asarray`
     implementation, False otherwise.
     """
 def type_is_scalar(typ):
-    """ Returns True if the type of 'typ' is a scalar type, according to
+    """Returns True if the type of 'typ' is a scalar type, according to
     NumPy rules. False otherwise.
     https://numpy.org/doc/stable/reference/arrays.scalars.html#built-in-scalar-types
     """

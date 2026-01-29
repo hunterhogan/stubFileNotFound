@@ -4,16 +4,17 @@ from abc import ABCMeta, abstractmethod
 class AbstractOptionValue(metaclass=ABCMeta):
     """Abstract base class for custom option values.
     """
+
     @abstractmethod
     def encode(self) -> str:
         """Returns an encoding of the values
         """
-    def __repr__(self) -> str: ...
 
 class FastMathOptions(AbstractOptionValue):
     """
     Options for controlling fast math optimization.
     """
+
     flags: Incomplete
     def __init__(self, value) -> None: ...
     def __bool__(self) -> bool: ...
@@ -25,6 +26,7 @@ class ParallelOptions(AbstractOptionValue):
     """
     Options for controlling auto parallelization.
     """
+
     __slots__: Incomplete
     enabled: Incomplete
     comprehension: Incomplete
@@ -46,6 +48,7 @@ class InlineOptions(AbstractOptionValue):
     """
     Options for controlling inlining
     """
+
     _inline: Incomplete
     def __init__(self, value) -> None: ...
     @property

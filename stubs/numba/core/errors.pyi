@@ -1,17 +1,20 @@
-import abc
 from _typeshed import Incomplete
 from abc import abstractmethod
 from collections.abc import Generator
+import abc
+import contextlib
+import types
 
-__all__ = ['NumbaWarning', 'NumbaPerformanceWarning', 'NumbaDeprecationWarning', 'NumbaPendingDeprecationWarning', 'NumbaParallelSafetyWarning', 'NumbaTypeSafetyWarning', 'NumbaExperimentalFeatureWarning', 'NumbaInvalidConfigWarning', 'NumbaPedanticWarning', 'NumbaIRAssumptionWarning', 'NumbaDebugInfoWarning', 'NumbaSystemWarning', 'NumbaError', 'UnsupportedError', 'UnsupportedBytecodeError', 'UnsupportedRewriteError', 'IRError', 'RedefinedError', 'NotDefinedError', 'VerificationError', 'DeprecationError', 'LoweringError', 'UnsupportedParforsError', 'ForbiddenConstruct', 'TypingError', 'UntypedAttributeError', 'ByteCodeSupportError', 'CompilerError', 'ConstantInferenceError', 'InternalError', 'InternalTargetMismatchError', 'NonexistentTargetError', 'RequireLiteralValue', 'ForceLiteralArg', 'LiteralTypingError', 'NumbaValueError', 'NumbaTypeError', 'NumbaAttributeError', 'NumbaAssertionError', 'NumbaNotImplementedError', 'NumbaKeyError', 'NumbaIndexError', 'NumbaRuntimeError']
+__all__ = ['ByteCodeSupportError', 'CompilerError', 'ConstantInferenceError', 'DeprecationError', 'ForbiddenConstruct', 'ForceLiteralArg', 'IRError', 'InternalError', 'InternalTargetMismatchError', 'LiteralTypingError', 'LoweringError', 'NonexistentTargetError', 'NotDefinedError', 'NumbaAssertionError', 'NumbaAttributeError', 'NumbaDebugInfoWarning', 'NumbaDeprecationWarning', 'NumbaError', 'NumbaExperimentalFeatureWarning', 'NumbaIRAssumptionWarning', 'NumbaIndexError', 'NumbaInvalidConfigWarning', 'NumbaKeyError', 'NumbaNotImplementedError', 'NumbaParallelSafetyWarning', 'NumbaPedanticWarning', 'NumbaPendingDeprecationWarning', 'NumbaPerformanceWarning', 'NumbaRuntimeError', 'NumbaSystemWarning', 'NumbaTypeError', 'NumbaTypeSafetyWarning', 'NumbaValueError', 'NumbaWarning', 'RedefinedError', 'RequireLiteralValue', 'TypingError', 'UnsupportedBytecodeError', 'UnsupportedError', 'UnsupportedParforsError', 'UnsupportedRewriteError', 'UntypedAttributeError', 'VerificationError']
 
 class NumbaWarning(Warning):
     """
     Base category for all Numba compiler warnings.
     """
+
     msg: Incomplete
     loc: Incomplete
-    def __init__(self, msg, loc: Incomplete | None = None, highlighting: bool = True) -> None: ...
+    def __init__(self, msg, loc=None, highlighting: bool = True) -> None: ...
 
 class NumbaPerformanceWarning(NumbaWarning):
     """
@@ -48,6 +51,7 @@ class NumbaPedanticWarning(NumbaWarning):
     """
     Warning category for reporting pedantic messages.
     """
+
     def __init__(self, msg, **kwargs) -> None: ...
 
 class NumbaIRAssumptionWarning(NumbaPedanticWarning):
@@ -78,7 +82,7 @@ class _ColorScheme(metaclass=abc.ABCMeta):
     def reset(self, msg): ...
 
 class _DummyColorScheme(_ColorScheme):
-    def __init__(self, theme: Incomplete | None = None) -> None: ...
+    def __init__(self, theme=None) -> None: ...
     def code(self, msg) -> None: ...
     def errmsg(self, msg) -> None: ...
     def filename(self, msg) -> None: ...
@@ -87,7 +91,7 @@ class _DummyColorScheme(_ColorScheme):
     def reset(self, msg) -> None: ...
 
 class NOPColorScheme(_DummyColorScheme):
-    def __init__(self, theme: Incomplete | None = None) -> None: ...
+    def __init__(self, theme=None) -> None: ...
     def code(self, msg): ...
     def errmsg(self, msg): ...
     def filename(self, msg): ...
@@ -114,8 +118,8 @@ class HighlightColorScheme(_DummyColorScheme):
     _indicate: Incomplete
     _highlight: Incomplete
     _reset: Incomplete
-    def __init__(self, theme={'code': None, 'errmsg': None, 'filename': None, 'indicate': None, 'highlight': None, 'reset': None}) -> None: ...
-    def _markup(self, msg, color: Incomplete | None = None, style='\x1b[1m'): ...
+    def __init__(self, theme=...) -> None: ...
+    def _markup(self, msg, color=None, style=...): ...
     def code(self, msg): ...
     def errmsg(self, msg): ...
     def filename(self, msg): ...
@@ -124,18 +128,20 @@ class HighlightColorScheme(_DummyColorScheme):
     def reset(self, msg): ...
 
 class WarningsFixer:
-    '''
+    """
     An object "fixing" warnings of a given category caught during
     certain phases.  The warnings can have their filename and lineno fixed,
     and they are deduplicated as well.
 
     When used as a context manager, any warnings caught by `.catch_warnings()`
     will be flushed at the exit of the context manager.
-    '''
+    """
+
     _category: Incomplete
     _warnings: Incomplete
     def __init__(self, category) -> None: ...
-    def catch_warnings(self, filename: Incomplete | None = None, lineno: Incomplete | None = None) -> Generator[None]:
+    @contextlib.contextmanager
+    def catch_warnings(self, filename=None, lineno=None) -> Generator[None]:
         """
         Store warnings and optionally fix their filename and lineno.
         """
@@ -149,7 +155,7 @@ class WarningsFixer:
 class NumbaError(Exception):
     msg: Incomplete
     loc: Incomplete
-    def __init__(self, msg, loc: Incomplete | None = None, highlighting: bool = True) -> None: ...
+    def __init__(self, msg, loc=None, highlighting: bool = True) -> None: ...
     _contexts: Incomplete
     @property
     def contexts(self): ...
@@ -172,7 +178,8 @@ class UnsupportedError(NumbaError):
 class UnsupportedBytecodeError(Exception):
     """Unsupported bytecode is non-recoverable
     """
-    def __init__(self, msg, loc: Incomplete | None = None) -> None: ...
+
+    def __init__(self, msg, loc=None) -> None: ...
 
 class UnsupportedRewriteError(UnsupportedError):
     """UnsupportedError from rewrite passes
@@ -190,8 +197,9 @@ class NotDefinedError(IRError):
     """
     An undefined variable is encountered during interpretation of IR.
     """
+
     name: Incomplete
-    def __init__(self, name, loc: Incomplete | None = None) -> None: ...
+    def __init__(self, name, loc=None) -> None: ...
 
 class VerificationError(IRError):
     """
@@ -210,7 +218,8 @@ class LoweringError(NumbaError):
     """
     An error occurred during lowering.
     """
-    def __init__(self, msg, loc: Incomplete | None = None) -> None: ...
+
+    def __init__(self, msg, loc=None) -> None: ...
 
 class UnsupportedParforsError(NumbaError):
     """
@@ -226,13 +235,14 @@ class TypingError(NumbaError):
     """
 
 class UntypedAttributeError(TypingError):
-    def __init__(self, value, attr, loc: Incomplete | None = None) -> None: ...
+    def __init__(self, value, attr, loc=None) -> None: ...
 
 class ByteCodeSupportError(NumbaError):
     """
     Failure to extract the bytecode of the user's function.
     """
-    def __init__(self, msg, loc: Incomplete | None = None) -> None: ...
+
+    def __init__(self, msg, loc=None) -> None: ...
 
 class CompilerError(NumbaError):
     """
@@ -243,12 +253,14 @@ class ConstantInferenceError(NumbaError):
     """
     Failure during constant inference.
     """
-    def __init__(self, value, loc: Incomplete | None = None) -> None: ...
+
+    def __init__(self, value, loc=None) -> None: ...
 
 class InternalError(NumbaError):
     """
     For wrapping internal error occurred within the compiler
     """
+
     old_exception: Incomplete
     def __init__(self, exception) -> None: ...
 
@@ -256,6 +268,7 @@ class InternalTargetMismatchError(InternalError):
     """For signalling a target mismatch error occurred internally within the
     compiler.
     """
+
     def __init__(self, kind, target_hw, hw_clazz) -> None: ...
 
 class NonexistentTargetError(InternalError):
@@ -275,9 +288,10 @@ class ForceLiteralArg(NumbaError):
     requested_args : frozenset[int]
         requested positions of the arguments.
     """
+
     requested_args: Incomplete
     fold_arguments: Incomplete
-    def __init__(self, arg_indices, fold_arguments: Incomplete | None = None, loc: Incomplete | None = None) -> None:
+    def __init__(self, arg_indices, fold_arguments=None, loc=None) -> None:
         """
         Parameters
         ----------

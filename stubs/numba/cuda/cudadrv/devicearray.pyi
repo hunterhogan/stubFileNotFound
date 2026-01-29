@@ -1,14 +1,15 @@
-import numpy as np
 from _typeshed import Incomplete
 from collections.abc import Generator
 from numba import _devicearray as _devicearray
-from numba.core import config as config, types as types
+from numba.core import config as config
 from numba.core.errors import NumbaPerformanceWarning as NumbaPerformanceWarning
 from numba.cuda.api_util import prepare_shape_strides_dtype as prepare_shape_strides_dtype
 from numba.cuda.cudadrv import devices as devices, dummyarray as dummyarray
 from numba.np import numpy_support as numpy_support
 from numba.np.numpy_support import numpy_version as numpy_version
 from numba.np.unsafe.ndarray import to_fixed_tuple as to_fixed_tuple
+import numpy as np
+import types as types
 
 lru_cache: Incomplete
 
@@ -22,6 +23,7 @@ def require_cuda_ndarray(obj) -> None:
 class DeviceNDArrayBase(_devicearray.DeviceArray):
     """A on GPU NDArray representation
     """
+
     __cuda_memory__: bool
     __cuda_ndarray__: bool
     ndim: Incomplete
@@ -33,7 +35,7 @@ class DeviceNDArrayBase(_devicearray.DeviceArray):
     alloc_size: Incomplete
     gpu_data: Incomplete
     stream: Incomplete
-    def __init__(self, shape, strides, dtype, stream: int = 0, gpu_data: Incomplete | None = None) -> None:
+    def __init__(self, shape, strides, dtype, stream: int = 0, gpu_data=None) -> None:
         """
         Args
         ----
@@ -57,7 +59,7 @@ class DeviceNDArrayBase(_devicearray.DeviceArray):
         """
     @property
     def T(self): ...
-    def transpose(self, axes: Incomplete | None = None): ...
+    def transpose(self, axes=None): ...
     def _default_stream(self, stream): ...
     @property
     def _numba_type_(self):
@@ -69,13 +71,15 @@ class DeviceNDArrayBase(_devicearray.DeviceArray):
     def device_ctypes_pointer(self):
         """Returns the ctypes pointer to the GPU data buffer
         """
+    @devices.require_context
     def copy_to_device(self, ary, stream: int = 0) -> None:
         """Copy `ary` to `self`.
 
         If `ary` is a CUDA memory, perform a device-to-device transfer.
         Otherwise, perform a a host-to-device transfer.
         """
-    def copy_to_host(self, ary: Incomplete | None = None, stream: int = 0):
+    @devices.require_context
+    def copy_to_host(self, ary=None, stream: int = 0):
         """Copy ``self`` to ``ary`` or create a new Numpy ndarray
         if ``ary`` is ``None``.
 
@@ -112,7 +116,7 @@ class DeviceNDArrayBase(_devicearray.DeviceArray):
 
         Note: this feature is only available on Linux.
         """
-    def squeeze(self, axis: Incomplete | None = None, stream: int = 0):
+    def squeeze(self, axis=None, stream: int = 0):
         """
         Remove axes of size one from the array shape.
 
@@ -142,7 +146,8 @@ class DeviceRecord(DeviceNDArrayBase):
     """
     An on-GPU record type
     """
-    def __init__(self, dtype, stream: int = 0, gpu_data: Incomplete | None = None) -> None: ...
+
+    def __init__(self, dtype, stream: int = 0, gpu_data=None) -> None: ...
     @property
     def flags(self):
         """
@@ -157,17 +162,22 @@ class DeviceRecord(DeviceNDArrayBase):
         Magic attribute expected by Numba to get the numba type that
         represents this object.
         """
+    @devices.require_context
     def __getitem__(self, item): ...
+    @devices.require_context
     def getitem(self, item, stream: int = 0):
         """Do `__getitem__(item)` with CUDA stream
         """
     def _do_getitem(self, item, stream: int = 0): ...
+    @devices.require_context
     def __setitem__(self, key, value) -> None: ...
+    @devices.require_context
     def setitem(self, key, value, stream: int = 0):
         """Do `__setitem__(key, value)` with CUDA stream
         """
     def _do_setitem(self, key, value, stream: int = 0) -> None: ...
 
+@lru_cache
 def _assign_kernel(ndim):
     """
     A separate method so we don't need to compile code every assignment (!).
@@ -180,6 +190,7 @@ class DeviceNDArray(DeviceNDArrayBase):
     """
     An on-GPU array type
     """
+
     def is_f_contiguous(self):
         """
         Return true if the array is Fortran-contiguous.
@@ -196,7 +207,7 @@ class DeviceNDArray(DeviceNDArrayBase):
         """
         Return true if the array is C-contiguous.
         """
-    def __array__(self, dtype: Incomplete | None = None):
+    def __array__(self, dtype=None):
         """
         :return: an `numpy.ndarray`, so copies to the host.
         """
@@ -214,12 +225,16 @@ class DeviceNDArray(DeviceNDArrayBase):
         :meth:`numpy.ndarray.ravel`. If the array is not contiguous, raises an
         exception.
         """
+    @devices.require_context
     def __getitem__(self, item): ...
+    @devices.require_context
     def getitem(self, item, stream: int = 0):
         """Do `__getitem__(item)` with CUDA stream
         """
     def _do_getitem(self, item, stream: int = 0): ...
+    @devices.require_context
     def __setitem__(self, key, value) -> None: ...
+    @devices.require_context
     def setitem(self, key, value, stream: int = 0):
         """Do `__setitem__(key, value)` with CUDA stream
         """
@@ -244,6 +259,7 @@ class IpcArrayHandle:
             some_code(ipc_array)
         # ipc_array is dead at this point
     """
+
     _array_desc: Incomplete
     _ipc_handle: Incomplete
     def __init__(self, ipc_handle, array_desc) -> None: ...
@@ -263,6 +279,7 @@ class MappedNDArray(DeviceNDArrayBase, np.ndarray):
     """
     A host array that uses CUDA mapped memory.
     """
+
     gpu_data: Incomplete
     stream: Incomplete
     def device_setup(self, gpu_data, stream: int = 0) -> None: ...
@@ -271,13 +288,14 @@ class ManagedNDArray(DeviceNDArrayBase, np.ndarray):
     """
     A host array that uses CUDA managed memory.
     """
+
     gpu_data: Incomplete
     stream: Incomplete
     def device_setup(self, gpu_data, stream: int = 0) -> None: ...
 
-def from_array_like(ary, stream: int = 0, gpu_data: Incomplete | None = None):
+def from_array_like(ary, stream: int = 0, gpu_data=None):
     """Create a DeviceNDArray object that is like ary."""
-def from_record_like(rec, stream: int = 0, gpu_data: Incomplete | None = None):
+def from_record_like(rec, stream: int = 0, gpu_data=None):
     """Create a DeviceRecord object that is like rec."""
 def array_core(ary):
     """

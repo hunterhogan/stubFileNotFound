@@ -1,13 +1,15 @@
 from _typeshed import Incomplete
-from numba.core import errors as errors, ir as ir, ir_utils as ir_utils, sigutils as sigutils, types as types
+from numba.core import errors as errors, ir as ir, ir_utils as ir_utils, sigutils as sigutils
 from numba.core.ir_utils import build_definitions as build_definitions
 from numba.core.transforms import find_region_inout_vars as find_region_inout_vars
 from numba.core.typing.typeof import typeof_impl as typeof_impl
+import types as types
 
 class WithContext:
     """A dummy object for use as contextmanager.
     This can be used as a contextmanager.
     """
+
     is_callable: bool
     def __enter__(self) -> None: ...
     def __exit__(self, typ: type[BaseException] | None, val: BaseException | None, tb: types.TracebackType | None) -> None: ...
@@ -28,16 +30,15 @@ class WithContext:
 
 def typeof_contextmanager(val, c): ...
 def _get_var_parent(name):
-    """Get parent of the variable given its name
-    """
+    """Get parent of the variable given its name"""
 def _clear_blocks(blocks, to_clear) -> None:
-    """Remove keys in *to_clear* from *blocks*.
-    """
+    """Remove keys in *to_clear* from *blocks*."""
 
 class _ByPassContextType(WithContext):
     """A simple context-manager that tells the compiler to bypass the body
     of the with-block.
     """
+
     def mutate_with_body(self, func_ir, blocks, blk_start, blk_end, body_blocks, dispatcher_factory, extra) -> None: ...
 
 bypass_context: Incomplete
@@ -46,12 +47,13 @@ class _CallContextType(WithContext):
     """A simple context-manager that tells the compiler to lift the body of the
     with-block as another function.
     """
+
     def mutate_with_body(self, func_ir, blocks, blk_start, blk_end, body_blocks, dispatcher_factory, extra): ...
 
 call_context: Incomplete
 
 class _ObjModeContextType(WithContext):
-    '''Creates a contextmanager to be used inside jitted functions to enter
+    """Creates a contextmanager to be used inside jitted functions to enter
     *object-mode* for using interpreter features.  The body of the with-context
     is lifted into a function that is compiled in *object-mode*.  This
     transformation process is limited and cannot process all possible
@@ -107,7 +109,8 @@ class _ObjModeContextType(WithContext):
     .. warning:: This feature is experimental.  The supported features may
         change with or without notice.
 
-    '''
+    """
+
     is_callable: bool
     def _legalize_args(self, func_ir, args, kwargs, loc, func_globals, func_closures):
         """

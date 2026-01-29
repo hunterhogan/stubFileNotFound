@@ -80,7 +80,6 @@ def find_literally_calls(func_ir, argtypes) -> None:
 
     Parameters
     ----------
-
     func_ir : numba.ir.FunctionIR
 
     argtypes : Sequence[numba.types.Type]

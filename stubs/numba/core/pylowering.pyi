@@ -1,7 +1,9 @@
 from _typeshed import Incomplete
 from functools import cached_property as cached_property
 from numba.core import cgutils as cgutils, generators as generators, ir as ir, types as types, utils as utils
-from numba.core.errors import ForbiddenConstruct as ForbiddenConstruct, LoweringError as LoweringError, NumbaNotImplementedError as NumbaNotImplementedError
+from numba.core.errors import (
+	ForbiddenConstruct as ForbiddenConstruct, LoweringError as LoweringError,
+	NumbaNotImplementedError as NumbaNotImplementedError)
 from numba.core.lowering import BaseLower as BaseLower
 
 _unsupported_builtins: Incomplete
@@ -10,7 +12,7 @@ class _Undefined:
     """
     A sentinel value for undefined variable created by Expr.undef.
     """
-    def __repr__(self) -> str: ...
+
 
 _UNDEFINED: Incomplete
 PYTHON_BINOPMAP: Incomplete
@@ -78,7 +80,7 @@ class PyLower(BaseLower):
         """
         Initialize live variables for *block*.
         """
-    def _getvar(self, name, ltype: Incomplete | None = None): ...
+    def _getvar(self, name, ltype=None): ...
     def loadvar(self, name):
         """
         Load the llvm value of the variable named *name*.
@@ -97,7 +99,7 @@ class PyLower(BaseLower):
         """
         Cleanup live variables.
         """
-    def alloca(self, name, ltype: Incomplete | None = None):
+    def alloca(self, name, ltype=None):
         """
         Allocate a stack slot and initialize it to NULL.
         The default is to allocate a pyobject pointer.

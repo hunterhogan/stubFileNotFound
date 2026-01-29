@@ -1,4 +1,3 @@
-import abc
 from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from collections.abc import Generator
@@ -9,12 +8,13 @@ from numba.core.compiler import CompileResult as CompileResult
 from numba.core.errors import NumbaWarning as NumbaWarning
 from numba.core.serialize import dumps as dumps
 from numba.misc.appdirs import AppDirs as AppDirs
+import contextlib
 
 def _cache_log(msg, *args) -> None: ...
 
 class _Cache(metaclass=ABCMeta):
     @property
-    @abc.abstractmethod
+    @abstractmethod
     def cache_path(self):
         """
         The base filesystem path of this cache (for example its root folder).
@@ -60,6 +60,7 @@ class _CacheLocator(metaclass=ABCMeta):
     """
     A filesystem locator for caching a given function.
     """
+
     def ensure_cache_path(self) -> None: ...
     @abstractmethod
     def get_cache_path(self):
@@ -98,16 +99,18 @@ class _SourceFileBackedLocatorMixin:
     A cache locator mixin for functions which are backed by a well-known
     Python source file.
     """
+
     def get_source_stamp(self): ...
     def get_disambiguator(self): ...
     @classmethod
     def from_function(cls, py_func, py_file): ...
 
-class _UserProvidedCacheLocator(_SourceFileBackedLocatorMixin, _CacheLocator):
+class UserProvidedCacheLocator(_SourceFileBackedLocatorMixin, _CacheLocator):
     """
     A locator that always point to the user provided directory in
     `numba.config.CACHE_DIR`
     """
+
     _py_file: Incomplete
     _lineno: Incomplete
     _cache_path: Incomplete
@@ -116,22 +119,33 @@ class _UserProvidedCacheLocator(_SourceFileBackedLocatorMixin, _CacheLocator):
     @classmethod
     def from_function(cls, py_func, py_file): ...
 
-class _InTreeCacheLocator(_SourceFileBackedLocatorMixin, _CacheLocator):
+class InTreeCacheLocator(_SourceFileBackedLocatorMixin, _CacheLocator):
     """
     A locator for functions backed by a regular Python module with a
     writable __pycache__ directory.
     """
+
     _py_file: Incomplete
     _lineno: Incomplete
     _cache_path: Incomplete
     def __init__(self, py_func, py_file) -> None: ...
     def get_cache_path(self): ...
 
-class _UserWideCacheLocator(_SourceFileBackedLocatorMixin, _CacheLocator):
+class InTreeCacheLocatorFsAgnostic(InTreeCacheLocator):
+    """
+    A locator for functions backed by a regular Python module with a
+    writable __pycache__ directory. This version is agnostic to filesystem differences,
+    e.g. timestamp precision with milliseconds.
+    """
+
+    def get_source_stamp(self): ...
+
+class UserWideCacheLocator(_SourceFileBackedLocatorMixin, _CacheLocator):
     """
     A locator for functions backed by a regular Python module or a
     frozen executable, cached into a user-wide cache directory.
     """
+
     _py_file: Incomplete
     _lineno: Incomplete
     _cache_path: Incomplete
@@ -140,10 +154,11 @@ class _UserWideCacheLocator(_SourceFileBackedLocatorMixin, _CacheLocator):
     @classmethod
     def from_function(cls, py_func, py_file): ...
 
-class _IPythonCacheLocator(_CacheLocator):
+class IPythonCacheLocator(_CacheLocator):
     """
     A locator for functions entered at the IPython prompt (notebook or other).
     """
+
     _py_file: Incomplete
     _bytes_source: Incomplete
     def __init__(self, py_func, py_file) -> None: ...
@@ -153,10 +168,11 @@ class _IPythonCacheLocator(_CacheLocator):
     @classmethod
     def from_function(cls, py_func, py_file): ...
 
-class _ZipCacheLocator(_SourceFileBackedLocatorMixin, _CacheLocator):
+class ZipCacheLocator(_SourceFileBackedLocatorMixin, _CacheLocator):
     """
     A locator for functions backed by Python modules within a zip archive.
     """
+
     _py_file: Incomplete
     _lineno: Incomplete
     _cache_path: Incomplete
@@ -175,6 +191,7 @@ class CacheImpl(metaclass=ABCMeta):
     - control the filename of the cache.
     - provide the cache locator
     """
+
     _locator_classes: Incomplete
     _lineno: Incomplete
     _locator: Incomplete
@@ -199,6 +216,7 @@ class CompileResultCacheImpl(CacheImpl):
     """
     Implements the logic to cache CompileResult objects.
     """
+
     def reduce(self, cres):
         """
         Returns a serialized CompileResult
@@ -216,6 +234,7 @@ class CodeLibraryCacheImpl(CacheImpl):
     """
     Implements the logic to cache CodeLibrary objects.
     """
+
     _filename_prefix: Incomplete
     def reduce(self, codelib):
         """
@@ -235,6 +254,7 @@ class IndexDataCacheFile:
     """
     Implements the logic for the index file and data file used by a cache.
     """
+
     _cache_path: Incomplete
     _index_name: Incomplete
     _index_path: Incomplete
@@ -262,6 +282,7 @@ class IndexDataCacheFile:
     def _data_name(self, number): ...
     def _data_path(self, name): ...
     def _dump(self, obj): ...
+    @contextlib.contextmanager
     def _open_for_write(self, filepath) -> Generator[Incomplete]:
         """
         Open *filepath* for writing in a race condition-free way (hopefully).
@@ -269,7 +290,7 @@ class IndexDataCacheFile:
         """
 
 class Cache(_Cache):
-    '''
+    """
     A per-function compilation cache.  The cache saves data in separate
     data files and maintains information in an index file.
 
@@ -288,7 +309,8 @@ class Cache(_Cache):
     Note:
     This contains the driver logic only.  The core logic is provided
     by a subclass of ``CacheImpl`` specified as *_impl_class* in the subclass.
-    '''
+    """
+
     _impl_class: Incomplete
     _name: Incomplete
     _py_func: Incomplete
@@ -296,7 +318,6 @@ class Cache(_Cache):
     _cache_path: Incomplete
     _cache_file: Incomplete
     def __init__(self, py_func) -> None: ...
-    def __repr__(self) -> str: ...
     @property
     def cache_path(self): ...
     _enabled: bool
@@ -314,6 +335,7 @@ class Cache(_Cache):
         Save the data for the given signature in the cache.
         """
     def _save_overload(self, sig, data) -> None: ...
+    @contextlib.contextmanager
     def _guard_against_spurious_io_errors(self) -> Generator[None]: ...
     def _index_key(self, sig, codegen):
         """
@@ -327,6 +349,7 @@ class FunctionCache(Cache):
     """
     Implements Cache that saves and loads CompileResult objects.
     """
+
     _impl_class = CompileResultCacheImpl
 
 _lib_cache_prefixes: Incomplete

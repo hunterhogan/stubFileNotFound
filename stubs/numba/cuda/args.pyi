@@ -1,7 +1,7 @@
-import abc
 from _typeshed import Incomplete
+import abc
 
-__all__ = ['In', 'Out', 'InOut', 'ArgHint', 'wrap_arg']
+__all__ = ['ArgHint', 'In', 'InOut', 'Out', 'wrap_arg']
 
 class ArgHint(metaclass=abc.ABCMeta):
     value: Incomplete

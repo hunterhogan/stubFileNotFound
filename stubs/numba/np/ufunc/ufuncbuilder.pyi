@@ -1,19 +1,23 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from numba.core import compiler as compiler, config as config, serialize as serialize, sigutils as sigutils, targetconfig as targetconfig, types as types, utils as utils
+from contextlib import contextmanager
+from numba.core import (
+	compiler as compiler, config as config, serialize as serialize, sigutils as sigutils, targetconfig as targetconfig,
+	types as types, utils as utils)
 from numba.core.caching import FunctionCache as FunctionCache, NullCache as NullCache
 from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
 from numba.core.decorators import jit as jit
 from numba.core.descriptors import TargetDescriptor as TargetDescriptor
 from numba.core.errors import NumbaDeprecationWarning as NumbaDeprecationWarning
 from numba.core.extending import is_jitted as is_jitted
-from numba.core.options import TargetOptions as TargetOptions, include_default_options as include_default_options
+from numba.core.options import include_default_options as include_default_options, TargetOptions as TargetOptions
 from numba.core.registry import cpu_target as cpu_target
 from numba.core.target_extension import dispatcher_registry as dispatcher_registry, target_registry as target_registry
 from numba.np.numpy_support import as_dtype as as_dtype
 from numba.np.ufunc import _internal as _internal
 from numba.np.ufunc.sigparse import parse_signature as parse_signature
-from numba.np.ufunc.wrappers import build_gufunc_wrapper as build_gufunc_wrapper, build_ufunc_wrapper as build_ufunc_wrapper
+from numba.np.ufunc.wrappers import (
+	build_gufunc_wrapper as build_gufunc_wrapper, build_ufunc_wrapper as build_ufunc_wrapper)
 
 _options_mixin: Incomplete
 
@@ -34,13 +38,14 @@ class UFuncDispatcher(serialize.ReduceMixin):
     """
     An object handling compilation of various signatures for a ufunc.
     """
+
     targetdescr = ufunc_target
     py_func: Incomplete
     overloads: Incomplete
     targetoptions: Incomplete
     locals: Incomplete
     cache: Incomplete
-    def __init__(self, py_func, locals={}, targetoptions={}) -> None: ...
+    def __init__(self, py_func, locals=None, targetoptions=None) -> None: ...
     def _reduce_states(self):
         """
         NOTE: part of ReduceMixin protocol
@@ -51,7 +56,7 @@ class UFuncDispatcher(serialize.ReduceMixin):
         NOTE: part of ReduceMixin protocol
         """
     def enable_caching(self) -> None: ...
-    def compile(self, sig, locals={}, **targetoptions): ...
+    def compile(self, sig, locals=None, **targetoptions): ...
     def _compile_core(self, sig, flags, locals):
         """
         Trigger the compiler on the core function or load a previously
@@ -76,14 +81,16 @@ def parse_identity(identity):
     Parse an identity value and return the corresponding low-level value
     for Numpy.
     """
+@contextmanager
 def _suppress_deprecation_warning_nopython_not_supplied() -> Generator[None]:
-    '''This suppresses the NumbaDeprecationWarning that occurs through the use
+    """This suppresses the NumbaDeprecationWarning that occurs through the use
     of `jit` without the `nopython` kwarg. This use of `jit` occurs in a few
     places in the `{g,}ufunc` mechanism in Numba, predominantly to wrap the
-    "kernel" function.'''
+    "kernel" function.
+    """
 
 class _BaseUFuncBuilder:
-    def add(self, sig: Incomplete | None = None): ...
+    def add(self, sig=None): ...
     def disable_compile(self) -> None:
         """
         Disable the compilation of new signatures at call time.
@@ -95,7 +102,7 @@ class UFuncBuilder(_BaseUFuncBuilder):
     nb_func: Incomplete
     _sigs: Incomplete
     _cres: Incomplete
-    def __init__(self, py_func, identity: Incomplete | None = None, cache: bool = False, targetoptions={}) -> None: ...
+    def __init__(self, py_func, identity=None, cache: bool = False, targetoptions=None) -> None: ...
     def _finalize_signature(self, cres, args, return_type):
         """Slated for deprecation, use ufuncbuilder._finalize_ufunc_signature()
         instead.
@@ -116,8 +123,9 @@ class GUFuncBuilder(_BaseUFuncBuilder):
     _sigs: Incomplete
     _cres: Incomplete
     writable_args: Incomplete
-    def __init__(self, py_func, signature, identity: Incomplete | None = None, cache: bool = False, targetoptions={}, writable_args=()) -> None: ...
+    def __init__(self, py_func, signature, identity=None, cache: bool = False, targetoptions=None, writable_args=()) -> None: ...
     def _finalize_signature(self, cres, args, return_type): ...
+    @global_compiler_lock
     def build_ufunc(self): ...
     def build(self, cres):
         """

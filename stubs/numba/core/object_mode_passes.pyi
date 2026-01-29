@@ -1,5 +1,8 @@
-from numba.core import config as config, errors as errors, funcdesc as funcdesc, pylowering as pylowering, transforms as transforms, types as types, typing as typing
-from numba.core.compiler_machinery import FunctionPass as FunctionPass, LoweringPass as LoweringPass, register_pass as register_pass
+from numba.core import (
+	config as config, errors as errors, funcdesc as funcdesc, pylowering as pylowering, transforms as transforms,
+	types as types, typing as typing)
+from numba.core.compiler_machinery import (
+	FunctionPass as FunctionPass, LoweringPass as LoweringPass, register_pass as register_pass)
 
 class ObjectModeFrontEnd(FunctionPass):
     _name: str

@@ -1,13 +1,23 @@
-import abc
 from _typeshed import Incomplete
 from collections.abc import Generator
-from numba.core import config as config, errors as errors, funcdesc as funcdesc, ir as ir, lowering as lowering, postproc as postproc, rewrites as rewrites, typeinfer as typeinfer, types as types, typing as typing
+from contextlib import contextmanager
+from numba.core import (
+	config as config, errors as errors, funcdesc as funcdesc, ir as ir, lowering as lowering, postproc as postproc,
+	rewrites as rewrites, typeinfer as typeinfer, types as types, typing as typing)
 from numba.core.annotations import type_annotations as type_annotations
-from numba.core.compiler_machinery import AnalysisPass as AnalysisPass, FunctionPass as FunctionPass, LoweringPass as LoweringPass, register_pass as register_pass
-from numba.core.ir_utils import build_definitions as build_definitions, check_and_legalize_ir as check_and_legalize_ir, compute_cfg_from_blocks as compute_cfg_from_blocks, dead_code_elimination as dead_code_elimination, get_definition as get_definition, guard as guard, is_operator_or_getitem as is_operator_or_getitem, raise_on_unsupported_feature as raise_on_unsupported_feature, replace_vars as replace_vars, simplify_CFG as simplify_CFG, warn_deprecated as warn_deprecated
+from numba.core.compiler_machinery import (
+	AnalysisPass as AnalysisPass, FunctionPass as FunctionPass, LoweringPass as LoweringPass,
+	register_pass as register_pass)
+from numba.core.ir_utils import (
+	build_definitions as build_definitions, check_and_legalize_ir as check_and_legalize_ir,
+	compute_cfg_from_blocks as compute_cfg_from_blocks, dead_code_elimination as dead_code_elimination,
+	get_definition as get_definition, guard as guard, is_operator_or_getitem as is_operator_or_getitem,
+	raise_on_unsupported_feature as raise_on_unsupported_feature, replace_vars as replace_vars,
+	simplify_CFG as simplify_CFG, warn_deprecated as warn_deprecated)
 from numba.parfors.parfor import Parfor as Parfor
 from numba.parfors.parfor_lowering import ParforLower as ParforLower
 from typing import NamedTuple
+import abc
 
 class _TypingResults(NamedTuple):
     typemap: Incomplete
@@ -15,11 +25,12 @@ class _TypingResults(NamedTuple):
     calltypes: Incomplete
     typing_errors: Incomplete
 
+@contextmanager
 def fallback_context(state, msg) -> Generator[None]:
     """
     Wraps code that would signal a fallback to object mode
     """
-def type_inference_stage(typingctx, targetctx, interp, args, return_type, locals={}, raise_errors: bool = True): ...
+def type_inference_stage(typingctx, targetctx, interp, args, return_type, locals=None, raise_errors: bool = True): ...
 
 class BaseTypeInference(FunctionPass):
     _raise_errors: bool
@@ -98,33 +109,42 @@ class DumpParforDiagnostics(AnalysisPass):
 class BaseNativeLowering(abc.ABC, LoweringPass, metaclass=abc.ABCMeta):
     """The base class for a lowering pass. The lowering functionality must be
     specified in inheriting classes by providing an appropriate lowering class
-    implementation in the overridden `lowering_class` property."""
+    implementation in the overridden `lowering_class` property.
+    """
+
     _name: Incomplete
     def __init__(self) -> None: ...
     @property
     @abc.abstractmethod
     def lowering_class(self):
         """Returns the class that performs the lowering of the IR describing the
-        function that is the target of the current compilation."""
+        function that is the target of the current compilation.
+        """
     def run_pass(self, state): ...
 
 class NativeLowering(BaseNativeLowering):
     """Lowering pass for a native function IR described solely in terms of
-     Numba's standard `numba.core.ir` nodes."""
+    Numba's standard `numba.core.ir` nodes.
+    """
+
     _name: str
     @property
     def lowering_class(self): ...
 
 class NativeParforLowering(BaseNativeLowering):
     """Lowering pass for a native function IR described using Numba's standard
-    `numba.core.ir` nodes and also parfor.Parfor nodes."""
+    `numba.core.ir` nodes and also parfor.Parfor nodes.
+    """
+
     _name: str
     @property
     def lowering_class(self): ...
 
 class NoPythonSupportedFeatureValidation(AnalysisPass):
     """NoPython Mode check: Validates the IR to ensure that features in use are
-    in a form that is supported"""
+    in a form that is supported
+    """
+
     _name: str
     def __init__(self) -> None: ...
     def run_pass(self, state): ...
@@ -151,6 +171,7 @@ class InlineOverloads(FunctionPass):
     This is a typed pass. CFG simplification and DCE are performed on
     completion.
     """
+
     _name: str
     def __init__(self) -> None: ...
     _DEBUG: bool
@@ -167,6 +188,7 @@ class DeadCodeElimination(FunctionPass):
     """
     Does dead code elimination
     """
+
     _name: str
     def __init__(self) -> None: ...
     def run_pass(self, state): ...
@@ -178,6 +200,7 @@ class PreLowerStripPhis(FunctionPass):
     match the semantics of phi nodes in LLVM IR. In Numba IR, phi nodes may
     expand into multiple LLVM instructions.
     """
+
     _name: str
     def __init__(self) -> None: ...
     def run_pass(self, state): ...
