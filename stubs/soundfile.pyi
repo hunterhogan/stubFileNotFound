@@ -1,8 +1,6 @@
-from _typeshed import Incomplete
-from collections.abc import Generator
-from numpy.compat import unicode
+from collections.abc import Callable, Generator
 from os import PathLike
-from typeshed.stubs.cffi import _cffi_backend
+import _cffi_backend
 from typing import Any, ClassVar, Literal, overload
 import numpy
 
@@ -10,23 +8,22 @@ __version__: str
 SEEK_SET: int
 SEEK_CUR: int
 SEEK_END: int
-_unicode = unicode
 _unicode = str
 _ffi: _cffi_backend.FFI
-_str_types: dict
-_formats: dict
-_subtypes: dict
-_endians: dict
-_default_subtypes: dict
-_ffi_types: dict
-_bitrate_modes: dict
+_str_types: dict[str, int]
+_formats: dict[str, int]
+_subtypes: dict[str, int]
+_endians: dict[str, int]
+_default_subtypes: dict[str, str]
+_ffi_types: dict[str, str]
+_bitrate_modes: dict[str, int]
 _packaged_libname: str
 _path: str
 _full_path: str
-_snd: Incomplete
-_libname: Incomplete
+_snd: _cffi_backend.Lib
+_libname: str | None
 _explicit_libname: str
-_hbrew_path: Incomplete
+_hbrew_path: str | None
 __libsndfile_version__: str
 @overload
 def read(file: str | int | PathLike[Any], frames: int = -1, start: int = 0, stop: int | None = None, dtype: Literal['float64', 'float32', 'int32', 'int16'] = 'float64', always_2d: Literal[True] = True, fill_value: float | None = None, out: numpy.ndarray[tuple[int, int], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]] | None = None, samplerate: int | None = None, channels: int | None = None, format: str | None = None, subtype: str | None = None, endian: str | None = None, closefd: bool = True) -> tuple[numpy.ndarray[tuple[int, int], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]], int]:...
@@ -212,7 +209,7 @@ def blocks(file: str | int | PathLike[Any], blocksize: int | None = None, overla
 
 class _SoundFileInfo:
     """Information about a SoundFile"""
-    verbose: Incomplete
+    verbose: bool
     name: str | int | Any
     samplerate: int
     channels: int
@@ -312,7 +309,7 @@ class SoundFile:
     _mode: str
     _compression_level: float
     _bitrate_mode: str
-    _info: Incomplete
+    _info: _cffi_backend.FFI.CData
     _file: ClassVar[None] = ...
     def __init__(self, file: str | int | PathLike[Any], mode: str = 'r', samplerate: int | None = None, channels: int | None = None, subtype: str | None = None, endian: str | None = None, format: str | None = None, closefd: bool = True, compression_level: float | None = None, bitrate_mode: str | None = None) -> None:
         '''Open a sound file.
@@ -413,8 +410,6 @@ class SoundFile:
         >>> assert myfile.closed
 
         '''
-    _errorcode: Incomplete
-
 
     @property
     def name(self) -> str | int | Any: ...
@@ -780,7 +775,8 @@ class SoundFile:
         """Close the file.  Can be called multiple times."""
     def _open(self, file: str | int | PathLike[Any], mode_int: int, closefd: bool) -> Any:
         """Call the appropriate sf_open*() function from libsndfile."""
-    _virtual_io: Incomplete
+	# NOTE: the callback functions must be kept alive!
+    _virtual_io: dict[str, Callable[..., Any] | Callable[..., Any | int]]
     def _init_virtual_io(self, file: Any) -> Any:
         """Initialize callback functions for sf_open_virtual()."""
     def _getAttributeNames(self) -> list[str]:
@@ -826,7 +822,8 @@ class SoundFile:
         """Call libsndfile's set bitrate mode function."""
     def _set_compression_level(self, compression_level: float) -> None:
         """Call libsndfile's set compression level function."""
-
+    @property
+    def _errorcode(self) -> int: ...
 def _error_check(err: int, prefix: str = '') -> None:
     """Raise LibsndfileError if there is an error."""
 def _format_int(format: str, subtype: str | None, endian: str | None) -> int:
@@ -871,8 +868,8 @@ class LibsndfileError(SoundFileRuntimeError):
     code
         libsndfile internal error number.
     """
-    code: Incomplete
-    prefix: Incomplete
+    code: int
+    prefix: str
     def __init__(self, code: int, prefix: str = '') -> None: ...
     @property
     def error_string(self) -> str:
