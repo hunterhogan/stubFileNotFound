@@ -37,7 +37,7 @@ dependencies = [
 optional-dependencies = { development = [
   "setuptools-scm",
 ], stubdefaulter = [
-  "cytoolz",
+  "fonttools",
   "odfpy",
   "pandas",
   "python_toolbox",
@@ -46,7 +46,6 @@ optional-dependencies = { development = [
   "scipy-stubs",
   "scipy",
   "sqlalchemy",
-  "toolz",
   "xarray",
   "xlsxwriter",
 ], testing = [

@@ -1,0 +1,29 @@
+from _typeshed import Incomplete
+
+class Error(Exception):
+    """Base Cu2Qu exception class for all other errors."""
+
+class ApproxNotFoundError(Error):
+    curve: Incomplete
+    def __init__(self, curve) -> None: ...
+
+class UnequalZipLengthsError(Error): ...
+
+class IncompatibleGlyphsError(Error):
+    glyphs: Incomplete
+    combined_name: Incomplete
+    def __init__(self, glyphs) -> None: ...
+    def __repr__(self) -> str: ...
+
+class IncompatibleSegmentNumberError(IncompatibleGlyphsError):
+    def __str__(self) -> str: ...
+
+class IncompatibleSegmentTypesError(IncompatibleGlyphsError):
+    segments: Incomplete
+    def __init__(self, glyphs, segments) -> None: ...
+    def __str__(self) -> str: ...
+
+class IncompatibleFontsError(Error):
+    glyph_errors: Incomplete
+    def __init__(self, glyph_errors) -> None: ...
+    def __str__(self) -> str: ...
