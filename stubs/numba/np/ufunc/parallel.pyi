@@ -1,11 +1,10 @@
 from _typeshed import Incomplete
-from numba.core import cgutils as cgutils, config as config, errors as errors
+from numba.core import cgutils as cgutils, config as config, errors as errors, types as types
 from numba.core.typing import signature as signature
 from numba.extending import intrinsic as intrinsic, overload as overload
 from numba.np.numpy_support import as_dtype as as_dtype
 from numba.np.ufunc import ufuncbuilder as ufuncbuilder
 from numba.np.ufunc.wrappers import _wrapper_info as _wrapper_info
-import types as types
 
 _IS_OSX: Incomplete
 _IS_LINUX: Incomplete
@@ -73,7 +72,7 @@ class ParallelUFuncBuilder(ufuncbuilder.UFuncBuilder):
 def build_ufunc_wrapper(library, ctx, fname, signature, cres): ...
 
 class ParallelGUFuncBuilder(ufuncbuilder.GUFuncBuilder):
-    def __init__(self, py_func, signature, identity=None, cache: bool = False, targetoptions=None, writable_args=()) -> None: ...
+    def __init__(self, py_func, signature, identity: Incomplete | None = None, cache: bool = False, targetoptions={}, writable_args=()) -> None: ...
     def build(self, cres):
         """
         Returns (dtype numbers, function ptr, EnvironmentObject)
@@ -118,7 +117,7 @@ def gen_snt_check(): ...
 snt_check: Incomplete
 
 def ol_snt_check(n): ...
-def set_num_threads(n) -> None:
+def set_num_threads(n: int) -> None:
     """
     Set the number of threads to use for parallel execution.
 
@@ -142,7 +141,7 @@ def set_num_threads(n) -> None:
 
     """
 def ol_set_num_threads(n): ...
-def get_num_threads():
+def get_num_threads() -> int:
     """
     Get the number of threads used for parallel execution.
 
