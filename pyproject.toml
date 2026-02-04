@@ -24,6 +24,7 @@ classifiers = [
 urls = { Donate = "https://www.patreon.com/integrated", Homepage = "https://github.com/hunterhogan/stubFileNotFound", Repository = "https://github.com/hunterhogan/stubFileNotFound.git" }
 dependencies = [
   "MonkeyType",
+  "charset_normalizer",
   "hunterMakesPy",
   "libcst",
   "mypy",

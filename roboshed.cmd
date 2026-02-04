@@ -5,19 +5,19 @@ git -C C:\clones\typeshed pull
 
 PUSHd C:\apps\stubFileNotFound
 
-robocopy C:\clones\pandas-stubs\pandas-stubs stubs\pandas /S /MT
-robocopy C:\clones\typeshed\stdlib stubs\stdlib /S /MT
+ROBOCOPY C:\clones\pandas-stubs\pandas-stubs stubs\pandas /S /MT
+ROBOCOPY C:\clones\typeshed\stdlib stubs\stdlib /S /MT
 
-IF NOT DEFINED VIRTUAL_ENV exit CALL .venv\Scripts\activate.bat
+IF NOT DEFINED VIRTUAL_ENV CALL .venv\Scripts\activate.bat
 
 POPd
 
 PUSHd C:\apps\stubFileNotFound\stubs
-start /MIN "stubdefaulter-stdlib" stubdefaulter --stdlib-path stdlib --fix --add-complex-defaults
+START /MIN "stubdefaulter-stdlib" stubdefaulter --stdlib-path stdlib --fix --add-complex-defaults
 
 FOR /F %%G IN ('dir /B /AD') DO (
 	IF NOT "%%G"=="stdlib" (
-		start /MIN "stubdefaulter-%%G" stubdefaulter --packages %%G --fix --add-complex-defaults
+		START /MIN "stubdefaulter-%%G" stubdefaulter --packages %%G --fix --add-complex-defaults
 		PING -n 3 127.0.0.1>nul
 		@REM Wait 2 seconds
 	)
@@ -25,7 +25,7 @@ FOR /F %%G IN ('dir /B /AD') DO (
 
 FOR /F %%G IN ('dir /B *.pyi') DO (
 	IF NOT "%%G"=="stdlib" (
-		start /MIN "stubdefaulter-%%G" stubdefaulter --packages %%G --fix --add-complex-defaults
+		START /MIN "stubdefaulter-%%G" stubdefaulter --packages %%G --fix --add-complex-defaults
 		PING -n 3 127.0.0.1>nul
 		@REM Wait 2 seconds
 	)
