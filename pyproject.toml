@@ -1,54 +1,39 @@
 [project]
 name = "stubFileNotFound"
-version = "0.0.1"
-description = "Crowdsourced (a crowd of 1) stub type-files for third-party Python packages."
+version = "0.1.0"
+description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.11"
 license = "CC-BY-NC-4.0"
 authors = [{ name = "Hunter Hogan", email = "HunterHogan@pm.me" }]
-keywords = []
-classifiers = [
-  "Development Status :: 3 - Alpha",
-  "Environment :: Console",
-  "Intended Audience :: Developers",
-  "Natural Language :: English",
-  "Operating System :: OS Independent",
-  "Programming Language :: Python",
-  "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: 3.13",
-  "Programming Language :: Python :: 3.14",
-  "Typing :: Typed",
-]
 urls = { Donate = "https://www.patreon.com/integrated", Homepage = "https://github.com/hunterhogan/stubFileNotFound", Repository = "https://github.com/hunterhogan/stubFileNotFound.git" }
+requires-python = ">=3.14"
 dependencies = [
-  "MonkeyType",
-  "charset_normalizer",
-  "hunterMakesPy",
-  "libcst",
-  "mypy",
-  "pyright",
-  "pyupgrade",
-  "ruff",
-  "stub-generator",
-  "stubdefaulter@git+https://github.com/JelleZijlstra/stubdefaulter.git",
-  "typeshed_client",
+    "charset-normalizer>=3.4.4",
+    "fonttools>=4.61.1",
+    "hunterMakesPy>=0.4.0",
+    "libcst>=1.8.6",
+    "monkeytype>=23.3.0",
+    "mypy>=1.19.1",
+    "odfpy>=1.4.1",
+    "pandas>=3.0.0",
+    "pyright>=1.1.408",
+    "pyupgrade>=3.21.2",
+    "pyxlsb>=1.0.10",
+    "resampy>=0.4.3",
+    "ruff>=0.15.0",
+    "scipy>=1.17.0",
+    "scipy-stubs>=1.17.0.2",
+    "sqlalchemy>=2.0.46",
+    "stub-generator>=1.2.2",
+    "stubdefaulter",
+    "typeshed-client>=2.8.2",
+    "xarray>=2026.1.0",
+    "xlsxwriter>=3.2.9",
 ]
-optional-dependencies = { stubdefaulter = [
-  "fonttools",
-  "odfpy",
-  "pandas",
-  "python_toolbox",
-  "pyxlsb",
-  "resampy",
-  "scipy-stubs",
-  "scipy",
-  "sqlalchemy",
-  "xarray",
-  "xlsxwriter",
-] }
 
 [build-system]
-requires = ["uv_build"]
+requires = ["uv_build>=0.10.0,<0.11.0"]
 build-backend = "uv_build"
+
+[tool.uv.sources]
+stubdefaulter = { git = "https://github.com/JelleZijlstra/stubdefaulter.git" }
