@@ -4,14 +4,15 @@ from fontTools.pens.basePen import LoggingPen
 from fontTools.pens.pointPen import AbstractPointPen
 from fontTools.pens.transformPen import TransformPen, TransformPointPen
 from fontTools.ttLib.tables._g_l_y_f import Glyph
-from typing import Any, Callable
+from fontTools.ttLib.ttGlyphSet import _TTGlyphSet
+from typing import Callable
 
 __all__ = ['TTGlyphPen', 'TTGlyphPointPen']
 
 class _TTGlyphBasePen:
     glyphSet: Incomplete
     handleOverflowingTransforms: Incomplete
-    def __init__(self, glyphSet: dict[str, Any] | None, handleOverflowingTransforms: bool = True) -> None:
+    def __init__(self, glyphSet: _TTGlyphSet | None, handleOverflowingTransforms: bool = True) -> None:
         """
         Construct a new pen.
 
@@ -48,7 +49,7 @@ class _TTGlyphBasePen:
     types: Incomplete
     components: Incomplete
     def init(self) -> None: ...
-    def addComponent(self, baseGlyphName: str, transformation: tuple[float, float, float, float, float, float], identifier: str | None = None, **kwargs: Any) -> None:
+    def addComponent(self, baseGlyphName: str, transformation: tuple[float, float, float, float, float, float], identifier: str | None = None, **kwargs: Incomplete) -> None:
         """
         Add a sub glyph.
         """
@@ -74,7 +75,7 @@ class TTGlyphPen(_TTGlyphBasePen, LoggingPen):
     drawMethod: str
     transformPen = TransformPen
     outputImpliedClosingLine: Incomplete
-    def __init__(self, glyphSet: dict[str, Any] | None = None, handleOverflowingTransforms: bool = True, outputImpliedClosingLine: bool = False) -> None: ...
+    def __init__(self, glyphSet: _TTGlyphSet | None = None, handleOverflowingTransforms: bool = True, outputImpliedClosingLine: bool = False) -> None: ...
     def _addPoint(self, pt: tuple[float, float], tp: int) -> None: ...
     def _popPoint(self) -> None: ...
     def _isClosed(self) -> bool: ...
@@ -98,7 +99,7 @@ class TTGlyphPointPen(_TTGlyphBasePen, LogMixin, AbstractPointPen):
     _currentContourStartIndex: Incomplete
     def init(self) -> None: ...
     def _isClosed(self) -> bool: ...
-    def beginPath(self, identifier: str | None = None, **kwargs: Any) -> None:
+    def beginPath(self, identifier: str | None = None, **kwargs: Incomplete) -> None:
         """
         Start a new sub path.
         """
@@ -106,7 +107,7 @@ class TTGlyphPointPen(_TTGlyphBasePen, LogMixin, AbstractPointPen):
         """
         End the current sub path.
         """
-    def addPoint(self, pt: tuple[float, float], segmentType: str | None = None, smooth: bool = False, name: str | None = None, identifier: str | None = None, **kwargs: Any) -> None:
+    def addPoint(self, pt: tuple[float, float], segmentType: str | None = None, smooth: bool = False, name: str | None = None, identifier: str | None = None, **kwargs: Incomplete) -> None:
         """
         Add a point to the current sub path.
         """

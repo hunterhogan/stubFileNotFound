@@ -11,7 +11,11 @@ from fontTools.misc.roundTools import noRound as noRound, otRound as otRound
 from fontTools.misc.textTools import pad as pad, safeEval as safeEval, tostr as tostr
 from fontTools.misc.transform import DecomposedTransform as DecomposedTransform
 from fontTools.misc.vector import Vector as Vector
+from typing import Any, TYPE_CHECKING
 from typing import NamedTuple
+
+if TYPE_CHECKING:
+    from fontTools.ttLib.ttFont import TTFont
 
 log: Incomplete
 SCALE_COMPONENT_OFFSET_DEFAULT: int
@@ -50,12 +54,12 @@ class table__g_l_y_f(DefaultTable.DefaultTable):
     dependencies: Incomplete
     padding: int
     axisTags: Incomplete
-    glyphs: Incomplete
-    glyphOrder: Incomplete
+    glyphs: dict[str, Glyph]
+    glyphOrder: list[str]
     _reverseGlyphOrder: Incomplete
     def decompile(self, data, ttFont) -> None: ...
     def ensureDecompiled(self, recurse: bool = False) -> None: ...
-    def compile(self, ttFont): ...
+    def compile(self, ttFont: Any) -> bytes: ...
     def toXML(self, writer, ttFont, splitGlyphs: bool = False) -> None: ...
     def fromXML(self, name, attrs, content, ttFont) -> None: ...
     def setGlyphOrder(self, glyphOrder) -> None:
@@ -223,16 +227,20 @@ class Glyph:
     """
 
     numberOfContours: int
+    xMin: int
+    yMin: int
+    xMax: int
+    yMax: int
     data: Incomplete
     def __init__(self, data: bytes = b'') -> None: ...
     def compact(self, glyfTable, recalcBBoxes: bool = True) -> None: ...
     def expand(self, glyfTable) -> None: ...
-    def compile(self, glyfTable, recalcBBoxes: bool = True, *, boundsDone=None, optimizeSize: bool = True): ...
+    def compile(self, glyfTable: table__g_l_y_f, recalcBBoxes: bool = True, *, boundsDone: Incomplete = None, optimizeSize: bool = True) -> bytes: ...
     def toXML(self, writer, ttFont) -> None: ...
-    coordinates: Incomplete
+    coordinates: GlyphCoordinates
     flags: Incomplete
     endPtsOfContours: Incomplete
-    components: Incomplete
+    components: list[GlyphComponent]
     program: Incomplete
     def fromXML(self, name, attrs, content, ttFont) -> None: ...
     def getCompositeMaxpValues(self, glyfTable, maxComponentDepth: int = 1): ...
@@ -364,15 +372,15 @@ class GlyphComponent:
         matrix is not present.
         """
     flags: Incomplete
-    glyphName: Incomplete
+        glyphName: str
     transform: Incomplete
     def decompile(self, data, glyfTable): ...
     def compile(self, more, haveInstructions, glyfTable): ...
     def toXML(self, writer, ttFont) -> None: ...
     firstPt: Incomplete
     secondPt: Incomplete
-    x: Incomplete
-    y: Incomplete
+    x: int
+    y: int
     def fromXML(self, name, attrs, content, ttFont) -> None: ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...
@@ -414,7 +422,7 @@ class GlyphCoordinates:
     def calcIntBounds(self, round=...): ...
     def relativeToAbsolute(self) -> None: ...
     def absoluteToRelative(self) -> None: ...
-    def translate(self, p) -> None:
+    def translate(self, p: tuple[int | float, int | float]) -> None:
         """
         >>> GlyphCoordinates([(1,2)]).translate((.5,0))
         """
