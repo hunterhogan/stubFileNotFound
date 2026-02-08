@@ -1,0 +1,59 @@
+[project]
+name = "stubFileNotFound"
+version = "0.0.1"
+description = "Crowdsourced (a crowd of 1) stub type-files for third-party Python packages."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "CC-BY-NC-4.0" 
+authors = [{ name = "Hunter Hogan", email = "HunterHogan@pm.me" }]
+keywords = []
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Typing :: Typed",
+]
+urls = { Donate = "https://www.patreon.com/integrated", Homepage = "https://github.com/hunterhogan/stubFileNotFound", Repository = "https://github.com/hunterhogan/stubFileNotFound.git" }
+dependencies = [
+  "MonkeyType",
+  "charset_normalizer",
+  "hunterMakesPy",
+  "libcst",
+  "mypy",
+  "pyright",
+  "pyupgrade",
+  "ruff",
+  "stub-generator",
+  "stubdefaulter@git+https://github.com/JelleZijlstra/stubdefaulter.git",
+  "typeshed_client",
+]
+optional-dependencies = { fuckingPandas = [
+  "odfpy",
+  "pandas",
+  "pyxlsb",
+  "scipy-stubs",
+  "scipy",
+  "sqlalchemy",
+  "xarray",
+  "xlsxwriter",
+], stubdefaulter = [
+  "fonttools",
+  "resampy",
+]  }
+
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-data = { "*" = ["py.typed"] }
+packages = { find = {  } }
+
