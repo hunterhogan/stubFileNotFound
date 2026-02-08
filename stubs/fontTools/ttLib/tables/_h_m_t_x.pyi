@@ -7,7 +7,7 @@ from fontTools.misc.textTools import safeEval as safeEval
 log: Incomplete
 
 class table__h_m_t_x(DefaultTable.DefaultTable):
-    """Horizontal Metrics table
+    """Horizontal Metrics table.
 
     The ``hmtx`` table contains per-glyph metrics for the glyphs in a
     ``glyf``, ``CFF ``, or ``CFF2`` table, as needed for horizontal text
@@ -15,6 +15,7 @@ class table__h_m_t_x(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/hmtx
     """
+
     headerTag: str
     advanceName: str
     sideBearingName: str
@@ -26,5 +27,5 @@ class table__h_m_t_x(DefaultTable.DefaultTable):
     def toXML(self, writer, ttFont) -> None: ...
     def fromXML(self, name, attrs, content, ttFont) -> None: ...
     def __delitem__(self, glyphName) -> None: ...
-    def __getitem__(self, glyphName): ...
+    def __getitem__(self, glyphName: str) -> tuple[int, int]: ...
     def __setitem__(self, glyphName, advance_sb_pair) -> None: ...

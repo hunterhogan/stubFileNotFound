@@ -3,7 +3,9 @@ from _typeshed import Incomplete
 from fontTools import ttLib as ttLib
 from fontTools.misc import sstruct as sstruct
 from fontTools.misc.encodingTools import getEncoding as getEncoding
-from fontTools.misc.textTools import bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, safeEval as safeEval, strjoin as strjoin, tobytes as tobytes, tostr as tostr
+from fontTools.misc.textTools import (
+	bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, safeEval as safeEval, strjoin as strjoin,
+	tobytes as tobytes, tostr as tostr)
 from fontTools.ttLib import newTable as newTable
 from fontTools.ttLib.tables import C_P_A_L_ as C_P_A_L_
 from fontTools.ttLib.ttVisitor import TTVisitor as TTVisitor
@@ -13,7 +15,7 @@ nameRecordFormat: str
 nameRecordSize: Incomplete
 
 class table__n_a_m_e(DefaultTable.DefaultTable):
-    """Naming table
+    """Naming table.
 
     The ``name`` table is used to store a variety of strings that can be
     associated with user-facing font information. Records in the ``name``
@@ -22,6 +24,7 @@ class table__n_a_m_e(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/name
     """
+
     dependencies: Incomplete
     names: Incomplete
     def __init__(self, tag=None) -> None: ...
@@ -35,7 +38,7 @@ class table__n_a_m_e(DefaultTable.DefaultTable):
     def getBestFamilyName(self): ...
     def getBestSubFamilyName(self): ...
     def getBestFullName(self): ...
-    def setName(self, string, nameID, platformID, platEncID, langID) -> None:
+    def setName(self, string: str | bytes, nameID: int, platformID: int, platEncID: int, langID: int) -> None:
         """Set the 'string' for the name record identified by 'nameID', 'platformID',
         'platEncID' and 'langID'. If a record with that nameID doesn't exist, create it
         and append to the name table.
@@ -45,14 +48,13 @@ class table__n_a_m_e(DefaultTable.DefaultTable):
         identified by the (platformID, platEncID, langID) triplet. A warning is issued
         to prevent unexpected results.
         """
-    def removeNames(self, nameID=None, platformID=None, platEncID=None, langID=None) -> None:
-        """Remove any name records identified by the given combination of 'nameID',
-        'platformID', 'platEncID' and 'langID'.
-        """
+    def removeNames(self, nameID: int | None = None, platformID: int | None = None, platEncID: int | None = None, langID: int | None = None) -> None:
+        """Remove any name records identified by the given combination of 'nameID', 'platformID', 'platEncID' and 'langID'."""
     @staticmethod
     def removeUnusedNames(ttFont):
         """Remove any name records which are not in NameID range 0-255 and not utilized
-        within the font itself."""
+        within the font itself.
+        """
     def _findUnusedNameID(self, minNameID: int = 256):
         """Finds an unused name id.
 
@@ -100,7 +102,7 @@ class table__n_a_m_e(DefaultTable.DefaultTable):
         If the 'nameID' argument is None, the created nameID will not
         be less than the 'minNameID' argument.
         """
-    def addName(self, string, platforms=((1, 0, 0), (3, 1, 1033)), minNameID: int = 255):
+    def addName(self, string, platforms=..., minNameID: int = 255):
         """Add a new name record containing 'string' for each (platformID, platEncID,
         langID) tuple specified in the 'platforms' list.
 
@@ -155,7 +157,6 @@ class NameRecord:
         argument.
         """
     def encodingIsUnicodeCompatible(self): ...
-    def __str__(self) -> str: ...
     def isUnicode(self): ...
     def toUnicode(self, errors: str = 'strict') -> str:
         """
@@ -196,7 +197,6 @@ class NameRecord:
     string: Incomplete
     def fromXML(self, name, attrs, content, ttFont) -> None: ...
     def __lt__(self, other): ...
-    def __repr__(self) -> str: ...
 
 _WINDOWS_LANGUAGES: Incomplete
 _MAC_LANGUAGES: Incomplete

@@ -1,3 +1,4 @@
+from typing import Any
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools.misc.encodingTools import getEncoding as getEncoding
@@ -10,7 +11,7 @@ log: Incomplete
 def _make_map(font, chars, gids): ...
 
 class table__c_m_a_p(DefaultTable.DefaultTable):
-    '''Character to Glyph Index Mapping Table
+    """Character to Glyph Index Mapping Table.
 
     This class represents the `cmap <https://docs.microsoft.com/en-us/typography/opentype/spec/cmap>`_
     table, which maps between input characters (in Unicode or other system encodings)
@@ -42,7 +43,8 @@ class table__c_m_a_p(DefaultTable.DefaultTable):
             cmap.tables = [cmap4_0_3]
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/cmap
-    '''
+    """
+
     def getcmap(self, platformID, platEncID):
         """Returns the first subtable which matches the given platform and encoding.
 
@@ -52,11 +54,12 @@ class table__c_m_a_p(DefaultTable.DefaultTable):
                 encodingID (int): Encoding ID. Interpretation depends on the platform ID.
                         See the OpenType specification for details.
 
-        Returns:
+        Returns
+        -------
                 An object which is a subclass of :py:class:`CmapSubtable` if a matching
                 subtable is found within the font, or ``None`` otherwise.
         """
-    def getBestCmap(self, cmapPreferences=((3, 10), (0, 6), (0, 4), (3, 1), (0, 3), (0, 2), (0, 1), (0, 0))):
+    def getBestCmap(self, cmapPreferences=...):
         """Returns the 'best' Unicode cmap dictionary available in the font
         or ``None``, if no Unicode cmap subtable is available.
 
@@ -115,19 +118,20 @@ class CmapSubtable:
     The object exposes a ``.cmap`` attribute, which contains a dictionary mapping
     character codepoints to glyph names.
     """
+
     @staticmethod
     def getSubtableClass(format):
         """Return the subtable class for a format."""
     @staticmethod
     def newSubtable(format):
-        """Return a new instance of a subtable for the given format
-        ."""
+        """Return a new instance of a subtable for the given format."""
     format: Incomplete
     data: Incomplete
     ttFont: Incomplete
     platformID: Incomplete
     platEncID: Incomplete
     language: Incomplete
+    cmap: dict[Any, Any]
     def __init__(self, format) -> None: ...
     def ensureDecompiled(self, recurse: bool = False) -> None: ...
     def __getattr__(self, attr): ...
@@ -135,7 +139,7 @@ class CmapSubtable:
     def decompileHeader(self, data, ttFont) -> None: ...
     def toXML(self, writer, ttFont) -> None: ...
     def getEncoding(self, default=None):
-        '''Returns the Python encoding name for this cmap subtable based on its platformID,
+        """Returns the Python encoding name for this cmap subtable based on its platformID,
         platEncID, and language.  If encoding for these values is not known, by default
         ``None`` is returned.  That can be overridden by passing a value to the ``default``
         argument.
@@ -143,8 +147,8 @@ class CmapSubtable:
         Note that if you want to choose a "preferred" cmap subtable, most of the time
         ``self.isUnicode()`` is what you want as that one only returns true for the modern,
         commonly used, Unicode-compatible triplets, not the legacy ones.
-        '''
-    def isUnicode(self):
+        """
+    def isUnicode(self) -> bool:
         """Returns true if the characters are interpreted as Unicode codepoints."""
     def isSymbol(self):
         """Returns true if the subtable is for the Symbol encoding (3,0)"""
@@ -152,7 +156,7 @@ class CmapSubtable:
     def __lt__(self, other): ...
 
 class cmap_format_0(CmapSubtable):
-    cmap: Incomplete
+    cmap: dict[Any, Any]
     def decompile(self, data, ttFont) -> None: ...
     def compile(self, ttFont): ...
     language: Incomplete
@@ -171,7 +175,7 @@ class SubHeader:
 class cmap_format_2(CmapSubtable):
     def setIDDelta(self, subHeader) -> None: ...
     data: bytes
-    cmap: Incomplete
+    cmap: dict[Any, Any]
     def decompile(self, data, ttFont) -> None: ...
     def compile(self, ttFont): ...
     language: Incomplete
@@ -183,7 +187,7 @@ def splitRange(startCode, endCode, cmap): ...
 
 class cmap_format_4(CmapSubtable):
     data: Incomplete
-    cmap: Incomplete
+    cmap: dict[Any, Any]
     def decompile(self, data, ttFont) -> None: ...
     def compile(self, ttFont): ...
     language: Incomplete
@@ -191,7 +195,7 @@ class cmap_format_4(CmapSubtable):
 
 class cmap_format_6(CmapSubtable):
     data: Incomplete
-    cmap: Incomplete
+    cmap: dict[Any, Any]
     def decompile(self, data, ttFont) -> None: ...
     def compile(self, ttFont): ...
     language: Incomplete
@@ -207,7 +211,7 @@ class cmap_format_12_or_13(CmapSubtable):
     language: Incomplete
     nGroups: Incomplete
     def decompileHeader(self, data, ttFont) -> None: ...
-    cmap: Incomplete
+    cmap: dict[Any, Any]
     def decompile(self, data, ttFont) -> None: ...
     def compile(self, ttFont): ...
     def toXML(self, writer, ttFont) -> None: ...
@@ -235,7 +239,7 @@ class cmap_format_14(CmapSubtable):
     ttFont: Incomplete
     language: int
     def decompileHeader(self, data, ttFont) -> None: ...
-    cmap: Incomplete
+    cmap: dict[Any, Any]
     uvsDict: Incomplete
     def decompile(self, data, ttFont) -> None: ...
     def toXML(self, writer, ttFont): ...
@@ -245,7 +249,7 @@ class cmap_format_14(CmapSubtable):
 class cmap_format_unknown(CmapSubtable):
     def toXML(self, writer, ttFont) -> None: ...
     data: Incomplete
-    cmap: Incomplete
+    cmap: dict[Any, Any]
     def fromXML(self, name, attrs, content, ttFont) -> None: ...
     language: int
     def decompileHeader(self, data, ttFont) -> None: ...

@@ -17,7 +17,7 @@ log: Incomplete
 SCALE_COMPONENT_OFFSET_DEFAULT: int
 
 class table__g_l_y_f(DefaultTable.DefaultTable):
-    '''Glyph Data table
+    """Glyph Data table.
 
     This class represents the `glyf <https://docs.microsoft.com/en-us/typography/opentype/spec/glyf>`_
     table, which contains outlines for glyphs in TrueType format. In many cases,
@@ -45,7 +45,8 @@ class table__g_l_y_f(DefaultTable.DefaultTable):
                     >> font["glyf"]["divisionslash"] = Glyph()
                     >> font["hmtx"]["divisionslash"] = (640, 0)
 
-    '''
+    """
+
     dependencies: Incomplete
     padding: int
     axisTags: Incomplete
@@ -83,12 +84,12 @@ class table__g_l_y_f(DefaultTable.DefaultTable):
     def has_key(self, glyphName): ...
     __contains__ = has_key
     def get(self, glyphName, default=None): ...
-    def __getitem__(self, glyphName): ...
+    def __getitem__(self, glyphName: str) -> Glyph: ...
     def __setitem__(self, glyphName, glyph) -> None: ...
     def __delitem__(self, glyphName) -> None: ...
     def __len__(self) -> int: ...
     def _getPhantomPoints(self, glyphName, hMetrics, vMetrics=None):
-        '''Compute the four "phantom points" for the given glyph from its bounding box
+        """Compute the four "phantom points" for the given glyph from its bounding box
         and the horizontal and vertical advance widths and sidebearings stored in the
         ttFont\'s "hmtx" and "vmtx" tables.
 
@@ -98,9 +99,9 @@ class table__g_l_y_f(DefaultTable.DefaultTable):
         If there is no vMetrics passed in, vertical phantom points are set to the zero coordinate.
 
         https://docs.microsoft.com/en-us/typography/opentype/spec/tt_instructing_glyphs#phantoms
-        '''
+        """
     def _getCoordinatesAndControls(self, glyphName, hMetrics, vMetrics=None, *, round=...):
-        '''Return glyph coordinates and controls as expected by "gvar" table.
+        """Return glyph coordinates and controls as expected by "gvar" table.
 
         The coordinates includes four "phantom points" for the glyph metrics,
         as mandated by the "gvar" spec.
@@ -119,9 +120,9 @@ class table__g_l_y_f(DefaultTable.DefaultTable):
         the "_getPhantomPoints" method).
 
         Return None if the requested glyphName is not present.
-        '''
+        """
     def _setCoordinates(self, glyphName, coord, hMetrics, vMetrics=None) -> None:
-        '''Set coordinates and metrics for the given glyph.
+        """Set coordinates and metrics for the given glyph.
 
         "coord" is an array of GlyphCoordinates which must include the "phantom
         points" as the last four coordinates.
@@ -133,7 +134,7 @@ class table__g_l_y_f(DefaultTable.DefaultTable):
         The "hMetrics" and vMetrics are used to propagate "phantom points"
         into "hmtx" and "vmtx" tables if desired.  (see the "_getPhantomPoints"
         method).
-        '''
+        """
     def _synthesizeVMetrics(self, glyphName, ttFont, defaultVerticalOrigin):
         """This method is wrong and deprecated.
         For rationale see:
@@ -141,13 +142,16 @@ class table__g_l_y_f(DefaultTable.DefaultTable):
         """
     def getPhantomPoints(self, glyphName, ttFont, defaultVerticalOrigin=None):
         """Old public name for self._getPhantomPoints().
-        See: https://github.com/fonttools/fonttools/pull/2266"""
+        See: https://github.com/fonttools/fonttools/pull/2266
+        """
     def getCoordinatesAndControls(self, glyphName, ttFont, defaultVerticalOrigin=None):
         """Old public name for self._getCoordinatesAndControls().
-        See: https://github.com/fonttools/fonttools/pull/2266"""
+        See: https://github.com/fonttools/fonttools/pull/2266
+        """
     def setCoordinates(self, glyphName, ttFont) -> None:
         """Old public name for self._setCoordinates().
-        See: https://github.com/fonttools/fonttools/pull/2266"""
+        See: https://github.com/fonttools/fonttools/pull/2266
+        """
 
 class _GlyphControls(NamedTuple):
     numberOfContours: Incomplete
@@ -169,7 +173,8 @@ _flagSignBytes: Incomplete
 
 def flagBest(x, y, onCurve):
     """For a given x,y delta pair, returns the flag that packs this pair
-    most efficiently, as well as the number of byte cost of such flag."""
+    most efficiently, as well as the number of byte cost of such flag.
+    """
 def flagFits(newFlag, oldFlag, mask): ...
 def flagSupports(newFlag, oldFlag): ...
 def flagEncodeCoord(flag, mask, coord, coordBytes) -> None: ...
@@ -195,7 +200,7 @@ class CompositeMaxpValues(NamedTuple):
     maxComponentDepth: Incomplete
 
 class Glyph:
-    '''This class represents an individual TrueType glyph.
+    """This class represents an individual TrueType glyph.
 
     TrueType glyph objects come in two flavours: simple and composite. Simple
     glyph objects contain contours, represented via the ``.coordinates``,
@@ -215,7 +220,8 @@ class Glyph:
             >> font["glyf"]["Aacute"][0]
             <fontTools.ttLib.tables._g_l_y_f.GlyphComponent at 0x1027b2ee0>
 
-    '''
+    """
+
     numberOfContours: int
     data: Incomplete
     def __init__(self, data: bytes = b'') -> None: ...
@@ -239,7 +245,7 @@ class Glyph:
     def compileDeltasGreedy(self, flags, deltas): ...
     def compileDeltasOptimal(self, flags, deltas): ...
     def compileDeltasForSpeed(self, flags, deltas): ...
-    def recalcBounds(self, glyfTable, *, boundsDone=None) -> None:
+    def recalcBounds(self, glyfTable: table__g_l_y_f, *, boundsDone: Incomplete=None) -> None:
         """Recalculates the bounds of the glyph.
 
         Each glyph object stores its bounding box in the
@@ -247,7 +253,7 @@ class Glyph:
         recomputed when the ``coordinates`` change. The ``table__g_l_y_f`` bounds
         must be provided to resolve component bounds.
         """
-    def tryRecalcBoundsComposite(self, glyfTable, *, boundsDone=None):
+    def tryRecalcBoundsComposite(self, glyfTable: table__g_l_y_f, *, boundsDone=None):
         """Try recalculating the bounds of a composite glyph that has
         certain constrained properties. Namely, none of the components
         have a transform other than an integer translate, and none
@@ -260,10 +266,10 @@ class Glyph:
 
         Return True if bounds were calculated, False otherwise.
         """
-    def isComposite(self):
-        """Test whether a glyph has components"""
+    def isComposite(self) -> bool:
+        """Test whether a glyph has components."""
     def getCoordinates(self, glyfTable, *, round=...):
-        '''Return the coordinates, end points and flags
+        """Return the coordinates, end points and flags
 
         This method returns three values: A :py:class:`GlyphCoordinates` object,
         a list of the indexes of the final points of each contour (allowing you
@@ -276,7 +282,7 @@ class Glyph:
 
         To interpret the flags for each point, see the "Simple Glyph Flags"
         section of the `glyf table specification <https://docs.microsoft.com/en-us/typography/opentype/spec/glyf#simple-glyph-description>`.
-        '''
+        """
     def getComponentNames(self, glyfTable):
         """Returns a list of names of component glyphs used in this glyph
 
@@ -286,7 +292,8 @@ class Glyph:
     def trim(self, remove_hinting: bool = False) -> None:
         """Remove padding and, if requested, hinting, from a glyph.
         This works on both expanded and compacted glyphs, without
-        expanding it."""
+        expanding it.
+        """
     def removeHinting(self) -> None:
         """Removes TrueType hinting instructions from the glyph."""
     def draw(self, pen, glyfTable, offset: int = 0):
@@ -324,10 +331,12 @@ def dropImpliedOnCurvePoints(*interpolatable_glyphs: Glyph) -> set[int]:
     Args:
         interpolatable_glyphs: The glyph or glyphs to modify in-place.
 
-    Returns:
+    Returns
+    -------
         The set of point indices that were dropped if any.
 
-    Raises:
+    Raises
+    ------
         ValueError if simple glyphs are not in fact interpolatable because they have
         different point flags or number of contours.
 
@@ -336,13 +345,14 @@ def dropImpliedOnCurvePoints(*interpolatable_glyphs: Glyph) -> set[int]:
     """
 
 class GlyphComponent:
-    '''Represents a component within a composite glyph.
+    """Represents a component within a composite glyph.
 
     The component is represented internally with four attributes: ``glyphName``,
     ``x``, ``y`` and ``transform``. If there is no "two-by-two" matrix (i.e
     no scaling, reflection, or rotation; only translation), the ``transform``
     attribute is not present.
-    '''
+    """
+
     def __init__(self) -> None: ...
     def getComponentInfo(self):
         """Return information about the component
@@ -378,6 +388,7 @@ class GlyphCoordinates:
     Unlike an ordinary list, this is a numpy-like matrix object which supports
     matrix addition, scalar multiplication and other operations described below.
     """
+
     _a: Incomplete
     def __init__(self, iterable=[]) -> None: ...
     @property
@@ -396,7 +407,6 @@ class GlyphCoordinates:
         """Sets a point's coordinates to a two element tuple (x,y)"""
     def __delitem__(self, i) -> None:
         """Removes a point from the list"""
-    def __repr__(self) -> str: ...
     def append(self, p) -> None: ...
     def extend(self, iterable) -> None: ...
     def toInt(self, *, round=...) -> None: ...

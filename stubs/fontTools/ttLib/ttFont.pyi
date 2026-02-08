@@ -12,15 +12,16 @@ from fontTools.ttLib.tables import B_A_S_E_ as B_A_S_E_, C_B_D_T_ as C_B_D_T_, C
 from fontTools.ttLib.tables.DefaultTable import DefaultTable as DefaultTable
 from fontTools.ttLib.ttGlyphSet import _TTGlyph as _TTGlyph, _TTGlyphSet as _TTGlyphSet, _TTGlyphSetCFF as _TTGlyphSetCFF, _TTGlyphSetGlyf as _TTGlyphSetGlyf, _TTGlyphSetVARC as _TTGlyphSetVARC
 from types import ModuleType, TracebackType
-from typing import Any, BinaryIO, Literal, Sequence, TextIO, TypeVar, TypedDict, overload
-from typing_extensions import Self, Unpack
+from typing import Any, BinaryIO, Literal, TextIO, TypeVar, TypedDict, overload
+from collections.abc import Sequence
+from typing import Self, Unpack
 
 _VT_co = TypeVar('_VT_co', covariant=True)
 log: Incomplete
 _NumberT = TypeVar('_NumberT', bound=float)
 
 class TTFont:
-    '''Represents a TrueType font.
+    r"""Represents a TrueType font.
 
     The object manages file input and output, and offers a convenient way of
     accessing tables. Tables will be only decompiled when necessary, ie. when
@@ -101,7 +102,8 @@ class TTFont:
             lazy (bool): If lazy is set to True, many data structures are loaded lazily, upon
                     access only. If it is set to False, many data structures are loaded immediately.
                     The default is ``lazy=None`` which is somewhere in between.
-    '''
+    """
+
     tables: dict[Tag, DefaultTable | GlyphOrder]
     reader: SFNTReader | None
     sfntVersion: str
@@ -136,7 +138,7 @@ class TTFont:
                         dependency (fastest).
         """
     def _save(self, file: BinaryIO, tableCache: MutableMapping[tuple[Tag, bytes], Any] | None = None) -> bool:
-        """Internal function, to be shared by save() and TTCollection.save()"""
+        """Internal function, to be shared by save() and TTCollection.save()."""
     class XMLSavingOptions(TypedDict):
         writeVersion: bool
         quiet: bool | None
@@ -162,12 +164,14 @@ class TTFont:
         """
     def isLoaded(self, tag: str | bytes) -> bool:
         """Return true if the table identified by ``tag`` has been
-        decompiled and loaded into memory."""
+        decompiled and loaded into memory.
+        """
     def has_key(self, tag: str | bytes) -> bool:
         """Test if the table identified by ``tag`` is present in the font.
 
         As well as this method, ``tag in font`` can also be used to determine the
-        presence of the table."""
+        presence of the table.
+        """
     __contains__ = has_key
     def keys(self) -> list[str]:
         """Returns the list of tables in the font, along with the ``GlyphOrder`` pseudo-table."""
@@ -560,9 +564,7 @@ class TTFont:
         """Returns a mapping of glyph names to glyph IDs."""
     def _buildReverseGlyphOrderDict(self) -> dict[str, int]: ...
     def _writeTable(self, tag: str | bytes, writer: SFNTWriter, done: list[str | bytes], tableCache: MutableMapping[tuple[Tag, bytes], DefaultTable] | None = None) -> None:
-        """Internal helper function for self.save(). Keeps track of
-        inter-table dependencies.
-        """
+        """Internal helper function for self.save(). Keeps track of inter-table dependencies."""
     def getTableData(self, tag: str | bytes) -> bytes:
         """Returns the binary representation of a table.
 
@@ -604,7 +606,7 @@ class TTFont:
 
         Raises ``TTLibError`` if the font is not a variable font.
         """
-    def getBestCmap(self, cmapPreferences: Sequence[tuple[int, int]] = ((3, 10), (0, 6), (0, 4), (3, 1), (0, 3), (0, 2), (0, 1), (0, 0))) -> dict[int, str] | None:
+    def getBestCmap(self, cmapPreferences: Sequence[tuple[int, int]] = ...) -> dict[int, str] | None:
         """Returns the 'best' Unicode cmap dictionary available in the font
         or ``None``, if no Unicode cmap subtable is available.
 
@@ -633,6 +635,7 @@ class GlyphOrder:
     """A pseudo table. The glyph order isn't in the font as a separate
     table, but it's nice to present it as such in the TTX format.
     """
+
     def __init__(self, tag: str | None = None) -> None: ...
     def toXML(self, writer: xmlWriter.XMLWriter, ttFont: TTFont) -> None: ...
     glyphOrder: Incomplete
@@ -689,7 +692,7 @@ def tagToIdentifier(tag: str | bytes) -> str:
         'O_S_2f_2'
     """
 def identifierToTag(ident: str) -> str:
-    """the opposite of tagToIdentifier()"""
+    """The opposite of tagToIdentifier()"""
 def tagToXML(tag: str | bytes) -> str:
     """Similarly to tagToIdentifier(), this converts a TT tag
     to a valid XML element name. Since XML element names are

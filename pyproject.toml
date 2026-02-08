@@ -4,7 +4,7 @@ version = "0.0.1"
 description = "Crowdsourced (a crowd of 1) stub type-files for third-party Python packages."
 readme = "README.md"
 requires-python = ">=3.11"
-license = { 'text' = "CC-BY-NC-4.0" }
+license = "CC-BY-NC-4.0"
 authors = [{ name = "Hunter Hogan", email = "HunterHogan@pm.me" }]
 keywords = []
 classifiers = [
@@ -35,9 +35,7 @@ dependencies = [
   "stubdefaulter@git+https://github.com/JelleZijlstra/stubdefaulter.git",
   "typeshed_client",
 ]
-optional-dependencies = { development = [
-  "setuptools-scm",
-], stubdefaulter = [
+optional-dependencies = { stubdefaulter = [
   "fonttools",
   "odfpy",
   "pandas",
@@ -49,41 +47,8 @@ optional-dependencies = { development = [
   "sqlalchemy",
   "xarray",
   "xlsxwriter",
-], testing = [
-  "pytest",
-  "pytest-cov",
-  "pytest-xdist",
 ] }
 
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
-
-[tool.coverage]
-report = { exclude_lines = [
-  "if TYPE_CHECKING:",
-  "if __name__ == \"__main__\":",
-], ignore_errors = false }
-run = { branch = true, concurrency = [
-  "multiprocessing",
-], data_file = "tests/coverage/.coverage", omit = [
-  "stubs/*",
-  "tests/*",
-  "typings/*",
-], parallel = true, source = [
-  ".",
-] }
-xml = { output = "tests/coverage/coverage.xml" }
-
-[tool.pytest]
-addopts = ["--color=auto"]
-log_auto_indent = "On"
-testpaths = ["tests"]
-
-[tool.setuptools]
-package-data = { "*" = ["py.typed"] }
-packages = { find = {  } }
-
-[tool.updateCitation]
-filenameCitationDOTcff = "CITATION.cff"
-pathFilenameCitationSSOT = "citations/CITATION.cff"
+requires = ["uv_build"]
+build-backend = "uv_build"

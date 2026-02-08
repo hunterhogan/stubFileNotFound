@@ -35,6 +35,6 @@ POPd
 
 PUSHd C:\apps\stubFileNotFound
 
-py stubFileNotFound\missing2Any.py
+py -m stubFileNotFound.missing2Any
 
 POPd
