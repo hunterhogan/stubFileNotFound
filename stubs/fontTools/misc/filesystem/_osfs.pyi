@@ -1,5 +1,8 @@
 from ._base import FS as FS
-from ._errors import CreateFailed as CreateFailed, DirectoryExpected as DirectoryExpected, DirectoryNotEmpty as DirectoryNotEmpty, FileExpected as FileExpected, IllegalDestination as IllegalDestination, ResourceError as ResourceError, ResourceNotFound as ResourceNotFound
+from ._errors import (
+	CreateFailed as CreateFailed, DirectoryExpected as DirectoryExpected, DirectoryNotEmpty as DirectoryNotEmpty,
+	FileExpected as FileExpected, IllegalDestination as IllegalDestination, ResourceError as ResourceError,
+	ResourceNotFound as ResourceNotFound)
 from ._info import Info as Info
 from ._path import isbase as isbase
 from ._subfs import SubFS as SubFS
@@ -16,6 +19,7 @@ class OSFS(FS):
 
     A thin layer on top of `pathlib.Path`.
     """
+
     _root: Incomplete
     def __init__(self, root: str | PathLike, create: bool = False) -> None: ...
     def _abs(self, rel_path: str) -> Path: ...
@@ -33,5 +37,3 @@ class OSFS(FS):
     def removetree(self, path: str): ...
     def movedir(self, src_dir: str, dst_dir: str, create: bool = False): ...
     def getsyspath(self, path: str) -> str: ...
-    def __repr__(self) -> str: ...
-    def __str__(self) -> str: ...

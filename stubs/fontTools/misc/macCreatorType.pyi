@@ -1,4 +1,4 @@
-from fontTools.misc.textTools import Tag as Tag, bytesjoin as bytesjoin, strjoin as strjoin
+from fontTools.misc.textTools import bytesjoin as bytesjoin, strjoin as strjoin, Tag as Tag
 
 def _reverseString(s): ...
 def getMacCreatorAndType(path):
@@ -7,7 +7,8 @@ def getMacCreatorAndType(path):
     Args:
             path (str): A file path.
 
-    Returns:
+    Returns
+    -------
             A tuple of two :py:class:`fontTools.textTools.Tag` objects, the first
             representing the file creator and the second representing the
             file type.

@@ -1,7 +1,6 @@
-import abc
-import os
 from ._base import FS as FS
-from ._errors import FileExpected as FileExpected, ResourceNotFound as ResourceNotFound, ResourceReadOnly as ResourceReadOnly
+from ._errors import (
+	FileExpected as FileExpected, ResourceNotFound as ResourceNotFound, ResourceReadOnly as ResourceReadOnly)
 from ._info import Info as Info
 from ._path import dirname as dirname, forcedir as forcedir, normpath as normpath, relpath as relpath
 from ._subfs import SubFS as SubFS
@@ -9,21 +8,23 @@ from ._tempfs import TempFS as TempFS
 from _typeshed import Incomplete
 from collections.abc import Collection
 from typing import Any, IO
+import abc
+import os
 
 class ZipFS(FS, metaclass=abc.ABCMeta):
     """Read and write zip files."""
+
     def __new__(cls, file: str | os.PathLike, write: bool = False, encoding: str = 'utf-8'): ...
     def __init__(self, file: str | os.PathLike, write: bool = False, encoding: str = 'utf-8') -> None: ...
 
 class ReadZipFS(FS):
     """A readable zip file."""
+
     _file: Incomplete
     encoding: Incomplete
     _zip: Incomplete
     _directory_fs: Incomplete
     def __init__(self, file: str | os.PathLike, encoding: str = 'utf-8') -> None: ...
-    def __repr__(self) -> str: ...
-    def __str__(self) -> str: ...
     def _path_to_zip_name(self, path: str) -> str:
         """Convert a path to a zip file name."""
     @property
@@ -45,9 +46,8 @@ class ReadZipFS(FS):
 
 class WriteZipFS(TempFS):
     """A writable zip file."""
+
     _file: Incomplete
     encoding: Incomplete
     def __init__(self, file: str | os.PathLike, encoding: str = 'utf-8') -> None: ...
-    def __repr__(self) -> str: ...
-    def __str__(self) -> str: ...
     def close(self) -> None: ...

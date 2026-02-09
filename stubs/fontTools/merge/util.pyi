@@ -15,14 +15,17 @@ def onlyExisting(func):
     """Returns a filter func that when called with a list,
     only calls func on the non-NotImplemented items of the list,
     and only so if there's at least one item remaining.
-    Otherwise returns NotImplemented."""
+    Otherwise returns NotImplemented.
+    """
 def sumLists(lst): ...
 def sumDicts(lst): ...
 def mergeBits(bitmap): ...
 
 class AttendanceRecordingIdentityDict:
     """A dictionary-like object that records indices of items actually accessed
-    from a list."""
+    from a list.
+    """
+
     l: Incomplete
     d: Incomplete
     s: Incomplete
@@ -31,7 +34,9 @@ class AttendanceRecordingIdentityDict:
 
 class GregariousIdentityDict:
     """A dictionary-like object that welcomes guests without reservations and
-    adds them to the end of the guest list."""
+    adds them to the end of the guest list.
+    """
+
     l: Incomplete
     s: Incomplete
     def __init__(self, lst) -> None: ...
@@ -39,6 +44,7 @@ class GregariousIdentityDict:
 
 class NonhashableDict:
     """A dictionary-like object mapping objects to values."""
+
     d: Incomplete
     def __init__(self, keys, values=None) -> None: ...
     def __getitem__(self, k): ...

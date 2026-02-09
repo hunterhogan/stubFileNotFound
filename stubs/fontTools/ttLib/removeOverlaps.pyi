@@ -1,10 +1,11 @@
+from collections.abc import Iterable, Mapping
 from fontTools.ttLib import ttFont
-from typing import Iterable, Mapping
+from typing import TypeAlias
 
 __all__ = ['removeOverlaps']
 
 class RemoveOverlapsError(Exception): ...
-_TTGlyphMapping = Mapping[str, ttFont._TTGlyph]
+_TTGlyphMapping: TypeAlias = Mapping[str, ttFont._TTGlyph]
 
 def removeOverlaps(font: ttFont.TTFont, glyphNames: Iterable[str] | None = None, removeHinting: bool = True, ignoreErrors: bool = False, *, removeUnusedSubroutines: bool = True) -> None:
     """Simplify glyphs in TTFont by merging overlapping contours.

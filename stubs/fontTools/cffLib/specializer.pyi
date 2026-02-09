@@ -28,7 +28,8 @@ def programToCommands(program, getNumRegions=None):
 def _flattenBlendArgs(args): ...
 def commandsToProgram(commands):
     """Takes a commands list as returned by programToCommands() and converts
-    it back to a T2CharString program list."""
+    it back to a T2CharString program list.
+    """
 def _everyN(el, n) -> Generator[Incomplete]:
     """Group the list el into groups of size n"""
 

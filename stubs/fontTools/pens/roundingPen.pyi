@@ -4,7 +4,7 @@ from fontTools.pens.filterPen import FilterPen, FilterPointPen
 __all__ = ['RoundingPen', 'RoundingPointPen']
 
 class RoundingPen(FilterPen):
-    '''
+    """
     Filter pen that rounds point coordinates and component XY offsets to integer. For
     rounding the component transform values, a separate round function can be passed to
     the pen.
@@ -25,7 +25,8 @@ class RoundingPen(FilterPen):
     ...     (\'addComponent\', (\'a\', (1.5, 0, 0, 1.5, 11, -10))),
     ... ]
     True
-    '''
+    """
+
     roundFunc: Incomplete
     transformRoundFunc: Incomplete
     def __init__(self, outPen, roundFunc=..., transformRoundFunc=...) -> None: ...
@@ -36,7 +37,7 @@ class RoundingPen(FilterPen):
     def addComponent(self, glyphName, transformation) -> None: ...
 
 class RoundingPointPen(FilterPointPen):
-    '''
+    """
     Filter point pen that rounds point coordinates and component XY offsets to integer.
     For rounding the component scale values, a separate round function can be passed to
     the pen.
@@ -63,7 +64,8 @@ class RoundingPointPen(FilterPointPen):
     ...     (\'addComponent\', (\'a\', (1.5, 0, 0, 1.5, 11, -10)), {}),
     ... ]
     True
-    '''
+    """
+
     roundFunc: Incomplete
     transformRoundFunc: Incomplete
     def __init__(self, outPen, roundFunc=..., transformRoundFunc=...) -> None: ...

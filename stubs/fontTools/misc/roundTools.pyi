@@ -1,8 +1,8 @@
-__all__ = ['noRound', 'otRound', 'maybeRound', 'roundFunc', 'nearestMultipleShortestRepr']
+__all__ = ['maybeRound', 'nearestMultipleShortestRepr', 'noRound', 'otRound', 'roundFunc']
 
 def noRound(value): ...
 def otRound(value):
-    '''Round float value to nearest integer towards ``+Infinity``.
+    """Round float value to nearest integer towards ``+Infinity``.
 
     The OpenType spec (in the section on `"normalization" of OpenType Font Variations <https://docs.microsoft.com/en-us/typography/opentype/spec/otvaroverview#coordinate-scales-and-normalization>`_)
     defines the required method for converting floating point values to
@@ -18,8 +18,9 @@ def otRound(value):
             value (float): The input floating-point value.
 
     Returns
+    -------
             float: The rounded value.
-    '''
+    """
 def maybeRound(v, tolerance, round=...): ...
 def roundFunc(tolerance, round=...): ...
 def nearestMultipleShortestRepr(value: float, factor: float) -> str:
@@ -42,6 +43,7 @@ def nearestMultipleShortestRepr(value: float, factor: float) -> str:
         value (value): The value to be rounded and serialized.
         factor (float): The value which the result is a close multiple of.
 
-    Returns:
+    Returns
+    -------
         str: A compact string representation of the value.
     """

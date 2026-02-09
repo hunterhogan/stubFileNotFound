@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
-from typing import Mapping, Sequence
+from collections.abc import Mapping, Sequence
 
-__all__ = ['normalizeValue', 'normalizeLocation', 'supportScalar', 'piecewiseLinearMap', 'VariationModel']
+__all__ = ['VariationModel', 'normalizeLocation', 'normalizeValue', 'piecewiseLinearMap', 'supportScalar']
 
 def normalizeValue(v: float, triple: Sequence[float], extrapolate: bool = False) -> float:
     """Normalizes value based on a min/default/max triple.
@@ -14,7 +14,7 @@ def normalizeValue(v: float, triple: Sequence[float], extrapolate: bool = False)
     0.5
     """
 def normalizeLocation(location: Mapping[str, float], axes: Mapping[str, tuple[float, float, float]], extrapolate: bool = False, *, validate: bool = False) -> dict[str, float]:
-    '''Normalizes location based on axis min/default/max values from axes.
+    """Normalizes location based on axis min/default/max values from axes.
 
     >>> axes = {"wght": (100, 400, 900)}
     >>> normalizeLocation({"wght": 400}, axes)
@@ -51,9 +51,9 @@ def normalizeLocation(location: Mapping[str, float], axes: Mapping[str, tuple[fl
     {\'wght\': 0.0}
     >>> normalizeLocation({"wght": 1001}, axes)
     {\'wght\': 0.0}
-    '''
+    """
 def supportScalar(location, support, ot: bool = True, extrapolate: bool = False, axisRanges=None):
-    '''Returns the scalar multiplier at location, for a master
+    """Returns the scalar multiplier at location, for a master
     with support.  If ot is True, then a peak value of zero
     for support of an axis means "axis does not participate".  That
     is how OpenType Variation Font technology works.
@@ -85,7 +85,7 @@ def supportScalar(location, support, ot: bool = True, extrapolate: bool = False,
       1.5
       >>> supportScalar({\'wght\':-1}, {\'wght\':(0,2,2)}, extrapolate=True, axisRanges={\'wght\':(0, 2)})
       -0.5
-    '''
+    """
 
 class VariationModel:
     """Locations must have the base master at the origin (ie. 0).
@@ -126,6 +126,7 @@ class VariationModel:
         6: 0.4444444444444445,
         7: 0.6666666666666667}]
     """
+
     origLocations: Incomplete
     axisOrder: Incomplete
     extrapolate: Incomplete
@@ -141,7 +142,8 @@ class VariationModel:
         The sub-model is necessary for working with the subset
         of items when some are None.
 
-        The sub-model is cached."""
+        The sub-model is cached.
+        """
     @staticmethod
     def computeAxisRanges(locations): ...
     @staticmethod
@@ -158,7 +160,8 @@ class VariationModel:
         """Return scalars for each delta, for the given location.
         If interpolating many master-values at the same location,
         this function allows speed up by fetching the scalars once
-        and using them with interpolateFromMastersAndScalars()."""
+        and using them with interpolateFromMastersAndScalars().
+        """
     def getMasterScalars(self, targetLocation):
         """Return multipliers for each master, for the given location.
         If interpolating many master-values at the same location,
@@ -167,7 +170,8 @@ class VariationModel:
 
         Note that the scalars used in interpolateFromMastersAndScalars(),
         are *not* the same as the ones returned here. They are the result
-        of getScalars()."""
+        of getScalars().
+        """
     @staticmethod
     def interpolateFromValuesAndScalars(values, scalars):
         """Interpolate from values and scalars coefficients.
@@ -189,6 +193,7 @@ class VariationModel:
     def interpolateFromMastersAndScalars(self, masterValues, scalars, *, round=...):
         """Interpolate from master-values, and scalars fetched from
         getScalars(), which is useful when you want to interpolate
-        multiple master-values with the same location."""
+        multiple master-values with the same location.
+        """
 
 def piecewiseLinearMap(v, mapping): ...

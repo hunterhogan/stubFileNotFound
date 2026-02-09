@@ -4,7 +4,10 @@ from fontTools.misc.intTools import bit_count as bit_count
 from fontTools.misc.iterTools import batched as batched
 from fontTools.misc.roundTools import noRound as noRound, otRound as otRound
 from fontTools.misc.vector import Vector as Vector
-from fontTools.varLib.builder import buildMultiVarData as buildMultiVarData, buildMultiVarStore as buildMultiVarStore, buildSparseVarRegion as buildSparseVarRegion, buildSparseVarRegionList as buildSparseVarRegionList, buildVarRegionList as buildVarRegionList
+from fontTools.varLib.builder import (
+	buildMultiVarData as buildMultiVarData, buildMultiVarStore as buildMultiVarStore,
+	buildSparseVarRegion as buildSparseVarRegion, buildSparseVarRegionList as buildSparseVarRegionList,
+	buildVarRegionList as buildVarRegionList)
 from fontTools.varLib.models import supportScalar as supportScalar
 from functools import partial as partial
 from heapq import heappop as heappop, heappush as heappush

@@ -1,7 +1,7 @@
 __all__ = ['hashdict']
 
 class hashdict(dict):
-    '''
+    """
     hashable dict implementation, suitable for use as a key into
     other dicts.
 
@@ -21,9 +21,9 @@ class hashdict(dict):
     based on answers from
        http://stackoverflow.com/questions/1151658/python-hashable-dicts
 
-    '''
+    """
+
     def __key(self): ...
-    def __repr__(self) -> str: ...
     def __hash__(self): ...
     def __setitem__(self, key, value) -> None: ...
     def __delitem__(self, key) -> None: ...

@@ -12,6 +12,7 @@ class table__v_m_t_x(superclass):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/vmtx
     """
+
     headerTag: str
     advanceName: str
     sideBearingName: str

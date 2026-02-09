@@ -27,9 +27,9 @@ def _zapfDingbatsToUnicode(glyph):
 _re_uni: Incomplete
 
 def _uniToUnicode(component):
-    '''Helper for toUnicode() to handle "uniABCD" components.'''
+    """Helper for toUnicode() to handle "uniABCD" components."""
 
 _re_u: Incomplete
 
 def _uToUnicode(component):
-    '''Helper for toUnicode() to handle "u1ABCD" components.'''
+    """Helper for toUnicode() to handle "u1ABCD" components."""

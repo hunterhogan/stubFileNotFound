@@ -34,7 +34,6 @@ class TFMException(Exception):
 
 class TFM:
     def __init__(self, file) -> None: ...
-    def __repr__(self) -> str: ...
     _data: Incomplete
     extraheader: Incomplete
     face: Incomplete

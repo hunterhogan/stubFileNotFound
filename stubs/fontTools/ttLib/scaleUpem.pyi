@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from fontTools.ttLib.ttFont import TTFont
 from fontTools.ttLib.ttVisitor import TTVisitor
 
-__all__ = ['scale_upem', 'ScalerVisitor']
+__all__ = ['ScalerVisitor', 'scale_upem']
 
 class ScalerVisitor(TTVisitor):
     scaleFactor: Incomplete

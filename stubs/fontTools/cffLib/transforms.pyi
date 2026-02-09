@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from fontTools.misc.psCharStrings import SimpleT2Decompiler as SimpleT2Decompiler, T2WidthExtractor as T2WidthExtractor, calcSubrBias as calcSubrBias
+from fontTools.misc.psCharStrings import (
+	calcSubrBias as calcSubrBias, SimpleT2Decompiler as SimpleT2Decompiler, T2WidthExtractor as T2WidthExtractor)
 
 def _uniq_sort(l): ...
 

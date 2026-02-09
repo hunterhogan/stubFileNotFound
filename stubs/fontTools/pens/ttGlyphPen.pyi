@@ -1,11 +1,11 @@
 from _typeshed import Incomplete
+from collections.abc import Callable
 from fontTools.misc.loggingTools import LogMixin
 from fontTools.pens.basePen import LoggingPen
 from fontTools.pens.pointPen import AbstractPointPen
 from fontTools.pens.transformPen import TransformPen, TransformPointPen
 from fontTools.ttLib.tables._g_l_y_f import Glyph
 from fontTools.ttLib.ttGlyphSet import _TTGlyphSet
-from typing import Callable
 
 __all__ = ['TTGlyphPen', 'TTGlyphPointPen']
 
@@ -72,6 +72,7 @@ class TTGlyphPen(_TTGlyphBasePen, LoggingPen):
     font. After using the pen to draw, use the ``.glyph()`` method to retrieve
     a :py:class:`~._g_l_y_f.Glyph` object representing the glyph.
     """
+
     drawMethod: str
     transformPen = TransformPen
     outputImpliedClosingLine: Incomplete
@@ -94,6 +95,7 @@ class TTGlyphPointPen(_TTGlyphBasePen, LogMixin, AbstractPointPen):
     font. After using the pen to draw, use the ``.glyph()`` method to retrieve
     a :py:class:`~._g_l_y_f.Glyph` object representing the glyph.
     """
+
     drawMethod: str
     transformPen = TransformPointPen
     _currentContourStartIndex: Incomplete

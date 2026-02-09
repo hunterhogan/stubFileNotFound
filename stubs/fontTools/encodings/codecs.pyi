@@ -1,5 +1,5 @@
-import codecs
 from _typeshed import Incomplete
+import codecs
 
 class ExtendCodec(codecs.Codec):
     name: Incomplete

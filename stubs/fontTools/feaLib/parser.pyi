@@ -1,7 +1,8 @@
-import fontTools.feaLib.ast as ast
 from _typeshed import Incomplete
+from fontTools.feaLib import ast
 from fontTools.feaLib.error import FeatureLibError as FeatureLibError
-from fontTools.feaLib.lexer import IncludingLexer as IncludingLexer, Lexer as Lexer, NonIncludingLexer as NonIncludingLexer
+from fontTools.feaLib.lexer import (
+	IncludingLexer as IncludingLexer, Lexer as Lexer, NonIncludingLexer as NonIncludingLexer)
 from fontTools.feaLib.variableScalar import VariableScalar as VariableScalar
 from fontTools.misc.encodingTools import getEncoding as getEncoding
 from fontTools.misc.textTools import bytechr as bytechr, tobytes as tobytes, tostr as tostr
@@ -32,6 +33,7 @@ class Parser:
     ``includeDir`` to explicitly declare a directory to search included feature files
     in.
     """
+
     extensions: Incomplete
     ast = ast
     SS_FEATURE_TAGS: Incomplete
@@ -51,7 +53,8 @@ class Parser:
     def parse(self):
         """Parse the file, and return a :class:`fontTools.feaLib.ast.FeatureFile`
         object representing the root of the abstract syntax tree containing the
-        parsed contents of the file."""
+        parsed contents of the file.
+        """
     def parse_anchor_(self): ...
     def parse_anchor_marks_(self): ...
     def parse_anchordef_(self): ...
@@ -133,12 +136,12 @@ class Parser:
     def expect_filename_(self): ...
     def expect_glyph_(self): ...
     def check_glyph_name_in_glyph_set(self, *names) -> None:
-        '''Adds a glyph name (just `start`) or glyph names of a
+        """Adds a glyph name (just `start`) or glyph names of a
         range (`start` and `end`) which are not in the glyph set
         to the "missing list" for future error reporting.
 
         If no glyph set is present, does nothing.
-        '''
+        """
     def expect_markClass_reference_(self): ...
     def expect_tag_(self): ...
     def expect_script_tag_(self): ...
@@ -162,9 +165,9 @@ class Parser:
     def reverse_string_(s):
         """'abc' --> 'cba'"""
     def make_cid_range_(self, location, start, limit):
-        '''(location, 999, 1001) --> ["cid00999", "cid01000", "cid01001"]'''
+        """(location, 999, 1001) --> ["cid00999", "cid01000", "cid01001"]"""
     def make_glyph_range_(self, location, start, limit):
-        '''(location, "a.sc", "d.sc") --> ["a.sc", "b.sc", "c.sc", "d.sc"]'''
+        """(location, "a.sc", "d.sc") --> ["a.sc", "b.sc", "c.sc", "d.sc"]"""
 
 class SymbolTable:
     scopes_: Incomplete

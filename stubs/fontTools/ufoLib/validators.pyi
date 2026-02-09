@@ -1,10 +1,10 @@
-import fontTools.misc.filesystem as fs
 from collections.abc import Sequence
 from fontTools.annotations import IntFloat as IntFloat
 from fontTools.ufoLib.utils import numberTypes as numberTypes
-from typing import Any
+from typing import Any, TypeAlias
+import fontTools.misc.filesystem as fs
 
-GenericDict = dict[str, tuple[type | tuple[type[Any], ...], bool]]
+GenericDict: TypeAlias = dict[str, tuple[type | tuple[type[Any], ...], bool]]
 
 def isDictEnough(value: Any) -> bool:
     """
@@ -162,7 +162,7 @@ def anchorValidator(value: Any) -> bool:
     Version 3+.
     """
 def identifierValidator(value: Any) -> bool:
-    '''
+    """
     Version 3+.
 
     >>> identifierValidator("a")
@@ -171,9 +171,9 @@ def identifierValidator(value: Any) -> bool:
     False
     >>> identifierValidator("a" * 101)
     False
-    '''
+    """
 def colorValidator(value: Any) -> bool:
-    '''
+    """
     Version 3+.
 
     >>> colorValidator("0,0,0,0")
@@ -214,7 +214,7 @@ def colorValidator(value: Any) -> bool:
 
     >>> colorValidator("1, 1, 1, 1")
     True
-    '''
+    """
 
 pngSignature: bytes
 _imageDictPrototype: GenericDict
@@ -235,7 +235,7 @@ def layerContentsValidator(value: Any, ufoPathOrFileSystem: str | fs.base.FS) ->
     Version 3+.
     """
 def groupsValidator(value: Any) -> tuple[bool, str | None]:
-    '''
+    """
     Check the validity of the groups.
     Version 3+ (though it\'s backwards compatible with UFO 1 and UFO 2).
 
@@ -277,9 +277,9 @@ def groupsValidator(value: Any) -> tuple[bool, str | None]:
     False
     >>> print(msg)
     The glyph "A" occurs in too many kerning groups.
-    '''
+    """
 def kerningValidator(data: Any) -> tuple[bool, str | None]:
-    '''
+    """
     Check the validity of the kerning data structure.
     Version 3+ (though it\'s backwards compatible with UFO 1 and UFO 2).
 
@@ -300,12 +300,12 @@ def kerningValidator(data: Any) -> tuple[bool, str | None]:
     False
     >>> print(msg)
     The kerning data is not in the correct format.
-    '''
+    """
 
 _bogusLibFormatMessage: str
 
 def fontLibValidator(value: Any) -> tuple[bool, str | None]:
-    '''
+    """
     Check the validity of the lib.
     Version 3+ (though it\'s backwards compatible with UFO 1 and UFO 2).
 
@@ -348,9 +348,9 @@ def fontLibValidator(value: Any) -> tuple[bool, str | None]:
     False
     >>> print(msg)  # doctest: +ELLIPSIS
     public.glyphOrder is not properly formatted: expected str,...
-    '''
+    """
 def glyphLibValidator(value: Any) -> tuple[bool, str | None]:
-    '''
+    """
     Check the validity of the lib.
     Version 3+ (though it\'s backwards compatible with UFO 1 and UFO 2).
 
@@ -372,4 +372,4 @@ def glyphLibValidator(value: Any) -> tuple[bool, str | None]:
     False
     >>> print(msg)
     public.markColor is not properly formatted.
-    '''
+    """

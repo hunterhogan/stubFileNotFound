@@ -1,10 +1,17 @@
-from .otBase import CountReference as CountReference, FormatSwitchingBaseTable as FormatSwitchingBaseTable, OTTableReader as OTTableReader, OTTableWriter as OTTableWriter, ValueRecordFactory as ValueRecordFactory
-from .otTables import AATAction as AATAction, AATState as AATState, AATStateTable as AATStateTable, CompositeMode as _CompositeMode, ContextualMorphAction as ContextualMorphAction, ExtendMode as _ExtendMode, InsertionMorphAction as InsertionMorphAction, LigatureMorphAction as LigatureMorphAction, MorxSubtable as MorxSubtable, NO_VARIATION_INDEX as NO_VARIATION_INDEX, VarCompositeGlyph as VarCompositeGlyph, lookupTypes as lookupTypes
+from .otBase import (
+	CountReference as CountReference, FormatSwitchingBaseTable as FormatSwitchingBaseTable, OTTableReader as OTTableReader,
+	OTTableWriter as OTTableWriter, ValueRecordFactory as ValueRecordFactory)
+from .otTables import (
+	AATAction as AATAction, AATState as AATState, AATStateTable as AATStateTable, CompositeMode as _CompositeMode,
+	ContextualMorphAction as ContextualMorphAction, ExtendMode as _ExtendMode,
+	InsertionMorphAction as InsertionMorphAction, LigatureMorphAction as LigatureMorphAction, lookupTypes as lookupTypes,
+	MorxSubtable as MorxSubtable, NO_VARIATION_INDEX as NO_VARIATION_INDEX, VarCompositeGlyph as VarCompositeGlyph)
 from _typeshed import Incomplete
 from fontTools.misc.lazyTools import LazyList as LazyList
 from fontTools.misc.roundTools import nearestMultipleShortestRepr as nearestMultipleShortestRepr, otRound as otRound
-from fontTools.misc.textTools import bytesjoin as bytesjoin, pad as pad, safeEval as safeEval, tobytes as tobytes, tostr as tostr
-from fontTools.ttLib import OPTIMIZE_FONT_SPEED as OPTIMIZE_FONT_SPEED, getSearchRange as getSearchRange
+from fontTools.misc.textTools import (
+	bytesjoin as bytesjoin, pad as pad, safeEval as safeEval, tobytes as tobytes, tostr as tostr)
+from fontTools.ttLib import getSearchRange as getSearchRange, OPTIMIZE_FONT_SPEED as OPTIMIZE_FONT_SPEED
 from fontTools.ttLib.tables.TupleVariation import TupleVariation as TupleVariation
 from itertools import zip_longest as zip_longest
 from types import SimpleNamespace as SimpleNamespace
@@ -15,11 +22,14 @@ istuple: Incomplete
 def buildConverters(tableSpec, tableNamespace):
     """Given a table spec from otData.py, build a converter object for each
     field of the table. This is called for each table in otData.py, and
-    the results are assigned to the corresponding class in otTables.py."""
+    the results are assigned to the corresponding class in otTables.py.
+    """
 
 class BaseConverter:
     """Base class for converter objects. Apart from the constructor, this
-    is an abstract class."""
+    is an abstract class.
+    """
+
     name: Incomplete
     repeat: Incomplete
     aux: Incomplete
@@ -215,6 +225,7 @@ class Char64(SimpleValue):
     Unused character positions are filled with 0x00 bytes.
     Used in Apple AAT fonts in the `gcid` table.
     """
+
     staticSize: int
     def read(self, reader, font, tableDict): ...
     def write(self, writer, font, tableDict, value, repeatIndex=None) -> None: ...
@@ -225,7 +236,6 @@ class Struct(BaseConverter):
     def write(self, writer, font, tableDict, value, repeatIndex=None) -> None: ...
     def xmlWrite(self, xmlWriter, font, value, name, attrs) -> None: ...
     def xmlRead(self, attrs, content, font): ...
-    def __repr__(self) -> str: ...
 
 class StructWithLength(Struct):
     def read(self, reader, font, tableDict): ...

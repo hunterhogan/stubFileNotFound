@@ -5,6 +5,7 @@ __all__ = ['CairoPen']
 
 class CairoPen(BasePen):
     """Pen to draw to a Cairo graphics library context."""
+
     context: Incomplete
     def __init__(self, glyphSet, context) -> None: ...
     def _moveTo(self, p) -> None: ...

@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from fontTools.pens.basePen import AbstractPen
 
-__all__ = ['fonts_to_quadratic', 'font_to_quadratic']
+__all__ = ['font_to_quadratic', 'fonts_to_quadratic']
 
 _zip = zip
 
@@ -11,6 +11,7 @@ class GetSegmentsPen(AbstractPen):
     Curves always include their initial on-curve point, so some points are
     duplicated between segments.
     """
+
     _last_pt: Incomplete
     segments: Incomplete
     def __init__(self) -> None: ...
@@ -24,7 +25,7 @@ class GetSegmentsPen(AbstractPen):
     def addComponent(self, glyphName, transformation) -> None: ...
 
 def fonts_to_quadratic(fonts, max_err_em=None, max_err=None, reverse_direction: bool = False, stats=None, dump_stats: bool = False, remember_curve_type: bool = True, all_quadratic: bool = True):
-    '''Convert the curves of a collection of fonts to quadratic.
+    """Convert the curves of a collection of fonts to quadratic.
 
     All curves will be converted to quadratic at once, ensuring interpolation
     compatibility. If this is not required, calling fonts_to_quadratic with one
@@ -41,7 +42,7 @@ def fonts_to_quadratic(fonts, max_err_em=None, max_err=None, reverse_direction: 
 
     Raises IncompatibleFontsError if same-named glyphs from different fonts
     have non-interpolatable outlines.
-    '''
+    """
 def font_to_quadratic(font, **kwargs):
     """Convenience wrapper around fonts_to_quadratic, for just one font.
     Return the set of modified glyph names if any, else return empty set.

@@ -26,7 +26,8 @@ def sort_problems(problems):
     """Sort problems by severity, then by glyph name, then by problem message."""
 def rot_list(l, k):
     """Rotate list by k items forward.  Ie. item at position 0 will be
-    at position k in returned list.  Negative k is allowed."""
+    at position k in returned list.  Negative k is allowed.
+    """
 
 class PerContourPen(BasePen):
     _glyphset: Incomplete

@@ -1,5 +1,5 @@
-import _cython_3_2_2
 from fontTools.cu2qu.errors import ApproxNotFoundError as ApproxNotFoundError, Cu2QuError as Cu2QuError
+import _cython_3_2_2
 
 COMPILED: bool
 MAX_N: int

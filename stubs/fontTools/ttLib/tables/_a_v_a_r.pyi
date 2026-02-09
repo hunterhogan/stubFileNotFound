@@ -1,19 +1,18 @@
 from . import DefaultTable as DefaultTable, otTables as otTables
-from ..ttFont import TTFont as TTFont
 from .otBase import BaseTTXConverter as BaseTTXConverter
 from _typeshed import Incomplete
+from collections.abc import Mapping
 from fontTools.misc import sstruct as sstruct
 from fontTools.misc.roundTools import otRound as otRound
 from fontTools.misc.textTools import bytesjoin as bytesjoin, safeEval as safeEval
-from fontTools.ttLib import TTLibError as TTLibError
+from fontTools.ttLib import TTFont, TTLibError as TTLibError
 from fontTools.varLib.models import piecewiseLinearMap as piecewiseLinearMap
 from fontTools.varLib.varStore import NO_VARIATION_INDEX as NO_VARIATION_INDEX, VarStoreInstancer as VarStoreInstancer
-from typing import Mapping
 
 log: Incomplete
 
 class table__a_v_a_r(BaseTTXConverter):
-    '''Axis Variations table
+    """Axis Variations table
 
     This class represents the ``avar`` table of a variable font. The object has one
     substantive attribute, ``segments``, which maps axis tags to a segments dictionary::
@@ -36,15 +35,16 @@ class table__a_v_a_r(BaseTTXConverter):
     mappings are valid.
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/avar
-    '''
+    """
+
     dependencies: Incomplete
     segments: Incomplete
     def __init__(self, tag=None) -> None: ...
     table: Incomplete
-    def compile(self, ttFont): ...
+    def compile(self, ttFont: TTFont): ...
     majorVersion: Incomplete
     minorVersion: Incomplete
-    def decompile(self, data, ttFont) -> None: ...
-    def toXML(self, writer, ttFont) -> None: ...
-    def fromXML(self, name, attrs, content, ttFont) -> None: ...
+    def decompile(self, data, ttFont: TTFont) -> None: ...
+    def toXML(self, writer, ttFont: TTFont) -> None: ...
+    def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
     def renormalizeLocation(self, location: Mapping[str, float], font: TTFont, dropZeroes: bool = True) -> dict[str, float]: ...

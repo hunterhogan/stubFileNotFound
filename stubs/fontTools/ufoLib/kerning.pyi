@@ -1,9 +1,11 @@
-from fontTools.annotations import IntFloat as IntFloat, KerningDict as KerningDict, KerningGroups as KerningGroups, KerningPair as KerningPair
+from fontTools.annotations import (
+	IntFloat as IntFloat, KerningDict as KerningDict, KerningGroups as KerningGroups, KerningPair as KerningPair)
+from typing import TypeAlias
 
-StrDict = dict[str, str]
+StrDict: TypeAlias = dict[str, str]
 
 def lookupKerningValue(pair: KerningPair, kerning: KerningDict, groups: KerningGroups, fallback: IntFloat = 0, glyphToFirstGroup: StrDict | None = None, glyphToSecondGroup: StrDict | None = None) -> IntFloat:
-    '''Retrieve the kerning value (if any) between a pair of elements.
+    """Retrieve the kerning value (if any) between a pair of elements.
 
     The elments can be either individual glyphs (by name) or kerning
     groups (by name), or any combination of the two.
@@ -28,7 +30,8 @@ def lookupKerningValue(pair: KerningPair, kerning: KerningDict, groups: KerningG
           A dictionary mapping glyph names to the second-glyph kerning
           groups to which they belong. Defaults to ``None``.
 
-    Returns:
+    Returns
+    -------
       The kerning value between the element pair. If no kerning for
       the pair is found, the fallback value is returned.
 
@@ -70,4 +73,4 @@ def lookupKerningValue(pair: KerningPair, kerning: KerningDict, groups: KerningG
       -100
       >>> lookupKerningValue(("public.kern1.X", "public.kern2.X"), kerning, groups)
       0
-    '''
+    """

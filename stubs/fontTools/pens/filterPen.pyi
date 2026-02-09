@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from fontTools.pens.basePen import AbstractPen as AbstractPen, DecomposingPen as DecomposingPen
-from fontTools.pens.pointPen import AbstractPointPen as AbstractPointPen, DecomposingPointPen as DecomposingPointPen, ReverseFlipped as ReverseFlipped
+from fontTools.pens.pointPen import (
+	AbstractPointPen as AbstractPointPen, DecomposingPointPen as DecomposingPointPen, ReverseFlipped as ReverseFlipped)
 from fontTools.pens.recordingPen import RecordingPen as RecordingPen
 
 class _PassThruComponentsMixin:
@@ -50,6 +51,7 @@ class FilterPen(_PassThruComponentsMixin, AbstractPen):
     >>> next(v)
     ('addComponent', ('foo', (1, 0, 0, 1, 0, 0)))
     """
+
     _outPen: Incomplete
     current_pt: Incomplete
     def __init__(self, outPen) -> None: ...
@@ -61,12 +63,13 @@ class FilterPen(_PassThruComponentsMixin, AbstractPen):
     def endPath(self) -> None: ...
 
 class ContourFilterPen(_PassThruComponentsMixin, RecordingPen):
-    '''A "buffered" filter pen that accumulates contour data, passes
+    """A "buffered" filter pen that accumulates contour data, passes
     it through a ``filterContour`` method when the contour is closed or ended,
     and finally draws the result with the output pen.
 
     Components are passed through unchanged.
-    '''
+    """
+
     _outPen: Incomplete
     def __init__(self, outPen) -> None: ...
     def closePath(self) -> None: ...
@@ -74,7 +77,7 @@ class ContourFilterPen(_PassThruComponentsMixin, RecordingPen):
     value: Incomplete
     def _flushContour(self) -> None: ...
     def filterContour(self, contour) -> None:
-        '''Subclasses must override this to perform the filtering.
+        """Subclasses must override this to perform the filtering.
 
         The contour is a list of pen (operator, operands) tuples.
         Operators are strings corresponding to the AbstractPen methods:
@@ -85,10 +88,10 @@ class ContourFilterPen(_PassThruComponentsMixin, RecordingPen):
         If the method doesn\'t return a value (i.e. returns None), it\'s
         assumed that the argument was modified in-place.
         Otherwise, the return value is drawn with the output pen.
-        '''
+        """
 
 class FilterPointPen(_PassThruComponentsMixin, AbstractPointPen):
-    '''Baseclass for point pens that apply some transformation to the
+    """Baseclass for point pens that apply some transformation to the
     coordinates they receive and pass them to another point pen.
 
     You can override any of its methods. The default implementation does
@@ -110,7 +113,8 @@ class FilterPointPen(_PassThruComponentsMixin, AbstractPointPen):
     >>> pen.endPath()
     >>> next(v)
     (\'endPath\', (), {})
-    '''
+    """
+
     _outPen: Incomplete
     def __init__(self, outPen) -> None: ...
     def beginPath(self, identifier=None, **kwargs) -> None: ...
@@ -119,6 +123,7 @@ class FilterPointPen(_PassThruComponentsMixin, AbstractPointPen):
 
 class _DecomposingFilterMixinBase:
     """Base mixin class with common `addComponent` logic for decomposing filter pens."""
+
     include: Incomplete
     def addComponent(self, baseGlyphName, transformation, **kwargs) -> None: ...
 
@@ -144,6 +149,7 @@ class _DecomposingFilterPenMixin(_DecomposingFilterMixinBase):
     if False, only decompose top-level components included in the set, but not
     also their children.
     """
+
     skipMissingComponents: bool
     include: Incomplete
     decomposeNested: Incomplete
@@ -170,6 +176,7 @@ class _DecomposingFilterPointPenMixin(_DecomposingFilterMixinBase):
     if False, only decompose top-level components included in the set, but not
     also their children.
     """
+
     skipMissingComponents: bool
     include: Incomplete
     decomposeNested: Incomplete
@@ -181,7 +188,7 @@ class DecomposingFilterPointPen(_DecomposingFilterPointPenMixin, DecomposingPoin
     """Filter point pen that draws components as regular contours."""
 
 class ContourFilterPointPen(_PassThruComponentsMixin, AbstractPointPen):
-    '''A "buffered" filter point pen that accumulates contour data, passes
+    """A "buffered" filter point pen that accumulates contour data, passes
     it through a ``filterContour`` method when the contour is closed or ended,
     and finally draws the result with the output point pen.
 
@@ -189,7 +196,8 @@ class ContourFilterPointPen(_PassThruComponentsMixin, AbstractPointPen):
 
     The ``filterContour`` method can modify the contour in-place (return None)
     or return a new contour to replace it.
-    '''
+    """
+
     _outPen: Incomplete
     currentContour: Incomplete
     currentContourKwargs: Incomplete
@@ -209,7 +217,7 @@ class ContourFilterPointPen(_PassThruComponentsMixin, AbstractPointPen):
     def addPoint(self, pt, segmentType=None, smooth: bool = False, name=None, identifier=None, **kwargs) -> None: ...
 
 class OnCurveFirstPointPen(ContourFilterPointPen):
-    '''Filter point pen that ensures closed contours start with an on-curve point.
+    """Filter point pen that ensures closed contours start with an on-curve point.
 
     If a closed contour starts with an off-curve point (segmentType=None), it rotates
     the points list so that the first on-curve point (segmentType != None) becomes
@@ -237,6 +245,7 @@ class OnCurveFirstPointPen(ContourFilterPointPen):
     (\'addPoint\', ((300, 100), \'curve\', False, None), {})
     >>> rec.value[4]
     (\'addPoint\', ((0, 0), None, False, None), {})
-    '''
+    """
+
     def filterContour(self, contour):
         """Rotate closed contour to start with first on-curve point if needed."""

@@ -33,7 +33,8 @@ class Visitor:
         """Called to visit any value that is a dictionary."""
     def visitLeaf(self, obj, *args, **kwargs) -> None:
         """Called to visit any value that is not an object, list,
-        or dictionary."""
+        or dictionary.
+        """
     def visit(self, obj, *args, **kwargs) -> None:
         """This is the main entry to the visitor. The visitor will visit object
         ``obj``.

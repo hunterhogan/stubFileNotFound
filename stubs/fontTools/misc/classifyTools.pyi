@@ -4,6 +4,7 @@ class Classifier:
     """
     Main Classifier object, used to classify things into similar sets.
     """
+
     _things: Incomplete
     _sets: Incomplete
     _mapping: Incomplete

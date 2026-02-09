@@ -1,11 +1,12 @@
 from _typeshed import Incomplete
+from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
 from fontTools.config import OPTIONS as OPTIONS
 from fontTools.misc.intTools import bit_count as bit_count, bit_indices as bit_indices
 from fontTools.ttLib import TTFont as TTFont
 from fontTools.ttLib.tables import otBase as otBase, otTables as otTables
 from functools import cached_property as cached_property
-from typing import Iterable, NamedTuple, Sequence
+from typing import NamedTuple, TypeAlias
 
 log: Incomplete
 COMPRESSION_LEVEL: Incomplete
@@ -19,7 +20,7 @@ def compact_ext_lookup(font: TTFont, level: int, lookup: otTables.Lookup) -> Non
 def compact_pair_pos(font: TTFont, level: int, subtables: Sequence[otTables.PairPos]) -> Sequence[otTables.PairPos]: ...
 def compact_class_pairs(font: TTFont, level: int, subtable: otTables.PairPos) -> list[otTables.PairPos]: ...
 def is_really_zero(class2: otTables.Class2Record) -> bool: ...
-Pairs = dict[tuple[tuple[str, ...], tuple[str, ...]], tuple[otBase.ValueRecord, otBase.ValueRecord]]
+Pairs: TypeAlias = dict[tuple[tuple[str, ...], tuple[str, ...]], tuple[otBase.ValueRecord, otBase.ValueRecord]]
 
 def _getClassRanges(glyphIDs: Iterable[int]): ...
 def _classDef_bytes(class_data: list[tuple[list[tuple[int, int]], int, int]], class_ids: list[int], coverage: bool = False): ...

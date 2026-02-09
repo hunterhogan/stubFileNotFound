@@ -1,7 +1,9 @@
 from _typeshed import Incomplete
 from fontTools.misc.intTools import bit_count as bit_count
 from fontTools.misc.roundTools import noRound as noRound, otRound as otRound
-from fontTools.varLib.builder import buildVarData as buildVarData, buildVarRegion as buildVarRegion, buildVarRegionList as buildVarRegionList, buildVarStore as buildVarStore
+from fontTools.varLib.builder import (
+	buildVarData as buildVarData, buildVarRegion as buildVarRegion, buildVarRegionList as buildVarRegionList,
+	buildVarStore as buildVarStore)
 from fontTools.varLib.models import supportScalar as supportScalar
 
 NO_VARIATION_INDEX: Incomplete
@@ -54,7 +56,8 @@ def VarStore_prune_regions(self, *, VarData: str = 'VarData', VarRegionList: str
     """Remove unused VarRegions."""
 def _visit(self, func) -> None:
     """Recurse down from self, if type of an object is ot.Device,
-    call func() on it.  Works on otData-style classes."""
+    call func() on it.  Works on otData-style classes.
+    """
 def _Device_recordVarIdx(self, s) -> None:
     """Add VarIdx in this Device table (if any) to the set s."""
 def Object_collect_device_varidxes(self, varidxes) -> None: ...
@@ -75,7 +78,8 @@ class _Encoding:
     @staticmethod
     def _characteristic_overhead(columns):
         """Returns overhead in bytes of encoding this characteristic
-        as a VarData."""
+        as a VarData.
+        """
     @staticmethod
     def _columns(chars): ...
     def gain_from_merging(self, other_encoding): ...

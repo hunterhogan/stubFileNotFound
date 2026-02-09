@@ -2,6 +2,7 @@ from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import safeEval as safeEval
+from fontTools.ttLib import TTFont
 
 VDMX_HeaderFmt: str
 VDMX_RatRangeFmt: str
@@ -16,18 +17,19 @@ class table_V_D_M_X_(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/vdmx
     """
+
     ratRanges: Incomplete
     groups: Incomplete
-    def decompile(self, data, ttFont) -> None: ...
+    def decompile(self, data, ttFont: TTFont) -> None: ...
     def _getOffsets(self):
         """
         Calculate offsets to VDMX_Group records.
         For each ratRange return a list of offset values from the beginning of
         the VDMX table to a VDMX_Group.
         """
-    def compile(self, ttFont): ...
-    def toXML(self, writer, ttFont) -> None: ...
+    def compile(self, ttFont: TTFont): ...
+    def toXML(self, writer, ttFont: TTFont) -> None: ...
     version: Incomplete
     numRatios: int
     numRecs: int
-    def fromXML(self, name, attrs, content, ttFont) -> None: ...
+    def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...

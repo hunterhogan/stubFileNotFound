@@ -1,25 +1,27 @@
-import dataclasses
 from .featureVars import instantiateFeatureVariations as instantiateFeatureVariations
 from _typeshed import Incomplete
-from collections.abc import Generator
+from collections.abc import Generator, Iterable, Mapping, Sequence
 from contextlib import contextmanager
 from enum import IntEnum
 from fontTools import subset as subset, varLib as varLib
 from fontTools.cffLib import privateDictOperators2 as privateDictOperators2
 from fontTools.cffLib.CFF2ToCFF import convertCFF2ToCFF as convertCFF2ToCFF
-from fontTools.cffLib.specializer import commandsToProgram as commandsToProgram, generalizeCommands as generalizeCommands, programToCommands as programToCommands, specializeCommands as specializeCommands
+from fontTools.cffLib.specializer import (
+	commandsToProgram as commandsToProgram, generalizeCommands as generalizeCommands,
+	programToCommands as programToCommands, specializeCommands as specializeCommands)
 from fontTools.misc.cliTools import makeOutputFileName as makeOutputFileName
-from fontTools.misc.fixedTools import floatToFixedToFloat as floatToFixedToFloat, otRound as otRound, strToFixedToFloat as strToFixedToFloat
-from fontTools.ttLib import TTFont as TTFont, newTable as newTable
+from fontTools.misc.fixedTools import (
+	floatToFixedToFloat as floatToFixedToFloat, otRound as otRound, strToFixedToFloat as strToFixedToFloat)
+from fontTools.ttLib import newTable as newTable, TTFont as TTFont
 from fontTools.ttLib.tables import _g_l_y_f as _g_l_y_f
-from fontTools.ttLib.tables.TupleVariation import TupleVariation as TupleVariation
 from fontTools.ttLib.tables.otTables import VarComponentFlags as VarComponentFlags
+from fontTools.ttLib.tables.TupleVariation import TupleVariation as TupleVariation
 from fontTools.varLib import builder as builder
 from fontTools.varLib.instancer import names as names, solver as solver
 from fontTools.varLib.merger import MutatorMerger as MutatorMerger
 from fontTools.varLib.models import normalizeValue as normalizeValue, piecewiseLinearMap as piecewiseLinearMap
 from fontTools.varLib.mvar import MVAR_ENTRIES as MVAR_ENTRIES
-from typing import Iterable, Mapping, Sequence
+import dataclasses
 
 log: Incomplete
 
@@ -33,6 +35,7 @@ class AxisTriple(Sequence):
     Any of the values can be None, in which case the limitRangeAndPopulateDefaults()
     method can be used to fill in the missing values based on the fvar axis values.
     """
+
     minimum: float | None
     default: float | None
     maximum: float | None
@@ -40,7 +43,6 @@ class AxisTriple(Sequence):
     def __getitem__(self, i): ...
     def __len__(self) -> int: ...
     def _replace(self, **kwargs): ...
-    def __repr__(self) -> str: ...
     @classmethod
     def expand(cls, v: AxisTriple | float | tuple[float, float] | tuple[float, float, float]) -> AxisTriple:
         """Convert a single value or a tuple into an AxisTriple.
@@ -60,6 +62,7 @@ class AxisTriple(Sequence):
 @dataclasses.dataclass(frozen=True, order=True, repr=False)
 class NormalizedAxisTriple(AxisTriple):
     """A triple of (min, default, max) normalized axis values."""
+
     minimum: float
     default: float
     maximum: float
@@ -69,7 +72,9 @@ class NormalizedAxisTriple(AxisTriple):
 class NormalizedAxisTripleAndDistances(AxisTriple):
     """A triple of (min, default, max) normalized axis values,
     with distances between min and default, and default and max,
-    in the *pre-normalized* space."""
+    in the *pre-normalized* space.
+    """
+
     minimum: float
     default: float
     maximum: float
@@ -80,14 +85,13 @@ class NormalizedAxisTripleAndDistances(AxisTriple):
     def renormalizeValue(self, v, extrapolate: bool = True):
         """Renormalizes a normalized value v to the range of this axis,
         considering the pre-normalized distances as well as the new
-        axis limits."""
+        axis limits.
+        """
 
 class _BaseAxisLimits(Mapping[str, AxisTriple]):
     def __getitem__(self, key: str) -> AxisTriple: ...
     def __iter__(self) -> Iterable[str]: ...
     def __len__(self) -> int: ...
-    def __repr__(self) -> str: ...
-    def __str__(self) -> str: ...
     def defaultLocation(self) -> dict[str, float]:
         """Return a dict of default axis values."""
     def pinnedLocation(self) -> dict[str, float]:
@@ -95,6 +99,7 @@ class _BaseAxisLimits(Mapping[str, AxisTriple]):
 
 class AxisLimits(_BaseAxisLimits):
     """Maps axis tags (str) to AxisTriple values."""
+
     _data: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
     def limitAxesAndPopulateDefaults(self, varfont) -> AxisLimits:
@@ -110,6 +115,7 @@ class AxisLimits(_BaseAxisLimits):
 
 class NormalizedAxisLimits(_BaseAxisLimits):
     """Maps axis tags (str) to NormalizedAxisTriple values."""
+
     _data: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
 
@@ -149,7 +155,8 @@ def instantiateTupleVariationStore(variations, axisLimits, origCoords=None, endP
             inferred points (cf. table__g_l_y_f._getCoordinatesAndControls).
         endPts: List[int]: indices of contour end points, for inferring 'gvar' deltas.
 
-    Returns:
+    Returns
+    -------
         List[float]: the overall delta adjustment after applicable deltas were summed.
     """
 def changeTupleVariationsAxisLimits(variations, axisLimits): ...
@@ -158,7 +165,8 @@ def instantiateCFF2(varfont, axisLimits, *, round=..., specialize: bool = True, 
 def _instantiateGvarGlyph(glyphname, glyf, gvar, hMetrics, vMetrics, axisLimits, optimize: bool = True) -> None: ...
 def instantiateGvarGlyph(varfont, glyphname, axisLimits, optimize: bool = True) -> None:
     """Remove?
-    https://github.com/fonttools/fonttools/pull/2266"""
+    https://github.com/fonttools/fonttools/pull/2266
+    """
 def instantiateGvar(varfont, axisLimits, optimize: bool = True): ...
 def setCvarDeltas(cvt, deltas) -> None: ...
 def instantiateCvar(varfont, axisLimits) -> None: ...
@@ -214,7 +222,8 @@ def instantiateItemVariationStore(itemVarStore, fvarAxes, axisLimits, hierarchic
             min/default/max axis coordinates. May not specify coordinates/ranges for
             all the fvar axes.
 
-    Returns:
+    Returns
+    -------
         defaultDeltas: to be added to the default instance, of type dict of floats
             keyed by VariationIndex compound values: i.e. (outer << 16) + inner.
     """
@@ -277,18 +286,20 @@ def instantiateVariableFont(varfont, axisLimits, inplace: bool = False, optimize
     """
 def setRibbiBits(font) -> None:
     """Set the `head.macStyle` and `OS/2.fsSelection` style bits
-    appropriately."""
+    appropriately.
+    """
 def parseLimits(limits: Iterable[str]) -> dict[str, AxisTriple | None]: ...
 def parseArgs(args):
-    '''Parse argv.
+    """Parse argv.
 
-    Returns:
+    Returns
+    -------
         3-tuple (infile, axisLimits, options)
         axisLimits is either a Dict[str, Optional[float]], for pinning variation axes
         to specific coordinates along those axes (with `None` as a placeholder for an
         axis\' default value); or a Dict[str, Tuple(float, float)], meaning limit this
         axis to min/max range.
         Axes locations are in user-space coordinates, as defined in the "fvar" table.
-    '''
+    """
 def main(args=None) -> None:
     """Partially instantiate a variable font"""

@@ -1,29 +1,32 @@
 from _typeshed import Incomplete
 
-__all__ = ['Element', 'FeatureFile', 'Comment', 'GlyphName', 'GlyphClass', 'GlyphClassName', 'MarkClassName', 'AnonymousBlock', 'Block', 'FeatureBlock', 'NestedBlock', 'LookupBlock', 'GlyphClassDefinition', 'GlyphClassDefStatement', 'MarkClass', 'MarkClassDefinition', 'AlternateSubstStatement', 'Anchor', 'AnchorDefinition', 'AttachStatement', 'AxisValueLocationStatement', 'BaseAxis', 'CVParametersNameStatement', 'ChainContextPosStatement', 'ChainContextSubstStatement', 'CharacterStatement', 'ConditionsetStatement', 'CursivePosStatement', 'ElidedFallbackName', 'ElidedFallbackNameID', 'Expression', 'FeatureNameStatement', 'FeatureReferenceStatement', 'FontRevisionStatement', 'HheaField', 'IgnorePosStatement', 'IgnoreSubstStatement', 'IncludeStatement', 'LanguageStatement', 'LanguageSystemStatement', 'LigatureCaretByIndexStatement', 'LigatureCaretByPosStatement', 'LigatureSubstStatement', 'LookupFlagStatement', 'LookupReferenceStatement', 'MarkBasePosStatement', 'MarkLigPosStatement', 'MarkMarkPosStatement', 'MultipleSubstStatement', 'NameRecord', 'OS2Field', 'PairPosStatement', 'ReverseChainSingleSubstStatement', 'ScriptStatement', 'SinglePosStatement', 'SingleSubstStatement', 'SizeParameters', 'Statement', 'STATAxisValueStatement', 'STATDesignAxisStatement', 'STATNameStatement', 'SubtableStatement', 'TableBlock', 'ValueRecord', 'ValueRecordDefinition', 'VheaField']
+__all__ = ['AlternateSubstStatement', 'Anchor', 'AnchorDefinition', 'AnonymousBlock', 'AttachStatement', 'AxisValueLocationStatement', 'BaseAxis', 'Block', 'CVParametersNameStatement', 'ChainContextPosStatement', 'ChainContextSubstStatement', 'CharacterStatement', 'Comment', 'ConditionsetStatement', 'CursivePosStatement', 'Element', 'ElidedFallbackName', 'ElidedFallbackNameID', 'Expression', 'FeatureBlock', 'FeatureFile', 'FeatureNameStatement', 'FeatureReferenceStatement', 'FontRevisionStatement', 'GlyphClass', 'GlyphClassDefStatement', 'GlyphClassDefinition', 'GlyphClassName', 'GlyphName', 'HheaField', 'IgnorePosStatement', 'IgnoreSubstStatement', 'IncludeStatement', 'LanguageStatement', 'LanguageSystemStatement', 'LigatureCaretByIndexStatement', 'LigatureCaretByPosStatement', 'LigatureSubstStatement', 'LookupBlock', 'LookupFlagStatement', 'LookupReferenceStatement', 'MarkBasePosStatement', 'MarkClass', 'MarkClassDefinition', 'MarkClassName', 'MarkLigPosStatement', 'MarkMarkPosStatement', 'MultipleSubstStatement', 'NameRecord', 'NestedBlock', 'OS2Field', 'PairPosStatement', 'ReverseChainSingleSubstStatement', 'STATAxisValueStatement', 'STATDesignAxisStatement', 'STATNameStatement', 'ScriptStatement', 'SinglePosStatement', 'SingleSubstStatement', 'SizeParameters', 'Statement', 'SubtableStatement', 'TableBlock', 'ValueRecord', 'ValueRecordDefinition', 'VheaField']
 
 class Element:
-    '''A base class representing "something" in a feature file.'''
+    """A base class representing "something" in a feature file."""
+
     location: Incomplete
     def __init__(self, location=None) -> None: ...
     def build(self, builder) -> None: ...
     def asFea(self, indent: str = '') -> None:
         """Returns this element as a string of feature code. For block-type
         elements (such as :class:`FeatureBlock`), the `indent` string is
-        added to the start of each line in the output."""
-    def __str__(self) -> str: ...
+        added to the start of each line in the output.
+        """
 
 class Statement(Element): ...
 class Expression(Element): ...
 
 class Comment(Element):
     """A comment in a feature file."""
+
     text: Incomplete
     def __init__(self, text, location=None) -> None: ...
     def asFea(self, indent: str = ''): ...
 
 class NullGlyph(Expression):
     """The NULL glyph, used in glyph deletion substitutions."""
+
     def __init__(self, location=None) -> None: ...
     def glyphSet(self):
         """The glyphs in this class as a tuple of :class:`GlyphName` objects."""
@@ -31,6 +34,7 @@ class NullGlyph(Expression):
 
 class GlyphName(Expression):
     """A single glyph name, such as ``cedilla``."""
+
     glyph: Incomplete
     def __init__(self, glyph, location=None) -> None: ...
     def glyphSet(self):
@@ -39,6 +43,7 @@ class GlyphName(Expression):
 
 class GlyphClass(Expression):
     """A glyph class, such as ``[acute cedilla grave]``."""
+
     glyphs: Incomplete
     original: Incomplete
     curr: int
@@ -54,18 +59,23 @@ class GlyphClass(Expression):
         """Add a range (e.g. ``A-Z``) to the class. ``start`` and ``end``
         are either :class:`GlyphName` objects or strings representing the
         start and end glyphs in the class, and ``glyphs`` is the full list of
-        :class:`GlyphName` objects in the range."""
+        :class:`GlyphName` objects in the range.
+        """
     def add_cid_range(self, start, end, glyphs) -> None:
         """Add a range to the class by glyph ID. ``start`` and ``end`` are the
         initial and final IDs, and ``glyphs`` is the full list of
-        :class:`GlyphName` objects in the range."""
+        :class:`GlyphName` objects in the range.
+        """
     def add_class(self, gc) -> None:
         """Add glyphs from the given :class:`GlyphClassName` object to the
-        class."""
+        class.
+        """
 
 class GlyphClassName(Expression):
     """A glyph class name, such as ``@FRENCH_MARKS``. This must be instantiated
-    with a :class:`GlyphClassDefinition` object."""
+    with a :class:`GlyphClassDefinition` object.
+    """
+
     glyphclass: Incomplete
     def __init__(self, glyphclass, location=None) -> None: ...
     def glyphSet(self):
@@ -74,7 +84,9 @@ class GlyphClassName(Expression):
 
 class MarkClassName(Expression):
     """A mark class name, such as ``@FRENCH_MARKS`` defined with ``markClass``.
-    This must be instantiated with a :class:`MarkClass` object."""
+    This must be instantiated with a :class:`MarkClass` object.
+    """
+
     markClass: Incomplete
     def __init__(self, markClass, location=None) -> None: ...
     def glyphSet(self):
@@ -83,6 +95,7 @@ class MarkClassName(Expression):
 
 class AnonymousBlock(Statement):
     """An anonymous data block."""
+
     tag: Incomplete
     content: Incomplete
     def __init__(self, tag, content, location=None) -> None: ...
@@ -90,32 +103,40 @@ class AnonymousBlock(Statement):
 
 class Block(Statement):
     """A block of statements: feature, lookup, etc."""
+
     statements: Incomplete
     def __init__(self, location=None) -> None: ...
     def build(self, builder) -> None:
         """When handed a 'builder' object of comparable interface to
         :class:`fontTools.feaLib.builder`, walks the statements in this
-        block, calling the builder callbacks."""
+        block, calling the builder callbacks.
+        """
     def asFea(self, indent: str = ''): ...
 
 class FeatureFile(Block):
     """The top-level element of the syntax tree, containing the whole feature
-    file in its ``statements`` attribute."""
+    file in its ``statements`` attribute.
+    """
+
     markClasses: Incomplete
     def __init__(self) -> None: ...
     def asFea(self, indent: str = ''): ...
 
 class FeatureBlock(Block):
     """A named feature block."""
+
     def __init__(self, name, use_extension: bool = False, location=None) -> None: ...
     def build(self, builder) -> None:
         """Call the ``start_feature`` callback on the builder object, visit
-        all the statements in this feature, and then call ``end_feature``."""
+        all the statements in this feature, and then call ``end_feature``.
+        """
     def asFea(self, indent: str = ''): ...
 
 class NestedBlock(Block):
     """A block inside another block, for example when found inside a
-    ``cvParameters`` block."""
+    ``cvParameters`` block.
+    """
+
     tag: Incomplete
     block_name: Incomplete
     def __init__(self, tag, block_name, location=None) -> None: ...
@@ -124,18 +145,21 @@ class NestedBlock(Block):
 
 class LookupBlock(Block):
     """A named lookup, containing ``statements``."""
+
     def __init__(self, name, use_extension: bool = False, location=None) -> None: ...
     def build(self, builder) -> None: ...
     def asFea(self, indent: str = ''): ...
 
 class TableBlock(Block):
     """A ``table ... { }`` block."""
+
     name: Incomplete
     def __init__(self, name, location=None) -> None: ...
     def asFea(self, indent: str = ''): ...
 
 class GlyphClassDefinition(Statement):
     """Example: ``@UPPERCASE = [A-Z];``."""
+
     name: Incomplete
     glyphs: Incomplete
     def __init__(self, name, glyphs, location=None) -> None: ...
@@ -146,7 +170,9 @@ class GlyphClassDefinition(Statement):
 class GlyphClassDefStatement(Statement):
     """Example: ``GlyphClassDef @UPPERCASE, [B], [C], [D];``. The parameters
     must be either :class:`GlyphClass` or :class:`GlyphClassName` objects, or
-    ``None``."""
+    ``None``.
+    """
+
     ligatureGlyphs: Incomplete
     componentGlyphs: Incomplete
     def __init__(self, baseGlyphs, markGlyphs, ligatureGlyphs, componentGlyphs, location=None) -> None: ...
@@ -168,6 +194,7 @@ class MarkClass:
     The ``MarkClass`` object is therefore just a container for a list of
     :class:`MarkClassDefinition` statements.
     """
+
     name: Incomplete
     definitions: Incomplete
     glyphs: Incomplete
@@ -179,7 +206,7 @@ class MarkClass:
     def asFea(self, indent: str = ''): ...
 
 class MarkClassDefinition(Statement):
-    '''A single ``markClass`` statement. The ``markClass`` should be a
+    """A single ``markClass`` statement. The ``markClass`` should be a
     :class:`MarkClass` object, the ``anchor`` an :class:`Anchor` object,
     and the ``glyphs`` parameter should be a `glyph-containing object`_ .
 
@@ -199,7 +226,8 @@ class MarkClassDefinition(Statement):
             # markClass [acute grave] <anchor 350 800> @FRENCH_ACCENTS;
             # markClass [cedilla] <anchor 350 -200> @FRENCH_ACCENTS;
 
-    '''
+    """
+
     def __init__(self, markClass, anchor, glyphs, location=None) -> None: ...
     def glyphSet(self):
         """The glyphs in this class as a tuple of :class:`GlyphName` objects."""
@@ -209,7 +237,9 @@ class AlternateSubstStatement(Statement):
     """A ``sub ... from ...`` statement.
 
     ``glyph`` and ``replacement`` should be `glyph-containing objects`_.
-    ``prefix`` and ``suffix`` should be lists of `glyph-containing objects`_."""
+    ``prefix`` and ``suffix`` should be lists of `glyph-containing objects`_.
+    """
+
     replacement: Incomplete
     def __init__(self, prefix, glyph, suffix, replacement, location=None) -> None: ...
     def build(self, builder) -> None:
@@ -222,17 +252,20 @@ class Anchor(Expression):
     If a ``name`` is given, this will be used in preference to the coordinates.
     Other values should be integer.
     """
+
     name: Incomplete
     def __init__(self, x, y, name=None, contourpoint=None, xDeviceTable=None, yDeviceTable=None, location=None) -> None: ...
     def asFea(self, indent: str = ''): ...
 
 class AnchorDefinition(Statement):
     """A named anchor definition. (2.e.viii). ``name`` should be a string."""
+
     def __init__(self, name, x, y, contourpoint=None, location=None) -> None: ...
     def asFea(self, indent: str = ''): ...
 
 class AttachStatement(Statement):
     """A ``GDEF`` table ``Attach`` statement."""
+
     glyphs: Incomplete
     contourPoints: Incomplete
     def __init__(self, glyphs, contourPoints, location=None) -> None: ...
@@ -252,7 +285,9 @@ class ChainContextPosStatement(Statement):
     position, a list of :class:`LookupBlock`\\ s to apply multiple
     lookups, or ``None`` to apply no lookup. The length of the outer
     list should equal the length of ``glyphs``; the inner lists can be
-    of variable length."""
+    of variable length.
+    """
+
     lookups: Incomplete
     def __init__(self, prefix, glyphs, suffix, lookups, location=None) -> None: ...
     def build(self, builder) -> None:
@@ -271,7 +306,9 @@ class ChainContextSubstStatement(Statement):
     position, a list of :class:`LookupBlock`\\ s to apply multiple
     lookups, or ``None`` to apply no lookup. The length of the outer
     list should equal the length of ``glyphs``; the inner lists can be
-    of variable length."""
+    of variable length.
+    """
+
     lookups: Incomplete
     def __init__(self, prefix, glyphs, suffix, lookups, location=None) -> None: ...
     def build(self, builder) -> None:
@@ -280,7 +317,9 @@ class ChainContextSubstStatement(Statement):
 
 class CursivePosStatement(Statement):
     """A cursive positioning statement. Entry and exit anchors can either
-    be :class:`Anchor` objects or ``None``."""
+    be :class:`Anchor` objects or ``None``.
+    """
+
     glyphclass: Incomplete
     def __init__(self, glyphclass, entryAnchor, exitAnchor, location=None) -> None: ...
     def build(self, builder) -> None:
@@ -289,6 +328,7 @@ class CursivePosStatement(Statement):
 
 class FeatureReferenceStatement(Statement):
     """Example: ``feature salt;``"""
+
     def __init__(self, featureName, location=None) -> None: ...
     def build(self, builder) -> None:
         """Calls the builder object's ``add_feature_reference`` callback."""
@@ -299,12 +339,15 @@ class IgnorePosStatement(Statement):
 
     ``chainContexts`` should be a list of ``(prefix, glyphs, suffix)`` tuples,
     with each of ``prefix``, ``glyphs`` and ``suffix`` being
-    `glyph-containing objects`_ ."""
+    `glyph-containing objects`_ .
+    """
+
     chainContexts: Incomplete
     def __init__(self, chainContexts, location=None) -> None: ...
     def build(self, builder) -> None:
         """Calls the builder object's ``add_chain_context_pos`` callback on each
-        rule context."""
+        rule context.
+        """
     def asFea(self, indent: str = ''): ...
 
 class IgnoreSubstStatement(Statement):
@@ -312,16 +355,20 @@ class IgnoreSubstStatement(Statement):
 
     ``chainContexts`` should be a list of ``(prefix, glyphs, suffix)`` tuples,
     with each of ``prefix``, ``glyphs`` and ``suffix`` being
-    `glyph-containing objects`_ ."""
+    `glyph-containing objects`_ .
+    """
+
     chainContexts: Incomplete
     def __init__(self, chainContexts, location=None) -> None: ...
     def build(self, builder) -> None:
         """Calls the builder object's ``add_chain_context_subst`` callback on
-        each rule context."""
+        each rule context.
+        """
     def asFea(self, indent: str = ''): ...
 
 class IncludeStatement(Statement):
     """An ``include()`` statement."""
+
     filename: Incomplete
     def __init__(self, filename, location=None) -> None: ...
     def build(self) -> None: ...
@@ -329,6 +376,7 @@ class IncludeStatement(Statement):
 
 class LanguageStatement(Statement):
     """A ``language`` statement within a feature."""
+
     language: Incomplete
     include_default: Incomplete
     required: Incomplete
@@ -339,6 +387,7 @@ class LanguageStatement(Statement):
 
 class LanguageSystemStatement(Statement):
     """A top-level ``languagesystem`` statement."""
+
     def __init__(self, script, language, location=None) -> None: ...
     def build(self, builder) -> None:
         """Calls the builder object's ``add_language_system`` callback."""
@@ -346,7 +395,9 @@ class LanguageSystemStatement(Statement):
 
 class FontRevisionStatement(Statement):
     """A ``head`` table ``FontRevision`` statement. ``revision`` should be a
-    number, and will be formatted to three significant decimal places."""
+    number, and will be formatted to three significant decimal places.
+    """
+
     revision: Incomplete
     def __init__(self, revision, location=None) -> None: ...
     def build(self, builder) -> None: ...
@@ -354,7 +405,9 @@ class FontRevisionStatement(Statement):
 
 class LigatureCaretByIndexStatement(Statement):
     """A ``GDEF`` table ``LigatureCaretByIndex`` statement. ``glyphs`` should be
-    a `glyph-containing object`_, and ``carets`` should be a list of integers."""
+    a `glyph-containing object`_, and ``carets`` should be a list of integers.
+    """
+
     def __init__(self, glyphs, carets, location=None) -> None: ...
     def build(self, builder) -> None:
         """Calls the builder object's ``add_ligatureCaretByIndex_`` callback."""
@@ -362,7 +415,9 @@ class LigatureCaretByIndexStatement(Statement):
 
 class LigatureCaretByPosStatement(Statement):
     """A ``GDEF`` table ``LigatureCaretByPos`` statement. ``glyphs`` should be
-    a `glyph-containing object`_, and ``carets`` should be a list of integers."""
+    a `glyph-containing object`_, and ``carets`` should be a list of integers.
+    """
+
     def __init__(self, glyphs, carets, location=None) -> None: ...
     def build(self, builder) -> None:
         """Calls the builder object's ``add_ligatureCaretByPos_`` callback."""
@@ -376,7 +431,9 @@ class LigatureSubstStatement(Statement):
     `glyph-containing object`_.
 
     If ``forceChain`` is True, this is expressed as a chaining rule
-    (e.g. ``sub f' i' by f_i``) even when no context is given."""
+    (e.g. ``sub f' i' by f_i``) even when no context is given.
+    """
+
     def __init__(self, prefix, glyphs, suffix, replacement, forceChain, location=None) -> None: ...
     def build(self, builder) -> None: ...
     def asFea(self, indent: str = ''): ...
@@ -385,7 +442,9 @@ class LookupFlagStatement(Statement):
     """A ``lookupflag`` statement. The ``value`` should be an integer value
     representing the flags in use, but not including the ``markAttachment``
     class and ``markFilteringSet`` values, which must be specified as
-    glyph-containing objects."""
+    glyph-containing objects.
+    """
+
     value: Incomplete
     markAttachment: Incomplete
     markFilteringSet: Incomplete
@@ -397,7 +456,9 @@ class LookupFlagStatement(Statement):
 class LookupReferenceStatement(Statement):
     """Represents a ``lookup ...;`` statement to include a lookup in a feature.
 
-    The ``lookup`` should be a :class:`LookupBlock` object."""
+    The ``lookup`` should be a :class:`LookupBlock` object.
+    """
+
     def __init__(self, lookup, location=None) -> None: ...
     def build(self, builder) -> None:
         """Calls the builder object's ``add_lookup_call`` callback."""
@@ -406,14 +467,16 @@ class LookupReferenceStatement(Statement):
 class MarkBasePosStatement(Statement):
     """A mark-to-base positioning rule. The ``base`` should be a
     `glyph-containing object`_. The ``marks`` should be a list of
-    (:class:`Anchor`, :class:`MarkClass`) tuples."""
+    (:class:`Anchor`, :class:`MarkClass`) tuples.
+    """
+
     def __init__(self, base, marks, location=None) -> None: ...
     def build(self, builder) -> None:
         """Calls the builder object's ``add_mark_base_pos`` callback."""
     def asFea(self, indent: str = ''): ...
 
 class MarkLigPosStatement(Statement):
-    '''A mark-to-ligature positioning rule. The ``ligatures`` must be a
+    """A mark-to-ligature positioning rule. The ``ligatures`` must be a
     `glyph-containing object`_. The ``marks`` should be a list of lists: each
     element in the top-level list represents a component glyph, and is made
     up of a list of (:class:`Anchor`, :class:`MarkClass`) tuples representing
@@ -437,7 +500,8 @@ class MarkLigPosStatement(Statement):
         # pos ligature lam_meem_jeem <anchor 625 1800> mark @TOP_MARKS
         # ligComponent <anchor 376 -378> mark @BOTTOM_MARKS;
 
-    '''
+    """
+
     def __init__(self, ligatures, marks, location=None) -> None: ...
     def build(self, builder) -> None:
         """Calls the builder object's ``add_mark_lig_pos`` callback."""
@@ -446,7 +510,9 @@ class MarkLigPosStatement(Statement):
 class MarkMarkPosStatement(Statement):
     """A mark-to-mark positioning rule. The ``baseMarks`` must be a
     `glyph-containing object`_. The ``marks`` should be a list of
-    (:class:`Anchor`, :class:`MarkClass`) tuples."""
+    (:class:`Anchor`, :class:`MarkClass`) tuples.
+    """
+
     def __init__(self, baseMarks, marks, location=None) -> None: ...
     def build(self, builder) -> None:
         """Calls the builder object's ``add_mark_mark_pos`` callback."""
@@ -463,6 +529,7 @@ class MultipleSubstStatement(Statement):
         forceChain: If true, the statement is expressed as a chaining rule
             (e.g. ``sub f' i' by f_i``) even when no context is given.
     """
+
     replacement: Incomplete
     forceChain: Incomplete
     def __init__(self, prefix, glyph, suffix, replacement, forceChain: bool = False, location=None) -> None: ...
@@ -479,6 +546,7 @@ class PairPosStatement(Statement):
     If ``enumerated`` is true, then this is expressed as an
     `enumerated pair <https://adobe-type-tools.github.io/afdko/OpenTypeFeatureFileSpecification.html#6.b.ii>`_.
     """
+
     enumerated: Incomplete
     def __init__(self, glyphs1, valuerecord1, glyphs2, valuerecord2, enumerated: bool = False, location=None) -> None: ...
     def build(self, builder) -> None:
@@ -500,6 +568,7 @@ class ReverseChainSingleSubstStatement(Statement):
     lists of `glyph-containing objects`_. ``glyphs`` and ``replacements`` should
     be one-item lists.
     """
+
     glyphs: Incomplete
     replacements: Incomplete
     def __init__(self, old_prefix, old_suffix, glyphs, replacements, location=None) -> None: ...
@@ -514,6 +583,7 @@ class SingleSubstStatement(Statement):
     ``replace`` should be lists of `glyph-containing objects`_. ``glyphs`` and
     ``replace`` should be one-item lists.
     """
+
     forceChain: Incomplete
     glyphs: Incomplete
     replacements: Incomplete
@@ -524,6 +594,7 @@ class SingleSubstStatement(Statement):
 
 class ScriptStatement(Statement):
     """A ``script`` statement."""
+
     script: Incomplete
     def __init__(self, script, location=None) -> None: ...
     def build(self, builder) -> None:
@@ -535,7 +606,9 @@ class SinglePosStatement(Statement):
     lists of `glyph-containing objects`_.
 
     ``pos`` should be a one-element list containing a (`glyph-containing object`_,
-    :class:`ValueRecord`) tuple."""
+    :class:`ValueRecord`) tuple.
+    """
+
     forceChain: Incomplete
     def __init__(self, pos, prefix, suffix, forceChain, location=None) -> None: ...
     def build(self, builder) -> None:
@@ -544,6 +617,7 @@ class SinglePosStatement(Statement):
 
 class SubtableStatement(Statement):
     """Represents a subtable break."""
+
     def __init__(self, location=None) -> None: ...
     def build(self, builder) -> None:
         """Calls the builder objects's ``add_subtable_break`` callback."""
@@ -551,6 +625,7 @@ class SubtableStatement(Statement):
 
 class ValueRecord(Expression):
     """Represents a value record."""
+
     vertical: Incomplete
     def __init__(self, xPlacement=None, yPlacement=None, xAdvance=None, yAdvance=None, xPlaDevice=None, yPlaDevice=None, xAdvDevice=None, yAdvDevice=None, vertical: bool = False, location=None) -> None: ...
     def __eq__(self, other): ...
@@ -562,6 +637,7 @@ class ValueRecord(Expression):
 
 class ValueRecordDefinition(Statement):
     """Represents a named value record definition."""
+
     name: Incomplete
     value: Incomplete
     def __init__(self, name, value, location=None) -> None: ...
@@ -569,6 +645,7 @@ class ValueRecordDefinition(Statement):
 
 class NameRecord(Statement):
     """Represents a name record. (`Section 9.e. <https://adobe-type-tools.github.io/afdko/OpenTypeFeatureFileSpecification.html#9.e>`_)"""
+
     nameID: Incomplete
     platformID: Incomplete
     platEncID: Incomplete
@@ -581,16 +658,19 @@ class NameRecord(Statement):
 
 class FeatureNameStatement(NameRecord):
     """Represents a ``sizemenuname`` or ``name`` statement."""
+
     def build(self, builder) -> None:
         """Calls the builder object's ``add_featureName`` callback."""
     def asFea(self, indent: str = ''): ...
 
 class STATNameStatement(NameRecord):
     """Represents a STAT table ``name`` statement."""
+
     def asFea(self, indent: str = ''): ...
 
 class SizeParameters(Statement):
     """A ``parameters`` statement."""
+
     DesignSize: Incomplete
     SubfamilyID: Incomplete
     RangeStart: Incomplete
@@ -602,6 +682,7 @@ class SizeParameters(Statement):
 
 class CVParametersNameStatement(NameRecord):
     """Represent a name statement inside a ``cvParameters`` block."""
+
     block_name: Incomplete
     def __init__(self, nameID, platformID, platEncID, langID, string, block_name, location=None) -> None: ...
     nameID: Incomplete
@@ -616,6 +697,7 @@ class CharacterStatement(Statement):
     notation. The value must be preceded by '0x' if it is a hexadecimal value.
     The largest Unicode value allowed is 0xFFFFFF.
     """
+
     character: Incomplete
     tag: Incomplete
     def __init__(self, character, tag, location=None) -> None: ...
@@ -625,7 +707,9 @@ class CharacterStatement(Statement):
 
 class BaseAxis(Statement):
     """An axis definition, being either a ``VertAxis.BaseTagList/BaseScriptList``
-    pair or a ``HorizAxis.BaseTagList/BaseScriptList`` pair."""
+    pair or a ``HorizAxis.BaseTagList/BaseScriptList`` pair.
+    """
+
     bases: Incomplete
     scripts: Incomplete
     vertical: Incomplete
@@ -638,7 +722,9 @@ class BaseAxis(Statement):
 class OS2Field(Statement):
     """An entry in the ``OS/2`` table. Most ``values`` should be numbers or
     strings, apart from when the key is ``UnicodeRange``, ``CodePageRange``
-    or ``Panose``, in which case it should be an array of integers."""
+    or ``Panose``, in which case it should be an array of integers.
+    """
+
     key: Incomplete
     value: Incomplete
     def __init__(self, key, value, location=None) -> None: ...
@@ -648,6 +734,7 @@ class OS2Field(Statement):
 
 class HheaField(Statement):
     """An entry in the ``hhea`` table."""
+
     key: Incomplete
     value: Incomplete
     def __init__(self, key, value, location=None) -> None: ...
@@ -657,6 +744,7 @@ class HheaField(Statement):
 
 class VheaField(Statement):
     """An entry in the ``vhea`` table."""
+
     key: Incomplete
     value: Incomplete
     def __init__(self, key, value, location=None) -> None: ...
@@ -672,6 +760,7 @@ class STATDesignAxisStatement(Statement):
         axisOrder (int): an int
         names (list): a list of :class:`STATNameStatement` objects
     """
+
     tag: Incomplete
     axisOrder: Incomplete
     names: Incomplete
@@ -686,6 +775,7 @@ class ElidedFallbackName(Statement):
     Args:
         names: a list of :class:`STATNameStatement` objects
     """
+
     names: Incomplete
     location: Incomplete
     def __init__(self, names, location=None) -> None: ...
@@ -698,6 +788,7 @@ class ElidedFallbackNameID(Statement):
     Args:
         value: an int pointing to an existing name table name ID
     """
+
     value: Incomplete
     location: Incomplete
     def __init__(self, value, location=None) -> None: ...
@@ -712,6 +803,7 @@ class STATAxisValueStatement(Statement):
         locations (list): a list of :class:`AxisValueLocationStatement` objects
         flags (int): an int
     """
+
     names: Incomplete
     locations: Incomplete
     flags: Incomplete
@@ -727,6 +819,7 @@ class AxisValueLocationStatement(Statement):
         tag (str): a 4 letter axis tag
         values (list): a list of ints and/or floats
     """
+
     tag: Incomplete
     values: Incomplete
     def __init__(self, tag, values, location=None) -> None: ...
@@ -741,6 +834,7 @@ class ConditionsetStatement(Statement):
         conditions (dict): a dictionary mapping axis tags to a
             tuple of (min,max) userspace coordinates.
     """
+
     name: Incomplete
     conditions: Incomplete
     def __init__(self, name, conditions, location=None) -> None: ...
@@ -749,8 +843,10 @@ class ConditionsetStatement(Statement):
 
 class VariationBlock(Block):
     """A variation feature block, applicable in a given set of conditions."""
+
     def __init__(self, name, conditionset, use_extension: bool = False, location=None) -> None: ...
     def build(self, builder) -> None:
         """Call the ``start_feature`` callback on the builder object, visit
-        all the statements in this feature, and then call ``end_feature``."""
+        all the statements in this feature, and then call ``end_feature``.
+        """
     def asFea(self, indent: str = ''): ...

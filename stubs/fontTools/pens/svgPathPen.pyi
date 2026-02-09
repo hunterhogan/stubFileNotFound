@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
+from collections.abc import Callable
 from fontTools.pens.basePen import BasePen as BasePen
-from typing import Callable
 
 def pointToString(pt, ntos=...): ...
 
@@ -37,6 +37,7 @@ class SVGPathPen(BasePen):
             glyphset[glyphname].draw(pen)
             print(tpen.getCommands())
     """
+
     _commands: Incomplete
     _lastCommand: Incomplete
     _lastX: Incomplete

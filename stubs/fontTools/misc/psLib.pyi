@@ -1,7 +1,12 @@
-from .psOperators import PSOperators as PSOperators, ps_StandardEncoding as ps_StandardEncoding, ps_array as ps_array, ps_boolean as ps_boolean, ps_dict as ps_dict, ps_integer as ps_integer, ps_literal as ps_literal, ps_mark as ps_mark, ps_name as ps_name, ps_operator as ps_operator, ps_procedure as ps_procedure, ps_procmark as ps_procmark, ps_real as ps_real, ps_string as ps_string
+from .psOperators import (
+	ps_array as ps_array, ps_boolean as ps_boolean, ps_dict as ps_dict, ps_integer as ps_integer, ps_literal as ps_literal,
+	ps_mark as ps_mark, ps_name as ps_name, ps_operator as ps_operator, ps_procedure as ps_procedure,
+	ps_procmark as ps_procmark, ps_real as ps_real, ps_StandardEncoding as ps_StandardEncoding, ps_string as ps_string,
+	PSOperators as PSOperators)
 from _typeshed import Incomplete
 from fontTools.misc import eexec as eexec
-from fontTools.misc.textTools import bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, tobytes as tobytes, tostr as tostr
+from fontTools.misc.textTools import (
+	bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, tobytes as tobytes, tostr as tostr)
 
 log: Incomplete
 ps_special: bytes

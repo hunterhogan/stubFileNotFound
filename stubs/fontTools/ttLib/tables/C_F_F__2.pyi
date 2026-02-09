@@ -13,5 +13,6 @@ class table_C_F_F__2(table_C_F_F_):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/cff2
     """
+
     def decompile(self, data, otFont) -> None: ...
     def compile(self, otFont): ...

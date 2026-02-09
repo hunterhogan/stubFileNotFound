@@ -3,7 +3,7 @@ from fontTools.subset.cff import *
 from fontTools.subset.svg import *
 from fontTools.ttLib.ttFont import TTFont
 
-__all__ = ['Options', 'Subsetter', 'load_font', 'save_font', 'parse_gids', 'parse_glyphs', 'parse_unicodes', 'main']
+__all__ = ['Options', 'Subsetter', 'load_font', 'main', 'parse_gids', 'parse_glyphs', 'parse_unicodes', 'save_font']
 
 class Options:
     class OptionError(Exception): ...

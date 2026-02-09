@@ -7,7 +7,7 @@ from fontTools.ttLib import newTable as newTable
 from fontTools.ttLib.ttVisitor import TTVisitor as TTVisitor
 
 def addFeatureVariations(font, conditionalSubstitutions, featureTag: str = 'rvrn') -> None:
-    '''Add conditional substitutions to a Variable Font.
+    """Add conditional substitutions to a Variable Font.
 
     The `conditionalSubstitutions` argument is a list of (Region, Substitutions)
     tuples.
@@ -42,11 +42,11 @@ def addFeatureVariations(font, conditionalSubstitutions, featureTag: str = 'rvrn
     Note, if this is "rvrn", then the substitution lookup will be inserted at the
     beginning of the lookup list so that it is processed before others, otherwise
     for any other feature tags it will be appended last.
-    '''
+    """
 def _existingVariableFeatures(table): ...
 def _checkSubstitutionGlyphsExist(glyphNames, substitutions) -> None: ...
 def overlayFeatureVariations(conditionalSubstitutions):
-    '''Compute overlaps between all conditional substitutions.
+    """Compute overlaps between all conditional substitutions.
 
     The `conditionalSubstitutions` argument is a list of (Region, Substitutions)
     tuples.
@@ -89,7 +89,7 @@ def overlayFeatureVariations(conditionalSubstitutions):
          ({\'wdth\': (0.5, 1.0)}, [{\'cent\': \'cent.rvrn\'}]),
          ({\'wght\': (0.5, 1.0)}, [{\'dollar\': \'dollar.rvrn\'}])]
 
-    '''
+    """
 def overlayBox(top, bot):
     """Overlays ``top`` box on top of ``bot`` box.
 
@@ -113,13 +113,15 @@ def cleanupBox(box):
     """
 def addFeatureVariationsRaw(font, table, conditionalSubstitutions, featureTag: str = 'rvrn') -> None:
     """Low level implementation of addFeatureVariations that directly
-    models the possibilities of the FeatureVariations table."""
+    models the possibilities of the FeatureVariations table.
+    """
 def buildGSUB():
     """Build a GSUB table from scratch."""
 def makeSubstitutionsHashable(conditionalSubstitutions):
     """Turn all the substitution dictionaries in sorted tuples of tuples so
     they are hashable, to detect duplicates so we don't write out redundant
-    data."""
+    data.
+    """
 
 class ShifterVisitor(TTVisitor):
     shift: Incomplete
@@ -127,7 +129,8 @@ class ShifterVisitor(TTVisitor):
 
 def buildSubstitutionLookups(gsub, allSubstitutions, processLast: bool = False):
     """Build the lookups for the glyph substitutions, return a dict mapping
-    the substitution to lookup indices."""
+    the substitution to lookup indices.
+    """
 def buildFeatureVariations(featureVariationRecords):
     """Build the FeatureVariations subtable."""
 def buildFeatureRecord(featureTag, lookupListIndices):

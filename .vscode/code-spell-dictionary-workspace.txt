@@ -1,4 +1,5 @@
 aaabcbc
+Aacute
 ABCABC
 abcdeabcdabcaba
 absttl
@@ -95,6 +96,7 @@ BYRANK
 byrevrank
 BYREVRANK
 byteord
+bytesjoin
 cachable
 cacheit
 capi
@@ -130,6 +132,7 @@ cmap
 cmsincrby
 codegen
 codepoint
+codepoints
 codesearch
 coeff
 colheader
@@ -199,6 +202,7 @@ DIRSTRING
 dispatchable
 Distjunct
 divexact
+divisionslash
 divm
 DOCNORM
 dothing
@@ -265,12 +269,15 @@ gcdext
 gcid
 Gcomm
 GDEF
+getcmap
 GETKEYS
 getnewargs
+gids
 Glat
 Gloc
 glyf
 Glyf
+glyphset
 gmap
 gmpy
 GMPY
@@ -307,6 +314,7 @@ icomp
 iget
 ilen
 ilocs
+impliable
 incrby
 INCRBY
 inde
@@ -319,7 +327,9 @@ INITBYPROB
 Initialised
 insertnx
 INSERTNX
+Instancer
 interp
+interpolatable
 intp
 inuse
 IOHDF
@@ -594,6 +604,7 @@ rollforward
 rolloff
 rootn
 Roundtooth
+roundv
 rownames
 rpartial
 rrandomb
@@ -621,6 +632,7 @@ sharex
 sharey
 shortsignature
 shoule
+sidebearings
 signedinteger
 Silf
 silverman
@@ -643,6 +655,7 @@ sortorder
 sout
 sparsify
 sqlalchemy
+sstruct
 ssubscribe
 startcol
 startrow
@@ -696,6 +709,7 @@ tensmul
 tensorhead
 tensorial
 tensorsymmetry
+testrepr
 TFIDF
 TIDS
 timedeltas
@@ -788,6 +802,7 @@ WAVEX
 websearch
 weekmask
 weekofyear
+wght
 withcount
 withmatchlen
 WITHPAYLOADS
@@ -805,6 +820,7 @@ xlsxwriter
 xmlcharrefreplace
 xmpz
 xrot
+Xsame
 xticks
 yearfirst
 yerr
@@ -812,6 +828,7 @@ ylabel
 ylabelsize
 ylim
 yrot
+Ysame
 yticks
 zerodim
 zorder

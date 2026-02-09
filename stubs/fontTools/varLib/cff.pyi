@@ -1,8 +1,15 @@
-from .errors import VarLibCFFDictMergeError as VarLibCFFDictMergeError, VarLibCFFHintTypeMergeError as VarLibCFFHintTypeMergeError, VarLibCFFPointTypeMergeError as VarLibCFFPointTypeMergeError, VarLibMergeError as VarLibMergeError
+from .errors import (
+	VarLibCFFDictMergeError as VarLibCFFDictMergeError, VarLibCFFHintTypeMergeError as VarLibCFFHintTypeMergeError,
+	VarLibCFFPointTypeMergeError as VarLibCFFPointTypeMergeError, VarLibMergeError as VarLibMergeError)
 from _typeshed import Incomplete
 from fontTools import varLib as varLib
-from fontTools.cffLib import FDArrayIndex as FDArrayIndex, FontDict as FontDict, TopDictIndex as TopDictIndex, VarStoreData as VarStoreData, buildOrder as buildOrder, maxStackLimit as maxStackLimit, privateDictOperators as privateDictOperators, privateDictOperators2 as privateDictOperators2, topDictOperators as topDictOperators, topDictOperators2 as topDictOperators2
-from fontTools.cffLib.specializer import commandsToProgram as commandsToProgram, specializeCommands as specializeCommands
+from fontTools.cffLib import (
+	buildOrder as buildOrder, FDArrayIndex as FDArrayIndex, FontDict as FontDict, maxStackLimit as maxStackLimit,
+	privateDictOperators as privateDictOperators, privateDictOperators2 as privateDictOperators2,
+	TopDictIndex as TopDictIndex, topDictOperators as topDictOperators, topDictOperators2 as topDictOperators2,
+	VarStoreData as VarStoreData)
+from fontTools.cffLib.specializer import (
+	commandsToProgram as commandsToProgram, specializeCommands as specializeCommands)
 from fontTools.misc.loggingTools import deprecateFunction as deprecateFunction
 from fontTools.misc.psCharStrings import T2CharString as T2CharString, T2OutlineExtractor as T2OutlineExtractor
 from fontTools.misc.roundTools import roundFunc as roundFunc
@@ -46,7 +53,8 @@ def getfd_map(varFont, fonts_list):
     assuming that the same glyph will reference  matching FontDicts in
     each source font. We return a mapping from fdIndex in the default
     font to a dictionary which maps each master list index of each
-    region font to the equivalent fdIndex in the region font."""
+    region font to the equivalent fdIndex in the region font.
+    """
 
 class CVarData(NamedTuple):
     varDataList: Incomplete
@@ -61,7 +69,9 @@ def merge_charstrings(glyphOrder, num_masters, top_dicts, masterModel): ...
 class CFFToCFF2OutlineExtractor(T2OutlineExtractor):
     """This class is used to remove the initial width from the CFF
     charstring without trying to add the width to self.nominalWidthX,
-    which is None."""
+    which is None.
+    """
+
     width: Incomplete
     gotWidth: int
     def popallWidth(self, evenOdd: int = 0): ...
@@ -69,7 +79,9 @@ class CFFToCFF2OutlineExtractor(T2OutlineExtractor):
 class MergeOutlineExtractor(CFFToCFF2OutlineExtractor):
     """Used to extract the charstring commands - including hints - from a
     CFF charstring in order to merge it as another set of region data
-    into a CFF2 variable font charstring."""
+    into a CFF2 variable font charstring.
+    """
+
     def __init__(self, pen, localSubrs, globalSubrs, nominalWidthX, defaultWidthX, private=None, blender=None) -> None: ...
     hintCount: Incomplete
     def countHints(self): ...
@@ -85,6 +97,7 @@ class MergeOutlineExtractor(CFFToCFF2OutlineExtractor):
 
 class CFF2CharStringMergePen(T2CharStringPen):
     """Pen to merge Type 2 CharStrings."""
+
     pt_index: int
     _commands: Incomplete
     m_index: Incomplete

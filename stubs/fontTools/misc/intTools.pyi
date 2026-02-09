@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-__all__ = ['popCount', 'bit_count', 'bit_indices']
+__all__ = ['bit_count', 'bit_indices', 'popCount']
 
 bit_count: Incomplete
 popCount = bit_count

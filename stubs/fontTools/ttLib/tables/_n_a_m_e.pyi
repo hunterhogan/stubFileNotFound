@@ -6,7 +6,7 @@ from fontTools.misc.encodingTools import getEncoding as getEncoding
 from fontTools.misc.textTools import (
 	bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, safeEval as safeEval, strjoin as strjoin,
 	tobytes as tobytes, tostr as tostr)
-from fontTools.ttLib import newTable as newTable
+from fontTools.ttLib import newTable as newTable, TTFont
 from fontTools.ttLib.tables import C_P_A_L_ as C_P_A_L_
 from fontTools.ttLib.ttVisitor import TTVisitor as TTVisitor
 
@@ -28,10 +28,10 @@ class table__n_a_m_e(DefaultTable.DefaultTable):
     dependencies: Incomplete
     names: Incomplete
     def __init__(self, tag=None) -> None: ...
-    def decompile(self, data, ttFont) -> None: ...
-    def compile(self, ttFont): ...
-    def toXML(self, writer, ttFont) -> None: ...
-    def fromXML(self, name, attrs, content, ttFont) -> None: ...
+    def decompile(self, data, ttFont: TTFont) -> None: ...
+    def compile(self, ttFont: TTFont): ...
+    def toXML(self, writer, ttFont: TTFont) -> None: ...
+    def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
     def getName(self, nameID: int, platformID: int, platEncID: int, langID: int | None = None) -> NameRecord | None: ...
     def getDebugName(self, nameID: int) -> str | None: ...
     def getFirstDebugName(self, nameIDs): ...
@@ -51,7 +51,7 @@ class table__n_a_m_e(DefaultTable.DefaultTable):
     def removeNames(self, nameID: int | None = None, platformID: int | None = None, platEncID: int | None = None, langID: int | None = None) -> None:
         """Remove any name records identified by the given combination of 'nameID', 'platformID', 'platEncID' and 'langID'."""
     @staticmethod
-    def removeUnusedNames(ttFont):
+    def removeUnusedNames(ttFont: TTFont):
         """Remove any name records which are not in NameID range 0-255 and not utilized
         within the font itself.
         """
@@ -61,12 +61,12 @@ class table__n_a_m_e(DefaultTable.DefaultTable):
         The nameID is assigned in the range between 'minNameID' and 32767 (inclusive),
         following the last nameID in the name table.
         """
-    def findMultilingualName(self, names, windows: bool = True, mac: bool = True, minNameID: int = 0, ttFont=None):
+    def findMultilingualName(self, names, windows: bool = True, mac: bool = True, minNameID: int = 0, ttFont: TTFont | None=None):
         """Return the name ID of an existing multilingual name that
         matches the 'names' dictionary, or None if not found.
 
         'names' is a dictionary with the name in multiple languages,
-        such as {'en': 'Pale', 'de': 'BlaÃŸ', 'de-CH': 'Blass'}.
+        such as {'en': 'Pale', 'de': 'Blaß', 'de-CH': 'Blass'}.
         The keys can be arbitrary IETF BCP 47 language codes;
         the values are Unicode strings.
 
@@ -79,11 +79,11 @@ class table__n_a_m_e(DefaultTable.DefaultTable):
         The returned name ID will not be less than the 'minNameID'
         argument.
         """
-    def addMultilingualName(self, names, ttFont=None, nameID=None, windows: bool = True, mac: bool = True, minNameID: int = 0):
+    def addMultilingualName(self, names, ttFont: TTFont | None=None, nameID=None, windows: bool = True, mac: bool = True, minNameID: int = 0):
         """Add a multilingual name, returning its name ID
 
         'names' is a dictionary with the name in multiple languages,
-        such as {'en': 'Pale', 'de': 'BlaÃŸ', 'de-CH': 'Blass'}.
+        such as {'en': 'Pale', 'de': 'Blaß', 'de-CH': 'Blass'}.
         The keys can be arbitrary IETF BCP 47 language codes;
         the values are Unicode strings.
 
@@ -135,7 +135,7 @@ def _makeMacName(name, nameID, language, font=None):
     create a Macintosh NameRecord that is understood by old applications
     (platform ID 1 and an old-style Macintosh language enum). If this
     is not possible, we create a Unicode NameRecord (platform ID 0)
-    whose language points to the fontâ€™s 'ltag' table. The latter
+    whose language points to the font’s 'ltag' table. The latter
     can encode any string in any language, but legacy applications
     might not recognize the format (in which case they will ignore
     those names).
@@ -145,7 +145,7 @@ def _makeMacName(name, nameID, language, font=None):
     in that case, the result will be None for names that need to
     be encoded with an 'ltag' table.
 
-    See the section â€œThe language identifierâ€ in Appleâ€™s specification:
+    See the section “The language identifier” in Apple’s specification:
     https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6name.html
     """
 
@@ -189,13 +189,13 @@ class NameRecord:
         UnicodeEncodeError exception.
         """
     toStr = toUnicode
-    def toXML(self, writer, ttFont) -> None: ...
+    def toXML(self, writer, ttFont: TTFont) -> None: ...
     nameID: Incomplete
     platformID: Incomplete
     platEncID: Incomplete
     langID: Incomplete
     string: Incomplete
-    def fromXML(self, name, attrs, content, ttFont) -> None: ...
+    def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
     def __lt__(self, other): ...
 
 _WINDOWS_LANGUAGES: Incomplete

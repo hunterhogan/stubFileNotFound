@@ -1,9 +1,10 @@
 from .DefaultTable import DefaultTable as DefaultTable
 from _typeshed import Incomplete
+from collections.abc import Iterator
 from enum import IntEnum
 from fontTools.config import OPTIONS as OPTIONS
-from fontTools.misc.textTools import Tag as Tag, bytesjoin as bytesjoin
-from typing import Iterator, NamedTuple
+from fontTools.misc.textTools import bytesjoin as bytesjoin, Tag as Tag
+from typing import NamedTuple
 
 log: Incomplete
 have_uharfbuzz: bool
@@ -16,12 +17,10 @@ class OverflowErrorRecord:
     itemName: Incomplete
     itemIndex: Incomplete
     def __init__(self, overflowTuple) -> None: ...
-    def __repr__(self) -> str: ...
 
 class OTLOffsetOverflowError(Exception):
     value: Incomplete
     def __init__(self, overflowErrorRecord) -> None: ...
-    def __str__(self) -> str: ...
 
 class RepackerState(IntEnum):
     PURE_FT = 1
@@ -33,6 +32,7 @@ class BaseTTXConverter(DefaultTable):
     adapter between the TTX (ttLib actually) table model and the model
     we use for OpenType tables, which is necessarily subtly different.
     """
+
     table: Incomplete
     def decompile(self, data, font) -> None:
         """Create an object from the binary data. Called automatically on access."""
@@ -47,6 +47,7 @@ class BaseTTXConverter(DefaultTable):
 
 class OTTableReader:
     """Helper class to retrieve data from an OpenType table."""
+
     __slots__: Incomplete
     data: Incomplete
     offset: Incomplete
@@ -89,6 +90,7 @@ class OffsetToWriter:
 
 class OTTableWriter:
     """Helper class to gather and assemble data for OpenType tables."""
+
     items: Incomplete
     pos: Incomplete
     localState: Incomplete
@@ -147,6 +149,7 @@ class OTTableWriter:
 
 class CountReference:
     """A reference to a Count value, not a count of references."""
+
     table: Incomplete
     name: Incomplete
     size: Incomplete
@@ -162,6 +165,7 @@ def packUInt24(value): ...
 
 class BaseTable:
     """Generic base class for all OpenType (sub)tables."""
+
     def __getattr__(self, attr): ...
     def ensureDecompiled(self, recurse: bool = False) -> None: ...
     def __getstate__(self): ...
@@ -182,6 +186,7 @@ class BaseTable:
     def __eq__(self, other): ...
     class SubTableEntry(NamedTuple):
         """See BaseTable.iterSubTables()"""
+
         name: str
         value: BaseTable
         index: int | None = ...
@@ -200,7 +205,9 @@ class BaseTable:
 
 class FormatSwitchingBaseTable(BaseTable):
     """Minor specialization of BaseTable, for tables that have multiple
-    formats, eg. CoverageFormat1 vs. CoverageFormat2."""
+    formats, eg. CoverageFormat1 vs. CoverageFormat2.
+    """
+
     @classmethod
     def getRecordSize(cls, reader): ...
     def getConverters(self): ...
@@ -220,11 +227,11 @@ formatSwitchingBaseTables: Incomplete
 
 def getFormatSwitchingBaseTableClass(formatType): ...
 def getVariableAttrs(cls, fmt: int | None = None) -> tuple[str]:
-    '''Return sequence of variable table field names (can be empty).
+    """Return sequence of variable table field names (can be empty).
 
     Attributes are deemed "variable" when their otData.py\'s description contain
     \'VarIndexBase + {offset}\', e.g. COLRv1 PaintVar* tables.
-    '''
+    """
 
 valueRecordFormat: Incomplete
 
@@ -234,6 +241,7 @@ valueRecordFormatDict: Incomplete
 
 class ValueRecordFactory:
     """Given a format code, this object convert ValueRecords."""
+
     format: Incomplete
     def __init__(self, valueFormat) -> None: ...
     def __len__(self) -> int: ...

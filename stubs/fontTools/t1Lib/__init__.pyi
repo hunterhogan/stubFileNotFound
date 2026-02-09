@@ -2,7 +2,9 @@ from _typeshed import Incomplete
 from fontTools.encodings.StandardEncoding import StandardEncoding as StandardEncoding
 from fontTools.misc import eexec as eexec
 from fontTools.misc.macCreatorType import getMacCreatorAndType as getMacCreatorAndType
-from fontTools.misc.psOperators import _type1_fontinfo_order as _type1_fontinfo_order, _type1_post_eexec_order as _type1_post_eexec_order, _type1_pre_eexec_order as _type1_pre_eexec_order
+from fontTools.misc.psOperators import (
+	_type1_fontinfo_order as _type1_fontinfo_order, _type1_post_eexec_order as _type1_post_eexec_order,
+	_type1_pre_eexec_order as _type1_pre_eexec_order)
 from fontTools.misc.textTools import bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, tobytes as tobytes
 
 __author__: str
@@ -18,6 +20,7 @@ class T1Font:
     Uses a minimal interpeter that supports just about enough PS to parse
     Type 1 fonts.
     """
+
     data: Incomplete
     encoding: Incomplete
     def __init__(self, path, encoding: str = 'ascii', kind=None) -> None: ...
@@ -41,18 +44,18 @@ class T1Font:
     def _tobytes(self, s, errors: str = 'strict'): ...
 
 def read(path, onlyHeader: bool = False):
-    """reads any Type 1 font file, returns raw data"""
+    """Reads any Type 1 font file, returns raw data"""
 def write(path, data, kind: str = 'OTHER', dohex: bool = False) -> None: ...
 
 LWFNCHUNKSIZE: int
 HEXLINELENGTH: int
 
 def readLWFN(path, onlyHeader: bool = False):
-    """reads an LWFN font file, returns raw data"""
+    """Reads an LWFN font file, returns raw data"""
 def readPFB(path, onlyHeader: bool = False):
-    """reads a PFB font file, returns raw data"""
+    """Reads a PFB font file, returns raw data"""
 def readOther(path):
-    """reads any (font) file, returns raw data"""
+    """Reads any (font) file, returns raw data"""
 def writeLWFN(path, data) -> None: ...
 def writePFB(path, data) -> None: ...
 def writeOther(path, data, dohex: bool = False) -> None: ...

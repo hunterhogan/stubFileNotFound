@@ -1,21 +1,22 @@
-from fontTools.ufoLib.validators import *
-import enum
 from _typeshed import Incomplete
 from collections import OrderedDict
-from fontTools.annotations import GlyphNameToFileNameFunc, KerningDict, KerningGroups, KerningNested, PathOrFS, PathStr, UFOFormatVersionInput
+from fontTools.annotations import (
+	GlyphNameToFileNameFunc, KerningDict, KerningGroups, KerningNested, PathOrFS, PathStr, UFOFormatVersionInput)
 from fontTools.misc.filesystem._base import FS
 from fontTools.ufoLib.errors import UFOLibError as UFOLibError
 from fontTools.ufoLib.glifLib import GlyphSet
 from fontTools.ufoLib.utils import BaseFormatVersion
-from typing import Any, IO
+from fontTools.ufoLib.validators import *
+from typing import Any, IO, TypeAlias
+import enum
 
-__all__ = ['haveFS', 'makeUFOPath', 'UFOLibError', 'UFOReader', 'UFOWriter', 'UFOReaderWriter', 'UFOFileStructure', 'fontInfoAttributesVersion1', 'fontInfoAttributesVersion2', 'fontInfoAttributesVersion3', 'deprecatedFontInfoAttributesVersion2', 'validateFontInfoVersion2ValueForAttribute', 'validateFontInfoVersion3ValueForAttribute', 'convertFontInfoValueForAttributeFromVersion1ToVersion2', 'convertFontInfoValueForAttributeFromVersion2ToVersion1']
+__all__ = ['UFOFileStructure', 'UFOLibError', 'UFOReader', 'UFOReaderWriter', 'UFOWriter', ..., ..., 'deprecatedFontInfoAttributesVersion2', 'fontInfoAttributesVersion1', 'fontInfoAttributesVersion2', 'fontInfoAttributesVersion3', 'haveFS', 'makeUFOPath', 'validateFontInfoVersion2ValueForAttribute', 'validateFontInfoVersion3ValueForAttribute']
 
-KerningGroupRenameMaps = dict[str, dict[str, str]]
-LibDict = dict[str, Any]
-LayerOrderList = list[str | None] | None
-AttributeDataDict = dict[str, Any]
-FontInfoAttributes = dict[str, AttributeDataDict]
+KerningGroupRenameMaps: TypeAlias = dict[str, dict[str, str]]
+LibDict: TypeAlias = dict[str, Any]
+LayerOrderList: TypeAlias = list[str | None] | None
+AttributeDataDict: TypeAlias = dict[str, Any]
+FontInfoAttributes: TypeAlias = dict[str, AttributeDataDict]
 haveFS: Incomplete
 
 class UFOFormatVersion(BaseFormatVersion):
@@ -65,7 +66,8 @@ class _UFOBaseIO:
 class UFOReader(_UFOBaseIO):
     """Read the various components of a .ufo.
 
-    Attributes:
+    Attributes
+    ----------
         path: An :class:`os.PathLike` object pointing to the .ufo.
         validate: A boolean indicating if the data read should be
           validated. Defaults to `True`.
@@ -73,6 +75,7 @@ class UFOReader(_UFOBaseIO):
     By default read data is validated. Set ``validate`` to
     ``False`` to not validate the data.
     """
+
     fs: FS
     _shouldClose: bool
     _fileStructure: Incomplete
@@ -140,7 +143,7 @@ class UFOReader(_UFOBaseIO):
         class's validate value, can be overridden.
         """
     def getKerningGroupConversionRenameMaps(self, validate: bool | None = None) -> KerningGroupRenameMaps:
-        '''
+        """
         Get maps defining the renaming that was done during any
         needed kerning group conversion. This method returns a
         dictionary of this form::
@@ -155,7 +158,7 @@ class UFOReader(_UFOBaseIO):
 
         ``validate`` will validate the groups, by default it is set to the
         class\'s validate value, can be overridden.
-        '''
+        """
     def _readInfo(self, validate: bool) -> dict[str, Any]: ...
     def readInfo(self, info: Any, validate: bool | None = None) -> None:
         """
@@ -262,7 +265,8 @@ class UFOReader(_UFOBaseIO):
 class UFOWriter(UFOReader):
     """Write the various components of a .ufo.
 
-    Attributes:
+    Attributes
+    ----------
         path: An :class:`os.PathLike` object pointing to the .ufo.
         formatVersion: the UFO format version as a tuple of integers (major, minor),
             or as a single integer for the major digit only (minor is implied to be 0).
@@ -278,10 +282,12 @@ class UFOWriter(UFOReader):
     ``False`` if you do not want to validate the data. Validation can also be overriden
     on a per-method level if desired.
 
-    Raises:
+    Raises
+    ------
         UnsupportedUFOFormat: An exception indicating that the requested UFO
             formatVersion is not supported.
     """
+
     fs: Incomplete
     _fileStructure: Incomplete
     _havePreviousFile: Incomplete
@@ -310,7 +316,7 @@ class UFOWriter(UFOReader):
         If needed, the directory tree for the given path will be built.
         """
     def getFileObjectForPath(self, path: PathStr, mode: str = 'w', encoding: str | None = None) -> IO[Any] | None:
-        '''
+        """
         Returns a file (or file-like) object for the
         file at the given path. The path must be relative
         to the UFO path. Returns None if the file does
@@ -318,7 +324,7 @@ class UFOWriter(UFOReader):
         An encoding may be passed if the file is opened in text mode.
 
         Note: The caller is responsible for closing the open file.
-        '''
+        """
     def removePath(self, path: PathStr, force: bool = False, removeEmptyParents: bool = True) -> None:
         """
         Remove the file (or directory) at path. The path
@@ -337,7 +343,7 @@ class UFOWriter(UFOReader):
         """
     def _writeMetaInfo(self) -> None: ...
     def setKerningGroupConversionRenameMaps(self, maps: KerningGroupRenameMaps) -> None:
-        '''
+        """
         Set maps defining the renaming that should be done
         when writing groups and kerning in UFO 1 and UFO 2.
         This will effectively undo the conversion done when
@@ -351,7 +357,7 @@ class UFOWriter(UFOReader):
 
         This is the same form returned by UFOReader\'s
         getKerningGroupConversionRenameMaps method.
-        '''
+        """
     def writeGroups(self, groups: KerningGroups, validate: bool | None = None) -> None:
         """
         Write groups.plist. This method requires a
@@ -464,7 +470,7 @@ class UFOWriter(UFOReader):
 UFOReaderWriter = UFOWriter
 
 def makeUFOPath(path: PathStr) -> str:
-    '''
+    """
     Return a .ufo pathname.
 
     >>> makeUFOPath("directory/something.ext") == (
@@ -473,7 +479,7 @@ def makeUFOPath(path: PathStr) -> str:
     >>> makeUFOPath("directory/something.another.thing.ext") == (
     ... \tos.path.join(\'directory\', \'something.another.thing.ufo\'))
     True
-    '''
+    """
 def validateFontInfoVersion2ValueForAttribute(attr: str, value: Any) -> bool:
     """
     This performs very basic validation of the value for attribute

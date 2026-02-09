@@ -17,6 +17,7 @@ class Qu2CuPen(ContourFilterPen):
         reverse_direction: flip the contours' direction but keep starting point.
         stats: a dictionary counting the point numbers of cubic segments.
     """
+
     all_cubic: Incomplete
     max_err: Incomplete
     stats: Incomplete

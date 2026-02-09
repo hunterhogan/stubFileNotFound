@@ -2,7 +2,8 @@ from _typeshed import Incomplete
 from fontTools.cu2qu import curve_to_quadratic as curve_to_quadratic, curves_to_quadratic as curves_to_quadratic
 from fontTools.pens.basePen import decomposeSuperBezierSegment as decomposeSuperBezierSegment
 from fontTools.pens.filterPen import FilterPen as FilterPen
-from fontTools.pens.pointPen import BasePointToSegmentPen as BasePointToSegmentPen, ReverseContourPointPen as ReverseContourPointPen
+from fontTools.pens.pointPen import (
+	BasePointToSegmentPen as BasePointToSegmentPen, ReverseContourPointPen as ReverseContourPointPen)
 from fontTools.pens.reverseContourPen import ReverseContourPen as ReverseContourPen
 
 class Cu2QuPen(FilterPen):
@@ -21,6 +22,7 @@ class Cu2QuPen(FilterPen):
             if False, quadratic curves or cubic curves are generated depending
             on which one is more economical.
     """
+
     max_err: Incomplete
     stats: Incomplete
     all_quadratic: Incomplete
@@ -43,6 +45,7 @@ class Cu2QuPointPen(BasePointToSegmentPen):
             if False, quadratic curves or cubic curves are generated depending
             on which one is more economical.
     """
+
     __points_required: Incomplete
     pen: Incomplete
     max_err: Incomplete
@@ -71,6 +74,7 @@ class Cu2QuMultiPen:
     arguments that would normally be passed to a SegmentPen, one item for
     each of the pens in other_pens.
     """
+
     pens: Incomplete
     max_err: Incomplete
     start_pts: Incomplete

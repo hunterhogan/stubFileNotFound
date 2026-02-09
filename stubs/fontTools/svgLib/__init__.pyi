@@ -1,3 +1,3 @@
-from .path import SVGPath as SVGPath, parse_path as parse_path
+from .path import parse_path as parse_path, SVGPath as SVGPath
 
 __all__ = ['SVGPath', 'parse_path']

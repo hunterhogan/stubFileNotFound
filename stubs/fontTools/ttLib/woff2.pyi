@@ -1,9 +1,16 @@
 from _typeshed import Incomplete
 from fontTools.misc import sstruct as sstruct
 from fontTools.misc.arrayTools import calcIntBounds as calcIntBounds
-from fontTools.misc.textTools import Tag as Tag, bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, pad as pad
-from fontTools.ttLib import TTFont as TTFont, TTLibError as TTLibError, getSearchRange as getSearchRange, getTableClass as getTableClass, getTableModule as getTableModule
-from fontTools.ttLib.sfnt import DirectoryEntry as DirectoryEntry, SFNTDirectoryEntry as SFNTDirectoryEntry, SFNTReader as SFNTReader, SFNTWriter as SFNTWriter, WOFFFlavorData as WOFFFlavorData, calcChecksum as calcChecksum, sfntDirectoryEntrySize as sfntDirectoryEntrySize, sfntDirectoryFormat as sfntDirectoryFormat, sfntDirectorySize as sfntDirectorySize
+from fontTools.misc.textTools import (
+	bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, pad as pad, Tag as Tag)
+from fontTools.ttLib import (
+	getSearchRange as getSearchRange, getTableClass as getTableClass, getTableModule as getTableModule, TTFont as TTFont,
+	TTLibError as TTLibError)
+from fontTools.ttLib.sfnt import (
+	calcChecksum as calcChecksum, DirectoryEntry as DirectoryEntry, SFNTDirectoryEntry as SFNTDirectoryEntry,
+	sfntDirectoryEntrySize as sfntDirectoryEntrySize, sfntDirectoryFormat as sfntDirectoryFormat,
+	sfntDirectorySize as sfntDirectorySize, SFNTReader as SFNTReader, SFNTWriter as SFNTWriter,
+	WOFFFlavorData as WOFFFlavorData)
 from fontTools.ttLib.tables import _g_l_y_f as _g_l_y_f, ttProgram as ttProgram
 
 log: Incomplete
@@ -63,7 +70,8 @@ class WOFF2Writer(SFNTWriter):
         """
     def _setHeadTransformFlag(self) -> None:
         """Set bit 11 of 'head' table flags to indicate that the font has undergone
-        a lossless modifying transform. Re-compile head table data."""
+        a lossless modifying transform. Re-compile head table data.
+        """
     def _decompileTable(self, tag) -> None:
         """Fetch table data, decompile it, and store it inside self.ttFont."""
     def _compileTable(self, tag) -> None:
@@ -142,12 +150,14 @@ class WOFF2LocaTable(Incomplete):
     """Same as parent class. The only difference is that it attempts to preserve
     the 'indexFormat' as encoded in the WOFF2 glyf table.
     """
+
     tableTag: Incomplete
     def __init__(self, tag=None) -> None: ...
-    def compile(self, ttFont): ...
+    def compile(self, ttFont: TTFont): ...
 
 class WOFF2GlyfTable(Incomplete):
     """Decoder/Encoder for WOFF2 'glyf' table transform."""
+
     subStreams: Incomplete
     tableTag: Incomplete
     def __init__(self, tag=None) -> None: ...
@@ -156,13 +166,13 @@ class WOFF2GlyfTable(Incomplete):
     bboxStream: Incomplete
     nContourStream: Incomplete
     glyphOrder: Incomplete
-    def reconstruct(self, data, ttFont) -> None:
+    def reconstruct(self, data, ttFont: TTFont) -> None:
         """Decompile transformed 'glyf' data."""
     numGlyphs: Incomplete
     indexFormat: Incomplete
     version: int
     optionFlags: int
-    def transform(self, ttFont):
+    def transform(self, ttFont: TTFont):
         """Return transformed 'glyf' data"""
     def _decodeGlyph(self, glyphID): ...
     compositeStream: Incomplete
@@ -188,8 +198,8 @@ class WOFF2HmtxTable(Incomplete):
     tableTag: Incomplete
     def __init__(self, tag=None) -> None: ...
     metrics: Incomplete
-    def reconstruct(self, data, ttFont) -> None: ...
-    def transform(self, ttFont): ...
+    def reconstruct(self, data, ttFont: TTFont) -> None: ...
+    def transform(self, ttFont: TTFont): ...
 
 class WOFF2FlavorData(WOFFFlavorData):
     Flavor: str
@@ -208,7 +218,8 @@ class WOFF2FlavorData(WOFFFlavorData):
                 data: another WOFFFlavorData object to initialise data from.
                 transformedTables: set of strings containing table tags to be transformed.
 
-        Raises:
+        Raises
+        ------
                 ImportError if the brotli module is not installed.
 
         NOTE: The 'reader' argument, on the one hand, and the 'data' and
@@ -217,7 +228,7 @@ class WOFF2FlavorData(WOFFFlavorData):
     def _decompress(self, rawData): ...
 
 def unpackBase128(data):
-    '''Read one to five bytes from UIntBase128-encoded input string, and return
+    """Read one to five bytes from UIntBase128-encoded input string, and return
     a tuple containing the decoded integer plus any leftover data.
 
     >>> unpackBase128(b\'\\x3f\\x00\\x00\') == (63, b"\\x00\\x00")
@@ -236,7 +247,7 @@ def unpackBase128(data):
     Traceback (most recent call last):
       File "<stdin>", line 1, in ?
     TTLibError: UIntBase128 value exceeds 2**32-1
-    '''
+    """
 def base128Size(n):
     """Return the length in bytes of a UIntBase128-encoded sequence with value n.
 
@@ -248,7 +259,7 @@ def base128Size(n):
     5
     """
 def packBase128(n):
-    '''Encode unsigned integer in range 0 to 2**32-1 (inclusive) to a string of
+    """Encode unsigned integer in range 0 to 2**32-1 (inclusive) to a string of
     bytes using UIntBase128 variable-length encoding. Produce the shortest possible
     encoding.
 
@@ -256,9 +267,9 @@ def packBase128(n):
     True
     >>> packBase128(2**32-1) == b\'\\x8f\\xff\\xff\\xff\\x7f\'
     True
-    '''
+    """
 def unpack255UShort(data):
-    '''Read one to three bytes from 255UInt16-encoded input string, and return a
+    """Read one to three bytes from 255UInt16-encoded input string, and return a
     tuple containing the decoded integer plus any leftover data.
 
     >>> unpack255UShort(bytechr(252))[0]
@@ -271,7 +282,7 @@ def unpack255UShort(data):
     506
     >>> unpack255UShort(struct.pack("BBB", 253, 1, 250))[0]
     506
-    '''
+    """
 def pack255UShort(value):
     """Encode unsigned integer in range 0 to 65535 (inclusive) to a bytestring
     using 255UInt16 variable-length encoding.

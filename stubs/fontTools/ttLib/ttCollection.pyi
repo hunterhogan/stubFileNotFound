@@ -1,7 +1,7 @@
-import types
 from _typeshed import Incomplete
 from fontTools.ttLib.sfnt import readTTCHeader as readTTCHeader, writeTTCHeader as writeTTCHeader
 from fontTools.ttLib.ttFont import TTFont as TTFont
+import types
 
 log: Incomplete
 
@@ -15,6 +15,7 @@ class TTCollection:
     in suprises and incorrect behavior if the different fonts involved
     have different GlyphOrder.  Use only if you know what you are doing.
     """
+
     def __init__(self, file=None, shareTables: bool = False, **kwargs) -> None: ...
     def __enter__(self): ...
     def __exit__(self, type: type[BaseException] | None, value: BaseException | None, traceback: types.TracebackType | None) -> None: ...

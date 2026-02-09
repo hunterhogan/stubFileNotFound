@@ -1,11 +1,18 @@
 from _typeshed import Incomplete
-from fontTools.designspaceLib import AxisDescriptor as AxisDescriptor, AxisMappingDescriptor as AxisMappingDescriptor, DesignSpaceDocument as DesignSpaceDocument, DiscreteAxisDescriptor as DiscreteAxisDescriptor, InstanceDescriptor as InstanceDescriptor, RuleDescriptor as RuleDescriptor, SimpleLocationDict as SimpleLocationDict, SourceDescriptor as SourceDescriptor, VariableFontDescriptor as VariableFontDescriptor
-from fontTools.designspaceLib.statNames import StatNames as StatNames, getStatNames as getStatNames
-from fontTools.designspaceLib.types import ConditionSet as ConditionSet, Range as Range, Region as Region, getVFUserRegion as getVFUserRegion, locationInRegion as locationInRegion, regionInRegion as regionInRegion, userRegionToDesignRegion as userRegionToDesignRegion
-from typing import Any, Callable, Iterator
+from collections.abc import Callable, Iterator
+from fontTools.designspaceLib import (
+	AxisDescriptor as AxisDescriptor, AxisMappingDescriptor as AxisMappingDescriptor,
+	DesignSpaceDocument as DesignSpaceDocument, DiscreteAxisDescriptor as DiscreteAxisDescriptor,
+	InstanceDescriptor as InstanceDescriptor, RuleDescriptor as RuleDescriptor, SimpleLocationDict as SimpleLocationDict,
+	SourceDescriptor as SourceDescriptor, VariableFontDescriptor as VariableFontDescriptor)
+from fontTools.designspaceLib.statNames import getStatNames as getStatNames, StatNames as StatNames
+from fontTools.designspaceLib.types import (
+	ConditionSet as ConditionSet, getVFUserRegion as getVFUserRegion, locationInRegion as locationInRegion, Range as Range,
+	Region as Region, regionInRegion as regionInRegion, userRegionToDesignRegion as userRegionToDesignRegion)
+from typing import Any, TypeAlias
 
 LOGGER: Incomplete
-MakeInstanceFilenameCallable = Callable[[DesignSpaceDocument, InstanceDescriptor, StatNames], str]
+MakeInstanceFilenameCallable: TypeAlias = Callable[[DesignSpaceDocument, InstanceDescriptor, StatNames], str]
 
 def defaultMakeInstanceFilename(doc: DesignSpaceDocument, instance: InstanceDescriptor, statNames: StatNames) -> str:
     """Default callable to synthesize an instance filename
@@ -14,7 +21,7 @@ def defaultMakeInstanceFilename(doc: DesignSpaceDocument, instance: InstanceDesc
     because it's not specified by the STAT table.
     """
 def splitInterpolable(doc: DesignSpaceDocument, makeNames: bool = True, expandLocations: bool = True, makeInstanceFilename: MakeInstanceFilenameCallable = ...) -> Iterator[tuple[SimpleLocationDict, DesignSpaceDocument]]:
-    '''Split the given DS5 into several interpolable sub-designspaces.
+    """Split the given DS5 into several interpolable sub-designspaces.
     There are as many interpolable sub-spaces as there are combinations of
     discrete axis values.
 
@@ -41,9 +48,9 @@ def splitInterpolable(doc: DesignSpaceDocument, makeNames: bool = True, expandLo
         because it\'s not specified by the STAT table.
 
     .. versionadded:: 5.0
-    '''
+    """
 def splitVariableFonts(doc: DesignSpaceDocument, makeNames: bool = False, expandLocations: bool = False, makeInstanceFilename: MakeInstanceFilenameCallable = ...) -> Iterator[tuple[str, DesignSpaceDocument]]:
-    '''Convert each variable font listed in this document into a standalone
+    """Convert each variable font listed in this document into a standalone
     designspace. This can be used to compile all the variable fonts from a
     format 5 designspace using tools that can only deal with 1 VF at a time.
 
@@ -58,7 +65,7 @@ def splitVariableFonts(doc: DesignSpaceDocument, makeNames: bool = False, expand
         because it\'s not specified by the STAT table.
 
     .. versionadded:: 5.0
-    '''
+    """
 def convert5to4(doc: DesignSpaceDocument) -> dict[str, DesignSpaceDocument]:
     """Convert each variable font listed in this document into a standalone
     format 4 designspace. This can be used to compile all the variable fonts

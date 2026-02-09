@@ -3,7 +3,9 @@ from _typeshed import Incomplete
 from collections.abc import Sequence
 from dataclasses import dataclass
 from fontTools.misc import sstruct as sstruct
-from fontTools.misc.textTools import bytesjoin as bytesjoin, safeEval as safeEval, strjoin as strjoin, tobytes as tobytes, tostr as tostr
+from fontTools.misc.textTools import (
+	bytesjoin as bytesjoin, safeEval as safeEval, strjoin as strjoin, tobytes as tobytes, tostr as tostr)
+from fontTools.ttLib import TTFont
 
 log: Incomplete
 SVG_format_0: str
@@ -19,12 +21,13 @@ class table_S_V_G_(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/stat
     """
+
     docList: Incomplete
     numEntries: Incomplete
-    def decompile(self, data, ttFont) -> None: ...
-    def compile(self, ttFont): ...
-    def toXML(self, writer, ttFont) -> None: ...
-    def fromXML(self, name, attrs, content, ttFont) -> None: ...
+    def decompile(self, data, ttFont: TTFont) -> None: ...
+    def compile(self, ttFont: TTFont): ...
+    def toXML(self, writer, ttFont: TTFont) -> None: ...
+    def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
 
 class DocumentIndexEntry:
     startGlyphID: Incomplete
@@ -32,7 +35,6 @@ class DocumentIndexEntry:
     svgDocOffset: Incomplete
     svgDocLength: Incomplete
     def __init__(self) -> None: ...
-    def __repr__(self) -> str: ...
 
 @dataclass
 class SVGDocument(Sequence):

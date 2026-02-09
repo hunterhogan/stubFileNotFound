@@ -11,6 +11,7 @@ class GlifLibError(UFOLibError):
 
     It will be maintained until only Python 3.11-and-later are supported.
     """
+
     args: Incomplete
     def _add_note(self, note: str) -> None: ...
 

@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from fontTools.merge.options import Options as Options
 
-__all__ = ['Options', 'Merger', 'main']
+__all__ = ['Merger', 'Options', 'main']
 
 class Merger:
     """Font merger.
@@ -27,9 +27,11 @@ class Merger:
     - If duplicate glyph disambiguation takes place as described above then the
       fonts must have a ``GSUB`` table.
 
-    Attributes:
+    Attributes
+    ----------
             options: Currently unused.
     """
+
     options: Incomplete
     def __init__(self, options=None) -> None: ...
     def _openFonts(self, fontfiles): ...
@@ -41,7 +43,8 @@ class Merger:
         Args:
                 fontfiles: A list of file names to be merged
 
-        Returns:
+        Returns
+        -------
                 A :class:`fontTools.ttLib.TTFont` object. Call the ``save`` method on
                 this to write it out to an OTF file.
         """

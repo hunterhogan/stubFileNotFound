@@ -1,24 +1,25 @@
-import enum
 from .errors import ColorLibError as ColorLibError
 from .geometry import round_start_circle_stable_containment as round_start_circle_stable_containment
 from .table_builder import BuildCallback as BuildCallback, TableBuilder as TableBuilder
 from _typeshed import Incomplete
+from collections.abc import Generator, Iterable, Mapping, Sequence
 from fontTools.misc.arrayTools import intRect as intRect
 from fontTools.misc.fixedTools import fixedToFloat as fixedToFloat
 from fontTools.misc.treeTools import build_n_ary_tree as build_n_ary_tree
-from fontTools.ttLib.tables import C_O_L_R_ as C_O_L_R_, C_P_A_L_ as C_P_A_L_, _n_a_m_e as _n_a_m_e, otTables as ot
+from fontTools.ttLib.tables import _n_a_m_e as _n_a_m_e, C_O_L_R_ as C_O_L_R_, C_P_A_L_ as C_P_A_L_, otTables as ot
 from fontTools.ttLib.tables.otTables import CompositeMode as CompositeMode, ExtendMode as ExtendMode
 from functools import partial as partial
 from math import ceil as ceil, log as log
-from typing import Any, Generator, Iterable, Mapping, Sequence, TypeVar
+from typing import Any, TypeAlias, TypeVar
+import enum
 
 T = TypeVar('T')
-_Kwargs = Mapping[str, Any]
+_Kwargs: TypeAlias = Mapping[str, Any]
 _PaintInput: Incomplete
-_PaintInputList = Sequence[_PaintInput]
-_ColorGlyphsDict = dict[str, _PaintInputList | _PaintInput]
-_ColorGlyphsV0Dict = dict[str, Sequence[tuple[str, int]]]
-_ClipBoxInput = tuple[int, int, int, int, int] | tuple[int, int, int, int] | ot.ClipBox
+_PaintInputList: TypeAlias = Sequence[_PaintInput]
+_ColorGlyphsDict: TypeAlias = dict[str, _PaintInputList | _PaintInput]
+_ColorGlyphsV0Dict: TypeAlias = dict[str, Sequence[tuple[str, int]]]
+_ClipBoxInput: TypeAlias = tuple[int, int, int, int, int] | tuple[int, int, int, int] | ot.ClipBox
 MAX_PAINT_COLR_LAYER_COUNT: int
 _DEFAULT_ALPHA: float
 _MAX_REUSE_LEN: int
@@ -59,7 +60,8 @@ def buildCOLR(colorGlyphs: _ColorGlyphsDict, version: int | None = None, *, glyp
         clipBoxes: Optional map of base glyph name to clip box 4- or 5-tuples:
             (xMin, yMin, xMax, yMax) or (xMin, yMin, xMax, yMax, varIndexBase).
 
-    Returns:
+    Returns
+    -------
         A new COLR table.
     """
 def buildClipList(clipBoxes: dict[str, _ClipBoxInput]) -> ot.ClipList: ...
@@ -70,7 +72,7 @@ class ColorPaletteType(enum.IntFlag):
     USABLE_WITH_DARK_BACKGROUND = 2
     @classmethod
     def _missing_(cls, value): ...
-_OptionalLocalizedString = None | str | dict[str, str]
+_OptionalLocalizedString: TypeAlias = None | str | dict[str, str]
 
 def buildPaletteLabels(labels: Iterable[_OptionalLocalizedString], nameTable: _n_a_m_e.table__n_a_m_e) -> list[int | None]: ...
 def buildCPAL(palettes: Sequence[Sequence[tuple[float, float, float, float]]], paletteTypes: Sequence[ColorPaletteType] | None = None, paletteLabels: Sequence[_OptionalLocalizedString] | None = None, paletteEntryLabels: Sequence[_OptionalLocalizedString] | None = None, nameTable: _n_a_m_e.table__n_a_m_e | None = None) -> C_P_A_L_.table_C_P_A_L_:
@@ -93,7 +95,7 @@ def buildCPAL(palettes: Sequence[Sequence[tuple[float, float, float, float]]], p
     """
 def _is_colrv0_layer(layer: Any) -> bool: ...
 def _split_color_glyphs_by_version(colorGlyphs: _ColorGlyphsDict) -> tuple[_ColorGlyphsV0Dict, _ColorGlyphsDict]: ...
-def _reuse_ranges(num_layers: int) -> Generator[tuple[int, int], None, None]: ...
+def _reuse_ranges(num_layers: int) -> Generator[tuple[int, int]]: ...
 
 class LayerReuseCache:
     reusePool: Mapping[tuple[Any, ...], int]

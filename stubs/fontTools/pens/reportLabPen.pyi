@@ -5,6 +5,7 @@ __all__ = ['ReportLabPen']
 
 class ReportLabPen(BasePen):
     """A pen for drawing onto a ``reportlab.graphics.shapes.Path`` object."""
+
     path: Incomplete
     def __init__(self, glyphSet, path=None) -> None: ...
     def _moveTo(self, p) -> None: ...

@@ -11,157 +11,157 @@ from fontTools.misc.roundTools import noRound as noRound, otRound as otRound
 from fontTools.misc.textTools import pad as pad, safeEval as safeEval, tostr as tostr
 from fontTools.misc.transform import DecomposedTransform as DecomposedTransform
 from fontTools.misc.vector import Vector as Vector
-from typing import Any, TYPE_CHECKING
-from typing import NamedTuple
+from fontTools.ttLib import TTFont
+from typing import NamedTuple, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from fontTools.ttLib.ttFont import TTFont
+	from fontTools.ttLib.ttFont import TTFont
 
 log: Incomplete
 SCALE_COMPONENT_OFFSET_DEFAULT: int
 
 class table__g_l_y_f(DefaultTable.DefaultTable):
-    """Glyph Data table.
+	"""Glyph Data table.
 
-    This class represents the `glyf <https://docs.microsoft.com/en-us/typography/opentype/spec/glyf>`_
-    table, which contains outlines for glyphs in TrueType format. In many cases,
-    it is easier to access and manipulate glyph outlines through the ``GlyphSet``
-    object returned from :py:meth:`fontTools.ttLib.ttFont.getGlyphSet`::
+	This class represents the `glyf <https://docs.microsoft.com/en-us/typography/opentype/spec/glyf>`_
+	table, which contains outlines for glyphs in TrueType format. In many cases,
+	it is easier to access and manipulate glyph outlines through the ``GlyphSet``
+	object returned from :py:meth:`fontTools.ttLib.ttFont.getGlyphSet`::
 
-                    >> from fontTools.pens.boundsPen import BoundsPen
-                    >> glyphset = font.getGlyphSet()
-                    >> bp = BoundsPen(glyphset)
-                    >> glyphset["A"].draw(bp)
-                    >> bp.bounds
-                    (19, 0, 633, 716)
+					>> from fontTools.pens.boundsPen import BoundsPen
+					>> glyphset = font.getGlyphSet()
+					>> bp = BoundsPen(glyphset)
+					>> glyphset["A"].draw(bp)
+					>> bp.bounds
+					(19, 0, 633, 716)
 
-    However, this class can be used for low-level access to the ``glyf`` table data.
-    Objects of this class support dictionary-like access, mapping glyph names to
-    :py:class:`Glyph` objects::
+	However, this class can be used for low-level access to the ``glyf`` table data.
+	Objects of this class support dictionary-like access, mapping glyph names to
+	:py:class:`Glyph` objects::
 
-                    >> glyf = font["glyf"]
-                    >> len(glyf["Aacute"].components)
-                    2
+					>> glyf = font["glyf"]
+					>> len(glyf["Aacute"].components)
+					2
 
-    Note that when adding glyphs to the font via low-level access to the ``glyf``
-    table, the new glyphs must also be added to the ``hmtx``/``vmtx`` table::
+	Note that when adding glyphs to the font via low-level access to the ``glyf``
+	table, the new glyphs must also be added to the ``hmtx``/``vmtx`` table::
 
-                    >> font["glyf"]["divisionslash"] = Glyph()
-                    >> font["hmtx"]["divisionslash"] = (640, 0)
+					>> font["glyf"]["divisionslash"] = Glyph()
+					>> font["hmtx"]["divisionslash"] = (640, 0)
 
-    """
+	"""
 
-    dependencies: Incomplete
-    padding: int
-    axisTags: Incomplete
-    glyphs: dict[str, Glyph]
-    glyphOrder: list[str]
-    _reverseGlyphOrder: Incomplete
-    def decompile(self, data, ttFont) -> None: ...
-    def ensureDecompiled(self, recurse: bool = False) -> None: ...
-    def compile(self, ttFont: Any) -> bytes: ...
-    def toXML(self, writer, ttFont, splitGlyphs: bool = False) -> None: ...
-    def fromXML(self, name, attrs, content, ttFont) -> None: ...
-    def setGlyphOrder(self, glyphOrder) -> None:
-        """Sets the glyph order
+	dependencies: Incomplete
+	padding: int
+	axisTags: Incomplete
+	glyphs: dict[str, Glyph]
+	glyphOrder: list[str]
+	_reverseGlyphOrder: Incomplete
+	def decompile(self, data, ttFont: TTFont) -> None: ...
+	def ensureDecompiled(self, recurse: bool = False) -> None: ...
+	def compile(self, ttFont: TTFont) -> bytes: ...
+	def toXML(self, writer, ttFont: TTFont, splitGlyphs: bool = False) -> None: ...
+	def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
+	def setGlyphOrder(self, glyphOrder) -> None:
+		"""Sets the glyph order
 
-        Args:
-                glyphOrder ([str]): List of glyph names in order.
-        """
-    def getGlyphName(self, glyphID):
-        """Returns the name for the glyph with the given ID.
+		Args:
+				glyphOrder ([str]): List of glyph names in order.
+		"""
+	def getGlyphName(self, glyphID):
+		"""Returns the name for the glyph with the given ID.
 
-        Raises a ``KeyError`` if the glyph name is not found in the font.
-        """
-    def _buildReverseGlyphOrderDict(self) -> None: ...
-    def getGlyphID(self, glyphName):
-        """Returns the ID of the glyph with the given name.
+		Raises a ``KeyError`` if the glyph name is not found in the font.
+		"""
+	def _buildReverseGlyphOrderDict(self) -> None: ...
+	def getGlyphID(self, glyphName):
+		"""Returns the ID of the glyph with the given name.
 
-        Raises a ``ValueError`` if the glyph is not found in the font.
-        """
-    def removeHinting(self) -> None:
-        """Removes TrueType hints from all glyphs in the glyphset.
+		Raises a ``ValueError`` if the glyph is not found in the font.
+		"""
+	def removeHinting(self) -> None:
+		"""Removes TrueType hints from all glyphs in the glyphset.
 
-        See :py:meth:`Glyph.removeHinting`.
-        """
-    def keys(self): ...
-    def has_key(self, glyphName): ...
-    __contains__ = has_key
-    def get(self, glyphName, default=None): ...
-    def __getitem__(self, glyphName: str) -> Glyph: ...
-    def __setitem__(self, glyphName, glyph) -> None: ...
-    def __delitem__(self, glyphName) -> None: ...
-    def __len__(self) -> int: ...
-    def _getPhantomPoints(self, glyphName, hMetrics, vMetrics=None):
-        """Compute the four "phantom points" for the given glyph from its bounding box
-        and the horizontal and vertical advance widths and sidebearings stored in the
-        ttFont\'s "hmtx" and "vmtx" tables.
+		See :py:meth:`Glyph.removeHinting`.
+		"""
+	def keys(self): ...
+	def has_key(self, glyphName): ...
+	__contains__ = has_key
+	def get(self, glyphName, default=None): ...
+	def __getitem__(self, glyphName: str) -> Glyph: ...
+	def __setitem__(self, glyphName, glyph) -> None: ...
+	def __delitem__(self, glyphName) -> None: ...
+	def __len__(self) -> int: ...
+	def _getPhantomPoints(self, glyphName, hMetrics, vMetrics=None):
+		"""Compute the four "phantom points" for the given glyph from its bounding box
+		and the horizontal and vertical advance widths and sidebearings stored in the
+		ttFont\'s "hmtx" and "vmtx" tables.
 
-        \'hMetrics\' should be ttFont[\'hmtx\'].metrics.
+		\'hMetrics\' should be ttFont[\'hmtx\'].metrics.
 
-        \'vMetrics\' should be ttFont[\'vmtx\'].metrics if there is "vmtx" or None otherwise.
-        If there is no vMetrics passed in, vertical phantom points are set to the zero coordinate.
+		\'vMetrics\' should be ttFont[\'vmtx\'].metrics if there is "vmtx" or None otherwise.
+		If there is no vMetrics passed in, vertical phantom points are set to the zero coordinate.
 
-        https://docs.microsoft.com/en-us/typography/opentype/spec/tt_instructing_glyphs#phantoms
-        """
-    def _getCoordinatesAndControls(self, glyphName, hMetrics, vMetrics=None, *, round=...):
-        """Return glyph coordinates and controls as expected by "gvar" table.
+		https://docs.microsoft.com/en-us/typography/opentype/spec/tt_instructing_glyphs#phantoms
+		"""
+	def _getCoordinatesAndControls(self, glyphName, hMetrics, vMetrics=None, *, round=...):
+		"""Return glyph coordinates and controls as expected by "gvar" table.
 
-        The coordinates includes four "phantom points" for the glyph metrics,
-        as mandated by the "gvar" spec.
+		The coordinates includes four "phantom points" for the glyph metrics,
+		as mandated by the "gvar" spec.
 
-        The glyph controls is a namedtuple with the following attributes:
-                - numberOfContours: -1 for composite glyphs.
-                - endPts: list of indices of end points for each contour in simple
-                glyphs, or component indices in composite glyphs (used for IUP
-                optimization).
-                - flags: array of contour point flags for simple glyphs (None for
-                composite glyphs).
-                - components: list of base glyph names (str) for each component in
-                composite glyphs (None for simple glyphs).
+		The glyph controls is a namedtuple with the following attributes:
+				- numberOfContours: -1 for composite glyphs.
+				- endPts: list of indices of end points for each contour in simple
+				glyphs, or component indices in composite glyphs (used for IUP
+				optimization).
+				- flags: array of contour point flags for simple glyphs (None for
+				composite glyphs).
+				- components: list of base glyph names (str) for each component in
+				composite glyphs (None for simple glyphs).
 
-        The "hMetrics" and vMetrics are used to compute the "phantom points" (see
-        the "_getPhantomPoints" method).
+		The "hMetrics" and vMetrics are used to compute the "phantom points" (see
+		the "_getPhantomPoints" method).
 
-        Return None if the requested glyphName is not present.
-        """
-    def _setCoordinates(self, glyphName, coord, hMetrics, vMetrics=None) -> None:
-        """Set coordinates and metrics for the given glyph.
+		Return None if the requested glyphName is not present.
+		"""
+	def _setCoordinates(self, glyphName, coord, hMetrics, vMetrics=None) -> None:
+		"""Set coordinates and metrics for the given glyph.
 
-        "coord" is an array of GlyphCoordinates which must include the "phantom
-        points" as the last four coordinates.
+		"coord" is an array of GlyphCoordinates which must include the "phantom
+		points" as the last four coordinates.
 
-        Both the horizontal/vertical advances and left/top sidebearings in "hmtx"
-        and "vmtx" tables (if any) are updated from four phantom points and
-        the glyph\'s bounding boxes.
+		Both the horizontal/vertical advances and left/top sidebearings in "hmtx"
+		and "vmtx" tables (if any) are updated from four phantom points and
+		the glyph\'s bounding boxes.
 
-        The "hMetrics" and vMetrics are used to propagate "phantom points"
-        into "hmtx" and "vmtx" tables if desired.  (see the "_getPhantomPoints"
-        method).
-        """
-    def _synthesizeVMetrics(self, glyphName, ttFont, defaultVerticalOrigin):
-        """This method is wrong and deprecated.
-        For rationale see:
-        https://github.com/fonttools/fonttools/pull/2266/files#r613569473
-        """
-    def getPhantomPoints(self, glyphName, ttFont, defaultVerticalOrigin=None):
-        """Old public name for self._getPhantomPoints().
-        See: https://github.com/fonttools/fonttools/pull/2266
-        """
-    def getCoordinatesAndControls(self, glyphName, ttFont, defaultVerticalOrigin=None):
-        """Old public name for self._getCoordinatesAndControls().
-        See: https://github.com/fonttools/fonttools/pull/2266
-        """
-    def setCoordinates(self, glyphName, ttFont) -> None:
-        """Old public name for self._setCoordinates().
-        See: https://github.com/fonttools/fonttools/pull/2266
-        """
+		The "hMetrics" and vMetrics are used to propagate "phantom points"
+		into "hmtx" and "vmtx" tables if desired.  (see the "_getPhantomPoints"
+		method).
+		"""
+	def _synthesizeVMetrics(self, glyphName, ttFont: TTFont, defaultVerticalOrigin):
+		"""This method is wrong and deprecated.
+		For rationale see:
+		https://github.com/fonttools/fonttools/pull/2266/files#r613569473
+		"""
+	def getPhantomPoints(self, glyphName, ttFont: TTFont, defaultVerticalOrigin=None):
+		"""Old public name for self._getPhantomPoints().
+		See: https://github.com/fonttools/fonttools/pull/2266
+		"""
+	def getCoordinatesAndControls(self, glyphName, ttFont: TTFont, defaultVerticalOrigin=None):
+		"""Old public name for self._getCoordinatesAndControls().
+		See: https://github.com/fonttools/fonttools/pull/2266
+		"""
+	def setCoordinates(self, glyphName, ttFont: TTFont) -> None:
+		"""Old public name for self._setCoordinates().
+		See: https://github.com/fonttools/fonttools/pull/2266
+		"""
 
 class _GlyphControls(NamedTuple):
-    numberOfContours: Incomplete
-    endPts: Incomplete
-    flags: Incomplete
-    components: Incomplete
+	numberOfContours: Incomplete
+	endPts: Incomplete
+	flags: Incomplete
+	components: Incomplete
 
 glyphHeaderFormat: str
 flagOnCurve: int
@@ -176,9 +176,9 @@ keepFlags: Incomplete
 _flagSignBytes: Incomplete
 
 def flagBest(x, y, onCurve):
-    """For a given x,y delta pair, returns the flag that packs this pair
-    most efficiently, as well as the number of byte cost of such flag.
-    """
+	"""For a given x,y delta pair, returns the flag that packs this pair
+	most efficiently, as well as the number of byte cost of such flag.
+	"""
 def flagFits(newFlag, oldFlag, mask): ...
 def flagSupports(newFlag, oldFlag): ...
 def flagEncodeCoord(flag, mask, coord, coordBytes) -> None: ...
@@ -199,353 +199,353 @@ SCALED_COMPONENT_OFFSET: int
 UNSCALED_COMPONENT_OFFSET: int
 
 class CompositeMaxpValues(NamedTuple):
-    nPoints: Incomplete
-    nContours: Incomplete
-    maxComponentDepth: Incomplete
+	nPoints: Incomplete
+	nContours: Incomplete
+	maxComponentDepth: Incomplete
 
 class Glyph:
-    """This class represents an individual TrueType glyph.
+	"""This class represents an individual TrueType glyph.
 
-    TrueType glyph objects come in two flavours: simple and composite. Simple
-    glyph objects contain contours, represented via the ``.coordinates``,
-    ``.flags``, ``.numberOfContours``, and ``.endPtsOfContours`` attributes;
-    composite glyphs contain components, available through the ``.components``
-    attributes.
+	TrueType glyph objects come in two flavours: simple and composite. Simple
+	glyph objects contain contours, represented via the ``.coordinates``,
+	``.flags``, ``.numberOfContours``, and ``.endPtsOfContours`` attributes;
+	composite glyphs contain components, available through the ``.components``
+	attributes.
 
-    Because the ``.coordinates`` attribute (and other simple glyph attributes mentioned
-    above) is only set on simple glyphs and the ``.components`` attribute is only
-    set on composite glyphs, it is necessary to use the :py:meth:`isComposite`
-    method to test whether a glyph is simple or composite before attempting to
-    access its data.
+	Because the ``.coordinates`` attribute (and other simple glyph attributes mentioned
+	above) is only set on simple glyphs and the ``.components`` attribute is only
+	set on composite glyphs, it is necessary to use the :py:meth:`isComposite`
+	method to test whether a glyph is simple or composite before attempting to
+	access its data.
 
-    For a composite glyph, the components can also be accessed via array-like access::
+	For a composite glyph, the components can also be accessed via array-like access::
 
-            >> assert(font["glyf"]["Aacute"].isComposite())
-            >> font["glyf"]["Aacute"][0]
-            <fontTools.ttLib.tables._g_l_y_f.GlyphComponent at 0x1027b2ee0>
+			>> assert(font["glyf"]["Aacute"].isComposite())
+			>> font["glyf"]["Aacute"][0]
+			<fontTools.ttLib.tables._g_l_y_f.GlyphComponent at 0x1027b2ee0>
 
-    """
+	"""
 
-    numberOfContours: int
-    xMin: int
-    yMin: int
-    xMax: int
-    yMax: int
-    data: Incomplete
-    def __init__(self, data: bytes = b'') -> None: ...
-    def compact(self, glyfTable, recalcBBoxes: bool = True) -> None: ...
-    def expand(self, glyfTable) -> None: ...
-    def compile(self, glyfTable: table__g_l_y_f, recalcBBoxes: bool = True, *, boundsDone: Incomplete = None, optimizeSize: bool = True) -> bytes: ...
-    def toXML(self, writer, ttFont) -> None: ...
-    coordinates: GlyphCoordinates
-    flags: Incomplete
-    endPtsOfContours: Incomplete
-    components: list[GlyphComponent]
-    program: Incomplete
-    def fromXML(self, name, attrs, content, ttFont) -> None: ...
-    def getCompositeMaxpValues(self, glyfTable, maxComponentDepth: int = 1): ...
-    def getMaxpValues(self): ...
-    def decompileComponents(self, data, glyfTable) -> None: ...
-    def decompileCoordinates(self, data) -> None: ...
-    def decompileCoordinatesRaw(self, nCoordinates, data, pos: int = 0): ...
-    def compileComponents(self, glyfTable): ...
-    def compileCoordinates(self, *, optimizeSize: bool = True): ...
-    def compileDeltasGreedy(self, flags, deltas): ...
-    def compileDeltasOptimal(self, flags, deltas): ...
-    def compileDeltasForSpeed(self, flags, deltas): ...
-    def recalcBounds(self, glyfTable: table__g_l_y_f, *, boundsDone: Incomplete=None) -> None:
-        """Recalculates the bounds of the glyph.
+	numberOfContours: int
+	xMin: int
+	yMin: int
+	xMax: int
+	yMax: int
+	data: Incomplete
+	def __init__(self, data: bytes = b'') -> None: ...
+	def compact(self, glyfTable, recalcBBoxes: bool = True) -> None: ...
+	def expand(self, glyfTable) -> None: ...
+	def compile(self, glyfTable: table__g_l_y_f, recalcBBoxes: bool = True, *, boundsDone: Incomplete = None, optimizeSize: bool = True) -> bytes: ...
+	def toXML(self, writer, ttFont: TTFont) -> None: ...
+	coordinates: GlyphCoordinates
+	flags: Incomplete
+	endPtsOfContours: Incomplete
+	components: list[GlyphComponent]
+	program: Incomplete
+	def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
+	def getCompositeMaxpValues(self, glyfTable, maxComponentDepth: int = 1): ...
+	def getMaxpValues(self): ...
+	def decompileComponents(self, data, glyfTable) -> None: ...
+	def decompileCoordinates(self, data) -> None: ...
+	def decompileCoordinatesRaw(self, nCoordinates, data, pos: int = 0): ...
+	def compileComponents(self, glyfTable): ...
+	def compileCoordinates(self, *, optimizeSize: bool = True): ...
+	def compileDeltasGreedy(self, flags, deltas): ...
+	def compileDeltasOptimal(self, flags, deltas): ...
+	def compileDeltasForSpeed(self, flags, deltas): ...
+	def recalcBounds(self, glyfTable: table__g_l_y_f, *, boundsDone: Incomplete=None) -> None:
+		"""Recalculates the bounds of the glyph.
 
-        Each glyph object stores its bounding box in the
-        ``xMin``/``yMin``/``xMax``/``yMax`` attributes. These bounds must be
-        recomputed when the ``coordinates`` change. The ``table__g_l_y_f`` bounds
-        must be provided to resolve component bounds.
-        """
-    def tryRecalcBoundsComposite(self, glyfTable: table__g_l_y_f, *, boundsDone=None):
-        """Try recalculating the bounds of a composite glyph that has
-        certain constrained properties. Namely, none of the components
-        have a transform other than an integer translate, and none
-        uses the anchor points.
+		Each glyph object stores its bounding box in the
+		``xMin``/``yMin``/``xMax``/``yMax`` attributes. These bounds must be
+		recomputed when the ``coordinates`` change. The ``table__g_l_y_f`` bounds
+		must be provided to resolve component bounds.
+		"""
+	def tryRecalcBoundsComposite(self, glyfTable: table__g_l_y_f, *, boundsDone=None):
+		"""Try recalculating the bounds of a composite glyph that has
+		certain constrained properties. Namely, none of the components
+		have a transform other than an integer translate, and none
+		uses the anchor points.
 
-        Each glyph object stores its bounding box in the
-        ``xMin``/``yMin``/``xMax``/``yMax`` attributes. These bounds must be
-        recomputed when the ``coordinates`` change. The ``table__g_l_y_f`` bounds
-        must be provided to resolve component bounds.
+		Each glyph object stores its bounding box in the
+		``xMin``/``yMin``/``xMax``/``yMax`` attributes. These bounds must be
+		recomputed when the ``coordinates`` change. The ``table__g_l_y_f`` bounds
+		must be provided to resolve component bounds.
 
-        Return True if bounds were calculated, False otherwise.
-        """
-    def isComposite(self) -> bool:
-        """Test whether a glyph has components."""
-    def getCoordinates(self, glyfTable, *, round=...):
-        """Return the coordinates, end points and flags
+		Return True if bounds were calculated, False otherwise.
+		"""
+	def isComposite(self) -> bool:
+		"""Test whether a glyph has components."""
+	def getCoordinates(self, glyfTable, *, round=...):
+		"""Return the coordinates, end points and flags
 
-        This method returns three values: A :py:class:`GlyphCoordinates` object,
-        a list of the indexes of the final points of each contour (allowing you
-        to split up the coordinates list into contours) and a list of flags.
+		This method returns three values: A :py:class:`GlyphCoordinates` object,
+		a list of the indexes of the final points of each contour (allowing you
+		to split up the coordinates list into contours) and a list of flags.
 
-        On simple glyphs, this method returns information from the glyph\'s own
-        contours; on composite glyphs, it "flattens" all components recursively
-        to return a list of coordinates representing all the components involved
-        in the glyph.
+		On simple glyphs, this method returns information from the glyph\'s own
+		contours; on composite glyphs, it "flattens" all components recursively
+		to return a list of coordinates representing all the components involved
+		in the glyph.
 
-        To interpret the flags for each point, see the "Simple Glyph Flags"
-        section of the `glyf table specification <https://docs.microsoft.com/en-us/typography/opentype/spec/glyf#simple-glyph-description>`.
-        """
-    def getComponentNames(self, glyfTable):
-        """Returns a list of names of component glyphs used in this glyph
+		To interpret the flags for each point, see the "Simple Glyph Flags"
+		section of the `glyf table specification <https://docs.microsoft.com/en-us/typography/opentype/spec/glyf#simple-glyph-description>`.
+		"""
+	def getComponentNames(self, glyfTable):
+		"""Returns a list of names of component glyphs used in this glyph
 
-        This method can be used on simple glyphs (in which case it returns an
-        empty list) or composite glyphs.
-        """
-    def trim(self, remove_hinting: bool = False) -> None:
-        """Remove padding and, if requested, hinting, from a glyph.
-        This works on both expanded and compacted glyphs, without
-        expanding it.
-        """
-    def removeHinting(self) -> None:
-        """Removes TrueType hinting instructions from the glyph."""
-    def draw(self, pen, glyfTable, offset: int = 0):
-        """Draws the glyph using the supplied pen object.
+		This method can be used on simple glyphs (in which case it returns an
+		empty list) or composite glyphs.
+		"""
+	def trim(self, remove_hinting: bool = False) -> None:
+		"""Remove padding and, if requested, hinting, from a glyph.
+		This works on both expanded and compacted glyphs, without
+		expanding it.
+		"""
+	def removeHinting(self) -> None:
+		"""Removes TrueType hinting instructions from the glyph."""
+	def draw(self, pen, glyfTable, offset: int = 0):
+		"""Draws the glyph using the supplied pen object.
 
-        Arguments:
-                pen: An object conforming to the pen protocol.
-                glyfTable: A :py:class:`table__g_l_y_f` object, to resolve components.
-                offset (int): A horizontal offset. If provided, all coordinates are
-                        translated by this offset.
-        """
-    def drawPoints(self, pen, glyfTable, offset: int = 0) -> None:
-        """Draw the glyph using the supplied pointPen. As opposed to Glyph.draw(),
-        this will not change the point indices.
-        """
-    def __eq__(self, other): ...
-    def __ne__(self, other): ...
+		Arguments:
+				pen: An object conforming to the pen protocol.
+				glyfTable: A :py:class:`table__g_l_y_f` object, to resolve components.
+				offset (int): A horizontal offset. If provided, all coordinates are
+						translated by this offset.
+		"""
+	def drawPoints(self, pen, glyfTable, offset: int = 0) -> None:
+		"""Draw the glyph using the supplied pointPen. As opposed to Glyph.draw(),
+		this will not change the point indices.
+		"""
+	def __eq__(self, other): ...
+	def __ne__(self, other): ...
 
 _roundv: Incomplete
 
 def _is_mid_point(p0: tuple, p1: tuple, p2: tuple) -> bool: ...
 def dropImpliedOnCurvePoints(*interpolatable_glyphs: Glyph) -> set[int]:
-    """Drop impliable on-curve points from the (simple) glyph or glyphs.
+	"""Drop impliable on-curve points from the (simple) glyph or glyphs.
 
-    In TrueType glyf outlines, on-curve points can be implied when they are located at
-    the midpoint of the line connecting two consecutive off-curve points.
+	In TrueType glyf outlines, on-curve points can be implied when they are located at
+	the midpoint of the line connecting two consecutive off-curve points.
 
-    If more than one glyphs are passed, these are assumed to be interpolatable masters
-    of the same glyph impliable, and thus only the on-curve points that are impliable
-    for all of them will actually be implied.
-    Composite glyphs or empty glyphs are skipped, only simple glyphs with 1 or more
-    contours are considered.
-    The input glyph(s) is/are modified in-place.
+	If more than one glyphs are passed, these are assumed to be interpolatable masters
+	of the same glyph impliable, and thus only the on-curve points that are impliable
+	for all of them will actually be implied.
+	Composite glyphs or empty glyphs are skipped, only simple glyphs with 1 or more
+	contours are considered.
+	The input glyph(s) is/are modified in-place.
 
-    Args:
-        interpolatable_glyphs: The glyph or glyphs to modify in-place.
+	Args:
+		interpolatable_glyphs: The glyph or glyphs to modify in-place.
 
-    Returns
-    -------
-        The set of point indices that were dropped if any.
+	Returns
+	-------
+		The set of point indices that were dropped if any.
 
-    Raises
-    ------
-        ValueError if simple glyphs are not in fact interpolatable because they have
-        different point flags or number of contours.
+	Raises
+	------
+		ValueError if simple glyphs are not in fact interpolatable because they have
+		different point flags or number of contours.
 
-    Reference:
-    https://developer.apple.com/fonts/TrueType-Reference-Manual/RM01/Chap1.html
-    """
+	Reference:
+	https://developer.apple.com/fonts/TrueType-Reference-Manual/RM01/Chap1.html
+	"""
 
 class GlyphComponent:
-    """Represents a component within a composite glyph.
+	"""Represents a component within a composite glyph.
 
-    The component is represented internally with four attributes: ``glyphName``,
-    ``x``, ``y`` and ``transform``. If there is no "two-by-two" matrix (i.e
-    no scaling, reflection, or rotation; only translation), the ``transform``
-    attribute is not present.
-    """
+	The component is represented internally with four attributes: ``glyphName``,
+	``x``, ``y`` and ``transform``. If there is no "two-by-two" matrix (i.e
+	no scaling, reflection, or rotation; only translation), the ``transform``
+	attribute is not present.
+	"""
 
-    def __init__(self) -> None: ...
-    def getComponentInfo(self):
-        """Return information about the component
+	def __init__(self) -> None: ...
+	def getComponentInfo(self):
+		"""Return information about the component
 
-        This method returns a tuple of two values: the glyph name of the component's
-        base glyph, and a transformation matrix. As opposed to accessing the attributes
-        directly, ``getComponentInfo`` always returns a six-element tuple of the
-        component's transformation matrix, even when the two-by-two ``.transform``
-        matrix is not present.
-        """
-    flags: Incomplete
-        glyphName: str
-    transform: Incomplete
-    def decompile(self, data, glyfTable): ...
-    def compile(self, more, haveInstructions, glyfTable): ...
-    def toXML(self, writer, ttFont) -> None: ...
-    firstPt: Incomplete
-    secondPt: Incomplete
-    x: int
-    y: int
-    def fromXML(self, name, attrs, content, ttFont) -> None: ...
-    def __eq__(self, other): ...
-    def __ne__(self, other): ...
-    def _hasOnlyIntegerTranslate(self):
-        """Return True if it's a 'simple' component.
+		This method returns a tuple of two values: the glyph name of the component's
+		base glyph, and a transformation matrix. As opposed to accessing the attributes
+		directly, ``getComponentInfo`` always returns a six-element tuple of the
+		component's transformation matrix, even when the two-by-two ``.transform``
+		matrix is not present.
+		"""
+	flags: Incomplete
+	glyphName: str
+	transform: Incomplete
+	def decompile(self, data, glyfTable): ...
+	def compile(self, more, haveInstructions, glyfTable): ...
+	def toXML(self, writer, ttFont: TTFont) -> None: ...
+	firstPt: Incomplete
+	secondPt: Incomplete
+	x: int
+	y: int
+	def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
+	def __eq__(self, other): ...
+	def __ne__(self, other): ...
+	def _hasOnlyIntegerTranslate(self):
+		"""Return True if it's a 'simple' component.
 
-        That is, it has no anchor points and no transform other than integer translate.
-        """
+		That is, it has no anchor points and no transform other than integer translate.
+		"""
 
 class GlyphCoordinates:
-    """A list of glyph coordinates.
+	"""A list of glyph coordinates.
 
-    Unlike an ordinary list, this is a numpy-like matrix object which supports
-    matrix addition, scalar multiplication and other operations described below.
-    """
+	Unlike an ordinary list, this is a numpy-like matrix object which supports
+	matrix addition, scalar multiplication and other operations described below.
+	"""
 
-    _a: Incomplete
-    def __init__(self, iterable=[]) -> None: ...
-    @property
-    def array(self):
-        """Returns the underlying array of coordinates"""
-    @staticmethod
-    def zeros(count):
-        """Creates a new ``GlyphCoordinates`` object with all coordinates set to (0,0)"""
-    def copy(self):
-        """Creates a new ``GlyphCoordinates`` object which is a copy of the current one."""
-    def __len__(self) -> int:
-        """Returns the number of coordinates in the array."""
-    def __getitem__(self, k):
-        """Returns a two element tuple (x,y)"""
-    def __setitem__(self, k, v) -> None:
-        """Sets a point's coordinates to a two element tuple (x,y)"""
-    def __delitem__(self, i) -> None:
-        """Removes a point from the list"""
-    def append(self, p) -> None: ...
-    def extend(self, iterable) -> None: ...
-    def toInt(self, *, round=...) -> None: ...
-    def calcBounds(self): ...
-    def calcIntBounds(self, round=...): ...
-    def relativeToAbsolute(self) -> None: ...
-    def absoluteToRelative(self) -> None: ...
-    def translate(self, p: tuple[int | float, int | float]) -> None:
-        """
-        >>> GlyphCoordinates([(1,2)]).translate((.5,0))
-        """
-    def scale(self, p) -> None:
-        """
-        >>> GlyphCoordinates([(1,2)]).scale((.5,0))
-        """
-    def transform(self, t) -> None:
-        """
-        >>> GlyphCoordinates([(1,2)]).transform(((.5,0),(.2,.5)))
-        """
-    def __eq__(self, other):
-        """
-        >>> g = GlyphCoordinates([(1,2)])
-        >>> g2 = GlyphCoordinates([(1.0,2)])
-        >>> g3 = GlyphCoordinates([(1.5,2)])
-        >>> g == g2
-        True
-        >>> g == g3
-        False
-        >>> g2 == g3
-        False
-        """
-    def __ne__(self, other):
-        """
-        >>> g = GlyphCoordinates([(1,2)])
-        >>> g2 = GlyphCoordinates([(1.0,2)])
-        >>> g3 = GlyphCoordinates([(1.5,2)])
-        >>> g != g2
-        False
-        >>> g != g3
-        True
-        >>> g2 != g3
-        True
-        """
-    def __pos__(self):
-        """
-        >>> g = GlyphCoordinates([(1,2)])
-        >>> g
-        GlyphCoordinates([(1, 2)])
-        >>> g2 = +g
-        >>> g2
-        GlyphCoordinates([(1, 2)])
-        >>> g2.translate((1,0))
-        >>> g2
-        GlyphCoordinates([(2, 2)])
-        >>> g
-        GlyphCoordinates([(1, 2)])
-        """
-    def __neg__(self):
-        """
-        >>> g = GlyphCoordinates([(1,2)])
-        >>> g
-        GlyphCoordinates([(1, 2)])
-        >>> g2 = -g
-        >>> g2
-        GlyphCoordinates([(-1, -2)])
-        >>> g
-        GlyphCoordinates([(1, 2)])
-        """
-    def __round__(self, *, round=...): ...
-    def __add__(self, other): ...
-    def __sub__(self, other): ...
-    def __mul__(self, other): ...
-    def __truediv__(self, other): ...
-    __radd__ = __add__
-    __rmul__ = __mul__
-    def __rsub__(self, other): ...
-    def __iadd__(self, other):
-        """
-        >>> g = GlyphCoordinates([(1,2)])
-        >>> g += (.5,0)
-        >>> g
-        GlyphCoordinates([(1.5, 2)])
-        >>> g2 = GlyphCoordinates([(3,4)])
-        >>> g += g2
-        >>> g
-        GlyphCoordinates([(4.5, 6)])
-        """
-    def __isub__(self, other):
-        """
-        >>> g = GlyphCoordinates([(1,2)])
-        >>> g -= (.5,0)
-        >>> g
-        GlyphCoordinates([(0.5, 2)])
-        >>> g2 = GlyphCoordinates([(3,4)])
-        >>> g -= g2
-        >>> g
-        GlyphCoordinates([(-2.5, -2)])
-        """
-    def __imul__(self, other):
-        """
-        >>> g = GlyphCoordinates([(1,2)])
-        >>> g *= (2,.5)
-        >>> g *= 2
-        >>> g
-        GlyphCoordinates([(4, 2)])
-        >>> g = GlyphCoordinates([(1,2)])
-        >>> g *= 2
-        >>> g
-        GlyphCoordinates([(2, 4)])
-        """
-    def __itruediv__(self, other):
-        """
-        >>> g = GlyphCoordinates([(1,3)])
-        >>> g /= (.5,1.5)
-        >>> g /= 2
-        >>> g
-        GlyphCoordinates([(1, 1)])
-        """
-    def __bool__(self) -> bool:
-        """
-        >>> g = GlyphCoordinates([])
-        >>> bool(g)
-        False
-        >>> g = GlyphCoordinates([(0,0), (0.,0)])
-        >>> bool(g)
-        True
-        >>> g = GlyphCoordinates([(0,0), (1,0)])
-        >>> bool(g)
-        True
-        >>> g = GlyphCoordinates([(0,.5), (0,0)])
-        >>> bool(g)
-        True
-        """
-    __nonzero__ = __bool__
+	_a: Incomplete
+	def __init__(self, iterable=[]) -> None: ...
+	@property
+	def array(self):
+		"""Returns the underlying array of coordinates"""
+	@staticmethod
+	def zeros(count):
+		"""Creates a new ``GlyphCoordinates`` object with all coordinates set to (0,0)"""
+	def copy(self):
+		"""Creates a new ``GlyphCoordinates`` object which is a copy of the current one."""
+	def __len__(self) -> int:
+		"""Returns the number of coordinates in the array."""
+	def __getitem__(self, k):
+		"""Returns a two element tuple (x,y)"""
+	def __setitem__(self, k, v) -> None:
+		"""Sets a point's coordinates to a two element tuple (x,y)"""
+	def __delitem__(self, i) -> None:
+		"""Removes a point from the list"""
+	def append(self, p) -> None: ...
+	def extend(self, iterable) -> None: ...
+	def toInt(self, *, round=...) -> None: ...
+	def calcBounds(self): ...
+	def calcIntBounds(self, round=...): ...
+	def relativeToAbsolute(self) -> None: ...
+	def absoluteToRelative(self) -> None: ...
+	def translate(self, p: tuple[int | float, int | float]) -> None:
+		"""
+		>>> GlyphCoordinates([(1,2)]).translate((.5,0))
+		"""
+	def scale(self, p) -> None:
+		"""
+		>>> GlyphCoordinates([(1,2)]).scale((.5,0))
+		"""
+	def transform(self, t) -> None:
+		"""
+		>>> GlyphCoordinates([(1,2)]).transform(((.5,0),(.2,.5)))
+		"""
+	def __eq__(self, other):
+		"""
+		>>> g = GlyphCoordinates([(1,2)])
+		>>> g2 = GlyphCoordinates([(1.0,2)])
+		>>> g3 = GlyphCoordinates([(1.5,2)])
+		>>> g == g2
+		True
+		>>> g == g3
+		False
+		>>> g2 == g3
+		False
+		"""
+	def __ne__(self, other):
+		"""
+		>>> g = GlyphCoordinates([(1,2)])
+		>>> g2 = GlyphCoordinates([(1.0,2)])
+		>>> g3 = GlyphCoordinates([(1.5,2)])
+		>>> g != g2
+		False
+		>>> g != g3
+		True
+		>>> g2 != g3
+		True
+		"""
+	def __pos__(self):
+		"""
+		>>> g = GlyphCoordinates([(1,2)])
+		>>> g
+		GlyphCoordinates([(1, 2)])
+		>>> g2 = +g
+		>>> g2
+		GlyphCoordinates([(1, 2)])
+		>>> g2.translate((1,0))
+		>>> g2
+		GlyphCoordinates([(2, 2)])
+		>>> g
+		GlyphCoordinates([(1, 2)])
+		"""
+	def __neg__(self):
+		"""
+		>>> g = GlyphCoordinates([(1,2)])
+		>>> g
+		GlyphCoordinates([(1, 2)])
+		>>> g2 = -g
+		>>> g2
+		GlyphCoordinates([(-1, -2)])
+		>>> g
+		GlyphCoordinates([(1, 2)])
+		"""
+	def __round__(self, *, round=...): ...
+	def __add__(self, other): ...
+	def __sub__(self, other): ...
+	def __mul__(self, other): ...
+	def __truediv__(self, other): ...
+	__radd__ = __add__
+	__rmul__ = __mul__
+	def __rsub__(self, other): ...
+	def __iadd__(self, other):
+		"""
+		>>> g = GlyphCoordinates([(1,2)])
+		>>> g += (.5,0)
+		>>> g
+		GlyphCoordinates([(1.5, 2)])
+		>>> g2 = GlyphCoordinates([(3,4)])
+		>>> g += g2
+		>>> g
+		GlyphCoordinates([(4.5, 6)])
+		"""
+	def __isub__(self, other):
+		"""
+		>>> g = GlyphCoordinates([(1,2)])
+		>>> g -= (.5,0)
+		>>> g
+		GlyphCoordinates([(0.5, 2)])
+		>>> g2 = GlyphCoordinates([(3,4)])
+		>>> g -= g2
+		>>> g
+		GlyphCoordinates([(-2.5, -2)])
+		"""
+	def __imul__(self, other):
+		"""
+		>>> g = GlyphCoordinates([(1,2)])
+		>>> g *= (2,.5)
+		>>> g *= 2
+		>>> g
+		GlyphCoordinates([(4, 2)])
+		>>> g = GlyphCoordinates([(1,2)])
+		>>> g *= 2
+		>>> g
+		GlyphCoordinates([(2, 4)])
+		"""
+	def __itruediv__(self, other):
+		"""
+		>>> g = GlyphCoordinates([(1,3)])
+		>>> g /= (.5,1.5)
+		>>> g /= 2
+		>>> g
+		GlyphCoordinates([(1, 1)])
+		"""
+	def __bool__(self) -> bool:
+		"""
+		>>> g = GlyphCoordinates([])
+		>>> bool(g)
+		False
+		>>> g = GlyphCoordinates([(0,0), (0.,0)])
+		>>> bool(g)
+		True
+		>>> g = GlyphCoordinates([(0,0), (1,0)])
+		>>> bool(g)
+		True
+		>>> g = GlyphCoordinates([(0,.5), (0,0)])
+		>>> bool(g)
+		True
+		"""
+	__nonzero__ = __bool__

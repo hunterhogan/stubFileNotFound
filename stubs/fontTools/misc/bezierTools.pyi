@@ -1,6 +1,6 @@
-import _cython_3_2_2
 from fontTools.misc.arrayTools import calcBounds as calcBounds, rectArea as rectArea, sectRect as sectRect
 from fontTools.misc.transform import Identity as Identity
+import _cython_3_2_2
 
 COMPILED: bool
 EPSILON: float

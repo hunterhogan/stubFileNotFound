@@ -2,8 +2,7 @@ from ._base import FS as FS
 from ._info import Info as Info
 from ._path import combine as combine
 from _typeshed import Incomplete
-from collections.abc import Collection, Iterator
-from typing import Callable
+from collections.abc import Callable, Collection, Iterator
 
 class BoundWalker:
     _fs: Incomplete

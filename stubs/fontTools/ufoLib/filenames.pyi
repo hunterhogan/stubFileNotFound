@@ -7,7 +7,7 @@ maxFileNameLength: int
 class NameTranslationError(Exception): ...
 
 def userNameToFileName(userName: str, existing: Iterable[str] = (), prefix: str = '', suffix: str = '') -> str:
-    '''Converts from a user name to a file name.
+    """Converts from a user name to a file name.
 
     Takes care to avoid illegal characters, reserved file names, ambiguity between
     upper- and lower-case characters, and clashes with existing files.
@@ -18,10 +18,12 @@ def userNameToFileName(userName: str, existing: Iterable[str] = (), prefix: str 
             prefix: Prefix to be prepended to the file name.
             suffix: Suffix to be appended to the file name.
 
-    Returns:
+    Returns
+    -------
             A suitable filename.
 
-    Raises:
+    Raises
+    ------
             NameTranslationError: If no suitable name could be generated.
 
     Examples::
@@ -70,9 +72,9 @@ def userNameToFileName(userName: str, existing: Iterable[str] = (), prefix: str 
             True
             >>> userNameToFileName("alt.con") == "alt._con"
             True
-    '''
+    """
 def handleClash1(userName: str, existing: Iterable[str] = [], prefix: str = '', suffix: str = '') -> str:
-    '''A helper function that resolves collisions with existing names when choosing a filename.
+    """A helper function that resolves collisions with existing names when choosing a filename.
 
     This function attempts to append an unused integer counter to the filename.
 
@@ -82,7 +84,8 @@ def handleClash1(userName: str, existing: Iterable[str] = [], prefix: str = '', 
                 prefix: Prefix to be prepended to the file name.
                 suffix: Suffix to be appended to the file name.
 
-        Returns:
+    Returns
+    -------
                 A suitable filename.
 
         >>> prefix = ("0" * 5) + "."
@@ -108,9 +111,9 @@ def handleClash1(userName: str, existing: Iterable[str] = [], prefix: str = '', 
         ...\t\tprefix=prefix, suffix=suffix) == (
         ... \t\'00000.AAAAA000000000000001.0000000000\')
         True
-    '''
+    """
 def handleClash2(existing: Iterable[str] = [], prefix: str = '', suffix: str = '') -> str:
-    '''A helper function that resolves collisions with existing names when choosing a filename.
+    """A helper function that resolves collisions with existing names when choosing a filename.
 
     This function is a fallback to :func:`handleClash1`. It attempts to append an unused integer counter to the filename.
 
@@ -120,10 +123,12 @@ def handleClash2(existing: Iterable[str] = [], prefix: str = '', suffix: str = '
                 prefix: Prefix to be prepended to the file name.
                 suffix: Suffix to be appended to the file name.
 
-        Returns:
+    Returns
+    -------
                 A suitable filename.
 
-        Raises:
+    Raises
+    ------
                 NameTranslationError: If no suitable name could be generated.
 
         Examples::
@@ -148,4 +153,4 @@ def handleClash2(existing: Iterable[str] = [], prefix: str = '', suffix: str = '
           >>> handleClash2(existing=e, prefix=prefix, suffix=suffix) == (
           ... \t\'00000.2.0000000000\')
           True
-    '''
+    """

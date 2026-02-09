@@ -2,7 +2,8 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from contextlib import contextmanager
 from fontTools import ttLib as ttLib
-from fontTools.feaLib.lookupDebugInfo import LOOKUP_DEBUG_ENV_VAR as LOOKUP_DEBUG_ENV_VAR, LOOKUP_DEBUG_INFO_KEY as LOOKUP_DEBUG_INFO_KEY
+from fontTools.feaLib.lookupDebugInfo import (
+	LOOKUP_DEBUG_ENV_VAR as LOOKUP_DEBUG_ENV_VAR, LOOKUP_DEBUG_INFO_KEY as LOOKUP_DEBUG_INFO_KEY)
 from fontTools.ttLib import newTable as newTable
 from fontTools.ttLib.tables._c_m_a_p import cmap_classes as cmap_classes
 from fontTools.ttLib.tables.otBase import ValueRecord as ValueRecord, valueRecordFormatDict as valueRecordFormatDict
@@ -139,7 +140,7 @@ class Tokenizer:
     def expectendswith(self, s): ...
 
 def build(f, font, tableTag=None):
-    '''Convert a Monotype font layout file to an OpenType layout object
+    """Convert a Monotype font layout file to an OpenType layout object
 
     A font object must be passed, but this may be a "dummy" font; it is only
     used for sorting glyph sets when making coverage tables and to hold the
@@ -151,9 +152,10 @@ def build(f, font, tableTag=None):
             tableTag (string): If provided, asserts that the file contains data for the
                     given OpenType table.
 
-    Returns:
+    Returns
+    -------
             An object representing the table. (e.g. ``table_G_S_U_B_``)
-    '''
+    """
 def main(args=None, font=None) -> None:
     """Convert a FontDame OTL file to TTX XML
 

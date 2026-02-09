@@ -1,9 +1,11 @@
-import math as _math
-from .textTools import Tag as Tag, bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, strjoin as strjoin, tobytes as tobytes, tostr as tostr
+from .textTools import (
+	bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, strjoin as strjoin, Tag as Tag, tobytes as tobytes,
+	tostr as tostr)
 from io import BytesIO as BytesIO, StringIO as UnicodeIO
 from types import SimpleNamespace as SimpleNamespace
+import math as _math
 
-__all__ = ['basestring', 'bytechr', 'byteord', 'BytesIO', 'bytesjoin', 'open', 'Py23Error', 'range', 'RecursionError', 'round', 'SimpleNamespace', 'StringIO', 'strjoin', 'Tag', 'tobytes', 'tostr', 'tounicode', 'unichr', 'unicode', 'UnicodeIO', 'xrange', 'zip']
+__all__ = ['BytesIO', 'Py23Error', 'RecursionError', 'SimpleNamespace', 'StringIO', 'Tag', 'UnicodeIO', 'basestring', 'bytechr', 'byteord', 'bytesjoin', 'open', 'range', 'round', 'strjoin', 'tobytes', 'tostr', 'tounicode', 'unichr', 'unicode', 'xrange', 'zip']
 
 class Py23Error(NotImplementedError): ...
 RecursionError = RecursionError

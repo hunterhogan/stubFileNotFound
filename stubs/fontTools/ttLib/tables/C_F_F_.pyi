@@ -17,6 +17,7 @@ class table_C_F_F_(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/cff
     """
+
     cff: Incomplete
     _gaveGlyphOrder: bool
     def __init__(self, tag=None) -> None: ...

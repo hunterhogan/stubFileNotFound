@@ -2,17 +2,21 @@ from .errors import VarLibError as VarLibError, VarLibValidationError as VarLibV
 from _typeshed import Incomplete
 from fontTools.colorLib.builder import buildColrV1 as buildColrV1
 from fontTools.colorLib.unbuilder import unbuildColrV1 as unbuildColrV1
-from fontTools.designspaceLib import DesignSpaceDocument as DesignSpaceDocument, InstanceDescriptor as InstanceDescriptor
-from fontTools.designspaceLib.split import splitInterpolable as splitInterpolable, splitVariableFonts as splitVariableFonts
+from fontTools.designspaceLib import (
+	DesignSpaceDocument as DesignSpaceDocument, InstanceDescriptor as InstanceDescriptor)
+from fontTools.designspaceLib.split import (
+	splitInterpolable as splitInterpolable, splitVariableFonts as splitVariableFonts)
 from fontTools.misc.roundTools import noRound as noRound, otRound as otRound
 from fontTools.misc.textTools import Tag as Tag, tostr as tostr
 from fontTools.misc.vector import Vector as Vector
-from fontTools.ttLib import TTFont as TTFont, newTable as newTable
-from fontTools.ttLib.tables.TupleVariation import TupleVariation as TupleVariation
+from fontTools.ttLib import newTable as newTable, TTFont as TTFont
 from fontTools.ttLib.tables._f_v_a_r import Axis as Axis, NamedInstance as NamedInstance
-from fontTools.ttLib.tables._g_l_y_f import GlyphCoordinates as GlyphCoordinates, USE_MY_METRICS as USE_MY_METRICS, dropImpliedOnCurvePoints as dropImpliedOnCurvePoints
+from fontTools.ttLib.tables._g_l_y_f import (
+	dropImpliedOnCurvePoints as dropImpliedOnCurvePoints, GlyphCoordinates as GlyphCoordinates,
+	USE_MY_METRICS as USE_MY_METRICS)
 from fontTools.ttLib.tables.otBase import OTTableWriter as OTTableWriter
 from fontTools.ttLib.tables.ttProgram import Program as Program
+from fontTools.ttLib.tables.TupleVariation import TupleVariation as TupleVariation
 from fontTools.varLib import builder as builder, models as models, varStore as varStore
 from fontTools.varLib.featureVars import addFeatureVariations as addFeatureVariations
 from fontTools.varLib.iup import iup_delta_optimize as iup_delta_optimize
@@ -111,7 +115,8 @@ def drop_implied_oncurve_points(*masters: TTFont) -> int:
     Args:
         masters: The TTFont(s) to modify
 
-    Returns:
+    Returns
+    -------
         The total number of points that were dropped if any.
 
     Reference:
@@ -161,7 +166,7 @@ class MasterFinder:
 
 def _feature_variations_tags(ds): ...
 def addGSUBFeatureVariations(vf, designspace, featureTags=(), *, log_enabled: bool = False) -> None:
-    '''Add GSUB FeatureVariations table to variable font, based on DesignSpace rules.
+    """Add GSUB FeatureVariations table to variable font, based on DesignSpace rules.
 
     Args:
         vf: A TTFont object representing the variable font.
@@ -173,6 +178,6 @@ def addGSUBFeatureVariations(vf, designspace, featureTags=(), *, log_enabled: bo
             See <https://fonttools.readthedocs.io/en/latest/designspaceLib/xml.html#rules-element>
         log_enabled: If True, log info about DS axes and sources. Default is False, as
             the same info may have already been logged as part of varLib.build.
-    '''
+    """
 def main(args=None) -> None:
     """Build variable fonts from a designspace file and masters"""

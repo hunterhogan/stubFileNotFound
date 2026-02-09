@@ -5,7 +5,7 @@ from stubFileNotFound import settingsPackage
 from stubFileNotFound.missing2AnyTransformers import processStubString
 
 # Configuration Settings
-pathStubs: Path = Path(settingsPackage.pathPackage.parent.parent, 'stubs').resolve()
+pathStubs: Path = Path(settingsPackage.pathPackage.parent, 'stubs').resolve()
 pathSuffix: str = 'pyi'
 
 def discoverStubFiles(listRelativePaths: list[str]) -> list[Path]:

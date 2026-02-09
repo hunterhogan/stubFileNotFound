@@ -3,7 +3,7 @@ from collections.abc import Generator
 from fontTools.pens.basePen import AbstractPen, DecomposingPen
 from fontTools.pens.pointPen import AbstractPointPen, DecomposingPointPen
 
-__all__ = ['replayRecording', 'RecordingPen', 'DecomposingRecordingPen', 'DecomposingRecordingPointPen', 'RecordingPointPen', 'lerpRecordings']
+__all__ = ['DecomposingRecordingPen', 'DecomposingRecordingPointPen', 'RecordingPen', 'RecordingPointPen', 'lerpRecordings', 'replayRecording']
 
 def replayRecording(recording, pen) -> None:
     """Replay a recording, as produced by RecordingPen or DecomposingRecordingPen,
@@ -37,6 +37,7 @@ class RecordingPen(AbstractPen):
             glyph.draw(pen)
             print(pen.value)
     """
+
     value: Incomplete
     def __init__(self) -> None: ...
     def moveTo(self, p0) -> None: ...
@@ -51,7 +52,7 @@ class RecordingPen(AbstractPen):
     draw = replay
 
 class DecomposingRecordingPen(DecomposingPen, RecordingPen):
-    '''Same as RecordingPen, except that it doesn\'t keep components
+    """Same as RecordingPen, except that it doesn\'t keep components
     as references, but draws them decomposed as regular contours.
 
     The constructor takes a required \'glyphSet\' positional argument,
@@ -101,7 +102,8 @@ class DecomposingRecordingPen(DecomposingPen, RecordingPen):
         b: [(\'moveTo\', ((-1, 1),)), (\'curveTo\', ((0, 2), (1, 3), (2, 4))), (\'closePath\', ())]
         c: []
         d: [(\'moveTo\', ((0, 0),)), (\'lineTo\', ((-3, 3),)), (\'curveTo\', ((-2, 2), (-1, 1), (0, 0))), (\'closePath\', ())]
-    '''
+    """
+
     skipMissingComponents: bool
 
 class RecordingPointPen(AbstractPointPen):
@@ -129,6 +131,7 @@ class RecordingPointPen(AbstractPointPen):
             new_glyph = font.newGlyph('b')
             pen.replay(new_glyph.getPointPen())
     """
+
     value: Incomplete
     def __init__(self) -> None: ...
     def beginPath(self, identifier=None, **kwargs) -> None: ...
@@ -140,7 +143,7 @@ class RecordingPointPen(AbstractPointPen):
     drawPoints = replay
 
 class DecomposingRecordingPointPen(DecomposingPointPen, RecordingPointPen):
-    '''Same as RecordingPointPen, except that it doesn\'t keep components
+    """Same as RecordingPointPen, except that it doesn\'t keep components
     as references, but draws them decomposed as regular contours.
 
     The constructor takes a required \'glyphSet\' positional argument,
@@ -224,7 +227,8 @@ class DecomposingRecordingPointPen(DecomposingPointPen, RecordingPointPen):
                (\'addPoint\', ((-2, 2), None, False, None), {}),
                (\'addPoint\', ((-1, 1), None, False, None), {}),
                (\'endPath\', (), {})]}
-    '''
+    """
+
     skipMissingComponents: bool
 
 def lerpRecordings(recording1, recording2, factor: float = 0.5) -> Generator[Incomplete]:

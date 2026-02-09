@@ -1,14 +1,19 @@
 from .interpolatableHelpers import *
-import types
 from _typeshed import Incomplete
 from fontTools.pens.boundsPen import ControlBoundsPen as ControlBoundsPen
 from fontTools.pens.cairoPen import CairoPen as CairoPen
-from fontTools.pens.pointPen import PointToSegmentPen as PointToSegmentPen, ReverseContourPointPen as ReverseContourPointPen, SegmentToPointPen as SegmentToPointPen
-from fontTools.pens.recordingPen import DecomposingRecordingPen as DecomposingRecordingPen, RecordingPen as RecordingPen, RecordingPointPen as RecordingPointPen
+from fontTools.pens.pointPen import (
+	PointToSegmentPen as PointToSegmentPen, ReverseContourPointPen as ReverseContourPointPen,
+	SegmentToPointPen as SegmentToPointPen)
+from fontTools.pens.recordingPen import (
+	DecomposingRecordingPen as DecomposingRecordingPen, RecordingPen as RecordingPen,
+	RecordingPointPen as RecordingPointPen)
 from fontTools.ttLib import TTFont as TTFont
 from fontTools.ttLib.ttGlyphSet import LerpGlyphSet as LerpGlyphSet
-from fontTools.varLib.interpolatableHelpers import PerContourOrComponentPen as PerContourOrComponentPen, SimpleRecordingPointPen as SimpleRecordingPointPen
+from fontTools.varLib.interpolatableHelpers import (
+	PerContourOrComponentPen as PerContourOrComponentPen, SimpleRecordingPointPen as SimpleRecordingPointPen)
 from functools import wraps as wraps
+import types
 
 log: Incomplete
 

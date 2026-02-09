@@ -1,6 +1,6 @@
-from collections.abc import Container
+from collections.abc import Container, Mapping
 from fontTools.annotations import KerningNested as KerningNested
-from typing import Any, Mapping
+from typing import Any
 
 def convertUFO1OrUFO2KerningToUFO3Kerning(kerning: KerningNested, groups: dict[str, list[str]], glyphSet: Container[str] = ()) -> tuple[KerningNested, dict[str, list[str]], dict[str, dict[str, str]]]:
     """Convert kerning data in UFO1 or UFO2 syntax into UFO3 syntax.
@@ -15,14 +15,15 @@ def convertUFO1OrUFO2KerningToUFO3Kerning(kerning: KerningNested, groups: dict[s
       glyphSet:
         Optional; a set of glyph objects to skip (default: None).
 
-    Returns:
+    Returns
+    -------
       1. A dictionary representing the converted kerning data.
       2. A copy of the groups dictionary, with all groups renamed to UFO3 syntax.
       3. A dictionary containing the mapping of old group names to new group names.
 
     """
 def findKnownKerningGroups(groups: Mapping[str, Any]) -> tuple[set[str], set[str]]:
-    '''Find all kerning groups in a UFO1 or UFO2 font that use known prefixes.
+    """Find all kerning groups in a UFO1 or UFO2 font that use known prefixes.
 
     In some cases, not all kerning groups will be referenced
     by the kerning pairs in a UFO. The algorithm for locating
@@ -42,7 +43,8 @@ def findKnownKerningGroups(groups: Mapping[str, Any]) -> tuple[set[str], set[str
           A dictionary containing the groups defined in the UFO
           font, as read by :class:`.UFOReader`.
 
-    Returns:
+    Returns
+    -------
         Two sets; the first containing the names of all
         first-side kerning groups identified in the ``groups``
         dictionary, and the second containing the names of all
@@ -70,7 +72,7 @@ def findKnownKerningGroups(groups: Mapping[str, Any]) -> tuple[set[str], set[str
           True
           >>> sorted(second) == [\'@MMK_R_1\', \'@MMK_R_2\', \'@MMK_R_3\']
           True
-    '''
+    """
 def makeUniqueGroupName(name: str, groupNames: list[str], counter: int = 0) -> str:
     """Make a kerning group name that will be unique within the set of group names.
 
@@ -89,12 +91,13 @@ def makeUniqueGroupName(name: str, groupNames: list[str], counter: int = 0) -> s
           incrementing the value of :attr:`.counter` until it finds the
           first unused ``name+counter`` combination, and return that result.
 
-    Returns:
+    Returns
+    -------
         A unique kerning group name composed of the requested name suffixed
         by the smallest available integer counter.
     """
 def test() -> None:
-    '''
+    """
     Tests for :func:`.convertUFO1OrUFO2KerningToUFO3Kerning`.
 
     No known prefixes.
@@ -299,4 +302,4 @@ def test() -> None:
     ... }
     >>> groups == expected
     True
-    '''
+    """

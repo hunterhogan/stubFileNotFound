@@ -189,7 +189,7 @@ class FontBuilder:
         happy. This does not properly sign the font.
         """
     def addOpenTypeFeatures(self, features, filename=None, tables=None, debug: bool = False) -> None:
-        '''Add OpenType features to the font from a string containing
+        """Add OpenType features to the font from a string containing
         Feature File syntax.
 
         The `filename` argument is used in error messages and to determine
@@ -201,7 +201,7 @@ class FontBuilder:
 
         The optional `debug` argument controls whether to add source debugging
         information to the font in the `Debg` table.
-        '''
+        """
     def addFeatureVariations(self, conditionalSubstitutions, featureTag: str = 'rvrn') -> None:
         """Add conditional substitutions to a Variable Font.
 

@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from fontTools.cffLib.specializer import commandsToProgram as commandsToProgram, specializeCommands as specializeCommands
+from fontTools.cffLib.specializer import (
+	commandsToProgram as commandsToProgram, specializeCommands as specializeCommands)
 from fontTools.misc.psCharStrings import T2CharString as T2CharString
 from fontTools.misc.roundTools import otRound as otRound, roundFunc as roundFunc
 from fontTools.pens.basePen import BasePen as BasePen
@@ -15,6 +16,7 @@ class T2CharStringPen(BasePen):
     a value of 0 disables rounding; values in between will only round floats
     which are close to their integral part within the tolerated range.
     """
+
     round: Incomplete
     _CFF2: Incomplete
     _width: Incomplete

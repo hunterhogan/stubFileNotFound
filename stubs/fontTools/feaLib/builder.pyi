@@ -1,12 +1,22 @@
 from _typeshed import Incomplete
 from fontTools.feaLib.ast import FeatureFile as FeatureFile
 from fontTools.feaLib.error import FeatureLibError as FeatureLibError
-from fontTools.feaLib.lookupDebugInfo import LOOKUP_DEBUG_ENV_VAR as LOOKUP_DEBUG_ENV_VAR, LOOKUP_DEBUG_INFO_KEY as LOOKUP_DEBUG_INFO_KEY, LookupDebugInfo as LookupDebugInfo
+from fontTools.feaLib.lookupDebugInfo import (
+	LOOKUP_DEBUG_ENV_VAR as LOOKUP_DEBUG_ENV_VAR, LOOKUP_DEBUG_INFO_KEY as LOOKUP_DEBUG_INFO_KEY,
+	LookupDebugInfo as LookupDebugInfo)
 from fontTools.feaLib.parser import Parser as Parser
 from fontTools.feaLib.variableScalar import VariableScalar as VariableScalar
 from fontTools.misc import sstruct as sstruct
-from fontTools.misc.textTools import Tag as Tag, binary2num as binary2num, safeEval as safeEval, tostr as tostr
-from fontTools.otlLib.builder import AlternateSubstBuilder as AlternateSubstBuilder, AnySubstBuilder as AnySubstBuilder, ChainContextPosBuilder as ChainContextPosBuilder, ChainContextSubstBuilder as ChainContextSubstBuilder, ChainContextualRule as ChainContextualRule, ClassPairPosSubtableBuilder as ClassPairPosSubtableBuilder, CursivePosBuilder as CursivePosBuilder, LigatureSubstBuilder as LigatureSubstBuilder, MarkBasePosBuilder as MarkBasePosBuilder, MarkLigPosBuilder as MarkLigPosBuilder, MarkMarkPosBuilder as MarkMarkPosBuilder, MultipleSubstBuilder as MultipleSubstBuilder, PairPosBuilder as PairPosBuilder, ReverseChainSingleSubstBuilder as ReverseChainSingleSubstBuilder, SinglePosBuilder as SinglePosBuilder, SingleSubstBuilder as SingleSubstBuilder
+from fontTools.misc.textTools import binary2num as binary2num, safeEval as safeEval, Tag as Tag, tostr as tostr
+from fontTools.otlLib.builder import (
+	AlternateSubstBuilder as AlternateSubstBuilder, AnySubstBuilder as AnySubstBuilder,
+	ChainContextPosBuilder as ChainContextPosBuilder, ChainContextSubstBuilder as ChainContextSubstBuilder,
+	ChainContextualRule as ChainContextualRule, ClassPairPosSubtableBuilder as ClassPairPosSubtableBuilder,
+	CursivePosBuilder as CursivePosBuilder, LigatureSubstBuilder as LigatureSubstBuilder,
+	MarkBasePosBuilder as MarkBasePosBuilder, MarkLigPosBuilder as MarkLigPosBuilder,
+	MarkMarkPosBuilder as MarkMarkPosBuilder, MultipleSubstBuilder as MultipleSubstBuilder,
+	PairPosBuilder as PairPosBuilder, ReverseChainSingleSubstBuilder as ReverseChainSingleSubstBuilder,
+	SinglePosBuilder as SinglePosBuilder, SingleSubstBuilder as SingleSubstBuilder)
 from fontTools.otlLib.error import OpenTypeLibError as OpenTypeLibError
 from fontTools.otlLib.maxContextCalc import maxCtxFont as maxCtxFont
 from fontTools.ttLib import getTableModule as getTableModule, newTable as newTable
@@ -24,7 +34,7 @@ def addOpenTypeFeatures(font, featurefile, tables=None, debug: bool = False) -> 
     currently present.
 
     Args:
-        font (feaLib.ttLib.TTFont): The font object.
+        font (feaLib.ttLib.ttFont: TTFont: The font object.
         featurefile: Either a path or file object (in which case we
             parse it into an AST), or a pre-parsed AST instance.
         tables: If passed, restrict the set of affected tables to those in the
@@ -38,7 +48,7 @@ def addOpenTypeFeaturesFromString(font, features, filename=None, tables=None, de
     features currently present.
 
     Args:
-        font (feaLib.ttLib.TTFont): The font object.
+        font (feaLib.ttLib.ttFont: TTFont: The font object.
         features: A string containing feature code.
         filename: The directory containing ``filename`` is used as the root of
             relative ``include()`` paths; if ``None`` is provided, the current
@@ -157,7 +167,8 @@ class Builder:
     def add_cv_parameter(self, tag) -> None: ...
     def add_to_cv_num_named_params(self, tag) -> None:
         """Adds new items to ``self.cv_num_named_params_``
-        or increments the count of existing items."""
+        or increments the count of existing items.
+        """
     def add_cv_character(self, character, tag) -> None: ...
     def set_base_axis(self, bases, scripts, vertical, minmax=[]) -> None: ...
     def set_size_parameters(self, location, DesignSize, SubfamilyID, RangeStart, RangeEnd) -> None: ...
