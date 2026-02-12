@@ -4,7 +4,7 @@ version = "0.0.1"
 description = "Crowdsourced (a crowd of 1) stub type-files for third-party Python packages."
 readme = "README.md"
 requires-python = ">=3.11"
-license = "CC-BY-NC-4.0" 
+license = "CC-BY-NC-4.0"
 authors = [{ name = "Hunter Hogan", email = "HunterHogan@pm.me" }]
 keywords = []
 classifiers = [
@@ -46,8 +46,11 @@ optional-dependencies = { fuckingPandas = [
   "xlsxwriter",
 ], stubdefaulter = [
   "fonttools",
+  "afdko",
+  "fontmake[all]",
+  "gftools",
   "resampy",
-]  }
+] }
 
 [build-system]
 requires = ["setuptools", "setuptools-scm"]
@@ -55,5 +58,4 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 package-data = { "*" = ["py.typed"] }
-packages = { find = {  } }
-
+packages = { find = {} }
