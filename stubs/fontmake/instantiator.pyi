@@ -1,1 +1,4 @@
 from ufo2ft.instantiator import *
+TYPE_CHECKING: bool
+WDTH_VALUE_TO_OS2_WIDTH_CLASS: dict
+UFO_INFO_ATTRIBUTES_TO_COPY_TO_INSTANCES: set

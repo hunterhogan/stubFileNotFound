@@ -9,8 +9,6 @@ from fontmake.errors import FontmakeError as FontmakeError, TTFAError as TTFAErr
 from fontmake.ttfautohint import ttfautohint as ttfautohint
 from typing import ClassVar
 
-logger: Incomplete
-timer: Incomplete
 FEATURE_WRITERS_KEY: str
 FILTERS_KEY: str
 PUBLIC_PREFIX: str
@@ -38,10 +36,10 @@ class CurveConversion(enum.Enum):
     _unhashable_values_map_: ClassVar[dict] = ...
     _member_type_: ClassVar[type[object]] = ...
     _value_repr_: ClassVar[None] = ...
-    ALL_CUBIC_TO_QUAD: ClassVar[CurveConversion] = 'cu2qu'
-    MIXED_CUBIC_TO_QUAD: ClassVar[CurveConversion] = 'mixed'
-    KEEP_QUAD: ClassVar[CurveConversion] = 'keep-quad'
-    KEEP_CUBIC: ClassVar[CurveConversion] = 'keep-cubic'
+    ALL_CUBIC_TO_QUAD: ClassVar[CurveConversion] = ...
+    MIXED_CUBIC_TO_QUAD: ClassVar[CurveConversion] = ...
+    KEEP_QUAD: ClassVar[CurveConversion] = ...
+    KEEP_CUBIC: ClassVar[CurveConversion] = ...
     @staticmethod
     def _generate_next_value_(name, start, count, last_values):
         """
@@ -64,21 +62,20 @@ def needs_subsetting(ufo): ...
 
 class FontProject:
     """Provides methods for building fonts."""
-    validate_ufo: Incomplete
-    def __init__(self, timing=None, verbose=None, validate_ufo: bool = False) -> None: ...
+    def __init__(self, timing: Incomplete | None = ..., verbose: Incomplete | None = ..., validate_ufo: bool = ...) -> None: ...
     def open_ufo(self, path): ...
     @staticmethod
     def _fix_ufo_path(path, ufo_structure):
         """Normalizes UFO path and updates extension suffix to match its structure"""
-    def save_ufo_as(self, font, path, ufo_structure: str = 'package', indent_json: bool = False) -> None: ...
-    def build_master_ufos(self, glyphs_path, designspace_path=None, master_dir=None, instance_dir=None, family_name=None, mti_source=None, write_skipexportglyphs: bool = True, generate_GDEF: bool = True, ufo_structure: str = 'package', indent_json: bool = False, glyph_data=None, save_ufos: bool = True):
+    def save_ufo_as(self, font, path, ufo_structure: str = ..., indent_json: bool = ...): ...
+    def build_master_ufos(self, *args, **kwds):
         """Build UFOs and designspace from Glyphs source."""
-    def add_mti_features_to_master_ufos(self, mti_source, masters) -> None: ...
-    def build_otfs(self, ufos, **kwargs) -> None:
+    def add_mti_features_to_master_ufos(self, *args, **kwds): ...
+    def build_otfs(self, ufos, **kwargs):
         """Build OpenType binaries with CFF outlines."""
-    def build_ttfs(self, ufos, **kwargs) -> None:
+    def build_ttfs(self, ufos, **kwargs):
         """Build OpenType binaries with TrueType outlines."""
-    def _build_interpolatable_masters(self, designspace, ttf, use_production_names=None, reverse_direction: bool = True, ttf_curves=..., conversion_error=None, feature_writers=None, cff_round_tolerance=None, debug_feature_file=None, fea_include_dir=None, flatten_components: bool = False, filters=None, auto_use_my_metrics: bool = False, **kwargs): ...
+    def _build_interpolatable_masters(self, designspace, ttf, use_production_names: Incomplete | None = ..., reverse_direction: bool = ..., ttf_curves: CurveConversion = ..., conversion_error: Incomplete | None = ..., feature_writers: Incomplete | None = ..., cff_round_tolerance: Incomplete | None = ..., debug_feature_file: Incomplete | None = ..., fea_include_dir: Incomplete | None = ..., flatten_components: bool = ..., filters: Incomplete | None = ..., auto_use_my_metrics: bool = ..., **kwargs): ...
     def build_interpolatable_ttfs(self, designspace, **kwargs):
         """Build OpenType binaries with interpolatable TrueType outlines
         from DesignSpaceDocument object.
@@ -87,10 +84,10 @@ class FontProject:
         """Build OpenType binaries with interpolatable TrueType outlines
         from DesignSpaceDocument object.
         """
-    def build_variable_fonts(self, designspace: designspaceLib.DesignSpaceDocument, variable_fonts: str = '.*', output_path=None, output_dir=None, ttf: bool = True, optimize_gvar: bool = True, optimize_cff=..., use_production_names=None, reverse_direction: bool = True, ttf_curves=..., conversion_error=None, feature_writers=None, cff_round_tolerance=None, debug_feature_file=None, fea_include_dir=None, flatten_components: bool = False, filters=None, auto_use_my_metrics: bool = False, drop_implied_oncurves: bool = False, variable_features: bool = True, **kwargs):
+    def build_variable_fonts(self, designspace: designspaceLib.DesignSpaceDocument, variable_fonts: str = ..., output_path: Incomplete | None = ..., output_dir: Incomplete | None = ..., ttf: bool = ..., optimize_gvar: bool = ..., optimize_cff: ufo2ft.constants.CFFOptimization = ..., use_production_names: Incomplete | None = ..., reverse_direction: bool = ..., ttf_curves: CurveConversion = ..., conversion_error: Incomplete | None = ..., feature_writers: Incomplete | None = ..., cff_round_tolerance: Incomplete | None = ..., debug_feature_file: Incomplete | None = ..., fea_include_dir: Incomplete | None = ..., flatten_components: bool = ..., filters: Incomplete | None = ..., auto_use_my_metrics: bool = ..., drop_implied_oncurves: bool = ..., variable_features: bool = ..., **kwargs):
         """Build OpenType variable fonts from masters in a designspace."""
-    def _iter_compile(self, ufos, ttf: bool = False, debugFeatureFile=None, **kwargs) -> Generator[Incomplete]: ...
-    def save_otfs(self, ufos, ttf: bool = False, is_instance: bool = False, autohint=None, subset=None, use_production_names=None, subroutinize=None, optimize_cff=..., cff_round_tolerance=None, remove_overlaps: bool = True, overlaps_backend=None, reverse_direction: bool = True, ttf_curves=..., conversion_error=None, feature_writers=None, interpolate_layout_from=None, interpolate_layout_dir=None, output_path=None, output_dir=None, debug_feature_file=None, inplace: bool = True, cff_version: int = 1, subroutinizer=None, flatten_components: bool = False, filters=None, generate_GDEF: bool = True, fea_include_dir=None, auto_use_my_metrics: bool = True, drop_implied_oncurves: bool = False, skip_export_glyphs=None) -> None:
+    def _iter_compile(self, ufos, ttf: bool = ..., debugFeatureFile: Incomplete | None = ..., **kwargs): ...
+    def save_otfs(self, *args, **kwds):
         '''Build OpenType binaries from UFOs.
 
         Args:
@@ -152,15 +149,15 @@ class FontProject:
             drop_implied_oncurves: drop on-curve points that can be implied when exactly
                 in the middle of two off-curve points (TrueType only; default: False).
         '''
-    def _save_interpolatable_fonts(self, designspace, output_dir, ttf) -> None: ...
-    def subset_otf_from_ufo(self, otf_path, ufo) -> None:
+    def _save_interpolatable_fonts(self, designspace, output_dir, ttf): ...
+    def subset_otf_from_ufo(self, otf_path, ufo):
         '''Subset a font using "Keep Glyphs"/"Remove Glyphs" custom parameters,
         and export flags as set by glyphsLib.
 
         "Export Glyphs" is currently not supported:
         https://github.com/googlei18n/glyphsLib/issues/295.
         '''
-    def run_from_glyphs(self, glyphs_path, designspace_path=None, master_dir=None, instance_dir=None, family_name=None, mti_source=None, write_skipexportglyphs: bool = True, generate_GDEF: bool = True, glyph_data=None, output=(), output_dir=None, interpolate: bool = False, **kwargs) -> None:
+    def run_from_glyphs(self, glyphs_path, designspace_path: Incomplete | None = ..., master_dir: Incomplete | None = ..., instance_dir: Incomplete | None = ..., family_name: Incomplete | None = ..., mti_source: Incomplete | None = ..., write_skipexportglyphs: bool = ..., generate_GDEF: bool = ..., glyph_data: Incomplete | None = ..., output: tuple = ..., output_dir: Incomplete | None = ..., interpolate: bool = ..., **kwargs):
         '''Run toolchain from Glyphs source.
 
         Args:
@@ -179,9 +176,9 @@ class FontProject:
             glyph_data: A list of GlyphData XML file paths.
             kwargs: Arguments passed along to run_from_designspace.
         '''
-    def _instance_ufo_path(self, instance, designspace_path, output_dir=None, ufo_structure: str = 'package'):
+    def _instance_ufo_path(self, instance, designspace_path, output_dir: Incomplete | None = ..., ufo_structure: str = ...):
         """Return an instance path, optionally overriding output dir or extension"""
-    def interpolate_instance_ufos(self, designspace, include=None, round_instances: bool = False, expand_features_to_instances: bool = False, fea_include_dir=None, ufo_structure: str = 'package', indent_json: bool = False, save_ufos: bool = True, output_path=None, output_dir=None) -> Generator[Incomplete]:
+    def interpolate_instance_ufos(self, designspace, include: Incomplete | None = ..., round_instances: bool = ..., expand_features_to_instances: bool = ..., fea_include_dir: Incomplete | None = ..., ufo_structure: str = ..., indent_json: bool = ..., save_ufos: bool = ..., output_path: Incomplete | None = ..., output_dir: Incomplete | None = ...):
         """Interpolate master UFOs with Instantiator and return instance UFOs.
 
         Args:
@@ -203,7 +200,7 @@ class FontProject:
                 interpolation failed.
             ValueError: an instance descriptor did not have a filename attribute set.
         """
-    def run_from_designspace(self, designspace, output=(), interpolate: bool = False, variable_fonts: str = '.*', masters_as_instances: bool = False, interpolate_binary_layout: bool = False, round_instances: bool = False, feature_writers=None, variable_features: bool = True, filters=None, expand_features_to_instances: bool = False, check_compatibility=None, auto_use_my_metrics=None, **kwargs):
+    def run_from_designspace(self, designspace, output: tuple = ..., interpolate: bool = ..., variable_fonts: str = ..., masters_as_instances: bool = ..., interpolate_binary_layout: bool = ..., round_instances: bool = ..., feature_writers: Incomplete | None = ..., variable_features: bool = ..., filters: Incomplete | None = ..., expand_features_to_instances: bool = ..., check_compatibility: Incomplete | None = ..., auto_use_my_metrics: Incomplete | None = ..., **kwargs):
         '''Run toolchain from a DesignSpace document to produce either static
         instance fonts (ttf or otf), interpolatable or variable fonts.
 
@@ -231,9 +228,9 @@ class FontProject:
                 with arguments "interpolate", "masters_as_instances", and
                 "interpolate_binary_layout".
         '''
-    def _run_from_designspace_static(self, designspace, outputs, interpolate: bool = False, masters_as_instances: bool = False, interpolate_binary_layout: bool = False, round_instances: bool = False, feature_writers=None, expand_features_to_instances: bool = False, fea_include_dir=None, ufo_structure: str = 'package', indent_json: bool = False, output_path=None, output_dir=None, **kwargs) -> None: ...
-    def _run_from_designspace_interpolatable(self, designspace, outputs, variable_fonts: str = '.*', variable_features: bool = True, output_path=None, output_dir=None, **kwargs): ...
-    def run_from_ufos(self, ufos, output=(), **kwargs) -> None:
+    def _run_from_designspace_static(self, designspace, outputs, interpolate: bool = ..., masters_as_instances: bool = ..., interpolate_binary_layout: bool = ..., round_instances: bool = ..., feature_writers: Incomplete | None = ..., expand_features_to_instances: bool = ..., fea_include_dir: Incomplete | None = ..., ufo_structure: str = ..., indent_json: bool = ..., output_path: Incomplete | None = ..., output_dir: Incomplete | None = ..., **kwargs): ...
+    def _run_from_designspace_interpolatable(self, designspace, outputs, variable_fonts: str = ..., variable_features: bool = ..., output_path: Incomplete | None = ..., output_dir: Incomplete | None = ..., **kwargs): ...
+    def run_from_ufos(self, ufos, output: tuple = ..., **kwargs):
         """Run toolchain from UFO sources.
 
         Args:
@@ -245,7 +242,7 @@ class FontProject:
     def _search_instances(designspace, pattern): ...
     def _font_name(self, ufo):
         """Generate a postscript-style font name."""
-    def _output_dir(self, ext, is_instance: bool = False, interpolatable: bool = False, autohinted: bool = False, is_variable: bool = False):
+    def _output_dir(self, ext, is_instance: bool = ..., interpolatable: bool = ..., autohinted: bool = ..., is_variable: bool = ...):
         """Generate an output directory.
 
         Args:
@@ -257,7 +254,7 @@ class FontProject:
         Return:
             output directory string.
         """
-    def _output_path(self, ufo_or_font_name, ext, is_instance: bool = False, interpolatable: bool = False, autohinted: bool = False, is_variable: bool = False, output_dir=None, suffix=None):
+    def _output_path(self, ufo_or_font_name, ext, is_instance: bool = ..., interpolatable: bool = ..., autohinted: bool = ..., is_variable: bool = ..., output_dir: Incomplete | None = ..., suffix: Incomplete | None = ...):
         """Generate output path for a font file with given extension."""
     def _designspace_full_source_locations(self, designspace):
         '''Map "full" sources\' paths to their locations in a designspace.
@@ -267,8 +264,7 @@ class FontProject:
         '''
     def _closest_location(self, location_map, target):
         """Return path of font whose location is closest to target."""
-
-def _varLib_finder(source, directory: str = '', ext: str = 'ttf'):
+def _varLib_finder(source, directory: str = ..., ext: str = ...):
     """Finder function to be used with varLib.build to find master TTFs given
     the filename of the source UFO master as specified in the designspace.
     It replaces the UFO directory with the one specified in 'directory'
