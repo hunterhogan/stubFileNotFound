@@ -1,11 +1,23 @@
 from _typeshed import Incomplete
-from collections.abc import Generator
+from collections.abc import Generator, Sequence
 from fontmake.compatibility import CompatibilityChecker as CompatibilityChecker
 from fontmake.errors import FontmakeError as FontmakeError, TTFAError as TTFAError
 from fontmake.ttfautohint import ttfautohint as ttfautohint
 from fontTools import designspaceLib
-from typing import ClassVar
+from os import PathLike
+from typing import ClassVar, Literal
 import enum
+
+OutputFormat = Literal[
+    'ufo',
+    'otf',
+    'otf-cff2',
+    'ttf',
+    'ttf-interpolatable',
+    'otf-interpolatable',
+    'variable',
+    'variable-cff2',
+]
 
 logger: Incomplete
 timer: Incomplete
@@ -158,7 +170,22 @@ class FontProject:
         "Export Glyphs" is currently not supported:
         https://github.com/googlei18n/glyphsLib/issues/295.
         '''
-    def run_from_glyphs(self, glyphs_path, designspace_path=None, master_dir=None, instance_dir=None, family_name=None, mti_source=None, write_skipexportglyphs: bool = True, generate_GDEF: bool = True, glyph_data=None, output=(), output_dir=None, interpolate: bool = False, **kwargs) -> None:
+    def run_from_glyphs(
+        self,
+        glyphs_path: str | PathLike[str],
+        designspace_path: str | PathLike[str] | None = None,
+        master_dir: str | PathLike[str] | None = None,
+        instance_dir: str | PathLike[str] | None = None,
+        family_name: str | None = None,
+        mti_source: str | PathLike[str] | None = None,
+        write_skipexportglyphs: bool = True,
+        generate_GDEF: bool = True,
+        glyph_data: Sequence[str | PathLike[str]] | None = None,
+        output: Sequence[OutputFormat] = (),
+        output_dir: str | PathLike[str] | None = None,
+        interpolate: bool | str = False,
+        **kwargs: Incomplete,
+    ) -> None:
         '''Run toolchain from Glyphs source.
 
         Args:
