@@ -60,6 +60,9 @@ audiodata
 autoclass
 autocorr
 autocurry
+autohint
+autohinted
+AUTOHINTING
 autosizes
 axvlines
 backslashreplace
@@ -192,6 +195,7 @@ delslotsrange
 DELSLOTSRANGE
 deques
 derivand
+designspace
 destringizer
 DICTADD
 DICTDEL
@@ -250,6 +254,7 @@ flushconfig
 flushslots
 fmma
 fmms
+fontmake
 fontsize
 fonttools
 foomod
@@ -272,6 +277,7 @@ GDEF
 getcmap
 GETKEYS
 getnewargs
+gftools
 gids
 Glat
 Gloc
@@ -526,10 +532,12 @@ objlen
 OBJLEN
 ocsp
 odfpy
+oncurves
 onoffseq
 opbd
 opendocument
 optval
+otfs
 outputformat
 packagename
 parfors
@@ -641,6 +649,7 @@ singlecomplex
 singletz
 siunitx
 Skiena
+skipexportglyphs
 skipfooter
 skipinitial
 SKIPINITIALSCAN
@@ -675,6 +684,8 @@ stubtest
 stylename
 subnormalize
 subprojects
+subroutinize
+subroutinizer
 subsampling
 subsetter
 Subsetter
@@ -735,6 +746,8 @@ TSIS
 TSIV
 tslibs
 TTFA
+ttfautohint
+ttfs
 ttips
 tupleize
 typeshedpath

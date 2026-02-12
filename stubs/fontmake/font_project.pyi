@@ -1,13 +1,11 @@
-import designspaceLib
-import enum
-import ufo2ft.constants
 from _typeshed import Incomplete
 from collections.abc import Generator
-from fontTools import designspaceLib
 from fontmake.compatibility import CompatibilityChecker as CompatibilityChecker
 from fontmake.errors import FontmakeError as FontmakeError, TTFAError as TTFAError
 from fontmake.ttfautohint import ttfautohint as ttfautohint
+from fontTools import designspaceLib
 from typing import ClassVar
+import enum
 
 logger: Incomplete
 timer: Incomplete
@@ -28,7 +26,7 @@ INSTANCE_FILENAME_KEY: str
 UFO_STRUCTURE_EXTENSIONS: dict
 
 class CurveConversion(enum.Enum):
-    _new_member_: ClassVar[builtin_function_or_method] = ...
+    _new_member_: Incomplete = ...
     _use_args_: ClassVar[bool] = ...
     _member_names_: ClassVar[list] = ...
     _member_map_: ClassVar[dict] = ...
