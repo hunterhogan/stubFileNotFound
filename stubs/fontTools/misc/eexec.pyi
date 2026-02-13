@@ -2,7 +2,7 @@ from fontTools.misc.textTools import bytechr as bytechr, byteord as byteord, byt
 
 def _decryptChar(cipher, R): ...
 def _encryptChar(plain, R): ...
-def decrypt(cipherstring, R):
+def decrypt(cipherstring: bytes, R: int) -> tuple[bytes, int]:
     """
     Decrypts a string using the Type 1 encryption algorithm.
 
@@ -24,7 +24,7 @@ def decrypt(cipherstring, R):
             >>> R == 36142
             True
     """
-def encrypt(plainstring, R):
+def encrypt(plainstring: bytes, R: int) -> tuple[bytes, int]:
     """
     Encrypts a string using the Type 1 encryption algorithm.
 

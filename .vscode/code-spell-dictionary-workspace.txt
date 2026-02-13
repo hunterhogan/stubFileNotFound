@@ -54,6 +54,8 @@ arrtrim
 ARRTRIM
 arvisalo
 asadpour
+asdadads
+asds
 atleast
 atsp
 audiodata
@@ -98,6 +100,7 @@ byrank
 BYRANK
 byrevrank
 BYREVRANK
+bytechr
 byteord
 bytesjoin
 cachable
@@ -122,6 +125,9 @@ checkpid
 christofides
 chunksize
 cidg
+cipherstring
+ciphertext
+Ciphertext
 Civita
 ckquorum
 clines
@@ -223,6 +229,7 @@ ebunch
 edgecolor
 edgekey
 edgesdict
+eexec
 eint
 ekey
 elems
@@ -545,6 +552,7 @@ partialled
 Patashnik
 pchip
 perioddelta
+plainstring
 polycurve
 Pomerance
 popcount
