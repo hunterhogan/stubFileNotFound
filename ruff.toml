@@ -6,10 +6,12 @@ ignore = [
   "C901",
   "COM812",
   "D206",
+  "D400",
   "D401",
-  "F401",
   "E501",
+  "F401",
   "FIX",
+  "FLY002",
   "I001",
   "N",
   "PGH004",
@@ -40,7 +42,7 @@ ignore = [
   "W292",
 ]
 select = ["ALL"]
-task-tags = ["DEVELOPMENT", "NOTE", "TODO"]
+task-tags = ["DEVELOPMENT", "NOTE", "SEMIOTICS", "TODO"]
 
 [lint.flake8-import-conventions]
 aliases = { numpy = "numpy", pandas = "pandas", "re" = "regex" }

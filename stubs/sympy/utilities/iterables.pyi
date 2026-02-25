@@ -801,9 +801,7 @@ def _partition(seq, vector, m=None):
 
     """
 def _set_partitions(n) -> Generator[Incomplete]:
-    r"""Cycle through all partitions of n elements, yielding the
-    current number of partitions, ``m``, and a mutable list, ``q``
-    such that ``element[i]`` is in part ``q[i]`` of the partition.
+    r"""Cycle through all partitions of n elements, yielding the current number of partitions, ``m``, and a mutable list, ``q`` such that ``element[i]`` is in part ``q[i]`` of the partition.
 
     NOTE: ``q`` is modified in place and generally should not be changed
     between function calls.
@@ -973,7 +971,7 @@ def partitions(n: int, m: int | None = None, k: int | None = None, size: bool = 
     ----------
 
     .. [1] modified from Tim Peter\'s version to allow for k and m values:
-           https://code.activestate.com/recipes/218332-generator-for-integer-partitions/
+        https://code.activestate.com/recipes/218332-generator-for-integer-partitions/
 
     See Also
     --------
