@@ -5,8 +5,8 @@ git -C C:\clones\typeshed pull
 
 PUSHd C:\apps\stubFileNotFound
 
-ROBOCOPY C:\clones\pandas-stubs\pandas-stubs stubs\pandas /S /MT
-ROBOCOPY C:\clones\typeshed\stdlib stubs\stdlib /S /MT
+ROBOCOPY C:\clones\pandas-stubs\pandas-stubs stubs\pandas /S /MT /NJH /NDL /NFL
+ROBOCOPY C:\clones\typeshed\stdlib stubs\stdlib /S /MT /NJH /NDL /NFL
 
 IF NOT DEFINED VIRTUAL_ENV CALL .venv\Scripts\activate.bat
 

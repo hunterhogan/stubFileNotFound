@@ -1177,15 +1177,9 @@ ExcelWriteEngine: TypeAlias = Literal["openpyxl", "odf", "xlsxwriter"]
 # https://github.com/pandas-dev/pandas-stubs/pull/1151#issuecomment-2715130190
 TimeZones: TypeAlias = str | tzinfo | None | int
 
+ColumnValue: TypeAlias = AnyArrayLike | Scalar | Sequence[Scalar] | range | None
 # Evaluates to a DataFrame column in DataFrame.assign context.
-IntoColumn: TypeAlias = (
-    AnyArrayLike
-    | Scalar
-    | Callable[[DataFrame], AnyArrayLike | Scalar | Sequence[Scalar] | range | None]
-    | Sequence[Scalar]
-    | range
-    | None
-)
+IntoColumn: TypeAlias = ColumnValue | Callable[[DataFrame], ColumnValue]
 
 DatetimeLike: TypeAlias = datetime.datetime | np.datetime64 | Timestamp
 DateAndDatetimeLike: TypeAlias = datetime.date | DatetimeLike
@@ -1202,7 +1196,7 @@ Incomplete: TypeAlias = Any
 
 # differentiating between bool and int/float/complex
 # https://github.com/pandas-dev/pandas-stubs/pull/1312#pullrequestreview-3126128971
-class Just(Protocol, Generic[T]):
+class Just(Protocol, Generic[T]):  # pyrefly: ignore[variance-mismatch]
     @property  # type: ignore[override]
     @override
     def __class__(self, /) -> type[T]: ...  # pyrefly: ignore[bad-override]
