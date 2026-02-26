@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from fontTools.misc.roundTools import otRound as otRound
 from fontTools.misc.vector import Vector as _Vector
 
 def calcBounds(array):
@@ -306,3 +305,4 @@ def _test() -> None:
     >>> intRect((0.9, 2.9, 3.1, 4.1))
     (0, 2, 4, 5)
     """
+

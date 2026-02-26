@@ -1,7 +1,5 @@
 from . import DefaultTable as DefaultTable
-from .sbixStrike import Strike as Strike
 from _typeshed import Incomplete
-from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import binary2num as binary2num, num2binary as num2binary, safeEval as safeEval
 from fontTools.ttLib import TTFont
 
@@ -33,3 +31,4 @@ class table__s_b_i_x(DefaultTable.DefaultTable):
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
 
 class sbixStrikeOffset: ...
+

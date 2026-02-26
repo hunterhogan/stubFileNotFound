@@ -1,6 +1,5 @@
 from collections.abc import Generator
 from contextlib import contextmanager
-from copy import deepcopy as deepcopy
 from enum import IntEnum
 
 class NameID(IntEnum):
@@ -59,3 +58,4 @@ def _updateNameTableStyleRecords(varfont, familyNameSuffix, subFamilyName, typoS
 def _updatePSNameRecord(varfont, familyName, styleName, platform): ...
 def _updateUniqueIdNameRecord(varfont, nameIDs, platform): ...
 def _fontVersion(font, platform=(3, 1, 1033)): ...
+

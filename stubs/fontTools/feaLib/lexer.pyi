@@ -1,5 +1,4 @@
 from fontTools.feaLib.error import FeatureLibError as FeatureLibError, IncludedFeaNotFound as IncludedFeaNotFound
-from fontTools.feaLib.location import FeatureLibLocation as FeatureLibLocation
 from typing import Any, ClassVar
 import re
 
@@ -93,3 +92,4 @@ class NonIncludingLexer(IncludingLexer):
 
     def __next__(self) -> Any:
         """NonIncludingLexer.__next__(self)"""
+

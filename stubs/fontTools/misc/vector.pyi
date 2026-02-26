@@ -46,3 +46,4 @@ class Vector(tuple):
     def values(self, values) -> None: ...
     def isclose(self, other: Vector, **kwargs) -> bool:
         """Return True if the vector is close to another Vector."""
+

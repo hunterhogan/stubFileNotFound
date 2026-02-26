@@ -1,7 +1,6 @@
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from collections.abc import MutableMapping
-from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import bytesjoin as bytesjoin, safeEval as safeEval
 from fontTools.ttLib import TTFont, TTLibError as TTLibError
 
@@ -65,3 +64,4 @@ class TrackTableEntry(MutableMapping):
     sizes = keys
     def __eq__(self, other): ...
     def __ne__(self, other): ...
+

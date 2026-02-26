@@ -1,7 +1,4 @@
 from _typeshed import Incomplete
-from fontTools.encodings.StandardEncoding import StandardEncoding as StandardEncoding
-from fontTools.misc import eexec as eexec
-from fontTools.misc.macCreatorType import getMacCreatorAndType as getMacCreatorAndType
 from fontTools.misc.psOperators import (
 	_type1_fontinfo_order as _type1_fontinfo_order, _type1_post_eexec_order as _type1_post_eexec_order,
 	_type1_pre_eexec_order as _type1_pre_eexec_order)
@@ -88,3 +85,4 @@ char_IV: bytes
 RD_value: Incomplete
 ND_values: Incomplete
 PD_values: Incomplete
+

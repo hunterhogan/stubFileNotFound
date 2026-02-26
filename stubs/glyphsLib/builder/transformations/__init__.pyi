@@ -1,13 +1,11 @@
-from . import propagate_anchors as propagate_anchors
 from _typeshed import Incomplete
-from glyphsLib.builder.transformations.align_alternate_layers import align_alternate_layers as align_alternate_layers
-from glyphsLib.builder.transformations.propagate_anchors import propagate_all_anchors as propagate_all_anchors
 from typing import ClassVar
 
 TRANSFORMATIONS: list
 
 class _CustomParameter(tuple):
     """_CustomParameter(name, default)"""
+
     _fields: ClassVar[tuple] = ...
     _field_defaults: ClassVar[dict] = ...
     __match_args__: ClassVar[tuple] = ...
@@ -30,3 +28,4 @@ class _CustomParameter(tuple):
         """Return self as a plain tuple.  Used by copy and pickle."""
     def __annotate_func__(self, format): ...
 TRANSFORMATION_CUSTOM_PARAMS: mappingproxy
+

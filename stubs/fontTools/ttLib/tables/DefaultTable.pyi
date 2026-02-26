@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from fontTools.misc.textTools import Tag as Tag
 from fontTools.ttLib import getClassTag as getClassTag, TTFont
 
 class DefaultTable:
@@ -13,3 +12,4 @@ class DefaultTable:
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...
+

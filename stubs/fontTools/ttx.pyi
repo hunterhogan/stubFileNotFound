@@ -1,11 +1,6 @@
 from _typeshed import Incomplete
-from fontTools.misc.cliTools import makeOutputFileName as makeOutputFileName
-from fontTools.misc.loggingTools import Timer as Timer
-from fontTools.misc.macCreatorType import getMacCreatorAndType as getMacCreatorAndType
 from fontTools.misc.textTools import Tag as Tag, tostr as tostr
-from fontTools.misc.timeTools import timestampSinceEpoch as timestampSinceEpoch
 from fontTools.ttLib import OPTIMIZE_FONT_SPEED as OPTIMIZE_FONT_SPEED, TTFont as TTFont, TTLibError as TTLibError
-from fontTools.unicode import setUnicodeData as setUnicodeData
 
 log: Incomplete
 opentypeheaderRE: Incomplete
@@ -44,3 +39,4 @@ def parseOptions(args): ...
 def process(jobs, options) -> None: ...
 def main(args=None) -> None:
     """Convert OpenType fonts to XML and back"""
+

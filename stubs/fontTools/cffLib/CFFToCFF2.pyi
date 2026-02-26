@@ -7,3 +7,4 @@ class _NominalWidthUsedError(Exception):
 def convertCFFToCFF2(font) -> None: ...
 def main(args=None) -> None:
     """Convert CFF OTF font to CFF2 OTF font"""
+

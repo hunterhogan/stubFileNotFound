@@ -51,3 +51,4 @@ class KernTable_format_unkown:
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
 
 kern_classes: Incomplete
+

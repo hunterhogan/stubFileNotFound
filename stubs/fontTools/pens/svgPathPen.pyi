@@ -142,3 +142,4 @@ class SVGPathPen(BasePen):
 
 def main(args=None) -> None:
     """Generate per-character SVG from font and text"""
+

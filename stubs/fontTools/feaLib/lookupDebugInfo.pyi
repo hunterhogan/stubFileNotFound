@@ -9,3 +9,4 @@ class LookupDebugInfo(NamedTuple):
     location: str
     name: str
     feature: list
+

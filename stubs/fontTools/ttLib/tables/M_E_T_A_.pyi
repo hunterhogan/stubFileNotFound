@@ -1,6 +1,5 @@
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import byteord as byteord, safeEval as safeEval
 from fontTools.ttLib import TTFont
 
@@ -46,3 +45,4 @@ class StringRecord:
     string: Incomplete
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
     def compile(self, parentTable): ...
+

@@ -194,3 +194,4 @@ class DecomposingPointPen(LogMixin, AbstractPointPen):
 
         The `identifier` parameter and any extra kwargs are ignored.
         """
+

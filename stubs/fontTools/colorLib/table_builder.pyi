@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from fontTools.misc.roundTools import otRound as otRound
 from fontTools.ttLib.tables.otBase import (
 	BaseTable as BaseTable, FormatSwitchingBaseTable as FormatSwitchingBaseTable,
 	UInt8FormatSwitchingBaseTable as UInt8FormatSwitchingBaseTable)
@@ -39,3 +38,4 @@ class TableUnbuilder:
     _callbackTable: Incomplete
     def __init__(self, callbackTable=None) -> None: ...
     def unbuild(self, table): ...
+

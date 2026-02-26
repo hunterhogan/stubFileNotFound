@@ -1,8 +1,5 @@
 from . import DefaultTable as DefaultTable, grUtils as grUtils
 from _typeshed import Incomplete
-from fontTools.misc import sstruct as sstruct
-from fontTools.misc.fixedTools import floatToFixedToStr as floatToFixedToStr
-from fontTools.misc.textTools import safeEval as safeEval
 from fontTools.ttLib import TTFont
 
 Glat_format_0: str
@@ -35,3 +32,4 @@ class table_G__l_a_t(DefaultTable.DefaultTable):
     def compileAttributes3(self, attrs): ...
     def toXML(self, writer, ttFont: TTFont): ...
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
+

@@ -184,3 +184,4 @@ def versionToFixed(value):
     -------
             int: A table version number, possibly corrected to fixed-point.
     """
+

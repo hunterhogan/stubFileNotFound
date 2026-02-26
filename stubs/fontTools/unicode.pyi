@@ -13,3 +13,4 @@ class _UnicodeBuiltin:
 Unicode: Incomplete
 
 def setUnicodeData(f) -> None: ...
+

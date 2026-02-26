@@ -2,7 +2,6 @@ from .DefaultTable import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from collections.abc import Iterator
 from enum import IntEnum
-from fontTools.config import OPTIONS as OPTIONS
 from fontTools.misc.textTools import bytesjoin as bytesjoin, Tag as Tag
 from typing import NamedTuple
 
@@ -257,3 +256,4 @@ class ValueRecord:
     def fromXML(self, name, attrs, content, font) -> None: ...
     def __ne__(self, other): ...
     def __eq__(self, other): ...
+

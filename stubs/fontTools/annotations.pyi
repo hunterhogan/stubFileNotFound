@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable, Sequence
 from fontTools.misc.filesystem._base import FS as FS
-from fontTools.ufoLib import UFOFormatVersion as UFOFormatVersion
-from fontTools.ufoLib.glifLib import GLIFFormatVersion as GLIFFormatVersion
 from os import PathLike
 from typing import TypeAlias, TypeVar
 
@@ -22,3 +20,4 @@ KerningGroups: TypeAlias = dict[str, Sequence[str]]
 KerningNested: TypeAlias = dict[str, dict[str, IntFloat]]
 PathStr: TypeAlias = str | PathLike[str]
 PathOrFS: TypeAlias = PathStr | FS
+

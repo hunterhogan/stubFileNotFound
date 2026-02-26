@@ -7,19 +7,11 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from fontTools.colorLib.builder import (
 	LayerReuseCache as LayerReuseCache, MAX_PAINT_COLR_LAYER_COUNT as MAX_PAINT_COLR_LAYER_COUNT)
-from fontTools.misc import classifyTools as classifyTools
-from fontTools.misc.roundTools import otRound as otRound
-from fontTools.misc.treeTools import build_n_ary_tree as build_n_ary_tree
-from fontTools.otlLib.builder import buildSinglePos as buildSinglePos
 from fontTools.otlLib.optimize.gpos import (
 	_compression_level_from_env as _compression_level_from_env, compact_pair_pos as compact_pair_pos)
-from fontTools.ttLib.tables.DefaultTable import DefaultTable as DefaultTable
-from fontTools.ttLib.tables.otConverters import BaseFixedValue as BaseFixedValue
-from fontTools.ttLib.tables.otTraverse import dfs_base_table as dfs_base_table
 from fontTools.varLib import builder as builder, models as models, varStore as varStore
 from fontTools.varLib.models import (
 	allEqual as allEqual, allEqualTo as allEqualTo, allNone as allNone, nonNone as nonNone, subList as subList)
-from fontTools.varLib.varStore import VarStoreInstancer as VarStoreInstancer
 
 log: Incomplete
 
@@ -145,3 +137,4 @@ class COLRVariationMerger(VariationMerger):
 
 def _flatten_layers(root, colr) -> Generator[Incomplete, Incomplete]: ...
 def _merge_PaintColrLayers(self, out, lst): ...
+

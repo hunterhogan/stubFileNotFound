@@ -3,7 +3,6 @@ from .BitmapGlyphMetrics import (
 	BigGlyphMetrics as BigGlyphMetrics, bigGlyphMetricsFormat as bigGlyphMetricsFormat,
 	SmallGlyphMetrics as SmallGlyphMetrics, smallGlyphMetricsFormat as smallGlyphMetricsFormat)
 from _typeshed import Incomplete
-from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import (
 	bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, deHexStr as deHexStr, hexStr as hexStr,
 	readHex as readHex, safeEval as safeEval, strjoin as strjoin)
@@ -137,3 +136,4 @@ class ebdt_bitmap_format_9(BitmapPlusBigMetricsMixin, ComponentBitmapGlyph):
     def compile(self, ttFont: TTFont): ...
 
 ebdt_bitmap_classes: Incomplete
+

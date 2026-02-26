@@ -1,14 +1,8 @@
-from .errors import ColorLibError as ColorLibError
-from .geometry import round_start_circle_stable_containment as round_start_circle_stable_containment
 from .table_builder import BuildCallback as BuildCallback, TableBuilder as TableBuilder
 from _typeshed import Incomplete
 from collections.abc import Generator, Iterable, Mapping, Sequence
-from fontTools.misc.arrayTools import intRect as intRect
-from fontTools.misc.fixedTools import fixedToFloat as fixedToFloat
-from fontTools.misc.treeTools import build_n_ary_tree as build_n_ary_tree
 from fontTools.ttLib.tables import _n_a_m_e as _n_a_m_e, C_O_L_R_ as C_O_L_R_, C_P_A_L_ as C_P_A_L_, otTables as ot
 from fontTools.ttLib.tables.otTables import CompositeMode as CompositeMode, ExtendMode as ExtendMode
-from functools import partial as partial
 from math import ceil as ceil, log as log
 from typing import Any, TypeAlias, TypeVar
 import enum
@@ -120,3 +114,4 @@ class LayerListBuilder:
 def buildBaseGlyphPaintRecord(baseGlyph: str, layerBuilder: LayerListBuilder, paint: _PaintInput) -> ot.BaseGlyphList: ...
 def _format_glyph_errors(errors: Mapping[str, Exception]) -> str: ...
 def buildColrV1(colorGlyphs: _ColorGlyphsDict, glyphMap: Mapping[str, int] | None = None, *, allowLayerReuse: bool = True) -> tuple[ot.LayerList | None, ot.BaseGlyphList]: ...
+

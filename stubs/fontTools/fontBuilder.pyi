@@ -226,3 +226,4 @@ class FontBuilder:
         See `fontTools.otlLib.builder.buildStatTable` for details about
         the arguments.
         """
+

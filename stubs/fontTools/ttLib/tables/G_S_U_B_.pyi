@@ -8,3 +8,4 @@ class table_G_S_U_B_(BaseTTXConverter):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/gsub
     """
+

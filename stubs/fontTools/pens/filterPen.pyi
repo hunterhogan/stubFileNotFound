@@ -249,3 +249,4 @@ class OnCurveFirstPointPen(ContourFilterPointPen):
 
     def filterContour(self, contour):
         """Rotate closed contour to start with first on-curve point if needed."""
+

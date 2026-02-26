@@ -6,3 +6,4 @@ class FeatureLibError(Exception):
 
 class IncludedFeaNotFound(FeatureLibError):
     ...
+

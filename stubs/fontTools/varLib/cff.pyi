@@ -2,7 +2,6 @@ from .errors import (
 	VarLibCFFDictMergeError as VarLibCFFDictMergeError, VarLibCFFHintTypeMergeError as VarLibCFFHintTypeMergeError,
 	VarLibCFFPointTypeMergeError as VarLibCFFPointTypeMergeError, VarLibMergeError as VarLibMergeError)
 from _typeshed import Incomplete
-from fontTools import varLib as varLib
 from fontTools.cffLib import (
 	buildOrder as buildOrder, FDArrayIndex as FDArrayIndex, FontDict as FontDict, maxStackLimit as maxStackLimit,
 	privateDictOperators as privateDictOperators, privateDictOperators2 as privateDictOperators2,
@@ -10,13 +9,8 @@ from fontTools.cffLib import (
 	VarStoreData as VarStoreData)
 from fontTools.cffLib.specializer import (
 	commandsToProgram as commandsToProgram, specializeCommands as specializeCommands)
-from fontTools.misc.loggingTools import deprecateFunction as deprecateFunction
 from fontTools.misc.psCharStrings import T2CharString as T2CharString, T2OutlineExtractor as T2OutlineExtractor
-from fontTools.misc.roundTools import roundFunc as roundFunc
 from fontTools.pens.t2CharStringPen import T2CharStringPen as T2CharStringPen
-from fontTools.ttLib import newTable as newTable
-from fontTools.varLib.models import allEqual as allEqual
-from io import BytesIO as BytesIO
 from typing import NamedTuple
 
 MergeDictError = VarLibCFFDictMergeError
@@ -141,3 +135,4 @@ class CFF2CharStringMergePen(T2CharStringPen):
                 ]
         """
     def getCharString(self, private=None, globalSubrs=None, var_model=None, optimize: bool = True): ...
+

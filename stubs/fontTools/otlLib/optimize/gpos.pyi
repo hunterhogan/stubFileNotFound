@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
-from fontTools.config import OPTIONS as OPTIONS
 from fontTools.misc.intTools import bit_count as bit_count, bit_indices as bit_indices
 from fontTools.ttLib import TTFont as TTFont
 from fontTools.ttLib.tables import otBase as otBase, otTables as otTables
@@ -53,3 +52,4 @@ class Cluster:
     def classDef2_bytes(self): ...
 
 def cluster_pairs_by_class2_coverage_custom_cost(font: TTFont, pairs: Pairs, compression: int = 5) -> list[Pairs]: ...
+

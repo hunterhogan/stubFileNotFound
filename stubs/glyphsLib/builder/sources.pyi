@@ -1,5 +1,6 @@
-from glyphsLib.builder.axes import font_uses_axis_locations as font_uses_axis_locations, get_axis_definitions as get_axis_definitions, get_regular_master as get_regular_master
-from glyphsLib.util import build_ufo_path as build_ufo_path
+from glyphsLib.builder.axes import (
+	font_uses_axis_locations as font_uses_axis_locations, get_axis_definitions as get_axis_definitions,
+	get_regular_master as get_regular_master)
 
 UFO_FILENAME_CUSTOM_PARAM: str
 UFO_FILENAME_KEY: str
@@ -9,3 +10,4 @@ def _to_designspace_source(self, master, is_regular): ...
 def _to_designspace_source_layer(self): ...
 def to_glyphs_sources(self): ...
 def _to_glyphs_source(self, master): ...
+

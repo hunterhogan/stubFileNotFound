@@ -1,7 +1,5 @@
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools.misc import sstruct as sstruct
-from fontTools.misc.textTools import safeEval as safeEval
 from fontTools.ttLib import TTFont
 
 maxpFormat_0_5: str
@@ -39,3 +37,4 @@ class table__m_a_x_p(DefaultTable.DefaultTable):
     def testrepr(self) -> None: ...
     def toXML(self, writer, ttFont: TTFont) -> None: ...
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
+

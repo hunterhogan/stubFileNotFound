@@ -1,4 +1,5 @@
-from glyphsLib.util import cast_to_number_or_bool as cast_to_number_or_bool, reverse_cast_to_number_or_bool as reverse_cast_to_number_or_bool
+from glyphsLib.util import (
+	cast_to_number_or_bool as cast_to_number_or_bool, reverse_cast_to_number_or_bool as reverse_cast_to_number_or_bool)
 
 def parse_glyphs_filter(filter_str, is_pre: bool = ...):
     """Parses glyphs custom filter string into a dict object that
@@ -16,3 +17,4 @@ def parse_glyphs_filter(filter_str, is_pre: bool = ...):
          Return None if parse failed.
     """
 def write_glyphs_filter(result): ...
+

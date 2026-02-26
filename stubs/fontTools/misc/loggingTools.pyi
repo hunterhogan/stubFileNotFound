@@ -273,3 +273,4 @@ def deprecateArgument(name, msg, category=...) -> None:
     """Raise a warning about deprecated function argument 'name'."""
 def deprecateFunction(msg, category=...):
     """Decorator to raise a warning when a deprecated function is called."""
+

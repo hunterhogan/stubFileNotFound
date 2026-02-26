@@ -1,10 +1,5 @@
 from _typeshed import Incomplete
-from fontTools import ttLib as ttLib
 from fontTools.feaLib.ast import STATNameStatement as STATNameStatement
-from fontTools.misc.fixedTools import fixedToFloat as fixedToFloat
-from fontTools.misc.loggingTools import deprecateFunction as deprecateFunction
-from fontTools.misc.roundTools import otRound as otRound
-from fontTools.otlLib.error import OpenTypeLibError as OpenTypeLibError
 from fontTools.otlLib.optimize.gpos import (
 	_compression_level_from_env as _compression_level_from_env, compact_lookup as compact_lookup)
 from fontTools.ttLib.tables.otBase import (
@@ -1599,3 +1594,4 @@ def _buildMathGlyphInfo(glyphMap, italicsCorrections, topAccentAttachments, exte
 def _buildMathVariants(glyphMap, minConnectorOverlap, vertGlyphVariants, horizGlyphVariants, vertGlyphAssembly, horizGlyphAssembly): ...
 def _buildMathGlyphConstruction(glyphMap, variants, assemblies): ...
 def _mathValueRecord(value): ...
+

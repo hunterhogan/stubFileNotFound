@@ -1,4 +1,3 @@
-import glyphsLib.util as util
 from typing import Any
 
 FEAVAR_FEATURETAG_LIB_KEY: str
@@ -13,3 +12,4 @@ def _bracket_glyph_name(self, glyph_name, box): ...
 def _make_designspace_rule(box, mapping): ...
 def _expand_kerning_to_brackets(glyph_name: str, ufo_glyph_name: str, ufo_font: Any) -> None:
     """Ensures that bracket glyphs inherit their parents' kerning."""
+

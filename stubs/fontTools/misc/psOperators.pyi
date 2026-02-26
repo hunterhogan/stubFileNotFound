@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from fontTools.encodings.StandardEncoding import StandardEncoding as StandardEncoding
 
 _accessstrings: Incomplete
 
@@ -124,3 +123,4 @@ class PSOperators:
 
 notdef: str
 ps_StandardEncoding: Incomplete
+

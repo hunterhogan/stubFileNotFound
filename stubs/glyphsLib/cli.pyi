@@ -1,4 +1,3 @@
-import glyphsLib as glyphsLib
 from _typeshed import Incomplete
 
 def main(args: Incomplete | None = ...): ...
@@ -10,3 +9,4 @@ def ufo2glyphs(options):
     """Convert one designspace file or one or more UFOs to a Glyphs.app source file."""
 def _ufo2glyphs_entry_point():
     """Provides entry point for a script to keep argparsing in main()."""
+

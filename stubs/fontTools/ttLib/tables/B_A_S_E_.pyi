@@ -9,3 +9,4 @@ class table_B_A_S_E_(BaseTTXConverter):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/base
     """
+

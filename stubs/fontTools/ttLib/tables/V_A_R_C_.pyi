@@ -7,3 +7,4 @@ class table_V_A_R_C_(BaseTTXConverter):
 
     See also https://github.com/harfbuzz/boring-expansion-spec/blob/main/VARC.md
     """
+

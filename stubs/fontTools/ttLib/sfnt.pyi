@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from collections.abc import KeysView
-from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import Tag as Tag
 from fontTools.ttLib import TTLibError as TTLibError, TTLibFileIsCollectionError as TTLibFileIsCollectionError
 
@@ -143,3 +142,4 @@ def calcChecksum(data):
     """
 def readTTCHeader(file): ...
 def writeTTCHeader(file, numFonts): ...
+

@@ -42,3 +42,4 @@ class PointInsidePen(BasePen):
     def _closePath(self) -> None: ...
     def _endPath(self) -> None:
         """Insideness is not defined for open contours."""
+

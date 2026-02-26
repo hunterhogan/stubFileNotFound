@@ -1,5 +1,5 @@
-from glyphsLib.types import Point as Point
 
 ANNOTATIONS_LIB_KEY: str
 def to_ufo_annotations(self, ufo_glyph, layer): ...
 def to_glyphs_annotations(self, ufo_glyph, layer): ...
+

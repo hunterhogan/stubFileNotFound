@@ -6,7 +6,6 @@ from fontTools.misc.filesystem._base import FS
 from fontTools.ufoLib.errors import UFOLibError as UFOLibError
 from fontTools.ufoLib.glifLib import GlyphSet
 from fontTools.ufoLib.utils import BaseFormatVersion
-from fontTools.ufoLib.validators import *
 from typing import Any, IO, TypeAlias
 import enum
 
@@ -518,3 +517,4 @@ def convertFontInfoValueForAttributeFromVersion2ToVersion1(attr: str, value: Any
     Returns the new attribute name and the converted value.
     If the value is None, None will be returned for the new value.
     """
+

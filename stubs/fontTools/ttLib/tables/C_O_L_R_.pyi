@@ -1,6 +1,5 @@
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools.misc.textTools import safeEval as safeEval
 from fontTools.ttLib import TTFont
 
 class table_C_O_L_R_(DefaultTable.DefaultTable):
@@ -39,3 +38,4 @@ class LayerRecord:
     def __init__(self, name=None, colorID=None) -> None: ...
     def toXML(self, writer, ttFont: TTFont) -> None: ...
     def fromXML(self, eltname, attrs, content, ttFont: TTFont) -> None: ...
+

@@ -1,4 +1,3 @@
-import glyphsLib as glyphsLib
 from _typeshed import Incomplete
 from glyphsLib.builder.common import from_loose_ufo_time as from_loose_ufo_time, to_ufo_time as to_ufo_time
 from glyphsLib.classes import GSComponent as GSComponent, GSLayer as GSLayer, GSPath as GSPath
@@ -32,3 +31,4 @@ def to_glyphs_glyph(self, ufo_glyph, ufo_layer, master):
     """
 def _to_glyphs_color(color): ...
 def to_glyphs_glyph_height_and_vertical_origin(self, ufo_glyph, master, layer): ...
+

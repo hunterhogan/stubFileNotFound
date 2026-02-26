@@ -7,14 +7,10 @@ from .otTables import (
 	InsertionMorphAction as InsertionMorphAction, LigatureMorphAction as LigatureMorphAction, lookupTypes as lookupTypes,
 	MorxSubtable as MorxSubtable, NO_VARIATION_INDEX as NO_VARIATION_INDEX, VarCompositeGlyph as VarCompositeGlyph)
 from _typeshed import Incomplete
-from fontTools.misc.lazyTools import LazyList as LazyList
 from fontTools.misc.roundTools import nearestMultipleShortestRepr as nearestMultipleShortestRepr, otRound as otRound
 from fontTools.misc.textTools import (
 	bytesjoin as bytesjoin, pad as pad, safeEval as safeEval, tobytes as tobytes, tostr as tostr)
 from fontTools.ttLib import getSearchRange as getSearchRange, OPTIMIZE_FONT_SPEED as OPTIMIZE_FONT_SPEED
-from fontTools.ttLib.tables.TupleVariation import TupleVariation as TupleVariation
-from itertools import zip_longest as zip_longest
-from types import SimpleNamespace as SimpleNamespace
 
 log: Incomplete
 istuple: Incomplete
@@ -408,3 +404,4 @@ class CompositeMode(_UInt8Enum):
     enumClass = _CompositeMode
 
 converterMapping: Incomplete
+

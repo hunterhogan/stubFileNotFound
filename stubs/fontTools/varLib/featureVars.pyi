@@ -1,9 +1,6 @@
 from .errors import VarLibError as VarLibError, VarLibValidationError as VarLibValidationError
 from _typeshed import Incomplete
-from fontTools.misc.dictTools import hashdict as hashdict
-from fontTools.misc.intTools import bit_count as bit_count
 from fontTools.otlLib.builder import buildLookup as buildLookup, buildSingleSubstSubtable as buildSingleSubstSubtable
-from fontTools.ttLib import newTable as newTable
 from fontTools.ttLib.ttVisitor import TTVisitor as TTVisitor
 
 def addFeatureVariations(font, conditionalSubstitutions, featureTag: str = 'rvrn') -> None:
@@ -150,3 +147,4 @@ def sortFeatureList(table) -> None:
 def remapFeatures(table, featureRemap) -> None:
     """Go through the scripts list, and remap feature indices."""
 def _remapLangSys(langSys, featureRemap) -> None: ...
+

@@ -1,7 +1,5 @@
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools.misc import sstruct as sstruct
-from fontTools.misc.textTools import safeEval as safeEval
 from fontTools.ttLib import TTFont
 
 vheaFormat: str
@@ -35,3 +33,4 @@ class table__v_h_e_a(DefaultTable.DefaultTable):
     caretOffset: Incomplete
     @reserved0.setter
     def reserved0(self, value) -> None: ...
+

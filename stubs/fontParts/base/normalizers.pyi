@@ -604,7 +604,7 @@ def normalizeTransformationScale(value): # -> tuple[float, float] | tuple[float,
 def normalizeVisualRounding(value):
     """
     Normalizes rounding.
-    Python 3 uses banker’s rounding, meaning anything that is at 0.5
+    Python 3 uses bankerâ€™s rounding, meaning anything that is at 0.5
     will go to the even number. This isn't always ideal for point
     coordinates, so instead round to the higher number.
 

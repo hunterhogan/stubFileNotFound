@@ -1,6 +1,4 @@
-import glyphsLib as glyphsLib
 from _typeshed import Incomplete
-from glyphsLib.types import floatToString5 as floatToString5
 
 class Writer:
     def __init__(self, fp, format_version: int = ...) -> None: ...
@@ -24,3 +22,4 @@ def dumps(obj):
 
 NSPropertyListNameSet: tuple
 def _needs_quotes(string): ...
+

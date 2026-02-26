@@ -3,7 +3,6 @@ from .BitmapGlyphMetrics import (
 	BigGlyphMetrics as BigGlyphMetrics, bigGlyphMetricsFormat as bigGlyphMetricsFormat,
 	SmallGlyphMetrics as SmallGlyphMetrics, smallGlyphMetricsFormat as smallGlyphMetricsFormat)
 from _typeshed import Incomplete
-from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import bytesjoin as bytesjoin, safeEval as safeEval
 from fontTools.ttLib import TTFont
 
@@ -111,3 +110,4 @@ class eblc_index_sub_table_5(FixedSizeIndexSubTableMixin, EblcIndexSubTable):
     def compile(self, ttFont: TTFont): ...
 
 eblc_sub_table_classes: Incomplete
+

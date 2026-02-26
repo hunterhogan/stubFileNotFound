@@ -1,4 +1,3 @@
-from .table_builder import TableUnbuilder as TableUnbuilder
 from _typeshed import Incomplete
 from collections.abc import Generator
 
@@ -11,3 +10,4 @@ class LayerListUnbuilder:
     def __init__(self, layers) -> None: ...
     def unbuildPaint(self, paint): ...
     def _unbuildPaintColrLayers(self, source): ...
+

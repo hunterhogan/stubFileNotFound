@@ -1,12 +1,7 @@
 from _typeshed import Incomplete
-from fontTools.feaLib.ast import FeatureFile as FeatureFile
-from fontTools.feaLib.error import FeatureLibError as FeatureLibError
 from fontTools.feaLib.lookupDebugInfo import (
 	LOOKUP_DEBUG_ENV_VAR as LOOKUP_DEBUG_ENV_VAR, LOOKUP_DEBUG_INFO_KEY as LOOKUP_DEBUG_INFO_KEY,
 	LookupDebugInfo as LookupDebugInfo)
-from fontTools.feaLib.parser import Parser as Parser
-from fontTools.feaLib.variableScalar import VariableScalar as VariableScalar
-from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import binary2num as binary2num, safeEval as safeEval, Tag as Tag, tostr as tostr
 from fontTools.otlLib.builder import (
 	AlternateSubstBuilder as AlternateSubstBuilder, AnySubstBuilder as AnySubstBuilder,
@@ -17,15 +12,9 @@ from fontTools.otlLib.builder import (
 	MarkMarkPosBuilder as MarkMarkPosBuilder, MultipleSubstBuilder as MultipleSubstBuilder,
 	PairPosBuilder as PairPosBuilder, ReverseChainSingleSubstBuilder as ReverseChainSingleSubstBuilder,
 	SinglePosBuilder as SinglePosBuilder, SingleSubstBuilder as SingleSubstBuilder)
-from fontTools.otlLib.error import OpenTypeLibError as OpenTypeLibError
-from fontTools.otlLib.maxContextCalc import maxCtxFont as maxCtxFont
 from fontTools.ttLib import getTableModule as getTableModule, newTable as newTable
 from fontTools.ttLib.tables import otBase as otBase, otTables as otTables
-from fontTools.varLib.builder import buildVarDevTable as buildVarDevTable
-from fontTools.varLib.errors import VarLibError as VarLibError
-from fontTools.varLib.featureVars import addFeatureVariationsRaw as addFeatureVariationsRaw
 from fontTools.varLib.models import normalizeValue as normalizeValue, piecewiseLinearMap as piecewiseLinearMap
-from fontTools.varLib.varStore import OnlineVarStoreBuilder as OnlineVarStoreBuilder
 
 log: Incomplete
 
@@ -211,3 +200,4 @@ class Builder:
     _VALUEREC_ATTRS: Incomplete
     def makeOpenTypeValueRecord(self, location, v, pairPosContext):
         """ast.ValueRecord --> otBase.ValueRecord"""
+

@@ -1,6 +1,4 @@
 from _typeshed import Incomplete
-from fontTools.misc.timeTools import timestampNow as timestampNow
-from fontTools.ttLib.tables.DefaultTable import DefaultTable as DefaultTable
 
 log: Incomplete
 
@@ -50,3 +48,4 @@ class NonhashableDict:
     def __getitem__(self, k): ...
     def __setitem__(self, k, v) -> None: ...
     def __delitem__(self, k) -> None: ...
+

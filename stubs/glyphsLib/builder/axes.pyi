@@ -1,7 +1,4 @@
-import glyphsLib.classes as classes
 from _typeshed import Incomplete
-from glyphsLib.classes import InstanceType as InstanceType
-from glyphsLib.types import parse_float_or_int as parse_float_or_int
 
 WEIGHT_CODES: dict
 WIDTH_CODES: dict
@@ -52,6 +49,7 @@ class AxisDefinition:
     """Centralize the code that deals with axis locations, user location versus
     design location, associated OS/2 table codes, etc.
     """
+
     def __init__(self, tag, name, design_loc_key, default_design_loc: float = ..., user_loc_key: Incomplete | None = ..., user_loc_param: Incomplete | None = ..., default_user_loc: float = ...) -> None: ...
     def get_design_loc(self, glyphs_master_or_instance):
         """Get the design location (aka interpolation value) of a Glyphs
@@ -62,7 +60,7 @@ class AxisDefinition:
     def set_design_loc(self, master_or_instance, value):
         """Set the design location of a Glyphs master or instance."""
     def get_user_loc(self, master_or_instance):
-        '''Get the user location of a Glyphs master or instance.
+        r"""Get the user location of a Glyphs master or instance.
         Masters and instances in Glyphs can have a user location in the
         "Axis Location" custom parameter.
 
@@ -73,7 +71,7 @@ class AxisDefinition:
         For width it\'s a percentage of extension with respect to the normal
         width, 100 being normal, 200 Ultra-expanded = twice as wide.
         It may or may not match the design location.
-        '''
+        """
     def get_user_loc_from_axis_location_cp(self, master_or_instance): ...
     def set_user_loc(self, master_or_instance, value):
         """Set the user location of a Glyphs master or instance."""
@@ -81,14 +79,15 @@ class AxisDefinition:
     def set_ufo_user_loc(self, ufo, value): ...
 
 class AxisDefinitionFactory:
-    '''Creates a set of axis definitions, making sure to recognize default axes
+    """Creates a set of axis definitions, making sure to recognize default axes
     (weight and width) and also keeping track of indices of custom axes.
 
     From looking at a Glyphs file with only one custom axis, it looks like
     when there is an "Axes" customParameter, the axis design locations are
     stored in `weightValue` for the first axis (regardless of whether it is
     a weight axis, `widthValue` for the second axis, etc.
-    '''
+    """
+
     def __init__(self) -> None: ...
     def get(self, tag: Incomplete | None = ..., name: str = ...): ...
     def _design_loc_key(self): ...
@@ -102,7 +101,7 @@ def get_axis_definitions(font): ...
 def _is_subset_of_default_axes(axes_parameter): ...
 def _has_meaningful_map(axis, designspace): ...
 def get_regular_master(font):
-    '''Find the "regular" master among the GSFontMasters.
+    r"""Find the "regular" master among the GSFontMasters.
 
     Tries to find the master with the passed \'regularName\'.
     If there is no such master or if regularName is None,
@@ -110,9 +109,10 @@ def get_regular_master(font):
     (defaulting to "Regular"), and then tries to find a master
     with that style name. If there is no master with that name,
     returns the first master in the list.
-    '''
+    """
 def find_base_style(masters):
     """Find a base style shared between all masters.
     Return empty string if none is found.
     """
 def is_instance_active(instance): ...
+

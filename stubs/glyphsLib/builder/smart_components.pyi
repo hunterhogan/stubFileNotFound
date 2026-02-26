@@ -1,6 +1,5 @@
-import enum
-from glyphsLib.classes import GSLayer as GSLayer
 from typing import ClassVar
+import enum
 
 class Pole(enum.IntEnum):
     _new_member_: ClassVar[builtin_function_or_method] = ...
@@ -42,3 +41,4 @@ def decompose_smart_components_in_layer(self, layer):
     """
 def instantiate_smart_component(self, layer, component, pen):
     """Instantiate a smart component by interpolating and drawing to a pointPen."""
+

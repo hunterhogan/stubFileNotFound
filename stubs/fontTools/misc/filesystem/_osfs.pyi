@@ -4,7 +4,6 @@ from ._errors import (
 	FileExpected as FileExpected, IllegalDestination as IllegalDestination, ResourceError as ResourceError,
 	ResourceNotFound as ResourceNotFound)
 from ._info import Info as Info
-from ._path import isbase as isbase
 from ._subfs import SubFS as SubFS
 from _typeshed import Incomplete
 from collections.abc import Collection
@@ -37,3 +36,4 @@ class OSFS(FS):
     def removetree(self, path: str): ...
     def movedir(self, src_dir: str, dst_dir: str, create: bool = False): ...
     def getsyspath(self, path: str) -> str: ...
+

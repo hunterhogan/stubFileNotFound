@@ -1,7 +1,7 @@
 from .otBase import BaseTable
 from collections import deque
 from collections.abc import Callable, Iterable
-from typing import Deque, TypeAlias
+from typing import TypeAlias
 
 __all__ = ['SubTablePath', 'bfs_base_table', 'dfs_base_table']
 
@@ -56,3 +56,4 @@ def bfs_base_table(root: BaseTable, root_accessor: str | None = None, skip_root:
         subtable, whereas preceding ones refer to its parent tables all the way up to
         the root.
     """
+

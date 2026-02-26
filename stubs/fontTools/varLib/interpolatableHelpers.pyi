@@ -1,10 +1,7 @@
 from _typeshed import Incomplete
-from enum import Enum as Enum
-from fontTools.misc.transform import Transform as Transform
 from fontTools.pens.basePen import AbstractPen as AbstractPen, BasePen as BasePen, DecomposingPen as DecomposingPen
 from fontTools.pens.pointPen import AbstractPointPen as AbstractPointPen, SegmentToPointPen as SegmentToPointPen
 from fontTools.pens.recordingPen import DecomposingRecordingPen as DecomposingRecordingPen, RecordingPen as RecordingPen
-from fontTools.ttLib.ttGlyphSet import LerpGlyphSet as LerpGlyphSet
 
 log: Incomplete
 
@@ -73,3 +70,4 @@ def points_complex_vector(points): ...
 def add_isomorphisms(points, isomorphisms, reverse) -> None: ...
 def find_parents_and_order(glyphsets, locations, *, discrete_axes=...): ...
 def transform_from_stats(stats, inverse: bool = False): ...
+

@@ -1,7 +1,4 @@
 from _typeshed import Incomplete
-from fontTools.config import Config as Config
-from fontTools.misc.textTools import tobytes as tobytes
-from fontTools.misc.xmlWriter import XMLWriter as XMLWriter
 from unittest import TestCase as _TestCase
 
 def parseXML(xmlSnippet):
@@ -79,3 +76,4 @@ class DataFilesHandler(TestCase):
     def getpath(self, testfile): ...
     def temp_dir(self) -> None: ...
     def temp_font(self, font_path, file_name): ...
+

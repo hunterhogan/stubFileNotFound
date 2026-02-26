@@ -6,17 +6,10 @@ from collections.abc import Iterator
 from enum import IntEnum, IntFlag
 from fontTools.feaLib.lookupDebugInfo import (
 	LOOKUP_DEBUG_INFO_KEY as LOOKUP_DEBUG_INFO_KEY, LookupDebugInfo as LookupDebugInfo)
-from fontTools.misc.arrayTools import quantizeRect as quantizeRect
-from fontTools.misc.roundTools import otRound as otRound
 from fontTools.misc.textTools import bytesjoin as bytesjoin, pad as pad, safeEval as safeEval
 from fontTools.misc.transform import (
 	DecomposedTransform as DecomposedTransform, Identity as Identity, Transform as Transform)
-from fontTools.misc.vector import Vector as Vector
-from fontTools.pens.boundsPen import ControlBoundsPen as ControlBoundsPen
-from fontTools.pens.transformPen import TransformPen as TransformPen
 from fontTools.ttLib import OPTIMIZE_FONT_SPEED as OPTIMIZE_FONT_SPEED, TTFont
-from fontTools.ttLib.tables.otTraverse import dfs_base_table as dfs_base_table
-from fontTools.ttLib.tables.TupleVariation import TupleVariation as TupleVariation
 from fontTools.ttLib.ttGlyphSet import _TTGlyphSet as _TTGlyphSet
 from typing import NamedTuple
 
@@ -447,3 +440,4 @@ def fixSubTableOverFlows(ttf, overflowRecord):
     """
 def _buildClasses() -> None: ...
 def _getGlyphsFromCoverageTable(coverage): ...
+

@@ -1,7 +1,4 @@
-from .sbixGlyph import Glyph as Glyph
 from _typeshed import Incomplete
-from fontTools.misc import sstruct as sstruct
-from fontTools.misc.textTools import safeEval as safeEval
 from fontTools.ttLib import TTFont
 
 sbixStrikeHeaderFormat: str
@@ -22,3 +19,4 @@ class Strike:
     def compile(self, ttFont: TTFont) -> None: ...
     def toXML(self, xmlWriter, ttFont: TTFont) -> None: ...
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
+

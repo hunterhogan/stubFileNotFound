@@ -1,6 +1,5 @@
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import (
 	bytesjoin as bytesjoin, safeEval as safeEval, strjoin as strjoin, tobytes as tobytes, tostr as tostr)
 from fontTools.ttLib import TTFont
@@ -37,3 +36,4 @@ class SignatureRecord:
     usReserved2: Incomplete
     pkcs7: Incomplete
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
+

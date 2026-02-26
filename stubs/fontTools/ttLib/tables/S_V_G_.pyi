@@ -2,7 +2,6 @@ from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from collections.abc import Sequence
 from dataclasses import dataclass
-from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import (
 	bytesjoin as bytesjoin, safeEval as safeEval, strjoin as strjoin, tobytes as tobytes, tostr as tostr)
 from fontTools.ttLib import TTFont
@@ -44,3 +43,4 @@ class SVGDocument(Sequence):
     compressed: bool = ...
     def __getitem__(self, index): ...
     def __len__(self) -> int: ...
+

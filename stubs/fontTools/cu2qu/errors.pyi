@@ -24,3 +24,4 @@ class IncompatibleSegmentTypesError(IncompatibleGlyphsError):
 class IncompatibleFontsError(Error):
     glyph_errors: Incomplete
     def __init__(self, glyph_errors) -> None: ...
+

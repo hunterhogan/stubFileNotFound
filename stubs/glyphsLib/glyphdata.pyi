@@ -1,10 +1,11 @@
 from _typeshed import Incomplete
 from typing import ClassVar
 
-__all__ = ['get_glyph', 'GlyphData']
+__all__ = ['GlyphData', 'get_glyph']
 
 class Glyph(tuple):
     """Glyph(name, production_name, unicode, category, subCategory, script, description)"""
+
     _fields: ClassVar[tuple] = ...
     _field_defaults: ClassVar[dict] = ...
     __match_args__: ClassVar[tuple] = ...
@@ -37,6 +38,7 @@ class GlyphData:
     name, alternative name and production name through normal
     dictionaries.
     """
+
     alternative_names: Incomplete
     names: Incomplete
     production_names: Incomplete
@@ -52,3 +54,4 @@ def get_glyph(glyph_name, data: Incomplete | None = ..., unicodes: Incomplete | 
     The information is derived from an included copy of GlyphData.xml
     and GlyphData_Ideographs.xml, going by the glyph name or unicode fallback.
     """
+

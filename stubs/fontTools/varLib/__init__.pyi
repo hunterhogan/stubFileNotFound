@@ -1,28 +1,18 @@
 from .errors import VarLibError as VarLibError, VarLibValidationError as VarLibValidationError
 from _typeshed import Incomplete
-from fontTools.colorLib.builder import buildColrV1 as buildColrV1
-from fontTools.colorLib.unbuilder import unbuildColrV1 as unbuildColrV1
 from fontTools.designspaceLib import (
 	DesignSpaceDocument as DesignSpaceDocument, InstanceDescriptor as InstanceDescriptor)
 from fontTools.designspaceLib.split import (
 	splitInterpolable as splitInterpolable, splitVariableFonts as splitVariableFonts)
 from fontTools.misc.roundTools import noRound as noRound, otRound as otRound
 from fontTools.misc.textTools import Tag as Tag, tostr as tostr
-from fontTools.misc.vector import Vector as Vector
 from fontTools.ttLib import newTable as newTable, TTFont as TTFont
 from fontTools.ttLib.tables._f_v_a_r import Axis as Axis, NamedInstance as NamedInstance
 from fontTools.ttLib.tables._g_l_y_f import (
 	dropImpliedOnCurvePoints as dropImpliedOnCurvePoints, GlyphCoordinates as GlyphCoordinates,
 	USE_MY_METRICS as USE_MY_METRICS)
-from fontTools.ttLib.tables.otBase import OTTableWriter as OTTableWriter
-from fontTools.ttLib.tables.ttProgram import Program as Program
-from fontTools.ttLib.tables.TupleVariation import TupleVariation as TupleVariation
 from fontTools.varLib import builder as builder, models as models, varStore as varStore
-from fontTools.varLib.featureVars import addFeatureVariations as addFeatureVariations
-from fontTools.varLib.iup import iup_delta_optimize as iup_delta_optimize
 from fontTools.varLib.merger import COLRVariationMerger as COLRVariationMerger, VariationMerger as VariationMerger
-from fontTools.varLib.mvar import MVAR_ENTRIES as MVAR_ENTRIES
-from fontTools.varLib.stat import buildVFStatTable as buildVFStatTable
 from typing import NamedTuple
 
 log: Incomplete
@@ -181,3 +171,4 @@ def addGSUBFeatureVariations(vf, designspace, featureTags=(), *, log_enabled: bo
     """
 def main(args=None) -> None:
     """Build variable fonts from a designspace file and masters"""
+

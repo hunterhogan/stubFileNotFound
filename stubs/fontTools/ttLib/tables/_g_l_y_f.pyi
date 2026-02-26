@@ -1,16 +1,10 @@
 from . import DefaultTable as DefaultTable, ttProgram as ttProgram
 from _typeshed import Incomplete
-from enum import IntFlag as IntFlag
 from fontTools import ttLib as ttLib, version as version
 from fontTools.misc import sstruct as sstruct, xmlWriter as xmlWriter
 from fontTools.misc.arrayTools import pointInRect as pointInRect, updateBounds as updateBounds
-from fontTools.misc.bezierTools import calcQuadraticBounds as calcQuadraticBounds
-from fontTools.misc.filenames import userNameToFileName as userNameToFileName
-from fontTools.misc.loggingTools import deprecateFunction as deprecateFunction
 from fontTools.misc.roundTools import noRound as noRound, otRound as otRound
 from fontTools.misc.textTools import pad as pad, safeEval as safeEval, tostr as tostr
-from fontTools.misc.transform import DecomposedTransform as DecomposedTransform
-from fontTools.misc.vector import Vector as Vector
 from fontTools.ttLib import TTFont
 from typing import NamedTuple, TYPE_CHECKING
 
@@ -549,3 +543,4 @@ class GlyphCoordinates:
 		True
 		"""
 	__nonzero__ = __bool__
+

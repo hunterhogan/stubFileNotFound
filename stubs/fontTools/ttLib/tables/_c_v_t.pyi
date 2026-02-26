@@ -1,6 +1,5 @@
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools.misc.textTools import safeEval as safeEval
 from fontTools.ttLib import TTFont
 
 class table__c_v_t(DefaultTable.DefaultTable):
@@ -21,3 +20,4 @@ class table__c_v_t(DefaultTable.DefaultTable):
     def __getitem__(self, index): ...
     def __setitem__(self, index, value) -> None: ...
     def __delitem__(self, index) -> None: ...
+

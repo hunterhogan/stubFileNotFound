@@ -1,4 +1,3 @@
-import glyphsLib.classes as classes
 
 UFO_ORIGINAL_KERNING_GROUPS_KEY: str
 UFO_GROUPS_NOT_IN_FEATURE_KEY: str
@@ -16,3 +15,4 @@ def _glyph_kerning_attr(side, is_rtl: bool = ...):
 def _assert_groups_are_identical(self, reference_ufo, ufo): ...
 def _ufo_logging_ref(ufo):
     """Return a string that can identify this UFO in logs."""
+

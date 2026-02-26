@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from fontTools.pens.basePen import MissingComponentError as MissingComponentError
 from fontTools.pens.pointPen import AbstractPointPen as AbstractPointPen
 
 class HashPointPen(AbstractPointPen):
@@ -53,3 +52,4 @@ class HashPointPen(AbstractPointPen):
     def endPath(self) -> None: ...
     def addPoint(self, pt, segmentType=None, smooth: bool = False, name=None, identifier=None, **kwargs) -> None: ...
     def addComponent(self, baseGlyphName, transformation, identifier=None, **kwargs) -> None: ...
+

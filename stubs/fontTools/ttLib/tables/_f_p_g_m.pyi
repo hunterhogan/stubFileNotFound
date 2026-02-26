@@ -38,3 +38,4 @@ class table__f_p_g_m(DefaultTable.DefaultTable):
         False
         """
     __nonzero__ = __bool__
+

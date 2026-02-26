@@ -5,7 +5,7 @@ from collections.abc import Callable, Iterable
 from dataclasses import dataclass
 from fontTools import ttLib as ttLib
 from fontTools.ttLib.tables import otBase as otBase
-from typing import Any, Deque, TypeAlias
+from typing import Any, TypeAlias
 import abc
 
 __author__: str
@@ -48,3 +48,4 @@ AddToFrontierFn: TypeAlias = Callable[[deque[SubTablePath], list[SubTablePath]],
 
 def _traverse_ot_data(root: otBase.BaseTable, root_accessor: str, add_to_frontier_fn: AddToFrontierFn) -> Iterable[SubTablePath]: ...
 def reorderGlyphs(font: ttLib.TTFont, new_glyph_order: list[str]): ...
+

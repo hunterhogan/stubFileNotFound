@@ -1,13 +1,20 @@
-import os
-from . import _version as _version, builder as builder, classes as classes, glyphdata as glyphdata, parser as parser, pens as pens, types as types, util as util, writer as writer
+from . import (
+	_version as _version, builder as builder, classes as classes, glyphdata as glyphdata, parser as parser, pens as pens,
+	types as types, util as util, writer as writer)
 from _typeshed import Incomplete
 from glyphsLib.builder import to_designspace as to_designspace, to_glyphs as to_glyphs, to_ufos as to_ufos
-from glyphsLib.classes import GSAlignmentZone as GSAlignmentZone, GSAnchor as GSAnchor, GSAnnotation as GSAnnotation, GSBackgroundImage as GSBackgroundImage, GSClass as GSClass, GSComponent as GSComponent, GSCustomParameter as GSCustomParameter, GSFeature as GSFeature, GSFeaturePrefix as GSFeaturePrefix, GSFont as GSFont, GSFontMaster as GSFontMaster, GSGlyph as GSGlyph, GSGuide as GSGuide, GSHint as GSHint, GSInstance as GSInstance, GSLayer as GSLayer, GSNode as GSNode, GSPath as GSPath, GSSmartComponentAxis as GSSmartComponentAxis, Glyphs as Glyphs
+from glyphsLib.classes import (
+	Glyphs as Glyphs, GSAlignmentZone as GSAlignmentZone, GSAnchor as GSAnchor, GSAnnotation as GSAnnotation,
+	GSBackgroundImage as GSBackgroundImage, GSClass as GSClass, GSComponent as GSComponent,
+	GSCustomParameter as GSCustomParameter, GSFeature as GSFeature, GSFeaturePrefix as GSFeaturePrefix, GSFont as GSFont,
+	GSFontMaster as GSFontMaster, GSGlyph as GSGlyph, GSGuide as GSGuide, GSHint as GSHint, GSInstance as GSInstance,
+	GSLayer as GSLayer, GSNode as GSNode, GSPath as GSPath, GSSmartComponentAxis as GSSmartComponentAxis)
 from glyphsLib.parser import load as load, loads as loads
 from glyphsLib.writer import dump as dump, dumps as dumps
 from typing import ClassVar
+import os
 
-__all__ = ['build_masters', 'load_to_ufos', 'to_ufos', 'to_designspace', 'to_glyphs', 'load', 'loads', 'dump', 'dumps', 'Glyphs', 'GSFont', 'GSFontMaster', 'GSAlignmentZone', 'GSInstance', 'GSCustomParameter', 'GSClass', 'GSFeaturePrefix', 'GSFeature', 'GSGlyph', 'GSLayer', 'GSAnchor', 'GSComponent', 'GSSmartComponentAxis', 'GSPath', 'GSNode', 'GSGuide', 'GSAnnotation', 'GSHint', 'GSBackgroundImage', '__all__', 'MOVE', 'LINE', 'CURVE', 'QCURVE', 'OFFCURVE', 'GSMOVE', 'GSLINE', 'GSCURVE', 'GSOFFCURVE', 'GSSHARP', 'GSSMOOTH', 'TAG', 'TOPGHOST', 'STEM', 'BOTTOMGHOST', 'TTANCHOR', 'TTSTEM', 'TTALIGN', 'TTINTERPOLATE', 'TTDIAGONAL', 'TTDELTA', 'CORNER', 'CAP', 'TTDONTROUND', 'TTROUND', 'TTROUNDUP', 'TTROUNDDOWN', 'TRIPLE', 'TEXT', 'ARROW', 'CIRCLE', 'PLUS', 'MINUS', 'LTR', 'RTL', 'LTRTTB', 'RTLTTB', 'GSTopLeft', 'GSTopCenter', 'GSTopRight', 'GSCenterLeft', 'GSCenterCenter', 'GSCenterRight', 'GSBottomLeft', 'GSBottomCenter', 'GSBottomRight', 'WEIGHT_CODES', 'WIDTH_CODES']
+__all__ = ['ARROW', 'BOTTOMGHOST', 'CAP', 'CIRCLE', 'CORNER', 'CURVE', 'GSCURVE', 'GSLINE', 'GSMOVE', 'GSOFFCURVE', 'GSSHARP', 'GSSMOOTH', 'LINE', 'LTR', 'LTRTTB', 'MINUS', 'MOVE', 'OFFCURVE', 'PLUS', 'QCURVE', 'RTL', 'RTLTTB', 'STEM', 'TAG', 'TEXT', 'TOPGHOST', 'TRIPLE', 'TTALIGN', 'TTANCHOR', 'TTDELTA', 'TTDIAGONAL', 'TTDONTROUND', 'TTINTERPOLATE', 'TTROUND', 'TTROUNDDOWN', 'TTROUNDUP', 'TTSTEM', 'WEIGHT_CODES', 'WIDTH_CODES', 'GSAlignmentZone', 'GSAnchor', 'GSAnnotation', 'GSBackgroundImage', 'GSBottomCenter', 'GSBottomLeft', 'GSBottomRight', 'GSCenterCenter', 'GSCenterLeft', 'GSCenterRight', 'GSClass', 'GSComponent', 'GSCustomParameter', 'GSFeature', 'GSFeaturePrefix', 'GSFont', 'GSFontMaster', 'GSGlyph', 'GSGuide', 'GSHint', 'GSInstance', 'GSLayer', 'GSNode', 'GSPath', 'GSSmartComponentAxis', 'GSTopCenter', 'GSTopLeft', 'GSTopRight', 'Glyphs', '__all__', 'build_masters', 'dump', 'dumps', 'load', 'load_to_ufos', 'loads', 'to_designspace', 'to_glyphs', 'to_ufos']
 
 MOVE: str
 LINE: str
@@ -60,6 +67,7 @@ WIDTH_CODES: dict
 
 class Masters(tuple):
     """Masters(ufos, designspace_path)"""
+
     _fields: ClassVar[tuple] = ...
     _field_defaults: ClassVar[dict] = ...
     __match_args__: ClassVar[tuple] = ...
@@ -92,7 +100,8 @@ def build_masters(filename: str | bytes | os.PathLike[str] | os.PathLike[bytes] 
         family_name: If provided, the master UFOs will be given this name and
             only instances with this name will be included in the designspace.
 
-    Returns:
+    Returns
+    -------
         A named tuple of master UFOs (`ufos`) and the path to the designspace
         file (`designspace_path`).
     """
@@ -126,3 +135,4 @@ def build_masters(filename: str | bytes | os.PathLike[str] | os.PathLike[bytes] 
 #   to_designspace
 #   to_glyphs
 #   to_ufos
+

@@ -46,3 +46,4 @@ def _getRibbiStyle(self, userLocation: SimpleLocationDict) -> tuple[RibbiStyleNa
 
     .. versionadded:: 5.0
     """
+

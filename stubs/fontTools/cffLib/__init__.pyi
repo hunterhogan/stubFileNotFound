@@ -4,9 +4,7 @@ from fontTools.misc.arrayTools import intRect as intRect, unionRect as unionRect
 from fontTools.misc.textTools import (
 	bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, safeEval as safeEval, tobytes as tobytes,
 	tostr as tostr)
-from fontTools.ttLib import TTFont as TTFont
 from fontTools.ttLib.tables.otBase import OTTableReader as OTTableReader, OTTableWriter as OTTableWriter
-from io import BytesIO as BytesIO
 
 DEBUG: Incomplete
 log: Incomplete
@@ -439,7 +437,7 @@ class EncodingConverter(SimpleConverter):
     def xmlRead(self, name, attrs, content, parent): ...
 
 def readSID(file):
-    """Read a String ID (SID) — 2-byte unsigned integer."""
+    """Read a String ID (SID) â€” 2-byte unsigned integer."""
 def parseEncodingSupplement(file, encoding, strings) -> None:
     """
     Parse the CFF Encoding supplement data:
@@ -689,3 +687,4 @@ cffIExpertStrings: Incomplete
 cffExpertStringCount: int
 cffExpertSubsetStrings: Incomplete
 cffExpertSubsetStringCount: int
+

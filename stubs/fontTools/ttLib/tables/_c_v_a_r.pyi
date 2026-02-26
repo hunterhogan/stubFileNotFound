@@ -1,7 +1,5 @@
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools.misc import sstruct as sstruct
-from fontTools.misc.textTools import bytesjoin as bytesjoin
 from fontTools.ttLib import TTFont
 from fontTools.ttLib.tables.TupleVariation import (
 	compileTupleVariationStore as compileTupleVariationStore, decompileTupleVariationStore as decompileTupleVariationStore,
@@ -28,3 +26,4 @@ class table__c_v_a_r(DefaultTable.DefaultTable):
     def decompile(self, data, ttFont: TTFont) -> None: ...
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
     def toXML(self, writer, ttFont: TTFont) -> None: ...
+

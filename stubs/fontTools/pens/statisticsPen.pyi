@@ -64,3 +64,4 @@ class StatisticsControlPen(StatisticsBase, BasePen):
     varianceY: Incomplete
     covariance: Incomplete
     def _update(self) -> None: ...
+

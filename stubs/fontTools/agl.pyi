@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from fontTools.misc.textTools import tostr as tostr
 
 _aglText: str
 _aglfnText: str
@@ -33,3 +32,4 @@ _re_u: Incomplete
 
 def _uToUnicode(component):
     """Helper for toUnicode() to handle "u1ABCD" components."""
+

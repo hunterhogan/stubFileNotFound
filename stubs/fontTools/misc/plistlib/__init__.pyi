@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 from collections.abc import Callable, Mapping, MutableMapping, Sequence
 from datetime import datetime
 from fontTools.misc import etree as etree
-from fontTools.misc.textTools import tostr as tostr
 from functools import singledispatch
 from numbers import Integral
 from types import SimpleNamespace
@@ -221,3 +220,4 @@ def dumps(value: PlistEncodable, sort_keys: bool = True, skipkeys: bool = False,
             if non-representable binary data is present
             and `use_builtin_types` is false.
     """
+

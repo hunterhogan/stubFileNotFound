@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from fontTools.misc.roundTools import otRound as otRound
 
 def _vector_between(origin, target): ...
 def _round_point(pt): ...
@@ -31,3 +30,4 @@ def round_start_circle_stable_containment(c0, r0, c1, r1):
     https://github.com/googlefonts/colr-gradients-spec/issues/204
     https://github.com/googlefonts/picosvg/issues/158
     """
+

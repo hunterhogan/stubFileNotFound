@@ -1,11 +1,6 @@
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools.misc import sstruct as sstruct
-from fontTools.misc.lazyTools import LazyDict as LazyDict
-from fontTools.misc.textTools import safeEval as safeEval
 from fontTools.ttLib import OPTIMIZE_FONT_SPEED as OPTIMIZE_FONT_SPEED, TTFont
-from fontTools.ttLib.tables.TupleVariation import TupleVariation as TupleVariation
-from functools import partial as partial
 
 log: Incomplete
 GVAR_HEADER_FORMAT_HEAD: str
@@ -54,3 +49,4 @@ class table__g_v_a_r(DefaultTable.DefaultTable):
 
 def compileGlyph_(dataOffsetSize, variations, pointCount, axisTags, sharedCoordIndices, *, optimizeSize: bool = True): ...
 def decompileGlyph_(dataOffsetSize, pointCount, sharedTuples, axisTags, data): ...
+

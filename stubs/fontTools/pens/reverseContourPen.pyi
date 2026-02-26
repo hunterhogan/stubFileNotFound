@@ -21,3 +21,4 @@ def reversedContour(contour, outputImpliedClosingLine: bool = False) -> Generato
     """Generator that takes a list of pen's (operator, operands) tuples,
     and yields them with the winding direction reversed.
     """
+

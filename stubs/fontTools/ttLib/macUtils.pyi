@@ -17,3 +17,4 @@ class SFNTResourceReader(BytesIO):
     rsrc: Incomplete
     name: Incomplete
     def __init__(self, path, res_name_or_index) -> None: ...
+

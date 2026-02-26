@@ -172,7 +172,7 @@ def split_header_words(header_values): # -> list[Any]:
 
     >>> split_header_words(['foo="bar"; port="80,81"; discard, bar=baz'])
     [[('foo', 'bar'), ('port', '80,81'), ('discard', None)], [('bar', 'baz')]]
-    >>> split_header_words(['text/html; charset="iso-8859-1"'])
+    >>> split_header_words(['text/html; charset="utf-8"'])
     [[('text/html', None), ('charset', 'iso-8859-1')]]
     >>> split_header_words([r'Basic realm="\"foo\bar\""'])
     [[('Basic', None), ('realm', '"foobar"')]]

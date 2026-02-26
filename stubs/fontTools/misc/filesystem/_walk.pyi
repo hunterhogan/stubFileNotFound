@@ -1,6 +1,5 @@
 from ._base import FS as FS
 from ._info import Info as Info
-from ._path import combine as combine
 from _typeshed import Incomplete
 from collections.abc import Callable, Collection, Iterator
 
@@ -12,3 +11,4 @@ class BoundWalker:
     def _filter(self, include: Callable[[str, Info], bool] = ..., path: str = '/', namespaces: Collection[str] | None = None) -> Iterator[str]: ...
     def files(self, path: str = '/') -> Iterator[str]: ...
     def dirs(self, path: str = '/') -> Iterator[str]: ...
+

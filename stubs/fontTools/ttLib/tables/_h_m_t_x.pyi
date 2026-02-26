@@ -1,8 +1,5 @@
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools import ttLib as ttLib
-from fontTools.misc.roundTools import otRound as otRound
-from fontTools.misc.textTools import safeEval as safeEval
 from fontTools.ttLib import TTFont
 
 log: Incomplete
@@ -30,3 +27,4 @@ class table__h_m_t_x(DefaultTable.DefaultTable):
     def __delitem__(self, glyphName) -> None: ...
     def __getitem__(self, glyphName: str) -> tuple[int, int]: ...
     def __setitem__(self, glyphName, advance_sb_pair) -> None: ...
+

@@ -1,15 +1,8 @@
-from .interpolatableHelpers import *
-from .interpolatableTestContourOrder import test_contour_order as test_contour_order
-from .interpolatableTestStartingPoint import test_starting_point as test_starting_point
 from _typeshed import Incomplete
 from collections.abc import Generator
-from fontTools.misc.fixedTools import floatToFixedToStr as floatToFixedToStr
-from fontTools.misc.transform import Transform as Transform
-from fontTools.pens.momentsPen import OpenContourError as OpenContourError
 from fontTools.pens.recordingPen import (
 	DecomposingRecordingPen as DecomposingRecordingPen, lerpRecordings as lerpRecordings, RecordingPen as RecordingPen)
 from fontTools.pens.statisticsPen import StatisticsControlPen as StatisticsControlPen, StatisticsPen as StatisticsPen
-from fontTools.pens.transformPen import TransformPen as TransformPen
 from fontTools.varLib.models import normalizeLocation as normalizeLocation, piecewiseLinearMap as piecewiseLinearMap
 from math import atan2 as atan2, pi as pi
 
@@ -35,3 +28,4 @@ def recursivelyAddGlyph(glyphname, glyphset, ttGlyphSet, glyf) -> None: ...
 def ensure_parent_dir(path): ...
 def main(args=None):
     """Test for interpolatability issues between fonts"""
+

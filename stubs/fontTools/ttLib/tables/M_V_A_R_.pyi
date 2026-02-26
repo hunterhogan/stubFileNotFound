@@ -8,3 +8,4 @@ class table_M_V_A_R_(BaseTTXConverter):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/mvar
     """
+

@@ -1,4 +1,3 @@
-from .arc import EllipticalArc as EllipticalArc
 from _typeshed import Incomplete
 from collections.abc import Generator
 
@@ -33,3 +32,4 @@ def parse_path(pathdef, pen, current_pos=(0, 0), arc_class=...) -> None:
     Otherwise, the arcs are approximated by series of cubic Bezier segments
     ("curveTo"), one every 90 degrees.
     """
+

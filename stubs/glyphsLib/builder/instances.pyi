@@ -1,9 +1,10 @@
 from _typeshed import Incomplete
-from glyphsLib.builder.axes import AxisDefinitionFactory as AxisDefinitionFactory, WEIGHT_AXIS_DEF as WEIGHT_AXIS_DEF, WIDTH_AXIS_DEF as WIDTH_AXIS_DEF, get_axis_definitions as get_axis_definitions, is_instance_active as is_instance_active
-from glyphsLib.builder.custom_params import to_ufo_custom_params as to_ufo_custom_params
-from glyphsLib.builder.names import build_stylemap_names as build_stylemap_names
-from glyphsLib.classes import CustomParametersProxy as CustomParametersProxy, GSCustomParameter as GSCustomParameter, InstanceType as InstanceType, PropertiesProxy as PropertiesProxy
-from glyphsLib.util import build_ufo_path as build_ufo_path
+from glyphsLib.builder.axes import (
+	AxisDefinitionFactory as AxisDefinitionFactory, get_axis_definitions as get_axis_definitions,
+	is_instance_active as is_instance_active, WEIGHT_AXIS_DEF as WEIGHT_AXIS_DEF, WIDTH_AXIS_DEF as WIDTH_AXIS_DEF)
+from glyphsLib.classes import (
+	CustomParametersProxy as CustomParametersProxy, GSCustomParameter as GSCustomParameter, InstanceType as InstanceType,
+	PropertiesProxy as PropertiesProxy)
 
 WEIGHT_CODES: dict
 UFO_FILENAME_CUSTOM_PARAM: str
@@ -32,6 +33,7 @@ class InstanceDescriptorAsGSInstance:
     GSInstance, just enough to use the descriptor as a source of custom
     parameters for `to_ufo_custom_parameters`
     """
+
     def __init__(self, descriptor) -> None: ...
 def _set_class_from_instance(ufo, designspace, instance, axis_tag): ...
 def set_weight_class(ufo, designspace, instance):
@@ -54,7 +56,9 @@ def apply_instance_data(designspace, include_filenames: Incomplete | None = ...,
             processed.
         Font: a callable(path: str) -> Font, used to load a UFO, such as
             defcon.Font class (default: ufoLib2.Font.open).
-    Returns:
+
+    Returns
+    -------
         List of opened and updated instance UFOs.
     """
 def apply_instance_data_to_ufo(ufo, instance, designspace):
@@ -64,6 +68,9 @@ def apply_instance_data_to_ufo(ufo, instance, designspace):
         ufo: a defcon-like font object.
         instance: a fontTools.designspaceLib.InstanceDescriptor.
         designspace: a fontTools.designspaceLib.DesignSpaceDocument.
-    Returns:
+
+    Returns
+    -------
         None.
     """
+

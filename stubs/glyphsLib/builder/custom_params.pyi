@@ -1,9 +1,8 @@
 from _typeshed import Incomplete
-from glyphsLib.builder.common import to_ufo_color as to_ufo_color
+from collections.abc import Callable
 from glyphsLib.builder.features import replace_feature as replace_feature, replace_prefixes as replace_prefixes
-from glyphsLib.builder.filters import parse_glyphs_filter as parse_glyphs_filter
 from glyphsLib.util import bin_to_int_list as bin_to_int_list, int_list_to_bin as int_list_to_bin
-from typing import Callable, ClassVar
+from typing import ClassVar
 
 GLYPHS_PREFIX: str
 UFO2FT_COLOR_PALETTES_KEY: str
@@ -19,6 +18,7 @@ def identity(value): ...
 
 class GlyphsObjectProxy:
     """Accelerate and record access to the glyphs object's custom parameters"""
+
     def __init__(self, glyphs_object, glyphs_module, ignore_disabled: bool = ...) -> None: ...
     def get_attribute_value(self, key): ...
     def set_attribute_value(self, key, value): ...
@@ -43,11 +43,13 @@ class GlyphsObjectProxy:
         """
     def is_font(self):
         """Returns whether we are looking at a top-level GSFont object as
-        opposed to a master or instance."""
+        opposed to a master or instance.
+        """
     def get_property(self, key): ...
 
 class UFOProxy:
     """Record access to the UFO's lib custom parameters"""
+
     def __init__(self, ufo) -> None: ...
     def has_info_attr(self, name): ...
     def get_info_value(self, name): ...
@@ -105,6 +107,7 @@ class NameRecordParamHandler(AbstractParamHandler):
 
 class MiscParamHandler(ParamHandler):
     """Copy GSFont attributes to ufo lib"""
+
     def _read_from_glyphs(self, glyphs): ...
     def _write_to_glyphs(self, glyphs, value): ...
 
@@ -125,6 +128,7 @@ class GlyphOrderParamHandler(AbstractParamHandler):
 
     See the GlyphOrderTest class for a thorough explanation.
     """
+
     def to_glyphs(self, glyphs, ufo): ...
     def to_ufo(self, builder, glyphs, ufo): ...
 
@@ -181,6 +185,7 @@ class FilterParamHandler(AbstractParamHandler):
     filters are a UFO lib key, they are automatically stored in a master's
     userData by another code path.
     """
+
     def to_glyphs(self, glyphs, ufo): ...
     def to_ufo(self, builder, glyphs, ufo): ...
 
@@ -193,7 +198,7 @@ class ReplaceFeatureParamHandler(AbstractParamHandler):
     def to_glyphs(self, glyphs, ufo): ...
 
 class ReencodeGlyphsParamHandler(AbstractParamHandler):
-    '''The "Reencode Glyphs" custom parameter contains a list of
+    r"""The "Reencode Glyphs" custom parameter contains a list of
     \'glyphname=unicodevalue\' strings: e.g., ["smiley=E100", "logo=E101"].
     It only applies to specific instance (not to master or globally) and is
     meant to assign Unicode values to glyphs with the specied name at export
@@ -206,18 +211,20 @@ class ReencodeGlyphsParamHandler(AbstractParamHandler):
     This parameter handler only handles going from Glyphs to (instance) UFOs,
     and not also in the opposite direction, as the parameter isn\'t stored in
     the UFO lib, but directly applied to the UFO unicode values.
-    '''
+    """
+
     def to_ufo(self, builder, glyphs, ufo): ...
     def to_glyphs(self, glyphs, ufo): ...
 
 class RenameGlyphsParamHandler(AbstractParamHandler):
-    '''The "Rename Glyphs" custom parameter contains a list of
+    r"""The "Rename Glyphs" custom parameter contains a list of
     \'glyphname=glyphname\' strings: e.g., ["a=b", "b=a"].
     It only applies to specific instance (not to master or globally).
 
     The glyph data is swapped, but the unicode assignments remain the
     same.
-    '''
+    """
+
     def to_ufo(self, builder, glyphs, ufo): ...
     def to_glyphs(self, glyphs, ufo): ...
 def to_ufo_custom_params(self, ufo, glyphs_object, set_default_params: bool = ...): ...
@@ -240,3 +247,4 @@ def _unset_default_params(glyphs):
 class GSFontParamHandler(ParamHandler):
     def to_glyphs(self, glyphs, ufo): ...
     def to_ufo(self, builder, glyphs, ufo): ...
+

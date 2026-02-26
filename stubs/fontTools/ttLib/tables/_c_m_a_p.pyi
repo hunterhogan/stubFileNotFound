@@ -1,9 +1,7 @@
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools.misc.encodingTools import getEncoding as getEncoding
 from fontTools.misc.textTools import bytesjoin as bytesjoin, readHex as readHex, safeEval as safeEval
 from fontTools.ttLib import getSearchRange as getSearchRange, TTFont
-from fontTools.unicode import Unicode as Unicode
 from typing import Any
 
 log: Incomplete
@@ -257,3 +255,4 @@ class cmap_format_unknown(CmapSubtable):
     def compile(self, ttFont: TTFont): ...
 
 cmap_classes: Incomplete
+

@@ -39,3 +39,4 @@ def loads(s: str | bytes) -> GSFont:
     """
 def main(args=None) -> None:
     """Roundtrip the .glyphs file given as an argument."""
+

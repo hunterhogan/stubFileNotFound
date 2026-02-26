@@ -30,3 +30,4 @@ def removeOverlaps(font: ttFont.TTFont, glyphNames: Iterable[str] | None = None,
             in CFF table after removing overlaps. Default is to remove them if
             any glyphs are modified.
     """
+

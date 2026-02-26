@@ -1,6 +1,4 @@
 from _typeshed import Incomplete
-from fontTools.subset.cff import *
-from fontTools.subset.svg import *
 from fontTools.ttLib.ttFont import TTFont
 
 __all__ = ['Options', 'Subsetter', 'load_font', 'main', 'parse_gids', 'parse_glyphs', 'parse_unicodes', 'save_font']
@@ -100,3 +98,4 @@ def parse_gids(s): ...
 def parse_glyphs(s): ...
 def main(args=None):
     """OpenType font subsetter and optimizer"""
+

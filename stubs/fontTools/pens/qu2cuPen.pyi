@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 from fontTools.pens.filterPen import ContourFilterPen as ContourFilterPen
-from fontTools.pens.reverseContourPen import ReverseContourPen as ReverseContourPen
-from fontTools.qu2cu import quadratic_to_curves as quadratic_to_curves
 
 class Qu2CuPen(ContourFilterPen):
     """A filter pen to convert quadratic bezier splines to cubic curves
@@ -24,3 +22,4 @@ class Qu2CuPen(ContourFilterPen):
     def __init__(self, other_pen, max_err, all_cubic: bool = False, reverse_direction: bool = False, stats=None) -> None: ...
     def _quadratics_to_curve(self, q) -> Generator[Incomplete]: ...
     def filterContour(self, contour): ...
+

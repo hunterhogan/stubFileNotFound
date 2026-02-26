@@ -1,11 +1,9 @@
-import glyphsLib.classes as classes
-import glyphsLib.glyphdata as glyphdata
-import glyphsLib.util
-import glyphsLib.util as util
 from _typeshed import Incomplete
-from glyphsLib.builder.axes import WEIGHT_AXIS_DEF as WEIGHT_AXIS_DEF, WIDTH_AXIS_DEF as WIDTH_AXIS_DEF, class_to_value as class_to_value, find_base_style as find_base_style
-from glyphsLib.util import LoggerMixin as LoggerMixin
+from glyphsLib.builder.axes import (
+	class_to_value as class_to_value, find_base_style as find_base_style, WEIGHT_AXIS_DEF as WEIGHT_AXIS_DEF,
+	WIDTH_AXIS_DEF as WIDTH_AXIS_DEF)
 from types import ModuleType
+import glyphsLib.util
 
 GLYPH_ORDER_KEY: str
 GLYPHLIB_PREFIX: str
@@ -14,8 +12,9 @@ _DeprecatedArgument: object
 
 class UFOBuilder(glyphsLib.util.LoggerMixin):
     """Builder for Glyphs to UFO + designspace."""
+
     def __init__(self, font, ufo_module: Incomplete | None = ..., designspace_module: ModuleType = ..., family_name: Incomplete | None = ..., instance_dir: Incomplete | None = ..., propagate_anchors: object = ..., use_designspace: bool = ..., minimize_glyphs_diffs: bool = ..., generate_GDEF: bool = ..., store_editor_state: bool = ..., write_skipexportglyphs: bool = ..., expand_includes: bool = ..., minimal: bool = ..., glyph_data: Incomplete | None = ...) -> None:
-        '''Create a builder that goes from Glyphs to UFO + designspace.
+        r"""Create a builder that goes from Glyphs to UFO + designspace.
 
         Keyword arguments:
         font -- The GSFont object to transform into UFOs. We expect this GSFont
@@ -50,7 +49,7 @@ class UFOBuilder(glyphsLib.util.LoggerMixin):
         minimal -- If True, it is assumed that the UFOs will only be used in font
                    production, and unnecessary steps will be skipped.
         glyph_data -- A list of GlyphData.
-        '''
+        """
     def _is_vertical(self): ...
     def to_ufo_layers(self): ...
     def to_ufo_glyph_anchors(self, glyph, anchors):
@@ -114,7 +113,8 @@ class UFOBuilder(glyphsLib.util.LoggerMixin):
     @property
     def masters(self):
         """Get an iterator over master UFOs that match the given family_name.
-        Get an iterator over master UFOs that match the given family_name."""
+        Get an iterator over master UFOs that match the given family_name.
+        """
     @property
     def designspace(self):
         """Get a designspace Document instance that links the masters together
@@ -132,6 +132,7 @@ def filter_instances_by_family(instances, family_name: Incomplete | None = ...):
 
 class GlyphsBuilder(glyphsLib.util.LoggerMixin):
     """Builder for UFO + designspace to Glyphs."""
+
     def __init__(self, ufos: Incomplete | None = ..., designspace: Incomplete | None = ..., glyphs_module: ModuleType = ..., ufo_module: Incomplete | None = ..., minimize_ufo_diffs: bool = ..., expand_includes: bool = ...) -> None:
         """Create a builder that goes from UFOs + designspace to Glyphs.
 
@@ -195,7 +196,8 @@ class GlyphsBuilder(glyphsLib.util.LoggerMixin):
         """
     def to_glyphs_ordered_masters(self):
         """Modify in-place the list of UFOs to restore their original order in
-        the Glyphs file (if any, otherwise does not change the order)."""
+        the Glyphs file (if any, otherwise does not change the order).
+        """
     def to_glyphs_glyph(self, ufo_glyph, ufo_layer, master):
         """Add UFO glif metadata, paths, components, and anchors to a GSGlyph.
         If the matching GSGlyph does not exist, then it is created,
@@ -230,5 +232,7 @@ class GlyphsBuilder(glyphsLib.util.LoggerMixin):
     @property
     def font(self):
         """Get the GSFont built from the UFOs + designspace.
-        Get the GSFont built from the UFOs + designspace."""
+        Get the GSFont built from the UFOs + designspace.
+        """
 def _sorted_backgrounds_last(ufo_layers): ...
+

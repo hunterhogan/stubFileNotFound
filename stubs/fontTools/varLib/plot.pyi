@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
-from fontTools.designspaceLib import DesignSpaceDocument as DesignSpaceDocument
 from fontTools.varLib.models import supportScalar as supportScalar, VariationModel as VariationModel
-from mpl_toolkits.mplot3d import axes3d as axes3d
 
 log: Incomplete
 
@@ -19,3 +17,4 @@ def plotModelFromMasters(model, masterValues, fig, **kwargs) -> None:
     model must have axisOrder of size 1 or 2.
     """
 def main(args=None) -> None: ...
+

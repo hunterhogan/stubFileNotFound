@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from fontTools.voltLib.error import VoltLibError as VoltLibError
 
 class Lexer:
     NUMBER: str
@@ -29,3 +28,4 @@ class Lexer:
     def next_(self): ...
     def scan_over_(self, valid) -> None: ...
     def scan_until_(self, stop_at) -> None: ...
+

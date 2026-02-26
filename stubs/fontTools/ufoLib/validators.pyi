@@ -1,6 +1,4 @@
 from collections.abc import Sequence
-from fontTools.annotations import IntFloat as IntFloat
-from fontTools.ufoLib.utils import numberTypes as numberTypes
 from typing import Any, TypeAlias
 import fontTools.misc.filesystem as fs
 
@@ -373,3 +371,4 @@ def glyphLibValidator(value: Any) -> tuple[bool, str | None]:
     >>> print(msg)
     public.markColor is not properly formatted.
     """
+

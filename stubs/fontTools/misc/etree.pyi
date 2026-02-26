@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 from lxml.etree import *
 from xml.etree.ElementTree import *
 from xml.etree.ElementTree import Element as _Element, XML as XML
-import contextlib
 
 __all__ = ['PI', 'XML', 'Comment', 'Element', 'ElementTree', 'ParseError', 'ProcessingInstruction', 'QName', 'SubElement', 'TreeBuilder', 'XMLParser', 'dump', 'fromstring', 'fromstringlist', 'iselement', 'iterparse', 'parse', 'register_namespace', 'tostring', 'tostringlist']
 
@@ -52,3 +51,4 @@ def tostring(element, encoding=None, xml_declaration=None, method=None, doctype=
 #   parse
 #   register_namespace
 #   tostringlist
+

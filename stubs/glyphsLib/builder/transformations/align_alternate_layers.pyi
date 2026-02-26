@@ -9,3 +9,4 @@ def align_alternate_layers(font, glyph_data: Incomplete | None = ...):
     We copy the layer locations from the component into the glyph which uses it.
     """
 def synthesize_bracket_layer(old_layer, axis_rules): ...
+

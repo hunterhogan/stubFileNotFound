@@ -1,4 +1,3 @@
-from ._errors import MissingInfoNamespace as MissingInfoNamespace
 from _typeshed import Incomplete
 from collections.abc import Mapping
 from datetime import datetime
@@ -32,3 +31,4 @@ class Info:
     @property
     def metadata_changed(self) -> datetime | None: ...
     __repr__ = __str__
+

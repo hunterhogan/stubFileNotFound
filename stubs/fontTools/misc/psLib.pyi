@@ -4,7 +4,6 @@ from .psOperators import (
 	ps_procmark as ps_procmark, ps_real as ps_real, ps_StandardEncoding as ps_StandardEncoding, ps_string as ps_string,
 	PSOperators as PSOperators)
 from _typeshed import Incomplete
-from fontTools.misc import eexec as eexec
 from fontTools.misc.textTools import (
 	bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, tobytes as tobytes, tostr as tostr)
 
@@ -68,3 +67,4 @@ class PSInterpreter(PSOperators):
 
 def unpack_item(item): ...
 def suckfont(data, encoding: str = 'ascii'): ...
+

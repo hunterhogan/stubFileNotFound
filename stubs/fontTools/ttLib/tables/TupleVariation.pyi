@@ -1,6 +1,4 @@
 from _typeshed import Incomplete
-from fontTools.misc.fixedTools import otRound as otRound
-from fontTools.misc.textTools import safeEval as safeEval
 
 EMBEDDED_PEAK_TUPLE: int
 INTERMEDIATE_REGION: int
@@ -99,3 +97,4 @@ def inferRegion_(peak):
     TupleVariationHeaders can omit the intermediateStartTuple and
     intermediateEndTuple fields.
     """
+

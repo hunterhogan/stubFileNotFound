@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from fontTools.ttLib.sfnt import readTTCHeader as readTTCHeader, writeTTCHeader as writeTTCHeader
-from fontTools.ttLib.ttFont import TTFont as TTFont
 import types
 
 log: Incomplete
@@ -31,3 +30,4 @@ class TTCollection:
     def __delitem__(self, item) -> None: ...
     def __len__(self) -> int: ...
     def __iter__(self): ...
+

@@ -1,7 +1,6 @@
-import glyphdata as glyphdata
 from fontTools.misc.transform import Transform
 from glyphsLib.classes import GSAnchor as GSAnchor
-from glyphsLib.types import Point as Point
+import glyphdata as glyphdata
 
 TYPE_CHECKING: bool
 def propagate_all_anchors(font: GSFont, *, glyph_data: glyphdata.GlyphData | None = ...) -> None:
@@ -17,7 +16,7 @@ def _has_components(glyph: GSGlyph) -> bool: ...
 def _get_category(glyph: GSGlyph, glyph_data: glyphdata.GlyphData | None = ...) -> str: ...
 def _get_subCategory(glyph: GSGlyph, glyph_data: glyphdata.GlyphData | None = ...) -> str: ...
 def anchors_traversing_components(glyph: GSGlyph, layer: GSLayer, glyphs: dict[str, GSGlyph], done_anchors: dict[str, dict[str, list[GSAnchor]]], base_glyph_counts: dict[tuple[str, str], int], glyph_data: glyphdata.GlyphData | None = ...) -> list[GSAnchor]:
-    '''Return the anchors for this glyph, including anchors from components
+    """Return the anchors for this glyph, including anchors from components
 
     This function is a reimplmentation of a similarly named function in glyphs.app.
 
@@ -29,13 +28,13 @@ def anchors_traversing_components(glyph: GSGlyph, layer: GSLayer, glyphs: dict[s
       and/or "left" to "right"
     - we need to apply the transform from the component
     - we may need to rename an anchor when the component is part of a ligature glyph
-    '''
+    """
 def origin_adjusted_anchors(anchors: list[GSAnchor]) -> Iterable[GSAnchor]:
-    '''Iterate over anchors taking into account the special "*origin" anchor
+    """Iterate over anchors taking into account the special "*origin" anchor
 
     If that anchor is present it will be used to adjust the positions of other
     anchors, and will not be included in the output.
-    '''
+    """
 def get_xy_rotation(xform: Transform) -> tuple[float, float]:
     """Returns (x, y) where a negative value indicates axis is flipped"""
 def apply_transform_to_anchor(anchor: GSAnchor, transform: Transform) -> None:
@@ -50,3 +49,4 @@ def rename_anchor_for_scale(name: str, xscale: float, yscale: float) -> str:
 def get_component_layer_anchors(component: GSComponent, layer: GSLayer, glyphs: dict[str, GSGlyph], anchors: dict[str, dict[str, list[GSAnchor]]]) -> list[GSAnchor] | None: ...
 def compute_max_component_depths(glyphs: dict[str, GSGlyph]) -> dict[str, float]: ...
 def depth_sorted_composite_glyphs(glyphs: dict[str, GSGlyph]) -> list[str]: ...
+

@@ -2,11 +2,8 @@ from . import DefaultTable as DefaultTable, otTables as otTables
 from .otBase import BaseTTXConverter as BaseTTXConverter
 from _typeshed import Incomplete
 from collections.abc import Mapping
-from fontTools.misc import sstruct as sstruct
-from fontTools.misc.roundTools import otRound as otRound
 from fontTools.misc.textTools import bytesjoin as bytesjoin, safeEval as safeEval
 from fontTools.ttLib import TTFont, TTLibError as TTLibError
-from fontTools.varLib.models import piecewiseLinearMap as piecewiseLinearMap
 from fontTools.varLib.varStore import NO_VARIATION_INDEX as NO_VARIATION_INDEX, VarStoreInstancer as VarStoreInstancer
 
 log: Incomplete
@@ -48,3 +45,4 @@ class table__a_v_a_r(BaseTTXConverter):
     def toXML(self, writer, ttFont: TTFont) -> None: ...
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
     def renormalizeLocation(self, location: Mapping[str, float], font: TTFont, dropZeroes: bool = True) -> dict[str, float]: ...
+

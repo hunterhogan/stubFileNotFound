@@ -1,6 +1,6 @@
-import fontTools.pens.pointPen
 from glyphsLib.types import Point as Point, Transform as Transform
 from typing import Any
+import fontTools.pens.pointPen
 
 class LayerPointPen(fontTools.pens.pointPen.AbstractPointPen):
     """A point pen to draw onto GSLayer object.
@@ -8,6 +8,7 @@ class LayerPointPen(fontTools.pens.pointPen.AbstractPointPen):
     See :mod:`fontTools.pens.basePen` and :mod:`fontTools.pens.pointPen` for an
     introduction to pens.
     """
+
     def __init__(self, layer: GSLayer) -> None: ...
     def beginPath(self, **kwargs: Any) -> None: ...
     def endPath(self) -> None: ...
@@ -15,3 +16,4 @@ class LayerPointPen(fontTools.pens.pointPen.AbstractPointPen):
     def addComponent(self, baseGlyph: str, transformation, **kwargs: Any) -> None: ...
 def _to_glyphs_node_type(node_type): ...
 def _to_ufo_node_type(node_type): ...
+

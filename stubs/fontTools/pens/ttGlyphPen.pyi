@@ -113,3 +113,4 @@ class TTGlyphPointPen(_TTGlyphBasePen, LogMixin, AbstractPointPen):
         """
         Add a point to the current sub path.
         """
+

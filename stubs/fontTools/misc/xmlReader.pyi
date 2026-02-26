@@ -1,8 +1,5 @@
 from _typeshed import Incomplete
-from fontTools import ttLib as ttLib
-from fontTools.misc.textTools import safeEval as safeEval
 from fontTools.ttLib import TTFont
-from fontTools.ttLib.tables.DefaultTable import DefaultTable as DefaultTable
 
 log: Incomplete
 
@@ -34,3 +31,4 @@ class ProgressPrinter:
     def set(self, val, maxval=None) -> None: ...
     def increment(self, val: int = 1) -> None: ...
     def setLabel(self, text) -> None: ...
+

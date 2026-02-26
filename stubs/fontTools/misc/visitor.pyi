@@ -55,3 +55,4 @@ class Visitor:
         ``self.visitObject()``, ``self.visitList()``, ``self.visitDict()``, or
         ``self.visitLeaf()`` (any of which can be overriden in a subclass).
         """
+

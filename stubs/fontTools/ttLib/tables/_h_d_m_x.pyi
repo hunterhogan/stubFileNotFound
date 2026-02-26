@@ -1,7 +1,6 @@
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from collections.abc import Mapping
-from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import bytechr as bytechr, byteord as byteord, strjoin as strjoin
 from fontTools.ttLib import TTFont
 
@@ -33,3 +32,4 @@ class table__h_d_m_x(DefaultTable.DefaultTable):
     def compile(self, ttFont: TTFont): ...
     def toXML(self, writer, ttFont: TTFont) -> None: ...
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
+

@@ -1,10 +1,8 @@
 from _typeshed import Incomplete
 from fontTools.cu2qu import curve_to_quadratic as curve_to_quadratic, curves_to_quadratic as curves_to_quadratic
-from fontTools.pens.basePen import decomposeSuperBezierSegment as decomposeSuperBezierSegment
 from fontTools.pens.filterPen import FilterPen as FilterPen
 from fontTools.pens.pointPen import (
 	BasePointToSegmentPen as BasePointToSegmentPen, ReverseContourPointPen as ReverseContourPointPen)
-from fontTools.pens.reverseContourPen import ReverseContourPen as ReverseContourPen
 
 class Cu2QuPen(FilterPen):
     """A filter pen to convert cubic bezier curves to quadratic b-splines
@@ -91,3 +89,4 @@ class Cu2QuMultiPen:
     def closePath(self) -> None: ...
     def endPath(self) -> None: ...
     def addComponent(self, glyphName, transformations) -> None: ...
+

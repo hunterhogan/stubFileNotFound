@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from fontTools.ttLib.tables.DefaultTable import DefaultTable as DefaultTable
 
 log: Incomplete
 
@@ -9,3 +8,4 @@ def add_method(*clazzes, **kwargs):
     """
 def mergeObjects(lst): ...
 def merge(self, m, tables): ...
+

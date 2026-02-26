@@ -1,6 +1,5 @@
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import safeEval as safeEval, tobytes as tobytes, tostr as tostr
 from fontTools.ttLib import TTFont
 
@@ -36,3 +35,4 @@ class table_G_M_A_P_(DefaultTable.DefaultTable):
     def compile(self, ttFont: TTFont): ...
     def toXML(self, writer, ttFont: TTFont) -> None: ...
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
+

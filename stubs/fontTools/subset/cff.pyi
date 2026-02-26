@@ -1,9 +1,5 @@
 from _typeshed import Incomplete
-from fontTools import ttLib as ttLib
 from fontTools.misc import psCharStrings as psCharStrings
-from fontTools.misc.loggingTools import deprecateFunction as deprecateFunction
-from fontTools.misc.roundTools import otRound as otRound
-from fontTools.pens.basePen import NullPen as NullPen
 from fontTools.subset.util import _add_method as _add_method, _uniq_sort as _uniq_sort
 
 class _ClosureGlyphsT2Decompiler(psCharStrings.SimpleT2Decompiler):
@@ -19,3 +15,4 @@ def prune_post_subset(self, ttfFont, options): ...
 def desubroutinize(self) -> None: ...
 def remove_hints(self) -> None: ...
 def remove_unused_subroutines(self) -> None: ...
+

@@ -1,10 +1,7 @@
 from _typeshed import Incomplete
 from fontTools.feaLib import ast
-from fontTools.feaLib.error import FeatureLibError as FeatureLibError
 from fontTools.feaLib.lexer import (
 	IncludingLexer as IncludingLexer, Lexer as Lexer, NonIncludingLexer as NonIncludingLexer)
-from fontTools.feaLib.variableScalar import VariableScalar as VariableScalar
-from fontTools.misc.encodingTools import getEncoding as getEncoding
 from fontTools.misc.textTools import bytechr as bytechr, tobytes as tobytes, tostr as tostr
 
 log: Incomplete
@@ -176,3 +173,4 @@ class SymbolTable:
     def exit_scope(self) -> None: ...
     def define(self, name, item) -> None: ...
     def resolve(self, name): ...
+

@@ -1,4 +1,3 @@
-from fontTools.misc.bezierTools import splitCubicAtTC as splitCubicAtTC
 import _cython_3_2_2
 
 COMPILED: bool
@@ -8,3 +7,4 @@ elevate_quadratic: _cython_3_2_2.cython_function_or_method
 main: _cython_3_2_2.cython_function_or_method
 quadratic_to_curves: _cython_3_2_2.cython_function_or_method
 spline_to_curves: _cython_3_2_2.cython_function_or_method
+

@@ -1,26 +1,16 @@
-from .featureVars import instantiateFeatureVariations as instantiateFeatureVariations
 from _typeshed import Incomplete
 from collections.abc import Generator, Iterable, Mapping, Sequence
 from contextlib import contextmanager
 from enum import IntEnum
 from fontTools import subset as subset, varLib as varLib
-from fontTools.cffLib import privateDictOperators2 as privateDictOperators2
-from fontTools.cffLib.CFF2ToCFF import convertCFF2ToCFF as convertCFF2ToCFF
 from fontTools.cffLib.specializer import (
 	commandsToProgram as commandsToProgram, generalizeCommands as generalizeCommands,
 	programToCommands as programToCommands, specializeCommands as specializeCommands)
-from fontTools.misc.cliTools import makeOutputFileName as makeOutputFileName
 from fontTools.misc.fixedTools import (
 	floatToFixedToFloat as floatToFixedToFloat, otRound as otRound, strToFixedToFloat as strToFixedToFloat)
 from fontTools.ttLib import newTable as newTable, TTFont as TTFont
-from fontTools.ttLib.tables import _g_l_y_f as _g_l_y_f
-from fontTools.ttLib.tables.otTables import VarComponentFlags as VarComponentFlags
-from fontTools.ttLib.tables.TupleVariation import TupleVariation as TupleVariation
-from fontTools.varLib import builder as builder
 from fontTools.varLib.instancer import names as names, solver as solver
-from fontTools.varLib.merger import MutatorMerger as MutatorMerger
 from fontTools.varLib.models import normalizeValue as normalizeValue, piecewiseLinearMap as piecewiseLinearMap
-from fontTools.varLib.mvar import MVAR_ENTRIES as MVAR_ENTRIES
 import dataclasses
 
 log: Incomplete
@@ -303,3 +293,4 @@ def parseArgs(args):
     """
 def main(args=None) -> None:
     """Partially instantiate a variable font"""
+

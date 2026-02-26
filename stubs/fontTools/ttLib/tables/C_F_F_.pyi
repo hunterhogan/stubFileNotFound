@@ -1,6 +1,5 @@
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools import cffLib as cffLib
 
 class table_C_F_F_(DefaultTable.DefaultTable):
     """Compact Font Format table (version 1)
@@ -28,3 +27,4 @@ class table_C_F_F_(DefaultTable.DefaultTable):
     def setGlyphOrder(self, glyphOrder) -> None: ...
     def toXML(self, writer, otFont) -> None: ...
     def fromXML(self, name, attrs, content, otFont) -> None: ...
+

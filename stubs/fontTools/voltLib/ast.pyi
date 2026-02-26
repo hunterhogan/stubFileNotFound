@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from fontTools.voltLib.error import VoltLibError as VoltLibError
 from typing import NamedTuple
 
 class Pos(NamedTuple):
@@ -151,3 +150,4 @@ class SettingDefinition(Statement):
     name: Incomplete
     value: Incomplete
     def __init__(self, name, value, location=None) -> None: ...
+

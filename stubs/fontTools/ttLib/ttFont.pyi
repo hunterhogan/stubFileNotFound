@@ -1,11 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Mapping, MutableMapping, Sequence
-from fontTools.config import Config as Config
 from fontTools.misc import xmlWriter as xmlWriter
 from fontTools.misc.configTools import AbstractConfig as AbstractConfig
-from fontTools.misc.loggingTools import deprecateArgument as deprecateArgument
 from fontTools.misc.textTools import byteord as byteord, Tag as Tag, tostr as tostr
-from fontTools.ttLib import TTLibError as TTLibError
 from fontTools.ttLib.sfnt import SFNTReader as SFNTReader, SFNTWriter as SFNTWriter
 from fontTools.ttLib.tables import (
 	_a_n_k_r as _a_n_k_r, _a_v_a_r as _a_v_a_r, _b_s_l_n as _b_s_l_n, _c_i_d_g as _c_i_d_g, _c_m_a_p as _c_m_a_p,
@@ -754,3 +751,4 @@ def maxPowerOfTwo(x: int) -> int:
     """
 def getSearchRange(n: int, itemSize: int = 16) -> tuple[int, int, int]:
     """Calculate searchRange, entrySelector, rangeShift."""
+

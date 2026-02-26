@@ -1,7 +1,5 @@
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools.misc import sstruct as sstruct
-from fontTools.misc.textTools import safeEval as safeEval
 from fontTools.ttLib import TTFont
 
 Gloc_header: str
@@ -25,3 +23,4 @@ class table_G__l_o_c(DefaultTable.DefaultTable):
     def __getitem__(self, index): ...
     def __len__(self) -> int: ...
     def __iter__(self): ...
+

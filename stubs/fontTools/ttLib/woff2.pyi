@@ -1,6 +1,4 @@
 from _typeshed import Incomplete
-from fontTools.misc import sstruct as sstruct
-from fontTools.misc.arrayTools import calcIntBounds as calcIntBounds
 from fontTools.misc.textTools import (
 	bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, pad as pad, Tag as Tag)
 from fontTools.ttLib import (
@@ -318,3 +316,4 @@ def decompress(input_file, output_file) -> None:
     """
 def main(args=None) -> None:
     """Compress and decompress WOFF2 fonts"""
+

@@ -1,6 +1,11 @@
-import glyphsLib.classes as classes
-import glyphsLib.glyphdata as glyphdata
-from . import anchor_propagation as anchor_propagation, anchors as anchors, annotations as annotations, axes as axes, background_image as background_image, blue_values as blue_values, bracket_layers as bracket_layers, builders as builders, color_layers as color_layers, common as common, components as components, constants as constants, custom_params as custom_params, features as features, filters as filters, font as font, glyph as glyph, groups as groups, guidelines as guidelines, hints as hints, instances as instances, kerning as kerning, layers as layers, masters as masters, names as names, paths as paths, smart_components as smart_components, sources as sources, tokens as tokens, transformations as transformations, user_data as user_data
+from . import (
+	anchor_propagation as anchor_propagation, anchors as anchors, annotations as annotations, axes as axes,
+	background_image as background_image, blue_values as blue_values, bracket_layers as bracket_layers,
+	builders as builders, color_layers as color_layers, common as common, components as components, constants as constants,
+	custom_params as custom_params, features as features, filters as filters, font as font, glyph as glyph,
+	groups as groups, guidelines as guidelines, hints as hints, instances as instances, kerning as kerning,
+	layers as layers, masters as masters, names as names, paths as paths, smart_components as smart_components,
+	sources as sources, tokens as tokens, transformations as transformations, user_data as user_data)
 from _typeshed import Incomplete
 from glyphsLib.builder.builders import GlyphsBuilder as GlyphsBuilder, UFOBuilder as UFOBuilder
 from types import ModuleType
@@ -67,7 +72,7 @@ def to_designspace(font, family_name: Incomplete | None = ..., instance_dir: Inc
     a pre-parsed GlyphData object that overrides the default one.
     """
 def preflight_glyphs(font, *, glyph_data: Incomplete | None = ..., **flags):
-    '''Run a set of transformations over a GSFont object to make
+    """Run a set of transformations over a GSFont object to make
     it easier to convert to UFO; resolve all the "smart stuff".
 
     Currently, the transformations are:
@@ -88,9 +93,10 @@ def preflight_glyphs(font, *, glyph_data: Incomplete | None = ..., **flags):
             named `do_<transformation_name>`, e.g. `do_propagate_all_anchors=False`
             will disable the propagation of anchors.
 
-    Returns:
+    Returns
+    -------
         the modified GSFont object
-    '''
+    """
 def to_glyphs(ufos_or_designspace, glyphs_module: ModuleType = ..., ufo_module: Incomplete | None = ..., minimize_ufo_diffs: bool = ..., expand_includes: bool = ...):
     """
     Take a list of UFOs or a single DesignspaceDocument with attached UFOs
@@ -103,3 +109,4 @@ def to_glyphs(ufos_or_designspace, glyphs_module: ModuleType = ..., ufo_module: 
     so we should have to_glyphs(to_ufos(font)) == font
     and also to_glyphs(to_designspace(font)) == font
     """
+

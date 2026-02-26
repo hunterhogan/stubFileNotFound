@@ -1,6 +1,4 @@
 from . import DefaultTable as DefaultTable
-from fontTools.misc import sstruct as sstruct
-from fontTools.misc.textTools import safeEval as safeEval
 from fontTools.misc.timeTools import timestampFromString as timestampFromString, timestampToString as timestampToString
 from fontTools.ttLib import TTFont
 
@@ -21,3 +19,4 @@ class table_F_F_T_M_(DefaultTable.DefaultTable):
     def compile(self, ttFont: TTFont): ...
     def toXML(self, writer, ttFont: TTFont) -> None: ...
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
+

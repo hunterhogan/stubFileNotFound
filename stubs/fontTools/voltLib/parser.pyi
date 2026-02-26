@@ -1,6 +1,4 @@
 from _typeshed import Incomplete
-from fontTools.voltLib.error import VoltLibError as VoltLibError
-from fontTools.voltLib.lexer import Lexer as Lexer
 
 PARSE_FUNCS: Incomplete
 
@@ -62,3 +60,4 @@ class OrderedSymbolTable(SymbolTable):
     def enter_scope(self) -> None: ...
     def resolve(self, name, case_insensitive: bool = False) -> None: ...
     def range(self, start, end): ...
+

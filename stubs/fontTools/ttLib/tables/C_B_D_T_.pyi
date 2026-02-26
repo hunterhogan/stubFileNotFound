@@ -6,8 +6,6 @@ from .E_B_D_T_ import (
 	BitmapGlyph as BitmapGlyph, BitmapPlusBigMetricsMixin as BitmapPlusBigMetricsMixin,
 	BitmapPlusSmallMetricsMixin as BitmapPlusSmallMetricsMixin)
 from _typeshed import Incomplete
-from fontTools.misc import sstruct as sstruct
-from fontTools.misc.textTools import bytesjoin as bytesjoin
 from fontTools.ttLib import TTFont
 
 class table_C_B_D_T_(E_B_D_T_.table_E_B_D_T_):
@@ -48,3 +46,4 @@ class cbdt_bitmap_format_19(ColorBitmapGlyph):
     def compile(self, ttFont: TTFont): ...
 
 cbdt_bitmap_classes: Incomplete
+

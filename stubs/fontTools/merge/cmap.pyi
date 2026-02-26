@@ -1,6 +1,4 @@
 from _typeshed import Incomplete
-from fontTools.merge.unicode import is_Default_Ignorable as is_Default_Ignorable
-from fontTools.pens.recordingPen import DecomposingRecordingPen as DecomposingRecordingPen
 
 log: Incomplete
 
@@ -21,3 +19,4 @@ def computeMegaCmap(merger, cmapTables) -> None:
     """Sets merger.cmap and merger.uvsDict."""
 def renameCFFCharStrings(merger, glyphOrder, cffTable) -> None:
     """Rename topDictIndex charStrings based on glyphOrder."""
+

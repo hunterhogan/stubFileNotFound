@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from collections.abc import MutableMapping
-from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import bytesjoin as bytesjoin, tostr as tostr
 
 class ResourceError(Exception): ...
@@ -90,3 +89,4 @@ ResourceTypeItem: str
 ResourceTypeItemSize: Incomplete
 ResourceRefItem: str
 ResourceRefItemSize: Incomplete
+

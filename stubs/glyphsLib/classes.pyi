@@ -1,14 +1,15 @@
+from _typeshed import Incomplete
+from collections.abc import Callable
+from fontTools.pens.basePen import AbstractPen
+from fontTools.pens.pointPen import AbstractPointPen
+from typing import ClassVar
 import collections
 import enum
 import glyphsLib.types
 import os
-import re
-from _typeshed import Incomplete
-from fontTools.pens.basePen import AbstractPen
-from fontTools.pens.pointPen import AbstractPointPen
-from typing import Callable, ClassVar
+import re as regex
 
-__all__ = ['Glyphs', 'GSFont', 'GSFontMaster', 'GSAlignmentZone', 'GSInstance', 'GSCustomParameter', 'GSClass', 'GSFeaturePrefix', 'GSFeature', 'GSGlyph', 'GSLayer', 'GSAnchor', 'GSComponent', 'GSSmartComponentAxis', 'GSPath', 'GSNode', 'GSGuide', 'GSAnnotation', 'GSHint', 'GSBackgroundImage', '__all__', 'MOVE', 'LINE', 'CURVE', 'QCURVE', 'OFFCURVE', 'GSMOVE', 'GSLINE', 'GSCURVE', 'GSOFFCURVE', 'GSSHARP', 'GSSMOOTH', 'TAG', 'TOPGHOST', 'STEM', 'BOTTOMGHOST', 'TTANCHOR', 'TTSTEM', 'TTALIGN', 'TTINTERPOLATE', 'TTDIAGONAL', 'TTDELTA', 'CORNER', 'CAP', 'TTDONTROUND', 'TTROUND', 'TTROUNDUP', 'TTROUNDDOWN', 'TRIPLE', 'TEXT', 'ARROW', 'CIRCLE', 'PLUS', 'MINUS', 'LTR', 'RTL', 'LTRTTB', 'RTLTTB', 'GSTopLeft', 'GSTopCenter', 'GSTopRight', 'GSCenterLeft', 'GSCenterCenter', 'GSCenterRight', 'GSBottomLeft', 'GSBottomCenter', 'GSBottomRight', 'WEIGHT_CODES', 'WIDTH_CODES']
+__all__ = ['ARROW', 'BOTTOMGHOST', 'CAP', 'CIRCLE', 'CORNER', 'CURVE', 'GSCURVE', 'GSLINE', 'GSMOVE', 'GSOFFCURVE', 'GSSHARP', 'GSSMOOTH', 'LINE', 'LTR', 'LTRTTB', 'MINUS', 'MOVE', 'OFFCURVE', 'PLUS', 'QCURVE', 'RTL', 'RTLTTB', 'STEM', 'TAG', 'TEXT', 'TOPGHOST', 'TRIPLE', 'TTALIGN', 'TTANCHOR', 'TTDELTA', 'TTDIAGONAL', 'TTDONTROUND', 'TTINTERPOLATE', 'TTROUND', 'TTROUNDDOWN', 'TTROUNDUP', 'TTSTEM', 'WEIGHT_CODES', 'WIDTH_CODES', 'GSAlignmentZone', 'GSAnchor', 'GSAnnotation', 'GSBackgroundImage', 'GSBottomCenter', 'GSBottomLeft', 'GSBottomRight', 'GSCenterCenter', 'GSCenterLeft', 'GSCenterRight', 'GSClass', 'GSComponent', 'GSCustomParameter', 'GSFeature', 'GSFeaturePrefix', 'GSFont', 'GSFontMaster', 'GSGlyph', 'GSGuide', 'GSHint', 'GSInstance', 'GSLayer', 'GSNode', 'GSPath', 'GSSmartComponentAxis', 'GSTopCenter', 'GSTopLeft', 'GSTopRight', 'Glyphs', '__all__']
 
 GSSHARP: int
 GSSMOOTH: int
@@ -99,10 +100,12 @@ Glyphs: GSApplication
 class GSBase:
     """Represent the base class for all GS classes.
 
-    Attributes:
+    Attributes
+    ----------
         _defaultsForName (dict): Used to determine which values to serialize and which
             to imply by their absence.
     """
+
     _defaultsForName: ClassVar[dict] = ...
     def __setitem__(self, key, value) -> None: ...
     @classmethod
@@ -154,6 +157,7 @@ class FontFontMasterProxy(Proxy):
         for master in Font.masters:
         ...
     """
+
     def __getitem__(self, Key): ...
     def __setitem__(self, Key, FontMaster) -> None: ...
     def __delitem__(self, Key) -> None: ...
@@ -172,6 +176,7 @@ class FontGlyphsProxy(Proxy):
         for glyph in Font.glyphs:
         ...
     """
+
     def __getitem__(self, key): ...
     def __setitem__(self, key, glyph) -> None: ...
     def __delitem__(self, key) -> None: ...
@@ -401,11 +406,12 @@ class GSFontMaster(GSBase):
         Returns the source master to be used for glyph and kerning metrics.
 
         If linked metrics parameters are being used, the master is returned here,
-        otherwise None."""
+        otherwise None.
+        """
 
 class GSNode(GSBase):
-    _PLIST_VALUE_RE: ClassVar[re.Pattern] = ...
-    _ESCAPED_CHAR_RE: ClassVar[re.Pattern] = ...
+    _PLIST_VALUE_RE: ClassVar[regex.Pattern] = ...
+    _ESCAPED_CHAR_RE: ClassVar[regex.Pattern] = ...
     userData: Incomplete
     position: Incomplete
     name: Incomplete
@@ -420,7 +426,7 @@ class GSNode(GSBase):
     def plistValue(self, format_version: int = ...): ...
     @classmethod
     def read(cls, line):
-        '''Parse a Glyphs node string into a GSNode.
+        """Parse a Glyphs node string into a GSNode.
 
         The format of a Glyphs node string (`line`) is:
 
@@ -433,7 +439,7 @@ class GSNode(GSBase):
 
         WARNING: This method is HOT. It is called for every single node and can
         account for a significant portion of the file parsing time.
-        '''
+        """
     @classmethod
     def read_v3(cls, lst): ...
     def makeNodeFirst(self): ...
@@ -442,7 +448,8 @@ class GSNode(GSBase):
     def _encode_dict_as_string(value):
         """Takes the PLIST string of a dict, and returns the same string
         encoded such that it can be included in the string representation
-        of a GSNode."""
+        of a GSNode.
+        """
     @staticmethod
     def _unescape_char(m): ...
     @classmethod
@@ -732,8 +739,8 @@ class LayerComponentsProxy(LayerShapesProxy):
 
 class GSLayer(GSBase):
     _defaultsForName: ClassVar[dict] = ...
-    BRACKET_LAYER_RE: ClassVar[re.Pattern] = ...
-    COLOR_PALETTE_LAYER_RE: ClassVar[re.Pattern] = ...
+    BRACKET_LAYER_RE: ClassVar[regex.Pattern] = ...
+    COLOR_PALETTE_LAYER_RE: ClassVar[regex.Pattern] = ...
     layerId: Incomplete
     name: Incomplete
     anchors: Incomplete
@@ -754,10 +761,10 @@ class GSLayer(GSBase):
     def __init__(self) -> None: ...
     def __lt__(self, other) -> bool: ...
     def _find_node_by_indices(self, point):
-        '''"Find the GSNode that is refered to by the given indices.
+        """"Find the GSNode that is refered to by the given indices.
 
         See GSNode::_indices()
-        '''
+        """
     def getPen(self) -> AbstractPen:
         """Returns a pen for others to draw into self."""
     def getPointPen(self) -> AbstractPointPen:
@@ -797,13 +804,15 @@ class GSLayer(GSBase):
     @property
     def background(self):
         """Only a getter on purpose. See the tests.
-        Only a getter on purpose. See the tests."""
+        Only a getter on purpose. See the tests.
+        """
     @property
     def hasBackground(self): ...
     @property
     def foreground(self):
         """Forbidden, and also forbidden to set it.
-        Forbidden, and also forbidden to set it."""
+        Forbidden, and also forbidden to set it.
+        """
 
 class GSBackgroundLayer(GSLayer):
     width: Incomplete
@@ -857,7 +866,8 @@ class GSGlyph(GSBase):
     @property
     def id(self):
         """An unique identifier for each glyph
-        An unique identifier for each glyph"""
+        An unique identifier for each glyph
+        """
 
 class GSFont(GSBase):
     _defaultsForName: ClassVar[dict] = ...
@@ -929,3 +939,4 @@ class GSFont(GSBase):
     def gridLength(self): ...
     @property
     def settings(self): ...
+

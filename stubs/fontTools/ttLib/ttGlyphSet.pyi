@@ -2,16 +2,12 @@ from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from collections.abc import Generator, Iterator, Mapping
 from contextlib import contextmanager
-from fontTools.misc.fixedTools import otRound as otRound
-from fontTools.misc.loggingTools import deprecateFunction as deprecateFunction
 from fontTools.misc.transform import DecomposedTransform as DecomposedTransform, Transform as Transform
-from fontTools.misc.vector import Vector as Vector
 from fontTools.pens.basePen import BasePen as BasePen
 from fontTools.pens.recordingPen import (
 	DecomposingRecordingPen as DecomposingRecordingPen, lerpRecordings as lerpRecordings,
 	replayRecording as replayRecording)
 from fontTools.pens.transformPen import TransformPen as TransformPen, TransformPointPen as TransformPointPen
-from types import SimpleNamespace as SimpleNamespace
 import abc
 
 class _TTGlyphSet(Mapping[str, _TTGlyph], metaclass=abc.ABCMeta):
@@ -138,3 +134,4 @@ class LerpGlyph:
 	glyphname: Incomplete
 	def __init__(self, glyphname, glyphset) -> None: ...
 	def draw(self, pen: BasePen) -> None: ...
+

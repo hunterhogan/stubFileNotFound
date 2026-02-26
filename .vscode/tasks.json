@@ -8,7 +8,6 @@
             "command": "${workspaceFolder}\\.venv\\Scripts\\stubgen.exe",
             "args": [
                 "--ignore-errors",
-                "--include-private",
                 "--include-docstrings",
                 "--output", "stubs",
                 "--package", "${input:packageName}"
@@ -22,7 +21,6 @@
             "command": "${workspaceFolder}\\.venv\\Scripts\\stubgen.exe",
             "args": [
                 "--ignore-errors",
-                "--include-private",
                 "--include-docstrings",
                 "--output", "stubs",
                 "--inspect-mode",

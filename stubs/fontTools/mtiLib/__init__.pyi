@@ -1,11 +1,8 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 from contextlib import contextmanager
-from fontTools import ttLib as ttLib
 from fontTools.feaLib.lookupDebugInfo import (
 	LOOKUP_DEBUG_ENV_VAR as LOOKUP_DEBUG_ENV_VAR, LOOKUP_DEBUG_INFO_KEY as LOOKUP_DEBUG_INFO_KEY)
-from fontTools.ttLib import newTable as newTable
-from fontTools.ttLib.tables._c_m_a_p import cmap_classes as cmap_classes
 from fontTools.ttLib.tables.otBase import ValueRecord as ValueRecord, valueRecordFormatDict as valueRecordFormatDict
 
 class MtiLibError(Exception): ...
@@ -164,3 +161,4 @@ def main(args=None, font=None) -> None:
     Args:
             args: Command line arguments (``--font``, ``--table``, input files).
     """
+
