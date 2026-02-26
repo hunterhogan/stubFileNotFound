@@ -13,6 +13,7 @@ addslotsrange
 ADDSLOTSRANGE
 addsource
 adjlist
+afdko
 afont
 aggfunc
 aggregateplan
@@ -24,6 +25,7 @@ aliasdel
 ALIASDEL
 aliasupdate
 ALIASUPDATE
+aligment
 anotherthing
 antialiasing
 antichain
@@ -85,6 +87,7 @@ Bitfield
 bitpos
 blosc
 boolalg
+BOTTOMGHOST
 boxstyle
 bpsw
 BPSW
@@ -290,7 +293,10 @@ Glat
 Gloc
 glyf
 Glyf
+glyphname
 glyphset
+glyphslib
+glyphspackage
 gmap
 gmpy
 GMPY
@@ -300,6 +306,12 @@ grandom
 gridsize
 groupid
 groupwise
+GSCURVE
+GSLINE
+GSMOVE
+GSOFFCURVE
+GSSHARP
+GSSMOOTH
 GSUB
 gufunc
 gufuncs
@@ -331,6 +343,7 @@ impliable
 incrby
 INCRBY
 inde
+infered
 infile
 infty
 initbydim
@@ -343,6 +356,7 @@ INSERTNX
 Instancer
 interp
 interpolatable
+INTLIST
 intp
 inuse
 IOHDF
@@ -422,6 +436,7 @@ lsplit
 lsuffix
 lsums
 ltag
+LTRTTB
 LTSH
 Luby
 lucasu
@@ -444,6 +459,7 @@ MAXTEXTFIELDS
 meijerg
 memoryviews
 mergesort
+metricname
 mexists
 MEXISTS
 milli
@@ -539,6 +555,7 @@ objlen
 OBJLEN
 ocsp
 odfpy
+OFFCURVE
 oncurves
 onoffseq
 opbd
@@ -580,6 +597,7 @@ pythonversion
 pytimedelta
 pytype
 pyxlsb
+QCURVE
 qcut
 qdiv
 queryables
@@ -599,6 +617,7 @@ redisearch
 redisjson
 redismodules
 rediss
+refered
 relativedelta
 reldiff
 remquo
@@ -625,6 +644,7 @@ rownames
 rpartial
 rrandomb
 rsuffix
+RTLTTB
 Ruskey
 Saliola
 samplerate
@@ -736,6 +756,7 @@ Timelike
 timespec
 tobag
 toperators
+TOPGHOST
 topkincrby
 topo
 tostr
@@ -753,10 +774,20 @@ TSIP
 TSIS
 TSIV
 tslibs
+TTALIGN
+TTANCHOR
+TTDELTA
+TTDIAGONAL
+TTDONTROUND
 TTFA
 ttfautohint
 ttfs
+TTINTERPOLATE
 ttips
+TTROUND
+TTROUNDDOWN
+TTROUNDUP
+TTSTEM
 tupleize
 typeshedpath
 typingctx

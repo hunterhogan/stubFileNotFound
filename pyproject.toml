@@ -49,6 +49,7 @@ optional-dependencies = { fuckingPandas = [
   "afdko",
   "fontmake[all]",
   "gftools",
+  "glyphsLib[colr,ufo-normalization]",
   "resampy",
 ] }
 
