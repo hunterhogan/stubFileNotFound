@@ -1,11 +1,12 @@
 from _typeshed import Incomplete
 from dataclasses import dataclass
-from typing import NamedTuple
+from typing import NamedTuple, Self
 
 __all__ = ['DecomposedTransform', 'Identity', 'Offset', 'Scale', 'Transform']
 
 class Transform(NamedTuple):
-    """2x2 transformation matrix plus offset, a.k.a. Affine transform.
+    r"""2x2 transformation matrix plus offset, a.k.a. Affine transform.
+
     Transform instances are immutable: all transforming methods, eg.
     rotate(), return a new Transform instance.
 
@@ -137,8 +138,10 @@ class Transform(NamedTuple):
                 <Transform [1 0 0 1 20 30]>
                 >>>
         """
-    def scale(self, x: float = 1, y: float | None = None):
-        """Return a new transformation, scaled by x, y. The 'y' argument
+    def scale(self, x: float = 1, y: float | None = None) -> Transform:
+        """Return a new transformation, scaled by x, y.
+
+        The 'y' argument
         may be None, which implies to use the x value for y as well.
 
         :Example:
@@ -169,9 +172,8 @@ class Transform(NamedTuple):
                 <Transform [1 0 1 1 0 0]>
                 >>>
         """
-    def transform(self, other):
-        """Return a new transformation, transformed by another
-        transformation.
+    def transform(self, other: Transform) -> Self:
+        """Return a new transformation, transformed by another transformation.
 
         :Example:
                 >>> t = Transform(2, 0, 0, 3, 1, 6)

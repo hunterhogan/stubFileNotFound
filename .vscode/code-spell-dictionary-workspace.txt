@@ -69,6 +69,7 @@ autohinted
 AUTOHINTING
 autosizes
 axvlines
+backgound
 backslashreplace
 Baillie
 bcast
@@ -197,6 +198,7 @@ ddof
 Debg
 Decorrelated
 dedupe
+defcon
 DELETERULE
 delslots
 DELSLOTS
@@ -290,9 +292,12 @@ getnewargs
 gftools
 gids
 Glat
+glif
 Gloc
 glyf
 Glyf
+glyphdata
+GLYPHLIB
 glyphname
 glyphset
 glyphslib
@@ -368,6 +373,7 @@ isneginf
 isposinf
 ISSN
 itemsize
+jany
 Jayme
 Jezek
 Jipsen
@@ -651,6 +657,7 @@ samplerate
 sbix
 scandump
 SCANDUMP
+schriftgestaltung
 scrollback
 sctype
 SDOWN
