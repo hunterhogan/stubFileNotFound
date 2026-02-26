@@ -1,5 +1,9 @@
-from .axes import font_uses_axis_locations as font_uses_axis_locations, get_axis_definitions as get_axis_definitions
-from .constants import GLYPHS_PREFIX as GLYPHS_PREFIX, MASTER_ID_LIB_KEY as MASTER_ID_LIB_KEY, UFO_FILENAME_CUSTOM_PARAM as UFO_FILENAME_CUSTOM_PARAM, UFO_NOTE_KEY as UFO_NOTE_KEY, UFO_YEAR_KEY as UFO_YEAR_KEY
+from glyphsLib.builder.axes import font_uses_axis_locations as font_uses_axis_locations, get_axis_definitions as get_axis_definitions
 
-def to_ufo_master_attributes(self, ufo, master) -> None: ...
-def to_glyphs_master_attributes(self, source, master) -> None: ...
+GLYPHS_PREFIX: str
+MASTER_ID_LIB_KEY: str
+UFO_YEAR_KEY: str
+UFO_NOTE_KEY: str
+UFO_FILENAME_CUSTOM_PARAM: str
+def to_ufo_master_attributes(self, ufo, master): ...
+def to_glyphs_master_attributes(self, source, master): ...

@@ -1,9 +1,6 @@
-from _typeshed import Incomplete
 from glyphsLib.util import cast_to_number_or_bool as cast_to_number_or_bool, reverse_cast_to_number_or_bool as reverse_cast_to_number_or_bool
 
-logger: Incomplete
-
-def parse_glyphs_filter(filter_str, is_pre: bool = False):
+def parse_glyphs_filter(filter_str, is_pre: bool = ...):
     """Parses glyphs custom filter string into a dict object that
     ufo2ft can consume.
 

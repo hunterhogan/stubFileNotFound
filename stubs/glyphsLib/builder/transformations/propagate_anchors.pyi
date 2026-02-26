@@ -1,25 +1,22 @@
-from _typeshed import Incomplete
+import glyphdata as glyphdata
 from fontTools.misc.transform import Transform
-from glyphsLib import glyphdata as glyphdata
-from glyphsLib.classes import GSAnchor as GSAnchor, GSComponent as GSComponent, GSFont as GSFont, GSGlyph as GSGlyph, GSLayer as GSLayer
+from glyphsLib.classes import GSAnchor as GSAnchor
 from glyphsLib.types import Point as Point
-from typing import Iterable
 
-logger: Incomplete
-
-def propagate_all_anchors(font: GSFont, *, glyph_data: glyphdata.GlyphData | None = None) -> None:
+TYPE_CHECKING: bool
+def propagate_all_anchors(font: GSFont, *, glyph_data: glyphdata.GlyphData | None = ...) -> None:
     """Copy anchors from component glyphs into their including composites.
 
     If a custom `glyph_data` is provided, it will be used to override the
     category and subCategory of glyphs.
     """
-def propagate_all_anchors_impl(glyphs: dict[str, GSGlyph], *, glyph_data: glyphdata.GlyphData | None = None) -> None: ...
+def propagate_all_anchors_impl(glyphs: dict[str, GSGlyph], *, glyph_data: glyphdata.GlyphData | None = ...) -> None: ...
 def maybe_log_new_anchors(anchors: list[GSAnchor], glyph: GSGlyph, layer: GSLayer) -> None: ...
 def _interesting_layers(glyph): ...
 def _has_components(glyph: GSGlyph) -> bool: ...
-def _get_category(glyph: GSGlyph, glyph_data: glyphdata.GlyphData | None = None) -> str: ...
-def _get_subCategory(glyph: GSGlyph, glyph_data: glyphdata.GlyphData | None = None) -> str: ...
-def anchors_traversing_components(glyph: GSGlyph, layer: GSLayer, glyphs: dict[str, GSGlyph], done_anchors: dict[str, dict[str, list[GSAnchor]]], base_glyph_counts: dict[tuple[str, str], int], glyph_data: glyphdata.GlyphData | None = None) -> list[GSAnchor]:
+def _get_category(glyph: GSGlyph, glyph_data: glyphdata.GlyphData | None = ...) -> str: ...
+def _get_subCategory(glyph: GSGlyph, glyph_data: glyphdata.GlyphData | None = ...) -> str: ...
+def anchors_traversing_components(glyph: GSGlyph, layer: GSLayer, glyphs: dict[str, GSGlyph], done_anchors: dict[str, dict[str, list[GSAnchor]]], base_glyph_counts: dict[tuple[str, str], int], glyph_data: glyphdata.GlyphData | None = ...) -> list[GSAnchor]:
     '''Return the anchors for this glyph, including anchors from components
 
     This function is a reimplmentation of a similarly named function in glyphs.app.

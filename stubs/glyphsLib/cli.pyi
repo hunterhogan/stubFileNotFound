@@ -1,5 +1,8 @@
-def main(args=None): ...
-def glyphs2ufo(options) -> None:
+import glyphsLib as glyphsLib
+from _typeshed import Incomplete
+
+def main(args: Incomplete | None = ...): ...
+def glyphs2ufo(options):
     """Converts a Glyphs.app source file into UFO masters and a designspace file."""
 def _glyphs2ufo_entry_point():
     """Provides entry point for a script to keep argparsing in main()."""

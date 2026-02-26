@@ -1,7 +1,6 @@
 from glyphsLib.types import parse_datetime as parse_datetime
 
 UFO_FORMAT: str
-
 def to_ufo_time(datetime_obj):
     """Format a datetime object as specified for UFOs."""
 def from_ufo_time(string):

@@ -1,14 +1,13 @@
-from .constants import COMPONENT_INFO_KEY as COMPONENT_INFO_KEY
-
-def to_ufo_propagate_font_anchors(self, ufo) -> None:
+COMPONENT_INFO_KEY: str
+def to_ufo_propagate_font_anchors(self, ufo):
     """Copy anchors from parent glyphs' components to the parent."""
-def _propagate_glyph_anchors(self, ufo, parent, processed) -> None:
+def _propagate_glyph_anchors(self, ufo, parent, processed):
     """Propagate anchors for a single parent glyph."""
-def _get_anchor_data(anchor_data, ufo, components, anchor_name) -> None:
+def _get_anchor_data(anchor_data, ufo, components, anchor_name):
     """Get data for an anchor from a list of components."""
 def _componentAnchorFromLib(_glyph, _targetComponent):
     """Pull component’s named anchor from Glyph.lib"""
-def _adjust_anchors(anchor_data, ufo, parent, component) -> None:
+def _adjust_anchors(anchor_data, ufo, parent, component):
     """Adjust anchors to which a mark component may have been attached."""
 def _is_ligature_mark(glyph): ...
 def _component_closest_to_origin(components, glyph_set):
