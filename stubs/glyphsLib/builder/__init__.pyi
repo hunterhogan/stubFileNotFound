@@ -46,7 +46,7 @@ def to_ufos(font: GSFont, include_instances: bool = ..., family_name: str | None
     The optional glyph_data parameter takes a list of GlyphData.xml paths or
     a pre-parsed GlyphData object that overrides the default one.
     """
-def to_designspace(font: GSFont, family_name: Incomplete | None = ..., instance_dir: Incomplete | None = ..., propagate_anchors: Incomplete | None = ..., ufo_module: Incomplete | None = ..., minimize_glyphs_diffs: bool = ..., generate_GDEF: bool = ..., store_editor_state: bool = ..., write_skipexportglyphs: bool = ..., expand_includes: bool = ..., minimal: bool = ..., glyph_data: Incomplete | None = ..., preserve_original: bool = ...):  # noqa: F811
+def to_designspace(font: GSFont, family_name: Incomplete | None = ..., instance_dir: Incomplete | None = ..., propagate_anchors: Incomplete | None = ..., ufo_module: Incomplete | None = ..., minimize_glyphs_diffs: bool = ..., generate_GDEF: bool = ..., store_editor_state: bool = ..., write_skipexportglyphs: bool = ..., expand_includes: bool = ..., minimal: bool = ..., glyph_data: Incomplete | None = ..., preserve_original: bool = ...) -> tuple[DesignSpaceDocument, list[Font]]:  # noqa: F811
     """Take a GSFont object and convert it into a Designspace Document + UFOS.
     The UFOs are available as the attribute `font` of each SourceDescriptor of
     the DesignspaceDocument:
