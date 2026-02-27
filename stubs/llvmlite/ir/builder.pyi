@@ -15,6 +15,7 @@ def _triop_intrinsic(opname): ...
 def _castop(opname, cls=...): ...
 def _label_suffix(label, suffix):
     """Returns (label + suffix) or a truncated version if it's too long.
+
     Parameters
     ----------
     label : str
@@ -404,16 +405,16 @@ class IRBuilder:
         Inline assembler.
         """
     def load_reg(self, reg_type, reg_name, name: str = ''):
-        '''
+        """
         Load a register value into an LLVM value.
           Example: v = load_reg(IntType(32), "eax")
-        '''
+        """
     def store_reg(self, value, reg_type, reg_name, name: str = ''):
-        '''
+        """
         Store an LLVM value inside a register
         Example:
           store_reg(Constant(IntType(32), 0xAAAAAAAA), IntType(32), "eax")
-        '''
+        """
     def invoke(self, fn, args, normal_to, unwind_to, name: str = '', cconv: Incomplete | None = None, fastmath=(), attrs=(), arg_attrs: Incomplete | None = None): ...
     def gep(self, ptr, indices, inbounds: bool = False, name: str = '', source_etype: Incomplete | None = None):
         """

@@ -2,7 +2,7 @@ from enum import Enum
 from matplotlib import _docstring as _docstring
 
 class JoinStyle(str, Enum):
-    '''
+    """
     Define how the connection between two line segments is drawn.
 
     For a visual impression of each *JoinStyle*, `view these docs online
@@ -54,7 +54,8 @@ class JoinStyle(str, Enum):
         from matplotlib._enums import JoinStyle
         JoinStyle.demo()
 
-    '''
+    """
+
     miter = 'miter'
     round = 'round'
     bevel = 'bevel'
@@ -97,6 +98,7 @@ class CapStyle(str, Enum):
         CapStyle.demo()
 
     """
+
     butt = 'butt'
     projecting = 'projecting'
     round = 'round'

@@ -1,6 +1,11 @@
-from .rv import cdf as cdf, characteristic_function as characteristic_function, density as density, dependent as dependent, expectation, given as given, independent as independent, moment_generating_function as moment_generating_function, probability, pspace as pspace, quantile as quantile, random_symbols as random_symbols, sample as sample, sample_iter as sample_iter, sample_stochastic_process as sample_stochastic_process, sampling_density as sampling_density, where as where
+from .rv import (
+	cdf as cdf, characteristic_function as characteristic_function, density as density, dependent as dependent,
+	expectation, given as given, independent as independent, moment_generating_function as moment_generating_function,
+	probability, pspace as pspace, quantile as quantile, random_symbols as random_symbols, sample as sample,
+	sample_iter as sample_iter, sample_stochastic_process as sample_stochastic_process,
+	sampling_density as sampling_density, where as where)
 
-__all__ = ['P', 'E', 'H', 'density', 'where', 'given', 'sample', 'cdf', 'characteristic_function', 'pspace', 'sample_iter', 'variance', 'std', 'skewness', 'kurtosis', 'covariance', 'dependent', 'entropy', 'median', 'independent', 'random_symbols', 'correlation', 'factorial_moment', 'moment', 'cmoment', 'sampling_density', 'moment_generating_function', 'smoment', 'quantile', 'sample_stochastic_process']
+__all__ = ['E', 'H', 'P', 'cdf', 'characteristic_function', 'cmoment', 'correlation', 'covariance', 'density', 'dependent', 'entropy', 'factorial_moment', 'given', 'independent', 'kurtosis', 'median', 'moment', 'moment_generating_function', 'pspace', 'quantile', 'random_symbols', 'sample', 'sample_iter', 'sample_stochastic_process', 'sampling_density', 'skewness', 'smoment', 'std', 'variance', 'where']
 
 def moment(X, n, c: int = 0, condition=None, *, evaluate: bool = True, **kwargs):
     """
@@ -12,8 +17,7 @@ def moment(X, n, c: int = 0, condition=None, *, evaluate: bool = True, **kwargs)
     Default value of c is 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Die, moment, E
     >>> X = Die('X', 6)
     >>> moment(X, 1, 6)
@@ -31,8 +35,7 @@ def variance(X, condition=None, **kwargs):
         variance(X) = E((X-E(X))^{2})
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Die, Bernoulli, variance
     >>> from sympy import simplify, Symbol
 
@@ -53,21 +56,18 @@ def entropy(expr, condition=None, **kwargs):
     Calculates entropy of a probability distribution.
 
     Parameters
-    ==========
-
+    ----------
     expression : the random expression whose entropy is to be calculated
     condition : optional, to specify conditions on random expression
     b: base of the logarithm, optional
        By default, it is taken as Euler's number
 
     Returns
-    =======
-
+    -------
     result : Entropy of the expression, a constant
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Normal, Die, entropy
     >>> X = Normal('X', 0, 1)
     >>> entropy(X)
@@ -78,7 +78,7 @@ def entropy(expr, condition=None, **kwargs):
     log(4)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Entropy_%28information_theory%29
     .. [2] https://www.crmarsh.com/static/pdf/Charles_Marsh_Continuous_Entropy.pdf
@@ -97,8 +97,7 @@ def covariance(X, Y, condition=None, **kwargs):
         covariance(X,Y) = E((X-E(X)) (Y-E(Y)))
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Exponential, covariance
     >>> from sympy import Symbol
 
@@ -128,8 +127,7 @@ def correlation(X, Y, condition=None, **kwargs):
         correlation(X,Y) = E((X-E(X))(Y-E(Y)) / (\\sigma_x  \\sigma_y))
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Exponential, correlation
     >>> from sympy import Symbol
 
@@ -152,8 +150,7 @@ def cmoment(X, n, condition=None, *, evaluate: bool = True, **kwargs):
         cmoment(X, n) = E((X - E(X))^{n})
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Die, cmoment, variance
     >>> X = Die('X', 6)
     >>> cmoment(X, 3)
@@ -171,8 +168,7 @@ def smoment(X, n, condition=None, **kwargs):
         smoment(X, n) = E(((X - \\mu)/\\sigma_X)^{n})
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import skewness, Exponential, smoment
     >>> from sympy import Symbol
     >>> rate = Symbol('lambda', positive=True, real=True)
@@ -198,14 +194,12 @@ def skewness(X, condition=None, **kwargs):
         skewness(X) = E(((X - E(X))/\\sigma_X)^{3})
 
     Parameters
-    ==========
-
+    ----------
     condition : Expr containing RandomSymbols
             A conditional expression. skewness(X, X>0) is skewness of X given X > 0
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import skewness, Exponential, Normal
     >>> from sympy import Symbol
     >>> X = Normal('X', 0, 1)
@@ -234,14 +228,12 @@ def kurtosis(X, condition=None, **kwargs):
         kurtosis(X) = E(((X - E(X))/\\sigma_X)^{4})
 
     Parameters
-    ==========
-
+    ----------
     condition : Expr containing RandomSymbols
             A conditional expression. kurtosis(X, X>0) is kurtosis of X given X > 0
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import kurtosis, Exponential, Normal
     >>> from sympy import Symbol
     >>> X = Normal('X', 0, 1)
@@ -256,7 +248,7 @@ def kurtosis(X, condition=None, **kwargs):
     9
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Kurtosis
     .. [2] https://mathworld.wolfram.com/Kurtosis.html
@@ -270,16 +262,14 @@ def factorial_moment(X, n, condition=None, **kwargs):
         factorial-moment(X, n) = E(X(X - 1)(X - 2)...(X - n + 1))
 
     Parameters
-    ==========
-
+    ----------
     n: A natural number, n-th factorial moment.
 
     condition : Expr containing RandomSymbols
             A conditional expression.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import factorial_moment, Poisson, Binomial
     >>> from sympy import Symbol, S
     >>> lamda = Symbol('lamda')
@@ -293,7 +283,7 @@ def factorial_moment(X, n, condition=None, **kwargs):
     2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Factorial_moment
     .. [2] https://mathworld.wolfram.com/FactorialMoment.html
@@ -312,19 +302,16 @@ def median(X, evaluate: bool = True, **kwargs):
         P(X\\leq m) \\geq  \\frac{1}{2} \\text{ and} \\text{ } P(X\\geq m)\\geq \\frac{1}{2}
 
     Parameters
-    ==========
-
+    ----------
     X: The random expression whose median is to be calculated.
 
     Returns
-    =======
-
+    -------
     The FiniteSet or an Interval which contains the median of the
     random expression.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Normal, Die, median
     >>> N = Normal('N', 3, 1)
     >>> median(N)
@@ -334,7 +321,7 @@ def median(X, evaluate: bool = True, **kwargs):
     {3, 4}
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Median#Probability_distributions
 

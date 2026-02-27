@@ -1,4 +1,5 @@
-from ._color_data import BASE_COLORS as BASE_COLORS, CSS4_COLORS as CSS4_COLORS, TABLEAU_COLORS as TABLEAU_COLORS, XKCD_COLORS as XKCD_COLORS
+from ._color_data import (
+	BASE_COLORS as BASE_COLORS, CSS4_COLORS as CSS4_COLORS, TABLEAU_COLORS as TABLEAU_COLORS, XKCD_COLORS as XKCD_COLORS)
 from _typeshed import Incomplete
 from collections.abc import Mapping
 from matplotlib import _api as _api, _cm as _cm, _image as _image, cbook as cbook, scale as scale
@@ -38,13 +39,13 @@ class ColorSequenceRegistry(Mapping):
 
         mpl.color_sequences.register('rgb', ['r', 'g', 'b'])
     """
+
     _BUILTIN_COLOR_SEQUENCES: Incomplete
     _color_sequences: Incomplete
     def __init__(self) -> None: ...
     def __getitem__(self, item): ...
     def __iter__(self): ...
     def __len__(self) -> int: ...
-    def __str__(self) -> str: ...
     def register(self, name, color_list) -> None:
         """
         Register a new color sequence.
@@ -97,7 +98,7 @@ def same_color(c1, c2):
     *c1*, *c2* can be single colors or lists/arrays of colors.
     """
 def to_rgba(c, alpha: Incomplete | None = None):
-    '''
+    """
     Convert *c* to an RGBA color.
 
     Parameters
@@ -119,9 +120,9 @@ def to_rgba(c, alpha: Incomplete | None = None):
     tuple
         Tuple of floats ``(r, g, b, a)``, where each channel (red, green, blue,
         alpha) can assume values between 0 and 1.
-    '''
+    """
 def _to_rgba_no_colorcycle(c, alpha: Incomplete | None = None):
-    '''
+    """
     Convert *c* to an RGBA color, with no support for color-cycle syntax.
 
     If *alpha* is given, force the alpha value of the returned RGBA tuple
@@ -130,9 +131,9 @@ def _to_rgba_no_colorcycle(c, alpha: Incomplete | None = None):
 
     *alpha* is ignored for the color value ``"none"`` (case-insensitive),
     which always maps to ``(0, 0, 0, 0)``.
-    '''
+    """
 def to_rgba_array(c, alpha: Incomplete | None = None):
-    '''
+    """
     Convert *c* to a (n, 4) array of RGBA colors.
 
     Parameters
@@ -159,7 +160,7 @@ def to_rgba_array(c, alpha: Incomplete | None = None):
     array
         (n, 4) array of RGBA colors,  where each channel (red, green, blue,
         alpha) can assume values between 0 and 1.
-    '''
+    """
 def to_rgb(c):
     """Convert *c* to an RGB color, silently dropping the alpha channel."""
 def to_hex(c, keep_alpha: bool = False):
@@ -189,6 +190,7 @@ class ColorConverter:
 
     Its functionality is entirely provided by module-level functions.
     """
+
     colors = _colors_full_map
     cache: Incomplete
     to_rgb: Incomplete
@@ -267,6 +269,7 @@ class Colormap:
     make heavy use of this ``data -> normalize -> map-to-color`` processing
     chain.
     """
+
     name: Incomplete
     N: Incomplete
     _rgba_bad: Incomplete
@@ -368,7 +371,7 @@ class Colormap:
     def resampled(self, lutsize):
         """Return a new colormap with *lutsize* entries."""
     def reversed(self, name: Incomplete | None = None) -> None:
-        '''
+        """
         Return a reversed instance of the Colormap.
 
         .. note:: This function is not implemented for the base class.
@@ -383,7 +386,7 @@ class Colormap:
         --------
         LinearSegmentedColormap.reversed
         ListedColormap.reversed
-        '''
+        """
     def _repr_png_(self):
         """Generate a PNG representation of the Colormap."""
     def _repr_html_(self):
@@ -399,6 +402,7 @@ class LinearSegmentedColormap(Colormap):
     primary color, with the 0-1 domain divided into any number of
     segments.
     """
+
     monochrome: bool
     _segmentdata: Incomplete
     _gamma: Incomplete
@@ -475,7 +479,7 @@ class LinearSegmentedColormap(Colormap):
     @staticmethod
     def _reverser(func, x): ...
     def reversed(self, name: Incomplete | None = None):
-        '''
+        """
         Return a reversed instance of the Colormap.
 
         Parameters
@@ -488,7 +492,7 @@ class LinearSegmentedColormap(Colormap):
         -------
         LinearSegmentedColormap
             The reversed colormap.
-        '''
+        """
 
 class ListedColormap(Colormap):
     """
@@ -518,6 +522,7 @@ class ListedColormap(Colormap):
 
         the list will be extended by repetition.
     """
+
     monochrome: bool
     colors: Incomplete
     def __init__(self, colors, name: str = 'from_list', N: Incomplete | None = None) -> None: ...
@@ -527,7 +532,7 @@ class ListedColormap(Colormap):
     def resampled(self, lutsize):
         """Return a new colormap with *lutsize* entries."""
     def reversed(self, name: Incomplete | None = None):
-        '''
+        """
         Return a reversed instance of the Colormap.
 
         Parameters
@@ -540,13 +545,14 @@ class ListedColormap(Colormap):
         -------
         ListedColormap
             A reversed instance of the colormap.
-        '''
+        """
 
 class MultivarColormap:
     """
     Class for holding multiple `~matplotlib.colors.Colormap` for use in a
     `~matplotlib.cm.ScalarMappable` object
     """
+
     name: Incomplete
     _colormaps: Incomplete
     _combination_mode: Incomplete
@@ -603,7 +609,6 @@ class MultivarColormap:
     def __getitem__(self, item): ...
     def __iter__(self): ...
     def __len__(self) -> int: ...
-    def __str__(self) -> str: ...
     def get_bad(self):
         """Get the color for masked values."""
     def resampled(self, lutshape):
@@ -663,6 +668,7 @@ class BivarColormap:
     Designed as a drop-in replacement for Colormap when using a 2D
     lookup table. To be used with `~matplotlib.cm.ScalarMappable`.
     """
+
     name: Incomplete
     N: Incomplete
     M: Incomplete
@@ -878,6 +884,7 @@ class SegmentedBivarColormap(BivarColormap):
     name : str, optional
         The name of the colormap.
     """
+
     patch: Incomplete
     def __init__(self, patch, N: int = 256, shape: str = 'square', origin=(0, 0), name: str = 'segmented bivariate colormap') -> None: ...
     _lut: Incomplete
@@ -910,6 +917,7 @@ class BivarColormapFromImage(BivarColormap):
         The name of the colormap.
 
     """
+
     _lut: Incomplete
     def __init__(self, lut, shape: str = 'square', origin=(0, 0), name: str = 'from image') -> None: ...
     _isinit: bool
@@ -936,6 +944,7 @@ class Normalize:
     --------
     :ref:`colormapnorms`
     """
+
     _vmin: Incomplete
     _vmax: Incomplete
     _clip: Incomplete
@@ -1279,6 +1288,7 @@ class SymLogNorm(Normalize):
         to one decade in the logarithmic range.
     base : float, default: 10
     """
+
     @property
     def linthresh(self): ...
     @linthresh.setter
@@ -1303,6 +1313,7 @@ class AsinhNorm(Normalize):
         The effective width of the linear region, beyond which
         the transformation becomes asymptotically logarithmic
     """
+
     @property
     def linear_width(self): ...
     @linear_width.setter
@@ -1344,6 +1355,7 @@ class PowerNorm(Normalize):
 
     For input values below *vmin*, gamma is set to one.
     """
+
     gamma: Incomplete
     def __init__(self, gamma, vmin: Incomplete | None = None, vmax: Incomplete | None = None, clip: bool = False) -> None: ...
     def __call__(self, value, clip: Incomplete | None = None): ...
@@ -1356,6 +1368,7 @@ class BoundaryNorm(Normalize):
     Unlike `Normalize` or `LogNorm`, `BoundaryNorm` maps values to integers
     instead of to the interval 0-1.
     """
+
     boundaries: Incomplete
     N: Incomplete
     Ncmap: Incomplete
@@ -1419,6 +1432,7 @@ class NoNorm(Normalize):
     Dummy replacement for `Normalize`, for the case where we want to use
     indices directly in a `~matplotlib.cm.ScalarMappable`.
     """
+
     def __call__(self, value, clip: Incomplete | None = None): ...
     def inverse(self, value): ...
 
@@ -1453,7 +1467,7 @@ def hsv_to_rgb(hsv):
 def _vector_magnitude(arr): ...
 
 class LightSource:
-    '''
+    """
     Create a light source coming from the specified azimuth and elevation.
     Angles are in degrees, with the azimuth measured
     clockwise from north and elevation up from the zero plane of the surface.
@@ -1461,7 +1475,8 @@ class LightSource:
     `shade` is used to produce "shaded" RGB values for a data array.
     `shade_rgb` can be used to combine an RGB image with an elevation map.
     `hillshade` produces an illumination map of a surface.
-    '''
+    """
+
     azdeg: Incomplete
     altdeg: Incomplete
     hsv_min_val: Incomplete
@@ -1469,7 +1484,7 @@ class LightSource:
     hsv_min_sat: Incomplete
     hsv_max_sat: Incomplete
     def __init__(self, azdeg: int = 315, altdeg: int = 45, hsv_min_val: int = 0, hsv_max_val: int = 1, hsv_min_sat: int = 1, hsv_max_sat: int = 0) -> None:
-        '''
+        """
         Specify the azimuth (measured clockwise from south) and altitude
         (measured up from the plane of the surface) of the light source
         in degrees.
@@ -1502,7 +1517,7 @@ class LightSource:
         initialization as well.  However, these parameters will only be used if
         "blend_mode=\'hsv\'" is passed into `shade` or `shade_rgb`.
         See the documentation for `blend_hsv` for more details.
-        '''
+        """
     @property
     def direction(self):
         """The unit vector direction towards the light source."""
@@ -1567,7 +1582,7 @@ class LightSource:
             completely in shadow and 1 is completely illuminated.
         """
     def shade(self, data, cmap, norm: Incomplete | None = None, blend_mode: str = 'overlay', vmin: Incomplete | None = None, vmax: Incomplete | None = None, vert_exag: int = 1, dx: int = 1, dy: int = 1, fraction: int = 1, **kwargs):
-        '''
+        """
         Combine colormapped data values with an illumination intensity map
         (a.k.a.  "hillshade") of the values.
 
@@ -1625,9 +1640,9 @@ class LightSource:
         -------
         `~numpy.ndarray`
             An (M, N, 4) array of floats ranging between 0-1.
-        '''
+        """
     def shade_rgb(self, rgb, elevation, fraction: float = 1.0, blend_mode: str = 'hsv', vert_exag: int = 1, dx: int = 1, dy: int = 1, **kwargs):
-        '''
+        """
         Use this light source to adjust the colors of the *rgb* input array to
         give the impression of a shaded relief map with the given *elevation*.
 
@@ -1671,9 +1686,9 @@ class LightSource:
         -------
         `~numpy.ndarray`
             An (m, n, 3) array of floats ranging between 0-1.
-        '''
+        """
     def blend_hsv(self, rgb, intensity, hsv_max_sat: Incomplete | None = None, hsv_max_val: Incomplete | None = None, hsv_min_val: Incomplete | None = None, hsv_min_sat: Incomplete | None = None):
-        '''
+        """
         Take the input data array, convert to HSV values in the given colormap,
         then adjust those color values to give the impression of a shaded
         relief map with a specified light source.  RGBA values are returned,
@@ -1711,9 +1726,9 @@ class LightSource:
         -------
         `~numpy.ndarray`
             An (M, N, 3) RGB array representing the combined images.
-        '''
+        """
     def blend_soft_light(self, rgb, intensity):
-        '''
+        """
         Combine an RGB image with an intensity map using "soft light" blending,
         using the "pegtop" formula.
 
@@ -1728,9 +1743,9 @@ class LightSource:
         -------
         `~numpy.ndarray`
             An (M, N, 3) RGB array representing the combined images.
-        '''
+        """
     def blend_overlay(self, rgb, intensity):
-        '''
+        """
         Combine an RGB image with an intensity map using "overlay" blending.
 
         Parameters
@@ -1744,10 +1759,10 @@ class LightSource:
         -------
         ndarray
             An (M, N, 3) RGB array representing the combined images.
-        '''
+        """
 
 def from_levels_and_colors(levels, colors, extend: str = 'neither'):
-    '''
+    """
     A helper routine to generate a cmap and a norm instance which
     behave similar to contourf\'s levels and colors arguments.
 
@@ -1768,4 +1783,4 @@ def from_levels_and_colors(levels, colors, extend: str = 'neither'):
     -------
     cmap : `~matplotlib.colors.Colormap`
     norm : `~matplotlib.colors.Normalize`
-    '''
+    """

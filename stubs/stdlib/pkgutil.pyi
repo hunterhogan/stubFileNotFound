@@ -1,22 +1,22 @@
-import sys
 from _typeshed import StrOrBytesPath, SupportsRead
 from _typeshed.importlib import LoaderProtocol, MetaPathFinderProtocol, PathEntryFinderProtocol
 from collections.abc import Callable, Iterable, Iterator
-from typing import IO, Any, NamedTuple, TypeVar
+from typing import Any, IO, NamedTuple, TypeVar
 from typing_extensions import deprecated
+import sys
 
 __all__ = [
+    "ModuleInfo",
+    "extend_path",
+    "get_data",
     "get_importer",
     "iter_importers",
-    "walk_packages",
     "iter_modules",
-    "get_data",
     "read_code",
-    "extend_path",
-    "ModuleInfo",
+    "walk_packages",
 ]
 if sys.version_info < (3, 14):
-    __all__ += ["get_loader", "find_loader"]
+    __all__ += ["find_loader", "get_loader"]
 if sys.version_info < (3, 12):
     __all__ += ["ImpImporter", "ImpLoader"]
 

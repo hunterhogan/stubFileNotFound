@@ -1,6 +1,7 @@
 from sympy.core.basic import Basic as Basic
 from sympy.stats.joint_rv import ProductPSpace as ProductPSpace
-from sympy.stats.rv import Distribution as Distribution, ProductDomain as ProductDomain, _symbol_converter as _symbol_converter
+from sympy.stats.rv import (
+	_symbol_converter as _symbol_converter, Distribution as Distribution, ProductDomain as ProductDomain)
 
 class StochasticPSpace(ProductPSpace):
     """
@@ -18,6 +19,7 @@ class StochasticPSpace(ProductPSpace):
     Bernoulli distribution. For processes with memory, this
     parameter should not be passed.
     """
+
     def __new__(cls, sym, process, distribution=None): ...
     @property
     def process(self):

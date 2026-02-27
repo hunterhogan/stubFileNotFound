@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
 from sympy.polys.domains.domain import Domain as Domain
 from sympy.polys.domains.domainelement import DomainElement as DomainElement
-from sympy.polys.polyerrors import CoercionFailed as CoercionFailed, GeneratorsError as GeneratorsError, NotInvertible as NotInvertible
+from sympy.polys.polyerrors import (
+	CoercionFailed as CoercionFailed, GeneratorsError as GeneratorsError, NotInvertible as NotInvertible)
 from sympy.polys.polytools import Poly as Poly
 from sympy.printing.defaults import DefaultPrinting as DefaultPrinting
 
@@ -16,6 +17,7 @@ class ExtensionElement(DomainElement, DefaultPrinting):
     are of class DMP.
 
     """
+
     __slots__: Incomplete
     rep: Incomplete
     ext: Incomplete
@@ -38,8 +40,7 @@ class ExtensionElement(DomainElement, DefaultPrinting):
         """Multiplicative inverse.
 
         Raises
-        ======
-
+        ------
         NotInvertible
             If the element is a zero divisor.
 
@@ -54,7 +55,6 @@ class ExtensionElement(DomainElement, DefaultPrinting):
     def __eq__(f, g): ...
     def __ne__(f, g): ...
     def __hash__(f): ...
-    def __str__(f) -> str: ...
     __repr__ = __str__
     @property
     def is_ground(f): ...
@@ -71,8 +71,7 @@ class MonogenicFiniteExtension(Domain):
     A shorter alias is ``FiniteExtension``.
 
     Examples
-    ========
-
+    --------
     Quadratic integer ring $\\mathbb{Z}[\\sqrt2]$:
 
     >>> from sympy import Symbol, Poly
@@ -102,6 +101,7 @@ class MonogenicFiniteExtension(Domain):
     ZZ(x)[t]/(t**2 - x**3 - x + 1)
 
     """
+
     is_FiniteExtension: bool
     dtype = ExtensionElement
     rank: Incomplete
@@ -119,7 +119,6 @@ class MonogenicFiniteExtension(Domain):
     def new(self, arg): ...
     def __eq__(self, other): ...
     def __hash__(self): ...
-    def __str__(self) -> str: ...
     __repr__ = __str__
     @property
     def has_CharacteristicZero(self): ...

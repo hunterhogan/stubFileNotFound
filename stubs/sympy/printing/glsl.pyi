@@ -14,6 +14,7 @@ class GLSLPrinter(CodePrinter):
     Additional settings:
     'use_operators': Boolean (should the printer use operators for +,-,*, or functions?)
     """
+
     _not_supported: set[Basic]
     printmethod: str
     language: str
@@ -46,11 +47,10 @@ class GLSLPrinter(CodePrinter):
     def _print_Mul(self, expr, **kwargs): ...
 
 def glsl_code(expr, assign_to=None, **settings):
-    '''Converts an expr to a string of GLSL code
+    """Converts an expr to a string of GLSL code
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
         A SymPy expression to be converted.
     assign_to : optional
@@ -81,7 +81,7 @@ def glsl_code(expr, assign_to=None, **settings):
         making them easier to read, but less compact.  By removing the newline
         this option can be used to make them more vertically compact.
         [default=\',
-\']
+    \']
     mat_transpose: bool, optional
         GLSL\'s matrix multiplication implementation assumes column-major indexing.
         By default, this printer ignores that convention. Setting this option to
@@ -110,8 +110,7 @@ def glsl_code(expr, assign_to=None, **settings):
         [default=True].
 
     Examples
-    ========
-
+    --------
     >>> from sympy import glsl_code, symbols, Rational, sin, ceiling, Abs
     >>> x, tau = symbols("x, tau")
     >>> glsl_code((2*tau)**Rational(7, 2))
@@ -248,9 +247,9 @@ def glsl_code(expr, assign_to=None, **settings):
        A[1][0] = x;
     }
     A[2][0] = sin(x);
-    '''
+    """
 def print_glsl(expr, **settings) -> None:
     """Prints the GLSL representation of the given expression.
 
-       See GLSLPrinter init function for settings.
+    See GLSLPrinter init function for settings.
     """

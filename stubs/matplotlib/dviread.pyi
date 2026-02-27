@@ -29,6 +29,7 @@ class Text(NamedTuple('Text', [('x', Incomplete), ('y', Incomplete), ('font', In
     effects specified by `font_effects`, and load the glyph specified by
     `glyph_name_or_index`.
     """
+
     def _get_pdftexmap_entry(self): ...
     @property
     def font_path(self):
@@ -38,15 +39,15 @@ class Text(NamedTuple('Text', [('x', Incomplete), ('y', Incomplete), ('font', In
         """The font size."""
     @property
     def font_effects(self):
-        '''
+        """
         The "font effects" dict for this glyph.
 
         This dict contains the values for this glyph of SlantFont and
         ExtendFont (if any), read off :file:`pdftex.map`.
-        '''
+        """
     @property
     def glyph_name_or_index(self):
-        '''
+        """
         Either the glyph name or the native charmap glyph index.
 
         If :file:`pdftex.map` specifies an encoding for this glyph\'s font, that
@@ -58,7 +59,7 @@ class Text(NamedTuple('Text', [('x', Incomplete), ('y', Incomplete), ('font', In
         If :file:`pdftex.map` specifies no encoding, the indices directly map
         to the font\'s "native" charmap; glyphs should directly load using
         FT_Load_Char/load_char after selecting the native charmap.
-        '''
+        """
 
 _arg_mapping: Incomplete
 
@@ -96,7 +97,7 @@ def _dispatch(table, min, max: Incomplete | None = None, state: Incomplete | Non
     """
 
 class Dvi:
-    '''
+    """
     A reader for a dvi ("device-independent") file, as produced by TeX.
 
     The current implementation can only iterate through pages in order,
@@ -109,7 +110,8 @@ class Dvi:
         >>> with matplotlib.dviread.Dvi(\'input.dvi\', 72) as dvi:
         ...     for page in dvi:
         ...         print(\'\'.join(chr(t.glyph) for t in page.text))
-    '''
+    """
+
     _dtable: Incomplete
     _dispatch: Incomplete
     file: Incomplete
@@ -202,7 +204,7 @@ class Dvi:
     def _malformed(self, offset) -> None: ...
 
 class DviFont:
-    '''
+    """
     Encapsulation of a font that a DVI file can refer to.
 
     This class holds a font\'s texname and size, supports comparison,
@@ -235,7 +237,8 @@ class DviFont:
        Widths of glyphs in glyph-space units, typically 1/1000ths of
        the point size.
 
-    '''
+    """
+
     __slots__: Incomplete
     _scale: Incomplete
     _tfm: Incomplete
@@ -246,7 +249,6 @@ class DviFont:
     def __init__(self, scale, tfm, texname, vf) -> None: ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...
-    def __repr__(self) -> str: ...
     def _width_of(self, char):
         """Width of char in dvi units."""
     def _height_depth_of(self, char):
@@ -275,6 +277,7 @@ class Vf(Dvi):
         glyph = vf[code]
         glyph.text, glyph.boxes, glyph.width
     """
+
     _first_font: Incomplete
     _chars: Incomplete
     def __init__(self, filename) -> None: ...
@@ -319,6 +322,7 @@ class Tfm:
        specified in the dvi file. These are dicts because indexing may
        not start from 0.
     """
+
     __slots__: Incomplete
     width: Incomplete
     height: Incomplete
@@ -333,7 +337,7 @@ class PsFont(NamedTuple):
     filename: Incomplete
 
 class PsfontsMap:
-    '''
+    """
     A psfonts.map formatted file, mapping TeX fonts to PS fonts.
 
     Parameters
@@ -375,7 +379,8 @@ class PsfontsMap:
     >>> entry.effects
     {\'slant\': 0.16700000000000001}
     >>> entry.filename
-    '''
+    """
+
     __slots__: Incomplete
     _filename: Incomplete
     _unparsed: Incomplete

@@ -1,13 +1,18 @@
 from _typeshed import Incomplete
-from sympy.core import Dummy as Dummy, Mul as Mul, S as S, Tuple as Tuple, diff as diff
-from sympy.core.basic import Basic as Basic, as_Basic as as_Basic
+from sympy.core import diff as diff, Dummy as Dummy, Mul as Mul, S as S, Tuple as Tuple
+from sympy.core.basic import as_Basic as as_Basic, Basic as Basic
 from sympy.core.function import DefinedFunction as DefinedFunction
-from sympy.core.numbers import NumberSymbol as NumberSymbol, Rational as Rational, _illegal as _illegal
+from sympy.core.numbers import _illegal as _illegal, NumberSymbol as NumberSymbol, Rational as Rational
 from sympy.core.parameters import global_parameters as global_parameters
-from sympy.core.relational import Eq as Eq, Gt as Gt, Lt as Lt, Ne as Ne, Relational as Relational, _canonical as _canonical, _canonical_coeff as _canonical_coeff
+from sympy.core.relational import (
+	_canonical as _canonical, _canonical_coeff as _canonical_coeff, Eq as Eq, Gt as Gt, Lt as Lt, Ne as Ne,
+	Relational as Relational)
 from sympy.core.sorting import ordered as ordered
 from sympy.functions.elementary.miscellaneous import Max as Max, Min as Min
-from sympy.logic.boolalg import And as And, Boolean as Boolean, ITE as ITE, Not as Not, Or as Or, distribute_and_over_or as distribute_and_over_or, distribute_or_over_and as distribute_or_over_and, false as false, simplify_logic as simplify_logic, to_cnf as to_cnf, true as true
+from sympy.logic.boolalg import (
+	And as And, Boolean as Boolean, distribute_and_over_or as distribute_and_over_or,
+	distribute_or_over_and as distribute_or_over_and, false as false, ITE as ITE, Not as Not, Or as Or,
+	simplify_logic as simplify_logic, to_cnf as to_cnf, true as true)
 from sympy.utilities.iterables import common_prefix as common_prefix, sift as sift, uniq as uniq
 from sympy.utilities.misc import filldedent as filldedent, func_name as func_name
 
@@ -15,6 +20,7 @@ Undefined: Incomplete
 
 class ExprCondPair(Tuple):
     """Represents an expression, condition pair."""
+
     def __new__(cls, expr, cond): ...
     @property
     def expr(self):
@@ -50,8 +56,7 @@ class Piecewise(DefinedFunction):
           evaluation is False.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Piecewise, log, piecewise_fold
     >>> from sympy.abc import x, y
     >>> f = x**2
@@ -87,12 +92,12 @@ class Piecewise(DefinedFunction):
     Piecewise((1, ((x >= 0) | (y > 2)) & ((y > 3) | (x < 0))))
 
     See Also
-    ========
-
+    --------
     piecewise_fold
     piecewise_exclusive
     ITE
     """
+
     nargs: Incomplete
     is_Piecewise: bool
     def __new__(cls, *args, **options): ...
@@ -112,9 +117,8 @@ class Piecewise(DefinedFunction):
         If there is a single arg with a True condition, its
         corresponding expression will be returned.
 
-        EXAMPLES
-        ========
-
+        Examples
+        --------
         >>> from sympy import Piecewise
         >>> from sympy.abc import x
         >>> cond = -x < -1
@@ -141,8 +145,7 @@ class Piecewise(DefinedFunction):
         antiderivative, use the :func:`~.integrate` function or method.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Piecewise
         >>> from sympy.abc import x
         >>> p = Piecewise((0, x < 0), (1, x < 1), (2, True))
@@ -166,7 +169,7 @@ class Piecewise(DefinedFunction):
         1
 
         See Also
-        ========
+        --------
         Piecewise._eval_integral
         """
     def _handle_irel(self, x, handler):
@@ -189,8 +192,7 @@ class Piecewise(DefinedFunction):
         ``piecewise_integrate`` method.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Piecewise
         >>> from sympy.abc import x
         >>> p = Piecewise((0, x < 0), (1, x < 1), (2, True))
@@ -200,7 +202,7 @@ class Piecewise(DefinedFunction):
         Piecewise((0, x < 0), (x, x < 1), (2*x, True))
 
         See Also
-        ========
+        --------
         Piecewise.piecewise_integrate
         """
     def _eval_interval(self, sym, a, b, _first: bool = True):
@@ -261,8 +263,7 @@ class Piecewise(DefinedFunction):
         assumed to be real; sets of real values are returned.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Piecewise, Interval
         >>> from sympy.abc import x
         >>> p = Piecewise(
@@ -292,8 +293,7 @@ def piecewise_fold(expr, evaluate: bool = True):
     processing of True and False will be handled.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Piecewise, piecewise_fold, S
     >>> from sympy.abc import x
     >>> p = Piecewise((x, x < 1), (1, S(1) <= x))
@@ -301,8 +301,7 @@ def piecewise_fold(expr, evaluate: bool = True):
     Piecewise((x**2, x < 1), (x, True))
 
     See Also
-    ========
-
+    --------
     Piecewise
     piecewise_exclusive
     """
@@ -315,8 +314,7 @@ def _clip(A, B, k):
     result, e.g. (4, 1) is treated like (1, 1).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.elementary.piecewise import _clip
     >>> from sympy import Tuple
     >>> A = Tuple(1, 3)
@@ -348,7 +346,7 @@ def _piecewise_simplify_eq_and(args):
     -> Piecewise((0, And(Eq(n, 0), Eq(m, 0))), (1, True))
     """
 def piecewise_exclusive(expr, *, skip_nan: bool = False, deep: bool = True):
-    '''
+    """
     Rewrite :class:`Piecewise` with mutually exclusive conditions.
 
     Explanation
@@ -373,8 +371,7 @@ def piecewise_exclusive(expr, *, skip_nan: bool = False, deep: bool = True):
     can be prevented by passing ``skip_nan=True``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import piecewise_exclusive, Symbol, Piecewise, S
     >>> x = Symbol(\'x\', real=True)
     >>> p = Piecewise((0, x < 0), (S.Half, x <= 0), (1, True))
@@ -386,8 +383,7 @@ def piecewise_exclusive(expr, *, skip_nan: bool = False, deep: bool = True):
     Piecewise((2, x > 1))
 
     Parameters
-    ==========
-
+    ----------
     expr: a SymPy expression.
         Any :class:`Piecewise` in the expression will be rewritten.
     skip_nan: ``bool`` (default ``False``)
@@ -399,14 +395,12 @@ def piecewise_exclusive(expr, *, skip_nan: bool = False, deep: bool = True):
         rewriting ``expr`` itself.
 
     Returns
-    =======
-
+    -------
     An expression equivalent to ``expr`` but where all :class:`Piecewise` have
     been rewritten with mutually exclusive conditions.
 
     See Also
-    ========
-
+    --------
     Piecewise
     piecewise_fold
-    '''
+    """

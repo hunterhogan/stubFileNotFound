@@ -1,6 +1,6 @@
+from abc import ABC, abstractmethod
 from typing import Any
 import abc
-from abc import ABC, abstractmethod
 
 class Contract(ABC, metaclass=abc.ABCMeta):
     @abstractmethod

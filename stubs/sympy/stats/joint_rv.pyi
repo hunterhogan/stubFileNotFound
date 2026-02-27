@@ -11,9 +11,14 @@ from sympy.external import import_module as import_module
 from sympy.integrals.integrals import Integral as Integral, integrate as integrate
 from sympy.matrices import ImmutableMatrix as ImmutableMatrix, list2numpy as list2numpy, matrix2numpy as matrix2numpy
 from sympy.sets.sets import ProductSet as ProductSet
-from sympy.stats.crv import SingleContinuousDistribution as SingleContinuousDistribution, SingleContinuousPSpace as SingleContinuousPSpace
-from sympy.stats.drv import SingleDiscreteDistribution as SingleDiscreteDistribution, SingleDiscretePSpace as SingleDiscretePSpace
-from sympy.stats.rv import Distribution as Distribution, NamedArgsMixin as NamedArgsMixin, ProductDomain as ProductDomain, ProductPSpace as ProductPSpace, RandomSymbol as RandomSymbol, SingleDomain as SingleDomain, _symbol_converter as _symbol_converter, random_symbols as random_symbols
+from sympy.stats.crv import (
+	SingleContinuousDistribution as SingleContinuousDistribution, SingleContinuousPSpace as SingleContinuousPSpace)
+from sympy.stats.drv import (
+	SingleDiscreteDistribution as SingleDiscreteDistribution, SingleDiscretePSpace as SingleDiscretePSpace)
+from sympy.stats.rv import (
+	_symbol_converter as _symbol_converter, Distribution as Distribution, NamedArgsMixin as NamedArgsMixin,
+	ProductDomain as ProductDomain, ProductPSpace as ProductPSpace, random_symbols as random_symbols,
+	RandomSymbol as RandomSymbol, SingleDomain as SingleDomain)
 from sympy.tensor.indexed import Indexed as Indexed
 from sympy.utilities.iterables import iterable as iterable
 from sympy.utilities.misc import filldedent as filldedent
@@ -23,6 +28,7 @@ class JointPSpace(ProductPSpace):
     Represents a joint probability space. Represented using symbols for
     each component and a distribution.
     """
+
     def __new__(cls, sym, dist): ...
     @property
     def set(self): ...
@@ -53,6 +59,7 @@ class JointPSpace(ProductPSpace):
 
 class SampleJointScipy:
     """Returns the sample from scipy of the given distribution"""
+
     def __new__(cls, dist, size, seed=None): ...
     @classmethod
     def _sample_scipy(cls, dist, size, seed):
@@ -60,6 +67,7 @@ class SampleJointScipy:
 
 class SampleJointNumpy:
     """Returns the sample from numpy of the given distribution"""
+
     def __new__(cls, dist, size, seed=None): ...
     @classmethod
     def _sample_numpy(cls, dist, size, seed):
@@ -67,6 +75,7 @@ class SampleJointNumpy:
 
 class SampleJointPymc:
     """Returns the sample from pymc of the given distribution"""
+
     def __new__(cls, dist, size, seed=None): ...
     @classmethod
     def _sample_pymc(cls, dist, size, seed):
@@ -79,6 +88,7 @@ class JointDistribution(Distribution, NamedArgsMixin):
     Represented by the random variables part of the joint distribution.
     Contains methods for PDF, CDF, sampling, marginal densities, etc.
     """
+
     _argnames: Incomplete
     def __new__(cls, *args): ...
     @property
@@ -87,14 +97,15 @@ class JointDistribution(Distribution, NamedArgsMixin):
     def pdf(self): ...
     def cdf(self, other): ...
     def sample(self, size=(), library: str = 'scipy', seed=None):
-        """ A random realization from the distribution """
+        """A random realization from the distribution"""
     def __call__(self, *args): ...
 
 class JointRandomSymbol(RandomSymbol):
-    '''
+    """
     Representation of random symbols with joint probability distributions
     to allow indexing."
-    '''
+    """
+
     def __getitem__(self, key): ...
 
 class MarginalDistribution(Distribution):
@@ -105,6 +116,7 @@ class MarginalDistribution(Distribution):
     their indexed components) which should be a part of the resultant
     distribution.
     """
+
     def __new__(cls, dist, *rvs): ...
     def check(self) -> None: ...
     @property

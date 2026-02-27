@@ -1,34 +1,36 @@
 from _typeshed import Incomplete
 
-__all__ = ['lex', 'grlex', 'grevlex', 'ilex', 'igrlex', 'igrevlex']
+__all__ = ['grevlex', 'grlex', 'igrevlex', 'igrlex', 'ilex', 'lex']
 
 class MonomialOrder:
-    """Base class for monomial orderings. """
+    """Base class for monomial orderings."""
+
     alias: str | None
     is_global: bool | None
     is_default: bool
-    def __repr__(self) -> str: ...
-    def __str__(self) -> str: ...
     def __call__(self, monomial) -> None: ...
     def __eq__(self, other): ...
     def __hash__(self): ...
     def __ne__(self, other): ...
 
 class LexOrder(MonomialOrder):
-    """Lexicographic order of monomials. """
+    """Lexicographic order of monomials."""
+
     alias: str
     is_global: bool
     is_default: bool
     def __call__(self, monomial): ...
 
 class GradedLexOrder(MonomialOrder):
-    """Graded lexicographic order of monomials. """
+    """Graded lexicographic order of monomials."""
+
     alias: str
     is_global: bool
     def __call__(self, monomial): ...
 
 class ReversedGradedLexOrder(MonomialOrder):
-    """Reversed graded lexicographic order of monomials. """
+    """Reversed graded lexicographic order of monomials."""
+
     alias: str
     is_global: bool
     def __call__(self, monomial): ...
@@ -50,8 +52,7 @@ class ProductOrder(MonomialOrder):
     out the part of the monomial to pass to Oi.
 
     Examples
-    ========
-
+    --------
     We can use a lexicographic order on x_1, x_2 and also on
     y_1, y_2, y_3, and their product on {x_i, y_i} as follows:
 
@@ -76,18 +77,17 @@ class ProductOrder(MonomialOrder):
     `y_2^2` is ordered larger than `y_1`, since for the grlex order the degree
     of the monomial is most important.
     """
+
     args: Incomplete
     def __init__(self, *args) -> None: ...
     def __call__(self, monomial): ...
-    def __repr__(self) -> str: ...
-    def __str__(self) -> str: ...
     def __eq__(self, other): ...
     def __hash__(self): ...
     @property
     def is_global(self): ...
 
 class InverseOrder(MonomialOrder):
-    '''
+    """
     The "inverse" of another monomial order.
 
     If O is any monomial order, we can construct another monomial order iO
@@ -103,10 +103,10 @@ class InverseOrder(MonomialOrder):
     >>> ilex = InverseOrder(lex)
     >>> ilex((5,)) < ilex((0,))
     True
-    '''
+    """
+
     O: Incomplete
     def __init__(self, O) -> None: ...
-    def __str__(self) -> str: ...
     def __call__(self, monomial): ...
     @property
     def is_global(self): ...
@@ -122,6 +122,7 @@ igrevlex: Incomplete
 
 class _ItemGetter:
     """Helper class to return a subsequence of values."""
+
     seq: Incomplete
     def __init__(self, seq) -> None: ...
     def __call__(self, m): ...

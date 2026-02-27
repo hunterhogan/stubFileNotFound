@@ -10,14 +10,12 @@ class Point:
     point to this point.
 
     Parameters
-    ==========
-
+    ----------
     name : string
         The display name of the Point
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import Point, ReferenceFrame, dynamicsymbols
     >>> from sympy.physics.vector import init_vprinting
     >>> init_vprinting(pretty_print=False)
@@ -47,14 +45,14 @@ class Point:
     (u1' - u2')*N.x + (-u1' + u2')*N.y
 
     """
+
     name: Incomplete
     _pos_dict: Incomplete
     _vel_dict: Incomplete
     _acc_dict: Incomplete
     _pdlist: Incomplete
     def __init__(self, name) -> None:
-        """Initialization of a Point object. """
-    def __str__(self) -> str: ...
+        """Initialization of a Point object."""
     __repr__ = __str__
     def _check_point(self, other) -> None: ...
     def _pdict_list(self, other, num):
@@ -63,7 +61,7 @@ class Point:
         point.
 
         Parameters
-        ==========
+        ----------
         other : Point
             A point that may be related to this point by position, velocity, or
             acceleration.
@@ -72,13 +70,12 @@ class Point:
             tree, and 2 for searching the acceleration tree.
 
         Returns
-        =======
+        -------
         list of Points
             A sequence of points from self to other.
 
         Notes
-        =====
-
+        -----
         It is not clear if num = 1 or num = 2 actually works because the keys
         to ``_vel_dict`` and ``_acc_dict`` are :class:`ReferenceFrame` objects
         which do not have the ``_pdlist`` attribute.
@@ -96,8 +93,7 @@ class Point:
         rotating in frame N.
 
         Parameters
-        ==========
-
+        ----------
         otherpoint : Point
             The first point of the 1-point theory (O)
         outframe : ReferenceFrame
@@ -106,8 +102,7 @@ class Point:
             The intermediate frame in this calculation (B)
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import Point, ReferenceFrame
         >>> from sympy.physics.vector import dynamicsymbols
         >>> from sympy.physics.vector import init_vprinting
@@ -138,8 +133,7 @@ class Point:
         frame N.
 
         Parameters
-        ==========
-
+        ----------
         otherpoint : Point
             The first point of the 2-point theory (O)
         outframe : ReferenceFrame
@@ -148,8 +142,7 @@ class Point:
             The frame in which both points are fixed (B)
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import Point, ReferenceFrame, dynamicsymbols
         >>> from sympy.physics.vector import init_vprinting
         >>> init_vprinting(pretty_print=False)
@@ -168,15 +161,13 @@ class Point:
         """The acceleration Vector of this Point in a ReferenceFrame.
 
         Parameters
-        ==========
-
+        ----------
         frame : ReferenceFrame
             The frame in which the returned acceleration vector will be defined
             in.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import Point, ReferenceFrame
         >>> N = ReferenceFrame('N')
         >>> p1 = Point('p1')
@@ -189,16 +180,14 @@ class Point:
         """Creates a new point with a position defined from this point.
 
         Parameters
-        ==========
-
+        ----------
         name : str
             The name for the new point
         value : Vector
             The position of the new point relative to this point
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame, Point
         >>> N = ReferenceFrame('N')
         >>> P1 = Point('P1')
@@ -209,14 +198,12 @@ class Point:
         """Returns a Vector distance between this Point and the other Point.
 
         Parameters
-        ==========
-
+        ----------
         otherpoint : Point
             The otherpoint we are locating this one relative to
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import Point, ReferenceFrame
         >>> N = ReferenceFrame('N')
         >>> p1 = Point('p1')
@@ -230,16 +217,14 @@ class Point:
         """Used to set the acceleration of this Point in a ReferenceFrame.
 
         Parameters
-        ==========
-
+        ----------
         frame : ReferenceFrame
             The frame in which this point's acceleration is defined
         value : Vector
             The vector value of this point's acceleration in the frame
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import Point, ReferenceFrame
         >>> N = ReferenceFrame('N')
         >>> p1 = Point('p1')
@@ -252,16 +237,14 @@ class Point:
         """Used to set the position of this point w.r.t. another point.
 
         Parameters
-        ==========
-
+        ----------
         otherpoint : Point
             The other point which this point's location is defined relative to
         value : Vector
             The vector which defines the location of this point
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import Point, ReferenceFrame
         >>> N = ReferenceFrame('N')
         >>> p1 = Point('p1')
@@ -275,16 +258,14 @@ class Point:
         """Sets the velocity Vector of this Point in a ReferenceFrame.
 
         Parameters
-        ==========
-
+        ----------
         frame : ReferenceFrame
             The frame in which this point's velocity is defined
         value : Vector
             The vector value of this point's velocity in the frame
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import Point, ReferenceFrame
         >>> N = ReferenceFrame('N')
         >>> p1 = Point('p1')
@@ -304,8 +285,7 @@ class Point:
         rotating in frame N.
 
         Parameters
-        ==========
-
+        ----------
         otherpoint : Point
             The first point of the 1-point theory (O)
         outframe : ReferenceFrame
@@ -314,8 +294,7 @@ class Point:
             The intermediate frame in this calculation (B)
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import Point, ReferenceFrame
         >>> from sympy.physics.vector import dynamicsymbols
         >>> from sympy.physics.vector import init_vprinting
@@ -346,8 +325,7 @@ class Point:
         frame N.
 
         Parameters
-        ==========
-
+        ----------
         otherpoint : Point
             The first point of the 2-point theory (O)
         outframe : ReferenceFrame
@@ -356,8 +334,7 @@ class Point:
             The frame in which both points are fixed (B)
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import Point, ReferenceFrame, dynamicsymbols
         >>> from sympy.physics.vector import init_vprinting
         >>> init_vprinting(pretty_print=False)
@@ -376,14 +353,12 @@ class Point:
         """The velocity Vector of this Point in the ReferenceFrame.
 
         Parameters
-        ==========
-
+        ----------
         frame : ReferenceFrame
             The frame in which the returned velocity vector will be defined in
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import Point, ReferenceFrame, dynamicsymbols
         >>> N = ReferenceFrame('N')
         >>> p1 = Point('p1')
@@ -414,21 +389,20 @@ class Point:
         generalized speeds.
 
         Parameters
-        ==========
+        ----------
         frame : ReferenceFrame
             The frame with which the velocity is defined in.
         gen_speeds : functions of time
             The generalized speeds.
 
         Returns
-        =======
+        -------
         partial_velocities : tuple of Vector
             The partial velocity vectors corresponding to the provided
             generalized speeds.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame, Point
         >>> from sympy.physics.vector import dynamicsymbols
         >>> N = ReferenceFrame('N')

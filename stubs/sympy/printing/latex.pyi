@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
-from sympy.core import Add as Add, Expr as Expr, Float as Float, Mod as Mod, Mul as Mul, Number as Number, S as S, Symbol as Symbol
+from collections.abc import Callable
+from sympy.core import (
+	Add as Add, Expr as Expr, Float as Float, Mod as Mod, Mul as Mul, Number as Number, S as S, Symbol as Symbol)
 from sympy.core.alphabets import greeks as greeks
 from sympy.core.containers import Tuple as Tuple
 from sympy.core.function import AppliedUndef as AppliedUndef, Derivative as Derivative, Function as Function
@@ -9,12 +11,13 @@ from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.core.sympify import SympifyError as SympifyError
 from sympy.logic.boolalg import BooleanFalse as BooleanFalse, BooleanTrue as BooleanTrue, true as true
 from sympy.printing.conventions import requires_partial as requires_partial, split_super_sub as split_super_sub
-from sympy.printing.precedence import PRECEDENCE as PRECEDENCE, precedence as precedence, precedence_traditional as precedence_traditional
-from sympy.printing.printer import Printer as Printer, print_function as print_function
+from sympy.printing.precedence import (
+	PRECEDENCE as PRECEDENCE, precedence as precedence, precedence_traditional as precedence_traditional)
+from sympy.printing.printer import print_function as print_function, Printer as Printer
 from sympy.tensor.array import NDimArray as NDimArray
 from sympy.utilities.iterables import has_variety as has_variety, sift as sift
 from sympy.vector.basisdependent import BasisDependent as BasisDependent
-from typing import Any, Callable
+from typing import Any
 
 accepted_latex_functions: Incomplete
 tex_greek_dictionary: Incomplete
@@ -403,7 +406,7 @@ class LatexPrinter(Printer):
     def emptyPrinter(self, expr): ...
 
 def translate(s: str) -> str:
-    '''
+    """
     Check for a modifier ending the string.  If present, convert the
     modifier to latex and translate the rest recursively.
 
@@ -415,12 +418,12 @@ def translate(s: str) -> str:
     >>> from sympy.printing.latex import translate
     >>> translate(\'alphahatdotprime\')
     "{\\\\dot{\\\\hat{\\\\alpha}}}\'"
-    '''
+    """
 def latex(expr, **settings):
-    '''Convert the given expression to LaTeX string representation.
+    """Convert the given expression to LaTeX string representation.
 
     Parameters
-    ==========
+    ----------
     full_prec: boolean, optional
         If set to True, a floating point number is printed with full precision.
     fold_frac_powers : boolean, optional
@@ -512,8 +515,7 @@ def latex(expr, **settings):
         (default),``\'star\'``, and ``\'hermitian\'``.
 
     Notes
-    =====
-
+    -----
     Not using a print statement for printing, results in double backslashes for
     latex commands since that\'s the way Python escapes backslashes in strings.
 
@@ -525,8 +527,7 @@ def latex(expr, **settings):
     8 \\sqrt{2} \\tau^{\\frac{7}{2}}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import latex, pi, sin, asin, Integral, Matrix, Rational, log
     >>> from sympy.abc import x, y, mu, r, tau
 
@@ -629,18 +630,18 @@ def latex(expr, **settings):
     .. versionchanged:: 1.7.0
         Unsupported types no longer have their ``str`` representation treated as valid latex.
 
-    '''
+    """
 def print_latex(expr, **settings) -> None:
     """Prints LaTeX representation of the given expression. Takes the same
-    settings as ``latex()``."""
+    settings as ``latex()``.
+    """
 def multiline_latex(lhs, rhs, terms_per_line: int = 1, environment: str = 'align*', use_dots: bool = False, **settings):
-    '''
+    """
     This function generates a LaTeX equation with a multiline right-hand side
     in an ``align*``, ``eqnarray`` or ``IEEEeqnarray`` environment.
 
     Parameters
-    ==========
-
+    ----------
     lhs : Expr
         Left-hand side of equation
 
@@ -658,8 +659,7 @@ def multiline_latex(lhs, rhs, terms_per_line: int = 1, environment: str = 'align
         If ``True``, ``\\\\dots`` is added to the end of each line. Default is ``False``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import multiline_latex, symbols, sin, cos, exp, log, I
     >>> x, y, alpha = symbols(\'x y alpha\')
     >>> expr = sin(alpha*y) + exp(I*alpha) - cos(log(y))
@@ -687,8 +687,7 @@ def multiline_latex(lhs, rhs, terms_per_line: int = 1, environment: str = 'align
     \\end{IEEEeqnarray}
 
     Notes
-    =====
-
+    -----
     All optional parameters from ``latex`` can also be used.
 
-    '''
+    """

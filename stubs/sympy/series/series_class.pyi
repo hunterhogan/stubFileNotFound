@@ -4,6 +4,7 @@ from sympy.core.singleton import S as S
 
 class SeriesBase(Expr):
     """Base Class for series"""
+
     @property
     def interval(self) -> None:
         """The interval on which the series is defined"""
@@ -36,8 +37,7 @@ class SeriesBase(Expr):
         Assumes the first point to be indexed zero.
 
         Examples
-        ========
-
+        --------
         TODO
         """
     def __iter__(self): ...

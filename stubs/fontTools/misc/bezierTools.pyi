@@ -54,4 +54,3 @@ splitCubicIntoTwoAtTC: _cython_3_2_2.cython_function_or_method
 splitLine: _cython_3_2_2.cython_function_or_method
 splitQuadratic: _cython_3_2_2.cython_function_or_method
 splitQuadraticAtT: _cython_3_2_2.cython_function_or_method
-

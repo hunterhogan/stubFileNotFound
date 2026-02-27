@@ -11,7 +11,7 @@ from sympy.sets.conditionset import ConditionSet
 from sympy.sets.fancysets import Range
 from sympy.sets.sets import FiniteSet
 
-__all__ = ['StochasticProcess', 'DiscreteTimeStochasticProcess', 'DiscreteMarkovChain', 'TransitionMatrixOf', 'StochasticStateSpaceOf', 'GeneratorMatrixOf', 'ContinuousMarkovChain', 'BernoulliProcess', 'PoissonProcess', 'WienerProcess', 'GammaProcess']
+__all__ = ['BernoulliProcess', 'ContinuousMarkovChain', 'DiscreteMarkovChain', 'DiscreteTimeStochasticProcess', 'GammaProcess', 'GeneratorMatrixOf', 'PoissonProcess', 'StochasticProcess', 'StochasticStateSpaceOf', 'TransitionMatrixOf', 'WienerProcess']
 
 class StochasticProcess(Basic):
     """
@@ -19,18 +19,17 @@ class StochasticProcess(Basic):
     discrete or continuous.
 
     Parameters
-    ==========
-
+    ----------
     sym: Symbol or str
     state_space: Set
         The state space of the stochastic process, by default S.Reals.
         For discrete sets it is zero indexed.
 
     See Also
-    ========
-
+    --------
     DiscreteTimeStochasticProcess
     """
+
     index_set: Incomplete
     def __new__(cls, sym, state_space=..., **kwargs): ...
     @property
@@ -54,23 +53,20 @@ class StochasticProcess(Basic):
         Computes the joint distribution of the random indexed variables.
 
         Parameters
-        ==========
-
+        ----------
         args: iterable
             The finite list of random indexed variables/the key of a stochastic
             process whose joint distribution has to be computed.
 
         Returns
-        =======
-
+        -------
         JointDistribution
             The joint distribution of the list of random indexed variables.
             An unevaluated object is returned if it is not possible to
             compute the joint distribution.
 
         Raises
-        ======
-
+        ------
         ValueError: When the arguments passed are not of type RandomIndexSymbol
         or Number.
         """
@@ -81,13 +77,13 @@ class DiscreteTimeStochasticProcess(StochasticProcess):
     """
     Base class for all discrete stochastic processes.
     """
+
     def __getitem__(self, time):
         """
         For indexing discrete time stochastic processes.
 
         Returns
-        =======
-
+        -------
         RandomIndexedSymbol
         """
 
@@ -95,13 +91,13 @@ class ContinuousTimeStochasticProcess(StochasticProcess):
     """
     Base class for all continuous time stochastic process.
     """
+
     def __call__(self, time):
         """
         For indexing continuous time stochastic processes.
 
         Returns
-        =======
-
+        -------
         RandomIndexedSymbol
         """
 
@@ -110,6 +106,7 @@ class TransitionMatrixOf(Boolean):
     Assumes that the matrix is the transition matrix
     of the process.
     """
+
     def __new__(cls, process, matrix): ...
     process: Incomplete
     matrix: Incomplete
@@ -119,6 +116,7 @@ class GeneratorMatrixOf(TransitionMatrixOf):
     Assumes that the matrix is the generator matrix
     of the process.
     """
+
     def __new__(cls, process, matrix): ...
 
 class StochasticStateSpaceOf(Boolean):
@@ -131,6 +129,7 @@ class MarkovProcess(StochasticProcess):
     Contains methods that handle queries
     common to Markov processes.
     """
+
     @property
     def number_of_states(self) -> Integer | Symbol:
         """
@@ -169,13 +168,12 @@ class MarkovProcess(StochasticProcess):
         Handles probability queries for Markov process.
 
         Parameters
-        ==========
-
+        ----------
         condition: Relational
         given_condition: Relational/And
 
         Returns
-        =======
+        -------
         Probability
             If the information is not sufficient.
         Expr
@@ -196,8 +194,7 @@ class MarkovProcess(StochasticProcess):
         Handles expectation queries for markov process.
 
         Parameters
-        ==========
-
+        ----------
         expr: RandomIndexedSymbol, Relational, Logic
             Condition for which expectation has to be computed. Must
             contain a RandomIndexedSymbol of the process.
@@ -205,8 +202,7 @@ class MarkovProcess(StochasticProcess):
             The given conditions under which computations should be done.
 
         Returns
-        =======
-
+        -------
         Expectation
             Unevaluated object if computations cannot be done due to
             insufficient information.
@@ -226,7 +222,7 @@ class MarkovProcess(StochasticProcess):
         """
 
 class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
-    '''
+    """
     Represents a finite discrete time-homogeneous Markov chain.
 
     This type of Markov Chain can be uniquely characterised by
@@ -234,8 +230,7 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
     matrix.
 
     Parameters
-    ==========
-
+    ----------
     sym:
         The name given to the Markov Chain
     state_space:
@@ -244,8 +239,7 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
         Optional, by default, MatrixSymbol(\'_T\', n, n)
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import DiscreteMarkovChain, TransitionMatrixOf, P, E
     >>> from sympy import Matrix, MatrixSymbol, Eq, symbols
     >>> T = Matrix([[0.5, 0.2, 0.3],[0.2, 0.5, 0.3],[0.2, 0.3, 0.5]])
@@ -337,11 +331,12 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
     (T**5)[1, 2]
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Markov_chain#Discrete-time_Markov_chain
     .. [2] https://web.archive.org/web/20201230182007/https://www.dartmouth.edu/~chance/teaching_aids/books_articles/probability_book/Chapter11.pdf
-    '''
+    """
+
     index_set: Incomplete
     def __new__(cls, sym, state_space=None, trans_probs=None): ...
     @property
@@ -363,8 +358,7 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
         classes.
 
         Returns
-        =======
-
+        -------
         classes
             The ``classes`` are a list of tuples. Each
             tuple represents a single communication class
@@ -375,8 +369,7 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
             communication class.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.stats import DiscreteMarkovChain
         >>> from sympy import Matrix
         >>> T = Matrix([[0, 1, 0],
@@ -395,8 +388,7 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
         with a period of 1.
 
         Notes
-        =====
-
+        -----
         The algorithm used is of order ``O(n**2)`` where
         ``n`` is the number of states in the markov chain.
         It uses Tarjan's algorithm to find the classes
@@ -406,7 +398,7 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
         as the matrix becomes more and more sparse.
 
         References
-        ==========
+        ----------
 
         .. [1] https://web.archive.org/web/20220207032113/https://www.columbia.edu/~ww2040/4701Sum07/4701-06-Notes-MCII.pdf
         .. [2] https://cecas.clemson.edu/~shierd/Shier/markov.pdf
@@ -420,7 +412,7 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
         if it started in state i.
 
         References
-        ==========
+        ----------
 
         .. [1] https://lips.cs.princeton.edu/the-fundamental-matrix-of-a-finite-markov-chain/
 
@@ -451,16 +443,14 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
         stationary distribution is unique.
 
         Parameters
-        ==========
-
+        ----------
         condition_set : bool
             If the chain has a symbolic size or transition matrix,
             it will return a ``Lambda`` if ``False`` and return a
             ``ConditionSet`` if ``True``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.stats import DiscreteMarkovChain
         >>> from sympy import Matrix, S
 
@@ -490,14 +480,13 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
         ConditionSet(wm, Eq(wm*_T, wm))
 
         References
-        ==========
+        ----------
 
         .. [1] https://www.probabilitycourse.com/chapter11/11_2_6_stationary_and_limiting_distributions.php
         .. [2] https://web.archive.org/web/20210508104430/https://galton.uchicago.edu/~yibi/teaching/stat317/2014/Lectures/Lecture4_6up.pdf
 
         See Also
-        ========
-
+        --------
         sympy.stats.DiscreteMarkovChain.limiting_distribution
         """
     def fixed_row_vector(self):
@@ -522,8 +511,7 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
         - O - the submatrix of zeros for recurrent to transient states.
 
         Returns
-        =======
-
+        -------
         states, A, B, C
             ``states`` - a list of state names with the first being
             the recurrent states and the last being
@@ -534,8 +522,7 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
             ``C`` - the submatrix from transient to transient states.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.stats import DiscreteMarkovChain
         >>> from sympy import Matrix, S
 
@@ -575,13 +562,12 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
         transient states 0, 1, 3, 4 all interact.
 
         See Also
-        ========
-
+        --------
         sympy.stats.DiscreteMarkovChain.communication_classes
         sympy.stats.DiscreteMarkovChain.canonical_form
 
         References
-        ==========
+        ----------
 
         .. [1] https://en.wikipedia.org/wiki/Absorbing_Markov_chain
         .. [2] https://people.brandeis.edu/~igusa/Math56aS08/Math56a_S08_notes015.pdf
@@ -594,8 +580,7 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
         transient states first and recurrent states last.
 
         Returns
-        =======
-
+        -------
         states, P_new
             ``states`` is the list that describes the order of the
             new states in the matrix
@@ -604,8 +589,7 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
             ``P_new`` is the new transition matrix in canonical form.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.stats import DiscreteMarkovChain
         >>> from sympy import Matrix, S
 
@@ -668,13 +652,12 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
         [3/10, 3/10,   0,   0, 2/5]])
 
         See Also
-        ========
-
+        --------
         sympy.stats.DiscreteMarkovChain.communication_classes
         sympy.stats.DiscreteMarkovChain.decompose
 
         References
-        ==========
+        ----------
 
         .. [1] https://onlinelibrary.wiley.com/doi/pdf/10.1002/9780470316887.app1
         .. [2] http://www.columbia.edu/~ww2040/6711F12/lect1023big.pdf
@@ -682,8 +665,7 @@ class DiscreteMarkovChain(DiscreteTimeStochasticProcess, MarkovProcess):
     def sample(self) -> Generator[Incomplete]:
         """
         Returns
-        =======
-
+        -------
         sample: iterator object
             iterator object containing the sample
 
@@ -694,8 +676,7 @@ class ContinuousMarkovChain(ContinuousTimeStochasticProcess, MarkovProcess):
     Represents continuous time Markov chain.
 
     Parameters
-    ==========
-
+    ----------
     sym : Symbol/str
     state_space : Set
         Optional, by default, S.Reals
@@ -703,8 +684,7 @@ class ContinuousMarkovChain(ContinuousTimeStochasticProcess, MarkovProcess):
         Optional, by default, None
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import ContinuousMarkovChain, P
     >>> from sympy import Matrix, S, Eq, Gt
     >>> G = Matrix([[-S(1), S(1)], [S(1), -S(1)]])
@@ -759,11 +739,12 @@ class ContinuousMarkovChain(ContinuousTimeStochasticProcess, MarkovProcess):
     0.6832579186
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Markov_chain#Continuous-time_Markov_chain
     .. [2] https://u.math.biu.ac.il/~amirgi/CTMCnotes.pdf
     """
+
     index_set: Incomplete
     def __new__(cls, sym, state_space=None, gen_mat=None): ...
     @property
@@ -773,7 +754,7 @@ class ContinuousMarkovChain(ContinuousTimeStochasticProcess, MarkovProcess):
     def limiting_distribution(self): ...
 
 class BernoulliProcess(DiscreteTimeStochasticProcess):
-    '''
+    """
     The Bernoulli process consists of repeated
     independent Bernoulli process trials with the same parameter `p`.
     It\'s assumed that the probability `p` applies to every
@@ -782,8 +763,7 @@ class BernoulliProcess(DiscreteTimeStochasticProcess):
     is Discrete State and Discrete Time Stochastic Process.
 
     Parameters
-    ==========
-
+    ----------
     sym : Symbol/str
     success : Integer/str
             The event which is considered to be success. Default: 1.
@@ -793,8 +773,7 @@ class BernoulliProcess(DiscreteTimeStochasticProcess):
             Represents the probability of getting success.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import BernoulliProcess, P, E
     >>> from sympy import Eq, Gt
     >>> B = BernoulliProcess("B", p=0.7, success=1, failure=0)
@@ -827,12 +806,13 @@ class BernoulliProcess(DiscreteTimeStochasticProcess):
     0.30
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Bernoulli_process
     .. [2] https://mathcs.clarku.edu/~djoyce/ma217/bernoulli.pdf
 
-    '''
+    """
+
     index_set: Incomplete
     def __new__(cls, sym, p, success: int = 1, failure: int = 0): ...
     @property
@@ -852,8 +832,7 @@ class BernoulliProcess(DiscreteTimeStochasticProcess):
         Computes expectation.
 
         Parameters
-        ==========
-
+        ----------
         expr : RandomIndexedSymbol, Relational, Logic
             Condition for which expectation has to be computed. Must
             contain a RandomIndexedSymbol of the process.
@@ -861,8 +840,7 @@ class BernoulliProcess(DiscreteTimeStochasticProcess):
             The given conditions under which computations should be done.
 
         Returns
-        =======
-
+        -------
         Expectation of the RandomIndexedSymbol.
 
         """
@@ -871,8 +849,7 @@ class BernoulliProcess(DiscreteTimeStochasticProcess):
         Computes probability.
 
         Parameters
-        ==========
-
+        ----------
         condition : Relational
                 Condition for which probability has to be computed. Must
                 contain a RandomIndexedSymbol of the process.
@@ -880,8 +857,7 @@ class BernoulliProcess(DiscreteTimeStochasticProcess):
                 The given conditions under which computations should be done.
 
         Returns
-        =======
-
+        -------
         Probability of the condition.
 
         """
@@ -892,6 +868,7 @@ class _SubstituteRV:
     Internal class to handle the queries of expectation and probability
     by substitution.
     """
+
     @staticmethod
     def _rvindexed_subs(expr, condition=None):
         """
@@ -899,8 +876,7 @@ class _SubstituteRV:
         same name, distribution and probability as RandomIndexedSymbol.
 
         Parameters
-        ==========
-
+        ----------
         expr: RandomIndexedSymbol, Relational, Logic
             Condition for which expectation has to be computed. Must
             contain a RandomIndexedSymbol of the process.
@@ -914,8 +890,7 @@ class _SubstituteRV:
         Internal method for computing expectation of indexed RV.
 
         Parameters
-        ==========
-
+        ----------
         expr: RandomIndexedSymbol, Relational, Logic
             Condition for which expectation has to be computed. Must
             contain a RandomIndexedSymbol of the process.
@@ -923,8 +898,7 @@ class _SubstituteRV:
             The given conditions under which computations should be done.
 
         Returns
-        =======
-
+        -------
         Expectation of the RandomIndexedSymbol.
 
         """
@@ -934,8 +908,7 @@ class _SubstituteRV:
         Internal method for computing probability of indexed RV
 
         Parameters
-        ==========
-
+        ----------
         condition: Relational
                 Condition for which probability has to be computed. Must
                 contain a RandomIndexedSymbol of the process.
@@ -943,8 +916,7 @@ class _SubstituteRV:
                 The given conditions under which computations should be done.
 
         Returns
-        =======
-
+        -------
         Probability of the condition.
 
         """
@@ -954,6 +926,7 @@ class CountingProcess(ContinuousTimeStochasticProcess):
     This class handles the common methods of the Counting Processes
     such as Poisson, Wiener and Gamma Processes
     """
+
     index_set: Incomplete
     @property
     def symbol(self): ...
@@ -962,8 +935,7 @@ class CountingProcess(ContinuousTimeStochasticProcess):
         Computes expectation
 
         Parameters
-        ==========
-
+        ----------
         expr: RandomIndexedSymbol, Relational, Logic
             Condition for which expectation has to be computed. Must
             contain a RandomIndexedSymbol of the process.
@@ -972,8 +944,7 @@ class CountingProcess(ContinuousTimeStochasticProcess):
             the intervals on which each variable time stamp in expr is defined
 
         Returns
-        =======
-
+        -------
         Expectation of the given expr
 
         """
@@ -984,8 +955,7 @@ class CountingProcess(ContinuousTimeStochasticProcess):
         Computes probability.
 
         Parameters
-        ==========
-
+        ----------
         condition: Relational
             Condition for which probability has to be computed. Must
             contain a RandomIndexedSymbol of the process.
@@ -994,28 +964,25 @@ class CountingProcess(ContinuousTimeStochasticProcess):
             the intervals on which each variable time stamp in expr is defined
 
         Returns
-        =======
-
+        -------
         Probability of the condition
 
         """
 
 class PoissonProcess(CountingProcess):
-    '''
+    """
     The Poisson process is a counting process. It is usually used in scenarios
     where we are counting the occurrences of certain events that appear
     to happen at a certain rate, but completely at random.
 
     Parameters
-    ==========
-
+    ----------
     sym : Symbol/str
     lamda : Positive number
         Rate of the process, ``lambda > 0``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import PoissonProcess, P, E
     >>> from sympy import symbols, Eq, Ne, Contains, Interval
     >>> X = PoissonProcess("X", lamda=3)
@@ -1057,12 +1024,13 @@ class PoissonProcess(CountingProcess):
     (2, 5)
 
     References
-    ==========
+    ----------
 
     .. [1] https://www.probabilitycourse.com/chapter11/11_0_0_intro.php
     .. [2] https://en.wikipedia.org/wiki/Poisson_point_process
 
-    '''
+    """
+
     def __new__(cls, sym, lamda): ...
     @property
     def lamda(self): ...
@@ -1075,20 +1043,18 @@ class PoissonProcess(CountingProcess):
     def split(self, l1, l2): ...
 
 class WienerProcess(CountingProcess):
-    '''
+    """
     The Wiener process is a real valued continuous-time stochastic process.
     In physics it is used to study Brownian motion and it is often also called
     Brownian motion due to its historical connection with physical process of the
     same name originally observed by Scottish botanist Robert Brown.
 
     Parameters
-    ==========
-
+    ----------
     sym : Symbol/str
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import WienerProcess, P, E
     >>> from sympy import symbols, Contains, Interval
     >>> X = WienerProcess("X")
@@ -1106,12 +1072,13 @@ class WienerProcess(CountingProcess):
     0
 
     References
-    ==========
+    ----------
 
     .. [1] https://www.probabilitycourse.com/chapter11/11_4_0_brownian_motion_wiener_process.php
     .. [2] https://en.wikipedia.org/wiki/Wiener_process
 
-    '''
+    """
+
     def __new__(cls, sym): ...
     @property
     def state_space(self): ...
@@ -1120,13 +1087,12 @@ class WienerProcess(CountingProcess):
     def simple_rv(self, rv): ...
 
 class GammaProcess(CountingProcess):
-    '''
+    """
     A Gamma process is a random process with independent gamma distributed
     increments. It is a pure-jump increasing Levy process.
 
     Parameters
-    ==========
-
+    ----------
     sym : Symbol/str
     lamda : Positive number
         Jump size of the process, ``lamda > 0``
@@ -1134,8 +1100,7 @@ class GammaProcess(CountingProcess):
         Rate of jump arrivals, `\\gamma > 0`
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import GammaProcess, E, P, variance
     >>> from sympy import symbols, Contains, Interval, Not
     >>> t, d, x, l, g = symbols(\'t d x l g\', positive=True)
@@ -1154,11 +1119,12 @@ class GammaProcess(CountingProcess):
     10*x + 4
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Gamma_process
 
-    '''
+    """
+
     def __new__(cls, sym, lamda, gamma): ...
     @property
     def lamda(self): ...

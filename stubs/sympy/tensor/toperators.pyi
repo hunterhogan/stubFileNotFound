@@ -6,12 +6,11 @@ from sympy.core.sympify import sympify as sympify
 from sympy.tensor.tensor import TensAdd as TensAdd, TensExpr as TensExpr, TensMul as TensMul, Tensor as Tensor
 
 class PartialDerivative(TensExpr):
-    '''
+    """
     Partial derivative for tensor expressions.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.tensor.tensor import TensorIndexType, TensorHead
     >>> from sympy.tensor.toperators import PartialDerivative
     >>> from sympy import symbols
@@ -90,7 +89,8 @@ class PartialDerivative(TensExpr):
 
     >>> expr.replace_with_arrays({A(i): compA, B(i): compB}, [-j, i])
     [[cos(x), y**3/x], [0, 3*y**2*log(x)]]
-    '''
+    """
+
     def __new__(cls, expr, *variables): ...
     @property
     def coeff(self): ...

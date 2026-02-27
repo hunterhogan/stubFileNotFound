@@ -1,29 +1,30 @@
-import sys
-from _typeshed import SupportsWrite, sentinel
+from _typeshed import sentinel, SupportsWrite
 from collections.abc import Callable, Generator, Iterable, Sequence
 from re import Pattern
-from typing import IO, Any, ClassVar, Final, Generic, NoReturn, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import Self, TypeAlias, deprecated
+from typing import (
+	Any, ClassVar, Final, Generic, IO, NoReturn, overload, Protocol, Self, type_check_only, TypeAlias, TypeVar)
+from typing_extensions import deprecated
+import sys
 
 __all__ = [
-    "ArgumentParser",
-    "ArgumentError",
-    "ArgumentTypeError",
-    "FileType",
-    "HelpFormatter",
-    "ArgumentDefaultsHelpFormatter",
-    "RawDescriptionHelpFormatter",
-    "RawTextHelpFormatter",
-    "MetavarTypeHelpFormatter",
-    "Namespace",
-    "Action",
-    "BooleanOptionalAction",
     "ONE_OR_MORE",
     "OPTIONAL",
     "PARSER",
     "REMAINDER",
     "SUPPRESS",
     "ZERO_OR_MORE",
+    "Action",
+    "ArgumentDefaultsHelpFormatter",
+    "ArgumentError",
+    "ArgumentParser",
+    "ArgumentTypeError",
+    "BooleanOptionalAction",
+    "FileType",
+    "HelpFormatter",
+    "MetavarTypeHelpFormatter",
+    "Namespace",
+    "RawDescriptionHelpFormatter",
+    "RawTextHelpFormatter",
 ]
 
 _T = TypeVar("_T")
@@ -344,7 +345,7 @@ class HelpFormatter:
     def _metavar_formatter(self, action: Action, default_metavar: str) -> Callable[[int], tuple[str, ...]]: ...
     def _format_args(self, action: Action, default_metavar: str) -> str: ...
     def _expand_help(self, action: Action) -> str: ...
-    def _iter_indented_subactions(self, action: Action) -> Generator[Action, None, None]: ...
+    def _iter_indented_subactions(self, action: Action) -> Generator[Action]: ...
     def _split_lines(self, text: str, width: int) -> list[str]: ...
     def _fill_text(self, text: str, width: int, indent: str) -> str: ...
     def _get_help_string(self, action: Action) -> str | None: ...
@@ -433,11 +434,11 @@ if sys.version_info >= (3, 12):
                 option_strings: Sequence[str],
                 dest: str,
                 default: _T | bool | None = None,
-                type: Callable[[str], _T] | FileType | None = sentinel,
-                choices: Iterable[_T] | None = sentinel,
+                type: Callable[[str], _T] | FileType | None = ...,
+                choices: Iterable[_T] | None = ...,
                 required: bool = False,
                 help: str | None = None,
-                metavar: str | tuple[str, ...] | None = sentinel,
+                metavar: str | tuple[str, ...] | None = ...,
                 deprecated: bool = False,
             ) -> None: ...
         else:
@@ -458,11 +459,11 @@ if sys.version_info >= (3, 12):
                 option_strings: Sequence[str],
                 dest: str,
                 default: _T | bool | None = None,
-                type: Callable[[str], _T] | FileType | None = sentinel,
-                choices: Iterable[_T] | None = sentinel,
+                type: Callable[[str], _T] | FileType | None = ...,
+                choices: Iterable[_T] | None = ...,
                 required: bool = False,
                 help: str | None = None,
-                metavar: str | tuple[str, ...] | None = sentinel,
+                metavar: str | tuple[str, ...] | None = ...,
             ) -> None: ...
 
 else:

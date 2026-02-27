@@ -1,69 +1,22 @@
-from builtins import (
-    bool as _bool,
-    str as _str,
-)
-from collections.abc import (
-    Callable,
-    Hashable,
-    Iterable,
-    Mapping,
-    Sequence,
-)
-import datetime as dt
-import sqlite3
-from typing import (
-    Any,
-    ClassVar,
-    Concatenate,
-    Literal,
-    Never,
-    Self,
-    final,
-    overload,
-)
-
-import numpy as np
+from builtins import bool as _bool, str as _str
+from collections.abc import Callable, Hashable, Iterable, Mapping, Sequence
 from pandas import Index
-from pandas.core.resample import DatetimeIndexResampler
-from pandas.core.series import Series
-from sqlalchemy.engine import Connectable
-
 from pandas._libs.lib import NoDefault
 from pandas._typing import (
-    Axis,
-    CompressionOptions,
-    CSVQuoting,
-    DtypeArg,
-    DtypeBackend,
-    ExcelWriterMergeCells,
-    FilePath,
-    FileWriteMode,
-    FloatFormatType,
-    FormattersType,
-    Frequency,
-    HashableT1,
-    HashableT2,
-    HDFCompLib,
-    IgnoreRaise,
-    IndexLabel,
-    Level,
-    ListLike,
-    OpenFileErrors,
-    P,
-    StorageOptions,
-    T,
-    TakeIndexer,
-    TimedeltaConvertibleTypes,
-    TimeGrouperOrigin,
-    TimestampConvertibleTypes,
-    WriteBuffer,
-    WriteExcelBuffer,
-    np_1darray,
-)
-
+	Axis, CompressionOptions, CSVQuoting, DtypeArg, DtypeBackend, ExcelWriterMergeCells, FilePath, FileWriteMode,
+	FloatFormatType, FormattersType, Frequency, HashableT1, HashableT2, HDFCompLib, IgnoreRaise, IndexLabel, Level,
+	ListLike, np_1darray, OpenFileErrors, P, StorageOptions, T, TakeIndexer, TimedeltaConvertibleTypes, TimeGrouperOrigin,
+	TimestampConvertibleTypes, WriteBuffer, WriteExcelBuffer)
+from pandas.core.resample import DatetimeIndexResampler
+from pandas.core.series import Series
 from pandas.io.excel import ExcelWriter
 from pandas.io.pytables import HDFStore
 from pandas.io.sql import SQLTable
+from sqlalchemy.engine import Connectable
+from typing import Any, ClassVar, Concatenate, final, Literal, Never, overload, Self
+import datetime as dt
+import numpy as np
+import sqlite3
 
 class NDFrame:
     __hash__: ClassVar[None]  # type: ignore[assignment] # pyright: ignore[reportIncompatibleMethodOverride]

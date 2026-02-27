@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-import inspect
 from collections.abc import Awaitable, Callable, Coroutine
 from types import CoroutineType
-from typing import Any
-from typing_extensions import assert_type
-
+from typing import Any, assert_type
+import inspect
 
 def test_iscoroutinefunction_inspect(
     x: Callable[[str, int], Coroutine[str, int, bytes]],

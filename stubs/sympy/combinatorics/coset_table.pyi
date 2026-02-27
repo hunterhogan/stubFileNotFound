@@ -3,7 +3,7 @@ from sympy.combinatorics.free_groups import free_group as free_group
 from sympy.printing.defaults import DefaultPrinting as DefaultPrinting
 
 class CosetTable(DefaultPrinting):
-    '''
+    """
 
     Properties
     ==========
@@ -14,7 +14,7 @@ class CosetTable(DefaultPrinting):
     [4] `\\forall \\alpha \\in \\Omega, 1^{\\tau(\\alpha)} = \\alpha`
 
     References
-    ==========
+    ----------
 
     .. [1] Holt, D., Eick, B., O\'Brien, E.
            "Handbook of Computational Group Theory"
@@ -23,7 +23,8 @@ class CosetTable(DefaultPrinting):
            Mathematics of Computation, Vol. 27, No. 123. (Jul., 1973), pp. 463-490.
            "Implementation and Analysis of the Todd-Coxeter Algorithm"
 
-    '''
+    """
+
     coset_table_max_limit: int
     coset_table_limit: Incomplete
     max_stack_size: int
@@ -41,13 +42,12 @@ class CosetTable(DefaultPrinting):
     def __init__(self, fp_grp, subgroup, max_cosets=None) -> None: ...
     @property
     def omega(self):
-        """Set of live cosets. """
+        """Set of live cosets."""
     def copy(self):
         """
         Return a shallow copy of Coset Table instance ``self``.
 
         """
-    def __str__(self) -> str: ...
     __repr__ = __str__
     @property
     def n(self):
@@ -75,8 +75,7 @@ class CosetTable(DefaultPrinting):
         ``CosetTable.coset_table_max_limit``.
 
         See Also
-        ========
-
+        --------
         define_c
 
         """
@@ -88,8 +87,7 @@ class CosetTable(DefaultPrinting):
         tuple `(\\alpha, x)` to the deduction stack.
 
         See Also
-        ========
-
+        --------
         define
 
         """
@@ -99,8 +97,7 @@ class CosetTable(DefaultPrinting):
         puts at tuple, whenever a deduction occurs, to deduction stack.
 
         See Also
-        ========
-
+        --------
         scan, scan_check, scan_and_fill, scan_and_fill_c
 
         """
@@ -112,8 +109,7 @@ class CosetTable(DefaultPrinting):
         appended to ``deduction_stack``.
 
         See Also
-        ========
-
+        --------
         coincidence
 
         """
@@ -139,14 +135,12 @@ class CosetTable(DefaultPrinting):
         3. See ``coicidence`` routine for explanation of third condition.
 
         Notes
-        =====
-
+        -----
         The code for the procedure of scanning `\\alpha \\in \\Omega`
         under `w \\in A*` is defined on pg. 155 [1]
 
         See Also
-        ========
-
+        --------
         scan_c, scan_check, scan_and_fill, scan_and_fill_c
 
         Scan and Fill
@@ -169,8 +163,7 @@ class CosetTable(DefaultPrinting):
         it returns ``True``.
 
         See Also
-        ========
-
+        --------
         scan, scan_c, scan_and_fill, scan_and_fill_c
 
         """
@@ -184,31 +177,26 @@ class CosetTable(DefaultPrinting):
         class representative to the queue ``q``.
 
         Parameters
-        ==========
-
+        ----------
         'k', 'lamda' being the two class representatives to be merged.
 
         Notes
-        =====
-
+        -----
         Pg. 86-87 [1] contains a description of this method.
 
         See Also
-        ========
-
+        --------
         coincidence, rep
 
         """
     def rep(self, k, modified: bool = False):
         """
         Parameters
-        ==========
-
+        ----------
         `k \\in [0 \\ldots n-1]`, as for ``self`` only array ``p`` is used
 
         Returns
-        =======
-
+        -------
         Representative of the class containing ``k``.
 
         Returns the representative of `\\sim` class containing ``k``, it also
@@ -230,16 +218,14 @@ class CosetTable(DefaultPrinting):
         `p[\\gamma] = \\beta \\forall \\gamma \\in p-chain` from `\\alpha` to `\\beta`
 
         Notes
-        =====
-
+        -----
         ``rep`` routine is also described on Pg. 85-87 [1] in Atkinson's
         algorithm, this results from the fact that ``coincidence`` routine
         introduces functionality similar to that introduced by the
         ``minimal_block`` routine on Pg. 85-87 [1].
 
         See Also
-        ========
-
+        --------
         coincidence, merge
 
         """
@@ -257,8 +243,7 @@ class CosetTable(DefaultPrinting):
         on Pg. 156 [1]. ``rep``
 
         See Also
-        ========
-
+        --------
         scan
 
         """
@@ -280,28 +265,26 @@ class CosetTable(DefaultPrinting):
         coset-table based method i.e. the routine ``coincidence_c`` is used.
 
         See Also
-        ========
-
+        --------
         scan, scan_and_fill
 
         """
     def look_ahead(self) -> None:
-        '''
+        """
         When combined with the HLT method this is known as HLT+Lookahead
         method of coset enumeration, described on pg. 164 [1]. Whenever
         ``define`` aborts due to lack of space available this procedure is
         executed. This routine helps in recovering space resulting from
         "coincidence" of cosets.
 
-        '''
+        """
     def process_deductions(self, R_c_x, R_c_x_inv) -> None:
         """
         Processes the deductions that have been pushed onto ``deduction_stack``,
         described on Pg. 166 [1] and is used in coset-table based enumeration.
 
         See Also
-        ========
-
+        --------
         deduction_stack
 
         """
@@ -311,8 +294,7 @@ class CosetTable(DefaultPrinting):
         wherever ``process_deductions`` calls ``scan``, described on Pg. [1].
 
         See Also
-        ========
-
+        --------
         process_deductions
 
         """
@@ -321,13 +303,12 @@ class CosetTable(DefaultPrinting):
         by the ``standardize`` procedure, described on Pg. 167 [1].
 
         See Also
-        ========
-
+        --------
         standardize
 
         """
     def standardize(self) -> None:
-        '''
+        """
         A coset table is standardized if when running through the cosets and
         within each coset through the generator images (ignoring generator
         inverses), the cosets appear in order of the integers
@@ -338,14 +319,12 @@ class CosetTable(DefaultPrinting):
         cosets so that they occur in some sort of standard order.
 
         Notes
-        =====
-
+        -----
         procedure is described on pg. 167-168 [1], it also makes use of the
         ``switch`` routine to replace by smaller integer value.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import free_group
         >>> from sympy.combinatorics.fp_groups import FpGroup, coset_enumeration_r
         >>> F, x, y = free_group("x, y")
@@ -360,7 +339,7 @@ class CosetTable(DefaultPrinting):
         >>> C.table
         [[1, 2, 1, 2], [3, 0, 3, 0], [0, 3, 0, 3], [2, 1, 2, 1]]
 
-        '''
+        """
     def compress(self) -> None:
         """Removes the non-live cosets from the coset table, described on
         pg. 167 [1].
@@ -368,12 +347,11 @@ class CosetTable(DefaultPrinting):
         """
     def conjugates(self, R): ...
     def coset_representative(self, coset):
-        '''
+        """
         Compute the coset representative of a given coset.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import free_group
         >>> from sympy.combinatorics.fp_groups import FpGroup, coset_enumeration_r
         >>> F, x, y = free_group("x, y")
@@ -389,81 +367,72 @@ class CosetTable(DefaultPrinting):
         >>> C.coset_representative(2)
         y**-1
 
-        '''
+        """
     def modified_define(self, alpha, x) -> None:
         """
         Define a function p_p from from [1..n] to A* as
         an additional component of the modified coset table.
 
         Parameters
-        ==========
-
+        ----------
         \\alpha \\in \\Omega
         x \\in A*
 
         See Also
-        ========
-
+        --------
         define
 
         """
     def modified_scan(self, alpha, w, y, fill: bool = False) -> None:
         """
         Parameters
-        ==========
+        ----------
         \\alpha \\in \\Omega
         w \\in A*
         y \\in (YUY^-1)
         fill -- `modified_scan_and_fill` when set to True.
 
         See Also
-        ========
-
+        --------
         scan
         """
     def modified_scan_and_fill(self, alpha, w, y) -> None: ...
     def modified_merge(self, k, lamda, w, q) -> None:
         """
         Parameters
-        ==========
-
+        ----------
         'k', 'lamda' -- the two class representatives to be merged.
         q -- queue of length l of elements to be deleted from `\\Omega` *.
         w -- Word in (YUY^-1)
 
         See Also
-        ========
-
+        --------
         merge
         """
     def modified_rep(self, k) -> None:
         """
         Parameters
-        ==========
-
+        ----------
         `k \\in [0 \\ldots n-1]`
 
         See Also
-        ========
-
+        --------
         rep
         """
     def modified_coincidence(self, alpha, beta, w) -> None:
         """
         Parameters
-        ==========
-
+        ----------
         A coincident pair `\\alpha, \\beta \\in \\Omega, w \\in Y \\cup Y^{-1}`
 
         See Also
-        ========
-
+        --------
         coincidence
 
         """
 
 def coset_enumeration_r(fp_grp, Y, max_cosets=None, draft=None, incomplete: bool = False, modified: bool = False):
-    '''
+    """
     This is easier of the two implemented methods of coset enumeration.
     and is often called the HLT method, after Hazelgrove, Leech, Trotter
     The idea is that we make use of ``scan_and_fill`` makes new definitions
@@ -481,13 +450,11 @@ def coset_enumeration_r(fp_grp, Y, max_cosets=None, draft=None, incomplete: bool
     # TODO: complete the docstring
 
     See Also
-    ========
-
+    --------
     scan_and_fill,
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.free_groups import free_group
     >>> from sympy.combinatorics.fp_groups import FpGroup, coset_enumeration_r
     >>> F, x, y = free_group("x, y")
@@ -609,22 +576,21 @@ def coset_enumeration_r(fp_grp, Y, max_cosets=None, draft=None, incomplete: bool
     1024
 
     References
-    ==========
+    ----------
 
     .. [1] Holt, D., Eick, B., O\'Brien, E.
            "Handbook of computational group theory"
 
-    '''
+    """
 def modified_coset_enumeration_r(fp_grp, Y, max_cosets=None, draft=None, incomplete: bool = False):
-    '''
+    """
     Introduce a new set of symbols y \\in Y that correspond to the
     generators of the subgroup. Store the elements of Y as a
     word P[\\alpha, x] and compute the coset table similar to that of
     the regular coset enumeration methods.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.free_groups import free_group
     >>> from sympy.combinatorics.fp_groups import FpGroup
     >>> from sympy.combinatorics.coset_table import modified_coset_enumeration_r
@@ -635,19 +601,18 @@ def modified_coset_enumeration_r(fp_grp, Y, max_cosets=None, draft=None, incompl
     [[0, 0, 1, 2], [1, 1, 2, 0], [2, 2, 0, 1], [None, 1, None, None], [1, 3, None, None]]
 
     See Also
-    ========
-
+    --------
     coset_enumertation_r
 
     References
-    ==========
+    ----------
 
     .. [1] Holt, D., Eick, B., O\'Brien, E.,
            "Handbook of Computational Group Theory",
            Section 5.3.2
-    '''
+    """
 def coset_enumeration_c(fp_grp, Y, max_cosets=None, draft=None, incomplete: bool = False):
-    '''
+    """
     >>> from sympy.combinatorics.free_groups import free_group
     >>> from sympy.combinatorics.fp_groups import FpGroup, coset_enumeration_c
     >>> F, x, y = free_group("x, y")
@@ -656,4 +621,4 @@ def coset_enumeration_c(fp_grp, Y, max_cosets=None, draft=None, incomplete: bool
     >>> C.table
     [[0, 0, 1, 2], [1, 1, 2, 0], [2, 2, 0, 1]]
 
-    '''
+    """

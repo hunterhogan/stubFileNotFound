@@ -1,8 +1,13 @@
 from . import _api as _api, _docstring as _docstring, _path as _path, cbook as cbook
 from ._enums import CapStyle as CapStyle, JoinStyle as JoinStyle
-from .artist import Artist as Artist, allow_rasterization as allow_rasterization
-from .cbook import STEP_LOOKUP_MAP as STEP_LOOKUP_MAP, _to_unmasked_float_array as _to_unmasked_float_array, ls_mapper as ls_mapper, ls_mapper_r as ls_mapper_r
-from .markers import CARETDOWN as CARETDOWN, CARETDOWNBASE as CARETDOWNBASE, CARETLEFT as CARETLEFT, CARETLEFTBASE as CARETLEFTBASE, CARETRIGHT as CARETRIGHT, CARETRIGHTBASE as CARETRIGHTBASE, CARETUP as CARETUP, CARETUPBASE as CARETUPBASE, MarkerStyle as MarkerStyle, TICKDOWN as TICKDOWN, TICKLEFT as TICKLEFT, TICKRIGHT as TICKRIGHT, TICKUP as TICKUP
+from .artist import allow_rasterization as allow_rasterization, Artist as Artist
+from .cbook import (
+	_to_unmasked_float_array as _to_unmasked_float_array, ls_mapper as ls_mapper, ls_mapper_r as ls_mapper_r,
+	STEP_LOOKUP_MAP as STEP_LOOKUP_MAP)
+from .markers import (
+	CARETDOWN as CARETDOWN, CARETDOWNBASE as CARETDOWNBASE, CARETLEFT as CARETLEFT, CARETLEFTBASE as CARETLEFTBASE,
+	CARETRIGHT as CARETRIGHT, CARETRIGHTBASE as CARETRIGHTBASE, CARETUP as CARETUP, CARETUPBASE as CARETUPBASE,
+	MarkerStyle as MarkerStyle, TICKDOWN as TICKDOWN, TICKLEFT as TICKLEFT, TICKRIGHT as TICKRIGHT, TICKUP as TICKUP)
 from .path import Path as Path
 from .transforms import Bbox as Bbox, BboxTransformTo as BboxTransformTo, TransformedPath as TransformedPath
 from _typeshed import Incomplete
@@ -29,12 +34,13 @@ def _mark_every_path(markevery, tpath, affine, ax):
     """
 
 class Line2D(Artist):
-    '''
+    """
     A line - the line can have both a solid linestyle connecting all
     the vertices, and a marker at each vertex.  Additionally, the
     drawing of the solid line is influenced by the drawstyle, e.g., one
     can create "stepped" lines in various styles.
-    '''
+    """
+
     lineStyles: Incomplete
     _lineStyles: Incomplete
     _drawStyles_l: Incomplete
@@ -46,7 +52,6 @@ class Line2D(Artist):
     fillStyles: Incomplete
     zorder: int
     _subslice_optim_min_size: int
-    def __str__(self) -> str: ...
     _dashcapstyle: Incomplete
     _dashjoinstyle: Incomplete
     _solidjoinstyle: Incomplete
@@ -95,7 +100,7 @@ class Line2D(Artist):
 
         """
     def contains(self, mouseevent):
-        '''
+        """
         Test whether *mouseevent* occurred on the line.
 
         An event is deemed to have occurred "on" the line if it is less
@@ -117,7 +122,7 @@ class Line2D(Artist):
             the event position.
 
             TODO: sort returned indices by distance
-        '''
+        """
     def get_pickradius(self):
         """
         Return the pick radius used for containment tests.
@@ -630,6 +635,7 @@ class AxLine(Line2D):
     A helper class that implements `~.Axes.axline`, by recomputing the artist
     transform at draw time.
     """
+
     _slope: Incomplete
     _xy1: Incomplete
     _xy2: Incomplete
@@ -723,6 +729,7 @@ class VertexSelector:
         selector = HighlightSelected(line)
         plt.show()
     """
+
     axes: Incomplete
     line: Incomplete
     cid: Incomplete
@@ -737,7 +744,7 @@ class VertexSelector:
         """
     canvas: Incomplete
     def process_selected(self, ind, xs, ys) -> None:
-        '''
+        """
         Default "do nothing" implementation of the `process_selected` method.
 
         Parameters
@@ -746,7 +753,7 @@ class VertexSelector:
             The indices of the selected vertices.
         xs, ys : array-like
             The coordinates of the selected vertices.
-        '''
+        """
     def onpick(self, event) -> None:
         """When the line is picked, update the set of selected indices."""
 

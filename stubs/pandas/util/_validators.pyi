@@ -1,7 +1,6 @@
 from collections.abc import Iterable
-
-import numpy as np
 from typing import Any
+import numpy as np
 
 def validate_args(fname: Any, args: Any, max_fname_arg_count: Any, compat_args: Any) -> None: ...
 def validate_kwargs(fname: Any, kwargs: Any, compat_args: Any) -> None: ...

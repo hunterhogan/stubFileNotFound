@@ -92,4 +92,3 @@ class NonIncludingLexer(IncludingLexer):
 
     def __next__(self) -> Any:
         """NonIncludingLexer.__next__(self)"""
-

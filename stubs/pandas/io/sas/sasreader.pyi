@@ -1,25 +1,11 @@
-from abc import (
-    ABCMeta,
-    abstractmethod,
-)
+from abc import ABCMeta, abstractmethod
 from collections.abc import Hashable
-from types import TracebackType
-from typing import (
-    Literal,
-    Self,
-    overload,
-)
-
 from pandas import DataFrame
-
-from pandas._typing import (
-    CompressionOptions as CompressionOptions,
-    FilePath as FilePath,
-    ReadBuffer,
-)
-
+from pandas._typing import CompressionOptions as CompressionOptions, FilePath as FilePath, ReadBuffer
 from pandas.io.sas.sas7bdat import SAS7BDATReader
 from pandas.io.sas.sas_xport import XportReader
+from types import TracebackType
+from typing import Literal, overload, Self
 
 class ReaderBase(metaclass=ABCMeta):
     @abstractmethod

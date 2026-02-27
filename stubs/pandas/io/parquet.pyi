@@ -1,19 +1,7 @@
 from collections.abc import Sequence
-from typing import (
-    Any,
-    Literal,
-    TypeAlias,
-    overload,
-)
-
 from pandas import DataFrame
-
-from pandas._typing import (
-    DtypeBackend,
-    FilePath,
-    ReadBuffer,
-    StorageOptions,
-)
+from pandas._typing import DtypeBackend, FilePath, ReadBuffer, StorageOptions
+from typing import Any, Literal, overload, TypeAlias
 
 _Filter: TypeAlias = tuple[str, str, Any]
 

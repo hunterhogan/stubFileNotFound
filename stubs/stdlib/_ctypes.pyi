@@ -1,13 +1,13 @@
-import _typeshed
-import builtins
-import sys
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
-from ctypes import CDLL, ArgumentError as ArgumentError, c_void_p
+from ctypes import ArgumentError as ArgumentError, c_void_p, CDLL
 from types import GenericAlias
-from typing import Any, ClassVar, Final, Generic, Literal, SupportsIndex, TypeVar, final, overload, type_check_only
-from typing_extensions import Self, TypeAlias
+from typing import (
+	Any, ClassVar, Final, final, Generic, Literal, overload, Self, SupportsIndex, type_check_only, TypeAlias, TypeVar)
+import _typeshed
+import builtins
+import sys
 
 _T = TypeVar("_T")
 _CT = TypeVar("_CT", bound=_CData)

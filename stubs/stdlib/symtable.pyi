@@ -1,10 +1,10 @@
-import sys
 from _collections_abc import dict_keys
 from collections.abc import Sequence
 from typing import Any
 from typing_extensions import deprecated
+import sys
 
-__all__ = ["symtable", "SymbolTable", "Class", "Function", "Symbol"]
+__all__ = ["Class", "Function", "Symbol", "SymbolTable", "symtable"]
 
 if sys.version_info >= (3, 13):
     __all__ += ["SymbolTableType"]

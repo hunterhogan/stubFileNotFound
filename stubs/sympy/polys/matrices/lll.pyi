@@ -1,5 +1,6 @@
 from sympy.polys.domains import QQ as QQ, ZZ as ZZ
-from sympy.polys.matrices.exceptions import DMDomainError as DMDomainError, DMRankError as DMRankError, DMShapeError as DMShapeError, DMValueError as DMValueError
+from sympy.polys.matrices.exceptions import (
+	DMDomainError as DMDomainError, DMRankError as DMRankError, DMShapeError as DMShapeError, DMValueError as DMValueError)
 
 def _ddm_lll(x, delta=..., return_transform: bool = False): ...
 def ddm_lll(x, delta=...): ...

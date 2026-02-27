@@ -14,4 +14,3 @@ class BigGlyphMetrics(BitmapGlyphMetrics):
 
 class SmallGlyphMetrics(BitmapGlyphMetrics):
     binaryFormat = smallGlyphMetricsFormat
-

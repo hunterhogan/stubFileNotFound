@@ -1,19 +1,13 @@
-import sys
 from _typeshed import ReadableBuffer, StrOrBytesPath
 from collections.abc import Callable
 from ssl import (
-    SSLCertVerificationError as SSLCertVerificationError,
-    SSLContext,
-    SSLEOFError as SSLEOFError,
-    SSLError as SSLError,
-    SSLObject,
-    SSLSyscallError as SSLSyscallError,
-    SSLWantReadError as SSLWantReadError,
-    SSLWantWriteError as SSLWantWriteError,
-    SSLZeroReturnError as SSLZeroReturnError,
-)
-from typing import Any, ClassVar, Final, Literal, TypedDict, final, overload, type_check_only
-from typing_extensions import NotRequired, Self, TypeAlias, deprecated, disjoint_base
+	SSLCertVerificationError as SSLCertVerificationError, SSLContext, SSLEOFError as SSLEOFError, SSLError as SSLError,
+	SSLObject, SSLSyscallError as SSLSyscallError, SSLWantReadError as SSLWantReadError,
+	SSLWantWriteError as SSLWantWriteError, SSLZeroReturnError as SSLZeroReturnError)
+from typing import (
+	Any, ClassVar, Final, final, Literal, NotRequired, overload, Self, type_check_only, TypeAlias, TypedDict)
+from typing_extensions import deprecated, disjoint_base
+import sys
 
 _PasswordType: TypeAlias = Callable[[], str | bytes | bytearray] | str | bytes | bytearray
 _PCTRTT: TypeAlias = tuple[tuple[str, str], ...]

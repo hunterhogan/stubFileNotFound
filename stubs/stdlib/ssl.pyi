@@ -1,34 +1,17 @@
+from _ssl import (  # typeshed only, but re-export for other type stubs to use
+	_DEFAULT_CIPHERS as _DEFAULT_CIPHERS, _OPENSSL_API_VERSION as _OPENSSL_API_VERSION, _PasswordType as _PasswordType,
+	_SSLContext, HAS_ALPN as HAS_ALPN, HAS_ECDH as HAS_ECDH, HAS_NPN as HAS_NPN, HAS_SNI as HAS_SNI,
+	HAS_SSLv2 as HAS_SSLv2, HAS_SSLv3 as HAS_SSLv3, HAS_TLSv1 as HAS_TLSv1, HAS_TLSv1_1 as HAS_TLSv1_1,
+	HAS_TLSv1_2 as HAS_TLSv1_2, HAS_TLSv1_3 as HAS_TLSv1_3, MemoryBIO as MemoryBIO, OPENSSL_VERSION as OPENSSL_VERSION,
+	OPENSSL_VERSION_INFO as OPENSSL_VERSION_INFO, OPENSSL_VERSION_NUMBER as OPENSSL_VERSION_NUMBER, RAND_add as RAND_add,
+	RAND_bytes as RAND_bytes, RAND_status as RAND_status, SSLSession as SSLSession)
+from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
+from collections.abc import Callable, Iterable
+from typing import Any, Final, Literal, NamedTuple, Never, overload, Self, type_check_only, TypeAlias, TypedDict
+from typing_extensions import deprecated
 import enum
 import socket
 import sys
-from _ssl import (
-    _DEFAULT_CIPHERS as _DEFAULT_CIPHERS,
-    _OPENSSL_API_VERSION as _OPENSSL_API_VERSION,
-    HAS_ALPN as HAS_ALPN,
-    HAS_ECDH as HAS_ECDH,
-    HAS_NPN as HAS_NPN,
-    HAS_SNI as HAS_SNI,
-    OPENSSL_VERSION as OPENSSL_VERSION,
-    OPENSSL_VERSION_INFO as OPENSSL_VERSION_INFO,
-    OPENSSL_VERSION_NUMBER as OPENSSL_VERSION_NUMBER,
-    HAS_SSLv2 as HAS_SSLv2,
-    HAS_SSLv3 as HAS_SSLv3,
-    HAS_TLSv1 as HAS_TLSv1,
-    HAS_TLSv1_1 as HAS_TLSv1_1,
-    HAS_TLSv1_2 as HAS_TLSv1_2,
-    HAS_TLSv1_3 as HAS_TLSv1_3,
-    MemoryBIO as MemoryBIO,
-    RAND_add as RAND_add,
-    RAND_bytes as RAND_bytes,
-    RAND_status as RAND_status,
-    SSLSession as SSLSession,
-    _PasswordType as _PasswordType,  # typeshed only, but re-export for other type stubs to use
-    _SSLContext,
-)
-from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
-from collections.abc import Callable, Iterable
-from typing import Any, Final, Literal, NamedTuple, TypedDict, overload, type_check_only
-from typing_extensions import Never, Self, TypeAlias, deprecated
 
 if sys.version_info >= (3, 13):
     from _ssl import HAS_PSK as HAS_PSK
@@ -333,8 +316,8 @@ if sys.version_info < (3, 12):
         keyfile: StrOrBytesPath | None = None,
         certfile: StrOrBytesPath | None = None,
         server_side: bool = False,
-        cert_reqs: int = VerifyMode.CERT_NONE,
-        ssl_version: int = _SSLMethod.PROTOCOL_TLS,
+        cert_reqs: int = ...,
+        ssl_version: int = ...,
         ca_certs: str | None = None,
         do_handshake_on_connect: bool = True,
         suppress_ragged_eofs: bool = True,
@@ -350,14 +333,14 @@ def PEM_cert_to_DER_cert(pem_cert_string: str) -> bytes: ...
 if sys.version_info >= (3, 10):
     def get_server_certificate(
         addr: tuple[str, int],
-        ssl_version: int = _SSLMethod.PROTOCOL_TLS_CLIENT,
+        ssl_version: int = ...,
         ca_certs: str | None = None,
         timeout: float = ...,
     ) -> str: ...
 
 else:
     def get_server_certificate(
-        addr: tuple[str, int], ssl_version: int = _SSLMethod.PROTOCOL_TLS_CLIENT, ca_certs: str | None = None
+        addr: tuple[str, int], ssl_version: int = ..., ca_certs: str | None = None
     ) -> str: ...
 
 class TLSVersion(enum.IntEnum):
@@ -396,7 +379,7 @@ class SSLContext(_SSLContext):
     else:
         def __new__(cls, protocol: int = ..., *args: Any, **kwargs: Any) -> Self: ...
 
-    def load_default_certs(self, purpose: Purpose = Purpose.SERVER_AUTH) -> None: ...
+    def load_default_certs(self, purpose: Purpose = ...) -> None: ...
     def load_verify_locations(
         self,
         cafile: StrOrBytesPath | None = None,
@@ -441,7 +424,7 @@ class SSLContext(_SSLContext):
     ) -> SSLObject: ...
 
 def create_default_context(
-    purpose: Purpose = Purpose.SERVER_AUTH,
+    purpose: Purpose = ...,
     *,
     cafile: StrOrBytesPath | None = None,
     capath: StrOrBytesPath | None = None,
@@ -452,9 +435,9 @@ if sys.version_info >= (3, 10):
     def _create_unverified_context(
         protocol: int | None = None,
         *,
-        cert_reqs: int = VerifyMode.CERT_NONE,
+        cert_reqs: int = ...,
         check_hostname: bool = False,
-        purpose: Purpose = Purpose.SERVER_AUTH,
+        purpose: Purpose = ...,
         certfile: StrOrBytesPath | None = None,
         keyfile: StrOrBytesPath | None = None,
         cafile: StrOrBytesPath | None = None,
@@ -466,9 +449,9 @@ else:
     def _create_unverified_context(
         protocol: int = ...,
         *,
-        cert_reqs: int = VerifyMode.CERT_NONE,
+        cert_reqs: int = ...,
         check_hostname: bool = False,
-        purpose: Purpose = Purpose.SERVER_AUTH,
+        purpose: Purpose = ...,
         certfile: StrOrBytesPath | None = None,
         keyfile: StrOrBytesPath | None = None,
         cafile: StrOrBytesPath | None = None,

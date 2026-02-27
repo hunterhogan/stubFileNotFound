@@ -1,19 +1,19 @@
-import sys
 from typing import Final, Literal
+import sys
 
 __all__ = [
-    "cmp_op",
-    "hasconst",
-    "hasname",
-    "hasjrel",
-    "hasjabs",
-    "haslocal",
-    "hascompare",
-    "hasfree",
-    "opname",
-    "opmap",
-    "HAVE_ARGUMENT",
     "EXTENDED_ARG",
+    "HAVE_ARGUMENT",
+    "cmp_op",
+    "hascompare",
+    "hasconst",
+    "hasfree",
+    "hasjabs",
+    "hasjrel",
+    "haslocal",
+    "hasname",
+    "opmap",
+    "opname",
     "stack_effect",
 ]
 if sys.version_info >= (3, 12):

@@ -12,8 +12,7 @@ class Mod(DefinedFunction):
     """Represents a modulo operation on symbolic expressions.
 
     Parameters
-    ==========
-
+    ----------
     p : Expr
         Dividend.
 
@@ -21,8 +20,7 @@ class Mod(DefinedFunction):
         Divisor.
 
     Notes
-    =====
-
+    -----
     The convention used is the same as Python's: the remainder always has the
     same sign as the divisor.
 
@@ -39,8 +37,7 @@ class Mod(DefinedFunction):
     3744312326
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y
     >>> x**2 % y
     Mod(x**2, y)
@@ -48,6 +45,7 @@ class Mod(DefinedFunction):
     1
 
     """
+
     kind = NumberKind
     @classmethod
     def eval(cls, p, q): ...

@@ -7,8 +7,7 @@ def _doktocsr(dok):
     """Converts a sparse matrix to Compressed Sparse Row (CSR) format.
 
     Parameters
-    ==========
-
+    ----------
     A : contains non-zero elements sorted by key (row, column)
     JA : JA[i] is the column corresponding to A[i]
     IA : IA[i] contains the index in A for the first non-zero element
@@ -17,8 +16,7 @@ def _doktocsr(dok):
         number of rows in the matrix.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.matrices.sparsetools import _doktocsr
     >>> from sympy import SparseMatrix, diag
     >>> m = SparseMatrix(diag(1, 2, 3))
@@ -31,8 +29,7 @@ def _csrtodok(csr):
     """Converts a CSR representation to DOK representation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.matrices.sparsetools import _csrtodok
     >>> _csrtodok([[5, 8, 3, 6], [0, 1, 2, 1], [0, 0, 2, 3, 4], [4, 3]])
     Matrix([
@@ -67,8 +64,7 @@ def banded(*args, **kwargs):
            not given.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import banded, ones, Matrix
     >>> from sympy.abc import x
 

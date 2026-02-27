@@ -1,22 +1,8 @@
-from collections.abc import (
-    Mapping,
-    MutableSequence,
-)
-from typing import (
-    Any,
-    Literal,
-)
-
-from pandas import (
-    DataFrame,
-    Series,
-)
+from collections.abc import Mapping, MutableSequence
+from pandas import DataFrame, Series
+from pandas._typing import np_ndarray, Scalar
 from pandas.core.computation.ops import BinOp
-
-from pandas._typing import (
-    Scalar,
-    np_ndarray,
-)
+from typing import Any, Literal
 
 def eval(
     expr: str | BinOp,

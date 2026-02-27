@@ -1,21 +1,9 @@
-import sys
 from _csv import (
-    QUOTE_ALL as QUOTE_ALL,
-    QUOTE_MINIMAL as QUOTE_MINIMAL,
-    QUOTE_NONE as QUOTE_NONE,
-    QUOTE_NONNUMERIC as QUOTE_NONNUMERIC,
-    Error as Error,
-    __version__ as __version__,
-    _DialectLike,
-    _QuotingType,
-    field_size_limit as field_size_limit,
-    get_dialect as get_dialect,
-    list_dialects as list_dialects,
-    reader as reader,
-    register_dialect as register_dialect,
-    unregister_dialect as unregister_dialect,
-    writer as writer,
-)
+	__version__ as __version__, _DialectLike, _QuotingType, Error as Error, field_size_limit as field_size_limit,
+	get_dialect as get_dialect, list_dialects as list_dialects, QUOTE_ALL as QUOTE_ALL, QUOTE_MINIMAL as QUOTE_MINIMAL,
+	QUOTE_NONE as QUOTE_NONE, QUOTE_NONNUMERIC as QUOTE_NONNUMERIC, reader as reader, register_dialect as register_dialect,
+	unregister_dialect as unregister_dialect, writer as writer)
+import sys
 
 if sys.version_info >= (3, 12):
     from _csv import QUOTE_NOTNULL as QUOTE_NOTNULL, QUOTE_STRINGS as QUOTE_STRINGS
@@ -27,32 +15,31 @@ else:
 from _typeshed import SupportsWrite
 from collections.abc import Collection, Iterable, Mapping, Sequence
 from types import GenericAlias
-from typing import Any, Generic, Literal, TypeVar, overload
-from typing_extensions import Self
+from typing import Any, Generic, Literal, overload, Self, TypeVar
 
 __all__ = [
-    "QUOTE_MINIMAL",
     "QUOTE_ALL",
-    "QUOTE_NONNUMERIC",
+    "QUOTE_MINIMAL",
     "QUOTE_NONE",
-    "Error",
+    "QUOTE_NONNUMERIC",
     "Dialect",
+    "DictReader",
+    "DictWriter",
+    "Error",
+    "Sniffer",
     "excel",
     "excel_tab",
     "field_size_limit",
-    "reader",
-    "writer",
-    "register_dialect",
     "get_dialect",
     "list_dialects",
-    "Sniffer",
-    "unregister_dialect",
-    "DictReader",
-    "DictWriter",
+    "reader",
+    "register_dialect",
     "unix_dialect",
+    "unregister_dialect",
+    "writer",
 ]
 if sys.version_info >= (3, 12):
-    __all__ += ["QUOTE_STRINGS", "QUOTE_NOTNULL"]
+    __all__ += ["QUOTE_NOTNULL", "QUOTE_STRINGS"]
 if sys.version_info < (3, 13):
     __all__ += ["__doc__", "__version__"]
 

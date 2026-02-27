@@ -1,16 +1,23 @@
 from _typeshed import Incomplete
-from sympy.core import Add as Add, Basic as Basic, Expr as Expr, Mul as Mul, S as S, bottom_up as bottom_up, factor_terms as factor_terms, sympify as sympify
+from sympy.core import (
+	Add as Add, Basic as Basic, bottom_up as bottom_up, Expr as Expr, factor_terms as factor_terms, Mul as Mul, S as S,
+	sympify as sympify)
 from sympy.core.cache import cacheit as cacheit
-from sympy.core.function import Derivative as Derivative, FunctionClass as FunctionClass, _coeff_isneg as _coeff_isneg, _mexpand as _mexpand, count_ops as count_ops, expand as expand, expand_mul as expand_mul
+from sympy.core.function import (
+	_coeff_isneg as _coeff_isneg, _mexpand as _mexpand, count_ops as count_ops, Derivative as Derivative, expand as expand,
+	expand_mul as expand_mul, FunctionClass as FunctionClass)
 from sympy.core.intfunc import igcd as igcd
 from sympy.core.numbers import I as I, Integer as Integer
 from sympy.core.sorting import _nodes as _nodes
-from sympy.core.symbol import Dummy as Dummy, Wild as Wild, symbols as symbols
+from sympy.core.symbol import Dummy as Dummy, symbols as symbols, Wild as Wild
 from sympy.external.gmpy import SYMPY_INTS as SYMPY_INTS
-from sympy.functions import atan2 as atan2, cos as cos, cosh as cosh, cot as cot, coth as coth, exp as exp, sin as sin, sinh as sinh, tan as tan, tanh as tanh
+from sympy.functions import (
+	atan2 as atan2, cos as cos, cosh as cosh, cot as cot, coth as coth, exp as exp, sin as sin, sinh as sinh, tan as tan,
+	tanh as tanh)
 from sympy.functions.elementary.hyperbolic import HyperbolicFunction as HyperbolicFunction
 from sympy.functions.elementary.trigonometric import TrigonometricFunction as TrigonometricFunction
-from sympy.polys import Poly as Poly, cancel as cancel, factor as factor, parallel_poly_from_expr as parallel_poly_from_expr
+from sympy.polys import (
+	cancel as cancel, factor as factor, parallel_poly_from_expr as parallel_poly_from_expr, Poly as Poly)
 from sympy.polys.domains import ZZ as ZZ
 from sympy.polys.polyerrors import PolificationFailed as PolificationFailed
 from sympy.polys.polytools import groebner as groebner
@@ -61,8 +68,7 @@ def trigsimp_groebner(expr, hints=[], quick: bool = False, order: str = 'grlex',
     the expense of increased total degree).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y
     >>> from sympy import sin, tan, cos, sinh, cosh, tanh
     >>> from sympy.simplify.trigsimp import trigsimp_groebner
@@ -120,8 +126,7 @@ def trigsimp(expr, inverse: bool = False, **opts):
     """Returns a reduced expression by using known trig identities.
 
     Parameters
-    ==========
-
+    ----------
     inverse : bool, optional
         If ``inverse=True``, it will be assumed that a composition of inverse
         functions, such as sin and asin, can be cancelled in any order.
@@ -153,8 +158,7 @@ def trigsimp(expr, inverse: bool = False, **opts):
         function docstring for details.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import trigsimp, sin, cos, log
     >>> from sympy.abc import x
     >>> e = 2*sin(x)**2 + 2*cos(x)**2
@@ -184,8 +188,7 @@ def exptrigsimp(expr):
     Simplifies exponential / trigonometric / hyperbolic functions.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import exptrigsimp, exp, cosh, sinh
     >>> from sympy.abc import z
 
@@ -195,12 +198,11 @@ def exptrigsimp(expr):
     exp(-z)
     """
 def trigsimp_old(expr, *, first: bool = True, **opts):
-    '''
+    """
     Reduces expression by using known trig identities.
 
     Notes
-    =====
-
+    -----
     deep:
     - Apply trigsimp inside all objects with arguments
 
@@ -226,8 +228,7 @@ def trigsimp_old(expr, *, first: bool = True, **opts):
     but returns the `trigsimp` value.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import trigsimp, sin, cos, log, cot
     >>> from sympy.abc import x
     >>> e = 2*sin(x)**2 + 2*cos(x)**2
@@ -251,11 +252,12 @@ def trigsimp_old(expr, *, first: bool = True, **opts):
           futrig: tan(x)**2
     cot(x)**(-2)
 
-    '''
+    """
 def _dotrig(a, b):
     """Helper to tell whether ``a`` and ``b`` have the same sorts
     of symbols in them -- no need to test hyperbolic patterns against
-    expressions that have no hyperbolics in them."""
+    expressions that have no hyperbolics in them.
+    """
 
 _trigpat: Incomplete
 
@@ -272,21 +274,20 @@ _midn: Incomplete
 _one: Incomplete
 
 def _match_div_rewrite(expr, i):
-    """helper for __trigsimp"""
+    """Helper for __trigsimp"""
 def _trigsimp(expr, deep: bool = False): ...
 @cacheit
 def __trigsimp(expr, deep: bool = False):
-    """recursive helper for trigsimp"""
+    """Recursive helper for trigsimp"""
 def futrig(e, *, hyper: bool = True, **kwargs):
-    '''Return simplified ``e`` using Fu-like transformations.
+    """Return simplified ``e`` using Fu-like transformations.
     This is not the "Fu" algorithm. This is called by default
     from ``trigsimp``. By default, hyperbolics subexpressions
     will be simplified, but this can be disabled by setting
     ``hyper=False``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import trigsimp, tan, sinh, tanh
     >>> from sympy.simplify.trigsimp import futrig
     >>> from sympy.abc import x
@@ -296,12 +297,14 @@ def futrig(e, *, hyper: bool = True, **kwargs):
     >>> futrig(sinh(x)/tanh(x))
     cosh(x)
 
-    '''
+    """
 def _futrig(e):
     """Helper for futrig."""
 def _is_Expr(e):
     """_eapply helper to tell whether ``e`` and all its args
-    are Exprs."""
+    are Exprs.
+    """
 def _eapply(func, e, cond=None):
     """Apply ``func`` to ``e`` if all args are Exprs else only
-    apply it to those args that *are* Exprs."""
+    apply it to those args that *are* Exprs.
+    """

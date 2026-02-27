@@ -1,13 +1,14 @@
-import matplotlib.artist as martist
-import matplotlib.collections as mcollections
 from _typeshed import Incomplete
 from matplotlib import _api as _api, _docstring as _docstring, cbook as cbook
 from matplotlib.patches import CirclePolygon as CirclePolygon
+import matplotlib.artist as martist
+import matplotlib.collections as mcollections
 
 _quiver_doc: Incomplete
 
 class QuiverKey(martist.Artist):
     """Labelled arrow for use as a quiver plot scale key."""
+
     halign: Incomplete
     valign: Incomplete
     pivot: Incomplete
@@ -127,6 +128,7 @@ class Quiver(mcollections.PolyCollection):
     should be no performance penalty from putting the calculations
     in the draw() method.
     """
+
     _PIVOT_VALS: Incomplete
     _axes: Incomplete
     X: Incomplete
@@ -196,6 +198,7 @@ class Barbs(mcollections.PolyCollection):
     From there :meth:`_make_barbs` is used to find the vertices of the
     polygon to represent the barb based on this information.
     """
+
     sizes: Incomplete
     fill_empty: Incomplete
     barb_increments: Incomplete
@@ -235,7 +238,7 @@ class Barbs(mcollections.PolyCollection):
             For each entry in *mag*, whether nothing is drawn.
         """
     def _make_barbs(self, u, v, nflags, nbarbs, half_barb, empty_flag, length, pivot, sizes, fill_empty, flip):
-        '''
+        """
         Create the wind barbs.
 
         Parameters
@@ -278,7 +281,7 @@ class Barbs(mcollections.PolyCollection):
         list of arrays of vertices
             Polygon vertices for each of the wind barbs.  These polygons have
             been rotated to properly align with the vector direction.
-        '''
+        """
     u: Incomplete
     v: Incomplete
     _offsets: Incomplete

@@ -1,38 +1,12 @@
 from builtins import slice as _slice
-from collections.abc import (
-    Callable,
-    Hashable,
-    Mapping,
-    Sequence,
-)
-import re
-from typing import (
-    Generic,
-    Literal,
-    TypeVar,
-    overload,
-)
-
-import pandas as pd
-from pandas import (
-    DataFrame,
-    Index,
-    MultiIndex,
-    Series,
-)
-from pandas.core.base import NoNewAttributesMixin
-
+from collections.abc import Callable, Hashable, Mapping, Sequence
+from pandas import DataFrame, Index, MultiIndex, Series
 from pandas._libs.tslibs.nattype import NaTType
-from pandas._typing import (
-    AlignJoin,
-    Dtype,
-    DtypeObj,
-    Scalar,
-    T,
-    np_1darray_bool,
-    np_ndarray_str,
-)
-from typing import Any
+from pandas._typing import AlignJoin, Dtype, DtypeObj, np_1darray_bool, np_ndarray_str, Scalar, T
+from pandas.core.base import NoNewAttributesMixin
+from typing import Any, Generic, Literal, overload, TypeVar
+import pandas as pd
+import re
 
 # Used for the result of str.split with expand=True
 _T_EXPANDING = TypeVar("_T_EXPANDING", bound=DataFrame | MultiIndex)

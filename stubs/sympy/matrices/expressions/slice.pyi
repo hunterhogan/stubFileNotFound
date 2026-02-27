@@ -7,11 +7,10 @@ from sympy.matrices.expressions.matexpr import MatrixExpr as MatrixExpr
 def normalize(i, parentsize): ...
 
 class MatrixSlice(MatrixExpr):
-    """ A MatrixSlice of a Matrix Expression
+    """A MatrixSlice of a Matrix Expression
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatrixSlice, ImmutableMatrix
     >>> M = ImmutableMatrix(4, 4, range(16))
     >>> M
@@ -27,6 +26,7 @@ class MatrixSlice(MatrixExpr):
     [2, 3],
     [6, 7]])
     """
+
     parent: Incomplete
     rowslice: Incomplete
     colslice: Incomplete
@@ -39,7 +39,7 @@ class MatrixSlice(MatrixExpr):
 
 def slice_of_slice(s, t): ...
 def mat_slice_of_slice(parent, rowslice, colslice):
-    """ Collapse nested matrix slices
+    """Collapse nested matrix slices
 
     >>> from sympy import MatrixSymbol
     >>> X = MatrixSymbol('X', 10, 10)

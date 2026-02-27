@@ -18,4 +18,3 @@ _extended_encodings: Incomplete
 _cache: Incomplete
 
 def search_function(name): ...
-

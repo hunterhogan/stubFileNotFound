@@ -1,9 +1,9 @@
-import types
 from .cache import clear_cache as clear_cache
 from _typeshed import Incomplete
 from collections.abc import Generator
 from contextlib import contextmanager
 from threading import local
+import types
 
 class _global_parameters(local):
     """
@@ -22,8 +22,7 @@ class _global_parameters(local):
     This may lead to undesired result in multi-threading operations.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x
     >>> from sympy.core.cache import clear_cache
     >>> from sympy.core.parameters import global_parameters as gp
@@ -53,18 +52,19 @@ class _global_parameters(local):
     2*x
 
     References
-    ==========
+    ----------
 
     .. [1] https://docs.python.org/3/library/threading.html
 
     """
+
     def __init__(self, **kwargs) -> None: ...
     def __setattr__(self, name, value): ...
 
 global_parameters: Incomplete
 
 class evaluate:
-    """ Control automatic evaluation
+    """Control automatic evaluation
 
     Explanation
     ===========
@@ -77,8 +77,7 @@ class evaluate:
     expressions.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import evaluate
     >>> from sympy.abc import x
     >>> print(x + x)
@@ -87,6 +86,7 @@ class evaluate:
     ...     print(x + x)
     x + x
     """
+
     x: Incomplete
     old: Incomplete
     def __init__(self, x) -> None: ...
@@ -95,7 +95,7 @@ class evaluate:
 
 @contextmanager
 def distribute(x) -> Generator[None]:
-    """ Control automatic distribution of Number over Add
+    """Control automatic distribution of Number over Add
 
     Explanation
     ===========
@@ -105,8 +105,7 @@ def distribute(x) -> Generator[None]:
     that is done, this contextmanager will be removed.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x
     >>> from sympy.core.parameters import distribute
     >>> print(2*(x + 1))
@@ -121,8 +120,7 @@ def _exp_is_pow(x) -> Generator[None]:
     Control whether `e^x` should be represented as ``exp(x)`` or a ``Pow(E, x)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import exp
     >>> from sympy.abc import x
     >>> from sympy.core.parameters import _exp_is_pow

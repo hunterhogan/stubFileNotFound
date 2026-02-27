@@ -1,13 +1,12 @@
 from sympy.physics.quantum import Bra, Ket, Operator
 
-__all__ = ['FermionOp', 'FermionFockKet', 'FermionFockBra']
+__all__ = ['FermionFockBra', 'FermionFockKet', 'FermionOp']
 
 class FermionOp(Operator):
-    '''A fermionic operator that satisfies {c, Dagger(c)} == 1.
+    """A fermionic operator that satisfies {c, Dagger(c)} == 1.
 
     Parameters
-    ==========
-
+    ----------
     name : str
         A string that labels the fermionic mode.
 
@@ -16,14 +15,14 @@ class FermionOp(Operator):
         (True, default value) or creation operator (False)
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum import Dagger, AntiCommutator
     >>> from sympy.physics.quantum.fermion import FermionOp
     >>> c = FermionOp("c")
     >>> AntiCommutator(c, Dagger(c)).doit()
     1
-    '''
+    """
+
     @property
     def name(self): ...
     @property
@@ -45,12 +44,12 @@ class FermionFockKet(Ket):
     """Fock state ket for a fermionic mode.
 
     Parameters
-    ==========
-
+    ----------
     n : Number
         The Fock state number.
 
     """
+
     def __new__(cls, n): ...
     @property
     def n(self): ...
@@ -65,12 +64,12 @@ class FermionFockBra(Bra):
     """Fock state bra for a fermionic mode.
 
     Parameters
-    ==========
-
+    ----------
     n : Number
         The Fock state number.
 
     """
+
     def __new__(cls, n): ...
     @property
     def n(self): ...

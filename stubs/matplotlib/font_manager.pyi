@@ -1,9 +1,10 @@
-import dataclasses
-import json
 from _typeshed import Incomplete
 from matplotlib import _afm as _afm, _api as _api, cbook as cbook, ft2font as ft2font
-from matplotlib._fontconfig_pattern import generate_fontconfig_pattern as generate_fontconfig_pattern, parse_fontconfig_pattern as parse_fontconfig_pattern
+from matplotlib._fontconfig_pattern import (
+	generate_fontconfig_pattern as generate_fontconfig_pattern, parse_fontconfig_pattern as parse_fontconfig_pattern)
 from matplotlib.rcsetup import _validators as _validators
+import dataclasses
+import json
 
 _log: Incomplete
 font_scalings: Incomplete
@@ -59,6 +60,7 @@ class FontEntry:
 
     It is used when populating the font lookup dictionary.
     """
+
     fname: str = ...
     name: str = ...
     style: str = ...
@@ -187,6 +189,7 @@ class FontProperties:
     may be different in Matplotlib than in other applications that use
     fontconfig.
     """
+
     def __init__(self, family: Incomplete | None = None, style: Incomplete | None = None, variant: Incomplete | None = None, weight: Incomplete | None = None, stretch: Incomplete | None = None, size: Incomplete | None = None, fname: Incomplete | None = None, math_fontfamily: Incomplete | None = None) -> None: ...
     @classmethod
     def _from_any(cls, arg):
@@ -202,7 +205,6 @@ class FontProperties:
         """
     def __hash__(self): ...
     def __eq__(self, other): ...
-    def __str__(self) -> str: ...
     def get_family(self):
         """
         Return a list of individual font family names or generic family names.
@@ -386,7 +388,7 @@ def json_load(filename):
     """
 
 class FontManager:
-    '''
+    """
     On import, the `FontManager` singleton instance creates a list of ttf and
     afm fonts and caches their `FontProperties`.  The `FontManager.findfont`
     method does a nearest neighbor search to find the font that most closely
@@ -413,7 +415,8 @@ class FontManager:
 
         for font_file in font_files:
             font_manager.fontManager.addfont(font_file)
-    '''
+    """
+
     __version__: int
     _version: Incomplete
     __default_weight: Incomplete
@@ -512,7 +515,7 @@ class FontManager:
         72pt) will lie between 0.0 and 1.0.
         """
     def findfont(self, prop, fontext: str = 'ttf', directory: Incomplete | None = None, fallback_to_default: bool = True, rebuild_if_missing: bool = True):
-        '''
+        """
         Find the path to the font file most closely matching the given font properties.
 
         Parameters
@@ -562,11 +565,11 @@ class FontManager:
 
         .. _fontconfig patterns:
            https://www.freedesktop.org/software/fontconfig/fontconfig-user.html
-        '''
+        """
     def get_font_names(self):
         """Return the list of available fonts."""
     def _find_fonts_by_props(self, prop, fontext: str = 'ttf', directory: Incomplete | None = None, fallback_to_default: bool = True, rebuild_if_missing: bool = True):
-        '''
+        """
         Find the paths to the font files most closely matching the given properties.
 
         Parameters
@@ -607,7 +610,7 @@ class FontManager:
         given font properties.  Since this internally uses the original API,
         there\'s no change to the logic of performing the nearest neighbor
         search.  See `findfont` for more details.
-        '''
+        """
     def _findfont_cached(self, prop, fontext, directory, fallback_to_default, rebuild_if_missing, rc_params): ...
 
 def is_opentype_cff_font(filename):

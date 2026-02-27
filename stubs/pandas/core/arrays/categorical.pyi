@@ -1,42 +1,18 @@
-from collections.abc import (
-    Callable,
-    Hashable,
-    Sequence,
-)
-from typing import (
-    Any,
-    Literal,
-    Self,
-    overload,
-)
-
-import numpy as np
+from collections.abc import Callable, Hashable, Sequence
 from pandas import Series
+from pandas._libs.missing import NAType
+from pandas._typing import (
+	AnyArrayLike, ListLike, NaPosition, np_1darray, np_1darray_bool, NpDtype, Ordered, PositionalIndexerTuple, Renamer,
+	Scalar, ScalarIndexer, SequenceIndexer, SequenceNotStr)
 from pandas.core.accessor import PandasDelegate as PandasDelegate
 from pandas.core.arrays._mixins import NDArrayBackedExtensionArray
 from pandas.core.arrays.base import ExtensionArray as ExtensionArray
 from pandas.core.base import NoNewAttributesMixin as NoNewAttributesMixin
+from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype
 from pandas.core.frame import DataFrame
 from pandas.core.indexes.base import Index
-
-from pandas._libs.missing import NAType
-from pandas._typing import (
-    AnyArrayLike,
-    ListLike,
-    NaPosition,
-    NpDtype,
-    Ordered,
-    PositionalIndexerTuple,
-    Renamer,
-    Scalar,
-    ScalarIndexer,
-    SequenceIndexer,
-    SequenceNotStr,
-    np_1darray,
-    np_1darray_bool,
-)
-
-from pandas.core.dtypes.dtypes import CategoricalDtype as CategoricalDtype
+from typing import Any, Literal, overload, Self
+import numpy as np
 
 class Categorical(NDArrayBackedExtensionArray):
     __array_priority__: int = ...

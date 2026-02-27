@@ -1,37 +1,38 @@
-import os
-import sys
-from _typeshed import BytesPath, ExcInfo, FileDescriptorOrPath, MaybeNone, StrOrBytesPath, StrPath, SupportsRead, SupportsWrite
+from _typeshed import (
+	BytesPath, ExcInfo, FileDescriptorOrPath, MaybeNone, StrOrBytesPath, StrPath, SupportsRead, SupportsWrite)
 from collections.abc import Callable, Iterable, Sequence
 from tarfile import _TarfileFilter
-from typing import Any, AnyStr, NamedTuple, NoReturn, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias, deprecated
+from typing import Any, AnyStr, NamedTuple, NoReturn, overload, Protocol, type_check_only, TypeAlias, TypeVar
+from typing_extensions import deprecated
+import os
+import sys
 
 __all__ = [
-    "copyfileobj",
-    "copyfile",
-    "copymode",
-    "copystat",
+    "Error",
+    "SameFileError",
+    "SpecialFileError",
+    "chown",
     "copy",
     "copy2",
+    "copyfile",
+    "copyfileobj",
+    "copymode",
+    "copystat",
     "copytree",
-    "move",
-    "rmtree",
-    "Error",
-    "SpecialFileError",
-    "make_archive",
-    "get_archive_formats",
-    "register_archive_format",
-    "unregister_archive_format",
-    "get_unpack_formats",
-    "register_unpack_format",
-    "unregister_unpack_format",
-    "unpack_archive",
-    "ignore_patterns",
-    "chown",
-    "which",
-    "get_terminal_size",
-    "SameFileError",
     "disk_usage",
+    "get_archive_formats",
+    "get_terminal_size",
+    "get_unpack_formats",
+    "ignore_patterns",
+    "make_archive",
+    "move",
+    "register_archive_format",
+    "register_unpack_format",
+    "rmtree",
+    "unpack_archive",
+    "unregister_archive_format",
+    "unregister_unpack_format",
+    "which",
 ]
 if sys.version_info < (3, 14):
     __all__ += ["ExecError"]

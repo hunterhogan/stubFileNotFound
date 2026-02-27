@@ -1,4 +1,6 @@
-from . import _api as _api, _docstring as _docstring, backend_tools as backend_tools, cbook as cbook, collections as collections, colors as colors, ticker as ticker, transforms as transforms
+from . import (
+	_api as _api, _docstring as _docstring, backend_tools as backend_tools, cbook as cbook, collections as collections,
+	colors as colors, ticker as ticker, transforms as transforms)
 from .lines import Line2D as Line2D
 from .patches import Ellipse as Ellipse, Polygon as Polygon, Rectangle as Rectangle
 from .transforms import Affine2D as Affine2D, TransformedPatchPath as TransformedPatchPath
@@ -13,6 +15,7 @@ class LockDraw:
     canvas; this will prevent other widgets from doing so at the same time (if
     they also try to acquire the lock first).
     """
+
     _owner: Incomplete
     def __init__(self) -> None: ...
     def __call__(self, o) -> None:
@@ -30,6 +33,7 @@ class Widget:
     """
     Abstract base class for GUI neutral widgets.
     """
+
     drawon: bool
     eventson: bool
     _active: bool
@@ -66,6 +70,7 @@ class AxesWidget(Widget):
     active : bool
         If False, the widget does not respond to events.
     """
+
     ax: Incomplete
     _cids: Incomplete
     def __init__(self, ax) -> None: ...
@@ -100,6 +105,7 @@ class Button(AxesWidget):
     hovercolor
         The color of the button when hovering.
     """
+
     label: Incomplete
     _useblit: Incomplete
     _observers: Incomplete
@@ -145,6 +151,7 @@ class SliderBase(AxesWidget):
 
     For the slider to remain responsive you must maintain a reference to it.
     """
+
     orientation: Incomplete
     closedmin: Incomplete
     closedmax: Incomplete
@@ -183,6 +190,7 @@ class Slider(SliderBase):
     val : float
         Slider value.
     """
+
     slidermin: Incomplete
     slidermax: Incomplete
     val: Incomplete
@@ -315,6 +323,7 @@ class RangeSlider(SliderBase):
     val : tuple of float
         Slider value.
     """
+
     val: Incomplete
     valinit: Incomplete
     track: Incomplete
@@ -464,6 +473,7 @@ class CheckButtons(AxesWidget):
     labels : list of `~matplotlib.text.Text`
         The text label objects of the check buttons.
     """
+
     _useblit: Incomplete
     _background: Incomplete
     labels: Incomplete
@@ -627,6 +637,7 @@ class TextBox(AxesWidget):
     hovercolor : :mpltype:`color`
         The color of the text box when hovering.
     """
+
     _text_position: Incomplete
     label: Incomplete
     text_disp: Incomplete
@@ -705,6 +716,7 @@ class RadioButtons(AxesWidget):
     index_selected : int
         The index of the selected button.
     """
+
     _activecolor: Incomplete
     _initial_active: Incomplete
     value_selected: Incomplete
@@ -826,6 +838,7 @@ class SubplotTool(Widget):
     """
     A tool to adjust the subplot params of a `.Figure`.
     """
+
     figure: Incomplete
     targetfig: Incomplete
     _sliders: Incomplete
@@ -870,6 +883,7 @@ class Cursor(AxesWidget):
     --------
     See :doc:`/gallery/widgets/cursor`.
     """
+
     visible: bool
     horizOn: Incomplete
     vertOn: Incomplete
@@ -920,6 +934,7 @@ class MultiCursor(Widget):
     --------
     See :doc:`/gallery/widgets/multicursor`.
     """
+
     _canvas: Incomplete
     axes: Incomplete
     horizOn: Incomplete
@@ -1063,7 +1078,7 @@ class _SelectorWidget(AxesWidget):
         """
 
 class SpanSelector(_SelectorWidget):
-    '''
+    """
     Visually select a min/max range on a single axis and call a function with
     those values.
 
@@ -1143,7 +1158,8 @@ class SpanSelector(_SelectorWidget):
     >>> fig.show()
 
     See also: :doc:`/gallery/widgets/span_selector`
-    '''
+    """
+
     _extents_on_press: Incomplete
     snap_values: Incomplete
     onmove_callback: Incomplete
@@ -1205,7 +1221,7 @@ class SpanSelector(_SelectorWidget):
     def _set_extents(self, extents) -> None: ...
 
 class ToolLineHandles:
-    '''
+    """
     Control handles for canvas tools.
 
     Parameters
@@ -1222,7 +1238,8 @@ class ToolLineHandles:
         Whether to use blitting for faster drawing (if supported by the
         backend). See the tutorial :ref:`blitting`
         for details.
-    '''
+    """
+
     ax: Incomplete
     _direction: Incomplete
     _artists: Incomplete
@@ -1286,6 +1303,7 @@ class ToolHandles:
         backend). See the tutorial :ref:`blitting`
         for details.
     """
+
     ax: Incomplete
     _markers: Incomplete
     def __init__(self, ax, x, y, *, marker: str = 'o', marker_props: Incomplete | None = None, useblit: bool = True) -> None: ...
@@ -1333,6 +1351,7 @@ class RectangleSelector(_SelectorWidget):
 
     See also: :doc:`/gallery/widgets/rectangle_selector`
     """
+
     _interactive: Incomplete
     drag_from_anywhere: Incomplete
     ignore_event_outside: Incomplete
@@ -1438,6 +1457,7 @@ class EllipseSelector(RectangleSelector):
     --------
     :doc:`/gallery/widgets/rectangle_selector`
     """
+
     def _init_shape(self, **props): ...
     def _draw_shape(self, extents) -> None: ...
     @property
@@ -1483,6 +1503,7 @@ class LassoSelector(_SelectorWidget):
         The mouse buttons used for rectangle selection.  Default is ``None``,
         which corresponds to all buttons.
     """
+
     verts: Incomplete
     _selection_artist: Incomplete
     def __init__(self, ax, onselect: Incomplete | None = None, *, useblit: bool = True, props: Incomplete | None = None, button: Incomplete | None = None) -> None: ...
@@ -1565,6 +1586,7 @@ class PolygonSelector(_SelectorWidget):
     incomplete state and you can start drawing a new polygon from the existing
     point.
     """
+
     _xys: Incomplete
     _selection_artist: Incomplete
     _handle_props: Incomplete
@@ -1654,6 +1676,7 @@ class Lasso(AxesWidget):
 
         .. versionadded:: 3.9
     """
+
     useblit: Incomplete
     background: Incomplete
     verts: Incomplete

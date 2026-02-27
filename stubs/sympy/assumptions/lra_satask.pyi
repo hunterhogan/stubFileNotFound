@@ -40,7 +40,7 @@ pred_to_pos_neg_zero: Incomplete
 
 def get_all_pred_and_expr_from_enc_cnf(enc_cnf): ...
 def extract_pred_from_old_assum(all_exprs):
-    '''
+    """
     Returns a list of relevant new assumption predicate
     based on any old assumptions.
 
@@ -65,4 +65,4 @@ def extract_pred_from_old_assum(all_exprs):
     >>> x, y = symbols("x y", positive=True)
     >>> extract_pred_from_old_assum([x, y, 2])
     [Q.positive(x), Q.positive(y)]
-    '''
+    """

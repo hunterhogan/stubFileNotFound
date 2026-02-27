@@ -1,7 +1,7 @@
 __all__ = ['operators_to_state', 'state_to_operators']
 
 def operators_to_state(operators, **options):
-    """ Returns the eigenstate of the given operator or set of operators
+    """Returns the eigenstate of the given operator or set of operators
 
     A global function for mapping operator classes to their associated
     states. It takes either an Operator or a set of operators and
@@ -28,15 +28,13 @@ def operators_to_state(operators, **options):
     state_mapping dictionary, None is returned.
 
     Parameters
-    ==========
-
+    ----------
     arg: Operator or set
          The class or instance of the operator or set of operators
          to be mapped to a state
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum.cartesian import XOp, PxOp
     >>> from sympy.physics.quantum.operatorset import operators_to_state
     >>> from sympy.physics.quantum.operator import Operator
@@ -54,7 +52,7 @@ def operators_to_state(operators, **options):
     |psi>
     """
 def state_to_operators(state, **options):
-    """ Returns the operator or set of operators corresponding to the
+    """Returns the operator or set of operators corresponding to the
     given eigenstate
 
     A global function for mapping state classes to their associated
@@ -82,15 +80,13 @@ def state_to_operators(state, **options):
     state_mapping, None is returned.
 
     Parameters
-    ==========
-
+    ----------
     arg: StateBase class or instance (or subclasses)
          The class or instance of the state to be mapped to an
          operator or set of operators
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum.cartesian import XKet, PxKet, XBra, PxBra
     >>> from sympy.physics.quantum.operatorset import state_to_operators
     >>> from sympy.physics.quantum.state import Ket, Bra

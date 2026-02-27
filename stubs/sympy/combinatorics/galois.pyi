@@ -1,5 +1,8 @@
 from enum import Enum
-from sympy.combinatorics.named_groups import AlternatingGroup as AlternatingGroup, CyclicGroup as CyclicGroup, DihedralGroup as DihedralGroup, SymmetricGroup as SymmetricGroup, set_alternating_group_properties as set_alternating_group_properties, set_symmetric_group_properties as set_symmetric_group_properties
+from sympy.combinatorics.named_groups import (
+	AlternatingGroup as AlternatingGroup, CyclicGroup as CyclicGroup, DihedralGroup as DihedralGroup,
+	set_alternating_group_properties as set_alternating_group_properties,
+	set_symmetric_group_properties as set_symmetric_group_properties, SymmetricGroup as SymmetricGroup)
 from sympy.combinatorics.perm_groups import PermutationGroup as PermutationGroup
 from sympy.combinatorics.permutations import Permutation as Permutation
 
@@ -7,6 +10,7 @@ class S1TransitiveSubgroups(Enum):
     """
     Names for the transitive subgroups of S1.
     """
+
     S1 = 'S1'
     def get_perm_group(self): ...
 
@@ -14,6 +18,7 @@ class S2TransitiveSubgroups(Enum):
     """
     Names for the transitive subgroups of S2.
     """
+
     S2 = 'S2'
     def get_perm_group(self): ...
 
@@ -21,6 +26,7 @@ class S3TransitiveSubgroups(Enum):
     """
     Names for the transitive subgroups of S3.
     """
+
     A3 = 'A3'
     S3 = 'S3'
     def get_perm_group(self): ...
@@ -29,6 +35,7 @@ class S4TransitiveSubgroups(Enum):
     """
     Names for the transitive subgroups of S4.
     """
+
     C4 = 'C4'
     V = 'V'
     D4 = 'D4'
@@ -40,6 +47,7 @@ class S5TransitiveSubgroups(Enum):
     """
     Names for the transitive subgroups of S5.
     """
+
     C5 = 'C5'
     D5 = 'D5'
     M20 = 'M20'
@@ -51,6 +59,7 @@ class S6TransitiveSubgroups(Enum):
     """
     Names for the transitive subgroups of S6.
     """
+
     C6 = 'C6'
     S3 = 'S3'
     D6 = 'D6'
@@ -80,8 +89,7 @@ def M20():
     of S5 that is one of the possible Galois groups for polys of degree 5.
 
     Notes
-    =====
-
+    -----
     See [1], Page 323.
 
     """
@@ -90,8 +98,7 @@ def S3_in_S6():
     Return a representation of S3 as a transitive subgroup of S6.
 
     Notes
-    =====
-
+    -----
     The representation is found by viewing the group as the symmetries of a
     triangular prism.
 
@@ -101,8 +108,7 @@ def A4_in_S6():
     Return a representation of A4 as a transitive subgroup of S6.
 
     Notes
-    =====
-
+    -----
     This was computed using :py:func:`~.find_transitive_subgroups_of_S6`.
 
     """
@@ -111,8 +117,7 @@ def S4m():
     Return a representation of the S4- transitive subgroup of S6.
 
     Notes
-    =====
-
+    -----
     This was computed using :py:func:`~.find_transitive_subgroups_of_S6`.
 
     """
@@ -121,8 +126,7 @@ def S4p():
     Return a representation of the S4+ transitive subgroup of S6.
 
     Notes
-    =====
-
+    -----
     This was computed using :py:func:`~.find_transitive_subgroups_of_S6`.
 
     """
@@ -131,8 +135,7 @@ def A4xC2():
     Return a representation of the (A4 x C2) transitive subgroup of S6.
 
     Notes
-    =====
-
+    -----
     This was computed using :py:func:`~.find_transitive_subgroups_of_S6`.
 
     """
@@ -141,8 +144,7 @@ def S4xC2():
     Return a representation of the (S4 x C2) transitive subgroup of S6.
 
     Notes
-    =====
-
+    -----
     This was computed using :py:func:`~.find_transitive_subgroups_of_S6`.
 
     """
@@ -152,8 +154,7 @@ def G18():
     isomorphic to the semidirect product of C3^2 with C2.
 
     Notes
-    =====
-
+    -----
     This was computed using :py:func:`~.find_transitive_subgroups_of_S6`.
 
     """
@@ -163,8 +164,7 @@ def G36m():
     isomorphic to the semidirect product of C3^2 with C2^2.
 
     Notes
-    =====
-
+    -----
     This was computed using :py:func:`~.find_transitive_subgroups_of_S6`.
 
     """
@@ -174,8 +174,7 @@ def G36p():
     isomorphic to the semidirect product of C3^2 with C4.
 
     Notes
-    =====
-
+    -----
     This was computed using :py:func:`~.find_transitive_subgroups_of_S6`.
 
     """
@@ -185,8 +184,7 @@ def G72():
     isomorphic to the semidirect product of C3^2 with D4.
 
     Notes
-    =====
-
+    -----
     See [1], Page 325.
 
     """
@@ -196,8 +194,7 @@ def PSL2F5():
     subgroup of S6, isomorphic to $A_5$.
 
     Notes
-    =====
-
+    -----
     This was computed using :py:func:`~.find_transitive_subgroups_of_S6`.
 
     """
@@ -207,8 +204,7 @@ def PGL2F5():
     subgroup of S6, isomorphic to $S_5$.
 
     Notes
-    =====
-
+    -----
     See [1], Page 325.
 
     """
@@ -258,8 +254,7 @@ def find_transitive_subgroups_of_S6(*targets, print_report: bool = False):
     different generators for the same groups.
 
     Parameters
-    ==========
-
+    ----------
     targets : list of :py:class:`~.S6TransitiveSubgroups` values
         The groups you want to find.
 
@@ -267,14 +262,13 @@ def find_transitive_subgroups_of_S6(*targets, print_report: bool = False):
         If True, print to stdout the generators found for each group.
 
     Returns
-    =======
-
+    -------
     dict
         mapping each name in *targets* to the :py:class:`~.PermutationGroup`
         that was found
 
     References
-    ==========
+    ----------
 
     .. [2] https://en.wikipedia.org/wiki/Projective_linear_group#Exceptional_isomorphisms
     .. [3] https://en.wikipedia.org/wiki/Automorphisms_of_the_symmetric_and_alternating_groups#PGL%282,5%29

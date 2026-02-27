@@ -1,6 +1,6 @@
 from sympy.utilities import public
 
-__all__ = ['symmetrize', 'horner', 'interpolate', 'rational_interpolate', 'viete']
+__all__ = ['horner', 'interpolate', 'rational_interpolate', 'symmetrize', 'viete']
 
 @public
 def symmetrize(F, *gens, **args):
@@ -17,8 +17,7 @@ def symmetrize(F, *gens, **args):
     ``f = f1 + f2 + ... + fn``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.polyfuncs import symmetrize
     >>> from sympy.abc import x, y
 
@@ -44,8 +43,7 @@ def horner(f, *gens, **args):
     when it is applied using the Horner scheme ([1]).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.polyfuncs import horner
     >>> from sympy.abc import x, y, a, b, c, d, e
 
@@ -64,7 +62,7 @@ def horner(f, *gens, **args):
     y*(x*y*(4*x + 2) + x*(2*x + 1))
 
     References
-    ==========
+    ----------
     [1] - https://en.wikipedia.org/wiki/Horner_scheme
 
     """
@@ -75,8 +73,7 @@ def interpolate(data, x):
     evaluated at point x (which can be symbolic or numeric).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.polyfuncs import interpolate
     >>> from sympy.abc import a, b, x
 
@@ -112,7 +109,7 @@ def interpolate(data, x):
     """
 @public
 def rational_interpolate(data, degnum, X=...):
-    '''
+    """
     Returns a rational interpolation, where the data points are element of
     any integral domain.
 
@@ -122,8 +119,7 @@ def rational_interpolate(data, degnum, X=...):
     denominator for the same amount of data.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.polyfuncs import rational_interpolate
 
     >>> data = [(1, -210), (2, -35), (3, 105), (4, 231), (5, 350), (6, 465)]
@@ -145,20 +141,19 @@ def rational_interpolate(data, degnum, X=...):
     (105*z**2 - 525)/(z + 1)
 
     References
-    ==========
+    ----------
 
     .. [1] Algorithm is adapted from:
            http://axiom-wiki.newsynthesis.org/RationalInterpolation
 
-    '''
+    """
 @public
 def viete(f, roots=None, *gens, **args):
     """
     Generate Viete's formulas for ``f``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.polyfuncs import viete
     >>> from sympy import symbols
 

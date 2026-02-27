@@ -1,6 +1,8 @@
 from .cache import cacheit as cacheit
 from _typeshed import Incomplete
-from sympy.multipledispatch.dispatcher import Dispatcher as Dispatcher, RaiseNotImplementedError as RaiseNotImplementedError, ambiguity_register_error_ignore_dup as ambiguity_register_error_ignore_dup, ambiguity_warn as ambiguity_warn, str_signature as str_signature
+from sympy.multipledispatch.dispatcher import (
+	ambiguity_register_error_ignore_dup as ambiguity_register_error_ignore_dup, ambiguity_warn as ambiguity_warn,
+	Dispatcher as Dispatcher, RaiseNotImplementedError as RaiseNotImplementedError, str_signature as str_signature)
 
 class KindMeta(type):
     """
@@ -9,6 +11,7 @@ class KindMeta(type):
     Assigns empty ``dict`` as class attribute ``_inst`` for every class,
     in order to endow singleton-like behavior.
     """
+
     def __new__(cls, clsname, bases, dct): ...
 
 class Kind(metaclass=KindMeta):
@@ -38,6 +41,7 @@ class Kind(metaclass=KindMeta):
     return the same object.
 
     """
+
     def __new__(cls, *args): ...
 
 class _UndefinedKind(Kind):
@@ -47,14 +51,13 @@ class _UndefinedKind(Kind):
     arguments, this will be returned.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Expr
     >>> Expr().kind
     UndefinedKind
     """
+
     def __new__(cls): ...
-    def __repr__(self) -> str: ...
 
 UndefinedKind: Incomplete
 
@@ -75,8 +78,7 @@ class _NumberKind(Kind):
     result this kind as well.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, oo, Symbol
     >>> S.One.kind
     NumberKind
@@ -99,8 +101,7 @@ class _NumberKind(Kind):
     NumberKind
 
     See Also
-    ========
-
+    --------
     sympy.core.expr.Expr.is_Number : check if the object is strictly
     subclass of ``Number`` class.
 
@@ -108,8 +109,8 @@ class _NumberKind(Kind):
     without any free symbol.
 
     """
+
     def __new__(cls): ...
-    def __repr__(self) -> str: ...
 
 NumberKind: Incomplete
 
@@ -121,16 +122,15 @@ class _BooleanKind(Kind):
     have this kind. Boolean number ``1`` and ``0`` are not relevant.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, Q
     >>> S.true.kind
     BooleanKind
     >>> Q.even(3).kind
     BooleanKind
     """
+
     def __new__(cls): ...
-    def __repr__(self) -> str: ...
 
 BooleanKind: Incomplete
 
@@ -153,8 +153,7 @@ class KindDispatcher:
     is returned.
 
     Examples
-    ========
-
+    --------
     Multiplication between numbers return number.
 
     >>> from sympy import NumberKind, Mul
@@ -190,8 +189,7 @@ class KindDispatcher:
     MatrixKind(UndefinedKind)
 
     Parameters
-    ==========
-
+    ----------
     name : str
 
     commutative : bool, optional
@@ -201,12 +199,12 @@ class KindDispatcher:
     doc : str, optional
 
     """
+
     name: Incomplete
     doc: Incomplete
     commutative: Incomplete
     _dispatcher: Incomplete
     def __init__(self, name, commutative: bool = False, doc=None) -> None: ...
-    def __repr__(self) -> str: ...
     def register(self, *types, **kwargs):
         """
         Register the binary dispatcher for two kind classes.

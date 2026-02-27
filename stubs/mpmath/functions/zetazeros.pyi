@@ -2,22 +2,25 @@ from .functions import defun as defun, defun_wrapped as defun_wrapped
 from _typeshed import Incomplete
 
 def find_rosser_block_zero(ctx, n):
-    """for n<400 000 000 determines a block were one find our zero"""
+    """For n<400 000 000 determines a block were one find our zero"""
 def wpzeros(t):
     """Precision needed to compute higher zeros"""
 def separate_zeros_in_block(ctx, zero_number_block, T, V, limitloop: Incomplete | None = None, fp_tolerance: Incomplete | None = None):
     """Separate the zeros contained in the block T, limitloop
-    determines how long one must search"""
+    determines how long one must search
+    """
 def separate_my_zero(ctx, my_zero_number, zero_number_block, T, V, prec):
     """If we know which zero of this block is mine,
-    the function separates the zero"""
+    the function separates the zero
+    """
 def sure_number_block(ctx, n):
     """The number of good Rosser blocks needed to apply
     Turing method
     References:
     R. P. Brent, On the Zeros of the Riemann Zeta Function
     in the Critical Strip, Math. Comp. 33 (1979) 1361--1372
-    T. Trudgian, Improvements to Turing Method, Math. Comp."""
+    T. Trudgian, Improvements to Turing Method, Math. Comp.
+    """
 def compute_triple_tvb(ctx, n): ...
 
 ITERATION_LIMIT: int

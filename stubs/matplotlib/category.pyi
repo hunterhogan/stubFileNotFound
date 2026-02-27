@@ -66,6 +66,7 @@ class StrCategoryConverter(units.ConversionInterface):
 
 class StrCategoryLocator(ticker.Locator):
     """Tick at every integer mapping of the string data."""
+
     _units: Incomplete
     def __init__(self, units_mapping) -> None:
         """
@@ -79,6 +80,7 @@ class StrCategoryLocator(ticker.Locator):
 
 class StrCategoryFormatter(ticker.Formatter):
     """String representation of the data at every tick."""
+
     _units: Incomplete
     def __init__(self, units_mapping) -> None:
         """

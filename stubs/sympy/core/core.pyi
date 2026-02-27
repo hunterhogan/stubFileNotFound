@@ -10,6 +10,7 @@ class Registry:
 
     All subclasses should set `__slots__ = ()`.
     """
+
     __slots__: Incomplete
     def __setattr__(self, name, obj) -> None: ...
     def __delattr__(self, name) -> None: ...

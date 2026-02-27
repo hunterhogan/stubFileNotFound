@@ -1,12 +1,11 @@
-from typing_extensions import assert_type
-
+from typing import assert_type
 
 def test_min_builtin() -> None:
     # legal comparisons that succeed at runtime
-    b1, b2 = bool(True), bool(False)
-    i1, i2 = int(1), int(2)
-    s1, s2 = str("a"), str("b")
-    f1, f2 = float(0.5), float(2.3)
+    b1, b2 = True, False
+    i1, i2 = 1, 2
+    s1, s2 = "a", "b"
+    f1, f2 = 0.5, 2.3
     l1, l2 = list[int]([1, 2]), list[int]([3, 4])
     t1, t2 = tuple[str, str](("A", "B")), tuple[str, str](("C", "D"))
     tN = tuple[str, ...](["A", "B", "C"])
@@ -34,9 +33,9 @@ def test_min_builtin() -> None:
 
 def test_min_bad_builtin() -> None:
     # illegal comparisons that fail at runtime
-    i1 = int(1)
-    s1 = str("a")
-    f1 = float(1.0)
+    i1 = 1
+    s1 = "a"
+    f1 = 1.0
     c1, c2 = complex(1.0, 2.0), complex(3.0, 4.0)
     list_str = list[str](["A", "B"])
     list_int = list[int]([2, 3])

@@ -197,4 +197,3 @@ class VariationModel:
         """
 
 def piecewiseLinearMap(v, mapping): ...
-

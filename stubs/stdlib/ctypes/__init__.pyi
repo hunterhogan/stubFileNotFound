@@ -1,33 +1,15 @@
-import sys
 from _ctypes import (
-    RTLD_GLOBAL as RTLD_GLOBAL,
-    RTLD_LOCAL as RTLD_LOCAL,
-    Array as Array,
-    CFuncPtr as _CFuncPtr,
-    Structure as Structure,
-    Union as Union,
-    _CanCastTo as _CanCastTo,
-    _CArgObject as _CArgObject,
-    _CData as _CData,
-    _CDataType as _CDataType,
-    _CField as _CField,
-    _CTypeBaseType,
-    _Pointer as _Pointer,
-    _PointerLike as _PointerLike,
-    _SimpleCData as _SimpleCData,
-    addressof as addressof,
-    alignment as alignment,
-    byref as byref,
-    get_errno as get_errno,
-    resize as resize,
-    set_errno as set_errno,
-    sizeof as sizeof,
-)
+	_CanCastTo as _CanCastTo, _CArgObject as _CArgObject, _CData as _CData, _CDataType as _CDataType, _CField as _CField,
+	_CTypeBaseType, _Pointer as _Pointer, _PointerLike as _PointerLike, _SimpleCData as _SimpleCData,
+	addressof as addressof, alignment as alignment, Array as Array, byref as byref, CFuncPtr as _CFuncPtr,
+	get_errno as get_errno, resize as resize, RTLD_GLOBAL as RTLD_GLOBAL, RTLD_LOCAL as RTLD_LOCAL, set_errno as set_errno,
+	sizeof as sizeof, Structure as Structure, Union as Union)
 from _typeshed import StrPath, SupportsBool, SupportsLen
 from ctypes._endian import BigEndianStructure as BigEndianStructure, LittleEndianStructure as LittleEndianStructure
 from types import GenericAlias
-from typing import Any, ClassVar, Final, Generic, Literal, TypeVar, overload, type_check_only
-from typing_extensions import Self, TypeAlias, deprecated
+from typing import Any, ClassVar, Final, Generic, Literal, overload, Self, type_check_only, TypeAlias, TypeVar
+from typing_extensions import deprecated
+import sys
 
 if sys.platform == "win32":
     from _ctypes import FormatError as FormatError, get_last_error as get_last_error, set_last_error as set_last_error
@@ -129,7 +111,7 @@ class _CFunctionType(_CFuncPtr):
     _flags_: ClassVar[int]
 
 # Alias for either function pointer type
-_FuncPointer: TypeAlias = _CDLLFuncPointer | _CFunctionType  # noqa: Y047  # not used here
+_FuncPointer: TypeAlias = _CDLLFuncPointer | _CFunctionType  # not used here
 
 def CFUNCTYPE(
     restype: type[_CData | _CDataType] | None,

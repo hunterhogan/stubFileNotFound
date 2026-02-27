@@ -1,7 +1,7 @@
-import abc
 from _typeshed import Incomplete
 from abc import abstractmethod
 from cffconvert.behavior_shared.abstract_author_shared import AbstractAuthorShared as AbstractAuthorShared
+import abc
 
 class ZenodoCreatorShared(AbstractAuthorShared, metaclass=abc.ABCMeta):
     _behaviors: Incomplete

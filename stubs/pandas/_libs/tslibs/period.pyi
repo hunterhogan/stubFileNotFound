@@ -1,29 +1,15 @@
-import datetime
-from typing import (
-    Literal,
-    Self,
-    TypeAlias,
-    overload,
-)
-
-from pandas._stubs_only import PeriodAddSub
-from pandas.core.indexes.base import Index
-from pandas.core.indexes.period import PeriodIndex
-from pandas.core.indexes.timedeltas import TimedeltaIndex
-from pandas.core.series import Series
-
 from pandas._libs.tslibs import NaTType
 from pandas._libs.tslibs.offsets import BaseOffset
 from pandas._libs.tslibs.timedeltas import Timedelta
 from pandas._libs.tslibs.timestamps import Timestamp
-from pandas._typing import (
-    PeriodFrequency,
-    ShapeT,
-    np_1darray_bool,
-    np_ndarray_bool,
-    np_ndarray_object,
-)
-from typing import Any
+from pandas._stubs_only import PeriodAddSub
+from pandas._typing import np_1darray_bool, np_ndarray_bool, np_ndarray_object, PeriodFrequency, ShapeT
+from pandas.core.indexes.base import Index
+from pandas.core.indexes.period import PeriodIndex
+from pandas.core.indexes.timedeltas import TimedeltaIndex
+from pandas.core.series import Series
+from typing import Any, Literal, overload, Self, TypeAlias
+import datetime
 
 class IncompatibleFrequency(ValueError): ...
 

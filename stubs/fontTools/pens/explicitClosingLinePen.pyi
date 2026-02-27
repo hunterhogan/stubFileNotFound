@@ -87,4 +87,3 @@ class ExplicitClosingLinePen(ContourFilterPen):
     """
 
     def filterContour(self, contour) -> None: ...
-

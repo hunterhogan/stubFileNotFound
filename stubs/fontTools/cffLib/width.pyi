@@ -15,4 +15,3 @@ def optimizeWidths(widths):
     """
 def main(args=None) -> None:
     """Calculate optimum defaultWidthX/nominalWidthX values"""
-

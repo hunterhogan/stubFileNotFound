@@ -30,8 +30,7 @@ def _extract_delta(expr, index):
         returned unchanged if no simple KroneckerDelta expression was found.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import KroneckerDelta
     >>> from sympy.concrete.delta import _extract_delta
     >>> from sympy.abc import x, y, i, j, k
@@ -41,8 +40,7 @@ def _extract_delta(expr, index):
     (None, 4*x*y*KroneckerDelta(i, j))
 
     See Also
-    ========
-
+    --------
     sympy.functions.special.tensor_functions.KroneckerDelta
     deltaproduct
     deltasummation
@@ -76,8 +74,7 @@ def deltaproduct(f, limit):
     Handle products containing a KroneckerDelta.
 
     See Also
-    ========
-
+    --------
     deltasummation
     sympy.functions.special.tensor_functions.KroneckerDelta
     sympy.concrete.products.product
@@ -123,8 +120,7 @@ def deltasummation(f, limit, no_piecewise: bool = False):
          simplified KroneckerDelta terms, so we sum this expression.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import oo, symbols
     >>> from sympy.abc import k
     >>> i, j = symbols('i, j', integer=True, finite=True)
@@ -144,8 +140,7 @@ def deltasummation(f, limit, no_piecewise: bool = False):
     j
 
     See Also
-    ========
-
+    --------
     deltaproduct
     sympy.functions.special.tensor_functions.KroneckerDelta
     sympy.concrete.sums.summation

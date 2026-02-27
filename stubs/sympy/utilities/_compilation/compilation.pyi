@@ -1,16 +1,21 @@
-from .runners import CCompilerRunner as CCompilerRunner, CppCompilerRunner as CppCompilerRunner, FortranCompilerRunner as FortranCompilerRunner
-from .util import ArbitraryDepthGlob as ArbitraryDepthGlob, CompileError as CompileError, Glob as Glob, copy as copy, get_abspath as get_abspath, glob_at_depth as glob_at_depth, import_module_from_file as import_module_from_file, make_dirs as make_dirs, pyx_is_cplus as pyx_is_cplus, sha256_of_file as sha256_of_file, sha256_of_string as sha256_of_string
+from .runners import (
+	CCompilerRunner as CCompilerRunner, CppCompilerRunner as CppCompilerRunner,
+	FortranCompilerRunner as FortranCompilerRunner)
+from .util import (
+	ArbitraryDepthGlob as ArbitraryDepthGlob, CompileError as CompileError, copy as copy, get_abspath as get_abspath,
+	Glob as Glob, glob_at_depth as glob_at_depth, import_module_from_file as import_module_from_file,
+	make_dirs as make_dirs, pyx_is_cplus as pyx_is_cplus, sha256_of_file as sha256_of_file,
+	sha256_of_string as sha256_of_string)
 from _typeshed import Incomplete
 from sysconfig import get_config_vars as get_config_vars
 
 objext: str
 
 def compile_sources(files, Runner=None, destdir=None, cwd=None, keep_dir_struct: bool = False, per_file_kwargs=None, **kwargs):
-    """ Compile source code files to object files.
+    """Compile source code files to object files.
 
     Parameters
-    ==========
-
+    ----------
     files : iterable of str
         Paths to source files, if ``cwd`` is given, the paths are taken as relative.
     Runner: CompilerRunner subclass (optional)
@@ -29,16 +34,15 @@ def compile_sources(files, Runner=None, destdir=None, cwd=None, keep_dir_struct:
         Default keyword arguments to pass to ``Runner``.
 
     Returns
-    =======
+    -------
     List of strings (paths of object files).
     """
 def get_mixed_fort_c_linker(vendor=None, cplus: bool = False, cwd=None): ...
 def link(obj_files, out_file=None, shared: bool = False, Runner=None, cwd=None, cplus: bool = False, fort: bool = False, extra_objs=None, **kwargs):
-    """ Link object files.
+    """Link object files.
 
     Parameters
-    ==========
-
+    ----------
     obj_files: iterable of str
         Paths to object files.
     out_file: str (optional)
@@ -61,17 +65,15 @@ def link(obj_files, out_file=None, shared: bool = False, Runner=None, cwd=None, 
         Keyword arguments passed to ``Runner``.
 
     Returns
-    =======
-
+    -------
     The absolute path to the generated shared object / executable.
 
     """
 def link_py_so(obj_files, so_file=None, cwd=None, libraries=None, cplus: bool = False, fort: bool = False, extra_objs=None, **kwargs):
-    """ Link Python extension module (shared object) for importing
+    """Link Python extension module (shared object) for importing
 
     Parameters
-    ==========
-
+    ----------
     obj_files: iterable of str
         Paths to object files to be linked.
     so_file: str
@@ -92,16 +94,14 @@ def link_py_so(obj_files, so_file=None, cwd=None, libraries=None, cplus: bool = 
         Keyword arguments passed to ``link(...)``.
 
     Returns
-    =======
-
+    -------
     Absolute path to the generate shared object.
     """
 def simple_cythonize(src, destdir=None, cwd=None, **cy_kwargs):
-    """ Generates a C file from a Cython source file.
+    """Generates a C file from a Cython source file.
 
     Parameters
-    ==========
-
+    ----------
     src: str
         Path to Cython source.
     destdir: str (optional)
@@ -116,14 +116,13 @@ def simple_cythonize(src, destdir=None, cwd=None, **cy_kwargs):
 extension_mapping: Incomplete
 
 def src2obj(srcpath, Runner=None, objpath=None, cwd=None, inc_py: bool = False, **kwargs):
-    ''' Compiles a source code file to an object file.
+    """Compiles a source code file to an object file.
 
     Files ending with \'.pyx\' assumed to be cython files and
     are dispatched to pyx2obj.
 
     Parameters
-    ==========
-
+    ----------
     srcpath: str
         Path to source file.
     Runner: CompilerRunner subclass (optional)
@@ -137,7 +136,7 @@ def src2obj(srcpath, Runner=None, objpath=None, cwd=None, inc_py: bool = False, 
     \\*\\*kwargs: dict
         keyword arguments passed to Runner or pyx2obj
 
-    '''
+    """
 def pyx2obj(pyxpath, objpath=None, destdir=None, cwd=None, include_dirs=None, cy_kwargs=None, cplus=None, **kwargs):
     """
     Convenience function
@@ -148,8 +147,7 @@ def pyx2obj(pyxpath, objpath=None, destdir=None, cwd=None, include_dirs=None, cy
     destination
 
     Parameters
-    ==========
-
+    ----------
     pyxpath: str
         Path to Cython source file.
     objpath: str (optional)
@@ -169,8 +167,7 @@ def pyx2obj(pyxpath, objpath=None, destdir=None, cwd=None, include_dirs=None, cy
         keyword arguments passed onto src2obj
 
     Returns
-    =======
-
+    -------
     Absolute path of generated object file.
 
     """
@@ -178,14 +175,13 @@ def _any_X(srcs, cls): ...
 def any_fortran_src(srcs): ...
 def any_cplus_src(srcs): ...
 def compile_link_import_py_ext(sources, extname=None, build_dir: str = '.', compile_kwargs=None, link_kwargs=None, extra_objs=None):
-    """ Compiles sources to a shared object (Python extension) and imports it
+    """Compiles sources to a shared object (Python extension) and imports it
 
     Sources in ``sources`` which is imported. If shared object is newer than the sources, they
     are not recompiled but instead it is imported.
 
     Parameters
-    ==========
-
+    ----------
     sources : list of strings
         List of paths to sources.
     extname : string
@@ -201,17 +197,15 @@ def compile_link_import_py_ext(sources, extname=None, build_dir: str = '.', comp
         List of paths to (prebuilt) object files / static libraries to link against.
 
     Returns
-    =======
-
+    -------
     The imported module from of the Python extension.
     """
 def _write_sources_to_build_dir(sources, build_dir): ...
 def compile_link_import_strings(sources, build_dir=None, **kwargs):
-    """ Compiles, links and imports extension module from source.
+    """Compiles, links and imports extension module from source.
 
     Parameters
-    ==========
-
+    ----------
     sources : iterable of name/source pair tuples
     build_dir : string (default: None)
         Path. ``None`` implies use a temporary directory.
@@ -219,8 +213,7 @@ def compile_link_import_strings(sources, build_dir=None, **kwargs):
         Keyword arguments passed onto `compile_link_import_py_ext`.
 
     Returns
-    =======
-
+    -------
     mod : module
         The compiled and imported extension module.
     info : dict
@@ -228,11 +221,10 @@ def compile_link_import_strings(sources, build_dir=None, **kwargs):
 
     """
 def compile_run_strings(sources, build_dir=None, clean: bool = False, compile_kwargs=None, link_kwargs=None):
-    """ Compiles, links and runs a program built from sources.
+    """Compiles, links and runs a program built from sources.
 
     Parameters
-    ==========
-
+    ----------
     sources : iterable of name/source pair tuples
     build_dir : string (default: None)
         Path. ``None`` implies use a temporary directory.
@@ -247,8 +239,7 @@ def compile_run_strings(sources, build_dir=None, clean: bool = False, compile_kw
         Keyword arguments passed onto ``link``
 
     Returns
-    =======
-
+    -------
     (stdout, stderr): pair of strings
     info: dict
         Containing exit status as 'exit_status' and ``build_dir`` as 'build_dir'

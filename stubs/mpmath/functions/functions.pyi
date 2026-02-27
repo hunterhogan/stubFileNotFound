@@ -2,13 +2,14 @@ from ..libmp.backend import xrange as xrange
 from _typeshed import Incomplete
 
 class SpecialFunctions:
-    '''
+    """
     This class implements special functions using high-level code.
 
     Elementary and some other functions (e.g. gamma function, basecase
     hypergeometric series) are assumed to be predefined by the context as
     "builtins" or "low-level" functions.
-    '''
+    """
+
     defined_functions: Incomplete
     THETA_Q_LIM: Incomplete
     mpq_1: Incomplete

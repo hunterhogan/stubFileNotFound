@@ -1,15 +1,16 @@
-import matplotlib.collections as mcoll
 from _typeshed import Incomplete
 from matplotlib import _api as _api, _docstring as _docstring
 from matplotlib.backend_bases import MouseButton as MouseButton
 from matplotlib.lines import Line2D as Line2D
 from matplotlib.path import Path as Path
 from matplotlib.text import Text as Text
+import matplotlib.collections as mcoll
 
 def _contour_labeler_event_handler(cs, inline, inline_spacing, event) -> None: ...
 
 class ContourLabeler:
     """Mixin to provide labelling capability to `.ContourSet`."""
+
     labelFmt: Incomplete
     _use_clabeltext: Incomplete
     labelManual: Incomplete
@@ -241,6 +242,7 @@ class ContourSet(ContourLabeler, mcoll.Collection):
 
     %(contour_set_attributes)s
     """
+
     axes: Incomplete
     levels: Incomplete
     filled: Incomplete
@@ -313,7 +315,7 @@ class ContourSet(ContourLabeler, mcoll.Collection):
         """Return the `.Transform` instance used by this ContourSet."""
     def __getstate__(self): ...
     def legend_elements(self, variable_name: str = 'x', str_format=...):
-        '''
+        """
         Return a list of artists and labels suitable for passing through
         to `~.Axes.legend` which represent this ContourSet.
 
@@ -333,7 +335,7 @@ class ContourSet(ContourLabeler, mcoll.Collection):
             A list of the artists.
         labels : list[str]
             A list of the labels.
-        '''
+        """
     zmax: Incomplete
     zmin: Incomplete
     _mins: Incomplete
@@ -474,6 +476,7 @@ class QuadContourSet(ContourSet):
 
     %(contour_set_attributes)s
     """
+
     levels: Incomplete
     zmin: Incomplete
     zmax: Incomplete

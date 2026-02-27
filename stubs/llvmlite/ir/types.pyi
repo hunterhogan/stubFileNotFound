@@ -8,9 +8,9 @@ class Type(_StrCaching):
     """
     The base class for all LLVM types.
     """
+
     is_pointer: bool
     null: str
-    def __repr__(self) -> str: ...
     def _to_string(self) -> None: ...
     def as_pointer(self, addrspace: int = 0): ...
     def __ne__(self, other): ...
@@ -53,6 +53,7 @@ class LabelType(Type):
     """
     The label type is the type of e.g. basic blocks.
     """
+
     def _to_string(self): ...
 
 class PointerType(Type):
@@ -60,6 +61,7 @@ class PointerType(Type):
     The type of all pointer values.
     By default (without specialisation) represents an opaque pointer.
     """
+
     is_opaque: bool
     is_pointer: bool
     null: str
@@ -78,6 +80,7 @@ class _TypedPointerType(PointerType):
     """
     The type of typed pointer values. To be removed eventually.
     """
+
     pointee: Incomplete
     is_opaque: bool
     def __init__(self, pointee, addrspace: int = 0) -> None: ...
@@ -100,6 +103,7 @@ class VoidType(Type):
     """
     The type for empty values (e.g. a function returning no value).
     """
+
     def _to_string(self): ...
     def __eq__(self, other): ...
     def __hash__(self): ...
@@ -113,6 +117,7 @@ class FunctionType(Type):
     """
     The type for functions.
     """
+
     return_type: Incomplete
     args: Incomplete
     var_arg: Incomplete
@@ -130,6 +135,7 @@ class IntType(Type):
     """
     The type for integers.
     """
+
     null: str
     _instance_cache: Incomplete
     width: int
@@ -182,27 +188,27 @@ class HalfType(_BaseFloatType):
     """
     The type for single-precision floats.
     """
+
     null: str
     intrinsic_name: str
-    def __str__(self) -> str: ...
     def format_constant(self, value): ...
 
 class FloatType(_BaseFloatType):
     """
     The type for single-precision floats.
     """
+
     null: str
     intrinsic_name: str
-    def __str__(self) -> str: ...
     def format_constant(self, value): ...
 
 class DoubleType(_BaseFloatType):
     """
     The type for double-precision floats.
     """
+
     null: str
     intrinsic_name: str
-    def __str__(self) -> str: ...
     def format_constant(self, value): ...
 
 class _Repeat:
@@ -213,9 +219,10 @@ class _Repeat:
     def __getitem__(self, item): ...
 
 class VectorType(Type):
-    '''
+    """
     The type for vectors of primitive data items (e.g. "<f32 x 4>").
-    '''
+    """
+
     element: Incomplete
     count: Incomplete
     def __init__(self, element, count) -> None: ...
@@ -239,12 +246,14 @@ class Aggregate(Type):
     Base class for aggregate types.
     See http://llvm.org/docs/LangRef.html#t-aggregate
     """
+
     def wrap_constant_value(self, values): ...
 
 class ArrayType(Aggregate):
-    '''
+    """
     The type for fixed-size homogenous arrays (e.g. "[f32 x 3]").
-    '''
+    """
+
     element: Incomplete
     count: Incomplete
     def __init__(self, element, count) -> None: ...
@@ -269,6 +278,7 @@ class BaseStructType(Aggregate):
     """
     The base type for heterogenous struct types.
     """
+
     _packed: bool
     @property
     def packed(self):
@@ -305,10 +315,11 @@ class BaseStructType(Aggregate):
         """
 
 class LiteralStructType(BaseStructType):
-    '''
+    """
     The type of "literal" structs, i.e. structs with a literally-defined
     type (by contrast with IdentifiedStructType).
-    '''
+    """
+
     null: str
     elements: Incomplete
     packed: Incomplete
@@ -329,6 +340,7 @@ class IdentifiedStructType(BaseStructType):
 
     Do not use this directly.
     """
+
     null: str
     context: Incomplete
     name: Incomplete

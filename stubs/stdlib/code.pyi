@@ -1,10 +1,10 @@
-import sys
 from codeop import CommandCompiler, compile_command as compile_command
 from collections.abc import Callable
 from types import CodeType
 from typing import Any
+import sys
 
-__all__ = ["InteractiveInterpreter", "InteractiveConsole", "interact", "compile_command"]
+__all__ = ["InteractiveConsole", "InteractiveInterpreter", "compile_command", "interact"]
 
 class InteractiveInterpreter:
     locals: dict[str, Any]  # undocumented

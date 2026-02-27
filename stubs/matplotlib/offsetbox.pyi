@@ -1,11 +1,11 @@
-import matplotlib.artist as martist
-import matplotlib.text as mtext
 from _typeshed import Incomplete
 from matplotlib import _api as _api, _docstring as _docstring
 from matplotlib.font_manager import FontProperties as FontProperties
 from matplotlib.image import BboxImage as BboxImage
 from matplotlib.patches import FancyArrowPatch as FancyArrowPatch, FancyBboxPatch as FancyBboxPatch
 from matplotlib.transforms import Bbox as Bbox, BboxBase as BboxBase, TransformedBbox as TransformedBbox
+import matplotlib.artist as martist
+import matplotlib.text as mtext
 
 DEBUG: bool
 
@@ -63,7 +63,7 @@ def _get_packed_offsets(widths, total, sep, mode: str = 'fixed'):
         The left offsets of the boxes.
     """
 def _get_aligned_offsets(yspans, height, align: str = 'baseline'):
-    '''
+    """
     Align boxes each specified by their ``(y0, y1)`` spans.
 
     For simplicity of the description, the terminology used here assumes a
@@ -90,7 +90,7 @@ def _get_aligned_offsets(yspans, height, align: str = 'baseline'):
         The descent of the packing.
     offsets
         The bottom offsets of the boxes.
-    '''
+    """
 
 class OffsetBox(martist.Artist):
     """
@@ -101,6 +101,7 @@ class OffsetBox(martist.Artist):
 
     Being an artist itself, all parameters are passed on to `.Artist`.
     """
+
     _children: Incomplete
     _offset: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
@@ -268,6 +269,7 @@ class VPacker(PackerBase):
        | Child 3 |
        +---------+
     """
+
     def _get_bbox_and_child_offsets(self, renderer): ...
 
 class HPacker(PackerBase):
@@ -281,6 +283,7 @@ class HPacker(PackerBase):
        | Child 1    Child 2    Child 3 |
        +-------------------------------+
     """
+
     def _get_bbox_and_child_offsets(self, renderer): ...
 
 class PaddedBox(OffsetBox):
@@ -310,6 +313,7 @@ class PaddedBox(OffsetBox):
         When *draw_frame* is True, this `.FancyBboxPatch` is made visible and
         creates a border around the box.
     """
+
     pad: Incomplete
     _children: Incomplete
     patch: Incomplete
@@ -341,6 +345,7 @@ class DrawingArea(OffsetBox):
     the parent is fixed. The children can be clipped at the
     boundaries of the parent.
     """
+
     width: Incomplete
     height: Incomplete
     xdescent: Incomplete
@@ -401,6 +406,7 @@ class TextArea(OffsetBox):
     width and height of the TextArea instance is the width and height of its
     child text.
     """
+
     _text: Incomplete
     _children: Incomplete
     offset_transform: Incomplete
@@ -425,14 +431,14 @@ class TextArea(OffsetBox):
     def get_text(self):
         """Return the string representation of this area's text."""
     def set_multilinebaseline(self, t) -> None:
-        '''
+        """
         Set multilinebaseline.
 
         If True, the baseline for multiline text is adjusted so that it is
         (approximately) center-aligned with single-line text.  This is used
         e.g. by the legend implementation so that single-line labels are
         baseline-aligned, but multiline labels are "center"-aligned with them.
-        '''
+        """
     def get_multilinebaseline(self):
         """
         Get multilinebaseline.
@@ -470,6 +476,7 @@ class AuxTransformBox(OffsetBox):
     children. Furthermore, the extent of the children will be
     calculated in the transformed coordinate.
     """
+
     aux_transform: Incomplete
     offset_transform: Incomplete
     ref_offset_transform: Incomplete
@@ -510,6 +517,7 @@ class AnchoredOffsetbox(OffsetBox):
     anchored against its parent Axes. You may explicitly specify the
     *bbox_to_anchor*.
     """
+
     zorder: int
     codes: Incomplete
     loc: Incomplete
@@ -586,6 +594,7 @@ class AnchoredText(AnchoredOffsetbox):
     """
     AnchoredOffsetbox with Text.
     """
+
     txt: Incomplete
     def __init__(self, s, loc, *, pad: float = 0.4, borderpad: float = 0.5, prop: Incomplete | None = None, **kwargs) -> None:
         """
@@ -637,8 +646,8 @@ class AnnotationBbox(martist.Artist, mtext._AnnotationBase):
 
     This is like `.Annotation`, but with `OffsetBox` instead of `.Text`.
     """
+
     zorder: int
-    def __str__(self) -> str: ...
     offsetbox: Incomplete
     arrowprops: Incomplete
     xybox: Incomplete
@@ -767,6 +776,7 @@ class DraggableBase:
     coordinates, and `finalize_offset` recalculates their position in axes
     coordinate and set a relevant attribute.
     """
+
     ref_artist: Incomplete
     got_artist: bool
     _use_blit: Incomplete

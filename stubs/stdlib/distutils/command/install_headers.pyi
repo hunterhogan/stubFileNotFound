@@ -1,7 +1,6 @@
+from ..cmd import Command
 from _typeshed import Incomplete
 from typing import ClassVar
-
-from ..cmd import Command
 
 class install_headers(Command):
     description: str

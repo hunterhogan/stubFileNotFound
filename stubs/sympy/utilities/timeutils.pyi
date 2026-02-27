@@ -4,7 +4,7 @@ _scales: Incomplete
 _units: Incomplete
 
 def timed(func, setup: str = 'pass', limit=None):
-    """Adaptively measure execution time of a function. """
+    """Adaptively measure execution time of a function."""
 def __do_timings(): ...
 
 _do_timings: Incomplete

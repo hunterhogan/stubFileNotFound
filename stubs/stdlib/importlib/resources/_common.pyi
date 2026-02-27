@@ -2,13 +2,13 @@ import sys
 
 # Even though this file is 3.11+ only, Pyright will complain in stubtest for older versions.
 if sys.version_info >= (3, 11):
-    import types
     from collections.abc import Callable
     from contextlib import AbstractContextManager
     from importlib.resources.abc import ResourceReader, Traversable
     from pathlib import Path
-    from typing import Literal, overload
-    from typing_extensions import TypeAlias, deprecated
+    from typing import Literal, overload, TypeAlias
+    from typing_extensions import deprecated
+    import types
 
     Package: TypeAlias = str | types.ModuleType
 

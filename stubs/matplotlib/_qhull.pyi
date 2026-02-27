@@ -1,5 +1,5 @@
-import numpy
 from typing import Any, overload
+import numpy
 
 def delaunay(x: numpy.ndarray[numpy.float64], y: numpy.ndarray[numpy.float64], verbose: int) -> tuple:
     """delaunay(x: numpy.ndarray[numpy.float64], y: numpy.ndarray[numpy.float64], verbose: int) -> tuple

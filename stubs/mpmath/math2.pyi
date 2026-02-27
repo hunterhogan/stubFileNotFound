@@ -1,5 +1,5 @@
-import math
 from _typeshed import Incomplete
+import math
 
 pi: float
 e: float
@@ -85,11 +85,11 @@ def _erfc_mid(x): ...
 def _erfc_asymp(x): ...
 def erf(x):
     """
-    erf of a real number.
+    Erf of a real number.
     """
 def erfc(x):
     """
-    erfc of a real number.
+    Erfc of a real number.
     """
 
 gauss42: Incomplete

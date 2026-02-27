@@ -2,13 +2,12 @@ from .util import new as new
 from sympy.utilities.iterables import sift as sift
 
 def rm_id(isid, new=...):
-    """ Create a rule to remove identities.
+    """Create a rule to remove identities.
 
     isid - fn :: x -> Bool  --- whether or not this element is an identity.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.strategies import rm_id
     >>> from sympy import Basic, S
     >>> remove_zeros = rm_id(lambda x: x==0)
@@ -17,15 +16,15 @@ def rm_id(isid, new=...):
     >>> remove_zeros(Basic(S(0), S(0))) # If only identities then we keep one
     Basic(0)
 
-    See Also:
+    See Also
+    --------
         unpack
     """
 def glom(key, count, combine):
-    """ Create a rule to conglomerate identical args.
+    """Create a rule to conglomerate identical args.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.strategies import glom
     >>> from sympy import Add
     >>> from sympy.abc import x
@@ -48,11 +47,10 @@ def glom(key, count, combine):
     2*x
     """
 def sort(key, new=...):
-    """ Create a rule to sort by a key function.
+    """Create a rule to sort by a key function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.strategies import sort
     >>> from sympy import Basic, S
     >>> sort_rl = sort(str)
@@ -60,7 +58,7 @@ def sort(key, new=...):
     Basic(1, 2, 3)
     """
 def distribute(A, B):
-    """ Turns an A containing Bs into a B of As
+    """Turns an A containing Bs into a B of As
 
     where A, B are container types
 
@@ -75,9 +73,9 @@ def distribute(A, B):
     2*x + 2*y
     """
 def subs(a, b):
-    """ Replace expressions exactly """
+    """Replace expressions exactly"""
 def unpack(expr):
-    """ Rule to unpack singleton args
+    """Rule to unpack singleton args
 
     >>> from sympy.strategies import unpack
     >>> from sympy import Basic, S
@@ -85,9 +83,9 @@ def unpack(expr):
     2
     """
 def flatten(expr, new=...):
-    """ Flatten T(a, b, T(c, d), T2(e)) to T(a, b, c, d, T2(e)) """
+    """Flatten T(a, b, T(c, d), T2(e)) to T(a, b, c, d, T2(e))"""
 def rebuild(expr):
-    """ Rebuild a SymPy tree.
+    """Rebuild a SymPy tree.
 
     Explanation
     ===========

@@ -1,16 +1,15 @@
-import datetime
-import http.client
-import ssl
-import sys
 from _typeshed import ReadableBuffer, StrPath
 from collections.abc import Callable
 from logging import FileHandler, Handler, LogRecord
 from re import Pattern
-from socket import SocketKind, socket
+from socket import socket, SocketKind
 from threading import Thread
 from types import TracebackType
-from typing import Any, ClassVar, Final, Protocol, TypeVar, type_check_only
-from typing_extensions import Self
+from typing import Any, ClassVar, Final, Protocol, Self, type_check_only, TypeVar
+import datetime
+import http.client
+import ssl
+import sys
 
 _T = TypeVar("_T")
 

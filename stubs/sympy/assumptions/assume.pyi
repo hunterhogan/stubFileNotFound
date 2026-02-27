@@ -22,8 +22,7 @@ class AssumptionsContext(set):
     wrapper to Python's set, so see its documentation for advanced usage.
 
     Examples
-    ========
-
+    --------
     The default assumption context is ``global_assumptions``, which is initially empty:
 
     >>> from sympy import ask, Q
@@ -56,11 +55,11 @@ class AssumptionsContext(set):
     AssumptionsContext()
 
     See Also
-    ========
-
+    --------
     assuming
 
     """
+
     def add(self, *assumptions) -> None:
         """Add assumptions."""
     def _sympystr(self, printer): ...
@@ -74,8 +73,7 @@ class AppliedPredicate(Boolean):
     remain unevaluated. To evaluate it, use the ``ask()`` function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask
     >>> Q.integer(1)
     Q.integer(1)
@@ -96,6 +94,7 @@ class AppliedPredicate(Boolean):
     True
 
     """
+
     __slots__: Incomplete
     def __new__(cls, predicate, *args): ...
     @property
@@ -104,8 +103,7 @@ class AppliedPredicate(Boolean):
         Return the expression used by this assumption.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Q, Symbol
         >>> x = Symbol('x')
         >>> a = Q.integer(x + 1)
@@ -133,7 +131,7 @@ class PredicateMeta(type):
     def __doc__(cls): ...
 
 class Predicate(Boolean, metaclass=PredicateMeta):
-    '''
+    """
     Base class for mathematical predicates. It also serves as a
     constructor for undefined predicate objects.
 
@@ -165,8 +163,7 @@ class Predicate(Boolean, metaclass=PredicateMeta):
     evaluated.
 
     Examples
-    ========
-
+    --------
     Applying and evaluating to boolean value:
 
     >>> from sympy import Q, ask
@@ -204,12 +201,13 @@ class Predicate(Boolean, metaclass=PredicateMeta):
     TypeError: <class \'sympy.assumptions.assume.UndefinedPredicate\'> cannot be dispatched.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Predicate_%28mathematical_logic%29
     .. [2] https://en.wikipedia.org/wiki/Sexy_prime
 
-    '''
+    """
+
     is_Atom: bool
     def __new__(cls, *args, **kwargs): ...
     @property
@@ -245,8 +243,7 @@ class UndefinedPredicate(Predicate):
     arguments is done by SAT solver.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Predicate, Q
     >>> Q.P = Predicate('P')
     >>> Q.P.func
@@ -255,6 +252,7 @@ class UndefinedPredicate(Predicate):
     Str('P')
 
     """
+
     handler: Incomplete
     def __new__(cls, name, handlers=None): ...
     @property
@@ -272,8 +270,7 @@ def assuming(*assumptions) -> Generator[None]:
     Context manager for assumptions.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import assuming, Q, ask
     >>> from sympy.abc import x, y
     >>> print(ask(Q.integer(x + y)))

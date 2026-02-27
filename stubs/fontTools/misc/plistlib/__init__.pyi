@@ -220,4 +220,3 @@ def dumps(value: PlistEncodable, sort_keys: bool = True, skipkeys: bool = False,
             if non-representable binary data is present
             and `use_builtin_types` is false.
     """
-

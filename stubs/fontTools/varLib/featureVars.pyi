@@ -147,4 +147,3 @@ def sortFeatureList(table) -> None:
 def remapFeatures(table, featureRemap) -> None:
     """Go through the scripts list, and remap feature indices."""
 def _remapLangSys(langSys, featureRemap) -> None: ...
-

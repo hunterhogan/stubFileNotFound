@@ -1,9 +1,8 @@
-from _typeshed import Incomplete, StrPath
-from collections.abc import Iterable, Iterator
-from typing import IO, ClassVar, NoReturn, overload
-
 from . import grammar
 from .tokenize import _TokenInfo
+from _typeshed import Incomplete, StrPath
+from collections.abc import Iterable, Iterator
+from typing import ClassVar, IO, NoReturn, overload
 
 class PgenGrammar(grammar.Grammar): ...
 

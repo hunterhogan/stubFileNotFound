@@ -1,5 +1,24 @@
 from . import function_docs as function_docs, rational as rational
-from .libmp import ComplexResult as ComplexResult, MPZ as MPZ, MPZ_ONE as MPZ_ONE, MPZ_ZERO as MPZ_ZERO, bitcount as bitcount, dps_to_prec as dps_to_prec, finf as finf, fnan as fnan, fninf as fninf, fone as fone, from_Decimal as from_Decimal, from_float as from_float, from_int as from_int, from_man_exp as from_man_exp, from_npfloat as from_npfloat, from_pickable as from_pickable, from_rational as from_rational, from_str as from_str, fzero as fzero, int_types as int_types, mpc_abs as mpc_abs, mpc_add as mpc_add, mpc_add_mpf as mpc_add_mpf, mpc_conjugate as mpc_conjugate, mpc_div as mpc_div, mpc_div_mpf as mpc_div_mpf, mpc_hash as mpc_hash, mpc_is_nonzero as mpc_is_nonzero, mpc_mpf_div as mpc_mpf_div, mpc_mul as mpc_mul, mpc_mul_int as mpc_mul_int, mpc_mul_mpf as mpc_mul_mpf, mpc_neg as mpc_neg, mpc_pos as mpc_pos, mpc_pow as mpc_pow, mpc_pow_int as mpc_pow_int, mpc_pow_mpf as mpc_pow_mpf, mpc_sub as mpc_sub, mpc_sub_mpf as mpc_sub_mpf, mpc_to_complex as mpc_to_complex, mpc_to_str as mpc_to_str, mpf_abs as mpf_abs, mpf_add as mpf_add, mpf_apery as mpf_apery, mpf_catalan as mpf_catalan, mpf_cmp as mpf_cmp, mpf_degree as mpf_degree, mpf_div as mpf_div, mpf_e as mpf_e, mpf_eq as mpf_eq, mpf_euler as mpf_euler, mpf_ge as mpf_ge, mpf_glaisher as mpf_glaisher, mpf_gt as mpf_gt, mpf_hash as mpf_hash, mpf_khinchin as mpf_khinchin, mpf_le as mpf_le, mpf_ln10 as mpf_ln10, mpf_ln2 as mpf_ln2, mpf_lt as mpf_lt, mpf_mertens as mpf_mertens, mpf_mod as mpf_mod, mpf_mul as mpf_mul, mpf_mul_int as mpf_mul_int, mpf_neg as mpf_neg, mpf_phi as mpf_phi, mpf_pi as mpf_pi, mpf_pos as mpf_pos, mpf_pow as mpf_pow, mpf_pow_int as mpf_pow_int, mpf_rand as mpf_rand, mpf_rdiv_int as mpf_rdiv_int, mpf_sub as mpf_sub, mpf_sum as mpf_sum, mpf_twinprime as mpf_twinprime, normalize as normalize, prec_to_dps as prec_to_dps, repr_dps as repr_dps, round_ceiling as round_ceiling, round_floor as round_floor, round_nearest as round_nearest, to_fixed as to_fixed, to_float as to_float, to_int as to_int, to_pickable as to_pickable, to_str as to_str
+from .libmp import (
+	bitcount as bitcount, ComplexResult as ComplexResult, dps_to_prec as dps_to_prec, finf as finf, fnan as fnan,
+	fninf as fninf, fone as fone, from_Decimal as from_Decimal, from_float as from_float, from_int as from_int,
+	from_man_exp as from_man_exp, from_npfloat as from_npfloat, from_pickable as from_pickable,
+	from_rational as from_rational, from_str as from_str, fzero as fzero, int_types as int_types, mpc_abs as mpc_abs,
+	mpc_add as mpc_add, mpc_add_mpf as mpc_add_mpf, mpc_conjugate as mpc_conjugate, mpc_div as mpc_div,
+	mpc_div_mpf as mpc_div_mpf, mpc_hash as mpc_hash, mpc_is_nonzero as mpc_is_nonzero, mpc_mpf_div as mpc_mpf_div,
+	mpc_mul as mpc_mul, mpc_mul_int as mpc_mul_int, mpc_mul_mpf as mpc_mul_mpf, mpc_neg as mpc_neg, mpc_pos as mpc_pos,
+	mpc_pow as mpc_pow, mpc_pow_int as mpc_pow_int, mpc_pow_mpf as mpc_pow_mpf, mpc_sub as mpc_sub,
+	mpc_sub_mpf as mpc_sub_mpf, mpc_to_complex as mpc_to_complex, mpc_to_str as mpc_to_str, mpf_abs as mpf_abs,
+	mpf_add as mpf_add, mpf_apery as mpf_apery, mpf_catalan as mpf_catalan, mpf_cmp as mpf_cmp, mpf_degree as mpf_degree,
+	mpf_div as mpf_div, mpf_e as mpf_e, mpf_eq as mpf_eq, mpf_euler as mpf_euler, mpf_ge as mpf_ge,
+	mpf_glaisher as mpf_glaisher, mpf_gt as mpf_gt, mpf_hash as mpf_hash, mpf_khinchin as mpf_khinchin, mpf_le as mpf_le,
+	mpf_ln2 as mpf_ln2, mpf_ln10 as mpf_ln10, mpf_lt as mpf_lt, mpf_mertens as mpf_mertens, mpf_mod as mpf_mod,
+	mpf_mul as mpf_mul, mpf_mul_int as mpf_mul_int, mpf_neg as mpf_neg, mpf_phi as mpf_phi, mpf_pi as mpf_pi,
+	mpf_pos as mpf_pos, mpf_pow as mpf_pow, mpf_pow_int as mpf_pow_int, mpf_rand as mpf_rand, mpf_rdiv_int as mpf_rdiv_int,
+	mpf_sub as mpf_sub, mpf_sum as mpf_sum, mpf_twinprime as mpf_twinprime, MPZ as MPZ, MPZ_ONE as MPZ_ONE,
+	MPZ_ZERO as MPZ_ZERO, normalize as normalize, prec_to_dps as prec_to_dps, repr_dps as repr_dps,
+	round_ceiling as round_ceiling, round_floor as round_floor, round_nearest as round_nearest, to_fixed as to_fixed,
+	to_float as to_float, to_int as to_int, to_pickable as to_pickable, to_str as to_str)
 from .libmp.backend import basestring as basestring, exec_ as exec_
 from _typeshed import Incomplete
 
@@ -7,6 +26,7 @@ new: Incomplete
 
 class mpnumeric:
     """Base class for mpf and mpc."""
+
     __slots__: Incomplete
     def __new__(cls, val) -> None: ...
 
@@ -16,11 +36,13 @@ class _mpf(mpnumeric):
     work analogously to Python floats, but support arbitrary-precision
     arithmetic.
     """
+
     __slots__: Incomplete
     def __new__(cls, val=(0, 0, 0, 0), **kwargs):
         """A new mpf can be created from a Python float, an int, a
         or a decimal string representing a number in floating-point
-        format."""
+        format.
+        """
     @classmethod
     def mpf_convert_arg(cls, x, prec, rounding): ...
     @classmethod
@@ -37,8 +59,6 @@ class _mpf(mpnumeric):
     def __getstate__(self): ...
     _mpf_: Incomplete
     def __setstate__(self, val) -> None: ...
-    def __repr__(s) -> str: ...
-    def __str__(s) -> str: ...
     def __hash__(s): ...
     def __int__(s) -> int: ...
     def __long__(s): ...
@@ -76,12 +96,13 @@ class _constant(_mpf):
     """Represents a mathematical constant with dynamic precision.
     When printed or used in an arithmetic operation, a constant
     is converted to a regular mpf at the working precision. A
-    regular mpf can also be obtained using the operation +x."""
+    regular mpf can also be obtained using the operation +x.
+    """
+
     def __new__(cls, func, name, docname: str = ''): ...
     def __call__(self, prec: Incomplete | None = None, dps: Incomplete | None = None, rounding: Incomplete | None = None): ...
     @property
     def _mpf_(self): ...
-    def __repr__(self) -> str: ...
 
 class _mpc(mpnumeric):
     """
@@ -89,6 +110,7 @@ class _mpc(mpnumeric):
     for the real part and another for the imaginary part.) The mpc
     class behaves fairly similarly to Python's complex type.
     """
+
     __slots__: Incomplete
     def __new__(cls, real: int = 0, imag: int = 0): ...
     real: Incomplete
@@ -96,8 +118,6 @@ class _mpc(mpnumeric):
     def __getstate__(self): ...
     _mpc_: Incomplete
     def __setstate__(self, val) -> None: ...
-    def __repr__(s) -> str: ...
-    def __str__(s) -> str: ...
     def __complex__(s) -> complex: ...
     def __pos__(s): ...
     def __abs__(s): ...
@@ -205,7 +225,7 @@ class PythonMPContext:
 
         """
     def isnormal(ctx, x):
-        '''
+        """
         Determine whether *x* is "normal" in the sense of floating-point
         representation; that is, return *False* if *x* is zero, an
         infinity or NaN; otherwise return *True*. By extension, a
@@ -227,7 +247,7 @@ class PythonMPContext:
             True
             >>> isnormal(mpc(2,nan))
             False
-        '''
+        """
     def isint(ctx, x, gaussian: bool = False):
         """
         Return *True* if *x* is integer-valued; otherwise return

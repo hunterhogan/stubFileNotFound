@@ -2,7 +2,7 @@ from .evalf import EvalfMixin
 from _typeshed import Incomplete
 from sympy.logic.boolalg import Boolean
 
-__all__ = ['Rel', 'Eq', 'Ne', 'Lt', 'Le', 'Gt', 'Ge', 'Relational', 'Equality', 'Unequality', 'StrictLessThan', 'LessThan', 'StrictGreaterThan', 'GreaterThan']
+__all__ = ['Eq', 'Equality', 'Ge', 'GreaterThan', 'Gt', 'Le', 'LessThan', 'Lt', 'Ne', 'Rel', 'Relational', 'StrictGreaterThan', 'StrictLessThan', 'Unequality']
 
 class Relational(Boolean, EvalfMixin):
     """Base class for all relation types.
@@ -15,15 +15,13 @@ class Relational(Boolean, EvalfMixin):
     the appropriate subclass.
 
     Parameters
-    ==========
-
+    ----------
     rop : str or None
         Indicates what subclass to instantiate.  Valid values can be found
         in the keys of Relational.ValidRelationOperator.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Rel
     >>> from sympy.abc import x, y
     >>> Rel(y, x + x**2, '==')
@@ -86,6 +84,7 @@ class Relational(Boolean, EvalfMixin):
         '<'
 
     """
+
     __slots__: Incomplete
     ValidRelationOperator: dict[str | None, type[Relational]]
     is_Relational: bool
@@ -101,8 +100,7 @@ class Relational(Boolean, EvalfMixin):
         """Return the relationship with sides reversed.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Eq
         >>> from sympy.abc import x
         >>> Eq(x, 1)
@@ -119,8 +117,7 @@ class Relational(Boolean, EvalfMixin):
         """Return the relationship with signs reversed.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Eq
         >>> from sympy.abc import x
         >>> Eq(x, 1)
@@ -137,8 +134,7 @@ class Relational(Boolean, EvalfMixin):
         """Return the negated relationship.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Eq
         >>> from sympy.abc import x
         >>> Eq(x, 1)
@@ -151,8 +147,7 @@ class Relational(Boolean, EvalfMixin):
         x >= 1
 
         Notes
-        =====
-
+        -----
         This works more or less identical to ``~``/``Not``. The difference is
         that ``negated`` returns the relationship even if ``evaluate=False``.
         Hence, this is useful in code when checking for e.g. negated relations
@@ -161,11 +156,10 @@ class Relational(Boolean, EvalfMixin):
         """
     @property
     def weak(self):
-        """return the non-strict version of the inequality or self
+        """Return the non-strict version of the inequality or self
 
-        EXAMPLES
-        ========
-
+        Examples
+        --------
         >>> from sympy.abc import x
         >>> (x < 1).weak
         x <= 1
@@ -174,11 +168,10 @@ class Relational(Boolean, EvalfMixin):
         """
     @property
     def strict(self):
-        """return the strict version of the inequality or self
+        """Return the strict version of the inequality or self
 
-        EXAMPLES
-        ========
-
+        Examples
+        --------
         >>> from sympy.abc import x
         >>> (x <= 1).strict
         x < 1
@@ -194,8 +187,7 @@ class Relational(Boolean, EvalfMixin):
         attempted.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y
         >>> x < 2
         x < 2
@@ -218,7 +210,8 @@ class Relational(Boolean, EvalfMixin):
         """Return True if the sides of the relationship are mathematically
         identical and the type of relationship is the same.
         If failing_expression is True, return the expression whose truth value
-        was unknown."""
+        was unknown.
+        """
     def _eval_simplify(self, **kwargs): ...
     def _eval_trigsimp(self, **opts): ...
     def expand(self, **kwargs): ...
@@ -245,8 +238,7 @@ class Equality(Relational):
     prevent any evaluation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Eq, simplify, exp, cos
     >>> from sympy.abc import x, y
     >>> Eq(y, x + x**2)
@@ -263,14 +255,12 @@ class Equality(Relational):
     True
 
     See Also
-    ========
-
+    --------
     sympy.logic.boolalg.Equivalent : for representing equality between two
         boolean expressions
 
     Notes
-    =====
-
+    -----
     Python treats 1 and True (and 0 and False) as being equal; SymPy
     does not. And integer will always compare as unequal to a Boolean:
 
@@ -298,6 +288,7 @@ class Equality(Relational):
        of SymPy.
 
     """
+
     rel_op: str
     __slots__: Incomplete
     is_Equality: bool
@@ -306,7 +297,7 @@ class Equality(Relational):
     def _eval_relation(cls, lhs, rhs): ...
     def _eval_rewrite_as_Add(self, L, R, evaluate: bool = True, **kwargs):
         """
-        return Eq(L, R) as L - R. To control the evaluation of
+        Return Eq(L, R) as L - R. To control the evaluation of
         the result set pass `evaluate=True` to give L - R;
         if `evaluate=None` then terms in L and R will not cancel
         but they will be listed in canonical order; otherwise
@@ -319,8 +310,7 @@ class Equality(Relational):
            See :ref:`eq-rewrite-Add` for details.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Eq, Add
         >>> from sympy.abc import b, x
         >>> eq = Eq(x + b, x - b)
@@ -340,8 +330,7 @@ class Equality(Relational):
         """Returns lhs-rhs as a Poly
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Eq
         >>> from sympy.abc import x
         >>> Eq(x**2, 1).as_poly(x)
@@ -361,19 +350,18 @@ class Unequality(Relational):
     Unequality object.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Ne
     >>> from sympy.abc import x, y
     >>> Ne(y, x+x**2)
     Ne(y, x**2 + x)
 
     See Also
-    ========
+    --------
     Equality
 
     Notes
-    =====
+    -----
     This class is not the same as the != operator.  The != operator tests
     for exact structural equality between two expressions; this class
     compares expressions mathematically.
@@ -382,6 +370,7 @@ class Unequality(Relational):
     same algorithms, including any available `_eval_Eq` methods.
 
     """
+
     rel_op: str
     __slots__: Incomplete
     def __new__(cls, lhs, rhs, **options): ...
@@ -399,6 +388,7 @@ class _Inequality(Relational):
     comparing two real numbers.
 
     """
+
     __slots__: Incomplete
     def __new__(cls, lhs, rhs, **options): ...
     @classmethod
@@ -411,6 +401,7 @@ class _Greater(_Inequality):
     subclass it for the .gts and .lts properties.
 
     """
+
     __slots__: Incomplete
     @property
     def gts(self): ...
@@ -424,6 +415,7 @@ class _Less(_Inequality):
     the .gts and .lts properties.
 
     """
+
     __slots__: Incomplete
     @property
     def gts(self): ...
@@ -431,7 +423,7 @@ class _Less(_Inequality):
     def lts(self): ...
 
 class GreaterThan(_Greater):
-    '''Class representations of inequalities.
+    """Class representations of inequalities.
 
     Explanation
     ===========
@@ -493,8 +485,7 @@ class GreaterThan(_Greater):
     \'x >= 1 is the same as 1 <= x\'
 
     Examples
-    ========
-
+    --------
     One generally does not instantiate these classes directly, but uses various
     convenience methods:
 
@@ -535,8 +526,7 @@ class GreaterThan(_Greater):
     x < 1
 
     Notes
-    =====
-
+    -----
     There are a couple of "gotchas" to be aware of when using Python\'s
     operators.
 
@@ -655,7 +645,8 @@ class GreaterThan(_Greater):
            like ``x > y > z`` work.  There was a PEP to change this,
            :pep:`335`, but it was officially closed in March, 2012.
 
-    '''
+    """
+
     __slots__: Incomplete
     rel_op: str
     @classmethod

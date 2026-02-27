@@ -6,8 +6,7 @@ def finite_diff(expression, variable, increment: int = 1):
     other than one supply it as a third argument.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y, z
     >>> from sympy.series.kauers import finite_diff
     >>> finite_diff(x**2, x)
@@ -26,8 +25,7 @@ def finite_diff_kauers(sum):
     if S(n) is a sum, then finite_diff_kauers will return S(n + 1) - S(n).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.series.kauers import finite_diff_kauers
     >>> from sympy import Sum
     >>> from sympy.abc import x, y, m, n, k

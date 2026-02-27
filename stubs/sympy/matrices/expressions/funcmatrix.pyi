@@ -10,8 +10,7 @@ class FunctionMatrix(MatrixExpr):
     outputs according to the coordinates of each matrix entries.
 
     Parameters
-    ==========
-
+    ----------
     rows : nonnegative integer. Can be symbolic.
 
     cols : nonnegative integer. Can be symbolic.
@@ -26,8 +25,7 @@ class FunctionMatrix(MatrixExpr):
         ``Lambda`` instance.
 
     Examples
-    ========
-
+    --------
     Creating a ``FunctionMatrix`` from ``Lambda``:
 
     >>> from sympy import FunctionMatrix, symbols, Lambda, MatPow
@@ -70,12 +68,12 @@ class FunctionMatrix(MatrixExpr):
     342923500
 
     Notes
-    =====
-
+    -----
     This class provides an alternative way to represent an extremely
     dense matrix with entries in some form of a sequence, in a most
     sparse way.
     """
+
     def __new__(cls, rows, cols, lamda): ...
     @property
     def shape(self): ...

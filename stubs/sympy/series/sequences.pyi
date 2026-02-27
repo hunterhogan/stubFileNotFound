@@ -19,6 +19,7 @@ from sympy.utilities.iterables import flatten as flatten, is_sequence as is_sequ
 
 class SeqBase(Basic):
     """Base class for sequences"""
+
     is_commutative: bool
     _op_priority: int
     @staticmethod
@@ -57,8 +58,7 @@ class SeqBase(Basic):
         that take on a specific value (i.e. the dummy symbols).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import SeqFormula
         >>> from sympy.abc import n, m
         >>> SeqFormula(m*n**2, (n, 0, 5)).free_symbols
@@ -78,8 +78,7 @@ class SeqBase(Basic):
         Assumes the first point to be indexed zero.
 
         Examples
-        =========
-
+        --------
         >>> from sympy import oo
         >>> from sympy.series.sequences import SeqPer
 
@@ -134,16 +133,14 @@ class SeqBase(Basic):
         defined to define custom behaviour.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import SeqFormula
         >>> from sympy.abc import n
         >>> SeqFormula(n**2).coeff_mul(2)
         SeqFormula(2*n**2, (n, 0, oo))
 
         Notes
-        =====
-
+        -----
         '*' defines multiplication of sequences with sequences only.
         """
     def __add__(self, other):
@@ -152,8 +149,7 @@ class SeqBase(Basic):
         ``other`` should be a sequence.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import SeqFormula
         >>> from sympy.abc import n
         >>> SeqFormula(n**2) + SeqFormula(n**3)
@@ -166,8 +162,7 @@ class SeqBase(Basic):
         ``other`` should be a sequence.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import SeqFormula
         >>> from sympy.abc import n
         >>> SeqFormula(n**2) - (SeqFormula(n))
@@ -178,8 +173,7 @@ class SeqBase(Basic):
         """Negates the sequence.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import SeqFormula
         >>> from sympy.abc import n
         >>> -SeqFormula(n**2)
@@ -192,8 +186,7 @@ class SeqBase(Basic):
         sequence see :func:`coeff_mul` method.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import SeqFormula
         >>> from sympy.abc import n
         >>> SeqFormula(n**2) * (SeqFormula(n))
@@ -215,8 +208,7 @@ class SeqBase(Basic):
         function of gfvar.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sequence, sqrt, oo, lucas
         >>> from sympy.abc import n, x, y
         >>> sequence(n**2).find_linear_recurrence(10, 2)
@@ -244,8 +236,7 @@ class EmptySequence(SeqBase, metaclass=Singleton):
     ``S.EmptySequence``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import EmptySequence, SeqPer
     >>> from sympy.abc import x
     >>> EmptySequence
@@ -257,6 +248,7 @@ class EmptySequence(SeqBase, metaclass=Singleton):
     >>> EmptySequence.coeff_mul(-1)
     EmptySequence
     """
+
     @property
     def interval(self): ...
     @property
@@ -271,8 +263,7 @@ class SeqExpr(SeqBase):
     Various sequences should inherit from this class.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.series.sequences import SeqExpr
     >>> from sympy.abc import x
     >>> from sympy import Tuple
@@ -285,11 +276,11 @@ class SeqExpr(SeqBase):
     11
 
     See Also
-    ========
-
+    --------
     sympy.series.sequences.SeqPer
     sympy.series.sequences.SeqFormula
     """
+
     @property
     def gen(self): ...
     @property
@@ -310,8 +301,7 @@ class SeqPer(SeqExpr):
     The elements are repeated after a given period.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import SeqPer, oo
     >>> from sympy.abc import k
 
@@ -347,10 +337,10 @@ class SeqPer(SeqExpr):
     [0, 1, 8, 3, 16, 125]
 
     See Also
-    ========
-
+    --------
     sympy.series.sequences.SeqFormula
     """
+
     def __new__(cls, periodical, limits=None): ...
     @property
     def period(self): ...
@@ -371,8 +361,7 @@ class SeqFormula(SeqExpr):
     Elements are generated using a formula.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import SeqFormula, oo, Symbol
     >>> n = Symbol('n')
     >>> s = SeqFormula(n**2, (n, 0, 5))
@@ -400,10 +389,10 @@ class SeqFormula(SeqExpr):
     [0, 1, 4, 9, 16, 25]
 
     See Also
-    ========
-
+    --------
     sympy.series.sequences.SeqPer
     """
+
     def __new__(cls, formula, limits=None): ...
     @property
     def formula(self): ...
@@ -417,7 +406,7 @@ class SeqFormula(SeqExpr):
     def expand(self, *args, **kwargs): ...
 
 class RecursiveSeq(SeqBase):
-    '''
+    """
     A finite degree recursive sequence.
 
     Explanation
@@ -432,8 +421,7 @@ class RecursiveSeq(SeqBase):
     SymPy expression.
 
     Parameters
-    ==========
-
+    ----------
     recurrence : SymPy expression defining recurrence
         This is *not* an equality, only the expression that the nth term is
         equal to. For example, if :code:`a(n) = f(a(n - 1), ..., a(n - d))`,
@@ -453,8 +441,7 @@ class RecursiveSeq(SeqBase):
     start : start value of sequence (inclusive)
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, symbols
     >>> from sympy.series.sequences import RecursiveSeq
     >>> y = Function("y")
@@ -487,11 +474,11 @@ class RecursiveSeq(SeqBase):
     (9, 34)
 
     See Also
-    ========
-
+    --------
     sympy.series.sequences.SeqFormula
 
-    '''
+    """
+
     def __new__(cls, recurrence, yn, n, initial=None, start: int = 0): ...
     @property
     def _recurrence(self):
@@ -534,8 +521,7 @@ def sequence(seq, limits=None):
     otherwise returns :class:`SeqFormula` object.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sequence
     >>> from sympy.abc import n
     >>> sequence(n**2, (n, 0, 5))
@@ -544,8 +530,7 @@ def sequence(seq, limits=None):
     SeqPer((1, 2, 3), (n, 0, 5))
 
     See Also
-    ========
-
+    --------
     sympy.series.sequences.SeqPer
     sympy.series.sequences.SeqFormula
     """
@@ -555,8 +540,7 @@ class SeqExprOp(SeqBase):
     Base class for operations on sequences.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.series.sequences import SeqExprOp, sequence
     >>> from sympy.abc import n
     >>> s1 = sequence(n**2, (n, 0, 10))
@@ -570,11 +554,11 @@ class SeqExprOp(SeqBase):
     6
 
     See Also
-    ========
-
+    --------
     sympy.series.sequences.SeqAdd
     sympy.series.sequences.SeqMul
     """
+
     @property
     def gen(self):
         """Generator for the sequence.
@@ -606,8 +590,7 @@ class SeqAdd(SeqExprOp):
         * Other rules are defined in ``_add`` methods of sequence classes.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import EmptySequence, oo, SeqAdd, SeqPer, SeqFormula
     >>> from sympy.abc import n
     >>> SeqAdd(SeqPer((1, 2), (n, 0, oo)), EmptySequence)
@@ -620,10 +603,10 @@ class SeqAdd(SeqExprOp):
     SeqFormula(n**3 + n**2, (n, 0, oo))
 
     See Also
-    ========
-
+    --------
     sympy.series.sequences.SeqMul
     """
+
     def __new__(cls, *args, **kwargs): ...
     @staticmethod
     def reduce(args):
@@ -633,13 +616,12 @@ class SeqAdd(SeqExprOp):
         sequences if they can simplify themselves with any other constituent.
 
         Notes
-        =====
-
+        -----
         adapted from ``Union.reduce``
 
         """
     def _eval_coeff(self, pt):
-        """adds up the coefficients of all the sequences at point pt"""
+        """Adds up the coefficients of all the sequences at point pt"""
 
 class SeqMul(SeqExprOp):
     """Represents term-wise multiplication of sequences.
@@ -657,8 +639,7 @@ class SeqMul(SeqExprOp):
         * Other rules are defined in ``_mul`` methods of sequence classes.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import EmptySequence, oo, SeqMul, SeqPer, SeqFormula
     >>> from sympy.abc import n
     >>> SeqMul(SeqPer((1, 2), (n, 0, oo)), EmptySequence)
@@ -671,10 +652,10 @@ class SeqMul(SeqExprOp):
     SeqFormula(n**5, (n, 0, oo))
 
     See Also
-    ========
-
+    --------
     sympy.series.sequences.SeqAdd
     """
+
     def __new__(cls, *args, **kwargs): ...
     @staticmethod
     def reduce(args):
@@ -687,10 +668,9 @@ class SeqMul(SeqExprOp):
         sequences if they can simplify themselves with any other constituent.
 
         Notes
-        =====
-
+        -----
         adapted from ``Union.reduce``
 
         """
     def _eval_coeff(self, pt):
-        """multiplies the coefficients of all the sequences at point pt"""
+        """Multiplies the coefficients of all the sequences at point pt"""

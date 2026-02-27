@@ -1,13 +1,12 @@
-import queue
-import sys
+from ._base import BrokenExecutor, Executor, Future
 from collections.abc import Callable, Iterable, Mapping, Set as AbstractSet
 from threading import Lock, Semaphore, Thread
 from types import GenericAlias
-from typing import Any, Generic, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import Self, TypeAlias, TypeVarTuple, Unpack
+from typing import Any, Generic, overload, Protocol, Self, type_check_only, TypeAlias, TypeVar
+from typing_extensions import TypeVarTuple, Unpack
 from weakref import ref
-
-from ._base import BrokenExecutor, Executor, Future
+import queue
+import sys
 
 _Ts = TypeVarTuple("_Ts")
 

@@ -115,4 +115,3 @@ def find_base_style(masters):
     Return empty string if none is found.
     """
 def is_instance_active(instance): ...
-

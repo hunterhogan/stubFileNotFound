@@ -22,6 +22,7 @@ class ExecutionEngine(ffi.ObjectRef):
     Deleting the engine will remove all associated modules.
     It is an error to delete the associated modules.
     """
+
     _object_cache: Incomplete
     _modules: Incomplete
     _td: Incomplete
@@ -47,10 +48,10 @@ class ExecutionEngine(ffi.ObjectRef):
         Ownership of module is transferred to the execution engine
         """
     def finalize_object(self) -> None:
-        '''
+        """
         Make sure all modules owned by the execution engine are fully processed
         and "usable" for execution.
-        '''
+        """
     def run_static_constructors(self) -> None:
         """
         Run static constructors which initialize module-level static objects.
@@ -87,10 +88,10 @@ class ExecutionEngine(ffi.ObjectRef):
     _object_cache_notify: Incomplete
     _object_cache_getbuffer: Incomplete
     def set_object_cache(self, notify_func: Incomplete | None = None, getbuffer_func: Incomplete | None = None) -> None:
-        '''
+        """
         Set the object cache "notifyObjectCompiled" and "getBuffer"
         callbacks to the given Python functions.
-        '''
+        """
     def _raw_object_cache_notify(self, data) -> None:
         """
         Low-level notify hook.
@@ -105,6 +106,7 @@ class _ObjectCacheRef(ffi.ObjectRef):
     """
     Internal: an ObjectCache instance for use within an ExecutionEngine.
     """
+
     def __init__(self, obj) -> None: ...
     def _dispose(self) -> None: ...
 

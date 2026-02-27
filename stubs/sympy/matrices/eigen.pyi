@@ -8,9 +8,10 @@ from sympy.core.numbers import Float as Float
 from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.core.sympify import _sympify as _sympify
 from sympy.functions.elementary.miscellaneous import sqrt as sqrt
-from sympy.polys import CRootOf as CRootOf, EX as EX, QQ as QQ, ZZ as ZZ, roots as roots
+from sympy.polys import CRootOf as CRootOf, EX as EX, QQ as QQ, roots as roots, ZZ as ZZ
 from sympy.polys.matrices import DomainMatrix as DomainMatrix
-from sympy.polys.matrices.eigen import dom_eigenvects as dom_eigenvects, dom_eigenvects_to_sympy as dom_eigenvects_to_sympy
+from sympy.polys.matrices.eigen import (
+	dom_eigenvects as dom_eigenvects, dom_eigenvects_to_sympy as dom_eigenvects_to_sympy)
 from sympy.polys.polytools import gcd as gcd
 
 __doctest_requires__: Incomplete
@@ -23,8 +24,7 @@ def _eigenvals(M, error_when_incomplete: bool = True, *, simplify: bool = False,
     """Compute eigenvalues of the matrix.
 
     Parameters
-    ==========
-
+    ----------
     error_when_incomplete : bool, optional
         If it is set to ``True``, it will raise an error if not all
         eigenvalues are computed. This is caused by ``roots`` not returning
@@ -54,15 +54,13 @@ def _eigenvals(M, error_when_incomplete: bool = True, *, simplify: bool = False,
         dictionary.
 
     Returns
-    =======
-
+    -------
     eigs : list or dict
         Eigenvalues of a matrix. The return format would be specified by
         the key ``multiple``.
 
     Raises
-    ======
-
+    ------
     MatrixError
         If not enough roots had got computed.
 
@@ -70,22 +68,19 @@ def _eigenvals(M, error_when_incomplete: bool = True, *, simplify: bool = False,
         If attempted to compute eigenvalues from a non-square matrix.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> M = Matrix(3, 3, [0, 1, 1, 1, 0, 0, 1, 1, 1])
     >>> M.eigenvals()
     {-1: 1, 0: 1, 2: 1}
 
     See Also
-    ========
-
+    --------
     MatrixBase.charpoly
     eigenvects
 
     Notes
-    =====
-
+    -----
     Eigenvalues of a matrix $A$ can be computed by solving a matrix
     equation $\\det(A - \\lambda I) = 0$
 
@@ -110,8 +105,7 @@ def _eigenvects(M, error_when_incomplete: bool = True, iszerofunc=..., *, chop: 
     """Compute eigenvectors of the matrix.
 
     Parameters
-    ==========
-
+    ----------
     error_when_incomplete : bool, optional
         Raise an error when not all eigenvalues are computed. This is
         caused by ``roots`` not returning a full list of eigenvalues.
@@ -141,8 +135,7 @@ def _eigenvects(M, error_when_incomplete: bool = True, iszerofunc=..., *, chop: 
         be interpreted as the desired level of precision.
 
     Returns
-    =======
-
+    -------
     ret : [(eigenval, multiplicity, eigenspace), ...]
         A ragged list containing tuples of data obtained by ``eigenvals``
         and ``nullspace``.
@@ -154,14 +147,12 @@ def _eigenvects(M, error_when_incomplete: bool = True, iszerofunc=..., *, chop: 
         a vector of length 3 is returned as ``Matrix([a_1, a_2, a_3])``.
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         If failed to compute nullspace.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> M = Matrix(3, 3, [0, 1, 1, 1, 0, 0, 1, 1, 1])
     >>> M.eigenvects()
@@ -177,21 +168,20 @@ def _eigenvects(M, error_when_incomplete: bool = True, iszerofunc=..., *, chop: 
     [  1]])])]
 
     See Also
-    ========
-
+    --------
     eigenvals
     MatrixBase.nullspace
     """
 def _is_diagonalizable_with_eigen(M, reals_only: bool = False):
     """See _is_diagonalizable. This function returns the bool along with the
     eigenvectors to avoid calculating them again in functions like
-    ``diagonalize``."""
+    ``diagonalize``.
+    """
 def _is_diagonalizable(M, reals_only: bool = False, **kwargs):
     """Returns ``True`` if a matrix is diagonalizable.
 
     Parameters
-    ==========
-
+    ----------
     reals_only : bool, optional
         If ``True``, it tests whether the matrix can be diagonalized
         to contain only real numbers on the diagonal.
@@ -201,8 +191,7 @@ def _is_diagonalizable(M, reals_only: bool = False, **kwargs):
         at all, even with numbers that may not be real.
 
     Examples
-    ========
-
+    --------
     Example of a diagonalizable matrix:
 
     >>> from sympy import Matrix
@@ -225,8 +214,7 @@ def _is_diagonalizable(M, reals_only: bool = False, **kwargs):
     False
 
     See Also
-    ========
-
+    --------
     sympy.matrices.matrixbase.MatrixBase.is_diagonal
     diagonalize
     """
@@ -244,13 +232,12 @@ def _bidiagonal_decomposition(M, upper: bool = True):
     Note: Bidiagonal Computation can hang for symbolic matrices.
 
     Parameters
-    ==========
-
+    ----------
     upper : bool. Whether to do upper bidiagnalization or lower.
                 True for upper and False for lower.
 
     References
-    ==========
+    ----------
 
     .. [1] Algorithm 5.4.2, Matrix computations by Golub and Van Loan, 4th edition
     .. [2] Complex Matrix Bidiagonalization, https://github.com/vslobody/Householder-Bidiagonalization
@@ -263,13 +250,12 @@ def _bidiagonalize(M, upper: bool = True):
     Note: Bidiagonal Computation can hang for symbolic matrices.
 
     Parameters
-    ==========
-
+    ----------
     upper : bool. Whether to do upper bidiagnalization or lower.
                 True for upper and False for lower.
 
     References
-    ==========
+    ----------
 
     .. [1] Algorithm 5.4.2, Matrix computations by Golub and Van Loan, 4th edition
     .. [2] Complex Matrix Bidiagonalization : https://github.com/vslobody/Householder-Bidiagonalization
@@ -284,8 +270,7 @@ def _diagonalize(M, reals_only: bool = False, sort: bool = False, normalize: boo
     where M is current matrix.
 
     Parameters
-    ==========
-
+    ----------
     reals_only : bool. Whether to throw an error if complex numbers are need
                     to diagonalize. (Default: False)
 
@@ -294,8 +279,7 @@ def _diagonalize(M, reals_only: bool = False, sort: bool = False, normalize: boo
     normalize : bool. If True, normalize the columns of P. (Default: False)
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> M = Matrix(3, 3, [1, 2, 0, 0, 3, 0, 2, -4, 2])
     >>> M
@@ -321,8 +305,7 @@ def _diagonalize(M, reals_only: bool = False, sort: bool = False, normalize: boo
     [0, 0, 3]])
 
     See Also
-    ========
-
+    --------
     sympy.matrices.matrixbase.MatrixBase.is_diagonal
     is_diagonalizable
     """
@@ -335,12 +318,13 @@ def _is_negative_semidefinite(M): ...
 def _is_indefinite(M): ...
 def _is_positive_definite_GE(M):
     """A division-free gaussian elimination method for testing
-    positive-definiteness."""
+    positive-definiteness.
+    """
 def _is_positive_semidefinite_cholesky(M):
     """Uses Cholesky factorization with complete pivoting
 
     References
-    ==========
+    ----------
 
     .. [1] http://eprints.ma.man.ac.uk/1199/1/covered/MIMS_ep2008_116.pdf
 
@@ -354,8 +338,7 @@ def _jordan_form(M, calc_transform: bool = True, *, chop: bool = False):
     matrix and $P$ is a matrix such that $M = P J P^{-1}$
 
     Parameters
-    ==========
-
+    ----------
     calc_transform : bool
         If ``False``, then only $J$ is returned.
 
@@ -366,8 +349,7 @@ def _jordan_form(M, calc_transform: bool = True, *, chop: bool = False):
         will be truncated.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> M = Matrix([[ 6,  5, -2, -3], [-3, -1,  3,  3], [ 2,  1, -2, -3], [-1,  1,  5,  5]])
     >>> P, J = M.jordan_form()
@@ -379,8 +361,7 @@ def _jordan_form(M, calc_transform: bool = True, *, chop: bool = False):
     [0, 0, 0, 2]])
 
     See Also
-    ========
-
+    --------
     jordan_block
     """
 def _left_eigenvects(M, **flags):
@@ -392,8 +373,7 @@ def _left_eigenvects(M, **flags):
     eigenvects().
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> M = Matrix([[0, 1, 1], [1, 0, 0], [1, 1, 1]])
     >>> M.eigenvects()
@@ -416,8 +396,7 @@ def _singular_values(M):
     """Compute the singular values of a Matrix
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, Symbol
     >>> x = Symbol('x', real=True)
     >>> M = Matrix([[0, 1, 0], [0, x, 0], [-1, 0, 0]])
@@ -425,7 +404,6 @@ def _singular_values(M):
     [sqrt(x**2 + 1), 1, 0]
 
     See Also
-    ========
-
+    --------
     condition_number
     """

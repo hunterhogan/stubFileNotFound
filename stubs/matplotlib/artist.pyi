@@ -1,6 +1,8 @@
 from . import _api as _api, cbook as cbook
 from .path import Path as Path
-from .transforms import Bbox as Bbox, BboxBase as BboxBase, IdentityTransform as IdentityTransform, Transform as Transform, TransformedBbox as TransformedBbox, TransformedPatchPath as TransformedPatchPath, TransformedPath as TransformedPath
+from .transforms import (
+	Bbox as Bbox, BboxBase as BboxBase, IdentityTransform as IdentityTransform, Transform as Transform,
+	TransformedBbox as TransformedBbox, TransformedPatchPath as TransformedPatchPath, TransformedPath as TransformedPath)
 from _typeshed import Incomplete
 from collections.abc import Generator
 from typing import NamedTuple
@@ -28,7 +30,7 @@ class _XYPair(NamedTuple):
     y: Incomplete
 
 class _Unset:
-    def __repr__(self) -> str: ...
+    ...
 
 _UNSET: Incomplete
 
@@ -38,6 +40,7 @@ class Artist:
 
     Typically, all visible elements in a figure are subclasses of Artist.
     """
+
     zorder: int
     def __init_subclass__(cls): ...
     _PROPERTIES_EXCLUDED_FROM_SET: Incomplete
@@ -121,7 +124,7 @@ class Artist:
     @stale.setter
     def stale(self, val) -> None: ...
     def get_window_extent(self, renderer: Incomplete | None = None):
-        '''
+        """
         Get the artist\'s bounding box in display space.
 
         The bounding box\' width and height are nonnegative.
@@ -137,7 +140,7 @@ class Artist:
         (as is done when saving a figure).  This can lead to unexpected
         behavior where interactive figures will look fine on the screen,
         but will save incorrectly.
-        '''
+        """
     def get_tightbbox(self, renderer: Incomplete | None = None):
         """
         Like `.Artist.get_window_extent`, but includes any clipping.
@@ -644,7 +647,7 @@ class Artist:
         """
     @property
     def sticky_edges(self):
-        '''
+        """
         ``x`` and ``y`` sticky edge lists for autoscaling.
 
         When performing autoscaling, if a data limit coincides with a value in
@@ -666,19 +669,19 @@ class Artist:
         >>> artist.sticky_edges.x[:] = (xmin, xmax)
         >>> artist.sticky_edges.y[:] = (ymin, ymax)
 
-        '''
+        """
     def update_from(self, other) -> None:
         """Copy properties from *other* to *self*."""
     def properties(self):
         """Return a dictionary of all the properties of the artist."""
     def _update_props(self, props, errfmt):
-        '''
+        """
         Helper for `.Artist.set` and `.Artist.update`.
 
         *errfmt* is used to generate error messages for invalid property
         names; it gets formatted with ``type(self)`` for "{cls}" and the
         property name for "{prop_name}".
-        '''
+        """
     def update(self, props):
         """
         Update this artist's properties from the dict *props*.
@@ -806,6 +809,7 @@ class ArtistInspector:
     A helper class to inspect an `~matplotlib.artist.Artist` and return
     information about its settable properties and their current values.
     """
+
     oorig: Incomplete
     o: Incomplete
     aliasd: Incomplete
@@ -829,13 +833,13 @@ class ArtistInspector:
         """
     _get_valid_values_regex: Incomplete
     def get_valid_values(self, attr):
-        '''
+        """
         Get the legal arguments for the setter associated with *attr*.
 
         This is done by querying the docstring of the setter for a line that
         begins with "ACCEPTS:" or ".. ACCEPTS:", and then by looking for a
         numpydoc-style documentation for the setter\'s first argument.
-        '''
+        """
     def _replace_path(self, source_class):
         """
         Changes the full path to the public API path that is used
@@ -884,14 +888,14 @@ class ArtistInspector:
         values.
         """
     def pprint_setters_rest(self, prop: Incomplete | None = None, leadingspace: int = 4):
-        '''
+        """
         If *prop* is *None*, return a list of reST-formatted strings of all
         settable properties and their valid values.
 
         If *prop* is not *None*, it is a valid property name and that
         property will be returned as a string of "property : valid"
         values.
-        '''
+        """
     def properties(self):
         """Return a dictionary mapping property name -> value."""
     def pprint_getters(self):

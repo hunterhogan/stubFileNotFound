@@ -10,4 +10,3 @@ class table_S_T_A_T_(BaseTTXConverter):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/stat
     """
-

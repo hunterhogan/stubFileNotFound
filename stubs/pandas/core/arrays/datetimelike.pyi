@@ -1,37 +1,13 @@
-from collections.abc import (
-    Iterator,
-    Sequence,
-)
-from typing import (
-    Any,
-    Self,
-    TypeAlias,
-    overload,
-)
-
-from pandas.core.arraylike import OpsMixin
-from pandas.core.arrays._mixins import NDArrayBackedExtensionArray
-
-from pandas._libs import (
-    NaT as NaT,
-    NaTType as NaTType,
-)
+from collections.abc import Iterator, Sequence
+from pandas._libs import NaT as NaT, NaTType as NaTType
 from pandas._libs.tslibs.timedeltas import Timedelta
 from pandas._libs.tslibs.timestamps import Timestamp
 from pandas._typing import (
-    AxisInt,
-    DatetimeLikeScalar,
-    Frequency,
-    NpDtype,
-    PositionalIndexerTuple,
-    ScalarIndexer,
-    SequenceIndexer,
-    TimeAmbiguous,
-    TimeNonexistent,
-    TimeUnit,
-    np_1darray,
-    np_1darray_str,
-)
+	AxisInt, DatetimeLikeScalar, Frequency, np_1darray, np_1darray_str, NpDtype, PositionalIndexerTuple, ScalarIndexer,
+	SequenceIndexer, TimeAmbiguous, TimeNonexistent, TimeUnit)
+from pandas.core.arraylike import OpsMixin
+from pandas.core.arrays._mixins import NDArrayBackedExtensionArray
+from typing import Any, overload, Self, TypeAlias
 
 DTScalarOrNaT: TypeAlias = DatetimeLikeScalar | NaTType
 

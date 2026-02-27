@@ -1,16 +1,15 @@
-import abc
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
+import abc
 
 __all__ = ['BodyBase']
 
 class BodyBase(ABC, metaclass=abc.ABCMeta):
     """Abstract class for body type objects."""
+
     _name: Incomplete
     points: Incomplete
     def __init__(self, name, masscenter=None, mass=None) -> None: ...
-    def __str__(self) -> str: ...
-    def __repr__(self) -> str: ...
     @property
     def name(self):
         """The name of the body."""
@@ -31,8 +30,7 @@ class BodyBase(ABC, metaclass=abc.ABCMeta):
         """The potential energy of the body.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.mechanics import Particle, Point
         >>> from sympy import symbols
         >>> m, g, h = symbols('m g h')

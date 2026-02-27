@@ -1,8 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, List, Literal, Union
-from typing_extensions import assert_type
-
+from typing import Any, assert_type, List, Literal, Union
 
 class Foo:
     def __add__(self, other: Any) -> Foo:
@@ -31,7 +29,7 @@ assert_type(sum([True, False]), int)
 assert_type(sum([True, False], True), int)
 assert_type(sum(literal_list), int)
 
-assert_type(sum([["foo"], ["bar"]], ["baz"]), List[str])
+assert_type(sum([["foo"], ["bar"]], ["baz"]), list[str])
 
 assert_type(sum([Foo(), Foo()], Foo()), Foo)
 assert_type(sum([Baz(), Baz()]), Union[Baz, Literal[0]])

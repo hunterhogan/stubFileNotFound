@@ -14,7 +14,7 @@ def _deprecation_msg_m_a_r_f(attr) -> None: ...
 def _create_generic_data_series(**kwargs): ...
 
 class Plot:
-    '''Base class for all backends. A backend represents the plotting library,
+    """Base class for all backends. A backend represents the plotting library,
     which implements the necessary functionalities in order to use SymPy
     plotting functions.
 
@@ -120,8 +120,7 @@ class Plot:
     - surface_color : function which returns a float.
 
     Notes
-    =====
-
+    -----
     How the plotting module works:
 
     1. Whenever a plotting function is called, the provided expressions are
@@ -168,7 +167,8 @@ class Plot:
     * close(self): used to close the current plot backend (note: some plotting
         library does not support this functionality. In that case, just raise a
         warning).
-    '''
+    """
+
     title: Incomplete
     xlabel: Incomplete
     ylabel: Incomplete
@@ -194,7 +194,6 @@ class Plot:
     def _backend(self): ...
     @property
     def backend(self): ...
-    def __str__(self) -> str: ...
     def __getitem__(self, index): ...
     def __setitem__(self, index, *args) -> None: ...
     def __delitem__(self, index) -> None: ...
@@ -202,8 +201,7 @@ class Plot:
         """Adds an element from a plot's series to an existing plot.
 
         Examples
-        ========
-
+        --------
         Consider two ``Plot`` objects, ``p1`` and ``p2``. To add the
         second plot's first series object to the first, use the
         ``append`` method, like so:
@@ -225,8 +223,7 @@ class Plot:
            >>> p1.show()
 
         See Also
-        ========
-
+        --------
         extend
 
         """
@@ -234,8 +231,7 @@ class Plot:
         """Adds all series from another plot.
 
         Examples
-        ========
-
+        --------
         Consider two ``Plot`` objects, ``p1`` and ``p2``. To add the
         second plot to the first, use the ``extend`` method, like so:
 

@@ -30,6 +30,7 @@ class FeatureMap(dict):
     Maps feature name to a boolean indicating the availability of the feature.
     Extends ``dict`` to add `.flatten()` method.
     """
+
     def flatten(self, sort: bool = True):
         """
         Args
@@ -45,7 +46,7 @@ class FeatureMap(dict):
         """
 
 def get_host_cpu_features():
-    '''
+    """
     Returns a dictionary-like object indicating the CPU features for current
     architecture and whether they are enabled for this CPU.  The key-value pairs
     are the feature name as string and a boolean indicating whether the feature
@@ -55,7 +56,7 @@ def get_host_cpu_features():
 
     If LLVM has not implemented this feature or it fails to get the information,
     this function will raise a RuntimeError exception.
-    '''
+    """
 def get_default_triple():
     """
     Return the default target triple LLVM is configured to produce code for.
@@ -85,7 +86,7 @@ class TargetData(ffi.ObjectRef):
     A TargetData provides structured access to a data layout.
     Use :func:`create_target_data` to create instances.
     """
-    def __str__(self) -> str: ...
+
     def _dispose(self) -> None: ...
     def get_abi_size(self, ty):
         """
@@ -129,9 +130,8 @@ class Target(ffi.ObjectRef):
     def description(self): ...
     @property
     def triple(self): ...
-    def __str__(self) -> str: ...
     def create_target_machine(self, cpu: str = '', features: str = '', opt: int = 2, reloc: str = 'default', codemodel: str = 'jitdefault', printmc: bool = False, jit: bool = False, abiname: str = ''):
-        '''
+        """
         Create a new TargetMachine for this target and the given options.
 
         Specifying codemodel=\'default\' will result in the use of the "small"
@@ -145,7 +145,7 @@ class Target(ffi.ObjectRef):
 
         The `abiname` option specifies the ABI. RISC-V targets with hard-float
         needs to pass the ABI name to LLVM.
-        '''
+        """
 
 class TargetMachine(ffi.ObjectRef):
     def _dispose(self) -> None: ...

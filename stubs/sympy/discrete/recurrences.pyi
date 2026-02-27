@@ -8,8 +8,7 @@ def linrec(coeffs, init, n):
     having coefficients independent of the recurrence variable.
 
     Parameters
-    ==========
-
+    ----------
     coeffs : iterable
         Coefficients of the recurrence
     init : iterable
@@ -18,8 +17,7 @@ def linrec(coeffs, init, n):
         Point of evaluation for the recurrence
 
     Notes
-    =====
-
+    -----
     Let `y(n)` be the recurrence of given type, ``c`` be the sequence
     of coefficients, ``b`` be the sequence of initial/base values of the
     recurrence and ``k`` (equal to ``len(c)``) be the order of recurrence.
@@ -48,8 +46,7 @@ def linrec(coeffs, init, n):
     of `x` in the representation of `x^n`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.discrete.recurrences import linrec
     >>> from sympy.abc import x, y, z
 
@@ -66,14 +63,13 @@ def linrec(coeffs, init, n):
     13576*x + 5676*y + 2356*z
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Exponentiation_by_squaring
     .. [2] https://en.wikipedia.org/w/index.php?title=Modular_exponentiation&section=6#Matrices
 
     See Also
-    ========
-
+    --------
     sympy.polys.agca.extensions.ExtensionElement.__pow__
 
     """
@@ -88,8 +84,7 @@ def linrec_coeffs(c, n):
     This function is used by `linrec` and `_eval_pow_by_cayley`.
 
     Parameters
-    ==========
-
+    ----------
     c = coefficients of the divisor polynomial
     n = exponent of x, so dividend is x^n
 

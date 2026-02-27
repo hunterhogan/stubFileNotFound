@@ -9,8 +9,7 @@ class PowerSet(Set):
     """A symbolic object representing a power set.
 
     Parameters
-    ==========
-
+    ----------
     arg : Set
         The set to take power of.
 
@@ -21,8 +20,7 @@ class PowerSet(Set):
         advantage of using subset test as a membership test.
 
     Notes
-    =====
-
+    -----
     Power set `\\mathcal{P}(S)` is defined as a set containing all the
     subsets of `S`.
 
@@ -31,8 +29,7 @@ class PowerSet(Set):
     the cardinality of `S`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import PowerSet, S, FiniteSet
 
     A power set of a finite set:
@@ -58,12 +55,13 @@ class PowerSet(Set):
     FiniteSet(EmptySet, {1}, {2}, {3}, {1, 2}, {1, 3}, {2, 3}, {1, 2, 3})
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Power_set
 
     .. [2] https://en.wikipedia.org/wiki/Axiom_of_power_set
     """
+
     def __new__(cls, arg, evaluate=None): ...
     @property
     def arg(self): ...

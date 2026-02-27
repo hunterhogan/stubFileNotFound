@@ -2,24 +2,28 @@ from sympy.printing.latex import LatexPrinter
 from sympy.printing.pretty.pretty import PrettyPrinter
 from sympy.printing.str import StrPrinter
 
-__all__ = ['vprint', 'vsstrrepr', 'vsprint', 'vpprint', 'vlatex', 'init_vprinting']
+__all__ = ['init_vprinting', 'vlatex', 'vpprint', 'vprint', 'vsprint', 'vsstrrepr']
 
 class VectorStrPrinter(StrPrinter):
-    """String Printer for vector expressions. """
+    """String Printer for vector expressions."""
+
     def _print_Derivative(self, e): ...
     def _print_Function(self, e): ...
 
 class VectorStrReprPrinter(VectorStrPrinter):
     """String repr printer for vector expressions."""
+
     def _print_str(self, s): ...
 
 class VectorLatexPrinter(LatexPrinter):
-    """Latex Printer for vector expressions. """
+    """Latex Printer for vector expressions."""
+
     def _print_Function(self, expr, exp=None): ...
     def _print_Derivative(self, der_expr): ...
 
 class VectorPrettyPrinter(PrettyPrinter):
-    """Pretty Printer for vectorialexpressions. """
+    """Pretty Printer for vectorialexpressions."""
+
     def _print_Derivative(self, deriv): ...
     def _print_Function(self, e): ...
 
@@ -31,16 +35,14 @@ def vprint(expr, **settings) -> None:
     :func:`~.sstr`, and is equivalent to ``print(sstr(foo))``.
 
     Parameters
-    ==========
-
+    ----------
     expr : valid SymPy object
         SymPy expression to print.
     settings : args
         Same as the settings accepted by SymPy's sstr().
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import vprint, dynamicsymbols
     >>> u1 = dynamicsymbols('u1')
     >>> print(u1)
@@ -54,8 +56,7 @@ def vsstrrepr(expr, **settings):
     printing enabled.
 
     Parameters
-    ==========
-
+    ----------
     expr : valid SymPy object
         SymPy expression to print.
     settings : args
@@ -63,22 +64,20 @@ def vsstrrepr(expr, **settings):
 
     """
 def vsprint(expr, **settings):
-    '''Function for displaying expressions generated in the
+    """Function for displaying expressions generated in the
     sympy.physics vector package.
 
     Returns the output of vprint() as a string.
 
     Parameters
-    ==========
-
+    ----------
     expr : valid SymPy object
         SymPy expression to print
     settings : args
         Same as the settings accepted by SymPy\'s sstr().
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import vsprint, dynamicsymbols
     >>> u1, u2 = dynamicsymbols(\'u1 u2\')
     >>> u2d = dynamicsymbols(\'u2\', level=1)
@@ -87,7 +86,7 @@ def vsprint(expr, **settings):
     >>> print("%s = %s" % (vsprint(u1), vsprint(u2 + u2d)))
     u1 = u2 + u2\'
 
-    '''
+    """
 def vpprint(expr, **settings):
     """Function for pretty printing of expressions generated in the
     sympy.physics vector package.
@@ -97,8 +96,7 @@ def vpprint(expr, **settings):
     SymPy's :func:`~.pretty_print`; see that function for more information.
 
     Parameters
-    ==========
-
+    ----------
     expr : valid SymPy object
         SymPy expression to pretty print
     settings : args
@@ -115,16 +113,14 @@ def vlatex(expr, **settings):
     information;
 
     Parameters
-    ==========
-
+    ----------
     expr : valid SymPy object
         SymPy expression to represent in LaTeX form
     settings : args
         Same as latex()
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import vlatex, ReferenceFrame, dynamicsymbols
     >>> N = ReferenceFrame('N')
     >>> q1, q2 = dynamicsymbols('q1 q2')
@@ -155,8 +151,7 @@ def init_vprinting(**kwargs) -> None:
     {0}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, symbols
     >>> t, x = symbols('t, x')
     >>> omega = Function('omega')

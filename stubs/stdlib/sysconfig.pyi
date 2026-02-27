@@ -1,6 +1,6 @@
+from typing import Any, IO, Literal, LiteralString, overload
+from typing_extensions import deprecated
 import sys
-from typing import IO, Any, Literal, overload
-from typing_extensions import LiteralString, deprecated
 
 __all__ = [
     "get_config_h_filename",

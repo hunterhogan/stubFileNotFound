@@ -1,19 +1,18 @@
 from __future__ import annotations
 
+from typing import assert_type, Literal, Type
 import enum
 import sys
-from typing import Literal, Type
-from typing_extensions import assert_type
 
 A = enum.Enum("A", "spam eggs bacon")
 B = enum.Enum("B", ["spam", "eggs", "bacon"])
 C = enum.Enum("C", [("spam", 1), ("eggs", 2), ("bacon", 3)])
 D = enum.Enum("D", {"spam": 1, "eggs": 2})
 
-assert_type(A, Type[A])
-assert_type(B, Type[B])
-assert_type(C, Type[C])
-assert_type(D, Type[D])
+assert_type(A, type[A])
+assert_type(B, type[B])
+assert_type(C, type[C])
+assert_type(D, type[D])
 
 
 class EnumOfTuples(enum.Enum):

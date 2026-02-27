@@ -1,5 +1,5 @@
 from . import _api as _api, _docstring as _docstring
-from .artist import Artist as Artist, allow_rasterization as allow_rasterization
+from .artist import allow_rasterization as allow_rasterization, Artist as Artist
 from .cbook import _is_pandas_dataframe as _is_pandas_dataframe
 from .patches import Rectangle as Rectangle
 from .path import Path as Path
@@ -15,6 +15,7 @@ class Cell(Rectangle):
     should use either the `~matplotlib.table.table` factory function or
     `.Table.add_cell`.
     """
+
     PAD: float
     _edges: str
     _edge_aliases: Incomplete
@@ -110,6 +111,7 @@ class Table(Artist):
     *Note*: You'll usually not create an empty table from scratch. Instead use
     `~matplotlib.table.table` to create a table from data.
     """
+
     codes: Incomplete
     FONTSIZE: int
     AXESPAD: float

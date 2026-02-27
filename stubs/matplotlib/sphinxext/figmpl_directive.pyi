@@ -5,7 +5,7 @@ from docutils.parsers.rst.directives.images import Figure
 class figmplnode(nodes.General, nodes.Element): ...
 
 class FigureMpl(Figure):
-    '''
+    """
     Implements a directive to allow an optional hidpi image.
 
     Meant to be used with the *plot_srcset* configuration option in conf.py,
@@ -45,7 +45,8 @@ class FigureMpl(Figure):
             class="sphx-glr-single-img" />
 
     where the subdirectory is included in the image name for uniqueness.
-    '''
+    """
+
     has_content: bool
     required_arguments: int
     optional_arguments: int
@@ -55,7 +56,7 @@ class FigureMpl(Figure):
 
 def _parse_srcsetNodes(st):
     """
-    parse srcset...
+    Parse srcset...
     """
 def _copy_images_figmpl(self, node): ...
 def visit_figmpl_html(self, node) -> None: ...

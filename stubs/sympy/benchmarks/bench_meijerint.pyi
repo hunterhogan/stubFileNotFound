@@ -8,7 +8,10 @@ from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.functions.special.bessel import besseli as besseli
 from sympy.functions.special.gamma_functions import gamma as gamma
 from sympy.integrals.integrals import integrate as integrate
-from sympy.integrals.transforms import fourier_transform as fourier_transform, inverse_fourier_transform as inverse_fourier_transform, inverse_laplace_transform as inverse_laplace_transform, inverse_mellin_transform as inverse_mellin_transform, laplace_transform as laplace_transform, mellin_transform as mellin_transform
+from sympy.integrals.transforms import (
+	fourier_transform as fourier_transform, inverse_fourier_transform as inverse_fourier_transform,
+	inverse_laplace_transform as inverse_laplace_transform, inverse_mellin_transform as inverse_mellin_transform,
+	laplace_transform as laplace_transform, mellin_transform as mellin_transform)
 
 LT = laplace_transform
 FT = fourier_transform

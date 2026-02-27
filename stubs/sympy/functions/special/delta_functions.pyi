@@ -1,4 +1,4 @@
-from sympy.core import S as S, diff as diff
+from sympy.core import diff as diff, S as S
 from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction
 from sympy.core.logic import fuzzy_not as fuzzy_not
 from sympy.core.relational import Eq as Eq, Ne as Ne
@@ -50,8 +50,7 @@ class DiracDelta(DefinedFunction):
     8) $\\delta(-x, k) = \\delta(x, k)$ for even $k$
 
     Examples
-    ========
-
+    --------
     >>> from sympy import DiracDelta, diff, pi
     >>> from sympy.abc import x, y
 
@@ -79,18 +78,18 @@ class DiracDelta(DefinedFunction):
     DiracDelta(x - 1)/(2*Abs(y)) + DiracDelta(x + 1)/(2*Abs(y))
 
     See Also
-    ========
-
+    --------
     Heaviside
     sympy.simplify.simplify.simplify, is_simple
     sympy.functions.special.tensor_functions.KroneckerDelta
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/DeltaFunction.html
 
     """
+
     is_real: bool
     def fdiff(self, argindex: int = 1):
         """
@@ -107,8 +106,7 @@ class DiracDelta(DefinedFunction):
         calls ``fdiff()`` internally to compute the derivative of the function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import DiracDelta, diff
         >>> from sympy.abc import x
 
@@ -125,8 +123,7 @@ class DiracDelta(DefinedFunction):
         DiracDelta(x, 3)
 
         Parameters
-        ==========
-
+        ----------
         argindex : integer
             degree of derivative
 
@@ -147,8 +144,7 @@ class DiracDelta(DefinedFunction):
         it is being called and evaluated once the object is called.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import DiracDelta, S
         >>> from sympy.abc import x
 
@@ -180,8 +176,7 @@ class DiracDelta(DefinedFunction):
         DiracDelta(0)
 
         Parameters
-        ==========
-
+        ----------
         k : integer
             order of derivative
 
@@ -203,8 +198,7 @@ class DiracDelta(DefinedFunction):
         get expanded.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import DiracDelta
         >>> from sympy.abc import x, y
 
@@ -217,8 +211,7 @@ class DiracDelta(DefinedFunction):
         DiracDelta(x - 1)/3 + DiracDelta(x + 2)/3
 
         See Also
-        ========
-
+        --------
         is_simple, Diracdelta
 
         """
@@ -228,8 +221,7 @@ class DiracDelta(DefinedFunction):
         expression in *x*.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import DiracDelta, cos
         >>> from sympy.abc import x, y
 
@@ -245,13 +237,11 @@ class DiracDelta(DefinedFunction):
         False
 
         Parameters
-        ==========
-
+        ----------
         x : can be a symbol
 
         See Also
-        ========
-
+        --------
         sympy.simplify.simplify.simplify, DiracDelta
 
         """
@@ -260,8 +250,7 @@ class DiracDelta(DefinedFunction):
         Represents DiracDelta in a piecewise form.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import DiracDelta, Piecewise, Symbol
         >>> x = Symbol('x')
 
@@ -313,8 +302,7 @@ class Heaviside(DefinedFunction):
     .. versionchanged:: 1.9 ``Heaviside(0)`` now returns 1/2 (before: undefined)
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Heaviside, nan
     >>> from sympy.abc import x
     >>> Heaviside(9)
@@ -329,25 +317,24 @@ class Heaviside(DefinedFunction):
     Heaviside(x, 1) + 1
 
     See Also
-    ========
-
+    --------
     DiracDelta
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/HeavisideStepFunction.html
     .. [2] https://dlmf.nist.gov/1.16#iv
 
     """
+
     is_real: bool
     def fdiff(self, argindex: int = 1):
         """
         Returns the first derivative of a Heaviside Function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Heaviside, diff
         >>> from sympy.abc import x
 
@@ -361,8 +348,7 @@ class Heaviside(DefinedFunction):
         DiracDelta(x, 1)
 
         Parameters
-        ==========
-
+        ----------
         argindex : integer
             order of derivative
 
@@ -387,8 +373,7 @@ class Heaviside(DefinedFunction):
         it is being called and evaluated once the object is called.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Heaviside, S
         >>> from sympy.abc import x
 
@@ -417,8 +402,7 @@ class Heaviside(DefinedFunction):
         1
 
         Parameters
-        ==========
-
+        ----------
         arg : argument passed by Heaviside object
 
         H0 : value of Heaviside(0)
@@ -429,8 +413,7 @@ class Heaviside(DefinedFunction):
         Represents Heaviside in a Piecewise form.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Heaviside, Piecewise, Symbol, nan
         >>> x = Symbol('x')
 
@@ -459,8 +442,7 @@ class Heaviside(DefinedFunction):
         when Heaviside(0) is undefined.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Heaviside, Symbol, sign, nan
         >>> x = Symbol('x', real=True)
         >>> y = Symbol('y')
@@ -487,8 +469,7 @@ class Heaviside(DefinedFunction):
         Heaviside(y**2 - 2*y + 1)
 
         See Also
-        ========
-
+        --------
         sign
 
         """

@@ -15,29 +15,25 @@ class Curve(GeometrySet):
     parameter and the lower and upper bounds for the parameter value.
 
     Parameters
-    ==========
-
+    ----------
     function : list of functions
     limits : 3-tuple
         Function parameter and lower and upper bounds.
 
     Attributes
-    ==========
-
+    ----------
     functions
     parameter
     limits
 
     Raises
-    ======
-
+    ------
     ValueError
         When `functions` are specified incorrectly.
         When `limits` are specified incorrectly.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Curve, sin, cos, interpolate
     >>> from sympy.abc import t, a
     >>> C = Curve((sin(t), cos(t)), (t, 0, 2))
@@ -55,12 +51,12 @@ class Curve(GeometrySet):
     Point2D(a, a**2)
 
     See Also
-    ========
-
+    --------
     sympy.core.function.Function
     sympy.polys.polyfuncs.interpolate
 
     """
+
     def __new__(cls, function, limits): ...
     def __call__(self, f): ...
     def _eval_subs(self, old, new): ...
@@ -69,28 +65,24 @@ class Curve(GeometrySet):
         """A parameterized point on the curve.
 
         Parameters
-        ==========
-
+        ----------
         parameter : str or Symbol, optional
             Default value is 't'.
             The Curve's parameter is selected with None or self.parameter
             otherwise the provided symbol is used.
 
         Returns
-        =======
-
+        -------
         Point :
             Returns a point in parametric form.
 
         Raises
-        ======
-
+        ------
         ValueError
             When `parameter` already appears in the functions.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Curve, Symbol
         >>> from sympy.abc import s
         >>> C = Curve([2*s, s**2], (s, 0, 2))
@@ -104,8 +96,7 @@ class Curve(GeometrySet):
         Point2D(2*a, a**2)
 
         See Also
-        ========
-
+        --------
         sympy.geometry.point.Point
 
         """
@@ -115,14 +106,12 @@ class Curve(GeometrySet):
         parametrically define the Curve.
 
         Returns
-        =======
-
+        -------
         set :
             Set of all non-parameterized symbols.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import t, a
         >>> from sympy import Curve
         >>> Curve((t, t**2), (t, 0, 2)).free_symbols
@@ -136,14 +125,12 @@ class Curve(GeometrySet):
         """The dimension of the curve.
 
         Returns
-        =======
-
+        -------
         int :
             the dimension of curve.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import t
         >>> from sympy import Curve
         >>> C = Curve((t, t**2), (t, 0, 2))
@@ -156,14 +143,12 @@ class Curve(GeometrySet):
         """The functions specifying the curve.
 
         Returns
-        =======
-
+        -------
         functions :
             list of parameterized coordinate functions.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import t
         >>> from sympy import Curve
         >>> C = Curve((t, t**2), (t, 0, 2))
@@ -171,8 +156,7 @@ class Curve(GeometrySet):
         (t, t**2)
 
         See Also
-        ========
-
+        --------
         parameter
 
         """
@@ -181,14 +165,12 @@ class Curve(GeometrySet):
         """The limits for the curve.
 
         Returns
-        =======
-
+        -------
         limits : tuple
             Contains parameter and lower and upper limits.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import t
         >>> from sympy import Curve
         >>> C = Curve([t, t**3], (t, -2, 2))
@@ -196,8 +178,7 @@ class Curve(GeometrySet):
         (t, -2, 2)
 
         See Also
-        ========
-
+        --------
         plot_interval
 
         """
@@ -206,14 +187,12 @@ class Curve(GeometrySet):
         """The curve function variable.
 
         Returns
-        =======
-
+        -------
         Symbol :
             returns a bound symbol.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import t
         >>> from sympy import Curve
         >>> C = Curve([t, t**2], (t, 0, 2))
@@ -221,8 +200,7 @@ class Curve(GeometrySet):
         t
 
         See Also
-        ========
-
+        --------
         functions
 
         """
@@ -231,8 +209,7 @@ class Curve(GeometrySet):
         """The curve length.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Curve
         >>> from sympy.abc import t
         >>> Curve((t, t), (t, 0, 1)).length
@@ -243,22 +220,19 @@ class Curve(GeometrySet):
         """The plot interval for the default geometric plot of the curve.
 
         Parameters
-        ==========
-
+        ----------
         parameter : str or Symbol, optional
             Default value is 't';
             otherwise the provided symbol is used.
 
         Returns
-        =======
-
+        -------
         List :
             the plot interval as below:
                 [parameter, lower_bound, upper_bound]
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Curve, sin
         >>> from sympy.abc import x, s
         >>> Curve((x, sin(x)), (x, 1, 2)).plot_interval()
@@ -267,8 +241,7 @@ class Curve(GeometrySet):
         [s, 1, 2]
 
         See Also
-        ========
-
+        --------
         limits : Returns limits of the parameter interval
 
         """
@@ -276,8 +249,7 @@ class Curve(GeometrySet):
         """This function is used to rotate a curve along given point ``pt`` at given angle(in radian).
 
         Parameters
-        ==========
-
+        ----------
         angle :
             the angle at which the curve will be rotated(in radian) in counterclockwise direction.
             default value of angle is 0.
@@ -287,14 +259,12 @@ class Curve(GeometrySet):
             If no point given, the curve will be rotated around origin.
 
         Returns
-        =======
-
+        -------
         Curve :
             returns a curve rotated at given angle along given point.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Curve, pi
         >>> from sympy.abc import x
         >>> Curve((x, x), (x, 0, 1)).rotate(pi/2)
@@ -305,14 +275,12 @@ class Curve(GeometrySet):
         """Override GeometryEntity.scale since Curve is not made up of Points.
 
         Returns
-        =======
-
+        -------
         Curve :
             returns scaled curve.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Curve
         >>> from sympy.abc import x
         >>> Curve((x, x), (x, 0, 1)).scale(2)
@@ -323,14 +291,12 @@ class Curve(GeometrySet):
         """Translate the Curve by (x, y).
 
         Returns
-        =======
-
+        -------
         Curve :
             returns a translated curve.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Curve
         >>> from sympy.abc import x
         >>> Curve((x, x), (x, 0, 1)).translate(1, 2)

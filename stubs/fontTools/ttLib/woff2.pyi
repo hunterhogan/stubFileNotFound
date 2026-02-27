@@ -316,4 +316,3 @@ def decompress(input_file, output_file) -> None:
     """
 def main(args=None) -> None:
     """Compress and decompress WOFF2 fonts"""
-

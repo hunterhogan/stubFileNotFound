@@ -1,6 +1,6 @@
 from collections.abc import Iterator
 from types import GenericAlias
-from typing import Any, Literal, TypeVar, final, overload
+from typing import Any, final, Literal, overload, TypeVar
 
 _T = TypeVar("_T")
 

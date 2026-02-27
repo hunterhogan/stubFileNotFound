@@ -5,7 +5,8 @@ from sympy.core.mul import Mul as Mul
 from sympy.core.singleton import S as S
 from sympy.functions.elementary.exponential import log as log
 from sympy.physics.quantum.dagger import Dagger as Dagger
-from sympy.physics.quantum.matrixutils import numpy_ndarray as numpy_ndarray, scipy_sparse_matrix as scipy_sparse_matrix, to_numpy as to_numpy
+from sympy.physics.quantum.matrixutils import (
+	numpy_ndarray as numpy_ndarray, scipy_sparse_matrix as scipy_sparse_matrix, to_numpy as to_numpy)
 from sympy.physics.quantum.operator import HermitianOperator as HermitianOperator
 from sympy.physics.quantum.represent import represent as represent
 from sympy.physics.quantum.trace import Tr as Tr
@@ -17,14 +18,12 @@ class Density(HermitianOperator):
     TODO: Density operator support for Qubits
 
     Parameters
-    ==========
-
+    ----------
     values : tuples/lists
     Each tuple/list should be of form (state, prob) or [state,prob]
 
     Examples
-    ========
-
+    --------
     Create a density operator with 2 states represented by Kets.
 
     >>> from sympy.physics.quantum.state import Ket
@@ -34,14 +33,14 @@ class Density(HermitianOperator):
     Density((|0>, 0.5),(|1>, 0.5))
 
     """
+
     @classmethod
     def _eval_args(cls, args): ...
     def states(self):
         """Return list of all states.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.quantum.state import Ket
         >>> from sympy.physics.quantum.density import Density
         >>> d = Density([Ket(0), 0.5], [Ket(1),0.5])
@@ -53,8 +52,7 @@ class Density(HermitianOperator):
         """Return list of all probabilities.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.quantum.state import Ket
         >>> from sympy.physics.quantum.density import Density
         >>> d = Density([Ket(0), 0.5], [Ket(1),0.5])
@@ -66,13 +64,11 @@ class Density(HermitianOperator):
         """Return specific state by index.
 
         Parameters
-        ==========
-
+        ----------
         index : index of state to be returned
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.quantum.state import Ket
         >>> from sympy.physics.quantum.density import Density
         >>> d = Density([Ket(0), 0.5], [Ket(1),0.5])
@@ -84,13 +80,11 @@ class Density(HermitianOperator):
         """Return probability of specific state by index.
 
         Parameters
-        ===========
-
+        ----------
         index : index of states whose probability is returned.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.quantum.state import Ket
         >>> from sympy.physics.quantum.density import Density
         >>> d = Density([Ket(0), 0.5], [Ket(1),0.5])
@@ -99,16 +93,14 @@ class Density(HermitianOperator):
 
         """
     def apply_op(self, op):
-        """op will operate on each individual state.
+        """Op will operate on each individual state.
 
         Parameters
-        ==========
-
+        ----------
         op : Operator
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.quantum.state import Ket
         >>> from sympy.physics.quantum.density import Density
         >>> from sympy.physics.quantum.operator import Operator
@@ -122,8 +114,7 @@ class Density(HermitianOperator):
         """Expand the density operator into an outer product format.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.quantum.state import Ket
         >>> from sympy.physics.quantum.density import Density
         >>> from sympy.physics.quantum.operator import Operator
@@ -139,7 +130,7 @@ class Density(HermitianOperator):
     def _print_operator_name_pretty(self, printer, *args): ...
     def _eval_trace(self, **kwargs): ...
     def entropy(self):
-        """ Compute the entropy of a density matrix.
+        """Compute the entropy of a density matrix.
 
         Refer to density.entropy() method  for examples.
         """
@@ -152,14 +143,12 @@ def entropy(density):
     (numpy.ndarray, sympy.Matrix or scipy.sparse).
 
     Parameters
-    ==========
-
+    ----------
     density : density matrix of type Density, SymPy matrix,
     scipy.sparse or numpy.ndarray
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum.density import Density, entropy
     >>> from sympy.physics.quantum.spin import JzKet
     >>> from sympy import S
@@ -171,20 +160,18 @@ def entropy(density):
 
     """
 def fidelity(state1, state2):
-    """ Computes the fidelity [1]_ between two quantum states
+    """Computes the fidelity [1]_ between two quantum states
 
     The arguments provided to this function should be a square matrix or a
     Density object. If it is a square matrix, it is assumed to be diagonalizable.
 
     Parameters
-    ==========
-
+    ----------
     state1, state2 : a density matrix or Matrix
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, sqrt
     >>> from sympy.physics.quantum.dagger import Dagger
     >>> from sympy.physics.quantum.spin import JzKet
@@ -209,7 +196,7 @@ def fidelity(state1, state2):
     0.707
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Fidelity_of_quantum_states
 

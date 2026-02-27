@@ -21,8 +21,7 @@ class expm1(Function):
     arithmetic when x is close to zero.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x
     >>> from sympy.codegen.cfunctions import expm1
     >>> '%.0e' % expm1(1e-99).evalf()
@@ -34,10 +33,10 @@ class expm1(Function):
     exp(x)
 
     See Also
-    ========
-
+    --------
     log1p
     """
+
     nargs: int
     def fdiff(self, argindex: int = 1):
         """
@@ -65,8 +64,7 @@ class log1p(Function):
     arithmetic when x is close to zero.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x
     >>> from sympy.codegen.cfunctions import log1p
     >>> from sympy import expand_log
@@ -79,10 +77,10 @@ class log1p(Function):
     1/(x + 1)
 
     See Also
-    ========
-
+    --------
     expm1
     """
+
     nargs: int
     def fdiff(self, argindex: int = 1):
         """
@@ -115,8 +113,7 @@ class exp2(Function):
     arithmetic.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x
     >>> from sympy.codegen.cfunctions import exp2
     >>> exp2(2).evalf() == 4.0
@@ -125,10 +122,10 @@ class exp2(Function):
     log(2)*exp2(x)
 
     See Also
-    ========
-
+    --------
     log2
     """
+
     nargs: int
     def fdiff(self, argindex: int = 1):
         """
@@ -154,8 +151,7 @@ class log2(Function):
     arithmetic.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x
     >>> from sympy.codegen.cfunctions import log2
     >>> log2(4).evalf() == 2.0
@@ -164,11 +160,11 @@ class log2(Function):
     1/(x*log(2))
 
     See Also
-    ========
-
+    --------
     exp2
     log10
     """
+
     nargs: int
     def fdiff(self, argindex: int = 1):
         """
@@ -184,7 +180,7 @@ class log2(Function):
 def _fma(x, y, z): ...
 
 class fma(Function):
-    '''
+    """
     Represents "fused multiply add".
 
     Explanation
@@ -195,14 +191,14 @@ class fma(Function):
     supported by special instructions on some CPUs.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y, z
     >>> from sympy.codegen.cfunctions import fma
     >>> fma(x, y, z).diff(x)
     y
 
-    '''
+    """
+
     nargs: int
     def fdiff(self, argindex: int = 1):
         """
@@ -220,8 +216,7 @@ class log10(Function):
     Represents the logarithm function with base ten.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x
     >>> from sympy.codegen.cfunctions import log10
     >>> log10(100).evalf() == 2.0
@@ -230,10 +225,10 @@ class log10(Function):
     1/(x*log(10))
 
     See Also
-    ========
-
+    --------
     log2
     """
+
     nargs: int
     def fdiff(self, argindex: int = 1):
         """
@@ -259,8 +254,7 @@ class Sqrt(Function):
     may not be what one wants when doing code-generation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x
     >>> from sympy.codegen.cfunctions import Sqrt
     >>> Sqrt(x)
@@ -269,10 +263,10 @@ class Sqrt(Function):
     1/(2*sqrt(x))
 
     See Also
-    ========
-
+    --------
     Cbrt
     """
+
     nargs: int
     def fdiff(self, argindex: int = 1):
         """
@@ -296,8 +290,7 @@ class Cbrt(Function):
     may not be what one wants when doing code-generation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x
     >>> from sympy.codegen.cfunctions import Cbrt
     >>> Cbrt(x)
@@ -306,10 +299,10 @@ class Cbrt(Function):
     1/(3*x**(2/3))
 
     See Also
-    ========
-
+    --------
     Sqrt
     """
+
     nargs: int
     def fdiff(self, argindex: int = 1):
         """
@@ -333,8 +326,7 @@ class hypot(Function):
     symbolically when doing code-generation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y
     >>> from sympy.codegen.cfunctions import hypot
     >>> hypot(3, 4).evalf() == 5.0
@@ -345,6 +337,7 @@ class hypot(Function):
     x/hypot(x, y)
 
     """
+
     nargs: int
     def fdiff(self, argindex: int = 1):
         """

@@ -517,4 +517,3 @@ def convertFontInfoValueForAttributeFromVersion2ToVersion1(attr: str, value: Any
     Returns the new attribute name and the converted value.
     If the value is None, None will be returned for the new value.
     """
-

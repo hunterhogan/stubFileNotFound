@@ -1,6 +1,5 @@
-from typing import ClassVar, Literal
-
 from .. import fixer_base
+from typing import ClassVar, Literal
 
 class FixSysExc(fixer_base.BaseFix):
     exc_info: ClassVar[list[str]]

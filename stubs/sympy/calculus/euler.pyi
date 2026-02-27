@@ -1,4 +1,4 @@
-from sympy.core.function import Derivative as Derivative, Function as Function, diff as diff
+from sympy.core.function import Derivative as Derivative, diff as diff, Function as Function
 from sympy.core.relational import Eq as Eq
 from sympy.core.singleton import S as S
 from sympy.core.symbol import Symbol as Symbol
@@ -10,8 +10,7 @@ def euler_equations(L, funcs=(), vars=()):
     Find the Euler-Lagrange equations [1]_ for a given Lagrangian.
 
     Parameters
-    ==========
-
+    ----------
     L : Expr
         The Lagrangian that should be a function of the functions listed
         in the second argument and their derivatives.
@@ -36,14 +35,12 @@ def euler_equations(L, funcs=(), vars=()):
         The Symbols that are the independent variables of the functions.
 
     Returns
-    =======
-
+    -------
     eqns : list of Eq
         The list of differential equations, one for each function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import euler_equations, Symbol, Function
     >>> x = Function('x')
     >>> t = Symbol('t')
@@ -57,7 +54,7 @@ def euler_equations(L, funcs=(), vars=()):
     [Eq(-Derivative(u(t, x), (t, 2)) + Derivative(u(t, x), (x, 2)), 0)]
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Euler%E2%80%93Lagrange_equation
 

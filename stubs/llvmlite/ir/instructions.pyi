@@ -1,7 +1,10 @@
 from _typeshed import Incomplete
 from llvmlite.ir import types as types
 from llvmlite.ir._utils import _HasMetadata as _HasMetadata
-from llvmlite.ir.values import ArgumentAttributes as ArgumentAttributes, AttributeSet as AttributeSet, Block as Block, Constant as Constant, Function as Function, MetaDataArgument as MetaDataArgument, MetaDataString as MetaDataString, NamedValue as NamedValue, Undefined as Undefined, Value as Value
+from llvmlite.ir.values import (
+	ArgumentAttributes as ArgumentAttributes, AttributeSet as AttributeSet, Block as Block, Constant as Constant,
+	Function as Function, MetaDataArgument as MetaDataArgument, MetaDataString as MetaDataString, NamedValue as NamedValue,
+	Undefined as Undefined, Value as Value)
 
 class Instruction(NamedValue, _HasMetadata):
     opname: Incomplete
@@ -15,7 +18,6 @@ class Instruction(NamedValue, _HasMetadata):
     def module(self): ...
     def descr(self, buf) -> None: ...
     def replace_usage(self, old, new) -> None: ...
-    def __repr__(self) -> str: ...
 
 class CallInstrAttributes(AttributeSet):
     _known: Incomplete
@@ -198,7 +200,6 @@ class InlineAsm:
     def __init__(self, ftype, asm, constraint, side_effect: bool = False) -> None: ...
     def descr(self, buf) -> None: ...
     def get_reference(self): ...
-    def __str__(self) -> str: ...
 
 class AtomicRMW(Instruction):
     operation: Incomplete
@@ -210,6 +211,7 @@ class CmpXchg(Instruction):
     """This instruction has changed since llvm3.5.  It is not compatible with
     older llvm versions.
     """
+
     ordering: Incomplete
     failordering: Incomplete
     def __init__(self, parent, ptr, cmp, val, ordering, failordering, name) -> None: ...
@@ -218,7 +220,6 @@ class CmpXchg(Instruction):
 class _LandingPadClause:
     value: Incomplete
     def __init__(self, value) -> None: ...
-    def __str__(self) -> str: ...
 
 class CatchClause(_LandingPadClause):
     kind: str
@@ -235,13 +236,14 @@ class LandingPadInstr(Instruction):
     def descr(self, buf) -> None: ...
 
 class Fence(Instruction):
-    '''
+    """
     The `fence` instruction.
 
     As of LLVM 5.0.1:
 
     fence [syncscope("<target-scope>")] <ordering>  ; yields void
-    '''
+    """
+
     VALID_FENCE_ORDERINGS: Incomplete
     ordering: Incomplete
     targetscope: Incomplete
@@ -252,6 +254,7 @@ class Comment(Instruction):
     """
     A line comment.
     """
+
     text: Incomplete
     def __init__(self, parent, text) -> None: ...
     def descr(self, buf) -> None: ...

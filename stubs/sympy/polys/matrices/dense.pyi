@@ -1,24 +1,27 @@
-from .exceptions import DMDomainError as DMDomainError, DMNonInvertibleMatrixError as DMNonInvertibleMatrixError, DMNonSquareMatrixError as DMNonSquareMatrixError, DMShapeError as DMShapeError
+from .exceptions import (
+	DMDomainError as DMDomainError, DMNonInvertibleMatrixError as DMNonInvertibleMatrixError,
+	DMNonSquareMatrixError as DMNonSquareMatrixError, DMShapeError as DMShapeError)
+from collections.abc import Sequence
 from sympy.polys.matrices._typing import RingElement as RingElement
-from typing import Sequence, TypeVar
+from typing import TypeVar
 
 T = TypeVar('T')
 R = TypeVar('R', bound=RingElement)
 
 def ddm_transpose(matrix: Sequence[Sequence[T]]) -> list[list[T]]:
-    """matrix transpose"""
+    """Matrix transpose"""
 def ddm_iadd(a: list[list[R]], b: Sequence[Sequence[R]]) -> None:
-    """a += b"""
+    """A += b"""
 def ddm_isub(a: list[list[R]], b: Sequence[Sequence[R]]) -> None:
-    """a -= b"""
+    """A -= b"""
 def ddm_ineg(a: list[list[R]]) -> None:
-    """a <-- -a"""
+    """A <-- -a"""
 def ddm_imul(a: list[list[R]], b: R) -> None:
-    """a <-- a*b"""
+    """A <-- a*b"""
 def ddm_irmul(a: list[list[R]], b: R) -> None:
-    """a <-- b*a"""
+    """A <-- b*a"""
 def ddm_imatmul(a: list[list[R]], b: Sequence[Sequence[R]], c: Sequence[Sequence[R]]) -> None:
-    """a += b @ c"""
+    """A += b @ c"""
 def ddm_irref(a, _partial_pivot: bool = False):
     """In-place reduced row echelon form of a matrix.
 
@@ -42,8 +45,7 @@ def ddm_irref(a, _partial_pivot: bool = False):
     ``_partial_pivot=True`` to use partial pivoting to control rounding errors.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.matrices.dense import ddm_irref
     >>> from sympy import QQ
     >>> M = [[QQ(1), QQ(2), QQ(3)], [QQ(4), QQ(5), QQ(6)]]
@@ -54,8 +56,7 @@ def ddm_irref(a, _partial_pivot: bool = False):
     [0, 1]
 
     See Also
-    ========
-
+    --------
     sympy.polys.matrices.domainmatrix.DomainMatrix.rref
         Higher level interface to this routine.
     ddm_irref_den
@@ -64,12 +65,12 @@ def ddm_irref(a, _partial_pivot: bool = False):
         A sparse version of this routine.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Row_echelon_form#Reduced_row_echelon_form
     """
 def ddm_irref_den(a, K):
-    """a  <--  rref(a); return (den, pivots)
+    """A  <--  rref(a); return (den, pivots)
 
     Compute the fraction-free reduced row echelon form (RREF) of $a$. Modifies
     $a$ in place and returns a tuple containing the denominator of the RREF and
@@ -91,8 +92,7 @@ def ddm_irref_den(a, K):
     For inexact domains like :ref:`RR` and :ref:`CC` use ``ddm_irref`` instead.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.matrices.dense import ddm_irref_den
     >>> from sympy import ZZ, Matrix
     >>> M = [[ZZ(1), ZZ(2), ZZ(3)], [ZZ(4), ZZ(5), ZZ(6)]]
@@ -109,8 +109,7 @@ def ddm_irref_den(a, K):
     [0, 1,  2]])
 
     See Also
-    ========
-
+    --------
     ddm_irref
         A version of this routine that uses field division.
     sdm_irref
@@ -121,14 +120,14 @@ def ddm_irref_den(a, K):
         Higher level interface.
 
     References
-    ==========
+    ----------
 
     .. [1] Fraction-free algorithms for linear and polynomial equations.
         George C. Nakos , Peter R. Turner , Robert M. Williams.
         https://dl.acm.org/doi/10.1145/271130.271133
     """
 def ddm_idet(a, K):
-    """a  <--  echelon(a); return det
+    """A  <--  echelon(a); return det
 
     Explanation
     ===========
@@ -143,8 +142,7 @@ def ddm_idet(a, K):
     :ref:`QQ(a)` but not for inexact domains like :ref:`RR` and :ref:`CC`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ZZ
     >>> from sympy.polys.matrices.ddm import ddm_idet
     >>> a = [[ZZ(1), ZZ(2), ZZ(3)], [ZZ(4), ZZ(5), ZZ(6)], [ZZ(7), ZZ(8), ZZ(9)]]
@@ -158,18 +156,17 @@ def ddm_idet(a, K):
     [1, -3, 0]
 
     See Also
-    ========
-
+    --------
     sympy.polys.matrices.domainmatrix.DomainMatrix.det
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Bareiss_algorithm
     .. [2] https://www.math.usm.edu/perry/Research/Thesis_DRL.pdf
     """
 def ddm_iinv(ainv, a, K) -> None:
-    """ainv  <--  inv(a)
+    """Ainv  <--  inv(a)
 
     Compute the inverse of a matrix $a$ over a field $K$ using Gauss-Jordan
     elimination. The result is stored in $ainv$.
@@ -177,8 +174,7 @@ def ddm_iinv(ainv, a, K) -> None:
     Uses division in the ground domain which should be an exact field.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.matrices.ddm import ddm_iinv, ddm_imatmul
     >>> from sympy import QQ
     >>> a = [[QQ(1), QQ(2)], [QQ(3), QQ(4)]]
@@ -192,8 +188,7 @@ def ddm_iinv(ainv, a, K) -> None:
     [[1, 0], [0, 1]]
 
     See Also
-    ========
-
+    --------
     ddm_irref: the underlying routine.
     """
 def ddm_ilu_split(L, U, K):
@@ -206,8 +201,7 @@ def ddm_ilu_split(L, U, K):
     Uses division in the ground domain which should be an exact field.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.matrices.ddm import ddm_ilu_split
     >>> from sympy import QQ
     >>> L = [[QQ(0), QQ(0)], [QQ(0), QQ(0)]]
@@ -221,13 +215,12 @@ def ddm_ilu_split(L, U, K):
     [[1, 2], [0, -2]]
 
     See Also
-    ========
-
+    --------
     ddm_ilu
     ddm_ilu_solve
     """
 def ddm_ilu(a):
-    """a  <--  LU(a)
+    """A  <--  LU(a)
 
     Computes the LU decomposition of a matrix in place. Returns a list of
     row swaps that were performed.
@@ -241,8 +234,7 @@ def ddm_ilu(a):
     and :ref:`CC` are not suitable (use :func:`ddm_irref` instead).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.matrices.dense import ddm_ilu
     >>> from sympy import QQ
     >>> a = [[QQ(1, 2), QQ(1, 3)], [QQ(1, 4), QQ(1, 5)]]
@@ -269,14 +261,13 @@ def ddm_ilu(a):
     []
 
     See Also
-    ========
-
+    --------
     ddm_irref
     ddm_ilu_solve
     sympy.matrices.matrixbase.MatrixBase.LUdecomposition
     """
 def ddm_ilu_solve(x, L, U, swaps, b) -> None:
-    """x  <--  solve(L*U*x = swaps(b))
+    """X  <--  solve(L*U*x = swaps(b))
 
     Solve a linear system, $A*x = b$, given an LU factorization of $A$.
 
@@ -285,8 +276,7 @@ def ddm_ilu_solve(x, L, U, swaps, b) -> None:
     Modifies $x$ in place.
 
     Examples
-    ========
-
+    --------
     Compute the LU decomposition of $A$ (in place):
 
     >>> from sympy import QQ
@@ -306,8 +296,7 @@ def ddm_ilu_solve(x, L, U, swaps, b) -> None:
     [[-4], [9/2]]
 
     See Also
-    ========
-
+    --------
     ddm_ilu
         Compute the LU decomposition of a matrix in place.
     ddm_ilu_split
@@ -327,8 +316,7 @@ def ddm_berk(M, K):
     arithmetic in the coefficient ring.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> from sympy.polys.matrices.dense import ddm_berk
     >>> from sympy.polys.domains import ZZ
@@ -339,13 +327,12 @@ def ddm_berk(M, K):
     PurePoly(lambda**2 - 5*lambda - 2, lambda, domain='ZZ')
 
     See Also
-    ========
-
+    --------
     sympy.polys.matrices.domainmatrix.DomainMatrix.charpoly
         The high-level interface to this function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Samuelson%E2%80%93Berkowitz_algorithm
     """

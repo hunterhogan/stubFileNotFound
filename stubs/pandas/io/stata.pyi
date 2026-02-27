@@ -1,31 +1,12 @@
-from collections.abc import (
-    Iterator,
-    Sequence,
-)
-import datetime
+from collections.abc import Iterator, Sequence
 from io import BytesIO
-from types import TracebackType
-from typing import (
-    Any,
-    Literal,
-    Self,
-    overload,
-)
-
-from pandas.core.frame import DataFrame
-
 from pandas._typing import (
-    CompressionOptions,
-    FilePath,
-    HashableT,
-    HashableT1,
-    HashableT2,
-    HashableT3,
-    ReadBuffer,
-    StataDateFormat,
-    StorageOptions,
-    WriteBuffer,
-)
+	CompressionOptions, FilePath, HashableT, HashableT1, HashableT2, HashableT3, ReadBuffer, StataDateFormat,
+	StorageOptions, WriteBuffer)
+from pandas.core.frame import DataFrame
+from types import TracebackType
+from typing import Any, Literal, overload, Self
+import datetime
 
 @overload
 def read_stata(

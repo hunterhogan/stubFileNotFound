@@ -12,6 +12,7 @@ from sympy.polys.polyerrors import CoercionFailed as CoercionFailed
 
 class GaussianElement(DomainElement):
     """Base class for elements of Gaussian type domains."""
+
     base: Domain
     _parent: Domain
     __slots__: Incomplete
@@ -26,8 +27,6 @@ class GaussianElement(DomainElement):
     def __lt__(self, other): ...
     def __pos__(self): ...
     def __neg__(self): ...
-    def __repr__(self) -> str: ...
-    def __str__(self) -> str: ...
     @classmethod
     def _get_xy(cls, other): ...
     def __add__(self, other): ...
@@ -53,13 +52,14 @@ class GaussianElement(DomainElement):
 class GaussianInteger(GaussianElement):
     """Gaussian integer: domain element for :ref:`ZZ_I`
 
-        >>> from sympy import ZZ_I
-        >>> z = ZZ_I(2, 3)
-        >>> z
-        (2 + 3*I)
-        >>> type(z)
-        <class 'sympy.polys.domains.gaussiandomains.GaussianInteger'>
+    >>> from sympy import ZZ_I
+    >>> z = ZZ_I(2, 3)
+    >>> z
+    (2 + 3*I)
+    >>> type(z)
+    <class 'sympy.polys.domains.gaussiandomains.GaussianInteger'>
     """
+
     base = ZZ
     def __truediv__(self, other):
         """Return a Gaussian rational."""
@@ -68,13 +68,14 @@ class GaussianInteger(GaussianElement):
 class GaussianRational(GaussianElement):
     """Gaussian rational: domain element for :ref:`QQ_I`
 
-        >>> from sympy import QQ_I, QQ
-        >>> z = QQ_I(QQ(2, 3), QQ(4, 5))
-        >>> z
-        (2/3 + 4/5*I)
-        >>> type(z)
-        <class 'sympy.polys.domains.gaussiandomains.GaussianRational'>
+    >>> from sympy import QQ_I, QQ
+    >>> z = QQ_I(QQ(2, 3), QQ(4, 5))
+    >>> z
+    (2/3 + 4/5*I)
+    >>> type(z)
+    <class 'sympy.polys.domains.gaussiandomains.GaussianRational'>
     """
+
     base = QQ
     def __truediv__(self, other):
         """Return a Gaussian rational."""
@@ -82,26 +83,27 @@ class GaussianRational(GaussianElement):
 
 class GaussianDomain:
     """Base class for Gaussian domains."""
+
     dom: Domain
     is_Numerical: bool
     is_Exact: bool
     has_assoc_Ring: bool
     has_assoc_Field: bool
     def to_sympy(self, a):
-        """Convert ``a`` to a SymPy object. """
+        """Convert ``a`` to a SymPy object."""
     def from_sympy(self, a):
         """Convert a SymPy object to ``self.dtype``."""
     def inject(self, *gens):
-        """Inject generators into this domain. """
+        """Inject generators into this domain."""
     def canonical_unit(self, d): ...
     def is_negative(self, element):
-        """Returns ``False`` for any ``GaussianElement``. """
+        """Returns ``False`` for any ``GaussianElement``."""
     def is_positive(self, element):
-        """Returns ``False`` for any ``GaussianElement``. """
+        """Returns ``False`` for any ``GaussianElement``."""
     def is_nonnegative(self, element):
-        """Returns ``False`` for any ``GaussianElement``. """
+        """Returns ``False`` for any ``GaussianElement``."""
     def is_nonpositive(self, element):
-        """Returns ``False`` for any ``GaussianElement``. """
+        """Returns ``False`` for any ``GaussianElement``."""
     def from_ZZ_gmpy(K1, a, K0):
         """Convert a GMPY mpz to ``self.dtype``."""
     def from_ZZ(K1, a, K0):
@@ -217,6 +219,7 @@ class GaussianIntegerRing(GaussianDomain, Ring):
     .. _gcd: https://en.wikipedia.org/wiki/Greatest_common_divisor
 
     """
+
     dom = ZZ
     mod: Incomplete
     dtype = GaussianInteger
@@ -231,16 +234,16 @@ class GaussianIntegerRing(GaussianDomain, Ring):
     def __init__(self) -> None:
         """For constructing ZZ_I."""
     def __eq__(self, other):
-        """Returns ``True`` if two domains are equivalent. """
+        """Returns ``True`` if two domains are equivalent."""
     def __hash__(self):
-        """Compute hash code of ``self``. """
+        """Compute hash code of ``self``."""
     @property
     def has_CharacteristicZero(self): ...
     def characteristic(self): ...
     def get_ring(self):
-        """Returns a ring associated with ``self``. """
+        """Returns a ring associated with ``self``."""
     def get_field(self):
-        """Returns a field associated with ``self``. """
+        """Returns a field associated with ``self``."""
     def normalize(self, d, *args):
         """Return first quadrant element associated with ``d``.
 
@@ -376,6 +379,7 @@ class GaussianRationalField(GaussianDomain, Field):
 
     .. _Gaussian rationals: https://en.wikipedia.org/wiki/Gaussian_rational
     """
+
     dom = QQ
     mod: Incomplete
     dtype = GaussianRational
@@ -389,18 +393,18 @@ class GaussianRationalField(GaussianDomain, Field):
     def __init__(self) -> None:
         """For constructing QQ_I."""
     def __eq__(self, other):
-        """Returns ``True`` if two domains are equivalent. """
+        """Returns ``True`` if two domains are equivalent."""
     def __hash__(self):
-        """Compute hash code of ``self``. """
+        """Compute hash code of ``self``."""
     @property
     def has_CharacteristicZero(self): ...
     def characteristic(self): ...
     def get_ring(self):
-        """Returns a ring associated with ``self``. """
+        """Returns a ring associated with ``self``."""
     def get_field(self):
-        """Returns a field associated with ``self``. """
+        """Returns a field associated with ``self``."""
     def as_AlgebraicField(self):
-        """Get equivalent domain as an ``AlgebraicField``. """
+        """Get equivalent domain as an ``AlgebraicField``."""
     def numer(self, a):
         """Get the numerator of ``a``."""
     def denom(self, a):

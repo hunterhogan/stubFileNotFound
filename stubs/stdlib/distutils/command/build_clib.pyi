@@ -1,8 +1,7 @@
+from ..cmd import Command
 from _typeshed import Incomplete, Unused
 from collections.abc import Callable
 from typing import ClassVar
-
-from ..cmd import Command
 
 def show_compilers() -> None: ...
 

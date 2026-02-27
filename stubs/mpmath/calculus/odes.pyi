@@ -5,7 +5,7 @@ class ODEMethods: ...
 
 def ode_taylor(ctx, derivs, x0, y0, tol_prec, n): ...
 def odefun(ctx, F, x0, y0, tol: Incomplete | None = None, degree: Incomplete | None = None, method: str = 'taylor', verbose: bool = False):
-    '''
+    """
     Returns a function `y(x) = [y_0(x), y_1(x), \\ldots, y_n(x)]`
     that is a numerical solution of the `n+1`-dimensional first-order
     ordinary differential equation (ODE) system
@@ -181,4 +181,4 @@ def odefun(ctx, F, x0, y0, tol: Incomplete | None = None, degree: Incomplete | N
     * Test for difficult (ill-conditioned) problems
     * Implement Runge-Kutta and other algorithms
 
-    '''
+    """

@@ -1,25 +1,12 @@
-import sys
 from _typeshed import ReadableBuffer, StrOrBytesPath
 from collections.abc import Callable
 from sqlite3 import (
-    Connection as Connection,
-    Cursor as Cursor,
-    DatabaseError as DatabaseError,
-    DataError as DataError,
-    Error as Error,
-    IntegrityError as IntegrityError,
-    InterfaceError as InterfaceError,
-    InternalError as InternalError,
-    NotSupportedError as NotSupportedError,
-    OperationalError as OperationalError,
-    PrepareProtocol as PrepareProtocol,
-    ProgrammingError as ProgrammingError,
-    Row as Row,
-    Warning as Warning,
-    _IsolationLevel,
-)
-from typing import Any, Final, Literal, TypeVar, overload
-from typing_extensions import TypeAlias
+	_IsolationLevel, Connection as Connection, Cursor as Cursor, DatabaseError as DatabaseError, DataError as DataError,
+	Error as Error, IntegrityError as IntegrityError, InterfaceError as InterfaceError, InternalError as InternalError,
+	NotSupportedError as NotSupportedError, OperationalError as OperationalError, PrepareProtocol as PrepareProtocol,
+	ProgrammingError as ProgrammingError, Row as Row, Warning as Warning)
+from typing import Any, Final, Literal, overload, TypeAlias, TypeVar
+import sys
 
 if sys.version_info >= (3, 11):
     from sqlite3 import Blob as Blob

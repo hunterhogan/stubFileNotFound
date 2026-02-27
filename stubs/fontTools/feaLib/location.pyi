@@ -6,4 +6,3 @@ class FeatureLibLocation(NamedTuple):
     file: str
     line: int
     column: int
-

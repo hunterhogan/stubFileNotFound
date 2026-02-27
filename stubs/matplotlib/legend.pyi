@@ -2,22 +2,30 @@ from . import legend_handler as legend_handler
 from _typeshed import Incomplete
 from collections.abc import Generator
 from matplotlib import _api as _api, _docstring as _docstring, cbook as cbook, colors as colors, offsetbox as offsetbox
-from matplotlib.artist import Artist as Artist, allow_rasterization as allow_rasterization
+from matplotlib.artist import allow_rasterization as allow_rasterization, Artist as Artist
 from matplotlib.cbook import silent_list as silent_list
-from matplotlib.collections import CircleCollection as CircleCollection, Collection as Collection, LineCollection as LineCollection, PathCollection as PathCollection, PolyCollection as PolyCollection, RegularPolyCollection as RegularPolyCollection
-from matplotlib.container import BarContainer as BarContainer, ErrorbarContainer as ErrorbarContainer, StemContainer as StemContainer
+from matplotlib.collections import (
+	CircleCollection as CircleCollection, Collection as Collection, LineCollection as LineCollection,
+	PathCollection as PathCollection, PolyCollection as PolyCollection, RegularPolyCollection as RegularPolyCollection)
+from matplotlib.container import (
+	BarContainer as BarContainer, ErrorbarContainer as ErrorbarContainer, StemContainer as StemContainer)
 from matplotlib.font_manager import FontProperties as FontProperties
 from matplotlib.lines import Line2D as Line2D
-from matplotlib.offsetbox import AnchoredOffsetbox as AnchoredOffsetbox, DraggableOffsetBox as DraggableOffsetBox, DrawingArea as DrawingArea, HPacker as HPacker, TextArea as TextArea, VPacker as VPacker
-from matplotlib.patches import FancyBboxPatch as FancyBboxPatch, Patch as Patch, Rectangle as Rectangle, Shadow as Shadow, StepPatch as StepPatch
+from matplotlib.offsetbox import (
+	AnchoredOffsetbox as AnchoredOffsetbox, DraggableOffsetBox as DraggableOffsetBox, DrawingArea as DrawingArea,
+	HPacker as HPacker, TextArea as TextArea, VPacker as VPacker)
+from matplotlib.patches import (
+	FancyBboxPatch as FancyBboxPatch, Patch as Patch, Rectangle as Rectangle, Shadow as Shadow, StepPatch as StepPatch)
 from matplotlib.text import Text as Text
-from matplotlib.transforms import Bbox as Bbox, BboxBase as BboxBase, BboxTransformFrom as BboxTransformFrom, BboxTransformTo as BboxTransformTo, TransformedBbox as TransformedBbox
+from matplotlib.transforms import (
+	Bbox as Bbox, BboxBase as BboxBase, BboxTransformFrom as BboxTransformFrom, BboxTransformTo as BboxTransformTo,
+	TransformedBbox as TransformedBbox)
 
 class DraggableLegend(DraggableOffsetBox):
     legend: Incomplete
     _update: Incomplete
     def __init__(self, legend, use_blit: bool = False, update: str = 'loc') -> None:
-        '''
+        """
         Wrapper around a `.Legend` to support mouse dragging.
 
         Parameters
@@ -30,7 +38,7 @@ class DraggableLegend(DraggableOffsetBox):
         update : {\'loc\', \'bbox\'}, optional
             If "loc", update the *loc* parameter of the legend upon finalizing.
             If "bbox", update the *bbox_to_anchor* parameter.
-        '''
+        """
     def finalize_offset(self) -> None: ...
     def _update_loc(self, loc_in_canvas) -> None: ...
     def _update_bbox_to_anchor(self, loc_in_canvas) -> None: ...
@@ -48,9 +56,9 @@ class Legend(Artist):
     """
     Place a legend on the figure/axes.
     """
+
     codes: Incomplete
     zorder: int
-    def __str__(self) -> str: ...
     prop: Incomplete
     _fontsize: Incomplete
     texts: Incomplete
@@ -167,7 +175,7 @@ class Legend(Artist):
         drawing time.
         """
     def _auto_legend_data(self, renderer):
-        '''
+        """
         Return display coordinates for hit testing for "best" positioning.
 
         Returns
@@ -178,7 +186,7 @@ class Legend(Artist):
             List of `.Path` corresponding to each line.
         offsets
             List of (x, y) offsets of all collection.
-        '''
+        """
     def get_children(self): ...
     def get_frame(self):
         """Return the `~.patches.Rectangle` used to frame the legend."""
@@ -257,7 +265,7 @@ class Legend(Artist):
             will use a transform to the bounding box of the parent.
         """
     def _get_anchored_bbox(self, loc, bbox, parentbbox, renderer):
-        '''
+        """
         Place the *bbox* inside the *parentbbox* according to a given
         location code. Return the (x, y) coordinate of the bbox.
 
@@ -270,7 +278,7 @@ class Legend(Artist):
             bbox to be placed, in display coordinates.
         parentbbox : `~matplotlib.transforms.Bbox`
             A parent box which will contain the bbox, in display coordinates.
-        '''
+        """
     def _find_best_position(self, width, height, renderer):
         """Determine the best location to place the legend."""
     def contains(self, mouseevent): ...

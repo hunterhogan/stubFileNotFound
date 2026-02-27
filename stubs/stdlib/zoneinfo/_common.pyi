@@ -1,5 +1,5 @@
-import io
 from typing import Any, Protocol, type_check_only
+import io
 
 @type_check_only
 class _IOBytes(Protocol):

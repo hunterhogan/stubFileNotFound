@@ -1,8 +1,8 @@
-import sys
 from _typeshed import StrOrBytesPath
 from importlib.machinery import ModuleSpec
 from types import CodeType, ModuleType
 from typing_extensions import deprecated
+import sys
 
 if sys.version_info >= (3, 10):
     from importlib.readers import ZipReader

@@ -11,8 +11,7 @@ def galois_group(f, *gens, by_name: bool = False, max_tries: int = 30, randomize
     Compute the Galois group for polynomials *f* up to degree 6.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import galois_group
     >>> from sympy.abc import x
     >>> f = x**4 + 1
@@ -52,8 +51,7 @@ def galois_group(f, *gens, by_name: bool = False, max_tries: int = 30, randomize
     etc.
 
     Parameters
-    ==========
-
+    ----------
     f : Expr
         Irreducible polynomial over :ref:`ZZ` or :ref:`QQ`, whose Galois group
         is to be determined.
@@ -75,8 +73,7 @@ def galois_group(f, *gens, by_name: bool = False, max_tries: int = 30, randomize
         :py:func:`~.poly_from_expr` function.
 
     Returns
-    =======
-
+    -------
     Pair ``(G, alt)``
         The first element ``G`` indicates the Galois group. It is an instance
         of one of the :py:class:`sympy.combinatorics.galois.S1TransitiveSubgroups`
@@ -88,8 +85,7 @@ def galois_group(f, *gens, by_name: bool = False, max_tries: int = 30, randomize
         in the alternating group $A_n$ ($n$ the degree of *T*).
 
     Raises
-    ======
-
+    ------
     ValueError
         if *f* is of an unsupported degree.
 
@@ -98,8 +94,7 @@ def galois_group(f, *gens, by_name: bool = False, max_tries: int = 30, randomize
         that involve generating Tschirnhausen transformations.
 
     See Also
-    ========
-
+    --------
     .Poly.galois_group
 
     """

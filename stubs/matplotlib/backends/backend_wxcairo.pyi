@@ -1,4 +1,4 @@
-from .backend_cairo import FigureCanvasCairo as FigureCanvasCairo, cairo as cairo
+from .backend_cairo import cairo as cairo, FigureCanvasCairo as FigureCanvasCairo
 from .backend_wx import _BackendWx as _BackendWx, _FigureCanvasWxBase as _FigureCanvasWxBase
 from _typeshed import Incomplete
 

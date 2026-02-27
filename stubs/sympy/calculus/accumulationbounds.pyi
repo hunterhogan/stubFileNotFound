@@ -73,8 +73,7 @@ class AccumulationBounds(Expr):
     ``1`` nor ``nan``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import AccumBounds, sin, exp, log, pi, E, S, oo
     >>> from sympy.abc import x
 
@@ -167,18 +166,18 @@ class AccumulationBounds(Expr):
     AccumBounds(0, 4)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Interval_arithmetic
 
     .. [2] https://fab.cba.mit.edu/classes/S62.12/docs/Hickey_interval.pdf
 
     Notes
-    =====
-
+    -----
     Do not use ``AccumulationBounds`` for floating point interval arithmetic
     calculations, use ``mpmath.iv`` instead.
     """
+
     is_extended_real: bool
     is_number: bool
     def __new__(cls, min, max) -> Expr: ...
@@ -191,8 +190,7 @@ class AccumulationBounds(Expr):
         object.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import AccumBounds
         >>> AccumBounds(1, 3).min
         1
@@ -205,8 +203,7 @@ class AccumulationBounds(Expr):
         object.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import AccumBounds
         >>> AccumBounds(1, 3).max
         3
@@ -220,8 +217,7 @@ class AccumulationBounds(Expr):
         by AccumulationBounds object.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import AccumBounds
         >>> AccumBounds(1, 3).delta
         2
@@ -235,8 +231,7 @@ class AccumulationBounds(Expr):
         attained by AccumulationBounds object.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import AccumBounds
         >>> AccumBounds(1, 3).mid
         2
@@ -262,8 +257,7 @@ class AccumulationBounds(Expr):
         otherwise TypeError is raised.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import AccumBounds, oo
         >>> 1 in AccumBounds(-1, 3)
         True
@@ -283,21 +277,18 @@ class AccumulationBounds(Expr):
         Here other can be an instance of :py:class:`~.FiniteSet` or AccumulationBounds.
 
         Parameters
-        ==========
-
+        ----------
         other : AccumulationBounds
             Another AccumulationBounds object with which the intersection
             has to be computed.
 
         Returns
-        =======
-
+        -------
         AccumulationBounds
             Intersection of ``self`` and ``other``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import AccumBounds, FiniteSet
         >>> AccumBounds(1, 3).intersection(AccumBounds(2, 4))
         AccumBounds(2, 3)

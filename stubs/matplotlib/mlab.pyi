@@ -340,6 +340,7 @@ class GaussianKDE:
     kde(points) : ndarray
         Same as kde.evaluate(points)
     """
+
     dataset: Incomplete
     covariance_factor: Incomplete
     _bw_method: str

@@ -1,14 +1,14 @@
-from sympy.core import Rational as Rational, S as S, pi as pi
-from sympy.functions import assoc_laguerre as assoc_laguerre, exp as exp, factorial as factorial, factorial2 as factorial2, sqrt as sqrt
+from sympy.core import pi as pi, Rational as Rational, S as S
+from sympy.functions import (
+	assoc_laguerre as assoc_laguerre, exp as exp, factorial as factorial, factorial2 as factorial2, sqrt as sqrt)
 
 def R_nl(n, l, nu, r):
-    '''
+    """
     Returns the radial wavefunction R_{nl} for a 3d isotropic harmonic
     oscillator.
 
     Parameters
-    ==========
-
+    ----------
     n :
         The "nodal" quantum number.  Corresponds to the number of nodes in
         the wavefunction.  ``n >= 0``
@@ -22,8 +22,7 @@ def R_nl(n, l, nu, r):
         Radial coordinate.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.sho import R_nl
     >>> from sympy.abc import r, nu, l
     >>> R_nl(0, 0, 1, r)
@@ -48,14 +47,13 @@ def R_nl(n, l, nu, r):
     >>> Integral(R_nl(1, 1, 1, r)**2*r**2, (r, 0, oo)).n()
     1.00000000000000
 
-    '''
+    """
 def E_nl(n, l, hw):
-    '''
+    """
     Returns the Energy of an isotropic harmonic oscillator.
 
     Parameters
-    ==========
-
+    ----------
     n :
         The "nodal" quantum number.
     l :
@@ -64,19 +62,17 @@ def E_nl(n, l, hw):
         The harmonic oscillator parameter.
 
     Notes
-    =====
-
+    -----
     The unit of the returned value matches the unit of hw, since the energy is
     calculated as:
 
         E_nl = (2*n + l + 3/2)*hw
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.sho import E_nl
     >>> from sympy import symbols
     >>> x, y, z = symbols(\'x, y, z\')
     >>> E_nl(x, y, z)
     z*(2*x + y + 3/2)
-    '''
+    """

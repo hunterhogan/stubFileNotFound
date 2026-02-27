@@ -200,4 +200,3 @@ class Builder:
     _VALUEREC_ATTRS: Incomplete
     def makeOpenTypeValueRecord(self, location, v, pairPosContext):
         """ast.ValueRecord --> otBase.ValueRecord"""
-

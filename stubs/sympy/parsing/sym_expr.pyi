@@ -19,8 +19,7 @@ class SymPyExpression:
     source code.
 
     Notes
-    =====
-
+    -----
     The module and its API are currently under development and experimental
     and can be changed during development.
 
@@ -33,8 +32,7 @@ class SymPyExpression:
     - Clang which is required for the C parser
 
     Examples
-    ========
-
+    --------
     Example of parsing C code:
 
     >>> from sympy.parsing.sym_expr import SymPyExpression
@@ -87,6 +85,7 @@ class SymPyExpression:
     ['def f(a, b):\\n   f = 0\\n    r = 0\\n    return f']
 
     """
+
     _expr: Incomplete
     def __init__(self, source_code=None, mode=None) -> None:
         """Constructor for SymPyExpression class"""
@@ -94,8 +93,7 @@ class SymPyExpression:
         """Converts the given source code to SymPy Expressions
 
         Attributes
-        ==========
-
+        ----------
         src_code : String
             the source code or filename of the source code that is to be
             converted
@@ -107,8 +105,7 @@ class SymPyExpression:
             c or C for C/C++
 
         Examples
-        ========
-
+        --------
         >>> from sympy.parsing.sym_expr import SymPyExpression
         >>> src3 = '''
         ... integer function f(a,b) result(r)
@@ -136,8 +133,7 @@ class SymPyExpression:
         """Returns a list with Python code for the SymPy expressions
 
         Examples
-        ========
-
+        --------
         >>> from sympy.parsing.sym_expr import SymPyExpression
         >>> src2 = '''
         ... integer :: a, b, c, d
@@ -156,10 +152,8 @@ class SymPyExpression:
     def convert_to_c(self):
         """Returns a list with the c source code for the SymPy expressions
 
-
         Examples
-        ========
-
+        --------
         >>> from sympy.parsing.sym_expr import SymPyExpression
         >>> src2 = '''
         ... integer :: a, b, c, d
@@ -180,8 +174,7 @@ class SymPyExpression:
         """Returns a list with the fortran source code for the SymPy expressions
 
         Examples
-        ========
-
+        --------
         >>> from sympy.parsing.sym_expr import SymPyExpression
         >>> src2 = '''
         ... integer :: a, b, c, d
@@ -200,8 +193,7 @@ class SymPyExpression:
         """Returns the expression list
 
         Examples
-        ========
-
+        --------
         >>> from sympy.parsing.sym_expr import SymPyExpression
         >>> src3 = '''
         ... integer function f(a,b)

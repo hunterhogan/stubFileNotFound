@@ -1,9 +1,8 @@
+from .pytree import Base, Leaf, Node
 from _typeshed import Incomplete, StrPath
 from abc import ABCMeta, abstractmethod
 from collections.abc import MutableMapping
 from typing import ClassVar, Literal, TypeVar
-
-from .pytree import Base, Leaf, Node
 
 _N = TypeVar("_N", bound=Base)
 

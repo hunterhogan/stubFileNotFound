@@ -4,15 +4,18 @@ from sympy.core.singleton import S as S
 from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.core.sympify import sympify as sympify
 from sympy.printing.conventions import requires_partial as requires_partial, split_super_sub as split_super_sub
-from sympy.printing.precedence import PRECEDENCE as PRECEDENCE, PRECEDENCE_TRADITIONAL as PRECEDENCE_TRADITIONAL, precedence_traditional as precedence_traditional
+from sympy.printing.precedence import (
+	PRECEDENCE as PRECEDENCE, PRECEDENCE_TRADITIONAL as PRECEDENCE_TRADITIONAL,
+	precedence_traditional as precedence_traditional)
 from sympy.printing.pretty.pretty_symbology import greek_unicode as greek_unicode
-from sympy.printing.printer import Printer as Printer, print_function as print_function
+from sympy.printing.printer import print_function as print_function, Printer as Printer
 from typing import Any
 
 class MathMLPrinterBase(Printer):
     """Contains common code required for MathMLContentPrinter and
     MathMLPresentationPrinter.
     """
+
     _default_settings: dict[str, Any]
     dom: Incomplete
     def __init__(self, settings=None) -> None: ...
@@ -27,6 +30,7 @@ class MathMLContentPrinter(MathMLPrinterBase):
 
     References: https://www.w3.org/TR/MathML2/chapter4.html
     """
+
     printmethod: str
     def mathml_tag(self, e):
         """Returns the MathML tag for an expression."""
@@ -40,7 +44,8 @@ class MathMLContentPrinter(MathMLPrinterBase):
     def _print_EulerGamma(self, e): ...
     def _print_GoldenRatio(self, e):
         """We use unicode #x3c6 for Greek letter phi as defined here
-        https://www.w3.org/2003/entities/2007doc/isogrk1.html"""
+        https://www.w3.org/2003/entities/2007doc/isogrk1.html
+        """
     def _print_Exp1(self, e): ...
     def _print_Pi(self, e): ...
     def _print_Infinity(self, e): ...
@@ -64,7 +69,8 @@ class MathMLContentPrinter(MathMLPrinterBase):
     def _print_Relational(self, e): ...
     def _print_list(self, seq):
         """MathML reference for the <list> element:
-        https://www.w3.org/TR/MathML2/chapter4.html#contm.list"""
+        https://www.w3.org/TR/MathML2/chapter4.html#contm.list
+        """
     def _print_int(self, p): ...
     _print_Implies = _print_AssocOp
     _print_Not = _print_AssocOp
@@ -79,6 +85,7 @@ class MathMLPresentationPrinter(MathMLPrinterBase):
 
     References: https://www.w3.org/TR/MathML2/chapter3.html
     """
+
     printmethod: str
     def mathml_tag(self, e):
         """Returns the MathML tag for an expression."""
@@ -235,8 +242,7 @@ def print_mathml(expr, printer: str = 'content', **settings) -> None:
     presentation then prints Presentation MathML else prints content MathML.
 
     Examples
-    ========
-
+    --------
     >>> ##
     >>> from sympy import print_mathml
     >>> from sympy.abc import x

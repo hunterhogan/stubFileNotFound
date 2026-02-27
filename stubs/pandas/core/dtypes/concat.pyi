@@ -1,11 +1,5 @@
-from typing import TypeVar
-
-from pandas import (
-    Categorical,
-    CategoricalIndex,
-    Series,
-)
-from typing import Any
+from pandas import Categorical, CategoricalIndex, Series
+from typing import Any, TypeVar
 
 _CatT = TypeVar("_CatT", bound=Categorical | CategoricalIndex[Any] | Series)
 

@@ -1,4 +1,3 @@
-import types
 from .heurisch import _symbols as _symbols
 from .integrals import Integral as Integral, integrate as integrate
 from _typeshed import Incomplete
@@ -14,11 +13,14 @@ from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol
 from sympy.functions.elementary.exponential import exp as exp, log as log
 from sympy.functions.elementary.hyperbolic import cosh as cosh, coth as coth, sinh as sinh, tanh as tanh
 from sympy.functions.elementary.piecewise import Piecewise as Piecewise
-from sympy.functions.elementary.trigonometric import acos as acos, acot as acot, asin as asin, atan as atan, cos as cos, cot as cot, sin as sin, tan as tan
+from sympy.functions.elementary.trigonometric import (
+	acos as acos, acot as acot, asin as asin, atan as atan, cos as cos, cot as cot, sin as sin, tan as tan)
 from sympy.polys.polyerrors import PolynomialError as PolynomialError
-from sympy.polys.polytools import Poly as Poly, cancel as cancel, gcd as gcd, real_roots as real_roots, reduced as reduced
+from sympy.polys.polytools import (
+	cancel as cancel, gcd as gcd, Poly as Poly, real_roots as real_roots, reduced as reduced)
 from sympy.polys.rootoftools import RootSum as RootSum
 from sympy.utilities.iterables import numbered_symbols as numbered_symbols
+import types
 
 def integer_powers(exprs):
     """
@@ -97,6 +99,7 @@ class DifferentialExtension:
       Use the methods self.increment_level() and self.decrement_level() to change
       the current level.
     """
+
     __slots__: Incomplete
     f: Incomplete
     x: Incomplete
@@ -158,8 +161,7 @@ class DifferentialExtension:
         Try to build an exponential extension.
 
         Returns
-        =======
-
+        -------
         Returns True if there was a new extension, False if there was no new
         extension but it was able to rewrite the given exponentials in terms
         of the existing extension, and None if the entire extension building
@@ -172,8 +174,7 @@ class DifferentialExtension:
         Try to build a logarithmic extension.
 
         Returns
-        =======
-
+        -------
         Returns True if there was a new extension and False if there was no new
         extension but it was able to rewrite the given logarithms in terms
         of the existing extension.  Unlike with exponential extensions, there
@@ -195,8 +196,6 @@ class DifferentialExtension:
         The attributes are (fa, fd, D, T, Tfuncs, backsubs,
         exts, extargs).
         """
-    def __repr__(self) -> str: ...
-    def __str__(self) -> str: ...
     def __eq__(self, other): ...
     D: Incomplete
     exts: Incomplete
@@ -211,20 +210,17 @@ class DifferentialExtension:
     def indices(self, extension):
         """
         Parameters
-        ==========
-
+        ----------
         extension : str
             Represents a valid extension type.
 
         Returns
-        =======
-
+        -------
         list: A list of indices of 'exts' where extension of
             type 'extension' is present.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.integrals.risch import DifferentialExtension
         >>> from sympy import log, exp
         >>> from sympy.abc import x
@@ -264,6 +260,7 @@ class DecrementLevel:
     """
     A context manager for decrementing the level of a DifferentialExtension.
     """
+
     __slots__: Incomplete
     DE: Incomplete
     def __init__(self, DE) -> None: ...
@@ -310,8 +307,7 @@ def as_poly_1t(p, t, z):
     See issue 5131.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import random_poly
     >>> from sympy.integrals.risch import as_poly_1t
     >>> from sympy.abc import x, z
@@ -581,8 +577,7 @@ class NonElementaryIntegral(Integral):
     expression and a NonElementaryIntegral.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import integrate, exp, log, Integral
     >>> from sympy.abc import x
 
@@ -633,8 +628,7 @@ def risch_integrate(f, x, extension=None, handle_first: str = 'log', separate_in
     default.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.integrals.risch import risch_integrate
     >>> from sympy import exp, log, pprint
     >>> from sympy.abc import x

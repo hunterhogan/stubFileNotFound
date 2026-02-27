@@ -4,7 +4,7 @@ from .expr import Expr as Expr
 from .intfunc import igcd as igcd, ilcm as ilcm
 from .kind import UndefinedKind as UndefinedKind
 from .logic import _fuzzy_group as _fuzzy_group, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
-from .mul import Mul as Mul, _keep_coeff as _keep_coeff, _unevaluated_Mul as _unevaluated_Mul
+from .mul import _keep_coeff as _keep_coeff, _unevaluated_Mul as _unevaluated_Mul, Mul as Mul
 from .numbers import Rational as Rational
 from .operations import AssocOp as AssocOp, AssocOpDispatcher as AssocOpDispatcher
 from .parameters import global_parameters as global_parameters
@@ -23,8 +23,7 @@ def _unevaluated_Add(*args):
     but you still want to return an unevaluated Add.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.add import _unevaluated_Add as uAdd
     >>> from sympy import S, Add
     >>> from sympy.abc import x, y
@@ -92,8 +91,7 @@ class Add(Expr, AssocOp):
     same :obj:`sympy.core.kind.Kind()`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Add, I
     >>> from sympy.abc import x, y
     >>> Add(x, 1)
@@ -128,11 +126,11 @@ class Add(Expr, AssocOp):
     (1, x)
 
     See Also
-    ========
-
+    --------
     MatAdd
 
     """
+
     __slots__: Incomplete
     is_Add: bool
     _args_type = Expr
@@ -142,7 +140,7 @@ class Add(Expr, AssocOp):
     def args(self) -> tuple[Expr, ...]: ...
     @classmethod
     def flatten(cls, seq: list[Expr]) -> tuple[list[Expr], list[Expr], None]:
-        '''
+        """
         Takes the sequence "seq" of nested Adds and returns a flatten list.
 
         Returns: (commutative_part, noncommutative_part, order_symbols)
@@ -153,11 +151,10 @@ class Add(Expr, AssocOp):
         NB: the removal of 0 is already handled by AssocOp.__new__
 
         See Also
-        ========
-
+        --------
         sympy.core.mul.Mul.flatten
 
-        '''
+        """
     @classmethod
     def class_key(cls): ...
     @property
@@ -170,8 +167,7 @@ class Add(Expr, AssocOp):
         is the Number term and args is a tuple of all other terms.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x
         >>> (7 + 3*x).as_coeff_add()
         (7, (3*x,))
@@ -218,8 +214,7 @@ class Add(Expr, AssocOp):
         denominator part.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y, z
         >>> (x*y/z).as_numer_denom()
         (x*y, z)
@@ -227,8 +222,7 @@ class Add(Expr, AssocOp):
         (x*(y + 1), y**7)
 
         See Also
-        ========
-
+        --------
         sympy.core.expr.Expr.as_numer_denom
         """
     def _eval_is_polynomial(self, syms): ...
@@ -264,8 +258,7 @@ class Add(Expr, AssocOp):
         Returns the leading term and its order.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x
         >>> (x + 1 + 1/x**5).extract_leading_order(x)
         ((x**(-5), O(x**(-5))),)
@@ -280,8 +273,7 @@ class Add(Expr, AssocOp):
         Return a tuple representing a complex number.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import I
         >>> (7 + 9*I).as_real_imag()
         (7, 9)
@@ -301,8 +293,7 @@ class Add(Expr, AssocOp):
         ``R`` is collected only from the leading coefficient of each term.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y
 
         >>> (2*x + 4*y).primitive()
@@ -335,8 +326,7 @@ class Add(Expr, AssocOp):
         primitive expression.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sqrt
         >>> (3 + 3*sqrt(2)).as_content_primitive()
         (3, 1 + sqrt(2))

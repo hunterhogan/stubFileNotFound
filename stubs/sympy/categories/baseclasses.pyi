@@ -1,4 +1,4 @@
-from sympy.core import Basic as Basic, Dict as Dict, S as S, Symbol as Symbol, Tuple as Tuple, sympify as sympify
+from sympy.core import Basic as Basic, Dict as Dict, S as S, Symbol as Symbol, sympify as sympify, Tuple as Tuple
 from sympy.core.symbol import Str as Str
 from sympy.sets import EmptySet as EmptySet, FiniteSet as FiniteSet, Set as Set
 from sympy.utilities.iterables import iterable as iterable
@@ -19,6 +19,7 @@ class Class(Set):
     The goal of this class is to assure easier migration to the
     eventual proper implementation of set theory.
     """
+
     is_proper: bool
 
 class Object(Symbol):
@@ -53,19 +54,18 @@ class Morphism(Basic):
     derived classes instead.
 
     See Also
-    ========
-
+    --------
     IdentityMorphism, NamedMorphism, CompositeMorphism
     """
+
     def __new__(cls, domain, codomain) -> None: ...
     @property
     def domain(self):
-        '''
+        """
         Returns the domain of the morphism.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism
         >>> A = Object("A")
         >>> B = Object("B")
@@ -73,15 +73,14 @@ class Morphism(Basic):
         >>> f.domain
         Object("A")
 
-        '''
+        """
     @property
     def codomain(self):
-        '''
+        """
         Returns the codomain of the morphism.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism
         >>> A = Object("A")
         >>> B = Object("B")
@@ -89,17 +88,16 @@ class Morphism(Basic):
         >>> f.codomain
         Object("B")
 
-        '''
+        """
     def compose(self, other):
-        '''
+        """
         Composes self with the supplied morphism.
 
         The order of elements in the composition is the usual order,
         i.e., to construct `g\\circ f` use ``g.compose(f)``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism
         >>> A = Object("A")
         >>> B = Object("B")
@@ -114,7 +112,7 @@ class Morphism(Basic):
         >>> (g * f).codomain
         Object("C")
 
-        '''
+        """
     def __mul__(self, other):
         """
         Composes self with the supplied morphism.
@@ -124,13 +122,12 @@ class Morphism(Basic):
         ``g`` and ``f``.
 
         See Also
-        ========
-
+        --------
         compose
         """
 
 class IdentityMorphism(Morphism):
-    '''
+    """
     Represents an identity morphism.
 
     Explanation
@@ -140,8 +137,7 @@ class IdentityMorphism(Morphism):
     which acts as an identity with respect to composition.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.categories import Object, NamedMorphism, IdentityMorphism
     >>> A = Object("A")
     >>> B = Object("B")
@@ -154,16 +150,16 @@ class IdentityMorphism(Morphism):
     True
 
     See Also
-    ========
-
+    --------
     Morphism
-    '''
+    """
+
     def __new__(cls, domain): ...
     @property
     def codomain(self): ...
 
 class NamedMorphism(Morphism):
-    '''
+    """
     Represents a morphism which has a name.
 
     Explanation
@@ -174,8 +170,7 @@ class NamedMorphism(Morphism):
     have the same domains, codomains, and names.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.categories import Object, NamedMorphism
     >>> A = Object("A")
     >>> B = Object("B")
@@ -186,19 +181,18 @@ class NamedMorphism(Morphism):
     \'f\'
 
     See Also
-    ========
-
+    --------
     Morphism
-    '''
+    """
+
     def __new__(cls, domain, codomain, name): ...
     @property
     def name(self):
-        '''
+        """
         Returns the name of the morphism.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism
         >>> A = Object("A")
         >>> B = Object("B")
@@ -206,10 +200,10 @@ class NamedMorphism(Morphism):
         >>> f.name
         \'f\'
 
-        '''
+        """
 
 class CompositeMorphism(Morphism):
-    '''
+    """
     Represents a morphism which is a composition of other morphisms.
 
     Explanation
@@ -225,8 +219,7 @@ class CompositeMorphism(Morphism):
     ``CompositeMorphism(f, g)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.categories import Object, NamedMorphism, CompositeMorphism
     >>> A = Object("A")
     >>> B = Object("B")
@@ -239,7 +232,8 @@ class CompositeMorphism(Morphism):
     >>> CompositeMorphism(f, g) == g * f
     True
 
-    '''
+    """
+
     @staticmethod
     def _add_morphism(t, morphism):
         """
@@ -257,12 +251,11 @@ class CompositeMorphism(Morphism):
     def __new__(cls, *components): ...
     @property
     def components(self):
-        '''
+        """
         Returns the components of this composite morphism.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism
         >>> A = Object("A")
         >>> B = Object("B")
@@ -273,18 +266,17 @@ class CompositeMorphism(Morphism):
         (NamedMorphism(Object("A"), Object("B"), "f"),
         NamedMorphism(Object("B"), Object("C"), "g"))
 
-        '''
+        """
     @property
     def domain(self):
-        '''
+        """
         Returns the domain of this composite morphism.
 
         The domain of the composite morphism is the domain of its
         first component.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism
         >>> A = Object("A")
         >>> B = Object("B")
@@ -294,18 +286,17 @@ class CompositeMorphism(Morphism):
         >>> (g * f).domain
         Object("A")
 
-        '''
+        """
     @property
     def codomain(self):
-        '''
+        """
         Returns the codomain of this composite morphism.
 
         The codomain of the composite morphism is the codomain of its
         last component.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism
         >>> A = Object("A")
         >>> B = Object("B")
@@ -315,9 +306,9 @@ class CompositeMorphism(Morphism):
         >>> (g * f).codomain
         Object("C")
 
-        '''
+        """
     def flatten(self, new_name):
-        '''
+        """
         Forgets the composite structure of this morphism.
 
         Explanation
@@ -330,8 +321,7 @@ class CompositeMorphism(Morphism):
         is the codomain of this composite morphism.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism
         >>> A = Object("A")
         >>> B = Object("B")
@@ -341,10 +331,10 @@ class CompositeMorphism(Morphism):
         >>> (g * f).flatten("h")
         NamedMorphism(Object("A"), Object("C"), "h")
 
-        '''
+        """
 
 class Category(Basic):
-    '''
+    """
     An (abstract) category.
 
     Explanation
@@ -379,8 +369,7 @@ class Category(Basic):
     ``commutative_diagrams`` in the constructor.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.categories import Object, NamedMorphism, Diagram, Category
     >>> from sympy import FiniteSet
     >>> A = Object("A")
@@ -394,33 +383,31 @@ class Category(Basic):
     True
 
     See Also
-    ========
-
+    --------
     Diagram
-    '''
+    """
+
     def __new__(cls, name, objects=..., commutative_diagrams=...): ...
     @property
     def name(self):
-        '''
+        """
         Returns the name of this category.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Category
         >>> K = Category("K")
         >>> K.name
         \'K\'
 
-        '''
+        """
     @property
     def objects(self):
-        '''
+        """
         Returns the class of objects of this category.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, Category
         >>> from sympy import FiniteSet
         >>> A = Object("A")
@@ -429,16 +416,15 @@ class Category(Basic):
         >>> K.objects
         Class({Object("A"), Object("B")})
 
-        '''
+        """
     @property
     def commutative_diagrams(self):
-        '''
+        """
         Returns the :class:`~.FiniteSet` of diagrams which are known to
         be commutative in this category.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism, Diagram, Category
         >>> from sympy import FiniteSet
         >>> A = Object("A")
@@ -451,12 +437,12 @@ class Category(Basic):
         >>> K.commutative_diagrams == FiniteSet(d)
         True
 
-        '''
+        """
     def hom(self, A, B) -> None: ...
     def all_morphisms(self) -> None: ...
 
 class Diagram(Basic):
-    '''
+    """
     Represents a diagram in a certain category.
 
     Explanation
@@ -490,8 +476,7 @@ class Diagram(Basic):
     morphisms do belong to one and the same category.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.categories import Object, NamedMorphism, Diagram
     >>> from sympy import pprint, default_sort_key
     >>> A = Object("A")
@@ -511,11 +496,11 @@ class Diagram(Basic):
     {g*f:A-->C: {unique}}
 
     References
-    ==========
-
+    ----------
     [Pare1970] B. Pareigis: Categories and functors.  Academic Press, 1970.
 
-    '''
+    """
+
     @staticmethod
     def _set_dict_union(dictionary, key, value):
         """
@@ -535,7 +520,7 @@ class Diagram(Basic):
         ``morphism``.
         """
     def __new__(cls, *args):
-        '''
+        """
         Construct a new instance of Diagram.
 
         Explanation
@@ -558,8 +543,7 @@ class Diagram(Basic):
         has no conclusions.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism
         >>> from sympy.categories import IdentityMorphism, Diagram
         >>> A = Object("A")
@@ -576,15 +560,14 @@ class Diagram(Basic):
         >>> d.conclusions[g * f]
         {unique}
 
-        '''
+        """
     @property
     def premises(self):
-        '''
+        """
         Returns the premises of this diagram.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism
         >>> from sympy.categories import IdentityMorphism, Diagram
         >>> from sympy import pretty
@@ -597,15 +580,14 @@ class Diagram(Basic):
         >>> print(pretty(d.premises, use_unicode=False))
         {id:A-->A: EmptySet, id:B-->B: EmptySet, f:A-->B: EmptySet}
 
-        '''
+        """
     @property
     def conclusions(self):
-        '''
+        """
         Returns the conclusions of this diagram.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism
         >>> from sympy.categories import IdentityMorphism, Diagram
         >>> from sympy import FiniteSet
@@ -623,16 +605,15 @@ class Diagram(Basic):
         >>> d.conclusions[g * f] == FiniteSet("unique")
         True
 
-        '''
+        """
     @property
     def objects(self):
-        '''
+        """
         Returns the :class:`~.FiniteSet` of objects that appear in this
         diagram.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism, Diagram
         >>> A = Object("A")
         >>> B = Object("B")
@@ -643,16 +624,15 @@ class Diagram(Basic):
         >>> d.objects
         {Object("A"), Object("B"), Object("C")}
 
-        '''
+        """
     def hom(self, A, B):
-        '''
+        """
         Returns a 2-tuple of sets of morphisms between objects ``A`` and
         ``B``: one set of morphisms listed as premises, and the other set
         of morphisms listed as conclusions.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism, Diagram
         >>> from sympy import pretty
         >>> A = Object("A")
@@ -665,11 +645,11 @@ class Diagram(Basic):
         ({g*f:A-->C}, {g*f:A-->C})
 
         See Also
-        ========
+        --------
         Object, Morphism
-        '''
+        """
     def is_subdiagram(self, diagram):
-        '''
+        """
         Checks whether ``diagram`` is a subdiagram of ``self``.
         Diagram `D\'` is a subdiagram of `D` if all premises
         (conclusions) of `D\'` are contained in the premises
@@ -678,8 +658,7 @@ class Diagram(Basic):
         to be a subdiagram of `D`.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism, Diagram
         >>> A = Object("A")
         >>> B = Object("B")
@@ -692,17 +671,16 @@ class Diagram(Basic):
         True
         >>> d1.is_subdiagram(d)
         False
-        '''
+        """
     def subdiagram_from_objects(self, objects):
-        '''
+        """
         If ``objects`` is a subset of the objects of ``self``, returns
         a diagram which has as premises all those premises of ``self``
         which have a domains and codomains in ``objects``, likewise
         for conclusions.  Properties are preserved.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism, Diagram
         >>> from sympy import FiniteSet
         >>> A = Object("A")
@@ -714,4 +692,4 @@ class Diagram(Basic):
         >>> d1 = d.subdiagram_from_objects(FiniteSet(A, B))
         >>> d1 == Diagram([f], {f: "unique"})
         True
-        '''
+        """

@@ -1,8 +1,9 @@
-from .decompositions import _LDLdecomposition as _LDLdecomposition, _cholesky as _cholesky
+from .decompositions import _cholesky as _cholesky, _LDLdecomposition as _LDLdecomposition
 from .exceptions import ShapeError as ShapeError
 from .matrixbase import MatrixBase as MatrixBase
 from .repmatrix import MutableRepMatrix as MutableRepMatrix, RepMatrix as RepMatrix
-from .solvers import _lower_triangular_solve as _lower_triangular_solve, _upper_triangular_solve as _upper_triangular_solve
+from .solvers import (
+	_lower_triangular_solve as _lower_triangular_solve, _upper_triangular_solve as _upper_triangular_solve)
 from _typeshed import Incomplete
 from sympy.core.basic import Basic as Basic
 from sympy.core.singleton import S as S
@@ -20,6 +21,7 @@ def _iszero(x):
 
 class DenseMatrix(RepMatrix):
     """Matrix implementation based on DomainMatrix as the internal representation"""
+
     is_MatrixExpr: bool
     _op_priority: float
     _class_priority: int
@@ -33,8 +35,7 @@ class DenseMatrix(RepMatrix):
         """Returns a mutable version of this matrix
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ImmutableMatrix
         >>> X = ImmutableMatrix([[1, 2], [3, 4]])
         >>> Y = X.as_mutable()
@@ -59,8 +60,7 @@ class MutableDenseMatrix(DenseMatrix, MutableRepMatrix):
         This is a shortcut for M.applyfunc(lambda x: simplify(x, ratio, measure))
 
         See Also
-        ========
-
+        --------
         sympy.simplify.simplify.simplify
         """
 MutableMatrix = MutableDenseMatrix
@@ -70,16 +70,14 @@ def list2numpy(l, dtype=...):
     """Converts Python list of SymPy expressions to a NumPy array.
 
     See Also
-    ========
-
+    --------
     matrix2numpy
     """
 def matrix2numpy(m, dtype=...):
     """Converts SymPy's matrix to a NumPy array.
 
     See Also
-    ========
-
+    --------
     list2numpy
     """
 def rot_givens(i, j, theta, dim: int = 3):
@@ -109,8 +107,7 @@ def rot_givens(i, j, theta, dim: int = 3):
     - $g_{ji} = -g_{ij} = -s$
 
     Parameters
-    ==========
-
+    ----------
     i : int between ``0`` and ``dim - 1``
         Represents first axis
     j : int between ``0`` and ``dim - 1``
@@ -119,8 +116,7 @@ def rot_givens(i, j, theta, dim: int = 3):
         Number of dimensions. Defaults to 3.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import pi, rot_givens
 
     A counterclockwise rotation of pi/3 (60 degrees) around
@@ -151,13 +147,12 @@ def rot_givens(i, j, theta, dim: int = 3):
     [0,  0, 0, 1]])
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Givens_rotation
 
     See Also
-    ========
-
+    --------
     rot_axis1: Returns a rotation matrix for a rotation of theta (in radians)
         about the 1-axis (clockwise around the x axis)
     rot_axis2: Returns a rotation matrix for a rotation of theta (in radians)
@@ -188,8 +183,7 @@ def rot_axis3(theta):
             \\end{bmatrix}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import pi, rot_axis3
 
     A rotation of pi/3 (60 degrees):
@@ -210,8 +204,7 @@ def rot_axis3(theta):
     [ 0, 0, 1]])
 
     See Also
-    ========
-
+    --------
     rot_givens: Returns a Givens rotation matrix (generalized rotation for
         any number of dimensions)
     rot_ccw_axis3: Returns a rotation matrix for a rotation of theta (in radians)
@@ -238,8 +231,7 @@ def rot_axis2(theta):
             \\end{bmatrix}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import pi, rot_axis2
 
     A rotation of pi/3 (60 degrees):
@@ -260,8 +252,7 @@ def rot_axis2(theta):
     [1, 0,  0]])
 
     See Also
-    ========
-
+    --------
     rot_givens: Returns a Givens rotation matrix (generalized rotation for
         any number of dimensions)
     rot_ccw_axis2: Returns a rotation matrix for a rotation of theta (in radians)
@@ -288,8 +279,7 @@ def rot_axis1(theta):
             \\end{bmatrix}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import pi, rot_axis1
 
     A rotation of pi/3 (60 degrees):
@@ -310,8 +300,7 @@ def rot_axis1(theta):
     [0, -1, 0]])
 
     See Also
-    ========
-
+    --------
     rot_givens: Returns a Givens rotation matrix (generalized rotation for
         any number of dimensions)
     rot_ccw_axis1: Returns a rotation matrix for a rotation of theta (in radians)
@@ -338,8 +327,7 @@ def rot_ccw_axis3(theta):
             \\end{bmatrix}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import pi, rot_ccw_axis3
 
     A rotation of pi/3 (60 degrees):
@@ -360,8 +348,7 @@ def rot_ccw_axis3(theta):
     [0,  0, 1]])
 
     See Also
-    ========
-
+    --------
     rot_givens: Returns a Givens rotation matrix (generalized rotation for
         any number of dimensions)
     rot_axis3: Returns a rotation matrix for a rotation of theta (in radians)
@@ -388,8 +375,7 @@ def rot_ccw_axis2(theta):
             \\end{bmatrix}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import pi, rot_ccw_axis2
 
     A rotation of pi/3 (60 degrees):
@@ -410,8 +396,7 @@ def rot_ccw_axis2(theta):
     [-1,  0,  0]])
 
     See Also
-    ========
-
+    --------
     rot_givens: Returns a Givens rotation matrix (generalized rotation for
         any number of dimensions)
     rot_axis2: Returns a rotation matrix for a rotation of theta (in radians)
@@ -438,8 +423,7 @@ def rot_ccw_axis1(theta):
             \\end{bmatrix}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import pi, rot_ccw_axis1
 
     A rotation of pi/3 (60 degrees):
@@ -460,8 +444,7 @@ def rot_ccw_axis1(theta):
     [0, 1,  0]])
 
     See Also
-    ========
-
+    --------
     rot_givens: Returns a Givens rotation matrix (generalized rotation for
         any number of dimensions)
     rot_axis1: Returns a rotation matrix for a rotation of theta (in radians)
@@ -480,7 +463,6 @@ def symarray(prefix, shape, **kwargs):
 
     Parameters
     ----------
-
     prefix : string
       A prefix prepended to the name of every symbol.
 
@@ -492,7 +474,7 @@ def symarray(prefix, shape, **kwargs):
       keyword arguments passed on to Symbol
 
     Examples
-    ========
+    --------
     These doctests require numpy.
 
     >>> from sympy import symarray
@@ -537,40 +519,39 @@ def symarray(prefix, shape, **kwargs):
     """
 def casoratian(seqs, n, zero: bool = True):
     """Given linear difference operator L of order 'k' and homogeneous
-       equation Ly = 0 we want to compute kernel of L, which is a set
-       of 'k' sequences: a(n), b(n), ... z(n).
+    equation Ly = 0 we want to compute kernel of L, which is a set
+    of 'k' sequences: a(n), b(n), ... z(n).
 
-       Solutions of L are linearly independent iff their Casoratian,
-       denoted as C(a, b, ..., z), do not vanish for n = 0.
+    Solutions of L are linearly independent iff their Casoratian,
+    denoted as C(a, b, ..., z), do not vanish for n = 0.
 
-       Casoratian is defined by k x k determinant::
+    Casoratian is defined by k x k determinant::
 
-                  +  a(n)     b(n)     . . . z(n)     +
-                  |  a(n+1)   b(n+1)   . . . z(n+1)   |
-                  |    .         .     .        .     |
-                  |    .         .       .      .     |
-                  |    .         .         .    .     |
-                  +  a(n+k-1) b(n+k-1) . . . z(n+k-1) +
+               +  a(n)     b(n)     . . . z(n)     +
+               |  a(n+1)   b(n+1)   . . . z(n+1)   |
+               |    .         .     .        .     |
+               |    .         .       .      .     |
+               |    .         .         .    .     |
+               +  a(n+k-1) b(n+k-1) . . . z(n+k-1) +
 
-       It proves very useful in rsolve_hyper() where it is applied
-       to a generating set of a recurrence to factor out linearly
-       dependent solutions and return a basis:
+    It proves very useful in rsolve_hyper() where it is applied
+    to a generating set of a recurrence to factor out linearly
+    dependent solutions and return a basis:
 
-       >>> from sympy import Symbol, casoratian, factorial
-       >>> n = Symbol('n', integer=True)
+    >>> from sympy import Symbol, casoratian, factorial
+    >>> n = Symbol('n', integer=True)
 
-       Exponential and factorial are linearly independent:
+    Exponential and factorial are linearly independent:
 
-       >>> casoratian([2**n, factorial(n)], n) != 0
-       True
+    >>> casoratian([2**n, factorial(n)], n) != 0
+    True
 
     """
 def eye(*args, **kwargs):
     """Create square identity matrix n x n
 
     See Also
-    ========
-
+    --------
     diag
     zeros
     ones
@@ -581,8 +562,7 @@ def diag(*values, strict: bool = True, unpack: bool = False, **kwargs):
     produce a block-diagonal matrix.
 
     Examples
-    ========
-
+    --------
     This version of diag is a thin wrapper to Matrix.diag that differs
     in that it treats all lists like matrices -- even when a single list
     is given. If this is not desired, either put a `*` before the list or
@@ -603,7 +583,7 @@ def diag(*values, strict: bool = True, unpack: bool = False, **kwargs):
     [3]])
 
     See Also
-    ========
+    --------
     .matrixbase.MatrixBase.eye
     .matrixbase.MatrixBase.diagonal
     .matrixbase.MatrixBase.diag
@@ -613,8 +593,7 @@ def GramSchmidt(vlist, orthonormal: bool = False):
     """Apply the Gram-Schmidt process to a set of vectors.
 
     Parameters
-    ==========
-
+    ----------
     vlist : List of Matrix
         Vectors to be orthogonalized for.
 
@@ -622,26 +601,23 @@ def GramSchmidt(vlist, orthonormal: bool = False):
         If true, return an orthonormal basis.
 
     Returns
-    =======
-
+    -------
     vlist : List of Matrix
         Orthogonalized vectors
 
     Notes
-    =====
-
+    -----
     This routine is mostly duplicate from ``Matrix.orthogonalize``,
     except for some difference that this always raises error when
     linearly dependent vectors are found, and the keyword ``normalize``
     has been named as ``orthonormal`` in this function.
 
     See Also
-    ========
-
+    --------
     .matrixbase.MatrixBase.orthogonalize
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process
     """
@@ -651,8 +627,7 @@ def hessian(f, varlist, constraints=()):
     constraints may optionally be given.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, hessian, pprint
     >>> from sympy.abc import x, y
     >>> f = Function('f')(x, y)
@@ -678,13 +653,12 @@ def hessian(f, varlist, constraints=()):
     [                                   dy           ]
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Hessian_matrix
 
     See Also
-    ========
-
+    --------
     sympy.matrices.matrixbase.MatrixBase.jacobian
     wronskian
     """
@@ -693,8 +667,7 @@ def jordan_cell(eigenval, n):
     Create a Jordan block:
 
     Examples
-    ========
-
+    --------
     >>> from sympy import jordan_cell
     >>> from sympy.abc import x
     >>> jordan_cell(x, 4)
@@ -716,8 +689,7 @@ def matrix_multiply_elementwise(A, B):
     [300, 40,   5]])
 
     See Also
-    ========
-
+    --------
     sympy.matrices.matrixbase.MatrixBase.__mul__
     """
 def ones(*args, **kwargs):
@@ -725,8 +697,7 @@ def ones(*args, **kwargs):
     if ``cols`` is omitted a square matrix will be returned.
 
     See Also
-    ========
-
+    --------
     zeros
     eye
     diag
@@ -748,8 +719,7 @@ def randMatrix(r, c=None, min: int = 0, max: int = 99, seed=None, symmetric: boo
     * otherwise, a new ``random.Random`` with default seed will be used.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import randMatrix
     >>> randMatrix(3) # doctest:+SKIP
     [25, 45, 27]
@@ -795,8 +765,7 @@ def wronskian(functions, var, method: str = 'bareiss'):
     see: https://en.wikipedia.org/wiki/Wronskian
 
     See Also
-    ========
-
+    --------
     sympy.matrices.matrixbase.MatrixBase.jacobian
     hessian
     """
@@ -805,8 +774,7 @@ def zeros(*args, **kwargs):
     if ``cols`` is omitted a square matrix will be returned.
 
     See Also
-    ========
-
+    --------
     ones
     eye
     diag

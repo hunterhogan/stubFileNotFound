@@ -1,8 +1,7 @@
 from multiprocessing.connection import _Address
 from queue import Queue
 from types import TracebackType
-from typing import Any
-from typing_extensions import Self
+from typing import Any, Self
 
 __all__ = ["Client", "Listener", "Pipe"]
 

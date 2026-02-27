@@ -5,7 +5,8 @@ from sympy.concrete import Product as Product, Sum as Sum
 from sympy.core.containers import Tuple as Tuple
 from sympy.core.expr import Expr as Expr
 from sympy.core.function import arity as arity
-from sympy.core.relational import Equality as Equality, GreaterThan as GreaterThan, LessThan as LessThan, Ne as Ne, Relational as Relational
+from sympy.core.relational import (
+	Equality as Equality, GreaterThan as GreaterThan, LessThan as LessThan, Ne as Ne, Relational as Relational)
 from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.core.symbol import Symbol as Symbol
 from sympy.core.sympify import sympify as sympify
@@ -26,6 +27,7 @@ class IntervalMathPrinter(PythonCodePrinter):
     in which case the interval arithmetic module is going to be used, which
     requires the following edits.
     """
+
     def _print_And(self, expr): ...
     def _print_Or(self, expr): ...
 
@@ -41,7 +43,7 @@ def _adaptive_eval(f, x):
     Force evaluation to a float.
 
     Parameters
-    ==========
+    ----------
     f : callable
     x : float
     """
@@ -51,8 +53,7 @@ class BaseSeries:
     """Base class for the data objects containing stuff to be plotted.
 
     Notes
-    =====
-
+    -----
     The backend should check if it supports the data series that is given.
     (e.g. TextBackend supports only LineOver1DRangeSeries).
     It is the backend responsibility to know how to use the class of
@@ -66,6 +67,7 @@ class BaseSeries:
 
     BaseSeries
     """
+
     is_2Dline: bool
     is_3Dline: bool
     is_3Dsurface: bool
@@ -109,14 +111,14 @@ class BaseSeries:
         processing of numerical functions.
         """
     def _check_fs(self) -> None:
-        """ Checks if there are enough parameters and free symbols.
+        """Checks if there are enough parameters and free symbols.
         """
     def _create_lambda_func(self):
         """Create the lambda functions to be used by the uniform meshing
         strategy.
 
         Notes
-        =====
+        -----
         The old sympy.plotting used experimental_lambdify. It created one
         lambda function each time an evaluation was requested. If that failed,
         it went on to create a different lambda function and evaluated it,
@@ -197,8 +199,7 @@ class BaseSeries:
         """Get or set the current parameters dictionary.
 
         Parameters
-        ==========
-
+        ----------
         p : dict
 
             * key: symbol associated to the parameter
@@ -226,8 +227,7 @@ class BaseSeries:
         """Discretize a 1D domain.
 
         Returns
-        =======
-
+        -------
         domain : np.ndarray with dtype=float or complex
             The domain's dtype will be float or complex (depending on the
             type of start/end) even if only_integers=True. It is left for
@@ -238,8 +238,7 @@ class BaseSeries:
         """Convert ``a`` to a np.ndarray of the same shape of ``b``.
 
         Parameters
-        ==========
-
+        ----------
         a : int, float, complex, np.ndarray
             Usually, this is the result of a numerical evaluation of a
             symbolic expression. Even if a discretized domain was used to
@@ -253,7 +252,7 @@ class BaseSeries:
             It represents the correct shape that ``a`` should have.
 
         Returns
-        =======
+        -------
         new_a : np.ndarray
             An array with the correct shape.
         """
@@ -261,15 +260,13 @@ class BaseSeries:
         """Evaluate the color function.
 
         Parameters
-        ==========
-
+        ----------
         args : tuple
             Arguments to be passed to the coloring function. Can be coordinates
             or parameters or both.
 
         Notes
-        =====
-
+        -----
         The backend will request the data series to generate the numerical
         data. Depending on the data series, either the data series itself or
         the backend will eventually execute this function to generate the
@@ -283,14 +280,14 @@ class BaseSeries:
         ``help(s.get_data)`` to understand what it returns.
         """
     def _get_wrapped_label(self, label, wrapper):
-        '''Given a latex representation of an expression, wrap it inside
+        """Given a latex representation of an expression, wrap it inside
         some characters. Matplotlib needs "$%s%$", K3D-Jupyter needs "%s".
-        '''
+        """
     def get_label(self, use_latex: bool = False, wrapper: str = '$%s$'):
-        '''Return the label to be used to display the expression.
+        """Return the label to be used to display the expression.
 
         Parameters
-        ==========
+        ----------
         use_latex : bool
             If False, the string representation of the expression is returned.
             If True, the latex representation is returned.
@@ -299,9 +296,9 @@ class BaseSeries:
             some characters. Default to ``"$%s$"``.
 
         Returns
-        =======
+        -------
         label : str
-        '''
+        """
     @property
     def label(self): ...
     @label.setter
@@ -315,12 +312,12 @@ class BaseSeries:
         """Apply transformations to the results of numerical evaluation.
 
         Parameters
-        ==========
+        ----------
         args : tuple
             Results of numerical evaluation.
 
         Returns
-        =======
+        -------
         transformed_args : tuple
             Tuple containing the transformed results.
         """
@@ -332,7 +329,7 @@ def _detect_poles_numerical_helper(x, y, eps: float = 0.01, expr=None, symb=None
     corresponding x-location for further processing.
 
     Returns
-    =======
+    -------
     x : np.ndarray
         Unchanged x-data.
     yy : np.ndarray
@@ -342,7 +339,7 @@ def _detect_poles_symbolic_helper(expr, symb, start, end):
     """Attempts to compute symbolic discontinuities.
 
     Returns
-    =======
+    -------
     pole : list
         List of symbolic poles, possibly empty.
     """
@@ -354,6 +351,7 @@ class Line2DBaseSeries(BaseSeries):
     - making is_2Dline true
     - defining get_segments and get_color_array
     """
+
     is_2Dline: bool
     _dim: int
     _N: int
@@ -376,8 +374,7 @@ class Line2DBaseSeries(BaseSeries):
         """Return coordinates for plotting the line.
 
         Returns
-        =======
-
+        -------
         x: np.ndarray
             x-coordinates
 
@@ -421,6 +418,7 @@ class Line2DBaseSeries(BaseSeries):
 
 class List2DSeries(Line2DBaseSeries):
     """Representation for a line consisting of list of points."""
+
     list_x: Incomplete
     list_y: Incomplete
     _expr: Incomplete
@@ -429,13 +427,13 @@ class List2DSeries(Line2DBaseSeries):
     rendering_kw: Incomplete
     is_parametric: bool
     def __init__(self, list_x, list_y, label: str = '', **kwargs) -> None: ...
-    def __str__(self) -> str: ...
     def _get_data_helper(self):
         """Returns coordinates that needs to be postprocessed."""
     def _eval_color_func_and_return(self, *data): ...
 
 class LineOver1DRangeSeries(Line2DBaseSeries):
     """Representation for a line consisting of a SymPy expression over a range."""
+
     expr: Incomplete
     _label: Incomplete
     _latex_label: Incomplete
@@ -449,7 +447,6 @@ class LineOver1DRangeSeries(Line2DBaseSeries):
     n: Incomplete
     @nb_of_points.setter
     def nb_of_points(self, v) -> None: ...
-    def __str__(self) -> str: ...
     def get_points(self):
         """Return lists of coordinates for plotting. Depending on the
         ``adaptive`` option, this function will either use an adaptive algorithm
@@ -459,7 +456,7 @@ class LineOver1DRangeSeries(Line2DBaseSeries):
         using ``get_data()`` instead.
 
         Returns
-        =======
+        -------
             x : list
                 List of x-coordinates
 
@@ -473,7 +470,7 @@ class LineOver1DRangeSeries(Line2DBaseSeries):
         points are added between those points.
 
         References
-        ==========
+        ----------
 
         .. [1] Adaptive polygonal approximation of parametric curves,
                Luiz Henrique de Figueiredo.
@@ -493,7 +490,7 @@ class ParametricLineBaseSeries(Line2DBaseSeries):
         If `use_cm=False`, there might be a legend, so we show the expressions.
 
         Parameters
-        ==========
+        ----------
         label : str
             label passed in by the pre-processor or the user
         """
@@ -508,7 +505,7 @@ class ParametricLineBaseSeries(Line2DBaseSeries):
         """Returns coordinates that needs to be postprocessed."""
     def get_parameter_points(self): ...
     def get_points(self):
-        """ Return lists of coordinates for plotting. Depending on the
+        """Return lists of coordinates for plotting. Depending on the
         ``adaptive`` option, this function will either use an adaptive algorithm
         or it will uniformly sample the expression over the provided range.
 
@@ -516,7 +513,7 @@ class ParametricLineBaseSeries(Line2DBaseSeries):
         using ``get_data()`` instead.
 
         Returns
-        =======
+        -------
             x : list
                 List of x-coordinates
             y : list
@@ -532,7 +529,9 @@ class ParametricLineBaseSeries(Line2DBaseSeries):
 
 class Parametric2DLineSeries(ParametricLineBaseSeries):
     """Representation for a line consisting of two parametric SymPy expressions
-    over a range."""
+    over a range.
+    """
+
     is_2Dline: bool
     expr_x: Incomplete
     expr_y: Incomplete
@@ -541,7 +540,6 @@ class Parametric2DLineSeries(ParametricLineBaseSeries):
     _cast: Incomplete
     use_cm: Incomplete
     def __init__(self, expr_x, expr_y, var_start_end, label: str = '', **kwargs) -> None: ...
-    def __str__(self) -> str: ...
     def _adaptive_sampling(self): ...
     def _adaptive_sampling_helper(self, f_x, f_y):
         """The adaptive sampling is done by recursively checking if three
@@ -549,7 +547,7 @@ class Parametric2DLineSeries(ParametricLineBaseSeries):
         points are added between those points.
 
         References
-        ==========
+        ----------
 
         .. [1] Adaptive polygonal approximation of parametric curves,
             Luiz Henrique de Figueiredo.
@@ -558,7 +556,9 @@ class Parametric2DLineSeries(ParametricLineBaseSeries):
 class Line3DBaseSeries(Line2DBaseSeries):
     """A base class for 3D lines.
 
-    Most of the stuff is derived from Line2DBaseSeries."""
+    Most of the stuff is derived from Line2DBaseSeries.
+    """
+
     is_2Dline: bool
     is_3Dline: bool
     _dim: int
@@ -566,7 +566,9 @@ class Line3DBaseSeries(Line2DBaseSeries):
 
 class Parametric3DLineSeries(ParametricLineBaseSeries):
     """Representation for a 3D line consisting of three parametric SymPy
-    expressions and a range."""
+    expressions and a range.
+    """
+
     is_2Dline: bool
     is_3Dline: bool
     expr_x: Incomplete
@@ -581,11 +583,11 @@ class Parametric3DLineSeries(ParametricLineBaseSeries):
     _ylim: Incomplete
     _zlim: Incomplete
     def __init__(self, expr_x, expr_y, expr_z, var_start_end, label: str = '', **kwargs) -> None: ...
-    def __str__(self) -> str: ...
     def get_data(self): ...
 
 class SurfaceBaseSeries(BaseSeries):
     """A base class for 3D surfaces."""
+
     is_3Dsurface: bool
     use_cm: Incomplete
     is_polar: Incomplete
@@ -599,7 +601,9 @@ class SurfaceBaseSeries(BaseSeries):
 
 class SurfaceOver2DRangeSeries(SurfaceBaseSeries):
     """Representation for a 3D surface consisting of a SymPy expression and 2D
-    range."""
+    range.
+    """
+
     expr: Incomplete
     ranges: Incomplete
     _xlim: Incomplete
@@ -626,7 +630,6 @@ class SurfaceOver2DRangeSeries(SurfaceBaseSeries):
     def nb_of_points_y(self): ...
     @nb_of_points_y.setter
     def nb_of_points_y(self, v) -> None: ...
-    def __str__(self) -> str: ...
     def get_meshes(self):
         """Return the x,y,z coordinates for plotting the surface.
         This function is available for back-compatibility purposes. Consider
@@ -637,7 +640,7 @@ class SurfaceOver2DRangeSeries(SurfaceBaseSeries):
         """Return arrays of coordinates for plotting.
 
         Returns
-        =======
+        -------
         mesh_x : np.ndarray
             Discretized x-domain.
         mesh_y : np.ndarray
@@ -648,7 +651,9 @@ class SurfaceOver2DRangeSeries(SurfaceBaseSeries):
 
 class ParametricSurfaceSeries(SurfaceBaseSeries):
     """Representation for a 3D surface consisting of three parametric SymPy
-    expressions and a range."""
+    expressions and a range.
+    """
+
     is_parametric: bool
     expr_x: Incomplete
     expr_y: Incomplete
@@ -678,7 +683,6 @@ class ParametricSurfaceSeries(SurfaceBaseSeries):
     def nb_of_points_v(self): ...
     @nb_of_points_v.setter
     def nb_of_points_v(self, v) -> None: ...
-    def __str__(self) -> str: ...
     def get_parameter_meshes(self): ...
     def get_meshes(self):
         """Return the x,y,z coordinates for plotting the surface.
@@ -692,7 +696,7 @@ class ParametricSurfaceSeries(SurfaceBaseSeries):
         """Return arrays of coordinates for plotting.
 
         Returns
-        =======
+        -------
         x : np.ndarray [n2 x n1]
             x-coordinates.
         y : np.ndarray [n2 x n1]
@@ -707,6 +711,7 @@ class ParametricSurfaceSeries(SurfaceBaseSeries):
 
 class ContourSeries(SurfaceOver2DRangeSeries):
     """Representation for a contour plot."""
+
     is_3Dsurface: bool
     is_contour: bool
     is_filled: Incomplete
@@ -715,10 +720,10 @@ class ContourSeries(SurfaceOver2DRangeSeries):
     def __init__(self, *args, **kwargs) -> None: ...
 
 class GenericDataSeries(BaseSeries):
-    '''Represents generic numerical data.
+    """Represents generic numerical data.
 
     Notes
-    =====
+    -----
     This class serves the purpose of back-compatibility with the "markers,
     annotations, fill, rectangles" keyword arguments that represent
     user-provided numerical data. In particular, it solves the problem of
@@ -760,7 +765,8 @@ class GenericDataSeries(BaseSeries):
 
     Which is far better in terms of readability. Also, it gives access to the
     full plotting library capabilities, without the need to reinvent the wheel.
-    '''
+    """
+
     is_generic: bool
     type: Incomplete
     args: Incomplete
@@ -770,6 +776,7 @@ class GenericDataSeries(BaseSeries):
 
 class ImplicitSeries(BaseSeries):
     """Representation for 2D Implicit plot."""
+
     is_implicit: bool
     use_cm: bool
     _N: int
@@ -794,13 +801,11 @@ class ImplicitSeries(BaseSeries):
     def line_color(self, v) -> None: ...
     color = line_color
     def _has_equality(self, expr): ...
-    def __str__(self) -> str: ...
     def get_data(self):
-        '''Returns numerical data.
+        """Returns numerical data.
 
         Returns
-        =======
-
+        -------
         If the series is evaluated with the `adaptive=True` it returns:
 
         interval_list : list
@@ -818,11 +823,11 @@ class ImplicitSeries(BaseSeries):
         plot_type : str
             A string specifying which plot command to use, ``"contour"``
             or ``"contourf"``.
-        '''
+        """
     def _adaptive_eval(self):
         """
         References
-        ==========
+        ----------
 
         .. [1] Jeffrey Allen Tupper. Reliable Two-Dimensional Graphing Methods for
         Mathematical Formulae with Two Free Variables.
@@ -844,8 +849,7 @@ class ImplicitSeries(BaseSeries):
         expression.
 
         Returns
-        =======
-
+        -------
         expr : Expr
             The rewritten expression
 
@@ -853,10 +857,10 @@ class ImplicitSeries(BaseSeries):
             Whether the original expression was an Equality or not.
         """
     def get_label(self, use_latex: bool = False, wrapper: str = '$%s$'):
-        '''Return the label to be used to display the expression.
+        """Return the label to be used to display the expression.
 
         Parameters
-        ==========
+        ----------
         use_latex : bool
             If False, the string representation of the expression is returned.
             If True, the latex representation is returned.
@@ -865,9 +869,9 @@ class ImplicitSeries(BaseSeries):
             some characters. Default to ``"$%s$"``.
 
         Returns
-        =======
+        -------
         label : str
-        '''
+        """
 
 def centers_of_segments(array): ...
 def centers_of_faces(array): ...
@@ -880,8 +884,7 @@ def _set_discretization_points(kwargs, pt):
     like, ``nb_of_points, nb_of_points_*, points``.
 
     Parameters
-    ==========
-
+    ----------
     kwargs : dict
         Dictionary of keyword arguments passed into a plotting function.
     pt : type

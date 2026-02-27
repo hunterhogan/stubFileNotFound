@@ -1,8 +1,17 @@
-from .ntheory import bit_scan0 as python_bit_scan0, bit_scan1 as python_bit_scan1, factorial as python_factorial, gcd as python_gcd, gcdext as python_gcdext, invert as python_invert, iroot as python_iroot, is_bpsw_prp as python_is_bpsw_prp, is_euler_prp as python_is_euler_prp, is_fermat_prp as python_is_fermat_prp, is_fibonacci_prp as python_is_fibonacci_prp, is_lucas_prp as python_is_lucas_prp, is_selfridge_prp as python_is_selfridge_prp, is_square as python_is_square, is_strong_bpsw_prp as python_is_strong_bpsw_prp, is_strong_lucas_prp as python_is_strong_lucas_prp, is_strong_prp as python_is_strong_prp, is_strong_selfridge_prp as python_is_strong_selfridge_prp, jacobi as python_jacobi, kronecker as python_kronecker, lcm as python_lcm, legendre as python_legendre, remove as python_remove, sqrt as python_sqrt, sqrtrem as python_sqrtrem
+from .ntheory import (
+	bit_scan0 as python_bit_scan0, bit_scan1 as python_bit_scan1, factorial as python_factorial, gcd as python_gcd,
+	gcdext as python_gcdext, invert as python_invert, iroot as python_iroot, is_bpsw_prp as python_is_bpsw_prp,
+	is_euler_prp as python_is_euler_prp, is_fermat_prp as python_is_fermat_prp,
+	is_fibonacci_prp as python_is_fibonacci_prp, is_lucas_prp as python_is_lucas_prp,
+	is_selfridge_prp as python_is_selfridge_prp, is_square as python_is_square,
+	is_strong_bpsw_prp as python_is_strong_bpsw_prp, is_strong_lucas_prp as python_is_strong_lucas_prp,
+	is_strong_prp as python_is_strong_prp, is_strong_selfridge_prp as python_is_strong_selfridge_prp,
+	jacobi as python_jacobi, kronecker as python_kronecker, lcm as python_lcm, legendre as python_legendre,
+	remove as python_remove, sqrt as python_sqrt, sqrtrem as python_sqrtrem)
 from .pythonmpq import PythonMPQ
 from _typeshed import Incomplete
 
-__all__ = ['GROUND_TYPES', 'HAS_GMPY', 'SYMPY_INTS', 'MPQ', 'MPZ', 'bit_scan1', 'bit_scan0', 'remove', 'factorial', 'sqrt', 'is_square', 'sqrtrem', 'gcd', 'lcm', 'gcdext', 'invert', 'legendre', 'jacobi', 'kronecker', 'iroot', 'is_fermat_prp', 'is_euler_prp', 'is_strong_prp', 'is_fibonacci_prp', 'is_lucas_prp', 'is_selfridge_prp', 'is_strong_lucas_prp', 'is_strong_selfridge_prp', 'is_bpsw_prp', 'is_strong_bpsw_prp']
+__all__ = ['GROUND_TYPES', 'HAS_GMPY', 'MPQ', 'MPZ', 'SYMPY_INTS', 'bit_scan0', 'bit_scan1', 'factorial', 'gcd', 'gcdext', 'invert', 'iroot', 'is_bpsw_prp', 'is_euler_prp', 'is_fermat_prp', 'is_fibonacci_prp', 'is_lucas_prp', 'is_selfridge_prp', 'is_square', 'is_strong_bpsw_prp', 'is_strong_lucas_prp', 'is_strong_prp', 'is_strong_selfridge_prp', 'jacobi', 'kronecker', 'lcm', 'legendre', 'remove', 'sqrt', 'sqrtrem']
 
 SYMPY_INTS: tuple[type, ...]
 gmpy = _gmpy

@@ -20,8 +20,7 @@ class vectorize:
     Generalizes a function taking scalars to accept multidimensional arguments.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import vectorize, diff, sin, symbols, Function
     >>> x, y, z = symbols('x y z')
     >>> f, g, h = list(map(Function, 'fgh'))
@@ -40,6 +39,7 @@ class vectorize:
     >>> vdiff([f(x, y, z), g(x, y, z), h(x, y, z)], [x, y, z])
     [[Derivative(f(x, y, z), x), Derivative(f(x, y, z), y), Derivative(f(x, y, z), z)], [Derivative(g(x, y, z), x), Derivative(g(x, y, z), y), Derivative(g(x, y, z), z)], [Derivative(h(x, y, z), x), Derivative(h(x, y, z), y), Derivative(h(x, y, z), z)]]
     """
+
     mdargs: Incomplete
     def __init__(self, *mdargs) -> None:
         """

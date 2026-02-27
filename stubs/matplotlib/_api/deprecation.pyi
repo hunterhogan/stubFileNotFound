@@ -6,7 +6,7 @@ class MatplotlibDeprecationWarning(DeprecationWarning):
 
 def _generate_deprecation_warning(since, message: str = '', name: str = '', alternative: str = '', pending: bool = False, obj_type: str = '', addendum: str = '', *, removal: str = ''): ...
 def warn_deprecated(since, *, message: str = '', name: str = '', alternative: str = '', pending: bool = False, obj_type: str = '', addendum: str = '', removal: str = '') -> None:
-    '''
+    """
     Display a standardized deprecation.
 
     Parameters
@@ -44,7 +44,7 @@ def warn_deprecated(since, *, message: str = '', name: str = '', alternative: st
         # To warn of the deprecation of "matplotlib.name_of_module"
         warn_deprecated(\'1.4.0\', name=\'matplotlib.name_of_module\',
                         obj_type=\'module\')
-    '''
+    """
 def deprecated(since, *, message: str = '', name: str = '', alternative: str = '', pending: bool = False, obj_type: Incomplete | None = None, addendum: str = '', removal: str = ''):
     """
     Decorator to mark a function, a class, or a property as deprecated.
@@ -88,6 +88,7 @@ class deprecate_privatize_attribute:
     Note that the attribute name is derived from *the name this helper is
     assigned to*.  This helper also works for deprecating methods.
     """
+
     deprecator: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
     def __set_name__(self, owner, name): ...
@@ -95,7 +96,7 @@ class deprecate_privatize_attribute:
 DECORATORS: Incomplete
 
 def rename_parameter(since, old, new, func: Incomplete | None = None):
-    '''
+    """
     Decorator indicating that parameter *old* of *func* is renamed to *new*.
 
     The actual implementation of *func* should use *new*, not *old*.  If *old*
@@ -111,15 +112,15 @@ def rename_parameter(since, old, new, func: Incomplete | None = None):
 
         @_api.rename_parameter("3.1", "bad_name", "good_name")
         def func(good_name): ...
-    '''
+    """
 
 class _deprecated_parameter_class:
-    def __repr__(self) -> str: ...
+    ...
 
 _deprecated_parameter: Incomplete
 
 def delete_parameter(since, name, func: Incomplete | None = None, **kwargs):
-    '''
+    """
     Decorator indicating that parameter *name* of *func* is being deprecated.
 
     The actual implementation of *func* should keep the *name* parameter in its
@@ -141,7 +142,7 @@ def delete_parameter(since, name, func: Incomplete | None = None, **kwargs):
 
         @_api.delete_parameter("3.1", "unused")
         def func(used_arg, other_arg, unused, more_args): ...
-    '''
+    """
 def make_keyword_only(since, name, func: Incomplete | None = None):
     """
     Decorator indicating that passing parameter *name* (or any of the following
@@ -152,7 +153,7 @@ def make_keyword_only(since, name, func: Incomplete | None = None):
     signature.
     """
 def deprecate_method_override(method, obj, *, allow_empty: bool = False, **kwargs):
-    '''
+    """
     Return ``obj.method`` with a deprecation if it was overridden, else None.
 
     Parameters
@@ -171,5 +172,5 @@ def deprecate_method_override(method, obj, *, allow_empty: bool = False, **kwarg
     **kwargs
         Additional parameters passed to `warn_deprecated` to generate the
         deprecation warning; must at least include the "since" key.
-    '''
+    """
 def suppress_matplotlib_deprecation_warning() -> Generator[None]: ...

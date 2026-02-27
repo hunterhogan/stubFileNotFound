@@ -1,12 +1,11 @@
+from _typeshed import SupportsFlush, SupportsWrite
+from collections.abc import Callable, Iterable
+from typing import Any, Generic, Never, Protocol, type_check_only, TypeAlias, TypeVar
+from warnings import _ActionKind
 import sys
 import unittest.case
 import unittest.result
 import unittest.suite
-from _typeshed import SupportsFlush, SupportsWrite
-from collections.abc import Callable, Iterable
-from typing import Any, Generic, Protocol, TypeVar, type_check_only
-from typing_extensions import Never, TypeAlias
-from warnings import _ActionKind
 
 _ResultClassType: TypeAlias = Callable[[_TextTestStream, bool, int], TextTestResult[Any]]
 

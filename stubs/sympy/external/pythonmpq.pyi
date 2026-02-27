@@ -11,6 +11,7 @@ class PythonMPQ:
     PythonMPQ should be treated as immutable although no effort is made to
     prevent mutation (since that might slow down calculations).
     """
+
     __slots__: Incomplete
     def __new__(cls, numerator, denominator=None):
         """Construct PythonMPQ with gcd computation and checks"""
@@ -29,23 +30,19 @@ class PythonMPQ:
     def __eq__(self, other):
         """Compare equal with PythonMPQ, int, float, Decimal or Fraction"""
     def __hash__(self):
-        """hash - same as mpq/Fraction"""
+        """Hash - same as mpq/Fraction"""
     def __reduce__(self):
         """Deconstruct for pickling"""
-    def __str__(self) -> str:
-        """Convert to string"""
-    def __repr__(self) -> str:
-        """Convert to string"""
     def _cmp(self, other, op):
         """Helper for lt/le/gt/ge"""
     def __lt__(self, other):
-        """self < other"""
+        """Self < other"""
     def __le__(self, other):
-        """self <= other"""
+        """Self <= other"""
     def __gt__(self, other):
-        """self > other"""
+        """Self > other"""
     def __ge__(self, other):
-        """self >= other"""
+        """Self >= other"""
     def __abs__(self):
         """abs(q)"""
     def __pos__(self):
@@ -65,9 +62,9 @@ class PythonMPQ:
     def __rmul__(self, other):
         """z1 * q2"""
     def __pow__(self, exp):
-        """q ** z"""
+        """Q ** z"""
     def __truediv__(self, other):
         """q1 / q2"""
     def __rtruediv__(self, other):
-        """z / q"""
+        """Z / q"""
     _compatible_types: tuple[type, ...]

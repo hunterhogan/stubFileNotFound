@@ -15,15 +15,13 @@ class Wigner3j(Expr):
     ``.doit()`` method [1]_.
 
     Parameters
-    ==========
-
+    ----------
     j1, m1, j2, m2, j3, m3 : Number, Symbol
         Terms determining the angular momentum of coupled angular momentum
         systems.
 
     Examples
-    ========
-
+    --------
     Declare a Wigner-3j coefficient and calculate its value
 
         >>> from sympy.physics.quantum.cg import Wigner3j
@@ -34,15 +32,15 @@ class Wigner3j(Expr):
         sqrt(715)/143
 
     See Also
-    ========
-
+    --------
     CG: Clebsch-Gordan coefficients
 
     References
-    ==========
+    ----------
 
     .. [1] Varshalovich, D A, Quantum Theory of Angular Momentum. 1988.
     """
+
     is_commutative: bool
     def __new__(cls, j1, m1, j2, m2, j3, m3): ...
     @property
@@ -78,8 +76,7 @@ class CG(Wigner3j):
         C^{j_3,m_3}_{j_1,m_1,j_2,m_2} = \\left\\langle j_1,m_1;j_2,m_2 | j_3,m_3\\right\\rangle
 
     Parameters
-    ==========
-
+    ----------
     j1, m1, j2, m2 : Number, Symbol
         Angular momenta of states 1 and 2.
 
@@ -87,8 +84,7 @@ class CG(Wigner3j):
         Total angular momentum of the coupled system.
 
     Examples
-    ========
-
+    --------
     Define a Clebsch-Gordan coefficient and evaluate its value
 
         >>> from sympy.physics.quantum.cg import CG
@@ -105,12 +101,11 @@ class CG(Wigner3j):
     Compare [2]_.
 
     See Also
-    ========
-
+    --------
     Wigner3j: Wigner-3j symbols
 
     References
-    ==========
+    ----------
 
     .. [1] Varshalovich, D A, Quantum Theory of Angular Momentum. 1988.
     .. [2] `Clebsch-Gordan Coefficients, Spherical Harmonics, and d Functions
@@ -118,6 +113,7 @@ class CG(Wigner3j):
         in P.A. Zyla *et al.* (Particle Data Group), Prog. Theor. Exp. Phys.
         2020, 083C01 (2020).
     """
+
     precedence: Incomplete
     def doit(self, **hints): ...
     def _pretty(self, printer, *args): ...
@@ -127,11 +123,11 @@ class Wigner6j(Expr):
     """Class for the Wigner-6j symbols
 
     See Also
-    ========
-
+    --------
     Wigner3j: Wigner-3j symbols
 
     """
+
     def __new__(cls, j1, j2, j12, j3, j, j23): ...
     @property
     def j1(self): ...
@@ -155,11 +151,11 @@ class Wigner9j(Expr):
     """Class for the Wigner-9j symbols
 
     See Also
-    ========
-
+    --------
     Wigner3j: Wigner-3j symbols
 
     """
+
     def __new__(cls, j1, j2, j12, j3, j4, j34, j13, j24, j): ...
     @property
     def j1(self): ...
@@ -196,8 +192,7 @@ def cg_simp(e):
     involving these terms [1]_.
 
     Examples
-    ========
-
+    --------
     Simplify the sum over CG(a,alpha,0,0,a,alpha) for all alpha to
     2*a+1
 
@@ -209,12 +204,11 @@ def cg_simp(e):
         3
 
     See Also
-    ========
-
+    --------
     CG: Clebsh-Gordan coefficients
 
     References
-    ==========
+    ----------
 
     .. [1] Varshalovich, D A, Quantum Theory of Angular Momentum. 1988.
     """

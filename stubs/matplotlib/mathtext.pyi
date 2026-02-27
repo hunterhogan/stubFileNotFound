@@ -1,4 +1,4 @@
-from ._mathtext import RasterParse as RasterParse, VectorParse as VectorParse, get_unicode_index as get_unicode_index
+from ._mathtext import get_unicode_index as get_unicode_index, RasterParse as RasterParse, VectorParse as VectorParse
 from _typeshed import Incomplete
 from matplotlib import _api as _api, _mathtext as _mathtext
 from matplotlib.font_manager import FontProperties as FontProperties
@@ -11,7 +11,7 @@ class MathTextParser:
     _font_type_mapping: Incomplete
     _output_type: Incomplete
     def __init__(self, output) -> None:
-        '''
+        """
         Create a MathTextParser for the given backend *output*.
 
         Parameters
@@ -19,9 +19,9 @@ class MathTextParser:
         output : {"path", "agg"}
             Whether to return a `VectorParse` ("path") or a
             `RasterParse` ("agg", or its synonym "macosx").
-        '''
+        """
     def parse(self, s, dpi: int = 72, prop: Incomplete | None = None, *, antialiased: Incomplete | None = None):
-        '''
+        """
         Parse the given math expression *s* at the given *dpi*.  If *prop* is
         provided, it is a `.FontProperties` object specifying the "default"
         font to use in the math expression, used for all non-math text.
@@ -31,7 +31,7 @@ class MathTextParser:
 
         Depending on the *output* type, this returns either a `VectorParse` or
         a `RasterParse`.
-        '''
+        """
     def _parse_cached(self, s, dpi, prop, antialiased, load_glyph_flags): ...
 
 def math_to_image(s, filename_or_obj, prop: Incomplete | None = None, dpi: Incomplete | None = None, format: Incomplete | None = None, *, color: Incomplete | None = None):

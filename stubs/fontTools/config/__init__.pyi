@@ -5,4 +5,3 @@ class Config(AbstractConfig):
     options: Incomplete
 
 OPTIONS: Incomplete
-

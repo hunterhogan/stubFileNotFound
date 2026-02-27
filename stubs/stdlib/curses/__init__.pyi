@@ -1,10 +1,10 @@
-import sys
 from _curses import *
 from _curses import window as window
 from _typeshed import structseq
 from collections.abc import Callable
-from typing import Final, TypeVar, final, type_check_only
-from typing_extensions import Concatenate, ParamSpec
+from typing import Concatenate, Final, final, type_check_only, TypeVar
+from typing_extensions import ParamSpec
+import sys
 
 # NOTE: The _curses module is ordinarily only available on Unix, but the
 # windows-curses package makes it available on Windows as well with the same

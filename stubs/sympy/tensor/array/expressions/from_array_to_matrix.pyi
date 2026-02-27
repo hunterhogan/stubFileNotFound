@@ -1,18 +1,25 @@
 from functools import singledispatch
 from sympy import Basic as Basic, KroneckerProduct as KroneckerProduct, MatMul as MatMul, Wild as Wild
-from sympy.assumptions.ask import Q as Q, ask as ask
-from sympy.combinatorics.permutations import Permutation as Permutation, _af_invert as _af_invert
+from sympy.assumptions.ask import ask as ask, Q as Q
+from sympy.combinatorics.permutations import _af_invert as _af_invert, Permutation as Permutation
 from sympy.core.mul import Mul as Mul
 from sympy.core.singleton import S as S
 from sympy.matrices.expressions.applyfunc import ElementwiseApplyFunction as ElementwiseApplyFunction
 from sympy.matrices.expressions.diagonal import DiagMatrix as DiagMatrix
-from sympy.matrices.expressions.hadamard import HadamardPower as HadamardPower, hadamard_product as hadamard_product
+from sympy.matrices.expressions.hadamard import hadamard_product as hadamard_product, HadamardPower as HadamardPower
 from sympy.matrices.expressions.matexpr import MatrixElement as MatrixElement, MatrixExpr as MatrixExpr
 from sympy.matrices.expressions.special import Identity as Identity, OneMatrix as OneMatrix, ZeroMatrix as ZeroMatrix
 from sympy.matrices.expressions.trace import Trace as Trace
 from sympy.matrices.expressions.transpose import Transpose as Transpose
 from sympy.matrices.matrixbase import MatrixBase as MatrixBase
-from sympy.tensor.array.expressions.array_expressions import ArrayAdd as ArrayAdd, ArrayContraction as ArrayContraction, ArrayDiagonal as ArrayDiagonal, ArrayElement as ArrayElement, ArrayElementwiseApplyFunc as ArrayElementwiseApplyFunc, ArrayTensorProduct as ArrayTensorProduct, OneArray as OneArray, PermuteDims as PermuteDims, ZeroArray as ZeroArray, _ArgE as _ArgE, _ArrayExpr as _ArrayExpr, _CodegenArrayAbstract as _CodegenArrayAbstract, _EditArrayContraction as _EditArrayContraction, _array_add as _array_add, _array_contraction as _array_contraction, _array_diagonal as _array_diagonal, _array_tensor_product as _array_tensor_product, _get_subrank as _get_subrank, _permute_dims as _permute_dims, get_rank as get_rank, get_shape as get_shape
+from sympy.tensor.array.expressions.array_expressions import (
+	_ArgE as _ArgE, _array_add as _array_add, _array_contraction as _array_contraction, _array_diagonal as _array_diagonal,
+	_array_tensor_product as _array_tensor_product, _ArrayExpr as _ArrayExpr,
+	_CodegenArrayAbstract as _CodegenArrayAbstract, _EditArrayContraction as _EditArrayContraction,
+	_get_subrank as _get_subrank, _permute_dims as _permute_dims, ArrayAdd as ArrayAdd,
+	ArrayContraction as ArrayContraction, ArrayDiagonal as ArrayDiagonal, ArrayElement as ArrayElement,
+	ArrayElementwiseApplyFunc as ArrayElementwiseApplyFunc, ArrayTensorProduct as ArrayTensorProduct, get_rank as get_rank,
+	get_shape as get_shape, OneArray as OneArray, PermuteDims as PermuteDims, ZeroArray as ZeroArray)
 from sympy.tensor.array.expressions.utils import _get_mapping_from_subranks as _get_mapping_from_subranks
 
 def _get_candidate_for_matmul_from_contraction(scan_indices: list[int | None], remaining_args: list[_ArgE]) -> tuple[_ArgE | None, bool, int]: ...
@@ -27,15 +34,14 @@ def _(expr: ZeroArray): ...
 def _remove_trivial_dims(expr): ...
 def _remove_diagonalized_identity_matrices(expr: ArrayDiagonal): ...
 def convert_array_to_matrix(expr):
-    '''
+    """
     Recognize matrix expressions in codegen objects.
 
     If more than one matrix multiplication line have been detected, return a
     list with the matrix expressions.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.tensor.array.expressions.from_indexed_to_array import convert_indexed_to_array
     >>> from sympy.tensor.array import tensorcontraction, tensorproduct
     >>> from sympy import MatrixSymbol, Sum
@@ -102,7 +108,7 @@ def convert_array_to_matrix(expr):
     ArrayTensorProduct(A*B, C*D)
 
     The two lines have free indices at axes 0, 3 and 4, 7, respectively.
-    '''
+    """
 def _array_diag2contr_diagmatrix(expr: ArrayDiagonal): ...
 def _a2m_mul(*args): ...
 def _a2m_tensor_product(*args): ...

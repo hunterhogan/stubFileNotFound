@@ -7,15 +7,15 @@ class QuotientRingElement:
     """
     Class representing elements of (commutative) quotient rings.
 
-    Attributes:
-
+    Attributes
+    ----------
     - ring - containing ring
     - data - element of ring.ring (i.e. base ring) representing self
     """
+
     ring: Incomplete
     data: Incomplete
     def __init__(self, ring, data) -> None: ...
-    def __str__(self) -> str: ...
     __repr__ = __str__
     def __bool__(self) -> bool: ...
     def __add__(self, om): ...
@@ -52,11 +52,12 @@ class QuotientRing(Ring):
     >>> QQ.old_poly_ring(x)/[x**3 + 1]
     QQ[x]/<x**3 + 1>
 
-    Attributes:
-
+    Attributes
+    ----------
     - ring - the base ring
     - base_ideal - the ideal used to form the quotient
     """
+
     has_assoc_Ring: bool
     has_assoc_Field: bool
     dtype = QuotientRingElement
@@ -65,14 +66,13 @@ class QuotientRing(Ring):
     zero: Incomplete
     one: Incomplete
     def __init__(self, ring, ideal) -> None: ...
-    def __str__(self) -> str: ...
     def __hash__(self): ...
     def new(self, a):
-        """Construct an element of ``self`` domain from ``a``. """
+        """Construct an element of ``self`` domain from ``a``."""
     def __eq__(self, other):
-        """Returns ``True`` if two domains are equivalent. """
+        """Returns ``True`` if two domains are equivalent."""
     def from_ZZ(K1, a, K0):
-        """Convert a Python ``int`` object to ``dtype``. """
+        """Convert a Python ``int`` object to ``dtype``."""
     from_ZZ_python = from_ZZ
     from_QQ_python = from_ZZ_python
     from_ZZ_gmpy = from_ZZ_python
@@ -84,9 +84,9 @@ class QuotientRing(Ring):
     def to_sympy(self, a): ...
     def from_QuotientRing(self, a, K0): ...
     def poly_ring(self, *gens) -> None:
-        """Returns a polynomial ring, i.e. ``K[X]``. """
+        """Returns a polynomial ring, i.e. ``K[X]``."""
     def frac_field(self, *gens) -> None:
-        """Returns a fraction field, i.e. ``K(X)``. """
+        """Returns a fraction field, i.e. ``K(X)``."""
     def revert(self, a):
         """
         Compute a**(-1), if possible.

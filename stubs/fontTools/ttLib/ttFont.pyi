@@ -751,4 +751,3 @@ def maxPowerOfTwo(x: int) -> int:
     """
 def getSearchRange(n: int, itemSize: int = 16) -> tuple[int, int, int]:
     """Calculate searchRange, entrySelector, rangeShift."""
-

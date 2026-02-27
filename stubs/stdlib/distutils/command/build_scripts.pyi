@@ -1,8 +1,7 @@
-from _typeshed import Incomplete
-from typing import ClassVar
-
 from ..cmd import Command
 from ..util import Mixin2to3 as Mixin2to3
+from _typeshed import Incomplete
+from typing import ClassVar
 
 first_line_re: Incomplete
 

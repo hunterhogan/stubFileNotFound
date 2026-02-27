@@ -5,15 +5,14 @@ from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprec
 from sympy.utilities.iterables import iterable as iterable
 
 def finite_diff_weights(order, x_list, x0=...):
-    '''
+    """
     Calculates the finite difference weights for an arbitrarily spaced
     one-dimensional grid (``x_list``) for derivatives at ``x0`` of order
     0, 1, ..., up to ``order`` using a recursive formula. Order of accuracy
     is at least ``len(x_list) - order``, if ``x_list`` is defined correctly.
 
     Parameters
-    ==========
-
+    ----------
     order: int
         Up to what derivative order weights should be calculated.
         0 corresponds to interpolation.
@@ -26,16 +25,14 @@ def finite_diff_weights(order, x_list, x0=...):
         difference weights should be generated. Default is ``S.One``.
 
     Returns
-    =======
-
+    -------
     list
         A list of sublists, each corresponding to coefficients for
         increasing derivative order, and each containing lists of
         coefficients for increasing subsets of x_list.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import finite_diff_weights, S
     >>> res = finite_diff_weights(1, [-S(1)/2, S(1)/2, S(3)/2, S(5)/2], 0)
     >>> res
@@ -116,8 +113,7 @@ def finite_diff_weights(order, x_list, x0=...):
     (-h**3/2 + h**2*x + 3*h*x**2 - 4*x**3)/h**4]
 
     Notes
-    =====
-
+    -----
     If weights for a finite difference approximation of 3rd order
     derivative is wanted, weights for 0th, 1st and 2nd order are
     calculated "for free", so are formulae using subsets of ``x_list``.
@@ -126,19 +122,18 @@ def finite_diff_weights(order, x_list, x0=...):
     ``x0``. If not, subsets of ``x_list`` will yield poorer approximations,
     which might not grand an order of accuracy of ``len(x_list) - order``.
 
-    See also
-    ========
-
+    See Also
+    --------
     sympy.calculus.finite_diff.apply_finite_diff
 
     References
-    ==========
+    ----------
 
     .. [1] Generation of Finite Difference Formulas on Arbitrarily Spaced
             Grids, Bengt Fornberg; Mathematics of computation; 51; 184;
             (1988); 699-706; doi:10.1090/S0025-5718-1988-0935077-0
 
-    '''
+    """
 def apply_finite_diff(order, x_list, y_list, x0=...):
     """
     Calculates the finite difference approximation of
@@ -146,8 +141,7 @@ def apply_finite_diff(order, x_list, y_list, x0=...):
     provided in ``x_list`` and ``y_list``.
 
     Parameters
-    ==========
-
+    ----------
     order: int
         order of derivative to approximate. 0 corresponds to interpolation.
     x_list: sequence
@@ -160,15 +154,13 @@ def apply_finite_diff(order, x_list, y_list, x0=...):
         evaluated. Defaults to 0.
 
     Returns
-    =======
-
+    -------
     sympy.core.add.Add or sympy.core.numbers.Number
         The finite difference expression approximating the requested
         derivative order at ``x0``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import apply_finite_diff
     >>> cube = lambda arg: (1.0*arg)**3
     >>> xlist = range(-3,3+1)
@@ -188,37 +180,33 @@ def apply_finite_diff(order, x_list, y_list, x0=...):
     (-x[i - 1] + x[i])*y[i + 1]/((x[i + 1] - x[i - 1])*(x[i + 1] - x[i]))
 
     Notes
-    =====
-
+    -----
     Order = 0 corresponds to interpolation.
     Only supply so many points you think makes sense
     to around x0 when extracting the derivative (the function
     need to be well behaved within that region). Also beware
     of Runge's phenomenon.
 
-    See also
-    ========
-
+    See Also
+    --------
     sympy.calculus.finite_diff.finite_diff_weights
 
     References
-    ==========
-
+    ----------
     Fortran 90 implementation with Python interface for numerics: finitediff_
 
     .. _finitediff: https://github.com/bjodah/finitediff
 
     """
 def _as_finite_diff(derivative, points: int = 1, x0=None, wrt=None):
-    '''
+    """
     Returns an approximation of a derivative of a function in
     the form of a finite difference formula. The expression is a
     weighted sum of the function at a number of discrete values of
     (one of) the independent variable(s).
 
     Parameters
-    ==========
-
+    ----------
     derivative: a Derivative instance
 
     points: sequence or coefficient, optional
@@ -239,8 +227,7 @@ def _as_finite_diff(derivative, points: int = 1, x0=None, wrt=None):
         is required that the Derivative is ordinary. Default: ``None``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, Function, exp, sqrt, Symbol
     >>> from sympy.calculus.finite_diff import _as_finite_diff
     >>> x, h = symbols(\'x h\')
@@ -278,19 +265,17 @@ def _as_finite_diff(derivative, points: int = 1, x0=None, wrt=None):
     >>> _as_finite_diff(d2fdxdy, wrt=x)
     -Derivative(f(x - 1/2, y), y) + Derivative(f(x + 1/2, y), y)
 
-    See also
-    ========
-
+    See Also
+    --------
     sympy.calculus.finite_diff.apply_finite_diff
     sympy.calculus.finite_diff.finite_diff_weights
 
-    '''
+    """
 def differentiate_finite(expr, *symbols, points: int = 1, x0=None, wrt=None, evaluate: bool = False):
-    """ Differentiate expr and replace Derivatives with finite differences.
+    """Differentiate expr and replace Derivatives with finite differences.
 
     Parameters
-    ==========
-
+    ----------
     expr : expression
     \\*symbols : differentiate with respect to symbols
     points: sequence, coefficient or undefined function, optional
@@ -301,8 +286,7 @@ def differentiate_finite(expr, *symbols, points: int = 1, x0=None, wrt=None, eva
         see ``Derivative.as_finite_difference``
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sin, Function, differentiate_finite
     >>> from sympy.abc import x, y, h
     >>> f, g = Function('f'), Function('g')

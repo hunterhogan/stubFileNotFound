@@ -4,8 +4,7 @@ def qapply(e, **options):
     """Apply operators to states in a quantum expression.
 
     Parameters
-    ==========
-
+    ----------
     e : Expr
         The expression containing operators and states. This expression tree
         will be walked to find operators acting on states symbolically.
@@ -24,14 +23,12 @@ def qapply(e, **options):
           delta's that are created when calling ``qapply``.
 
     Returns
-    =======
-
+    -------
     e : Expr
         The original expression, but with the operators applied to states.
 
     Examples
-    ========
-
+    --------
         >>> from sympy.physics.quantum import qapply, Ket, Bra
         >>> b = Bra('b')
         >>> k = Ket('k')

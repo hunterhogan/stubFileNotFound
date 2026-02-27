@@ -1,4 +1,4 @@
-from sympy.assumptions.ask import Q as Q, ask as ask
+from sympy.assumptions.ask import ask as ask, Q as Q
 from sympy.assumptions.refine import handlers_dict as handlers_dict
 from sympy.core.basic import Basic as Basic
 from sympy.core.expr import Expr as Expr
@@ -13,8 +13,7 @@ class Determinant(Expr):
     Represents the determinant of a matrix expression.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatrixSymbol, Determinant, eye
     >>> A = MatrixSymbol('A', 3, 3)
     >>> Determinant(A)
@@ -22,6 +21,7 @@ class Determinant(Expr):
     >>> Determinant(eye(3)).doit()
     1
     """
+
     is_commutative: bool
     def __new__(cls, mat): ...
     @property
@@ -31,11 +31,10 @@ class Determinant(Expr):
     def doit(self, **hints): ...
 
 def det(matexpr):
-    """ Matrix Determinant
+    """Matrix Determinant
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatrixSymbol, det, eye
     >>> A = MatrixSymbol('A', 3, 3)
     >>> det(A)
@@ -50,8 +49,7 @@ class Permanent(Expr):
     Represents the permanent of a matrix expression.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatrixSymbol, Permanent, ones
     >>> A = MatrixSymbol('A', 3, 3)
     >>> Permanent(A)
@@ -59,17 +57,17 @@ class Permanent(Expr):
     >>> Permanent(ones(3, 3)).doit()
     6
     """
+
     def __new__(cls, mat): ...
     @property
     def arg(self): ...
     def doit(self, expand: bool = False, **hints): ...
 
 def per(matexpr):
-    """ Matrix Permanent
+    """Matrix Permanent
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatrixSymbol, Matrix, per, ones
     >>> A = MatrixSymbol('A', 3, 3)
     >>> per(A)

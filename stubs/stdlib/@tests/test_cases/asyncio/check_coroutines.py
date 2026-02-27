@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-import sys
 from asyncio import iscoroutinefunction
 from collections.abc import Awaitable, Callable, Coroutine
-from typing import Any
-from typing_extensions import assert_type
-
+from typing import Any, assert_type
+import sys
 
 def test_iscoroutinefunction_asyncio(
     x: Callable[[str, int], Coroutine[str, int, bytes]],

@@ -14,6 +14,7 @@ class CommutativePredicate(Predicate):
     object with respect to multiplication operation.
 
     """
+
     name: str
     handler: Incomplete
 
@@ -30,8 +31,7 @@ class IsTruePredicate(Predicate):
     sense if ``x`` is a boolean object.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ask, Q
     >>> from sympy.abc import x, y
     >>> ask(Q.is_true(True))
@@ -52,8 +52,7 @@ class IsTruePredicate(Predicate):
     Q.gt(x, y)
 
     Notes
-    =====
-
+    -----
     This class is designed to wrap the boolean objects so that they can
     behave as if they are applied predicates. Consequently, wrapping another
     applied predicate is unnecessary and thus it just returns the argument.
@@ -62,6 +61,7 @@ class IsTruePredicate(Predicate):
     to these applied predicates.
 
     """
+
     name: str
     handler: Incomplete
     def __call__(self, arg): ...

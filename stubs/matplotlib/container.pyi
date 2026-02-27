@@ -9,7 +9,7 @@ class Container(tuple):
     Containers are classes that collect semantically related Artists such as
     the bars of a bar plot.
     """
-    def __repr__(self) -> str: ...
+
     def __new__(cls, *args, **kwargs): ...
     _callbacks: Incomplete
     _remove_method: Incomplete
@@ -48,6 +48,7 @@ class BarContainer(Container):
         If 'horizontal', the bars are assumed to be horizontal.
 
     """
+
     patches: Incomplete
     errorbar: Incomplete
     datavalues: Incomplete
@@ -78,6 +79,7 @@ class ErrorbarContainer(Container):
         ``True`` if the errorbar has x/y errors.
 
     """
+
     lines: Incomplete
     has_xerr: Incomplete
     has_yerr: Incomplete
@@ -101,6 +103,7 @@ class StemContainer(Container):
     baseline : `~matplotlib.lines.Line2D`
         The artist of the horizontal baseline.
     """
+
     markerline: Incomplete
     stemlines: Incomplete
     baseline: Incomplete

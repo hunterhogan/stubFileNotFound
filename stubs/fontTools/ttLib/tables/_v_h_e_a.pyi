@@ -33,4 +33,3 @@ class table__v_h_e_a(DefaultTable.DefaultTable):
     caretOffset: Incomplete
     @reserved0.setter
     def reserved0(self, value) -> None: ...
-

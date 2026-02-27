@@ -4,9 +4,12 @@ from enum import Enum
 from matplotlib import _api as _api, _path as _path, _text_helpers as _text_helpers, cbook as cbook
 from matplotlib._afm import AFM as AFM
 from matplotlib._mathtext_data import uni2type1 as uni2type1
-from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, RendererBase as RendererBase, _Backend as _Backend
+from matplotlib.backend_bases import (
+	_Backend as _Backend, FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase,
+	RendererBase as RendererBase)
 from matplotlib.backends.backend_mixed import MixedModeRenderer as MixedModeRenderer
-from matplotlib.cbook import file_requires_unicode as file_requires_unicode, is_writable_file_like as is_writable_file_like
+from matplotlib.cbook import (
+	file_requires_unicode as file_requires_unicode, is_writable_file_like as is_writable_file_like)
 from matplotlib.font_manager import get_font as get_font
 from matplotlib.ft2font import LoadFlags as LoadFlags
 from matplotlib.path import Path as Path
@@ -165,6 +168,7 @@ class RendererPS(_backend_pdf_ps.RendererPDFPSBase):
     The renderer handles all the drawing primitives using a graphics
     context instance that controls the colors/styles.
     """
+
     _afm_font_dir: Incomplete
     _use_afm_rc_name: str
     _pswriter: Incomplete

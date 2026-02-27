@@ -1,4 +1,4 @@
-from sympy.core import Basic as Basic, Eq as Eq, Integer as Integer, Tuple as Tuple, diff as diff, expand as expand
+from sympy.core import Basic as Basic, diff as diff, Eq as Eq, expand as expand, Integer as Integer, Tuple as Tuple
 from sympy.core.numbers import Rational as Rational
 from sympy.core.singleton import S as S
 from sympy.core.sorting import ordered as ordered
@@ -17,8 +17,7 @@ class ImplicitRegion(Basic):
     Represents an implicit region in space.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Eq
     >>> from sympy.abc import x, y, z, t
     >>> from sympy.vector import ImplicitRegion
@@ -45,13 +44,13 @@ class ImplicitRegion(Basic):
     (-10, -10, 200)
 
     Parameters
-    ==========
-
+    ----------
     variables : tuple to map variables in implicit equation to base scalars.
 
     equation : An expression or Eq denoting the implicit equation of the region.
 
     """
+
     def __new__(cls, variables, equation): ...
     @property
     def variables(self): ...
@@ -60,12 +59,11 @@ class ImplicitRegion(Basic):
     @property
     def degree(self): ...
     def regular_point(self):
-        '''
+        """
         Returns a point on the implicit region.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y, z
         >>> from sympy.vector import ImplicitRegion
         >>> circle = ImplicitRegion((x, y), (x + 2)**2 + (y - 3)**2 - 16)
@@ -79,13 +77,12 @@ class ImplicitRegion(Basic):
         (-10, -10, 20)
 
         References
-        ==========
-
+        ----------
         - Erik Hillgarter, "Rational Points on Conics", Diploma Thesis, RISC-Linz,
           J. Kepler Universitat Linz, 1996. Available:
           https://www3.risc.jku.at/publications/download/risc_1355/Rational%20Points%20on%20Conics.pdf
 
-        '''
+        """
     def _regular_point_parabola(self, a, b, c, d, e, f): ...
     def _regular_point_ellipse(self, a, b, c, d, e, f): ...
     def singular_points(self):
@@ -96,8 +93,7 @@ class ImplicitRegion(Basic):
         where all partial derivatives vanish.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y
         >>> from sympy.vector import ImplicitRegion
         >>> I = ImplicitRegion((x, y), (y-1)**2 -x**3 + 2*x**2 -x)
@@ -113,8 +109,7 @@ class ImplicitRegion(Basic):
         if all the partial derivatives off to order m - 1 vanish there.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y, z
         >>> from sympy.vector import ImplicitRegion
         >>> I = ImplicitRegion((x, y, z), x**2 + y**3 - z**4)
@@ -125,12 +120,11 @@ class ImplicitRegion(Basic):
 
         """
     def rational_parametrization(self, parameters=('t', 's'), reg_point=None):
-        '''
+        """
         Returns the rational parametrization of implicit region.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Eq
         >>> from sympy.abc import x, y, z, s, t
         >>> from sympy.vector import ImplicitRegion
@@ -164,12 +158,11 @@ class ImplicitRegion(Basic):
         (0.75 - 0.5/(t**2 + 1), -0.5*t/(t**2 + 1))
 
         References
-        ==========
-
+        ----------
         - Christoph M. Hoffmann, "Conversion Methods between Parametric and
           Implicit Curves and Surfaces", Purdue e-Pubs, 1990. Available:
           https://docs.lib.purdue.edu/cgi/viewcontent.cgi?article=1827&context=cstech
 
-        '''
+        """
 
 def conic_coeff(variables, equation): ...

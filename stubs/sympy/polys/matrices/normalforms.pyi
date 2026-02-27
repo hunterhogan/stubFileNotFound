@@ -9,8 +9,7 @@ def smith_normal_form(m):
     This will only work if the ring is a principal ideal domain.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ZZ
     >>> from sympy.polys.matrices import DomainMatrix
     >>> from sympy.polys.matrices.normalforms import smith_normal_form
@@ -32,8 +31,7 @@ def invariant_factors(m):
     (as in the Smith-Normal form)
 
     References
-    ==========
-
+    ----------
     [1] https://en.wikipedia.org/wiki/Smith_normal_form#Algorithm
     [2] https://web.archive.org/web/20200331143852/https://sierra.nmsu.edu/morandi/notes/SmithNormalForm.pdf
 
@@ -43,8 +41,7 @@ def smith_normal_decomp(m):
     Return the Smith-Normal form decomposition of matrix `m`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ZZ
     >>> from sympy.polys.matrices import DomainMatrix
     >>> from sympy.polys.matrices.normalforms import smith_normal_decomp
@@ -80,24 +77,21 @@ def _hermite_normal_form(A):
     Compute the Hermite Normal Form of DomainMatrix *A* over :ref:`ZZ`.
 
     Parameters
-    ==========
-
+    ----------
     A : :py:class:`~.DomainMatrix` over domain :ref:`ZZ`.
 
     Returns
-    =======
-
+    -------
     :py:class:`~.DomainMatrix`
         The HNF of matrix *A*.
 
     Raises
-    ======
-
+    ------
     DMDomainError
         If the domain of the matrix is not :ref:`ZZ`.
 
     References
-    ==========
+    ----------
 
     .. [1] Cohen, H. *A Course in Computational Algebraic Number Theory.*
        (See Algorithm 2.4.5.)
@@ -117,8 +111,7 @@ def _hermite_normal_form_modulo_D(A, D):
     works mod *D* in order to prevent coefficient explosion.
 
     Parameters
-    ==========
-
+    ----------
     A : :py:class:`~.DomainMatrix` over :ref:`ZZ`
         $m \\times n$ matrix, having rank $m$.
     D : :ref:`ZZ`
@@ -126,14 +119,12 @@ def _hermite_normal_form_modulo_D(A, D):
         HNF of *A*.
 
     Returns
-    =======
-
+    -------
     :py:class:`~.DomainMatrix`
         The HNF of matrix *A*.
 
     Raises
-    ======
-
+    ------
     DMDomainError
         If the domain of the matrix is not :ref:`ZZ`, or
         if *D* is given but is not in :ref:`ZZ`.
@@ -142,7 +133,7 @@ def _hermite_normal_form_modulo_D(A, D):
         If the matrix has more rows than columns.
 
     References
-    ==========
+    ----------
 
     .. [1] Cohen, H. *A Course in Computational Algebraic Number Theory.*
        (See Algorithm 2.4.8.)
@@ -154,8 +145,7 @@ def hermite_normal_form(A, *, D=None, check_rank: bool = False):
     :ref:`ZZ`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ZZ
     >>> from sympy.polys.matrices import DomainMatrix
     >>> from sympy.polys.matrices.normalforms import hermite_normal_form
@@ -166,8 +156,7 @@ def hermite_normal_form(A, *, D=None, check_rank: bool = False):
     Matrix([[10, 0, 2], [0, 15, 3], [0, 0, 2]])
 
     Parameters
-    ==========
-
+    ----------
     A : $m \\times n$ ``DomainMatrix`` over :ref:`ZZ`.
 
     D : :ref:`ZZ`, optional
@@ -184,14 +173,12 @@ def hermite_normal_form(A, *, D=None, check_rank: bool = False):
         set *check_rank* to ``True``.
 
     Returns
-    =======
-
+    -------
     :py:class:`~.DomainMatrix`
         The HNF of matrix *A*.
 
     Raises
-    ======
-
+    ------
     DMDomainError
         If the domain of the matrix is not :ref:`ZZ`, or
         if *D* is given but is not in :ref:`ZZ`.
@@ -201,7 +188,7 @@ def hermite_normal_form(A, *, D=None, check_rank: bool = False):
         columns.
 
     References
-    ==========
+    ----------
 
     .. [1] Cohen, H. *A Course in Computational Algebraic Number Theory.*
        (See Algorithms 2.4.5 and 2.4.8.)

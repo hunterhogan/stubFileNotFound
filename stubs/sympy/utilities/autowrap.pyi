@@ -4,7 +4,10 @@ from sympy.core.function import Lambda as Lambda
 from sympy.core.relational import Eq as Eq
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol
 from sympy.tensor.indexed import Idx as Idx, IndexedBase as IndexedBase
-from sympy.utilities.codegen import C99CodeGen as C99CodeGen, CodeGenArgumentListError as CodeGenArgumentListError, InOutArgument as InOutArgument, InputArgument as InputArgument, OutputArgument as OutputArgument, Result as Result, ResultBase as ResultBase, get_code_generator as get_code_generator, make_routine as make_routine
+from sympy.utilities.codegen import (
+	C99CodeGen as C99CodeGen, CodeGenArgumentListError as CodeGenArgumentListError,
+	get_code_generator as get_code_generator, InOutArgument as InOutArgument, InputArgument as InputArgument,
+	make_routine as make_routine, OutputArgument as OutputArgument, Result as Result, ResultBase as ResultBase)
 from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
 from sympy.utilities.iterables import iterable as iterable
 from sympy.utilities.lambdify import implemented_function as implemented_function
@@ -15,6 +18,7 @@ class CodeWrapError(Exception): ...
 
 class CodeWrapper:
     """Base Class for code wrappers"""
+
     _filename: str
     _module_basename: str
     _module_counter: int
@@ -28,7 +32,7 @@ class CodeWrapper:
     quiet: Incomplete
     def __init__(self, generator, filepath=None, flags=[], verbose: bool = False) -> None:
         """
-        generator -- the code generator to use
+        Generator -- the code generator to use
         """
     @property
     def include_header(self): ...
@@ -39,7 +43,8 @@ class CodeWrapper:
     def _process_files(self, routine) -> None: ...
 
 class DummyWrapper(CodeWrapper):
-    """Class used for testing independent of backends """
+    """Class used for testing independent of backends"""
+
     template: str
     def _prepare_files(self, routine) -> None: ...
     def _generate_code(self, routine, helpers): ...
@@ -49,6 +54,7 @@ class DummyWrapper(CodeWrapper):
 
 class CythonCodeWrapper(CodeWrapper):
     """Wrapper that uses Cython"""
+
     setup_template: str
     _cythonize_options: Incomplete
     pyx_imports: str
@@ -62,14 +68,14 @@ class CythonCodeWrapper(CodeWrapper):
     _extra_link_args: Incomplete
     _need_numpy: bool
     def __init__(self, *args, **kwargs) -> None:
-        '''Instantiates a Cython code wrapper.
+        """Instantiates a Cython code wrapper.
 
         The following optional parameters get passed to ``setuptools.Extension``
         for building the Python extension module. Read its documentation to
         learn more.
 
         Parameters
-        ==========
+        ----------
         include_dirs : [list of strings]
             A list of directories to search for C/C++ header files (in Unix
             form for portability).
@@ -92,7 +98,7 @@ class CythonCodeWrapper(CodeWrapper):
         cythonize_options : [dictionary]
             Keyword arguments passed on to cythonize.
 
-        '''
+        """
     @property
     def command(self): ...
     def _prepare_files(self, routine, build_dir='.') -> None: ...
@@ -123,6 +129,7 @@ class CythonCodeWrapper(CodeWrapper):
 
 class F2PyCodeWrapper(CodeWrapper):
     """Wrapper that uses f2py"""
+
     def __init__(self, *args, **kwargs) -> None: ...
     @property
     def command(self): ...
@@ -138,11 +145,10 @@ def _validate_backend_language(backend, language) -> None:
     """Throws error if backend and language are incompatible"""
 @cacheit
 def autowrap(expr, language=None, backend: str = 'f2py', tempdir=None, args=None, flags=None, verbose: bool = False, helpers=None, code_gen=None, **kwargs):
-    '''Generates Python callable binaries based on the math expression.
+    """Generates Python callable binaries based on the math expression.
 
     Parameters
-    ==========
-
+    ----------
     expr
         The SymPy expression that should be wrapped as a binary routine.
     language : string, optional
@@ -193,8 +199,7 @@ def autowrap(expr, language=None, backend: str = 'f2py', tempdir=None, args=None
         \'extra_compile_args\'.
 
     Examples
-    ========
-
+    --------
     Basic usage:
 
     >>> from sympy.abc import x, y, z
@@ -233,7 +238,7 @@ def autowrap(expr, language=None, backend: str = 'f2py', tempdir=None, args=None
     >>> f_cython(np.array([1.0]), np.array([2.0]))
     array([ 3.])
 
-    '''
+    """
 def binary_function(symfunc, expr, **kwargs):
     """Returns a SymPy function with expr as binary implementation
 
@@ -242,8 +247,7 @@ def binary_function(symfunc, expr, **kwargs):
     with implemented_function().
 
     Parameters
-    ==========
-
+    ----------
     symfunc : SymPy Function
         The function to bind the callable to.
     expr : SymPy Expression
@@ -252,8 +256,7 @@ def binary_function(symfunc, expr, **kwargs):
         Any kwargs accepted by autowrap.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y
     >>> from sympy.utilities.autowrap import binary_function
     >>> expr = ((x - y)**(25)).expand()
@@ -276,6 +279,7 @@ _ufunc_setup: Incomplete
 
 class UfuncifyCodeWrapper(CodeWrapper):
     """Wrapper for Ufuncify"""
+
     def __init__(self, *args, **kwargs) -> None: ...
     @property
     def command(self): ...
@@ -306,11 +310,10 @@ class UfuncifyCodeWrapper(CodeWrapper):
 
 @cacheit
 def ufuncify(args, expr, language=None, backend: str = 'numpy', tempdir=None, flags=None, verbose: bool = False, helpers=None, **kwargs):
-    '''Generates a binary function that supports broadcasting on numpy arrays.
+    """Generates a binary function that supports broadcasting on numpy arrays.
 
     Parameters
-    ==========
-
+    ----------
     args : iterable
         Either a Symbol or an iterable of symbols. Specifies the argument
         sequence for the function.
@@ -345,8 +348,7 @@ def ufuncify(args, expr, language=None, backend: str = 'numpy', tempdir=None, fl
         backend is used and ignored if the `numpy` backend is used.
 
     Notes
-    =====
-
+    -----
     The default backend (\'numpy\') will create actual instances of
     ``numpy.ufunc``. These support ndimensional broadcasting, and implicit type
     conversion. Use of the other backends will result in a "ufunc-like"
@@ -354,13 +356,12 @@ def ufuncify(args, expr, language=None, backend: str = 'numpy', tempdir=None, fl
     arguments, and will not perform any type conversions.
 
     References
-    ==========
+    ----------
 
     .. [1] https://numpy.org/doc/stable/reference/ufuncs.html
 
     Examples
-    ========
-
+    --------
     Basic usage:
 
     >>> from sympy.utilities.autowrap import ufuncify
@@ -403,4 +404,4 @@ def ufuncify(args, expr, language=None, backend: str = 'numpy', tempdir=None, fl
     >>> f_cython(np.array([1.0]), np.array([2.0]))
     array([ 3.])
 
-    '''
+    """

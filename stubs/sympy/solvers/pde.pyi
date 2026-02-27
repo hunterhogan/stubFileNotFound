@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
 from sympy.core import Add as Add, S as S
-from sympy.core.function import AppliedUndef as AppliedUndef, Function as Function, Subs as Subs, expand as expand
+from sympy.core.function import AppliedUndef as AppliedUndef, expand as expand, Function as Function, Subs as Subs
 from sympy.core.relational import Eq as Eq, Equality as Equality
-from sympy.core.symbol import Symbol as Symbol, Wild as Wild, symbols as symbols
+from sympy.core.symbol import Symbol as Symbol, symbols as symbols, Wild as Wild
 from sympy.functions import exp as exp
 from sympy.integrals.integrals import Integral as Integral, integrate as integrate
 from sympy.simplify import simplify as simplify
@@ -15,7 +15,7 @@ from sympy.utilities.misc import filldedent as filldedent
 allhints: Incomplete
 
 def pdsolve(eq, func=None, hint: str = 'default', dict: bool = False, solvefun=None, **kwargs):
-    '''
+    """
     Solves any (supported) kind of partial differential equation.
 
     **Usage**
@@ -101,8 +101,7 @@ def pdsolve(eq, func=None, hint: str = 'default', dict: bool = False, solvefun=N
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.pde import pdsolve
     >>> from sympy import Function, Eq
     >>> from sympy.abc import x, y
@@ -114,7 +113,7 @@ def pdsolve(eq, func=None, hint: str = 'default', dict: bool = False, solvefun=N
     >>> pdsolve(eq)
     Eq(f(x, y), F(3*x - 2*y)*exp(-2*x/13 - 3*y/13))
 
-    '''
+    """
 def _helper_simplify(eq, hint, func, order, match, solvefun):
     """Helper function of pdsolve that calls the respective
     pde functions to solve for the partial differential
@@ -128,7 +127,7 @@ def _handle_Integral(expr, func, order, hint):
     Simplifies the integral mainly using doit()
     """
 def classify_pde(eq, func=None, dict: bool = False, *, prep: bool = True, **kwargs):
-    '''
+    """
     Returns a tuple of possible pdsolve() classifications for a PDE.
 
     The tuple is ordered so that first item is the classification that
@@ -152,8 +151,7 @@ def classify_pde(eq, func=None, dict: bool = False, *, prep: bool = True, **kwar
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.pde import classify_pde
     >>> from sympy import Function, Eq
     >>> from sympy.abc import x, y
@@ -164,7 +162,7 @@ def classify_pde(eq, func=None, dict: bool = False, *, prep: bool = True, **kwar
     >>> eq = Eq(1 + (2*(ux/u)) + (3*(uy/u)), 0)
     >>> classify_pde(eq)
     (\'1st_linear_constant_coeff_homogeneous\',)
-    '''
+    """
 def checkpdesol(pde, sol, func=None, solve_for_func: bool = True):
     """
     Checks if the given solution satisfies the partial differential
@@ -192,8 +190,7 @@ def checkpdesol(pde, sol, func=None, solve_for_func: bool = True):
     returns False, it may be due to the inability of doit() to simplify it to zero.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, symbols
     >>> from sympy.solvers.pde import checkpdesol, pdsolve
     >>> x, y = symbols('x y')
@@ -206,7 +203,7 @@ def checkpdesol(pde, sol, func=None, solve_for_func: bool = True):
     (False, (x*F(4*x - 3*y) - 6*F(4*x - 3*y)/25 + 4*Subs(Derivative(F(_xi_1), _xi_1), _xi_1, 4*x - 3*y))*exp(-6*x/25 - 8*y/25))
     """
 def pde_1st_linear_constant_coeff_homogeneous(eq, func, order, match, solvefun):
-    '''
+    """
     Solves a first order linear homogeneous
     partial differential equation with constant coefficients.
 
@@ -245,8 +242,7 @@ def pde_1st_linear_constant_coeff_homogeneous(eq, func, order, match, solvefun):
         f(x, y) = F(-a*y + b*x)*e
 
     Examples
-    ========
-
+    --------
     >>> from sympy import pdsolve
     >>> from sympy import Function, pprint
     >>> from sympy.abc import x,y
@@ -260,14 +256,13 @@ def pde_1st_linear_constant_coeff_homogeneous(eq, func, order, match, solvefun):
     f(x, y) = F(x - y)*e
 
     References
-    ==========
-
+    ----------
     - Viktor Grigoryan, "Partial Differential Equations"
       Math 124A - Fall 2010, pp.7
 
-    '''
+    """
 def pde_1st_linear_constant_coeff(eq, func, order, match, solvefun):
-    '''
+    """
     Solves a first order linear partial differential equation
     with constant coefficients.
 
@@ -325,8 +320,7 @@ def pde_1st_linear_constant_coeff(eq, func, order, match, solvefun):
                   \\\\                                 a  + b                         /         /|eta=-a*y + b*x, xi=a*x + b*y
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.pde import pdsolve
     >>> from sympy import Function, pprint, exp
     >>> from sympy.abc import x,y
@@ -336,14 +330,13 @@ def pde_1st_linear_constant_coeff(eq, func, order, match, solvefun):
     Eq(f(x, y), (F(4*x + 2*y)*exp(x/2) + exp(x + 4*y)/15)*exp(-y))
 
     References
-    ==========
-
+    ----------
     - Viktor Grigoryan, "Partial Differential Equations"
       Math 124A - Fall 2010, pp.7
 
-    '''
+    """
 def pde_1st_linear_variable_coeff(eq, func, order, match, solvefun):
-    '''
+    """
     Solves a first order linear partial differential equation
     with variable coefficients. The general form of this partial
     differential equation is
@@ -381,8 +374,7 @@ def pde_1st_linear_variable_coeff(eq, func, order, match, solvefun):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.pde import pdsolve
     >>> from sympy import Function, pprint
     >>> from sympy.abc import x,y
@@ -392,12 +384,11 @@ def pde_1st_linear_variable_coeff(eq, func, order, match, solvefun):
     Eq(f(x, y), F(x*y)*exp(y**2/2) + 1)
 
     References
-    ==========
-
+    ----------
     - Viktor Grigoryan, "Partial Differential Equations"
       Math 124A - Fall 2010, pp.7
 
-    '''
+    """
 def _simplify_variable_coeff(sol, syms, func, funcarg):
     """
     Helper function to replace constants by functions in 1st_linear_variable_coeff
@@ -419,8 +410,7 @@ def pde_separate(eq, fun, sep, strategy: str = 'mul'):
         default.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import E, Eq, Function, pde_separate, Derivative as D
     >>> from sympy.abc import x, t
     >>> u, X, T = map(Function, 'uXT')
@@ -434,7 +424,7 @@ def pde_separate(eq, fun, sep, strategy: str = 'mul'):
     [Derivative(X(x), (x, 2))/X(x), Derivative(T(t), (t, 2))/T(t)]
 
     See Also
-    ========
+    --------
     pde_separate_add, pde_separate_mul
     """
 def pde_separate_add(eq, fun, sep):
@@ -448,8 +438,7 @@ def pde_separate_add(eq, fun, sep):
     `w(x, y, z) = X(x) + y(y, z)`
 
     Examples
-    ========
-
+    --------
     >>> from sympy import E, Eq, Function, pde_separate_add, Derivative as D
     >>> from sympy.abc import x, t
     >>> u, X, T = map(Function, 'uXT')
@@ -470,8 +459,7 @@ def pde_separate_mul(eq, fun, sep):
     `w(x, y, z) = X(x)*u(y, z)`
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, Eq, pde_separate_mul, Derivative as D
     >>> from sympy.abc import x, y
     >>> u, X, Y = map(Function, 'uXY')

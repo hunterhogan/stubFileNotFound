@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-__all__ = ['greek_unicode', 'sub', 'sup', 'xsym', 'vobj', 'hobj', 'pretty_symbol', 'annotated', 'center_pad', 'center']
+__all__ = ['annotated', 'center', 'center_pad', 'greek_unicode', 'hobj', 'pretty_symbol', 'sub', 'sup', 'vobj', 'xsym']
 
 greek_unicode: Incomplete
 sub: Incomplete
@@ -9,17 +9,17 @@ sup: Incomplete
 def vobj(symb, height):
     """Construct vertical object of a given height
 
-       see: xobj
+    see: xobj
     """
 def hobj(symb, width):
     """Construct horizontal object of a given width
 
-       see: xobj
+    see: xobj
     """
 def xsym(sym):
-    """get symbology for a 'character'"""
+    """Get symbology for a 'character'"""
 def pretty_symbol(symb_name, bold_name: bool = False):
-    """return pretty representation of a symbol"""
+    """Return pretty representation of a symbol"""
 def annotated(letter):
     """
     Return a stylised drawing of the letter ``letter``, together with

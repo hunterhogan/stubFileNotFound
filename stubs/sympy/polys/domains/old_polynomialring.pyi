@@ -4,7 +4,7 @@ from sympy.polys.domains.ring import Ring
 from sympy.polys.polyclasses import DMF, DMP
 from sympy.utilities import public
 
-__all__ = ['PolynomialRingBase', 'GlobalPolynomialRing', 'PolynomialRing']
+__all__ = ['GlobalPolynomialRing', 'PolynomialRing', 'PolynomialRingBase']
 
 class PolynomialRingBase(Ring, CompositeDomain):
     """
@@ -15,6 +15,7 @@ class PolynomialRingBase(Ring, CompositeDomain):
 
     Do not instantiate.
     """
+
     has_assoc_Ring: bool
     has_assoc_Field: bool
     default_order: str
@@ -26,49 +27,48 @@ class PolynomialRingBase(Ring, CompositeDomain):
     order: Incomplete
     def __init__(self, dom, *gens, **opts) -> None: ...
     def set_domain(self, dom):
-        """Return a new polynomial ring with given domain. """
+        """Return a new polynomial ring with given domain."""
     def new(self, element): ...
     def _ground_new(self, element): ...
     def _from_dict(self, element): ...
-    def __str__(self) -> str: ...
     def __hash__(self): ...
     def __eq__(self, other):
-        """Returns ``True`` if two domains are equivalent. """
+        """Returns ``True`` if two domains are equivalent."""
     def from_ZZ(K1, a, K0):
-        """Convert a Python ``int`` object to ``dtype``. """
+        """Convert a Python ``int`` object to ``dtype``."""
     def from_ZZ_python(K1, a, K0):
-        """Convert a Python ``int`` object to ``dtype``. """
+        """Convert a Python ``int`` object to ``dtype``."""
     def from_QQ(K1, a, K0):
-        """Convert a Python ``Fraction`` object to ``dtype``. """
+        """Convert a Python ``Fraction`` object to ``dtype``."""
     def from_QQ_python(K1, a, K0):
-        """Convert a Python ``Fraction`` object to ``dtype``. """
+        """Convert a Python ``Fraction`` object to ``dtype``."""
     def from_ZZ_gmpy(K1, a, K0):
-        """Convert a GMPY ``mpz`` object to ``dtype``. """
+        """Convert a GMPY ``mpz`` object to ``dtype``."""
     def from_QQ_gmpy(K1, a, K0):
-        """Convert a GMPY ``mpq`` object to ``dtype``. """
+        """Convert a GMPY ``mpq`` object to ``dtype``."""
     def from_RealField(K1, a, K0):
-        """Convert a mpmath ``mpf`` object to ``dtype``. """
+        """Convert a mpmath ``mpf`` object to ``dtype``."""
     def from_AlgebraicField(K1, a, K0):
-        """Convert a ``ANP`` object to ``dtype``. """
+        """Convert a ``ANP`` object to ``dtype``."""
     def from_PolynomialRing(K1, a, K0):
-        """Convert a ``PolyElement`` object to ``dtype``. """
+        """Convert a ``PolyElement`` object to ``dtype``."""
     def from_GlobalPolynomialRing(K1, a, K0):
-        """Convert a ``DMP`` object to ``dtype``. """
+        """Convert a ``DMP`` object to ``dtype``."""
     def get_field(self):
-        """Returns a field associated with ``self``. """
+        """Returns a field associated with ``self``."""
     def poly_ring(self, *gens) -> None:
-        """Returns a polynomial ring, i.e. ``K[X]``. """
+        """Returns a polynomial ring, i.e. ``K[X]``."""
     def frac_field(self, *gens) -> None:
-        """Returns a fraction field, i.e. ``K(X)``. """
+        """Returns a fraction field, i.e. ``K(X)``."""
     def revert(self, a): ...
     def gcdex(self, a, b):
-        """Extended GCD of ``a`` and ``b``. """
+        """Extended GCD of ``a`` and ``b``."""
     def gcd(self, a, b):
-        """Returns GCD of ``a`` and ``b``. """
+        """Returns GCD of ``a`` and ``b``."""
     def lcm(self, a, b):
-        """Returns LCM of ``a`` and ``b``. """
+        """Returns LCM of ``a`` and ``b``."""
     def factorial(self, a):
-        """Returns factorial of ``a``. """
+        """Returns factorial of ``a``."""
     def _vector_to_sdm(self, v, order) -> None:
         """
         For internal use by the modules class.
@@ -85,8 +85,7 @@ class PolynomialRingBase(Ring, CompositeDomain):
         Convert a sparse distributed module into a list of length ``n``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ, ilex
         >>> from sympy.abc import x, y
         >>> R = QQ.old_poly_ring(x, y, order=ilex)
@@ -99,8 +98,7 @@ class PolynomialRingBase(Ring, CompositeDomain):
         Generate a free module of rank ``rank`` over ``self``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x
         >>> from sympy import QQ
         >>> QQ.old_poly_ring(x).free_module(2)
@@ -108,7 +106,8 @@ class PolynomialRingBase(Ring, CompositeDomain):
         """
 
 class GlobalPolynomialRing(PolynomialRingBase):
-    """A true polynomial ring, with objects DMP. """
+    """A true polynomial ring, with objects DMP."""
+
     is_PolynomialRing: bool
     is_Poly: bool
     dtype = DMP
@@ -118,8 +117,7 @@ class GlobalPolynomialRing(PolynomialRingBase):
         Convert a ``DMF`` object to ``DMP``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.polyclasses import DMP, DMF
         >>> from sympy.polys.domains import ZZ
         >>> from sympy.abc import x
@@ -136,22 +134,21 @@ class GlobalPolynomialRing(PolynomialRingBase):
 
         """
     def to_sympy(self, a):
-        """Convert ``a`` to a SymPy object. """
+        """Convert ``a`` to a SymPy object."""
     def from_sympy(self, a):
-        """Convert SymPy's expression to ``dtype``. """
+        """Convert SymPy's expression to ``dtype``."""
     def is_positive(self, a):
-        """Returns True if ``LC(a)`` is positive. """
+        """Returns True if ``LC(a)`` is positive."""
     def is_negative(self, a):
-        """Returns True if ``LC(a)`` is negative. """
+        """Returns True if ``LC(a)`` is negative."""
     def is_nonpositive(self, a):
-        """Returns True if ``LC(a)`` is non-positive. """
+        """Returns True if ``LC(a)`` is non-positive."""
     def is_nonnegative(self, a):
-        """Returns True if ``LC(a)`` is non-negative. """
+        """Returns True if ``LC(a)`` is non-negative."""
     def _vector_to_sdm(self, v, order):
         """
         Examples
-        ========
-
+        --------
         >>> from sympy import lex, QQ
         >>> from sympy.abc import x, y
         >>> R = QQ.old_poly_ring(x, y)
@@ -162,17 +159,18 @@ class GlobalPolynomialRing(PolynomialRingBase):
         """
 
 class GeneralizedPolynomialRing(PolynomialRingBase):
-    """A generalized polynomial ring, with objects DMF. """
+    """A generalized polynomial ring, with objects DMF."""
+
     dtype = DMF
     def new(self, a):
-        """Construct an element of ``self`` domain from ``a``. """
+        """Construct an element of ``self`` domain from ``a``."""
     def __contains__(self, a) -> bool: ...
     def to_sympy(self, a):
-        """Convert ``a`` to a SymPy object. """
+        """Convert ``a`` to a SymPy object."""
     def from_sympy(self, a):
-        """Convert SymPy's expression to ``dtype``. """
+        """Convert SymPy's expression to ``dtype``."""
     def exquo(self, a, b):
-        """Exact quotient of ``a`` and ``b``. """
+        """Exact quotient of ``a`` and ``b``."""
     def from_FractionField(K1, a, K0): ...
     def _vector_to_sdm(self, v, order):
         """
@@ -182,8 +180,7 @@ class GeneralizedPolynomialRing(PolynomialRingBase):
         polynomials.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ilex, QQ
         >>> from sympy.abc import x, y
         >>> R = QQ.old_poly_ring(x, y, order=ilex)
@@ -196,7 +193,7 @@ class GeneralizedPolynomialRing(PolynomialRingBase):
 
 @public
 def PolynomialRing(dom, *gens, **opts):
-    '''
+    """
     Create a generalized multivariate polynomial ring.
 
     A generalized polynomial ring is defined by a ground field `K`, a set
@@ -213,8 +210,7 @@ def PolynomialRing(dom, *gens, **opts):
     then we just have `S = K` and `R = K[x_1, \\ldots, x_n]`.
 
     Examples
-    ========
-
+    --------
     A few examples may make this clearer.
 
     >>> from sympy.abc import x, y
@@ -262,4 +258,4 @@ def PolynomialRing(dom, *gens, **opts):
 
     >>> test(R4)
     [True, False, False, True, False]
-    '''
+    """

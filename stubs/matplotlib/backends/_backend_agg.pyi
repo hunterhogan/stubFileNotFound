@@ -1,5 +1,5 @@
-import numpy
 from typing import overload
+import numpy
 
 class BufferRegion:
     def __init__(self, *args, **kwargs) -> None:

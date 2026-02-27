@@ -1,11 +1,12 @@
 from _typeshed import Incomplete
-from mpmath.ctx_mp_python import PythonMPContext, _mpc, _mpf
+from mpmath.ctx_mp_python import _mpc, _mpf, PythonMPContext
 from sympy.polys.domains.domainelement import DomainElement
 
-__all__ = ['RealElement', 'ComplexElement', 'MPContext']
+__all__ = ['ComplexElement', 'MPContext', 'RealElement']
 
 class RealElement(_mpf, DomainElement):
-    """An element of a real domain. """
+    """An element of a real domain."""
+
     __slots__: Incomplete
     __mpf__: Incomplete
     def _set_mpf(self, val) -> None: ...
@@ -13,7 +14,8 @@ class RealElement(_mpf, DomainElement):
     def parent(self): ...
 
 class ComplexElement(_mpc, DomainElement):
-    """An element of a complex domain. """
+    """An element of a complex domain."""
+
     __slots__: Incomplete
     __mpc__: Incomplete
     def _set_mpc(self, val) -> None: ...

@@ -15,8 +15,7 @@ class IndexedIntegral(Integral):
     ``IndexedBase`` is not yet supported.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.sandbox.indexed_integrals import IndexedIntegral
     >>> from sympy import IndexedBase, symbols
     >>> A = IndexedBase('A')
@@ -36,6 +35,7 @@ class IndexedIntegral(Integral):
     >>> i2.doit()
     A[i]*A[j]
     """
+
     def __new__(cls, function, *limits, **assumptions): ...
     def doit(self): ...
     @staticmethod

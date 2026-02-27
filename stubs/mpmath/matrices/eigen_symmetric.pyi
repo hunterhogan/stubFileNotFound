@@ -8,7 +8,8 @@ def r_sy_tridiag(ctx, A, D, E, calc_ev: bool = True) -> None:
           Q' * A * Q = T     (here ' denotes the matrix transpose).
     The orthogonal matrix Q is build up from Householder reflectors.
 
-    parameters:
+    Parameters
+    ----------
       A         (input/output) On input, A contains the real symmetric matrix of
                 dimension (n,n). On output, if calc_ev is true, A contains the
                 orthogonal matrix Q, otherwise A is destroyed.
@@ -42,7 +43,8 @@ def c_he_tridiag_0(ctx, A, D, E, T) -> None:
     The unitary matrix Q is build up from Householder reflectors and
     an unitary diagonal matrix.
 
-    parameters:
+    Parameters
+    ----------
       A         (input/output) On input, A contains the complex hermitian matrix
                 of dimension (n,n). On output, A contains the unitary matrix Q
                 in compressed form.
@@ -70,7 +72,8 @@ def c_he_tridiag_1(ctx, A, T) -> None:
     """
     This routine forms the unitary matrix Q described in c_he_tridiag_0.
 
-    parameters:
+    Parameters
+    ----------
       A    (input/output) On input, A is the same matrix as delivered by
            c_he_tridiag_0. On output, A is set to Q.
 
@@ -82,7 +85,8 @@ def c_he_tridiag_2(ctx, A, T, B) -> None:
     This routine applied the unitary matrix Q described in c_he_tridiag_0
     onto the the matrix B, i.e. it forms Q*B.
 
-    parameters:
+    Parameters
+    ----------
       A    (input) On input, A is the same matrix as delivered by c_he_tridiag_0.
 
       T    (input) On input, T is the same array as delivered by c_he_tridiag_0.
@@ -100,8 +104,8 @@ def tridiag_eigen(ctx, d, e, z: bool = False) -> None:
     eigenvectors of a real symmetric tridiagonal matrix using the implicit
     QL method.
 
-    parameters:
-
+    Parameters
+    ----------
       d (input/output) real array of length n. on input, d contains the diagonal
         elements of the input matrix. on output, d contains the eigenvalues in
         ascending order.
@@ -239,7 +243,7 @@ def eighe(ctx, A, eigvals_only: bool = False, overwrite_a: bool = False):
     see also: eigsy, eigh, eig
     """
 def eigh(ctx, A, eigvals_only: bool = False, overwrite_a: bool = False):
-    '''
+    """
     "eigh" is a unified interface for "eigsy" and "eighe". Depending on
     whether A is real or complex the appropriate function is called.
 
@@ -301,9 +305,9 @@ def eigh(ctx, A, eigvals_only: bool = False, overwrite_a: bool = False):
       [0.0]
 
     see also: eigsy, eighe, eig
-    '''
+    """
 def gauss_quadrature(ctx, n, qtype: str = 'legendre', alpha: int = 0, beta: int = 0):
-    '''
+    """
     This routine calulates gaussian quadrature rules for different
     families of orthogonal polynomials. Let (a, b) be an interval,
     W(x) a positive weight function and n a positive integer.
@@ -317,7 +321,8 @@ def gauss_quadrature(ctx, n, qtype: str = 'legendre', alpha: int = 0, beta: int 
     the integral. The x_k are called nodes (which are the zeros of the
     related orthogonal polynomials) and the w_k are called the weights.
 
-    parameters
+    Parameters
+    ----------
        n        (input) The degree of the quadrature rule, i.e. its number of
                 nodes.
 
@@ -353,7 +358,8 @@ def gauss_quadrature(ctx, n, qtype: str = 'legendre', alpha: int = 0, beta: int 
       "jacobi"        Jacobi polynomials, W(x)=(1-x)**alpha * (1+x)**beta on (-1, +1)
                       with alpha>-1 and beta>-1
 
-    examples:
+    Examples
+    --------
       >>> from mpmath import mp
       >>> f = lambda x: x**8 + 2 * x**6 - 3 * x**4 + 5 * x**2 - 7
       >>> X, W = mp.gauss_quadrature(5, "hermite")
@@ -378,7 +384,8 @@ def gauss_quadrature(ctx, n, qtype: str = 'legendre', alpha: int = 0, beta: int 
       >>> print(mp.chop(A, tol = 1e-10))
       0.0
 
-    references:
+    References
+    ----------
       - golub and welsch, "calculations of gaussian quadrature rules", mathematics of
         computation 23, p. 221-230 (1969)
       - golub, "some modified matrix eigenvalue problems", siam review 15, p. 318-334 (1973)
@@ -386,7 +393,7 @@ def gauss_quadrature(ctx, n, qtype: str = 'legendre', alpha: int = 0, beta: int 
 
     See also the routine gaussq.f in netlog.org or ACM Transactions on
     Mathematical Software algorithm 726.
-    '''
+    """
 def svd_r_raw(ctx, A, V: bool = False, calc_u: bool = False):
     """
     This routine computes the singular value decomposition of a matrix A.
@@ -410,7 +417,8 @@ def svd_r_raw(ctx, A, V: bool = False, calc_u: bool = False):
                     the array S. only the first min(m,n) diagonal elements are non-zero.
       V : n*n       orthogonal: V V' = V' V = 1
 
-    parameters:
+    Parameters
+    ----------
       A        (input/output) On input, A contains a real matrix of shape m*n.
                On output, if calc_u is true A contains the column-orthogonal
                matrix U; otherwise A is simply used as workspace and thus destroyed.
@@ -456,7 +464,8 @@ def svd_c_raw(ctx, A, V: bool = False, calc_u: bool = False):
                     the array S. only the first min(m,n) diagonal elements are non-zero.
       V : n*n       unitary: V V' = V' V = 1
 
-    parameters:
+    Parameters
+    ----------
       A        (input/output) On input, A contains a complex matrix of shape m*n.
                On output, if calc_u is true A contains the column-unitary
                matrix U; otherwise A is simply used as workspace and thus destroyed.
@@ -526,8 +535,8 @@ def svd_r(ctx, A, full_matrices: bool = False, compute_uv: bool = True, overwrit
         S as matrix : min(m,n)*min(m,n)
         V           : min(m,n)*n             V  V' = 1
 
-    examples:
-
+    Examples
+    --------
        >>> from mpmath import mp
        >>> A = mp.matrix([[2, -2, -1], [3, 4, -2], [-2, -2, 0]])
        >>> S = mp.svd_r(A, compute_uv = False)
@@ -612,7 +621,7 @@ def svd_c(ctx, A, full_matrices: bool = False, compute_uv: bool = True, overwrit
     see also: svd, svd_r
     """
 def svd(ctx, A, full_matrices: bool = False, compute_uv: bool = True, overwrite_a: bool = False):
-    '''
+    """
     "svd" is a unified interface for "svd_r" and "svd_c". Depending on
     whether A is real or complex the appropriate function is called.
 
@@ -664,8 +673,8 @@ def svd(ctx, A, full_matrices: bool = False, compute_uv: bool = True, overwrite_
         S as matrix : min(m,n)*min(m,n)
         V           : min(m,n)*n             V  V\' = 1
 
-    examples:
-
+    Examples
+    --------
        >>> from mpmath import mp
        >>> A = mp.matrix([[2, -2, -1], [3, 4, -2], [-2, -2, 0]])
        >>> S = mp.svd(A, compute_uv = False)
@@ -681,4 +690,4 @@ def svd(ctx, A, full_matrices: bool = False, compute_uv: bool = True, overwrite_
        [0.0  0.0  0.0]
 
     see also: svd_r, svd_c
-    '''
+    """

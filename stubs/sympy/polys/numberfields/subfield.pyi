@@ -14,8 +14,7 @@ def field_isomorphism(a, b, *, fast: bool = True):
     subfield of $\\mathbb{Q}(b)$. Thus, it solves the Subfield Problem.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sqrt, field_isomorphism, I
     >>> print(field_isomorphism(3, sqrt(2)))  # doctest: +SKIP
     [3]
@@ -23,8 +22,7 @@ def field_isomorphism(a, b, *, fast: bool = True):
     [2, 0]
 
     Parameters
-    ==========
-
+    ----------
     a : :py:class:`~.Expr`
         Any expression representing an algebraic number.
     b : :py:class:`~.Expr`
@@ -36,8 +34,7 @@ def field_isomorphism(a, b, *, fast: bool = True):
         return a result.
 
     Returns
-    =======
-
+    -------
     List of rational numbers, or None
         If $\\mathbb{Q}(a)$ is not isomorphic to some subfield of
         $\\mathbb{Q}(b)$, then return ``None``. Otherwise, return a list of
@@ -67,8 +64,7 @@ def primitive_element(extension, x=None, *, ex: bool = False, polys: bool = Fals
     $\\alpha_i$ as a $\\mathbb{Q}$-linear combination of the powers of $\\theta$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import primitive_element, sqrt, S, minpoly, simplify
     >>> from sympy.abc import x
     >>> f, lincomb, reps = primitive_element([sqrt(2), sqrt(3)], x, ex=True)
@@ -103,8 +99,7 @@ def primitive_element(extension, x=None, *, ex: bool = False, polys: bool = Fals
     sqrt(3)
 
     Parameters
-    ==========
-
+    ----------
     extension : list of :py:class:`~.Expr`
         Each expression must represent an algebraic number $\\alpha_i$.
     x : :py:class:`~.Symbol`, optional (default=None)
@@ -118,8 +113,7 @@ def primitive_element(extension, x=None, *, ex: bool = False, polys: bool = Fals
         Otherwise return it as an :py:class:`~.Expr`.
 
     Returns
-    =======
-
+    -------
     Pair (f, coeffs) or triple (f, coeffs, reps), where:
         ``f`` is the minimal polynomial for the primitive element.
         ``coeffs`` gives the primitive element as a linear combination of the
@@ -152,8 +146,7 @@ def to_number_field(extension, theta=None, *, gen=None, alias=None):
     Problem, using :py:func:`~.primitive_element` on the list of $\\alpha_i$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sqrt, to_number_field
     >>> eta = sqrt(2)
     >>> theta = sqrt(2) + sqrt(3)
@@ -172,8 +165,7 @@ def to_number_field(extension, theta=None, *, gen=None, alias=None):
     $\\mathbb{Q}$-linear combination in falling powers of $\\theta$.
 
     Parameters
-    ==========
-
+    ----------
     extension : :py:class:`~.Expr` or list of :py:class:`~.Expr`
         Either the algebraic number that is to be expressed in the other field,
         or else a list of algebraic numbers, a primitive element for which is
@@ -192,20 +184,17 @@ def to_number_field(extension, theta=None, *, gen=None, alias=None):
         :py:class:`~.AlgebraicNumber`.
 
     Returns
-    =======
-
+    -------
     AlgebraicNumber
         Belonging to $\\mathbb{Q}(\\theta)$ and equaling $\\eta$.
 
     Raises
-    ======
-
+    ------
     IsomorphismFailed
         If $\\eta \\not\\in \\mathbb{Q}(\\theta)$.
 
     See Also
-    ========
-
+    --------
     field_isomorphism
     primitive_element
 

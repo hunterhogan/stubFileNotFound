@@ -1,9 +1,8 @@
+from . import refactor as refactor
 from _typeshed import FileDescriptorOrPath
 from collections.abc import Container, Iterable, Iterator, Mapping, Sequence
 from logging import _ExcInfoType
 from typing import AnyStr, Literal
-
-from . import refactor as refactor
 
 def diff_texts(a: str, b: str, filename: str) -> Iterator[str]: ...
 

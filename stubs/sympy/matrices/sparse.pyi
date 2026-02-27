@@ -1,7 +1,11 @@
-from .decompositions import _LDLdecomposition_sparse as _LDLdecomposition_sparse, _cholesky_sparse as _cholesky_sparse, _liupc as _liupc, _row_structure_symbolic_cholesky as _row_structure_symbolic_cholesky
+from .decompositions import (
+	_cholesky_sparse as _cholesky_sparse, _LDLdecomposition_sparse as _LDLdecomposition_sparse, _liupc as _liupc,
+	_row_structure_symbolic_cholesky as _row_structure_symbolic_cholesky)
 from .matrixbase import MatrixBase as MatrixBase
 from .repmatrix import MutableRepMatrix as MutableRepMatrix, RepMatrix as RepMatrix
-from .solvers import _lower_triangular_solve_sparse as _lower_triangular_solve_sparse, _upper_triangular_solve_sparse as _upper_triangular_solve_sparse
+from .solvers import (
+	_lower_triangular_solve_sparse as _lower_triangular_solve_sparse,
+	_upper_triangular_solve_sparse as _upper_triangular_solve_sparse)
 from .utilities import _iszero as _iszero
 from _typeshed import Incomplete
 from sympy.core.containers import Dict as Dict
@@ -14,8 +18,7 @@ class SparseRepMatrix(RepMatrix):
     A sparse matrix (a matrix with a large number of zero elements).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import SparseMatrix, ones
     >>> SparseMatrix(2, 2, range(4))
     Matrix([
@@ -89,11 +92,12 @@ class SparseRepMatrix(RepMatrix):
     ValueError: collision at (1, 1)
 
     See Also
-    ========
+    --------
     DenseMatrix
     MutableSparseMatrix
     ImmutableSparseMatrix
     """
+
     @classmethod
     def _handle_creation_inputs(cls, *args, **kwargs): ...
     @property
@@ -103,8 +107,7 @@ class SparseRepMatrix(RepMatrix):
         """Apply a function to each element of the matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import SparseMatrix
         >>> m = SparseMatrix(2, 2, lambda i, j: i*2+j)
         >>> m
@@ -123,8 +126,7 @@ class SparseRepMatrix(RepMatrix):
         """Returns a mutable version of this matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ImmutableMatrix
         >>> X = ImmutableMatrix([[1, 2], [3, 4]])
         >>> Y = X.as_mutable()
@@ -138,8 +140,7 @@ class SparseRepMatrix(RepMatrix):
         """Returns a column-sorted list of non-zero elements of the matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import SparseMatrix
         >>> a=SparseMatrix(((1, 2), (3, 4)))
         >>> a
@@ -150,8 +151,7 @@ class SparseRepMatrix(RepMatrix):
         [(0, 0, 1), (1, 0, 3), (0, 1, 2), (1, 1, 4)]
 
         See Also
-        ========
-
+        --------
         sympy.matrices.sparse.SparseMatrix.row_list
         """
     def nnz(self):
@@ -160,8 +160,7 @@ class SparseRepMatrix(RepMatrix):
         """Returns a row-sorted list of non-zero elements of the matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import SparseMatrix
         >>> a = SparseMatrix(((1, 2), (3, 4)))
         >>> a
@@ -172,8 +171,7 @@ class SparseRepMatrix(RepMatrix):
         [(0, 0, 1), (0, 1, 2), (1, 0, 3), (1, 1, 4)]
 
         See Also
-        ========
-
+        --------
         sympy.matrices.sparse.SparseMatrix.col_list
         """
     def scalar_multiply(self, scalar):
@@ -186,8 +184,7 @@ class SparseRepMatrix(RepMatrix):
         available, see the docstring of the .inv() method.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import SparseMatrix, Matrix, ones
         >>> A = Matrix([1, 2, 3])
         >>> B = Matrix([2, 3, 4])

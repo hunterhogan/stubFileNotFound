@@ -1,5 +1,5 @@
-import math
 from _typeshed import Incomplete
+import math
 
 _small_trailing: Incomplete
 
@@ -64,8 +64,7 @@ def _lucas_sequence(n, P, Q, k):
     especially in the Lucas compositeness tests and the various n + 1 proofs.
 
     Parameters
-    ==========
-
+    ----------
     n : int
         n is an odd number greater than or equal to 3
     P : int
@@ -75,21 +74,19 @@ def _lucas_sequence(n, P, Q, k):
         k is a nonnegative integer
 
     Returns
-    =======
-
+    -------
     U, V, Qk : (int, int, int)
         `(U_k \\bmod{n}, V_k \\bmod{n}, Q^k \\bmod{n})`
 
     Examples
-    ========
-
+    --------
     >>> from sympy.external.ntheory import _lucas_sequence
     >>> N = 10**2000 + 4561
     >>> sol = U, V, Qk = _lucas_sequence(N, 3, 1, N//2); sol
     (0, 2, 1)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Lucas_sequence
 
@@ -97,7 +94,7 @@ def _lucas_sequence(n, P, Q, k):
 def is_fibonacci_prp(n, p, q): ...
 def is_lucas_prp(n, p, q): ...
 def _is_selfridge_prp(n):
-    '''Lucas compositeness test with the Selfridge parameters for n.
+    """Lucas compositeness test with the Selfridge parameters for n.
 
     Explanation
     ===========
@@ -114,14 +111,14 @@ def _is_selfridge_prp(n):
     ``Q`` is determined to be ``(P**2 - D)//4``.
 
     References
-    ==========
+    ----------
 
     .. [1] Robert Baillie, Samuel S. Wagstaff, Lucas Pseudoprimes,
            Math. Comp. Vol 35, Number 152 (1980), pp. 1391-1417,
            https://doi.org/10.1090%2FS0025-5718-1980-0583518-6
            http://mpqs.free.fr/LucasPseudoprimes.pdf
 
-    '''
+    """
 def is_selfridge_prp(n): ...
 def is_strong_lucas_prp(n, p, q): ...
 def _is_strong_selfridge_prp(n): ...

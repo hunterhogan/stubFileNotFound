@@ -371,4 +371,3 @@ def glyphLibValidator(value: Any) -> tuple[bool, str | None]:
     >>> print(msg)
     public.markColor is not properly formatted.
     """
-

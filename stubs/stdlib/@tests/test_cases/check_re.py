@@ -1,10 +1,9 @@
 from __future__ import annotations
 
+from re import Match
+from typing import AnyStr, assert_type, Optional
 import mmap
 import re
-from typing import AnyStr, Match, Optional
-from typing_extensions import assert_type
-
 
 def check_search(str_pat: re.Pattern[str], bytes_pat: re.Pattern[bytes]) -> None:
     assert_type(str_pat.search("x"), Optional[Match[str]])

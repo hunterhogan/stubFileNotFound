@@ -1,5 +1,5 @@
 from sympy.core import Dummy as Dummy, S as S, symbols as symbols
-from sympy.polys import Poly as Poly, factor as factor, parallel_poly_from_expr as parallel_poly_from_expr
+from sympy.polys import factor as factor, parallel_poly_from_expr as parallel_poly_from_expr, Poly as Poly
 from sympy.utilities.iterables import is_sequence as is_sequence
 
 def gosper_normal(f, g, n, polys: bool = True):
@@ -31,8 +31,7 @@ def gosper_normal(f, g, n, polys: bool = True):
     factorization in the form ``(Z*A, B, C)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.concrete.gosper import gosper_normal
     >>> from sympy.abc import n
 
@@ -56,8 +55,7 @@ def gosper_term(f, n):
     term `g_n` such that `g_{n+1} - g_n = f_n`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.concrete.gosper import gosper_term
     >>> from sympy import factorial
     >>> from sympy.abc import n
@@ -83,8 +81,7 @@ def gosper_sum(f, k):
     in closed form as a sum of hypergeometric terms.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.concrete.gosper import gosper_sum
     >>> from sympy import factorial
     >>> from sympy.abc import n, k
@@ -100,7 +97,7 @@ def gosper_sum(f, k):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] Marko Petkovsek, Herbert S. Wilf, Doron Zeilberger, A = B,
            AK Peters, Ltd., Wellesley, MA, USA, 1997, pp. 73--100

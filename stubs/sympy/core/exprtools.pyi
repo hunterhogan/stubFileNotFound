@@ -4,8 +4,8 @@ from .containers import Dict as Dict, Tuple as Tuple
 from .coreerrors import NonCommutativeExpression as NonCommutativeExpression
 from .expr import Expr as Expr
 from .function import expand_power_exp as expand_power_exp
-from .mul import Mul as Mul, _keep_coeff as _keep_coeff
-from .numbers import I as I, Integer as Integer, Number as Number, Rational as Rational, equal_valued as equal_valued
+from .mul import _keep_coeff as _keep_coeff, Mul as Mul
+from .numbers import equal_valued as equal_valued, I as I, Integer as Integer, Number as Number, Rational as Rational
 from .power import Pow as Pow
 from .singleton import S as S
 from .sorting import default_sort_key as default_sort_key, ordered as ordered
@@ -14,7 +14,9 @@ from .sympify import sympify as sympify
 from .traversal import preorder_traversal as preorder_traversal
 from _typeshed import Incomplete
 from sympy.external.gmpy import SYMPY_INTS as SYMPY_INTS
-from sympy.utilities.iterables import common_prefix as common_prefix, common_suffix as common_suffix, is_sequence as is_sequence, iterable as iterable, variations as variations
+from sympy.utilities.iterables import (
+	common_prefix as common_prefix, common_suffix as common_suffix, is_sequence as is_sequence, iterable as iterable,
+	variations as variations)
 
 _eps: Incomplete
 
@@ -39,8 +41,7 @@ def _monotonic_sign(self):
     - P(x): a univariate polynomial
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.exprtools import _monotonic_sign as F
     >>> from sympy import Dummy
     >>> nn = Dummy(integer=True, nonnegative=True)
@@ -61,8 +62,7 @@ def decompose_power(expr: Expr) -> tuple[Expr, int]:
     Decompose power into symbolic base and integer exponent.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.exprtools import decompose_power
     >>> from sympy.abc import x, y
     >>> from sympy import exp
@@ -82,8 +82,7 @@ def decompose_power_rat(expr: Expr) -> tuple[Expr, Rational]:
     integer coefficient.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.exprtools import decompose_power_rat
     >>> from sympy.abc import x
     >>> from sympy import sqrt, exp
@@ -97,6 +96,7 @@ def decompose_power_rat(expr: Expr) -> tuple[Expr, Rational]:
 
 class Factors:
     """Efficient representation of ``f_1*f_2*...*f_n``."""
+
     __slots__: Incomplete
     factors: Incomplete
     gens: Incomplete
@@ -104,8 +104,7 @@ class Factors:
         """Initialize Factors from dict or expr.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.core.exprtools import Factors
         >>> from sympy.abc import x
         >>> from sympy import I
@@ -125,14 +124,12 @@ class Factors:
         Factors({I: 1})
 
         Notes
-        =====
-
+        -----
         Although a dictionary can be passed, only minimal checking is
         performed: powers of -1 and I are made canonical.
 
         """
     def __hash__(self): ...
-    def __repr__(self) -> str: ...
     @property
     def is_zero(self):
         """
@@ -151,8 +148,7 @@ class Factors:
         """Return the underlying expression.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.core.exprtools import Factors
         >>> from sympy.abc import x, y
         >>> Factors((x*y**2).as_powers_dict()).as_expr()
@@ -163,8 +159,7 @@ class Factors:
         """Return Factors of ``self * other``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.core.exprtools import Factors
         >>> from sympy.abc import x, y, z
         >>> a = Factors((x*y**2).as_powers_dict())
@@ -181,7 +176,7 @@ class Factors:
         2) this does not raise an error if ``other`` is zero.
 
         See Also
-        ========
+        --------
         div
 
         """
@@ -190,8 +185,7 @@ class Factors:
         This is optimized for the case when there are many factors in common.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.core.exprtools import Factors
         >>> from sympy.abc import x, y, z
         >>> from sympy import S
@@ -235,8 +229,7 @@ class Factors:
         """Return numerator Factor of ``self / other``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.core.exprtools import Factors
         >>> from sympy.abc import x, y, z
         >>> a = Factors((x*y**2).as_powers_dict())
@@ -248,8 +241,7 @@ class Factors:
         """Return denominator Factors of ``self / other``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.core.exprtools import Factors
         >>> from sympy.abc import x, y, z
         >>> a = Factors((x*y**2).as_powers_dict())
@@ -263,8 +255,7 @@ class Factors:
         """Return self raised to a non-negative integer power.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.core.exprtools import Factors
         >>> from sympy.abc import x, y
         >>> a = Factors((x*y**2).as_powers_dict())
@@ -278,8 +269,7 @@ class Factors:
         each factor.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.core.exprtools import Factors
         >>> from sympy.abc import x, y, z
         >>> a = Factors((x*y**2).as_powers_dict())
@@ -293,8 +283,7 @@ class Factors:
         each factor.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.core.exprtools import Factors
         >>> from sympy.abc import x, y, z
         >>> a = Factors((x*y**2).as_powers_dict())
@@ -311,14 +300,14 @@ class Factors:
     def __ne__(self, other): ...
 
 class Term:
-    """Efficient representation of ``coeff*(numer/denom)``. """
+    """Efficient representation of ``coeff*(numer/denom)``."""
+
     __slots__: Incomplete
     coeff: Incomplete
     numer: Incomplete
     denom: Incomplete
     def __init__(self, term, numer=None, denom=None) -> None: ...
     def __hash__(self): ...
-    def __repr__(self) -> str: ...
     def as_expr(self): ...
     def mul(self, other): ...
     def inv(self): ...
@@ -336,8 +325,7 @@ def _gcd_terms(terms, isprimitive: bool = False, fraction: bool = True):
     """Helper function for :func:`gcd_terms`.
 
     Parameters
-    ==========
-
+    ----------
     isprimitive : boolean, optional
         If ``isprimitive`` is True then the call to primitive
         for an Add will be skipped. This is useful when the
@@ -351,8 +339,7 @@ def gcd_terms(terms, isprimitive: bool = False, clear: bool = True, fraction: bo
     """Compute the GCD of ``terms`` and put them together.
 
     Parameters
-    ==========
-
+    ----------
     terms : Expr
         Can be an expression or a non-Basic sequence of expressions
         which will be handled as though they are terms from a sum.
@@ -372,8 +359,7 @@ def gcd_terms(terms, isprimitive: bool = False, clear: bool = True, fraction: bo
         denominator.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import gcd_terms
     >>> from sympy.abc import x, y
 
@@ -403,8 +389,7 @@ def gcd_terms(terms, isprimitive: bool = False, clear: bool = True, fraction: bo
     expression was a rational expression, not a simple sum.
 
     See Also
-    ========
-
+    --------
     factor_terms, sympy.polys.polytools.terms_gcd
 
     """
@@ -415,8 +400,7 @@ def _factor_sum_int(expr, **kwargs):
     object will be separated into two objects.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Sum, factor_terms
     >>> from sympy.abc import x, y
     >>> factor_terms(Sum(x + y, (x, 1, 3)))
@@ -425,8 +409,7 @@ def _factor_sum_int(expr, **kwargs):
     y*Sum(x, (x, 1, 3))
 
     Notes
-    =====
-
+    -----
     If a function in the summand or integrand is replaced
     with a symbol, then this simplification should not be
     done or else an incorrect result will be obtained when
@@ -445,8 +428,7 @@ def factor_terms(expr: Expr | complex, radical: bool = False, clear: bool = Fals
     simplification (and no processing of non-commutatives) is performed.
 
     Parameters
-    ==========
-
+    ----------
     radical: bool, optional
         If radical=True then a radical common to all terms will be factored
         out of any Add sub-expressions of the expr.
@@ -465,8 +447,7 @@ def factor_terms(expr: Expr | complex, radical: bool = False, clear: bool = Fals
         it will be factored out of the expression.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import factor_terms, Symbol
     >>> from sympy.abc import x, y
     >>> factor_terms(x + x*(2 + 4*y)**3)
@@ -495,8 +476,7 @@ def factor_terms(expr: Expr | complex, radical: bool = False, clear: bool = Fals
     -2*(x + y)
 
     See Also
-    ========
-
+    --------
     gcd_terms, sympy.polys.polytools.terms_gcd
 
     """
@@ -522,16 +502,14 @@ def _mask_nc(eq, name=None):
     track of the ordering of symbols when they occur within Muls.
 
     Parameters
-    ==========
-
+    ----------
     name : str
         ``name``, if given, is the name that will be used with numbered Dummy
         variables that will replace the non-commutative objects and is mainly
         used for doctesting purposes.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.secondquant import Commutator, NO, F, Fd
     >>> from sympy import symbols
     >>> from sympy.core.exprtools import _mask_nc
@@ -573,8 +551,7 @@ def factor_nc(expr):
     expressions.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import factor_nc, Symbol
     >>> from sympy.abc import x
     >>> A = Symbol('A', commutative=False)

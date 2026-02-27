@@ -1,4 +1,4 @@
-__all__ = ['refraction_angle', 'deviation', 'fresnel_coefficients', 'brewster_angle', 'critical_angle', 'lens_makers_formula', 'mirror_formula', 'lens_formula', 'hyperfocal_distance', 'transverse_magnification']
+__all__ = ['brewster_angle', 'critical_angle', 'deviation', 'fresnel_coefficients', 'hyperfocal_distance', 'lens_formula', 'lens_makers_formula', 'mirror_formula', 'refraction_angle', 'transverse_magnification']
 
 def refraction_angle(incident, medium1, medium2, normal=None, plane=None):
     """
@@ -17,8 +17,7 @@ def refraction_angle(incident, medium1, medium2, normal=None, plane=None):
     and ``normal`` is not `Ray3D`, output will be a `Matrix`.
 
     Parameters
-    ==========
-
+    ----------
     incident : Matrix, Ray3D, sequence or a number
         Incident vector or angle of incidence
     medium1 : sympy.physics.optics.medium.Medium or sympifiable
@@ -31,13 +30,11 @@ def refraction_angle(incident, medium1, medium2, normal=None, plane=None):
         Plane of separation of the two media.
 
     Returns
-    =======
-
+    -------
     Returns an angle of refraction or a refracted ray depending on inputs.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import refraction_angle
     >>> from sympy.geometry import Point3D, Ray3D, Plane
     >>> from sympy.matrices import Matrix
@@ -79,8 +76,7 @@ def fresnel_coefficients(angle_of_incidence, medium1, medium2):
     sympifiable object.
 
     Parameters
-    ==========
-
+    ----------
     angle_of_incidence : sympifiable
 
     medium1 : Medium or sympifiable
@@ -90,8 +86,7 @@ def fresnel_coefficients(angle_of_incidence, medium1, medium2):
         Medium 2 or its refractive index
 
     Returns
-    =======
-
+    -------
     Returns a list with four real Fresnel coefficients:
     [reflection p (TM), reflection s (TE),
     transmission p (TM), transmission s (TE)]
@@ -100,8 +95,7 @@ def fresnel_coefficients(angle_of_incidence, medium1, medium2):
     [reflection p (TM), reflection s (TE)]
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import fresnel_coefficients
     >>> fresnel_coefficients(0.3, 1, 2)
     [0.317843553417859, -0.348645229818821,
@@ -111,7 +105,7 @@ def fresnel_coefficients(angle_of_incidence, medium1, medium2):
              0.816477005968898 - 0.577377951366403*I]
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Fresnel_equations
     """
@@ -121,8 +115,7 @@ def deviation(incident, medium1, medium2, normal=None, plane=None):
     due to refraction at planar surface.
 
     Parameters
-    ==========
-
+    ----------
     incident : Matrix, Ray3D, sequence or float
         Incident vector or angle of incidence
     medium1 : sympy.physics.optics.medium.Medium or sympifiable
@@ -137,8 +130,7 @@ def deviation(incident, medium1, medium2, normal=None, plane=None):
     Returns angular deviation between incident and refracted rays
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import deviation
     >>> from sympy.geometry import Point3D, Ray3D, Plane
     >>> from sympy.matrices import Matrix
@@ -160,16 +152,14 @@ def brewster_angle(medium1, medium2):
     Medium 1 in radians.
 
     Parameters
-    ==========
-
+    ----------
     medium 1 : Medium or sympifiable
         Refractive index of Medium 1
     medium 2 : Medium or sympifiable
         Refractive index of Medium 1
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import brewster_angle
     >>> brewster_angle(1, 1.33)
     0.926093295503462
@@ -181,16 +171,14 @@ def critical_angle(medium1, medium2):
     of total internal) to Medium 2 from Medium 1 in radians.
 
     Parameters
-    ==========
-
+    ----------
     medium 1 : Medium or sympifiable
         Refractive index of Medium 1.
     medium 2 : Medium or sympifiable
         Refractive index of Medium 1.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import critical_angle
     >>> critical_angle(1.33, 1)
     0.850908514477849
@@ -202,8 +190,7 @@ def lens_makers_formula(n_lens, n_surr, r1, r2, d: int = 0):
     It follows cartesian sign convention.
 
     Parameters
-    ==========
-
+    ----------
     n_lens : Medium or sympifiable
         Index of refraction of lens.
     n_surr : Medium or sympifiable
@@ -216,8 +203,7 @@ def lens_makers_formula(n_lens, n_surr, r1, r2, d: int = 0):
         Thickness of lens, default value is 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import lens_makers_formula
     >>> from sympy import S
     >>> lens_makers_formula(1.33, 1, 10, -10)
@@ -235,8 +221,7 @@ def mirror_formula(focal_length=None, u=None, v=None):
     This is valid only for paraxial rays.
 
     Parameters
-    ==========
-
+    ----------
     focal_length : sympifiable
         Focal length of the mirror.
     u : sympifiable
@@ -247,8 +232,7 @@ def mirror_formula(focal_length=None, u=None, v=None):
         on the principal axis.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import mirror_formula
     >>> from sympy.abc import f, u, v
     >>> mirror_formula(focal_length=f, u=u)
@@ -266,8 +250,7 @@ def lens_formula(focal_length=None, u=None, v=None):
     This is valid only for paraxial rays.
 
     Parameters
-    ==========
-
+    ----------
     focal_length : sympifiable
         Focal length of the mirror.
     u : sympifiable
@@ -278,8 +261,7 @@ def lens_formula(focal_length=None, u=None, v=None):
         on the principal axis.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import lens_formula
     >>> from sympy.abc import f, u, v
     >>> lens_formula(focal_length=f, u=u)
@@ -294,8 +276,7 @@ def hyperfocal_distance(f, N, c):
     """
 
     Parameters
-    ==========
-
+    ----------
     f: sympifiable
         Focal length of a given lens.
 
@@ -319,8 +300,7 @@ def transverse_magnification(si, so):
     which is the ratio of the image size to the object size.
 
     Parameters
-    ==========
-
+    ----------
     so: sympifiable
         Lens-object distance.
 

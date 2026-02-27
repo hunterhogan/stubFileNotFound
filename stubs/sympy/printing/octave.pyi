@@ -13,6 +13,7 @@ class OctaveCodePrinter(CodePrinter):
     """
     A printer to convert expressions to strings of Octave/Matlab code.
     """
+
     printmethod: str
     language: str
     _operators: Incomplete
@@ -79,13 +80,12 @@ class OctaveCodePrinter(CodePrinter):
         """Accepts a string of code or a list of code lines"""
 
 def octave_code(expr, assign_to=None, **settings):
-    '''Converts `expr` to a string of Octave (or Matlab) code.
+    """Converts `expr` to a string of Octave (or Matlab) code.
 
     The string uses a subset of the Octave language for Matlab compatibility.
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
         A SymPy expression to be converted.
     assign_to : optional
@@ -116,8 +116,7 @@ def octave_code(expr, assign_to=None, **settings):
         statements.  [default=True].
 
     Examples
-    ========
-
+    --------
     >>> from sympy import octave_code, symbols, sin, pi
     >>> x = symbols(\'x\')
     >>> octave_code(sin(x).series(x).removeO())
@@ -213,7 +212,7 @@ def octave_code(expr, assign_to=None, **settings):
     >>> e = Eq(Dy[i], (y[i+1]-y[i])/(t[i+1]-t[i]))
     >>> octave_code(e.rhs, assign_to=e.lhs, contract=False)
     \'Dy(i) = (y(i + 1) - y(i))./(t(i + 1) - t(i));\'
-    '''
+    """
 def print_octave_code(expr, **settings) -> None:
     """Prints the Octave (or Matlab) representation of the given expression.
 

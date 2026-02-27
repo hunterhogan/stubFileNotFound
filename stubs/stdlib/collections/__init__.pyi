@@ -1,23 +1,13 @@
-import sys
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import SupportsItems, SupportsKeysAndGetItem, SupportsRichComparison, SupportsRichComparisonT
 from types import GenericAlias
-from typing import Any, ClassVar, Generic, NoReturn, SupportsIndex, TypeVar, final, overload, type_check_only
-from typing_extensions import Self, disjoint_base
+from typing import Any, ClassVar, final, Generic, NoReturn, overload, Self, SupportsIndex, type_check_only, TypeVar
+from typing_extensions import disjoint_base
+import sys
 
 if sys.version_info >= (3, 10):
     from collections.abc import (
-        Callable,
-        ItemsView,
-        Iterable,
-        Iterator,
-        KeysView,
-        Mapping,
-        MutableMapping,
-        MutableSequence,
-        Sequence,
-        ValuesView,
-    )
+    	Callable, ItemsView, Iterable, Iterator, KeysView, Mapping, MutableMapping, MutableSequence, Sequence, ValuesView)
 else:
     from _collections_abc import *
 

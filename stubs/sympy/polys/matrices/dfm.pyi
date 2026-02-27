@@ -3,8 +3,9 @@ from sympy.external.gmpy import GROUND_TYPES as GROUND_TYPES
 
 class DFM_dummy:
     """
-        Placeholder class for DFM when python-flint is not installed.
-        """
+    Placeholder class for DFM when python-flint is not installed.
+    """
+
     def __init__(*args, **kwargs) -> None: ...
     @classmethod
     def _supports_domain(cls, domain): ...

@@ -1,14 +1,17 @@
 from sympy.core.add import Add as Add
 from sympy.core.cache import cacheit as cacheit
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, expand_mul as expand_mul
+from sympy.core.function import (
+	ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, expand_mul as expand_mul)
 from sympy.core.logic import fuzzy_not as fuzzy_not
 from sympy.core.numbers import I as I, Integer as Integer, pi as pi
 from sympy.core.relational import Eq as Eq
 from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy
 from sympy.core.sympify import sympify as sympify
-from sympy.functions.combinatorial.numbers import bernoulli as bernoulli, factorial as factorial, genocchi as genocchi, harmonic as harmonic
-from sympy.functions.elementary.complexes import Abs as Abs, polar_lift as polar_lift, re as re, unpolarify as unpolarify
+from sympy.functions.combinatorial.numbers import (
+	bernoulli as bernoulli, factorial as factorial, genocchi as genocchi, harmonic as harmonic)
+from sympy.functions.elementary.complexes import (
+	Abs as Abs, polar_lift as polar_lift, re as re, unpolarify as unpolarify)
 from sympy.functions.elementary.exponential import exp as exp, exp_polar as exp_polar, log as log
 from sympy.functions.elementary.integers import ceiling as ceiling, floor as floor
 from sympy.functions.elementary.miscellaneous import sqrt as sqrt
@@ -63,8 +66,7 @@ class lerchphi(DefinedFunction):
     branch points, it is an entire function of $s$.
 
     Examples
-    ========
-
+    --------
     The Lerch transcendent is a fairly general function, for this reason it does
     not automatically evaluate to simpler functions. Use ``expand_func()`` to
     achieve this.
@@ -107,12 +109,11 @@ class lerchphi(DefinedFunction):
     -s*lerchphi(z, s + 1, a)
 
     See Also
-    ========
-
+    --------
     polylog, zeta
 
     References
-    ==========
+    ----------
 
     .. [1] Bateman, H.; Erdelyi, A. (1953), Higher Transcendental Functions,
            Vol. I, New York: McGraw-Hill. Section 1.11.
@@ -120,6 +121,7 @@ class lerchphi(DefinedFunction):
     .. [3] https://en.wikipedia.org/wiki/Lerch_transcendent
 
     """
+
     def _eval_expand_func(self, **hints): ...
     def fdiff(self, argindex: int = 1): ...
     def _eval_rewrite_helper(self, target): ...
@@ -153,8 +155,7 @@ class polylog(DefinedFunction):
     .. math:: \\operatorname{Li}_{s}(z) = z \\Phi(z, s, 1).
 
     Examples
-    ========
-
+    --------
     For $z \\in \\{0, 1, -1\\}$, the polylogarithm is automatically expressed
     using other functions:
 
@@ -190,11 +191,11 @@ class polylog(DefinedFunction):
     z*lerchphi(z, s, 1)
 
     See Also
-    ========
-
+    --------
     zeta, lerchphi
 
     """
+
     @classmethod
     def eval(cls, s, z): ...
     def fdiff(self, argindex: int = 1): ...
@@ -232,8 +233,7 @@ class zeta(DefinedFunction):
     yielding the Riemann zeta function.
 
     Examples
-    ========
-
+    --------
     For $a = 1$ the Hurwitz zeta function reduces to the famous Riemann
     zeta function:
 
@@ -298,17 +298,17 @@ class zeta(DefinedFunction):
     lerchphi(1, s, a)
 
     See Also
-    ========
-
+    --------
     dirichlet_eta, lerchphi, polylog
 
     References
-    ==========
+    ----------
 
     .. [1] https://dlmf.nist.gov/25.11
     .. [2] https://en.wikipedia.org/wiki/Hurwitz_zeta_function
 
     """
+
     @classmethod
     def eval(cls, s, a=None): ...
     def _eval_rewrite_as_bernoulli(self, s, a: int = 1, **kwargs): ...
@@ -320,7 +320,7 @@ class zeta(DefinedFunction):
     def _eval_as_leading_term(self, x, logx, cdir): ...
 
 class dirichlet_eta(DefinedFunction):
-    '''
+    """
     Dirichlet eta function.
 
     Explanation
@@ -345,26 +345,25 @@ class dirichlet_eta(DefinedFunction):
     is used when $s = 1$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import dirichlet_eta, zeta
     >>> from sympy.abc import s
     >>> dirichlet_eta(s).rewrite(zeta)
     Piecewise((log(2), Eq(s, 1)), ((1 - 2**(1 - s))*zeta(s), True))
 
     See Also
-    ========
-
+    --------
     zeta
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Dirichlet_eta_function
     .. [2] Peter Luschny, "An introduction to the Bernoulli function",
            https://arxiv.org/abs/2009.06743
 
-    '''
+    """
+
     @classmethod
     def eval(cls, s, a=None): ...
     def _eval_rewrite_as_zeta(self, s, a: int = 1, **kwargs): ...
@@ -376,8 +375,7 @@ class riemann_xi(DefinedFunction):
     Riemann Xi function.
 
     Examples
-    ========
-
+    --------
     The Riemann Xi function is closely related to the Riemann zeta function.
     The zeros of Riemann Xi function are precisely the non-trivial zeros
     of the zeta function.
@@ -388,11 +386,12 @@ class riemann_xi(DefinedFunction):
     s*(s - 1)*gamma(s/2)*zeta(s)/(2*pi**(s/2))
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Riemann_Xi_function
 
     """
+
     @classmethod
     def eval(cls, s): ...
     def _eval_rewrite_as_zeta(self, s, **kwargs): ...
@@ -403,8 +402,7 @@ class stieltjes(DefinedFunction):
     Laurent Series expansion of the Riemann zeta function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import stieltjes
     >>> from sympy.abc import n, m
     >>> stieltjes(n)
@@ -428,11 +426,12 @@ class stieltjes(DefinedFunction):
     zoo
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Stieltjes_constants
 
     """
+
     @classmethod
     def eval(cls, n, a=None): ...
 

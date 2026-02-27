@@ -2,15 +2,15 @@ from _typeshed import Incomplete
 from sympy.core.sorting import ordered as ordered
 from sympy.core.sympify import sympify as sympify
 from sympy.external.importtools import import_module as import_module
-from sympy.logic.boolalg import And as And, BooleanFunction as BooleanFunction, Not as Not, conjuncts as conjuncts, to_cnf as to_cnf
+from sympy.logic.boolalg import (
+	And as And, BooleanFunction as BooleanFunction, conjuncts as conjuncts, Not as Not, to_cnf as to_cnf)
 
 def literal_symbol(literal):
     """
     The symbol in this literal (without the negation).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import A
     >>> from sympy.logic.inference import literal_symbol
     >>> literal_symbol(A)
@@ -20,7 +20,7 @@ def literal_symbol(literal):
 
     """
 def satisfiable(expr, algorithm=None, all_models: bool = False, minimal: bool = False, use_lra_theory: bool = False):
-    '''
+    """
     Check satisfiability of a propositional sentence.
     Returns a model when it succeeds.
     Returns {true: true} for trivially true expressions.
@@ -30,8 +30,7 @@ def satisfiable(expr, algorithm=None, all_models: bool = False, minimal: bool = 
     then returns a generator containing the single element False.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import A, B
     >>> from sympy.logic.inference import satisfiable
     >>> satisfiable(A & ~B)
@@ -60,15 +59,14 @@ def satisfiable(expr, algorithm=None, all_models: bool = False, minimal: bool = 
     >>> use_models(satisfiable(A ^ A, all_models=True))
     UNSAT
 
-    '''
+    """
 def valid(expr):
     """
     Check validity of a propositional sentence.
     A valid propositional sentence is True under every assignment.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import A, B
     >>> from sympy.logic.inference import valid
     >>> valid(A | ~A)
@@ -77,7 +75,7 @@ def valid(expr):
     False
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Validity
 
@@ -90,8 +88,7 @@ def pl_true(expr, model=None, deep: bool = False):
     this may return None to indicate 'not obvious'.
 
     Parameters
-    ==========
-
+    ----------
     model : dict, optional, default: {}
         Mapping of symbols to boolean values to indicate assignment.
     deep: boolean, optional, default: False
@@ -100,8 +97,7 @@ def pl_true(expr, model=None, deep: bool = False):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import A, B
     >>> from sympy.logic.inference import pl_true
     >>> pl_true( A & B, {A: True, B: True})
@@ -127,8 +123,7 @@ def entails(expr, formula_set=None):
     If formula_set is empty then it returns the validity of expr.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import A, B, C
     >>> from sympy.logic.inference import entails
     >>> entails(A, [A >> B, B >> C])
@@ -141,7 +136,7 @@ def entails(expr, formula_set=None):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Logical_consequence
 
@@ -149,6 +144,7 @@ def entails(expr, formula_set=None):
 
 class KB:
     """Base class for all knowledge bases"""
+
     clauses_: Incomplete
     def __init__(self, sentence=None) -> None: ...
     def tell(self, sentence) -> None: ...
@@ -159,12 +155,12 @@ class KB:
 
 class PropKB(KB):
     """A KB for Propositional Logic.  Inefficient, with no indexing."""
+
     def tell(self, sentence) -> None:
         """Add the sentence's clauses to the KB
 
         Examples
-        ========
-
+        --------
         >>> from sympy.logic.inference import PropKB
         >>> from sympy.abc import x, y
         >>> l = PropKB()
@@ -184,8 +180,7 @@ class PropKB(KB):
         """Checks if the query is true given the set of clauses.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.logic.inference import PropKB
         >>> from sympy.abc import x, y
         >>> l = PropKB()
@@ -200,8 +195,7 @@ class PropKB(KB):
         """Remove the sentence's clauses from the KB
 
         Examples
-        ========
-
+        --------
         >>> from sympy.logic.inference import PropKB
         >>> from sympy.abc import x, y
         >>> l = PropKB()

@@ -14,7 +14,8 @@ def hessenberg_reduce_0(ctx, A, T) -> None:
     below the first subdiagonal. Here ' denotes the hermitian transpose (i.e.
     transposition and conjugation).
 
-    parameters:
+    Parameters
+    ----------
       A         (input/output) On input, A contains the square matrix A of
                 dimension (n,n). On output, A contains a compressed representation
                 of Q and H.
@@ -25,7 +26,8 @@ def hessenberg_reduce_1(ctx, A, T) -> None:
     """
     This routine forms the unitary matrix Q described in hessenberg_reduce_0.
 
-    parameters:
+    Parameters
+    ----------
       A    (input/output) On input, A is the same matrix as delivered by
            hessenberg_reduce_0. On output, A is set to Q.
 
@@ -66,7 +68,7 @@ def hessenberg(ctx, A, overwrite_a: bool = False):
     return value:   (Q, H)
     """
 def qr_step(ctx, n0, n1, A, Q, shift) -> None:
-    '''
+    """
     This subroutine executes a single implicitly shifted QR step applied to an
     upper Hessenberg matrix A. Given A and shift as input, first an QR
     decomposition is calculated:
@@ -77,7 +79,8 @@ def qr_step(ctx, n0, n1, A, Q, shift) -> None:
 
       R Q + shift * 1
 
-    parameters:
+    Parameters
+    ----------
       n0, n1    (input) Two integers which specify the submatrix A[n0:n1,n0:n1]
                 on which this subroutine operators. The subdiagonal elements
                 to the left and below this submatrix must be deflated (i.e. zero).
@@ -90,10 +93,11 @@ def qr_step(ctx, n0, n1, A, Q, shift) -> None:
       shift     (input) a complex number specifying the shift. idealy close to an
                 eigenvalue of the bottemmost part of the submatrix A[n0:n1,n0:n1].
 
-    references:
+    References
+    ----------
       Stoer, Bulirsch - Introduction to Numerical Analysis.
       Kresser : Numerical Methods for General and Structured Eigenvalue Problems
-    '''
+    """
 def hessenberg_qr(ctx, A, Q) -> None:
     """
     This routine computes the Schur decomposition of an upper Hessenberg matrix A.
@@ -104,7 +108,8 @@ def hessenberg_qr(ctx, A, Q) -> None:
     where R is an upper right triangular matrix. Here ' denotes the hermitian
     transpose (i.e. transposition and conjugation).
 
-    parameters:
+    Parameters
+    ----------
       A         (input/output) On input, A contains an upper Hessenberg matrix.
                 On output, A is replace by the upper right triangluar matrix R.
 
@@ -204,7 +209,8 @@ def eig(ctx, A, left: bool = False, right: bool = True, overwrite_a: bool = Fals
       (E, EL, ER)   if left and right are true.
 
 
-    examples:
+    Examples
+    --------
       >>> from mpmath import mp
       >>> A = mp.matrix([[3, -1, 2], [2, 5, -5], [-2, -3, 7]])
       >>> E, ER = mp.eig(A)
@@ -230,15 +236,17 @@ def eig(ctx, A, left: bool = False, right: bool = True, overwrite_a: bool = Fals
        Furthermore in that case the eigenvectors are numerical ill-conditioned.
      - In the general case the eigenvalues have no natural order.
 
-    see also:
+    See Also
+    --------
       - eigh (or eigsy, eighe) for the symmetric eigenvalue problem.
       - eig_sort for sorting of eigenvalues and eigenvectors
     """
 def eig_sort(ctx, E, EL: bool = False, ER: bool = False, f: str = 'real'):
-    '''
+    """
     This routine sorts the eigenvalues and eigenvectors delivered by ``eig``.
 
-    parameters:
+    Parameters
+    ----------
       E  : the eigenvalues as delivered by eig
       EL : the left  eigenvectors as delivered by eig, or false
       ER : the right eigenvectors as delivered by eig, or false
@@ -269,4 +277,4 @@ def eig_sort(ctx, E, EL: bool = False, ER: bool = False, f: str = 'real'):
       [0.0]
       >>> print(mp.chop( EL[0,:] * A - EL[0,:] * E[0]))
       [0.0  0.0  0.0]
-    '''
+    """

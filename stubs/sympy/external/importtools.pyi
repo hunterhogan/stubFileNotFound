@@ -54,8 +54,7 @@ def import_module(module, min_module_version=None, min_python_version=None, warn
     argument.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.external import import_module
 
     >>> numpy = import_module('numpy')

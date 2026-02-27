@@ -1,46 +1,45 @@
-import sys
-import types
+from . import events
+from .base_events import _ProtocolFactory, _SSLContext, Server
+from .selector_events import BaseSelectorEventLoop
 from _typeshed import StrPath
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable
 from socket import socket
-from typing import Literal
-from typing_extensions import Self, TypeVarTuple, Unpack, deprecated
-
-from . import events
-from .base_events import Server, _ProtocolFactory, _SSLContext
-from .selector_events import BaseSelectorEventLoop
+from typing import Literal, Self
+from typing_extensions import deprecated, TypeVarTuple, Unpack
+import sys
+import types
 
 _Ts = TypeVarTuple("_Ts")
 
 # Keep asyncio.__all__ updated with any changes to __all__ here
 if sys.platform != "win32":
     if sys.version_info >= (3, 14):
-        __all__ = ("SelectorEventLoop", "EventLoop")
+        __all__ = ("EventLoop", "SelectorEventLoop")
     elif sys.version_info >= (3, 13):
         # Adds EventLoop
         __all__ = (
-            "SelectorEventLoop",
             "AbstractChildWatcher",
-            "SafeChildWatcher",
-            "FastChildWatcher",
-            "PidfdChildWatcher",
-            "MultiLoopChildWatcher",
-            "ThreadedChildWatcher",
             "DefaultEventLoopPolicy",
             "EventLoop",
+            "FastChildWatcher",
+            "MultiLoopChildWatcher",
+            "PidfdChildWatcher",
+            "SafeChildWatcher",
+            "SelectorEventLoop",
+            "ThreadedChildWatcher",
         )
     else:
         # adds PidfdChildWatcher
         __all__ = (
-            "SelectorEventLoop",
             "AbstractChildWatcher",
-            "SafeChildWatcher",
-            "FastChildWatcher",
-            "PidfdChildWatcher",
-            "MultiLoopChildWatcher",
-            "ThreadedChildWatcher",
             "DefaultEventLoopPolicy",
+            "FastChildWatcher",
+            "MultiLoopChildWatcher",
+            "PidfdChildWatcher",
+            "SafeChildWatcher",
+            "SelectorEventLoop",
+            "ThreadedChildWatcher",
         )
 
 # This is also technically not available on Win,

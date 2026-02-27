@@ -34,6 +34,7 @@ class MarkerStyle:
     fillstyles : tuple
         The supported fillstyles.
     """
+
     markers: Incomplete
     filled_markers: Incomplete
     fillstyles: Incomplete

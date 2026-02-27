@@ -1,11 +1,11 @@
-import sys
 from collections import deque
 from collections.abc import Iterable
 from io import TextIOWrapper
-from typing import Literal, Protocol, overload, type_check_only
-from typing_extensions import Self, deprecated
+from typing import Literal, overload, Protocol, Self, type_check_only
+from typing_extensions import deprecated
+import sys
 
-__all__ = ["shlex", "split", "quote", "join"]
+__all__ = ["join", "quote", "shlex", "split"]
 
 @type_check_only
 class _ShlexInstream(Protocol):

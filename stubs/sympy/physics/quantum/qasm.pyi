@@ -13,6 +13,7 @@ class Qasm:
     >>> q.get_circuit()
     CNOT(1,0)*CNOT(0,1)*CNOT(1,0)
     """
+
     defs: Incomplete
     circuit: Incomplete
     labels: Incomplete

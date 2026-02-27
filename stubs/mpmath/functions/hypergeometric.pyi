@@ -168,7 +168,7 @@ def hyper2d(ctx, a, b, x, y, **kwargs):
 
     """
 def bihyper(ctx, a_s, b_s, z, **kwargs):
-    '''
+    """
     Evaluates the bilateral hypergeometric series
 
     .. math ::
@@ -213,4 +213,4 @@ def bihyper(ctx, a_s, b_s, z, **kwargs):
     1. [Slater]_ (chapter 6: "Bilateral Series", pp. 180-189)
     2. [Wikipedia]_ http://en.wikipedia.org/wiki/Bilateral_hypergeometric_series
 
-    '''
+    """

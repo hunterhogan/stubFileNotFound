@@ -13,8 +13,7 @@ class SquarePredicate(Predicate):
     is a matrix with the same number of rows and columns.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, MatrixSymbol, ZeroMatrix, Identity
     >>> X = MatrixSymbol('X', 2, 2)
     >>> Y = MatrixSymbol('X', 2, 3)
@@ -28,11 +27,12 @@ class SquarePredicate(Predicate):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Square_matrix
 
     """
+
     name: str
     handler: Incomplete
 
@@ -47,8 +47,7 @@ class SymmetricPredicate(Predicate):
     its transpose. Every square diagonal matrix is a symmetric matrix.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, MatrixSymbol
     >>> X = MatrixSymbol('X', 2, 2)
     >>> Y = MatrixSymbol('Y', 2, 3)
@@ -62,11 +61,12 @@ class SymmetricPredicate(Predicate):
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Symmetric_matrix
 
     """
+
     name: str
     handler: Incomplete
 
@@ -81,8 +81,7 @@ class InvertiblePredicate(Predicate):
     A square matrix is called invertible only if its determinant is 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, MatrixSymbol
     >>> X = MatrixSymbol('X', 2, 2)
     >>> Y = MatrixSymbol('Y', 2, 3)
@@ -95,11 +94,12 @@ class InvertiblePredicate(Predicate):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Invertible_matrix
 
     """
+
     name: str
     handler: Incomplete
 
@@ -117,8 +117,7 @@ class OrthogonalPredicate(Predicate):
     matrix is necessarily invertible.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, MatrixSymbol, Identity
     >>> X = MatrixSymbol('X', 2, 2)
     >>> Y = MatrixSymbol('Y', 2, 3)
@@ -133,11 +132,12 @@ class OrthogonalPredicate(Predicate):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Orthogonal_matrix
 
     """
+
     name: str
     handler: Incomplete
 
@@ -154,8 +154,7 @@ class UnitaryPredicate(Predicate):
     where :math:``M^T`` is the conjugate transpose matrix of ``M``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, MatrixSymbol, Identity
     >>> X = MatrixSymbol('X', 2, 2)
     >>> Y = MatrixSymbol('Y', 2, 3)
@@ -168,11 +167,12 @@ class UnitaryPredicate(Predicate):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Unitary_matrix
 
     """
+
     name: str
     handler: Incomplete
 
@@ -189,8 +189,7 @@ class FullRankPredicate(Predicate):
     its determinant is nonzero.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, MatrixSymbol, ZeroMatrix, Identity
     >>> X = MatrixSymbol('X', 2, 2)
     >>> ask(Q.fullrank(X.T), Q.fullrank(X))
@@ -201,6 +200,7 @@ class FullRankPredicate(Predicate):
     True
 
     """
+
     name: str
     handler: Incomplete
 
@@ -216,8 +216,7 @@ class PositiveDefinitePredicate(Predicate):
     every non-zero column vector $Z$ of $n$ real numbers.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, MatrixSymbol, Identity
     >>> X = MatrixSymbol('X', 2, 2)
     >>> Y = MatrixSymbol('Y', 2, 3)
@@ -231,11 +230,12 @@ class PositiveDefinitePredicate(Predicate):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Positive-definite_matrix
 
     """
+
     name: str
     handler: Incomplete
 
@@ -250,8 +250,7 @@ class UpperTriangularPredicate(Predicate):
     for :math:`i<j`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, ZeroMatrix, Identity
     >>> ask(Q.upper_triangular(Identity(3)))
     True
@@ -259,11 +258,12 @@ class UpperTriangularPredicate(Predicate):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/UpperTriangularMatrix.html
 
     """
+
     name: str
     handler: Incomplete
 
@@ -278,8 +278,7 @@ class LowerTriangularPredicate(Predicate):
     for :math:`i>j`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, ZeroMatrix, Identity
     >>> ask(Q.lower_triangular(Identity(3)))
     True
@@ -287,11 +286,12 @@ class LowerTriangularPredicate(Predicate):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/LowerTriangularMatrix.html
 
     """
+
     name: str
     handler: Incomplete
 
@@ -307,8 +307,7 @@ class DiagonalPredicate(Predicate):
     are all zero.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, MatrixSymbol, ZeroMatrix
     >>> X = MatrixSymbol('X', 2, 2)
     >>> ask(Q.diagonal(ZeroMatrix(3, 3)))
@@ -318,11 +317,12 @@ class DiagonalPredicate(Predicate):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Diagonal_matrix
 
     """
+
     name: str
     handler: Incomplete
 
@@ -337,14 +337,14 @@ class IntegerElementsPredicate(Predicate):
     are integers.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, MatrixSymbol
     >>> X = MatrixSymbol('X', 4, 4)
     >>> ask(Q.integer(X[1, 2]), Q.integer_elements(X))
     True
 
     """
+
     name: str
     handler: Incomplete
 
@@ -359,14 +359,14 @@ class RealElementsPredicate(Predicate):
     are real numbers.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, MatrixSymbol
     >>> X = MatrixSymbol('X', 4, 4)
     >>> ask(Q.real(X[1, 2]), Q.real_elements(X))
     True
 
     """
+
     name: str
     handler: Incomplete
 
@@ -381,8 +381,7 @@ class ComplexElementsPredicate(Predicate):
     are complex numbers.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, MatrixSymbol
     >>> X = MatrixSymbol('X', 4, 4)
     >>> ask(Q.complex(X[1, 2]), Q.complex_elements(X))
@@ -391,6 +390,7 @@ class ComplexElementsPredicate(Predicate):
     True
 
     """
+
     name: str
     handler: Incomplete
 
@@ -401,8 +401,7 @@ class SingularPredicate(Predicate):
     A matrix is singular iff the value of its determinant is 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, MatrixSymbol
     >>> X = MatrixSymbol('X', 4, 4)
     >>> ask(Q.singular(X), Q.invertible(X))
@@ -411,11 +410,12 @@ class SingularPredicate(Predicate):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/SingularMatrix.html
 
     """
+
     name: str
     handler: Incomplete
 
@@ -426,19 +426,19 @@ class NormalPredicate(Predicate):
     A matrix is normal if it commutes with its conjugate transpose.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, MatrixSymbol
     >>> X = MatrixSymbol('X', 4, 4)
     >>> ask(Q.normal(X), Q.unitary(X))
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Normal_matrix
 
     """
+
     name: str
     handler: Incomplete
 
@@ -453,8 +453,7 @@ class TriangularPredicate(Predicate):
     triangular or upper triangular.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, MatrixSymbol
     >>> X = MatrixSymbol('X', 4, 4)
     >>> ask(Q.triangular(X), Q.upper_triangular(X))
@@ -463,11 +462,12 @@ class TriangularPredicate(Predicate):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Triangular_matrix
 
     """
+
     name: str
     handler: Incomplete
 
@@ -482,13 +482,13 @@ class UnitTriangularPredicate(Predicate):
     on the diagonal.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, MatrixSymbol
     >>> X = MatrixSymbol('X', 4, 4)
     >>> ask(Q.triangular(X), Q.unit_triangular(X))
     True
 
     """
+
     name: str
     handler: Incomplete

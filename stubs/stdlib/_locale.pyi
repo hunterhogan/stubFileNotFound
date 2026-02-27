@@ -1,6 +1,6 @@
-import sys
 from _typeshed import StrPath
-from typing import Final, Literal, TypedDict, type_check_only
+from typing import Final, Literal, type_check_only, TypedDict
+import sys
 
 @type_check_only
 class _LocaleConv(TypedDict):

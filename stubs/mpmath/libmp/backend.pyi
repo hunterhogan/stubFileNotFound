@@ -1,5 +1,5 @@
-import sage.libs.mpmath.utils as _sage_utils
 from _typeshed import Incomplete
+import sage.libs.mpmath.utils as _sage_utils
 
 gmpy: Incomplete
 sage: Incomplete

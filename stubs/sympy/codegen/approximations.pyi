@@ -15,8 +15,7 @@ class SumApprox(Optimization):
     bounds for those expressions are added.
 
     Parameters
-    ==========
-
+    ----------
     bounds : dict
         Mapping expressions to length 2 tuple of bounds (low, high).
     reltol : number
@@ -24,8 +23,7 @@ class SumApprox(Optimization):
         lower bound among bounds.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import exp
     >>> from sympy.abc import x, y, z
     >>> from sympy.codegen.rewriting import optimize
@@ -43,6 +41,7 @@ class SumApprox(Optimization):
     3*y
 
     """
+
     bounds: Incomplete
     reltol: Incomplete
     def __init__(self, bounds, reltol, **kwargs) -> None: ...
@@ -51,11 +50,10 @@ class SumApprox(Optimization):
     def value(self, add): ...
 
 class SeriesApprox(Optimization):
-    """ Approximates functions by expanding them as a series.
+    """Approximates functions by expanding them as a series.
 
     Parameters
-    ==========
-
+    ----------
     bounds : dict
         Mapping expressions to length 2 tuple of bounds (low, high).
     reltol : number
@@ -69,8 +67,7 @@ class SeriesApprox(Optimization):
         number of points used in this numerical check is given by this number.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sin, pi
     >>> from sympy.abc import x, y
     >>> from sympy.codegen.rewriting import optimize
@@ -88,6 +85,7 @@ class SeriesApprox(Optimization):
     sin(x)*sin(y)
 
     """
+
     bounds: Incomplete
     reltol: Incomplete
     max_order: Incomplete

@@ -3,6 +3,7 @@ from matplotlib import _api as _api, backend_tools as backend_tools, cbook as cb
 
 class ToolEvent:
     """Event for tool manipulation (add/remove)."""
+
     name: Incomplete
     sender: Incomplete
     tool: Incomplete
@@ -11,6 +12,7 @@ class ToolEvent:
 
 class ToolTriggerEvent(ToolEvent):
     """Event to inform that a tool has been triggered."""
+
     canvasevent: Incomplete
     def __init__(self, name, sender, tool, canvasevent: Incomplete | None = None, data: Incomplete | None = None) -> None: ...
 
@@ -20,6 +22,7 @@ class ToolManagerMessageEvent:
 
     Messages usually get displayed to the user by the toolbar.
     """
+
     name: Incomplete
     sender: Incomplete
     message: Incomplete
@@ -38,6 +41,7 @@ class ToolManager:
     messagelock : `~matplotlib.widgets.LockDraw`
         `.LockDraw` object to know if the message is available to write.
     """
+
     _key_press_handler_id: Incomplete
     _tools: Incomplete
     _keys: Incomplete

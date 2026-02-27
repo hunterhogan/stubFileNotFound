@@ -1,5 +1,5 @@
-import numpy
 from typing import ClassVar
+import numpy
 
 BESSEL: _InterpolationType
 BICUBIC: _InterpolationType

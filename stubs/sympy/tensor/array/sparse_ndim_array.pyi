@@ -14,8 +14,7 @@ class SparseNDimArray(NDimArray):
         Get an element from a sparse N-dim array.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import MutableSparseNDimArray
         >>> a = MutableSparseNDimArray(range(4), (2, 2))
         >>> a
@@ -51,8 +50,7 @@ class SparseNDimArray(NDimArray):
         Converts MutableDenseNDimArray to Matrix. Can convert only 2-dim array, else will raise error.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import MutableSparseNDimArray
         >>> a = MutableSparseNDimArray([1 for i in range(9)], (3, 3))
         >>> b = a.tomatrix()
@@ -83,8 +81,7 @@ class MutableSparseNDimArray(MutableNDimArray, SparseNDimArray):
         """Allows to set items to MutableDenseNDimArray.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import MutableSparseNDimArray
         >>> a = MutableSparseNDimArray.zeros(2, 2)
         >>> a[0, 0] = 1

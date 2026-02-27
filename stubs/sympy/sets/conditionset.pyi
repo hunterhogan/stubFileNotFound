@@ -22,8 +22,7 @@ class ConditionSet(Set):
     .. math:: \\{x \\mid \\textrm{condition}(x) = \\texttt{True}, x \\in S\\}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, S, ConditionSet, pi, Eq, sin, Interval
     >>> from sympy.abc import x, y, z
 
@@ -43,8 +42,7 @@ class ConditionSet(Set):
     False
 
     Notes
-    =====
-
+    -----
     Symbols with assumptions should be avoided or else the
     condition may evaluate without consideration of the set:
 
@@ -84,6 +82,7 @@ class ConditionSet(Set):
     ConditionSet(x, (x < y) & (x + y < 2), Integers)
 
     """
+
     def __new__(cls, sym, condition, base_set=...): ...
     sym: Incomplete
     condition: Incomplete

@@ -21,5 +21,6 @@ class DotProduct(Expr):
     >>> DotProduct(A, B).doit()
     A[0, 0]*B[0, 0] + A[0, 1]*B[0, 1] + A[0, 2]*B[0, 2]
     """
+
     def __new__(cls, arg1, arg2): ...
     def doit(self, expand: bool = False, **hints): ...

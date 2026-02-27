@@ -1,12 +1,13 @@
 from .basic import Basic as Basic
 from .sorting import default_sort_key as default_sort_key, ordered as ordered
-from .sympify import SympifyError as SympifyError, _sympify as _sympify, _sympy_converter as _sympy_converter, sympify as sympify
+from .sympify import (
+	_sympify as _sympify, _sympy_converter as _sympy_converter, sympify as sympify, SympifyError as SympifyError)
 from _typeshed import Incomplete
-from collections.abc import MutableSet
+from collections.abc import Callable, MutableSet
 from sympy.core.kind import Kind as Kind
 from sympy.utilities.iterables import iterable as iterable
 from sympy.utilities.misc import as_int as as_int
-from typing import Any, Callable
+from typing import Any
 
 class Tuple(Basic):
     """
@@ -20,16 +21,14 @@ class Tuple(Basic):
     you can also access elements or slices with [:] syntax.
 
     Parameters
-    ==========
-
+    ----------
     sympify : bool
         If ``False``, ``sympify`` is not called on ``args``. This
         can be used for speedups for very large tuples where the
         elements are known to already be SymPy objects.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Tuple, symbols
     >>> a, b, c, d = symbols('a b c d')
     >>> Tuple(a, b, c)[1:]
@@ -38,6 +37,7 @@ class Tuple(Basic):
     (d, b, c)
 
     """
+
     def __new__(cls, *args, **kwargs): ...
     def __getitem__(self, i): ...
     def __len__(self) -> int: ...
@@ -66,8 +66,7 @@ class Tuple(Basic):
         parametrised by the number of elements and the kind of each element.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Tuple, Matrix
         >>> Tuple(1, 2).kind
         TupleKind(NumberKind, NumberKind)
@@ -77,8 +76,7 @@ class Tuple(Basic):
         (NumberKind, NumberKind)
 
         See Also
-        ========
-
+        --------
         sympy.matrices.kind.MatrixKind
         sympy.core.kind.NumberKind
         """
@@ -123,8 +121,7 @@ class Dict(Basic):
     to the Python dict.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Dict, Symbol
 
     >>> D = Dict({1: 'one', 2: 'two'})
@@ -146,6 +143,7 @@ class Dict(Basic):
     one
 
     """
+
     elements: frozenset[Tuple]
     _dict: dict[Basic, Basic]
     def __new__(cls, *args): ...
@@ -182,7 +180,6 @@ class OrderedSet(MutableSet):
     def discard(self, key) -> None: ...
     def pop(self, last: bool = True): ...
     def __iter__(self): ...
-    def __repr__(self) -> str: ...
     def intersection(self, other): ...
     def difference(self, other): ...
     def update(self, iterable) -> None: ...
@@ -195,15 +192,13 @@ class TupleKind(Kind):
     example
 
     Parameters
-    ==========
-
+    ----------
     args : tuple(element_kind)
        element_kind is kind of element.
        args is tuple of kinds of element
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Tuple
     >>> Tuple(1, 2).kind
     TupleKind(NumberKind, NumberKind)
@@ -211,11 +206,10 @@ class TupleKind(Kind):
     (NumberKind, NumberKind)
 
     See Also
-    ========
-
+    --------
     sympy.core.kind.NumberKind
     MatrixKind
     sympy.sets.sets.SetKind
     """
+
     def __new__(cls, *args): ...
-    def __repr__(self) -> str: ...

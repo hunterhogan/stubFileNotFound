@@ -31,6 +31,7 @@ class TriRefiner:
       and which returns (as a tuple) a refined triangular mesh and the
       interpolated values of the field at the refined triangulation nodes.
     """
+
     _triangulation: Incomplete
     def __init__(self, triangulation) -> None: ...
 
@@ -43,6 +44,7 @@ class UniformTriRefiner(TriRefiner):
     triangulation : `~matplotlib.tri.Triangulation`
         The encapsulated triangulation (to be refined)
     """
+
     def __init__(self, triangulation) -> None: ...
     def refine_triangulation(self, return_tri_index: bool = False, subdiv: int = 3):
         """

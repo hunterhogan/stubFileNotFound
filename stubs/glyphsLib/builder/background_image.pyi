@@ -7,4 +7,3 @@ def to_ufo_background_image(self, ufo_glyph, layer):
     """Copy the backgound image from the GSLayer to the UFO Glyph."""
 def to_glyphs_background_image(self, ufo_glyph, layer):
     """Copy the background image from the UFO Glyph to the GSLayer."""
-

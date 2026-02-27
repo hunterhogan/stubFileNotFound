@@ -27,11 +27,13 @@ def _get_intermediate_simp(deffunc=..., offfunc=..., onfunc=..., dotprodsimp=Non
     """
 def _get_intermediate_simp_bool(default: bool = False, dotprodsimp=None):
     """Same as ``_get_intermediate_simp`` but returns bools instead of functions
-    by default."""
+    by default.
+    """
 def _iszero(x):
     """Returns True if x is zero."""
 def _is_zero_after_expand_mul(x):
     """Tests by expand_mul only, suitable for polynomials and rational
-    functions."""
+    functions.
+    """
 def _simplify(expr):
-    """ Wrapper to avoid circular imports. """
+    """Wrapper to avoid circular imports."""

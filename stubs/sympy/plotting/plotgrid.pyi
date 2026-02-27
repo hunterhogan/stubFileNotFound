@@ -8,7 +8,7 @@ class PlotGrid:
     in a single figure.
 
     Examples
-    ========
+    --------
 
     .. plot::
        :context: close-figs
@@ -79,6 +79,7 @@ class PlotGrid:
         [0]: cartesian surface: x*y for x over (-5.0, 5.0) and y over (-5.0, 5.0)
 
     """
+
     matplotlib: Incomplete
     nrows: Incomplete
     ncolumns: Incomplete
@@ -89,8 +90,7 @@ class PlotGrid:
     def __init__(self, nrows, ncolumns, *args, show: bool = True, size=None, **kwargs) -> None:
         """
         Parameters
-        ==========
-
+        ----------
         nrows :
             The number of rows that should be in the grid of the
             required subplot.
@@ -129,4 +129,3 @@ class PlotGrid:
     def close(self) -> None: ...
     def show(self) -> None: ...
     def save(self, path) -> None: ...
-    def __str__(self) -> str: ...

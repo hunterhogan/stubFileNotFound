@@ -1,7 +1,5 @@
-from pandas.core.arrays.masked import BaseMaskedArray
-
 from pandas._libs.properties import cache_readonly
-
+from pandas.core.arrays.masked import BaseMaskedArray
 from pandas.core.dtypes.dtypes import BaseMaskedDtype
 
 class NumericDtype(BaseMaskedDtype): ...

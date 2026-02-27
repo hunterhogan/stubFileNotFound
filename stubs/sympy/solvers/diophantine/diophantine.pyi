@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 
-__all__ = ['diophantine', 'classify_diop']
+__all__ = ['classify_diop', 'diophantine']
 
 class DiophantineSolutionSet(set):
     """
@@ -10,16 +10,14 @@ class DiophantineSolutionSet(set):
     The base representation is a set of tuples representing each of the solutions.
 
     Parameters
-    ==========
-
+    ----------
     symbols : list
         List of free symbols in the original equation.
     parameters: list
         List of parameters to be used in the solution.
 
     Examples
-    ========
-
+    --------
     Adding solutions:
 
         >>> from sympy.solvers.diophantine.diophantine import DiophantineSolutionSet
@@ -64,6 +62,7 @@ class DiophantineSolutionSet(set):
         >>> s3(None, 2)
         {(t**2, t + 2)}
     """
+
     symbols: Incomplete
     parameters: Incomplete
     def __init__(self, symbols_seq, parameters) -> None: ...
@@ -78,16 +77,14 @@ class DiophantineEquationType:
     Internal representation of a particular diophantine equation type.
 
     Parameters
-    ==========
-
+    ----------
     equation :
         The diophantine equation that is being solved.
     free_symbols : list (optional)
         The symbols being solved for.
 
     Attributes
-    ==========
-
+    ----------
     total_degree :
         The maximum of the degrees of all terms in the equation
     homogeneous :
@@ -97,6 +94,7 @@ class DiophantineEquationType:
     dimension :
         The number of symbols being solved for
     """
+
     name: str
     equation: Incomplete
     free_symbols: Incomplete
@@ -127,14 +125,14 @@ class Univariate(DiophantineEquationType):
     integer constants and `x` is an integer variable.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.diophantine.diophantine import Univariate
     >>> from sympy.abc import x
     >>> Univariate((x - 2)*(x - 3)**2).solve() # solves equation (x - 2)*(x - 3)**2 == 0
     {(2,), (3,)}
 
     """
+
     name: str
     def matches(self): ...
     def solve(self, parameters=None, limit=None): ...
@@ -148,8 +146,7 @@ class Linear(DiophantineEquationType):
     integer constants and `x_{1}, x_{2}, ..x_{n}` are integer variables.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.diophantine.diophantine import Linear
     >>> from sympy.abc import x, y, z
     >>> l1 = Linear(2*x - 3*y - 5)
@@ -164,6 +161,7 @@ class Linear(DiophantineEquationType):
     {(t_0, 2*t_0 + 4*t_1 + 3, -t_0 - 3*t_1 - 3)}
 
     """
+
     name: str
     def matches(self): ...
     def solve(self, parameters=None, limit=None): ...
@@ -177,8 +175,7 @@ class BinaryQuadratic(DiophantineEquationType):
     F` are integer constants and `x` and `y` are integer variables.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y
     >>> from sympy.solvers.diophantine.diophantine import BinaryQuadratic
     >>> b1 = BinaryQuadratic(x**3 + y**2 + 1)
@@ -191,7 +188,7 @@ class BinaryQuadratic(DiophantineEquationType):
     {(-1, -1)}
 
     References
-    ==========
+    ----------
 
     .. [1] Methods to solve Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 0, [online],
           Available: https://www.alpertron.com.ar/METHODS.HTM
@@ -199,6 +196,7 @@ class BinaryQuadratic(DiophantineEquationType):
           Available: https://web.archive.org/web/20160323033111/http://www.jpr2718.org/ax2p.pdf
 
     """
+
     name: str
     def matches(self): ...
     def solve(self, parameters=None, limit=None) -> DiophantineSolutionSet: ...
@@ -211,6 +209,7 @@ class InhomogeneousTernaryQuadratic(DiophantineEquationType):
     No solver is currently implemented for this equation type.
 
     """
+
     name: str
     def matches(self): ...
 
@@ -219,14 +218,14 @@ class HomogeneousTernaryQuadraticNormal(DiophantineEquationType):
     Representation of a homogeneous ternary quadratic normal diophantine equation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y, z
     >>> from sympy.solvers.diophantine.diophantine import HomogeneousTernaryQuadraticNormal
     >>> HomogeneousTernaryQuadraticNormal(4*x**2 - 5*y**2 + z**2).solve()
     {(1, 2, 4)}
 
     """
+
     name: str
     def matches(self): ...
     def solve(self, parameters=None, limit=None) -> DiophantineSolutionSet: ...
@@ -236,8 +235,7 @@ class HomogeneousTernaryQuadratic(DiophantineEquationType):
     Representation of a homogeneous ternary quadratic diophantine equation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y, z
     >>> from sympy.solvers.diophantine.diophantine import HomogeneousTernaryQuadratic
     >>> HomogeneousTernaryQuadratic(x**2 + y**2 - 3*z**2 + x*y).solve()
@@ -246,6 +244,7 @@ class HomogeneousTernaryQuadratic(DiophantineEquationType):
     {(3, 12, 13)}
 
     """
+
     name: str
     def matches(self): ...
     def solve(self, parameters=None, limit=None): ...
@@ -258,6 +257,7 @@ class InhomogeneousGeneralQuadratic(DiophantineEquationType):
     No solver is currently implemented for this equation type.
 
     """
+
     name: str
     def matches(self): ...
 
@@ -269,6 +269,7 @@ class HomogeneousGeneralQuadratic(DiophantineEquationType):
     No solver is currently implemented for this equation type.
 
     """
+
     name: str
     def matches(self): ...
 
@@ -285,8 +286,7 @@ class GeneralSumOfSquares(DiophantineEquationType):
     no solutions. Refer [1]_ for more details.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.diophantine.diophantine import GeneralSumOfSquares
     >>> from sympy.abc import a, b, c, d, e
     >>> GeneralSumOfSquares(a**2 + b**2 + c**2 + d**2 + e**2 - 2345).solve()
@@ -298,12 +298,13 @@ class GeneralSumOfSquares(DiophantineEquationType):
     [(15, 22, 22, 24, 24), (16, 19, 24, 24, 24), (16, 20, 22, 23, 26)]
 
     References
-    ==========
+    ----------
 
     .. [1] Representing an integer as a sum of three squares, [online],
         Available:
         https://proofwiki.org/wiki/Integer_as_Sum_of_Three_Squares
     """
+
     name: str
     def matches(self): ...
     def solve(self, parameters=None, limit: int = 1): ...
@@ -314,8 +315,7 @@ class GeneralPythagorean(DiophantineEquationType):
     `a_{1}^2x_{1}^2 + a_{2}^2x_{2}^2 + . . . + a_{n}^2x_{n}^2 - a_{n + 1}^2x_{n + 1}^2 = 0`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.diophantine.diophantine import GeneralPythagorean
     >>> from sympy.abc import a, b, c, d, e, x, y, z, t
     >>> GeneralPythagorean(a**2 + b**2 + c**2 - d**2).solve()
@@ -323,6 +323,7 @@ class GeneralPythagorean(DiophantineEquationType):
     >>> GeneralPythagorean(9*a**2 - 4*b**2 + 16*c**2 + 25*d**2 + e**2).solve(parameters=[x, y, z, t])
     {(-10*t**2 + 10*x**2 + 10*y**2 + 10*z**2, 15*t**2 + 15*x**2 + 15*y**2 + 15*z**2, 15*t*x, 12*t*y, 60*t*z)}
     """
+
     name: str
     def matches(self): ...
     @property
@@ -340,8 +341,7 @@ class CubicThue(DiophantineEquationType):
     No solver is currently implemented for this equation type.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y
     >>> from sympy.solvers.diophantine.diophantine import CubicThue
     >>> c1 = CubicThue(x**3 + y**2 + 1)
@@ -349,6 +349,7 @@ class CubicThue(DiophantineEquationType):
     True
 
     """
+
     name: str
     def matches(self): ...
 
@@ -361,14 +362,14 @@ class GeneralSumOfEvenPowers(DiophantineEquationType):
     where `e` is an even, integer power.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.diophantine.diophantine import GeneralSumOfEvenPowers
     >>> from sympy.abc import a, b
     >>> GeneralSumOfEvenPowers(a**4 + b**4 - (2**4 + 3**4)).solve()
     {(2, 3)}
 
     """
+
     name: str
     def matches(self): ...
     def solve(self, parameters=None, limit: int = 1): ...
@@ -415,8 +416,7 @@ def diophantine(eq, param=..., syms=None, permute: bool = False):
     ``t`` is the parameter to be used in the solution.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import diophantine
     >>> from sympy.abc import a, b
     >>> eq = a**4 + b**4 - (2**4 + 3**4)
@@ -435,8 +435,7 @@ def diophantine(eq, param=..., syms=None, permute: bool = False):
     {(0, n1), (-3*t_0 - 4, t_0)}
 
     See Also
-    ========
-
+    --------
     diop_solve
     sympy.utilities.iterables.permute_signs
     sympy.utilities.iterables.signed_permutations

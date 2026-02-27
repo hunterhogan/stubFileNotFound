@@ -1,15 +1,12 @@
 from _typeshed import Incomplete
-from fontTools import designspaceLib
 from glyphsLib.builder.axes import (
 	class_to_value as class_to_value, find_base_style as find_base_style, WEIGHT_AXIS_DEF as WEIGHT_AXIS_DEF,
 	WIDTH_AXIS_DEF as WIDTH_AXIS_DEF)
 from glyphsLib.classes import GSFont
 from glyphsLib.glyphdata import GlyphData
 from types import ModuleType
-from ufoLib2 import Font
 import glyphsLib.util
 import os
-import ufoLib2
 
 GLYPH_ORDER_KEY: str
 GLYPHLIB_PREFIX: str
@@ -19,7 +16,7 @@ _DeprecatedArgument: object
 class UFOBuilder(glyphsLib.util.LoggerMixin):
     """Builder for Glyphs to UFO + designspace."""
 
-    def __init__(self, font: GSFont, ufo_module: ModuleType | None = ufoLib2, designspace_module: ModuleType = designspaceLib, family_name: str | None = None, instance_dir: str | bytes | os.PathLike[str] | os.PathLike[bytes] | None = None, propagate_anchors: object = ..., use_designspace: bool = ..., minimize_glyphs_diffs: bool = ..., generate_GDEF: bool = ..., store_editor_state: bool = ..., write_skipexportglyphs: bool = ..., expand_includes: bool = ..., minimal: bool = ..., glyph_data: list[GlyphData] | None = ...) -> None:
+    def __init__(self, font: GSFont, ufo_module: ModuleType | None = ..., designspace_module: ModuleType = ..., family_name: str | None = None, instance_dir: str | bytes | os.PathLike[str] | os.PathLike[bytes] | None = None, propagate_anchors: object = ..., use_designspace: bool = ..., minimize_glyphs_diffs: bool = ..., generate_GDEF: bool = ..., store_editor_state: bool = ..., write_skipexportglyphs: bool = ..., expand_includes: bool = ..., minimal: bool = ..., glyph_data: list[GlyphData] | None = ...) -> None:
         r"""Create a builder that goes from Glyphs to UFO + designspace.
 
         Keyword arguments:
@@ -241,4 +238,3 @@ class GlyphsBuilder(glyphsLib.util.LoggerMixin):
         Get the GSFont built from the UFOs + designspace.
         """
 def _sorted_backgrounds_last(ufo_layers): ...
-

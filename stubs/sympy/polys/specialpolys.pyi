@@ -1,6 +1,6 @@
 from sympy.utilities import public
 
-__all__ = ['swinnerton_dyer_poly', 'cyclotomic_poly', 'symmetric_poly', 'random_poly', 'interpolating_poly']
+__all__ = ['cyclotomic_poly', 'interpolating_poly', 'random_poly', 'swinnerton_dyer_poly', 'symmetric_poly']
 
 @public
 def swinnerton_dyer_poly(n, x=None, polys: bool = False):
@@ -34,8 +34,7 @@ def symmetric_poly(n, *gens, polys: bool = False):
     Generates symmetric polynomial of order `n`.
 
     Parameters
-    ==========
-
+    ----------
     polys: bool, optional (default: False)
         Returns a Poly object when ``polys=True``, otherwise
         (default) returns an expression.

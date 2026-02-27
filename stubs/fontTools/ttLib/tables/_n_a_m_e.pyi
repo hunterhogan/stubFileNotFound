@@ -204,4 +204,3 @@ class NameRecordVisitor(TTVisitor):
     TABLES: Incomplete
     seen: Incomplete
     def __init__(self) -> None: ...
-

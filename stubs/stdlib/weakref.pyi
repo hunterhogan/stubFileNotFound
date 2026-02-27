@@ -3,23 +3,23 @@ from _weakref import getweakrefcount as getweakrefcount, getweakrefs as getweakr
 from _weakrefset import WeakSet as WeakSet
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping
 from types import GenericAlias
-from typing import Any, ClassVar, Generic, TypeVar, final, overload
-from typing_extensions import ParamSpec, Self, disjoint_base
+from typing import Any, ClassVar, final, Generic, overload, Self, TypeVar
+from typing_extensions import disjoint_base, ParamSpec
 
 __all__ = [
-    "ref",
-    "proxy",
+    "CallableProxyType",
+    "ProxyType",
+    "ProxyTypes",
+    "ReferenceType",
+    "WeakKeyDictionary",
+    "WeakMethod",
+    "WeakSet",
+    "WeakValueDictionary",
+    "finalize",
     "getweakrefcount",
     "getweakrefs",
-    "WeakKeyDictionary",
-    "ReferenceType",
-    "ProxyType",
-    "CallableProxyType",
-    "ProxyTypes",
-    "WeakValueDictionary",
-    "WeakSet",
-    "WeakMethod",
-    "finalize",
+    "proxy",
+    "ref",
 ]
 
 _T = TypeVar("_T")
@@ -66,7 +66,7 @@ ref = ReferenceType
 # everything below here is implemented in weakref.py
 
 class WeakMethod(ref[_CallableT]):
-    __slots__ = ("_func_ref", "_meth_type", "_alive", "__weakref__")
+    __slots__ = ("__weakref__", "_alive", "_func_ref", "_meth_type")
     def __new__(cls, meth: _CallableT, callback: Callable[[Self], Any] | None = None) -> Self: ...
     def __call__(self) -> _CallableT | None: ...
     def __eq__(self, other: object) -> bool: ...

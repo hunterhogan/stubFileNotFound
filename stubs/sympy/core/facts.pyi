@@ -1,7 +1,6 @@
 from .logic import And as And, Logic as Logic, Not as Not, Or as Or
 from _typeshed import Incomplete
-from collections.abc import Generator
-from typing import Iterator
+from collections.abc import Generator, Iterator
 
 def _base_fact(atom):
     """Return the literal fact of an atom.
@@ -17,27 +16,27 @@ def transitive_closure(implications):
     http://www.cs.hope.edu/~cusack/Notes/Notes/DiscreteMath/Warshall.pdf.
     """
 def deduce_alpha_implications(implications):
-    """deduce all implications
+    """Deduce all implications
 
-       Description by example
-       ----------------------
+    Description by example
+    ----------------------
 
-       given set of logic rules:
+    given set of logic rules:
 
-         a -> b
-         b -> c
+      a -> b
+      b -> c
 
-       we deduce all possible rules:
+    we deduce all possible rules:
 
-         a -> b, c
-         b -> c
+      a -> b, c
+      b -> c
 
 
-       implications: [] of (a,b)
-       return:       {} of a -> set([b, c, ...])
+    implications: [] of (a,b)
+    return:       {} of a -> set([b, c, ...])
     """
 def apply_beta_to_alpha_route(alpha_implications, beta_rules):
-    """apply additional beta-rules (And conditions) to already-built
+    """Apply additional beta-rules (And conditions) to already-built
     alpha implication tables
 
        TODO: write about
@@ -65,27 +64,27 @@ def apply_beta_to_alpha_route(alpha_implications, beta_rules):
        a  ->  [b, !c, d, e]
     """
 def rules_2prereq(rules):
-    """build prerequisites table from rules
+    """Build prerequisites table from rules
 
-       Description by example
-       ----------------------
+    Description by example
+    ----------------------
 
-       given set of logic rules:
+    given set of logic rules:
 
-         a -> b, c
-         b -> c
+      a -> b, c
+      b -> c
 
-       we build prerequisites (from what points something can be deduced):
+    we build prerequisites (from what points something can be deduced):
 
-         b <- a
-         c <- a, b
+      b <- a
+      c <- a, b
 
-       rules:   {} of a -> [b, c, ...]
-       return:  {} of c <- [a, b, ...]
+    rules:   {} of a -> [b, c, ...]
+    return:  {} of c <- [a, b, ...]
 
-       Note however, that this prerequisites may be *not* enough to prove a
-       fact. An example is 'a -> b' rule, where prereq(a) is b, and prereq(b)
-       is a. That's because a=T -> b=T, and b=F -> a=F, but a=F -> b=?
+    Note however, that this prerequisites may be *not* enough to prove a
+    fact. An example is 'a -> b' rule, where prereq(a) is b, and prereq(b)
+    is a. That's because a=T -> b=T, and b=F -> a=F, but a=F -> b=?
     """
 
 class TautologyDetected(Exception):
@@ -94,74 +93,76 @@ class TautologyDetected(Exception):
 class Prover:
     """ai - prover of logic rules
 
-       given a set of initial rules, Prover tries to prove all possible rules
-       which follow from given premises.
+    given a set of initial rules, Prover tries to prove all possible rules
+    which follow from given premises.
 
-       As a result proved_rules are always either in one of two forms: alpha or
-       beta:
+    As a result proved_rules are always either in one of two forms: alpha or
+    beta:
 
-       Alpha rules
-       -----------
+    Alpha rules
+    -----------
 
-       This are rules of the form::
+    This are rules of the form::
 
-         a -> b & c & d & ...
-
-
-       Beta rules
-       ----------
-
-       This are rules of the form::
-
-         &(a,b,...) -> c & d & ...
+      a -> b & c & d & ...
 
 
-       i.e. beta rules are join conditions that say that something follows when
-       *several* facts are true at the same time.
+    Beta rules
+    ----------
+
+    This are rules of the form::
+
+      &(a,b,...) -> c & d & ...
+
+
+    i.e. beta rules are join conditions that say that something follows when
+    *several* facts are true at the same time.
     """
+
     proved_rules: Incomplete
     _rules_seen: Incomplete
     def __init__(self) -> None: ...
     def split_alpha_beta(self):
-        """split proved rules into alpha and beta chains"""
+        """Split proved rules into alpha and beta chains"""
     @property
     def rules_alpha(self): ...
     @property
     def rules_beta(self): ...
     def process_rule(self, a, b) -> None:
-        """process a -> b rule"""
+        """Process a -> b rule"""
     def _process_rule(self, a, b) -> None: ...
 
 class FactRules:
     """Rules that describe how to deduce facts in logic space
 
-       When defined, these rules allow implications to quickly be determined
-       for a set of facts. For this precomputed deduction tables are used.
-       see `deduce_all_facts`   (forward-chaining)
+    When defined, these rules allow implications to quickly be determined
+    for a set of facts. For this precomputed deduction tables are used.
+    see `deduce_all_facts`   (forward-chaining)
 
-       Also it is possible to gather prerequisites for a fact, which is tried
-       to be proven.    (backward-chaining)
-
-
-       Definition Syntax
-       -----------------
-
-       a -> b       -- a=T -> b=T  (and automatically b=F -> a=F)
-       a -> !b      -- a=T -> b=F
-       a == b       -- a -> b & b -> a
-       a -> b & c   -- a=T -> b=T & c=T
-       # TODO b | c
+    Also it is possible to gather prerequisites for a fact, which is tried
+    to be proven.    (backward-chaining)
 
 
-       Internals
-       ---------
+    Definition Syntax
+    -----------------
 
-       .full_implications[k, v]: all the implications of fact k=v
-       .beta_triggers[k, v]: beta rules that might be triggered when k=v
-       .prereq  -- {} k <- [] of k's prerequisites
+    a -> b       -- a=T -> b=T  (and automatically b=F -> a=F)
+    a -> !b      -- a=T -> b=F
+    a == b       -- a -> b & b -> a
+    a -> b & c   -- a=T -> b=T & c=T
+    # TODO b | c
 
-       .defined_facts -- set of defined fact names
+
+    Internals
+    ---------
+
+    .full_implications[k, v]: all the implications of fact k=v
+    .beta_triggers[k, v]: beta rules that might be triggered when k=v
+    .prereq  -- {} k <- [] of k's prerequisites
+
+    .defined_facts -- set of defined fact names
     """
+
     beta_rules: Incomplete
     defined_facts: Incomplete
     full_implications: Incomplete
@@ -170,25 +171,25 @@ class FactRules:
     def __init__(self, rules) -> None:
         """Compile rules into internal lookup tables"""
     def _to_python(self) -> str:
-        """ Generate a string with plain python representation of the instance """
+        """Generate a string with plain python representation of the instance"""
     @classmethod
     def _from_python(cls, data: dict):
-        """ Generate an instance from the plain python representation """
+        """Generate an instance from the plain python representation"""
     def _defined_facts_lines(self) -> Generator[Incomplete]: ...
     def _full_implications_lines(self) -> Generator[Incomplete]: ...
     def _prereq_lines(self) -> Generator[Incomplete]: ...
     def _beta_rules_lines(self) -> Generator[Incomplete]: ...
     def print_rules(self) -> Iterator[str]:
-        """ Returns a generator with lines to represent the facts and rules """
+        """Returns a generator with lines to represent the facts and rules"""
 
 class InconsistentAssumptions(ValueError):
-    def __str__(self) -> str: ...
+    ...
 
 class FactKB(dict):
     """
     A simple propositional knowledge base relying on compiled inference rules.
     """
-    def __str__(self) -> str: ...
+
     rules: Incomplete
     def __init__(self, rules) -> None: ...
     def _tell(self, k, v):

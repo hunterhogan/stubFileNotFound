@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
 from sympy.core import Dummy as Dummy, Mod as Mod, S as S, sympify as sympify
 from sympy.core.cache import cacheit as cacheit
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, PoleError as PoleError
+from sympy.core.function import (
+	ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, PoleError as PoleError)
 from sympy.core.logic import fuzzy_and as fuzzy_and
 from sympy.core.numbers import I as I, Integer as Integer, pi as pi
 from sympy.core.relational import Eq as Eq
@@ -10,57 +11,57 @@ from sympy.ntheory.residue_ntheory import binomial_mod as binomial_mod
 from sympy.polys.polytools import Poly as Poly
 
 class CombinatorialFunction(DefinedFunction):
-    """Base class for combinatorial functions. """
+    """Base class for combinatorial functions."""
+
     def _eval_simplify(self, **kwargs): ...
 
 class factorial(CombinatorialFunction):
     """Implementation of factorial function over nonnegative integers.
-       By convention (consistent with the gamma function and the binomial
-       coefficients), factorial of a negative integer is complex infinity.
+    By convention (consistent with the gamma function and the binomial
+    coefficients), factorial of a negative integer is complex infinity.
 
-       The factorial is very important in combinatorics where it gives
-       the number of ways in which `n` objects can be permuted. It also
-       arises in calculus, probability, number theory, etc.
+    The factorial is very important in combinatorics where it gives
+    the number of ways in which `n` objects can be permuted. It also
+    arises in calculus, probability, number theory, etc.
 
-       There is strict relation of factorial with gamma function. In
-       fact `n! = gamma(n+1)` for nonnegative integers. Rewrite of this
-       kind is very useful in case of combinatorial simplification.
+    There is strict relation of factorial with gamma function. In
+    fact `n! = gamma(n+1)` for nonnegative integers. Rewrite of this
+    kind is very useful in case of combinatorial simplification.
 
-       Computation of the factorial is done using two algorithms. For
-       small arguments a precomputed look up table is used. However for bigger
-       input algorithm Prime-Swing is used. It is the fastest algorithm
-       known and computes `n!` via prime factorization of special class
-       of numbers, called here the 'Swing Numbers'.
+    Computation of the factorial is done using two algorithms. For
+    small arguments a precomputed look up table is used. However for bigger
+    input algorithm Prime-Swing is used. It is the fastest algorithm
+    known and computes `n!` via prime factorization of special class
+    of numbers, called here the 'Swing Numbers'.
 
-       Examples
-       ========
+    Examples
+    --------
+    >>> from sympy import Symbol, factorial, S
+    >>> n = Symbol('n', integer=True)
 
-       >>> from sympy import Symbol, factorial, S
-       >>> n = Symbol('n', integer=True)
+    >>> factorial(0)
+    1
 
-       >>> factorial(0)
-       1
+    >>> factorial(7)
+    5040
 
-       >>> factorial(7)
-       5040
+    >>> factorial(-2)
+    zoo
 
-       >>> factorial(-2)
-       zoo
+    >>> factorial(n)
+    factorial(n)
 
-       >>> factorial(n)
-       factorial(n)
+    >>> factorial(2*n)
+    factorial(2*n)
 
-       >>> factorial(2*n)
-       factorial(2*n)
+    >>> factorial(S(1)/2)
+    factorial(1/2)
 
-       >>> factorial(S(1)/2)
-       factorial(1/2)
-
-       See Also
-       ========
-
-       factorial2, RisingFactorial, FallingFactorial
+    See Also
+    --------
+    factorial2, RisingFactorial, FallingFactorial
     """
+
     def fdiff(self, argindex: int = 1): ...
     _small_swing: Incomplete
     _small_factorials: list[int]
@@ -102,14 +103,13 @@ class subfactorial(CombinatorialFunction):
     real axis it has an infinite number of branches none of which are real.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Subfactorial
     .. [2] https://mathworld.wolfram.com/Subfactorial.html
 
     Examples
-    ========
-
+    --------
     >>> from sympy import subfactorial
     >>> from sympy.abc import n
     >>> subfactorial(n + 1)
@@ -118,11 +118,11 @@ class subfactorial(CombinatorialFunction):
     44
 
     See Also
-    ========
-
+    --------
     factorial, uppergamma,
     sympy.utilities.iterables.generate_derangements
     """
+
     @classmethod
     @cacheit
     def _eval(self, n): ...
@@ -145,13 +145,12 @@ class factorial2(CombinatorialFunction):
     .. math:: n!! = \\begin{cases} 1 & n = 0 \\\\\n                    n(n-2)(n-4) \\cdots 1 & n\\ \\text{positive odd} \\\\\n                    n(n-2)(n-4) \\cdots 2 & n\\ \\text{positive even} \\\\\n                    (n+2)!!/(n+2) & n\\ \\text{negative odd} \\end{cases}
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Double_factorial
 
     Examples
-    ========
-
+    --------
     >>> from sympy import factorial2, var
     >>> n = var('n')
     >>> n
@@ -166,10 +165,10 @@ class factorial2(CombinatorialFunction):
     1/3
 
     See Also
-    ========
-
+    --------
     factorial, RisingFactorial, FallingFactorial
     """
+
     @classmethod
     def eval(cls, arg): ...
     def _eval_is_even(self): ...
@@ -179,7 +178,7 @@ class factorial2(CombinatorialFunction):
     def _eval_rewrite_as_gamma(self, n, piecewise: bool = True, **kwargs): ...
 
 class RisingFactorial(CombinatorialFunction):
-    '''
+    """
     Rising factorial (also called Pochhammer symbol [1]_) is a double valued
     function arising in concrete mathematics, hypergeometric functions
     and series expansions. It is defined by:
@@ -195,8 +194,7 @@ class RisingFactorial(CombinatorialFunction):
     variable of `x`. This is as described in [2]_.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import rf, Poly
     >>> from sympy.abc import x
     >>> rf(x, 0)
@@ -226,19 +224,19 @@ class RisingFactorial(CombinatorialFunction):
     gamma(2*n + 2)/gamma(n)
 
     See Also
-    ========
-
+    --------
     factorial, factorial2, FallingFactorial
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Pochhammer_symbol
     .. [2] Peter Paule, "Greatest Factorial Factorization and Symbolic
            Summation", Journal of Symbolic Computation, vol. 20, pp. 235-268,
            1995.
 
-    '''
+    """
+
     @classmethod
     def eval(cls, x, k): ...
     def _eval_rewrite_as_gamma(self, x, k, piecewise: bool = True, **kwargs): ...
@@ -249,7 +247,7 @@ class RisingFactorial(CombinatorialFunction):
     def _eval_is_integer(self): ...
 
 class FallingFactorial(CombinatorialFunction):
-    '''
+    """
     Falling factorial (related to rising factorial) is a double valued
     function arising in concrete mathematics, hypergeometric functions
     and series expansions. It is defined by
@@ -297,19 +295,19 @@ class FallingFactorial(CombinatorialFunction):
     gamma(n + 1)/2
 
     See Also
-    ========
-
+    --------
     factorial, factorial2, RisingFactorial
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/FallingFactorial.html
     .. [2] Peter Paule, "Greatest Factorial Factorization and Symbolic
            Summation", Journal of Symbolic Computation, vol. 20, pp. 235-268,
            1995.
 
-    '''
+    """
+
     @classmethod
     def eval(cls, x, k): ...
     def _eval_rewrite_as_gamma(self, x, k, piecewise: bool = True, **kwargs): ...
@@ -346,8 +344,7 @@ class binomial(CombinatorialFunction):
     polynomial itself. See examples for details.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, Rational, binomial, expand_func
     >>> n = Symbol('n', integer=True, positive=True)
 
@@ -406,13 +403,14 @@ class binomial(CombinatorialFunction):
     3744312326
 
     References
-    ==========
+    ----------
 
     .. [1] https://www.johndcook.com/blog/binomial_coefficients/
     .. [2] https://en.wikipedia.org/wiki/Lucas%27s_theorem
     .. [3] Binomial coefficients modulo prime powers, Andrew Granville,
         Available: https://web.archive.org/web/20170202003812/http://www.dms.umontreal.ca/~andrew/PDF/BinCoeff.pdf
     """
+
     def fdiff(self, argindex: int = 1): ...
     @classmethod
     def _eval(self, n, k): ...

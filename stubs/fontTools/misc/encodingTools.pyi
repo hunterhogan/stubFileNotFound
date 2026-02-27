@@ -4,4 +4,3 @@ def getEncoding(platformID: int, platEncID: int, langID: int, default: str | Non
     If encoding for these values is not known, by default None is
     returned.  That can be overriden by passing a value to the default argument.
     """
-

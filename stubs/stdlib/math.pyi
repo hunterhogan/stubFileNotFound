@@ -1,8 +1,8 @@
-import sys
 from _typeshed import SupportsMul, SupportsRMul
 from collections.abc import Iterable
-from typing import Any, Final, Literal, Protocol, SupportsFloat, SupportsIndex, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias
+from typing import (
+	Any, Final, Literal, overload, Protocol, SupportsFloat, SupportsIndex, type_check_only, TypeAlias, TypeVar)
+import sys
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
@@ -95,7 +95,7 @@ def pow(x: _SupportsFloatOrIndex, y: _SupportsFloatOrIndex, /) -> float: ...
 
 _PositiveInteger: TypeAlias = Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
 _NegativeInteger: TypeAlias = Literal[-1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12, -13, -14, -15, -16, -17, -18, -19, -20]
-_LiteralInteger = _PositiveInteger | _NegativeInteger | Literal[0]  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs are fixed
+_LiteralInteger: TypeAlias = _PositiveInteger | _NegativeInteger | Literal[0]  # TODO: Use TypeAlias once mypy bugs are fixed
 
 _MultiplicableT1 = TypeVar("_MultiplicableT1", bound=SupportsMul[Any, Any])
 _MultiplicableT2 = TypeVar("_MultiplicableT2", bound=SupportsMul[Any, Any])

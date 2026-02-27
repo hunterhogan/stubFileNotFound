@@ -1,6 +1,6 @@
 from sympy.core.basic import Basic
 
-__all__ = ['generate_gate_rules', 'generate_equivalent_ids', 'GateIdentity', 'bfs_identity_search', 'random_identity_search', 'is_scalar_sparse_matrix', 'is_scalar_nonsparse_matrix', 'is_degenerate', 'is_reducible']
+__all__ = ['GateIdentity', 'bfs_identity_search', 'generate_equivalent_ids', 'generate_gate_rules', 'is_degenerate', 'is_reducible', 'is_scalar_nonsparse_matrix', 'is_scalar_sparse_matrix', 'random_identity_search']
 
 def is_scalar_sparse_matrix(circuit, nqubits, identity_only, eps: float = 1e-11):
     """Checks if a given scipy.sparse matrix is a scalar matrix.
@@ -11,8 +11,7 @@ def is_scalar_sparse_matrix(circuit, nqubits, identity_only, eps: float = 1e-11)
     it's main diagonal and zeroes elsewhere.
 
     Parameters
-    ==========
-
+    ----------
     circuit : Gate tuple
         Sequence of quantum gates representing a quantum circuit
     nqubits : int
@@ -28,8 +27,7 @@ def is_scalar_nonsparse_matrix(circuit, nqubits, identity_only, eps=None):
     a scalar value.
 
     Parameters
-    ==========
-
+    ----------
     circuit : Gate tuple
         Sequence of quantum gates representing a quantum circuit
     nqubits : int
@@ -86,8 +84,7 @@ def generate_gate_rules(gate_seq, return_as_muls: bool = False):
     is the number of gates in the sequence (unproven).
 
     Parameters
-    ==========
-
+    ----------
     gate_seq : Gate tuple, Mul, or Number
         A variable length tuple or Mul of Gates whose product is equal to
         a scalar matrix
@@ -95,8 +92,7 @@ def generate_gate_rules(gate_seq, return_as_muls: bool = False):
         True to return a set of Muls; False to return a set of tuples
 
     Examples
-    ========
-
+    --------
     Find the gate rules of the current circuit using tuples:
 
     >>> from sympy.physics.quantum.identitysearch import generate_gate_rules
@@ -146,8 +142,7 @@ def generate_equivalent_ids(gate_seq, return_as_muls: bool = False):
     of gates in the sequence (unproven).
 
     Parameters
-    ==========
-
+    ----------
     gate_seq : Gate tuple, Mul, or Number
         A variable length tuple or Mul of Gates whose product is equal to
         a scalar matrix.
@@ -155,8 +150,7 @@ def generate_equivalent_ids(gate_seq, return_as_muls: bool = False):
         True to return as Muls; False to return as tuples
 
     Examples
-    ========
-
+    --------
     Find equivalent gate identities from the current circuit with tuples:
 
     >>> from sympy.physics.quantum.identitysearch import generate_equivalent_ids
@@ -188,14 +182,12 @@ class GateIdentity(Basic):
     i is the imaginary value, is considered a gate identity.
 
     Parameters
-    ==========
-
+    ----------
     args : Gate tuple
         A variable length tuple of Gates that form an identity.
 
     Examples
-    ========
-
+    --------
     Create a GateIdentity and look at its attributes:
 
     >>> from sympy.physics.quantum.identitysearch import GateIdentity
@@ -209,6 +201,7 @@ class GateIdentity(Basic):
     {(X(0), Y(0), Z(0)), (X(0), Z(0), Y(0)), (Y(0), X(0), Z(0)),
      (Y(0), Z(0), X(0)), (Z(0), X(0), Y(0)), (Z(0), Y(0), X(0))}
     """
+
     def __new__(cls, *args): ...
     @property
     def circuit(self): ...
@@ -218,23 +211,19 @@ class GateIdentity(Basic):
     def equivalent_ids(self): ...
     @property
     def sequence(self): ...
-    def __str__(self) -> str:
-        """Returns the string of gates in a tuple."""
 
 def is_degenerate(identity_set, gate_identity):
     """Checks if a gate identity is a permutation of another identity.
 
     Parameters
-    ==========
-
+    ----------
     identity_set : set
         A Python set with GateIdentity objects.
     gate_identity : GateIdentity
         The GateIdentity to check for existence in the set.
 
     Examples
-    ========
-
+    --------
     Check if the identity is a permutation of another identity:
 
     >>> from sympy.physics.quantum.identitysearch import (
@@ -256,8 +245,7 @@ def is_reducible(circuit, nqubits, begin, end):
     if its subcircuits are scalar values.
 
     Parameters
-    ==========
-
+    ----------
     circuit : Gate tuple
         A tuple of Gates representing a circuit.  The circuit to check
         if a gate identity is contained in a subcircuit.
@@ -269,8 +257,7 @@ def is_reducible(circuit, nqubits, begin, end):
         The rightmost gate in the circuit to include in a subcircuit.
 
     Examples
-    ========
-
+    --------
     Check if the circuit can be reduced:
 
     >>> from sympy.physics.quantum.identitysearch import is_reducible
@@ -294,8 +281,7 @@ def bfs_identity_search(gate_list, nqubits, max_depth=None, identity_only: bool 
     This allows the finding of the shortest gate identities first.
 
     Parameters
-    ==========
-
+    ----------
     gate_list : list, Gate
         A list of Gates from which to search for gate identities.
     nqubits : int
@@ -307,8 +293,7 @@ def bfs_identity_search(gate_list, nqubits, max_depth=None, identity_only: bool 
         False to search for gate identities that reduce to a scalar.
 
     Examples
-    ========
-
+    --------
     Find a list of gate identities:
 
     >>> from sympy.physics.quantum.identitysearch import bfs_identity_search

@@ -1,6 +1,6 @@
-import contextlib
 from _typeshed import Incomplete
 from collections.abc import Generator
+import contextlib
 
 class SymPyDeprecationWarning(DeprecationWarning):
     """
@@ -37,20 +37,19 @@ class SymPyDeprecationWarning(DeprecationWarning):
     <sympy.utilities.decorator.deprecated>` decorator.
 
     See Also
-    ========
+    --------
     sympy.utilities.exceptions.sympy_deprecation_warning
     sympy.utilities.exceptions.ignore_warnings
     sympy.utilities.decorator.deprecated
     sympy.testing.pytest.warns_deprecated_sympy
 
     """
+
     message: Incomplete
     deprecated_since_version: Incomplete
     active_deprecations_target: Incomplete
     full_message: Incomplete
     def __init__(self, message, *, deprecated_since_version, active_deprecations_target) -> None: ...
-    def __str__(self) -> str: ...
-    def __repr__(self) -> str: ...
     def __eq__(self, other): ...
     @classmethod
     def _new(cls, message, deprecated_since_version, active_deprecations_target): ...
@@ -67,8 +66,7 @@ def sympy_deprecation_warning(message, *, deprecated_since_version, active_depre
     :func:`@deprecated <sympy.utilities.decorator.deprecated>` decorator.
 
     Parameters
-    ==========
-
+    ----------
     message : str
          The deprecation message. This may span multiple lines and contain
          code examples. Messages should be wrapped to 80 characters. The
@@ -105,8 +103,7 @@ def sympy_deprecation_warning(message, *, deprecated_since_version, active_depre
         In that case, just choose the smallest common stacklevel.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.exceptions import sympy_deprecation_warning
     >>> def is_this_zero(x, y=0):
     ...     """
@@ -152,8 +149,7 @@ def sympy_deprecation_warning(message, *, deprecated_since_version, active_depre
     True
 
     See Also
-    ========
-
+    --------
     sympy.utilities.exceptions.SymPyDeprecationWarning
     sympy.utilities.exceptions.ignore_warnings
     sympy.utilities.decorator.deprecated
@@ -204,7 +200,7 @@ def ignore_warnings(warningcls) -> Generator[None]:
     (No warning emitted)
 
     See Also
-    ========
+    --------
     sympy.utilities.exceptions.SymPyDeprecationWarning
     sympy.utilities.exceptions.sympy_deprecation_warning
     sympy.utilities.decorator.deprecated

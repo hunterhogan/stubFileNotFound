@@ -44,10 +44,10 @@ class PassManagerBuilder(ffi.ObjectRef):
     def loop_vectorize(self, enable: bool = True): ...
     @property
     def slp_vectorize(self):
-        '''
+        """
         If true, enable the "SLP vectorizer", which uses a different algorithm
         from the loop vectorizer.  Both may be enabled at the same time.
-        '''
+        """
     @slp_vectorize.setter
     def slp_vectorize(self, enable: bool = True): ...
     def _populate_module_pm(self, pm) -> None: ...

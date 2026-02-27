@@ -47,4 +47,3 @@ def nearestMultipleShortestRepr(value: float, factor: float) -> str:
     -------
         str: A compact string representation of the value.
     """
-

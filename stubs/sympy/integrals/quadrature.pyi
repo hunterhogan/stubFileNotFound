@@ -1,9 +1,11 @@
-from sympy.core import Dummy as Dummy, S as S, pi as pi
+from sympy.core import Dummy as Dummy, pi as pi, S as S
 from sympy.functions.combinatorial.factorials import factorial as factorial
 from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.functions.elementary.trigonometric import cos as cos, sin as sin
 from sympy.functions.special.gamma_functions import gamma as gamma
-from sympy.polys.orthopolys import hermite_poly as hermite_poly, jacobi_poly as jacobi_poly, laguerre_poly as laguerre_poly, legendre_poly as legendre_poly
+from sympy.polys.orthopolys import (
+	hermite_poly as hermite_poly, jacobi_poly as jacobi_poly, laguerre_poly as laguerre_poly,
+	legendre_poly as legendre_poly)
 from sympy.polys.rootoftools import RootOf as RootOf
 
 def gauss_legendre(n, n_digits):
@@ -25,23 +27,20 @@ def gauss_legendre(n, n_digits):
         w_i = \\frac{2}{\\left(1-x_i^2\\right) \\left(P'_n(x_i)\\right)^2}
 
     Parameters
-    ==========
-
+    ----------
     n :
         The order of quadrature.
     n_digits :
         Number of significant digits of the points and weights to return.
 
     Returns
-    =======
-
+    -------
     (x, w) : the ``x`` and ``w`` are lists of points and weights as Floats.
              The points `x_i` and weights `w_i` are returned as ``(x, w)``
              tuple of lists.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.integrals.quadrature import gauss_legendre
     >>> x, w = gauss_legendre(3, 5)
     >>> x
@@ -55,12 +54,11 @@ def gauss_legendre(n, n_digits):
     [0.34785, 0.65215, 0.65215, 0.34785]
 
     See Also
-    ========
-
+    --------
     gauss_laguerre, gauss_gen_laguerre, gauss_hermite, gauss_chebyshev_t, gauss_chebyshev_u, gauss_jacobi, gauss_lobatto
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Gaussian_quadrature
     .. [2] https://people.sc.fsu.edu/~jburkardt/cpp_src/legendre_rule/legendre_rule.html
@@ -85,23 +83,20 @@ def gauss_laguerre(n, n_digits):
         w_i = \\frac{x_i}{(n+1)^2 \\left(L_{n+1}(x_i)\\right)^2}
 
     Parameters
-    ==========
-
+    ----------
     n :
         The order of quadrature.
     n_digits :
         Number of significant digits of the points and weights to return.
 
     Returns
-    =======
-
+    -------
     (x, w) : The ``x`` and ``w`` are lists of points and weights as Floats.
              The points `x_i` and weights `w_i` are returned as ``(x, w)``
              tuple of lists.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.integrals.quadrature import gauss_laguerre
     >>> x, w = gauss_laguerre(3, 5)
     >>> x
@@ -115,12 +110,11 @@ def gauss_laguerre(n, n_digits):
     [0.45896, 0.417, 0.11337, 0.010399, 0.00026102, 8.9855e-7]
 
     See Also
-    ========
-
+    --------
     gauss_legendre, gauss_gen_laguerre, gauss_hermite, gauss_chebyshev_t, gauss_chebyshev_u, gauss_jacobi, gauss_lobatto
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Gauss%E2%80%93Laguerre_quadrature
     .. [2] https://people.sc.fsu.edu/~jburkardt/cpp_src/laguerre_rule/laguerre_rule.html
@@ -145,23 +139,20 @@ def gauss_hermite(n, n_digits):
         w_i = \\frac{2^{n-1} n! \\sqrt{\\pi}}{n^2 \\left(H_{n-1}(x_i)\\right)^2}
 
     Parameters
-    ==========
-
+    ----------
     n :
         The order of quadrature.
     n_digits :
         Number of significant digits of the points and weights to return.
 
     Returns
-    =======
-
+    -------
     (x, w) : The ``x`` and ``w`` are lists of points and weights as Floats.
              The points `x_i` and weights `w_i` are returned as ``(x, w)``
              tuple of lists.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.integrals.quadrature import gauss_hermite
     >>> x, w = gauss_hermite(3, 5)
     >>> x
@@ -176,12 +167,11 @@ def gauss_hermite(n, n_digits):
     [0.00453, 0.15707, 0.72463, 0.72463, 0.15707, 0.00453]
 
     See Also
-    ========
-
+    --------
     gauss_legendre, gauss_laguerre, gauss_gen_laguerre, gauss_chebyshev_t, gauss_chebyshev_u, gauss_jacobi, gauss_lobatto
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Gauss-Hermite_Quadrature
     .. [2] https://people.sc.fsu.edu/~jburkardt/cpp_src/hermite_rule/hermite_rule.html
@@ -208,8 +198,7 @@ def gauss_gen_laguerre(n, alpha, n_digits):
                 {n \\Gamma(n) L^{\\alpha}_{n-1}(x_i) L^{\\alpha+1}_{n-1}(x_i)}
 
     Parameters
-    ==========
-
+    ----------
     n :
         The order of quadrature.
 
@@ -220,15 +209,13 @@ def gauss_gen_laguerre(n, alpha, n_digits):
         Number of significant digits of the points and weights to return.
 
     Returns
-    =======
-
+    -------
     (x, w) : the ``x`` and ``w`` are lists of points and weights as Floats.
              The points `x_i` and weights `w_i` are returned as ``(x, w)``
              tuple of lists.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S
     >>> from sympy.integrals.quadrature import gauss_gen_laguerre
     >>> x, w = gauss_gen_laguerre(3, -S.Half, 5)
@@ -244,12 +231,11 @@ def gauss_gen_laguerre(n, alpha, n_digits):
     [0.53087, 0.67721, 0.11895, 0.0023152]
 
     See Also
-    ========
-
+    --------
     gauss_legendre, gauss_laguerre, gauss_hermite, gauss_chebyshev_t, gauss_chebyshev_u, gauss_jacobi, gauss_lobatto
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Gauss%E2%80%93Laguerre_quadrature
     .. [2] https://people.sc.fsu.edu/~jburkardt/cpp_src/gen_laguerre_rule/gen_laguerre_rule.html
@@ -275,8 +261,7 @@ def gauss_chebyshev_t(n, n_digits):
         w_i = \\frac{\\pi}{n}
 
     Parameters
-    ==========
-
+    ----------
     n :
         The order of quadrature.
 
@@ -284,15 +269,13 @@ def gauss_chebyshev_t(n, n_digits):
         Number of significant digits of the points and weights to return.
 
     Returns
-    =======
-
+    -------
     (x, w) : the ``x`` and ``w`` are lists of points and weights as Floats.
              The points `x_i` and weights `w_i` are returned as ``(x, w)``
              tuple of lists.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.integrals.quadrature import gauss_chebyshev_t
     >>> x, w = gauss_chebyshev_t(3, 5)
     >>> x
@@ -307,12 +290,11 @@ def gauss_chebyshev_t(n, n_digits):
     [0.5236, 0.5236, 0.5236, 0.5236, 0.5236, 0.5236]
 
     See Also
-    ========
-
+    --------
     gauss_legendre, gauss_laguerre, gauss_hermite, gauss_gen_laguerre, gauss_chebyshev_u, gauss_jacobi, gauss_lobatto
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Chebyshev%E2%80%93Gauss_quadrature
     .. [2] https://people.sc.fsu.edu/~jburkardt/cpp_src/chebyshev1_rule/chebyshev1_rule.html
@@ -338,22 +320,19 @@ def gauss_chebyshev_u(n, n_digits):
         w_i = \\frac{\\pi}{n+1} \\sin^2 \\left(\\frac{i}{n+1}\\pi\\right)
 
     Parameters
-    ==========
-
+    ----------
     n : the order of quadrature
 
     n_digits : number of significant digits of the points and weights to return
 
     Returns
-    =======
-
+    -------
     (x, w) : the ``x`` and ``w`` are lists of points and weights as Floats.
              The points `x_i` and weights `w_i` are returned as ``(x, w)``
              tuple of lists.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.integrals.quadrature import gauss_chebyshev_u
     >>> x, w = gauss_chebyshev_u(3, 5)
     >>> x
@@ -368,12 +347,11 @@ def gauss_chebyshev_u(n, n_digits):
     [0.084489, 0.27433, 0.42658, 0.42658, 0.27433, 0.084489]
 
     See Also
-    ========
-
+    --------
     gauss_legendre, gauss_laguerre, gauss_hermite, gauss_gen_laguerre, gauss_chebyshev_t, gauss_jacobi, gauss_lobatto
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Chebyshev%E2%80%93Gauss_quadrature
     .. [2] https://people.sc.fsu.edu/~jburkardt/cpp_src/chebyshev2_rule/chebyshev2_rule.html
@@ -402,8 +380,7 @@ def gauss_jacobi(n, alpha, beta, n_digits):
               P^{(\\alpha,\\beta)}_{n+1}(x_i)}
 
     Parameters
-    ==========
-
+    ----------
     n : the order of quadrature
 
     alpha : the first parameter of the Jacobi Polynomial, `\\alpha > -1`
@@ -413,15 +390,13 @@ def gauss_jacobi(n, alpha, beta, n_digits):
     n_digits : number of significant digits of the points and weights to return
 
     Returns
-    =======
-
+    -------
     (x, w) : the ``x`` and ``w`` are lists of points and weights as Floats.
              The points `x_i` and weights `w_i` are returned as ``(x, w)``
              tuple of lists.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S
     >>> from sympy.integrals.quadrature import gauss_jacobi
     >>> x, w = gauss_jacobi(3, S.Half, -S.Half, 5)
@@ -437,13 +412,12 @@ def gauss_jacobi(n, alpha, beta, n_digits):
     [0.050584, 0.22169, 0.39439, 0.39439, 0.22169, 0.050584]
 
     See Also
-    ========
-
+    --------
     gauss_legendre, gauss_laguerre, gauss_hermite, gauss_gen_laguerre,
     gauss_chebyshev_t, gauss_chebyshev_u, gauss_lobatto
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Gauss%E2%80%93Jacobi_quadrature
     .. [2] https://people.sc.fsu.edu/~jburkardt/cpp_src/jacobi_rule/jacobi_rule.html
@@ -468,22 +442,19 @@ def gauss_lobatto(n, n_digits):
         &w_i = \\frac{2}{n(n-1) \\left[P_{n-1}(x_i)\\right]^2},\\quad x\\neq\\pm 1\\\\\n        &w_i = \\frac{2}{n(n-1)},\\quad x=\\pm 1
 
     Parameters
-    ==========
-
+    ----------
     n : the order of quadrature
 
     n_digits : number of significant digits of the points and weights to return
 
     Returns
-    =======
-
+    -------
     (x, w) : the ``x`` and ``w`` are lists of points and weights as Floats.
              The points `x_i` and weights `w_i` are returned as ``(x, w)``
              tuple of lists.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.integrals.quadrature import gauss_lobatto
     >>> x, w = gauss_lobatto(3, 5)
     >>> x
@@ -497,12 +468,11 @@ def gauss_lobatto(n, n_digits):
     [0.16667, 0.83333, 0.83333, 0.16667]
 
     See Also
-    ========
-
+    --------
     gauss_legendre,gauss_laguerre, gauss_gen_laguerre, gauss_hermite, gauss_chebyshev_t, gauss_chebyshev_u, gauss_jacobi
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Gaussian_quadrature#Gauss.E2.80.93Lobatto_rules
     .. [2] https://web.archive.org/web/20200118141346/http://people.math.sfu.ca/~cbm/aands/page_888.htm

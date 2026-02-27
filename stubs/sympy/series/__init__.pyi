@@ -6,11 +6,12 @@ from .limits import Limit as Limit, limit as limit
 from .limitseq import difference_delta as difference_delta, limit_seq as limit_seq
 from .order import Order as Order
 from .residues import residue as residue
-from .sequences import SeqAdd as SeqAdd, SeqFormula as SeqFormula, SeqMul as SeqMul, SeqPer as SeqPer, sequence as sequence
+from .sequences import (
+	SeqAdd as SeqAdd, SeqFormula as SeqFormula, SeqMul as SeqMul, SeqPer as SeqPer, sequence as sequence)
 from .series import series as series
 from _typeshed import Incomplete
 
-__all__ = ['Order', 'O', 'limit', 'Limit', 'gruntz', 'series', 'approximants', 'residue', 'EmptySequence', 'SeqPer', 'SeqFormula', 'sequence', 'SeqAdd', 'SeqMul', 'fourier_series', 'fps', 'difference_delta', 'limit_seq']
+__all__ = ['EmptySequence', 'Limit', 'O', 'Order', 'SeqAdd', 'SeqFormula', 'SeqMul', 'SeqPer', 'approximants', 'difference_delta', 'fourier_series', 'fps', 'gruntz', 'limit', 'limit_seq', 'residue', 'sequence', 'series']
 
 EmptySequence: Incomplete
 O = Order

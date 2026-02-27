@@ -1,13 +1,17 @@
 from _typeshed import Incomplete
-from sympy.assumptions.ask_generated import get_all_known_facts as get_all_known_facts, get_known_facts_dict as get_known_facts_dict
-from sympy.assumptions.assume import AppliedPredicate as AppliedPredicate, Predicate as Predicate, global_assumptions as global_assumptions
+from sympy.assumptions.ask_generated import (
+	get_all_known_facts as get_all_known_facts, get_known_facts_dict as get_known_facts_dict)
+from sympy.assumptions.assume import (
+	AppliedPredicate as AppliedPredicate, global_assumptions as global_assumptions, Predicate as Predicate)
 from sympy.assumptions.cnf import CNF as CNF, EncodedCNF as EncodedCNF, Literal as Literal
 from sympy.core import sympify as sympify
 from sympy.core.kind import BooleanKind as BooleanKind
 from sympy.core.relational import Eq as Eq, Ge as Ge, Gt as Gt, Le as Le, Lt as Lt, Ne as Ne
 from sympy.logic.inference import satisfiable as satisfiable
 from sympy.utilities.decorator import memoize_property as memoize_property
-from sympy.utilities.exceptions import SymPyDeprecationWarning as SymPyDeprecationWarning, ignore_warnings as ignore_warnings, sympy_deprecation_warning as sympy_deprecation_warning
+from sympy.utilities.exceptions import (
+	ignore_warnings as ignore_warnings, sympy_deprecation_warning as sympy_deprecation_warning,
+	SymPyDeprecationWarning as SymPyDeprecationWarning)
 
 class AssumptionKeys:
     """
@@ -15,6 +19,7 @@ class AssumptionKeys:
     It should be accessed via the instance ``sympy.Q``.
 
     """
+
     @memoize_property
     def hermitian(self): ...
     @memoize_property
@@ -135,20 +140,17 @@ def _extract_all_facts(assump, exprs):
     Extract all relevant assumptions from *assump* with respect to given *exprs*.
 
     Parameters
-    ==========
-
+    ----------
     assump : sympy.assumptions.cnf.CNF
 
     exprs : tuple of expressions
 
     Returns
-    =======
-
+    -------
     sympy.assumptions.cnf.CNF
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q
     >>> from sympy.assumptions.cnf import CNF
     >>> from sympy.assumptions.ask import _extract_all_facts
@@ -184,8 +186,7 @@ def ask(proposition, assumptions: bool = True, context=...):
             global assumption context.
 
     Parameters
-    ==========
-
+    ----------
     proposition : Boolean
         Proposition which will be evaluated to boolean value. If this is
         not ``AppliedPredicate``, it will be wrapped by ``Q.is_true``.
@@ -198,20 +199,17 @@ def ask(proposition, assumptions: bool = True, context=...):
         this is ``sympy.assumptions.global_assumptions`` variable.
 
     Returns
-    =======
-
+    -------
     ``True``, ``False``, or ``None``
 
     Raises
-    ======
-
+    ------
     TypeError : *proposition* or *assumptions* is not valid logical expression.
 
     ValueError : assumptions are inconsistent.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ask, Q, pi
     >>> from sympy.abc import x, y
     >>> ask(Q.rational(pi))
@@ -234,8 +232,7 @@ def ask(proposition, assumptions: bool = True, context=...):
     ValueError: inconsistent assumptions Q.even(x) & Q.odd(x)
 
     Notes
-    =====
-
+    -----
     Relations in assumptions are not implemented (yet), so the following
     will not give a meaningful result.
 
@@ -244,8 +241,7 @@ def ask(proposition, assumptions: bool = True, context=...):
     It is however a work in progress.
 
     See Also
-    ========
-
+    --------
     sympy.assumptions.refine.refine : Simplification using assumptions.
         Proposition is not reduced to ``None`` if the truth value cannot
         be determined.
@@ -255,8 +251,7 @@ def _ask_single_fact(key, local_facts):
     Compute the truth value of single predicate using assumptions.
 
     Parameters
-    ==========
-
+    ----------
     key : sympy.assumptions.assume.Predicate
         Proposition predicate.
 
@@ -264,13 +259,11 @@ def _ask_single_fact(key, local_facts):
         Local assumption in CNF form.
 
     Returns
-    =======
-
+    -------
     ``True``, ``False`` or ``None``
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q
     >>> from sympy.assumptions.cnf import CNF
     >>> from sympy.assumptions.ask import _ask_single_fact

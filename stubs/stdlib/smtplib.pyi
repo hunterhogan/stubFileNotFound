@@ -1,4 +1,3 @@
-import sys
 from _socket import _Address as _SourceAddress
 from _typeshed import ReadableBuffer, SizedBuffer, StrOrBytesPath
 from collections.abc import Sequence
@@ -7,24 +6,25 @@ from re import Pattern
 from socket import socket
 from ssl import SSLContext
 from types import TracebackType
-from typing import Any, Final, Protocol, overload, type_check_only
-from typing_extensions import Self, TypeAlias, deprecated
+from typing import Any, Final, overload, Protocol, Self, type_check_only, TypeAlias
+from typing_extensions import deprecated
+import sys
 
 __all__ = [
-    "SMTPException",
-    "SMTPServerDisconnected",
-    "SMTPResponseException",
-    "SMTPSenderRefused",
-    "SMTPRecipientsRefused",
-    "SMTPDataError",
-    "SMTPConnectError",
-    "SMTPHeloError",
-    "SMTPAuthenticationError",
-    "quoteaddr",
-    "quotedata",
     "SMTP",
     "SMTP_SSL",
+    "SMTPAuthenticationError",
+    "SMTPConnectError",
+    "SMTPDataError",
+    "SMTPException",
+    "SMTPHeloError",
     "SMTPNotSupportedError",
+    "SMTPRecipientsRefused",
+    "SMTPResponseException",
+    "SMTPSenderRefused",
+    "SMTPServerDisconnected",
+    "quoteaddr",
+    "quotedata",
 ]
 
 _Reply: TypeAlias = tuple[int, bytes]

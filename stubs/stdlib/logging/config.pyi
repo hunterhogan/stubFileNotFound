@@ -1,13 +1,12 @@
-import sys
+from . import _FilterType, _FormatStyle, _Level, Filter, Filterer, Formatter, Handler, Logger
 from _typeshed import StrOrBytesPath
 from collections.abc import Callable, Hashable, Iterable, Mapping, Sequence
 from configparser import RawConfigParser
 from re import Pattern
 from threading import Thread
-from typing import IO, Any, Final, Literal, SupportsIndex, TypedDict, overload, type_check_only
-from typing_extensions import Required, TypeAlias, disjoint_base
-
-from . import Filter, Filterer, Formatter, Handler, Logger, _FilterType, _FormatStyle, _Level
+from typing import Any, Final, IO, Literal, overload, Required, SupportsIndex, type_check_only, TypeAlias, TypedDict
+from typing_extensions import disjoint_base
+import sys
 
 DEFAULT_LOGGING_CONFIG_PORT: Final = 9030
 RESET_ERROR: Final[int]  # undocumented

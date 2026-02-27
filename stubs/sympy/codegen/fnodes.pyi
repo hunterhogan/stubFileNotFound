@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
-from sympy.codegen.ast import Attribute as Attribute, CodeBlock as CodeBlock, FunctionCall as FunctionCall, Node as Node, String as String, Token as Token, Variable as Variable, _mk_Tuple as _mk_Tuple, none as none
+from sympy.codegen.ast import (
+	_mk_Tuple as _mk_Tuple, Attribute as Attribute, CodeBlock as CodeBlock, FunctionCall as FunctionCall, Node as Node,
+	none as none, String as String, Token as Token, Variable as Variable)
 from sympy.core.basic import Basic as Basic
 from sympy.core.containers import Tuple as Tuple
 from sympy.core.expr import Expr as Expr
@@ -18,11 +20,10 @@ intent_inout: Incomplete
 allocatable: Incomplete
 
 class Program(Token):
-    """ Represents a 'program' block in Fortran.
+    """Represents a 'program' block in Fortran.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.ast import Print
     >>> from sympy.codegen.fnodes import Program
     >>> prog = Program('myprogram', [Print([42])])
@@ -33,17 +34,17 @@ class Program(Token):
     end program
 
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     _construct_name = String
     _construct_body: Incomplete
 
 class use_rename(Token):
-    ''' Represents a renaming in a use statement in Fortran.
+    """Represents a renaming in a use statement in Fortran.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.fnodes import use_rename, use
     >>> from sympy import fcode
     >>> ren = use_rename("thingy", "convolution2d")
@@ -53,7 +54,8 @@ class use_rename(Token):
     >>> print(fcode(full, source_format=\'free\'))
     use signallib, only: snr, thingy => convolution2d
 
-    '''
+    """
+
     __slots__: Incomplete
     _fields: Incomplete
     _construct_local = String
@@ -62,11 +64,10 @@ class use_rename(Token):
 def _name(arg): ...
 
 class use(Token):
-    """ Represents a use statement in Fortran.
+    """Represents a use statement in Fortran.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.fnodes import use
     >>> from sympy import fcode
     >>> fcode(use('signallib'), source_format='free')
@@ -77,6 +78,7 @@ class use(Token):
     'use signallib, only: snr, convolution2d'
 
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     defaults: Incomplete
@@ -85,11 +87,10 @@ class use(Token):
     _construct_only: Incomplete
 
 class Module(Token):
-    """ Represents a module in Fortran.
+    """Represents a module in Fortran.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.fnodes import Module
     >>> from sympy import fcode
     >>> print(fcode(Module('signallib', ['implicit none'], []), source_format='free'))
@@ -102,6 +103,7 @@ class Module(Token):
     end module
 
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     defaults: Incomplete
@@ -111,11 +113,10 @@ class Module(Token):
     _construct_definitions: Incomplete
 
 class Subroutine(Node):
-    """ Represents a subroutine in Fortran.
+    """Represents a subroutine in Fortran.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import fcode, symbols
     >>> from sympy.codegen.ast import Print
     >>> from sympy.codegen.fnodes import Subroutine
@@ -129,6 +130,7 @@ class Subroutine(Node):
     end subroutine
 
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     _construct_name = String
@@ -137,28 +139,27 @@ class Subroutine(Node):
     def _construct_body(cls, itr): ...
 
 class SubroutineCall(Token):
-    """ Represents a call to a subroutine in Fortran.
+    """Represents a call to a subroutine in Fortran.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.fnodes import SubroutineCall
     >>> from sympy import fcode
     >>> fcode(SubroutineCall('mysub', 'x y'.split()))
     '       call mysub(x, y)'
 
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     _construct_name: Incomplete
     _construct_subroutine_args: Incomplete
 
 class Do(Token):
-    """ Represents a Do loop in in Fortran.
+    """Represents a Do loop in in Fortran.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import fcode, symbols
     >>> from sympy.codegen.ast import aug_assign, Print
     >>> from sympy.codegen.fnodes import Do
@@ -179,6 +180,7 @@ class Do(Token):
     end do
 
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     defaults: Incomplete
@@ -190,11 +192,10 @@ class Do(Token):
     _construct_concurrent: Incomplete
 
 class ArrayConstructor(Token):
-    """ Represents an array constructor.
+    """Represents an array constructor.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import fcode
     >>> from sympy.codegen.fnodes import ArrayConstructor
     >>> ac = ArrayConstructor([1, 2, 3])
@@ -204,16 +205,16 @@ class ArrayConstructor(Token):
     '[1, 2, 3]'
 
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     _construct_elements: Incomplete
 
 class ImpliedDoLoop(Token):
-    """ Represents an implied do loop in Fortran.
+    """Represents an implied do loop in Fortran.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, fcode
     >>> from sympy.codegen.fnodes import ImpliedDoLoop, ArrayConstructor
     >>> i = Symbol('i', integer=True)
@@ -223,6 +224,7 @@ class ImpliedDoLoop(Token):
     '[-28, (i**3, i = -3, 3, 2), 28]'
 
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     defaults: Incomplete
@@ -233,11 +235,10 @@ class ImpliedDoLoop(Token):
     _construct_step: Incomplete
 
 class Extent(Basic):
-    """ Represents a dimension extent.
+    """Represents a dimension extent.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.fnodes import Extent
     >>> e = Extent(-3, 3)  # -3, -2, -1, 0, 1, 2, 3
     >>> from sympy import fcode
@@ -251,17 +252,17 @@ class Extent(Basic):
     'real*8, dimension(-3:3, -3:3), intent(out) :: x'
 
     """
+
     def __new__(cls, *args): ...
     def _sympystr(self, printer): ...
 
 assumed_extent: Incomplete
 
 def dimension(*args):
-    """ Creates a 'dimension' Attribute with (up to 7) extents.
+    """Creates a 'dimension' Attribute with (up to 7) extents.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import fcode
     >>> from sympy.codegen.fnodes import dimension, intent_in
     >>> dim = dimension('2', ':')  # 2 rows, runtime determined number of columns
@@ -275,11 +276,10 @@ def dimension(*args):
 assumed_size: Incomplete
 
 def array(symbol, dim, intent=None, *, attrs=(), value=None, type=None):
-    """ Convenience function for creating a Variable instance for a Fortran array.
+    """Convenience function for creating a Variable instance for a Fortran array.
 
     Parameters
-    ==========
-
+    ----------
     symbol : symbol
     dim : Attribute or iterable
         If dim is an ``Attribute`` it need to have the name 'dimension'. If it is
@@ -290,8 +290,7 @@ def array(symbol, dim, intent=None, *, attrs=(), value=None, type=None):
         Keyword arguments for ``Variable`` ('type' & 'value')
 
     Examples
-    ========
-
+    --------
     >>> from sympy import fcode
     >>> from sympy.codegen.ast import integer, real
     >>> from sympy.codegen.fnodes import array
@@ -305,64 +304,58 @@ def array(symbol, dim, intent=None, *, attrs=(), value=None, type=None):
     """
 def _printable(arg): ...
 def allocated(array):
-    ''' Creates an AST node for a function call to Fortran\'s "allocated(...)"
+    """ Creates an AST node for a function call to Fortran\'s "allocated(...)"
 
     Examples
-    ========
-
+    --------
     >>> from sympy import fcode
     >>> from sympy.codegen.fnodes import allocated
     >>> alloc = allocated(\'x\')
     >>> fcode(alloc, source_format=\'free\')
     \'allocated(x)\'
 
-    '''
+    """
 def lbound(array, dim=None, kind=None):
-    ''' Creates an AST node for a function call to Fortran\'s "lbound(...)"
+    """ Creates an AST node for a function call to Fortran\'s "lbound(...)"
 
     Parameters
-    ==========
-
+    ----------
     array : Symbol or String
     dim : expr
     kind : expr
 
     Examples
-    ========
-
+    --------
     >>> from sympy import fcode
     >>> from sympy.codegen.fnodes import lbound
     >>> lb = lbound(\'arr\', dim=2)
     >>> fcode(lb, source_format=\'free\')
     \'lbound(arr, 2)\'
 
-    '''
+    """
 def ubound(array, dim=None, kind=None): ...
 def shape(source, kind=None):
-    ''' Creates an AST node for a function call to Fortran\'s "shape(...)"
+    """ Creates an AST node for a function call to Fortran\'s "shape(...)"
 
     Parameters
-    ==========
-
+    ----------
     source : Symbol or String
     kind : expr
 
     Examples
-    ========
-
+    --------
     >>> from sympy import fcode
     >>> from sympy.codegen.fnodes import shape
     >>> shp = shape(\'x\')
     >>> fcode(shp, source_format=\'free\')
     \'shape(x)\'
 
-    '''
+    """
 def size(array, dim=None, kind=None):
-    ''' Creates an AST node for a function call to Fortran\'s "size(...)"
+    """ Creates an AST node for a function call to Fortran\'s "size(...)"
 
     Examples
-    ========
-
+    --------
     >>> from sympy import fcode, Symbol
     >>> from sympy.codegen.ast import FunctionDefinition, real, Return
     >>> from sympy.codegen.fnodes import array, sum_, size
@@ -376,28 +369,25 @@ def size(array, dim=None, kind=None):
     rms = sqrt(sum(a**2)*1d0/size(a))
     end function
 
-    '''
+    """
 def reshape(source, shape, pad=None, order=None):
-    ''' Creates an AST node for a function call to Fortran\'s "reshape(...)"
+    """ Creates an AST node for a function call to Fortran\'s "reshape(...)"
 
     Parameters
-    ==========
-
+    ----------
     source : Symbol or String
     shape : ArrayExpr
 
-    '''
+    """
 def bind_C(name=None):
-    ''' Creates an Attribute ``bind_C`` with a name.
+    """Creates an Attribute ``bind_C`` with a name.
 
     Parameters
-    ==========
-
+    ----------
     name : str
 
     Examples
-    ========
-
+    --------
     >>> from sympy import fcode, Symbol
     >>> from sympy.codegen.ast import FunctionDefinition, real, Return
     >>> from sympy.codegen.fnodes import array, sum_, bind_C
@@ -413,14 +403,13 @@ def bind_C(name=None):
     rms = sqrt(sum(a**2)/s)
     end function
 
-    '''
+    """
 
 class GoTo(Token):
-    """ Represents a goto statement in Fortran
+    """Represents a goto statement in Fortran
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.fnodes import GoTo
     >>> go = GoTo([10, 20, 30], 'i')
     >>> from sympy import fcode
@@ -428,6 +417,7 @@ class GoTo(Token):
     'go to (10, 20, 30), i'
 
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     defaults: Incomplete
@@ -435,7 +425,7 @@ class GoTo(Token):
     _construct_expr: Incomplete
 
 class FortranReturn(Token):
-    ''' AST node explicitly mapped to a fortran "return".
+    """AST node explicitly mapped to a fortran "return".
 
     Explanation
     ===========
@@ -447,14 +437,14 @@ class FortranReturn(Token):
     to generate a fortran RETURN statement, this node should be used.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.fnodes import FortranReturn
     >>> from sympy import fcode
     >>> fcode(FortranReturn(\'x\'))
     \'       return x\'
 
-    '''
+    """
+
     __slots__: Incomplete
     _fields: Incomplete
     defaults: Incomplete
@@ -468,23 +458,28 @@ class F95Function(FFunction):
     _required_standard: int
 
 class isign(FFunction):
-    """ Fortran sign intrinsic for integer arguments. """
+    """Fortran sign intrinsic for integer arguments."""
+
     nargs: int
 
 class dsign(FFunction):
-    """ Fortran sign intrinsic for double precision arguments. """
+    """Fortran sign intrinsic for double precision arguments."""
+
     nargs: int
 
 class cmplx(FFunction):
-    """ Fortran complex conversion function. """
+    """Fortran complex conversion function."""
+
     nargs: int
 
 class kind(FFunction):
-    """ Fortran kind function. """
+    """Fortran kind function."""
+
     nargs: int
 
 class merge(F95Function):
-    """ Fortran merge function """
+    """Fortran merge function"""
+
     nargs: int
 
 class _literal(Float):
@@ -493,12 +488,14 @@ class _literal(Float):
     def _fcode(self, printer, *args, **kwargs): ...
 
 class literal_sp(_literal):
-    """ Fortran single precision real literal """
+    """Fortran single precision real literal"""
+
     _token: str
     _decimals: int
 
 class literal_dp(_literal):
-    """ Fortran double precision real literal """
+    """Fortran double precision real literal"""
+
     _token: str
     _decimals: int
 

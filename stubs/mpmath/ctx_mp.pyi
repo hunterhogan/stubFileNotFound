@@ -1,7 +1,26 @@
 from . import function_docs as function_docs, libmp as libmp, rational as rational
 from .ctx_base import StandardBaseContext as StandardBaseContext
-from .ctx_mp_python import PythonMPContext as BaseMPContext, _mpc as _mpc, _mpf as _mpf, mpnumeric as mpnumeric
-from .libmp import ComplexResult as ComplexResult, MPZ as MPZ, MPZ_ONE as MPZ_ONE, MPZ_ZERO as MPZ_ZERO, bitcount as bitcount, dps_to_prec as dps_to_prec, finf as finf, fnan as fnan, fninf as fninf, fone as fone, from_float as from_float, from_int as from_int, from_man_exp as from_man_exp, from_pickable as from_pickable, from_rational as from_rational, from_str as from_str, fzero as fzero, int_types as int_types, mpc_abs as mpc_abs, mpc_add as mpc_add, mpc_add_mpf as mpc_add_mpf, mpc_conjugate as mpc_conjugate, mpc_div as mpc_div, mpc_div_mpf as mpc_div_mpf, mpc_hash as mpc_hash, mpc_is_nonzero as mpc_is_nonzero, mpc_mpf_div as mpc_mpf_div, mpc_mul as mpc_mul, mpc_mul_int as mpc_mul_int, mpc_mul_mpf as mpc_mul_mpf, mpc_neg as mpc_neg, mpc_pos as mpc_pos, mpc_pow as mpc_pow, mpc_pow_int as mpc_pow_int, mpc_pow_mpf as mpc_pow_mpf, mpc_sub as mpc_sub, mpc_sub_mpf as mpc_sub_mpf, mpc_to_complex as mpc_to_complex, mpc_to_str as mpc_to_str, mpf_abs as mpf_abs, mpf_add as mpf_add, mpf_apery as mpf_apery, mpf_catalan as mpf_catalan, mpf_cmp as mpf_cmp, mpf_degree as mpf_degree, mpf_div as mpf_div, mpf_e as mpf_e, mpf_eq as mpf_eq, mpf_euler as mpf_euler, mpf_ge as mpf_ge, mpf_glaisher as mpf_glaisher, mpf_gt as mpf_gt, mpf_hash as mpf_hash, mpf_khinchin as mpf_khinchin, mpf_le as mpf_le, mpf_ln10 as mpf_ln10, mpf_ln2 as mpf_ln2, mpf_lt as mpf_lt, mpf_mertens as mpf_mertens, mpf_mod as mpf_mod, mpf_mul as mpf_mul, mpf_mul_int as mpf_mul_int, mpf_neg as mpf_neg, mpf_phi as mpf_phi, mpf_pi as mpf_pi, mpf_pos as mpf_pos, mpf_pow as mpf_pow, mpf_pow_int as mpf_pow_int, mpf_rand as mpf_rand, mpf_rdiv_int as mpf_rdiv_int, mpf_sub as mpf_sub, mpf_sum as mpf_sum, mpf_twinprime as mpf_twinprime, normalize as normalize, prec_to_dps as prec_to_dps, repr_dps as repr_dps, round_ceiling as round_ceiling, round_floor as round_floor, round_nearest as round_nearest, to_fixed as to_fixed, to_float as to_float, to_int as to_int, to_pickable as to_pickable, to_str as to_str
+from .ctx_mp_python import _mpc as _mpc, _mpf as _mpf, mpnumeric as mpnumeric, PythonMPContext as BaseMPContext
+from .libmp import (
+	bitcount as bitcount, ComplexResult as ComplexResult, dps_to_prec as dps_to_prec, finf as finf, fnan as fnan,
+	fninf as fninf, fone as fone, from_float as from_float, from_int as from_int, from_man_exp as from_man_exp,
+	from_pickable as from_pickable, from_rational as from_rational, from_str as from_str, fzero as fzero,
+	int_types as int_types, mpc_abs as mpc_abs, mpc_add as mpc_add, mpc_add_mpf as mpc_add_mpf,
+	mpc_conjugate as mpc_conjugate, mpc_div as mpc_div, mpc_div_mpf as mpc_div_mpf, mpc_hash as mpc_hash,
+	mpc_is_nonzero as mpc_is_nonzero, mpc_mpf_div as mpc_mpf_div, mpc_mul as mpc_mul, mpc_mul_int as mpc_mul_int,
+	mpc_mul_mpf as mpc_mul_mpf, mpc_neg as mpc_neg, mpc_pos as mpc_pos, mpc_pow as mpc_pow, mpc_pow_int as mpc_pow_int,
+	mpc_pow_mpf as mpc_pow_mpf, mpc_sub as mpc_sub, mpc_sub_mpf as mpc_sub_mpf, mpc_to_complex as mpc_to_complex,
+	mpc_to_str as mpc_to_str, mpf_abs as mpf_abs, mpf_add as mpf_add, mpf_apery as mpf_apery, mpf_catalan as mpf_catalan,
+	mpf_cmp as mpf_cmp, mpf_degree as mpf_degree, mpf_div as mpf_div, mpf_e as mpf_e, mpf_eq as mpf_eq,
+	mpf_euler as mpf_euler, mpf_ge as mpf_ge, mpf_glaisher as mpf_glaisher, mpf_gt as mpf_gt, mpf_hash as mpf_hash,
+	mpf_khinchin as mpf_khinchin, mpf_le as mpf_le, mpf_ln2 as mpf_ln2, mpf_ln10 as mpf_ln10, mpf_lt as mpf_lt,
+	mpf_mertens as mpf_mertens, mpf_mod as mpf_mod, mpf_mul as mpf_mul, mpf_mul_int as mpf_mul_int, mpf_neg as mpf_neg,
+	mpf_phi as mpf_phi, mpf_pi as mpf_pi, mpf_pos as mpf_pos, mpf_pow as mpf_pow, mpf_pow_int as mpf_pow_int,
+	mpf_rand as mpf_rand, mpf_rdiv_int as mpf_rdiv_int, mpf_sub as mpf_sub, mpf_sum as mpf_sum,
+	mpf_twinprime as mpf_twinprime, MPZ as MPZ, MPZ_ONE as MPZ_ONE, MPZ_ZERO as MPZ_ZERO, normalize as normalize,
+	prec_to_dps as prec_to_dps, repr_dps as repr_dps, round_ceiling as round_ceiling, round_floor as round_floor,
+	round_nearest as round_nearest, to_fixed as to_fixed, to_float as to_float, to_int as to_int,
+	to_pickable as to_pickable, to_str as to_str)
 from .libmp.backend import BACKEND as BACKEND, basestring as basestring
 from _typeshed import Incomplete
 
@@ -13,13 +32,15 @@ class MPContext(BaseMPContext, StandardBaseContext):
     """
     Context for multiprecision arithmetic with a global precision.
     """
+
     def __init__(ctx) -> None: ...
     def init_builtins(ctx): ...
     def to_fixed(ctx, x, prec): ...
     def hypot(ctx, x, y):
         """
         Computes the Euclidean norm of the vector `(x, y)`, equal
-        to `\\sqrt{x^2 + y^2}`. Both `x` and `y` must be real."""
+        to `\\sqrt{x^2 + y^2}`. Both `x` and `y` must be real.
+        """
     def _gamma_upper_int(ctx, n, z): ...
     def _expint_int(ctx, n, z): ...
     def _nthroot(ctx, x, n): ...
@@ -80,7 +101,6 @@ class MPContext(BaseMPContext, StandardBaseContext):
         """
         Determine if *x* is a nonpositive integer.
         """
-    def __str__(ctx) -> str: ...
     @property
     def _repr_digits(ctx): ...
     @property
@@ -127,7 +147,7 @@ class MPContext(BaseMPContext, StandardBaseContext):
         but changes the decimal precision instead of the number of bits.
         """
     def autoprec(ctx, f, maxprec: Incomplete | None = None, catch=(), verbose: bool = False):
-        '''
+        """
         Return a wrapped copy of *f* that repeatedly evaluates *f*
         with increasing precision until the result converges to the
         full precision used at the point of the call.
@@ -193,9 +213,9 @@ class MPContext(BaseMPContext, StandardBaseContext):
             1.0e+30
 
 
-        '''
+        """
     def nstr(ctx, x, n: int = 6, **kwargs):
-        '''
+        """
         Convert an ``mpf`` or ``mpc`` to a decimal string literal with *n*
         significant digits. The small default value for *n* is chosen to
         make this function useful for printing collections of numbers
@@ -233,7 +253,7 @@ class MPContext(BaseMPContext, StandardBaseContext):
             >>> nstr(mpf(0), 5, show_zero_exponent=True)
             \'0.0e+0\'
 
-        '''
+        """
     def _convert_fallback(ctx, x, strings): ...
     def mpmathify(ctx, *args, **kwargs): ...
     def _parse_prec(ctx, kwargs): ...

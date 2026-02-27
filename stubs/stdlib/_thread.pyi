@@ -1,11 +1,11 @@
-import signal
-import sys
 from _typeshed import structseq
 from collections.abc import Callable
 from threading import Thread
 from types import TracebackType
-from typing import Any, Final, NoReturn, final, overload
-from typing_extensions import TypeVarTuple, Unpack, deprecated, disjoint_base
+from typing import Any, Final, final, NoReturn, overload
+from typing_extensions import deprecated, disjoint_base, TypeVarTuple, Unpack
+import signal
+import sys
 
 _Ts = TypeVarTuple("_Ts")
 
@@ -79,7 +79,7 @@ def start_new(function: Callable[[Unpack[_Ts]], object], args: tuple[Unpack[_Ts]
 def start_new(function: Callable[..., object], args: tuple[Any, ...], kwargs: dict[str, Any], /) -> int: ...  # undocumented
 
 if sys.version_info >= (3, 10):
-    def interrupt_main(signum: signal.Signals = signal.SIGINT, /) -> None: ...
+    def interrupt_main(signum: signal.Signals = ..., /) -> None: ...
 
 else:
     def interrupt_main() -> None: ...

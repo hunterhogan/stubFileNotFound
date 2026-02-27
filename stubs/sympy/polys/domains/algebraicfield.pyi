@@ -216,8 +216,7 @@ class AlgebraicField(Field, CharacteristicZero, SimpleDomain):
     S6TransitiveSubgroups.C6
 
     Notes
-    =====
-
+    -----
     It is not currently possible to generate an algebraic extension over any
     domain other than :ref:`QQ`. Ideally it would be possible to generate
     extensions like ``QQ(x)(sqrt(x**2 - 2))``. This is equivalent to the
@@ -234,6 +233,7 @@ class AlgebraicField(Field, CharacteristicZero, SimpleDomain):
     .. _minimal polynomial: https://en.wikipedia.org/wiki/Minimal_polynomial_(field_theory)
     .. _primitive element: https://en.wikipedia.org/wiki/Primitive_element_theorem
     """
+
     dtype = ANP
     is_AlgebraicField: bool
     is_Algebraic: bool
@@ -255,8 +255,7 @@ class AlgebraicField(Field, CharacteristicZero, SimpleDomain):
     def __init__(self, dom, *ext, alias=None) -> None:
         """
         Parameters
-        ==========
-
+        ----------
         dom : :py:class:`~.Domain`
             The base field over which this is an extension field.
             Currently only :ref:`QQ` is accepted.
@@ -272,76 +271,72 @@ class AlgebraicField(Field, CharacteristicZero, SimpleDomain):
             :py:class:`~.AlgebraicNumber`, its alias (if any) will be used.
         """
     def new(self, element): ...
-    def __str__(self) -> str: ...
     def __hash__(self): ...
     def __eq__(self, other):
-        """Returns ``True`` if two domains are equivalent. """
+        """Returns ``True`` if two domains are equivalent."""
     def algebraic_field(self, *extension, alias=None):
-        """Returns an algebraic field, i.e. `\\mathbb{Q}(\\alpha, \\ldots)`. """
+        """Returns an algebraic field, i.e. `\\mathbb{Q}(\\alpha, \\ldots)`."""
     def to_alg_num(self, a):
-        """Convert ``a`` of ``dtype`` to an :py:class:`~.AlgebraicNumber`. """
+        """Convert ``a`` of ``dtype`` to an :py:class:`~.AlgebraicNumber`."""
     _converter: Incomplete
     def to_sympy(self, a):
-        """Convert ``a`` of ``dtype`` to a SymPy object. """
+        """Convert ``a`` of ``dtype`` to a SymPy object."""
     def from_sympy(self, a):
-        """Convert SymPy's expression to ``dtype``. """
+        """Convert SymPy's expression to ``dtype``."""
     def from_ZZ(K1, a, K0):
-        """Convert a Python ``int`` object to ``dtype``. """
+        """Convert a Python ``int`` object to ``dtype``."""
     def from_ZZ_python(K1, a, K0):
-        """Convert a Python ``int`` object to ``dtype``. """
+        """Convert a Python ``int`` object to ``dtype``."""
     def from_QQ(K1, a, K0):
-        """Convert a Python ``Fraction`` object to ``dtype``. """
+        """Convert a Python ``Fraction`` object to ``dtype``."""
     def from_QQ_python(K1, a, K0):
-        """Convert a Python ``Fraction`` object to ``dtype``. """
+        """Convert a Python ``Fraction`` object to ``dtype``."""
     def from_ZZ_gmpy(K1, a, K0):
-        """Convert a GMPY ``mpz`` object to ``dtype``. """
+        """Convert a GMPY ``mpz`` object to ``dtype``."""
     def from_QQ_gmpy(K1, a, K0):
-        """Convert a GMPY ``mpq`` object to ``dtype``. """
+        """Convert a GMPY ``mpq`` object to ``dtype``."""
     def from_RealField(K1, a, K0):
-        """Convert a mpmath ``mpf`` object to ``dtype``. """
+        """Convert a mpmath ``mpf`` object to ``dtype``."""
     def get_ring(self) -> None:
-        """Returns a ring associated with ``self``. """
+        """Returns a ring associated with ``self``."""
     def is_positive(self, a):
-        """Returns True if ``a`` is positive. """
+        """Returns True if ``a`` is positive."""
     def is_negative(self, a):
-        """Returns True if ``a`` is negative. """
+        """Returns True if ``a`` is negative."""
     def is_nonpositive(self, a):
-        """Returns True if ``a`` is non-positive. """
+        """Returns True if ``a`` is non-positive."""
     def is_nonnegative(self, a):
-        """Returns True if ``a`` is non-negative. """
+        """Returns True if ``a`` is non-negative."""
     def numer(self, a):
-        """Returns numerator of ``a``. """
+        """Returns numerator of ``a``."""
     def denom(self, a):
-        """Returns denominator of ``a``. """
+        """Returns denominator of ``a``."""
     def from_AlgebraicField(K1, a, K0):
-        """Convert AlgebraicField element 'a' to another AlgebraicField """
+        """Convert AlgebraicField element 'a' to another AlgebraicField"""
     def from_GaussianIntegerRing(K1, a, K0):
-        """Convert a GaussianInteger element 'a' to ``dtype``. """
+        """Convert a GaussianInteger element 'a' to ``dtype``."""
     def from_GaussianRationalField(K1, a, K0):
-        """Convert a GaussianRational element 'a' to ``dtype``. """
+        """Convert a GaussianRational element 'a' to ``dtype``."""
     def _do_round_two(self) -> None: ...
     def maximal_order(self):
         """
         Compute the maximal order, or ring of integers, of the field.
 
         Returns
-        =======
-
+        -------
         :py:class:`~sympy.polys.numberfields.modules.Submodule`.
 
         See Also
-        ========
-
+        --------
         integral_basis
 
         """
     def integral_basis(self, fmt=None):
-        '''
+        """
         Get an integral basis for the field.
 
         Parameters
-        ==========
-
+        ----------
         fmt : str, None, optional (default=None)
             If ``None``, return a list of :py:class:`~.ANP` instances.
             If ``"sympy"``, convert each element of the list to an
@@ -350,8 +345,7 @@ class AlgebraicField(Field, CharacteristicZero, SimpleDomain):
             :py:class:`~.AlgebraicNumber`, using ``self.to_alg_num()``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ, AlgebraicNumber, sqrt
         >>> alpha = AlgebraicNumber(sqrt(5), alias=\'alpha\')
         >>> k = QQ.algebraic_field(alpha)
@@ -374,12 +368,11 @@ class AlgebraicField(Field, CharacteristicZero, SimpleDomain):
         <class \'sympy.core.numbers.AlgebraicNumber\'>
 
         See Also
-        ========
-
+        --------
         to_sympy
         to_alg_num
         maximal_order
-        '''
+        """
     def discriminant(self):
         """Get the discriminant of the field."""
     def primes_above(self, p):
@@ -389,8 +382,7 @@ class AlgebraicField(Field, CharacteristicZero, SimpleDomain):
         Compute the Galois group of the Galois closure of this field.
 
         Examples
-        ========
-
+        --------
         If the field is Galois, the order of the group will equal the degree
         of the field:
 
@@ -411,8 +403,7 @@ class AlgebraicField(Field, CharacteristicZero, SimpleDomain):
         8
 
         See Also
-        ========
-
+        --------
         sympy.polys.numberfields.galoisgroups.galois_group
 
         """

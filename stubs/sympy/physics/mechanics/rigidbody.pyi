@@ -17,8 +17,7 @@ class RigidBody(BodyBase):
     afterwards.
 
     Attributes
-    ==========
-
+    ----------
     name : string
         The body's name.
     masscenter : Point
@@ -33,8 +32,7 @@ class RigidBody(BodyBase):
         The potential energy of the RigidBody.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol
     >>> from sympy.physics.mechanics import ReferenceFrame, Point, RigidBody
     >>> from sympy.physics.mechanics import outer
@@ -49,8 +47,8 @@ class RigidBody(BodyBase):
     >>> B.mass = m2
 
     """
+
     def __init__(self, name, masscenter=None, frame=None, mass=None, inertia=None) -> None: ...
-    def __repr__(self) -> str: ...
     @property
     def frame(self):
         """The ReferenceFrame fixed to the body."""
@@ -59,13 +57,13 @@ class RigidBody(BodyBase):
     def frame(self, F) -> None: ...
     @property
     def x(self):
-        """The basis Vector for the body, in the x direction. """
+        """The basis Vector for the body, in the x direction."""
     @property
     def y(self):
-        """The basis Vector for the body, in the y direction. """
+        """The basis Vector for the body, in the y direction."""
     @property
     def z(self):
-        """The basis Vector for the body, in the z direction. """
+        """The basis Vector for the body, in the z direction."""
     @property
     def inertia(self):
         """The body's inertia about a point; stored as (Dyadic, Point)."""
@@ -79,7 +77,7 @@ class RigidBody(BodyBase):
     @central_inertia.setter
     def central_inertia(self, I) -> None: ...
     def linear_momentum(self, frame):
-        """ Linear momentum of the rigid body.
+        """Linear momentum of the rigid body.
 
         Explanation
         ===========
@@ -93,14 +91,12 @@ class RigidBody(BodyBase):
         center of B in the frame N.
 
         Parameters
-        ==========
-
+        ----------
         frame : ReferenceFrame
             The frame in which linear momentum is desired.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.mechanics import Point, ReferenceFrame, outer
         >>> from sympy.physics.mechanics import RigidBody, dynamicsymbols
         >>> from sympy.physics.vector import init_vprinting
@@ -134,16 +130,14 @@ class RigidBody(BodyBase):
         the mass center in the frame N.
 
         Parameters
-        ==========
-
+        ----------
         point : Point
             The point about which angular momentum is desired.
         frame : ReferenceFrame
             The frame in which angular momentum is desired.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.mechanics import Point, ReferenceFrame, outer
         >>> from sympy.physics.mechanics import RigidBody, dynamicsymbols
         >>> from sympy.physics.vector import init_vprinting
@@ -175,8 +169,7 @@ class RigidBody(BodyBase):
         the body's mass center in the supplied ReferenceFrame.
 
         Parameters
-        ==========
-
+        ----------
         frame : ReferenceFrame
             The RigidBody's angular velocity and the velocity of it's mass
             center are typically defined with respect to an inertial frame but
@@ -184,8 +177,7 @@ class RigidBody(BodyBase):
             supplied.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.mechanics import Point, ReferenceFrame, outer
         >>> from sympy.physics.mechanics import RigidBody
         >>> from sympy import symbols
@@ -208,16 +200,14 @@ class RigidBody(BodyBase):
         """Returns the inertia dyadic of the body with respect to another point.
 
         Parameters
-        ==========
-
+        ----------
         point : sympy.physics.vector.Point
             The point to express the inertia dyadic about.
         frame : sympy.physics.vector.ReferenceFrame
             The reference frame used to construct the dyadic.
 
         Returns
-        =======
-
+        -------
         inertia : sympy.physics.vector.Dyadic
             The inertia dyadic of the rigid body expressed about the provided
             point.

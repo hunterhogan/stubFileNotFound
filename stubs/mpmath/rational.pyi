@@ -1,4 +1,6 @@
-from .libmp import HASH_MODULUS as HASH_MODULUS, bitcount as bitcount, from_man_exp as from_man_exp, int_types as int_types, mpf_hash as mpf_hash
+from .libmp import (
+	bitcount as bitcount, from_man_exp as from_man_exp, HASH_MODULUS as HASH_MODULUS, int_types as int_types,
+	mpf_hash as mpf_hash)
 from _typeshed import Incomplete
 
 new: Incomplete
@@ -9,10 +11,9 @@ class mpq:
     """
     Exact rational type, currently only intended for internal use.
     """
+
     __slots__: Incomplete
     def __new__(cls, p, q: int = 1): ...
-    def __repr__(s) -> str: ...
-    def __str__(s) -> str: ...
     def __int__(s) -> int: ...
     def __nonzero__(s): ...
     __bool__ = __nonzero__

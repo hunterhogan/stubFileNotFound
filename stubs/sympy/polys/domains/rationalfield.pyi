@@ -16,11 +16,11 @@ class RationalField(Field, CharacteristicZero, SimpleDomain):
     which will be the implementation for :ref:`QQ` depending on whether either
     of ``gmpy`` or ``gmpy2`` is installed or not.
 
-    See also
-    ========
-
+    See Also
+    --------
     Domain
     """
+
     rep: str
     alias: str
     is_RationalField: bool
@@ -34,21 +34,20 @@ class RationalField(Field, CharacteristicZero, SimpleDomain):
     tp: Incomplete
     def __init__(self) -> None: ...
     def __eq__(self, other):
-        """Returns ``True`` if two domains are equivalent. """
+        """Returns ``True`` if two domains are equivalent."""
     def __hash__(self):
-        """Returns hash code of ``self``. """
+        """Returns hash code of ``self``."""
     def get_ring(self):
-        """Returns ring associated with ``self``. """
+        """Returns ring associated with ``self``."""
     def to_sympy(self, a):
-        """Convert ``a`` to a SymPy object. """
+        """Convert ``a`` to a SymPy object."""
     def from_sympy(self, a):
-        """Convert SymPy's Integer to ``dtype``. """
+        """Convert SymPy's Integer to ``dtype``."""
     def algebraic_field(self, *extension, alias=None):
         """Returns an algebraic field, i.e. `\\mathbb{Q}(\\alpha, \\ldots)`.
 
         Parameters
-        ==========
-
+        ----------
         *extension : One or more :py:class:`~.Expr`
             Generators of the extension. These should be expressions that are
             algebraic over `\\mathbb{Q}`.
@@ -58,14 +57,12 @@ class RationalField(Field, CharacteristicZero, SimpleDomain):
             primitive element of the returned :py:class:`~.AlgebraicField`.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.AlgebraicField`
             A :py:class:`~.Domain` representing the algebraic field extension.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ, sqrt
         >>> QQ.algebraic_field(sqrt(2))
         QQ<sqrt(2)>
@@ -76,33 +73,33 @@ class RationalField(Field, CharacteristicZero, SimpleDomain):
         See :py:meth:`~.Domain.convert`
         """
     def from_ZZ(K1, a, K0):
-        """Convert a Python ``int`` object to ``dtype``. """
+        """Convert a Python ``int`` object to ``dtype``."""
     def from_ZZ_python(K1, a, K0):
-        """Convert a Python ``int`` object to ``dtype``. """
+        """Convert a Python ``int`` object to ``dtype``."""
     def from_QQ(K1, a, K0):
-        """Convert a Python ``Fraction`` object to ``dtype``. """
+        """Convert a Python ``Fraction`` object to ``dtype``."""
     def from_QQ_python(K1, a, K0):
-        """Convert a Python ``Fraction`` object to ``dtype``. """
+        """Convert a Python ``Fraction`` object to ``dtype``."""
     def from_ZZ_gmpy(K1, a, K0):
-        """Convert a GMPY ``mpz`` object to ``dtype``. """
+        """Convert a GMPY ``mpz`` object to ``dtype``."""
     def from_QQ_gmpy(K1, a, K0):
-        """Convert a GMPY ``mpq`` object to ``dtype``. """
+        """Convert a GMPY ``mpq`` object to ``dtype``."""
     def from_GaussianRationalField(K1, a, K0):
-        """Convert a ``GaussianElement`` object to ``dtype``. """
+        """Convert a ``GaussianElement`` object to ``dtype``."""
     def from_RealField(K1, a, K0):
-        """Convert a mpmath ``mpf`` object to ``dtype``. """
+        """Convert a mpmath ``mpf`` object to ``dtype``."""
     def exquo(self, a, b):
-        """Exact quotient of ``a`` and ``b``, implies ``__truediv__``.  """
+        """Exact quotient of ``a`` and ``b``, implies ``__truediv__``."""
     def quo(self, a, b):
-        """Quotient of ``a`` and ``b``, implies ``__truediv__``. """
+        """Quotient of ``a`` and ``b``, implies ``__truediv__``."""
     def rem(self, a, b):
-        """Remainder of ``a`` and ``b``, implies nothing.  """
+        """Remainder of ``a`` and ``b``, implies nothing."""
     def div(self, a, b):
-        """Division of ``a`` and ``b``, implies ``__truediv__``. """
+        """Division of ``a`` and ``b``, implies ``__truediv__``."""
     def numer(self, a):
-        """Returns numerator of ``a``. """
+        """Returns numerator of ``a``."""
     def denom(self, a):
-        """Returns denominator of ``a``. """
+        """Returns denominator of ``a``."""
     def is_square(self, a):
         """Return ``True`` if ``a`` is a square.
 
@@ -114,7 +111,7 @@ class RationalField(Field, CharacteristicZero, SimpleDomain):
     def exsqrt(self, a):
         """Non-negative square root of ``a`` if ``a`` is a square.
 
-        See also
-        ========
+        See Also
+        --------
         is_square
         """

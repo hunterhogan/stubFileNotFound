@@ -1,10 +1,10 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 
-__all__ = ['use', 'context', 'available', 'library', 'reload_library']
+__all__ = ['available', 'context', 'library', 'reload_library', 'use']
 
 def use(style) -> None:
-    '''
+    """
     Use Matplotlib style settings from a style specification.
 
     The style name of \'default\' is reserved for reverting back to
@@ -51,9 +51,9 @@ def use(style) -> None:
     found in a style specification:
 
     %s
-    '''
+    """
 def context(style, after_reset: bool = False) -> Generator[None]:
-    '''
+    """
     Context manager for using style settings temporarily.
 
     Parameters
@@ -87,7 +87,7 @@ def context(style, after_reset: bool = False) -> Generator[None]:
     after_reset : bool
         If True, apply style after resetting settings to their defaults;
         otherwise, apply style on top of the current settings.
-    '''
+    """
 
 library: Incomplete
 available: Incomplete

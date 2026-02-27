@@ -3,9 +3,7 @@ from __future__ import annotations
 from decimal import Decimal
 from fractions import Fraction
 from math import prod
-from typing import Any, Literal, Union
-from typing_extensions import assert_type
-
+from typing import Any, assert_type, Literal, Union
 
 class SupportsMul:
     def __mul__(self, other: Any) -> SupportsMul:

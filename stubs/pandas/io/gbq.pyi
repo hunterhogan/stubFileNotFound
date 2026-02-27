@@ -1,9 +1,5 @@
-from typing import (
-    Any,
-    Literal,
-)
-
 from pandas.core.frame import DataFrame
+from typing import Any, Literal
 
 def read_gbq(
     query: str,

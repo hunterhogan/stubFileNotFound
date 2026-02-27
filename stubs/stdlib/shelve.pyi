@@ -1,12 +1,11 @@
-import sys
 from _typeshed import StrOrBytesPath
 from collections.abc import Iterator, MutableMapping
 from dbm import _TFlags
 from types import TracebackType
-from typing import Any, TypeVar, overload
-from typing_extensions import Self
+from typing import Any, overload, Self, TypeVar
+import sys
 
-__all__ = ["Shelf", "BsdDbShelf", "DbfilenameShelf", "open"]
+__all__ = ["BsdDbShelf", "DbfilenameShelf", "Shelf", "open"]
 
 _T = TypeVar("_T")
 _VT = TypeVar("_VT")

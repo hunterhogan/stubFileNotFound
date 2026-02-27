@@ -4,7 +4,7 @@ from sympy.core.cache import cacheit
 from sympy.polys.polyutils import PicklableWithSlots
 from sympy.utilities import public
 
-__all__ = ['itermonomials', 'Monomial']
+__all__ = ['Monomial', 'itermonomials']
 
 @public
 def itermonomials(variables, max_degrees, min_degrees=None) -> Generator[Incomplete, Incomplete]:
@@ -82,7 +82,8 @@ def itermonomials(variables, max_degrees, min_degrees=None) -> Generator[Incompl
     """
 
 class MonomialOps:
-    """Code generator of fast monomial arithmetic functions. """
+    """Code generator of fast monomial arithmetic functions."""
+
     @cacheit
     def __new__(cls, ngens): ...
     def __getnewargs__(self): ...
@@ -104,7 +105,8 @@ class MonomialOps:
     def gcd(self): ...
 
 class Monomial(PicklableWithSlots):
-    """Class representing a monomial, i.e. a product of powers. """
+    """Class representing a monomial, i.e. a product of powers."""
+
     __slots__: Incomplete
     exponents: Incomplete
     gens: Incomplete
@@ -114,9 +116,8 @@ class Monomial(PicklableWithSlots):
     def __iter__(self): ...
     def __getitem__(self, item): ...
     def __hash__(self): ...
-    def __str__(self) -> str: ...
     def as_expr(self, *gens):
-        """Convert a monomial instance to a SymPy expression. """
+        """Convert a monomial instance to a SymPy expression."""
     def __eq__(self, other): ...
     def __ne__(self, other): ...
     def __mul__(self, other): ...
@@ -124,6 +125,6 @@ class Monomial(PicklableWithSlots):
     __floordiv__ = __truediv__
     def __pow__(self, other): ...
     def gcd(self, other):
-        """Greatest common divisor of monomials. """
+        """Greatest common divisor of monomials."""
     def lcm(self, other):
-        """Least common multiple of monomials. """
+        """Least common multiple of monomials."""

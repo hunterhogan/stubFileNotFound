@@ -27,12 +27,13 @@ class RootSystem(Atom):
     simple Lie algebra.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Root_system
     .. [2] Lie Algebras and Representation Theory - Humphreys
 
     """
+
     def __new__(cls, cartantype):
         """Create a new RootSystem object
 
@@ -44,7 +45,7 @@ class RootSystem(Atom):
 
         """
     def simple_roots(self):
-        '''Generate the simple roots of the Lie algebra
+        """Generate the simple roots of the Lie algebra
 
         The rank of the Lie algebra determines the number of simple roots that
         it has.  This method obtains the rank of the Lie algebra, and then uses
@@ -52,15 +53,14 @@ class RootSystem(Atom):
         simple roots.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.root_system import RootSystem
         >>> c = RootSystem("A3")
         >>> roots = c.simple_roots()
         >>> roots
         {1: [1, -1, 0, 0], 2: [0, 1, -1, 0], 3: [0, 0, 1, -1]}
 
-        '''
+        """
     def all_roots(self):
         """Generate all the roots of a given root system
 
@@ -72,7 +72,7 @@ class RootSystem(Atom):
 
         """
     def root_space(self):
-        '''Return the span of the simple roots
+        """Return the span of the simple roots
 
         The root space is the vector space spanned by the simple roots, i.e. it
         is a vector space with a distinguished basis, the simple roots.  This
@@ -80,33 +80,31 @@ class RootSystem(Atom):
         the simple roots, alpha[1],...., alpha[n].
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.root_system import RootSystem
         >>> c = RootSystem("A3")
         >>> c.root_space()
         \'alpha[1] + alpha[2] + alpha[3]\'
 
-        '''
+        """
     def add_simple_roots(self, root1, root2):
-        '''Add two simple roots together
+        """Add two simple roots together
 
         The function takes as input two integers, root1 and root2.  It then
         uses these integers as keys in the dictionary of simple roots, and gets
         the corresponding simple roots, and then adds them together.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.root_system import RootSystem
         >>> c = RootSystem("A3")
         >>> newroot = c.add_simple_roots(1, 2)
         >>> newroot
         [1, 0, -1, 0]
 
-        '''
+        """
     def add_as_roots(self, root1, root2):
-        '''Add two roots together if and only if their sum is also a root
+        """Add two roots together if and only if their sum is also a root
 
         It takes as input two vectors which should be roots.  It then computes
         their sum and checks if it is in the list of all possible roots.  If it
@@ -114,8 +112,7 @@ class RootSystem(Atom):
         sum is not a root.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.root_system import RootSystem
         >>> c = RootSystem("A3")
         >>> c.add_as_roots([1, 0, -1, 0], [0, 0, 1, -1])
@@ -123,13 +120,12 @@ class RootSystem(Atom):
         >>> c.add_as_roots([1, -1, 0, 0], [0, 0, -1, 1])
         \'The sum of these two roots is not a root\'
 
-        '''
+        """
     def cartan_matrix(self):
-        '''Cartan matrix of Lie algebra associated with this root system
+        """Cartan matrix of Lie algebra associated with this root system
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.root_system import RootSystem
         >>> c = RootSystem("A3")
         >>> c.cartan_matrix()
@@ -137,16 +133,15 @@ class RootSystem(Atom):
             [ 2, -1,  0],
             [-1,  2, -1],
             [ 0, -1,  2]])
-        '''
+        """
     def dynkin_diagram(self):
-        '''Dynkin diagram of the Lie algebra associated with this root system
+        """Dynkin diagram of the Lie algebra associated with this root system
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.root_system import RootSystem
         >>> c = RootSystem("A3")
         >>> print(c.dynkin_diagram())
         0---0---0
         1   2   3
-        '''
+        """

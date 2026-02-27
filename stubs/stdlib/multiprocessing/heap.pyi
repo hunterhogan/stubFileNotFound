@@ -1,9 +1,8 @@
-import sys
 from _typeshed import Incomplete
 from collections.abc import Callable
 from mmap import mmap
-from typing import Protocol, type_check_only
-from typing_extensions import TypeAlias
+from typing import Protocol, type_check_only, TypeAlias
+import sys
 
 __all__ = ["BufferWrapper"]
 

@@ -404,4 +404,3 @@ class CompositeMode(_UInt8Enum):
     enumClass = _CompositeMode
 
 converterMapping: Incomplete
-

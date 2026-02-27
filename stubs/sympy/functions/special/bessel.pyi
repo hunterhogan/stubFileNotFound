@@ -3,14 +3,16 @@ from sympy.core import S as S
 from sympy.core.add import Add as Add
 from sympy.core.cache import cacheit as cacheit
 from sympy.core.expr import Expr as Expr
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, _mexpand as _mexpand
+from sympy.core.function import (
+	_mexpand as _mexpand, ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction)
 from sympy.core.logic import fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
-from sympy.core.numbers import I as I, Rational as Rational, pi as pi
+from sympy.core.numbers import I as I, pi as pi, Rational as Rational
 from sympy.core.power import Pow as Pow
-from sympy.core.symbol import Dummy as Dummy, Wild as Wild, uniquely_named_symbol as uniquely_named_symbol
+from sympy.core.symbol import Dummy as Dummy, uniquely_named_symbol as uniquely_named_symbol, Wild as Wild
 from sympy.core.sympify import sympify as sympify
-from sympy.functions.combinatorial.factorials import RisingFactorial as RisingFactorial, factorial as factorial
-from sympy.functions.elementary.complexes import Abs as Abs, im as im, polar_lift as polar_lift, re as re, unpolarify as unpolarify
+from sympy.functions.combinatorial.factorials import factorial as factorial, RisingFactorial as RisingFactorial
+from sympy.functions.elementary.complexes import (
+	Abs as Abs, im as im, polar_lift as polar_lift, re as re, unpolarify as unpolarify)
 from sympy.functions.elementary.exponential import exp as exp, log as log
 from sympy.functions.elementary.integers import ceiling as ceiling
 from sympy.functions.elementary.miscellaneous import cbrt as cbrt, root as root, sqrt as sqrt
@@ -34,12 +36,13 @@ class BesselBase(DefinedFunction):
     ``2*F_n' = -_a*F_{n+1} + b*F_{n-1}``.
 
     """
+
     @property
     def order(self):
-        """ The order of the Bessel-type function. """
+        """The order of the Bessel-type function."""
     @property
     def argument(self):
-        """ The argument of the Bessel-type function. """
+        """The argument of the Bessel-type function."""
     @classmethod
     def eval(cls, nu, z) -> None: ...
     def fdiff(self, argindex: int = 2): ...
@@ -49,7 +52,7 @@ class BesselBase(DefinedFunction):
     def _eval_simplify(self, **kwargs): ...
 
 class besselj(BesselBase):
-    '''
+    """
     Bessel function of the first kind.
 
     Explanation
@@ -74,8 +77,7 @@ class besselj(BesselBase):
         J_{-n}(z) = (-1)^n J_n(z).
 
     Examples
-    ========
-
+    --------
     Create a Bessel function object:
 
     >>> from sympy import besselj, jn
@@ -100,12 +102,11 @@ class besselj(BesselBase):
     z
 
     See Also
-    ========
-
+    --------
     bessely, besseli, besselk
 
     References
-    ==========
+    ----------
 
     .. [1] Abramowitz, Milton; Stegun, Irene A., eds. (1965), "Chapter 9",
            Handbook of Mathematical Functions with Formulas, Graphs, and
@@ -115,7 +116,8 @@ class besselj(BesselBase):
     .. [3] https://en.wikipedia.org/wiki/Bessel_function
     .. [4] https://functions.wolfram.com/Bessel-TypeFunctions/BesselJ/
 
-    '''
+    """
+
     _a: Incomplete
     _b: Incomplete
     @classmethod
@@ -146,8 +148,7 @@ class bessely(BesselBase):
     $J_\\nu$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import bessely, yn
     >>> from sympy.abc import z, n
     >>> b = bessely(n, z)
@@ -157,16 +158,16 @@ class bessely(BesselBase):
     sqrt(2)*sqrt(z)*yn(n - 1/2, z)/sqrt(pi)
 
     See Also
-    ========
-
+    --------
     besselj, besseli, besselk
 
     References
-    ==========
+    ----------
 
     .. [1] https://functions.wolfram.com/Bessel-TypeFunctions/BesselY/
 
     """
+
     _a: Incomplete
     _b: Incomplete
     @classmethod
@@ -199,24 +200,23 @@ class besseli(BesselBase):
     where $J_\\nu(z)$ is the Bessel function of the first kind.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import besseli
     >>> from sympy.abc import z, n
     >>> besseli(n, z).diff(z)
     besseli(n - 1, z)/2 + besseli(n + 1, z)/2
 
     See Also
-    ========
-
+    --------
     besselj, bessely, besselk
 
     References
-    ==========
+    ----------
 
     .. [1] https://functions.wolfram.com/Bessel-TypeFunctions/BesselI/
 
     """
+
     _a: Incomplete
     _b: Incomplete
     @classmethod
@@ -249,24 +249,23 @@ class besselk(BesselBase):
     from $Y_\\nu$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import besselk
     >>> from sympy.abc import z, n
     >>> besselk(n, z).diff(z)
     -besselk(n - 1, z)/2 - besselk(n + 1, z)/2
 
     See Also
-    ========
-
+    --------
     besselj, besseli, bessely
 
     References
-    ==========
+    ----------
 
     .. [1] https://functions.wolfram.com/Bessel-TypeFunctions/BesselK/
 
     """
+
     _a: Incomplete
     _b: Incomplete
     @classmethod
@@ -299,24 +298,23 @@ class hankel1(BesselBase):
     It is a solution to Bessel's equation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import hankel1
     >>> from sympy.abc import z, n
     >>> hankel1(n, z).diff(z)
     hankel1(n - 1, z)/2 - hankel1(n + 1, z)/2
 
     See Also
-    ========
-
+    --------
     hankel2, besselj, bessely
 
     References
-    ==========
+    ----------
 
     .. [1] https://functions.wolfram.com/Bessel-TypeFunctions/HankelH1/
 
     """
+
     _a: Incomplete
     _b: Incomplete
     def _eval_conjugate(self): ...
@@ -340,24 +338,23 @@ class hankel2(BesselBase):
     $H_\\nu^{(1)}$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import hankel2
     >>> from sympy.abc import z, n
     >>> hankel2(n, z).diff(z)
     hankel2(n - 1, z)/2 - hankel2(n + 1, z)/2
 
     See Also
-    ========
-
+    --------
     hankel1, besselj, bessely
 
     References
-    ==========
+    ----------
 
     .. [1] https://functions.wolfram.com/Bessel-TypeFunctions/HankelH2/
 
     """
+
     _a: Incomplete
     _b: Incomplete
     def _eval_conjugate(self): ...
@@ -375,8 +372,9 @@ class SphericalBesselBase(BesselBase):
     To use this class, define the ``_eval_evalf()`` and ``_expand()`` methods.
 
     """
+
     def _expand(self, **hints) -> None:
-        """ Expand self into a polynomial. Nu is guaranteed to be Integer. """
+        """Expand self into a polynomial. Nu is guaranteed to be Integer."""
     def _eval_expand_func(self, **hints): ...
     def fdiff(self, argindex: int = 2): ...
 
@@ -384,7 +382,7 @@ def _jn(n, z): ...
 def _yn(n, z): ...
 
 class jn(SphericalBesselBase):
-    '''
+    """
     Spherical Bessel function of the first kind.
 
     Explanation
@@ -412,8 +410,7 @@ class jn(SphericalBesselBase):
     :func:`sympy.polys.orthopolys.spherical_bessel_fn`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, jn, sin, cos, expand_func, besselj, bessely
     >>> z = Symbol("z")
     >>> nu = Symbol("nu", integer=True)
@@ -431,16 +428,16 @@ class jn(SphericalBesselBase):
     0.099419756723640344491 - 0.054525080242173562897*I
 
     See Also
-    ========
-
+    --------
     besselj, bessely, besselk, yn
 
     References
-    ==========
+    ----------
 
     .. [1] https://dlmf.nist.gov/10.47
 
-    '''
+    """
+
     @classmethod
     def eval(cls, nu, z): ...
     def _eval_rewrite_as_besselj(self, nu, z, **kwargs): ...
@@ -450,7 +447,7 @@ class jn(SphericalBesselBase):
     def _eval_evalf(self, prec): ...
 
 class yn(SphericalBesselBase):
-    '''
+    """
     Spherical Bessel function of the second kind.
 
     Explanation
@@ -469,8 +466,7 @@ class yn(SphericalBesselBase):
     .. math:: y_n(z) = (-1)^{n+1} j_{-n-1}(z)
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, yn, sin, cos, expand_func, besselj, bessely
     >>> z = Symbol("z")
     >>> nu = Symbol("nu", integer=True)
@@ -486,16 +482,16 @@ class yn(SphericalBesselBase):
     0.18525034196069722536 + 0.014895573969924817587*I
 
     See Also
-    ========
-
+    --------
     besselj, bessely, besselk, jn
 
     References
-    ==========
+    ----------
 
     .. [1] https://dlmf.nist.gov/10.47
 
-    '''
+    """
+
     @assume_integer_order
     def _eval_rewrite_as_besselj(self, nu, z, **kwargs): ...
     @assume_integer_order
@@ -516,7 +512,7 @@ class SphericalHankelBase(SphericalBesselBase):
     def _eval_evalf(self, prec): ...
 
 class hn1(SphericalHankelBase):
-    '''
+    """
     Spherical Hankel function of the first kind.
 
     Explanation
@@ -534,8 +530,7 @@ class hn1(SphericalHankelBase):
     .. math:: h_n^(1)(z) = j_{n}(z) + i (-1)^{n+1} j_{-n-1}(z)
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, hn1, hankel1, expand_func, yn, jn
     >>> z = Symbol("z")
     >>> nu = Symbol("nu", integer=True)
@@ -553,22 +548,22 @@ class hn1(SphericalHankelBase):
     sqrt(2)*sqrt(pi)*sqrt(1/z)*hankel1(nu, z)/2
 
     See Also
-    ========
-
+    --------
     hn2, jn, yn, hankel1, hankel2
 
     References
-    ==========
+    ----------
 
     .. [1] https://dlmf.nist.gov/10.47
 
-    '''
+    """
+
     _hankel_kind_sign: Incomplete
     @assume_integer_order
     def _eval_rewrite_as_hankel1(self, nu, z, **kwargs): ...
 
 class hn2(SphericalHankelBase):
-    '''
+    """
     Spherical Hankel function of the second kind.
 
     Explanation
@@ -586,8 +581,7 @@ class hn2(SphericalHankelBase):
     .. math:: h_n^(2)(z) = j_{n} - i (-1)^{n+1} j_{-n-1}(z)
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, hn2, hankel2, expand_func, jn, yn
     >>> z = Symbol("z")
     >>> nu = Symbol("nu", integer=True)
@@ -605,22 +599,22 @@ class hn2(SphericalHankelBase):
     (-1)**nu*yn(-nu - 1, z) - I*yn(nu, z)
 
     See Also
-    ========
-
+    --------
     hn1, jn, yn, hankel1, hankel2
 
     References
-    ==========
+    ----------
 
     .. [1] https://dlmf.nist.gov/10.47
 
-    '''
+    """
+
     _hankel_kind_sign: Incomplete
     @assume_integer_order
     def _eval_rewrite_as_hankel2(self, nu, z, **kwargs): ...
 
 def jn_zeros(n, k, method: str = 'sympy', dps: int = 15):
-    '''
+    """
     Zeros of the spherical Bessel function of the first kind.
 
     Explanation
@@ -642,20 +636,17 @@ def jn_zeros(n, k, method: str = 'sympy', dps: int = 15):
       solver was used.)
 
     Examples
-    ========
-
+    --------
     >>> from sympy import jn_zeros
     >>> jn_zeros(2, 4, dps=5)
     [5.7635, 9.095, 12.323, 15.515]
 
     See Also
-    ========
-
+    --------
     jn, yn, besselj, besselk, bessely
 
     Parameters
-    ==========
-
+    ----------
     n : integer
         order of Bessel function
 
@@ -663,7 +654,7 @@ def jn_zeros(n, k, method: str = 'sympy', dps: int = 15):
         number of zeros to return
 
 
-    '''
+    """
 
 class AiryBase(DefinedFunction):
     """
@@ -672,6 +663,7 @@ class AiryBase(DefinedFunction):
     This class is meant to reduce code duplication.
 
     """
+
     def _eval_conjugate(self): ...
     def _eval_is_extended_real(self): ...
     def as_real_imag(self, deep: bool = True, **hints): ...
@@ -697,8 +689,7 @@ class airyai(AiryBase):
         \\int_0^\\infty \\cos\\left(\\frac{t^3}{3} + z t\\right) \\mathrm{d}t.
 
     Examples
-    ========
-
+    --------
     Create an Airy function object:
 
     >>> from sympy import airyai
@@ -750,14 +741,13 @@ class airyai(AiryBase):
     -3**(2/3)*z*hyper((), (4/3,), z**3/9)/(3*gamma(1/3)) + 3**(1/3)*hyper((), (2/3,), z**3/9)/(3*gamma(2/3))
 
     See Also
-    ========
-
+    --------
     airybi: Airy function of the second kind.
     airyaiprime: Derivative of the Airy function of the first kind.
     airybiprime: Derivative of the Airy function of the second kind.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Airy_function
     .. [2] https://dlmf.nist.gov/9
@@ -765,6 +755,7 @@ class airyai(AiryBase):
     .. [4] https://mathworld.wolfram.com/AiryFunctions.html
 
     """
+
     nargs: int
     unbranched: bool
     @classmethod
@@ -800,8 +791,7 @@ class airybi(AiryBase):
                    + \\sin\\left(\\frac{t^3}{3} + z t\\right) \\mathrm{d}t.
 
     Examples
-    ========
-
+    --------
     Create an Airy function object:
 
     >>> from sympy import airybi
@@ -853,14 +843,13 @@ class airybi(AiryBase):
     3**(1/6)*z*hyper((), (4/3,), z**3/9)/gamma(1/3) + 3**(5/6)*hyper((), (2/3,), z**3/9)/(3*gamma(2/3))
 
     See Also
-    ========
-
+    --------
     airyai: Airy function of the first kind.
     airyaiprime: Derivative of the Airy function of the first kind.
     airybiprime: Derivative of the Airy function of the second kind.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Airy_function
     .. [2] https://dlmf.nist.gov/9
@@ -868,6 +857,7 @@ class airybi(AiryBase):
     .. [4] https://mathworld.wolfram.com/AiryFunctions.html
 
     """
+
     nargs: int
     unbranched: bool
     @classmethod
@@ -896,8 +886,7 @@ class airyaiprime(AiryBase):
         \\operatorname{Ai}^\\prime(z) := \\frac{\\mathrm{d} \\operatorname{Ai}(z)}{\\mathrm{d} z}.
 
     Examples
-    ========
-
+    --------
     Create an Airy function object:
 
     >>> from sympy import airyaiprime
@@ -947,14 +936,13 @@ class airyaiprime(AiryBase):
     3**(1/3)*z**2*hyper((), (5/3,), z**3/9)/(6*gamma(2/3)) - 3**(2/3)*hyper((), (1/3,), z**3/9)/(3*gamma(1/3))
 
     See Also
-    ========
-
+    --------
     airyai: Airy function of the first kind.
     airybi: Airy function of the second kind.
     airybiprime: Derivative of the Airy function of the second kind.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Airy_function
     .. [2] https://dlmf.nist.gov/9
@@ -962,6 +950,7 @@ class airyaiprime(AiryBase):
     .. [4] https://mathworld.wolfram.com/AiryFunctions.html
 
     """
+
     nargs: int
     unbranched: bool
     @classmethod
@@ -988,8 +977,7 @@ class airybiprime(AiryBase):
         \\operatorname{Bi}^\\prime(z) := \\frac{\\mathrm{d} \\operatorname{Bi}(z)}{\\mathrm{d} z}.
 
     Examples
-    ========
-
+    --------
     Create an Airy function object:
 
     >>> from sympy import airybiprime
@@ -1041,14 +1029,13 @@ class airybiprime(AiryBase):
     3**(5/6)*z**2*hyper((), (5/3,), z**3/9)/(6*gamma(2/3)) + 3**(1/6)*hyper((), (1/3,), z**3/9)/gamma(1/3)
 
     See Also
-    ========
-
+    --------
     airyai: Airy function of the first kind.
     airybi: Airy function of the second kind.
     airyaiprime: Derivative of the Airy function of the first kind.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Airy_function
     .. [2] https://dlmf.nist.gov/9
@@ -1056,6 +1043,7 @@ class airybiprime(AiryBase):
     .. [4] https://mathworld.wolfram.com/AiryFunctions.html
 
     """
+
     nargs: int
     unbranched: bool
     @classmethod
@@ -1080,8 +1068,7 @@ class marcumq(DefinedFunction):
         Q_m(a, b) = a^{- m + 1} \\int_{b}^{\\infty} x^{m} e^{- \\frac{a^{2}}{2} - \\frac{x^{2}}{2}} I_{m - 1}\\left(a x\\right)\\, dx
 
     Examples
-    ========
-
+    --------
     >>> from sympy import marcumq
     >>> from sympy.abc import m, a, b
     >>> marcumq(m, a, b)
@@ -1109,12 +1096,13 @@ class marcumq(DefinedFunction):
     -a**(1 - m)*b**m*exp(-a**2/2 - b**2/2)*besseli(m - 1, a*b)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Marcum_Q-function
     .. [2] https://mathworld.wolfram.com/MarcumQ-Function.html
 
     """
+
     @classmethod
     def eval(cls, m, a, b): ...
     def fdiff(self, argindex: int = 2): ...
@@ -1129,6 +1117,7 @@ class _besseli(DefinedFunction):
     function tractable for the Gruntz algorithm.
 
     """
+
     def _eval_aseries(self, n, args0, x, logx): ...
     def _eval_rewrite_as_intractable(self, nu, z, **kwargs): ...
     def _eval_nseries(self, x, n, logx, cdir: int = 0): ...
@@ -1139,6 +1128,7 @@ class _besselk(DefinedFunction):
     function tractable for the Gruntz algorithm.
 
     """
+
     def _eval_aseries(self, n, args0, x, logx): ...
     def _eval_rewrite_as_intractable(self, nu, z, **kwargs): ...
     def _eval_nseries(self, x, n, logx, cdir: int = 0): ...

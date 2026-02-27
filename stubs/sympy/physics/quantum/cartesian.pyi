@@ -2,10 +2,11 @@ from _typeshed import Incomplete
 from sympy.physics.quantum.operator import HermitianOperator
 from sympy.physics.quantum.state import Bra, Ket, State
 
-__all__ = ['XOp', 'YOp', 'ZOp', 'PxOp', 'X', 'Y', 'Z', 'Px', 'XKet', 'XBra', 'PxKet', 'PxBra', 'PositionState3D', 'PositionKet3D', 'PositionBra3D']
+__all__ = ['PositionBra3D', 'PositionKet3D', 'PositionState3D', 'Px', 'PxBra', 'PxKet', 'PxOp', 'X', 'XBra', 'XKet', 'XOp', 'Y', 'YOp', 'Z', 'ZOp']
 
 class XOp(HermitianOperator):
     """1D cartesian position operator."""
+
     @classmethod
     def default_args(self): ...
     @classmethod
@@ -16,7 +17,8 @@ class XOp(HermitianOperator):
     def _represent_PxKet(self, basis, *, index: int = 1, **options): ...
 
 class YOp(HermitianOperator):
-    """ Y cartesian coordinate operator (for 2D or 3D systems) """
+    """Y cartesian coordinate operator (for 2D or 3D systems)"""
+
     @classmethod
     def default_args(self): ...
     @classmethod
@@ -24,7 +26,8 @@ class YOp(HermitianOperator):
     def _apply_operator_PositionKet3D(self, ket, **options): ...
 
 class ZOp(HermitianOperator):
-    """ Z cartesian coordinate operator (for 3D systems) """
+    """Z cartesian coordinate operator (for 3D systems)"""
+
     @classmethod
     def default_args(self): ...
     @classmethod
@@ -33,6 +36,7 @@ class ZOp(HermitianOperator):
 
 class PxOp(HermitianOperator):
     """1D cartesian momentum operator."""
+
     @classmethod
     def default_args(self): ...
     @classmethod
@@ -47,6 +51,7 @@ Px: Incomplete
 
 class XKet(Ket):
     """1D cartesian position eigenket."""
+
     @classmethod
     def _operators_to_state(self, op, **options): ...
     def _state_to_operators(self, op_class, **options): ...
@@ -63,6 +68,7 @@ class XKet(Ket):
 
 class XBra(Bra):
     """1D cartesian position eigenbra."""
+
     @classmethod
     def default_args(self): ...
     @classmethod
@@ -72,7 +78,8 @@ class XBra(Bra):
         """The position of the state."""
 
 class PositionState3D(State):
-    """ Base class for 3D cartesian position eigenstates """
+    """Base class for 3D cartesian position eigenstates"""
+
     @classmethod
     def _operators_to_state(self, op, **options): ...
     def _state_to_operators(self, op_class, **options): ...
@@ -80,27 +87,30 @@ class PositionState3D(State):
     def default_args(self): ...
     @property
     def position_x(self):
-        """ The x coordinate of the state """
+        """The x coordinate of the state"""
     @property
     def position_y(self):
-        """ The y coordinate of the state """
+        """The y coordinate of the state"""
     @property
     def position_z(self):
-        """ The z coordinate of the state """
+        """The z coordinate of the state"""
 
 class PositionKet3D(Ket, PositionState3D):
-    """ 3D cartesian position eigenket """
+    """3D cartesian position eigenket"""
+
     def _eval_innerproduct_PositionBra3D(self, bra, **options): ...
     @classmethod
     def dual_class(self): ...
 
 class PositionBra3D(Bra, PositionState3D):
-    """ 3D cartesian position eigenbra """
+    """3D cartesian position eigenbra"""
+
     @classmethod
     def dual_class(self): ...
 
 class PxKet(Ket):
     """1D cartesian momentum eigenket."""
+
     @classmethod
     def _operators_to_state(self, op, **options): ...
     def _state_to_operators(self, op_class, **options): ...
@@ -117,6 +127,7 @@ class PxKet(Ket):
 
 class PxBra(Bra):
     """1D cartesian momentum eigenbra."""
+
     @classmethod
     def default_args(self): ...
     @classmethod

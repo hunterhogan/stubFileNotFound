@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
 from matplotlib import _api as _api, cbook as cbook
-from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, RendererBase as RendererBase, _Backend as _Backend
+from matplotlib.backend_bases import (
+	_Backend as _Backend, FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase,
+	RendererBase as RendererBase)
 from matplotlib.font_manager import get_font as get_font
 from matplotlib.ft2font import LoadFlags as LoadFlags
 from matplotlib.mathtext import MathTextParser as MathTextParser
@@ -14,6 +16,7 @@ class RendererAgg(RendererBase):
     The renderer handles all the drawing primitives using a graphics
     context instance that controls the colors/styles
     """
+
     dpi: Incomplete
     width: Incomplete
     height: Incomplete

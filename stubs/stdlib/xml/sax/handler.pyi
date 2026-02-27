@@ -1,11 +1,11 @@
-import sys
 from typing import Final, NoReturn, Protocol, type_check_only
 from xml.sax import xmlreader
+import sys
 
 version: Final[str]
 
 @type_check_only
-class _ErrorHandlerProtocol(Protocol):  # noqa: Y046  # Protocol is not used
+class _ErrorHandlerProtocol(Protocol):  # Protocol is not used
     def error(self, exception: BaseException) -> NoReturn: ...
     def fatalError(self, exception: BaseException) -> NoReturn: ...
     def warning(self, exception: BaseException) -> None: ...
@@ -16,7 +16,7 @@ class ErrorHandler:
     def warning(self, exception: BaseException) -> None: ...
 
 @type_check_only
-class _ContentHandlerProtocol(Protocol):  # noqa: Y046  # Protocol is not used
+class _ContentHandlerProtocol(Protocol):  # Protocol is not used
     def setDocumentLocator(self, locator: xmlreader.Locator) -> None: ...
     def startDocument(self) -> None: ...
     def endDocument(self) -> None: ...
@@ -47,7 +47,7 @@ class ContentHandler:
     def skippedEntity(self, name: str) -> None: ...
 
 @type_check_only
-class _DTDHandlerProtocol(Protocol):  # noqa: Y046  # Protocol is not used
+class _DTDHandlerProtocol(Protocol):  # Protocol is not used
     def notationDecl(self, name: str, publicId: str | None, systemId: str) -> None: ...
     def unparsedEntityDecl(self, name: str, publicId: str | None, systemId: str, ndata: str) -> None: ...
 
@@ -56,7 +56,7 @@ class DTDHandler:
     def unparsedEntityDecl(self, name: str, publicId: str | None, systemId: str, ndata: str) -> None: ...
 
 @type_check_only
-class _EntityResolverProtocol(Protocol):  # noqa: Y046  # Protocol is not used
+class _EntityResolverProtocol(Protocol):  # Protocol is not used
     def resolveEntity(self, publicId: str | None, systemId: str) -> str: ...
 
 class EntityResolver:

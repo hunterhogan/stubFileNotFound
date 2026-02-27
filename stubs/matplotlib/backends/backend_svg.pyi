@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
 from matplotlib import _path as _path, cbook as cbook
-from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, RendererBase as RendererBase, _Backend as _Backend
+from matplotlib.backend_bases import (
+	_Backend as _Backend, FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase,
+	RendererBase as RendererBase)
 from matplotlib.backends.backend_mixed import MixedModeRenderer as MixedModeRenderer
 from matplotlib.colors import rgb2hex as rgb2hex
 from matplotlib.dates import UTC as UTC
@@ -28,6 +30,7 @@ class XMLWriter:
     ----------
     file : writable text file-like object
     """
+
     __write: Incomplete
     __open: int
     __tags: Incomplete

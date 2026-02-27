@@ -1,4 +1,6 @@
-from .exceptions import MatrixError as MatrixError, NonInvertibleMatrixError as NonInvertibleMatrixError, NonSquareMatrixError as NonSquareMatrixError
+from .exceptions import (
+	MatrixError as MatrixError, NonInvertibleMatrixError as NonInvertibleMatrixError,
+	NonSquareMatrixError as NonSquareMatrixError)
 from .utilities import _iszero as _iszero
 from sympy.polys.domains import EX as EX
 from sympy.polys.matrices.exceptions import DMNonInvertibleMatrixError as DMNonInvertibleMatrixError
@@ -33,8 +35,7 @@ def _pinv(M, method: str = 'RD'):
     inverse.
 
     Parameters
-    ==========
-
+    ----------
     method : String, optional
         Specifies the method for computing the pseudoinverse.
 
@@ -43,8 +44,7 @@ def _pinv(M, method: str = 'RD'):
         If ``'ED'``, Diagonalization will be used.
 
     Examples
-    ========
-
+    --------
     Computing pseudoinverse by rank decomposition :
 
     >>> from sympy import Matrix
@@ -66,26 +66,25 @@ def _pinv(M, method: str = 'RD'):
     [ 13/18, -2/9]])
 
     See Also
-    ========
-
+    --------
     inv
     pinv_solve
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Moore-Penrose_pseudoinverse
 
     """
 def _verify_invertible(M, iszerofunc=...):
     """Initial check to see if a matrix is invertible. Raises or returns
-    determinant for use in _inv_ADJ."""
+    determinant for use in _inv_ADJ.
+    """
 def _inv_ADJ(M, iszerofunc=...):
     """Calculates the inverse using the adjugate matrix and a determinant.
 
     See Also
-    ========
-
+    --------
     inv
     inverse_GE
     inverse_LU
@@ -96,8 +95,7 @@ def _inv_GE(M, iszerofunc=...):
     """Calculates the inverse using Gaussian elimination.
 
     See Also
-    ========
-
+    --------
     inv
     inverse_ADJ
     inverse_LU
@@ -108,8 +106,7 @@ def _inv_LU(M, iszerofunc=...):
     """Calculates the inverse using LU decomposition.
 
     See Also
-    ========
-
+    --------
     inv
     inverse_ADJ
     inverse_GE
@@ -120,8 +117,7 @@ def _inv_CH(M, iszerofunc=...):
     """Calculates the inverse using cholesky decomposition.
 
     See Also
-    ========
-
+    --------
     inv
     inverse_ADJ
     inverse_GE
@@ -132,8 +128,7 @@ def _inv_LDL(M, iszerofunc=...):
     """Calculates the inverse using LDL decomposition.
 
     See Also
-    ========
-
+    --------
     inv
     inverse_ADJ
     inverse_GE
@@ -144,8 +139,7 @@ def _inv_QR(M, iszerofunc=...):
     """Calculates the inverse using QR decomposition.
 
     See Also
-    ========
-
+    --------
     inv
     inverse_ADJ
     inverse_GE
@@ -160,8 +154,7 @@ def _inv_DM(dM, cancel: bool = True):
     """Calculates the inverse using ``DomainMatrix``.
 
     See Also
-    ========
-
+    --------
     inv
     inverse_ADJ
     inverse_GE
@@ -173,8 +166,7 @@ def _inv_block(M, iszerofunc=...):
     """Calculates the inverse using BLOCKWISE inversion.
 
     See Also
-    ========
-
+    --------
     inv
     inverse_ADJ
     inverse_GE
@@ -188,8 +180,7 @@ def _inv(M, method=None, iszerofunc=..., try_block_diag: bool = False):
     LDL for sparse matrices.
 
     Parameters
-    ==========
-
+    ----------
     method : ('DM', 'DMNC', 'GE', 'LU', 'ADJ', 'CH', 'LDL', 'QR')
 
     iszerofunc : function, optional
@@ -201,8 +192,7 @@ def _inv(M, method=None, iszerofunc=..., try_block_diag: bool = False):
         reconstruct the full inverse matrix.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import SparseMatrix, Matrix
     >>> A = SparseMatrix([
     ... [ 2, -1,  0],
@@ -233,8 +223,7 @@ def _inv(M, method=None, iszerofunc=..., try_block_diag: bool = False):
     True
 
     Notes
-    =====
-
+    -----
     According to the ``method`` keyword, it calls the appropriate method:
 
         DM .... Use DomainMatrix ``inv_den`` method
@@ -255,8 +244,7 @@ def _inv(M, method=None, iszerofunc=..., try_block_diag: bool = False):
     to testing for zeros on the diagonal.
 
     See Also
-    ========
-
+    --------
     inverse_ADJ
     inverse_GE
     inverse_LU
@@ -264,8 +252,7 @@ def _inv(M, method=None, iszerofunc=..., try_block_diag: bool = False):
     inverse_LDL
 
     Raises
-    ======
-
+    ------
     ValueError
         If the determinant of the matrix is zero.
     """

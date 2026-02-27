@@ -1,6 +1,8 @@
-from .ask import Q as Q, ask as ask, register_handler as register_handler, remove_handler as remove_handler
-from .assume import AppliedPredicate as AppliedPredicate, AssumptionsContext as AssumptionsContext, Predicate as Predicate, assuming as assuming, global_assumptions as global_assumptions
+from .ask import ask as ask, Q as Q, register_handler as register_handler, remove_handler as remove_handler
+from .assume import (
+	AppliedPredicate as AppliedPredicate, assuming as assuming, AssumptionsContext as AssumptionsContext,
+	global_assumptions as global_assumptions, Predicate as Predicate)
 from .refine import refine as refine
 from .relation import AppliedBinaryRelation as AppliedBinaryRelation, BinaryRelation as BinaryRelation
 
-__all__ = ['AppliedPredicate', 'Predicate', 'AssumptionsContext', 'assuming', 'global_assumptions', 'Q', 'ask', 'register_handler', 'remove_handler', 'refine', 'BinaryRelation', 'AppliedBinaryRelation']
+__all__ = ['AppliedBinaryRelation', 'AppliedPredicate', 'AssumptionsContext', 'BinaryRelation', 'Predicate', 'Q', 'ask', 'assuming', 'global_assumptions', 'refine', 'register_handler', 'remove_handler']

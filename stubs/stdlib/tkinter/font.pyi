@@ -1,11 +1,11 @@
+from typing import Any, ClassVar, Final, Literal, overload, type_check_only, TypeAlias, TypedDict
+from typing_extensions import Unpack
 import _tkinter
 import itertools
 import sys
 import tkinter
-from typing import Any, ClassVar, Final, Literal, TypedDict, overload, type_check_only
-from typing_extensions import TypeAlias, Unpack
 
-__all__ = ["NORMAL", "ROMAN", "BOLD", "ITALIC", "nametofont", "Font", "families", "names"]
+__all__ = ["BOLD", "ITALIC", "NORMAL", "ROMAN", "Font", "families", "names", "nametofont"]
 
 NORMAL: Final = "normal"
 ROMAN: Final = "roman"

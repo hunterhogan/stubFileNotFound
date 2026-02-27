@@ -14,8 +14,7 @@ class FinitePredicate(Predicate):
     numerical ``x`` having a bounded absolute value.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, S, oo, I, zoo
     >>> from sympy.abc import x
     >>> ask(Q.finite(oo))
@@ -34,11 +33,12 @@ class FinitePredicate(Predicate):
     None
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Finite
 
     """
+
     name: str
     handler: Incomplete
 
@@ -50,6 +50,7 @@ class InfinitePredicate(Predicate):
     infinity.
 
     """
+
     name: str
     handler: Incomplete
 
@@ -59,6 +60,7 @@ class PositiveInfinitePredicate(Predicate):
 
     ``Q.positive_infinite(x)`` is true iff ``x`` is positive infinity ``oo``.
     """
+
     name: str
     handler: Incomplete
 
@@ -68,5 +70,6 @@ class NegativeInfinitePredicate(Predicate):
 
     ``Q.negative_infinite(x)`` is true iff ``x`` is negative infinity ``-oo``.
     """
+
     name: str
     handler: Incomplete

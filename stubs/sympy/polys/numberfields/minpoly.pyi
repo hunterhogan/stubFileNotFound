@@ -8,8 +8,7 @@ def minimal_polynomial(ex, x=None, compose: bool = True, polys: bool = False, do
     Computes the minimal polynomial of an algebraic element.
 
     Parameters
-    ==========
-
+    ----------
     ex : Expr
         Element or expression whose minimal polynomial is to be calculated.
 
@@ -28,8 +27,7 @@ def minimal_polynomial(ex, x=None, compose: bool = True, polys: bool = False, do
         Ground domain
 
     Notes
-    =====
-
+    -----
     By default ``compose=True``, the minimal polynomial of the subexpressions of ``ex``
     are computed, then the arithmetic operations on them are performed using the resultant
     and factorization.
@@ -39,8 +37,7 @@ def minimal_polynomial(ex, x=None, compose: bool = True, polys: bool = False, do
     If no ground domain is given, it will be generated automatically from the expression.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import minimal_polynomial, sqrt, solve, QQ
     >>> from sympy.abc import x, y
 

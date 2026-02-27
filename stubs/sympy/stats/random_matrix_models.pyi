@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from sympy.core.basic import Basic
 
-__all__ = ['CircularEnsemble', 'CircularUnitaryEnsemble', 'CircularOrthogonalEnsemble', 'CircularSymplecticEnsemble', 'GaussianEnsemble', 'GaussianUnitaryEnsemble', 'GaussianOrthogonalEnsemble', 'GaussianSymplecticEnsemble', 'joint_eigen_distribution', 'JointEigenDistribution', 'level_spacing_distribution']
+__all__ = ['CircularEnsemble', 'CircularOrthogonalEnsemble', 'CircularSymplecticEnsemble', 'CircularUnitaryEnsemble', 'GaussianEnsemble', 'GaussianOrthogonalEnsemble', 'GaussianSymplecticEnsemble', 'GaussianUnitaryEnsemble', 'JointEigenDistribution', 'joint_eigen_distribution', 'level_spacing_distribution']
 
 class RandomMatrixEnsembleModel(Basic):
     """
@@ -10,6 +10,7 @@ class RandomMatrixEnsembleModel(Basic):
     the methods common to all the ensembles
     defined in sympy.stats.random_matrix_models.
     """
+
     def __new__(cls, sym, dim=None): ...
     symbol: Incomplete
     dimension: Incomplete
@@ -23,11 +24,12 @@ class GaussianEnsembleModel(RandomMatrixEnsembleModel):
     gaussian ensembles.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Random_matrix#Gaussian_ensembles
     .. [2] https://arxiv.org/pdf/1712.07903.pdf
     """
+
     def _compute_normalization_constant(self, beta, n):
         """
         Helper function for computing normalization
@@ -35,7 +37,7 @@ class GaussianEnsembleModel(RandomMatrixEnsembleModel):
         values of Gaussian ensembles.
 
         References
-        ==========
+        ----------
 
         .. [1] https://en.wikipedia.org/wiki/Selberg_integral#Mehta's_integral
         """
@@ -73,8 +75,7 @@ def GaussianUnitaryEnsemble(sym, dim):
     Represents Gaussian Unitary Ensembles.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import GaussianUnitaryEnsemble as GUE, density
     >>> from sympy import MatrixSymbol
     >>> G = GUE('U', 2)
@@ -87,8 +88,7 @@ def GaussianOrthogonalEnsemble(sym, dim):
     Represents Gaussian Orthogonal Ensembles.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import GaussianOrthogonalEnsemble as GOE, density
     >>> from sympy import MatrixSymbol
     >>> G = GOE('U', 2)
@@ -101,8 +101,7 @@ def GaussianSymplecticEnsemble(sym, dim):
     Represents Gaussian Symplectic Ensembles.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import GaussianSymplecticEnsemble as GSE, density
     >>> from sympy import MatrixSymbol
     >>> G = GSE('U', 2)
@@ -118,10 +117,11 @@ class CircularEnsembleModel(RandomMatrixEnsembleModel):
     common to all the circular ensembles.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Circular_ensemble
     """
+
     def density(self, expr) -> None: ...
     def _compute_joint_eigen_distribution(self, beta):
         """
@@ -145,8 +145,7 @@ def CircularUnitaryEnsemble(sym, dim):
     Represents Circular Unitary Ensembles.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import CircularUnitaryEnsemble as CUE
     >>> from sympy.stats import joint_eigen_distribution
     >>> C = CUE('U', 1)
@@ -165,8 +164,7 @@ def CircularOrthogonalEnsemble(sym, dim):
     Represents Circular Orthogonal Ensembles.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import CircularOrthogonalEnsemble as COE
     >>> from sympy.stats import joint_eigen_distribution
     >>> C = COE('O', 1)
@@ -185,8 +183,7 @@ def CircularSymplecticEnsemble(sym, dim):
     Represents Circular Symplectic Ensembles.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import CircularSymplecticEnsemble as CSE
     >>> from sympy.stats import joint_eigen_distribution
     >>> C = CSE('S', 1)
@@ -206,19 +203,16 @@ def joint_eigen_distribution(mat):
     of eigen values of random matrix.
 
     Parameters
-    ==========
-
+    ----------
     mat: RandomMatrixSymbol
         The matrix symbol whose eigen values are to be considered.
 
     Returns
-    =======
-
+    -------
     Lambda
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import GaussianUnitaryEnsemble as GUE
     >>> from sympy.stats import joint_eigen_distribution
     >>> U = GUE('U', 2)
@@ -231,19 +225,16 @@ def JointEigenDistribution(mat):
     expressions.
 
     Parameters
-    ==========
-
+    ----------
     mat: Matrix
         The matrix under consideration.
 
     Returns
-    =======
-
+    -------
     JointDistributionHandmade
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Normal, JointEigenDistribution
     >>> from sympy import Matrix
     >>> A = [[Normal('A00', 0, 1), Normal('A01', 0, 1)],
@@ -258,20 +249,17 @@ def level_spacing_distribution(mat):
     For obtaining distribution of level spacings.
 
     Parameters
-    ==========
-
+    ----------
     mat: RandomMatrixSymbol
         The random matrix symbol whose eigen values are
         to be considered for finding the level spacings.
 
     Returns
-    =======
-
+    -------
     Lambda
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import GaussianUnitaryEnsemble as GUE
     >>> from sympy.stats import level_spacing_distribution
     >>> U = GUE('U', 2)
@@ -279,7 +267,7 @@ def level_spacing_distribution(mat):
     Lambda(_s, 32*_s**2*exp(-4*_s**2/pi)/pi**2)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Random_matrix#Distribution_of_level_spacings
     """

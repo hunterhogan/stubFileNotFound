@@ -42,8 +42,7 @@ def gammasimp(expr):
     .. [2] https://functions.wolfram.com/GammaBetaErf/Pochhammer/27/01/0005/
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify import gammasimp
     >>> from sympy import gamma, Symbol
     >>> from sympy.abc import x

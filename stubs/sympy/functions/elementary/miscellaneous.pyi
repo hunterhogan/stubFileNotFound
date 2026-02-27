@@ -5,7 +5,9 @@ from sympy.core.add import Add as Add
 from sympy.core.containers import Tuple as Tuple
 from sympy.core.expr import Expr as Expr
 from sympy.core.exprtools import factor_terms as factor_terms
-from sympy.core.function import Application as Application, ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, Lambda as Lambda
+from sympy.core.function import (
+	Application as Application, ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction,
+	Lambda as Lambda)
 from sympy.core.logic import _torf as _torf, fuzzy_and as fuzzy_and, fuzzy_or as fuzzy_or
 from sympy.core.mod import Mod as Mod
 from sympy.core.mul import Mul as Mul
@@ -28,14 +30,14 @@ class IdentityFunction(Lambda, metaclass=Singleton):
     The identity function
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Id, Symbol
     >>> x = Symbol('x')
     >>> Id(x)
     x
 
     """
+
     _symbol: Incomplete
     @property
     def signature(self): ...
@@ -48,16 +50,14 @@ def sqrt(arg, evaluate=None):
     """Returns the principal square root.
 
     Parameters
-    ==========
-
+    ----------
     evaluate : bool, optional
         The parameter determines if the expression should be evaluated.
         If ``None``, its value is taken from
         ``global_parameters.evaluate``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sqrt, Symbol, S
     >>> x = Symbol('x')
 
@@ -118,12 +118,11 @@ def sqrt(arg, evaluate=None):
     {1/sqrt(x)}
 
     See Also
-    ========
-
+    --------
     sympy.polys.rootoftools.rootof, root, real_root
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Square_root
     .. [2] https://en.wikipedia.org/wiki/Principal_value
@@ -132,16 +131,14 @@ def cbrt(arg, evaluate=None):
     """Returns the principal cube root.
 
     Parameters
-    ==========
-
+    ----------
     evaluate : bool, optional
         The parameter determines if the expression should be evaluated.
         If ``None``, its value is taken from
         ``global_parameters.evaluate``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import cbrt, Symbol
     >>> x = Symbol('x')
 
@@ -171,12 +168,11 @@ def cbrt(arg, evaluate=None):
     y
 
     See Also
-    ========
-
+    --------
     sympy.polys.rootoftools.rootof, root, real_root
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Cube_root
     .. [2] https://en.wikipedia.org/wiki/Principal_value
@@ -186,8 +182,7 @@ def root(arg, n, k: int = 0, evaluate=None):
     """Returns the *k*-th *n*-th root of ``arg``.
 
     Parameters
-    ==========
-
+    ----------
     k : int, optional
         Should be an integer in $\\{0, 1, ..., n-1\\}$.
         Defaults to the principal root if $0$.
@@ -198,8 +193,7 @@ def root(arg, n, k: int = 0, evaluate=None):
         ``global_parameters.evaluate``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import root, Rational
     >>> from sympy.abc import x, n
 
@@ -260,14 +254,13 @@ def root(arg, n, k: int = 0, evaluate=None):
     -2
 
     See Also
-    ========
-
+    --------
     sympy.polys.rootoftools.rootof
     sympy.core.intfunc.integer_nthroot
     sqrt, real_root
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Square_root
     .. [2] https://en.wikipedia.org/wiki/Real_root
@@ -280,8 +273,7 @@ def real_root(arg, n=None, evaluate=None):
     """Return the real *n*'th-root of *arg* if possible.
 
     Parameters
-    ==========
-
+    ----------
     n : int or None, optional
         If *n* is ``None``, then all instances of
         $(-n)^{1/\\text{odd}}$ will be changed to $-n^{1/\\text{odd}}$.
@@ -295,8 +287,7 @@ def real_root(arg, n=None, evaluate=None):
         ``global_parameters.evaluate``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import root, real_root
 
     >>> real_root(-8, 3)
@@ -315,8 +306,7 @@ def real_root(arg, n=None, evaluate=None):
     -2*(-1)**(2/3)
 
     See Also
-    ========
-
+    --------
     sympy.polys.rootoftools.rootof
     sympy.core.intfunc.integer_nthroot
     root, sqrt
@@ -329,8 +319,7 @@ class MinMaxBase(Expr, LatticeOp):
         """Remove redundant args.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Min, Max
         >>> from sympy.abc import a, b, c, d, e
 
@@ -403,7 +392,7 @@ class MinMaxBase(Expr, LatticeOp):
     _eval_is_zero: Incomplete
 
 class Max(MinMaxBase, Application):
-    '''
+    """
     Return, if possible, the maximum value of the list.
 
     When number of arguments is equal one, then
@@ -428,8 +417,7 @@ class Max(MinMaxBase, Application):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Max, Symbol, oo
     >>> from sympy.abc import x, y, z
     >>> p = Symbol(\'p\', positive=True)
@@ -477,16 +465,16 @@ class Max(MinMaxBase, Application):
        - if $A = B$ then $B$ can be removed
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Directed_complete_partial_order
     .. [2] https://en.wikipedia.org/wiki/Lattice_%28order%29
 
     See Also
-    ========
-
+    --------
     Min : find minimum values
-    '''
+    """
+
     zero: Incomplete
     identity: Incomplete
     def fdiff(self, argindex): ...
@@ -503,8 +491,7 @@ class Min(MinMaxBase, Application):
     with the built-in function ``min``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Min, Symbol, oo
     >>> from sympy.abc import x, y
     >>> p = Symbol('p', positive=True)
@@ -522,10 +509,10 @@ class Min(MinMaxBase, Application):
     Min(-7, n)
 
     See Also
-    ========
-
+    --------
     Max : find maximum values
     """
+
     zero: Incomplete
     identity: Incomplete
     def fdiff(self, argindex): ...
@@ -541,8 +528,7 @@ class Rem(DefinedFunction):
     as the divisor.
 
     Parameters
-    ==========
-
+    ----------
     p : Expr
         Dividend.
 
@@ -550,13 +536,11 @@ class Rem(DefinedFunction):
         Divisor.
 
     Notes
-    =====
-
+    -----
     ``Rem`` corresponds to the ``%`` operator in C.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y
     >>> from sympy import Rem
     >>> Rem(x**3, y)
@@ -565,10 +549,10 @@ class Rem(DefinedFunction):
     -2
 
     See Also
-    ========
-
+    --------
     Mod
     """
+
     kind = NumberKind
     @classmethod
     def eval(cls, p, q):

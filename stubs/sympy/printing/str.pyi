@@ -1,5 +1,5 @@
 from .precedence import PRECEDENCE as PRECEDENCE, precedence as precedence
-from .printer import Printer as Printer, print_function as print_function
+from .printer import print_function as print_function, Printer as Printer
 from sympy.core import Basic as Basic, Mul as Mul, Number as Number, Pow as Pow, Rational as Rational, S as S
 from sympy.core.mul import _keep_coeff as _keep_coeff
 from sympy.core.numbers import Integer as Integer
@@ -87,8 +87,7 @@ class StrPrinter(Printer):
         """Printing helper function for ``Pow``
 
         Parameters
-        ==========
-
+        ----------
         rational : bool, optional
             If ``True``, it will not attempt printing ``sqrt(x)`` or
             ``x**S.Half`` as ``sqrt``, and will use ``x**(1/2)``
@@ -97,8 +96,7 @@ class StrPrinter(Printer):
             See examples for additional details
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sqrt, StrPrinter
         >>> from sympy.abc import x
 
@@ -115,8 +113,7 @@ class StrPrinter(Printer):
         '1/sqrt(x)'
 
         Notes
-        =====
-
+        -----
         ``sqrt(x)`` is canonicalized as ``Pow(x, S.Half)`` in SymPy,
         so there is no need of defining a separate printer for ``sqrt``.
         Instead, it should be handled here as well.
@@ -193,8 +190,7 @@ def sstr(expr, **settings):
     abbreviated form.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, Eq, sstr
     >>> a, b = symbols('a b')
     >>> sstr(Eq(a + b, 0))
@@ -203,14 +199,15 @@ def sstr(expr, **settings):
 
 class StrReprPrinter(StrPrinter):
     """(internal) -- see sstrrepr"""
+
     def _print_str(self, s): ...
     def _print_Str(self, s): ...
 
 def sstrrepr(expr, **settings):
-    """return expr in mixed str/repr form
+    """Return expr in mixed str/repr form
 
-       i.e. strings are returned in repr form with quotes, and everything else
-       is returned in str form.
+    i.e. strings are returned in repr form with quotes, and everything else
+    is returned in str form.
 
-       This function could be useful for hooking into sys.displayhook
+    This function could be useful for hooking into sys.displayhook
     """

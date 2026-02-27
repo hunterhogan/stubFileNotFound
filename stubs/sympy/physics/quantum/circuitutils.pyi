@@ -1,4 +1,4 @@
-__all__ = ['kmp_table', 'find_subcircuit', 'replace_subcircuit', 'convert_to_symbolic_indices', 'convert_to_real_indices', 'random_reduce', 'random_insert']
+__all__ = ['convert_to_real_indices', 'convert_to_symbolic_indices', 'find_subcircuit', 'kmp_table', 'random_insert', 'random_reduce', 'replace_subcircuit']
 
 def kmp_table(word):
     """Build the 'partial match' table of the Knuth-Morris-Pratt algorithm.
@@ -18,8 +18,7 @@ def find_subcircuit(circuit, subcircuit, start: int = 0, end: int = 0):
     is the Knuth-Morris-Pratt algorithm.
 
     Parameters
-    ==========
-
+    ----------
     circuit : tuple, Gate or Mul
         A tuple of Gates or Mul representing a quantum circuit
     subcircuit : tuple, Gate or Mul
@@ -33,8 +32,7 @@ def find_subcircuit(circuit, subcircuit, start: int = 0, end: int = 0):
         is taken to be end.
 
     Examples
-    ========
-
+    --------
     Find the first instance of a subcircuit:
 
     >>> from sympy.physics.quantum.circuitutils import find_subcircuit
@@ -74,8 +72,7 @@ def replace_subcircuit(circuit, subcircuit, replace=None, pos: int = 0):
     is returned.
 
     Parameters
-    ==========
-
+    ----------
     circuit : tuple, Gate or Mul
         A quantum circuit.
     subcircuit : tuple, Gate or Mul
@@ -91,8 +88,7 @@ def replace_subcircuit(circuit, subcircuit, replace=None, pos: int = 0):
         is given, pos will be defaulted to 0.
 
     Examples
-    ========
-
+    --------
     Find and remove the subcircuit:
 
     >>> from sympy.physics.quantum.circuitutils import replace_subcircuit
@@ -123,8 +119,7 @@ def convert_to_symbolic_indices(seq, start=None, gen=None, qubit_map=None):
     The mapping is 1 to 1 and onto (bijective).
 
     Parameters
-    ==========
-
+    ----------
     seq : tuple, Gate/Integer/tuple or Mul
         A tuple of Gate, Integer, or tuple objects, or a Mul
     start : Symbol
@@ -141,16 +136,14 @@ def convert_to_real_indices(seq, qubit_map):
     """Returns the circuit with real indices.
 
     Parameters
-    ==========
-
+    ----------
     seq : tuple, Gate/Integer/tuple or Mul
         A tuple of Gate, Integer, or tuple objects or a Mul
     qubit_map : dict
         A dictionary mapping symbolic indices to real indices.
 
     Examples
-    ========
-
+    --------
     Change the symbolic indices to real integers:
 
     >>> from sympy import symbols
@@ -172,8 +165,7 @@ def random_reduce(circuit, gate_ids, seed=None):
     identities are found, the same circuit is returned.
 
     Parameters
-    ==========
-
+    ----------
     circuit : Gate tuple of Mul
         A tuple of Gates representing a quantum circuit
     gate_ids : list, GateIdentity
@@ -194,8 +186,7 @@ def random_insert(circuit, choices, seed=None):
     a randomly selected circuit from amongst the given choices.
 
     Parameters
-    ==========
-
+    ----------
     circuit : Gate tuple or Mul
         A tuple or Mul of Gates representing a quantum circuit
     choices : list
@@ -206,8 +197,7 @@ def random_insert(circuit, choices, seed=None):
         choice[j] will be inserted.
 
     Notes
-    =====
-
+    -----
     Indices for insertion should be [0, n] if n is the length of the
     circuit.
     """

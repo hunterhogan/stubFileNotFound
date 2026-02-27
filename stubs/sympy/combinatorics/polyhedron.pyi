@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from sympy.combinatorics.perm_groups import PermutationGroup as PermutationGroup
-from sympy.core import Basic as Basic, Tuple as Tuple, default_sort_key as default_sort_key
+from sympy.core import Basic as Basic, default_sort_key as default_sort_key, Tuple as Tuple
 from sympy.sets import FiniteSet as FiniteSet
 from sympy.utilities.iterables import flatten as flatten, minlex as minlex, unflatten as unflatten
 from sympy.utilities.misc import as_int as as_int
@@ -23,14 +23,15 @@ class Polyhedron(Basic):
     constructor of the object.
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/PolyhedralGroup.html
 
     """
+
     _edges: Incomplete
     def __new__(cls, corners, faces=(), pgroup=()):
-        '''
+        """
         The constructor of the Polyhedron group object.
 
         Explanation
@@ -60,8 +61,7 @@ class Polyhedron(Basic):
         These permutation are stored as a PermutationGroup.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.permutations import Permutation
         >>> from sympy import init_printing
         >>> from sympy.abc import w, x, y, z
@@ -157,8 +157,7 @@ class Polyhedron(Basic):
         True
 
         Notes
-        =====
-
+        -----
         Defining permutation groups
         ---------------------------
 
@@ -361,11 +360,11 @@ class Polyhedron(Basic):
         (a, b, c, d, e, f, g, h)
 
         References
-        ==========
+        ----------
 
         .. [1] www.ocf.berkeley.edu/~wwu/articles/platonicsolids.pdf
 
-        '''
+        """
     @property
     def corners(self):
         """
@@ -374,8 +373,7 @@ class Polyhedron(Basic):
         The method ``vertices`` is an alias for ``corners``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import Polyhedron
         >>> from sympy.abc import a, b, c, d
         >>> p = Polyhedron(list('abcd'))
@@ -383,8 +381,7 @@ class Polyhedron(Basic):
         True
 
         See Also
-        ========
-
+        --------
         array_form, cyclic_form
         """
     vertices = corners
@@ -395,8 +392,7 @@ class Polyhedron(Basic):
         The indices are given relative to the original position of corners.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.polyhedron import tetrahedron
         >>> tetrahedron = tetrahedron.copy()
         >>> tetrahedron.array_form
@@ -409,8 +405,7 @@ class Polyhedron(Basic):
         [0, 2, 3, 1]
 
         See Also
-        ========
-
+        --------
         corners, cyclic_form
         """
     @property
@@ -420,8 +415,7 @@ class Polyhedron(Basic):
         The indices are given relative to the original position of corners.
 
         See Also
-        ========
-
+        --------
         corners, array_form
         """
     @property
@@ -445,8 +439,7 @@ class Polyhedron(Basic):
         Given the faces of the polyhedra we can get the edges.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import Polyhedron
         >>> from sympy.abc import a, b, c
         >>> corners = (a, b, c)
@@ -457,7 +450,7 @@ class Polyhedron(Basic):
         """
     _corners: Incomplete
     def rotate(self, perm) -> None:
-        '''
+        """
         Apply a permutation to the polyhedron *in place*. The permutation
         may be given as a Permutation instance or an integer indicating
         which permutation from pgroup of the Polyhedron should be
@@ -467,8 +460,7 @@ class Polyhedron(Basic):
         an axis by a fixed increment.
 
         Notes
-        =====
-
+        -----
         When a Permutation is applied, no check is done to see if that
         is a valid permutation for the Polyhedron. For example, a cube
         could be given a permutation which effectively swaps only 2
@@ -481,8 +473,7 @@ class Polyhedron(Basic):
         only with indices.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import Polyhedron, Permutation
         >>> from sympy.combinatorics.polyhedron import cube
         >>> cube = cube.copy()
@@ -513,13 +504,12 @@ class Polyhedron(Basic):
         >>> h5.rotate(p)
         >>> h5.corners == copy.corners
         False
-        '''
+        """
     def reset(self) -> None:
         """Return corners to their original positions.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.polyhedron import tetrahedron as T
         >>> T = T.copy()
         >>> T.corners
@@ -533,7 +523,7 @@ class Polyhedron(Basic):
         """
 
 def _pgroup_calcs():
-    '''Return the permutation groups for each of the polyhedra and the face
+    """Return the permutation groups for each of the polyhedra and the face
     definitions: tetrahedron, cube, octahedron, dodecahedron, icosahedron,
     tetrahedron_faces, cube_faces, octahedron_faces, dodecahedron_faces,
     icosahedron_faces
@@ -572,8 +562,7 @@ def _pgroup_calcs():
     permutation while CBDE is not (because this would twist the square).
 
     Examples
-    ========
-
+    --------
     The is_group checks for: closure, the presence of the Identity permutation,
     and the presence of the inverse for each of the elements in the group. This
     confirms that none of the polyhedra are true groups:
@@ -607,11 +596,11 @@ def _pgroup_calcs():
     faces are all present after the application of each permutation.
 
     References
-    ==========
+    ----------
 
     .. [1] https://dogschool.tripod.com/trianglegroup.html
 
-    '''
+    """
 
 tetrahedron: Incomplete
 cube: Incomplete

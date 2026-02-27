@@ -1,8 +1,8 @@
-import sympy.integrals.laplace as _laplace
 from _typeshed import Incomplete
-from sympy.core import S as S, pi as pi
+from sympy.core import pi as pi, S as S
 from sympy.core.add import Add as Add
-from sympy.core.function import AppliedUndef as AppliedUndef, Function as Function, count_ops as count_ops, expand as expand, expand_mul as expand_mul
+from sympy.core.function import (
+	AppliedUndef as AppliedUndef, count_ops as count_ops, expand as expand, expand_mul as expand_mul, Function as Function)
 from sympy.core.intfunc import igcd as igcd, ilcm as ilcm
 from sympy.core.mul import Mul as Mul
 from sympy.core.sorting import default_sort_key as default_sort_key
@@ -22,12 +22,13 @@ from sympy.functions.special.gamma_functions import gamma as gamma
 from sympy.functions.special.hyper import meijerg as meijerg
 from sympy.integrals import Integral as Integral, integrate as integrate
 from sympy.integrals.meijerint import _dummy as _dummy
-from sympy.logic.boolalg import And as And, Or as Or, conjuncts as conjuncts, disjuncts as disjuncts, to_cnf as to_cnf
+from sympy.logic.boolalg import And as And, conjuncts as conjuncts, disjuncts as disjuncts, Or as Or, to_cnf as to_cnf
 from sympy.polys.polyroots import roots as roots
-from sympy.polys.polytools import Poly as Poly, factor as factor
+from sympy.polys.polytools import factor as factor, Poly as Poly
 from sympy.polys.rootoftools import CRootOf as CRootOf
 from sympy.utilities.iterables import iterable as iterable
 from sympy.utilities.misc import debug as debug
+import sympy.integrals.laplace as _laplace
 
 class IntegralTransformError(NotImplementedError):
     """
@@ -43,6 +44,7 @@ class IntegralTransformError(NotImplementedError):
     objects, and instead raise this exception if an integral cannot be
     computed.
     """
+
     function: Incomplete
     def __init__(self, transform, function, msg) -> None: ...
 
@@ -68,15 +70,16 @@ class IntegralTransform(Function):
     Implement ``self._collapse_extra`` if your function returns more than just a
     number and possibly a convergence condition.
     """
+
     @property
     def function(self):
-        """ The function to be transformed. """
+        """The function to be transformed."""
     @property
     def function_variable(self):
-        """ The dependent variable of the function to be transformed. """
+        """The dependent variable of the function to be transformed."""
     @property
     def transform_variable(self):
-        """ The independent transform variable. """
+        """The independent transform variable."""
     @property
     def free_symbols(self):
         """
@@ -137,7 +140,7 @@ _noconds: Incomplete
 def _default_integrator(f, x): ...
 @_noconds
 def _mellin_transform(f, x, s_, integrator=..., simplify: bool = True):
-    """ Backend function to compute Mellin transforms. """
+    """Backend function to compute Mellin transforms."""
 
 class MellinTransform(IntegralTransform):
     """
@@ -148,13 +151,14 @@ class MellinTransform(IntegralTransform):
     For how to compute Mellin transforms, see the :func:`mellin_transform`
     docstring.
     """
+
     _name: str
     def _compute_transform(self, f, x, s, **hints): ...
     def _as_integral(self, f, x, s): ...
     def _collapse_extra(self, extra): ...
 
 def mellin_transform(f, x, s, **hints):
-    '''
+    """
     Compute the Mellin transform `F(s)` of `f(x)`,
 
     .. math :: F(s) = \\int_0^\\infty x^{s-1} f(x) \\mathrm{d}x.
@@ -181,19 +185,17 @@ def mellin_transform(f, x, s, **hints):
     ``(a, b)``).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import mellin_transform, exp
     >>> from sympy.abc import x, s
     >>> mellin_transform(exp(-x), x, s)
     (gamma(s), (0, oo), True)
 
     See Also
-    ========
-
+    --------
     inverse_mellin_transform, laplace_transform, fourier_transform
     hankel_transform, inverse_hankel_transform
-    '''
+    """
 def _rewrite_sin(m_n, s, a, b):
     """
     Re-write the sine function ``sin(m*s + n)`` as gamma functions, compatible
@@ -202,8 +204,7 @@ def _rewrite_sin(m_n, s, a, b):
     Return ``(gamma1, gamma2, fac)`` so that ``f == fac/(gamma1 * gamma2)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.integrals.transforms import _rewrite_sin
     >>> from sympy import pi, S
     >>> from sympy.abc import s
@@ -253,8 +254,7 @@ def _rewrite_gamma(f, s, a, b):
     attempt any transformations on f.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.integrals.transforms import _rewrite_gamma
     >>> from sympy.abc import s
     >>> from sympy import oo
@@ -282,8 +282,9 @@ def _rewrite_gamma(f, s, a, b):
     (([], []), ([], []), 1/2, 1, 8)
     """
 def _inverse_mellin_transform(F, s, x_, strip, as_meijerg: bool = False):
-    """ A helper for the real inverse_mellin_transform function, this one here
-        assumes x to be real and positive. """
+    """A helper for the real inverse_mellin_transform function, this one here
+    assumes x to be real and positive.
+    """
 
 _allowed: Incomplete
 
@@ -296,6 +297,7 @@ class InverseMellinTransform(IntegralTransform):
     For how to compute inverse Mellin transforms, see the
     :func:`inverse_mellin_transform` docstring.
     """
+
     _name: str
     _none_sentinel: Incomplete
     _c: Incomplete
@@ -335,8 +337,7 @@ def inverse_mellin_transform(F, s, x, strip, **hints):
     :func:`sympy.integrals.transforms.IntegralTransform.doit`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import inverse_mellin_transform, oo, gamma
     >>> from sympy.abc import x, s
     >>> inverse_mellin_transform(gamma(s), s, x, (0, oo))
@@ -353,8 +354,7 @@ def inverse_mellin_transform(F, s, x, strip, **hints):
     (1/2 - x**2/2)*Heaviside(1 - x)/x
 
     See Also
-    ========
-
+    --------
     mellin_transform
     hankel_transform, inverse_hankel_transform
     """
@@ -371,7 +371,8 @@ def _fourier_transform(f, x, k, a, b, name, simplify: bool = True):
     """
 
 class FourierTypeTransform(IntegralTransform):
-    """ Base class for Fourier transforms."""
+    """Base class for Fourier transforms."""
+
     def a(self) -> None: ...
     def b(self) -> None: ...
     def _compute_transform(self, f, x, k, **hints): ...
@@ -386,6 +387,7 @@ class FourierTransform(FourierTypeTransform):
     For how to compute Fourier transforms, see the :func:`fourier_transform`
     docstring.
     """
+
     _name: str
     def a(self): ...
     def b(self): ...
@@ -411,8 +413,7 @@ def fourier_transform(f, x, k, **hints):
     Note that for this transform, by default ``noconds=True``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import fourier_transform, exp
     >>> from sympy.abc import x, k
     >>> fourier_transform(exp(-x**2), x, k)
@@ -421,8 +422,7 @@ def fourier_transform(f, x, k, **hints):
     (sqrt(pi)*exp(-pi**2*k**2), True)
 
     See Also
-    ========
-
+    --------
     inverse_fourier_transform
     sine_transform, inverse_sine_transform
     cosine_transform, inverse_cosine_transform
@@ -439,6 +439,7 @@ class InverseFourierTransform(FourierTypeTransform):
     For how to compute inverse Fourier transforms, see the
     :func:`inverse_fourier_transform` docstring.
     """
+
     _name: str
     def a(self): ...
     def b(self): ...
@@ -464,8 +465,7 @@ def inverse_fourier_transform(F, k, x, **hints):
     Note that for this transform, by default ``noconds=True``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import inverse_fourier_transform, exp, sqrt, pi
     >>> from sympy.abc import x, k
     >>> inverse_fourier_transform(sqrt(pi)*exp(-(pi*k)**2), k, x)
@@ -474,8 +474,7 @@ def inverse_fourier_transform(F, k, x, **hints):
     (exp(-x**2), True)
 
     See Also
-    ========
-
+    --------
     fourier_transform
     sine_transform, inverse_sine_transform
     cosine_transform, inverse_cosine_transform
@@ -497,6 +496,7 @@ class SineCosineTypeTransform(IntegralTransform):
     Base class for sine and cosine transforms.
     Specify cls._kern.
     """
+
     def a(self) -> None: ...
     def b(self) -> None: ...
     def _compute_transform(self, f, x, k, **hints): ...
@@ -511,6 +511,7 @@ class SineTransform(SineCosineTypeTransform):
     For how to compute sine transforms, see the :func:`sine_transform`
     docstring.
     """
+
     _name: str
     _kern = sin
     def a(self): ...
@@ -534,8 +535,7 @@ def sine_transform(f, x, k, **hints):
     Note that for this transform, by default ``noconds=True``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sine_transform, exp
     >>> from sympy.abc import x, k, a
     >>> sine_transform(x*exp(-a*x**2), x, k)
@@ -544,8 +544,7 @@ def sine_transform(f, x, k, **hints):
     2**(1/2 - a)*k**(a - 1)*gamma(1 - a/2)/gamma(a/2 + 1/2)
 
     See Also
-    ========
-
+    --------
     fourier_transform, inverse_fourier_transform
     inverse_sine_transform
     cosine_transform, inverse_cosine_transform
@@ -562,6 +561,7 @@ class InverseSineTransform(SineCosineTypeTransform):
     For how to compute inverse sine transforms, see the
     :func:`inverse_sine_transform` docstring.
     """
+
     _name: str
     _kern = sin
     def a(self): ...
@@ -585,8 +585,7 @@ def inverse_sine_transform(F, k, x, **hints):
     Note that for this transform, by default ``noconds=True``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import inverse_sine_transform, exp, sqrt, gamma
     >>> from sympy.abc import x, k, a
     >>> inverse_sine_transform(2**((1-2*a)/2)*k**(a - 1)*
@@ -596,8 +595,7 @@ def inverse_sine_transform(F, k, x, **hints):
     x*exp(-a*x**2)
 
     See Also
-    ========
-
+    --------
     fourier_transform, inverse_fourier_transform
     sine_transform
     cosine_transform, inverse_cosine_transform
@@ -614,6 +612,7 @@ class CosineTransform(SineCosineTypeTransform):
     For how to compute cosine transforms, see the :func:`cosine_transform`
     docstring.
     """
+
     _name: str
     _kern = cos
     def a(self): ...
@@ -637,8 +636,7 @@ def cosine_transform(f, x, k, **hints):
     Note that for this transform, by default ``noconds=True``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import cosine_transform, exp, sqrt, cos
     >>> from sympy.abc import x, k, a
     >>> cosine_transform(exp(-a*x), x, k)
@@ -647,8 +645,7 @@ def cosine_transform(f, x, k, **hints):
     a*exp(-a**2/(2*k))/(2*k**(3/2))
 
     See Also
-    ========
-
+    --------
     fourier_transform, inverse_fourier_transform,
     sine_transform, inverse_sine_transform
     inverse_cosine_transform
@@ -665,6 +662,7 @@ class InverseCosineTransform(SineCosineTypeTransform):
     For how to compute inverse cosine transforms, see the
     :func:`inverse_cosine_transform` docstring.
     """
+
     _name: str
     _kern = cos
     def a(self): ...
@@ -688,8 +686,7 @@ def inverse_cosine_transform(F, k, x, **hints):
     Note that for this transform, by default ``noconds=True``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import inverse_cosine_transform, sqrt, pi
     >>> from sympy.abc import x, k, a
     >>> inverse_cosine_transform(sqrt(2)*a/(sqrt(pi)*(a**2 + k**2)), k, x)
@@ -698,8 +695,7 @@ def inverse_cosine_transform(F, k, x, **hints):
     1/sqrt(x)
 
     See Also
-    ========
-
+    --------
     fourier_transform, inverse_fourier_transform,
     sine_transform, inverse_sine_transform
     cosine_transform
@@ -717,6 +713,7 @@ class HankelTypeTransform(IntegralTransform):
     """
     Base class for Hankel transforms.
     """
+
     def doit(self, **hints): ...
     def _compute_transform(self, f, r, k, nu, **hints): ...
     def _as_integral(self, f, r, k, nu): ...
@@ -732,6 +729,7 @@ class HankelTransform(HankelTypeTransform):
     For how to compute Hankel transforms, see the :func:`hankel_transform`
     docstring.
     """
+
     _name: str
 
 def hankel_transform(f, r, k, nu, **hints):
@@ -751,8 +749,7 @@ def hankel_transform(f, r, k, nu, **hints):
     Note that for this transform, by default ``noconds=True``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import hankel_transform, inverse_hankel_transform
     >>> from sympy import exp
     >>> from sympy.abc import r, k, m, nu, a
@@ -772,8 +769,7 @@ def hankel_transform(f, r, k, nu, **hints):
     exp(-a*r)
 
     See Also
-    ========
-
+    --------
     fourier_transform, inverse_fourier_transform
     sine_transform, inverse_sine_transform
     cosine_transform, inverse_cosine_transform
@@ -790,6 +786,7 @@ class InverseHankelTransform(HankelTypeTransform):
     For how to compute inverse Hankel transforms, see the
     :func:`inverse_hankel_transform` docstring.
     """
+
     _name: str
 
 def inverse_hankel_transform(F, k, r, nu, **hints):
@@ -809,8 +806,7 @@ def inverse_hankel_transform(F, k, r, nu, **hints):
     Note that for this transform, by default ``noconds=True``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import hankel_transform, inverse_hankel_transform
     >>> from sympy import exp
     >>> from sympy.abc import r, k, m, nu, a
@@ -830,8 +826,7 @@ def inverse_hankel_transform(F, k, r, nu, **hints):
     exp(-a*r)
 
     See Also
-    ========
-
+    --------
     fourier_transform, inverse_fourier_transform
     sine_transform, inverse_sine_transform
     cosine_transform, inverse_cosine_transform

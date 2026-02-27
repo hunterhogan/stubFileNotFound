@@ -15,12 +15,17 @@ from sympy.functions.elementary.exponential import exp as exp
 from sympy.functions.elementary.piecewise import Piecewise as Piecewise
 from sympy.logic.boolalg import And as And, Or as Or
 from sympy.sets.sets import FiniteSet as FiniteSet, Intersection as Intersection
-from sympy.stats.rv import ConditionalDomain as ConditionalDomain, Density as Density, Distribution as Distribution, IndependentProductPSpace as IndependentProductPSpace, NamedArgsMixin as NamedArgsMixin, PSpace as PSpace, ProductDomain as ProductDomain, RandomDomain as RandomDomain, SinglePSpace as SinglePSpace, random_symbols as random_symbols, rv_subs as rv_subs, sumsets as sumsets
+from sympy.stats.rv import (
+	ConditionalDomain as ConditionalDomain, Density as Density, Distribution as Distribution,
+	IndependentProductPSpace as IndependentProductPSpace, NamedArgsMixin as NamedArgsMixin, ProductDomain as ProductDomain,
+	PSpace as PSpace, random_symbols as random_symbols, RandomDomain as RandomDomain, rv_subs as rv_subs,
+	SinglePSpace as SinglePSpace, sumsets as sumsets)
 
 class FiniteDensity(dict):
     """
     A domain with Finite Density.
     """
+
     def __call__(self, item):
         """
         Make instance of a class callable.
@@ -41,6 +46,7 @@ class FiniteDomain(RandomDomain):
 
     Represented using a FiniteSet.
     """
+
     is_Finite: bool
     @property
     def symbols(self): ...
@@ -58,6 +64,7 @@ class SingleFiniteDomain(FiniteDomain):
 
     Example: The possibilities of a *single* die roll.
     """
+
     def __new__(cls, symbol, set): ...
     @property
     def symbol(self): ...
@@ -76,6 +83,7 @@ class ProductFiniteDomain(ProductDomain, FiniteDomain):
 
     Example: The possibilities of the rolls of three independent dice
     """
+
     def __iter__(self): ...
     @property
     def elements(self): ...
@@ -87,6 +95,7 @@ class ConditionalFiniteDomain(ConditionalDomain, ProductFiniteDomain):
     Example: The possibilities of a die roll under the condition that the
     roll is even.
     """
+
     def __new__(cls, domain, condition):
         """
         Create a new instance of ConditionalFiniteDomain class
@@ -127,6 +136,7 @@ class FinitePSpace(PSpace):
 
     Represents the probabilities of a finite number of events.
     """
+
     is_Finite: bool
     def __new__(cls, domain, density): ...
     def prob_of(self, elem): ...
@@ -161,6 +171,7 @@ class SingleFinitePSpace(SinglePSpace, FinitePSpace):
     This class is implemented by many of the standard FiniteRV types such as
     Die, Bernoulli, Coin, etc....
     """
+
     @property
     def domain(self): ...
     @property
@@ -197,6 +208,7 @@ class ProductFinitePSpace(IndependentProductPSpace, FinitePSpace):
     """
     A collection of several independent finite probability spaces
     """
+
     @property
     def domain(self): ...
     @property

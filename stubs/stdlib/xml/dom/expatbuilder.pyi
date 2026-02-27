@@ -1,6 +1,5 @@
 from _typeshed import ReadableBuffer, SupportsRead
-from typing import Any, Final, NoReturn
-from typing_extensions import TypeAlias
+from typing import Any, Final, NoReturn, TypeAlias
 from xml.dom.minidom import Document, DocumentFragment, DOMImplementation, Element, Node, TypeInfo
 from xml.dom.xmlbuilder import DOMBuilderFilter, Options
 from xml.parsers.expat import XMLParserType
@@ -74,7 +73,7 @@ class FilterVisibilityController:
     def acceptNode(self, node: Node) -> int: ...
 
 class FilterCrutch:
-    __slots__ = ("_builder", "_level", "_old_start", "_old_end")
+    __slots__ = ("_builder", "_level", "_old_end", "_old_start")
     def __init__(self, builder: ExpatBuilder) -> None: ...
 
 class Rejecter(FilterCrutch):

@@ -7,8 +7,9 @@ from sympy.utilities.decorator import deprecated as deprecated
 from sympy.utilities.misc import as_int as as_int
 
 def _as_int_ceiling(a):
-    """ Wrapping ceiling in as_int will raise an error if there was a problem
-        determining whether the expression was exactly an integer or not."""
+    """Wrapping ceiling in as_int will raise an error if there was a problem
+    determining whether the expression was exactly an integer or not.
+    """
 
 class Sieve:
     """A list of prime numbers, implemented as a dynamically
@@ -18,8 +19,7 @@ class Sieve:
     primes to ``2^32-1``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sieve
     >>> sieve._reset() # this line for doctest only
     >>> 25 in sieve
@@ -27,36 +27,34 @@ class Sieve:
     >>> sieve._list
     array('L', [2, 3, 5, 7, 11, 13, 17, 19, 23])
     """
+
     _n: int
     _list: Incomplete
     _tlist: Incomplete
     _mlist: Incomplete
     sieve_interval: Incomplete
     def __init__(self, sieve_interval: int = 1000000) -> None:
-        """ Initial parameters for the Sieve class.
+        """Initial parameters for the Sieve class.
 
         Parameters
-        ==========
-
+        ----------
         sieve_interval (int): Amount of memory to be used
 
         Raises
-        ======
-
+        ------
         ValueError
             If ``sieve_interval`` is not positive.
 
         """
-    def __repr__(self) -> str: ...
     def _reset(self, prime=None, totient=None, mobius=None) -> None:
         """Reset all caches (default). To reset one or more set the
-            desired keyword to True."""
+        desired keyword to True.
+        """
     def extend(self, n) -> None:
         """Grow the sieve to cover all primes <= n.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sieve
         >>> sieve._reset() # this line for doctest only
         >>> sieve.extend(30)
@@ -64,23 +62,20 @@ class Sieve:
         True
         """
     def _primerange(self, a, b) -> Generator[Incomplete]:
-        """ Generate all prime numbers in the range (a, b).
+        """Generate all prime numbers in the range (a, b).
 
         Parameters
-        ==========
-
+        ----------
         a, b : positive integers assuming the following conditions
                 * a is an even number
                 * 2 < self._list[-1] < a < b < nextprime(self._list[-1])**2
 
         Yields
-        ======
-
+        ------
         p (int): prime numbers such that ``a < p < b``
 
         Examples
-        ========
-
+        --------
         >>> from sympy.ntheory.generate import Sieve
         >>> s = Sieve()
         >>> s._list[-1]
@@ -93,13 +88,11 @@ class Sieve:
         """Extend to include the ith prime number.
 
         Parameters
-        ==========
-
+        ----------
         i : integer
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sieve
         >>> sieve._reset() # this line for doctest only
         >>> sieve.extend_to_no(9)
@@ -107,8 +100,7 @@ class Sieve:
         array('L', [2, 3, 5, 7, 11, 13, 17, 19, 23])
 
         Notes
-        =====
-
+        -----
         The list is extended by 50% if it is too short, so it is
         likely that it will be longer than requested.
         """
@@ -116,8 +108,7 @@ class Sieve:
         """Generate all prime numbers in the range [2, a) or [a, b).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sieve, prime
 
         All primes less than 19:
@@ -140,8 +131,7 @@ class Sieve:
         """Generate all totient numbers for the range [a, b).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sieve
         >>> print([i for i in sieve.totientrange(7, 18)])
         [6, 4, 6, 4, 10, 4, 12, 6, 8, 8, 16]
@@ -150,8 +140,7 @@ class Sieve:
         """Generate all mobius numbers for the range [a, b).
 
         Parameters
-        ==========
-
+        ----------
         a : integer
             First number in range
 
@@ -159,8 +148,7 @@ class Sieve:
             First number outside of range
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sieve
         >>> print([i for i in sieve.mobiusrange(7, 18)])
         [-1, 0, 0, 1, -1, 0, -1, 1, 1, 0, -1]
@@ -174,8 +162,7 @@ class Sieve:
         it to an integer then an n error will be raised.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sieve
         >>> sieve.search(25)
         (9, 10)
@@ -195,20 +182,17 @@ def prime(nth):
     prime(1) = 2, prime(2) = 3, etc.
 
     Parameters
-    ==========
-
+    ----------
     nth : int
         The position of the prime number to return (must be a positive integer).
 
     Returns
-    =======
-
+    -------
     int
         The nth prime number.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import prime
     >>> prime(10)
     29
@@ -218,105 +202,102 @@ def prime(nth):
     1299709
 
     See Also
-    ========
-
+    --------
     sympy.ntheory.primetest.isprime : Test if a number is prime.
     primerange : Generate all primes in a given range.
     primepi : Return the number of primes less than or equal to a given number.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Prime_number_theorem
     .. [2] https://en.wikipedia.org/wiki/Logarithmic_integral_function
     .. [3] https://en.wikipedia.org/wiki/Skewes%27_number
     """
 def primepi(n):
-    """ Represents the prime counting function pi(n) = the number
-        of prime numbers less than or equal to n.
+    """Represents the prime counting function pi(n) = the number
+    of prime numbers less than or equal to n.
 
-        .. deprecated:: 1.13
+    .. deprecated:: 1.13
 
-            The ``primepi`` function is deprecated. Use :class:`sympy.functions.combinatorial.numbers.primepi`
-            instead. See its documentation for more information. See
-            :ref:`deprecated-ntheory-symbolic-functions` for details.
+        The ``primepi`` function is deprecated. Use :class:`sympy.functions.combinatorial.numbers.primepi`
+        instead. See its documentation for more information. See
+        :ref:`deprecated-ntheory-symbolic-functions` for details.
 
-        Algorithm Description:
+    Algorithm Description:
 
-        In sieve method, we remove all multiples of prime p
-        except p itself.
+    In sieve method, we remove all multiples of prime p
+    except p itself.
 
-        Let phi(i,j) be the number of integers 2 <= k <= i
-        which remain after sieving from primes less than
-        or equal to j.
-        Clearly, pi(n) = phi(n, sqrt(n))
+    Let phi(i,j) be the number of integers 2 <= k <= i
+    which remain after sieving from primes less than
+    or equal to j.
+    Clearly, pi(n) = phi(n, sqrt(n))
 
-        If j is not a prime,
-        phi(i,j) = phi(i, j - 1)
+    If j is not a prime,
+    phi(i,j) = phi(i, j - 1)
 
-        if j is a prime,
-        We remove all numbers(except j) whose
-        smallest prime factor is j.
+    if j is a prime,
+    We remove all numbers(except j) whose
+    smallest prime factor is j.
 
-        Let $x= j \\times a$ be such a number, where $2 \\le a \\le i / j$
-        Now, after sieving from primes $\\le j - 1$,
-        a must remain
-        (because x, and hence a has no prime factor $\\le j - 1$)
-        Clearly, there are phi(i / j, j - 1) such a
-        which remain on sieving from primes $\\le j - 1$
+    Let $x= j \\times a$ be such a number, where $2 \\le a \\le i / j$
+    Now, after sieving from primes $\\le j - 1$,
+    a must remain
+    (because x, and hence a has no prime factor $\\le j - 1$)
+    Clearly, there are phi(i / j, j - 1) such a
+    which remain on sieving from primes $\\le j - 1$
 
-        Now, if a is a prime less than equal to j - 1,
-        $x= j \\times a$ has smallest prime factor = a, and
-        has already been removed(by sieving from a).
-        So, we do not need to remove it again.
-        (Note: there will be pi(j - 1) such x)
+    Now, if a is a prime less than equal to j - 1,
+    $x= j \\times a$ has smallest prime factor = a, and
+    has already been removed(by sieving from a).
+    So, we do not need to remove it again.
+    (Note: there will be pi(j - 1) such x)
 
-        Thus, number of x, that will be removed are:
-        phi(i / j, j - 1) - phi(j - 1, j - 1)
-        (Note that pi(j - 1) = phi(j - 1, j - 1))
+    Thus, number of x, that will be removed are:
+    phi(i / j, j - 1) - phi(j - 1, j - 1)
+    (Note that pi(j - 1) = phi(j - 1, j - 1))
 
-        $\\Rightarrow$ phi(i,j) = phi(i, j - 1) - phi(i / j, j - 1) + phi(j - 1, j - 1)
+    $\\Rightarrow$ phi(i,j) = phi(i, j - 1) - phi(i / j, j - 1) + phi(j - 1, j - 1)
 
-        So,following recursion is used and implemented as dp:
+    So,following recursion is used and implemented as dp:
 
-        phi(a, b) = phi(a, b - 1), if b is not a prime
-        phi(a, b) = phi(a, b-1)-phi(a / b, b-1) + phi(b-1, b-1), if b is prime
+    phi(a, b) = phi(a, b - 1), if b is not a prime
+    phi(a, b) = phi(a, b-1)-phi(a / b, b-1) + phi(b-1, b-1), if b is prime
 
-        Clearly a is always of the form floor(n / k),
-        which can take at most $2\\sqrt{n}$ values.
-        Two arrays arr1,arr2 are maintained
-        arr1[i] = phi(i, j),
-        arr2[i] = phi(n // i, j)
+    Clearly a is always of the form floor(n / k),
+    which can take at most $2\\sqrt{n}$ values.
+    Two arrays arr1,arr2 are maintained
+    arr1[i] = phi(i, j),
+    arr2[i] = phi(n // i, j)
 
-        Finally the answer is arr2[1]
+    Finally the answer is arr2[1]
 
-        Examples
-        ========
+    Examples
+    --------
+    >>> from sympy import primepi, prime, prevprime, isprime
+    >>> primepi(25)
+    9
 
-        >>> from sympy import primepi, prime, prevprime, isprime
-        >>> primepi(25)
-        9
+    So there are 9 primes less than or equal to 25. Is 25 prime?
 
-        So there are 9 primes less than or equal to 25. Is 25 prime?
+    >>> isprime(25)
+    False
 
-        >>> isprime(25)
-        False
+    It is not. So the first prime less than 25 must be the
+    9th prime:
 
-        It is not. So the first prime less than 25 must be the
-        9th prime:
+    >>> prevprime(25) == prime(9)
+    True
 
-        >>> prevprime(25) == prime(9)
-        True
-
-        See Also
-        ========
-
-        sympy.ntheory.primetest.isprime : Test if n is prime
-        primerange : Generate all primes in a given range
-        prime : Return the nth prime
+    See Also
+    --------
+    sympy.ntheory.primetest.isprime : Test if n is prime
+    primerange : Generate all primes in a given range
+    prime : Return the nth prime
     """
 def _primepi(n: int) -> int:
-    """ Represents the prime counting function pi(n) = the number
+    """Represents the prime counting function pi(n) = the number
     of prime numbers less than or equal to n.
 
     Explanation
@@ -370,175 +351,162 @@ def _primepi(n: int) -> int:
     Finally the answer is arr2[1]
 
     Parameters
-    ==========
-
+    ----------
     n : int
 
     """
 def nextprime(n, ith: int = 1):
-    """ Return the ith prime greater than n.
+    """Return the ith prime greater than n.
 
-        Parameters
-        ==========
+    Parameters
+    ----------
+    n : integer
+    ith : positive integer
 
-        n : integer
-        ith : positive integer
+    Returns
+    -------
+    int : Return the ith prime greater than n
 
-        Returns
-        =======
+    Raises
+    ------
+    ValueError
+        If ``ith <= 0``.
+        If ``n`` or ``ith`` is not an integer.
 
-        int : Return the ith prime greater than n
+    Notes
+    -----
+    Potential primes are located at 6*j +/- 1. This
+    property is used during searching.
 
-        Raises
-        ======
+    >>> from sympy import nextprime
+    >>> [(i, nextprime(i)) for i in range(10, 15)]
+    [(10, 11), (11, 13), (12, 13), (13, 17), (14, 17)]
+    >>> nextprime(2, ith=2) # the 2nd prime after 2
+    5
 
-        ValueError
-            If ``ith <= 0``.
-            If ``n`` or ``ith`` is not an integer.
-
-        Notes
-        =====
-
-        Potential primes are located at 6*j +/- 1. This
-        property is used during searching.
-
-        >>> from sympy import nextprime
-        >>> [(i, nextprime(i)) for i in range(10, 15)]
-        [(10, 11), (11, 13), (12, 13), (13, 17), (14, 17)]
-        >>> nextprime(2, ith=2) # the 2nd prime after 2
-        5
-
-        See Also
-        ========
-
-        prevprime : Return the largest prime smaller than n
-        primerange : Generate all primes in a given range
+    See Also
+    --------
+    prevprime : Return the largest prime smaller than n
+    primerange : Generate all primes in a given range
 
     """
 def prevprime(n):
-    """ Return the largest prime smaller than n.
+    """Return the largest prime smaller than n.
 
-        Notes
-        =====
+    Notes
+    -----
+    Potential primes are located at 6*j +/- 1. This
+    property is used during searching.
 
-        Potential primes are located at 6*j +/- 1. This
-        property is used during searching.
+    >>> from sympy import prevprime
+    >>> [(i, prevprime(i)) for i in range(10, 15)]
+    [(10, 7), (11, 7), (12, 11), (13, 11), (14, 13)]
 
-        >>> from sympy import prevprime
-        >>> [(i, prevprime(i)) for i in range(10, 15)]
-        [(10, 7), (11, 7), (12, 11), (13, 11), (14, 13)]
-
-        See Also
-        ========
-
-        nextprime : Return the ith prime greater than n
-        primerange : Generates all primes in a given range
+    See Also
+    --------
+    nextprime : Return the ith prime greater than n
+    primerange : Generates all primes in a given range
     """
 def primerange(a, b=None) -> Generator[Incomplete, Incomplete]:
-    """ Generate a list of all prime numbers in the range [2, a),
-        or [a, b).
+    """Generate a list of all prime numbers in the range [2, a),
+    or [a, b).
 
-        If the range exists in the default sieve, the values will
-        be returned from there; otherwise values will be returned
-        but will not modify the sieve.
+    If the range exists in the default sieve, the values will
+    be returned from there; otherwise values will be returned
+    but will not modify the sieve.
 
-        Examples
-        ========
+    Examples
+    --------
+    >>> from sympy import primerange, prime
 
-        >>> from sympy import primerange, prime
+    All primes less than 19:
 
-        All primes less than 19:
+    >>> list(primerange(19))
+    [2, 3, 5, 7, 11, 13, 17]
 
-        >>> list(primerange(19))
-        [2, 3, 5, 7, 11, 13, 17]
+    All primes greater than or equal to 7 and less than 19:
 
-        All primes greater than or equal to 7 and less than 19:
+    >>> list(primerange(7, 19))
+    [7, 11, 13, 17]
 
-        >>> list(primerange(7, 19))
-        [7, 11, 13, 17]
+    All primes through the 10th prime
 
-        All primes through the 10th prime
+    >>> list(primerange(prime(10) + 1))
+    [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
 
-        >>> list(primerange(prime(10) + 1))
-        [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+    The Sieve method, primerange, is generally faster but it will
+    occupy more memory as the sieve stores values. The default
+    instance of Sieve, named sieve, can be used:
 
-        The Sieve method, primerange, is generally faster but it will
-        occupy more memory as the sieve stores values. The default
-        instance of Sieve, named sieve, can be used:
+    >>> from sympy import sieve
+    >>> list(sieve.primerange(1, 30))
+    [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
 
-        >>> from sympy import sieve
-        >>> list(sieve.primerange(1, 30))
-        [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+    Notes
+    -----
+    Some famous conjectures about the occurrence of primes in a given
+    range are [1]:
 
-        Notes
-        =====
+    - Twin primes: though often not, the following will give 2 primes
+                an infinite number of times:
+                    primerange(6*n - 1, 6*n + 2)
+    - Legendre's: the following always yields at least one prime
+                    primerange(n**2, (n+1)**2+1)
+    - Bertrand's (proven): there is always a prime in the range
+                    primerange(n, 2*n)
+    - Brocard's: there are at least four primes in the range
+                    primerange(prime(n)**2, prime(n+1)**2)
 
-        Some famous conjectures about the occurrence of primes in a given
-        range are [1]:
+    The average gap between primes is log(n) [2]; the gap between
+    primes can be arbitrarily large since sequences of composite
+    numbers are arbitrarily large, e.g. the numbers in the sequence
+    n! + 2, n! + 3 ... n! + n are all composite.
 
-        - Twin primes: though often not, the following will give 2 primes
-                    an infinite number of times:
-                        primerange(6*n - 1, 6*n + 2)
-        - Legendre's: the following always yields at least one prime
-                        primerange(n**2, (n+1)**2+1)
-        - Bertrand's (proven): there is always a prime in the range
-                        primerange(n, 2*n)
-        - Brocard's: there are at least four primes in the range
-                        primerange(prime(n)**2, prime(n+1)**2)
+    See Also
+    --------
+    prime : Return the nth prime
+    nextprime : Return the ith prime greater than n
+    prevprime : Return the largest prime smaller than n
+    randprime : Returns a random prime in a given range
+    primorial : Returns the product of primes based on condition
+    Sieve.primerange : return range from already computed primes
+                       or extend the sieve to contain the requested
+                       range.
 
-        The average gap between primes is log(n) [2]; the gap between
-        primes can be arbitrarily large since sequences of composite
-        numbers are arbitrarily large, e.g. the numbers in the sequence
-        n! + 2, n! + 3 ... n! + n are all composite.
+    References
+    ----------
 
-        See Also
-        ========
-
-        prime : Return the nth prime
-        nextprime : Return the ith prime greater than n
-        prevprime : Return the largest prime smaller than n
-        randprime : Returns a random prime in a given range
-        primorial : Returns the product of primes based on condition
-        Sieve.primerange : return range from already computed primes
-                           or extend the sieve to contain the requested
-                           range.
-
-        References
-        ==========
-
-        .. [1] https://en.wikipedia.org/wiki/Prime_number
-        .. [2] https://primes.utm.edu/notes/gaps.html
+    .. [1] https://en.wikipedia.org/wiki/Prime_number
+    .. [2] https://primes.utm.edu/notes/gaps.html
     """
 def randprime(a, b):
-    """ Return a random prime number in the range [a, b).
+    """Return a random prime number in the range [a, b).
 
-        Bertrand's postulate assures that
-        randprime(a, 2*a) will always succeed for a > 1.
+    Bertrand's postulate assures that
+    randprime(a, 2*a) will always succeed for a > 1.
 
-        Note that due to implementation difficulties,
-        the prime numbers chosen are not uniformly random.
-        For example, there are two primes in the range [112, 128),
-        ``113`` and ``127``, but ``randprime(112, 128)`` returns ``127``
-        with a probability of 15/17.
+    Note that due to implementation difficulties,
+    the prime numbers chosen are not uniformly random.
+    For example, there are two primes in the range [112, 128),
+    ``113`` and ``127``, but ``randprime(112, 128)`` returns ``127``
+    with a probability of 15/17.
 
-        Examples
-        ========
+    Examples
+    --------
+    >>> from sympy import randprime, isprime
+    >>> randprime(1, 30) #doctest: +SKIP
+    13
+    >>> isprime(randprime(1, 30))
+    True
 
-        >>> from sympy import randprime, isprime
-        >>> randprime(1, 30) #doctest: +SKIP
-        13
-        >>> isprime(randprime(1, 30))
-        True
+    See Also
+    --------
+    primerange : Generate all primes in a given range
 
-        See Also
-        ========
+    References
+    ----------
 
-        primerange : Generate all primes in a given range
-
-        References
-        ==========
-
-        .. [1] https://en.wikipedia.org/wiki/Bertrand's_postulate
+    .. [1] https://en.wikipedia.org/wiki/Bertrand's_postulate
 
     """
 def primorial(n, nth: bool = True):
@@ -547,8 +515,7 @@ def primorial(n, nth: bool = True):
     the primes less than or equal to n (when ``nth=False``).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.generate import primorial, primerange
     >>> from sympy import factorint, Mul, primefactors, sqrt
     >>> primorial(4) # the first 4 primes are 2, 3, 5, 7
@@ -586,8 +553,7 @@ def primorial(n, nth: bool = True):
     [2, 5, 31, 149]
 
     See Also
-    ========
-
+    --------
     primerange : Generate all primes in a given range
 
     """
@@ -642,48 +608,44 @@ def cycle_length(f, x0, nmax=None, values: bool = False) -> Generator[Incomplete
         https://en.wikipedia.org/wiki/Cycle_detection.
     """
 def composite(nth):
-    """ Return the nth composite number, with the composite numbers indexed as
-        composite(1) = 4, composite(2) = 6, etc....
+    """Return the nth composite number, with the composite numbers indexed as
+    composite(1) = 4, composite(2) = 6, etc....
 
-        Examples
-        ========
+    Examples
+    --------
+    >>> from sympy import composite
+    >>> composite(36)
+    52
+    >>> composite(1)
+    4
+    >>> composite(17737)
+    20000
 
-        >>> from sympy import composite
-        >>> composite(36)
-        52
-        >>> composite(1)
-        4
-        >>> composite(17737)
-        20000
-
-        See Also
-        ========
-
-        sympy.ntheory.primetest.isprime : Test if n is prime
-        primerange : Generate all primes in a given range
-        primepi : Return the number of primes less than or equal to n
-        prime : Return the nth prime
-        compositepi : Return the number of positive composite numbers less than or equal to n
+    See Also
+    --------
+    sympy.ntheory.primetest.isprime : Test if n is prime
+    primerange : Generate all primes in a given range
+    primepi : Return the number of primes less than or equal to n
+    prime : Return the nth prime
+    compositepi : Return the number of positive composite numbers less than or equal to n
     """
 def compositepi(n):
-    """ Return the number of positive composite numbers less than or equal to n.
-        The first positive composite is 4, i.e. compositepi(4) = 1.
+    """Return the number of positive composite numbers less than or equal to n.
+    The first positive composite is 4, i.e. compositepi(4) = 1.
 
-        Examples
-        ========
+    Examples
+    --------
+    >>> from sympy import compositepi
+    >>> compositepi(25)
+    15
+    >>> compositepi(1000)
+    831
 
-        >>> from sympy import compositepi
-        >>> compositepi(25)
-        15
-        >>> compositepi(1000)
-        831
-
-        See Also
-        ========
-
-        sympy.ntheory.primetest.isprime : Test if n is prime
-        primerange : Generate all primes in a given range
-        prime : Return the nth prime
-        primepi : Return the number of primes less than or equal to n
-        composite : Return the nth composite number
+    See Also
+    --------
+    sympy.ntheory.primetest.isprime : Test if n is prime
+    primerange : Generate all primes in a given range
+    prime : Return the nth prime
+    primepi : Return the number of primes less than or equal to n
+    composite : Return the nth composite number
     """

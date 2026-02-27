@@ -1,5 +1,5 @@
-import _typeshed
 from typing import Any, NewType, TypeVar
+import _typeshed
 
 _T = TypeVar("_T")
 

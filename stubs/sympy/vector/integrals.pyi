@@ -6,7 +6,9 @@ from sympy.integrals import Integral as Integral, integrate as integrate
 from sympy.matrices import Matrix as Matrix
 from sympy.simplify.simplify import simplify as simplify
 from sympy.utilities.iterables import topological_sort as topological_sort
-from sympy.vector import CoordSys3D as CoordSys3D, ImplicitRegion as ImplicitRegion, ParametricRegion as ParametricRegion, Vector as Vector, parametric_region_list as parametric_region_list
+from sympy.vector import (
+	CoordSys3D as CoordSys3D, ImplicitRegion as ImplicitRegion, parametric_region_list as parametric_region_list,
+	ParametricRegion as ParametricRegion, Vector as Vector)
 from sympy.vector.operators import _get_coord_systems as _get_coord_systems
 
 class ParametricIntegral(Basic):
@@ -15,8 +17,7 @@ class ParametricIntegral(Basic):
     over a Parametric Region
 
     Examples
-    ========
-
+    --------
     >>> from sympy import cos, sin, pi
     >>> from sympy.vector import CoordSys3D, ParametricRegion, ParametricIntegral
     >>> from sympy.abc import r, t, theta, phi
@@ -36,6 +37,7 @@ class ParametricIntegral(Basic):
     0
 
     """
+
     def __new__(cls, field, parametricregion): ...
     @classmethod
     def _bounds_case(cls, parameters, limits): ...
@@ -50,7 +52,7 @@ def vector_integrate(field, *region):
     over a a region or a set of parameters.
 
     Examples
-    ========
+    --------
     >>> from sympy.vector import CoordSys3D, ParametricRegion, vector_integrate
     >>> from sympy.abc import x, y, t
     >>> C = CoordSys3D('C')

@@ -3,7 +3,7 @@ from sympy.ntheory.factor_ import factorint as factorint
 from sympy.utilities.misc import as_int as as_int
 
 def _is_nilpotent_number(factors: dict) -> bool:
-    """ Check whether `n` is a nilpotent number.
+    """Check whether `n` is a nilpotent number.
     Note that ``factors`` is a prime factorization of `n`.
 
     This is a low-level helper for ``is_nilpotent_number``, for internal use.
@@ -15,8 +15,7 @@ def is_nilpotent_number(n) -> bool:
     For more information see [1]_.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.group_numbers import is_nilpotent_number
     >>> from sympy import randprime
     >>> is_nilpotent_number(21)
@@ -25,7 +24,7 @@ def is_nilpotent_number(n) -> bool:
     True
 
     References
-    ==========
+    ----------
 
     .. [1] Pakianathan, J., Shankar, K., Nilpotent Numbers,
            The American Mathematical Monthly, 107(7), 631-634.
@@ -39,8 +38,7 @@ def is_abelian_number(n) -> bool:
     information see [1]_.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.group_numbers import is_abelian_number
     >>> from sympy import randprime
     >>> is_abelian_number(4)
@@ -51,7 +49,7 @@ def is_abelian_number(n) -> bool:
     False
 
     References
-    ==========
+    ----------
 
     .. [1] Pakianathan, J., Shankar, K., Nilpotent Numbers,
            The American Mathematical Monthly, 107(7), 631-634.
@@ -65,8 +63,7 @@ def is_cyclic_number(n) -> bool:
     information see [1]_.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.group_numbers import is_cyclic_number
     >>> from sympy import randprime
     >>> is_cyclic_number(15)
@@ -77,7 +74,7 @@ def is_cyclic_number(n) -> bool:
     False
 
     References
-    ==========
+    ----------
 
     .. [1] Pakianathan, J., Shankar, K., Nilpotent Numbers,
            The American Mathematical Monthly, 107(7), 631-634.
@@ -85,7 +82,7 @@ def is_cyclic_number(n) -> bool:
 
     """
 def _holder_formula(prime_factors):
-    """ Number of groups of order `n`.
+    """Number of groups of order `n`.
     where `n` is squarefree and its prime factors are ``prime_factors``.
     i.e., ``n == math.prod(prime_factors)``
 
@@ -111,19 +108,16 @@ def _holder_formula(prime_factors):
     Practically, many prime factors are expected to be members of `F`, thus reducing computation time.
 
     Parameters
-    ==========
-
+    ----------
     prime_factors : set
         The set of prime factors of ``n``. where `n` is squarefree.
 
     Returns
-    =======
-
+    -------
     int : Number of groups of order ``n``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.group_numbers import _holder_formula
     >>> _holder_formula({2}) # n = 2
     1
@@ -131,12 +125,11 @@ def _holder_formula(prime_factors):
     2
 
     See Also
-    ========
-
+    --------
     groups_count
 
     References
-    ==========
+    ----------
 
     .. [1] Otto Holder, Die Gruppen der Ordnungen p^3, pq^2, pqr, p^4,
            Math. Ann. 43 pp. 301-412 (1893).
@@ -148,23 +141,20 @@ def _holder_formula(prime_factors):
 
     """
 def groups_count(n):
-    """ Number of groups of order `n`.
+    """Number of groups of order `n`.
     In [1]_, ``gnu(n)`` is given, so we follow this notation here as well.
 
     Parameters
-    ==========
-
+    ----------
     n : Integer
         ``n`` is a positive integer
 
     Returns
-    =======
-
+    -------
     int : ``gnu(n)``
 
     Raises
-    ======
-
+    ------
     ValueError
         Number of groups of order ``n`` is unknown or not implemented.
         For example, gnu(`2^{11}`) is not yet known.
@@ -172,8 +162,7 @@ def groups_count(n):
         but this has not yet been implemented in this function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.group_numbers import groups_count
     >>> groups_count(3) # There is only one cyclic group of order 3
     1
@@ -182,13 +171,12 @@ def groups_count(n):
     2
 
     See Also
-    ========
-
+    --------
     is_cyclic_number
         `n` is cyclic iff gnu(n) = 1
 
     References
-    ==========
+    ----------
 
     .. [1] John H. Conway, Heiko Dietrich and E.A. O'Brien,
            Counting groups: gnus, moas and other exotica

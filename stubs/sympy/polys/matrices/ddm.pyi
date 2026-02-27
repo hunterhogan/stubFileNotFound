@@ -1,6 +1,12 @@
-from .dense import ddm_berk as ddm_berk, ddm_iadd as ddm_iadd, ddm_idet as ddm_idet, ddm_iinv as ddm_iinv, ddm_ilu_solve as ddm_ilu_solve, ddm_ilu_split as ddm_ilu_split, ddm_imatmul as ddm_imatmul, ddm_imul as ddm_imul, ddm_ineg as ddm_ineg, ddm_irmul as ddm_irmul, ddm_irref as ddm_irref, ddm_irref_den as ddm_irref_den, ddm_isub as ddm_isub, ddm_transpose as ddm_transpose
+from .dense import (
+	ddm_berk as ddm_berk, ddm_iadd as ddm_iadd, ddm_idet as ddm_idet, ddm_iinv as ddm_iinv, ddm_ilu_solve as ddm_ilu_solve,
+	ddm_ilu_split as ddm_ilu_split, ddm_imatmul as ddm_imatmul, ddm_imul as ddm_imul, ddm_ineg as ddm_ineg,
+	ddm_irmul as ddm_irmul, ddm_irref as ddm_irref, ddm_irref_den as ddm_irref_den, ddm_isub as ddm_isub,
+	ddm_transpose as ddm_transpose)
 from .dfm import DFM as DFM
-from .exceptions import DMBadInputError as DMBadInputError, DMDomainError as DMDomainError, DMNonSquareMatrixError as DMNonSquareMatrixError, DMShapeError as DMShapeError
+from .exceptions import (
+	DMBadInputError as DMBadInputError, DMDomainError as DMDomainError, DMNonSquareMatrixError as DMNonSquareMatrixError,
+	DMShapeError as DMShapeError)
 from .lll import ddm_lll as ddm_lll, ddm_lll_transform as ddm_lll_transform
 from .sdm import SDM as SDM
 from _typeshed import Incomplete
@@ -17,6 +23,7 @@ class DDM(list):
     This is a list subclass and is a wrapper for a list of lists that supports
     basic matrix arithmetic +, -, *, **.
     """
+
     fmt: str
     is_DFM: bool
     is_DDM: bool
@@ -35,8 +42,7 @@ class DDM(list):
         Create a :class:`DDM` from a list of lists.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ZZ
         >>> from sympy.polys.matrices.ddm import DDM
         >>> A = DDM.from_list([[ZZ(0), ZZ(1)], [ZZ(-1), ZZ(0)]], (2, 2), ZZ)
@@ -46,8 +52,7 @@ class DDM(list):
         True
 
         See Also
-        ========
-
+        --------
         from_list_flat
         """
     @classmethod
@@ -57,8 +62,7 @@ class DDM(list):
         Convert to a list of lists.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.polys.matrices.ddm import DDM
         >>> A = DDM([[1, 2], [3, 4]], (2, 2), QQ)
@@ -66,8 +70,7 @@ class DDM(list):
         [[1, 2], [3, 4]]
 
         See Also
-        ========
-
+        --------
         to_list_flat
         sympy.polys.matrices.domainmatrix.DomainMatrix.to_list
         """
@@ -76,8 +79,7 @@ class DDM(list):
         Convert to a flat list of elements.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.polys.matrices.ddm import DDM
         >>> A = DDM([[1, 2], [3, 4]], (2, 2), QQ)
@@ -87,8 +89,7 @@ class DDM(list):
         True
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.to_list_flat
         """
     @classmethod
@@ -97,8 +98,7 @@ class DDM(list):
         Create a :class:`DDM` from a flat list of elements.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.polys.matrices.ddm import DDM
         >>> A = DDM.from_list_flat([1, 2, 3, 4], (2, 2), QQ)
@@ -108,8 +108,7 @@ class DDM(list):
         True
 
         See Also
-        ========
-
+        --------
         to_list_flat
         sympy.polys.matrices.domainmatrix.DomainMatrix.from_list_flat
         """
@@ -127,8 +126,7 @@ class DDM(list):
         included in the list but that may change in the future.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.ddm import DDM
         >>> from sympy import QQ
         >>> A = DDM([[1, 2], [3, 4]], (2, 2), QQ)
@@ -139,8 +137,7 @@ class DDM(list):
         True
 
         See Also
-        ========
-
+        --------
         from_flat_nz
         sympy.polys.matrices.sdm.SDM.to_flat_nz
         sympy.polys.matrices.domainmatrix.DomainMatrix.to_flat_nz
@@ -151,8 +148,7 @@ class DDM(list):
         Reconstruct a :class:`DDM` after calling :meth:`to_flat_nz`.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.ddm import DDM
         >>> from sympy import QQ
         >>> A = DDM([[1, 2], [3, 4]], (2, 2), QQ)
@@ -163,8 +159,7 @@ class DDM(list):
         True
 
         See Also
-        ========
-
+        --------
         to_flat_nz
         sympy.polys.matrices.sdm.SDM.from_flat_nz
         sympy.polys.matrices.domainmatrix.DomainMatrix.from_flat_nz
@@ -174,8 +169,7 @@ class DDM(list):
         Convert to a dictionary of dictionaries (dod) format.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.ddm import DDM
         >>> from sympy import QQ
         >>> A = DDM([[1, 2], [3, 4]], (2, 2), QQ)
@@ -183,8 +177,7 @@ class DDM(list):
         {0: {0: 1, 1: 2}, 1: {0: 3, 1: 4}}
 
         See Also
-        ========
-
+        --------
         from_dod
         sympy.polys.matrices.sdm.SDM.to_dod
         sympy.polys.matrices.domainmatrix.DomainMatrix.to_dod
@@ -195,8 +188,7 @@ class DDM(list):
         Create a :class:`DDM` from a dictionary of dictionaries (dod) format.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.ddm import DDM
         >>> from sympy import QQ
         >>> dod = {0: {0: 1, 1: 2}, 1: {0: 3, 1: 4}}
@@ -205,8 +197,7 @@ class DDM(list):
         [[1, 2], [3, 4]]
 
         See Also
-        ========
-
+        --------
         to_dod
         sympy.polys.matrices.sdm.SDM.from_dod
         sympy.polys.matrices.domainmatrix.DomainMatrix.from_dod
@@ -216,8 +207,7 @@ class DDM(list):
         Convert :class:`DDM` to dictionary of keys (dok) format.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.ddm import DDM
         >>> from sympy import QQ
         >>> A = DDM([[1, 2], [3, 4]], (2, 2), QQ)
@@ -225,8 +215,7 @@ class DDM(list):
         {(0, 0): 1, (0, 1): 2, (1, 0): 3, (1, 1): 4}
 
         See Also
-        ========
-
+        --------
         from_dok
         sympy.polys.matrices.sdm.SDM.to_dok
         sympy.polys.matrices.domainmatrix.DomainMatrix.to_dok
@@ -237,8 +226,7 @@ class DDM(list):
         Create a :class:`DDM` from a dictionary of keys (dok) format.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.ddm import DDM
         >>> from sympy import QQ
         >>> dok = {(0, 0): 1, (0, 1): 2, (1, 0): 3, (1, 1): 4}
@@ -247,8 +235,7 @@ class DDM(list):
         [[1, 2], [3, 4]]
 
         See Also
-        ========
-
+        --------
         to_dok
         sympy.polys.matrices.sdm.SDM.from_dok
         sympy.polys.matrices.domainmatrix.DomainMatrix.from_dok
@@ -258,8 +245,7 @@ class DDM(list):
         Iterate over the non-zero values of the matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.ddm import DDM
         >>> from sympy import QQ
         >>> A = DDM([[QQ(1), QQ(0)], [QQ(3), QQ(4)]], (2, 2), QQ)
@@ -267,8 +253,7 @@ class DDM(list):
         [1, 3, 4]
 
         See Also
-        ========
-
+        --------
         iter_items
         to_list_flat
         sympy.polys.matrices.domainmatrix.DomainMatrix.iter_values
@@ -278,8 +263,7 @@ class DDM(list):
         Iterate over indices and values of nonzero elements of the matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.ddm import DDM
         >>> from sympy import QQ
         >>> A = DDM([[QQ(1), QQ(0)], [QQ(3), QQ(4)]], (2, 2), QQ)
@@ -287,8 +271,7 @@ class DDM(list):
         [((0, 0), 1), ((1, 0), 3), ((1, 1), 4)]
 
         See Also
-        ========
-
+        --------
         iter_values
         to_dok
         sympy.polys.matrices.domainmatrix.DomainMatrix.iter_items
@@ -301,8 +284,7 @@ class DDM(list):
         method in other matrix types like :class:`~.SDM`.
 
         See Also
-        ========
-
+        --------
         to_sdm
         to_dfm
         to_dfm_or_ddm
@@ -314,8 +296,7 @@ class DDM(list):
         Convert to a :class:`~.SDM`.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.ddm import DDM
         >>> from sympy import QQ
         >>> A = DDM([[1, 2], [3, 4]], (2, 2), QQ)
@@ -325,8 +306,7 @@ class DDM(list):
         <class 'sympy.polys.matrices.sdm.SDM'>
 
         See Also
-        ========
-
+        --------
         SDM
         sympy.polys.matrices.sdm.SDM.to_ddm
         """
@@ -335,8 +315,7 @@ class DDM(list):
         Convert to :class:`~.DDM` to :class:`~.DFM`.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.ddm import DDM
         >>> from sympy import QQ
         >>> A = DDM([[1, 2], [3, 4]], (2, 2), QQ)
@@ -346,8 +325,7 @@ class DDM(list):
         <class 'sympy.polys.matrices._dfm.DFM'>
 
         See Also
-        ========
-
+        --------
         DFM
         sympy.polys.matrices._dfm.DFM.to_ddm
         """
@@ -356,8 +334,7 @@ class DDM(list):
         Convert to :class:`~.DFM` if possible or otherwise return self.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.ddm import DDM
         >>> from sympy import QQ
         >>> A = DDM([[1, 2], [3, 4]], (2, 2), QQ)
@@ -367,15 +344,12 @@ class DDM(list):
         <class 'sympy.polys.matrices._dfm.DFM'>
 
         See Also
-        ========
-
+        --------
         to_dfm
         to_ddm
         sympy.polys.matrices.domainmatrix.DomainMatrix.to_dfm_or_ddm
         """
     def convert_to(self, K): ...
-    def __str__(self) -> str: ...
-    def __repr__(self) -> str: ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...
     @classmethod
@@ -395,22 +369,21 @@ class DDM(list):
     @classmethod
     def _check(cls, a, op, b, ashape, bshape) -> None: ...
     def add(a, b):
-        """a + b"""
+        """A + b"""
     def sub(a, b):
-        """a - b"""
+        """A - b"""
     def neg(a):
         """-a"""
     def mul(a, b): ...
     def rmul(a, b): ...
     def matmul(a, b):
-        """a @ b (matrix product)"""
+        """A @ b (matrix product)"""
     def mul_elementwise(a, b): ...
     def hstack(A, *B):
         """Horizontally stacks :py:class:`~.DDM` matrices.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ZZ
         >>> from sympy.polys.matrices.sdm import DDM
 
@@ -427,8 +400,7 @@ class DDM(list):
         """Vertically stacks :py:class:`~.DDM` matrices.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ZZ
         >>> from sympy.polys.matrices.sdm import DDM
 
@@ -446,25 +418,22 @@ class DDM(list):
         """Number of non-zero entries in :py:class:`~.DDM` matrix.
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.nnz
         """
     def scc(a):
         """Strongly connected components of a square matrix *a*.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ZZ
         >>> from sympy.polys.matrices.sdm import DDM
         >>> A = DDM([[ZZ(1), ZZ(0)], [ZZ(0), ZZ(1)]], (2, 2), ZZ)
         >>> A.scc()
         [[0], [1]]
 
-        See also
-        ========
-
+        See Also
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.scc
 
         """
@@ -473,24 +442,21 @@ class DDM(list):
         """Returns a square diagonal matrix with *values* on the diagonal.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ZZ
         >>> from sympy.polys.matrices.sdm import DDM
         >>> DDM.diag([ZZ(1), ZZ(2), ZZ(3)], ZZ)
         [[1, 0, 0], [0, 2, 0], [0, 0, 3]]
 
-        See also
-        ========
-
+        See Also
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.diag
         """
     def rref(a):
         """Reduced-row echelon form of a and list of pivots.
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.rref
             Higher level interface to this function.
         sympy.polys.matrices.dense.ddm_irref
@@ -500,8 +466,7 @@ class DDM(list):
         """Reduced-row echelon form of a with denominator and list of pivots
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.rref_den
             Higher level interface to this function.
         sympy.polys.matrices.dense.ddm_irref_den
@@ -513,8 +478,7 @@ class DDM(list):
         The domain of the matrix must be a field.
 
         See Also
-        ========
-
+        --------
         rref
         sympy.polys.matrices.domainmatrix.DomainMatrix.nullspace
         """
@@ -526,8 +490,7 @@ class DDM(list):
         Returns a tuple (basis, nonpivots).
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.nullspace
             The higher level interface to this function.
         """
@@ -543,7 +506,8 @@ class DDM(list):
         Private method for Phase 1 of fraction-free LU decomposition.
         Performs row operations and elimination to compute U and permutation indices.
 
-        Returns:
+        Returns
+        -------
             LU : decomposition as a single matrix.
             perm (list): Permutation indices for row swaps.
         """
@@ -552,8 +516,7 @@ class DDM(list):
         Fraction-free LU decomposition of DDM.
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.fflu
             The higher-level interface to this function.
         """
@@ -561,18 +524,18 @@ class DDM(list):
         """
         QR decomposition for DDM.
 
-        Returns:
+        Returns
+        -------
             - Q: Orthogonal matrix as a DDM.
             - R: Upper triangular matrix as a DDM.
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.qr
             The higher-level interface to this function.
         """
     def lu_solve(a, b):
-        """x where a*x = b"""
+        """X where a*x = b"""
     def charpoly(a):
         """Coefficients of characteristic polynomial of a"""
     def is_zero_matrix(self):

@@ -12,6 +12,7 @@ class InverseLaplaceTransform:
     :func:`~mpmath.invertlaplace` by passing it as the *method*
     argument.
     """
+
     ctx: Incomplete
     def __init__(self, ctx) -> None: ...
     def calc_laplace_parameter(self, t, **kwargs) -> None:
@@ -41,7 +42,7 @@ class FixedTalbot(InverseLaplaceTransform):
     delta: Incomplete
     p: Incomplete
     def calc_laplace_parameter(self, t, **kwargs) -> None:
-        '''The "fixed" Talbot method deforms the Bromwich contour towards
+        """The "fixed" Talbot method deforms the Bromwich contour towards
         `-\\infty` in the shape of a parabola. Traditionally the Talbot
         algorithm has adjustable parameters, but the "fixed" version
         does not. The `r` parameter could be passed in as a parameter,
@@ -92,7 +93,7 @@ class FixedTalbot(InverseLaplaceTransform):
         where `j=\\sqrt{-1}`, `r=2M/5`, and `t_\\mathrm{max}` is the
         maximum specified time.
 
-        '''
+        """
     def calc_time_domain_solution(self, fp, t, manual_prec: bool = False):
         """The fixed Talbot time-domain solution is computed from the
         Laplace-space function evaluations using
@@ -160,8 +161,9 @@ class Stehfest(InverseLaplaceTransform):
             p_k = \\frac{k \\log 2}{t} \\qquad 1 \\le k \\le M
         """
     def _coeff(self):
-        '''Salzer summation weights (aka, "Stehfest coefficients")
-        only depend on the approximation order (M) and the precision'''
+        """Salzer summation weights (aka, "Stehfest coefficients")
+        only depend on the approximation order (M) and the precision
+        """
     def calc_time_domain_solution(self, fp, t, manual_prec: bool = False):
         """Compute time-domain Stehfest algorithm solution.
 
@@ -207,7 +209,7 @@ class deHoog(InverseLaplaceTransform):
     p: Incomplete
     gamma: Incomplete
     def calc_laplace_parameter(self, t, **kwargs) -> None:
-        """the de Hoog, Knight & Stokes algorithm is an
+        """The de Hoog, Knight & Stokes algorithm is an
         accelerated form of the Fourier series numerical
         inverse Laplace transform algorithms.
 
@@ -339,7 +341,7 @@ class Cohen(InverseLaplaceTransform):
 class LaplaceTransformInversionMethods:
     def __init__(ctx, *args, **kwargs) -> None: ...
     def invertlaplace(ctx, f, t, **kwargs):
-        '''Computes the numerical inverse Laplace transform for a
+        """Computes the numerical inverse Laplace transform for a
         Laplace-space function at a given time.  The function being
         evaluated is assumed to be a real-valued function of time.
 
@@ -585,7 +587,7 @@ class LaplaceTransformInversionMethods:
            Algorithms*, 63(2):339-355.
            http://dx.doi.org/10.1007/s11075-012-9625-3
 
-        '''
+        """
     def invlaptalbot(ctx, *args, **kwargs): ...
     def invlapstehfest(ctx, *args, **kwargs): ...
     def invlapdehoog(ctx, *args, **kwargs): ...

@@ -1,5 +1,5 @@
-import types
 from _typeshed import Incomplete
+import types
 
 logger: Incomplete
 

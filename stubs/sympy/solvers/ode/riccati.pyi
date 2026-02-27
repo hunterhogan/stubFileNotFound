@@ -49,15 +49,13 @@ def match_riccati(eq, f, x):
     if an equation is a Riccati ODE
 
     Parameters
-    ==========
-
+    ----------
     eq: Equation to be matched
     f: Dependent variable
     x: Independent variable
 
     Returns
-    =======
-
+    -------
     match: True if equation is a Riccati ODE, False otherwise
     funcs: [b0, b1, b2] if match is True, [] otherwise. Here,
     b0, b1 and b2 are rational functions which match the equation.
@@ -113,8 +111,7 @@ def rational_laurent_series(num, den, x, r, m, n):
     of a rational function.
 
     Parameters
-    ==========
-
+    ----------
     num: A Poly object that is the numerator of `f(x)`.
     den: A Poly object that is the denominator of `f(x)`.
     x: The variable of expansion of the series.
@@ -124,8 +121,7 @@ def rational_laurent_series(num, den, x, r, m, n):
     n: Order of the term upto which the series is expanded.
 
     Returns
-    =======
-
+    -------
     series: A dictionary that has power of the term as key
     and coefficient of that term as value.
 
@@ -172,7 +168,7 @@ def remove_redundant_sols(sol1, sol2, x):
     solutions to the differential equation.
     """
 def get_gen_sol_from_part_sol(part_sols, a, x):
-    '''"
+    """"
     Helper function which computes the general
     solution for a Riccati ODE from its particular
     solutions.
@@ -185,7 +181,7 @@ def get_gen_sol_from_part_sol(part_sols, a, x):
     For more information, see Section 6 of
     "Methods of Solution of the Riccati Differential Equation"
     by D. R. Haaheim and F. M. Stein
-    '''
+    """
 def solve_riccati(fx, x, b0, b1, b2, gensol: bool = False):
     """
     The main function that gives particular/general

@@ -12,6 +12,7 @@ class BasisDependent(Expr):
     Named so because the representation of these quantities in
     sympy.vector is dependent on the basis they are expressed in.
     """
+
     zero: BasisDependentZero
     def __add__(self, other): ...
     def __radd__(self, other): ...
@@ -88,12 +89,14 @@ class BasisDependentAdd(BasisDependent, Add):
     Denotes sum of basis dependent quantities such that they cannot
     be expressed as base or Mul instances.
     """
+
     def __new__(cls, *args, **options): ...
 
 class BasisDependentMul(BasisDependent, Mul):
     """
     Denotes product of base- basis dependent quantity with a scalar.
     """
+
     def __new__(cls, *args, **options): ...
     def _new_rawargs(self, *args): ...
     @classmethod
@@ -104,7 +107,8 @@ class BasisDependentZero(BasisDependent):
     """
     Class to denote a zero basis dependent instance.
     """
-    components: dict['BaseVector', Expr]
+
+    components: dict[BaseVector, Expr]
     _latex_form: str
     def __new__(cls): ...
     def __hash__(self): ...

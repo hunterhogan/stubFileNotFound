@@ -1,13 +1,8 @@
-from typing import Self
-
+from pandas._libs.arrays import NDArrayBacked
+from pandas._typing import AxisInt, Scalar
 from pandas.core.arrays.base import ExtensionArray
 from pandas.core.series import Series
-
-from pandas._libs.arrays import NDArrayBacked
-from pandas._typing import (
-    AxisInt,
-    Scalar,
-)
+from typing import Self
 
 class NDArrayBackedExtensionArray(NDArrayBacked, ExtensionArray):
     @property

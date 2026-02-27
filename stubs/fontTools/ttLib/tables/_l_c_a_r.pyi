@@ -8,4 +8,3 @@ class table__l_c_a_r(BaseTTXConverter):
 
     See also https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6lcar.html
     """
-

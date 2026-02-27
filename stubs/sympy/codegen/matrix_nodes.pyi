@@ -7,8 +7,7 @@ class MatrixSolve(Token, MatrixExpr):
     """Represents an operation to solve a linear matrix equation.
 
     Parameters
-    ==========
-
+    ----------
     matrix : MatrixSymbol
 
       Matrix representing the coefficients of variables in the linear
@@ -21,8 +20,7 @@ class MatrixSolve(Token, MatrixExpr):
       represented in ``matrix``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, MatrixSymbol
     >>> from sympy.codegen.matrix_nodes import MatrixSolve
     >>> n = symbols('n', integer=True)
@@ -36,6 +34,7 @@ class MatrixSolve(Token, MatrixExpr):
     'A \\\\ x'
 
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     _construct_matrix: Incomplete

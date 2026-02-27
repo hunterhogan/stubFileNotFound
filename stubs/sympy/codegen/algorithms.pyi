@@ -1,4 +1,7 @@
-from sympy.codegen.ast import AddAugmentedAssignment as AddAugmentedAssignment, Assignment as Assignment, CodeBlock as CodeBlock, Declaration as Declaration, FunctionDefinition as FunctionDefinition, Pointer as Pointer, Print as Print, Return as Return, Scope as Scope, Variable as Variable, While as While, break_ as break_, real as real
+from sympy.codegen.ast import (
+	AddAugmentedAssignment as AddAugmentedAssignment, Assignment as Assignment, break_ as break_, CodeBlock as CodeBlock,
+	Declaration as Declaration, FunctionDefinition as FunctionDefinition, Pointer as Pointer, Print as Print, real as real,
+	Return as Return, Scope as Scope, Variable as Variable, While as While)
 from sympy.codegen.cfunctions import isnan as isnan
 from sympy.core.containers import Tuple as Tuple
 from sympy.core.numbers import oo as oo
@@ -9,7 +12,7 @@ from sympy.functions.elementary.miscellaneous import Max as Max, Min as Min
 from sympy.logic.boolalg import And as And
 
 def newtons_method(expr, wrt, atol: float = 1e-12, delta=None, *, rtol: float = 4e-16, debug: bool = False, itermax=None, counter=None, delta_fn=..., cse: bool = False, handle_nan=None, bounds=None):
-    """ Generates an AST for Newton-Raphson method (a root-finding algorithm).
+    """Generates an AST for Newton-Raphson method (a root-finding algorithm).
 
     Explanation
     ===========
@@ -18,8 +21,7 @@ def newtons_method(expr, wrt, atol: float = 1e-12, delta=None, *, rtol: float = 
     method of root-finding.
 
     Parameters
-    ==========
-
+    ----------
     expr : expression
     wrt : Symbol
         With respect to, i.e. what is the variable.
@@ -46,8 +48,7 @@ def newtons_method(expr, wrt, atol: float = 1e-12, delta=None, *, rtol: float = 
         Perform optimization within bounds
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, cos
     >>> from sympy.codegen.ast import Assignment
     >>> from sympy.codegen.algorithms import newtons_method
@@ -58,18 +59,17 @@ def newtons_method(expr, wrt, atol: float = 1e-12, delta=None, *, rtol: float = 
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Newton%27s_method
 
     """
 def _symbol_of(arg): ...
 def newtons_method_function(expr, wrt, params=None, func_name: str = 'newton', attrs=..., *, delta=None, **kwargs):
-    """ Generates an AST for a function implementing the Newton-Raphson method.
+    """Generates an AST for a function implementing the Newton-Raphson method.
 
     Parameters
-    ==========
-
+    ----------
     expr : expression
     wrt : Symbol
         With respect to, i.e. what is the variable
@@ -84,8 +84,7 @@ def newtons_method_function(expr, wrt, params=None, func_name: str = 'newton', a
         Keyword arguments passed to :func:`sympy.codegen.algorithms.newtons_method`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, cos
     >>> from sympy.codegen.algorithms import newtons_method_function
     >>> from sympy.codegen.pyutils import render_as_module
@@ -100,8 +99,7 @@ def newtons_method_function(expr, wrt, params=None, func_name: str = 'newton', a
     True
 
     See Also
-    ========
-
+    --------
     sympy.codegen.algorithms.newtons_method
 
     """

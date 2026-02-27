@@ -1,12 +1,6 @@
-from typing import (
-    ClassVar,
-    Literal,
-    TypeVar,
-)
-
-from pandas.core.arrays import ExtensionArray
-
 from pandas._typing import type_t
+from pandas.core.arrays import ExtensionArray
+from typing import ClassVar, Literal, TypeVar
 
 class ExtensionDtype:
     type: ClassVar[type_t]

@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from sympy.core.cache import cacheit
 from sympy.stats.frv import SingleFiniteDistribution
 
-__all__ = ['FiniteRV', 'DiscreteUniform', 'Die', 'Bernoulli', 'Coin', 'Binomial', 'BetaBinomial', 'Hypergeometric', 'Rademacher', 'IdealSoliton', 'RobustSoliton']
+__all__ = ['Bernoulli', 'BetaBinomial', 'Binomial', 'Coin', 'Die', 'DiscreteUniform', 'FiniteRV', 'Hypergeometric', 'IdealSoliton', 'Rademacher', 'RobustSoliton']
 
 class FiniteDistributionHandmade(SingleFiniteDistribution):
     @property
@@ -18,8 +18,7 @@ def FiniteRV(name, density, **kwargs):
     Create a Finite Random Variable given a dict representing the density.
 
     Parameters
-    ==========
-
+    ----------
     name : Symbol
         Represents name of the random variable.
     density : dict
@@ -30,8 +29,7 @@ def FiniteRV(name, density, **kwargs):
         will not perform this check. Default is False.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import FiniteRV, P, E
 
     >>> density = {0: .1, 1: .2, 2: .3, 3: .4}
@@ -43,8 +41,7 @@ def FiniteRV(name, density, **kwargs):
     0.700000000000000
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     """
@@ -67,14 +64,12 @@ def DiscreteUniform(name, items):
     the input set.
 
     Parameters
-    ==========
-
+    ----------
     items : list/tuple
         Items over which Uniform distribution is to be made
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import DiscreteUniform, density
     >>> from sympy import symbols
 
@@ -87,12 +82,11 @@ def DiscreteUniform(name, items):
     {0: 1/5, 1: 1/5, 2: 1/5, 3: 1/5, 4: 1/5}
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Discrete_uniform_distribution
     .. [2] https://mathworld.wolfram.com/DiscreteUniformDistribution.html
@@ -118,14 +112,12 @@ def Die(name, sides: int = 6):
     Create a Finite Random Variable representing a fair die.
 
     Parameters
-    ==========
-
+    ----------
     sides : Integer
         Represents the number of sides of the Die, by default is 6
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Die, density
     >>> from sympy import Symbol
 
@@ -145,8 +137,7 @@ def Die(name, sides: int = 6):
     {1: 1/4, 2: 1/4, 3: 1/4, 4: 1/4}
 
     Returns
-    =======
-
+    -------
     RandomSymbol
     """
 
@@ -163,8 +154,7 @@ def Bernoulli(name, p, succ: int = 1, fail: int = 0):
     Create a Finite Random Variable representing a Bernoulli process.
 
     Parameters
-    ==========
-
+    ----------
     p : Rational number between 0 and 1
        Represents probability of success
     succ : Integer/symbol/string
@@ -173,8 +163,7 @@ def Bernoulli(name, p, succ: int = 1, fail: int = 0):
        Represents event of failure
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Bernoulli, density
     >>> from sympy import S
 
@@ -187,33 +176,30 @@ def Bernoulli(name, p, succ: int = 1, fail: int = 0):
     {Heads: 1/2, Tails: 1/2}
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Bernoulli_distribution
     .. [2] https://mathworld.wolfram.com/BernoulliDistribution.html
 
     """
 def Coin(name, p=...):
-    '''
+    """
     Create a Finite Random Variable representing a Coin toss.
 
     This is an equivalent of a Bernoulli random variable with
     "H" and "T" as success and failure events respectively.
 
     Parameters
-    ==========
-
+    ----------
     p : Rational Number between 0 and 1
       Represents probability of getting "Heads", by default is Half
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Coin, density
     >>> from sympy import Rational
 
@@ -226,21 +212,19 @@ def Coin(name, p=...):
     {H: 3/5, T: 2/5}
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     See Also
-    ========
-
+    --------
     sympy.stats.Binomial
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Coin_flipping
 
-    '''
+    """
 
 class BinomialDistribution(SingleFiniteDistribution):
     _argnames: Incomplete
@@ -260,12 +244,11 @@ class BinomialDistribution(SingleFiniteDistribution):
     def dict(self): ...
 
 def Binomial(name, n, p, succ: int = 1, fail: int = 0):
-    '''
+    """
     Create a Finite Random Variable representing a binomial distribution.
 
     Parameters
-    ==========
-
+    ----------
     n : Positive Integer
       Represents number of trials
     p : Rational Number between 0 and 1
@@ -276,8 +259,7 @@ def Binomial(name, n, p, succ: int = 1, fail: int = 0):
       Represents event of failure, by default is 0
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Binomial, density
     >>> from sympy import S, Symbol
 
@@ -294,17 +276,16 @@ def Binomial(name, n, p, succ: int = 1, fail: int = 0):
     {0: 1/16, 1: 1/4, 2: 3/8, 3: 1/4, 4: 1/16}
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Binomial_distribution
     .. [2] https://mathworld.wolfram.com/BinomialDistribution.html
 
-    '''
+    """
 
 class BetaBinomialDistribution(SingleFiniteDistribution):
     _argnames: Incomplete
@@ -325,16 +306,14 @@ def BetaBinomial(name, n, alpha, beta):
     Create a Finite Random Variable representing a Beta-binomial distribution.
 
     Parameters
-    ==========
-
+    ----------
     n : Positive Integer
       Represents number of trials
     alpha : Real positive number
     beta : Real positive number
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import BetaBinomial, density
 
     >>> X = BetaBinomial('X', 2, 1, 1)
@@ -342,12 +321,11 @@ def BetaBinomial(name, n, alpha, beta):
     {0: 1/3, 1: 2*beta(2, 2), 2: 1/3}
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Beta-binomial_distribution
     .. [2] https://mathworld.wolfram.com/BetaBinomialDistribution.html
@@ -373,8 +351,7 @@ def Hypergeometric(name, N, m, n):
     Create a Finite Random Variable representing a hypergeometric distribution.
 
     Parameters
-    ==========
-
+    ----------
     N : Positive Integer
       Represents finite population of size N.
     m : Positive Integer
@@ -384,8 +361,7 @@ def Hypergeometric(name, N, m, n):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Hypergeometric, density
 
     >>> X = Hypergeometric('X', 10, 5, 3) # 10 marbles, 5 white (success), 3 draws
@@ -393,12 +369,11 @@ def Hypergeometric(name, N, m, n):
     {0: 1/12, 1: 5/12, 2: 5/12, 3: 1/12}
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Hypergeometric_distribution
     .. [2] https://mathworld.wolfram.com/HypergeometricDistribution.html
@@ -416,8 +391,7 @@ def Rademacher(name):
     Create a Finite Random Variable representing a Rademacher distribution.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Rademacher, density
 
     >>> X = Rademacher('X')
@@ -425,17 +399,15 @@ def Rademacher(name):
     {-1: 1/2, 1: 1/2}
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     See Also
-    ========
-
+    --------
     sympy.stats.Bernoulli
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Rademacher_distribution
 
@@ -461,14 +433,12 @@ def IdealSoliton(name, k):
     Create a Finite Random Variable of Ideal Soliton Distribution
 
     Parameters
-    ==========
-
+    ----------
     k : Positive Integer
         Represents the number of input symbols in an LT (Luby Transform) code.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import IdealSoliton, density, P, E
     >>> sol = IdealSoliton('sol', 5)
     >>> density(sol).dict
@@ -491,12 +461,11 @@ def IdealSoliton(name, k):
     1/4
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Soliton_distribution#Ideal_distribution
     .. [2] https://pages.cs.wisc.edu/~suman/courses/740/papers/luby02lt.pdf
@@ -526,8 +495,7 @@ def RobustSoliton(name, k, delta, c):
     Create a Finite Random Variable of Robust Soliton Distribution
 
     Parameters
-    ==========
-
+    ----------
     k : Positive Integer
         Represents the number of input symbols in an LT (Luby Transform) code.
     delta : Positive Rational Number
@@ -536,8 +504,7 @@ def RobustSoliton(name, k, delta, c):
         Constant of proportionality. Values close to 1 are recommended
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import RobustSoliton, density, P, E
     >>> robSol = RobustSoliton('robSol', 5, 0.5, 0.01)
     >>> density(robSol).dict
@@ -562,12 +529,11 @@ def RobustSoliton(name, k, delta, c):
     0.243650614389834
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Soliton_distribution#Robust_distribution
     .. [2] https://www.inference.org.uk/mackay/itprnn/ps/588.596.pdf

@@ -85,4 +85,3 @@ class VarLibCFFHintTypeMergeError(VarLibCFFMergeError):
 
 class VariationModelError(VarLibError):
     """Raised when a variation model is faulty."""
-

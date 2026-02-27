@@ -5,7 +5,7 @@ from sympy.logic.boolalg import And as And
 from sympy.sets.sets import Interval as Interval
 
 def _ivl(cond, x):
-    """return the interval corresponding to the condition
+    """Return the interval corresponding to the condition
 
     Conditions in spline's Piecewise give the range over
     which an expression is valid like (lo <= x) & (x <= hi).
@@ -24,8 +24,7 @@ def bspline_basis(d, knots, n, x):
     set of knots, which is a sequence of integers or floats.
 
     Examples
-    ========
-
+    --------
     The 0th degree splines have a value of 1 on a single interval:
 
         >>> from sympy import bspline_basis
@@ -70,8 +69,7 @@ def bspline_basis(d, knots, n, x):
         >>> y = f(0.5)
 
     Parameters
-    ==========
-
+    ----------
     d : integer
         degree of bspline
 
@@ -84,12 +82,11 @@ def bspline_basis(d, knots, n, x):
     x : symbol
 
     See Also
-    ========
-
+    --------
     bspline_basis_set
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/B-spline
 
@@ -108,8 +105,7 @@ def bspline_basis_set(d, knots, x):
     values of *n*.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import bspline_basis_set
     >>> from sympy.abc import x
     >>> d = 2
@@ -126,8 +122,7 @@ def bspline_basis_set(d, knots, x):
               (0, True))]
 
     Parameters
-    ==========
-
+    ----------
     d : integer
         degree of bspline
 
@@ -137,8 +132,7 @@ def bspline_basis_set(d, knots, x):
     x : symbol
 
     See Also
-    ========
-
+    --------
     bspline_basis
 
     """
@@ -156,8 +150,7 @@ def interpolating_spline(d, x, X, Y):
     increasing.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import interpolating_spline
     >>> from sympy.abc import x
     >>> interpolating_spline(1, x, [1, 2, 4, 7], [3, 6, 5, 7])
@@ -169,8 +162,7 @@ def interpolating_spline(d, x, X, Y):
             (10*x**3/117 - 2*x**2/117 - 122*x/117 + 77/39, (x >= 1) & (x <= 4)))
 
     Parameters
-    ==========
-
+    ----------
     d : integer
         Degree of Bspline strictly greater than equal to one
 
@@ -183,8 +175,7 @@ def interpolating_spline(d, x, X, Y):
         list of corresponding Y coordinates through which the spline passes
 
     See Also
-    ========
-
+    --------
     bspline_basis_set, interpolating_poly
 
     """

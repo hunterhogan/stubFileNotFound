@@ -1,6 +1,7 @@
-from .sympify import SympifyError as SympifyError, sympify as sympify
+from .sympify import sympify as sympify, SympifyError as SympifyError
 from _typeshed import Incomplete
-from typing import Callable, TypeVar
+from collections.abc import Callable
+from typing import TypeVar
 
 T1 = TypeVar('T1')
 T2 = TypeVar('T2')
@@ -8,7 +9,7 @@ T3 = TypeVar('T3')
 
 def _sympifyit(arg, retval=None) -> Callable[[Callable[[T1, T2], T3]], Callable[[T1, T2], T3]]:
     """
-    decorator to smartly _sympify function arguments
+    Decorator to smartly _sympify function arguments
 
     Explanation
     ===========
@@ -24,15 +25,14 @@ def _sympifyit(arg, retval=None) -> Callable[[Callable[[T1, T2], T3]], Callable[
 
     if _sympify(arg) fails, NotImplemented will be returned
 
-    See also
-    ========
-
+    See Also
+    --------
     __sympifyit
     """
 def __sympifyit(func, arg, retval=None):
     """Decorator to _sympify `arg` argument for function `func`.
 
-       Do not use directly -- use _sympifyit instead.
+    Do not use directly -- use _sympifyit instead.
     """
 def call_highest_priority(method_name: str) -> Callable[[Callable[[T1, T2], T3]], Callable[[T1, T2], T3]]:
     """A decorator for binary special methods to handle _op_priority.
@@ -71,8 +71,7 @@ def sympify_method_args(cls) -> type[T1]:
     intended for the common idiom of writing a class like :
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Basic, SympifyError, S
     >>> from sympy.core.sympify import _sympify
 
@@ -132,6 +131,7 @@ def sympify_return(*args):
 
 class _SympifyWrapper:
     """Internal class used by sympify_return and sympify_method_args"""
+
     func: Incomplete
     args: Incomplete
     def __init__(self, func, args) -> None: ...

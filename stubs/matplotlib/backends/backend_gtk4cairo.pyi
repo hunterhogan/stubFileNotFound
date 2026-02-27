@@ -1,5 +1,5 @@
 from .backend_cairo import FigureCanvasCairo as FigureCanvasCairo
-from .backend_gtk4 import FigureCanvasGTK4 as FigureCanvasGTK4, GLib as GLib, Gtk as Gtk, _BackendGTK4 as _BackendGTK4
+from .backend_gtk4 import _BackendGTK4 as _BackendGTK4, FigureCanvasGTK4 as FigureCanvasGTK4, GLib as GLib, Gtk as Gtk
 
 class FigureCanvasGTK4Cairo(FigureCanvasCairo, FigureCanvasGTK4):
     def _set_device_pixel_ratio(self, ratio): ...

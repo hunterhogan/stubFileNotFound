@@ -1,14 +1,13 @@
 from sympy.utilities import public
 
-__all__ = ['jacobi_poly', 'chebyshevt_poly', 'chebyshevu_poly', 'hermite_poly', 'hermite_prob_poly', 'legendre_poly', 'laguerre_poly']
+__all__ = ['chebyshevt_poly', 'chebyshevu_poly', 'hermite_poly', 'hermite_prob_poly', 'jacobi_poly', 'laguerre_poly', 'legendre_poly']
 
 @public
 def jacobi_poly(n, a, b, x=None, polys: bool = False):
     """Generates the Jacobi polynomial `P_n^{(a,b)}(x)`.
 
     Parameters
-    ==========
-
+    ----------
     n : int
         Degree of the polynomial.
     a
@@ -24,8 +23,7 @@ def chebyshevt_poly(n, x=None, polys: bool = False):
     """Generates the Chebyshev polynomial of the first kind `T_n(x)`.
 
     Parameters
-    ==========
-
+    ----------
     n : int
         Degree of the polynomial.
     x : optional
@@ -37,8 +35,7 @@ def chebyshevu_poly(n, x=None, polys: bool = False):
     """Generates the Chebyshev polynomial of the second kind `U_n(x)`.
 
     Parameters
-    ==========
-
+    ----------
     n : int
         Degree of the polynomial.
     x : optional
@@ -50,8 +47,7 @@ def hermite_poly(n, x=None, polys: bool = False):
     """Generates the Hermite polynomial `H_n(x)`.
 
     Parameters
-    ==========
-
+    ----------
     n : int
         Degree of the polynomial.
     x : optional
@@ -63,8 +59,7 @@ def hermite_prob_poly(n, x=None, polys: bool = False):
     """Generates the probabilist's Hermite polynomial `He_n(x)`.
 
     Parameters
-    ==========
-
+    ----------
     n : int
         Degree of the polynomial.
     x : optional
@@ -76,8 +71,7 @@ def legendre_poly(n, x=None, polys: bool = False):
     """Generates the Legendre polynomial `P_n(x)`.
 
     Parameters
-    ==========
-
+    ----------
     n : int
         Degree of the polynomial.
     x : optional
@@ -89,8 +83,7 @@ def laguerre_poly(n, x=None, alpha: int = 0, polys: bool = False):
     """Generates the Laguerre polynomial `L_n^{(\\alpha)}(x)`.
 
     Parameters
-    ==========
-
+    ----------
     n : int
         Degree of the polynomial.
     x : optional

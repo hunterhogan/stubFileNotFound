@@ -1,11 +1,10 @@
 from .cartan_type import CartanType as CartanType
 
 def CartanMatrix(ct):
-    '''Access the Cartan matrix of a specific Lie algebra
+    """Access the Cartan matrix of a specific Lie algebra
 
     Examples
-    ========
-
+    --------
     >>> from sympy.liealgebras.cartan_matrix import CartanMatrix
     >>> CartanMatrix("A2")
     Matrix([
@@ -20,4 +19,4 @@ def CartanMatrix(ct):
 
     This method works by returning the Cartan matrix
     which corresponds to Cartan type t.
-    '''
+    """

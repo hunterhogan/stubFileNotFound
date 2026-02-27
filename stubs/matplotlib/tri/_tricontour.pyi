@@ -13,6 +13,7 @@ class TriContourSet(ContourSet):
 
     %(contour_set_attributes)s
     """
+
     def __init__(self, ax, *args, **kwargs) -> None:
         """
         Draw triangular grid contour lines or filled regions,

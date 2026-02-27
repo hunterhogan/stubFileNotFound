@@ -56,6 +56,7 @@ class SDM(dict):
     {0: {1: 4}, 1: {0: 2}}
 
     """
+
     fmt: str
     is_DFM: bool
     is_DDM: bool
@@ -66,27 +67,22 @@ class SDM(dict):
     def setitem(self, i, j, value) -> None: ...
     def extract_slice(self, slice1, slice2): ...
     def extract(self, rows, cols): ...
-    def __str__(self) -> str: ...
-    def __repr__(self) -> str: ...
     @classmethod
     def new(cls, sdm, shape, domain):
         """
 
         Parameters
-        ==========
-
+        ----------
         sdm: A dict of dicts for non-zero elements in SDM
         shape: tuple representing dimension of SDM
         domain: Represents :py:class:`~.Domain` of SDM
 
         Returns
-        =======
-
+        -------
         An :py:class:`~.SDM` object
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> elemsdict = {0:{1: QQ(2)}}
@@ -100,8 +96,7 @@ class SDM(dict):
         Returns the copy of a :py:class:`~.SDM` object
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> elemsdict = {0:{1:QQ(2)}, 1:{}}
@@ -117,8 +112,7 @@ class SDM(dict):
         Create :py:class:`~.SDM` object from a list of lists.
 
         Parameters
-        ==========
-
+        ----------
         ddm:
             list of lists containing domain elements
         shape:
@@ -127,13 +121,11 @@ class SDM(dict):
             Represents :py:class:`~.Domain` of :py:class:`~.SDM` object
 
         Returns
-        =======
-
+        -------
         :py:class:`~.SDM` containing elements of ddm
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> ddm = [[QQ(1, 2), QQ(0)], [QQ(0), QQ(3, 4)]]
@@ -142,8 +134,7 @@ class SDM(dict):
         {0: {0: 1/2}, 1: {1: 3/4}}
 
         See Also
-        ========
-
+        --------
         to_list
         from_list_flat
         from_dok
@@ -155,8 +146,7 @@ class SDM(dict):
         Create :py:class:`~.SDM` from a :py:class:`~.DDM`.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.ddm import DDM
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
@@ -168,8 +158,7 @@ class SDM(dict):
         True
 
         See Also
-        ========
-
+        --------
         to_ddm
         from_list
         from_list_flat
@@ -180,8 +169,7 @@ class SDM(dict):
         Convert a :py:class:`~.SDM` object to a list of lists.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> elemsdict = {0:{1:QQ(2)}, 1:{}}
@@ -196,8 +184,7 @@ class SDM(dict):
         Convert :py:class:`~.SDM` to a flat list.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> A = SDM({0:{1:QQ(2)}, 1:{0: QQ(3)}}, (2, 2), QQ)
@@ -207,8 +194,7 @@ class SDM(dict):
         True
 
         See Also
-        ========
-
+        --------
         from_list_flat
         to_list
         to_dok
@@ -220,8 +206,7 @@ class SDM(dict):
         Create :py:class:`~.SDM` from a flat list of elements.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> A = SDM.from_list_flat([QQ(0), QQ(2), QQ(0), QQ(0)], (2, 2), QQ)
@@ -231,8 +216,7 @@ class SDM(dict):
         True
 
         See Also
-        ========
-
+        --------
         to_list_flat
         from_list
         from_dok
@@ -250,8 +234,7 @@ class SDM(dict):
         :meth:`from_flat_nz`. Zero elements are omitted from the list.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> A = SDM({0:{1:QQ(2)}, 1:{0: QQ(3)}}, (2, 2), QQ)
@@ -262,8 +245,7 @@ class SDM(dict):
         True
 
         See Also
-        ========
-
+        --------
         from_flat_nz
         to_list_flat
         sympy.polys.matrices.ddm.DDM.to_flat_nz
@@ -277,8 +259,7 @@ class SDM(dict):
         See :meth:`to_flat_nz` for explanation.
 
         See Also
-        ========
-
+        --------
         to_flat_nz
         from_list_flat
         sympy.polys.matrices.ddm.DDM.from_flat_nz
@@ -289,8 +270,7 @@ class SDM(dict):
         Convert to dictionary of dictionaries (dod) format.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> A = SDM({0: {1: QQ(2)}, 1: {0: QQ(3)}}, (2, 2), QQ)
@@ -298,8 +278,7 @@ class SDM(dict):
         {0: {1: 2}, 1: {0: 3}}
 
         See Also
-        ========
-
+        --------
         from_dod
         sympy.polys.matrices.domainmatrix.DomainMatrix.to_dod
         """
@@ -309,8 +288,7 @@ class SDM(dict):
         Create :py:class:`~.SDM` from dictionary of dictionaries (dod) format.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> dod = {0: {1: QQ(2)}, 1: {0: QQ(3)}}
@@ -321,8 +299,7 @@ class SDM(dict):
         True
 
         See Also
-        ========
-
+        --------
         to_dod
         sympy.polys.matrices.domainmatrix.DomainMatrix.to_dod
         """
@@ -331,8 +308,7 @@ class SDM(dict):
         Convert to dictionary of keys (dok) format.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> A = SDM({0: {1: QQ(2)}, 1: {0: QQ(3)}}, (2, 2), QQ)
@@ -340,8 +316,7 @@ class SDM(dict):
         {(0, 1): 2, (1, 0): 3}
 
         See Also
-        ========
-
+        --------
         from_dok
         to_list
         to_list_flat
@@ -353,8 +328,7 @@ class SDM(dict):
         Create :py:class:`~.SDM` from dictionary of keys (dok) format.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> dok = {(0, 1): QQ(2), (1, 0): QQ(3)}
@@ -365,8 +339,7 @@ class SDM(dict):
         True
 
         See Also
-        ========
-
+        --------
         to_dok
         from_list
         from_list_flat
@@ -377,8 +350,7 @@ class SDM(dict):
         Iterate over the nonzero values of a :py:class:`~.SDM` matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> A = SDM({0: {1: QQ(2)}, 1: {0: QQ(3)}}, (2, 2), QQ)
@@ -391,8 +363,7 @@ class SDM(dict):
         Iterate over indices and values of the nonzero elements.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> A = SDM({0: {1: QQ(2)}, 1: {0: QQ(3)}}, (2, 2), QQ)
@@ -400,8 +371,7 @@ class SDM(dict):
         [((0, 1), 2), ((1, 0), 3)]
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.iter_items
         """
     def to_ddm(M):
@@ -409,8 +379,7 @@ class SDM(dict):
         Convert a :py:class:`~.SDM` object to a :py:class:`~.DDM` object
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> A = SDM({0:{1:QQ(2)}, 1:{}}, (2, 2), QQ)
@@ -427,8 +396,7 @@ class SDM(dict):
         Convert a :py:class:`~.SDM` object to a :py:class:`~.DFM` object
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> A = SDM({0:{1:QQ(2)}, 1:{}}, (2, 2), QQ)
@@ -436,8 +404,7 @@ class SDM(dict):
         [[0, 2], [0, 0]]
 
         See Also
-        ========
-
+        --------
         to_ddm
         to_dfm_or_ddm
         sympy.polys.matrices.domainmatrix.DomainMatrix.to_dfm
@@ -447,8 +414,7 @@ class SDM(dict):
         Convert to :py:class:`~.DFM` if possible, else :py:class:`~.DDM`.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> A = SDM({0:{1:QQ(2)}, 1:{}}, (2, 2), QQ)
@@ -458,8 +424,7 @@ class SDM(dict):
         <class 'sympy.polys.matrices._dfm.DFM'>
 
         See Also
-        ========
-
+        --------
         to_ddm
         to_dfm
         sympy.polys.matrices.domainmatrix.DomainMatrix.to_dfm_or_ddm
@@ -494,8 +459,7 @@ class SDM(dict):
         size x size, belonging to the specified domain
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> I = SDM.eye((2, 2), QQ)
@@ -511,8 +475,7 @@ class SDM(dict):
         Returns the transpose of a :py:class:`~.SDM` matrix
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy import QQ
         >>> A = SDM({0:{1:QQ(2)}, 1:{}}, (2, 2), QQ)
@@ -531,26 +494,22 @@ class SDM(dict):
         Performs matrix multiplication of two SDM matrices
 
         Parameters
-        ==========
-
+        ----------
         A, B: SDM to multiply
 
         Returns
-        =======
-
+        -------
         SDM
             SDM after multiplication
 
         Raises
-        ======
-
+        ------
         DomainError
             If domain of A does not match
             with that of B
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ZZ
         >>> from sympy.polys.matrices.sdm import SDM
         >>> A = SDM({0:{1: ZZ(2)}, 1:{0:ZZ(1)}}, (2, 2), ZZ)
@@ -564,8 +523,7 @@ class SDM(dict):
         Multiplies each element of A with a scalar b
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ZZ
         >>> from sympy.polys.matrices.sdm import SDM
         >>> A = SDM({0:{1: ZZ(2)}, 1:{0:ZZ(1)}}, (2, 2), ZZ)
@@ -581,8 +539,7 @@ class SDM(dict):
         Adds two :py:class:`~.SDM` matrices
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ZZ
         >>> from sympy.polys.matrices.sdm import SDM
         >>> A = SDM({0:{1: ZZ(2)}, 1:{0:ZZ(1)}}, (2, 2), ZZ)
@@ -597,8 +554,7 @@ class SDM(dict):
         Subtracts two :py:class:`~.SDM` matrices
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ZZ
         >>> from sympy.polys.matrices.sdm import SDM
         >>> A = SDM({0:{1: ZZ(2)}, 1:{0:ZZ(1)}}, (2, 2), ZZ)
@@ -613,8 +569,7 @@ class SDM(dict):
         Returns the negative of a :py:class:`~.SDM` matrix
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ZZ
         >>> from sympy.polys.matrices.sdm import SDM
         >>> A = SDM({0:{1: ZZ(2)}, 1:{0:ZZ(1)}}, (2, 2), ZZ)
@@ -627,8 +582,7 @@ class SDM(dict):
         Converts the :py:class:`~.Domain` of a :py:class:`~.SDM` matrix to K
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ZZ, QQ
         >>> from sympy.polys.matrices.sdm import SDM
         >>> A = SDM({0:{1: ZZ(2)}, 1:{0:ZZ(1)}}, (2, 2), ZZ)
@@ -640,8 +594,7 @@ class SDM(dict):
         """Number of non-zero elements in the :py:class:`~.SDM` matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ZZ
         >>> from sympy.polys.matrices.sdm import SDM
         >>> A = SDM({0:{1: ZZ(2)}, 1:{0:ZZ(1)}}, (2, 2), ZZ)
@@ -649,25 +602,22 @@ class SDM(dict):
         2
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.nnz
         """
     def scc(A):
         """Strongly connected components of a square matrix *A*.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ZZ
         >>> from sympy.polys.matrices.sdm import SDM
         >>> A = SDM({0:{0: ZZ(2)}, 1:{1:ZZ(1)}}, (2, 2), ZZ)
         >>> A.scc()
         [[0], [1]]
 
-        See also
-        ========
-
+        See Also
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.scc
         """
     def rref(A):
@@ -676,8 +626,7 @@ class SDM(dict):
         Returns reduced-row echelon form and list of pivots for the :py:class:`~.SDM`
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.polys.matrices.sdm import SDM
         >>> A = SDM({0:{0:QQ(1), 1:QQ(2)}, 1:{0:QQ(2), 1:QQ(4)}}, (2, 2), QQ)
@@ -691,8 +640,7 @@ class SDM(dict):
         Returns reduced-row echelon form (RREF) with denominator and pivots.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.polys.matrices.sdm import SDM
         >>> A = SDM({0:{0:QQ(1), 1:QQ(2)}, 1:{0:QQ(2), 1:QQ(4)}}, (2, 2), QQ)
@@ -706,8 +654,7 @@ class SDM(dict):
         Returns inverse of a matrix A
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.polys.matrices.sdm import SDM
         >>> A = SDM({0:{0:QQ(1), 1:QQ(2)}, 1:{0:QQ(3), 1:QQ(4)}}, (2, 2), QQ)
@@ -720,8 +667,7 @@ class SDM(dict):
         Returns determinant of A
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.polys.matrices.sdm import SDM
         >>> A = SDM({0:{0:QQ(1), 1:QQ(2)}, 1:{0:QQ(3), 1:QQ(4)}}, (2, 2), QQ)
@@ -735,8 +681,7 @@ class SDM(dict):
         Returns LU decomposition for a matrix A
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.polys.matrices.sdm import SDM
         >>> A = SDM({0:{0:QQ(1), 1:QQ(2)}, 1:{0:QQ(3), 1:QQ(4)}}, (2, 2), QQ)
@@ -748,7 +693,8 @@ class SDM(dict):
         """
         QR decomposition for SDM (Sparse Domain Matrix).
 
-        Returns:
+        Returns
+        -------
             - Q: Orthogonal matrix as a SDM.
             - R: Upper triangular matrix as a SDM.
         """
@@ -758,8 +704,7 @@ class SDM(dict):
         Uses LU decomposition to solve Ax = b,
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.polys.matrices.sdm import SDM
         >>> A = SDM({0:{0:QQ(1), 1:QQ(2)}, 1:{0:QQ(3), 1:QQ(4)}}, (2, 2), QQ)
@@ -775,8 +720,7 @@ class SDM(dict):
         Uses DDM implementation.
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.ddm.DDM.fflu
         """
     def nullspace(A):
@@ -789,8 +733,7 @@ class SDM(dict):
         than this method which is otherwise no longer used.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.polys.matrices.sdm import SDM
         >>> A = SDM({0:{0:QQ(1), 1:QQ(2)}, 1:{0: QQ(2), 1: QQ(4)}}, (2, 2), QQ)
@@ -799,8 +742,7 @@ class SDM(dict):
 
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.nullspace
             The preferred way to get the nullspace of a matrix.
 
@@ -814,8 +756,7 @@ class SDM(dict):
         The matrix must already be in reduced row echelon form (RREF).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.polys.matrices.sdm import SDM
         >>> A = SDM({0:{0:QQ(1), 1:QQ(2)}, 1:{0: QQ(2), 1: QQ(4)}}, (2, 2), QQ)
@@ -829,8 +770,7 @@ class SDM(dict):
         [1]
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.nullspace
             The higher-level function that would usually be called instead of
             calling this one directly.
@@ -847,8 +787,7 @@ class SDM(dict):
         """Horizontally stacks :py:class:`~.SDM` matrices.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ZZ
         >>> from sympy.polys.matrices.sdm import SDM
 
@@ -865,8 +804,7 @@ class SDM(dict):
         """Vertically stacks :py:class:`~.SDM` matrices.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ZZ
         >>> from sympy.polys.matrices.sdm import SDM
 
@@ -887,8 +825,7 @@ class SDM(dict):
         The domain of the elements will be same as domain of the :py:class:`~.SDM`.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ, Symbol
         >>> from sympy.polys.matrices.sdm import SDM
         >>> from sympy.polys import Poly
@@ -954,8 +891,7 @@ def sdm_irref(A):
     The domain of the matrix must be a field.
 
     Examples
-    ========
-
+    --------
     This routine works with a dict of dicts sparse representation of a matrix:
 
     >>> from sympy import QQ
@@ -980,8 +916,7 @@ def sdm_irref(A):
     (0, 1)
 
     Notes
-    =====
-
+    -----
     The cost of this algorithm is determined purely by the nonzero elements of
     the matrix. No part of the cost of any step in this algorithm depends on
     the number of rows or columns in the matrix. No step depends even on the
@@ -996,8 +931,7 @@ def sdm_irref(A):
     fine. No attempt is made to handle inexact arithmetic.
 
     See Also
-    ========
-
+    --------
     sympy.polys.matrices.domainmatrix.DomainMatrix.rref
         The higher-level function that would normally be used to call this
         routine.
@@ -1029,8 +963,7 @@ def sdm_rref_den(A, K):
     For inexact domains like :ref:`RR` and :ref:`CC` use ``ddm_irref`` instead.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.matrices.sdm import sdm_rref_den
     >>> from sympy.polys.domains import ZZ
     >>> A = {0: {0: ZZ(1), 1: ZZ(2)}, 1: {0: ZZ(3), 1: ZZ(4)}}
@@ -1043,8 +976,7 @@ def sdm_rref_den(A, K):
     [0, 1]
 
     See Also
-    ========
-
+    --------
     sympy.polys.matrices.domainmatrix.DomainMatrix.rref_den
         Higher-level interface to ``sdm_rref_den`` that would usually be used
         instead of calling this function directly.
@@ -1056,7 +988,7 @@ def sdm_rref_den(A, K):
         The dense version of this algorithm.
 
     References
-    ==========
+    ----------
 
     .. [1] Fraction-free algorithms for linear and polynomial equations.
         George C. Nakos , Peter R. Turner , Robert M. Williams.
@@ -1079,8 +1011,7 @@ def sdm_berk(M, n, K):
     matrices represented in a dict-of-dicts format (like :class:`SDM`).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> from sympy.polys.matrices.sdm import sdm_berk
     >>> from sympy.polys.domains import ZZ
@@ -1091,15 +1022,14 @@ def sdm_berk(M, n, K):
     PurePoly(lambda**2 - 5*lambda - 2, lambda, domain='ZZ')
 
     See Also
-    ========
-
+    --------
     sympy.polys.matrices.domainmatrix.DomainMatrix.charpoly
         The high-level interface to this function.
     sympy.polys.matrices.dense.ddm_berk
         The dense version of this function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Samuelson%E2%80%93Berkowitz_algorithm
     """

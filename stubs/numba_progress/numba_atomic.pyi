@@ -1,11 +1,11 @@
 # pyright: reportDeprecated = false
 from numpy.typing import NDArray
-from typing import Any, Union, TypeVar
+from typing import Any, TypeVar, Union
 import numpy as np
 
 T = TypeVar('T', bound=np.number[Any])
 
-__all__ = ['atomic_add', 'atomic_sub', 'atomic_max', 'atomic_min', 'atomic_xchg']
+__all__ = ['atomic_add', 'atomic_max', 'atomic_min', 'atomic_sub', 'atomic_xchg']
 
 def atomic_add(ary: NDArray[T], i: int | tuple[int,...], v: T) -> T:
     """

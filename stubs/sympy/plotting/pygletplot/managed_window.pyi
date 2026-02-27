@@ -9,6 +9,7 @@ class ManagedWindow(Window):
     in a separate thread. Behavior is added by creating a subclass
     which overrides setup, update, and/or draw.
     """
+
     fps_limit: int
     default_win_args: Incomplete
     win_args: Incomplete

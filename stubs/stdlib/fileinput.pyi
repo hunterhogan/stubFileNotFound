@@ -1,23 +1,23 @@
-import sys
 from _typeshed import AnyStr_co, StrOrBytesPath
 from collections.abc import Callable, Iterable
 from types import GenericAlias, TracebackType
-from typing import IO, Any, AnyStr, Generic, Literal, Protocol, overload, type_check_only
-from typing_extensions import Self, TypeAlias, deprecated
+from typing import Any, AnyStr, Generic, IO, Literal, overload, Protocol, Self, type_check_only, TypeAlias
+from typing_extensions import deprecated
+import sys
 
 __all__ = [
-    "input",
-    "close",
-    "nextfile",
-    "filename",
-    "lineno",
-    "filelineno",
-    "fileno",
-    "isfirstline",
-    "isstdin",
     "FileInput",
+    "close",
+    "filelineno",
+    "filename",
+    "fileno",
     "hook_compressed",
     "hook_encoded",
+    "input",
+    "isfirstline",
+    "isstdin",
+    "lineno",
+    "nextfile",
 ]
 
 if sys.version_info >= (3, 11):

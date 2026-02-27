@@ -5,7 +5,8 @@ from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.functions.elementary.exponential import log as log
 from sympy.matrices.expressions.matexpr import MatrixExpr as MatrixExpr
 from sympy.matrices.expressions.special import OneMatrix as OneMatrix, ZeroMatrix as ZeroMatrix
-from sympy.strategies import condition as condition, exhaust as exhaust, flatten as flatten, rm_id as rm_id, sort as sort, unpack as unpack
+from sympy.strategies import (
+	condition as condition, exhaust as exhaust, flatten as flatten, rm_id as rm_id, sort as sort, unpack as unpack)
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 
 def hadamard_product(*matrices):
@@ -13,8 +14,7 @@ def hadamard_product(*matrices):
     Return the elementwise (aka Hadamard) product of matrices.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import hadamard_product, MatrixSymbol
     >>> A = MatrixSymbol('A', 2, 3)
     >>> B = MatrixSymbol('B', 2, 3)
@@ -31,8 +31,7 @@ class HadamardProduct(MatrixExpr):
     Elementwise product of matrix expressions
 
     Examples
-    ========
-
+    --------
     Hadamard product for matrix symbols:
 
     >>> from sympy import hadamard_product, HadamardProduct, MatrixSymbol
@@ -42,12 +41,12 @@ class HadamardProduct(MatrixExpr):
     True
 
     Notes
-    =====
-
+    -----
     This is a symbolic object that simply stores its argument without
     evaluating it. To actually compute the product, use the function
     ``hadamard_product()`` or ``HadamardProduct.doit``
     """
+
     is_HadamardProduct: bool
     def __new__(cls, *args, evaluate: bool = False, check=None): ...
     @property
@@ -62,8 +61,7 @@ def canonicalize(x):
     """Canonicalize the Hadamard product ``x`` with mathematical properties.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatrixSymbol, HadamardProduct
     >>> from sympy import OneMatrix, ZeroMatrix
     >>> from sympy.matrices.expressions.hadamard import canonicalize
@@ -121,8 +119,7 @@ def canonicalize(x):
     A
 
     Notes
-    =====
-
+    -----
     As the Hadamard product is associative, nested products can be flattened.
 
     The Hadamard product is commutative so that factors can be sorted for
@@ -136,7 +133,7 @@ def canonicalize(x):
     Duplicate elements can be collected and rewritten as HadamardPower
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Hadamard_product_(matrices)
     """
@@ -147,15 +144,13 @@ class HadamardPower(MatrixExpr):
     Elementwise power of matrix expressions
 
     Parameters
-    ==========
-
+    ----------
     base : scalar or matrix
 
     exp : scalar or matrix
 
     Notes
-    =====
-
+    -----
     There are four definitions for the hadamard power which can be used.
     Let's consider `A, B` as `(m, n)` matrices, and `a, b` as scalars.
 
@@ -189,6 +184,7 @@ class HadamardPower(MatrixExpr):
     .. math::
         a^{\\circ b} = a^b
     """
+
     def __new__(cls, base, exp): ...
     @property
     def base(self): ...

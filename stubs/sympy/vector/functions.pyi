@@ -22,8 +22,7 @@ def express(expr, system, system2=None, variables: bool = False):
     given system.
 
     Parameters
-    ==========
-
+    ----------
     expr : Vector/Dyadic/scalar(sympyfiable)
         The expression to re-express in CoordSys3D 'system'
 
@@ -39,8 +38,7 @@ def express(expr, system, system2=None, variables: bool = False):
         in expr, in terms of those of parameter system
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D
     >>> from sympy import Symbol, cos, sin
     >>> N = CoordSys3D('N')
@@ -62,8 +60,7 @@ def directional_derivative(field, direction_vector):
     along a given vector in coordinate system which parameters are expressed.
 
     Parameters
-    ==========
-
+    ----------
     field : Vector or Scalar
         The scalar or vector field to compute the directional derivative of
 
@@ -72,8 +69,7 @@ def directional_derivative(field, direction_vector):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D, directional_derivative
     >>> R = CoordSys3D('R')
     >>> f1 = R.x*R.y*R.z
@@ -91,14 +87,12 @@ def laplacian(expr):
     the base scalars of the given coordinate system.
 
     Parameters
-    ==========
-
+    ----------
     expr : SymPy Expr or Vector
         expr denotes a scalar or vector field.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D, laplacian
     >>> R = CoordSys3D('R')
     >>> f = R.x**2*R.y**5*R.z
@@ -114,14 +108,12 @@ def is_conservative(field):
     Checks if a field is conservative.
 
     Parameters
-    ==========
-
+    ----------
     field : Vector
         The field to check for conservative property
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D
     >>> from sympy.vector import is_conservative
     >>> R = CoordSys3D('R')
@@ -136,14 +128,12 @@ def is_solenoidal(field):
     Checks if a field is solenoidal.
 
     Parameters
-    ==========
-
+    ----------
     field : Vector
         The field to check for solenoidal property
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D
     >>> from sympy.vector import is_solenoidal
     >>> R = CoordSys3D('R')
@@ -159,8 +149,7 @@ def scalar_potential(field, coord_sys):
     coordinate system (without the added integration constant).
 
     Parameters
-    ==========
-
+    ----------
     field : Vector
         The vector field whose scalar potential function is to be
         calculated
@@ -169,8 +158,7 @@ def scalar_potential(field, coord_sys):
         The coordinate system to do the calculation in
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D
     >>> from sympy.vector import scalar_potential, gradient
     >>> R = CoordSys3D('R')
@@ -197,8 +185,7 @@ def scalar_potential_difference(field, coord_sys, point1, point2):
     origin of the coordinate system provided.
 
     Parameters
-    ==========
-
+    ----------
     field : Vector/Expr
         The field to calculate wrt
 
@@ -212,8 +199,7 @@ def scalar_potential_difference(field, coord_sys, point1, point2):
         The second Point in the given coordinate system
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D
     >>> from sympy.vector import scalar_potential_difference
     >>> R = CoordSys3D('R')
@@ -235,8 +221,7 @@ def matrix_to_vector(matrix, system):
     vectors of 'system'.
 
     Parameters
-    ==========
-
+    ----------
     matrix : SymPy Matrix, Dimensions: (3, 1)
         The matrix to be converted to a vector
 
@@ -244,8 +229,7 @@ def matrix_to_vector(matrix, system):
         The coordinate system the vector is to be defined in
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ImmutableMatrix as Matrix
     >>> m = Matrix([1, 2, 3])
     >>> from sympy.vector import CoordSys3D, matrix_to_vector
@@ -272,8 +256,7 @@ def orthogonalize(*vlist, orthonormal: bool = False):
     orthogonal or orthonormal vectors.
 
     Parameters
-    ==========
-
+    ----------
     vlist : sequence of independent vectors to be made orthogonal.
 
     orthonormal : Optional parameter
@@ -282,8 +265,7 @@ def orthogonalize(*vlist, orthonormal: bool = False):
                   Default: False
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector.coordsysrect import CoordSys3D
     >>> from sympy.vector.functions import orthogonalize
     >>> C = CoordSys3D('C')
@@ -294,7 +276,7 @@ def orthogonalize(*vlist, orthonormal: bool = False):
     [C.i + 2*C.j, 2/5*C.i + (-1/5)*C.j]
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Gram-Schmidt_process
 

@@ -1,6 +1,6 @@
-import sys
 from _typeshed import SupportsRichComparisonT as _T  # All type variable use in this module requires comparability.
 from typing import Final
+import sys
 
 __about__: Final[str]
 

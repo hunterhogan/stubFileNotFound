@@ -1,4 +1,5 @@
-from sympy.assumptions.ask_generated import get_all_known_matrix_facts as get_all_known_matrix_facts, get_all_known_number_facts as get_all_known_number_facts
+from sympy.assumptions.ask_generated import (
+	get_all_known_matrix_facts as get_all_known_matrix_facts, get_all_known_number_facts as get_all_known_number_facts)
 from sympy.assumptions.assume import AppliedPredicate as AppliedPredicate, global_assumptions as global_assumptions
 from sympy.assumptions.cnf import CNF as CNF, EncodedCNF as EncodedCNF
 from sympy.assumptions.sathandlers import class_fact_registry as class_fact_registry
@@ -23,8 +24,7 @@ def satask(proposition, assumptions: bool = True, context=..., use_known_facts: 
     determined. If not, ``None`` is returned.
 
     Parameters
-    ==========
-
+    ----------
     proposition : Any boolean expression.
         Proposition which will be evaluated to boolean value.
 
@@ -44,13 +44,11 @@ def satask(proposition, assumptions: bool = True, context=..., use_known_facts: 
         Default is infinite times until no new fact is found.
 
     Returns
-    =======
-
+    -------
     ``True``, ``False``, or ``None``
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Abs, Q
     >>> from sympy.assumptions.satask import satask
     >>> from sympy.abc import x
@@ -65,8 +63,7 @@ def extract_predargs(proposition, assumptions=None, context=None):
     *assumptions* and *context*.
 
     Parameters
-    ==========
-
+    ----------
     proposition : sympy.assumptions.cnf.CNF
 
     assumptions : sympy.assumptions.cnf.CNF, optional.
@@ -75,8 +72,7 @@ def extract_predargs(proposition, assumptions=None, context=None):
         CNF generated from assumptions context.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, Abs
     >>> from sympy.assumptions.cnf import CNF
     >>> from sympy.assumptions.satask import extract_predargs
@@ -92,8 +88,7 @@ def find_symbols(pred):
     Find every :obj:`~.Symbol` in *pred*.
 
     Parameters
-    ==========
-
+    ----------
     pred : sympy.assumptions.cnf.CNF, or any Expr.
 
     """
@@ -105,8 +100,7 @@ def get_relevant_clsfacts(exprs, relevant_facts=None):
     This function is recursively called by ``get_all_relevant_facts()``.
 
     Parameters
-    ==========
-
+    ----------
     exprs : set
         Expressions whose relevant facts are searched.
 
@@ -114,8 +108,7 @@ def get_relevant_clsfacts(exprs, relevant_facts=None):
         Pre-discovered relevant facts.
 
     Returns
-    =======
-
+    -------
     exprs : set
         Candidates for next relevant fact searching.
 
@@ -123,8 +116,7 @@ def get_relevant_clsfacts(exprs, relevant_facts=None):
         Updated relevant facts.
 
     Examples
-    ========
-
+    --------
     Here, we will see how facts relevant to ``Abs(x*y)`` are recursively
     extracted. On the first run, set containing the expression is passed
     without pre-discovered relevant facts. The result is a set containing
@@ -176,8 +168,7 @@ def get_all_relevant_facts(proposition, assumptions, context, use_known_facts: b
     ``EncodedCNF`` and returned.
 
     Parameters
-    ==========
-
+    ----------
     proposition : sympy.assumptions.cnf.CNF
         CNF generated from proposition expression.
 
@@ -196,13 +187,11 @@ def get_all_relevant_facts(proposition, assumptions, context, use_known_facts: b
         Default is infinite times until no new fact is found.
 
     Returns
-    =======
-
+    -------
     sympy.assumptions.cnf.EncodedCNF
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q
     >>> from sympy.assumptions.cnf import CNF
     >>> from sympy.assumptions.satask import get_all_relevant_facts

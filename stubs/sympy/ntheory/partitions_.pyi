@@ -4,10 +4,10 @@ from sympy.utilities.memoization import recurrence_memo as recurrence_memo
 
 def _pre() -> None: ...
 def _a(n, k, prec):
-    """ Compute the inner sum in HRR formula [1]_
+    """Compute the inner sum in HRR formula [1]_
 
     References
-    ==========
+    ----------
 
     .. [1] https://msp.org/pjm/1956/6-1/pjm-v6-n1-p18-p.pdf
 
@@ -18,21 +18,19 @@ def _d(n, j, prec, sq23pi, sqrt8):
     The constants sqrt(2/3*pi) and sqrt(8) must be precomputed.
     """
 def _partition_rec(n: int, prev) -> int:
-    """ Calculate the partition function P(n)
+    """Calculate the partition function P(n)
 
     Parameters
-    ==========
-
+    ----------
     n : int
         nonnegative integer
 
     """
 def _partition(n: int) -> int:
-    """ Calculate the partition function P(n)
+    """Calculate the partition function P(n)
 
     Parameters
-    ==========
-
+    ----------
     n : int
 
     """
@@ -53,14 +51,13 @@ def npartitions(n, verbose: bool = False):
     The correctness of this implementation has been tested through $10^{10}$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.combinatorial.numbers import partition
     >>> partition(25)
     1958
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/PartitionFunctionP.html
 

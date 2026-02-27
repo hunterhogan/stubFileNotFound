@@ -4,13 +4,15 @@ class State:
     """
     A representation of a state managed by a ``StateMachine``.
 
-    Attributes:
+    Attributes
+    ----------
         name (instance of FreeGroupElement or string) -- State name which is also assigned to the Machine.
         transisitons (OrderedDict) -- Represents all the transitions of the state object.
         state_type (string) -- Denotes the type (accept/start/dead) of the state.
         rh_rule (instance of FreeGroupElement) -- right hand rule for dead state.
         state_machine (instance of StateMachine object) -- The finite state machine that the state belongs to.
     """
+
     name: Incomplete
     transitions: Incomplete
     state_machine: Incomplete
@@ -31,10 +33,12 @@ class StateMachine:
     """
     Representation of a finite state machine the manages the states and the transitions of the automaton.
 
-    Attributes:
+    Attributes
+    ----------
         states (dictionary) -- Collection of all registered `State` objects.
         name (str) -- Name of the state machine.
     """
+
     name: Incomplete
     automaton_alphabet: Incomplete
     states: Incomplete
@@ -49,4 +53,3 @@ class StateMachine:
             rh_rule (instance of FreeGroupElement) -- right hand rule for dead state.
 
         """
-    def __repr__(self) -> str: ...

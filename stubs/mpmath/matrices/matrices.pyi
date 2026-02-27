@@ -5,7 +5,7 @@ rowsep: str
 colsep: str
 
 class _matrix:
-    '''
+    """
     Numerical matrix.
 
     Specify the dimensions or the data as a nested list.
@@ -274,7 +274,8 @@ class _matrix:
     The last norm (the "Frobenius-norm") is an approximation for the 2-norm, which
     is hard to calculate and not available. The Frobenius-norm lacks some
     mathematical properties you might expect from a norm.
-    '''
+    """
+
     __data: Incomplete
     _LU: Incomplete
     __rows: Incomplete
@@ -285,7 +286,6 @@ class _matrix:
         Return a copy of self with the function `f` applied elementwise.
         """
     def __nstr__(self, n: Incomplete | None = None, **kwargs): ...
-    def __str__(self) -> str: ...
     def _toliststr(self, avoid_type: bool = False):
         """
         Create a list string from a matrix.
@@ -296,7 +296,6 @@ class _matrix:
         """
         Convert the matrix to a nested list.
         """
-    def __repr__(self) -> str: ...
     def __get_element(self, key):
         """
         Fast extraction of the i,j element from the matrix
@@ -315,10 +314,10 @@ class _matrix:
         """
     def __getitem__(self, key):
         """
-            Getitem function for mp matrix class with slice index enabled
-            it allows the following assingments
-            scalar to a slice of the matrix
-         B = A[:,2:6]
+           Getitem function for mp matrix class with slice index enabled
+           it allows the following assingments
+           scalar to a slice of the matrix
+        B = A[:,2:6]
         """
     def __setitem__(self, key, value) -> None: ...
     def __iter__(self): ...

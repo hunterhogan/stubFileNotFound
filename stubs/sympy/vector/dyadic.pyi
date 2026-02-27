@@ -1,19 +1,22 @@
 from sympy.core import Pow as Pow, S as S
 from sympy.core.expr import AtomicExpr as AtomicExpr
-from sympy.vector.basisdependent import BasisDependent as BasisDependent, BasisDependentAdd as BasisDependentAdd, BasisDependentMul as BasisDependentMul, BasisDependentZero as BasisDependentZero
+from sympy.vector.basisdependent import (
+	BasisDependent as BasisDependent, BasisDependentAdd as BasisDependentAdd, BasisDependentMul as BasisDependentMul,
+	BasisDependentZero as BasisDependentZero)
 
 class Dyadic(BasisDependent):
     """
     Super class for all Dyadic-classes.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Dyadic_tensor
     .. [2] Kane, T., Levinson, D. Dynamics Theory and Applications. 1985
            McGraw-Hill
 
     """
+
     _op_priority: float
     _expr_type: type[Dyadic]
     _mul_func: type[Dyadic]
@@ -37,14 +40,12 @@ class Dyadic(BasisDependent):
         a Vector (unless an error is encountered).
 
         Parameters
-        ==========
-
+        ----------
         other : Dyadic/Vector
             The other Dyadic or Vector to take the inner product with
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> N = CoordSys3D('N')
         >>> D1 = N.i.outer(N.j)
@@ -62,14 +63,12 @@ class Dyadic(BasisDependent):
         Vector instance.
 
         Parameters
-        ==========
-
+        ----------
         other : Vector
             The Vector that we are crossing this Dyadic with
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> N = CoordSys3D('N')
         >>> d = N.i.outer(N.i)
@@ -84,8 +83,7 @@ class Dyadic(BasisDependent):
         coordinate systems.
 
         Parameters
-        ==========
-
+        ----------
         system : CoordSys3D
             The coordinate system that the rows and columns of the matrix
             correspond to. If a second system is provided, this
@@ -95,8 +93,7 @@ class Dyadic(BasisDependent):
             to.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> N = CoordSys3D('N')
         >>> v = N.i + 2*N.j
@@ -117,30 +114,33 @@ class Dyadic(BasisDependent):
 
         """
     def _div_helper(one, other):
-        """ Helper for division involving dyadics """
+        """Helper for division involving dyadics"""
 
 class BaseDyadic(Dyadic, AtomicExpr):
     """
     Class to denote a base dyadic tensor component.
     """
+
     def __new__(cls, vector1, vector2): ...
     def _sympystr(self, printer): ...
     def _sympyrepr(self, printer): ...
 
 class DyadicMul(BasisDependentMul, Dyadic):
-    """ Products of scalars and BaseDyadics """
+    """Products of scalars and BaseDyadics"""
+
     def __new__(cls, *args, **options): ...
     @property
     def base_dyadic(self):
-        """ The BaseDyadic involved in the product. """
+        """The BaseDyadic involved in the product."""
     @property
     def measure_number(self):
-        """ The scalar expression involved in the definition of
+        """The scalar expression involved in the definition of
         this DyadicMul.
         """
 
 class DyadicAdd(BasisDependentAdd, Dyadic):
-    """ Class to hold dyadic sums """
+    """Class to hold dyadic sums"""
+
     def __new__(cls, *args, **options): ...
     def _sympystr(self, printer): ...
 
@@ -148,6 +148,7 @@ class DyadicZero(BasisDependentZero, Dyadic):
     """
     Class to denote a zero dyadic
     """
+
     _op_priority: float
     _pretty_form: str
     _latex_form: str

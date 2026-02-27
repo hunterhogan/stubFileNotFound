@@ -16,4 +16,3 @@ class table__v_m_t_x(superclass):
     advanceName: str
     sideBearingName: str
     numberOfMetricsName: str
-

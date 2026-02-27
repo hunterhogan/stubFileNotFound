@@ -1,8 +1,4 @@
-from collections.abc import (
-    Collection,
-    Iterable,
-)
-
+from collections.abc import Collection, Iterable
 from pandas._typing import T
 from typing import Any
 

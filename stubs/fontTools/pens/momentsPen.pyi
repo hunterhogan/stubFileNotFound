@@ -20,4 +20,3 @@ class MomentsPen(fontTools.pens.basePen.BasePen):
         """MomentsPen._moveTo(self, p0)"""
     def _qCurveToOne(self, p1, p2) -> Any:
         """MomentsPen._qCurveToOne(self, p1, p2)"""
-

@@ -12,7 +12,8 @@ from sympy.printing.str import StrPrinter as StrPrinter
 from typing import Any
 
 class requires:
-    """ Decorator for registering requirements on print methods. """
+    """Decorator for registering requirements on print methods."""
+
     _req: Incomplete
     def __init__(self, **kwargs) -> None: ...
     def __call__(self, method): ...
@@ -32,6 +33,7 @@ class CodePrinter(StrPrinter):
     """
     The base class for code-printing subclasses.
     """
+
     _operators: Incomplete
     _default_settings: dict[str, Any]
     _rewriteable_functions: Incomplete
@@ -57,7 +59,7 @@ class CodePrinter(StrPrinter):
     def _get_expression_indices(self, expr, assign_to): ...
     def _sort_optimized(self, indices, expr): ...
     def _rate_index_position(self, p) -> None:
-        """function to calculate score based on position among indices
+        """Function to calculate score based on position among indices
 
         This method is used to sort loops in an optimized order, see
         CodePrinter._sort_optimized()
@@ -71,10 +73,12 @@ class CodePrinter(StrPrinter):
     def _format_code(self, lines) -> None:
         """Take in a list of lines of code, and format them accordingly.
 
-        This may include indenting, wrapping long lines, etc..."""
+        This may include indenting, wrapping long lines, etc...
+        """
     def _get_loop_opening_ending(self, indices) -> None:
         """Returns a tuple (open_lines, close_lines) containing lists
-        of codelines"""
+        of codelines
+        """
     def _print_Dummy(self, expr): ...
     def _print_Idx(self, expr): ...
     def _print_CodeBlock(self, expr): ...
@@ -87,8 +91,9 @@ class CodePrinter(StrPrinter):
     def _print_Variable(self, expr): ...
     def _print_Symbol(self, expr): ...
     def _can_print(self, name):
-        """ Check if function ``name`` is either a known function or has its own
-            printing method. Used to check if rewriting is possible."""
+        """Check if function ``name`` is either a known function or has its own
+        printing method. Used to check if rewriting is possible.
+        """
     def _print_Function(self, expr): ...
     _print_Expr = _print_Function
     def _print_Derivative(self, expr): ...
@@ -134,11 +139,10 @@ class CodePrinter(StrPrinter):
     _print_Relational = _print_not_supported
 
 def ccode(expr, assign_to=None, standard: str = 'c99', **settings):
-    '''Converts an expr to a string of c code
+    """Converts an expr to a string of c code
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
         A SymPy expression to be converted.
     assign_to : optional
@@ -177,8 +181,7 @@ def ccode(expr, assign_to=None, standard: str = 'c99', **settings):
         [default=True].
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ccode, symbols, Rational, sin, ceiling, Abs, Function
     >>> x, tau = symbols("x, tau")
     >>> expr = (2*tau)**Rational(7, 2)
@@ -262,15 +265,14 @@ def ccode(expr, assign_to=None, standard: str = 'c99', **settings):
        A[1] = x;
     }
     A[2] = sin(x);
-    '''
+    """
 def print_ccode(expr, **settings) -> None:
     """Prints C representation of the given expression."""
 def fcode(expr, assign_to=None, **settings):
-    '''Converts an expr to a string of fortran code
+    """Converts an expr to a string of fortran code
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
         A SymPy expression to be converted.
     assign_to : optional
@@ -312,8 +314,7 @@ def fcode(expr, assign_to=None, **settings):
         variables. [default=True]
 
     Examples
-    ========
-
+    --------
     >>> from sympy import fcode, symbols, Rational, sin, ceiling, floor
     >>> x, tau = symbols("x, tau")
     >>> fcode((2*tau)**Rational(7, 2))
@@ -380,20 +381,19 @@ def fcode(expr, assign_to=None, **settings):
           A(2, 1) = x
              end if
           A(3, 1) = sin(x)
-    '''
+    """
 def print_fcode(expr, **settings) -> None:
     """Prints the Fortran representation of the given expression.
 
-       See fcode for the meaning of the optional arguments.
+    See fcode for the meaning of the optional arguments.
     """
 def cxxcode(expr, assign_to=None, standard: str = 'c++11', **settings):
-    """ C++ equivalent of :func:`~.ccode`. """
+    """C++ equivalent of :func:`~.ccode`."""
 def rust_code(expr, assign_to=None, **settings):
-    '''Converts an expr to a string of Rust code
+    """Converts an expr to a string of Rust code
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
         A SymPy expression to be converted.
     assign_to : optional
@@ -427,8 +427,7 @@ def rust_code(expr, assign_to=None, **settings):
         [default=True].
 
     Examples
-    ========
-
+    --------
     >>> from sympy import rust_code, symbols, Rational, sin, ceiling, Abs, Function
     >>> x, tau = symbols("x, tau")
     >>> rust_code((2*tau)**Rational(7, 2))
@@ -495,6 +494,6 @@ def rust_code(expr, assign_to=None, **settings):
     } else {
         x
     }, x.sin()];
-    '''
+    """
 def print_rust_code(expr, **settings) -> None:
     """Prints Rust representation of the given expression."""

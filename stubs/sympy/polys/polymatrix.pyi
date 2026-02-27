@@ -5,15 +5,14 @@ from sympy.polys.domains import QQ as QQ
 from sympy.polys.matrices import DomainMatrix as DomainMatrix
 from sympy.polys.matrices.domainscalar import DomainScalar as DomainScalar
 from sympy.polys.polyerrors import CoercionFailed as CoercionFailed
-from sympy.polys.polytools import Poly as Poly, parallel_poly_from_expr as parallel_poly_from_expr
+from sympy.polys.polytools import parallel_poly_from_expr as parallel_poly_from_expr, Poly as Poly
 
 class MutablePolyDenseMatrix:
     """
     A mutable matrix of objects from poly module or to operate with them.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.polymatrix import PolyMatrix
     >>> from sympy import Symbol, Poly
     >>> x = Symbol('x')
@@ -40,6 +39,7 @@ class MutablePolyDenseMatrix:
     PolyMatrix([[x**2]], ring=QQ[x])
 
     """
+
     def __new__(cls, *args, ring=None): ...
     @classmethod
     def from_list(cls, rows, cols, items, gens, ring): ...
@@ -49,7 +49,6 @@ class MutablePolyDenseMatrix:
     @classmethod
     def from_Matrix(cls, other, *gens, ring=None): ...
     def set_gens(self, gens): ...
-    def __repr__(self) -> str: ...
     @property
     def shape(self): ...
     @property

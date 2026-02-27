@@ -2,9 +2,13 @@ from _typeshed import Incomplete
 from sympy.core import Expr as Expr, Function as Function, PoleError as PoleError
 from sympy.core.intfunc import igcd as igcd
 from sympy.core.numbers import Rational as Rational
-from sympy.functions import asinh as asinh, atan as atan, atanh as atanh, ceiling as ceiling, cos as cos, cosh as cosh, exp as exp, log as log, sin as sin, sinh as sinh, tan as tan, tanh as tanh
+from sympy.functions import (
+	asinh as asinh, atan as atan, atanh as atanh, ceiling as ceiling, cos as cos, cosh as cosh, exp as exp, log as log,
+	sin as sin, sinh as sinh, tan as tan, tanh as tanh)
 from sympy.polys.domains import EX as EX, QQ as QQ
-from sympy.polys.monomials import monomial_div as monomial_div, monomial_ldiv as monomial_ldiv, monomial_min as monomial_min, monomial_mul as monomial_mul
+from sympy.polys.monomials import (
+	monomial_div as monomial_div, monomial_ldiv as monomial_ldiv, monomial_min as monomial_min,
+	monomial_mul as monomial_mul)
 from sympy.polys.polyerrors import DomainError as DomainError
 from sympy.polys.puiseux import PuiseuxPoly as PuiseuxPoly
 from sympy.polys.rings import PolyElement as PolyElement, ring as ring, sring as sring
@@ -15,8 +19,7 @@ def _invert_monoms(p1):
     Compute ``x**n * p1(1/x)`` for a univariate polynomial ``p1`` in ``x``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import _invert_monoms
@@ -26,8 +29,7 @@ def _invert_monoms(p1):
     3*x**2 + 2*x + 1
 
     See Also
-    ========
-
+    --------
     sympy.polys.densebasic.dup_reverse
     """
 def _giant_steps(target):
@@ -38,8 +40,7 @@ def rs_trunc(p1, x, prec):
     that is, modulo ``O(x**prec)``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_trunc
@@ -57,8 +58,7 @@ def rs_is_puiseux(p, x):
     Raise an exception if it has a negative power in ``x``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.puiseux import puiseux_ring
     >>> from sympy.polys.ring_series import rs_is_puiseux
@@ -74,8 +74,7 @@ def rs_puiseux(f, p, x, prec):
     To be used when function ``f`` is implemented only for regular series.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.puiseux import puiseux_ring
     >>> from sympy.polys.ring_series import rs_puiseux, rs_exp
@@ -97,8 +96,7 @@ def rs_mul(p1, p2, x, prec):
     ``x`` is the series variable or its position in the generators.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_mul
@@ -113,8 +111,7 @@ def rs_square(p1, x, prec):
     Square the series modulo ``O(x**prec)``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_square
@@ -128,8 +125,7 @@ def rs_pow(p1, n, x, prec):
     Return ``p1**n`` modulo ``O(x**prec)``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_pow
@@ -169,8 +165,7 @@ def rs_subs(p, rules, x, prec):
     prec : :class:`~.Integer` order of the series after truncation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_subs
@@ -183,8 +178,7 @@ def _has_constant_term(p, x):
     Check if ``p`` has a constant term in ``x``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import _has_constant_term
@@ -208,8 +202,7 @@ def _series_inversion1(p, x, prec):
     The Newton method is used.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import _series_inversion1
@@ -223,8 +216,7 @@ def rs_series_inversion(p, x, prec):
     Multivariate series inversion ``1/p`` modulo ``O(x**prec)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_series_inversion
@@ -248,15 +240,13 @@ def rs_series_reversion(p, x, n, y):
     $f(x) = \\sum_{k=2}^{n-1} a_kx_k$
 
     Parameters
-    ==========
-
+    ----------
       a_k : Can depend polynomially on other variables, not indicated.
       x : Variable with name x.
       y : Variable with name y.
 
     Returns
-    =======
-
+    -------
     Solve $p = y$, that is, given $ax + f(x) - y = 0$,
     find the solution $x = r(y)$ up to $O(y^n)$.
 
@@ -278,8 +268,7 @@ def rs_series_reversion(p, x, n, y):
     with the boundary condition: $r_1 = y$
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_series_reversion, rs_trunc
@@ -301,8 +290,7 @@ def rs_series_from_list(p, c, x, prec, concur: int = 1):
     with `K >= (n + 1)/J`
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_series_from_list, rs_trunc
@@ -318,8 +306,7 @@ def rs_series_from_list(p, c, x, prec, concur: int = 1):
     6*x**3 + 11*x**2 + 8*x + 6
 
     See Also
-    ========
-
+    --------
     sympy.polys.rings.PolyRing.compose
 
     """
@@ -328,13 +315,11 @@ def rs_diff(p, x):
     Return partial derivative of ``p`` with respect to ``x``.
 
     Parameters
-    ==========
-
+    ----------
     x : :class:`~.PolyElement` with respect to which ``p`` is differentiated.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_diff
@@ -348,13 +333,11 @@ def rs_integrate(p, x):
     Integrate ``p`` with respect to ``x``.
 
     Parameters
-    ==========
-
+    ----------
     x : :class:`~.PolyElement` with respect to which ``p`` is integrated.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_integrate
@@ -377,16 +360,14 @@ def rs_fun(p, f, *args):
         desired series
 
     Parameters
-    ==========
-
+    ----------
     p : :class:`~.PolyElement` The multivariate series to be expanded.
     f : `ring\\_series` function to be applied on `p`.
     args[-2] : :class:`~.PolyElement` with respect to which, the series is to be expanded.
     args[-1] : Required order of the expanded series.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_fun, _tan1
@@ -423,8 +404,7 @@ def rs_nth_root(p, n, x, prec):
     Multivariate series expansion of the nth root of ``p``.
 
     Parameters
-    ==========
-
+    ----------
     p : Expr
         The polynomial to computer the root of.
     n : integer
@@ -434,16 +414,14 @@ def rs_nth_root(p, n, x, prec):
         Order of the expanded series.
 
     Notes
-    =====
-
+    -----
     The result of this function is dependent on the ring over which the
     polynomial has been defined. If the answer involves a root of a constant,
     make sure that the polynomial is over a real field. It cannot yet handle
     roots of symbols.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ, RR
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_nth_root
@@ -459,13 +437,11 @@ def rs_log(p, x, prec):
     The Logarithm of ``p`` modulo ``O(x**prec)``.
 
     Notes
-    =====
-
+    -----
     Truncation of ``integral dx p**-1*d p/dx`` is used.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.puiseux import puiseux_ring
     >>> from sympy.polys.ring_series import rs_log
@@ -481,8 +457,7 @@ def rs_LambertW(p, x, prec):
     function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_LambertW
@@ -491,19 +466,17 @@ def rs_LambertW(p, x, prec):
     -x**2*y**2 - 2*x**2*y - x**2 + x*y + x
 
     See Also
-    ========
-
+    --------
     LambertW
     """
 def _exp1(p, x, prec):
-    """Helper function for `rs\\_exp`. """
+    """Helper function for `rs\\_exp`."""
 def rs_exp(p, x, prec):
     """
     Exponentiation of a series modulo ``O(x**prec)``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_exp
@@ -524,8 +497,7 @@ def rs_atan(p, x, prec):
     Return the series expansion of the atan of ``p``, about 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_atan
@@ -534,8 +506,7 @@ def rs_atan(p, x, prec):
     -1/3*x**3*y**3 - x**3*y**2 - x**3*y - 1/3*x**3 + x*y + x
 
     See Also
-    ========
-
+    --------
     atan
     """
 def rs_asin(p, x, prec):
@@ -545,8 +516,7 @@ def rs_asin(p, x, prec):
     Return the series expansion of the asin of ``p``, about 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_asin
@@ -555,8 +525,7 @@ def rs_asin(p, x, prec):
     5/112*x**7 + 3/40*x**5 + 1/6*x**3 + x
 
     See Also
-    ========
-
+    --------
     asin
     """
 def _tan1(p, x, prec):
@@ -579,8 +548,7 @@ def rs_tan(p, x, prec):
     Return the series expansion of the tan of ``p``, about 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_tan
@@ -588,11 +556,10 @@ def rs_tan(p, x, prec):
     >>> rs_tan(x + x*y, x, 4)
     1/3*x**3*y**3 + x**3*y**2 + x**3*y + 1/3*x**3 + x*y + x
 
-   See Also
-   ========
-
-   _tan1, tan
-   """
+    See Also
+    --------
+    _tan1, tan
+    """
 def rs_cot(p, x, prec):
     """
     Cotangent of a series
@@ -600,8 +567,7 @@ def rs_cot(p, x, prec):
     Return the series expansion of the cot of ``p``, about 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_cot
@@ -610,8 +576,7 @@ def rs_cot(p, x, prec):
     -2/945*x**5 - 1/45*x**3 - 1/3*x + x**(-1)
 
     See Also
-    ========
-
+    --------
     cot
     """
 def rs_sin(p, x, prec):
@@ -621,8 +586,7 @@ def rs_sin(p, x, prec):
     Return the series expansion of the sin of ``p``, about 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.puiseux import puiseux_ring
     >>> from sympy.polys.ring_series import rs_sin
@@ -633,8 +597,7 @@ def rs_sin(p, x, prec):
     x*y**(7/5) + x**(3/2) + -1/6*x**3*y**(21/5) + -1/2*x**(7/2)*y**(14/5)
 
     See Also
-    ========
-
+    --------
     sin
     """
 def rs_cos(p, x, prec):
@@ -644,8 +607,7 @@ def rs_cos(p, x, prec):
     Return the series expansion of the cos of ``p``, about 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.puiseux import puiseux_ring
     >>> from sympy.polys.ring_series import rs_cos
@@ -656,8 +618,7 @@ def rs_cos(p, x, prec):
     x**(-7/5) + -1/2*x**(3/5) + -1*x**(3/5)*y + -1/2*x**(3/5)*y**2
 
     See Also
-    ========
-
+    --------
     cos
     """
 def rs_cos_sin(p, x, prec):
@@ -667,8 +628,7 @@ def rs_cos_sin(p, x, prec):
     Return the series expansion of the cosine and sine of ``p``, about 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_cos_sin
@@ -680,8 +640,7 @@ def rs_cos_sin(p, x, prec):
     -1/6*x**3*y**3 - 1/2*x**3*y**2 - 1/2*x**3*y - 1/6*x**3 + x*y + x
 
     See Also
-    ========
-
+    --------
     rs_cos, rs_sin
     """
 def _atanh(p, x, prec):
@@ -697,8 +656,7 @@ def rs_atanh(p, x, prec):
     Return the series expansion of the atanh of ``p``, about 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_atanh
@@ -707,8 +665,7 @@ def rs_atanh(p, x, prec):
     1/3*x**3*y**3 + x**3*y**2 + x**3*y + 1/3*x**3 + x*y + x
 
     See Also
-    ========
-
+    --------
     atanh
     """
 def rs_asinh(p, x, prec):
@@ -718,8 +675,7 @@ def rs_asinh(p, x, prec):
     Return the series expansion of the arcsinh of ``p``, about 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_asinh
@@ -728,8 +684,7 @@ def rs_asinh(p, x, prec):
     -5/112*x**7 + 3/40*x**5 - 1/6*x**3 + x
 
     See Also
-    ========
-
+    --------
     asinh
     """
 def rs_sinh(p, x, prec):
@@ -739,8 +694,7 @@ def rs_sinh(p, x, prec):
     Return the series expansion of the sinh of ``p``, about 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_sinh
@@ -749,8 +703,7 @@ def rs_sinh(p, x, prec):
     1/6*x**3*y**3 + 1/2*x**3*y**2 + 1/2*x**3*y + 1/6*x**3 + x*y + x
 
     See Also
-    ========
-
+    --------
     sinh
     """
 def rs_cosh(p, x, prec):
@@ -760,8 +713,7 @@ def rs_cosh(p, x, prec):
     Return the series expansion of the cosh of ``p``, about 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_cosh
@@ -770,8 +722,7 @@ def rs_cosh(p, x, prec):
     1/2*x**2*y**2 + x**2*y + 1/2*x**2 + 1
 
     See Also
-    ========
-
+    --------
     cosh
     """
 def rs_cosh_sinh(p, x, prec):
@@ -781,8 +732,7 @@ def rs_cosh_sinh(p, x, prec):
     Return the series expansion of the hyperbolic cosine and sine of ``p``, about 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_cosh_sinh
@@ -794,8 +744,7 @@ def rs_cosh_sinh(p, x, prec):
     1/6*x**3*y**3 + 1/2*x**3*y**2 + 1/2*x**3*y + 1/6*x**3 + x*y + x
 
     See Also
-    ========
-
+    --------
     rs_cosh, rs_sinh
     """
 def _tanh(p, x, prec):
@@ -807,8 +756,7 @@ def _tanh(p, x, prec):
     easier than that of tanh.
 
     See Also
-    ========
-
+    --------
     _tanh
     """
 def rs_tanh(p, x, prec):
@@ -818,8 +766,7 @@ def rs_tanh(p, x, prec):
     Return the series expansion of the tanh of ``p``, about 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_tanh
@@ -828,8 +775,7 @@ def rs_tanh(p, x, prec):
     -1/3*x**3*y**3 - x**3*y**2 - x**3*y - 1/3*x**3 + x*y + x
 
     See Also
-    ========
-
+    --------
     tanh
     """
 def rs_newton(p, x, prec):
@@ -837,8 +783,7 @@ def rs_newton(p, x, prec):
     Compute the truncated Newton sum of the polynomial ``p``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_newton
@@ -855,8 +800,7 @@ def rs_hadamard_exp(p1, inverse: bool = False):
     If ``inverse=True`` return ``sum f_i*i!*x**i``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_hadamard_exp
@@ -866,12 +810,11 @@ def rs_hadamard_exp(p1, inverse: bool = False):
     1/6*x**3 + 1/2*x**2 + x + 1
     """
 def rs_compose_add(p1, p2):
-    '''
-    compute the composed sum ``prod(p2(x - beta) for beta root of p1)``
+    """
+    Compute the composed sum ``prod(p2(x - beta) for beta root of p1)``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import QQ
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.ring_series import rs_compose_add
@@ -882,13 +825,13 @@ def rs_compose_add(p1, p2):
     x**4 - 10*x**2 + 1
 
     References
-    ==========
+    ----------
 
     .. [1] A. Bostan, P. Flajolet, B. Salvy and E. Schost
            "Fast Computation with Two Algebraic Numbers",
            (2002) Research Report 4579, Institut
            National de Recherche en Informatique et en Automatique
-    '''
+    """
 
 _convert_func: Incomplete
 
@@ -899,8 +842,7 @@ def rs_series(expr, a, prec):
     """Return the series expansion of an expression about 0.
 
     Parameters
-    ==========
-
+    ----------
     expr : :class:`~.Expr`
     a : :class:`~.Symbol` with respect to which expr is to be expanded
     prec : order of the series expansion
@@ -912,8 +854,7 @@ def rs_series(expr, a, prec):
     expansion through repeated calls to sring.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.ring_series import rs_series
     >>> from sympy import sin, cos, exp, tan, symbols, QQ
     >>> a, b, c = symbols('a, b, c')

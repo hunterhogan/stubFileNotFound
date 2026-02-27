@@ -28,4 +28,3 @@ class _CustomParameter(tuple):
         """Return self as a plain tuple.  Used by copy and pickle."""
     def __annotate_func__(self, format): ...
 TRANSFORMATION_CUSTOM_PARAMS: mappingproxy
-

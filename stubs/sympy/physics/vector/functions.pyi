@@ -1,13 +1,14 @@
-from .printing import init_vprinting as init_vprinting, vlatex as vlatex, vpprint as vpprint, vprint as vprint, vsprint as vsprint
+from .printing import (
+	init_vprinting as init_vprinting, vlatex as vlatex, vpprint as vpprint, vprint as vprint, vsprint as vsprint)
 
-__all__ = ['cross', 'dot', 'express', 'time_derivative', 'outer', 'kinematic_equations', 'get_motion_params', 'partial_velocity', 'dynamicsymbols', 'vprint', 'vsprint', 'vpprint', 'vlatex', 'init_vprinting']
+__all__ = ['cross', 'dot', 'dynamicsymbols', 'express', 'get_motion_params', 'init_vprinting', 'kinematic_equations', 'outer', 'partial_velocity', 'time_derivative', 'vlatex', 'vpprint', 'vprint', 'vsprint']
 
 def cross(vec1, vec2):
-    """Cross product convenience wrapper for Vector.cross(): 
-"""
+    """Cross product convenience wrapper for Vector.cross():
+    """
 def dot(vec1, vec2):
-    """Dot product convenience wrapper for Vector.dot(): 
-"""
+    """Dot product convenience wrapper for Vector.dot():
+    """
 def express(expr, frame, frame2=None, variables: bool = False):
     """
     Global function for 'express' functionality.
@@ -21,8 +22,7 @@ def express(expr, frame, frame2=None, variables: bool = False):
     this frame.
 
     Parameters
-    ==========
-
+    ----------
     expr : Vector/Dyadic/scalar(sympyfiable)
         The expression to re-express in ReferenceFrame 'frame'
 
@@ -37,8 +37,7 @@ def express(expr, frame, frame2=None, variables: bool = False):
         in expr, in terms of those of frame
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import ReferenceFrame, outer, dynamicsymbols
     >>> from sympy.physics.vector import init_vprinting
     >>> init_vprinting(pretty_print=False)
@@ -61,13 +60,11 @@ def time_derivative(expr, frame, order: int = 1):
     or dyadic expression in given frame.
 
     References
-    ==========
-
+    ----------
     https://en.wikipedia.org/wiki/Rotating_reference_frame#Time_derivatives_in_the_two_frames
 
     Parameters
-    ==========
-
+    ----------
     expr : Vector/Dyadic/sympifyable
         The expression whose time derivative is to be calculated
 
@@ -78,8 +75,7 @@ def time_derivative(expr, frame, order: int = 1):
         The order of the derivative to be calculated
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import ReferenceFrame, dynamicsymbols
     >>> from sympy.physics.vector import init_vprinting
     >>> init_vprinting(pretty_print=False)
@@ -104,7 +100,7 @@ def time_derivative(expr, frame, order: int = 1):
     """
 def outer(vec1, vec2):
     """Outer product convenience wrapper for Vector.outer():
-"""
+    """
 def kinematic_equations(speeds, coords, rot_type, rot_order: str = ''):
     """Gives equations relating the qdot's to u's for a rotation type.
 
@@ -114,8 +110,7 @@ def kinematic_equations(speeds, coords, rot_type, rot_order: str = ''):
     speed[1]*B.y + speed[2]*B.z
 
     Parameters
-    ==========
-
+    ----------
     speeds : list of length 3
         The body fixed angular velocity measure numbers.
     coords : list of length 3 or 4
@@ -127,8 +122,7 @@ def kinematic_equations(speeds, coords, rot_type, rot_order: str = ''):
         If applicable, the order of a series of rotations.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import dynamicsymbols
     >>> from sympy.physics.vector import kinematic_equations, vprint
     >>> u1, u2, u3 = dynamicsymbols('u1 u2 u3')
@@ -162,8 +156,7 @@ def get_motion_params(frame, **kwargs):
     parameters. Have a look at the Parameters and Examples for more clarity.
 
     Parameters
-    ==========
-
+    ----------
     frame : ReferenceFrame
         The frame to express the motion parameters in
 
@@ -185,8 +178,7 @@ def get_motion_params(frame, **kwargs):
         Value of time for velocity boundary condition
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import ReferenceFrame, get_motion_params, dynamicsymbols
     >>> from sympy.physics.vector import init_vprinting
     >>> init_vprinting(pretty_print=False)
@@ -218,8 +210,7 @@ def partial_velocity(vel_vecs, gen_speeds, frame):
     respect to the generalized speeds supplied.
 
     Parameters
-    ==========
-
+    ----------
     vel_vecs : iterable
         An iterable of velocity vectors (angular or linear).
     gen_speeds : iterable
@@ -229,8 +220,7 @@ def partial_velocity(vel_vecs, gen_speeds, frame):
         in.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import Point, ReferenceFrame
     >>> from sympy.physics.vector import dynamicsymbols
     >>> from sympy.physics.vector import partial_velocity
@@ -251,8 +241,7 @@ def dynamicsymbols(names, level: int = 0, **assumptions):
     of a variable, the default being Symbol('t').
 
     Parameters
-    ==========
-
+    ----------
     names : str
         Names of the dynamic symbols you want to create; works the same way as
         inputs to symbols
@@ -270,8 +259,7 @@ def dynamicsymbols(names, level: int = 0, **assumptions):
                     by default is False.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import dynamicsymbols
     >>> from sympy import diff, Symbol
     >>> q1 = dynamicsymbols('q1')

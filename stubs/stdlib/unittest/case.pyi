@@ -1,16 +1,18 @@
-import logging
-import sys
-import unittest.result
 from _typeshed import SupportsDunderGE, SupportsDunderGT, SupportsDunderLE, SupportsDunderLT, SupportsRSub, SupportsSub
 from builtins import _ClassInfo
 from collections.abc import Callable, Container, Iterable, Mapping, Sequence, Set as AbstractSet
 from contextlib import AbstractContextManager
 from re import Pattern
 from types import GenericAlias, TracebackType
-from typing import Any, AnyStr, Final, Generic, NoReturn, Protocol, SupportsAbs, SupportsRound, TypeVar, overload, type_check_only
-from typing_extensions import Never, ParamSpec, Self
+from typing import (
+	Any, AnyStr, Final, Generic, Never, NoReturn, overload, Protocol, Self, SupportsAbs, SupportsRound, type_check_only,
+	TypeVar)
+from typing_extensions import ParamSpec
 from unittest._log import _AssertLogsContext, _LoggingWatcher
 from warnings import WarningMessage
+import logging
+import sys
+import unittest.result
 
 _T = TypeVar("_T")
 _S = TypeVar("_S", bound=SupportsSub[Any, Any])

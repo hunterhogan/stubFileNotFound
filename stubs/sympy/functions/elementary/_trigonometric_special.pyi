@@ -1,10 +1,10 @@
+from collections.abc import Callable
 from sympy.core.cache import cacheit as cacheit
 from sympy.core.expr import Expr as Expr
 from sympy.core.intfunc import igcdex as igcdex
 from sympy.core.numbers import Integer as Integer
 from sympy.core.singleton import S as S
 from sympy.functions.elementary.miscellaneous import sqrt as sqrt
-from typing import Callable
 
 def migcdex(*x: int) -> tuple[tuple[int, ...], int]:
     """Compute extended gcd for multiple integers.
@@ -19,8 +19,7 @@ def migcdex(*x: int) -> tuple[tuple[int, ...], int]:
     $g = \\gcd(x_1, \\cdots, x_n)$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.elementary._trigonometric_special import migcdex
     >>> migcdex()
     ((), 0)
@@ -61,23 +60,20 @@ def ipartfrac(*denoms: int) -> tuple[int, ...]:
     the result by $n$ afterwards.
 
     Parameters
-    ==========
-
+    ----------
     denoms : int
         The pairwise coprime integer denominators $q_i$ which defines the
         rational number $\\frac{1}{q_1 \\cdots q_n}$
 
     Returns
-    =======
-
+    -------
     tuple[int, ...]
         The list of numerators which semantically corresponds to $p_i$ of the
         partial fraction decomposition
         $\\frac{1}{q_1 \\cdots q_n} = \\frac{p_1}{q_1} + \\cdots + \\frac{p_n}{q_n}$
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Rational, Mul
     >>> from sympy.functions.elementary._trigonometric_special import ipartfrac
 
@@ -113,7 +109,7 @@ def cos_257() -> Expr:
     """Computes $\\cos \\frac{\\pi}{257}$ in square roots
 
     References
-    ==========
+    ----------
 
     .. [*] https://math.stackexchange.com/questions/516142/how-does-cos2-pi-257-look-like-in-real-radicals
     .. [*] https://r-knott.surrey.ac.uk/Fibonacci/simpleTrig.html
@@ -123,13 +119,11 @@ def cos_table() -> dict[int, Callable[[], Expr]]:
     $n \\in \\{3, 5, 17, 257, 65537\\}$.
 
     Notes
-    =====
-
+    -----
     65537 is the only other known Fermat prime and it is nearly impossible to
     build in the current SymPy due to performance issues.
 
     References
-    ==========
-
+    ----------
     https://r-knott.surrey.ac.uk/Fibonacci/simpleTrig.html
     """

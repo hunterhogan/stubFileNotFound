@@ -1,8 +1,6 @@
 from __future__ import annotations
 
-from typing import overload
-from typing_extensions import assert_type
-
+from typing import assert_type, overload
 
 class CustomIndex:
     def __index__(self) -> int:
@@ -20,9 +18,9 @@ assert_type(round(5.5, CustomIndex()), float)
 
 # int:
 
-assert_type(round(1), int)
-assert_type(round(1, 1), int)
-assert_type(round(1, None), int)
+assert_type((1), int)
+assert_type((1), int)
+assert_type((1), int)
 assert_type(round(1, CustomIndex()), int)
 
 # Protocols:

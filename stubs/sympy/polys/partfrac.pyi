@@ -25,8 +25,7 @@ def apart(f, x=None, full: bool = False, **options):
     result can be obtained via ``doit()`` (see examples below).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.partfrac import apart
     >>> from sympy.abc import x, y
 
@@ -54,8 +53,7 @@ def apart(f, x=None, full: bool = False, **options):
 
 
     See Also
-    ========
-
+    --------
     apart_list, assemble_partfrac_list
     """
 @public
@@ -95,8 +93,7 @@ def apart_list(f, x=None, dummies=None, **options):
     On can always rebuild a plain expression by using the function ``assemble_partfrac_list``.
 
     Examples
-    ========
-
+    --------
     A first example:
 
     >>> from sympy.polys.partfrac import apart_list, assemble_partfrac_list
@@ -152,25 +149,23 @@ def apart_list(f, x=None, dummies=None, **options):
     >>> assemble_partfrac_list(pfd)
     -4/(x + 1) - 3/(x + 1)**2 - 9/(x - 1)**2 + 4/(x - 2)
 
-    See also
-    ========
-
+    See Also
+    --------
     apart, assemble_partfrac_list
 
     References
-    ==========
+    ----------
 
     .. [1] [Bronstein93]_
 
     """
 @public
 def assemble_partfrac_list(partial_list):
-    '''Reassemble a full partial fraction decomposition
+    """Reassemble a full partial fraction decomposition
     from a structured result obtained by the function ``apart_list``.
 
     Examples
-    ========
-
+    --------
     This example is taken from Bronstein\'s original paper:
 
     >>> from sympy.polys.partfrac import apart_list, assemble_partfrac_list
@@ -214,7 +209,6 @@ def assemble_partfrac_list(partial_list):
     -sqrt(2)/(2*(x + sqrt(2))) + sqrt(2)/(2*(x - sqrt(2)))
 
     See Also
-    ========
-
+    --------
     apart, apart_list
-    '''
+    """

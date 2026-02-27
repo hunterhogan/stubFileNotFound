@@ -41,4 +41,3 @@ def decompose_smart_components_in_layer(self, layer):
     """
 def instantiate_smart_component(self, layer, component, pen):
     """Instantiate a smart component by interpolating and drawing to a pointPen."""
-

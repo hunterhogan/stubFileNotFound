@@ -1,8 +1,7 @@
+from collections.abc import Callable
+from typing import Any, ClassVar, NamedTuple, type_check_only, TypeAlias
 import sys
 import time
-from collections.abc import Callable
-from typing import Any, ClassVar, NamedTuple, type_check_only
-from typing_extensions import TypeAlias
 
 __all__ = ["scheduler"]
 
@@ -34,7 +33,7 @@ class scheduler:
     delayfunc: Callable[[float], object]
 
     def __init__(
-        self, timefunc: Callable[[], float] = time.monotonic, delayfunc: Callable[[float], object] = time.sleep
+        self, timefunc: Callable[[], float] = ..., delayfunc: Callable[[float], object] = ...
     ) -> None: ...
     def enterabs(
         self, time: float, priority: Any, action: _ActionCallback, argument: tuple[Any, ...] = (), kwargs: dict[str, Any] = ...

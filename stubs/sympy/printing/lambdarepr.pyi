@@ -2,13 +2,14 @@ from .numpy import NumPyPrinter as NumPyPrinter
 from .pycode import MpmathPrinter as MpmathPrinter, PythonCodePrinter as PythonCodePrinter
 from _typeshed import Incomplete
 
-__all__ = ['PythonCodePrinter', 'MpmathPrinter', 'NumPyPrinter', 'LambdaPrinter', 'NumPyPrinter', 'IntervalPrinter', 'lambdarepr']
+__all__ = ['IntervalPrinter', 'LambdaPrinter', 'MpmathPrinter', 'NumPyPrinter', 'NumPyPrinter', 'PythonCodePrinter', 'lambdarepr']
 
 class LambdaPrinter(PythonCodePrinter):
     """
     This printer converts expressions into strings that can be used by
     lambdify.
     """
+
     printmethod: str
     def _print_And(self, expr): ...
     def _print_Or(self, expr): ...
@@ -50,7 +51,8 @@ class NumExprPrinter(LambdaPrinter):
     def _print_CodeBlock(self, expr): ...
 
 class IntervalPrinter(MpmathPrinter, LambdaPrinter):
-    """Use ``lambda`` printer but print numbers as ``mpi`` intervals. """
+    """Use ``lambda`` printer but print numbers as ``mpi`` intervals."""
+
     def _print_Integer(self, expr): ...
     def _print_Rational(self, expr): ...
     def _print_Half(self, expr): ...

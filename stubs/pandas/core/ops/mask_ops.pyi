@@ -1,7 +1,6 @@
-import numpy as np
-
 from pandas._libs import missing as libmissing
 from typing import Any
+import numpy as np
 
 def kleene_or(
     left: bool | np.ndarray[Any, Any],

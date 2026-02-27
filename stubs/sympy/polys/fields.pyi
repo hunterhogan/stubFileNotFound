@@ -8,25 +8,24 @@ from sympy.polys.rings import PolyRing
 from sympy.printing.defaults import DefaultPrinting
 from sympy.utilities import public
 
-__all__ = ['field', 'xfield', 'vfield', 'sfield']
+__all__ = ['field', 'sfield', 'vfield', 'xfield']
 
 @public
 def field(symbols, domain, order=...):
-    """Construct new rational function field returning (field, x1, ..., xn). """
+    """Construct new rational function field returning (field, x1, ..., xn)."""
 @public
 def xfield(symbols, domain, order=...):
-    """Construct new rational function field returning (field, (x1, ..., xn)). """
+    """Construct new rational function field returning (field, (x1, ..., xn))."""
 @public
 def vfield(symbols, domain, order=...):
-    """Construct new rational function field and inject generators into global namespace. """
+    """Construct new rational function field and inject generators into global namespace."""
 @public
 def sfield(exprs, *symbols, **options):
-    '''Construct a field deriving generators and domain
+    """Construct a field deriving generators and domain
     from options and input expressions.
 
     Parameters
-    ==========
-
+    ----------
     exprs   : py:class:`~.Expr` or sequence of :py:class:`~.Expr` (sympifiable)
 
     symbols : sequence of :py:class:`~.Symbol`/:py:class:`~.Expr`
@@ -34,8 +33,7 @@ def sfield(exprs, *symbols, **options):
     options : keyword arguments understood by :py:class:`~.Options`
 
     Examples
-    ========
-
+    --------
     >>> from sympy import exp, log, symbols, sfield
 
     >>> x = symbols("x")
@@ -44,10 +42,11 @@ def sfield(exprs, *symbols, **options):
     Rational function field in x, exp(1/x), log(x), x**(1/3) over ZZ with lex order
     >>> f
     (4*x**2*(exp(1/x)) + x*(exp(1/x))*(log(x)))/((x**(1/3))**5)
-    '''
+    """
 
 class FracField(DefaultPrinting):
-    """Multivariate distributed rational function field. """
+    """Multivariate distributed rational function field."""
+
     ring: PolyRing
     gens: tuple[FracElement, ...]
     symbols: tuple[Expr, ...]
@@ -56,14 +55,14 @@ class FracField(DefaultPrinting):
     order: MonomialOrder
     def __new__(cls, symbols, domain, order=...): ...
     def _gens(self):
-        """Return a list of polynomial generators. """
+        """Return a list of polynomial generators."""
     def __getnewargs__(self): ...
     def __hash__(self): ...
     def index(self, gen): ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...
     def is_element(self, element):
-        """True if ``element`` is an element of this field. False otherwise. """
+        """True if ``element`` is an element of this field. False otherwise."""
     def raw_new(self, numer, denom=None): ...
     def new(self, numer, denom=None): ...
     def domain_new(self, element): ...
@@ -76,7 +75,8 @@ class FracField(DefaultPrinting):
     def to_ring(self): ...
 
 class FracElement(DomainElement, DefaultPrinting, CantSympify):
-    """Element of multivariate distributed rational function field. """
+    """Element of multivariate distributed rational function field."""
+
     field: Incomplete
     numer: Incomplete
     denom: Incomplete
@@ -101,30 +101,29 @@ class FracElement(DomainElement, DefaultPrinting, CantSympify):
     def __gt__(f1, f2): ...
     def __ge__(f1, f2): ...
     def __pos__(f):
-        """Negate all coefficients in ``f``. """
+        """Negate all coefficients in ``f``."""
     def __neg__(f):
-        """Negate all coefficients in ``f``. """
+        """Negate all coefficients in ``f``."""
     def _extract_ground(self, element): ...
     def __add__(f, g):
-        """Add rational functions ``f`` and ``g``. """
+        """Add rational functions ``f`` and ``g``."""
     def __radd__(f, c): ...
     def __sub__(f, g):
-        """Subtract rational functions ``f`` and ``g``. """
+        """Subtract rational functions ``f`` and ``g``."""
     def __rsub__(f, c): ...
     def __mul__(f, g):
-        """Multiply rational functions ``f`` and ``g``. """
+        """Multiply rational functions ``f`` and ``g``."""
     def __rmul__(f, c): ...
     def __truediv__(f, g):
-        """Computes quotient of fractions ``f`` and ``g``. """
+        """Computes quotient of fractions ``f`` and ``g``."""
     def __rtruediv__(f, c): ...
     def __pow__(f, n):
-        """Raise ``f`` to a non-negative power ``n``. """
+        """Raise ``f`` to a non-negative power ``n``."""
     def diff(f, x):
-        '''Computes partial derivative in ``x``.
+        """Computes partial derivative in ``x``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.fields import field
         >>> from sympy.polys.domains import ZZ
 
@@ -132,7 +131,7 @@ class FracElement(DomainElement, DefaultPrinting, CantSympify):
         >>> ((x**2 + y)/(z + 1)).diff(x)
         2*x/(z + 1)
 
-        '''
+        """
     def __call__(f, *values): ...
     def evaluate(f, x, a=None): ...
     def subs(f, x, a=None): ...

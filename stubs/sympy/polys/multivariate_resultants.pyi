@@ -1,10 +1,11 @@
 from _typeshed import Incomplete
 from sympy.core.mul import Mul as Mul
 from sympy.functions.combinatorial.factorials import binomial as binomial
-from sympy.matrices.dense import Matrix as Matrix, diag as diag
+from sympy.matrices.dense import diag as diag, Matrix as Matrix
 from sympy.polys.monomials import itermonomials as itermonomials, monomial_deg as monomial_deg
 from sympy.polys.orderings import monomial_key as monomial_key
-from sympy.polys.polytools import Poly as Poly, degree_list as degree_list, poly_from_expr as poly_from_expr, rem as rem, total_degree as total_degree
+from sympy.polys.polytools import (
+	degree_list as degree_list, Poly as Poly, poly_from_expr as poly_from_expr, rem as rem, total_degree as total_degree)
 from sympy.simplify.simplify import simplify as simplify
 from sympy.tensor.indexed import IndexedBase as IndexedBase
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
@@ -15,8 +16,7 @@ class DixonResultant:
     system.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols
 
     >>> from sympy.polys.multivariate_resultants import DixonResultant
@@ -40,17 +40,17 @@ class DixonResultant:
     0
 
     See Also
-    ========
-
+    --------
     Notebook in examples: sympy/example/notebooks.
 
     References
-    ==========
+    ----------
 
     .. [1] [Kapur1994]_
     .. [2] [Palancz08]_
 
     """
+
     polynomials: Incomplete
     variables: Incomplete
     n: Incomplete
@@ -74,8 +74,7 @@ class DixonResultant:
     def get_dixon_polynomial(self):
         """
         Returns
-        =======
-
+        -------
         dixon_polynomial: polynomial
             Dixon's polynomial is calculated as:
 
@@ -123,8 +122,7 @@ class MacaulayResultant:
     given as symbols.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols
 
     >>> from sympy.polys.multivariate_resultants import MacaulayResultant
@@ -152,17 +150,17 @@ class MacaulayResultant:
     [   0,    0,    0, -a_1]])
 
     See Also
-    ========
-
+    --------
     Notebook in examples: sympy/example/notebooks.
 
     References
-    ==========
+    ----------
 
     .. [1] [Bruce97]_
     .. [2] [Stiller96]_
 
     """
+
     polynomials: Incomplete
     variables: Incomplete
     n: Incomplete
@@ -173,8 +171,7 @@ class MacaulayResultant:
     def __init__(self, polynomials, variables) -> None:
         """
         Parameters
-        ==========
-
+        ----------
         variables: list
             A list of all n variables
         polynomials : list of SymPy polynomials
@@ -183,8 +180,7 @@ class MacaulayResultant:
     def _get_degree_m(self):
         """
         Returns
-        =======
-
+        -------
         degree_m: int
             The degree_m is calculated as  1 + \\sum_1 ^ n (d_i - 1),
             where d_i is the degree of the i polynomial
@@ -192,8 +188,7 @@ class MacaulayResultant:
     def get_size(self):
         """
         Returns
-        =======
-
+        -------
         size: int
             The size of set T. Set T is the set of all possible
             monomials of the n variables for degree equal to the
@@ -202,32 +197,28 @@ class MacaulayResultant:
     def get_monomials_of_certain_degree(self, degree):
         """
         Returns
-        =======
-
+        -------
         monomials: list
             A list of monomials of a certain degree.
         """
     def get_row_coefficients(self):
         """
         Returns
-        =======
-
+        -------
         row_coefficients: list
             The row coefficients of Macaulay's matrix
         """
     def get_matrix(self):
         """
         Returns
-        =======
-
+        -------
         macaulay_matrix: Matrix
             The Macaulay numerator matrix
         """
     def get_reduced_nonreduced(self):
         """
         Returns
-        =======
-
+        -------
         reduced: list
             A list of the reduced monomials
         non_reduced: list
@@ -244,8 +235,7 @@ class MacaulayResultant:
     def get_submatrix(self, matrix):
         """
         Returns
-        =======
-
+        -------
         macaulay_submatrix: Matrix
             The Macaulay denominator matrix. Columns that are non reduced are kept.
             The row which contains one of the a_{i}s is dropped. a_{i}s

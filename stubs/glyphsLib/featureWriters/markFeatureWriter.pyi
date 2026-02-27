@@ -1,4 +1,3 @@
 import ufo2ft.featureWriters.markFeatureWriter
 
 class ContextualMarkFeatureWriter(ufo2ft.featureWriters.markFeatureWriter.MarkFeatureWriter): ...
-

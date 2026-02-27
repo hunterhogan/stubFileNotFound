@@ -19,8 +19,7 @@ def DirectProduct(*groups):
     than a call to G1*G2*...*Gn (and thus the need for this algorithm).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.group_constructs import DirectProduct
     >>> from sympy.combinatorics.named_groups import CyclicGroup
     >>> C = CyclicGroup(4)
@@ -29,8 +28,7 @@ def DirectProduct(*groups):
     64
 
     See Also
-    ========
-
+    --------
     sympy.combinatorics.perm_groups.PermutationGroup.__mul__
 
     """

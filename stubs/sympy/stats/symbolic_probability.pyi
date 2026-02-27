@@ -1,14 +1,13 @@
 from sympy.core.expr import Expr
 
-__all__ = ['Probability', 'Expectation', 'Variance', 'Covariance']
+__all__ = ['Covariance', 'Expectation', 'Probability', 'Variance']
 
 class Probability(Expr):
-    '''
+    """
     Symbolic expression for the probability.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Probability, Normal
     >>> from sympy import Integral
     >>> X = Normal("X", 0, 1)
@@ -25,7 +24,8 @@ class Probability(Expr):
 
     >>> prob.evaluate_integral()
     sqrt(2)*(-sqrt(2)*sqrt(pi)*erf(sqrt(2)/2) + sqrt(2)*sqrt(pi))/(4*sqrt(pi))
-    '''
+    """
+
     is_commutative: bool
     def __new__(cls, prob, condition=None, **kwargs): ...
     def doit(self, **hints): ...
@@ -34,12 +34,11 @@ class Probability(Expr):
     def evaluate_integral(self): ...
 
 class Expectation(Expr):
-    '''
+    """
     Symbolic expression for the expectation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Expectation, Normal, Probability, Poisson
     >>> from sympy import symbols, Integral, Sum
     >>> mu = symbols("mu")
@@ -101,7 +100,8 @@ class Expectation(Expr):
     >>> Expectation(X + Expectation(Y + Expectation(2*X))).doit(deep=False)
     mu + Expectation(Expectation(Expectation(2*X) + Y))
 
-    '''
+    """
+
     def __new__(cls, expr, condition=None, **kwargs): ...
     def _eval_is_commutative(self): ...
     def expand(self, **hints): ...
@@ -113,12 +113,11 @@ class Expectation(Expr):
     evaluate_sum = evaluate_integral
 
 class Variance(Expr):
-    '''
+    """
     Symbolic expression for the variance.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, Integral
     >>> from sympy.stats import Normal, Expectation, Variance, Probability
     >>> mu = symbols("mu", positive=True)
@@ -160,7 +159,8 @@ class Variance(Expr):
     >>> Variance(X + Y).expand()
     2*Covariance(X, Y) + Variance(X) + Variance(Y)
 
-    '''
+    """
+
     def __new__(cls, arg, condition=None, **kwargs): ...
     def _eval_is_commutative(self): ...
     def expand(self, **hints): ...
@@ -171,12 +171,11 @@ class Variance(Expr):
     def evaluate_integral(self): ...
 
 class Covariance(Expr):
-    '''
+    """
     Symbolic expression for the covariance.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Covariance
     >>> from sympy.stats import Normal
     >>> X = Normal("X", 3, 2)
@@ -213,7 +212,8 @@ class Covariance(Expr):
     Variance(X)
     >>> Covariance(a*X, b*Y).expand()
     a*b*Covariance(X, Y)
-    '''
+    """
+
     def __new__(cls, arg1, arg2, condition=None, **kwargs): ...
     def _eval_is_commutative(self): ...
     def expand(self, **hints): ...
@@ -232,8 +232,7 @@ class Moment(Expr):
     Symbolic class for Moment
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, Integral
     >>> from sympy.stats import Normal, Expectation, Probability, Moment
     >>> mu = Symbol('mu', real=True)
@@ -262,6 +261,7 @@ class Moment(Expr):
     Integral(sqrt(2)*(X - 1)**3*exp(-(X - mu)**2/(2*sigma**2))/(2*sqrt(pi)*sigma), (X, -oo, oo))
 
     """
+
     def __new__(cls, X, n, c: int = 0, condition=None, **kwargs): ...
     def doit(self, **hints): ...
     def _eval_rewrite_as_Expectation(self, X, n, c: int = 0, condition=None, **kwargs): ...
@@ -273,8 +273,7 @@ class CentralMoment(Expr):
     Symbolic class Central Moment
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, Integral
     >>> from sympy.stats import Normal, Expectation, Probability, CentralMoment
     >>> mu = Symbol('mu', real=True)
@@ -303,6 +302,7 @@ class CentralMoment(Expr):
     Integral(sqrt(2)*(X - Integral(sqrt(2)*X*exp(-(X - mu)**2/(2*sigma**2))/(2*sqrt(pi)*sigma), (X, -oo, oo)))**4*exp(-(X - mu)**2/(2*sigma**2))/(2*sqrt(pi)*sigma), (X, -oo, oo))
 
     """
+
     def __new__(cls, X, n, condition=None, **kwargs): ...
     def doit(self, **hints): ...
     def _eval_rewrite_as_Expectation(self, X, n, condition=None, **kwargs): ...

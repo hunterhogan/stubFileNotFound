@@ -1,13 +1,15 @@
-from .conflict import AmbiguityWarning as AmbiguityWarning, ambiguities as ambiguities, ordering as ordering, super_signature as super_signature
+from .conflict import (
+	ambiguities as ambiguities, AmbiguityWarning as AmbiguityWarning, ordering as ordering,
+	super_signature as super_signature)
 from .utils import expand_tuples as expand_tuples
 from _typeshed import Incomplete
 from collections.abc import Generator
 
 class MDNotImplementedError(NotImplementedError):
-    """ A NotImplementedError for multiple dispatch """
+    """A NotImplementedError for multiple dispatch"""
 
 def ambiguity_warn(dispatcher, ambiguities) -> None:
-    """ Raise warning when ambiguity is detected
+    """Raise warning when ambiguity is detected
 
     Parameters
     ----------
@@ -16,13 +18,15 @@ def ambiguity_warn(dispatcher, ambiguities) -> None:
     ambiguities : set
         Set of type signature pairs that are ambiguous within this dispatcher
 
-    See Also:
+    See Also
+    --------
         Dispatcher.add
         warning_text
     """
 
 class RaiseNotImplementedError:
     """Raise ``NotImplementedError`` when called."""
+
     dispatcher: Incomplete
     def __init__(self, dispatcher) -> None: ...
     def __call__(self, *args, **kwargs) -> None: ...
@@ -39,7 +43,8 @@ def ambiguity_register_error_ignore_dup(dispatcher, ambiguities) -> None:
     ambiguities : set
         Set of type signature pairs that are ambiguous within this dispatcher
 
-    See Also:
+    See Also
+    --------
         Dispatcher.add
         ambiguity_warn
     """
@@ -51,13 +56,12 @@ def halt_ordering() -> None: ...
 def restart_ordering(on_ambiguity=...) -> None: ...
 
 class Dispatcher:
-    """ Dispatch methods based on type signature
+    """Dispatch methods based on type signature
 
     Use ``dispatch`` to add implementations
 
     Examples
     --------
-
     >>> from sympy.multipledispatch import dispatch
     >>> @dispatch(int)
     ... def f(x):
@@ -72,6 +76,7 @@ class Dispatcher:
     >>> f(3.0)
     2.0
     """
+
     __slots__: Incomplete
     name: Incomplete
     funcs: Incomplete
@@ -80,7 +85,7 @@ class Dispatcher:
     doc: Incomplete
     def __init__(self, name, doc=None) -> None: ...
     def register(self, *types, **kwargs):
-        """ Register dispatcher with new implementation
+        """Register dispatcher with new implementation
 
         >>> from sympy.multipledispatch.dispatcher import Dispatcher
         >>> f = Dispatcher('f')
@@ -110,10 +115,10 @@ class Dispatcher:
     def get_func_params(cls, func): ...
     @classmethod
     def get_func_annotations(cls, func):
-        """ Get annotations of function positional parameters
+        """Get annotations of function positional parameters
         """
     def add(self, signature, func, on_ambiguity=...) -> None:
-        """ Add new types/method pair to dispatcher
+        """Add new types/method pair to dispatcher
 
         >>> from sympy.multipledispatch import Dispatcher
         >>> D = Dispatcher('add')
@@ -133,10 +138,9 @@ class Dispatcher:
         """
     def reorder(self, on_ambiguity=...) -> None: ...
     def __call__(self, *args, **kwargs): ...
-    def __str__(self) -> str: ...
     __repr__ = __str__
     def dispatch(self, *types):
-        """ Deterimine appropriate implementation for this type signature
+        """Deterimine appropriate implementation for this type signature
 
         This method is internal.  Users should call this object as a function.
         Implementation resolution occurs within the ``__call__`` method.
@@ -153,12 +157,13 @@ class Dispatcher:
         >>> print(inc.dispatch(float))
         None
 
-        See Also:
+        See Also
+        --------
             ``sympy.multipledispatch.conflict`` - module to determine resolution order
         """
     def dispatch_iter(self, *types) -> Generator[Incomplete]: ...
     def resolve(self, types):
-        """ Deterimine appropriate implementation for this type signature
+        """Deterimine appropriate implementation for this type signature
 
         .. deprecated:: 0.4.4
             Use ``dispatch(*types)`` instead
@@ -169,19 +174,21 @@ class Dispatcher:
     def __doc__(self): ...
     def _help(self, *args): ...
     def help(self, *args, **kwargs) -> None:
-        """ Print docstring for the function corresponding to inputs """
+        """Print docstring for the function corresponding to inputs"""
     def _source(self, *args): ...
     def source(self, *args, **kwargs) -> None:
-        """ Print source code for the function corresponding to inputs """
+        """Print source code for the function corresponding to inputs"""
 
 def source(func): ...
 
 class MethodDispatcher(Dispatcher):
-    """ Dispatch methods based on type signature
+    """Dispatch methods based on type signature
 
-    See Also:
+    See Also
+    --------
         Dispatcher
     """
+
     @classmethod
     def get_func_params(cls, func): ...
     obj: Incomplete
@@ -190,11 +197,11 @@ class MethodDispatcher(Dispatcher):
     def __call__(self, *args, **kwargs): ...
 
 def str_signature(sig):
-    """ String representation of type signature
+    """String representation of type signature
 
     >>> from sympy.multipledispatch.dispatcher import str_signature
     >>> str_signature((int, float))
     'int, float'
     """
 def warning_text(name, amb):
-    """ The text for ambiguity warnings """
+    """The text for ambiguity warnings"""

@@ -12,6 +12,7 @@ class BaseScalar(AtomicExpr):
     Ideally, users should not instantiate this class.
 
     """
+
     kind = NumberKind
     def __new__(cls, index, system, pretty_str=None, latex_str=None): ...
     is_commutative: bool

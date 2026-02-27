@@ -1,25 +1,29 @@
 from .single import SingleODEProblem as SingleODEProblem, SingleODESolver as SingleODESolver, solver_map as solver_map
 from _typeshed import Incomplete
-from sympy.core import Add as Add, Mul as Mul, Pow as Pow, S as S, oo as oo
+from sympy.core import Add as Add, Mul as Mul, oo as oo, Pow as Pow, S as S
 from sympy.core.containers import Tuple as Tuple
 from sympy.core.expr import AtomicExpr as AtomicExpr, Expr as Expr
-from sympy.core.function import AppliedUndef as AppliedUndef, Derivative as Derivative, Function as Function, Subs as Subs, diff as diff, expand as expand, expand_mul as expand_mul
+from sympy.core.function import (
+	AppliedUndef as AppliedUndef, Derivative as Derivative, diff as diff, expand as expand, expand_mul as expand_mul,
+	Function as Function, Subs as Subs)
 from sympy.core.multidimensional import vectorize as vectorize
-from sympy.core.numbers import Number as Number, nan as nan, zoo as zoo
+from sympy.core.numbers import nan as nan, Number as Number, zoo as zoo
 from sympy.core.relational import Eq as Eq, Equality as Equality
 from sympy.core.sorting import default_sort_key as default_sort_key, ordered as ordered
-from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, Wild as Wild, symbols as symbols
+from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, symbols as symbols, Wild as Wild
 from sympy.core.sympify import sympify as sympify
 from sympy.core.traversal import preorder_traversal as preorder_traversal
 from sympy.functions import exp as exp, log as log, sqrt as sqrt
 from sympy.functions.combinatorial.factorials import factorial as factorial
 from sympy.integrals.integrals import Integral as Integral
 from sympy.logic.boolalg import BooleanAtom as BooleanAtom, BooleanFalse as BooleanFalse, BooleanTrue as BooleanTrue
-from sympy.polys import Poly as Poly, PolynomialError as PolynomialError, lcm as lcm, terms_gcd as terms_gcd
+from sympy.polys import lcm as lcm, Poly as Poly, PolynomialError as PolynomialError, terms_gcd as terms_gcd
 from sympy.polys.polytools import cancel as cancel
 from sympy.series import Order as Order
 from sympy.series.series import series as series
-from sympy.simplify import collect as collect, cse as cse, logcombine as logcombine, powsimp as powsimp, separatevars as separatevars, simplify as simplify
+from sympy.simplify import (
+	collect as collect, cse as cse, logcombine as logcombine, powsimp as powsimp, separatevars as separatevars,
+	simplify as simplify)
 from sympy.simplify.radsimp import collect_const as collect_const
 from sympy.solvers import checksol as checksol, solve as solve
 from sympy.solvers.deutils import _desolve as _desolve, _preprocess as _preprocess, ode_order as ode_order
@@ -39,7 +43,7 @@ def iter_numbered_constants(eq, start: int = 1, prefix: str = 'C'):
     in eq already.
     """
 def dsolve(eq, func=None, hint: str = 'default', simplify: bool = True, ics=None, xi=None, eta=None, x0: int = 0, n: int = 6, **kwargs):
-    '''
+    """
     Solves any (supported) kind of ordinary differential equation and
     system of ordinary differential equations.
 
@@ -207,8 +211,7 @@ def dsolve(eq, func=None, hint: str = 'default', simplify: bool = True, ics=None
         them give hints name used later for forming method name.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, dsolve, Eq, Derivative, sin, cos, symbols
     >>> from sympy.abc import x
     >>> f = Function(\'f\')
@@ -230,7 +233,7 @@ def dsolve(eq, func=None, hint: str = 'default', simplify: bool = True, ics=None
     >>> eq = (Eq(Derivative(x(t),t),x(t)*y(t)*sin(t)), Eq(Derivative(y(t),t),y(t)**2*sin(t)))
     >>> dsolve(eq)
     {Eq(x(t), -exp(C1)/(C2*exp(C1) - cos(t))), Eq(y(t), -1/(C1 - cos(t)))}
-    '''
+    """
 def _helper_simplify(eq, hint, match, simplify: bool = True, ics=None, **kwargs):
     """
     Helper function of dsolve that calls the respective
@@ -303,8 +306,7 @@ def classify_ode(eq, func=None, dict: bool = False, ics=None, *, prep: bool = Tr
     that can be returned from :py:meth:`~sympy.solvers.ode.classify_ode`.
 
     Notes
-    =====
-
+    -----
     These are remarks on hint names.
 
     ``_Integral``
@@ -374,8 +376,7 @@ def classify_ode(eq, func=None, dict: bool = False, ics=None, *, prep: bool = Tr
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, classify_ode, Eq
     >>> from sympy.abc import x
     >>> f = Function('f')
@@ -401,7 +402,7 @@ def classify_ode(eq, func=None, dict: bool = False, ics=None, *, prep: bool = Tr
 
     """
 def classify_sysode(eq, funcs=None, **kwargs):
-    '''
+    """
     Returns a dictionary of parameter names and values that define the system
     of ordinary differential equations in ``eq``.
     The parameters are further used in
@@ -445,13 +446,12 @@ def classify_sysode(eq, funcs=None, **kwargs):
     is available only when the system is linear first order constant coefficient homogeneous.
 
     References
-    ==========
+    ----------
     -https://eqworld.ipmnet.ru/en/solutions/sysode/sode-toc1.htm
     -A. D. Polyanin and A. V. Manzhirov, Handbook of Mathematics for Engineers and Scientists
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, Eq, symbols, diff
     >>> from sympy.solvers.ode.ode import classify_sysode
     >>> from sympy.abc import t
@@ -470,7 +470,7 @@ def classify_sysode(eq, funcs=None, **kwargs):
      (1, x(t), 0): t**2, (1, x(t), 1): 0, (1, y(t), 0): -5*t, (1, y(t), 1): 1}, \'is_linear\': True, \'no_of_equation\': 2,
       \'order\': {x(t): 1, y(t): 1}, \'type_of_equation\': None}
 
-    '''
+    """
 def check_linear_2eq_order1(eq, func, func_coef): ...
 def check_nonlinear_2eq_order1(eq, func, func_coef): ...
 def check_nonlinear_2eq_order2(eq, func, func_coef) -> None: ...
@@ -496,8 +496,7 @@ def odesimp(ode, eq, func, hint):
     function is designed for mainly internal use.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sin, symbols, dsolve, pprint, Function
     >>> from sympy.solvers.ode.ode import odesimp
     >>> x, u2, C1= symbols('x,u2,C1')
@@ -581,8 +580,7 @@ def ode_sol_simplicity(sol, func, trysolving: bool = True):
     that is, the length of the string representation of the whole list.
 
     Examples
-    ========
-
+    --------
     This function is designed to be passed to ``min`` as the key argument,
     such as ``min(listofsolutions, key=lambda i: ode_sol_simplicity(i,
     f(x)))``.
@@ -610,7 +608,7 @@ def _extract_funcs(eqs): ...
 def _get_constant_subexpressions(expr, Cs): ...
 def __remove_linear_redundancies(expr, Cs): ...
 def constantsimp(expr, constants):
-    '''
+    """
     Simplifies an expression with arbitrary constants in it.
 
     This function is written specifically to work with
@@ -660,8 +658,7 @@ def constantsimp(expr, constants):
     :py:meth:`~sympy.solvers.ode.dsolve`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols
     >>> from sympy.solvers.ode.ode import constantsimp
     >>> C1, C2, C3, x, y = symbols(\'C1, C2, C3, x, y\')
@@ -672,7 +669,7 @@ def constantsimp(expr, constants):
     >>> constantsimp(C1*C2 + 2 + C2 + C3*x, {C1, C2, C3})
     C1 + C3*x
 
-    '''
+    """
 def constant_renumber(expr, variables=None, newconstants=None):
     """
     Renumber arbitrary constants in ``expr`` to use the symbol names as given
@@ -697,8 +694,7 @@ def constant_renumber(expr, variables=None, newconstants=None):
     :py:meth:`~sympy.solvers.ode.constantsimp`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols
     >>> from sympy.solvers.ode.ode import constant_renumber
     >>> x, C1, C2, C3 = symbols('x,C1:4')
@@ -752,8 +748,7 @@ def homogeneous_order(eq, *symbols):
     ``None`` is returned.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, homogeneous_order, sqrt
     >>> from sympy.abc import x, y
     >>> f = Function('f')
@@ -770,7 +765,7 @@ def homogeneous_order(eq, *symbols):
 
     """
 def ode_2nd_power_series_ordinary(eq, func, order, match):
-    '''
+    """
     Gives a power series solution to a second order homogeneous differential
     equation with polynomial coefficients at an ordinary point. A homogeneous
     differential equation is of the form
@@ -785,8 +780,7 @@ def ode_2nd_power_series_ordinary(eq, func, order, match):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy import dsolve, Function, pprint
     >>> from sympy.abc import x
     >>> f = Function("f")
@@ -797,14 +791,14 @@ def ode_2nd_power_series_ordinary(eq, func, order, match):
 
 
     References
-    ==========
+    ----------
     - https://tutorial.math.lamar.edu/Classes/DE/SeriesSolutions.aspx
     - George E. Simmons, "Differential Equations with Applications and
       Historical Notes", p.p 176 - 184
 
-    '''
+    """
 def ode_2nd_power_series_regular(eq, func, order, match):
-    '''
+    """
     Gives a power series solution to a second order homogeneous differential
     equation with polynomial coefficients at a regular point. A second order
     homogeneous differential equation is of the form
@@ -836,8 +830,7 @@ def ode_2nd_power_series_regular(eq, func, order, match):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy import dsolve, Function, pprint
     >>> from sympy.abc import x
     >>> f = Function("f")
@@ -850,11 +843,11 @@ def ode_2nd_power_series_regular(eq, func, order, match):
 
 
     References
-    ==========
+    ----------
     - George E. Simmons, "Differential Equations with Applications and
       Historical Notes", p.p 176 - 184
 
-    '''
+    """
 def _frobenius(n, m, p0, q0, p, q, x0, x, c, check=None):
     """
     Returns a dict with keys as coefficients and values as their values in terms of C0
@@ -906,8 +899,7 @@ def ode_1st_power_series(eq, func, order, match):
     2. `F_{n+1} = \\frac{\\partial F_{n}}{\\partial x} + \\frac{\\partial F_{n}}{\\partial y}F_{1}`
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, pprint, exp, dsolve
     >>> from sympy.abc import x
     >>> f = Function('f')
@@ -919,8 +911,7 @@ def ode_1st_power_series(eq, func, order, match):
 
 
     References
-    ==========
-
+    ----------
     - Travis W. Walker, Analytic power series technique for solving first-order
       differential equations, p.p 17, 18
 
@@ -1137,7 +1128,7 @@ def _nonlinear_3eq_order1_type1(x, y, z, t, eq):
     for other two equations, we will arrive at first order equation on `y` and `z` too.
 
     References
-    ==========
+    ----------
     -https://eqworld.ipmnet.ru/en/solutions/sysode/sode0401.pdf
 
     """
@@ -1163,7 +1154,7 @@ def _nonlinear_3eq_order1_type2(x, y, z, t, eq):
     that for other two equations we will arrive at first order equation on `y` and `z`.
 
     References
-    ==========
+    ----------
     -https://eqworld.ipmnet.ru/en/solutions/sysode/sode0402.pdf
 
     """
@@ -1191,7 +1182,7 @@ def _nonlinear_3eq_order1_type3(x, y, z, t, eq):
     where `z = \\frac{1}{c} (C_1 - a x - b y)`
 
     References
-    ==========
+    ----------
     -https://eqworld.ipmnet.ru/en/solutions/sysode/sode0404.pdf
 
     """
@@ -1219,7 +1210,7 @@ def _nonlinear_3eq_order1_type4(x, y, z, t, eq):
     where `z = \\pm \\sqrt{\\frac{1}{c} (C_1 - a x^{2} - b y^{2})}`
 
     References
-    ==========
+    ----------
     -https://eqworld.ipmnet.ru/en/solutions/sysode/sode0405.pdf
 
     """
@@ -1238,7 +1229,7 @@ def _nonlinear_3eq_order1_type5(x, y, z, t, eq):
     arrives at a first-order equation.
 
     References
-    ==========
+    ----------
     -https://eqworld.ipmnet.ru/en/solutions/sysode/sode0406.pdf
 
     """

@@ -1,9 +1,10 @@
 from sympy.physics.quantum import Bra, Ket, Operator
 
-__all__ = ['SigmaX', 'SigmaY', 'SigmaZ', 'SigmaMinus', 'SigmaPlus', 'SigmaZKet', 'SigmaZBra', 'qsimplify_pauli']
+__all__ = ['SigmaMinus', 'SigmaPlus', 'SigmaX', 'SigmaY', 'SigmaZ', 'SigmaZBra', 'SigmaZKet', 'qsimplify_pauli']
 
 class SigmaOpBase(Operator):
     """Pauli sigma operator, base class"""
+
     @property
     def name(self): ...
     @property
@@ -17,15 +18,13 @@ class SigmaX(SigmaOpBase):
     """Pauli sigma x operator
 
     Parameters
-    ==========
-
+    ----------
     name : str
         An optional string that labels the operator. Pauli operators with
         different names commute.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum import represent
     >>> from sympy.physics.quantum.pauli import SigmaX
     >>> sx = SigmaX()
@@ -36,6 +35,7 @@ class SigmaX(SigmaOpBase):
     [0, 1],
     [1, 0]])
     """
+
     def __new__(cls, *args, **hints): ...
     def _eval_commutator_SigmaY(self, other, **hints): ...
     def _eval_commutator_SigmaZ(self, other, **hints): ...
@@ -52,15 +52,13 @@ class SigmaY(SigmaOpBase):
     """Pauli sigma y operator
 
     Parameters
-    ==========
-
+    ----------
     name : str
         An optional string that labels the operator. Pauli operators with
         different names commute.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum import represent
     >>> from sympy.physics.quantum.pauli import SigmaY
     >>> sy = SigmaY()
@@ -71,6 +69,7 @@ class SigmaY(SigmaOpBase):
     [0, -I],
     [I,  0]])
     """
+
     def __new__(cls, *args, **hints): ...
     def _eval_commutator_SigmaZ(self, other, **hints): ...
     def _eval_commutator_SigmaX(self, other, **hints): ...
@@ -86,15 +85,13 @@ class SigmaZ(SigmaOpBase):
     """Pauli sigma z operator
 
     Parameters
-    ==========
-
+    ----------
     name : str
         An optional string that labels the operator. Pauli operators with
         different names commute.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum import represent
     >>> from sympy.physics.quantum.pauli import SigmaZ
     >>> sz = SigmaZ()
@@ -105,6 +102,7 @@ class SigmaZ(SigmaOpBase):
     [1,  0],
     [0, -1]])
     """
+
     def __new__(cls, *args, **hints): ...
     def _eval_commutator_SigmaX(self, other, **hints): ...
     def _eval_commutator_SigmaY(self, other, **hints): ...
@@ -120,15 +118,13 @@ class SigmaMinus(SigmaOpBase):
     """Pauli sigma minus operator
 
     Parameters
-    ==========
-
+    ----------
     name : str
         An optional string that labels the operator. Pauli operators with
         different names commute.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum import represent, Dagger
     >>> from sympy.physics.quantum.pauli import SigmaMinus
     >>> sm = SigmaMinus()
@@ -141,6 +137,7 @@ class SigmaMinus(SigmaOpBase):
     [0, 0],
     [1, 0]])
     """
+
     def __new__(cls, *args, **hints): ...
     def _eval_commutator_SigmaX(self, other, **hints): ...
     def _eval_commutator_SigmaY(self, other, **hints): ...
@@ -160,15 +157,13 @@ class SigmaPlus(SigmaOpBase):
     """Pauli sigma plus operator
 
     Parameters
-    ==========
-
+    ----------
     name : str
         An optional string that labels the operator. Pauli operators with
         different names commute.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum import represent, Dagger
     >>> from sympy.physics.quantum.pauli import SigmaPlus
     >>> sp = SigmaPlus()
@@ -181,6 +176,7 @@ class SigmaPlus(SigmaOpBase):
     [0, 1],
     [0, 0]])
     """
+
     def __new__(cls, *args, **hints): ...
     def _eval_commutator_SigmaX(self, other, **hints): ...
     def _eval_commutator_SigmaY(self, other, **hints): ...
@@ -201,12 +197,12 @@ class SigmaZKet(Ket):
     """Ket for a two-level system quantum system.
 
     Parameters
-    ==========
-
+    ----------
     n : Number
         The state number (0 or 1).
 
     """
+
     def __new__(cls, n): ...
     @property
     def n(self): ...
@@ -226,12 +222,12 @@ class SigmaZBra(Bra):
     """Bra for a two-level quantum system.
 
     Parameters
-    ==========
-
+    ----------
     n : Number
         The state number (0 or 1).
 
     """
+
     def __new__(cls, n): ...
     @property
     def n(self): ...
@@ -243,15 +239,13 @@ def qsimplify_pauli(e):
     Simplify an expression that includes products of pauli operators.
 
     Parameters
-    ==========
-
+    ----------
     e : expression
         An expression that contains products of Pauli operators that is
         to be simplified.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum.pauli import SigmaX, SigmaY
     >>> from sympy.physics.quantum.pauli import qsimplify_pauli
     >>> sx, sy = SigmaX(), SigmaY()

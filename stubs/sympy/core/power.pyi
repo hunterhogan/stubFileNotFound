@@ -2,10 +2,12 @@ from .add import Add as Add
 from .cache import cacheit as cacheit
 from .evalf import PrecisionExhausted as PrecisionExhausted
 from .expr import Expr as Expr
-from .function import PoleError as PoleError, _mexpand as _mexpand, expand_complex as expand_complex, expand_mul as expand_mul, expand_multinomial as expand_multinomial
+from .function import (
+	_mexpand as _mexpand, expand_complex as expand_complex, expand_mul as expand_mul,
+	expand_multinomial as expand_multinomial, PoleError as PoleError)
 from .kind import NumberKind as NumberKind, UndefinedKind as UndefinedKind
 from .logic import fuzzy_and as fuzzy_and, fuzzy_bool as fuzzy_bool, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
-from .mul import Mul as Mul, _keep_coeff as _keep_coeff
+from .mul import _keep_coeff as _keep_coeff, Mul as Mul
 from .numbers import Integer as Integer, Rational as Rational
 from .parameters import global_parameters as global_parameters
 from .relational import is_gt as is_gt, is_lt as is_lt
@@ -19,7 +21,7 @@ from sympy.utilities.iterables import sift as sift
 from sympy.utilities.misc import as_int as as_int
 
 class Pow(Expr):
-    '''
+    """
     Defines the expression x**y as "x raised to a power y"
 
     .. deprecated:: 1.7
@@ -93,20 +95,20 @@ class Pow(Expr):
     us avoid extra test-case code in the calculation of limits.
 
     See Also
-    ========
-
+    --------
     sympy.core.numbers.Infinity
     sympy.core.numbers.NegativeInfinity
     sympy.core.numbers.NaN
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Exponentiation
     .. [2] https://en.wikipedia.org/wiki/Zero_to_the_power_of_zero
     .. [3] https://en.wikipedia.org/wiki/Indeterminate_forms
 
-    '''
+    """
+
     is_Pow: bool
     __slots__: Incomplete
     @property
@@ -129,8 +131,7 @@ class Pow(Expr):
         by ``Mod``.
 
         Notes
-        =====
-
+        -----
         Algorithms:
 
         1. For unevaluated integer power, use built-in ``pow`` function
@@ -179,8 +180,7 @@ class Pow(Expr):
         properties will give the raw arguments.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Pow, S
         >>> p = Pow(S.Half, 2, evaluate=False)
         >>> p.as_base_exp()
@@ -226,8 +226,7 @@ class Pow(Expr):
         extracted from self.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sqrt
         >>> sqrt(4 + 4*sqrt(2)).as_content_primitive()
         (2, sqrt(1 + sqrt(2)))

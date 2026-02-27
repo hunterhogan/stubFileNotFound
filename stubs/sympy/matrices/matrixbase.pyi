@@ -1,14 +1,45 @@
-from .decompositions import _LDLdecomposition as _LDLdecomposition, _LUdecomposition as _LUdecomposition, _LUdecompositionFF as _LUdecompositionFF, _LUdecomposition_Simple as _LUdecomposition_Simple, _QRdecomposition as _QRdecomposition, _cholesky as _cholesky, _rank_decomposition as _rank_decomposition, _singular_value_decomposition as _singular_value_decomposition, _upper_hessenberg_decomposition as _upper_hessenberg_decomposition
-from .determinant import _adjugate as _adjugate, _charpoly as _charpoly, _cofactor as _cofactor, _cofactor_matrix as _cofactor_matrix, _det as _det, _det_LU as _det_LU, _det_bareiss as _det_bareiss, _det_berkowitz as _det_berkowitz, _det_bird as _det_bird, _det_laplace as _det_laplace, _find_reasonable_pivot as _find_reasonable_pivot, _find_reasonable_pivot_naive as _find_reasonable_pivot_naive, _minor as _minor, _minor_submatrix as _minor_submatrix, _per as _per
-from .eigen import _bidiagonal_decomposition as _bidiagonal_decomposition, _bidiagonalize as _bidiagonalize, _diagonalize as _diagonalize, _eigenvals as _eigenvals, _eigenvects as _eigenvects, _is_diagonalizable as _is_diagonalizable, _is_indefinite as _is_indefinite, _is_negative_definite as _is_negative_definite, _is_negative_semidefinite as _is_negative_semidefinite, _is_positive_definite as _is_positive_definite, _is_positive_semidefinite as _is_positive_semidefinite, _jordan_form as _jordan_form, _left_eigenvects as _left_eigenvects, _singular_values as _singular_values
-from .exceptions import MatrixError as MatrixError, NonInvertibleMatrixError as NonInvertibleMatrixError, NonSquareMatrixError as NonSquareMatrixError, ShapeError as ShapeError
-from .graph import _connected_components as _connected_components, _connected_components_decomposition as _connected_components_decomposition, _strongly_connected_components as _strongly_connected_components, _strongly_connected_components_decomposition as _strongly_connected_components_decomposition
-from .inverse import _inv as _inv, _inv_ADJ as _inv_ADJ, _inv_CH as _inv_CH, _inv_GE as _inv_GE, _inv_LDL as _inv_LDL, _inv_LU as _inv_LU, _inv_QR as _inv_QR, _inv_block as _inv_block, _pinv as _pinv
+from .decompositions import (
+	_cholesky as _cholesky, _LDLdecomposition as _LDLdecomposition, _LUdecomposition as _LUdecomposition,
+	_LUdecomposition_Simple as _LUdecomposition_Simple, _LUdecompositionFF as _LUdecompositionFF,
+	_QRdecomposition as _QRdecomposition, _rank_decomposition as _rank_decomposition,
+	_singular_value_decomposition as _singular_value_decomposition,
+	_upper_hessenberg_decomposition as _upper_hessenberg_decomposition)
+from .determinant import (
+	_adjugate as _adjugate, _charpoly as _charpoly, _cofactor as _cofactor, _cofactor_matrix as _cofactor_matrix,
+	_det as _det, _det_bareiss as _det_bareiss, _det_berkowitz as _det_berkowitz, _det_bird as _det_bird,
+	_det_laplace as _det_laplace, _det_LU as _det_LU, _find_reasonable_pivot as _find_reasonable_pivot,
+	_find_reasonable_pivot_naive as _find_reasonable_pivot_naive, _minor as _minor, _minor_submatrix as _minor_submatrix,
+	_per as _per)
+from .eigen import (
+	_bidiagonal_decomposition as _bidiagonal_decomposition, _bidiagonalize as _bidiagonalize, _diagonalize as _diagonalize,
+	_eigenvals as _eigenvals, _eigenvects as _eigenvects, _is_diagonalizable as _is_diagonalizable,
+	_is_indefinite as _is_indefinite, _is_negative_definite as _is_negative_definite,
+	_is_negative_semidefinite as _is_negative_semidefinite, _is_positive_definite as _is_positive_definite,
+	_is_positive_semidefinite as _is_positive_semidefinite, _jordan_form as _jordan_form,
+	_left_eigenvects as _left_eigenvects, _singular_values as _singular_values)
+from .exceptions import (
+	MatrixError as MatrixError, NonInvertibleMatrixError as NonInvertibleMatrixError,
+	NonSquareMatrixError as NonSquareMatrixError, ShapeError as ShapeError)
+from .graph import (
+	_connected_components as _connected_components,
+	_connected_components_decomposition as _connected_components_decomposition,
+	_strongly_connected_components as _strongly_connected_components,
+	_strongly_connected_components_decomposition as _strongly_connected_components_decomposition)
+from .inverse import (
+	_inv as _inv, _inv_ADJ as _inv_ADJ, _inv_block as _inv_block, _inv_CH as _inv_CH, _inv_GE as _inv_GE,
+	_inv_LDL as _inv_LDL, _inv_LU as _inv_LU, _inv_QR as _inv_QR, _pinv as _pinv)
 from .kind import MatrixKind as MatrixKind
 from .reductions import _echelon_form as _echelon_form, _is_echelon as _is_echelon, _rank as _rank, _rref as _rref
-from .solvers import _LDLsolve as _LDLsolve, _LUsolve as _LUsolve, _QRsolve as _QRsolve, _cholesky_solve as _cholesky_solve, _cramer_solve as _cramer_solve, _diagonal_solve as _diagonal_solve, _gauss_jordan_solve as _gauss_jordan_solve, _lower_triangular_solve as _lower_triangular_solve, _pinv_solve as _pinv_solve, _solve as _solve, _solve_least_squares as _solve_least_squares, _upper_triangular_solve as _upper_triangular_solve
-from .subspaces import _columnspace as _columnspace, _nullspace as _nullspace, _orthogonalize as _orthogonalize, _rowspace as _rowspace
-from .utilities import _dotprodsimp as _dotprodsimp, _get_intermediate_simp_bool as _get_intermediate_simp_bool, _is_zero_after_expand_mul as _is_zero_after_expand_mul, _iszero as _iszero
+from .solvers import (
+	_cholesky_solve as _cholesky_solve, _cramer_solve as _cramer_solve, _diagonal_solve as _diagonal_solve,
+	_gauss_jordan_solve as _gauss_jordan_solve, _LDLsolve as _LDLsolve, _lower_triangular_solve as _lower_triangular_solve,
+	_LUsolve as _LUsolve, _pinv_solve as _pinv_solve, _QRsolve as _QRsolve, _solve as _solve,
+	_solve_least_squares as _solve_least_squares, _upper_triangular_solve as _upper_triangular_solve)
+from .subspaces import (
+	_columnspace as _columnspace, _nullspace as _nullspace, _orthogonalize as _orthogonalize, _rowspace as _rowspace)
+from .utilities import (
+	_dotprodsimp as _dotprodsimp, _get_intermediate_simp_bool as _get_intermediate_simp_bool,
+	_is_zero_after_expand_mul as _is_zero_after_expand_mul, _iszero as _iszero)
 from _typeshed import Incomplete
 from collections.abc import Generator
 from sympy.assumptions.refine import refine as refine
@@ -18,7 +49,7 @@ from sympy.core.decorators import call_highest_priority as call_highest_priority
 from sympy.core.expr import Expr as Expr
 from sympy.core.function import diff as diff
 from sympy.core.kind import UndefinedKind as UndefinedKind
-from sympy.core.logic import FuzzyBool as FuzzyBool, fuzzy_and as fuzzy_and
+from sympy.core.logic import fuzzy_and as fuzzy_and, FuzzyBool as FuzzyBool
 from sympy.core.mod import Mod as Mod
 from sympy.core.numbers import Integer as Integer
 from sympy.core.power import Pow as Pow
@@ -36,14 +67,17 @@ from sympy.printing import sstr as sstr
 from sympy.printing.defaults import Printable as Printable
 from sympy.printing.str import StrPrinter as StrPrinter
 from sympy.tensor.array import NDimArray as NDimArray
-from sympy.utilities.iterables import NotIterable as NotIterable, flatten as flatten, is_sequence as is_sequence, reshape as reshape
+from sympy.utilities.iterables import (
+	flatten as flatten, is_sequence as is_sequence, NotIterable as NotIterable, reshape as reshape)
 from sympy.utilities.misc import as_int as as_int, filldedent as filldedent
 
 __doctest_requires__: Incomplete
 
 class MatrixBase(Printable):
     """All common matrix operations including basic arithmetic, shaping,
-    and special matrices like `zeros`, and `eye`."""
+    and special matrices like `zeros`, and `eye`.
+    """
+
     _op_priority: float
     __array_priority__: int
     is_Matrix: bool
@@ -59,20 +93,21 @@ class MatrixBase(Printable):
     def _new(cls, *args, **kwargs) -> None:
         """`_new` must, at minimum, be callable as
         `_new(rows, cols, mat) where mat is a flat list of the
-        elements of the matrix."""
+        elements of the matrix.
+        """
     def __eq__(self, other): ...
     def __getitem__(self, key) -> None:
         """Implementations of __getitem__ should accept ints, in which
         case the matrix is indexed as a flat list, tuples (i,j) in which
         case the (i,j) entry is returned, slices, or mixed tuples (a,b)
-        where a and b are any combination of slices and integers."""
+        where a and b are any combination of slices and integers.
+        """
     @property
     def shape(self):
         """The shape (dimensions) of the matrix as the 2-tuple (rows, cols).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import zeros
         >>> M = zeros(2, 3)
         >>> M.shape
@@ -102,8 +137,7 @@ class MatrixBase(Printable):
         """Insert one or more columns at the given column position.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import zeros, ones
         >>> M = zeros(3)
         >>> V = ones(3, 1)
@@ -114,8 +148,7 @@ class MatrixBase(Printable):
         [0, 1, 0, 0]])
 
         See Also
-        ========
-
+        --------
         col
         row_insert
         """
@@ -123,8 +156,7 @@ class MatrixBase(Printable):
         """Concatenates two matrices along self's last and other's first row.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import zeros, ones
         >>> M = zeros(3)
         >>> V = ones(1, 3)
@@ -136,8 +168,7 @@ class MatrixBase(Printable):
         [1, 1, 1]])
 
         See Also
-        ========
-
+        --------
         col
         row_join
         """
@@ -145,8 +176,7 @@ class MatrixBase(Printable):
         """Elementary column selector.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import eye
         >>> eye(2).col(0)
         Matrix([
@@ -154,8 +184,7 @@ class MatrixBase(Printable):
         [0]])
 
         See Also
-        ========
-
+        --------
         row
         col_del
         col_join
@@ -167,8 +196,7 @@ class MatrixBase(Printable):
         $-n \\le i < n$ where $n$ is the number of rows or columns.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> m = Matrix(4, 3, range(12))
         >>> m
@@ -216,8 +244,7 @@ class MatrixBase(Printable):
         structure.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.abc import x, y, z
         >>> A = Matrix([[1, 3, 0, 0], [y, z*z, 0, 0], [0, 0, x, 0], [0, 0, 0, 0]])
@@ -238,8 +265,7 @@ class MatrixBase(Printable):
         by repeated application of row_join).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, eye
         >>> Matrix.hstack(eye(2), 2*eye(2))
         Matrix([
@@ -250,8 +276,7 @@ class MatrixBase(Printable):
         """Reshape the matrix. Total number of elements must remain the same.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> m = Matrix(2, 3, lambda i, j: 1)
         >>> m
@@ -273,8 +298,7 @@ class MatrixBase(Printable):
         """Insert one or more rows at the given row position.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import zeros, ones
         >>> M = zeros(3)
         >>> V = ones(1, 3)
@@ -286,8 +310,7 @@ class MatrixBase(Printable):
         [0, 0, 0]])
 
         See Also
-        ========
-
+        --------
         row
         col_insert
         """
@@ -295,8 +318,7 @@ class MatrixBase(Printable):
         """Concatenates two matrices along self's last and rhs's first column
 
         Examples
-        ========
-
+        --------
         >>> from sympy import zeros, ones
         >>> M = zeros(3)
         >>> V = ones(3, 1)
@@ -307,8 +329,7 @@ class MatrixBase(Printable):
         [0, 0, 0, 1]])
 
         See Also
-        ========
-
+        --------
         row
         col_join
         """
@@ -320,8 +341,7 @@ class MatrixBase(Printable):
         `i + j`, starting with `i + j = |k|`.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> m = Matrix(3, 3, lambda i, j: j - i); m
         Matrix([
@@ -342,23 +362,20 @@ class MatrixBase(Printable):
         2
 
         See Also
-        ========
-
+        --------
         diag
         """
     def row(self, i):
         """Elementary row selector.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import eye
         >>> eye(2).row(0)
         Matrix([[1, 0]])
 
         See Also
-        ========
-
+        --------
         col
         row_del
         row_join
@@ -368,8 +385,7 @@ class MatrixBase(Printable):
         """Return the matrix as dictionary of keys.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> M = Matrix.eye(3)
         >>> M.todok()
@@ -380,8 +396,7 @@ class MatrixBase(Printable):
         """Create a matrix from a dictionary of keys.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> d = {(0, 0): 1, (1, 2): 3, (2, 1): 4}
         >>> Matrix.from_dok(3, 3, d)
@@ -394,8 +409,7 @@ class MatrixBase(Printable):
         """Return the Matrix as a nested Python list.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, ones
         >>> m = Matrix(3, 3, range(9))
         >>> m
@@ -419,8 +433,7 @@ class MatrixBase(Printable):
         """Returns matrix as dict of dicts containing non-zero elements of the Matrix
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> A = Matrix([[0, 1],[0, 3]])
         >>> A
@@ -436,8 +449,7 @@ class MatrixBase(Printable):
         """Return the Matrix converted into a one column matrix by stacking columns
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> m=Matrix([[1, 3], [2, 4]])
         >>> m
@@ -452,8 +464,7 @@ class MatrixBase(Printable):
         [4]])
 
         See Also
-        ========
-
+        --------
         vech
         """
     def vech(self, diagonal: bool = True, check_symmetry: bool = True):
@@ -461,8 +472,7 @@ class MatrixBase(Printable):
         elements in the lower triangle.
 
         Parameters
-        ==========
-
+        ----------
         diagonal : bool, optional
             If ``True``, it includes the diagonal elements.
 
@@ -470,8 +480,7 @@ class MatrixBase(Printable):
             If ``True``, it checks whether the matrix is symmetric.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> m=Matrix([[1, 2], [2, 3]])
         >>> m
@@ -487,15 +496,13 @@ class MatrixBase(Printable):
         Matrix([[2]])
 
         Notes
-        =====
-
+        -----
         This should work for symmetric matrices and ``vech`` can
         represent symmetric matrices in vector form with less size than
         ``vec``.
 
         See Also
-        ========
-
+        --------
         vec
         """
     @classmethod
@@ -504,8 +511,7 @@ class MatrixBase(Printable):
         by repeated application of col_join).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, eye
         >>> Matrix.vstack(eye(2), 2*eye(2))
         Matrix([
@@ -517,7 +523,8 @@ class MatrixBase(Printable):
     @classmethod
     def _eval_diag(cls, rows, cols, diag_dict):
         """diag_dict is a defaultdict containing
-        all the entries of the diagonal matrix."""
+        all the entries of the diagonal matrix.
+        """
     @classmethod
     def _eval_eye(cls, rows, cols): ...
     @classmethod
@@ -530,7 +537,7 @@ class MatrixBase(Printable):
     def _eval_wilkinson(cls, n): ...
     @classmethod
     def diag(kls, *args, strict: bool = False, unpack: bool = True, rows=None, cols=None, **kwargs):
-        '''Returns a matrix with the specified diagonal.
+        """Returns a matrix with the specified diagonal.
         If matrices are passed, a block-diagonal matrix
         is created (i.e. the "direct sum" of the matrices).
 
@@ -552,8 +559,7 @@ class MatrixBase(Printable):
         have variable-length rows.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> Matrix.diag(1, 2, 3)
         Matrix([
@@ -613,20 +619,19 @@ class MatrixBase(Printable):
         [0, 0, 0, 2]])
 
         See Also
-        ========
+        --------
         eye
         diagonal
         .dense.diag
         .expressions.blockmatrix.BlockMatrix
         .sparsetools.banded
-       '''
+        """
     @classmethod
     def eye(kls, rows, cols=None, **kwargs):
         """Returns an identity matrix.
 
         Parameters
-        ==========
-
+        ----------
         rows : rows of the matrix
         cols : cols of the matrix (if None, cols=rows)
 
@@ -639,8 +644,7 @@ class MatrixBase(Printable):
         """Returns a Jordan block
 
         Parameters
-        ==========
-
+        ----------
         size : Integer, optional
             Specifies the shape of the Jordan block matrix.
 
@@ -663,21 +667,18 @@ class MatrixBase(Printable):
             being executed on will be returned.
 
         Returns
-        =======
-
+        -------
         Matrix
             A Jordan block matrix.
 
         Raises
-        ======
-
+        ------
         ValueError
             If insufficient arguments are given for matrix size
             specification, or no eigenvalue is given.
 
         Examples
-        ========
-
+        --------
         Creating a default Jordan block:
 
         >>> from sympy import Matrix
@@ -709,7 +710,7 @@ class MatrixBase(Printable):
         [0, 0, 0, x]])
 
         References
-        ==========
+        ----------
 
         .. [1] https://en.wikipedia.org/wiki/Jordan_matrix
         """
@@ -718,8 +719,7 @@ class MatrixBase(Printable):
         """Returns a matrix of ones.
 
         Parameters
-        ==========
-
+        ----------
         rows : rows of the matrix
         cols : cols of the matrix (if None, cols=rows)
 
@@ -732,8 +732,7 @@ class MatrixBase(Printable):
         """Returns a matrix of zeros.
 
         Parameters
-        ==========
-
+        ----------
         rows : rows of the matrix
         cols : cols of the matrix (if None, cols=rows)
 
@@ -746,8 +745,7 @@ class MatrixBase(Printable):
         """Returns a companion matrix of a polynomial.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, Poly, Symbol, symbols
         >>> x = Symbol('x')
         >>> c0, c1, c2, c3, c4 = symbols('c0:5')
@@ -766,8 +764,7 @@ class MatrixBase(Printable):
         $W_{2n + 1}^-, W_{2n + 1}^+ =$ Wilkinson(n)
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> wminus, wplus = Matrix.wilkinson(3)
         >>> wminus
@@ -790,7 +787,7 @@ class MatrixBase(Printable):
         [0, 0, 0, 0, 0, 1, 3]])
 
         References
-        ==========
+        ----------
 
         .. [1] https://blogs.mathworks.com/cleve/2013/04/15/wilkinsons-matrices-2/
         .. [2] J. H. Wilkinson, The Algebraic Eigenvalue Problem, Claredon Press, Oxford, 1965, 662 pp.
@@ -819,8 +816,7 @@ class MatrixBase(Printable):
         """Returns the atoms that form the current object.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y
         >>> from sympy import Matrix
         >>> Matrix([[x]])
@@ -839,8 +835,7 @@ class MatrixBase(Printable):
         """Returns the free symbols within the matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x
         >>> from sympy import Matrix
         >>> Matrix([[x], [1]]).free_symbols
@@ -850,8 +845,7 @@ class MatrixBase(Printable):
         """Test whether any subexpression matches any of the patterns.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, SparseMatrix, Float
         >>> from sympy.abc import x, y
         >>> A = Matrix(((1, x), (0.2, 3)))
@@ -882,8 +876,7 @@ class MatrixBase(Printable):
         it may induce false negatives.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, symbols
         >>> m = Matrix(2, 2, [0, 1, -1, 0])
         >>> m
@@ -936,8 +929,7 @@ class MatrixBase(Printable):
         that is matrix in which the entries outside the main diagonal are all zero.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, diag
         >>> m = Matrix(2, 2, [1, 0, 0, 2])
         >>> m
@@ -965,8 +957,7 @@ class MatrixBase(Printable):
         True
 
         See Also
-        ========
-
+        --------
         is_lower
         is_upper
         sympy.matrices.matrixbase.MatrixBase.is_diagonalizable
@@ -987,8 +978,7 @@ class MatrixBase(Printable):
             i \\in \\{ 0, ..., n-1 \\}
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> A = Matrix([[3, -2, 1], [1, -3, 2], [-1, 2, 4]])
         >>> A.is_weakly_diagonally_dominant
@@ -1003,8 +993,7 @@ class MatrixBase(Printable):
         True
 
         Notes
-        =====
-
+        -----
         If you want to test whether a matrix is column diagonally
         dominant, you can apply the test after transposing the matrix.
         """
@@ -1023,8 +1012,7 @@ class MatrixBase(Printable):
             i \\in \\{ 0, ..., n-1 \\}
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> A = Matrix([[3, -2, 1], [1, -3, 2], [-1, 2, 4]])
         >>> A.is_strongly_diagonally_dominant
@@ -1039,8 +1027,7 @@ class MatrixBase(Printable):
         True
 
         Notes
-        =====
-
+        -----
         If you want to test whether a matrix is column diagonally
         dominant, you can apply the test after transposing the matrix.
         """
@@ -1052,8 +1039,7 @@ class MatrixBase(Printable):
         element j,i.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy import I
         >>> from sympy.abc import x
@@ -1083,8 +1069,7 @@ class MatrixBase(Printable):
         above the first superdiagonal.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> a = Matrix([[1, 2, 0, 0], [5, 2, 3, 0], [3, 4, 3, 7], [5, 6, 1, 1]])
         >>> a
@@ -1097,8 +1082,7 @@ class MatrixBase(Printable):
         True
 
         See Also
-        ========
-
+        --------
         is_upper_hessenberg
         is_lower
         """
@@ -1108,8 +1092,7 @@ class MatrixBase(Printable):
         even if the matrix is not square.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> m = Matrix(2, 2, [1, 0, 0, 1])
         >>> m
@@ -1139,8 +1122,7 @@ class MatrixBase(Printable):
         False
 
         See Also
-        ========
-
+        --------
         is_upper
         is_diagonal
         is_lower_hessenberg
@@ -1154,8 +1136,7 @@ class MatrixBase(Printable):
         the number of columns are both zero.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> a = Matrix([[1, 2, 3], [4, 5, 6]])
         >>> b = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
@@ -1171,8 +1152,7 @@ class MatrixBase(Printable):
         """Checks if any elements contain Symbols.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.abc import x, y
         >>> M = Matrix([[x, y], [1, 0]])
@@ -1189,8 +1169,7 @@ class MatrixBase(Printable):
         this may however induce false negatives.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> m = Matrix(2, 2, [0, 1, 1, 2])
         >>> m
@@ -1243,8 +1222,7 @@ class MatrixBase(Printable):
         below the first subdiagonal.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> a = Matrix([[1, 4, 2, 3], [3, 4, 1, 7], [0, 2, 3, 4], [0, 0, 1, 3]])
         >>> a
@@ -1257,8 +1235,7 @@ class MatrixBase(Printable):
         True
 
         See Also
-        ========
-
+        --------
         is_lower_hessenberg
         is_upper
         """
@@ -1268,8 +1245,7 @@ class MatrixBase(Printable):
         even if the matrix is not square.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> m = Matrix(2, 2, [1, 0, 0, 1])
         >>> m
@@ -1298,8 +1274,7 @@ class MatrixBase(Printable):
         False
 
         See Also
-        ========
-
+        --------
         is_lower
         is_diagonal
         is_upper_hessenberg
@@ -1314,8 +1289,7 @@ class MatrixBase(Printable):
         contains a symbol), this will be None
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, zeros
         >>> from sympy.abc import x
         >>> a = Matrix([[0, 0], [0, 0]])
@@ -1337,16 +1311,14 @@ class MatrixBase(Printable):
         """Return non-zero values of self.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> m = Matrix([[0, 1], [2, 3]])
         >>> m.values()
         [1, 2, 3]
 
         See Also
-        ========
-
+        --------
         iter_values
         tolist
         flat
@@ -1356,32 +1328,28 @@ class MatrixBase(Printable):
         Iterate over non-zero values of self.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> m = Matrix([[0, 1], [2, 3]])
         >>> list(m.iter_values())
         [1, 2, 3]
 
         See Also
-        ========
-
+        --------
         values
         """
     def iter_items(self):
         """Iterate over indices and values of nonzero items.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> m = Matrix([[0, 1], [2, 3]])
         >>> list(m.iter_items())
         [((0, 1), 1), ((1, 0), 2), ((1, 1), 3)]
 
         See Also
-        ========
-
+        --------
         iter_values
         todok
         """
@@ -1399,8 +1367,7 @@ class MatrixBase(Printable):
         """Apply a function to each element of the matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> m = Matrix(2, 2, lambda i, j: i*2+j)
         >>> m
@@ -1419,8 +1386,7 @@ class MatrixBase(Printable):
         """Return the by-element conjugation.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import SparseMatrix, I
         >>> a = SparseMatrix(((1, 2 + I), (3, 4), (I, -I)))
         >>> a
@@ -1435,8 +1401,7 @@ class MatrixBase(Printable):
         [-I,     I]])
 
         See Also
-        ========
-
+        --------
         transpose: Matrix transposition
         H: Hermite conjugation
         sympy.matrices.matrixbase.MatrixBase.D: Dirac conjugation
@@ -1448,8 +1413,7 @@ class MatrixBase(Printable):
         """Apply core.function.expand to each entry of the matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x
         >>> from sympy import Matrix
         >>> Matrix(1, 1, [x*(x+1)])
@@ -1463,8 +1427,7 @@ class MatrixBase(Printable):
         """Return Hermite conjugate.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, I
         >>> m = Matrix((0, 1 + I, 2, 3))
         >>> m
@@ -1477,8 +1440,7 @@ class MatrixBase(Printable):
         Matrix([[0, 1 - I, 2, 3]])
 
         See Also
-        ========
-
+        --------
         conjugate: By-element conjugation
         sympy.matrices.matrixbase.MatrixBase.D: Dirac conjugation
         """
@@ -1487,8 +1449,7 @@ class MatrixBase(Printable):
         swaps.
 
         Parameters
-        ==========
-
+        ----------
         perm : Permutation, list, or list of lists
             A representation for the permutation.
 
@@ -1526,8 +1487,7 @@ class MatrixBase(Printable):
             this flag takes no effect.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import eye
         >>> M = eye(3)
         >>> M.permute([[0, 1], [0, 2]], orientation='rows', direction='forward')
@@ -1545,8 +1505,7 @@ class MatrixBase(Printable):
         [1, 0, 0]])
 
         Notes
-        =====
-
+        -----
         If a bijective function
         `\\sigma : \\mathbb{N}_0 \\rightarrow \\mathbb{N}_0` denotes the
         permutation.
@@ -1584,8 +1543,7 @@ class MatrixBase(Printable):
         ``self.permute(swaps, orientation='cols', direction=direction)``
 
         See Also
-        ========
-
+        --------
         permute
         """
     def permute_rows(self, swaps, direction: str = 'forward'):
@@ -1593,16 +1551,14 @@ class MatrixBase(Printable):
         ``self.permute(swaps, orientation='rows', direction=direction)``
 
         See Also
-        ========
-
+        --------
         permute
         """
     def refine(self, assumptions: bool = True):
         """Apply refine to each element of the matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Symbol, Matrix, Abs, sqrt, Q
         >>> x = Symbol('x')
         >>> Matrix([[Abs(x)**2, sqrt(x**2)],[sqrt(x**2), Abs(x)**2]])
@@ -1619,8 +1575,7 @@ class MatrixBase(Printable):
         """Replaces Function F in Matrix entries with Function G.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols, Function, Matrix
         >>> F, G = symbols('F, G', cls=Function)
         >>> M = Matrix(2, 2, lambda i, j: F(i+j)) ; M
@@ -1637,15 +1592,13 @@ class MatrixBase(Printable):
         """Rotates Matrix by 90 degrees
 
         Parameters
-        ==========
-
+        ----------
         k : int
             Specifies how many times the matrix is rotated by 90 degrees
             (clockwise when positive, counter-clockwise when negative).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, symbols
         >>> A = Matrix(2, 2, symbols('a:d'))
         >>> A
@@ -1671,8 +1624,7 @@ class MatrixBase(Printable):
         """Apply simplify to each element of the matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y
         >>> from sympy import SparseMatrix, sin, cos
         >>> SparseMatrix(1, 1, [x*sin(y)**2 + x*cos(y)**2])
@@ -1684,8 +1636,7 @@ class MatrixBase(Printable):
         """Return a new matrix with subs applied to each entry.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y
         >>> from sympy import SparseMatrix, Matrix
         >>> SparseMatrix(1, 1, [x])
@@ -1701,8 +1652,7 @@ class MatrixBase(Printable):
         diagonal elements.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> A = Matrix(2, 2, [1, 2, 3, 4])
         >>> A.trace()
@@ -1714,8 +1664,7 @@ class MatrixBase(Printable):
         Returns the transpose of the matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> A = Matrix(2, 2, [1, 2, 3, 4])
         >>> A.transpose()
@@ -1737,8 +1686,7 @@ class MatrixBase(Printable):
         True
 
         See Also
-        ========
-
+        --------
         conjugate: By-element conjugation
 
         """
@@ -1754,8 +1702,7 @@ class MatrixBase(Printable):
         """Return a new matrix with xreplace applied to each entry.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y
         >>> from sympy import SparseMatrix, Matrix
         >>> SparseMatrix(1, 1, [x])
@@ -1773,8 +1720,7 @@ class MatrixBase(Printable):
         of a matrix
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ones
         >>> A = ones(4)
         >>> A.upper_triangular()
@@ -1805,8 +1751,7 @@ class MatrixBase(Printable):
         of a matrix
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ones
         >>> A = ones(4)
         >>> A.lower_triangular()
@@ -1854,8 +1799,7 @@ class MatrixBase(Printable):
         of compatible dimensions.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> A = Matrix([[1, 2, 3], [4, 5, 6]])
         >>> 2*A == A*2 == Matrix([[2, 4, 6], [8, 10, 12]])
@@ -1872,16 +1816,14 @@ class MatrixBase(Printable):
         >>>
 
         See Also
-        ========
-
+        --------
         matrix_multiply_elementwise
         """
     def multiply(self, other, dotprodsimp=None):
         """Same as __mul__() but with optional simplification.
 
         Parameters
-        ==========
-
+        ----------
         dotprodsimp : bool, optional
             Specifies whether intermediate term algebraic simplification is used
             during matrix multiplications to control expression blowup and thus
@@ -1891,8 +1833,7 @@ class MatrixBase(Printable):
         """Return the Hadamard product (elementwise product) of A and B
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> A = Matrix([[0, 1, 2], [3, 4, 5]])
         >>> B = Matrix([[1, 10, 100], [100, 10, 1]])
@@ -1902,8 +1843,7 @@ class MatrixBase(Printable):
         [300, 40,   5]])
 
         See Also
-        ========
-
+        --------
         sympy.matrices.matrixbase.MatrixBase.cross
         sympy.matrices.matrixbase.MatrixBase.dot
         multiply
@@ -1915,8 +1855,7 @@ class MatrixBase(Printable):
         """Return self**exp a scalar or symbol.
 
         Parameters
-        ==========
-
+        ----------
         method : multiply, mulsimp, jordan, cayley
             If multiply then it returns exponentiation using recursion.
             If jordan then Jordan form exponentiation will be used.
@@ -1936,8 +1875,7 @@ class MatrixBase(Printable):
         """Same as __rmul__() but with optional simplification.
 
         Parameters
-        ==========
-
+        ----------
         dotprodsimp : bool, optional
             Specifies whether intermediate term algebraic simplification is used
             during matrix multiplications to control expression blowup and thus
@@ -1969,8 +1907,7 @@ class MatrixBase(Printable):
         of rows as ``self``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, symbols
         >>> r1, r2 = symbols('r1 r2')
         >>> Matrix([[1, 1], [2, 1]]).rref_rhs(Matrix([r1, r2]))
@@ -1982,8 +1919,9 @@ class MatrixBase(Printable):
         """
     def rref(self, iszerofunc=..., simplify: bool = False, pivots: bool = True, normalize_last: bool = True): ...
     def _normalize_op_args(self, op, col, k, col1, col2, error_str: str = 'col'):
-        '''Validate the arguments for a row/column operation.  ``error_str``
-        can be one of "row" or "col" depending on the arguments being parsed.'''
+        """Validate the arguments for a row/column operation.  ``error_str``
+        can be one of "row" or "col" depending on the arguments being parsed.
+        """
     def _eval_col_op_multiply_col_by_const(self, col, k): ...
     def _eval_col_op_swap(self, col1, col2): ...
     def _eval_col_op_add_multiple_to_other_col(self, col, k, col2): ...
@@ -1991,7 +1929,7 @@ class MatrixBase(Printable):
     def _eval_row_op_multiply_row_by_const(self, row, k): ...
     def _eval_row_op_add_multiple_to_other_row(self, row, k, row2): ...
     def elementary_col_op(self, op: str = 'n->kn', col=None, k=None, col1=None, col2=None):
-        '''Performs the elementary column operation `op`.
+        """Performs the elementary column operation `op`.
 
         `op` may be one of
 
@@ -2000,17 +1938,16 @@ class MatrixBase(Printable):
             * ``"n->n+km"`` (column n goes to column n + k*column m)
 
         Parameters
-        ==========
-
+        ----------
         op : string; the elementary row operation
         col : the column to apply the column operation
         k : the multiple to apply in the column operation
         col1 : one column of a column swap
         col2 : second column of a column swap or column "m" in the column operation
                "n->n+km"
-        '''
+        """
     def elementary_row_op(self, op: str = 'n->kn', row=None, k=None, row1=None, row2=None):
-        '''Performs the elementary row operation `op`.
+        """Performs the elementary row operation `op`.
 
         `op` may be one of
 
@@ -2019,15 +1956,14 @@ class MatrixBase(Printable):
             * ``"n->n+km"`` (row n goes to row n + k*row m)
 
         Parameters
-        ==========
-
+        ----------
         op : string; the elementary row operation
         row : the row to apply the row operation
         k : the multiple to apply in the row operation
         row1 : one row of a row swap
         row2 : second row of a row swap or row "m" in the row operation
                "n->n+km"
-        '''
+        """
     def columnspace(self, simplify: bool = False): ...
     def nullspace(self, simplify: bool = False, iszerofunc=...): ...
     def rowspace(self, simplify: bool = False): ...
@@ -2056,8 +1992,7 @@ class MatrixBase(Printable):
         """Calculate the derivative of each element in the matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.abc import x, y
         >>> M = Matrix([[x, y], [1, 0]])
@@ -2067,8 +2002,7 @@ class MatrixBase(Printable):
         [0, 0]])
 
         See Also
-        ========
-
+        --------
         integrate
         limit
         """
@@ -2078,8 +2012,7 @@ class MatrixBase(Printable):
         be passed to the ``integrate`` function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.abc import x, y
         >>> M = Matrix([[x, y], [1, 0]])
@@ -2093,8 +2026,7 @@ class MatrixBase(Printable):
         [2,   0]])
 
         See Also
-        ========
-
+        --------
         limit
         diff
         """
@@ -2102,8 +2034,7 @@ class MatrixBase(Printable):
         """Calculates the Jacobian matrix (derivative of a vector-valued function).
 
         Parameters
-        ==========
-
+        ----------
         ``self`` : vector of expressions representing functions f_i(x_1, ..., x_n).
         X : set of x_i's in order, it can be a list or a Matrix
 
@@ -2111,8 +2042,7 @@ class MatrixBase(Printable):
         (i.e., jacobian() should always work).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sin, cos, Matrix
         >>> from sympy.abc import rho, phi
         >>> X = Matrix([rho*cos(phi), rho*sin(phi), rho**2])
@@ -2129,8 +2059,7 @@ class MatrixBase(Printable):
         [sin(phi),  rho*cos(phi)]])
 
         See Also
-        ========
-
+        --------
         hessian
         wronskian
         """
@@ -2139,8 +2068,7 @@ class MatrixBase(Printable):
         ``args`` will be passed to the ``limit`` function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.abc import x, y
         >>> M = Matrix([[x, y], [1, 0]])
@@ -2150,8 +2078,7 @@ class MatrixBase(Printable):
         [1, 0]])
 
         See Also
-        ========
-
+        --------
         integrate
         diff
         """
@@ -2160,8 +2087,7 @@ class MatrixBase(Printable):
         """Computes determinant using Berkowitz method.
 
         See Also
-        ========
-
+        --------
         det
         """
     def berkowitz_eigenvals(self, **flags):
@@ -2174,7 +2100,6 @@ class MatrixBase(Printable):
     def det_LU_decomposition(self):
         """Compute matrix determinant using LU decomposition.
 
-
         Note that this method fails if the LU decomposition itself
         fails. In particular, if the matrix has no inverse this method
         will fail.
@@ -2183,9 +2108,7 @@ class MatrixBase(Printable):
         http://www.eecis.udel.edu/~saunders/papers/sffge/it5.ps.
 
         See Also
-        ========
-
-
+        --------
         det
         berkowitz_det
         """
@@ -2204,16 +2127,14 @@ class MatrixBase(Printable):
         Returns a flat list of all elements in the matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> m = Matrix([[0, 2], [3, 4]])
         >>> m.flat()
         [0, 2, 3, 4]
 
         See Also
-        ========
-
+        --------
         tolist
         values
         """
@@ -2224,7 +2145,6 @@ class MatrixBase(Printable):
         Implemented mainly so bool(Matrix()) == False.
         """
     def _matrix_pow_by_jordan_blocks(self, num): ...
-    def __str__(self) -> str: ...
     def _format_str(self, printer=None): ...
     @classmethod
     def irregular(cls, ntop, *matrices, **kwargs):
@@ -2234,8 +2154,7 @@ class MatrixBase(Printable):
         matrix completely.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ones, Matrix
         >>> Matrix.irregular(3, ones(2,1), ones(3,3)*2, ones(2,2)*3,
         ...   ones(1,1)*4, ones(2,2)*5, ones(1,2)*6, ones(1,2)*7)
@@ -2252,8 +2171,7 @@ class MatrixBase(Printable):
         """Return the number of rows, cols and flat matrix elements.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, I
 
         Matrix can be constructed as follows:
@@ -2290,15 +2208,14 @@ class MatrixBase(Printable):
         [1, 1/2]])
 
         See Also
-        ========
+        --------
         irregular - filling a matrix with irregular blocks
         """
     def _setitem(self, key, value):
         """Helper to set value at location given by key.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, I, zeros, ones
         >>> m = Matrix(((1, 2+I), (3, 4)))
         >>> m
@@ -2341,16 +2258,14 @@ class MatrixBase(Printable):
         This is the maximum singular value divided by the minimum singular value
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, S
         >>> A = Matrix([[1, 0, 0], [0, 10, 0], [0, 0, S.One/10]])
         >>> A.condition_number()
         100
 
         See Also
-        ========
-
+        --------
         singular_values
         """
     def copy(self):
@@ -2358,8 +2273,7 @@ class MatrixBase(Printable):
         Returns the copy of a matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> A = Matrix(2, 2, [1, 2, 3, 4])
         >>> A.copy()
@@ -2377,12 +2291,11 @@ class MatrixBase(Printable):
         `a \\times b = - b \\times a`) will hold.
 
         Parameters
-        ==========
+        ----------
             b : 3x1 or 1x3 Matrix
 
         See Also
-        ========
-
+        --------
         dot
         hat
         vee
@@ -2395,8 +2308,7 @@ class MatrixBase(Printable):
         so that ``self.hat() * b`` is equivalent to  ``self.cross(b)``.
 
         Examples
-        ========
-
+        --------
         Calling ``hat`` creates a skew-symmetric 3x3 Matrix from a 3x1 Matrix:
 
         >>> from sympy import Matrix
@@ -2425,8 +2337,7 @@ class MatrixBase(Printable):
         [-4]])
 
         See Also
-        ========
-
+        --------
         dot
         cross
         vee
@@ -2439,8 +2350,7 @@ class MatrixBase(Printable):
         so that ``self * b`` is equivalent to  ``self.vee().cross(b)``.
 
         Examples
-        ========
-
+        --------
         Calling ``vee`` creates a vector from a skew-symmetric Matrix:
 
         >>> from sympy import Matrix
@@ -2492,8 +2402,7 @@ class MatrixBase(Printable):
         [Derivative(theta(t), t)]])
 
         See Also
-        ========
-
+        --------
         dot
         cross
         hat
@@ -2505,8 +2414,7 @@ class MatrixBase(Printable):
         """Return Dirac conjugate (if ``self.rows == 4``).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, I, eye
         >>> m = Matrix((0, 1 + I, 2, 3))
         >>> m.D
@@ -2529,13 +2437,12 @@ class MatrixBase(Printable):
         AttributeError: Matrix has no attribute D.
 
         See Also
-        ========
-
+        --------
         sympy.matrices.matrixbase.MatrixBase.conjugate: By-element conjugation
         sympy.matrices.matrixbase.MatrixBase.H: Hermite conjugation
         """
     def dot(self, b, hermitian=None, conjugate_convention=None):
-        '''Return the dot or inner product of two vectors of equal length.
+        """Return the dot or inner product of two vectors of equal length.
         Here ``self`` must be a ``Matrix`` of size 1 x n or n x 1, and ``b``
         must be either a matrix of size 1 x n, n x 1, or a list/tuple of length n.
         A scalar is returned.
@@ -2551,8 +2458,7 @@ class MatrixBase(Printable):
         or ``"physics"`` is specified, the conjugate of the second vector ``b`` is used.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> M = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         >>> v = Matrix([1, 1, 1])
@@ -2580,12 +2486,11 @@ class MatrixBase(Printable):
 
 
         See Also
-        ========
-
+        --------
         cross
         multiply
         multiply_elementwise
-        '''
+        """
     def dual(self):
         """Returns the dual of a matrix.
 
@@ -2605,8 +2510,7 @@ class MatrixBase(Printable):
         matrix
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Symbol, Matrix
         >>> l = Symbol('lamda')
 
@@ -2626,7 +2530,7 @@ class MatrixBase(Printable):
         [         0,          0,   exp(lamda)]])
 
         References
-        ==========
+        ----------
 
         .. [1] https://en.wikipedia.org/wiki/Matrix_function#Jordan_decomposition
         """
@@ -2636,8 +2540,7 @@ class MatrixBase(Printable):
         and f is an analytic function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Symbol, Matrix, S, log
 
         >>> x = Symbol('x')
@@ -2649,8 +2552,7 @@ class MatrixBase(Printable):
         [log(2),      0]])
 
         Parameters
-        ==========
-
+        ----------
         f : Expr
             Analytic Function
         x : Symbol
@@ -2661,8 +2563,7 @@ class MatrixBase(Printable):
         """Return the exponential of a square matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Symbol, Matrix
 
         >>> t = Symbol('t')
@@ -2676,8 +2577,7 @@ class MatrixBase(Printable):
         """Helper function to compute logarithm of a jordan block.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Symbol, Matrix
         >>> l = Symbol('lamda')
 
@@ -2700,8 +2600,7 @@ class MatrixBase(Printable):
         """Return the logarithm of a square matrix.
 
         Parameters
-        ==========
-
+        ----------
         simplify : function, bool
             The function to simplify the result with.
 
@@ -2710,8 +2609,7 @@ class MatrixBase(Printable):
             symbolic matrices.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import S, Matrix
 
         Examples for positive-definite matrices:
@@ -2755,8 +2653,7 @@ class MatrixBase(Printable):
         a zero matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> a = Matrix([[0, 0, 0], [1, 0, 0], [1, 1, 0]])
         >>> a.is_nilpotent()
@@ -2772,8 +2669,7 @@ class MatrixBase(Printable):
         range.
 
         See Also
-        ========
-
+        --------
         key2ij
         """
     def key2ij(self, key):
@@ -2782,38 +2678,33 @@ class MatrixBase(Printable):
         unchanged.
 
         See Also
-        ========
-
+        --------
         key2bounds
         """
     def normalized(self, iszerofunc=...):
         """Return the normalized version of ``self``.
 
         Parameters
-        ==========
-
+        ----------
         iszerofunc : Function, optional
             A function to determine whether ``self`` is a zero vector.
             The default ``_iszero`` tests to see if each element is
             exactly zero.
 
         Returns
-        =======
-
+        -------
         Matrix
             Normalized vector form of ``self``.
             It has the same length as a unit vector. However, a zero vector
             will be returned for a vector with norm 0.
 
         Raises
-        ======
-
+        ------
         ShapeError
             If the matrix is not in a vector form.
 
         See Also
-        ========
-
+        --------
         norm
         """
     def norm(self, ord=None):
@@ -2838,8 +2729,7 @@ class MatrixBase(Printable):
         =====  ============================  ==========================
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, Symbol, trigsimp, cos, sin, oo
         >>> x = Symbol('x', real=True)
         >>> v = Matrix([cos(x), sin(x)])
@@ -2864,16 +2754,14 @@ class MatrixBase(Printable):
         1
 
         See Also
-        ========
-
+        --------
         normalized
         """
     def print_nonzero(self, symb: str = 'X') -> None:
-        '''Shows location of non-zero entries for fast shape lookup.
+        """Shows location of non-zero entries for fast shape lookup.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, eye
         >>> m = Matrix(2, 3, lambda i, j: i*3+j)
         >>> m
@@ -2890,13 +2778,12 @@ class MatrixBase(Printable):
         [  x ]
         [   x]
 
-        '''
+        """
     def project(self, v):
         """Return the projection of ``self`` onto the line containing ``v``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, S, sqrt
         >>> V = Matrix([sqrt(3)/2, S.Half])
         >>> x = Matrix([[1, 0]])
@@ -2927,8 +2814,7 @@ class MatrixBase(Printable):
         This is used by the string printer for Matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, StrPrinter
         >>> M = Matrix([[1, 2], [-33, 4]])
         >>> printer = StrPrinter()
@@ -3002,8 +2888,7 @@ def classof(A, B):
     Currently the strategy is that immutability is contagious.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, ImmutableMatrix
     >>> from sympy.matrices.matrixbase import classof
     >>> M = Matrix([[1, 2], [3, 4]]) # a Mutable Matrix
@@ -3020,8 +2905,7 @@ class DeferredVector(Symbol, NotIterable):
     """A vector whose components are deferred (e.g. for use with lambdify).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import DeferredVector, lambdify
     >>> X = DeferredVector( 'X' )
     >>> X
@@ -3031,6 +2915,5 @@ class DeferredVector(Symbol, NotIterable):
     >>> func( [1, 2, 3] )
     (3, 6)
     """
+
     def __getitem__(self, i): ...
-    def __str__(self) -> str: ...
-    def __repr__(self) -> str: ...

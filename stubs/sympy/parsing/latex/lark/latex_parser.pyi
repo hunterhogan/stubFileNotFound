@@ -10,8 +10,7 @@ class LarkLaTeXParser:
     customizing its behavior.
 
     Parameters
-    ==========
-
+    ----------
     print_debug_output : bool, optional
 
         If set to ``True``, prints debug output to the logger. Defaults to ``False``.
@@ -35,6 +34,7 @@ class LarkLaTeXParser:
         default transformer class, which is :py:func:`TransformToSymPyExpr`.
 
     """
+
     parser: Incomplete
     print_debug_output: Incomplete
     transform_expr: Incomplete

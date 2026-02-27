@@ -1,6 +1,6 @@
 from _typeshed import BytesPath, StrOrBytesPath, StrPath
 from collections.abc import Iterable
-from typing import Literal, TypeVar, overload
+from typing import Literal, overload, TypeVar
 
 _StrPathT = TypeVar("_StrPathT", bound=StrPath)
 _BytesPathT = TypeVar("_BytesPathT", bound=BytesPath)

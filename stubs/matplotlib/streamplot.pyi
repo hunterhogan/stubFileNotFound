@@ -95,6 +95,7 @@ class DomainMap:
     crossed by a given trajectory. Later, if you decide the trajectory is bad
     (e.g., if the trajectory is very short) just call `undo_trajectory`.
     """
+
     grid: Incomplete
     mask: Incomplete
     x_grid2mask: Incomplete
@@ -116,6 +117,7 @@ class DomainMap:
 
 class Grid:
     """Grid of data."""
+
     nx: Incomplete
     ny: Incomplete
     dx: Incomplete
@@ -139,6 +141,7 @@ class StreamMask:
     When a streamline enters a cell, that cell is set to 1, and no new
     streamlines are allowed to enter.
     """
+
     _mask: Incomplete
     shape: Incomplete
     _current_xy: Incomplete

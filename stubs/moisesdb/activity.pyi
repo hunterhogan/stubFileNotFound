@@ -1,4 +1,6 @@
-from moisesdb.signal import frame_signal as frame_signal, hwr as hwr, pad_along_axis as pad_along_axis, triangular_window as triangular_window, unframe_signal as unframe_signal
+from moisesdb.signal import (
+	frame_signal as frame_signal, hwr as hwr, pad_along_axis as pad_along_axis, triangular_window as triangular_window,
+	unframe_signal as unframe_signal)
 from numpy import bool_ as bool_, floating as floating
 from numpy.typing import NDArray as NDArray
 from typing import Any

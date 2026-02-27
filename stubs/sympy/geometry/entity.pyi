@@ -28,6 +28,7 @@ class GeometryEntity(Basic, EvalfMixin):
     provides the implementation of some methods common to all subclasses.
 
     """
+
     __slots__: tuple[str, ...]
     def __cmp__(self, other):
         """Comparison of two GeometryEntities."""
@@ -42,29 +43,23 @@ class GeometryEntity(Basic, EvalfMixin):
         """Implementation of reverse add method."""
     def __rtruediv__(self, a):
         """Implementation of reverse division method."""
-    def __repr__(self) -> str:
-        """String representation of a GeometryEntity that can be evaluated
-        by sympy."""
     def __rmul__(self, a):
         """Implementation of reverse multiplication method."""
     def __rsub__(self, a):
         """Implementation of reverse subtraction method."""
-    def __str__(self) -> str:
-        """String representation of a GeometryEntity."""
     def _eval_subs(self, old, new): ...
     def _repr_svg_(self):
         """SVG representation of a GeometryEntity suitable for IPython"""
     def _svg(self, scale_factor: float = 1.0, fill_color: str = '#66cc99') -> None:
-        '''Returns SVG path element for the GeometryEntity.
+        """Returns SVG path element for the GeometryEntity.
 
         Parameters
-        ==========
-
+        ----------
         scale_factor : float
             Multiplication factor for the SVG stroke-width.  Default is 1.
         fill_color : str, optional
             Hex string for fill color. Default is "#66cc99".
-        '''
+        """
     def _sympy_(self): ...
     @property
     def ambient_dimension(self) -> None:
@@ -83,14 +78,12 @@ class GeometryEntity(Basic, EvalfMixin):
         only define an encloses_point method for their class.
 
         See Also
-        ========
-
+        --------
         sympy.geometry.ellipse.Ellipse.encloses_point
         sympy.geometry.polygon.Polygon.encloses_point
 
         Examples
-        ========
-
+        --------
         >>> from sympy import RegularPolygon, Point, Polygon
         >>> t  = Polygon(*RegularPolygon(Point(0, 0), 1, 3).vertices)
         >>> t2 = Polygon(*RegularPolygon(Point(0, 0), 2, 3).vertices)
@@ -106,8 +99,7 @@ class GeometryEntity(Basic, EvalfMixin):
         Returns a list of all of the intersections of self with o.
 
         Notes
-        =====
-
+        -----
         An entity is not required to implement this method.
 
         If two different types of entities can intersect, the item with
@@ -115,8 +107,7 @@ class GeometryEntity(Basic, EvalfMixin):
         intersections with anything having a lower index.
 
         See Also
-        ========
-
+        --------
         sympy.geometry.util.intersection
 
         """
@@ -127,8 +118,7 @@ class GeometryEntity(Basic, EvalfMixin):
         shrinking) of one of the entities will allow one to obtain the other.
 
         Notes
-        =====
-
+        -----
         This method is not intended to be used directly but rather
         through the `are_similar` function found in util.py.
         An entity is not required to implement this method.
@@ -136,8 +126,7 @@ class GeometryEntity(Basic, EvalfMixin):
         required that one of them be able to determine this.
 
         See Also
-        ========
-
+        --------
         scale
 
         """
@@ -146,13 +135,11 @@ class GeometryEntity(Basic, EvalfMixin):
         Reflects an object across a line.
 
         Parameters
-        ==========
-
+        ----------
         line: Line
 
         Examples
-        ========
-
+        --------
         >>> from sympy import pi, sqrt, Line, RegularPolygon
         >>> l = Line((0, pi), slope=sqrt(2))
         >>> pent = RegularPolygon((1, 2), 1, 5)
@@ -174,13 +161,11 @@ class GeometryEntity(Basic, EvalfMixin):
         The default pt is the origin, Point(0, 0)
 
         See Also
-        ========
-
+        --------
         scale, translate
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point, RegularPolygon, Polygon, pi
         >>> t = Polygon(*RegularPolygon(Point(0, 0), 1, 3).vertices)
         >>> t # vertex on x axis
@@ -196,13 +181,11 @@ class GeometryEntity(Basic, EvalfMixin):
         object is shifted by -pt, scaled, and shifted by pt.
 
         See Also
-        ========
-
+        --------
         rotate, translate
 
         Examples
-        ========
-
+        --------
         >>> from sympy import RegularPolygon, Point, Polygon
         >>> t = Polygon(*RegularPolygon(Point(0, 0), 1, 3).vertices)
         >>> t
@@ -217,13 +200,11 @@ class GeometryEntity(Basic, EvalfMixin):
         """Shift the object by adding to the x,y-coordinates the values x and y.
 
         See Also
-        ========
-
+        --------
         rotate, scale
 
         Examples
-        ========
-
+        --------
         >>> from sympy import RegularPolygon, Point, Polygon
         >>> t = Polygon(*RegularPolygon(Point(0, 0), 1, 3).vertices)
         >>> t
@@ -240,8 +221,7 @@ class GeometryEntity(Basic, EvalfMixin):
         value will return the given point.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Line, Point
         >>> from sympy.abc import t
         >>> a = Point(0, 0)
@@ -256,6 +236,7 @@ class GeometrySet(GeometryEntity, Set):
     """Parent class of all GeometryEntity that are also Sets
     (compatible with sympy.sets)
     """
+
     __slots__: Incomplete
     def _contains(self, other):
         """sympy.sets uses the _contains method, so include it for compatibility."""
@@ -265,7 +246,8 @@ def translate(x, y):
 def scale(x, y, pt=None):
     """Return the matrix to multiply a 2-D point's coordinates by x and y.
 
-    If pt is given, the scaling is done relative to that point."""
+    If pt is given, the scaling is done relative to that point.
+    """
 def rotate(th):
     """Return the matrix to rotate a 2-D point about the origin by ``angle``.
 

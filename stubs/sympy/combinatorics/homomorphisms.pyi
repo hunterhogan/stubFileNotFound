@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from sympy.combinatorics.fp_groups import FpGroup as FpGroup, FpSubgroup as FpSubgroup, simplify_presentation as simplify_presentation
+from sympy.combinatorics.fp_groups import (
+	FpGroup as FpGroup, FpSubgroup as FpSubgroup, simplify_presentation as simplify_presentation)
 from sympy.combinatorics.free_groups import FreeGroup as FreeGroup
 from sympy.combinatorics.perm_groups import PermutationGroup as PermutationGroup
 from sympy.core.intfunc import igcd as igcd
@@ -11,11 +12,12 @@ class GroupHomomorphism:
     A class representing group homomorphisms. Instantiate using `homomorphism()`.
 
     References
-    ==========
+    ----------
 
     .. [1] Holt, D., Eick, B. and O'Brien, E. (2005). Handbook of computational group theory.
 
     """
+
     domain: Incomplete
     codomain: Incomplete
     images: Incomplete
@@ -124,7 +126,7 @@ def _check_homomorphism(domain, codomain, images):
     Check that a given mapping of generators to images defines a homomorphism.
 
     Parameters
-    ==========
+    ----------
     domain : PermutationGroup, FpGroup, FreeGroup
     codomain : PermutationGroup, FpGroup, FreeGroup
     images : dict
@@ -148,12 +150,11 @@ def block_homomorphism(group, blocks):
 
     """
 def group_isomorphism(G, H, isomorphism: bool = True):
-    '''
+    """
     Compute an isomorphism between 2 given groups.
 
     Parameters
-    ==========
-
+    ----------
     G : A finite ``FpGroup`` or a ``PermutationGroup``.
         First group.
 
@@ -166,14 +167,12 @@ def group_isomorphism(G, H, isomorphism: bool = True):
         an isomorphism between the groups.
 
     Returns
-    =======
-
+    -------
     If isomorphism = False -- Returns a boolean.
     If isomorphism = True  -- Returns a boolean and an isomorphism between `G` and `H`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics import free_group, Permutation
     >>> from sympy.combinatorics.perm_groups import PermutationGroup
     >>> from sympy.combinatorics.fp_groups import FpGroup
@@ -196,20 +195,18 @@ def group_isomorphism(G, H, isomorphism: bool = True):
     (0 2 3)
 
     Notes
-    =====
-
+    -----
     Uses the approach suggested by Robert Tarjan to compute the isomorphism between two groups.
     First, the generators of ``G`` are mapped to the elements of ``H`` and
     we check if the mapping induces an isomorphism.
 
-    '''
+    """
 def is_isomorphic(G, H):
     """
     Check if the groups are isomorphic to each other
 
     Parameters
-    ==========
-
+    ----------
     G : A finite ``FpGroup`` or a ``PermutationGroup``
         First group.
 
@@ -217,7 +214,6 @@ def is_isomorphic(G, H):
         Second group.
 
     Returns
-    =======
-
+    -------
     boolean
     """

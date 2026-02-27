@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-import sys
 from pathlib import Path, PureWindowsPath
-from typing_extensions import assert_type
-
+from typing import assert_type
+import sys
 
 class MyCustomPath(Path): ...
 

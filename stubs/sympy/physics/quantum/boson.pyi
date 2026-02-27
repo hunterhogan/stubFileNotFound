@@ -1,13 +1,12 @@
 from sympy.physics.quantum import Bra, Ket, Operator
 
-__all__ = ['BosonOp', 'BosonFockKet', 'BosonFockBra', 'BosonCoherentKet', 'BosonCoherentBra']
+__all__ = ['BosonCoherentBra', 'BosonCoherentKet', 'BosonFockBra', 'BosonFockKet', 'BosonOp']
 
 class BosonOp(Operator):
-    '''A bosonic operator that satisfies [a, Dagger(a)] == 1.
+    """A bosonic operator that satisfies [a, Dagger(a)] == 1.
 
     Parameters
-    ==========
-
+    ----------
     name : str
         A string that labels the bosonic mode.
 
@@ -16,14 +15,14 @@ class BosonOp(Operator):
         default value) or creation operator (False)
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum import Dagger, Commutator
     >>> from sympy.physics.quantum.boson import BosonOp
     >>> a = BosonOp("a")
     >>> Commutator(a, Dagger(a)).doit()
     1
-    '''
+    """
+
     @property
     def name(self): ...
     @property
@@ -43,12 +42,12 @@ class BosonFockKet(Ket):
     """Fock state ket for a bosonic mode.
 
     Parameters
-    ==========
-
+    ----------
     n : Number
         The Fock state number.
 
     """
+
     def __new__(cls, n): ...
     @property
     def n(self): ...
@@ -63,12 +62,12 @@ class BosonFockBra(Bra):
     """Fock state bra for a bosonic mode.
 
     Parameters
-    ==========
-
+    ----------
     n : Number
         The Fock state number.
 
     """
+
     def __new__(cls, n): ...
     @property
     def n(self): ...
@@ -81,12 +80,12 @@ class BosonCoherentKet(Ket):
     """Coherent state ket for a bosonic mode.
 
     Parameters
-    ==========
-
+    ----------
     alpha : Number, Symbol
         The complex amplitude of the coherent state.
 
     """
+
     def __new__(cls, alpha): ...
     @property
     def alpha(self): ...
@@ -101,12 +100,12 @@ class BosonCoherentBra(Bra):
     """Coherent state bra for a bosonic mode.
 
     Parameters
-    ==========
-
+    ----------
     alpha : Number, Symbol
         The complex amplitude of the coherent state.
 
     """
+
     def __new__(cls, alpha): ...
     @property
     def alpha(self): ...

@@ -1,34 +1,34 @@
-import sys
-import types
 from collections.abc import Callable, Iterator
 from opcode import *  # `dis` re-exports it as a part of public API
-from typing import IO, Any, Final, NamedTuple, overload
-from typing_extensions import Self, TypeAlias, deprecated, disjoint_base
+from typing import Any, Final, IO, NamedTuple, overload, Self, TypeAlias
+from typing_extensions import deprecated, disjoint_base
+import sys
+import types
 
 __all__ = [
+    "EXTENDED_ARG",
+    "HAVE_ARGUMENT",
+    "Bytecode",
+    "Instruction",
+    "cmp_op",
     "code_info",
     "dis",
     "disassemble",
-    "distb",
     "disco",
-    "findlinestarts",
+    "distb",
     "findlabels",
-    "show_code",
+    "findlinestarts",
     "get_instructions",
-    "Instruction",
-    "Bytecode",
-    "cmp_op",
-    "hasconst",
-    "hasname",
-    "hasjrel",
-    "hasjabs",
-    "haslocal",
     "hascompare",
+    "hasconst",
     "hasfree",
-    "opname",
+    "hasjabs",
+    "hasjrel",
+    "haslocal",
+    "hasname",
     "opmap",
-    "HAVE_ARGUMENT",
-    "EXTENDED_ARG",
+    "opname",
+    "show_code",
     "stack_effect",
 ]
 if sys.version_info >= (3, 13):

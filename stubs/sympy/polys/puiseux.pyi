@@ -55,11 +55,11 @@ class PuiseuxRing:
     2*x**(1/3) + 1/12*x**(4/3) + 23/288*x**(7/3) + -139/20736*x**(10/3)
 
     See Also
-    ========
-
+    --------
     sympy.polys.ring_series.rs_series
     PuiseuxPoly
     """
+
     poly_ring: Incomplete
     domain: Incomplete
     symbols: Incomplete
@@ -70,8 +70,7 @@ class PuiseuxRing:
     zero_monom: Incomplete
     monomial_mul: Incomplete
     def __init__(self, symbols: str | list[Expr], domain: Domain) -> None: ...
-    def __repr__(self) -> str: ...
-    def __eq__(self, other: Any) -> bool: ...
+    def __eq__(self, other: object) -> bool: ...
     def from_poly(self, poly: PolyElement) -> PuiseuxPoly:
         """Create a Puiseux polynomial from a polynomial.
 
@@ -186,11 +185,11 @@ class PuiseuxPoly:
     x + y**2
 
     See Also
-    ========
-
+    --------
     sympy.polys.puiseux.PuiseuxRing
     sympy.polys.rings.PolyElement
     """
+
     ring: PuiseuxRing
     poly: PolyElement
     monom: tuple[int, ...] | None
@@ -200,7 +199,7 @@ class PuiseuxPoly:
     def _new(cls, ring: PuiseuxRing, poly: PolyElement, monom: tuple[int, ...] | None, ns: tuple[int, ...] | None) -> PuiseuxPoly: ...
     @classmethod
     def _new_raw(cls, ring: PuiseuxRing, poly: PolyElement, monom: tuple[int, ...] | None, ns: tuple[int, ...] | None) -> PuiseuxPoly: ...
-    def __eq__(self, other: Any) -> bool: ...
+    def __eq__(self, other: object) -> bool: ...
     @classmethod
     def _normalize(cls, poly: PolyElement, monom: tuple[int, ...] | None, ns: tuple[int, ...] | None) -> tuple[PolyElement, tuple[int, ...] | None, tuple[int, ...] | None]: ...
     @classmethod
@@ -265,7 +264,6 @@ class PuiseuxPoly:
         >>> isinstance(_, Expr)
         True
         """
-    def __repr__(self) -> str: ...
     def _unify(self, other: PuiseuxPoly) -> tuple[PolyElement, PolyElement, tuple[int, ...] | None, tuple[int, ...] | None]:
         """Bring two Puiseux polynomials to a common monom and ns."""
     def __pos__(self) -> PuiseuxPoly: ...

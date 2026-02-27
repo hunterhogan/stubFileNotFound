@@ -1,19 +1,19 @@
-import abc
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
+import abc
 
-__all__ = ['PathwayBase', 'LinearPathway', 'ObstacleSetPathway', 'WrappingPathway']
+__all__ = ['LinearPathway', 'ObstacleSetPathway', 'PathwayBase', 'WrappingPathway']
 
 class PathwayBase(ABC, metaclass=abc.ABCMeta):
     """Abstract base class for all pathway classes to inherit from.
 
     Notes
-    =====
-
+    -----
     Instances of this class cannot be directly instantiated by users. However,
     it can be used to created custom pathway types through subclassing.
 
     """
+
     def __init__(self, *attachments) -> None:
         """Initializer for ``PathwayBase``."""
     @property
@@ -47,11 +47,9 @@ class PathwayBase(ABC, metaclass=abc.ABCMeta):
         equations of motion method classes, e.g. ``LagrangesMethod``.
 
         """
-    def __repr__(self) -> str:
-        """Default representation of a pathway."""
 
 class LinearPathway(PathwayBase):
-    '''Linear pathway between a pair of attachment points.
+    """Linear pathway between a pair of attachment points.
 
     Explanation
     ===========
@@ -80,8 +78,7 @@ class LinearPathway(PathwayBase):
        |<--l(t)--->|
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.mechanics import LinearPathway
 
     To construct a pathway, two points are required to be passed to the
@@ -122,21 +119,20 @@ class LinearPathway(PathwayBase):
     sqrt(q(t)**2)*Derivative(q(t), t)/q(t)
 
     Parameters
-    ==========
-
+    ----------
     attachments : tuple[Point, Point]
         Pair of ``Point`` objects between which the linear pathway spans.
         Constructor expects two points to be passed, e.g.
         ``LinearPathway(Point(\'pA\'), Point(\'pB\'))``. More or fewer points will
         cause an error to be thrown.
 
-    '''
+    """
+
     def __init__(self, *attachments) -> None:
         """Initializer for ``LinearPathway``.
 
         Parameters
-        ==========
-
+        ----------
         attachments : Point
             Pair of ``Point`` objects between which the linear pathway spans.
             Constructor expects two points to be passed, e.g.
@@ -166,8 +162,7 @@ class LinearPathway(PathwayBase):
         equations of motion method classes, e.g. ``LagrangesMethod``.
 
         Examples
-        ========
-
+        --------
         The below example shows how to generate the loads produced in a linear
         actuator that produces an expansile force ``F``. First, create a linear
         actuator between two points separated by the coordinate ``q`` in the
@@ -193,8 +188,7 @@ class LinearPathway(PathwayBase):
         [(pA, - F*q(t)/sqrt(q(t)**2)*N.x), (pB, F*q(t)/sqrt(q(t)**2)*N.x)]
 
         Parameters
-        ==========
-
+        ----------
         force : Expr
             Magnitude of the force acting along the length of the pathway. As
             per the sign conventions for the pathway length, pathway extension
@@ -218,8 +212,7 @@ class ObstacleSetPathway(PathwayBase):
     attachments) is the shortest possible.
 
     Examples
-    ========
-
+    --------
     To construct an obstacle-set pathway, three or more points are required to
     be passed to the ``attachments`` parameter as a ``tuple``.
 
@@ -263,19 +256,18 @@ class ObstacleSetPathway(PathwayBase):
     -sqrt(2)*sin(q(t))*Derivative(q(t), t)/(2*sqrt(cos(q(t)) + 1))
 
     Parameters
-    ==========
-
+    ----------
     attachments : tuple[Point, ...]
         The set of ``Point`` objects that define the segmented obstacle-set
         pathway.
 
     """
+
     def __init__(self, *attachments) -> None:
         """Initializer for ``ObstacleSetPathway``.
 
         Parameters
-        ==========
-
+        ----------
         attachments : tuple[Point, ...]
             The set of ``Point`` objects that define the segmented obstacle-set
             pathway.
@@ -309,8 +301,7 @@ class ObstacleSetPathway(PathwayBase):
         equations of motion method classes, e.g. ``LagrangesMethod``.
 
         Examples
-        ========
-
+        --------
         The below example shows how to generate the loads produced in an
         actuator that follows an obstacle-set pathway between four points and
         produces an expansile force ``F``. First, create a pair of reference
@@ -352,8 +343,7 @@ class ObstacleSetPathway(PathwayBase):
          (pD, sqrt(2)*F/2*B.x - sqrt(2)*F/2*B.y)]
 
         Parameters
-        ==========
-
+        ----------
         force : Expr
             The force acting along the length of the pathway. It is assumed
             that this ``Expr`` represents an expansile force.
@@ -361,7 +351,7 @@ class ObstacleSetPathway(PathwayBase):
         """
 
 class WrappingPathway(PathwayBase):
-    '''Pathway that wraps a geometry object.
+    """Pathway that wraps a geometry object.
 
     Explanation
     ===========
@@ -394,8 +384,7 @@ class WrappingPathway(PathwayBase):
        |<--l(t)--->|
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.mechanics import WrappingPathway
 
     To construct a wrapping pathway, like other pathways, a pair of points must
@@ -415,8 +404,7 @@ class WrappingPathway(PathwayBase):
         axis=N.x))
 
     Parameters
-    ==========
-
+    ----------
     attachment_1 : Point
         First of the pair of ``Point`` objects between which the wrapping
         pathway spans.
@@ -426,13 +414,13 @@ class WrappingPathway(PathwayBase):
     geometry : WrappingGeometryBase
         Geometry about which the pathway wraps.
 
-    '''
+    """
+
     def __init__(self, attachment_1, attachment_2, geometry) -> None:
         """Initializer for ``WrappingPathway``.
 
         Parameters
-        ==========
-
+        ----------
         attachment_1 : Point
             First of the pair of ``Point`` objects between which the wrapping
             pathway spans.
@@ -472,8 +460,7 @@ class WrappingPathway(PathwayBase):
         equations of motion method classes, e.g. ``LagrangesMethod``.
 
         Examples
-        ========
-
+        --------
         The below example shows how to generate the loads produced in an
         actuator that produces an expansile force ``F`` while wrapping around a
         cylinder. First, create a cylinder with radius ``r`` and an axis
@@ -516,12 +503,9 @@ class WrappingPathway(PathwayBase):
          (pO, - F*sin(q(t))*N.x + F*(cos(q(t)) - 1)*N.y)]
 
         Parameters
-        ==========
-
+        ----------
         force : Expr
             Magnitude of the force acting along the length of the pathway. It
             is assumed that this ``Expr`` represents an expansile force.
 
         """
-    def __repr__(self) -> str:
-        """Representation of a ``WrappingPathway``."""

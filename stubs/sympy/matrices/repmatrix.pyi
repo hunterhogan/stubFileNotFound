@@ -1,12 +1,14 @@
-from .exceptions import NonInvertibleMatrixError as NonInvertibleMatrixError, NonSquareMatrixError as NonSquareMatrixError, ShapeError as ShapeError
+from .exceptions import (
+	NonInvertibleMatrixError as NonInvertibleMatrixError, NonSquareMatrixError as NonSquareMatrixError,
+	ShapeError as ShapeError)
 from .kind import MatrixKind as MatrixKind
-from .matrixbase import MatrixBase as MatrixBase, classof as classof
+from .matrixbase import classof as classof, MatrixBase as MatrixBase
 from _typeshed import Incomplete
 from sympy.core.expr import Expr as Expr
 from sympy.core.kind import Kind as Kind, NumberKind as NumberKind, UndefinedKind as UndefinedKind
 from sympy.core.numbers import Integer as Integer, Rational as Rational
 from sympy.core.singleton import S as S
-from sympy.core.sympify import SympifyError as SympifyError, _sympify as _sympify
+from sympy.core.sympify import _sympify as _sympify, SympifyError as SympifyError
 from sympy.polys.domains import EXRAW as EXRAW, GF as GF, QQ as QQ, ZZ as ZZ
 from sympy.polys.matrices import DomainMatrix as DomainMatrix
 from sympy.polys.matrices.exceptions import DMNonInvertibleMatrixError as DMNonInvertibleMatrixError
@@ -23,14 +25,14 @@ class RepMatrix(MatrixBase):
     classes in SymPy. Most methods on this class are simply forwarded to
     DomainMatrix.
     """
+
     _rep: DomainMatrix
     def __eq__(self, other): ...
     def to_DM(self, domain=None, **kwargs):
         """Convert to a :class:`~.DomainMatrix`.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> M = Matrix([[1, 2], [3, 4]])
         >>> M.to_DM()
@@ -60,8 +62,7 @@ class RepMatrix(MatrixBase):
         QQ[x]
 
         See Also
-        ========
-
+        --------
         DomainMatrix
         DomainMatrix.to_Matrix
         DomainMatrix.convert_to
@@ -94,8 +95,7 @@ class RepMatrix(MatrixBase):
         """Returns the transposed SparseMatrix of this SparseMatrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import SparseMatrix
         >>> a = SparseMatrix(((1, 2), (3, 4)))
         >>> a
@@ -131,8 +131,7 @@ class RepMatrix(MatrixBase):
         general, an expensive operation.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.abc import x
         >>> A = Matrix([x*(x - 1), 0])
@@ -147,7 +146,7 @@ class RepMatrix(MatrixBase):
         False
 
         See Also
-        ========
+        --------
         sympy.core.expr.Expr.equals
         """
     def inv_mod(M, m):
@@ -155,8 +154,7 @@ class RepMatrix(MatrixBase):
         Returns the inverse of the integer matrix ``M`` modulo ``m``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> A = Matrix(2, 2, [1, 2, 3, 4])
         >>> A.inv_mod(5)
@@ -178,8 +176,7 @@ class RepMatrix(MatrixBase):
         :meth:`~DomainMatrix.lll` for more details.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> M = Matrix([[1, 0, 0, 0, -20160],
         ...             [0, 1, 0, 0, 33768],
@@ -193,8 +190,7 @@ class RepMatrix(MatrixBase):
         [-12, -7, -11,  9,  -1]])
 
         See Also
-        ========
-
+        --------
         lll_transform
         sympy.polys.matrices.domainmatrix.DomainMatrix.lll
         """
@@ -207,8 +203,7 @@ class RepMatrix(MatrixBase):
         :meth:`~DomainMatrix.lll_transform` for more details.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> M = Matrix([[1, 0, 0, 0, -20160],
         ...             [0, 1, 0, 0, 33768],
@@ -235,14 +230,14 @@ class RepMatrix(MatrixBase):
         True
 
         See Also
-        ========
-
+        --------
         lll
         sympy.polys.matrices.domainmatrix.DomainMatrix.lll_transform
         """
 
 class MutableRepMatrix(RepMatrix):
     """Mutable matrix based on DomainMatrix as the internal representation"""
+
     is_zero: bool
     def __new__(cls, *args, **kwargs): ...
     @classmethod
@@ -255,8 +250,7 @@ class MutableRepMatrix(RepMatrix):
         """
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, I, zeros, ones
         >>> m = Matrix(((1, 2+I), (3, 4)))
         >>> m
@@ -301,8 +295,7 @@ class MutableRepMatrix(RepMatrix):
         interpreted as (self[i, j], i).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import eye
         >>> M = eye(3)
         >>> M.col_op(1, lambda v, i: v + 2*M[i, 0]); M
@@ -312,7 +305,7 @@ class MutableRepMatrix(RepMatrix):
         [0, 0, 1]])
 
         See Also
-        ========
+        --------
         col
         row_op
         """
@@ -320,8 +313,7 @@ class MutableRepMatrix(RepMatrix):
         """Swap the two given columns of the matrix in-place.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> M = Matrix([[1, 0], [1, 0]])
         >>> M
@@ -335,8 +327,7 @@ class MutableRepMatrix(RepMatrix):
         [0, 1]])
 
         See Also
-        ========
-
+        --------
         col
         row_swap
         """
@@ -345,8 +336,7 @@ class MutableRepMatrix(RepMatrix):
         interpreted as ``(self[i, j], j)``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import eye
         >>> M = eye(3)
         >>> M.row_op(1, lambda v, j: v + 2*M[0, j]); M
@@ -356,7 +346,7 @@ class MutableRepMatrix(RepMatrix):
         [0, 0, 1]])
 
         See Also
-        ========
+        --------
         row
         zip_row_op
         col_op
@@ -366,8 +356,7 @@ class MutableRepMatrix(RepMatrix):
         """Multiply the given row by the given factor in-place.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import eye
         >>> M = eye(3)
         >>> M.row_mult(1,7); M
@@ -381,8 +370,7 @@ class MutableRepMatrix(RepMatrix):
         """Add k times row s (source) to row t (target) in place.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import eye
         >>> M = eye(3)
         >>> M.row_add(0, 2,3); M
@@ -395,8 +383,7 @@ class MutableRepMatrix(RepMatrix):
         """Swap the two given rows of the matrix in-place.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> M = Matrix([[0, 1], [1, 0]])
         >>> M
@@ -410,8 +397,7 @@ class MutableRepMatrix(RepMatrix):
         [0, 1]])
 
         See Also
-        ========
-
+        --------
         row
         col_swap
         """
@@ -420,8 +406,7 @@ class MutableRepMatrix(RepMatrix):
         interpreted as ``(self[i, j], self[k, j])``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import eye
         >>> M = eye(3)
         >>> M.zip_row_op(1, 0, lambda v, u: v + 2*u); M
@@ -431,7 +416,7 @@ class MutableRepMatrix(RepMatrix):
         [0, 0, 1]])
 
         See Also
-        ========
+        --------
         row
         row_op
         col_op
@@ -441,16 +426,14 @@ class MutableRepMatrix(RepMatrix):
         """Copy in elements from a list.
 
         Parameters
-        ==========
-
+        ----------
         key : slice
             The section of this matrix to replace.
         value : iterable
             The iterable to copy values from.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import eye
         >>> I = eye(3)
         >>> I[:2, 0] = [1, 2] # col
@@ -467,24 +450,21 @@ class MutableRepMatrix(RepMatrix):
         [0, 0, 1]])
 
         See Also
-        ========
-
+        --------
         copyin_matrix
         """
     def copyin_matrix(self, key, value) -> None:
         """Copy in values from a matrix into the given bounds.
 
         Parameters
-        ==========
-
+        ----------
         key : slice
             The section of this matrix to replace.
         value : Matrix
             The matrix to copy values from.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, eye
         >>> M = Matrix([[0, 1], [2, 3], [4, 5]])
         >>> I = eye(3)
@@ -502,23 +482,20 @@ class MutableRepMatrix(RepMatrix):
         [4, 4, 5]])
 
         See Also
-        ========
-
+        --------
         copyin_list
         """
     def fill(self, value) -> None:
         """Fill self with the given value.
 
         Notes
-        =====
-
+        -----
         Unless many values are going to be deleted (i.e. set to zero)
         this will create a matrix that is slower than a dense matrix in
         operations.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import SparseMatrix
         >>> M = SparseMatrix.zeros(3); M
         Matrix([
@@ -532,8 +509,7 @@ class MutableRepMatrix(RepMatrix):
         [1, 1, 1]])
 
         See Also
-        ========
-
+        --------
         zeros
         ones
         """
@@ -544,8 +520,7 @@ def _getitem_RepMatrix(self, key):
     (if key was a tuple involving a slice).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, I
     >>> m = Matrix([
     ... [1, 2 + I],

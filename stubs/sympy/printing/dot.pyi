@@ -1,11 +1,10 @@
 __all__ = ['dotprint']
 
 def dotprint(expr, styles=..., atom=..., maxdepth=None, repeat: bool = True, labelfunc=..., **kwargs):
-    '''DOT description of a SymPy expression tree
+    """DOT description of a SymPy expression tree
 
     Parameters
-    ==========
-
+    ----------
     styles : list of lists composed of (Class, mapping), optional
         Styles for different classes.
 
@@ -60,8 +59,7 @@ def dotprint(expr, styles=..., atom=..., maxdepth=None, repeat: bool = True, lab
         Additional keyword arguments are included as styles for the graph.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import dotprint
     >>> from sympy.abc import x
     >>> print(dotprint(x+2)) # doctest: +NORMALIZE_WHITESPACE
@@ -87,4 +85,4 @@ def dotprint(expr, styles=..., atom=..., maxdepth=None, repeat: bool = True, lab
     "Add(Integer(2), Symbol(\'x\'))_()" -> "Symbol(\'x\')_(1,)";
     }
 
-    '''
+    """

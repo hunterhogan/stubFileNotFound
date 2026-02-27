@@ -1,22 +1,11 @@
 from collections.abc import Callable
-from datetime import (
-    date as _date,
-    datetime,
-)
-from typing import (
-    Literal,
-    overload,
-)
-
+from datetime import date as _date, datetime
 from dateutil.relativedelta import relativedelta
-import numpy as np
-from pandas import (
-    DatetimeIndex,
-    Series,
-)
-
+from pandas import DatetimeIndex, Series
 from pandas._libs.tslibs.offsets import BaseOffset
 from pandas._libs.tslibs.timestamps import Timestamp
+from typing import Literal, overload
+import numpy as np
 
 def next_monday(dt: datetime) -> datetime: ...
 def next_monday_or_tuesday(dt: datetime) -> datetime: ...

@@ -1,6 +1,6 @@
 from sympy.physics.vector.printing import vlatex, vpprint, vprint, vsprint
 
-__all__ = ['linear_momentum', 'angular_momentum', 'kinetic_energy', 'potential_energy', 'Lagrangian', 'mechanics_printing', 'mprint', 'msprint', 'mpprint', 'mlatex', 'msubs', 'find_dynamicsymbols']
+__all__ = ['Lagrangian', 'angular_momentum', 'find_dynamicsymbols', 'kinetic_energy', 'linear_momentum', 'mechanics_printing', 'mlatex', 'mpprint', 'mprint', 'msprint', 'msubs', 'potential_energy']
 
 mprint = vprint
 msprint = vsprint
@@ -28,16 +28,14 @@ def linear_momentum(frame, *body):
     L = L1 + L2
 
     Parameters
-    ==========
-
+    ----------
     frame : ReferenceFrame
         The frame in which linear momentum is desired.
     body1, body2, body3... : Particle and/or RigidBody
         The body (or bodies) whose linear momentum is required.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.mechanics import Point, Particle, ReferenceFrame
     >>> from sympy.physics.mechanics import RigidBody, outer, linear_momentum
     >>> N = ReferenceFrame('N')
@@ -68,8 +66,7 @@ def angular_momentum(point, frame, *body):
     H = H1 + H2
 
     Parameters
-    ==========
-
+    ----------
     point : Point
         The point about which angular momentum of the system is desired.
     frame : ReferenceFrame
@@ -78,8 +75,7 @@ def angular_momentum(point, frame, *body):
         The body (or bodies) whose angular momentum is required.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.mechanics import Point, Particle, ReferenceFrame
     >>> from sympy.physics.mechanics import RigidBody, outer, angular_momentum
     >>> N = ReferenceFrame('N')
@@ -116,8 +112,7 @@ def kinetic_energy(frame, *body):
     Kinetic energy is a scalar.
 
     Parameters
-    ==========
-
+    ----------
     frame : ReferenceFrame
         The frame in which the velocity or angular velocity of the body is
         defined.
@@ -125,8 +120,7 @@ def kinetic_energy(frame, *body):
         The body (or bodies) whose kinetic energy is required.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.mechanics import Point, Particle, ReferenceFrame
     >>> from sympy.physics.mechanics import RigidBody, outer, kinetic_energy
     >>> N = ReferenceFrame('N')
@@ -163,14 +157,12 @@ def potential_energy(*body):
     Potential energy is a scalar.
 
     Parameters
-    ==========
-
+    ----------
     body1, body2, body3... : Particle and/or RigidBody
         The body (or bodies) whose potential energy is required.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.mechanics import Point, Particle, ReferenceFrame
     >>> from sympy.physics.mechanics import RigidBody, outer, potential_energy
     >>> from sympy import symbols
@@ -207,8 +199,7 @@ def Lagrangian(frame, *body):
     The Lagrangian is a scalar.
 
     Parameters
-    ==========
-
+    ----------
     frame : ReferenceFrame
         The frame in which the velocity or angular velocity of the body is
         defined to determine the kinetic energy.
@@ -217,8 +208,7 @@ def Lagrangian(frame, *body):
         The body (or bodies) whose Lagrangian is required.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.mechanics import Point, Particle, ReferenceFrame
     >>> from sympy.physics.mechanics import RigidBody, outer, Lagrangian
     >>> from sympy import symbols
@@ -255,8 +245,7 @@ def find_dynamicsymbols(expression, exclude=None, reference_frame=None):
     determined.
 
     Parameters
-    ==========
-
+    ----------
     expression : SymPy expression
 
     exclude : iterable of dynamicsymbols, optional
@@ -266,8 +255,7 @@ def find_dynamicsymbols(expression, exclude=None, reference_frame=None):
         given vector is to be determined.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.mechanics import dynamicsymbols, find_dynamicsymbols
     >>> from sympy.physics.mechanics import ReferenceFrame
     >>> x, y = dynamicsymbols('x, y')
@@ -290,8 +278,7 @@ def msubs(expr, *sub_dicts, smart: bool = False, **kwargs):
     Terms inside ``Derivative`` expressions are ignored:
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.mechanics import dynamicsymbols, msubs
     >>> x = dynamicsymbols('x')
     >>> msubs(x.diff() + x, {x: 1})

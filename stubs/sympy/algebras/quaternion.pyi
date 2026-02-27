@@ -14,9 +14,9 @@ from sympy.simplify.trigsimp import trigsimp as trigsimp
 from sympy.utilities.misc import as_int as as_int
 
 def _check_norm(elements, norm) -> None:
-    """validate if input norm is consistent"""
+    """Validate if input norm is consistent"""
 def _is_extrinsic(seq):
-    """validate seq and return True if seq is lowercase and False if uppercase"""
+    """Validate seq and return True if seq is lowercase and False if uppercase"""
 
 class Quaternion(Expr):
     """Provides basic quaternion operations.
@@ -24,15 +24,13 @@ class Quaternion(Expr):
     as in $q = a + bi + cj + dk$.
 
     Parameters
-    ==========
-
+    ----------
     norm : None or number
         Pre-defined quaternion norm. If a value is given, Quaternion.norm
         returns this pre-defined value instead of calculating the norm
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Quaternion
     >>> q = Quaternion(1, 2, 3, 4)
     >>> q
@@ -61,12 +59,13 @@ class Quaternion(Expr):
     1
 
     References
-    ==========
+    ----------
 
     .. [1] https://www.euclideanspace.com/maths/algebra/realNormedAlgebra/quaternions/
     .. [2] https://en.wikipedia.org/wiki/Quaternion
 
     """
+
     _op_priority: float
     is_commutative: bool
     def __new__(cls, a: int = 0, b: int = 0, c: int = 0, d: int = 0, real_field: bool = True, norm=None): ...
@@ -75,15 +74,13 @@ class Quaternion(Expr):
         """Sets norm of an already instantiated quaternion.
 
         Parameters
-        ==========
-
+        ----------
         norm : None or number
             Pre-defined quaternion norm. If a value is given, Quaternion.norm
             returns this pre-defined value instead of calculating the norm
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> from sympy.abc import a, b, c, d
         >>> q = Quaternion(a, b, c, d)
@@ -125,8 +122,7 @@ class Quaternion(Expr):
             M  =  \\begin{bmatrix} a  &-b  &-c  &-d \\\\\n                                  b  & a  &-d  & c \\\\\n                                  c  & d  & a  &-b \\\\\n                                  d  &-c  & b  & a \\end{bmatrix}
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> from sympy.abc import a, b, c, d
         >>> q1 = Quaternion(1, 0, 0, 1)
@@ -167,8 +163,7 @@ class Quaternion(Expr):
 
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> from sympy.abc import a, b, c, d
         >>> q1 = Quaternion(a, b, c, d)
@@ -208,21 +203,18 @@ class Quaternion(Expr):
         length 3.
 
         Parameters
-        ==========
-
+        ----------
         vector_only : bool
             If True, only imaginary part is returned.
             Default value: False
 
         Returns
-        =======
-
+        -------
         Matrix
             A column vector constructed by the elements of the quaternion.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> from sympy.abc import a, b, c, d
         >>> q = Quaternion(a, b, c, d)
@@ -251,21 +243,18 @@ class Quaternion(Expr):
         length 3.
 
         Parameters
-        ==========
-
+        ----------
         elements : Matrix, list or tuple of length 3 or 4. If length is 3,
             assume real part is zero.
             Default value: False
 
         Returns
-        =======
-
+        -------
         Quaternion
             A quaternion created from the input elements.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> from sympy.abc import a, b, c, d
         >>> q = Quaternion.from_Matrix([a, b, c, d])
@@ -283,8 +272,7 @@ class Quaternion(Expr):
         angles, in the sequence defined by ``seq``.
 
         Parameters
-        ==========
-
+        ----------
         angles : list, tuple or Matrix of 3 numbers
             The Euler angles (in radians).
         seq : string of length 3
@@ -295,15 +283,13 @@ class Quaternion(Expr):
             must be from the set ``{'X', 'Y', 'Z'}``
 
         Returns
-        =======
-
+        -------
         Quaternion
             The normalized rotation quaternion calculated from the Euler angles
             in the given sequence.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> from sympy import pi
         >>> q = Quaternion.from_euler([pi/2, 0, 0], 'xyz')
@@ -328,8 +314,7 @@ class Quaternion(Expr):
         set to zero.
 
         Parameters
-        ==========
-
+        ----------
         seq : string of length 3
             Represents the sequence of rotations.
             For extrinsic rotations, seq must be all lowercase and its elements
@@ -360,14 +345,12 @@ class Quaternion(Expr):
 
 
         Returns
-        =======
-
+        -------
         Tuple
             The Euler angles calculated from the quaternion
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> from sympy.abc import a, b, c, d
         >>> euler = Quaternion(a, b, c, d).to_euler('zyz')
@@ -378,7 +361,7 @@ class Quaternion(Expr):
 
 
         References
-        ==========
+        ----------
 
         .. [1] https://doi.org/10.1371/journal.pone.0276302
 
@@ -388,22 +371,19 @@ class Quaternion(Expr):
         """Returns a rotation quaternion given the axis and the angle of rotation.
 
         Parameters
-        ==========
-
+        ----------
         vector : tuple of three numbers
             The vector representation of the given axis.
         angle : number
             The angle by which axis is rotated (in radians).
 
         Returns
-        =======
-
+        -------
         Quaternion
             The normalized rotation quaternion calculated from the given axis and the angle of rotation.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> from sympy import pi, sqrt
         >>> q = Quaternion.from_axis_angle((sqrt(3)/3, sqrt(3)/3, sqrt(3)/3), 2*pi/3)
@@ -417,21 +397,18 @@ class Quaternion(Expr):
         only if the matrix is special orthogonal (orthogonal and det(M) = 1).
 
         Parameters
-        ==========
-
+        ----------
         M : Matrix
             Input matrix to be converted to equivalent quaternion. M must be special
             orthogonal (orthogonal and det(M) = 1) for the quaternion to be normalized.
 
         Returns
-        =======
-
+        -------
         Quaternion
             The quaternion equivalent to given matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> from sympy import Matrix, symbols, cos, sin, trigsimp
         >>> x = symbols('x')
@@ -456,20 +433,17 @@ class Quaternion(Expr):
         """Adds quaternions.
 
         Parameters
-        ==========
-
+        ----------
         other : Quaternion
             The quaternion to add to current (self) quaternion.
 
         Returns
-        =======
-
+        -------
         Quaternion
             The resultant quaternion after adding self to other
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> from sympy import symbols
         >>> q1 = Quaternion(1, 2, 3, 4)
@@ -495,20 +469,17 @@ class Quaternion(Expr):
         """Multiplies quaternions.
 
         Parameters
-        ==========
-
+        ----------
         other : Quaternion or symbol
             The quaternion to multiply to current (self) quaternion.
 
         Returns
-        =======
-
+        -------
         Quaternion
             The resultant quaternion after multiplying self with other
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> from sympy import symbols
         >>> q1 = Quaternion(1, 2, 3, 4)
@@ -535,8 +506,7 @@ class Quaternion(Expr):
         """Generic multiplication.
 
         Parameters
-        ==========
-
+        ----------
         q1 : Quaternion or symbol
         q2 : Quaternion or symbol
 
@@ -544,14 +514,12 @@ class Quaternion(Expr):
         this function simply returns q1 * q2.
 
         Returns
-        =======
-
+        -------
         Quaternion
             The resultant quaternion after multiplying q1 and q2
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> from sympy import Symbol, S
         >>> q1 = Quaternion(1, 2, 3, 4)
@@ -584,21 +552,18 @@ class Quaternion(Expr):
         """Finds the pth power of the quaternion.
 
         Parameters
-        ==========
-
+        ----------
         p : int
             Power to be applied on quaternion.
 
         Returns
-        =======
-
+        -------
         Quaternion
             Returns the p-th power of the current quaternion.
             Returns the inverse if p = -1.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> q = Quaternion(1, 2, 3, 4)
         >>> q.pow(4)
@@ -609,14 +574,12 @@ class Quaternion(Expr):
         """Returns the exponential of $q$, given by $e^q$.
 
         Returns
-        =======
-
+        -------
         Quaternion
             The exponential of the quaternion.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> q = Quaternion(1, 2, 3, 4)
         >>> q.exp()
@@ -630,8 +593,7 @@ class Quaternion(Expr):
         """Returns the logarithm of the quaternion, given by $\\log q$.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> q = Quaternion(1, 2, 3, 4)
         >>> q.log()
@@ -646,14 +608,12 @@ class Quaternion(Expr):
         """Returns the floating point approximations (decimal numbers) of the quaternion.
 
         Returns
-        =======
-
+        -------
         Quaternion
             Floating point approximations of quaternion(self)
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> from sympy import sqrt
         >>> q = Quaternion(1/sqrt(1), 1/sqrt(2), 1/sqrt(3), 1/sqrt(4))
@@ -668,20 +628,17 @@ class Quaternion(Expr):
         """Computes the pth power in the cos-sin form.
 
         Parameters
-        ==========
-
+        ----------
         p : int
             Power to be applied on quaternion.
 
         Returns
-        =======
-
+        -------
         Quaternion
             The p-th power in the cos-sin form.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> q = Quaternion(1, 2, 3, 4)
         >>> q.pow_cos_sin(4)
@@ -695,14 +652,12 @@ class Quaternion(Expr):
         """Computes integration of quaternion.
 
         Returns
-        =======
-
+        -------
         Quaternion
             Integration of the quaternion(self) with the given variable.
 
         Examples
-        ========
-
+        --------
         Indefinite Integral of quaternion :
 
         >>> from sympy import Quaternion
@@ -725,8 +680,7 @@ class Quaternion(Expr):
         """Returns the coordinates of the point pin (a 3 tuple) after rotation.
 
         Parameters
-        ==========
-
+        ----------
         pin : tuple
             A 3-element tuple of coordinates of a point which needs to be
             rotated.
@@ -737,14 +691,12 @@ class Quaternion(Expr):
             (axis, angle)
 
         Returns
-        =======
-
+        -------
         tuple
             The coordinates of the point after rotation.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> from sympy import symbols, trigsimp, cos, sin
         >>> x = symbols('x')
@@ -760,14 +712,12 @@ class Quaternion(Expr):
         """Returns the axis and angle of rotation of a quaternion.
 
         Returns
-        =======
-
+        -------
         tuple
             Tuple of (axis, angle)
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> q = Quaternion(1, 1, 1, 1)
         >>> (axis, angle) = q.to_axis_angle()
@@ -782,8 +732,7 @@ class Quaternion(Expr):
         which represents rotation about the origin if ``v`` is not passed.
 
         Parameters
-        ==========
-
+        ----------
         v : tuple or None
             Default value: None
         homogeneous : bool
@@ -793,15 +742,13 @@ class Quaternion(Expr):
             Default value: True
 
         Returns
-        =======
-
+        -------
         tuple
             Returns the equivalent rotation transformation matrix of the quaternion
             which represents rotation about the origin if v is not passed.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Quaternion
         >>> from sympy import symbols, trigsimp, cos, sin
         >>> x = symbols('x')
@@ -824,8 +771,7 @@ class Quaternion(Expr):
         Given a quaternion $q = a + bi + cj + dk$, returns $\\mathbf{S}(q) = a$.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.algebras.quaternion import Quaternion
         >>> q = Quaternion(4, 8, 13, 12)
         >>> q.scalar_part()
@@ -842,8 +788,7 @@ class Quaternion(Expr):
         Given a quaternion $q = a + bi + cj + dk$, returns $\\mathbf{V}(q) = bi + cj + dk$.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.algebras.quaternion import Quaternion
         >>> q = Quaternion(1, 1, 1, 1)
         >>> q.vector_part()
@@ -866,16 +811,14 @@ class Quaternion(Expr):
         The axis is always an imaginary unit with square equal to $-1 + 0i + 0j + 0k$.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.algebras.quaternion import Quaternion
         >>> q = Quaternion(1, 1, 1, 1)
         >>> q.axis()
         0 + sqrt(3)/3*i + sqrt(3)/3*j + sqrt(3)/3*k
 
         See Also
-        ========
-
+        --------
         vector_part
 
         """
@@ -891,15 +834,14 @@ class Quaternion(Expr):
         part equal to 0.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.algebras.quaternion import Quaternion
         >>> q = Quaternion(0, 8, 13, 12)
         >>> q.is_pure()
         True
 
         See Also
-        ========
+        --------
         scalar_part
 
         """
@@ -915,8 +857,7 @@ class Quaternion(Expr):
         vector part equal to 0.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.algebras.quaternion import Quaternion
         >>> q = Quaternion(1, 0, 0, 0)
         >>> q.is_zero_quaternion()
@@ -927,7 +868,7 @@ class Quaternion(Expr):
         True
 
         See Also
-        ========
+        --------
         scalar_part
         vector_part
 
@@ -946,8 +887,7 @@ class Quaternion(Expr):
             \\theta := 2 \\operatorname{atan_2}\\left(\\sqrt{b^2 + c^2 + d^2}, {a}\\right)
 
         Examples
-        ========
-
+        --------
         >>> from sympy.algebras.quaternion import Quaternion
         >>> q = Quaternion(1, 4, 4, 4)
         >>> q.angle()
@@ -965,20 +905,17 @@ class Quaternion(Expr):
         The plane of a quaternion is the one normal to its axis.
 
         Parameters
-        ==========
-
+        ----------
         other : a Quaternion
 
         Returns
-        =======
-
+        -------
         True : if the planes of the two quaternions are the same, apart from its orientation/sign.
         False : if the planes of the two quaternions are not the same, apart from its orientation/sign.
         None : if plane of either of the quaternion is unknown.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.algebras.quaternion import Quaternion
         >>> q1 = Quaternion(1, 4, 4, 4)
         >>> q2 = Quaternion(3, 8, 8, 8)
@@ -990,8 +927,7 @@ class Quaternion(Expr):
         False
 
         See Also
-        ========
-
+        --------
         vector_coplanar
         is_pure
 
@@ -1008,8 +944,7 @@ class Quaternion(Expr):
         Three pure quaternions are vector coplanar if the quaternions seen as 3D vectors are coplanar.
 
         Parameters
-        ==========
-
+        ----------
         q1
             A pure Quaternion.
         q2
@@ -1018,8 +953,7 @@ class Quaternion(Expr):
             A pure Quaternion.
 
         Returns
-        =======
-
+        -------
         True : if the axis of the pure quaternions seen as 3D vectors
         q1, q2, and q3 are coplanar.
         False : if the axis of the pure quaternions seen as 3D vectors
@@ -1028,8 +962,7 @@ class Quaternion(Expr):
         q1, q2, and q3 are coplanar is unknown.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.algebras.quaternion import Quaternion
         >>> q1 = Quaternion(0, 4, 4, 4)
         >>> q2 = Quaternion(0, 8, 8, 8)
@@ -1043,8 +976,7 @@ class Quaternion(Expr):
         False
 
         See Also
-        ========
-
+        --------
         axis
         is_pure
 
@@ -1060,20 +992,17 @@ class Quaternion(Expr):
         implies that the quaternions seen as 3D vectors have same direction.
 
         Parameters
-        ==========
-
+        ----------
         other : a Quaternion
 
         Returns
-        =======
-
+        -------
         True : if the two pure quaternions seen as 3D vectors are parallel.
         False : if the two pure quaternions seen as 3D vectors are not parallel.
         None : if the two pure quaternions seen as 3D vectors are parallel is unknown.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.algebras.quaternion import Quaternion
         >>> q = Quaternion(0, 4, 4, 4)
         >>> q1 = Quaternion(0, 8, 8, 8)
@@ -1095,20 +1024,17 @@ class Quaternion(Expr):
         Two pure quaternions are called orthogonal when their product is anti-commutative.
 
         Parameters
-        ==========
-
+        ----------
         other : a Quaternion
 
         Returns
-        =======
-
+        -------
         True : if the two pure quaternions seen as 3D vectors are orthogonal.
         False : if the two pure quaternions seen as 3D vectors are not orthogonal.
         None : if the two pure quaternions seen as 3D vectors are orthogonal is unknown.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.algebras.quaternion import Quaternion
         >>> q = Quaternion(0, 4, 4, 4)
         >>> q1 = Quaternion(0, 8, 8, 8)
@@ -1132,21 +1058,18 @@ class Quaternion(Expr):
         the quaternion $q$, multiplied by $\\mathbf{Ax}(q)$, the axis of $q$.
 
         Returns
-        =======
-
+        -------
         Quaternion: representing index vector of the provided quaternion.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.algebras.quaternion import Quaternion
         >>> q = Quaternion(2, 4, 2, 4)
         >>> q.index_vector()
         0 + 4*sqrt(10)/3*i + 2*sqrt(10)/3*j + 4*sqrt(10)/3*k
 
         See Also
-        ========
-
+        --------
         axis
         norm
 
@@ -1156,8 +1079,7 @@ class Quaternion(Expr):
         Returns the natural logarithm of the norm(magnitude) of the quaternion.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.algebras.quaternion import Quaternion
         >>> q = Quaternion(2, 4, 2, 4)
         >>> q.mensor()
@@ -1166,8 +1088,7 @@ class Quaternion(Expr):
         2*sqrt(10)
 
         See Also
-        ========
-
+        --------
         norm
 
         """

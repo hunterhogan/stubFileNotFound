@@ -23,6 +23,7 @@ class RawMatrix(MutableDenseMatrix):
        Matrix should be of type ``Expr``.
 
     """
+
     _sympify: Incomplete
     ring: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
@@ -38,8 +39,7 @@ def eqs_to_matrix(eqs_coeffs, eqs_rhs, gens, domain):
     *internal* function that is used by solve_lin_sys.
 
     Parameters
-    ==========
-
+    ----------
     eqs_coeffs: list[dict[Symbol, DomainElement]]
         The left hand sides of the equations as dicts mapping from symbols to
         coefficients where the coefficients are instances of
@@ -53,13 +53,11 @@ def eqs_to_matrix(eqs_coeffs, eqs_rhs, gens, domain):
         The domain for coefficients of both lhs and rhs.
 
     Returns
-    =======
-
+    -------
     The augmented matrix representation of the system as a DomainMatrix.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, ZZ
     >>> from sympy.polys.solvers import eqs_to_matrix
     >>> x, y = symbols('x, y')
@@ -68,9 +66,8 @@ def eqs_to_matrix(eqs_coeffs, eqs_rhs, gens, domain):
     >>> eqs_to_matrix(eqs_coeff, eqs_rhs, [x, y], ZZ)
     DomainMatrix([[1, 1, 0], [1, -1, 1]], (2, 3), ZZ)
 
-    See also
-    ========
-
+    See Also
+    --------
     solve_lin_sys: Uses :func:`~eqs_to_matrix` internally
     """
 def sympy_eqs_to_ring(eqs, symbols):
@@ -85,8 +82,7 @@ def sympy_eqs_to_ring(eqs, symbols):
     function.
 
     Parameters
-    ==========
-
+    ----------
     eqs: List of Expr
         A list of equations as Expr instances
     symbols: List of Symbol
@@ -94,14 +90,12 @@ def sympy_eqs_to_ring(eqs, symbols):
         equations.
 
     Returns
-    =======
-
+    -------
     Tuple[List[PolyElement], Ring]: The equations as PolyElement instances
     and the ring of polynomials within which each equation is represented.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols
     >>> from sympy.polys.solvers import sympy_eqs_to_ring
     >>> a, x, y = symbols('a, x, y')
@@ -137,8 +131,7 @@ def solve_lin_sys(eqs, ring, _raw: bool = True):
     function internally) instead.
 
     Parameters
-    ==========
-
+    ----------
     eqs: list[PolyElement]
         The linear equations to be solved as elements of a
         PolynomialRing (assumed equal to zero).
@@ -153,8 +146,7 @@ def solve_lin_sys(eqs, ring, _raw: bool = True):
         PolyElement: PythonRational.
 
     Returns
-    =======
-
+    -------
     ``None`` if the system has no solution.
 
     dict[Symbol, Expr] if _raw=False
@@ -162,8 +154,7 @@ def solve_lin_sys(eqs, ring, _raw: bool = True):
     dict[Symbol, DomainElement] if _raw=True.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols
     >>> from sympy.polys.solvers import solve_lin_sys, sympy_eqs_to_ring
     >>> x, y = symbols('x, y')
@@ -178,9 +169,8 @@ def solve_lin_sys(eqs, ring, _raw: bool = True):
     >>> solve_lin_sys(eqs_ring, ring, _raw=False)
     {x: 1, y: 1}
 
-    See also
-    ========
-
+    See Also
+    --------
     sympy_eqs_to_ring: prepares the inputs to ``solve_lin_sys``.
     linsolve: ``linsolve`` uses ``solve_lin_sys`` internally.
     sympy.solvers.solvers.solve: ``solve`` uses ``solve_lin_sys`` internally.
@@ -197,8 +187,7 @@ def _solve_lin_sys(eqs_coeffs, eqs_rhs, ring):
     :func:`_solve_lin_sys_component`.
 
     Examples
-    ========
-
+    --------
     Setup a system for $x-y=0$ and $x+y=2$ and solve:
 
     >>> from sympy import symbols, sring
@@ -210,9 +199,8 @@ def _solve_lin_sys(eqs_coeffs, eqs_rhs, ring):
     >>> _solve_lin_sys(eqs, eqs_rhs, R)
     {y: 1, x: 1}
 
-    See also
-    ========
-
+    See Also
+    --------
     solve_lin_sys: This function is used internally by :func:`solve_lin_sys`.
     """
 def _solve_lin_sys_component(eqs_coeffs, eqs_rhs, ring):
@@ -228,8 +216,7 @@ def _solve_lin_sys_component(eqs_coeffs, eqs_rhs, ring):
     elimination with division followed by back-substitution.
 
     Examples
-    ========
-
+    --------
     Setup a system for $x-y=0$ and $x+y=2$ and solve:
 
     >>> from sympy import symbols, sring
@@ -241,8 +228,7 @@ def _solve_lin_sys_component(eqs_coeffs, eqs_rhs, ring):
     >>> _solve_lin_sys_component(eqs, eqs_rhs, R)
     {y: 1, x: 1}
 
-    See also
-    ========
-
+    See Also
+    --------
     solve_lin_sys: This function is used internally by :func:`solve_lin_sys`.
     """

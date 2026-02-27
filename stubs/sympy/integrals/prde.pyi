@@ -1,9 +1,13 @@
 from _typeshed import Incomplete
 from sympy.core import Add as Add, Dummy as Dummy, Mul as Mul, Pow as Pow, S as S
 from sympy.core.intfunc import ilcm as ilcm
-from sympy.integrals.rde import bound_degree as bound_degree, order_at as order_at, order_at_oo as order_at_oo, weak_normalizer as weak_normalizer
-from sympy.integrals.risch import DecrementLevel as DecrementLevel, derivation as derivation, frac_in as frac_in, gcdex_diophantine as gcdex_diophantine, recognize_log_derivative as recognize_log_derivative, residue_reduce as residue_reduce, residue_reduce_derivation as residue_reduce_derivation, splitfactor as splitfactor
-from sympy.polys import Poly as Poly, cancel as cancel, lcm as lcm, sqf_list as sqf_list
+from sympy.integrals.rde import (
+	bound_degree as bound_degree, order_at as order_at, order_at_oo as order_at_oo, weak_normalizer as weak_normalizer)
+from sympy.integrals.risch import (
+	DecrementLevel as DecrementLevel, derivation as derivation, frac_in as frac_in, gcdex_diophantine as gcdex_diophantine,
+	recognize_log_derivative as recognize_log_derivative, residue_reduce as residue_reduce,
+	residue_reduce_derivation as residue_reduce_derivation, splitfactor as splitfactor)
+from sympy.polys import cancel as cancel, lcm as lcm, Poly as Poly, sqf_list as sqf_list
 from sympy.solvers import solve as solve
 
 zeros: Incomplete
@@ -278,8 +282,8 @@ def is_deriv_k(fa, fd, DE):
 
     To handle the case where we are given Df/f, not f, use is_deriv_k_in_field().
 
-    See also
-    ========
+    See Also
+    --------
     is_log_deriv_k_t_radical_in_field, is_log_deriv_k_t_radical
 
     """
@@ -338,14 +342,13 @@ def is_log_deriv_k_t_radical(fa, fd, DE, Df: bool = True):
     To handle the case where we are given Df, not f, use
     is_log_deriv_k_t_radical_in_field().
 
-    See also
-    ========
-
+    See Also
+    --------
     is_log_deriv_k_t_radical_in_field, is_deriv_k
 
     """
 def is_log_deriv_k_t_radical_in_field(fa, fd, DE, case: str = 'auto', z=None):
-    '''
+    """
     Checks if f can be written as the logarithmic derivative of a k(t)-radical.
 
     Explanation
@@ -365,8 +368,8 @@ def is_log_deriv_k_t_radical_in_field(fa, fd, DE, case: str = 'auto', z=None):
     hyperexponential, and hypertangent cases, respectively.  If case is \'auto\',
     it will attempt to determine the type of the derivation automatically.
 
-    See also
-    ========
+    See Also
+    --------
     is_log_deriv_k_t_radical, is_deriv_k
 
-    '''
+    """

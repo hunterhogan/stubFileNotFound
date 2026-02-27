@@ -1,5 +1,5 @@
 from sympy.core.function import Function as Function
-from sympy.functions import Piecewise as Piecewise, exp as exp
+from sympy.functions import exp as exp, Piecewise as Piecewise
 from sympy.tensor.indexed import Idx as Idx, Indexed as Indexed
 from sympy.utilities import sift as sift
 
@@ -11,8 +11,7 @@ def _unique_and_repeated(inds):
     that the order of indices is maintained as given in the input.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.tensor.index_methods import _unique_and_repeated
     >>> _unique_and_repeated([2, 3, 1, 3, 0, 4, 0])
     ([2, 1, 4], [3, 0])
@@ -25,8 +24,7 @@ def _remove_repeated(inds):
     removed.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.tensor.index_methods import _remove_repeated
     >>> l1 = [1, 2, 3, 2]
     >>> _remove_repeated(l1)
@@ -37,8 +35,7 @@ def _get_indices_Mul(expr, return_dummies: bool = False):
     """Determine the outer indices of a Mul object.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.tensor.index_methods import _get_indices_Mul
     >>> from sympy.tensor.indexed import IndexedBase, Idx
     >>> i, j, k = map(Idx, ['i', 'j', 'k'])
@@ -75,8 +72,7 @@ def _get_indices_Pow(expr):
     exponent can be contracted with each other.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.tensor.index_methods import _get_indices_Pow
     >>> from sympy import Pow, exp, IndexedBase, Idx
     >>> A = IndexedBase('A')
@@ -105,8 +101,7 @@ def _get_indices_Add(expr):
     FIXME: Add support for Numpy broadcasting
 
     Examples
-    ========
-
+    --------
     >>> from sympy.tensor.index_methods import _get_indices_Add
     >>> from sympy.tensor.indexed import IndexedBase, Idx
     >>> i, j, k = map(Idx, ['i', 'j', 'k'])
@@ -124,8 +119,7 @@ def get_indices(expr):
     information about index symmetries.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.tensor.index_methods import get_indices
     >>> from sympy import symbols
     >>> from sympy.tensor import IndexedBase
@@ -169,7 +163,7 @@ def get_indices(expr):
 
     """
 def get_contraction_structure(expr):
-    '''Determine dummy indices of ``expr`` and describe its structure
+    """Determine dummy indices of ``expr`` and describe its structure
 
     By *dummy* we mean indices that are summation indices.
 
@@ -198,8 +192,7 @@ def get_contraction_structure(expr):
        indexed object.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.tensor.index_methods import get_contraction_structure
     >>> from sympy import default_sort_key
     >>> from sympy.tensor import IndexedBase, Idx
@@ -266,4 +259,4 @@ def get_contraction_structure(expr):
     ...             pass
     ...     # treat outermost contactions here
 
-    '''
+    """

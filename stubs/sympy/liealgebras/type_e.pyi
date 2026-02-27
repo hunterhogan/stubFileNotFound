@@ -1,20 +1,19 @@
 from .cartan_type import Standard_Cartan as Standard_Cartan
-from sympy.core.backend import Rational as Rational, eye as eye
+from sympy.core.backend import eye as eye, Rational as Rational
 from sympy.core.singleton import S as S
 
 class TypeE(Standard_Cartan):
     def __new__(cls, n): ...
     def dimension(self):
-        '''Dimension of the vector space V underlying the Lie algebra
+        """Dimension of the vector space V underlying the Lie algebra
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.cartan_type import CartanType
         >>> c = CartanType("E6")
         >>> c.dimension()
         8
-        '''
+        """
     def basic_root(self, i, j):
         """
         This is a method just to generate roots
@@ -23,7 +22,7 @@ class TypeE(Standard_Cartan):
 
         """
     def simple_root(self, i):
-        '''
+        """
         Every Lie algebra has a unique root system.
         Given a root system Q, there is a subset of the
         roots such that an element of Q is called a
@@ -36,29 +35,27 @@ class TypeE(Standard_Cartan):
         This method returns the ith simple root for E_n.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.cartan_type import CartanType
         >>> c = CartanType("E6")
         >>> c.simple_root(2)
         [1, 1, 0, 0, 0, 0, 0, 0]
-        '''
+        """
     def positive_roots(self):
-        '''
+        """
         This method generates all the positive roots of
         A_n.  This is half of all of the roots of E_n;
         by multiplying all the positive roots by -1 we
         get the negative roots.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.cartan_type import CartanType
         >>> c = CartanType("A3")
         >>> c.positive_roots()
         {1: [1, -1, 0, 0], 2: [1, 0, -1, 0], 3: [1, 0, 0, -1], 4: [0, 1, -1, 0],
                 5: [0, 1, 0, -1], 6: [0, 0, 1, -1]}
-        '''
+        """
     def roots(self):
         """
         Returns the total number of roots of E_n
@@ -72,8 +69,7 @@ class TypeE(Standard_Cartan):
         entry of the Cartan matrix is (<alpha[i],alpha[j]>).
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.cartan_type import CartanType
         >>> c = CartanType('A4')
         >>> c.cartan_matrix()

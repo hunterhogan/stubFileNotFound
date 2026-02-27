@@ -45,6 +45,7 @@ class CharacterTracker:
     Maintains a mapping of font paths to the set of character codepoints that
     are being used from that font.
     """
+
     used: Incomplete
     def __init__(self) -> None: ...
     def track(self, font, s) -> None:

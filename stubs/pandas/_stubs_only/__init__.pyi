@@ -1,44 +1,20 @@
 # Private types that are not used in tests
 
-from collections.abc import (
-    Callable,
-    Hashable,
-    Mapping,
-    Sequence,
-)
+from collections.abc import Callable, Hashable, Mapping, Sequence
 from datetime import timedelta
-from typing import (
-    Any,
-    Generic,
-    Literal,
-    TypeAlias,
-    overload,
-    type_check_only,
-)
-
-import numpy as np
+from pandas._libs.interval import Interval
+from pandas._libs.tslibs.offsets import BaseOffset
+from pandas._libs.tslibs.timedeltas import Timedelta
+from pandas._libs.tslibs.timestamps import Timestamp
+from pandas._typing import DTypeLike, GenericT, GenericT_co, Label, np_1darray, S1, Scalar, ScalarT, SupportsDType
 from pandas.core.base import T_INTERVAL_NP
 from pandas.core.groupby.base import ReductionKernelType
 from pandas.core.groupby.grouper import Grouper
 from pandas.core.indexes.base import Index
 from pandas.core.series import Series
+from typing import Any, Generic, Literal, overload, type_check_only, TypeAlias
 from typing_extensions import TypeVar
-
-from pandas._libs.interval import Interval
-from pandas._libs.tslibs.offsets import BaseOffset
-from pandas._libs.tslibs.timedeltas import Timedelta
-from pandas._libs.tslibs.timestamps import Timestamp
-from pandas._typing import (
-    S1,
-    DTypeLike,
-    GenericT,
-    GenericT_co,
-    Label,
-    Scalar,
-    ScalarT,
-    SupportsDType,
-    np_1darray,
-)
+import numpy as np
 
 T_co = TypeVar("T_co", covariant=True)
 T_contra = TypeVar("T_contra", contravariant=True)

@@ -16,8 +16,7 @@ def _cmp_perm_lists(first, second):
     and cannot be put into a set.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.permutations import Permutation
     >>> from sympy.combinatorics.testutil import _cmp_perm_lists
     >>> a = Permutation([0, 2, 3, 4, 1])
@@ -43,8 +42,7 @@ def _verify_bsgs(group, base, gens):
     serve for more robust testing.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.named_groups import AlternatingGroup
     >>> from sympy.combinatorics.testutil import _verify_bsgs
     >>> A = AlternatingGroup(4)
@@ -53,8 +51,7 @@ def _verify_bsgs(group, base, gens):
     True
 
     See Also
-    ========
-
+    --------
     sympy.combinatorics.perm_groups.PermutationGroup.schreier_sims
 
     """
@@ -66,8 +63,7 @@ def _verify_centralizer(group, arg, centr=None):
     ``sympy.combinatorics.perm_groups``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.named_groups import (SymmetricGroup,
     ... AlternatingGroup)
     >>> from sympy.combinatorics.perm_groups import PermutationGroup
@@ -80,8 +76,7 @@ def _verify_centralizer(group, arg, centr=None):
     True
 
     See Also
-    ========
-
+    --------
     _naive_list_centralizer,
     sympy.combinatorics.perm_groups.PermutationGroup.centralizer,
     _cmp_perm_lists
@@ -101,8 +96,7 @@ def canonicalize_naive(g, dummies, sym, *v):
           1     anticommuting
 
     Parameters
-    ==========
-
+    ----------
     g : Permutation representing the tensor.
     dummies : List of dummy indices.
     msym : Symmetry of the metric.
@@ -111,14 +105,12 @@ def canonicalize_naive(g, dummies, sym, *v):
         n_i  number of tensors of type `i`
 
     Returns
-    =======
-
+    -------
     Returns 0 if the tensor is zero, else returns the array form of
     the permutation representing the canonical form of the tensor.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.testutil import canonicalize_naive
     >>> from sympy.combinatorics.tensor_can import get_symmetric_group_sgs
     >>> from sympy.combinatorics import Permutation
@@ -132,8 +124,7 @@ def graph_certificate(gr):
     Return a certificate for the graph
 
     Parameters
-    ==========
-
+    ----------
     gr : adjacency list
 
     Explanation
@@ -150,8 +141,7 @@ def graph_certificate(gr):
     This is not an efficient algorithm to get the certificate of a graph.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.testutil import graph_certificate
     >>> gr1 = {0:[1, 2, 3, 5], 1:[0, 2, 4], 2:[0, 1, 3, 4], 3:[0, 2, 4], 4:[1, 2, 3, 5], 5:[0, 4]}
     >>> gr2 = {0:[1, 5], 1:[0, 2, 3, 4], 2:[1, 3, 5], 3:[1, 2, 4, 5], 4:[1, 3, 5], 5:[0, 2, 3, 4]}

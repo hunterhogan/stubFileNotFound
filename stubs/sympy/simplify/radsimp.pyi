@@ -1,13 +1,13 @@
 from sympy.core import Derivative as Derivative, Mul as Mul, Pow as Pow, S as S, sympify as sympify
-from sympy.core.add import Add as Add, _unevaluated_Add as _unevaluated_Add
+from sympy.core.add import _unevaluated_Add as _unevaluated_Add, Add as Add
 from sympy.core.assumptions import assumptions as assumptions
 from sympy.core.exprtools import Factors as Factors, gcd_terms as gcd_terms
 from sympy.core.function import _mexpand as _mexpand, expand_mul as expand_mul, expand_power_base as expand_power_base
 from sympy.core.mul import _keep_coeff as _keep_coeff, _mulsort as _mulsort, _unevaluated_Mul as _unevaluated_Mul
-from sympy.core.numbers import Rational as Rational, nan as nan, zoo as zoo
+from sympy.core.numbers import nan as nan, Rational as Rational, zoo as zoo
 from sympy.core.parameters import global_parameters as global_parameters
 from sympy.core.sorting import default_sort_key as default_sort_key, ordered as ordered
-from sympy.core.symbol import Dummy as Dummy, Wild as Wild, symbols as symbols
+from sympy.core.symbol import Dummy as Dummy, symbols as symbols, Wild as Wild
 from sympy.functions import exp as exp, log as log, sqrt as sqrt
 from sympy.functions.elementary.complexes import Abs as Abs
 from sympy.polys import gcd as gcd
@@ -40,8 +40,7 @@ def collect(expr, syms, func=None, evaluate=None, exact: bool = False, distribut
     as keys and collected coefficients as values.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, collect, expand, factor, Wild
     >>> from sympy.abc import a, b, c, x, y
 
@@ -160,8 +159,7 @@ def collect(expr, syms, func=None, evaluate=None, exact: bool = False, distribut
               to call :func:`~.expand` prior to calling this function.
 
     See Also
-    ========
-
+    --------
     collect_const, collect_sqrt, rcollect
     """
 def rcollect(expr, *vars):
@@ -169,8 +167,7 @@ def rcollect(expr, *vars):
     Recursively collect sums in an expression.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify import rcollect
     >>> from sympy.abc import x, y
 
@@ -180,8 +177,7 @@ def rcollect(expr, *vars):
     (x + y*(x**2 + x + 1))/(x + y)
 
     See Also
-    ========
-
+    --------
     collect, collect_const, collect_sqrt
     """
 def collect_sqrt(expr, evaluate=None):
@@ -195,8 +191,7 @@ def collect_sqrt(expr, evaluate=None):
     Note: since I = sqrt(-1), it is collected, too.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sqrt
     >>> from sympy.simplify.radsimp import collect_sqrt
     >>> from sympy.abc import a, b
@@ -221,8 +216,7 @@ def collect_sqrt(expr, evaluate=None):
     ((a + b,), 0)
 
     See Also
-    ========
-
+    --------
     collect, collect_const, rcollect
     """
 def collect_abs(expr):
@@ -230,8 +224,7 @@ def collect_abs(expr):
     under a single instance.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.radsimp import collect_abs
     >>> from sympy.abc import x
     >>> collect_abs(abs(x + 1)/abs(x**2 - 1))
@@ -246,8 +239,7 @@ def collect_const(expr, *vars, Numbers: bool = True):
     desired set ``Numbers=False`` and no Float or Rational will be collected.
 
     Parameters
-    ==========
-
+    ----------
     expr : SymPy expression
         This parameter defines the expression the expression from which
         terms with similar coefficients are to be collected. A non-Add
@@ -263,14 +255,12 @@ def collect_const(expr, *vars, Numbers: bool = True):
         no Float or Rational will be collected.
 
     Returns
-    =======
-
+    -------
     expr : Expr
         Returns an expression with similar coefficient terms collected.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sqrt
     >>> from sympy.abc import s, x, y, z
     >>> from sympy.simplify.radsimp import collect_const
@@ -297,8 +287,7 @@ def collect_const(expr, *vars, Numbers: bool = True):
     2*x - 2*(y + z)
 
     See Also
-    ========
-
+    --------
     collect, collect_sqrt, rcollect
     """
 def radsimp(expr, symbolic: bool = True, max_terms: int = 4):
@@ -321,8 +310,7 @@ def radsimp(expr, symbolic: bool = True, max_terms: int = 4):
     returned unchanged.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import radsimp, sqrt, Symbol, pprint
     >>> from sympy import factor_terms, fraction, signsimp
     >>> from sympy.simplify.radsimp import collect_sqrt
@@ -383,8 +371,7 @@ def rad_rationalize(num, den):
     num and den are sum of terms whose squares are positive rationals.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sqrt
     >>> from sympy.simplify.radsimp import rad_rationalize
     >>> rad_rationalize(sqrt(3), 1 + sqrt(2)/3)
@@ -392,59 +379,59 @@ def rad_rationalize(num, den):
     """
 def fraction(expr, exact: bool = False):
     """Returns a pair with expression's numerator and denominator.
-       If the given expression is not a fraction then this function
-       will return the tuple (expr, 1).
+    If the given expression is not a fraction then this function
+    will return the tuple (expr, 1).
 
-       This function will not make any attempt to simplify nested
-       fractions or to do any term rewriting at all.
+    This function will not make any attempt to simplify nested
+    fractions or to do any term rewriting at all.
 
-       If only one of the numerator/denominator pair is needed then
-       use numer(expr) or denom(expr) functions respectively.
+    If only one of the numerator/denominator pair is needed then
+    use numer(expr) or denom(expr) functions respectively.
 
-       >>> from sympy import fraction, Rational, Symbol
-       >>> from sympy.abc import x, y
+    >>> from sympy import fraction, Rational, Symbol
+    >>> from sympy.abc import x, y
 
-       >>> fraction(x/y)
-       (x, y)
-       >>> fraction(x)
-       (x, 1)
+    >>> fraction(x/y)
+    (x, y)
+    >>> fraction(x)
+    (x, 1)
 
-       >>> fraction(1/y**2)
-       (1, y**2)
+    >>> fraction(1/y**2)
+    (1, y**2)
 
-       >>> fraction(x*y/2)
-       (x*y, 2)
-       >>> fraction(Rational(1, 2))
-       (1, 2)
+    >>> fraction(x*y/2)
+    (x*y, 2)
+    >>> fraction(Rational(1, 2))
+    (1, 2)
 
-       This function will also work fine with assumptions:
+    This function will also work fine with assumptions:
 
-       >>> k = Symbol('k', negative=True)
-       >>> fraction(x * y**k)
-       (x, y**(-k))
+    >>> k = Symbol('k', negative=True)
+    >>> fraction(x * y**k)
+    (x, y**(-k))
 
-       If we know nothing about sign of some exponent and ``exact``
-       flag is unset, then the exponent's structure will
-       be analyzed and pretty fraction will be returned:
+    If we know nothing about sign of some exponent and ``exact``
+    flag is unset, then the exponent's structure will
+    be analyzed and pretty fraction will be returned:
 
-       >>> from sympy import exp, Mul
-       >>> fraction(2*x**(-y))
-       (2, x**y)
+    >>> from sympy import exp, Mul
+    >>> fraction(2*x**(-y))
+    (2, x**y)
 
-       >>> fraction(exp(-x))
-       (1, exp(x))
+    >>> fraction(exp(-x))
+    (1, exp(x))
 
-       >>> fraction(exp(-x), exact=True)
-       (exp(-x), 1)
+    >>> fraction(exp(-x), exact=True)
+    (exp(-x), 1)
 
-       The ``exact`` flag will also keep any unevaluated Muls from
-       being evaluated:
+    The ``exact`` flag will also keep any unevaluated Muls from
+    being evaluated:
 
-       >>> u = Mul(2, x + 1, evaluate=False)
-       >>> fraction(u)
-       (2*x + 2, 1)
-       >>> fraction(u, exact=True)
-       (2*(x  + 1), 1)
+    >>> u = Mul(2, x + 1, evaluate=False)
+    >>> fraction(u)
+    (2*x + 2, 1)
+    >>> fraction(u, exact=True)
+    (2*(x  + 1), 1)
     """
 def numer(expr, exact: bool = False): ...
 def denom(expr, exact: bool = False): ...
@@ -462,8 +449,7 @@ def split_surds(expr):
     and a sum of terms with surds squared prime with g.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sqrt
     >>> from sympy.simplify.radsimp import split_surds
     >>> split_surds(3*sqrt(3) + sqrt(5)/7 + sqrt(6) + sqrt(10) + sqrt(15))
@@ -476,8 +462,7 @@ def _split_gcd(*a):
     ``g``.  Returns ``g, a1, a2``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.radsimp import _split_gcd
     >>> _split_gcd(55, 35, 22, 14, 77, 10)
     (5, [55, 35, 10], [22, 14, 77])

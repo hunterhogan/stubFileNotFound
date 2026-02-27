@@ -1,6 +1,6 @@
-import sys
 from _typeshed import structseq
 from typing import Final, final
+import sys
 
 if sys.platform != "win32":
     # Depends on resource.h

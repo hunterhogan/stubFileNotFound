@@ -5,7 +5,7 @@ from sympy.external import import_module as import_module
 from sympy.utilities.iterables import numbered_symbols as numbered_symbols
 
 class vectorized_lambdify:
-    """ Return a sufficiently smart, vectorized and lambdified function.
+    """Return a sufficiently smart, vectorized and lambdified function.
 
     Returns only reals.
 
@@ -32,6 +32,7 @@ class vectorized_lambdify:
     Check numpy bug http://projects.scipy.org/numpy/ticket/1013 to know what
     types of errors to expect.
     """
+
     args: Incomplete
     expr: Incomplete
     np: Incomplete
@@ -55,6 +56,7 @@ class lambdify:
     is not implemented in Python cmath, Python cmath calls evalf on those
     functions.
     """
+
     args: Incomplete
     expr: Incomplete
     lambda_func_1: Incomplete
@@ -109,8 +111,7 @@ class Lambdifier:
         Expressions that do not contain functions are directly returned.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y, z
         >>> from sympy import Integral, sin
         >>> from sympy.plotting.experimental_lambdify import Lambdifier
@@ -130,8 +131,7 @@ class Lambdifier:
         """Converts a tree to string without translations.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y, z
         >>> from sympy import sin
         >>> from sympy.plotting.experimental_lambdify import Lambdifier
@@ -152,7 +152,8 @@ class Lambdifier:
         """
     def translate_str(self, estr):
         """Translate substrings of estr using in order the dictionaries in
-        dict_tuple_str."""
+        dict_tuple_str.
+        """
     def translate_func(self, func_name, argtree):
         """Translate function names and the tree of arguments.
 
@@ -163,15 +164,18 @@ class Lambdifier:
         function is surrounded by a float((...).evalf()).
 
         The use of float is necessary as np.<function>(sympy.Float(..)) raises an
-        error."""
+        error.
+        """
     @classmethod
     def sympy_expression_namespace(cls, expr):
         """Traverses the (func, args) tree of an expression and creates a SymPy
         namespace. All other modules are imported only as a module name. That way
         the namespace is not polluted and rests quite small. It probably causes much
         more variable lookups and so it takes more time, but there are no tests on
-        that for the moment."""
+        that for the moment.
+        """
     @staticmethod
     def sympy_atoms_namespace(expr):
         """For no real reason this function is separated from
-        sympy_expression_namespace. It can be moved to it."""
+        sympy_expression_namespace. It can be moved to it.
+        """

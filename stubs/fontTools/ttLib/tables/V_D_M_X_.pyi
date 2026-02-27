@@ -31,4 +31,3 @@ class table_V_D_M_X_(DefaultTable.DefaultTable):
     numRatios: int
     numRecs: int
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
-

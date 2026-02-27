@@ -13,7 +13,7 @@ def bench_R1():
 def bench_R2():
     """Hermite polynomial hermite(15, y)"""
 def bench_R3() -> None:
-    """a = [bool(f==f) for _ in range(10)]"""
+    """A = [bool(f==f) for _ in range(10)]"""
 def bench_R4() -> None: ...
 def bench_R5():
     """blowup(L, 8); L=uniq(L)"""
@@ -26,8 +26,8 @@ def bench_R8():
 def _bench_R9() -> None:
     """factor(x^20 - pi^5*y^20)"""
 def bench_R10():
-    """v = [-pi,-pi+1/10..,pi]"""
+    """V = [-pi,-pi+1/10..,pi]"""
 def bench_R11() -> None:
-    """a = [random() + random()*I for w in [0..1000]]"""
+    """A = [random() + random()*I for w in [0..1000]]"""
 def bench_S1() -> None:
     """e=(x+y+z+1)**7;f=e*(e+1);f.expand()"""

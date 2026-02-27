@@ -1,18 +1,8 @@
+from abc import ABC, abstractmethod
+from collections.abc import Iterable, Sequence
+from typing import Any, cast, TypedDict
 import abc
-from abc import (
-    ABC,
-    abstractmethod,
-)
-from collections.abc import (
-    Iterable,
-    Sequence,
-)
 import enum
-from typing import (
-    Any,
-    TypedDict,
-    cast,
-)
 
 class DlpackDeviceType(enum.IntEnum):
     CPU = cast(int, ...)

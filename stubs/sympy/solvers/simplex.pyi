@@ -67,7 +67,7 @@ def _pivot(M, i, j):
     """
 def _choose_pivot_row(A, B, candidate_rows, pivot_col, Y): ...
 def _simplex(A, B, C, D=None, dual: bool = False):
-    '''Return ``(o, x, y)`` obtained from the two-phase simplex method
+    """Return ``(o, x, y)`` obtained from the two-phase simplex method
     using Bland\'s rule: ``o`` is the minimum value of primal,
     ``Cx - D``, under constraints ``Ax <= B`` (with ``x >= 0``) and
     the maximum of the dual, ``y^{T}B - D``, under constraints
@@ -87,8 +87,7 @@ def _simplex(A, B, C, D=None, dual: bool = False):
     a relationship does not evaluate to True or False.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.simplex import _simplex
     >>> from sympy import Matrix
 
@@ -168,24 +167,23 @@ def _simplex(A, B, C, D=None, dual: bool = False):
     True
 
     See Also
-    ========
+    --------
     _lp - poses min/max problem in form compatible with _simplex
     lpmin - minimization which calls _lp
     lpmax - maximimzation which calls _lp
 
     References
-    ==========
+    ----------
 
     .. [1] Thomas S. Ferguson, LINEAR PROGRAMMING: A Concise Introduction
            web.tecnico.ulisboa.pt/mcasquilho/acad/or/ftp/FergusonUCLA_lp.pdf
 
-    '''
+    """
 def _abcd(M, list: bool = False):
-    """return parts of M as matrices or lists
+    """Return parts of M as matrices or lists
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> from sympy.solvers.simplex import _abcd
 
@@ -214,12 +212,11 @@ def _abcd(M, list: bool = False):
     ([[0, 1], [3, 4]], [2, 5], [[6, 7]], [8])
     """
 def _m(a, b, c, d=None):
-    """return Matrix([[a, b], [c, d]]) from matrices
+    """Return Matrix([[a, b], [c, d]]) from matrices
     in Matrix or list form.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> from sympy.solvers.simplex import _abcd, _m
     >>> m = Matrix(3, 3, range(9))
@@ -234,7 +231,7 @@ def _m(a, b, c, d=None):
     >>> assert m == _m(*L) == _m(*_)
     """
 def _primal_dual(M, factor: bool = True):
-    """return primal and dual function and constraints
+    """Return primal and dual function and constraints
     assuming that ``M = Matrix([[A, b], [c, d]])`` and the
     function ``c*x - d`` is being minimized with ``Ax >= b``
     for nonnegative values of ``x``. The dual and its
@@ -242,8 +239,7 @@ def _primal_dual(M, factor: bool = True):
     to ``A.T*y <= c.T``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.simplex import _primal_dual, lpmin, lpmax
     >>> from sympy import Matrix
 
@@ -307,13 +303,13 @@ def _primal_dual(M, factor: bool = True):
     ((None, []), (None, []))
 
     References
-    ==========
+    ----------
 
     .. [1] David Galvin, Relations between Primal and Dual
            www3.nd.edu/~dgalvin1/30210/30210_F07/presentations/dual_opt.pdf
     """
 def _rel_as_nonpos(constr, syms):
-    """return `(np, d, aux)` where `np` is a list of nonpositive
+    """Return `(np, d, aux)` where `np` is a list of nonpositive
     expressions that represent the given constraints (possibly
     rewritten in terms of auxilliary variables) expressible with
     nonnegative symbols, and `d` is a dictionary mapping a given
@@ -331,8 +327,7 @@ def _rel_as_nonpos(constr, syms):
     univariate conditions like ``x <= 3``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.simplex import _rel_as_nonpos
     >>> from sympy.abc import x, y
     >>> _rel_as_nonpos([x >= y, x >= 0, y >= 0], (x, y))
@@ -345,7 +340,7 @@ def _rel_as_nonpos(constr, syms):
     ([], {x: _z1 + 1}, [_z1])
     """
 def _lp_matrices(objective, constraints):
-    """return A, B, C, D, r, x+X, X for maximizing
+    """Return A, B, C, D, r, x+X, X for maximizing
     objective = Cx - D with constraints Ax <= B, introducing
     introducing auxilliary variables, X, as necessary to make
     replacements of symbols as given in r, {xi: expression with Xj},
@@ -366,8 +361,7 @@ def _lp(min_max, f, constr):
     The constraints can be given as Le, Ge or Eq expressions.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.simplex import _lp as lp
     >>> from sympy import Eq
     >>> from sympy.abc import x, y, z
@@ -396,14 +390,13 @@ def _lp(min_max, f, constr):
     (0, {x: 0, y: 3})
     """
 def lpmin(f, constr):
-    """return minimum of linear equation ``f`` under
+    """Return minimum of linear equation ``f`` under
     linear constraints expressed using Ge, Le or Eq.
 
     All variables are unbounded unless constrained.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.simplex import lpmin
     >>> from sympy import Eq
     >>> from sympy.abc import x, y
@@ -427,18 +420,17 @@ def lpmin(f, constr):
     Objective function can assume arbitrarily large values!
 
     See Also
-    ========
+    --------
     linprog, lpmax
     """
 def lpmax(f, constr):
-    """return maximum of linear equation ``f`` under
+    """Return maximum of linear equation ``f`` under
     linear constraints expressed using Ge, Le or Eq.
 
     All variables are unbounded unless constrained.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.simplex import lpmax
     >>> from sympy import Eq
     >>> from sympy.abc import x, y
@@ -460,7 +452,7 @@ def lpmax(f, constr):
     sympy.solvers.simplex.InfeasibleLPError: inconsistent/False constraint
 
     See Also
-    ========
+    --------
     linprog, lpmin
     """
 def _handle_bounds(bounds): ...
@@ -487,8 +479,7 @@ def linprog(c, A=None, b=None, A_eq=None, b_eq=None, bounds=None):
     range ``[1, 4]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.simplex import linprog
     >>> from sympy import symbols, Eq, linear_eq_to_matrix as M, Matrix
     >>> x = x1, x2, x3, x4 = symbols('x1:5')
@@ -503,7 +494,7 @@ def linprog(c, A=None, b=None, A_eq=None, b_eq=None, bounds=None):
     >>> assert all(i.subs(dict(zip(x, _[1]))) for i in constr)
 
     See Also
-    ========
+    --------
     lpmin, lpmax
     """
 def show_linprog(c, A=None, b=None, A_eq=None, b_eq=None, bounds=None): ...

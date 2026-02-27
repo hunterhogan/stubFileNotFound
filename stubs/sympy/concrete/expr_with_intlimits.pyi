@@ -7,6 +7,7 @@ class ReorderError(NotImplementedError):
     """
     Exception raised when trying to reorder dependent limits.
     """
+
     def __init__(self, expr, msg) -> None: ...
 
 class ExprWithIntLimits(ExprWithLimits):
@@ -14,12 +15,12 @@ class ExprWithIntLimits(ExprWithLimits):
     Superclass for Product and Sum.
 
     See Also
-    ========
-
+    --------
     sympy.concrete.expr_with_limits.ExprWithLimits
     sympy.concrete.products.Product
     sympy.concrete.summations.Sum
     """
+
     __slots__: Incomplete
     def change_index(self, var, trafo, newvar=None):
         """
@@ -38,8 +39,7 @@ class ExprWithIntLimits(ExprWithLimits):
         provided then ``var`` gets replaced by ``newvar`` in the final expression.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Sum, Product, simplify
         >>> from sympy.abc import x, y, a, b, c, d, u, v, i, j, k, l
 
@@ -102,8 +102,7 @@ class ExprWithIntLimits(ExprWithLimits):
         equal +1 or -1.
 
         See Also
-        ========
-
+        --------
         sympy.concrete.expr_with_intlimits.ExprWithIntLimits.index,
         reorder_limit,
         sympy.concrete.expr_with_intlimits.ExprWithIntLimits.reorder,
@@ -122,8 +121,7 @@ class ExprWithIntLimits(ExprWithLimits):
         limits tuple.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y, a, b, c, d
         >>> from sympy import Sum, Product
         >>> Sum(x*y, (x, a, b), (y, c, d)).index(x)
@@ -136,8 +134,7 @@ class ExprWithIntLimits(ExprWithLimits):
         1
 
         See Also
-        ========
-
+        --------
         reorder_limit, reorder, sympy.concrete.summations.Sum.reverse_order,
         sympy.concrete.products.Product.reverse_order
         """
@@ -153,8 +150,7 @@ class ExprWithIntLimits(ExprWithLimits):
         contain numerical indices or index variable names or involve both.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Sum, Product
         >>> from sympy.abc import x, y, z, a, b, c, d, e, f
 
@@ -182,8 +178,7 @@ class ExprWithIntLimits(ExprWithLimits):
         Sum(x*y, (y, c, d), (x, a, b))
 
         See Also
-        ========
-
+        --------
         reorder_limit, index, sympy.concrete.summations.Sum.reverse_order,
         sympy.concrete.products.Product.reverse_order
         """
@@ -200,8 +195,7 @@ class ExprWithIntLimits(ExprWithLimits):
         expression ``expr`` has to be either a Sum or a Product.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y, z, a, b, c, d, e, f
         >>> from sympy import Sum, Product
 
@@ -214,8 +208,7 @@ class ExprWithIntLimits(ExprWithLimits):
         Product(x*y*z, (z, e, f), (y, c, d), (x, a, b))
 
         See Also
-        ========
-
+        --------
         index, reorder, sympy.concrete.summations.Sum.reverse_order,
         sympy.concrete.products.Product.reverse_order
         """
@@ -225,8 +218,7 @@ class ExprWithIntLimits(ExprWithLimits):
         Returns True if the Sum or Product is computed for an empty sequence.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Sum, Product, Symbol
         >>> m = Symbol('m')
         >>> Sum(m, (m, 1, 0)).has_empty_sequence
@@ -252,8 +244,7 @@ class ExprWithIntLimits(ExprWithLimits):
         False
 
         See Also
-        ========
-
+        --------
         has_reversed_limits
         has_finite_limits
 

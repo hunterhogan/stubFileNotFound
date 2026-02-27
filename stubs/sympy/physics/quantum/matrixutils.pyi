@@ -1,4 +1,4 @@
-__all__ = ['numpy_ndarray', 'scipy_sparse_matrix', 'sympy_to_numpy', 'sympy_to_scipy_sparse', 'numpy_to_sympy', 'scipy_sparse_to_sympy', 'flatten_scalar', 'matrix_dagger', 'to_sympy', 'to_numpy', 'to_scipy_sparse', 'matrix_tensor_product', 'matrix_zeros']
+__all__ = ['flatten_scalar', 'matrix_dagger', 'matrix_tensor_product', 'matrix_zeros', 'numpy_ndarray', 'numpy_to_sympy', 'scipy_sparse_matrix', 'scipy_sparse_to_sympy', 'sympy_to_numpy', 'sympy_to_scipy_sparse', 'to_numpy', 'to_scipy_sparse', 'to_sympy']
 
 class numpy_ndarray: ...
 class scipy_sparse_matrix: ...
@@ -24,4 +24,4 @@ def matrix_dagger(e):
 def matrix_tensor_product(*product):
     """Compute the matrix tensor product of sympy/numpy/scipy.sparse matrices."""
 def matrix_zeros(m, n, **options):
-    '''"Get a zeros matrix for a given format.'''
+    """"Get a zeros matrix for a given format."""

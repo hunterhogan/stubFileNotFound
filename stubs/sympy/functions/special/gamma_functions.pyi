@@ -1,11 +1,13 @@
 from _typeshed import Incomplete
-from sympy.core import Add as Add, Dummy as Dummy, S as S, expand_func as expand_func
+from sympy.core import Add as Add, Dummy as Dummy, expand_func as expand_func, S as S
 from sympy.core.expr import Expr as Expr
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, PoleError as PoleError
+from sympy.core.function import (
+	ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, PoleError as PoleError)
 from sympy.core.logic import fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not
-from sympy.core.numbers import I as I, Rational as Rational, oo as oo, pi as pi
+from sympy.core.numbers import I as I, oo as oo, pi as pi, Rational as Rational
 from sympy.core.power import Pow as Pow
-from sympy.functions.combinatorial.factorials import RisingFactorial as RisingFactorial, factorial as factorial, rf as rf
+from sympy.functions.combinatorial.factorials import (
+	factorial as factorial, rf as rf, RisingFactorial as RisingFactorial)
 from sympy.functions.combinatorial.numbers import bernoulli as bernoulli, harmonic as harmonic
 from sympy.functions.elementary.complexes import re as re, unpolarify as unpolarify
 from sympy.functions.elementary.exponential import exp as exp, log as log
@@ -34,8 +36,7 @@ class gamma(DefinedFunction):
     plane except at the negative integers where there are simple poles.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, I, pi, gamma
     >>> from sympy.abc import x
 
@@ -75,8 +76,7 @@ class gamma(DefinedFunction):
     0.49801566811835604271 - 0.15494982830181068512*I
 
     See Also
-    ========
-
+    --------
     lowergamma: Lower incomplete gamma function.
     uppergamma: Upper incomplete gamma function.
     polygamma: Polygamma function.
@@ -86,7 +86,7 @@ class gamma(DefinedFunction):
     sympy.functions.special.beta_functions.beta: Euler Beta function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Gamma_function
     .. [2] https://dlmf.nist.gov/5
@@ -94,6 +94,7 @@ class gamma(DefinedFunction):
     .. [4] https://functions.wolfram.com/GammaBetaErf/Gamma/
 
     """
+
     unbranched: bool
     _singularities: Incomplete
     def fdiff(self, argindex: int = 1): ...
@@ -128,8 +129,7 @@ class lowergamma(DefinedFunction):
     where ${}_1F_1$ is the (confluent) hypergeometric function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import lowergamma, S
     >>> from sympy.abc import s, x
     >>> lowergamma(s, x)
@@ -140,8 +140,7 @@ class lowergamma(DefinedFunction):
     -2*sqrt(pi)*erf(sqrt(x)) - 2*exp(-x)/sqrt(x)
 
     See Also
-    ========
-
+    --------
     gamma: Gamma function.
     uppergamma: Upper incomplete gamma function.
     polygamma: Polygamma function.
@@ -151,7 +150,7 @@ class lowergamma(DefinedFunction):
     sympy.functions.special.beta_functions.beta: Euler Beta function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Incomplete_gamma_function#Lower_incomplete_gamma_function
     .. [2] Abramowitz, Milton; Stegun, Irene A., eds. (1965), Chapter 6,
@@ -162,6 +161,7 @@ class lowergamma(DefinedFunction):
     .. [5] https://functions.wolfram.com/GammaBetaErf/Gamma3/
 
     """
+
     def fdiff(self, argindex: int = 2): ...
     @classmethod
     def eval(cls, a, x): ...
@@ -200,8 +200,7 @@ class uppergamma(DefinedFunction):
         \\operatorname{E}_{n}(x) = \\int_{1}^{\\infty}{\\frac{e^{-xt}}{t^n} \\, dt} = x^{n-1}\\Gamma(1-n,x).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import uppergamma, S
     >>> from sympy.abc import s, x
     >>> uppergamma(s, x)
@@ -214,8 +213,7 @@ class uppergamma(DefinedFunction):
     expint(3, x)/x**2
 
     See Also
-    ========
-
+    --------
     gamma: Gamma function.
     lowergamma: Lower incomplete gamma function.
     polygamma: Polygamma function.
@@ -225,7 +223,7 @@ class uppergamma(DefinedFunction):
     sympy.functions.special.beta_functions.beta: Euler Beta function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Incomplete_gamma_function#Upper_incomplete_gamma_function
     .. [2] Abramowitz, Milton; Stegun, Irene A., eds. (1965), Chapter 6,
@@ -237,6 +235,7 @@ class uppergamma(DefinedFunction):
     .. [6] https://en.wikipedia.org/wiki/Exponential_integral#Relation_with_other_functions
 
     """
+
     def fdiff(self, argindex: int = 2): ...
     def _eval_evalf(self, prec): ...
     @classmethod
@@ -248,7 +247,7 @@ class uppergamma(DefinedFunction):
     def _eval_rewrite_as_expint(self, s, x, **kwargs): ...
 
 class polygamma(DefinedFunction):
-    '''
+    """
     The function ``polygamma(n, z)`` returns ``log(gamma(z)).diff(n + 1)``.
 
     Explanation
@@ -267,8 +266,7 @@ class polygamma(DefinedFunction):
         {\\Gamma(-s)}
 
     Examples
-    ========
-
+    --------
     Several special values are known:
 
     >>> from sympy import S, polygamma
@@ -332,8 +330,7 @@ class polygamma(DefinedFunction):
     (-1)**(n + 1)*(-harmonic(x - 1, n + 1) + zeta(n + 1))*factorial(n)
 
     See Also
-    ========
-
+    --------
     gamma: Gamma function.
     lowergamma: Lower incomplete gamma function.
     uppergamma: Upper incomplete gamma function.
@@ -343,7 +340,7 @@ class polygamma(DefinedFunction):
     sympy.functions.special.beta_functions.beta: Euler Beta function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Polygamma_function
     .. [2] https://mathworld.wolfram.com/PolygammaFunction.html
@@ -352,7 +349,8 @@ class polygamma(DefinedFunction):
     .. [5] O. Espinosa and V. Moll, "A generalized polygamma function",
            *Integral Transforms and Special Functions* (2004), 101-115.
 
-    '''
+    """
+
     @classmethod
     def eval(cls, n, z): ...
     def _eval_is_real(self): ...
@@ -368,13 +366,12 @@ class polygamma(DefinedFunction):
     def _eval_evalf(self, prec): ...
 
 class loggamma(DefinedFunction):
-    '''
+    """
     The ``loggamma`` function implements the logarithm of the
     gamma function (i.e., $\\log\\Gamma(x)$).
 
     Examples
-    ========
-
+    --------
     Several special values are known. For numerical integral
     arguments we have:
 
@@ -458,8 +455,7 @@ class loggamma(DefinedFunction):
     -0.65092319930185633889 - 1.8724366472624298171*I
 
     See Also
-    ========
-
+    --------
     gamma: Gamma function.
     lowergamma: Lower incomplete gamma function.
     uppergamma: Upper incomplete gamma function.
@@ -469,14 +465,15 @@ class loggamma(DefinedFunction):
     sympy.functions.special.beta_functions.beta: Euler Beta function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Gamma_function
     .. [2] https://dlmf.nist.gov/5
     .. [3] https://mathworld.wolfram.com/LogGammaFunction.html
     .. [4] https://functions.wolfram.com/GammaBetaErf/LogGamma/
 
-    '''
+    """
+
     @classmethod
     def eval(cls, z): ...
     def _eval_expand_func(self, **hints): ...
@@ -499,8 +496,7 @@ class digamma(DefinedFunction):
     In this case, ``digamma(z) = polygamma(0, z)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import digamma
     >>> digamma(0)
     zoo
@@ -517,8 +513,7 @@ class digamma(DefinedFunction):
     digamma(z)
 
     See Also
-    ========
-
+    --------
     gamma: Gamma function.
     lowergamma: Lower incomplete gamma function.
     uppergamma: Upper incomplete gamma function.
@@ -528,13 +523,14 @@ class digamma(DefinedFunction):
     sympy.functions.special.beta_functions.beta: Euler Beta function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Digamma_function
     .. [2] https://mathworld.wolfram.com/DigammaFunction.html
     .. [3] https://functions.wolfram.com/GammaBetaErf/PolyGamma2/
 
     """
+
     def _eval_evalf(self, prec): ...
     def fdiff(self, argindex: int = 1): ...
     def _eval_is_real(self): ...
@@ -559,8 +555,7 @@ class trigamma(DefinedFunction):
     In this case, ``trigamma(z) = polygamma(1, z)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import trigamma
     >>> trigamma(0)
     zoo
@@ -578,8 +573,7 @@ class trigamma(DefinedFunction):
 
 
     See Also
-    ========
-
+    --------
     gamma: Gamma function.
     lowergamma: Lower incomplete gamma function.
     uppergamma: Upper incomplete gamma function.
@@ -589,13 +583,14 @@ class trigamma(DefinedFunction):
     sympy.functions.special.beta_functions.beta: Euler Beta function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Trigamma_function
     .. [2] https://mathworld.wolfram.com/TrigammaFunction.html
     .. [3] https://functions.wolfram.com/GammaBetaErf/PolyGamma2/
 
     """
+
     def _eval_evalf(self, prec): ...
     def fdiff(self, argindex: int = 1): ...
     def _eval_is_real(self): ...
@@ -620,8 +615,7 @@ class multigamma(DefinedFunction):
     In a special case, ``multigamma(x, 1) = gamma(x)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, multigamma
     >>> from sympy import Symbol
     >>> x = Symbol('x')
@@ -651,22 +645,21 @@ class multigamma(DefinedFunction):
     pi**(3/2)*gamma(x)*gamma(x - 1)*gamma(x - 1/2)
 
     Parameters
-    ==========
-
+    ----------
     p : order or dimension of the multivariate gamma function
 
     See Also
-    ========
-
+    --------
     gamma, lowergamma, uppergamma, polygamma, loggamma, digamma, trigamma,
     sympy.functions.special.beta_functions.beta
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Multivariate_gamma_function
 
     """
+
     unbranched: bool
     def fdiff(self, argindex: int = 2): ...
     @classmethod

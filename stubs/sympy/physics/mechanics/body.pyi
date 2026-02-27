@@ -22,8 +22,7 @@ class Body(RigidBody, Particle):
     attributes are listed below.
 
     Attributes
-    ==========
-
+    ----------
     name : string
         The body's name
     masscenter : Point
@@ -42,8 +41,7 @@ class Body(RigidBody, Particle):
         listed as (reference frame, vector) tuples.
 
     Parameters
-    ==========
-
+    ----------
     name : String
         Defines the name of the body. It is used as the base for defining
         body specific properties.
@@ -61,8 +59,7 @@ class Body(RigidBody, Particle):
         RigidBody, a default inertia is generated.
 
     Examples
-    ========
-
+    --------
     As Body has been deprecated, the following examples are for illustrative
     purposes only. The functionality of Body is fully captured by
     :class:`~.RigidBody` and :class:`~.Particle`. To ignore the deprecation
@@ -105,11 +102,11 @@ class Body(RigidBody, Particle):
     The Particle version of the Body object can also receive a masscenter point
     and a reference frame, just not an inertia.
     """
+
     _loads: Incomplete
     frame: Incomplete
     _central_inertia: Incomplete
     def __init__(self, name, masscenter=None, mass=None, frame=None, central_inertia=None) -> None: ...
-    def __repr__(self) -> str: ...
     @property
     def loads(self): ...
     @property
@@ -132,16 +129,14 @@ class Body(RigidBody, Particle):
         """Kinetic energy of the body.
 
         Parameters
-        ==========
-
+        ----------
         frame : ReferenceFrame or Body
             The Body's angular velocity and the velocity of it's mass
             center are typically defined with respect to an inertial frame but
             any relevant frame in which the velocities are known can be supplied.
 
         Examples
-        ========
-
+        --------
         As Body has been deprecated, the following examples are for illustrative
         purposes only. The functionality of Body is fully captured by
         :class:`~.RigidBody` and :class:`~.Particle`. To ignore the deprecation
@@ -170,8 +165,7 @@ class Body(RigidBody, Particle):
         B_ixx*omega**2/2 + B_mass*v**2/2
 
         See Also
-        ========
-
+        --------
         sympy.physics.mechanics : Particle, RigidBody
 
         """
@@ -186,8 +180,7 @@ class Body(RigidBody, Particle):
         The force applied on other body is taken opposite of self, i.e, -force.
 
         Parameters
-        ==========
-
+        ----------
         force: Vector
             The force to be applied.
         point: Point, optional
@@ -260,8 +253,7 @@ class Body(RigidBody, Particle):
         [(P2, - x(t)*N_frame.x)]
 
         Notes
-        =====
-
+        -----
         If a new force is applied to a body on a point which already has some
         force applied on it, then the new force is added to the already applied
         force on that point.
@@ -279,8 +271,7 @@ class Body(RigidBody, Particle):
         i.e, -torque.
 
         Parameters
-        ==========
-
+        ----------
         torque: Vector
             The torque to be applied.
         reaction_body: Body, optional
@@ -343,8 +334,7 @@ class Body(RigidBody, Particle):
         [(B2_frame, - v(t)*N_frame.y)]
 
         Notes
-        =====
-
+        -----
         If a new torque is applied on body which already has some torque applied on it,
         then the new torque is added to the previous torque about the body's frame.
 
@@ -379,8 +369,7 @@ class Body(RigidBody, Particle):
         Remove load about a point or frame.
 
         Parameters
-        ==========
-
+        ----------
         about : Point or ReferenceFrame, optional
             The point about which force is applied,
             and is to be removed.
@@ -418,8 +407,7 @@ class Body(RigidBody, Particle):
         rigid body or reference frame.
 
         Parameters
-        ==========
-
+        ----------
         body: Body or ReferenceFrame
             The rigid body or reference frame to calculate the velocity in.
 
@@ -449,8 +437,7 @@ class Body(RigidBody, Particle):
         rigid body or reference frame.
 
         Parameters
-        ==========
-
+        ----------
         body: Body or ReferenceFrame
             The rigid body or reference frame to calculate the angular velocity in.
 
@@ -482,8 +469,7 @@ class Body(RigidBody, Particle):
         provided rigid body or reference frame.
 
         Parameters
-        ==========
-
+        ----------
         body: Body or ReferenceFrame
             The rigid body or reference frame to calculate the dcm.
 
@@ -518,16 +504,14 @@ class Body(RigidBody, Particle):
         point.
 
         Parameters
-        ==========
-
+        ----------
         point : sympy.physics.vector.Point
             The point to express the inertia dyadic about.
         frame : sympy.physics.vector.ReferenceFrame
             The reference frame used to construct the dyadic.
 
         Returns
-        =======
-
+        -------
         inertia : sympy.physics.vector.Dyadic
             The inertia dyadic of the rigid body expressed about the provided
             point.

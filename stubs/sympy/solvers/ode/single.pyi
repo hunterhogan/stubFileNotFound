@@ -1,30 +1,44 @@
-from .hypergeometric import equivalence_hypergeometric as equivalence_hypergeometric, get_sol_2F1_hypergeometric as get_sol_2F1_hypergeometric, match_2nd_2F1_hypergeometric as match_2nd_2F1_hypergeometric, match_2nd_hypergeometric as match_2nd_hypergeometric
+from .hypergeometric import (
+	equivalence_hypergeometric as equivalence_hypergeometric, get_sol_2F1_hypergeometric as get_sol_2F1_hypergeometric,
+	match_2nd_2F1_hypergeometric as match_2nd_2F1_hypergeometric, match_2nd_hypergeometric as match_2nd_hypergeometric)
 from .lie_group import _ode_lie_group as _ode_lie_group
-from .nonhomogeneous import _get_const_characteristic_eq_sols as _get_const_characteristic_eq_sols, _get_euler_characteristic_eq_sols as _get_euler_characteristic_eq_sols, _get_simplified_sol as _get_simplified_sol, _solve_undetermined_coefficients as _solve_undetermined_coefficients, _solve_variation_of_parameters as _solve_variation_of_parameters, _test_term as _test_term, _undetermined_coefficients_match as _undetermined_coefficients_match
-from .ode import dsolve as dsolve, homogeneous_order as homogeneous_order, ode_sol_simplicity as ode_sol_simplicity, odesimp as odesimp
+from .nonhomogeneous import (
+	_get_const_characteristic_eq_sols as _get_const_characteristic_eq_sols,
+	_get_euler_characteristic_eq_sols as _get_euler_characteristic_eq_sols, _get_simplified_sol as _get_simplified_sol,
+	_solve_undetermined_coefficients as _solve_undetermined_coefficients,
+	_solve_variation_of_parameters as _solve_variation_of_parameters, _test_term as _test_term,
+	_undetermined_coefficients_match as _undetermined_coefficients_match)
+from .ode import (
+	dsolve as dsolve, homogeneous_order as homogeneous_order, ode_sol_simplicity as ode_sol_simplicity, odesimp as odesimp)
 from .riccati import match_riccati as match_riccati, solve_riccati as solve_riccati
 from _typeshed import Incomplete
+from collections.abc import Iterator
 from sympy.core import Add as Add, Pow as Pow, Rational as Rational, S as S
 from sympy.core.cache import cached_property as cached_property
 from sympy.core.expr import Expr as Expr
 from sympy.core.exprtools import factor_terms as factor_terms
-from sympy.core.function import AppliedUndef as AppliedUndef, Derivative as Derivative, Function as Function, Subs as Subs, _mexpand as _mexpand, diff as diff, expand as expand
+from sympy.core.function import (
+	_mexpand as _mexpand, AppliedUndef as AppliedUndef, Derivative as Derivative, diff as diff, expand as expand,
+	Function as Function, Subs as Subs)
 from sympy.core.mul import Mul as Mul
 from sympy.core.numbers import zoo as zoo
 from sympy.core.relational import Eq as Eq, Equality as Equality
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, Wild as Wild
-from sympy.functions import airyai as airyai, airybi as airybi, besselj as besselj, bessely as bessely, cbrt as cbrt, exp as exp, log as log, sqrt as sqrt, tan as tan
+from sympy.functions import (
+	airyai as airyai, airybi as airybi, besselj as besselj, bessely as bessely, cbrt as cbrt, exp as exp, log as log,
+	sqrt as sqrt, tan as tan)
 from sympy.integrals import Integral as Integral
 from sympy.polys import Poly as Poly
 from sympy.polys.matrices.linsolve import _lin_eq2dict as _lin_eq2dict
 from sympy.polys.polytools import cancel as cancel, degree as degree, factor as factor
 from sympy.polys.solvers import PolyNonlinearError as PolyNonlinearError
-from sympy.simplify import collect as collect, logcombine as logcombine, posify as posify, separatevars as separatevars, simplify as simplify
+from sympy.simplify import (
+	collect as collect, logcombine as logcombine, posify as posify, separatevars as separatevars, simplify as simplify)
 from sympy.simplify.radsimp import fraction as fraction
 from sympy.solvers.deutils import _preprocess as _preprocess, ode_order as ode_order
 from sympy.solvers.solvers import solve as solve
 from sympy.utilities import numbered_symbols as numbered_symbols
-from typing import ClassVar, Iterator
+from typing import ClassVar
 
 class ODEMatchError(NotImplementedError):
     """Raised if a SingleODESolver is asked to solve an ODE it does not match"""
@@ -37,8 +51,7 @@ class SingleODEProblem:
     efficiently.
 
     Examples
-    ========
-
+    --------
     This class is used internally by dsolve. To instantiate an instance
     directly first define an ODE problem:
 
@@ -58,6 +71,7 @@ class SingleODEProblem:
     >>> problem.sym
     x
     """
+
     eq: Expr
     func: AppliedUndef
     sym: Symbol
@@ -102,8 +116,7 @@ class SingleODEProblem:
         to be good.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Function, cos, sin
         >>> from sympy.abc import x
         >>> from sympy.solvers.ode.single import SingleODEProblem
@@ -128,8 +141,7 @@ class SingleODESolver:
     subclasses are as part of dsolve.
 
     Examples
-    ========
-
+    --------
     You can use a subclass of SingleODEProblem to solve a particular type of
     ODE. We first define a particular ODE problem:
 
@@ -156,6 +168,7 @@ class SingleODESolver:
     >>> dsolve(eq, hint='nth_algebraic')
     Eq(f(x), C1 + C2*x)
     """
+
     hint: ClassVar[str]
     has_integral: ClassVar[bool]
     ode_problem: SingleODEProblem
@@ -169,6 +182,7 @@ class SingleODESolver:
 
 class SinglePatternODESolver(SingleODESolver):
     """Superclass for ODE solvers based on pattern matching"""
+
     def wilds(self): ...
     def wilds_match(self): ...
     _wilds_match: Incomplete
@@ -187,8 +201,7 @@ class NthAlgebraic(SingleODESolver):
     invertible algebraic function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, dsolve, Eq
     >>> from sympy.abc import x
     >>> f = Function('f')
@@ -199,6 +212,7 @@ class NthAlgebraic(SingleODESolver):
     Note that this solver can return algebraic solutions that do not have any
     integration constants (f(x) = 0 in the above example).
     """
+
     hint: str
     has_integral: bool
     solutions: Incomplete
@@ -216,7 +230,7 @@ class NthAlgebraic(SingleODESolver):
     def _get_diffx(var): ...
 
 class FirstExact(SinglePatternODESolver):
-    '''
+    """
     Solves 1st order exact ordinary differential equations.
 
     A 1st order differential equation is called exact if it is the total
@@ -252,8 +266,7 @@ class FirstExact(SinglePatternODESolver):
     solving for.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, dsolve, cos, sin
     >>> from sympy.abc import x
     >>> f = Function(\'f\')
@@ -262,15 +275,15 @@ class FirstExact(SinglePatternODESolver):
     Eq(x*cos(f(x)) + f(x)**3/3, C1)
 
     References
-    ==========
-
+    ----------
     - https://en.wikipedia.org/wiki/Exact_differential_equation
     - M. Tenenbaum & H. Pollard, "Ordinary Differential Equations",
       Dover 1963, pp. 73
 
     # indirect doctest
 
-    '''
+    """
+
     hint: str
     has_integral: bool
     order: Incomplete
@@ -280,7 +293,7 @@ class FirstExact(SinglePatternODESolver):
     def _get_general_solution(self, *, simplify_flag: bool = True): ...
 
 class FirstLinear(SinglePatternODESolver):
-    '''
+    """
     Solves 1st order linear differential equations.
 
     These are differential equations of the form
@@ -312,23 +325,22 @@ class FirstLinear(SinglePatternODESolver):
 
 
     Examples
-    ========
-
+    --------
     >>> f = Function(\'f\')
     >>> pprint(dsolve(Eq(x*diff(f(x), x) - f(x), x**2*sin(x)),
     ... f(x), \'1st_linear\'))
     f(x) = x*(C1 - cos(x))
 
     References
-    ==========
-
+    ----------
     - https://en.wikipedia.org/wiki/Linear_differential_equation#First-order_equation_with_variable_coefficients
     - M. Tenenbaum & H. Pollard, "Ordinary Differential Equations",
       Dover 1963, pp. 92
 
     # indirect doctest
 
-    '''
+    """
+
     hint: str
     has_integral: bool
     order: Incomplete
@@ -337,7 +349,7 @@ class FirstLinear(SinglePatternODESolver):
     def _get_general_solution(self, *, simplify_flag: bool = True): ...
 
 class AlmostLinear(SinglePatternODESolver):
-    '''
+    """
     Solves an almost-linear differential equation.
 
     The general form of an almost linear differential equation is
@@ -351,12 +363,11 @@ class AlmostLinear(SinglePatternODESolver):
     `g(f(x)) = u(x)`.
 
     See Also
-    ========
+    --------
     :obj:`sympy.solvers.ode.single.FirstLinear`
 
     Examples
-    ========
-
+    --------
     >>> from sympy import dsolve, Function, pprint, sin, cos
     >>> from sympy.abc import x
     >>> f = Function(\'f\')
@@ -377,11 +388,11 @@ class AlmostLinear(SinglePatternODESolver):
 
 
     References
-    ==========
-
+    ----------
     - Joel Moses, "Symbolic Integration - The Stormy Decade", Communications
       of the ACM, Volume 14, Number 8, August 1971, pp. 558
-    '''
+    """
+
     hint: str
     has_integral: bool
     order: Incomplete
@@ -395,7 +406,7 @@ class AlmostLinear(SinglePatternODESolver):
     def _get_general_solution(self, *, simplify_flag: bool = True): ...
 
 class Bernoulli(SinglePatternODESolver):
-    '''
+    """
     Solves Bernoulli differential equations.
 
     These are equations of the form
@@ -445,8 +456,7 @@ class Bernoulli(SinglePatternODESolver):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, dsolve, Eq, pprint, log
     >>> from sympy.abc import x
     >>> f = Function(\'f\')
@@ -458,8 +468,7 @@ class Bernoulli(SinglePatternODESolver):
             C1*x + log(x) + 1
 
     References
-    ==========
-
+    ----------
     - https://en.wikipedia.org/wiki/Bernoulli_differential_equation
 
     - M. Tenenbaum & H. Pollard, "Ordinary Differential Equations",
@@ -467,7 +476,8 @@ class Bernoulli(SinglePatternODESolver):
 
     # indirect doctest
 
-    '''
+    """
+
     hint: str
     has_integral: bool
     order: Incomplete
@@ -477,25 +487,25 @@ class Bernoulli(SinglePatternODESolver):
 
 class Factorable(SingleODESolver):
     """
-        Solves equations having a solvable factor.
+    Solves equations having a solvable factor.
 
-        This function is used to solve the equation having factors. Factors may be of type algebraic or ode. It
-        will try to solve each factor independently. Factors will be solved by calling dsolve. We will return the
-        list of solutions.
+    This function is used to solve the equation having factors. Factors may be of type algebraic or ode. It
+    will try to solve each factor independently. Factors will be solved by calling dsolve. We will return the
+    list of solutions.
 
-        Examples
-        ========
+    Examples
+    --------
+    >>> from sympy import Function, dsolve, pprint
+    >>> from sympy.abc import x
+    >>> f = Function('f')
+    >>> eq = (f(x)**2-4)*(f(x).diff(x)+f(x))
+    >>> pprint(dsolve(eq, f(x)))
+                                    -x
+    [f(x) = 2, f(x) = -2, f(x) = C1*e  ]
 
-        >>> from sympy import Function, dsolve, pprint
-        >>> from sympy.abc import x
-        >>> f = Function('f')
-        >>> eq = (f(x)**2-4)*(f(x).diff(x)+f(x))
-        >>> pprint(dsolve(eq, f(x)))
-                                        -x
-        [f(x) = 2, f(x) = -2, f(x) = C1*e  ]
 
+    """
 
-        """
     hint: str
     has_integral: bool
     eqs: Incomplete
@@ -503,7 +513,7 @@ class Factorable(SingleODESolver):
     def _get_general_solution(self, *, simplify_flag: bool = True): ...
 
 class RiccatiSpecial(SinglePatternODESolver):
-    '''
+    """
     The general Riccati equation has the form
 
     .. math:: dy/dx = f(x) y^2 + g(x) y + h(x)\\text{.}
@@ -533,12 +543,12 @@ class RiccatiSpecial(SinglePatternODESolver):
     True
 
     References
-    ==========
-
+    ----------
     - https://www.maplesoft.com/support/help/Maple/view.aspx?path=odeadvisor/Riccati
     - https://eqworld.ipmnet.ru/en/solutions/ode/ode0106.pdf -
       https://eqworld.ipmnet.ru/en/solutions/ode/ode0123.pdf
-    '''
+    """
+
     hint: str
     has_integral: bool
     order: Incomplete
@@ -547,7 +557,7 @@ class RiccatiSpecial(SinglePatternODESolver):
     def _get_general_solution(self, *, simplify_flag: bool = True): ...
 
 class RationalRiccati(SinglePatternODESolver):
-    '''
+    """
     Gives general solutions to the first order Riccati differential
     equations that have atleast one rational particular solution.
 
@@ -557,8 +567,7 @@ class RationalRiccati(SinglePatternODESolver):
     with `b_2 \\ne 0` (`b_2 = 0` would make it a Bernoulli equation).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, Function, dsolve, checkodesol
     >>> f = Function(\'f\')
     >>> x = Symbol(\'x\')
@@ -571,12 +580,12 @@ class RationalRiccati(SinglePatternODESolver):
     (True, 0)
 
     References
-    ==========
-
+    ----------
     - Riccati ODE:  https://en.wikipedia.org/wiki/Riccati_equation
     - N. Thieu Vo - Rational and Algebraic Solutions of First-Order Algebraic ODEs:
       Algorithm 11, pp. 78 - https://www3.risc.jku.at/publications/download/risc_5387/PhDThesisThieu.pdf
-    '''
+    """
+
     has_integral: bool
     hint: str
     order: Incomplete
@@ -598,8 +607,7 @@ class SecondNonlinearAutonomousConserved(SinglePatternODESolver):
     converting it into a first order differential equation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, symbols, dsolve
     >>> f, g = symbols('f g', cls=Function)
     >>> x = symbols('x')
@@ -616,10 +624,10 @@ class SecondNonlinearAutonomousConserved(SinglePatternODESolver):
     Eq(Integral(1/sqrt(-2*_u*log(_u) + 2*_u + C1 + 2*exp(_u)), (_u, f(x))), C2 - x)]
 
     References
-    ==========
-
+    ----------
     - https://eqworld.ipmnet.ru/en/solutions/ode/ode0301.pdf
     """
+
     hint: str
     has_integral: bool
     order: Incomplete
@@ -629,7 +637,7 @@ class SecondNonlinearAutonomousConserved(SinglePatternODESolver):
     def _get_general_solution(self, *, simplify_flag: bool = True): ...
 
 class Liouville(SinglePatternODESolver):
-    '''
+    """
     Solves 2nd order Liouville differential equations.
 
     The general form of a Liouville ODE is
@@ -665,8 +673,7 @@ class Liouville(SinglePatternODESolver):
                 /                     /
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, dsolve, Eq, pprint
     >>> from sympy.abc import x
     >>> f = Function(\'f\')
@@ -676,15 +683,15 @@ class Liouville(SinglePatternODESolver):
     [f(x) = -\\/ C1 + C2*log(x) , f(x) = \\/ C1 + C2*log(x) ]
 
     References
-    ==========
-
+    ----------
     - Goldstein and Braun, "Advanced Methods for the Solution of Differential
       Equations", pp. 98
     - https://www.maplesoft.com/support/help/Maple/view.aspx?path=odeadvisor/Liouville
 
     # indirect doctest
 
-    '''
+    """
+
     hint: str
     has_integral: bool
     order: Incomplete
@@ -697,7 +704,7 @@ class Liouville(SinglePatternODESolver):
     def _get_general_solution(self, *, simplify_flag: bool = True): ...
 
 class Separable(SinglePatternODESolver):
-    '''
+    """
     Solves separable 1st order differential equations.
 
     This is any differential equation that can be written as `P(y)
@@ -730,8 +737,7 @@ class Separable(SinglePatternODESolver):
          /                  /
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, dsolve, Eq
     >>> from sympy.abc import x
     >>> f = Function(\'f\')
@@ -743,14 +749,14 @@ class Separable(SinglePatternODESolver):
            6                2
 
     References
-    ==========
-
+    ----------
     - M. Tenenbaum & H. Pollard, "Ordinary Differential Equations",
       Dover 1963, pp. 52
 
     # indirect doctest
 
-    '''
+    """
+
     hint: str
     has_integral: bool
     order: Incomplete
@@ -764,7 +770,7 @@ class Separable(SinglePatternODESolver):
     def _get_general_solution(self, *, simplify_flag: bool = True): ...
 
 class SeparableReduced(Separable):
-    '''
+    """
     Solves a differential equation that can be reduced to the separable form.
 
     The general form of this equation is
@@ -797,12 +803,11 @@ class SeparableReduced(Separable):
          /
 
     See Also
-    ========
+    --------
     :obj:`sympy.solvers.ode.single.Separable`
 
     Examples
-    ========
-
+    --------
     >>> from sympy import dsolve, Function, pprint
     >>> from sympy.abc import x
     >>> f = Function(\'f\')
@@ -818,11 +823,11 @@ class SeparableReduced(Separable):
                     x                          x
 
     References
-    ==========
-
+    ----------
     - Joel Moses, "Symbolic Integration - The Stormy Decade", Communications
       of the ACM, Volume 14, Number 8, August 1971, pp. 558
-    '''
+    """
+
     hint: str
     has_integral: bool
     order: Incomplete
@@ -835,7 +840,7 @@ class SeparableReduced(Separable):
     def _get_match_object(self): ...
 
 class HomogeneousCoeffSubsDepDivIndep(SinglePatternODESolver):
-    '''
+    """
     Solves a 1st order differential equation with homogeneous coefficients
     using the substitution `u_1 = \\frac{\\text{<dependent
     variable>}}{\\text{<independent variable>}}`.
@@ -886,8 +891,7 @@ class HomogeneousCoeffSubsDepDivIndep(SinglePatternODESolver):
     :obj:`~sympy.solvers.ode.single.HomogeneousCoeffSubsIndepDivDep`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, dsolve
     >>> from sympy.abc import x
     >>> f = Function(\'f\')
@@ -901,15 +905,15 @@ class HomogeneousCoeffSubsDepDivIndep(SinglePatternODESolver):
                                 3
 
     References
-    ==========
-
+    ----------
     - https://en.wikipedia.org/wiki/Homogeneous_differential_equation
     - M. Tenenbaum & H. Pollard, "Ordinary Differential Equations",
       Dover 1963, pp. 59
 
     # indirect doctest
 
-    '''
+    """
+
     hint: str
     has_integral: bool
     order: Incomplete
@@ -925,7 +929,7 @@ class HomogeneousCoeffSubsDepDivIndep(SinglePatternODESolver):
     def _get_general_solution(self, *, simplify_flag: bool = True): ...
 
 class HomogeneousCoeffSubsIndepDivDep(SinglePatternODESolver):
-    '''
+    """
     Solves a 1st order differential equation with homogeneous coefficients
     using the substitution `u_2 = \\frac{\\text{<independent
     variable>}}{\\text{<dependent variable>}}`.
@@ -978,8 +982,7 @@ class HomogeneousCoeffSubsIndepDivDep(SinglePatternODESolver):
     :obj:`~sympy.solvers.ode.single.HomogeneousCoeffSubsDepDivIndep`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, pprint, dsolve
     >>> from sympy.abc import x
     >>> f = Function(\'f\')
@@ -994,15 +997,15 @@ class HomogeneousCoeffSubsIndepDivDep(SinglePatternODESolver):
                                 3
 
     References
-    ==========
-
+    ----------
     - https://en.wikipedia.org/wiki/Homogeneous_differential_equation
     - M. Tenenbaum & H. Pollard, "Ordinary Differential Equations",
       Dover 1963, pp. 59
 
     # indirect doctest
 
-    '''
+    """
+
     hint: str
     has_integral: bool
     order: Incomplete
@@ -1018,7 +1021,7 @@ class HomogeneousCoeffSubsIndepDivDep(SinglePatternODESolver):
     def _get_general_solution(self, *, simplify_flag: bool = True): ...
 
 class HomogeneousCoeffBest(HomogeneousCoeffSubsIndepDivDep, HomogeneousCoeffSubsDepDivIndep):
-    '''
+    """
     Returns the best solution to an ODE from the two hints
     ``1st_homogeneous_coeff_subs_dep_div_indep`` and
     ``1st_homogeneous_coeff_subs_indep_div_dep``.
@@ -1033,8 +1036,7 @@ class HomogeneousCoeffBest(HomogeneousCoeffSubsIndepDivDep, HomogeneousCoeffSubs
     ``ode_1st_homogeneous_coeff_best_Integral`` hint.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, dsolve, pprint
     >>> from sympy.abc import x
     >>> f = Function(\'f\')
@@ -1048,15 +1050,15 @@ class HomogeneousCoeffBest(HomogeneousCoeffSubsIndepDivDep, HomogeneousCoeffSubs
                                 3
 
     References
-    ==========
-
+    ----------
     - https://en.wikipedia.org/wiki/Homogeneous_differential_equation
     - M. Tenenbaum & H. Pollard, "Ordinary Differential Equations",
       Dover 1963, pp. 59
 
     # indirect doctest
 
-    '''
+    """
+
     hint: str
     has_integral: bool
     order: Incomplete
@@ -1064,7 +1066,7 @@ class HomogeneousCoeffBest(HomogeneousCoeffSubsIndepDivDep, HomogeneousCoeffSubs
     def _get_general_solution(self, *, simplify_flag: bool = True): ...
 
 class LinearCoefficients(HomogeneousCoeffBest):
-    '''
+    """
     Solves a differential equation with linear coefficients.
 
     The general form of a differential equation with linear coefficients is
@@ -1086,14 +1088,13 @@ class LinearCoefficients(HomogeneousCoeffBest):
     equation.
 
     See Also
-    ========
+    --------
     :obj:`sympy.solvers.ode.single.HomogeneousCoeffBest`
     :obj:`sympy.solvers.ode.single.HomogeneousCoeffSubsIndepDivDep`
     :obj:`sympy.solvers.ode.single.HomogeneousCoeffSubsDepDivIndep`
 
     Examples
-    ========
-
+    --------
     >>> from sympy import dsolve, Function, pprint
     >>> from sympy.abc import x
     >>> f = Function(\'f\')
@@ -1108,11 +1109,11 @@ class LinearCoefficients(HomogeneousCoeffBest):
 
 
     References
-    ==========
-
+    ----------
     - Joel Moses, "Symbolic Integration - The Stormy Decade", Communications
       of the ACM, Volume 14, Number 8, August 1971, pp. 558
-    '''
+    """
+
     hint: str
     has_integral: bool
     order: Incomplete
@@ -1140,8 +1141,7 @@ class LinearCoefficients(HomogeneousCoeffBest):
 
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Function, sin
         >>> from sympy.abc import x
         >>> from sympy.solvers.ode.single import LinearCoefficients
@@ -1175,8 +1175,7 @@ class NthOrderReducible(SingleODESolver):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, dsolve, Eq
     >>> from sympy.abc import x
     >>> f = Function('f')
@@ -1186,6 +1185,7 @@ class NthOrderReducible(SingleODESolver):
     Eq(f(x), C1 - sqrt(-1/C2)*log(-C2*sqrt(-1/C2) + x) + sqrt(-1/C2)*log(C2*sqrt(-1/C2) + x))
 
     """
+
     hint: str
     has_integral: bool
     smallest: Incomplete
@@ -1193,7 +1193,7 @@ class NthOrderReducible(SingleODESolver):
     def _get_general_solution(self, *, simplify_flag: bool = True): ...
 
 class SecondHypergeometric(SingleODESolver):
-    '''
+    """
     Solves 2nd order linear differential equations.
 
     It computes special function solutions which can be expressed using the
@@ -1212,8 +1212,7 @@ class SecondHypergeometric(SingleODESolver):
     where {a, b, c} are arbitrary constants.
 
     Notes
-    =====
-
+    -----
     The algorithm should find any solution of the form
 
     .. math:: y = P(x) _pF_q(..; ..;\\frac{\\alpha x^k + \\beta}{\\gamma x^k + \\delta})\\text{,}
@@ -1225,8 +1224,7 @@ class SecondHypergeometric(SingleODESolver):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, dsolve, pprint
     >>> from sympy.abc import x
     >>> f = Function(\'f\')
@@ -1241,11 +1239,11 @@ class SecondHypergeometric(SingleODESolver):
 
 
     References
-    ==========
-
+    ----------
     - "Non-Liouvillian solutions for second order linear ODEs" by L. Chan, E.S. Cheb-Terrab
 
-    '''
+    """
+
     hint: str
     has_integral: bool
     match_object: Incomplete
@@ -1253,7 +1251,7 @@ class SecondHypergeometric(SingleODESolver):
     def _get_general_solution(self, *, simplify_flag: bool = True): ...
 
 class NthLinearConstantCoeffHomogeneous(SingleODESolver):
-    '''
+    """
     Solves an `n`\\th order linear homogeneous differential equation with
     constant coefficients.
 
@@ -1294,8 +1292,7 @@ class NthLinearConstantCoeffHomogeneous(SingleODESolver):
     ``nth_linear_constant_coeff_homogeneous_Integral`` hint.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, dsolve, pprint
     >>> from sympy.abc import x
     >>> f = Function(\'f\')
@@ -1306,8 +1303,7 @@ class NthLinearConstantCoeffHomogeneous(SingleODESolver):
     f(x) = (C1 + C2*x)*e  + (C3*sin(x) + C4*cos(x))*e
 
     References
-    ==========
-
+    ----------
     - https://en.wikipedia.org/wiki/Linear_differential_equation section:
       Nonhomogeneous_equation_with_constant_coefficients
     - M. Tenenbaum & H. Pollard, "Ordinary Differential Equations",
@@ -1315,7 +1311,8 @@ class NthLinearConstantCoeffHomogeneous(SingleODESolver):
 
     # indirect doctest
 
-    '''
+    """
+
     hint: str
     has_integral: bool
     r: Incomplete
@@ -1323,7 +1320,7 @@ class NthLinearConstantCoeffHomogeneous(SingleODESolver):
     def _get_general_solution(self, *, simplify_flag: bool = True): ...
 
 class NthLinearConstantCoeffVariationOfParameters(SingleODESolver):
-    '''
+    """
     Solves an `n`\\th order linear differential equation with constant
     coefficients using the method of variation of parameters.
 
@@ -1368,8 +1365,7 @@ class NthLinearConstantCoeffVariationOfParameters(SingleODESolver):
     trigonometric functions in it.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, dsolve, pprint, exp, log
     >>> from sympy.abc import x
     >>> f = Function(\'f\')
@@ -1381,8 +1377,7 @@ class NthLinearConstantCoeffVariationOfParameters(SingleODESolver):
            \\       \\       \\        6        36 ///
 
     References
-    ==========
-
+    ----------
     - https://en.wikipedia.org/wiki/Variation_of_parameters
     - https://planetmath.org/VariationOfParameters
     - M. Tenenbaum & H. Pollard, "Ordinary Differential Equations",
@@ -1390,7 +1385,8 @@ class NthLinearConstantCoeffVariationOfParameters(SingleODESolver):
 
     # indirect doctest
 
-    '''
+    """
+
     hint: str
     has_integral: bool
     r: Incomplete
@@ -1398,7 +1394,7 @@ class NthLinearConstantCoeffVariationOfParameters(SingleODESolver):
     def _get_general_solution(self, *, simplify_flag: bool = True): ...
 
 class NthLinearConstantCoeffUndeterminedCoefficients(SingleODESolver):
-    '''
+    """
     Solves an `n`\\th order linear differential equation with constant
     coefficients using the method of undetermined coefficients.
 
@@ -1431,8 +1427,7 @@ class NthLinearConstantCoeffUndeterminedCoefficients(SingleODESolver):
     them linearly independent.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, dsolve, pprint, exp, cos
     >>> from sympy.abc import x
     >>> f = Function(\'f\')
@@ -1444,15 +1439,15 @@ class NthLinearConstantCoeffUndeterminedCoefficients(SingleODESolver):
            \\       \\     3 //           25           25
 
     References
-    ==========
-
+    ----------
     - https://en.wikipedia.org/wiki/Method_of_undetermined_coefficients
     - M. Tenenbaum & H. Pollard, "Ordinary Differential Equations",
       Dover 1963, pp. 221
 
     # indirect doctest
 
-    '''
+    """
+
     hint: str
     has_integral: bool
     r: Incomplete
@@ -1461,7 +1456,7 @@ class NthLinearConstantCoeffUndeterminedCoefficients(SingleODESolver):
     def _get_general_solution(self, *, simplify_flag: bool = True): ...
 
 class NthLinearEulerEqHomogeneous(SingleODESolver):
-    '''
+    """
     Solves an `n`\\th order linear homogeneous variable-coefficient
     Cauchy-Euler equidimensional ordinary differential equation.
 
@@ -1506,8 +1501,7 @@ class NthLinearEulerEqHomogeneous(SingleODESolver):
       \'list\': <list of linearly independent solutions>}``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, dsolve, pprint
     >>> from sympy.abc import x
     >>> f = Function(\'f\')
@@ -1518,15 +1512,15 @@ class NthLinearEulerEqHomogeneous(SingleODESolver):
     f(x) = x *(C1 + C2*x)
 
     References
-    ==========
-
+    ----------
     - https://en.wikipedia.org/wiki/Cauchy%E2%80%93Euler_equation
     - C. Bender & S. Orszag, "Advanced Mathematical Methods for Scientists and
       Engineers", Springer 1999, pp. 12
 
     # indirect doctest
 
-    '''
+    """
+
     hint: str
     has_integral: bool
     r: Incomplete
@@ -1576,8 +1570,7 @@ class NthLinearEulerEqNonhomogeneousVariationOfParameters(SingleODESolver):
     trigonometric functions in it.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, dsolve, Derivative
     >>> from sympy.abc import x
     >>> f = Function('f')
@@ -1587,6 +1580,7 @@ class NthLinearEulerEqNonhomogeneousVariationOfParameters(SingleODESolver):
     Eq(f(x), C1*x + C2*x**2 + x**4/6)
 
     """
+
     hint: str
     has_integral: bool
     r: Incomplete
@@ -1628,8 +1622,7 @@ class NthLinearEulerEqNonhomogeneousUndeterminedCoefficients(SingleODESolver):
     by sufficient `x` to make them linearly independent.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import dsolve, Function, Derivative, log
     >>> from sympy.abc import x
     >>> f = Function('f')
@@ -1639,6 +1632,7 @@ class NthLinearEulerEqNonhomogeneousUndeterminedCoefficients(SingleODESolver):
     Eq(f(x), C1*x + C2*x**2 + log(x)/2 + 3/4)
 
     """
+
     hint: str
     has_integral: bool
     r: Incomplete
@@ -1659,8 +1653,7 @@ class SecondLinearBessel(SingleODESolver):
     + C1 bessely(n,x))``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x
     >>> from sympy import Symbol
     >>> v = Symbol('v', positive=True)
@@ -1672,11 +1665,11 @@ class SecondLinearBessel(SingleODESolver):
     Eq(f(x), C1*besselj(v, x) + C2*bessely(v, x))
 
     References
-    ==========
-
+    ----------
     https://math24.net/bessel-differential-equation.html
 
     """
+
     hint: str
     has_integral: bool
     rn: Incomplete
@@ -1684,7 +1677,7 @@ class SecondLinearBessel(SingleODESolver):
     def _get_general_solution(self, *, simplify_flag: bool = True): ...
 
 class SecondLinearAiry(SingleODESolver):
-    '''
+    """
     Gives solution of the Airy differential equation
 
     .. math :: \\frac{d^2y}{dx^2} + (a + b x) y(x) = 0
@@ -1692,15 +1685,15 @@ class SecondLinearAiry(SingleODESolver):
     in terms of Airy special functions airyai and airybi.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import dsolve, Function
     >>> from sympy.abc import x
     >>> f = Function("f")
     >>> eq = f(x).diff(x, 2) - x*f(x)
     >>> dsolve(eq)
     Eq(f(x), C1*airyai(x) + C2*airybi(x))
-    '''
+    """
+
     hint: str
     has_integral: bool
     rn: Incomplete
@@ -1736,8 +1729,7 @@ class LieGroup(SingleODESolver):
     coordinate system by substituting `r` and `s` in terms of `x` and `y` again.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, dsolve, exp, pprint
     >>> from sympy.abc import x
     >>> f = Function('f')
@@ -1750,12 +1742,12 @@ class LieGroup(SingleODESolver):
 
 
     References
-    ==========
-
+    ----------
     - Solving differential equations by Symmetry Groups,
       John Starrett, pp. 1 - pp. 14
 
     """
+
     hint: str
     has_integral: bool
     def _has_additional_params(self): ...

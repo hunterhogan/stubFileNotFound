@@ -33,16 +33,14 @@ class TWave(Expr):
         Refractive index of the medium.
 
     Raises
-    =======
-
+    ------
     ValueError : When neither frequency nor time period is provided
         or they are not consistent.
     TypeError : When anything other than TWave objects is added.
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols
     >>> from sympy.physics.optics import TWave
     >>> A1, phi1, A2, phi2, f = symbols('A1, phi1, A2, phi2, f')
@@ -62,6 +60,7 @@ class TWave(Expr):
     2*pi*f
 
     """
+
     def __new__(cls, amplitude, frequency=None, phase=..., time_period=None, n=...): ...
     @property
     def amplitude(self):
@@ -69,8 +68,7 @@ class TWave(Expr):
         Returns the amplitude of the wave.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols
         >>> from sympy.physics.optics import TWave
         >>> A, phi, f = symbols('A, phi, f')
@@ -85,8 +83,7 @@ class TWave(Expr):
         in cycles per second.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols
         >>> from sympy.physics.optics import TWave
         >>> A, phi, f = symbols('A, phi, f')
@@ -101,8 +98,7 @@ class TWave(Expr):
         in radians.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols
         >>> from sympy.physics.optics import TWave
         >>> A, phi, f = symbols('A, phi, f')
@@ -117,8 +113,7 @@ class TWave(Expr):
         in seconds per cycle.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols
         >>> from sympy.physics.optics import TWave
         >>> A, phi, f = symbols('A, phi, f')
@@ -139,8 +134,7 @@ class TWave(Expr):
         It depends on the medium of the wave.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols
         >>> from sympy.physics.optics import TWave
         >>> A, phi, f = symbols('A, phi, f')
@@ -156,8 +150,7 @@ class TWave(Expr):
         It is dependent on the propagation medium.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols
         >>> from sympy.physics.optics import TWave
         >>> A, phi, f = symbols('A, phi, f')
@@ -172,8 +165,7 @@ class TWave(Expr):
         in radians per second.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols
         >>> from sympy.physics.optics import TWave
         >>> A, phi, f = symbols('A, phi, f')
@@ -188,8 +180,7 @@ class TWave(Expr):
         in radians per meter.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols
         >>> from sympy.physics.optics import TWave
         >>> A, phi, f = symbols('A, phi, f')
@@ -197,8 +188,6 @@ class TWave(Expr):
         >>> w.wavenumber
         pi*second*f*n/(149896229*meter)
         """
-    def __str__(self) -> str:
-        """String representation of a TWave."""
     __repr__ = __str__
     def __add__(self, other):
         """

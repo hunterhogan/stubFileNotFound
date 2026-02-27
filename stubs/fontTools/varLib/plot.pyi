@@ -17,4 +17,3 @@ def plotModelFromMasters(model, masterValues, fig, **kwargs) -> None:
     model must have axisOrder of size 1 or 2.
     """
 def main(args=None) -> None: ...
-

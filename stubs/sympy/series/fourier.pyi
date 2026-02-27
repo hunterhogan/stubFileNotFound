@@ -30,8 +30,7 @@ def _process_limits(func, limits):
     * If limits is None. Limit of the form (x, -pi, pi) is returned.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.series.fourier import _process_limits as pari
     >>> from sympy.abc import x
     >>> pari(x**2, (x, -2, 2))
@@ -56,10 +55,10 @@ class FourierSeries(SeriesBase):
     docstring.
 
     See Also
-    ========
-
+    --------
     sympy.series.fourier.fourier_series
     """
+
     def __new__(cls, *args): ...
     @property
     def function(self): ...
@@ -91,20 +90,17 @@ class FourierSeries(SeriesBase):
         If ``n`` is None return an iterator.
 
         Parameters
-        ==========
-
+        ----------
         n : int or None
             Amount of non-zero terms in approximation or None.
 
         Returns
-        =======
-
+        -------
         Expr or iterator :
             Approximation of function expanded into Fourier series.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import fourier_series, pi
         >>> from sympy.abc import x
         >>> s = fourier_series(x, (x, -pi, pi))
@@ -112,8 +108,7 @@ class FourierSeries(SeriesBase):
         2*sin(x) - sin(2*x) + 2*sin(3*x)/3 - sin(4*x)/2
 
         See Also
-        ========
-
+        --------
         sympy.series.fourier.FourierSeries.sigma_approximation
         """
     def sigma_approximation(self, n: int = 3):
@@ -142,20 +137,17 @@ class FourierSeries(SeriesBase):
         :math:`\\operatorname{sinc}` function).
 
         Parameters
-        ==========
-
+        ----------
         n : int
             Highest order of the terms taken into account in approximation.
 
         Returns
-        =======
-
+        -------
         Expr :
             Sigma approximation of function expanded into Fourier series.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import fourier_series, pi
         >>> from sympy.abc import x
         >>> s = fourier_series(x, (x, -pi, pi))
@@ -163,13 +155,11 @@ class FourierSeries(SeriesBase):
         2*sin(x)*sinc(pi/4) - 2*sin(2*x)/pi + 2*sin(3*x)*sinc(3*pi/4)/3
 
         See Also
-        ========
-
+        --------
         sympy.series.fourier.FourierSeries.truncate
 
         Notes
-        =====
-
+        -----
         The behaviour of
         :meth:`~sympy.series.fourier.FourierSeries.sigma_approximation`
         is different from :meth:`~sympy.series.fourier.FourierSeries.truncate`
@@ -177,7 +167,7 @@ class FourierSeries(SeriesBase):
         first n nonzero ones.
 
         References
-        ==========
+        ----------
 
         .. [1] https://en.wikipedia.org/wiki/Gibbs_phenomenon
         .. [2] https://en.wikipedia.org/wiki/Sigma_approximation
@@ -195,8 +185,7 @@ class FourierSeries(SeriesBase):
         computed.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import fourier_series, pi
         >>> from sympy.abc import x
         >>> s = fourier_series(x**2, (x, -pi, pi))
@@ -216,8 +205,7 @@ class FourierSeries(SeriesBase):
         computed.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import fourier_series, pi
         >>> from sympy.abc import x
         >>> s = fourier_series(x**2, (x, -pi, pi))
@@ -237,8 +225,7 @@ class FourierSeries(SeriesBase):
         computed.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import fourier_series, pi
         >>> from sympy.abc import x
         >>> s = fourier_series(x**2, (x, -pi, pi))
@@ -258,8 +245,7 @@ class FourierSeries(SeriesBase):
         computed.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import fourier_series, pi
         >>> from sympy.abc import x
         >>> s = fourier_series(x**2, (x, -pi, pi))
@@ -279,8 +265,7 @@ class FiniteFourierSeries(FourierSeries):
     docstring.
 
     Parameters
-    ==========
-
+    ----------
     f : Expr
         Expression for finding fourier_series
 
@@ -298,18 +283,17 @@ class FiniteFourierSeries(FourierSeries):
         or exprs can be an expression to be converted to fourier form
 
     Methods
-    =======
-
+    -------
     This class is an extension of FourierSeries class.
     Please refer to sympy.series.fourier.FourierSeries for
     further information.
 
     See Also
-    ========
-
+    --------
     sympy.series.fourier.FourierSeries
     sympy.series.fourier.fourier_series
     """
+
     def __new__(cls, f, limits, exprs): ...
     @property
     def interval(self): ...
@@ -363,8 +347,7 @@ def fourier_series(f, limits=None, finite: bool = True):
     This property is illustrated in the examples section below.
 
     Parameters
-    ==========
-
+    ----------
     limits : (sym, start, end), optional
         *sym* denotes the symbol the series is computed with respect to.
 
@@ -374,14 +357,12 @@ def fourier_series(f, limits=None, finite: bool = True):
         Default range is specified as $-\\pi$ and $\\pi$.
 
     Returns
-    =======
-
+    -------
     FourierSeries
         A symbolic object representing the Fourier trigonometric series.
 
     Examples
-    ========
-
+    --------
     Computing the Fourier series of $f(x) = x^2$:
 
     >>> from sympy import fourier_series, pi
@@ -461,8 +442,7 @@ def fourier_series(f, limits=None, finite: bool = True):
         >>> p.show()
 
     Notes
-    =====
-
+    -----
     Computing Fourier series can be slow
     due to the integration required in computing
     an, bn.
@@ -476,12 +456,11 @@ def fourier_series(f, limits=None, finite: bool = True):
     the Fourier series of ``x**2 - 1`` can be found by shifting by ``-1``.
 
     See Also
-    ========
-
+    --------
     sympy.series.fourier.FourierSeries
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/FourierSeries.html
     """

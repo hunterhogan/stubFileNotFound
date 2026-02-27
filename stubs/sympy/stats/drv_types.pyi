@@ -21,7 +21,7 @@ class FlorySchulzDistribution(SingleDiscreteDistribution):
     def _moment_generating_function(self, t): ...
 
 def FlorySchulz(name, a):
-    '''
+    """
     Create a discrete random variable with a FlorySchulz distribution.
 
     The density of the FlorySchulz distribution is given by
@@ -30,18 +30,15 @@ def FlorySchulz(name, a):
         f(k) := (a^2) k (1 - a)^{k-1}
 
     Parameters
-    ==========
-
+    ----------
     a : A real number between 0 and 1
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import density, E, variance, FlorySchulz
     >>> from sympy import Symbol, S
 
@@ -60,10 +57,9 @@ def FlorySchulz(name, a):
     40
 
     References
-    ==========
-
+    ----------
     https://en.wikipedia.org/wiki/Flory%E2%80%93Schulz_distribution
-    '''
+    """
 
 class GeometricDistribution(SingleDiscreteDistribution):
     _argnames: Incomplete
@@ -75,7 +71,7 @@ class GeometricDistribution(SingleDiscreteDistribution):
     def _moment_generating_function(self, t): ...
 
 def Geometric(name, p):
-    '''
+    """
     Create a discrete random variable with a Geometric distribution.
 
     Explanation
@@ -87,18 +83,15 @@ def Geometric(name, p):
         f(k) := p (1 - p)^{k - 1}
 
     Parameters
-    ==========
-
+    ----------
     p : A probability between 0 and 1
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Geometric, density, E, variance
     >>> from sympy import Symbol, S
 
@@ -117,12 +110,12 @@ def Geometric(name, p):
     20
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Geometric_distribution
     .. [2] https://mathworld.wolfram.com/GeometricDistribution.html
 
-    '''
+    """
 
 class HermiteDistribution(SingleDiscreteDistribution):
     _argnames: Incomplete
@@ -134,7 +127,7 @@ class HermiteDistribution(SingleDiscreteDistribution):
     def _characteristic_function(self, t): ...
 
 def Hermite(name, a1, a2):
-    '''
+    """
     Create a discrete random variable with a Hermite distribution.
 
     Explanation
@@ -147,19 +140,16 @@ def Hermite(name, a1, a2):
                     \\frac{a_{1}^{x-2j}a_{2}^{j}}{(x-2j)!j!}
 
     Parameters
-    ==========
-
+    ----------
     a1 : A Positive number greater than equal to 0.
     a2 : A Positive number greater than equal to 0.
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Hermite, density, E, variance
     >>> from sympy import Symbol
 
@@ -179,11 +169,11 @@ def Hermite(name, a1, a2):
     21
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Hermite_distribution
 
-    '''
+    """
 
 class LogarithmicDistribution(SingleDiscreteDistribution):
     _argnames: Incomplete
@@ -195,7 +185,7 @@ class LogarithmicDistribution(SingleDiscreteDistribution):
     def _moment_generating_function(self, t): ...
 
 def Logarithmic(name, p):
-    '''
+    """
     Create a discrete random variable with a Logarithmic distribution.
 
     Explanation
@@ -207,18 +197,15 @@ def Logarithmic(name, p):
         f(k) := \\frac{-p^k}{k \\ln{(1 - p)}}
 
     Parameters
-    ==========
-
+    ----------
     p : A value between 0 and 1
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Logarithmic, density, E, variance
     >>> from sympy import Symbol, S
 
@@ -237,12 +224,12 @@ def Logarithmic(name, p):
     -1/((-4*log(5) + 8*log(2))*(-2*log(5) + 4*log(2))) + 1/(-64*log(2)*log(5) + 64*log(2)**2 + 16*log(5)**2) - 10/(-32*log(5) + 64*log(2))
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Logarithmic_distribution
     .. [2] https://mathworld.wolfram.com/LogarithmicDistribution.html
 
-    '''
+    """
 
 class NegativeBinomialDistribution(SingleDiscreteDistribution):
     _argnames: Incomplete
@@ -254,7 +241,7 @@ class NegativeBinomialDistribution(SingleDiscreteDistribution):
     def _moment_generating_function(self, t): ...
 
 def NegativeBinomial(name, r, p):
-    '''
+    """
     Create a discrete random variable with a Negative Binomial distribution.
 
     Explanation
@@ -266,21 +253,18 @@ def NegativeBinomial(name, r, p):
         f(k) := \\binom{k + r - 1}{k} (1 - p)^k p^r
 
     Parameters
-    ==========
-
+    ----------
     r : A positive value
         Number of successes until the experiment is stopped.
     p : A value between 0 and 1
         Probability of success.
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import NegativeBinomial, density, E, variance
     >>> from sympy import Symbol, S
 
@@ -300,12 +284,12 @@ def NegativeBinomial(name, r, p):
     30
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Negative_binomial_distribution
     .. [2] https://mathworld.wolfram.com/NegativeBinomialDistribution.html
 
-    '''
+    """
 
 class PoissonDistribution(SingleDiscreteDistribution):
     _argnames: Incomplete
@@ -318,7 +302,7 @@ class PoissonDistribution(SingleDiscreteDistribution):
     def expectation(self, expr, var, evaluate: bool = True, **kwargs): ...
 
 def Poisson(name, lamda):
-    '''
+    """
     Create a discrete random variable with a Poisson distribution.
 
     Explanation
@@ -330,18 +314,15 @@ def Poisson(name, lamda):
         f(k) := \\frac{\\lambda^{k} e^{- \\lambda}}{k!}
 
     Parameters
-    ==========
-
+    ----------
     lamda : Positive number, a rate
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Poisson, density, E, variance
     >>> from sympy import Symbol, simplify
 
@@ -360,12 +341,12 @@ def Poisson(name, lamda):
     lambda
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Poisson_distribution
     .. [2] https://mathworld.wolfram.com/PoissonDistribution.html
 
-    '''
+    """
 
 class SkellamDistribution(SingleDiscreteDistribution):
     _argnames: Incomplete
@@ -378,7 +359,7 @@ class SkellamDistribution(SingleDiscreteDistribution):
     def _moment_generating_function(self, t): ...
 
 def Skellam(name, mu1, mu2):
-    '''
+    """
     Create a discrete random variable with a Skellam distribution.
 
     Explanation
@@ -394,19 +375,16 @@ def Skellam(name, mu1, mu2):
         f(k) := e^{-(\\mu_1+\\mu_2)}(\\frac{\\mu_1}{\\mu_2})^{k/2}I_k(2\\sqrt{\\mu_1\\mu_2})
 
     Parameters
-    ==========
-
+    ----------
     mu1 : A non-negative value
     mu2 : A non-negative value
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Skellam, density, E, variance
     >>> from sympy import Symbol, pprint
 
@@ -427,11 +405,11 @@ def Skellam(name, mu1, mu2):
     mu1 + mu2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Skellam_distribution
 
-    '''
+    """
 
 class YuleSimonDistribution(SingleDiscreteDistribution):
     _argnames: Incomplete
@@ -444,7 +422,7 @@ class YuleSimonDistribution(SingleDiscreteDistribution):
     def _moment_generating_function(self, t): ...
 
 def YuleSimon(name, rho):
-    '''
+    """
     Create a discrete random variable with a Yule-Simon distribution.
 
     Explanation
@@ -456,18 +434,15 @@ def YuleSimon(name, rho):
         f(k) := \\rho B(k, \\rho + 1)
 
     Parameters
-    ==========
-
+    ----------
     rho : A positive value
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import YuleSimon, density, E, variance
     >>> from sympy import Symbol, simplify
 
@@ -486,11 +461,11 @@ def YuleSimon(name, rho):
     25/48
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Yule%E2%80%93Simon_distribution
 
-    '''
+    """
 
 class ZetaDistribution(SingleDiscreteDistribution):
     _argnames: Incomplete
@@ -502,7 +477,7 @@ class ZetaDistribution(SingleDiscreteDistribution):
     def _moment_generating_function(self, t): ...
 
 def Zeta(name, s):
-    '''
+    """
     Create a discrete random variable with a Zeta distribution.
 
     Explanation
@@ -514,18 +489,15 @@ def Zeta(name, s):
         f(k) := \\frac{1}{k^s \\zeta{(s)}}
 
     Parameters
-    ==========
-
+    ----------
     s : A value greater than 1
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Zeta, density, E, variance
     >>> from sympy import Symbol
 
@@ -544,8 +516,8 @@ def Zeta(name, s):
     -pi**8/(8100*zeta(5)**2) + zeta(3)/zeta(5)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Zeta_distribution
 
-    '''
+    """

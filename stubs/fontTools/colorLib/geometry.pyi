@@ -30,4 +30,3 @@ def round_start_circle_stable_containment(c0, r0, c1, r1):
     https://github.com/googlefonts/colr-gradients-spec/issues/204
     https://github.com/googlefonts/picosvg/issues/158
     """
-

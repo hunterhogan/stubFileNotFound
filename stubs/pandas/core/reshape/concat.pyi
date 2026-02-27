@@ -1,27 +1,9 @@
-from collections.abc import (
-    Iterable,
-    Mapping,
-    Sequence,
-)
-from typing import (
-    Literal,
-    Never,
-    overload,
-)
-
+from collections.abc import Iterable, Mapping, Sequence
+from pandas._typing import Axis, AxisIndex, HashableT1, HashableT2, HashableT3, HashableT4, S2
 from pandas.core.frame import DataFrame
 from pandas.core.generic import NDFrame
 from pandas.core.series import Series
-
-from pandas._typing import (
-    S2,
-    Axis,
-    AxisIndex,
-    HashableT1,
-    HashableT2,
-    HashableT3,
-    HashableT4,
-)
+from typing import Literal, Never, overload
 
 @overload
 def concat(

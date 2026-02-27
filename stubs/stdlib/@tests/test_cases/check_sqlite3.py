@@ -1,8 +1,7 @@
 from __future__ import annotations
 
+from typing import assert_type
 import sqlite3
-from typing_extensions import assert_type
-
 
 class MyConnection(sqlite3.Connection):
     pass

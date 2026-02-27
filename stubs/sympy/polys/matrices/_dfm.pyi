@@ -37,6 +37,7 @@ class DFM:
     [[1, 2], [3, 4]]
 
     """
+
     fmt: str
     is_DFM: bool
     is_DDM: bool
@@ -58,10 +59,6 @@ class DFM:
     @property
     def _func(self):
         """Callable to create a flint matrix of the same domain."""
-    def __str__(self) -> str:
-        """Return ``str(self)``."""
-    def __repr__(self) -> str:
-        """Return ``repr(self)``."""
     def __eq__(self, other):
         """Return ``self == other``."""
     @classmethod
@@ -85,8 +82,7 @@ class DFM:
         :class:`~.SDM` methods. For :class:`DFM` it will always return self.
 
         See Also
-        ========
-
+        --------
         to_ddm
         to_sdm
         sympy.polys.matrices.domainmatrix.DomainMatrix.to_dfm_or_ddm
@@ -181,12 +177,11 @@ class DFM:
     def scc(self):
         """Return the strongly connected components of the matrix."""
     def det(self):
-        '''
+        """
         Compute the determinant of the matrix using FLINT.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> M = Matrix([[1, 2], [3, 4]])
         >>> dfm = M.to_DM().to_dfm()
@@ -196,8 +191,7 @@ class DFM:
         -2
 
         Notes
-        =====
-
+        -----
         Calls the ``.det()`` method of the underlying FLINT matrix.
 
         For :ref:`ZZ` or :ref:`QQ` this calls ``fmpz_mat_det`` or
@@ -219,18 +213,16 @@ class DFM:
         by the product of the denominators.
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.det
             Higher level interface to compute the determinant of a matrix.
-        '''
+        """
     def charpoly(self):
         """
         Compute the characteristic polynomial of the matrix using FLINT.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> M = Matrix([[1, 2], [3, 4]])
         >>> dfm = M.to_DM().to_dfm()  # need ground types = 'flint'
@@ -240,8 +232,7 @@ class DFM:
         [1, -5, -2]
 
         Notes
-        =====
-
+        -----
         Calls the ``.charpoly()`` method of the underlying FLINT matrix.
 
         For :ref:`ZZ` or :ref:`QQ` this calls ``fmpz_mat_charpoly`` or
@@ -258,8 +249,7 @@ class DFM:
         the Danilevsky method.
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.charpoly
             Higher level interface to compute the characteristic polynomial of
             a matrix.
@@ -269,8 +259,7 @@ class DFM:
         Compute the inverse of a matrix using FLINT.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, QQ
         >>> M = Matrix([[1, 2], [3, 4]])
         >>> dfm = M.to_DM().to_dfm().convert_to(QQ)
@@ -282,8 +271,7 @@ class DFM:
         [[1, 0], [0, 1]]
 
         Notes
-        =====
-
+        -----
         Calls the ``.inv()`` method of the underlying FLINT matrix.
 
         For now this will raise an error if the domain is :ref:`ZZ` but will
@@ -299,8 +287,7 @@ class DFM:
         ``fmpz_mat_solve``.
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.inv
             Higher level method for computing the inverse of a matrix.
         """
@@ -313,8 +300,7 @@ class DFM:
         Solve a matrix equation using FLINT.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix, QQ
         >>> M = Matrix([[1, 2], [3, 4]])
         >>> dfm = M.to_DM().to_dfm().convert_to(QQ)
@@ -325,8 +311,7 @@ class DFM:
         [[0], [1/2]]
 
         Notes
-        =====
-
+        -----
         Calls the ``.solve()`` method of the underlying FLINT matrix.
 
         For now this will raise an error if the domain is :ref:`ZZ` but will
@@ -348,8 +333,7 @@ class DFM:
         - Otherwise it uses either Dixon or another multimodular approach.
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.lu_solve
             Higher level interface to solve a matrix equation.
         """
@@ -364,8 +348,7 @@ class DFM:
         integers otherwise uses the DDM method.
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.ddm.DDM.fflu
         """
     def nullspace(self):
@@ -382,16 +365,14 @@ class DFM:
         See :meth:`lll_transform` for more information.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> M = Matrix([[1, 2, 3], [4, 5, 6]])
         >>> M.to_DM().to_dfm().lll()
         [[2, 1, 0], [-1, 1, 3]]
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.lll
             Higher level interface to compute LLL-reduced basis.
         lll_transform
@@ -401,8 +382,7 @@ class DFM:
         """Compute LLL-reduced basis and transform using FLINT.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> M = Matrix([[1, 2, 3], [4, 5, 6]]).to_DM().to_dfm()
         >>> M_lll, T = M.lll_transform()
@@ -414,8 +394,7 @@ class DFM:
         True
 
         See Also
-        ========
-
+        --------
         sympy.polys.matrices.domainmatrix.DomainMatrix.lll
             Higher level interface to compute LLL-reduced basis.
         lll

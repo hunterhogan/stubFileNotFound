@@ -1,4 +1,4 @@
-from sympy.core.kind import Kind as Kind, NumberKind as NumberKind, _NumberKind as _NumberKind
+from sympy.core.kind import _NumberKind as _NumberKind, Kind as Kind, NumberKind as NumberKind
 from sympy.core.mul import Mul as Mul
 
 class VectorKind(Kind):
@@ -6,16 +6,14 @@ class VectorKind(Kind):
     Kind for all vector objects in SymPy.
 
     Parameters
-    ==========
-
+    ----------
     element_kind : Kind
         Kind of the element. Default is
         :class:`sympy.core.kind.NumberKind`,
         which means that the vector contains only numbers.
 
     Examples
-    ========
-
+    --------
     Any instance of Vector class has kind ``VectorKind``:
 
     >>> from sympy.vector.coordsysrect import CoordSys3D
@@ -39,14 +37,13 @@ class VectorKind(Kind):
     Cross, VectorAdd, VectorMul or VectorZero.
 
     See Also
-    ========
-
+    --------
     sympy.core.kind.Kind
     sympy.matrices.kind.MatrixKind
 
     """
+
     def __new__(cls, element_kind=...): ...
-    def __repr__(self) -> str: ...
 
 def num_vec_mul(k1, k2):
     """

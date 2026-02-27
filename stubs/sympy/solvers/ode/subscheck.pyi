@@ -19,8 +19,7 @@ def sub_func_doit(eq, func, new):
     derivative evaluated, so this function helps in making that happen.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Derivative, symbols, Function
     >>> from sympy.solvers.ode.subscheck import sub_func_doit
     >>> x, z = symbols('x, z')
@@ -80,8 +79,7 @@ def checkodesol(ode, sol, func=None, order: str = 'auto', solve_for_func: bool =
     To use this function to test, test the first item of the tuple.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import (Eq, Function, checkodesol, symbols,
     ...     Derivative, exp)
     >>> x, C1, C2 = symbols('x,C1,C2')
@@ -132,8 +130,7 @@ def checksysodesol(eqs, sols, func=None):
     If this function seems to hang, it is probably because of a difficult simplification.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Eq, diff, symbols, sin, cos, exp, sqrt, S, Function
     >>> from sympy.solvers.ode.subscheck import checksysodesol
     >>> C1, C2 = symbols('C1:3')

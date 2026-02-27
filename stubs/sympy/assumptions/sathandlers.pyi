@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from sympy.assumptions.ask import Q as Q
-from sympy.core import Add as Add, Mul as Mul, Number as Number, NumberSymbol as NumberSymbol, Pow as Pow, Symbol as Symbol
+from sympy.core import (
+	Add as Add, Mul as Mul, Number as Number, NumberSymbol as NumberSymbol, Pow as Pow, Symbol as Symbol)
 from sympy.core.numbers import ImaginaryUnit as ImaginaryUnit
 from sympy.functions.elementary.complexes import Abs as Abs
 from sympy.logic.boolalg import And as And, Equivalent as Equivalent, Implies as Implies, Or as Or
@@ -11,8 +12,7 @@ def allargs(symbol, fact, expr):
     Apply all arguments of the expression to the fact structure.
 
     Parameters
-    ==========
-
+    ----------
     symbol : Symbol
         A placeholder symbol.
 
@@ -22,8 +22,7 @@ def allargs(symbol, fact, expr):
     expr : Expr
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q
     >>> from sympy.assumptions.sathandlers import allargs
     >>> from sympy.abc import x, y
@@ -36,8 +35,7 @@ def anyarg(symbol, fact, expr):
     Apply any argument of the expression to the fact structure.
 
     Parameters
-    ==========
-
+    ----------
     symbol : Symbol
         A placeholder symbol.
 
@@ -47,8 +45,7 @@ def anyarg(symbol, fact, expr):
     expr : Expr
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q
     >>> from sympy.assumptions.sathandlers import anyarg
     >>> from sympy.abc import x, y
@@ -61,8 +58,7 @@ def exactlyonearg(symbol, fact, expr):
     Apply exactly one argument of the expression to the fact structure.
 
     Parameters
-    ==========
-
+    ----------
     symbol : Symbol
         A placeholder symbol.
 
@@ -72,8 +68,7 @@ def exactlyonearg(symbol, fact, expr):
     expr : Expr
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q
     >>> from sympy.assumptions.sathandlers import exactlyonearg
     >>> from sympy.abc import x, y
@@ -97,8 +92,7 @@ class ClassFactRegistry:
     ``registry(expr)`` returns a set of facts for *expr*.
 
     Examples
-    ========
-
+    --------
     Here, we register the facts for ``Abs``.
 
     >>> from sympy import Abs, Equivalent, Q
@@ -130,6 +124,7 @@ class ClassFactRegistry:
     {Implies(Q.even(x), Q.even(Abs(x))), Implies(Q.odd(x), Q.odd(Abs(x)))}
 
     """
+
     singlefacts: Incomplete
     multifacts: Incomplete
     def __init__(self) -> None: ...

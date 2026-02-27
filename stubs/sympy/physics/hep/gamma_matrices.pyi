@@ -3,7 +3,9 @@ from sympy.core.mul import Mul as Mul
 from sympy.core.singleton import S as S
 from sympy.matrices.dense import eye as eye
 from sympy.matrices.expressions.trace import trace as trace
-from sympy.tensor.tensor import TensAdd as TensAdd, TensMul as TensMul, Tensor as Tensor, TensorHead as TensorHead, TensorIndex as TensorIndex, TensorIndexType as TensorIndexType, TensorSymmetry as TensorSymmetry, tensor_mul as tensor_mul
+from sympy.tensor.tensor import (
+	TensAdd as TensAdd, TensMul as TensMul, Tensor as Tensor, tensor_mul as tensor_mul, TensorHead as TensorHead,
+	TensorIndex as TensorIndex, TensorIndexType as TensorIndexType, TensorSymmetry as TensorSymmetry)
 
 LorentzIndex: Incomplete
 GammaMatrix: Incomplete
@@ -22,11 +24,10 @@ def extract_type_tens(expression, component):
 def simplify_gamma_expression(expression): ...
 def simplify_gpgp(ex, sort: bool = True):
     """
-    simplify products ``G(i)*p(-i)*G(j)*p(-j) -> p(i)*p(-i)``
+    Simplify products ``G(i)*p(-i)*G(j)*p(-j) -> p(i)*p(-i)``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.hep.gamma_matrices import GammaMatrix as G,         LorentzIndex, simplify_gpgp
     >>> from sympy.tensor.tensor import tensor_indices, tensor_heads
     >>> p, q = tensor_heads('p, q', [LorentzIndex])
@@ -38,11 +39,10 @@ def simplify_gpgp(ex, sort: bool = True):
     """
 def gamma_trace(t):
     """
-    trace of a single line of gamma matrices
+    Trace of a single line of gamma matrices
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.hep.gamma_matrices import GammaMatrix as G,         gamma_trace, LorentzIndex
     >>> from sympy.tensor.tensor import tensor_indices, tensor_heads
     >>> p, q = tensor_heads('p, q', [LorentzIndex])
@@ -62,8 +62,7 @@ def _simplify_single_line(expression):
     Simplify single-line product of gamma matrices.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.hep.gamma_matrices import GammaMatrix as G,         LorentzIndex, _simplify_single_line
     >>> from sympy.tensor.tensor import tensor_indices, TensorHead
     >>> p = TensorHead('p', [LorentzIndex])
@@ -77,15 +76,13 @@ def _trace_single_line(t):
     Evaluate the trace of a single gamma matrix line inside a ``TensExpr``.
 
     Notes
-    =====
-
+    -----
     If there are ``DiracSpinorIndex.auto_left`` and ``DiracSpinorIndex.auto_right``
     indices trace over them; otherwise traces are not implied (explain)
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.hep.gamma_matrices import GammaMatrix as G,         LorentzIndex, _trace_single_line
     >>> from sympy.tensor.tensor import tensor_indices, TensorHead
     >>> p = TensorHead('p', [LorentzIndex])
@@ -104,13 +101,11 @@ def kahane_simplify(expression):
     one, without the contracted gamma matrices.
 
     Parameters
-    ==========
-
+    ----------
     `expression`    the tensor expression containing the gamma matrices to simplify.
 
     Notes
-    =====
-
+    -----
     If spinor indices are given, the matrices must be given in
     the order given in the product.
 
@@ -131,8 +126,7 @@ def kahane_simplify(expression):
     the problem is thus reduced to a simple rearrangement of free gamma matrices.
 
     Examples
-    ========
-
+    --------
     When using, always remember that the original expression coefficient
     has to be handled separately
 
@@ -172,8 +166,7 @@ def kahane_simplify(expression):
     GammaMatrix(i0)*GammaMatrix(i1)
 
     References
-    ==========
-
+    ----------
     [1] Algorithm for Reducing Contracted Products of gamma Matrices,
     Joseph Kahane, Journal of Mathematical Physics, Vol. 9, No. 10, October 1968.
     """

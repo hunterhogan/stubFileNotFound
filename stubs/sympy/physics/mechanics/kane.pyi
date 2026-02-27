@@ -4,7 +4,7 @@ from sympy.physics.mechanics.method import _Methods
 __all__ = ['KanesMethod']
 
 class KanesMethod(_Methods):
-    '''Kane\'s method object.
+    """Kane\'s method object.
 
     Explanation
     ===========
@@ -16,8 +16,7 @@ class KanesMethod(_Methods):
     The attributes are for equations in the form [M] udot = forcing.
 
     Attributes
-    ==========
-
+    ----------
     q, u : Matrix
         Matrices of the generalized coordinates and speeds
     bodies : iterable
@@ -43,8 +42,7 @@ class KanesMethod(_Methods):
         The "forcing vector" for the u\'s and q\'s with dynamics and kinematics
 
     Parameters
-    ==========
-
+    ----------
     frame : ReferenceFrame
         The inertial reference frame for the system.
     q_ind : iterable of dynamicsymbols
@@ -93,8 +91,7 @@ class KanesMethod(_Methods):
         the notes for more information.
 
     Notes
-    =====
-
+    -----
     The mass matrices and forcing vectors related to kinematic equations
     are given in the explicit form by default. In other words, the kinematic
     mass matrix is $\\mathbf{k_{k\\dot{q}}} = \\mathbf{I}$.
@@ -127,8 +124,7 @@ class KanesMethod(_Methods):
     solution as our system should have only one unique solution.
 
     Examples
-    ========
-
+    --------
     This is a simple example for a one degree of freedom translational
     spring-mass-damper.
 
@@ -190,7 +186,8 @@ class KanesMethod(_Methods):
     perform linearization and how to deal with dependent coordinates & speeds,
     and how do deal with bringing non-contributing forces into evidence.
 
-    '''
+    """
+
     _inertial: Incomplete
     _fr: Incomplete
     _frstar: Incomplete
@@ -199,7 +196,7 @@ class KanesMethod(_Methods):
     explicit_kinematics: Incomplete
     _constraint_solver: Incomplete
     def __init__(self, frame, q_ind, u_ind, kd_eqs=None, q_dependent=None, configuration_constraints=None, u_dependent=None, velocity_constraints=None, acceleration_constraints=None, u_auxiliary=None, bodies=None, forcelist=None, explicit_kinematics: bool = True, kd_eqs_solver: str = 'LU', constraint_solver: str = 'LU') -> None:
-        """Please read the online documentation. """
+        """Please read the online documentation."""
     _qdep: Incomplete
     _q: Incomplete
     _qdot: Incomplete
@@ -228,7 +225,7 @@ class KanesMethod(_Methods):
         """Initialize the kinematic differential equation matrices.
 
         Parameters
-        ==========
+        ----------
         kdeqs : sequence of sympy expressions
             Kinematic differential equations in the form of f(u,q',q,t) where
             f() = 0. The equations have to be linear in the time-derivatives of
@@ -248,7 +245,7 @@ class KanesMethod(_Methods):
         efficient recalculation (i.e. about varying operating points).
 
         Parameters
-        ==========
+        ----------
         linear_solver : str, callable
             Method used to solve the several symbolic linear systems of the
             form ``A*x=b`` in the linearization process. If a string is
@@ -261,17 +258,17 @@ class KanesMethod(_Methods):
             divide-by-zero and thus ``nan`` results.
 
         Returns
-        =======
+        -------
         Linearizer
             An instantiated
             :class:`sympy.physics.mechanics.linearize.Linearizer`.
 
         """
     def linearize(self, *, new_method=None, linear_solver: str = 'LU', **kwargs):
-        """ Linearize the equations of motion about a symbolic operating point.
+        """Linearize the equations of motion about a symbolic operating point.
 
         Parameters
-        ==========
+        ----------
         new_method
             Deprecated, does nothing and will be removed.
         linear_solver : str, callable
@@ -317,7 +314,7 @@ class KanesMethod(_Methods):
     _km: Incomplete
     _aux_eq: Incomplete
     def kanes_equations(self, bodies=None, loads=None):
-        """ Method to form Kane's equations, Fr + Fr* = 0.
+        """Method to form Kane's equations, Fr + Fr* = 0.
 
         Explanation
         ===========
@@ -330,8 +327,7 @@ class KanesMethod(_Methods):
         equations can be accessed with the auxiliary_eqs property.
 
         Parameters
-        ==========
-
+        ----------
         bodies : iterable
             An iterable of all RigidBody's and Particle's in the system.
             A system must have at least one body.
@@ -353,8 +349,7 @@ class KanesMethod(_Methods):
         integrators.
 
         Parameters
-        ==========
-
+        ----------
         inv_method : str
             The specific sympy inverse matrix calculation method to use. For a
             list of valid methods, see
@@ -368,10 +363,10 @@ class KanesMethod(_Methods):
         """A matrix containing the auxiliary equations."""
     @property
     def mass_matrix_kin(self):
-        '''The kinematic "mass matrix" $\\mathbf{k_{k\\dot{q}}}$ of the system.'''
+        """The kinematic "mass matrix" $\\mathbf{k_{k\\dot{q}}}$ of the system."""
     @property
     def forcing_kin(self):
-        '''The kinematic "forcing vector" of the system.'''
+        """The kinematic "forcing vector" of the system."""
     @property
     def mass_matrix(self):
         """The mass matrix of the system."""
@@ -381,11 +376,13 @@ class KanesMethod(_Methods):
     @property
     def mass_matrix_full(self):
         """The mass matrix of the system, augmented by the kinematic
-        differential equations in explicit or implicit form."""
+        differential equations in explicit or implicit form.
+        """
     @property
     def forcing_full(self):
         """The forcing vector of the system, augmented by the kinematic
-        differential equations in explicit or implicit form."""
+        differential equations in explicit or implicit form.
+        """
     @property
     def q(self): ...
     @property

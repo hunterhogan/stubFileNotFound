@@ -1,7 +1,6 @@
+from .. import fixer_base
 from _typeshed import Incomplete
 from typing import ClassVar, Literal
-
-from .. import fixer_base
 
 iter_exempt: set[str]
 

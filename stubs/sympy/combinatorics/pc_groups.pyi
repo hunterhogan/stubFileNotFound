@@ -15,8 +15,7 @@ class PolycyclicGroup(DefaultPrinting):
         """
 
         Parameters
-        ==========
-
+        ----------
         pc_sequence : list
             A sequence of elements whose classes generate the cyclic factor
             groups of pc_series.
@@ -33,14 +32,15 @@ class PolycyclicGroup(DefaultPrinting):
     def length(self): ...
 
 class Collector(DefaultPrinting):
-    '''
+    """
     References
-    ==========
+    ----------
 
     .. [1] Holt, D., Eick, B., O\'Brien, E.
            "Handbook of Computational Group Theory"
            Section 8.1.3
-    '''
+    """
+
     pcgs: Incomplete
     pc_series: Incomplete
     relative_order: Incomplete
@@ -54,8 +54,7 @@ class Collector(DefaultPrinting):
         Others are described below.
 
         Parameters
-        ==========
-
+        ----------
         free_group_ : tuple
             free_group_ provides the mapping of polycyclic generating
             sequence with the free group elements.
@@ -64,13 +63,12 @@ class Collector(DefaultPrinting):
             help of power and conjugate relators.
 
         See Also
-        ========
-
+        --------
         PolycyclicGroup
 
         """
     def minimal_uncollected_subword(self, word):
-        '''
+        """
         Returns the minimal uncollected subwords.
 
         Explanation
@@ -90,8 +88,7 @@ class Collector(DefaultPrinting):
         exponent of the corresponding generator.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.named_groups import SymmetricGroup
         >>> from sympy.combinatorics import free_group
         >>> G = SymmetricGroup(4)
@@ -102,21 +99,19 @@ class Collector(DefaultPrinting):
         >>> collector.minimal_uncollected_subword(word)
         ((x2, 2),)
 
-        '''
+        """
     def relations(self):
         """
         Separates the given relators of pc presentation in power and
         conjugate relations.
 
         Returns
-        =======
-
+        -------
         (power_rel, conj_rel)
             Separates pc presentation into power and conjugate relations.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.named_groups import SymmetricGroup
         >>> G = SymmetricGroup(3)
         >>> PcGroup = G.polycyclic_group()
@@ -128,19 +123,17 @@ class Collector(DefaultPrinting):
         {x0**-1*x1*x0: x1**2}
 
         See Also
-        ========
-
+        --------
         pc_relators
 
         """
     def subword_index(self, word, w):
-        '''
+        """
         Returns the start and ending index of a given
         subword in a word.
 
         Parameters
-        ==========
-
+        ----------
         word : FreeGroupElement
             word defined on free group elements for a
             polycyclic group.
@@ -149,15 +142,13 @@ class Collector(DefaultPrinting):
             ending index to be computed.
 
         Returns
-        =======
-
+        -------
         (i, j)
             A tuple containing starting and ending index of ``w``
             in the given word. If not exists, (-1,-1) is returned.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.named_groups import SymmetricGroup
         >>> from sympy.combinatorics import free_group
         >>> G = SymmetricGroup(4)
@@ -175,9 +166,9 @@ class Collector(DefaultPrinting):
         >>> collector.subword_index(word, w)
         (-1, -1)
 
-        '''
+        """
     def map_relation(self, w):
-        '''
+        """
         Return a conjugate relation.
 
         Explanation
@@ -189,8 +180,7 @@ class Collector(DefaultPrinting):
         word in the polycyclic presentation.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.named_groups import SymmetricGroup
         >>> from sympy.combinatorics import free_group
         >>> G = SymmetricGroup(3)
@@ -202,13 +192,12 @@ class Collector(DefaultPrinting):
         x1**2
 
         See Also
-        ========
-
+        --------
         pc_presentation
 
-        '''
+        """
     def collected_word(self, word):
-        '''
+        """
         Return the collected form of a word.
 
         Explanation
@@ -221,22 +210,19 @@ class Collector(DefaultPrinting):
         Otherwise w is uncollected.
 
         Parameters
-        ==========
-
+        ----------
         word : FreeGroupElement
             An uncollected word.
 
         Returns
-        =======
-
+        -------
         word
             A collected word of form `w = {x_{i_1}}^{a_1}, \\ldots,
             {x_{i_r}}^{a_r}` with `i_1, i_2, \\ldots, i_r` and `a_j \\in
             \\{1, \\ldots, {s_j}-1\\}`.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.named_groups import SymmetricGroup
         >>> from sympy.combinatorics.perm_groups import PermutationGroup
         >>> from sympy.combinatorics import free_group
@@ -267,11 +253,10 @@ class Collector(DefaultPrinting):
         (True, False)
 
         See Also
-        ========
-
+        --------
         minimal_uncollected_subword
 
-        '''
+        """
     def pc_relators(self):
         """
         Return the polycyclic presentation.
@@ -290,19 +275,16 @@ class Collector(DefaultPrinting):
           where `j < i \\in \\{0, \\ldots, \\mathrm{len(pcgs)}\\}`.
 
         Returns
-        =======
-
+        -------
         A dictionary with power and conjugate relations as key and
         their collected form as corresponding values.
 
         Notes
-        =====
-
+        -----
         Identity Permutation is mapped with empty ``()``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.named_groups import SymmetricGroup
         >>> from sympy.combinatorics.permutations import Permutation
         >>> S = SymmetricGroup(49).sylow_subgroup(7)
@@ -340,7 +322,7 @@ class Collector(DefaultPrinting):
 
         """
     def exponent_vector(self, element):
-        '''
+        """
         Return the exponent vector of length equal to the
         length of polycyclic generating sequence.
 
@@ -354,14 +336,12 @@ class Collector(DefaultPrinting):
         of pcgs.
 
         Parameters
-        ==========
-
+        ----------
         element : Permutation
             Generator of a polycyclic group.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.named_groups import SymmetricGroup
         >>> from sympy.combinatorics.permutations import Permutation
         >>> G = SymmetricGroup(4)
@@ -377,15 +357,15 @@ class Collector(DefaultPrinting):
         >>> assert g == G[1]
 
         References
-        ==========
+        ----------
 
         .. [1] Holt, D., Eick, B., O\'Brien, E.
                "Handbook of Computational Group Theory"
                Section 8.1.1, Definition 8.4
 
-        '''
+        """
     def depth(self, element):
-        '''
+        """
         Return the depth of a given element.
 
         Explanation
@@ -396,8 +376,7 @@ class Collector(DefaultPrinting):
         and `e_i != 0`, where ``e`` represents the exponent-vector.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.named_groups import SymmetricGroup
         >>> G = SymmetricGroup(3)
         >>> PcGroup = G.polycyclic_group()
@@ -408,13 +387,13 @@ class Collector(DefaultPrinting):
         1
 
         References
-        ==========
+        ----------
 
         .. [1] Holt, D., Eick, B., O\'Brien, E.
                "Handbook of Computational Group Theory"
                Section 8.1.1, Definition 8.5
 
-        '''
+        """
     def leading_exponent(self, element):
         """
         Return the leading non-zero exponent.
@@ -426,8 +405,7 @@ class Collector(DefaultPrinting):
         by `\\mathrm{leading\\_exponent}[g]` `= e_i`, if `\\mathrm{depth}[g] = i`.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.named_groups import SymmetricGroup
         >>> G = SymmetricGroup(3)
         >>> PcGroup = G.polycyclic_group()
@@ -441,15 +419,13 @@ class Collector(DefaultPrinting):
         """
 
         Parameters
-        ==========
-
+        ----------
         gens : list
             A list of generators on which polycyclic subgroup
             is to be defined.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.named_groups import SymmetricGroup
         >>> S = SymmetricGroup(8)
         >>> G = S.sylow_subgroup(2)

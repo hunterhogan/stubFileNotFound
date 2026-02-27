@@ -22,8 +22,7 @@ def default_sort_key(item, order=None):
     value is None (which translates to 'lex').
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, I, default_sort_key, sin, cos, sqrt
     >>> from sympy.core.function import UndefinedFunction
     >>> from sympy.abc import x
@@ -65,8 +64,7 @@ def default_sort_key(item, order=None):
     2
 
     Notes
-    =====
-
+    -----
     The key returned is useful for getting items into a canonical order
     that will be the same across platforms. It is not directly useful for
     sorting lists of expressions:
@@ -111,8 +109,7 @@ def default_sort_key(item, order=None):
     [sqrt(x), x, x**2, x**3]
 
     See Also
-    ========
-
+    --------
     ordered, sympy.core.expr.Expr.as_ordered_factors, sympy.core.expr.Expr.as_ordered_terms
 
     """
@@ -135,8 +132,7 @@ def ordered(seq, keys=None, default: bool = True, warn: bool = False) -> Generat
     there should be no ties between items that are not identical.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ordered, count_ops
     >>> from sympy.abc import x, y
 
@@ -173,8 +169,7 @@ def ordered(seq, keys=None, default: bool = True, warn: bool = False) -> Generat
 
 
     Notes
-    =====
-
+    -----
     The decorated sort is one of the fastest ways to sort a sequence for
     which special item comparison is desired: the sequence is decorated,
     sorted on the basis of the decoration (e.g. making all letters lower

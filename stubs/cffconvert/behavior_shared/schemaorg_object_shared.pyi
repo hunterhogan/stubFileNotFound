@@ -1,6 +1,6 @@
-import abc
 from _typeshed import Incomplete
 from abc import abstractmethod
+import abc
 
 class SchemaorgObjectShared(metaclass=abc.ABCMeta):
     supported_schemaorg_props: Incomplete

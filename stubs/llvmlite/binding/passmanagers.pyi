@@ -4,7 +4,7 @@ from enum import IntFlag
 from llvmlite.binding import ffi as ffi
 from llvmlite.binding.common import _encode_string as _encode_string
 from llvmlite.binding.initfini import llvm_version_info as llvm_version_info
-from typing import NamedTuple
+from typing import NamedTuple, TypeAlias
 
 llvm_version_major: Incomplete
 
@@ -15,8 +15,9 @@ class _prunestats(NamedTuple):
     fanout_raise: Incomplete
 
 class PruneStats(_prunestats):
-    """ Holds statistics from reference count pruning.
+    """Holds statistics from reference count pruning.
     """
+
     def __add__(self, other): ...
     def __sub__(self, other): ...
 
@@ -24,7 +25,7 @@ class _c_PruneStats(Structure):
     _fields_: Incomplete
 
 def dump_refprune_stats(printout: bool = False):
-    """ Returns a namedtuple containing the current values for the refop pruning
+    """Returns a namedtuple containing the current values for the refop pruning
     statistics. If kwarg `printout` is True the stats are printed to stderr,
     default is False.
     """
@@ -56,11 +57,12 @@ class RefPruneSubpasses(IntFlag):
     DIAMOND = 2
     FANOUT = 4
     FANOUT_RAISE = 8
-    ALL = PER_BB | DIAMOND | FANOUT | FANOUT_RAISE
+    ALL: TypeAlias = PER_BB | DIAMOND | FANOUT | FANOUT_RAISE
 
 class PassManager(ffi.ObjectRef):
     """PassManager
     """
+
     def _dispose(self) -> None: ...
     def add_aa_eval_pass(self) -> None:
         """

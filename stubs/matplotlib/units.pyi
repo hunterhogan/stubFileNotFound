@@ -16,6 +16,7 @@ class AxisInfo:
     An instance of this class must be returned by
     `ConversionInterface.axisinfo`.
     """
+
     majloc: Incomplete
     minloc: Incomplete
     majfmt: Incomplete
@@ -47,6 +48,7 @@ class ConversionInterface:
     The minimal interface for a converter to take custom data types (or
     sequences) and convert them to values Matplotlib can use.
     """
+
     @staticmethod
     def axisinfo(unit, axis) -> None:
         """Return an `.AxisInfo` for the axis with the specified units."""
@@ -64,6 +66,7 @@ class ConversionInterface:
 
 class DecimalConverter(ConversionInterface):
     """Converter for decimal.Decimal data to float."""
+
     @staticmethod
     def convert(value, unit, axis):
         """
@@ -79,6 +82,7 @@ class DecimalConverter(ConversionInterface):
 
 class Registry(dict):
     """Register types with conversion interface."""
+
     def get_converter(self, x):
         """Get the converter interface instance for *x*, or None."""
 

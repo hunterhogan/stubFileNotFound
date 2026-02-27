@@ -18,8 +18,7 @@ class SievePolynomial:
         `a*x + b` when given `x`.
 
         Parameters
-        ==========
-
+        ----------
         a : parameter of the sieve polynomial
         b : parameter of the sieve polynomial
         N : number to be factored
@@ -31,6 +30,7 @@ class SievePolynomial:
 class FactorBaseElem:
     """This class stores an element of the `factor_base`.
     """
+
     prime: Incomplete
     tmem_p: Incomplete
     log_p: Incomplete
@@ -42,8 +42,7 @@ class FactorBaseElem:
         Initialization of factor_base_elem.
 
         Parameters
-        ==========
-
+        ----------
         prime : prime number of the factor_base
         tmem_p : Integer square root of x**2 = n mod prime
         log_p : Compute Natural Logarithm of the prime
@@ -58,19 +57,17 @@ def _generate_factor_base(prime_bound, n):
     close to 1000 and 5000.
 
     Parameters
-    ==========
-
+    ----------
     prime_bound : upper prime bound of the factor_base
     n : integer to be factored
     """
 def _generate_polynomial(N, M, factor_base, idx_1000, idx_5000, randint) -> Generator[Incomplete]:
-    """ Generate sieve polynomials indefinitely.
+    """Generate sieve polynomials indefinitely.
     Information such as `soln1` in the `factor_base` associated with
     the polynomial is modified in place.
 
     Parameters
-    ==========
-
+    ----------
     N : Number to be factored
     M : sieve interval
     factor_base : factor_base primes
@@ -87,18 +84,16 @@ def _gen_sieve_array(M, factor_base):
     ``-M <= soln1 + i*p <=  M``.
 
     Parameters
-    ==========
-
+    ----------
     M : sieve interval
     factor_base : factor_base primes
     """
 def _check_smoothness(num, factor_base):
-    """ Check if `num` is smooth with respect to the given `factor_base`
+    """Check if `num` is smooth with respect to the given `factor_base`
     and compute its factorization vector.
 
     Parameters
-    ==========
-
+    ----------
     num : integer whose smootheness is to be checked
     factor_base : factor_base primes
     """
@@ -115,8 +110,7 @@ def _trial_division_stage(N, M, factor_base, sieve_array, sieve_poly, partial_re
     to form a smooth relation.
 
     Parameters
-    ==========
-
+    ----------
     N : Number to be factored
     M : sieve interval
     factor_base : factor_base primes
@@ -126,11 +120,10 @@ def _trial_division_stage(N, M, factor_base, sieve_array, sieve_poly, partial_re
     ERROR_TERM : error term for accumulated_val
     """
 def _find_factor(N, smooth_relations, col) -> Generator[Incomplete]:
-    """ Finds proper factor of N using fast gaussian reduction for modulo 2 matrix.
+    """Finds proper factor of N using fast gaussian reduction for modulo 2 matrix.
 
     Parameters
-    ==========
-
+    ----------
     N : Number to be factored
     smooth_relations : Smooth relations vectors matrix
     col : Number of columns in the matrix
@@ -156,8 +149,7 @@ def qs(N, prime_bound, M, ERROR_TERM: int = 25, seed: int = 1234):
     The use of partial relations can speeds up the factoring by 2 times.
 
     Parameters
-    ==========
-
+    ----------
     N : Number to be Factored
     prime_bound : upper bound for primes in the factor base
     M : Sieve Interval
@@ -165,14 +157,12 @@ def qs(N, prime_bound, M, ERROR_TERM: int = 25, seed: int = 1234):
     seed : seed of random number generator
 
     Returns
-    =======
-
+    -------
     set(int) : A set of factors of N without considering multiplicity.
                Returns ``{N}`` if factorization fails.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory import qs
     >>> qs(25645121643901801, 2000, 10000)
     {5394769, 4753701529}
@@ -180,22 +170,20 @@ def qs(N, prime_bound, M, ERROR_TERM: int = 25, seed: int = 1234):
     {4641991, 2112166839943}
 
     See Also
-    ========
-
+    --------
     qs_factor
 
     References
-    ==========
+    ----------
 
     .. [1] https://pdfs.semanticscholar.org/5c52/8a975c1405bd35c65993abf5a4edb667c1db.pdf
     .. [2] https://www.rieselprime.de/ziki/Self-initializing_quadratic_sieve
     """
 def qs_factor(N, prime_bound, M, ERROR_TERM: int = 25, seed: int = 1234):
-    """ Performs factorization using Self-Initializing Quadratic Sieve.
+    """Performs factorization using Self-Initializing Quadratic Sieve.
 
     Parameters
-    ==========
-
+    ----------
     N : Number to be Factored
     prime_bound : upper bound for primes in the factor base
     M : Sieve Interval
@@ -203,22 +191,19 @@ def qs_factor(N, prime_bound, M, ERROR_TERM: int = 25, seed: int = 1234):
     seed : seed of random number generator
 
     Returns
-    =======
-
+    -------
     dict[int, int] : Factors of N.
                      Returns ``{N: 1}`` if factorization fails.
                      Note that the key is not always a prime number.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory import qs_factor
     >>> qs_factor(1009 * 100003, 2000, 10000)
     {1009: 1, 100003: 1}
 
     See Also
-    ========
-
+    --------
     qs
 
     """

@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from sympy.core import Basic as Basic, Dict as Dict, Tuple as Tuple, sympify as sympify
+from sympy.core import Basic as Basic, Dict as Dict, sympify as sympify, Tuple as Tuple
 from sympy.core.numbers import Integer as Integer
 from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.core.sympify import _sympify as _sympify
@@ -16,11 +16,11 @@ class Partition(FiniteSet):
     A partition is a set of disjoint sets whose union equals a given set.
 
     See Also
-    ========
-
+    --------
     sympy.utilities.iterables.partitions,
     sympy.utilities.iterables.multiset_partitions
     """
+
     _rank: Incomplete
     _partition: Incomplete
     def __new__(cls, *partition):
@@ -31,8 +31,7 @@ class Partition(FiniteSet):
         valid and raises a ValueError if they are not.
 
         Examples
-        ========
-
+        --------
         Creating Partition from Python lists:
 
         >>> from sympy.combinatorics import Partition
@@ -66,8 +65,7 @@ class Partition(FiniteSet):
         and ties are broken with the rank.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import default_sort_key
         >>> from sympy.combinatorics import Partition
         >>> from sympy.abc import x
@@ -84,8 +82,7 @@ class Partition(FiniteSet):
         """Return partition as a sorted list of lists.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import Partition
         >>> Partition([1], [2, 3]).partition
         [[1], [2, 3]]
@@ -96,8 +93,7 @@ class Partition(FiniteSet):
         (mod the maximum rank for the set).
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import Partition
         >>> a = Partition([1, 2], [3])
         >>> a.rank
@@ -113,8 +109,7 @@ class Partition(FiniteSet):
         (mod the maximum rank for the set).
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import Partition
         >>> a = Partition([1, 2], [3])
         >>> a.rank
@@ -130,8 +125,7 @@ class Partition(FiniteSet):
         the other based on rank.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import Partition
         >>> a = Partition([1, 2], [3, 4, 5])
         >>> b = Partition([1], [2, 3], [4], [5])
@@ -147,8 +141,7 @@ class Partition(FiniteSet):
         Checks if a partition is less than the other.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import Partition
         >>> a = Partition([1, 2], [3, 4, 5])
         >>> b = Partition([1], [2, 3], [4], [5])
@@ -163,8 +156,7 @@ class Partition(FiniteSet):
         Gets the rank of a partition.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import Partition
         >>> a = Partition([1, 2], [3], [4, 5])
         >>> a.rank
@@ -172,7 +164,7 @@ class Partition(FiniteSet):
         """
     @property
     def RGS(self):
-        '''
+        """
         Returns the "restricted growth string" of the partition.
 
         Explanation
@@ -184,8 +176,7 @@ class Partition(FiniteSet):
         [1, 1, 0]: "a" is in block 1, "b" is in block 1 and "c" is in block 0.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import Partition
         >>> a = Partition([1, 2], [3], [4, 5])
         >>> a.members
@@ -196,7 +187,7 @@ class Partition(FiniteSet):
         Partition({3}, {4}, {5}, {1, 2})
         >>> _.RGS
         (0, 0, 1, 2, 3)
-        '''
+        """
     @classmethod
     def from_rgs(self, rgs, elements):
         """
@@ -212,8 +203,7 @@ class Partition(FiniteSet):
         an error will be raised.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import Partition
         >>> Partition.from_rgs([0, 1, 2, 0, 1], list('abcde'))
         Partition({c}, {a, d}, {b, e})
@@ -241,16 +231,16 @@ class IntegerPartition(Basic):
     [2, 1, 1].
 
     See Also
-    ========
-
+    --------
     sympy.utilities.iterables.partitions,
     sympy.utilities.iterables.multiset_partitions
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Partition_%28number_theory%29
     """
+
     _dict: Incomplete
     _keys: Incomplete
     def __new__(cls, partition, integer=None):
@@ -266,8 +256,7 @@ class IntegerPartition(Basic):
         does not sum to that given integer.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.partitions import IntegerPartition
         >>> a = IntegerPartition([5, 4, 3, 1, 1])
         >>> a
@@ -291,8 +280,7 @@ class IntegerPartition(Basic):
         wrapping around to [1, ..., 1] if the partition is [n].
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.partitions import IntegerPartition
         >>> p = IntegerPartition([4])
         >>> print(p.prev_lex())
@@ -305,8 +293,7 @@ class IntegerPartition(Basic):
         wrapping around to [n] if the partition is [1, ..., 1].
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.partitions import IntegerPartition
         >>> p = IntegerPartition([3, 1])
         >>> print(p.next_lex())
@@ -320,8 +307,7 @@ class IntegerPartition(Basic):
         integer.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.partitions import IntegerPartition
         >>> IntegerPartition([1]*3 + [2] + [3]*4).as_dict()
         {1: 3, 2: 1, 3: 4}
@@ -332,8 +318,7 @@ class IntegerPartition(Basic):
         Computes the conjugate partition of itself.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.partitions import IntegerPartition
         >>> a = IntegerPartition([6, 3, 3, 2, 1])
         >>> a.conjugate
@@ -344,8 +329,7 @@ class IntegerPartition(Basic):
         is listed from smallest to biggest.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.partitions import IntegerPartition
         >>> a = IntegerPartition([3, 1])
         >>> a < a
@@ -361,8 +345,7 @@ class IntegerPartition(Basic):
         is listed from smallest to biggest.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.partitions import IntegerPartition
         >>> a = IntegerPartition([4])
         >>> a <= a
@@ -373,15 +356,13 @@ class IntegerPartition(Basic):
         Prints the ferrer diagram of a partition.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics.partitions import IntegerPartition
         >>> print(IntegerPartition([1, 1, 5]).as_ferrers())
         #####
         #
         #
         """
-    def __str__(self) -> str: ...
 
 def random_integer_partition(n, seed=None):
     """
@@ -389,8 +370,7 @@ def random_integer_partition(n, seed=None):
     of reverse-sorted integers.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.partitions import random_integer_partition
 
     For the following, a seed is given so a known value can be shown; in
@@ -409,8 +389,7 @@ def RGS_generalized(m):
     and returns them as rows in matrix.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.partitions import RGS_generalized
     >>> RGS_generalized(6)
     Matrix([
@@ -428,8 +407,7 @@ def RGS_enum(m):
     possible for a superset of size m.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.partitions import RGS_enum
     >>> from sympy.combinatorics import Partition
     >>> RGS_enum(4)
@@ -457,8 +435,7 @@ def RGS_unrank(rank, m):
     superset size.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.partitions import RGS_unrank
     >>> RGS_unrank(14, 4)
     [0, 1, 2, 3]
@@ -470,8 +447,7 @@ def RGS_rank(rgs):
     Computes the rank of a restricted growth string.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.partitions import RGS_rank, RGS_unrank
     >>> RGS_rank([0, 1, 2, 1, 3])
     42

@@ -1,43 +1,13 @@
-from collections.abc import (
-    Collection,
-    Hashable,
-    Iterable,
-    Mapping,
-    Sequence,
-)
-from typing import (
-    Any,
-    Never,
-    Self,
-    overload,
-)
-
-import numpy as np
-import pandas as pd
+from collections.abc import Collection, Hashable, Iterable, Mapping, Sequence
+from pandas._typing import (
+	AnyAll, Axes, Dtype, HashableT, IndexLabel, Label, Level, MaskType, NaPosition, np_1darray_bool, np_1darray_int8,
+	np_1darray_intp, np_ndarray, np_ndarray_anyint, NumpyNotTimeDtypeArg, NumpyTimedeltaDtypeArg, NumpyTimestampDtypeArg,
+	SequenceNotStr, Shape)
 from pandas.api.typing import FrozenList
 from pandas.core.indexes.base import Index
-
-from pandas._typing import (
-    AnyAll,
-    Axes,
-    Dtype,
-    HashableT,
-    IndexLabel,
-    Label,
-    Level,
-    MaskType,
-    NaPosition,
-    NumpyNotTimeDtypeArg,
-    NumpyTimedeltaDtypeArg,
-    NumpyTimestampDtypeArg,
-    SequenceNotStr,
-    Shape,
-    np_1darray_bool,
-    np_1darray_int8,
-    np_1darray_intp,
-    np_ndarray,
-    np_ndarray_anyint,
-)
+from typing import Any, Never, overload, Self
+import numpy as np
+import pandas as pd
 
 class MultiIndex(Index[Any]):
     def __new__(

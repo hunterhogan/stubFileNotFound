@@ -2,16 +2,16 @@ from sympy.external import import_module as import_module
 from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
 
 def parse_autolev(autolev_code, include_numeric: bool = False):
-    '''Parses Autolev code (version 4.1) to SymPy code.
+    """Parses Autolev code (version 4.1) to SymPy code.
 
     Parameters
-    =========
+    ----------
     autolev_code : Can be an str or any object with a readlines() method (such as a file handle or StringIO).
     include_numeric : boolean, optional
         If True NumPy, PyDy, or other numeric code is included for numeric evaluation lines in the Autolev code.
 
     Returns
-    =======
+    -------
     sympy_code : str
         Equivalent SymPy and/or numpy/pydy code as the input code.
 
@@ -86,4 +86,4 @@ def parse_autolev(autolev_code, include_numeric: bool = False):
     <BLANKLINE>
     y=sys.integrate()
     <BLANKLINE>
-    '''
+    """

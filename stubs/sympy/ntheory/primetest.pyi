@@ -1,6 +1,9 @@
 from _typeshed import Incomplete
 from sympy.core.sympify import sympify as sympify
-from sympy.external.gmpy import bit_scan1 as bit_scan1, gcd as gcd, is_euler_prp as is_euler_prp, is_fermat_prp as is_fermat_prp, is_selfridge_prp as is_selfridge_prp, is_strong_bpsw_prp as is_strong_bpsw_prp, is_strong_selfridge_prp as is_strong_selfridge_prp, jacobi as jacobi
+from sympy.external.gmpy import (
+	bit_scan1 as bit_scan1, gcd as gcd, is_euler_prp as is_euler_prp, is_fermat_prp as is_fermat_prp,
+	is_selfridge_prp as is_selfridge_prp, is_strong_bpsw_prp as is_strong_bpsw_prp,
+	is_strong_selfridge_prp as is_strong_selfridge_prp, jacobi as jacobi)
 from sympy.external.ntheory import _lucas_sequence as _lucas_sequence
 from sympy.utilities.misc import as_int as as_int, filldedent as filldedent
 
@@ -16,8 +19,7 @@ def is_fermat_pseudoprime(n, a):
     (where mod refers to the modulo operation).
 
     Parameters
-    ==========
-
+    ----------
     n : Integer
         ``n`` is a positive integer.
     a : Integer
@@ -25,14 +27,12 @@ def is_fermat_pseudoprime(n, a):
         ``a`` and ``n`` should be relatively prime.
 
     Returns
-    =======
-
+    -------
     bool : If ``n`` is prime, it always returns ``True``.
            The composite number that returns ``True`` is called an Fermat pseudoprime.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.primetest import is_fermat_pseudoprime
     >>> from sympy.ntheory.factor_ import isprime
     >>> for n in range(1, 1000):
@@ -43,7 +43,7 @@ def is_fermat_pseudoprime(n, a):
     645
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Fermat_pseudoprime
     """
@@ -57,8 +57,7 @@ def is_euler_pseudoprime(n, a):
     (where mod refers to the modulo operation).
 
     Parameters
-    ==========
-
+    ----------
     n : Integer
         ``n`` is a positive integer.
     a : Integer
@@ -66,14 +65,12 @@ def is_euler_pseudoprime(n, a):
         ``a`` and ``n`` should be relatively prime.
 
     Returns
-    =======
-
+    -------
     bool : If ``n`` is prime, it always returns ``True``.
            The composite number that returns ``True`` is called an Euler pseudoprime.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.primetest import is_euler_pseudoprime
     >>> from sympy.ntheory.factor_ import isprime
     >>> for n in range(1, 1000):
@@ -83,7 +80,7 @@ def is_euler_pseudoprime(n, a):
     561
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Euler_pseudoprime
     """
@@ -97,8 +94,7 @@ def is_euler_jacobi_pseudoprime(n, a):
     (where mod refers to the modulo operation).
 
     Parameters
-    ==========
-
+    ----------
     n : Integer
         ``n`` is a positive integer.
     a : Integer
@@ -106,14 +102,12 @@ def is_euler_jacobi_pseudoprime(n, a):
         ``a`` and ``n`` should be relatively prime.
 
     Returns
-    =======
-
+    -------
     bool : If ``n`` is prime, it always returns ``True``.
            The composite number that returns ``True`` is called an Euler-Jacobi pseudoprime.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.primetest import is_euler_jacobi_pseudoprime
     >>> from sympy.ntheory.factor_ import isprime
     >>> for n in range(1, 1000):
@@ -122,7 +116,7 @@ def is_euler_jacobi_pseudoprime(n, a):
     561
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Euler%E2%80%93Jacobi_pseudoprime
     """
@@ -132,8 +126,7 @@ def is_square(n, prep: bool = True):
     quick method of confirming that it is not.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.primetest import is_square
     >>> is_square(25)
     True
@@ -141,12 +134,12 @@ def is_square(n, prep: bool = True):
     False
 
     References
-    ==========
+    ----------
 
     .. [1]  https://mersenneforum.org/showpost.php?p=110896
 
     See Also
-    ========
+    --------
     sympy.core.intfunc.isqrt
     """
 def _test(n, base, s, t):
@@ -156,11 +149,11 @@ def _test(n, base, s, t):
 
     """
 def mr(n, bases):
-    '''Perform a Miller-Rabin strong pseudoprime test on n using a
+    """Perform a Miller-Rabin strong pseudoprime test on n using a
     given list of bases/witnesses.
 
     References
-    ==========
+    ----------
 
     .. [1] Richard Crandall & Carl Pomerance (2005), "Prime Numbers:
            A Computational Perspective", Springer, 2nd edition, 135-138
@@ -169,33 +162,29 @@ def mr(n, bases):
     https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test#Deterministic_variants
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.primetest import mr
     >>> mr(1373651, [2, 3])
     False
     >>> mr(479001599, [31, 73])
     True
 
-    '''
+    """
 def _lucas_extrastrong_params(n):
-    '''Calculates the "extra strong" parameters (D, P, Q) for n.
+    """Calculates the "extra strong" parameters (D, P, Q) for n.
 
     Parameters
-    ==========
-
+    ----------
     n : int
         positive odd integer
 
     Returns
-    =======
-
+    -------
     D, P, Q: "extra strong" parameters.
              ``(0, 0, 0)`` if we find a nontrivial divisor of ``n``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.primetest import _lucas_extrastrong_params
     >>> _lucas_extrastrong_params(101)
     (12, 4, 1)
@@ -203,12 +192,12 @@ def _lucas_extrastrong_params(n):
     (0, 0, 0)
 
     References
-    ==========
+    ----------
     .. [1] OEIS A217719: Extra Strong Lucas Pseudoprimes
            https://oeis.org/A217719
     .. [2] https://en.wikipedia.org/wiki/Lucas_pseudoprime
 
-    '''
+    """
 def is_lucas_prp(n):
     """Standard Lucas compositeness test with Selfridge parameters.  Returns
     False if n is definitely composite, and True if n is a Lucas probable
@@ -217,7 +206,7 @@ def is_lucas_prp(n):
     This is typically used in combination with the Miller-Rabin test.
 
     References
-    ==========
+    ----------
     .. [1] Robert Baillie, Samuel S. Wagstaff, Lucas Pseudoprimes,
            Math. Comp. Vol 35, Number 152 (1980), pp. 1391-1417,
            https://doi.org/10.1090%2FS0025-5718-1980-0583518-6
@@ -227,8 +216,7 @@ def is_lucas_prp(n):
     .. [3] https://en.wikipedia.org/wiki/Lucas_pseudoprime
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.primetest import isprime, is_lucas_prp
     >>> for i in range(10000):
     ...     if is_lucas_prp(i) and not isprime(i):
@@ -252,7 +240,7 @@ def is_strong_lucas_prp(n):
     in particular, when combined with M-R base 2 creates the strong BPSW test.
 
     References
-    ==========
+    ----------
     .. [1] Robert Baillie, Samuel S. Wagstaff, Lucas Pseudoprimes,
            Math. Comp. Vol 35, Number 152 (1980), pp. 1391-1417,
            https://doi.org/10.1090%2FS0025-5718-1980-0583518-6
@@ -263,8 +251,7 @@ def is_strong_lucas_prp(n):
     .. [4] https://en.wikipedia.org/wiki/Baillie-PSW_primality_test
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.primetest import isprime, is_strong_lucas_prp
     >>> for i in range(20000):
     ...     if is_strong_lucas_prp(i) and not isprime(i):
@@ -276,7 +263,7 @@ def is_strong_lucas_prp(n):
     18971
     """
 def is_extra_strong_lucas_prp(n):
-    '''Extra Strong Lucas compositeness test.  Returns False if n is
+    """Extra Strong Lucas compositeness test.  Returns False if n is
     definitely composite, and True if n is an "extra strong" Lucas probable
     prime.
 
@@ -293,7 +280,7 @@ def is_extra_strong_lucas_prp(n):
     In particular, one is not a subset of the other.
 
     References
-    ==========
+    ----------
     .. [1] Jon Grantham, Frobenius Pseudoprimes,
            Math. Comp. Vol 70, Number 234 (2001), pp. 873-891,
            https://doi.org/10.1090%2FS0025-5718-00-01197-2
@@ -302,8 +289,7 @@ def is_extra_strong_lucas_prp(n):
     .. [3] https://en.wikipedia.org/wiki/Lucas_pseudoprime
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.primetest import isprime, is_extra_strong_lucas_prp
     >>> for i in range(20000):
     ...     if is_extra_strong_lucas_prp(i) and not isprime(i):
@@ -312,30 +298,26 @@ def is_extra_strong_lucas_prp(n):
     3239
     5777
     10877
-    '''
+    """
 def proth_test(n):
-    """ Test if the Proth number `n = k2^m + 1` is prime. where k is a positive odd number and `2^m > k`.
+    """Test if the Proth number `n = k2^m + 1` is prime. where k is a positive odd number and `2^m > k`.
 
     Parameters
-    ==========
-
+    ----------
     n : Integer
         ``n`` is Proth number
 
     Returns
-    =======
-
+    -------
     bool : If ``True``, then ``n`` is the Proth prime
 
     Raises
-    ======
-
+    ------
     ValueError
         If ``n`` is not Proth number.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.primetest import proth_test
     >>> proth_test(41)
     True
@@ -343,28 +325,25 @@ def proth_test(n):
     False
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Proth_prime
 
     """
 def _lucas_lehmer_primality_test(p):
-    """ Test if the Mersenne number `M_p = 2^p-1` is prime.
+    """Test if the Mersenne number `M_p = 2^p-1` is prime.
 
     Parameters
-    ==========
-
+    ----------
     p : int
         ``p`` is an odd prime number
 
     Returns
-    =======
-
+    -------
     bool : If ``True``, then `M_p` is the Mersenne prime
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.primetest import _lucas_lehmer_primality_test
     >>> _lucas_lehmer_primality_test(5) # 2**5 - 1 = 31 is prime
     True
@@ -372,12 +351,11 @@ def _lucas_lehmer_primality_test(p):
     False
 
     See Also
-    ========
-
+    --------
     is_mersenne_prime
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Lucas%E2%80%93Lehmer_primality_test
 
@@ -388,8 +366,7 @@ def is_mersenne_prime(n):
     A Mersenne prime is a prime number having the form `2^i - 1`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.factor_ import is_mersenne_prime
     >>> is_mersenne_prime(6)
     False
@@ -397,7 +374,7 @@ def is_mersenne_prime(n):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/MersennePrime.html
 
@@ -406,7 +383,7 @@ def is_mersenne_prime(n):
 _MR_BASES_32: Incomplete
 
 def isprime(n):
-    '''
+    """
     Test if n is a prime number (True) or not (False). For n < 2^64 the
     answer is definitive; larger n values have a small probability of actually
     being pseudoprimes.
@@ -422,8 +399,7 @@ def isprime(n):
     believe counterexamples exist, there are no known counterexamples.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory import isprime
     >>> isprime(13)
     True
@@ -431,8 +407,7 @@ def isprime(n):
     False
 
     Notes
-    =====
-
+    -----
     This routine is intended only for integer input, not numerical
     expressions which may represent numbers. Floats are also
     rejected as input because they represent numbers of limited
@@ -459,26 +434,25 @@ def isprime(n):
     False
 
     See Also
-    ========
-
+    --------
     sympy.ntheory.generate.primerange : Generates all primes in a given range
     sympy.functions.combinatorial.numbers.primepi : Return the number of primes less than or equal to n
     sympy.ntheory.generate.prime : Return the nth prime
 
     References
-    ==========
+    ----------
     .. [1] https://en.wikipedia.org/wiki/Strong_pseudoprime
     .. [2] Robert Baillie, Samuel S. Wagstaff, Lucas Pseudoprimes,
            Math. Comp. Vol 35, Number 152 (1980), pp. 1391-1417,
            https://doi.org/10.1090%2FS0025-5718-1980-0583518-6
            http://mpqs.free.fr/LucasPseudoprimes.pdf
     .. [3] https://en.wikipedia.org/wiki/Baillie-PSW_primality_test
-    '''
+    """
 def is_gaussian_prime(num):
     """Test if num is a Gaussian prime number.
 
     References
-    ==========
+    ----------
 
     .. [1] https://oeis.org/wiki/Gaussian_primes
     """

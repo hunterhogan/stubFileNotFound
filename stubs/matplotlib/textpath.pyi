@@ -11,6 +11,7 @@ _log: Incomplete
 
 class TextToPath:
     """A class that converts strings to paths."""
+
     FONT_SCALE: float
     DPI: int
     mathtext_parser: Incomplete
@@ -27,7 +28,7 @@ class TextToPath:
         """
     def get_text_width_height_descent(self, s, prop, ismath): ...
     def get_text_path(self, prop, s, ismath: bool = False):
-        '''
+        """
         Convert text *s* to path (a tuple of vertices and codes for
         matplotlib.path.Path).
 
@@ -61,7 +62,7 @@ class TextToPath:
             path = Path(verts, codes, closed=False)
 
         Also see `TextPath` for a more direct way to create a path from a text.
-        '''
+        """
     def get_glyphs_with_font(self, font, s, glyph_map: Incomplete | None = None, return_new_glyphs_only: bool = False):
         """
         Convert string *s* to vertices and codes using the provided ttf font.
@@ -81,11 +82,12 @@ class TextPath(Path):
     """
     Create a path from the text.
     """
+
     _xy: Incomplete
     _cached_vertices: Incomplete
     _should_simplify: bool
     def __init__(self, xy, s, size: Incomplete | None = None, prop: Incomplete | None = None, _interpolation_steps: int = 1, usetex: bool = False) -> None:
-        '''
+        """
         Create a path from the text. Note that it simply is a path,
         not an artist. You need to use the `.PathPatch` (or other artists)
         to draw this path onto the canvas.
@@ -126,7 +128,7 @@ class TextPath(Path):
             path2 = TextPath((0, 0), r"$\\frac{1}{2}$", size=12, usetex=True)
 
         Also see :doc:`/gallery/text_labels_and_annotations/demo_text_path`.
-        '''
+        """
     _size: Incomplete
     _invalid: bool
     def set_size(self, size) -> None:

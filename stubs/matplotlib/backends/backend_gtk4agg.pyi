@@ -1,6 +1,6 @@
-from . import backend_agg as backend_agg, backend_gtk4 as backend_gtk4
 from .. import cbook as cbook
-from .backend_gtk4 import GLib as GLib, Gtk as Gtk, _BackendGTK4 as _BackendGTK4
+from . import backend_agg as backend_agg, backend_gtk4 as backend_gtk4
+from .backend_gtk4 import _BackendGTK4 as _BackendGTK4, GLib as GLib, Gtk as Gtk
 
 class FigureCanvasGTK4Agg(backend_agg.FigureCanvasAgg, backend_gtk4.FigureCanvasGTK4):
     _idle_draw_id: int

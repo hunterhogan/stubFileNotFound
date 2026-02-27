@@ -97,4 +97,3 @@ def inferRegion_(peak):
     TupleVariationHeaders can omit the intermediateStartTuple and
     intermediateEndTuple fields.
     """
-

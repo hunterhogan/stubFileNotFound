@@ -11,8 +11,8 @@ class Printable:
 
     This also adds support for LaTeX printing in jupyter notebooks.
     """
+
     __slots__: Incomplete
-    def __str__(self) -> str: ...
     __repr__ = __str__
     def _repr_disabled(self) -> None:
         """

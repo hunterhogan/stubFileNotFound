@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from enum import IntFlag
 from llvmlite.binding import ffi as ffi
+from typing import TypeAlias
 
 def create_new_module_pass_manager(): ...
 def create_new_function_pass_manager(): ...
@@ -12,7 +13,7 @@ class RefPruneSubpasses(IntFlag):
     DIAMOND = 2
     FANOUT = 4
     FANOUT_RAISE = 8
-    ALL = PER_BB | DIAMOND | FANOUT | FANOUT_RAISE
+    ALL: TypeAlias = PER_BB | DIAMOND | FANOUT | FANOUT_RAISE
 
 class ModulePassManager(ffi.ObjectRef):
     def __init__(self, ptr: Incomplete | None = None) -> None: ...

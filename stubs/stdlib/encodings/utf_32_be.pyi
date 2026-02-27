@@ -1,5 +1,5 @@
-import codecs
 from _typeshed import ReadableBuffer
+import codecs
 
 encode = codecs.utf_32_be_encode
 

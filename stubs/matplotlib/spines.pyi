@@ -1,8 +1,8 @@
-import matplotlib.patches as mpatches
 from _typeshed import Incomplete
 from collections.abc import MutableMapping
 from matplotlib import _api as _api, _docstring as _docstring
 from matplotlib.artist import allow_rasterization as allow_rasterization
+import matplotlib.patches as mpatches
 
 class Spine(mpatches.Patch):
     """
@@ -22,7 +22,7 @@ class Spine(mpatches.Patch):
 
     For examples see :ref:`spines_examples`.
     """
-    def __str__(self) -> str: ...
+
     axes: Incomplete
     spine_type: Incomplete
     axis: Incomplete
@@ -157,7 +157,7 @@ class Spine(mpatches.Patch):
     def circular_spine(cls, axes, center, radius, **kwargs):
         """Create and return a circular `Spine`."""
     def set_color(self, c) -> None:
-        '''
+        """
         Set the edgecolor.
 
         Parameters
@@ -169,7 +169,7 @@ class Spine(mpatches.Patch):
         This method does not modify the facecolor (which defaults to "none"),
         unlike the `.Patch.set_color` method defined in the parent class.  Use
         `.Patch.set_facecolor` to set the facecolor.
-        '''
+        """
 
 class SpinesProxy:
     """
@@ -181,6 +181,7 @@ class SpinesProxy:
     spines. If not all spines support a given method, it's executed only on
     the subset of spines that support it.
     """
+
     _spine_dict: Incomplete
     def __init__(self, spine_dict) -> None: ...
     def __getattr__(self, name): ...
@@ -209,6 +210,7 @@ class Spines(MutableMapping):
     ``set_*()`` and ``set()`` calls to its members, but cannot be used for any other
     operation.
     """
+
     _dict: Incomplete
     def __init__(self, **kwargs) -> None: ...
     @classmethod

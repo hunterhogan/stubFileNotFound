@@ -2,16 +2,21 @@ from _typeshed import Incomplete
 from sympy.core import Add as Add, Dummy as Dummy, Expr as Expr, Mul as Mul, S as S, Symbol as Symbol
 from sympy.core.assumptions import check_assumptions as check_assumptions
 from sympy.core.exprtools import factor_terms as factor_terms
-from sympy.core.function import AppliedUndef as AppliedUndef, Derivative as Derivative, Function as Function, UndefinedFunction as UndefinedFunction, _mexpand as _mexpand, expand as expand, expand_func as expand_func, expand_log as expand_log, expand_mul as expand_mul, expand_power_exp as expand_power_exp, nfloat as nfloat
+from sympy.core.function import (
+	_mexpand as _mexpand, AppliedUndef as AppliedUndef, Derivative as Derivative, expand as expand,
+	expand_func as expand_func, expand_log as expand_log, expand_mul as expand_mul, expand_power_exp as expand_power_exp,
+	Function as Function, nfloat as nfloat, UndefinedFunction as UndefinedFunction)
 from sympy.core.intfunc import ilcm as ilcm, integer_log as integer_log
 from sympy.core.logic import fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not
-from sympy.core.numbers import Float as Float, Rational as Rational, _illegal as _illegal
+from sympy.core.numbers import _illegal as _illegal, Float as Float, Rational as Rational
 from sympy.core.power import Pow as Pow
 from sympy.core.relational import Eq as Eq, Ne as Ne
 from sympy.core.sorting import default_sort_key as default_sort_key, ordered as ordered
 from sympy.core.sympify import _sympify as _sympify, sympify as sympify
 from sympy.core.traversal import preorder_traversal as preorder_traversal
-from sympy.functions import Abs as Abs, LambertW as LambertW, acos as acos, arg as arg, asin as asin, atan as atan, atan2 as atan2, cos as cos, exp as exp, im as im, log as log, re as re, sin as sin, sqrt as sqrt, tan as tan
+from sympy.functions import (
+	Abs as Abs, acos as acos, arg as arg, asin as asin, atan as atan, atan2 as atan2, cos as cos, exp as exp, im as im,
+	LambertW as LambertW, log as log, re as re, sin as sin, sqrt as sqrt, tan as tan)
 from sympy.functions.combinatorial.factorials import binomial as binomial
 from sympy.functions.elementary.hyperbolic import HyperbolicFunction as HyperbolicFunction
 from sympy.functions.elementary.piecewise import Piecewise as Piecewise, piecewise_fold as piecewise_fold
@@ -21,18 +26,24 @@ from sympy.logic.boolalg import And as And, BooleanAtom as BooleanAtom
 from sympy.matrices import Matrix as Matrix, zeros as zeros
 from sympy.matrices.exceptions import NonInvertibleMatrixError as NonInvertibleMatrixError
 from sympy.ntheory.factor_ import divisors as divisors
-from sympy.polys import Poly as Poly, cancel as cancel, factor as factor, roots as roots
+from sympy.polys import cancel as cancel, factor as factor, Poly as Poly, roots as roots
 from sympy.polys.polyerrors import GeneratorsNeeded as GeneratorsNeeded, PolynomialError as PolynomialError
 from sympy.polys.polytools import gcd as gcd
 from sympy.polys.solvers import solve_lin_sys as solve_lin_sys, sympy_eqs_to_ring as sympy_eqs_to_ring
-from sympy.simplify import collect as collect, denom as denom, fraction as fraction, logcombine as logcombine, nsimplify as nsimplify, posify as posify, powdenest as powdenest, powsimp as powsimp, separatevars as separatevars, simplify as simplify, sqrtdenest as sqrtdenest
-from sympy.simplify.fu import TR1 as TR1, TR10 as TR10, TR11 as TR11, TR2i as TR2i
+from sympy.simplify import (
+	collect as collect, denom as denom, fraction as fraction, logcombine as logcombine, nsimplify as nsimplify,
+	posify as posify, powdenest as powdenest, powsimp as powsimp, separatevars as separatevars, simplify as simplify,
+	sqrtdenest as sqrtdenest)
+from sympy.simplify.fu import TR1 as TR1, TR2i as TR2i, TR10 as TR10, TR11 as TR11
 from sympy.simplify.sqrtdenest import sqrt_depth as sqrt_depth
-from sympy.solvers.bivariate import _filtered_gens as _filtered_gens, _solve_lambert as _solve_lambert, bivariate_type as bivariate_type
+from sympy.solvers.bivariate import (
+	_filtered_gens as _filtered_gens, _solve_lambert as _solve_lambert, bivariate_type as bivariate_type)
 from sympy.solvers.polysys import solve_poly_system as solve_poly_system
 from sympy.strategies.rl import rebuild as rebuild
 from sympy.utilities.decorator import conserve_mpmath_dps as conserve_mpmath_dps
-from sympy.utilities.iterables import connected_components as connected_components, flatten as flatten, generate_bell as generate_bell, is_sequence as is_sequence, iterable as iterable, sift as sift, subsets as subsets, uniq as uniq
+from sympy.utilities.iterables import (
+	connected_components as connected_components, flatten as flatten, generate_bell as generate_bell,
+	is_sequence as is_sequence, iterable as iterable, sift as sift, subsets as subsets, uniq as uniq)
 from sympy.utilities.lambdify import lambdify as lambdify
 from sympy.utilities.misc import debugf as debugf, filldedent as filldedent
 
@@ -44,8 +55,7 @@ def recast_to_symbols(eqs, symbols):
     that can be used to restore the original expressions.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.solvers import recast_to_symbols
     >>> from sympy import symbols, Function
     >>> x, y = symbols('x y')
@@ -70,8 +80,7 @@ def denoms(eq, *symbols):
     provided then all denominators will be returned.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.solvers import denoms
     >>> from sympy.abc import x, y, z
 
@@ -110,8 +119,7 @@ def checksol(f, symbol, sol=None, **flags):
     more checks are inconclusive (and none are False) then None is returned.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import checksol, symbols
     >>> x, y = symbols('x,y')
     >>> checksol(x**4 - 1, x, 1)
@@ -144,7 +152,7 @@ def checksol(f, symbol, sol=None, **flags):
 
     """
 def solve(f, *symbols, **flags):
-    '''
+    """
     Algebraically solves equations and systems of equations.
 
     Explanation
@@ -159,8 +167,7 @@ def solve(f, *symbols, **flags):
         - systems implied by undetermined coefficients
 
     Examples
-    ========
-
+    --------
     The default output varies according to the input and might
     be a list (possibly empty), a dictionary, a list of
     dictionaries or tuples, or an expression involving relationals.
@@ -524,8 +531,7 @@ def solve(f, *symbols, **flags):
         [-3.0]
 
     Parameters
-    ==========
-
+    ----------
     f :
         - a single Expr or Poly that must be zero
         - an Equality
@@ -601,14 +607,13 @@ def solve(f, *symbols, **flags):
             are encountered.
 
     See Also
-    ========
-
+    --------
     rsolve: For solving recurrence relationships
     sympy.solvers.ode.dsolve: For solving differential equations
 
-    '''
+    """
 def _solve_undetermined(g, symbols, flags):
-    """solve helper to return a list with one dict (solution) else None
+    """Solve helper to return a list with one dict (solution) else None
 
     A direct call to solve_undetermined_coeffs is more flexible and
     can return both multiple solutions and handle more than one independent
@@ -628,7 +633,7 @@ def _solve(f, *symbols, **flags):
 def _remove_duplicate_solutions(solutions: list[dict[Expr, Expr]]) -> list[dict[Expr, Expr]]:
     """Remove duplicates from a list of dicts"""
 def _solve_system(exprs, symbols, **flags):
-    """return ``(linear, solution)`` where ``linear`` is True
+    """Return ``(linear, solution)`` where ``linear`` is True
     if the system was linear, else False; ``solution``
     is a list of dictionaries giving solutions for the symbols
     """
@@ -658,8 +663,7 @@ def solve_linear(lhs, rhs: int = 0, symbols=[], exclude=[]):
     the second element is the solution, not the denominator).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import cancel, Pow
 
     ``f`` is independent of the symbols in *symbols* that are not in
@@ -777,8 +781,7 @@ def solve_linear_system(system, *symbols, **flags):
     is more efficient and compact than the Gauss-Jordan method.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, solve_linear_system
     >>> from sympy.abc import x, y
 
@@ -824,8 +827,7 @@ def solve_undetermined_coeffs(equ, coeffs, *syms, **flags):
     obtained (and symbols were not specified) try specifying them.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Eq, solve_undetermined_coeffs
     >>> from sympy.abc import a, b, c, h, p, k, x, y
 
@@ -874,8 +876,7 @@ def solve_linear_system_LU(matrix, syms):
     The matrix must be invertible.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, solve_linear_system_LU
     >>> from sympy.abc import x, y, z
 
@@ -886,8 +887,7 @@ def solve_linear_system_LU(matrix, syms):
     {x: 1/2, y: 1/4, z: -1/2}
 
     See Also
-    ========
-
+    --------
     LUsolve
 
     """
@@ -903,8 +903,7 @@ def det_perm(M):
     standard determinant routines (e.g., ``M.det()``.)
 
     See Also
-    ========
-
+    --------
     det_minor
     det_quick
 
@@ -915,8 +914,7 @@ def det_minor(M):
     introducing new nesting in products.
 
     See Also
-    ========
-
+    --------
     det_perm
     det_quick
 
@@ -929,8 +927,7 @@ def det_quick(M, method=None):
     Matrix.det function will be used with method = ``method``.
 
     See Also
-    ========
-
+    --------
     det_minor
     det_perm
 
@@ -944,7 +941,7 @@ def inv_quick(M):
 multi_inverses: Incomplete
 
 def _vsolve(e, s, **flags):
-    """return list of scalar values for the solution of e for symbol s"""
+    """Return list of scalar values for the solution of e for symbol s"""
 def _tsolve(eq, sym, **flags):
     """
     Helper for ``_solve`` that solves a transcendental equation with respect
@@ -960,8 +957,7 @@ def _tsolve(eq, sym, **flags):
     expression as a Poly) are unhandled.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import log, ordered
     >>> from sympy.solvers.solvers import _tsolve as tsolve
     >>> from sympy.abc import x
@@ -1002,8 +998,7 @@ def nsolve(*args, dict: bool = False, **kwargs):
     Overdetermined systems are supported.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, nsolve
     >>> import mpmath
     >>> mpmath.mp.dps = 15
@@ -1097,8 +1092,7 @@ def _invert(eq, *symbols, **kwargs):
     expression.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.solvers import _invert as invert
     >>> from sympy import sqrt, cos
     >>> from sympy.abc import x, y
@@ -1184,8 +1178,7 @@ def unrad(eq, *syms, **flags):
         *   There are only two terms with radicals.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.solvers import unrad
     >>> from sympy.abc import x
     >>> from sympy import sqrt, Rational, root

@@ -1,9 +1,10 @@
 from sympy.physics.quantum.gate import Gate, OneQubitGate
 
-__all__ = ['QFT', 'IQFT', 'RkGate', 'Rk']
+__all__ = ['IQFT', 'QFT', 'Rk', 'RkGate']
 
 class RkGate(OneQubitGate):
     """This is the R_k gate of the QTF."""
+
     gate_name: str
     gate_name_latex: str
     def __new__(cls, *args): ...
@@ -20,12 +21,13 @@ Rk = RkGate
 
 class Fourier(Gate):
     """Superclass of Quantum Fourier and Inverse Quantum Fourier Gates."""
+
     @classmethod
     def _eval_args(self, args): ...
     def _represent_default_basis(self, **options): ...
     def _represent_ZGate(self, basis, **options):
         """
-            Represents the (I)QFT In the Z Basis
+        Represents the (I)QFT In the Z Basis
         """
     @property
     def targets(self): ...
@@ -39,6 +41,7 @@ class Fourier(Gate):
 
 class QFT(Fourier):
     """The forward quantum Fourier transform."""
+
     gate_name: str
     gate_name_latex: str
     def decompose(self):
@@ -50,6 +53,7 @@ class QFT(Fourier):
 
 class IQFT(Fourier):
     """The inverse quantum Fourier transform."""
+
     gate_name: str
     gate_name_latex: str
     def decompose(self):

@@ -1,17 +1,16 @@
-from typing import Any, Optional, TextIO, TypeVar, Union, Dict
-from threading import Thread, Event
-from types import TracebackType
-import numpy as np
+from .numba_atomic import atomic_add, atomic_xchg
+from numba import types
+from numba.core.datamodel.new_models import StructModel
+from numba.core.types.abstract import Type
+from numba.extending import models
 from numpy.typing import NDArray
-import sys
+from threading import Event, Thread
 from tqdm import tqdm
 from tqdm.notebook import tqdm as tqdm_notebook
-from numba import types
-from numba.core.types.abstract import Type
-from numba.core.datamodel.new_models import StructModel
-from numba.extending import models
-
-from .numba_atomic import atomic_add, atomic_xchg
+from types import TracebackType
+from typing import Any, Dict, Optional, TextIO, TypeVar, Union
+import numpy as np
+import sys
 
 def is_notebook() -> bool:
     """Determine if we're running within an IPython kernel.
@@ -50,6 +49,7 @@ class ProgressBar:
         Additional parameters passed to the tqdm class. See https://github.com/tqdm/tqdm
         for a documentation of the available parameters.
     """
+
     _last_value: int
     _tqdm: tqdm[Any] | tqdm_notebook
     hook: NDArray[np.uint64]
@@ -96,6 +96,7 @@ class ProgressBar:
 
 class ProgressBarTypeImpl(Type):
     """Type class for the Numba-compiled version of ProgressBar."""
+
     def __init__(self) -> None: ...
 
 # This is the numba type representation of the ProgressBar class to be used in function signatures
@@ -103,6 +104,7 @@ ProgressBarType: ProgressBarTypeImpl
 
 class ProgressBarModel(StructModel):
     """StructModel implementation for the ProgressBar in Numba."""
+
     def __init__(self, dmm: Any, fe_type: Any) -> None: ...
 
 # The following functions are internal to Numba and normally not called directly

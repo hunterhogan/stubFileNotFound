@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from sympy.stats.joint_rv import JointDistribution
 
-__all__ = ['JointRV', 'MultivariateNormal', 'MultivariateLaplace', 'Dirichlet', 'GeneralizedMultivariateLogGamma', 'GeneralizedMultivariateLogGammaOmega', 'Multinomial', 'MultivariateBeta', 'MultivariateEwens', 'MultivariateT', 'NegativeMultinomial', 'NormalGamma']
+__all__ = ['Dirichlet', 'GeneralizedMultivariateLogGamma', 'GeneralizedMultivariateLogGammaOmega', 'JointRV', 'Multinomial', 'MultivariateBeta', 'MultivariateEwens', 'MultivariateLaplace', 'MultivariateNormal', 'MultivariateT', 'NegativeMultinomial', 'NormalGamma']
 
 class JointDistributionHandmade(JointDistribution):
     _argnames: Incomplete
@@ -15,8 +15,7 @@ def JointRV(symbol, pdf, _set=None):
     given the following:
 
     Parameters
-    ==========
-
+    ----------
     symbol : Symbol
         Represents name of the random variable.
     pdf : A PDF in terms of indexed symbols of the symbol given
@@ -29,8 +28,7 @@ def JointRV(symbol, pdf, _set=None):
     equal to the set of all integers, which cannot be changed.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import exp, pi, Indexed, S
     >>> from sympy.stats import density, JointRV
     >>> x1, x2 = (Indexed('x', i) for i in (1, 2))
@@ -40,8 +38,7 @@ def JointRV(symbol, pdf, _set=None):
     exp(-2)/(2*pi)
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     """
@@ -64,21 +61,18 @@ def MultivariateNormal(name, mu, sigma):
     The density of the multivariate normal distribution can be found at [1].
 
     Parameters
-    ==========
-
+    ----------
     mu : List representing the mean or the mean vector
     sigma : Positive semidefinite square matrix
         Represents covariance Matrix.
         If `\\sigma` is noninvertible then only sampling is supported currently
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import MultivariateNormal, density, marginal_distribution
     >>> from sympy import symbols, MatrixSymbol
     >>> X = MultivariateNormal('X', [3, 4], [[2, 1], [1, 2]])
@@ -108,7 +102,7 @@ def MultivariateNormal(name, mu, sigma):
     (exp(((1/2)*mu.T - (1/2)*obs.T)*Sg**(-1)*(-mu + obs))/sqrt((2*pi)**n*Determinant(Sg)))[0, 0]
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Multivariate_normal_distribution
 
@@ -131,20 +125,17 @@ def MultivariateLaplace(name, mu, sigma):
     The density of the multivariate Laplace distribution can be found at [1].
 
     Parameters
-    ==========
-
+    ----------
     mu : List representing the mean or the mean vector
     sigma : Positive definite square matrix
         Represents covariance Matrix
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import MultivariateLaplace, density
     >>> from sympy import symbols
     >>> y, z = symbols('y z')
@@ -155,7 +146,7 @@ def MultivariateLaplace(name, mu, sigma):
     sqrt(2)*exp(11/4)*besselk(0, sqrt(165)/4)/(4*pi)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Multivariate_Laplace_distribution
 
@@ -171,12 +162,11 @@ class MultivariateTDistribution(JointDistribution):
     def pdf(self, *args): ...
 
 def MultivariateT(syms, mu, sigma, v):
-    '''
+    """
     Creates a joint random variable with multivariate T-distribution.
 
     Parameters
-    ==========
-
+    ----------
     syms : A symbol/str
         For identifying the random variable.
     mu : A list/matrix
@@ -184,8 +174,7 @@ def MultivariateT(syms, mu, sigma, v):
     sigma : The shape matrix for the distribution
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import density, MultivariateT
     >>> from sympy import Symbol
 
@@ -196,11 +185,10 @@ def MultivariateT(syms, mu, sigma, v):
     2/(9*pi)
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
-    '''
+    """
 
 class NormalGammaDistribution(JointDistribution):
     _argnames: Incomplete
@@ -218,8 +206,7 @@ def NormalGamma(sym, mu, lamda, alpha, beta):
     distribution.
 
     Parameters
-    ==========
-
+    ----------
     sym : A symbol/str
         For identifying the random variable.
     mu : A real number
@@ -232,13 +219,11 @@ def NormalGamma(sym, mu, lamda, alpha, beta):
         Parameter of joint distribution
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import density, NormalGamma
     >>> from sympy import symbols
 
@@ -249,7 +234,7 @@ def NormalGamma(sym, mu, lamda, alpha, beta):
     9*sqrt(2)*z**(3/2)*exp(-3*z)*exp(-y**2*z/2)/(2*sqrt(pi))
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Normal-gamma_distribution
 
@@ -272,19 +257,16 @@ def MultivariateBeta(syms, *alpha):
     The density of the Dirichlet distribution can be found at [1].
 
     Parameters
-    ==========
-
+    ----------
     alpha : Positive real numbers
         Signifies concentration numbers.
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import density, MultivariateBeta, marginal_distribution
     >>> from sympy import Symbol
     >>> a1 = Symbol('a1', positive=True)
@@ -299,7 +281,7 @@ def MultivariateBeta(syms, *alpha):
     x**(a1 - 1)*gamma(a1 + a2)/(a2*gamma(a1)*gamma(a2))
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Dirichlet_distribution
     .. [2] https://mathworld.wolfram.com/DirichletDistribution.html
@@ -325,21 +307,18 @@ def MultivariateEwens(syms, n, theta):
     The density of the said distribution can be found at [1].
 
     Parameters
-    ==========
-
+    ----------
     n : Positive integer
         Size of the sample or the integer whose partitions are considered
     theta : Positive real number
         Denotes Mutation rate
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import density, marginal_distribution, MultivariateEwens
     >>> from sympy import Symbol
     >>> a1 = Symbol('a1', positive=True)
@@ -351,7 +330,7 @@ def MultivariateEwens(syms, n, theta):
     Piecewise((1/factorial(a1), Eq(a1, 2)), (0, True))
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Ewens%27s_sampling_formula
     .. [2] https://www.jstor.org/stable/24780825
@@ -373,8 +352,7 @@ def GeneralizedMultivariateLogGamma(syms, delta, v, lamda, mu):
     The joint pdf can be found at [1].
 
     Parameters
-    ==========
-
+    ----------
     syms : list/tuple/set of symbols for identifying each component
     delta : A constant in range $[0, 1]$
     v : Positive real number
@@ -382,13 +360,11 @@ def GeneralizedMultivariateLogGamma(syms, delta, v, lamda, mu):
     mu : List of positive real numbers
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import density
     >>> from sympy.stats.joint_rv_types import GeneralizedMultivariateLogGamma
     >>> from sympy import symbols, S
@@ -402,7 +378,7 @@ def GeneralizedMultivariateLogGamma(syms, delta, v, lamda, mu):
     exp(y_3))/(2**n*gamma(n + 1)**3), (n, 0, oo))/2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Generalized_multivariate_log-gamma_distribution
     .. [2] https://www.researchgate.net/publication/234137346_On_a_multivariate_log-gamma_distribution_and_the_use_of_the_distribution_in_the_Bayesian_analysis
@@ -424,8 +400,7 @@ def GeneralizedMultivariateLogGammaOmega(syms, omega, v, lamda, mu):
     Extends GeneralizedMultivariateLogGamma.
 
     Parameters
-    ==========
-
+    ----------
     syms : list/tuple/set of symbols
         For identifying each component
     omega : A square matrix
@@ -436,13 +411,11 @@ def GeneralizedMultivariateLogGammaOmega(syms, omega, v, lamda, mu):
     mu : List of positive real numbers
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import density
     >>> from sympy.stats.joint_rv_types import GeneralizedMultivariateLogGammaOmega
     >>> from sympy import Matrix, symbols, S
@@ -456,14 +429,13 @@ def GeneralizedMultivariateLogGammaOmega(syms, omega, v, lamda, mu):
     exp(y_2) - exp(y_3))/gamma(n + 1)**3, (n, 0, oo))/2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Generalized_multivariate_log-gamma_distribution
     .. [2] https://www.researchgate.net/publication/234137346_On_a_multivariate_log-gamma_distribution_and_the_use_of_the_distribution_in_the_Bayesian_analysis
 
     Notes
-    =====
-
+    -----
     If the GeneralizedMultivariateLogGammaOmega is too long to type use,
 
     >>> from sympy.stats.joint_rv_types import GeneralizedMultivariateLogGammaOmega as GMVLGO
@@ -488,21 +460,18 @@ def Multinomial(syms, n, *p):
     The density of the said distribution can be found at [1].
 
     Parameters
-    ==========
-
+    ----------
     n : Positive integer
         Represents number of trials
     p : List of event probabilities
         Must be in the range of $[0, 1]$.
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import density, Multinomial, marginal_distribution
     >>> from sympy import symbols
     >>> x1, x2, x3 = symbols('x1, x2, x3', nonnegative=True, integer=True)
@@ -515,7 +484,7 @@ def Multinomial(syms, n, *p):
     3*p1*p2**2 + 6*p1*p2*p3 + 3*p1*p3**2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Multinomial_distribution
     .. [2] https://mathworld.wolfram.com/MultinomialDistribution.html
@@ -539,21 +508,18 @@ def NegativeMultinomial(syms, k0, *p):
     The density of the said distribution can be found at [1].
 
     Parameters
-    ==========
-
+    ----------
     k0 : positive integer
         Represents number of failures before the experiment is stopped
     p : List of event probabilities
         Must be in the range of $[0, 1]$
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import density, NegativeMultinomial, marginal_distribution
     >>> from sympy import symbols
     >>> x1, x2, x3 = symbols('x1, x2, x3', nonnegative=True, integer=True)
@@ -568,7 +534,7 @@ def NegativeMultinomial(syms, k0, *p):
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Negative_multinomial_distribution
     .. [2] https://mathworld.wolfram.com/NegativeBinomialDistribution.html

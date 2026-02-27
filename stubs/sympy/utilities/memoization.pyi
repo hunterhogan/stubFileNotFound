@@ -3,8 +3,7 @@ def recurrence_memo(initial):
     Memo decorator for sequences defined by recurrence
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.memoization import recurrence_memo
     >>> @recurrence_memo([1]) # 0! = 1
     ... def factorial(n, prev):

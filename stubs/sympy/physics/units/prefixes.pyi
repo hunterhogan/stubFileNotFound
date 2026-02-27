@@ -22,6 +22,7 @@ class Prefix(Expr):
     - defines multiplication with prefixes (which is the case for the Unit
       class).
     """
+
     _op_priority: float
     is_commutative: bool
     def __new__(cls, name, abbrev, exponent, base=..., latex_repr=None): ...
@@ -34,14 +35,12 @@ class Prefix(Expr):
     def _latex(self, printer): ...
     @property
     def base(self): ...
-    def __str__(self) -> str: ...
-    def __repr__(self) -> str: ...
     def __mul__(self, other): ...
     def __truediv__(self, other): ...
     def __rtruediv__(self, other): ...
 
 def prefix_unit(unit, prefixes):
-    '''
+    """
     Return a list of all units formed by unit and the given prefixes.
 
     You can use the predefined PREFIXES or BIN_PREFIXES, but you can also
@@ -53,7 +52,7 @@ def prefix_unit(unit, prefixes):
         >>> pref = {"m": PREFIXES["m"], "c": PREFIXES["c"], "d": PREFIXES["d"]}
         >>> prefix_unit(m, pref)  # doctest: +SKIP
         [millimeter, centimeter, decimeter]
-    '''
+    """
 
 yotta: Incomplete
 zetta: Incomplete

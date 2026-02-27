@@ -2,10 +2,11 @@ from .inverse import Inverse as Inverse
 from .matexpr import MatrixExpr as MatrixExpr
 from .matpow import MatPow as MatPow
 from .permutation import PermutationMatrix as PermutationMatrix
-from .special import GenericIdentity as GenericIdentity, Identity as Identity, OneMatrix as OneMatrix, ZeroMatrix as ZeroMatrix
+from .special import (
+	GenericIdentity as GenericIdentity, Identity as Identity, OneMatrix as OneMatrix, ZeroMatrix as ZeroMatrix)
 from .transpose import transpose as transpose
 from _typeshed import Incomplete
-from sympy.assumptions.ask import Q as Q, ask as ask
+from sympy.assumptions.ask import ask as ask, Q as Q
 from sympy.assumptions.refine import handlers_dict as handlers_dict
 from sympy.core import Basic as Basic, S as S, sympify as sympify
 from sympy.core.mul import Mul as Mul, mul as mul
@@ -14,7 +15,8 @@ from sympy.core.symbol import Dummy as Dummy
 from sympy.functions import adjoint as adjoint
 from sympy.matrices.exceptions import NonInvertibleMatrixError as NonInvertibleMatrixError
 from sympy.matrices.matrixbase import MatrixBase as MatrixBase
-from sympy.strategies import do_one as do_one, exhaust as exhaust, flatten as flatten, new as new, rm_id as rm_id, typed as typed, unpack as unpack
+from sympy.strategies import (
+	do_one as do_one, exhaust as exhaust, flatten as flatten, new as new, rm_id as rm_id, typed as typed, unpack as unpack)
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 
 class MatMul(MatrixExpr, Mul):
@@ -22,8 +24,7 @@ class MatMul(MatrixExpr, Mul):
     A product of matrix expressions
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatMul, MatrixSymbol
     >>> A = MatrixSymbol('A', 5, 4)
     >>> B = MatrixSymbol('B', 4, 3)
@@ -31,6 +32,7 @@ class MatMul(MatrixExpr, Mul):
     >>> MatMul(A, B, C)
     A*B*C
     """
+
     is_MatMul: bool
     identity: Incomplete
     def __new__(cls, *args, evaluate: bool = False, check=None, _sympify: bool = True): ...
@@ -46,8 +48,7 @@ class MatMul(MatrixExpr, Mul):
         """Transposition of matrix multiplication.
 
         Notes
-        =====
-
+        -----
         The following rules are applied.
 
         Transposition for matrix multiplied with another matrix:
@@ -57,7 +58,7 @@ class MatMul(MatrixExpr, Mul):
         `\\left(c A\\right)^{T} = c A^{T}`
 
         References
-        ==========
+        ----------
 
         .. [1] https://en.wikipedia.org/wiki/Transpose
         """
@@ -72,7 +73,7 @@ class MatMul(MatrixExpr, Mul):
 def newmul(*args): ...
 def any_zeros(mul): ...
 def merge_explicit(matmul):
-    """ Merge explicit MatrixBase arguments
+    """Merge explicit MatrixBase arguments
 
     >>> from sympy import MatrixSymbol, Matrix, MatMul, pprint
     >>> from sympy.matrices.expressions.matmul import merge_explicit
@@ -100,15 +101,14 @@ def merge_explicit(matmul):
     [1  1]   [3  4]
     """
 def remove_ids(mul):
-    """ Remove Identities from a MatMul
+    """Remove Identities from a MatMul
 
     This is a modified version of sympy.strategies.rm_id.
     This is necessary because MatMul may contain both MatrixExprs and Exprs
     as args.
 
     See Also
-    ========
-
+    --------
     sympy.strategies.rm_id
     """
 def factor_in_front(mul): ...
@@ -141,7 +141,7 @@ rules: Incomplete
 canonicalize: Incomplete
 
 def only_squares(*matrices):
-    """factor matrices only if they are square"""
+    """Factor matrices only if they are square"""
 def refine_MatMul(expr, assumptions):
     """
     >>> from sympy import MatrixSymbol, Q, assuming, refine

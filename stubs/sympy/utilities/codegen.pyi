@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-__all__ = ['Routine', 'DataType', 'default_datatypes', 'get_default_datatype', 'Argument', 'InputArgument', 'OutputArgument', 'Result', 'CodeGen', 'CCodeGen', 'FCodeGen', 'JuliaCodeGen', 'OctaveCodeGen', 'RustCodeGen', 'codegen', 'make_routine']
+__all__ = ['Argument', 'CCodeGen', 'CodeGen', 'DataType', 'FCodeGen', 'InputArgument', 'JuliaCodeGen', 'OctaveCodeGen', 'OutputArgument', 'Result', 'Routine', 'RustCodeGen', 'codegen', 'default_datatypes', 'get_default_datatype', 'make_routine']
 
 class Routine:
     """Generic description of evaluation routine for set of expressions.
@@ -14,6 +14,7 @@ class Routine:
     while C does not.
 
     """
+
     name: Incomplete
     arguments: Incomplete
     results: Incomplete
@@ -23,8 +24,7 @@ class Routine:
         """Initialize a Routine instance.
 
         Parameters
-        ==========
-
+        ----------
         name : string
             Name of the routine.
 
@@ -49,7 +49,6 @@ class Routine:
             Variables which will not be passed into the function.
 
         """
-    def __str__(self) -> str: ...
     __repr__ = __str__
     @property
     def variables(self):
@@ -68,6 +67,7 @@ class Routine:
 
 class DataType:
     """Holds strings for a certain datatype in different languages."""
+
     cname: Incomplete
     fname: Incomplete
     pyname: Incomplete
@@ -83,6 +83,7 @@ def get_default_datatype(expr, complex_allowed=None):
 
 class Variable:
     """Represents a typed variable."""
+
     _name: Incomplete
     _datatype: Incomplete
     dimensions: Incomplete
@@ -91,8 +92,7 @@ class Variable:
         """Return a new variable.
 
         Parameters
-        ==========
-
+        ----------
         name : Symbol or MatrixSymbol
 
         datatype : optional
@@ -108,7 +108,6 @@ class Variable:
             Controls the precision of floating point constants.
 
         """
-    def __str__(self) -> str: ...
     __repr__ = __str__
     @property
     def name(self): ...
@@ -116,8 +115,7 @@ class Variable:
         """Returns the datatype string for the requested language.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Symbol
         >>> from sympy.utilities.codegen import Variable
         >>> x = Variable(Symbol('x'))
@@ -137,27 +135,27 @@ class Argument(Variable):
 class InputArgument(Argument): ...
 
 class ResultBase:
-    '''Base class for all "outgoing" information from a routine.
+    """Base class for all "outgoing" information from a routine.
 
     Objects of this class stores a SymPy expression, and a SymPy object
     representing a result variable that will be used in the generated code
     only if necessary.
 
-    '''
+    """
+
     expr: Incomplete
     result_var: Incomplete
     def __init__(self, expr, result_var) -> None: ...
-    def __str__(self) -> str: ...
     __repr__ = __str__
 
 class OutputArgument(Argument, ResultBase):
     """OutputArgument are always initialized in the routine."""
+
     def __init__(self, name, result_var, expr, datatype=None, dimensions=None, precision=None) -> None:
-        '''Return a new variable.
+        """Return a new variable.
 
         Parameters
-        ==========
-
+        ----------
         name : Symbol, MatrixSymbol
             The name of this variable.  When used for code generation, this
             might appear, for example, in the prototype of function in the
@@ -184,18 +182,17 @@ class OutputArgument(Argument, ResultBase):
         precision : int, optional
             Controls the precision of floating point constants.
 
-        '''
-    def __str__(self) -> str: ...
+        """
     __repr__ = __str__
 
 class InOutArgument(Argument, ResultBase):
     """InOutArgument are never initialized in the routine."""
+
     def __init__(self, name, result_var, expr, datatype=None, dimensions=None, precision=None) -> None: ...
-    def __str__(self) -> str: ...
     __repr__ = __str__
 
 class Result(Variable, ResultBase):
-    '''An expression for a return value.
+    """An expression for a return value.
 
     The name result is used to avoid conflicts with the reserved word
     "return" in the Python language.  It is also shorter than ReturnValue.
@@ -203,13 +200,13 @@ class Result(Variable, ResultBase):
     These may or may not need a name in the destination (e.g., "return(x*y)"
     might return a value without ever naming it).
 
-    '''
+    """
+
     def __init__(self, expr, name=None, result_var=None, datatype=None, dimensions=None, precision=None) -> None:
-        '''Initialize a return value.
+        """Initialize a return value.
 
         Parameters
-        ==========
-
+        ----------
         expr : SymPy expression
 
         name : Symbol, MatrixSymbol, optional
@@ -235,12 +232,12 @@ class Result(Variable, ResultBase):
         precision : int, optional
             Controls the precision of floating point constants.
 
-        '''
-    def __str__(self) -> str: ...
+        """
     __repr__ = __str__
 
 class CodeGen:
     """Abstract class for the code generators."""
+
     printer: Incomplete
     def _indent_code(self, codelines): ...
     def _printer_method_with_settings(self, method, settings=None, *args, **kwargs): ...
@@ -277,8 +274,7 @@ class CodeGen:
         of the given prefix, appended with an appropriate extension.
 
         Parameters
-        ==========
-
+        ----------
         routines : list
             A list of Routine instances to be written
 
@@ -305,8 +301,7 @@ class CodeGen:
         low-level code and refers to the header file if appropriate.
 
         Parameters
-        ==========
-
+        ----------
         routines : list
             A list of Routine instances.
 
@@ -340,6 +335,7 @@ class CCodeGen(CodeGen):
     an interface file, <prefix>.c and <prefix>.h respectively.
 
     """
+
     code_extension: str
     interface_extension: str
     standard: str
@@ -371,8 +367,7 @@ class CCodeGen(CodeGen):
         This file contains all the function declarations.
 
         Parameters
-        ==========
-
+        ----------
         routines : list
             A list of Routine instances.
 
@@ -407,6 +402,7 @@ class FCodeGen(CodeGen):
     an interface file, <prefix>.f90 and <prefix>.h respectively.
 
     """
+
     code_extension: str
     interface_extension: str
     printer: Incomplete
@@ -440,8 +436,7 @@ class FCodeGen(CodeGen):
         This file contains all the function declarations.
 
         Parameters
-        ==========
-
+        ----------
         routines : list
             A list of Routine instances.
 
@@ -469,6 +464,7 @@ class JuliaCodeGen(CodeGen):
     <prefix>.jl.
 
     """
+
     code_extension: str
     printer: Incomplete
     def __init__(self, project: str = 'project', printer=None) -> None: ...
@@ -503,6 +499,7 @@ class OctaveCodeGen(CodeGen):
     according to their order in ``name_expr``.
 
     """
+
     code_extension: str
     printer: Incomplete
     def __init__(self, project: str = 'project', printer=None) -> None: ...
@@ -529,6 +526,7 @@ class RustCodeGen(CodeGen):
     <prefix>.rs
 
     """
+
     code_extension: str
     printer: Incomplete
     def __init__(self, project: str = 'project', printer=None) -> None: ...
@@ -556,11 +554,10 @@ class RustCodeGen(CodeGen):
     dump_fns: Incomplete
 
 def codegen(name_expr, language=None, prefix=None, project: str = 'project', to_files: bool = False, header: bool = True, empty: bool = True, argument_sequence=None, global_vars=None, standard=None, code_gen=None, printer=None):
-    '''Generate source code for expressions in a given language.
+    """Generate source code for expressions in a given language.
 
     Parameters
-    ==========
-
+    ----------
     name_expr : tuple, or list of tuples
         A single (name, expression) tuple or a list of (name, expression)
         tuples.  Each tuple corresponds to a routine.  If the expression is
@@ -615,8 +612,7 @@ def codegen(name_expr, language=None, prefix=None, project: str = 'project', to_
         An instance of a Printer subclass.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.codegen import codegen
     >>> from sympy.abc import x, y, z
     >>> [(c_name, c_code), (h_name, c_header)] = codegen(
@@ -683,13 +679,12 @@ def codegen(name_expr, language=None, prefix=None, project: str = 'project', to_
     end function
     <BLANKLINE>
 
-    '''
+    """
 def make_routine(name, expr, argument_sequence=None, global_vars=None, language: str = 'F95'):
-    '''A factory that makes an appropriate Routine from an expression.
+    """A factory that makes an appropriate Routine from an expression.
 
     Parameters
-    ==========
-
+    ----------
     name : string
         The name of this routine in the generated code.
 
@@ -713,8 +708,7 @@ def make_routine(name, expr, argument_sequence=None, global_vars=None, language:
         checking, etc depend on the language.  [default: "F95"].
 
     Notes
-    =====
-
+    -----
     A decision about whether to use output arguments or return values is made
     depending on both the language and the particular mathematical expressions.
     For an expression of type Equality, the left hand side is typically made
@@ -723,8 +717,7 @@ def make_routine(name, expr, argument_sequence=None, global_vars=None, language:
     the routine.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.codegen import make_routine
     >>> from sympy.abc import x, y, f, g
     >>> from sympy import Eq
@@ -767,4 +760,4 @@ def make_routine(name, expr, argument_sequence=None, global_vars=None, language:
     >>> [a.expr for a in r.arguments if isinstance(a, InOutArgument)]
     [g + x]
 
-    '''
+    """

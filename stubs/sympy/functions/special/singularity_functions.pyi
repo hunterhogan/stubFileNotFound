@@ -1,4 +1,4 @@
-from sympy.core import S as S, diff as diff, oo as oo
+from sympy.core import diff as diff, oo as oo, S as S
 from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction
 from sympy.core.logic import fuzzy_not as fuzzy_not
 from sympy.core.relational import Eq as Eq
@@ -23,8 +23,7 @@ class SingularityFunction(DefinedFunction):
     and ``(x - a)**n*Heaviside(x - a, 1)`` if ``n >= 0``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import SingularityFunction, diff, Piecewise, DiracDelta, Heaviside, Symbol
     >>> from sympy.abc import x, a, n
     >>> SingularityFunction(x, a, n)
@@ -67,16 +66,16 @@ class SingularityFunction(DefinedFunction):
     (x - 4)**5*Heaviside(x - 4, 1) + DiracDelta(x + 3) - DiracDelta(x, 1)
 
     See Also
-    ========
-
+    --------
     DiracDelta, Heaviside
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Singularity_function
 
     """
+
     is_real: bool
     def fdiff(self, argindex: int = 1):
         """
@@ -110,8 +109,7 @@ class SingularityFunction(DefinedFunction):
         once the object is called.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import SingularityFunction, Symbol, nan
         >>> from sympy.abc import x, a, n
         >>> SingularityFunction(x, a, n)

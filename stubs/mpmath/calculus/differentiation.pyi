@@ -121,7 +121,7 @@ def diff(ctx, f, x, n: int = 1, **options):
     """
 def _partial_diff(ctx, f, xs, orders, options): ...
 def diffs(ctx, f, x, n: Incomplete | None = None, **options) -> Generator[Incomplete]:
-    '''
+    """
     Returns a generator that yields the sequence of derivatives
 
     .. math ::
@@ -156,7 +156,7 @@ def diffs(ctx, f, x, n: Incomplete | None = None, **options) -> Generator[Incomp
         4 0.54030230586814
         5 -0.841470984807897
 
-    '''
+    """
 def iterable_to_function(gen): ...
 def diffs_prod(ctx, factors) -> Generator[Incomplete]:
     """
@@ -195,7 +195,7 @@ def diffs_prod(ctx, factors) -> Generator[Incomplete]:
     """
 def dpoly(n, _cache={}):
     """
-    nth differentiation polynomial for exp (Faa di Bruno's formula).
+    Nth differentiation polynomial for exp (Faa di Bruno's formula).
 
     TODO: most exponents are zero, so maybe a sparse representation
     would be better.

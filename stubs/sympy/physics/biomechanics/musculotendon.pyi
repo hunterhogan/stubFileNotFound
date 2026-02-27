@@ -1,9 +1,9 @@
-import abc
 from _typeshed import Incomplete
 from abc import abstractmethod
 from enum import IntEnum
 from sympy.physics.biomechanics._mixin import _NamedMixin
 from sympy.physics.mechanics.actuator import ForceActuator
+import abc
 
 __all__ = ['MusculotendonBase', 'MusculotendonDeGroote2016', 'MusculotendonFormulation']
 
@@ -37,25 +37,12 @@ class MusculotendonFormulation(IntEnum):
         variable.
 
     """
+
     RIGID_TENDON = 0
     FIBER_LENGTH_EXPLICIT = 1
     TENDON_FORCE_EXPLICIT = 2
     FIBER_LENGTH_IMPLICIT = 3
     TENDON_FORCE_IMPLICIT = 4
-    def __str__(self) -> str:
-        """Returns a string representation of the enumeration value.
-
-        Notes
-        =====
-
-        This hard coding is required due to an incompatibility between the
-        ``IntEnum`` implementations in Python 3.10 and Python 3.11
-        (https://github.com/python/cpython/issues/84247). From Python 3.11
-        onwards, the ``__str__`` method uses ``int.__str__``, whereas prior it
-        used ``Enum.__str__``. Once Python 3.11 becomes the minimum version
-        supported by SymPy, this method override can be removed.
-
-        """
 
 class MusculotendonBase(ForceActuator, _NamedMixin, metaclass=abc.ABCMeta):
     """Abstract base class for all musculotendon classes to inherit from.
@@ -71,8 +58,7 @@ class MusculotendonBase(ForceActuator, _NamedMixin, metaclass=abc.ABCMeta):
     length, and fiber force-velocity relationships.
 
     Parameters
-    ==========
-
+    ----------
     name : str
         The name identifier associated with the musculotendon. This name is used
         as a suffix when automatically generated symbols are instantiated. It
@@ -138,6 +124,7 @@ class MusculotendonBase(ForceActuator, _NamedMixin, metaclass=abc.ABCMeta):
         automatically constructing child classes. Default is ``False``.
 
     """
+
     name: Incomplete
     _activation_dynamics: Incomplete
     _child_objects: Incomplete
@@ -169,8 +156,7 @@ class MusculotendonBase(ForceActuator, _NamedMixin, metaclass=abc.ABCMeta):
         the original publication.
 
         Parameters
-        ==========
-
+        ----------
         name : str
             The name identifier associated with the musculotendon. This name is
             used as a suffix when automatically generated symbols are
@@ -239,7 +225,8 @@ class MusculotendonBase(ForceActuator, _NamedMixin, metaclass=abc.ABCMeta):
     @abstractmethod
     def curves(cls):
         """Return a ``CharacteristicCurveCollection`` of the curves related to
-        the specific model."""
+        the specific model.
+        """
     @property
     def tendon_slack_length(self):
         """Symbol or value corresponding to the tendon slack length constant.
@@ -672,18 +659,12 @@ class MusculotendonBase(ForceActuator, _NamedMixin, metaclass=abc.ABCMeta):
         column ``Matrix`` with shape (0, 1).
 
         """
-    def __repr__(self) -> str:
-        """Returns a string representation to reinstantiate the model."""
-    def __str__(self) -> str:
-        """Returns a string representation of the expression for musculotendon
-        force."""
 
 class MusculotendonDeGroote2016(MusculotendonBase):
     """Musculotendon model using the curves of De Groote et al., 2016 [1]_.
 
     Examples
-    ========
-
+    --------
     This class models the musculotendon actuator parametrized by the
     characteristic curves described in De Groote et al., 2016 [1]_. Like all
     musculotendon models in SymPy's biomechanics module, it requires a pathway
@@ -947,8 +928,7 @@ class MusculotendonDeGroote2016(MusculotendonBase):
     [    b_muscle]])
 
     Parameters
-    ==========
-
+    ----------
     name : str
         The name identifier associated with the musculotendon. This name is used
         as a suffix when automatically generated symbols are instantiated. It
@@ -1014,7 +994,7 @@ class MusculotendonDeGroote2016(MusculotendonBase):
         automatically constructing child classes. Default is ``False``.
 
     References
-    ==========
+    ----------
 
     .. [1] De Groote, F., Kinney, A. L., Rao, A. V., & Fregly, B. J., Evaluation
            of direct collocation optimal control problem formulations for
@@ -1022,4 +1002,5 @@ class MusculotendonDeGroote2016(MusculotendonBase):
            engineering, 44(10), (2016) pp. 2922-2936
 
     """
+
     curves: Incomplete

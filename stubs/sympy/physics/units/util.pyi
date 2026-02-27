@@ -23,8 +23,7 @@ def convert_to(expr, target_units, unit_system: str = 'SI'):
     units/quantities.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.units import speed_of_light, meter, gram, second, day
     >>> from sympy.physics.units import mile, newton, kilogram, atomic_mass_constant
     >>> from sympy.physics.units import kilometer, centimeter
@@ -59,7 +58,7 @@ def convert_to(expr, target_units, unit_system: str = 'SI'):
 
     """
 def quantity_simplify(expr, across_dimensions: bool = False, unit_system=None):
-    '''Return an equivalent expression in which prefixes are replaced
+    """Return an equivalent expression in which prefixes are replaced
     with numerical values and all units of a given dimension are the
     unified in a canonical manner by default. `across_dimensions` allows
     for units of different dimensions to be simplified together.
@@ -67,8 +66,7 @@ def quantity_simplify(expr, across_dimensions: bool = False, unit_system=None):
     `unit_system` must be specified if `across_dimensions` is True.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.units.util import quantity_simplify
     >>> from sympy.physics.units.prefixes import kilo
     >>> from sympy.physics.units import foot, inch, joule, coulomb
@@ -78,7 +76,8 @@ def quantity_simplify(expr, across_dimensions: bool = False, unit_system=None):
     foot/2
     >>> quantity_simplify(5*joule/coulomb, across_dimensions=True, unit_system="SI")
     5*volt
-    '''
+    """
 def check_dimensions(expr, unit_system: str = 'SI'):
     """Return expr if units in addends have the same
-    base dimensions, else raise a ValueError."""
+    base dimensions, else raise a ValueError.
+    """

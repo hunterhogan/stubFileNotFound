@@ -1,67 +1,56 @@
-import sys
 from _typeshed import AnyOrLiteralStr, BytesPath, FileDescriptorOrPath, StrOrBytesPath, StrPath
 from collections.abc import Iterable
 from genericpath import (
-    ALLOW_MISSING as ALLOW_MISSING,
-    _AllowMissingType,
-    commonprefix as commonprefix,
-    exists as exists,
-    getatime as getatime,
-    getctime as getctime,
-    getmtime as getmtime,
-    getsize as getsize,
-    isdir as isdir,
-    isfile as isfile,
-    samefile as samefile,
-    sameopenfile as sameopenfile,
-    samestat as samestat,
-)
+	_AllowMissingType, ALLOW_MISSING as ALLOW_MISSING, commonprefix as commonprefix, exists as exists,
+	getatime as getatime, getctime as getctime, getmtime as getmtime, getsize as getsize, isdir as isdir, isfile as isfile,
+	samefile as samefile, sameopenfile as sameopenfile, samestat as samestat)
+import sys
 
 if sys.version_info >= (3, 13):
     from genericpath import isdevdrive as isdevdrive
+
 from os import PathLike
-from typing import AnyStr, overload
-from typing_extensions import LiteralString
+from typing import AnyStr, LiteralString, overload
 
 __all__ = [
-    "normcase",
-    "isabs",
-    "join",
-    "splitdrive",
-    "split",
-    "splitext",
+    "abspath",
+    "altsep",
     "basename",
-    "dirname",
+    "commonpath",
     "commonprefix",
-    "getsize",
-    "getmtime",
-    "getatime",
-    "getctime",
-    "islink",
+    "curdir",
+    "defpath",
+    "devnull",
+    "dirname",
     "exists",
-    "lexists",
-    "isdir",
-    "isfile",
-    "ismount",
     "expanduser",
     "expandvars",
+    "extsep",
+    "getatime",
+    "getctime",
+    "getmtime",
+    "getsize",
+    "isabs",
+    "isdir",
+    "isfile",
+    "islink",
+    "ismount",
+    "join",
+    "lexists",
+    "normcase",
     "normpath",
-    "abspath",
+    "pardir",
+    "pathsep",
+    "realpath",
+    "relpath",
     "samefile",
     "sameopenfile",
     "samestat",
-    "curdir",
-    "pardir",
     "sep",
-    "pathsep",
-    "defpath",
-    "altsep",
-    "extsep",
-    "devnull",
-    "realpath",
+    "split",
+    "splitdrive",
+    "splitext",
     "supports_unicode_filenames",
-    "relpath",
-    "commonpath",
 ]
 __all__ += ["ALLOW_MISSING"]
 if sys.version_info >= (3, 12):

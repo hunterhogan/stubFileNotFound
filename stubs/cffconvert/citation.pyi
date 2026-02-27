@@ -1,7 +1,7 @@
-from typing import Any
 from cffconvert.behavior_1_0_x.citation import Citation_1_0_x as Citation_1_0_x
 from cffconvert.behavior_1_1_x.citation import Citation_1_1_x as Citation_1_1_x
 from cffconvert.behavior_1_2_x.citation import Citation_1_2_x as Citation_1_2_x
+from typing import Any
 
 class Citation:
     _implementations: dict[str, type[Citation_1_0_x | Citation_1_1_x | Citation_1_2_x]]

@@ -2,15 +2,17 @@ from _typeshed import Incomplete
 from sympy.core import EulerGamma as EulerGamma
 from sympy.core.add import Add as Add
 from sympy.core.cache import cacheit as cacheit
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, expand_mul as expand_mul
+from sympy.core.function import (
+	ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, expand_mul as expand_mul)
 from sympy.core.logic import fuzzy_or as fuzzy_or
-from sympy.core.numbers import I as I, Integer as Integer, Rational as Rational, pi as pi
+from sympy.core.numbers import I as I, Integer as Integer, pi as pi, Rational as Rational
 from sympy.core.power import Pow as Pow
 from sympy.core.relational import is_eq as is_eq
 from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy, uniquely_named_symbol as uniquely_named_symbol
 from sympy.core.sympify import sympify as sympify
-from sympy.functions.combinatorial.factorials import RisingFactorial as RisingFactorial, factorial as factorial, factorial2 as factorial2
+from sympy.functions.combinatorial.factorials import (
+	factorial as factorial, factorial2 as factorial2, RisingFactorial as RisingFactorial)
 from sympy.functions.elementary.complexes import polar_lift as polar_lift, re as re, unpolarify as unpolarify
 from sympy.functions.elementary.exponential import exp as exp, exp_polar as exp_polar, log as log
 from sympy.functions.elementary.hyperbolic import cosh as cosh, sinh as sinh
@@ -34,8 +36,7 @@ class erf(DefinedFunction):
         \\mathrm{erf}(x) = \\frac{2}{\\sqrt{\\pi}} \\int_0^x e^{-t^2} \\mathrm{d}t.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import I, oo, erf
     >>> from sympy.abc import z
 
@@ -79,8 +80,7 @@ class erf(DefinedFunction):
     -1296959.73071763923152794095062*I
 
     See Also
-    ========
-
+    --------
     erfc: Complementary error function.
     erfi: Imaginary error function.
     erf2: Two-argument error function.
@@ -89,7 +89,7 @@ class erf(DefinedFunction):
     erf2inv: Inverse two-argument error function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Error_function
     .. [2] https://dlmf.nist.gov/7
@@ -97,6 +97,7 @@ class erf(DefinedFunction):
     .. [4] https://functions.wolfram.com/GammaBetaErf/Erf
 
     """
+
     unbranched: bool
     def fdiff(self, argindex: int = 1): ...
     def inverse(self, argindex: int = 1):
@@ -142,8 +143,7 @@ class erfc(DefinedFunction):
         \\mathrm{erfc}(x) = \\frac{2}{\\sqrt{\\pi}} \\int_x^\\infty e^{-t^2} \\mathrm{d}t
 
     Examples
-    ========
-
+    --------
     >>> from sympy import I, oo, erfc
     >>> from sympy.abc import z
 
@@ -187,8 +187,7 @@ class erfc(DefinedFunction):
     1.0 - 1296959.73071763923152794095062*I
 
     See Also
-    ========
-
+    --------
     erf: Gaussian error function.
     erfi: Imaginary error function.
     erf2: Two-argument error function.
@@ -197,7 +196,7 @@ class erfc(DefinedFunction):
     erf2inv: Inverse two-argument error function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Error_function
     .. [2] https://dlmf.nist.gov/7
@@ -205,6 +204,7 @@ class erfc(DefinedFunction):
     .. [4] https://functions.wolfram.com/GammaBetaErf/Erfc
 
     """
+
     unbranched: bool
     def fdiff(self, argindex: int = 1): ...
     def inverse(self, argindex: int = 1):
@@ -246,8 +246,7 @@ class erfi(DefinedFunction):
         \\mathrm{erfi}(x) = \\frac{2}{\\sqrt{\\pi}} \\int_0^x e^{t^2} \\mathrm{d}t
 
     Examples
-    ========
-
+    --------
     >>> from sympy import I, oo, erfi
     >>> from sympy.abc import z
 
@@ -289,8 +288,7 @@ class erfi(DefinedFunction):
     -0.995322265018952734162069256367*I
 
     See Also
-    ========
-
+    --------
     erf: Gaussian error function.
     erfc: Complementary error function.
     erf2: Two-argument error function.
@@ -299,13 +297,14 @@ class erfi(DefinedFunction):
     erf2inv: Inverse two-argument error function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Error_function
     .. [2] https://mathworld.wolfram.com/Erfi.html
     .. [3] https://functions.wolfram.com/GammaBetaErf/Erfi
 
     """
+
     unbranched: bool
     def fdiff(self, argindex: int = 1): ...
     @classmethod
@@ -343,8 +342,7 @@ class erf2(DefinedFunction):
         \\mathrm{erf2}(x, y) = \\frac{2}{\\sqrt{\\pi}} \\int_x^y e^{-t^2} \\mathrm{d}t
 
     Examples
-    ========
-
+    --------
     >>> from sympy import oo, erf2
     >>> from sympy.abc import x, y
 
@@ -383,8 +381,7 @@ class erf2(DefinedFunction):
     2*exp(-y**2)/sqrt(pi)
 
     See Also
-    ========
-
+    --------
     erf: Gaussian error function.
     erfc: Complementary error function.
     erfi: Imaginary error function.
@@ -393,11 +390,12 @@ class erf2(DefinedFunction):
     erf2inv: Inverse two-argument error function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://functions.wolfram.com/GammaBetaErf/Erf2/
 
     """
+
     def fdiff(self, argindex): ...
     @classmethod
     def eval(cls, x, y): ...
@@ -423,8 +421,7 @@ class erfinv(DefinedFunction):
         \\mathrm{erf}(x) = y \\quad \\Rightarrow \\quad \\mathrm{erfinv}(y) = x
 
     Examples
-    ========
-
+    --------
     >>> from sympy import erfinv
     >>> from sympy.abc import x
 
@@ -448,8 +445,7 @@ class erfinv(DefinedFunction):
     0.179143454621291692285822705344
 
     See Also
-    ========
-
+    --------
     erf: Gaussian error function.
     erfc: Complementary error function.
     erfi: Imaginary error function.
@@ -458,12 +454,13 @@ class erfinv(DefinedFunction):
     erf2inv: Inverse two-argument error function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Error_function#Inverse_functions
     .. [2] https://functions.wolfram.com/GammaBetaErf/InverseErf/
 
     """
+
     def fdiff(self, argindex: int = 1): ...
     def inverse(self, argindex: int = 1):
         """
@@ -483,8 +480,7 @@ class erfcinv(DefinedFunction):
         \\mathrm{erfc}(x) = y \\quad \\Rightarrow \\quad \\mathrm{erfcinv}(y) = x
 
     Examples
-    ========
-
+    --------
     >>> from sympy import erfcinv
     >>> from sympy.abc import x
 
@@ -502,8 +498,7 @@ class erfcinv(DefinedFunction):
     -sqrt(pi)*exp(erfcinv(x)**2)/2
 
     See Also
-    ========
-
+    --------
     erf: Gaussian error function.
     erfc: Complementary error function.
     erfi: Imaginary error function.
@@ -512,12 +507,13 @@ class erfcinv(DefinedFunction):
     erf2inv: Inverse two-argument error function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Error_function#Inverse_functions
     .. [2] https://functions.wolfram.com/GammaBetaErf/InverseErfc/
 
     """
+
     def fdiff(self, argindex: int = 1): ...
     def inverse(self, argindex: int = 1):
         """
@@ -538,8 +534,7 @@ class erf2inv(DefinedFunction):
         \\mathrm{erf2}(x, w) = y \\quad \\Rightarrow \\quad \\mathrm{erf2inv}(x, y) = w
 
     Examples
-    ========
-
+    --------
     >>> from sympy import erf2inv, oo
     >>> from sympy.abc import x, y
 
@@ -565,8 +560,7 @@ class erf2inv(DefinedFunction):
     sqrt(pi)*exp(erf2inv(x, y)**2)/2
 
     See Also
-    ========
-
+    --------
     erf: Gaussian error function.
     erfc: Complementary error function.
     erfi: Imaginary error function.
@@ -575,11 +569,12 @@ class erf2inv(DefinedFunction):
     erfcinv: Inverse complementary error function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://functions.wolfram.com/GammaBetaErf/InverseErf2/
 
     """
+
     def fdiff(self, argindex): ...
     @classmethod
     def eval(cls, x, y): ...
@@ -613,8 +608,7 @@ class Ei(DefinedFunction):
     holds for $x > 0$ and $\\operatorname{Ei}(x)$ as defined above.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Ei, polar_lift, exp_polar, I, pi
     >>> from sympy.abc import x
 
@@ -651,8 +645,7 @@ class Ei(DefinedFunction):
     Chi(x) + Shi(x)
 
     See Also
-    ========
-
+    --------
     expint: Generalised exponential integral.
     E1: Special case of the generalised exponential integral.
     li: Logarithmic integral.
@@ -664,13 +657,14 @@ class Ei(DefinedFunction):
     uppergamma: Upper incomplete gamma function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://dlmf.nist.gov/6.6
     .. [2] https://en.wikipedia.org/wiki/Exponential_integral
     .. [3] Abramowitz & Stegun, section 5: https://web.archive.org/web/20201128173312/http://people.math.sfu.ca/~cbm/aands/page_228.htm
 
     """
+
     @classmethod
     def eval(cls, z): ...
     def fdiff(self, argindex: int = 1): ...
@@ -717,8 +711,7 @@ class expint(DefinedFunction):
     branching behavior.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import expint, S
     >>> from sympy.abc import nu, z
 
@@ -770,8 +763,7 @@ class expint(DefinedFunction):
     z**(nu - 1)*(exp(2*I*pi*nu) - 1)*gamma(1 - nu) + expint(nu, z)
 
     See Also
-    ========
-
+    --------
     Ei: Another related function called exponential integral.
     E1: The classical case, returns expint(1, z).
     li: Logarithmic integral.
@@ -783,13 +775,14 @@ class expint(DefinedFunction):
     uppergamma
 
     References
-    ==========
+    ----------
 
     .. [1] https://dlmf.nist.gov/8.19
     .. [2] https://functions.wolfram.com/GammaBetaErf/ExpIntegralE/
     .. [3] https://en.wikipedia.org/wiki/Exponential_integral
 
     """
+
     @classmethod
     def eval(cls, nu, z): ...
     def fdiff(self, argindex): ...
@@ -814,8 +807,7 @@ def E1(z):
     This is equivalent to ``expint(1, z)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import E1
     >>> E1(0)
     expint(1, 0)
@@ -824,8 +816,7 @@ def E1(z):
     expint(1, 5)
 
     See Also
-    ========
-
+    --------
     Ei: Exponential integral.
     expint: Generalised exponential integral.
     li: Logarithmic integral.
@@ -849,8 +840,7 @@ class li(DefinedFunction):
     .. math:: \\operatorname{li}(x) = \\int_0^x \\frac{1}{\\log(t)} \\mathrm{d}t \\,.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import I, oo, li
     >>> from sympy.abc import z
 
@@ -915,8 +905,7 @@ class li(DefinedFunction):
     -log(1/log(z))/2 + log(log(z))/2 + Chi(log(z)) - Shi(log(z))
 
     See Also
-    ========
-
+    --------
     Li: Offset logarithmic integral.
     Ei: Exponential integral.
     expint: Generalised exponential integral.
@@ -927,7 +916,7 @@ class li(DefinedFunction):
     Chi: Hyperbolic cosine integral.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Logarithmic_integral
     .. [2] https://mathworld.wolfram.com/LogarithmicIntegral.html
@@ -935,6 +924,7 @@ class li(DefinedFunction):
     .. [4] https://mathworld.wolfram.com/SoldnersConstant.html
 
     """
+
     @classmethod
     def eval(cls, z): ...
     def fdiff(self, argindex: int = 1): ...
@@ -964,8 +954,7 @@ class Li(DefinedFunction):
     .. math:: \\operatorname{Li}(x) = \\operatorname{li}(x) - \\operatorname{li}(2)
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Li
     >>> from sympy.abc import z
 
@@ -996,8 +985,7 @@ class Li(DefinedFunction):
     1.92242131492155809316615998938
 
     See Also
-    ========
-
+    --------
     li: Logarithmic integral.
     Ei: Exponential integral.
     expint: Generalised exponential integral.
@@ -1008,13 +996,14 @@ class Li(DefinedFunction):
     Chi: Hyperbolic cosine integral.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Logarithmic_integral
     .. [2] https://mathworld.wolfram.com/LogarithmicIntegral.html
     .. [3] https://dlmf.nist.gov/6
 
     """
+
     @classmethod
     def eval(cls, z): ...
     def fdiff(self, argindex: int = 1): ...
@@ -1024,7 +1013,8 @@ class Li(DefinedFunction):
     def _eval_nseries(self, x, n, logx, cdir: int = 0): ...
 
 class TrigonometricIntegral(DefinedFunction):
-    """ Base class for trigonometric integrals. """
+    """Base class for trigonometric integrals."""
+
     @classmethod
     def eval(cls, z): ...
     def fdiff(self, argindex: int = 1): ...
@@ -1046,8 +1036,7 @@ class Si(TrigonometricIntegral):
     It is an entire function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Si
     >>> from sympy.abc import z
 
@@ -1084,8 +1073,7 @@ class Si(TrigonometricIntegral):
     Integral(sinc(_t), (_t, 0, z))
 
     See Also
-    ========
-
+    --------
     Ci: Cosine integral.
     Shi: Hyperbolic sine integral.
     Chi: Hyperbolic cosine integral.
@@ -1097,11 +1085,12 @@ class Si(TrigonometricIntegral):
     Li: Offset logarithmic integral.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Trigonometric_integral
 
     """
+
     _trigfunc = sin
     _atzero: Incomplete
     @classmethod
@@ -1149,8 +1138,7 @@ class Ci(TrigonometricIntegral):
     cut complex plane.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Ci
     >>> from sympy.abc import z
 
@@ -1181,8 +1169,7 @@ class Ci(TrigonometricIntegral):
     -expint(1, z*exp_polar(-I*pi/2))/2 - expint(1, z*exp_polar(I*pi/2))/2
 
     See Also
-    ========
-
+    --------
     Si: Sine integral.
     Shi: Hyperbolic sine integral.
     Chi: Hyperbolic cosine integral.
@@ -1193,11 +1180,12 @@ class Ci(TrigonometricIntegral):
     Li: Offset logarithmic integral.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Trigonometric_integral
 
     """
+
     _trigfunc = cos
     _atzero: Incomplete
     @classmethod
@@ -1227,8 +1215,7 @@ class Shi(TrigonometricIntegral):
     It is an entire function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Shi
     >>> from sympy.abc import z
 
@@ -1259,8 +1246,7 @@ class Shi(TrigonometricIntegral):
     expint(1, z)/2 - expint(1, z*exp_polar(I*pi))/2 - I*pi/2
 
     See Also
-    ========
-
+    --------
     Si: Sine integral.
     Ci: Cosine integral.
     Chi: Hyperbolic cosine integral.
@@ -1271,11 +1257,12 @@ class Shi(TrigonometricIntegral):
     Li: Offset logarithmic integral.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Trigonometric_integral
 
     """
+
     _trigfunc = sinh
     _atzero: Incomplete
     @classmethod
@@ -1315,8 +1302,7 @@ class Chi(TrigonometricIntegral):
     cut complex plane.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Chi
     >>> from sympy.abc import z
 
@@ -1347,8 +1333,7 @@ class Chi(TrigonometricIntegral):
     -expint(1, z)/2 - expint(1, z*exp_polar(I*pi))/2 - I*pi/2
 
     See Also
-    ========
-
+    --------
     Si: Sine integral.
     Ci: Cosine integral.
     Shi: Hyperbolic sine integral.
@@ -1359,11 +1344,12 @@ class Chi(TrigonometricIntegral):
     Li: Offset logarithmic integral.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Trigonometric_integral
 
     """
+
     _trigfunc = cosh
     _atzero: Incomplete
     @classmethod
@@ -1378,7 +1364,8 @@ class Chi(TrigonometricIntegral):
     def _eval_as_leading_term(self, x, logx, cdir): ...
 
 class FresnelIntegral(DefinedFunction):
-    """ Base class for the Fresnel integrals."""
+    """Base class for the Fresnel integrals."""
+
     unbranched: bool
     @classmethod
     def eval(cls, z): ...
@@ -1403,8 +1390,7 @@ class fresnels(FresnelIntegral):
     It is an entire function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import I, oo, fresnels
     >>> from sympy.abc import z
 
@@ -1459,12 +1445,11 @@ class fresnels(FresnelIntegral):
     0.343415678363698242195300815958*I
 
     See Also
-    ========
-
+    --------
     fresnelc: Fresnel cosine integral.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Fresnel_integral
     .. [2] https://dlmf.nist.gov/7
@@ -1474,6 +1459,7 @@ class fresnels(FresnelIntegral):
             by John W. Wrench Jr. and Vicki Alley
 
     """
+
     _trigfunc = sin
     _sign: Incomplete
     @staticmethod
@@ -1500,8 +1486,7 @@ class fresnelc(FresnelIntegral):
     It is an entire function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import I, oo, fresnelc
     >>> from sympy.abc import z
 
@@ -1556,12 +1541,11 @@ class fresnelc(FresnelIntegral):
     -0.488253406075340754500223503357*I
 
     See Also
-    ========
-
+    --------
     fresnels: Fresnel sine integral.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Fresnel_integral
     .. [2] https://dlmf.nist.gov/7
@@ -1571,6 +1555,7 @@ class fresnelc(FresnelIntegral):
             by John W. Wrench Jr. and Vicki Alley
 
     """
+
     _trigfunc = cos
     _sign: Incomplete
     @staticmethod
@@ -1589,6 +1574,7 @@ class _erfs(DefinedFunction):
     tractable for the Gruntz algorithm.
 
     """
+
     @classmethod
     def eval(cls, arg): ...
     def _eval_aseries(self, n, args0, x, logx): ...
@@ -1601,6 +1587,7 @@ class _eis(DefinedFunction):
     functions tractable for the Gruntz algorithm.
 
     """
+
     def _eval_aseries(self, n, args0, x, logx): ...
     def fdiff(self, argindex: int = 1): ...
     def _eval_rewrite_as_intractable(self, z, **kwargs): ...

@@ -10,13 +10,13 @@ class _NamedMixin:
     strings.
 
     Attributes
-    ==========
-
+    ----------
     name : str
         The name identifier associated with the instance. Must be a string of
         length at least 1.
 
     """
+
     @property
     def name(self) -> str:
         """The name associated with the class instance."""

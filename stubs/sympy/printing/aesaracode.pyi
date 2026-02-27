@@ -20,8 +20,7 @@ class AesaraPrinter(Printer):
     Code printer which creates Aesara symbolic expression graphs.
 
     Parameters
-    ==========
-
+    ----------
     cache : dict
         Cache dictionary to use. If None (default) will use
         the global cache. To create a printer which does not depend on or alter
@@ -32,8 +31,7 @@ class AesaraPrinter(Printer):
         the cache is shared between all these applications.
 
     Attributes
-    ==========
-
+    ----------
     cache : dict
         A cache of Aesara variables which have been created for SymPy
         symbol-like objects (e.g. :class:`sympy.core.symbol.Symbol` or
@@ -43,15 +41,15 @@ class AesaraPrinter(Printer):
         created only once. Symbols are differentiated only by name and type. The
         format of the cache's contents should be considered opaque to the user.
     """
+
     printmethod: str
     cache: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
     def _get_key(self, s, name=None, dtype=None, broadcastable=None):
-        """ Get the cache key for a SymPy object.
+        """Get the cache key for a SymPy object.
 
         Parameters
-        ==========
-
+        ----------
         s : sympy.core.basic.Basic
             SymPy object to get key for.
 
@@ -84,7 +82,7 @@ class AesaraPrinter(Printer):
     def _print_Derivative(self, deriv, **kwargs): ...
     def emptyPrinter(self, expr): ...
     def doprint(self, expr, dtypes=None, broadcastables=None):
-        """ Convert a SymPy expression to a Aesara graph variable.
+        """Convert a SymPy expression to a Aesara graph variable.
 
         The ``dtypes`` and ``broadcastables`` arguments are used to specify the
         data type, dimension, and broadcasting behavior of the Aesara variables
@@ -99,8 +97,7 @@ class AesaraPrinter(Printer):
         .. __: https://aesara.readthedocs.io/en/latest/reference/tensor/shapes.html#broadcasting
 
         Parameters
-        ==========
-
+        ----------
         expr : sympy.core.expr.Expr
             SymPy expression to print.
 
@@ -117,8 +114,7 @@ class AesaraPrinter(Printer):
             not included in the mapping (resulting in a scalar).
 
         Returns
-        =======
-
+        -------
         aesara.graph.basic.Variable
             A variable corresponding to the expression's value in a Aesara
             symbolic expression graph.
@@ -132,8 +128,7 @@ def aesara_code(expr, cache=None, **kwargs):
     Convert a SymPy expression into a Aesara graph variable.
 
     Parameters
-    ==========
-
+    ----------
     expr : sympy.core.expr.Expr
         SymPy expression object to convert.
 
@@ -148,23 +143,21 @@ def aesara_code(expr, cache=None, **kwargs):
         Passed to :meth:`.AesaraPrinter.doprint`.
 
     Returns
-    =======
-
+    -------
     aesara.graph.basic.Variable
         A variable corresponding to the expression's value in a Aesara symbolic
         expression graph.
 
     """
 def dim_handling(inputs, dim=None, dims=None, broadcastables=None):
-    '''
+    """
     Get value of ``broadcastables`` argument to :func:`.aesara_code` from
     keyword arguments to :func:`.aesara_function`.
 
     Included for backwards compatibility.
 
     Parameters
-    ==========
-
+    ----------
     inputs
         Sequence of input symbols.
 
@@ -181,11 +174,11 @@ def dim_handling(inputs, dim=None, dims=None, broadcastables=None):
         :meth:`.AesaraPrinter.doprint`. If not None function will return this value unchanged.
 
     Returns
-    =======
+    -------
     dict
         Dictionary mapping elements of ``inputs`` to their "broadcastable"
         values (tuple of ``bool``\\ s).
-    '''
+    """
 def aesara_function(inputs, outputs, scalar: bool = False, *, dim=None, dims=None, broadcastables=None, **kwargs):
     """
     Create a Aesara function from SymPy expressions.
@@ -194,8 +187,7 @@ def aesara_function(inputs, outputs, scalar: bool = False, *, dim=None, dims=Non
     :func:`.aesara_code` and then passed to ``aesara.function``.
 
     Parameters
-    ==========
-
+    ----------
     inputs
         Sequence of symbols which constitute the inputs of the function.
 
@@ -230,7 +222,7 @@ def aesara_function(inputs, outputs, scalar: bool = False, *, dim=None, dims=Non
         ``broadcastables={x: (False, False), y: (False, False)}``.
 
     Returns
-    =======
+    -------
     callable
         A callable object which takes values of ``inputs`` as positional
         arguments and returns an output array for each of the expressions
@@ -245,8 +237,7 @@ def aesara_function(inputs, outputs, scalar: bool = False, *, dim=None, dims=Non
         ``aesara.function``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y, z
     >>> from sympy.printing.aesaracode import aesara_function
 
@@ -268,9 +259,8 @@ def aesara_function(inputs, outputs, scalar: bool = False, *, dim=None, dims=Non
     >>> f3(2, 3)
     [13.0, -5.0]
 
-    See also
-    ========
-
+    See Also
+    --------
     dim_handling
 
     """

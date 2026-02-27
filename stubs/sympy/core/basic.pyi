@@ -1,11 +1,12 @@
 from ._print_helpers import Printable as Printable
-from .assumptions import StdFactKB as StdFactKB, _prepare_class_assumptions as _prepare_class_assumptions
+from .assumptions import _prepare_class_assumptions as _prepare_class_assumptions, StdFactKB as StdFactKB
 from .cache import cacheit as cacheit
 from .kind import Kind as Kind, UndefinedKind as UndefinedKind
 from .singleton import S as S
 from .sorting import ordered as ordered
 from .symbol import Symbol as Symbol
-from .sympify import SympifyError as SympifyError, _external_converter as _external_converter, _sympify as _sympify, sympify as sympify
+from .sympify import (
+	_external_converter as _external_converter, _sympify as _sympify, sympify as sympify, SympifyError as SympifyError)
 from .traversal import iterargs as iterargs, iterfreeargs as iterfreeargs
 from _typeshed import Incomplete
 from collections.abc import Iterable, Mapping
@@ -13,27 +14,26 @@ from sympy.utilities.decorator import deprecated as deprecated
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.iterables import iterable as iterable, numbered_symbols as numbered_symbols
 from sympy.utilities.misc import filldedent as filldedent, func_name as func_name
-from typing import Any, ClassVar, TypeVar, overload
-from typing_extensions import Self
+from typing import Any, ClassVar, overload, Self, TypeVar
 
-Tbasic = TypeVar('Tbasic', bound='Basic')
+Tbasic = TypeVar('Tbasic', bound=Basic)
 
 def as_Basic(expr):
     """Return expr as a Basic instance using strict sympify
     or raise a TypeError; this is just a wrapper to _sympify,
-    raising a TypeError instead of a SympifyError."""
+    raising a TypeError instead of a SympifyError.
+    """
 
 ordering_of_classes: Incomplete
 
 def _cmp_name(x: type, y: type) -> int:
-    '''return -1, 0, 1 if the name of x is before that of y.
+    """Return -1, 0, 1 if the name of x is before that of y.
     A string comparison is done if either name does not appear
     in `ordering_of_classes`. This is the helper for
     ``Basic.compare``
 
     Examples
-    ========
-
+    --------
     >>> from sympy import cos, tan, sin
     >>> from sympy.core import basic
     >>> save = basic.ordering_of_classes
@@ -47,14 +47,14 @@ def _cmp_name(x: type, y: type) -> int:
     -1
     >>> basic.ordering_of_classes = save
 
-    '''
+    """
 @cacheit
 def _get_postprocessors(clsname, arg_type): ...
 @cacheit
 def _get_postprocessors_for_type(arg_type): ...
 
 class Basic(Printable):
-    '''
+    """
     Base class for all SymPy objects.
 
     Notes and conventions
@@ -96,7 +96,8 @@ class Basic(Printable):
         >>> B = sympify(A)
         >>> isinstance(B, Basic)
         True
-    '''
+    """
+
     __slots__: Incomplete
     _args: tuple[Basic, ...]
     _mhash: int | None
@@ -180,10 +181,11 @@ class Basic(Printable):
         accordingly to return such relevant attributes.
 
         Defining more than _hashable_content is necessary if __eq__ has
-        been defined by a class. See note about this in Basic.__eq__."""
+        been defined by a class. See note about this in Basic.__eq__.
+        """
     @property
     def assumptions0(self):
-        '''
+        """
         Return object `type` assumptions.
 
         For example:
@@ -195,8 +197,7 @@ class Basic(Printable):
         this case), the initial assumptions are also forming their typeinfo.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Symbol
         >>> from sympy.abc import x
         >>> x.assumptions0
@@ -210,7 +211,7 @@ class Basic(Printable):
          \'infinite\': False, \'negative\': False, \'nonnegative\': True,
          \'nonpositive\': False, \'nonzero\': True, \'positive\': True, \'real\':
          True, \'zero\': False}
-        '''
+        """
     def compare(self, other):
         """
         Return -1, 0, 1 if the object is less than, equal,
@@ -228,8 +229,7 @@ class Basic(Printable):
         is never a difference then 0 is returned.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y
         >>> x.compare(y)
         -1
@@ -248,8 +248,7 @@ class Basic(Printable):
         any iterable, without having to convert to a list or tuple first.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Tuple
         >>> Tuple.fromiter(i for i in range(5))
         (0, 1, 2, 3, 4)
@@ -260,12 +259,11 @@ class Basic(Printable):
         """Nice order of classes."""
     @cacheit
     def sort_key(self, order=None):
-        '''
+        """
         Return a sort key.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import S, I
 
         >>> sorted([S(1)/2, I, -I], key=lambda x: x.sort_key())
@@ -276,7 +274,7 @@ class Basic(Printable):
         >>> sorted(_, key=lambda x: x.sort_key())
         [x**(-2), 1/x, x**(1/4), sqrt(x), x, x**(3/2), x**2]
 
-        '''
+        """
     def _do_eq_sympify(self, other):
         """Returns a boolean indicating whether a == b when either a
         or b is not a Basic. This is only done for types that were either
@@ -287,7 +285,8 @@ class Basic(Printable):
         of the `Basic` classes it could equate to and not be converted. Note
         that after conversion, `==`  is used again since it is not
         necessarily clear whether `self` or `other`'s __eq__ method needs
-        to be used."""
+        to be used.
+        """
     def __eq__(self, other):
         """Return a boolean indicating whether a == b on the basis of
         their symbolic trees.
@@ -295,8 +294,7 @@ class Basic(Printable):
         This is the same as a.compare(b) == 0 but faster.
 
         Notes
-        =====
-
+        -----
         If a class that overrides __eq__() needs to retain the
         implementation of __hash__() from a parent class, the
         interpreter must be told this explicitly by setting
@@ -305,8 +303,7 @@ class Basic(Printable):
         just as if __hash__ had been explicitly set to None.
 
         References
-        ==========
-
+        ----------
         from https://docs.python.org/dev/reference/datamodel.html#object.__hash__
         """
     def __ne__(self, other):
@@ -323,8 +320,7 @@ class Basic(Printable):
         Compare two expressions and handle dummy symbols.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Dummy
         >>> from sympy.abc import x, y
 
@@ -362,8 +358,7 @@ class Basic(Printable):
         free_symbols method.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Derivative, Integral, IndexedBase
         >>> from sympy.abc import x, y, n
         >>> (x + 1).free_symbols
@@ -403,8 +398,7 @@ class Basic(Printable):
         returned.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Integral, Symbol
         >>> from sympy.abc import x
         >>> r = Symbol('r', real=True)
@@ -416,8 +410,7 @@ class Basic(Printable):
         _r
 
         Notes
-        =====
-
+        -----
         Any object that has structurally bound variables should have
         a property, ``bound_symbols`` that returns those symbols
         appearing in the object.
@@ -429,8 +422,7 @@ class Basic(Printable):
         with any free symbols in the expression.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Lambda
         >>> from sympy.abc import x
         >>> Lambda(x, 2*x).canonical_variables
@@ -458,8 +450,7 @@ class Basic(Printable):
         (or already is a real number) with precision, else False.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import exp_polar, pi, I
         >>> (I*exp_polar(I*pi/2)).is_comparable
         True
@@ -490,8 +481,7 @@ class Basic(Printable):
             >> x == x.func(*x.args)
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x
         >>> a = 2*x
         >>> a.func
@@ -509,8 +499,7 @@ class Basic(Printable):
         """Returns a tuple of arguments of 'self'.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import cot
         >>> from sympy.abc import x, y
 
@@ -527,8 +516,7 @@ class Basic(Printable):
         y
 
         Notes
-        =====
-
+        -----
         Never use self._args, always use self.args.
         Only use _args in __new__ when creating a new function.
         Do not override .args() from Basic (so that it is easy to
@@ -546,8 +534,7 @@ class Basic(Printable):
         the content and primitive components of an expression.
 
         See Also
-        ========
-
+        --------
         sympy.core.expr.Expr.as_content_primitive
         """
     @overload
@@ -570,8 +557,7 @@ class Basic(Printable):
         >>> from sympy.abc import x, y, z
 
         Examples
-        ========
-
+        --------
         Add's _eval_subs knows how to target x + y in the following
         so it makes the change:
 
@@ -631,9 +617,8 @@ class Basic(Printable):
         """Override this stub if you want to do anything more than
         attempt a replacement of old with new in the arguments of self.
 
-        See also
-        ========
-
+        See Also
+        --------
         _subs
         """
     def xreplace(self, rule):
@@ -641,19 +626,16 @@ class Basic(Printable):
         Replace occurrences of objects within the expression.
 
         Parameters
-        ==========
-
+        ----------
         rule : dict-like
             Expresses a replacement rule
 
         Returns
-        =======
-
+        -------
         xreplace : the result of the replacement
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols, pi, exp
         >>> x, y, z = symbols('x y z')
         >>> (1 + x*y).xreplace({x: pi})
@@ -691,7 +673,7 @@ class Basic(Printable):
         ValueError: Invalid limits given: ((2*y, 1, 4*y),)
 
         See Also
-        ========
+        --------
         replace: replacement capable of doing wildcard-like matching,
                  parsing of match, and conditional replacements
         subs: substitution of subexpressions as defined by the objects
@@ -704,12 +686,11 @@ class Basic(Printable):
         """
     @cacheit
     def has(self, *patterns):
-        '''
+        """
         Test whether any subexpression matches any of the patterns.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sin
         >>> from sympy.abc import x, y, z
         >>> (x**2 + sin(x*y)).has(z)
@@ -748,15 +729,14 @@ class Basic(Printable):
         >>> x.has()
         False
 
-        '''
+        """
     def has_xfree(self, s: set[Basic]):
         """Return True if self has any of the patterns in s as a
         free argument, else False. This is like `Basic.has_free`
         but this will only report exact argument matches.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Function
         >>> from sympy.abc import x, y
         >>> f = Function('f')
@@ -777,8 +757,7 @@ class Basic(Printable):
         else False.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Integral, Function
         >>> from sympy.abc import x, y
         >>> f = Function('f')
@@ -827,8 +806,7 @@ class Basic(Printable):
         is listed below:
 
         Examples
-        ========
-
+        --------
         Initial setup
 
         >>> from sympy import log, sin, cos, tan, Wild, Mul, Add
@@ -953,8 +931,7 @@ class Basic(Printable):
         x**(1 - y) + 1
 
         See Also
-        ========
-
+        --------
         subs: substitution of subexpressions as defined by the objects
               themselves.
         xreplace: exact node replacement in expr tree; also capable of
@@ -971,8 +948,7 @@ class Basic(Printable):
         in self and expressions in expr.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols, Wild, Basic
         >>> a, b, c = symbols('a b c')
         >>> x = Wild('x')
@@ -982,7 +958,7 @@ class Basic(Printable):
         {x_: b + c}
         """
     def match(self, pattern, old: bool = False):
-        '''
+        """
         Pattern matching.
 
         Wild symbols match all.
@@ -993,8 +969,7 @@ class Basic(Printable):
           pattern.xreplace(self.match(pattern)) == self
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Wild, Sum
         >>> from sympy.abc import x, y
         >>> p = Wild("p")
@@ -1033,13 +1008,12 @@ class Basic(Printable):
         {p_: 2/x**2}
 
         See Also
-        ========
-
+        --------
         matches: pattern.matches(expr) is the same as expr.match(pattern)
         xreplace: exact structural replacement
         replace: structural replacement with pattern matching
         Wild: symbolic placeholders for expressions in pattern matching
-        '''
+        """
     def count_ops(self, visual: bool = False):
         """Wrapper for count_ops that returns the operation count."""
     def doit(self, **hints):
@@ -1081,8 +1055,7 @@ class Basic(Printable):
         will be rewritten. *rule* defines how the expression will be rewritten.
 
         Parameters
-        ==========
-
+        ----------
         args : Expr
             A *rule*, or *pattern* and *rule*.
             - *pattern* is a type or an iterable of types.
@@ -1093,8 +1066,7 @@ class Basic(Printable):
             ``True``.
 
         Examples
-        ========
-
+        --------
         If *pattern* is unspecified, all possible expressions are transformed.
 
         >>> from sympy import cos, sin, exp, I
@@ -1159,8 +1131,7 @@ class Basic(Printable):
         same type will compare equal, so S.Half != Float(0.5).
 
         Examples
-        ========
-
+        --------
         In SymPy (unlike Python) two numbers do not compare the same if they are
         not of the same type:
 
@@ -1215,11 +1186,11 @@ class Atom(Basic):
     A parent class for atomic things. An atom is an expression with no subexpressions.
 
     Examples
-    ========
-
+    --------
     Symbol, Number, Rational, Integer, ...
     But not: Add, Mul, Pow, ...
     """
+
     is_Atom: bool
     __slots__: Incomplete
     def matches(self, expr, repl_dict=None, old: bool = False): ...
@@ -1240,8 +1211,7 @@ def _atomic(e, recursive: bool = False):
     they also appear outside, too, unless `recursive` is True.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Derivative, Function, cos
     >>> from sympy.abc import x, y
     >>> from sympy.core.basic import _atomic

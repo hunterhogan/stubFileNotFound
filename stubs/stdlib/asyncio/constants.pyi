@@ -1,6 +1,6 @@
+from typing import Final
 import enum
 import sys
-from typing import Final
 
 LOG_THRESHOLD_FOR_CONNLOST_WRITES: Final = 5
 ACCEPT_RETRY_DELAY: Final = 1

@@ -1,4 +1,5 @@
-from .exceptions import ClosureFailure as ClosureFailure, MissingUnityError as MissingUnityError, StructureError as StructureError
+from .exceptions import (
+	ClosureFailure as ClosureFailure, MissingUnityError as MissingUnityError, StructureError as StructureError)
 from .utilities import AlgIntPowers as AlgIntPowers, get_num_denom as get_num_denom, is_rat as is_rat
 from _typeshed import Incomplete
 from sympy.core.intfunc import igcd as igcd, ilcm as ilcm
@@ -20,7 +21,7 @@ def to_col(coeffs):
     """Transform a list of integer coefficients into a column vector."""
 
 class Module:
-    '''
+    """
     Generic finitely-generated module.
 
     This is an abstract base class, and should not be instantiated directly.
@@ -33,7 +34,8 @@ class Module:
     ``S``. Thus, every :py:class:`~.Module` is either a
     :py:class:`~.PowerBasis` or a :py:class:`~.Submodule`, some ancestor of
     which is a :py:class:`~.PowerBasis`.
-    '''
+    """
+
     @property
     def n(self) -> None:
         """The number of generators of this module."""
@@ -55,8 +57,7 @@ class Module:
         If ``j < i`` then ``M[i][j]`` is undefined.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys import Poly, cyclotomic_poly
         >>> from sympy.polys.numberfields.modules import PowerBasis
         >>> T = Poly(cyclotomic_poly(5))
@@ -68,13 +69,11 @@ class Module:
                                                                 3: {3: [0, 1, 0, 0]}}
 
         Returns
-        =======
-
+        -------
         dict of dict of lists
 
         Raises
-        ======
-
+        ------
         ClosureFailure
             If the module is not closed under multiplication.
 
@@ -91,18 +90,16 @@ class Module:
         :py:class:`~.PowerBasis` this is ``None``.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.Module`, ``None``
 
         See Also
-        ========
-
+        --------
         Module
 
         """
     def represent(self, elt) -> None:
-        '''
+        """
         Represent a module element as an integer-linear combination over the
         generators of this module.
 
@@ -133,8 +130,7 @@ class Module:
         $\\mathbb{Q}(\\theta)$, i.e. any algebraic number).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Poly, cyclotomic_poly
         >>> from sympy.polys.numberfields.modules import PowerBasis, to_col
         >>> from sympy.abc import zeta
@@ -160,34 +156,30 @@ class Module:
         8*zeta**3 + 6*zeta**2 + 4*zeta + 2
 
         Parameters
-        ==========
-
+        ----------
         elt : :py:class:`~.ModuleElement`
             The module element to be represented. Must belong to some ancestor
             module of this module (including this module itself).
 
         Returns
-        =======
-
+        -------
         :py:class:`~.DomainMatrix` over :ref:`ZZ`
             This will be a column vector, representing the coefficients of a
             linear combination of this module\'s generators, which equals the
             given element.
 
         Raises
-        ======
-
+        ------
         ClosureFailure
             If the given element cannot be represented as a :ref:`ZZ`-linear
             combination over this module.
 
         See Also
-        ========
-
+        --------
         .Submodule.represent
         .PowerBasis.represent
 
-        '''
+        """
     def ancestors(self, include_self: bool = False):
         """
         Return the list of ancestor modules of this module, from the
@@ -195,8 +187,7 @@ class Module:
         ``self``.
 
         See Also
-        ========
-
+        --------
         Module
 
         """
@@ -205,8 +196,7 @@ class Module:
         Return the :py:class:`~.PowerBasis` that is an ancestor of this module.
 
         See Also
-        ========
-
+        --------
         Module
 
         """
@@ -215,13 +205,11 @@ class Module:
         Locate the nearest common ancestor of this module and another.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.Module`, ``None``
 
         See Also
-        ========
-
+        --------
         Module
 
         """
@@ -240,8 +228,7 @@ class Module:
         all return ``None``.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.AlgebraicField`, ``None``
 
         """
@@ -252,8 +239,7 @@ class Module:
         Generate a :py:class:`~.ModuleElement` belonging to this module.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys import Poly, cyclotomic_poly
         >>> from sympy.polys.numberfields.modules import PowerBasis, to_col
         >>> T = Poly(cyclotomic_poly(5))
@@ -266,8 +252,7 @@ class Module:
         [0, 0, 1, 0]
 
         Parameters
-        ==========
-
+        ----------
         spec : :py:class:`~.DomainMatrix`, int
             Specifies the numerators of the coefficients of the
             :py:class:`~.ModuleElement`. Can be either a column vector over
@@ -280,8 +265,7 @@ class Module:
             :py:class:`~.ModuleElement`.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.ModuleElement`
             The coefficients are the entries of the *spec* vector, divided by
             *denom*.
@@ -314,8 +298,7 @@ class Module:
         itself) that starts with unity.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys import Poly, cyclotomic_poly, QQ
         >>> from sympy.polys.numberfields.modules import PowerBasis
         >>> T = Poly(cyclotomic_poly(5))
@@ -325,13 +308,11 @@ class Module:
         [2, 0, 0, 0]/3
 
         Parameters
-        ==========
-
+        ----------
         a : int, :ref:`ZZ`, :ref:`QQ`
 
         Returns
-        =======
-
+        -------
         :py:class:`~.ModuleElement`
 
         """
@@ -341,8 +322,7 @@ class Module:
         belonging to this module.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys import Poly, cyclotomic_poly
         >>> from sympy.polys.numberfields.modules import PowerBasis
         >>> T = Poly(cyclotomic_poly(5))
@@ -353,8 +333,7 @@ class Module:
         Submodule[[5, 0, 0, 0], [0, 10, 0, 0], [0, 0, 15, 0], [0, 0, 0, 4]]/5
 
         Parameters
-        ==========
-
+        ----------
         gens : list of :py:class:`~.ModuleElement` belonging to this module.
         hnf : boolean, optional (default=True)
             If True, we will reduce the matrix into Hermite Normal Form before
@@ -364,13 +343,11 @@ class Module:
             :py:func:`~sympy.polys.matrices.normalforms.hermite_normal_form`.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.Submodule`
 
         See Also
-        ========
-
+        --------
         submodule_from_matrix
 
         """
@@ -380,8 +357,7 @@ class Module:
         by the columns of a matrix, with an optional denominator.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys import Poly, cyclotomic_poly, ZZ
         >>> from sympy.polys.matrices import DM
         >>> from sympy.polys.numberfields.modules import PowerBasis
@@ -395,8 +371,7 @@ class Module:
         Submodule[[0, 10, 0, 0], [0, 0, 7, 0]]/15
 
         Parameters
-        ==========
-
+        ----------
         B : :py:class:`~.DomainMatrix` over :ref:`ZZ`
             Each column gives the numerators of the coefficients of one
             generator of the submodule. Thus, the number of rows of *B* must
@@ -405,20 +380,17 @@ class Module:
             Common denominator for all generators of the submodule.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.Submodule`
 
         Raises
-        ======
-
+        ------
         ValueError
             If the given matrix *B* is not over :ref:`ZZ` or its number of rows
             does not equal the number of generators of the present module.
 
         See Also
-        ========
-
+        --------
         submodule_from_gens
 
         """
@@ -439,6 +411,7 @@ class Module:
 
 class PowerBasis(Module):
     """The module generated by the powers of an algebraic integer."""
+
     K: Incomplete
     T: Incomplete
     _n: Incomplete
@@ -446,8 +419,7 @@ class PowerBasis(Module):
     def __init__(self, T) -> None:
         """
         Parameters
-        ==========
-
+        ----------
         T : :py:class:`~.Poly`, :py:class:`~.AlgebraicField`
             Either (1) the monic, irreducible, univariate polynomial over
             :ref:`ZZ`, a root of which is the generator of the power basis,
@@ -457,7 +429,6 @@ class PowerBasis(Module):
         """
     @property
     def number_field(self): ...
-    def __repr__(self) -> str: ...
     def __eq__(self, other): ...
     @property
     def n(self): ...
@@ -469,8 +440,7 @@ class PowerBasis(Module):
         generators of this module.
 
         See Also
-        ========
-
+        --------
         .Module.represent
         .Submodule.represent
 
@@ -483,13 +453,11 @@ class PowerBasis(Module):
         our defining minimal polynomial.
 
         Parameters
-        ==========
-
+        ----------
         f : :py:class:`~.Poly` over :ref:`ZZ` in same var as our defining poly.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.PowerBasisElement`
 
         """
@@ -498,8 +466,7 @@ class PowerBasis(Module):
         Produce a PowerBasisElement representing a given algebraic number.
 
         Parameters
-        ==========
-
+        ----------
         rep : list of coeffs
             Represents the number as polynomial in the primitive element of the
             field.
@@ -509,18 +476,18 @@ class PowerBasis(Module):
             field.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.PowerBasisElement`
 
         """
     def element_from_ANP(self, a):
-        """Convert an ANP into a PowerBasisElement. """
+        """Convert an ANP into a PowerBasisElement."""
     def element_from_alg_num(self, a):
-        """Convert an AlgebraicNumber into a PowerBasisElement. """
+        """Convert an AlgebraicNumber into a PowerBasisElement."""
 
 class Submodule(Module, IntegerPowerable):
     """A submodule of another module."""
+
     _parent: Incomplete
     _matrix: Incomplete
     _denom: Incomplete
@@ -532,8 +499,7 @@ class Submodule(Module, IntegerPowerable):
     def __init__(self, parent, matrix, denom: int = 1, mult_tab=None) -> None:
         """
         Parameters
-        ==========
-
+        ----------
         parent : :py:class:`~.Module`
             The module from which this one is derived.
         matrix : :py:class:`~.DomainMatrix` over :ref:`ZZ`
@@ -546,7 +512,6 @@ class Submodule(Module, IntegerPowerable):
             supplied.
 
         """
-    def __repr__(self) -> str: ...
     def reduced(self):
         """
         Produce a reduced version of this submodule.
@@ -559,8 +524,7 @@ class Submodule(Module, IntegerPowerable):
         the submodule's matrix.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.Submodule`
 
         """
@@ -596,8 +560,7 @@ class Submodule(Module, IntegerPowerable):
         always come out as expected.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys import Poly, cyclotomic_poly, ZZ
         >>> from sympy.abc import x
         >>> from sympy.polys.matrices import DomainMatrix
@@ -610,8 +573,7 @@ class Submodule(Module, IntegerPowerable):
         True
 
         Returns
-        =======
-
+        -------
         :py:class:`~.DomainMatrix` over :ref:`QQ`
 
         """
@@ -630,8 +592,7 @@ class Submodule(Module, IntegerPowerable):
         generators of this module.
 
         See Also
-        ========
-
+        --------
         .Module.represent
         .PowerBasis.represent
 
@@ -649,8 +610,7 @@ class Submodule(Module, IntegerPowerable):
         sets of generators.
 
         Parameters
-        ==========
-
+        ----------
         other : :py:class:`~.Submodule`
         hnf : boolean, optional (default=True)
             If ``True``, reduce the matrix of the combined module to its
@@ -661,8 +621,7 @@ class Submodule(Module, IntegerPowerable):
             :py:func:`~sympy.polys.matrices.normalforms.hermite_normal_form`.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.Submodule`
 
         """
@@ -685,8 +644,7 @@ class Submodule(Module, IntegerPowerable):
         the one submodule, and one generator from the other.
 
         Parameters
-        ==========
-
+        ----------
         other : int, :ref:`ZZ`, :ref:`QQ`, :py:class:`~.ModuleElement`, :py:class:`~.Submodule`
         hnf : boolean, optional (default=True)
             If ``True``, reduce the matrix of the product module to its
@@ -697,8 +655,7 @@ class Submodule(Module, IntegerPowerable):
             :py:func:`~sympy.polys.matrices.normalforms.hermite_normal_form`.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.Submodule`
 
         """
@@ -706,7 +663,7 @@ class Submodule(Module, IntegerPowerable):
     __rmul__ = __mul__
     def _first_power(self): ...
     def reduce_element(self, elt):
-        '''
+        """
         If this submodule $B$ has defining matrix $W$ in square, maximal-rank
         Hermite normal form, then, given an element $x$ of the parent module
         $A$, we produce an element $y \\in A$ such that $x - y \\in B$, and the
@@ -724,8 +681,7 @@ class Submodule(Module, IntegerPowerable):
         1.4.3.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ, Poly, symbols
         >>> t = symbols(\'t\')
         >>> k = QQ.alg_field_from_poly(Poly(t**3 + t**2 - 2*t + 8))
@@ -736,20 +692,17 @@ class Submodule(Module, IntegerPowerable):
         [3, 0, 0]
 
         Parameters
-        ==========
-
+        ----------
         elt : :py:class:`~.ModuleElement`
             An element of this submodule\'s parent module.
 
         Returns
-        =======
-
+        -------
         elt : :py:class:`~.ModuleElement`
             An element of this submodule\'s parent module.
 
         Raises
-        ======
-
+        ------
         NotImplementedError
             If the given :py:class:`~.ModuleElement` does not belong to this
             submodule\'s parent module.
@@ -758,12 +711,12 @@ class Submodule(Module, IntegerPowerable):
             Hermite normal form.
 
         References
-        ==========
+        ----------
 
         .. [Cohen00] Cohen, H. *Advanced Topics in Computational Number
            Theory.*
 
-        '''
+        """
 
 def is_sq_maxrank_HNF(dm):
     """
@@ -798,6 +751,7 @@ class ModuleElement(IntegerPowerable):
     :py:meth:`~.Module.__call__` method or the :py:func:`make_mod_elt()`
     factory function instead.
     """
+
     module: Incomplete
     col: Incomplete
     denom: Incomplete
@@ -805,8 +759,7 @@ class ModuleElement(IntegerPowerable):
     def __init__(self, module, col, denom: int = 1) -> None:
         """
         Parameters
-        ==========
-
+        ----------
         module : :py:class:`~.Module`
             The module to which this element belongs.
         col : :py:class:`~.DomainMatrix` over :ref:`ZZ`
@@ -816,7 +769,6 @@ class ModuleElement(IntegerPowerable):
             Denominator for the coefficients of this element.
 
         """
-    def __repr__(self) -> str: ...
     def reduced(self):
         """
         Produce a reduced version of this ModuleElement, i.e. one in which the
@@ -850,8 +802,7 @@ class ModuleElement(IntegerPowerable):
         ``self.col / self.denom``, and guaranteed to be dense.
 
         See Also
-        ========
-
+        --------
         .Submodule.QQ_matrix
 
         """
@@ -866,8 +817,7 @@ class ModuleElement(IntegerPowerable):
         ancestor of this element's module.
 
         Parameters
-        ==========
-
+        ----------
         anc : :py:class:`~.Module`
 
         """
@@ -893,16 +843,14 @@ class ModuleElement(IntegerPowerable):
         elements, and represent each one there.
 
         Returns
-        =======
-
+        -------
         Pair ``(e1, e2)``
             Each ``ei`` is a :py:class:`~.ModuleElement`, they belong to the
             same :py:class:`~.Module`, ``e1`` is equivalent to ``self``, and
             ``e2`` is equivalent to ``other``.
 
         Raises
-        ======
-
+        ------
         UnificationFailed
             If ``self`` and ``other`` have no common ancestor module.
 
@@ -925,18 +873,15 @@ class ModuleElement(IntegerPowerable):
         represents every rational number).
 
         Parameters
-        ==========
-
+        ----------
         other : int, :ref:`ZZ`, :ref:`QQ`, :py:class:`~.ModuleElement`
 
         Returns
-        =======
-
+        -------
         bool
 
         Raises
-        ======
-
+        ------
         UnificationFailed
             If ``self`` and ``other`` do not share a common
             :py:class:`~.PowerBasis` ancestor.
@@ -990,16 +935,14 @@ class ModuleElement(IntegerPowerable):
         Reduce this :py:class:`~.ModuleElement` mod a :py:class:`~.Submodule`.
 
         Parameters
-        ==========
-
+        ----------
         m : int, :ref:`ZZ`, :ref:`QQ`, :py:class:`~.Submodule`
             If a :py:class:`~.Submodule`, reduce ``self`` relative to this.
             If an integer or rational, reduce relative to the
             :py:class:`~.Submodule` that is our own module times this constant.
 
         See Also
-        ========
-
+        --------
         .Submodule.reduce_element
 
         """
@@ -1009,6 +952,7 @@ class PowerBasisElement(ModuleElement):
     Subclass for :py:class:`~.ModuleElement` instances whose module is a
     :py:class:`~.PowerBasis`.
     """
+
     @property
     def T(self):
         """Access the defining polynomial of the :py:class:`~.PowerBasis`."""
@@ -1030,14 +974,14 @@ class PowerBasisElement(ModuleElement):
         of the minimal polynomial defining the power basis to which we belong.
         """
     def as_expr(self, x=None):
-        """Create a Basic expression from ``self``. """
+        """Create a Basic expression from ``self``."""
     def norm(self, T=None):
         """Compute the norm of this number."""
     def inverse(self): ...
     def __rfloordiv__(self, a): ...
     def _negative_power(self, e, modulo=None): ...
     def to_ANP(self):
-        """Convert to an equivalent :py:class:`~.ANP`. """
+        """Convert to an equivalent :py:class:`~.ANP`."""
     def to_alg_num(self):
         """
         Try to convert to an equivalent :py:class:`~.AlgebraicNumber`.
@@ -1055,13 +999,11 @@ class PowerBasisElement(ModuleElement):
         :py:class:`~.AlgebraicField`.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.AlgebraicNumber`
 
         Raises
-        ======
-
+        ------
         StructureError
             If the :py:class:`~.PowerBasis` to which this element belongs does
             not have an associated :py:class:`~.AlgebraicField`.
@@ -1070,14 +1012,14 @@ class PowerBasisElement(ModuleElement):
 
 class ModuleHomomorphism:
     """A homomorphism from one module to another."""
+
     domain: Incomplete
     codomain: Incomplete
     mapping: Incomplete
     def __init__(self, domain, codomain, mapping) -> None:
         """
         Parameters
-        ==========
-
+        ----------
         domain : :py:class:`~.Module`
             The domain of the mapping.
 
@@ -1090,8 +1032,7 @@ class ModuleHomomorphism:
             accept elements of *domain* and return elements of *codomain*.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Poly, cyclotomic_poly
         >>> from sympy.polys.numberfields.modules import PowerBasis, ModuleHomomorphism
         >>> T = Poly(cyclotomic_poly(5))
@@ -1107,15 +1048,13 @@ class ModuleHomomorphism:
         Compute the matrix of this homomorphism.
 
         Parameters
-        ==========
-
+        ----------
         modulus : int, optional
             A positive prime number $p$ if the matrix should be reduced mod
             $p$.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.DomainMatrix`
             The matrix is over :ref:`ZZ`, or else over :ref:`GF(p)` if a
             modulus was given.
@@ -1126,15 +1065,13 @@ class ModuleHomomorphism:
         Compute a Submodule representing the kernel of this homomorphism.
 
         Parameters
-        ==========
-
+        ----------
         modulus : int, optional
             A positive prime number $p$ if the kernel should be computed mod
             $p$.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.Submodule`
             This submodule's generators span the kernel of this
             homomorphism over :ref:`ZZ`, or else over :ref:`GF(p)` if a
@@ -1144,11 +1081,11 @@ class ModuleHomomorphism:
 
 class ModuleEndomorphism(ModuleHomomorphism):
     """A homomorphism from one module to itself."""
+
     def __init__(self, domain, mapping) -> None:
         """
         Parameters
-        ==========
-
+        ----------
         domain : :py:class:`~.Module`
             The common domain and codomain of the mapping.
 
@@ -1164,12 +1101,12 @@ class InnerEndomorphism(ModuleEndomorphism):
     An inner endomorphism on a module, i.e. the endomorphism corresponding to
     multiplication by a fixed element.
     """
+
     multiplier: Incomplete
     def __init__(self, domain, multiplier) -> None:
         """
         Parameters
-        ==========
-
+        ----------
         domain : :py:class:`~.Module`
             The domain and codomain of the endomorphism.
 
@@ -1180,12 +1117,12 @@ class InnerEndomorphism(ModuleEndomorphism):
 
 class EndomorphismRing:
     """The ring of endomorphisms on a module."""
+
     domain: Incomplete
     def __init__(self, domain) -> None:
         """
         Parameters
-        ==========
-
+        ----------
         domain : :py:class:`~.Module`
             The domain and codomain of the endomorphisms.
 
@@ -1195,14 +1132,12 @@ class EndomorphismRing:
         Form an inner endomorphism belonging to this endomorphism ring.
 
         Parameters
-        ==========
-
+        ----------
         multiplier : :py:class:`~.ModuleElement`
             Element $a$ defining the inner endomorphism $x \\mapsto a x$.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.InnerEndomorphism`
 
         """
@@ -1226,8 +1161,7 @@ class EndomorphismRing:
         stacking that matrix's columns into a single column.
 
         Examples
-        ========
-
+        --------
         Note that in these examples we print matrix transposes, to make their
         columns easier to inspect.
 
@@ -1281,13 +1215,11 @@ class EndomorphismRing:
         ``M``, and $\\varphi(\\zeta) = \\tau$.
 
         Parameters
-        ==========
-
+        ----------
         element : :py:class:`~.ModuleEndomorphism` belonging to this ring.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.DomainMatrix`
             Column vector equalling the vertical stacking of all the columns
             of the matrix that represents the given *element* as a mapping.
@@ -1300,8 +1232,7 @@ def find_min_poly(alpha, domain, x=None, powers=None):
     by an element of a finitely-generated ring with unity.
 
     Examples
-    ========
-
+    --------
     For the $n$th cyclotomic field, $n$ an odd prime, consider the quadratic
     equation whose roots are the two periods of length $(n-1)/2$. Article 356
     of Gauss tells us that we should get $x^2 + x - (n-1)/4$ or
@@ -1326,8 +1257,7 @@ def find_min_poly(alpha, domain, x=None, powers=None):
     x**2 + x + 5
 
     Parameters
-    ==========
-
+    ----------
     alpha : :py:class:`~.ModuleElement`
         The element whose min poly is to be found, and whose module has
         multiplication and starts with unity.
@@ -1344,15 +1274,13 @@ def find_min_poly(alpha, domain, x=None, powers=None):
         of the min poly will be recorded here, as we compute them.
 
     Returns
-    =======
-
+    -------
     :py:class:`~.Poly`, ``None``
         The minimal polynomial for alpha, or ``None`` if no polynomial could be
         found over the desired domain.
 
     Raises
-    ======
-
+    ------
     MissingUnityError
         If the module to which alpha belongs does not start with unity.
     ClosureFailure

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
+from typing import assert_type
 import platform
-from typing_extensions import assert_type
 
 # platform.uname_result emulates a 6 field named tuple, but on 3.9+ the processor
 # field is lazily evaluated, which results in it being a little funky.

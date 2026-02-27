@@ -1,7 +1,6 @@
 from collections.abc import Iterable, Iterator, MutableSet
 from types import GenericAlias
-from typing import Any, ClassVar, TypeVar, overload
-from typing_extensions import Self
+from typing import Any, ClassVar, overload, Self, TypeVar
 
 __all__ = ["WeakSet"]
 

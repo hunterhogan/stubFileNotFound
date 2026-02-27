@@ -24,6 +24,7 @@ class Sankey:
       `Wikipedia (6/1/2011) <https://en.wikipedia.org/wiki/Sankey_diagram>`_
 
     """
+
     diagrams: Incomplete
     ax: Incomplete
     unit: Incomplete
@@ -150,7 +151,7 @@ class Sankey:
         specifies an action to take from the **previous** point.
         """
     def add(self, patchlabel: str = '', flows: Incomplete | None = None, orientations: Incomplete | None = None, labels: str = '', trunklength: float = 1.0, pathlengths: float = 0.25, prior: Incomplete | None = None, connect=(0, 0), rotation: int = 0, **kwargs):
-        '''
+        """
         Add a simple Sankey diagram with flows at the same hierarchical level.
 
         Parameters
@@ -231,9 +232,9 @@ class Sankey:
         See Also
         --------
         Sankey.finish
-        '''
+        """
     def finish(self):
-        '''
+        """
         Adjust the Axes and return a list of information about the Sankey
         subdiagram(s).
 
@@ -262,4 +263,4 @@ class Sankey:
         See Also
         --------
         Sankey.add
-        '''
+        """

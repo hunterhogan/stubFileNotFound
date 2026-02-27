@@ -25,8 +25,7 @@ def singularityintegrate(f, x):
     - If none of the above case arises, we return None.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.integrals.singularityfunctions import singularityintegrate
     >>> from sympy import SingularityFunction, symbols, Function
     >>> x, a, n, y = symbols('x a n y')

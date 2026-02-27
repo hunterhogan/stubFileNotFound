@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
-from sympy.categories import CompositeMorphism as CompositeMorphism, Diagram as Diagram, IdentityMorphism as IdentityMorphism, NamedMorphism as NamedMorphism
-from sympy.core import Dict as Dict, Symbol as Symbol, default_sort_key as default_sort_key
+from sympy.categories import (
+	CompositeMorphism as CompositeMorphism, Diagram as Diagram, IdentityMorphism as IdentityMorphism,
+	NamedMorphism as NamedMorphism)
+from sympy.core import default_sort_key as default_sort_key, Dict as Dict, Symbol as Symbol
 from sympy.printing.latex import latex as latex
 from sympy.sets import FiniteSet as FiniteSet
 from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
@@ -23,6 +25,7 @@ class _GrowableGrid:
     This class currently represents a naive implementation of the
     functionality with little attempt at optimisation.
     """
+
     _width: Incomplete
     _height: Incomplete
     _array: Incomplete
@@ -59,7 +62,7 @@ class _GrowableGrid:
         """
 
 class DiagramGrid:
-    '''
+    """
     Constructs and holds the fitting of the diagram into a grid.
 
     Explanation
@@ -180,15 +183,15 @@ class DiagramGrid:
     ways in which the five lemma [FiveLemma] can be laid out.
 
     See Also
-    ========
-
+    --------
     Diagram
 
     References
-    ==========
+    ----------
 
     .. [FiveLemma] https://en.wikipedia.org/wiki/Five_lemma
-    '''
+    """
+
     @staticmethod
     def _simplify_morphisms(morphisms):
         """
@@ -389,21 +392,21 @@ class DiagramGrid:
         """
     @staticmethod
     def _sequential_layout(diagram, merged_morphisms):
-        '''
+        """
         Lays out the diagram in "sequential" layout.  This method
         will attempt to produce a result as close to a line as
         possible.  For linear diagrams, the result will actually be a
         line.
-        '''
+        """
     @staticmethod
     def _drop_inessential_morphisms(merged_morphisms):
-        '''
+        """
         Removes those morphisms which should appear in the diagram,
         but which have no relevance to object layout.
 
         Currently this removes "loop" morphisms: the non-identity
         morphisms with the same domains and codomains.
-        '''
+        """
     @staticmethod
     def _get_connected_components(objects, merged_morphisms):
         """
@@ -417,12 +420,11 @@ class DiagramGrid:
     def __init__(self, diagram, groups=None, **hints) -> None: ...
     @property
     def width(self):
-        '''
+        """
         Returns the number of columns in this diagram layout.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism
         >>> from sympy.categories import Diagram, DiagramGrid
         >>> A = Object("A")
@@ -435,15 +437,14 @@ class DiagramGrid:
         >>> grid.width
         2
 
-        '''
+        """
     @property
     def height(self):
-        '''
+        """
         Returns the number of rows in this diagram layout.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism
         >>> from sympy.categories import Diagram, DiagramGrid
         >>> A = Object("A")
@@ -456,15 +457,14 @@ class DiagramGrid:
         >>> grid.height
         2
 
-        '''
+        """
     def __getitem__(self, i_j):
-        '''
+        """
         Returns the object placed in the row ``i`` and column ``j``.
         The indices are 0-based.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism
         >>> from sympy.categories import Diagram, DiagramGrid
         >>> A = Object("A")
@@ -479,16 +479,15 @@ class DiagramGrid:
         >>> (grid[1, 0], grid[1, 1])
         (None, Object("C"))
 
-        '''
+        """
     @property
     def morphisms(self):
-        '''
+        """
         Returns those morphisms (and their properties) which are
         sufficiently meaningful to be drawn.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.categories import Object, NamedMorphism
         >>> from sympy.categories import Diagram, DiagramGrid
         >>> A = Object("A")
@@ -502,34 +501,10 @@ class DiagramGrid:
         {NamedMorphism(Object("A"), Object("B"), "f"): EmptySet,
         NamedMorphism(Object("B"), Object("C"), "g"): EmptySet}
 
-        '''
-    def __str__(self) -> str:
-        '''
-        Produces a string representation of this class.
-
-        This method returns a string representation of the underlying
-        list of lists of objects.
-
-        Examples
-        ========
-
-        >>> from sympy.categories import Object, NamedMorphism
-        >>> from sympy.categories import Diagram, DiagramGrid
-        >>> A = Object("A")
-        >>> B = Object("B")
-        >>> C = Object("C")
-        >>> f = NamedMorphism(A, B, "f")
-        >>> g = NamedMorphism(B, C, "g")
-        >>> diagram = Diagram([f, g])
-        >>> grid = DiagramGrid(diagram)
-        >>> print(grid)
-        [[Object("A"), Object("B")],
-        [None, Object("C")]]
-
-        '''
+        """
 
 class ArrowStringDescription:
-    '''
+    """
     Stores the information necessary for producing an Xy-pic
     description of an arrow.
 
@@ -606,8 +581,7 @@ class ArrowStringDescription:
     \\ar@/^12mm/@{-->}[dr]_{f}
 
     Notes
-    =====
-
+    -----
     Instances of :class:`ArrowStringDescription` will be constructed
     by :class:`XypicDiagramDrawer` and provided for further use in
     formatters.  The user is not expected to construct instances of
@@ -617,15 +591,15 @@ class ArrowStringDescription:
     to checkout the Xy-pic user guide, available at [Xypic].
 
     See Also
-    ========
-
+    --------
     XypicDiagramDrawer
 
     References
-    ==========
+    ----------
 
     .. [Xypic] https://xy-pic.sourceforge.net/
-    '''
+    """
+
     unit: Incomplete
     curving: Incomplete
     curving_amount: Incomplete
@@ -639,10 +613,9 @@ class ArrowStringDescription:
     arrow_style: str
     forced_label_position: bool
     def __init__(self, unit, curving, curving_amount, looping_start, looping_end, horizontal_direction, vertical_direction, label_position, label) -> None: ...
-    def __str__(self) -> str: ...
 
 class XypicDiagramDrawer:
-    '''
+    """
     Given a :class:`~.Diagram` and the corresponding
     :class:`DiagramGrid`, produces the Xy-pic representation of the
     diagram.
@@ -747,10 +720,10 @@ class XypicDiagramDrawer:
     The default value of ``default_curving_step`` is 4 units.
 
     See Also
-    ========
-
+    --------
     draw, ArrowStringDescription
-    '''
+    """
+
     unit: str
     default_curving_amount: int
     default_curving_step: int
@@ -765,8 +738,7 @@ class XypicDiagramDrawer:
         from ``_process_morphism``.
 
         See Also
-        ========
-
+        --------
         _process_morphism
         """
     @staticmethod
@@ -777,8 +749,7 @@ class XypicDiagramDrawer:
         invoked from ``_process_morphism``.
 
         See Also
-        ========
-
+        --------
         _process_morphism
         """
     @staticmethod
@@ -789,8 +760,7 @@ class XypicDiagramDrawer:
         invoked from ``_process_morphism``.
 
         See Also
-        ========
-
+        --------
         _process_morphism
         """
     def _process_morphism(self, diagram, grid, morphism, object_coords, morphisms, morphisms_str_info):
@@ -840,7 +810,7 @@ class XypicDiagramDrawer:
         information of a diagram, produces the final Xy-pic picture.
         """
     def draw(self, diagram, grid, masked=None, diagram_format: str = ''):
-        '''
+        """
         Returns the Xy-pic representation of ``diagram`` laid out in
         ``grid``.
 
@@ -885,10 +855,10 @@ class XypicDiagramDrawer:
         A \\ar[d]_{g\\circ f} \\ar[r]^{f} & B \\ar[ld]^{g} \\\\\n        C &
         }
 
-        '''
+        """
 
 def xypic_draw_diagram(diagram, masked=None, diagram_format: str = '', groups=None, **hints):
-    '''
+    """
     Provides a shortcut combining :class:`DiagramGrid` and
     :class:`XypicDiagramDrawer`.  Returns an Xy-pic presentation of
     ``diagram``.  The argument ``masked`` is a list of morphisms which
@@ -901,8 +871,7 @@ def xypic_draw_diagram(diagram, masked=None, diagram_format: str = '', groups=No
     :class:`DiagramGrid` and ``XypicDiagramDrawer.draw``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.categories import Object, NamedMorphism, Diagram
     >>> from sympy.categories import xypic_draw_diagram
     >>> A = Object("A")
@@ -917,12 +886,11 @@ def xypic_draw_diagram(diagram, masked=None, diagram_format: str = '', groups=No
     }
 
     See Also
-    ========
-
+    --------
     XypicDiagramDrawer, DiagramGrid
-    '''
+    """
 def preview_diagram(diagram, masked=None, diagram_format: str = '', groups=None, output: str = 'png', viewer=None, euler: bool = True, **hints) -> None:
-    '''
+    """
     Combines the functionality of ``xypic_draw_diagram`` and
     ``sympy.printing.preview``.  The arguments ``masked``,
     ``diagram_format``, ``groups``, and ``hints`` are passed to
@@ -930,8 +898,7 @@ def preview_diagram(diagram, masked=None, diagram_format: str = '', groups=None,
     are passed to ``preview``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.categories import Object, NamedMorphism, Diagram
     >>> from sympy.categories import preview_diagram
     >>> A = Object("A")
@@ -943,7 +910,6 @@ def preview_diagram(diagram, masked=None, diagram_format: str = '', groups=None,
     >>> preview_diagram(d)
 
     See Also
-    ========
-
+    --------
     XypicDiagramDrawer
-    '''
+    """

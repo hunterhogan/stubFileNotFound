@@ -1,13 +1,13 @@
 from _typeshed import Incomplete
-from sympy.core.logic import fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or, fuzzy_xor as fuzzy_xor
+from sympy.core.logic import (
+	fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or, fuzzy_xor as fuzzy_xor)
 
 class intervalMembership:
     """Represents a boolean expression returned by the comparison of
     the interval object.
 
     Parameters
-    ==========
-
+    ----------
     (a, b) : (bool, bool)
         The first value determines the comparison as follows:
         - True: If the comparison is True throughout the intervals.
@@ -19,12 +19,12 @@ class intervalMembership:
         - False: If at least one of the intervals is False, else
         - None
     """
+
     _wrapped: Incomplete
     def __init__(self, a, b) -> None: ...
     def __getitem__(self, i): ...
     def __len__(self) -> int: ...
     def __iter__(self): ...
-    def __str__(self) -> str: ...
     __repr__ = __str__
     def __and__(self, other): ...
     def __or__(self, other): ...

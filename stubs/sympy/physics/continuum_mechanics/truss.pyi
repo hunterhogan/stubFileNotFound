@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from sympy import Matrix as Matrix, cos as cos, pi as pi, sin as sin
+from sympy import cos as cos, Matrix as Matrix, pi as pi, sin as sin
 from sympy.core.add import Add as Add
 from sympy.core.evalf import INF as INF
 from sympy.core.mul import Mul as Mul
@@ -16,7 +16,7 @@ __doctest_requires__: Incomplete
 numpy: Incomplete
 
 class Truss:
-    '''
+    """
     A Truss is an assembly of members such as beams,
     connected by nodes, that create a rigid structure.
     In engineering, a truss is a structure that
@@ -26,8 +26,7 @@ class Truss:
     and can be seen in numerous real-world applications like bridges.
 
     Examples
-    ========
-
+    --------
     There is a Truss consisting of four nodes and five
     members connecting the nodes. A force P acts
     downward on the node D and there also exist pinned
@@ -42,7 +41,8 @@ class Truss:
     >>> t.add_member(("member_4", "node_2", "node_3"), ("member_5", "node_3", "node_4"))
     >>> t.apply_load(("node_4", 10, 270))
     >>> t.apply_support(("node_1", "pinned"), ("node_2", "roller"))
-    '''
+    """
+
     _nodes: Incomplete
     _members: Incomplete
     _loads: Incomplete
@@ -112,7 +112,7 @@ class Truss:
         Multiple nodes can be added at the same time.
 
         Parameters
-        ==========
+        ----------
         The input(s) for this method are tuples of the form (label, x, y).
 
         label:  String or a Symbol
@@ -125,8 +125,7 @@ class Truss:
             The y-coordinate of the position of the node.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.truss import Truss
         >>> t = Truss()
         >>> t.add_node(('A', 0, 0))
@@ -142,15 +141,14 @@ class Truss:
         Multiple nodes can be removed at the same time.
 
         Parameters
-        ==========
+        ----------
         The input(s) for this method are the labels of the nodes to be removed.
 
         label:  String or Symbol
             The label of the node to be removed.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.truss import Truss
         >>> t = Truss()
         >>> t.add_node(('A', 0, 0), ('B', 3, 0), ('C', 5, 0))
@@ -165,7 +163,7 @@ class Truss:
         This method adds a member between any two nodes in the given truss.
 
         Parameters
-        ==========
+        ----------
         The input(s) of the method are tuple(s) of the form (label, start, end).
 
         label: String or Symbol
@@ -178,8 +176,7 @@ class Truss:
             The label of the ending point/node of the member.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.truss import Truss
         >>> t = Truss()
         >>> t.add_node(('A', 0, 0), ('B', 3, 0), ('C', 2, 2))
@@ -192,13 +189,12 @@ class Truss:
         This method removes members from the given truss.
 
         Parameters
-        ==========
+        ----------
         labels: String or Symbol
             The label for the member to be removed.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.truss import Truss
         >>> t = Truss()
         >>> t.add_node(('A', 0, 0), ('B', 3, 0), ('C', 2, 2))
@@ -214,7 +210,7 @@ class Truss:
         This method changes the label(s) of the specified node(s).
 
         Parameters
-        ==========
+        ----------
         The input(s) of this method are tuple(s) of the form (label, new_label).
 
         label: String or Symbol
@@ -225,8 +221,7 @@ class Truss:
             The new label of the node.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.truss import Truss
         >>> t = Truss()
         >>> t.add_node(('A', 0, 0), ('B', 3, 0))
@@ -241,7 +236,7 @@ class Truss:
         This method changes the label(s) of the specified member(s).
 
         Parameters
-        ==========
+        ----------
         The input(s) of this method are tuple(s) of the form (label, new_label)
 
         label: String or Symbol
@@ -252,8 +247,7 @@ class Truss:
             The new label of the member.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.truss import Truss
         >>> t = Truss()
         >>> t.add_node(('A', 0, 0), ('B', 3, 0), ('D', 5, 0))
@@ -274,7 +268,7 @@ class Truss:
         This method applies external load(s) at the specified node(s).
 
         Parameters
-        ==========
+        ----------
         The input(s) of the method are tuple(s) of the form (location, magnitude, direction).
 
         location: String or Symbol
@@ -290,8 +284,7 @@ class Truss:
             inclusive.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.truss import Truss
         >>> from sympy import symbols
         >>> t = Truss()
@@ -307,7 +300,7 @@ class Truss:
         present external load(s) at specified node(s).
 
         Parameters
-        ==========
+        ----------
         The input(s) of this method are tuple(s) of the form (location, magnitude, direction).
 
         location: String or Symbol
@@ -322,8 +315,7 @@ class Truss:
             inclusive.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.truss import Truss
         >>> from sympy import symbols
         >>> t = Truss()
@@ -341,7 +333,7 @@ class Truss:
         This method adds a pinned or roller support at specified node(s).
 
         Parameters
-        ==========
+        ----------
         The input(s) of this method are of the form (location, type).
 
         location: String or Symbol
@@ -351,8 +343,7 @@ class Truss:
             Type of the support being provided at the node.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.truss import Truss
         >>> t = Truss()
         >>> t.add_node(('A', 0, 0), ('B', 3, 0))
@@ -365,14 +356,12 @@ class Truss:
         This method removes support from specified node(s.)
 
         Parameters
-        ==========
-
+        ----------
         locations: String or Symbol
             Label of the Node(s) at which support is to be removed.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.truss import Truss
         >>> t = Truss()
         >>> t.add_node(('A', 0, 0), ('B', 3, 0))
@@ -384,7 +373,7 @@ class Truss:
         {}
         """
     def solve(self) -> None:
-        '''
+        """
         This method solves for all reaction forces of all supports and all internal forces
         of all the members in the truss, provided the Truss is solvable.
 
@@ -410,8 +399,7 @@ class Truss:
            presence of compressive force in the member and a negative value implies a tensile force.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.truss import Truss
         >>> t = Truss()
         >>> t.add_node(("node_1", 0, 0), ("node_2", 6, 0), ("node_3", 2, 2), ("node_4", 2, 0))
@@ -424,9 +412,9 @@ class Truss:
         {\'R_node_1_x\': 0, \'R_node_1_y\': 20/3, \'R_node_2_y\': 10/3}
         >>> t.internal_forces
         {\'member_1\': 20/3, \'member_2\': 20/3, \'member_3\': -20*sqrt(2)/3, \'member_4\': -10*sqrt(5)/3, \'member_5\': 10}
-        '''
+        """
     def draw(self, subs_dict=None):
-        '''
+        """
         Returns a plot object of the Truss with all its nodes, members,
         supports and loads.
 
@@ -447,7 +435,7 @@ class Truss:
             load as well but along -Y.
 
         Examples
-        ========
+        --------
 
         .. plot::
             :context: close-figs
@@ -473,7 +461,7 @@ class Truss:
             [0]: cartesian line: 1 for x over (1.0, 1.0)
             ...
             >>> p.show()
-        '''
+        """
     def _draw_nodes(self, subs_dict): ...
     def _draw_members(self): ...
     def _draw_supports(self): ...

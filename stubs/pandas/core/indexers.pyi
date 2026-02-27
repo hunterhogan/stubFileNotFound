@@ -1,5 +1,4 @@
 from typing import Any
-
 import numpy as np
 
 def check_array_indexer(arrayArrayLike: Any, indexer: Any) -> Any: ...

@@ -3,12 +3,13 @@ from sympy.core.expr import Expr
 from sympy.physics.quantum.operator import HermitianOperator, Operator, UnitaryOperator
 from sympy.physics.quantum.state import Bra, Ket, State
 
-__all__ = ['m_values', 'Jplus', 'Jminus', 'Jx', 'Jy', 'Jz', 'J2', 'Rotation', 'WignerD', 'JxKet', 'JxBra', 'JyKet', 'JyBra', 'JzKet', 'JzBra', 'JzOp', 'J2Op', 'JxKetCoupled', 'JxBraCoupled', 'JyKetCoupled', 'JyBraCoupled', 'JzKetCoupled', 'JzBraCoupled', 'couple', 'uncouple']
+__all__ = ['J2', 'J2Op', 'Jminus', 'Jplus', 'Jx', 'JxBra', 'JxBraCoupled', 'JxKet', 'JxKetCoupled', 'Jy', 'JyBra', 'JyBraCoupled', 'JyKet', 'JyKetCoupled', 'Jz', 'JzBra', 'JzBraCoupled', 'JzKet', 'JzKetCoupled', 'JzOp', 'Rotation', 'WignerD', 'couple', 'm_values', 'uncouple']
 
 def m_values(j): ...
 
 class SpinOpBase:
     """Base class for spin operators."""
+
     @classmethod
     def _eval_hilbert_space(cls, label): ...
     @property
@@ -30,6 +31,7 @@ class SpinOpBase:
 
 class JplusOp(SpinOpBase, Operator):
     """The J+ operator."""
+
     _coord: str
     basis: str
     def _eval_commutator_JminusOp(self, other): ...
@@ -42,6 +44,7 @@ class JplusOp(SpinOpBase, Operator):
 
 class JminusOp(SpinOpBase, Operator):
     """The J- operator."""
+
     _coord: str
     basis: str
     def _apply_operator_JzKet(self, ket, **options): ...
@@ -53,6 +56,7 @@ class JminusOp(SpinOpBase, Operator):
 
 class JxOp(SpinOpBase, HermitianOperator):
     """The Jx operator."""
+
     _coord: str
     basis: str
     def _eval_commutator_JyOp(self, other): ...
@@ -65,6 +69,7 @@ class JxOp(SpinOpBase, HermitianOperator):
 
 class JyOp(SpinOpBase, HermitianOperator):
     """The Jy operator."""
+
     _coord: str
     basis: str
     def _eval_commutator_JzOp(self, other): ...
@@ -77,6 +82,7 @@ class JyOp(SpinOpBase, HermitianOperator):
 
 class JzOp(SpinOpBase, HermitianOperator):
     """The Jz operator."""
+
     _coord: str
     basis: str
     def _eval_commutator_JxOp(self, other): ...
@@ -89,6 +95,7 @@ class JzOp(SpinOpBase, HermitianOperator):
 
 class J2Op(SpinOpBase, HermitianOperator):
     """The J^2 operator."""
+
     _coord: str
     def _eval_commutator_JxOp(self, other): ...
     def _eval_commutator_JyOp(self, other): ...
@@ -120,8 +127,7 @@ class Rotation(UnitaryOperator):
     z''-axis. Conventions follow those laid out in [1]_.
 
     Parameters
-    ==========
-
+    ----------
     alpha : Number, Symbol
         First Euler Angle
     beta : Number, Symbol
@@ -130,8 +136,7 @@ class Rotation(UnitaryOperator):
         Third Euler angle
 
     Examples
-    ========
-
+    --------
     A simple example rotation operator:
 
         >>> from sympy import pi
@@ -149,17 +154,17 @@ class Rotation(UnitaryOperator):
         R(-c,-b,-a)
 
     See Also
-    ========
-
+    --------
     WignerD: Symbolic Wigner-D function
     D: Wigner-D function
     d: Wigner small-d function
 
     References
-    ==========
+    ----------
 
     .. [1] Varshalovich, D A, Quantum Theory of Angular Momentum. 1988.
     """
+
     @classmethod
     def _eval_args(cls, args): ...
     @classmethod
@@ -182,8 +187,7 @@ class Rotation(UnitaryOperator):
         function specified by the parameters.
 
         Parameters
-        ===========
-
+        ----------
         j : Number
             Total angular momentum
         m : Number
@@ -198,8 +202,7 @@ class Rotation(UnitaryOperator):
             Third Euler angle of rotation
 
         Examples
-        ========
-
+        --------
         Return the Wigner-D matrix element for a defined rotation, both
         numerical and symbolic:
 
@@ -210,8 +213,7 @@ class Rotation(UnitaryOperator):
             WignerD(1, 1, 0, pi, pi/2, -pi)
 
         See Also
-        ========
-
+        --------
         WignerD: Symbolic Wigner-D function
 
         """
@@ -224,8 +226,7 @@ class Rotation(UnitaryOperator):
         given as 0.
 
         Parameters
-        ===========
-
+        ----------
         j : Number
             Total angular momentum
         m : Number
@@ -236,8 +237,7 @@ class Rotation(UnitaryOperator):
             Second Euler angle of rotation
 
         Examples
-        ========
-
+        --------
         Return the Wigner-D matrix element for a defined rotation, both
         numerical and symbolic:
 
@@ -248,8 +248,7 @@ class Rotation(UnitaryOperator):
             WignerD(1, 1, 0, 0, pi/2, 0)
 
         See Also
-        ========
-
+        --------
         WignerD: Symbolic Wigner-D function
 
         """
@@ -299,8 +298,7 @@ class WignerD(Expr):
     be integer or half integer numbers.
 
     Parameters
-    ==========
-
+    ----------
     j : Number
         Total angular momentum
     m : Number
@@ -315,8 +313,7 @@ class WignerD(Expr):
         Third Euler angle of rotation
 
     Examples
-    ========
-
+    --------
     Evaluate the Wigner-D matrix elements of a simple rotation:
 
         >>> from sympy.physics.quantum.spin import Rotation
@@ -336,15 +333,15 @@ class WignerD(Expr):
         -sqrt(2)/2
 
     See Also
-    ========
-
+    --------
     Rotation: Rotation operator
 
     References
-    ==========
+    ----------
 
     .. [1] Varshalovich, D A, Quantum Theory of Angular Momentum. 1988.
     """
+
     is_commutative: bool
     def __new__(cls, *args, **hints): ...
     @property
@@ -373,6 +370,7 @@ Jminus: Incomplete
 
 class SpinState(State):
     """Base class for angular momentum states."""
+
     _label_separator: str
     def __new__(cls, j, m): ...
     @property
@@ -397,11 +395,11 @@ class JxKet(SpinState, Ket):
     See JzKet for the usage of spin eigenstates.
 
     See Also
-    ========
-
+    --------
     JzKet: Usage of spin states
 
     """
+
     @classmethod
     def dual_class(self): ...
     @classmethod
@@ -417,11 +415,11 @@ class JxBra(SpinState, Bra):
     See JzKet for the usage of spin eigenstates.
 
     See Also
-    ========
-
+    --------
     JzKet: Usage of spin states
 
     """
+
     @classmethod
     def dual_class(self): ...
     @classmethod
@@ -433,11 +431,11 @@ class JyKet(SpinState, Ket):
     See JzKet for the usage of spin eigenstates.
 
     See Also
-    ========
-
+    --------
     JzKet: Usage of spin states
 
     """
+
     @classmethod
     def dual_class(self): ...
     @classmethod
@@ -453,34 +451,32 @@ class JyBra(SpinState, Bra):
     See JzKet for the usage of spin eigenstates.
 
     See Also
-    ========
-
+    --------
     JzKet: Usage of spin states
 
     """
+
     @classmethod
     def dual_class(self): ...
     @classmethod
     def coupled_class(self): ...
 
 class JzKet(SpinState, Ket):
-    '''Eigenket of Jz.
+    """Eigenket of Jz.
 
     Spin state which is an eigenstate of the Jz operator. Uncoupled states,
     that is states representing the interaction of multiple separate spin
     states, are defined as a tensor product of states.
 
     Parameters
-    ==========
-
+    ----------
     j : Number, Symbol
         Total spin angular momentum
     m : Number, Symbol
         Eigenvalue of the Jz spin operator
 
     Examples
-    ========
-
+    --------
     *Normal States:*
 
     Defining simple spin states, both numerical and symbolic:
@@ -565,14 +561,14 @@ class JzKet(SpinState, Ket):
         [        0]])
 
     See Also
-    ========
-
+    --------
     JzKetCoupled: Coupled eigenstates
     sympy.physics.quantum.tensorproduct.TensorProduct: Used to specify uncoupled states
     uncouple: Uncouples states given coupling parameters
     couple: Couples uncoupled states
 
-    '''
+    """
+
     @classmethod
     def dual_class(self): ...
     @classmethod
@@ -588,11 +584,11 @@ class JzBra(SpinState, Bra):
     See the JzKet for the usage of spin eigenstates.
 
     See Also
-    ========
-
+    --------
     JzKet: Usage of spin states
 
     """
+
     @classmethod
     def dual_class(self): ...
     @classmethod
@@ -600,6 +596,7 @@ class JzBra(SpinState, Bra):
 
 class CoupledSpinState(SpinState):
     """Base class for coupled angular momentum states."""
+
     def __new__(cls, j, m, jn, *jcoupling): ...
     def _print_label(self, printer, *args): ...
     def _print_label_pretty(self, printer, *args): ...
@@ -625,11 +622,11 @@ class JxKetCoupled(CoupledSpinState, Ket):
     See JzKetCoupled for the usage of coupled spin eigenstates.
 
     See Also
-    ========
-
+    --------
     JzKetCoupled: Usage of coupled spin states
 
     """
+
     @classmethod
     def dual_class(self): ...
     @classmethod
@@ -645,11 +642,11 @@ class JxBraCoupled(CoupledSpinState, Bra):
     See JzKetCoupled for the usage of coupled spin eigenstates.
 
     See Also
-    ========
-
+    --------
     JzKetCoupled: Usage of coupled spin states
 
     """
+
     @classmethod
     def dual_class(self): ...
     @classmethod
@@ -661,11 +658,11 @@ class JyKetCoupled(CoupledSpinState, Ket):
     See JzKetCoupled for the usage of coupled spin eigenstates.
 
     See Also
-    ========
-
+    --------
     JzKetCoupled: Usage of coupled spin states
 
     """
+
     @classmethod
     def dual_class(self): ...
     @classmethod
@@ -681,18 +678,18 @@ class JyBraCoupled(CoupledSpinState, Bra):
     See JzKetCoupled for the usage of coupled spin eigenstates.
 
     See Also
-    ========
-
+    --------
     JzKetCoupled: Usage of coupled spin states
 
     """
+
     @classmethod
     def dual_class(self): ...
     @classmethod
     def uncoupled_class(self): ...
 
 class JzKetCoupled(CoupledSpinState, Ket):
-    '''Coupled eigenket of Jz
+    """Coupled eigenket of Jz
 
     Spin state that is an eigenket of Jz which represents the coupling of
     separate spin spaces.
@@ -740,8 +737,7 @@ class JzKetCoupled(CoupledSpinState, Ket):
         ``((1,2,j1+j2),(1,3,j1+j2+j3))``
 
     Parameters
-    ==========
-
+    ----------
     args : tuple
         The arguments that must be passed are ``j``, ``m``, ``jn``, and
         ``jcoupling``. The ``j`` value is the total angular momentum. The ``m``
@@ -752,8 +748,7 @@ class JzKetCoupled(CoupledSpinState, Ket):
         parameters are defined.
 
     Examples
-    ========
-
+    --------
     Defining simple spin states, both numerical and symbolic:
 
         >>> from sympy.physics.quantum.spin import JzKetCoupled
@@ -800,13 +795,13 @@ class JzKetCoupled(CoupledSpinState, Ket):
         [      1/2]])
 
     See Also
-    ========
-
+    --------
     JzKet: Normal spin eigenstates
     uncouple: Uncoupling of coupling spin states
     couple: Coupling of uncoupled spin states
 
-    '''
+    """
+
     @classmethod
     def dual_class(self): ...
     @classmethod
@@ -822,18 +817,18 @@ class JzBraCoupled(CoupledSpinState, Bra):
     See the JzKetCoupled for the usage of coupled spin eigenstates.
 
     See Also
-    ========
-
+    --------
     JzKetCoupled: Usage of coupled spin states
 
     """
+
     @classmethod
     def dual_class(self): ...
     @classmethod
     def uncoupled_class(self): ...
 
 def couple(expr, jcoupling_list=None):
-    """ Couple a tensor product of spin states
+    """Couple a tensor product of spin states
 
     This function can be used to couple an uncoupled tensor product of spin
     states. All of the eigenstates to be coupled must be of the same class. It
@@ -842,8 +837,7 @@ def couple(expr, jcoupling_list=None):
     coefficients.
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
         An expression involving TensorProducts of spin states to be coupled.
         Each state must be a subclass of SpinState and they all must be the
@@ -860,8 +854,7 @@ def couple(expr, jcoupling_list=None):
         space to the third product space, etc
 
     Examples
-    ========
-
+    --------
     Couple a tensor product of numerical states for two spaces:
 
         >>> from sympy.physics.quantum.spin import JzKet, couple
@@ -891,7 +884,7 @@ def couple(expr, jcoupling_list=None):
 
     """
 def uncouple(expr, jn=None, jcoupling_list=None):
-    """ Uncouple a coupled spin state
+    """Uncouple a coupled spin state
 
     Gives the uncoupled representation of a coupled spin state. Arguments must
     be either a spin state that is a subclass of CoupledSpinState or a spin
@@ -899,8 +892,7 @@ def uncouple(expr, jn=None, jcoupling_list=None):
     of the spaces that are to be coupled
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
         The expression containing states that are to be coupled. If the states
         are a subclass of SpinState, the ``jn`` and ``jcoupling`` parameters
@@ -920,8 +912,7 @@ def uncouple(expr, jn=None, jcoupling_list=None):
         parameter is the same as the ``jcoupling`` parameter of JzKetCoupled.
 
     Examples
-    ========
-
+    --------
     Uncouple a numerical state using a CoupledSpinState state:
 
         >>> from sympy.physics.quantum.spin import JzKetCoupled, uncouple

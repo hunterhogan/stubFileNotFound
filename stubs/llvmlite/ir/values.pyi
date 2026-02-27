@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from llvmlite.ir import _utils as _utils, types as types, values as values
-from llvmlite.ir._utils import _HasMetadata as _HasMetadata, _StrCaching as _StrCaching, _StringReferenceCaching as _StringReferenceCaching
+from llvmlite.ir._utils import (
+	_HasMetadata as _HasMetadata, _StrCaching as _StrCaching, _StringReferenceCaching as _StringReferenceCaching)
 
 _VALID_CHARS: Incomplete
 _SIMPLE_IDENTIFIER_RE: Incomplete
@@ -18,6 +19,7 @@ class _ConstOpMixin:
     """
     A mixin defining constant operations, for use in constant-like classes.
     """
+
     def shl(self, other) -> None:
         """
         Left integer shift:
@@ -209,12 +211,13 @@ class Value:
     """
     The base class for all values.
     """
-    def __repr__(self) -> str: ...
+
 
 class _Undefined:
     """
     'undef': a value for undefined values.
     """
+
     def __new__(cls): ...
 
 Undefined: Incomplete
@@ -223,6 +226,7 @@ class Constant(_StrCaching, _StringReferenceCaching, _ConstOpMixin, Value):
     """
     A constant LLVM value.
     """
+
     type: Incomplete
     constant: Incomplete
     def __init__(self, typ, constant) -> None: ...
@@ -243,12 +247,12 @@ class Constant(_StrCaching, _StringReferenceCaching, _ConstOpMixin, Value):
     def __eq__(self, other): ...
     def __ne__(self, other): ...
     def __hash__(self): ...
-    def __repr__(self) -> str: ...
 
 class FormattedConstant(Constant):
     """
     A constant with an already formatted IR representation.
     """
+
     def __init__(self, typ, constant) -> None: ...
     def _to_string(self): ...
     def _get_reference(self): ...
@@ -257,6 +261,7 @@ class NamedValue(_StrCaching, _StringReferenceCaching, Value):
     """
     The base class for named values.
     """
+
     name_prefix: str
     deduplicate_name: bool
     parent: Incomplete
@@ -269,7 +274,6 @@ class NamedValue(_StrCaching, _StringReferenceCaching, Value):
     def _set_name(self, name) -> None: ...
     name: Incomplete
     def _get_reference(self): ...
-    def __repr__(self) -> str: ...
     @property
     def function_type(self): ...
 
@@ -278,6 +282,7 @@ class MetaDataString(NamedValue):
     A metadata string, i.e. a constant string used as a value in a metadata
     node.
     """
+
     string: Incomplete
     def __init__(self, parent, string) -> None: ...
     def descr(self, buf) -> None: ...
@@ -295,6 +300,7 @@ class MetaDataArgument(_StrCaching, _StringReferenceCaching, Value):
     Do not instantiate directly, Builder.call() will create these
     automatically.
     """
+
     type: Incomplete
     wrapped_value: Incomplete
     def __init__(self, value) -> None: ...
@@ -307,17 +313,19 @@ class NamedMetaData:
 
     Do not instantiate directly, use Module.add_named_metadata() instead.
     """
+
     parent: Incomplete
     operands: Incomplete
     def __init__(self, parent) -> None: ...
     def add(self, md) -> None: ...
 
 class MDValue(NamedValue):
-    '''
+    """
     A metadata node\'s value, consisting of a sequence of elements ("operands").
 
     Do not instantiate directly, use Module.add_metadata() instead.
-    '''
+    """
+
     name_prefix: str
     operands: Incomplete
     def __init__(self, parent, values, name) -> None: ...
@@ -334,6 +342,7 @@ class DIToken:
 
     Use this to wrap known constants, e.g. the DW_* enumerations.
     """
+
     value: Incomplete
     def __init__(self, value) -> None: ...
 
@@ -343,6 +352,7 @@ class DIValue(NamedValue):
 
     Do not instantiate directly, use Module.add_debug_info() instead.
     """
+
     name_prefix: str
     is_distinct: Incomplete
     kind: Incomplete
@@ -358,6 +368,7 @@ class GlobalValue(NamedValue, _ConstOpMixin, _HasMetadata):
     """
     A global value.
     """
+
     name_prefix: str
     deduplicate_name: bool
     linkage: str
@@ -370,6 +381,7 @@ class GlobalVariable(GlobalValue):
     """
     A global variable.
     """
+
     value_type: Incomplete
     initializer: Incomplete
     unnamed_addr: bool
@@ -386,6 +398,7 @@ class AttributeSet(set):
     Properties:
     * Iterate in sorted order
     """
+
     _known: Incomplete
     def __init__(self, args=()) -> None: ...
     def _expand(self, name, typ): ...
@@ -412,6 +425,7 @@ class Function(GlobalValue):
     """Represent a LLVM Function but does uses a Module as parent.
     Global Values are stored as a set of dependencies (attribute `depends`).
     """
+
     ftype: Incomplete
     scope: Incomplete
     blocks: Incomplete
@@ -431,15 +445,14 @@ class Function(GlobalValue):
         """Insert block before
         """
     def descr_prototype(self, buf) -> None:
-        '''
+        """
         Describe the prototype ("head") of the function.
-        '''
+        """
     def descr_body(self, buf) -> None:
         """
         Describe of the body of the function.
         """
     def descr(self, buf) -> None: ...
-    def __str__(self) -> str: ...
     @property
     def is_declaration(self): ...
 
@@ -468,20 +481,19 @@ class _BaseArgument(NamedValue):
     parent: Incomplete
     attributes: Incomplete
     def __init__(self, parent, typ, name: str = '') -> None: ...
-    def __repr__(self) -> str: ...
     def add_attribute(self, attr) -> None: ...
 
 class Argument(_BaseArgument):
     """
     The specification of a function argument.
     """
-    def __str__(self) -> str: ...
+
 
 class ReturnValue(_BaseArgument):
     """
     The specification of a function's return value.
     """
-    def __str__(self) -> str: ...
+
 
 class Block(NamedValue):
     """
@@ -491,6 +503,7 @@ class Block(NamedValue):
     last instruction, and incoming branches can only jump to the first
     instruction.
     """
+
     scope: Incomplete
     instructions: Incomplete
     terminator: Incomplete
@@ -510,9 +523,9 @@ class BlockAddress(Value):
     """
     The address of a basic block.
     """
+
     type: Incomplete
     function: Incomplete
     basic_block: Incomplete
     def __init__(self, function, basic_block) -> None: ...
-    def __str__(self) -> str: ...
     def get_reference(self): ...

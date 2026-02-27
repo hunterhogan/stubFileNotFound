@@ -1,15 +1,14 @@
-import math
 from .singleton import S as S
 from .sympify import sympify as sympify
 from sympy.external.gmpy import bit_scan1 as bit_scan1, gcdext as gcdext, iroot as iroot, sqrt as sqrt
 from sympy.utilities.misc import as_int as as_int, filldedent as filldedent
+import math
 
 def num_digits(n, base: int = 10):
     """Return the number of digits needed to express n in give base.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.intfunc import num_digits
     >>> num_digits(10)
     2
@@ -20,8 +19,7 @@ def num_digits(n, base: int = 10):
 
 
     Parameters
-    ==========
-
+    ----------
     n: integer
         The number whose digits are counted.
 
@@ -29,7 +27,7 @@ def num_digits(n, base: int = 10):
         The base in which digits are computed.
 
     See Also
-    ========
+    --------
     sympy.ntheory.digits.digits, sympy.ntheory.digits.count_digits
     """
 def integer_log(n, b):
@@ -38,8 +36,7 @@ def integer_log(n, b):
     such that :math:`|n| \\geq |b^e|` and ``bool`` is True if $n = b^e$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import integer_log
     >>> integer_log(125, 5)
     (3, True)
@@ -68,7 +65,7 @@ def integer_log(n, b):
     (2, False)
 
     See Also
-    ========
+    --------
     integer_nthroot
     sympy.ntheory.primetest.is_square
     sympy.ntheory.factor_.multiplicity
@@ -80,8 +77,7 @@ def trailing(n):
     that divides n.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import trailing
     >>> trailing(128)
     7
@@ -89,7 +85,7 @@ def trailing(n):
     0
 
     See Also
-    ========
+    --------
     sympy.ntheory.factor_.multiplicity
 
     """
@@ -104,8 +100,7 @@ def igcd(*args):
     If you do not need the cache mechanism, using ``sympy.external.gmpy.gcd``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import igcd
     >>> igcd(2, 4)
     2
@@ -113,7 +108,7 @@ def igcd(*args):
     5
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Euclidean_algorithm
 
@@ -159,7 +154,7 @@ def igcd_lehmer(a, b):
     anew with this pair.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Lehmer%27s_GCD_algorithm
 
@@ -168,8 +163,7 @@ def ilcm(*args):
     """Computes integer least common multiple.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ilcm
     >>> ilcm(5, 10)
     10
@@ -183,8 +177,7 @@ def igcdex(a, b):
     """Returns x, y, g such that g = x*a + y*b = gcd(a, b).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.intfunc import igcdex
     >>> igcdex(2, 3)
     (-1, 1, 1)
@@ -205,8 +198,7 @@ def mod_inverse(a, m):
     a ValueError is raised.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import mod_inverse, S
 
     Suppose we wish to find multiplicative inverse $x$ of
@@ -232,27 +224,24 @@ def mod_inverse(a, m):
     7/2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Modular_multiplicative_inverse
     .. [2] https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
     """
 def isqrt(n):
-    ''' Return the largest integer less than or equal to `\\sqrt{n}`.
+    """Return the largest integer less than or equal to `\\sqrt{n}`.
 
     Parameters
-    ==========
-
+    ----------
     n : non-negative integer
 
     Returns
-    =======
-
+    -------
     int : `\\left\\lfloor\\sqrt{n}\\right\\rfloor`
 
     Raises
-    ======
-
+    ------
     ValueError
         If n is negative.
     TypeError
@@ -260,8 +249,7 @@ def isqrt(n):
         Therefore, a TypeError is raised for ``str``, but not for ``float``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.intfunc import isqrt
     >>> isqrt(0)
     0
@@ -279,7 +267,7 @@ def isqrt(n):
         ...
     ValueError: n must be nonnegative
 
-    '''
+    """
 def integer_nthroot(y, n):
     """
     Return a tuple containing x = floor(y**(1/n))
@@ -287,8 +275,7 @@ def integer_nthroot(y, n):
     whether x**n == y).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import integer_nthroot
     >>> integer_nthroot(16, 2)
     (4, True)
@@ -303,7 +290,7 @@ def integer_nthroot(y, n):
     False
 
     See Also
-    ========
+    --------
     sympy.ntheory.primetest.is_square
     integer_log
     """

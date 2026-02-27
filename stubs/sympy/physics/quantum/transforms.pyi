@@ -3,10 +3,12 @@ from sympy.core.basic import Basic as Basic
 from sympy.core.expr import Expr as Expr
 from sympy.core.mul import Mul as Mul
 from sympy.core.singleton import S as S
-from sympy.multipledispatch.dispatcher import Dispatcher as Dispatcher, ambiguity_register_error_ignore_dup as ambiguity_register_error_ignore_dup
+from sympy.multipledispatch.dispatcher import (
+	ambiguity_register_error_ignore_dup as ambiguity_register_error_ignore_dup, Dispatcher as Dispatcher)
 from sympy.physics.quantum.innerproduct import InnerProduct as InnerProduct
 from sympy.physics.quantum.kind import BraKind as BraKind, KetKind as KetKind, OperatorKind as OperatorKind
-from sympy.physics.quantum.operator import IdentityOperator as IdentityOperator, Operator as Operator, OuterProduct as OuterProduct
+from sympy.physics.quantum.operator import (
+	IdentityOperator as IdentityOperator, Operator as Operator, OuterProduct as OuterProduct)
 from sympy.physics.quantum.state import BraBase as BraBase, KetBase as KetBase, StateBase as StateBase
 from sympy.physics.quantum.tensorproduct import TensorProduct as TensorProduct
 from sympy.utilities.misc import debug as debug

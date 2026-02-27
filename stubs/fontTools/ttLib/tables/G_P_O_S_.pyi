@@ -9,4 +9,3 @@ class table_G_P_O_S_(BaseTTXConverter):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/gpos
     """
-

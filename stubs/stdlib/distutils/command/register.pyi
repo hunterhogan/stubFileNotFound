@@ -1,7 +1,6 @@
+from ..config import PyPIRCCommand
 from collections.abc import Callable
 from typing import Any, ClassVar
-
-from ..config import PyPIRCCommand
 
 class register(PyPIRCCommand):
     description: str

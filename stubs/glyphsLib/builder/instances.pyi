@@ -73,4 +73,3 @@ def apply_instance_data_to_ufo(ufo, instance, designspace):
     -------
         None.
     """
-

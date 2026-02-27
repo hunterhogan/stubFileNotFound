@@ -69,6 +69,7 @@ class BezierSegment:
     control_points : (N, d) array
         Location of the *N* control points.
     """
+
     _cpoints: Incomplete
     _orders: Incomplete
     _px: Incomplete

@@ -1,5 +1,7 @@
 from .expr_with_intlimits import ExprWithIntLimits as ExprWithIntLimits
-from .summations import Sum as Sum, _dummy_with_inherited_properties_concrete as _dummy_with_inherited_properties_concrete, summation as summation
+from .summations import (
+	_dummy_with_inherited_properties_concrete as _dummy_with_inherited_properties_concrete, Sum as Sum,
+	summation as summation)
 from _typeshed import Incomplete
 from sympy.core.expr import Expr as Expr
 from sympy.core.exprtools import factor_terms as factor_terms
@@ -13,7 +15,7 @@ from sympy.functions.special.tensor_functions import KroneckerDelta as Kronecker
 from sympy.polys import quo as quo, roots as roots
 
 class Product(ExprWithIntLimits):
-    '''
+    """
     Represents unevaluated products.
 
     Explanation
@@ -69,8 +71,7 @@ class Product(ExprWithIntLimits):
     with limits typeset on the top being inclusive.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import a, b, i, k, m, n, x
     >>> from sympy import Product, oo
     >>> Product(k, (k, 1, m))
@@ -172,20 +173,20 @@ class Product(ExprWithIntLimits):
     1
 
     See Also
-    ========
-
+    --------
     Sum, summation
     product
 
     References
-    ==========
+    ----------
 
     .. [1] Michael Karr, "Summation in Finite Terms", Journal of the ACM,
            Volume 28 Issue 2, April 1981, Pages 305-350
            https://dl.acm.org/doi/10.1145/322248.322255
     .. [2] https://en.wikipedia.org/wiki/Multiplication#Capital_Pi_notation
     .. [3] https://en.wikipedia.org/wiki/Empty_product
-    '''
+    """
+
     __slots__: Incomplete
     limits: tuple[tuple[Symbol, Expr, Expr]]
     def __new__(cls, function, *symbols, **assumptions): ...
@@ -237,8 +238,7 @@ class Product(ExprWithIntLimits):
         converges.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Product, Symbol, cos, pi, exp, oo
         >>> n = Symbol('n', integer=True)
         >>> Product(n/(n + 1), (n, 1, oo)).is_convergent()
@@ -251,12 +251,12 @@ class Product(ExprWithIntLimits):
         False
 
         References
-        ==========
+        ----------
 
         .. [1] https://en.wikipedia.org/wiki/Infinite_product
         """
     def reverse_order(expr, *indices):
-        '''
+        """
         Reverse the order of a limit in a Product.
 
         Explanation
@@ -269,8 +269,7 @@ class Product(ExprWithIntLimits):
         starting from the inner-most limit tuple.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import gamma, Product, simplify, Sum
         >>> from sympy.abc import x, y, a, b, c, d
         >>> P = Product(x, (x, a, b))
@@ -310,20 +309,19 @@ class Product(ExprWithIntLimits):
         Sum(x*y, (x, b + 1, a - 1), (y, 6, 1))
 
         See Also
-        ========
-
+        --------
         sympy.concrete.expr_with_intlimits.ExprWithIntLimits.index,
         reorder_limit,
         sympy.concrete.expr_with_intlimits.ExprWithIntLimits.reorder
 
         References
-        ==========
+        ----------
 
         .. [1] Michael Karr, "Summation in Finite Terms", Journal of the ACM,
                Volume 28 Issue 2, April 1981, Pages 305-350
                https://dl.acm.org/doi/10.1145/322248.322255
 
-        '''
+        """
 
 def product(*args, **kwargs):
     """
@@ -348,8 +346,7 @@ def product(*args, **kwargs):
     Repeated products can be computed by introducing additional symbols tuples::
 
     Examples
-    ========
-
+    --------
     >>> from sympy import product, symbols
     >>> i, n, m, k = symbols('i n m k', integer=True)
 

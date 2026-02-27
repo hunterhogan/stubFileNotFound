@@ -1,43 +1,24 @@
+from _typeshed import AnnotationForm, StrPath
+from collections import OrderedDict
+from collections.abc import (
+	AsyncGenerator, Awaitable, Callable, Coroutine, Generator, Mapping, Sequence, Set as AbstractSet)
+from types import (
+	AsyncGeneratorType, BuiltinFunctionType, BuiltinMethodType, ClassMethodDescriptorType, CodeType, CoroutineType,
+	FrameType, FunctionType, GeneratorType, GetSetDescriptorType, LambdaType, MemberDescriptorType, MethodDescriptorType,
+	MethodType, MethodWrapperType, ModuleType, TracebackType, WrapperDescriptorType)
+from typing import (
+	Any, ClassVar, Final, Literal, NamedTuple, overload, Protocol, Self, type_check_only, TypeAlias, TypeGuard, TypeVar)
+from typing_extensions import deprecated, disjoint_base, ParamSpec, TypeIs
 import dis
 import enum
 import sys
 import types
-from _typeshed import AnnotationForm, StrPath
-from collections import OrderedDict
-from collections.abc import AsyncGenerator, Awaitable, Callable, Coroutine, Generator, Mapping, Sequence, Set as AbstractSet
-from types import (
-    AsyncGeneratorType,
-    BuiltinFunctionType,
-    BuiltinMethodType,
-    ClassMethodDescriptorType,
-    CodeType,
-    CoroutineType,
-    FrameType,
-    FunctionType,
-    GeneratorType,
-    GetSetDescriptorType,
-    LambdaType,
-    MemberDescriptorType,
-    MethodDescriptorType,
-    MethodType,
-    MethodWrapperType,
-    ModuleType,
-    TracebackType,
-    WrapperDescriptorType,
-)
-from typing import Any, ClassVar, Final, Literal, NamedTuple, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import ParamSpec, Self, TypeAlias, TypeGuard, TypeIs, deprecated, disjoint_base
 
 if sys.version_info >= (3, 14):
     from annotationlib import Format
 
 if sys.version_info >= (3, 11):
     __all__ = [
-        "ArgInfo",
-        "Arguments",
-        "Attribute",
-        "BlockFinder",
-        "BoundArguments",
         "CORO_CLOSED",
         "CORO_CREATED",
         "CORO_RUNNING",
@@ -52,18 +33,23 @@ if sys.version_info >= (3, 11):
         "CO_OPTIMIZED",
         "CO_VARARGS",
         "CO_VARKEYWORDS",
+        "GEN_CLOSED",
+        "GEN_CREATED",
+        "GEN_RUNNING",
+        "GEN_SUSPENDED",
+        "TPFLAGS_IS_ABSTRACT",
+        "ArgInfo",
+        "Arguments",
+        "Attribute",
+        "BlockFinder",
+        "BoundArguments",
         "ClassFoundException",
         "ClosureVars",
         "EndOfBlock",
         "FrameInfo",
         "FullArgSpec",
-        "GEN_CLOSED",
-        "GEN_CREATED",
-        "GEN_RUNNING",
-        "GEN_SUSPENDED",
         "Parameter",
         "Signature",
-        "TPFLAGS_IS_ABSTRACT",
         "Traceback",
         "classify_class_attrs",
         "cleandoc",
@@ -133,14 +119,14 @@ if sys.version_info >= (3, 11):
 
     if sys.version_info >= (3, 12):
         __all__ += [
-            "markcoroutinefunction",
             "AGEN_CLOSED",
             "AGEN_CREATED",
             "AGEN_RUNNING",
             "AGEN_SUSPENDED",
+            "BufferFlags",
             "getasyncgenlocals",
             "getasyncgenstate",
-            "BufferFlags",
+            "markcoroutinefunction",
         ]
     if sys.version_info >= (3, 14):
         __all__ += ["CO_HAS_DOCSTRING", "CO_METHOD", "ispackage"]
@@ -316,7 +302,7 @@ if sys.version_info >= (3, 14):
         globals: Mapping[str, Any] | None = None,
         locals: Mapping[str, Any] | None = None,
         eval_str: bool = False,
-        annotation_format: Format = Format.VALUE,  # noqa: Y011
+        annotation_format: Format = ...,
     ) -> Signature: ...
 
 elif sys.version_info >= (3, 10):
@@ -336,7 +322,7 @@ class _void: ...
 class _empty: ...
 
 class Signature:
-    __slots__ = ("_return_annotation", "_parameters")
+    __slots__ = ("_parameters", "_return_annotation")
     def __init__(
         self, parameters: Sequence[Parameter] | None = None, *, return_annotation: Any = ..., __validate_parameters__: bool = True
     ) -> None: ...
@@ -359,7 +345,7 @@ class Signature:
             globals: Mapping[str, Any] | None = None,
             locals: Mapping[str, Any] | None = None,
             eval_str: bool = False,
-            annotation_format: Format = Format.VALUE,  # noqa: Y011
+            annotation_format: Format = ...,
         ) -> Self: ...
     elif sys.version_info >= (3, 10):
         @classmethod
@@ -417,7 +403,7 @@ if sys.version_info >= (3, 12):
     def getasyncgenlocals(agen: AsyncGeneratorType[Any, Any]) -> dict[str, Any]: ...
 
 class Parameter:
-    __slots__ = ("_name", "_kind", "_default", "_annotation")
+    __slots__ = ("_annotation", "_default", "_kind", "_name")
     def __init__(self, name: str, kind: _ParameterKind, *, default: Any = ..., annotation: Any = ...) -> None: ...
     empty = _empty
 
@@ -449,7 +435,7 @@ class Parameter:
     def __hash__(self) -> int: ...
 
 class BoundArguments:
-    __slots__ = ("arguments", "_signature", "__weakref__")
+    __slots__ = ("__weakref__", "_signature", "arguments")
     arguments: OrderedDict[str, Any]
     @property
     def args(self) -> tuple[Any, ...]: ...

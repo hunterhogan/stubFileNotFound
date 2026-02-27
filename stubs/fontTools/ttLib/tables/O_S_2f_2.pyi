@@ -102,4 +102,3 @@ def calcCodePageRanges(unicodes):
 	This is a direct translation of FontForge implementation:
 	https://github.com/fontforge/fontforge/blob/7b2c074/fontforge/tottf.c#L3158
 	"""
-

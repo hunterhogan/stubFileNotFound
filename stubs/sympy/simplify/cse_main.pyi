@@ -6,11 +6,16 @@ from sympy.core.exprtools import factor_terms as factor_terms
 from sympy.core.singleton import S as S
 from sympy.core.sorting import ordered as ordered
 from sympy.core.symbol import Symbol as Symbol, symbols as symbols
-from sympy.matrices import ImmutableMatrix as ImmutableMatrix, ImmutableSparseMatrix as ImmutableSparseMatrix, Matrix as Matrix, MatrixBase as MatrixBase, SparseMatrix as SparseMatrix
-from sympy.matrices.expressions import Inverse as Inverse, MatAdd as MatAdd, MatMul as MatMul, MatPow as MatPow, MatrixExpr as MatrixExpr, MatrixSymbol as MatrixSymbol
+from sympy.matrices import (
+	ImmutableMatrix as ImmutableMatrix, ImmutableSparseMatrix as ImmutableSparseMatrix, Matrix as Matrix,
+	MatrixBase as MatrixBase, SparseMatrix as SparseMatrix)
+from sympy.matrices.expressions import (
+	Inverse as Inverse, MatAdd as MatAdd, MatMul as MatMul, MatPow as MatPow, MatrixExpr as MatrixExpr,
+	MatrixSymbol as MatrixSymbol)
 from sympy.matrices.expressions.matexpr import MatrixElement as MatrixElement
 from sympy.polys.rootoftools import RootOf as RootOf
-from sympy.utilities.iterables import iterable as iterable, numbered_symbols as numbered_symbols, sift as sift, topological_sort as topological_sort
+from sympy.utilities.iterables import (
+	iterable as iterable, numbered_symbols as numbered_symbols, sift as sift, topological_sort as topological_sort)
 
 basic_optimizations: Incomplete
 
@@ -22,8 +27,7 @@ def reps_toposort(r):
     to reverse the order).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.cse_main import reps_toposort
     >>> from sympy.abc import x, y
     >>> from sympy import Eq
@@ -39,8 +43,7 @@ def cse_separate(r, e):
     expressions and sort them into the replacements using the reps_toposort.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.cse_main import cse_separate
     >>> from sympy.abc import x, y, z
     >>> from sympy import cos, exp, cse, Eq, symbols
@@ -64,8 +67,7 @@ def cse_release_variables(r, e):
     expressions that contain large, repeated subexpressions.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import cse
     >>> from sympy.simplify.cse_main import cse_release_variables
     >>> from sympy.abc import x, y
@@ -89,20 +91,18 @@ def cse_release_variables(r, e):
     (_0, _1, _2, _3, _4)
     """
 def preprocess_for_cse(expr, optimizations):
-    """ Preprocess an expression to optimize for common subexpression
+    """Preprocess an expression to optimize for common subexpression
     elimination.
 
     Parameters
-    ==========
-
+    ----------
     expr : SymPy expression
         The target expression to optimize.
     optimizations : list of (callable, callable) pairs
         The (preprocessor, postprocessor) pairs.
 
     Returns
-    =======
-
+    -------
     expr : SymPy expression
         The transformed expression.
     """
@@ -111,8 +111,7 @@ def postprocess_for_cse(expr, optimizations):
     return the expression to canonical SymPy form.
 
     Parameters
-    ==========
-
+    ----------
     expr : SymPy expression
         The target expression to transform.
     optimizations : list of (callable, callable) pairs, optional
@@ -121,8 +120,7 @@ def postprocess_for_cse(expr, optimizations):
         correctly.
 
     Returns
-    =======
-
+    -------
     expr : SymPy expression
         The transformed expression.
     """
@@ -132,6 +130,7 @@ class FuncArgTracker:
     A class which manages a mapping from functions to arguments and an inverse
     mapping from arguments to functions.
     """
+
     value_numbers: Incomplete
     value_number_to_value: Incomplete
     arg_to_funcset: Incomplete
@@ -171,7 +170,6 @@ class Unevaluated:
     func: Incomplete
     args: Incomplete
     def __init__(self, func, args) -> None: ...
-    def __str__(self) -> str: ...
     def as_unevaluated_basic(self): ...
     @property
     def free_symbols(self): ...
@@ -194,8 +192,7 @@ def match_common_args(func_class, funcs, opt_subs):
     The function we work with is assumed to be associative and commutative.
 
     Parameters
-    ==========
-
+    ----------
     func_class: class
         The function class (e.g. Add, Mul)
     funcs: list of functions
@@ -208,8 +205,7 @@ def opt_cse(exprs, order: str = 'canonical'):
     coefficient Muls.
 
     Parameters
-    ==========
-
+    ----------
     exprs : list of SymPy expressions
         The expressions to optimize.
     order : string, 'none' or 'canonical'
@@ -217,14 +213,12 @@ def opt_cse(exprs, order: str = 'canonical'):
         expressions where speed is a concern, use the setting order='none'.
 
     Returns
-    =======
-
+    -------
     opt_subs : dictionary of expression substitutions
         The expression substitutions which can be useful to optimize CSE.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.cse_main import opt_cse
     >>> from sympy.abc import x
     >>> opt_subs = opt_cse([x**-2])
@@ -236,8 +230,7 @@ def tree_cse(exprs, symbols, opt_subs=None, order: str = 'canonical', ignore=())
     """Perform raw CSE on expression tree, taking opt_subs into account.
 
     Parameters
-    ==========
-
+    ----------
     exprs : list of SymPy expressions
         The expressions to reduce.
     symbols : infinite iterator yielding unique Symbols
@@ -252,11 +245,10 @@ def tree_cse(exprs, symbols, opt_subs=None, order: str = 'canonical', ignore=())
         Substitutions containing any Symbol from ``ignore`` will be ignored.
     """
 def cse(exprs, symbols=None, optimizations=None, postprocess=None, order: str = 'canonical', ignore=(), list: bool = True):
-    ''' Perform common subexpression elimination on an expression.
+    """Perform common subexpression elimination on an expression.
 
     Parameters
-    ==========
-
+    ----------
     exprs : list of SymPy expressions, or a single SymPy expression
         The expressions to reduce.
     symbols : infinite iterator yielding unique Symbols
@@ -286,8 +278,7 @@ def cse(exprs, symbols=None, optimizations=None, postprocess=None, order: str = 
         Returns expression in list or else with same type as input (when False).
 
     Returns
-    =======
-
+    -------
     replacements : list of (Symbol, expression) pairs
         All of the common subexpressions that were replaced. Subexpressions
         earlier in this list might show up in subexpressions later in this
@@ -296,8 +287,7 @@ def cse(exprs, symbols=None, optimizations=None, postprocess=None, order: str = 
         The reduced expressions with all of the replacements above.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import cse, SparseMatrix
     >>> from sympy.abc import x, y, z, w
     >>> cse(((w + x + y + z)*(w + y + z))/(w + x)**3)
@@ -329,22 +319,20 @@ def cse(exprs, symbols=None, optimizations=None, postprocess=None, order: str = 
     ([], [x])
     >>> cse(x, list=False)
     ([], x)
-    '''
+    """
 def _cse_homogeneous(exprs, **kwargs):
     """
     Same as ``cse`` but the ``reduced_exprs`` are returned
     with the same type as ``exprs`` or a sympified version of the same.
 
     Parameters
-    ==========
-
+    ----------
     exprs : an Expr, iterable of Expr or dictionary with Expr values
         the expressions in which repeated subexpressions will be identified
     kwargs : additional arguments for the ``cse`` function
 
     Returns
-    =======
-
+    -------
     replacements : list of (Symbol, expression) pairs
         All of the common subexpressions that were replaced. Subexpressions
         earlier in this list might show up in subexpressions later in this
@@ -353,8 +341,7 @@ def _cse_homogeneous(exprs, **kwargs):
         The reduced expressions with all of the replacements above.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.cse_main import cse
     >>> from sympy import cos, Tuple, Matrix
     >>> from sympy.abc import x

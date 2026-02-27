@@ -8,4 +8,3 @@ class table_G_D_E_F_(BaseTTXConverter):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/gdef
     """
-

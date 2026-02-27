@@ -1,11 +1,10 @@
 from collections.abc import Callable
-from email._policybase import Compat32 as Compat32, Policy as Policy, _MessageFactory, _MessageT, compat32 as compat32
+from email._policybase import _MessageFactory, _MessageT, Compat32 as Compat32, compat32 as compat32, Policy as Policy
 from email.contentmanager import ContentManager
 from email.message import EmailMessage
-from typing import Any, overload
-from typing_extensions import Self
+from typing import Any, overload, Self
 
-__all__ = ["Compat32", "compat32", "Policy", "EmailPolicy", "default", "strict", "SMTP", "HTTP"]
+__all__ = ["HTTP", "SMTP", "Compat32", "EmailPolicy", "Policy", "compat32", "default", "strict"]
 
 class EmailPolicy(Policy[_MessageT]):
     utf8: bool

@@ -1,7 +1,7 @@
-import enum
 from _typeshed import Incomplete
 from llvmlite import ir as ir, opaque_pointers_enabled as opaque_pointers_enabled
 from llvmlite.binding import ffi as ffi
+import enum
 
 class TypeKind(enum.IntEnum):
     void = 0
@@ -30,6 +30,7 @@ _TypeKindToIRType: Incomplete
 class TypeRef(ffi.ObjectRef):
     """A weak reference to a LLVM type
     """
+
     @property
     def name(self):
         """
@@ -110,12 +111,11 @@ class TypeRef(ffi.ObjectRef):
     def is_literal_struct(self): ...
     @property
     def is_opaque_struct(self): ...
-    def get_function_parameters(self) -> tuple['TypeRef']: ...
+    def get_function_parameters(self) -> tuple[TypeRef]: ...
     def get_function_return(self) -> TypeRef: ...
     def as_ir(self, ir_ctx: ir.Context) -> ir.Type:
         """Convert into a ``llvmlite.ir.Type``.
         """
-    def __str__(self) -> str: ...
 
 class _TypeIterator(ffi.ObjectRef):
     def __next__(self): ...

@@ -1,34 +1,15 @@
 from datetime import timezone
-from typing import (
-    Any,
-    Literal,
-    Self,
-    TypeAlias,
-    overload,
-)
-
-import numpy as np
-from pandas.core.indexes.base import Index
-from pandas.core.series import Series
-
 from pandas._libs import NaTType
 from pandas._libs.missing import NAType
 from pandas._libs.tslibs import BaseOffset
-from pandas._libs.tslibs.offsets import (
-    RelativeDeltaOffset,
-    SingleConstructorOffset,
-)
-from pandas._typing import (
-    Dtype,
-    Ordered,
-    TimeZones,
-    npt,
-)
-
+from pandas._libs.tslibs.offsets import RelativeDeltaOffset, SingleConstructorOffset
+from pandas._typing import Dtype, npt, Ordered, TimeZones
 from pandas.core.dtypes.base import (
-    ExtensionDtype as ExtensionDtype,
-    register_extension_dtype as register_extension_dtype,
-)
+	ExtensionDtype as ExtensionDtype, register_extension_dtype as register_extension_dtype)
+from pandas.core.indexes.base import Index
+from pandas.core.series import Series
+from typing import Any, Literal, overload, Self, TypeAlias
+import numpy as np
 
 _dt_units: TypeAlias = Literal["s", "ms", "us", "ns"]
 

@@ -11,22 +11,21 @@ from sympy.sets.sets import FiniteSet as FiniteSet
 from sympy.tensor.indexed import Indexed as Indexed
 
 def _get_free_symbols(exprs):
-    '''Returns the free symbols of a symbolic expression.
+    """Returns the free symbols of a symbolic expression.
 
     If the expression contains any of these elements, assume that they are
     the "free symbols" of the expression:
 
     * indexed objects
     * applied undefined function (useful for sympy.physics.mechanics module)
-    '''
+    """
 def extract_solution(set_sol, n: int = 10):
     """Extract numerical solutions from a set solution (computed by solveset,
     linsolve, nonlinsolve). Often, it is not trivial do get something useful
     out of them.
 
     Parameters
-    ==========
-
+    ----------
     n : int, optional
         In order to replace ImageSet with FiniteSet, an iterator is created
         for each ImageSet contained in `set_sol`, starting from 0 up to `n`.
@@ -55,8 +54,7 @@ def _create_ranges(exprs, ranges, npar, label: str = '', params=None):
        Here we create the necessary ranges.
 
     Parameters
-    ==========
-
+    ----------
     exprs : iterable
         The expressions from which to extract the free symbols
     ranges : iterable
@@ -73,13 +71,12 @@ def _is_range(r):
     be numbers.
     """
 def _unpack_args(*args):
-    '''Given a list/tuple of arguments previously processed by _plot_sympify()
+    """Given a list/tuple of arguments previously processed by _plot_sympify()
     and/or _check_arguments(), separates and returns its components:
     expressions, ranges, label and rendering keywords.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import cos, sin, symbols
     >>> from sympy.plotting.utils import _plot_sympify, _unpack_args
     >>> x, y = symbols(\'x, y\')
@@ -97,14 +94,13 @@ def _unpack_args(*args):
     >>> args = _plot_sympify(args)
     >>> _unpack_args(*args)
     ([sin(x + y), cos(x - y), x + y], [(x, -2, 2), (y, -3, 3)], \'f3\', None)
-    '''
+    """
 def _check_arguments(args, nexpr, npar, **kwargs):
-    '''Checks the arguments and converts into tuples of the
+    """Checks the arguments and converts into tuples of the
     form (exprs, ranges, label, rendering_kw).
 
     Parameters
-    ==========
-
+    ----------
     args
         The arguments provided to the plot functions
     nexpr
@@ -124,7 +120,7 @@ def _check_arguments(args, nexpr, npar, **kwargs):
         verify if ``params`` has ben provided.
 
     Examples
-    ========
+    --------
 
     .. plot::
        :context: reset
@@ -145,4 +141,4 @@ def _check_arguments(args, nexpr, npar, **kwargs):
 
        >>> _check_arguments([x, x**2], 1, 1)
        [(x, (x, -10, 10), None, None), (x**2, (x, -10, 10), None, None)]
-    '''
+    """

@@ -2,10 +2,12 @@ from .basic import Basic as Basic
 from .core import Registry as Registry
 from .sympify import sympify as sympify
 from _typeshed import Incomplete
-from sympy.core.numbers import ComplexInfinity as _ComplexInfinity, Half as _Half, Infinity as _Infinity, NaN as _NaN, NegativeInfinity as _NegativeInfinity, NegativeOne as _NegativeOne, One as _One, Zero as _Zero
+from sympy.core.numbers import (
+	ComplexInfinity as _ComplexInfinity, Half as _Half, Infinity as _Infinity, NaN as _NaN,
+	NegativeInfinity as _NegativeInfinity, NegativeOne as _NegativeOne, One as _One, Zero as _Zero)
 
 class SingletonRegistry(Registry):
-    '''
+    """
     The registry for the singleton classes (accessible as ``S``).
 
     Explanation
@@ -31,8 +33,7 @@ class SingletonRegistry(Registry):
     objects by memory address, and is very fast.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, Integer
     >>> a = Integer(0)
     >>> a is S.Zero
@@ -79,7 +80,8 @@ class SingletonRegistry(Registry):
     division will return a ``Rational`` type, since it will call
     ``Integer.__truediv__``, which knows how to return a ``Rational``.
 
-    '''
+    """
+
     __slots__: Incomplete
     Zero: _Zero
     One: _One
@@ -103,8 +105,8 @@ class SingletonRegistry(Registry):
         This __getattr__ checks whether a class with the requested name was
         already registered but not installed; if no, raises an AttributeError.
         Otherwise, retrieves the class, calculates its singleton value, installs
-        it as an attribute of the given name, and unregisters the class."""
-    def __repr__(self) -> str: ...
+        it as an attribute of the given name, and unregisters the class.
+        """
 
 S: Incomplete
 
@@ -120,8 +122,7 @@ class Singleton(type):
     the global registry object ``S`` as ``S.<class_name>``.
 
     Examples
-    ========
-
+    --------
         >>> from sympy import S, Basic
         >>> from sympy.core.singleton import Singleton
         >>> class MySingleton(Basic, metaclass=Singleton):
@@ -134,10 +135,10 @@ class Singleton(type):
         True
 
     Notes
-    =====
-
+    -----
     Instance creation is delayed until the first time the value is accessed.
     (SymPy versions before 1.0 would create the instance during class
     creation time, which would be prone to import cycles.)
     """
+
     def __init__(cls, *args, **kwargs) -> None: ...

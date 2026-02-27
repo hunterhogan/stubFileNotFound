@@ -81,6 +81,7 @@ class Dimension(Expr):
         {Dimension(length, L): 2}
 
     """
+
     _op_priority: float
     _dimensional_dependencies: Incomplete
     is_commutative: bool
@@ -92,11 +93,6 @@ class Dimension(Expr):
     def name(self): ...
     @property
     def symbol(self): ...
-    def __str__(self) -> str:
-        """
-        Display the string representation of the dimension.
-        """
-    def __repr__(self) -> str: ...
     def __neg__(self): ...
     def __add__(self, other): ...
     def __radd__(self, other): ...
@@ -134,6 +130,7 @@ class DimensionSystem(Basic, _QuantityMapper):
     Optionally either the ``derived_dims`` or the ``dimensional_dependencies``
     may be omitted.
     """
+
     def __new__(cls, base_dims, derived_dims=(), dimensional_dependencies={}): ...
     @property
     def base_dims(self): ...

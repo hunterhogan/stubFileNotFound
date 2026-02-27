@@ -2,22 +2,22 @@ from _typeshed import Incomplete
 from sympy.assumptions.assume import AppliedPredicate as AppliedPredicate, Predicate as Predicate
 from sympy.core.relational import Eq as Eq, Ge as Ge, Gt as Gt, Le as Le, Lt as Lt, Ne as Ne
 from sympy.core.singleton import S as S
-from sympy.logic.boolalg import And as And, Equivalent as Equivalent, ITE as ITE, Implies as Implies, Nand as Nand, Nor as Nor, Not as Not, Or as Or, Xnor as Xnor, Xor as Xor
+from sympy.logic.boolalg import (
+	And as And, Equivalent as Equivalent, Implies as Implies, ITE as ITE, Nand as Nand, Nor as Nor, Not as Not, Or as Or,
+	Xnor as Xnor, Xor as Xor)
 
 class Literal:
     """
     The smallest element of a CNF object.
 
     Parameters
-    ==========
-
+    ----------
     lit : Boolean expression
 
     is_Not : bool
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q
     >>> from sympy.assumptions.cnf import Literal
     >>> from sympy.abc import x
@@ -26,12 +26,12 @@ class Literal:
     >>> Literal(~Q.even(x))
     Literal(Q.even(x), True)
     """
+
     def __new__(cls, lit, is_Not: bool = False): ...
     @property
     def arg(self): ...
     def rcall(self, expr): ...
     def __invert__(self): ...
-    def __str__(self) -> str: ...
     __repr__ = __str__
     def __eq__(self, other): ...
     def __hash__(self): ...
@@ -40,6 +40,7 @@ class OR:
     """
     A low-level implementation for Or
     """
+
     _args: Incomplete
     def __init__(self, *args) -> None: ...
     @property
@@ -48,13 +49,13 @@ class OR:
     def __invert__(self): ...
     def __hash__(self): ...
     def __eq__(self, other): ...
-    def __str__(self) -> str: ...
     __repr__ = __str__
 
 class AND:
     """
     A low-level implementation for And
     """
+
     _args: Incomplete
     def __init__(self, *args) -> None: ...
     def __invert__(self): ...
@@ -63,7 +64,6 @@ class AND:
     def rcall(self, expr): ...
     def __hash__(self): ...
     def __eq__(self, other): ...
-    def __str__(self) -> str: ...
     __repr__ = __str__
 
 def to_NNF(expr, composite_map=None):
@@ -72,8 +72,7 @@ def to_NNF(expr, composite_map=None):
     of AND, OR, and Literal objects.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, Eq
     >>> from sympy.assumptions.cnf import to_NNF
     >>> from sympy.abc import x, y
@@ -109,8 +108,7 @@ class CNF:
     frozenset of Literal objects.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q
     >>> from sympy.assumptions.cnf import CNF
     >>> from sympy.abc import x
@@ -120,10 +118,10 @@ class CNF:
     frozenset({Literal(Q.negative(x), False),
     Literal(Q.positive(x), False), Literal(Q.zero(x), False)})}
     """
+
     clauses: Incomplete
     def __init__(self, clauses=None) -> None: ...
     def add(self, prop) -> None: ...
-    def __str__(self) -> str: ...
     def extend(self, props): ...
     def copy(self): ...
     def add_clauses(self, clauses) -> None: ...
@@ -152,6 +150,7 @@ class EncodedCNF:
     """
     Class for encoding the CNF expression.
     """
+
     data: Incomplete
     encoding: Incomplete
     _symbols: Incomplete

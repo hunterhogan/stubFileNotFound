@@ -1,5 +1,5 @@
-import abc
 from typing import Any
+import abc
 
 class AbstractEngine(metaclass=abc.ABCMeta):
     has_neg_frac: bool = ...

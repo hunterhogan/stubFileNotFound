@@ -1,36 +1,15 @@
 # pyright: strict
 from builtins import slice as _slice
-from collections.abc import (
-    Callable,
-    Sequence,
-)
-import re
-from typing import (
-    Any,
-    Generic,
-    Literal,
-    TypeVar,
-    overload,
-)
-
+from collections.abc import Callable, Sequence
+from pandas import DataFrame, Index, MultiIndex, Series
+from pandas._libs.tslibs.nattype import NaTType
+from pandas._typing import AlignJoin, np_ndarray_bool, Scalar, T
+from pandas.core.base import NoNewAttributesMixin
+from typing import Any, Generic, Literal, overload, TypeVar
 import numpy as np
 import numpy.typing as npt
 import pandas as pd
-from pandas import (
-    DataFrame,
-    Index,
-    MultiIndex,
-    Series,
-)
-from pandas.core.base import NoNewAttributesMixin
-
-from pandas._libs.tslibs.nattype import NaTType
-from pandas._typing import (
-    AlignJoin,
-    Scalar,
-    T,
-    np_ndarray_bool,
-)
+import re
 
 # Used for the result of str.split with expand=True
 _T_EXPANDING = TypeVar("_T_EXPANDING", bound=DataFrame | MultiIndex)
@@ -65,7 +44,7 @@ class StringMethods(
     @overload
     def cat(
         self,
-        others: Literal[None] = None,
+        others: None = None,
         *,
         sep: str,
         na_rep: str | None = ...,

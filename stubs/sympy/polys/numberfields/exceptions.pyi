@@ -1,4 +1,4 @@
-__all__ = ['ClosureFailure', 'StructureError', 'MissingUnityError']
+__all__ = ['ClosureFailure', 'MissingUnityError', 'StructureError']
 
 class ClosureFailure(Exception):
     """
@@ -6,8 +6,7 @@ class ClosureFailure(Exception):
     certain :py:class:`Module` cannot in fact be represented there.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys import Poly, cyclotomic_poly, ZZ
     >>> from sympy.polys.matrices import DomainMatrix
     >>> from sympy.polys.numberfields.modules import PowerBasis, to_col

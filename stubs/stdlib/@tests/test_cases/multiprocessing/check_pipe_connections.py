@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-import sys
 from multiprocessing.connection import Pipe
+import sys
 
 if sys.platform != "win32":
     from multiprocessing.connection import Connection

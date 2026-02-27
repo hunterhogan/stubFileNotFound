@@ -1,8 +1,8 @@
-import dataclasses
 from . import _api as _api
 from .ft2font import FT2Font as FT2Font, Kerning as Kerning, LoadFlags as LoadFlags
 from _typeshed import Incomplete
 from collections.abc import Generator
+import dataclasses
 
 @dataclasses.dataclass(frozen=True)
 class LayoutItem:

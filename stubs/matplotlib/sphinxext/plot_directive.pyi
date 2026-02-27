@@ -9,13 +9,14 @@ def _option_boolean(arg): ...
 def _option_context(arg): ...
 def _option_format(arg): ...
 def mark_plot_labels(app, document) -> None:
-    '''
+    """
     To make plots referenceable, we need to move the reference from the
     "htmlonly" (or "latexonly") node to the actual figure node itself.
-    '''
+    """
 
 class PlotDirective(Directive):
     """The ``.. plot::`` directive, as documented in the module's docstring."""
+
     has_content: bool
     required_arguments: int
     optional_arguments: int

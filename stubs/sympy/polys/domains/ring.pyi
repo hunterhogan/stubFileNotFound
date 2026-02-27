@@ -3,27 +3,28 @@ from sympy.polys.domains.domain import Domain
 __all__ = ['Ring']
 
 class Ring(Domain):
-    """Represents a ring domain. """
+    """Represents a ring domain."""
+
     is_Ring: bool
     def get_ring(self):
-        """Returns a ring associated with ``self``. """
+        """Returns a ring associated with ``self``."""
     def exquo(self, a, b):
-        """Exact quotient of ``a`` and ``b``, implies ``__floordiv__``.  """
+        """Exact quotient of ``a`` and ``b``, implies ``__floordiv__``."""
     def quo(self, a, b):
-        """Quotient of ``a`` and ``b``, implies ``__floordiv__``. """
+        """Quotient of ``a`` and ``b``, implies ``__floordiv__``."""
     def rem(self, a, b):
-        """Remainder of ``a`` and ``b``, implies ``__mod__``.  """
+        """Remainder of ``a`` and ``b``, implies ``__mod__``."""
     def div(self, a, b):
-        """Division of ``a`` and ``b``, implies ``__divmod__``. """
+        """Division of ``a`` and ``b``, implies ``__divmod__``."""
     def invert(self, a, b):
-        """Returns inversion of ``a mod b``. """
+        """Returns inversion of ``a mod b``."""
     def revert(self, a):
-        """Returns ``a**(-1)`` if possible. """
+        """Returns ``a**(-1)`` if possible."""
     def is_unit(self, a): ...
     def numer(self, a):
-        """Returns numerator of ``a``. """
+        """Returns numerator of ``a``."""
     def denom(self, a):
-        """Returns denominator of `a`. """
+        """Returns denominator of `a`."""
     def free_module(self, rank) -> None:
         """
         Generate a free module of rank ``rank`` over self.

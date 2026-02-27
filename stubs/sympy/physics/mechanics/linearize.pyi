@@ -3,14 +3,13 @@ from _typeshed import Incomplete
 __all__ = ['Linearizer']
 
 class Linearizer:
-    '''This object holds the general model form for a dynamic system. This
+    """This object holds the general model form for a dynamic system. This
     model is used for computing the linearized form of the system, while
     properly dealing with constraints leading to  dependent coordinates and
     speeds. The notation and method is described in [1]_.
 
     Attributes
-    ==========
-
+    ----------
     f_0, f_1, f_2, f_3, f_4, f_c, f_v, f_a : Matrix
         Matrices holding the general system form.
     q, u, r : Matrix
@@ -24,14 +23,15 @@ class Linearizer:
         Permutation matrix such that [q_ind, u_ind]^T = perm_mat*[q, u]^T
 
     References
-    ==========
+    ----------
 
     .. [1] D. L. Peterson, G. Gede, and M. Hubbard, "Symbolic linearization of
            equations of motion of constrained multibody systems," Multibody
            Syst Dyn, vol. 33, no. 2, pp. 143-161, Feb. 2015, doi:
            10.1007/s11044-014-9436-5.
 
-    '''
+    """
+
     linear_solver: Incomplete
     f_0: Incomplete
     f_1: Incomplete
@@ -67,8 +67,7 @@ class Linearizer:
     def __init__(self, f_0, f_1, f_2, f_3, f_4, f_c, f_v, f_a, q, u, q_i=None, q_d=None, u_i=None, u_d=None, r=None, lams=None, linear_solver: str = 'LU') -> None:
         """
         Parameters
-        ==========
-
+        ----------
         f_0, f_1, f_2, f_3, f_4, f_c, f_v, f_a : array_like
             System of equations holding the general system form.
             Supply empty array or Matrix if the parameter
@@ -123,7 +122,7 @@ class Linearizer:
         These may be either symbolic or numeric.
 
         Parameters
-        ==========
+        ----------
         op_point : dict or iterable of dicts, optional
             Dictionary or iterable of dictionaries containing the operating
             point conditions for all or a subset of the generalized
@@ -142,7 +141,7 @@ class Linearizer:
             For large expressions this may be time consuming. Default is False.
 
         Returns
-        =======
+        -------
         M, A, B : Matrices, ``A_and_B=False``
             Matrices from the implicit form:
                 ``[M]*[q', u']^T = [A]*[q_ind, u_ind]^T + [B]*r``
@@ -151,8 +150,7 @@ class Linearizer:
                 ``[q_ind', u_ind']^T = [A]*[q_ind, u_ind]^T + [B]*r``
 
         Notes
-        =====
-
+        -----
         Note that the process of solving with A_and_B=True is computationally
         intensive if there are many symbolic parameters. For this reason, it
         may be more desirable to use the default A_and_B=False, returning M, A,

@@ -4,7 +4,8 @@ from sympy.core.symbol import _symbol as _symbol, symbols as symbols
 from sympy.functions import sign as sign
 from sympy.geometry.ellipse import Ellipse as Ellipse
 from sympy.geometry.entity import GeometryEntity as GeometryEntity, GeometrySet as GeometrySet
-from sympy.geometry.line import Line as Line, Line2D as Line2D, LinearEntity3D as LinearEntity3D, Ray2D as Ray2D, Segment2D as Segment2D
+from sympy.geometry.line import (
+	Line as Line, Line2D as Line2D, LinearEntity3D as LinearEntity3D, Ray2D as Ray2D, Segment2D as Segment2D)
 from sympy.geometry.point import Point as Point, Point2D as Point2D
 from sympy.simplify.simplify import simplify as simplify
 from sympy.solvers.solvers import solve as solve
@@ -17,15 +18,13 @@ class Parabola(GeometrySet):
     Only vertical or horizontal parabolas are currently supported.
 
     Parameters
-    ==========
-
+    ----------
     focus : Point
         Default value is Point(0, 0)
     directrix : Line
 
     Attributes
-    ==========
-
+    ----------
     focus
     directrix
     axis of symmetry
@@ -35,7 +34,7 @@ class Parabola(GeometrySet):
     eccentricity
 
     Raises
-    ======
+    ------
     ValueError
         When `focus` is not a two dimensional point.
         When `focus` is a point of directrix.
@@ -43,8 +42,7 @@ class Parabola(GeometrySet):
         When `directrix` is neither horizontal nor vertical.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Parabola, Point, Line
     >>> p1 = Parabola(Point(0, 0), Line(Point(5, 8), Point(7,8)))
     >>> p1.focus
@@ -53,19 +51,18 @@ class Parabola(GeometrySet):
     Line2D(Point2D(5, 8), Point2D(7, 8))
 
     """
+
     def __new__(cls, focus=None, directrix=None, **kwargs): ...
     @property
     def ambient_dimension(self):
         """Returns the ambient dimension of parabola.
 
         Returns
-        =======
-
+        -------
         ambient_dimension : integer
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Parabola, Point, Line
         >>> f1 = Point(0, 0)
         >>> p1 = Parabola(f1, Line(Point(5, 8), Point(7, 8)))
@@ -79,18 +76,15 @@ class Parabola(GeometrySet):
         perpendicular to the directrix passing through the focus.
 
         Returns
-        =======
-
+        -------
         axis_of_symmetry : Line
 
         See Also
-        ========
-
+        --------
         sympy.geometry.line.Line
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Parabola, Point, Line
         >>> p1 = Parabola(Point(0, 0), Line(Point(5, 8), Point(7, 8)))
         >>> p1.axis_of_symmetry
@@ -102,18 +96,15 @@ class Parabola(GeometrySet):
         """The directrix of the parabola.
 
         Returns
-        =======
-
+        -------
         directrix : Line
 
         See Also
-        ========
-
+        --------
         sympy.geometry.line.Line
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Parabola, Point, Line
         >>> l1 = Line(Point(5, 8), Point(7, 8))
         >>> p1 = Parabola(Point(0, 0), l1)
@@ -126,8 +117,7 @@ class Parabola(GeometrySet):
         """The eccentricity of the parabola.
 
         Returns
-        =======
-
+        -------
         eccentricity : number
 
         A parabola may also be characterized as a conic section with an
@@ -136,14 +126,12 @@ class Parabola(GeometrySet):
         they are all the same shape.
 
         See Also
-        ========
-
+        --------
         https://en.wikipedia.org/wiki/Parabola
 
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Parabola, Point, Line
         >>> p1 = Parabola(Point(0, 0), Line(Point(5, 8), Point(7, 8)))
         >>> p1.eccentricity
@@ -158,19 +146,18 @@ class Parabola(GeometrySet):
         """The equation of the parabola.
 
         Parameters
-        ==========
+        ----------
         x : str, optional
             Label for the x-axis. Default value is 'x'.
         y : str, optional
             Label for the y-axis. Default value is 'y'.
 
         Returns
-        =======
+        -------
         equation : SymPy expression
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Parabola, Point, Line
         >>> p1 = Parabola(Point(0, 0), Line(Point(5, 8), Point(7, 8)))
         >>> p1.equation()
@@ -183,51 +170,44 @@ class Parabola(GeometrySet):
         """
     @property
     def focal_length(self):
-        '''The focal length of the parabola.
+        """The focal length of the parabola.
 
         Returns
-        =======
-
+        -------
         focal_lenght : number or symbolic expression
 
         Notes
-        =====
-
+        -----
         The distance between the vertex and the focus
         (or the vertex and directrix), measured along the axis
         of symmetry, is the "focal length".
 
         See Also
-        ========
-
+        --------
         https://en.wikipedia.org/wiki/Parabola
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Parabola, Point, Line
         >>> p1 = Parabola(Point(0, 0), Line(Point(5, 8), Point(7, 8)))
         >>> p1.focal_length
         4
 
-        '''
+        """
     @property
     def focus(self):
         """The focus of the parabola.
 
         Returns
-        =======
-
+        -------
         focus : Point
 
         See Also
-        ========
-
+        --------
         sympy.geometry.point.Point
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Parabola, Point, Line
         >>> f1 = Point(0, 0)
         >>> p1 = Parabola(f1, Line(Point(5, 8), Point(7, 8)))
@@ -239,18 +219,15 @@ class Parabola(GeometrySet):
         """The intersection of the parabola and another geometrical entity `o`.
 
         Parameters
-        ==========
-
+        ----------
         o : GeometryEntity, LinearEntity
 
         Returns
-        =======
-
+        -------
         intersection : list of GeometryEntity objects
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Parabola, Point, Ellipse, Line, Segment
         >>> p1 = Point(0,0)
         >>> l1 = Line(Point(1, -2), Point(-1,-2))
@@ -268,13 +245,11 @@ class Parabola(GeometrySet):
         """P is a parameter of parabola.
 
         Returns
-        =======
-
+        -------
         p : number or symbolic expression
 
         Notes
-        =====
-
+        -----
         The absolute value of p is the focal length. The sign on p tells
         which way the parabola faces. Vertical parabolas that open up
         and horizontal that open right, give a positive value for p.
@@ -283,13 +258,11 @@ class Parabola(GeometrySet):
 
 
         See Also
-        ========
-
+        --------
         https://www.sparknotes.com/math/precalc/conicsections/section2/
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Parabola, Point, Line
         >>> p1 = Parabola(Point(0, 0), Line(Point(5, 8), Point(7, 8)))
         >>> p1.p_parameter
@@ -301,18 +274,15 @@ class Parabola(GeometrySet):
         """The vertex of the parabola.
 
         Returns
-        =======
-
+        -------
         vertex : Point
 
         See Also
-        ========
-
+        --------
         sympy.geometry.point.Point
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Parabola, Point, Line
         >>> p1 = Parabola(Point(0, 0), Line(Point(5, 8), Point(7, 8)))
         >>> p1.vertex

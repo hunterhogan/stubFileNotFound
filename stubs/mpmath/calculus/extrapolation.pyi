@@ -201,7 +201,7 @@ def shanks(ctx, seq, table: Incomplete | None = None, randomized: bool = False):
     """
 
 class levin_class:
-    '''
+    """
     This interface implements Levin\'s (nonlinear) sequence transformation for
     convergence acceleration and summation of divergent series. It performs
     better than the Shanks/Wynn-epsilon algorithm for logarithmic convergent
@@ -283,7 +283,8 @@ class levin_class:
     by using the keyword ``method=\'sidi\'``. The Sidi-S transform works better than the
     Levin transformation for some divergent series (see the examples).
 
-    Parameters:
+    Parameters
+    ----------
 
     .. code ::
 
@@ -422,8 +423,8 @@ class levin_class:
         >>> print(mp.chop(exact-v))
         0.0
 
-    References:
-
+    References
+    ----------
       [1] E.J. Weniger - "Nonlinear Sequence Transformations for the Acceleration of
           Convergence and the Summation of Divergent Series" arXiv:math/0306302
 
@@ -431,7 +432,8 @@ class levin_class:
 
       [3] H.H.H. Homeier - "Scalar Levin-Type Sequence Transformations" arXiv:math/0005209
 
-    '''
+    """
+
     variant: Incomplete
     n: int
     a0: int
@@ -506,7 +508,7 @@ class levin_class:
 def levin(ctx, method: str = 'levin', variant: str = 'u'): ...
 
 class cohen_alt_class:
-    '''
+    """
     This interface implements the convergence acceleration of alternating series
     as described in H. Cohen, F.R. Villegas, D. Zagier - "Convergence Acceleration
     of Alternating Series". This series transformation works only well if the
@@ -591,7 +593,8 @@ class cohen_alt_class:
         >>> print(mp.chop(v - mp.diff(lambda s: mp.altzeta(s), -1)))
         0.0
 
-    '''
+    """
+
     last: int
     def __init__(self) -> None: ...
     def update(self, A):
@@ -668,7 +671,7 @@ def sumap(ctx, f, interval, integral: Incomplete | None = None, error: bool = Fa
 
     """
 def sumem(ctx, f, interval, tol: Incomplete | None = None, reject: int = 10, integral: Incomplete | None = None, adiffs: Incomplete | None = None, bdiffs: Incomplete | None = None, verbose: bool = False, error: bool = False, _fast_abort: bool = False):
-    '''
+    """
     Uses the Euler-Maclaurin formula to compute an approximation accurate
     to within ``tol`` (which defaults to the present epsilon) of the sum
 
@@ -729,10 +732,10 @@ def sumem(ctx, f, interval, tol: Incomplete | None = None, reject: int = 10, int
         >>> print(sum(n**5-12*n**2+3*n for n in range(-100000, 200001)))
         10500155000624963999742499550000
 
-    '''
+    """
 def adaptive_extrapolation(ctx, update, emfun, kwargs): ...
 def nsum(ctx, f, *intervals, **options):
-    '''
+    """
     Computes the sum
 
     .. math :: S = \\sum_{k=a}^b f(k)
@@ -1176,7 +1179,7 @@ def nsum(ctx, f, *intervals, **options):
     1. [Weisstein]_ http://mathworld.wolfram.com/DoubleSeries.html,
     2. [Weisstein]_ http://mathworld.wolfram.com/MadelungConstants.html
 
-    '''
+    """
 def wrapsafe(f): ...
 def standardize(ctx, f, intervals, options): ...
 def cartesian_product(args) -> Generator[Incomplete]: ...

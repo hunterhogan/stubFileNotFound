@@ -1,8 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterator
-from typing import Generic, TypeVar
-from typing_extensions import assert_type
+from typing import assert_type, Generic, TypeVar
 
 x: list[int] = []
 assert_type(list(reversed(x)), "list[int]")

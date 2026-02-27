@@ -1,4 +1,5 @@
-from sympy.calculus.util import continuous_domain as continuous_domain, function_range as function_range, periodicity as periodicity
+from sympy.calculus.util import (
+	continuous_domain as continuous_domain, function_range as function_range, periodicity as periodicity)
 from sympy.core import sympify as sympify
 from sympy.core.exprtools import factor_terms as factor_terms
 from sympy.core.function import expand_mul as expand_mul
@@ -7,7 +8,8 @@ from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol
 from sympy.functions.elementary.complexes import Abs as Abs
 from sympy.logic import And as And
-from sympy.polys import Poly as Poly, PolynomialError as PolynomialError, parallel_poly_from_expr as parallel_poly_from_expr
+from sympy.polys import (
+	parallel_poly_from_expr as parallel_poly_from_expr, Poly as Poly, PolynomialError as PolynomialError)
 from sympy.polys.polyutils import _nsort as _nsort
 from sympy.sets.sets import FiniteSet as FiniteSet, Intersection as Intersection, Interval as Interval, Union as Union
 from sympy.solvers.solveset import solveset as solveset, solvify as solvify
@@ -18,8 +20,7 @@ def solve_poly_inequality(poly, rel):
     """Solve a polynomial inequality with rational coefficients.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import solve_poly_inequality, Poly
     >>> from sympy.abc import x
 
@@ -33,15 +34,14 @@ def solve_poly_inequality(poly, rel):
     [{-1}, {1}]
 
     See Also
-    ========
+    --------
     solve_poly_inequalities
     """
 def solve_poly_inequalities(polys):
-    '''Solve polynomial inequalities with rational coefficients.
+    """Solve polynomial inequalities with rational coefficients.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Poly
     >>> from sympy.solvers.inequalities import solve_poly_inequalities
     >>> from sympy.abc import x
@@ -49,13 +49,12 @@ def solve_poly_inequalities(polys):
     ... Poly(x**2 - 3), ">"), (
     ... Poly(-x**2 + 1), ">")))
     Union(Interval.open(-oo, -sqrt(3)), Interval.open(-1, 1), Interval.open(sqrt(3), oo))
-    '''
+    """
 def solve_rational_inequalities(eqs):
     """Solve a system of rational inequalities with rational coefficients.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x
     >>> from sympy import solve_rational_inequalities, Poly
 
@@ -70,15 +69,14 @@ def solve_rational_inequalities(eqs):
     Union(Interval.open(-oo, 0), Interval.Lopen(0, 1))
 
     See Also
-    ========
+    --------
     solve_poly_inequality
     """
 def reduce_rational_inequalities(exprs, gen, relational: bool = True):
-    '''Reduce a system of rational inequalities with rational coefficients.
+    """Reduce a system of rational inequalities with rational coefficients.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol
     >>> from sympy.solvers.inequalities import reduce_rational_inequalities
 
@@ -101,13 +99,12 @@ def reduce_rational_inequalities(exprs, gen, relational: bool = True):
     >>> y = Symbol(\'y\', extended_real=True)
     >>> reduce_rational_inequalities([[y + 2 > 0]], y)
     (-2 < y) & (y < oo)
-    '''
+    """
 def reduce_abs_inequality(expr, rel, gen):
     """Reduce an inequality with nested absolute values.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import reduce_abs_inequality, Abs, Symbol
     >>> x = Symbol('x', real=True)
 
@@ -118,16 +115,14 @@ def reduce_abs_inequality(expr, rel, gen):
     (-19/3 < x) & (x < 7/3)
 
     See Also
-    ========
-
+    --------
     reduce_abs_inequalities
     """
 def reduce_abs_inequalities(exprs, gen):
     """Reduce a system of inequalities with nested absolute values.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import reduce_abs_inequalities, Abs, Symbol
     >>> x = Symbol('x', extended_real=True)
 
@@ -139,16 +134,14 @@ def reduce_abs_inequalities(exprs, gen):
     (1/2 < x) & (x < 4)
 
     See Also
-    ========
-
+    --------
     reduce_abs_inequality
     """
 def solve_univariate_inequality(expr, gen, relational: bool = True, domain=..., continuous: bool = False):
     """Solves a real univariate inequality.
 
     Parameters
-    ==========
-
+    ----------
     expr : Relational
         The target inequality
     gen : Symbol
@@ -162,27 +155,23 @@ def solve_univariate_inequality(expr, gen, relational: bool = True, domain=..., 
         (and so continuous_domain() does not need to be called on it)
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         The solution of the inequality cannot be determined due to limitation
         in :func:`sympy.solvers.solveset.solvify`.
 
     Notes
-    =====
-
+    -----
     Currently, we cannot solve all the inequalities due to limitations in
     :func:`sympy.solvers.solveset.solvify`. Also, the solution returned for trigonometric inequalities
     are restricted in its periodic interval.
 
     See Also
-    ========
-
+    --------
     sympy.solvers.solveset.solvify: solver returning solveset solutions with solve's output API
 
     Examples
-    ========
-
+    --------
     >>> from sympy import solve_univariate_inequality, Symbol, sin, Interval, S
     >>> x = Symbol('x')
 
@@ -203,7 +192,7 @@ def solve_univariate_inequality(expr, gen, relational: bool = True, domain=..., 
 def _pt(start, end):
     """Return a point between start and end"""
 def _solve_inequality(ie, s, linear: bool = False):
-    '''Return the inequality with s isolated on the left, if possible.
+    """Return the inequality with s isolated on the left, if possible.
     If the relationship is non-linear, a solution involving And or Or
     may be returned. False or True are returned if the relationship
     is never True or always True, respectively.
@@ -217,8 +206,7 @@ def _solve_inequality(ie, s, linear: bool = False):
     no division by a value not known to be nonzero is ever attempted.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Eq, Symbol
     >>> from sympy.solvers.inequalities import _solve_inequality as f
     >>> from sympy.abc import x, y
@@ -275,14 +263,13 @@ def _solve_inequality(ie, s, linear: bool = False):
 
     >>> f(x < x*(2/x - 1), x)
     (x < 1) & Ne(x, 0)
-    '''
+    """
 def _reduce_inequalities(inequalities, symbols): ...
 def reduce_inequalities(inequalities, symbols=[]):
     """Reduce a system of inequalities with rational coefficients.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y
     >>> from sympy import reduce_inequalities
 

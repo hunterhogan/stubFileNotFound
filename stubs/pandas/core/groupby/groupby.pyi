@@ -1,73 +1,23 @@
-from collections.abc import (
-    Callable,
-    Hashable,
-    Iterable,
-    Iterator,
-    Sequence,
-)
-import datetime as dt
-from typing import (
-    Any,
-    Concatenate,
-    Generic,
-    Literal,
-    Self,
-    TypeAlias,
-    TypeVar,
-    final,
-    overload,
-)
-
-import numpy as np
-from pandas.core.frame import DataFrame
-from pandas.core.groupby import generic
-from pandas.core.groupby.indexing import (
-    GroupByIndexingMixin,
-    GroupByNthSelector,
-)
-from pandas.core.indexers import BaseIndexer
-from pandas.core.indexes.api import Index
-from pandas.core.resample import (
-    DatetimeIndexResamplerGroupby,
-    PeriodIndexResamplerGroupby,
-    TimedeltaIndexResamplerGroupby,
-)
-from pandas.core.series import Series
-from pandas.core.window import (
-    ExpandingGroupby,
-    ExponentialMovingWindowGroupby,
-    RollingGroupby,
-)
-
+from collections.abc import Callable, Hashable, Iterable, Iterator, Sequence
 from pandas._libs.lib import NoDefault
 from pandas._libs.tslibs import BaseOffset
 from pandas._typing import (
-    S1,
-    AnyArrayLike,
-    Axis,
-    AxisInt,
-    CalculationMethod,
-    Dtype,
-    Frequency,
-    IndexLabel,
-    IntervalClosedType,
-    MaskType,
-    NDFrameT,
-    P,
-    RandomState,
-    Scalar,
-    T,
-    TimedeltaConvertibleTypes,
-    TimeGrouperOrigin,
-    TimestampConvention,
-    TimestampConvertibleTypes,
-    WindowingEngine,
-    WindowingEngineKwargs,
-    np_ndarray_dt,
-    np_ndarray_int64,
-)
-
+	AnyArrayLike, Axis, AxisInt, CalculationMethod, Dtype, Frequency, IndexLabel, IntervalClosedType, MaskType, NDFrameT,
+	np_ndarray_dt, np_ndarray_int64, P, RandomState, S1, Scalar, T, TimedeltaConvertibleTypes, TimeGrouperOrigin,
+	TimestampConvention, TimestampConvertibleTypes, WindowingEngine, WindowingEngineKwargs)
+from pandas.core.frame import DataFrame
+from pandas.core.groupby import generic
+from pandas.core.groupby.indexing import GroupByIndexingMixin, GroupByNthSelector
+from pandas.core.indexers import BaseIndexer
+from pandas.core.indexes.api import Index
+from pandas.core.resample import (
+	DatetimeIndexResamplerGroupby, PeriodIndexResamplerGroupby, TimedeltaIndexResamplerGroupby)
+from pandas.core.series import Series
+from pandas.core.window import ExpandingGroupby, ExponentialMovingWindowGroupby, RollingGroupby
 from pandas.plotting import PlotAccessor
+from typing import Any, Concatenate, final, Generic, Literal, overload, Self, TypeAlias, TypeVar
+import datetime as dt
+import numpy as np
 
 ResamplerGroupBy: TypeAlias = (
     DatetimeIndexResamplerGroupby[NDFrameT]

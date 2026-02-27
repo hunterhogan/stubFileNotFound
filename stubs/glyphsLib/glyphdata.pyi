@@ -54,4 +54,3 @@ def get_glyph(glyph_name, data: Incomplete | None = ..., unicodes: Incomplete | 
     The information is derived from an included copy of GlyphData.xml
     and GlyphData_Ideographs.xml, going by the glyph name or unicode fallback.
     """
-

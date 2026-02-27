@@ -1,13 +1,14 @@
 from .exceptions import NonSquareMatrixError as NonSquareMatrixError
-from sympy.utilities.iterables import connected_components as connected_components, flatten as flatten, strongly_connected_components as strongly_connected_components
+from sympy.utilities.iterables import (
+	connected_components as connected_components, flatten as flatten,
+	strongly_connected_components as strongly_connected_components)
 
 def _connected_components(M):
     """Returns the list of connected vertices of the graph when
     a square matrix is viewed as a weighted graph.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> A = Matrix([
     ...     [66, 0, 0, 68, 0, 0, 0, 0, 67],
@@ -23,8 +24,7 @@ def _connected_components(M):
     [[0, 3, 8], [1, 6, 7], [2, 4, 5]]
 
     Notes
-    =====
-
+    -----
     Even if any symbolic elements of the matrix can be indeterminate
     to be zero mathematically, this only takes the account of the
     structural aspect of the matrix, so they will considered to be
@@ -35,8 +35,7 @@ def _strongly_connected_components(M):
     a square matrix is viewed as a weighted graph.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> A = Matrix([
     ...     [44, 0, 0, 0, 43, 0, 45, 0, 0],
@@ -62,8 +61,7 @@ def _connected_components_decomposition(M):
     permutation matrix and $B$ is a block diagonal matrix.
 
     Returns
-    =======
-
+    -------
     P, B : PermutationMatrix, BlockDiagMatrix
         *P* is a permutation matrix for the similarity transform
         as in the explanation. And *B* is the block diagonal matrix of
@@ -74,8 +72,7 @@ def _connected_components_decomposition(M):
         :meth:`~sympy.matrices.expressions.blockmatrix.BlockDiagMatrix.get_diag_blocks`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, pprint
     >>> A = Matrix([
     ...     [66, 0, 0, 68, 0, 0, 0, 0, 67],
@@ -116,8 +113,7 @@ def _connected_components_decomposition(M):
     True
 
     Notes
-    =====
-
+    -----
     This problem corresponds to the finding of the connected components
     of a graph, when a matrix is viewed as a weighted graph.
     """
@@ -132,23 +128,20 @@ def _strongly_connected_components_decomposition(M, lower: bool = True):
     permutation matrix and $B$ is a block diagonal matrix.
 
     Parameters
-    ==========
-
+    ----------
     lower : bool
         Makes $B$ lower block triangular when ``True``.
         Otherwise, makes $B$ upper block triangular.
 
     Returns
-    =======
-
+    -------
     P, B : PermutationMatrix, BlockMatrix
         *P* is a permutation matrix for the similarity transform
         as in the explanation. And *B* is the block triangular matrix of
         the result of the permutation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, pprint
     >>> A = Matrix([
     ...     [44, 0, 0, 0, 43, 0, 45, 0, 0],

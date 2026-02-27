@@ -10,17 +10,20 @@ from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.functions.special.tensor_functions import KroneckerDelta as KroneckerDelta
 from sympy.matrices.expressions.matexpr import MatrixElement as MatrixElement
 from sympy.tensor.array.expressions import ArrayElementwiseApplyFunc as ArrayElementwiseApplyFunc
-from sympy.tensor.array.expressions.array_expressions import ArrayAdd as ArrayAdd, ArrayDiagonal as ArrayDiagonal, ArrayElement as ArrayElement, OneArray as OneArray, _array_add as _array_add, _array_contraction as _array_contraction, _array_diagonal as _array_diagonal, _array_tensor_product as _array_tensor_product, _permute_dims as _permute_dims, get_shape as get_shape
-from sympy.tensor.array.expressions.utils import _get_argindex as _get_argindex, _get_diagonal_indices as _get_diagonal_indices
+from sympy.tensor.array.expressions.array_expressions import (
+	_array_add as _array_add, _array_contraction as _array_contraction, _array_diagonal as _array_diagonal,
+	_array_tensor_product as _array_tensor_product, _permute_dims as _permute_dims, ArrayAdd as ArrayAdd,
+	ArrayDiagonal as ArrayDiagonal, ArrayElement as ArrayElement, get_shape as get_shape, OneArray as OneArray)
+from sympy.tensor.array.expressions.utils import (
+	_get_argindex as _get_argindex, _get_diagonal_indices as _get_diagonal_indices)
 from sympy.tensor.indexed import Indexed as Indexed, IndexedBase as IndexedBase
 
 def convert_indexed_to_array(expr, first_indices=None):
-    '''
+    """
     Parse indexed expression into a form useful for code generation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.tensor.array.expressions.from_indexed_to_array import convert_indexed_to_array
     >>> from sympy import MatrixSymbol, Sum, symbols
 
@@ -56,5 +59,5 @@ def convert_indexed_to_array(expr, first_indices=None):
 
     >>> convert_indexed_to_array(expr, first_indices=[k])
     ArrayContraction(ArrayTensorProduct(N, M), (0, 3))
-    '''
+    """
 def _convert_indexed_to_array(expr): ...

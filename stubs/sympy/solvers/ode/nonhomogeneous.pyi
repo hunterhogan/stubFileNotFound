@@ -4,11 +4,14 @@ from sympy.core.function import _mexpand as _mexpand, diff as diff, expand as ex
 from sympy.core.relational import Eq as Eq
 from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.core.symbol import Dummy as Dummy, Wild as Wild
-from sympy.functions import atan2 as atan2, conjugate as conjugate, cos as cos, cosh as cosh, exp as exp, im as im, log as log, re as re, sin as sin, sinh as sinh
+from sympy.functions import (
+	atan2 as atan2, conjugate as conjugate, cos as cos, cosh as cosh, exp as exp, im as im, log as log, re as re,
+	sin as sin, sinh as sinh)
 from sympy.integrals import Integral as Integral
 from sympy.matrices import wronskian as wronskian
 from sympy.polys import Poly as Poly, RootOf as RootOf, rootof as rootof, roots as roots
-from sympy.simplify import collect as collect, powsimp as powsimp, separatevars as separatevars, simplify as simplify, trigsimp as trigsimp
+from sympy.simplify import (
+	collect as collect, powsimp as powsimp, separatevars as separatevars, simplify as simplify, trigsimp as trigsimp)
 from sympy.solvers.ode.ode import get_numbered_constants as get_numbered_constants
 from sympy.solvers.solvers import solve as solve
 from sympy.utilities import numbered_symbols as numbered_symbols
@@ -93,8 +96,7 @@ def _undetermined_coefficients_match(expr, x, func=None, eq_homogeneous=...):
     it.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import log, exp
     >>> from sympy.solvers.ode.nonhomogeneous import _undetermined_coefficients_match
     >>> from sympy.abc import x

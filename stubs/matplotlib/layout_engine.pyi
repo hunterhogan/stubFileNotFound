@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from matplotlib._constrained_layout import do_constrained_layout as do_constrained_layout
-from matplotlib._tight_layout import get_subplotspec_list as get_subplotspec_list, get_tight_layout_figure as get_tight_layout_figure
+from matplotlib._tight_layout import (
+	get_subplotspec_list as get_subplotspec_list, get_tight_layout_figure as get_tight_layout_figure)
 
 class LayoutEngine:
     """
@@ -33,6 +34,7 @@ class LayoutEngine:
     3. override `LayoutEngine.execute` with your implementation
 
     """
+
     _adjust_compatible: Incomplete
     _colorbar_gridspec: Incomplete
     _params: Incomplete
@@ -76,6 +78,7 @@ class PlaceHolderLayoutEngine(LayoutEngine):
         layout engine it is replacing.
 
     """
+
     _adjust_compatible: Incomplete
     _colorbar_gridspec: Incomplete
     def __init__(self, adjust_compatible, colorbar_gridspec, **kwargs) -> None: ...
@@ -89,6 +92,7 @@ class TightLayoutEngine(LayoutEngine):
     Implements the ``tight_layout`` geometry management.  See
     :ref:`tight_layout_guide` for details.
     """
+
     _adjust_compatible: bool
     _colorbar_gridspec: bool
     def __init__(self, *, pad: float = 1.08, h_pad: Incomplete | None = None, w_pad: Incomplete | None = None, rect=(0, 0, 1, 1), **kwargs) -> None:
@@ -146,6 +150,7 @@ class ConstrainedLayoutEngine(LayoutEngine):
     Implements the ``constrained_layout`` geometry management.  See
     :ref:`constrainedlayout_guide` for details.
     """
+
     _adjust_compatible: bool
     _colorbar_gridspec: bool
     _compress: Incomplete

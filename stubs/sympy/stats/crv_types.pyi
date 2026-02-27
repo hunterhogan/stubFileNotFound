@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from sympy.stats.crv import SingleContinuousDistribution
 
-__all__ = ['ContinuousRV', 'Arcsin', 'Benini', 'Beta', 'BetaNoncentral', 'BetaPrime', 'BoundedPareto', 'Cauchy', 'Chi', 'ChiNoncentral', 'ChiSquared', 'Dagum', 'Davis', 'Erlang', 'ExGaussian', 'Exponential', 'ExponentialPower', 'FDistribution', 'FisherZ', 'Frechet', 'Gamma', 'GammaInverse', 'Gompertz', 'Gumbel', 'Kumaraswamy', 'Laplace', 'Levy', 'LogCauchy', 'Logistic', 'LogLogistic', 'LogitNormal', 'LogNormal', 'Lomax', 'Maxwell', 'Moyal', 'Nakagami', 'Normal', 'GaussianInverse', 'Pareto', 'PowerFunction', 'QuadraticU', 'RaisedCosine', 'Rayleigh', 'Reciprocal', 'StudentT', 'ShiftedGompertz', 'Trapezoidal', 'Triangular', 'Uniform', 'UniformSum', 'VonMises', 'Wald', 'Weibull', 'WignerSemicircle']
+__all__ = ['Arcsin', 'Benini', 'Beta', 'BetaNoncentral', 'BetaPrime', 'BoundedPareto', 'Cauchy', 'Chi', 'ChiNoncentral', 'ChiSquared', 'ContinuousRV', 'Dagum', 'Davis', 'Erlang', 'ExGaussian', 'Exponential', 'ExponentialPower', 'FDistribution', 'FisherZ', 'Frechet', 'Gamma', 'GammaInverse', 'GaussianInverse', 'Gompertz', 'Gumbel', 'Kumaraswamy', 'Laplace', 'Levy', 'LogCauchy', 'LogLogistic', 'LogNormal', 'Logistic', 'LogitNormal', 'Lomax', 'Maxwell', 'Moyal', 'Nakagami', 'Normal', 'Pareto', 'PowerFunction', 'QuadraticU', 'RaisedCosine', 'Rayleigh', 'Reciprocal', 'ShiftedGompertz', 'StudentT', 'Trapezoidal', 'Triangular', 'Uniform', 'UniformSum', 'VonMises', 'Wald', 'Weibull', 'WignerSemicircle']
 
 class ContinuousDistributionHandmade(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -12,12 +12,11 @@ class ContinuousDistributionHandmade(SingleContinuousDistribution):
     def check(pdf, set) -> None: ...
 
 def ContinuousRV(symbol, density, set=..., **kwargs):
-    '''
+    """
     Create a Continuous Random Variable given the following:
 
     Parameters
-    ==========
-
+    ----------
     symbol : Symbol
         Represents name of the random variable.
     density : Expression containing symbol
@@ -31,8 +30,7 @@ def ContinuousRV(symbol, density, set=..., **kwargs):
 
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Many common continuous random variable types are already implemented.
@@ -40,8 +38,7 @@ def ContinuousRV(symbol, density, set=..., **kwargs):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, sqrt, exp, pi
     >>> from sympy.stats import ContinuousRV, P, E
 
@@ -54,7 +51,7 @@ def ContinuousRV(symbol, density, set=..., **kwargs):
     0
     >>> P(X>0)
     1/2
-    '''
+    """
 
 class ArcsinDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -64,7 +61,7 @@ class ArcsinDistribution(SingleContinuousDistribution):
     def _cdf(self, x): ...
 
 def Arcsin(name, a: int = 0, b: int = 1):
-    '''
+    """
     Create a Continuous Random Variable with an arcsin distribution.
 
     The density of the arcsin distribution is given by
@@ -75,19 +72,16 @@ def Arcsin(name, a: int = 0, b: int = 1):
     with :math:`x \\in (a,b)`. It must hold that :math:`-\\infty < a < b < \\infty`.
 
     Parameters
-    ==========
-
+    ----------
     a : Real number, the left interval boundary
     b : Real number, the right interval boundary
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Arcsin, density, cdf
     >>> from sympy import Symbol
 
@@ -107,11 +101,11 @@ def Arcsin(name, a: int = 0, b: int = 1):
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Arcsine_distribution
 
-    '''
+    """
 
 class BeniniDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -123,7 +117,7 @@ class BeniniDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t) -> None: ...
 
 def Benini(name, alpha, beta, sigma):
-    '''
+    """
     Create a Continuous Random Variable with a Benini distribution.
 
     The density of the Benini distribution is given by
@@ -137,20 +131,17 @@ def Benini(name, alpha, beta, sigma):
     distribution.
 
     Parameters
-    ==========
-
+    ----------
     alpha : Real number, `\\alpha > 0`, a shape
     beta : Real number, `\\beta > 0`, a shape
     sigma : Real number, `\\sigma > 0`, a scale
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Benini, density, cdf
     >>> from sympy import Symbol, pprint
 
@@ -174,12 +165,12 @@ def Benini(name, alpha, beta, sigma):
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Benini_distribution
     .. [2] https://reference.wolfram.com/legacy/v8/ref/BeniniDistribution.html
 
-    '''
+    """
 
 class BetaDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -191,7 +182,7 @@ class BetaDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t): ...
 
 def Beta(name, alpha, beta):
-    '''
+    """
     Create a Continuous Random Variable with a Beta distribution.
 
     The density of the Beta distribution is given by
@@ -202,19 +193,16 @@ def Beta(name, alpha, beta):
     with :math:`x \\in [0,1]`.
 
     Parameters
-    ==========
-
+    ----------
     alpha : Real number, `\\alpha > 0`, a shape
     beta : Real number, `\\beta > 0`, a shape
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Beta, density, E, variance
     >>> from sympy import Symbol, simplify, pprint, factor
 
@@ -238,12 +226,12 @@ def Beta(name, alpha, beta):
     alpha*beta/((alpha + beta)**2*(alpha + beta + 1))
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Beta_distribution
     .. [2] https://mathworld.wolfram.com/BetaDistribution.html
 
-    '''
+    """
 
 class BetaNoncentralDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -253,7 +241,7 @@ class BetaNoncentralDistribution(SingleContinuousDistribution):
     def pdf(self, x): ...
 
 def BetaNoncentral(name, alpha, beta, lamda):
-    '''
+    """
     Create a Continuous Random Variable with a Type I Noncentral Beta distribution.
 
     The density of the Noncentral Beta distribution is given by
@@ -265,20 +253,17 @@ def BetaNoncentral(name, alpha, beta, lamda):
     with :math:`x \\in [0,1]`.
 
     Parameters
-    ==========
-
+    ----------
     alpha : Real number, `\\alpha > 0`, a shape
     beta : Real number, `\\beta > 0`, a shape
     lamda : Real number, `\\lambda \\geq 0`, noncentrality parameter
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import BetaNoncentral, density, cdf
     >>> from sympy import Symbol, pprint
 
@@ -313,12 +298,12 @@ def BetaNoncentral(name, alpha, beta, lamda):
     of the sum for general x, before the argument 2 is passed.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Noncentral_beta_distribution
     .. [2] https://reference.wolfram.com/language/ref/NoncentralBetaDistribution.html
 
-    '''
+    """
 
 class BetaPrimeDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -328,7 +313,7 @@ class BetaPrimeDistribution(SingleContinuousDistribution):
     def pdf(self, x): ...
 
 def BetaPrime(name, alpha, beta):
-    '''
+    """
     Create a continuous random variable with a Beta prime distribution.
 
     The density of the Beta prime distribution is given by
@@ -339,19 +324,16 @@ def BetaPrime(name, alpha, beta):
     with :math:`x > 0`.
 
     Parameters
-    ==========
-
+    ----------
     alpha : Real number, `\\alpha > 0`, a shape
     beta : Real number, `\\beta > 0`, a shape
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import BetaPrime, density
     >>> from sympy import Symbol, pprint
 
@@ -369,12 +351,12 @@ def BetaPrime(name, alpha, beta):
              B(alpha, beta)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Beta_prime_distribution
     .. [2] https://mathworld.wolfram.com/BetaPrimeDistribution.html
 
-    '''
+    """
 
 class BoundedParetoDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -394,8 +376,7 @@ def BoundedPareto(name, alpha, left, right):
         f(x) := \\frac{\\alpha L^{\\alpha}x^{-\\alpha-1}}{1-(\\frac{L}{H})^{\\alpha}}
 
     Parameters
-    ==========
-
+    ----------
     alpha : Real Number, `\\alpha > 0`
         Shape parameter
     left : Real Number, `left > 0`
@@ -404,8 +385,7 @@ def BoundedPareto(name, alpha, left, right):
         Location parameter
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import BoundedPareto, density, cdf, E
     >>> from sympy import symbols
     >>> L, H = symbols('L, H', positive=True)
@@ -419,12 +399,11 @@ def BoundedPareto(name, alpha, left, right):
     2*H*L/(H + L)
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Pareto_distribution#Bounded_Pareto_distribution
 
@@ -441,7 +420,7 @@ class CauchyDistribution(SingleContinuousDistribution):
     def _quantile(self, p): ...
 
 def Cauchy(name, x0, gamma):
-    '''
+    """
     Create a continuous random variable with a Cauchy distribution.
 
     The density of the Cauchy distribution is given by
@@ -450,19 +429,16 @@ def Cauchy(name, x0, gamma):
         f(x) := \\frac{1}{\\pi \\gamma [1 + {(\\frac{x-x_0}{\\gamma})}^2]}
 
     Parameters
-    ==========
-
+    ----------
     x0 : Real number, the location
     gamma : Real number, `\\gamma > 0`, a scale
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Cauchy, density
     >>> from sympy import Symbol
 
@@ -476,12 +452,12 @@ def Cauchy(name, x0, gamma):
     1/(pi*gamma*(1 + (-x0 + z)**2/gamma**2))
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Cauchy_distribution
     .. [2] https://mathworld.wolfram.com/CauchyDistribution.html
 
-    '''
+    """
 
 class ChiDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -493,7 +469,7 @@ class ChiDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t): ...
 
 def Chi(name, k):
-    '''
+    """
     Create a continuous random variable with a Chi distribution.
 
     The density of the Chi distribution is given by
@@ -504,18 +480,15 @@ def Chi(name, k):
     with :math:`x \\geq 0`.
 
     Parameters
-    ==========
-
+    ----------
     k : Positive integer, The number of degrees of freedom
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Chi, density, E
     >>> from sympy import Symbol, simplify
 
@@ -531,12 +504,12 @@ def Chi(name, k):
     sqrt(2)*gamma(k/2 + 1/2)/gamma(k/2)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Chi_distribution
     .. [2] https://mathworld.wolfram.com/ChiDistribution.html
 
-    '''
+    """
 
 class ChiNoncentralDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -546,7 +519,7 @@ class ChiNoncentralDistribution(SingleContinuousDistribution):
     def pdf(self, x): ...
 
 def ChiNoncentral(name, k, l):
-    '''
+    """
     Create a continuous random variable with a non-central Chi distribution.
 
     Explanation
@@ -562,21 +535,18 @@ def ChiNoncentral(name, k, l):
     :ref:`modified Bessel function of the first kind <besseli>`.
 
     Parameters
-    ==========
-
+    ----------
     k : A positive Integer, $k > 0$
         The number of degrees of freedom.
     lambda : Real number, `\\lambda > 0`
         Shift parameter.
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import ChiNoncentral, density
     >>> from sympy import Symbol
 
@@ -590,10 +560,10 @@ def ChiNoncentral(name, k, l):
     l*z**k*exp(-l**2/2 - z**2/2)*besseli(k/2 - 1, l*z)/(l*z)**(k/2)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Noncentral_chi_distribution
-    '''
+    """
 
 class ChiSquaredDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -606,7 +576,7 @@ class ChiSquaredDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t): ...
 
 def ChiSquared(name, k):
-    '''
+    """
     Create a continuous random variable with a Chi-squared distribution.
 
     Explanation
@@ -621,19 +591,16 @@ def ChiSquared(name, k):
     with :math:`x \\geq 0`.
 
     Parameters
-    ==========
-
+    ----------
     k : Positive integer
         The number of degrees of freedom.
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import ChiSquared, density, E, variance, moment
     >>> from sympy import Symbol
 
@@ -655,11 +622,11 @@ def ChiSquared(name, k):
     k**3 + 6*k**2 + 8*k
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Chi_squared_distribution
     .. [2] https://mathworld.wolfram.com/Chi-SquaredDistribution.html
-    '''
+    """
 
 class DagumDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -670,7 +637,7 @@ class DagumDistribution(SingleContinuousDistribution):
     def _cdf(self, x): ...
 
 def Dagum(name, p, a, b):
-    '''
+    """
     Create a continuous random variable with a Dagum distribution.
 
     Explanation
@@ -685,8 +652,7 @@ def Dagum(name, p, a, b):
     with :math:`x > 0`.
 
     Parameters
-    ==========
-
+    ----------
     p : Real number
         `p > 0`, a shape.
     a : Real number
@@ -695,13 +661,11 @@ def Dagum(name, p, a, b):
         `b > 0`, a scale.
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Dagum, density, cdf
     >>> from sympy import Symbol
 
@@ -720,11 +684,11 @@ def Dagum(name, p, a, b):
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Dagum_distribution
 
-    '''
+    """
 
 class DavisDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -734,7 +698,7 @@ class DavisDistribution(SingleContinuousDistribution):
     def pdf(self, x): ...
 
 def Davis(name, b, n, mu):
-    ''' Create a continuous random variable with Davis distribution.
+    """Create a continuous random variable with Davis distribution.
 
     Explanation
     ===========
@@ -749,7 +713,7 @@ def Davis(name, b, n, mu):
     Davis distribution is a generalization of the Planck\'s law of radiation from statistical physics. It is used for modeling income distribution.
 
     Parameters
-    ==========
+    ----------
     b : Real number
         `p > 0`, a scale.
     n : Real number
@@ -758,12 +722,11 @@ def Davis(name, b, n, mu):
         `mu > 0`, a location.
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
+    --------
     >>> from sympy.stats import Davis, density
     >>> from sympy import Symbol
     >>> b = Symbol("b", positive=True)
@@ -775,14 +738,14 @@ def Davis(name, b, n, mu):
     b**n*(-mu + z)**(-n - 1)/((exp(b/(-mu + z)) - 1)*gamma(n)*zeta(n))
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Davis_distribution
     .. [2] https://reference.wolfram.com/language/ref/DavisDistribution.html
 
-    '''
+    """
 def Erlang(name, k, l):
-    '''
+    """
     Create a continuous random variable with an Erlang distribution.
 
     Explanation
@@ -796,19 +759,16 @@ def Erlang(name, k, l):
     with :math:`x \\in [0,\\infty]`.
 
     Parameters
-    ==========
-
+    ----------
     k : Positive integer
     l : Real number, `\\lambda > 0`, the rate
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Erlang, density, cdf, E, variance
     >>> from sympy import Symbol, simplify, pprint
 
@@ -841,12 +801,12 @@ def Erlang(name, k, l):
     k/l**2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Erlang_distribution
     .. [2] https://mathworld.wolfram.com/ErlangDistribution.html
 
-    '''
+    """
 
 class ExGaussianDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -859,7 +819,7 @@ class ExGaussianDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t): ...
 
 def ExGaussian(name, mean, std, rate):
-    '''
+    """
     Create a continuous random variable with an Exponentially modified
     Gaussian (EMG) distribution.
 
@@ -875,8 +835,7 @@ def ExGaussian(name, mean, std, rate):
     with $x > 0$. Note that the expected value is `1/\\lambda`.
 
     Parameters
-    ==========
-
+    ----------
     name : A string giving a name for this distribution
     mean : A Real number, the mean of Gaussian component
     std : A positive Real number,
@@ -885,13 +844,11 @@ def ExGaussian(name, mean, std, rate):
         :math: `\\lambda > 0` the rate of Exponential component
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import ExGaussian, density, cdf, E
     >>> from sympy.stats import variance, skewness
     >>> from sympy import Symbol, pprint, simplify
@@ -923,10 +880,10 @@ def ExGaussian(name, mean, std, rate):
     2/(lamda**2*sigma**2 + 1)**(3/2)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Exponentially_modified_Gaussian_distribution
-    '''
+    """
 
 class ExponentialDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -940,7 +897,7 @@ class ExponentialDistribution(SingleContinuousDistribution):
     def _quantile(self, p): ...
 
 def Exponential(name, rate):
-    '''
+    """
     Create a continuous random variable with an Exponential distribution.
 
     Explanation
@@ -954,18 +911,15 @@ def Exponential(name, rate):
     with $x > 0$. Note that the expected value is `1/\\lambda`.
 
     Parameters
-    ==========
-
+    ----------
     rate : A positive Real number, `\\lambda > 0`, the rate (or inverse scale/inverse mean)
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Exponential, density, cdf, E
     >>> from sympy.stats import variance, std, skewness, quantile
     >>> from sympy import Symbol
@@ -1005,12 +959,12 @@ def Exponential(name, rate):
     1/10
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Exponential_distribution
     .. [2] https://mathworld.wolfram.com/ExponentialDistribution.html
 
-    '''
+    """
 
 class ExponentialPowerDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -1021,7 +975,7 @@ class ExponentialPowerDistribution(SingleContinuousDistribution):
     def _cdf(self, x): ...
 
 def ExponentialPower(name, mu, alpha, beta):
-    '''
+    """
     Create a Continuous Random Variable with Exponential Power distribution.
     This distribution is known also as Generalized Normal
     distribution version 1.
@@ -1038,8 +992,7 @@ def ExponentialPower(name, mu, alpha, beta):
     with :math:`x \\in [ - \\infty, \\infty ]`.
 
     Parameters
-    ==========
-
+    ----------
     mu : Real number
         A location.
     alpha : Real number,`\\alpha > 0`
@@ -1048,13 +1001,11 @@ def ExponentialPower(name, mu, alpha, beta):
         A shape.
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import ExponentialPower, density, cdf
     >>> from sympy import Symbol, pprint
     >>> z = Symbol("z")
@@ -1074,12 +1025,12 @@ def ExponentialPower(name, mu, alpha, beta):
     1/2 + lowergamma(1/beta, (Abs(mu - z)/alpha)**beta)*sign(-mu + z)/(2*gamma(1/beta))
 
     References
-    ==========
+    ----------
 
     .. [1] https://reference.wolfram.com/language/ref/ExponentialPowerDistribution.html
     .. [2] https://en.wikipedia.org/wiki/Generalized_normal_distribution#Version_1
 
-    '''
+    """
 
 class FDistributionDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -1090,7 +1041,7 @@ class FDistributionDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t) -> None: ...
 
 def FDistribution(name, d1, d2):
-    '''
+    """
     Create a continuous random variable with a F distribution.
 
     Explanation
@@ -1106,19 +1057,16 @@ def FDistribution(name, d1, d2):
     with :math:`x > 0`.
 
     Parameters
-    ==========
-
+    ----------
     d1 : `d_1 > 0`, where `d_1` is the degrees of freedom (`n_1 - 1`)
     d2 : `d_2 > 0`, where `d_2` is the degrees of freedom (`n_2 - 1`)
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import FDistribution, density
     >>> from sympy import Symbol, pprint
 
@@ -1139,12 +1087,12 @@ def FDistribution(name, d1, d2):
                     \\2   2 /
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/F-distribution
     .. [2] https://mathworld.wolfram.com/F-Distribution.html
 
-    '''
+    """
 
 class FisherZDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -1154,7 +1102,7 @@ class FisherZDistribution(SingleContinuousDistribution):
     def pdf(self, x): ...
 
 def FisherZ(name, d1, d2):
-    '''
+    """
     Create a Continuous Random Variable with an Fisher\'s Z distribution.
 
     Explanation
@@ -1170,21 +1118,18 @@ def FisherZ(name, d1, d2):
     .. TODO - What is the difference between these degrees of freedom?
 
     Parameters
-    ==========
-
+    ----------
     d1 : `d_1 > 0`
         Degree of freedom.
     d2 : `d_2 > 0`
         Degree of freedom.
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import FisherZ, density
     >>> from sympy import Symbol, pprint
 
@@ -1206,12 +1151,12 @@ def FisherZ(name, d1, d2):
                      \\2   2 /
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Fisher%27s_z-distribution
     .. [2] https://mathworld.wolfram.com/Fishersz-Distribution.html
 
-    '''
+    """
 
 class FrechetDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -1223,7 +1168,7 @@ class FrechetDistribution(SingleContinuousDistribution):
     def _cdf(self, x): ...
 
 def Frechet(name, a, s: int = 1, m: int = 0):
-    '''
+    """
     Create a continuous random variable with a Frechet distribution.
 
     Explanation
@@ -1238,20 +1183,17 @@ def Frechet(name, a, s: int = 1, m: int = 0):
     with :math:`x \\geq m`.
 
     Parameters
-    ==========
-
+    ----------
     a : Real number, :math:`a \\in \\left(0, \\infty\\right)` the shape
     s : Real number, :math:`s \\in \\left(0, \\infty\\right)` the scale
     m : Real number, :math:`m \\in \\left(-\\infty, \\infty\\right)` the minimum
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Frechet, density, cdf
     >>> from sympy import Symbol
 
@@ -1269,11 +1211,11 @@ def Frechet(name, a, s: int = 1, m: int = 0):
     Piecewise((exp(-1/((-m + z)/s)**a), m <= z), (0, True))
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Fr%C3%A9chet_distribution
 
-    '''
+    """
 
 class GammaDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -1286,7 +1228,7 @@ class GammaDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t): ...
 
 def Gamma(name, k, theta):
-    '''
+    """
     Create a continuous random variable with a Gamma distribution.
 
     Explanation
@@ -1300,19 +1242,16 @@ def Gamma(name, k, theta):
     with :math:`x \\in [0,1]`.
 
     Parameters
-    ==========
-
+    ----------
     k : Real number, `k > 0`, a shape
     theta : Real number, `\\theta > 0`, a scale
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Gamma, density, cdf, E, variance
     >>> from sympy import Symbol, pprint, simplify
 
@@ -1350,12 +1289,12 @@ def Gamma(name, k, theta):
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Gamma_distribution
     .. [2] https://mathworld.wolfram.com/GammaDistribution.html
 
-    '''
+    """
 
 class GammaInverseDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -1368,7 +1307,7 @@ class GammaInverseDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t) -> None: ...
 
 def GammaInverse(name, a, b):
-    '''
+    """
     Create a continuous random variable with an inverse Gamma distribution.
 
     Explanation
@@ -1383,19 +1322,16 @@ def GammaInverse(name, a, b):
     with :math:`x > 0`.
 
     Parameters
-    ==========
-
+    ----------
     a : Real number, `a > 0`, a shape
     b : Real number, `b > 0`, a scale
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import GammaInverse, density, cdf
     >>> from sympy import Symbol, pprint
 
@@ -1419,11 +1355,11 @@ def GammaInverse(name, a, b):
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Inverse-gamma_distribution
 
-    '''
+    """
 
 class GumbelDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -1436,7 +1372,7 @@ class GumbelDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t): ...
 
 def Gumbel(name, beta, mu, minimum: bool = False):
-    '''
+    """
     Create a Continuous Random Variable with Gumbel distribution.
 
     Explanation
@@ -1460,20 +1396,17 @@ def Gumbel(name, beta, mu, minimum: bool = False):
     with :math:`x \\in [ - \\infty, \\infty ]`.
 
     Parameters
-    ==========
-
+    ----------
     mu : Real number, `\\mu`, a location
     beta : Real number, `\\beta > 0`, a scale
     minimum : Boolean, by default ``False``, set to ``True`` for enabling minimum distribution
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Gumbel, density, cdf
     >>> from sympy import Symbol
     >>> x = Symbol("x")
@@ -1486,14 +1419,14 @@ def Gumbel(name, beta, mu, minimum: bool = False):
     exp(-exp(-(-mu + x)/beta))
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/GumbelDistribution.html
     .. [2] https://en.wikipedia.org/wiki/Gumbel_distribution
     .. [3] https://web.archive.org/web/20200628222206/http://www.mathwave.com/help/easyfit/html/analyses/distributions/gumbel_max.html
     .. [4] https://web.archive.org/web/20200628222212/http://www.mathwave.com/help/easyfit/html/analyses/distributions/gumbel_min.html
 
-    '''
+    """
 
 class GompertzDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -1505,7 +1438,7 @@ class GompertzDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t): ...
 
 def Gompertz(name, b, eta):
-    '''
+    """
     Create a Continuous Random Variable with Gompertz distribution.
 
     Explanation
@@ -1519,19 +1452,16 @@ def Gompertz(name, b, eta):
     with :math:`x \\in [0, \\infty)`.
 
     Parameters
-    ==========
-
+    ----------
     b : Real number, `b > 0`, a scale
     eta : Real number, `\\eta > 0`, a shape
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Gompertz, density
     >>> from sympy import Symbol
 
@@ -1545,11 +1475,11 @@ def Gompertz(name, b, eta):
     b*eta*exp(eta)*exp(b*z)*exp(-eta*exp(b*z))
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Gompertz_distribution
 
-    '''
+    """
 
 class KumaraswamyDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -1560,7 +1490,7 @@ class KumaraswamyDistribution(SingleContinuousDistribution):
     def _cdf(self, x): ...
 
 def Kumaraswamy(name, a, b):
-    '''
+    """
     Create a Continuous Random Variable with a Kumaraswamy distribution.
 
     Explanation
@@ -1574,19 +1504,16 @@ def Kumaraswamy(name, a, b):
     with :math:`x \\in [0,1]`.
 
     Parameters
-    ==========
-
+    ----------
     a : Real number, `a > 0`, a shape
     b : Real number, `b > 0`, a shape
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Kumaraswamy, density, cdf
     >>> from sympy import Symbol, pprint
 
@@ -1605,11 +1532,11 @@ def Kumaraswamy(name, a, b):
     Piecewise((0, z < 0), (1 - (1 - z**a)**b, z <= 1), (1, True))
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Kumaraswamy_distribution
 
-    '''
+    """
 
 class LaplaceDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -1622,7 +1549,7 @@ class LaplaceDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t): ...
 
 def Laplace(name, mu, b):
-    '''
+    """
     Create a continuous random variable with a Laplace distribution.
 
     Explanation
@@ -1634,21 +1561,18 @@ def Laplace(name, mu, b):
         f(x) := \\frac{1}{2 b} \\exp \\left(-\\frac{|x-\\mu|}b \\right)
 
     Parameters
-    ==========
-
+    ----------
     mu : Real number or a list/matrix, the location (mean) or the
         location vector
     b : Real number or a positive definite matrix, representing a scale
         or the covariance matrix.
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Laplace, density, cdf
     >>> from sympy import Symbol, pprint
 
@@ -1671,12 +1595,12 @@ def Laplace(name, mu, b):
               pi
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Laplace_distribution
     .. [2] https://mathworld.wolfram.com/LaplaceDistribution.html
 
-    '''
+    """
 
 class LevyDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -1690,7 +1614,7 @@ class LevyDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t) -> None: ...
 
 def Levy(name, mu, c):
-    '''
+    """
     Create a continuous random variable with a Levy distribution.
 
     The density of the Levy distribution is given by
@@ -1699,21 +1623,18 @@ def Levy(name, mu, c):
         f(x) := \\sqrt(\\frac{c}{2 \\pi}) \\frac{\\exp -\\frac{c}{2 (x - \\mu)}}{(x - \\mu)^{3/2}}
 
     Parameters
-    ==========
-
+    ----------
     mu : Real number
         The location parameter.
     c : Real number, `c > 0`
         A scale parameter.
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Levy, density, cdf
     >>> from sympy import Symbol
 
@@ -1730,10 +1651,10 @@ def Levy(name, mu, c):
     erfc(sqrt(c)*sqrt(1/(-2*mu + 2*z)))
 
     References
-    ==========
+    ----------
     .. [1] https://en.wikipedia.org/wiki/L%C3%A9vy_distribution
     .. [2] https://mathworld.wolfram.com/LevyDistribution.html
-    '''
+    """
 
 class LogCauchyDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -1746,7 +1667,7 @@ class LogCauchyDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t) -> None: ...
 
 def LogCauchy(name, mu, sigma):
-    '''
+    """
     Create a continuous random variable with a Log-Cauchy distribution.
     The density of the Log-Cauchy distribution is given by
 
@@ -1754,20 +1675,17 @@ def LogCauchy(name, mu, sigma):
         f(x) := \\frac{1}{\\pi x} \\frac{\\sigma}{(log(x)-\\mu^2) + \\sigma^2}
 
     Parameters
-    ==========
-
+    ----------
     mu : Real number, the location
 
     sigma : Real number, `\\sigma > 0`, a scale
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import LogCauchy, density, cdf
     >>> from sympy import Symbol, S
 
@@ -1784,10 +1702,10 @@ def LogCauchy(name, mu, sigma):
     atan(5*log(z) - 10)/pi + 1/2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Log-Cauchy_distribution
-    '''
+    """
 
 class LogisticDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -1801,7 +1719,7 @@ class LogisticDistribution(SingleContinuousDistribution):
     def _quantile(self, p): ...
 
 def Logistic(name, mu, s):
-    '''
+    """
     Create a continuous random variable with a logistic distribution.
 
     Explanation
@@ -1813,19 +1731,16 @@ def Logistic(name, mu, s):
         f(x) := \\frac{e^{-(x-\\mu)/s}} {s\\left(1+e^{-(x-\\mu)/s}\\right)^2}
 
     Parameters
-    ==========
-
+    ----------
     mu : Real number, the location (mean)
     s : Real number, `s > 0`, a scale
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Logistic, density, cdf
     >>> from sympy import Symbol
 
@@ -1842,12 +1757,12 @@ def Logistic(name, mu, s):
     1/(exp((mu - z)/s) + 1)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Logistic_distribution
     .. [2] https://mathworld.wolfram.com/LogisticDistribution.html
 
-    '''
+    """
 
 class LogLogisticDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -1860,7 +1775,7 @@ class LogLogisticDistribution(SingleContinuousDistribution):
     def expectation(self, expr, var, **kwargs): ...
 
 def LogLogistic(name, alpha, beta):
-    '''
+    """
     Create a continuous random variable with a log-logistic distribution.
     The distribution is unimodal when ``beta > 1``.
 
@@ -1874,19 +1789,16 @@ def LogLogistic(name, alpha, beta):
                 {(1 + (\\frac{x}{\\alpha})^{\\beta})^2}
 
     Parameters
-    ==========
-
+    ----------
     alpha : Real number, `\\alpha > 0`, scale parameter and median of distribution
     beta : Real number, `\\beta > 0`, a shape parameter
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import LogLogistic, density, cdf, quantile
     >>> from sympy import Symbol, pprint
 
@@ -1915,11 +1827,11 @@ def LogLogistic(name, alpha, beta):
     alpha*(p/(1 - p))**(1/beta)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Log-logistic_distribution
 
-    '''
+    """
 
 class LogitNormalDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -1931,7 +1843,7 @@ class LogitNormalDistribution(SingleContinuousDistribution):
     def _cdf(self, x): ...
 
 def LogitNormal(name, mu, s):
-    '''
+    """
     Create a continuous random variable with a Logit-Normal distribution.
 
     The density of the logistic distribution is given by
@@ -1939,20 +1851,18 @@ def LogitNormal(name, mu, s):
     .. math::
         f(x) := \\frac{1}{s \\sqrt{2 \\pi}} \\frac{1}{x(1 - x)} e^{- \\frac{(logit(x)  - \\mu)^2}{s^2}}
         where logit(x) = \\log(\\frac{x}{1 - x})
-    Parameters
-    ==========
 
+    Parameters
+    ----------
     mu : Real number, the location (mean)
     s : Real number, `s > 0`, a scale
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import LogitNormal, density, cdf
     >>> from sympy import Symbol,pprint
 
@@ -1982,11 +1892,11 @@ def LogitNormal(name, mu, s):
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Logit-normal_distribution
 
-    '''
+    """
 
 class LogNormalDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -1998,7 +1908,7 @@ class LogNormalDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t) -> None: ...
 
 def LogNormal(name, mean, std):
-    '''
+    """
     Create a continuous random variable with a log-normal distribution.
 
     Explanation
@@ -2013,21 +1923,18 @@ def LogNormal(name, mean, std):
     with :math:`x \\geq 0`.
 
     Parameters
-    ==========
-
+    ----------
     mu : Real number
         The log-scale.
     sigma : Real number
         A shape. ($\\sigma^2 > 0$)
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import LogNormal, density
     >>> from sympy import Symbol, pprint
 
@@ -2056,12 +1963,12 @@ def LogNormal(name, mean, std):
     sqrt(2)*exp(-log(z)**2/2)/(2*sqrt(pi)*z)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Lognormal
     .. [2] https://mathworld.wolfram.com/LogNormalDistribution.html
 
-    '''
+    """
 
 class LomaxDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -2083,16 +1990,14 @@ def Lomax(name, alpha, lamda):
         f(x) := \\frac{\\alpha}{\\lambda}\\left[1+\\frac{x}{\\lambda}\\right]^{-(\\alpha+1)}
 
     Parameters
-    ==========
-
+    ----------
     alpha : Real Number, `\\alpha > 0`
         Shape parameter
     lamda : Real Number, `\\lambda > 0`
         Scale parameter
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Lomax, density, cdf, E
     >>> from sympy import symbols
     >>> a, l = symbols('a, l', positive=True)
@@ -2108,12 +2013,11 @@ def Lomax(name, alpha, lamda):
     l
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Lomax_distribution
 
@@ -2128,7 +2032,7 @@ class MaxwellDistribution(SingleContinuousDistribution):
     def _cdf(self, x): ...
 
 def Maxwell(name, a):
-    '''
+    """
     Create a continuous random variable with a Maxwell distribution.
 
     Explanation
@@ -2144,18 +2048,15 @@ def Maxwell(name, a):
     .. TODO - what does the parameter mean?
 
     Parameters
-    ==========
-
+    ----------
     a : Real number, `a > 0`
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Maxwell, density, E, variance
     >>> from sympy import Symbol, simplify
 
@@ -2174,12 +2075,12 @@ def Maxwell(name, a):
     a**2*(-8 + 3*pi)/pi
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Maxwell_distribution
     .. [2] https://mathworld.wolfram.com/MaxwellDistribution.html
 
-    '''
+    """
 
 class MoyalDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -2190,7 +2091,7 @@ class MoyalDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t): ...
 
 def Moyal(name, mu, sigma):
-    '''
+    """
     Create a continuous random variable with a Moyal distribution.
 
     Explanation
@@ -2204,21 +2105,18 @@ def Moyal(name, mu, sigma):
     with :math:`x \\in \\mathbb{R}`.
 
     Parameters
-    ==========
-
+    ----------
     mu : Real number
         Location parameter
     sigma : Real positive number
         Scale parameter
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Moyal, density, cdf
     >>> from sympy import Symbol, simplify
     >>> mu = Symbol("mu", real=True)
@@ -2231,12 +2129,12 @@ def Moyal(name, mu, sigma):
     1 - erf(sqrt(2)*exp((mu - z)/(2*sigma))/2)
 
     References
-    ==========
+    ----------
 
     .. [1] https://reference.wolfram.com/language/ref/MoyalDistribution.html
     .. [2] https://www.stat.rice.edu/~dobelman/textfiles/DistributionsHandbook.pdf
 
-    '''
+    """
 
 class NakagamiDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -2247,7 +2145,7 @@ class NakagamiDistribution(SingleContinuousDistribution):
     def _cdf(self, x): ...
 
 def Nakagami(name, mu, omega):
-    '''
+    """
     Create a continuous random variable with a Nakagami distribution.
 
     Explanation
@@ -2262,19 +2160,16 @@ def Nakagami(name, mu, omega):
     with :math:`x > 0`.
 
     Parameters
-    ==========
-
+    ----------
     mu : Real number, `\\mu \\geq \\frac{1}{2}`, a shape
     omega : Real number, `\\omega > 0`, the spread
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Nakagami, density, E, variance, cdf
     >>> from sympy import Symbol, simplify, pprint
 
@@ -2310,11 +2205,11 @@ def Nakagami(name, mu, omega):
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Nakagami_distribution
 
-    '''
+    """
 
 class NormalDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -2327,7 +2222,7 @@ class NormalDistribution(SingleContinuousDistribution):
     def _quantile(self, p): ...
 
 def Normal(name, mean, std):
-    '''
+    """
     Create a continuous random variable with a Normal distribution.
 
     Explanation
@@ -2339,20 +2234,17 @@ def Normal(name, mean, std):
         f(x) := \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{ -\\frac{(x-\\mu)^2}{2\\sigma^2} }
 
     Parameters
-    ==========
-
+    ----------
     mu : Real number or a list representing the mean or the mean vector
     sigma : Real number or a positive definite square matrix,
          :math:`\\sigma^2 > 0`, the variance
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Normal, density, E, std, cdf, skewness, quantile, marginal_distribution
     >>> from sympy import Symbol, simplify, pprint
 
@@ -2405,12 +2297,12 @@ def Normal(name, mean, std):
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Normal_distribution
     .. [2] https://mathworld.wolfram.com/NormalDistributionFunction.html
 
-    '''
+    """
 
 class GaussianInverseDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -2424,7 +2316,7 @@ class GaussianInverseDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t): ...
 
 def GaussianInverse(name, mean, shape):
-    '''
+    """
     Create a continuous random variable with an Inverse Gaussian distribution.
     Inverse Gaussian distribution is also known as Wald distribution.
 
@@ -2437,21 +2329,18 @@ def GaussianInverse(name, mean, shape):
         f(x) := \\sqrt{\\frac{\\lambda}{2\\pi x^3}} e^{-\\frac{\\lambda(x-\\mu)^2}{2x\\mu^2}}
 
     Parameters
-    ==========
-
+    ----------
     mu :
         Positive number representing the mean.
     lambda :
         Positive number representing the shape parameter.
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import GaussianInverse, density, E, std, skewness
     >>> from sympy import Symbol, pprint
 
@@ -2482,12 +2371,12 @@ def GaussianInverse(name, mean, shape):
     3*sqrt(mu)/sqrt(lambda)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Inverse_Gaussian_distribution
     .. [2] https://mathworld.wolfram.com/InverseGaussianDistribution.html
 
-    '''
+    """
 Wald = GaussianInverse
 
 class ParetoDistribution(SingleContinuousDistribution):
@@ -2502,7 +2391,7 @@ class ParetoDistribution(SingleContinuousDistribution):
     def _characteristic_function(self, t): ...
 
 def Pareto(name, xm, alpha):
-    '''
+    """
     Create a continuous random variable with the Pareto distribution.
 
     Explanation
@@ -2516,19 +2405,16 @@ def Pareto(name, xm, alpha):
     with :math:`x \\in [x_m,\\infty]`.
 
     Parameters
-    ==========
-
+    ----------
     xm : Real number, `x_m > 0`, a scale
     alpha : Real number, `\\alpha > 0`, a shape
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Pareto, density
     >>> from sympy import Symbol
 
@@ -2542,12 +2428,12 @@ def Pareto(name, xm, alpha):
     beta*xm**beta*z**(-beta - 1)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Pareto_distribution
     .. [2] https://mathworld.wolfram.com/ParetoDistribution.html
 
-    '''
+    """
 
 class PowerFunctionDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -2558,7 +2444,7 @@ class PowerFunctionDistribution(SingleContinuousDistribution):
     def pdf(self, x): ...
 
 def PowerFunction(name, alpha, a, b):
-    '''
+    """
     Creates a continuous random variable with a Power Function Distribution.
 
     Explanation
@@ -2572,20 +2458,17 @@ def PowerFunction(name, alpha, a, b):
     with :math:`x \\in [a,b]`.
 
     Parameters
-    ==========
-
+    ----------
     alpha : Positive number, `0 < \\alpha`, the shape parameter
     a : Real number, :math:`-\\infty < a`, the left boundary
     b : Real number, :math:`a < b < \\infty`, the right boundary
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import PowerFunction, density, cdf, E, variance
     >>> from sympy import Symbol
     >>> alpha = Symbol("alpha", positive=True)
@@ -2614,11 +2497,11 @@ def PowerFunction(name, alpha, a, b):
     1/18
 
     References
-    ==========
+    ----------
 
     .. [1] https://web.archive.org/web/20200204081320/http://www.mathwave.com/help/easyfit/html/analyses/distributions/power_func.html
 
-    '''
+    """
 
 class QuadraticUDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -2631,7 +2514,7 @@ class QuadraticUDistribution(SingleContinuousDistribution):
     def _characteristic_function(self, t): ...
 
 def QuadraticU(name, a, b):
-    '''
+    """
     Create a Continuous Random Variable with a U-quadratic distribution.
 
     Explanation
@@ -2645,19 +2528,16 @@ def QuadraticU(name, a, b):
     with :math:`x \\in [a,b]`.
 
     Parameters
-    ==========
-
+    ----------
     a : Real number
     b : Real number, :math:`a < b`
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import QuadraticU, density
     >>> from sympy import Symbol, pprint
 
@@ -2679,11 +2559,11 @@ def QuadraticU(name, a, b):
     \\        0                 otherwise
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/U-quadratic_distribution
 
-    '''
+    """
 
 class RaisedCosineDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -2696,7 +2576,7 @@ class RaisedCosineDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t): ...
 
 def RaisedCosine(name, mu, s):
-    '''
+    """
     Create a Continuous Random Variable with a raised cosine distribution.
 
     Explanation
@@ -2710,19 +2590,16 @@ def RaisedCosine(name, mu, s):
     with :math:`x \\in [\\mu-s,\\mu+s]`.
 
     Parameters
-    ==========
-
+    ----------
     mu : Real number
     s : Real number, `s > 0`
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import RaisedCosine, density
     >>> from sympy import Symbol, pprint
 
@@ -2742,11 +2619,11 @@ def RaisedCosine(name, mu, s):
     \\          0                        otherwise
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Raised_cosine_distribution
 
-    '''
+    """
 
 class RayleighDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -2759,7 +2636,7 @@ class RayleighDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t): ...
 
 def Rayleigh(name, sigma):
-    '''
+    """
     Create a continuous random variable with a Rayleigh distribution.
 
     Explanation
@@ -2773,18 +2650,15 @@ def Rayleigh(name, sigma):
     with :math:`x > 0`.
 
     Parameters
-    ==========
-
+    ----------
     sigma : Real number, `\\sigma > 0`
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Rayleigh, density, E, variance
     >>> from sympy import Symbol
 
@@ -2803,12 +2677,12 @@ def Rayleigh(name, sigma):
     -pi*sigma**2/2 + 2*sigma**2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Rayleigh_distribution
     .. [2] https://mathworld.wolfram.com/RayleighDistribution.html
 
-    '''
+    """
 
 class ReciprocalDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -2821,21 +2695,17 @@ class ReciprocalDistribution(SingleContinuousDistribution):
 def Reciprocal(name, a, b):
     """Creates a continuous random variable with a reciprocal distribution.
 
-
     Parameters
-    ==========
-
+    ----------
     a : Real number, :math:`0 < a`
     b : Real number, :math:`a < b`
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Reciprocal, density, cdf
     >>> from sympy import symbols
     >>> a, b, x = symbols('a, b, x', positive=True)
@@ -2861,7 +2731,7 @@ class ShiftedGompertzDistribution(SingleContinuousDistribution):
     def pdf(self, x): ...
 
 def ShiftedGompertz(name, b, eta):
-    '''
+    """
     Create a continuous random variable with a Shifted Gompertz distribution.
 
     Explanation
@@ -2875,18 +2745,16 @@ def ShiftedGompertz(name, b, eta):
     with :math:`x \\in [0, \\infty)`.
 
     Parameters
-    ==========
-
+    ----------
     b : Real number, `b > 0`, a scale
     eta : Real number, `\\eta > 0`, a shape
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
+    --------
     >>> from sympy.stats import ShiftedGompertz, density
     >>> from sympy import Symbol
 
@@ -2900,11 +2768,11 @@ def ShiftedGompertz(name, b, eta):
     b*(eta*(1 - exp(-b*x)) + 1)*exp(-b*x)*exp(-eta*exp(-b*x))
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Shifted_Gompertz_distribution
 
-    '''
+    """
 
 class StudentTDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -2916,7 +2784,7 @@ class StudentTDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t) -> None: ...
 
 def StudentT(name, nu):
-    '''
+    """
     Create a continuous random variable with a student\'s t distribution.
 
     Explanation
@@ -2930,18 +2798,15 @@ def StudentT(name, nu):
                 \\left(1+\\frac{x^2}{\\nu} \\right)^{-\\frac{\\nu+1}{2}}
 
     Parameters
-    ==========
-
+    ----------
     nu : Real number, `\\nu > 0`, the degrees of freedom
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import StudentT, density, cdf
     >>> from sympy import Symbol, pprint
 
@@ -2968,12 +2833,12 @@ def StudentT(name, nu):
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Student_t-distribution
     .. [2] https://mathworld.wolfram.com/Studentst-Distribution.html
 
-    '''
+    """
 
 class TrapezoidalDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -2984,7 +2849,7 @@ class TrapezoidalDistribution(SingleContinuousDistribution):
     def pdf(self, x): ...
 
 def Trapezoidal(name, a, b, c, d):
-    '''
+    """
     Create a continuous random variable with a trapezoidal distribution.
 
     Explanation
@@ -2998,21 +2863,18 @@ def Trapezoidal(name, a, b, c, d):
                 \\end{cases}
 
     Parameters
-    ==========
-
+    ----------
     a : Real number, :math:`a < d`
     b : Real number, :math:`a \\le b < c`
     c : Real number, :math:`b < c \\le d`
     d : Real number
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Trapezoidal, density
     >>> from sympy import Symbol, pprint
 
@@ -3040,11 +2902,11 @@ def Trapezoidal(name, a, b, c, d):
     \\            0                     otherwise
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Trapezoidal_distribution
 
-    '''
+    """
 
 class TriangularDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -3057,7 +2919,7 @@ class TriangularDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t): ...
 
 def Triangular(name, a, b, c):
-    '''
+    """
     Create a continuous random variable with a triangular distribution.
 
     Explanation
@@ -3071,20 +2933,17 @@ def Triangular(name, a, b, c):
                 \\end{cases}
 
     Parameters
-    ==========
-
+    ----------
     a : Real number, :math:`a \\in \\left(-\\infty, \\infty\\right)`
     b : Real number, :math:`a < b`
     c : Real number, :math:`a \\leq c \\leq b`
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Triangular, density
     >>> from sympy import Symbol, pprint
 
@@ -3111,12 +2970,12 @@ def Triangular(name, a, b, c):
     \\        0                otherwise
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Triangular_distribution
     .. [2] https://mathworld.wolfram.com/TriangularDistribution.html
 
-    '''
+    """
 
 class UniformDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -3131,7 +2990,7 @@ class UniformDistribution(SingleContinuousDistribution):
     def expectation(self, expr, var, **kwargs): ...
 
 def Uniform(name, left, right):
-    '''
+    """
     Create a continuous random variable with a uniform distribution.
 
     Explanation
@@ -3147,19 +3006,16 @@ def Uniform(name, left, right):
     with :math:`x \\in [a,b]`.
 
     Parameters
-    ==========
-
+    ----------
     a : Real number, :math:`-\\infty < a`, the left boundary
     b : Real number, :math:`a < b < \\infty`, the right boundary
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Uniform, density, cdf, E, variance
     >>> from sympy import Symbol, simplify
 
@@ -3182,12 +3038,12 @@ def Uniform(name, left, right):
     a**2/12 - a*b/6 + b**2/12
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Uniform_distribution_%28continuous%29
     .. [2] https://mathworld.wolfram.com/UniformDistribution.html
 
-    '''
+    """
 
 class UniformSumDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -3201,7 +3057,7 @@ class UniformSumDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t): ...
 
 def UniformSum(name, n):
-    '''
+    """
     Create a continuous random variable with an Irwin-Hall distribution.
 
     Explanation
@@ -3217,18 +3073,15 @@ def UniformSum(name, n):
                 \\binom{n}{k}(x-k)^{n-1}
 
     Parameters
-    ==========
-
+    ----------
     n : A positive integer, `n > 0`
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import UniformSum, density, cdf
     >>> from sympy import Symbol, pprint
 
@@ -3262,12 +3115,12 @@ def UniformSum(name, n):
     of the sum for general n, before the argument 2 is passed.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Uniform_sum_distribution
     .. [2] https://mathworld.wolfram.com/UniformSumDistribution.html
 
-    '''
+    """
 
 class VonMisesDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -3277,7 +3130,7 @@ class VonMisesDistribution(SingleContinuousDistribution):
     def pdf(self, x): ...
 
 def VonMises(name, mu, k):
-    '''
+    """
     Create a Continuous Random Variable with a von Mises distribution.
 
     Explanation
@@ -3291,21 +3144,18 @@ def VonMises(name, mu, k):
     with :math:`x \\in [0,2\\pi]`.
 
     Parameters
-    ==========
-
+    ----------
     mu : Real number
         Measure of location.
     k : Real number
         Measure of concentration.
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import VonMises, density
     >>> from sympy import Symbol, pprint
 
@@ -3324,12 +3174,12 @@ def VonMises(name, mu, k):
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Von_Mises_distribution
     .. [2] https://mathworld.wolfram.com/vonMisesDistribution.html
 
-    '''
+    """
 
 class WeibullDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -3339,7 +3189,7 @@ class WeibullDistribution(SingleContinuousDistribution):
     def pdf(self, x): ...
 
 def Weibull(name, alpha, beta):
-    '''
+    """
     Create a continuous random variable with a Weibull distribution.
 
     Explanation
@@ -3354,19 +3204,16 @@ def Weibull(name, alpha, beta):
                 \\end{cases}
 
     Parameters
-    ==========
-
+    ----------
     lambda : Real number, $\\lambda > 0$, a scale
     k : Real number, $k > 0$, a shape
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Weibull, density, E, variance
     >>> from sympy import Symbol, simplify
 
@@ -3386,12 +3233,12 @@ def Weibull(name, alpha, beta):
     lambda**2*(-gamma(1 + 1/k)**2 + gamma(1 + 2/k))
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Weibull_distribution
     .. [2] https://mathworld.wolfram.com/WeibullDistribution.html
 
-    '''
+    """
 
 class WignerSemicircleDistribution(SingleContinuousDistribution):
     _argnames: Incomplete
@@ -3404,7 +3251,7 @@ class WignerSemicircleDistribution(SingleContinuousDistribution):
     def _moment_generating_function(self, t): ...
 
 def WignerSemicircle(name, R):
-    '''
+    """
     Create a continuous random variable with a Wigner semicircle distribution.
 
     Explanation
@@ -3418,18 +3265,15 @@ def WignerSemicircle(name, R):
     with :math:`x \\in [-R,R]`.
 
     Parameters
-    ==========
-
+    ----------
     R : Real number, `R > 0`, the radius
 
     Returns
-    =======
-
+    -------
     A RandomSymbol.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import WignerSemicircle, density, E
     >>> from sympy import Symbol
 
@@ -3445,9 +3289,9 @@ def WignerSemicircle(name, R):
     0
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Wigner_semicircle_distribution
     .. [2] https://mathworld.wolfram.com/WignersSemicircleLaw.html
 
-    '''
+    """

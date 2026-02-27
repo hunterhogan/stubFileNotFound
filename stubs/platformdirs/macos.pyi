@@ -14,19 +14,20 @@ class MacOS(PlatformDirsABC):
     `ensure_exists <platformdirs.api.PlatformDirsABC.ensure_exists>`.
 
     """
+
     @property
     def user_data_dir(self) -> str:
         """:return: data directory tied to the user, e.g. ``~/Library/Application Support/$appname/$version``"""
     @property
     def site_data_dir(self) -> str:
-        '''
+        """
         :return: data directory shared by users, e.g. ``/Library/Application Support/$appname/$version``.
           If we\'re using a Python binary managed by `Homebrew <https://brew.sh>`_, the directory
           will be under the Homebrew prefix, e.g. ``/opt/homebrew/share/$appname/$version``.
           If `multipath <platformdirs.api.PlatformDirsABC.multipath>` is enabled, and we\'re in Homebrew,
           the response is a multi-path string separated by ":", e.g.
           ``/opt/homebrew/share/$appname/$version:/Library/Application Support/$appname/$version``
-        '''
+        """
     @property
     def site_data_path(self) -> Path:
         """:return: data path shared by users. Only return the first item, even if ``multipath`` is set to ``True``"""
@@ -41,14 +42,14 @@ class MacOS(PlatformDirsABC):
         """:return: cache directory tied to the user, e.g. ``~/Library/Caches/$appname/$version``"""
     @property
     def site_cache_dir(self) -> str:
-        '''
+        """
         :return: cache directory shared by users, e.g. ``/Library/Caches/$appname/$version``.
           If we\'re using a Python binary managed by `Homebrew <https://brew.sh>`_, the directory
           will be under the Homebrew prefix, e.g. ``/opt/homebrew/var/cache/$appname/$version``.
           If `multipath <platformdirs.api.PlatformDirsABC.multipath>` is enabled, and we\'re in Homebrew,
           the response is a multi-path string separated by ":", e.g.
           ``/opt/homebrew/var/cache/$appname/$version:/Library/Caches/$appname/$version``
-        '''
+        """
     @property
     def site_cache_path(self) -> Path:
         """:return: cache path shared by users. Only return the first item, even if ``multipath`` is set to ``True``"""

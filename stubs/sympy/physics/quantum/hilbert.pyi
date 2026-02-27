@@ -1,7 +1,7 @@
 from sympy.core.basic import Basic
 from sympy.physics.quantum.qexpr import QuantumError
 
-__all__ = ['HilbertSpaceError', 'HilbertSpace', 'TensorProductHilbertSpace', 'TensorPowerHilbertSpace', 'DirectSumHilbertSpace', 'ComplexSpace', 'L2', 'FockSpace']
+__all__ = ['L2', 'ComplexSpace', 'DirectSumHilbertSpace', 'FockSpace', 'HilbertSpace', 'HilbertSpaceError', 'TensorPowerHilbertSpace', 'TensorProductHilbertSpace']
 
 class HilbertSpaceError(QuantumError): ...
 
@@ -12,18 +12,18 @@ class HilbertSpace(Basic):
     with inner products defined [1]_.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum.hilbert import HilbertSpace
     >>> hs = HilbertSpace()
     >>> hs
     H
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Hilbert_space
     """
+
     def __new__(cls): ...
     @property
     def dimension(self) -> None:
@@ -57,8 +57,7 @@ class ComplexSpace(HilbertSpace):
     direct product space ``ComplexSpace(2)**N``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols
     >>> from sympy.physics.quantum.hilbert import ComplexSpace
     >>> c1 = ComplexSpace(2)
@@ -75,6 +74,7 @@ class ComplexSpace(HilbertSpace):
     n
 
     """
+
     def __new__(cls, dimension): ...
     @classmethod
     def eval(cls, dimension) -> None: ...
@@ -92,8 +92,7 @@ class L2(HilbertSpace):
     the interval its functions (vectors) are defined on.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Interval, oo
     >>> from sympy.physics.quantum.hilbert import L2
     >>> hs = L2(Interval(0,oo))
@@ -105,6 +104,7 @@ class L2(HilbertSpace):
     Interval(0, oo)
 
     """
+
     def __new__(cls, interval): ...
     @property
     def dimension(self): ...
@@ -123,8 +123,7 @@ class FockSpace(HilbertSpace):
     a class to represent it directly.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum.hilbert import FockSpace
     >>> hs = FockSpace()
     >>> hs
@@ -133,10 +132,11 @@ class FockSpace(HilbertSpace):
     oo
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Fock_space
     """
+
     def __new__(cls): ...
     @property
     def dimension(self): ...
@@ -158,8 +158,7 @@ class TensorProductHilbertSpace(HilbertSpace):
     object.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum.hilbert import ComplexSpace, FockSpace
     >>> from sympy import symbols
 
@@ -183,10 +182,11 @@ class TensorProductHilbertSpace(HilbertSpace):
     2*n
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Hilbert_space#Tensor_products
     """
+
     def __new__(cls, *args): ...
     @classmethod
     def eval(cls, args):
@@ -213,8 +213,7 @@ class DirectSumHilbertSpace(HilbertSpace):
     ``HilbertSpace`` objects will automatically return a direct sum object.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum.hilbert import ComplexSpace, FockSpace
 
     >>> c = ComplexSpace(2)
@@ -228,10 +227,11 @@ class DirectSumHilbertSpace(HilbertSpace):
     [C(2), F]
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Hilbert_space#Direct_sums
     """
+
     def __new__(cls, *args): ...
     @classmethod
     def eval(cls, args):
@@ -258,8 +258,7 @@ class TensorPowerHilbertSpace(HilbertSpace):
     tensor power (number).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum.hilbert import ComplexSpace, FockSpace
     >>> from sympy import symbols
 
@@ -279,10 +278,11 @@ class TensorPowerHilbertSpace(HilbertSpace):
     C(2)*F**2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Hilbert_space#Tensor_products
     """
+
     def __new__(cls, *args): ...
     @classmethod
     def eval(cls, args): ...

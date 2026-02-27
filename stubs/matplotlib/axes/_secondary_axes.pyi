@@ -8,6 +8,7 @@ class SecondaryAxis(_AxesBase):
     """
     General class to hold a Secondary_X/Yaxis.
     """
+
     _functions: Incomplete
     _parent: Incomplete
     _orientation: Incomplete

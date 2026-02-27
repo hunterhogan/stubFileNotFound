@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
-from sympy.polys.agca.modules import FreeModule as FreeModule, Module as Module, QuotientModule as QuotientModule, SubModule as SubModule, SubQuotientModule as SubQuotientModule
+from sympy.polys.agca.modules import (
+	FreeModule as FreeModule, Module as Module, QuotientModule as QuotientModule, SubModule as SubModule,
+	SubQuotientModule as SubQuotientModule)
 from sympy.polys.polyerrors import CoercionFailed as CoercionFailed
 
 class ModuleHomomorphism:
@@ -18,8 +20,8 @@ class ModuleHomomorphism:
     [1, 0], : QQ[x]**2 -> QQ[x]**2
     [0, 1]])
 
-    Attributes:
-
+    Attributes
+    ----------
     - ring - the ring over which we are considering modules
     - domain - the domain module
     - codomain - the codomain module
@@ -39,6 +41,7 @@ class ModuleHomomorphism:
     - _compose
     - _add
     """
+
     domain: Incomplete
     codomain: Incomplete
     ring: Incomplete
@@ -53,8 +56,7 @@ class ModuleHomomorphism:
         `ker(\\phi) = \\{x \\in M | \\phi(x) = 0\\}`.  This is a submodule of `M`.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.abc import x
         >>> from sympy.polys.agca import homomorphism
@@ -71,8 +73,7 @@ class ModuleHomomorphism:
         `im(\\phi) = \\{\\phi(x) | x \\in M \\}`.  This is a submodule of `N`.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.abc import x
         >>> from sympy.polys.agca import homomorphism
@@ -100,8 +101,7 @@ class ModuleHomomorphism:
         Here ``sm`` has to be a submodule of ``self.domain``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.abc import x
         >>> from sympy.polys.agca import homomorphism
@@ -133,8 +133,7 @@ class ModuleHomomorphism:
         image.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.abc import x
         >>> from sympy.polys.agca import homomorphism
@@ -157,8 +156,7 @@ class ModuleHomomorphism:
         Here ``sm`` must be a submodule of ``self.kernel()``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.abc import x
         >>> from sympy.polys.agca import homomorphism
@@ -181,8 +179,7 @@ class ModuleHomomorphism:
         Here ``sm`` must be a submodule of ``self.codomain``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.abc import x
         >>> from sympy.polys.agca import homomorphism
@@ -238,8 +235,7 @@ class ModuleHomomorphism:
         codomain element.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.abc import x
         >>> from sympy.polys.agca import homomorphism
@@ -259,8 +255,7 @@ class ModuleHomomorphism:
         preimage.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.abc import x
         >>> from sympy.polys.agca import homomorphism
@@ -280,8 +275,7 @@ class ModuleHomomorphism:
         preimage. Equivalently, ``self`` is both injective and surjective.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.abc import x
         >>> from sympy.polys.agca import homomorphism
@@ -302,8 +296,7 @@ class ModuleHomomorphism:
         under self.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ
         >>> from sympy.abc import x
         >>> from sympy.polys.agca import homomorphism
@@ -338,8 +331,8 @@ class MatrixHomomorphism(ModuleHomomorphism):
 
     Do not instantiate.
 
-    Attributes:
-
+    Attributes
+    ----------
     - matrix - the list of images determining the homomorphism.
     NOTE: the elements of matrix belong to either self.codomain or
           self.codomain.container
@@ -349,11 +342,11 @@ class MatrixHomomorphism(ModuleHomomorphism):
     - kernel
     - _apply
     """
+
     matrix: Incomplete
     def __init__(self, domain, codomain, matrix) -> None: ...
     def _sympy_matrix(self):
         """Helper function which returns a SymPy matrix ``self.matrix``."""
-    def __repr__(self) -> str: ...
     def _restrict_domain(self, sm):
         """Implementation of domain restriction."""
     def _restrict_codomain(self, sm):
@@ -384,6 +377,7 @@ class FreeModuleHomomorphism(MatrixHomomorphism):
     [1, 0], : QQ[x]**2 -> QQ[x]**2
     [0, 1]])
     """
+
     def _apply(self, elem): ...
     def _image(self): ...
     def _kernel(self): ...
@@ -406,6 +400,7 @@ class SubModuleHomomorphism(MatrixHomomorphism):
     [1, 0], : <[x, 0], [0, x]> -> <[x, 0], [0, x]>
     [0, 1]])
     """
+
     def _apply(self, elem): ...
     def _image(self): ...
     def _kernel(self): ...
@@ -418,8 +413,7 @@ def homomorphism(domain, codomain, matrix):
     via the matrix ``matrix``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import QQ
     >>> from sympy.abc import x
     >>> from sympy.polys.agca import homomorphism

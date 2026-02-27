@@ -1,11 +1,9 @@
 from __future__ import annotations
 
-from typing import Tuple
-from typing_extensions import assert_type
-
+from typing import assert_type, Tuple
 
 # Empty tuples, see #8275
-class TupleSub(Tuple[int, ...]):
+class TupleSub(tuple[int, ...]):
     pass
 
 

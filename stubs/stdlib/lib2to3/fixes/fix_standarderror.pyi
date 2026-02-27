@@ -1,6 +1,5 @@
-from typing import ClassVar, Literal
-
 from .. import fixer_base
+from typing import ClassVar, Literal
 
 class FixStandarderror(fixer_base.BaseFix):
     BM_compatible: ClassVar[Literal[True]]

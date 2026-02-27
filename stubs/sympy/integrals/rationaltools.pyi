@@ -4,7 +4,7 @@ from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, symbols as symbols
 from sympy.functions.elementary.exponential import log as log
 from sympy.functions.elementary.trigonometric import atan as atan
-from sympy.polys import Poly as Poly, ZZ as ZZ, resultant as resultant
+from sympy.polys import Poly as Poly, resultant as resultant, ZZ as ZZ
 from sympy.polys.polyerrors import DomainError as DomainError
 from sympy.polys.polyroots import roots as roots
 from sympy.polys.polytools import cancel as cancel
@@ -22,8 +22,7 @@ def ratint(f, x, **flags):
     returns a function :math:`g` such that :math:`f = g'`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.integrals.rationaltools import ratint
     >>> from sympy.abc import x
 
@@ -31,14 +30,13 @@ def ratint(f, x, **flags):
     (12*x + 6)/(x**2 - 1) + 4*log(x - 2) - 4*log(x + 1)
 
     References
-    ==========
+    ----------
 
     .. [1] M. Bronstein, Symbolic Integration I: Transcendental
        Functions, Second Edition, Springer-Verlag, 2005, pp. 35-70
 
     See Also
-    ========
-
+    --------
     sympy.integrals.integrals.Integral.doit
     sympy.integrals.rationaltools.ratint_logpart
     sympy.integrals.rationaltools.ratint_ratpart
@@ -56,8 +54,7 @@ def ratint_ratpart(f, g, x):
     such that f/g = A' + B and B has square-free denominator.
 
     Examples
-    ========
-
+    --------
         >>> from sympy.integrals.rationaltools import ratint_ratpart
         >>> from sympy.abc import x, y
         >>> from sympy import Poly
@@ -72,8 +69,7 @@ def ratint_ratpart(f, g, x):
         ((12*x + 6)/(x**2 - 1), 12/(x**2 - x - 2))
 
     See Also
-    ========
-
+    --------
     ratint, ratint_logpart
     """
 def ratint_logpart(f, g, x, t=None):
@@ -95,8 +91,7 @@ def ratint_logpart(f, g, x, t=None):
                           i=1..n a | q_i(a) = 0
 
     Examples
-    ========
-
+    --------
     >>> from sympy.integrals.rationaltools import ratint_logpart
     >>> from sympy.abc import x
     >>> from sympy import Poly
@@ -110,8 +105,7 @@ def ratint_logpart(f, g, x, t=None):
     ...Poly(-_t**2 + 16, _t, domain='ZZ'))]
 
     See Also
-    ========
-
+    --------
     ratint, ratint_ratpart
     """
 def log_to_atan(f, g):
@@ -129,8 +123,7 @@ def log_to_atan(f, g):
                    dx   dx        f - I g
 
     Examples
-    ========
-
+    --------
         >>> from sympy.integrals.rationaltools import log_to_atan
         >>> from sympy.abc import x
         >>> from sympy import Poly, sqrt, S
@@ -141,12 +134,11 @@ def log_to_atan(f, g):
         2*atan(2*sqrt(3)*x/3 + sqrt(3)/3)
 
     See Also
-    ========
-
+    --------
     log_to_real
     """
 def _get_real_roots(f, x):
-    """get real roots of f if possible"""
+    """Get real roots of f if possible"""
 def log_to_real(h, q, x, t):
     """
     Convert complex logarithms to real functions.
@@ -163,8 +155,7 @@ def log_to_real(h, q, x, t):
                          a | q(a) = 0
 
     Examples
-    ========
-
+    --------
         >>> from sympy.integrals.rationaltools import log_to_real
         >>> from sympy.abc import x, y
         >>> from sympy import Poly, S
@@ -176,7 +167,6 @@ def log_to_real(h, q, x, t):
         log(x**2 - 1)/2
 
     See Also
-    ========
-
+    --------
     log_to_atan
     """

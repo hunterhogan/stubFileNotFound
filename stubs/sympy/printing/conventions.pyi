@@ -4,7 +4,7 @@ from sympy.core.function import Derivative as Derivative
 _name_with_digits_p: Incomplete
 
 def split_super_sub(text):
-    '''Split a symbol name into a name, superscripts and subscripts
+    """Split a symbol name into a name, superscripts and subscripts
 
     The first part of the symbol name is considered to be its actual
     \'name\', followed by super- and subscripts. Each superscript is
@@ -13,15 +13,14 @@ def split_super_sub(text):
     list with superscripts and a list with subscripts.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.printing.conventions import split_super_sub
     >>> split_super_sub(\'a_x^1\')
     (\'a\', [\'1\'], [\'x\'])
     >>> split_super_sub(\'var_sub1__sup_sub2\')
     (\'var\', [\'sup\'], [\'sub1\', \'sub2\'])
 
-    '''
+    """
 def requires_partial(expr):
     """Return whether a partial derivative symbol is required for printing
 

@@ -4,7 +4,7 @@ __all__ = ['round_two']
 
 @public
 def round_two(T, radicals=None):
-    '''
+    """
     Zassenhaus\'s "Round 2" algorithm.
 
     Explanation
@@ -25,8 +25,7 @@ def round_two(T, radicals=None):
     :py:class:`~.AlgebraicField`.
 
     Examples
-    ========
-
+    --------
     Working through an AlgebraicField:
 
     >>> from sympy import Poly, QQ
@@ -60,8 +59,7 @@ def round_two(T, radicals=None):
     {3: Submodule[[-1, 1, 0], [-1, 0, 1]]}
 
     Parameters
-    ==========
-
+    ----------
     T : :py:class:`~.Poly`, :py:class:`~.AlgebraicField`
         Either (1) the irreducible polynomial over :ref:`ZZ` or :ref:`QQ`
         defining the number field, or (2) an :py:class:`~.AlgebraicField`
@@ -76,8 +74,7 @@ def round_two(T, radicals=None):
         other algorithms, such as prime decomposition.
 
     Returns
-    =======
-
+    -------
     Pair ``(ZK, dK)``, where:
 
         ``ZK`` is a :py:class:`~sympy.polys.numberfields.modules.Submodule`
@@ -86,15 +83,14 @@ def round_two(T, radicals=None):
         ``dK`` is the discriminant of the field $K = \\mathbb{Q}[x]/(T(x))$.
 
     See Also
-    ========
-
+    --------
     .AlgebraicField.maximal_order
     .AlgebraicField.integral_basis
     .AlgebraicField.discriminant
 
     References
-    ==========
+    ----------
 
     .. [1] Cohen, H. *A Course in Computational Algebraic Number Theory.*
 
-    '''
+    """

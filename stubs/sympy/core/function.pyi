@@ -1,11 +1,11 @@
 from .add import Add as Add
-from .basic import Basic as Basic, _atomic as _atomic
+from .basic import _atomic as _atomic, Basic as Basic
 from .cache import cacheit as cacheit
 from .containers import Dict as Dict, Tuple as Tuple
 from .decorators import _sympifyit as _sympifyit
 from .evalf import pure_complex as pure_complex
 from .expr import AtomicExpr as AtomicExpr, Expr as Expr
-from .logic import FuzzyBool as FuzzyBool, fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
+from .logic import fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or, FuzzyBool as FuzzyBool
 from .mul import Mul as Mul
 from .numbers import Float as Float, Integer as Integer, Rational as Rational
 from .operations import LatticeOp as LatticeOp
@@ -17,18 +17,21 @@ from .symbol import Dummy as Dummy, Symbol as Symbol
 from .sympify import _sympify as _sympify, sympify as sympify
 from _typeshed import Incomplete
 from collections.abc import Generator
-from sympy.utilities.exceptions import SymPyDeprecationWarning as SymPyDeprecationWarning, ignore_warnings as ignore_warnings, sympy_deprecation_warning as sympy_deprecation_warning
-from sympy.utilities.iterables import has_dups as has_dups, is_sequence as is_sequence, iterable as iterable, sift as sift, topological_sort as topological_sort, uniq as uniq
+from sympy.utilities.exceptions import (
+	ignore_warnings as ignore_warnings, sympy_deprecation_warning as sympy_deprecation_warning,
+	SymPyDeprecationWarning as SymPyDeprecationWarning)
+from sympy.utilities.iterables import (
+	has_dups as has_dups, is_sequence as is_sequence, iterable as iterable, sift as sift,
+	topological_sort as topological_sort, uniq as uniq)
 from sympy.utilities.lambdify import MPMATH_TRANSLATIONS as MPMATH_TRANSLATIONS
 from sympy.utilities.misc import as_int as as_int, filldedent as filldedent, func_name as func_name
 from typing import Any
 
 def _coeff_isneg(a):
-    '''Return True if the leading Number is negative.
+    """Return True if the leading Number is negative.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.function import _coeff_isneg
     >>> from sympy import S, Symbol, oo, pi
     >>> _coeff_isneg(-3*pi)
@@ -48,12 +51,12 @@ def _coeff_isneg(a):
     True
     >>> _coeff_isneg(sqrt(2)*A)
     False
-    '''
+    """
 
 class PoleError(Exception): ...
 
 class ArgumentIndexError(ValueError):
-    def __str__(self) -> str: ...
+    ...
 
 class BadSignatureError(TypeError):
     """Raised when a Lambda is created with an invalid signature"""
@@ -70,8 +73,7 @@ def arity(cls):
     optional and the arity is reported as a tuple of possible values.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import arity, log
     >>> arity(lambda x: x)
     1
@@ -88,6 +90,7 @@ class FunctionClass(type):
     Use Function('<function name>' [ , signature ]) to create
     undefined function classes.
     """
+
     _new: Incomplete
     def __init__(cls, *args, **kwargs) -> None: ...
     @property
@@ -105,8 +108,7 @@ class FunctionClass(type):
         """Return a set of the allowed number of arguments for the function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Function
         >>> f = Function('f')
 
@@ -135,12 +137,11 @@ class FunctionClass(type):
         1
         """
     def _valid_nargs(self, n: int) -> bool:
-        """ Return True if the specified integer is a valid number of arguments
+        """Return True if the specified integer is a valid number of arguments
 
         The number of arguments n is guaranteed to be an integer and positive
 
         """
-    def __repr__(cls) -> str: ...
 
 class Application(Basic, metaclass=FunctionClass):
     """
@@ -152,12 +153,13 @@ class Application(Basic, metaclass=FunctionClass):
     Instances of Application represent the result of applying an application of
     any type to any object.
     """
+
     is_Function: bool
     @cacheit
     def __new__(cls, *args, **options): ...
     @classmethod
     def eval(cls, *args) -> None:
-        '''
+        """
         Returns a canonical form of cls applied to arguments args.
 
         Explanation
@@ -184,7 +186,7 @@ class Application(Basic, metaclass=FunctionClass):
                     if coeff is not S.One:
                         return cls(coeff) * cls(terms)
 
-        '''
+        """
     @property
     def func(self): ...
     def _eval_subs(self, old, new): ...
@@ -199,8 +201,7 @@ class Function(Application, Expr):
     ``Function`` and what methods can be defined.
 
     Examples
-    ========
-
+    --------
     **Undefined Functions**
 
     To create an undefined function, pass a string of the function name to
@@ -246,6 +247,7 @@ class Function(Application, Expr):
     to create a custom function.
 
     """
+
     @property
     def _diff_wrt(self): ...
     @cacheit
@@ -292,8 +294,7 @@ class Function(Application, Expr):
         but the expansion is always in terms of *one* variable.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import atan2
         >>> from sympy.abc import x, y
         >>> atan2(x, y).series(x, n=2)
@@ -322,6 +323,7 @@ class Function(Application, Expr):
 
 class DefinedFunction(Function):
     """Base class for defined functions like ``sin``, ``cos``, ..."""
+
     @cacheit
     def __new__(cls, *args, **options) -> Expr: ...
 
@@ -330,6 +332,7 @@ class AppliedUndef(Function):
     Base class for expressions resulting from the application of an undefined
     function.
     """
+
     is_number: bool
     name: str
     def __new__(cls, *args, **options) -> Expr: ...
@@ -340,8 +343,7 @@ class AppliedUndef(Function):
         Allow derivatives wrt to undefined functions.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Function, Symbol
         >>> f = Function('f')
         >>> x = Symbol('x')
@@ -355,6 +357,7 @@ class UndefSageHelper:
     """
     Helper to facilitate Sage conversion.
     """
+
     def __get__(self, ins, typ): ...
 
 _undef_sage_helper: Incomplete
@@ -363,6 +366,7 @@ class UndefinedFunction(FunctionClass):
     """
     The (meta)class of undefined functions.
     """
+
     name: str
     _sage_: UndefSageHelper
     def __new__(mcl, name, bases=..., __dict__=None, **kwargs) -> type[AppliedUndef]: ...
@@ -382,8 +386,7 @@ class WildFunction(Function, AtomicExpr):
     A WildFunction function matches any function (with its arguments).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import WildFunction, Function, cos
     >>> from sympy.abc import x, y
     >>> F = WildFunction('F')
@@ -424,6 +427,7 @@ class WildFunction(Function, AtomicExpr):
     >>> f(x, y, 1).match(F)
 
     """
+
     include: set[Any]
     def __init__(cls, name, **assumptions) -> None: ...
     def matches(self, expr, repl_dict=None, old: bool = False): ...
@@ -433,8 +437,7 @@ class Derivative(Expr):
     Carries out differentiation of the given expression with respect to symbols.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Derivative, Function, symbols, Subs
     >>> from sympy.abc import x, y
     >>> f, g = symbols('f g', cls=Function)
@@ -477,8 +480,7 @@ class Derivative(Expr):
         True
 
     Notes
-    =====
-
+    -----
     Simplification of high-order derivatives:
 
     Because there can be a significant amount of simplification that can be
@@ -603,9 +605,10 @@ class Derivative(Expr):
     docstring of Expr._diff_wrt.
 
     See Also
-    ========
+    --------
     _sort_variable_count
     """
+
     is_Derivative: bool
     @property
     def _diff_wrt(self):
@@ -613,8 +616,7 @@ class Derivative(Expr):
         it is in elementary form.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Function, Derivative, cos
         >>> from sympy.abc import x
         >>> f = Function('f')
@@ -656,8 +658,7 @@ class Derivative(Expr):
           free symbols in common with another object
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Derivative, Function, symbols
         >>> vsort = Derivative._sort_variable_count
         >>> x, y, z = symbols('x y z')
@@ -720,11 +721,10 @@ class Derivative(Expr):
     def _eval_nseries(self, x, n, logx, cdir: int = 0): ...
     def _eval_as_leading_term(self, x, logx, cdir): ...
     def as_finite_difference(self, points: int = 1, x0=None, wrt=None):
-        ''' Expresses a Derivative instance as a finite difference.
+        """Expresses a Derivative instance as a finite difference.
 
         Parameters
-        ==========
-
+        ----------
         points : sequence or coefficient, optional
             If sequence: discrete values (length >= order+1) of the
             independent variable used for generating the finite
@@ -744,8 +744,7 @@ class Derivative(Expr):
 
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols, Function, exp, sqrt, Symbol
         >>> x, h = symbols(\'x h\')
         >>> f = Function(\'f\')
@@ -797,14 +796,13 @@ class Derivative(Expr):
         42**(-f(x - 1/2) + f(x + 1/2)) + 1
 
 
-        See also
-        ========
-
+        See Also
+        --------
         sympy.calculus.finite_diff.apply_finite_diff
         sympy.calculus.finite_diff.differentiate_finite
         sympy.calculus.finite_diff.finite_diff_weights
 
-        '''
+        """
     @classmethod
     def _get_zero_with_shape_like(cls, expr): ...
     @classmethod
@@ -819,8 +817,7 @@ class Lambda(Expr):
     Lambda((x, y, ...), expr).
 
     Examples
-    ========
-
+    --------
     A simple example:
 
     >>> from sympy import Lambda
@@ -850,6 +847,7 @@ class Lambda(Expr):
     x + y*z
 
     """
+
     is_Function: bool
     def __new__(cls, signature, expr) -> Lambda: ...
     @classmethod
@@ -872,7 +870,7 @@ class Lambda(Expr):
     def _match_signature(self, sig, args): ...
     @property
     def is_identity(self):
-        """Return ``True`` if this ``Lambda`` is an identity function. """
+        """Return ``True`` if this ``Lambda`` is an identity function."""
     def _eval_evalf(self, prec): ...
 
 class Subs(Expr):
@@ -883,8 +881,7 @@ class Subs(Expr):
     from substituting x with x0 in expr.
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
         An expression.
 
@@ -896,8 +893,7 @@ class Subs(Expr):
         corresponding to those variables.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Subs, Function, sin, cos
     >>> from sympy.abc import x, y, z
     >>> f = Function('f')
@@ -922,8 +918,7 @@ class Subs(Expr):
     z + f(0)*sin(1)
 
     Notes
-    =====
-
+    -----
     ``Subs`` objects are generally useful to represent unevaluated derivatives
     calculated at a point.
 
@@ -960,6 +955,7 @@ class Subs(Expr):
     >>> s, ss
     (Subs(x, x, 0), Subs(y, y, 0))
     """
+
     def __new__(cls, expr, variables, point, **assumptions): ...
     def _eval_is_commutative(self): ...
     def doit(self, **hints): ...
@@ -1006,8 +1002,7 @@ def diff(f, *symbols, **kwargs):
     be the function (the zeroth derivative), even if evaluate=False.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sin, cos, Function, diff
     >>> from sympy.abc import x, y
     >>> f = Function('f')
@@ -1041,13 +1036,12 @@ def diff(f, *symbols, **kwargs):
     in interactive sessions and should be avoided in library code.
 
     References
-    ==========
+    ----------
 
     .. [1] https://reference.wolfram.com/legacy/v5_2/Built-inFunctions/AlgebraicComputation/Calculus/D.html
 
     See Also
-    ========
-
+    --------
     Derivative
     idiff: computes the derivative implicitly
 
@@ -1206,8 +1200,7 @@ def expand(e, deep: bool = True, modulus=None, power_base: bool = True, power_ex
     information.
 
     Notes
-    =====
-
+    -----
     - You can shut off unwanted methods::
 
         >>> (exp(x + y)*(x + y)).expand()
@@ -1333,8 +1326,7 @@ def expand(e, deep: bool = True, modulus=None, power_base: bool = True, power_ex
     .rewrite() API.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Expr, sympify
     >>> class MyClass(Expr):
     ...     def __new__(cls, *args):
@@ -1367,8 +1359,7 @@ def expand(e, deep: bool = True, modulus=None, power_base: bool = True, power_ex
     MyClass(1, 2, 3, 4, 5, 1, 2, 3, 4, 5)
 
     See Also
-    ========
-
+    --------
     expand_log, expand_mul, expand_multinomial, expand_complex, expand_trig,
     expand_power_base, expand_power_exp, expand_func, sympy.simplify.hyperexpand.hyperexpand
 
@@ -1380,8 +1371,7 @@ def expand_mul(expr, deep: bool = True):
     docstring for more information.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, expand_mul, exp, log
     >>> x, y = symbols('x,y', positive=True)
     >>> expand_mul(exp(x+y)*(x+y)*log(x*y**2))
@@ -1394,8 +1384,7 @@ def expand_multinomial(expr, deep: bool = True):
     docstring for more information.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, expand_multinomial, exp
     >>> x, y = symbols('x y', positive=True)
     >>> expand_multinomial((x + exp(x + 1))**2)
@@ -1408,8 +1397,7 @@ def expand_log(expr, deep: bool = True, force: bool = False, factor: bool = Fals
     docstring for more information.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, expand_log, exp, log
     >>> x, y = symbols('x,y', positive=True)
     >>> expand_log(exp(x+y)*(x+y)*log(x*y**2))
@@ -1422,8 +1410,7 @@ def expand_func(expr, deep: bool = True):
     docstring for more information.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import expand_func, gamma
     >>> from sympy.abc import x
     >>> expand_func(gamma(x + 2))
@@ -1436,8 +1423,7 @@ def expand_trig(expr, deep: bool = True):
     docstring for more information.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import expand_trig, sin
     >>> from sympy.abc import x, y
     >>> expand_trig(sin(x+y)*(x+y))
@@ -1450,8 +1436,7 @@ def expand_complex(expr, deep: bool = True):
     docstring for more information.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import expand_complex, exp, sqrt, I
     >>> from sympy.abc import z
     >>> expand_complex(exp(z))
@@ -1460,8 +1445,7 @@ def expand_complex(expr, deep: bool = True):
     sqrt(2)/2 + sqrt(2)*I/2
 
     See Also
-    ========
-
+    --------
     sympy.core.expr.Expr.as_real_imag
     """
 def expand_power_base(expr, deep: bool = True, force: bool = False):
@@ -1539,8 +1523,7 @@ def expand_power_base(expr, deep: bool = True, force: bool = False):
     1
 
     See Also
-    ========
-
+    --------
     expand
 
     """
@@ -1551,8 +1534,7 @@ def expand_power_exp(expr, deep: bool = True):
     See the expand docstring for more information.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import expand_power_exp, Symbol
     >>> from sympy.abc import x, y
     >>> expand_power_exp(3**(y + 2))
@@ -1568,12 +1550,11 @@ def expand_power_exp(expr, deep: bool = True):
     x**2*x**y
     """
 def count_ops(expr, visual: bool = False):
-    '''
+    """
     Return a representation (integer or expression) of the operations in expr.
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
         If expr is an iterable, the sum of the op counts of the
         items will be returned.
@@ -1586,8 +1567,7 @@ def count_ops(expr, visual: bool = False):
         number of times they occur.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import a, b, x, y
     >>> from sympy import sin, count_ops
 
@@ -1638,7 +1618,7 @@ def count_ops(expr, visual: bool = False):
     >>> count_ops({x: sin(x), x + 2: y + 1}, visual=True)
     2*ADD + SIN
 
-    '''
+    """
 def nfloat(expr, n: int = 15, exponent: bool = False, dkeys: bool = False):
     """Make all Rationals in expr Floats except those in exponents
     (unless the exponents flag is set to True) and those in undefined
@@ -1646,8 +1626,7 @@ def nfloat(expr, n: int = 15, exponent: bool = False, dkeys: bool = False):
     unless ``dkeys=True``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import nfloat, cos, pi, sqrt
     >>> from sympy.abc import x, y
     >>> nfloat(x**4 + x/2 + cos(pi/3) + 1 + sqrt(y))

@@ -11,6 +11,7 @@ class PlotModeBase(PlotMode):
     in conjunction with its parent,
     PlotMode.
     """
+
     i_vars: Incomplete
     d_vars: Incomplete
     intervals: Incomplete
@@ -93,5 +94,3 @@ class PlotModeBase(PlotMode):
     calculating_cverts: Incomplete
     calculating_cverts_pos: Incomplete
     calculating_cverts_len: Incomplete
-    def __str__(self) -> str: ...
-    def __repr__(self) -> str: ...

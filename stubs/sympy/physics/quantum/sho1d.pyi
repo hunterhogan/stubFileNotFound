@@ -18,6 +18,7 @@ class SHOOp(Operator):
     We are limiting the number of arguments to be 1.
 
     """
+
     @classmethod
     def _eval_args(cls, args): ...
     @classmethod
@@ -32,15 +33,13 @@ class RaisingOp(SHOOp):
     a^dagger as a matrix, which will be its default basis.
 
     Parameters
-    ==========
-
+    ----------
     args : tuple
         The list of numbers or parameters that uniquely specify the
         operator.
 
     Examples
-    ========
-
+    --------
     Create a Raising Operator and rewrite it in terms of position and
     momentum, and show that taking its adjoint returns 'a':
 
@@ -91,6 +90,7 @@ class RaisingOp(SHOOp):
         [0,       0, sqrt(3), 0]])
 
     """
+
     def _eval_rewrite_as_xp(self, *args, **kwargs): ...
     def _eval_adjoint(self): ...
     def _eval_commutator_LoweringOp(self, other): ...
@@ -112,15 +112,13 @@ class LoweringOp(SHOOp):
     represent 'a' as a matrix, which will be its default basis.
 
     Parameters
-    ==========
-
+    ----------
     args : tuple
         The list of numbers or parameters that uniquely specify the
         operator.
 
     Examples
-    ========
-
+    --------
     Create a Lowering Operator and rewrite it in terms of position and
     momentum, and show that taking its adjoint returns a^dagger:
 
@@ -181,6 +179,7 @@ class LoweringOp(SHOOp):
         [0, 0,       0,       0]])
 
     """
+
     def _eval_rewrite_as_xp(self, *args, **kwargs): ...
     def _eval_adjoint(self): ...
     def _eval_commutator_RaisingOp(self, other): ...
@@ -200,15 +199,13 @@ class NumberOp(SHOOp):
     which will be its default basis.
 
     Parameters
-    ==========
-
+    ----------
     args : tuple
         The list of numbers or parameters that uniquely specify the
         operator.
 
     Examples
-    ========
-
+    --------
     Create a Number Operator and rewrite it in terms of the ladder
     operators, position and momentum operators, and Hamiltonian:
 
@@ -262,6 +259,7 @@ class NumberOp(SHOOp):
         [0, 0, 0, 3]])
 
     """
+
     def _eval_rewrite_as_a(self, *args, **kwargs): ...
     def _eval_rewrite_as_xp(self, *args, **kwargs): ...
     def _eval_rewrite_as_H(self, *args, **kwargs): ...
@@ -282,15 +280,13 @@ class Hamiltonian(SHOOp):
     Operator as a matrix, which will be its default basis.
 
     Parameters
-    ==========
-
+    ----------
     args : tuple
         The list of numbers or parameters that uniquely specify the
         operator.
 
     Examples
-    ========
-
+    --------
     Create a Hamiltonian Operator and rewrite it in terms of the ladder
     operators, position and momentum, and the Number Operator:
 
@@ -338,6 +334,7 @@ class Hamiltonian(SHOOp):
         [           0,              0,              0, 7*hbar*omega/2]])
 
     """
+
     def _eval_rewrite_as_a(self, *args, **kwargs): ...
     def _eval_rewrite_as_xp(self, *args, **kwargs): ...
     def _eval_rewrite_as_N(self, *args, **kwargs): ...
@@ -349,6 +346,7 @@ class Hamiltonian(SHOOp):
 
 class SHOState(State):
     """State class for SHO states"""
+
     @classmethod
     def _eval_hilbert_space(cls, label): ...
     @property
@@ -360,15 +358,13 @@ class SHOKet(SHOState, Ket):
     Inherits from SHOState and Ket.
 
     Parameters
-    ==========
-
+    ----------
     args : tuple
         The list of numbers or parameters that uniquely specify the ket
         This is usually its quantum numbers or its symbol.
 
     Examples
-    ========
-
+    --------
     Ket's know about their associated bra:
 
         >>> from sympy.physics.quantum.sho1d import SHOKet
@@ -404,6 +400,7 @@ class SHOKet(SHOState, Ket):
         [1]])
 
     """
+
     @classmethod
     def dual_class(self): ...
     def _eval_innerproduct_SHOBra(self, bra, **hints): ...
@@ -416,15 +413,13 @@ class SHOBra(SHOState, Bra):
     Inherits from SHOState and Bra.
 
     Parameters
-    ==========
-
+    ----------
     args : tuple
         The list of numbers or parameters that uniquely specify the ket
         This is usually its quantum numbers or its symbol.
 
     Examples
-    ========
-
+    --------
     Bra's know about their associated ket:
 
         >>> from sympy.physics.quantum.sho1d import SHOBra
@@ -446,6 +441,7 @@ class SHOBra(SHOState, Bra):
         Matrix([[0, 0, 0, 1]])
 
     """
+
     @classmethod
     def dual_class(self): ...
     def _represent_default_basis(self, **options): ...

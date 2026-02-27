@@ -1,6 +1,8 @@
-import matplotlib.spines as mspines
 from _typeshed import Incomplete
-from matplotlib import _api as _api, _docstring as _docstring, cbook as cbook, cm as cm, collections as collections, colors as colors, contour as contour, ticker as ticker
+from matplotlib import (
+	_api as _api, _docstring as _docstring, cbook as cbook, cm as cm, collections as collections, colors as colors,
+	contour as contour, ticker as ticker)
+import matplotlib.spines as mspines
 
 _log: Incomplete
 
@@ -20,6 +22,7 @@ class _ColorbarAxesLocator:
     """
     Shrink the Axes if there are triangular or rectangular extends.
     """
+
     _cbar: Incomplete
     _orig_locator: Incomplete
     def __init__(self, cbar) -> None: ...
@@ -50,6 +53,7 @@ class Colorbar:
     dividers : `.LineCollection`
         A LineCollection (empty if *drawedges* is ``False``).
     """
+
     n_rasterize: int
     mappable: Incomplete
     ax: Incomplete
@@ -316,7 +320,7 @@ class Colorbar:
         transparency values associated with the colormap.
         """
     def _set_scale(self, scale, **kwargs) -> None:
-        '''
+        """
         Set the colorbar long axis scale.
 
         Parameters
@@ -341,7 +345,7 @@ class Colorbar:
         Additionally, custom scales may be registered using
         `matplotlib.scale.register_scale`. These scales can then also
         be used here.
-        '''
+        """
     def remove(self) -> None:
         """
         Remove this colorbar from the figure.

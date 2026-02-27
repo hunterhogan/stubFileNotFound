@@ -19,4 +19,3 @@ def interpolate_layout(designspace, loc, master_finder=..., mapped: bool = False
     """
 def main(args=None):
     """Interpolate GDEF/GPOS/GSUB tables for a point on a designspace"""
-

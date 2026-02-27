@@ -1,5 +1,5 @@
 from .cartan_type import CartanType as CartanType
-from sympy.core.backend import Matrix as Matrix, Rational as Rational, eye as eye, igcd as igcd
+from sympy.core.backend import eye as eye, igcd as igcd, Matrix as Matrix, Rational as Rational
 from sympy.core.basic import Atom as Atom
 
 class WeylGroup(Atom):
@@ -11,37 +11,36 @@ class WeylGroup(Atom):
     group is a finite Coxeter group.
 
     """
+
     def __new__(cls, cartantype): ...
     def generators(self):
-        '''
+        """
         This method creates the generating reflections of the Weyl group for
         a given Lie algebra.  For a Lie algebra of rank n, there are n
         different generating reflections.  This function returns them as
         a list.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.weyl_group import WeylGroup
         >>> c = WeylGroup("F4")
         >>> c.generators()
         [\'r1\', \'r2\', \'r3\', \'r4\']
-        '''
+        """
     def group_order(self):
-        '''
+        """
         This method returns the order of the Weyl group.
         For types A, B, C, D, and E the order depends on
         the rank of the Lie algebra.  For types F and G,
         the order is fixed.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.weyl_group import WeylGroup
         >>> c = WeylGroup("D4")
         >>> c.group_order()
         192.0
-        '''
+        """
     def group_name(self):
         """
         This method returns some general information about the Weyl group for
@@ -49,7 +48,7 @@ class WeylGroup(Atom):
         it acts on, if relevant.
         """
     def element_order(self, weylelt):
-        '''
+        """
         This method returns the order of a given Weyl group element, which should
         be specified by the user in the form of products of the generating
         reflections, i.e. of the form r1*r2 etc.
@@ -59,13 +58,12 @@ class WeylGroup(Atom):
         identity.  It then returns this power.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.weyl_group import WeylGroup
         >>> b = WeylGroup("B4")
         >>> b.element_order(\'r1*r4*r2\')
         4
-        '''
+        """
     def delete_doubles(self, reflections):
         """
         This is a helper method for determining the order of an element in the
@@ -73,7 +71,7 @@ class WeylGroup(Atom):
         in it, it deletes them.
         """
     def matrix_form(self, weylelt):
-        '''
+        """
         This method takes input from the user in the form of products of the
         generating reflections, and returns the matrix corresponding to the
         element of the Weyl group.  Since each element of the Weyl group is
@@ -82,8 +80,7 @@ class WeylGroup(Atom):
         reflections.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.weyl_group import WeylGroup
         >>> f = WeylGroup("F4")
         >>> f.matrix_form(\'r2*r3\')
@@ -93,9 +90,9 @@ class WeylGroup(Atom):
         [0, 0, 0, -1],
         [0, 0, 1,  0]])
 
-        '''
+        """
     def coxeter_diagram(self):
-        '''
+        """
         This method returns the Coxeter diagram corresponding to a Weyl group.
         The Coxeter diagram can be obtained from a Lie algebra\'s Dynkin diagram
         by deleting all arrows; the Coxeter diagram is the undirected graph.
@@ -106,11 +103,10 @@ class WeylGroup(Atom):
         are three edges, the order $m(i, j)$ is 6.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.weyl_group import WeylGroup
         >>> c = WeylGroup("B3")
         >>> print(c.coxeter_diagram())
         0---0===0
         1   2   3
-        '''
+        """

@@ -4,9 +4,9 @@ from sympy.printing.preview import preview as preview
 from sympy.utilities.misc import debug as debug
 
 def _init_python_printing(stringify_func, **settings) -> None:
-    """Setup printing in Python interactive session. """
+    """Setup printing in Python interactive session."""
 def _init_ipython_printing(ip, stringify_func, use_latex, euler, forecolor, backcolor, fontsize, latex_mode, print_builtin, latex_printer, scale, **settings):
-    """Setup printing in IPython interactive session. """
+    """Setup printing in IPython interactive session."""
 def _is_ipython(shell):
     """Is a shell instance an IPython shell?"""
 
@@ -17,8 +17,7 @@ def init_printing(pretty_print: bool = True, order=None, use_unicode=None, use_l
     Initializes pretty-printer depending on the environment.
 
     Parameters
-    ==========
-
+    ----------
     pretty_print : bool, default=True
         If ``True``, use :func:`~.pretty_print` to stringify or the provided pretty
         printer; if ``False``, use :func:`~.sstrrepr` to stringify or the provided string
@@ -94,8 +93,7 @@ def init_printing(pretty_print: bool = True, order=None, use_unicode=None, use_l
         be used to fine-tune the output.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.interactive import init_printing
     >>> from sympy import Symbol, sqrt
     >>> from sympy.abc import x, y
@@ -130,8 +128,7 @@ def init_printing(pretty_print: bool = True, order=None, use_unicode=None, use_l
     x**2 + y**2
 
     Notes
-    =====
-
+    -----
     The foreground and background colors can be selected when using ``'png'`` or
     ``'svg'`` LaTeX rendering. Note that before the ``init_printing`` command is
     executed, the LaTeX rendering is handled by the IPython console and not SymPy.
@@ -148,15 +145,14 @@ def init_printing(pretty_print: bool = True, order=None, use_unicode=None, use_l
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikibooks.org/wiki/LaTeX/Colors#The_68_standard_colors_known_to_dvips
 
     .. [2] https://ipython.readthedocs.io/en/stable/config/details.html#terminal-colors
 
     See Also
-    ========
-
+    --------
     sympy.printing.latex
     sympy.printing.pretty
 

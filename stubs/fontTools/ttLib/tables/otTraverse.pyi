@@ -56,4 +56,3 @@ def bfs_base_table(root: BaseTable, root_accessor: str | None = None, skip_root:
         subtable, whereas preceding ones refer to its parent tables all the way up to
         the root.
     """
-

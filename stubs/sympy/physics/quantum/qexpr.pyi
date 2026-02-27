@@ -1,12 +1,13 @@
 from _typeshed import Incomplete
 from sympy.core.expr import Expr
 
-__all__ = ['QuantumError', 'QExpr']
+__all__ = ['QExpr', 'QuantumError']
 
 class QuantumError(Exception): ...
 
 class QExpr(Expr):
     """A base class for all quantum object like operators and states."""
+
     __slots__: Incomplete
     is_commutative: bool
     _label_separator: str
@@ -14,16 +15,14 @@ class QExpr(Expr):
         """Construct a new quantum object.
 
         Parameters
-        ==========
-
+        ----------
         args : tuple
             The list of numbers or parameters that uniquely specify the
             quantum object. For a state, this will be its symbol or its
             set of quantum numbers.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.quantum.qexpr import QExpr
         >>> q = QExpr(0)
         >>> q
@@ -117,7 +116,7 @@ class QExpr(Expr):
     def _latex(self, printer, *args): ...
     def _represent_default_basis(self, **options) -> None: ...
     def _represent(self, *, basis=None, **options):
-        '''Represent this object in a given basis.
+        """Represent this object in a given basis.
 
         This method dispatches to the actual methods that perform the
         representation. Subclases of QExpr should define various methods to
@@ -140,8 +139,7 @@ class QExpr(Expr):
         representing the object are returned in the appropriate matrix format.
 
         Parameters
-        ==========
-
+        ----------
         basis : Operator
             The Operator whose basis functions will be used as the basis for
             representation.
@@ -149,5 +147,5 @@ class QExpr(Expr):
             A dictionary of key/value pairs that give options and hints for
             the representation, such as the number of basis functions to
             be used.
-        '''
+        """
     def _format_represent(self, result, format): ...

@@ -2,7 +2,8 @@ from _typeshed import Incomplete
 from sympy.external import import_module as import_module
 from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
-from sympy.utilities.iterables import NotIterable as NotIterable, flatten as flatten, is_sequence as is_sequence, iterable as iterable
+from sympy.utilities.iterables import (
+	flatten as flatten, is_sequence as is_sequence, iterable as iterable, NotIterable as NotIterable)
 from sympy.utilities.misc import filldedent as filldedent
 from typing import Any
 
@@ -42,19 +43,19 @@ NUMEXPR_TRANSLATIONS: dict[str, str]
 MODULES: Incomplete
 
 def _import(module, reload: bool = False) -> None:
-    '''
+    """
     Creates a global translation dictionary for module.
 
     The argument module has to be one of the following strings: "math","cmath"
     "mpmath", "numpy", "sympy", "tensorflow", "jax".
     These dictionaries map names of Python functions to their equivalent in
     other modules.
-    '''
+    """
 
 _lambdify_generated_counter: int
 
 def lambdify(args, expr, modules=None, printer=None, use_imps: bool = True, dummify: bool = False, cse: bool = False, docstring_limit: int = 1000):
-    '''Convert a SymPy expression into a function that allows for fast
+    """Convert a SymPy expression into a function that allows for fast
     numeric evaluation.
 
     .. warning::
@@ -99,8 +100,7 @@ def lambdify(args, expr, modules=None, printer=None, use_imps: bool = True, dumm
     equivalent NumPy function ``f``, and called it on a NumPy array ``a``.
 
     Parameters
-    ==========
-
+    ----------
     args : List[Symbol]
         A variable or a list of variables whose nesting represents the
         nesting of the arguments that will be passed to the function.
@@ -240,8 +240,7 @@ def lambdify(args, expr, modules=None, printer=None, use_imps: bool = True, dumm
         of the expression is rendered as normal. The default is ``1000``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.lambdify import implemented_function
     >>> from sympy import sqrt, sin, Matrix
     >>> from sympy import Function
@@ -348,8 +347,7 @@ def lambdify(args, expr, modules=None, printer=None, use_imps: bool = True, dumm
      [3. 4.]]
 
     Notes
-    =====
-
+    -----
     - For functions involving large array calculations, numexpr can provide a
       significant speedup over numpy. Please note that the available functions
       for numexpr are more limited than numpy but can be expanded with
@@ -625,7 +623,7 @@ def lambdify(args, expr, modules=None, printer=None, use_imps: bool = True, dumm
     (say, NumPy arrays).** Remember that by default, if the ``module``
     argument is not provided, ``lambdify`` creates functions using the NumPy
     and SciPy namespaces.
-    '''
+    """
 def _module_present(modname, modlist): ...
 def _get_namespace(m):
     """
@@ -634,14 +632,14 @@ def _get_namespace(m):
 def _recursive_to_string(doprint, arg):
     """Functions in lambdify accept both SymPy types and non-SymPy types such as python
     lists and tuples. This method ensures that we only call the doprint method of the
-    printer with SymPy types (so that the printer safely can use SymPy-methods)."""
+    printer with SymPy types (so that the printer safely can use SymPy-methods).
+    """
 def lambdastr(args, expr, printer=None, dummify=None):
     """
     Returns a string that can be evaluated to a lambda function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y, z
     >>> from sympy.utilities.lambdify import lambdastr
     >>> lambdastr(x, x**2)
@@ -702,7 +700,7 @@ class _TensorflowEvaluatorPrinter(_EvaluatorPrinter):
         """
 
 def _imp_namespace(expr, namespace=None):
-    """ Return namespace dict with function implementations
+    """Return namespace dict with function implementations
 
     We need to search for functions in anything that can be thrown at
     us - that is - anything that could be passed as ``expr``.  Examples
@@ -725,8 +723,7 @@ def _imp_namespace(expr, namespace=None):
        function
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x
     >>> from sympy.utilities.lambdify import implemented_function, _imp_namespace
     >>> from sympy import Function
@@ -737,7 +734,7 @@ def _imp_namespace(expr, namespace=None):
     ['f', 'g']
     """
 def implemented_function(symfunc, implementation):
-    """ Add numerical ``implementation`` to function ``symfunc``.
+    """Add numerical ``implementation`` to function ``symfunc``.
 
     ``symfunc`` can be an ``UndefinedFunction`` instance, or a name string.
     In the latter case we create an ``UndefinedFunction`` instance with that
@@ -763,8 +760,7 @@ def implemented_function(symfunc, implementation):
        function with attached implementation
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x
     >>> from sympy.utilities.lambdify import implemented_function
     >>> from sympy import lambdify
@@ -783,7 +779,7 @@ def _too_large_for_docstring(expr, limit):
     expression.
 
     Parameters
-    ==========
+    ----------
     expr : ``Expr``, (nested) ``list`` of ``Expr``, or ``Matrix``
         The same objects that can be passed to the ``expr`` argument of
         ``lambdify``.
@@ -792,14 +788,13 @@ def _too_large_for_docstring(expr, limit):
         usefully rendered in the docstring. If ``None`` then there is no limit.
 
     Returns
-    =======
+    -------
     bool
         ``True`` if the number of nodes in the expression exceeds the limit,
         ``False`` otherwise.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y, z
     >>> from sympy.utilities.lambdify import _too_large_for_docstring
     >>> expr = x

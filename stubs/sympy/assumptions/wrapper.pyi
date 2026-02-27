@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from sympy.assumptions import Q as Q, ask as ask
+from sympy.assumptions import ask as ask, Q as Q
 from sympy.core.basic import Basic as Basic
 from sympy.core.sympify import _sympify as _sympify
 
@@ -11,15 +11,13 @@ class AssumptionsWrapper(Basic):
     ``.is_[...]`` property
 
     Parameters
-    ==========
-
+    ----------
     expr : Basic
 
     assumptions : Boolean, optional
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, Symbol
     >>> from sympy.assumptions.wrapper import AssumptionsWrapper
     >>> x = Symbol('x', even=True)
@@ -51,6 +49,7 @@ class AssumptionsWrapper(Basic):
     -y
 
     """
+
     def __new__(cls, expr, assumptions=None): ...
     _eval_is_algebraic: Incomplete
     _eval_is_antihermitian: Incomplete

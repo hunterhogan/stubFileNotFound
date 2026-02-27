@@ -24,4 +24,3 @@ def dumps(obj: GSFont) -> str:
 
 NSPropertyListNameSet: tuple
 def _needs_quotes(string): ...
-

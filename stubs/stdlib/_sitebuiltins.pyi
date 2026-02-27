@@ -1,6 +1,6 @@
-import sys
 from collections.abc import Iterable
 from typing import ClassVar, Literal, NoReturn
+import sys
 
 class Quitter:
     name: str

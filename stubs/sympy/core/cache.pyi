@@ -1,41 +1,41 @@
 from _typeshed import Incomplete
-from typing import Callable
+from collections.abc import Callable
 
 class _cache(list):
-    """ List of cached functions """
+    """List of cached functions"""
+
     def print_cache(self) -> None:
-        """print cache info"""
+        """Print cache info"""
     def clear_cache(self) -> None:
-        """clear cache content"""
+        """Clear cache content"""
 
 CACHE: Incomplete
 print_cache: Incomplete
 clear_cache: Incomplete
 
 def __cacheit(maxsize):
-    """caching decorator.
+    """Caching decorator.
 
-        important: the result of cached function must be *immutable*
+    important: the result of cached function must be *immutable*
 
 
-        Examples
-        ========
+    Examples
+    --------
+    >>> from sympy import cacheit
+    >>> @cacheit
+    ... def f(a, b):
+    ...    return a+b
 
-        >>> from sympy import cacheit
-        >>> @cacheit
-        ... def f(a, b):
-        ...    return a+b
+    >>> @cacheit
+    ... def f(a, b): # noqa: F811
+    ...    return [a, b] # <-- WRONG, returns mutable object
 
-        >>> @cacheit
-        ... def f(a, b): # noqa: F811
-        ...    return [a, b] # <-- WRONG, returns mutable object
-
-        to force cacheit to check returned results mutability and consistency,
-        set environment variable SYMPY_USE_CACHE to 'debug'
+    to force cacheit to check returned results mutability and consistency,
+    set environment variable SYMPY_USE_CACHE to 'debug'
     """
 def __cacheit_nocache(func): ...
 def __cacheit_debug(maxsize):
-    """cacheit + code to check cache consistency"""
+    """Cacheit + code to check cache consistency"""
 def _getenv(key, default=None): ...
 
 USE_CACHE: Incomplete

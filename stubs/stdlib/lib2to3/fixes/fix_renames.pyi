@@ -1,13 +1,12 @@
+from .. import fixer_base
 from collections.abc import Generator
 from typing import ClassVar, Final, Literal
-
-from .. import fixer_base
 
 MAPPING: Final[dict[str, dict[str, str]]]
 LOOKUP: Final[dict[tuple[str, str], str]]
 
 def alternates(members): ...
-def build_pattern() -> Generator[str, None, None]: ...
+def build_pattern() -> Generator[str]: ...
 
 class FixRenames(fixer_base.BaseFix):
     BM_compatible: ClassVar[Literal[True]]

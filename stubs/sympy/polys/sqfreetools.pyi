@@ -1,23 +1,33 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from sympy.polys.densearith import dmp_mul as dmp_mul, dmp_mul_ground as dmp_mul_ground, dmp_neg as dmp_neg, dmp_quo as dmp_quo, dmp_sub as dmp_sub, dup_mul as dup_mul, dup_mul_ground as dup_mul_ground, dup_neg as dup_neg, dup_quo as dup_quo, dup_sub as dup_sub
-from sympy.polys.densebasic import dmp_degree as dmp_degree, dmp_degree_in as dmp_degree_in, dmp_degree_list as dmp_degree_list, dmp_ground as dmp_ground, dmp_ground_LC as dmp_ground_LC, dmp_inject as dmp_inject, dmp_raise as dmp_raise, dmp_zero_p as dmp_zero_p, dup_LC as dup_LC, dup_convert as dup_convert, dup_degree as dup_degree, dup_strip as dup_strip
-from sympy.polys.densetools import dmp_diff as dmp_diff, dmp_diff_in as dmp_diff_in, dmp_ground_monic as dmp_ground_monic, dmp_ground_primitive as dmp_ground_primitive, dmp_shift as dmp_shift, dup_diff as dup_diff, dup_monic as dup_monic, dup_primitive as dup_primitive, dup_shift as dup_shift
-from sympy.polys.euclidtools import dmp_gcd as dmp_gcd, dmp_inner_gcd as dmp_inner_gcd, dmp_primitive as dmp_primitive, dmp_resultant as dmp_resultant, dup_gcd as dup_gcd, dup_inner_gcd as dup_inner_gcd
+from sympy.polys.densearith import (
+	dmp_mul as dmp_mul, dmp_mul_ground as dmp_mul_ground, dmp_neg as dmp_neg, dmp_quo as dmp_quo, dmp_sub as dmp_sub,
+	dup_mul as dup_mul, dup_mul_ground as dup_mul_ground, dup_neg as dup_neg, dup_quo as dup_quo, dup_sub as dup_sub)
+from sympy.polys.densebasic import (
+	dmp_degree as dmp_degree, dmp_degree_in as dmp_degree_in, dmp_degree_list as dmp_degree_list, dmp_ground as dmp_ground,
+	dmp_ground_LC as dmp_ground_LC, dmp_inject as dmp_inject, dmp_raise as dmp_raise, dmp_zero_p as dmp_zero_p,
+	dup_convert as dup_convert, dup_degree as dup_degree, dup_LC as dup_LC, dup_strip as dup_strip)
+from sympy.polys.densetools import (
+	dmp_diff as dmp_diff, dmp_diff_in as dmp_diff_in, dmp_ground_monic as dmp_ground_monic,
+	dmp_ground_primitive as dmp_ground_primitive, dmp_shift as dmp_shift, dup_diff as dup_diff, dup_monic as dup_monic,
+	dup_primitive as dup_primitive, dup_shift as dup_shift)
+from sympy.polys.euclidtools import (
+	dmp_gcd as dmp_gcd, dmp_inner_gcd as dmp_inner_gcd, dmp_primitive as dmp_primitive, dmp_resultant as dmp_resultant,
+	dup_gcd as dup_gcd, dup_inner_gcd as dup_inner_gcd)
 from sympy.polys.galoistools import gf_sqf_list as gf_sqf_list, gf_sqf_part as gf_sqf_part
-from sympy.polys.polyerrors import DomainError as DomainError, MultivariatePolynomialError as MultivariatePolynomialError
+from sympy.polys.polyerrors import (
+	DomainError as DomainError, MultivariatePolynomialError as MultivariatePolynomialError)
 
 def _dup_check_degrees(f, result) -> None:
     """Sanity check the degrees of a computed factorization in K[x]."""
 def _dmp_check_degrees(f, u, result) -> None:
     """Sanity check the degrees of a computed factorization in K[X]."""
 def dup_sqf_p(f, K):
-    '''
+    """
     Return ``True`` if ``f`` is a square-free polynomial in ``K[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys import ring, ZZ
     >>> R, x = ring("x", ZZ)
 
@@ -26,14 +36,13 @@ def dup_sqf_p(f, K):
     >>> R.dup_sqf_p(x**2 - 1)
     True
 
-    '''
+    """
 def dmp_sqf_p(f, u, K):
-    '''
+    """
     Return ``True`` if ``f`` is a square-free polynomial in ``K[X]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys import ring, ZZ
     >>> R, x,y = ring("x,y", ZZ)
 
@@ -42,9 +51,9 @@ def dmp_sqf_p(f, u, K):
     >>> R.dmp_sqf_p(x**2 + y**2)
     True
 
-    '''
+    """
 def dup_sqf_norm(f, K):
-    '''
+    """
     Find a shift of `f` in `K[x]` that has square-free norm.
 
     The domain `K` must be an algebraic number field `k(a)` (see :ref:`QQ(a)`).
@@ -53,8 +62,7 @@ def dup_sqf_norm(f, K):
     `r` is a square-free polynomial over `k`.
 
     Examples
-    ========
-
+    --------
     We first create the algebraic number field `K=k(a)=\\mathbb{Q}(\\sqrt{3})`
     and rings `K[x]` and `k[x]`:
 
@@ -97,8 +105,7 @@ def dup_sqf_norm(f, K):
     ``sqfr_norm`` from [Trager76]_.
 
     See Also
-    ========
-
+    --------
     dmp_sqf_norm:
         Analogous function for multivariate polynomials over ``k(a)``.
     dmp_norm:
@@ -107,11 +114,11 @@ def dup_sqf_norm(f, K):
         Function implementing Trager\'s algorithm that uses this.
     sympy.polys.polytools.sqf_norm:
         High-level interface for using this function.
-    '''
+    """
 def _dmp_sqf_norm_shifts(f, u, K) -> Generator[Incomplete]:
     """Generate a sequence of candidate shifts for dmp_sqf_norm."""
 def dmp_sqf_norm(f, u, K):
-    '''
+    """
     Find a shift of ``f`` in ``K[X]`` that has square-free norm.
 
     The domain `K` must be an algebraic number field `k(a)` (see :ref:`QQ(a)`).
@@ -121,8 +128,7 @@ def dmp_sqf_norm(f, u, K):
     `k`.
 
     Examples
-    ========
-
+    --------
     We first create the algebraic number field `K=k(a)=\\mathbb{Q}(i)` and rings
     `K[x,y]` and `k[x,y]`:
 
@@ -165,8 +171,7 @@ def dmp_sqf_norm(f, u, K):
     generalization of algorithm ``sqfr_norm`` from [Trager76]_.
 
     See Also
-    ========
-
+    --------
     dup_sqf_norm:
         Analogous function for univariate polynomials over ``k(a)``.
     dmp_norm:
@@ -175,7 +180,7 @@ def dmp_sqf_norm(f, u, K):
         Function implementing Trager\'s algorithm that uses this.
     sympy.polys.polytools.sqf_norm:
         High-level interface for using this function.
-    '''
+    """
 def dmp_norm(f, u, K):
     """
     Norm of ``f`` in ``K[X]``, often not square-free.
@@ -183,8 +188,7 @@ def dmp_norm(f, u, K):
     The domain `K` must be an algebraic number field `k(a)` (see :ref:`QQ(a)`).
 
     Examples
-    ========
-
+    --------
     We first define the algebraic number field `K = k(a) = \\mathbb{Q}(\\sqrt{2})`:
 
     >>> from sympy import QQ, sqrt
@@ -241,24 +245,22 @@ def dmp_norm(f, u, K):
     will be an element of `k[X]`.
 
     See Also
-    ========
-
+    --------
     dmp_sqf_norm:
         Compute a shift of `f` so that the `\\text{Norm}(f)` is square-free.
     sympy.polys.polytools.Poly.norm:
         Higher-level function that calls this.
     """
 def dup_gf_sqf_part(f, K):
-    """Compute square-free part of ``f`` in ``GF(p)[x]``. """
+    """Compute square-free part of ``f`` in ``GF(p)[x]``."""
 def dmp_gf_sqf_part(f, u, K) -> None:
-    """Compute square-free part of ``f`` in ``GF(p)[X]``. """
+    """Compute square-free part of ``f`` in ``GF(p)[X]``."""
 def dup_sqf_part(f, K):
-    '''
+    """
     Returns square-free part of a polynomial in ``K[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys import ring, ZZ
     >>> R, x = ring("x", ZZ)
 
@@ -266,37 +268,34 @@ def dup_sqf_part(f, K):
     x**2 - x - 2
 
     See Also
-    ========
-
+    --------
     sympy.polys.polytools.Poly.sqf_part
-    '''
+    """
 def dmp_sqf_part(f, u, K):
-    '''
+    """
     Returns square-free part of a polynomial in ``K[X]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys import ring, ZZ
     >>> R, x,y = ring("x,y", ZZ)
 
     >>> R.dmp_sqf_part(x**3 + 2*x**2*y + x*y**2)
     x**2 + x*y
 
-    '''
+    """
 def dup_gf_sqf_list(f, K, all: bool = False):
-    """Compute square-free decomposition of ``f`` in ``GF(p)[x]``. """
+    """Compute square-free decomposition of ``f`` in ``GF(p)[x]``."""
 def dmp_gf_sqf_list(f, u, K, all: bool = False) -> None:
-    """Compute square-free decomposition of ``f`` in ``GF(p)[X]``. """
+    """Compute square-free decomposition of ``f`` in ``GF(p)[X]``."""
 def dup_sqf_list(f, K, all: bool = False):
-    '''
+    """
     Return square-free decomposition of a polynomial in ``K[x]``.
 
     Uses Yun\'s algorithm from [Yun76]_.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys import ring, ZZ
     >>> R, x = ring("x", ZZ)
 
@@ -308,8 +307,7 @@ def dup_sqf_list(f, K, all: bool = False):
     (2, [(1, 1), (x + 1, 2), (x + 2, 3)])
 
     See Also
-    ========
-
+    --------
     dmp_sqf_list:
         Corresponding function for multivariate polynomials.
     sympy.polys.polytools.sqf_list:
@@ -318,17 +316,15 @@ def dup_sqf_list(f, K, all: bool = False):
         Analogous method on :class:`~.Poly`.
 
     References
-    ==========
-
+    ----------
     [Yun76]_
-    '''
+    """
 def dup_sqf_list_include(f, K, all: bool = False):
-    '''
+    """
     Return square-free decomposition of a polynomial in ``K[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys import ring, ZZ
     >>> R, x = ring("x", ZZ)
 
@@ -339,14 +335,13 @@ def dup_sqf_list_include(f, K, all: bool = False):
     >>> R.dup_sqf_list_include(f, all=True)
     [(2, 1), (x + 1, 2), (x + 2, 3)]
 
-    '''
+    """
 def dmp_sqf_list(f, u, K, all: bool = False):
-    '''
+    """
     Return square-free decomposition of a polynomial in `K[X]`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys import ring, ZZ
     >>> R, x,y = ring("x,y", ZZ)
 
@@ -369,22 +364,20 @@ def dmp_sqf_list(f, u, K, all: bool = False):
     polynomials instead.
 
     See Also
-    ========
-
+    --------
     dup_sqf_list:
         Corresponding function for univariate polynomials.
     sympy.polys.polytools.sqf_list:
         High-level function for square-free factorization of expressions.
     sympy.polys.polytools.Poly.sqf_list:
         Analogous method on :class:`~.Poly`.
-    '''
+    """
 def dmp_sqf_list_include(f, u, K, all: bool = False):
-    '''
+    """
     Return square-free decomposition of a polynomial in ``K[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys import ring, ZZ
     >>> R, x,y = ring("x,y", ZZ)
 
@@ -395,29 +388,27 @@ def dmp_sqf_list_include(f, u, K, all: bool = False):
     >>> R.dmp_sqf_list_include(f, all=True)
     [(1, 1), (x + y, 2), (x, 3)]
 
-    '''
+    """
 def dup_gff_list(f, K):
-    '''
+    """
     Compute greatest factorial factorization of ``f`` in ``K[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys import ring, ZZ
     >>> R, x = ring("x", ZZ)
 
     >>> R.dup_gff_list(x**5 + 2*x**4 - x**3 - 2*x**2)
     [(x, 1), (x + 2, 4)]
 
-    '''
+    """
 def dmp_gff_list(f, u, K):
-    '''
+    """
     Compute greatest factorial factorization of ``f`` in ``K[X]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys import ring, ZZ
     >>> R, x,y = ring("x,y", ZZ)
 
-    '''
+    """

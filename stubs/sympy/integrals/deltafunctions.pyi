@@ -7,40 +7,38 @@ from sympy.functions import DiracDelta as DiracDelta, Heaviside as Heaviside
 def change_mul(node, x):
     """change_mul(node, x)
 
-       Rearranges the operands of a product, bringing to front any simple
-       DiracDelta expression.
+    Rearranges the operands of a product, bringing to front any simple
+    DiracDelta expression.
 
-       Explanation
-       ===========
+    Explanation
+    ===========
 
-       If no simple DiracDelta expression was found, then all the DiracDelta
-       expressions are simplified (using DiracDelta.expand(diracdelta=True, wrt=x)).
+    If no simple DiracDelta expression was found, then all the DiracDelta
+    expressions are simplified (using DiracDelta.expand(diracdelta=True, wrt=x)).
 
-       Return: (dirac, new node)
-       Where:
-         o dirac is either a simple DiracDelta expression or None (if no simple
-           expression was found);
-         o new node is either a simplified DiracDelta expressions or None (if it
-           could not be simplified).
+    Return: (dirac, new node)
+    Where:
+      o dirac is either a simple DiracDelta expression or None (if no simple
+        expression was found);
+      o new node is either a simplified DiracDelta expressions or None (if it
+        could not be simplified).
 
-       Examples
-       ========
+    Examples
+    --------
+    >>> from sympy import DiracDelta, cos
+    >>> from sympy.integrals.deltafunctions import change_mul
+    >>> from sympy.abc import x, y
+    >>> change_mul(x*y*DiracDelta(x)*cos(x), x)
+    (DiracDelta(x), x*y*cos(x))
+    >>> change_mul(x*y*DiracDelta(x**2 - 1)*cos(x), x)
+    (None, x*y*cos(x)*DiracDelta(x - 1)/2 + x*y*cos(x)*DiracDelta(x + 1)/2)
+    >>> change_mul(x*y*DiracDelta(cos(x))*cos(x), x)
+    (None, None)
 
-       >>> from sympy import DiracDelta, cos
-       >>> from sympy.integrals.deltafunctions import change_mul
-       >>> from sympy.abc import x, y
-       >>> change_mul(x*y*DiracDelta(x)*cos(x), x)
-       (DiracDelta(x), x*y*cos(x))
-       >>> change_mul(x*y*DiracDelta(x**2 - 1)*cos(x), x)
-       (None, x*y*cos(x)*DiracDelta(x - 1)/2 + x*y*cos(x)*DiracDelta(x + 1)/2)
-       >>> change_mul(x*y*DiracDelta(cos(x))*cos(x), x)
-       (None, None)
-
-       See Also
-       ========
-
-       sympy.functions.special.delta_functions.DiracDelta
-       deltaintegrate
+    See Also
+    --------
+    sympy.functions.special.delta_functions.DiracDelta
+    deltaintegrate
     """
 def deltaintegrate(f, x):
     """
@@ -82,8 +80,7 @@ def deltaintegrate(f, x):
          simplified DiracDelta terms, so we integrate this expression.
 
     Examples
-    ========
-
+    --------
         >>> from sympy.abc import x, y, z
         >>> from sympy.integrals.deltafunctions import deltaintegrate
         >>> from sympy import sin, cos, DiracDelta
@@ -93,8 +90,7 @@ def deltaintegrate(f, x):
         z**2*DiracDelta(x - z)*Heaviside(y - z)
 
     See Also
-    ========
-
+    --------
     sympy.functions.special.delta_functions.DiracDelta
     sympy.integrals.integrals.Integral
     """

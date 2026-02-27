@@ -1,12 +1,12 @@
-from sympy.core import Expr as Expr, S as S, Tuple as Tuple, sympify as sympify
+from sympy.core import Expr as Expr, S as S, sympify as sympify, Tuple as Tuple
 from sympy.core.assumptions import StdFactKB as StdFactKB
 from sympy.core.logic import fuzzy_bool as fuzzy_bool, fuzzy_not as fuzzy_not
 from sympy.core.numbers import Number as Number
-from sympy.core.symbol import Symbol as Symbol, _filter_assumptions as _filter_assumptions
+from sympy.core.symbol import _filter_assumptions as _filter_assumptions, Symbol as Symbol
 from sympy.core.sympify import _sympify as _sympify
 from sympy.functions.special.tensor_functions import KroneckerDelta as KroneckerDelta
 from sympy.multipledispatch import dispatch as dispatch
-from sympy.utilities.iterables import NotIterable as NotIterable, is_sequence as is_sequence
+from sympy.utilities.iterables import is_sequence as is_sequence, NotIterable as NotIterable
 from sympy.utilities.misc import filldedent as filldedent
 
 class IndexException(Exception): ...
@@ -29,6 +29,7 @@ class Indexed(Expr):
     True
 
     """
+
     is_Indexed: bool
     is_symbol: bool
     is_Atom: bool
@@ -47,8 +48,7 @@ class Indexed(Expr):
         """Returns the ``IndexedBase`` of the ``Indexed`` object.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Indexed, IndexedBase, Idx, symbols
         >>> i, j = symbols('i j', cls=Idx)
         >>> Indexed('A', i, j).base
@@ -64,8 +64,7 @@ class Indexed(Expr):
         Returns the indices of the ``Indexed`` object.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Indexed, Idx, symbols
         >>> i, j = symbols('i j', cls=Idx)
         >>> Indexed('A', i, j).indices
@@ -78,8 +77,7 @@ class Indexed(Expr):
         Returns the rank of the ``Indexed`` object.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Indexed, Idx, symbols
         >>> i, j, k, l, m = symbols('i:m', cls=Idx)
         >>> Indexed('A', i, j).rank
@@ -118,8 +116,7 @@ class Indexed(Expr):
         corresponding slot in the list contains ``None`` instead of a tuple.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Indexed,Idx, symbols
         >>> Indexed('A', Idx('i', 2), Idx('j', 4), Idx('k', 8)).ranges
         [(0, 1), (0, 3), (0, 7)]
@@ -202,6 +199,7 @@ class IndexedBase(Expr, NotIterable):
     >>> C_inherit == C_explicit
     True
     """
+
     is_symbol: bool
     is_Atom: bool
     @staticmethod
@@ -219,8 +217,7 @@ class IndexedBase(Expr, NotIterable):
         """Returns the shape of the ``IndexedBase`` object.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import IndexedBase, Idx
         >>> from sympy.abc import x, y
         >>> IndexedBase('A', shape=(x, y)).shape
@@ -262,7 +259,7 @@ class IndexedBase(Expr, NotIterable):
         generation.
 
         Examples
-        ==========
+        --------
         >>> from sympy.printing import ccode
         >>> from sympy.tensor import IndexedBase, Idx
         >>> from sympy import symbols
@@ -278,8 +275,7 @@ class IndexedBase(Expr, NotIterable):
         """Returns the label of the ``IndexedBase`` object.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import IndexedBase
         >>> from sympy.abc import x, y
         >>> IndexedBase('A', shape=(x, y)).label
@@ -313,8 +309,7 @@ class Idx(Expr):
     range or dimension arguments.)
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Idx, symbols, oo
     >>> n, i, L, U = symbols('n i L U', integer=True)
 
@@ -344,6 +339,7 @@ class Idx(Expr):
     (0, oo)
 
     """
+
     is_integer: bool
     is_finite: bool
     is_real: bool
@@ -356,8 +352,7 @@ class Idx(Expr):
         """Returns the label (Integer or integer expression) of the Idx object.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Idx, Symbol
         >>> x = Symbol('x', integer=True)
         >>> Idx(x).label
@@ -374,8 +369,7 @@ class Idx(Expr):
         """Returns the lower bound of the ``Idx``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Idx
         >>> Idx('j', 2).lower
         0
@@ -390,8 +384,7 @@ class Idx(Expr):
         """Returns the upper bound of the ``Idx``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Idx
         >>> Idx('j', 2).upper
         1

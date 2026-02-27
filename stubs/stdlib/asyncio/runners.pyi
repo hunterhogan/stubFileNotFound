@@ -1,11 +1,9 @@
-import sys
+from .events import AbstractEventLoop
 from _typeshed import Unused
 from collections.abc import Awaitable, Callable, Coroutine
 from contextvars import Context
-from typing import Any, TypeVar, final
-from typing_extensions import Self
-
-from .events import AbstractEventLoop
+from typing import Any, final, Self, TypeVar
+import sys
 
 # Keep asyncio.__all__ updated with any changes to __all__ here
 if sys.version_info >= (3, 11):

@@ -46,6 +46,7 @@ class _LLVMLock:
     Also, callbacks can be attached so that every time the lock is acquired
     and released the corresponding callbacks will be invoked.
     """
+
     _lock: Incomplete
     _cblist: Incomplete
     def __init__(self) -> None: ...
@@ -72,6 +73,7 @@ class _lib_wrapper:
 
     This class duck-types a CDLL.
     """
+
     __slots__: Incomplete
     _lib_handle: Incomplete
     _fntab: Incomplete
@@ -101,6 +103,7 @@ class _lib_fn_wrapper:
     TODO: we can add methods to mark the function as threadsafe
           and remove the locking-step on call when marked.
     """
+
     __slots__: Incomplete
     _lock: Incomplete
     _cfn: Incomplete
@@ -148,6 +151,7 @@ class OutputString:
     """
     Object for managing the char* output of LLVM APIs.
     """
+
     _as_parameter_: Incomplete
     @classmethod
     def from_return(cls, ptr):
@@ -166,7 +170,6 @@ class OutputString:
     def __enter__(self): ...
     def __exit__(self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: types.TracebackType | None) -> None: ...
     def __del__(self, _is_shutting_down=...) -> None: ...
-    def __str__(self) -> str: ...
     def __bool__(self) -> bool: ...
     __nonzero__ = __bool__
     @property
@@ -182,9 +185,10 @@ def ret_bytes(ptr):
     """
 
 class ObjectRef:
-    '''
+    """
     A wrapper around a ctypes pointer to a LLVM object ("resource").
-    '''
+    """
+
     _closed: bool
     _as_parameter_: Incomplete
     _owned: bool

@@ -18,7 +18,7 @@ class Point:
     The a_24 parameter is equal to (a + 2)/4.
 
     References
-    ==========
+    ----------
 
     .. [1] Kris Gaj, Soonhak Kwon, Patrick Baier, Paul Kohlbrenner, Hoang Le, Mohammed Khaleeluddin, Ramakrishna Bachimanchi,
            Implementing the Elliptic Curve Method of Factoring in Reconfigurable Hardware,
@@ -27,6 +27,7 @@ class Point:
            https://www.hyperelliptic.org/tanja/SHARCS/talks06/Gaj.pdf
 
     """
+
     x_cord: Incomplete
     z_cord: Incomplete
     a_24: Incomplete
@@ -36,8 +37,7 @@ class Point:
         Initial parameters for the Point class.
 
         Parameters
-        ==========
-
+        ----------
         x_cord : X coordinate of the Point
         z_cord : Z coordinate of the Point
         a_24 : Parameter of the elliptic curve in Montgomery form
@@ -59,14 +59,12 @@ class Point:
 
 
         Parameters
-        ==========
-
+        ----------
         Q : point on the curve in Montgomery form
         diff : self - Q
 
         Examples
-        ========
-
+        --------
         >>> from sympy.ntheory.ecm import Point
         >>> p1 = Point(11, 16, 7, 29)
         >>> p2 = Point(13, 10, 7, 29)
@@ -82,8 +80,7 @@ class Point:
         This algorithm requires 5 multiplications.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.ntheory.ecm import Point
         >>> p1 = Point(11, 16, 7, 29)
         >>> p2 = p1.double()
@@ -100,13 +97,11 @@ class Point:
         algorithm.
 
         Parameters
-        ==========
-
+        ----------
         k : The positive integer multiplier
 
         Examples
-        ========
-
+        --------
         >>> from sympy.ntheory.ecm import Point
         >>> p1 = Point(11, 16, 7, 29)
         >>> p3 = p1.mont_ladder(3)
@@ -148,20 +143,18 @@ def _ecm_one_factor(n, B1: int = 10000, B2: int = 100000, max_curve: int = 200, 
     restrict the size of possible values of p.
 
     Parameters
-    ==========
-
+    ----------
     n : Number to be Factored. Assume that it is a composite number.
     B1 : Stage 1 Bound. Must be an even number.
     B2 : Stage 2 Bound. Must be an even number.
     max_curve : Maximum number of curves generated
 
     Returns
-    =======
-
+    -------
     integer | None : a non-trivial divisor of ``n``. ``None`` if not found
 
     References
-    ==========
+    ----------
 
     .. [1] Carl Pomerance, Richard Crandall, Prime Numbers: A Computational Perspective,
            2nd Edition (2005), page 344, ISBN:978-0387252827
@@ -174,8 +167,7 @@ def ecm(n, B1: int = 10000, B2: int = 100000, max_curve: int = 200, seed: int = 
     Then ``_ecm_one_factor`` is used to compute one factor at a time.
 
     Parameters
-    ==========
-
+    ----------
     n : Number to be Factored
     B1 : Stage 1 Bound. Must be an even number.
     B2 : Stage 2 Bound. Must be an even number.
@@ -183,8 +175,7 @@ def ecm(n, B1: int = 10000, B2: int = 100000, max_curve: int = 200, seed: int = 
     seed : Initialize pseudorandom generator
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory import ecm
     >>> ecm(25645121643901801)
     {5394769, 4753701529}

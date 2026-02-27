@@ -1,6 +1,5 @@
-from typing import Any
-
 from pandas import DataFrame
+from typing import Any
 
 def read_iceberg(
     table_identifier: str,

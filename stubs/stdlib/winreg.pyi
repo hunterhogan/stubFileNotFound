@@ -1,8 +1,7 @@
-import sys
 from _typeshed import ReadableBuffer, Unused
 from types import TracebackType
-from typing import Any, Final, Literal, final, overload
-from typing_extensions import Self, TypeAlias
+from typing import Any, Final, final, Literal, overload, Self, TypeAlias
+import sys
 
 if sys.platform == "win32":
     _KeyType: TypeAlias = HKEYType | int

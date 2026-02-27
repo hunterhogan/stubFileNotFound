@@ -1,9 +1,8 @@
-import builtins
-import sys
 from _typeshed import Unused
 from enum import Enum
-from typing import Final, NoReturn
-from typing_extensions import LiteralString, TypeAlias
+from typing import Final, LiteralString, NoReturn, TypeAlias
+import builtins
+import sys
 
 _FieldsType: TypeAlias = tuple[int, int, int, int, int, int]
 
@@ -13,7 +12,7 @@ class SafeUUID(Enum):
     unknown = None
 
 class UUID:
-    __slots__ = ("int", "is_safe", "__weakref__")
+    __slots__ = ("__weakref__", "int", "is_safe")
     is_safe: Final[SafeUUID]
     int: Final[builtins.int]
 
@@ -26,7 +25,7 @@ class UUID:
         int: builtins.int | None = None,
         version: builtins.int | None = None,
         *,
-        is_safe: SafeUUID = SafeUUID.unknown,
+        is_safe: SafeUUID = ...,
     ) -> None: ...
     @property
     def bytes(self) -> builtins.bytes: ...

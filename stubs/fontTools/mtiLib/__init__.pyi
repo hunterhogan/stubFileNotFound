@@ -161,4 +161,3 @@ def main(args=None, font=None) -> None:
     Args:
             args: Command line arguments (``--font``, ``--table``, input files).
     """
-

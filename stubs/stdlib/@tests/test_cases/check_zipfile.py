@@ -1,9 +1,9 @@
 from __future__ import annotations
 
+from typing import Literal
 import io
 import pathlib
 import zipfile
-from typing import Literal
 
 ###
 # Tests for `zipfile.ZipFile`

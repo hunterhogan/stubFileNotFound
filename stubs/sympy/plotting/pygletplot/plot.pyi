@@ -138,6 +138,7 @@ class PygletPlot:
     =============================
 
     """
+
     _win_args: Incomplete
     _window: Incomplete
     _render_lock: Incomplete
@@ -146,7 +147,7 @@ class PygletPlot:
     _screenshot: Incomplete
     axes: Incomplete
     def __init__(self, *fargs, **win_args) -> None:
-        '''
+        """
         Positional Arguments
         ====================
 
@@ -212,7 +213,7 @@ class PygletPlot:
         invert_mouse_zoom = False
             True OR False
 
-        '''
+        """
     def show(self) -> None:
         """
         Creates and displays a plot window, or activates it
@@ -268,12 +269,6 @@ class PygletPlot:
     def __iter__(self):
         """
         Allows iteration of the function list.
-        """
-    def __repr__(self) -> str: ...
-    def __str__(self) -> str:
-        """
-        Returns a string containing a new-line separated
-        list of the functions in the function list.
         """
     def adjust_all_bounds(self) -> None: ...
     def wait_for_calculations(self) -> None: ...

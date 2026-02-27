@@ -93,4 +93,3 @@ def VarStore_optimize(self, use_NO_VARIATION_INDEX: bool = True, quantization: i
     """Optimize storage. Returns mapping from old VarIdxes to new ones."""
 def main(args=None) -> None:
     """Optimize a font's GDEF variation store"""
-

@@ -7,6 +7,7 @@ class LayoutGrid:
     """
     Analogous to a gridspec, and contained in another LayoutGrid.
     """
+
     parent_pos: Incomplete
     parent_inner: Incomplete
     name: Incomplete
@@ -26,7 +27,6 @@ class LayoutGrid:
     h_pad: Incomplete
     w_pad: Incomplete
     def __init__(self, parent: Incomplete | None = None, parent_pos=(0, 0), parent_inner: bool = False, name: str = '', ncols: int = 1, nrows: int = 1, h_pad: Incomplete | None = None, w_pad: Incomplete | None = None, width_ratios: Incomplete | None = None, height_ratios: Incomplete | None = None) -> None: ...
-    def __repr__(self) -> str: ...
     def reset_margins(self) -> None:
         """
         Reset all the margins to zero.  Must do this after changing

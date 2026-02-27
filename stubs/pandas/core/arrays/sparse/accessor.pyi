@@ -1,7 +1,6 @@
 from pandas.core.accessor import PandasDelegate
 from pandas.core.series import Series
-from typing_extensions import Self
-from typing import Any
+from typing import Any, Self
 
 class BaseAccessor:
     def __init__(self, data: Any=...) -> None: ...

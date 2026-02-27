@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-__all__ = ['TriInterpolator', 'LinearTriInterpolator', 'CubicTriInterpolator']
+__all__ = ['CubicTriInterpolator', 'LinearTriInterpolator', 'TriInterpolator']
 
 class TriInterpolator:
     """
@@ -19,6 +19,7 @@ class TriInterpolator:
       containing the 2 derivatives of the interpolator (derivatives of
       interpolated z values with respect to x and y).
     """
+
     _triangulation: Incomplete
     _z: Incomplete
     _trifinder: Incomplete
@@ -125,6 +126,7 @@ class LinearTriInterpolator(TriInterpolator):
     `gradient` (x, y) : Returns interpolated derivatives at (x, y) points.
 
     """
+
     _plane_coefficients: Incomplete
     def __init__(self, triangulation, z, trifinder: Incomplete | None = None) -> None: ...
     def __call__(self, x, y): ...
@@ -132,7 +134,7 @@ class LinearTriInterpolator(TriInterpolator):
     def _interpolate_single_key(self, return_key, tri_index, x, y): ...
 
 class CubicTriInterpolator(TriInterpolator):
-    '''
+    """
     Cubic interpolator on a triangular grid.
 
     In one-dimension - on a segment - a cubic interpolating function is
@@ -223,7 +225,8 @@ class CubicTriInterpolator(TriInterpolator):
         17(5):784 - 789. 2.01.
     .. [2] C.T. Kelley, "Iterative Methods for Optimization".
 
-    '''
+    """
+
     _triangles: Incomplete
     _tri_renum: Incomplete
     _unit_x: Incomplete
@@ -333,6 +336,7 @@ class _ReducedHCT_Element:
     C1 (conform)
 
     """
+
     M: Incomplete
     M0: Incomplete
     M1: Incomplete
@@ -476,6 +480,7 @@ class _DOF_estimator:
     ``np.vstack([dfx, dfy]).T`` where ``dfx, dfy`` are the estimation of the 2
     gradient coordinates.
     """
+
     _pts: Incomplete
     _tris_pts: Incomplete
     z: Incomplete
@@ -514,10 +519,12 @@ class _DOF_estimator:
 
 class _DOF_estimator_user(_DOF_estimator):
     """dz is imposed by user; accounts for scaling if any."""
+
     def compute_dz(self, dz): ...
 
 class _DOF_estimator_geom(_DOF_estimator):
     """Fast 'geometric' approximation, recommended for large arrays."""
+
     def compute_dz(self):
         """
         self.df is computed as weighted average of _triangles sharing a common
@@ -546,6 +553,7 @@ class _DOF_estimator_min_E(_DOF_estimator_geom):
     of the bending energy:
       E(f) = integral[(d2z/dx2 + d2z/dy2 + 2 d2z/dxdy)**2 dA]
     """
+
     _eccs: Incomplete
     def __init__(self, Interpolator) -> None: ...
     def compute_dz(self):
@@ -583,7 +591,6 @@ class _Sparse_Matrix_coo:
         """
         Return a dense matrix representing self, mainly for debugging purposes.
         """
-    def __str__(self) -> str: ...
     @property
     def diag(self):
         """Return the (dense) vector of the diagonal elements."""

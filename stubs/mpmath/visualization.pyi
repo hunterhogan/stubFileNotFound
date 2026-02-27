@@ -39,7 +39,7 @@ blue_orange_colors: Incomplete
 
 def phase_color_function(ctx, z): ...
 def cplot(ctx, f, re=[-5, 5], im=[-5, 5], points: int = 2000, color: Incomplete | None = None, verbose: bool = False, file: Incomplete | None = None, dpi: Incomplete | None = None, axes: Incomplete | None = None) -> None:
-    '''
+    """
     Plots the given complex-valued function *f* over a rectangular part
     of the complex plane specified by the pairs of intervals *re* and *im*.
     For example::
@@ -68,7 +68,7 @@ def cplot(ctx, f, re=[-5, 5], im=[-5, 5], points: int = 2000, color: Incomplete 
     option is useful to display progress.
 
     .. note :: This function requires matplotlib (pylab).
-    '''
+    """
 def splot(ctx, f, u=[-5, 5], v=[-5, 5], points: int = 100, keep_aspect: bool = True, wireframe: bool = False, file: Incomplete | None = None, dpi: Incomplete | None = None, axes: Incomplete | None = None) -> None:
     """
     Plots the surface defined by `f`.

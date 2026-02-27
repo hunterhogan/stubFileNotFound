@@ -1,6 +1,5 @@
-from typing import Final
-
 from . import fix_imports
+from typing import Final
 
 MAPPING: Final[dict[str, str]]
 

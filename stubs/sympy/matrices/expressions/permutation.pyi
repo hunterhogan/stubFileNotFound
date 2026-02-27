@@ -8,8 +8,7 @@ class PermutationMatrix(MatrixExpr):
     """A Permutation Matrix
 
     Parameters
-    ==========
-
+    ----------
     perm : Permutation
         The permutation the matrix uses.
 
@@ -20,8 +19,7 @@ class PermutationMatrix(MatrixExpr):
         the further information of how to create a permutation object.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, PermutationMatrix
     >>> from sympy.combinatorics import Permutation
 
@@ -49,10 +47,10 @@ class PermutationMatrix(MatrixExpr):
     Matrix([[2, 0, 1]])
 
     See Also
-    ========
-
+    --------
     sympy.combinatorics.permutations.Permutation
     """
+
     def __new__(cls, perm): ...
     @property
     def shape(self): ...
@@ -71,8 +69,7 @@ class MatrixPermute(MatrixExpr):
     """Symbolic representation for permuting matrix rows or columns.
 
     Parameters
-    ==========
-
+    ----------
     perm : Permutation, PermutationMatrix
         The permutation to use for permuting the matrix.
         The permutation can be resized to the suitable one,
@@ -83,14 +80,12 @@ class MatrixPermute(MatrixExpr):
         If `1`, it will permute the matrix columns.
 
     Notes
-    =====
-
+    -----
     This follows the same notation used in
     :meth:`sympy.matrices.matrixbase.MatrixBase.permute`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, MatrixPermute
     >>> from sympy.combinatorics import Permutation
 
@@ -115,10 +110,10 @@ class MatrixPermute(MatrixExpr):
     [8, 9, 7]])
 
     See Also
-    ========
-
+    --------
     sympy.matrices.matrixbase.MatrixBase.permute
     """
+
     def __new__(cls, mat, perm, axis=...): ...
     def doit(self, deep: bool = True, **hints): ...
     @property

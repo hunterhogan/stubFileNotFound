@@ -1,15 +1,20 @@
 from . import _backend_pdf_ps as _backend_pdf_ps
 from _typeshed import Incomplete
 from enum import Enum
-from matplotlib import _api as _api, _path as _path, _text_helpers as _text_helpers, _type1font as _type1font, cbook as cbook, dviread as dviread
+from matplotlib import (
+	_api as _api, _path as _path, _text_helpers as _text_helpers, _type1font as _type1font, cbook as cbook,
+	dviread as dviread)
 from matplotlib._afm import AFM as AFM
 from matplotlib._pylab_helpers import Gcf as Gcf
-from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, GraphicsContextBase as GraphicsContextBase, RendererBase as RendererBase, _Backend as _Backend
+from matplotlib.backend_bases import (
+	_Backend as _Backend, FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase,
+	GraphicsContextBase as GraphicsContextBase, RendererBase as RendererBase)
 from matplotlib.backends.backend_mixed import MixedModeRenderer as MixedModeRenderer
 from matplotlib.dates import UTC as UTC
 from matplotlib.figure import Figure as Figure
 from matplotlib.font_manager import get_font as get_font
-from matplotlib.ft2font import FT2Font as FT2Font, FaceFlags as FaceFlags, Kerning as Kerning, LoadFlags as LoadFlags, StyleFlags as StyleFlags
+from matplotlib.ft2font import (
+	FaceFlags as FaceFlags, FT2Font as FT2Font, Kerning as Kerning, LoadFlags as LoadFlags, StyleFlags as StyleFlags)
 from matplotlib.path import Path as Path
 from matplotlib.transforms import Affine2D as Affine2D, BboxBase as BboxBase
 
@@ -90,20 +95,19 @@ class Reference:
 
     Use PdfFile.reserveObject() to create References.
     """
+
     id: Incomplete
     def __init__(self, id) -> None: ...
-    def __repr__(self) -> str: ...
     def pdfRepr(self): ...
     def write(self, contents, file) -> None: ...
 
 class Name:
     """PDF name object."""
+
     __slots__: Incomplete
     _hexify: Incomplete
     name: Incomplete
     def __init__(self, name) -> None: ...
-    def __repr__(self) -> str: ...
-    def __str__(self) -> str: ...
     def __eq__(self, other): ...
     def __lt__(self, other): ...
     def __hash__(self): ...
@@ -111,12 +115,14 @@ class Name:
 
 class Verbatim:
     """Store verbatim PDF command content for later inclusion in the stream."""
+
     _x: Incomplete
     def __init__(self, x) -> None: ...
     def pdfRepr(self): ...
 
 class Op(Enum):
     """PDF operators (not an exhaustive list)."""
+
     close_fill_stroke = b'b'
     fill_stroke = b'B'
     fill = b'f'
@@ -175,6 +181,7 @@ class Stream:
     This has no pdfRepr method. Instead, call begin(), then output the
     contents of the stream by calling write(), and finally call end().
     """
+
     __slots__: Incomplete
     id: Incomplete
     len: Incomplete
@@ -211,6 +218,7 @@ def _get_pdf_charprocs(font_path, glyph_ids): ...
 
 class PdfFile:
     """PDF file object."""
+
     _object_seq: Incomplete
     xrefTable: Incomplete
     passed_in_file_object: bool
@@ -415,7 +423,6 @@ class GraphicsContextPdf(GraphicsContextBase):
     file: Incomplete
     parent: Incomplete
     def __init__(self, file) -> None: ...
-    def __repr__(self) -> str: ...
     def stroke(self):
         """
         Predicate: does the path need to be stroked (its outline drawn)?
@@ -483,6 +490,7 @@ class PdfPages:
     In reality `PdfPages` is a thin wrapper around `PdfFile`, in order to avoid
     confusion when using `~.pyplot.savefig` and forgetting the format argument.
     """
+
     _filename: Incomplete
     _metadata: Incomplete
     _file: Incomplete

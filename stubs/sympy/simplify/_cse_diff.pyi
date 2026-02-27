@@ -1,4 +1,4 @@
-from sympy import Derivative as Derivative, Matrix as Matrix, MatrixBase as MatrixBase, cse as cse
+from sympy import cse as cse, Derivative as Derivative, Matrix as Matrix, MatrixBase as MatrixBase
 from sympy.utilities.iterables import iterable as iterable
 
 def _remove_cse_from_derivative(replacements, reduced_expressions):
@@ -10,8 +10,7 @@ def _remove_cse_from_derivative(replacements, reduced_expressions):
     derivative terms.
 
     Parameters
-    ==========
-
+    ----------
     replacements : list of (Symbol, expression) pairs
         Replacement symbols and relative common subexpressions that have been
         replaced during a CSE operation.
@@ -21,8 +20,7 @@ def _remove_cse_from_derivative(replacements, reduced_expressions):
         replacements list above.
 
     Returns
-    =======
-
+    -------
     processed_replacements : list of (Symbol, expression) pairs
         Processed replacement list, in the same format of the
         ``replacements`` input list.
@@ -43,8 +41,7 @@ def _forward_jacobian_cse(replacements, reduced_expr, wrt):
     subexpression, which are useful in the substitution process.
 
     Parameters
-    ==========
-
+    ----------
     replacements : list of (Symbol, expression) pairs
         Replacement symbols and relative common subexpressions that have been
         replaced during a CSE operation.
@@ -58,8 +55,7 @@ def _forward_jacobian_cse(replacements, reduced_expr, wrt):
         Jacobian matrix.
 
     Returns
-    =======
-
+    -------
     replacements : list of (Symbol, expression) pairs
         Replacement symbols and relative common subexpressions that have been
         replaced during a CSE operation. Compared to the input replacement list,
@@ -86,8 +82,7 @@ def _forward_jacobian_norm_in_cse_out(expr, wrt):
     subexpression, which are useful in the substitution process.
 
     Parameters
-    ==========
-
+    ----------
     expr : Matrix
         The vector to be differentiated.
 
@@ -96,8 +91,7 @@ def _forward_jacobian_norm_in_cse_out(expr, wrt):
         Can be a matrix or an iterable of variables.
 
     Returns
-    =======
-
+    -------
     replacements : list of (Symbol, expression) pairs
         Replacement symbols and relative common subexpressions that have been
         replaced during a CSE operation. The output replacement list doesn't
@@ -139,8 +133,7 @@ def _forward_jacobian(expr, wrt):
     SymPy's standard differentiation functions and methods.
 
     Parameters
-    ==========
-
+    ----------
     expr : Matrix
         The vector to be differentiated.
 
@@ -149,7 +142,6 @@ def _forward_jacobian(expr, wrt):
         Can be a matrix or an iterable of variables.
 
     See Also
-    ========
-
+    --------
     Direct Acyclic Graph : https://en.wikipedia.org/wiki/Directed_acyclic_graph
     """

@@ -1,11 +1,5 @@
-from typing import (
-    IO,
-    AnyStr,
-    Generic,
-)
-
 from pandas._typing import CompressionDict
-from typing import Any
+from typing import Any, AnyStr, Generic, IO
 
 class IOHandles(Generic[AnyStr]):
     handle: IO[AnyStr]

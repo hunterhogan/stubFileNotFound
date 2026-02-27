@@ -2,10 +2,13 @@ from _typeshed import Incomplete
 from sympy.core.add import Add as Add
 from sympy.core.cache import cacheit as cacheit
 from sympy.core.expr import Expr as Expr
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, FunctionClass as FunctionClass, PoleError as PoleError, expand_complex as expand_complex, expand_log as expand_log, expand_mul as expand_mul, expand_multinomial as expand_multinomial
+from sympy.core.function import (
+	ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, expand_complex as expand_complex,
+	expand_log as expand_log, expand_mul as expand_mul, expand_multinomial as expand_multinomial,
+	FunctionClass as FunctionClass, PoleError as PoleError)
 from sympy.core.logic import fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
 from sympy.core.mul import Mul as Mul
-from sympy.core.numbers import I as I, Integer as Integer, Rational as Rational, pi as pi
+from sympy.core.numbers import I as I, Integer as Integer, pi as pi, Rational as Rational
 from sympy.core.parameters import global_parameters as global_parameters
 from sympy.core.power import Pow as Pow
 from sympy.core.singleton import S as S
@@ -31,8 +34,7 @@ class ExpBase(DefinedFunction):
         Returns this with a positive exponent as a 2-tuple (a fraction).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import exp
         >>> from sympy.abc import x
         >>> exp(-x).as_numer_denom()
@@ -61,7 +63,7 @@ class ExpBase(DefinedFunction):
     def _eval_expand_power_exp(self, **hints): ...
 
 class exp_polar(ExpBase):
-    '''
+    """
     Represent a *polar number* (see g-function Sphinx documentation).
 
     Explanation
@@ -73,8 +75,7 @@ class exp_polar(ExpBase):
     the main functions to construct polar numbers.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import exp_polar, pi, I, exp
 
     The main difference is that polar numbers do not "wrap around" at `2 \\pi`:
@@ -90,18 +91,18 @@ class exp_polar(ExpBase):
     exp_polar(5)
 
     See Also
-    ========
-
+    --------
     sympy.simplify.powsimp.powsimp
     polar_lift
     periodic_argument
     principal_branch
-    '''
+    """
+
     is_polar: bool
     is_comparable: bool
     def _eval_Abs(self): ...
     def _eval_evalf(self, prec):
-        """ Careful! any evalf of polar numbers is flaky """
+        """Careful! any evalf of polar numbers is flaky"""
     def _eval_power(self, other): ...
     def _eval_is_extended_real(self): ...
     def as_base_exp(self): ...
@@ -114,8 +115,7 @@ class exp(ExpBase, metaclass=ExpMeta):
     The exponential function, :math:`e^x`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import exp, I, pi
     >>> from sympy.abc import x
     >>> exp(x)
@@ -126,15 +126,14 @@ class exp(ExpBase, metaclass=ExpMeta):
     -1
 
     Parameters
-    ==========
-
+    ----------
     arg : Expr
 
     See Also
-    ========
-
+    --------
     log
     """
+
     def fdiff(self, argindex: int = 1):
         """
         Returns the first derivative of this function.
@@ -158,8 +157,7 @@ class exp(ExpBase, metaclass=ExpMeta):
         Returns this function as a 2-tuple representing a complex number.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import exp, I
         >>> from sympy.abc import x
         >>> exp(x).as_real_imag()
@@ -172,8 +170,7 @@ class exp(ExpBase, metaclass=ExpMeta):
         (E*cos(1), E*sin(1))
 
         See Also
-        ========
-
+        --------
         sympy.functions.elementary.complexes.re
         sympy.functions.elementary.complexes.im
         """
@@ -220,8 +217,7 @@ class log(DefinedFunction):
     `(-\\pi, \\pi]`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import log, sqrt, S, I
     >>> log(8, 2)
     3
@@ -231,11 +227,11 @@ class log(DefinedFunction):
     log(2) + 2*I*pi/3
 
     See Also
-    ========
-
+    --------
     exp
 
     """
+
     args: tuple[Expr]
     _singularities: Incomplete
     def fdiff(self, argindex: int = 1):
@@ -261,8 +257,7 @@ class log(DefinedFunction):
         Returns this function as a complex coordinate.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import I, log
         >>> from sympy.abc import x
         >>> log(x).as_real_imag()
@@ -306,8 +301,7 @@ class LambertW(DefinedFunction):
     $k = 0$ have a logarithmic singularity at $z = 0$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import LambertW
     >>> LambertW(1.2)
     0.635564016364870
@@ -317,10 +311,11 @@ class LambertW(DefinedFunction):
     False
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Lambert_W_function
     """
+
     _singularities: Incomplete
     @classmethod
     def eval(cls, x, k=None): ...

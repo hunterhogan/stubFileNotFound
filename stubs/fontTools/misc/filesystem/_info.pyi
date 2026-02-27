@@ -31,4 +31,3 @@ class Info:
     @property
     def metadata_changed(self) -> datetime | None: ...
     __repr__ = __str__
-

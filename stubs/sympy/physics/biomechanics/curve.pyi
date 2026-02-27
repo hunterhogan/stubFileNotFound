@@ -5,6 +5,7 @@ __all__ = ['CharacteristicCurveCollection', 'CharacteristicCurveFunction', 'Fibe
 
 class CharacteristicCurveFunction(Function):
     """Base class for all musculotendon characteristic curve functions."""
+
     @classmethod
     def eval(cls) -> None: ...
     def _print_code(self, printer):
@@ -19,8 +20,7 @@ class CharacteristicCurveFunction(Function):
         expression.
 
         Parameters
-        ==========
-
+        ----------
         printer : Printer
             The printer to be used to print a string representation of the
             characteristic curve as valid code in the target language.
@@ -61,8 +61,7 @@ class TendonForceLengthDeGroote2016(CharacteristicCurveFunction):
     of 1 normalized unit when the tendon is under a 5% strain.
 
     Examples
-    ========
-
+    --------
     The preferred way to instantiate :class:`TendonForceLengthDeGroote2016` is using
     the :meth:`~.with_defaults` constructor because this will automatically
     populate the constants within the characteristic curve equation with the
@@ -115,7 +114,7 @@ class TendonForceLengthDeGroote2016(CharacteristicCurveFunction):
     6.787338754623378*exp(33.93669377311689*(l_T/l_T_slack - 0.995))/l_T_slack
 
     References
-    ==========
+    ----------
 
     .. [1] De Groote, F., Kinney, A. L., Rao, A. V., & Fregly, B. J., Evaluation
            of direct collocation optimal control problem formulations for
@@ -123,6 +122,7 @@ class TendonForceLengthDeGroote2016(CharacteristicCurveFunction):
            engineering, 44(10), (2016) pp. 2922-2936
 
     """
+
     @classmethod
     def with_defaults(cls, l_T_tilde):
         """Recommended constructor that will use the published constants.
@@ -141,8 +141,7 @@ class TendonForceLengthDeGroote2016(CharacteristicCurveFunction):
         $c_3 = 33.93669377311689$
 
         Parameters
-        ==========
-
+        ----------
         l_T_tilde : Any (sympifiable)
             Normalized tendon length.
 
@@ -152,8 +151,7 @@ class TendonForceLengthDeGroote2016(CharacteristicCurveFunction):
         """Evaluation of basic inputs.
 
         Parameters
-        ==========
-
+        ----------
         l_T_tilde : Any (sympifiable)
             Normalized tendon length.
         c0 : Any (sympifiable)
@@ -176,8 +174,7 @@ class TendonForceLengthDeGroote2016(CharacteristicCurveFunction):
         """Evaluate the expression defining the function.
 
         Parameters
-        ==========
-
+        ----------
         deep : bool
             Whether ``doit`` should be recursively called. Default is ``True``.
         evaluate : bool.
@@ -195,8 +192,7 @@ class TendonForceLengthDeGroote2016(CharacteristicCurveFunction):
         """Derivative of the function with respect to a single argument.
 
         Parameters
-        ==========
-
+        ----------
         argindex : int
             The index of the function's arguments with respect to which the
             derivative should be taken. Argument indexes start at ``1``.
@@ -207,8 +203,7 @@ class TendonForceLengthDeGroote2016(CharacteristicCurveFunction):
         """Inverse function.
 
         Parameters
-        ==========
-
+        ----------
         argindex : int
             Value to start indexing the arguments at. Default is ``1``.
 
@@ -217,8 +212,7 @@ class TendonForceLengthDeGroote2016(CharacteristicCurveFunction):
         """Print a LaTeX representation of the function defining the curve.
 
         Parameters
-        ==========
-
+        ----------
         printer : Printer
             The printer to be used to print the LaTeX string representation.
 
@@ -248,8 +242,7 @@ class TendonForceLengthInverseDeGroote2016(CharacteristicCurveFunction):
     of 1 normalized unit when the tendon is under a 5% strain.
 
     Examples
-    ========
-
+    --------
     The preferred way to instantiate :class:`TendonForceLengthInverseDeGroote2016` is
     using the :meth:`~.with_defaults` constructor because this will automatically
     populate the constants within the characteristic curve equation with the
@@ -290,7 +283,7 @@ class TendonForceLengthInverseDeGroote2016(CharacteristicCurveFunction):
     1/(c3*(c2 + fl_T))
 
     References
-    ==========
+    ----------
 
     .. [1] De Groote, F., Kinney, A. L., Rao, A. V., & Fregly, B. J., Evaluation
            of direct collocation optimal control problem formulations for
@@ -298,6 +291,7 @@ class TendonForceLengthInverseDeGroote2016(CharacteristicCurveFunction):
            engineering, 44(10), (2016) pp. 2922-2936
 
     """
+
     @classmethod
     def with_defaults(cls, fl_T):
         """Recommended constructor that will use the published constants.
@@ -316,8 +310,7 @@ class TendonForceLengthInverseDeGroote2016(CharacteristicCurveFunction):
         $c_3 = 33.93669377311689$
 
         Parameters
-        ==========
-
+        ----------
         fl_T : Any (sympifiable)
             Normalized tendon force as a function of tendon length.
 
@@ -327,8 +320,7 @@ class TendonForceLengthInverseDeGroote2016(CharacteristicCurveFunction):
         """Evaluation of basic inputs.
 
         Parameters
-        ==========
-
+        ----------
         fl_T : Any (sympifiable)
             Normalized tendon force as a function of tendon length.
         c0 : Any (sympifiable)
@@ -351,8 +343,7 @@ class TendonForceLengthInverseDeGroote2016(CharacteristicCurveFunction):
         """Evaluate the expression defining the function.
 
         Parameters
-        ==========
-
+        ----------
         deep : bool
             Whether ``doit`` should be recursively called. Default is ``True``.
         evaluate : bool.
@@ -370,8 +361,7 @@ class TendonForceLengthInverseDeGroote2016(CharacteristicCurveFunction):
         """Derivative of the function with respect to a single argument.
 
         Parameters
-        ==========
-
+        ----------
         argindex : int
             The index of the function's arguments with respect to which the
             derivative should be taken. Argument indexes start at ``1``.
@@ -382,8 +372,7 @@ class TendonForceLengthInverseDeGroote2016(CharacteristicCurveFunction):
         """Inverse function.
 
         Parameters
-        ==========
-
+        ----------
         argindex : int
             Value to start indexing the arguments at. Default is ``1``.
 
@@ -392,8 +381,7 @@ class TendonForceLengthInverseDeGroote2016(CharacteristicCurveFunction):
         """Print a LaTeX representation of the function defining the curve.
 
         Parameters
-        ==========
-
+        ----------
         printer : Printer
             The printer to be used to print the LaTeX string representation.
 
@@ -419,8 +407,7 @@ class FiberForceLengthPassiveDeGroote2016(CharacteristicCurveFunction):
     between 0 and 1.
 
     Examples
-    ========
-
+    --------
     The preferred way to instantiate :class:`FiberForceLengthPassiveDeGroote2016` is
     using the :meth:`~.with_defaults` constructor because this will automatically
     populate the constants within the characteristic curve equation with the
@@ -471,7 +458,7 @@ class FiberForceLengthPassiveDeGroote2016(CharacteristicCurveFunction):
     0.12438240242516*exp(6.66666666666667*(l_M/l_M_opt - 1))/l_M_opt
 
     References
-    ==========
+    ----------
 
     .. [1] De Groote, F., Kinney, A. L., Rao, A. V., & Fregly, B. J., Evaluation
            of direct collocation optimal control problem formulations for
@@ -479,6 +466,7 @@ class FiberForceLengthPassiveDeGroote2016(CharacteristicCurveFunction):
            engineering, 44(10), (2016) pp. 2922-2936
 
     """
+
     @classmethod
     def with_defaults(cls, l_M_tilde):
         """Recommended constructor that will use the published constants.
@@ -496,8 +484,7 @@ class FiberForceLengthPassiveDeGroote2016(CharacteristicCurveFunction):
         $c_1 = 4.0$
 
         Parameters
-        ==========
-
+        ----------
         l_M_tilde : Any (sympifiable)
             Normalized muscle fiber length.
 
@@ -507,8 +494,7 @@ class FiberForceLengthPassiveDeGroote2016(CharacteristicCurveFunction):
         """Evaluation of basic inputs.
 
         Parameters
-        ==========
-
+        ----------
         l_M_tilde : Any (sympifiable)
             Normalized muscle fiber length.
         c0 : Any (sympifiable)
@@ -525,8 +511,7 @@ class FiberForceLengthPassiveDeGroote2016(CharacteristicCurveFunction):
         """Evaluate the expression defining the function.
 
         Parameters
-        ==========
-
+        ----------
         deep : bool
             Whether ``doit`` should be recursively called. Default is ``True``.
         evaluate : bool.
@@ -544,8 +529,7 @@ class FiberForceLengthPassiveDeGroote2016(CharacteristicCurveFunction):
         """Derivative of the function with respect to a single argument.
 
         Parameters
-        ==========
-
+        ----------
         argindex : int
             The index of the function's arguments with respect to which the
             derivative should be taken. Argument indexes start at ``1``.
@@ -556,8 +540,7 @@ class FiberForceLengthPassiveDeGroote2016(CharacteristicCurveFunction):
         """Inverse function.
 
         Parameters
-        ==========
-
+        ----------
         argindex : int
             Value to start indexing the arguments at. Default is ``1``.
 
@@ -566,8 +549,7 @@ class FiberForceLengthPassiveDeGroote2016(CharacteristicCurveFunction):
         """Print a LaTeX representation of the function defining the curve.
 
         Parameters
-        ==========
-
+        ----------
         printer : Printer
             The printer to be used to print the LaTeX string representation.
 
@@ -598,8 +580,7 @@ class FiberForceLengthPassiveInverseDeGroote2016(CharacteristicCurveFunction):
     between 0 and 1.
 
     Examples
-    ========
-
+    --------
     The preferred way to instantiate
     :class:`FiberForceLengthPassiveInverseDeGroote2016` is using the
     :meth:`~.with_defaults` constructor because this will automatically populate the
@@ -640,7 +621,7 @@ class FiberForceLengthPassiveInverseDeGroote2016(CharacteristicCurveFunction):
     c0*(exp(c1) - 1)/(c1*(fl_M_pas*(exp(c1) - 1) + 1))
 
     References
-    ==========
+    ----------
 
     .. [1] De Groote, F., Kinney, A. L., Rao, A. V., & Fregly, B. J., Evaluation
            of direct collocation optimal control problem formulations for
@@ -648,6 +629,7 @@ class FiberForceLengthPassiveInverseDeGroote2016(CharacteristicCurveFunction):
            engineering, 44(10), (2016) pp. 2922-2936
 
     """
+
     @classmethod
     def with_defaults(cls, fl_M_pas):
         """Recommended constructor that will use the published constants.
@@ -665,8 +647,7 @@ class FiberForceLengthPassiveInverseDeGroote2016(CharacteristicCurveFunction):
         $c_1 = 4.0$
 
         Parameters
-        ==========
-
+        ----------
         fl_M_pas : Any (sympifiable)
             Normalized passive muscle fiber force as a function of muscle fiber
             length.
@@ -677,8 +658,7 @@ class FiberForceLengthPassiveInverseDeGroote2016(CharacteristicCurveFunction):
         """Evaluation of basic inputs.
 
         Parameters
-        ==========
-
+        ----------
         fl_M_pas : Any (sympifiable)
             Normalized passive muscle fiber force.
         c0 : Any (sympifiable)
@@ -695,8 +675,7 @@ class FiberForceLengthPassiveInverseDeGroote2016(CharacteristicCurveFunction):
         """Evaluate the expression defining the function.
 
         Parameters
-        ==========
-
+        ----------
         deep : bool
             Whether ``doit`` should be recursively called. Default is ``True``.
         evaluate : bool.
@@ -714,8 +693,7 @@ class FiberForceLengthPassiveInverseDeGroote2016(CharacteristicCurveFunction):
         """Derivative of the function with respect to a single argument.
 
         Parameters
-        ==========
-
+        ----------
         argindex : int
             The index of the function's arguments with respect to which the
             derivative should be taken. Argument indexes start at ``1``.
@@ -726,8 +704,7 @@ class FiberForceLengthPassiveInverseDeGroote2016(CharacteristicCurveFunction):
         """Inverse function.
 
         Parameters
-        ==========
-
+        ----------
         argindex : int
             Value to start indexing the arguments at. Default is ``1``.
 
@@ -736,8 +713,7 @@ class FiberForceLengthPassiveInverseDeGroote2016(CharacteristicCurveFunction):
         """Print a LaTeX representation of the function defining the curve.
 
         Parameters
-        ==========
-
+        ----------
         printer : Printer
             The printer to be used to print the LaTeX string representation.
 
@@ -767,8 +743,7 @@ class FiberForceLengthActiveDeGroote2016(CharacteristicCurveFunction):
     fiber force of 0 at normalized fiber lengths of 0 and 2.
 
     Examples
-    ========
-
+    --------
     The preferred way to instantiate :class:`FiberForceLengthActiveDeGroote2016` is
     using the :meth:`~.with_defaults` constructor because this will automatically
     populate the constants within the characteristic curve equation with the
@@ -835,7 +810,7 @@ class FiberForceLengthActiveDeGroote2016(CharacteristicCurveFunction):
     - 1.06)**2/(2*(0.0633*l_M/l_M_opt + 0.162)**2)))/l_M_opt
 
     References
-    ==========
+    ----------
 
     .. [1] De Groote, F., Kinney, A. L., Rao, A. V., & Fregly, B. J., Evaluation
            of direct collocation optimal control problem formulations for
@@ -843,6 +818,7 @@ class FiberForceLengthActiveDeGroote2016(CharacteristicCurveFunction):
            engineering, 44(10), (2016) pp. 2922-2936
 
     """
+
     @classmethod
     def with_defaults(cls, l_M_tilde):
         """Recommended constructor that will use the published constants.
@@ -870,8 +846,7 @@ class FiberForceLengthActiveDeGroote2016(CharacteristicCurveFunction):
         $c11 = 0.0$
 
         Parameters
-        ==========
-
+        ----------
         fl_M_act : Any (sympifiable)
             Normalized passive muscle fiber force as a function of muscle fiber
             length.
@@ -882,8 +857,7 @@ class FiberForceLengthActiveDeGroote2016(CharacteristicCurveFunction):
         """Evaluation of basic inputs.
 
         Parameters
-        ==========
-
+        ----------
         l_M_tilde : Any (sympifiable)
             Normalized muscle fiber length.
         c0 : Any (sympifiable)
@@ -930,8 +904,7 @@ class FiberForceLengthActiveDeGroote2016(CharacteristicCurveFunction):
         """Evaluate the expression defining the function.
 
         Parameters
-        ==========
-
+        ----------
         deep : bool
             Whether ``doit`` should be recursively called. Default is ``True``.
         evaluate : bool.
@@ -949,8 +922,7 @@ class FiberForceLengthActiveDeGroote2016(CharacteristicCurveFunction):
         """Derivative of the function with respect to a single argument.
 
         Parameters
-        ==========
-
+        ----------
         argindex : int
             The index of the function's arguments with respect to which the
             derivative should be taken. Argument indexes start at ``1``.
@@ -961,8 +933,7 @@ class FiberForceLengthActiveDeGroote2016(CharacteristicCurveFunction):
         """Print a LaTeX representation of the function defining the curve.
 
         Parameters
-        ==========
-
+        ----------
         printer : Printer
             The printer to be used to print the LaTeX string representation.
 
@@ -991,8 +962,7 @@ class FiberForceVelocityDeGroote2016(CharacteristicCurveFunction):
     isometrically (they have an extension rate of 0).
 
     Examples
-    ========
-
+    --------
     The preferred way to instantiate :class:`FiberForceVelocityDeGroote2016` is using
     the :meth:`~.with_defaults` constructor because this will automatically populate
     the constants within the characteristic curve equation with the floating
@@ -1044,7 +1014,7 @@ class FiberForceVelocityDeGroote2016(CharacteristicCurveFunction):
     2.591382*(1 + (-8.149*v_M/v_M_max - 0.374)**2)**(-1/2)/v_M_max
 
     References
-    ==========
+    ----------
 
     .. [1] De Groote, F., Kinney, A. L., Rao, A. V., & Fregly, B. J., Evaluation
            of direct collocation optimal control problem formulations for
@@ -1052,6 +1022,7 @@ class FiberForceVelocityDeGroote2016(CharacteristicCurveFunction):
            engineering, 44(10), (2016) pp. 2922-2936
 
     """
+
     @classmethod
     def with_defaults(cls, v_M_tilde):
         """Recommended constructor that will use the published constants.
@@ -1070,8 +1041,7 @@ class FiberForceVelocityDeGroote2016(CharacteristicCurveFunction):
         $c_3 = 0.886$
 
         Parameters
-        ==========
-
+        ----------
         v_M_tilde : Any (sympifiable)
             Normalized muscle fiber extension velocity.
 
@@ -1081,8 +1051,7 @@ class FiberForceVelocityDeGroote2016(CharacteristicCurveFunction):
         """Evaluation of basic inputs.
 
         Parameters
-        ==========
-
+        ----------
         v_M_tilde : Any (sympifiable)
             Normalized muscle fiber extension velocity.
         c0 : Any (sympifiable)
@@ -1105,8 +1074,7 @@ class FiberForceVelocityDeGroote2016(CharacteristicCurveFunction):
         """Evaluate the expression defining the function.
 
         Parameters
-        ==========
-
+        ----------
         deep : bool
             Whether ``doit`` should be recursively called. Default is ``True``.
         evaluate : bool.
@@ -1124,8 +1092,7 @@ class FiberForceVelocityDeGroote2016(CharacteristicCurveFunction):
         """Derivative of the function with respect to a single argument.
 
         Parameters
-        ==========
-
+        ----------
         argindex : int
             The index of the function's arguments with respect to which the
             derivative should be taken. Argument indexes start at ``1``.
@@ -1136,8 +1103,7 @@ class FiberForceVelocityDeGroote2016(CharacteristicCurveFunction):
         """Inverse function.
 
         Parameters
-        ==========
-
+        ----------
         argindex : int
             Value to start indexing the arguments at. Default is ``1``.
 
@@ -1146,8 +1112,7 @@ class FiberForceVelocityDeGroote2016(CharacteristicCurveFunction):
         """Print a LaTeX representation of the function defining the curve.
 
         Parameters
-        ==========
-
+        ----------
         printer : Printer
             The printer to be used to print the LaTeX string representation.
 
@@ -1178,8 +1143,7 @@ class FiberForceVelocityInverseDeGroote2016(CharacteristicCurveFunction):
     isometrically (they have an extension rate of 0).
 
     Examples
-    ========
-
+    --------
     The preferred way to instantiate :class:`FiberForceVelocityInverseDeGroote2016`
     is using the :meth:`~.with_defaults` constructor because this will automatically
     populate the constants within the characteristic curve equation with the
@@ -1219,7 +1183,7 @@ class FiberForceVelocityInverseDeGroote2016(CharacteristicCurveFunction):
     cosh((-c3 + fv_M)/c0)/(c0*c1)
 
     References
-    ==========
+    ----------
 
     .. [1] De Groote, F., Kinney, A. L., Rao, A. V., & Fregly, B. J., Evaluation
            of direct collocation optimal control problem formulations for
@@ -1227,6 +1191,7 @@ class FiberForceVelocityInverseDeGroote2016(CharacteristicCurveFunction):
            engineering, 44(10), (2016) pp. 2922-2936
 
     """
+
     @classmethod
     def with_defaults(cls, fv_M):
         """Recommended constructor that will use the published constants.
@@ -1246,8 +1211,7 @@ class FiberForceVelocityInverseDeGroote2016(CharacteristicCurveFunction):
         $c_3 = 0.886$
 
         Parameters
-        ==========
-
+        ----------
         fv_M : Any (sympifiable)
             Normalized muscle fiber extension velocity.
 
@@ -1257,8 +1221,7 @@ class FiberForceVelocityInverseDeGroote2016(CharacteristicCurveFunction):
         """Evaluation of basic inputs.
 
         Parameters
-        ==========
-
+        ----------
         fv_M : Any (sympifiable)
             Normalized muscle fiber force as a function of muscle fiber
             extension velocity.
@@ -1282,8 +1245,7 @@ class FiberForceVelocityInverseDeGroote2016(CharacteristicCurveFunction):
         """Evaluate the expression defining the function.
 
         Parameters
-        ==========
-
+        ----------
         deep : bool
             Whether ``doit`` should be recursively called. Default is ``True``.
         evaluate : bool.
@@ -1301,8 +1263,7 @@ class FiberForceVelocityInverseDeGroote2016(CharacteristicCurveFunction):
         """Derivative of the function with respect to a single argument.
 
         Parameters
-        ==========
-
+        ----------
         argindex : int
             The index of the function's arguments with respect to which the
             derivative should be taken. Argument indexes start at ``1``.
@@ -1313,8 +1274,7 @@ class FiberForceVelocityInverseDeGroote2016(CharacteristicCurveFunction):
         """Inverse function.
 
         Parameters
-        ==========
-
+        ----------
         argindex : int
             Value to start indexing the arguments at. Default is ``1``.
 
@@ -1323,8 +1283,7 @@ class FiberForceVelocityInverseDeGroote2016(CharacteristicCurveFunction):
         """Print a LaTeX representation of the function defining the curve.
 
         Parameters
-        ==========
-
+        ----------
         printer : Printer
             The printer to be used to print the LaTeX string representation.
 
@@ -1333,6 +1292,7 @@ class FiberForceVelocityInverseDeGroote2016(CharacteristicCurveFunction):
 @dataclass(frozen=True)
 class CharacteristicCurveCollection:
     """Simple data container to group together related characteristic curves."""
+
     tendon_force_length: CharacteristicCurveFunction
     tendon_force_length_inverse: CharacteristicCurveFunction
     fiber_force_length_passive: CharacteristicCurveFunction

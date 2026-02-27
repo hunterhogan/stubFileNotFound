@@ -10,6 +10,7 @@ class _QueryReference(nodes.Inline, nodes.TextElement):
 
     Also equivalent to a `~docutils.nodes.literal` node.
     """
+
     def to_query_string(self):
         """Generate query string from node attributes."""
 

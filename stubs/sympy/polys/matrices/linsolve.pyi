@@ -1,4 +1,6 @@
-from .sdm import SDM as SDM, sdm_irref as sdm_irref, sdm_nullspace_from_rref as sdm_nullspace_from_rref, sdm_particular_from_rref as sdm_particular_from_rref
+from .sdm import (
+	SDM as SDM, sdm_irref as sdm_irref, sdm_nullspace_from_rref as sdm_nullspace_from_rref,
+	sdm_particular_from_rref as sdm_particular_from_rref)
 from sympy.core.add import Add as Add
 from sympy.core.mul import Mul as Mul
 from sympy.core.singleton import S as S
@@ -10,8 +12,7 @@ def _linsolve(eqs, syms):
     """Solve a linear system of equations.
 
     Examples
-    ========
-
+    --------
     Solve a linear system with a unique solution:
 
     >>> from sympy import symbols, Eq
@@ -36,15 +37,14 @@ def _linear_eq_to_dict(eqs, syms):
     from each expression in ``eqs```.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.matrices.linsolve import _linear_eq_to_dict
     >>> from sympy.abc import x
     >>> _linear_eq_to_dict([2*x + 3], {x})
     ([{x: 2}], [3])
     """
 def _lin_eq2dict(a, symset):
-    """return (c, d) where c is the sym-independent part of ``a`` and
+    """Return (c, d) where c is the sym-independent part of ``a`` and
     ``d`` is an efficiently calculated dictionary mapping symbols to
     their coefficients. A PolyNonlinearError is raised if non-linearity
     is detected.
@@ -52,8 +52,7 @@ def _lin_eq2dict(a, symset):
     The values in the dictionary will be non-zero.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.matrices.linsolve import _lin_eq2dict
     >>> from sympy.abc import x, y
     >>> _lin_eq2dict(x + 2*y + 3, {x, y})

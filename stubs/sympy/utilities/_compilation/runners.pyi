@@ -1,13 +1,13 @@
-from .util import CompileError as CompileError, find_binary_of_command as find_binary_of_command, unique_list as unique_list
+from .util import (
+	CompileError as CompileError, find_binary_of_command as find_binary_of_command, unique_list as unique_list)
 from _typeshed import Incomplete
-from typing import Callable
+from collections.abc import Callable
 
 class CompilerRunner:
-    """ CompilerRunner base class.
+    """CompilerRunner base class.
 
     Parameters
-    ==========
-
+    ----------
     sources : list of str
         Paths to sources.
     out : str
@@ -34,12 +34,12 @@ class CompilerRunner:
         name of preferred vendor e.g. 'gnu' or 'intel'
 
     Methods
-    =======
-
+    -------
     run():
         Invoke compilation as a subprocess.
 
     """
+
     environ_key_compiler: str
     environ_key_flags: str
     environ_key_ldflags: str
@@ -65,9 +65,9 @@ class CompilerRunner:
     def __init__(self, sources, out, flags=None, run_linker: bool = True, compiler=None, cwd: str = '.', include_dirs=None, libraries=None, library_dirs=None, std=None, define=None, undef=None, strict_aliasing=None, preferred_vendor=None, linkline=None, **kwargs) -> None: ...
     @classmethod
     def find_compiler(cls, preferred_vendor=None):
-        """ Identify a suitable C/fortran/other compiler. """
+        """Identify a suitable C/fortran/other compiler."""
     def cmd(self):
-        """ List of arguments (str) to be passed to e.g. ``subprocess.Popen``. """
+        """List of arguments (str) to be passed to e.g. ``subprocess.Popen``."""
     cmd_outerr: Incomplete
     cmd_returncode: Incomplete
     def run(self): ...

@@ -1,6 +1,6 @@
 from _typeshed import SupportsRead
 from typing import Any, Final, Literal, NoReturn
-from xml.dom.minidom import Document, Node, _DOMErrorHandler
+from xml.dom.minidom import _DOMErrorHandler, Document, Node
 
 __all__ = ["DOMBuilder", "DOMEntityResolver", "DOMInputSource"]
 
@@ -48,7 +48,7 @@ class DOMEntityResolver:
     def resolveEntity(self, publicId: str | None, systemId: str) -> DOMInputSource: ...
 
 class DOMInputSource:
-    __slots__ = ("byteStream", "characterStream", "stringData", "encoding", "publicId", "systemId", "baseURI")
+    __slots__ = ("baseURI", "byteStream", "characterStream", "encoding", "publicId", "stringData", "systemId")
     byteStream: SupportsRead[bytes] | None
     characterStream: SupportsRead[str] | None
     stringData: str | None

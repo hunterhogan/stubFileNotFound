@@ -1,7 +1,7 @@
 from sympy.core.expr import Expr
 from sympy.matrices.dense import MutableDenseMatrix
 
-__all__ = ['RayTransferMatrix', 'FreeSpace', 'FlatRefraction', 'CurvedRefraction', 'FlatMirror', 'CurvedMirror', 'ThinLens', 'GeometricRay', 'BeamParameter', 'waist2rayleigh', 'rayleigh2waist', 'geometric_conj_ab', 'geometric_conj_af', 'geometric_conj_bf', 'gaussian_conj', 'conjugate_gauss_beams']
+__all__ = ['BeamParameter', 'CurvedMirror', 'CurvedRefraction', 'FlatMirror', 'FlatRefraction', 'FreeSpace', 'GeometricRay', 'RayTransferMatrix', 'ThinLens', 'conjugate_gauss_beams', 'gaussian_conj', 'geometric_conj_ab', 'geometric_conj_af', 'geometric_conj_bf', 'rayleigh2waist', 'waist2rayleigh']
 
 class RayTransferMatrix(MutableDenseMatrix):
     """
@@ -11,14 +11,12 @@ class RayTransferMatrix(MutableDenseMatrix):
     in See Also.
 
     Parameters
-    ==========
-
+    ----------
     parameters :
         A, B, C and D or 2x2 matrix (Matrix(2, 2, [A, B, C, D]))
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import RayTransferMatrix, ThinLens
     >>> from sympy import Symbol, Matrix
 
@@ -47,17 +45,17 @@ class RayTransferMatrix(MutableDenseMatrix):
     -1/f
 
     See Also
-    ========
-
+    --------
     GeometricRay, BeamParameter,
     FreeSpace, FlatRefraction, CurvedRefraction,
     FlatMirror, CurvedMirror, ThinLens
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Ray_transfer_matrix_analysis
     """
+
     def __new__(cls, *args): ...
     def __mul__(self, other): ...
     @property
@@ -66,8 +64,7 @@ class RayTransferMatrix(MutableDenseMatrix):
         The A parameter of the Matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import RayTransferMatrix
         >>> mat = RayTransferMatrix(1, 2, 3, 4)
         >>> mat.A
@@ -79,8 +76,7 @@ class RayTransferMatrix(MutableDenseMatrix):
         The B parameter of the Matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import RayTransferMatrix
         >>> mat = RayTransferMatrix(1, 2, 3, 4)
         >>> mat.B
@@ -92,8 +88,7 @@ class RayTransferMatrix(MutableDenseMatrix):
         The C parameter of the Matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import RayTransferMatrix
         >>> mat = RayTransferMatrix(1, 2, 3, 4)
         >>> mat.C
@@ -105,8 +100,7 @@ class RayTransferMatrix(MutableDenseMatrix):
         The D parameter of the Matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import RayTransferMatrix
         >>> mat = RayTransferMatrix(1, 2, 3, 4)
         >>> mat.D
@@ -118,18 +112,15 @@ class FreeSpace(RayTransferMatrix):
     Ray Transfer Matrix for free space.
 
     Parameters
-    ==========
-
+    ----------
     distance
 
     See Also
-    ========
-
+    --------
     RayTransferMatrix
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import FreeSpace
     >>> from sympy import symbols
     >>> d = symbols('d')
@@ -138,6 +129,7 @@ class FreeSpace(RayTransferMatrix):
     [1, d],
     [0, 1]])
     """
+
     def __new__(cls, d): ...
 
 class FlatRefraction(RayTransferMatrix):
@@ -145,21 +137,18 @@ class FlatRefraction(RayTransferMatrix):
     Ray Transfer Matrix for refraction.
 
     Parameters
-    ==========
-
+    ----------
     n1 :
         Refractive index of one medium.
     n2 :
         Refractive index of other medium.
 
     See Also
-    ========
-
+    --------
     RayTransferMatrix
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import FlatRefraction
     >>> from sympy import symbols
     >>> n1, n2 = symbols('n1 n2')
@@ -168,6 +157,7 @@ class FlatRefraction(RayTransferMatrix):
     [1,     0],
     [0, n1/n2]])
     """
+
     def __new__(cls, n1, n2): ...
 
 class CurvedRefraction(RayTransferMatrix):
@@ -175,8 +165,7 @@ class CurvedRefraction(RayTransferMatrix):
     Ray Transfer Matrix for refraction on curved interface.
 
     Parameters
-    ==========
-
+    ----------
     R :
         Radius of curvature (positive for concave).
     n1 :
@@ -185,13 +174,11 @@ class CurvedRefraction(RayTransferMatrix):
         Refractive index of other medium.
 
     See Also
-    ========
-
+    --------
     RayTransferMatrix
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import CurvedRefraction
     >>> from sympy import symbols
     >>> R, n1, n2 = symbols('R n1 n2')
@@ -200,6 +187,7 @@ class CurvedRefraction(RayTransferMatrix):
     [               1,     0],
     [(n1 - n2)/(R*n2), n1/n2]])
     """
+
     def __new__(cls, R, n1, n2): ...
 
 class FlatMirror(RayTransferMatrix):
@@ -207,19 +195,18 @@ class FlatMirror(RayTransferMatrix):
     Ray Transfer Matrix for reflection.
 
     See Also
-    ========
-
+    --------
     RayTransferMatrix
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import FlatMirror
     >>> FlatMirror()
     Matrix([
     [1, 0],
     [0, 1]])
     """
+
     def __new__(cls): ...
 
 class CurvedMirror(RayTransferMatrix):
@@ -227,18 +214,15 @@ class CurvedMirror(RayTransferMatrix):
     Ray Transfer Matrix for reflection from curved surface.
 
     Parameters
-    ==========
-
+    ----------
     R : radius of curvature (positive for concave)
 
     See Also
-    ========
-
+    --------
     RayTransferMatrix
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import CurvedMirror
     >>> from sympy import symbols
     >>> R = symbols('R')
@@ -247,6 +231,7 @@ class CurvedMirror(RayTransferMatrix):
     [   1, 0],
     [-2/R, 1]])
     """
+
     def __new__(cls, R): ...
 
 class ThinLens(RayTransferMatrix):
@@ -254,19 +239,16 @@ class ThinLens(RayTransferMatrix):
     Ray Transfer Matrix for a thin lens.
 
     Parameters
-    ==========
-
+    ----------
     f :
         The focal distance.
 
     See Also
-    ========
-
+    --------
     RayTransferMatrix
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import ThinLens
     >>> from sympy import symbols
     >>> f = symbols('f')
@@ -275,6 +257,7 @@ class ThinLens(RayTransferMatrix):
     [   1, 0],
     [-1/f, 1]])
     """
+
     def __new__(cls, f): ...
 
 class GeometricRay(MutableDenseMatrix):
@@ -282,15 +265,13 @@ class GeometricRay(MutableDenseMatrix):
     Representation for a geometric ray in the Ray Transfer Matrix formalism.
 
     Parameters
-    ==========
-
+    ----------
     h : height, and
     angle : angle, or
     matrix : a 2x1 matrix (Matrix(2, 1, [height, angle]))
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import GeometricRay, FreeSpace
     >>> from sympy import symbols, Matrix
     >>> d, h, angle = symbols('d, h, angle')
@@ -311,11 +292,11 @@ class GeometricRay(MutableDenseMatrix):
     [angle]])
 
     See Also
-    ========
-
+    --------
     RayTransferMatrix
 
     """
+
     def __new__(cls, *args): ...
     @property
     def height(self):
@@ -323,8 +304,7 @@ class GeometricRay(MutableDenseMatrix):
         The distance from the optical axis.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import GeometricRay
         >>> from sympy import symbols
         >>> h, angle = symbols('h, angle')
@@ -338,8 +318,7 @@ class GeometricRay(MutableDenseMatrix):
         The angle with the optical axis.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import GeometricRay
         >>> from sympy import symbols
         >>> h, angle = symbols('h, angle')
@@ -353,8 +332,7 @@ class BeamParameter(Expr):
     Representation for a gaussian ray in the Ray Transfer Matrix formalism.
 
     Parameters
-    ==========
-
+    ----------
     wavelen : the wavelength,
     z : the distance to waist, and
     w : the waist, or
@@ -362,8 +340,7 @@ class BeamParameter(Expr):
     n : the refractive index of medium.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import BeamParameter
     >>> p = BeamParameter(530e-9, 1, w=1e-3)
     >>> p.q
@@ -385,16 +362,16 @@ class BeamParameter(Expr):
     0.00210803120913829
 
     See Also
-    ========
-
+    --------
     RayTransferMatrix
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Complex_beam_parameter
     .. [2] https://en.wikipedia.org/wiki/Gaussian_beam
     """
+
     def __new__(cls, wavelen, z, z_r=None, w=None, n: int = 1): ...
     @property
     def wavelen(self): ...
@@ -410,8 +387,7 @@ class BeamParameter(Expr):
         The complex parameter representing the beam.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import BeamParameter
         >>> p = BeamParameter(530e-9, 1, w=1e-3)
         >>> p.q
@@ -423,8 +399,7 @@ class BeamParameter(Expr):
         The radius of curvature of the phase front.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import BeamParameter
         >>> p = BeamParameter(530e-9, 1, w=1e-3)
         >>> p.radius
@@ -437,14 +412,12 @@ class BeamParameter(Expr):
         The beam radius at `1/e^2` intensity (axial value).
 
         See Also
-        ========
-
+        --------
         w_0 :
             The minimal radius of beam.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import BeamParameter
         >>> p = BeamParameter(530e-9, 1, w=1e-3)
         >>> p.w
@@ -456,13 +429,11 @@ class BeamParameter(Expr):
          The minimal radius of beam at `1/e^2` intensity (peak value).
 
         See Also
-        ========
-
+        --------
         w : the beam radius at `1/e^2` intensity (axial value).
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import BeamParameter
         >>> p = BeamParameter(530e-9, 1, w=1e-3)
         >>> p.w_0
@@ -474,8 +445,7 @@ class BeamParameter(Expr):
         Half of the total angular spread.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import BeamParameter
         >>> p = BeamParameter(530e-9, 1, w=1e-3)
         >>> p.divergence
@@ -487,8 +457,7 @@ class BeamParameter(Expr):
         The Gouy phase.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import BeamParameter
         >>> p = BeamParameter(530e-9, 1, w=1e-3)
         >>> p.gouy
@@ -506,8 +475,7 @@ class BeamParameter(Expr):
         that are too great it is not a valid approximation.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import BeamParameter
         >>> p = BeamParameter(530e-9, 1, w=1e-3)
         >>> p.waist_approximation_limit
@@ -519,13 +487,11 @@ def waist2rayleigh(w, wavelen, n: int = 1):
     Calculate the rayleigh range from the waist of a gaussian beam.
 
     See Also
-    ========
-
+    --------
     rayleigh2waist, BeamParameter
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import waist2rayleigh
     >>> from sympy import symbols
     >>> w, wavelen = symbols('w wavelen')
@@ -536,13 +502,11 @@ def rayleigh2waist(z_r, wavelen):
     """Calculate the waist from the rayleigh range of a gaussian beam.
 
     See Also
-    ========
-
+    --------
     waist2rayleigh, BeamParameter
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import rayleigh2waist
     >>> from sympy import symbols
     >>> z_r, wavelen = symbols('z_r wavelen')
@@ -560,13 +524,11 @@ def geometric_conj_ab(a, b):
     focal distance.
 
     See Also
-    ========
-
+    --------
     geometric_conj_af, geometric_conj_bf
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import geometric_conj_ab
     >>> from sympy import symbols
     >>> a, b = symbols('a b')
@@ -585,13 +547,11 @@ def geometric_conj_af(a, f):
     Then it returns the other distance needed for conjugation.
 
     See Also
-    ========
-
+    --------
     geometric_conj_ab
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics.gaussopt import geometric_conj_af, geometric_conj_bf
     >>> from sympy import symbols
     >>> a, b, f = symbols('a b f')
@@ -607,8 +567,7 @@ def gaussian_conj(s_in, z_r_in, f):
     Conjugation relation for gaussian beams.
 
     Parameters
-    ==========
-
+    ----------
     s_in :
         The distance to optical element from the waist.
     z_r_in :
@@ -617,8 +576,7 @@ def gaussian_conj(s_in, z_r_in, f):
         The focal length of the optical element.
 
     Returns
-    =======
-
+    -------
     a tuple containing (s_out, z_r_out, m)
     s_out :
         The distance between the new waist and the optical element.
@@ -628,8 +586,7 @@ def gaussian_conj(s_in, z_r_in, f):
         The ration between the new and the old waists.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import gaussian_conj
     >>> from sympy import symbols
     >>> s_in, z_r_in, f = symbols('s_in z_r_in f')
@@ -648,8 +605,7 @@ def conjugate_gauss_beams(wavelen, waist_in, waist_out, **kwargs):
     Find the optical setup conjugating the object/image waists.
 
     Parameters
-    ==========
-
+    ----------
     wavelen :
         The wavelength of the beam.
     waist_in and waist_out :
@@ -658,8 +614,7 @@ def conjugate_gauss_beams(wavelen, waist_in, waist_out, **kwargs):
         The focal distance of the element used in the conjugation.
 
     Returns
-    =======
-
+    -------
     a tuple containing (s_in, s_out, f)
     s_in :
         The distance before the optical element.
@@ -669,8 +624,7 @@ def conjugate_gauss_beams(wavelen, waist_in, waist_out, **kwargs):
         The focal distance of the optical element.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.optics import conjugate_gauss_beams
     >>> from sympy import symbols, factor
     >>> l, w_i, w_o, f = symbols('l w_i w_o f')

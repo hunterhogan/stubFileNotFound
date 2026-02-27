@@ -1,60 +1,27 @@
+from _typeshed import SupportsAdd, SupportsMul, SupportsRAdd, SupportsRMul
 from builtins import str as _str
-from collections.abc import (
-    Callable,
-    Hashable,
-    Iterable,
-    Sequence,
-)
-from datetime import (
-    datetime,
-    timedelta,
-)
-from pathlib import Path
-from typing import (
-    Any,
-    ClassVar,
-    Literal,
-    Never,
-    Self,
-    TypeAlias,
-    final,
-    overload,
-)
-
-from _typeshed import (
-    SupportsAdd,
-    SupportsMul,
-    SupportsRAdd,
-    SupportsRMul,
-)
-import numpy as np
-from pandas._stubs_only import (
-    OrderableT,
-    T_contra,
-)
+from collections.abc import Callable, Hashable, Iterable, Sequence
+from datetime import datetime, timedelta
+from pandas._libs.interval import Interval
+from pandas._libs.tslibs.period import Period
+from pandas._libs.tslibs.timedeltas import Timedelta
+from pandas._stubs_only import OrderableT, T_contra
+from pandas._typing import (
+	AnyAll, AnyArrayLike, AnyArrayLikeInt, ArrayLike, AxesData, Axis, BuiltinFloatDtypeArg, C2, CategoryDtypeArg, DropKeep,
+	Dtype, DtypeArg, DtypeObj, HashableT, IgnoreRaise, JoinHow, Just, Label, Level, MaskType, NaPosition, NDArrayT,
+	np_1darray, np_1darray_bool, np_1darray_intp, np_ndarray, np_ndarray_anyint, np_ndarray_bool, np_ndarray_complex,
+	np_ndarray_dt, np_ndarray_float, np_ndarray_str, np_ndarray_td, NumpyFloat16DtypeArg, NumpyFloatNot16DtypeArg,
+	NumpyNotTimeDtypeArg, NumpyTimedeltaDtypeArg, NumpyTimestampDtypeArg, PandasFloatDtypeArg, PyArrowFloatDtypeArg,
+	ReindexMethod, Renamer, S1, S2, S2_contra, S2_NSDT, Scalar, SequenceNotStr, SliceType, T_COMPLEX, TakeIndexer,
+	TimedeltaDtypeArg, TimestampDtypeArg, type_t)
 from pandas.core.arrays.boolean import BooleanArray
 from pandas.core.arrays.floating import FloatingArray
 from pandas.core.base import (
-    ArrayIndexTimedeltaNoSeq,
-    ElementOpsMixin,
-    IndexComplex,
-    IndexOpsMixin,
-    IndexReal,
-    ScalarArrayIndexComplex,
-    ScalarArrayIndexJustComplex,
-    ScalarArrayIndexJustFloat,
-    ScalarArrayIndexJustInt,
-    ScalarArrayIndexReal,
-    ScalarArrayIndexTimedelta,
-    Supports_ProtoAdd,
-    Supports_ProtoFloorDiv,
-    Supports_ProtoMul,
-    Supports_ProtoRAdd,
-    Supports_ProtoRFloorDiv,
-    Supports_ProtoRMul,
-    Supports_ProtoRTrueDiv,
-    Supports_ProtoTrueDiv,
-)
+	ArrayIndexTimedeltaNoSeq, ElementOpsMixin, IndexComplex, IndexOpsMixin, IndexReal, ScalarArrayIndexComplex,
+	ScalarArrayIndexJustComplex, ScalarArrayIndexJustFloat, ScalarArrayIndexJustInt, ScalarArrayIndexReal,
+	ScalarArrayIndexTimedelta, Supports_ProtoAdd, Supports_ProtoFloorDiv, Supports_ProtoMul, Supports_ProtoRAdd,
+	Supports_ProtoRFloorDiv, Supports_ProtoRMul, Supports_ProtoRTrueDiv, Supports_ProtoTrueDiv)
+from pandas.core.dtypes.dtypes import PeriodDtype
 from pandas.core.frame import DataFrame
 from pandas.core.indexes.category import CategoricalIndex
 from pandas.core.indexes.datetimes import DatetimeIndex
@@ -65,68 +32,9 @@ from pandas.core.indexes.period import PeriodIndex
 from pandas.core.indexes.timedeltas import TimedeltaIndex
 from pandas.core.series import Series
 from pandas.core.strings.accessor import StringMethods
-
-from pandas._libs.interval import Interval
-from pandas._libs.tslibs.period import Period
-from pandas._libs.tslibs.timedeltas import Timedelta
-from pandas._typing import (
-    C2,
-    S1,
-    S2,
-    S2_NSDT,
-    T_COMPLEX,
-    AnyAll,
-    AnyArrayLike,
-    AnyArrayLikeInt,
-    ArrayLike,
-    AxesData,
-    Axis,
-    BuiltinFloatDtypeArg,
-    CategoryDtypeArg,
-    DropKeep,
-    Dtype,
-    DtypeArg,
-    DtypeObj,
-    HashableT,
-    IgnoreRaise,
-    JoinHow,
-    Just,
-    Label,
-    Level,
-    MaskType,
-    NaPosition,
-    NDArrayT,
-    NumpyFloat16DtypeArg,
-    NumpyFloatNot16DtypeArg,
-    NumpyNotTimeDtypeArg,
-    NumpyTimedeltaDtypeArg,
-    NumpyTimestampDtypeArg,
-    PandasFloatDtypeArg,
-    PyArrowFloatDtypeArg,
-    ReindexMethod,
-    Renamer,
-    S2_contra,
-    Scalar,
-    SequenceNotStr,
-    SliceType,
-    TakeIndexer,
-    TimedeltaDtypeArg,
-    TimestampDtypeArg,
-    np_1darray,
-    np_1darray_bool,
-    np_1darray_intp,
-    np_ndarray,
-    np_ndarray_anyint,
-    np_ndarray_bool,
-    np_ndarray_complex,
-    np_ndarray_dt,
-    np_ndarray_float,
-    np_ndarray_str,
-    np_ndarray_td,
-    type_t,
-)
-
-from pandas.core.dtypes.dtypes import PeriodDtype
+from pathlib import Path
+from typing import Any, ClassVar, final, Literal, Never, overload, Self, TypeAlias
+import numpy as np
 
 FloatNotNumpy16DtypeArg: TypeAlias = (
     BuiltinFloatDtypeArg

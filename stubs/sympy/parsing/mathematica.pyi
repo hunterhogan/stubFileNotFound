@@ -1,14 +1,25 @@
 from _typeshed import Incomplete
-from sympy import Add as Add, And as And, Ci as Ci, Dummy as Dummy, Ei as Ei, Equality as Equality, Function as Function, GreaterThan as GreaterThan, I as I, Integer as Integer, Lambda as Lambda, LessThan as LessThan, Max as Max, Min as Min, Mod as Mod, Mul as Mul, Or as Or, Pow as Pow, Rational as Rational, S as S, Si as Si, StrictGreaterThan as StrictGreaterThan, StrictLessThan as StrictLessThan, Tuple as Tuple, UnevaluatedExpr as UnevaluatedExpr, acos as acos, acosh as acosh, acot as acot, acoth as acoth, acsc as acsc, acsch as acsch, airyai as airyai, airyaiprime as airyaiprime, airybi as airybi, asec as asec, asech as asech, asin as asin, asinh as asinh, atan as atan, atan2 as atan2, atanh as atanh, cancel as cancel, cos as cos, cosh as cosh, cot as cot, coth as coth, csc as csc, csch as csch, exp as exp, expand as expand, expand_trig as expand_trig, flatten as flatten, im as im, isprime as isprime, log as log, pi as pi, polylog as polylog, prime as prime, primepi as primepi, rf as rf, sec as sec, sech as sech, sign as sign, simplify as simplify, sin as sin, sinh as sinh, sqrt as sqrt, symbols as symbols, tan as tan, tanh as tanh
+from collections.abc import Callable
+from sympy import (
+	acos as acos, acosh as acosh, acot as acot, acoth as acoth, acsc as acsc, acsch as acsch, Add as Add, airyai as airyai,
+	airyaiprime as airyaiprime, airybi as airybi, And as And, asec as asec, asech as asech, asin as asin, asinh as asinh,
+	atan as atan, atan2 as atan2, atanh as atanh, cancel as cancel, Ci as Ci, cos as cos, cosh as cosh, cot as cot,
+	coth as coth, csc as csc, csch as csch, Dummy as Dummy, Ei as Ei, Equality as Equality, exp as exp, expand as expand,
+	expand_trig as expand_trig, flatten as flatten, Function as Function, GreaterThan as GreaterThan, I as I, im as im,
+	Integer as Integer, isprime as isprime, Lambda as Lambda, LessThan as LessThan, log as log, Max as Max, Min as Min,
+	Mod as Mod, Mul as Mul, Or as Or, pi as pi, polylog as polylog, Pow as Pow, prime as prime, primepi as primepi,
+	Rational as Rational, rf as rf, S as S, sec as sec, sech as sech, Si as Si, sign as sign, simplify as simplify,
+	sin as sin, sinh as sinh, sqrt as sqrt, StrictGreaterThan as StrictGreaterThan, StrictLessThan as StrictLessThan,
+	symbols as symbols, tan as tan, tanh as tanh, Tuple as Tuple, UnevaluatedExpr as UnevaluatedExpr)
 from sympy.core.sympify import _sympify as _sympify, sympify as sympify
 from sympy.functions.special.bessel import airybiprime as airybiprime
 from sympy.functions.special.error_functions import li as li
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
-from typing import Any, Callable
+from typing import Any
 
 def mathematica(s, additional_translations=None): ...
 def parse_mathematica(s):
-    '''
+    """
     Translate a string containing a Wolfram Mathematica expression to a SymPy
     expression.
 
@@ -17,8 +28,7 @@ def parse_mathematica(s):
     ``Function`` objects as nodes of the syntax tree.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.parsing.mathematica import parse_mathematica
     >>> parse_mathematica("Sin[x]^2 Tan[y]")
     sin(x)**2*tan(y)
@@ -56,7 +66,7 @@ def parse_mathematica(s):
     Apply(Plus, (x, y, z))
     >>> parse_mathematica("f[x_, 3] := x^3 /; x > 0")
     SetDelayed(f(Pattern(x, Blank()), 3), Condition(x**3, x > 0))
-    '''
+    """
 def _parse_Function(*args): ...
 def _deco(cls): ...
 
@@ -79,6 +89,7 @@ class MathematicaParser:
         handled by ``_from_fullformlist_to_sympy(...)``.
 
     """
+
     CORRESPONDENCES: Incomplete
     fm: Incomplete
     fs: Incomplete

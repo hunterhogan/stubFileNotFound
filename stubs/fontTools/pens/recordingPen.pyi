@@ -242,4 +242,3 @@ def lerpRecordings(recording1, recording2, factor: float = 0.5) -> Generator[Inc
 
     Returns a generator with the new recording.
     """
-

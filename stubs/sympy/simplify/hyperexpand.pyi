@@ -1,27 +1,40 @@
 from _typeshed import Incomplete
 from sympy import SYMPY_DEBUG as SYMPY_DEBUG
-from sympy.core import Add as Add, Dummy as Dummy, EulerGamma as EulerGamma, Expr as Expr, I as I, Mul as Mul, Rational as Rational, S as S, Tuple as Tuple, expand as expand, expand_func as expand_func, nan as nan, oo as oo, pi as pi, symbols as symbols, sympify as sympify, zoo as zoo
+from sympy.core import (
+	Add as Add, Dummy as Dummy, EulerGamma as EulerGamma, expand as expand, expand_func as expand_func, Expr as Expr,
+	I as I, Mul as Mul, nan as nan, oo as oo, pi as pi, Rational as Rational, S as S, symbols as symbols,
+	sympify as sympify, Tuple as Tuple, zoo as zoo)
 from sympy.core.mod import Mod as Mod
 from sympy.core.sorting import default_sort_key as default_sort_key
-from sympy.functions import Chi as Chi, Ci as Ci, Ei as Ei, Piecewise as Piecewise, Shi as Shi, Si as Si, besseli as besseli, besselj as besselj, ceiling as ceiling, cos as cos, cosh as cosh, elliptic_e as elliptic_e, elliptic_k as elliptic_k, erf as erf, exp as exp, exp_polar as exp_polar, expint as expint, factorial as factorial, floor as floor, fresnelc as fresnelc, fresnels as fresnels, gamma as gamma, lerchphi as lerchphi, log as log, lowergamma as lowergamma, polar_lift as polar_lift, re as re, rf as rf, root as root, sin as sin, sinh as sinh, sqrt as sqrt, uppergamma as uppergamma
+from sympy.functions import (
+	besseli as besseli, besselj as besselj, ceiling as ceiling, Chi as Chi, Ci as Ci, cos as cos, cosh as cosh, Ei as Ei,
+	elliptic_e as elliptic_e, elliptic_k as elliptic_k, erf as erf, exp as exp, exp_polar as exp_polar, expint as expint,
+	factorial as factorial, floor as floor, fresnelc as fresnelc, fresnels as fresnels, gamma as gamma,
+	lerchphi as lerchphi, log as log, lowergamma as lowergamma, Piecewise as Piecewise, polar_lift as polar_lift, re as re,
+	rf as rf, root as root, Shi as Shi, Si as Si, sin as sin, sinh as sinh, sqrt as sqrt, uppergamma as uppergamma)
 from sympy.functions.elementary.complexes import polarify as polarify, unpolarify as unpolarify
-from sympy.functions.special.hyper import HyperRep_asin1 as HyperRep_asin1, HyperRep_asin2 as HyperRep_asin2, HyperRep_atanh as HyperRep_atanh, HyperRep_cosasin as HyperRep_cosasin, HyperRep_log1 as HyperRep_log1, HyperRep_log2 as HyperRep_log2, HyperRep_power1 as HyperRep_power1, HyperRep_power2 as HyperRep_power2, HyperRep_sinasin as HyperRep_sinasin, HyperRep_sqrts1 as HyperRep_sqrts1, HyperRep_sqrts2 as HyperRep_sqrts2, hyper as hyper, meijerg as meijerg
-from sympy.matrices import Matrix as Matrix, eye as eye, zeros as zeros
-from sympy.polys import Poly as Poly, apart as apart, poly as poly
+from sympy.functions.special.hyper import (
+	hyper as hyper, HyperRep_asin1 as HyperRep_asin1, HyperRep_asin2 as HyperRep_asin2, HyperRep_atanh as HyperRep_atanh,
+	HyperRep_cosasin as HyperRep_cosasin, HyperRep_log1 as HyperRep_log1, HyperRep_log2 as HyperRep_log2,
+	HyperRep_power1 as HyperRep_power1, HyperRep_power2 as HyperRep_power2, HyperRep_sinasin as HyperRep_sinasin,
+	HyperRep_sqrts1 as HyperRep_sqrts1, HyperRep_sqrts2 as HyperRep_sqrts2, meijerg as meijerg)
+from sympy.matrices import eye as eye, Matrix as Matrix, zeros as zeros
+from sympy.polys import apart as apart, Poly as Poly, poly as poly
 from sympy.series import residue as residue
 from sympy.simplify.powsimp import powdenest as powdenest
 from sympy.utilities.iterables import sift as sift
 
 def _mod1(x): ...
 def add_formulae(formulae):
-    """ Create our knowledge base. """
+    """Create our knowledge base."""
 def add_meijerg_formulae(formulae): ...
 def make_simp(z):
-    """ Create a function that simplifies rational functions in ``z``. """
+    """Create a function that simplifies rational functions in ``z``."""
 def debug(*args) -> None: ...
 
 class Hyper_Function(Expr):
-    """ A generalized hypergeometric function. """
+    """A generalized hypergeometric function."""
+
     def __new__(cls, ap, bq): ...
     @property
     def args(self): ...
@@ -55,8 +68,7 @@ class Hyper_Function(Expr):
         invariant, since the parameters cannot be sorted uniquely mod1.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.simplify.hyperexpand import Hyper_Function
         >>> from sympy import S
         >>> ap = (S.Half, S.One/3, S(-1)/2, -2)
@@ -72,8 +84,9 @@ class Hyper_Function(Expr):
         (1, ((0, 1), (1/3, 1), (1/2, 2)), ((0, 2),))
         """
     def difficulty(self, func):
-        """ Estimate how many steps it takes to reach ``func`` from self.
-            Return -1 if impossible. """
+        """Estimate how many steps it takes to reach ``func`` from self.
+        Return -1 if impossible.
+        """
     def _is_suitable_origin(self):
         """
         Decide if ``self`` is a suitable origin.
@@ -92,7 +105,8 @@ class Hyper_Function(Expr):
         """
 
 class G_Function(Expr):
-    """ A Meijer G-function. """
+    """A Meijer G-function."""
+
     def __new__(cls, an, ap, bm, bq): ...
     @property
     def args(self): ...
@@ -110,8 +124,7 @@ class G_Function(Expr):
         descendending, bm and ap ascending).
 
         Examples
-        ========
-
+        --------
         >>> from sympy.simplify.hyperexpand import G_Function
         >>> from sympy.abc import y
         >>> from sympy import S
@@ -142,14 +155,14 @@ class Formula:
     - B, C, M (see _compute_basis)
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import a, b, z
     >>> from sympy.simplify.hyperexpand import Formula, Hyper_Function
     >>> func = Hyper_Function((a/2, a/3 + b, (1+a)/2), (a, b, (a+b)/7))
     >>> f = Formula(func, z, None, [a, b])
 
     """
+
     B: Incomplete
     C: Incomplete
     M: Incomplete
@@ -176,20 +189,20 @@ class Formula:
         """
 
 class FormulaCollection:
-    """ A collection of formulae to use as origins. """
+    """A collection of formulae to use as origins."""
+
     symbolic_formulae: Incomplete
     concrete_formulae: Incomplete
     formulae: Incomplete
     def __init__(self) -> None:
-        """ Doing this globally at module init time is a pain ... """
+        """Doing this globally at module init time is a pain ..."""
     def lookup_origin(self, func):
         """
         Given the suitable target ``func``, try to find an origin in our
         knowledge base.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.simplify.hyperexpand import (FormulaCollection,
         ...     Hyper_Function)
         >>> f = FormulaCollection()
@@ -214,6 +227,7 @@ class MeijerFormula:
     - func, the function
     - B, C, M (c/f ordinary Formula)
     """
+
     func: Incomplete
     z: Incomplete
     symbols: Incomplete
@@ -234,10 +248,11 @@ class MeijerFormulaCollection:
     """
     This class holds a collection of meijer g formulae.
     """
+
     formulae: Incomplete
     def __init__(self) -> None: ...
     def lookup_origin(self, func):
-        """ Try to find a formula that matches func. """
+        """Try to find a formula that matches func."""
 
 class Operator:
     """
@@ -265,13 +280,13 @@ class Operator:
     This class is used only in the implementation of the hypergeometric
     function expansion algorithm.
     """
+
     def apply(self, obj, op):
         """
         Apply ``self`` to the object ``obj``, where the generator is ``op``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.simplify.hyperexpand import Operator
         >>> from sympy.polys.polytools import Poly
         >>> from sympy.abc import x, y, z
@@ -282,68 +297,70 @@ class Operator:
         """
 
 class MultOperator(Operator):
-    ''' Simply multiply by a "constant" '''
+    """ Simply multiply by a "constant" """
+
     _poly: Incomplete
     def __init__(self, p) -> None: ...
 
 class ShiftA(Operator):
-    """ Increment an upper index. """
+    """Increment an upper index."""
+
     _poly: Incomplete
     def __init__(self, ai) -> None: ...
-    def __str__(self) -> str: ...
 
 class ShiftB(Operator):
-    """ Decrement a lower index. """
+    """Decrement a lower index."""
+
     _poly: Incomplete
     def __init__(self, bi) -> None: ...
-    def __str__(self) -> str: ...
 
 class UnShiftA(Operator):
-    """ Decrement an upper index. """
+    """Decrement an upper index."""
+
     _ap: Incomplete
     _bq: Incomplete
     _i: Incomplete
     _poly: Incomplete
     def __init__(self, ap, bq, i, z) -> None:
-        """ Note: i counts from zero! """
-    def __str__(self) -> str: ...
+        """Note: i counts from zero!"""
 
 class UnShiftB(Operator):
-    """ Increment a lower index. """
+    """Increment a lower index."""
+
     _ap: Incomplete
     _bq: Incomplete
     _i: Incomplete
     _poly: Incomplete
     def __init__(self, ap, bq, i, z) -> None:
-        """ Note: i counts from zero! """
-    def __str__(self) -> str: ...
+        """Note: i counts from zero!"""
 
 class MeijerShiftA(Operator):
-    """ Increment an upper b index. """
+    """Increment an upper b index."""
+
     _poly: Incomplete
     def __init__(self, bi) -> None: ...
-    def __str__(self) -> str: ...
 
 class MeijerShiftB(Operator):
-    """ Decrement an upper a index. """
+    """Decrement an upper a index."""
+
     _poly: Incomplete
     def __init__(self, bi) -> None: ...
-    def __str__(self) -> str: ...
 
 class MeijerShiftC(Operator):
-    """ Increment a lower b index. """
+    """Increment a lower b index."""
+
     _poly: Incomplete
     def __init__(self, bi) -> None: ...
-    def __str__(self) -> str: ...
 
 class MeijerShiftD(Operator):
-    """ Decrement a lower a index. """
+    """Decrement a lower a index."""
+
     _poly: Incomplete
     def __init__(self, bi) -> None: ...
-    def __str__(self) -> str: ...
 
 class MeijerUnShiftA(Operator):
-    """ Decrement an upper b index. """
+    """Decrement an upper b index."""
+
     _an: Incomplete
     _ap: Incomplete
     _bm: Incomplete
@@ -351,11 +368,11 @@ class MeijerUnShiftA(Operator):
     _i: Incomplete
     _poly: Incomplete
     def __init__(self, an, ap, bm, bq, i, z) -> None:
-        """ Note: i counts from zero! """
-    def __str__(self) -> str: ...
+        """Note: i counts from zero!"""
 
 class MeijerUnShiftB(Operator):
-    """ Increment an upper a index. """
+    """Increment an upper a index."""
+
     _an: Incomplete
     _ap: Incomplete
     _bm: Incomplete
@@ -363,11 +380,11 @@ class MeijerUnShiftB(Operator):
     _i: Incomplete
     _poly: Incomplete
     def __init__(self, an, ap, bm, bq, i, z) -> None:
-        """ Note: i counts from zero! """
-    def __str__(self) -> str: ...
+        """Note: i counts from zero!"""
 
 class MeijerUnShiftC(Operator):
-    """ Decrement a lower b index. """
+    """Decrement a lower b index."""
+
     _an: Incomplete
     _ap: Incomplete
     _bm: Incomplete
@@ -375,11 +392,11 @@ class MeijerUnShiftC(Operator):
     _i: Incomplete
     _poly: Incomplete
     def __init__(self, an, ap, bm, bq, i, z) -> None:
-        """ Note: i counts from zero! """
-    def __str__(self) -> str: ...
+        """Note: i counts from zero!"""
 
 class MeijerUnShiftD(Operator):
-    """ Increment a lower a index. """
+    """Increment a lower a index."""
+
     _an: Incomplete
     _ap: Incomplete
     _bm: Incomplete
@@ -387,25 +404,25 @@ class MeijerUnShiftD(Operator):
     _i: Incomplete
     _poly: Incomplete
     def __init__(self, an, ap, bm, bq, i, z) -> None:
-        """ Note: i counts from zero! """
-    def __str__(self) -> str: ...
+        """Note: i counts from zero!"""
 
 class ReduceOrder(Operator):
-    """ Reduce Order by cancelling an upper and a lower index. """
+    """Reduce Order by cancelling an upper and a lower index."""
+
     def __new__(cls, ai, bj):
-        """ For convenience if reduction is not possible, return None. """
+        """For convenience if reduction is not possible, return None."""
     @classmethod
     def _meijer(cls, b, a, sign):
-        """ Cancel b + sign*s and a + sign*s
-            This is for meijer G functions. """
+        """Cancel b + sign*s and a + sign*s
+        This is for meijer G functions.
+        """
     @classmethod
     def meijer_minus(cls, b, a): ...
     @classmethod
     def meijer_plus(cls, a, b): ...
-    def __str__(self) -> str: ...
 
 def _reduce_order(ap, bq, gen, key):
-    """ Order reduction algorithm used in Hypergeometric and Meijer G """
+    """Order reduction algorithm used in Hypergeometric and Meijer G"""
 def reduce_order(func):
     """
     Given the hypergeometric function ``func``, find a sequence of operators to
@@ -418,8 +435,7 @@ def reduce_order(func):
     hypergeometric function newfunc yields func.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.hyperexpand import reduce_order, Hyper_Function
     >>> reduce_order(Hyper_Function((1, 2), (3, 4)))
     (Hyper_Function((1, 2), (3, 4)), [])
@@ -437,8 +453,7 @@ def reduce_order_meijer(func):
     Return newfunc, [operators].
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.hyperexpand import (reduce_order_meijer,
     ...                                         G_Function)
     >>> reduce_order_meijer(G_Function([3, 4], [5, 6], [3, 4], [1, 2]))[0]
@@ -451,7 +466,7 @@ def reduce_order_meijer(func):
     G_Function((), (), (), ())
     """
 def make_derivative_operator(M, z):
-    """ Create a derivative operator, to be passed to Operator.apply. """
+    """Create a derivative operator, to be passed to Operator.apply."""
 def apply_operators(obj, ops, op):
     """
     Apply the list of operators ``ops`` to object ``obj``, substituting
@@ -464,8 +479,7 @@ def devise_plan(target, origin, z):
     Returns a list of operators.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.hyperexpand import devise_plan, Hyper_Function
     >>> from sympy.abc import z
 
@@ -504,10 +518,11 @@ def devise_plan(target, origin, z):
     <Decrement upper index #1 of [-1, 3], [4].>, <Increment upper -2.>]
     """
 def try_shifted_sum(func, z):
-    """ Try to recognise a hypergeometric sum that starts from k > 0. """
+    """Try to recognise a hypergeometric sum that starts from k > 0."""
 def try_polynomial(func, z):
-    """ Recognise polynomial cases. Returns None if not such a case.
-        Requires order to be fully reduced. """
+    """Recognise polynomial cases. Returns None if not such a case.
+    Requires order to be fully reduced.
+    """
 def try_lerchphi(func):
     """
     Try to find an expression for Hyper_Function ``func`` in terms of Lerch
@@ -521,13 +536,13 @@ def build_hypergeometric_formula(func):
 
     """
 def hyperexpand_special(ap, bq, z):
-    '''
+    """
     Try to find a closed-form expression for hyper(ap, bq, z), where ``z``
     is supposed to be a "special" value, e.g. 1.
 
     This function tries various of the classical summation formulae
     (Gauss, Saalschuetz, etc).
-    '''
+    """
 
 _collection: Incomplete
 
@@ -557,8 +572,7 @@ def devise_plan_meijer(fro, to, z):
     It is also assumed that ``fro`` is suitable.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.hyperexpand import (devise_plan_meijer,
     ...                                         G_Function)
     >>> from sympy.abc import z
@@ -621,8 +635,7 @@ def hyperexpand(f, allow_hyper: bool = False, rewrite: str = 'default', place=No
     preferred choice.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.hyperexpand import hyperexpand
     >>> from sympy.functions import hyper
     >>> from sympy.abc import z

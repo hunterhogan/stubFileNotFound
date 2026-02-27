@@ -14,6 +14,7 @@ class TensorflowPrinter(ArrayPrinter, AbstractPythonCodePrinter):
     Tensorflow printer which handles vectorized piecewise functions,
     logical operators, max/min, and relational operators.
     """
+
     printmethod: str
     mapping: Incomplete
     _default_settings: Incomplete

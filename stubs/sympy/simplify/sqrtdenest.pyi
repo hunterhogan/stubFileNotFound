@@ -30,8 +30,7 @@ def is_algebraic(p):
     of Rationals and algebraic operations.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.elementary.miscellaneous import sqrt
     >>> from sympy.simplify.sqrtdenest import is_algebraic
     >>> from sympy import cos
@@ -47,8 +46,7 @@ def _subsets(n):
     representation, so that the case of the fourth root is treated last.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.sqrtdenest import _subsets
     >>> _subsets(2)
     [[1, 0], [0, 1], [1, 1]]
@@ -60,20 +58,18 @@ def sqrtdenest(expr, max_iter: int = 3):
     algorithms of [1].
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.sqrtdenest import sqrtdenest
     >>> from sympy import sqrt
     >>> sqrtdenest(sqrt(5 + 2 * sqrt(6)))
     sqrt(2) + sqrt(3)
 
     See Also
-    ========
-
+    --------
     sympy.solvers.solvers.unrad
 
     References
-    ==========
+    ----------
 
     .. [1] https://web.archive.org/web/20210806201615/https://researcher.watson.ibm.com/researcher/files/us-fagin/symb85.pdf
 
@@ -86,8 +82,7 @@ def _sqrt_match(p):
     matching, sqrt(r) also has then maximal sqrt_depth among addends of p.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.elementary.miscellaneous import sqrt
     >>> from sympy.simplify.sqrtdenest import _sqrt_match
     >>> _sqrt_match(1 + sqrt(2) + sqrt(2)*sqrt(3) +  2*sqrt(1+sqrt(5)))
@@ -114,8 +109,7 @@ def _sqrtdenest_rec(expr):
     See [1], section 6.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sqrt
     >>> from sympy.simplify.sqrtdenest import _sqrtdenest_rec
     >>> _sqrtdenest_rec(sqrt(-72*sqrt(2) + 158*sqrt(5) + 498))
@@ -126,7 +120,8 @@ def _sqrtdenest_rec(expr):
     """
 def _sqrtdenest1(expr, denester: bool = True):
     """Return denested expr after denesting with simpler methods or, that
-    failing, using the denester."""
+    failing, using the denester.
+    """
 def _sqrt_symbolic_denest(a, b, r):
     """Given an expression, sqrt(a + b*sqrt(b)), return the denested
     expression or None.
@@ -140,8 +135,7 @@ def _sqrt_symbolic_denest(a, b, r):
     sqrt(ca*(sqrt(r) + (cb + b)/(2*ca))**2).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.sqrtdenest import _sqrt_symbolic_denest, sqrtdenest
     >>> from sympy import sqrt, Symbol
     >>> from sympy.abc import x
@@ -175,7 +169,7 @@ def _sqrt_numeric_denest(a, b, r, d2):
     If it cannot be denested, it returns ``None``.
     """
 def sqrt_biquadratic_denest(expr, a, b, r, d2):
-    """denest expr = sqrt(a + b*sqrt(r))
+    """Denest expr = sqrt(a + b*sqrt(r))
     where a, b, r are linear combinations of square roots of
     positive rationals on the rationals (SQRR) and r > 0, b != 0,
     d2 = a**2 - b**2*r > 0
@@ -212,8 +206,7 @@ def sqrt_biquadratic_denest(expr, a, b, r, d2):
     expr**2 = a + b*sqrt(r) = (A + B*sqrt(r))**2
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sqrt
     >>> from sympy.simplify.sqrtdenest import _sqrt_match, sqrt_biquadratic_denest
     >>> z = sqrt((2*sqrt(2) + 4)*sqrt(2 + sqrt(2)) + 5*sqrt(2) + 8)
@@ -251,8 +244,7 @@ def _sqrt_ratcomb(cs, args):
     Based on section 5 of [1].
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sqrt
     >>> from sympy.simplify.sqrtdenest import sqrtdenest
     >>> z = sqrt(1+sqrt(3)) + sqrt(3+3*sqrt(3)) - sqrt(10+6*sqrt(3))

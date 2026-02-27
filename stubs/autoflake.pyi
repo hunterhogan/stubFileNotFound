@@ -1,9 +1,8 @@
+from _typeshed import Incomplete
+from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
+from typing import Any, IO
 import pyflakes.messages
 import pyflakes.reporter
-from _typeshed import Incomplete
-from typing import Any, IO
-
-from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 
 __version__: str
 _LOGGER: Incomplete
@@ -41,11 +40,13 @@ def check(source: str) -> Iterable[pyflakes.messages.Message]:
 
 class StubFile:
     """Stub out file for pyflakes."""
+
     def write(self, *_: Any) -> None:
         """Stub out."""
 
 class ListReporter(pyflakes.reporter.Reporter):
     """Accumulate messages in messages list."""
+
     messages: list[pyflakes.messages.Message]
     def __init__(self) -> None:
         """Initialize.
@@ -69,6 +70,7 @@ class PendingFix:
     ``PendingFix`` object instead of a string, this object will be called
     with the following line.
     """
+
     accumulator: Incomplete
     def __init__(self, line: str) -> None:
         """Analyse and store the first line."""
@@ -96,13 +98,14 @@ def _segment_module(segment: str) -> str:
     """
 
 class FilterMultilineImport(PendingFix):
-    '''Remove unused imports from multiline import statements.
+    """Remove unused imports from multiline import statements.
 
     This class handles both the cases: "from imports" and "direct imports".
 
     Some limitations exist (e.g. imports with comments, lines joined by ``;``,
     etc). In these cases, the statement is left unchanged to avoid problems.
-    '''
+    """
+
     IMPORT_RE: Incomplete
     INDENTATION_RE: Incomplete
     BASE_RE: Incomplete
@@ -147,12 +150,14 @@ def filter_unused_variable(line: str, previous_line: str = '', drop_rhs: bool = 
     drop_rhs is True. Removing the RHS could be unsafe if the
     expression has side effects.
 
-    Parameters:
+    Parameters
+    ----------
         line: Line of code to process.
         previous_line: Previous line of code for context.
         drop_rhs: Whether to remove right-hand side of assignments.
 
-    Returns:
+    Returns
+    -------
         Processed line with unused variable removed or unchanged line.
     """
 def filter_duplicate_key(line: str, message: pyflakes.messages.Message, line_number: int, marked_line_numbers: Iterable[int], source: str, previous_line: str = '') -> str:
@@ -160,7 +165,8 @@ def filter_duplicate_key(line: str, message: pyflakes.messages.Message, line_num
 
     Keeps the first occurrence of a key and removes subsequent duplicates.
 
-    Parameters:
+    Parameters
+    ----------
         line: Line of code to process.
         message: Pyflakes message indicating duplicate key.
         line_number: Current line number being processed.
@@ -168,7 +174,8 @@ def filter_duplicate_key(line: str, message: pyflakes.messages.Message, line_num
         source: Complete source code being processed.
         previous_line: Previous line of code for context.
 
-    Returns:
+    Returns
+    -------
         Empty string if the line contains a duplicate key, otherwise returns the original line.
     """
 def dict_entry_has_key(line: str, key: Any) -> bool:
@@ -181,18 +188,20 @@ def dict_entry_has_key(line: str, key: Any) -> bool:
 def is_literal_or_name(value: str) -> bool:
     """Return True if value is a literal or a name."""
 def useless_pass_line_numbers(source: str, ignore_pass_after_docstring: bool = False) -> Iterable[int]:
-    '''Yield line numbers of unneeded "pass" statements.'''
+    """Yield line numbers of unneeded "pass" statements."""
 def filter_useless_pass(source: str, ignore_pass_statements: bool = False, ignore_pass_after_docstring: bool = False) -> Iterable[str]:
     """Remove useless pass statements from Python code.
 
     By default, autoflake removes unnecessary pass statements.
 
-    Parameters:
+    Parameters
+    ----------
         source: Source code to process.
         ignore_pass_statements: Skip removal of any pass statements if True.
         ignore_pass_after_docstring: Skip removal of pass statements following docstrings.
 
-    Returns:
+    Returns
+    -------
         Lines of code with useless pass statements removed.
     """
 def get_indentation(line: str) -> str:
@@ -206,7 +215,8 @@ def fix_code(source: str, additional_imports: Iterable[str] | None = None, expan
     Removal of unused variables is disabled by default.
     Also removes useless 'pass' statements by default.
 
-    Parameters:
+    Parameters
+    ----------
         source: Source code string to process.
         additional_imports: List of non-standard modules to consider for removal.
         expand_star_imports: Expand wildcard star imports with undefined names.
@@ -218,7 +228,8 @@ def fix_code(source: str, additional_imports: Iterable[str] | None = None, expan
         ignore_pass_statements: Ignore all pass statements.
         ignore_pass_after_docstring: Ignore pass statements after a docstring.
 
-    Returns:
+    Returns
+    -------
         Code with all filtering applied to it.
     """
 def fix_file(filename: str, args: Mapping[str, Any], standard_out: IO[str] | None = None) -> int:

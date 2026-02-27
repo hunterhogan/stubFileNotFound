@@ -1,6 +1,8 @@
-import operator
-from .backend import BACKEND as BACKEND, MPZ as MPZ, MPZ_ONE as MPZ_ONE, MPZ_ZERO as MPZ_ZERO, gmpy as gmpy, sage as sage, sage_utils as sage_utils, xrange as xrange
+from .backend import (
+	BACKEND as BACKEND, gmpy as gmpy, MPZ as MPZ, MPZ_ONE as MPZ_ONE, MPZ_ZERO as MPZ_ZERO, sage as sage,
+	sage_utils as sage_utils, xrange as xrange)
 from _typeshed import Incomplete
+import operator
 
 small_trailing: Incomplete
 
@@ -26,11 +28,13 @@ def giant_steps(start, target, n: int = 2):
 def rshift(x, n):
     """For an integer x, calculate x >> n with the fastest (floor)
     rounding. Unlike the plain Python expression (x >> n), n is
-    allowed to be negative, in which case a left shift is performed."""
+    allowed to be negative, in which case a left shift is performed.
+    """
 def lshift(x, n):
     """For an integer x, calculate x << n. Unlike the plain Python
     expression (x << n), n is allowed to be negative, in which case a
-    right shift with default (floor) rounding is performed."""
+    right shift with default (floor) rounding is performed.
+    """
 rshift = operator.rshift
 lshift = operator.lshift
 
@@ -58,13 +62,15 @@ bctable: Incomplete
 
 def bin_to_radix(x, xbits, base, bdigits):
     """Changes radix of a fixed-point number; i.e., converts
-    x * 2**xbits to floor(x * 10**bdigits)."""
+    x * 2**xbits to floor(x * 10**bdigits).
+    """
 
 stddigits: str
 
 def small_numeral(n, base: int = 10, digits='0123456789abcdefghijklmnopqrstuvwxyz'):
     """Return the string numeral of a positive integer in an arbitrary
-    base. Most efficient for small input."""
+    base. Most efficient for small input.
+    """
 def numeral_python(n, base: int = 10, size: int = 0, digits='0123456789abcdefghijklmnopqrstuvwxyz'):
     """Represent the integer n as a string of digits in the given base.
     Recursive division is used to make this function about 3x faster
@@ -72,7 +78,8 @@ def numeral_python(n, base: int = 10, size: int = 0, digits='0123456789abcdefghi
 
     The 'size' parameters specifies the number of digits in n; this
     number is only used to determine splitting points and need not be
-    exact."""
+    exact.
+    """
 def numeral_gmpy(n, base: int = 10, size: int = 0, digits='0123456789abcdefghijklmnopqrstuvwxyz'):
     """Represent the integer n as a string of digits in the given base.
     Recursive division is used to make this function about 3x faster
@@ -80,7 +87,8 @@ def numeral_gmpy(n, base: int = 10, size: int = 0, digits='0123456789abcdefghijk
 
     The 'size' parameters specifies the number of digits in n; this
     number is only used to determine splitting points and need not be
-    exact."""
+    exact.
+    """
 numeral = numeral_gmpy
 numeral = numeral_python
 _1_800: Incomplete
@@ -124,13 +132,14 @@ sqrtrem = sqrtrem_python
 
 def ifib(n, _cache={}):
     """Computes the nth Fibonacci number as an integer, for
-    integer n."""
+    integer n.
+    """
 
 MAX_FACTORIAL_CACHE: int
 
 def ifac(n, memo={0: 1, 1: 1}):
     """Return n factorial (for integers n >= 0 only)."""
-def ifac2(n, memo_pair=[{0: 1}, {1: 1}]):
+def ifac2(n, memo_pair=...):
     """Return n!! (double factorial), integers n >= 0 only."""
 
 ifac: Incomplete

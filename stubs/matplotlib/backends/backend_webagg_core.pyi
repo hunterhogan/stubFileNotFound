@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
 from matplotlib import _api as _api, backend_bases as backend_bases, backend_tools as backend_tools
-from matplotlib.backend_bases import KeyEvent as KeyEvent, LocationEvent as LocationEvent, MouseButton as MouseButton, MouseEvent as MouseEvent, ResizeEvent as ResizeEvent, _Backend as _Backend
+from matplotlib.backend_bases import (
+	_Backend as _Backend, KeyEvent as KeyEvent, LocationEvent as LocationEvent, MouseButton as MouseButton,
+	MouseEvent as MouseEvent, ResizeEvent as ResizeEvent)
 from matplotlib.backends import backend_agg as backend_agg
 
 _log: Incomplete

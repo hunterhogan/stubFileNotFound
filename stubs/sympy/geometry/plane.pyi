@@ -1,5 +1,7 @@
 from .entity import GeometryEntity as GeometryEntity
-from .line import Line as Line, Line3D as Line3D, LinearEntity as LinearEntity, LinearEntity3D as LinearEntity3D, Ray as Ray, Ray3D as Ray3D, Segment as Segment, Segment3D as Segment3D
+from .line import (
+	Line as Line, Line3D as Line3D, LinearEntity as LinearEntity, LinearEntity3D as LinearEntity3D, Ray as Ray,
+	Ray3D as Ray3D, Segment as Segment, Segment3D as Segment3D)
 from .point import Point as Point, Point3D as Point3D
 from _typeshed import Incomplete
 from sympy.core import Dummy as Dummy, Rational as Rational, S as S, Symbol as Symbol
@@ -9,7 +11,7 @@ from sympy.matrices import Matrix as Matrix
 from sympy.polys.polytools import cancel as cancel
 from sympy.solvers import linsolve as linsolve, solve as solve
 from sympy.utilities.iterables import is_sequence as is_sequence, uniq as uniq
-from sympy.utilities.misc import Undecidable as Undecidable, filldedent as filldedent, func_name as func_name
+from sympy.utilities.misc import filldedent as filldedent, func_name as func_name, Undecidable as Undecidable
 
 x: Incomplete
 y: Incomplete
@@ -26,14 +28,12 @@ class Plane(GeometryEntity):
     - a point and the plane's normal vector
 
     Attributes
-    ==========
-
+    ----------
     p1
     normal_vector
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Plane, Point3D
     >>> Plane(Point3D(1, 1, 1), Point3D(2, 3, 4), Point3D(2, 2, 2))
     Plane(Point3D(1, 1, 1), (-1, 2, -1))
@@ -43,6 +43,7 @@ class Plane(GeometryEntity):
     Plane(Point3D(1, 1, 1), (1, 4, 7))
 
     """
+
     def __new__(cls, p1, a=None, b=None, **kwargs): ...
     def __contains__(self, o) -> bool: ...
     def _eval_evalf(self, prec: int = 15, **options): ...
@@ -50,26 +51,22 @@ class Plane(GeometryEntity):
         """Angle between the plane and other geometric entity.
 
         Parameters
-        ==========
-
+        ----------
         LinearEntity3D, Plane.
 
         Returns
-        =======
-
+        -------
         angle : angle in radians
 
         Notes
-        =====
-
+        -----
         This method accepts only 3D entities as it's parameter, but if you want
         to calculate the angle between a 2D entity and a plane you should
         first convert to a 3D entity by projecting onto a desired plane and
         then proceed to calculate the angle.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point3D, Line3D, Plane
         >>> a = Plane(Point3D(1, 2, 2), normal_vector=(1, 2, 3))
         >>> b = Line3D(Point3D(1, 3, 4), Point3D(2, 2, 2))
@@ -78,15 +75,14 @@ class Plane(GeometryEntity):
 
         """
     def arbitrary_point(self, u=None, v=None):
-        """ Returns an arbitrary point on the Plane. If given two
+        """Returns an arbitrary point on the Plane. If given two
         parameters, the point ranges over the entire plane. If given 1
         or no parameters, returns a point with one parameter which,
         when varying from 0 to 2*pi, moves the point in a circle of
         radius 1 about p1 of the Plane.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Plane, Ray
         >>> from sympy.abc import u, v, t, r
         >>> p = Plane((1, 1, 1), normal_vector=(1, 0, 0))
@@ -104,8 +100,7 @@ class Plane(GeometryEntity):
         Point3D(1, r*cos(t) + 1, r*sin(t) + 1)
 
         Returns
-        =======
-
+        -------
         Point3D
 
         """
@@ -117,18 +112,15 @@ class Plane(GeometryEntity):
         are a common line.
 
         Parameters
-        ==========
-
+        ----------
         planes: list
 
         Returns
-        =======
-
+        -------
         Boolean
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Plane, Point3D
         >>> a = Plane(Point3D(5, 0, 0), normal_vector=(1, -1, 1))
         >>> b = Plane(Point3D(0, -2, 0), normal_vector=(3, 1, 1))
@@ -143,26 +135,22 @@ class Plane(GeometryEntity):
         """Distance between the plane and another geometric entity.
 
         Parameters
-        ==========
-
+        ----------
         Point3D, LinearEntity3D, Plane.
 
         Returns
-        =======
-
+        -------
         distance
 
         Notes
-        =====
-
+        -----
         This method accepts only 3D entities as it's parameter, but if you want
         to calculate the distance between a 2D entity and a plane you should
         first convert to a 3D entity by projecting onto a desired plane and
         then proceed to calculate the distance.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point3D, Line3D, Plane
         >>> a = Plane(Point3D(1, 1, 1), normal_vector=(1, 1, 1))
         >>> b = Point3D(1, 2, 3)
@@ -178,8 +166,7 @@ class Plane(GeometryEntity):
         Returns True if self and o are the same mathematical entities.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Plane, Point3D
         >>> a = Plane(Point3D(1, 2, 3), normal_vector=(1, 1, 1))
         >>> b = Plane(Point3D(1, 2, 3), normal_vector=(2, 2, 2))
@@ -195,8 +182,7 @@ class Plane(GeometryEntity):
         """The equation of the Plane.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point3D, Plane
         >>> a = Plane(Point3D(1, 1, 2), Point3D(2, 4, 7), Point3D(3, 5, 1))
         >>> a.equation()
@@ -207,21 +193,18 @@ class Plane(GeometryEntity):
 
         """
     def intersection(self, o):
-        """ The intersection with other geometrical entity.
+        """The intersection with other geometrical entity.
 
         Parameters
-        ==========
-
+        ----------
         Point, Point3D, LinearEntity, LinearEntity3D, Plane
 
         Returns
-        =======
-
+        -------
         List
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point3D, Line3D, Plane
         >>> a = Plane(Point3D(1, 2, 3), normal_vector=(1, 1, 1))
         >>> b = Point3D(1, 2, 3)
@@ -237,11 +220,10 @@ class Plane(GeometryEntity):
 
         """
     def is_coplanar(self, o):
-        """ Returns True if `o` is coplanar with self, else False.
+        """Returns True if `o` is coplanar with self, else False.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Plane
         >>> o = (0, 0, 0)
         >>> p = Plane(o, (1, 1, 1))
@@ -255,18 +237,15 @@ class Plane(GeometryEntity):
         """Is the given geometric entity parallel to the plane?
 
         Parameters
-        ==========
-
+        ----------
         LinearEntity3D or Plane
 
         Returns
-        =======
-
+        -------
         Boolean
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Plane, Point3D
         >>> a = Plane(Point3D(1,4,6), normal_vector=(2, 4, 6))
         >>> b = Plane(Point3D(3,1,3), normal_vector=(4, 8, 12))
@@ -278,18 +257,15 @@ class Plane(GeometryEntity):
         """Is the given geometric entity perpendicualar to the given plane?
 
         Parameters
-        ==========
-
+        ----------
         LinearEntity3D or Plane
 
         Returns
-        =======
-
+        -------
         Boolean
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Plane, Point3D
         >>> a = Plane(Point3D(1,4,6), normal_vector=(2, 4, 6))
         >>> b = Plane(Point3D(2, 2, 2), normal_vector=(-1, 2, -1))
@@ -302,8 +278,7 @@ class Plane(GeometryEntity):
         """Normal vector of the given plane.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point3D, Plane
         >>> a = Plane(Point3D(1, 1, 1), Point3D(2, 3, 4), Point3D(2, 2, 2))
         >>> a.normal_vector
@@ -319,13 +294,11 @@ class Plane(GeometryEntity):
         arbitrary_point method.
 
         See Also
-        ========
-
+        --------
         sympy.geometry.point.Point3D
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point3D, Plane
         >>> a = Plane(Point3D(1, 1, 1), Point3D(2, 3, 4), Point3D(2, 2, 2))
         >>> a.p1
@@ -337,18 +310,15 @@ class Plane(GeometryEntity):
         Plane parallel to the given plane and passing through the point pt.
 
         Parameters
-        ==========
-
+        ----------
         pt: Point3D
 
         Returns
-        =======
-
+        -------
         Plane
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Plane, Point3D
         >>> a = Plane(Point3D(1, 4, 6), normal_vector=(2, 4, 6))
         >>> a.parallel_plane(Point3D(2, 3, 5))
@@ -359,18 +329,15 @@ class Plane(GeometryEntity):
         """A line perpendicular to the given plane.
 
         Parameters
-        ==========
-
+        ----------
         pt: Point3D
 
         Returns
-        =======
-
+        -------
         Line3D
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Plane, Point3D
         >>> a = Plane(Point3D(1,4,6), normal_vector=(2, 4, 6))
         >>> a.perpendicular_line(Point3D(9, 8, 7))
@@ -391,18 +358,15 @@ class Plane(GeometryEntity):
         y-axis).
 
         Parameters
-        ==========
-
+        ----------
         pts: 0, 1 or 2 Point3D
 
         Returns
-        =======
-
+        -------
         Plane
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Plane, Point3D
         >>> a, b = Point3D(0, 0, 0), Point3D(0, 1, 0)
         >>> Z = (0, 0, 1)
@@ -415,18 +379,15 @@ class Plane(GeometryEntity):
         containing the line.
 
         Parameters
-        ==========
-
+        ----------
         LinearEntity or LinearEntity3D
 
         Returns
-        =======
-
+        -------
         Point3D, Line3D, Ray3D or Segment3D
 
         Notes
-        =====
-
+        -----
         For the interaction between 2D and 3D lines(segments, rays), you should
         convert the line to 3D by using this method. For example for finding the
         intersection between a 2D and a 3D line, convert the 2D line to a 3D line
@@ -434,8 +395,7 @@ class Plane(GeometryEntity):
         intersection between those lines.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Plane, Line, Line3D, Point3D
         >>> a = Plane(Point3D(1, 1, 1), normal_vector=(1, 1, 1))
         >>> b = Line(Point3D(1, 1), Point3D(2, 2))
@@ -450,18 +410,15 @@ class Plane(GeometryEntity):
         """Project the given point onto the plane along the plane normal.
 
         Parameters
-        ==========
-
+        ----------
         Point or Point3D
 
         Returns
-        =======
-
+        -------
         Point3D
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Plane, Point3D
         >>> A = Plane(Point3D(1, 1, 2), normal_vector=(1, 1, 1))
 
@@ -481,16 +438,14 @@ class Plane(GeometryEntity):
         Point3D(1, 1, 0)
         """
     def random_point(self, seed=None):
-        """ Returns a random point on the Plane.
+        """Returns a random point on the Plane.
 
         Returns
-        =======
-
+        -------
         Point3D
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Plane
         >>> p = Plane((1, 0, 0), normal_vector=(0, 1, 0))
         >>> r = p.random_point(seed=42)  # seed value is optional
@@ -508,8 +463,7 @@ class Plane(GeometryEntity):
         """Return the parameter(s) corresponding to the given point.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import pi, Plane
         >>> from sympy.abc import t, u, v
         >>> p = Plane((2, 0, 0), (0, 0, 1), (0, 1, 0))

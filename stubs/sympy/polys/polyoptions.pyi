@@ -1,11 +1,12 @@
-import sympy.polys
 from _typeshed import Incomplete
 from sympy.core.expr import Expr
+import sympy.polys
 
 __all__ = ['Options', 'Options']
 
 class Option:
-    """Base class for all kinds of options. """
+    """Base class for all kinds of options."""
+
     option: str | None
     is_Flag: bool
     requires: list[str]
@@ -20,16 +21,19 @@ class Option:
     def postprocess(cls, options) -> None: ...
 
 class Flag(Option):
-    """Base class for all kinds of flags. """
+    """Base class for all kinds of flags."""
+
     is_Flag: bool
 
 class BooleanOption(Option):
-    """An option that must have a boolean value or equivalent assigned. """
+    """An option that must have a boolean value or equivalent assigned."""
+
     @classmethod
     def preprocess(cls, value): ...
 
 class OptionType(type):
-    """Base type for all options that does registers options. """
+    """Base type for all options that does registers options."""
+
     def __init__(cls, *args, **kwargs) -> None: ...
 
 class Options(dict):
@@ -37,8 +41,7 @@ class Options(dict):
     Options manager for polynomial manipulation module.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.polyoptions import Options
     >>> from sympy.polys.polyoptions import build_options
 
@@ -79,6 +82,7 @@ class Options(dict):
     * Series --- boolean flag
 
     """
+
     __order__: Incomplete
     __options__: dict[str, type[Option]]
     gens: tuple[Expr, ...]
@@ -86,9 +90,9 @@ class Options(dict):
     def __init__(self, gens, args, flags=None, strict: bool = False) -> None: ...
     @classmethod
     def _init_dependencies_order(cls) -> None:
-        """Resolve the order of options' processing. """
+        """Resolve the order of options' processing."""
     def clone(self, updates={}):
-        """Clone ``self`` and update specified options. """
+        """Clone ``self`` and update specified options."""
     def __setattr__(self, attr, value) -> None: ...
     @property
     def args(self): ...
@@ -98,7 +102,8 @@ class Options(dict):
     def flags(self): ...
 
 class Expand(BooleanOption, metaclass=OptionType):
-    """``expand`` option to polynomial manipulation functions. """
+    """``expand`` option to polynomial manipulation functions."""
+
     option: str
     requires: list[str]
     excludes: list[str]
@@ -106,7 +111,8 @@ class Expand(BooleanOption, metaclass=OptionType):
     def default(cls): ...
 
 class Gens(Option, metaclass=OptionType):
-    """``gens`` option to polynomial manipulation functions. """
+    """``gens`` option to polynomial manipulation functions."""
+
     option: str
     requires: list[str]
     excludes: list[str]
@@ -116,7 +122,8 @@ class Gens(Option, metaclass=OptionType):
     def preprocess(cls, gens): ...
 
 class Wrt(Option, metaclass=OptionType):
-    """``wrt`` option to polynomial manipulation functions. """
+    """``wrt`` option to polynomial manipulation functions."""
+
     option: str
     requires: list[str]
     excludes: list[str]
@@ -125,7 +132,8 @@ class Wrt(Option, metaclass=OptionType):
     def preprocess(cls, wrt): ...
 
 class Sort(Option, metaclass=OptionType):
-    """``sort`` option to polynomial manipulation functions. """
+    """``sort`` option to polynomial manipulation functions."""
+
     option: str
     requires: list[str]
     excludes: list[str]
@@ -135,7 +143,8 @@ class Sort(Option, metaclass=OptionType):
     def preprocess(cls, sort): ...
 
 class Order(Option, metaclass=OptionType):
-    """``order`` option to polynomial manipulation functions. """
+    """``order`` option to polynomial manipulation functions."""
+
     option: str
     requires: list[str]
     excludes: list[str]
@@ -145,19 +154,22 @@ class Order(Option, metaclass=OptionType):
     def preprocess(cls, order): ...
 
 class Field(BooleanOption, metaclass=OptionType):
-    """``field`` option to polynomial manipulation functions. """
+    """``field`` option to polynomial manipulation functions."""
+
     option: str
     requires: list[str]
     excludes: Incomplete
 
 class Greedy(BooleanOption, metaclass=OptionType):
-    """``greedy`` option to polynomial manipulation functions. """
+    """``greedy`` option to polynomial manipulation functions."""
+
     option: str
     requires: list[str]
     excludes: Incomplete
 
 class Composite(BooleanOption, metaclass=OptionType):
-    """``composite`` option to polynomial manipulation functions. """
+    """``composite`` option to polynomial manipulation functions."""
+
     option: str
     @classmethod
     def default(cls) -> None: ...
@@ -165,7 +177,8 @@ class Composite(BooleanOption, metaclass=OptionType):
     excludes: Incomplete
 
 class Domain(Option, metaclass=OptionType):
-    """``domain`` option to polynomial manipulation functions. """
+    """``domain`` option to polynomial manipulation functions."""
+
     option: str
     requires: list[str]
     excludes: Incomplete
@@ -182,7 +195,8 @@ class Domain(Option, metaclass=OptionType):
     def postprocess(cls, options) -> None: ...
 
 class Split(BooleanOption, metaclass=OptionType):
-    """``split`` option to polynomial manipulation functions. """
+    """``split`` option to polynomial manipulation functions."""
+
     option: str
     requires: list[str]
     excludes: Incomplete
@@ -190,7 +204,8 @@ class Split(BooleanOption, metaclass=OptionType):
     def postprocess(cls, options) -> None: ...
 
 class Gaussian(BooleanOption, metaclass=OptionType):
-    """``gaussian`` option to polynomial manipulation functions. """
+    """``gaussian`` option to polynomial manipulation functions."""
+
     option: str
     requires: list[str]
     excludes: Incomplete
@@ -198,7 +213,8 @@ class Gaussian(BooleanOption, metaclass=OptionType):
     def postprocess(cls, options) -> None: ...
 
 class Extension(Option, metaclass=OptionType):
-    """``extension`` option to polynomial manipulation functions. """
+    """``extension`` option to polynomial manipulation functions."""
+
     option: str
     requires: list[str]
     excludes: Incomplete
@@ -208,7 +224,8 @@ class Extension(Option, metaclass=OptionType):
     def postprocess(cls, options) -> None: ...
 
 class Modulus(Option, metaclass=OptionType):
-    """``modulus`` option to polynomial manipulation functions. """
+    """``modulus`` option to polynomial manipulation functions."""
+
     option: str
     requires: list[str]
     excludes: Incomplete
@@ -218,19 +235,22 @@ class Modulus(Option, metaclass=OptionType):
     def postprocess(cls, options) -> None: ...
 
 class Symmetric(BooleanOption, metaclass=OptionType):
-    """``symmetric`` option to polynomial manipulation functions. """
+    """``symmetric`` option to polynomial manipulation functions."""
+
     option: str
     requires: Incomplete
     excludes: Incomplete
 
 class Strict(BooleanOption, metaclass=OptionType):
-    """``strict`` option to polynomial manipulation functions. """
+    """``strict`` option to polynomial manipulation functions."""
+
     option: str
     @classmethod
     def default(cls): ...
 
 class Auto(BooleanOption, Flag, metaclass=OptionType):
-    """``auto`` flag to polynomial manipulation functions. """
+    """``auto`` flag to polynomial manipulation functions."""
+
     option: str
     after: Incomplete
     @classmethod
@@ -239,35 +259,41 @@ class Auto(BooleanOption, Flag, metaclass=OptionType):
     def postprocess(cls, options) -> None: ...
 
 class Frac(BooleanOption, Flag, metaclass=OptionType):
-    """``auto`` option to polynomial manipulation functions. """
+    """``auto`` option to polynomial manipulation functions."""
+
     option: str
     @classmethod
     def default(cls): ...
 
 class Formal(BooleanOption, Flag, metaclass=OptionType):
-    """``formal`` flag to polynomial manipulation functions. """
+    """``formal`` flag to polynomial manipulation functions."""
+
     option: str
     @classmethod
     def default(cls): ...
 
 class Polys(BooleanOption, Flag, metaclass=OptionType):
-    """``polys`` flag to polynomial manipulation functions. """
+    """``polys`` flag to polynomial manipulation functions."""
+
     option: str
 
 class Include(BooleanOption, Flag, metaclass=OptionType):
-    """``include`` flag to polynomial manipulation functions. """
+    """``include`` flag to polynomial manipulation functions."""
+
     option: str
     @classmethod
     def default(cls): ...
 
 class All(BooleanOption, Flag, metaclass=OptionType):
-    """``all`` flag to polynomial manipulation functions. """
+    """``all`` flag to polynomial manipulation functions."""
+
     option: str
     @classmethod
     def default(cls): ...
 
 class Gen(Flag, metaclass=OptionType):
-    """``gen`` flag to polynomial manipulation functions. """
+    """``gen`` flag to polynomial manipulation functions."""
+
     option: str
     @classmethod
     def default(cls): ...
@@ -275,13 +301,15 @@ class Gen(Flag, metaclass=OptionType):
     def preprocess(cls, gen): ...
 
 class Series(BooleanOption, Flag, metaclass=OptionType):
-    """``series`` flag to polynomial manipulation functions. """
+    """``series`` flag to polynomial manipulation functions."""
+
     option: str
     @classmethod
     def default(cls): ...
 
 class Symbols(Flag, metaclass=OptionType):
-    """``symbols`` flag to polynomial manipulation functions. """
+    """``symbols`` flag to polynomial manipulation functions."""
+
     option: str
     @classmethod
     def default(cls): ...
@@ -289,7 +317,8 @@ class Symbols(Flag, metaclass=OptionType):
     def preprocess(cls, symbols): ...
 
 class Method(Flag, metaclass=OptionType):
-    """``method`` flag to polynomial manipulation functions. """
+    """``method`` flag to polynomial manipulation functions."""
+
     option: str
     @classmethod
     def preprocess(cls, method): ...

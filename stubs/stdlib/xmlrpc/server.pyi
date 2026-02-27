@@ -1,12 +1,11 @@
-import http.server
-import pydoc
-import socketserver
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterable, Mapping
 from re import Pattern
-from typing import Any, ClassVar, Protocol, type_check_only
-from typing_extensions import TypeAlias
-from xmlrpc.client import Fault, _Marshallable
+from typing import Any, ClassVar, Protocol, type_check_only, TypeAlias
+from xmlrpc.client import _Marshallable, Fault
+import http.server
+import pydoc
+import socketserver
 
 # The dispatch accepts anywhere from 0 to N arguments, no easy way to allow this in mypy
 @type_check_only

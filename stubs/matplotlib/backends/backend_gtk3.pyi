@@ -1,9 +1,13 @@
 from . import _backend_gtk as _backend_gtk
-from ._backend_gtk import _BackendGTK as _BackendGTK, _FigureCanvasGTK as _FigureCanvasGTK, _FigureManagerGTK as _FigureManagerGTK, _NavigationToolbar2GTK as _NavigationToolbar2GTK
+from ._backend_gtk import (
+	_BackendGTK as _BackendGTK, _FigureCanvasGTK as _FigureCanvasGTK, _FigureManagerGTK as _FigureManagerGTK,
+	_NavigationToolbar2GTK as _NavigationToolbar2GTK)
 from _typeshed import Incomplete
 from gi.repository import Gtk
 from matplotlib import _api as _api, backend_tools as backend_tools, cbook as cbook
-from matplotlib.backend_bases import CloseEvent as CloseEvent, KeyEvent as KeyEvent, LocationEvent as LocationEvent, MouseButton as MouseButton, MouseEvent as MouseEvent, ResizeEvent as ResizeEvent, ToolContainerBase as ToolContainerBase
+from matplotlib.backend_bases import (
+	CloseEvent as CloseEvent, KeyEvent as KeyEvent, LocationEvent as LocationEvent, MouseButton as MouseButton,
+	MouseEvent as MouseEvent, ResizeEvent as ResizeEvent, ToolContainerBase as ToolContainerBase)
 
 _log: Incomplete
 

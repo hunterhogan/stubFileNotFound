@@ -8,6 +8,7 @@ class Quantity(AtomicExpr):
     """
     Physical quantity: can be a unit of measure, a constant or a generic quantity.
     """
+
     is_commutative: bool
     is_real: bool
     is_number: bool
@@ -47,8 +48,7 @@ class Quantity(AtomicExpr):
         Convert the quantity to another quantity of same dimensions.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.units import speed_of_light, meter, second
         >>> speed_of_light
         speed_of_light
@@ -68,4 +68,5 @@ class Quantity(AtomicExpr):
 
 class PhysicalConstant(Quantity):
     """Represents a physical constant, eg. `speed_of_light` or `avogadro_constant`."""
+
     is_physical_constant: bool

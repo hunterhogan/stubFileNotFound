@@ -9,8 +9,7 @@ class TableForm:
     Create a nice table representation of data.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import TableForm
     >>> t = TableForm([[5, 7], [4, 2], [10, 3]])
     >>> print(t)
@@ -26,6 +25,7 @@ class TableForm:
     $5$ & $7$ \\\\\n    $4$ & $2$ \\\\\n    $10$ & $3$ \\\\\n    \\end{tabular}
 
     """
+
     _w: Incomplete
     _h: Incomplete
     _lines: Incomplete
@@ -35,11 +35,11 @@ class TableForm:
     _column_formats: Incomplete
     _wipe_zeros: Incomplete
     def __init__(self, data, **kwarg) -> None:
-        '''
+        """
         Creates a TableForm.
 
-        Parameters:
-
+        Parameters
+        ----------
             data ...
                             2D data to be put into the table; data can be
                             given as a Matrix
@@ -97,8 +97,7 @@ class TableForm:
                             [default: None]
 
         Examples
-        ========
-
+        --------
         >>> from sympy import TableForm, Symbol
         >>> TableForm([[5, 7], [4, 2], [10, 3]])
         5  7
@@ -116,15 +115,12 @@ class TableForm:
           . . .
          .. . ..
         ... . ...
-        '''
-    def __repr__(self) -> str: ...
-    def __str__(self) -> str: ...
+        """
     def as_matrix(self):
         """Returns the data of the table in Matrix form.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import TableForm
         >>> t = TableForm([[5, 7], [4, 2], [10, 3]], headings='automatic')
         >>> t
@@ -146,8 +142,7 @@ class TableForm:
         Returns the string representation of 'self'.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import TableForm
         >>> t = TableForm([[5, 7], [4, 2], [10, 3]])
         >>> s = t.as_str()

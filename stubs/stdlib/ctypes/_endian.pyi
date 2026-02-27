@@ -1,5 +1,5 @@
-import sys
 from ctypes import Structure, Union
+import sys
 
 # At runtime, the native endianness is an alias for Structure,
 # while the other is a subclass with a metaclass added in.

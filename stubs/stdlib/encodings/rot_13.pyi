@@ -1,5 +1,5 @@
-import codecs
 from _typeshed import SupportsRead, SupportsWrite
+import codecs
 
 # This codec is string to string.
 

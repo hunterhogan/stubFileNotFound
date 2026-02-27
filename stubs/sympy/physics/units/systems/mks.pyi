@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-__all__ = ['MKS', 'units', 'all_units', 'dims']
+__all__ = ['MKS', 'all_units', 'dims', 'units']
 
 dims: Incomplete
 units: Incomplete

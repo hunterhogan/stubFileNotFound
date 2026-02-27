@@ -12,6 +12,7 @@ __doctest_requires__: Incomplete
 
 class LLVMJitPrinter(Printer):
     """Convert expressions to LLVM IR"""
+
     func_arg_map: Incomplete
     fp_type: Incomplete
     module: Incomplete
@@ -85,8 +86,7 @@ def llvm_callable(args, expr, callback_type=None):
     in expressions.
 
     Parameters
-    ==========
-
+    ----------
     args : List of Symbol
         Arguments to the generated function.  Usually the free symbols in
         the expression.  Currently each one is assumed to convert to
@@ -101,13 +101,11 @@ def llvm_callable(args, expr, callback_type=None):
            'cubature'
 
     Returns
-    =======
-
+    -------
     Compiled function that can evaluate the expression.
 
     Examples
-    ========
-
+    --------
     >>> import sympy.printing.llvmjitcode as jit
     >>> from sympy.abc import a
     >>> e = a*a + a + 1

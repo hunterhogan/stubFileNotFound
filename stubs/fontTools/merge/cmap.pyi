@@ -19,4 +19,3 @@ def computeMegaCmap(merger, cmapTables) -> None:
     """Sets merger.cmap and merger.uvsDict."""
 def renameCFFCharStrings(merger, glyphOrder, cffTable) -> None:
     """Rename topDictIndex charStrings based on glyphOrder."""
-

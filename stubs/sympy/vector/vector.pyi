@@ -6,7 +6,9 @@ from sympy.core.singleton import S as S
 from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.core.sympify import sympify as sympify
 from sympy.functions.elementary.miscellaneous import sqrt as sqrt
-from sympy.vector.basisdependent import BasisDependent as BasisDependent, BasisDependentAdd as BasisDependentAdd, BasisDependentMul as BasisDependentMul, BasisDependentZero as BasisDependentZero
+from sympy.vector.basisdependent import (
+	BasisDependent as BasisDependent, BasisDependentAdd as BasisDependentAdd, BasisDependentMul as BasisDependentMul,
+	BasisDependentZero as BasisDependentZero)
 from sympy.vector.coordsysrect import CoordSys3D as CoordSys3D
 from sympy.vector.dyadic import BaseDyadic as BaseDyadic, Dyadic as Dyadic, DyadicAdd as DyadicAdd
 from sympy.vector.kind import VectorKind as VectorKind
@@ -17,6 +19,7 @@ class Vector(BasisDependent):
     Ideally, neither this class nor any of its subclasses should be
     instantiated by the user.
     """
+
     is_scalar: bool
     is_Vector: bool
     _op_priority: float
@@ -35,8 +38,7 @@ class Vector(BasisDependent):
         corresponding measure numbers.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> C = CoordSys3D('C')
         >>> v = 3*C.i + 4*C.j + 5*C.k
@@ -63,8 +65,7 @@ class Vector(BasisDependent):
         the symbols present in the expressions.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> from sympy.abc import x, y
         >>> from sympy import pi
@@ -96,14 +97,12 @@ class Vector(BasisDependent):
         True
 
         Parameters
-        ==========
-
+        ----------
         other: Vector
             The other vector expression to compare with.
 
         Returns
-        =======
-
+        -------
         ``True``, ``False`` or ``None``. A return value of ``True`` indicates
         that the two vectors are identically equal. A return value of ``False``
         indicates that they are not. In some cases it is not possible to
@@ -111,8 +110,7 @@ class Vector(BasisDependent):
         returned.
 
         See Also
-        ========
-
+        --------
         sympy.core.expr.Expr.equals
         """
     def dot(self, other):
@@ -128,14 +126,12 @@ class Vector(BasisDependent):
         derivative of the scalar field wrt this Vector.
 
         Parameters
-        ==========
-
+        ----------
         other: Vector/Dyadic/Del
             The Vector or Dyadic we are dotting with, or a Del operator .
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D, Del
         >>> C = CoordSys3D('C')
         >>> delop = Del()
@@ -162,14 +158,12 @@ class Vector(BasisDependent):
         is a Dyadic, this returns a Dyadic instance.
 
         Parameters
-        ==========
-
+        ----------
         other: Vector/Dyadic
             The Vector or Dyadic we are crossing with.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> C = CoordSys3D('C')
         >>> C.i.cross(C.j)
@@ -191,15 +185,13 @@ class Vector(BasisDependent):
         form of a Dyadic instance.
 
         Parameters
-        ==========
-
+        ----------
         other : Vector
             The Vector with respect to which the outer product is to
             be computed.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> N = CoordSys3D('N')
         >>> N.i.outer(N.j)
@@ -211,8 +203,7 @@ class Vector(BasisDependent):
         Returns the vector or scalar projection of the 'other' on 'self'.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector.coordsysrect import CoordSys3D
         >>> C = CoordSys3D('C')
         >>> i, j, k = C.base_vectors()
@@ -231,8 +222,7 @@ class Vector(BasisDependent):
         also zero values components.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D, Vector
         >>> C = CoordSys3D('C')
         >>> v1 = 3*C.i + 4*C.j + 5*C.k
@@ -252,14 +242,12 @@ class Vector(BasisDependent):
         specified coordinate system.
 
         Parameters
-        ==========
-
+        ----------
         system : CoordSys3D
             The system wrt which the matrix form is to be computed
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> C = CoordSys3D('C')
         >>> from sympy.abc import a, b, c
@@ -280,8 +268,7 @@ class Vector(BasisDependent):
         constituent Vector.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> R1 = CoordSys3D('R1')
         >>> R2 = CoordSys3D('R2')
@@ -291,7 +278,7 @@ class Vector(BasisDependent):
 
         """
     def _div_helper(one, other):
-        """ Helper for division involving vectors. """
+        """Helper for division involving vectors."""
 
 def get_postprocessor(cls): ...
 
@@ -300,6 +287,7 @@ class BaseVector(Vector, AtomicExpr):
     Class to denote a base vector.
 
     """
+
     def __new__(cls, index, system, pretty_str=None, latex_str=None): ...
     @property
     def system(self): ...
@@ -313,6 +301,7 @@ class VectorAdd(BasisDependentAdd, Vector):
     """
     Class to denote sum of Vector instances.
     """
+
     def __new__(cls, *args, **options): ...
     def _sympystr(self, printer): ...
 
@@ -320,13 +309,14 @@ class VectorMul(BasisDependentMul, Vector):
     """
     Class to denote products of scalars and BaseVectors.
     """
+
     def __new__(cls, *args, **options): ...
     @property
     def base_vector(self):
-        """ The BaseVector involved in the product. """
+        """The BaseVector involved in the product."""
     @property
     def measure_number(self):
-        """ The scalar expression involved in the definition of
+        """The scalar expression involved in the definition of
         this VectorMul.
         """
 
@@ -334,6 +324,7 @@ class VectorZero(BasisDependentZero, Vector):
     """
     Class to denote a zero vector
     """
+
     _op_priority: float
     _pretty_form: str
     _latex_form: str
@@ -344,8 +335,7 @@ class Cross(Vector):
     Represents unevaluated Cross product.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D, Cross
     >>> R = CoordSys3D('R')
     >>> v1 = R.i + R.j + R.k
@@ -356,6 +346,7 @@ class Cross(Vector):
     (-R.y + R.z)*R.i + (R.x - R.z)*R.j + (-R.x + R.y)*R.k
 
     """
+
     def __new__(cls, expr1, expr2): ...
     def doit(self, **hints): ...
 
@@ -364,8 +355,7 @@ class Dot(Expr):
     Represents unevaluated Dot product.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D, Dot
     >>> from sympy import symbols
     >>> R = CoordSys3D('R')
@@ -378,6 +368,7 @@ class Dot(Expr):
     a + b + c
 
     """
+
     def __new__(cls, expr1, expr2): ...
     def doit(self, **hints): ...
 
@@ -386,8 +377,7 @@ def cross(vect1, vect2):
     Returns cross product of two vectors.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D
     >>> from sympy.vector.vector import cross
     >>> R = CoordSys3D('R')
@@ -402,8 +392,7 @@ def dot(vect1, vect2):
     Returns dot product of two vectors.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D
     >>> from sympy.vector.vector import dot
     >>> R = CoordSys3D('R')

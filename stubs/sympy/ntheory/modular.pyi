@@ -30,8 +30,7 @@ def crt(m, v, symmetric: bool = False, check: bool = True):
     are coprime.
 
     Examples
-    ========
-
+    --------
     As an example consider a set of residues ``U = [49, 76, 65]``
     and a set of moduli ``M = [99, 97, 95]``. Then we have::
 
@@ -66,8 +65,7 @@ def crt(m, v, symmetric: bool = False, check: bool = True):
     indicated residuals is performed -- an O(n) operation.
 
     See Also
-    ========
-
+    --------
     solve_congruence
     sympy.polys.galoistools.gf_crt : low level crt routine used by this routine
     """
@@ -75,8 +73,7 @@ def crt1(m):
     """First part of Chinese Remainder Theorem, for multiple application.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.modular import crt, crt1, crt2
     >>> m = [99, 97, 95]
     >>> v = [49, 76, 65]
@@ -101,8 +98,7 @@ def crt1(m):
     (803206, 912285)
 
     See Also
-    ========
-
+    --------
     sympy.polys.galoistools.gf_crt1 : low level crt routine used by this routine
     sympy.ntheory.modular.crt
     sympy.ntheory.modular.crt2
@@ -114,16 +110,14 @@ def crt2(m, v, mm, e, s, symmetric: bool = False):
     See ``crt1`` for usage.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.modular import crt1, crt2
     >>> mm, e, s = crt1([18, 42, 6])
     >>> crt2([18, 42, 6], [0, 0, 0], mm, e, s)
     (0, 4536)
 
     See Also
-    ========
-
+    --------
     sympy.polys.galoistools.gf_crt2 : low level crt routine used by this routine
     sympy.ntheory.modular.crt
     sympy.ntheory.modular.crt1
@@ -144,8 +138,7 @@ def solve_congruence(*remainder_modulus_pairs, **hint):
     will be within 1/2 of the modulus, possibly negative.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.modular import solve_congruence
 
     What number is 2 mod 3, 3 mod 5 and 2 mod 7?
@@ -176,8 +169,7 @@ def solve_congruence(*remainder_modulus_pairs, **hint):
     (-1, 6)
 
     See Also
-    ========
-
+    --------
     crt : high level routine implementing the Chinese Remainder Theorem
 
     """

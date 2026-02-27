@@ -13,11 +13,10 @@ tt: Incomplete
 mapping: Incomplete
 
 class TheanoPrinter(Printer):
-    """ Code printer which creates Theano symbolic expression graphs.
+    """Code printer which creates Theano symbolic expression graphs.
 
     Parameters
-    ==========
-
+    ----------
     cache : dict
         Cache dictionary to use. If None (default) will use
         the global cache. To create a printer which does not depend on or alter
@@ -28,8 +27,7 @@ class TheanoPrinter(Printer):
         the cache is shared between all these applications.
 
     Attributes
-    ==========
-
+    ----------
     cache : dict
         A cache of Theano variables which have been created for SymPy
         symbol-like objects (e.g. :class:`sympy.core.symbol.Symbol` or
@@ -39,15 +37,15 @@ class TheanoPrinter(Printer):
         created only once. Symbols are differentiated only by name and type. The
         format of the cache's contents should be considered opaque to the user.
     """
+
     printmethod: str
     cache: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
     def _get_key(self, s, name=None, dtype=None, broadcastable=None):
-        """ Get the cache key for a SymPy object.
+        """Get the cache key for a SymPy object.
 
         Parameters
-        ==========
-
+        ----------
         s : sympy.core.basic.Basic
             SymPy object to get key for.
 
@@ -81,7 +79,7 @@ class TheanoPrinter(Printer):
     def _print_Derivative(self, deriv, **kwargs): ...
     def emptyPrinter(self, expr): ...
     def doprint(self, expr, dtypes=None, broadcastables=None):
-        """ Convert a SymPy expression to a Theano graph variable.
+        """Convert a SymPy expression to a Theano graph variable.
 
         The ``dtypes`` and ``broadcastables`` arguments are used to specify the
         data type, dimension, and broadcasting behavior of the Theano variables
@@ -95,8 +93,7 @@ class TheanoPrinter(Printer):
         .. __: http://deeplearning.net/software/theano/tutorial/broadcasting.html
 
         Parameters
-        ==========
-
+        ----------
         expr : sympy.core.expr.Expr
             SymPy expression to print.
 
@@ -113,8 +110,7 @@ class TheanoPrinter(Printer):
             not included in the mapping (resulting in a scalar).
 
         Returns
-        =======
-
+        -------
         theano.gof.graph.Variable
             A variable corresponding to the expression's value in a Theano
             symbolic expression graph.
@@ -134,8 +130,7 @@ def theano_code(expr, cache=None, **kwargs):
       :ref:`theanocode-deprecated` for more information.
 
     Parameters
-    ==========
-
+    ----------
     expr : sympy.core.expr.Expr
         SymPy expression object to convert.
 
@@ -150,23 +145,21 @@ def theano_code(expr, cache=None, **kwargs):
         Passed to :meth:`.TheanoPrinter.doprint`.
 
     Returns
-    =======
-
+    -------
     theano.gof.graph.Variable
         A variable corresponding to the expression's value in a Theano symbolic
         expression graph.
 
     """
 def dim_handling(inputs, dim=None, dims=None, broadcastables=None):
-    '''
+    """
     Get value of ``broadcastables`` argument to :func:`.theano_code` from
     keyword arguments to :func:`.theano_function`.
 
     Included for backwards compatibility.
 
     Parameters
-    ==========
-
+    ----------
     inputs
         Sequence of input symbols.
 
@@ -183,11 +176,11 @@ def dim_handling(inputs, dim=None, dims=None, broadcastables=None):
         :meth:`.TheanoPrinter.doprint`. If not None function will return this value unchanged.
 
     Returns
-    =======
+    -------
     dict
         Dictionary mapping elements of ``inputs`` to their "broadcastable"
         values (tuple of ``bool``\\ s).
-    '''
+    """
 def theano_function(inputs, outputs, scalar: bool = False, *, dim=None, dims=None, broadcastables=None, **kwargs):
     """
     Create a Theano function from SymPy expressions.
@@ -202,8 +195,7 @@ def theano_function(inputs, outputs, scalar: bool = False, *, dim=None, dims=Non
     :func:`.theano_code` and then passed to ``theano.function``.
 
     Parameters
-    ==========
-
+    ----------
     inputs
         Sequence of symbols which constitute the inputs of the function.
 
@@ -238,7 +230,7 @@ def theano_function(inputs, outputs, scalar: bool = False, *, dim=None, dims=Non
         ``broadcastables={x: (False, False), y: (False, False)}``.
 
     Returns
-    =======
+    -------
     callable
         A callable object which takes values of ``inputs`` as positional
         arguments and returns an output array for each of the expressions
@@ -253,8 +245,7 @@ def theano_function(inputs, outputs, scalar: bool = False, *, dim=None, dims=Non
         ``theano.function``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y, z
     >>> from sympy.printing.theanocode import theano_function
 
@@ -276,9 +267,8 @@ def theano_function(inputs, outputs, scalar: bool = False, *, dim=None, dims=Non
     >>> f3(2, 3)
     [13.0, -5.0]
 
-    See also
-    ========
-
+    See Also
+    --------
     dim_handling
 
     """

@@ -4,7 +4,7 @@ from .point import Point as Point, Point2D as Point2D, Point3D as Point3D
 from sympy import nsimplify as nsimplify
 from sympy.core.containers import OrderedSet as OrderedSet
 from sympy.core.exprtools import factor_terms as factor_terms
-from sympy.core.function import Function as Function, expand_mul as expand_mul
+from sympy.core.function import expand_mul as expand_mul, Function as Function
 from sympy.core.numbers import Float as Float
 from sympy.core.singleton import S as S
 from sympy.core.sorting import ordered as ordered
@@ -22,8 +22,7 @@ def find(x, equation):
     returned if found.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.geometry.util import find
     >>> from sympy import Dummy
     >>> from sympy.abc import x
@@ -44,21 +43,18 @@ def find(x, equation):
 def _ordered_points(p):
     """Return the tuple of points sorted numerically according to args"""
 def are_coplanar(*e):
-    """ Returns True if the given entities are coplanar otherwise False
+    """Returns True if the given entities are coplanar otherwise False
 
     Parameters
-    ==========
-
+    ----------
     e: entities to be checked for being coplanar
 
     Returns
-    =======
-
+    -------
     Boolean
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Point3D, Line3D
     >>> from sympy.geometry.util import are_coplanar
     >>> a = Line3D(Point3D(5, 0, 0), Point3D(1, -1, 1))
@@ -74,35 +70,29 @@ def are_similar(e1, e2):
     Can one geometrical entity be uniformly scaled to the other?
 
     Parameters
-    ==========
-
+    ----------
     e1 : GeometryEntity
     e2 : GeometryEntity
 
     Returns
-    =======
-
+    -------
     are_similar : boolean
 
     Raises
-    ======
-
+    ------
     GeometryError
         When `e1` and `e2` cannot be compared.
 
     Notes
-    =====
-
+    -----
     If the two objects are equal then they are similar.
 
     See Also
-    ========
-
+    --------
     sympy.geometry.entity.GeometryEntity.is_similar
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Point, Circle, Triangle, are_similar
     >>> c1, c2 = Circle(Point(0, 0), 4), Circle(Point(1, 4), 3)
     >>> t1 = Triangle(Point(0, 0), Point(1, 0), Point(0, 1))
@@ -123,14 +113,12 @@ def centroid(*args):
     If there are no objects (or a mixture of objects) then None is returned.
 
     See Also
-    ========
-
+    --------
     sympy.geometry.point.Point, sympy.geometry.line.Segment,
     sympy.geometry.polygon.Polygon
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Point, Segment, Polygon
     >>> from sympy.geometry.util import centroid
     >>> p = Polygon((0, 0), (10, 0), (10, 10))
@@ -167,21 +155,18 @@ def closest_points(*args):
     the closest to each other in the 2D plane.
 
     Parameters
-    ==========
-
+    ----------
     args
         A collection of Points on 2D plane.
 
     Notes
-    =====
-
+    -----
     This can only be performed on a set of points whose coordinates can
     be ordered on the number line. If there are no ties then a single
     pair of Points will be in the set.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import closest_points, Triangle
     >>> Triangle(sss=(3, 4, 5)).args
     (Point2D(0, 0), Point2D(3, 0), Point2D(3, 4))
@@ -189,7 +174,7 @@ def closest_points(*args):
     {(Point2D(0, 0), Point2D(3, 0))}
 
     References
-    ==========
+    ----------
 
     .. [1] https://www.cs.mcgill.ca/~cs251/ClosestPair/ClosestPairPS.html
 
@@ -198,11 +183,10 @@ def closest_points(*args):
 
     """
 def convex_hull(*args, polygon: bool = True):
-    '''The convex hull surrounding the Points contained in the list of entities.
+    """The convex hull surrounding the Points contained in the list of entities.
 
     Parameters
-    ==========
-
+    ----------
     args : a collection of Points, Segments and/or Polygons
 
     Optional parameters
@@ -212,25 +196,21 @@ def convex_hull(*args, polygon: bool = True):
               Default is True.
 
     Returns
-    =======
-
+    -------
     convex_hull : Polygon if ``polygon`` is True else as a tuple `(U, L)` where
                   ``L`` and ``U`` are the lower and upper hulls, respectively.
 
     Notes
-    =====
-
+    -----
     This can only be performed on a set of points whose coordinates can
     be ordered on the number line.
 
     See Also
-    ========
-
+    --------
     sympy.geometry.point.Point, sympy.geometry.polygon.Polygon
 
     Examples
-    ========
-
+    --------
     >>> from sympy import convex_hull
     >>> points = [(1, 1), (1, 2), (3, 1), (-5, 2), (15, 4)]
     >>> convex_hull(*points)
@@ -240,7 +220,7 @@ def convex_hull(*args, polygon: bool = True):
      [Point2D(-5, 2), Point2D(1, 1), Point2D(3, 1), Point2D(15, 4)])
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Graham_scan
 
@@ -249,27 +229,24 @@ def convex_hull(*args, polygon: bool = True):
       "Another Efficient Algorithm for Convex Hulls in Two Dimensions", 1979)
       https://web.archive.org/web/20210511015444/http://geomalgorithms.com/a10-_hull-1.html
 
-    '''
+    """
 def farthest_points(*args):
     """Return the subset of points from a set of points that were
     the furthest apart from each other in the 2D plane.
 
     Parameters
-    ==========
-
+    ----------
     args
         A collection of Points on 2D plane.
 
     Notes
-    =====
-
+    -----
     This can only be performed on a set of points whose coordinates can
     be ordered on the number line. If there are no ties then a single
     pair of Points will be in the set.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.geometry import farthest_points, Triangle
     >>> Triangle(sss=(3, 4, 5)).args
     (Point2D(0, 0), Point2D(3, 0), Point2D(3, 4))
@@ -277,7 +254,7 @@ def farthest_points(*args):
     {(Point2D(0, 0), Point2D(3, 4))}
 
     References
-    ==========
+    ----------
 
     .. [1] https://code.activestate.com/recipes/117225-convex-hull-and-diameter-of-2d-point-sets/
 
@@ -289,15 +266,13 @@ def idiff(eq, y, x, n: int = 1):
     """Return ``dy/dx`` assuming that ``eq == 0``.
 
     Parameters
-    ==========
-
+    ----------
     y : the dependent variable or a list of dependent variables (with y first)
     x : the variable that the derivative is being taken with respect to
     n : the order of the derivative (default is 1)
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y, a
     >>> from sympy.geometry.util import idiff
 
@@ -319,8 +294,7 @@ def idiff(eq, y, x, n: int = 1):
     -Derivative(a, x) - 1
 
     See Also
-    ========
-
+    --------
     sympy.core.function.Derivative: represents unevaluated derivatives
     sympy.core.function.diff: explicitly differentiates wrt symbols
 
@@ -329,21 +303,21 @@ def intersection(*entities, pairwise: bool = False, **kwargs):
     """The intersection of a collection of GeometryEntity instances.
 
     Parameters
-    ==========
+    ----------
     entities : sequence of GeometryEntity
     pairwise (keyword argument) : Can be either True or False
 
     Returns
-    =======
+    -------
     intersection : list of GeometryEntity
 
     Raises
-    ======
+    ------
     NotImplementedError
         When unable to calculate intersection.
 
     Notes
-    =====
+    -----
     The intersection of any geometrical entity with itself should return
     a list with one item: the entity in question.
     An intersection requires two or more entities. If only a single
@@ -363,13 +337,11 @@ def intersection(*entities, pairwise: bool = False, **kwargs):
     between any pair of entities.
 
     See Also
-    ========
-
+    --------
     sympy.geometry.entity.GeometryEntity.intersection
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Ray, Circle, intersection
     >>> c = Circle((0, 1), 1)
     >>> intersection(c, c.center)

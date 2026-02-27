@@ -13,7 +13,9 @@ from sympy.matrices.matrixbase import MatrixBase as MatrixBase
 from sympy.simplify.simplify import simplify as simplify
 from sympy.simplify.trigsimp import trigsimp as trigsimp
 from sympy.solvers import solve as solve
-from sympy.vector.orienters import AxisOrienter as AxisOrienter, BodyOrienter as BodyOrienter, Orienter as Orienter, QuaternionOrienter as QuaternionOrienter, SpaceOrienter as SpaceOrienter
+from sympy.vector.orienters import (
+	AxisOrienter as AxisOrienter, BodyOrienter as BodyOrienter, Orienter as Orienter,
+	QuaternionOrienter as QuaternionOrienter, SpaceOrienter as SpaceOrienter)
 from sympy.vector.scalar import BaseScalar as BaseScalar
 from sympy.vector.vector import BaseVector as BaseVector
 
@@ -21,14 +23,14 @@ class CoordSys3D(Basic):
     """
     Represents a coordinate system in 3-D space.
     """
+
     def __new__(cls, name, transformation=None, parent=None, location=None, rotation_matrix=None, vector_names=None, variable_names=None):
         """
         The orientation/location parameters are necessary if this system
         is being defined at a certain orientation or location wrt another.
 
         Parameters
-        ==========
-
+        ----------
         name : str
             The name of the new CoordSys3D instance.
 
@@ -65,8 +67,7 @@ class CoordSys3D(Basic):
         coordinate system
 
         Parameters
-        ==========
-
+        ----------
         equations : Lambda
             Lambda of transformation equations
 
@@ -78,8 +79,7 @@ class CoordSys3D(Basic):
         pre-defined coordinate systems.
 
         Parameters
-        ==========
-
+        ----------
         curv_coord_name : str
             Name of coordinate system
 
@@ -98,8 +98,7 @@ class CoordSys3D(Basic):
         coordinate systems.
 
         Parameters
-        ==========
-
+        ----------
         curv_coord_name : str
             Name of coordinate system
 
@@ -111,8 +110,7 @@ class CoordSys3D(Basic):
         for given transformations equations.
 
         Parameters
-        ==========
-
+        ----------
         equations : Lambda
             Lambda of transformation equations.
 
@@ -128,8 +126,7 @@ class CoordSys3D(Basic):
         coordinate systems.
 
         Parameters
-        ==========
-
+        ----------
         curv_coord_name : str
             Name of coordinate system
 
@@ -140,8 +137,7 @@ class CoordSys3D(Basic):
         Returns the transformation equations obtained from rotation matrix.
 
         Parameters
-        ==========
-
+        ----------
         matrix : Matrix
             Rotation matrix
 
@@ -170,14 +166,12 @@ class CoordSys3D(Basic):
         A SymPy Matrix is returned.
 
         Parameters
-        ==========
-
+        ----------
         other : CoordSys3D
             The system which the DCM is generated to.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> from sympy import symbols
         >>> q1 = symbols('q1')
@@ -197,16 +191,14 @@ class CoordSys3D(Basic):
         system with respect to another Point/CoordSys3D.
 
         Parameters
-        ==========
-
+        ----------
         other : Point/CoordSys3D
             If other is a Point, the position of this system's origin
             wrt it is returned. If its an instance of CoordSyRect,
             the position wrt its origin is returned.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> N = CoordSys3D('N')
         >>> N1 = N.locate_new('N1', 10 * N.i)
@@ -221,14 +213,12 @@ class CoordSys3D(Basic):
         otherframe.
 
         Parameters
-        ==========
-
+        ----------
         otherframe : CoordSys3D
             The other system to map the variables to.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> from sympy import Symbol
         >>> A = CoordSys3D('A')
@@ -244,8 +234,7 @@ class CoordSys3D(Basic):
         position wrt this coordinate system's origin.
 
         Parameters
-        ==========
-
+        ----------
         name : str
             The name of the new CoordSys3D instance.
 
@@ -259,8 +248,7 @@ class CoordSys3D(Basic):
             Used for simple str printing.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> A = CoordSys3D('A')
         >>> B = A.locate_new('B', 10 * A.i)
@@ -277,8 +265,7 @@ class CoordSys3D(Basic):
         for more information about the orientation procedure.
 
         Parameters
-        ==========
-
+        ----------
         name : str
             The name of the new CoordSys3D instance.
 
@@ -301,8 +288,7 @@ class CoordSys3D(Basic):
             Used for simple str printing.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> from sympy import symbols
         >>> q0, q1, q2, q3 = symbols('q0 q1 q2 q3')
@@ -339,8 +325,7 @@ class CoordSys3D(Basic):
         the axis is supplied as a Vector.
 
         Parameters
-        ==========
-
+        ----------
         name : string
             The name of the new coordinate system
 
@@ -361,8 +346,7 @@ class CoordSys3D(Basic):
             Used for simple str printing.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> from sympy import symbols
         >>> q1 = symbols('q1')
@@ -379,8 +363,7 @@ class CoordSys3D(Basic):
         Tait-Bryan Angles, see https://en.wikipedia.org/wiki/Euler_angles.
 
         Parameters
-        ==========
-
+        ----------
         name : string
             The name of the new coordinate system
 
@@ -401,8 +384,7 @@ class CoordSys3D(Basic):
             Used for simple str printing.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> from sympy import symbols
         >>> q1, q2, q3 = symbols('q1 q2 q3')
@@ -438,8 +420,7 @@ class CoordSys3D(Basic):
         are applied in the opposite order.
 
         Parameters
-        ==========
-
+        ----------
         name : string
             The name of the new coordinate system
 
@@ -460,14 +441,12 @@ class CoordSys3D(Basic):
             Used for simple str printing.
 
         See Also
-        ========
-
+        --------
         CoordSys3D.orient_new_body : method to orient via Euler
             angles
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> from sympy import symbols
         >>> q1, q2, q3 = symbols('q1 q2 q3')
@@ -507,8 +486,7 @@ class CoordSys3D(Basic):
         Quaternion does not take in a rotation order.
 
         Parameters
-        ==========
-
+        ----------
         name : string
             The name of the new coordinate system
 
@@ -526,8 +504,7 @@ class CoordSys3D(Basic):
             Used for simple str printing.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> from sympy import symbols
         >>> q0, q1, q2, q3 = symbols('q0 q1 q2 q3')
@@ -540,8 +517,7 @@ class CoordSys3D(Basic):
         Returns a CoordSys3D which is connected to self by transformation.
 
         Parameters
-        ==========
-
+        ----------
         name : str
             The name of the new CoordSys3D instance.
 
@@ -555,8 +531,7 @@ class CoordSys3D(Basic):
             Used for simple str printing.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> a = CoordSys3D('a')
         >>> b = a.create_new('b', transformation='spherical')

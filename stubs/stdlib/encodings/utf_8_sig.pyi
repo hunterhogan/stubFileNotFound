@@ -1,5 +1,5 @@
-import codecs
 from _typeshed import ReadableBuffer
+import codecs
 
 class IncrementalEncoder(codecs.IncrementalEncoder):
     def __init__(self, errors: str = "strict") -> None: ...

@@ -1,6 +1,5 @@
-from typing import ClassVar, Final, Literal
-
 from ..fixer_base import BaseFix
+from typing import ClassVar, Final, Literal
 
 NAMES: Final[dict[str, str]]
 

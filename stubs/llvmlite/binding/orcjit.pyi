@@ -1,6 +1,6 @@
-import ctypes
 from _typeshed import Incomplete
 from llvmlite.binding import ffi as ffi, targets as targets
+import ctypes
 
 class _LinkElement(ctypes.Structure):
     _fields_: Incomplete
@@ -28,6 +28,7 @@ class JITLibraryBuilder:
     valid. Once the resource tracker is garbage collected, the static
     destructors will run and library will be unloaded from memory.
     """
+
     __entries: Incomplete
     __exports: Incomplete
     __imports: Incomplete
@@ -113,7 +114,7 @@ class JITLibraryBuilder:
         """
 
 class ResourceTracker(ffi.ObjectRef):
-    '''
+    """
     A resource tracker is created for each loaded JIT library and keeps the
     module alive.
 
@@ -128,7 +129,8 @@ class ResourceTracker(ffi.ObjectRef):
 
     LLVM internally tracks references between different libraries, so only
     "leaf" libraries need to be tracked.
-    '''
+    """
+
     __addresses: Incomplete
     __name: Incomplete
     def __init__(self, ptr, name, addresses) -> None: ...
@@ -141,7 +143,7 @@ class ResourceTracker(ffi.ObjectRef):
     def _dispose(self) -> None: ...
 
 class LLJIT(ffi.ObjectRef):
-    '''
+    """
     A OrcJIT-based LLVM JIT engine that can compile and run LLVM IR as a
     collection of JITted dynamic libraries
 
@@ -151,7 +153,8 @@ class LLJIT(ffi.ObjectRef):
     libraries. In the C++ API, there is a "main" library; this API does not
     provide access to the main library. Use the JITLibraryBuilder to create a
     new named library instead.
-    '''
+    """
+
     _td: Incomplete
     def __init__(self, ptr) -> None: ...
     def lookup(self, dylib, fn):

@@ -1,11 +1,12 @@
-import sys
 from _typeshed import StrOrLiteralStr
 from collections.abc import Iterable, Mapping, Sequence
 from re import Pattern, RegexFlag
-from typing import Any, ClassVar, overload
-from typing_extensions import LiteralString
+from typing import Any, ClassVar, LiteralString, overload
+import sys
 
 __all__ = [
+    "Formatter",
+    "Template",
     "ascii_letters",
     "ascii_lowercase",
     "ascii_uppercase",
@@ -16,8 +17,6 @@ __all__ = [
     "printable",
     "punctuation",
     "whitespace",
-    "Formatter",
-    "Template",
 ]
 
 ascii_letters: LiteralString
@@ -32,7 +31,7 @@ whitespace: LiteralString
 
 def capwords(s: StrOrLiteralStr, sep: StrOrLiteralStr | None = None) -> StrOrLiteralStr: ...
 
-class Template(metaclass=type):
+class Template:
     template: str
     delimiter: ClassVar[str]
     idpattern: ClassVar[str]

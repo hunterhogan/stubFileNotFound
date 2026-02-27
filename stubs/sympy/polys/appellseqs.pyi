@@ -1,6 +1,6 @@
 from sympy.utilities import public
 
-__all__ = ['bernoulli_poly', 'bernoulli_c_poly', 'genocchi_poly', 'euler_poly', 'andre_poly']
+__all__ = ['andre_poly', 'bernoulli_c_poly', 'bernoulli_poly', 'euler_poly', 'genocchi_poly']
 
 @public
 def bernoulli_poly(n, x=None, polys: bool = False):
@@ -20,8 +20,7 @@ def bernoulli_poly(n, x=None, polys: bool = False):
     the Bernoulli numbers, the values of these polynomials at `x = 1`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import summation
     >>> from sympy.abc import x
     >>> from sympy.polys import bernoulli_poly
@@ -43,8 +42,7 @@ def bernoulli_poly(n, x=None, polys: bool = False):
     x**2*(x + 1)**2/4
 
     Parameters
-    ==========
-
+    ----------
     n : int
         Degree of the polynomial.
     x : optional
@@ -52,12 +50,11 @@ def bernoulli_poly(n, x=None, polys: bool = False):
         If True, return a Poly, otherwise (default) return an expression.
 
     See Also
-    ========
-
+    --------
     sympy.functions.combinatorial.numbers.bernoulli
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Bernoulli_polynomials
     """
@@ -73,8 +70,7 @@ def bernoulli_c_poly(n, x=None, polys: bool = False):
             \\left(\\frac{x+1}{2}\\right)
 
     Parameters
-    ==========
-
+    ----------
     n : int
         Degree of the polynomial.
     x : optional
@@ -95,8 +91,7 @@ def genocchi_poly(n, x=None, polys: bool = False):
     integer coefficients.
 
     Parameters
-    ==========
-
+    ----------
     n : int
         Degree of the polynomial plus one.
     x : optional
@@ -104,8 +99,7 @@ def genocchi_poly(n, x=None, polys: bool = False):
         If True, return a Poly, otherwise (default) return an expression.
 
     See Also
-    ========
-
+    --------
     sympy.functions.combinatorial.numbers.genocchi
     """
 @public
@@ -117,8 +111,7 @@ def euler_poly(n, x=None, polys: bool = False):
     .. math :: \\operatorname{E}_n(x) = -\\frac{\\operatorname{G}_{n+1}(x)}{n+1}
 
     Parameters
-    ==========
-
+    ----------
     n : int
         Degree of the polynomial.
     x : optional
@@ -126,13 +119,12 @@ def euler_poly(n, x=None, polys: bool = False):
         If True, return a Poly, otherwise (default) return an expression.
 
     See Also
-    ========
-
+    --------
     sympy.functions.combinatorial.numbers.euler
     """
 @public
 def andre_poly(n, x=None, polys: bool = False):
-    '''Generates the Andre polynomial `\\mathcal{A}_n(x)`.
+    """Generates the Andre polynomial `\\mathcal{A}_n(x)`.
 
     This is the Appell sequence where the constant coefficients form the sequence
     of Euler numbers ``euler(n)``. As such they have integer coefficients
@@ -145,8 +137,7 @@ def andre_poly(n, x=None, polys: bool = False):
     the *Andre numbers*, A000111 in the OEIS.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import bernoulli, euler, genocchi
     >>> from sympy.abc import x
     >>> from sympy.polys import andre_poly
@@ -170,8 +161,7 @@ def andre_poly(n, x=None, polys: bool = False):
     [1, 1, 1, 2, 5, 16, 61, 272, 1385, 7936, 50521]
 
     Parameters
-    ==========
-
+    ----------
     n : int
         Degree of the polynomial.
     x : optional
@@ -179,13 +169,12 @@ def andre_poly(n, x=None, polys: bool = False):
         If True, return a Poly, otherwise (default) return an expression.
 
     See Also
-    ========
-
+    --------
     sympy.functions.combinatorial.numbers.andre
 
     References
-    ==========
+    ----------
 
     .. [1] Peter Luschny, "An introduction to the Bernoulli function",
            https://arxiv.org/abs/2009.06743
-    '''
+    """

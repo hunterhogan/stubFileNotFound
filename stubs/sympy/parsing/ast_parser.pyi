@@ -12,9 +12,9 @@ class Transform(NodeTransformer):
     def visit_Lambda(self, node): ...
 
 def parse_expr(s, local_dict):
-    '''
+    """
     Converts the string "s" to a SymPy expression, in local_dict.
 
     It converts all numbers to Integers before feeding it to Python and
     automatically creates Symbols.
-    '''
+    """

@@ -8,9 +8,9 @@ from sympy.core.sympify import sympify as sympify
 from sympy.matrices import Matrix as Matrix
 
 def _is_scalar(e):
-    """ Helper method used in Tr"""
+    """Helper method used in Tr"""
 def _cycle_permute(l):
-    """ Cyclic permutations based on canonical ordering
+    """Cyclic permutations based on canonical ordering
 
     Explanation
     ===========
@@ -23,26 +23,25 @@ def _cycle_permute(l):
 
     """
 def _rearrange_args(l):
-    """ this just moves the last arg to first position
-     to enable expansion of args
-     A,B,A ==> A**2,B
+    """This just moves the last arg to first position
+    to enable expansion of args
+    A,B,A ==> A**2,B
     """
 
 class Tr(Expr):
-    """ Generic Trace operation than can trace over:
+    """Generic Trace operation than can trace over:
 
     a) SymPy matrix
     b) operators
     c) outer products
 
     Parameters
-    ==========
+    ----------
     o : operator, matrix, expr
     i : tuple/list indices (optional)
 
     Examples
-    ========
-
+    --------
     # TODO: Need to handle printing
 
     a) Trace(A+B) = Tr(A) + Tr(B)
@@ -59,11 +58,12 @@ class Tr(Expr):
     2
 
     """
+
     def __new__(cls, *args):
-        """ Construct a Trace object.
+        """Construct a Trace object.
 
         Parameters
-        ==========
+        ----------
         args = SymPy expression
         indices = tuple/list if indices, optional
 
@@ -71,7 +71,7 @@ class Tr(Expr):
     @property
     def kind(self): ...
     def doit(self, **hints):
-        """ Perform the trace operation.
+        """Perform the trace operation.
 
         #TODO: Current version ignores the indices set for partial trace.
 
@@ -86,16 +86,14 @@ class Tr(Expr):
     @property
     def is_number(self): ...
     def permute(self, pos):
-        """ Permute the arguments cyclically.
+        """Permute the arguments cyclically.
 
         Parameters
-        ==========
-
+        ----------
         pos : integer, if positive, shift-right, else shift-left
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.quantum.trace import Tr
         >>> from sympy import symbols
         >>> A, B, C, D = symbols('A B C D', commutative=False)

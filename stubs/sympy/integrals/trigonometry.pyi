@@ -1,7 +1,8 @@
 from .integrals import integrate as integrate
 from _typeshed import Incomplete
-from sympy.core import Dummy as Dummy, Integer as Integer, Ne as Ne, Rational as Rational, S as S, Wild as Wild, cacheit as cacheit
-from sympy.functions import Abs as Abs, Piecewise as Piecewise, binomial as binomial, cos as cos, sin as sin
+from sympy.core import (
+	cacheit as cacheit, Dummy as Dummy, Integer as Integer, Ne as Ne, Rational as Rational, S as S, Wild as Wild)
+from sympy.functions import Abs as Abs, binomial as binomial, cos as cos, Piecewise as Piecewise, sin as sin
 
 def _integer_instance(n): ...
 @cacheit
@@ -14,8 +15,7 @@ def trigintegrate(f, x, conds: str = 'piecewise'):
     Integrate f = Mul(trig) over x.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sin, cos, tan, sec
     >>> from sympy.integrals.trigonometry import trigintegrate
     >>> from sympy.abc import x
@@ -33,13 +33,12 @@ def trigintegrate(f, x, conds: str = 'piecewise'):
     -log(sin(x) - 1)/2 + log(sin(x) + 1)/2 - sin(x)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikibooks.org/wiki/Calculus/Integration_techniques
 
     See Also
-    ========
-
+    --------
     sympy.integrals.integrals.Integral.doit
     sympy.integrals.integrals.Integral
     """

@@ -1,10 +1,11 @@
-from sympy.core import S as S, preorder_traversal as preorder_traversal, sympify as sympify
+from sympy.core import preorder_traversal as preorder_traversal, S as S, sympify as sympify
 from sympy.core.add import Add as Add
 from sympy.core.expr import Expr as Expr
 from sympy.core.function import Derivative as Derivative
 from sympy.core.mul import Mul as Mul
 from sympy.vector.coordsysrect import CoordSys3D as CoordSys3D
-from sympy.vector.vector import Cross as Cross, Dot as Dot, Vector as Vector, VectorAdd as VectorAdd, VectorMul as VectorMul
+from sympy.vector.vector import (
+	Cross as Cross, Dot as Dot, Vector as Vector, VectorAdd as VectorAdd, VectorMul as VectorMul)
 
 def _get_coord_systems(expr): ...
 def _split_mul_args_wrt_coordsys(expr): ...
@@ -14,8 +15,7 @@ class Gradient(Expr):
     Represents unevaluated Gradient.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D, Gradient
     >>> R = CoordSys3D('R')
     >>> s = R.x*R.y*R.z
@@ -23,6 +23,7 @@ class Gradient(Expr):
     Gradient(R.x*R.y*R.z)
 
     """
+
     def __new__(cls, expr): ...
     def doit(self, **hints): ...
 
@@ -31,8 +32,7 @@ class Divergence(Expr):
     Represents unevaluated Divergence.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D, Divergence
     >>> R = CoordSys3D('R')
     >>> v = R.y*R.z*R.i + R.x*R.z*R.j + R.x*R.y*R.k
@@ -40,6 +40,7 @@ class Divergence(Expr):
     Divergence(R.y*R.z*R.i + R.x*R.z*R.j + R.x*R.y*R.k)
 
     """
+
     def __new__(cls, expr): ...
     def doit(self, **hints): ...
 
@@ -48,8 +49,7 @@ class Curl(Expr):
     Represents unevaluated Curl.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D, Curl
     >>> R = CoordSys3D('R')
     >>> v = R.y*R.z*R.i + R.x*R.z*R.j + R.x*R.y*R.k
@@ -57,6 +57,7 @@ class Curl(Expr):
     Curl(R.y*R.z*R.i + R.x*R.z*R.j + R.x*R.y*R.k)
 
     """
+
     def __new__(cls, expr): ...
     def doit(self, **hints): ...
 
@@ -66,8 +67,7 @@ def curl(vect, doit: bool = True):
     of the given coordinate system.
 
     Parameters
-    ==========
-
+    ----------
     vect : Vector
         The vector operand
 
@@ -77,8 +77,7 @@ def curl(vect, doit: bool = True):
         Derivative instances
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D, curl
     >>> R = CoordSys3D('R')
     >>> v1 = R.y*R.z*R.i + R.x*R.z*R.j + R.x*R.y*R.k
@@ -95,8 +94,7 @@ def divergence(vect, doit: bool = True):
     scalars of the given coordinate system.
 
     Parameters
-    ==========
-
+    ----------
     vector : Vector
         The vector operand
 
@@ -106,8 +104,7 @@ def divergence(vect, doit: bool = True):
         Derivative instances
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D, divergence
     >>> R = CoordSys3D('R')
     >>> v1 = R.x*R.y*R.z * (R.i+R.j+R.k)
@@ -125,8 +122,7 @@ def gradient(scalar_field, doit: bool = True):
     base scalars of the given coordinate system.
 
     Parameters
-    ==========
-
+    ----------
     scalar_field : SymPy Expr
         The scalar field to compute the gradient of
 
@@ -136,8 +132,7 @@ def gradient(scalar_field, doit: bool = True):
         Derivative instances
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D, gradient
     >>> R = CoordSys3D('R')
     >>> s1 = R.x*R.y*R.z
@@ -154,8 +149,7 @@ class Laplacian(Expr):
     Represents unevaluated Laplacian.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.vector import CoordSys3D, Laplacian
     >>> R = CoordSys3D('R')
     >>> v = 3*R.x**3*R.y**2*R.z**3
@@ -163,6 +157,7 @@ class Laplacian(Expr):
     Laplacian(3*R.x**3*R.y**2*R.z**3)
 
     """
+
     def __new__(cls, expr): ...
     def doit(self, **hints): ...
 

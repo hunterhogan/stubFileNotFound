@@ -1,5 +1,5 @@
-import sys
 from typing import Final
+import sys
 
 # This module is only available on Windows
 if sys.platform == "win32":

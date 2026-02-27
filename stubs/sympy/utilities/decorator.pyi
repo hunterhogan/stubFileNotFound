@@ -5,7 +5,7 @@ from typing import TypeVar
 T = TypeVar('T')
 
 def threaded_factory(func, use_add):
-    """A factory for ``threaded`` decorators. """
+    """A factory for ``threaded`` decorators."""
 def threaded(func):
     """Apply ``func`` to sub--elements of an object, including :class:`~.Add`.
 
@@ -42,7 +42,8 @@ def xthreaded(func):
     """
 def conserve_mpmath_dps(func):
     """After the function finishes, resets the value of ``mpmath.mp.dps`` to
-    the value it had before the function was run."""
+    the value it had before the function was run.
+    """
 
 class no_attrs_in_subclass:
     """Don't 'inherit' certain attributes from a base class
@@ -63,6 +64,7 @@ class no_attrs_in_subclass:
     False
 
     """
+
     cls: Incomplete
     f: Incomplete
     def __init__(self, cls, f) -> None: ...
@@ -97,8 +99,7 @@ def public(obj: T) -> T:
     first, ``@public`` may end up modifying the wrong namespace.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.decorator import public
 
     >>> __all__ # noqa: F821
@@ -117,7 +118,8 @@ def public(obj: T) -> T:
 def memoize_property(propfunc):
     """Property decorator that caches the value of potentially expensive
     ``propfunc`` after the first evaluation. The cached value is stored in
-    the corresponding property name with an attached underscore."""
+    the corresponding property name with an attached underscore.
+    """
 def deprecated(message, *, deprecated_since_version, active_deprecations_target, stacklevel: int = 3):
     '''
     Mark a function as deprecated.
@@ -137,8 +139,7 @@ def deprecated(message, *, deprecated_since_version, active_deprecations_target,
     things should be deprecated in SymPy.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.decorator import deprecated
     >>> from sympy import simplify
     >>> @deprecated("""    ... The simplify_this(expr) function is deprecated. Use simplify(expr)
@@ -173,7 +174,7 @@ def deprecated(message, *, deprecated_since_version, active_deprecations_target,
     x
 
     See Also
-    ========
+    --------
     sympy.utilities.exceptions.SymPyDeprecationWarning
     sympy.utilities.exceptions.sympy_deprecation_warning
     sympy.utilities.exceptions.ignore_warnings

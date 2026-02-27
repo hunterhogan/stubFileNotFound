@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from sympy.core.intfunc import igcd as igcd, integer_nthroot as integer_nthroot
-from sympy.core.numbers import Integer as Integer, Rational as Rational, oo as oo, pi as pi
+from sympy.core.numbers import Integer as Integer, oo as oo, pi as pi, Rational as Rational
 from sympy.core.singleton import S as S
 
 i3: Incomplete

@@ -1,10 +1,6 @@
-from typing import (
-    Any,
-    Self,
-)
-
 from pandas.core.arraylike import OpsMixin
 from pandas.core.arrays.base import ExtensionArraySupportsAnyAll
+from typing import Any, Self
 import pyarrow as pa
 
 class ArrowExtensionArray(OpsMixin, ExtensionArraySupportsAnyAll):

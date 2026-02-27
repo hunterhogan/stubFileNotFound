@@ -20,4 +20,3 @@ KerningGroups: TypeAlias = dict[str, Sequence[str]]
 KerningNested: TypeAlias = dict[str, dict[str, IntFloat]]
 PathStr: TypeAlias = str | PathLike[str]
 PathOrFS: TypeAlias = PathStr | FS
-

@@ -1,5 +1,11 @@
-from .backend import BACKEND as BACKEND, HASH_BITS as HASH_BITS, HASH_MODULUS as HASH_MODULUS, MPZ as MPZ, MPZ_FIVE as MPZ_FIVE, MPZ_ONE as MPZ_ONE, MPZ_TWO as MPZ_TWO, MPZ_TYPE as MPZ_TYPE, MPZ_ZERO as MPZ_ZERO, STRICT as STRICT, gmpy as gmpy, sage as sage, sage_utils as sage_utils
-from .libintmath import bctable as bctable, bin_to_radix as bin_to_radix, bitcount as bitcount, giant_steps as giant_steps, isqrt as isqrt, isqrt_fast as isqrt_fast, lshift as lshift, numeral as numeral, rshift as rshift, sqrt_fixed as sqrt_fixed, sqrtrem as sqrtrem, trailing as trailing, trailtable as trailtable
+from .backend import (
+	BACKEND as BACKEND, gmpy as gmpy, HASH_BITS as HASH_BITS, HASH_MODULUS as HASH_MODULUS, MPZ as MPZ,
+	MPZ_FIVE as MPZ_FIVE, MPZ_ONE as MPZ_ONE, MPZ_TWO as MPZ_TWO, MPZ_TYPE as MPZ_TYPE, MPZ_ZERO as MPZ_ZERO, sage as sage,
+	sage_utils as sage_utils, STRICT as STRICT)
+from .libintmath import (
+	bctable as bctable, bin_to_radix as bin_to_radix, bitcount as bitcount, giant_steps as giant_steps, isqrt as isqrt,
+	isqrt_fast as isqrt_fast, lshift as lshift, numeral as numeral, rshift as rshift, sqrt_fixed as sqrt_fixed,
+	sqrtrem as sqrtrem, trailing as trailing, trailtable as trailtable)
 from _typeshed import Incomplete
 from bisect import bisect as bisect
 
@@ -21,14 +27,17 @@ round_fast = round_down
 
 def prec_to_dps(n):
     """Return number of accurate decimals that can be represented
-    with a precision of n bits."""
+    with a precision of n bits.
+    """
 def dps_to_prec(n):
     """Return the number of bits required to represent n decimals
-    accurately."""
+    accurately.
+    """
 def repr_dps(n):
     """Return the number of decimal digits required to represent
     a number with n-bit precision so that it can be uniquely
-    reconstructed from the representation."""
+    reconstructed from the representation.
+    """
 
 fzero: Incomplete
 fnzero: Incomplete
@@ -70,18 +79,20 @@ def _normalize(sign, man, exp, bc, prec, rnd):
     of the conversion functions to create normalized raw mpf tuples.
     """
 def _normalize1(sign, man, exp, bc, prec, rnd):
-    """same as normalize, but with the added condition that
-       man is odd or zero
+    """Same as normalize, but with the added condition that
+    man is odd or zero
     """
 
 _exp_types: Incomplete
 
 def strict_normalize(sign, man, exp, bc, prec, rnd):
     """Additional checks on the components of an mpf. Enable tests by setting
-       the environment variable MPMATH_STRICT to Y."""
+    the environment variable MPMATH_STRICT to Y.
+    """
 def strict_normalize1(sign, man, exp, bc, prec, rnd):
     """Additional checks on the components of an mpf. Enable tests by setting
-       the environment variable MPMATH_STRICT to Y."""
+    the environment variable MPMATH_STRICT to Y.
+    """
 
 _normalize: Incomplete
 _normalize1: Incomplete
@@ -92,20 +103,23 @@ normalize1 = _normalize1
 
 def from_man_exp(man, exp, prec: Incomplete | None = None, rnd='d'):
     """Create raw mpf from (man, exp) pair. The mantissa may be signed.
-    If no precision is specified, the mantissa is stored exactly."""
+    If no precision is specified, the mantissa is stored exactly.
+    """
 
 int_cache: Incomplete
 from_man_exp: Incomplete
 
 def from_int(n, prec: int = 0, rnd='d'):
     """Create a raw mpf from an integer. If no precision is specified,
-    the mantissa is stored exactly."""
+    the mantissa is stored exactly.
+    """
 def to_man_exp(s):
     """Return (man, exp) of a raw mpf. Raise an error if inf/nan."""
 def to_int(s, rnd: Incomplete | None = None):
     """Convert a raw mpf to the nearest int. Rounding is done down by
     default (same as int(float) in Python), but can be changed. If the
-    input is inf/nan, an exception is raised."""
+    input is inf/nan, an exception is raised.
+    """
 def mpf_round_int(s, rnd): ...
 def mpf_floor(s, prec: int = 0, rnd='d'): ...
 def mpf_ceil(s, prec: int = 0, rnd='d'): ...
@@ -114,15 +128,18 @@ def mpf_frac(s, prec: int = 0, rnd='d'): ...
 def from_float(x, prec: int = 53, rnd='d'):
     """Create a raw mpf from a Python float, rounding if necessary.
     If prec >= 53, the result is guaranteed to represent exactly the
-    same number as the input. If prec is not specified, use prec=53."""
+    same number as the input. If prec is not specified, use prec=53.
+    """
 def from_npfloat(x, prec: int = 113, rnd='d'):
     """Create a raw mpf from a numpy float, rounding if necessary.
     If prec >= 113, the result is guaranteed to represent exactly the
-    same number as the input. If prec is not specified, use prec=113."""
+    same number as the input. If prec is not specified, use prec=113.
+    """
 def from_Decimal(x, prec: Incomplete | None = None, rnd='d'):
     """Create a raw mpf from a Decimal, rounding if necessary.
     If prec is not specified, use the equivalent bit precision
-    of the number of significant digits in x."""
+    of the number of significant digits in x.
+    """
 def to_float(s, strict: bool = False, rnd='d'):
     """
     Convert a raw mpf to a Python float. The result is exact if the
@@ -138,22 +155,27 @@ def to_float(s, strict: bool = False, rnd='d'):
     """
 def from_rational(p, q, prec, rnd='d'):
     """Create a raw mpf from a rational number p/q, round if
-    necessary."""
+    necessary.
+    """
 def to_rational(s):
     """Convert a raw mpf to a rational number. Return integers (p, q)
-    such that s = p/q exactly."""
+    such that s = p/q exactly.
+    """
 def to_fixed(s, prec):
     """Convert a raw mpf to a fixed-point big integer"""
 def mpf_rand(prec):
     """Return a raw mpf chosen randomly from [0, 1), with prec bits
-    in the mantissa."""
+    in the mantissa.
+    """
 def mpf_eq(s, t):
     """Test equality of two raw mpfs. This is simply tuple comparison
-    unless either number is nan, in which case the result is False."""
+    unless either number is nan, in which case the result is False.
+    """
 def mpf_hash(s): ...
 def mpf_cmp(s, t):
     """Compare the raw mpfs s and t. Return -1 if s < t, 0 if s == t,
-    and 1 if s > t. (Same convention as Python's cmp() function.)"""
+    and 1 if s > t. (Same convention as Python's cmp() function.)
+    """
 def mpf_lt(s, t): ...
 def mpf_le(s, t): ...
 def mpf_gt(s, t): ...
@@ -161,18 +183,22 @@ def mpf_ge(s, t): ...
 def mpf_min_max(seq): ...
 def mpf_pos(s, prec: int = 0, rnd='d'):
     """Calculate 0+s for a raw mpf (i.e., just round s to the specified
-    precision)."""
+    precision).
+    """
 def mpf_neg(s, prec: Incomplete | None = None, rnd='d'):
     """Negate a raw mpf (return -s), rounding the result to the
     specified precision. The prec argument can be omitted to do the
-    operation exactly."""
+    operation exactly.
+    """
 def mpf_abs(s, prec: Incomplete | None = None, rnd='d'):
     """Return abs(s) of the raw mpf s, rounded to the specified
     precision. The prec argument can be omitted to generate an
-    exact result."""
+    exact result.
+    """
 def mpf_sign(s):
     """Return -1, 0, or 1 (as a Python int, not a raw mpf) depending on
-    whether s is negative, zero, or positive. (Nan is taken to give 0.)"""
+    whether s is negative, zero, or positive. (Nan is taken to give 0.)
+    """
 def mpf_add(s, t, prec: int = 0, rnd='d', _sub: int = 0):
     """
     Add the two raw mpf values s and t.
@@ -183,7 +209,8 @@ def mpf_add(s, t, prec: int = 0, rnd='d', _sub: int = 0):
     """
 def mpf_sub(s, t, prec: int = 0, rnd='d'):
     """Return the difference of two raw mpfs, s-t. This function is
-    simply a wrapper of mpf_add that changes the sign of t."""
+    simply a wrapper of mpf_add that changes the sign of t.
+    """
 def mpf_sum(xs, prec: int = 0, rnd='d', absolute: bool = False):
     """
     Sum a list of mpf values efficiently and accurately
@@ -238,7 +265,8 @@ def to_digits_exp(s, dps):
     sign is '' or '-', string is the digit string, and exponent is
     the decimal exponent as an int.
 
-    If inexact, the decimal representation is rounded toward zero."""
+    If inexact, the decimal representation is rounded toward zero.
+    """
 def to_str(s, dps, strip_zeros: bool = True, min_fixed: Incomplete | None = None, max_fixed: Incomplete | None = None, show_zero_exponent: bool = False):
     """
     Convert a raw mpf to a decimal floating-point literal with at
@@ -279,7 +307,8 @@ def mpf_sqrt(s, prec, rnd='d'):
     """
 def mpf_hypot(x, y, prec, rnd='d'):
     """Compute the Euclidean norm sqrt(x**2 + y**2) of two raw mpfs
-    x and y."""
+    x and y.
+    """
 
 mpf_add: Incomplete
 mpf_sub: Incomplete

@@ -1,7 +1,9 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 from enum import Enum, IntEnum
-from matplotlib import _api as _api, _docstring as _docstring, _tight_bbox as _tight_bbox, cbook as cbook, colors as colors, is_interactive as is_interactive, rcParams as rcParams, text as text, transforms as transforms, widgets as widgets
+from matplotlib import (
+	_api as _api, _docstring as _docstring, _tight_bbox as _tight_bbox, cbook as cbook, colors as colors,
+	is_interactive as is_interactive, rcParams as rcParams, text as text, transforms as transforms, widgets as widgets)
 from matplotlib._enums import CapStyle as CapStyle, JoinStyle as JoinStyle
 from matplotlib._pylab_helpers import Gcf as Gcf
 from matplotlib.backend_managers import ToolManager as ToolManager
@@ -17,7 +19,7 @@ _default_filetypes: Incomplete
 _default_backends: Incomplete
 
 def register_backend(format, backend, description: Incomplete | None = None) -> None:
-    '''
+    """
     Register a backend for saving to a given file format.
 
     Parameters
@@ -28,7 +30,7 @@ def register_backend(format, backend, description: Incomplete | None = None) -> 
         Backend for handling file output
     description : str, default: ""
         Description of the file type.
-    '''
+    """
 def get_registered_canvas_class(format):
     """
     Return the registered default canvas for given file format.
@@ -55,6 +57,7 @@ class RendererBase:
     * `draw_path_collection`
     * `draw_quad_mesh`
     """
+
     _texmanager: Incomplete
     _text2path: Incomplete
     _raster_depth: int
@@ -225,13 +228,13 @@ class RendererBase:
             and *y* to the translation vector defined by *transform*).
         """
     def option_image_nocomposite(self):
-        '''
+        """
         Return whether image composition by Matplotlib should be skipped.
 
         Raster backends should usually return False (letting the C-level
         rasterizer take care of image composition); vector backends should
         usually return ``not rcParams["image.composite_image"]``.
-        '''
+        """
     def option_scale_image(self):
         """
         Return whether arbitrary affine transformations in `draw_image` are
@@ -259,7 +262,7 @@ class RendererBase:
             The original text object to be rendered.
         """
     def draw_text(self, gc, x, y, s, prop, angle, ismath: bool = False, mtext: Incomplete | None = None) -> None:
-        '''
+        """
         Draw a text instance.
 
         Parameters
@@ -289,15 +292,15 @@ class RendererBase:
         parameter to use TeX rendering, but this is not required for actual
         rendering backends, and indeed many builtin backends do not support
         this.  Rather, TeX rendering is provided by `~.RendererBase.draw_tex`.
-        '''
+        """
     def _draw_text_as_path(self, gc, x, y, s, prop, angle, ismath) -> None:
-        '''
+        """
         Draw the text by converting them to paths using `.TextToPath`.
 
         This private helper supports the same parameters as
         `~.RendererBase.draw_text`; setting *ismath* to "TeX" triggers TeX
         rendering.
-        '''
+        """
     def get_text_width_height_descent(self, s, prop, ismath):
         """
         Get the width, height, and descent (offset from the bottom to the baseline), in
@@ -373,6 +376,7 @@ class RendererBase:
 
 class GraphicsContextBase:
     """An abstract base class that provides color, line styles, etc."""
+
     _alpha: float
     _forced_alpha: bool
     _antialiased: int
@@ -600,6 +604,7 @@ class TimerBase:
     - ``_on_timer``: The internal function that any timer object should call,
       which will handle the task of running all callbacks that have been set.
     """
+
     callbacks: Incomplete
     def __init__(self, interval: Incomplete | None = None, callbacks: Incomplete | None = None) -> None:
         """
@@ -687,6 +692,7 @@ class Event:
     guiEvent
         The GUI event that triggered the Matplotlib event.
     """
+
     name: Incomplete
     canvas: Incomplete
     guiEvent: Incomplete
@@ -716,6 +722,7 @@ class DrawEvent(Event):
     renderer : `RendererBase`
         The renderer for the draw event.
     """
+
     renderer: Incomplete
     def __init__(self, name, canvas, renderer) -> None: ...
 
@@ -733,6 +740,7 @@ class ResizeEvent(Event):
     height : int
         Height of the canvas in pixels.
     """
+
     def __init__(self, name, canvas) -> None: ...
 
 class CloseEvent(Event):
@@ -757,6 +765,7 @@ class LocationEvent(Event):
     modifiers : frozenset
         The keyboard modifiers currently being pressed (except for KeyEvent).
     """
+
     _last_axes_ref: Incomplete
     x: Incomplete
     y: Incomplete
@@ -775,7 +784,7 @@ class MouseButton(IntEnum):
     FORWARD = 9
 
 class MouseEvent(LocationEvent):
-    '''
+    """
     A mouse event (\'button_press_event\', \'button_release_event\', \'scroll_event\', \'motion_notify_event\').
 
     A MouseEvent has a number of special attributes in addition to those
@@ -845,14 +854,14 @@ class MouseEvent(LocationEvent):
             print(\'you pressed\', event.button, event.xdata, event.ydata)
 
         cid = fig.canvas.mpl_connect(\'button_press_event\', on_press)
-    '''
+    """
+
     button: Incomplete
     buttons: Incomplete
     key: Incomplete
     step: Incomplete
     dblclick: Incomplete
     def __init__(self, name, canvas, x, y, button: Incomplete | None = None, key: Incomplete | None = None, step: int = 0, dblclick: bool = False, guiEvent: Incomplete | None = None, *, buttons: Incomplete | None = None, modifiers: Incomplete | None = None) -> None: ...
-    def __str__(self) -> str: ...
 
 class PickEvent(Event):
     """
@@ -892,12 +901,13 @@ class PickEvent(Event):
 
         cid = fig.canvas.mpl_connect('pick_event', on_pick)
     """
+
     mouseevent: Incomplete
     artist: Incomplete
     def __init__(self, name, canvas, mouseevent, artist, guiEvent: Incomplete | None = None, **kwargs) -> None: ...
 
 class KeyEvent(LocationEvent):
-    '''
+    """
     A key event (key press, key release).
 
     A KeyEvent has a number of special attributes in addition to those defined
@@ -926,7 +936,8 @@ class KeyEvent(LocationEvent):
             print(\'you pressed\', event.key, event.xdata, event.ydata)
 
         cid = fig.canvas.mpl_connect(\'key_press_event\', on_key)
-    '''
+    """
+
     key: Incomplete
     def __init__(self, name, canvas, key, x: int = 0, y: int = 0, guiEvent: Incomplete | None = None) -> None: ...
 
@@ -986,6 +997,7 @@ class FigureCanvasBase:
     figure : `~matplotlib.figure.Figure`
         A high-level figure instance.
     """
+
     required_interactive_framework: Incomplete
     manager_class: Incomplete
     events: Incomplete
@@ -1189,7 +1201,7 @@ class FigureCanvasBase:
             of the given backend.
         """
     def print_figure(self, filename, dpi: Incomplete | None = None, facecolor: Incomplete | None = None, edgecolor: Incomplete | None = None, orientation: str = 'portrait', format: Incomplete | None = None, *, bbox_inches: Incomplete | None = None, pad_inches: Incomplete | None = None, bbox_extra_artists: Incomplete | None = None, backend: Incomplete | None = None, **kwargs):
-        '''
+        """
         Render the figure to hardcopy. Set the figure patch face and edge
         colors.  This is useful because some of the GUIs have a gray figure
         face color background and you\'ll probably want to override this on
@@ -1240,7 +1252,7 @@ class FigureCanvasBase:
             "pdf".  Note that the default backend is normally sufficient.  See
             :ref:`the-builtin-backends` for a list of valid backends for each
             file format.  Custom backends can be referenced as "module://...".
-        '''
+        """
     @classmethod
     def get_default_filetype(cls):
         """
@@ -1474,6 +1486,7 @@ class FigureManagerBase:
             figure.canvas.mpl_disconnect(
                 figure.canvas.manager.button_press_handler_id)
     """
+
     _toolbar2_class: Incomplete
     _toolmanager_toolbar_class: Incomplete
     canvas: Incomplete
@@ -1553,12 +1566,11 @@ class _Mode(str, Enum):
     NONE = ''
     PAN = 'pan/zoom'
     ZOOM = 'zoom rect'
-    def __str__(self) -> str: ...
     @property
     def _navigate_mode(self): ...
 
 class NavigationToolbar2:
-    '''
+    """
     Base class for the navigation cursor, version 2.
 
     Backends must implement a canvas that handles connections for
@@ -1587,7 +1599,8 @@ class NavigationToolbar2:
     of the data path.
 
     That\'s it, we\'ll do the rest!
-    '''
+    """
+
     toolitems: Incomplete
     UNKNOWN_SAVED_STATUS: Incomplete
     canvas: Incomplete
@@ -1728,6 +1741,7 @@ class ToolContainerBase:
     toolmanager : `.ToolManager`
         The tools with which this `ToolContainer` wants to communicate.
     """
+
     _icon_extension: str
     toolmanager: Incomplete
     def __init__(self, toolmanager) -> None: ...
@@ -1878,4 +1892,5 @@ class ShowBase(_Backend):
 
     Subclass must override ``mainloop()`` method.
     """
+
     def __call__(self, block: Incomplete | None = None): ...

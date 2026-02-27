@@ -10,7 +10,7 @@ from sympy.utilities.iterables import is_sequence as is_sequence
 from sympy.utilities.misc import as_int as as_int
 
 class EllipticCurve:
-    '''
+    """
     Create the following Elliptic Curve over domain.
 
     `y^{2} + a_{1} x y + a_{3} y = x^{3} + a_{2} x^{2} + a_{4} x + a_{6}`
@@ -21,16 +21,17 @@ class EllipticCurve:
     `y^{2} = x^{3} + a_{4} x + a_{6}`
 
     Examples
-    ========
+    --------
 
     References
-    ==========
+    ----------
 
     .. [1] J. Silverman "A Friendly Introduction to Number Theory" Third Edition
     .. [2] https://mathworld.wolfram.com/EllipticDiscriminant.html
     .. [3] G. Hardy, E. Wright "An Introduction to the Theory of Numbers" Sixth Edition
 
-    '''
+    """
+
     _domain: Incomplete
     modulus: Incomplete
     _discrim: Incomplete
@@ -44,14 +45,12 @@ class EllipticCurve:
     def __init__(self, a4, a6, a1: int = 0, a2: int = 0, a3: int = 0, modulus: int = 0) -> None: ...
     def __call__(self, x, y, z: int = 1): ...
     def __contains__(self, point) -> bool: ...
-    def __repr__(self) -> str: ...
     def minimal(self):
         """
         Return minimal Weierstrass equation.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.ntheory.elliptic_curve import EllipticCurve
 
         >>> e1 = EllipticCurve(-10, -20, 0, -1, 1)
@@ -64,8 +63,7 @@ class EllipticCurve:
         Return points of curve over Finite Field.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.ntheory.elliptic_curve import EllipticCurve
         >>> e2 = EllipticCurve(1, 1, 1, 1, 1, modulus=5)
         >>> e2.points()
@@ -85,8 +83,7 @@ class EllipticCurve:
         at most 15 points in torsion collection.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.ntheory.elliptic_curve import EllipticCurve
         >>> e2 = EllipticCurve(-43, 166)
         >>> sorted(e2.torsion_points())
@@ -99,8 +96,7 @@ class EllipticCurve:
         Return domain characteristic.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.ntheory.elliptic_curve import EllipticCurve
         >>> e2 = EllipticCurve(-43, 166)
         >>> e2.characteristic
@@ -113,8 +109,7 @@ class EllipticCurve:
         Return curve discriminant.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.ntheory.elliptic_curve import EllipticCurve
         >>> e2 = EllipticCurve(0, 17)
         >>> e2.discriminant
@@ -132,8 +127,7 @@ class EllipticCurve:
         Return curve j-invariant.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.ntheory.elliptic_curve import EllipticCurve
         >>> e1 = EllipticCurve(-2, 0, 0, 1, 1)
         >>> e1.j_invariant
@@ -146,8 +140,7 @@ class EllipticCurve:
         Number of points in Finite field.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.ntheory.elliptic_curve import EllipticCurve
         >>> e2 = EllipticCurve(1, 0, modulus=19)
         >>> e2.order
@@ -167,8 +160,7 @@ class EllipticCurvePoint:
     Point of Elliptic Curve
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.elliptic_curve import EllipticCurve
     >>> e1 = EllipticCurve(-17, 16)
     >>> p1 = e1(0, -4, 1)
@@ -190,6 +182,7 @@ class EllipticCurvePoint:
     >>> 3*p-5*q
     (328/361, -2800/6859)
     """
+
     @staticmethod
     def point_at_infinity(curve): ...
     x: Incomplete
@@ -203,7 +196,6 @@ class EllipticCurvePoint:
     def __mul__(self, n): ...
     def __rmul__(self, n): ...
     def __neg__(self): ...
-    def __repr__(self) -> str: ...
     def __sub__(self, other): ...
     def order(self):
         """

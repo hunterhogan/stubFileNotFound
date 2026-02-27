@@ -37,14 +37,6 @@ class PlotInterval:
         as such, otherwise None.
         """
     def _str_base(self): ...
-    def __repr__(self) -> str:
-        """
-        A string representing the interval in class constructor form.
-        """
-    def __str__(self) -> str:
-        """
-        A string representing the interval in list form.
-        """
     @require_all_args
     def assert_complete(self) -> None: ...
     @require_all_args

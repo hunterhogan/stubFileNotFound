@@ -37,8 +37,7 @@ def roots(f, *gens, auto: bool = True, cubics: bool = True, trig: bool = False, 
     some roots are not expressible in radicals).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Poly, roots, degree
     >>> from sympy.abc import x, y
 
@@ -99,7 +98,7 @@ def roots(f, *gens, auto: bool = True, cubics: bool = True, trig: bool = False, 
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Cubic_equation#Trigonometric_and_hyperbolic_solutions
 

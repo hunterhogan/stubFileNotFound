@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from sympy import Min as Min, atan as atan, cos as cos, diff as diff, limit as limit, rad as rad, sin as sin, sqrt as sqrt
+from sympy import (
+	atan as atan, cos as cos, diff as diff, limit as limit, Min as Min, rad as rad, sin as sin, sqrt as sqrt)
 from sympy.core.relational import Eq as Eq
 from sympy.core.symbol import Symbol as Symbol, symbols as symbols
 from sympy.core.sympify import sympify as sympify
@@ -36,6 +37,7 @@ class Arch:
     >>> a.get_shape_eqn
     9/5 - (x - 6)**2/20
     """
+
     _shape_eqn: Incomplete
     _left_support: Incomplete
     _right_support: Incomplete
@@ -65,11 +67,11 @@ class Arch:
     def __init__(self, left_support, right_support, **kwargs) -> None: ...
     @property
     def get_shape_eqn(self):
-        """returns the equation of the shape of arch developed"""
+        """Returns the equation of the shape of arch developed"""
     @property
     def get_loads(self):
         """
-        return the position of the applied load and angle (for concentrated loads)
+        Return the position of the applied load and angle (for concentrated loads)
         """
     @property
     def supports(self):
@@ -89,15 +91,14 @@ class Arch:
     @property
     def reaction_force(self):
         """
-        return the reaction forces generated
+        Return the reaction forces generated
         """
     def apply_load(self, order, label, start, mag, end=None, angle=None) -> None:
         """
         This method adds load to the Arch.
 
         Parameters
-        ==========
-
+        ----------
             order : Integer
                 Order of the applied load.
 
@@ -127,7 +128,7 @@ class Arch:
                 in the counter-clockwise direction.
 
         Examples
-        ========
+        --------
         For applying distributed load
 
         >>> from sympy.physics.continuum_mechanics.arch import Arch
@@ -146,14 +147,12 @@ class Arch:
         This methods removes the load applied to the arch
 
         Parameters
-        ==========
-
+        ----------
         label : String or Symbol
             The label of the applied load
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.arch import Arch
         >>> a = Arch((0,0),(10,0),crown_x=5,crown_y=5)
         >>> a.apply_load(0,'C',start=3,end=5,mag=-10)
@@ -164,9 +163,9 @@ class Arch:
         """
         Change position of supports.
         If not provided , defaults to the old value.
-        Parameters
-        ==========
 
+        Parameters
+        ----------
             left_support: tuple (x, y)
                 x: float
                     x-coordinate value of the left_support
@@ -186,8 +185,7 @@ class Arch:
         Change the position of the crown/hinge of the arch
 
         Parameters
-        ==========
-
+        ----------
             crown_x: Float
                 The x coordinate of the position of the hinge
                 - if not provided, defaults to old value
@@ -197,13 +195,12 @@ class Arch:
                 - if not provided defaults to None
         """
     def change_support_type(self, left_support=None, right_support=None) -> None:
-        '''
+        """
         Add the type for support at each end.
         Can use roller or hinge support at each end.
 
         Parameters
-        ==========
-
+        ----------
             left_support, right_support : string
                 Type of support at respective end
 
@@ -212,15 +209,14 @@ class Arch:
                     - defaults to hinge if value not provided
 
         Examples
-        ========
-
+        --------
         For applying roller support at right end
 
         >>> from sympy.physics.continuum_mechanics.arch import Arch
         >>> a = Arch((0,0),(10,0),crown_x=5,crown_y=5)
         >>> a.change_support_type(right_support="roller")
 
-        '''
+        """
     def add_member(self, y) -> None:
         """
         This method adds a member/rod at a particular height y.
@@ -228,17 +224,17 @@ class Arch:
         """
     def shear_force_at(self, pos=None, **kwargs):
         """
-        return the shear at some x-coordinates
+        Return the shear at some x-coordinates
         if no x value provided, returns the formula
         """
     def bending_moment_at(self, pos=None, **kwargs):
         """
-        return the bending moment at some x-coordinates
+        Return the bending moment at some x-coordinates
         if no x value provided, returns the formula
         """
     def axial_force_at(self, pos=None, **kwargs):
         """
-        return the axial/normal force generated at some x-coordinate
+        Return the axial/normal force generated at some x-coordinate
         if no x value provided, returns the formula
         """
     def solve(self) -> None:
@@ -248,8 +244,7 @@ class Arch:
         and bending moment and generated in the arch and tension produced in the member if used.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.arch import Arch
         >>> a = Arch((0,0),(10,0),crown_x=5,crown_y=5)
         >>> a.apply_load(0,'C',start=3,end=5,mag=-10)
@@ -275,8 +270,7 @@ class Arch:
         and forces applied to the structure.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Symbol
         >>> t = Symbol('t')
         >>> from sympy.physics.continuum_mechanics.arch import Arch

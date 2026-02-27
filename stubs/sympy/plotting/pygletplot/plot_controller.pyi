@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from sympy.plotting.pygletplot.util import get_basis_vectors as get_basis_vectors, get_direction_vectors as get_direction_vectors
+from sympy.plotting.pygletplot.util import (
+	get_basis_vectors as get_basis_vectors, get_direction_vectors as get_direction_vectors)
 
 class PlotController:
     normal_mouse_sensitivity: float

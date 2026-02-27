@@ -1,12 +1,11 @@
-import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Mapping, MutableMapping
 from datetime import datetime
 from enum import Enum
-from typing import IO, Any, Final
-from typing_extensions import Self
+from typing import Any, Final, IO, Self
+import sys
 
-__all__ = ["InvalidFileException", "FMT_XML", "FMT_BINARY", "load", "dump", "loads", "dumps", "UID"]
+__all__ = ["FMT_BINARY", "FMT_XML", "UID", "InvalidFileException", "dump", "dumps", "load", "loads"]
 
 class PlistFormat(Enum):
     FMT_XML = 1

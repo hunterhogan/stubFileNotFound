@@ -12,15 +12,14 @@ def continued_fraction(a) -> list:
     quadratic irrational.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.continued_fraction import continued_fraction
     >>> from sympy import sqrt
     >>> continued_fraction((1 + 2*sqrt(3))/5)
     [0, 1, [8, 3, 34, 3]]
 
     See Also
-    ========
+    --------
     continued_fraction_periodic, continued_fraction_reduce, continued_fraction_convergents
     """
 def continued_fraction_periodic(p, q, d: int = 0, s: int = 1) -> list:
@@ -36,8 +35,7 @@ def continued_fraction_periodic(p, q, d: int = 0, s: int = 1) -> list:
     with list of integers representing the repeating digits.
 
     Parameters
-    ==========
-
+    ----------
     p : int
         the rational part of the number's numerator
     q : int
@@ -48,8 +46,7 @@ def continued_fraction_periodic(p, q, d: int = 0, s: int = 1) -> list:
         the coefficient of the irrational part
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.continued_fraction import continued_fraction_periodic
     >>> continued_fraction_periodic(3, 2, 7)
     [2, [1, 4, 1, 1]]
@@ -68,12 +65,11 @@ def continued_fraction_periodic(p, q, d: int = 0, s: int = 1) -> list:
     [3, 1, 2]
 
     See Also
-    ========
-
+    --------
     continued_fraction_iterator, continued_fraction_reduce
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Periodic_continued_fraction
     .. [2] K. Rosen. Elementary Number theory and its applications.
@@ -100,8 +96,7 @@ def continued_fraction_reduce(cf):
     form (all terms positive except possibly the first).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.continued_fraction import continued_fraction_reduce
     >>> continued_fraction_reduce([1, 2, 3, 4, 5])
     225/157
@@ -118,8 +113,7 @@ def continued_fraction_reduce(cf):
     (sqrt(13) + 8)/5
 
     See Also
-    ========
-
+    --------
     continued_fraction_periodic
 
     """
@@ -128,8 +122,7 @@ def continued_fraction_iterator(x) -> Generator[Incomplete]:
     Return continued fraction expansion of x as iterator.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Rational, pi
     >>> from sympy.ntheory.continued_fraction import continued_fraction_iterator
 
@@ -152,7 +145,7 @@ def continued_fraction_iterator(x) -> Generator[Incomplete]:
     1
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Continued_fraction
 
@@ -173,8 +166,7 @@ def continued_fraction_convergents(cf) -> Generator[Incomplete]:
     Rational and negative elements may be present in the expansion.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core import pi
     >>> from sympy import S
     >>> from sympy.ntheory.continued_fraction import             continued_fraction_convergents, continued_fraction_iterator
@@ -208,8 +200,7 @@ def continued_fraction_convergents(cf) -> Generator[Incomplete]:
     71/41
 
     See Also
-    ========
-
+    --------
     continued_fraction_iterator, continued_fraction, continued_fraction_periodic
 
     """

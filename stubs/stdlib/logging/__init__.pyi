@@ -1,5 +1,3 @@
-import sys
-import threading
 from _typeshed import StrPath, SupportsWrite
 from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from io import TextIOWrapper
@@ -7,29 +5,32 @@ from re import Pattern
 from string import Template
 from time import struct_time
 from types import FrameType, GenericAlias, TracebackType
-from typing import Any, ClassVar, Final, Generic, Literal, Protocol, TextIO, TypeVar, overload, type_check_only
-from typing_extensions import Self, TypeAlias, deprecated
+from typing import (
+	Any, ClassVar, Final, Generic, Literal, overload, Protocol, Self, TextIO, type_check_only, TypeAlias, TypeVar)
+from typing_extensions import deprecated
+import sys
+import threading
 
 __all__ = [
     "BASIC_FORMAT",
-    "BufferingFormatter",
     "CRITICAL",
     "DEBUG",
     "ERROR",
     "FATAL",
+    "INFO",
+    "NOTSET",
+    "WARN",
+    "WARNING",
+    "BufferingFormatter",
     "FileHandler",
     "Filter",
     "Formatter",
     "Handler",
-    "INFO",
     "LogRecord",
     "Logger",
     "LoggerAdapter",
-    "NOTSET",
     "NullHandler",
     "StreamHandler",
-    "WARN",
-    "WARNING",
     "addLevelName",
     "basicConfig",
     "captureWarnings",
@@ -40,19 +41,19 @@ __all__ = [
     "exception",
     "fatal",
     "getLevelName",
+    "getLogRecordFactory",
     "getLogger",
     "getLoggerClass",
     "info",
+    "lastResort",
     "log",
     "makeLogRecord",
+    "raiseExceptions",
+    "setLogRecordFactory",
     "setLoggerClass",
     "shutdown",
-    "warning",
-    "getLogRecordFactory",
-    "setLogRecordFactory",
-    "lastResort",
-    "raiseExceptions",
     "warn",
+    "warning",
 ]
 
 if sys.version_info >= (3, 11):

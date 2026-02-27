@@ -3,7 +3,7 @@ from __future__ import annotations
 from ctypes import c_char, c_float, c_int
 from multiprocessing import Array, Value
 from multiprocessing.sharedctypes import Synchronized, SynchronizedArray, SynchronizedString
-from typing_extensions import assert_type
+from typing import assert_type
 
 string = Array(c_char, 12)
 assert_type(string, SynchronizedString)

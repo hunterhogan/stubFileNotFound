@@ -1,46 +1,20 @@
-from collections.abc import (
-    Hashable,
-    Sequence,
-)
-from datetime import (
-    datetime,
-    timedelta,
-)
-from typing import (
-    Literal,
-    Never,
-    Self,
-    TypeAlias,
-    final,
-    overload,
-)
-
-import numpy as np
+from collections.abc import Hashable, Sequence
+from datetime import datetime, timedelta
+from pandas._libs import Timedelta
+from pandas._libs.lib import NoDefault
+from pandas._libs.tslibs import BaseOffset
+from pandas._libs.tslibs.period import Period
+from pandas._typing import (
+	AxesData, Frequency, Just, np_ndarray_anyint, np_ndarray_bool, np_ndarray_complex, np_ndarray_dt, np_ndarray_float,
+	np_ndarray_num, np_ndarray_td, TimedeltaConvertibleTypes)
 from pandas.core.indexes.accessors import TimedeltaIndexProperties
 from pandas.core.indexes.base import Index
 from pandas.core.indexes.datetimelike import DatetimeTimedeltaMixin
 from pandas.core.indexes.datetimes import DatetimeIndex
 from pandas.core.indexes.period import PeriodIndex
 from pandas.core.series import Series
-
-from pandas._libs import Timedelta
-from pandas._libs.lib import NoDefault
-from pandas._libs.tslibs import BaseOffset
-from pandas._libs.tslibs.period import Period
-from pandas._typing import (
-    AxesData,
-    Frequency,
-    Just,
-    TimedeltaConvertibleTypes,
-    np_ndarray_anyint,
-    np_ndarray_bool,
-    np_ndarray_complex,
-    np_ndarray_dt,
-    np_ndarray_float,
-    np_ndarray_num,
-    np_ndarray_td,
-)
-from typing import Any
+from typing import Any, final, Literal, Never, overload, Self, TypeAlias
+import numpy as np
 
 _NUM_FACTOR: TypeAlias = Just[int] | Just[float] | np.integer | np.floating
 _NUM_FACTOR_SEQ: TypeAlias = (

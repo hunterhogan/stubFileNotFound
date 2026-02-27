@@ -3,7 +3,8 @@ from sympy.core import Rational as Rational
 from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction
 from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy
-from sympy.functions.combinatorial.factorials import RisingFactorial as RisingFactorial, binomial as binomial, factorial as factorial
+from sympy.functions.combinatorial.factorials import (
+	binomial as binomial, factorial as factorial, RisingFactorial as RisingFactorial)
 from sympy.functions.elementary.complexes import re as re
 from sympy.functions.elementary.exponential import exp as exp
 from sympy.functions.elementary.integers import floor as floor
@@ -11,13 +12,17 @@ from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.functions.elementary.trigonometric import cos as cos, sec as sec
 from sympy.functions.special.gamma_functions import gamma as gamma
 from sympy.functions.special.hyper import hyper as hyper
-from sympy.polys.orthopolys import chebyshevt_poly as chebyshevt_poly, chebyshevu_poly as chebyshevu_poly, gegenbauer_poly as gegenbauer_poly, hermite_poly as hermite_poly, hermite_prob_poly as hermite_prob_poly, jacobi_poly as jacobi_poly, laguerre_poly as laguerre_poly, legendre_poly as legendre_poly
+from sympy.polys.orthopolys import (
+	chebyshevt_poly as chebyshevt_poly, chebyshevu_poly as chebyshevu_poly, gegenbauer_poly as gegenbauer_poly,
+	hermite_poly as hermite_poly, hermite_prob_poly as hermite_prob_poly, jacobi_poly as jacobi_poly,
+	laguerre_poly as laguerre_poly, legendre_poly as legendre_poly)
 
 _x: Incomplete
 
 class OrthogonalPolynomial(DefinedFunction):
     """Base class for orthogonal polynomials.
     """
+
     @classmethod
     def _eval_at_order(cls, n, x): ...
     def _eval_conjugate(self): ...
@@ -36,8 +41,7 @@ class jacobi(OrthogonalPolynomial):
     to the weight $\\left(1-x\\right)^\\alpha \\left(1+x\\right)^\\beta$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import jacobi, S, conjugate, diff
     >>> from sympy.abc import a, b, n, x
 
@@ -79,8 +83,7 @@ class jacobi(OrthogonalPolynomial):
     (a/2 + b/2 + n/2 + 1/2)*jacobi(n - 1, a + 1, b + 1, x)
 
     See Also
-    ========
-
+    --------
     gegenbauer,
     chebyshevt_root, chebyshevu, chebyshevu_root,
     legendre, assoc_legendre,
@@ -95,13 +98,14 @@ class jacobi(OrthogonalPolynomial):
     sympy.polys.orthopolys.laguerre_poly
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Jacobi_polynomials
     .. [2] https://mathworld.wolfram.com/JacobiPolynomial.html
     .. [3] https://functions.wolfram.com/Polynomials/JacobiP/
 
     """
+
     @classmethod
     def eval(cls, n, a, b, x): ...
     def fdiff(self, argindex: int = 4): ...
@@ -133,8 +137,7 @@ def jacobi_normalized(n, a, b, x):
         = \\delta_{m,n}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import jacobi_normalized
     >>> from sympy.abc import n,a,b,x
 
@@ -142,8 +145,7 @@ def jacobi_normalized(n, a, b, x):
     jacobi(n, a, b, x)/sqrt(2**(a + b + 1)*gamma(a + n + 1)*gamma(b + n + 1)/((a + b + 2*n + 1)*factorial(n)*gamma(a + b + n + 1)))
 
     Parameters
-    ==========
-
+    ----------
     n : integer degree of polynomial
 
     a : alpha value
@@ -153,8 +155,7 @@ def jacobi_normalized(n, a, b, x):
     x : symbol
 
     See Also
-    ========
-
+    --------
     gegenbauer,
     chebyshevt_root, chebyshevu, chebyshevu_root,
     legendre, assoc_legendre,
@@ -169,7 +170,7 @@ def jacobi_normalized(n, a, b, x):
     sympy.polys.orthopolys.laguerre_poly
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Jacobi_polynomials
     .. [2] https://mathworld.wolfram.com/JacobiPolynomial.html
@@ -191,8 +192,7 @@ class gegenbauer(OrthogonalPolynomial):
     respect to the weight $\\left(1-x^2\\right)^{\\alpha-\\frac{1}{2}}$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import gegenbauer, conjugate, diff
     >>> from sympy.abc import n,a,x
     >>> gegenbauer(0, a, x)
@@ -221,8 +221,7 @@ class gegenbauer(OrthogonalPolynomial):
     2*a*gegenbauer(n - 1, a + 1, x)
 
     See Also
-    ========
-
+    --------
     jacobi,
     chebyshevt_root, chebyshevu, chebyshevu_root,
     legendre, assoc_legendre,
@@ -238,13 +237,14 @@ class gegenbauer(OrthogonalPolynomial):
     sympy.polys.orthopolys.laguerre_poly
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Gegenbauer_polynomials
     .. [2] https://mathworld.wolfram.com/GegenbauerPolynomial.html
     .. [3] https://functions.wolfram.com/Polynomials/GegenbauerC3/
 
     """
+
     @classmethod
     def eval(cls, n, a, x): ...
     def fdiff(self, argindex: int = 3): ...
@@ -266,8 +266,7 @@ class chebyshevt(OrthogonalPolynomial):
     $[-1, 1]$ with respect to the weight $\\frac{1}{\\sqrt{1-x^2}}$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import chebyshevt, diff
     >>> from sympy.abc import n,x
     >>> chebyshevt(0, x)
@@ -293,8 +292,7 @@ class chebyshevt(OrthogonalPolynomial):
     n*chebyshevu(n - 1, x)
 
     See Also
-    ========
-
+    --------
     jacobi, gegenbauer,
     chebyshevt_root, chebyshevu, chebyshevu_root,
     legendre, assoc_legendre,
@@ -310,7 +308,7 @@ class chebyshevt(OrthogonalPolynomial):
     sympy.polys.orthopolys.laguerre_poly
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Chebyshev_polynomial
     .. [2] https://mathworld.wolfram.com/ChebyshevPolynomialoftheFirstKind.html
@@ -319,6 +317,7 @@ class chebyshevt(OrthogonalPolynomial):
     .. [5] https://functions.wolfram.com/Polynomials/ChebyshevU/
 
     """
+
     _ortho_poly: Incomplete
     @classmethod
     def eval(cls, n, x): ...
@@ -340,8 +339,7 @@ class chebyshevu(OrthogonalPolynomial):
     $[-1, 1]$ with respect to the weight $\\sqrt{1-x^2}$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import chebyshevu, diff
     >>> from sympy.abc import n,x
     >>> chebyshevu(0, x)
@@ -367,8 +365,7 @@ class chebyshevu(OrthogonalPolynomial):
     (-x*chebyshevu(n, x) + (n + 1)*chebyshevt(n + 1, x))/(x**2 - 1)
 
     See Also
-    ========
-
+    --------
     jacobi, gegenbauer,
     chebyshevt, chebyshevt_root, chebyshevu_root,
     legendre, assoc_legendre,
@@ -384,7 +381,7 @@ class chebyshevu(OrthogonalPolynomial):
     sympy.polys.orthopolys.laguerre_poly
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Chebyshev_polynomial
     .. [2] https://mathworld.wolfram.com/ChebyshevPolynomialoftheFirstKind.html
@@ -393,6 +390,7 @@ class chebyshevu(OrthogonalPolynomial):
     .. [5] https://functions.wolfram.com/Polynomials/ChebyshevU/
 
     """
+
     _ortho_poly: Incomplete
     @classmethod
     def eval(cls, n, x): ...
@@ -407,8 +405,7 @@ class chebyshevt_root(DefinedFunction):
     $0 \\le k < n$, ``chebyshevt(n, chebyshevt_root(n, k)) == 0``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import chebyshevt, chebyshevt_root
     >>> chebyshevt_root(3, 2)
     -sqrt(3)/2
@@ -416,8 +413,7 @@ class chebyshevt_root(DefinedFunction):
     0
 
     See Also
-    ========
-
+    --------
     jacobi, gegenbauer,
     chebyshevt, chebyshevu, chebyshevu_root,
     legendre, assoc_legendre,
@@ -432,6 +428,7 @@ class chebyshevt_root(DefinedFunction):
     sympy.polys.orthopolys.legendre_poly
     sympy.polys.orthopolys.laguerre_poly
     """
+
     @classmethod
     def eval(cls, n, k): ...
 
@@ -442,8 +439,7 @@ class chebyshevu_root(DefinedFunction):
     ``chebyshevu(n, chebyshevu_root(n, k)) == 0``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import chebyshevu, chebyshevu_root
     >>> chebyshevu_root(3, 2)
     -sqrt(2)/2
@@ -451,8 +447,7 @@ class chebyshevu_root(DefinedFunction):
     0
 
     See Also
-    ========
-
+    --------
     chebyshevt, chebyshevt_root, chebyshevu,
     legendre, assoc_legendre,
     hermite, hermite_prob,
@@ -466,6 +461,7 @@ class chebyshevu_root(DefinedFunction):
     sympy.polys.orthopolys.legendre_poly
     sympy.polys.orthopolys.laguerre_poly
     """
+
     @classmethod
     def eval(cls, n, k): ...
 
@@ -481,8 +477,7 @@ class legendre(OrthogonalPolynomial):
     $P_n$ is odd for odd $n$ and even for even $n$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import legendre, diff
     >>> from sympy.abc import x, n
     >>> legendre(0, x)
@@ -497,8 +492,7 @@ class legendre(OrthogonalPolynomial):
     n*(x*legendre(n, x) - legendre(n - 1, x))/(x**2 - 1)
 
     See Also
-    ========
-
+    --------
     jacobi, gegenbauer,
     chebyshevt, chebyshevt_root, chebyshevu, chebyshevu_root,
     assoc_legendre,
@@ -514,7 +508,7 @@ class legendre(OrthogonalPolynomial):
     sympy.polys.orthopolys.laguerre_poly
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Legendre_polynomial
     .. [2] https://mathworld.wolfram.com/LegendrePolynomial.html
@@ -522,6 +516,7 @@ class legendre(OrthogonalPolynomial):
     .. [4] https://functions.wolfram.com/Polynomials/LegendreP2/
 
     """
+
     _ortho_poly: Incomplete
     @classmethod
     def eval(cls, n, x): ...
@@ -548,8 +543,7 @@ class assoc_legendre(DefinedFunction):
     - weight $= \\frac{1}{1-x^2}$   for the same $n$ and different $m$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import assoc_legendre
     >>> from sympy.abc import x, m, n
     >>> assoc_legendre(0,0, x)
@@ -562,8 +556,7 @@ class assoc_legendre(DefinedFunction):
     assoc_legendre(n, m, x)
 
     See Also
-    ========
-
+    --------
     jacobi, gegenbauer,
     chebyshevt, chebyshevt_root, chebyshevu, chebyshevu_root,
     legendre,
@@ -579,7 +572,7 @@ class assoc_legendre(DefinedFunction):
     sympy.polys.orthopolys.laguerre_poly
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Associated_Legendre_polynomials
     .. [2] https://mathworld.wolfram.com/LegendrePolynomial.html
@@ -587,6 +580,7 @@ class assoc_legendre(DefinedFunction):
     .. [4] https://functions.wolfram.com/Polynomials/LegendreP2/
 
     """
+
     @classmethod
     def _eval_at_order(cls, n, m): ...
     @classmethod
@@ -607,8 +601,7 @@ class hermite(OrthogonalPolynomial):
     with respect to the weight $\\exp\\left(-x^2\\right)$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import hermite, diff
     >>> from sympy.abc import x, n
     >>> hermite(0, x)
@@ -625,8 +618,7 @@ class hermite(OrthogonalPolynomial):
     (-1)**n*hermite(n, x)
 
     See Also
-    ========
-
+    --------
     jacobi, gegenbauer,
     chebyshevt, chebyshevt_root, chebyshevu, chebyshevu_root,
     legendre, assoc_legendre,
@@ -642,13 +634,14 @@ class hermite(OrthogonalPolynomial):
     sympy.polys.orthopolys.laguerre_poly
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Hermite_polynomial
     .. [2] https://mathworld.wolfram.com/HermitePolynomial.html
     .. [3] https://functions.wolfram.com/Polynomials/HermiteH/
 
     """
+
     _ortho_poly: Incomplete
     @classmethod
     def eval(cls, n, x): ...
@@ -672,8 +665,7 @@ class hermite_prob(OrthogonalPolynomial):
     .. math :: He_n(x) = 2^{-n/2} H_n(x/\\sqrt{2})
 
     Examples
-    ========
-
+    --------
     >>> from sympy import hermite_prob, diff, I
     >>> from sympy.abc import x, n
     >>> hermite_prob(1, x)
@@ -692,8 +684,7 @@ class hermite_prob(OrthogonalPolynomial):
     [1, 1, 2, 4, 10, 26, 76, 232, 764, 2620, 9496]
 
     See Also
-    ========
-
+    --------
     jacobi, gegenbauer,
     chebyshevt, chebyshevt_root, chebyshevu, chebyshevu_root,
     legendre, assoc_legendre,
@@ -709,11 +700,12 @@ class hermite_prob(OrthogonalPolynomial):
     sympy.polys.orthopolys.laguerre_poly
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Hermite_polynomial
     .. [2] https://mathworld.wolfram.com/HermitePolynomial.html
     """
+
     _ortho_poly: Incomplete
     @classmethod
     def eval(cls, n, x): ...
@@ -727,8 +719,7 @@ class laguerre(OrthogonalPolynomial):
     Returns the $n$th Laguerre polynomial in $x$, $L_n(x)$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import laguerre, diff
     >>> from sympy.abc import x, n
     >>> laguerre(0, x)
@@ -747,14 +738,12 @@ class laguerre(OrthogonalPolynomial):
     -assoc_laguerre(n - 1, 1, x)
 
     Parameters
-    ==========
-
+    ----------
     n : int
         Degree of Laguerre polynomial. Must be `n \\ge 0`.
 
     See Also
-    ========
-
+    --------
     jacobi, gegenbauer,
     chebyshevt, chebyshevt_root, chebyshevu, chebyshevu_root,
     legendre, assoc_legendre,
@@ -770,7 +759,7 @@ class laguerre(OrthogonalPolynomial):
     sympy.polys.orthopolys.laguerre_poly
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Laguerre_polynomial
     .. [2] https://mathworld.wolfram.com/LaguerrePolynomial.html
@@ -778,6 +767,7 @@ class laguerre(OrthogonalPolynomial):
     .. [4] https://functions.wolfram.com/Polynomials/LaguerreL3/
 
     """
+
     _ortho_poly: Incomplete
     @classmethod
     def eval(cls, n, x): ...
@@ -790,8 +780,7 @@ class assoc_laguerre(OrthogonalPolynomial):
     Returns the $n$th generalized Laguerre polynomial in $x$, $L_n(x)$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import assoc_laguerre, diff
     >>> from sympy.abc import x, n, a
     >>> assoc_laguerre(0, a, x)
@@ -820,8 +809,7 @@ class assoc_laguerre(OrthogonalPolynomial):
     Sum(assoc_laguerre(_k, a, x)/(-a + n), (_k, 0, n - 1))
 
     Parameters
-    ==========
-
+    ----------
     n : int
         Degree of Laguerre polynomial. Must be `n \\ge 0`.
 
@@ -830,8 +818,7 @@ class assoc_laguerre(OrthogonalPolynomial):
         polynomials will be generated.
 
     See Also
-    ========
-
+    --------
     jacobi, gegenbauer,
     chebyshevt, chebyshevt_root, chebyshevu, chebyshevu_root,
     legendre, assoc_legendre,
@@ -847,7 +834,7 @@ class assoc_laguerre(OrthogonalPolynomial):
     sympy.polys.orthopolys.laguerre_poly
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Laguerre_polynomial#Generalized_Laguerre_polynomials
     .. [2] https://mathworld.wolfram.com/AssociatedLaguerrePolynomial.html
@@ -855,6 +842,7 @@ class assoc_laguerre(OrthogonalPolynomial):
     .. [4] https://functions.wolfram.com/Polynomials/LaguerreL3/
 
     """
+
     @classmethod
     def eval(cls, n, alpha, x): ...
     def fdiff(self, argindex: int = 3): ...

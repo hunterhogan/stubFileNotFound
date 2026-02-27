@@ -1,16 +1,20 @@
 from .add import Add as Add
 from .basic import Atom as Atom, Basic as Basic
 from .cache import cacheit as cacheit
-from .decorators import call_highest_priority as call_highest_priority, sympify_method_args as sympify_method_args, sympify_return as sympify_return
+from .decorators import (
+	call_highest_priority as call_highest_priority, sympify_method_args as sympify_method_args,
+	sympify_return as sympify_return)
 from .evalf import DEFAULT_MAXPREC as DEFAULT_MAXPREC, EvalfMixin as EvalfMixin, pure_complex as pure_complex
 from .exprtools import factor_terms as factor_terms
-from .function import Function as Function, _derivative_dispatch as _derivative_dispatch
+from .function import _derivative_dispatch as _derivative_dispatch, Function as Function
 from .intfunc import mod_inverse as mod_inverse
 from .kind import NumberKind as NumberKind
 from .logic import fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
 from .mod import Mod as Mod
 from .mul import Mul as Mul
-from .numbers import Float as Float, Integer as Integer, Number as Number, Rational as Rational, _illegal as _illegal, int_valued as int_valued
+from .numbers import (
+	_illegal as _illegal, Float as Float, int_valued as int_valued, Integer as Integer, Number as Number,
+	Rational as Rational)
 from .power import Pow as Pow
 from .singleton import S as S
 from .sorting import default_sort_key as default_sort_key
@@ -20,8 +24,7 @@ from collections.abc import Generator, Iterable, Mapping
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.iterables import has_variety as has_variety, sift as sift
 from sympy.utilities.misc import as_int as as_int, filldedent as filldedent, func_name as func_name
-from typing import Any, overload
-from typing_extensions import Self
+from typing import Any, overload, Self
 
 def _corem(eq, c): ...
 
@@ -43,10 +46,10 @@ class Expr(Basic, EvalfMixin):
     are not comparable or the comparison is indeterminate
 
     See Also
-    ========
-
+    --------
     sympy.core.basic.Basic
     """
+
     __slots__: tuple[str, ...]
     def __new__(cls, *args: Basic) -> Self: ...
     @overload
@@ -88,8 +91,7 @@ class Expr(Basic, EvalfMixin):
         inconsistent results.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Expr
         >>> e = Expr()
         >>> e._diff_wrt
@@ -114,7 +116,8 @@ class Expr(Basic, EvalfMixin):
         like ``name`` in Symbol, then this method should be updated
         accordingly to return such relevant attributes.
         Defining more than _hashable_content is necessary if __eq__ has
-        been defined by a class. See note about this in Basic.__eq__."""
+        been defined by a class. See note about this in Basic.__eq__.
+        """
     _op_priority: float
     @property
     def _add_handler(self): ...
@@ -160,8 +163,7 @@ class Expr(Basic, EvalfMixin):
         or undefined function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Function, Integral, cos, sin, pi
         >>> from sympy.abc import x
         >>> f = Function('f')
@@ -197,8 +199,7 @@ class Expr(Basic, EvalfMixin):
         False
 
         See Also
-        ========
-
+        --------
         sympy.core.basic.Basic.is_comparable
         """
     def _eval_is_comparable(self): ...
@@ -219,8 +220,7 @@ class Expr(Basic, EvalfMixin):
         to more than 1 digit of precision, then None is returned.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sqrt
         >>> from sympy.abc import x, y
         >>> x._random()                         # doctest: +SKIP
@@ -233,8 +233,7 @@ class Expr(Basic, EvalfMixin):
         1.4
 
         See Also
-        ========
-
+        --------
         sympy.core.random.random_complex_number
         """
     def is_constant(self, *wrt, **flags):
@@ -275,8 +274,7 @@ class Expr(Basic, EvalfMixin):
         the default is True since self should be simplified before testing.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import cos, sin, Sum, S, pi
         >>> from sympy.abc import a, n, x, y
         >>> x.is_constant()
@@ -356,7 +354,7 @@ class Expr(Basic, EvalfMixin):
     def adjoint(self): ...
     @classmethod
     def _parse_order(cls, order):
-        """Parse and configure the ordering of terms. """
+        """Parse and configure the ordering of terms."""
     def as_ordered_factors(self, order=None):
         """Return list of ordered factors (if Mul) else [self]."""
     def as_poly(self, *gens, **args):
@@ -383,8 +381,7 @@ class Expr(Basic, EvalfMixin):
         Transform an expression to an ordered list of terms.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sin, cos
         >>> from sympy.abc import x
 
@@ -393,7 +390,7 @@ class Expr(Basic, EvalfMixin):
 
         """
     def as_terms(self):
-        """Transform an expression to a list of terms. """
+        """Transform an expression to a list of terms."""
     def removeO(self) -> Expr:
         """Removes the additive O(..) symbol if there is one"""
     def getO(self) -> Expr | None:
@@ -409,8 +406,7 @@ class Expr(Basic, EvalfMixin):
         is no O(...) term, it returns None.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import O
         >>> from sympy.abc import x
         >>> (1 + x + O(x**2)).getn()
@@ -434,8 +430,7 @@ class Expr(Basic, EvalfMixin):
         Note: -1 is always separated from a Number unless split_1 is False.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols, oo
         >>> A, B = symbols('A B', commutative=0)
         >>> x, y = symbols('x y')
@@ -470,8 +465,7 @@ class Expr(Basic, EvalfMixin):
         ``x`` is commutative.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols
         >>> from sympy.abc import x, y, z
 
@@ -560,8 +554,7 @@ class Expr(Basic, EvalfMixin):
         1
 
         See Also
-        ========
-
+        --------
         as_coefficient: separate the expression into a coefficient and factor
         as_coeff_Add: separate the additive constant from an expression
         as_coeff_Mul: separate the multiplicative constant from an expression
@@ -574,8 +567,7 @@ class Expr(Basic, EvalfMixin):
         Convert a polynomial to a SymPy expression.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sin
         >>> from sympy.abc import x, y
 
@@ -595,8 +587,7 @@ class Expr(Basic, EvalfMixin):
         is not possible it will return None.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import E, pi, sin, I, Poly
         >>> from sympy.abc import x
 
@@ -639,8 +630,7 @@ class Expr(Basic, EvalfMixin):
         >>> (2*I).as_coefficient(pi*I)
 
         See Also
-        ========
-
+        --------
         coeff: return sum of terms have a given factor
         as_coeff_Add: separate the additive constant from an expression
         as_coeff_Mul: separate the multiplicative constant from an expression
@@ -677,8 +667,7 @@ class Expr(Basic, EvalfMixin):
         To force the expression to be treated as an Add, use the hint as_Add=True
 
         Examples
-        ========
-
+        --------
         -- self is an Add
 
         >>> from sympy import sin, cos, exp
@@ -776,8 +765,7 @@ class Expr(Basic, EvalfMixin):
         (log(a), log(b))
 
         See Also
-        ========
-
+        --------
         separatevars
         expand_log
         sympy.core.add.Add.as_two_terms
@@ -786,25 +774,25 @@ class Expr(Basic, EvalfMixin):
         """
     def as_real_imag(self, deep: bool = True, **hints) -> tuple[Expr, Expr]:
         """Performs complex expansion on 'self' and returns a tuple
-           containing collected both real and imaginary parts. This
-           method cannot be confused with re() and im() functions,
-           which does not perform complex expansion at evaluation.
+        containing collected both real and imaginary parts. This
+        method cannot be confused with re() and im() functions,
+        which does not perform complex expansion at evaluation.
 
-           However it is possible to expand both re() and im()
-           functions and get exactly the same results as with
-           a single call to this function.
+        However it is possible to expand both re() and im()
+        functions and get exactly the same results as with
+        a single call to this function.
 
-           >>> from sympy import symbols, I
+        >>> from sympy import symbols, I
 
-           >>> x, y = symbols('x,y', real=True)
+        >>> x, y = symbols('x,y', real=True)
 
-           >>> (x + y*I).as_real_imag()
-           (x, y)
+        >>> (x + y*I).as_real_imag()
+        (x, y)
 
-           >>> from sympy.abc import z, w
+        >>> from sympy.abc import z, w
 
-           >>> (z + w*I).as_real_imag()
-           (re(z) - im(w), re(w) + im(z))
+        >>> (z + w*I).as_real_imag()
+        (re(z) - im(w), re(w) + im(z))
 
         """
     def as_powers_dict(self):
@@ -816,7 +804,7 @@ class Expr(Basic, EvalfMixin):
         the dictionary.
 
         See Also
-        ========
+        --------
         as_ordered_factors: An alternative for noncommutative applications,
                             returning an ordered list of factors.
         args_cnc: Similar to as_ordered_factors, but guarantees separation
@@ -833,8 +821,7 @@ class Expr(Basic, EvalfMixin):
         their corresponding coefficients as values will be returned.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import a, x, y
         >>> (3*x + a*x + 4).as_coefficients_dict()
         {1: 4, x: 3, a*x: 1}
@@ -917,8 +904,7 @@ class Expr(Basic, EvalfMixin):
         Rational (never a negative or a Float).
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x
         >>> (3*(x + 1)**2).primitive()
         (3, (x + 1)**2)
@@ -938,8 +924,7 @@ class Expr(Basic, EvalfMixin):
         applied to self).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sqrt
         >>> from sympy.abc import x, y, z
 
@@ -993,8 +978,7 @@ class Expr(Basic, EvalfMixin):
         an object's class methods to get anything else.
 
         See Also
-        ========
-
+        --------
         normal: return ``a/b`` instead of ``(a, b)``
 
         """
@@ -1004,35 +988,33 @@ class Expr(Basic, EvalfMixin):
         expression -> a/b
 
         See Also
-        ========
-
+        --------
         as_numer_denom: return ``(a, b)`` instead of ``a/b``
 
         """
     def extract_multiplicatively(self, c: Expr) -> Expr | None:
         """Return None if it's not possible to make self in the form
-           c * something in a nice way, i.e. preserving the properties
-           of arguments of self.
+        c * something in a nice way, i.e. preserving the properties
+        of arguments of self.
 
-           Examples
-           ========
+        Examples
+        --------
+        >>> from sympy import symbols, Rational
 
-           >>> from sympy import symbols, Rational
+        >>> x, y = symbols('x,y', real=True)
 
-           >>> x, y = symbols('x,y', real=True)
+        >>> ((x*y)**3).extract_multiplicatively(x**2 * y)
+        x*y**2
 
-           >>> ((x*y)**3).extract_multiplicatively(x**2 * y)
-           x*y**2
+        >>> ((x*y)**3).extract_multiplicatively(x**4 * y)
 
-           >>> ((x*y)**3).extract_multiplicatively(x**4 * y)
+        >>> (2*x).extract_multiplicatively(2)
+        x
 
-           >>> (2*x).extract_multiplicatively(2)
-           x
+        >>> (2*x).extract_multiplicatively(3)
 
-           >>> (2*x).extract_multiplicatively(3)
-
-           >>> (Rational(1, 2)*x).extract_multiplicatively(3)
-           x/6
+        >>> (Rational(1, 2)*x).extract_multiplicatively(3)
+        x/6
 
         """
     def extract_additively(self, c):
@@ -1040,8 +1022,7 @@ class Expr(Basic, EvalfMixin):
         make all matching coefficients move towards zero, else return None.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y
         >>> e = 2*x + 3
         >>> e.extract_additively(x + 1)
@@ -1053,7 +1034,7 @@ class Expr(Basic, EvalfMixin):
         (x + 1)*(x + 2*y) + 3
 
         See Also
-        ========
+        --------
         extract_multiplicatively
         coeff
         as_coefficient
@@ -1066,8 +1047,7 @@ class Expr(Basic, EvalfMixin):
         they are contained in an expression node.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y
         >>> (x + y).expr_free_symbols # doctest: +SKIP
         {x, y}
@@ -1088,8 +1068,7 @@ class Expr(Basic, EvalfMixin):
         otherwise False.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y
         >>> e = x - y
         >>> {i.could_extract_minus_sign() for i in (e, -e)}
@@ -1142,7 +1121,7 @@ class Expr(Basic, EvalfMixin):
         (1, -1/2)
         """
     def is_polynomial(self, *syms):
-        '''
+        """
         Return True if self is a polynomial in syms and False otherwise.
 
         This checks if self is an exact polynomial in syms.  This function
@@ -1157,8 +1136,7 @@ class Expr(Basic, EvalfMixin):
         Symbol(\'z\', polynomial=True).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Symbol, Function
         >>> x = Symbol(\'x\')
         >>> ((x**2 + 1)**4).is_polynomial(x)
@@ -1205,10 +1183,10 @@ class Expr(Basic, EvalfMixin):
 
         See also .is_rational_function()
 
-        '''
+        """
     def _eval_is_polynomial(self, syms) -> bool | None: ...
     def is_rational_function(self, *syms):
-        '''
+        """
         Test whether function is a ratio of two polynomials in the given
         symbols, syms. When syms is not given, all free symbols will be used.
         The rational function does not have to be in expanded or in any kind of
@@ -1223,8 +1201,7 @@ class Expr(Basic, EvalfMixin):
         Symbol(\'z\', rational_function=True).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Symbol, sin
         >>> from sympy.abc import x, y
 
@@ -1257,7 +1234,7 @@ class Expr(Basic, EvalfMixin):
 
         See also is_algebraic_expr().
 
-        '''
+        """
     def _eval_is_rational_function(self, syms) -> bool | None: ...
     def is_meromorphic(self, x, a):
         """
@@ -1269,8 +1246,7 @@ class Expr(Basic, EvalfMixin):
         more detailed analysis.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import zoo, log, sin, sqrt
         >>> from sympy.abc import x
 
@@ -1316,7 +1292,7 @@ class Expr(Basic, EvalfMixin):
         """
     def _eval_is_meromorphic(self, x, a) -> bool | None: ...
     def is_algebraic_expr(self, *syms):
-        '''
+        """
         This tests whether a given expression is algebraic or not, in the
         given symbols, syms. When syms is not given, all free symbols
         will be used. The rational function does not have to be in expanded
@@ -1327,8 +1303,7 @@ class Expr(Basic, EvalfMixin):
         is_rational_function, including rational exponentiation.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Symbol, sqrt
         >>> x = Symbol(\'x\', real=True)
         >>> sqrt(1 + x).is_rational_function()
@@ -1348,19 +1323,18 @@ class Expr(Basic, EvalfMixin):
         True
 
         See Also
-        ========
-
+        --------
         is_rational_function
 
         References
-        ==========
+        ----------
 
         .. [1] https://en.wikipedia.org/wiki/Algebraic_expression
 
-        '''
+        """
     def _eval_is_algebraic_expr(self, syms) -> bool | None: ...
     def series(self, x=None, x0: int = 0, n: int = 6, dir: str = '+', logx=None, cdir: int = 0):
-        '''
+        """
         Series expansion of "self" around ``x = x0`` yielding either terms of
         the series one by one (the lazy series given when n=None), else
         all the terms at once when n != None.
@@ -1372,8 +1346,7 @@ class Expr(Basic, EvalfMixin):
         be supplied, otherwise an error will be raised.
 
         Parameters
-        ==========
-
+        ----------
         expr : Expression
                The expression whose series is to be expanded.
 
@@ -1404,8 +1377,7 @@ class Expr(Basic, EvalfMixin):
                from which the expansion needs to be evaluated.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import cos, exp, tan
         >>> from sympy.abc import x, y
         >>> cos(x).series()
@@ -1450,28 +1422,25 @@ class Expr(Basic, EvalfMixin):
         1/x
 
         Returns
-        =======
-
+        -------
         Expr : Expression
             Series expansion of the expression about x0
 
         Raises
-        ======
-
+        ------
         TypeError
             If "n" and "x0" are infinity objects
 
         PoleError
             If "x0" is an infinity object
 
-        '''
+        """
     def aseries(self, x=None, n: int = 6, bound: int = 0, hir: bool = False):
         """Asymptotic Series expansion of self.
         This is equivalent to ``self.series(x, oo, n)``.
 
         Parameters
-        ==========
-
+        ----------
         self : Expression
                The expression whose series is to be expanded.
 
@@ -1492,8 +1461,7 @@ class Expr(Basic, EvalfMixin):
                 coefficients in its normalised form.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sin, exp
         >>> from sympy.abc import x
 
@@ -1518,14 +1486,12 @@ class Expr(Basic, EvalfMixin):
         1/x
 
         Returns
-        =======
-
+        -------
         Expr
             Asymptotic series expansion of the expression.
 
         Notes
-        =====
-
+        -----
         This algorithm is directly induced from the limit computational algorithm provided by Gruntz.
         It majorly uses the mrv and rewrite sub-routines. The overall idea of this algorithm is first
         to look for the most rapidly varying subexpression w of a given expression f and then expands f
@@ -1540,7 +1506,7 @@ class Expr(Basic, EvalfMixin):
         where ``w`` belongs to the most rapidly varying expression of ``self``.
 
         References
-        ==========
+        ----------
 
         .. [1] Gruntz, Dominik. A new algorithm for computing asymptotic series.
                In: Proc. 1993 Int. Symp. Symbolic and Algebraic Computation. 1993.
@@ -1549,18 +1515,17 @@ class Expr(Basic, EvalfMixin):
         .. [3] https://en.wikipedia.org/wiki/Asymptotic_expansion
 
         See Also
-        ========
-
+        --------
         Expr.aseries: See the docstring of this function for complete details of this wrapper.
         """
     def taylor_term(self, n, x, *previous_terms):
-        '''General method for the taylor term.
+        """General method for the taylor term.
 
         This method is slow, because it differentiates n-times. Subclasses can
         redefine it to make it faster by using the "previous_terms".
-        '''
+        """
     def lseries(self, x=None, x0: int = 0, dir: str = '+', logx=None, cdir: int = 0):
-        '''
+        """
         Wrapper for series yielding an iterator of the terms of the series.
 
         Note: an infinite series will yield an infinite iterator. The following,
@@ -1576,10 +1541,10 @@ class Expr(Basic, EvalfMixin):
         using the "n" parameter.
 
         See also nseries().
-        '''
+        """
     def _eval_lseries(self, x, logx=None, cdir: int = 0) -> Generator[Incomplete]: ...
     def nseries(self, x=None, x0: int = 0, n: int = 6, dir: str = '+', logx=None, cdir: int = 0):
-        '''
+        """
         Wrapper to _eval_nseries if assumptions allow, else to series.
 
         If x is given, x0 is 0, dir=\'+\', and self has x, then _eval_nseries is
@@ -1605,8 +1570,7 @@ class Expr(Basic, EvalfMixin):
         See also lseries().
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sin, log, Symbol
         >>> from sympy.abc import x, y
         >>> sin(x).nseries(x, 0, 6)
@@ -1637,7 +1601,7 @@ class Expr(Basic, EvalfMixin):
         >>> e.nseries(x, 0, 2, logx=logx)
         exp(logx*y)
 
-        '''
+        """
     def _eval_nseries(self, x, n, logx, cdir) -> None:
         """
         Return terms of series for self up to O(x**n) at x=0
@@ -1648,7 +1612,7 @@ class Expr(Basic, EvalfMixin):
         have to write docstrings for _eval_nseries().
         """
     def limit(self, x, xlim, dir: str = '+'):
-        """ Compute limit x->xlim.
+        """Compute limit x->xlim.
         """
     @cacheit
     def as_leading_term(self, *symbols, logx=None, cdir: int = 0):
@@ -1659,8 +1623,7 @@ class Expr(Basic, EvalfMixin):
         always return a non-zero value.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x
         >>> (1 + x + x**2).as_leading_term(x)
         1
@@ -1670,15 +1633,14 @@ class Expr(Basic, EvalfMixin):
         """
     def _eval_as_leading_term(self, x, logx, cdir): ...
     def as_coeff_exponent(self, x) -> tuple[Expr, Expr]:
-        """ ``c*x**e -> c,e`` where x can be any symbolic expression.
+        """``c*x**e -> c,e`` where x can be any symbolic expression.
         """
     def leadterm(self, x, logx=None, cdir: int = 0):
         """
         Returns the leading term a*x**b as a tuple (a, b).
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x
         >>> (1+x+x**2).leadterm(x)
         (1, 0)
@@ -1686,9 +1648,9 @@ class Expr(Basic, EvalfMixin):
         (1, -2)
 
         """
-    def as_coeff_Mul(self, rational: bool = False) -> tuple['Number', Expr]:
+    def as_coeff_Mul(self, rational: bool = False) -> tuple[Number, Expr]:
         """Efficiently extract the coefficient of a product."""
-    def as_coeff_Add(self, rational: bool = False) -> tuple['Number', Expr]:
+    def as_coeff_Add(self, rational: bool = False) -> tuple[Number, Expr]:
         """Efficiently extract the coefficient of a summation."""
     def fps(self, x=None, x0: int = 0, dir: int = 1, hyper: bool = True, order: int = 4, rational: bool = True, full: bool = False):
         """
@@ -1756,7 +1718,7 @@ class Expr(Basic, EvalfMixin):
         where ``self`` (and ``g``) may be symbolic expressions).
 
         See Also
-        ========
+        --------
         sympy.core.intfunc.mod_inverse, sympy.polys.polytools.invert
         """
     def round(self, n=None):
@@ -1766,8 +1728,7 @@ class Expr(Basic, EvalfMixin):
         and imaginary components of the number.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import pi, E, I, S, Number
         >>> pi.round()
         3
@@ -1786,8 +1747,7 @@ class Expr(Basic, EvalfMixin):
         0.31 + 2.72*I
 
         Notes
-        =====
-
+        -----
         The Python ``round`` function uses the SymPy ``round`` method so it
         will always return a SymPy number (not a Python float or int):
 
@@ -1804,6 +1764,7 @@ class AtomicExpr(Atom, Expr):
     For example: Symbol, Number, Rational, Integer, ...
     But not: Add, Mul, Pow, ...
     """
+
     is_number: bool
     is_Atom: bool
     __slots__: Incomplete
@@ -1821,8 +1782,7 @@ def _mag(x):
     """Return integer $i$ such that $0.1 \\le x/10^i < 1$
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.expr import _mag
     >>> from sympy import Float
     >>> _mag(Float(.1))
@@ -1838,8 +1798,7 @@ class UnevaluatedExpr(Expr):
     Expression that is not evaluated unless released.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import UnevaluatedExpr
     >>> from sympy.abc import x
     >>> x*(1/x)
@@ -1848,6 +1807,7 @@ class UnevaluatedExpr(Expr):
     x*1/x
 
     """
+
     def __new__(cls, arg, **kwargs): ...
     def doit(self, **hints): ...
 
@@ -1856,8 +1816,7 @@ def unchanged(func, *args):
     Can be used instead of `assert foo == foo`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Piecewise, cos, pi
     >>> from sympy.core.expr import unchanged
     >>> from sympy.abc import x
@@ -1888,5 +1847,4 @@ class ExprBuilder:
     def build(self, check: bool = True): ...
     def append_argument(self, arg, check: bool = True) -> None: ...
     def __getitem__(self, item): ...
-    def __repr__(self) -> str: ...
     def search_element(self, elem): ...

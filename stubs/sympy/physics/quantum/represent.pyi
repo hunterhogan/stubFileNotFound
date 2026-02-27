@@ -1,4 +1,4 @@
-__all__ = ['represent', 'rep_innerproduct', 'rep_expectation', 'integrate_result', 'get_basis', 'enumerate_states']
+__all__ = ['enumerate_states', 'get_basis', 'integrate_result', 'rep_expectation', 'rep_innerproduct', 'represent']
 
 def represent(expr, **options):
     """Represent the quantum expression in the given basis.
@@ -25,8 +25,7 @@ def represent(expr, **options):
     in the basis set having a class named ``FooBasis``.
 
     Parameters
-    ==========
-
+    ----------
     expr  : Expr
         The expression to represent.
     basis : Operator, basis set
@@ -41,14 +40,12 @@ def represent(expr, **options):
         the size of the basis set would be set.
 
     Returns
-    =======
-
+    -------
     e : Expr
         The SymPy expression of the represented quantum expression.
 
     Examples
-    ========
-
+    --------
     Here we subclass ``Operator`` and ``Ket`` to create the z-spin operator
     and its spin 1/2 up eigenstate. By defining the ``_represent_SzOp``
     method, the ket can be represented in the z-spin basis.
@@ -91,14 +88,12 @@ def rep_innerproduct(expr, **options):
     basis. Should only be passed an instance of KetBase or BraBase
 
     Parameters
-    ==========
-
+    ----------
     expr : KetBase or BraBase
         The expression to be represented
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum.represent import rep_innerproduct
     >>> from sympy.physics.quantum.cartesian import XOp, XKet, PxOp, PxKet
     >>> rep_innerproduct(XKet())
@@ -114,14 +109,12 @@ def rep_expectation(expr, **options):
     Returns an ``<x'|A|x>`` type representation for the given operator.
 
     Parameters
-    ==========
-
+    ----------
     expr : Operator
         Operator to be represented in the specified basis
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum.cartesian import XOp, PxOp, PxKet
     >>> from sympy.physics.quantum.represent import rep_expectation
     >>> rep_expectation(XOp())
@@ -149,8 +142,7 @@ def integrate_result(orig_expr, result, **options):
     given merely to show the use cases.
 
     Parameters
-    ==========
-
+    ----------
     orig_expr : quantum expression
         The original expression which was to be represented
 
@@ -158,8 +150,7 @@ def integrate_result(orig_expr, result, **options):
         The resulting representation that we wish to integrate over
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, DiracDelta
     >>> from sympy.physics.quantum.represent import integrate_result
     >>> from sympy.physics.quantum.cartesian import XOp, XKet
@@ -201,14 +192,12 @@ def get_basis(expr, *, basis=None, replace_none: bool = True, **options):
     TODO (?): Support for Muls and other types of expressions?
 
     Parameters
-    ==========
-
+    ----------
     expr : Operator or StateBase
         Expression whose basis is sought
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum.represent import get_basis
     >>> from sympy.physics.quantum.cartesian import XOp, XKet, PxOp, PxKet
     >>> x = XKet()
@@ -239,14 +228,12 @@ def enumerate_states(*args, **options):
     Tries to call state._enumerate_state. If this fails, returns an empty list
 
     Parameters
-    ==========
-
+    ----------
     args : list
         See list of operation modes above for explanation
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum.cartesian import XBra, XKet
     >>> from sympy.physics.quantum.represent import enumerate_states
     >>> test = XKet('foo')

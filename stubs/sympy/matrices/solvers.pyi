@@ -1,5 +1,7 @@
 from .eigen import _fuzzy_positive_definite as _fuzzy_positive_definite
-from .exceptions import NonInvertibleMatrixError as NonInvertibleMatrixError, NonSquareMatrixError as NonSquareMatrixError, ShapeError as ShapeError
+from .exceptions import (
+	NonInvertibleMatrixError as NonInvertibleMatrixError, NonSquareMatrixError as NonSquareMatrixError,
+	ShapeError as ShapeError)
 from .utilities import _get_intermediate_simp as _get_intermediate_simp, _iszero as _iszero
 from sympy.core.function import expand_mul as expand_mul
 from sympy.core.symbol import Dummy as Dummy, symbols as symbols, uniquely_named_symbol as uniquely_named_symbol
@@ -10,8 +12,7 @@ def _diagonal_solve(M, rhs):
     with non-zero diagonal entries.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, eye
     >>> A = eye(2)*2
     >>> B = Matrix([[1, 2], [3, 4]])
@@ -19,8 +20,7 @@ def _diagonal_solve(M, rhs):
     True
 
     See Also
-    ========
-
+    --------
     sympy.matrices.dense.DenseMatrix.lower_triangular_solve
     sympy.matrices.dense.DenseMatrix.upper_triangular_solve
     gauss_jordan_solve
@@ -35,8 +35,7 @@ def _lower_triangular_solve(M, rhs):
     """Solves ``Ax = B``, where A is a lower triangular matrix.
 
     See Also
-    ========
-
+    --------
     upper_triangular_solve
     gauss_jordan_solve
     cholesky_solve
@@ -51,8 +50,7 @@ def _lower_triangular_solve_sparse(M, rhs):
     """Solves ``Ax = B``, where A is a lower triangular matrix.
 
     See Also
-    ========
-
+    --------
     upper_triangular_solve
     gauss_jordan_solve
     cholesky_solve
@@ -67,8 +65,7 @@ def _upper_triangular_solve(M, rhs):
     """Solves ``Ax = B``, where A is an upper triangular matrix.
 
     See Also
-    ========
-
+    --------
     lower_triangular_solve
     gauss_jordan_solve
     cholesky_solve
@@ -83,8 +80,7 @@ def _upper_triangular_solve_sparse(M, rhs):
     """Solves ``Ax = B``, where A is an upper triangular matrix.
 
     See Also
-    ========
-
+    --------
     lower_triangular_solve
     gauss_jordan_solve
     cholesky_solve
@@ -102,8 +98,7 @@ def _cholesky_solve(M, rhs):
     the least squares solution is returned.
 
     See Also
-    ========
-
+    --------
     sympy.matrices.dense.DenseMatrix.lower_triangular_solve
     sympy.matrices.dense.DenseMatrix.upper_triangular_solve
     gauss_jordan_solve
@@ -122,8 +117,7 @@ def _LDLsolve(M, rhs):
     the least squares solution is returned.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, eye
     >>> A = eye(2)*2
     >>> B = Matrix([[1, 2], [3, 4]])
@@ -131,8 +125,7 @@ def _LDLsolve(M, rhs):
     True
 
     See Also
-    ========
-
+    --------
     sympy.matrices.dense.DenseMatrix.LDLdecomposition
     sympy.matrices.dense.DenseMatrix.lower_triangular_solve
     sympy.matrices.dense.DenseMatrix.upper_triangular_solve
@@ -151,8 +144,7 @@ def _LUsolve(M, rhs, iszerofunc=...):
     mpmath.lu_solve or mpmath.qr_solve.
 
     See Also
-    ========
-
+    --------
     sympy.matrices.dense.DenseMatrix.lower_triangular_solve
     sympy.matrices.dense.DenseMatrix.upper_triangular_solve
     gauss_jordan_solve
@@ -181,8 +173,7 @@ def _QRsolve(M, b):
     (or complex) matrices use mpmath.qr_solve.
 
     See Also
-    ========
-
+    --------
     sympy.matrices.dense.DenseMatrix.lower_triangular_solve
     sympy.matrices.dense.DenseMatrix.upper_triangular_solve
     gauss_jordan_solve
@@ -204,8 +195,7 @@ def _gauss_jordan_solve(M, B, freevar: bool = False):
     ValueError.
 
     Parameters
-    ==========
-
+    ----------
     B : Matrix
         The right hand side of the equation to be solved for.  Must have
         the same number of rows as matrix A.
@@ -218,8 +208,7 @@ def _gauss_jordan_solve(M, B, freevar: bool = False):
         values of free variables. Default `False`.
 
     Returns
-    =======
-
+    -------
     x : Matrix
         The matrix that will satisfy ``Ax = B``.  Will have as many rows as
         matrix A has columns, and as many columns as matrix B.
@@ -238,8 +227,7 @@ def _gauss_jordan_solve(M, B, freevar: bool = False):
         if the flag `freevar` is set to `True`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> A = Matrix([[1, 2, 1, 1], [1, 2, 2, -1], [2, 4, 0, 6]])
     >>> B = Matrix([7, 12, 4])
@@ -305,8 +293,7 @@ def _gauss_jordan_solve(M, B, freevar: bool = False):
 
 
     See Also
-    ========
-
+    --------
     sympy.matrices.dense.DenseMatrix.lower_triangular_solve
     sympy.matrices.dense.DenseMatrix.upper_triangular_solve
     cholesky_solve
@@ -317,7 +304,7 @@ def _gauss_jordan_solve(M, B, freevar: bool = False):
     pinv
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Gaussian_elimination
 
@@ -331,8 +318,7 @@ def _pinv_solve(M, B, arbitrary_matrix=None):
     exist, the least-squares solution is returned.
 
     Parameters
-    ==========
-
+    ----------
     B : Matrix
         The right hand side of the equation to be solved for.  Must have
         the same number of rows as matrix A.
@@ -347,15 +333,13 @@ def _pinv_solve(M, B, arbitrary_matrix=None):
         row and column position of each symbol.
 
     Returns
-    =======
-
+    -------
     x : Matrix
         The matrix that will satisfy ``Ax = B``.  Will have as many rows as
         matrix A has columns, and as many columns as matrix B.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> A = Matrix([[1, 2, 3], [4, 5, 6]])
     >>> B = Matrix([7, 8])
@@ -371,8 +355,7 @@ def _pinv_solve(M, B, arbitrary_matrix=None):
     [ 59/18]])
 
     See Also
-    ========
-
+    --------
     sympy.matrices.dense.DenseMatrix.lower_triangular_solve
     sympy.matrices.dense.DenseMatrix.upper_triangular_solve
     gauss_jordan_solve
@@ -384,8 +367,7 @@ def _pinv_solve(M, B, arbitrary_matrix=None):
     pinv
 
     Notes
-    =====
-
+    -----
     This may return either exact solutions or least squares solutions.
     To determine which, check ``A * A.pinv() * B == B``.  It will be
     True if exact solutions exist, and False if only a least-squares
@@ -394,7 +376,7 @@ def _pinv_solve(M, B, arbitrary_matrix=None):
     side.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Moore-Penrose_pseudoinverse#Obtaining_all_solutions_of_a_linear_system
 
@@ -408,7 +390,7 @@ def _cramer_solve(M, rhs, det_method: str = 'laplace'):
     cases in symbolic solutions to linear systems.
 
     Parameters
-    ==========
+    ----------
     M : Matrix
         The matrix representing the left hand side of the equation.
     rhs : Matrix
@@ -419,14 +401,13 @@ def _cramer_solve(M, rhs, det_method: str = 'laplace'):
         single argument, the matrix, and return the determinant of the matrix.
 
     Returns
-    =======
+    -------
     x : Matrix
         The matrix that will satisfy ``Ax = B``.  Will have as many rows as
         matrix A has columns, and as many columns as matrix B.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> A = Matrix([[0, -6, 1], [0, -6, -1], [-5, -2, 3]])
     >>> B = Matrix([[-30, -9], [-18, -27], [-26, 46]])
@@ -438,7 +419,7 @@ def _cramer_solve(M, rhs, det_method: str = 'laplace'):
     [-6,  9]])
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Cramer%27s_rule#Explicit_formulas_for_small_systems
 
@@ -447,8 +428,7 @@ def _solve(M, rhs, method: str = 'GJ'):
     """Solves linear equation where the unique solution exists.
 
     Parameters
-    ==========
-
+    ----------
     rhs : Matrix
         Vector representing the right hand side of the linear equation.
 
@@ -476,14 +456,12 @@ def _solve(M, rhs, method: str = 'GJ'):
         inverse, use a method defined in the .inv() docstring.
 
     Returns
-    =======
-
+    -------
     solutions : Matrix
         Vector representing the solution.
 
     Raises
-    ======
-
+    ------
     ValueError
         If there is not a unique solution then a ``ValueError`` will be
         raised.
@@ -495,8 +473,7 @@ def _solve_least_squares(M, rhs, method: str = 'CH'):
     """Return the least-square fit to the data.
 
     Parameters
-    ==========
-
+    ----------
     rhs : Matrix
         Vector representing the right hand side of the linear equation.
 
@@ -514,14 +491,12 @@ def _solve_least_squares(M, rhs, method: str = 'CH'):
         defined by ``method``.
 
     Returns
-    =======
-
+    -------
     solutions : Matrix
         Vector representing the solution.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, ones
     >>> A = Matrix([1, 2, 3])
     >>> B = Matrix([2, 3, 4])

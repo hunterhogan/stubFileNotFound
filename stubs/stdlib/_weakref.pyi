@@ -1,6 +1,7 @@
 from collections.abc import Callable
-from typing import Any, TypeVar, overload
-from weakref import CallableProxyType as CallableProxyType, ProxyType as ProxyType, ReferenceType as ReferenceType, ref as ref
+from typing import Any, overload, TypeVar
+from weakref import (
+	CallableProxyType as CallableProxyType, ProxyType as ProxyType, ref as ref, ReferenceType as ReferenceType)
 
 _C = TypeVar("_C", bound=Callable[..., Any])
 _T = TypeVar("_T")

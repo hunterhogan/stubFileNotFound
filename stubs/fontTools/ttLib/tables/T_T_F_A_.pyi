@@ -9,4 +9,3 @@ class table_T_T_F_A_(asciiTable.asciiTable):
 
     See also http://freetype.org/ttfautohint/doc/ttfautohint.html#miscellaneous-1
     """
-

@@ -1,7 +1,10 @@
-from sympy.core import Add as Add, Basic as Basic, Dummy as Dummy, Mul as Mul, S as S, Symbol as Symbol, sympify as sympify
+from sympy.core import (
+	Add as Add, Basic as Basic, Dummy as Dummy, Mul as Mul, S as S, Symbol as Symbol, sympify as sympify)
 from sympy.core.expr import Expr as Expr
 from sympy.core.exprtools import factor_terms as factor_terms
-from sympy.core.function import AppliedUndef as AppliedUndef, ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, Derivative as Derivative, PoleError as PoleError, expand_mul as expand_mul
+from sympy.core.function import (
+	AppliedUndef as AppliedUndef, ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction,
+	Derivative as Derivative, expand_mul as expand_mul, PoleError as PoleError)
 from sympy.core.logic import fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
 from sympy.core.numbers import I as I, oo as oo, pi as pi
 from sympy.core.power import Pow as Pow
@@ -18,8 +21,7 @@ class re(DefinedFunction):
     expansion on instance of this function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import re, im, I, E, symbols
     >>> x, y = symbols('x y', real=True)
     >>> re(2*E)
@@ -34,22 +36,20 @@ class re(DefinedFunction):
     7
 
     Parameters
-    ==========
-
+    ----------
     arg : Expr
         Real or complex expression.
 
     Returns
-    =======
-
+    -------
     expr : Expr
         Real part of expression.
 
     See Also
-    ========
-
+    --------
     im
     """
+
     args: tuple[Expr]
     is_extended_real: bool
     unbranched: bool
@@ -77,8 +77,7 @@ class im(DefinedFunction):
     this function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import re, im, E, I
     >>> from sympy.abc import x, y
     >>> im(2*E)
@@ -93,22 +92,20 @@ class im(DefinedFunction):
     3
 
     Parameters
-    ==========
-
+    ----------
     arg : Expr
         Real or complex expression.
 
     Returns
-    =======
-
+    -------
     expr : Expr
         Imaginary part of expression.
 
     See Also
-    ========
-
+    --------
     re
     """
+
     args: tuple[Expr]
     is_extended_real: bool
     unbranched: bool
@@ -149,8 +146,7 @@ class sign(DefinedFunction):
     result (in general) will be ``cos(arg(expr)) + I*sin(arg(expr))``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sign, I
 
     >>> sign(-1)
@@ -165,22 +161,20 @@ class sign(DefinedFunction):
     0.707106781186548 + 0.707106781186548*I
 
     Parameters
-    ==========
-
+    ----------
     arg : Expr
         Real or imaginary expression.
 
     Returns
-    =======
-
+    -------
     expr : Expr
         Complex sign of expression.
 
     See Also
-    ========
-
+    --------
     Abs, conjugate
     """
+
     is_complex: bool
     _singularities: bool
     def doit(self, **hints): ...
@@ -213,8 +207,7 @@ class Abs(DefinedFunction):
     pass it automatically to ``Abs()``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Abs, Symbol, S, I
     >>> Abs(-1)
     1
@@ -241,23 +234,21 @@ class Abs(DefinedFunction):
     Abs will always return a SymPy object.
 
     Parameters
-    ==========
-
+    ----------
     arg : Expr
         Real or complex expression.
 
     Returns
-    =======
-
+    -------
     expr : Expr
         Absolute value returned can be an expression or integer depending on
         input arg.
 
     See Also
-    ========
-
+    --------
     sign, conjugate
     """
+
     args: tuple[Expr]
     is_extended_real: bool
     is_extended_negative: bool
@@ -300,8 +291,7 @@ class arg(DefinedFunction):
     nan; for a real number, nan is returned on the 3rd application.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import arg, I, sqrt, Dummy
     >>> from sympy.abc import x
     >>> arg(2.0)
@@ -323,18 +313,17 @@ class arg(DefinedFunction):
     nan
 
     Parameters
-    ==========
-
+    ----------
     arg : Expr
         Real or complex expression.
 
     Returns
-    =======
-
+    -------
     value : Expr
         Returns arc tangent of arg measured in radians.
 
     """
+
     is_extended_real: bool
     is_real: bool
     is_finite: bool
@@ -356,8 +345,7 @@ class conjugate(DefinedFunction):
     :math:`a + ib` (where $a$ and $b$ are real numbers) is :math:`a - ib`
 
     Examples
-    ========
-
+    --------
     >>> from sympy import conjugate, I
     >>> conjugate(2)
     2
@@ -369,27 +357,25 @@ class conjugate(DefinedFunction):
     5 + I
 
     Parameters
-    ==========
-
+    ----------
     arg : Expr
         Real or complex expression.
 
     Returns
-    =======
-
+    -------
     arg : Expr
         Complex conjugate of arg as real, imaginary or mixed expression.
 
     See Also
-    ========
-
+    --------
     sign, Abs
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Complex_conjugation
     """
+
     _singularities: bool
     @classmethod
     def eval(cls, arg): ...
@@ -406,8 +392,7 @@ class transpose(DefinedFunction):
     Linear map transposition.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import transpose, Matrix, MatrixSymbol
     >>> A = MatrixSymbol('A', 25, 9)
     >>> transpose(A)
@@ -429,18 +414,17 @@ class transpose(DefinedFunction):
     [5, 1, 12]])
 
     Parameters
-    ==========
-
+    ----------
     arg : Matrix
          Matrix or matrix expression to take the transpose of.
 
     Returns
-    =======
-
+    -------
     value : Matrix
         Transpose of arg.
 
     """
+
     @classmethod
     def eval(cls, arg): ...
     def _eval_adjoint(self): ...
@@ -452,27 +436,25 @@ class adjoint(DefinedFunction):
     Conjugate transpose or Hermite conjugation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import adjoint, MatrixSymbol
     >>> A = MatrixSymbol('A', 10, 5)
     >>> adjoint(A)
     Adjoint(A)
 
     Parameters
-    ==========
-
+    ----------
     arg : Matrix
         Matrix or matrix expression to take the adjoint of.
 
     Returns
-    =======
-
+    -------
     value : Matrix
         Represents the conjugate transpose or Hermite
         conjugation of arg.
 
     """
+
     @classmethod
     def eval(cls, arg): ...
     def _eval_adjoint(self): ...
@@ -487,8 +469,7 @@ class polar_lift(DefinedFunction):
     standard branch.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, polar_lift, I
     >>> p = Symbol('p', polar=True)
     >>> x = Symbol('x')
@@ -507,23 +488,22 @@ class polar_lift(DefinedFunction):
     4*p
 
     Parameters
-    ==========
-
+    ----------
     arg : Expr
         Real or complex expression.
 
     See Also
-    ========
-
+    --------
     sympy.functions.elementary.exponential.exp_polar
     periodic_argument
     """
+
     is_polar: bool
     is_comparable: bool
     @classmethod
     def eval(cls, arg): ...
     def _eval_evalf(self, prec):
-        """ Careful! any evalf of polar numbers is flaky """
+        """Careful! any evalf of polar numbers is flaky"""
     def _eval_Abs(self): ...
 
 class periodic_argument(DefinedFunction):
@@ -533,8 +513,7 @@ class periodic_argument(DefinedFunction):
     $(-P/2, P/2]$, by using $\\exp(PI) = 1$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import exp_polar, periodic_argument
     >>> from sympy import I, pi
     >>> periodic_argument(exp_polar(10*I*pi), 2*pi)
@@ -551,8 +530,7 @@ class periodic_argument(DefinedFunction):
     0
 
     Parameters
-    ==========
-
+    ----------
     ar : Expr
         A polar number.
 
@@ -560,12 +538,12 @@ class periodic_argument(DefinedFunction):
         The period $P$.
 
     See Also
-    ========
-
+    --------
     sympy.functions.elementary.exponential.exp_polar
     polar_lift : Lift argument to the Riemann surface of the logarithm
     principal_branch
     """
+
     @classmethod
     def _getunbranched(cls, ar): ...
     @classmethod
@@ -577,8 +555,7 @@ def unbranched_argument(arg):
     Returns periodic argument of arg with period as infinity.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import exp_polar, unbranched_argument
     >>> from sympy import I, pi
     >>> unbranched_argument(exp_polar(15*I*pi))
@@ -586,9 +563,8 @@ def unbranched_argument(arg):
     >>> unbranched_argument(exp_polar(7*I*pi))
     7*pi
 
-    See also
-    ========
-
+    See Also
+    --------
     periodic_argument
     """
 
@@ -605,8 +581,7 @@ class principal_branch(DefinedFunction):
     The result is ``z mod exp_polar(I*p)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import exp_polar, principal_branch, oo, I, pi
     >>> from sympy.abc import z
     >>> principal_branch(z, oo)
@@ -617,8 +592,7 @@ class principal_branch(DefinedFunction):
     3*principal_branch(z, 2*pi)
 
     Parameters
-    ==========
-
+    ----------
     x : Expr
         A polar number.
 
@@ -626,12 +600,12 @@ class principal_branch(DefinedFunction):
         Positive real number or infinity.
 
     See Also
-    ========
-
+    --------
     sympy.functions.elementary.exponential.exp_polar
     polar_lift : Lift argument to the Riemann surface of the logarithm
     periodic_argument
     """
+
     is_polar: bool
     is_comparable: bool
     @classmethod
@@ -658,8 +632,7 @@ def polarify(eq, subs: bool = True, lift: bool = False):
     Note that ``lift=True`` implies ``subs=False``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import polarify, sin, I
     >>> from sympy.abc import x, y
     >>> expr = (-x)**y
@@ -689,8 +662,7 @@ def unpolarify(eq, subs=None, exponents_only: bool = False):
     ``unpolarify``, in a certain sense, undoes :func:`polarify`.)
 
     Examples
-    ========
-
+    --------
     >>> from sympy import unpolarify, polar_lift, sin, I
     >>> unpolarify(polar_lift(I + 2))
     2 + I

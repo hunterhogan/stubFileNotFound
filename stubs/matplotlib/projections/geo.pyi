@@ -3,16 +3,19 @@ from matplotlib import _api as _api
 from matplotlib.axes import Axes as Axes
 from matplotlib.patches import Circle as Circle
 from matplotlib.path import Path as Path
-from matplotlib.ticker import FixedLocator as FixedLocator, Formatter as Formatter, NullFormatter as NullFormatter, NullLocator as NullLocator
+from matplotlib.ticker import (
+	FixedLocator as FixedLocator, Formatter as Formatter, NullFormatter as NullFormatter, NullLocator as NullLocator)
 from matplotlib.transforms import Affine2D as Affine2D, BboxTransformTo as BboxTransformTo, Transform as Transform
 
 class GeoAxes(Axes):
     """An abstract base class for geographic projections."""
+
     class ThetaFormatter(Formatter):
         """
         Used to format the theta tick labels.  Converts the native
         unit of radians into degrees and adds a degree symbol.
         """
+
         _round_to: Incomplete
         def __init__(self, round_to: float = 1.0) -> None: ...
         def __call__(self, x, pos: Incomplete | None = None): ...
@@ -96,13 +99,13 @@ class _GeoTransform(Transform):
         Resolution is the number of steps to interpolate between each input
         line segment to approximate its path in curved space.
         """
-    def __str__(self) -> str: ...
     def transform_path_non_affine(self, path): ...
 
 class AitoffAxes(GeoAxes):
     name: str
     class AitoffTransform(_GeoTransform):
         """The base Aitoff transform."""
+
         def transform_non_affine(self, values): ...
         def inverted(self): ...
     class InvertedAitoffTransform(_GeoTransform):
@@ -116,6 +119,7 @@ class HammerAxes(GeoAxes):
     name: str
     class HammerTransform(_GeoTransform):
         """The base Hammer transform."""
+
         def transform_non_affine(self, values): ...
         def inverted(self): ...
     class InvertedHammerTransform(_GeoTransform):
@@ -129,6 +133,7 @@ class MollweideAxes(GeoAxes):
     name: str
     class MollweideTransform(_GeoTransform):
         """The base Mollweide transform."""
+
         def transform_non_affine(self, values): ...
         def inverted(self): ...
     class InvertedMollweideTransform(_GeoTransform):
@@ -142,6 +147,7 @@ class LambertAxes(GeoAxes):
     name: str
     class LambertTransform(_GeoTransform):
         """The base Lambert transform."""
+
         _center_longitude: Incomplete
         _center_latitude: Incomplete
         def __init__(self, center_longitude, center_latitude, resolution) -> None:

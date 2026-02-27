@@ -1,27 +1,27 @@
-import io
-import sys
 from _typeshed import StrPath
 from collections.abc import Callable, Container, Iterable, Sequence
-from typing import Any, Final, Literal, Protocol, TypeVar, overload, type_check_only
+from typing import Any, Final, Literal, overload, Protocol, type_check_only, TypeVar
 from typing_extensions import deprecated
+import io
+import sys
 
 __all__ = [
-    "NullTranslations",
-    "GNUTranslations",
     "Catalog",
-    "find",
-    "translation",
-    "install",
-    "textdomain",
+    "GNUTranslations",
+    "NullTranslations",
     "bindtextdomain",
     "dgettext",
     "dngettext",
-    "gettext",
-    "ngettext",
     "dnpgettext",
     "dpgettext",
+    "find",
+    "gettext",
+    "install",
+    "ngettext",
     "npgettext",
     "pgettext",
+    "textdomain",
+    "translation",
 ]
 
 if sys.version_info < (3, 11):

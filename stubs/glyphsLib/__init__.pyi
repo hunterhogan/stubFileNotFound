@@ -2,7 +2,6 @@ from . import (
 	_version as _version, builder as builder, classes as classes, glyphdata as glyphdata, parser as parser, pens as pens,
 	types as types, util as util, writer as writer)
 from _typeshed import Incomplete
-from fontTools.designspaceLib import DesignSpaceDocument
 from glyphsLib.builder import to_designspace as to_designspace, to_glyphs as to_glyphs, to_ufos as to_ufos
 from glyphsLib.classes import (
 	Glyphs as Glyphs, GSAlignmentZone as GSAlignmentZone, GSAnchor as GSAnchor, GSAnnotation as GSAnnotation,
@@ -17,7 +16,6 @@ from types import ModuleType
 from typing import ClassVar, Literal, overload, Self
 from ufoLib2 import Font
 import os
-import ufoLib2
 
 __all__ = ['ARROW', 'BOTTOMGHOST', 'CAP', 'CIRCLE', 'CORNER', 'CURVE', 'GSCURVE', 'GSLINE', 'GSMOVE', 'GSOFFCURVE', 'GSSHARP', 'GSSMOOTH', 'LINE', 'LTR', 'LTRTTB', 'MINUS', 'MOVE', 'OFFCURVE', 'PLUS', 'QCURVE', 'RTL', 'RTLTTB', 'STEM', 'TAG', 'TEXT', 'TOPGHOST', 'TRIPLE', 'TTALIGN', 'TTANCHOR', 'TTDELTA', 'TTDIAGONAL', 'TTDONTROUND', 'TTINTERPOLATE', 'TTROUND', 'TTROUNDDOWN', 'TTROUNDUP', 'TTSTEM', 'WEIGHT_CODES', 'WIDTH_CODES', 'GSAlignmentZone', 'GSAnchor', 'GSAnnotation', 'GSBackgroundImage', 'GSBottomCenter', 'GSBottomLeft', 'GSBottomRight', 'GSCenterCenter', 'GSCenterLeft', 'GSCenterRight', 'GSClass', 'GSComponent', 'GSCustomParameter', 'GSFeature', 'GSFeaturePrefix', 'GSFont', 'GSFontMaster', 'GSGlyph', 'GSGuide', 'GSHint', 'GSInstance', 'GSLayer', 'GSNode', 'GSPath', 'GSSmartComponentAxis', 'GSTopCenter', 'GSTopLeft', 'GSTopRight', 'Glyphs', 'build_masters', 'dump', 'dumps', 'load', 'load_to_ufos', 'loads', 'to_designspace', 'to_glyphs', 'to_ufos']
 
@@ -93,12 +91,12 @@ class Masters(tuple[Incomplete, ...]):
         """Return self as a plain tuple.  Used by copy and pickle."""
 
 @overload
-def load_to_ufos(file_or_path: str | bytes | os.PathLike[str] | os.PathLike[bytes], include_instances: Literal[True], family_name: str | None = None, propagate_anchors: Incomplete | None = ..., ufo_module: ModuleType | None = ufoLib2, expand_includes: bool = ..., minimal: bool = ..., glyph_data: GlyphData | None = None) -> tuple[list[Font], Incomplete]: ...
+def load_to_ufos(file_or_path: str | bytes | os.PathLike[str] | os.PathLike[bytes], include_instances: Literal[True], family_name: str | None = None, propagate_anchors: Incomplete | None = ..., ufo_module: ModuleType | None = ..., expand_includes: bool = ..., minimal: bool = ..., glyph_data: GlyphData | None = None) -> tuple[list[Font], Incomplete]: ...
 @overload
-def load_to_ufos(file_or_path: str | bytes | os.PathLike[str] | os.PathLike[bytes], include_instances: Literal[False] = False, family_name: str | None = None, propagate_anchors: Incomplete | None = ..., ufo_module: ModuleType | None = ufoLib2, expand_includes: bool = ..., minimal: bool = ..., glyph_data: GlyphData | None = None) -> list[Font]:
+def load_to_ufos(file_or_path: str | bytes | os.PathLike[str] | os.PathLike[bytes], include_instances: Literal[False] = False, family_name: str | None = None, propagate_anchors: Incomplete | None = ..., ufo_module: ModuleType | None = ..., expand_includes: bool = ..., minimal: bool = ..., glyph_data: GlyphData | None = None) -> list[Font]:
     """Load an unpacked .glyphs object to UFO objects."""
 
-def build_masters(filename: str | bytes | os.PathLike[str] | os.PathLike[bytes] | GSFont, master_dir: str | bytes | os.PathLike[str] | os.PathLike[bytes], designspace_instance_dir: Incomplete | None = ..., designspace_path: Incomplete | None = ..., family_name: Incomplete | None = ..., propagate_anchors: Incomplete | None = ..., minimize_glyphs_diffs: bool = ..., normalize_ufos: bool = ..., create_background_layers: bool = ..., generate_GDEF: bool = ..., store_editor_state: bool = ..., write_skipexportglyphs: bool = ..., expand_includes: bool = ..., ufo_module: ModuleType | None = ufoLib2, minimal: bool = ..., glyph_data: GlyphData | None = ...) -> tuple[Masters, str]:
+def build_masters(filename: str | bytes | os.PathLike[str] | os.PathLike[bytes] | GSFont, master_dir: str | bytes | os.PathLike[str] | os.PathLike[bytes], designspace_instance_dir: Incomplete | None = ..., designspace_path: Incomplete | None = ..., family_name: Incomplete | None = ..., propagate_anchors: Incomplete | None = ..., minimize_glyphs_diffs: bool = ..., normalize_ufos: bool = ..., create_background_layers: bool = ..., generate_GDEF: bool = ..., store_editor_state: bool = ..., write_skipexportglyphs: bool = ..., expand_includes: bool = ..., ufo_module: ModuleType | None = ..., minimal: bool = ..., glyph_data: GlyphData | None = ...) -> tuple[Masters, str]:
     """Write and return UFOs from the masters and the designspace defined in a .glyphs file.
 
     Args:
@@ -114,4 +112,3 @@ def build_masters(filename: str | bytes | os.PathLike[str] | os.PathLike[bytes] 
         A named tuple of master UFOs (`ufos`) and the path to the designspace
         file (`designspace_path`).
     """
-

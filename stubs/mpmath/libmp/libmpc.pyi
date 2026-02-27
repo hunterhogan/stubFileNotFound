@@ -1,6 +1,22 @@
 from .backend import BACKEND as BACKEND, MPZ as MPZ, MPZ_ONE as MPZ_ONE, MPZ_TWO as MPZ_TWO, MPZ_ZERO as MPZ_ZERO
-from .libelefun import mpf_acos as mpf_acos, mpf_acosh as mpf_acosh, mpf_asin as mpf_asin, mpf_atan as mpf_atan, mpf_atan2 as mpf_atan2, mpf_cos as mpf_cos, mpf_cos_pi as mpf_cos_pi, mpf_cos_sin as mpf_cos_sin, mpf_cos_sin_pi as mpf_cos_sin_pi, mpf_cosh as mpf_cosh, mpf_cosh_sinh as mpf_cosh_sinh, mpf_exp as mpf_exp, mpf_fibonacci as mpf_fibonacci, mpf_log as mpf_log, mpf_log_hypot as mpf_log_hypot, mpf_nthroot as mpf_nthroot, mpf_phi as mpf_phi, mpf_pi as mpf_pi, mpf_pow_int as mpf_pow_int, mpf_sin as mpf_sin, mpf_sin_pi as mpf_sin_pi, mpf_sinh as mpf_sinh, mpf_tan as mpf_tan, mpf_tanh as mpf_tanh
-from .libmpf import ComplexResult as ComplexResult, bctable as bctable, bitcount as bitcount, fhalf as fhalf, finf as finf, fnan as fnan, fninf as fninf, fnone as fnone, fone as fone, from_float as from_float, from_int as from_int, from_man_exp as from_man_exp, ftwo as ftwo, fzero as fzero, giant_steps as giant_steps, lshift as lshift, mpf_abs as mpf_abs, mpf_add as mpf_add, mpf_ceil as mpf_ceil, mpf_div as mpf_div, mpf_floor as mpf_floor, mpf_frac as mpf_frac, mpf_hash as mpf_hash, mpf_hypot as mpf_hypot, mpf_mul as mpf_mul, mpf_mul_int as mpf_mul_int, mpf_neg as mpf_neg, mpf_nint as mpf_nint, mpf_pos as mpf_pos, mpf_rdiv_int as mpf_rdiv_int, mpf_shift as mpf_shift, mpf_sign as mpf_sign, mpf_sqrt as mpf_sqrt, mpf_sub as mpf_sub, negative_rnd as negative_rnd, normalize as normalize, normalize1 as normalize1, reciprocal_rnd as reciprocal_rnd, round_ceiling as round_ceiling, round_down as round_down, round_fast as round_fast, round_floor as round_floor, round_nearest as round_nearest, round_up as round_up, rshift as rshift, to_fixed as to_fixed, to_float as to_float, to_int as to_int, to_str as to_str
+from .libelefun import (
+	mpf_acos as mpf_acos, mpf_acosh as mpf_acosh, mpf_asin as mpf_asin, mpf_atan as mpf_atan, mpf_atan2 as mpf_atan2,
+	mpf_cos as mpf_cos, mpf_cos_pi as mpf_cos_pi, mpf_cos_sin as mpf_cos_sin, mpf_cos_sin_pi as mpf_cos_sin_pi,
+	mpf_cosh as mpf_cosh, mpf_cosh_sinh as mpf_cosh_sinh, mpf_exp as mpf_exp, mpf_fibonacci as mpf_fibonacci,
+	mpf_log as mpf_log, mpf_log_hypot as mpf_log_hypot, mpf_nthroot as mpf_nthroot, mpf_phi as mpf_phi, mpf_pi as mpf_pi,
+	mpf_pow_int as mpf_pow_int, mpf_sin as mpf_sin, mpf_sin_pi as mpf_sin_pi, mpf_sinh as mpf_sinh, mpf_tan as mpf_tan,
+	mpf_tanh as mpf_tanh)
+from .libmpf import (
+	bctable as bctable, bitcount as bitcount, ComplexResult as ComplexResult, fhalf as fhalf, finf as finf, fnan as fnan,
+	fninf as fninf, fnone as fnone, fone as fone, from_float as from_float, from_int as from_int,
+	from_man_exp as from_man_exp, ftwo as ftwo, fzero as fzero, giant_steps as giant_steps, lshift as lshift,
+	mpf_abs as mpf_abs, mpf_add as mpf_add, mpf_ceil as mpf_ceil, mpf_div as mpf_div, mpf_floor as mpf_floor,
+	mpf_frac as mpf_frac, mpf_hash as mpf_hash, mpf_hypot as mpf_hypot, mpf_mul as mpf_mul, mpf_mul_int as mpf_mul_int,
+	mpf_neg as mpf_neg, mpf_nint as mpf_nint, mpf_pos as mpf_pos, mpf_rdiv_int as mpf_rdiv_int, mpf_shift as mpf_shift,
+	mpf_sign as mpf_sign, mpf_sqrt as mpf_sqrt, mpf_sub as mpf_sub, negative_rnd as negative_rnd, normalize as normalize,
+	normalize1 as normalize1, reciprocal_rnd as reciprocal_rnd, round_ceiling as round_ceiling, round_down as round_down,
+	round_fast as round_fast, round_floor as round_floor, round_nearest as round_nearest, round_up as round_up,
+	rshift as rshift, to_fixed as to_fixed, to_float as to_float, to_int as to_int, to_str as to_str)
 from _typeshed import Incomplete
 
 mpc_one: Incomplete
@@ -28,7 +44,8 @@ def mpc_neg(z, prec: Incomplete | None = None, rnd='d'): ...
 def mpc_shift(z, n): ...
 def mpc_abs(z, prec, rnd='d'):
     """Absolute value of a complex number, |a+bi|.
-    Returns an mpf value."""
+    Returns an mpf value.
+    """
 def mpc_arg(z, prec, rnd='d'):
     """Argument of a complex number. Returns an mpf value."""
 def mpc_floor(z, prec, rnd='d'): ...
@@ -59,7 +76,8 @@ def mpc_mpf_div(p, z, prec, rnd='d'):
     """Calculate p/z where p is real efficiently"""
 def complex_int_pow(a, b, n):
     """Complex integer power: computes (a+b*I)**n exactly for
-    nonnegative n (a and b must be Python ints)."""
+    nonnegative n (a and b must be Python ints).
+    """
 def mpc_pow(z, w, prec, rnd='d'): ...
 def mpc_pow_mpf(z, p, prec, rnd='d'): ...
 def mpc_pow_int(z, n, prec, rnd='d'): ...
@@ -67,7 +85,8 @@ def mpc_sqrt(z, prec, rnd='d'):
     """Complex square root (principal branch).
 
     We have sqrt(a+bi) = sqrt((r+a)/2) + b/sqrt(2*(r+a))*i where
-    r = abs(a+bi), when a+bi is not a negative real number."""
+    r = abs(a+bi), when a+bi is not a negative real number.
+    """
 def mpc_nthroot_fixed(a, b, n, prec): ...
 def mpc_nthroot(z, n, prec, rnd='d'):
     """
@@ -104,14 +123,17 @@ def mpc_cos(z, prec, rnd='d'):
     The same comments apply as for the complex exp: only real
     multiplications are pewrormed, so no cancellation errors are
     possible. The formula is also efficient since we can compute both
-    pairs (cos, sin) and (cosh, sinh) in single stwps."""
+    pairs (cos, sin) and (cosh, sinh) in single stwps.
+    """
 def mpc_sin(z, prec, rnd='d'):
     """Complex sine. We have sin(a+bi) = sin(a)*cosh(b) +
     cos(a)*sinh(b)*i. See the docstring for mpc_cos for additional
-    comments."""
+    comments.
+    """
 def mpc_tan(z, prec, rnd='d'):
     """Complex tangent. Computed as tan(a+bi) = sin(2a)/M + sinh(2b)/M*i
-    where M = cos(2a) + cosh(2b)."""
+    where M = cos(2a) + cosh(2b).
+    """
 def mpc_cos_pi(z, prec, rnd='d'): ...
 def mpc_sin_pi(z, prec, rnd='d'): ...
 def mpc_cos_sin(z, prec, rnd='d'): ...
@@ -128,7 +150,7 @@ beta_crossover: Incomplete
 alpha_crossover: Incomplete
 
 def acos_asin(z, prec, rnd, n):
-    """ complex acos for n = 0, asin for n = 1
+    """Complex acos for n = 0, asin for n = 1
     The algorithm is described in
     T.E. Hull, T.F. Fairgrieve and P.T.P. Tang
     'Implementing the Complex Arcsine and Arcosine Functions

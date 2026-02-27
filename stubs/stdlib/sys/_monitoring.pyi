@@ -5,11 +5,11 @@
 # of being a `types.ModuleType` instance that cannot be directly imported,
 # and exists in the `sys`-module namespace despite `sys` not being a package.
 
-import sys
 from collections.abc import Callable
 from types import CodeType
 from typing import Any, Final, type_check_only
 from typing_extensions import deprecated
+import sys
 
 DEBUGGER_ID: Final = 0
 COVERAGE_ID: Final = 1

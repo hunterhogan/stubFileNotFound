@@ -124,4 +124,3 @@ class FeatureFileProcessor:
         popped from statements, concatenated and dedented and returned.
         """
     def _rstrip_newlines(self, string, number: int = ...): ...
-

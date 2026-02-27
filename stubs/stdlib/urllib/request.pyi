@@ -1,52 +1,52 @@
-import ssl
-import sys
 from _typeshed import ReadableBuffer, StrOrBytesPath, SupportsRead
 from collections.abc import Callable, Iterable, Mapping, MutableMapping, Sequence
 from email.message import Message
 from http.client import HTTPConnection, HTTPMessage, HTTPResponse
 from http.cookiejar import CookieJar
 from re import Pattern
-from typing import IO, Any, ClassVar, Literal, NoReturn, Protocol, TypeVar, overload, type_check_only
-from typing_extensions import TypeAlias, deprecated
+from typing import Any, ClassVar, IO, Literal, NoReturn, overload, Protocol, type_check_only, TypeAlias, TypeVar
+from typing_extensions import deprecated
 from urllib.error import HTTPError as HTTPError
 from urllib.response import addclosehook, addinfourl
+import ssl
+import sys
 
 __all__ = [
-    "Request",
-    "OpenerDirector",
+    "AbstractBasicAuthHandler",
+    "AbstractDigestAuthHandler",
     "BaseHandler",
-    "HTTPDefaultErrorHandler",
-    "HTTPRedirectHandler",
+    "CacheFTPHandler",
+    "DataHandler",
+    "FTPHandler",
+    "FileHandler",
+    "HTTPBasicAuthHandler",
     "HTTPCookieProcessor",
-    "ProxyHandler",
+    "HTTPDefaultErrorHandler",
+    "HTTPDigestAuthHandler",
+    "HTTPErrorProcessor",
+    "HTTPHandler",
     "HTTPPasswordMgr",
     "HTTPPasswordMgrWithDefaultRealm",
     "HTTPPasswordMgrWithPriorAuth",
-    "AbstractBasicAuthHandler",
-    "HTTPBasicAuthHandler",
+    "HTTPRedirectHandler",
+    "HTTPSHandler",
+    "OpenerDirector",
     "ProxyBasicAuthHandler",
-    "AbstractDigestAuthHandler",
-    "HTTPDigestAuthHandler",
     "ProxyDigestAuthHandler",
-    "HTTPHandler",
-    "FileHandler",
-    "FTPHandler",
-    "CacheFTPHandler",
-    "DataHandler",
+    "ProxyHandler",
+    "Request",
     "UnknownHandler",
-    "HTTPErrorProcessor",
-    "urlopen",
-    "install_opener",
     "build_opener",
+    "getproxies",
+    "install_opener",
     "pathname2url",
     "url2pathname",
-    "getproxies",
-    "urlretrieve",
     "urlcleanup",
-    "HTTPSHandler",
+    "urlopen",
+    "urlretrieve",
 ]
 if sys.version_info < (3, 14):
-    __all__ += ["URLopener", "FancyURLopener"]
+    __all__ += ["FancyURLopener", "URLopener"]
 
 _T = TypeVar("_T")
 
@@ -99,12 +99,11 @@ if sys.version_info >= (3, 14):
     def url2pathname(url: str, *, require_scheme: bool = False, resolve_host: bool = False) -> str: ...
     def pathname2url(pathname: str, *, add_scheme: bool = False) -> str: ...
 
+elif sys.platform == "win32":
+    from nturl2path import pathname2url as pathname2url, url2pathname as url2pathname
 else:
-    if sys.platform == "win32":
-        from nturl2path import pathname2url as pathname2url, url2pathname as url2pathname
-    else:
-        def url2pathname(pathname: str) -> str: ...
-        def pathname2url(pathname: str) -> str: ...
+    def url2pathname(pathname: str) -> str: ...
+    def pathname2url(pathname: str) -> str: ...
 
 def getproxies() -> dict[str, str]: ...
 def getproxies_environment() -> dict[str, str]: ...

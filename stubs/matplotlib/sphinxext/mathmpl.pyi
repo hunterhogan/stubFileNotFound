@@ -13,6 +13,7 @@ class MathDirective(Directive):
     """
     The ``.. mathmpl::`` directive, as documented in the module's docstring.
     """
+
     has_content: bool
     required_arguments: int
     optional_arguments: int

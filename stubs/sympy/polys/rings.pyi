@@ -9,23 +9,21 @@ from sympy.polys.orderings import MonomialOrder
 from sympy.printing.defaults import DefaultPrinting
 from sympy.utilities import public
 
-__all__ = ['ring', 'xring', 'vring', 'sring']
+__all__ = ['ring', 'sring', 'vring', 'xring']
 
 @public
 def ring(symbols, domain, order: MonomialOrder | str = ...):
-    '''Construct a polynomial ring returning ``(ring, x_1, ..., x_n)``.
+    """Construct a polynomial ring returning ``(ring, x_1, ..., x_n)``.
 
     Parameters
-    ==========
-
+    ----------
     symbols : str
         Symbol/Expr or sequence of str, Symbol/Expr (non-empty)
     domain : :class:`~.Domain` or coercible
     order : :class:`~.MonomialOrder` or coercible, optional, defaults to ``lex``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.rings import ring
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.orderings import lex
@@ -38,22 +36,20 @@ def ring(symbols, domain, order: MonomialOrder | str = ...):
     >>> type(_)
     <class \'sympy.polys.rings.PolyElement\'>
 
-    '''
+    """
 @public
 def xring(symbols, domain, order=...):
-    '''Construct a polynomial ring returning ``(ring, (x_1, ..., x_n))``.
+    """Construct a polynomial ring returning ``(ring, (x_1, ..., x_n))``.
 
     Parameters
-    ==========
-
+    ----------
     symbols : str
         Symbol/Expr or sequence of str, Symbol/Expr (non-empty)
     domain : :class:`~.Domain` or coercible
     order : :class:`~.MonomialOrder` or coercible, optional, defaults to ``lex``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.rings import xring
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.orderings import lex
@@ -66,22 +62,20 @@ def xring(symbols, domain, order=...):
     >>> type(_)
     <class \'sympy.polys.rings.PolyElement\'>
 
-    '''
+    """
 @public
 def vring(symbols, domain, order=...):
-    '''Construct a polynomial ring and inject ``x_1, ..., x_n`` into the global namespace.
+    """Construct a polynomial ring and inject ``x_1, ..., x_n`` into the global namespace.
 
     Parameters
-    ==========
-
+    ----------
     symbols : str
         Symbol/Expr or sequence of str, Symbol/Expr (non-empty)
     domain : :class:`~.Domain` or coercible
     order : :class:`~.MonomialOrder` or coercible, optional, defaults to ``lex``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.rings import vring
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.orderings import lex
@@ -93,21 +87,19 @@ def vring(symbols, domain, order=...):
     >>> type(_)
     <class \'sympy.polys.rings.PolyElement\'>
 
-    '''
+    """
 @public
 def sring(exprs, *symbols, **options):
-    '''Construct a ring deriving generators and domain from options and input expressions.
+    """Construct a ring deriving generators and domain from options and input expressions.
 
     Parameters
-    ==========
-
+    ----------
     exprs : :class:`~.Expr` or sequence of :class:`~.Expr` (sympifiable)
     symbols : sequence of :class:`~.Symbol`/:class:`~.Expr`
     options : keyword arguments understood by :class:`~.Options`
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sring, symbols
 
     >>> x, y, z = symbols("x,y,z")
@@ -119,10 +111,11 @@ def sring(exprs, *symbols, **options):
     >>> type(_)
     <class \'sympy.polys.rings.PolyElement\'>
 
-    '''
+    """
 
 class PolyRing(DefaultPrinting, IPolys):
-    """Multivariate distributed polynomial ring. """
+    """Multivariate distributed polynomial ring."""
+
     gens: tuple[PolyElement, ...]
     symbols: tuple[Expr, ...]
     ngens: int
@@ -130,7 +123,7 @@ class PolyRing(DefaultPrinting, IPolys):
     order: MonomialOrder
     def __new__(cls, symbols, domain, order=...): ...
     def _gens(self):
-        """Return a list of polynomial generators. """
+        """Return a list of polynomial generators."""
     def __getnewargs__(self): ...
     def __getstate__(self): ...
     def __hash__(self): ...
@@ -140,13 +133,13 @@ class PolyRing(DefaultPrinting, IPolys):
     @cacheit
     def _clone(self, symbols, domain, order): ...
     def monomial_basis(self, i):
-        """Return the ith-basis element. """
+        """Return the ith-basis element."""
     @property
     def zero(self): ...
     @property
     def one(self): ...
     def is_element(self, element):
-        """True if ``element`` is an element of this ring. False otherwise. """
+        """True if ``element`` is an element of this ring. False otherwise."""
     def domain_new(self, element, orig_domain=None): ...
     def ground_new(self, coeff): ...
     def term_new(self, monom, coeff): ...
@@ -158,9 +151,9 @@ class PolyRing(DefaultPrinting, IPolys):
     def _rebuild_expr(self, expr, mapping): ...
     def from_expr(self, expr): ...
     def index(self, gen):
-        """Compute index of ``gen`` in ``self.gens``. """
+        """Compute index of ``gen`` in ``self.gens``."""
     def drop(self, *gens):
-        """Remove specified generators from this ring. """
+        """Remove specified generators from this ring."""
     def __getitem__(self, key): ...
     def to_ground(self): ...
     def to_domain(self): ...
@@ -170,12 +163,11 @@ class PolyRing(DefaultPrinting, IPolys):
     @property
     def is_multivariate(self): ...
     def add(self, *objs):
-        '''
+        """
         Add a sequence of polynomials or containers of polynomials.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.rings import ring
         >>> from sympy.polys.domains import ZZ
 
@@ -185,14 +177,13 @@ class PolyRing(DefaultPrinting, IPolys):
         >>> _.factor_list()
         (4, [(x**2 + 6, 1)])
 
-        '''
+        """
     def mul(self, *objs):
-        '''
+        """
         Multiply a sequence of polynomials or containers of polynomials.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.rings import ring
         >>> from sympy.polys.domains import ZZ
 
@@ -202,7 +193,7 @@ class PolyRing(DefaultPrinting, IPolys):
         >>> _.factor_list()
         (1, [(x**2 + 3, 1), (x**2 + 5, 1), (x**2 + 7, 1), (x**2 + 9, 1)])
 
-        '''
+        """
     def drop_to_ground(self, *gens):
         """
         Remove specified generators from the ring and inject them into
@@ -219,7 +210,8 @@ class PolyRing(DefaultPrinting, IPolys):
         """
 
 class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
-    """Element of multivariate distributed polynomial ring. """
+    """Element of multivariate distributed polynomial ring."""
+
     ring: Incomplete
     def __init__(self, ring, init) -> None: ...
     def _check(self) -> None: ...
@@ -236,8 +228,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         can copy the polynomial. This method makes a shallow copy.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.domains import ZZ
         >>> from sympy.polys.rings import ring
 
@@ -259,13 +250,12 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
     def as_expr_dict(self): ...
     def clear_denoms(self): ...
     def strip_zero(self) -> None:
-        """Eliminate monomials with zero coefficient. """
+        """Eliminate monomials with zero coefficient."""
     def __eq__(p1, p2):
         """Equality test for polynomials.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.domains import ZZ
         >>> from sympy.polys.rings import ring
 
@@ -279,7 +269,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         """
     def __ne__(p1, p2): ...
     def almosteq(p1, p2, tolerance=None):
-        """Approximate equality test for polynomials. """
+        """Approximate equality test for polynomials."""
     def sort_key(self): ...
     def _cmp(p1, p2, op): ...
     def __lt__(p1, p2): ...
@@ -333,8 +323,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         """Add two polynomials.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.domains import ZZ
         >>> from sympy.polys.rings import ring
 
@@ -348,8 +337,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         """Subtract polynomial p2 from p1.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.domains import ZZ
         >>> from sympy.polys.rings import ring
 
@@ -361,11 +349,10 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
 
         """
     def __rsub__(p1, n):
-        """n - p1 with n convertible to the coefficient domain.
+        """N - p1 with n convertible to the coefficient domain.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.domains import ZZ
         >>> from sympy.polys.rings import ring
 
@@ -379,8 +366,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         """Multiply two polynomials.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.domains import QQ
         >>> from sympy.polys.rings import ring
 
@@ -395,8 +381,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         """p2 * p1 with p2 in the coefficient domain of p1.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.domains import ZZ
         >>> from sympy.polys.rings import ring
 
@@ -407,11 +392,10 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
 
         """
     def __pow__(self, n):
-        """raise polynomial to power `n`
+        """Raise polynomial to power `n`
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.domains import ZZ
         >>> from sympy.polys.rings import ring
 
@@ -424,11 +408,10 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
     def _pow_generic(self, n): ...
     def _pow_multinomial(self, n): ...
     def square(self):
-        """square of a polynomial
+        """Square of a polynomial
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.rings import ring
         >>> from sympy.polys.domains import ZZ
 
@@ -457,8 +440,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         All polynomials are required not to be Laurent polynomials.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.rings import ring
         >>> from sympy.polys.domains import ZZ
 
@@ -479,14 +461,13 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
     def quo(f, G): ...
     def exquo(f, G): ...
     def _iadd_monom(self, mc):
-        """add to self the monomial coeff*x0**i0*x1**i1*...
+        """Add to self the monomial coeff*x0**i0*x1**i1*...
         unless self is a generator -- then just return the sum of the two.
 
         mc is a tuple, (monom, coeff), where monomial is (i0, i1, ...)
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.rings import ring
         >>> from sympy.polys.domains import ZZ
 
@@ -507,14 +488,13 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
 
         """
     def _iadd_poly_monom(self, p2, mc):
-        """add to self the product of (p)*(coeff*x0**i0*x1**i1*...)
+        """Add to self the product of (p)*(coeff*x0**i0*x1**i1*...)
         unless self is a generator -- then just return the sum of the two.
 
         mc is a tuple, (monom, coeff), where monomial is (i0, i1, ...)
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.rings import ring
         >>> from sympy.polys.domains import ZZ
 
@@ -559,8 +539,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         """Leading monomial tuple according to the monomial ordering.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.rings import ring
         >>> from sympy.polys.domains import ZZ
 
@@ -572,17 +551,15 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         """
     def _get_coeff(self, expv): ...
     def coeff(self, element):
-        '''
+        """
         Returns the coefficient that stands next to the given monomial.
 
         Parameters
-        ==========
-
+        ----------
         element : PolyElement (with ``is_monomial = True``) or 1
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.rings import ring
         >>> from sympy.polys.domains import ZZ
 
@@ -596,9 +573,9 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         >>> f.coeff(1)
         23
 
-        '''
+        """
     def const(self):
-        """Returns the constant coefficient. """
+        """Returns the constant coefficient."""
     @property
     def LC(self): ...
     @property
@@ -608,8 +585,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         Leading monomial as a polynomial element.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.rings import ring
         >>> from sympy.polys.domains import ZZ
 
@@ -624,8 +600,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         """Leading term as a polynomial element.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.rings import ring
         >>> from sympy.polys.domains import ZZ
 
@@ -636,16 +611,14 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         """
     def _sorted(self, seq, order): ...
     def coeffs(self, order=None):
-        '''Ordered list of polynomial coefficients.
+        """Ordered list of polynomial coefficients.
 
         Parameters
-        ==========
-
+        ----------
         order : :class:`~.MonomialOrder` or coercible, optional
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.rings import ring
         >>> from sympy.polys.domains import ZZ
         >>> from sympy.polys.orderings import lex, grlex
@@ -658,18 +631,16 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         >>> f.coeffs(grlex)
         [1, 2]
 
-        '''
+        """
     def monoms(self, order=None):
-        '''Ordered list of polynomial monomials.
+        """Ordered list of polynomial monomials.
 
         Parameters
-        ==========
-
+        ----------
         order : :class:`~.MonomialOrder` or coercible, optional
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.rings import ring
         >>> from sympy.polys.domains import ZZ
         >>> from sympy.polys.orderings import lex, grlex
@@ -682,18 +653,16 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         >>> f.monoms(grlex)
         [(1, 7), (2, 3)]
 
-        '''
+        """
     def terms(self, order=None):
-        '''Ordered list of polynomial terms.
+        """Ordered list of polynomial terms.
 
         Parameters
-        ==========
-
+        ----------
         order : :class:`~.MonomialOrder` or coercible, optional
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.rings import ring
         >>> from sympy.polys.domains import ZZ
         >>> from sympy.polys.orderings import lex, grlex
@@ -706,27 +675,26 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         >>> f.terms(grlex)
         [((1, 7), 1), ((2, 3), 2)]
 
-        '''
+        """
     def itercoeffs(self):
-        """Iterator over coefficients of a polynomial. """
+        """Iterator over coefficients of a polynomial."""
     def itermonoms(self):
-        """Iterator over monomials of a polynomial. """
+        """Iterator over monomials of a polynomial."""
     def iterterms(self):
-        """Iterator over terms of a polynomial. """
+        """Iterator over terms of a polynomial."""
     def listcoeffs(self):
-        """Unordered list of polynomial coefficients. """
+        """Unordered list of polynomial coefficients."""
     def listmonoms(self):
-        """Unordered list of polynomial monomials. """
+        """Unordered list of polynomial monomials."""
     def listterms(self):
-        """Unordered list of polynomial terms. """
+        """Unordered list of polynomial terms."""
     def imul_num(p, c):
-        """multiply inplace the polynomial p by an element in the
+        """Multiply inplace the polynomial p by an element in the
         coefficient ring, provided p is not one of the generators;
         else multiply not inplace
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.rings import ring
         >>> from sympy.polys.domains import ZZ
 
@@ -746,11 +714,11 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
 
         """
     def content(f):
-        """Returns GCD of polynomial's coefficients. """
+        """Returns GCD of polynomial's coefficients."""
     def primitive(f):
-        """Returns content and a primitive polynomial. """
+        """Returns content and a primitive polynomial."""
     def monic(f):
-        """Divides all coefficients by the leading coefficient. """
+        """Divides all coefficients by the leading coefficient."""
     def mul_ground(f, x): ...
     def mul_monom(f, monom): ...
     def mul_term(f, term): ...
@@ -773,26 +741,24 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
     def _gcd_ZZ(f, g): ...
     def _gcd_QQ(self, g): ...
     def cancel(self, g):
-        '''
+        """
         Cancel common factors in a rational function ``f/g``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys import ring, ZZ
         >>> R, x,y = ring("x,y", ZZ)
 
         >>> (2*x**2 - 2).cancel(x**2 - 2*x + 1)
         (2*x + 2, x - 1)
 
-        '''
+        """
     def canonical_unit(f): ...
     def diff(f, x):
-        '''Computes partial derivative in ``x``.
+        """Computes partial derivative in ``x``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.rings import ring
         >>> from sympy.polys.domains import ZZ
 
@@ -801,12 +767,12 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         >>> p.diff(x)
         2*x*y**3 + 1
 
-        '''
+        """
     def __call__(f, *values): ...
     def evaluate(self, x, a=None): ...
     def subs(self, x, a=None): ...
     def symmetrize(self):
-        '''
+        """
         Rewrite *self* in terms of elementary symmetric polynomials.
 
         Explanation
@@ -818,8 +784,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         remainder for any part we were not able to symmetrize.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys.rings import ring
         >>> from sympy.polys.domains import ZZ
         >>> R, x, y = ring("x,y", ZZ)
@@ -833,8 +798,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         (x**2 - 2*y, -2*y**2, [(x, x + y), (y, x*y)])
 
         Returns
-        =======
-
+        -------
         Triple ``(p, r, m)``
             ``p`` is a :py:class:`~.PolyElement` that represents our attempt
             to express *self* as a function of elementary symmetric
@@ -852,43 +816,39 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
             nonzero, we were not able to represent *self* as symmetric.
 
         See Also
-        ========
-
+        --------
         sympy.polys.polyfuncs.symmetrize
 
         References
-        ==========
+        ----------
 
         .. [1] Lauer, E. Algorithms for symmetrical polynomials, Proc. 1976
             ACM Symp. on Symbolic and Algebraic Computing, NY 242-247.
             https://dl.acm.org/doi/pdf/10.1145/800205.806342
 
-        '''
+        """
     def compose(f, x, a=None): ...
     def coeff_wrt(self, x, deg):
-        '''
+        """
         Coefficient of ``self`` with respect to ``x**deg``.
 
         Treating ``self`` as a univariate polynomial in ``x`` this finds the
         coefficient of ``x**deg`` as a polynomial in the other generators.
 
         Parameters
-        ==========
-
+        ----------
         x : generator or generator index
             The generator or generator index to compute the expression for.
         deg : int
             The degree of the monomial to compute the expression for.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.PolyElement`
             The coefficient of ``x**deg`` as a polynomial in the same ring.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys import ring, ZZ
         >>> R, x, y, z = ring("x, y, z", ZZ)
 
@@ -902,13 +862,12 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         10
 
         See Also
-        ========
-
+        --------
         coeff, coeffs
 
-        '''
+        """
     def prem(self, g, x=None):
-        '''
+        """
         Pseudo-remainder of the polynomial ``self`` with respect to ``g``.
 
         The pseudo-quotient ``q`` and pseudo-remainder ``r`` with respect to
@@ -920,27 +879,23 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
 
 
         Parameters
-        ==========
-
+        ----------
         g : :py:class:`~.PolyElement`
             The polynomial to divide ``self`` by.
         x : generator or generator index, optional
             The main variable of the polynomials and default is first generator.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.PolyElement`
             The pseudo-remainder polynomial.
 
         Raises
-        ======
-
+        ------
         ZeroDivisionError : If ``g`` is the zero polynomial.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys import ring, ZZ
         >>> R, x, y = ring("x, y", ZZ)
 
@@ -956,13 +911,12 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         0
 
         See Also
-        ========
-
+        --------
         pdiv, pquo, pexquo, sympy.polys.domains.ring.Ring.rem
 
-        '''
+        """
     def pdiv(self, g, x=None):
-        '''
+        """
         Computes the pseudo-division of the polynomial ``self`` with respect to ``g``.
 
         The pseudo-division algorithm is used to find the pseudo-quotient ``q``
@@ -992,27 +946,23 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
 
 
         Parameters
-        ==========
-
+        ----------
         g : :py:class:`~.PolyElement`
             The polynomial to divide ``self`` by.
         x : generator or generator index, optional
             The main variable of the polynomials and default is first generator.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.PolyElement`
             The pseudo-division polynomial (tuple of ``q`` and ``r``).
 
         Raises
-        ======
-
+        ------
         ZeroDivisionError : If ``g`` is the zero polynomial.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys import ring, ZZ
         >>> R, x, y = ring("x, y", ZZ)
 
@@ -1028,8 +978,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         (2*x**3 + 2*x**2*y + 6*x**2 + 2*x*y + 8*x + 4, 0)
 
         See Also
-        ========
-
+        --------
         prem
             Computes only the pseudo-remainder more efficiently than
             `f.pdiv(g)[1]`.
@@ -1040,13 +989,13 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         div
             Returns quotient and remainder of f and g polynomials.
 
-        '''
+        """
     def pquo(self, g, x=None):
-        '''
+        """
         Polynomial pseudo-quotient in multivariate polynomial ring.
 
         Examples
-        ========
+        --------
         >>> from sympy.polys import ring, ZZ
         >>> R, x,y = ring("x,y", ZZ)
 
@@ -1063,17 +1012,16 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         0
 
         See Also
-        ========
-
+        --------
         prem, pdiv, pexquo, sympy.polys.domains.ring.Ring.quo
 
-        '''
+        """
     def pexquo(self, g, x=None):
-        '''
+        """
         Polynomial exact pseudo-quotient in multivariate polynomial ring.
 
         Examples
-        ========
+        --------
         >>> from sympy.polys import ring, ZZ
         >>> R, x,y = ring("x,y", ZZ)
 
@@ -1092,32 +1040,28 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         ExactQuotientFailed: 2*x + 2 does not divide x**2 + x*y
 
         See Also
-        ========
-
+        --------
         prem, pdiv, pquo, sympy.polys.domains.ring.Ring.exquo
 
-        '''
+        """
     def subresultants(self, g, x=None):
-        '''
+        """
         Computes the subresultant PRS of two polynomials ``self`` and ``g``.
 
         Parameters
-        ==========
-
+        ----------
         g : :py:class:`~.PolyElement`
             The second polynomial.
         x : generator or generator index
             The variable with respect to which the subresultant sequence is computed.
 
         Returns
-        =======
-
+        -------
         R : list
             Returns a list polynomials representing the subresultant PRS.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.polys import ring, ZZ
         >>> R, x, y = ring("x, y", ZZ)
 
@@ -1130,7 +1074,7 @@ class PolyElement(DomainElement, DefaultPrinting, CantSympify, dict):
         >>> f.subresultants(g, y) # generator is given
         [x**2*y + x*y, x + y, x**3 + x**2]
 
-        '''
+        """
     def half_gcdex(f, g): ...
     def gcdex(f, g): ...
     def resultant(f, g): ...

@@ -14,8 +14,7 @@ def dispersionset(p, q=None, *gens, **args):
     For a single polynomial one defines `\\operatorname{J}(f) := \\operatorname{J}(f, f)`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import poly
     >>> from sympy.polys.dispersion import dispersion, dispersionset
     >>> from sympy.abc import x
@@ -60,12 +59,11 @@ def dispersionset(p, q=None, *gens, **args):
     [0, 1]
 
     See Also
-    ========
-
+    --------
     dispersion
 
     References
-    ==========
+    ----------
 
     .. [1] [ManWright94]_
     .. [2] [Koepf98]_
@@ -86,8 +84,7 @@ def dispersion(p, q=None, *gens, **args):
     Note that we make the definition `\\max\\{\\} := -\\infty`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import poly
     >>> from sympy.polys.dispersion import dispersion, dispersionset
     >>> from sympy.abc import x
@@ -135,12 +132,11 @@ def dispersion(p, q=None, *gens, **args):
     [0, 1]
 
     See Also
-    ========
-
+    --------
     dispersionset
 
     References
-    ==========
+    ----------
 
     .. [1] [ManWright94]_
     .. [2] [Koepf98]_

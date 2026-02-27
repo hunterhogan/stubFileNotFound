@@ -1,9 +1,8 @@
-import sys
+from . import base_events, constants, events, futures, streams, transports
 from collections.abc import Mapping
 from socket import socket
 from typing import Any, ClassVar, Literal
-
-from . import base_events, constants, events, futures, streams, transports
+import sys
 
 __all__ = ("BaseProactorEventLoop",)
 

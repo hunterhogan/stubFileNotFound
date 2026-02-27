@@ -4,12 +4,12 @@ from _typeshed import Incomplete
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 
 def _load_pre_generated_assumption_rules() -> FactRules:
-    """ Load the assumption rules from pre-generated data
+    """Load the assumption rules from pre-generated data
 
     To update the pre-generated data, see :method::`_generate_assumption_rules`
     """
 def _generate_assumption_rules():
-    """ Generate the default assumption rules
+    """Generate the default assumption rules
 
     This method should only be called to update the pre-generated
     assumption rules.
@@ -22,14 +22,13 @@ _assume_rules: Incomplete
 _assume_defined: Incomplete
 
 def assumptions(expr, _check=None):
-    """return the T/F assumptions of ``expr``"""
+    """Return the T/F assumptions of ``expr``"""
 def common_assumptions(exprs, check=None):
-    """return those assumptions which have the same True or False
+    """Return those assumptions which have the same True or False
     value for all the given expressions.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core import common_assumptions
     >>> from sympy import oo, pi, sqrt
     >>> common_assumptions([-4, 0, sqrt(2), 2, pi, oo])
@@ -48,8 +47,7 @@ def failing_assumptions(expr, **assumptions):
     matching those of the passed assumptions.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import failing_assumptions, Symbol
 
     >>> x = Symbol('x', positive=True)
@@ -79,8 +77,7 @@ def check_assumptions(expr, against=None, **assume):
     *assume* is a dict of assumptions with True or False values
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, pi, I, exp, check_assumptions
     >>> check_assumptions(-5, integer=True)
     True
@@ -118,8 +115,7 @@ def check_assumptions(expr, against=None, **assume):
     >>> check_assumptions(z, real=True)
 
     See Also
-    ========
-
+    --------
     failing_assumptions
 
     """
@@ -129,6 +125,7 @@ class StdFactKB(FactKB):
 
     This is the only kind of FactKB that Basic objects should use.
     """
+
     _generator: Incomplete
     def __init__(self, facts=None) -> None: ...
     def copy(self): ...

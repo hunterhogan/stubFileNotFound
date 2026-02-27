@@ -1,7 +1,7 @@
 from sympy.core.basic import Basic
 from sympy.core.evalf import EvalfMixin
 
-__all__ = ['TransferFunction', 'PIDController', 'Series', 'MIMOSeries', 'Parallel', 'MIMOParallel', 'Feedback', 'MIMOFeedback', 'TransferFunctionMatrix', 'StateSpace', 'gbt', 'bilinear', 'forward_diff', 'backward_diff', 'phase_margin', 'gain_margin']
+__all__ = ['Feedback', 'MIMOFeedback', 'MIMOParallel', 'MIMOSeries', 'PIDController', 'Parallel', 'Series', 'StateSpace', 'TransferFunction', 'TransferFunctionMatrix', 'backward_diff', 'bilinear', 'forward_diff', 'gain_margin', 'gbt', 'phase_margin']
 
 def gbt(tf, sample_per, alpha):
     """
@@ -19,8 +19,7 @@ def gbt(tf, sample_per, alpha):
     as [a, b], [c, d].
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.control.lti import TransferFunction, gbt
     >>> from sympy.abc import s, L, R, T
 
@@ -50,7 +49,7 @@ def gbt(tf, sample_per, alpha):
     [1, (-L + 7*R*T/10)/(L + 3*R*T/10)]
 
     References
-    ==========
+    ----------
 
     .. [1] https://www.polyu.edu.hk/ama/profile/gfzhang/Research/ZCC09_IJC.pdf
     """
@@ -70,8 +69,7 @@ def bilinear(tf, sample_per):
     as [a, b], [c, d].
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.control.lti import TransferFunction, bilinear
     >>> from sympy.abc import s, L, R, T
 
@@ -98,8 +96,7 @@ def forward_diff(tf, sample_per):
     as [a, b], [c, d].
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.control.lti import TransferFunction, forward_diff
     >>> from sympy.abc import s, L, R, T
 
@@ -126,8 +123,7 @@ def backward_diff(tf, sample_per):
     as [a, b], [c, d].
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.control.lti import TransferFunction, backward_diff
     >>> from sympy.abc import s, L, R, T
 
@@ -144,8 +140,7 @@ def phase_margin(system):
     Only applicable to Transfer Functions which can generate valid bode plots.
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         When time delay terms are present in the system.
 
@@ -157,8 +152,7 @@ def phase_margin(system):
         the variable of the Laplace transform.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.control import TransferFunction, phase_margin
     >>> from sympy.abc import s
 
@@ -179,12 +173,11 @@ def phase_margin(system):
     -180
 
     See Also
-    ========
-
+    --------
     gain_margin
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Phase_margin
 
@@ -195,8 +188,7 @@ def gain_margin(system):
     Only applicable to Transfer Functions which can generate valid bode plots.
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         When time delay terms are present in the system.
 
@@ -208,8 +200,7 @@ def gain_margin(system):
         the variable of the Laplace transform.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.control import TransferFunction, gain_margin
     >>> from sympy.abc import s
 
@@ -224,19 +215,18 @@ def gain_margin(system):
     oo
 
     See Also
-    ========
-
+    --------
     phase_margin
 
     References
-    ==========
-
+    ----------
     https://en.wikipedia.org/wiki/Bode_plot
 
     """
 
 class LinearTimeInvariant(Basic, EvalfMixin):
     """A common class for all the Linear Time-Invariant Dynamical Systems."""
+
     _clstype: type
     def __new__(cls, *system, **kwargs): ...
     @classmethod
@@ -247,6 +237,7 @@ class LinearTimeInvariant(Basic, EvalfMixin):
 
 class SISOLinearTimeInvariant(LinearTimeInvariant):
     """A common class for all the SISO Linear Time-Invariant Dynamical Systems."""
+
     @property
     def num_inputs(self):
         """Return the number of inputs for SISOLinearTimeInvariant."""
@@ -257,6 +248,7 @@ class SISOLinearTimeInvariant(LinearTimeInvariant):
 
 class MIMOLinearTimeInvariant(LinearTimeInvariant):
     """A common class for all the MIMO Linear Time-Invariant Dynamical Systems."""
+
     _is_SISO: bool
 
 class TransferFunction(SISOLinearTimeInvariant):
@@ -324,8 +316,7 @@ class TransferFunction(SISOLinearTimeInvariant):
             $H(s) =\\ \\frac{a_{n}s^{n}+a_{n-1}s^{n-1}+\\dots+a_{1}s+a_{0}}{b_{m}s^{m}+b_{m-1}s^{m-1}+\\dots+b_{1}s+b_{0}}$
 
     Parameters
-    ==========
-
+    ----------
     num : Expr, Number
         The numerator polynomial of the transfer function.
     den : Expr, Number
@@ -335,8 +326,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         polynomials of the transfer function.
 
     Raises
-    ======
-
+    ------
     TypeError
         When ``var`` is not a Symbol or when ``num`` or ``den`` is not a
         number or a polynomial.
@@ -344,8 +334,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         When ``den`` is zero.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import s, p, a
     >>> from sympy.physics.control.lti import TransferFunction
     >>> tf1 = TransferFunction(s + a, s**2 + s + 1, s)
@@ -434,17 +423,17 @@ class TransferFunction(SISOLinearTimeInvariant):
     TransferFunction(-(1 - s)*(s + 3)*(s**2 + s + 1)*(4*s**2 + 2*s - 4) + (-p + s)*(s - 1)*(s + 1)*(s**2 + 4), (s - 1)*(s + 3)*(s**2 + 4)*(s**2 + s + 1), s)
 
     See Also
-    ========
-
+    --------
     Feedback, Series, Parallel
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Transfer_function
     .. [2] https://en.wikipedia.org/wiki/Laplace_transform
 
     """
+
     def __new__(cls, num, den, var): ...
     @classmethod
     def from_rational_expression(cls, expr, var=None):
@@ -452,8 +441,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         Creates a new ``TransferFunction`` efficiently from a rational expression.
 
         Parameters
-        ==========
-
+        ----------
         expr : Expr, Number
             The rational expression representing the ``TransferFunction``.
         var : Symbol, optional
@@ -461,8 +449,7 @@ class TransferFunction(SISOLinearTimeInvariant):
             polynomials of the transfer function.
 
         Raises
-        ======
-
+        ------
         ValueError
             When ``expr`` is of type ``Number`` and optional parameter ``var``
             is not passed.
@@ -474,8 +461,7 @@ class TransferFunction(SISOLinearTimeInvariant):
             in its numerator.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a
         >>> from sympy.physics.control.lti import TransferFunction
         >>> expr1 = (s + 5)/(3*s**2 + 2*s + 1)
@@ -514,8 +500,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         Creates a new ``TransferFunction`` efficiently from a list of coefficients.
 
         Parameters
-        ==========
-
+        ----------
         num_list : Sequence
             Sequence comprising of numerator coefficients.
         den_list : Sequence
@@ -525,14 +510,12 @@ class TransferFunction(SISOLinearTimeInvariant):
             polynomials of the transfer function.
 
         Raises
-        ======
-
+        ------
         ZeroDivisionError
             When the constructed denominator is zero.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p
         >>> from sympy.physics.control.lti import TransferFunction
         >>> num = [1, 0, 2]
@@ -552,8 +535,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         Creates a new ``TransferFunction`` from given zeros, poles and gain.
 
         Parameters
-        ==========
-
+        ----------
         zeros : Sequence
             Sequence comprising of zeros of transfer function.
         poles : Sequence
@@ -565,8 +547,7 @@ class TransferFunction(SISOLinearTimeInvariant):
             polynomials of the transfer function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, k
         >>> from sympy.physics.control.lti import TransferFunction
         >>> zeros = [1, 2, 3]
@@ -591,8 +572,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         Returns the numerator polynomial of the transfer function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p
         >>> from sympy.physics.control.lti import TransferFunction
         >>> G1 = TransferFunction(s**2 + p*s + 3, s - 4, s)
@@ -609,8 +589,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         Returns the denominator polynomial of the transfer function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p
         >>> from sympy.physics.control.lti import TransferFunction
         >>> G1 = TransferFunction(s + 4, p**3 - 2*p + 4, s)
@@ -628,8 +607,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         the transfer function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p
         >>> from sympy.physics.control.lti import TransferFunction
         >>> G1 = TransferFunction(p**2 + 2*p + 4, p - 6, p)
@@ -653,8 +631,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         representations of a given transfer function model.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s
         >>> from sympy.physics.control import TransferFunction, StateSpace
         >>> tf = TransferFunction(s**2 + 1, s**3 + 2*s + 10, s)
@@ -674,8 +651,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         in expanded form.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a, b
         >>> from sympy.physics.control.lti import TransferFunction
         >>> G1 = TransferFunction((a - s)**2, (s**2 + a)**2, s)
@@ -693,8 +669,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         The DC gain is infinite for systems with pure integrators.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a, b
         >>> from sympy.physics.control.lti import TransferFunction
         >>> tf1 = TransferFunction(s + 3, s**2 - 9, s)
@@ -716,8 +691,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         Returns the poles of a transfer function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a
         >>> from sympy.physics.control.lti import TransferFunction
         >>> tf1 = TransferFunction((p + 3)*(p - 1), (p - 1)*(p + 5), p)
@@ -736,8 +710,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         Returns the zeros of a transfer function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a
         >>> from sympy.physics.control.lti import TransferFunction
         >>> tf1 = TransferFunction((p + 3)*(p - 1), (p - 1)*(p + 5), p)
@@ -756,8 +729,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         Returns the system response at any point in the real or complex plane.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a
         >>> from sympy.physics.control.lti import TransferFunction
         >>> from sympy import I
@@ -778,8 +750,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         This would not check the marginal or conditional stability of the system.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a
         >>> from sympy import symbols
         >>> from sympy.physics.control.lti import TransferFunction
@@ -815,8 +786,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         or equal to degree of the denominator polynomial, else False.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a, b
         >>> from sympy.physics.control.lti import TransferFunction
         >>> tf1 = TransferFunction(b*s**2 + p**2 - a*p + s, b - p**2, s)
@@ -834,8 +804,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         than degree of the denominator polynomial, else False.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a, b
         >>> from sympy.physics.control.lti import TransferFunction
         >>> tf1 = TransferFunction(a*p**2 + b*s, s - p, s)
@@ -853,8 +822,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         degree of the denominator polynomial, else False.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a, b
         >>> from sympy.physics.control.lti import TransferFunction
         >>> tf1 = TransferFunction(a*p**2 + b*s, s - p, s)
@@ -870,8 +838,7 @@ class TransferFunction(SISOLinearTimeInvariant):
         Converts a ``TransferFunction`` object to SymPy Expr.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a, b
         >>> from sympy.physics.control.lti import TransferFunction
         >>> from sympy import Expr
@@ -902,8 +869,7 @@ class PIDController(TransferFunction):
     the transfer function.
 
     Parameters
-    ==========
-
+    ----------
     kp : Expr, Number
         Proportional gain. Defaults to ``Symbol('kp')`` if not specified.
     ki : Expr, Number
@@ -916,8 +882,7 @@ class PIDController(TransferFunction):
         The complex frequency variable.  Defaults to ``s`` if not specified.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols
     >>> from sympy.physics.control.lti import PIDController
     >>> kp, ki, kd = symbols('kp ki kd')
@@ -940,19 +905,18 @@ class PIDController(TransferFunction):
     (kd*s**2 + ki + kp*s)/s
 
     See Also
-    ========
-
+    --------
     TransferFunction
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/PID_controller
     .. [2] https://in.mathworks.com/help/control/ug/proportional-integral-derivative-pid-controllers.html
 
     """
+
     def __new__(cls, kp=..., ki=..., kd=..., tf: int = 0, var=...): ...
-    def __repr__(self) -> str: ...
     __str__ = __repr__
     @property
     def kp(self):
@@ -984,8 +948,7 @@ class Series(SISOLinearTimeInvariant):
     A class for representing a series configuration of SISO systems.
 
     Parameters
-    ==========
-
+    ----------
     args : SISOLinearTimeInvariant
         SISO systems in a series configuration.
     evaluate : Boolean, Keyword
@@ -993,8 +956,7 @@ class Series(SISOLinearTimeInvariant):
         ``Series(*args).doit()``. Set to ``False`` by default.
 
     Raises
-    ======
-
+    ------
     ValueError
         When no argument is passed.
 
@@ -1007,8 +969,7 @@ class Series(SISOLinearTimeInvariant):
         type of systems passed, SISO in this case.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import s, p, a, b
     >>> from sympy import Matrix
     >>> from sympy.physics.control.lti import TransferFunction, Series, Parallel, StateSpace
@@ -1063,19 +1024,17 @@ class Series(SISOLinearTimeInvariant):
     [1]]), Matrix([[0, 1]]), Matrix([[0]]))
 
     Notes
-    =====
-
+    -----
     All the transfer functions should use the same complex variable
     ``var`` of the Laplace transform.
 
     See Also
-    ========
-
+    --------
     MIMOSeries, Parallel, TransferFunction, Feedback
 
     """
+
     def __new__(cls, *args, evaluate: bool = False): ...
-    def __repr__(self) -> str: ...
     __str__ = __repr__
     @property
     def var(self):
@@ -1083,8 +1042,7 @@ class Series(SISOLinearTimeInvariant):
         Returns the complex variable used by all the transfer functions.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import p
         >>> from sympy.physics.control.lti import TransferFunction, Series, Parallel
         >>> G1 = TransferFunction(p**2 + 2*p + 4, p - 6, p)
@@ -1102,8 +1060,7 @@ class Series(SISOLinearTimeInvariant):
         the series interconnection.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a, b
         >>> from sympy.physics.control.lti import TransferFunction, Series
         >>> tf1 = TransferFunction(a*p**2 + b*s, s - p, s)
@@ -1114,8 +1071,7 @@ class Series(SISOLinearTimeInvariant):
         TransferFunction((2 - s**3)*(-a*p**2 - b*s), (-p + s)*(s**4 + 5*s + 6), s)
 
         Notes
-        =====
-
+        -----
         If a series connection contains only TransferFunction components, the equivalent system returned
         will be a TransferFunction. However, if a StateSpace object is used in any of the arguments,
         the output will be a StateSpace object.
@@ -1142,8 +1098,7 @@ class Series(SISOLinearTimeInvariant):
         the same, else False.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a, b
         >>> from sympy.physics.control.lti import TransferFunction, Series
         >>> tf1 = TransferFunction(b*s**2 + p**2 - a*p + s, b - p**2, s)
@@ -1165,8 +1120,7 @@ class Series(SISOLinearTimeInvariant):
         the same, else False.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a, b
         >>> from sympy.physics.control.lti import TransferFunction, Series
         >>> tf1 = TransferFunction(a*p**2 + b*s, s - p, s)
@@ -1188,8 +1142,7 @@ class Series(SISOLinearTimeInvariant):
         the same, else False.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a, b
         >>> from sympy.physics.control.lti import TransferFunction, Series
         >>> tf1 = TransferFunction(a*p**2 + b*s, s - p, s)
@@ -1211,8 +1164,7 @@ class MIMOSeries(MIMOLinearTimeInvariant):
     A class for representing a series configuration of MIMO systems.
 
     Parameters
-    ==========
-
+    ----------
     args : MIMOLinearTimeInvariant
         MIMO systems in a series configuration.
     evaluate : Boolean, Keyword
@@ -1220,8 +1172,7 @@ class MIMOSeries(MIMOLinearTimeInvariant):
         ``MIMOSeries(*args).doit()``. Set to ``False`` by default.
 
     Raises
-    ======
-
+    ------
     ValueError
         When no argument is passed.
 
@@ -1238,8 +1189,7 @@ class MIMOSeries(MIMOLinearTimeInvariant):
         type of systems passed, MIMO in this case.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import s
     >>> from sympy.physics.control.lti import MIMOSeries, TransferFunctionMatrix, StateSpace
     >>> from sympy import Matrix, pprint
@@ -1322,18 +1272,17 @@ class MIMOSeries(MIMOLinearTimeInvariant):
     [ 1, -1]]))
 
     Notes
-    =====
-
+    -----
     All the transfer function matrices should use the same complex variable ``var`` of the Laplace transform.
 
     ``MIMOSeries(A, B)`` is not equivalent to ``A*B``. It is always in the reverse order, that is ``B*A``.
 
     See Also
-    ========
-
+    --------
     Series, MIMOParallel
 
     """
+
     def __new__(cls, *args, evaluate: bool = False): ...
     @property
     def var(self):
@@ -1341,8 +1290,7 @@ class MIMOSeries(MIMOLinearTimeInvariant):
         Returns the complex variable used by all the transfer functions.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import p
         >>> from sympy.physics.control.lti import TransferFunction, MIMOSeries, TransferFunctionMatrix
         >>> G1 = TransferFunction(p**2 + 2*p + 4, p - 6, p)
@@ -1372,8 +1320,7 @@ class MIMOSeries(MIMOLinearTimeInvariant):
         and for StateSpace systems it returns the resultant StateSpace system.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a, b
         >>> from sympy.physics.control.lti import TransferFunction, MIMOSeries, TransferFunctionMatrix
         >>> tf1 = TransferFunction(a*p**2 + b*s, s - p, s)
@@ -1400,8 +1347,7 @@ class Parallel(SISOLinearTimeInvariant):
     A class for representing a parallel configuration of SISO systems.
 
     Parameters
-    ==========
-
+    ----------
     args : SISOLinearTimeInvariant
         SISO systems in a parallel arrangement.
     evaluate : Boolean, Keyword
@@ -1409,8 +1355,7 @@ class Parallel(SISOLinearTimeInvariant):
         ``Parallel(*args).doit()``. Set to ``False`` by default.
 
     Raises
-    ======
-
+    ------
     ValueError
         When no argument is passed.
 
@@ -1423,8 +1368,7 @@ class Parallel(SISOLinearTimeInvariant):
         type of systems passed.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> from sympy.abc import s, p, a, b
     >>> from sympy.physics.control.lti import TransferFunction, Parallel, Series, StateSpace
@@ -1482,19 +1426,17 @@ class Parallel(SISOLinearTimeInvariant):
     TransferFunction(s*(s + 1) + 1, s*(s + 1), s)
 
     Notes
-    =====
-
+    -----
     All the transfer functions should use the same complex variable
     ``var`` of the Laplace transform.
 
     See Also
-    ========
-
+    --------
     Series, TransferFunction, Feedback
 
     """
+
     def __new__(cls, *args, evaluate: bool = False): ...
-    def __repr__(self) -> str: ...
     __str__ = __repr__
     @property
     def var(self):
@@ -1502,8 +1444,7 @@ class Parallel(SISOLinearTimeInvariant):
         Returns the complex variable used by all the transfer functions.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import p
         >>> from sympy.physics.control.lti import TransferFunction, Parallel, Series
         >>> G1 = TransferFunction(p**2 + 2*p + 4, p - 6, p)
@@ -1521,8 +1462,7 @@ class Parallel(SISOLinearTimeInvariant):
         parallel connection of transfer functions or state space objects.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a, b
         >>> from sympy.physics.control.lti import TransferFunction, Parallel
         >>> tf1 = TransferFunction(a*p**2 + b*s, s - p, s)
@@ -1553,8 +1493,7 @@ class Parallel(SISOLinearTimeInvariant):
         the same, else False.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a, b
         >>> from sympy.physics.control.lti import TransferFunction, Parallel
         >>> tf1 = TransferFunction(b*s**2 + p**2 - a*p + s, b - p**2, s)
@@ -1576,8 +1515,7 @@ class Parallel(SISOLinearTimeInvariant):
         the same, else False.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a, b
         >>> from sympy.physics.control.lti import TransferFunction, Parallel
         >>> tf1 = TransferFunction(a*p**2 + b*s, s - p, s)
@@ -1599,8 +1537,7 @@ class Parallel(SISOLinearTimeInvariant):
         the same, else False.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a, b
         >>> from sympy.physics.control.lti import TransferFunction, Parallel
         >>> tf1 = TransferFunction(a*p**2 + b*s, s - p, s)
@@ -1622,8 +1559,7 @@ class MIMOParallel(MIMOLinearTimeInvariant):
     A class for representing a parallel configuration of MIMO systems.
 
     Parameters
-    ==========
-
+    ----------
     args : MIMOLinearTimeInvariant
         MIMO Systems in a parallel arrangement.
     evaluate : Boolean, Keyword
@@ -1631,8 +1567,7 @@ class MIMOParallel(MIMOLinearTimeInvariant):
         ``MIMOParallel(*args).doit()``. Set to ``False`` by default.
 
     Raises
-    ======
-
+    ------
     ValueError
         When no argument is passed.
 
@@ -1647,8 +1582,7 @@ class MIMOParallel(MIMOLinearTimeInvariant):
         type of systems passed, MIMO in this case.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import s
     >>> from sympy.physics.control.lti import TransferFunctionMatrix, MIMOParallel, StateSpace
     >>> from sympy import Matrix, pprint
@@ -1740,17 +1674,16 @@ class MIMOParallel(MIMOLinearTimeInvariant):
     [1, 0]]))
 
     Notes
-    =====
-
+    -----
     All the transfer function matrices should use the same complex variable
     ``var`` of the Laplace transform.
 
     See Also
-    ========
-
+    --------
     Parallel, MIMOSeries
 
     """
+
     def __new__(cls, *args, evaluate: bool = False): ...
     @property
     def var(self):
@@ -1758,8 +1691,7 @@ class MIMOParallel(MIMOLinearTimeInvariant):
         Returns the complex variable used by all the systems.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import p
         >>> from sympy.physics.control.lti import TransferFunction, TransferFunctionMatrix, MIMOParallel
         >>> G1 = TransferFunction(p**2 + 2*p + 4, p - 6, p)
@@ -1789,8 +1721,7 @@ class MIMOParallel(MIMOLinearTimeInvariant):
         the MIMO systems arranged in a parallel configuration.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p, a, b
         >>> from sympy.physics.control.lti import TransferFunction, MIMOParallel, TransferFunctionMatrix
         >>> tf1 = TransferFunction(a*p**2 + b*s, s - p, s)
@@ -1824,8 +1755,7 @@ class Feedback(SISOLinearTimeInvariant):
     can either be ``Series``, ``StateSpace`` or ``TransferFunction`` objects.
 
     Parameters
-    ==========
-
+    ----------
     sys1 : Series, StateSpace, TransferFunction
         The feedforward path system.
     sys2 : Series, StateSpace, TransferFunction, optional
@@ -1840,8 +1770,7 @@ class Feedback(SISOLinearTimeInvariant):
         Default value is `-1`.
 
     Raises
-    ======
-
+    ------
     ValueError
         When ``sys1`` and ``sys2`` are not using the
         same complex variable of the Laplace transform.
@@ -1854,8 +1783,7 @@ class Feedback(SISOLinearTimeInvariant):
         ``TransferFunction`` object.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> from sympy.abc import s
     >>> from sympy.physics.control.lti import StateSpace, TransferFunction, Feedback
@@ -1925,13 +1853,12 @@ class Feedback(SISOLinearTimeInvariant):
     TransferFunction(s, s + 2, s)
 
     See Also
-    ========
-
+    --------
     MIMOFeedback, Series, Parallel
 
     """
+
     def __new__(cls, sys1, sys2=None, sign: int = -1): ...
-    def __repr__(self) -> str: ...
     __str__ = __repr__
     @property
     def sys1(self):
@@ -1939,8 +1866,7 @@ class Feedback(SISOLinearTimeInvariant):
         Returns the feedforward system of the feedback interconnection.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p
         >>> from sympy.physics.control.lti import TransferFunction, Feedback
         >>> plant = TransferFunction(3*s**2 + 7*s - 3, s**2 - 4*s + 2, s)
@@ -1962,8 +1888,7 @@ class Feedback(SISOLinearTimeInvariant):
         Returns the feedback controller of the feedback interconnection.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p
         >>> from sympy.physics.control.lti import TransferFunction, Feedback
         >>> plant = TransferFunction(3*s**2 + 7*s - 3, s**2 - 4*s + 2, s)
@@ -1986,8 +1911,7 @@ class Feedback(SISOLinearTimeInvariant):
         the transfer functions involved in the feedback interconnection.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p
         >>> from sympy.physics.control.lti import TransferFunction, Feedback
         >>> plant = TransferFunction(3*s**2 + 7*s - 3, s**2 - 4*s + 2, s)
@@ -2033,8 +1957,7 @@ class Feedback(SISOLinearTimeInvariant):
             sensitivity function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import p
         >>> from sympy.physics.control.lti import TransferFunction, Feedback
         >>> C = TransferFunction(5*p + 10, p + 10, p)
@@ -2050,8 +1973,7 @@ class Feedback(SISOLinearTimeInvariant):
         feedback connection of transfer functions or state space objects.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s
         >>> from sympy import Matrix
         >>> from sympy.physics.control.lti import TransferFunction, Feedback, StateSpace
@@ -2104,8 +2026,7 @@ class Feedback(SISOLinearTimeInvariant):
         Converts a ``Feedback`` object to SymPy Expr.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, a, b
         >>> from sympy.physics.control.lti import TransferFunction, Feedback
         >>> from sympy import Expr
@@ -2125,8 +2046,7 @@ class MIMOFeedback(MIMOLinearTimeInvariant):
     MIMO input/output systems.
 
     Parameters
-    ==========
-
+    ----------
     sys1 : MIMOSeries, TransferFunctionMatrix, StateSpace
         The MIMO system placed on the feedforward path.
     sys2 : MIMOSeries, TransferFunctionMatrix, StateSpace
@@ -2138,8 +2058,7 @@ class MIMOFeedback(MIMOLinearTimeInvariant):
         Default value is `-1`.
 
     Raises
-    ======
-
+    ------
     ValueError
         When ``sys1`` and ``sys2`` are not using the
         same complex variable of the Laplace transform.
@@ -2156,8 +2075,7 @@ class MIMOFeedback(MIMOLinearTimeInvariant):
         ``TransferFunctionMatrix`` or a ``StateSpace`` object.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, pprint
     >>> from sympy.abc import s
     >>> from sympy.physics.control.lti import StateSpace, TransferFunctionMatrix, MIMOFeedback
@@ -2252,11 +2170,11 @@ class MIMOFeedback(MIMOLinearTimeInvariant):
     [ 1/8,  9/8]]))
 
     See Also
-    ========
-
+    --------
     Feedback, MIMOSeries, MIMOParallel
 
     """
+
     def __new__(cls, sys1, sys2, sign: int = -1): ...
     @property
     def sys1(self):
@@ -2264,8 +2182,7 @@ class MIMOFeedback(MIMOLinearTimeInvariant):
         Returns the system placed on the feedforward path of the MIMO feedback interconnection.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import pprint
         >>> from sympy.abc import s
         >>> from sympy.physics.control.lti import TransferFunction, TransferFunctionMatrix, MIMOFeedback
@@ -2297,8 +2214,7 @@ class MIMOFeedback(MIMOLinearTimeInvariant):
         Returns the feedback controller of the MIMO feedback interconnection.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import pprint
         >>> from sympy.abc import s
         >>> from sympy.physics.control.lti import TransferFunction, TransferFunctionMatrix, MIMOFeedback
@@ -2329,8 +2245,7 @@ class MIMOFeedback(MIMOLinearTimeInvariant):
         the transfer functions involved in the MIMO feedback loop.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import p
         >>> from sympy.physics.control.lti import TransferFunction, TransferFunctionMatrix, MIMOFeedback
         >>> tf1 = TransferFunction(p, 1 - p, p)
@@ -2362,8 +2277,7 @@ class MIMOFeedback(MIMOLinearTimeInvariant):
             sensitivity function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import pprint
         >>> from sympy.abc import p
         >>> from sympy.physics.control.lti import TransferFunction, TransferFunctionMatrix, MIMOFeedback
@@ -2412,8 +2326,7 @@ class MIMOFeedback(MIMOLinearTimeInvariant):
         feedback interconnection.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import pprint
         >>> from sympy.abc import s
         >>> from sympy.physics.control.lti import TransferFunction, TransferFunctionMatrix, MIMOFeedback
@@ -2485,14 +2398,13 @@ class TransferFunctionMatrix(MIMOLinearTimeInvariant):
     which holds the transfer functions or reducible to transfer functions.
 
     Parameters
-    ==========
-
+    ----------
     arg : Nested ``List`` (strictly).
         Users are expected to input a nested list of ``TransferFunction``, ``Series``
         and/or ``Parallel`` objects.
 
     Examples
-    ========
+    --------
 
     .. note::
         ``pprint()`` can be used for better visualization of ``TransferFunctionMatrix`` objects.
@@ -2824,11 +2736,11 @@ class TransferFunctionMatrix(MIMOLinearTimeInvariant):
     TransferFunctionMatrix(((TransferFunction(3*(-3*a + 3*p)*(p + s)*(s + 2)*(s**2 + s + 1)**2 + 3*(-3*a - 3*s)*(p + s)*(s + 2)*(9*s - 9)*(s**2 + s + 1) + 3*(a + s)*(s + 2)**2*(9*s - 9)*(-p**4 + 3*p - 2)*(s**2 + s + 1), (p + s)*(s + 2)**3*(9*s - 9)*(s**2 + s + 1)**2, s),), (TransferFunction(3*(-a + p)*(p + s)*(s + 2)**2*(-p**4 + 3*p - 2)*(s**2 + s + 1) + 3*(3*a + 3*s)*(p + s)**2*(s + 2)*(9*s - 9) + 3*(p + s)*(s + 2)*(9*s - 9)*(-3*p**4 + 9*p - 6)*(s**2 + s + 1), (p + s)**2*(s + 2)**3*(9*s - 9)*(s**2 + s + 1), s),)))
 
     See Also
-    ========
-
+    --------
     TransferFunction, MIMOSeries, MIMOParallel, Feedback
 
     """
+
     def __new__(cls, arg): ...
     @classmethod
     def from_Matrix(cls, matrix, var):
@@ -2836,16 +2748,14 @@ class TransferFunctionMatrix(MIMOLinearTimeInvariant):
         Creates a new ``TransferFunctionMatrix`` efficiently from a SymPy Matrix of ``Expr`` objects.
 
         Parameters
-        ==========
-
+        ----------
         matrix : ``ImmutableMatrix`` having ``Expr``/``Number`` elements.
         var : Symbol
             Complex variable of the Laplace transform which will be used by the
             all the ``TransferFunction`` objects in the ``TransferFunctionMatrix``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s
         >>> from sympy.physics.control.lti import TransferFunctionMatrix
         >>> from sympy import Matrix, pprint
@@ -2872,8 +2782,7 @@ class TransferFunctionMatrix(MIMOLinearTimeInvariant):
         ``Series``/``Parallel`` objects in a transfer function matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import p, s
         >>> from sympy.physics.control.lti import TransferFunction, TransferFunctionMatrix, Series, Parallel
         >>> G1 = TransferFunction(p**2 + 2*p + 4, p - 6, p)
@@ -2899,8 +2808,7 @@ class TransferFunctionMatrix(MIMOLinearTimeInvariant):
         Returns the number of inputs of the system.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p
         >>> from sympy.physics.control.lti import TransferFunction, TransferFunctionMatrix
         >>> G1 = TransferFunction(s + 3, s**2 - 3, s)
@@ -2911,8 +2819,7 @@ class TransferFunctionMatrix(MIMOLinearTimeInvariant):
         3
 
         See Also
-        ========
-
+        --------
         num_outputs
 
         """
@@ -2922,8 +2829,7 @@ class TransferFunctionMatrix(MIMOLinearTimeInvariant):
         Returns the number of outputs of the system.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s
         >>> from sympy.physics.control.lti import TransferFunctionMatrix
         >>> from sympy import Matrix
@@ -2935,8 +2841,7 @@ class TransferFunctionMatrix(MIMOLinearTimeInvariant):
         2
 
         See Also
-        ========
-
+        --------
         num_inputs
 
         """
@@ -2946,8 +2851,7 @@ class TransferFunctionMatrix(MIMOLinearTimeInvariant):
         Returns the shape of the transfer function matrix, that is, ``(# of outputs, # of inputs)``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s, p
         >>> from sympy.physics.control.lti import TransferFunction, TransferFunctionMatrix
         >>> tf1 = TransferFunction(p**2 - 1, s**4 + s**3 - p, p)
@@ -2979,8 +2883,7 @@ class TransferFunctionMatrix(MIMOLinearTimeInvariant):
             Actual poles of a MIMO system are NOT the poles of individual elements.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s
         >>> from sympy.physics.control.lti import TransferFunction, TransferFunctionMatrix
         >>> tf_1 = TransferFunction(3, (s + 1), s)
@@ -2994,8 +2897,7 @@ class TransferFunctionMatrix(MIMOLinearTimeInvariant):
         [[[-1], [-2, -1]], [[-2, -1], [-5/2 + sqrt(65)/2, -sqrt(65)/2 - 5/2]]]
 
         See Also
-        ========
-
+        --------
         elem_zeros
 
         """
@@ -3007,8 +2909,7 @@ class TransferFunctionMatrix(MIMOLinearTimeInvariant):
             Actual zeros of a MIMO system are NOT the zeros of individual elements.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s
         >>> from sympy.physics.control.lti import TransferFunction, TransferFunctionMatrix
         >>> tf_1 = TransferFunction(3, (s + 1), s)
@@ -3022,8 +2923,7 @@ class TransferFunctionMatrix(MIMOLinearTimeInvariant):
         [[[], [-6]], [[-3], [4, 5]]]
 
         See Also
-        ========
-
+        --------
         elem_poles
 
         """
@@ -3032,8 +2932,7 @@ class TransferFunctionMatrix(MIMOLinearTimeInvariant):
         Evaluates system response of each transfer function in the ``TransferFunctionMatrix`` at any point in the real or complex plane.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import s
         >>> from sympy.physics.control.lti import TransferFunction, TransferFunctionMatrix
         >>> from sympy import I
@@ -3075,8 +2974,7 @@ class StateSpace(LinearTimeInvariant):
     where u(t) is any input signal, y(t) the corresponding output, and x(t) the system's state.
 
     Parameters
-    ==========
-
+    ----------
     A : Matrix
         The State matrix of the state space model.
     B : Matrix
@@ -3087,8 +2985,7 @@ class StateSpace(LinearTimeInvariant):
         The Feedthrough matrix of the state space model.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> from sympy.physics.control import StateSpace
 
@@ -3115,17 +3012,17 @@ class StateSpace(LinearTimeInvariant):
     [1]]), Matrix([[0, 0]]), Matrix([[0]]))
 
     See Also
-    ========
-
+    --------
     TransferFunction, TransferFunctionMatrix
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/State-space_representation
     .. [2] https://in.mathworks.com/help/control/ref/ss.html
 
     """
+
     def __new__(cls, A=None, B=None, C=None, D=None): ...
     @property
     def state_matrix(self):
@@ -3133,8 +3030,7 @@ class StateSpace(LinearTimeInvariant):
         Returns the state matrix of the model.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A = Matrix([[1, 2], [1, 0]])
@@ -3154,8 +3050,7 @@ class StateSpace(LinearTimeInvariant):
         Returns the input matrix of the model.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A = Matrix([[1, 2], [1, 0]])
@@ -3175,8 +3070,7 @@ class StateSpace(LinearTimeInvariant):
         Returns the output matrix of the model.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A = Matrix([[1, 2], [1, 0]])
@@ -3194,8 +3088,7 @@ class StateSpace(LinearTimeInvariant):
         Returns the feedforward matrix of the model.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A = Matrix([[1, 2], [1, 0]])
@@ -3217,8 +3110,7 @@ class StateSpace(LinearTimeInvariant):
         Returns the number of states of the model.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A = Matrix([[1, 2], [1, 0]])
@@ -3236,8 +3128,7 @@ class StateSpace(LinearTimeInvariant):
         Returns the number of inputs of the model.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A = Matrix([[1, 2], [1, 0]])
@@ -3255,8 +3146,7 @@ class StateSpace(LinearTimeInvariant):
         Returns the number of outputs of the model.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A = Matrix([[1, 2], [1, 0]])
@@ -3278,8 +3168,7 @@ class StateSpace(LinearTimeInvariant):
             y(t)  = C * x(t) + D * u(t)
 
         Parameters
-        ============
-
+        ----------
         initial_conditions : Matrix
             The initial conditions of `x` state vector. If not provided, it defaults to a zero vector.
         input_vector : Matrix
@@ -3288,8 +3177,7 @@ class StateSpace(LinearTimeInvariant):
             The symbol representing time. If not provided, it defaults to `t`.
 
         Examples
-        ==========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A = Matrix([[-2, 0], [1, -1]])
@@ -3307,7 +3195,7 @@ class StateSpace(LinearTimeInvariant):
         Matrix([[0]])
 
         References
-        ==========
+        ----------
         .. [1] https://web.mit.edu/2.14/www/Handouts/StateSpaceResponse.pdf
         .. [2] https://docs.sympy.org/latest/modules/solvers/ode.html#sympy.solvers.ode.systems.linodesolve
 
@@ -3321,8 +3209,7 @@ class StateSpace(LinearTimeInvariant):
         Returns the equivalent Transfer Function of the state space model.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import TransferFunction, StateSpace
         >>> A = Matrix([[-5, -1], [3, -1]])
@@ -3339,8 +3226,7 @@ class StateSpace(LinearTimeInvariant):
         Add two State Space systems (parallel connection).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A1 = Matrix([[1]])
@@ -3366,8 +3252,7 @@ class StateSpace(LinearTimeInvariant):
         Right add two State Space systems.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.control import StateSpace
         >>> s = StateSpace()
         >>> 5 + s
@@ -3379,8 +3264,7 @@ class StateSpace(LinearTimeInvariant):
         Subtract two State Space systems.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A1 = Matrix([[1]])
@@ -3406,8 +3290,7 @@ class StateSpace(LinearTimeInvariant):
         Right subtract two tate Space systems.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.control import StateSpace
         >>> s = StateSpace()
         >>> 5 - s
@@ -3419,8 +3302,7 @@ class StateSpace(LinearTimeInvariant):
         Returns the negation of the state space model.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A = Matrix([[-5, -1], [3, -1]])
@@ -3441,8 +3323,7 @@ class StateSpace(LinearTimeInvariant):
         Multiplication of two State Space systems (serial connection).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A = Matrix([[-5, -1], [3, -1]])
@@ -3463,8 +3344,7 @@ class StateSpace(LinearTimeInvariant):
         Right multiply two tate Space systems.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A = Matrix([[-5, -1], [3, -1]])
@@ -3480,14 +3360,12 @@ class StateSpace(LinearTimeInvariant):
         [25]]), Matrix([[1, 2]]), Matrix([[0]]))
 
         """
-    def __repr__(self) -> str: ...
     def append(self, other):
         """
         Returns the first model appended with the second model. The order is preserved.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A1 = Matrix([[1]])
@@ -3518,8 +3396,7 @@ class StateSpace(LinearTimeInvariant):
             [C, C * A^1, C * A^2, .. , C * A^(n-1)]; A in R^(n x n), C in R^(m x k)
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A = Matrix([[-1.5, -2], [1, 0]])
@@ -3534,7 +3411,7 @@ class StateSpace(LinearTimeInvariant):
         [1, 0]])
 
         References
-        ==========
+        ----------
         .. [1] https://in.mathworks.com/help/control/ref/statespacemodel.obsv.html
 
         """
@@ -3543,8 +3420,7 @@ class StateSpace(LinearTimeInvariant):
         Returns the observable subspace of the state space model.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A = Matrix([[-1.5, -2], [1, 0]])
@@ -3566,8 +3442,7 @@ class StateSpace(LinearTimeInvariant):
         Returns if the state space model is observable.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A = Matrix([[-1.5, -2], [1, 0]])
@@ -3585,8 +3460,7 @@ class StateSpace(LinearTimeInvariant):
             [B, A * B, A^2 * B, .. , A^(n-1) * B]; A in R^(n x n), B in R^(n x m)
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A = Matrix([[-1.5, -2], [1, 0]])
@@ -3600,7 +3474,7 @@ class StateSpace(LinearTimeInvariant):
         [  0,   0.5]])
 
         References
-        ==========
+        ----------
         .. [1] https://in.mathworks.com/help/control/ref/statespacemodel.ctrb.html
 
         """
@@ -3609,8 +3483,7 @@ class StateSpace(LinearTimeInvariant):
         Returns the controllable subspace of the state space model.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A = Matrix([[-1.5, -2], [1, 0]])
@@ -3632,8 +3505,7 @@ class StateSpace(LinearTimeInvariant):
         Returns if the state space model is controllable.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Matrix
         >>> from sympy.physics.control import StateSpace
         >>> A = Matrix([[-1.5, -2], [1, 0]])

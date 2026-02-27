@@ -1,21 +1,31 @@
-import typing
 from _typeshed import Incomplete
 from sympy.assumptions.ask import Q as Q
 from sympy.assumptions.assume import AppliedPredicate as AppliedPredicate
 from sympy.assumptions.relation.binrel import AppliedBinaryRelation as AppliedBinaryRelation
-from sympy.assumptions.relation.equality import EqualityPredicate as EqualityPredicate, GreaterThanPredicate as GreaterThanPredicate, LessThanPredicate as LessThanPredicate, StrictGreaterThanPredicate as StrictGreaterThanPredicate, StrictLessThanPredicate as StrictLessThanPredicate
-from sympy.core import Add as Add, Basic as Basic, Expr as Expr, Float as Float, Integer as Integer, Mul as Mul, Rational as Rational, Symbol as Symbol
+from sympy.assumptions.relation.equality import (
+	EqualityPredicate as EqualityPredicate, GreaterThanPredicate as GreaterThanPredicate,
+	LessThanPredicate as LessThanPredicate, StrictGreaterThanPredicate as StrictGreaterThanPredicate,
+	StrictLessThanPredicate as StrictLessThanPredicate)
+from sympy.core import (
+	Add as Add, Basic as Basic, Expr as Expr, Float as Float, Integer as Integer, Mul as Mul, Rational as Rational,
+	Symbol as Symbol)
 from sympy.core.function import Function as Function, UndefinedFunction as UndefinedFunction
-from sympy.core.relational import Equality as Equality, GreaterThan as GreaterThan, LessThan as LessThan, Relational as Relational, StrictGreaterThan as StrictGreaterThan, StrictLessThan as StrictLessThan, Unequality as Unequality
+from sympy.core.relational import (
+	Equality as Equality, GreaterThan as GreaterThan, LessThan as LessThan, Relational as Relational,
+	StrictGreaterThan as StrictGreaterThan, StrictLessThan as StrictLessThan, Unequality as Unequality)
 from sympy.functions.elementary.complexes import Abs as Abs
-from sympy.functions.elementary.exponential import Pow as Pow, exp as exp, log as log
+from sympy.functions.elementary.exponential import exp as exp, log as log, Pow as Pow
 from sympy.functions.elementary.hyperbolic import cosh as cosh, sinh as sinh, tanh as tanh
 from sympy.functions.elementary.miscellaneous import Max as Max, Min as Min
 from sympy.functions.elementary.piecewise import Piecewise as Piecewise
-from sympy.functions.elementary.trigonometric import acos as acos, asin as asin, atan as atan, atan2 as atan2, cos as cos, sin as sin, tan as tan
-from sympy.logic.boolalg import And as And, Boolean as Boolean, BooleanFalse as BooleanFalse, BooleanFunction as BooleanFunction, BooleanTrue as BooleanTrue, ITE as ITE, Implies as Implies, Not as Not, Or as Or, Xor as Xor
+from sympy.functions.elementary.trigonometric import (
+	acos as acos, asin as asin, atan as atan, atan2 as atan2, cos as cos, sin as sin, tan as tan)
+from sympy.logic.boolalg import (
+	And as And, Boolean as Boolean, BooleanFalse as BooleanFalse, BooleanFunction as BooleanFunction,
+	BooleanTrue as BooleanTrue, Implies as Implies, ITE as ITE, Not as Not, Or as Or, Xor as Xor)
 from sympy.printing.printer import Printer as Printer
 from sympy.sets import Interval as Interval
+import typing
 
 class SMTLibPrinter(Printer):
     printmethod: str
@@ -51,11 +61,10 @@ class SMTLibPrinter(Printer):
     def emptyPrinter(self, expr) -> None: ...
 
 def smtlib_code(expr, auto_assert: bool = True, auto_declare: bool = True, precision=None, symbol_table=None, known_types=None, known_constants=None, known_functions=None, prefix_expressions=None, suffix_expressions=None, log_warn=None):
-    '''Converts ``expr`` to a string of smtlib code.
+    """Converts ``expr`` to a string of smtlib code.
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr | List[Expr]
         A SymPy expression or system to be converted.
     auto_assert : bool, optional
@@ -88,7 +97,7 @@ def smtlib_code(expr, auto_assert: bool = True, auto_declare: bool = True, preci
         Soundness is a core value in SMT solving, so it is good to log all assumptions made.
 
     Examples
-    ========
+    --------
     >>> from sympy import smtlib_code, symbols, sin, Eq
     >>> x = symbols(\'x\')
     >>> smtlib_code(sin(x).series(x).removeO(), log_warn=print)
@@ -130,7 +139,7 @@ def smtlib_code(expr, auto_assert: bool = True, auto_declare: bool = True, preci
     >>> smtlib_code(f(x) + g(x), symbol_table=user_def_funcs, known_functions=smt_builtin_funcs, log_warn=print)
     Non-Boolean expression `f(x) + g(x)` will not be asserted. Converting to SMTLib verbatim.
     \'(declare-const x Int)\\n(declare-fun g (Int) Real)\\n(sum (existing_smtlib_fcn x) (g x))\'
-    '''
+    """
 def _auto_declare_smtlib(sym: Symbol | Function, p: SMTLibPrinter, log_warn: typing.Callable[[str], None]): ...
 def _auto_assert_smtlib(e: Expr, p: SMTLibPrinter, log_warn: typing.Callable[[str], None]): ...
 def _auto_infer_smtlib_types(*exprs: Basic, symbol_table: dict | None = None) -> dict: ...

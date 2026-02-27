@@ -1,31 +1,40 @@
-import sys
 from _typeshed import MaybeNone, ReadableBuffer, StrOrBytesPath
 from collections.abc import Callable, Collection, Iterable, Mapping, Sequence
 from types import GenericAlias, TracebackType
-from typing import IO, Any, AnyStr, Final, Generic, Literal, TypeVar, overload
-from typing_extensions import Self, TypeAlias
+from typing import Any, AnyStr, Final, Generic, IO, Literal, overload, Self, TypeAlias, TypeVar
+import sys
 
 __all__ = [
-    "Popen",
+    "DEVNULL",
     "PIPE",
     "STDOUT",
-    "call",
-    "check_call",
-    "getstatusoutput",
-    "getoutput",
-    "check_output",
-    "run",
     "CalledProcessError",
-    "DEVNULL",
+    "CompletedProcess",
+    "Popen",
     "SubprocessError",
     "TimeoutExpired",
-    "CompletedProcess",
+    "call",
+    "check_call",
+    "check_output",
+    "getoutput",
+    "getstatusoutput",
+    "run",
 ]
 
 if sys.platform == "win32":
     __all__ += [
+        "ABOVE_NORMAL_PRIORITY_CLASS",
+        "BELOW_NORMAL_PRIORITY_CLASS",
+        "CREATE_BREAKAWAY_FROM_JOB",
+        "CREATE_DEFAULT_ERROR_MODE",
         "CREATE_NEW_CONSOLE",
         "CREATE_NEW_PROCESS_GROUP",
+        "CREATE_NO_WINDOW",
+        "DETACHED_PROCESS",
+        "HIGH_PRIORITY_CLASS",
+        "IDLE_PRIORITY_CLASS",
+        "NORMAL_PRIORITY_CLASS",
+        "REALTIME_PRIORITY_CLASS",
         "STARTF_USESHOWWINDOW",
         "STARTF_USESTDHANDLES",
         "STARTUPINFO",
@@ -33,16 +42,6 @@ if sys.platform == "win32":
         "STD_INPUT_HANDLE",
         "STD_OUTPUT_HANDLE",
         "SW_HIDE",
-        "ABOVE_NORMAL_PRIORITY_CLASS",
-        "BELOW_NORMAL_PRIORITY_CLASS",
-        "CREATE_BREAKAWAY_FROM_JOB",
-        "CREATE_DEFAULT_ERROR_MODE",
-        "CREATE_NO_WINDOW",
-        "DETACHED_PROCESS",
-        "HIGH_PRIORITY_CLASS",
-        "IDLE_PRIORITY_CLASS",
-        "NORMAL_PRIORITY_CLASS",
-        "REALTIME_PRIORITY_CLASS",
     ]
 
 # We prefer to annotate inputs to methods (eg subprocess.check_call) with these
@@ -2071,22 +2070,12 @@ if sys.platform == "win32":
         def copy(self) -> STARTUPINFO: ...
 
     from _winapi import (
-        ABOVE_NORMAL_PRIORITY_CLASS as ABOVE_NORMAL_PRIORITY_CLASS,
-        BELOW_NORMAL_PRIORITY_CLASS as BELOW_NORMAL_PRIORITY_CLASS,
-        CREATE_BREAKAWAY_FROM_JOB as CREATE_BREAKAWAY_FROM_JOB,
-        CREATE_DEFAULT_ERROR_MODE as CREATE_DEFAULT_ERROR_MODE,
-        CREATE_NEW_CONSOLE as CREATE_NEW_CONSOLE,
-        CREATE_NEW_PROCESS_GROUP as CREATE_NEW_PROCESS_GROUP,
-        CREATE_NO_WINDOW as CREATE_NO_WINDOW,
-        DETACHED_PROCESS as DETACHED_PROCESS,
-        HIGH_PRIORITY_CLASS as HIGH_PRIORITY_CLASS,
-        IDLE_PRIORITY_CLASS as IDLE_PRIORITY_CLASS,
-        NORMAL_PRIORITY_CLASS as NORMAL_PRIORITY_CLASS,
-        REALTIME_PRIORITY_CLASS as REALTIME_PRIORITY_CLASS,
-        STARTF_USESHOWWINDOW as STARTF_USESHOWWINDOW,
-        STARTF_USESTDHANDLES as STARTF_USESTDHANDLES,
-        STD_ERROR_HANDLE as STD_ERROR_HANDLE,
-        STD_INPUT_HANDLE as STD_INPUT_HANDLE,
-        STD_OUTPUT_HANDLE as STD_OUTPUT_HANDLE,
-        SW_HIDE as SW_HIDE,
-    )
+    	ABOVE_NORMAL_PRIORITY_CLASS as ABOVE_NORMAL_PRIORITY_CLASS,
+    	BELOW_NORMAL_PRIORITY_CLASS as BELOW_NORMAL_PRIORITY_CLASS, CREATE_BREAKAWAY_FROM_JOB as CREATE_BREAKAWAY_FROM_JOB,
+    	CREATE_DEFAULT_ERROR_MODE as CREATE_DEFAULT_ERROR_MODE, CREATE_NEW_CONSOLE as CREATE_NEW_CONSOLE,
+    	CREATE_NEW_PROCESS_GROUP as CREATE_NEW_PROCESS_GROUP, CREATE_NO_WINDOW as CREATE_NO_WINDOW,
+    	DETACHED_PROCESS as DETACHED_PROCESS, HIGH_PRIORITY_CLASS as HIGH_PRIORITY_CLASS,
+    	IDLE_PRIORITY_CLASS as IDLE_PRIORITY_CLASS, NORMAL_PRIORITY_CLASS as NORMAL_PRIORITY_CLASS,
+    	REALTIME_PRIORITY_CLASS as REALTIME_PRIORITY_CLASS, STARTF_USESHOWWINDOW as STARTF_USESHOWWINDOW,
+    	STARTF_USESTDHANDLES as STARTF_USESTDHANDLES, STD_ERROR_HANDLE as STD_ERROR_HANDLE,
+    	STD_INPUT_HANDLE as STD_INPUT_HANDLE, STD_OUTPUT_HANDLE as STD_OUTPUT_HANDLE, SW_HIDE as SW_HIDE)

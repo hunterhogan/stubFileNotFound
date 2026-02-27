@@ -9,6 +9,7 @@ class Point(Basic):
     """
     Represents a point in 3-D space.
     """
+
     def __new__(cls, name, position=..., parent_point=None): ...
     @cacheit
     def position_wrt(self, other):
@@ -17,16 +18,14 @@ class Point(Basic):
         another Point/CoordSys3D.
 
         Parameters
-        ==========
-
+        ----------
         other : Point/CoordSys3D
             If other is a Point, the position of this Point wrt it is
             returned. If its an instance of CoordSyRect, the position
             wrt its origin is returned.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> N = CoordSys3D('N')
         >>> p1 = N.origin.locate_new('p1', 10 * N.i)
@@ -42,8 +41,7 @@ class Point(Basic):
         be equal to the given 'position' parameter.
 
         Parameters
-        ==========
-
+        ----------
         name : str
             Name of the new point
 
@@ -51,8 +49,7 @@ class Point(Basic):
             The position vector of the new Point wrt this one
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> N = CoordSys3D('N')
         >>> p1 = N.origin.locate_new('p1', 10 * N.i)
@@ -66,15 +63,13 @@ class Point(Basic):
         wrt the origin of the given CoordSys3D instance.
 
         Parameters
-        ==========
-
+        ----------
         coordinate_system : CoordSys3D
             The coordinate system to express the coordinates of this
             Point in.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> N = CoordSys3D('N')
         >>> p1 = N.origin.locate_new('p1', 10 * N.i)

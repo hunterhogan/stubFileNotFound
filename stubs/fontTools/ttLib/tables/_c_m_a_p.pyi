@@ -255,4 +255,3 @@ class cmap_format_unknown(CmapSubtable):
     def compile(self, ttFont: TTFont): ...
 
 cmap_classes: Incomplete
-

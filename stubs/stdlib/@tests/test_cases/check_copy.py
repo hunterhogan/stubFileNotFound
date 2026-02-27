@@ -1,10 +1,8 @@
 from __future__ import annotations
 
+from typing import assert_type, Generic, Self, TypeVar
 import copy
 import sys
-from typing import Generic, TypeVar
-from typing_extensions import Self, assert_type
-
 
 class ReplaceableClass:
     def __init__(self, val: int) -> None:

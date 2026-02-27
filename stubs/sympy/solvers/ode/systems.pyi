@@ -1,15 +1,20 @@
 from sympy.core import Add as Add, Mul as Mul, S as S
 from sympy.core.containers import Tuple as Tuple
 from sympy.core.exprtools import factor_terms as factor_terms
-from sympy.core.function import AppliedUndef as AppliedUndef, Derivative as Derivative, Function as Function, Subs as Subs, expand as expand, expand_mul as expand_mul
+from sympy.core.function import (
+	AppliedUndef as AppliedUndef, Derivative as Derivative, expand as expand, expand_mul as expand_mul,
+	Function as Function, Subs as Subs)
 from sympy.core.numbers import I as I
 from sympy.core.relational import Eq as Eq, Equality as Equality
 from sympy.core.sorting import default_sort_key as default_sort_key, ordered as ordered
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol
-from sympy.functions import Piecewise as Piecewise, cos as cos, exp as exp, im as im, log as log, piecewise_fold as piecewise_fold, re as re, sin as sin, sqrt as sqrt
+from sympy.functions import (
+	cos as cos, exp as exp, im as im, log as log, Piecewise as Piecewise, piecewise_fold as piecewise_fold, re as re,
+	sin as sin, sqrt as sqrt)
 from sympy.functions.combinatorial.factorials import factorial as factorial
 from sympy.integrals.integrals import Integral as Integral, integrate as integrate
-from sympy.matrices import Matrix as Matrix, MatrixBase as MatrixBase, NonSquareMatrixError as NonSquareMatrixError, eye as eye, zeros as zeros
+from sympy.matrices import (
+	eye as eye, Matrix as Matrix, MatrixBase as MatrixBase, NonSquareMatrixError as NonSquareMatrixError, zeros as zeros)
 from sympy.polys import Poly as Poly, together as together
 from sympy.sets.sets import FiniteSet as FiniteSet
 from sympy.simplify import collect as collect, radsimp as radsimp, signsimp as signsimp
@@ -18,7 +23,9 @@ from sympy.simplify.ratsimp import ratsimp as ratsimp
 from sympy.simplify.simplify import simplify as simplify
 from sympy.solvers.deutils import ode_order as ode_order
 from sympy.solvers.solveset import NonlinearError as NonlinearError, solveset as solveset
-from sympy.utilities.iterables import connected_components as connected_components, iterable as iterable, strongly_connected_components as strongly_connected_components
+from sympy.utilities.iterables import (
+	connected_components as connected_components, iterable as iterable,
+	strongly_connected_components as strongly_connected_components)
 from sympy.utilities.misc import filldedent as filldedent
 
 def _get_func_order(eqs, funcs): ...
@@ -33,7 +40,7 @@ def _solsimp(e, t): ...
 def simpsol(sol, wrt1, wrt2, doit: bool = True):
     """Simplify solutions from dsolve_system."""
 def linodesolve_type(A, t, b=None):
-    '''
+    """
     Helper function that determines the type of the system of ODEs for solving with :obj:`sympy.solvers.ode.systems.linodesolve()`
 
     Explanation
@@ -61,8 +68,7 @@ def linodesolve_type(A, t, b=None):
     NotImplementedError is raised.
 
     Parameters
-    ==========
-
+    ----------
     A : Matrix
         Coefficient matrix of the system of ODEs
     b : Matrix or None
@@ -70,8 +76,7 @@ def linodesolve_type(A, t, b=None):
         If this argument is None, then the system is assumed to be homogeneous.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, Matrix
     >>> from sympy.solvers.ode.systems import linodesolve_type
     >>> t = symbols("t")
@@ -105,22 +110,19 @@ def linodesolve_type(A, t, b=None):
     solved by linodesolve.
 
     Returns
-    =======
-
+    -------
     Dict
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         When the coefficient matrix does not have a commutative antiderivative
 
     See Also
-    ========
-
+    --------
     linodesolve: Function for which linodesolve_type gets the information
 
-    '''
+    """
 def _first_order_type5_6_subs(A, t, b=None): ...
 def linear_ode_to_matrix(eqs, funcs, t, order):
     """
@@ -144,8 +146,7 @@ def linear_ode_to_matrix(eqs, funcs, t, order):
     .. math:: A_2 X'' =  A_1 X' + A_0 X  + b
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, Symbol, Matrix, Eq
     >>> from sympy.solvers.ode.systems import linear_ode_to_matrix
     >>> t = Symbol('t')
@@ -204,8 +205,7 @@ def linear_ode_to_matrix(eqs, funcs, t, order):
     ODENonlinearError: The system of ODEs is nonlinear.
 
     Parameters
-    ==========
-
+    ----------
     eqs : list of SymPy expressions or equalities
         The equations as expressions (assumed equal to zero).
     funcs : list of applied functions
@@ -216,26 +216,23 @@ def linear_ode_to_matrix(eqs, funcs, t, order):
         The order of the system of ODEs.
 
     Returns
-    =======
-
+    -------
     The tuple ``(As, b)`` where ``As`` is a tuple of matrices and ``b`` is the
     the matrix representing the rhs of the matrix equation.
 
     Raises
-    ======
-
+    ------
     ODEOrderError
         When the system of ODEs have an order greater than what was specified
     ODENonlinearError
         When the system of ODEs is nonlinear
 
     See Also
-    ========
-
+    --------
     linear_eq_to_matrix: for systems of linear algebraic equations.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Matrix_differential_equation
 
@@ -268,8 +265,7 @@ def matrix_exp(A, t):
     .. math:: x(t) = \\exp(A t) x0
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, Matrix, pprint
     >>> from sympy.solvers.ode.systems import matrix_exp
     >>> t = Symbol('t')
@@ -292,20 +288,18 @@ def matrix_exp(A, t):
     [      2*e  *sin(t)         - 3*e  *sin(t) + e  *cos(t)]
 
     Parameters
-    ==========
-
+    ----------
     A : Matrix
         The matrix $A$ in the expression $\\exp(A*t)$
     t : Symbol
         The independent variable
 
     See Also
-    ========
-
+    --------
     matrix_exp_jordan_form: For exponential of Jordan normal form
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Jordan_normal_form
     .. [2] https://en.wikipedia.org/wiki/Matrix_exponential
@@ -324,8 +318,7 @@ def matrix_exp_jordan_form(A, t):
         \\exp(A*t) = P * expJ * P^{-1}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, Symbol
     >>> from sympy.solvers.ode.systems import matrix_exp, matrix_exp_jordan_form
     >>> t = Symbol('t')
@@ -347,15 +340,14 @@ def matrix_exp_jordan_form(A, t):
     True
 
     Parameters
-    ==========
-
+    ----------
     A : Matrix
         The matrix $A$ in the expression $\\exp(A*t)$
     t : Symbol
         The independent variable
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Defective_matrix
     .. [2] https://en.wikipedia.org/wiki/Jordan_matrix
@@ -363,7 +355,7 @@ def matrix_exp_jordan_form(A, t):
 
     """
 def linodesolve(A, t, b=None, B=None, type: str = 'auto', doit: bool = False, tau=None):
-    '''
+    """
     System of n equations linear first-order differential equations
 
     Explanation
@@ -442,8 +434,7 @@ def linodesolve(A, t, b=None, B=None, type: str = 'auto', doit: bool = False, ta
     substituted with the passed expression(`tau`).
 
     Parameters
-    ==========
-
+    ----------
     A : Matrix
         Coefficient matrix of the system of linear first order ODEs.
     t : Symbol
@@ -472,8 +463,7 @@ def linodesolve(A, t, b=None, B=None, type: str = 'auto', doit: bool = False, ta
         Used to substitute for the value of `t` after we get the solution of the system.
 
     Examples
-    ========
-
+    --------
     To solve the system of ODEs using this function directly, several things must be
     done in the right order. Wrong inputs to the function will lead to incorrect results.
 
@@ -545,13 +535,11 @@ def linodesolve(A, t, b=None, B=None, type: str = 'auto', doit: bool = False, ta
     (True, [0, 0])
 
     Returns
-    =======
-
+    -------
     List
 
     Raises
-    ======
-
+    ------
     ValueError
         This error is raised when the coefficient matrix, non-homogeneous term
         or the antiderivative, if passed, are not a matrix or
@@ -563,17 +551,16 @@ def linodesolve(A, t, b=None, B=None, type: str = 'auto', doit: bool = False, ta
         If the coefficient matrix does not have a commutative antiderivative
 
     See Also
-    ========
-
+    --------
     linear_ode_to_matrix: Coefficient matrix computation function
     canonical_odes: System of ODEs representation change
     linodesolve_type: Getting information about systems of ODEs to pass in this solver
 
-    '''
+    """
 def _matrix_is_constant(M, t):
     """Checks if the matrix M is independent of t or not."""
 def canonical_odes(eqs, funcs, t):
-    '''
+    """
     Function that solves for highest order derivatives in a system
 
     Explanation
@@ -595,8 +582,7 @@ def canonical_odes(eqs, funcs, t):
     systems is returned in its canonical form.
 
     Parameters
-    ==========
-
+    ----------
     eqs : List
         List of the ODEs
     funcs : List
@@ -605,8 +591,7 @@ def canonical_odes(eqs, funcs, t):
         Independent variable
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, Function, Eq, Derivative
     >>> from sympy.solvers.ode.systems import canonical_odes
     >>> f, g = symbols("f g", cls=Function)
@@ -625,13 +610,12 @@ def canonical_odes(eqs, funcs, t):
     [[Eq(Derivative(f(x), x), -1), Eq(Derivative(g(x), x), y*f(x))], [Eq(Derivative(f(x), x), 3), Eq(Derivative(g(x), x), y*f(x))]]
 
     Returns
-    =======
-
+    -------
     List
 
-    '''
+    """
 def _is_commutative_anti_derivative(A, t):
-    '''
+    """
     Helper function for determining if the Matrix passed is commutative with its antiderivative
 
     Explanation
@@ -648,16 +632,14 @@ def _is_commutative_anti_derivative(A, t):
     passed isn\'t commutative with $B(t)$.
 
     Parameters
-    ==========
-
+    ----------
     A : Matrix
         The matrix which has to be checked
     t : Symbol
         Independent variable
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, Matrix
     >>> from sympy.solvers.ode.systems import _is_commutative_anti_derivative
     >>> t = symbols("t")
@@ -668,11 +650,10 @@ def _is_commutative_anti_derivative(A, t):
     True
 
     Returns
-    =======
-
+    -------
     Matrix, Boolean
 
-    '''
+    """
 def _factor_matrix(A, t): ...
 def _is_second_order_type2(A, t): ...
 def _get_poly_coeffs(poly, order): ...
@@ -720,8 +701,7 @@ def _second_order_subs_type1(A, b, funcs, t):
         a(t) = t*X' - X
 
     Parameters
-    ==========
-
+    ----------
     A: Matrix
         Coefficient matrix($A(t)*t$) of the second order system of this form.
     b: Matrix
@@ -732,8 +712,7 @@ def _second_order_subs_type1(A, b, funcs, t):
         Independent variable of the system of ODEs.
 
     Returns
-    =======
-
+    -------
     List
 
     """
@@ -756,8 +735,7 @@ def _second_order_subs_type2(A, funcs, t_):
     dependent variables with the new independent variable `t_` passed.
 
     Parameters
-    ==========
-
+    ----------
     A: Matrix
         Coefficient matrix of the system
     funcs: List
@@ -766,8 +744,7 @@ def _second_order_subs_type2(A, funcs, t_):
         New independent variable
 
     Returns
-    =======
-
+    -------
     List, List
 
     """
@@ -792,8 +769,7 @@ def _classify_linear_system(eqs, funcs, t, is_canon: bool = False):
     or not.
 
     Parameters
-    ==========
-
+    ----------
     eqs: List
         List of ODEs
     funcs: List
@@ -805,8 +781,7 @@ def _classify_linear_system(eqs, funcs, t, is_canon: bool = False):
         system in canonical form. Default value is False
 
     Returns
-    =======
-
+    -------
     match = {
         'no_of_equation': len(eqs),
         'eq': eqs,
@@ -860,7 +835,7 @@ def _get_funcs_from_canon(eqs): ...
 def _weak_component_solver(wcc, t): ...
 def _component_solver(eqs, funcs, t): ...
 def _second_order_to_first_order(eqs, funcs, t, type: str = 'auto', A1=None, A0=None, b=None, t_=None):
-    '''
+    """
     Expects the system to be in second order and in canonical form
 
     Explanation
@@ -888,11 +863,11 @@ def _second_order_to_first_order(eqs, funcs, t, type: str = 'auto', A1=None, A0=
     Default value for `b` is None but if `A1` and `A0` are passed and `b` is not passed, then the
     system will be assumed homogeneous.
 
-    '''
+    """
 def _higher_order_type2_to_sub_systems(J, f_t, funcs, t, max_order, b=None, P=None): ...
 def _higher_order_to_first_order(eqs, sys_order, t, funcs=None, type: str = 'type0', **kwargs): ...
 def dsolve_system(eqs, funcs=None, t=None, ics=None, doit: bool = False, simplify: bool = True):
-    '''
+    """
     Solves any(supported) system of Ordinary Differential Equations
 
     Explanation
@@ -921,8 +896,7 @@ def dsolve_system(eqs, funcs=None, t=None, ics=None, doit: bool = False, simplif
     may be divided further so that the divided systems may have coefficient matrix with commutative antiderivative.
 
     Parameters
-    ==========
-
+    ----------
     eqs : List
         system of ODEs to be solved
     funcs : List or None
@@ -941,8 +915,7 @@ def dsolve_system(eqs, funcs=None, t=None, ics=None, doit: bool = False, simplif
         is not required.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, Eq, Function
     >>> from sympy.solvers.ode.systems import dsolve_system
     >>> f, g = symbols("f g", cls=Function)
@@ -971,16 +944,14 @@ def dsolve_system(eqs, funcs=None, t=None, ics=None, doit: bool = False, simplif
     [[Eq(f(x), C1 - C2*exp(x)), Eq(g(x), C2*exp(x))], [Eq(f(x), C1 + C2*exp(x)), Eq(g(x), C2*exp(x))]]
 
     Returns
-    =======
-
+    -------
     List of List of Equations
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         When the system of ODEs is not solvable by this function.
     ValueError
         When the parameters passed are not in the required form.
 
-    '''
+    """

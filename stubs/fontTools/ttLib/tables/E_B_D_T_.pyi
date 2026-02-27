@@ -136,4 +136,3 @@ class ebdt_bitmap_format_9(BitmapPlusBigMetricsMixin, ComponentBitmapGlyph):
     def compile(self, ttFont: TTFont): ...
 
 ebdt_bitmap_classes: Incomplete
-

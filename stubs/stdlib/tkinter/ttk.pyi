@@ -1,11 +1,11 @@
-import _tkinter
-import sys
-import tkinter
 from _typeshed import MaybeNone
 from collections.abc import Callable, Iterable, Sequence
 from tkinter.font import _FontDescription
-from typing import Any, Literal, TypedDict, TypeVar, overload, type_check_only
-from typing_extensions import Never, ParamSpec, TypeAlias, Unpack
+from typing import Any, Literal, Never, overload, type_check_only, TypeAlias, TypedDict, TypeVar
+from typing_extensions import ParamSpec, Unpack
+import _tkinter
+import sys
+import tkinter
 
 __all__ = [
     "Button",
@@ -14,25 +14,25 @@ __all__ = [
     "Entry",
     "Frame",
     "Label",
-    "Labelframe",
     "LabelFrame",
+    "LabeledScale",
+    "Labelframe",
     "Menubutton",
     "Notebook",
-    "Panedwindow",
+    "OptionMenu",
     "PanedWindow",
+    "Panedwindow",
     "Progressbar",
     "Radiobutton",
     "Scale",
     "Scrollbar",
     "Separator",
     "Sizegrip",
+    "Spinbox",
     "Style",
     "Treeview",
-    "LabeledScale",
-    "OptionMenu",
-    "tclobjs_to_py",
     "setup_master",
-    "Spinbox",
+    "tclobjs_to_py",
 ]
 
 def tclobjs_to_py(adict: dict[Any, Any]) -> dict[Any, Any]: ...
@@ -95,7 +95,7 @@ if sys.platform == "win32" and sys.version_info >= (3, 13):
     _ElementCreateVsapiKwargsDict: TypeAlias = (
         _ElementCreateVsapiKwargsPadding | _ElementCreateVsapiKwargsMargin | _ElementCreateVsapiKwargsSize
     )
-    _ElementCreateArgs: TypeAlias = (  # noqa: Y047  # It doesn't recognise the usage below for whatever reason
+    _ElementCreateArgs: TypeAlias = (  # It doesn't recognise the usage below for whatever reason
         _ElementCreateArgsCrossPlatform
         | tuple[Literal["vsapi"], str, int, _ElementCreateVsapiKwargsDict]
         | tuple[Literal["vsapi"], str, int, _VsapiStatespec, _ElementCreateVsapiKwargsDict]

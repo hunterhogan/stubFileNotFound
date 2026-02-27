@@ -7,16 +7,14 @@ class InnerProduct(Expr):
     """An unevaluated inner product between a Bra and a Ket [1].
 
     Parameters
-    ==========
-
+    ----------
     bra : BraBase or subclass
         The bra on the left side of the inner product.
     ket : KetBase or subclass
         The ket on the right side of the inner product.
 
     Examples
-    ========
-
+    --------
     Create an InnerProduct and check its properties:
 
         >>> from sympy.physics.quantum import Bra, Ket
@@ -46,10 +44,11 @@ class InnerProduct(Expr):
     because inner products are commutative complex numbers.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Inner_product
     """
+
     kind = NumberKind
     is_complex: bool
     def __new__(cls, bra, ket): ...

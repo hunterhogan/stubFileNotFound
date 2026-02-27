@@ -15,6 +15,7 @@ class InsetIndicator(artist.Artist):
 
     .. versionadded:: 3.10
     """
+
     zorder: float
     _inset_ax: Incomplete
     _auto_update_bounds: bool

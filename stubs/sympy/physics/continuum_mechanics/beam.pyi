@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from sympy.core import S as S, Symbol as Symbol, diff as diff, symbols as symbols
+from sympy.core import diff as diff, S as S, Symbol as Symbol, symbols as symbols
 from sympy.core.add import Add as Add
 from sympy.core.expr import Expr as Expr
 from sympy.core.function import Derivative as Derivative, Function as Function
@@ -7,10 +7,10 @@ from sympy.core.mul import Mul as Mul
 from sympy.core.relational import Eq as Eq
 from sympy.core.sympify import sympify as sympify
 from sympy.external import import_module as import_module
-from sympy.functions import Piecewise as Piecewise, SingularityFunction as SingularityFunction, factorial as factorial
+from sympy.functions import factorial as factorial, Piecewise as Piecewise, SingularityFunction as SingularityFunction
 from sympy.geometry.entity import GeometryEntity as GeometryEntity
 from sympy.integrals import integrate as integrate
-from sympy.plotting import PlotGrid as PlotGrid, plot as plot
+from sympy.plotting import plot as plot, PlotGrid as PlotGrid
 from sympy.printing import sstr as sstr
 from sympy.series import limit as limit
 from sympy.sets.sets import Interval as Interval
@@ -25,7 +25,7 @@ __doctest_requires__: Incomplete
 numpy: Incomplete
 
 class Beam:
-    '''
+    """
     A Beam is a structural element that is capable of withstanding load
     primarily by resisting against bending. Beams are characterized by
     their cross sectional profile(Second moment of area), their length
@@ -43,7 +43,7 @@ class Beam:
     .. image:: allowed-sign-conventions.png
 
     Examples
-    ========
+    --------
     There is a beam of length 4 meters. A constant distributed load of 6 N/m
     is applied from half of the beam till the end. There are two simple supports
     below the beam, one at the starting point and another at the ending point
@@ -116,7 +116,8 @@ class Beam:
     (-3*L**2*q1 + L**2*q2 - 24*L*P1 + 28*L*P2 - 32*M1 + 32*M2)/(32*L)
     >>> print(b.reaction_loads[R2])
     (-5*L**2*q1 + 7*L**2*q2 - 8*L*P1 + 4*L*P2 + 32*M1 - 32*M2)/(32*L)
-    '''
+    """
+
     ild_variable: Incomplete
     _base_char: Incomplete
     _boundary_conditions: Incomplete
@@ -138,8 +139,7 @@ class Beam:
         """Initializes the class.
 
         Parameters
-        ==========
-
+        ----------
         length : Sympifyable
             A Symbol or value representing the Beam's length.
 
@@ -178,10 +178,9 @@ class Beam:
             location of the moving load in ILD calculations. By default, it
             is set to ``Symbol('a')``.
         """
-    def __str__(self) -> str: ...
     @property
     def reaction_loads(self):
-        """ Returns the reaction forces in a dictionary."""
+        """Returns the reaction forces in a dictionary."""
     @property
     def rotation_jumps(self):
         """
@@ -198,10 +197,10 @@ class Beam:
         """
     @property
     def ild_shear(self):
-        """ Returns the I.L.D. shear equation."""
+        """Returns the I.L.D. shear equation."""
     @property
     def ild_reactions(self):
-        """ Returns the I.L.D. reaction forces in a dictionary."""
+        """Returns the I.L.D. reaction forces in a dictionary."""
     @property
     def ild_rotation_jumps(self):
         """
@@ -218,7 +217,7 @@ class Beam:
         """
     @property
     def ild_moment(self):
-        """ Returns the I.L.D. moment equation."""
+        """Returns the I.L.D. moment equation."""
     @property
     def length(self):
         """Length of the Beam."""
@@ -227,7 +226,7 @@ class Beam:
     def length(self, l) -> None: ...
     @property
     def area(self):
-        """Cross-sectional area of the Beam. """
+        """Cross-sectional area of the Beam."""
     _area: Incomplete
     @area.setter
     def area(self, a) -> None: ...
@@ -240,8 +239,7 @@ class Beam:
         to ``Symbol('x')``, but this property is mutable.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.beam import Beam
         >>> from sympy import symbols
         >>> E, I, A = symbols('E, I, A')
@@ -261,13 +259,13 @@ class Beam:
     def variable(self, v) -> None: ...
     @property
     def elastic_modulus(self):
-        """Young's Modulus of the Beam. """
+        """Young's Modulus of the Beam."""
     _elastic_modulus: Incomplete
     @elastic_modulus.setter
     def elastic_modulus(self, e) -> None: ...
     @property
     def second_moment(self):
-        """Second moment of area of the Beam. """
+        """Second moment of area of the Beam."""
     _cross_section: Incomplete
     _second_moment: Incomplete
     @second_moment.setter
@@ -287,7 +285,7 @@ class Beam:
         (location, value).
 
         Examples
-        ========
+        --------
         There is a beam of length 4 meters. The bending moment at 0 should be 4
         and at 4 it should be 0. The slope of the beam should be 1 at 0. The
         deflection should be 2 at 0.
@@ -321,14 +319,14 @@ class Beam:
     @bc_deflection.setter
     def bc_deflection(self, d_bcs) -> None: ...
     def join(self, beam, via: str = 'fixed'):
-        '''
+        """
         This method joins two beams to make a new composite beam system.
         Passed Beam class instance is attached to the right end of calling
         object. This method can be used to form beams having Discontinuous
         values of Elastic modulus or Second moment.
 
         Parameters
-        ==========
+        ----------
         beam : Beam class object
             The Beam object which would be connected to the right of calling
             object.
@@ -338,7 +336,7 @@ class Beam:
             - For Beams connected via rotation hinge, via="hinge"
 
         Examples
-        ========
+        --------
         There is a cantilever beam of length 4 meters. For first 2 meters
         its moment of inertia is `1.5*I` and `I` for the other end.
         A pointload of magnitude 4 N is applied from the top at its free end.
@@ -362,14 +360,14 @@ class Beam:
         (-((-80*SingularityFunction(x, 0, 1) + 10*SingularityFunction(x, 0, 2) - 10*SingularityFunction(x, 4, 2))/I + 120/I)/E + 80.0/(E*I))*SingularityFunction(x, 2, 0)
         - 0.666666666666667*(-80*SingularityFunction(x, 0, 1) + 10*SingularityFunction(x, 0, 2) - 10*SingularityFunction(x, 4, 2))*SingularityFunction(x, 0, 0)/(E*I)
         + 0.666666666666667*(-80*SingularityFunction(x, 0, 1) + 10*SingularityFunction(x, 0, 2) - 10*SingularityFunction(x, 4, 2))*SingularityFunction(x, 2, 0)/(E*I)
-        '''
+        """
     def apply_support(self, loc, type: str = 'fixed'):
-        '''
+        """
         This method applies support to a particular beam object and returns
         the symbol of the unknown reaction load(s).
 
         Parameters
-        ==========
+        ----------
         loc : Sympifyable
             Location of point at which support is applied.
         type : String
@@ -380,14 +378,14 @@ class Beam:
             - two degrees of freedom, type = "roller"
 
         Returns
-        =======
+        -------
         Symbol or tuple of Symbol
             The unknown reaction load as a symbol.
             - Symbol(reaction_force) if type = "pin" or "roller"
             - Symbol(reaction_force), Symbol(reaction_moment) if type = "fixed"
 
         Examples
-        ========
+        --------
         There is a beam of length 20 meters. A moment of magnitude 100 Nm is
         applied in the clockwise direction at the end of the beam. A pointload
         of magnitude 8 N is applied from the top of the beam at a distance of 10 meters.
@@ -413,7 +411,7 @@ class Beam:
         20*SingularityFunction(x, 0, -2) - 2*SingularityFunction(x, 0, -1)
         - 8*SingularityFunction(x, 10, -1) + 100*SingularityFunction(x, 20, -2)
         + 10*SingularityFunction(x, 20, -1)
-        '''
+        """
     def _get_I(self, loc):
         """
         Helper function that returns the Second moment (I) at a location in the beam.
@@ -428,12 +426,12 @@ class Beam:
             Location of point at which hinge is applied.
 
         Returns
-        =======
+        -------
         Symbol
             The unknown rotation jump multiplied by the elastic modulus and second moment as a symbol.
 
         Examples
-        ========
+        --------
         There is a beam of length 15 meters. Pin supports are placed at distances
         of 0 and 10 meters. There is a fixed support at the end. There are two rotation hinges
         in the structure, one at 5 meters and one at 10 meters. A pointload of magnitude
@@ -469,7 +467,7 @@ class Beam:
         + 5*SingularityFunction(x, 15, 1) - 5*SingularityFunction(x, 15, 2)/2
         """
     def apply_sliding_hinge(self, loc):
-        '''
+        """
         This method applies a sliding hinge at a single location on the beam.
 
         Parameters
@@ -478,12 +476,12 @@ class Beam:
             Location of point at which hinge is applied.
 
         Returns
-        =======
+        -------
         Symbol
             The unknown deflection jump multiplied by the elastic modulus and second moment as a symbol.
 
         Examples
-        ========
+        --------
         There is a beam of length 13 meters. A fixed support is placed at the beginning.
         There is a pin support at the end. There is a sliding hinge at a location of 8 meters.
         A pointload of magnitude 10 kN is applied on the hinge at 5 meters.
@@ -510,13 +508,13 @@ class Beam:
         >>> b.deflection()
         -SingularityFunction(x, 0, 2)/16 + SingularityFunction(x, 0, 3)/240
         - SingularityFunction(x, 5, 3)/240 + 85*SingularityFunction(x, 8, 0)/24
-        '''
+        """
     def apply_load(self, value, start, order, end=None) -> None:
         """
         This method adds up the loads given to a particular beam object.
 
         Parameters
-        ==========
+        ----------
         value : Sympifyable
             The value inserted should have the units [Force/(Distance**(n+1)]
             where n is the order of applied load.
@@ -547,7 +545,7 @@ class Beam:
             within the length of the beam.
 
         Examples
-        ========
+        --------
         There is a beam of length 4 meters. A moment of magnitude 3 Nm is
         applied in the clockwise direction at the starting point of the beam.
         A point load of magnitude 4 N is applied from the top of the beam at
@@ -573,7 +571,7 @@ class Beam:
         present on the beam.
 
         Parameters
-        ==========
+        ----------
         value : Sympifyable
             The magnitude of an applied load.
         start : Sympifyable
@@ -592,7 +590,7 @@ class Beam:
             within the length of the beam.
 
         Examples
-        ========
+        --------
         There is a beam of length 4 meters. A moment of magnitude 3 Nm is
         applied in the clockwise direction at the starting point of the beam.
         A pointload of magnitude 4 N is applied from the top of the beam at
@@ -626,7 +624,7 @@ class Beam:
         the load distribution curve of the Beam object.
 
         Examples
-        ========
+        --------
         There is a beam of length 4 meters. A moment of magnitude 3 Nm is
         applied in the clockwise direction at the starting point of the beam.
         A point load of magnitude 4 N is applied from the top of the beam at
@@ -651,7 +649,7 @@ class Beam:
         Each load in the list is a tuple of form (value, start, order, end).
 
         Examples
-        ========
+        --------
         There is a beam of length 4 meters. A moment of magnitude 3 Nm is
         applied in the clockwise direction at the starting point of the beam.
         A pointload of magnitude 4 N is applied from the top of the beam at
@@ -677,7 +675,7 @@ class Beam:
         Solves for the reaction forces.
 
         Examples
-        ========
+        --------
         There is a beam of length 30 meters. A moment of magnitude 120 Nm is
         applied in the clockwise direction at the end of the beam. A pointload
         of magnitude 8 N is applied from the top of the beam at the starting
@@ -714,7 +712,7 @@ class Beam:
         the shear force curve of the Beam object.
 
         Examples
-        ========
+        --------
         There is a beam of length 30 meters. A moment of magnitude 120 Nm is
         applied in the clockwise direction at the end of the beam. A pointload
         of magnitude 8 N is applied from the top of the beam at the starting
@@ -741,14 +739,15 @@ class Beam:
         """
     def max_shear_force(self):
         """Returns maximum Shear force and its coordinate
-        in the Beam object."""
+        in the Beam object.
+        """
     def bending_moment(self):
         """
         Returns a Singularity Function expression which represents
         the bending moment curve of the Beam object.
 
         Examples
-        ========
+        --------
         There is a beam of length 30 meters. A moment of magnitude 120 Nm is
         applied in the clockwise direction at the end of the beam. A pointload
         of magnitude 8 N is applied from the top of the beam at the starting
@@ -775,7 +774,8 @@ class Beam:
         """
     def max_bmoment(self):
         """Returns maximum Shear force and its coordinate
-        in the Beam object."""
+        in the Beam object.
+        """
     def point_cflexure(self):
         """
         Returns a Set of point(s) with zero bending moment and
@@ -783,7 +783,7 @@ class Beam:
         its sign from negative to positive or vice versa.
 
         Examples
-        ========
+        --------
         There is is 10 meter long overhanging beam. There are
         two simple supports below the beam. One at the start
         and another one at a distance of 6 meters from the start.
@@ -813,7 +813,7 @@ class Beam:
         the slope the elastic curve of the Beam object.
 
         Examples
-        ========
+        --------
         There is a beam of length 30 meters. A moment of magnitude 120 Nm is
         applied in the clockwise direction at the end of the beam. A pointload
         of magnitude 8 N is applied from the top of the beam at the starting
@@ -845,7 +845,7 @@ class Beam:
         the elastic curve or deflection of the Beam object.
 
         Examples
-        ========
+        --------
         There is a beam of length 30 meters. A moment of magnitude 120 Nm is
         applied in the clockwise direction at the end of the beam. A pointload
         of magnitude 8 N is applied from the top of the beam at the starting
@@ -887,13 +887,13 @@ class Beam:
         Returns a plot of shear stress present in the beam object.
 
         Parameters
-        ==========
+        ----------
         subs : dictionary
             Python dictionary containing Symbols as key and their
             corresponding values.
 
         Examples
-        ========
+        --------
         There is a beam of length 8 meters and area of cross section 2 square
         meters. A constant distributed load of 10 KN/m is applied from half of
         the beam till the end. There are two simple supports below the beam,
@@ -931,13 +931,13 @@ class Beam:
         Returns a plot for Shear force present in the Beam object.
 
         Parameters
-        ==========
+        ----------
         subs : dictionary
             Python dictionary containing Symbols as key and their
             corresponding values.
 
         Examples
-        ========
+        --------
         There is a beam of length 8 meters. A constant distributed load of 10 KN/m
         is applied from half of the beam till the end. There are two simple supports
         below the beam, one at the starting point and another at the ending point
@@ -974,13 +974,13 @@ class Beam:
         Returns a plot for Bending moment present in the Beam object.
 
         Parameters
-        ==========
+        ----------
         subs : dictionary
             Python dictionary containing Symbols as key and their
             corresponding values.
 
         Examples
-        ========
+        --------
         There is a beam of length 8 meters. A constant distributed load of 10 KN/m
         is applied from half of the beam till the end. There are two simple supports
         below the beam, one at the starting point and another at the ending point
@@ -1017,13 +1017,13 @@ class Beam:
         Returns a plot for slope of deflection curve of the Beam object.
 
         Parameters
-        ==========
+        ----------
         subs : dictionary
             Python dictionary containing Symbols as key and their
             corresponding values.
 
         Examples
-        ========
+        --------
         There is a beam of length 8 meters. A constant distributed load of 10 KN/m
         is applied from half of the beam till the end. There are two simple supports
         below the beam, one at the starting point and another at the ending point
@@ -1060,13 +1060,13 @@ class Beam:
         Returns a plot for deflection curve of the Beam object.
 
         Parameters
-        ==========
+        ----------
         subs : dictionary
             Python dictionary containing Symbols as key and their
             corresponding values.
 
         Examples
-        ========
+        --------
         There is a beam of length 8 meters. A constant distributed load of 10 KN/m
         is applied from half of the beam till the end. There are two simple supports
         below the beam, one at the starting point and another at the ending point
@@ -1104,15 +1104,13 @@ class Beam:
         Slope and Deflection of the Beam object.
 
         Parameters
-        ==========
-
+        ----------
         subs : dictionary
                Python dictionary containing Symbols as key and their
                corresponding values.
 
         Examples
-        ========
-
+        --------
         There is a beam of length 8 meters. A constant distributed load of 10 KN/m
         is applied from half of the beam till the end. There are two simple supports
         below the beam, one at the starting point and another at the ending point
@@ -1155,7 +1153,7 @@ class Beam:
         forces under the effect of a moving load.
 
         Parameters
-        ==========
+        ----------
         value : Integer
             Magnitude of moving load
         reactions :
@@ -1167,8 +1165,7 @@ class Beam:
         substituting a = 0 or a = l, with l the length of the beam.
 
         Examples
-        ========
-
+        --------
         There is a beam of length 10 meters. There are two simple supports
         below the beam, one at the starting point and another at the ending
         point of the beam. Calculate the I.L.D. equations for reaction forces
@@ -1202,8 +1199,7 @@ class Beam:
         should be called after calling solve_for_ild_reactions().
 
         Parameters
-        ==========
-
+        ----------
         subs : dictionary
                Python dictionary containing Symbols as key and their
                corresponding values.
@@ -1214,8 +1210,7 @@ class Beam:
         the plot can be incorrect.
 
         Examples
-        ========
-
+        --------
         There is a beam of length 10 meters. A point load of magnitude 5KN
         is also applied from top of the beam, at a distance of 4 meters
         from the starting point. There are two simple supports below the
@@ -1261,7 +1256,7 @@ class Beam:
         specified point under the effect of a moving load.
 
         Parameters
-        ==========
+        ----------
         distance : Integer
             Distance of the point from the start of the beam
             for which equations are to be determined
@@ -1276,8 +1271,7 @@ class Beam:
         substituting a = 0 or a = l, with l the length of the beam.
 
         Examples
-        ========
-
+        --------
         There is a beam of length 12 meters. There are two simple supports
         below the beam, one at the starting point and another at a distance
         of 8 meters. Calculate the I.L.D. equations for Shear at a distance
@@ -1313,8 +1307,7 @@ class Beam:
         calling solve_for_ild_shear().
 
         Parameters
-        ==========
-
+        ----------
         subs : dictionary
                Python dictionary containing Symbols as key and their
                corresponding values.
@@ -1325,8 +1318,7 @@ class Beam:
         the plot can be incorrect.
 
         Examples
-        ========
-
+        --------
         There is a beam of length 12 meters. There are two simple supports
         below the beam, one at the starting point and another at a distance
         of 8 meters. Plot the I.L.D. for Shear at a distance
@@ -1366,7 +1358,7 @@ class Beam:
         specified point under the effect of a moving load.
 
         Parameters
-        ==========
+        ----------
         distance : Integer
             Distance of the point from the start of the beam
             for which equations are to be determined
@@ -1381,8 +1373,7 @@ class Beam:
         substituting a = 0 or a = l, with l the length of the beam.
 
         Examples
-        ========
-
+        --------
         There is a beam of length 12 meters. There are two simple supports
         below the beam, one at the starting point and another at a distance
         of 8 meters. Calculate the I.L.D. equations for Moment at a distance
@@ -1418,8 +1409,7 @@ class Beam:
         calling solve_for_ild_moment().
 
         Parameters
-        ==========
-
+        ----------
         subs : dictionary
                Python dictionary containing Symbols as key and their
                corresponding values.
@@ -1430,8 +1420,7 @@ class Beam:
         the plot can be incorrect.
 
         Examples
-        ========
-
+        --------
         There is a beam of length 12 meters. There are two simple supports
         below the beam, one at the starting point and another at a distance
         of 8 meters. Plot the I.L.D. for Moment at a distance
@@ -1465,7 +1454,7 @@ class Beam:
 
         """
     def draw(self, pictorial: bool = True):
-        '''
+        """
         Returns a plot object representing the beam diagram of the beam.
         In particular, the diagram might include:
 
@@ -1495,15 +1484,14 @@ class Beam:
             along positive Z direction.
 
         Parameters
-        ==========
-
+        ----------
         pictorial: Boolean (default=True)
             Setting ``pictorial=True`` would simply create a pictorial (scaled)
             view of the beam diagram. On the other hand, ``pictorial=False``
             would create a beam diagram with the exact dimensions on the plot.
 
         Examples
-        ========
+        --------
 
         .. plot::
             :context: close-figs
@@ -1536,13 +1524,13 @@ class Beam:
             ...
             >>> p.show() # doctest: +SKIP
 
-        '''
+        """
     def _is_load_negative(self, load):
         """Try to determine if a load is negative or positive, using
         expansion and doit if necessary.
 
         Returns
-        =======
+        -------
         True: if the load is negative
         False: if the load is positive
         None: if it is indeterminate
@@ -1552,7 +1540,7 @@ class Beam:
     def _draw_supports(self, length, l): ...
 
 class Beam3D(Beam):
-    '''
+    """
     This class handles loads applied in any direction of a 3D space along
     with unequal values of Second moment along different axes.
 
@@ -1564,7 +1552,7 @@ class Beam3D(Beam):
        applied through out the span of a beam.
 
     Examples
-    ========
+    --------
     There is a beam of l meters long. A constant distributed load of magnitude q
     is applied along y-axis from start till the end of beam. A constant distributed
     moment of magnitude m is also applied along z-axis from start till the end of beam.
@@ -1599,11 +1587,12 @@ class Beam3D(Beam):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://homes.civil.aau.dk/jc/FemteSemester/Beams3D.pdf
 
-    '''
+    """
+
     _load_vector: Incomplete
     _moment_load_vector: Incomplete
     _torsion_moment: Incomplete
@@ -1615,7 +1604,7 @@ class Beam3D(Beam):
         """Initializes the class.
 
         Parameters
-        ==========
+        ----------
         length : Sympifyable
             A Symbol or value representing the Beam's length.
         elastic_modulus : Sympifyable
@@ -1639,19 +1628,19 @@ class Beam3D(Beam):
         """
     @property
     def shear_modulus(self):
-        """Young's Modulus of the Beam. """
+        """Young's Modulus of the Beam."""
     _shear_modulus: Incomplete
     @shear_modulus.setter
     def shear_modulus(self, e) -> None: ...
     @property
     def second_moment(self):
-        """Second moment of area of the Beam. """
+        """Second moment of area of the Beam."""
     _second_moment: Incomplete
     @second_moment.setter
     def second_moment(self, i) -> None: ...
     @property
     def area(self):
-        """Cross-sectional area of the Beam. """
+        """Cross-sectional area of the Beam."""
     _area: Incomplete
     @area.setter
     def area(self, a) -> None: ...
@@ -1676,7 +1665,7 @@ class Beam3D(Beam):
         slope or deflection(s) values along three axes at that location.
 
         Examples
-        ========
+        --------
         There is a beam of length 4 meters. The slope at 0 should be 4 along
         the x-axis and 0 along others. At the other end of beam, deflection
         along all the three axes should be zero.
@@ -1700,8 +1689,7 @@ class Beam3D(Beam):
         about the X axis with respect to the centroid.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.beam import Beam3D
         >>> from sympy import symbols
         >>> l, E, G, I, A = symbols('l, E, G, I, A')
@@ -1718,7 +1706,7 @@ class Beam3D(Beam):
         This method adds up the force load to a particular beam object.
 
         Parameters
-        ==========
+        ----------
         value : Sympifyable
             The magnitude of an applied load.
         dir : String
@@ -1736,7 +1724,7 @@ class Beam3D(Beam):
         This method adds up the moment loads to a particular beam object.
 
         Parameters
-        ==========
+        ----------
         value : Sympifyable
             The magnitude of an applied moment.
         dir : String
@@ -1751,11 +1739,11 @@ class Beam3D(Beam):
         """
     def apply_support(self, loc, type: str = 'fixed') -> None: ...
     def solve_for_reaction_loads(self, *reaction) -> None:
-        '''
+        """
         Solves for the reaction forces.
 
         Examples
-        ========
+        --------
         There is a beam of length 30 meters. It it supported by rollers at
         of its end. A constant distributed load of magnitude 8 N is applied
         from start till its end along y-axis. Another linear load having
@@ -1776,7 +1764,7 @@ class Beam3D(Beam):
         >>> b.solve_for_reaction_loads(R1, R2, R3, R4)
         >>> b.reaction_loads
         {R1: -120, R2: -120, R3: -1350, R4: -2700}
-        '''
+        """
     def shear_force(self):
         """
         Returns a list of three expressions which represents the shear force
@@ -1814,8 +1802,7 @@ class Beam3D(Beam):
         signifies a torque into the beam cross-section.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.beam import Beam3D
         >>> from sympy import symbols
         >>> l, E, G, I, A, x = symbols('l, E, G, I, A, x')
@@ -1845,13 +1832,13 @@ class Beam3D(Beam):
         """
     def _plot_shear_force(self, dir, subs=None): ...
     def plot_shear_force(self, dir: str = 'all', subs=None):
-        '''
+        """
 
         Returns a plot for Shear force along all three directions
         present in the Beam object.
 
         Parameters
-        ==========
+        ----------
         dir : string (default : "all")
             Direction along which shear force plot is required.
             If no direction is specified, all plots are displayed.
@@ -1860,7 +1847,7 @@ class Beam3D(Beam):
             corresponding values.
 
         Examples
-        ========
+        --------
         There is a beam of length 20 meters. It is supported by rollers
         at both of its ends. A linear load having slope equal to 12 is applied
         along y-axis. A constant distributed load of magnitude 15 N is
@@ -1893,16 +1880,16 @@ class Beam3D(Beam):
             Plot[2]:Plot object containing:
             [0]: cartesian line: -15*x for x over (0.0, 20.0)
 
-        '''
+        """
     def _plot_bending_moment(self, dir, subs=None): ...
     def plot_bending_moment(self, dir: str = 'all', subs=None):
-        '''
+        """
 
         Returns a plot for bending moment along all three directions
         present in the Beam object.
 
         Parameters
-        ==========
+        ----------
         dir : string (default : "all")
             Direction along which bending moment plot is required.
             If no direction is specified, all plots are displayed.
@@ -1911,7 +1898,7 @@ class Beam3D(Beam):
             corresponding values.
 
         Examples
-        ========
+        --------
         There is a beam of length 20 meters. It is supported by rollers
         at both of its ends. A linear load having slope equal to 12 is applied
         along y-axis. A constant distributed load of magnitude 15 N is
@@ -1944,16 +1931,16 @@ class Beam3D(Beam):
             Plot[2]:Plot object containing:
             [0]: cartesian line: 2*x**3 for x over (0.0, 20.0)
 
-        '''
+        """
     def _plot_slope(self, dir, subs=None): ...
     def plot_slope(self, dir: str = 'all', subs=None):
-        '''
+        """
 
         Returns a plot for Slope along all three directions
         present in the Beam object.
 
         Parameters
-        ==========
+        ----------
         dir : string (default : "all")
             Direction along which Slope plot is required.
             If no direction is specified, all plots are displayed.
@@ -1962,7 +1949,7 @@ class Beam3D(Beam):
             corresponding values.
 
         Examples
-        ========
+        --------
         There is a beam of length 20 meters. It is supported by rollers
         at both of its ends. A linear load having slope equal to 12 is applied
         along y-axis. A constant distributed load of magnitude 15 N is
@@ -1996,16 +1983,16 @@ class Beam3D(Beam):
             Plot[2]:Plot object containing:
             [0]: cartesian line: x**4/8000 - 19*x**2/172 + 52*x/43 for x over (0.0, 20.0)
 
-        '''
+        """
     def _plot_deflection(self, dir, subs=None): ...
     def plot_deflection(self, dir: str = 'all', subs=None):
-        '''
+        """
 
         Returns a plot for Deflection along all three directions
         present in the Beam object.
 
         Parameters
-        ==========
+        ----------
         dir : string (default : "all")
             Direction along which deflection plot is required.
             If no direction is specified, all plots are displayed.
@@ -2014,7 +2001,7 @@ class Beam3D(Beam):
             corresponding values.
 
         Examples
-        ========
+        --------
         There is a beam of length 20 meters. It is supported by rollers
         at both of its ends. A linear load having slope equal to 12 is applied
         along y-axis. A constant distributed load of magnitude 15 N is
@@ -2049,16 +2036,15 @@ class Beam3D(Beam):
             [0]: cartesian line: x**4/6400 - x**3/160 + 27*x**2/560 + 2*x/7 for x over (0.0, 20.0)
 
 
-        '''
+        """
     def plot_loading_results(self, dir: str = 'x', subs=None):
-        '''
+        """
 
         Returns a subplot of Shear Force, Bending Moment,
         Slope and Deflection of the Beam object along the direction specified.
 
         Parameters
-        ==========
-
+        ----------
         dir : string (default : "x")
                Direction along which plots are required.
                If no direction is specified, plots along x-axis are displayed.
@@ -2067,7 +2053,7 @@ class Beam3D(Beam):
                corresponding values.
 
         Examples
-        ========
+        --------
         There is a beam of length 20 meters. It is supported by rollers
         at both of its ends. A linear load having slope equal to 12 is applied
         along y-axis. A constant distributed load of magnitude 15 N is
@@ -2104,16 +2090,16 @@ class Beam3D(Beam):
             Plot[3]:Plot object containing:
             [0]: cartesian line: x**5/40000 - 4013*x**3/90300 + 26*x**2/43 + 1520*x/903 for x over (0.0, 20.0)
 
-        '''
+        """
     def _plot_shear_stress(self, dir, subs=None): ...
     def plot_shear_stress(self, dir: str = 'all', subs=None):
-        '''
+        """
 
         Returns a plot for Shear Stress along all three directions
         present in the Beam object.
 
         Parameters
-        ==========
+        ----------
         dir : string (default : "all")
             Direction along which shear stress plot is required.
             If no direction is specified, all plots are displayed.
@@ -2122,7 +2108,7 @@ class Beam3D(Beam):
             corresponding values.
 
         Examples
-        ========
+        --------
         There is a beam of length 20 meters and area of cross section 2 square
         meters. It is supported by rollers at both of its ends. A linear load having
         slope equal to 12 is applied along y-axis. A constant distributed load
@@ -2155,19 +2141,19 @@ class Beam3D(Beam):
             Plot[2]:Plot object containing:
             [0]: cartesian line: -15*x/2 for x over (0.0, 20.0)
 
-        '''
+        """
     def _max_shear_force(self, dir):
         """
         Helper function for max_shear_force().
         """
     def max_shear_force(self):
-        '''
+        """
         Returns point of max shear force and its corresponding shear value
         along all directions in a Beam object as a list.
         solve_for_reaction_loads() must be called before using this function.
 
         Examples
-        ========
+        --------
         There is a beam of length 20 meters. It is supported by rollers
         at both of its ends. A linear load having slope equal to 12 is applied
         along y-axis. A constant distributed load of magnitude 15 N is
@@ -2193,19 +2179,19 @@ class Beam3D(Beam):
             >>> b.solve_for_reaction_loads(R1, R2, R3, R4)
             >>> b.max_shear_force()
             [(0, 0), (20, 2400), (20, 300)]
-        '''
+        """
     def _max_bending_moment(self, dir):
         """
         Helper function for max_bending_moment().
         """
     def max_bending_moment(self):
-        '''
+        """
         Returns point of max bending moment and its corresponding bending moment value
         along all directions in a Beam object as a list.
         solve_for_reaction_loads() must be called before using this function.
 
         Examples
-        ========
+        --------
         There is a beam of length 20 meters. It is supported by rollers
         at both of its ends. A linear load having slope equal to 12 is applied
         along y-axis. A constant distributed load of magnitude 15 N is
@@ -2231,21 +2217,21 @@ class Beam3D(Beam):
             >>> b.solve_for_reaction_loads(R1, R2, R3, R4)
             >>> b.max_bending_moment()
             [(0, 0), (20, 3000), (20, 16000)]
-        '''
+        """
     max_bmoment = max_bending_moment
     def _max_deflection(self, dir):
         """
         Helper function for max_Deflection()
         """
     def max_deflection(self):
-        '''
+        """
         Returns point of max deflection and its corresponding deflection value
         along all directions in a Beam object as a list.
         solve_for_reaction_loads() and solve_slope_deflection() must be called
         before using this function.
 
         Examples
-        ========
+        --------
         There is a beam of length 20 meters. It is supported by rollers
         at both of its ends. A linear load having slope equal to 12 is applied
         along y-axis. A constant distributed load of magnitude 15 N is
@@ -2272,4 +2258,4 @@ class Beam3D(Beam):
             >>> b.solve_slope_deflection()
             >>> b.max_deflection()
             [(0, 0), (10, 495/14), (-10 + 10*sqrt(10793)/43, (10 - 10*sqrt(10793)/43)**3/160 - 20/7 + (10 - 10*sqrt(10793)/43)**4/6400 + 20*sqrt(10793)/301 + 27*(10 - 10*sqrt(10793)/43)**2/560)]
-        '''
+        """

@@ -1,27 +1,36 @@
 from _typeshed import Incomplete
-from sympy.core import I as I, S as S, pi as pi
+from sympy.core import I as I, pi as pi, S as S
 from sympy.core.add import Add as Add
 from sympy.core.cache import cacheit as cacheit
 from sympy.core.expr import Expr as Expr
-from sympy.core.function import AppliedUndef as AppliedUndef, Derivative as Derivative, Lambda as Lambda, Subs as Subs, WildFunction as WildFunction, diff as diff, expand as expand, expand_complex as expand_complex, expand_mul as expand_mul, expand_trig as expand_trig
+from sympy.core.function import (
+	AppliedUndef as AppliedUndef, Derivative as Derivative, diff as diff, expand as expand,
+	expand_complex as expand_complex, expand_mul as expand_mul, expand_trig as expand_trig, Lambda as Lambda, Subs as Subs,
+	WildFunction as WildFunction)
 from sympy.core.mul import Mul as Mul, prod as prod
-from sympy.core.relational import Eq as Eq, Ge as Ge, Gt as Gt, Lt as Lt, Ne as Ne, Relational as Relational, Unequality as Unequality, _canonical as _canonical
+from sympy.core.relational import (
+	_canonical as _canonical, Eq as Eq, Ge as Ge, Gt as Gt, Lt as Lt, Ne as Ne, Relational as Relational,
+	Unequality as Unequality)
 from sympy.core.sorting import ordered as ordered
-from sympy.core.symbol import Dummy as Dummy, Wild as Wild, symbols as symbols
-from sympy.functions.elementary.complexes import Abs as Abs, arg as arg, im as im, periodic_argument as periodic_argument, polar_lift as polar_lift, re as re
+from sympy.core.symbol import Dummy as Dummy, symbols as symbols, Wild as Wild
+from sympy.functions.elementary.complexes import (
+	Abs as Abs, arg as arg, im as im, periodic_argument as periodic_argument, polar_lift as polar_lift, re as re)
 from sympy.functions.elementary.exponential import exp as exp, log as log
 from sympy.functions.elementary.hyperbolic import asinh as asinh, cosh as cosh, coth as coth, sinh as sinh
 from sympy.functions.elementary.miscellaneous import Max as Max, Min as Min, sqrt as sqrt
 from sympy.functions.elementary.piecewise import Piecewise as Piecewise, piecewise_exclusive as piecewise_exclusive
 from sympy.functions.elementary.trigonometric import atan as atan, cos as cos, sin as sin, sinc as sinc
-from sympy.functions.special.bessel import besseli as besseli, besselj as besselj, besselk as besselk, bessely as bessely
+from sympy.functions.special.bessel import (
+	besseli as besseli, besselj as besselj, besselk as besselk, bessely as bessely)
 from sympy.functions.special.delta_functions import DiracDelta as DiracDelta, Heaviside as Heaviside
 from sympy.functions.special.error_functions import Ei as Ei, erf as erf, erfc as erfc
-from sympy.functions.special.gamma_functions import digamma as digamma, gamma as gamma, lowergamma as lowergamma, uppergamma as uppergamma
+from sympy.functions.special.gamma_functions import (
+	digamma as digamma, gamma as gamma, lowergamma as lowergamma, uppergamma as uppergamma)
 from sympy.functions.special.singularity_functions import SingularityFunction as SingularityFunction
 from sympy.integrals import Integral as Integral, integrate as integrate
-from sympy.integrals.transforms import IntegralTransform as IntegralTransform, IntegralTransformError as IntegralTransformError, _simplify as _simplify
-from sympy.logic.boolalg import And as And, Or as Or, conjuncts as conjuncts, disjuncts as disjuncts, to_cnf as to_cnf
+from sympy.integrals.transforms import (
+	_simplify as _simplify, IntegralTransform as IntegralTransform, IntegralTransformError as IntegralTransformError)
+from sympy.logic.boolalg import And as And, conjuncts as conjuncts, disjuncts as disjuncts, Or as Or, to_cnf as to_cnf
 from sympy.matrices.matrixbase import MatrixBase as MatrixBase
 from sympy.polys.matrices.linsolve import _lin_eq2dict as _lin_eq2dict
 from sympy.polys.polyerrors import PolynomialError as PolynomialError
@@ -29,7 +38,9 @@ from sympy.polys.polyroots import roots as roots
 from sympy.polys.polytools import Poly as Poly
 from sympy.polys.rationaltools import together as together
 from sympy.polys.rootoftools import RootSum as RootSum
-from sympy.utilities.exceptions import SymPyDeprecationWarning as SymPyDeprecationWarning, ignore_warnings as ignore_warnings, sympy_deprecation_warning as sympy_deprecation_warning
+from sympy.utilities.exceptions import (
+	ignore_warnings as ignore_warnings, sympy_deprecation_warning as sympy_deprecation_warning,
+	SymPyDeprecationWarning as SymPyDeprecationWarning)
 from sympy.utilities.misc import debugf as debugf
 
 _LT_level: int
@@ -42,8 +53,7 @@ def _simplifyconds(expr, s, a):
     given that `\\operatorname{Re}(s) > a`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.integrals.laplace import _simplifyconds
     >>> from sympy.abc import x
     >>> from sympy import sympify as S
@@ -76,7 +86,7 @@ def expand_dirac_delta(expr):
     """
 @DEBUG_WRAP
 def _laplace_transform_integration(f, t, s_, *, simplify):
-    """ The backend function for doing Laplace transforms by integration.
+    """The backend function for doing Laplace transforms by integration.
 
     This backend assumes that the frontend has already split sums
     such that `f` is to an addition anymore.
@@ -223,7 +233,7 @@ def _piecewise_to_heaviside(f, t):
     transform.
     """
 def laplace_correspondence(f, fdict, /):
-    '''
+    """
     This helper function takes a function `f` that is the result of a
     ``laplace_transform`` or an ``inverse_laplace_transform``.  It replaces all
     unevaluated ``LaplaceTransform(y(t), t, s)`` by `Y(s)` for any `s` and
@@ -231,8 +241,7 @@ def laplace_correspondence(f, fdict, /):
     ``fdict`` contains a correspondence ``{y: Y}``.
 
     Parameters
-    ==========
-
+    ----------
     f : sympy expression
         Expression containing unevaluated ``LaplaceTransform`` or
         ``LaplaceTransform`` objects.
@@ -242,8 +251,7 @@ def laplace_correspondence(f, fdict, /):
         Laplace transforms of ``x`` and ``y``, respectively.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import laplace_transform, diff, Function
     >>> from sympy import laplace_correspondence, inverse_laplace_transform
     >>> from sympy.abc import t, s
@@ -257,9 +265,9 @@ def laplace_correspondence(f, fdict, /):
     >>> f = inverse_laplace_transform(Y(s), s, t)
     >>> laplace_correspondence(f, {y: Y})
     y(t)
-    '''
+    """
 def laplace_initial_conds(f, t, fdict, /):
-    '''
+    """
     This helper function takes a function `f` that is the result of a
     ``laplace_transform``.  It takes an fdict of the form ``{y: [1, 4, 2]}``,
     where the values in the list are the initial value, the initial slope, the
@@ -267,8 +275,7 @@ def laplace_initial_conds(f, t, fdict, /):
     unevaluated initial conditions.
 
     Parameters
-    ==========
-
+    ----------
     f : sympy expression
         Expression containing initial conditions of unevaluated functions.
     t : sympy expression
@@ -280,8 +287,7 @@ def laplace_initial_conds(f, t, fdict, /):
         and `y\'\'(0)`, respectively.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import laplace_transform, diff, Function
     >>> from sympy import laplace_correspondence, laplace_initial_conds
     >>> from sympy.abc import t, s
@@ -291,7 +297,7 @@ def laplace_initial_conds(f, t, fdict, /):
     >>> g = laplace_correspondence(f, {y: Y})
     >>> laplace_initial_conds(g, t, {y: [2, 4, 8, 16, 32]})
     s**3*Y(s) - 2*s**2 - 4*s - 8
-    '''
+    """
 @DEBUG_WRAP
 def _laplace_transform(fn, t_, s_, *, simplify):
     """
@@ -312,6 +318,7 @@ class LaplaceTransform(IntegralTransform):
     expression. If it is called with ``.doit(noconds=False)``, it returns a
     tuple containing the same expression, a convergence plane, and conditions.
     """
+
     _name: str
     def _compute_transform(self, f, t, s, **hints): ...
     def _as_integral(self, f, t, s): ...
@@ -382,8 +389,7 @@ def laplace_transform(f, t, s, legacy_matrix: bool = True, **hints):
         ``legacy_matrix=False`` to enable the new behavior.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import DiracDelta, exp, laplace_transform
     >>> from sympy.abc import t, s, a
     >>> laplace_transform(t**4, t, s)
@@ -418,22 +424,21 @@ def laplace_transform(f, t, s, legacy_matrix: bool = True, **hints):
     2*v*exp(-d*t/(2*m))*sin(t*sqrt((-d**2 + 4*k*m)/m**2)/2)*Heaviside(t)/sqrt((-d**2 + 4*k*m)/m**2)
 
     References
-    ==========
+    ----------
 
     .. [1] Erdelyi, A. (ed.), Tables of Integral Transforms, Volume 1,
            Bateman Manuscript Prooject, McGraw-Hill (1954), available:
            https://resolver.caltech.edu/CaltechAUTHORS:20140123-101456353
 
     See Also
-    ========
-
+    --------
     inverse_laplace_transform, mellin_transform, fourier_transform
     hankel_transform, inverse_hankel_transform
 
     """
 @DEBUG_WRAP
 def _inverse_laplace_transform_integration(F, s, t_, plane, *, simplify):
-    """ The backend function for inverse Laplace transforms. """
+    """The backend function for inverse Laplace transforms."""
 @DEBUG_WRAP
 def _complete_the_square_in_denom(f, s): ...
 @cacheit
@@ -509,6 +514,7 @@ class InverseLaplaceTransform(IntegralTransform):
     For how to compute inverse Laplace transforms, see the
     :func:`inverse_laplace_transform` docstring.
     """
+
     _name: str
     _none_sentinel: Incomplete
     _c: Incomplete
@@ -562,8 +568,7 @@ def inverse_laplace_transform(F, s, t, plane=None, **hints):
     :func:`sympy.integrals.transforms.IntegralTransform.doit`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import inverse_laplace_transform, exp, Symbol
     >>> from sympy.abc import s, t
     >>> a = Symbol('a', positive=True)
@@ -571,8 +576,7 @@ def inverse_laplace_transform(F, s, t, plane=None, **hints):
     Heaviside(-a + t)
 
     See Also
-    ========
-
+    --------
     laplace_transform
     hankel_transform, inverse_hankel_transform
     """

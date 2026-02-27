@@ -7,7 +7,8 @@ from sympy.core.symbol import Symbol as Symbol
 from sympy.functions.elementary.exponential import exp as exp
 from sympy.simplify.simplify import simplify as simplify
 from sympy.stats.rv import is_random as is_random
-from sympy.stats.symbolic_probability import Covariance as Covariance, RandomSymbol as RandomSymbol, Variance as Variance
+from sympy.stats.symbolic_probability import (
+	Covariance as Covariance, RandomSymbol as RandomSymbol, Variance as Variance)
 
 _arg0_or_var: Incomplete
 
@@ -16,8 +17,7 @@ def variance_prop(expr, consts=(), include_covar: bool = False):
     This is computed as as seen in [1]_.
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
         A SymPy expression to compute the variance for.
     consts : sequence of Symbols, optional
@@ -28,16 +28,14 @@ def variance_prop(expr, consts=(), include_covar: bool = False):
         Flag for whether or not to include covariances, default=False.
 
     Returns
-    =======
-
+    -------
     var_expr : Expr
         An expression for the total variance of the expr.
         The variance for the original symbols (e.g. x) are represented
         via instance of the Variance symbol (e.g. Variance(x)).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, exp
     >>> from sympy.stats.error_prop import variance_prop
     >>> x, y = symbols('x y')
@@ -52,7 +50,7 @@ def variance_prop(expr, consts=(), include_covar: bool = False):
     4*exp(4*x)*Variance(x)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Propagation_of_uncertainty
 

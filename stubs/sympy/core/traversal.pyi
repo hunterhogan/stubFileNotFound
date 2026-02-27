@@ -2,9 +2,8 @@ from .basic import Basic as Basic
 from .sorting import ordered as ordered
 from .sympify import sympify as sympify
 from _typeshed import Incomplete
-from collections.abc import Generator
+from collections.abc import Generator, Iterator
 from sympy.utilities.iterables import iterable as iterable
-from typing import Iterator
 
 def iterargs(expr) -> Generator[Incomplete]:
     """Yield the args of a Basic object in a breadth-first traversal.
@@ -12,8 +11,7 @@ def iterargs(expr) -> Generator[Incomplete]:
     an iterable.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Integral, Function
     >>> from sympy.abc import x
     >>> f = Function('f')
@@ -22,7 +20,7 @@ def iterargs(expr) -> Generator[Incomplete]:
     [Integral(f(x), (f(x), 1)), f(x), (f(x), 1), x, f(x), 1, x]
 
     See Also
-    ========
+    --------
     iterfreeargs, preorder_traversal
     """
 def iterfreeargs(expr, _first: bool = True) -> Generator[Incomplete]:
@@ -32,8 +30,7 @@ def iterfreeargs(expr, _first: bool = True) -> Generator[Incomplete]:
     as canonical variables.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Integral, Function
     >>> from sympy.abc import x
     >>> f = Function('f')
@@ -42,7 +39,7 @@ def iterfreeargs(expr, _first: bool = True) -> Generator[Incomplete]:
     [Integral(f(x), (f(x), 1)), 1]
 
     See Also
-    ========
+    --------
     iterargs, preorder_traversal
     """
 
@@ -60,7 +57,7 @@ class preorder_traversal:
     .args, which in many cases can be arbitrary.
 
     Parameters
-    ==========
+    ----------
     node : SymPy expression
         The expression to traverse.
     keys : (default None) sort key(s)
@@ -71,13 +68,12 @@ class preorder_traversal:
         will be used.
 
     Yields
-    ======
+    ------
     subtree : SymPy expression
         All of the subtrees in the tree.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import preorder_traversal, symbols
     >>> x, y, z = symbols('x y z')
 
@@ -91,6 +87,7 @@ class preorder_traversal:
     [z*(x + y), z, x + y, x, y]
 
     """
+
     _skip_flag: bool
     _pt: Incomplete
     def __init__(self, node, keys=None) -> None: ...
@@ -100,8 +97,7 @@ class preorder_traversal:
         Skip yielding current node's (last yielded node's) subtrees.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import preorder_traversal, symbols
         >>> x, y, z = symbols('x y z')
         >>> pt = preorder_traversal((x + y*z)*z)
@@ -121,8 +117,7 @@ def use(expr, func, level: int = 0, args=(), kwargs={}):
     Use ``func`` to transform ``expr`` at the given level.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import use, expand
     >>> from sympy.abc import x, y
 
@@ -140,8 +135,7 @@ def walk(e, *target) -> Generator[Incomplete, Incomplete]:
     that are not of the specified types are not traversed.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.traversal import walk
     >>> from sympy import Min, Max
     >>> from sympy.abc import x, y, z
@@ -151,8 +145,7 @@ def walk(e, *target) -> Generator[Incomplete, Incomplete]:
     [Min(x, Max(y, Min(1, z))), Max(y, Min(1, z)), Min(1, z)]
 
     See Also
-    ========
-
+    --------
     bottom_up
     """
 def bottom_up(rv, F, atoms: bool = False, nonbasic: bool = False):
@@ -169,8 +162,7 @@ def postorder_traversal(node, keys=None) -> Generator[Incomplete, Incomplete]:
     a node's children's postorder traversal before yielding the node itself.
 
     Parameters
-    ==========
-
+    ----------
     node : SymPy expression
         The expression to traverse.
     keys : (default None) sort key(s)
@@ -181,13 +173,12 @@ def postorder_traversal(node, keys=None) -> Generator[Incomplete, Incomplete]:
         ``ordered`` will be used (node count and default_sort_key).
 
     Yields
-    ======
+    ------
     subtree : SymPy expression
         All of the subtrees in the tree.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import postorder_traversal
     >>> from sympy.abc import w, x, y, z
 

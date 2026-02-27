@@ -11,6 +11,7 @@ class MCodePrinter(CodePrinter):
     """A printer to convert Python expressions to
     strings of the Wolfram's Mathematica code
     """
+
     printmethod: str
     language: str
     _default_settings: dict[str, Any]
@@ -58,8 +59,7 @@ def mathematica_code(expr, **settings):
     """Converts an expr to a string of the Wolfram Mathematica code
 
     Examples
-    ========
-
+    --------
     >>> from sympy import mathematica_code as mcode, symbols, sin
     >>> x = symbols('x')
     >>> mcode(sin(x).series(x).removeO())

@@ -1,23 +1,23 @@
 from .gruntz import gruntz as gruntz
 from sympy.calculus.accumulationbounds import AccumBounds as AccumBounds
-from sympy.core import Add as Add, Expr as Expr, Mul as Mul, PoleError as PoleError, S as S, Symbol as Symbol, sympify as sympify
+from sympy.core import (
+	Add as Add, Expr as Expr, Mul as Mul, PoleError as PoleError, S as S, Symbol as Symbol, sympify as sympify)
 from sympy.core.exprtools import factor_terms as factor_terms
 from sympy.core.function import AppliedUndef as AppliedUndef
-from sympy.core.numbers import Float as Float, _illegal as _illegal
+from sympy.core.numbers import _illegal as _illegal, Float as Float
 from sympy.core.symbol import Dummy as Dummy
 from sympy.functions.combinatorial.factorials import factorial as factorial
 from sympy.functions.elementary.complexes import Abs as Abs, arg as arg, re as re, sign as sign
 from sympy.functions.elementary.exponential import exp as exp, log as log
 from sympy.functions.special.gamma_functions import gamma as gamma
-from sympy.polys import PolynomialError as PolynomialError, factor as factor
+from sympy.polys import factor as factor, PolynomialError as PolynomialError
 from sympy.series.order import Order as Order
 
 def limit(e, z, z0, dir: str = '+'):
-    '''Computes the limit of ``e(z)`` at the point ``z0``.
+    """Computes the limit of ``e(z)`` at the point ``z0``.
 
     Parameters
-    ==========
-
+    ----------
     e : expression, the limit of which is to be taken
 
     z : symbol representing the variable in the limit.
@@ -35,8 +35,7 @@ def limit(e, z, z0, dir: str = '+'):
         (i.e., ``dir="-"`` for ``oo``).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import limit, sin, oo
     >>> from sympy.abc import x
     >>> limit(sin(x)/x, x, 0)
@@ -51,17 +50,15 @@ def limit(e, z, z0, dir: str = '+'):
     0
 
     Notes
-    =====
-
+    -----
     First we try some heuristics for easy and frequent cases like "x", "1/x",
     "x**2" and similar, so that it\'s fast. For all other cases, we use the
     Gruntz algorithm (see the gruntz() function).
 
     See Also
-    ========
-
+    --------
      limit_seq : returns the limit of a sequence.
-    '''
+    """
 def heuristics(e, z, z0, dir):
     """Computes the limit of an expression term-wise.
     Parameters are the same as for the ``limit`` function.
@@ -71,11 +68,10 @@ def heuristics(e, z, z0, dir):
     """
 
 class Limit(Expr):
-    '''Represents an unevaluated limit.
+    """Represents an unevaluated limit.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Limit, sin
     >>> from sympy.abc import x
     >>> Limit(sin(x)/x, x, 0)
@@ -83,7 +79,8 @@ class Limit(Expr):
     >>> Limit(1/x, x, 0, dir="-")
     Limit(1/x, x, 0, dir=\'-\')
 
-    '''
+    """
+
     def __new__(cls, e, z, z0, dir: str = '+'): ...
     @property
     def free_symbols(self): ...
@@ -92,8 +89,7 @@ class Limit(Expr):
         """Evaluates the limit.
 
         Parameters
-        ==========
-
+        ----------
         deep : bool, optional (default: True)
             Invoke the ``doit`` method of the expressions involved before
             taking the limit.

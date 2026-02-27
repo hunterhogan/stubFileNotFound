@@ -1,6 +1,6 @@
-import abc
 from _typeshed import Incomplete
 from abc import abstractmethod
+import abc
 
 class ZenodoObjectShared(metaclass=abc.ABCMeta):
     supported_zenodo_props: Incomplete

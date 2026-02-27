@@ -1,8 +1,8 @@
-import abc
 from abc import ABC, abstractmethod
 from collections.abc import Iterator
 from pathlib import Path
 from typing import Literal
+import abc
 
 class PlatformDirsABC(ABC, metaclass=abc.ABCMeta):
     """Abstract base class for platform directories."""

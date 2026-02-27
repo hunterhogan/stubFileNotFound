@@ -3,7 +3,7 @@ from pathlib import Path
 from stubFileNotFound.missing2Any import discoverStubFiles
 
 if __name__ == "__main__":
-	listRelativePaths: list[str] = ['fonttools', 'glyphsLib']
+	listRelativePaths: list[str] = ['fonttools', 'glyphsLib', 'afdko']
 	listPathFilenames: list[Path] = discoverStubFiles(listRelativePaths)
 
 	settings = {'autoflake': settings_autoflakeDEFAULT.copy(), 'isort': settings_isortDEFAULT.copy()}

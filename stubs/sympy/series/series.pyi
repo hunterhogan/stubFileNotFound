@@ -1,11 +1,10 @@
 from sympy.core.sympify import sympify as sympify
 
 def series(expr, x=None, x0: int = 0, n: int = 6, dir: str = '+'):
-    '''Series expansion of expr around point `x = x0`.
+    """Series expansion of expr around point `x = x0`.
 
     Parameters
-    ==========
-
+    ----------
     expr : Expression
            The expression whose series is to be expanded.
 
@@ -27,8 +26,7 @@ def series(expr, x=None, x0: int = 0, n: int = 6, dir: str = '+'):
           ``oo``).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import series, tan, oo
     >>> from sympy.abc import x
     >>> f = tan(x)
@@ -48,13 +46,11 @@ def series(expr, x=None, x0: int = 0, n: int = 6, dir: str = '+'):
     TypeError: \'Infinity\' object cannot be interpreted as an integer
 
     Returns
-    =======
-
+    -------
     Expr
         Series expansion of the expression about x0
 
     See Also
-    ========
-
+    --------
     sympy.core.expr.Expr.series: See the docstring of Expr.series() for complete details of this wrapper.
-    '''
+    """

@@ -1,12 +1,11 @@
-import subprocess
-import sys
 from collections.abc import Callable
 from types import TracebackType
-from typing import Any, AnyStr, Final
-from typing_extensions import Self
+from typing import Any, AnyStr, Final, Self
+import subprocess
+import sys
 
 if sys.platform == "win32":
-    __all__ = ("pipe", "Popen", "PIPE", "PipeHandle")
+    __all__ = ("PIPE", "PipeHandle", "Popen", "pipe")
 
     BUFSIZE: Final = 8192
     PIPE: Final = subprocess.PIPE

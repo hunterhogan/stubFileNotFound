@@ -1,7 +1,7 @@
-import abc
 from _typeshed import Incomplete
 from abc import abstractmethod
 from cffconvert.behavior_shared.abstract_url_shared import AbstractUrlShared as AbstractUrlShared
+import abc
 
 class ApalikeUrlShared(AbstractUrlShared, metaclass=abc.ABCMeta):
     _behaviors: Incomplete

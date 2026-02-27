@@ -3,7 +3,9 @@ from .artist import Artist as Artist
 from .font_manager import FontProperties as FontProperties
 from .patches import FancyArrowPatch as FancyArrowPatch, FancyBboxPatch as FancyBboxPatch, Rectangle as Rectangle
 from .textpath import TextPath as TextPath, TextToPath as TextToPath
-from .transforms import Affine2D as Affine2D, Bbox as Bbox, BboxBase as BboxBase, BboxTransformTo as BboxTransformTo, IdentityTransform as IdentityTransform, Transform as Transform
+from .transforms import (
+	Affine2D as Affine2D, Bbox as Bbox, BboxBase as BboxBase, BboxTransformTo as BboxTransformTo,
+	IdentityTransform as IdentityTransform, Transform as Transform)
 from _typeshed import Incomplete
 
 _log: Incomplete
@@ -21,9 +23,9 @@ def _get_text_metrics_with_cache_impl(renderer_ref, text, fontprop, ismath, dpi)
 
 class Text(Artist):
     """Handle storing and drawing of text in window or data coordinates."""
+
     zorder: int
     _charsize_cache: Incomplete
-    def __repr__(self) -> str: ...
     _text: str
     def __init__(self, x: int = 0, y: int = 0, text: str = '', *, color: Incomplete | None = None, verticalalignment: str = 'baseline', horizontalalignment: str = 'left', multialignment: Incomplete | None = None, fontproperties: Incomplete | None = None, rotation: Incomplete | None = None, linespacing: Incomplete | None = None, rotation_mode: Incomplete | None = None, usetex: Incomplete | None = None, wrap: bool = False, transform_rotates_text: bool = False, parse_math: Incomplete | None = None, antialiased: Incomplete | None = None, **kwargs) -> None:
         """
@@ -76,7 +78,7 @@ class Text(Artist):
     _rotation_mode: Incomplete
     stale: bool
     def set_rotation_mode(self, m) -> None:
-        '''
+        """
         Set text rotation mode.
 
         Parameters
@@ -86,7 +88,7 @@ class Text(Artist):
             to their horizontal and vertical alignments.  If ``"anchor"``, then
             alignment occurs before rotation. Passing ``None`` will set the rotation
             mode to ``"default"``.
-        '''
+        """
     def get_rotation_mode(self):
         """Return the text rotation mode."""
     _antialiased: Incomplete
@@ -524,7 +526,7 @@ class Text(Artist):
             ``None`` which is converted to an empty string.
         """
     def _preprocess_math(self, s):
-        '''
+        """
         Return the string *s* after mathtext preprocessing, and the kind of
         mathtext support needed.
 
@@ -535,7 +537,7 @@ class Text(Artist):
           flag True.
         - Otherwise, return *s* with dollar signs unescaped, and the flag
           False.
-        '''
+        """
     def set_fontproperties(self, fp) -> None:
         """
         Set the font properties that control the text.
@@ -588,6 +590,7 @@ class Text(Artist):
 
 class OffsetFrom:
     """Callable helper class for working with `Annotation`."""
+
     _artist: Incomplete
     _ref_coord: Incomplete
     def __init__(self, artist, ref_coord, unit: str = 'points') -> None:
@@ -644,7 +647,7 @@ class _AnnotationBase:
     def _get_xy_transform(self, renderer, coords): ...
     _annotation_clip: Incomplete
     def set_annotation_clip(self, b) -> None:
-        '''
+        """
         Set the annotation\'s clipping behavior.
 
         Parameters
@@ -655,7 +658,7 @@ class _AnnotationBase:
             - False: The annotation will always be drawn.
             - None: The annotation will be clipped when ``self.xy`` is
               outside the Axes and ``self.xycoords == "data"``.
-        '''
+        """
     def get_annotation_clip(self):
         """
         Return the annotation's clipping behavior.
@@ -700,13 +703,13 @@ class Annotation(Text, _AnnotationBase):
     arrow_patch
         A `.FancyArrowPatch` to point from *xytext* to *xy*.
     """
-    def __str__(self) -> str: ...
+
     _textcoords: Incomplete
     arrowprops: Incomplete
     _arrow_relpos: Incomplete
     arrow_patch: Incomplete
     def __init__(self, text, xy, xytext: Incomplete | None = None, xycoords: str = 'data', textcoords: Incomplete | None = None, arrowprops: Incomplete | None = None, annotation_clip: Incomplete | None = None, **kwargs) -> None:
-        '''
+        """
         Annotate the point *xy* with text *text*.
 
         In the simplest form, the text is placed at *xy*.
@@ -868,7 +871,7 @@ class Annotation(Text, _AnnotationBase):
         --------
         :ref:`annotations`
 
-        '''
+        """
     def contains(self, mouseevent): ...
     @property
     def xycoords(self): ...

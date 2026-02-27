@@ -1,6 +1,6 @@
-import tkinter
 from _typeshed import Incomplete
 from typing import Any, Final
+import tkinter
 
 WINDOW: Final = "window"
 TEXT: Final = "text"

@@ -20,8 +20,7 @@ def textplot(expr, a, b, W: int = 55, H: int = 21) -> None:
     interval [a, b].
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, sin
     >>> from sympy.plotting import textplot
     >>> t = Symbol('t')

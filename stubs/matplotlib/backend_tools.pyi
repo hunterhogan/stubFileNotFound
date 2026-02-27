@@ -1,10 +1,11 @@
-import enum
 from _typeshed import Incomplete
 from matplotlib import _api as _api, cbook as cbook
 from matplotlib._pylab_helpers import Gcf as Gcf
+import enum
 
 class Cursors(enum.IntEnum):
     """Backend-independent cursor types."""
+
     POINTER = ...
     HAND = ...
     SELECT_REGION = ...
@@ -29,6 +30,7 @@ class ToolBase:
     A base tool, only implements `trigger` method or no method at all.
     The tool is instantiated by `matplotlib.backend_managers.ToolManager`.
     """
+
     default_keymap: Incomplete
     description: Incomplete
     image: Incomplete
@@ -78,6 +80,7 @@ class ToolToggleBase(ToolBase):
         `toggled` if present and True, sets the initial state of the Tool
         Arbitrary keyword arguments to be consumed by the Tool
     """
+
     radio_group: Incomplete
     cursor: Incomplete
     default_toggled: bool
@@ -116,6 +119,7 @@ class ToolSetCursor(ToolBase):
     This tool, keeps track of all `ToolToggleBase` derived tools, and updates
     the cursor when a tool gets triggered.
     """
+
     _id_drag: Incomplete
     _current_tool: Incomplete
     _default_cursor: Incomplete
@@ -133,6 +137,7 @@ class ToolCursorPosition(ToolBase):
 
     This tool runs in the background reporting the position of the cursor.
     """
+
     _id_drag: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
     def set_figure(self, figure) -> None: ...
@@ -141,6 +146,7 @@ class ToolCursorPosition(ToolBase):
 
 class RubberbandBase(ToolBase):
     """Draw and remove a rubberband."""
+
     def trigger(self, sender, event, data: Incomplete | None = None) -> None:
         """Call `draw_rubberband` or `remove_rubberband` based on data."""
     def draw_rubberband(self, *data) -> None:
@@ -158,48 +164,56 @@ class RubberbandBase(ToolBase):
 
 class ToolQuit(ToolBase):
     """Tool to call the figure manager destroy method."""
+
     description: str
     default_keymap: Incomplete
     def trigger(self, sender, event, data: Incomplete | None = None) -> None: ...
 
 class ToolQuitAll(ToolBase):
     """Tool to call the figure manager destroy method."""
+
     description: str
     default_keymap: Incomplete
     def trigger(self, sender, event, data: Incomplete | None = None) -> None: ...
 
 class ToolGrid(ToolBase):
     """Tool to toggle the major grids of the figure."""
+
     description: str
     default_keymap: Incomplete
     def trigger(self, sender, event, data: Incomplete | None = None) -> None: ...
 
 class ToolMinorGrid(ToolBase):
     """Tool to toggle the major and minor grids of the figure."""
+
     description: str
     default_keymap: Incomplete
     def trigger(self, sender, event, data: Incomplete | None = None) -> None: ...
 
 class ToolFullScreen(ToolBase):
     """Tool to toggle full screen."""
+
     description: str
     default_keymap: Incomplete
     def trigger(self, sender, event, data: Incomplete | None = None) -> None: ...
 
 class AxisScaleBase(ToolToggleBase):
     """Base Tool to toggle between linear and logarithmic."""
+
     def trigger(self, sender, event, data: Incomplete | None = None) -> None: ...
     def enable(self, event: Incomplete | None = None) -> None: ...
     def disable(self, event: Incomplete | None = None) -> None: ...
 
 class ToolYScale(AxisScaleBase):
     """Tool to toggle between linear and logarithmic scales on the Y axis."""
+
     description: str
     default_keymap: Incomplete
     def set_scale(self, ax, scale) -> None: ...
 
 class ToolXScale(AxisScaleBase):
     """Tool to toggle between linear and logarithmic scales on the X axis."""
+
     description: str
     default_keymap: Incomplete
     def set_scale(self, ax, scale) -> None: ...
@@ -217,6 +231,7 @@ class ToolViewsPositions(ToolBase):
     * `ToolBack`
     * `ToolForward`
     """
+
     views: Incomplete
     positions: Incomplete
     home_views: Incomplete
@@ -264,11 +279,13 @@ class ToolViewsPositions(ToolBase):
 
 class ViewsPositionsBase(ToolBase):
     """Base class for `ToolHome`, `ToolBack` and `ToolForward`."""
+
     _on_trigger: Incomplete
     def trigger(self, sender, event, data: Incomplete | None = None) -> None: ...
 
 class ToolHome(ViewsPositionsBase):
     """Restore the original view limits."""
+
     description: str
     image: str
     default_keymap: Incomplete
@@ -276,6 +293,7 @@ class ToolHome(ViewsPositionsBase):
 
 class ToolBack(ViewsPositionsBase):
     """Move back up the view limits stack."""
+
     description: str
     image: str
     default_keymap: Incomplete
@@ -283,6 +301,7 @@ class ToolBack(ViewsPositionsBase):
 
 class ToolForward(ViewsPositionsBase):
     """Move forward in the view lim stack."""
+
     description: str
     image: str
     default_keymap: Incomplete
@@ -290,17 +309,20 @@ class ToolForward(ViewsPositionsBase):
 
 class ConfigureSubplotsBase(ToolBase):
     """Base tool for the configuration of subplots."""
+
     description: str
     image: str
 
 class SaveFigureBase(ToolBase):
     """Base tool for figure saving."""
+
     description: str
     image: str
     default_keymap: Incomplete
 
 class ZoomPanBase(ToolToggleBase):
     """Base class for `ToolZoom` and `ToolPan`."""
+
     _button_pressed: Incomplete
     _xypress: Incomplete
     _idPress: Incomplete
@@ -319,6 +341,7 @@ class ZoomPanBase(ToolToggleBase):
 
 class ToolZoom(ZoomPanBase):
     """A Tool for zooming using a rectangle selector."""
+
     description: str
     image: str
     default_keymap: Incomplete
@@ -341,6 +364,7 @@ class ToolZoom(ZoomPanBase):
 
 class ToolPan(ZoomPanBase):
     """Pan Axes with left mouse, zoom with right."""
+
     default_keymap: Incomplete
     description: str
     image: str
@@ -372,6 +396,7 @@ class ToolHelpBase(ToolBase):
 
 class ToolCopyToClipboardBase(ToolBase):
     """Tool to copy the figure to the clipboard."""
+
     description: str
     default_keymap: Incomplete
     def trigger(self, *args, **kwargs) -> None: ...
@@ -391,7 +416,7 @@ def add_tools_to_manager(toolmanager, tools=...) -> None:
         The tools to add in a {name: tool} dict, see
         `.backend_managers.ToolManager.add_tool` for more info.
     """
-def add_tools_to_container(container, tools=[['navigation', ['home', 'back', 'forward']], ['zoompan', ['pan', 'zoom', 'subplots']], ['io', ['save', 'help']]]) -> None:
+def add_tools_to_container(container, tools=...) -> None:
     """
     Add multiple tools to the container.
 

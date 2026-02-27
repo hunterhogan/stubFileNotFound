@@ -1,17 +1,21 @@
 from ..predicates.common import CommutativePredicate as CommutativePredicate, IsTruePredicate as IsTruePredicate
-from sympy.assumptions import AppliedPredicate as AppliedPredicate, Q as Q, ask as ask
+from sympy.assumptions import AppliedPredicate as AppliedPredicate, ask as ask, Q as Q
 from sympy.core import Basic as Basic, Symbol as Symbol
 from sympy.core.logic import _fuzzy_group as _fuzzy_group, fuzzy_and as fuzzy_and, fuzzy_or as fuzzy_or
 from sympy.core.numbers import NaN as NaN, Number as Number
-from sympy.logic.boolalg import And as And, BooleanFalse as BooleanFalse, BooleanTrue as BooleanTrue, Equivalent as Equivalent, Implies as Implies, Not as Not, Or as Or, conjuncts as conjuncts
+from sympy.logic.boolalg import (
+	And as And, BooleanFalse as BooleanFalse, BooleanTrue as BooleanTrue, conjuncts as conjuncts, Equivalent as Equivalent,
+	Implies as Implies, Not as Not, Or as Or)
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 
 class AskHandler:
     """Base class that all Ask Handlers must inherit."""
+
     def __new__(cls, *args, **kwargs): ...
 
 class CommonHandler(AskHandler):
-    """Defines some useful methods common to most Handlers. """
+    """Defines some useful methods common to most Handlers."""
+
     @staticmethod
     def AlwaysTrue(expr, assumptions): ...
     @staticmethod

@@ -11,6 +11,7 @@ class MixedModeRenderer:
     complex objects, such as quad meshes, are rasterised and then
     output as images.
     """
+
     _raster_renderer_class: Incomplete
     _width: Incomplete
     _height: Incomplete
@@ -45,13 +46,13 @@ class MixedModeRenderer:
         """
     def __getattr__(self, attr): ...
     def start_rasterizing(self) -> None:
-        '''
+        """
         Enter "raster" mode.  All subsequent drawing commands (until
         `stop_rasterizing` is called) will be drawn with the raster backend.
-        '''
+        """
     def stop_rasterizing(self) -> None:
-        '''
+        """
         Exit "raster" mode.  All of the drawing that was done since
         the last `start_rasterizing` call will be copied to the
         vector backend by calling draw_image.
-        '''
+        """

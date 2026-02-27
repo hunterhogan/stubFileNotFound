@@ -4,7 +4,8 @@ from sympy.core.containers import Tuple as Tuple
 from sympy.core.function import diff as diff
 from sympy.core.singleton import S as S
 from sympy.core.sympify import _sympify as _sympify
-from sympy.tensor.array.dense_ndim_array import DenseNDimArray as DenseNDimArray, ImmutableDenseNDimArray as ImmutableDenseNDimArray
+from sympy.tensor.array.dense_ndim_array import (
+	DenseNDimArray as DenseNDimArray, ImmutableDenseNDimArray as ImmutableDenseNDimArray)
 from sympy.tensor.array.ndim_array import NDimArray as NDimArray
 from sympy.tensor.array.sparse_ndim_array import SparseNDimArray as SparseNDimArray
 
@@ -17,8 +18,7 @@ def tensorproduct(*args):
     which can be used to keep the expression unevaluated.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.tensor.array import tensorproduct, Array
     >>> from sympy.abc import x, y, z, t
     >>> A = Array([[1, 2], [3, 4]])
@@ -39,8 +39,7 @@ def tensorproduct(*args):
     [[[[x, y], [z, t]], [[0, 0], [0, 0]], [[0, 0], [0, 0]]], [[[0, 0], [0, 0]], [[x, y], [z, t]], [[0, 0], [0, 0]]], [[[0, 0], [0, 0]], [[0, 0], [0, 0]], [[x, y], [z, t]]]]
 
     See Also
-    ========
-
+    --------
     sympy.tensor.array.expressions.array_expressions.ArrayTensorProduct
 
     """
@@ -53,8 +52,7 @@ def tensorcontraction(array, *contraction_axes):
     which can be used to keep the expression unevaluated.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Array, tensorcontraction
     >>> from sympy import Matrix, eye
     >>> tensorcontraction(eye(3), (0, 1))
@@ -83,8 +81,7 @@ def tensorcontraction(array, *contraction_axes):
     [c*e + d*g, c*f + d*h]])
 
     See Also
-    ========
-
+    --------
     sympy.tensor.array.expressions.array_expressions.ArrayContraction
 
     """
@@ -101,8 +98,7 @@ def tensordiagonal(array, *diagonal_axes):
     can be used to keep the expression unevaluated.
 
     Examples
-    ========
-
+    --------
     ``tensordiagonal`` acting on a 2-dimensional array by axes 0 and 1 is
     equivalent to the diagonal of the matrix:
 
@@ -129,8 +125,7 @@ def tensordiagonal(array, *diagonal_axes):
     True
 
     See Also
-    ========
-
+    --------
     sympy.tensor.array.expressions.array_expressions.ArrayDiagonal
 
     """
@@ -149,8 +144,7 @@ def derive_by_array(expr, dx):
     `B_{j_1,\\ldots,j_M,i_1,\\ldots,i_N} := \\frac{\\partial A_{i_1,\\ldots,i_N}}{\\partial X_{j_1,\\ldots,j_M}}`
 
     Examples
-    ========
-
+    --------
     >>> from sympy import derive_by_array
     >>> from sympy.abc import x, y, z, t
     >>> from sympy import cos
@@ -163,7 +157,7 @@ def derive_by_array(expr, dx):
 
     """
 def permutedims(expr, perm=None, index_order_old=None, index_order_new=None):
-    '''
+    """
     Permutes the indices of an array.
 
     Parameter specifies the permutation of the indices.
@@ -172,8 +166,7 @@ def permutedims(expr, perm=None, index_order_old=None, index_order_new=None):
     be used to keep the expression unevaluated.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y, z, t
     >>> from sympy import sin
     >>> from sympy import Array, permutedims
@@ -213,26 +206,23 @@ def permutedims(expr, perm=None, index_order_old=None, index_order_new=None):
     [[[1, 5], [2, 6]], [[3, 7], [4, 8]]]
 
     See Also
-    ========
-
+    --------
     sympy.tensor.array.expressions.array_expressions.PermuteDims
 
-    '''
+    """
 
 class Flatten(Printable):
     """
     Flatten an iterable object to a list in a lazy-evaluation way.
 
     Notes
-    =====
-
+    -----
     This class is an iterator with which the memory cost can be economised.
     Optimisation has been considered to ameliorate the performance for some
     specific data types like DenseNDimArray and SparseNDimArray.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.tensor.array.arrayop import Flatten
     >>> from sympy.tensor.array import Array
     >>> A = Array(range(6)).reshape(2, 3)
@@ -241,6 +231,7 @@ class Flatten(Printable):
     >>> [i for i in Flatten(A)]
     [0, 1, 2, 3, 4, 5]
     """
+
     _iter: Incomplete
     _idx: int
     def __init__(self, iterable) -> None: ...

@@ -1,31 +1,8 @@
-from typing import (
-    Any,
-    Generic,
-    Literal,
-    Self,
-    overload,
-    type_check_only,
-)
-
+from pandas import IntervalIndex, Series, Timedelta, Timestamp
+from pandas._stubs_only import OrderableScalarT, OrderableT, OrderableTimesT
+from pandas._typing import IntervalClosedType, IntervalT, np_1darray_bool, np_ndarray
+from typing import Any, Generic, Literal, overload, Self, type_check_only
 import numpy as np
-from pandas import (
-    IntervalIndex,
-    Series,
-    Timedelta,
-    Timestamp,
-)
-from pandas._stubs_only import (
-    OrderableScalarT,
-    OrderableT,
-    OrderableTimesT,
-)
-
-from pandas._typing import (
-    IntervalClosedType,
-    IntervalT,
-    np_1darray_bool,
-    np_ndarray,
-)
 
 VALID_CLOSED: frozenset[str]
 

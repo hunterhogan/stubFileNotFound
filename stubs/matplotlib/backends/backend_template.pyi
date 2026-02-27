@@ -1,7 +1,9 @@
 from _typeshed import Incomplete
 from matplotlib import _api as _api
 from matplotlib._pylab_helpers import Gcf as Gcf
-from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, GraphicsContextBase as GraphicsContextBase, RendererBase as RendererBase
+from matplotlib.backend_bases import (
+	FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase,
+	GraphicsContextBase as GraphicsContextBase, RendererBase as RendererBase)
 from matplotlib.figure import Figure as Figure
 
 class RendererTemplate(RendererBase):
@@ -12,6 +14,7 @@ class RendererTemplate(RendererBase):
     writing a new backend.  Refer to `.backend_bases.RendererBase` for
     documentation of the methods.
     """
+
     dpi: Incomplete
     def __init__(self, dpi) -> None: ...
     def draw_path(self, gc, path, transform, rgbFace: Incomplete | None = None) -> None: ...
@@ -68,6 +71,7 @@ class FigureCanvasTemplate(FigureCanvasBase):
     figure : `~matplotlib.figure.Figure`
         A high-level Figure instance
     """
+
     manager_class = FigureManagerTemplate
     def draw(self) -> None:
         """

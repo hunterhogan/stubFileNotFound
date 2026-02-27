@@ -1,12 +1,10 @@
-import sys
-from contextvars import Context
-from types import TracebackType
-from typing import Any, TypeVar
-from typing_extensions import Self
-
 from . import _CoroutineLike
 from .events import AbstractEventLoop
 from .tasks import Task
+from contextvars import Context
+from types import TracebackType
+from typing import Any, Self, TypeVar
+import sys
 
 # Keep asyncio.__all__ updated with any changes to __all__ here
 if sys.version_info >= (3, 12):

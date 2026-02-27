@@ -9,6 +9,7 @@ class Orienter(Basic):
     """
     Super-class for all orienter classes.
     """
+
     def rotation_matrix(self):
         """
         The rotation matrix corresponding to this orienter
@@ -19,6 +20,7 @@ class AxisOrienter(Orienter):
     """
     Class to denote an axis orienter.
     """
+
     def __new__(cls, angle, axis): ...
     def __init__(self, angle, axis) -> None:
         """
@@ -27,8 +29,7 @@ class AxisOrienter(Orienter):
         the axis is supplied as a Vector.
 
         Parameters
-        ==========
-
+        ----------
         angle : Expr
             The angle by which the new system is to be rotated
 
@@ -36,8 +37,7 @@ class AxisOrienter(Orienter):
             The axis around which the rotation has to be performed
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> from sympy import symbols
         >>> q1 = symbols('q1')
@@ -54,8 +54,7 @@ class AxisOrienter(Orienter):
         instance.
 
         Parameters
-        ==========
-
+        ----------
         system : CoordSys3D
             The coordinate system wrt which the rotation matrix
             is to be computed
@@ -69,6 +68,7 @@ class ThreeAngleOrienter(Orienter):
     """
     Super-class for Body and Space orienters.
     """
+
     def __new__(cls, angle1, angle2, angle3, rot_order): ...
     @property
     def angle1(self): ...
@@ -83,6 +83,7 @@ class BodyOrienter(ThreeAngleOrienter):
     """
     Class to denote a body-orienter.
     """
+
     _in_order: bool
     def __new__(cls, angle1, angle2, angle3, rot_order): ...
     def __init__(self, angle1, angle2, angle3, rot_order) -> None:
@@ -94,8 +95,7 @@ class BodyOrienter(ThreeAngleOrienter):
         Tait-Bryan Angles, see https://en.wikipedia.org/wiki/Euler_angles.
 
         Parameters
-        ==========
-
+        ----------
         angle1, angle2, angle3 : Expr
             Three successive angles to rotate the coordinate system by
 
@@ -103,8 +103,7 @@ class BodyOrienter(ThreeAngleOrienter):
             String defining the order of axes for rotation
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D, BodyOrienter
         >>> from sympy import symbols
         >>> q1, q2, q3 = symbols('q1 q2 q3')
@@ -144,6 +143,7 @@ class SpaceOrienter(ThreeAngleOrienter):
     """
     Class to denote a space-orienter.
     """
+
     _in_order: bool
     def __new__(cls, angle1, angle2, angle3, rot_order): ...
     def __init__(self, angle1, angle2, angle3, rot_order) -> None:
@@ -152,8 +152,7 @@ class SpaceOrienter(ThreeAngleOrienter):
         are applied in the opposite order.
 
         Parameters
-        ==========
-
+        ----------
         angle1, angle2, angle3 : Expr
             Three successive angles to rotate the coordinate system by
 
@@ -161,13 +160,11 @@ class SpaceOrienter(ThreeAngleOrienter):
             String defining the order of axes for rotation
 
         See Also
-        ========
-
+        --------
         BodyOrienter : Orienter to orient systems wrt Euler angles.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D, SpaceOrienter
         >>> from sympy import symbols
         >>> q1, q2, q3 = symbols('q1 q2 q3')
@@ -198,6 +195,7 @@ class QuaternionOrienter(Orienter):
     """
     Class to denote a quaternion-orienter.
     """
+
     def __new__(cls, q0, q1, q2, q3): ...
     def __init__(self, angle1, angle2, angle3, rot_order) -> None:
         """
@@ -218,14 +216,12 @@ class QuaternionOrienter(Orienter):
         Quaternion does not take in a rotation order.
 
         Parameters
-        ==========
-
+        ----------
         q0, q1, q2, q3 : Expr
             The quaternions to rotate the coordinate system by
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D
         >>> from sympy import symbols
         >>> q0, q1, q2, q3 = symbols('q0 q1 q2 q3')
@@ -245,4 +241,4 @@ class QuaternionOrienter(Orienter):
     def q3(self): ...
 
 def _rot(axis, angle):
-    """DCM for simple axis 1, 2 or 3 rotations. """
+    """DCM for simple axis 1, 2 or 3 rotations."""

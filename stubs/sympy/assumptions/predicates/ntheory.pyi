@@ -14,8 +14,7 @@ class PrimePredicate(Predicate):
     number itself.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask
     >>> ask(Q.prime(0))
     False
@@ -29,6 +28,7 @@ class PrimePredicate(Predicate):
     False
 
     """
+
     name: str
     handler: Incomplete
 
@@ -43,8 +43,7 @@ class CompositePredicate(Predicate):
     at least one positive divisor other than ``1`` and the number itself.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask
     >>> ask(Q.composite(0))
     False
@@ -56,6 +55,7 @@ class CompositePredicate(Predicate):
     True
 
     """
+
     name: str
     handler: Incomplete
 
@@ -70,8 +70,7 @@ class EvenPredicate(Predicate):
     integers.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, pi
     >>> ask(Q.even(0))
     True
@@ -83,6 +82,7 @@ class EvenPredicate(Predicate):
     False
 
     """
+
     name: str
     handler: Incomplete
 
@@ -96,8 +96,7 @@ class OddPredicate(Predicate):
     ``ask(Q.odd(x))`` is true iff ``x`` belongs to the set of odd numbers.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, pi
     >>> ask(Q.odd(0))
     False
@@ -109,5 +108,6 @@ class OddPredicate(Predicate):
     False
 
     """
+
     name: str
     handler: Incomplete

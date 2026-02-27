@@ -2,17 +2,22 @@ from _typeshed import Incomplete
 from sympy.core.add import Add as Add
 from sympy.core.cache import cacheit as cacheit
 from sympy.core.expr import Expr as Expr
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, PoleError as PoleError, expand_mul as expand_mul
-from sympy.core.logic import FuzzyBool as FuzzyBool, fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
+from sympy.core.function import (
+	ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, expand_mul as expand_mul,
+	PoleError as PoleError)
+from sympy.core.logic import (
+	fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or, FuzzyBool as FuzzyBool)
 from sympy.core.mod import Mod as Mod
-from sympy.core.numbers import Float as Float, Integer as Integer, Rational as Rational, equal_valued as equal_valued, pi as pi
+from sympy.core.numbers import (
+	equal_valued as equal_valued, Float as Float, Integer as Integer, pi as pi, Rational as Rational)
 from sympy.core.relational import Eq as Eq, Ne as Ne
 from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol
 from sympy.core.sympify import sympify as sympify
-from sympy.functions.combinatorial.factorials import RisingFactorial as RisingFactorial, factorial as factorial
+from sympy.functions.combinatorial.factorials import factorial as factorial, RisingFactorial as RisingFactorial
 from sympy.functions.combinatorial.numbers import bernoulli as bernoulli, euler as euler
-from sympy.functions.elementary._trigonometric_special import cos_table as cos_table, fermat_coords as fermat_coords, ipartfrac as ipartfrac
+from sympy.functions.elementary._trigonometric_special import (
+	cos_table as cos_table, fermat_coords as fermat_coords, ipartfrac as ipartfrac)
 from sympy.functions.elementary.complexes import im as im, re as re
 from sympy.functions.elementary.exponential import exp as exp, log as log
 from sympy.functions.elementary.integers import floor as floor
@@ -24,10 +29,11 @@ from sympy.polys.specialpolys import symmetric_poly as symmetric_poly
 from sympy.utilities.iterables import numbered_symbols as numbered_symbols
 
 def _imaginary_unit_as_coefficient(arg):
-    """ Helper to extract symbolic coefficient for imaginary unit """
+    """Helper to extract symbolic coefficient for imaginary unit"""
 
 class TrigonometricFunction(DefinedFunction):
-    """Base class for trigonometric functions. """
+    """Base class for trigonometric functions."""
+
     unbranched: bool
     _singularities: Incomplete
     def _eval_is_rational(self): ...
@@ -39,14 +45,13 @@ class TrigonometricFunction(DefinedFunction):
 @cacheit
 def _table2(): ...
 def _peeloff_pi(arg):
-    '''
+    """
     Split ARG into two parts, a "rest" and a multiple of $\\pi$.
     This assumes ARG to be an Add.
     The multiple of $\\pi$ returned in the second position is always a Rational.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.elementary.trigonometric import _peeloff_pi
     >>> from sympy import pi
     >>> from sympy.abc import x, y
@@ -55,7 +60,7 @@ def _peeloff_pi(arg):
     >>> _peeloff_pi(x + 2*pi/3 + pi*y)
     (x + pi*y + pi/6, 1/2)
 
-    '''
+    """
 def _pi_coeff(arg: Expr, cycles: int = 1) -> Expr | None:
     """
     When arg is a Number times $\\pi$ (e.g. $3\\pi/2$) then return the Number
@@ -66,8 +71,7 @@ def _pi_coeff(arg: Expr, cycles: int = 1) -> Expr | None:
     as 2.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.elementary.trigonometric import _pi_coeff
     >>> from sympy import pi, Dummy
     >>> from sympy.abc import x
@@ -108,8 +112,7 @@ class sin(TrigonometricFunction):
     if $x$ is a multiple of $\\pi$, $\\pi/2$, $\\pi/3$, $\\pi/4$, and $\\pi/6$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sin, pi
     >>> from sympy.abc import x
     >>> sin(x**2).diff(x)
@@ -127,13 +130,12 @@ class sin(TrigonometricFunction):
 
 
     See Also
-    ========
-
+    --------
     csc, cos, sec, tan, cot
     asin, acsc, acos, asec, atan, acot, atan2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Trigonometric_functions
     .. [2] https://dlmf.nist.gov/4.14
@@ -141,6 +143,7 @@ class sin(TrigonometricFunction):
     .. [4] https://mathworld.wolfram.com/TrigonometryAngles.html
 
     """
+
     def period(self, symbol=None): ...
     def fdiff(self, argindex: int = 1): ...
     @classmethod
@@ -182,8 +185,7 @@ class cos(TrigonometricFunction):
     See :func:`sin` for notes about automatic evaluation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import cos, pi
     >>> from sympy.abc import x
     >>> cos(x**2).diff(x)
@@ -200,19 +202,19 @@ class cos(TrigonometricFunction):
     sqrt(2)/4 + sqrt(6)/4
 
     See Also
-    ========
-
+    --------
     sin, csc, sec, tan, cot
     asin, acsc, acos, asec, atan, acot, atan2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Trigonometric_functions
     .. [2] https://dlmf.nist.gov/4.14
     .. [3] https://functions.wolfram.com/ElementaryFunctions/Cos
 
     """
+
     def period(self, symbol=None): ...
     def fdiff(self, argindex: int = 1): ...
     @classmethod
@@ -253,8 +255,7 @@ class tan(TrigonometricFunction):
     See :class:`sin` for notes about automatic evaluation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import tan, pi
     >>> from sympy.abc import x
     >>> tan(x**2).diff(x)
@@ -265,19 +266,19 @@ class tan(TrigonometricFunction):
     -1 + sqrt(2)
 
     See Also
-    ========
-
+    --------
     sin, csc, cos, sec, cot
     asin, acsc, acos, asec, atan, acot, atan2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Trigonometric_functions
     .. [2] https://dlmf.nist.gov/4.14
     .. [3] https://functions.wolfram.com/ElementaryFunctions/Tan
 
     """
+
     def period(self, symbol=None): ...
     def fdiff(self, argindex: int = 1): ...
     def inverse(self, argindex: int = 1):
@@ -323,8 +324,7 @@ class cot(TrigonometricFunction):
     See :class:`sin` for notes about automatic evaluation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import cot, pi
     >>> from sympy.abc import x
     >>> cot(x**2).diff(x)
@@ -335,19 +335,19 @@ class cot(TrigonometricFunction):
     sqrt(3) + 2
 
     See Also
-    ========
-
+    --------
     sin, csc, cos, sec, tan
     asin, acsc, acos, asec, atan, acot, atan2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Trigonometric_functions
     .. [2] https://dlmf.nist.gov/4.14
     .. [3] https://functions.wolfram.com/ElementaryFunctions/Cot
 
     """
+
     def period(self, symbol=None): ...
     def fdiff(self, argindex: int = 1): ...
     def inverse(self, argindex: int = 1):
@@ -383,7 +383,8 @@ class cot(TrigonometricFunction):
     def _eval_subs(self, old, new): ...
 
 class ReciprocalTrigonometricFunction(TrigonometricFunction):
-    """Base class for reciprocal functions of trigonometric functions. """
+    """Base class for reciprocal functions of trigonometric functions."""
+
     _reciprocal_of: Incomplete
     _singularities: Incomplete
     _is_even: FuzzyBool
@@ -422,8 +423,7 @@ class sec(ReciprocalTrigonometricFunction):
     See :class:`sin` for notes about automatic evaluation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sec
     >>> from sympy.abc import x
     >>> sec(x**2).diff(x)
@@ -432,19 +432,19 @@ class sec(ReciprocalTrigonometricFunction):
     0
 
     See Also
-    ========
-
+    --------
     sin, csc, cos, tan, cot
     asin, acsc, acos, asec, atan, acot, atan2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Trigonometric_functions
     .. [2] https://dlmf.nist.gov/4.14
     .. [3] https://functions.wolfram.com/ElementaryFunctions/Sec
 
     """
+
     _reciprocal_of = cos
     _is_even: bool
     def period(self, symbol=None): ...
@@ -474,8 +474,7 @@ class csc(ReciprocalTrigonometricFunction):
     See :func:`sin` for notes about automatic evaluation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import csc
     >>> from sympy.abc import x
     >>> csc(x**2).diff(x)
@@ -484,19 +483,19 @@ class csc(ReciprocalTrigonometricFunction):
     0
 
     See Also
-    ========
-
+    --------
     sin, cos, sec, tan, cot
     asin, acsc, acos, asec, atan, acot, atan2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Trigonometric_functions
     .. [2] https://dlmf.nist.gov/4.14
     .. [3] https://functions.wolfram.com/ElementaryFunctions/Csc
 
     """
+
     _reciprocal_of = sin
     _is_odd: bool
     def period(self, symbol=None): ...
@@ -526,8 +525,7 @@ class sinc(DefinedFunction):
         \\end{cases}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sinc, oo, jn
     >>> from sympy.abc import x
     >>> sinc(x)
@@ -555,17 +553,17 @@ class sinc(DefinedFunction):
     >>> sinc(x).rewrite(jn)
     jn(0, x)
 
-    See also
-    ========
-
+    See Also
+    --------
     sin
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Sinc_function
 
     """
+
     _singularities: Incomplete
     def fdiff(self, argindex: int = 1): ...
     @classmethod
@@ -579,6 +577,7 @@ class sinc(DefinedFunction):
 
 class InverseTrigonometricFunction(DefinedFunction):
     """Base class for inverse trigonometric functions."""
+
     _singularities: tuple[Expr, ...]
     @staticmethod
     @cacheit
@@ -606,8 +605,7 @@ class asin(InverseTrigonometricFunction):
     A purely imaginary argument will lead to an asinh expression.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import asin, oo
     >>> asin(1)
     pi/2
@@ -619,19 +617,19 @@ class asin(InverseTrigonometricFunction):
     -oo*I
 
     See Also
-    ========
-
+    --------
     sin, csc, cos, sec, tan, cot
     acsc, acos, asec, atan, acot, atan2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
     .. [2] https://dlmf.nist.gov/4.23
     .. [3] https://functions.wolfram.com/ElementaryFunctions/ArcSin
 
     """
+
     def fdiff(self, argindex: int = 1): ...
     def _eval_is_rational(self): ...
     def _eval_is_positive(self): ...
@@ -675,8 +673,7 @@ class acos(InverseTrigonometricFunction):
     A purely imaginary argument will be rewritten to asinh.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import acos, oo
     >>> acos(1)
     0
@@ -686,19 +683,19 @@ class acos(InverseTrigonometricFunction):
     oo*I
 
     See Also
-    ========
-
+    --------
     sin, csc, cos, sec, tan, cot
     asin, acsc, asec, atan, acot, atan2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
     .. [2] https://dlmf.nist.gov/4.23
     .. [3] https://functions.wolfram.com/ElementaryFunctions/ArcCos
 
     """
+
     def fdiff(self, argindex: int = 1): ...
     def _eval_is_rational(self): ...
     @classmethod
@@ -737,8 +734,7 @@ class atan(InverseTrigonometricFunction):
     result is a rational multiple of $\\pi$ (see the eval class method).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import atan, oo
     >>> atan(0)
     0
@@ -748,19 +744,19 @@ class atan(InverseTrigonometricFunction):
     pi/2
 
     See Also
-    ========
-
+    --------
     sin, csc, cos, sec, tan, cot
     asin, acsc, acos, asec, acot, atan2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
     .. [2] https://dlmf.nist.gov/4.23
     .. [3] https://functions.wolfram.com/ElementaryFunctions/ArcTan
 
     """
+
     args: tuple[Expr]
     _singularities: Incomplete
     def fdiff(self, argindex: int = 1): ...
@@ -809,8 +805,7 @@ class acot(InverseTrigonometricFunction):
     at 0. Its range for real $x$ is $(-\\frac{\\pi}{2}, \\frac{\\pi}{2}]$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import acot, sqrt
     >>> acot(0)
     pi/2
@@ -820,18 +815,18 @@ class acot(InverseTrigonometricFunction):
     -5*pi/12
 
     See Also
-    ========
-
+    --------
     sin, csc, cos, sec, tan, cot
     asin, acsc, acos, asec, atan, atan2
 
     References
-    ==========
+    ----------
 
     .. [1] https://dlmf.nist.gov/4.23
     .. [2] https://functions.wolfram.com/ElementaryFunctions/ArcCot
 
     """
+
     _singularities: Incomplete
     def fdiff(self, argindex: int = 1): ...
     def _eval_is_rational(self): ...
@@ -890,8 +885,7 @@ class asec(InverseTrigonometricFunction):
     ``acos(x)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import asec, oo
     >>> asec(1)
     0
@@ -903,13 +897,12 @@ class asec(InverseTrigonometricFunction):
     pi/2
 
     See Also
-    ========
-
+    --------
     sin, csc, cos, sec, tan, cot
     asin, acsc, acos, atan, acot, atan2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
     .. [2] https://dlmf.nist.gov/4.23
@@ -917,6 +910,7 @@ class asec(InverseTrigonometricFunction):
     .. [4] https://reference.wolfram.com/language/ref/ArcSec.html
 
     """
+
     @classmethod
     def eval(cls, arg): ...
     def fdiff(self, argindex: int = 1): ...
@@ -952,8 +946,7 @@ class acsc(InverseTrigonometricFunction):
     result is a rational multiple of $\\pi$ (see the ``eval`` class method).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import acsc, oo
     >>> acsc(1)
     pi/2
@@ -967,19 +960,19 @@ class acsc(InverseTrigonometricFunction):
     zoo
 
     See Also
-    ========
-
+    --------
     sin, csc, cos, sec, tan, cot
     asin, acos, asec, atan, acot, atan2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
     .. [2] https://dlmf.nist.gov/4.23
     .. [3] https://functions.wolfram.com/ElementaryFunctions/ArcCsc
 
     """
+
     @classmethod
     def eval(cls, arg): ...
     def fdiff(self, argindex: int = 1): ...
@@ -1025,8 +1018,7 @@ class atan2(InverseTrigonometricFunction):
             -i\\log\\left(\\frac{x + iy}{\\sqrt{x^2 + y^2}}\\right)
 
     Examples
-    ========
-
+    --------
     Going counter-clock wise around the origin we find the
     following angles:
 
@@ -1084,19 +1076,19 @@ class atan2(InverseTrigonometricFunction):
     but note that this form is undefined on the negative real axis.
 
     See Also
-    ========
-
+    --------
     sin, csc, cos, sec, tan, cot
     asin, acsc, acos, asec, atan, acot
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Inverse_trigonometric_functions
     .. [2] https://en.wikipedia.org/wiki/Atan2
     .. [3] https://functions.wolfram.com/ElementaryFunctions/ArcTan2
 
     """
+
     @classmethod
     def eval(cls, y, x): ...
     def _eval_rewrite_as_log(self, y, x, **kwargs): ...

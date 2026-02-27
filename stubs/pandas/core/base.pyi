@@ -1,23 +1,10 @@
-from collections.abc import (
-    Iterator,
-    Sequence,
-)
+from collections.abc import Iterator, Sequence
 from datetime import timedelta
-from typing import (
-    Any,
-    Generic,
-    Literal,
-    Protocol,
-    Self,
-    TypeAlias,
-    TypeVar,
-    overload,
-    type_check_only,
-)
-
-import numpy as np
-import numpy.typing as npt
+from pandas._libs.tslibs.timedeltas import Timedelta
 from pandas._stubs_only import T_contra
+from pandas._typing import (
+	AxisIndex, DropKeep, DTypeLike, GenericT, GenericT_co, Just, ListLike, np_1darray, np_1darray_intp, np_ndarray,
+	np_ndarray_anyint, np_ndarray_bool, np_ndarray_complex, np_ndarray_float, np_ndarray_td, S1, S2, Scalar, SupportsDType)
 from pandas.core.accessor import DirNamesMixin
 from pandas.core.arraylike import OpsMixin
 from pandas.core.arrays import ExtensionArray
@@ -29,29 +16,9 @@ from pandas.core.indexes.accessors import ArrayDescriptor
 from pandas.core.indexes.base import Index
 from pandas.core.indexes.timedeltas import TimedeltaIndex
 from pandas.core.series import Series
-
-from pandas._libs.tslibs.timedeltas import Timedelta
-from pandas._typing import (
-    S1,
-    S2,
-    AxisIndex,
-    DropKeep,
-    DTypeLike,
-    GenericT,
-    GenericT_co,
-    Just,
-    ListLike,
-    Scalar,
-    SupportsDType,
-    np_1darray,
-    np_1darray_intp,
-    np_ndarray,
-    np_ndarray_anyint,
-    np_ndarray_bool,
-    np_ndarray_complex,
-    np_ndarray_float,
-    np_ndarray_td,
-)
+from typing import Any, Generic, Literal, overload, Protocol, Self, type_check_only, TypeAlias, TypeVar
+import numpy as np
+import numpy.typing as npt
 
 T_INTERVAL_NP = TypeVar("T_INTERVAL_NP", bound=np.bytes_ | np.str_)
 

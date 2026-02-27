@@ -24,8 +24,7 @@ class GrayCode(Basic):
     in an efficient manner.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics import GrayCode
     >>> a = GrayCode(3)
     >>> list(a.generate_gray())
@@ -35,7 +34,7 @@ class GrayCode(Basic):
     ['0000', '0001', '0011', '0010', '0110', '0111', '0101', '0100',     '1100', '1101', '1111', '1110', '1010', '1011', '1001', '1000']
 
     References
-    ==========
+    ----------
 
     .. [1] Nijenhuis,A. and Wilf,H.S.(1978).
            Combinatorial Algorithms. Academic Press.
@@ -44,6 +43,7 @@ class GrayCode(Basic):
 
 
     """
+
     _skip: bool
     _current: int
     _rank: Incomplete
@@ -56,8 +56,7 @@ class GrayCode(Basic):
         may also be given; the default is to start at rank = 0 ('0...0').
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import GrayCode
         >>> a = GrayCode(3)
         >>> a
@@ -83,8 +82,7 @@ class GrayCode(Basic):
 
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import GrayCode
         >>> a = GrayCode(3, start='110')
         >>> a.next().current
@@ -98,8 +96,7 @@ class GrayCode(Basic):
         Returns the number of bit vectors in the Gray code.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import GrayCode
         >>> a = GrayCode(3)
         >>> a.selections
@@ -111,8 +108,7 @@ class GrayCode(Basic):
         Returns the dimension of the Gray code.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import GrayCode
         >>> a = GrayCode(5)
         >>> a.n
@@ -123,8 +119,7 @@ class GrayCode(Basic):
         Generates the sequence of bit vectors of a Gray Code.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import GrayCode
         >>> a = GrayCode(3)
         >>> list(a.generate_gray())
@@ -135,12 +130,11 @@ class GrayCode(Basic):
         ['110', '111', '101', '100']
 
         See Also
-        ========
-
+        --------
         skip
 
         References
-        ==========
+        ----------
 
         .. [1] Knuth, D. (2011). The Art of Computer Programming,
                Vol 4, Addison Wesley
@@ -151,8 +145,7 @@ class GrayCode(Basic):
         Skips the bit generation.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import GrayCode
         >>> a = GrayCode(3)
         >>> for i in a.generate_gray():
@@ -169,8 +162,7 @@ class GrayCode(Basic):
         100
 
         See Also
-        ========
-
+        --------
         generate_gray
         """
     @property
@@ -186,8 +178,7 @@ class GrayCode(Basic):
         of 4 bit Gray codes.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import GrayCode
         >>> a = GrayCode(3)
         >>> list(a.generate_gray())
@@ -198,12 +189,11 @@ class GrayCode(Basic):
         '100'
 
         See Also
-        ========
-
+        --------
         unrank
 
         References
-        ==========
+        ----------
 
         .. [1] https://web.archive.org/web/20200224064753/http://statweb.stanford.edu/~susan/courses/s208/node12.html
 
@@ -214,8 +204,7 @@ class GrayCode(Basic):
         Returns the currently referenced Gray code as a bit string.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import GrayCode
         >>> GrayCode(3, start='100').current
         '100'
@@ -231,8 +220,7 @@ class GrayCode(Basic):
         optimization.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.combinatorics import GrayCode
         >>> GrayCode(5, rank=3).current
         '00010'
@@ -240,8 +228,7 @@ class GrayCode(Basic):
         '00010'
 
         See Also
-        ========
-
+        --------
         rank
         """
 
@@ -250,8 +237,7 @@ def random_bitstring(n):
     Generates a random bitlist of length n.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.graycode import random_bitstring
     >>> random_bitstring(3) # doctest: +SKIP
     100
@@ -263,15 +249,13 @@ def gray_to_bin(bin_list):
     We assume big endian encoding.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.graycode import gray_to_bin
     >>> gray_to_bin('100')
     '111'
 
     See Also
-    ========
-
+    --------
     bin_to_gray
     """
 def bin_to_gray(bin_list):
@@ -281,15 +265,13 @@ def bin_to_gray(bin_list):
     We assume big endian encoding.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.graycode import bin_to_gray
     >>> bin_to_gray('111')
     '100'
 
     See Also
-    ========
-
+    --------
     gray_to_bin
     """
 def get_subset_from_bitstring(super_set, bitstring):
@@ -297,8 +279,7 @@ def get_subset_from_bitstring(super_set, bitstring):
     Gets the subset defined by the bitstring.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.graycode import get_subset_from_bitstring
     >>> get_subset_from_bitstring(['a', 'b', 'c', 'd'], '0011')
     ['c', 'd']
@@ -306,8 +287,7 @@ def get_subset_from_bitstring(super_set, bitstring):
     ['c', 'a']
 
     See Also
-    ========
-
+    --------
     graycode_subsets
     """
 def graycode_subsets(gray_code_set) -> Generator[Incomplete]:
@@ -315,8 +295,7 @@ def graycode_subsets(gray_code_set) -> Generator[Incomplete]:
     Generates the subsets as enumerated by a Gray code.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.graycode import graycode_subsets
     >>> list(graycode_subsets(['a', 'b', 'c']))
     [[], ['c'], ['b', 'c'], ['b'], ['a', 'b'], ['a', 'b', 'c'],     ['a', 'c'], ['a']]
@@ -324,7 +303,6 @@ def graycode_subsets(gray_code_set) -> Generator[Incomplete]:
     [[], ['c'], ['c', 'c'], ['c'], ['b', 'c'], ['b', 'c', 'c'],     ['b', 'c'], ['b'], ['a', 'b'], ['a', 'b', 'c'], ['a', 'b', 'c', 'c'],     ['a', 'b', 'c'], ['a', 'c'], ['a', 'c', 'c'], ['a', 'c'], ['a']]
 
     See Also
-    ========
-
+    --------
     get_subset_from_bitstring
     """

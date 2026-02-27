@@ -1,6 +1,6 @@
-from . import backend_agg as backend_agg, backend_gtk3 as backend_gtk3
 from .. import cbook as cbook, transforms as transforms
-from .backend_gtk3 import GLib as GLib, Gtk as Gtk, _BackendGTK3 as _BackendGTK3
+from . import backend_agg as backend_agg, backend_gtk3 as backend_gtk3
+from .backend_gtk3 import _BackendGTK3 as _BackendGTK3, GLib as GLib, Gtk as Gtk
 from _typeshed import Incomplete
 
 class FigureCanvasGTK3Agg(backend_agg.FigureCanvasAgg, backend_gtk3.FigureCanvasGTK3):

@@ -1,9 +1,11 @@
-from . import _api as _api, _docstring as _docstring, _path as _path, artist as artist, cbook as cbook, colorizer as mcolorizer, transforms as transforms
+from . import (
+	_api as _api, _docstring as _docstring, _path as _path, artist as artist, cbook as cbook, colorizer as mcolorizer,
+	transforms as transforms)
 from ._enums import CapStyle as CapStyle, JoinStyle as JoinStyle
 from _typeshed import Incomplete
 
 class Collection(mcolorizer.ColorizingArtist):
-    '''
+    """
     Base class for Collections. Must be subclassed to be usable.
 
     A Collection represents a sequence of `.Patch`\\es that can be drawn
@@ -31,7 +33,8 @@ class Collection(mcolorizer.ColorizingArtist):
     to `.Collection.set_array`), then at draw time this internal scalar
     mappable will be used to set the ``facecolors`` and ``edgecolors``,
     ignoring those that were manually passed in.
-    '''
+    """
+
     _transforms: Incomplete
     _edge_default: bool
     _us_linestyles: Incomplete
@@ -414,6 +417,7 @@ class _CollectionWithSizes(Collection):
     """
     Base class for collections that have an array of sizes.
     """
+
     _factor: float
     def get_sizes(self):
         """
@@ -445,6 +449,7 @@ class PathCollection(_CollectionWithSizes):
     """
     A collection of `~.path.Path`\\s, as created by e.g. `~.Axes.scatter`.
     """
+
     stale: bool
     def __init__(self, paths, sizes: Incomplete | None = None, **kwargs) -> None:
         """
@@ -461,7 +466,7 @@ class PathCollection(_CollectionWithSizes):
         """
     def get_paths(self): ...
     def legend_elements(self, prop: str = 'colors', num: str = 'auto', fmt: Incomplete | None = None, func=..., **kwargs):
-        '''
+        """
         Create legend handles and labels for a PathCollection.
 
         Each legend handle is a `.Line2D` representing the Path that was drawn,
@@ -521,7 +526,7 @@ class PathCollection(_CollectionWithSizes):
             Visual representation of each element of the legend.
         labels : list of str
             The string labels for elements of the legend.
-        '''
+        """
 
 class PolyCollection(_CollectionWithSizes):
     stale: bool
@@ -568,6 +573,7 @@ class FillBetweenPolyCollection(PolyCollection):
     """
     `.PolyCollection` that fills the area between two x- or y-curves.
     """
+
     t_direction: Incomplete
     _interpolate: Incomplete
     _step: Incomplete
@@ -705,13 +711,14 @@ class FillBetweenPolyCollection(PolyCollection):
 
 class RegularPolyCollection(_CollectionWithSizes):
     """A collection of n-sided regular polygons."""
+
     _path_generator: Incomplete
     _factor: Incomplete
     _numsides: Incomplete
     _paths: Incomplete
     _rotation: Incomplete
     def __init__(self, numsides, *, rotation: int = 0, sizes=(1,), **kwargs) -> None:
-        '''
+        """
         Parameters
         ----------
         numsides : int
@@ -739,7 +746,7 @@ class RegularPolyCollection(_CollectionWithSizes):
                 offsets=offsets,
                 offset_transform=ax.transData,
                 )
-        '''
+        """
     def get_numsides(self): ...
     def get_rotation(self): ...
     _transforms: Incomplete
@@ -747,10 +754,12 @@ class RegularPolyCollection(_CollectionWithSizes):
 
 class StarPolygonCollection(RegularPolyCollection):
     """Draw a collection of regular stars with *numsides* points."""
+
     _path_generator: Incomplete
 
 class AsteriskPolygonCollection(RegularPolyCollection):
     """Draw a collection of regular asterisks with *numsides* points."""
+
     _path_generator: Incomplete
 
 class LineCollection(Collection):
@@ -770,9 +779,10 @@ class LineCollection(Collection):
     in :rc:`lines.*` instead of :rc:`patch.*`, and the property *colors* is
     added in place of *edgecolors*.
     """
+
     _edge_default: bool
     def __init__(self, segments, *, zorder: int = 2, **kwargs) -> None:
-        '''
+        """
         Parameters
         ----------
         segments : list of (N, 2) array-like
@@ -803,7 +813,7 @@ class LineCollection(Collection):
 
         **kwargs
             Forwarded to `.Collection`.
-        '''
+        """
     _paths: Incomplete
     stale: bool
     def set_segments(self, segments) -> None: ...
@@ -868,12 +878,13 @@ class LineCollection(Collection):
         """
 
 class EventCollection(LineCollection):
-    '''
+    """
     A collection of locations along a single axis at which an "event" occurred.
 
     The events are given by a 1-dimensional array. They do not have an
     amplitude and are displayed as parallel lines.
-    '''
+    """
+
     _edge_default: bool
     _is_horizontal: bool
     _linelength: Incomplete
@@ -961,6 +972,7 @@ class EventCollection(LineCollection):
 
 class CircleCollection(_CollectionWithSizes):
     """A collection of circles, drawn using splines."""
+
     _factor: Incomplete
     _paths: Incomplete
     def __init__(self, sizes, **kwargs) -> None:
@@ -975,6 +987,7 @@ class CircleCollection(_CollectionWithSizes):
 
 class EllipseCollection(Collection):
     """A collection of ellipses, drawn using splines."""
+
     _units: Incomplete
     _transforms: Incomplete
     _paths: Incomplete
@@ -1027,6 +1040,7 @@ class PatchCollection(Collection):
     Patches. It also makes it easier to assign a colormap to a heterogeneous
     collection of patches.
     """
+
     def __init__(self, patches, *, match_original: bool = False, **kwargs) -> None:
         """
         Parameters
@@ -1064,6 +1078,7 @@ class TriMesh(Collection):
 
     A triangular mesh is a `~matplotlib.tri.Triangulation` object.
     """
+
     _triangulation: Incomplete
     _shading: str
     _bbox: Incomplete
@@ -1107,6 +1122,7 @@ class _MeshData:
 
     shading : {'flat', 'gouraud'}, default: 'flat'
     """
+
     _coordinates: Incomplete
     _shading: Incomplete
     def __init__(self, coordinates, *, shading: str = 'flat') -> None: ...
@@ -1190,6 +1206,7 @@ class QuadMesh(_MeshData, Collection):
     mesh quadrilaterals.
 
     """
+
     _antialiased: Incomplete
     _bbox: Incomplete
     def __init__(self, coordinates, *, antialiased: bool = True, shading: str = 'flat', **kwargs) -> None: ...
@@ -1233,6 +1250,7 @@ class PolyQuadMesh(_MeshData, PolyCollection):
     of a cell are masked, that Polygon will **not** be drawn and it won't be in
     the list of paths returned.
     """
+
     def __init__(self, coordinates, **kwargs) -> None: ...
     def _get_unmasked_polys(self):
         """Get the unmasked regions using the coordinates and array"""

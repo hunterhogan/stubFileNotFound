@@ -40,8 +40,7 @@ class beta(DefinedFunction):
         \\mathrm{B}(x) = \\frac{2}{x} \\prod_{n = 1}^{\\infty} \\frac{n(n + 2x)}{(n + x)^2}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import I, pi
     >>> from sympy.abc import x, y
 
@@ -74,8 +73,7 @@ class beta(DefinedFunction):
     -0.2112723729365330143 - 0.7655283165378005676*I
 
     See Also
-    ========
-
+    --------
     gamma: Gamma function.
     uppergamma: Upper incomplete gamma function.
     lowergamma: Lower incomplete gamma function.
@@ -85,13 +83,14 @@ class beta(DefinedFunction):
     trigamma: Trigamma function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Beta_function
     .. [2] https://mathworld.wolfram.com/BetaFunction.html
     .. [3] https://dlmf.nist.gov/5.12
 
     """
+
     unbranched: bool
     def fdiff(self, argindex): ...
     @classmethod
@@ -124,8 +123,7 @@ class betainc(DefinedFunction):
     .. math:: \\mathrm{B}(a, b) = \\mathrm{B}_{1}(a, b)
 
     Examples
-    ========
-
+    --------
     >>> from sympy import betainc, symbols, conjugate
     >>> a, b, x, x1, x2 = symbols('a b x x1 x2')
 
@@ -161,13 +159,12 @@ class betainc(DefinedFunction):
     (-x1**a*hyper((a, 1 - b), (a + 1,), x1) + x2**a*hyper((a, 1 - b), (a + 1,), x2))/a
 
     See Also
-    ========
-
+    --------
     beta: Beta function
     hyper: Generalized Hypergeometric function
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Beta_function#Incomplete_beta_function
     .. [2] https://dlmf.nist.gov/8.17
@@ -175,6 +172,7 @@ class betainc(DefinedFunction):
     .. [4] https://functions.wolfram.com/GammaBetaErf/BetaRegularized4/02/
 
     """
+
     nargs: int
     unbranched: bool
     def fdiff(self, argindex): ...
@@ -200,8 +198,7 @@ class betainc_regularized(DefinedFunction):
     function of the beta distribution.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import betainc_regularized, symbols, conjugate
     >>> a, b, x, x1, x2 = symbols('a b x x1 x2')
 
@@ -240,13 +237,12 @@ class betainc_regularized(DefinedFunction):
     (-x1**a*hyper((a, 1 - b), (a + 1,), x1) + x2**a*hyper((a, 1 - b), (a + 1,), x2))/(a*beta(a, b))
 
     See Also
-    ========
-
+    --------
     beta: Beta function
     hyper: Generalized Hypergeometric function
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Beta_function#Incomplete_beta_function
     .. [2] https://dlmf.nist.gov/8.17
@@ -254,6 +250,7 @@ class betainc_regularized(DefinedFunction):
     .. [4] https://functions.wolfram.com/GammaBetaErf/BetaRegularized4/02/
 
     """
+
     nargs: int
     unbranched: bool
     def __new__(cls, a, b, x1, x2): ...

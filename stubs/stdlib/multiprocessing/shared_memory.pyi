@@ -1,10 +1,9 @@
-import sys
 from collections.abc import Iterable
 from types import GenericAlias
-from typing import Any, Generic, TypeVar, overload
-from typing_extensions import Self
+from typing import Any, Generic, overload, Self, TypeVar
+import sys
 
-__all__ = ["SharedMemory", "ShareableList"]
+__all__ = ["ShareableList", "SharedMemory"]
 
 _SLT = TypeVar("_SLT", int, float, bool, str, bytes, None)
 

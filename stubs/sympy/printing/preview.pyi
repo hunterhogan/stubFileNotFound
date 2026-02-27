@@ -7,7 +7,7 @@ __doctest_requires__: Incomplete
 
 def _check_output_no_window(*args, **kwargs): ...
 def system_default_viewer(fname, fmt) -> None:
-    """ Open fname with the default system viewer.
+    """Open fname with the default system viewer.
 
     In practice, it is impossible for python to know when the system viewer is
     done. For this reason, we ensure the passed file will not be deleted under
@@ -19,7 +19,7 @@ def _get_latex_main(expr, *, preamble=None, packages=(), extra_preamble=None, eu
     Generate string of a LaTeX document rendering ``expr``.
     """
 def preview(expr, output: str = 'png', viewer=None, euler: bool = True, packages=(), filename=None, outputbuffer=None, preamble=None, dvioptions=None, outputTexFile=None, extra_preamble=None, fontsize=None, **latex_settings) -> None:
-    '''
+    """
     View expression or LaTeX markup in PNG, DVI, PostScript or PDF form.
 
     If the expr argument is an expression, it will be exported to LaTeX and
@@ -116,4 +116,4 @@ def preview(expr, output: str = 'png', viewer=None, euler: bool = True, packages
     >>> preview(x + y, outputTexFile="sample.tex")
 
 
-    '''
+    """

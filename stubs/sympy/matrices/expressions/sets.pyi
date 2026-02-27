@@ -12,8 +12,7 @@ class MatrixSet(Set):
     given set.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.matrices import MatrixSet
     >>> from sympy import S, I, Matrix
     >>> M = MatrixSet(2, 2, set=S.Reals)
@@ -25,6 +24,7 @@ class MatrixSet(Set):
     False
 
     """
+
     is_empty: bool
     def __new__(cls, n, m, set): ...
     @property

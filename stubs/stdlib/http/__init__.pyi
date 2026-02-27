@@ -1,11 +1,11 @@
-import sys
 from enum import IntEnum
+import sys
 
 if sys.version_info >= (3, 11):
     from enum import StrEnum
 
 if sys.version_info >= (3, 11):
-    __all__ = ["HTTPStatus", "HTTPMethod"]
+    __all__ = ["HTTPMethod", "HTTPStatus"]
 else:
     __all__ = ["HTTPStatus"]
 

@@ -1,6 +1,12 @@
-from . import _api as _api, _docstring as _docstring, artist as artist, cbook as cbook, colors as colors, transforms as transforms
+from . import (
+	_api as _api, _docstring as _docstring, artist as artist, cbook as cbook, colors as colors, transforms as transforms)
 from ._enums import CapStyle as CapStyle, JoinStyle as JoinStyle
-from .bezier import NonIntersectingPathException as NonIntersectingPathException, get_cos_sin as get_cos_sin, get_intersection as get_intersection, get_parallels as get_parallels, inside_circle as inside_circle, make_wedged_bezier2 as make_wedged_bezier2, split_bezier_intersecting_with_closedpath as split_bezier_intersecting_with_closedpath, split_path_inout as split_path_inout
+from .bezier import (
+	get_cos_sin as get_cos_sin, get_intersection as get_intersection, get_parallels as get_parallels,
+	inside_circle as inside_circle, make_wedged_bezier2 as make_wedged_bezier2,
+	NonIntersectingPathException as NonIntersectingPathException,
+	split_bezier_intersecting_with_closedpath as split_bezier_intersecting_with_closedpath,
+	split_path_inout as split_path_inout)
 from .path import Path as Path
 from _typeshed import Incomplete
 from matplotlib.transforms import Affine2D as Affine2D
@@ -12,6 +18,7 @@ class Patch(artist.Artist):
     If any of *edgecolor*, *facecolor*, *linewidth*, or *antialiased*
     are *None*, they default to their rc params setting.
     """
+
     zorder: int
     _edge_default: bool
     _hatch_color: Incomplete
@@ -29,7 +36,7 @@ class Patch(artist.Artist):
     def get_verts(self): ...
     def _process_radius(self, radius): ...
     def contains(self, mouseevent, radius: Incomplete | None = None):
-        '''
+        """
         Test whether the mouse event occurred in the patch.
 
         Parameters
@@ -58,9 +65,9 @@ class Patch(artist.Artist):
         Returns
         -------
         (bool, empty dict)
-        '''
+        """
     def contains_point(self, point, radius: Incomplete | None = None):
-        '''
+        """
         Return whether the given point is inside the patch.
 
         Parameters
@@ -115,9 +122,9 @@ class Patch(artist.Artist):
         >>> c.contains_point(transformed_interior_point)
         True
 
-        '''
+        """
     def contains_points(self, points, radius: Incomplete | None = None):
-        '''
+        """
         Return whether the given points are inside the patch.
 
         Parameters
@@ -151,7 +158,7 @@ class Patch(artist.Artist):
         -----
         The proper use of this method depends on the transform of the patch.
         See the notes on `.Patch.contains_point`.
-        '''
+        """
     _edgecolor: Incomplete
     _facecolor: Incomplete
     _original_edgecolor: Incomplete
@@ -352,7 +359,6 @@ class Patch(artist.Artist):
         """Convert x and y units for a tuple (x, y)."""
 
 class Shadow(Patch):
-    def __str__(self) -> str: ...
     patch: Incomplete
     _shadow_transform: Incomplete
     def __init__(self, patch, ox, oy, *, shade: float = 0.7, **kwargs) -> None:
@@ -403,7 +409,7 @@ class Rectangle(Patch):
     and *height*; e.g. *xy* would be the bottom right corner if the x-axis
     was inverted or if *width* was negative.
     """
-    def __str__(self) -> str: ...
+
     _x0: Incomplete
     _y0: Incomplete
     _width: Incomplete
@@ -502,7 +508,7 @@ class Rectangle(Patch):
 
 class RegularPolygon(Patch):
     """A regular polygon patch."""
-    def __str__(self) -> str: ...
+
     xy: Incomplete
     numvertices: Incomplete
     orientation: Incomplete
@@ -535,8 +541,8 @@ class RegularPolygon(Patch):
 
 class PathPatch(Patch):
     """A general polycurve path patch."""
+
     _edge_default: bool
-    def __str__(self) -> str: ...
     _path: Incomplete
     def __init__(self, path, **kwargs) -> None:
         """
@@ -556,6 +562,7 @@ class StepPatch(PathPatch):
     By default, the path is not closed and starts and stops at
     baseline value.
     """
+
     _edge_default: bool
     orientation: Incomplete
     _edges: Incomplete
@@ -606,7 +613,7 @@ class StepPatch(PathPatch):
 
 class Polygon(Patch):
     """A general polygon patch."""
-    def __str__(self) -> str: ...
+
     _closed: Incomplete
     def __init__(self, xy, *, closed: bool = True, **kwargs) -> None:
         """
@@ -665,7 +672,7 @@ class Polygon(Patch):
 
 class Wedge(Patch):
     """Wedge shaped patch."""
-    def __str__(self) -> str: ...
+
     center: Incomplete
     _patch_transform: Incomplete
     def __init__(self, center, r, theta1, theta2, *, width: Incomplete | None = None, **kwargs) -> None:
@@ -695,7 +702,7 @@ class Wedge(Patch):
 
 class Arrow(Patch):
     """An arrow patch."""
-    def __str__(self) -> str: ...
+
     _path: Incomplete
     def __init__(self, x, y, dx, dy, *, width: float = 1.0, **kwargs) -> None:
         """
@@ -755,8 +762,8 @@ class FancyArrow(Polygon):
     """
     Like Arrow, but lets you set head width and head height independently.
     """
+
     _edge_default: bool
-    def __str__(self) -> str: ...
     _x: Incomplete
     _y: Incomplete
     _dx: Incomplete
@@ -833,7 +840,7 @@ class FancyArrow(Polygon):
 
 class CirclePolygon(RegularPolygon):
     """A polygon-approximation of a circle patch."""
-    def __str__(self) -> str: ...
+
     def __init__(self, xy, radius: int = 5, *, resolution: int = 20, **kwargs) -> None:
         """
         Create a circle at *xy* = (*x*, *y*) with given *radius*.
@@ -848,7 +855,7 @@ class CirclePolygon(RegularPolygon):
 
 class Ellipse(Patch):
     """A scale-free ellipse."""
-    def __str__(self) -> str: ...
+
     _center: Incomplete
     _angle: Incomplete
     _path: Incomplete
@@ -962,6 +969,7 @@ class Annulus(Patch):
     """
     An elliptical annulus.
     """
+
     center: Incomplete
     width: Incomplete
     angle: Incomplete
@@ -990,7 +998,6 @@ class Annulus(Patch):
 
             %(Patch:kwdoc)s
         """
-    def __str__(self) -> str: ...
     _center: Incomplete
     stale: bool
     def set_center(self, xy) -> None:
@@ -1068,7 +1075,7 @@ class Circle(Ellipse):
     """
     A circle patch.
     """
-    def __str__(self) -> str: ...
+
     radius: Incomplete
     def __init__(self, xy, radius: int = 5, **kwargs) -> None:
         """
@@ -1100,7 +1107,7 @@ class Arc(Ellipse):
 
     Due to internal optimizations, the arc cannot be filled.
     """
-    def __str__(self) -> str: ...
+
     theta1: Incomplete
     theta2: Incomplete
     _path: Incomplete
@@ -1139,7 +1146,7 @@ class Arc(Ellipse):
         %(Patch:kwdoc)s
         """
     def draw(self, renderer):
-        '''
+        """
         Draw the arc to the given *renderer*.
 
         Notes
@@ -1182,7 +1189,7 @@ class Arc(Ellipse):
            x-direction, each of the visible arc-segments between the
            pairs of vertices are drawn using the Bezier arc
            approximation technique implemented in `.Path.arc`.
-        '''
+        """
     def _update_path(self) -> None: ...
     def _theta_stretch(self): ...
 
@@ -1208,6 +1215,7 @@ class _Style:
     where actual styles are declared as subclass of it, and it
     provides some helper functions.
     """
+
     def __init_subclass__(cls) -> None: ...
     def __new__(cls, stylename, **kwargs):
         """Return the instance of the subclass with the given style name."""
@@ -1225,7 +1233,7 @@ def _register_style(style_list, cls: Incomplete | None = None, *, name: Incomple
     """Class decorator that stashes a class in a (style) dictionary."""
 
 class BoxStyle(_Style):
-    '''
+    """
     `BoxStyle` is a container class which defines several
     boxstyle classes, which are used for `FancyBboxPatch`.
 
@@ -1251,10 +1259,12 @@ class BoxStyle(_Style):
 
     *x0*, *y0*, *width* and *height* specify the location and size of the box
     to be drawn; *mutation_size* scales the outline properties such as padding.
-    '''
+    """
+
     _style_list: Incomplete
     class Square:
         """A square box."""
+
         pad: Incomplete
         def __init__(self, pad: float = 0.3) -> None:
             """
@@ -1266,6 +1276,7 @@ class BoxStyle(_Style):
         def __call__(self, x0, y0, width, height, mutation_size): ...
     class Circle:
         """A circular box."""
+
         pad: Incomplete
         def __init__(self, pad: float = 0.3) -> None:
             """
@@ -1281,6 +1292,7 @@ class BoxStyle(_Style):
 
         .. versionadded:: 3.7
         """
+
         pad: Incomplete
         def __init__(self, pad: float = 0.3) -> None:
             """
@@ -1292,6 +1304,7 @@ class BoxStyle(_Style):
         def __call__(self, x0, y0, width, height, mutation_size): ...
     class LArrow:
         """A box in the shape of a left-pointing arrow."""
+
         pad: Incomplete
         def __init__(self, pad: float = 0.3) -> None:
             """
@@ -1303,9 +1316,11 @@ class BoxStyle(_Style):
         def __call__(self, x0, y0, width, height, mutation_size): ...
     class RArrow(LArrow):
         """A box in the shape of a right-pointing arrow."""
+
         def __call__(self, x0, y0, width, height, mutation_size): ...
     class DArrow:
         """A box in the shape of a two-way arrow."""
+
         pad: Incomplete
         def __init__(self, pad: float = 0.3) -> None:
             """
@@ -1317,6 +1332,7 @@ class BoxStyle(_Style):
         def __call__(self, x0, y0, width, height, mutation_size): ...
     class Round:
         """A box with round corners."""
+
         pad: Incomplete
         rounding_size: Incomplete
         def __init__(self, pad: float = 0.3, rounding_size: Incomplete | None = None) -> None:
@@ -1331,6 +1347,7 @@ class BoxStyle(_Style):
         def __call__(self, x0, y0, width, height, mutation_size): ...
     class Round4:
         """A box with rounded edges."""
+
         pad: Incomplete
         rounding_size: Incomplete
         def __init__(self, pad: float = 0.3, rounding_size: Incomplete | None = None) -> None:
@@ -1345,6 +1362,7 @@ class BoxStyle(_Style):
         def __call__(self, x0, y0, width, height, mutation_size): ...
     class Sawtooth:
         """A box with a sawtooth outline."""
+
         pad: Incomplete
         tooth_size: Incomplete
         def __init__(self, pad: float = 0.3, tooth_size: Incomplete | None = None) -> None:
@@ -1360,10 +1378,11 @@ class BoxStyle(_Style):
         def __call__(self, x0, y0, width, height, mutation_size): ...
     class Roundtooth(Sawtooth):
         """A box with a rounded sawtooth outline."""
+
         def __call__(self, x0, y0, width, height, mutation_size): ...
 
 class ConnectionStyle(_Style):
-    '''
+    """
     `ConnectionStyle` is a container class which defines
     several connectionstyle classes, which is used to create a path
     between two points.  These are mainly used with `FancyArrowPatch`.
@@ -1397,7 +1416,8 @@ class ConnectionStyle(_Style):
     clipped so that it start (or end) from the boundary of the
     patch. The path is further shrunk by *shrinkA* (or *shrinkB*)
     which is given in points.
-    '''
+    """
+
     _style_list: Incomplete
     class _Base:
         """
@@ -1411,6 +1431,7 @@ class ConnectionStyle(_Style):
         points. This base class defines a __call__ method, and a few
         helper methods.
         """
+
         def _in_patch(self, patch):
             """
             Return a predicate function testing whether a point *xy* is
@@ -1504,6 +1525,7 @@ class ConnectionStyle(_Style):
         length of *armA* is determined by (*armA* + *fraction* x AB distance).
         Same for *armB*.
         """
+
         armA: Incomplete
         armB: Incomplete
         fraction: Incomplete
@@ -1534,7 +1556,7 @@ def _point_along_a_line(x0, y0, x1, y1, d):
     """
 
 class ArrowStyle(_Style):
-    '''
+    """
     `ArrowStyle` is a container class which defines several
     arrowstyle classes, which is used to create an arrow path along a
     given path.  These are mainly used with `FancyArrowPatch`.
@@ -1578,7 +1600,8 @@ class ArrowStyle(_Style):
     means perpendicular to the line connecting the arrow\'s head and tail.
 
     .. plot:: gallery/text_labels_and_annotations/angles_on_bracket_arrows.py
-    '''
+    """
+
     _style_list: Incomplete
     class _Base:
         """
@@ -1591,6 +1614,7 @@ class ArrowStyle(_Style):
         class is not an artist and actual drawing of the fancy arrow is
         done by the FancyArrowPatch class.
         """
+
         @staticmethod
         def ensure_quadratic_bezier(path): ...
         def transmute(self, path, mutation_size, linewidth) -> None:
@@ -1618,6 +1642,7 @@ class ArrowStyle(_Style):
         point and at the end point. The arrow heads can be either open
         or closed.
         """
+
         arrow: str
         fillbegin: bool
         fillend: bool
@@ -1654,27 +1679,35 @@ class ArrowStyle(_Style):
         def transmute(self, path, mutation_size, linewidth): ...
     class Curve(_Curve):
         """A simple curve without any arrow head."""
+
         def __init__(self) -> None: ...
     class CurveA(_Curve):
         """An arrow with a head at its start point."""
+
         arrow: str
     class CurveB(_Curve):
         """An arrow with a head at its end point."""
+
         arrow: str
     class CurveAB(_Curve):
         """An arrow with heads both at the start and the end point."""
+
         arrow: str
     class CurveFilledA(_Curve):
         """An arrow with filled triangle head at the start."""
+
         arrow: str
     class CurveFilledB(_Curve):
         """An arrow with filled triangle head at the end."""
+
         arrow: str
     class CurveFilledAB(_Curve):
         """An arrow with filled triangle heads at both ends."""
+
         arrow: str
     class BracketA(_Curve):
         """An arrow with an outward square bracket at its start."""
+
         arrow: str
         def __init__(self, widthA: float = 1.0, lengthA: float = 0.2, angleA: int = 0) -> None:
             """
@@ -1690,6 +1723,7 @@ class ArrowStyle(_Style):
             """
     class BracketB(_Curve):
         """An arrow with an outward square bracket at its end."""
+
         arrow: str
         def __init__(self, widthB: float = 1.0, lengthB: float = 0.2, angleB: int = 0) -> None:
             """
@@ -1705,6 +1739,7 @@ class ArrowStyle(_Style):
             """
     class BracketAB(_Curve):
         """An arrow with outward square brackets at both ends."""
+
         arrow: str
         def __init__(self, widthA: float = 1.0, lengthA: float = 0.2, angleA: int = 0, widthB: float = 1.0, lengthB: float = 0.2, angleB: int = 0) -> None:
             """
@@ -1720,6 +1755,7 @@ class ArrowStyle(_Style):
             """
     class BarAB(_Curve):
         """An arrow with vertical bars ``|`` at both ends."""
+
         arrow: str
         def __init__(self, widthA: float = 1.0, angleA: int = 0, widthB: float = 1.0, angleB: int = 0) -> None:
             """
@@ -1736,6 +1772,7 @@ class ArrowStyle(_Style):
         An arrow with an outward square bracket at its start and a head at
         the end.
         """
+
         arrow: str
         def __init__(self, widthA: float = 1.0, lengthA: float = 0.2, angleA: Incomplete | None = None) -> None:
             """
@@ -1754,6 +1791,7 @@ class ArrowStyle(_Style):
         An arrow with an outward square bracket at its end and a head at
         the start.
         """
+
         arrow: str
         def __init__(self, widthB: float = 1.0, lengthB: float = 0.2, angleB: Incomplete | None = None) -> None:
             """
@@ -1821,15 +1859,15 @@ class FancyBboxPatch(Patch):
     around the rectangle. The transformation of the rectangle box to the
     fancy box is delegated to the style classes defined in `.BoxStyle`.
     """
+
     _edge_default: bool
-    def __str__(self) -> str: ...
     _width: Incomplete
     _height: Incomplete
     _mutation_scale: Incomplete
     _mutation_aspect: Incomplete
     stale: bool
     def __init__(self, xy, width, height, boxstyle: str = 'round', *, mutation_scale: int = 1, mutation_aspect: int = 1, **kwargs) -> None:
-        '''
+        """
         Parameters
         ----------
         xy : (float, float)
@@ -1867,10 +1905,10 @@ class FancyBboxPatch(Patch):
         **kwargs : `~matplotlib.patches.Patch` properties
 
         %(Patch:kwdoc)s
-        '''
+        """
     _bbox_transmuter: Incomplete
     def set_boxstyle(self, boxstyle: Incomplete | None = None, **kwargs):
-        '''
+        """
         Set the box style, possibly with further attributes.
 
         Attributes from the previous box style are not reused.
@@ -1900,7 +1938,7 @@ class FancyBboxPatch(Patch):
 
             set_boxstyle("Round,pad=0.2")
             set_boxstyle("round", pad=0.2)
-        '''
+        """
     def get_boxstyle(self):
         """Return the boxstyle object."""
     def set_mutation_scale(self, scale) -> None:
@@ -1998,8 +2036,8 @@ class FancyArrowPatch(Patch):
     of the arrow, but the size and shape (in display coordinates) of the arrow
     does not change when the axis is moved or zoomed.
     """
+
     _edge_default: bool
-    def __str__(self) -> str: ...
     _posA_posB: Incomplete
     patchA: Incomplete
     patchB: Incomplete
@@ -2010,7 +2048,7 @@ class FancyArrowPatch(Patch):
     _mutation_aspect: Incomplete
     _dpi_cor: float
     def __init__(self, posA: Incomplete | None = None, posB: Incomplete | None = None, *, path: Incomplete | None = None, arrowstyle: str = 'simple', connectionstyle: str = 'arc3', patchA: Incomplete | None = None, patchB: Incomplete | None = None, shrinkA: int = 2, shrinkB: int = 2, mutation_scale: int = 1, mutation_aspect: int = 1, **kwargs) -> None:
-        '''
+        """
         There are two ways for defining an arrow:
 
         - If *posA* and *posB* are given, a path connecting two points is
@@ -2072,7 +2110,7 @@ class FancyArrowPatch(Patch):
 
             In contrast to other patches, the default ``capstyle`` and
             ``joinstyle`` for `FancyArrowPatch` are set to ``"round"``.
-        '''
+        """
     stale: bool
     def set_positions(self, posA, posB) -> None:
         """
@@ -2102,7 +2140,7 @@ class FancyArrowPatch(Patch):
         """
     _connector: Incomplete
     def set_connectionstyle(self, connectionstyle: Incomplete | None = None, **kwargs):
-        '''
+        """
         Set the connection style, possibly with further attributes.
 
         Attributes from the previous connection style are not reused.
@@ -2132,12 +2170,12 @@ class FancyArrowPatch(Patch):
 
             set_connectionstyle("Arc,armA=30,rad=10")
             set_connectionstyle("arc", armA=30, rad=10)
-        '''
+        """
     def get_connectionstyle(self):
         """Return the `ConnectionStyle` used."""
     _arrow_transmuter: Incomplete
     def set_arrowstyle(self, arrowstyle: Incomplete | None = None, **kwargs):
-        '''
+        """
         Set the arrow style, possibly with further attributes.
 
         Attributes from the previous arrow style are not reused.
@@ -2167,7 +2205,7 @@ class FancyArrowPatch(Patch):
 
             set_arrowstyle("Fancy,head_length=0.2")
             set_arrowstyle("fancy", head_length=0.2)
-        '''
+        """
     def get_arrowstyle(self):
         """Return the arrowstyle object."""
     def set_mutation_scale(self, scale) -> None:
@@ -2204,7 +2242,7 @@ class FancyArrowPatch(Patch):
 
 class ConnectionPatch(FancyArrowPatch):
     """A patch that connects two points (possibly in different Axes)."""
-    def __str__(self) -> str: ...
+
     xy1: Incomplete
     xy2: Incomplete
     coords1: Incomplete
@@ -2213,7 +2251,7 @@ class ConnectionPatch(FancyArrowPatch):
     axesB: Incomplete
     _annotation_clip: Incomplete
     def __init__(self, xyA, xyB, coordsA, coordsB: Incomplete | None = None, *, axesA: Incomplete | None = None, axesB: Incomplete | None = None, arrowstyle: str = '-', connectionstyle: str = 'arc3', patchA: Incomplete | None = None, patchB: Incomplete | None = None, shrinkA: float = 0.0, shrinkB: float = 0.0, mutation_scale: float = 10.0, mutation_aspect: Incomplete | None = None, clip_on: bool = False, **kwargs) -> None:
-        '''
+        """
         Connect point *xyA* in *coordsA* with point *xyB* in *coordsB*.
 
         Valid keys are
@@ -2280,12 +2318,12 @@ class ConnectionPatch(FancyArrowPatch):
               con = ConnectionPatch(..., axesA=ax[0], axesB=ax[1])
               fig.add_artist(con)
 
-        '''
+        """
     def _get_xy(self, xy, s, axes: Incomplete | None = None):
         """Calculate the pixel position of given point."""
     stale: bool
     def set_annotation_clip(self, b) -> None:
-        '''
+        """
         Set the annotation\'s clipping behavior.
 
         Parameters
@@ -2296,7 +2334,7 @@ class ConnectionPatch(FancyArrowPatch):
             - False: The annotation will always be drawn.
             - None: The annotation will be clipped when ``self.xy`` is
               outside the Axes and ``self.xycoords == "data"``.
-        '''
+        """
     def get_annotation_clip(self):
         """
         Return the clipping behavior.

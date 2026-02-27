@@ -3,8 +3,7 @@ from __future__ import annotations
 from _typeshed import SupportsDunderGT, SupportsDunderLT, SupportsGetItem
 from collections.abc import Callable
 from operator import itemgetter
-from typing import Any, TypeVar
-from typing_extensions import assert_type
+from typing import Any, assert_type, TypeVar
 
 _T = TypeVar("_T")
 

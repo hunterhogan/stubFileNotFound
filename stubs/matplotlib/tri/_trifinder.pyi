@@ -13,12 +13,13 @@ class TriFinder:
     Derived classes implement __call__(x, y) where x and y are array-like point
     coordinates of the same shape.
     """
+
     _triangulation: Incomplete
     def __init__(self, triangulation) -> None: ...
     def __call__(self, x, y) -> None: ...
 
 class TrapezoidMapTriFinder(TriFinder):
-    '''
+    """
     `~matplotlib.tri.TriFinder` class implemented using the trapezoid
     map algorithm from the book "Computational Geometry, Algorithms and
     Applications", second edition, by M. de Berg, M. van Kreveld, M. Overmars
@@ -28,7 +29,8 @@ class TrapezoidMapTriFinder(TriFinder):
     triangles formed from colinear points, or overlapping triangles.  The
     algorithm has some tolerance to triangles formed from colinear points, but
     this should not be relied upon.
-    '''
+    """
+
     _cpp_trifinder: Incomplete
     def __init__(self, triangulation) -> None: ...
     def __call__(self, x, y):

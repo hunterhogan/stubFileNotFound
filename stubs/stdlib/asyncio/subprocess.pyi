@@ -1,9 +1,9 @@
-import subprocess
-import sys
 from _typeshed import StrOrBytesPath
 from asyncio import events, protocols, streams, transports
 from collections.abc import Callable, Collection
-from typing import IO, Any, Literal
+from typing import Any, IO, Literal
+import subprocess
+import sys
 
 # Keep asyncio.__all__ updated with any changes to __all__ here
 __all__ = ("create_subprocess_exec", "create_subprocess_shell")

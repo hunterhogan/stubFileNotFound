@@ -1,12 +1,12 @@
-import sys
 from _typeshed import SupportsWrite
 from asyncio import Future
 from dataclasses import dataclass
 from types import FrameType
 from typing import Any, overload
+import sys
 
 if sys.version_info >= (3, 14):
-    __all__ = ("capture_call_graph", "format_call_graph", "print_call_graph", "FrameCallGraphEntry", "FutureCallGraph")
+    __all__ = ("FrameCallGraphEntry", "FutureCallGraph", "capture_call_graph", "format_call_graph", "print_call_graph")
 
     @dataclass(frozen=True, slots=True)
     class FrameCallGraphEntry:
@@ -15,7 +15,7 @@ if sys.version_info >= (3, 14):
 
     @dataclass(frozen=True, slots=True)
     class FutureCallGraph:
-        __slots__ = ('future', 'call_stack', 'awaited_by')
+        __slots__ = ('awaited_by', 'call_stack', 'future')
         future: Future[Any]
         call_stack: tuple[FrameCallGraphEntry, ...]
         awaited_by: tuple[FutureCallGraph, ...]

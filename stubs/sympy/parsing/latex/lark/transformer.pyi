@@ -1,8 +1,8 @@
-import sympy
 from _typeshed import Incomplete
 from lark import Transformer
 from sympy.external import import_module as import_module
 from sympy.parsing.latex.errors import LaTeXParsingError as LaTeXParsingError
+import sympy
 
 lark: Incomplete
 
@@ -17,8 +17,7 @@ class TransformToSymPyExpr(Transformer):
     passed to the ``.transform()`` function.
 
     Notes
-    =====
-
+    -----
     **This class is never supposed to be used directly.**
 
     In order to tweak the behavior of this class, it has to be subclassed and then after
@@ -27,14 +26,14 @@ class TransformToSymPyExpr(Transformer):
     constructor.
 
     Parameters
-    ==========
-
+    ----------
     visit_tokens : bool, optional
         For information about what this option does, see `here
         <https://lark-parser.readthedocs.io/en/latest/visitors.html#lark.visitors.Transformer>`_.
 
         Note that the option must be set to ``True`` for the default parser to work.
     """
+
     SYMBOL = sympy.Symbol
     DIGIT = sympy.core.numbers.Integer
     def CMD_INFTY(self, tokens): ...

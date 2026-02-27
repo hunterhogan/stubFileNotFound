@@ -1,5 +1,6 @@
 from .deltafunctions import deltaintegrate as deltaintegrate
-from .meijerint import _debug as _debug, meijerint_definite as meijerint_definite, meijerint_indefinite as meijerint_indefinite
+from .meijerint import (
+	_debug as _debug, meijerint_definite as meijerint_definite, meijerint_indefinite as meijerint_indefinite)
 from .rationaltools import ratint as ratint
 from .trigonometry import trigintegrate as trigintegrate
 from _typeshed import Incomplete
@@ -18,7 +19,8 @@ from sympy.core.relational import Ne as Ne
 from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, Wild as Wild
 from sympy.core.sympify import sympify as sympify
-from sympy.functions import Piecewise as Piecewise, atan as atan, cot as cot, piecewise_fold as piecewise_fold, sqrt as sqrt, tan as tan
+from sympy.functions import (
+	atan as atan, cot as cot, Piecewise as Piecewise, piecewise_fold as piecewise_fold, sqrt as sqrt, tan as tan)
 from sympy.functions.elementary.complexes import Abs as Abs, sign as sign
 from sympy.functions.elementary.exponential import log as log
 from sympy.functions.elementary.integers import floor as floor
@@ -36,10 +38,11 @@ from sympy.utilities.misc import filldedent as filldedent
 
 class Integral(AddWithLimits):
     """Represents unevaluated integral."""
+
     __slots__: Incomplete
     args: tuple[Expr, Tuple]
     def __new__(cls, function, *symbols, **assumptions) -> Integral:
-        '''Create an unevaluated integral.
+        """Create an unevaluated integral.
 
         Explanation
         ===========
@@ -76,7 +79,7 @@ class Integral(AddWithLimits):
         >>> at.as_dummy()
         Integral(_0, (_0, x))
 
-        '''
+        """
     def __getnewargs__(self): ...
     @property
     def free_symbols(self):
@@ -87,23 +90,21 @@ class Integral(AddWithLimits):
         symbol or not.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Integral
         >>> from sympy.abc import x, y
         >>> Integral(x, (x, y, 1)).free_symbols
         {y}
 
         See Also
-        ========
-
+        --------
         sympy.concrete.expr_with_limits.ExprWithLimits.function
         sympy.concrete.expr_with_limits.ExprWithLimits.limits
         sympy.concrete.expr_with_limits.ExprWithLimits.variables
         """
     def _eval_is_zero(self): ...
     def transform(self, x, u):
-        '''
+        """
         Performs a change of variables from `x` to `u` using the relationship
         given by `x` and `u` which will define the transformations `f` and `F`
         (which are inverses of each other) as follows:
@@ -126,8 +127,7 @@ class Integral(AddWithLimits):
         been corrected so as to retain the same value after integration.
 
         Notes
-        =====
-
+        -----
         The mappings, F(x) or f(u), must lead to a unique integral. Linear
         or rational linear expression, ``2*x``, ``1/x`` and ``sqrt(x)``, will
         always work; quadratic expressions like ``x**2 - 1`` are acceptable
@@ -144,8 +144,7 @@ class Integral(AddWithLimits):
         XXX can it contain another integration variable?
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import a, x, u
         >>> from sympy import Integral, cos, sqrt
 
@@ -200,18 +199,16 @@ class Integral(AddWithLimits):
         Integral(a + u, (a, -u, 1 - u))
 
         See Also
-        ========
-
+        --------
         sympy.concrete.expr_with_limits.ExprWithLimits.variables : Lists the integration variables
         as_dummy : Replace integration variables with dummy ones
-        '''
+        """
     def doit(self, **hints):
         """
         Perform the integration using any hints given.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Piecewise, S
         >>> from sympy.abc import x, t
         >>> p = x**2 + Piecewise((0, x/t < 0), (1, True))
@@ -219,8 +216,7 @@ class Integral(AddWithLimits):
         1/3
 
         See Also
-        ========
-
+        --------
         sympy.integrals.trigonometry.trigintegrate
         sympy.integrals.heurisch.heurisch
         sympy.integrals.rationaltools.ratint
@@ -240,14 +236,13 @@ class Integral(AddWithLimits):
         instances which can be resolved with doit() (provided they are integrable).
 
         References
-        ==========
+        ----------
 
         .. [1] https://en.wikipedia.org/wiki/Differentiation_under_the_integral_sign
         .. [2] https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Integral
         >>> from sympy.abc import x, y
         >>> i = Integral(x + y, y, (y, 1, x))
@@ -267,7 +262,7 @@ class Integral(AddWithLimits):
 
         """
     def _eval_integral(self, f, x, meijerg=None, risch=None, manual=None, heurisch=None, conds: str = 'piecewise', final=None):
-        '''
+        """
         Calculate the anti-derivative to the function f(x).
 
         Explanation
@@ -355,7 +350,7 @@ class Integral(AddWithLimits):
              Setting heurisch=True will cause integrate() to use only this
              method. Set heurisch=False to not use it.
 
-        '''
+        """
     def _eval_lseries(self, x, logx=None, cdir: int = 0) -> Generator[Incomplete]: ...
     def _eval_nseries(self, x, n, logx=None, cdir: int = 0): ...
     def _eval_as_leading_term(self, x, logx, cdir): ...
@@ -365,8 +360,7 @@ class Integral(AddWithLimits):
         Approximates a definite integral by a sum.
 
         Parameters
-        ==========
-
+        ----------
         n :
             The number of subintervals to use, optional.
         method :
@@ -376,13 +370,11 @@ class Integral(AddWithLimits):
             is True, evaluate the sum.
 
         Notes
-        =====
-
+        -----
         These methods of approximate integration are described in [1].
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Integral, sin, sqrt
         >>> from sympy.abc import x, n
         >>> e = Integral(sin(x), (x, 3, 7))
@@ -455,12 +447,11 @@ class Integral(AddWithLimits):
         2*Sum((2*_k/n - 1/n)**2, (_k, 1, n))/n
 
         See Also
-        ========
-
+        --------
         Integral.doit : Perform the integration using any hints
 
         References
-        ==========
+        ----------
 
         .. [1] https://en.wikipedia.org/wiki/Riemann_sum#Riemann_summation_methods
         """
@@ -476,8 +467,7 @@ class Integral(AddWithLimits):
         integrals which would otherwise be undefined.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Integral, oo
         >>> from sympy.abc import x
         >>> Integral(x+1, (x, -oo, oo)).principal_value()
@@ -491,7 +481,7 @@ class Integral(AddWithLimits):
         0
 
         References
-        ==========
+        ----------
 
         .. [1] https://en.wikipedia.org/wiki/Cauchy_principal_value
         .. [2] https://mathworld.wolfram.com/CauchyPrincipalValue.html
@@ -605,8 +595,7 @@ def integrate(*args, meijerg=None, conds: str = 'piecewise', risch=None, heurisc
     It defaults to None.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import integrate, log, exp, oo
     >>> from sympy.abc import a, x, y
 
@@ -649,8 +638,7 @@ def integrate(*args, meijerg=None, conds: str = 'piecewise', risch=None, heurisc
     (gamma(a + 1), re(a) > -1)
 
     See Also
-    ========
-
+    --------
     Integral, Integral.doit
 
     """
@@ -660,8 +648,7 @@ def line_integrate(field, curve, vars):
     Compute the line integral.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Curve, line_integrate, E, ln
     >>> from sympy.abc import x, y, t
     >>> C = Curve([E**t + 1, E**t - 1], (t, 0, ln(2)))
@@ -669,8 +656,7 @@ def line_integrate(field, curve, vars):
     3*sqrt(2)
 
     See Also
-    ========
-
+    --------
     sympy.integrals.integrals.integrate, Integral
     """
 def _(expr): ...

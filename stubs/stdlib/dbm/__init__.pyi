@@ -1,11 +1,10 @@
-import sys
 from _typeshed import StrOrBytesPath
 from collections.abc import Iterator, MutableMapping
 from types import TracebackType
-from typing import Literal, type_check_only
-from typing_extensions import Self, TypeAlias
+from typing import Literal, Self, type_check_only, TypeAlias
+import sys
 
-__all__ = ["open", "whichdb", "error"]
+__all__ = ["error", "open", "whichdb"]
 
 _KeyType: TypeAlias = str | bytes
 _ValueType: TypeAlias = str | bytes | bytearray

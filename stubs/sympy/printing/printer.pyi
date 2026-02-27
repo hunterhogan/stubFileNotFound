@@ -1,23 +1,25 @@
-import inspect
 from _typeshed import Incomplete
 from collections.abc import Generator
 from contextlib import contextmanager
 from sympy.core.add import Add as Add
 from sympy.core.basic import Basic as Basic
-from sympy.core.function import AppliedUndef as AppliedUndef, Function as Function, UndefinedFunction as UndefinedFunction
+from sympy.core.function import (
+	AppliedUndef as AppliedUndef, Function as Function, UndefinedFunction as UndefinedFunction)
 from typing import Any
+import inspect
 
 @contextmanager
 def printer_context(printer, **kwargs) -> Generator[None]: ...
 
 class Printer:
-    """ Generic printer
+    """Generic printer
 
     Its job is to provide infrastructure for implementing new printers easily.
 
     If you want to define your custom Printer or your custom printing method
     for your custom class then see the example above: printer_example_ .
     """
+
     _global_settings: dict[str, Any]
     _default_settings: dict[str, Any]
     printmethod: str
@@ -30,7 +32,7 @@ class Printer:
     def __init__(self, settings=None) -> None: ...
     @classmethod
     def set_global_settings(cls, **settings) -> None:
-        """Set system-wide printing settings. """
+        """Set system-wide printing settings."""
     @property
     def order(self): ...
     def doprint(self, expr):
@@ -45,9 +47,9 @@ class Printer:
         """
     def emptyPrinter(self, expr): ...
     def _as_ordered_terms(self, expr, order=None):
-        """A compatibility function for ordering terms in Add. """
+        """A compatibility function for ordering terms in Add."""
     def _compare_pretty(self, a, b):
-        """return -1, 0, 1 if a is canonically less, equal or
+        """Return -1, 0, 1 if a is canonically less, equal or
         greater than b. This is used when 'order=old' is selected
         for printing. This puts Order last, orders Rationals
         according to value, puts terms in order wrt the power of
@@ -59,6 +61,7 @@ class _PrintFunction:
     """
     Function wrapper to replace ``**settings`` in the signature with printer defaults
     """
+
     __other_params: Incomplete
     __print_cls: Incomplete
     def __init__(self, f, print_cls: type[Printer]) -> None: ...
@@ -68,4 +71,4 @@ class _PrintFunction:
     def __signature__(self) -> inspect.Signature: ...
 
 def print_function(print_cls):
-    """ A decorator to replace kwargs with the printer settings in __signature__ """
+    """A decorator to replace kwargs with the printer settings in __signature__"""

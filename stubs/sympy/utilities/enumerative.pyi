@@ -12,13 +12,12 @@ class PartComponent:
 
     Knuth's pseudocode makes c, u, and v separate arrays.
     """
+
     __slots__: Incomplete
     c: int
     u: int
     v: int
     def __init__(self) -> None: ...
-    def __repr__(self) -> str:
-        """for debug/algorithm animation purposes"""
     def __eq__(self, other):
         """Define  value oriented equality, which is useful for testers"""
     def __ne__(self, other):
@@ -28,14 +27,12 @@ def multiset_partitions_taocp(multiplicities) -> Generator[Incomplete]:
     """Enumerates partitions of a multiset.
 
     Parameters
-    ==========
-
+    ----------
     multiplicities
          list of integer multiplicities of the components of the multiset.
 
     Yields
-    ======
-
+    ------
     state
         Internal data structure which encodes a particular partition.
         This output is then usually processed by a visitor function
@@ -65,8 +62,7 @@ def multiset_partitions_taocp(multiplicities) -> Generator[Incomplete]:
         instances and processing them later will not work.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.enumerative import list_visitor
     >>> from sympy.utilities.enumerative import multiset_partitions_taocp
     >>> # variables components and multiplicities represent the multiset 'abb'
@@ -80,8 +76,7 @@ def multiset_partitions_taocp(multiplicities) -> Generator[Incomplete]:
     [['a'], ['b'], ['b']]]
 
     See Also
-    ========
-
+    --------
     sympy.utilities.iterables.multiset_partitions: Takes a multiset
         as input and directly yields multiset partitions.  It
         dispatches to a number of functions, including this one, for
@@ -97,8 +92,7 @@ def factoring_visitor(state, primes):
     are input here.
 
     Examples
-    ========
-
+    --------
     To enumerate the factorings of a number we can think of the elements of the
     partition as being the prime factors and the multiplicities as being their
     exponents.
@@ -119,8 +113,7 @@ def list_visitor(state, components):
     """Return a list of lists to represent the partition.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.enumerative import list_visitor
     >>> from sympy.utilities.enumerative import multiset_partitions_taocp
     >>> states = multiset_partitions_taocp([1, 2, 1])
@@ -133,7 +126,7 @@ def list_visitor(state, components):
     """
 
 class MultisetPartitionTraverser:
-    '''
+    """
     Has methods to ``enumerate`` and ``count`` the partitions of a multiset.
 
     This implements a refactored and extended version of Knuth\'s algorithm
@@ -144,8 +137,7 @@ class MultisetPartitionTraverser:
     functions used for the output of ``multiset_partitions_taocp``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.enumerative import MultisetPartitionTraverser
     >>> m = MultisetPartitionTraverser()
     >>> m.count_partitions([4,4,4,2])
@@ -154,13 +146,12 @@ class MultisetPartitionTraverser:
     686
 
     See Also
-    ========
-
+    --------
     multiset_partitions_taocp
     sympy.utilities.iterables.multiset_partitions
 
     References
-    ==========
+    ----------
 
     .. [AOCP] Algorithm 7.1.2.5M in Volume 4A, Combinatoral Algorithms,
            Part 1, of The Art of Computer Programming, by Donald Knuth.
@@ -174,7 +165,8 @@ class MultisetPartitionTraverser:
     .. [Yorgey] Generating Multiset Partitions, Brent Yorgey, The
            Monad.Reader, Issue 8, September 2007.
 
-    '''
+    """
+
     debug: bool
     k1: int
     k2: int
@@ -188,12 +180,14 @@ class MultisetPartitionTraverser:
     def __init__(self) -> None: ...
     def db_trace(self, msg) -> None:
         """Useful for understanding/debugging the algorithms.  Not
-        generally activated in end-user code."""
+        generally activated in end-user code.
+        """
     def _initialize_enumeration(self, multiplicities) -> None:
         """Allocates and initializes the partition stack.
 
         This is called from the enumeration/counting routines, so
-        there is no need to call it separately."""
+        there is no need to call it separately.
+        """
     def decrement_part(self, part):
         """Decrements part (a subrange of pstack), if possible, returning
         True iff the part was successfully decremented.
@@ -204,8 +198,7 @@ class MultisetPartitionTraverser:
         constraint that the leftmost digit cannot be decremented to 0.
 
         Parameters
-        ==========
-
+        ----------
         part
            The part, represented as a list of PartComponent objects,
            which is to be decremented.
@@ -216,8 +209,7 @@ class MultisetPartitionTraverser:
         True iff the part was successfully decremented.
 
         Parameters
-        ==========
-
+        ----------
         part
             part to be decremented (topmost part on the stack)
 
@@ -226,8 +218,7 @@ class MultisetPartitionTraverser:
             returned by the calling traversal.
 
         Notes
-        =====
-
+        -----
         The goal of this modification of the ordinary decrement method
         is to fail (meaning that the subtree rooted at this part is to
         be skipped) when it can be proved that this part can only have
@@ -272,8 +263,7 @@ class MultisetPartitionTraverser:
         Returns True iff the part was successfully decremented.
 
         Parameters
-        ==========
-
+        ----------
         part
             part to be decremented (topmost part on the stack)
 
@@ -293,8 +283,7 @@ class MultisetPartitionTraverser:
         True iff the part was successfully decremented.
 
         Parameters
-        ==========
-
+        ----------
         part
             part to be decremented (topmost part on the stack)
 
@@ -307,8 +296,7 @@ class MultisetPartitionTraverser:
             have more parts than this value.
 
         Notes
-        =====
-
+        -----
         Combines the constraints of _small and _large decrement
         methods.  If returns success, part has been decremented at
         least once, but perhaps by quite a bit more if needed to meet
@@ -319,8 +307,7 @@ class MultisetPartitionTraverser:
         adjusts pstack, f and lpart as needed.
 
         Notes
-        =====
-
+        -----
         Spreads unallocated multiplicity from the current top part
         into a new part created above the current on the stack.  This
         new part is constrained to be less than or equal to the old in
@@ -338,8 +325,7 @@ class MultisetPartitionTraverser:
         """Enumerate the partitions of a multiset.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.utilities.enumerative import list_visitor
         >>> from sympy.utilities.enumerative import MultisetPartitionTraverser
         >>> m = MultisetPartitionTraverser()
@@ -356,8 +342,7 @@ class MultisetPartitionTraverser:
         [['a'], ['a'], ['b'], ['b']]]
 
         See Also
-        ========
-
+        --------
         multiset_partitions_taocp:
             which provides the same result as this method, but is
             about twice as fast.  Hence, enum_all is primarily useful
@@ -371,8 +356,7 @@ class MultisetPartitionTraverser:
         Equivalent to enum_range(multiplicities, 0, ub)
 
         Parameters
-        ==========
-
+        ----------
         multiplicities
              list of multiplicities of the components of the multiset.
 
@@ -380,8 +364,7 @@ class MultisetPartitionTraverser:
             Maximum number of parts
 
         Examples
-        ========
-
+        --------
         >>> from sympy.utilities.enumerative import list_visitor
         >>> from sympy.utilities.enumerative import MultisetPartitionTraverser
         >>> m = MultisetPartitionTraverser()
@@ -397,8 +380,7 @@ class MultisetPartitionTraverser:
         exercise 69, in Knuth [AOCP]_.
 
         See Also
-        ========
-
+        --------
         enum_all, enum_large, enum_range
 
         """
@@ -408,8 +390,7 @@ class MultisetPartitionTraverser:
         Equivalent to enum_range(multiplicities, lb, sum(multiplicities))
 
         Parameters
-        ==========
-
+        ----------
         multiplicities
             list of multiplicities of the components of the multiset.
 
@@ -419,8 +400,7 @@ class MultisetPartitionTraverser:
 
 
         Examples
-        ========
-
+        --------
         >>> from sympy.utilities.enumerative import list_visitor
         >>> from sympy.utilities.enumerative import MultisetPartitionTraverser
         >>> m = MultisetPartitionTraverser()
@@ -432,8 +412,7 @@ class MultisetPartitionTraverser:
         [['a'], ['a'], ['b'], ['b']]]
 
         See Also
-        ========
-
+        --------
         enum_all, enum_small, enum_range
 
         """
@@ -446,8 +425,7 @@ class MultisetPartitionTraverser:
         method generalizes enum_all, enum_small, and enum_large.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.utilities.enumerative import list_visitor
         >>> from sympy.utilities.enumerative import MultisetPartitionTraverser
         >>> m = MultisetPartitionTraverser()
@@ -468,8 +446,7 @@ class MultisetPartitionTraverser:
         enumerate, and counts, rather than generates, the partitions.
 
         See Also
-        ========
-
+        --------
         count_partitions
             Has the same calling interface, but is much faster.
 
@@ -491,8 +468,7 @@ class MultisetPartitionTraverser:
         so it may be advantageous not to clear the object.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.utilities.enumerative import MultisetPartitionTraverser
         >>> m = MultisetPartitionTraverser()
         >>> m.count_partitions([9,8,2])
@@ -502,8 +478,7 @@ class MultisetPartitionTraverser:
         >>> del m
 
         Notes
-        =====
-
+        -----
         If one looks at the workings of Knuth's algorithm M [AOCP]_, it
         can be viewed as a traversal of a binary tree of parts.  A
         part has (up to) two children, the left child resulting from
@@ -552,8 +527,7 @@ def part_key(part):
     reduces the effectiveness of dynamic programming.)
 
     Notes
-    =====
-
+    -----
     This member function is a candidate for future exploration. There
     are likely symmetries that can be exploited to coalesce some
     ``part_key`` values, and thereby save space and improve

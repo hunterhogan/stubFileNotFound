@@ -3,13 +3,17 @@ from sympy.core.basic import Basic as Basic
 from sympy.core.function import Lambda as Lambda
 from sympy.core.symbol import Dummy as Dummy
 from sympy.integrals.integrals import Integral as Integral
-from sympy.stats.crv import ContinuousDistribution as ContinuousDistribution, SingleContinuousPSpace as SingleContinuousPSpace
+from sympy.stats.crv import (
+	ContinuousDistribution as ContinuousDistribution, SingleContinuousPSpace as SingleContinuousPSpace)
 from sympy.stats.crv_types import ContinuousDistributionHandmade as ContinuousDistributionHandmade
 from sympy.stats.drv import DiscreteDistribution as DiscreteDistribution, SingleDiscretePSpace as SingleDiscretePSpace
 from sympy.stats.drv_types import DiscreteDistributionHandmade as DiscreteDistributionHandmade
-from sympy.stats.frv import SingleFiniteDistribution as SingleFiniteDistribution, SingleFinitePSpace as SingleFinitePSpace
+from sympy.stats.frv import (
+	SingleFiniteDistribution as SingleFiniteDistribution, SingleFinitePSpace as SingleFinitePSpace)
 from sympy.stats.frv_types import FiniteDistributionHandmade as FiniteDistributionHandmade
-from sympy.stats.rv import Distribution as Distribution, NamedArgsMixin as NamedArgsMixin, PSpace as PSpace, RandomSymbol as RandomSymbol, _symbol_converter as _symbol_converter, is_random as is_random, random_symbols as random_symbols
+from sympy.stats.rv import (
+	_symbol_converter as _symbol_converter, Distribution as Distribution, is_random as is_random,
+	NamedArgsMixin as NamedArgsMixin, PSpace as PSpace, random_symbols as random_symbols, RandomSymbol as RandomSymbol)
 
 class CompoundPSpace(PSpace):
     """
@@ -17,6 +21,7 @@ class CompoundPSpace(PSpace):
     Marginalization, this returns the corresponding Probability Space of the
     parent distribution.
     """
+
     def __new__(cls, s, distribution): ...
     @property
     def value(self): ...
@@ -53,14 +58,12 @@ class CompoundDistribution(Distribution, NamedArgsMixin):
     Class for Compound Distributions.
 
     Parameters
-    ==========
-
+    ----------
     dist : Distribution
         Distribution must contain a random parameter
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats.compound_rv import CompoundDistribution
     >>> from sympy.stats.crv_types import NormalDistribution
     >>> from sympy.stats import Normal
@@ -74,11 +77,12 @@ class CompoundDistribution(Distribution, NamedArgsMixin):
     exp(-x**2/64 + x/16 - 1/16)/(8*sqrt(pi))
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Compound_probability_distribution
 
     """
+
     def __new__(cls, dist): ...
     @property
     def set(self): ...

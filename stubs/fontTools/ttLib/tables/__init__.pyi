@@ -4,4 +4,3 @@ def _moduleFinderHint() -> None:
 
         >>> _moduleFinderHint()
     """
-

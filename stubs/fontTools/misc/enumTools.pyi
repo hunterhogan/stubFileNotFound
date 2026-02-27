@@ -8,5 +8,3 @@ class StrEnum(str, Enum):
 
     An Enum where all members are also strings.
     """
-
-

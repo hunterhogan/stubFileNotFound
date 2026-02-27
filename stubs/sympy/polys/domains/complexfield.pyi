@@ -6,7 +6,8 @@ from sympy.polys.domains.simpledomain import SimpleDomain
 __all__ = ['ComplexField']
 
 class ComplexField(Field, CharacteristicZero, SimpleDomain):
-    """Complex numbers up to the given precision. """
+    """Complex numbers up to the given precision."""
+
     rep: str
     is_ComplexField: bool
     is_CC: bool
@@ -36,9 +37,9 @@ class ComplexField(Field, CharacteristicZero, SimpleDomain):
     def __eq__(self, other): ...
     def __hash__(self): ...
     def to_sympy(self, element):
-        """Convert ``element`` to SymPy number. """
+        """Convert ``element`` to SymPy number."""
     def from_sympy(self, expr):
-        """Convert SymPy's number to ``dtype``. """
+        """Convert SymPy's number to ``dtype``."""
     def from_ZZ(self, element, base): ...
     def from_ZZ_gmpy(self, element, base): ...
     def from_ZZ_python(self, element, base): ...
@@ -51,23 +52,23 @@ class ComplexField(Field, CharacteristicZero, SimpleDomain):
     def from_RealField(self, element, base): ...
     def from_ComplexField(self, element, base): ...
     def get_ring(self) -> None:
-        """Returns a ring associated with ``self``. """
+        """Returns a ring associated with ``self``."""
     def get_exact(self):
-        """Returns an exact domain associated with ``self``. """
+        """Returns an exact domain associated with ``self``."""
     def is_negative(self, element):
-        """Returns ``False`` for any ``ComplexElement``. """
+        """Returns ``False`` for any ``ComplexElement``."""
     def is_positive(self, element):
-        """Returns ``False`` for any ``ComplexElement``. """
+        """Returns ``False`` for any ``ComplexElement``."""
     def is_nonnegative(self, element):
-        """Returns ``False`` for any ``ComplexElement``. """
+        """Returns ``False`` for any ``ComplexElement``."""
     def is_nonpositive(self, element):
-        """Returns ``False`` for any ``ComplexElement``. """
+        """Returns ``False`` for any ``ComplexElement``."""
     def gcd(self, a, b):
-        """Returns GCD of ``a`` and ``b``. """
+        """Returns GCD of ``a`` and ``b``."""
     def lcm(self, a, b):
-        """Returns LCM of ``a`` and ``b``. """
+        """Returns LCM of ``a`` and ``b``."""
     def almosteq(self, a, b, tolerance=None):
-        """Check if ``a`` and ``b`` are almost equal. """
+        """Check if ``a`` and ``b`` are almost equal."""
     def is_square(self, a):
         """Returns ``True``. Every complex number has a complex square root."""
     def exsqrt(self, a):

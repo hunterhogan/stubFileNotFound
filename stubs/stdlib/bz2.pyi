@@ -1,17 +1,16 @@
-import sys
 from _bz2 import BZ2Compressor as BZ2Compressor, BZ2Decompressor as BZ2Decompressor
 from _typeshed import ReadableBuffer, StrOrBytesPath, WriteableBuffer
 from collections.abc import Iterable
 from io import TextIOWrapper
-from typing import IO, Literal, Protocol, SupportsIndex, overload, type_check_only
-from typing_extensions import Self, TypeAlias
+from typing import IO, Literal, overload, Protocol, Self, SupportsIndex, type_check_only, TypeAlias
+import sys
 
 if sys.version_info >= (3, 14):
-    from compression._common._streams import BaseStream, _Reader
+    from compression._common._streams import _Reader, BaseStream
 else:
-    from _compression import BaseStream, _Reader
+    from _compression import _Reader, BaseStream
 
-__all__ = ["BZ2File", "BZ2Compressor", "BZ2Decompressor", "open", "compress", "decompress"]
+__all__ = ["BZ2Compressor", "BZ2Decompressor", "BZ2File", "compress", "decompress", "open"]
 
 # The following attributes and methods are optional:
 # def fileno(self) -> int: ...

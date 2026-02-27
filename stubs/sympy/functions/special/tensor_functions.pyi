@@ -15,8 +15,7 @@ def Eijk(*args, **kwargs):
     This is a compatibility wrapper to ``LeviCivita()``.
 
     See Also
-    ========
-
+    --------
     LeviCivita
 
     """
@@ -36,8 +35,7 @@ class LeviCivita(DefinedFunction):
     Thus it represents an alternating pseudotensor.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import LeviCivita
     >>> from sympy.abc import i, j, k
     >>> LeviCivita(1, 2, 3)
@@ -52,11 +50,11 @@ class LeviCivita(DefinedFunction):
     0
 
     See Also
-    ========
-
+    --------
     Eijk
 
     """
+
     is_integer: bool
     @classmethod
     def eval(cls, *args): ...
@@ -73,8 +71,7 @@ class KroneckerDelta(DefinedFunction):
     and $j$ are not equal, or it returns $1$ if $i$ and $j$ are equal.
 
     Examples
-    ========
-
+    --------
     An example with integer indices:
 
         >>> from sympy import KroneckerDelta
@@ -96,25 +93,24 @@ class KroneckerDelta(DefinedFunction):
         KroneckerDelta(i, i + k + 1)
 
     Parameters
-    ==========
-
+    ----------
     i : Number, Symbol
         The first index of the delta function.
     j : Number, Symbol
         The second index of the delta function.
 
     See Also
-    ========
-
+    --------
     eval
     DiracDelta
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Kronecker_delta
 
     """
+
     is_integer: bool
     @classmethod
     def eval(cls, i, j, delta_range=None):
@@ -122,8 +118,7 @@ class KroneckerDelta(DefinedFunction):
         Evaluates the discrete delta function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import KroneckerDelta
         >>> from sympy.abc import i, j, k
 
@@ -148,8 +143,7 @@ class KroneckerDelta(DefinedFunction):
         True if Delta can be non-zero above fermi.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import KroneckerDelta, Symbol
         >>> a = Symbol('a', above_fermi=True)
         >>> i = Symbol('i', below_fermi=True)
@@ -163,8 +157,7 @@ class KroneckerDelta(DefinedFunction):
         True
 
         See Also
-        ========
-
+        --------
         is_below_fermi, is_only_below_fermi, is_only_above_fermi
 
         """
@@ -174,8 +167,7 @@ class KroneckerDelta(DefinedFunction):
         True if Delta can be non-zero below fermi.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import KroneckerDelta, Symbol
         >>> a = Symbol('a', above_fermi=True)
         >>> i = Symbol('i', below_fermi=True)
@@ -189,8 +181,7 @@ class KroneckerDelta(DefinedFunction):
         True
 
         See Also
-        ========
-
+        --------
         is_above_fermi, is_only_above_fermi, is_only_below_fermi
 
         """
@@ -200,8 +191,7 @@ class KroneckerDelta(DefinedFunction):
         True if Delta is restricted to above fermi.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import KroneckerDelta, Symbol
         >>> a = Symbol('a', above_fermi=True)
         >>> i = Symbol('i', below_fermi=True)
@@ -215,8 +205,7 @@ class KroneckerDelta(DefinedFunction):
         False
 
         See Also
-        ========
-
+        --------
         is_above_fermi, is_below_fermi, is_only_below_fermi
 
         """
@@ -226,8 +215,7 @@ class KroneckerDelta(DefinedFunction):
         True if Delta is restricted to below fermi.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import KroneckerDelta, Symbol
         >>> a = Symbol('a', above_fermi=True)
         >>> i = Symbol('i', below_fermi=True)
@@ -241,8 +229,7 @@ class KroneckerDelta(DefinedFunction):
         False
 
         See Also
-        ========
-
+        --------
         is_above_fermi, is_below_fermi, is_only_above_fermi
 
         """
@@ -252,8 +239,7 @@ class KroneckerDelta(DefinedFunction):
         Returns True if indices are either both above or below fermi.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import KroneckerDelta, Symbol
         >>> a = Symbol('a', above_fermi=True)
         >>> i = Symbol('i', below_fermi=True)
@@ -280,8 +266,7 @@ class KroneckerDelta(DefinedFunction):
         'b'.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import KroneckerDelta, Symbol
         >>> a = Symbol('a', above_fermi=True)
         >>> i = Symbol('i', below_fermi=True)
@@ -295,8 +280,7 @@ class KroneckerDelta(DefinedFunction):
         i
 
         See Also
-        ========
-
+        --------
         killable_index
 
         """
@@ -314,8 +298,7 @@ class KroneckerDelta(DefinedFunction):
         before 'b'.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import KroneckerDelta, Symbol
         >>> a = Symbol('a', above_fermi=True)
         >>> i = Symbol('i', below_fermi=True)
@@ -329,8 +312,7 @@ class KroneckerDelta(DefinedFunction):
         j
 
         See Also
-        ========
-
+        --------
         preferred_index
 
         """

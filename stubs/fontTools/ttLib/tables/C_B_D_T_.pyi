@@ -46,4 +46,3 @@ class cbdt_bitmap_format_19(ColorBitmapGlyph):
     def compile(self, ttFont: TTFont): ...
 
 cbdt_bitmap_classes: Incomplete
-

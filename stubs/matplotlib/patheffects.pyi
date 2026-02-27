@@ -9,6 +9,7 @@ class AbstractPathEffect:
     Subclasses should override the ``draw_path`` method to add effect
     functionality.
     """
+
     _offset: Incomplete
     def __init__(self, offset=(0.0, 0.0)) -> None:
         """
@@ -45,6 +46,7 @@ class PathEffectRenderer(RendererBase):
         It may be necessary to add further methods to extend the PathEffects
         capabilities further.
     """
+
     _path_effects: Incomplete
     _renderer: Incomplete
     def __init__(self, path_effects, renderer) -> None:
@@ -65,12 +67,12 @@ class PathEffectRenderer(RendererBase):
     def close_group(self, s): ...
 
 class Normal(AbstractPathEffect):
-    '''
+    """
     The "identity" PathEffect.
 
     The Normal PathEffect\'s sole purpose is to draw the original artist with
     no special path effect.
-    '''
+    """
 
 def _subclass_with_normal(effect_class):
     """
@@ -79,6 +81,7 @@ def _subclass_with_normal(effect_class):
 
 class Stroke(AbstractPathEffect):
     """A line based PathEffect which re-draws a stroke."""
+
     _gc: Incomplete
     def __init__(self, offset=(0, 0), **kwargs) -> None:
         """
@@ -93,6 +96,7 @@ withStroke: Incomplete
 
 class SimplePatchShadow(AbstractPathEffect):
     """A simple shadow via a filled patch."""
+
     _shadow_rgbFace: Incomplete
     _alpha: Incomplete
     _rho: Incomplete
@@ -125,6 +129,7 @@ withSimplePatchShadow: Incomplete
 
 class SimpleLineShadow(AbstractPathEffect):
     """A simple shadow via a line."""
+
     _shadow_color: Incomplete
     _alpha: Incomplete
     _rho: Incomplete
@@ -159,9 +164,10 @@ class PathPatchEffect(AbstractPathEffect):
     Draws a `.PathPatch` instance whose Path comes from the original
     PathEffect artist.
     """
+
     patch: Incomplete
     def __init__(self, offset=(0, 0), **kwargs) -> None:
-        '''
+        """
         Parameters
         ----------
         offset : (float, float), default: (0, 0)
@@ -171,7 +177,7 @@ class PathPatchEffect(AbstractPathEffect):
             :class:`~matplotlib.patches.PathPatch` constructor. The
             properties which cannot be overridden are "path", "clip_box"
             "transform" and "clip_path".
-        '''
+        """
     def draw_path(self, renderer, gc, tpath, affine, rgbFace) -> None: ...
 
 class TickedStroke(AbstractPathEffect):
@@ -189,6 +195,7 @@ class TickedStroke(AbstractPathEffect):
 
     See also the :doc:`/gallery/misc/tickedstroke_demo` example.
     """
+
     _spacing: Incomplete
     _angle: Incomplete
     _length: Incomplete

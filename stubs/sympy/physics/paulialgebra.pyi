@@ -4,7 +4,7 @@ from sympy.core.symbol import Symbol
 __all__ = ['evaluate_pauli_product']
 
 class Pauli(Symbol):
-    '''
+    """
     The class representing algebraic properties of Pauli matrices.
 
     Explanation
@@ -23,13 +23,11 @@ class Pauli(Symbol):
     multiply rules).
 
     See Also
-    ========
-
+    --------
     evaluate_pauli_product
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.paulialgebra import Pauli
     >>> Pauli(1)
     sigma1
@@ -60,7 +58,8 @@ class Pauli(Symbol):
     I*sigma2*sigma3
     >>> evaluate_pauli_product(f)
     -sigma1
-    '''
+    """
+
     __slots__: Incomplete
     def __new__(cls, i, label: str = 'sigma'): ...
     def __getnewargs_ex__(self): ...
@@ -73,13 +72,11 @@ def evaluate_pauli_product(arg):
     with symbolic objects.
 
     Parameters
-    ==========
-
+    ----------
     arg: symbolic expression that contains Paulimatrices
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.paulialgebra import Pauli, evaluate_pauli_product
     >>> from sympy import I
     >>> evaluate_pauli_product(I*Pauli(1)*Pauli(2))

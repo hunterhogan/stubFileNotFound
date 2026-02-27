@@ -1,4 +1,4 @@
-__all__ = ['DMError', 'DMBadInputError', 'DMDomainError', 'DMFormatError', 'DMRankError', 'DMShapeError', 'DMNotAField', 'DMNonInvertibleMatrixError', 'DMNonSquareMatrixError', 'DMValueError']
+__all__ = ['DMBadInputError', 'DMDomainError', 'DMError', 'DMFormatError', 'DMNonInvertibleMatrixError', 'DMNonSquareMatrixError', 'DMNotAField', 'DMRankError', 'DMShapeError', 'DMValueError']
 
 class DMError(Exception):
     """Base class for errors raised by DomainMatrix"""

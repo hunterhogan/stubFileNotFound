@@ -1,6 +1,6 @@
-import sys
 from _typeshed import ReadableBuffer
 from typing import Final, Literal, overload
+import sys
 
 if sys.platform == "win32":
     SND_APPLICATION: Final = 128

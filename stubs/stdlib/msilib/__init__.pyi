@@ -1,7 +1,7 @@
-import sys
 from collections.abc import Container, Iterable, Sequence
 from types import ModuleType
 from typing import Any, Final
+import sys
 
 if sys.platform == "win32":
     from _msi import *

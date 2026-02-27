@@ -1,4 +1,4 @@
-from typing import TypedDict, type_check_only
+from typing import type_check_only, TypedDict
 
 __all__ = ["framework_info"]
 

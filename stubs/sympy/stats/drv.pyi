@@ -20,7 +20,10 @@ from sympy.sets.contains import Contains as Contains
 from sympy.sets.fancysets import FiniteSet as FiniteSet, Range as Range
 from sympy.sets.sets import Union as Union
 from sympy.stats.crv import reduce_rational_inequalities_wrap as reduce_rational_inequalities_wrap
-from sympy.stats.rv import ConditionalDomain as ConditionalDomain, Distribution as Distribution, NamedArgsMixin as NamedArgsMixin, PSpace as PSpace, ProductDomain as ProductDomain, RandomDomain as RandomDomain, SingleDomain as SingleDomain, SinglePSpace as SinglePSpace, random_symbols as random_symbols
+from sympy.stats.rv import (
+	ConditionalDomain as ConditionalDomain, Distribution as Distribution, NamedArgsMixin as NamedArgsMixin,
+	ProductDomain as ProductDomain, PSpace as PSpace, random_symbols as random_symbols, RandomDomain as RandomDomain,
+	SingleDomain as SingleDomain, SinglePSpace as SinglePSpace)
 from sympy.stats.symbolic_probability import Probability as Probability
 from sympy.utilities import filldedent as filldedent
 
@@ -28,52 +31,54 @@ class DiscreteDistribution(Distribution):
     def __call__(self, *args): ...
 
 class SingleDiscreteDistribution(DiscreteDistribution, NamedArgsMixin):
-    """ Discrete distribution of a single variable.
+    """Discrete distribution of a single variable.
 
     Serves as superclass for PoissonDistribution etc....
 
     Provides methods for pdf, cdf, and sampling
 
-    See Also:
+    See Also
+    --------
         sympy.stats.crv_types.*
     """
+
     set: Incomplete
     def __new__(cls, *args): ...
     @staticmethod
     def check(*args) -> None: ...
     @cacheit
     def compute_cdf(self, **kwargs):
-        """ Compute the CDF from the PDF.
+        """Compute the CDF from the PDF.
 
         Returns a Lambda.
         """
     def _cdf(self, x) -> None: ...
     def cdf(self, x, **kwargs):
-        """ Cumulative density function """
+        """Cumulative density function"""
     @cacheit
     def compute_characteristic_function(self, **kwargs):
-        """ Compute the characteristic function from the PDF.
+        """Compute the characteristic function from the PDF.
 
         Returns a Lambda.
         """
     def _characteristic_function(self, t) -> None: ...
     def characteristic_function(self, t, **kwargs):
-        """ Characteristic function """
+        """Characteristic function"""
     @cacheit
     def compute_moment_generating_function(self, **kwargs): ...
     def _moment_generating_function(self, t) -> None: ...
     def moment_generating_function(self, t, **kwargs): ...
     @cacheit
     def compute_quantile(self, **kwargs):
-        """ Compute the Quantile from the PDF.
+        """Compute the Quantile from the PDF.
 
         Returns a Lambda.
         """
     def _quantile(self, x) -> None: ...
     def quantile(self, x, **kwargs):
-        """ Cumulative density function """
+        """Cumulative density function"""
     def expectation(self, expr, var, evaluate: bool = True, **kwargs):
-        """ Expectation of expression over distribution """
+        """Expectation of expression over distribution"""
     def __call__(self, *args): ...
 
 class DiscreteDomain(RandomDomain):
@@ -81,6 +86,7 @@ class DiscreteDomain(RandomDomain):
     A domain with discrete support with step size one.
     Represented using symbols and Range.
     """
+
     is_Discrete: bool
 
 class SingleDiscreteDomain(DiscreteDomain, SingleDomain):
@@ -91,6 +97,7 @@ class ConditionalDiscreteDomain(DiscreteDomain, ConditionalDomain):
     Domain with discrete support of step size one, that is restricted by
     some condition.
     """
+
     @property
     def set(self): ...
 
@@ -108,7 +115,8 @@ class ProductDiscreteDomain(ProductDomain, DiscreteDomain):
     def as_boolean(self): ...
 
 class SingleDiscretePSpace(DiscretePSpace, SinglePSpace):
-    """ Discrete probability space over a single univariate variable """
+    """Discrete probability space over a single univariate variable"""
+
     is_real: bool
     @property
     def set(self): ...

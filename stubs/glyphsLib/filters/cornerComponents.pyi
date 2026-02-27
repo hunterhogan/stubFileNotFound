@@ -67,4 +67,3 @@ class CornerComponentApplier:
 
 class CornerComponentsFilter(BaseFilter):
     def filter(self, glyph): ...
-

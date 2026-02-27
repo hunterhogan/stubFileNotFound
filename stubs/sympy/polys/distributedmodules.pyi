@@ -1,6 +1,7 @@
 from sympy.core.singleton import S as S
 from sympy.core.sympify import sympify as sympify
-from sympy.polys.monomials import monomial_deg as monomial_deg, monomial_div as monomial_div, monomial_lcm as monomial_lcm, monomial_mul as monomial_mul
+from sympy.polys.monomials import (
+	monomial_deg as monomial_deg, monomial_div as monomial_div, monomial_lcm as monomial_lcm, monomial_mul as monomial_mul)
 from sympy.polys.polytools import Poly as Poly
 from sympy.polys.polyutils import parallel_dict_from_expr as parallel_dict_from_expr
 
@@ -10,8 +11,7 @@ def sdm_monomial_mul(M, X):
     ``M`` representing a monomial of `F`.
 
     Examples
-    ========
-
+    --------
     Multiplying `xy^3` into `x f_1` yields `x^2 y^3 f_1`:
 
     >>> from sympy.polys.distributedmodules import sdm_monomial_mul
@@ -23,8 +23,7 @@ def sdm_monomial_deg(M):
     Return the total degree of ``M``.
 
     Examples
-    ========
-
+    --------
     For example, the total degree of `x^2 y f_5` is 3:
 
     >>> from sympy.polys.distributedmodules import sdm_monomial_deg
@@ -32,7 +31,7 @@ def sdm_monomial_deg(M):
     3
     """
 def sdm_monomial_lcm(A, B):
-    '''
+    """
     Return the "least common multiple" of ``A`` and ``B``.
 
     IF `A = M e_j` and `B = N e_j`, where `M` and `N` are polynomial monomials,
@@ -42,19 +41,17 @@ def sdm_monomial_lcm(A, B):
     Otherwise the result is undefined.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.distributedmodules import sdm_monomial_lcm
     >>> sdm_monomial_lcm((1, 2, 3), (1, 0, 5))
     (1, 2, 5)
-    '''
+    """
 def sdm_monomial_divides(A, B):
     """
     Does there exist a (polynomial) monomial X such that XA = B?
 
     Examples
-    ========
-
+    --------
     Positive examples:
 
     In the following examples, the monomial is given in terms of x, y and the
@@ -98,9 +95,9 @@ def sdm_monomial_divides(A, B):
     False
     """
 def sdm_LC(f, K):
-    """Returns the leading coefficient of ``f``. """
+    """Returns the leading coefficient of ``f``."""
 def sdm_to_dict(f):
-    """Make a dictionary from a distributed polynomial. """
+    """Make a dictionary from a distributed polynomial."""
 def sdm_from_dict(d, O):
     """
     Create an sdm from a dictionary.
@@ -108,8 +105,7 @@ def sdm_from_dict(d, O):
     Here ``O`` is the monomial order to use.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.distributedmodules import sdm_from_dict
     >>> from sympy.polys import QQ, lex
     >>> dic = {(1, 1, 0): QQ(1), (1, 0, 0): QQ(2), (0, 1, 0): QQ(0)}
@@ -117,9 +113,9 @@ def sdm_from_dict(d, O):
     [((1, 1, 0), 1), ((1, 0, 0), 2)]
     """
 def sdm_sort(f, O):
-    """Sort terms in ``f`` using the given monomial order ``O``. """
+    """Sort terms in ``f`` using the given monomial order ``O``."""
 def sdm_strip(f):
-    """Remove terms with zero coefficients from ``f`` in ``K[X]``. """
+    """Remove terms with zero coefficients from ``f`` in ``K[X]``."""
 def sdm_add(f, g, O, K):
     """
     Add two module elements ``f``, ``g``.
@@ -128,8 +124,7 @@ def sdm_add(f, g, O, K):
     according to ``O``.
 
     Examples
-    ========
-
+    --------
     All examples use lexicographic order.
 
     `(xy f_1) + (f_2) = f_2 + xy f_1`
@@ -161,8 +156,7 @@ def sdm_LM(f):
     Only valid if `f \\ne 0`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.distributedmodules import sdm_LM, sdm_from_dict
     >>> from sympy.polys import QQ, lex
     >>> dic = {(1, 2, 3): QQ(1), (4, 0, 0): QQ(1), (4, 0, 1): QQ(1)}
@@ -176,8 +170,7 @@ def sdm_LT(f):
     Only valid if `f \\ne 0`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.distributedmodules import sdm_LT, sdm_from_dict
     >>> from sympy.polys import QQ, lex
     >>> dic = {(1, 2, 3): QQ(1), (4, 0, 0): QQ(2), (4, 0, 1): QQ(3)}
@@ -192,8 +185,7 @@ def sdm_mul_term(f, term, O, K):
     monomials are ordered according to ``O``.
 
     Examples
-    ========
-
+    --------
     `0 f_1 = 0`
 
     >>> from sympy.polys.distributedmodules import sdm_mul_term
@@ -227,8 +219,7 @@ def sdm_deg(f):
     Invalid if ``f`` is zero.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.distributedmodules import sdm_deg
     >>> sdm_deg([((1, 2, 3), 1), ((10, 0, 1), 1), ((2, 3, 4), 4)])
     7
@@ -242,8 +233,7 @@ def sdm_from_vector(vec, O, K, **opts):
     polys conversion code and can be used to specify for example generators.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.distributedmodules import sdm_from_vector
     >>> from sympy.abc import x, y, z
     >>> from sympy.polys import QQ, lex
@@ -259,8 +249,7 @@ def sdm_to_vector(f, gens, K, n=None):
     to be ``K``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.distributedmodules import sdm_to_vector
     >>> from sympy.abc import x, y, z
     >>> from sympy.polys import QQ
@@ -287,8 +276,7 @@ def sdm_spoly(f, g, O, K, phantom=None):
     case both results are returned.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.distributedmodules import sdm_spoly
     >>> from sympy.polys import QQ, lex
     >>> f = [((2, 1, 1), QQ(1)), ((1, 0, 1), QQ(1))]
@@ -309,8 +297,7 @@ def sdm_ecart(f):
     Invalid if f is zero.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.distributedmodules import sdm_ecart
     >>> sdm_ecart([((1, 2, 3), 1), ((1, 0, 1), 1)])
     0
@@ -318,7 +305,7 @@ def sdm_ecart(f):
     3
     """
 def sdm_nf_mora(f, G, O, K, phantom=None):
-    '''
+    """
     Compute a weak normal form of ``f`` with respect to ``G`` and order ``O``.
 
     The ground field is assumed to be ``K``, and monomials ordered according to
@@ -341,9 +328,9 @@ def sdm_nf_mora(f, G, O, K, phantom=None):
     If ``phantom`` is not ``None``, it should be a pair of "phantom" arguments
     on which to perform the same computations as on ``f``, ``G``, both results
     are then returned.
-    '''
+    """
 def sdm_nf_buchberger(f, G, O, K, phantom=None):
-    '''
+    """
     Compute a weak normal form of ``f`` with respect to ``G`` and order ``O``.
 
     The ground field is assumed to be ``K``, and monomials ordered according to
@@ -355,9 +342,9 @@ def sdm_nf_buchberger(f, G, O, K, phantom=None):
     If ``phantom`` is not ``None``, it should be a pair of "phantom" arguments
     on which to perform the same computations as on ``f``, ``G``, both results
     are then returned.
-    '''
+    """
 def sdm_nf_buchberger_reduced(f, G, O, K):
-    '''
+    """
     Compute a reduced normal form of ``f`` with respect to ``G`` and order ``O``.
 
     The ground field is assumed to be ``K``, and monomials ordered according to
@@ -371,9 +358,9 @@ def sdm_nf_buchberger_reduced(f, G, O, K):
 
     The ``pantom`` option is not supported, so this normal form cannot be used
     as a normal form for the "extended" groebner algorithm.
-    '''
+    """
 def sdm_groebner(G, NF, O, K, extended: bool = False):
-    '''
+    """
     Compute a minimal standard basis of ``G`` with respect to order ``O``.
 
     The algorithm uses a normal form ``NF``, for example ``sdm_nf_mora``.
@@ -401,4 +388,4 @@ def sdm_groebner(G, NF, O, K, extended: bool = False):
 
     Giovini et al: "One sugar cube, please" OR Selection strategies in
     Buchberger algorithm.
-    '''
+    """

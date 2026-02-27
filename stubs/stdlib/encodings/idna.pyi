@@ -1,6 +1,6 @@
+from _typeshed import ReadableBuffer
 import codecs
 import re
-from _typeshed import ReadableBuffer
 
 dots: re.Pattern[str]
 ace_prefix: bytes

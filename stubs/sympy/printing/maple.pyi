@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from sympy.core import S as S
-from sympy.core.numbers import Integer as Integer, IntegerConstant as IntegerConstant, equal_valued as equal_valued
+from sympy.core.numbers import equal_valued as equal_valued, Integer as Integer, IntegerConstant as IntegerConstant
 from sympy.printing.codeprinter import CodePrinter as CodePrinter
 from sympy.printing.precedence import PRECEDENCE as PRECEDENCE, precedence as precedence
 
@@ -14,6 +14,7 @@ class MapleCodePrinter(CodePrinter):
     """
     Printer which converts a SymPy expression into a maple code.
     """
+
     printmethod: str
     language: str
     _operators: Incomplete
@@ -52,8 +53,7 @@ def maple_code(expr, assign_to=None, **settings):
     """Converts ``expr`` to a string of Maple code.
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
         A SymPy expression to be converted.
     assign_to : optional
@@ -90,8 +90,7 @@ def print_maple_code(expr, **settings) -> None:
     See :func:`maple_code` for the meaning of the optional arguments.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import print_maple_code, symbols
     >>> x, y = symbols('x y')
     >>> print_maple_code(x, assign_to=y)

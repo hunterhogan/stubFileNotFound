@@ -1,4 +1,4 @@
-from sympy.core.kind import Kind as Kind, NumberKind as NumberKind, _NumberKind as _NumberKind
+from sympy.core.kind import _NumberKind as _NumberKind, Kind as Kind, NumberKind as NumberKind
 from sympy.core.mul import Mul as Mul
 
 class MatrixKind(Kind):
@@ -9,16 +9,14 @@ class MatrixKind(Kind):
     but any expression representing the matrix can have this.
 
     Parameters
-    ==========
-
+    ----------
     element_kind : Kind
         Kind of the element. Default is
         :class:`sympy.core.kind.NumberKind`,
         which means that the matrix contains only numbers.
 
     Examples
-    ========
-
+    --------
     Any instance of matrix class has kind ``MatrixKind``:
 
     >>> from sympy import MatrixSymbol
@@ -50,16 +48,15 @@ class MatrixKind(Kind):
     True
 
     See Also
-    ========
-
+    --------
     sympy.core.kind.NumberKind
     sympy.core.kind.UndefinedKind
     sympy.core.containers.TupleKind
     sympy.sets.sets.SetKind
 
     """
+
     def __new__(cls, element_kind=...): ...
-    def __repr__(self) -> str: ...
 
 def num_mat_mul(k1, k2):
     """

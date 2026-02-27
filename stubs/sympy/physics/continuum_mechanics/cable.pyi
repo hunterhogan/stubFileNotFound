@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from sympy import Piecewise as Piecewise, atan as atan, cos as cos, diff as diff, pi as pi, rad as rad, sin as sin, solve as solve
+from sympy import (
+	atan as atan, cos as cos, diff as diff, pi as pi, Piecewise as Piecewise, rad as rad, sin as sin, solve as solve)
 from sympy.core.symbol import Symbol as Symbol, symbols as symbols
 from sympy.core.sympify import sympify as sympify
 from sympy.functions.elementary.miscellaneous import sqrt as sqrt
@@ -18,7 +19,7 @@ class Cable:
     use in several other engineering applications.
 
     Examples
-    ========
+    --------
     A cable is supported at (0, 10) and (10, 10). Two point loads
     acting vertically downwards act on the cable, one with magnitude 3 kN
     and acting 2 meters from the left support and 3 meters below it, while
@@ -34,6 +35,7 @@ class Cable:
     >>> c.loads_position
     {'P': [2, 7], 'Q': [6, 4]}
     """
+
     _left_support: Incomplete
     _right_support: Incomplete
     _supports: Incomplete
@@ -52,8 +54,7 @@ class Cable:
         Initializes the class.
 
         Parameters
-        ==========
-
+        ----------
         support_1 and support_2 are tuples of the form
         (label, x, y), where
 
@@ -121,14 +122,12 @@ class Cable:
         This method specifies the length of the cable
 
         Parameters
-        ==========
-
+        ----------
         length : Sympifyable
             The length of the cable
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.cable import Cable
         >>> c = Cable(('A', 0, 10), ('B', 10, 10))
         >>> c.apply_length(20)
@@ -140,7 +139,7 @@ class Cable:
         This method changes the mentioned support with a new support.
 
         Parameters
-        ==========
+        ----------
         label: String or symbol
             The label of the support to be changed
 
@@ -155,8 +154,7 @@ class Cable:
                 The y-coordinate of the position of the new support.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.cable import Cable
         >>> c = Cable(('A', 0, 10), ('B', 10, 10))
         >>> c.supports
@@ -170,8 +168,7 @@ class Cable:
         This method adds load to the cable.
 
         Parameters
-        ==========
-
+        ----------
         order : Integer
             The order of the applied load.
 
@@ -209,8 +206,7 @@ class Cable:
                 The magnitude of the load. It must always be positive
 
         Examples
-        ========
-
+        --------
         For a point load of magnitude 12 units inclined at 30 degrees with the horizontal:
 
         >>> from sympy.physics.continuum_mechanics.cable import Cable
@@ -235,14 +231,13 @@ class Cable:
         This methods removes the specified loads.
 
         Parameters
-        ==========
+        ----------
         This input takes multiple label(s) as input
         label(s): String or symbol
             The label(s) of the loads to be removed.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.continuum_mechanics.cable import Cable
         >>> c = Cable(('A', 0, 10), ('B', 10, 10))
         >>> c.apply_load(-1, ('Z', 5, 5, 12, 30))
@@ -253,12 +248,12 @@ class Cable:
         {'distributed': {}, 'point_load': {}}
         """
     def solve(self, *args):
-        '''
+        """
         This method solves for the reaction forces at the supports, the tension developed in
         the cable, and updates the length of the cable.
 
         Parameters
-        ==========
+        ----------
         This method requires no input when solving for point loads
         For distributed load, the x and y coordinates of the lowest point of the cable are
         required as
@@ -270,7 +265,7 @@ class Cable:
             The y coordinate of the lowest point
 
         Examples
-        ========
+        --------
         For point loads,
 
         >>> from sympy.physics.continuum_mechanics.cable import Cable
@@ -297,15 +292,14 @@ class Cable:
         61717.4130533677
         >>> c.reaction_loads
         {R_A_x: 36465.0, R_A_y: -49793.0, R_B_x: 44399.9537590861, R_B_y: 42868.2071025955}
-        '''
+        """
     def draw(self):
-        '''
+        """
         This method is used to obtain a plot for the specified cable with its supports,
         shape and loads.
 
         Examples
-        ========
-
+        --------
         For point loads,
 
         >>> from sympy.physics.continuum_mechanics.cable import Cable
@@ -333,17 +327,16 @@ class Cable:
         [1]: cartesian line: -7.49552913752915 for x over (0.0, 100.0)
         ...
         >>> p.show()
-        '''
+        """
     def _draw_supports(self): ...
     def _draw_cable(self, order): ...
     def _draw_loads(self, order): ...
     def plot_tension(self):
-        '''
+        """
         Returns the diagram/plot of the tension generated in the cable at various points.
 
         Examples
-        ========
-
+        --------
         For point loads,
 
         >>> from sympy.physics.continuum_mechanics.cable import Cable
@@ -369,4 +362,4 @@ class Cable:
         [0]: cartesian line: 36465.0*sqrt(0.00054335718671383*X**2 + 1) for X over (0.0, 100.0)
         >>> p.show()
 
-        '''
+        """

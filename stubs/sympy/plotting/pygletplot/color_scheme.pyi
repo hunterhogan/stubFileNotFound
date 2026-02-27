@@ -1,4 +1,6 @@
-from .util import create_bounds as create_bounds, interpolate as interpolate, rinterpolate as rinterpolate, update_bounds as update_bounds
+from .util import (
+	create_bounds as create_bounds, interpolate as interpolate, rinterpolate as rinterpolate,
+	update_bounds as update_bounds)
 from _typeshed import Incomplete
 from sympy.core.basic import Basic as Basic
 from sympy.core.symbol import Symbol as Symbol, symbols as symbols
@@ -39,7 +41,6 @@ class ColorScheme:
         independent variables u and v.
         """
     def str_base(self): ...
-    def __repr__(self) -> str: ...
 
 x: Incomplete
 y: Incomplete

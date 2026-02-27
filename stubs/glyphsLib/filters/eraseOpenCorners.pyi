@@ -17,4 +17,3 @@ class EraseOpenCornersPen(fontTools.pens.basePen.BasePen):
 
 class EraseOpenCornersFilter(ufo2ft.filters.base.BaseFilter):
     def filter(self, glyph): ...
-

@@ -1,39 +1,32 @@
+from .connection import Pipe as Pipe
+from collections.abc import Callable, Iterable, Mapping, Sequence
+from queue import Queue as Queue
+from threading import (
+	Barrier as Barrier, BoundedSemaphore as BoundedSemaphore, Condition as Condition, Event as Event, Lock as Lock,
+	RLock as RLock, Semaphore as Semaphore)
+from typing import Any, Literal
 import array
 import sys
 import threading
 import weakref
-from collections.abc import Callable, Iterable, Mapping, Sequence
-from queue import Queue as Queue
-from threading import (
-    Barrier as Barrier,
-    BoundedSemaphore as BoundedSemaphore,
-    Condition as Condition,
-    Event as Event,
-    Lock as Lock,
-    RLock as RLock,
-    Semaphore as Semaphore,
-)
-from typing import Any, Literal
-
-from .connection import Pipe as Pipe
 
 __all__ = [
-    "Process",
-    "current_process",
-    "active_children",
-    "freeze_support",
-    "Lock",
-    "RLock",
-    "Semaphore",
+    "Barrier",
     "BoundedSemaphore",
     "Condition",
     "Event",
-    "Barrier",
-    "Queue",
+    "JoinableQueue",
+    "Lock",
     "Manager",
     "Pipe",
     "Pool",
-    "JoinableQueue",
+    "Process",
+    "Queue",
+    "RLock",
+    "Semaphore",
+    "active_children",
+    "current_process",
+    "freeze_support",
 ]
 
 JoinableQueue = Queue

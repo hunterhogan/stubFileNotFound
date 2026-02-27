@@ -6,9 +6,11 @@ from sympy.core.exprtools import factor_terms as factor_terms
 from sympy.core.relational import Eq as Eq
 from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.logic.boolalg import And as And, Boolean as Boolean, Or as Or
-from sympy.polys import Poly as Poly, groebner as groebner, roots as roots
+from sympy.polys import groebner as groebner, Poly as Poly, roots as roots
 from sympy.polys.domains import ZZ as ZZ
-from sympy.polys.polyerrors import CoercionFailed as CoercionFailed, ComputationFailed as ComputationFailed, DomainError as DomainError, GeneratorsNeeded as GeneratorsNeeded, PolificationFailed as PolificationFailed
+from sympy.polys.polyerrors import (
+	CoercionFailed as CoercionFailed, ComputationFailed as ComputationFailed, DomainError as DomainError,
+	GeneratorsNeeded as GeneratorsNeeded, PolificationFailed as PolificationFailed)
 from sympy.polys.polyoptions import build_options as build_options
 from sympy.polys.polytools import parallel_poly_from_expr as parallel_poly_from_expr, sqf_part as sqf_part
 from sympy.simplify import rcollect as rcollect
@@ -18,7 +20,7 @@ from sympy.utilities.misc import filldedent as filldedent
 from typing import Any
 
 class SolveFailed(Exception):
-    """Raised when solver's conditions were not met. """
+    """Raised when solver's conditions were not met."""
 
 def solve_poly_system(seq, *gens, strict: bool = False, **args):
     """
@@ -26,8 +28,7 @@ def solve_poly_system(seq, *gens, strict: bool = False, **args):
     or else None.
 
     Parameters
-    ==========
-
+    ----------
     seq: a list/tuple/set
         Listing all the equations that are needed to be solved
     gens: generators
@@ -42,8 +43,7 @@ def solve_poly_system(seq, *gens, strict: bool = False, **args):
 
 
     Returns
-    =======
-
+    -------
     List[Tuple]
         a list of tuples with elements being solutions for the
         symbols in the order they were passed as gens
@@ -51,8 +51,7 @@ def solve_poly_system(seq, *gens, strict: bool = False, **args):
         None is returned when the computed basis contains only the ground.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import solve_poly_system
     >>> from sympy.abc import x, y
 
@@ -69,8 +68,7 @@ def solve_biquadratic(f, g, opt):
     """Solve a system of two bivariate quadratic polynomial equations.
 
     Parameters
-    ==========
-
+    ----------
     f: a single Expr or Poly
         First equation
     g: a single Expr or Poly
@@ -79,8 +77,7 @@ def solve_biquadratic(f, g, opt):
         For specifying keyword arguments and generators
 
     Returns
-    =======
-
+    -------
     List[Tuple]
         a list of tuples with elements being solutions for the
         symbols in the order they were passed as gens
@@ -88,8 +85,7 @@ def solve_biquadratic(f, g, opt):
         None is returned when the computed basis contains only the ground.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Options, Poly
     >>> from sympy.abc import x, y
     >>> from sympy.solvers.polysys import solve_biquadratic
@@ -133,8 +129,7 @@ def solve_generic(polys, opt, strict: bool = False):
     overcome this difficulty use numerical algorithms instead.
 
     Parameters
-    ==========
-
+    ----------
     polys: a list/tuple/set
         Listing all the polynomial equations that are needed to be solved
     opt: an Options object
@@ -144,8 +139,7 @@ def solve_generic(polys, opt, strict: bool = False):
         is known to be incomplete
 
     Returns
-    =======
-
+    -------
     List[Tuple]
         a list of tuples with elements being solutions for the
         symbols in the order they were passed as gens
@@ -153,7 +147,7 @@ def solve_generic(polys, opt, strict: bool = False):
         None is returned when the computed basis contains only the ground.
 
     References
-    ==========
+    ----------
 
     .. [Buchberger01] B. Buchberger, Groebner Bases: A Short
     Introduction for Systems Theorists, In: R. Moreno-Diaz,
@@ -164,8 +158,7 @@ def solve_generic(polys, opt, strict: bool = False):
     and Algorithms, Springer, Second Edition, 1997, pp. 112
 
     Raises
-    ========
-
+    ------
     NotImplementedError
         If the system is not zero-dimensional (does not have a finite
         number of solutions)
@@ -175,8 +168,7 @@ def solve_generic(polys, opt, strict: bool = False):
         expressible in radicals
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Poly, Options
     >>> from sympy.solvers.polysys import solve_generic
     >>> from sympy.abc import x, y
@@ -214,8 +206,7 @@ def solve_triangulated(polys, *gens, **args):
     appropriately constructed algebraic extensions of the ground domain.
 
     Parameters
-    ==========
-
+    ----------
     polys: a list/tuple/set
         Listing all the equations that are needed to be solved
     gens: generators
@@ -225,15 +216,13 @@ def solve_triangulated(polys, *gens, **args):
         Special options for solving the equations
 
     Returns
-    =======
-
+    -------
     List[Tuple]
         A List of tuples. Solutions for symbols that satisfy the
         equations listed in polys
 
     Examples
-    ========
-
+    --------
     >>> from sympy import solve_triangulated
     >>> from sympy.abc import x, y, z
 
@@ -250,8 +239,7 @@ def solve_triangulated(polys, *gens, **args):
      (CRootOf(x**2 + 2*x - 1, 1), CRootOf(x**2 + 2*x - 1, 1), CRootOf(x**2 + 2*x - 1, 1))]
 
     References
-    ==========
-
+    ----------
     1. Patrizia Gianni, Teo Mora, Algebraic Solution of System of
     Polynomial Equations using Groebner Bases, AAECC-5 on Applied Algebra,
     Algebraic Algorithms and Error-Correcting Codes, LNCS 356 247--257, 1989
@@ -263,8 +251,7 @@ def factor_system(eqs: Sequence[Expr | complex], gens: Sequence[Expr] = (), **kw
     irreducible subsystems.
 
     Parameters
-    ==========
-
+    ----------
     eqs : list
         List of expressions to be factored.
         Each expression is assumed to be equal to zero.
@@ -277,8 +264,7 @@ def factor_system(eqs: Sequence[Expr | complex], gens: Sequence[Expr] = (), **kw
         Same optional arguments taken by ``factor``
 
     Returns
-    =======
-
+    -------
     list[list[Expr]]
         A list of lists of expressions, where each sublist represents
         an irreducible subsystem. When solved, each subsystem gives
@@ -286,8 +272,7 @@ def factor_system(eqs: Sequence[Expr | complex], gens: Sequence[Expr] = (), **kw
         returned (cases not requiring parameters to be zero).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.polysys import factor_system, factor_system_cond
     >>> from sympy.abc import x, y, a, b, c
 
@@ -333,8 +318,7 @@ def factor_system(eqs: Sequence[Expr | complex], gens: Sequence[Expr] = (), **kw
     the symbol(s) is a solution.
 
     See Also
-    ========
-
+    --------
     factor_system_cond : Returns both generic and degenerate solutions
     factor_system_bool : Returns a Boolean combination representing all solutions
     sympy.polys.polytools.factor : Factors a polynomial into irreducible factors
@@ -351,8 +335,7 @@ def factor_system_bool(eqs: Sequence[Expr | complex], gens: Sequence[Expr] = (),
     The result is in disjunctive normal form (OR of ANDs).
 
     Parameters
-    ==========
-
+    ----------
     eqs : list
        List of expressions to be factored.
        Each expression is assumed to be equal to zero.
@@ -366,16 +349,14 @@ def factor_system_bool(eqs: Sequence[Expr | complex], gens: Sequence[Expr] = (),
 
 
     Returns
-    =======
-
+    -------
     Boolean:
        A Boolean combination of equations. The result is typically in
        the form of a conjunction (AND) of a disjunctive normal form
        with additional conditions.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.polysys import factor_system_bool
     >>> from sympy.abc import x, y, a, b, c
     >>> factor_system_bool([x**2 - 1])
@@ -400,8 +381,7 @@ def factor_system_bool(eqs: Sequence[Expr | complex], gens: Sequence[Expr] = (),
     cannot be solved.
 
     See Also
-    ========
-
+    --------
     factor_system : Returns factors and solvability condition separately
     factor_system_cond : Returns both factors and conditions
 
@@ -412,8 +392,7 @@ def factor_system_cond(eqs: Sequence[Expr | complex], gens: Sequence[Expr] = (),
     both generic and degenerate solutions.
 
     Parameters
-    ==========
-
+    ----------
     eqs : list
         List of expressions to be factored.
         Each expression is assumed to be equal to zero.
@@ -426,16 +405,14 @@ def factor_system_cond(eqs: Sequence[Expr | complex], gens: Sequence[Expr] = (),
         Optional keyword arguments.
 
     Returns
-    =======
-
+    -------
     list[list[Expr]]
         A list of lists of expressions, where each sublist represents
         an irreducible subsystem. Includes both generic solutions and
         degenerate cases requiring equality conditions on parameters.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.polysys import factor_system_cond
     >>> from sympy.abc import x, y, a, b, c
 
@@ -450,8 +427,7 @@ def factor_system_cond(eqs: Sequence[Expr | complex], gens: Sequence[Expr] = (),
     the symbol(s) is a solution.
 
     See Also
-    ========
-
+    --------
     factor_system : Returns only generic solutions
     factor_system_bool : Returns a Boolean combination representing all solutions
     sympy.polys.polytools.factor : Factors a polynomial into irreducible factors
@@ -472,22 +448,19 @@ def factor_system_poly(polys: list[Poly]) -> list[list[Poly]]:
     Core implementation that works directly with Poly instances.
 
     Parameters
-    ==========
-
+    ----------
     polys : list[Poly]
         A list of Poly instances to be factored.
 
     Returns
-    =======
-
+    -------
     list[list[Poly]]
         A list of lists of polynomials, where each sublist represents
         an irreducible component of the solution. Includes both
         generic and degenerate cases.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, Poly, ZZ
     >>> from sympy.solvers.polysys import factor_system_poly
     >>> a, b, c, x = symbols('a b c x')
@@ -512,8 +485,7 @@ def factor_system_poly(polys: list[Poly]) -> list[list[Poly]]:
      Whereas a list containing an empty list [[]] means any value is a solution.
 
     See Also
-    ========
-
+    --------
     factor_system : Returns only generic solutions
     factor_system_bool : Returns a Boolean combination representing the solutions
     factor_system_cond : Returns both generic and degenerate solutions

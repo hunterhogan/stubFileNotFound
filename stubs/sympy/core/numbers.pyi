@@ -5,7 +5,8 @@ from .containers import Tuple as Tuple
 from .decorators import _sympifyit as _sympifyit
 from .evalf import pure_complex as pure_complex
 from .expr import AtomicExpr as AtomicExpr, Expr as Expr
-from .intfunc import igcd as igcd, ilcm as ilcm, integer_nthroot as integer_nthroot, mod_inverse as mod_inverse, num_digits as num_digits
+from .intfunc import (
+	igcd as igcd, ilcm as ilcm, integer_nthroot as integer_nthroot, mod_inverse as mod_inverse, num_digits as num_digits)
 from .kind import NumberKind as NumberKind
 from .logic import fuzzy_not as fuzzy_not
 from .mul import Mul as Mul
@@ -13,9 +14,11 @@ from .parameters import global_parameters as global_parameters
 from .power import Pow as Pow
 from .singleton import S as S, Singleton as Singleton
 from .sorting import ordered as ordered
-from .sympify import SympifyError as SympifyError, _convert_numpy_types as _convert_numpy_types, _is_numpy_instance as _is_numpy_instance, _sympify as _sympify, _sympy_converter as _sympy_converter, sympify as sympify
+from .sympify import (
+	_convert_numpy_types as _convert_numpy_types, _is_numpy_instance as _is_numpy_instance, _sympify as _sympify,
+	_sympy_converter as _sympy_converter, sympify as sympify, SympifyError as SympifyError)
 from _typeshed import Incomplete
-from sympy.external.gmpy import SYMPY_INTS as SYMPY_INTS, flint as flint, gmpy as gmpy
+from sympy.external.gmpy import flint as flint, gmpy as gmpy, SYMPY_INTS as SYMPY_INTS
 from sympy.multipledispatch import dispatch as dispatch
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.misc import debug as debug
@@ -28,8 +31,7 @@ def comp(z1, z2, tol=None):
     is $\\le$ ``tol``.
 
     Examples
-    ========
-
+    --------
     If ``tol`` is ``None`` then ``True`` will be returned if
     :math:`|z1 - z2|\\times 10^p \\le 5` where $p$ is minimum value of the
     decimal precision of each value.
@@ -85,7 +87,7 @@ def comp(z1, z2, tol=None):
     False
     """
 def mpf_norm(mpf, prec):
-    '''Return the mpf tuple normalized appropriately for the indicated
+    """Return the mpf tuple normalized appropriately for the indicated
     precision after doing a check to see if zero should be returned or
     not when the mantissa is 0. ``mpf_normlize`` always assumes that this
     is zero, but it may not be since the mantissa for mpf\'s values "+inf",
@@ -95,7 +97,7 @@ def mpf_norm(mpf, prec):
     mpf tuples that were not created by mpmath may produce bad results. This
     is only a wrapper to ``mpf_normalize`` which provides the check for non-
     zero mpfs that have a 0 for the mantissa.
-    '''
+    """
 
 _errdict: Incomplete
 
@@ -113,7 +115,7 @@ def _decimal_to_Rational_prec(dec):
 _dig: Incomplete
 
 def _literal_float(s):
-    '''return True if s is space-trimmed number literal else False
+    """Return True if s is space-trimmed number literal else False
 
     Python allows underscore as digit separators: there must be a
     digit on each side. So neither a leading underscore nor a
@@ -130,7 +132,7 @@ def _literal_float(s):
     We don\'t check for error from float(s) because we don\'t know
     whether s is malicious or not. A regex for this could maybe
     be written but will it be understood by most who read it?
-    '''
+    """
 
 class Number(AtomicExpr):
     """Represents atomic numbers in SymPy.
@@ -156,10 +158,10 @@ class Number(AtomicExpr):
     they are not atomic.
 
     See Also
-    ========
-
+    --------
     Float, Integer, Rational
     """
+
     is_commutative: bool
     is_number: bool
     is_Number: bool
@@ -210,18 +212,17 @@ class Number(AtomicExpr):
     def as_coeff_Add(self, rational: bool = False):
         """Efficiently extract the coefficient of a summation."""
     def gcd(self, other):
-        """Compute GCD of `self` and `other`. """
+        """Compute GCD of `self` and `other`."""
     def lcm(self, other):
-        """Compute LCM of `self` and `other`. """
+        """Compute LCM of `self` and `other`."""
     def cofactors(self, other):
-        """Compute GCD and cofactors of `self` and `other`. """
+        """Compute GCD and cofactors of `self` and `other`."""
 
 class Float(Number):
-    '''Represent a floating-point number of arbitrary precision.
+    """Represent a floating-point number of arbitrary precision.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Float
     >>> Float(3.5)
     3.50000000000000
@@ -284,8 +285,7 @@ class Float(Number):
     6.00
 
     Notes
-    =====
-
+    -----
     Floats are inexact by their nature unless their value is a binary-exact
     value.
 
@@ -381,7 +381,8 @@ class Float(Number):
 
     Zero in Float only has a single value. Values are not separate for
     positive and negative zeroes.
-    '''
+    """
+
     __slots__: Incomplete
     _mpf_: tuple[int, int, int, int]
     is_rational: Incomplete
@@ -422,7 +423,7 @@ class Float(Number):
     def __rmod__(self, other): ...
     def _eval_power(self, expt):
         """
-        expt is symbolic object but not equal to 0, 1
+        Expt is symbolic object but not equal to 0, 1
 
         (-p)**r -> exp(r*log(-p)) -> exp(r*(log(p) + I*Pi)) ->
                   -> p**r*(sin(Pi*r) + cos(Pi*r)*I)
@@ -442,11 +443,10 @@ class Float(Number):
 RealNumber = Float
 
 class Rational(Number):
-    '''Represents rational numbers (p/q) of any size.
+    """Represents rational numbers (p/q) of any size.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Rational, nsimplify, S, pi
     >>> Rational(1, 2)
     1/2
@@ -521,9 +521,10 @@ class Rational(Number):
     0.75
 
     See Also
-    ========
+    --------
     sympy.core.sympify.sympify, sympy.simplify.simplify.nsimplify
-    '''
+    """
+
     is_real: bool
     is_integer: bool
     is_rational: bool
@@ -552,8 +553,7 @@ class Rational(Number):
         """Closest Rational to self with denominator at most max_denominator.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Rational
         >>> Rational('3.141592653589793').limit_denominator(10)
         22/7
@@ -610,8 +610,7 @@ class Rational(Number):
         extracted from self.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import S
         >>> (S(-3)/2).as_content_primitive()
         (3/2, -1)
@@ -624,11 +623,10 @@ class Rational(Number):
         """Efficiently extract the coefficient of a summation."""
 
 class Integer(Rational):
-    '''Represents integer numbers of any size.
+    """Represents integer numbers of any size.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Integer
     >>> Integer(3)
     3
@@ -649,7 +647,8 @@ class Integer(Rational):
     It is rarely needed to explicitly instantiate an Integer, because
     Python integers are automatically converted to Integer when they
     are used in SymPy expressions.
-    '''
+    """
+
     q: int
     is_integer: bool
     is_number: bool
@@ -741,6 +740,7 @@ class AlgebraicNumber(Expr):
     the algebraic number $\\alpha$ which we represent is then given by the
     coefficients of a polynomial in $\\theta$.
     """
+
     __slots__: Incomplete
     is_AlgebraicNumber: bool
     is_algebraic: bool
@@ -766,8 +766,7 @@ class AlgebraicNumber(Expr):
         See Parameters section for how they are determined.
 
         Parameters
-        ==========
-
+        ----------
         expr : :py:class:`~.Expr`, or pair $(m, r)$
             There are three distinct modes of construction, depending on what
             is passed as *expr*.
@@ -816,8 +815,7 @@ class AlgebraicNumber(Expr):
             :py:meth:`~.as_poly()` method.
 
         Examples
-        ========
-
+        --------
         Recall that we are constructing an algebraic number as a field element
         $\\alpha \\in \\mathbb{Q}(\\theta)$.
 
@@ -920,17 +918,17 @@ class AlgebraicNumber(Expr):
     def _eval_evalf(self, prec): ...
     @property
     def is_aliased(self):
-        """Returns ``True`` if ``alias`` was set. """
+        """Returns ``True`` if ``alias`` was set."""
     def as_poly(self, x=None):
-        """Create a Poly instance from ``self``. """
+        """Create a Poly instance from ``self``."""
     def as_expr(self, x=None):
-        """Create a Basic expression from ``self``. """
+        """Create a Basic expression from ``self``."""
     def coeffs(self):
-        """Returns all SymPy coefficients of an algebraic number. """
+        """Returns all SymPy coefficients of an algebraic number."""
     def native_coeffs(self):
-        """Returns all native coefficients of an algebraic number. """
+        """Returns all native coefficients of an algebraic number."""
     def to_algebraic_integer(self):
-        """Convert ``self`` to an algebraic integer. """
+        """Convert ``self`` to an algebraic integer."""
     def _eval_simplify(self, **kwargs): ...
     def field_element(self, coeffs):
         """
@@ -943,8 +941,7 @@ class AlgebraicNumber(Expr):
         $\\beta \\in \\mathbb{Q}(\\theta)$ of the same number field.
 
         Parameters
-        ==========
-
+        ----------
         coeffs : list, :py:class:`~.ANP`
             Like the *coeffs* arg to the class
             :py:meth:`constructor<.AlgebraicNumber.__new__>`, defines the
@@ -955,8 +952,7 @@ class AlgebraicNumber(Expr):
             :py:meth:`~.ANP.to_list()` method).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import AlgebraicNumber, sqrt
         >>> a = AlgebraicNumber(sqrt(5), [-1, 1])
         >>> b = a.field_element([3, 2])
@@ -968,8 +964,7 @@ class AlgebraicNumber(Expr):
         True
 
         See Also
-        ========
-
+        --------
         AlgebraicNumber
         """
     @property
@@ -984,8 +979,7 @@ class AlgebraicNumber(Expr):
         $\\mathbb{Q}(\\theta)$ to which this algebraic number $\\alpha$ belongs.
 
         Returns
-        =======
-
+        -------
         AlgebraicNumber
 
         """
@@ -1002,8 +996,7 @@ class AlgebraicNumber(Expr):
         $\\alpha \\in \\mathbb{Q}(\\alpha)$.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sqrt, to_number_field
         >>> from sympy.abc import x
         >>> a = to_number_field(sqrt(2), sqrt(2) + sqrt(3))
@@ -1035,8 +1028,7 @@ class AlgebraicNumber(Expr):
         the number itself.
 
         Parameters
-        ==========
-
+        ----------
         radicals : boolean, optional (default=True)
             If ``True``, then we will try to return an
             :py:class:`~.AlgebraicNumber` whose ``root`` is an expression
@@ -1044,13 +1036,11 @@ class AlgebraicNumber(Expr):
             ``False``), ``root`` will be a :py:class:`~.ComplexRootOf`.
 
         Returns
-        =======
-
+        -------
         AlgebraicNumber
 
         See Also
-        ========
-
+        --------
         is_primitive_element
 
         """
@@ -1076,8 +1066,7 @@ class AlgebraicNumber(Expr):
         expression in radicals.
 
         Parameters
-        ==========
-
+        ----------
         radicals : boolean, optional (default=True)
             If ``True``, then we will try to return the root as an expression
             in radicals. If that is not possible, we will return a
@@ -1096,6 +1085,7 @@ class RationalConstant(Rational):
     Derived classes must define class attributes p and q and should probably all
     be singletons.
     """
+
     __slots__: Incomplete
     def __new__(cls): ...
 
@@ -1109,8 +1099,7 @@ class Zero(IntegerConstant, metaclass=Singleton):
     Zero is a singleton, and can be accessed by ``S.Zero``
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, Integer
     >>> Integer(0) is S.Zero
     True
@@ -1118,10 +1107,11 @@ class Zero(IntegerConstant, metaclass=Singleton):
     zoo
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Zero
     """
+
     p: int
     q: int
     is_positive: bool
@@ -1145,17 +1135,17 @@ class One(IntegerConstant, metaclass=Singleton):
     One is a singleton, and can be accessed by ``S.One``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, Integer
     >>> Integer(1) is S.One
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/1_%28number%29
     """
+
     is_number: bool
     is_positive: bool
     p: int
@@ -1177,23 +1167,22 @@ class NegativeOne(IntegerConstant, metaclass=Singleton):
     NegativeOne is a singleton, and can be accessed by ``S.NegativeOne``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, Integer
     >>> Integer(-1) is S.NegativeOne
     True
 
     See Also
-    ========
-
+    --------
     One
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/%E2%88%921_%28number%29
 
     """
+
     is_number: bool
     p: int
     q: int
@@ -1211,17 +1200,17 @@ class Half(RationalConstant, metaclass=Singleton):
     Half is a singleton, and can be accessed by ``S.Half``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, Rational
     >>> Rational(1, 2) is S.Half
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/One_half
     """
+
     is_number: bool
     p: int
     q: int
@@ -1249,8 +1238,7 @@ class Infinity(Number, metaclass=Singleton):
     or can be imported as ``oo``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import oo, exp, limit, Symbol
     >>> 1 + oo
     oo
@@ -1261,15 +1249,15 @@ class Infinity(Number, metaclass=Singleton):
     oo
 
     See Also
-    ========
-
+    --------
     NegativeInfinity, NaN
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Infinity
     """
+
     is_commutative: bool
     is_number: bool
     is_complex: bool
@@ -1305,7 +1293,7 @@ class Infinity(Number, metaclass=Singleton):
         ================ ======= ==============================
 
         See Also
-        ========
+        --------
         Pow
         NaN
         NegativeInfinity
@@ -1333,10 +1321,10 @@ class NegativeInfinity(Number, metaclass=Singleton):
     by ``S.NegativeInfinity``.
 
     See Also
-    ========
-
+    --------
     Infinity
     """
+
     is_extended_real: bool
     is_complex: bool
     is_commutative: bool
@@ -1375,8 +1363,7 @@ class NegativeInfinity(Number, metaclass=Singleton):
         ================ ======= ==============================
 
         See Also
-        ========
-
+        --------
         Infinity
         Pow
         NaN
@@ -1424,8 +1411,7 @@ class NaN(Number, metaclass=Singleton):
     as ``nan``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import nan, S, oo, Eq
     >>> nan is S.NaN
     True
@@ -1439,11 +1425,12 @@ class NaN(Number, metaclass=Singleton):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/NaN
 
     """
+
     is_commutative: bool
     is_extended_real: Incomplete
     is_real: Incomplete
@@ -1482,7 +1469,7 @@ nan: Incomplete
 def _eval_is_eq(a, b): ...
 
 class ComplexInfinity(AtomicExpr, metaclass=Singleton):
-    '''Complex infinity.
+    """Complex infinity.
 
     Explanation
     ===========
@@ -1495,8 +1482,7 @@ class ComplexInfinity(AtomicExpr, metaclass=Singleton):
     ``S.ComplexInfinity``, or can be imported as ``zoo``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import zoo
     >>> zoo + 42
     zoo
@@ -1508,10 +1494,10 @@ class ComplexInfinity(AtomicExpr, metaclass=Singleton):
     zoo
 
     See Also
-    ========
-
+    --------
     Infinity
-    '''
+    """
+
     is_commutative: bool
     is_infinite: bool
     is_number: bool
@@ -1541,7 +1527,7 @@ class NumberSymbol(AtomicExpr):
     kind = NumberKind
     def __new__(cls): ...
     def approximation(self, number_cls) -> None:
-        """ Return an interval with number_cls endpoints
+        """Return an interval with number_cls endpoints
         that contains the value of NumberSymbol.
         If not implemented, then return None.
         """
@@ -1567,8 +1553,7 @@ class Exp1(NumberSymbol, metaclass=Singleton):
     or can be imported as ``E``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import exp, log, E
     >>> E is exp(1)
     True
@@ -1576,10 +1561,11 @@ class Exp1(NumberSymbol, metaclass=Singleton):
     1
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/E_%28mathematical_constant%29
     """
+
     is_real: bool
     is_positive: bool
     is_negative: bool
@@ -1616,8 +1602,7 @@ class Pi(NumberSymbol, metaclass=Singleton):
     be imported as ``pi``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, pi, oo, sin, exp, integrate, Symbol
     >>> S.Pi
     pi
@@ -1632,10 +1617,11 @@ class Pi(NumberSymbol, metaclass=Singleton):
     sqrt(pi)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Pi
     """
+
     is_real: bool
     is_positive: bool
     is_negative: bool
@@ -1666,8 +1652,7 @@ class GoldenRatio(NumberSymbol, metaclass=Singleton):
     GoldenRatio is a singleton, and can be accessed by ``S.GoldenRatio``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S
     >>> S.GoldenRatio > 1
     True
@@ -1677,10 +1662,11 @@ class GoldenRatio(NumberSymbol, metaclass=Singleton):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Golden_ratio
     """
+
     is_real: bool
     is_positive: bool
     is_negative: bool
@@ -1715,8 +1701,7 @@ class TribonacciConstant(NumberSymbol, metaclass=Singleton):
     by ``S.TribonacciConstant``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S
     >>> S.TribonacciConstant > 1
     True
@@ -1728,10 +1713,11 @@ class TribonacciConstant(NumberSymbol, metaclass=Singleton):
     1.8392867552141611326
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Generalizations_of_Fibonacci_numbers#Tribonacci_numbers
     """
+
     is_real: bool
     is_positive: bool
     is_negative: bool
@@ -1765,8 +1751,7 @@ class EulerGamma(NumberSymbol, metaclass=Singleton):
     EulerGamma is a singleton, and can be accessed by ``S.EulerGamma``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S
     >>> S.EulerGamma.is_irrational
     >>> S.EulerGamma > 0
@@ -1775,10 +1760,11 @@ class EulerGamma(NumberSymbol, metaclass=Singleton):
     False
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Euler%E2%80%93Mascheroni_constant
     """
+
     is_real: bool
     is_positive: bool
     is_negative: bool
@@ -1803,8 +1789,7 @@ class Catalan(NumberSymbol, metaclass=Singleton):
     Catalan is a singleton, and can be accessed by ``S.Catalan``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S
     >>> S.Catalan.is_irrational
     >>> S.Catalan > 0
@@ -1813,10 +1798,11 @@ class Catalan(NumberSymbol, metaclass=Singleton):
     False
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Catalan%27s_constant
     """
+
     is_real: bool
     is_positive: bool
     is_negative: bool
@@ -1836,8 +1822,7 @@ class ImaginaryUnit(AtomicExpr, metaclass=Singleton):
     imported as ``I``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import I, sqrt
     >>> sqrt(-1)
     I
@@ -1847,10 +1832,11 @@ class ImaginaryUnit(AtomicExpr, metaclass=Singleton):
     -I
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Imaginary_unit
     """
+
     is_commutative: bool
     is_imaginary: bool
     is_finite: bool
@@ -1866,7 +1852,7 @@ class ImaginaryUnit(AtomicExpr, metaclass=Singleton):
     def _eval_conjugate(self): ...
     def _eval_power(self, expt):
         """
-        b is I = sqrt(-1)
+        B is I = sqrt(-1)
         e is symbolic object but not equal to 0, 1
 
         I**r -> (-1)**(r/2) -> exp(r/2*Pi*I) -> sin(Pi*r/2) + cos(Pi*r/2)*I, r is decimal
@@ -1882,7 +1868,7 @@ class ImaginaryUnit(AtomicExpr, metaclass=Singleton):
 I: Incomplete
 
 def int_valued(x):
-    """return True only for a literal Number whose internal
+    """Return True only for a literal Number whose internal
     representation as a fraction has a denominator of 1,
     else False, i.e. integer, with no fractional part.
     """
@@ -1890,8 +1876,7 @@ def equal_valued(x, y):
     """Compare expressions treating plain floats as rationals.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, symbols, Rational, Float
     >>> from sympy.core.numbers import equal_valued
     >>> equal_valued(1, 2)
@@ -1935,7 +1920,7 @@ def equal_valued(x, y):
     compound expression to compare any nested floats.
 
     References
-    ==========
+    ----------
 
     .. [1] https://github.com/sympy/sympy/pull/20033
     """
@@ -1951,8 +1936,7 @@ def all_close(expr1, expr2, rtol: float = 1e-05, atol: float = 1e-08):
     testing expr2 should be the expected correct answer.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import exp
     >>> from sympy.abc import x, y
     >>> from sympy.core.numbers import all_close

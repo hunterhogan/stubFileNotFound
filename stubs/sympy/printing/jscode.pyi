@@ -8,8 +8,9 @@ from typing import Any
 known_functions: Incomplete
 
 class JavascriptCodePrinter(CodePrinter):
-    '''"A Printer to convert Python expressions to strings of JavaScript code
-    '''
+    """"A Printer to convert Python expressions to strings of JavaScript code
+    """
+
     printmethod: str
     language: str
     _default_settings: dict[str, Any]
@@ -37,11 +38,10 @@ class JavascriptCodePrinter(CodePrinter):
         """Accepts a string of code or a list of code lines"""
 
 def jscode(expr, assign_to=None, **settings):
-    '''Converts an expr to a string of javascript code
+    """Converts an expr to a string of javascript code
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
         A SymPy expression to be converted.
     assign_to : optional
@@ -69,8 +69,7 @@ def jscode(expr, assign_to=None, **settings):
         [default=True].
 
     Examples
-    ========
-
+    --------
     >>> from sympy import jscode, symbols, Rational, sin, ceiling, Abs
     >>> x, tau = symbols("x, tau")
     >>> jscode((2*tau)**Rational(7, 2))
@@ -139,9 +138,9 @@ def jscode(expr, assign_to=None, **settings):
        A[1] = x;
     }
     A[2] = Math.sin(x);
-    '''
+    """
 def print_jscode(expr, **settings) -> None:
     """Prints the Javascript representation of the given expression.
 
-       See jscode for the meaning of the optional arguments.
+    See jscode for the meaning of the optional arguments.
     """

@@ -1,7 +1,9 @@
 from sympy.core import Rational as Rational, S as S, sympify as sympify
 from sympy.core.function import expand_mul as expand_mul
-from sympy.discrete.transforms import fft as fft, fwht as fwht, ifft as ifft, ifwht as ifwht, intt as intt, inverse_mobius_transform as inverse_mobius_transform, mobius_transform as mobius_transform, ntt as ntt
-from sympy.external.gmpy import MPZ as MPZ, lcm as lcm
+from sympy.discrete.transforms import (
+	fft as fft, fwht as fwht, ifft as ifft, ifwht as ifwht, intt as intt,
+	inverse_mobius_transform as inverse_mobius_transform, mobius_transform as mobius_transform, ntt as ntt)
+from sympy.external.gmpy import lcm as lcm, MPZ as MPZ
 from sympy.utilities.iterables import iterable as iterable
 from sympy.utilities.misc import as_int as as_int
 
@@ -17,8 +19,7 @@ def convolution(a, b, cycle: int = 0, dps=None, prime=None, dyadic=None, subset=
     For the default arguments, linear convolution is performed using **FFT**.
 
     Parameters
-    ==========
-
+    ----------
     a, b : iterables
         The sequences for which convolution is performed.
     cycle : Integer
@@ -36,8 +37,7 @@ def convolution(a, b, cycle: int = 0, dps=None, prime=None, dyadic=None, subset=
         Identifies the convolution type as subset convolution.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import convolution, symbols, S, I
     >>> u, v, w, x, y, z = symbols('u v w x y z')
 
@@ -67,16 +67,14 @@ def convolution_fft(a, b, dps=None):
     Performs linear convolution using Fast Fourier Transform.
 
     Parameters
-    ==========
-
+    ----------
     a, b : iterables
         The sequences for which convolution is performed.
     dps : Integer
         Specifies the number of decimal digits for precision.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, I
     >>> from sympy.discrete.convolutions import convolution_fft
 
@@ -88,7 +86,7 @@ def convolution_fft(a, b, dps=None):
     [5/4 + 5*I/2, 11 + 63*I/4, 24 + 18*I]
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Convolution_theorem
     .. [2] https://en.wikipedia.org/wiki/Discrete_Fourier_transform_(general%29
@@ -99,8 +97,7 @@ def convolution_ntt(a, b, prime):
     Performs linear convolution using Number Theoretic Transform.
 
     Parameters
-    ==========
-
+    ----------
     a, b : iterables
         The sequences for which convolution is performed.
     prime : Integer
@@ -108,8 +105,7 @@ def convolution_ntt(a, b, prime):
         **NTT** on the sequence.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.discrete.convolutions import convolution_ntt
     >>> convolution_ntt([2, 3], [4, 5], prime=19*2**10 + 1)
     [8, 22, 15]
@@ -119,7 +115,7 @@ def convolution_ntt(a, b, prime):
     [15555, 14219, 19404]
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Convolution_theorem
     .. [2] https://en.wikipedia.org/wiki/Discrete_Fourier_transform_(general%29
@@ -134,14 +130,12 @@ def convolution_fwht(a, b):
     *radix-2 FWHT* requires the number of sample points to be a power of 2.
 
     Parameters
-    ==========
-
+    ----------
     a, b : iterables
         The sequences for which convolution is performed.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, S, I
     >>> from sympy.discrete.convolutions import convolution_fwht
 
@@ -158,7 +152,7 @@ def convolution_fwht(a, b):
     [2057/42, 1870/63, 7/6, 35/4]
 
     References
-    ==========
+    ----------
 
     .. [1] https://www.radioeng.cz/fulltexts/2002/02_03_40_42.pdf
     .. [2] https://en.wikipedia.org/wiki/Hadamard_transform
@@ -176,14 +170,12 @@ def convolution_subset(a, b):
     sequence to be a power of 2.
 
     Parameters
-    ==========
-
+    ----------
     a, b : iterables
         The sequences for which convolution is performed.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, S
     >>> from sympy.discrete.convolutions import convolution_subset
     >>> u, v, x, y, z = symbols('u v x y z')
@@ -199,7 +191,7 @@ def convolution_subset(a, b):
     [7, 21, 5, 0]
 
     References
-    ==========
+    ----------
 
     .. [1] https://people.csail.mit.edu/rrw/presentations/subset-conv.pdf
 
@@ -220,14 +212,12 @@ def covering_product(a, b):
     sequence to be a power of 2.
 
     Parameters
-    ==========
-
+    ----------
     a, b : iterables
         The sequences for which covering product is to be obtained.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, S, I, covering_product
     >>> u, v, x, y, z = symbols('u v x y z')
 
@@ -242,7 +232,7 @@ def covering_product(a, b):
     [7, 53, 5, 40/7]
 
     References
-    ==========
+    ----------
 
     .. [1] https://people.csail.mit.edu/rrw/presentations/subset-conv.pdf
 
@@ -263,14 +253,12 @@ def intersecting_product(a, b):
     sequence to be a power of 2.
 
     Parameters
-    ==========
-
+    ----------
     a, b : iterables
         The sequences for which intersecting product is to be obtained.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, S, I, intersecting_product
     >>> u, v, x, y, z = symbols('u v x y z')
 
@@ -285,7 +273,7 @@ def intersecting_product(a, b):
     [327/7, 24, 0, 0]
 
     References
-    ==========
+    ----------
 
     .. [1] https://people.csail.mit.edu/rrw/presentations/subset-conv.pdf
 
@@ -296,8 +284,7 @@ def convolution_int(a, b):
     The iterables must consist solely of integers.
 
     Parameters
-    ==========
-
+    ----------
     a, b : Sequence
         The sequences for which convolution is performed.
 
@@ -321,8 +308,7 @@ def convolution_int(a, b):
     as GMP is highly optimised, this will be reasonably fast.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.discrete.convolutions import convolution_int
 
     >>> convolution_int([2, 3], [4, 5])
@@ -331,7 +317,7 @@ def convolution_int(a, b):
     [1, 2, 0, -1]
 
     References
-    ==========
+    ----------
 
     .. [1] Fateman, Richard J.
            Can you save time in multiplying polynomials by encoding them as integers?

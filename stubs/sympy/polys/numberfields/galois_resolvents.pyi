@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
-from sympy.core.evalf import _evalf_with_bounded_error as _evalf_with_bounded_error, evalf as evalf, fastlog as fastlog, quad_to_mpmath as quad_to_mpmath
+from sympy.core.evalf import (
+	_evalf_with_bounded_error as _evalf_with_bounded_error, evalf as evalf, fastlog as fastlog,
+	quad_to_mpmath as quad_to_mpmath)
 from sympy.core.symbol import Dummy as Dummy, symbols as symbols
 from sympy.polys.densetools import dup_eval as dup_eval
 from sympy.polys.domains import ZZ as ZZ
@@ -139,12 +141,13 @@ class Resolvent:
     is ours.
 
     References
-    ==========
+    ----------
 
     .. [1] Cohen, H. *A Course in Computational Algebraic Number Theory*.
        (Def 6.3.2)
 
     """
+
     F: Incomplete
     X: Incomplete
     s: Incomplete
@@ -158,8 +161,7 @@ class Resolvent:
     def __init__(self, F, X, s) -> None:
         """
         Parameters
-        ==========
-
+        ----------
         F : :py:class:`~.Expr`
             polynomial in the symbols in *X*
         X : list of :py:class:`~.Symbol`
@@ -175,8 +177,7 @@ class Resolvent:
         coefficients, or the integer roots, of the resolvent can be determined.
 
         Parameters
-        ==========
-
+        ----------
         M : real number
             Upper bound on magnitude of the complex numbers to be plugged in.
 
@@ -187,8 +188,7 @@ class Resolvent:
             The latter may require significantly lower precision.
 
         Returns
-        =======
-
+        -------
         int $m$
             such that $2^{-m}$ is a sufficient upper bound on the
             error in approximating the complex numbers to be plugged in.
@@ -201,8 +201,7 @@ class Resolvent:
         whether the resolvent has an integer root.
 
         Parameters
-        ==========
-
+        ----------
         T : :py:class:`~.Poly`
 
         target : str, 'coeffs' or 'roots', default='coeffs'
@@ -212,8 +211,7 @@ class Resolvent:
             The latter may require significantly lower precision.
 
         Returns
-        =======
-
+        -------
         list of elements of :ref:`CC`
 
         """
@@ -236,13 +234,11 @@ class Resolvent:
         method may be significantly faster than ``eval_for_poly``.
 
         Parameters
-        ==========
-
+        ----------
         T : :py:class:`~.Poly`
 
         Returns
-        =======
-
+        -------
         dict
             Keys are the indices of those permutations in ``self.s`` such that
             the corresponding root did round to a rational integer.
@@ -257,8 +253,7 @@ class Resolvent:
         plugging in the roots of a given polynomial.
 
         Parameters
-        ==========
-
+        ----------
         T : :py:class:`~.Poly`
 
         find_integer_root : ``bool``, default ``False``
@@ -268,8 +263,7 @@ class Resolvent:
             corresponds to.
 
         Returns
-        =======
-
+        -------
         Tuple ``(R, a, i)``
 
             ``R`` is this resolvent as a dense univariate polynomial over
@@ -282,9 +276,9 @@ class Resolvent:
         """
 
 def wrap(text, width: int = 80):
-    """Line wrap a polynomial expression. """
+    """Line wrap a polynomial expression."""
 def s_vars(n):
-    """Form the symbols s1, s2, ..., sn to stand for elem. symm. polys. """
+    """Form the symbols s1, s2, ..., sn to stand for elem. symm. polys."""
 def sparse_symmetrize_resolvent_coeffs(F, X, s, verbose: bool = False):
     """
     Compute the coefficients of a resolvent as functions of the coefficients of
@@ -293,7 +287,7 @@ def sparse_symmetrize_resolvent_coeffs(F, X, s, verbose: bool = False):
     F must be a sparse polynomial.
     """
 def define_resolvents():
-    """Define all the resolvents for polys T of degree 4 through 6. """
+    """Define all the resolvents for polys T of degree 4 through 6."""
 def generate_lambda_lookup(verbose: bool = False, trial_run: bool = False):
     """
     Generate the whole lookup table of coeff lambdas, for all resolvents.
@@ -304,8 +298,7 @@ def get_resolvent_by_lookup(T, number):
     polynomial *T*.
 
     Parameters
-    ==========
-
+    ----------
     T : Poly
         The polynomial whose resolvent is needed
 
@@ -314,8 +307,7 @@ def get_resolvent_by_lookup(T, number):
         Use this to indicate which one you want.
 
     Returns
-    =======
-
+    -------
     dup
 
     """

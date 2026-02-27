@@ -1,9 +1,6 @@
 from collections.abc import Hashable
+from typing import Literal, TypeAlias
 import dataclasses
-from typing import (
-    Literal,
-    TypeAlias,
-)
 
 @dataclasses.dataclass(order=True, frozen=True)
 class OutputKey:

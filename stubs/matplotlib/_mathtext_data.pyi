@@ -1,12 +1,12 @@
 from _typeshed import Incomplete
-from typing import overload
+from typing import overload, TypeAlias
 
 latex_to_bakoma: Incomplete
 type12uni: Incomplete
 uni2type1: Incomplete
 tex2uni: Incomplete
-_EntryTypeIn = tuple[str, str, str, str | int]
-_EntryTypeOut = tuple[int, int, str, int]
+_EntryTypeIn: TypeAlias = tuple[str, str, str, str | int]
+_EntryTypeOut: TypeAlias = tuple[int, int, str, int]
 _stix_virtual_fonts: dict[str, dict[str, list[_EntryTypeIn]] | list[_EntryTypeIn]]
 
 @overload

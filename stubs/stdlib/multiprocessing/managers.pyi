@@ -1,29 +1,18 @@
-import queue
-import sys
-import threading
-from _typeshed import SupportsKeysAndGetItem, SupportsRichComparison, SupportsRichComparisonT
-from collections.abc import (
-    Callable,
-    Iterable,
-    Iterator,
-    Mapping,
-    MutableMapping,
-    MutableSequence,
-    MutableSet,
-    Sequence,
-    Set as AbstractSet,
-)
-from types import GenericAlias, TracebackType
-from typing import Any, AnyStr, ClassVar, Generic, SupportsIndex, TypeVar, overload
-from typing_extensions import Self, TypeAlias
-
 from . import pool
-from .connection import Connection, _Address
+from .connection import _Address, Connection
 from .context import BaseContext
 from .shared_memory import _SLT, ShareableList as _ShareableList, SharedMemory as _SharedMemory
 from .util import Finalize as _Finalize
+from _typeshed import SupportsKeysAndGetItem, SupportsRichComparison, SupportsRichComparisonT
+from collections.abc import (
+	Callable, Iterable, Iterator, Mapping, MutableMapping, MutableSequence, MutableSet, Sequence, Set as AbstractSet)
+from types import GenericAlias, TracebackType
+from typing import Any, AnyStr, ClassVar, Generic, overload, Self, SupportsIndex, TypeAlias, TypeVar
+import queue
+import sys
+import threading
 
-__all__ = ["BaseManager", "SyncManager", "BaseProxy", "Token", "SharedMemoryManager"]
+__all__ = ["BaseManager", "BaseProxy", "SharedMemoryManager", "SyncManager", "Token"]
 
 _T = TypeVar("_T")
 _T1 = TypeVar("_T1")
@@ -40,7 +29,7 @@ class Namespace:
 _Namespace: TypeAlias = Namespace
 
 class Token:
-    __slots__ = ("typeid", "address", "id")
+    __slots__ = ("address", "id", "typeid")
     typeid: str | bytes | None
     address: _Address | None
     id: str | bytes | int | None

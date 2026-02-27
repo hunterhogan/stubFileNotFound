@@ -74,4 +74,3 @@ def lookupKerningValue(pair: KerningPair, kerning: KerningDict, groups: KerningG
       >>> lookupKerningValue(("public.kern1.X", "public.kern2.X"), kerning, groups)
       0
     """
-

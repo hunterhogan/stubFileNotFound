@@ -13,6 +13,7 @@ class JuliaCodePrinter(CodePrinter):
     """
     A printer to convert expressions to strings of Julia code.
     """
+
     printmethod: str
     language: str
     _operators: Incomplete
@@ -64,11 +65,10 @@ class JuliaCodePrinter(CodePrinter):
         """Accepts a string of code or a list of code lines"""
 
 def julia_code(expr, assign_to=None, **settings):
-    '''Converts `expr` to a string of Julia code.
+    """Converts `expr` to a string of Julia code.
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
         A SymPy expression to be converted.
     assign_to : optional
@@ -99,8 +99,7 @@ def julia_code(expr, assign_to=None, **settings):
         statements.  [default=True].
 
     Examples
-    ========
-
+    --------
     >>> from sympy import julia_code, symbols, sin, pi
     >>> x = symbols(\'x\')
     >>> julia_code(sin(x).series(x).removeO())
@@ -196,7 +195,7 @@ def julia_code(expr, assign_to=None, **settings):
     >>> e = Eq(Dy[i], (y[i+1]-y[i])/(t[i+1]-t[i]))
     >>> julia_code(e.rhs, assign_to=e.lhs, contract=False)
     \'Dy[i] = (y[i + 1] - y[i]) ./ (t[i + 1] - t[i])\'
-    '''
+    """
 def print_julia_code(expr, **settings) -> None:
     """Prints the Julia representation of the given expression.
 

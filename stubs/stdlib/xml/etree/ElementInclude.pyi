@@ -1,5 +1,5 @@
 from _typeshed import FileDescriptorOrPath
-from typing import Final, Literal, Protocol, overload, type_check_only
+from typing import Final, Literal, overload, Protocol, type_check_only
 from xml.etree.ElementTree import Element
 
 @type_check_only

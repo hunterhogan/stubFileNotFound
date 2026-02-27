@@ -1,21 +1,13 @@
-import sys
-import types
 from collections.abc import Iterable, Mapping
 from datetime import datetime as _datetime
 from email._header_value_parser import (
-    AddressList,
-    ContentDisposition,
-    ContentTransferEncoding,
-    ContentType,
-    MessageID,
-    MIMEVersion,
-    TokenList,
-    UnstructuredTokenList,
-)
+	AddressList, ContentDisposition, ContentTransferEncoding, ContentType, MessageID, MIMEVersion, TokenList,
+	UnstructuredTokenList)
 from email.errors import MessageDefect
 from email.policy import Policy
-from typing import Any, ClassVar, Literal, Protocol, type_check_only
-from typing_extensions import Self
+from typing import Any, ClassVar, Literal, Protocol, Self, type_check_only
+import sys
+import types
 
 class BaseHeader(str):
     # max_count is actually more of an abstract ClassVar (not defined on the base class, but expected to be defined in subclasses)

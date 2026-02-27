@@ -1,10 +1,10 @@
-import tempfile
 from _typeshed import ReadableBuffer
 from collections.abc import Callable, Iterable
 from email.message import Message
 from types import TracebackType
-from typing import IO, Any
+from typing import Any, IO
 from typing_extensions import deprecated
+import tempfile
 
 __all__ = ["addbase", "addclosehook", "addinfo", "addinfourl"]
 

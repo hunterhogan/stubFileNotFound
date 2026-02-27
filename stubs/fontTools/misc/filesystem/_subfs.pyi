@@ -33,4 +33,3 @@ class ClosingSubFS(SubFS):
     """Like SubFS, but auto-closes the parent filesystem when closed."""
 
     def close(self) -> None: ...
-

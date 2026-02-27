@@ -18,16 +18,14 @@ class Commutator(Expr):
     If ``B < A``, then ``[B, A]`` is returned as ``-[A, B]``.
 
     Parameters
-    ==========
-
+    ----------
     A : Expr
         The first argument of the commutator [A,B].
     B : Expr
         The second argument of the commutator [A,B].
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum import Commutator, Dagger, Operator
     >>> from sympy.abc import x, y
     >>> A = Operator('A')
@@ -71,10 +69,11 @@ class Commutator(Expr):
     -[Dagger(A),Dagger(B)]
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Commutator
     """
+
     is_commutative: bool
     _kind_dispatcher: Incomplete
     @property
@@ -85,7 +84,7 @@ class Commutator(Expr):
     def _expand_pow(self, A, B, sign): ...
     def _eval_expand_commutator(self, **hints): ...
     def doit(self, **hints):
-        """ Evaluate commutator """
+        """Evaluate commutator"""
     def _eval_adjoint(self): ...
     def _sympyrepr(self, printer, *args): ...
     def _sympystr(self, printer, *args): ...

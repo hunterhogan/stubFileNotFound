@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from sympy.core.random import _randint as _randint, uniform as uniform
-from sympy.external.gmpy import MPZ as MPZ, SYMPY_INTS as SYMPY_INTS, invert as invert
+from sympy.external.gmpy import invert as invert, MPZ as MPZ, SYMPY_INTS as SYMPY_INTS
 from sympy.polys.polyconfig import query as query
 from sympy.polys.polyerrors import ExactQuotientFailed as ExactQuotientFailed
 from sympy.polys.polyutils import _sort_factors as _sort_factors
@@ -14,8 +14,7 @@ def gf_crt(U, M, K=None):
     ``u``, such that ``u = u_i mod m_i`` for ``i = ``0,...,n``.
 
     Examples
-    ========
-
+    --------
     Consider a set of residues ``U = [49, 76, 65]``
     and a set of moduli ``M = [99, 97, 95]``. Then we have::
 
@@ -33,8 +32,7 @@ def gf_crt(U, M, K=None):
     Note: this is a low-level routine with no error checking.
 
     See Also
-    ========
-
+    --------
     sympy.ntheory.modular.crt : a higher level crt routine
     sympy.ntheory.modular.solve_congruence
 
@@ -44,8 +42,7 @@ def gf_crt1(M, K):
     First part of the Chinese Remainder Theorem.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_crt, gf_crt1, gf_crt2
     >>> U = [49, 76, 65]
@@ -71,8 +68,7 @@ def gf_crt1(M, K):
     236237
 
     See Also
-    ========
-
+    --------
     sympy.ntheory.modular.crt1 : a higher level crt routine
     sympy.polys.galoistools.gf_crt
     sympy.polys.galoistools.gf_crt2
@@ -85,8 +81,7 @@ def gf_crt2(U, M, p, E, S, K):
     See ``gf_crt1`` for usage.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_crt2
 
@@ -100,8 +95,7 @@ def gf_crt2(U, M, p, E, S, K):
     639985
 
     See Also
-    ========
-
+    --------
     sympy.ntheory.modular.crt2 : a higher level crt routine
     sympy.polys.galoistools.gf_crt
     sympy.polys.galoistools.gf_crt1
@@ -112,8 +106,7 @@ def gf_int(a, p):
     Coerce ``a mod p`` to an integer in the range ``[-p/2, p/2]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.galoistools import gf_int
 
     >>> gf_int(2, 7)
@@ -127,8 +120,7 @@ def gf_degree(f):
     Return the leading degree of ``f``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.galoistools import gf_degree
 
     >>> gf_degree([1, 1, 2, 0])
@@ -142,8 +134,7 @@ def gf_LC(f, K):
     Return the leading coefficient of ``f``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_LC
 
@@ -156,8 +147,7 @@ def gf_TC(f, K):
     Return the trailing coefficient of ``f``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_TC
 
@@ -169,10 +159,8 @@ def gf_strip(f):
     """
     Remove leading zeros from ``f``.
 
-
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.galoistools import gf_strip
 
     >>> gf_strip([0, 0, 0, 3, 0, 1])
@@ -184,8 +172,7 @@ def gf_trunc(f, p):
     Reduce all coefficients modulo ``p``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.galoistools import gf_trunc
 
     >>> gf_trunc([7, -2, 3], 5)
@@ -197,8 +184,7 @@ def gf_normal(f, p, K):
     Normalize all coefficients in ``K``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_normal
 
@@ -211,8 +197,7 @@ def gf_from_dict(f, p, K):
     Create a ``GF(p)[x]`` polynomial from a dict.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_from_dict
 
@@ -225,8 +210,7 @@ def gf_to_dict(f, p, symmetric: bool = True):
     Convert a ``GF(p)[x]`` polynomial to a dict.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.galoistools import gf_to_dict
 
     >>> gf_to_dict([4, 0, 0, 0, 0, 0, 3, 0, 0, 0, 4], 5)
@@ -240,8 +224,7 @@ def gf_from_int_poly(f, p):
     Create a ``GF(p)[x]`` polynomial from ``Z[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.galoistools import gf_from_int_poly
 
     >>> gf_from_int_poly([7, -2, 3], 5)
@@ -252,10 +235,8 @@ def gf_to_int_poly(f, p, symmetric: bool = True):
     """
     Convert a ``GF(p)[x]`` polynomial to ``Z[x]``.
 
-
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.galoistools import gf_to_int_poly
 
     >>> gf_to_int_poly([2, 3, 3], 5)
@@ -269,8 +250,7 @@ def gf_neg(f, p, K):
     Negate a polynomial in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_neg
 
@@ -283,8 +263,7 @@ def gf_add_ground(f, a, p, K):
     Compute ``f + a`` where ``f`` in ``GF(p)[x]`` and ``a`` in ``GF(p)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_add_ground
 
@@ -297,8 +276,7 @@ def gf_sub_ground(f, a, p, K):
     Compute ``f - a`` where ``f`` in ``GF(p)[x]`` and ``a`` in ``GF(p)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_sub_ground
 
@@ -311,8 +289,7 @@ def gf_mul_ground(f, a, p, K):
     Compute ``f * a`` where ``f`` in ``GF(p)[x]`` and ``a`` in ``GF(p)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_mul_ground
 
@@ -325,8 +302,7 @@ def gf_quo_ground(f, a, p, K):
     Compute ``f/a`` where ``f`` in ``GF(p)[x]`` and ``a`` in ``GF(p)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_quo_ground
 
@@ -339,8 +315,7 @@ def gf_add(f, g, p, K):
     Add polynomials in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_add
 
@@ -353,8 +328,7 @@ def gf_sub(f, g, p, K):
     Subtract polynomials in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_sub
 
@@ -367,8 +341,7 @@ def gf_mul(f, g, p, K):
     Multiply polynomials in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_mul
 
@@ -381,8 +354,7 @@ def gf_sqr(f, p, K):
     Square polynomials in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_sqr
 
@@ -395,8 +367,7 @@ def gf_add_mul(f, g, h, p, K):
     Returns ``f + g*h`` where ``f``, ``g``, ``h`` in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_add_mul
     >>> gf_add_mul([3, 2, 4], [2, 2, 2], [1, 4], 5, ZZ)
@@ -407,8 +378,7 @@ def gf_sub_mul(f, g, h, p, K):
     Compute ``f - g*h`` where ``f``, ``g``, ``h`` in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_sub_mul
 
@@ -421,8 +391,7 @@ def gf_expand(F, p, K):
     Expand results of :func:`~.factor` in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_expand
 
@@ -452,7 +421,7 @@ def gf_div(f, g, p, K):
        [1, 0, 1, 1]
 
     References
-    ==========
+    ----------
 
     .. [1] [Monagan93]_
     .. [2] [Gathen99]_
@@ -463,8 +432,7 @@ def gf_rem(f, g, p, K):
     Compute polynomial remainder in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_rem
 
@@ -477,8 +445,7 @@ def gf_quo(f, g, p, K):
     Compute exact quotient in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_quo
 
@@ -493,8 +460,7 @@ def gf_exquo(f, g, p, K):
     Compute polynomial quotient in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_exquo
 
@@ -512,8 +478,7 @@ def gf_lshift(f, n, K):
     Efficiently multiply ``f`` by ``x**n``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_lshift
 
@@ -526,8 +491,7 @@ def gf_rshift(f, n, K):
     Efficiently divide ``f`` by ``x**n``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_rshift
 
@@ -540,8 +504,7 @@ def gf_pow(f, n, p, K):
     Compute ``f**n`` in ``GF(p)[x]`` using repeated squaring.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_pow
 
@@ -551,12 +514,11 @@ def gf_pow(f, n, p, K):
     """
 def gf_frobenius_monomial_base(g, p, K):
     """
-    return the list of ``x**(i*p) mod g in Z_p`` for ``i = 0, .., n - 1``
+    Return the list of ``x**(i*p) mod g in Z_p`` for ``i = 0, .., n - 1``
     where ``n = gf_degree(g)``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_frobenius_monomial_base
     >>> g = ZZ.map([1, 0, 2, 1])
@@ -566,19 +528,17 @@ def gf_frobenius_monomial_base(g, p, K):
     """
 def gf_frobenius_map(f, g, b, p, K):
     """
-    compute gf_pow_mod(f, p, g, p, K) using the Frobenius map
+    Compute gf_pow_mod(f, p, g, p, K) using the Frobenius map
 
     Parameters
-    ==========
-
+    ----------
     f, g : polynomials in ``GF(p)[x]``
     b : frobenius monomial base
     p : prime number
     K : domain
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_frobenius_monomial_base, gf_frobenius_map
     >>> f = ZZ.map([2, 1, 0, 1])
@@ -591,7 +551,7 @@ def gf_frobenius_map(f, g, b, p, K):
     """
 def _gf_pow_pnm1d2(f, n, g, b, p, K):
     """
-    utility function for ``gf_edf_zassenhaus``
+    Utility function for ``gf_edf_zassenhaus``
     Compute ``f**((p**n - 1) // 2)`` in ``GF(p)[x]/(g)``
     ``f**((p**n - 1) // 2) = (f*f**p*...*f**(p**n - 1))**((p - 1) // 2)``
     """
@@ -604,8 +564,7 @@ def gf_pow_mod(f, n, g, p, K):
     of ``f**n`` from division by ``g``, using the repeated squaring algorithm.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_pow_mod
 
@@ -613,7 +572,7 @@ def gf_pow_mod(f, n, g, p, K):
     []
 
     References
-    ==========
+    ----------
 
     .. [1] [Gathen99]_
 
@@ -623,8 +582,7 @@ def gf_gcd(f, g, p, K):
     Euclidean Algorithm in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_gcd
 
@@ -637,8 +595,7 @@ def gf_lcm(f, g, p, K):
     Compute polynomial LCM in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_lcm
 
@@ -651,8 +608,7 @@ def gf_cofactors(f, g, p, K):
     Compute polynomial GCD and cofactors in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_cofactors
 
@@ -688,7 +644,7 @@ def gf_gcdex(f, g, p, K):
        True
 
     References
-    ==========
+    ----------
 
     .. [1] [Gathen99]_
 
@@ -698,8 +654,7 @@ def gf_monic(f, p, K):
     Compute LC and a monic polynomial in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_monic
 
@@ -712,8 +667,7 @@ def gf_diff(f, p, K):
     Differentiate polynomial in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_diff
 
@@ -726,8 +680,7 @@ def gf_eval(f, a, p, K):
     Evaluate ``f(a)`` in ``GF(p)`` using Horner scheme.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_eval
 
@@ -740,8 +693,7 @@ def gf_multi_eval(f, A, p, K):
     Evaluate ``f(a)`` for ``a`` in ``[a_1, ..., a_n]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_multi_eval
 
@@ -754,8 +706,7 @@ def gf_compose(f, g, p, K):
     Compute polynomial composition ``f(g)`` in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_compose
 
@@ -768,8 +719,7 @@ def gf_compose_mod(g, h, f, p, K):
     Compute polynomial composition ``g(h)`` in ``GF(p)[x]/(f)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_compose_mod
 
@@ -794,8 +744,7 @@ def gf_trace_map(a, b, c, n, f, p, K):
     like iterated Frobenius algorithm, for large degrees.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_trace_map
 
@@ -803,22 +752,21 @@ def gf_trace_map(a, b, c, n, f, p, K):
     ([1, 3], [1, 3])
 
     References
-    ==========
+    ----------
 
     .. [1] [Gathen92]_
 
     """
 def _gf_trace_map(f, n, g, b, p, K):
     """
-    utility for ``gf_edf_shoup``
+    Utility for ``gf_edf_shoup``
     """
 def gf_random(n, p, K):
     """
     Generate a random polynomial in ``GF(p)[x]`` of degree ``n``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_random
     >>> gf_random(10, 5, ZZ) #doctest: +SKIP
@@ -830,8 +778,7 @@ def gf_irreducible(n, p, K):
     Generate random irreducible polynomial of degree ``n`` in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_irreducible
     >>> gf_irreducible(10, 5, ZZ) #doctest: +SKIP
@@ -843,8 +790,7 @@ def gf_irred_p_ben_or(f, p, K):
     Ben-Or's polynomial irreducibility test over finite fields.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_irred_p_ben_or
 
@@ -859,8 +805,7 @@ def gf_irred_p_rabin(f, p, K):
     Rabin's polynomial irreducibility test over finite fields.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_irred_p_rabin
 
@@ -878,8 +823,7 @@ def gf_irreducible_p(f, p, K):
     Test irreducibility of a polynomial ``f`` in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_irreducible_p
 
@@ -894,8 +838,7 @@ def gf_sqf_p(f, p, K):
     Return ``True`` if ``f`` is square-free in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_sqf_p
 
@@ -910,8 +853,7 @@ def gf_sqf_part(f, p, K):
     Return square-free part of a ``GF(p)[x]`` polynomial.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_sqf_part
 
@@ -957,7 +899,7 @@ def gf_sqf_list(f, p, K, all: bool = False):
        True
 
     References
-    ==========
+    ----------
 
     .. [1] [Geddes92]_
 
@@ -967,8 +909,7 @@ def gf_Qmatrix(f, p, K):
     Calculate Berlekamp's ``Q`` matrix.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_Qmatrix
 
@@ -988,8 +929,7 @@ def gf_Qbasis(Q, p, K):
     Compute a basis of the kernel of ``Q``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_Qmatrix, gf_Qbasis
 
@@ -1005,8 +945,7 @@ def gf_berlekamp(f, p, K):
     Factor a square-free ``f`` in ``GF(p)[x]`` for small ``p``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_berlekamp
 
@@ -1043,7 +982,7 @@ def gf_ddf_zassenhaus(f, p, K):
     procedure (EDF) with each of the factors.
 
     References
-    ==========
+    ----------
 
     .. [1] [Gathen99]_
     .. [2] [Geddes92]_
@@ -1068,13 +1007,12 @@ def gf_edf_zassenhaus(f, n, p, K):
        [[1, 1], [1, 2], [1, 3]]
 
     Notes
-    =====
-
+    -----
     The case p == 2 is handled by Cohen's Algorithm 3.4.8. The case p odd is
     as in Geddes Algorithm 8.9 (or Cohen's Algorithm 3.4.6).
 
     References
-    ==========
+    ----------
 
     .. [1] [Gathen99]_
     .. [2] [Geddes92]_ Algorithm 8.9
@@ -1095,8 +1033,7 @@ def gf_ddf_shoup(f, p, K):
     large ``deg(f)`` and modulus ``p`` (especially for ``deg(f) ~ lg(p)``).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_ddf_shoup, gf_from_dict
 
@@ -1106,7 +1043,7 @@ def gf_ddf_shoup(f, p, K):
     [([1, 1, 0], 1), ([1, 1, 0, 1, 2], 2)]
 
     References
-    ==========
+    ----------
 
     .. [1] [Kaltofen98]_
     .. [2] [Shoup95]_
@@ -1126,8 +1063,7 @@ def gf_edf_shoup(f, n, p, K):
     large ``deg(f)`` and modulus ``p`` (especially for ``deg(f) ~ lg(p)``).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_edf_shoup
 
@@ -1135,7 +1071,7 @@ def gf_edf_shoup(f, n, p, K):
     [[1, 852], [1, 1985]]
 
     References
-    ==========
+    ----------
 
     .. [1] [Shoup91]_
     .. [2] [Gathen92]_
@@ -1146,8 +1082,7 @@ def gf_zassenhaus(f, p, K):
     Factor a square-free ``f`` in ``GF(p)[x]`` for medium ``p``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_zassenhaus
 
@@ -1160,8 +1095,7 @@ def gf_shoup(f, p, K):
     Factor a square-free ``f`` in ``GF(p)[x]`` for large ``p``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_shoup
 
@@ -1177,8 +1111,7 @@ def gf_factor_sqf(f, p, K, method=None):
     Factor a square-free polynomial ``f`` in ``GF(p)[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.domains import ZZ
     >>> from sympy.polys.galoistools import gf_factor_sqf
 
@@ -1187,7 +1120,7 @@ def gf_factor_sqf(f, p, K, method=None):
 
     """
 def gf_factor(f, p, K):
-    '''
+    """
     Factor (non square-free) polynomials in ``GF(p)[x]``.
 
     Given a possibly non square-free polynomial ``f`` in ``GF(p)[x]``,
@@ -1231,18 +1164,17 @@ def gf_factor(f, p, K):
     ``shoup`` values.
 
     References
-    ==========
+    ----------
 
     .. [1] [Gathen99]_
 
-    '''
+    """
 def gf_value(f, a):
     """
     Value of polynomial 'f' at 'a' in field R.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.galoistools import gf_value
 
     >>> gf_value([1, 7, 2, 4], 11)
@@ -1257,8 +1189,7 @@ def linear_congruence(a, b, m):
     This function returns only those values of x which are distinct mod(m).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.galoistools import linear_congruence
 
     >>> linear_congruence(3, 12, 15)
@@ -1267,7 +1198,7 @@ def linear_congruence(a, b, m):
     There are 3 solutions distinct mod(15) since gcd(a, m) = gcd(3, 15) = 3.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Linear_congruence_theorem
 
@@ -1278,8 +1209,7 @@ def _raise_mod_power(x, s, p, f):
     from the solutions of f(x) cong 0 mod(p**s).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.galoistools import _raise_mod_power
     >>> from sympy.polys.galoistools import csolve_prime
 
@@ -1306,7 +1236,7 @@ def _raise_mod_power(x, s, p, f):
 
     """
 def _csolve_prime_las_vegas(f, p, seed=None):
-    ''' Solutions of `f(x) \\equiv 0 \\pmod{p}`, `f(0) \\not\\equiv 0 \\pmod{p}`.
+    """Solutions of `f(x) \\equiv 0 \\pmod{p}`, `f(0) \\not\\equiv 0 \\pmod{p}`.
 
     Explanation
     ===========
@@ -1332,14 +1262,12 @@ def _csolve_prime_las_vegas(f, p, seed=None):
     it is faster than naive solution methods.
 
     Parameters
-    ==========
-
+    ----------
     f : polynomial
     p : prime number
 
     Returns
-    =======
-
+    -------
     list[int]
         a list of solutions, sorted in ascending order
         by integers in the range [1, p). The same value
@@ -1347,8 +1275,7 @@ def _csolve_prime_las_vegas(f, p, seed=None):
         a multiple solution. If no solution exists, returns [].
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.galoistools import _csolve_prime_las_vegas
     >>> _csolve_prime_las_vegas([1, 4, 3], 7) # x^2 + 4x + 3 = 0 (mod 7)
     [4, 6]
@@ -1356,24 +1283,22 @@ def _csolve_prime_las_vegas(f, p, seed=None):
     [1, 5, 8]
 
     References
-    ==========
+    ----------
 
     .. [1] R. Crandall and C. Pomerance "Prime Numbers", 2nd Ed., Algorithm 2.3.10
 
-    '''
+    """
 def csolve_prime(f, p, e: int = 1):
-    """ Solutions of `f(x) \\equiv 0 \\pmod{p^e}`.
+    """Solutions of `f(x) \\equiv 0 \\pmod{p^e}`.
 
     Parameters
-    ==========
-
+    ----------
     f : polynomial
     p : prime number
     e : positive integer
 
     Returns
-    =======
-
+    -------
     list[int]
         a list of solutions, sorted in ascending order
         by integers in the range [1, p**e). The same value
@@ -1381,8 +1306,7 @@ def csolve_prime(f, p, e: int = 1):
         a multiple solution. If no solution exists, returns [].
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.galoistools import csolve_prime
     >>> csolve_prime([1, 1, 7], 3, 1)
     [1]
@@ -1401,8 +1325,7 @@ def gf_csolve(f, n):
     results returns the final answers.
 
     Examples
-    ========
-
+    --------
     Solve [1, 1, 7] congruent 0 mod(189):
 
     >>> from sympy.polys.galoistools import gf_csolve
@@ -1410,12 +1333,11 @@ def gf_csolve(f, n):
     [13, 49, 76, 112, 139, 175]
 
     See Also
-    ========
-
+    --------
     sympy.ntheory.residue_ntheory.polynomial_congruence : a higher level solving routine
 
     References
-    ==========
+    ----------
 
     .. [1] 'An introduction to the Theory of Numbers' 5th Edition by Ivan Niven,
            Zuckerman and Montgomery.

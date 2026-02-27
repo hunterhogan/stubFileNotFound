@@ -3,7 +3,9 @@ from sympy.core.singleton import S as S
 from sympy.core.symbol import Symbol as Symbol
 from sympy.core.sympify import sympify as sympify
 from sympy.functions.elementary.exponential import log as log
-from sympy.functions.elementary.hyperbolic import acoth as acoth, acsch as acsch, asech as asech, atanh as atanh, cosh as cosh, coth as coth, csch as csch, sech as sech, tanh as tanh
+from sympy.functions.elementary.hyperbolic import (
+	acoth as acoth, acsch as acsch, asech as asech, atanh as atanh, cosh as cosh, coth as coth, csch as csch, sech as sech,
+	tanh as tanh)
 from sympy.functions.elementary.trigonometric import cos as cos, cot as cot, csc as csc, sec as sec, tan as tan
 from sympy.utilities.misc import filldedent as filldedent
 
@@ -12,8 +14,7 @@ def singularities(expression, symbol, domain=None):
     Find singularities of a given function.
 
     Parameters
-    ==========
-
+    ----------
     expression : Expr
         The target function in which singularities need to be found.
     symbol : Symbol
@@ -21,23 +22,20 @@ def singularities(expression, symbol, domain=None):
         expression in being searched for.
 
     Returns
-    =======
-
+    -------
     Set
         A set of values for ``symbol`` for which ``expression`` has a
         singularity. An ``EmptySet`` is returned if ``expression`` has no
         singularities for any given value of ``Symbol``.
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         Methods for determining the singularities of this function have
         not been developed.
 
     Notes
-    =====
-
+    -----
     This function does not find non-isolated singularities
     nor does it find branch points of the expression.
 
@@ -45,13 +43,12 @@ def singularities(expression, symbol, domain=None):
         - univariate continuous (real or complex) functions
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Mathematical_singularity
 
     Examples
-    ========
-
+    --------
     >>> from sympy import singularities, Symbol, log
     >>> x = Symbol('x', real=True)
     >>> y = Symbol('y', real=False)
@@ -72,8 +69,7 @@ def monotonicity_helper(expression, predicate, interval=..., symbol=None):
     Helper function for functions checking function monotonicity.
 
     Parameters
-    ==========
-
+    ----------
     expression : Expr
         The target function which is being checked
     predicate : function
@@ -91,8 +87,7 @@ def monotonicity_helper(expression, predicate, interval=..., symbol=None):
     of the given interval.
 
     Returns
-    =======
-
+    -------
     Boolean
         True if ``predicate`` is true for all the derivatives when ``symbol``
         is varied in ``range``, False otherwise.
@@ -103,8 +98,7 @@ def is_increasing(expression, interval=..., symbol=None):
     Return whether the function is increasing in the given interval.
 
     Parameters
-    ==========
-
+    ----------
     expression : Expr
         The target function which is being checked.
     interval : Set, optional
@@ -114,15 +108,13 @@ def is_increasing(expression, interval=..., symbol=None):
         The symbol present in expression which gets varied over the given range.
 
     Returns
-    =======
-
+    -------
     Boolean
         True if ``expression`` is increasing (either strictly increasing or
         constant) in the given ``interval``, False otherwise.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import is_increasing
     >>> from sympy.abc import x, y
     >>> from sympy import S, Interval, oo
@@ -143,8 +135,7 @@ def is_strictly_increasing(expression, interval=..., symbol=None):
     Return whether the function is strictly increasing in the given interval.
 
     Parameters
-    ==========
-
+    ----------
     expression : Expr
         The target function which is being checked.
     interval : Set, optional
@@ -154,15 +145,13 @@ def is_strictly_increasing(expression, interval=..., symbol=None):
         The symbol present in expression which gets varied over the given range.
 
     Returns
-    =======
-
+    -------
     Boolean
         True if ``expression`` is strictly increasing in the given ``interval``,
         False otherwise.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import is_strictly_increasing
     >>> from sympy.abc import x, y
     >>> from sympy import Interval, oo
@@ -183,8 +172,7 @@ def is_decreasing(expression, interval=..., symbol=None):
     Return whether the function is decreasing in the given interval.
 
     Parameters
-    ==========
-
+    ----------
     expression : Expr
         The target function which is being checked.
     interval : Set, optional
@@ -194,15 +182,13 @@ def is_decreasing(expression, interval=..., symbol=None):
         The symbol present in expression which gets varied over the given range.
 
     Returns
-    =======
-
+    -------
     Boolean
         True if ``expression`` is decreasing (either strictly decreasing or
         constant) in the given ``interval``, False otherwise.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import is_decreasing
     >>> from sympy.abc import x, y
     >>> from sympy import S, Interval, oo
@@ -227,8 +213,7 @@ def is_strictly_decreasing(expression, interval=..., symbol=None):
     Return whether the function is strictly decreasing in the given interval.
 
     Parameters
-    ==========
-
+    ----------
     expression : Expr
         The target function which is being checked.
     interval : Set, optional
@@ -238,15 +223,13 @@ def is_strictly_decreasing(expression, interval=..., symbol=None):
         The symbol present in expression which gets varied over the given range.
 
     Returns
-    =======
-
+    -------
     Boolean
         True if ``expression`` is strictly decreasing in the given ``interval``,
         False otherwise.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import is_strictly_decreasing
     >>> from sympy.abc import x, y
     >>> from sympy import S, Interval, oo
@@ -267,8 +250,7 @@ def is_monotonic(expression, interval=..., symbol=None):
     Return whether the function is monotonic in the given interval.
 
     Parameters
-    ==========
-
+    ----------
     expression : Expr
         The target function which is being checked.
     interval : Set, optional
@@ -278,21 +260,18 @@ def is_monotonic(expression, interval=..., symbol=None):
         The symbol present in expression which gets varied over the given range.
 
     Returns
-    =======
-
+    -------
     Boolean
         True if ``expression`` is monotonic in the given ``interval``,
         False otherwise.
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         Monotonicity check has not been implemented for the queried function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import is_monotonic
     >>> from sympy.abc import x, y
     >>> from sympy import S, Interval, oo

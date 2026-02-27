@@ -2,12 +2,13 @@ from _typeshed import Incomplete
 from sympy.polys.polyutils import IntegerPowerable
 from sympy.utilities.decorator import public
 
-__all__ = ['prime_valuation', 'prime_decomp']
+__all__ = ['prime_decomp', 'prime_valuation']
 
 class PrimeIdeal(IntegerPowerable):
     """
     A prime ideal in a ring of algebraic integers.
     """
+
     ZK: Incomplete
     p: Incomplete
     alpha: Incomplete
@@ -17,8 +18,7 @@ class PrimeIdeal(IntegerPowerable):
     def __init__(self, ZK, p, alpha, f, e=None) -> None:
         """
         Parameters
-        ==========
-
+        ----------
         ZK : :py:class:`~.Submodule`
             The maximal order where this ideal lives.
         p : int
@@ -32,7 +32,6 @@ class PrimeIdeal(IntegerPowerable):
             compute it here.
 
         """
-    def __str__(self) -> str: ...
     @property
     def is_inert(self):
         """
@@ -40,12 +39,11 @@ class PrimeIdeal(IntegerPowerable):
         our ring of integers.
         """
     def repr(self, field_gen=None, just_gens: bool = False):
-        '''
+        """
         Print a representation of this prime ideal.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import cyclotomic_poly, QQ
         >>> from sympy.abc import x, zeta
         >>> T = cyclotomic_poly(7, x)
@@ -59,8 +57,7 @@ class PrimeIdeal(IntegerPowerable):
         (11, zeta**3 + 5*zeta**2 + 4*zeta - 1)
 
         Parameters
-        ==========
-
+        ----------
         field_gen : :py:class:`~.Symbol`, ``None``, optional (default=None)
             The symbol to use for the generator of the field. This will appear
             in our representation of ``self.alpha``. If ``None``, we use the
@@ -71,8 +68,7 @@ class PrimeIdeal(IntegerPowerable):
             form "[ (p, alpha) e=..., f=... ]", giving the ramification index
             and inertia degree, along with the generators.
 
-        '''
-    def __repr__(self) -> str: ...
+        """
     def as_submodule(self):
         """
         Represent this prime ideal as a :py:class:`~.Submodule`.
@@ -99,8 +95,7 @@ class PrimeIdeal(IntegerPowerable):
         also supported.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Poly, cyclotomic_poly, prime_decomp
         >>> T = Poly(cyclotomic_poly(7))
         >>> P0 = prime_decomp(7, T)[0]
@@ -116,14 +111,12 @@ class PrimeIdeal(IntegerPowerable):
         True
 
         Returns
-        =======
-
+        -------
         :py:class:`~.Submodule`
             Will be equal to ``self.p * self.ZK + self.alpha * self.ZK``.
 
         See Also
-        ========
-
+        --------
         __add__
         __mul__
 
@@ -135,8 +128,7 @@ class PrimeIdeal(IntegerPowerable):
         :py:class:`~.Submodule`.
 
         See Also
-        ========
-
+        --------
         as_submodule
 
         """
@@ -147,8 +139,7 @@ class PrimeIdeal(IntegerPowerable):
         :py:class:`~.Submodule` or a rational number.
 
         See Also
-        ========
-
+        --------
         as_submodule
 
         """
@@ -156,7 +147,7 @@ class PrimeIdeal(IntegerPowerable):
     def _zeroth_power(self): ...
     def _first_power(self): ...
     def test_factor(self):
-        '''
+        """
         Compute a test factor for this prime ideal.
 
         Explanation
@@ -170,98 +161,87 @@ class PrimeIdeal(IntegerPowerable):
         Essentially, this is the same as the number $\\Psi$ (or the "reagent")
         from Kummer\'s 1847 paper (*Ueber die Zerlegung...*, Crelle vol. 35) in
         which ideal divisors were invented.
-        '''
+        """
     def valuation(self, I):
         """
         Compute the $\\mathfrak{p}$-adic valuation of integral ideal I at this
         prime ideal.
 
         Parameters
-        ==========
-
+        ----------
         I : :py:class:`~.Submodule`
 
         See Also
-        ========
-
+        --------
         prime_valuation
 
         """
     def reduce_element(self, elt):
-        '''
+        """
         Reduce a :py:class:`~.PowerBasisElement` to a "small representative"
         modulo this prime ideal.
 
         Parameters
-        ==========
-
+        ----------
         elt : :py:class:`~.PowerBasisElement`
             The element to be reduced.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.PowerBasisElement`
             The reduced element.
 
         See Also
-        ========
-
+        --------
         reduce_ANP
         reduce_alg_num
         .Submodule.reduce_element
 
-        '''
+        """
     def reduce_ANP(self, a):
-        '''
+        """
         Reduce an :py:class:`~.ANP` to a "small representative" modulo this
         prime ideal.
 
         Parameters
-        ==========
-
+        ----------
         elt : :py:class:`~.ANP`
             The element to be reduced.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.ANP`
             The reduced element.
 
         See Also
-        ========
-
+        --------
         reduce_element
         reduce_alg_num
         .Submodule.reduce_element
 
-        '''
+        """
     def reduce_alg_num(self, a):
-        '''
+        """
         Reduce an :py:class:`~.AlgebraicNumber` to a "small representative"
         modulo this prime ideal.
 
         Parameters
-        ==========
-
+        ----------
         elt : :py:class:`~.AlgebraicNumber`
             The element to be reduced.
 
         Returns
-        =======
-
+        -------
         :py:class:`~.AlgebraicNumber`
             The reduced element.
 
         See Also
-        ========
-
+        --------
         reduce_element
         reduce_ANP
         .Submodule.reduce_element
 
-        '''
+        """
 
 @public
 def prime_valuation(I, P):
@@ -269,8 +249,7 @@ def prime_valuation(I, P):
     Compute the *P*-adic valuation for an integral ideal *I*.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import QQ
     >>> from sympy.polys.numberfields import prime_valuation
     >>> K = QQ.cyclotomic_field(5)
@@ -280,8 +259,7 @@ def prime_valuation(I, P):
     8
 
     Parameters
-    ==========
-
+    ----------
     I : :py:class:`~.Submodule`
         An integral ideal whose valuation is desired.
 
@@ -289,17 +267,15 @@ def prime_valuation(I, P):
         The prime at which to compute the valuation.
 
     Returns
-    =======
-
+    -------
     int
 
     See Also
-    ========
-
+    --------
     .PrimeIdeal.valuation
 
     References
-    ==========
+    ----------
 
     .. [1] Cohen, H. *A Course in Computational Algebraic Number Theory.*
        (See Algorithm 4.8.17.)
@@ -318,8 +294,7 @@ def prime_decomp(p, T=None, ZK=None, dK=None, radical=None):
     :py:class:`~.AlgebraicField`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Poly, QQ
     >>> from sympy.abc import x, theta
     >>> T = Poly(x ** 3 + x ** 2 - 2 * x + 8)
@@ -329,8 +304,7 @@ def prime_decomp(p, T=None, ZK=None, dK=None, radical=None):
      [ (2, (3*x**2 + 3*x)/2) e=1, f=1 ]]
 
     Parameters
-    ==========
-
+    ----------
     p : int
         The rational prime whose decomposition is desired.
 
@@ -349,12 +323,11 @@ def prime_decomp(p, T=None, ZK=None, dK=None, radical=None):
         The nilradical mod *p* in the integers of $K$, if already known.
 
     Returns
-    =======
-
+    -------
     List of :py:class:`~.PrimeIdeal` instances.
 
     References
-    ==========
+    ----------
 
     .. [1] Cohen, H. *A Course in Computational Algebraic Number Theory.*
        (See Algorithm 6.2.9.)

@@ -1,6 +1,5 @@
-from typing import Any, Final, Literal
-
 from .domreg import getDOMImplementation as getDOMImplementation, registerDOMImplementation as registerDOMImplementation
+from typing import Any, Final, Literal
 
 class Node:
     __slots__ = ()

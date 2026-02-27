@@ -1,19 +1,19 @@
-import abc
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
+import abc
 
-__all__ = ['WrappingGeometryBase', 'WrappingCylinder', 'WrappingSphere']
+__all__ = ['WrappingCylinder', 'WrappingGeometryBase', 'WrappingSphere']
 
 class WrappingGeometryBase(ABC, metaclass=abc.ABCMeta):
     """Abstract base class for all geometry classes to inherit from.
 
     Notes
-    =====
-
+    -----
     Instances of this class cannot be directly instantiated by users. However,
     it can be used to created custom geometry types through subclassing.
 
     """
+
     @property
     @abstractmethod
     def point(cls):
@@ -23,7 +23,7 @@ class WrappingGeometryBase(ABC, metaclass=abc.ABCMeta):
         """Returns ``True`` if a point is on the geometry's surface.
 
         Parameters
-        ==========
+        ----------
         point : Point
             The point for which it's to be ascertained if it's on the
             geometry's surface or not.
@@ -35,8 +35,7 @@ class WrappingGeometryBase(ABC, metaclass=abc.ABCMeta):
         surface.
 
         Parameters
-        ==========
-
+        ----------
         point_1 : Point
             The point from which the geodesic length should be calculated.
         point_2 : Point
@@ -48,16 +47,13 @@ class WrappingGeometryBase(ABC, metaclass=abc.ABCMeta):
         """The vectors parallel to the geodesic at the two end points.
 
         Parameters
-        ==========
-
+        ----------
         point_1 : Point
             The point from which the geodesic originates.
         point_2 : Point
             The point at which the geodesic terminates.
 
         """
-    def __repr__(self) -> str:
-        """Default representation of a geometry object."""
 
 class WrappingSphere(WrappingGeometryBase):
     """A solid spherical object.
@@ -69,8 +65,7 @@ class WrappingSphere(WrappingGeometryBase):
     pairs of points. These paths are always geodetic (the shortest possible).
 
     Examples
-    ========
-
+    --------
     To create a ``WrappingSphere`` instance, a ``Symbol`` denoting its radius
     and ``Point`` at which its center will be located are needed:
 
@@ -85,8 +80,7 @@ class WrappingSphere(WrappingGeometryBase):
     WrappingSphere(radius=r, point=pO)
 
     Parameters
-    ==========
-
+    ----------
     radius : Symbol
         Radius of the sphere. This symbol must represent a value that is
         positive and constant, i.e. it cannot be a dynamic symbol, nor can it
@@ -95,18 +89,17 @@ class WrappingSphere(WrappingGeometryBase):
         A point at which the sphere is centered.
 
     See Also
-    ========
-
+    --------
     WrappingCylinder: Cylindrical geometry where the wrapping direction can be
         defined.
 
     """
+
     def __init__(self, radius, point) -> None:
         """Initializer for ``WrappingSphere``.
 
         Parameters
-        ==========
-
+        ----------
         radius : Symbol
             The radius of the sphere.
         point : Point
@@ -129,8 +122,7 @@ class WrappingSphere(WrappingGeometryBase):
         """Returns ``True`` if a point is on the sphere's surface.
 
         Parameters
-        ==========
-
+        ----------
         point : Point
             The point for which it's to be ascertained if it's on the sphere's
             surface or not. This point's position relative to the sphere's
@@ -158,8 +150,7 @@ class WrappingSphere(WrappingGeometryBase):
         undefined when the two points are directly opposite one another.
 
         Examples
-        ========
-
+        --------
         A geodesic length can only be calculated between two points on the
         sphere's surface. Firstly, a ``WrappingSphere`` instance must be
         created along with two points that will lie on its surface:
@@ -198,8 +189,7 @@ class WrappingSphere(WrappingGeometryBase):
         raised because it's not possible to calculate a value in this case.
 
         Parameters
-        ==========
-
+        ----------
         point_1 : Point
             Point from which the geodesic length should be calculated.
         point_2 : Point
@@ -210,16 +200,13 @@ class WrappingSphere(WrappingGeometryBase):
         """The vectors parallel to the geodesic at the two end points.
 
         Parameters
-        ==========
-
+        ----------
         point_1 : Point
             The point from which the geodesic originates.
         point_2 : Point
             The point at which the geodesic terminates.
 
         """
-    def __repr__(self) -> str:
-        """Representation of a ``WrappingSphere``."""
 
 class WrappingCylinder(WrappingGeometryBase):
     """A solid (infinite) cylindrical object.
@@ -236,8 +223,7 @@ class WrappingCylinder(WrappingGeometryBase):
     are in the positive direction following the right-hand rule.
 
     Examples
-    ========
-
+    --------
     To create a ``WrappingCylinder`` instance, a ``Symbol`` denoting its
     radius, a ``Vector`` defining its axis, and a ``Point`` through which its
     axis passes are needed:
@@ -257,8 +243,7 @@ class WrappingCylinder(WrappingGeometryBase):
     WrappingCylinder(radius=r, point=pO, axis=N.x)
 
     Parameters
-    ==========
-
+    ----------
     radius : Symbol
         The radius of the cylinder.
     point : Point
@@ -267,18 +252,17 @@ class WrappingCylinder(WrappingGeometryBase):
         The axis along which the cylinder is aligned.
 
     See Also
-    ========
-
+    --------
     WrappingSphere: Spherical geometry where the wrapping direction is always
         geodetic.
 
     """
+
     def __init__(self, radius, point, axis) -> None:
         """Initializer for ``WrappingCylinder``.
 
         Parameters
-        ==========
-
+        ----------
         radius : Symbol
             The radius of the cylinder. This symbol must represent a value that
             is positive and constant, i.e. it cannot be a dynamic symbol.
@@ -310,8 +294,7 @@ class WrappingCylinder(WrappingGeometryBase):
         """Returns ``True`` if a point is on the cylinder's surface.
 
         Parameters
-        ==========
-
+        ----------
         point : Point
             The point for which it's to be ascertained if it's on the
             cylinder's surface or not. This point's position relative to the
@@ -334,8 +317,7 @@ class WrappingCylinder(WrappingGeometryBase):
         hypotenuse is the geodesic length.
 
         Examples
-        ========
-
+        --------
         A geodesic length can only be calculated between two points on the
         cylinder's surface. Firstly, a ``WrappingCylinder`` instance must be
         created along with two points that will lie on its surface:
@@ -378,8 +360,7 @@ class WrappingCylinder(WrappingGeometryBase):
         because it's not possible to calculate a value in this case.
 
         Parameters
-        ==========
-
+        ----------
         point_1 : Point
             Point from which the geodesic length should be calculated.
         point_2 : Point
@@ -390,13 +371,10 @@ class WrappingCylinder(WrappingGeometryBase):
         """The vectors parallel to the geodesic at the two end points.
 
         Parameters
-        ==========
-
+        ----------
         point_1 : Point
             The point from which the geodesic originates.
         point_2 : Point
             The point at which the geodesic terminates.
 
         """
-    def __repr__(self) -> str:
-        """Representation of a ``WrappingCylinder``."""

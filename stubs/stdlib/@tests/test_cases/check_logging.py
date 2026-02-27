@@ -1,10 +1,10 @@
 from __future__ import annotations
 
+from typing import Any
 import logging
 import logging.handlers
 import multiprocessing
 import queue
-from typing import Any
 
 # This pattern comes from the logging docs, and should therefore pass a type checker
 # See https://docs.python.org/3/library/logging.html#logrecord-objects

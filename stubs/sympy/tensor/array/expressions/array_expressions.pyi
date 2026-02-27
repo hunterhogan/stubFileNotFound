@@ -1,4 +1,3 @@
-import typing
 from _typeshed import Incomplete
 from sympy.combinatorics import Permutation as Permutation
 from sympy.combinatorics.permutations import _af_invert as _af_invert
@@ -18,11 +17,19 @@ from sympy.matrices.expressions.diagonal import diagonalize_vector as diagonaliz
 from sympy.matrices.expressions.matexpr import MatrixElement as MatrixElement, MatrixExpr as MatrixExpr
 from sympy.matrices.expressions.special import ZeroMatrix as ZeroMatrix
 from sympy.matrices.matrixbase import MatrixBase as MatrixBase
-from sympy.tensor.array.arrayop import permutedims as permutedims, tensorcontraction as tensorcontraction, tensordiagonal as tensordiagonal, tensorproduct as tensorproduct
+from sympy.tensor.array.arrayop import (
+	permutedims as permutedims, tensorcontraction as tensorcontraction, tensordiagonal as tensordiagonal,
+	tensorproduct as tensorproduct)
 from sympy.tensor.array.dense_ndim_array import ImmutableDenseNDimArray as ImmutableDenseNDimArray
-from sympy.tensor.array.expressions.utils import _apply_recursively_over_nested_lists as _apply_recursively_over_nested_lists, _build_push_indices_down_func_transformation as _build_push_indices_down_func_transformation, _build_push_indices_up_func_transformation as _build_push_indices_up_func_transformation, _get_contraction_links as _get_contraction_links, _get_mapping_from_subranks as _get_mapping_from_subranks, _sort_contraction_indices as _sort_contraction_indices
+from sympy.tensor.array.expressions.utils import (
+	_apply_recursively_over_nested_lists as _apply_recursively_over_nested_lists,
+	_build_push_indices_down_func_transformation as _build_push_indices_down_func_transformation,
+	_build_push_indices_up_func_transformation as _build_push_indices_up_func_transformation,
+	_get_contraction_links as _get_contraction_links, _get_mapping_from_subranks as _get_mapping_from_subranks,
+	_sort_contraction_indices as _sort_contraction_indices)
 from sympy.tensor.array.ndim_array import NDimArray as NDimArray
 from sympy.tensor.indexed import Indexed as Indexed, IndexedBase as IndexedBase
+import typing
 
 class _ArrayExpr(Expr):
     shape: tuple[Expr, ...]
@@ -33,6 +40,7 @@ class ArraySymbol(_ArrayExpr):
     """
     Symbol representing an array expression
     """
+
     _iterable: bool
     def __new__(cls, symbol, shape: typing.Iterable) -> ArraySymbol: ...
     @property
@@ -45,6 +53,7 @@ class ArrayElement(Expr):
     """
     An element of an array.
     """
+
     _diff_wrt: bool
     is_symbol: bool
     is_commutative: bool
@@ -61,6 +70,7 @@ class ZeroArray(_ArrayExpr):
     """
     Symbolic array of zeros. Equivalent to ``ZeroMatrix`` for matrices.
     """
+
     def __new__(cls, *shape): ...
     @property
     def shape(self): ...
@@ -71,6 +81,7 @@ class OneArray(_ArrayExpr):
     """
     Symbolic array of ones.
     """
+
     def __new__(cls, *shape): ...
     @property
     def shape(self): ...
@@ -80,14 +91,13 @@ class OneArray(_ArrayExpr):
 class _CodegenArrayAbstract(Basic):
     @property
     def subranks(self):
-        '''
+        """
         Returns the ranks of the objects in the uppermost tensor product inside
         the current object.  In case no tensor products are contained, return
         the atomic ranks.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.tensor.array import tensorproduct, tensorcontraction
         >>> from sympy import MatrixSymbol
         >>> M = MatrixSymbol("M", 3, 3)
@@ -103,7 +113,7 @@ class _CodegenArrayAbstract(Basic):
         >>> co = tensorcontraction(tp, (1, 2), (3, 4))
         >>> co.subranks
         [2, 2, 2]
-        '''
+        """
     def subrank(self):
         """
         The sum of ``subranks``.
@@ -116,6 +126,7 @@ class ArrayTensorProduct(_CodegenArrayAbstract):
     """
     Class to represent the tensor product of array-like objects.
     """
+
     def __new__(cls, *args, **kwargs): ...
     def _canonicalize(self): ...
     @classmethod
@@ -126,6 +137,7 @@ class ArrayAdd(_CodegenArrayAbstract):
     """
     Class for elementwise array additions.
     """
+
     def __new__(cls, *args, **kwargs): ...
     def _canonicalize(self): ...
     @classmethod
@@ -133,12 +145,11 @@ class ArrayAdd(_CodegenArrayAbstract):
     def as_explicit(self): ...
 
 class PermuteDims(_CodegenArrayAbstract):
-    '''
+    """
     Class to represent permutation of axes of arrays.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.tensor.array import permutedims
     >>> from sympy import MatrixSymbol
     >>> M = MatrixSymbol("M", 3, 3)
@@ -204,7 +215,8 @@ class PermuteDims(_CodegenArrayAbstract):
     (2, 3, 5, 4)
     >>> perm2.permutation.array_form
     [1, 0, 3, 2]
-    '''
+    """
+
     def __new__(cls, expr, permutation=None, index_order_old=None, index_order_new=None, **kwargs): ...
     def _canonicalize(self): ...
     @property
@@ -256,6 +268,7 @@ class ArrayDiagonal(_CodegenArrayAbstract):
     Notice that the diagonalized out dimensions are added as new dimensions at
     the end of the indices.
     """
+
     def __new__(cls, expr, *diagonal_indices, **kwargs): ...
     def _canonicalize(self): ...
     @staticmethod
@@ -300,6 +313,7 @@ class ArrayContraction(_CodegenArrayAbstract):
     This class is meant to represent contractions of arrays in a form easily
     processable by the code printers.
     """
+
     def __new__(cls, expr, *contraction_indices, **kwargs): ...
     def _canonicalize(self): ...
     def __mul__(self, other): ...
@@ -320,8 +334,8 @@ class ArrayContraction(_CodegenArrayAbstract):
         rewritten as multiple contractions involving two indices, thus allowing
         the expression to be rewritten as a matrix multiplication line.
 
-        Examples:
-
+        Examples
+        --------
         * `A_ij b_j0 C_jk` ===> `A*DiagMatrix(b)*C`
 
         Care for:
@@ -339,13 +353,12 @@ class ArrayContraction(_CodegenArrayAbstract):
     def _get_free_indices_to_position_map(free_indices, contraction_indices): ...
     @staticmethod
     def _get_index_shifts(expr):
-        '''
+        """
         Get the mapping of indices at the positions before the contraction
         occurs.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.tensor.array import tensorproduct, tensorcontraction
         >>> from sympy import MatrixSymbol
         >>> M = MatrixSymbol("M", 3, 3)
@@ -357,7 +370,7 @@ class ArrayContraction(_CodegenArrayAbstract):
         Indeed, ``cg`` after the contraction has two dimensions, 0 and 1. They
         need to be shifted by 0 and 2 to get the corresponding positions before
         the contraction (that is, 0 and 3).
-        '''
+        """
     @staticmethod
     def _convert_outer_indices_to_inner_indices(expr, *outer_contraction_indices): ...
     @staticmethod
@@ -375,13 +388,12 @@ class ArrayContraction(_CodegenArrayAbstract):
     @classmethod
     def _sort_fully_contracted_args(cls, expr, contraction_indices): ...
     def _get_contraction_tuples(self):
-        '''
+        """
         Return tuples containing the argument index and position within the
         argument of the index position.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import MatrixSymbol
         >>> from sympy.abc import N
         >>> from sympy.tensor.array import tensorproduct, tensorcontraction
@@ -393,15 +405,14 @@ class ArrayContraction(_CodegenArrayAbstract):
         [[(0, 1), (1, 0)]]
 
         Notes
-        =====
-
+        -----
         Here the contraction pair `(1, 2)` meaning that the 2nd and 3rd indices
         of the tensor product `A\\otimes B` are contracted, has been transformed
         into `(0, 1)` and `(1, 0)`, identifying the same indices in a different
         notation. `(0, 1)` is the second index (1) of the first argument (i.e.
                 0 or `A`). `(1, 0)` is the first index (i.e. 0) of the second
         argument (i.e. 1 or `B`).
-        '''
+        """
     @staticmethod
     def _contraction_tuples_to_contraction_indices(expr, contraction_tuples): ...
     @property
@@ -414,12 +425,11 @@ class ArrayContraction(_CodegenArrayAbstract):
     def contraction_indices(self): ...
     def _contraction_indices_to_components(self): ...
     def sort_args_by_name(self):
-        '''
+        """
         Sort arguments in the tensor product so that their order is lexicographical.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.tensor.array.expressions.from_matrix_to_array import convert_matrix_to_array
         >>> from sympy import MatrixSymbol
         >>> from sympy.abc import N
@@ -433,17 +443,16 @@ class ArrayContraction(_CodegenArrayAbstract):
         ArrayContraction(ArrayTensorProduct(A, D, C, B), (0, 3), (1, 6), (2, 5))
         >>> cg.sort_args_by_name()
         ArrayContraction(ArrayTensorProduct(A, D, B, C), (0, 3), (1, 4), (2, 7))
-        '''
+        """
     def _get_contraction_links(self):
-        '''
+        """
         Returns a dictionary of links between arguments in the tensor product
         being contracted.
 
         See the example for an explanation of the values.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import MatrixSymbol
         >>> from sympy.abc import N
         >>> from sympy.tensor.array.expressions.from_matrix_to_array import convert_matrix_to_array
@@ -474,16 +483,15 @@ class ArrayContraction(_CodegenArrayAbstract):
         and second indices (0 and 1 in the sub-dict).  The link `(0, 1)` and
         `(2, 0)` respectively. `(0, 1)` is the index slot 1 (the 2nd) of
         argument in position 0 (that is, `A_{\\ldot j}`), and so on.
-        '''
+        """
     def as_explicit(self): ...
 
 class Reshape(_CodegenArrayAbstract):
-    '''
+    """
     Reshape the dimensions of an array expression.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.tensor.array.expressions import ArraySymbol, Reshape
     >>> A = ArraySymbol("A", (6,))
     >>> A.shape
@@ -498,7 +506,8 @@ class Reshape(_CodegenArrayAbstract):
     >>> Reshape(A, (3, 2)).as_explicit()
     [[A[0], A[1]], [A[2], A[3]], [A[4], A[5]]]
 
-    '''
+    """
+
     def __new__(cls, expr, shape): ...
     @property
     def shape(self): ...
@@ -523,10 +532,10 @@ class _ArgE:
     the second index is contracted to the 4th (i.e. number ``3``) group of the
     array contraction object.
     """
+
     indices: list[int | None]
     element: Incomplete
     def __init__(self, element, indices: list[int | None] | None = None) -> None: ...
-    def __str__(self) -> str: ...
     __repr__ = __str__
 
 class _IndPos:
@@ -536,10 +545,10 @@ class _IndPos:
     - arg: the position of the argument in the tensor product,
     - rel: the relative position of the index inside the argument.
     """
+
     arg: Incomplete
     rel: Incomplete
     def __init__(self, arg: int, rel: int) -> None: ...
-    def __str__(self) -> str: ...
     __repr__ = __str__
     def __iter__(self): ...
 
@@ -557,6 +566,7 @@ class _EditArrayContraction:
     Once editing is finished, the ``ArrayContraction`` object may be recreated
     by calling the ``.to_array_contraction()`` method.
     """
+
     args_with_ind: list[_ArgE]
     number_of_contraction_indices: int
     _track_permutation: list[list[int]] | None

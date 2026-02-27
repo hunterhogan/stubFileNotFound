@@ -1,7 +1,7 @@
-import sys
 from re import error as error
-from typing import Final
-from typing_extensions import Self, disjoint_base
+from typing import Final, Self
+from typing_extensions import disjoint_base
+import sys
 
 MAXGROUPS: Final[int]
 

@@ -6,6 +6,7 @@ STRPRINT: Incomplete
 
 class PythonPrinter(ReprPrinter, StrPrinter):
     """A printer which converts an expression into its Python interpretation."""
+
     symbols: Incomplete
     functions: Incomplete
     def __init__(self, settings=None) -> None: ...
@@ -15,6 +16,7 @@ class PythonPrinter(ReprPrinter, StrPrinter):
 
 def python(expr, **settings):
     """Return Python interpretation of passed expression
-    (can be passed to the exec() function without any modifications)"""
+    (can be passed to the exec() function without any modifications)
+    """
 def print_python(expr, **settings) -> None:
     """Print output of python() function"""

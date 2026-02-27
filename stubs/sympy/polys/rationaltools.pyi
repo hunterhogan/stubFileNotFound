@@ -27,8 +27,7 @@ def together(expr, deep: bool = False, fraction: bool = True):
     simplification and minimize degree of the numerator and denominator.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import together, exp
     >>> from sympy.abc import x, y, z
 

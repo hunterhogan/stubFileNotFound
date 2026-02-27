@@ -1,8 +1,8 @@
-import abc
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from functools import cached_property
 from sympy.physics.biomechanics._mixin import _NamedMixin
+import abc
 
 __all__ = ['ActivationBase', 'FirstOrderActivationDeGroote2016', 'ZerothOrderActivation']
 
@@ -10,13 +10,13 @@ class ActivationBase(ABC, _NamedMixin, metaclass=abc.ABCMeta):
     """Abstract base class for all activation dynamics classes to inherit from.
 
     Notes
-    =====
-
+    -----
     Instances of this class cannot be directly instantiated by users. However,
     it can be used to created custom activation dynamics types through
     subclassing.
 
     """
+
     name: Incomplete
     _e: Incomplete
     _a: Incomplete
@@ -26,7 +26,8 @@ class ActivationBase(ABC, _NamedMixin, metaclass=abc.ABCMeta):
     @abstractmethod
     def with_defaults(cls, name):
         """Alternate constructor that provides recommended defaults for
-        constants."""
+        constants.
+        """
     @property
     def excitation(self):
         """Dynamic symbol representing excitation.
@@ -200,8 +201,6 @@ class ActivationBase(ABC, _NamedMixin, metaclass=abc.ABCMeta):
         """
     def __eq__(self, other):
         """Equality check for activation dynamics."""
-    def __repr__(self) -> str:
-        """Default representation of activation dynamics."""
 
 class ZerothOrderActivation(ActivationBase):
     """Simple zeroth-order activation dynamics mapping excitation to
@@ -218,13 +217,13 @@ class ZerothOrderActivation(ActivationBase):
     equations are involved.
 
     """
+
     _a: Incomplete
     def __init__(self, name) -> None:
         """Initializer for ``ZerothOrderActivation``.
 
         Parameters
-        ==========
-
+        ----------
         name : str
             The name identifier associated with the instance. Must be a string
             of length at least 1.
@@ -431,7 +430,7 @@ class FirstOrderActivationDeGroote2016(ActivationBase):
     :math:`b = 10`.
 
     References
-    ==========
+    ----------
 
     .. [1] De Groote, F., Kinney, A. L., Rao, A. V., & Fregly, B. J., Evaluation
            of direct collocation optimal control problem formulations for
@@ -439,11 +438,12 @@ class FirstOrderActivationDeGroote2016(ActivationBase):
            engineering, 44(10), (2016) pp. 2922-2936
 
     """
+
     def __init__(self, name, activation_time_constant=None, deactivation_time_constant=None, smoothing_rate=None) -> None:
         """Initializer for ``FirstOrderActivationDeGroote2016``.
 
         Parameters
-        ==========
+        ----------
         activation time constant : Symbol | Number | None
             The value of the activation time constant governing the delay
             between excitation and activation when excitation exceeds
@@ -673,5 +673,3 @@ class FirstOrderActivationDeGroote2016(ActivationBase):
     def _da_eqn(self): ...
     def __eq__(self, other):
         """Equality check for ``FirstOrderActivationDeGroote2016``."""
-    def __repr__(self) -> str:
-        """Representation of ``FirstOrderActivationDeGroote2016``."""

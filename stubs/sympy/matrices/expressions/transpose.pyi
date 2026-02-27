@@ -1,4 +1,4 @@
-from sympy.assumptions.ask import Q as Q, ask as ask
+from sympy.assumptions.ask import ask as ask, Q as Q
 from sympy.assumptions.refine import handlers_dict as handlers_dict
 from sympy.core.basic import Basic as Basic
 from sympy.matrices.expressions.matexpr import MatrixExpr as MatrixExpr
@@ -12,8 +12,7 @@ class Transpose(MatrixExpr):
     function, or the ``.T`` attribute of matrices.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatrixSymbol, Transpose, transpose
     >>> A = MatrixSymbol('A', 3, 5)
     >>> B = MatrixSymbol('B', 5, 3)
@@ -27,6 +26,7 @@ class Transpose(MatrixExpr):
     B.T*A.T
 
     """
+
     is_Transpose: bool
     def doit(self, **hints): ...
     @property

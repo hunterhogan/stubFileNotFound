@@ -18,6 +18,7 @@ class ImmutableRepMatrix(RepMatrix, MatrixExpr):
 
     Uses DomainMAtrix as the internal representation.
     """
+
     def __new__(cls, *args, **kwargs): ...
     __hash__: Incomplete
     def copy(self): ...
@@ -38,8 +39,7 @@ class ImmutableDenseMatrix(DenseMatrix, ImmutableRepMatrix):
     """Create an immutable version of a matrix.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import eye, ImmutableMatrix
     >>> ImmutableMatrix(eye(3))
     Matrix([
@@ -51,6 +51,7 @@ class ImmutableDenseMatrix(DenseMatrix, ImmutableRepMatrix):
     ...
     TypeError: Cannot set values of ImmutableDenseMatrix
     """
+
     _iterable: bool
     _class_priority: int
     _op_priority: float
@@ -64,8 +65,7 @@ class ImmutableSparseMatrix(SparseRepMatrix, ImmutableRepMatrix):
     """Create an immutable version of a sparse matrix.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import eye, ImmutableSparseMatrix
     >>> ImmutableSparseMatrix(1, 1, {})
     Matrix([[0]])
@@ -81,6 +81,7 @@ class ImmutableSparseMatrix(SparseRepMatrix, ImmutableRepMatrix):
     >>> _.shape
     (3, 3)
     """
+
     is_Matrix: bool
     _class_priority: int
     @classmethod

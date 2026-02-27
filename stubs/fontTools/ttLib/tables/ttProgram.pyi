@@ -79,4 +79,3 @@ def _test() -> None:
     >>> _test()
     True
     """
-

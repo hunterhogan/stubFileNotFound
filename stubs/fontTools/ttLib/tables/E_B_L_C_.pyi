@@ -110,4 +110,3 @@ class eblc_index_sub_table_5(FixedSizeIndexSubTableMixin, EblcIndexSubTable):
     def compile(self, ttFont: TTFont): ...
 
 eblc_sub_table_classes: Incomplete
-

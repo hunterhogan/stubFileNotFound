@@ -543,4 +543,3 @@ class GlyphCoordinates:
 		True
 		"""
 	__nonzero__ = __bool__
-

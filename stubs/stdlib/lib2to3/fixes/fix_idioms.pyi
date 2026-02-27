@@ -1,6 +1,5 @@
-from typing import ClassVar, Final, Literal
-
 from .. import fixer_base
+from typing import ClassVar, Final, Literal
 
 CMP: Final[str]
 TYPE: Final[str]

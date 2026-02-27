@@ -1,20 +1,20 @@
-import re
-import sys
 from _warnings import warn as warn, warn_explicit as warn_explicit
 from collections.abc import Sequence
 from types import ModuleType, TracebackType
-from typing import Any, Generic, Literal, TextIO, overload
-from typing_extensions import LiteralString, TypeAlias, TypeVar
+from typing import Any, Generic, Literal, LiteralString, overload, TextIO, TypeAlias
+from typing_extensions import TypeVar
+import re
+import sys
 
 __all__ = [
+    "catch_warnings",
+    "filterwarnings",
+    "formatwarning",
+    "resetwarnings",
+    "showwarning",
+    "simplefilter",
     "warn",
     "warn_explicit",
-    "showwarning",
-    "formatwarning",
-    "filterwarnings",
-    "simplefilter",
-    "resetwarnings",
-    "catch_warnings",
 ]
 
 if sys.version_info >= (3, 13):

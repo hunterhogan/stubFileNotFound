@@ -1,4 +1,6 @@
-from .pretty_symbology import center as center, hobj as hobj, line_width as line_width, pretty_use_unicode as pretty_use_unicode, vobj as vobj, xobj as xobj, xsym as xsym
+from .pretty_symbology import (
+	center as center, hobj as hobj, line_width as line_width, pretty_use_unicode as pretty_use_unicode, vobj as vobj,
+	xobj as xobj, xsym as xsym)
 from _typeshed import Incomplete
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 
@@ -8,6 +10,7 @@ class stringPict:
     """An ASCII picture.
     The pictures are represented as a list of equal length strings.
     """
+
     LINE: str
     s: Incomplete
     picture: Incomplete
@@ -29,20 +32,19 @@ class stringPict:
         Returns string, baseline arguments for stringPict.
         """
     def right(self, *args):
-        '''Put pictures next to this one.
+        """Put pictures next to this one.
         Returns string, baseline arguments for stringPict.
         (Multiline) strings are allowed, and are given a baseline of 0.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.printing.pretty.stringpict import stringPict
         >>> print(stringPict("10").right(" + ",stringPict("1\\r-\\r2",1))[0])
              1
         10 + -
              2
 
-        '''
+        """
     def left(self, *args):
         """Put pictures (left to right) at left.
         Returns string, baseline arguments for stringPict.
@@ -59,13 +61,12 @@ class stringPict:
         The special value stringPict.LINE is a row of '-' extended to the width.
         """
     def below(self, *args):
-        '''Put pictures under this picture.
+        """Put pictures under this picture.
         Returns string, baseline arguments for stringPict.
         Baseline is baseline of top picture
 
         Examples
-        ========
-
+        --------
         >>> from sympy.printing.pretty.stringpict import stringPict
         >>> print(stringPict("x+3").below(
         ...       stringPict.LINE, \'3\')[0]) #doctest: +NORMALIZE_WHITESPACE
@@ -73,7 +74,7 @@ class stringPict:
         ---
          3
 
-        '''
+        """
     def above(self, *args):
         """Put pictures above this picture.
         Returns string, baseline arguments for stringPict.
@@ -96,22 +97,20 @@ class stringPict:
     def render(self, *args, **kwargs):
         """Return the string form of self.
 
-           Unless the argument line_break is set to False, it will
-           break the expression in a form that can be printed
-           on the terminal without being broken up.
-         """
+        Unless the argument line_break is set to False, it will
+        break the expression in a form that can be printed
+        on the terminal without being broken up.
+        """
     def terminal_width(self):
         """Return the terminal width if possible, otherwise return 0.
         """
     def __eq__(self, o): ...
     def __hash__(self): ...
-    def __str__(self) -> str: ...
-    def __repr__(self) -> str: ...
     def __getitem__(self, index): ...
     def __len__(self) -> int: ...
 
 class prettyForm(stringPict):
-    '''
+    """
     Extension of the stringPict class that knows about basic math applications,
     optimizing double minus signs.
 
@@ -127,7 +126,8 @@ class prettyForm(stringPict):
              multiplied or powered
         OPEN this is an open object: parenthesize if added, multiplied, or
              powered (example: Piecewise)
-    '''
+    """
+
     ATOM: Incomplete
     FUNC: Incomplete
     DIV: Incomplete
@@ -153,7 +153,6 @@ class prettyForm(stringPict):
         """Make a pretty multiplication.
         Parentheses are needed around +, - and neg.
         """
-    def __repr__(self) -> str: ...
     def __pow__(self, b):
         """Make a pretty power.
         """

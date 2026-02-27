@@ -4,21 +4,20 @@ from sympy.core.backend import eye as eye
 class TypeC(Standard_Cartan):
     def __new__(cls, n): ...
     def dimension(self):
-        '''Dimension of the vector space V underlying the Lie algebra
+        """Dimension of the vector space V underlying the Lie algebra
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.cartan_type import CartanType
         >>> c = CartanType("C3")
         >>> c.dimension()
         3
-        '''
+        """
     def basic_root(self, i, j):
         """Generate roots with 1 in ith position and a -1 in jth position
         """
     def simple_root(self, i):
-        '''The ith simple root for the C series
+        """The ith simple root for the C series
 
         Every lie algebra has a unique root system.
         Given a root system Q, there is a subset of the
@@ -36,34 +35,32 @@ class TypeC(Standard_Cartan):
         the nth position and zeroes elsewhere.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.cartan_type import CartanType
         >>> c = CartanType("C3")
         >>> c.simple_root(2)
         [0, 1, -1]
 
-        '''
+        """
     def positive_roots(self):
-        '''Generates all the positive roots of A_n
+        """Generates all the positive roots of A_n
 
         This is half of all of the roots of C_n; by multiplying all the
         positive roots by -1 we get the negative roots.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.cartan_type import CartanType
         >>> c = CartanType("A3")
         >>> c.positive_roots()
         {1: [1, -1, 0, 0], 2: [1, 0, -1, 0], 3: [1, 0, 0, -1], 4: [0, 1, -1, 0],
                 5: [0, 1, 0, -1], 6: [0, 0, 1, -1]}
 
-        '''
+        """
     def roots(self):
-        '''
+        """
         Returns the total number of roots for C_n"
-        '''
+        """
     def cartan_matrix(self):
         """The Cartan matrix for C_n
 
@@ -73,8 +70,7 @@ class TypeC(Standard_Cartan):
         entry of the Cartan matrix is (<alpha[i],alpha[j]>).
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.cartan_type import CartanType
         >>> c = CartanType('C4')
         >>> c.cartan_matrix()
@@ -90,7 +86,7 @@ class TypeC(Standard_Cartan):
         Returns the number of independent generators of C_n
         """
     def lie_algebra(self):
-        '''
+        """
         Returns the Lie algebra associated with C_n"
-        '''
+        """
     def dynkin_diagram(self): ...

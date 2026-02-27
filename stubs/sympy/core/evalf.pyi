@@ -1,7 +1,9 @@
-from .numbers import AlgebraicNumber as AlgebraicNumber, Float as Float, Integer as Integer, Number as Number, Rational as Rational
+from .numbers import (
+	AlgebraicNumber as AlgebraicNumber, Float as Float, Integer as Integer, Number as Number, Rational as Rational)
 from .singleton import S as S
 from .sympify import sympify as sympify
 from _typeshed import Incomplete
+from collections.abc import Callable
 from mpmath import mpc, mpf
 from mpmath.libmp import round_nearest
 from sympy.concrete.products import Product as Product
@@ -20,7 +22,7 @@ from sympy.integrals.integrals import Integral as Integral
 from sympy.utilities.iterables import is_sequence as is_sequence
 from sympy.utilities.lambdify import lambdify as lambdify
 from sympy.utilities.misc import as_int as as_int
-from typing import Any, Callable, overload
+from typing import Any, overload, TypeAlias
 
 LG10: Incomplete
 rnd = round_nearest
@@ -34,12 +36,12 @@ MINUS_INF: Incomplete
 DEFAULT_MAXPREC: int
 
 class PrecisionExhausted(ArithmeticError): ...
-MPF_TUP = tuple[int, int, int, int]
-TMP_RES = Any
-OPT_DICT = dict[str, Any]
+MPF_TUP: TypeAlias = tuple[int, int, int, int]
+TMP_RES: TypeAlias = Any
+OPT_DICT: TypeAlias = dict[str, Any]
 
 def fastlog(x: MPF_TUP | None) -> int | Any:
-    '''Fast approximation of log2(x) for an mpf value tuple x.
+    """Fast approximation of log2(x) for an mpf value tuple x.
 
     Explanation
     ===========
@@ -58,8 +60,7 @@ def fastlog(x: MPF_TUP | None) -> int | Any:
     result would be too large by 1).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import log
     >>> from sympy.core.evalf import fastlog, bitcount
     >>> s, m, e = 0, 5, 1
@@ -67,15 +68,14 @@ def fastlog(x: MPF_TUP | None) -> int | Any:
     >>> n = [1, -1][s]*m*2**e
     >>> n, (log(n)/log(2)).evalf(2), fastlog((s, m, e, bc))
     (10, 3.3, 4)
-    '''
+    """
 def pure_complex(v: Expr, or_real: bool = False) -> tuple[Number, Number] | None:
     """Return a and b if v matches a + I*b where b is not zero and
     a and b are Numbers, else None. If `or_real` is True then 0 will
     be returned for `b` if `v` is a real number.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.evalf import pure_complex
     >>> from sympy import sqrt, I, S
     >>> a, b, surd = S(2), S(3), sqrt(2)
@@ -88,7 +88,7 @@ def pure_complex(v: Expr, or_real: bool = False) -> tuple[Number, Number] | None
     >>> pure_complex(I)
     (0, 1)
     """
-SCALED_ZERO_TUP = tuple[list[int], int, int, int]
+SCALED_ZERO_TUP: TypeAlias = tuple[list[int], int, int, int]
 
 @overload
 def scaled_zero(mag: SCALED_ZERO_TUP, sign: int = 1) -> MPF_TUP: ...
@@ -110,7 +110,7 @@ def complex_accuracy(result: TMP_RES) -> int | Any:
     """
 def get_abs(expr: Expr, prec: int, options: OPT_DICT) -> TMP_RES: ...
 def get_complex_part(expr: Expr, no: int, prec: int, options: OPT_DICT) -> TMP_RES:
-    """no = 0 for real part, no = 1 for imaginary part"""
+    """No = 0 for real part, no = 1 for imaginary part"""
 def evalf_abs(expr: Abs, prec: int, options: OPT_DICT) -> TMP_RES: ...
 def evalf_re(expr: re, prec: int, options: OPT_DICT) -> TMP_RES: ...
 def evalf_im(expr: im, prec: int, options: OPT_DICT) -> TMP_RES: ...
@@ -137,8 +137,7 @@ def add_terms(terms: list, prec: int, target_prec: int) -> tuple[MPF_TUP | SCALE
     Helper for evalf_add. Adds a list of (mpfval, accuracy) terms.
 
     Returns
-    =======
-
+    -------
     - None, None if there are no non-zero terms;
     - terms[0] if there is only 1 term;
     - scaled_zero if the sum of the terms produces a zero by cancellation
@@ -166,7 +165,7 @@ def evalf_trig(v: Expr, prec: int, options: OPT_DICT) -> TMP_RES:
 def evalf_log(expr: log, prec: int, options: OPT_DICT) -> TMP_RES: ...
 def evalf_atan(v: atan, prec: int, options: OPT_DICT) -> TMP_RES: ...
 def evalf_subs(prec: int, subs: dict) -> dict:
-    """ Change all Float entries in `subs` to have precision prec. """
+    """Change all Float entries in `subs` to have precision prec."""
 def evalf_piecewise(expr: Expr, prec: int, options: OPT_DICT) -> TMP_RES: ...
 def evalf_alg_num(a: AlgebraicNumber, prec: int, options: OPT_DICT) -> TMP_RES: ...
 def as_mpmath(x: Any, prec: int, options: OPT_DICT) -> mpc | mpf: ...
@@ -175,8 +174,7 @@ def evalf_integral(expr: Integral, prec: int, options: OPT_DICT) -> TMP_RES: ...
 def check_convergence(numer: Expr, denom: Expr, n: Symbol) -> tuple[int, Any, Any]:
     """
     Returns
-    =======
-
+    -------
     (h, g, p) where
     -- h is:
         > 0 for convergence of rate 1/factorial(n)**h
@@ -216,8 +214,7 @@ def evalf(x: Expr, prec: int, options: OPT_DICT) -> TMP_RES:
     function is supposed to be used internally.
 
     Parameters
-    ==========
-
+    ----------
     x : Expr
         The formula to evaluate to a float.
     prec : int
@@ -228,8 +225,7 @@ def evalf(x: Expr, prec: int, options: OPT_DICT) -> TMP_RES:
         ``maxprec`` which is the maximum working precision.
 
     Returns
-    =======
-
+    -------
     An optional tuple, ``(re, im, re_acc, im_acc)``
     which are the real, imaginary, real accuracy
     and imaginary accuracy respectively. ``re`` is
@@ -241,18 +237,18 @@ def evalf(x: Expr, prec: int, options: OPT_DICT) -> TMP_RES:
     Note that 0 is also represented as ``fzero = (0, 0, 0, 0)``.
     """
 def quad_to_mpmath(q, ctx=None):
-    """Turn the quad returned by ``evalf`` into an ``mpf`` or ``mpc``. """
+    """Turn the quad returned by ``evalf`` into an ``mpf`` or ``mpc``."""
 
 class EvalfMixin:
     """Mixin class adding evalf capability."""
+
     __slots__: tuple[str, ...]
     def evalf(self, n: int = 15, subs=None, maxn: int = 100, chop: bool = False, strict: bool = False, quad=None, verbose: bool = False):
-        '''
+        """
         Evaluate the given formula to an accuracy of *n* digits.
 
         Parameters
-        ==========
-
+        ----------
         subs : dict, optional
             Substitute numerical values for symbols, e.g.
             ``subs={x:3, y:1+pi}``. The substitutions must be given as a
@@ -292,8 +288,7 @@ class EvalfMixin:
             Print debug information.
 
         Notes
-        =====
-
+        -----
         When Floats are naively substituted into an expression,
         precision errors may adversely affect the result. For example,
         adding 1e16 (a Float) to 1 will truncate to 1e16; if 1e16 is
@@ -310,7 +305,7 @@ class EvalfMixin:
 
         >>> (x + y - z).evalf(subs=values)
         1.00000000000000
-        '''
+        """
     n = evalf
     def _evalf(self, prec: int) -> Expr:
         """Helper for evalf. Does the same thing but takes binary precision"""
@@ -328,8 +323,7 @@ def N(x, n: int = 15, **options):
     See also the docstring of .evalf() for information on the options.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Sum, oo, N
     >>> from sympy.abc import k
     >>> Sum(1/k**k, (k, 1, oo))
@@ -343,8 +337,7 @@ def _evalf_with_bounded_error(x: Expr, eps: Expr | None = None, m: int = 0, opti
     Evaluate *x* to within a bounded absolute error.
 
     Parameters
-    ==========
-
+    ----------
     x : Expr
         The quantity to be evaluated.
     eps : Expr, None, optional (default=None)
@@ -355,13 +348,11 @@ def _evalf_with_bounded_error(x: Expr, eps: Expr | None = None, m: int = 0, opti
         As in the ``evalf`` function.
 
     Returns
-    =======
-
+    -------
     A tuple ``(re, im, re_acc, im_acc)``, as returned by ``evalf``.
 
     See Also
-    ========
-
+    --------
     evalf
 
     """

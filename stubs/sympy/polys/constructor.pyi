@@ -15,8 +15,7 @@ def construct_domain(obj, **args):
     of the domain and both the domain and the domain elements are returned.
 
     Parameters
-    ==========
-
+    ----------
     obj: list or dict
         The expressions to build a domain for.
 
@@ -24,15 +23,13 @@ def construct_domain(obj, **args):
         Options that affect the choice of domain.
 
     Returns
-    =======
-
+    -------
     (K, elements): Domain and list of domain elements
         The domain K that can represent the expressions and the list or dict
         of domain elements representing the same expressions as elements of K.
 
     Examples
-    ========
-
+    --------
     Given a list of :py:class:`~.Integer` ``construct_domain`` will return the
     domain :ref:`ZZ` and a list of integers as elements of :ref:`ZZ`.
 
@@ -79,9 +76,8 @@ def construct_domain(obj, **args):
     >>> construct_domain([sqrt(2)], extension=True)  # doctest: +SKIP
     (QQ<sqrt(2)>, [ANP([1, 0], [1, 0, -2], QQ)])
 
-    See also
-    ========
-
+    See Also
+    --------
     Domain
     Expr
     """

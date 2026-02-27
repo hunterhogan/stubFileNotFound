@@ -14,7 +14,7 @@ from sympy.utilities.timeutils import timethis as timethis
 timeit: Incomplete
 
 def compare(a, b, x):
-    '''Returns "<" if a<b, "=" for a == b, ">" for a>b'''
+    """Returns "<" if a<b, "=" for a == b, ">" for a>b"""
 
 class SubsSet(dict):
     """
@@ -63,9 +63,9 @@ class SubsSet(dict):
 
         exp(-w)/w + 1/w + x.
     """
+
     rewrites: Incomplete
     def __init__(self) -> None: ...
-    def __repr__(self) -> str: ...
     def __getitem__(self, key): ...
     def do_subs(self, e):
         """Substitute the variables with expressions"""
@@ -79,7 +79,8 @@ class SubsSet(dict):
 @debug
 def mrv(e, x):
     """Returns a SubsSet of most rapidly varying (mrv) subexpressions of 'e',
-       and e rewritten in terms of these"""
+    and e rewritten in terms of these
+    """
 def mrv_max3(f, expsf, g, expsg, union, expsboth, x):
     """
     Computes the maximum of two sets of expressions f and g, which
@@ -127,7 +128,7 @@ def moveup(l, x): ...
 def mrv_leadterm(e, x):
     """Returns (c0, e0) for e."""
 def build_expression_tree(Omega, rewrites):
-    """ Helper function for rewrite.
+    """Helper function for rewrite.
 
     We need to sort Omega (mrv set) so that we replace an expression before
     we replace any expression in terms of which it has to be rewritten::
@@ -151,7 +152,7 @@ def rewrite(e, Omega, x, wsym):
     for examples and correct results.
     """
 def gruntz(e, z, z0, dir: str = '+'):
-    '''
+    """
     Compute the limit of e(z) at the point z0 using the Gruntz algorithm.
 
     Explanation
@@ -166,4 +167,4 @@ def gruntz(e, z, z0, dir: str = '+'):
     This algorithm is fully described in the module docstring in the gruntz.py
     file. It relies heavily on the series expansion. Most frequently, gruntz()
     is only used if the faster limit() function (which uses heuristics) fails.
-    '''
+    """

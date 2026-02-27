@@ -1,9 +1,5 @@
-from typing import (
-    Generic,
-    TypeVar,
-)
-
 from pandas.core.base import PandasObject
+from typing import Generic, TypeVar
 
 _T = TypeVar("_T")
 

@@ -6,7 +6,7 @@ __all__ = ['approximants']
 
 @public
 def approximants(l, X=..., simplify: bool = False) -> Generator[Incomplete]:
-    '''
+    """
     Return a generator for consecutive Pade approximants for a series.
     It can also be used for computing the rational generating function of a
     series when possible, since the last approximant returned by the generator
@@ -24,8 +24,7 @@ def approximants(l, X=..., simplify: bool = False) -> Generator[Incomplete]:
     useful when symbols are involved in the expressions.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.series import approximants
     >>> from sympy import lucas, fibonacci, symbols, binomial
     >>> g = [lucas(k) for k in range(16)]
@@ -51,8 +50,7 @@ def approximants(l, X=..., simplify: bool = False) -> Generator[Incomplete]:
     nan
 
     See Also
-    ========
-
+    --------
     sympy.concrete.guess.guess_generating_function_rational
     mpmath.pade
-    '''
+    """

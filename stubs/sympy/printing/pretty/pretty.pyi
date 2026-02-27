@@ -10,10 +10,15 @@ from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.core.symbol import Symbol as Symbol
 from sympy.core.sympify import SympifyError as SympifyError
 from sympy.printing.conventions import requires_partial as requires_partial
-from sympy.printing.precedence import PRECEDENCE as PRECEDENCE, precedence as precedence, precedence_traditional as precedence_traditional
-from sympy.printing.pretty.pretty_symbology import U as U, annotated as annotated, center_pad as center_pad, greek_unicode as greek_unicode, hobj as hobj, is_subscriptable_in_unicode as is_subscriptable_in_unicode, pretty_atom as pretty_atom, pretty_symbol as pretty_symbol, pretty_try_use_unicode as pretty_try_use_unicode, pretty_use_unicode as pretty_use_unicode, vobj as vobj, xobj as xobj, xsym as xsym
+from sympy.printing.precedence import (
+	PRECEDENCE as PRECEDENCE, precedence as precedence, precedence_traditional as precedence_traditional)
+from sympy.printing.pretty.pretty_symbology import (
+	annotated as annotated, center_pad as center_pad, greek_unicode as greek_unicode, hobj as hobj,
+	is_subscriptable_in_unicode as is_subscriptable_in_unicode, pretty_atom as pretty_atom, pretty_symbol as pretty_symbol,
+	pretty_try_use_unicode as pretty_try_use_unicode, pretty_use_unicode as pretty_use_unicode, U as U, vobj as vobj,
+	xobj as xobj, xsym as xsym)
 from sympy.printing.pretty.stringpict import prettyForm as prettyForm, stringPict as stringPict
-from sympy.printing.printer import Printer as Printer, print_function as print_function
+from sympy.printing.printer import print_function as print_function, Printer as Printer
 from sympy.printing.str import sstr as sstr
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.iterables import has_variety as has_variety
@@ -23,6 +28,7 @@ pprint_try_use_unicode = pretty_try_use_unicode
 
 class PrettyPrinter(Printer):
     """Printer, which converts an expression into 2D ASCII-art figure."""
+
     printmethod: str
     _default_settings: Incomplete
     def __init__(self, settings=None) -> None: ...
@@ -283,13 +289,12 @@ def pretty(expr, **settings):
 
     """
 def pretty_print(expr, **kwargs) -> None:
-    '''Prints expr in pretty form.
+    """Prints expr in pretty form.
 
     pprint is just a shortcut for this function.
 
     Parameters
-    ==========
-
+    ----------
     expr : expression
         The expression to print.
 
@@ -324,7 +329,7 @@ def pretty_print(expr, **kwargs) -> None:
     imaginary_unit : string, optional (default="i")
         Letter to use for imaginary unit when use_unicode is True.
         Can be "i" (default) or "j".
-    '''
+    """
 pprint = pretty_print
 
 def pager_print(expr, **settings) -> None:

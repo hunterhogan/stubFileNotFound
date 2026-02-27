@@ -1,6 +1,6 @@
-import abc
 from _typeshed import Incomplete
 from abc import abstractmethod
+import abc
 
 class ApalikeObjectShared(metaclass=abc.ABCMeta):
     supported_apalike_props: Incomplete
@@ -13,7 +13,6 @@ class ApalikeObjectShared(metaclass=abc.ABCMeta):
     doi: Incomplete
     url: Incomplete
     def __init__(self, cffobj, initialize_empty: bool = False) -> None: ...
-    def __str__(self) -> str: ...
     def add_all(self): ...
     @abstractmethod
     def add_author(self): ...

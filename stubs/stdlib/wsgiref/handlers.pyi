@@ -1,13 +1,12 @@
+from .headers import Headers
+from .util import FileWrapper
 from _typeshed import OptExcInfo
 from _typeshed.wsgi import ErrorStream, InputStream, StartResponse, WSGIApplication, WSGIEnvironment
 from abc import abstractmethod
 from collections.abc import Callable, MutableMapping
 from typing import IO
 
-from .headers import Headers
-from .util import FileWrapper
-
-__all__ = ["BaseHandler", "SimpleHandler", "BaseCGIHandler", "CGIHandler", "IISCGIHandler", "read_environ"]
+__all__ = ["BaseCGIHandler", "BaseHandler", "CGIHandler", "IISCGIHandler", "SimpleHandler", "read_environ"]
 
 def format_date_time(timestamp: float | None) -> str: ...  # undocumented
 def read_environ() -> dict[str, str]: ...

@@ -3,7 +3,7 @@ from sympy import SYMPY_DEBUG as SYMPY_DEBUG
 from sympy.core.add import Add as Add
 from sympy.core.cache import cacheit as cacheit
 from sympy.core.expr import Expr as Expr
-from sympy.core.exprtools import Factors as Factors, factor_terms as factor_terms, gcd_terms as gcd_terms
+from sympy.core.exprtools import factor_terms as factor_terms, Factors as Factors, gcd_terms as gcd_terms
 from sympy.core.function import expand_mul as expand_mul
 from sympy.core.mul import Mul as Mul
 from sympy.core.numbers import I as I, pi as pi
@@ -14,8 +14,12 @@ from sympy.core.symbol import Dummy as Dummy
 from sympy.core.sympify import sympify as sympify
 from sympy.core.traversal import bottom_up as bottom_up
 from sympy.functions.combinatorial.factorials import binomial as binomial
-from sympy.functions.elementary.hyperbolic import HyperbolicFunction as HyperbolicFunction, cosh as cosh, coth as coth, csch as csch, sech as sech, sinh as sinh, tanh as tanh
-from sympy.functions.elementary.trigonometric import TrigonometricFunction as TrigonometricFunction, cos as cos, cot as cot, csc as csc, sec as sec, sin as sin, sqrt as sqrt, tan as tan
+from sympy.functions.elementary.hyperbolic import (
+	cosh as cosh, coth as coth, csch as csch, HyperbolicFunction as HyperbolicFunction, sech as sech, sinh as sinh,
+	tanh as tanh)
+from sympy.functions.elementary.trigonometric import (
+	cos as cos, cot as cot, csc as csc, sec as sec, sin as sin, sqrt as sqrt, tan as tan,
+	TrigonometricFunction as TrigonometricFunction)
 from sympy.ntheory.factor_ import perfect_power as perfect_power
 from sympy.polys.polytools import factor as factor
 from sympy.strategies.core import debug as debug, identity as identity
@@ -29,8 +33,7 @@ def TR1(rv):
     """Replace sec, csc with 1/cos, 1/sin
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR1, sec, csc
     >>> from sympy.abc import x
     >>> TR1(2*csc(x) + sec(x))
@@ -40,8 +43,7 @@ def TR2(rv):
     """Replace tan and cot with sin/cos and cos/sin
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR2
     >>> from sympy.abc import x
     >>> from sympy import tan, cot, sin, cos
@@ -59,8 +61,7 @@ def TR2i(rv, half: bool = False):
         sin(x)/(cos(x) + 1) -> tan(x/2) if half=True
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR2i
     >>> from sympy.abc import x, a
     >>> from sympy import sin, cos
@@ -84,8 +85,7 @@ def TR3(rv):
     """Induced formula: example sin(-a) = -sin(a)
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR3
     >>> from sympy.abc import x, y
     >>> from sympy import pi
@@ -108,8 +108,7 @@ def TR4(rv):
     tan(a)  0   sqt(3)/3    1           sqrt(3)     --
 
     Examples
-    ========
-
+    --------
     >>> from sympy import pi
     >>> from sympy import cos, sin, tan, cot
     >>> for s in (0, pi/6, pi/4, pi/3, pi/2):
@@ -152,8 +151,7 @@ def TR5(rv, max: int = 4, pow: bool = False):
     See _TR56 docstring for advanced use of ``max`` and ``pow``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR5
     >>> from sympy.abc import x
     >>> from sympy import sin
@@ -170,8 +168,7 @@ def TR6(rv, max: int = 4, pow: bool = False):
     See _TR56 docstring for advanced use of ``max`` and ``pow``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR6
     >>> from sympy.abc import x
     >>> from sympy import cos
@@ -186,8 +183,7 @@ def TR7(rv):
     """Lowering the degree of cos(x)**2.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR7
     >>> from sympy.abc import x
     >>> from sympy import cos
@@ -202,8 +198,7 @@ def TR8(rv, first: bool = True):
     difference of ``cos`` and or ``sin`` terms.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR8
     >>> from sympy import cos, sin
     >>> TR8(cos(2)*cos(3))
@@ -217,8 +212,7 @@ def TR9(rv):
     """Sum of ``cos`` or ``sin`` terms as a product of ``cos`` or ``sin``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR9
     >>> from sympy import cos, sin
     >>> TR9(cos(1) + cos(2))
@@ -239,8 +233,7 @@ def TR10(rv, first: bool = True):
     """Separate sums in ``cos`` and ``sin``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR10
     >>> from sympy.abc import a, b, c
     >>> from sympy import cos, sin
@@ -255,8 +248,7 @@ def TR10i(rv):
     """Sum of products to function of sum.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR10i
     >>> from sympy import cos, sin, sqrt
     >>> from sympy.abc import x
@@ -275,8 +267,7 @@ def TR11(rv, base=None):
     then cosine and sine functions with argument 6*pi/7 will be replaced.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR11
     >>> from sympy import cos, sin, pi
     >>> from sympy.abc import x
@@ -316,8 +307,7 @@ def _TR11(rv):
     num/den that appear in cos or sin factors in the den/num.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR11, _TR11
     >>> from sympy import cos, sin
     >>> from sympy.abc import x
@@ -335,8 +325,7 @@ def TR12(rv, first: bool = True):
     """Separate sums in ``tan``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y
     >>> from sympy import tan
     >>> from sympy.simplify.fu import TR12
@@ -348,8 +337,7 @@ def TR12i(rv):
     (tan(y) + tan(x))/(tan(x)*tan(y) - 1) -> -tan(x + y).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR12i
     >>> from sympy import tan
     >>> from sympy.abc import a, b, c
@@ -368,8 +356,7 @@ def TR13(rv):
     """Change products of ``tan`` or ``cot``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR13
     >>> from sympy import tan, cot
     >>> TR13(tan(3)*tan(2))
@@ -381,8 +368,7 @@ def TRmorrie(rv):
     """Returns cos(x)*cos(2*x)*...*cos(2**(k-1)*x) -> sin(2**k*x)/(2**k*sin(x))
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TRmorrie, TR8, TR3
     >>> from sympy.abc import x
     >>> from sympy import Mul, cos, pi
@@ -430,7 +416,7 @@ def TRmorrie(rv):
     1/16
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Morrie%27s_law
 
@@ -440,8 +426,7 @@ def TR14(rv, first: bool = True):
     expressions.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR14
     >>> from sympy.abc import x, y
     >>> from sympy import cos, sin
@@ -462,8 +447,7 @@ def TR15(rv, max: int = 4, pow: bool = False):
     See _TR56 docstring for advanced use of ``max`` and ``pow``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR15
     >>> from sympy.abc import x
     >>> from sympy import sin
@@ -477,8 +461,7 @@ def TR16(rv, max: int = 4, pow: bool = False):
     See _TR56 docstring for advanced use of ``max`` and ``pow``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR16
     >>> from sympy.abc import x
     >>> from sympy import cos
@@ -491,8 +474,7 @@ def TR111(rv):
     or the base is positive and f, g are: tan, cot; sin, csc; or cos, sec.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR111
     >>> from sympy.abc import x
     >>> from sympy import tan
@@ -506,8 +488,7 @@ def TR22(rv, max: int = 4, pow: bool = False):
     See _TR56 docstring for advanced use of ``max`` and ``pow``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TR22
     >>> from sympy.abc import x
     >>> from sympy import tan, cot
@@ -521,8 +502,7 @@ def TRpower(rv):
     """Convert sin(x)**n and cos(x)**n with positive n to sums.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import TRpower
     >>> from sympy.abc import x
     >>> from sympy import cos, sin
@@ -532,7 +512,7 @@ def TRpower(rv):
     (3*sin(x)/4 - sin(3*x)/4)*(cos(4*x)/2 + cos(8*x)/8 + 3/8)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/List_of_trigonometric_identities#Power-reduction_formulae
 
@@ -541,8 +521,7 @@ def L(rv):
     """Return count of trigonometric functions in expression.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import L
     >>> from sympy.abc import x
     >>> from sympy import cos, sin
@@ -588,8 +567,7 @@ def fu(rv, measure=...):
     the number of total operations.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import fu
     >>> from sympy import cos, sin, tan, pi, S, sqrt
     >>> from sympy.abc import x, y, a, b
@@ -645,7 +623,7 @@ def fu(rv, measure=...):
     sin(x)/cos(x)
 
     References
-    ==========
+    ----------
 
     .. [1] https://www.sciencedirect.com/science/article/pii/S0895717706001609
     """
@@ -679,8 +657,7 @@ def trig_split(a, b, two: bool = False):
             n1*gcd*sin(b - a)
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import trig_split
     >>> from sympy.abc import x, y, z
     >>> from sympy import cos, sin, sqrt
@@ -721,8 +698,7 @@ def as_f_sign_1(e):
     not have a leading negative coefficient.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import as_f_sign_1
     >>> from sympy.abc import x
     >>> as_f_sign_1(x + 1)
@@ -741,14 +717,13 @@ def _osborne(e, d):
     the Osborne rule.
 
     Notes
-    =====
-
+    -----
     ``d`` is a dummy variable to prevent automatic evaluation
     of trigonometric/hyperbolic functions.
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Hyperbolic_function
     """
@@ -757,13 +732,12 @@ def _osbornei(e, d):
     the Osborne rule.
 
     Notes
-    =====
-
+    -----
     ``d`` is a dummy variable to prevent automatic evaluation
     of trigonometric/hyperbolic functions.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Hyperbolic_function
     """
@@ -778,8 +752,7 @@ def hyper_as_trig(rv):
         expr == f(t)
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import hyper_as_trig, fu
     >>> from sympy.abc import x
     >>> from sympy import cosh, sinh
@@ -789,7 +762,7 @@ def hyper_as_trig(rv):
     cosh(2*x)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Hyperbolic_function
     """
@@ -803,8 +776,7 @@ def sincos_to_sum(expr):
     converts products to sums with TR8.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.fu import sincos_to_sum
     >>> from sympy.abc import x
     >>> from sympy import cos, sin

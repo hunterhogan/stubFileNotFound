@@ -1,34 +1,13 @@
-import sys
 from _pickle import (
-    PickleError as PickleError,
-    Pickler as Pickler,
-    PicklingError as PicklingError,
-    Unpickler as Unpickler,
-    UnpicklingError as UnpicklingError,
-    _BufferCallback,
-    _ReadableFileobj,
-    _ReducedType,
-    dump as dump,
-    dumps as dumps,
-    load as load,
-    loads as loads,
-)
+	_BufferCallback, _ReadableFileobj, _ReducedType, dump as dump, dumps as dumps, load as load, loads as loads,
+	PickleError as PickleError, Pickler as Pickler, PicklingError as PicklingError, Unpickler as Unpickler,
+	UnpicklingError as UnpicklingError)
 from _typeshed import ReadableBuffer, SupportsWrite
 from collections.abc import Callable, Iterable, Mapping
-from typing import Any, ClassVar, Final, SupportsBytes, SupportsIndex, final
-from typing_extensions import Self
+from typing import Any, ClassVar, Final, final, Self, SupportsBytes, SupportsIndex
+import sys
 
 __all__ = [
-    "PickleBuffer",
-    "PickleError",
-    "PicklingError",
-    "UnpicklingError",
-    "Pickler",
-    "Unpickler",
-    "dump",
-    "dumps",
-    "load",
-    "loads",
     "ADDITEMS",
     "APPEND",
     "APPENDS",
@@ -101,6 +80,16 @@ __all__ = [
     "TUPLE2",
     "TUPLE3",
     "UNICODE",
+    "PickleBuffer",
+    "PickleError",
+    "Pickler",
+    "PicklingError",
+    "Unpickler",
+    "UnpicklingError",
+    "dump",
+    "dumps",
+    "load",
+    "loads",
 ]
 
 HIGHEST_PROTOCOL: Final = 5

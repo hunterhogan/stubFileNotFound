@@ -1,11 +1,14 @@
 from _typeshed import Incomplete
-from sympy.core import Add as Add, Basic as Basic, Dummy as Dummy, Mul as Mul, Pow as Pow, S as S, expand_mul as expand_mul, factor_terms as factor_terms, sympify as sympify
+from sympy.core import (
+	Add as Add, Basic as Basic, Dummy as Dummy, expand_mul as expand_mul, factor_terms as factor_terms, Mul as Mul,
+	Pow as Pow, S as S, sympify as sympify)
 from sympy.core.function import _coeff_isneg as _coeff_isneg, count_ops as count_ops, expand_log as expand_log
 from sympy.core.mul import _keep_coeff as _keep_coeff
-from sympy.core.numbers import Integer as Integer, Rational as Rational, equal_valued as equal_valued
+from sympy.core.numbers import equal_valued as equal_valued, Integer as Integer, Rational as Rational
 from sympy.core.rules import Transform as Transform
 from sympy.core.sorting import default_sort_key as default_sort_key, ordered as ordered
-from sympy.functions import exp as exp, exp_polar as exp_polar, log as log, polarify as polarify, root as root, unpolarify as unpolarify
+from sympy.functions import (
+	exp as exp, exp_polar as exp_polar, log as log, polarify as polarify, root as root, unpolarify as unpolarify)
 from sympy.matrices.expressions.matexpr import MatrixSymbol as MatrixSymbol
 from sympy.ntheory.factor_ import multiplicity as multiplicity
 from sympy.polys import gcd as gcd, lcm as lcm
@@ -47,8 +50,7 @@ def powsimp(expr, deep: bool = False, combine: str = 'all', force: bool = False,
     powsimp(powsimp(expr, combine='base'), combine='exp').
 
     Examples
-    ========
-
+    --------
     >>> from sympy import powsimp, exp, log, symbols
     >>> from sympy.abc import x, y, z, n
     >>> powsimp(x**y*x**z*y**z, combine='all')
@@ -129,8 +131,7 @@ def powdenest(eq, force: bool = False, polar: bool = False):
     obtained e.g. ``exp(3*(log(a) + 2*log(b)))`` - > ``a**3*b**6``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import a, b, x, y, z
     >>> from sympy import Symbol, exp, log, sqrt, symbols, powdenest
 

@@ -1,10 +1,9 @@
 def pprint_nodes(subtrees):
-    '''
+    """
     Prettyprints systems of nodes.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.printing.tree import pprint_nodes
     >>> print(pprint_nodes(["a", "b1\\nb2", "c"]))
     +-a
@@ -12,28 +11,26 @@ def pprint_nodes(subtrees):
     | b2
     +-c
 
-    '''
+    """
 def print_node(node, assumptions: bool = True):
-    '''
+    """
     Returns information about the "node".
 
     This includes class name, string representation and assumptions.
 
     Parameters
-    ==========
-
+    ----------
     assumptions : bool, optional
         See the ``assumptions`` keyword in ``tree``
-    '''
+    """
 def tree(node, assumptions: bool = True):
-    '''
+    """
     Returns a tree representation of "node" as a string.
 
     It uses print_node() together with pprint_nodes() on node.args recursively.
 
     Parameters
-    ==========
-
+    ----------
     assumptions : bool, optional
         The flag to decide whether to print out all the assumption data
         (such as ``is_integer`, ``is_real``) associated with the
@@ -44,18 +41,16 @@ def tree(node, assumptions: bool = True):
         in backtracing the assumptions.
 
     See Also
-    ========
-
+    --------
     print_tree
 
-    '''
+    """
 def print_tree(node, assumptions: bool = True) -> None:
-    '''
+    """
     Prints a tree representation of "node".
 
     Parameters
-    ==========
-
+    ----------
     assumptions : bool, optional
         The flag to decide whether to print out all the assumption data
         (such as ``is_integer`, ``is_real``) associated with the
@@ -66,8 +61,7 @@ def print_tree(node, assumptions: bool = True) -> None:
         in backtracing the assumptions.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.printing import print_tree
     >>> from sympy import Symbol
     >>> x = Symbol(\'x\', odd=True)
@@ -123,8 +117,7 @@ def print_tree(node, assumptions: bool = True) -> None:
     +-Symbol: x
 
     See Also
-    ========
-
+    --------
     tree
 
-    '''
+    """

@@ -1,14 +1,6 @@
-from collections.abc import (
-    Hashable,
-    Sequence,
-)
-
+from collections.abc import Hashable, Sequence
+from pandas._typing import HashableT, np_ndarray
 from pandas.core.frame import DataFrame
-
-from pandas._typing import (
-    HashableT,
-    np_ndarray,
-)
 
 def melt(
     frame: DataFrame,

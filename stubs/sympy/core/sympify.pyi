@@ -1,11 +1,12 @@
 from .basic import Basic as Basic
 from .parameters import global_parameters as global_parameters
 from _typeshed import Incomplete
+from collections.abc import Callable
 from sympy.core.expr import Expr as Expr
 from sympy.core.numbers import Float as Float, Integer as Integer
 from sympy.core.random import choice as choice
 from sympy.utilities.iterables import iterable as iterable
-from typing import Any, Callable, TypeVar, overload
+from typing import Any, overload, TypeVar
 
 Tbasic = TypeVar('Tbasic', bound=Basic)
 
@@ -13,7 +14,6 @@ class SympifyError(ValueError):
     expr: Incomplete
     base_exc: Incomplete
     def __init__(self, expr, base_exc=None) -> None: ...
-    def __str__(self) -> str: ...
 
 converter: dict[type[Any], Callable[[Any], Basic]]
 _sympy_converter: dict[type[Any], Callable[[Any], Basic]]
@@ -24,8 +24,7 @@ class CantSympify:
     Mix in this trait to a class to disallow sympification of its instances.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sympify
     >>> from sympy.core.sympify import CantSympify
 
@@ -44,6 +43,7 @@ class CantSympify:
     SympifyError: SympifyError: {}
 
     """
+
     __slots__: Incomplete
 
 def _is_numpy_instance(a):
@@ -96,8 +96,7 @@ def kernS(s):
     prevent the 2-arg Mul from becoming an Add, however.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.sympify import kernS
     >>> from sympy.abc import x, y
 

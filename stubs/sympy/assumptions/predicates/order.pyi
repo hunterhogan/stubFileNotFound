@@ -26,8 +26,7 @@ class NegativePredicate(Predicate):
         related facts.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, symbols, I
     >>> x = symbols('x')
     >>> ask(Q.negative(x), Q.real(x) & ~Q.positive(x) & ~Q.zero(x))
@@ -40,6 +39,7 @@ class NegativePredicate(Predicate):
     True
 
     """
+
     name: str
     handler: Incomplete
 
@@ -61,8 +61,7 @@ class NonNegativePredicate(Predicate):
         true, whereas ``Q.nonnegative(I)`` is false.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, I
     >>> ask(Q.nonnegative(1))
     True
@@ -76,6 +75,7 @@ class NonNegativePredicate(Predicate):
     False
 
     """
+
     name: str
     handler: Incomplete
 
@@ -99,8 +99,7 @@ class NonZeroPredicate(Predicate):
         related facts.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, symbols, I, oo
     >>> x = symbols('x')
     >>> print(ask(Q.nonzero(x), ~Q.zero(x)))
@@ -119,6 +118,7 @@ class NonZeroPredicate(Predicate):
     False
 
     """
+
     name: str
     handler: Incomplete
 
@@ -132,8 +132,7 @@ class ZeroPredicate(Predicate):
     ``ask(Q.zero(x))`` is true iff the value of ``x`` is zero.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ask, Q, oo, symbols
     >>> x, y = symbols('x, y')
     >>> ask(Q.zero(0))
@@ -148,6 +147,7 @@ class ZeroPredicate(Predicate):
     True
 
     """
+
     name: str
     handler: Incomplete
 
@@ -169,8 +169,7 @@ class NonPositivePredicate(Predicate):
         true, whereas ``Q.nonpositive(I)`` is false.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, I
 
     >>> ask(Q.nonpositive(-1))
@@ -185,6 +184,7 @@ class NonPositivePredicate(Predicate):
     False
 
     """
+
     name: str
     handler: Incomplete
 
@@ -212,8 +212,7 @@ class PositivePredicate(Predicate):
         related facts.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, symbols, I
     >>> x = symbols('x')
     >>> ask(Q.positive(x), Q.real(x) & ~Q.negative(x) & ~Q.zero(x))
@@ -226,6 +225,7 @@ class PositivePredicate(Predicate):
     True
 
     """
+
     name: str
     handler: Incomplete
 
@@ -240,8 +240,7 @@ class ExtendedPositivePredicate(Predicate):
     `x > 0`, that is if ``x`` is in the interval `(0, \\infty]`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ask, I, oo, Q
     >>> ask(Q.extended_positive(1))
     True
@@ -251,6 +250,7 @@ class ExtendedPositivePredicate(Predicate):
     False
 
     """
+
     name: str
     handler: Incomplete
 
@@ -265,8 +265,7 @@ class ExtendedNegativePredicate(Predicate):
     `x < 0`, that is if ``x`` is in the interval `[-\\infty, 0)`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ask, I, oo, Q
     >>> ask(Q.extended_negative(-1))
     True
@@ -276,6 +275,7 @@ class ExtendedNegativePredicate(Predicate):
     False
 
     """
+
     name: str
     handler: Incomplete
 
@@ -290,8 +290,7 @@ class ExtendedNonZeroPredicate(Predicate):
     ``x`` is not zero.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ask, I, oo, Q
     >>> ask(Q.extended_nonzero(-1))
     True
@@ -301,6 +300,7 @@ class ExtendedNonZeroPredicate(Predicate):
     False
 
     """
+
     name: str
     handler: Incomplete
 
@@ -315,8 +315,7 @@ class ExtendedNonPositivePredicate(Predicate):
     ``x`` is not positive.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ask, I, oo, Q
     >>> ask(Q.extended_nonpositive(-1))
     True
@@ -328,6 +327,7 @@ class ExtendedNonPositivePredicate(Predicate):
     False
 
     """
+
     name: str
     handler: Incomplete
 
@@ -342,8 +342,7 @@ class ExtendedNonNegativePredicate(Predicate):
     ``x`` is not negative.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ask, I, oo, Q
     >>> ask(Q.extended_nonnegative(-1))
     False
@@ -355,5 +354,6 @@ class ExtendedNonNegativePredicate(Predicate):
     False
 
     """
+
     name: str
     handler: Incomplete

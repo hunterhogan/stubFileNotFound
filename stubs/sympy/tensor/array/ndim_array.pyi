@@ -17,15 +17,13 @@ class ArrayKind(Kind):
     but any expression representing the array can have this.
 
     Parameters
-    ==========
-
+    ----------
     element_kind : Kind
         Kind of the element. Default is :obj:NumberKind `<sympy.core.kind.NumberKind>`,
         which means that the array contains only numbers.
 
     Examples
-    ========
-
+    --------
     Any instance of array class has ``ArrayKind``.
 
     >>> from sympy import NDimArray
@@ -56,13 +54,12 @@ class ArrayKind(Kind):
     False
 
     See Also
-    ========
-
+    --------
     shape : Function to return the shape of objects with ``MatrixKind``.
 
     """
+
     def __new__(cls, element_kind=...): ...
-    def __repr__(self) -> str: ...
     @classmethod
     def _union(cls, kinds) -> ArrayKind: ...
 
@@ -70,8 +67,7 @@ class NDimArray(Printable):
     """N-dimensional array.
 
     Examples
-    ========
-
+    --------
     Create an N-dim array of zeros:
 
     >>> from sympy import MutableDenseNDimArray
@@ -118,6 +114,7 @@ class NDimArray(Printable):
     [[-3, -3], [-3, -3]]
 
     """
+
     _diff_wrt: bool
     is_scalar: bool
     def __new__(cls, iterable, shape=None, **kwargs): ...
@@ -134,8 +131,7 @@ class NDimArray(Printable):
         """Overload common function len(). Returns number of elements in array.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import MutableDenseNDimArray
         >>> a = MutableDenseNDimArray.zeros(3, 3)
         >>> a
@@ -150,8 +146,7 @@ class NDimArray(Printable):
         Returns array shape (dimension).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import MutableDenseNDimArray
         >>> a = MutableDenseNDimArray.zeros(3, 3)
         >>> a.shape
@@ -163,8 +158,7 @@ class NDimArray(Printable):
         Returns rank of array.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import MutableDenseNDimArray
         >>> a = MutableDenseNDimArray.zeros(3,4,5,6,3)
         >>> a.rank()
@@ -176,8 +170,7 @@ class NDimArray(Printable):
         Calculate the derivative of each element in the array.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ImmutableDenseNDimArray
         >>> from sympy.abc import x, y
         >>> M = ImmutableDenseNDimArray([[x, y], [1, x*y]])
@@ -191,8 +184,7 @@ class NDimArray(Printable):
         """Apply a function to each element of the N-dim array.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import ImmutableDenseNDimArray
         >>> m = ImmutableDenseNDimArray([i*2+j for i in range(2) for j in range(2)], (2, 2))
         >>> m
@@ -206,8 +198,7 @@ class NDimArray(Printable):
         Converting MutableDenseNDimArray to one-dim list
 
         Examples
-        ========
-
+        --------
         >>> from sympy import MutableDenseNDimArray
         >>> a = MutableDenseNDimArray([1, 2, 3, 4], (2, 2))
         >>> a
@@ -230,8 +221,7 @@ class NDimArray(Printable):
         Instances equal if they have same shape and data.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import MutableDenseNDimArray
         >>> a = MutableDenseNDimArray.zeros(2, 3)
         >>> b = MutableDenseNDimArray.zeros(2, 3)

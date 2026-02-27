@@ -1,6 +1,8 @@
 from sympy.core import Add as Add, Dummy as Dummy, symbols as symbols
 from sympy.core.numbers import Rational as Rational
-from sympy.polys import ComputationFailed as ComputationFailed, Poly as Poly, cancel as cancel, parallel_poly_from_expr as parallel_poly_from_expr, reduced as reduced
+from sympy.polys import (
+	cancel as cancel, ComputationFailed as ComputationFailed, parallel_poly_from_expr as parallel_poly_from_expr,
+	Poly as Poly, reduced as reduced)
 from sympy.polys.monomials import Monomial as Monomial, monomial_div as monomial_div
 from sympy.polys.polyerrors import DomainError as DomainError, PolificationFailed as PolificationFailed
 from sympy.utilities.misc import debug as debug, debugf as debugf
@@ -10,8 +12,7 @@ def ratsimp(expr):
     Put an expression over a common denominator, cancel and reduce.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ratsimp
     >>> from sympy.abc import x, y
     >>> ratsimp(1/x + 1/y)
@@ -24,8 +25,7 @@ def ratsimpmodprime(expr, G, *gens, quick: bool = True, polynomial: bool = False
     ideal.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.ratsimp import ratsimpmodprime
     >>> from sympy.abc import x, y
     >>> eq = (x + y**5 + y)/(x - y)
@@ -41,7 +41,7 @@ def ratsimpmodprime(expr, G, *gens, quick: bool = True, polynomial: bool = False
     potentially worse results.
 
     References
-    ==========
+    ----------
 
     .. [1] M. Monagan, R. Pearce, Rational Simplification Modulo a Polynomial
         Ideal, https://dl.acm.org/doi/pdf/10.1145/1145768.1145809

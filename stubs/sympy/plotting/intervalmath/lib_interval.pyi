@@ -3,15 +3,15 @@ from sympy.plotting.intervalmath import interval as interval
 
 def Abs(x): ...
 def exp(x):
-    """evaluates the exponential of an interval"""
+    """Evaluates the exponential of an interval"""
 def log(x):
-    """evaluates the natural logarithm of an interval"""
+    """Evaluates the natural logarithm of an interval"""
 def log10(x):
-    """evaluates the logarithm to the base 10 of an interval"""
+    """Evaluates the logarithm to the base 10 of an interval"""
 def atan(x):
-    """evaluates the tan inverse of an interval"""
+    """Evaluates the tan inverse of an interval"""
 def sin(x):
-    """evaluates the sine of an interval"""
+    """Evaluates the sine of an interval"""
 def cos(x):
     """Evaluates the cos of an interval"""
 def tan(x):
@@ -44,7 +44,9 @@ def atanh(x):
     """Evaluates the inverse hyperbolic tangent of an interval"""
 def And(*args):
     """Defines the three valued ``And`` behaviour for a 2-tuple of
-     three valued logic values"""
+    three valued logic values
+    """
 def Or(*args):
     """Defines the three valued ``Or`` behaviour for a 2-tuple of
-     three valued logic values"""
+    three valued logic values
+    """

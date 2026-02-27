@@ -3,7 +3,8 @@ from sympy.core import Mod as Mod, S as S
 from sympy.core.add import Add as Add
 from sympy.core.containers import Tuple as Tuple
 from sympy.core.expr import Expr as Expr
-from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, Derivative as Derivative
+from sympy.core.function import (
+	ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction, Derivative as Derivative)
 from sympy.core.mul import Mul as Mul
 from sympy.core.numbers import I as I, oo as oo, pi as pi, zoo as zoo
 from sympy.core.parameters import global_parameters as global_parameters
@@ -11,7 +12,10 @@ from sympy.core.relational import Ne as Ne
 from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.core.symbol import Dummy as Dummy
 from sympy.external.gmpy import lcm as lcm
-from sympy.functions import RisingFactorial as RisingFactorial, acosh as acosh, acoth as acoth, asin as asin, asinh as asinh, atan as atan, atanh as atanh, cos as cos, cosh as cosh, exp as exp, factorial as factorial, log as log, sin as sin, sinh as sinh, sqrt as sqrt
+from sympy.functions import (
+	acosh as acosh, acoth as acoth, asin as asin, asinh as asinh, atan as atan, atanh as atanh, cos as cos, cosh as cosh,
+	exp as exp, factorial as factorial, log as log, RisingFactorial as RisingFactorial, sin as sin, sinh as sinh,
+	sqrt as sqrt)
 from sympy.functions.elementary.complexes import Abs as Abs, re as re, unpolarify as unpolarify
 from sympy.functions.elementary.exponential import exp_polar as exp_polar
 from sympy.functions.elementary.integers import ceiling as ceiling
@@ -21,7 +25,7 @@ from sympy.logic.boolalg import And as And, Or as Or
 class TupleArg(Tuple):
     def as_leading_term(self, *x, logx=None, cdir: int = 0): ...
     def limit(self, x, xlim, dir: str = '+'):
-        """ Compute limit x->xlim.
+        """Compute limit x->xlim.
         """
 
 def _prep_tuple(v):
@@ -30,8 +34,7 @@ def _prep_tuple(v):
     hypergeometric and meijer g-functions are unbranched in their parameters.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.functions.special.hyper import _prep_tuple
     >>> _prep_tuple([1, 2, 3])
     (1, 2, 3)
@@ -43,8 +46,10 @@ def _prep_tuple(v):
     """
 
 class TupleParametersBase(DefinedFunction):
-    """ Base class that takes care of differentiation, when some of
-        the arguments are actually tuples. """
+    """Base class that takes care of differentiation, when some of
+    the arguments are actually tuples.
+    """
+
     is_commutative: bool
     def _eval_derivative(self, s): ...
 
@@ -89,8 +94,7 @@ class hyper(TupleParametersBase):
     check if the parameters actually yield a well-defined function.
 
     Examples
-    ========
-
+    --------
     The parameters $a_p$ and $b_q$ can be passed as arbitrary
     iterables, for example:
 
@@ -150,20 +154,20 @@ class hyper(TupleParametersBase):
     (1 - x)**a
 
     See Also
-    ========
-
+    --------
     sympy.simplify.hyperexpand
     gamma
     meijerg
 
     References
-    ==========
+    ----------
 
     .. [1] Luke, Y. L. (1969), The Special Functions and Their Approximations,
            Volume 1
     .. [2] https://en.wikipedia.org/wiki/Generalized_hypergeometric_function
 
     """
+
     def __new__(cls, ap, bq, z, **kwargs): ...
     @classmethod
     def eval(cls, ap, bq, z): ...
@@ -174,18 +178,18 @@ class hyper(TupleParametersBase):
     def _eval_nseries(self, x, n, logx, cdir: int = 0): ...
     @property
     def argument(self):
-        """ Argument of the hypergeometric function. """
+        """Argument of the hypergeometric function."""
     @property
     def ap(self):
-        """ Numerator parameters of the hypergeometric function. """
+        """Numerator parameters of the hypergeometric function."""
     @property
     def bq(self):
-        """ Denominator parameters of the hypergeometric function. """
+        """Denominator parameters of the hypergeometric function."""
     @property
     def _diffargs(self): ...
     @property
     def eta(self):
-        """ A quantity related to the convergence of the series. """
+        """A quantity related to the convergence of the series."""
     @property
     def radius_of_convergence(self):
         """
@@ -200,8 +204,7 @@ class hyper(TupleParametersBase):
         defined anywhere else.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import hyper
         >>> from sympy.abc import z
         >>> hyper((1, 2), [3], z).radius_of_convergence
@@ -214,11 +217,11 @@ class hyper(TupleParametersBase):
         """
     @property
     def convergence_statement(self):
-        """ Return a condition on z under which the series converges. """
+        """Return a condition on z under which the series converges."""
     def _eval_simplify(self, **kwargs): ...
 
 class meijerg(TupleParametersBase):
-    '''
+    """
     The Meijer G-function is defined by a Mellin-Barnes type integral that
     resembles an inverse Mellin transform. It generalizes the hypergeometric
     functions.
@@ -265,8 +268,7 @@ class meijerg(TupleParametersBase):
     convergence conditions.
 
     Examples
-    ========
-
+    --------
     You can pass the parameters either as four separate vectors:
 
     >>> from sympy import meijerg, Tuple, pprint
@@ -329,19 +331,19 @@ class meijerg(TupleParametersBase):
     sin(x)/sqrt(pi)
 
     See Also
-    ========
-
+    --------
     hyper
     sympy.simplify.hyperexpand
 
     References
-    ==========
+    ----------
 
     .. [1] Luke, Y. L. (1969), The Special Functions and Their Approximations,
            Volume 1
     .. [2] https://en.wikipedia.org/wiki/Meijer_G-function
 
-    '''
+    """
+
     def __new__(cls, *args, **kwargs): ...
     def fdiff(self, argindex: int = 3): ...
     def _diff_wrt_parameter(self, idx): ...
@@ -350,8 +352,7 @@ class meijerg(TupleParametersBase):
         Return a number $P$ such that $G(x*exp(I*P)) == G(x)$.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import meijerg, pi, S
         >>> from sympy.abc import z
 
@@ -369,44 +370,46 @@ class meijerg(TupleParametersBase):
     def _eval_evalf(self, prec): ...
     def _eval_as_leading_term(self, x, logx, cdir): ...
     def integrand(self, s):
-        """ Get the defining integrand D(s). """
+        """Get the defining integrand D(s)."""
     @property
     def argument(self):
-        """ Argument of the Meijer G-function. """
+        """Argument of the Meijer G-function."""
     @property
     def an(self):
-        """ First set of numerator parameters. """
+        """First set of numerator parameters."""
     @property
     def ap(self):
-        """ Combined numerator parameters. """
+        """Combined numerator parameters."""
     @property
     def aother(self):
-        """ Second set of numerator parameters. """
+        """Second set of numerator parameters."""
     @property
     def bm(self):
-        """ First set of denominator parameters. """
+        """First set of denominator parameters."""
     @property
     def bq(self):
-        """ Combined denominator parameters. """
+        """Combined denominator parameters."""
     @property
     def bother(self):
-        """ Second set of denominator parameters. """
+        """Second set of denominator parameters."""
     @property
     def _diffargs(self): ...
     @property
     def nu(self):
-        """ A quantity related to the convergence region of the integral,
-            c.f. references. """
+        """A quantity related to the convergence region of the integral,
+        c.f. references.
+        """
     @property
     def delta(self):
-        """ A quantity related to the convergence region of the integral,
-            c.f. references. """
+        """A quantity related to the convergence region of the integral,
+        c.f. references.
+        """
     @property
     def is_number(self):
-        """ Returns true if expression has numeric data only. """
+        """Returns true if expression has numeric data only."""
 
 class HyperRep(DefinedFunction):
-    '''
+    """
     A base class for "hyper representation functions".
 
     This is used exclusively in ``hyperexpand()``, but fits more logically here.
@@ -419,26 +422,28 @@ class HyperRep(DefinedFunction):
     This base class contains the core logic, concrete derived classes only
     supply the actual functions.
 
-    '''
+    """
+
     @classmethod
     def eval(cls, *args): ...
     @classmethod
     def _expr_small(cls, x) -> None:
-        """ An expression for F(x) which holds for |x| < 1. """
+        """An expression for F(x) which holds for |x| < 1."""
     @classmethod
     def _expr_small_minus(cls, x) -> None:
-        """ An expression for F(-x) which holds for |x| < 1. """
+        """An expression for F(-x) which holds for |x| < 1."""
     @classmethod
     def _expr_big(cls, x, n) -> None:
-        """ An expression for F(exp_polar(2*I*pi*n)*x), |x| > 1. """
+        """An expression for F(exp_polar(2*I*pi*n)*x), |x| > 1."""
     @classmethod
     def _expr_big_minus(cls, x, n) -> None:
-        """ An expression for F(exp_polar(2*I*pi*n + pi*I)*x), |x| > 1. """
+        """An expression for F(exp_polar(2*I*pi*n + pi*I)*x), |x| > 1."""
     def _eval_rewrite_as_nonrep(self, *args, **kwargs): ...
     def _eval_rewrite_as_nonrepsmall(self, *args, **kwargs): ...
 
 class HyperRep_power1(HyperRep):
-    """ Return a representative for hyper([-a], [], z) == (1 - z)**a. """
+    """Return a representative for hyper([-a], [], z) == (1 - z)**a."""
+
     @classmethod
     def _expr_small(cls, a, x): ...
     @classmethod
@@ -449,7 +454,8 @@ class HyperRep_power1(HyperRep):
     def _expr_big_minus(cls, a, x, n): ...
 
 class HyperRep_power2(HyperRep):
-    """ Return a representative for hyper([a, a - 1/2], [2*a], z). """
+    """Return a representative for hyper([a, a - 1/2], [2*a], z)."""
+
     @classmethod
     def _expr_small(cls, a, x): ...
     @classmethod
@@ -460,7 +466,8 @@ class HyperRep_power2(HyperRep):
     def _expr_big_minus(cls, a, x, n): ...
 
 class HyperRep_log1(HyperRep):
-    """ Represent -z*hyper([1, 1], [2], z) == log(1 - z). """
+    """Represent -z*hyper([1, 1], [2], z) == log(1 - z)."""
+
     @classmethod
     def _expr_small(cls, x): ...
     @classmethod
@@ -471,7 +478,8 @@ class HyperRep_log1(HyperRep):
     def _expr_big_minus(cls, x, n): ...
 
 class HyperRep_atanh(HyperRep):
-    """ Represent hyper([1/2, 1], [3/2], z) == atanh(sqrt(z))/sqrt(z). """
+    """Represent hyper([1/2, 1], [3/2], z) == atanh(sqrt(z))/sqrt(z)."""
+
     @classmethod
     def _expr_small(cls, x): ...
     def _expr_small_minus(cls, x): ...
@@ -479,7 +487,8 @@ class HyperRep_atanh(HyperRep):
     def _expr_big_minus(cls, x, n): ...
 
 class HyperRep_asin1(HyperRep):
-    """ Represent hyper([1/2, 1/2], [3/2], z) == asin(sqrt(z))/sqrt(z). """
+    """Represent hyper([1/2, 1/2], [3/2], z) == asin(sqrt(z))/sqrt(z)."""
+
     @classmethod
     def _expr_small(cls, z): ...
     @classmethod
@@ -490,7 +499,8 @@ class HyperRep_asin1(HyperRep):
     def _expr_big_minus(cls, z, n): ...
 
 class HyperRep_asin2(HyperRep):
-    """ Represent hyper([1, 1], [3/2], z) == asin(sqrt(z))/sqrt(z)/sqrt(1-z). """
+    """Represent hyper([1, 1], [3/2], z) == asin(sqrt(z))/sqrt(z)/sqrt(1-z)."""
+
     @classmethod
     def _expr_small(cls, z): ...
     @classmethod
@@ -501,7 +511,8 @@ class HyperRep_asin2(HyperRep):
     def _expr_big_minus(cls, z, n): ...
 
 class HyperRep_sqrts1(HyperRep):
-    """ Return a representative for hyper([-a, 1/2 - a], [1/2], z). """
+    """Return a representative for hyper([-a, 1/2 - a], [1/2], z)."""
+
     @classmethod
     def _expr_small(cls, a, z): ...
     @classmethod
@@ -512,9 +523,11 @@ class HyperRep_sqrts1(HyperRep):
     def _expr_big_minus(cls, a, z, n): ...
 
 class HyperRep_sqrts2(HyperRep):
-    """ Return a representative for
-          sqrt(z)/2*[(1-sqrt(z))**2a - (1 + sqrt(z))**2a]
-          == -2*z/(2*a+1) d/dz hyper([-a - 1/2, -a], [1/2], z)"""
+    """Return a representative for
+    sqrt(z)/2*[(1-sqrt(z))**2a - (1 + sqrt(z))**2a]
+    == -2*z/(2*a+1) d/dz hyper([-a - 1/2, -a], [1/2], z)
+    """
+
     @classmethod
     def _expr_small(cls, a, z): ...
     @classmethod
@@ -524,7 +537,8 @@ class HyperRep_sqrts2(HyperRep):
     def _expr_big_minus(cls, a, z, n): ...
 
 class HyperRep_log2(HyperRep):
-    """ Represent log(1/2 + sqrt(1 - z)/2) == -z/4*hyper([3/2, 1, 1], [2, 2], z) """
+    """Represent log(1/2 + sqrt(1 - z)/2) == -z/4*hyper([3/2, 1, 1], [2, 2], z)"""
+
     @classmethod
     def _expr_small(cls, z): ...
     @classmethod
@@ -534,7 +548,8 @@ class HyperRep_log2(HyperRep):
     def _expr_big_minus(cls, z, n): ...
 
 class HyperRep_cosasin(HyperRep):
-    """ Represent hyper([a, -a], [1/2], z) == cos(2*a*asin(sqrt(z))). """
+    """Represent hyper([a, -a], [1/2], z) == cos(2*a*asin(sqrt(z)))."""
+
     @classmethod
     def _expr_small(cls, a, z): ...
     @classmethod
@@ -545,8 +560,10 @@ class HyperRep_cosasin(HyperRep):
     def _expr_big_minus(cls, a, z, n): ...
 
 class HyperRep_sinasin(HyperRep):
-    """ Represent 2*a*z*hyper([1 - a, 1 + a], [3/2], z)
-        == sqrt(z)/sqrt(1-z)*sin(2*a*asin(sqrt(z))) """
+    """Represent 2*a*z*hyper([1 - a, 1 + a], [3/2], z)
+    == sqrt(z)/sqrt(1-z)*sin(2*a*asin(sqrt(z)))
+    """
+
     @classmethod
     def _expr_small(cls, a, z): ...
     @classmethod
@@ -566,8 +583,7 @@ class appellf1(DefinedFunction):
         \\frac{x^m y^n}{m! n!}.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import appellf1, symbols
     >>> x, y, a, b1, b2, c = symbols('x y a b1 b2 c')
     >>> appellf1(2., 1., 6., 4., 5., 6.)
@@ -584,12 +600,13 @@ class appellf1(DefinedFunction):
     appellf1(a, b1, b2, c, x, y)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Appell_series
     .. [2] https://functions.wolfram.com/HypergeometricFunctions/AppellF1/
 
     """
+
     @classmethod
     def eval(cls, a, b1, b2, c, x, y): ...
     def fdiff(self, argindex: int = 5): ...

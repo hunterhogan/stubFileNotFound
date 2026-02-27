@@ -1,8 +1,14 @@
-from .holonomicerrors import NotHolonomicError as NotHolonomicError, NotHyperSeriesError as NotHyperSeriesError, NotPowerSeriesError as NotPowerSeriesError, SingularityError as SingularityError
-from .recurrence import HolonomicSequence as HolonomicSequence, RecurrenceOperator as RecurrenceOperator, RecurrenceOperators as RecurrenceOperators
+from .holonomicerrors import (
+	NotHolonomicError as NotHolonomicError, NotHyperSeriesError as NotHyperSeriesError,
+	NotPowerSeriesError as NotPowerSeriesError, SingularityError as SingularityError)
+from .recurrence import (
+	HolonomicSequence as HolonomicSequence, RecurrenceOperator as RecurrenceOperator,
+	RecurrenceOperators as RecurrenceOperators)
 from _typeshed import Incomplete
 from sympy.core import Add as Add, Mul as Mul, Pow as Pow
-from sympy.core.numbers import Float as Float, I as I, Infinity as Infinity, NaN as NaN, NegativeInfinity as NegativeInfinity, equal_valued as equal_valued, int_valued as int_valued, pi as pi
+from sympy.core.numbers import (
+	equal_valued as equal_valued, Float as Float, I as I, Infinity as Infinity, int_valued as int_valued, NaN as NaN,
+	NegativeInfinity as NegativeInfinity, pi as pi)
 from sympy.core.singleton import S as S
 from sympy.core.sorting import ordered as ordered
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol
@@ -12,7 +18,8 @@ from sympy.functions.elementary.exponential import exp as exp, exp_polar as exp_
 from sympy.functions.elementary.hyperbolic import cosh as cosh, sinh as sinh
 from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.functions.elementary.trigonometric import cos as cos, sin as sin, sinc as sinc
-from sympy.functions.special.error_functions import Ci as Ci, Shi as Shi, Si as Si, erf as erf, erfc as erfc, erfi as erfi
+from sympy.functions.special.error_functions import (
+	Ci as Ci, erf as erf, erfc as erfc, erfi as erfi, Shi as Shi, Si as Si)
 from sympy.functions.special.gamma_functions import gamma as gamma
 from sympy.functions.special.hyper import hyper as hyper, meijerg as meijerg
 from sympy.integrals import meijerint as meijerint
@@ -34,7 +41,7 @@ from sympy.solvers.solvers import solve as solve
 
 def _find_nonzero_solution(r, homosys): ...
 def DifferentialOperators(base, generator):
-    '''
+    """
     This function is used to create annihilators using ``Dx``.
 
     Explanation
@@ -44,8 +51,7 @@ def DifferentialOperators(base, generator):
     and the operator for differentiation i.e. the ``Dx`` operator.
 
     Parameters
-    ==========
-
+    ----------
     base:
         Base polynomial ring for the algebra.
         The base polynomial ring is the ring of polynomials in :math:`x` that
@@ -55,8 +61,7 @@ def DifferentialOperators(base, generator):
         be either a noncommutative ``Symbol`` or a string. e.g. "Dx" or "D".
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ZZ
     >>> from sympy.abc import x
     >>> from sympy.holonomic.holonomic import DifferentialOperators
@@ -65,7 +70,7 @@ def DifferentialOperators(base, generator):
     Univariate Differential Operator Algebra in intermediate Dx over the base ring ZZ[x]
     >>> Dx*x
     (1) + (x)*Dx
-    '''
+    """
 
 class DifferentialOperatorAlgebra:
     """
@@ -89,8 +94,7 @@ class DifferentialOperatorAlgebra:
     Differential Operators.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ZZ
     >>> from sympy import symbols
     >>> from sympy.holonomic.holonomic import DifferentialOperators
@@ -101,15 +105,14 @@ class DifferentialOperatorAlgebra:
     ZZ[x]
 
     See Also
-    ========
-
+    --------
     DifferentialOperator
     """
+
     base: Incomplete
     derivative_operator: Incomplete
     gen_symbol: Incomplete
     def __init__(self, base, generator) -> None: ...
-    def __str__(self) -> str: ...
     __repr__ = __str__
     def __eq__(self, other): ...
 
@@ -129,8 +132,7 @@ class DifferentialOperator:
     the operator ``Dx``. See examples below.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.holonomic.holonomic import DifferentialOperator, DifferentialOperators
     >>> from sympy import ZZ
     >>> from sympy import symbols
@@ -144,10 +146,10 @@ class DifferentialOperator:
     (2*x**2 + 2*x + 1) + (4*x**3 + 2*x**2 - 4)*Dx + (x**4 - 6*x - 2)*Dx**2 + (-2*x**2)*Dx**3 + (1)*Dx**4
 
     See Also
-    ========
-
+    --------
     DifferentialOperatorAlgebra
     """
+
     _op_priority: int
     parent: Incomplete
     x: Incomplete
@@ -156,8 +158,7 @@ class DifferentialOperator:
     def __init__(self, list_of_poly, parent) -> None:
         """
         Parameters
-        ==========
-
+        ----------
         list_of_poly:
             List of polynomials belonging to the base ring of the algebra.
         parent:
@@ -177,7 +178,6 @@ class DifferentialOperator:
     def __neg__(self): ...
     def __truediv__(self, other): ...
     def __pow__(self, n): ...
-    def __str__(self) -> str: ...
     __repr__ = __str__
     def __eq__(self, other): ...
     def is_singular(self, x0):
@@ -186,7 +186,7 @@ class DifferentialOperator:
         """
 
 class HolonomicFunction:
-    '''
+    """
     A Holonomic Function is a solution to a linear homogeneous ordinary
     differential equation with polynomial coefficients. This differential
     equation can also be represented by an annihilator i.e. a Differential
@@ -211,8 +211,7 @@ class HolonomicFunction:
     terms of the associated power series. See Examples below.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.holonomic.holonomic import HolonomicFunction, DifferentialOperators
     >>> from sympy import QQ
     >>> from sympy import symbols, S
@@ -250,7 +249,8 @@ class HolonomicFunction:
     >>> plt.plot(r, y, label="holonomic function") # doctest: +SKIP
     >>> plt.show() # doctest: +SKIP
 
-    '''
+    """
+
     _op_priority: int
     y0: Incomplete
     x0: Incomplete
@@ -260,8 +260,7 @@ class HolonomicFunction:
         """
 
         Parameters
-        ==========
-
+        ----------
         annihilator:
             Annihilator of the Holonomic Function, represented by a
             `DifferentialOperator` object.
@@ -276,7 +275,6 @@ class HolonomicFunction:
             length of the vector `y0` should be equal to or greater than the
             order of differential equation.
         """
-    def __str__(self) -> str: ...
     __repr__ = __str__
     def unify(self, other):
         """
@@ -307,8 +305,7 @@ class HolonomicFunction:
         Integrates the given holonomic function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.holonomic.holonomic import HolonomicFunction, DifferentialOperators
         >>> from sympy import QQ
         >>> from sympy import symbols
@@ -324,8 +321,7 @@ class HolonomicFunction:
         Differentiation of the given Holonomic function.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.holonomic.holonomic import HolonomicFunction, DifferentialOperators
         >>> from sympy import ZZ
         >>> from sympy import symbols
@@ -337,8 +333,7 @@ class HolonomicFunction:
         2*exp(2*x)
 
         See Also
-        ========
-
+        --------
         integrate
         """
     def __eq__(self, other): ...
@@ -361,8 +356,7 @@ class HolonomicFunction:
         provided.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.holonomic.holonomic import HolonomicFunction, DifferentialOperators
         >>> from sympy import QQ
         >>> from sympy import symbols
@@ -374,8 +368,7 @@ class HolonomicFunction:
         HolonomicFunction((4*x**3) + (-1)*Dx + (x)*Dx**2, x, 1, [1, 0])
 
         See Also
-        ========
-
+        --------
         from_hyper
         """
     def to_sequence(self, lb: bool = True):
@@ -403,8 +396,7 @@ class HolonomicFunction:
         :math:`(x - x_0)^j` in the power series about :math:`x_0`.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.holonomic.holonomic import HolonomicFunction, DifferentialOperators
         >>> from sympy import QQ
         >>> from sympy import symbols, S
@@ -418,12 +410,11 @@ class HolonomicFunction:
         [(HolonomicSequence((n), n), u(0) = 1, 1/2, 1)]
 
         See Also
-        ========
-
+        --------
         HolonomicFunction.series
 
         References
-        ==========
+        ----------
 
         .. [1] https://hal.inria.fr/inria-00070025/document
         .. [2] https://www3.risc.jku.at/publications/download/risc_2244/DIPLFORM.pdf
@@ -441,8 +432,7 @@ class HolonomicFunction:
         multiple roots of the indicial equation.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.holonomic.holonomic import HolonomicFunction, DifferentialOperators
         >>> from sympy import QQ
         >>> from sympy import symbols
@@ -454,8 +444,7 @@ class HolonomicFunction:
         x - x**3/6 + x**5/120 - x**7/5040 + O(x**8)
 
         See Also
-        ========
-
+        --------
         HolonomicFunction.to_sequence
         """
     def _indicial(self):
@@ -478,8 +467,7 @@ class HolonomicFunction:
         Returns values of the function at :math:`x_1, x_2, \\dots x_n` in a list.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.holonomic.holonomic import HolonomicFunction, DifferentialOperators
         >>> from sympy import QQ
         >>> from sympy import symbols
@@ -531,8 +519,7 @@ class HolonomicFunction:
         symbolic expressions/functions.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.holonomic.holonomic import HolonomicFunction, DifferentialOperators
         >>> from sympy import ZZ
         >>> from sympy import symbols
@@ -546,8 +533,7 @@ class HolonomicFunction:
         hyper((), (), x)
 
         See Also
-        ========
-
+        --------
         from_hyper, from_meijerg
         """
     def to_expr(self):
@@ -555,8 +541,7 @@ class HolonomicFunction:
         Converts a Holonomic Function back to elementary functions.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.holonomic.holonomic import HolonomicFunction, DifferentialOperators
         >>> from sympy import ZZ
         >>> from sympy import symbols, S
@@ -573,8 +558,7 @@ class HolonomicFunction:
         Changes the point `x0` to ``b`` for initial conditions.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.holonomic import expr_to_holonomic
         >>> from sympy import symbols, sin, exp
         >>> x = symbols('x')
@@ -590,8 +574,7 @@ class HolonomicFunction:
         Returns a linear combination of Meijer G-functions.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.holonomic import expr_to_holonomic
         >>> from sympy import sin, cos, hyperexpand, log, symbols
         >>> x = symbols('x')
@@ -601,8 +584,7 @@ class HolonomicFunction:
         log(x)
 
         See Also
-        ========
-
+        --------
         to_hyper
         """
 
@@ -613,8 +595,7 @@ def from_hyper(func, x0: int = 0, evalf: bool = False):
     which initial conditions are required.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.holonomic.holonomic import from_hyper
     >>> from sympy import symbols, hyper, S
     >>> x = symbols('x')
@@ -628,8 +609,7 @@ def from_meijerg(func, x0: int = 0, evalf: bool = False, initcond: bool = True, 
     which initial conditions are required.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.holonomic.holonomic import from_meijerg
     >>> from sympy import symbols, meijerg, S
     >>> x = symbols('x')
@@ -646,8 +626,7 @@ def expr_to_holonomic(func, x=None, x0: int = 0, y0=None, lenics=None, domain=No
     Converts a function or an expression to a holonomic function.
 
     Parameters
-    ==========
-
+    ----------
     func:
         The expression to be converted.
     x:
@@ -667,8 +646,7 @@ def expr_to_holonomic(func, x=None, x0: int = 0, y0=None, lenics=None, domain=No
         Set it false if you do not want the initial conditions to be computed.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.holonomic.holonomic import expr_to_holonomic
     >>> from sympy import sin, exp, symbols
     >>> x = symbols('x')
@@ -678,8 +656,7 @@ def expr_to_holonomic(func, x=None, x0: int = 0, y0=None, lenics=None, domain=No
     HolonomicFunction((-1) + (1)*Dx, x, 0, [1])
 
     See Also
-    ========
-
+    --------
     sympy.integrals.meijerint._rewrite1, _convert_poly_rat_alg, _create_table
     """
 def _normalize(list_of, parent, negative: bool = True):

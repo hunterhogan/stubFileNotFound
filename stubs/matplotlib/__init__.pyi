@@ -1,11 +1,12 @@
 from _typeshed import Incomplete
 from collections.abc import Generator, MutableMapping
 from matplotlib._api import MatplotlibDeprecationWarning as MatplotlibDeprecationWarning
-from matplotlib.cm import _bivar_colormaps as bivar_colormaps, _colormaps as colormaps, _multivar_colormaps as multivar_colormaps
+from matplotlib.cm import (
+	_bivar_colormaps as bivar_colormaps, _colormaps as colormaps, _multivar_colormaps as multivar_colormaps)
 from matplotlib.colors import _color_sequences as color_sequences
 from typing import NamedTuple
 
-__all__ = ['__bibtex__', '__version__', '__version_info__', 'set_loglevel', 'ExecutableNotFoundError', 'get_configdir', 'get_cachedir', 'get_data_path', 'matplotlib_fname', 'MatplotlibDeprecationWarning', 'RcParams', 'rc_params', 'rc_params_from_file', 'rcParamsDefault', 'rcParams', 'rcParamsOrig', 'defaultParams', 'rc', 'rcdefaults', 'rc_file_defaults', 'rc_file', 'rc_context', 'use', 'get_backend', 'interactive', 'is_interactive', 'colormaps', 'multivar_colormaps', 'bivar_colormaps', 'color_sequences']
+__all__ = ['ExecutableNotFoundError', 'MatplotlibDeprecationWarning', 'RcParams', '__bibtex__', '__version__', '__version_info__', 'bivar_colormaps', 'color_sequences', 'colormaps', 'defaultParams', 'get_backend', 'get_cachedir', 'get_configdir', 'get_data_path', 'interactive', 'is_interactive', 'matplotlib_fname', 'multivar_colormaps', 'rc', 'rcParams', 'rcParamsDefault', 'rcParamsOrig', 'rc_context', 'rc_file', 'rc_file_defaults', 'rc_params', 'rc_params_from_file', 'rcdefaults', 'set_loglevel', 'use']
 
 __bibtex__: str
 
@@ -21,7 +22,7 @@ class __getattr__:
     __version_info__: Incomplete
 
 def set_loglevel(level) -> None:
-    '''
+    """
     Configure Matplotlib\'s logging levels.
 
     Matplotlib uses the standard library `logging` framework under the root
@@ -49,7 +50,7 @@ def set_loglevel(level) -> None:
     to Matplotlib\'s root handler; this handler is reused every time and this
     function simply manipulates the logger and handler\'s level.
 
-    '''
+    """
 
 class _ExecInfo(NamedTuple):
     executable: Incomplete
@@ -122,6 +123,7 @@ class RcParams(MutableMapping, dict):
     --------
     :ref:`customizing-with-matplotlibrc-files`
     """
+
     validate: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
     def _set(self, key, val) -> None:
@@ -175,7 +177,7 @@ class RcParams(MutableMapping, dict):
             The input mapping from which to update.
         """
     def _ensure_has_backend(self) -> None:
-        '''
+        """
         Ensure that a "backend" entry exists.
 
         Normally, the default matplotlibrc file contains *no* entry for "backend" (the
@@ -183,13 +185,11 @@ class RcParams(MutableMapping, dict):
         in that case.  However, packagers can set a different default backend
         (resulting in a normal `#backend: foo` line) in which case we should *not*
         fill in _auto_backend_sentinel.
-        '''
+        """
     def __setitem__(self, key, val) -> None: ...
     def __getitem__(self, key): ...
     def _get_backend_or_none(self):
         """Get the requested backend, if any, without triggering resolution."""
-    def __repr__(self) -> str: ...
-    def __str__(self) -> str: ...
     def __iter__(self):
         """Yield sorted list of keys."""
     def __len__(self) -> int: ...
@@ -231,7 +231,7 @@ rcParamsOrig: Incomplete
 defaultParams: Incomplete
 
 def rc(group, **kwargs) -> None:
-    '''
+    """
     Set the current `.rcParams`.  *group* is the grouping for the rc, e.g.,
     for ``lines.linewidth`` the group is ``lines``, for
     ``axes.facecolor``, the group is ``axes``, and so on.  Group may
@@ -281,7 +281,7 @@ def rc(group, **kwargs) -> None:
     Similar functionality is available by using the normal dict interface, i.e.
     ``rcParams.update({"lines.linewidth": 2, ...})`` (but ``rcParams.update``
     does not support abbreviations or grouping).
-    '''
+    """
 def rcdefaults() -> None:
     """
     Restore the `.rcParams` from Matplotlib's internal default style.

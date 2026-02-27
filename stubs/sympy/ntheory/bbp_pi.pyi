@@ -9,28 +9,24 @@ def pi_hex_digits(n, prec: int = 14):
     digit past the decimal point (which in hex is 2).
 
     Parameters
-    ==========
-
+    ----------
     n : non-negative integer
     prec : non-negative integer. default = 14
 
     Returns
-    =======
-
+    -------
     str : Returns a string containing ``prec`` digits
           starting at the nth digit of pi in hex.
           If ``prec`` = 0, returns empty string.
 
     Raises
-    ======
-
+    ------
     ValueError
         If ``n`` < 0 or ``prec`` < 0.
         Or ``n`` or ``prec`` is not an integer.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.bbp_pi import pi_hex_digits
     >>> pi_hex_digits(0)
     '3243f6a8885a30'
@@ -46,7 +42,7 @@ def pi_hex_digits(n, prec: int = 14):
     '0x324'
 
     References
-    ==========
+    ----------
 
     .. [1] http://www.numberworld.org/digits/Pi/
     """

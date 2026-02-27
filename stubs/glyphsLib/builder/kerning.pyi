@@ -4,4 +4,3 @@ def _to_ufo_kerning(self, ufo, kerning_data):
     """Add .glyphs kerning to an UFO."""
 def to_glyphs_kerning(self):
     """Add UFO kerning to GSFont."""
-

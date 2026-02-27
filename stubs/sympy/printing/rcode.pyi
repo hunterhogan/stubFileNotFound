@@ -10,6 +10,7 @@ reserved_words: Incomplete
 
 class RCodePrinter(CodePrinter):
     """A printer to convert SymPy expressions to strings of R code"""
+
     printmethod: str
     language: str
     _default_settings: dict[str, Any]
@@ -47,11 +48,10 @@ class RCodePrinter(CodePrinter):
         """Accepts a string of code or a list of code lines"""
 
 def rcode(expr, assign_to=None, **settings):
-    '''Converts an expr to a string of r code
+    """Converts an expr to a string of r code
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
         A SymPy expression to be converted.
     assign_to : optional
@@ -81,8 +81,7 @@ def rcode(expr, assign_to=None, **settings):
         [default=True].
 
     Examples
-    ========
-
+    --------
     >>> from sympy import rcode, symbols, Rational, sin, ceiling, Abs, Function
     >>> x, tau = symbols("x, tau")
     >>> rcode((2*tau)**Rational(7, 2))
@@ -151,6 +150,6 @@ def rcode(expr, assign_to=None, **settings):
     A[1] = ifelse(x > 0,x + 1,x);
     A[2] = sin(x);
 
-    '''
+    """
 def print_rcode(expr, **settings) -> None:
     """Prints R representation of the given expression."""

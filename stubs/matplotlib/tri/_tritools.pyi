@@ -18,6 +18,7 @@ class TriAnalyzer:
     triangulation : `~matplotlib.tri.Triangulation`
         The encapsulated triangulation to analyze.
     """
+
     _triangulation: Incomplete
     def __init__(self, triangulation) -> None: ...
     @property

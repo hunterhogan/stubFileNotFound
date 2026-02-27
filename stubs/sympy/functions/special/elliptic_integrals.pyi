@@ -1,4 +1,4 @@
-from sympy.core import I as I, Rational as Rational, S as S, pi as pi
+from sympy.core import I as I, pi as pi, Rational as Rational, S as S
 from sympy.core.function import ArgumentIndexError as ArgumentIndexError, DefinedFunction as DefinedFunction
 from sympy.core.symbol import Dummy as Dummy, uniquely_named_symbol as uniquely_named_symbol
 from sympy.functions.elementary.complexes import sign as sign
@@ -29,8 +29,7 @@ class elliptic_k(DefinedFunction):
     In this case, the parameter $m$ is defined as $m=k^2$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import elliptic_k, I
     >>> from sympy.abc import m
     >>> elliptic_k(0)
@@ -41,17 +40,17 @@ class elliptic_k(DefinedFunction):
     pi/2 + pi*m/8 + 9*pi*m**2/128 + O(m**3)
 
     See Also
-    ========
-
+    --------
     elliptic_f
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Elliptic_integrals
     .. [2] https://functions.wolfram.com/EllipticIntegrals/EllipticK
 
     """
+
     @classmethod
     def eval(cls, m): ...
     def fdiff(self, argindex: int = 1): ...
@@ -82,8 +81,7 @@ class elliptic_f(DefinedFunction):
     In this case, the parameter $m$ is defined as $m=k^2$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import elliptic_f, I
     >>> from sympy.abc import z, m
     >>> elliptic_f(z, m).series(z)
@@ -92,17 +90,17 @@ class elliptic_f(DefinedFunction):
     2.909449841483 + 1.74720545502474*I
 
     See Also
-    ========
-
+    --------
     elliptic_k
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Elliptic_integrals
     .. [2] https://functions.wolfram.com/EllipticIntegrals/EllipticF
 
     """
+
     @classmethod
     def eval(cls, z, m): ...
     def fdiff(self, argindex: int = 1): ...
@@ -134,8 +132,7 @@ class elliptic_e(DefinedFunction):
     In this case, the parameter $m$ is defined as $m=k^2$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import elliptic_e, I
     >>> from sympy.abc import z, m
     >>> elliptic_e(z, m).series(z)
@@ -150,13 +147,14 @@ class elliptic_e(DefinedFunction):
     0.991052601328069 + 0.81879421395609*I
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Elliptic_integrals
     .. [2] https://functions.wolfram.com/EllipticIntegrals/EllipticE2
     .. [3] https://functions.wolfram.com/EllipticIntegrals/EllipticE
 
     """
+
     @classmethod
     def eval(cls, m, z=None): ...
     def fdiff(self, argindex: int = 1): ...
@@ -189,8 +187,7 @@ class elliptic_pi(DefinedFunction):
     In this case, the parameter $m$ is defined as $m=k^2$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import elliptic_pi, I
     >>> from sympy.abc import z, n, m
     >>> elliptic_pi(n, z, m).series(z, n=4)
@@ -203,13 +200,14 @@ class elliptic_pi(DefinedFunction):
     3.29136443417283 + 0.32555634906645*I
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Elliptic_integrals
     .. [2] https://functions.wolfram.com/EllipticIntegrals/EllipticPi3
     .. [3] https://functions.wolfram.com/EllipticIntegrals/EllipticPi
 
     """
+
     @classmethod
     def eval(cls, n, m, z=None): ...
     def _eval_conjugate(self): ...

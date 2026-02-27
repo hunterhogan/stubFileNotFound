@@ -4,7 +4,7 @@ from sympy.core.relational import Equality as Equality
 from sympy.core.symbol import Wild as Wild
 
 def _preprocess(expr, func=None, hint: str = '_Integral'):
-    '''Prepare expr for solving by making sure that differentiation
+    """Prepare expr for solving by making sure that differentiation
     is done so that only func remains in unevaluated derivatives and
     (if hint does not end with _Integral) that doit is applied to all
     other derivatives. If hint is None, do not do any differentiation.
@@ -60,7 +60,7 @@ def _preprocess(expr, func=None, hint: str = '_Integral'):
     ... except ValueError: print("A ValueError was raised.")
     A ValueError was raised.
 
-    '''
+    """
 def ode_order(expr, func):
     """
     Returns the order of a given differential
@@ -69,8 +69,7 @@ def ode_order(expr, func):
     This function is implemented recursively.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function
     >>> from sympy.solvers.deutils import ode_order
     >>> from sympy.abc import x
@@ -85,7 +84,7 @@ def ode_order(expr, func):
 
     """
 def _desolve(eq, func=None, hint: str = 'default', ics=None, simplify: bool = True, *, prep: bool = True, **kwargs):
-    '''This is a helper function to dsolve and pdsolve in the ode
+    """This is a helper function to dsolve and pdsolve in the ode
     and pde modules.
 
     If the hint provided to the function is "default", then a dict with
@@ -121,7 +120,7 @@ def _desolve(eq, func=None, hint: str = 'default', ics=None, simplify: bool = Tr
     expression if eq given by user is an Equality.
 
     See Also
-    ========
+    --------
     classify_ode(ode.py)
     classify_pde(pde.py)
-    '''
+    """

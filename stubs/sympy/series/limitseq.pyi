@@ -23,8 +23,7 @@ def difference_delta(expr, n=None, step: int = 1):
     returns the sequence x[n + step] - x[n].
 
     Examples
-    ========
-
+    --------
     >>> from sympy import difference_delta as dd
     >>> from sympy.abc import n
     >>> dd(n*(n + 1), n)
@@ -33,7 +32,7 @@ def difference_delta(expr, n=None, step: int = 1):
     4*n + 6
 
     References
-    ==========
+    ----------
 
     .. [1] https://reference.wolfram.com/language/ref/DifferenceDelta.html
     """
@@ -51,8 +50,7 @@ def dominant(expr, n):
     If there is no unique dominant term, then returns ``None``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Sum
     >>> from sympy.series.limitseq import dominant
     >>> from sympy.abc import n, k
@@ -62,8 +60,7 @@ def dominant(expr, n):
     2**n
 
     See Also
-    ========
-
+    --------
     sympy.series.limitseq.dominant
     """
 def _limit_inf(expr, n): ...
@@ -72,8 +69,7 @@ def limit_seq(expr, n=None, trials: int = 5):
     """Finds the limit of a sequence as index ``n`` tends to infinity.
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
         SymPy expression for the ``n-th`` term of the sequence
     n : Symbol, optional
@@ -94,8 +90,7 @@ def limit_seq(expr, n=None, trials: int = 5):
     not supported.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import limit_seq, Sum, binomial
     >>> from sympy.abc import n, k, m
     >>> limit_seq((5*n**3 + 3*n**2 + 4) / (3*n**3 + 4*n - 5), n)
@@ -106,12 +101,11 @@ def limit_seq(expr, n=None, trials: int = 5):
     4
 
     See Also
-    ========
-
+    --------
     sympy.series.limitseq.dominant
 
     References
-    ==========
+    ----------
 
     .. [1] Computing Limits of Sequences - Manuel Kauers
     """

@@ -2,8 +2,11 @@ from sympy.core import oo as oo
 from sympy.core.symbol import Dummy as Dummy
 from sympy.functions.elementary.complexes import im as im, re as re
 from sympy.functions.elementary.miscellaneous import sqrt as sqrt
-from sympy.integrals.risch import DecrementLevel as DecrementLevel, NonElementaryIntegralException as NonElementaryIntegralException, derivation as derivation, frac_in as frac_in, gcdex_diophantine as gcdex_diophantine, recognize_log_derivative as recognize_log_derivative, splitfactor as splitfactor
-from sympy.polys import Poly as Poly, ZZ as ZZ, cancel as cancel, gcd as gcd
+from sympy.integrals.risch import (
+	DecrementLevel as DecrementLevel, derivation as derivation, frac_in as frac_in, gcdex_diophantine as gcdex_diophantine,
+	NonElementaryIntegralException as NonElementaryIntegralException, recognize_log_derivative as recognize_log_derivative,
+	splitfactor as splitfactor)
+from sympy.polys import cancel as cancel, gcd as gcd, Poly as Poly, ZZ as ZZ
 
 def order_at(a, p, t):
     """
@@ -26,7 +29,7 @@ def order_at_oo(a, d, t):
     f == a/d.
     """
 def weak_normalizer(a, d, DE, z=None):
-    '''
+    """
     Weak normalization.
 
     Explanation
@@ -44,7 +47,7 @@ def weak_normalizer(a, d, DE, z=None):
     in k[t].
 
     Returns (q, f - Dq/q)
-    '''
+    """
 def normal_denom(fa, fd, ga, gd, DE):
     """
     Normal part of the denominator.

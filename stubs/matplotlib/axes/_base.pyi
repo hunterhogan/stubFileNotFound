@@ -1,17 +1,17 @@
-import matplotlib.artist as martist
-import matplotlib.axis as maxis
-import matplotlib.transforms as mtransforms
 from _typeshed import Incomplete
 from collections.abc import Generator, Sequence
 from matplotlib import _api as _api, _docstring as _docstring, cbook as cbook, offsetbox as offsetbox
-from matplotlib.cbook import _OrderedSet as _OrderedSet, _check_1d as _check_1d, index_of as index_of
+from matplotlib.cbook import _check_1d as _check_1d, _OrderedSet as _OrderedSet, index_of as index_of
 from matplotlib.gridspec import SubplotSpec as SubplotSpec
 from matplotlib.rcsetup import cycler as cycler, validate_axisbelow as validate_axisbelow
+import matplotlib.artist as martist
+import matplotlib.axis as maxis
+import matplotlib.transforms as mtransforms
 
 _log: Incomplete
 
 class _axis_method_wrapper:
-    '''
+    """
     Helper to generate Axes methods wrapping Axis methods.
 
     After ::
@@ -25,7 +25,8 @@ class _axis_method_wrapper:
     The docstring of ``get_foo`` is built by replacing "this Axis" by "the
     {attr_name}" (i.e., "the xaxis", "the yaxis") in the wrapped method\'s
     dedented docstring; additional replacements can be given in *doc_sub*.
-    '''
+    """
+
     attr_name: Incomplete
     method_name: Incomplete
     _missing_subs: Incomplete
@@ -40,6 +41,7 @@ class _TransformedBoundsLocator:
     The locator is a callable object used in `.Axes.set_aspect` to compute the
     Axes location depending on the renderer.
     """
+
     _bounds: Incomplete
     _transform: Incomplete
     def __init__(self, bounds, transform) -> None:
@@ -82,6 +84,7 @@ class _process_plot_var_args:
 
     an arbitrary number of *x*, *y*, *fmt* are allowed
     """
+
     output: Incomplete
     def __init__(self, output: str = 'Line2D') -> None: ...
     _idx: int
@@ -162,7 +165,6 @@ class _AxesBase(martist.Artist):
     @property
     def _axis_map(self):
         """A mapping of axis names, e.g. 'x', to `Axis` instances."""
-    def __str__(self) -> str: ...
     _position: Incomplete
     _originalPosition: Incomplete
     axes: Incomplete
@@ -184,7 +186,7 @@ class _AxesBase(martist.Artist):
     fmt_xdata: Incomplete
     fmt_ydata: Incomplete
     def __init__(self, fig, *args, facecolor: Incomplete | None = None, frameon: bool = True, sharex: Incomplete | None = None, sharey: Incomplete | None = None, label: str = '', xscale: Incomplete | None = None, yscale: Incomplete | None = None, box_aspect: Incomplete | None = None, forward_navigation_events: str = 'auto', **kwargs) -> None:
-        '''
+        """
         Build an Axes in a figure.
 
         Parameters
@@ -231,13 +233,12 @@ class _AxesBase(martist.Artist):
         -------
         `~.axes.Axes`
             The new `~.axes.Axes` object.
-        '''
+        """
     def __init_subclass__(cls, **kwargs) -> None: ...
     def __getstate__(self): ...
     __dict__: Incomplete
     _stale: bool
     def __setstate__(self, state) -> None: ...
-    def __repr__(self) -> str: ...
     def get_subplotspec(self):
         """Return the `.SubplotSpec` associated with the subplot, or None."""
     def set_subplotspec(self, subplotspec) -> None:
@@ -269,7 +270,7 @@ class _AxesBase(martist.Artist):
         """The view limits as `.Bbox` in data coordinates."""
     _tight: Incomplete
     def _request_autoscale_view(self, axis: str = 'all', tight: Incomplete | None = None) -> None:
-        '''
+        """
         Mark a single axis, or all of them, as stale wrt. autoscaling.
 
         No computation is performed until the next autoscaling; thus, separate
@@ -280,7 +281,7 @@ class _AxesBase(martist.Artist):
         axis : str, default: "all"
             Either an element of ``self._axis_names``, or "all".
         tight : bool or None, default: None
-        '''
+        """
     transAxes: Incomplete
     transLimits: Incomplete
     transData: Incomplete
@@ -562,6 +563,7 @@ class _AxesBase(martist.Artist):
         3.7.  In the future these artist lists may be replaced by tuples. Use
         as if this is a tuple already.
         """
+
         _axes: Incomplete
         _prop_name: Incomplete
         _type_check: Incomplete
@@ -587,7 +589,6 @@ class _AxesBase(martist.Artist):
                 sublist will never be an instance of these types. Otherwise, no
                 types will be excluded.
             """
-        def __repr__(self) -> str: ...
         def __len__(self) -> int: ...
         def __iter__(self): ...
         def __getitem__(self, key): ...
@@ -689,11 +690,11 @@ class _AxesBase(martist.Artist):
 
         """
     def get_aspect(self):
-        '''
+        """
         Return the aspect ratio of the Axes scaling.
 
         This is either "auto" or a float giving the ratio of y/x-scale.
-        '''
+        """
     def set_aspect(self, aspect, adjustable: Incomplete | None = None, anchor: Incomplete | None = None, share: bool = False) -> None:
         """
         Set the aspect ratio of the Axes scaling, i.e. y/x-scale.
@@ -1038,7 +1039,7 @@ class _AxesBase(martist.Artist):
         anything.
         """
     def add_artist(self, a):
-        '''
+        """
         Add an `.Artist` to the Axes; return the artist.
 
         Use `add_artist` only for artists for which there is no dedicated
@@ -1049,7 +1050,7 @@ class _AxesBase(martist.Artist):
         If no ``transform`` has been specified when creating the artist (e.g.
         ``artist.get_transform() == None``) then the transform is set to
         ``ax.transData``.
-        '''
+        """
     def add_child_axes(self, ax):
         """
         Add an `.Axes` to the Axes' children; return the child Axes.
@@ -1246,7 +1247,7 @@ class _AxesBase(martist.Artist):
         m : float greater than -0.5
         """
     def margins(self, *margins, x: Incomplete | None = None, y: Incomplete | None = None, tight: bool = True):
-        '''
+        """
         Set or retrieve margins around the data for autoscaling axis limits.
 
         This allows to configure the padding around the data without having to
@@ -1302,7 +1303,7 @@ class _AxesBase(martist.Artist):
         See Also
         --------
         .Axes.set_xmargin, .Axes.set_ymargin
-        '''
+        """
     def set_rasterization_zorder(self, z) -> None:
         """
         Set the zorder threshold for rasterization for vector graphics output.
@@ -2271,7 +2272,7 @@ class _AxesBase(martist.Artist):
     def get_shared_y_axes(self):
         """Return an immutable view on the shared y-axes Grouper."""
     def label_outer(self, remove_inner_ticks: bool = False) -> None:
-        '''
+        """
         Only show "outer" labels and tick labels.
 
         x-labels are only kept for subplots on the last row (or first row, if
@@ -2284,11 +2285,11 @@ class _AxesBase(martist.Artist):
             If True, remove the inner ticks as well (not only tick labels).
 
             .. versionadded:: 3.8
-        '''
+        """
     def _label_outer_xaxis(self, *, skip_non_rectangular_axes, remove_inner_ticks: bool = False) -> None: ...
     def _label_outer_yaxis(self, *, skip_non_rectangular_axes, remove_inner_ticks: bool = False) -> None: ...
     def set_forward_navigation_events(self, forward) -> None:
-        '''
+        """
         Set how pan/zoom events are forwarded to Axes below this one.
 
         Parameters
@@ -2305,12 +2306,12 @@ class _AxesBase(martist.Artist):
         --------
         matplotlib.axes.Axes.set_navigate
 
-        '''
+        """
     def get_forward_navigation_events(self):
         """Get how pan/zoom events are forwarded to Axes below this one."""
 
 def _draw_rasterized(figure, artists, renderer):
-    '''
+    """
     A helper function for rasterizing the list of artists.
 
     The bookkeeping to track if we are or are not in rasterizing mode
@@ -2346,4 +2347,4 @@ def _draw_rasterized(figure, artists, renderer):
     -------
     None
 
-    '''
+    """

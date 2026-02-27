@@ -1,31 +1,15 @@
 from collections.abc import Hashable
-import datetime
-from typing import (
-    Self,
-    overload,
-)
-
-import numpy as np
-import pandas as pd
 from pandas import Index
+from pandas._libs.tslibs import NaTType, Period
 from pandas._stubs_only import PeriodAddSub
+from pandas._typing import AxesData, Dtype, Frequency, np_1darray_intp, np_1darray_object, np_ndarray_bool
 from pandas.core.indexes.accessors import PeriodIndexFieldOps
 from pandas.core.indexes.datetimelike import DatetimeIndexOpsMixin
 from pandas.core.indexes.timedeltas import TimedeltaIndex
-
-from pandas._libs.tslibs import (
-    NaTType,
-    Period,
-)
-from pandas._typing import (
-    AxesData,
-    Dtype,
-    Frequency,
-    np_1darray_intp,
-    np_1darray_object,
-    np_ndarray_bool,
-)
-from typing import Any
+from typing import Any, overload, Self
+import datetime
+import numpy as np
+import pandas as pd
 
 class PeriodIndex(DatetimeIndexOpsMixin[Period, np.object_], PeriodIndexFieldOps):
     def __new__(

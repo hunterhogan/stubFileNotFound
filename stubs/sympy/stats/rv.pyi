@@ -36,11 +36,11 @@ class RandomDomain(Basic):
     Represents a set of variables and the values which they can take.
 
     See Also
-    ========
-
+    --------
     sympy.stats.crv.ContinuousDomain
     sympy.stats.frv.FiniteDomain
     """
+
     is_ProductDomain: bool
     is_Finite: bool
     is_Continuous: bool
@@ -58,11 +58,11 @@ class SingleDomain(RandomDomain):
     A single variable and its domain.
 
     See Also
-    ========
-
+    --------
     sympy.stats.crv.SingleContinuousDomain
     sympy.stats.frv.SingleFiniteDomain
     """
+
     def __new__(cls, symbol, set): ...
     @property
     def symbol(self): ...
@@ -75,6 +75,7 @@ class MatrixDomain(RandomDomain):
     A Random Matrix variable and its domain.
 
     """
+
     def __new__(cls, symbol, set): ...
     @property
     def symbol(self): ...
@@ -86,11 +87,11 @@ class ConditionalDomain(RandomDomain):
     A RandomDomain with an attached condition.
 
     See Also
-    ========
-
+    --------
     sympy.stats.crv.ConditionalContinuousDomain
     sympy.stats.frv.ConditionalFiniteDomain
     """
+
     def __new__(cls, fulldomain, condition): ...
     @property
     def symbols(self): ...
@@ -114,11 +115,11 @@ class PSpace(Basic):
     expressions and contain the mechanics to evaluate statistical statements.
 
     See Also
-    ========
-
+    --------
     sympy.stats.crv.ContinuousPSpace
     sympy.stats.frv.FinitePSpace
     """
+
     is_Finite: bool | None
     is_Continuous: bool | None
     is_Discrete: bool | None
@@ -142,6 +143,7 @@ class SinglePSpace(PSpace):
     Represents the probabilities of a set of random events that can be
     attributed to a single variable/symbol.
     """
+
     def __new__(cls, s, distribution): ...
     @property
     def value(self): ...
@@ -180,6 +182,7 @@ class RandomSymbol(Expr):
     Traditionally a user does not even do this but instead calls one of the
     convenience functions Normal, Exponential, Coin, Die, FiniteRV, etc....
     """
+
     def __new__(cls, symbol, pspace=None): ...
     is_finite: bool
     is_symbol: bool
@@ -218,8 +221,7 @@ class ProductPSpace(PSpace):
     variables.
 
     See Also
-    ========
-
+    --------
     sympy.stats.rv.IndependentProductPSpace
     sympy.stats.joint_rv.JointPSpace
     """
@@ -231,6 +233,7 @@ class IndependentProductPSpace(ProductPSpace):
 
     Often created using the function, pspace.
     """
+
     def __new__(cls, *spaces): ...
     @property
     def pdf(self): ...
@@ -258,10 +261,11 @@ class ProductDomain(RandomDomain):
     A domain resulting from the merger of two independent domains.
 
     See Also
-    ========
+    --------
     sympy.stats.crv.ProductContinuousDomain
     sympy.stats.frv.ProductFiniteDomain
     """
+
     is_ProductDomain: bool
     def __new__(cls, *domains): ...
     @property
@@ -286,8 +290,7 @@ def pspace(expr):
     For internal use.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import pspace, Normal
     >>> X = Normal('X', 0, 1)
     >>> pspace(2*X + 1) == X.pspace
@@ -311,7 +314,7 @@ def rs_swap(a, b):
     Output: dict mapping RVs in a to RVs in b
     """
 def given(expr, condition=None, **kwargs):
-    """ Conditional Random Expression.
+    """Conditional Random Expression.
 
     Explanation
     ===========
@@ -321,8 +324,7 @@ def given(expr, condition=None, **kwargs):
     conditional probability space.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import given, density, Die
     >>> X = Die('X', 6)
     >>> Y = given(X, X > 3)
@@ -353,8 +355,7 @@ def expectation(expr, condition=None, numsamples=None, evaluate: bool = True, **
     Returns the expected value of a random expression.
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr containing RandomSymbols
         The expression of which you want to compute the expectation value
     given : Expr containing RandomSymbols
@@ -367,8 +368,7 @@ def expectation(expr, condition=None, numsamples=None, evaluate: bool = True, **
         In case of continuous systems return unevaluated integral
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import E, Die
     >>> X = Die('X', 6)
     >>> E(X)
@@ -384,8 +384,7 @@ def probability(condition, given_condition=None, numsamples=None, evaluate: bool
     Probability that a condition is true, optionally given a second condition.
 
     Parameters
-    ==========
-
+    ----------
     condition : Combination of Relationals containing RandomSymbols
         The condition of which you want to compute the probability
     given_condition : Combination of Relationals containing RandomSymbols
@@ -397,8 +396,7 @@ def probability(condition, given_condition=None, numsamples=None, evaluate: bool
         In case of continuous systems return unevaluated integral
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import P, Die
     >>> from sympy import Eq
     >>> X, Y = Die('X', 6), Die('Y', 6)
@@ -430,8 +428,7 @@ def density(expr, condition=None, evaluate: bool = True, numsamples=None, **kwar
     variables produce Lambdas.
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr containing RandomSymbols
         The expression of which you want to compute the density value
     condition : Relational containing RandomSymbols
@@ -441,8 +438,7 @@ def density(expr, condition=None, evaluate: bool = True, numsamples=None, **kwar
         Enables sampling and approximates the density with this many samples
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import density, Die, Normal
     >>> from sympy import Symbol
 
@@ -472,8 +468,7 @@ def cdf(expr, condition=None, evaluate: bool = True, **kwargs):
     Continuous variables produce Lambdas.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import density, Die, Normal, cdf
 
     >>> D = Die('D', 6)
@@ -496,8 +491,7 @@ def characteristic_function(expr, condition=None, evaluate: bool = True, **kwarg
     Returns a Lambda.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Normal, DiscreteUniform, Poisson, characteristic_function
 
     >>> X = Normal('X', 0, 1)
@@ -518,8 +512,7 @@ def where(condition, given_condition=None, **kwargs):
     Returns the domain where a condition is True.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import where, Die, Normal
     >>> from sympy import And
 
@@ -537,12 +530,11 @@ def where(condition, given_condition=None, **kwargs):
     Domain: (Eq(a, 1) & Eq(b, 1)) | (Eq(a, 1) & Eq(b, 2)) | (Eq(a, 2) & Eq(b, 2))
     """
 def sample(expr, condition=None, size=(), library: str = 'scipy', numsamples: int = 1, seed=None, **kwargs):
-    '''
+    """
     A realization of the random expression.
 
     Parameters
-    ==========
-
+    ----------
     expr : Expression of random variables
         Expression from which sample is extracted
     condition : Expr containing RandomSymbols
@@ -580,8 +572,7 @@ def sample(expr, condition=None, size=(), library: str = 'scipy', numsamples: in
         are done by this argument.
 
     Returns
-    =======
-
+    -------
     sample: float/list/numpy.ndarray
         one sample or a collection of samples of the random expression.
 
@@ -589,8 +580,7 @@ def sample(expr, condition=None, size=(), library: str = 'scipy', numsamples: in
         - sample(X, size=int/tuple) returns numpy.ndarray object.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Die, sample, Normal, Geometric
     >>> X, Y, Z = Die(\'X\', 6), Die(\'Y\', 6), Die(\'Z\', 6) # Finite Random Variable
     >>> die_roll = sample(X + Y + Z)
@@ -631,9 +621,9 @@ def sample(expr, condition=None, size=(), library: str = 'scipy', numsamples: in
     .. versionchanged:: 1.9.0
         sample returns values or array of values instead of an iterator and numsamples is deprecated.
 
-    '''
+    """
 def quantile(expr, evaluate: bool = True, **kwargs):
-    '''
+    """
     Return the :math:`p^{th}` order quantile of a probability distribution.
 
     Explanation
@@ -646,8 +636,7 @@ def quantile(expr, evaluate: bool = True, **kwargs):
         Q(p) = \\inf\\{x \\in (-\\infty, \\infty) : p \\le F(x)\\}
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import quantile, Die, Exponential
     >>> from sympy import Symbol, pprint
     >>> p = Symbol("p")
@@ -673,14 +662,13 @@ def quantile(expr, evaluate: bool = True, **kwargs):
     |
     \\ 6        for p <= 1
 
-    '''
+    """
 def sample_iter(expr, condition=None, size=(), library: str = 'scipy', numsamples=..., seed=None, **kwargs):
     """
     Returns an iterator of realizations from the expression given a condition.
 
     Parameters
-    ==========
-
+    ----------
     expr: Expr
         Random expression to be realized
     condition: Expr, optional
@@ -703,8 +691,7 @@ def sample_iter(expr, condition=None, size=(), library: str = 'scipy', numsample
         are done by this argument.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Normal, sample_iter
     >>> X = Normal('X', 0, 1)
     >>> expr = X*X + 3
@@ -713,14 +700,12 @@ def sample_iter(expr, condition=None, size=(), library: str = 'scipy', numsample
     [12, 4, 7]
 
     Returns
-    =======
-
+    -------
     sample_iter: iterator object
         iterator object containing the sample/samples of given expr
 
     See Also
-    ========
-
+    --------
     sample
     sampling_P
     sampling_E
@@ -733,8 +718,7 @@ def sampling_P(condition, given_condition=None, library: str = 'scipy', numsampl
     Sampling version of P.
 
     See Also
-    ========
-
+    --------
     P
     sampling_E
     sampling_density
@@ -745,8 +729,7 @@ def sampling_E(expr, given_condition=None, library: str = 'scipy', numsamples: i
     Sampling version of E.
 
     See Also
-    ========
-
+    --------
     P
     sampling_P
     sampling_density
@@ -756,7 +739,7 @@ def sampling_density(expr, given_condition=None, library: str = 'scipy', numsamp
     Sampling version of density.
 
     See Also
-    ========
+    --------
     density
     sampling_P
     sampling_E
@@ -769,8 +752,7 @@ def dependent(a, b):
     computations on the other.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Normal, dependent, given
     >>> from sympy import Tuple, Eq
 
@@ -784,8 +766,7 @@ def dependent(a, b):
     True
 
     See Also
-    ========
-
+    --------
     independent
     """
 def independent(a, b):
@@ -796,8 +777,7 @@ def independent(a, b):
     computations on the other.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import Normal, independent, given
     >>> from sympy import Tuple, Eq
 
@@ -811,8 +791,7 @@ def independent(a, b):
     False
 
     See Also
-    ========
-
+    --------
     dependent
     """
 def pspace_independent(a, b):
@@ -822,8 +801,7 @@ def pspace_independent(a, b):
     independence and is intended to be used internally.
 
     Notes
-    =====
-
+    -----
     pspace_independent(a, b) implies independent(a, b)
     independent(a, b) does not imply pspace_independent(a, b)
     """
@@ -840,7 +818,7 @@ class NamedArgsMixin:
 
 class Distribution(Basic):
     def sample(self, size=(), library: str = 'scipy', seed=None):
-        """ A random realization from the distribution """
+        """A random realization from the distribution"""
 
 def _value_check(condition, message):
     """
@@ -848,8 +826,7 @@ def _value_check(condition, message):
     return True if all conditions were True, else False.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats.rv import _value_check
     >>> from sympy.abc import a, b, c
     >>> from sympy import And, Dummy
@@ -898,27 +875,23 @@ def _symbol_converter(sym):
     otherwise no operation is performed on it.
 
     Parameters
-    ==========
-
+    ----------
     sym
         The parameter to be converted.
 
     Returns
-    =======
-
+    -------
     Symbol
         the parameter converted to Symbol.
 
     Raises
-    ======
-
+    ------
     TypeError
         If the parameter is not an instance of both str and
         Symbol.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol
     >>> from sympy.stats.rv import _symbol_converter
     >>> s = _symbol_converter('s')
@@ -933,19 +906,17 @@ def _symbol_converter(sym):
     True
     """
 def sample_stochastic_process(process):
-    '''
+    """
     This function is used to sample from stochastic process.
 
     Parameters
-    ==========
-
+    ----------
     process: StochasticProcess
         Process used to extract the samples. It must be an instance of
         StochasticProcess
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import sample_stochastic_process, DiscreteMarkovChain
     >>> from sympy import Matrix
     >>> T = Matrix([[0.5, 0.2, 0.3],[0.2, 0.5, 0.3],[0.2, 0.3, 0.5]])
@@ -958,9 +929,8 @@ def sample_stochastic_process(process):
     2
 
     Returns
-    =======
-
+    -------
     sample: iterator object
         iterator object containing the sample of given process
 
-    '''
+    """

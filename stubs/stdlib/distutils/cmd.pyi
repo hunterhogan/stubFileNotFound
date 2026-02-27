@@ -23,7 +23,7 @@ from distutils.command.sdist import sdist
 from distutils.command.upload import upload
 from distutils.dist import Distribution
 from distutils.file_util import _BytesPathT, _StrPathT
-from typing import Any, ClassVar, Literal, TypeVar, overload
+from typing import Any, ClassVar, Literal, overload, TypeVar
 from typing_extensions import TypeVarTuple, Unpack
 
 _CommandT = TypeVar("_CommandT", bound=Command)

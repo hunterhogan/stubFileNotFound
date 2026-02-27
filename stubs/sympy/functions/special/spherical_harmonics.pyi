@@ -14,7 +14,7 @@ from sympy.functions.elementary.trigonometric import cos as cos, cot as cot, sin
 _x: Incomplete
 
 class Ynm(DefinedFunction):
-    '''
+    """
     Spherical harmonics defined as
 
     .. math::
@@ -32,8 +32,7 @@ class Ynm(DefinedFunction):
     with $\\theta \\in [0, \\pi]$ and $\\varphi \\in [0, 2\\pi]$.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Ynm, Symbol, simplify
     >>> from sympy.abc import n,m
     >>> theta = Symbol("theta")
@@ -121,19 +120,19 @@ class Ynm(DefinedFunction):
     sqrt((2*n + 1)*factorial(-m + n)/factorial(m + n))*exp(I*m*phi)*assoc_legendre(n, m, cos(theta))/(2*sqrt(pi))
 
     See Also
-    ========
-
+    --------
     Ynm_c, Znm
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Spherical_harmonics
     .. [2] https://mathworld.wolfram.com/SphericalHarmonic.html
     .. [3] https://functions.wolfram.com/Polynomials/SphericalHarmonicY/
     .. [4] https://dlmf.nist.gov/14.30
 
-    '''
+    """
+
     @classmethod
     def eval(cls, n, m, theta, phi): ...
     def _eval_expand_func(self, **hints): ...
@@ -146,15 +145,14 @@ class Ynm(DefinedFunction):
     def _eval_evalf(self, prec): ...
 
 def Ynm_c(n, m, theta, phi):
-    '''
+    """
     Conjugate spherical harmonics defined as
 
     .. math::
         \\overline{Y_n^m(\\theta, \\varphi)} := (-1)^m Y_n^{-m}(\\theta, \\varphi).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Ynm_c, Symbol, simplify
     >>> from sympy.abc import n,m
     >>> theta = Symbol("theta")
@@ -173,21 +171,20 @@ def Ynm_c(n, m, theta, phi):
     sqrt(6)*exp(I*(-phi + 2*conjugate(phi)))*sin(theta)/(4*sqrt(pi))
 
     See Also
-    ========
-
+    --------
     Ynm, Znm
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Spherical_harmonics
     .. [2] https://mathworld.wolfram.com/SphericalHarmonic.html
     .. [3] https://functions.wolfram.com/Polynomials/SphericalHarmonicY/
 
-    '''
+    """
 
 class Znm(DefinedFunction):
-    '''
+    """
     Real spherical harmonics defined as
 
     .. math::
@@ -205,8 +202,7 @@ class Znm(DefinedFunction):
           \\frac{Y_n^m(\\theta, \\varphi) + (-1)^m Y_n^{-m}(\\theta, \\varphi)}{\\sqrt{2}} &\\quad m > 0 \\\\\n          Y_n^m(\\theta, \\varphi) &\\quad m = 0 \\\\\n          \\frac{Y_n^m(\\theta, \\varphi) - (-1)^m Y_n^{-m}(\\theta, \\varphi)}{i \\sqrt{2}} &\\quad m < 0 \\\\\n        \\end{cases}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Znm, Symbol, simplify
     >>> from sympy.abc import n, m
     >>> theta = Symbol("theta")
@@ -225,17 +221,17 @@ class Znm(DefinedFunction):
     -sqrt(15)*sin(2*theta)*cos(phi)/(4*sqrt(pi))
 
     See Also
-    ========
-
+    --------
     Ynm, Ynm_c
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Spherical_harmonics
     .. [2] https://mathworld.wolfram.com/SphericalHarmonic.html
     .. [3] https://functions.wolfram.com/Polynomials/SphericalHarmonicY/
 
-    '''
+    """
+
     @classmethod
     def eval(cls, n, m, theta, phi): ...

@@ -1,9 +1,8 @@
+from .fixer_base import BaseFix
+from .pytree import Leaf, Node
 from _typeshed import Incomplete, SupportsGetItem
 from collections import defaultdict
 from collections.abc import Iterable
-
-from .fixer_base import BaseFix
-from .pytree import Leaf, Node
 
 class BMNode:
     count: Incomplete

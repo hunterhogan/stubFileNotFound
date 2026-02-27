@@ -1,12 +1,12 @@
-import sys
 from _typeshed import ExcInfo, TraceFunction, Unused
 from collections.abc import Callable, Iterable, Iterator, Mapping
 from contextlib import contextmanager
 from types import CodeType, FrameType, TracebackType
-from typing import IO, Any, Final, Literal, SupportsInt, TypeVar
-from typing_extensions import ParamSpec, TypeAlias
+from typing import Any, Final, IO, Literal, SupportsInt, TypeAlias, TypeVar
+from typing_extensions import ParamSpec
+import sys
 
-__all__ = ["BdbQuit", "Bdb", "Breakpoint"]
+__all__ = ["Bdb", "BdbQuit", "Breakpoint"]
 
 _T = TypeVar("_T")
 _P = ParamSpec("_P")

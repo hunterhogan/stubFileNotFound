@@ -1,10 +1,9 @@
 from _typeshed import MaybeNone
 from collections.abc import Iterable, Mapping
 from types import GenericAlias
-from typing import Any, Generic, TypeVar, overload
-from typing_extensions import TypeAlias
+from typing import Any, Generic, overload, TypeAlias, TypeVar
 
-__all__ = ["CookieError", "BaseCookie", "SimpleCookie"]
+__all__ = ["BaseCookie", "CookieError", "SimpleCookie"]
 
 _DataType: TypeAlias = str | Mapping[str, str | Morsel[Any]]
 _T = TypeVar("_T")

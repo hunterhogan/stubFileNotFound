@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from matplotlib import _api as _api
-from matplotlib.backends.qt_compat import QtCore as QtCore, QtGui as QtGui, QtWidgets as QtWidgets, _to_int as _to_int
+from matplotlib.backends.qt_compat import _to_int as _to_int, QtCore as QtCore, QtGui as QtGui, QtWidgets as QtWidgets
 
 __version__: str
 __license__ = __doc__
@@ -11,6 +11,7 @@ class ColorButton(QtWidgets.QPushButton):
     """
     Color choosing push button
     """
+
     colorChanged: Incomplete
     _color: Incomplete
     def __init__(self, parent: Incomplete | None = None) -> None: ...
@@ -24,6 +25,7 @@ def to_qcolor(color):
 
 class ColorLayout(QtWidgets.QHBoxLayout):
     """Color-specialized QLineEdit layout"""
+
     lineedit: Incomplete
     colorbtn: Incomplete
     def __init__(self, color, parent: Incomplete | None = None) -> None: ...
@@ -42,6 +44,7 @@ def qfont_to_tuple(font): ...
 
 class FontLayout(QtWidgets.QGridLayout):
     """Font selection"""
+
     family: Incomplete
     size: Incomplete
     italic: Incomplete
@@ -97,6 +100,7 @@ class FormTabWidget(QtWidgets.QWidget):
 
 class FormDialog(QtWidgets.QDialog):
     """Form Dialog"""
+
     apply_callback: Incomplete
     formwidget: Incomplete
     float_fields: Incomplete

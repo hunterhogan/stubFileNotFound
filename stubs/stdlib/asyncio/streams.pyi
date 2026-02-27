@@ -1,25 +1,23 @@
-import ssl
-import sys
+from . import events, protocols, transports
+from .base_events import Server
 from _typeshed import ReadableBuffer, StrPath
 from collections.abc import Awaitable, Callable, Iterable, Sequence, Sized
 from types import ModuleType
-from typing import Any, Protocol, SupportsIndex, type_check_only
-from typing_extensions import Self, TypeAlias
-
-from . import events, protocols, transports
-from .base_events import Server
+from typing import Any, Protocol, Self, SupportsIndex, type_check_only, TypeAlias
+import ssl
+import sys
 
 # Keep asyncio.__all__ updated with any changes to __all__ here
 if sys.platform == "win32":
-    __all__ = ("StreamReader", "StreamWriter", "StreamReaderProtocol", "open_connection", "start_server")
+    __all__ = ("StreamReader", "StreamReaderProtocol", "StreamWriter", "open_connection", "start_server")
 else:
     __all__ = (
         "StreamReader",
-        "StreamWriter",
         "StreamReaderProtocol",
+        "StreamWriter",
         "open_connection",
-        "start_server",
         "open_unix_connection",
+        "start_server",
         "start_unix_server",
     )
 

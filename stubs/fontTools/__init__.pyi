@@ -5,4 +5,3 @@ __all__ = ['configLogger', 'log', 'version']
 
 log: Incomplete
 version: str
-

@@ -6,8 +6,7 @@ def curl(vect, frame):
     symbols of the given frame.
 
     Parameters
-    ==========
-
+    ----------
     vect : Vector
         The vector operand
 
@@ -15,8 +14,7 @@ def curl(vect, frame):
         The reference frame to calculate the curl in
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import ReferenceFrame
     >>> from sympy.physics.vector import curl
     >>> R = ReferenceFrame('R')
@@ -34,8 +32,7 @@ def divergence(vect, frame):
     symbols of the given frame.
 
     Parameters
-    ==========
-
+    ----------
     vect : Vector
         The vector operand
 
@@ -43,8 +40,7 @@ def divergence(vect, frame):
         The reference frame to calculate the divergence in
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import ReferenceFrame
     >>> from sympy.physics.vector import divergence
     >>> R = ReferenceFrame('R')
@@ -62,8 +58,7 @@ def gradient(scalar, frame):
     coordinate symbols of the given frame.
 
     Parameters
-    ==========
-
+    ----------
     scalar : sympifiable
         The scalar field to take the gradient of
 
@@ -71,8 +66,7 @@ def gradient(scalar, frame):
         The frame to calculate the gradient in
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import ReferenceFrame
     >>> from sympy.physics.vector import gradient
     >>> R = ReferenceFrame('R')
@@ -89,14 +83,12 @@ def is_conservative(field):
     Checks if a field is conservative.
 
     Parameters
-    ==========
-
+    ----------
     field : Vector
         The field to check for conservative property
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import ReferenceFrame
     >>> from sympy.physics.vector import is_conservative
     >>> R = ReferenceFrame('R')
@@ -111,14 +103,12 @@ def is_solenoidal(field):
     Checks if a field is solenoidal.
 
     Parameters
-    ==========
-
+    ----------
     field : Vector
         The field to check for solenoidal property
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import ReferenceFrame
     >>> from sympy.physics.vector import is_solenoidal
     >>> R = ReferenceFrame('R')
@@ -134,8 +124,7 @@ def scalar_potential(field, frame):
     (without the added integration constant).
 
     Parameters
-    ==========
-
+    ----------
     field : Vector
         The vector field whose scalar potential function is to be
         calculated
@@ -144,8 +133,7 @@ def scalar_potential(field, frame):
         The frame to do the calculation in
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import ReferenceFrame
     >>> from sympy.physics.vector import scalar_potential, gradient
     >>> R = ReferenceFrame('R')
@@ -169,8 +157,7 @@ def scalar_potential_difference(field, frame, point1, point2, origin):
     Returns (potential at position 2) - (potential at position 1)
 
     Parameters
-    ==========
-
+    ----------
     field : Vector/sympyfiable
         The field to calculate wrt
 
@@ -188,8 +175,7 @@ def scalar_potential_difference(field, frame, point1, point2, origin):
         calculation
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import ReferenceFrame, Point
     >>> from sympy.physics.vector import scalar_potential_difference
     >>> R = ReferenceFrame('R')

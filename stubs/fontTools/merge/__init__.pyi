@@ -54,4 +54,3 @@ class Merger:
 
 def main(args=None):
     """Merge multiple fonts into one"""
-

@@ -1,12 +1,10 @@
-from enum import Enum
-from typing import cast
-
 from .offsets import BaseOffset
-from typing import Any
+from enum import Enum
+from typing import Any, cast
 
 class PeriodDtypeBase:
     def __init__(self, code: int) -> None: ...
-    def __eq__(self, other: Any) -> bool: ...
+    def __eq__(self, other: object) -> bool: ...
     @property
     def date_offset(self) -> BaseOffset: ...
     @classmethod

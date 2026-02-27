@@ -13,8 +13,7 @@ class ParametricRegion(Basic):
     Represents a parametric region in space.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import cos, sin, pi
     >>> from sympy.abc import r, theta, t, a, b, x, y
     >>> from sympy.vector import ParametricRegion
@@ -43,13 +42,13 @@ class ParametricRegion(Basic):
     1
 
     Parameters
-    ==========
-
+    ----------
     definition : tuple to define base scalars in terms of parameters.
 
     bounds : Parameter or a tuple of length 3 to define parameter and corresponding lower and upper bound.
 
     """
+
     def __new__(cls, definition, *bounds): ...
     @property
     def definition(self): ...
@@ -66,8 +65,7 @@ def parametric_region_list(reg) -> None:
     Returns a list of ParametricRegion objects representing the geometric region.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import t
     >>> from sympy.vector import parametric_region_list
     >>> from sympy.geometry import Point, Curve, Ellipse, Segment, Polygon

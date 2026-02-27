@@ -51,4 +51,3 @@ def tostring(element, encoding=None, xml_declaration=None, method=None, doctype=
 #   parse
 #   register_namespace
 #   tostringlist
-

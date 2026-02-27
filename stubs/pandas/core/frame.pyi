@@ -1,52 +1,25 @@
-from builtins import (
-    bool as _bool,
-    str as _str,
-)
-from collections import (
-    OrderedDict,
-    defaultdict,
-)
-from collections.abc import (
-    Callable,
-    Hashable,
-    Iterable,
-    Iterator,
-    Mapping,
-    MutableMapping,
-    MutableSequence,
-    Sequence,
-)
-import datetime as dt
-import sys
-from typing import (
-    Any,
-    ClassVar,
-    Generic,
-    Literal,
-    Never,
-    NoReturn,
-    Self,
-    TypeAlias,
-    TypeVar,
-    final,
-    overload,
-    type_check_only,
-)
-
+from builtins import bool as _bool, str as _str
+from collections import defaultdict, OrderedDict
+from collections.abc import Callable, Hashable, Iterable, Iterator, Mapping, MutableMapping, MutableSequence, Sequence
 from matplotlib.axes import Axes as PlotAxes
-import numpy as np
 from numpy import typing as npt
-from pandas import (
-    Period,
-    Timedelta,
-    Timestamp,
-)
-from pandas._stubs_only import (
-    PivotAggFuncTypes,
-    PivotTableColumnsTypes,
-    PivotTableIndexTypes,
-    PivotTableValuesTypes,
-)
+from pandas import Period, Timedelta, Timestamp
+from pandas._libs.lib import NoDefault
+from pandas._libs.missing import NAType
+from pandas._libs.tslibs import BaseOffset
+from pandas._stubs_only import PivotAggFuncTypes, PivotTableColumnsTypes, PivotTableIndexTypes, PivotTableValuesTypes
+from pandas._typing import (
+	AggFuncTypeBase, AggFuncTypeDictFrame, AggFuncTypeDictSeries, AggFuncTypeFrame, AlignJoin, AnyAll, AnyArrayLike,
+	ArrayLike, AstypeArg, Axes, AxesData, Axis, AxisColumn, AxisIndex, CalculationMethod, ColspaceArgType,
+	CompressionOptions, DropKeep, Dtype, FilePath, FillnaOptions, FloatFormatType, FormattersType, Frequency,
+	GroupByObjectNonScalar, HashableT, HashableT1, HashableT2, HashableT3, IgnoreRaise, IndexingInt, IndexKeyFunc,
+	IndexLabel, IndexType, InterpolateOptions, IntervalClosedType, IntervalT, IntoColumn, JoinValidate, JsonFrameOrient,
+	JSONSerializable, Label, Level, ListLike, ListLikeExceptSeriesAndStr, ListLikeHashable, ListLikeU, MaskType, MergeHow,
+	MergeValidate, NaPosition, NDFrameT, np_2darray, np_ndarray, np_ndarray_bool, np_ndarray_float, np_ndarray_num,
+	np_ndarray_object, NsmallestNlargestKeep, ParquetEngine, PeriodFrequency, QuantileInterpolation, RandomState,
+	ReadBuffer, ReindexMethod, Renamer, ReplaceValue, S2, Scalar, ScalarOrNA, ScalarT, SequenceNotStr, SeriesByT, SortKind,
+	StataDateFormat, StorageOptions, StrDtypeArg, StrLike, Suffixes, T as _T, TimeAmbiguous, TimeNonexistent, TimeUnit,
+	TimeZones, ToStataByteorder, ToTimestampHow, UpdateJoin, ValueKeyFunc, WriteBuffer, XMLParsers)
 from pandas.core.arraylike import OpsMixin
 from pandas.core.base import IndexOpsMixin
 from pandas.core.generic import NDFrame
@@ -59,123 +32,24 @@ from pandas.core.indexes.interval import IntervalIndex
 from pandas.core.indexes.multi import MultiIndex
 from pandas.core.indexes.period import PeriodIndex
 from pandas.core.indexes.timedeltas import TimedeltaIndex
-
 # The classes are private in pandas implementation. We have to ignore the private usage in the stubs.
 from pandas.core.indexing import _AtIndexer  # pyright: ignore[reportPrivateUsage]
-from pandas.core.indexing import _IndexSliceTuple  # pyright: ignore[reportPrivateUsage]
-from pandas.core.indexing import _LocIndexer  # pyright: ignore[reportPrivateUsage]
 from pandas.core.indexing import _iAtIndexer  # pyright: ignore[reportPrivateUsage]
 from pandas.core.indexing import _iLocIndexer  # pyright: ignore[reportPrivateUsage]
+from pandas.core.indexing import _IndexSliceTuple  # pyright: ignore[reportPrivateUsage]
+from pandas.core.indexing import _LocIndexer  # pyright: ignore[reportPrivateUsage]
 from pandas.core.series import Series
-from pandas.core.window import (
-    Expanding,
-    ExponentialMovingWindow,
-)
-from pandas.core.window.rolling import (
-    Rolling,
-    Window,
-)
-import xarray as xr
-
-from pandas._libs.lib import NoDefault
-from pandas._libs.missing import NAType
-from pandas._libs.tslibs import BaseOffset
-from pandas._typing import (
-    S2,
-    AggFuncTypeBase,
-    AggFuncTypeDictFrame,
-    AggFuncTypeDictSeries,
-    AggFuncTypeFrame,
-    AlignJoin,
-    AnyAll,
-    AnyArrayLike,
-    ArrayLike,
-    AstypeArg,
-    Axes,
-    AxesData,
-    Axis,
-    AxisColumn,
-    AxisIndex,
-    CalculationMethod,
-    ColspaceArgType,
-    CompressionOptions,
-    DropKeep,
-    Dtype,
-    FilePath,
-    FillnaOptions,
-    FloatFormatType,
-    FormattersType,
-    Frequency,
-    GroupByObjectNonScalar,
-    HashableT,
-    HashableT1,
-    HashableT2,
-    HashableT3,
-    IgnoreRaise,
-    IndexingInt,
-    IndexKeyFunc,
-    IndexLabel,
-    IndexType,
-    InterpolateOptions,
-    IntervalClosedType,
-    IntervalT,
-    IntoColumn,
-    JoinValidate,
-    JsonFrameOrient,
-    JSONSerializable,
-    Label,
-    Level,
-    ListLike,
-    ListLikeExceptSeriesAndStr,
-    ListLikeHashable,
-    ListLikeU,
-    MaskType,
-    MergeHow,
-    MergeValidate,
-    NaPosition,
-    NDFrameT,
-    NsmallestNlargestKeep,
-    ParquetEngine,
-    PeriodFrequency,
-    QuantileInterpolation,
-    RandomState,
-    ReadBuffer,
-    ReindexMethod,
-    Renamer,
-    ReplaceValue,
-    Scalar,
-    ScalarOrNA,
-    ScalarT,
-    SequenceNotStr,
-    SeriesByT,
-    SortKind,
-    StataDateFormat,
-    StorageOptions,
-    StrDtypeArg,
-    StrLike,
-    Suffixes,
-    T as _T,
-    TimeAmbiguous,
-    TimeNonexistent,
-    TimeUnit,
-    TimeZones,
-    ToStataByteorder,
-    ToTimestampHow,
-    UpdateJoin,
-    ValueKeyFunc,
-    WriteBuffer,
-    XMLParsers,
-    np_2darray,
-    np_ndarray,
-    np_ndarray_bool,
-    np_ndarray_float,
-    np_ndarray_num,
-    np_ndarray_object,
-)
-
+from pandas.core.window import Expanding, ExponentialMovingWindow
+from pandas.core.window.rolling import Rolling, Window
 from pandas.io.formats.style import Styler
 from pandas.plotting import PlotAccessor
 from pandas.plotting._core import BoxPlotT
+from typing import (
+	Any, ClassVar, final, Generic, Literal, Never, NoReturn, overload, Self, type_check_only, TypeAlias, TypeVar)
+import datetime as dt
+import numpy as np
+import sys
+import xarray as xr
 
 _T_MUTABLE_MAPPING_co = TypeVar(
     "_T_MUTABLE_MAPPING_co", bound=MutableMapping[Any, Any], covariant=True

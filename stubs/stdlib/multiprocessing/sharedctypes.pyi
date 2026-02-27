@@ -1,13 +1,13 @@
-import ctypes
 from _ctypes import _CData
 from collections.abc import Callable, Iterable, Sequence
 from ctypes import _SimpleCData, c_char
 from multiprocessing.context import BaseContext
 from multiprocessing.synchronize import _LockLike
 from types import TracebackType
-from typing import Any, Generic, Literal, Protocol, SupportsIndex, TypeVar, overload, type_check_only
+from typing import Any, Generic, Literal, overload, Protocol, SupportsIndex, type_check_only, TypeVar
+import ctypes
 
-__all__ = ["RawValue", "RawArray", "Value", "Array", "copy", "synchronized"]
+__all__ = ["Array", "RawArray", "RawValue", "Value", "copy", "synchronized"]
 
 _T = TypeVar("_T")
 _CT = TypeVar("_CT", bound=_CData)

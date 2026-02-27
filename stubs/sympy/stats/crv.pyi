@@ -19,7 +19,10 @@ from sympy.series.series import series as series
 from sympy.sets.sets import FiniteSet as FiniteSet, Intersection as Intersection, Interval as Interval, Union as Union
 from sympy.solvers.inequalities import reduce_rational_inequalities as reduce_rational_inequalities
 from sympy.solvers.solveset import solveset as solveset
-from sympy.stats.rv import ConditionalDomain as ConditionalDomain, Distribution as Distribution, NamedArgsMixin as NamedArgsMixin, PSpace as PSpace, ProductDomain as ProductDomain, RandomDomain as RandomDomain, SingleDomain as SingleDomain, SinglePSpace as SinglePSpace, is_random as is_random, random_symbols as random_symbols
+from sympy.stats.rv import (
+	ConditionalDomain as ConditionalDomain, Distribution as Distribution, is_random as is_random,
+	NamedArgsMixin as NamedArgsMixin, ProductDomain as ProductDomain, PSpace as PSpace, random_symbols as random_symbols,
+	RandomDomain as RandomDomain, SingleDomain as SingleDomain, SinglePSpace as SinglePSpace)
 
 class ContinuousDomain(RandomDomain):
     """
@@ -27,6 +30,7 @@ class ContinuousDomain(RandomDomain):
 
     Represented using symbols and Intervals.
     """
+
     is_Continuous: bool
     def as_boolean(self) -> None: ...
 
@@ -36,6 +40,7 @@ class SingleContinuousDomain(ContinuousDomain, SingleDomain):
 
     Represented using a single symbol and interval.
     """
+
     def compute_expectation(self, expr, variables=None, **kwargs): ...
     def as_boolean(self): ...
 
@@ -43,6 +48,7 @@ class ProductContinuousDomain(ProductDomain, ContinuousDomain):
     """
     A collection of independent domains with continuous support
     """
+
     def compute_expectation(self, expr, variables=None, **kwargs): ...
     def as_boolean(self): ...
 
@@ -51,6 +57,7 @@ class ConditionalContinuousDomain(ContinuousDomain, ConditionalDomain):
     A domain with continuous support that has been further restricted by a
     condition such as $x > 3$.
     """
+
     def compute_expectation(self, expr, variables=None, **kwargs): ...
     def as_boolean(self): ...
     @property
@@ -60,7 +67,7 @@ class ContinuousDistribution(Distribution):
     def __call__(self, *args): ...
 
 class SingleContinuousDistribution(ContinuousDistribution, NamedArgsMixin):
-    """ Continuous distribution of a single variable.
+    """Continuous distribution of a single variable.
 
     Explanation
     ===========
@@ -73,60 +80,61 @@ class SingleContinuousDistribution(ContinuousDistribution, NamedArgsMixin):
     Provides methods for pdf, cdf, and sampling.
 
     See Also
-    ========
-
+    --------
     sympy.stats.crv_types.*
     """
+
     set: Incomplete
     def __new__(cls, *args): ...
     @staticmethod
     def check(*args) -> None: ...
     @cacheit
     def compute_cdf(self, **kwargs):
-        """ Compute the CDF from the PDF.
+        """Compute the CDF from the PDF.
 
         Returns a Lambda.
         """
     def _cdf(self, x) -> None: ...
     def cdf(self, x, **kwargs):
-        """ Cumulative density function """
+        """Cumulative density function"""
     @cacheit
     def compute_characteristic_function(self, **kwargs):
-        """ Compute the characteristic function from the PDF.
+        """Compute the characteristic function from the PDF.
 
         Returns a Lambda.
         """
     def _characteristic_function(self, t) -> None: ...
     def characteristic_function(self, t, **kwargs):
-        """ Characteristic function """
+        """Characteristic function"""
     @cacheit
     def compute_moment_generating_function(self, **kwargs):
-        """ Compute the moment generating function from the PDF.
+        """Compute the moment generating function from the PDF.
 
         Returns a Lambda.
         """
     def _moment_generating_function(self, t) -> None: ...
     def moment_generating_function(self, t, **kwargs):
-        """ Moment generating function """
+        """Moment generating function"""
     def expectation(self, expr, var, evaluate: bool = True, **kwargs):
-        """ Expectation of expression over distribution """
+        """Expectation of expression over distribution"""
     @cacheit
     def compute_quantile(self, **kwargs):
-        """ Compute the Quantile from the PDF.
+        """Compute the Quantile from the PDF.
 
         Returns a Lambda.
         """
     def _quantile(self, x) -> None: ...
     def quantile(self, x, **kwargs):
-        """ Cumulative density function """
+        """Cumulative density function"""
 
 class ContinuousPSpace(PSpace):
-    """ Continuous Probability Space
+    """Continuous Probability Space
 
     Represents the likelihood of an event space defined over a continuum.
 
     Represented with a ContinuousDomain and a PDF (Lambda-Like)
     """
+
     is_Continuous: bool
     is_real: bool
     @property
@@ -154,6 +162,7 @@ class SingleContinuousPSpace(ContinuousPSpace, SinglePSpace):
     This class is normally accessed through the various random variable
     functions, Normal, Exponential, Uniform, etc....
     """
+
     @property
     def set(self): ...
     @property

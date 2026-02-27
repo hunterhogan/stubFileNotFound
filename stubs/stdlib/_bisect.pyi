@@ -1,7 +1,7 @@
-import sys
 from _typeshed import SupportsLenAndGetItem, SupportsRichComparisonT
 from collections.abc import Callable, MutableSequence
-from typing import TypeVar, overload
+from typing import overload, TypeVar
+import sys
 
 _T = TypeVar("_T")
 

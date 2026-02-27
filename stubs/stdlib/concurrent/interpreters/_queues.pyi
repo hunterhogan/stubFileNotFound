@@ -1,13 +1,11 @@
+from typing import Final, Self, SupportsIndex
 import queue
 import sys
-from typing import Final, SupportsIndex
-from typing_extensions import Self
 
 if sys.version_info >= (3, 13):  # needed to satisfy pyright checks for Python <3.13
-    from _interpqueues import QueueError as QueueError, QueueNotFoundError as QueueNotFoundError
-
     from . import _crossinterp
-    from ._crossinterp import UNBOUND_ERROR as UNBOUND_ERROR, UNBOUND_REMOVE as UNBOUND_REMOVE, UnboundItem, _AnyUnbound
+    from ._crossinterp import _AnyUnbound, UNBOUND_ERROR as UNBOUND_ERROR, UNBOUND_REMOVE as UNBOUND_REMOVE, UnboundItem
+    from _interpqueues import QueueError as QueueError, QueueNotFoundError as QueueNotFoundError
 
     __all__ = [
         "UNBOUND",

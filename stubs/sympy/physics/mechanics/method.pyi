@@ -1,8 +1,9 @@
-import abc
 from abc import ABC, abstractmethod
+import abc
 
 class _Methods(ABC, metaclass=abc.ABCMeta):
     """Abstract Base Class for all methods."""
+
     @abstractmethod
     def q(self): ...
     @abstractmethod

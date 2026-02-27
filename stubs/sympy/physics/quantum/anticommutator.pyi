@@ -18,16 +18,14 @@ class AntiCommutator(Expr):
     ``__cmp__``. If ``B < A``, then ``{A, B}`` is returned as ``{B, A}``.
 
     Parameters
-    ==========
-
+    ----------
     A : Expr
         The first argument of the anticommutator {A,B}.
     B : Expr
         The second argument of the anticommutator {A,B}.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols
     >>> from sympy.physics.quantum import AntiCommutator
     >>> from sympy.physics.quantum import Operator, Dagger
@@ -59,10 +57,11 @@ class AntiCommutator(Expr):
     {Dagger(A),Dagger(B)}
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Commutator
     """
+
     is_commutative: bool
     _kind_dispatcher: Incomplete
     @property
@@ -71,7 +70,7 @@ class AntiCommutator(Expr):
     @classmethod
     def eval(cls, a, b): ...
     def doit(self, **hints):
-        """ Evaluate anticommutator """
+        """Evaluate anticommutator"""
     def _eval_adjoint(self): ...
     def _sympyrepr(self, printer, *args): ...
     def _sympystr(self, printer, *args): ...

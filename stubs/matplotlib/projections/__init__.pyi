@@ -1,9 +1,11 @@
-from .geo import AitoffAxes as AitoffAxes, HammerAxes as HammerAxes, LambertAxes as LambertAxes, MollweideAxes as MollweideAxes
+from .geo import (
+	AitoffAxes as AitoffAxes, HammerAxes as HammerAxes, LambertAxes as LambertAxes, MollweideAxes as MollweideAxes)
 from .polar import PolarAxes as PolarAxes
 from _typeshed import Incomplete
 
 class ProjectionRegistry:
     """A mapping of registered projection names to projection classes."""
+
     _all_projection_types: Incomplete
     def __init__(self) -> None: ...
     def register(self, *projections) -> None:

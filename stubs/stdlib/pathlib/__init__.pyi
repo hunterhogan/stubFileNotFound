@@ -1,26 +1,18 @@
-import sys
-import types
 from _typeshed import (
-    OpenBinaryMode,
-    OpenBinaryModeReading,
-    OpenBinaryModeUpdating,
-    OpenBinaryModeWriting,
-    OpenTextMode,
-    ReadableBuffer,
-    StrOrBytesPath,
-    StrPath,
-    Unused,
-)
+	OpenBinaryMode, OpenBinaryModeReading, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenTextMode, ReadableBuffer,
+	StrOrBytesPath, StrPath, Unused)
 from collections.abc import Callable, Generator, Iterator, Sequence
 from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
 from os import PathLike, stat_result
 from types import GenericAlias, TracebackType
-from typing import IO, Any, BinaryIO, ClassVar, Literal, TypeVar, overload
-from typing_extensions import Never, Self, deprecated
+from typing import Any, BinaryIO, ClassVar, IO, Literal, Never, overload, Self, TypeVar
+from typing_extensions import deprecated
+import sys
+import types
 
 _PathT = TypeVar("_PathT", bound=PurePath)
 
-__all__ = ["PurePath", "PurePosixPath", "PureWindowsPath", "Path", "PosixPath", "WindowsPath"]
+__all__ = ["Path", "PosixPath", "PurePath", "PurePosixPath", "PureWindowsPath", "WindowsPath"]
 
 if sys.version_info >= (3, 14):
     from pathlib.types import PathInfo
@@ -31,29 +23,29 @@ if sys.version_info >= (3, 13):
 class PurePath(PathLike[str]):
     if sys.version_info >= (3, 13):
         __slots__ = (
-            "_raw_paths",
             "_drv",
+            "_hash",
+            "_parts_normcase_cached",
+            "_raw_paths",
             "_root",
-            "_tail_cached",
             "_str",
             "_str_normcase_cached",
-            "_parts_normcase_cached",
-            "_hash",
+            "_tail_cached",
         )
     elif sys.version_info >= (3, 12):
         __slots__ = (
-            "_raw_paths",
             "_drv",
+            "_hash",
+            "_lines_cached",
+            "_parts_normcase_cached",
+            "_raw_paths",
             "_root",
-            "_tail_cached",
             "_str",
             "_str_normcase_cached",
-            "_parts_normcase_cached",
-            "_lines_cached",
-            "_hash",
+            "_tail_cached",
         )
     else:
-        __slots__ = ("_drv", "_root", "_parts", "_str", "_hash", "_pparts", "_cached_cparts")
+        __slots__ = ("_cached_cparts", "_drv", "_hash", "_parts", "_pparts", "_root", "_str")
     if sys.version_info >= (3, 13):
         parser: ClassVar[types.ModuleType]
         def full_match(self, pattern: StrPath, *, case_sensitive: bool | None = None) -> bool: ...
@@ -189,11 +181,11 @@ class Path(PurePath):
             self, pattern: str, *, case_sensitive: bool | None = None, recurse_symlinks: bool = False
         ) -> Iterator[Self]: ...
     elif sys.version_info >= (3, 12):
-        def glob(self, pattern: str, *, case_sensitive: bool | None = None) -> Generator[Self, None, None]: ...
-        def rglob(self, pattern: str, *, case_sensitive: bool | None = None) -> Generator[Self, None, None]: ...
+        def glob(self, pattern: str, *, case_sensitive: bool | None = None) -> Generator[Self]: ...
+        def rglob(self, pattern: str, *, case_sensitive: bool | None = None) -> Generator[Self]: ...
     else:
-        def glob(self, pattern: str) -> Generator[Self, None, None]: ...
-        def rglob(self, pattern: str) -> Generator[Self, None, None]: ...
+        def glob(self, pattern: str) -> Generator[Self]: ...
+        def rglob(self, pattern: str) -> Generator[Self]: ...
 
     if sys.version_info >= (3, 12):
         def exists(self, *, follow_symlinks: bool = True) -> bool: ...
@@ -208,7 +200,7 @@ class Path(PurePath):
     if sys.version_info >= (3, 12):
         def is_junction(self) -> bool: ...
 
-    def iterdir(self) -> Generator[Self, None, None]: ...
+    def iterdir(self) -> Generator[Self]: ...
     def lchmod(self, mode: int) -> None: ...
     def lstat(self) -> stat_result: ...
     def mkdir(self, mode: int = 0o777, parents: bool = False, exist_ok: bool = False) -> None: ...
@@ -298,13 +290,12 @@ class Path(PurePath):
         else:
             def owner(self: Never) -> str: ...  # type: ignore[misc]
             def group(self: Never) -> str: ...  # type: ignore[misc]
+    elif sys.version_info >= (3, 13):
+        def owner(self, *, follow_symlinks: bool = True) -> str: ...
+        def group(self, *, follow_symlinks: bool = True) -> str: ...
     else:
-        if sys.version_info >= (3, 13):
-            def owner(self, *, follow_symlinks: bool = True) -> str: ...
-            def group(self, *, follow_symlinks: bool = True) -> str: ...
-        else:
-            def owner(self) -> str: ...
-            def group(self) -> str: ...
+        def owner(self) -> str: ...
+        def group(self) -> str: ...
 
     # This method does "exist" on Windows on <3.12, but always raises NotImplementedError
     # On py312+, it works properly on Windows, as with all other platforms

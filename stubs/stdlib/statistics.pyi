@@ -1,33 +1,32 @@
-import sys
 from _typeshed import SupportsRichComparisonT
 from collections.abc import Callable, Hashable, Iterable, Sequence, Sized
 from decimal import Decimal
 from fractions import Fraction
-from typing import Literal, NamedTuple, Protocol, SupportsFloat, SupportsIndex, TypeVar
-from typing_extensions import Self, TypeAlias
+from typing import Literal, NamedTuple, Protocol, Self, SupportsFloat, SupportsIndex, TypeAlias, TypeVar
+import sys
 
 __all__ = [
+    "NormalDist",
     "StatisticsError",
     "fmean",
     "geometric_mean",
-    "mean",
     "harmonic_mean",
-    "pstdev",
-    "pvariance",
-    "stdev",
-    "variance",
+    "mean",
     "median",
-    "median_low",
-    "median_high",
     "median_grouped",
+    "median_high",
+    "median_low",
     "mode",
     "multimode",
-    "NormalDist",
+    "pstdev",
+    "pvariance",
     "quantiles",
+    "stdev",
+    "variance",
 ]
 
 if sys.version_info >= (3, 10):
-    __all__ += ["covariance", "correlation", "linear_regression"]
+    __all__ += ["correlation", "covariance", "linear_regression"]
 if sys.version_info >= (3, 13):
     __all__ += ["kde", "kde_random"]
 
@@ -39,7 +38,7 @@ _NumberT = TypeVar("_NumberT", float, Decimal, Fraction)
 _HashableT = TypeVar("_HashableT", bound=Hashable)
 
 # Used in NormalDist.samples and kde_random
-_Seed: TypeAlias = int | float | str | bytes | bytearray  # noqa: Y041
+_Seed: TypeAlias = int | float | str | bytes | bytearray
 
 # Used in linear_regression
 _T_co = TypeVar("_T_co", covariant=True)

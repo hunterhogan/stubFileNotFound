@@ -17,20 +17,19 @@ def is_associative(x): ...
 def is_commutative(x): ...
 def mk_matchtype(typ): ...
 def deconstruct(s, variables=()):
-    """ Turn a SymPy object into a Compound """
+    """Turn a SymPy object into a Compound"""
 def construct(t):
-    """ Turn a Compound into a SymPy object """
+    """Turn a Compound into a SymPy object"""
 def rebuild(s):
-    """ Rebuild a SymPy expression.
+    """Rebuild a SymPy expression.
 
     This removes harm caused by Expr-Rules interactions.
     """
 def unify(x, y, s=None, variables=(), **kwargs) -> Generator[Incomplete, None, Incomplete]:
-    """ Structural unification of two expressions/patterns.
+    """Structural unification of two expressions/patterns.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.unify.usympy import unify
     >>> from sympy import Basic, S
     >>> from sympy.abc import x, y, z, p, q

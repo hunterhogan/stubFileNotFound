@@ -1,10 +1,9 @@
 from __future__ import annotations
 
+from collections import UserDict
+from typing import Any, assert_type, Literal, TypeVar, Union
 import sys
 import types
-from collections import UserDict
-from typing import Any, Literal, TypeVar, Union
-from typing_extensions import assert_type
 
 _T = TypeVar("_T")
 

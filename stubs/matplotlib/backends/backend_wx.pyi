@@ -1,10 +1,16 @@
-import wx
 from _typeshed import Incomplete
-from matplotlib import _api as _api, _c_internal_utils as _c_internal_utils, backend_tools as backend_tools, cbook as cbook
+from matplotlib import (
+	_api as _api, _c_internal_utils as _c_internal_utils, backend_tools as backend_tools, cbook as cbook)
 from matplotlib._pylab_helpers import Gcf as Gcf
-from matplotlib.backend_bases import CloseEvent as CloseEvent, FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, GraphicsContextBase as GraphicsContextBase, KeyEvent as KeyEvent, LocationEvent as LocationEvent, MouseButton as MouseButton, MouseEvent as MouseEvent, NavigationToolbar2 as NavigationToolbar2, RendererBase as RendererBase, ResizeEvent as ResizeEvent, TimerBase as TimerBase, ToolContainerBase as ToolContainerBase, _Backend as _Backend, cursors as cursors
+from matplotlib.backend_bases import (
+	_Backend as _Backend, CloseEvent as CloseEvent, cursors as cursors, FigureCanvasBase as FigureCanvasBase,
+	FigureManagerBase as FigureManagerBase, GraphicsContextBase as GraphicsContextBase, KeyEvent as KeyEvent,
+	LocationEvent as LocationEvent, MouseButton as MouseButton, MouseEvent as MouseEvent,
+	NavigationToolbar2 as NavigationToolbar2, RendererBase as RendererBase, ResizeEvent as ResizeEvent,
+	TimerBase as TimerBase, ToolContainerBase as ToolContainerBase)
 from matplotlib.path import Path as Path
 from matplotlib.transforms import Affine2D as Affine2D
+import wx
 
 _log: Incomplete
 PIXELS_PER_INCH: int
@@ -13,6 +19,7 @@ def _create_wxapp(): ...
 
 class TimerWx(TimerBase):
     """Subclass of `.TimerBase` using wx.Timer events."""
+
     _timer: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
     def _timer_start(self) -> None: ...
@@ -25,6 +32,7 @@ class RendererWx(RendererBase):
     context instance that controls the colors/styles. It acts as the
     'renderer' instance used by many classes in the hierarchy.
     """
+
     fontweights: Incomplete
     fontangles: Incomplete
     fontnames: Incomplete
@@ -64,6 +72,7 @@ class GraphicsContextWx(GraphicsContextBase):
     since wxPython colour management is rather simple, I have not chosen
     to implement a separate colour manager class.
     """
+
     _capd: Incomplete
     _joind: Incomplete
     _cache: Incomplete
@@ -94,6 +103,7 @@ class _FigureCanvasWxBase(FigureCanvasBase, wx.Panel):
     probably implements a wx.Sizer to control the displayed control size - but
     we give a hint as to our preferred minimum size.
     """
+
     required_interactive_framework: str
     _timer_cls = TimerWx
     manager_class: Incomplete
@@ -204,6 +214,7 @@ class FigureManagerWx(FigureManagerBase):
     window : wxFrame
         a wxFrame instance - wxpython.org/Phoenix/docs/html/Frame.html
     """
+
     frame: Incomplete
     def __init__(self, canvas, num, frame) -> None: ...
     @classmethod
@@ -218,10 +229,10 @@ class FigureManagerWx(FigureManagerBase):
     def resize(self, width, height) -> None: ...
 
 def _load_bitmap(filename):
-    '''
+    """
     Load a wx.Bitmap from a file in the "images" directory of the Matplotlib
     data.
-    '''
+    """
 def _set_frame_icon(frame) -> None: ...
 
 class NavigationToolbar2Wx(NavigationToolbar2, wx.ToolBar):
@@ -231,11 +242,11 @@ class NavigationToolbar2Wx(NavigationToolbar2, wx.ToolBar):
     def __init__(self, canvas, coordinates: bool = True, *, style=...) -> None: ...
     @staticmethod
     def _icon(name):
-        '''
+        """
         Construct a `wx.Bitmap` suitable for use as icon from an image file
         *name*, including the extension and relative to Matplotlib\'s "images"
         data directory.
-        '''
+        """
     def _update_buttons_checked(self) -> None: ...
     def zoom(self, *args) -> None: ...
     def pan(self, *args) -> None: ...

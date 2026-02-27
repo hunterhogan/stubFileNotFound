@@ -1,5 +1,5 @@
-import sys
 from typing import Any, overload
+import sys
 
 _defaultaction: str
 _onceregistry: dict[Any, Any]

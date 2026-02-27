@@ -98,13 +98,11 @@ class AbstractPythonCodePrinter(CodePrinter):
         """Printing helper function for ``Pow``
 
         Notes
-        =====
-
+        -----
         This preprocesses the ``sqrt`` as math formatter and prints division
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sqrt
         >>> from sympy.printing.pycode import PythonCodePrinter
         >>> from sympy.abc import x
@@ -133,8 +131,7 @@ class AbstractPythonCodePrinter(CodePrinter):
         'mpmath.sqrt(x)'
 
         See Also
-        ========
-
+        --------
         sympy.printing.str.StrPrinter._print_Pow
         """
 
@@ -168,11 +165,10 @@ class PythonCodePrinter(AbstractPythonCodePrinter):
     _print_fresnels: Incomplete
 
 def pycode(expr, **settings):
-    """ Converts an expr to a string of Python code
+    """Converts an expr to a string of Python code
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
         A SymPy expression.
     fully_qualified_modules : bool
@@ -183,8 +179,7 @@ def pycode(expr, **settings):
         This parameter may be removed in the future.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import pycode, tan, Symbol
     >>> pycode(tan(Symbol('x')) + 1)
     'math.tan(x) + 1'
@@ -195,7 +190,8 @@ _known_functions_cmath: Incomplete
 _known_constants_cmath: Incomplete
 
 class CmathPrinter(PythonCodePrinter):
-    """ Printer for Python's cmath module """
+    """Printer for Python's cmath module"""
+
     printmethod: str
     language: str
     _kf: Incomplete
@@ -215,17 +211,18 @@ _known_functions_mpmath: Incomplete
 _known_constants_mpmath: Incomplete
 
 def _unpack_integral_limits(integral_expr):
-    """ helper function for _print_Integral that
-        - accepts an Integral expression
-        - returns a tuple of
-           - a list variables of integration
-           - a list of tuples of the upper and lower limits of integration
+    """Helper function for _print_Integral that
+    - accepts an Integral expression
+    - returns a tuple of
+       - a list variables of integration
+       - a list of tuples of the upper and lower limits of integration
     """
 
 class MpmathPrinter(PythonCodePrinter):
     """
     Lambda printer for mpmath which maintains precision for floats
     """
+
     printmethod: str
     language: str
     _kf: Incomplete

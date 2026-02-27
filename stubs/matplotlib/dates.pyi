@@ -1,9 +1,11 @@
 from _typeshed import Incomplete
 from dateutil.relativedelta import relativedelta as relativedelta
-from dateutil.rrule import DAILY as DAILY, FR as FR, HOURLY as HOURLY, MINUTELY as MINUTELY, MO as MO, MONTHLY as MONTHLY, SA as SA, SECONDLY as SECONDLY, SU as SU, TH as TH, TU as TU, WE as WE, WEEKLY as WEEKLY, YEARLY as YEARLY, rrule as rrule
+from dateutil.rrule import (
+	DAILY as DAILY, FR as FR, HOURLY as HOURLY, MINUTELY as MINUTELY, MO as MO, MONTHLY as MONTHLY, rrule as rrule,
+	SA as SA, SECONDLY as SECONDLY, SU as SU, TH as TH, TU as TU, WE as WE, WEEKLY as WEEKLY, YEARLY as YEARLY)
 from matplotlib import ticker, units
 
-__all__ = ['datestr2num', 'date2num', 'num2date', 'num2timedelta', 'drange', 'set_epoch', 'get_epoch', 'DateFormatter', 'ConciseDateFormatter', 'AutoDateFormatter', 'DateLocator', 'RRuleLocator', 'AutoDateLocator', 'YearLocator', 'MonthLocator', 'WeekdayLocator', 'DayLocator', 'HourLocator', 'MinuteLocator', 'SecondLocator', 'MicrosecondLocator', 'rrule', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU', 'YEARLY', 'MONTHLY', 'WEEKLY', 'DAILY', 'HOURLY', 'MINUTELY', 'SECONDLY', 'MICROSECONDLY', 'relativedelta', 'DateConverter', 'ConciseDateConverter', 'rrulewrapper']
+__all__ = ['DAILY', 'FR', 'HOURLY', 'MICROSECONDLY', 'MINUTELY', 'MO', 'MONTHLY', 'SA', 'SECONDLY', 'SU', 'TH', 'TU', 'WE', 'WEEKLY', 'YEARLY', 'AutoDateFormatter', 'AutoDateLocator', 'ConciseDateConverter', 'ConciseDateFormatter', 'DateConverter', 'DateFormatter', 'DateLocator', 'DayLocator', 'HourLocator', 'MicrosecondLocator', 'MinuteLocator', 'MonthLocator', 'RRuleLocator', 'SecondLocator', 'WeekdayLocator', 'YearLocator', 'date2num', 'datestr2num', 'drange', 'get_epoch', 'num2date', 'num2timedelta', 'relativedelta', 'rrule', 'rrulewrapper', 'set_epoch']
 
 MICROSECONDLY: Incomplete
 
@@ -52,7 +54,7 @@ def datestr2num(d, default: Incomplete | None = None):
         The default date to use when fields are missing in *d*.
     """
 def date2num(d):
-    '''
+    """
     Convert datetime objects to Matplotlib dates.
 
     Parameters
@@ -71,7 +73,7 @@ def date2num(d):
     -----
     The Gregorian calendar is assumed; this is not universal practice.
     For details see the module docstring.
-    '''
+    """
 def num2date(x, tz: Incomplete | None = None):
     """
     Convert Matplotlib dates to `~datetime.datetime` objects.
@@ -140,6 +142,7 @@ class DateFormatter(ticker.Formatter):
     Format a tick (in days since the epoch) with a
     `~datetime.datetime.strftime` format string.
     """
+
     tz: Incomplete
     fmt: Incomplete
     _usetex: Incomplete
@@ -159,7 +162,7 @@ class DateFormatter(ticker.Formatter):
     def set_tzinfo(self, tz) -> None: ...
 
 class ConciseDateFormatter(ticker.Formatter):
-    '''
+    """
     A `.Formatter` which attempts to figure out the best format to use for the
     date, and to make it as compact as possible, but still be complete. This is
     most useful when used with the `AutoDateLocator`::
@@ -227,7 +230,8 @@ class ConciseDateFormatter(ticker.Formatter):
         ax.plot(dates, y)
         ax.set_title(\'Concise Date Formatter\')
 
-    '''
+    """
+
     _locator: Incomplete
     _tz: Incomplete
     defaultfmt: str
@@ -248,7 +252,7 @@ class ConciseDateFormatter(ticker.Formatter):
     def format_data_short(self, value): ...
 
 class AutoDateFormatter(ticker.Formatter):
-    '''
+    """
     A `.Formatter` which attempts to figure out the best format to use.  This
     is most useful when used with the `AutoDateLocator`.
 
@@ -290,7 +294,8 @@ class AutoDateFormatter(ticker.Formatter):
             return label
 
         formatter.scaled[1/(24*60)] = my_format_function
-    '''
+    """
+
     _locator: Incomplete
     _tz: Incomplete
     defaultfmt: Incomplete
@@ -327,6 +332,7 @@ class rrulewrapper:
     A simple wrapper around a `dateutil.rrule` allowing flexible
     date tick specifications.
     """
+
     _base_tzinfo: Incomplete
     def __init__(self, freq, tzinfo: Incomplete | None = None, **kwargs) -> None:
         """
@@ -359,6 +365,7 @@ class DateLocator(ticker.Locator):
     This class is subclassed by other Locators and
     is not meant to be used on its own.
     """
+
     hms0d: Incomplete
     tz: Incomplete
     def __init__(self, tz: Incomplete | None = None) -> None:
@@ -446,6 +453,7 @@ class AutoDateLocator(DateLocator):
             locator = AutoDateLocator()
             locator.intervald[HOURLY] = [3]  # only show every 3 hours
     """
+
     _freq: Incomplete
     _freqs: Incomplete
     minticks: Incomplete
@@ -496,6 +504,7 @@ class YearLocator(RRuleLocator):
       # Tick every 5 years on July 4th
       locator = YearLocator(5, month=7, day=4)
     """
+
     base: Incomplete
     def __init__(self, base: int = 1, month: int = 1, day: int = 1, tz: Incomplete | None = None) -> None:
         """
@@ -517,6 +526,7 @@ class MonthLocator(RRuleLocator):
     """
     Make ticks on occurrences of each month, e.g., 1, 3, 12.
     """
+
     def __init__(self, bymonth: Incomplete | None = None, bymonthday: int = 1, interval: int = 1, tz: Incomplete | None = None) -> None:
         """
         Parameters
@@ -537,6 +547,7 @@ class WeekdayLocator(RRuleLocator):
     """
     Make ticks on occurrences of each weekday.
     """
+
     def __init__(self, byweekday: int = 1, interval: int = 1, tz: Incomplete | None = None) -> None:
         """
         Parameters
@@ -560,6 +571,7 @@ class DayLocator(RRuleLocator):
     Make ticks on occurrences of each day of the month.  For example,
     1, 15, 30.
     """
+
     def __init__(self, bymonthday: Incomplete | None = None, interval: int = 1, tz: Incomplete | None = None) -> None:
         """
         Parameters
@@ -578,6 +590,7 @@ class HourLocator(RRuleLocator):
     """
     Make ticks on occurrences of each hour.
     """
+
     def __init__(self, byhour: Incomplete | None = None, interval: int = 1, tz: Incomplete | None = None) -> None:
         """
         Parameters
@@ -596,6 +609,7 @@ class MinuteLocator(RRuleLocator):
     """
     Make ticks on occurrences of each minute.
     """
+
     def __init__(self, byminute: Incomplete | None = None, interval: int = 1, tz: Incomplete | None = None) -> None:
         """
         Parameters
@@ -614,6 +628,7 @@ class SecondLocator(RRuleLocator):
     """
     Make ticks on occurrences of each second.
     """
+
     def __init__(self, bysecond: Incomplete | None = None, interval: int = 1, tz: Incomplete | None = None) -> None:
         """
         Parameters
@@ -650,6 +665,7 @@ class MicrosecondLocator(DateLocator):
         See :doc:`/gallery/ticks/date_precision_and_epochs`.
 
     """
+
     _interval: Incomplete
     _wrapped_locator: Incomplete
     def __init__(self, interval: int = 1, tz: Incomplete | None = None) -> None:
@@ -675,6 +691,7 @@ class DateConverter(units.ConversionInterface):
 
     The 'unit' tag for such data is None or a `~datetime.tzinfo` instance.
     """
+
     _interval_multiples: Incomplete
     def __init__(self, *, interval_multiples: bool = True) -> None: ...
     def axisinfo(self, unit, axis):
@@ -714,6 +731,7 @@ class _SwitchableDateConverter:
     temporary ConciseDateConverter or DateConverter instances based on
     :rc:`date.converter` and :rc:`date.interval_multiples`.
     """
+
     @staticmethod
     def _get_converter(): ...
     def axisinfo(self, *args, **kwargs): ...

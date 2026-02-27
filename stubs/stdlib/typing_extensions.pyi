@@ -1,71 +1,26 @@
-import abc
-import enum
-import sys
 from _collections_abc import dict_items, dict_keys, dict_values
 from _typeshed import AnnotationForm, IdentityFunction, Incomplete, Unused
 from collections.abc import (
-    AsyncGenerator as AsyncGenerator,
-    AsyncIterable as AsyncIterable,
-    AsyncIterator as AsyncIterator,
-    Awaitable as Awaitable,
-    Collection as Collection,
-    Container as Container,
-    Coroutine as Coroutine,
-    Generator as Generator,
-    Hashable as Hashable,
-    ItemsView as ItemsView,
-    Iterable as Iterable,
-    Iterator as Iterator,
-    KeysView as KeysView,
-    Mapping as Mapping,
-    MappingView as MappingView,
-    MutableMapping as MutableMapping,
-    MutableSequence as MutableSequence,
-    MutableSet as MutableSet,
-    Reversible as Reversible,
-    Sequence as Sequence,
-    Sized as Sized,
-    ValuesView as ValuesView,
-)
+	AsyncGenerator as AsyncGenerator, AsyncIterable as AsyncIterable, AsyncIterator as AsyncIterator,
+	Awaitable as Awaitable, Collection as Collection, Container as Container, Coroutine as Coroutine,
+	Generator as Generator, Hashable as Hashable, ItemsView as ItemsView, Iterable as Iterable, Iterator as Iterator,
+	KeysView as KeysView, Mapping as Mapping, MappingView as MappingView, MutableMapping as MutableMapping,
+	MutableSequence as MutableSequence, MutableSet as MutableSet, Reversible as Reversible, Sequence as Sequence,
+	Sized as Sized, ValuesView as ValuesView)
 from contextlib import AbstractAsyncContextManager as AsyncContextManager, AbstractContextManager as ContextManager
 from re import Match as Match, Pattern as Pattern
 from types import GenericAlias, ModuleType
-from typing import (  # noqa: Y022,Y037,Y038,Y039,UP035,RUF100
-    IO as IO,
-    TYPE_CHECKING as TYPE_CHECKING,
-    AbstractSet as AbstractSet,
-    Any as Any,
-    AnyStr as AnyStr,
-    BinaryIO as BinaryIO,
-    Callable as Callable,
-    ChainMap as ChainMap,
-    ClassVar as ClassVar,
-    Counter as Counter,
-    DefaultDict as DefaultDict,
-    Deque as Deque,
-    Dict as Dict,
-    ForwardRef as ForwardRef,
-    FrozenSet as FrozenSet,
-    Generic as Generic,
-    List as List,
-    NoReturn as NoReturn,
-    Optional as Optional,
-    Set as Set,
-    Text as Text,
-    TextIO as TextIO,
-    Tuple as Tuple,
-    Type as Type,
-    TypedDict as TypedDict,
-    TypeVar as _TypeVar,
-    Union as Union,
-    _Alias,
-    _SpecialForm,
-    cast as cast,
-    no_type_check as no_type_check,
-    no_type_check_decorator as no_type_check_decorator,
-    overload as overload,
-    type_check_only,
-)
+from typing import (  # noqa:UP035,RUF100
+	_Alias, _SpecialForm, AbstractSet as AbstractSet, Any as Any, AnyStr as AnyStr, BinaryIO as BinaryIO,
+	Callable as Callable, cast as cast, ChainMap as ChainMap, ClassVar as ClassVar, Counter as Counter,
+	DefaultDict as DefaultDict, Deque as Deque, Dict as Dict, ForwardRef as ForwardRef, FrozenSet as FrozenSet,
+	Generic as Generic, IO as IO, List as List, no_type_check as no_type_check,
+	no_type_check_decorator as no_type_check_decorator, NoReturn as NoReturn, Optional as Optional, overload as overload,
+	Set as Set, Text as Text, TextIO as TextIO, Tuple as Tuple, Type as Type, type_check_only,
+	TYPE_CHECKING as TYPE_CHECKING, TypedDict as TypedDict, TypeVar as _TypeVar, Union as Union)
+import abc
+import enum
+import sys
 
 if sys.version_info >= (3, 10):
     from types import UnionType
@@ -292,13 +247,8 @@ _AnnotatedAlias: Any  # undocumented
 # New and changed things in 3.10
 if sys.version_info >= (3, 10):
     from typing import (
-        Concatenate as Concatenate,
-        ParamSpecArgs as ParamSpecArgs,
-        ParamSpecKwargs as ParamSpecKwargs,
-        TypeAlias as TypeAlias,
-        TypeGuard as TypeGuard,
-        is_typeddict as is_typeddict,
-    )
+    	Concatenate as Concatenate, is_typeddict as is_typeddict, ParamSpecArgs as ParamSpecArgs,
+    	ParamSpecKwargs as ParamSpecKwargs, TypeAlias as TypeAlias, TypeGuard as TypeGuard)
 else:
     @final
     class ParamSpecArgs:
@@ -320,21 +270,10 @@ else:
 # New and changed things in 3.11
 if sys.version_info >= (3, 11):
     from typing import (
-        LiteralString as LiteralString,
-        NamedTuple as NamedTuple,
-        Never as Never,
-        NewType as NewType,
-        NotRequired as NotRequired,
-        Required as Required,
-        Self as Self,
-        Unpack as Unpack,
-        assert_never as assert_never,
-        assert_type as assert_type,
-        clear_overloads as clear_overloads,
-        dataclass_transform as dataclass_transform,
-        get_overloads as get_overloads,
-        reveal_type as reveal_type,
-    )
+    	assert_never as assert_never, assert_type as assert_type, clear_overloads as clear_overloads,
+    	dataclass_transform as dataclass_transform, get_overloads as get_overloads, LiteralString as LiteralString,
+    	NamedTuple as NamedTuple, Never as Never, NewType as NewType, NotRequired as NotRequired, Required as Required,
+    	reveal_type as reveal_type, Self as Self, Unpack as Unpack)
 else:
     Self: _SpecialForm
     Never: _SpecialForm
@@ -385,15 +324,9 @@ if sys.version_info >= (3, 12):
     from collections.abc import Buffer as Buffer
     from types import get_original_bases as get_original_bases
     from typing import (
-        SupportsAbs as SupportsAbs,
-        SupportsBytes as SupportsBytes,
-        SupportsComplex as SupportsComplex,
-        SupportsFloat as SupportsFloat,
-        SupportsIndex as SupportsIndex,
-        SupportsInt as SupportsInt,
-        SupportsRound as SupportsRound,
-        override as override,
-    )
+    	override as override, SupportsAbs as SupportsAbs, SupportsBytes as SupportsBytes,
+    	SupportsComplex as SupportsComplex, SupportsFloat as SupportsFloat, SupportsIndex as SupportsIndex,
+    	SupportsInt as SupportsInt, SupportsRound as SupportsRound)
 else:
     def override(arg: _F, /) -> _F: ...
     def get_original_bases(cls: type, /) -> tuple[Any, ...]: ...
@@ -471,15 +404,8 @@ else:
 if sys.version_info >= (3, 13):
     from types import CapsuleType as CapsuleType
     from typing import (
-        NoDefault as NoDefault,
-        ParamSpec as ParamSpec,
-        ReadOnly as ReadOnly,
-        TypeIs as TypeIs,
-        TypeVar as TypeVar,
-        TypeVarTuple as TypeVarTuple,
-        get_protocol_members as get_protocol_members,
-        is_protocol as is_protocol,
-    )
+    	get_protocol_members as get_protocol_members, is_protocol as is_protocol, NoDefault as NoDefault,
+    	ParamSpec as ParamSpec, ReadOnly as ReadOnly, TypeIs as TypeIs, TypeVar as TypeVar, TypeVarTuple as TypeVarTuple)
     from warnings import deprecated as deprecated
 else:
     def is_protocol(tp: type, /) -> bool: ...
@@ -627,9 +553,8 @@ TypeForm: _SpecialForm
 
 # PEP 649/749
 if sys.version_info >= (3, 14):
-    from typing import evaluate_forward_ref as evaluate_forward_ref
-
     from annotationlib import Format as Format, get_annotations as get_annotations, type_repr as type_repr
+    from typing import evaluate_forward_ref as evaluate_forward_ref
 else:
     class Format(enum.IntEnum):
         VALUE = 1
@@ -662,7 +587,7 @@ else:
         globals: Mapping[str, Any] | None = None,  # value types depend on the key
         locals: Mapping[str, Any] | None = None,  # value types depend on the key
         eval_str: bool = False,
-        format: Format = Format.VALUE,  # noqa: Y011
+        format: Format = ...,
     ) -> dict[str, AnnotationForm]: ...
     @overload
     def evaluate_forward_ref(

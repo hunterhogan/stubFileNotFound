@@ -13,6 +13,9 @@ from sympy.matrices.expressions.matmul import MatMul as MatMul
 from sympy.matrices.expressions.matpow import MatPow as MatPow
 from sympy.matrices.expressions.trace import Trace as Trace
 from sympy.matrices.expressions.transpose import Transpose as Transpose
-from sympy.tensor.array.expressions.array_expressions import ArrayElementwiseApplyFunc as ArrayElementwiseApplyFunc, Reshape as Reshape, _array_add as _array_add, _array_contraction as _array_contraction, _array_diagonal as _array_diagonal, _array_tensor_product as _array_tensor_product, _permute_dims as _permute_dims
+from sympy.tensor.array.expressions.array_expressions import (
+	_array_add as _array_add, _array_contraction as _array_contraction, _array_diagonal as _array_diagonal,
+	_array_tensor_product as _array_tensor_product, _permute_dims as _permute_dims,
+	ArrayElementwiseApplyFunc as ArrayElementwiseApplyFunc, Reshape as Reshape)
 
 def convert_matrix_to_array(expr: Basic) -> Basic: ...

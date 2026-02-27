@@ -5,7 +5,7 @@ from sympy.core.numbers import int_valued as int_valued
 from sympy.simplify.simplify import nsimplify as nsimplify
 
 class interval:
-    """ Represents an interval containing floating points as start and
+    """Represents an interval containing floating points as start and
     end of the interval
     The is_valid variable tracks whether the interval obtained as the
     result of the function is in the domain and is continuous.
@@ -21,6 +21,7 @@ class interval:
     comparison between two intervals may return ``intervalMembership``
     of two 3-valued logic values.
     """
+
     is_valid: Incomplete
     start: Incomplete
     end: Incomplete
@@ -29,8 +30,6 @@ class interval:
     def mid(self): ...
     @property
     def width(self): ...
-    def __repr__(self) -> str: ...
-    def __str__(self) -> str: ...
     def __lt__(self, other): ...
     def __gt__(self, other): ...
     def __eq__(self, other): ...

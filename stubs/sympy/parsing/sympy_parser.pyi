@@ -1,17 +1,18 @@
-import ast
 from _typeshed import Incomplete
+from collections.abc import Callable
 from sympy.assumptions.ask import AssumptionKeys as AssumptionKeys
 from sympy.core import Symbol as Symbol
 from sympy.core.basic import Basic as Basic
 from sympy.core.function import Function as Function
 from sympy.functions.elementary.miscellaneous import Max as Max, Min as Min
 from sympy.utilities.misc import func_name as func_name
-from typing import Any, Callable
+from typing import Any, TypeAlias
+import ast
 
 null: str
-TOKEN = tuple[int, str]
-DICT = dict[str, Any]
-TRANS = Callable[[list[TOKEN], DICT, DICT], list[TOKEN]]
+TOKEN: TypeAlias = tuple[int, str]
+DICT: TypeAlias = dict[str, Any]
+TRANS: TypeAlias = Callable[[list[TOKEN], DICT, DICT], list[TOKEN]]
 
 def _token_splittable(token_name: str) -> bool:
     """
@@ -39,6 +40,7 @@ class AppliedFunction:
 
     `exponent` is for handling the shorthand sin^2, ln^2, etc.
     """
+
     function: Incomplete
     args: Incomplete
     exponent: Incomplete
@@ -47,7 +49,6 @@ class AppliedFunction:
     def expand(self) -> list[TOKEN]:
         """Return a list of tokens representing the function"""
     def __getitem__(self, index): ...
-    def __repr__(self) -> str: ...
 
 def _flatten(result: list[TOKEN | AppliedFunction]): ...
 def _group_parentheses(recursor: TRANS): ...
@@ -59,7 +60,7 @@ def _apply_functions(tokens: list[TOKEN | ParenthesisGroup], local_dict: DICT, g
 
     """
 def _implicit_multiplication(tokens: list[TOKEN | AppliedFunction], local_dict: DICT, global_dict: DICT):
-    '''Implicitly adds \'*\' tokens.
+    """Implicitly adds \'*\' tokens.
 
     Cases:
 
@@ -72,15 +73,14 @@ def _implicit_multiplication(tokens: list[TOKEN | AppliedFunction], local_dict: 
 
     - AppliedFunction next to an implicitly applied function ("sin(x)cos x")
 
-    '''
+    """
 def _implicit_application(tokens: list[TOKEN | AppliedFunction], local_dict: DICT, global_dict: DICT):
     """Adds parentheses as needed after functions."""
 def function_exponentiation(tokens: list[TOKEN], local_dict: DICT, global_dict: DICT):
     """Allows functions to be exponentiated, e.g. ``cos**2(x)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.parsing.sympy_parser import (parse_expr,
     ... standard_transformations, function_exponentiation)
     >>> transformations = standard_transformations + (function_exponentiation,)
@@ -119,8 +119,7 @@ def implicit_multiplication(tokens: list[TOKEN], local_dict: DICT, global_dict: 
     ``sin 2x`` will be parsed as ``x * sin(2)`` rather than ``sin(2*x)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.parsing.sympy_parser import (parse_expr,
     ... standard_transformations, implicit_multiplication)
     >>> transformations = standard_transformations + (implicit_multiplication,)
@@ -135,8 +134,7 @@ def implicit_application(tokens: list[TOKEN], local_dict: DICT, global_dict: DIC
     ``sin(2*x)``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.parsing.sympy_parser import (parse_expr,
     ... standard_transformations, implicit_application)
     >>> transformations = standard_transformations + (implicit_application,)
@@ -144,7 +142,7 @@ def implicit_application(tokens: list[TOKEN], local_dict: DICT, global_dict: DIC
     cot(z) + csc(z)
     """
 def implicit_multiplication_application(result: list[TOKEN], local_dict: DICT, global_dict: DICT) -> list[TOKEN]:
-    '''Allows a slightly relaxed syntax.
+    """Allows a slightly relaxed syntax.
 
     - Parentheses for single-argument method calls are optional.
 
@@ -156,8 +154,7 @@ def implicit_multiplication_application(result: list[TOKEN], local_dict: DICT, g
     - Functions can be exponentiated.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.parsing.sympy_parser import (parse_expr,
     ... standard_transformations, implicit_multiplication_application)
     >>> parse_expr("10sin**2 x**2 + 3xyz + tan theta",
@@ -165,15 +162,15 @@ def implicit_multiplication_application(result: list[TOKEN], local_dict: DICT, g
     ... (implicit_multiplication_application,)))
     3*x*y*z + 10*sin(x**2)**2 + tan(theta)
 
-    '''
+    """
 def auto_symbol(tokens: list[TOKEN], local_dict: DICT, global_dict: DICT):
     """Inserts calls to ``Symbol``/``Function`` for undefined variables."""
 def lambda_notation(tokens: list[TOKEN], local_dict: DICT, global_dict: DICT):
-    '''Substitutes "lambda" with its SymPy equivalent Lambda().
+    """Substitutes "lambda" with its SymPy equivalent Lambda().
     However, the conversion does not take place if only "lambda"
     is passed because that is a syntax error.
 
-    '''
+    """
 def factorial_notation(tokens: list[TOKEN], local_dict: DICT, global_dict: DICT):
     """Allows standard notation for factorial."""
 def convert_xor(tokens: list[TOKEN], local_dict: DICT, global_dict: DICT):
@@ -210,7 +207,7 @@ def _transform_equals_sign(tokens: list[TOKEN], local_dict: DICT, global_dict: D
 
     """
 def convert_equals_signs(tokens: list[TOKEN], local_dict: DICT, global_dict: DICT) -> list[TOKEN]:
-    ''' Transforms all the equals signs ``=`` to instances of Eq.
+    """Transforms all the equals signs ``=`` to instances of Eq.
 
     Parses the equals signs in the expression and replaces them with
     appropriate Eq instances. Also works with nested equals signs.
@@ -220,13 +217,12 @@ def convert_equals_signs(tokens: list[TOKEN], local_dict: DICT, global_dict: DIC
     as x being an argument to a function and ``convert_equals_signs`` will not
     work for this.
 
-    See also
-    ========
+    See Also
+    --------
     convert_equality_operators
 
     Examples
-    ========
-
+    --------
     >>> from sympy.parsing.sympy_parser import (parse_expr,
     ... standard_transformations, convert_equals_signs)
     >>> parse_expr("1*2=x", transformations=(
@@ -236,7 +232,7 @@ def convert_equals_signs(tokens: list[TOKEN], local_dict: DICT, global_dict: DIC
     ... standard_transformations + (convert_equals_signs,)))
     Eq(Eq(2, x), False)
 
-    '''
+    """
 
 standard_transformations: tuple[TRANS, ...]
 
@@ -253,15 +249,14 @@ def eval_expr(code, local_dict: DICT, global_dict: DICT):
     Generally, ``parse_expr`` should be used.
     """
 def parse_expr(s: str, local_dict: DICT | None = None, transformations: tuple[TRANS, ...] | str = ..., global_dict: DICT | None = None, evaluate: bool = True):
-    '''Converts the string ``s`` to a SymPy expression, in ``local_dict``.
+    """Converts the string ``s`` to a SymPy expression, in ``local_dict``.
 
     .. warning::
         Note that this function uses ``eval``, and thus shouldn\'t be used on
         unsanitized input.
 
     Parameters
-    ==========
-
+    ----------
     s : str
         The string to parse.
 
@@ -287,8 +282,7 @@ def parse_expr(s: str, local_dict: DICT | None = None, transformations: tuple[TR
         suppressed. (see examples)
 
     Examples
-    ========
-
+    --------
     >>> from sympy.parsing.sympy_parser import parse_expr
     >>> parse_expr("1/2")
     1/2
@@ -374,12 +368,11 @@ def parse_expr(s: str, local_dict: DICT | None = None, transformations: tuple[TR
     3*x/10
 
     See Also
-    ========
-
+    --------
     stringify_expr, eval_expr, standard_transformations,
     implicit_multiplication_application
 
-    '''
+    """
 def evaluateFalse(s: str):
     """
     Replaces operators with the SymPy equivalent and sets evaluate=False.
@@ -400,15 +393,14 @@ transformations: Incomplete
 class _T:
     """class to retrieve transformations from a given slice
 
-    EXAMPLES
-    ========
-
+    Examples
+    --------
     >>> from sympy.parsing.sympy_parser import T, standard_transformations
     >>> assert T[:5] == standard_transformations
     """
+
     N: Incomplete
     def __init__(self) -> None: ...
-    def __str__(self) -> str: ...
     def __getitem__(self, t): ...
 
 T: Incomplete

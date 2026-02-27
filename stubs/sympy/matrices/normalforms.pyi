@@ -10,8 +10,7 @@ def smith_normal_form(m, domain=None):
     This will only work if the ring is a principal ideal domain.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, ZZ
     >>> from sympy.matrices.normalforms import smith_normal_form
     >>> m = Matrix([[12, 6, 4], [3, 9, 6], [2, 16, 14]])
@@ -29,8 +28,7 @@ def smith_normal_decomp(m, domain=None):
     `domain`. This will only work if the ring is a principal ideal domain.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, ZZ
     >>> from sympy.matrices.normalforms import smith_normal_decomp
     >>> m = Matrix([[12, 6, 4], [3, 9, 6], [2, 16, 14]])
@@ -43,7 +41,7 @@ def invariant_factors(m, domain=None):
     (as in the Smith-Normal form)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Smith_normal_form#Algorithm
     .. [2] https://web.archive.org/web/20200331143852/https://sierra.nmsu.edu/morandi/notes/SmithNormalForm.pdf
@@ -54,8 +52,7 @@ def hermite_normal_form(A, *, D=None, check_rank: bool = False):
     Compute the Hermite Normal Form of a Matrix *A* of integers.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> from sympy.matrices.normalforms import hermite_normal_form
     >>> m = Matrix([[12, 6, 4], [3, 9, 6], [2, 16, 14]])
@@ -63,8 +60,7 @@ def hermite_normal_form(A, *, D=None, check_rank: bool = False):
     Matrix([[10, 0, 2], [0, 15, 3], [0, 0, 2]])
 
     Parameters
-    ==========
-
+    ----------
     A : $m \\times n$ ``Matrix`` of integers.
 
     D : int, optional
@@ -81,14 +77,12 @@ def hermite_normal_form(A, *, D=None, check_rank: bool = False):
         set *check_rank* to ``True``.
 
     Returns
-    =======
-
+    -------
     ``Matrix``
         The HNF of matrix *A*.
 
     Raises
-    ======
-
+    ------
     DMDomainError
         If the domain of the matrix is not :ref:`ZZ`.
 
@@ -97,7 +91,7 @@ def hermite_normal_form(A, *, D=None, check_rank: bool = False):
         columns.
 
     References
-    ==========
+    ----------
 
     .. [1] Cohen, H. *A Course in Computational Algebraic Number Theory.*
        (See Algorithms 2.4.5 and 2.4.8.)

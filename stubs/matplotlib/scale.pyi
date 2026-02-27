@@ -1,10 +1,14 @@
 from _typeshed import Incomplete
 from matplotlib import _api as _api, _docstring as _docstring
-from matplotlib.ticker import AsinhLocator as AsinhLocator, AutoLocator as AutoLocator, AutoMinorLocator as AutoMinorLocator, LogFormatterSciNotation as LogFormatterSciNotation, LogLocator as LogLocator, LogitFormatter as LogitFormatter, LogitLocator as LogitLocator, NullFormatter as NullFormatter, NullLocator as NullLocator, ScalarFormatter as ScalarFormatter, SymmetricalLogLocator as SymmetricalLogLocator
+from matplotlib.ticker import (
+	AsinhLocator as AsinhLocator, AutoLocator as AutoLocator, AutoMinorLocator as AutoMinorLocator,
+	LogFormatterSciNotation as LogFormatterSciNotation, LogitFormatter as LogitFormatter, LogitLocator as LogitLocator,
+	LogLocator as LogLocator, NullFormatter as NullFormatter, NullLocator as NullLocator,
+	ScalarFormatter as ScalarFormatter, SymmetricalLogLocator as SymmetricalLogLocator)
 from matplotlib.transforms import IdentityTransform as IdentityTransform, Transform as Transform
 
 class ScaleBase:
-    '''
+    """
     The base class for all scales.
 
     Scales are separable transformations, working on a single dimension.
@@ -23,7 +27,8 @@ class ScaleBase:
     :meth:`limit_range_for_scale`
         An optional method that "fixes" the axis range to acceptable values,
         e.g. restricting log-scaled axes to positive values.
-    '''
+    """
+
     def __init__(self, axis) -> None:
         """
         Construct a new scale.
@@ -59,6 +64,7 @@ class LinearScale(ScaleBase):
     """
     The default linear scale.
     """
+
     name: str
     def __init__(self, axis) -> None:
         """
@@ -75,6 +81,7 @@ class FuncTransform(Transform):
     A simple transform that takes and arbitrary function for the
     forward and inverse transform.
     """
+
     input_dims: int
     output_dims: int
     _forward: Incomplete
@@ -100,6 +107,7 @@ class FuncScale(ScaleBase):
     """
     Provide an arbitrary scale with user-supplied function for the axis.
     """
+
     name: str
     _transform: Incomplete
     def __init__(self, axis, functions) -> None:
@@ -126,7 +134,6 @@ class LogTransform(Transform):
     base: Incomplete
     _clip: Incomplete
     def __init__(self, base, nonpositive: str = 'clip') -> None: ...
-    def __str__(self) -> str: ...
     def transform_non_affine(self, values): ...
     def inverted(self): ...
 
@@ -135,7 +142,6 @@ class InvertedLogTransform(Transform):
     output_dims: int
     base: Incomplete
     def __init__(self, base) -> None: ...
-    def __str__(self) -> str: ...
     def transform_non_affine(self, values): ...
     def inverted(self): ...
 
@@ -143,6 +149,7 @@ class LogScale(ScaleBase):
     """
     A standard logarithmic scale.  Care is taken to only plot positive values.
     """
+
     name: str
     _transform: Incomplete
     subs: Incomplete
@@ -174,6 +181,7 @@ class FuncScaleLog(LogScale):
     Provide an arbitrary scale with user-supplied function for the axis and
     then put on a logarithmic axes.
     """
+
     name: str
     subs: Incomplete
     _transform: Incomplete
@@ -257,6 +265,7 @@ class SymmetricalLogScale(ScaleBase):
         negative halves of the linear range will be equal to one decade in
         the logarithmic range.
     """
+
     name: str
     _transform: Incomplete
     subs: Incomplete
@@ -270,6 +279,7 @@ class SymmetricalLogScale(ScaleBase):
 
 class AsinhTransform(Transform):
     """Inverse hyperbolic-sine transformation used by `.AsinhScale`"""
+
     input_dims: int
     output_dims: int
     linear_width: Incomplete
@@ -279,6 +289,7 @@ class AsinhTransform(Transform):
 
 class InvertedAsinhTransform(Transform):
     """Hyperbolic sine transformation used by `.AsinhScale`"""
+
     input_dims: int
     output_dims: int
     linear_width: Incomplete
@@ -287,7 +298,7 @@ class InvertedAsinhTransform(Transform):
     def inverted(self): ...
 
 class AsinhScale(ScaleBase):
-    '''
+    """
     A quasi-logarithmic scale based on the inverse hyperbolic sine (asinh)
 
     For values close to zero, this is essentially a linear scale,
@@ -309,7 +320,8 @@ class AsinhScale(ScaleBase):
 
        This API is provisional and may be revised in the future
        based on early user feedback.
-    '''
+    """
+
     name: str
     auto_tick_multipliers: Incomplete
     _transform: Incomplete
@@ -345,9 +357,8 @@ class LogitTransform(Transform):
     _clip: Incomplete
     def __init__(self, nonpositive: str = 'mask') -> None: ...
     def transform_non_affine(self, values):
-        """logit transform (base 10), masked or clipped"""
+        """Logit transform (base 10), masked or clipped"""
     def inverted(self): ...
-    def __str__(self) -> str: ...
 
 class LogisticTransform(Transform):
     input_dims: int
@@ -355,9 +366,8 @@ class LogisticTransform(Transform):
     _nonpositive: Incomplete
     def __init__(self, nonpositive: str = 'mask') -> None: ...
     def transform_non_affine(self, values):
-        """logistic transform (base 10)"""
+        """Logistic transform (base 10)"""
     def inverted(self): ...
-    def __str__(self) -> str: ...
 
 class LogitScale(ScaleBase):
     """
@@ -366,12 +376,13 @@ class LogitScale(ScaleBase):
     This scale is similar to a log scale close to zero and to one, and almost
     linear around 0.5. It maps the interval ]0, 1[ onto ]-infty, +infty[.
     """
+
     name: str
     _transform: Incomplete
     _use_overline: Incomplete
     _one_half: Incomplete
     def __init__(self, axis, nonpositive: str = 'mask', *, one_half: str = '\\frac{1}{2}', use_overline: bool = False) -> None:
-        '''
+        """
         Parameters
         ----------
         axis : `~matplotlib.axis.Axis`
@@ -385,7 +396,7 @@ class LogitScale(ScaleBase):
             standard notation (1-x) for probability close to one.
         one_half : str, default: r"\\frac{1}{2}"
             The string used for ticks formatter to represent 1/2.
-        '''
+        """
     def get_transform(self):
         """Return the `.LogitTransform` associated with this scale."""
     def set_default_locators_and_formatters(self, axis) -> None: ...

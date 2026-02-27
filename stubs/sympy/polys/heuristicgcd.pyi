@@ -3,7 +3,7 @@ from .polyerrors import HeuristicGCDFailed as HeuristicGCDFailed
 HEU_GCD_MAX: int
 
 def heugcd(f, g):
-    '''
+    """
     Heuristic polynomial GCD in ``Z[X]``.
 
     Given univariate polynomials ``f`` and ``g`` in ``Z[X]``, returns
@@ -25,8 +25,7 @@ def heugcd(f, g):
     the input polynomials as a side effect.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.heuristicgcd import heugcd
     >>> from sympy.polys import ring, ZZ
 
@@ -45,10 +44,10 @@ def heugcd(f, g):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] [Liao95]_
 
-    '''
+    """
 def _gcd_interpolate(h, x, ring):
-    """Interpolate polynomial GCD from integer GCD. """
+    """Interpolate polynomial GCD from integer GCD."""

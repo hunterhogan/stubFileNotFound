@@ -1,10 +1,10 @@
-from sympy.assumptions.ask import Q as Q, ask as ask
+from sympy.assumptions.ask import ask as ask, Q as Q
 from sympy.core import Add as Add, Basic as Basic, Mul as Mul, S as S
 from sympy.core.sympify import _sympify as _sympify
 from sympy.functions.elementary.complexes import im as im, re as re
 from sympy.matrices import Matrix as Matrix, ShapeError as ShapeError
 from sympy.matrices.exceptions import NonInvertibleMatrixError as NonInvertibleMatrixError
-from sympy.matrices.expressions.determinant import Determinant as Determinant, det as det
+from sympy.matrices.expressions.determinant import det as det, Determinant as Determinant
 from sympy.matrices.expressions.inverse import Inverse as Inverse
 from sympy.matrices.expressions.matadd import MatAdd as MatAdd
 from sympy.matrices.expressions.matexpr import MatrixElement as MatrixElement, MatrixExpr as MatrixExpr
@@ -14,7 +14,8 @@ from sympy.matrices.expressions.slice import MatrixSlice as MatrixSlice
 from sympy.matrices.expressions.special import Identity as Identity, ZeroMatrix as ZeroMatrix
 from sympy.matrices.expressions.trace import trace as trace
 from sympy.matrices.expressions.transpose import Transpose as Transpose, transpose as transpose
-from sympy.strategies import condition as condition, do_one as do_one, exhaust as exhaust, typed as typed, unpack as unpack
+from sympy.strategies import (
+	condition as condition, do_one as do_one, exhaust as exhaust, typed as typed, unpack as unpack)
 from sympy.strategies.traverse import bottom_up as bottom_up
 from sympy.utilities.iterables import is_sequence as is_sequence, sift as sift
 from sympy.utilities.misc import filldedent as filldedent
@@ -72,9 +73,10 @@ class BlockMatrix(MatrixExpr):
     [3, 3, 3, 4, 4]])
 
     See Also
-    ========
+    --------
     sympy.matrices.matrixbase.MatrixBase.irregular
     """
+
     def __new__(cls, *args, **kwargs): ...
     @property
     def shape(self): ...
@@ -99,8 +101,7 @@ class BlockMatrix(MatrixExpr):
         """Return transpose of matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import MatrixSymbol, BlockMatrix, ZeroMatrix
         >>> from sympy.abc import m, n
         >>> X = MatrixSymbol('X', n, n)
@@ -117,11 +118,10 @@ class BlockMatrix(MatrixExpr):
         [0, Y]])
         """
     def schur(self, mat: str = 'A', generalized: bool = False):
-        '''Return the Schur Complement of the 2x2 BlockMatrix
+        """Return the Schur Complement of the 2x2 BlockMatrix
 
         Parameters
-        ==========
-
+        ----------
         mat : String, optional
             The matrix with respect to which the
             Schur Complement is calculated. \'A\' is
@@ -132,8 +132,7 @@ class BlockMatrix(MatrixExpr):
             Component which uses Moore-Penrose Inverse
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols, MatrixSymbol, BlockMatrix
         >>> m, n = symbols(\'m n\')
         >>> A = MatrixSymbol(\'A\', n, n)
@@ -160,14 +159,12 @@ class BlockMatrix(MatrixExpr):
         -A*(C.T*C)**(-1)*C.T*D + B
 
         Returns
-        =======
-
+        -------
         M : Matrix
             The Schur Complement Matrix
 
         Raises
-        ======
-
+        ------
         ShapeError
             If the block matrix is not a 2x2 matrix
 
@@ -175,30 +172,27 @@ class BlockMatrix(MatrixExpr):
             If given matrix is non-invertible
 
         References
-        ==========
+        ----------
 
         .. [1] Wikipedia Article on Schur Component : https://en.wikipedia.org/wiki/Schur_complement
 
         See Also
-        ========
-
+        --------
         sympy.matrices.matrixbase.MatrixBase.pinv
-        '''
+        """
     def LDUdecomposition(self):
-        '''Returns the Block LDU decomposition of
+        """Returns the Block LDU decomposition of
         a 2x2 Block Matrix
 
         Returns
-        =======
-
+        -------
         (L, D, U) : Matrices
             L : Lower Diagonal Matrix
             D : Diagonal Matrix
             U : Upper Diagonal Matrix
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols, MatrixSymbol, BlockMatrix, block_collapse
         >>> m, n = symbols(\'m n\')
         >>> A = MatrixSymbol(\'A\', n, n)
@@ -213,8 +207,7 @@ class BlockMatrix(MatrixExpr):
         [C, D]])
 
         Raises
-        ======
-
+        ------
         ShapeError
             If the block matrix is not a 2x2 matrix
 
@@ -222,25 +215,23 @@ class BlockMatrix(MatrixExpr):
             If the matrix "A" is non-invertible
 
         See Also
-        ========
+        --------
         sympy.matrices.expressions.blockmatrix.BlockMatrix.UDLdecomposition
         sympy.matrices.expressions.blockmatrix.BlockMatrix.LUdecomposition
-        '''
+        """
     def UDLdecomposition(self):
-        '''Returns the Block UDL decomposition of
+        """Returns the Block UDL decomposition of
         a 2x2 Block Matrix
 
         Returns
-        =======
-
+        -------
         (U, D, L) : Matrices
             U : Upper Diagonal Matrix
             D : Diagonal Matrix
             L : Lower Diagonal Matrix
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols, MatrixSymbol, BlockMatrix, block_collapse
         >>> m, n = symbols(\'m n\')
         >>> A = MatrixSymbol(\'A\', n, n)
@@ -255,8 +246,7 @@ class BlockMatrix(MatrixExpr):
         [C, D]])
 
         Raises
-        ======
-
+        ------
         ShapeError
             If the block matrix is not a 2x2 matrix
 
@@ -264,24 +254,22 @@ class BlockMatrix(MatrixExpr):
             If the matrix "D" is non-invertible
 
         See Also
-        ========
+        --------
         sympy.matrices.expressions.blockmatrix.BlockMatrix.LDUdecomposition
         sympy.matrices.expressions.blockmatrix.BlockMatrix.LUdecomposition
-        '''
+        """
     def LUdecomposition(self):
-        '''Returns the Block LU decomposition of
+        """Returns the Block LU decomposition of
         a 2x2 Block Matrix
 
         Returns
-        =======
-
+        -------
         (L, U) : Matrices
             L : Lower Diagonal Matrix
             U : Upper Diagonal Matrix
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols, MatrixSymbol, BlockMatrix, block_collapse
         >>> m, n = symbols(\'m n\')
         >>> A = MatrixSymbol(\'A\', n, n)
@@ -296,8 +284,7 @@ class BlockMatrix(MatrixExpr):
         [C, D]])
 
         Raises
-        ======
-
+        ------
         ShapeError
             If the block matrix is not a 2x2 matrix
 
@@ -305,10 +292,10 @@ class BlockMatrix(MatrixExpr):
             If the matrix "A" is non-invertible
 
         See Also
-        ========
+        --------
         sympy.matrices.expressions.blockmatrix.BlockMatrix.UDLdecomposition
         sympy.matrices.expressions.blockmatrix.BlockMatrix.LDUdecomposition
-        '''
+        """
     def _entry(self, i, j, **kwargs): ...
     @property
     def is_Identity(self): ...
@@ -320,8 +307,7 @@ class BlockDiagMatrix(BlockMatrix):
     """A sparse matrix with block matrices along its diagonals
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatrixSymbol, BlockDiagMatrix, symbols
     >>> n, m, l = symbols('n m l')
     >>> X = MatrixSymbol('X', n, n)
@@ -332,16 +318,15 @@ class BlockDiagMatrix(BlockMatrix):
     [0, Y]])
 
     Notes
-    =====
-
+    -----
     If you want to get the individual diagonal blocks, use
     :meth:`get_diag_blocks`.
 
     See Also
-    ========
-
+    --------
     sympy.matrices.dense.diag
     """
+
     def __new__(cls, *mats): ...
     @property
     def diag(self): ...
@@ -366,8 +351,7 @@ class BlockDiagMatrix(BlockMatrix):
         """Return the list of diagonal blocks of the matrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import BlockDiagMatrix, Matrix
 
         >>> A = Matrix([[1, 2], [3, 4]])
@@ -412,7 +396,7 @@ def bc_unpack(expr): ...
 def bc_matadd(expr): ...
 def bc_block_plus_ident(expr): ...
 def bc_dist(expr):
-    """ Turn  a*[X, Y] into [a*X, a*Y] """
+    """Turn  a*[X, Y] into [a*X, a*Y]"""
 def bc_matmul(expr): ...
 def bc_transpose(expr): ...
 def bc_inverse(expr): ...
@@ -429,7 +413,7 @@ def _choose_2x2_inversion_formula(A, B, C, D):
     any of those formulas.
     """
 def deblock(B):
-    """ Flatten a BlockMatrix of BlockMatrices """
+    """Flatten a BlockMatrix of BlockMatrices"""
 def reblock_2x2(expr):
     """
     Reblock a BlockMatrix so that it has 2x2 blocks of block matrices.  If
@@ -437,14 +421,14 @@ def reblock_2x2(expr):
     classical 2x2 block inversion formulas.
     """
 def bounds(sizes):
-    """ Convert sequence of numbers into pairs of low-high pairs
+    """Convert sequence of numbers into pairs of low-high pairs
 
     >>> from sympy.matrices.expressions.blockmatrix import bounds
     >>> bounds((1, 10, 50))
     [(0, 1), (1, 11), (11, 61)]
     """
 def blockcut(expr, rowsizes, colsizes):
-    """ Cut a matrix expression into Blocks
+    """Cut a matrix expression into Blocks
 
     >>> from sympy import ImmutableMatrix, blockcut
     >>> M = ImmutableMatrix(4, 4, range(16))

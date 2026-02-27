@@ -6,4 +6,3 @@ __all__ = ['apply_instance_data', 'apply_instance_data_to_ufo']
 # Names in __all__ with no definition:
 #   apply_instance_data
 #   apply_instance_data_to_ufo
-

@@ -7,10 +7,18 @@ from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, Wild as Wild
 from sympy.external import import_module as import_module
 from sympy.functions import sign as sign
 from sympy.plotting.backends.base_backend import Plot as Plot, unset_show as unset_show
-from sympy.plotting.backends.matplotlibbackend import MatplotlibBackend as MatplotlibBackend, _matplotlib_list as _matplotlib_list
+from sympy.plotting.backends.matplotlibbackend import (
+	_matplotlib_list as _matplotlib_list, MatplotlibBackend as MatplotlibBackend)
 from sympy.plotting.backends.textbackend import TextBackend as TextBackend
 from sympy.plotting.plotgrid import PlotGrid as PlotGrid
-from sympy.plotting.series import BaseSeries as BaseSeries, ContourSeries as ContourSeries, GenericDataSeries as GenericDataSeries, Line2DBaseSeries as Line2DBaseSeries, Line3DBaseSeries as Line3DBaseSeries, LineOver1DRangeSeries as LineOver1DRangeSeries, List2DSeries as List2DSeries, Parametric2DLineSeries as Parametric2DLineSeries, Parametric3DLineSeries as Parametric3DLineSeries, ParametricSurfaceSeries as ParametricSurfaceSeries, SurfaceBaseSeries as SurfaceBaseSeries, SurfaceOver2DRangeSeries as SurfaceOver2DRangeSeries, centers_of_faces as centers_of_faces, centers_of_segments as centers_of_segments, flat as flat
+from sympy.plotting.series import (
+	BaseSeries as BaseSeries, centers_of_faces as centers_of_faces, centers_of_segments as centers_of_segments,
+	ContourSeries as ContourSeries, flat as flat, GenericDataSeries as GenericDataSeries,
+	Line2DBaseSeries as Line2DBaseSeries, Line3DBaseSeries as Line3DBaseSeries,
+	LineOver1DRangeSeries as LineOver1DRangeSeries, List2DSeries as List2DSeries,
+	Parametric2DLineSeries as Parametric2DLineSeries, Parametric3DLineSeries as Parametric3DLineSeries,
+	ParametricSurfaceSeries as ParametricSurfaceSeries, SurfaceBaseSeries as SurfaceBaseSeries,
+	SurfaceOver2DRangeSeries as SurfaceOver2DRangeSeries)
 from sympy.plotting.textplot import textplot as textplot
 from sympy.plotting.utils import _check_arguments as _check_arguments, _plot_sympify as _plot_sympify
 from sympy.tensor.indexed import Indexed as Indexed
@@ -22,15 +30,14 @@ def _process_summations(sum_bound, *args):
     some integer number.
 
     Parameters
-    ==========
-
+    ----------
     sum_bound : int
         oo will be substituted with this integer number.
     *args : list/tuple
         pre-processed arguments of the form (expr, range, ...)
 
     Notes
-    =====
+    -----
     Let's consider the following summation: ``Sum(1 / x**2, (x, 1, oo))``.
     The current implementation of lambdify (SymPy 1.12 at the time of
     writing this) will create something of this form:
@@ -58,8 +65,7 @@ def plot(*args, show: bool = True, **kwargs):
     """Plots a function of a single variable as a curve.
 
     Parameters
-    ==========
-
+    ----------
     args :
         The first argument is the expression representing the function
         of single variable to be plotted.
@@ -179,7 +185,7 @@ def plot(*args, show: bool = True, **kwargs):
         the size will be set by the default backend.
 
     Examples
-    ========
+    --------
 
     .. plot::
        :context: close-figs
@@ -238,8 +244,7 @@ def plot(*args, show: bool = True, **kwargs):
        [0]: cartesian line: x**2 for x over (-10.0, 10.0)
 
     See Also
-    ========
-
+    --------
     Plot, LineOver1DRangeSeries
 
     """
@@ -248,8 +253,7 @@ def plot_parametric(*args, show: bool = True, **kwargs):
     Plots a 2D parametric curve.
 
     Parameters
-    ==========
-
+    ----------
     args
         Common specifications are:
 
@@ -334,7 +338,7 @@ def plot_parametric(*args, show: bool = True, **kwargs):
         the size will be set by the default backend.
 
     Examples
-    ========
+    --------
 
     .. plot::
        :context: reset
@@ -382,8 +386,7 @@ def plot_parametric(*args, show: bool = True, **kwargs):
        [1]: parametric cartesian line: (cos(u), u) for u over (-5.0, 5.0)
 
     Notes
-    =====
-
+    -----
     The plotting uses an adaptive algorithm which samples recursively to
     accurately plot the curve. The adaptive algorithm uses a random point
     near the midpoint of two points that has to be further sampled.
@@ -420,8 +423,7 @@ def plot_parametric(*args, show: bool = True, **kwargs):
         >>> p.show()
 
     See Also
-    ========
-
+    --------
     Plot, Parametric2DLineSeries
     """
 def plot3d_parametric_line(*args, show: bool = True, **kwargs):
@@ -495,7 +497,7 @@ def plot3d_parametric_line(*args, show: bool = True, **kwargs):
         the size will be set by the default backend.
 
     Examples
-    ========
+    --------
 
     .. plot::
        :context: reset
@@ -533,8 +535,7 @@ def plot3d_parametric_line(*args, show: bool = True, **kwargs):
 
 
     See Also
-    ========
-
+    --------
     Plot, Parametric3DLineSeries
 
     """
@@ -617,7 +618,7 @@ def plot3d(*args, show: bool = True, **kwargs):
         be set by the default backend.
 
     Examples
-    ========
+    --------
 
     .. plot::
        :context: reset
@@ -668,8 +669,7 @@ def plot3d(*args, show: bool = True, **kwargs):
 
 
     See Also
-    ========
-
+    --------
     Plot, SurfaceOver2DRangeSeries
 
     """
@@ -747,7 +747,7 @@ def plot3d_parametric_surface(*args, show: bool = True, **kwargs):
         be set by the default backend.
 
     Examples
-    ========
+    --------
 
     .. plot::
        :context: reset
@@ -772,8 +772,7 @@ def plot3d_parametric_surface(*args, show: bool = True, **kwargs):
 
 
     See Also
-    ========
-
+    --------
     Plot, ParametricSurfaceSeries
 
     """
@@ -852,8 +851,7 @@ def plot_contour(*args, show: bool = True, **kwargs):
         the size will be set by the default backend.
 
     See Also
-    ========
-
+    --------
     Plot, ContourSeries
 
     """
@@ -863,7 +861,7 @@ def check_arguments(args, expr_len, nb_of_free_symbols):
     form (exprs, ranges).
 
     Examples
-    ========
+    --------
 
     .. plot::
        :context: reset

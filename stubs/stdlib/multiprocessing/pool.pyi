@@ -1,8 +1,7 @@
 from collections.abc import Callable, Iterable, Mapping
 from multiprocessing.context import DefaultContext, Process
 from types import GenericAlias, TracebackType
-from typing import Any, Final, Generic, TypeVar
-from typing_extensions import Self
+from typing import Any, Final, Generic, Self, TypeVar
 
 __all__ = ["Pool", "ThreadPool"]
 

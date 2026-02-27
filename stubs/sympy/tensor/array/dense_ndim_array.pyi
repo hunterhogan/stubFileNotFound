@@ -4,7 +4,8 @@ from sympy.core.containers import Tuple as Tuple
 from sympy.core.singleton import S as S
 from sympy.core.sympify import _sympify as _sympify
 from sympy.tensor.array.mutable_ndim_array import MutableNDimArray as MutableNDimArray
-from sympy.tensor.array.ndim_array import ArrayKind as ArrayKind, ImmutableNDimArray as ImmutableNDimArray, NDimArray as NDimArray
+from sympy.tensor.array.ndim_array import (
+	ArrayKind as ArrayKind, ImmutableNDimArray as ImmutableNDimArray, NDimArray as NDimArray)
 from sympy.utilities.iterables import flatten as flatten
 
 class DenseNDimArray(NDimArray):
@@ -17,8 +18,7 @@ class DenseNDimArray(NDimArray):
         Allows to get items from N-dim array.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import MutableDenseNDimArray
         >>> a = MutableDenseNDimArray([0, 1, 2, 3], (2, 2))
         >>> a
@@ -52,8 +52,7 @@ class DenseNDimArray(NDimArray):
         Converts MutableDenseNDimArray to Matrix. Can convert only 2-dim array, else will raise error.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import MutableDenseNDimArray
         >>> a = MutableDenseNDimArray([1 for i in range(9)], (3, 3))
         >>> b = a.tomatrix()
@@ -71,8 +70,7 @@ class DenseNDimArray(NDimArray):
         new shape.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import MutableDenseNDimArray
         >>> a = MutableDenseNDimArray([1, 2, 3, 4, 5, 6], (2, 3))
         >>> a.shape
@@ -111,8 +109,7 @@ class MutableDenseNDimArray(DenseNDimArray, MutableNDimArray):
         """Allows to set items to MutableDenseNDimArray.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import MutableDenseNDimArray
         >>> a = MutableDenseNDimArray.zeros(2,  2)
         >>> a[0,0] = 1

@@ -1,5 +1,5 @@
-import sys
 from typing import Final, type_check_only
+import sys
 
 if sys.platform == "win32":
     class MSIError(Exception): ...

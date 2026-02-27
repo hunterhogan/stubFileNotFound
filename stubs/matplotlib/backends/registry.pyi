@@ -7,6 +7,7 @@ class BackendFilter(Enum):
 
     .. versionadded:: 3.9
     """
+
     INTERACTIVE = 0
     NON_INTERACTIVE = 1
 
@@ -28,6 +29,7 @@ class BackendRegistry:
 
     .. versionadded:: 3.9
     """
+
     _BUILTIN_BACKEND_TO_GUI_FRAMEWORK: Incomplete
     _GUI_FRAMEWORK_TO_BACKEND: Incomplete
     _loaded_entry_points: bool
@@ -41,7 +43,7 @@ class BackendRegistry:
     def _read_entry_points(self): ...
     def _validate_and_store_entry_points(self, entries) -> None: ...
     def backend_for_gui_framework(self, framework):
-        '''
+        """
         Return the name of the backend corresponding to the specified GUI framework.
 
         Parameters
@@ -53,7 +55,7 @@ class BackendRegistry:
         -------
         str or None
             Backend name or None if GUI framework not recognised.
-        '''
+        """
     def is_valid_backend(self, backend):
         """
         Return True if the backend name is valid, False otherwise.

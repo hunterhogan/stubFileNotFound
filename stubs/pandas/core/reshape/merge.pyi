@@ -1,24 +1,7 @@
 from datetime import timedelta
-from typing import (
-    Literal,
-    overload,
-)
-
-from pandas import (
-    DataFrame,
-    Series,
-    Timedelta,
-)
-
-from pandas._typing import (
-    AnyArrayLike,
-    HashableT,
-    JoinHow,
-    Label,
-    MergeHow,
-    Suffixes,
-    ValidationOptions,
-)
+from pandas import DataFrame, Series, Timedelta
+from pandas._typing import AnyArrayLike, HashableT, JoinHow, Label, MergeHow, Suffixes, ValidationOptions
+from typing import Literal, overload
 
 def merge(
     left: DataFrame | Series,

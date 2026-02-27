@@ -4,23 +4,21 @@ from sympy.physics.mechanics.method import _Methods
 __all__ = ['JointsMethod']
 
 class JointsMethod(_Methods):
-    '''Method for formulating the equations of motion using a set of interconnected bodies with joints.
+    """Method for formulating the equations of motion using a set of interconnected bodies with joints.
 
     .. deprecated:: 1.13
         The JointsMethod class is deprecated. Its functionality has been
         replaced by the new :class:`~.System` class.
 
     Parameters
-    ==========
-
+    ----------
     newtonion : Body or ReferenceFrame
         The newtonion(inertial) frame.
     *joints : Joint
         The joints in the system
 
     Attributes
-    ==========
-
+    ----------
     q, u : iterable
         Iterable of the generalized coordinates and speeds
     bodies : iterable
@@ -42,8 +40,7 @@ class JointsMethod(_Methods):
         Iterable of kde in they system.
 
     Examples
-    ========
-
+    --------
     As Body and JointsMethod have been deprecated, the following examples are
     for illustrative purposes only. The functionality of Body is fully captured
     by :class:`~.RigidBody` and :class:`~.Particle` and the functionality of
@@ -79,12 +76,12 @@ class JointsMethod(_Methods):
     [(-c*v(t) - k*x(t))/B_mass]])
 
     Notes
-    =====
-
+    -----
     ``JointsMethod`` currently only works with systems that do not have any
     configuration or motion constraints.
 
-    '''
+    """
+
     frame: Incomplete
     _joints: Incomplete
     _bodies: Incomplete
@@ -111,10 +108,10 @@ class JointsMethod(_Methods):
         """List of the generalized coordinates."""
     @property
     def forcing_full(self):
-        '''The "forcing vector" for the u\'s and q\'s.'''
+        """The "forcing vector" for the u\'s and q\'s."""
     @property
     def mass_matrix_full(self):
-        '''The "mass matrix" for the u\'s and q\'s.'''
+        """The "mass matrix" for the u\'s and q\'s."""
     @property
     def mass_matrix(self):
         """The system's mass matrix."""
@@ -134,20 +131,17 @@ class JointsMethod(_Methods):
         """Method to form system's equation of motions.
 
         Parameters
-        ==========
-
+        ----------
         method : Class
             Class name of method.
 
         Returns
-        ========
-
+        -------
         Matrix
             Vector of equations of motions.
 
         Examples
-        ========
-
+        --------
         As Body and JointsMethod have been deprecated, the following examples
         are for illustrative purposes only. The functionality of Body is fully
         captured by :class:`~.RigidBody` and :class:`~.Particle` and the
@@ -189,22 +183,19 @@ class JointsMethod(_Methods):
         """Returns equations that can be solved numerically.
 
         Parameters
-        ==========
-
+        ----------
         inv_method : str
             The specific sympy inverse matrix calculation method to use. For a
             list of valid methods, see
             :meth:`~sympy.matrices.matrixbase.MatrixBase.inv`
 
         Returns
-        ========
-
+        -------
         Matrix
             Numerically solvable equations.
 
         See Also
-        ========
-
+        --------
         sympy.physics.mechanics.kane.KanesMethod.rhs:
             KanesMethod's rhs function.
         sympy.physics.mechanics.lagrange.LagrangesMethod.rhs:

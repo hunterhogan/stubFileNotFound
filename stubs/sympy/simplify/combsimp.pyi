@@ -7,7 +7,7 @@ from sympy.simplify.gammasimp import _gammasimp as _gammasimp, gammasimp as gamm
 from sympy.utilities.timeutils import timethis as timethis
 
 def combsimp(expr):
-    '''
+    """
     Simplify combinatorial expressions.
 
     Explanation
@@ -31,8 +31,7 @@ def combsimp(expr):
     with non-integer argument, it is automatically passed to gammasimp.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify import combsimp
     >>> from sympy import factorial, binomial, symbols
     >>> n, k = symbols(\'n k\', integer = True)
@@ -42,7 +41,7 @@ def combsimp(expr):
     >>> combsimp(binomial(n+1, k+1)/binomial(n, k))
     (n + 1)/(k + 1)
 
-    '''
+    """
 def _gamma_as_comb(expr):
     """
     Helper function for combsimp.

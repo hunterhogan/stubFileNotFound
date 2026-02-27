@@ -6,13 +6,12 @@ def msigma(i):
     """Returns a Pauli matrix `\\sigma_i` with `i=1,2,3`.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Pauli_matrices
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.matrices import msigma
     >>> msigma(1)
     Matrix([
@@ -24,8 +23,7 @@ def pat_matrix(m, dx, dy, dz):
     matrix a distance of `(dx, dy, dz)` for a body of mass m.
 
     Examples
-    ========
-
+    --------
     To translate a body having a mass of 2 units a distance of 1 unit along
     the `x`-axis we get:
 
@@ -53,13 +51,12 @@ def mgamma(mu, lower: bool = False):
     `\\gamma_5 = i \\cdot \\gamma_0 \\cdot \\gamma_1 \\cdot \\gamma_2 \\cdot \\gamma_3 = - \\gamma^5`
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Gamma_matrices
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.matrices import mgamma
     >>> mgamma(1)
     Matrix([

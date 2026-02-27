@@ -1,5 +1,5 @@
 from .backend_cairo import FigureCanvasCairo as FigureCanvasCairo
-from .backend_gtk3 import FigureCanvasGTK3 as FigureCanvasGTK3, GLib as GLib, Gtk as Gtk, _BackendGTK3 as _BackendGTK3
+from .backend_gtk3 import _BackendGTK3 as _BackendGTK3, FigureCanvasGTK3 as FigureCanvasGTK3, GLib as GLib, Gtk as Gtk
 
 class FigureCanvasGTK3Cairo(FigureCanvasCairo, FigureCanvasGTK3):
     _idle_draw_id: int

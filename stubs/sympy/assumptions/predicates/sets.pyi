@@ -13,8 +13,7 @@ class IntegerPredicate(Predicate):
     numbers.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, S
     >>> ask(Q.integer(5))
     True
@@ -22,11 +21,12 @@ class IntegerPredicate(Predicate):
     False
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Integer
 
     """
+
     name: str
     handler: Incomplete
 
@@ -34,6 +34,7 @@ class NonIntegerPredicate(Predicate):
     """
     Non-integer extended real predicate.
     """
+
     name: str
     handler: Incomplete
 
@@ -48,8 +49,7 @@ class RationalPredicate(Predicate):
     rational numbers.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ask, Q, pi, S
     >>> ask(Q.rational(0))
     True
@@ -59,11 +59,12 @@ class RationalPredicate(Predicate):
     False
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Rational_number
 
     """
+
     name: str
     handler: Incomplete
 
@@ -78,8 +79,7 @@ class IrrationalPredicate(Predicate):
     cannot be expressed as a ratio of integers.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ask, Q, pi, S, I
     >>> ask(Q.irrational(0))
     False
@@ -91,16 +91,17 @@ class IrrationalPredicate(Predicate):
     False
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Irrational_number
 
     """
+
     name: str
     handler: Incomplete
 
 class RealPredicate(Predicate):
-    '''
+    """
     Real number predicate.
 
     Explanation
@@ -142,8 +143,7 @@ class RealPredicate(Predicate):
         nonpositive.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, symbols
     >>> x = symbols(\'x\')
     >>> ask(Q.real(x), Q.positive(x))
@@ -152,11 +152,12 @@ class RealPredicate(Predicate):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Real_number
 
-    '''
+    """
+
     name: str
     handler: Incomplete
 
@@ -174,8 +175,7 @@ class ExtendedRealPredicate(Predicate):
     facts.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ask, Q, oo, I
     >>> ask(Q.extended_real(1))
     True
@@ -185,6 +185,7 @@ class ExtendedRealPredicate(Predicate):
     True
 
     """
+
     name: str
     handler: Incomplete
 
@@ -199,11 +200,12 @@ class HermitianPredicate(Predicate):
     Hermitian operators.
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/HermitianOperator.html
 
     """
+
     name: str
     handler: Incomplete
 
@@ -218,8 +220,7 @@ class ComplexPredicate(Predicate):
     numbers. Note that every complex number is finite.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, Symbol, ask, I, oo
     >>> x = Symbol('x')
     >>> ask(Q.complex(0))
@@ -230,11 +231,12 @@ class ComplexPredicate(Predicate):
     False
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Complex_number
 
     """
+
     name: str
     handler: Incomplete
 
@@ -250,8 +252,7 @@ class ImaginaryPredicate(Predicate):
     is not considered to be an imaginary number.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, ask, I
     >>> ask(Q.imaginary(3*I))
     True
@@ -261,11 +262,12 @@ class ImaginaryPredicate(Predicate):
     False
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Imaginary_number
 
     """
+
     name: str
     handler: Incomplete
 
@@ -281,11 +283,12 @@ class AntihermitianPredicate(Predicate):
     ``x`` is Hermitian.
 
     References
-    ==========
+    ----------
 
     .. [1] https://mathworld.wolfram.com/HermitianOperator.html
 
     """
+
     name: str
     handler: Incomplete
 
@@ -301,8 +304,7 @@ class AlgebraicPredicate(Predicate):
     in ``p(x)\\in \\mathbb\\{Q\\}[x]`` such that ``p(x) = 0``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ask, Q, sqrt, I, pi
     >>> ask(Q.algebraic(sqrt(2)))
     True
@@ -312,11 +314,12 @@ class AlgebraicPredicate(Predicate):
     False
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Algebraic_number
 
     """
+
     name: str
     AlgebraicHandler: Incomplete
 
@@ -332,5 +335,6 @@ class TranscendentalPredicate(Predicate):
     or complex number that is not algebraic.
 
     """
+
     name: str
     handler: Incomplete

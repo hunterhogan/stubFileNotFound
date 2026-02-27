@@ -1,9 +1,10 @@
 from sympy.physics.quantum.state import Bra, Ket, State
 
-__all__ = ['Qubit', 'QubitBra', 'IntQubit', 'IntQubitBra', 'qubit_to_matrix', 'matrix_to_qubit', 'matrix_to_density', 'measure_all', 'measure_partial', 'measure_partial_oneshot', 'measure_all_oneshot']
+__all__ = ['IntQubit', 'IntQubitBra', 'Qubit', 'QubitBra', 'matrix_to_density', 'matrix_to_qubit', 'measure_all', 'measure_all_oneshot', 'measure_partial', 'measure_partial_oneshot', 'qubit_to_matrix']
 
 class QubitState(State):
     """Base class for Qubit and QubitBra."""
+
     @classmethod
     def _eval_args(cls, args): ...
     @classmethod
@@ -28,14 +29,12 @@ class Qubit(QubitState, Ket):
     right, so ``|00001>`` has a 1 in the least significant qubit.
 
     Parameters
-    ==========
-
+    ----------
     values : list, str
         The qubit values as a list of ints ([0,0,0,1,1,]) or a string ('011').
 
     Examples
-    ========
-
+    --------
     Create a qubit in a couple of different ways and look at their attributes:
 
         >>> from sympy.physics.quantum.qubit import Qubit
@@ -75,6 +74,7 @@ class Qubit(QubitState, Ket):
         >>> ip.doit()
         1
     """
+
     @classmethod
     def dual_class(self): ...
     def _eval_innerproduct_QubitBra(self, bra, **hints): ...
@@ -85,8 +85,8 @@ class Qubit(QubitState, Ket):
     def _eval_trace(self, bra, **kwargs): ...
     def _reduced_density(self, matrix, qubit, **options):
         """Compute the reduced density matrix by tracing out one qubit.
-           The qubit argument should be of type Python int, since it is used
-           in bit operations
+        The qubit argument should be of type Python int, since it is used
+        in bit operations
         """
 
 class QubitBra(QubitState, Bra):
@@ -96,22 +96,22 @@ class QubitBra(QubitState, Bra):
     right, so ``|00001>`` has a 1 in the least significant qubit.
 
     Parameters
-    ==========
-
+    ----------
     values : list, str
         The qubit values as a list of ints ([0,0,0,1,1,]) or a string ('011').
 
-    See also
-    ========
-
+    See Also
+    --------
     Qubit: Examples using qubits
 
     """
+
     @classmethod
     def dual_class(self): ...
 
 class IntQubitState(QubitState):
     """A base class for qubits that work with binary representations."""
+
     @classmethod
     def _eval_args(cls, args, nqubits=None): ...
     @classmethod
@@ -134,8 +134,7 @@ class IntQubit(IntQubitState, Qubit):
       values in the same as ``Qubit``.
 
     Parameters
-    ==========
-
+    ----------
     values : int, tuple
         If a single argument, the integer we want to represent in the qubit
         values. This integer will be represented using the fewest possible
@@ -152,8 +151,7 @@ class IntQubit(IntQubitState, Qubit):
         Please see the example below for more details.
 
     Examples
-    ========
-
+    --------
     Create a qubit for the integer 5:
 
         >>> from sympy.physics.quantum.qubit import IntQubit
@@ -194,12 +192,14 @@ class IntQubit(IntQubitState, Qubit):
         >>> IntQubit(a, nqubits=1)
         |1>
     """
+
     @classmethod
     def dual_class(self): ...
     def _eval_innerproduct_IntQubitBra(self, bra, **hints): ...
 
 class IntQubitBra(IntQubitState, QubitBra):
     """A qubit bra that store integers as binary numbers in qubit values."""
+
     @classmethod
     def dual_class(self): ...
 
@@ -213,8 +213,7 @@ def matrix_to_qubit(matrix):
         SymPy matrices, numpy matrices and scipy.sparse sparse matrices.
 
     Examples
-    ========
-
+    --------
     Represent a state and then go back to its qubit form:
 
         >>> from sympy.physics.quantum.qubit import matrix_to_qubit, Qubit
@@ -239,8 +238,7 @@ def measure_all(qubit, format: str = 'sympy', normalize: bool = True):
     """Perform an ensemble measurement of all qubits.
 
     Parameters
-    ==========
-
+    ----------
     qubit : Qubit, Add
         The qubit to measure. This can be any Qubit or a linear combination
         of them.
@@ -250,14 +248,12 @@ def measure_all(qubit, format: str = 'sympy', normalize: bool = True):
         implemented.
 
     Returns
-    =======
-
+    -------
     result : list
         A list that consists of primitive states and their probabilities.
 
     Examples
-    ========
-
+    --------
         >>> from sympy.physics.quantum.qubit import Qubit, measure_all
         >>> from sympy.physics.quantum.gate import H
         >>> from sympy.physics.quantum.qapply import qapply
@@ -273,8 +269,7 @@ def measure_partial(qubit, bits, format: str = 'sympy', normalize: bool = True):
     """Perform a partial ensemble measure on the specified qubits.
 
     Parameters
-    ==========
-
+    ----------
     qubits : Qubit
         The qubit to measure.  This can be any Qubit or a linear combination
         of them.
@@ -286,14 +281,12 @@ def measure_partial(qubit, bits, format: str = 'sympy', normalize: bool = True):
         implemented.
 
     Returns
-    =======
-
+    -------
     result : list
         A list that consists of primitive states and their probabilities.
 
     Examples
-    ========
-
+    --------
         >>> from sympy.physics.quantum.qubit import Qubit, measure_partial
         >>> from sympy.physics.quantum.gate import H
         >>> from sympy.physics.quantum.qapply import qapply

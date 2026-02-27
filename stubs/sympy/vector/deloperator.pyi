@@ -6,6 +6,7 @@ class Del(Basic):
     Represents the vector differential operator, usually represented in
     mathematical expressions as the 'nabla' symbol.
     """
+
     def __new__(cls): ...
     def gradient(self, scalar_field, doit: bool = False):
         """
@@ -13,8 +14,7 @@ class Del(Basic):
         Vector instance.
 
         Parameters
-        ==========
-
+        ----------
         scalar_field : SymPy expression
             The scalar field to calculate the gradient of.
 
@@ -24,8 +24,7 @@ class Del(Basic):
             Derivative instances
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D, Del
         >>> C = CoordSys3D('C')
         >>> delop = Del()
@@ -42,8 +41,7 @@ class Del(Basic):
         vector - equal to the divergence of the vector field.
 
         Parameters
-        ==========
-
+        ----------
         vect : Vector
             The vector whose divergence is to be calculated.
 
@@ -53,8 +51,7 @@ class Del(Basic):
             Derivative instances
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D, Del
         >>> delop = Del()
         >>> C = CoordSys3D('C')
@@ -72,8 +69,7 @@ class Del(Basic):
         vector - equal to the curl of the vector field.
 
         Parameters
-        ==========
-
+        ----------
         vect : Vector
             The vector whose curl is to be calculated.
 
@@ -83,8 +79,7 @@ class Del(Basic):
             Derivative instances
 
         Examples
-        ========
-
+        --------
         >>> from sympy.vector import CoordSys3D, Del
         >>> C = CoordSys3D('C')
         >>> delop = Del()

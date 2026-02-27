@@ -1,10 +1,11 @@
 from _typeshed import Incomplete
 from sympy.physics.quantum.gate import OneQubitGate
 
-__all__ = ['CircuitPlot', 'circuit_plot', 'labeller', 'Mz', 'Mx', 'CreateOneQubitGate', 'CreateCGate']
+__all__ = ['CircuitPlot', 'CreateCGate', 'CreateOneQubitGate', 'Mx', 'Mz', 'circuit_plot', 'labeller']
 
 class CircuitPlot:
     """A class for managing a circuit plot."""
+
     scale: float
     fontsize: float
     linewidth: float
@@ -58,8 +59,7 @@ def circuit_plot(c, nqubits, **kwargs):
     """Draw the circuit diagram for the circuit with nqubits.
 
     Parameters
-    ==========
-
+    ----------
     c : circuit
         The circuit to plot. Should be a product of Gate instances.
     nqubits : int
@@ -70,8 +70,7 @@ def labeller(n, symbol: str = 'q'):
     """Autogenerate labels for wires of quantum circuits.
 
     Parameters
-    ==========
-
+    ----------
     n : int
         number of qubits in the circuit.
     symbol : string
@@ -90,6 +89,7 @@ class Mz(OneQubitGate):
     This is in circuitplot rather than gate.py because it's not a real
     gate, it just draws one.
     """
+
     measurement: bool
     gate_name: str
     gate_name_latex: str
@@ -100,6 +100,7 @@ class Mx(OneQubitGate):
     This is in circuitplot rather than gate.py because it's not a real
     gate, it just draws one.
     """
+
     measurement: bool
     gate_name: str
     gate_name_latex: str

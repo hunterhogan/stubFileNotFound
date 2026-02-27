@@ -1,7 +1,8 @@
 from .errors import LaTeXParsingError as LaTeXParsingError
 from _typeshed import Incomplete
 from sympy.external import import_module as import_module
-from sympy.parsing.latex.lark import LarkLaTeXParser as LarkLaTeXParser, TransformToSymPyExpr as TransformToSymPyExpr, parse_latex_lark as parse_latex_lark
+from sympy.parsing.latex.lark import (
+	LarkLaTeXParser as LarkLaTeXParser, parse_latex_lark as parse_latex_lark, TransformToSymPyExpr as TransformToSymPyExpr)
 from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
 
 IGNORE_L: str
@@ -22,11 +23,10 @@ def check_matrix_delimiters(latex_str):
 __doctest_requires__: Incomplete
 
 def parse_latex(s, strict: bool = False, backend: str = 'antlr'):
-    '''Converts the input LaTeX string ``s`` to a SymPy ``Expr``.
+    """Converts the input LaTeX string ``s`` to a SymPy ``Expr``.
 
     Parameters
-    ==========
-
+    ----------
     s : str
         The LaTeX string to parse. In Python source containing LaTeX,
         *raw strings* (denoted with ``r"``, like this one) are preferred,
@@ -50,8 +50,7 @@ def parse_latex(s, strict: bool = False, backend: str = 'antlr'):
         mistakes.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.parsing.latex import parse_latex
     >>> expr = parse_latex(r"\\frac {1 + \\sqrt {\\a}} {\\b}")
     >>> expr
@@ -61,4 +60,4 @@ def parse_latex(s, strict: bool = False, backend: str = 'antlr'):
     >>> func = parse_latex(r"\\int_1^\\alpha \\dfrac{\\mathrm{d}t}{t}", backend="lark")
     >>> func.evalf(subs={"alpha": 2})
     0.693147180559945
-    '''
+    """

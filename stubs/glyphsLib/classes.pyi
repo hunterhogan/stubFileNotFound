@@ -1,10 +1,9 @@
-from numba.extending import overload
-from sqlalchemy import over
 from _typeshed import Incomplete
 from collections.abc import Callable
 from fontTools.pens.basePen import AbstractPen
 from fontTools.pens.pointPen import AbstractPointPen
-from typing import ClassVar, Any
+from numba.extending import overload
+from typing import Any, ClassVar
 import collections
 import enum
 import glyphsLib.types
@@ -963,4 +962,3 @@ class GSFont(GSBase):
     def gridLength(self): ...
     @property
     def settings(self): ...
-

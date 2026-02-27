@@ -12,7 +12,7 @@ from sympy.core.decorators import call_highest_priority as call_highest_priority
 from sympy.core.expr import Expr as Expr, ExprBuilder as ExprBuilder
 from sympy.core.logic import FuzzyBool as FuzzyBool
 from sympy.core.symbol import Dummy as Dummy, Str as Str, Symbol as Symbol, symbols as symbols
-from sympy.core.sympify import SympifyError as SympifyError, _sympify as _sympify
+from sympy.core.sympify import _sympify as _sympify, SympifyError as SympifyError
 from sympy.external.gmpy import SYMPY_INTS as SYMPY_INTS
 from sympy.functions import adjoint as adjoint, conjugate as conjugate
 from sympy.functions.special.tensor_functions import KroneckerDelta as KroneckerDelta
@@ -31,18 +31,17 @@ class MatrixExpr(Expr):
     within a particular basis.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatrixSymbol
     >>> A = MatrixSymbol('A', 3, 3)
     >>> y = MatrixSymbol('y', 3, 1)
     >>> x = (A.T*A).I * A * y
 
     See Also
-    ========
-
+    --------
     MatrixSymbol, MatAdd, MatMul, Transpose, Inverse
     """
+
     __slots__: tuple[str, ...]
     _iterable: bool
     _op_priority: float
@@ -129,8 +128,7 @@ class MatrixExpr(Expr):
         Returns an object of type ImmutableDenseMatrix.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Identity
         >>> I = Identity(3)
         >>> I
@@ -142,7 +140,7 @@ class MatrixExpr(Expr):
         [0, 0, 1]])
 
         See Also
-        ========
+        --------
         as_mutable: returns mutable Matrix type
 
         """
@@ -151,8 +149,7 @@ class MatrixExpr(Expr):
         Returns a dense, mutable matrix with elements represented explicitly
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Identity
         >>> I = Identity(3)
         >>> I
@@ -166,7 +163,7 @@ class MatrixExpr(Expr):
         [0, 0, 1]])
 
         See Also
-        ========
+        --------
         as_explicit: returns ImmutableDenseMatrix
         """
     def __array__(self, dtype=..., copy=None): ...
@@ -183,7 +180,7 @@ class MatrixExpr(Expr):
     def as_coeff_mmul(self): ...
     @staticmethod
     def from_index_summation(expr, first_index=None, last_index=None, dimensions=None):
-        '''
+        """
         Parse expression of matrices with explicitly summed indices into a
         matrix expression without indices, if possible.
 
@@ -195,8 +192,7 @@ class MatrixExpr(Expr):
         the index starting the expression.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import MatrixSymbol, MatrixExpr, Sum
         >>> from sympy.abc import i, j, k, l, N
         >>> A = MatrixSymbol("A", N, N)
@@ -222,7 +218,7 @@ class MatrixExpr(Expr):
         >>> expr = Sum(A[i, j]*B[k, j]*A[l, k], (j, 0, N-1), (k, 0, N-1))
         >>> MatrixExpr.from_index_summation(expr)
         A*B.T*A.T
-        '''
+        """
     def applyfunc(self, func): ...
 
 def get_postprocessor(cls): ...
@@ -251,8 +247,7 @@ class MatrixSymbol(MatrixExpr):
     can be included in Matrix Expressions
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatrixSymbol, Identity
     >>> A = MatrixSymbol('A', 3, 4) # A 3 by 4 Matrix
     >>> B = MatrixSymbol('B', 4, 3) # A 4 by 3 Matrix
@@ -261,6 +256,7 @@ class MatrixSymbol(MatrixExpr):
     >>> 2*A*B + Identity(3)
     I + 2*A*B
     """
+
     is_commutative: bool
     is_symbol: bool
     _diff_wrt: bool
@@ -291,6 +287,7 @@ class _LeftRightArgs:
 
     The trace connects the end of the two lines.
     """
+
     _lines: Incomplete
     _first_pointer_parent: Incomplete
     _first_pointer_index: int
@@ -308,7 +305,6 @@ class _LeftRightArgs:
     def second_pointer(self): ...
     @second_pointer.setter
     def second_pointer(self, value) -> None: ...
-    def __repr__(self) -> str: ...
     def transpose(self): ...
     @staticmethod
     def _build(expr): ...

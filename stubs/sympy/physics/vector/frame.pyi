@@ -15,8 +15,7 @@ class CoordinateSym(Symbol):
     (even though they may be instantiated separately).
 
     Parameters
-    ==========
-
+    ----------
     name : string
         The display name of the CoordinateSym
 
@@ -27,8 +26,7 @@ class CoordinateSym(Symbol):
         The index of the dimension denoted by this coordinate variable
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.vector import ReferenceFrame, CoordinateSym
     >>> A = ReferenceFrame('A')
     >>> A[1]
@@ -40,6 +38,7 @@ class CoordinateSym(Symbol):
     True
 
     """
+
     def __new__(cls, name, frame, index): ...
     def __getnewargs_ex__(self): ...
     @property
@@ -61,6 +60,7 @@ class ReferenceFrame:
     vector, defined in another frame.
 
     """
+
     _count: int
     str_vecs: Incomplete
     pretty_vecs: Incomplete
@@ -87,8 +87,7 @@ class ReferenceFrame:
         relative to other ReferenceFrames.
 
         Parameters
-        ==========
-
+        ----------
         indices : tuple of str
             Enables the reference frame's basis unit vectors to be accessed by
             Python's square bracket indexing notation using the provided three
@@ -99,8 +98,7 @@ class ReferenceFrame:
             vectors to the provided three valid LaTeX strings.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame, vlatex
         >>> N = ReferenceFrame('N')
         >>> N.x
@@ -163,15 +161,13 @@ class ReferenceFrame:
         -ding to that index.
         """
     def __iter__(self): ...
-    def __str__(self) -> str:
-        """Returns the name of the frame. """
     __repr__ = __str__
     def _dict_list(self, other, num):
         """Returns an inclusive list of reference frames that connect this
         reference frame to the provided reference frame.
 
         Parameters
-        ==========
+        ----------
         other : ReferenceFrame
             The other reference frame to look for a connecting relationship to.
         num : integer
@@ -180,14 +176,13 @@ class ReferenceFrame:
             frames, respectively.
 
         Returns
-        =======
+        -------
         list
             Inclusive list of reference frames that connect this reference
             frame to the other reference frame.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame
         >>> A = ReferenceFrame('A')
         >>> B = ReferenceFrame('B')
@@ -200,15 +195,14 @@ class ReferenceFrame:
         [D, C, B, A]
 
         Raises
-        ======
-
+        ------
         ValueError
             When no path is found between the two reference frames or ``num``
             is an incorrect value.
 
         """
     def _w_diff_dcm(self, otherframe):
-        """Angular velocity from time differentiating the DCM. """
+        """Angular velocity from time differentiating the DCM."""
     def variable_map(self, otherframe):
         """
         Returns a dictionary which expresses the coordinate variables
@@ -220,14 +214,12 @@ class ReferenceFrame:
         Simplification of the expressions may take time.
 
         Parameters
-        ==========
-
+        ----------
         otherframe : ReferenceFrame
             The other frame to map the variables to
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame, dynamicsymbols
         >>> A = ReferenceFrame('A')
         >>> q = dynamicsymbols('q')
@@ -247,14 +239,12 @@ class ReferenceFrame:
         and N is otherframe.
 
         Parameters
-        ==========
-
+        ----------
         otherframe : ReferenceFrame
             The ReferenceFrame which the angular acceleration is returned in.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame
         >>> N = ReferenceFrame('N')
         >>> A = ReferenceFrame('A')
@@ -275,14 +265,12 @@ class ReferenceFrame:
         N is otherframe.
 
         Parameters
-        ==========
-
+        ----------
         otherframe : ReferenceFrame
             The ReferenceFrame which the angular velocity is returned in.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame
         >>> N = ReferenceFrame('N')
         >>> A = ReferenceFrame('A')
@@ -293,7 +281,7 @@ class ReferenceFrame:
 
         """
     def dcm(self, otherframe):
-        '''Returns the direction cosine matrix of this reference frame
+        """Returns the direction cosine matrix of this reference frame
         relative to the provided reference frame.
 
         The returned matrix can be used to express the orthogonal unit vectors
@@ -301,15 +289,13 @@ class ReferenceFrame:
         ``otherframe``.
 
         Parameters
-        ==========
-
+        ----------
         otherframe : ReferenceFrame
             The reference frame which the direction cosine matrix of this frame
             is formed relative to.
 
         Examples
-        ========
-
+        --------
         The following example rotates the reference frame A relative to N by a
         simple rotation and then calculates the direction cosine matrix of N
         relative to A.
@@ -337,8 +323,7 @@ class ReferenceFrame:
         cos(q1)*A.y - sin(q1)*A.z
 
         Notes
-        =====
-
+        -----
         It is important to know what form of the direction cosine matrix is
         returned. If ``B.dcm(A)`` is called, it means the "direction cosine
         matrix of B rotated relative to A". This is the matrix
@@ -358,7 +343,7 @@ class ReferenceFrame:
         :math:`{}^B\\mathbf{C}^A` is the matrix that expresses the B unit
         vectors in terms of the A unit vectors.
 
-        '''
+        """
     def _dcm(self, parent, parent_orient) -> None: ...
     def orient_axis(self, parent, axis, angle) -> None:
         """Sets the orientation of this reference frame with respect to a
@@ -366,8 +351,7 @@ class ReferenceFrame:
         in the parent reference frame.
 
         Parameters
-        ==========
-
+        ----------
         parent : ReferenceFrame
             Reference frame that this reference frame will be rotated relative
             to.
@@ -379,14 +363,12 @@ class ReferenceFrame:
             Angle in radians by which it the frame is to be rotated.
 
         Warns
-        ======
-
+        -----
         UserWarning
             If the orientation creates a kinematic loop.
 
         Examples
-        ========
-
+        --------
         Setup variables for the examples:
 
         >>> from sympy import symbols
@@ -425,8 +407,7 @@ class ReferenceFrame:
         using a direction cosine matrix that describes the rotation from the parent to the child.
 
         Parameters
-        ==========
-
+        ----------
         parent : ReferenceFrame
             Reference frame that this reference frame will be rotated relative
             to.
@@ -435,14 +416,12 @@ class ReferenceFrame:
             between the two reference frames.
 
         Warns
-        ======
-
+        -----
         UserWarning
             If the orientation creates a kinematic loop.
 
         Examples
-        ========
-
+        --------
         Setup variables for the examples:
 
         >>> from sympy import symbols, Matrix, sin, cos
@@ -491,8 +470,7 @@ class ReferenceFrame:
         using a direction cosine matrix that describes the rotation from the child to the parent.
 
         Parameters
-        ==========
-
+        ----------
         parent : ReferenceFrame
             Reference frame that this reference frame will be rotated relative
             to.
@@ -501,14 +479,12 @@ class ReferenceFrame:
             between the two reference frames.
 
         Warns
-        ======
-
+        -----
         UserWarning
             If the orientation creates a kinematic loop.
 
         Examples
-        ========
-
+        --------
         Setup variables for the examples:
 
         >>> from sympy import symbols, Matrix, sin, cos
@@ -547,7 +523,7 @@ class ReferenceFrame:
         """Helper for orient_body_fixed and orient_space_fixed.
 
         Parameters
-        ==========
+        ----------
         angles : 3-tuple of sympifiable
             Three angles in radians used for the successive rotations.
         rotation_order : 3 character string or 3 digit integer
@@ -556,8 +532,7 @@ class ReferenceFrame:
             valid rotation orders.
 
         Returns
-        =======
-
+        -------
         amounts : list
             List of sympifiables corresponding to the rotation angles.
         rot_order : list
@@ -567,7 +542,7 @@ class ReferenceFrame:
 
         """
     def orient_body_fixed(self, parent, angles, rotation_order) -> None:
-        '''Rotates this reference frame relative to the parent reference frame
+        """Rotates this reference frame relative to the parent reference frame
         by right hand rotating through three successive body fixed simple axis
         rotations. Each subsequent axis of rotation is about the "body fixed"
         unit vectors of a new intermediate reference frame. This type of
@@ -581,8 +556,7 @@ class ReferenceFrame:
         child.y + u3 * child.z`` as generalized speeds.
 
         Parameters
-        ==========
-
+        ----------
         parent : ReferenceFrame
             Reference frame that this reference frame will be rotated relative
             to.
@@ -597,14 +571,12 @@ class ReferenceFrame:
             and yxz.
 
         Warns
-        ======
-
+        -----
         UserWarning
             If the orientation creates a kinematic loop.
 
         Examples
-        ========
-
+        --------
         Setup variables for the examples:
 
         >>> from sympy import symbols
@@ -647,9 +619,9 @@ class ReferenceFrame:
         >>> B.orient_body_fixed(N, (q1, q2, 0), \'121\')
         >>> B.orient_body_fixed(N, (q1, q2, q3), 123)
 
-        '''
+        """
     def orient_space_fixed(self, parent, angles, rotation_order) -> None:
-        '''Rotates this reference frame relative to the parent reference frame
+        """Rotates this reference frame relative to the parent reference frame
         by right hand rotating through three successive space fixed simple axis
         rotations. Each subsequent axis of rotation is about the "space fixed"
         unit vectors of the parent reference frame.
@@ -659,7 +631,7 @@ class ReferenceFrame:
         child.y + u3 * child.z`` as generalized speeds.
 
         Parameters
-        ==========
+        ----------
         parent : ReferenceFrame
             Reference frame that this reference frame will be rotated relative
             to.
@@ -672,14 +644,12 @@ class ReferenceFrame:
             rotation orders.
 
         Warns
-        ======
-
+        -----
         UserWarning
             If the orientation creates a kinematic loop.
 
         Examples
-        ========
-
+        --------
         Setup variables for the examples:
 
         >>> from sympy import symbols
@@ -727,7 +697,7 @@ class ReferenceFrame:
         [       -sin(q2),                           cos(q2)*cos(q3),                            sin(q3)*cos(q2)],
         [sin(q1)*cos(q2), sin(q1)*sin(q2)*cos(q3) - sin(q3)*cos(q1),  sin(q1)*sin(q2)*sin(q3) + cos(q1)*cos(q3)]])
 
-        '''
+        """
     def orient_quaternion(self, parent, numbers) -> None:
         """Sets the orientation of this reference frame relative to a parent
         reference frame via an orientation quaternion. An orientation
@@ -745,7 +715,7 @@ class ReferenceFrame:
         Wikipedia for more information.
 
         Parameters
-        ==========
+        ----------
         parent : ReferenceFrame
             Reference frame that this reference frame will be rotated relative
             to.
@@ -754,14 +724,12 @@ class ReferenceFrame:
             ``q1``, ``q2``, ``q3``.
 
         Warns
-        ======
-
+        -----
         UserWarning
             If the orientation creates a kinematic loop.
 
         Examples
-        ========
-
+        --------
         Setup variables for the examples:
 
         >>> from sympy import symbols
@@ -781,7 +749,7 @@ class ReferenceFrame:
 
         """
     def orient(self, parent, rot_type, amounts, rot_order: str = '') -> None:
-        '''Sets the orientation of this reference frame relative to another
+        """Sets the orientation of this reference frame relative to another
         (parent) reference frame.
 
         .. note:: It is now recommended to use the ``.orient_axis,
@@ -789,8 +757,7 @@ class ReferenceFrame:
            methods for the different rotation types.
 
         Parameters
-        ==========
-
+        ----------
         parent : ReferenceFrame
             Reference frame that this reference frame will be rotated relative
             to.
@@ -825,22 +792,20 @@ class ReferenceFrame:
             for ``\'Body\'`` and ``\'Space\'``.
 
         Warns
-        ======
-
+        -----
         UserWarning
             If the orientation creates a kinematic loop.
 
-        '''
+        """
     def orientnew(self, newname, rot_type, amounts, rot_order: str = '', variables=None, indices=None, latexs=None):
-        '''Returns a new reference frame oriented with respect to this
+        """Returns a new reference frame oriented with respect to this
         reference frame.
 
         See ``ReferenceFrame.orient()`` for detailed examples of how to orient
         reference frames.
 
         Parameters
-        ==========
-
+        ----------
         newname : str
             Name for the new reference frame.
         rot_type : str
@@ -882,8 +847,7 @@ class ReferenceFrame:
             vectors to the provided three valid LaTeX strings.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols
         >>> from sympy.physics.vector import ReferenceFrame, vlatex
         >>> q0, q1, q2, q3 = symbols(\'q0 q1 q2 q3\')
@@ -910,7 +874,7 @@ class ReferenceFrame:
         >>> print(vlatex(C[\'1\']))
         \\hat{\\mathbf{c}}_1
 
-        '''
+        """
     def set_ang_acc(self, otherframe, value) -> None:
         """Define the angular acceleration Vector in a ReferenceFrame.
 
@@ -920,16 +884,14 @@ class ReferenceFrame:
         inconsistent.
 
         Parameters
-        ==========
-
+        ----------
         otherframe : ReferenceFrame
             A ReferenceFrame to define the angular acceleration in
         value : Vector
             The Vector representing angular acceleration
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame
         >>> N = ReferenceFrame('N')
         >>> A = ReferenceFrame('A')
@@ -948,16 +910,14 @@ class ReferenceFrame:
         inconsistent.
 
         Parameters
-        ==========
-
+        ----------
         otherframe : ReferenceFrame
             A ReferenceFrame to define the angular velocity in
         value : Vector
             The Vector representing angular velocity
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame
         >>> N = ReferenceFrame('N')
         >>> A = ReferenceFrame('A')
@@ -969,13 +929,13 @@ class ReferenceFrame:
         """
     @property
     def x(self):
-        """The basis Vector for the ReferenceFrame, in the x direction. """
+        """The basis Vector for the ReferenceFrame, in the x direction."""
     @property
     def y(self):
-        """The basis Vector for the ReferenceFrame, in the y direction. """
+        """The basis Vector for the ReferenceFrame, in the y direction."""
     @property
     def z(self):
-        """The basis Vector for the ReferenceFrame, in the z direction. """
+        """The basis Vector for the ReferenceFrame, in the z direction."""
     @property
     def xx(self):
         """Unit dyad of basis Vectors x and x for the ReferenceFrame."""
@@ -1011,21 +971,20 @@ class ReferenceFrame:
         frame with respect to one or more provided generalized speeds.
 
         Parameters
-        ==========
+        ----------
         frame : ReferenceFrame
             The frame with which the angular velocity is defined in.
         gen_speeds : functions of time
             The generalized speeds.
 
         Returns
-        =======
+        -------
         partial_velocities : tuple of Vector
             The partial angular velocity vectors corresponding to the provided
             generalized speeds.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame, dynamicsymbols
         >>> N = ReferenceFrame('N')
         >>> A = ReferenceFrame('A')

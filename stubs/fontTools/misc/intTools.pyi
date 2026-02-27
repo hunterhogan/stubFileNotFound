@@ -11,4 +11,3 @@ def bit_indices(v):
     >>> bit_indices(0b101)
     [0, 2]
     """
-

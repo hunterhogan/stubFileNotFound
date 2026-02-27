@@ -2,7 +2,7 @@ from . import _api as _api
 from _typeshed import Incomplete
 
 def kwarg_doc(text):
-    '''
+    """
     Decorator for defining the kwdoc documentation of artist properties.
 
     This decorator can be applied to artist property setter methods.
@@ -22,10 +22,10 @@ def kwarg_doc(text):
     --------
     matplotlib.artist.kwdoc
 
-    '''
+    """
 
 class Substitution:
-    '''
+    """
     A decorator that performs %-substitution on an object\'s docstring.
 
     This decorator should be robust even if ``obj.__doc__`` is None (for
@@ -50,7 +50,8 @@ class Substitution:
         @sub_first_last_names
         def some_function(x):
             "%s %s wrote the Raven"
-    '''
+    """
+
     params: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
     def __call__(self, func): ...
@@ -59,7 +60,7 @@ class _ArtistKwdocLoader(dict):
     def __missing__(self, key): ...
 
 class _ArtistPropertiesSubstitution:
-    '''
+    """
     A class to substitute formatted placeholders in docstrings.
 
     This is realized in a single instance ``_docstring.interpd``.
@@ -80,16 +81,17 @@ class _ArtistPropertiesSubstitution:
     Substitutions of the form ``%(classname:kwdoc)s`` (ending with the
     literal ":kwdoc" suffix) trigger lookup of an Artist subclass with the
     given *classname*, and are substituted with the `.kwdoc` of that class.
-    '''
+    """
+
     params: Incomplete
     def __init__(self) -> None: ...
     def register(self, **kwargs) -> None:
-        '''
+        """
         Register substitutions.
 
         ``_docstring.interpd.register(name="some value")`` makes "name" available
         as a named parameter that will be replaced by "some value".
-        '''
+        """
     def __call__(self, obj): ...
 
 def copy(source):

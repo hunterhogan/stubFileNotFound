@@ -1,5 +1,18 @@
-from .activation import ActivationBase as ActivationBase, FirstOrderActivationDeGroote2016 as FirstOrderActivationDeGroote2016, ZerothOrderActivation as ZerothOrderActivation
-from .curve import CharacteristicCurveCollection as CharacteristicCurveCollection, CharacteristicCurveFunction as CharacteristicCurveFunction, FiberForceLengthActiveDeGroote2016 as FiberForceLengthActiveDeGroote2016, FiberForceLengthPassiveDeGroote2016 as FiberForceLengthPassiveDeGroote2016, FiberForceLengthPassiveInverseDeGroote2016 as FiberForceLengthPassiveInverseDeGroote2016, FiberForceVelocityDeGroote2016 as FiberForceVelocityDeGroote2016, FiberForceVelocityInverseDeGroote2016 as FiberForceVelocityInverseDeGroote2016, TendonForceLengthDeGroote2016 as TendonForceLengthDeGroote2016, TendonForceLengthInverseDeGroote2016 as TendonForceLengthInverseDeGroote2016
-from .musculotendon import MusculotendonBase as MusculotendonBase, MusculotendonDeGroote2016 as MusculotendonDeGroote2016, MusculotendonFormulation as MusculotendonFormulation
+from .activation import (
+	ActivationBase as ActivationBase, FirstOrderActivationDeGroote2016 as FirstOrderActivationDeGroote2016,
+	ZerothOrderActivation as ZerothOrderActivation)
+from .curve import (
+	CharacteristicCurveCollection as CharacteristicCurveCollection,
+	CharacteristicCurveFunction as CharacteristicCurveFunction,
+	FiberForceLengthActiveDeGroote2016 as FiberForceLengthActiveDeGroote2016,
+	FiberForceLengthPassiveDeGroote2016 as FiberForceLengthPassiveDeGroote2016,
+	FiberForceLengthPassiveInverseDeGroote2016 as FiberForceLengthPassiveInverseDeGroote2016,
+	FiberForceVelocityDeGroote2016 as FiberForceVelocityDeGroote2016,
+	FiberForceVelocityInverseDeGroote2016 as FiberForceVelocityInverseDeGroote2016,
+	TendonForceLengthDeGroote2016 as TendonForceLengthDeGroote2016,
+	TendonForceLengthInverseDeGroote2016 as TendonForceLengthInverseDeGroote2016)
+from .musculotendon import (
+	MusculotendonBase as MusculotendonBase, MusculotendonDeGroote2016 as MusculotendonDeGroote2016,
+	MusculotendonFormulation as MusculotendonFormulation)
 
-__all__ = ['CharacteristicCurveCollection', 'CharacteristicCurveFunction', 'FiberForceLengthActiveDeGroote2016', 'FiberForceLengthPassiveDeGroote2016', 'FiberForceLengthPassiveInverseDeGroote2016', 'FiberForceVelocityDeGroote2016', 'FiberForceVelocityInverseDeGroote2016', 'TendonForceLengthDeGroote2016', 'TendonForceLengthInverseDeGroote2016', 'ActivationBase', 'FirstOrderActivationDeGroote2016', 'ZerothOrderActivation', 'MusculotendonBase', 'MusculotendonDeGroote2016', 'MusculotendonFormulation']
+__all__ = ['ActivationBase', 'CharacteristicCurveCollection', 'CharacteristicCurveFunction', 'FiberForceLengthActiveDeGroote2016', 'FiberForceLengthPassiveDeGroote2016', 'FiberForceLengthPassiveInverseDeGroote2016', 'FiberForceVelocityDeGroote2016', 'FiberForceVelocityInverseDeGroote2016', 'FirstOrderActivationDeGroote2016', 'MusculotendonBase', 'MusculotendonDeGroote2016', 'MusculotendonFormulation', 'TendonForceLengthDeGroote2016', 'TendonForceLengthInverseDeGroote2016', 'ZerothOrderActivation']

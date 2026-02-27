@@ -1,11 +1,11 @@
-import sys
 from _queue import Empty as Empty, SimpleQueue as SimpleQueue
 from _typeshed import SupportsRichComparisonT
 from threading import Condition, Lock
 from types import GenericAlias
 from typing import Any, Generic, TypeVar
+import sys
 
-__all__ = ["Empty", "Full", "Queue", "PriorityQueue", "LifoQueue", "SimpleQueue"]
+__all__ = ["Empty", "Full", "LifoQueue", "PriorityQueue", "Queue", "SimpleQueue"]
 if sys.version_info >= (3, 13):
     __all__ += ["ShutDown"]
 

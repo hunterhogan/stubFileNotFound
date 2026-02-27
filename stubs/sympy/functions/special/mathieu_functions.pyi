@@ -9,6 +9,7 @@ class MathieuBase(DefinedFunction):
     This class is meant to reduce code duplication.
 
     """
+
     unbranched: bool
     def _eval_conjugate(self): ...
 
@@ -27,8 +28,7 @@ class mathieus(MathieuBase):
     The other solution is the Mathieu Cosine function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import diff, mathieus
     >>> from sympy.abc import a, q, z
 
@@ -42,14 +42,13 @@ class mathieus(MathieuBase):
     mathieusprime(a, q, z)
 
     See Also
-    ========
-
+    --------
     mathieuc: Mathieu cosine function.
     mathieusprime: Derivative of Mathieu sine function.
     mathieucprime: Derivative of Mathieu cosine function.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Mathieu_function
     .. [2] https://dlmf.nist.gov/28
@@ -57,6 +56,7 @@ class mathieus(MathieuBase):
     .. [4] https://functions.wolfram.com/MathieuandSpheroidalFunctions/MathieuS/
 
     """
+
     def fdiff(self, argindex: int = 1): ...
     @classmethod
     def eval(cls, a, q, z): ...
@@ -76,8 +76,7 @@ class mathieuc(MathieuBase):
     The other solution is the Mathieu Sine function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import diff, mathieuc
     >>> from sympy.abc import a, q, z
 
@@ -91,14 +90,13 @@ class mathieuc(MathieuBase):
     mathieucprime(a, q, z)
 
     See Also
-    ========
-
+    --------
     mathieus: Mathieu sine function
     mathieusprime: Derivative of Mathieu sine function
     mathieucprime: Derivative of Mathieu cosine function
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Mathieu_function
     .. [2] https://dlmf.nist.gov/28
@@ -106,6 +104,7 @@ class mathieuc(MathieuBase):
     .. [4] https://functions.wolfram.com/MathieuandSpheroidalFunctions/MathieuC/
 
     """
+
     def fdiff(self, argindex: int = 1): ...
     @classmethod
     def eval(cls, a, q, z): ...
@@ -125,8 +124,7 @@ class mathieusprime(MathieuBase):
     The other solution is the Mathieu Cosine function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import diff, mathieusprime
     >>> from sympy.abc import a, q, z
 
@@ -140,14 +138,13 @@ class mathieusprime(MathieuBase):
     (-a + 2*q*cos(2*z))*mathieus(a, q, z)
 
     See Also
-    ========
-
+    --------
     mathieus: Mathieu sine function
     mathieuc: Mathieu cosine function
     mathieucprime: Derivative of Mathieu cosine function
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Mathieu_function
     .. [2] https://dlmf.nist.gov/28
@@ -155,6 +152,7 @@ class mathieusprime(MathieuBase):
     .. [4] https://functions.wolfram.com/MathieuandSpheroidalFunctions/MathieuSPrime/
 
     """
+
     def fdiff(self, argindex: int = 1): ...
     @classmethod
     def eval(cls, a, q, z): ...
@@ -174,8 +172,7 @@ class mathieucprime(MathieuBase):
     The other solution is the Mathieu Sine function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import diff, mathieucprime
     >>> from sympy.abc import a, q, z
 
@@ -189,14 +186,13 @@ class mathieucprime(MathieuBase):
     (-a + 2*q*cos(2*z))*mathieuc(a, q, z)
 
     See Also
-    ========
-
+    --------
     mathieus: Mathieu sine function
     mathieuc: Mathieu cosine function
     mathieusprime: Derivative of Mathieu sine function
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Mathieu_function
     .. [2] https://dlmf.nist.gov/28
@@ -204,6 +200,7 @@ class mathieucprime(MathieuBase):
     .. [4] https://functions.wolfram.com/MathieuandSpheroidalFunctions/MathieuCPrime/
 
     """
+
     def fdiff(self, argindex: int = 1): ...
     @classmethod
     def eval(cls, a, q, z): ...

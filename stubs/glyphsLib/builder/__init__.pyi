@@ -14,7 +14,6 @@ from glyphsLib.glyphdata import GlyphData
 from types import ModuleType
 from ufoLib2 import Font
 import os
-import ufoLib2
 
 TRANSFORMATIONS: list
 TRANSFORMATION_CUSTOM_PARAMS: mappingproxy
@@ -103,7 +102,7 @@ def preflight_glyphs(font: GSFont, *, glyph_data: Incomplete | None = ..., **fla
     -------
         the modified GSFont object
     """
-def to_glyphs(ufos_or_designspace: list[Font] | DesignSpaceDocument, glyphs_module: ModuleType = ..., ufo_module: ModuleType | None = ufoLib2, minimize_ufo_diffs: bool = ..., expand_includes: bool = ...) -> GSFont:
+def to_glyphs(ufos_or_designspace: list[Font] | DesignSpaceDocument, glyphs_module: ModuleType = ..., ufo_module: ModuleType | None = ..., minimize_ufo_diffs: bool = ..., expand_includes: bool = ...) -> GSFont:
     """
     Take a list of UFOs or a single DesignspaceDocument with attached UFOs
     and converts it into a GSFont object.
@@ -115,4 +114,3 @@ def to_glyphs(ufos_or_designspace: list[Font] | DesignSpaceDocument, glyphs_modu
     so we should have to_glyphs(to_ufos(font)) == font
     and also to_glyphs(to_designspace(font)) == font
     """
-

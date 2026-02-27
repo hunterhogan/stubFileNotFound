@@ -1,9 +1,7 @@
-from collections.abc import Sequence
-
-import numpy as np
-
 from .dtypes import Resolution
+from collections.abc import Sequence
 from typing import Any
+import numpy as np
 
 def normalize_i8_timestamps(
     stamps: Sequence[int], tz: str | None = ...

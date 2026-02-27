@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 
 class Gcf:
-    '''
+    """
     Singleton to maintain the relation between figures and their managers, and
     keep track of and "active" figure and manager.
 
@@ -20,7 +20,8 @@ class Gcf:
     figs : OrderedDict
         `OrderedDict` mapping numbers to managers; the active manager is at the
         end.
-    '''
+    """
+
     figs: Incomplete
     @classmethod
     def get_fig_manager(cls, num):
@@ -30,7 +31,7 @@ class Gcf:
         """
     @classmethod
     def destroy(cls, num) -> None:
-        '''
+        """
         Destroy manager *num* -- either a manager instance or a manager number.
 
         In the interactive backends, this is bound to the window "destroy" and
@@ -38,7 +39,7 @@ class Gcf:
 
         It is recommended to pass a manager instance, to avoid confusion when
         two managers share the same number.
-        '''
+        """
     @classmethod
     def destroy_fig(cls, fig) -> None:
         """Destroy figure *fig*."""

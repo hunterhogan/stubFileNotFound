@@ -32,4 +32,3 @@ _re_u: Incomplete
 
 def _uToUnicode(component):
     """Helper for toUnicode() to handle "u1ABCD" components."""
-

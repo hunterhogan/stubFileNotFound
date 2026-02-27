@@ -7,6 +7,7 @@ class OmegaPower(Basic):
     building blocks of the :class:`Ordinal` class.
     In ``OmegaPower(a, b)``, ``a`` represents exponent and ``b`` represents multiplicity.
     """
+
     def __new__(cls, a, b): ...
     @property
     def exp(self): ...
@@ -24,7 +25,7 @@ class Ordinal(Basic):
     Internally, this class is just a list of instances of OmegaPower.
 
     Examples
-    ========
+    --------
     >>> from sympy import Ordinal, OmegaPower
     >>> from sympy.sets.ordinals import omega
     >>> w = omega
@@ -38,10 +39,11 @@ class Ordinal(Basic):
     w**2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Ordinal_arithmetic
     """
+
     def __new__(cls, *terms): ...
     @property
     def terms(self): ...
@@ -63,7 +65,6 @@ class Ordinal(Basic):
     def __le__(self, other): ...
     def __gt__(self, other): ...
     def __ge__(self, other): ...
-    def __str__(self) -> str: ...
     __repr__ = __str__
     def __add__(self, other): ...
     def __radd__(self, other): ...
@@ -83,12 +84,12 @@ class OrdinalOmega(Ordinal):
     OrdinalOmega can be imported as ``omega``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.sets.ordinals import omega
     >>> omega + omega
     w*2
     """
+
     def __new__(cls): ...
     @property
     def terms(self): ...

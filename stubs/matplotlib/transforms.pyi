@@ -2,12 +2,14 @@ from .path import Path as Path
 from _typeshed import Incomplete
 from collections.abc import Generator
 from matplotlib import _api as _api
-from matplotlib._path import affine_transform as affine_transform, count_bboxes_overlapping_bbox as count_bboxes_overlapping_bbox, update_path_extents as update_path_extents
+from matplotlib._path import (
+	affine_transform as affine_transform, count_bboxes_overlapping_bbox as count_bboxes_overlapping_bbox,
+	update_path_extents as update_path_extents)
 
 DEBUG: bool
 
 def _make_str_method(*args, **kwargs):
-    '''
+    """
     Generate a ``__str__`` method for a `.Transform` subclass.
 
     After ::
@@ -22,7 +24,7 @@ def _make_str_method(*args, **kwargs):
         {type(T).__name__}(
             {self.attr},
             key={self.other})
-    '''
+    """
 
 class TransformNode:
     """
@@ -31,6 +33,7 @@ class TransformNode:
     classes that are not really transforms, such as bounding boxes, since some
     transforms depend on bounding boxes to compute their values.
     """
+
     _VALID: Incomplete
     _INVALID_AFFINE_ONLY: Incomplete
     _INVALID_FULL: Incomplete
@@ -41,15 +44,14 @@ class TransformNode:
     _invalid: Incomplete
     _shorthand_name: Incomplete
     def __init__(self, shorthand_name: Incomplete | None = None) -> None:
-        '''
+        """
         Parameters
         ----------
         shorthand_name : str
             A string representing the "name" of the transform. The name carries
             no significance other than to improve the readability of
             ``str(transform)`` when DEBUG=True.
-        '''
-    def __str__(self) -> str: ...
+        """
     def __getstate__(self): ...
     __dict__: Incomplete
     def __setstate__(self, data_dict): ...
@@ -90,6 +92,7 @@ class BboxBase(TransformNode):
     provided to get the left, bottom, right and top edges and width
     and height, but these are not stored explicitly.
     """
+
     is_bbox: Incomplete
     is_affine: bool
     @staticmethod
@@ -343,7 +346,7 @@ class BboxBase(TransformNode):
 _default_minpos: Incomplete
 
 class Bbox(BboxBase):
-    '''
+    """
     A mutable bounding box.
 
     Examples
@@ -421,7 +424,8 @@ class Bbox(BboxBase):
 
         >>> Bbox.union([Bbox([[0, 0], [0, 0]]), Bbox.null()])
         Bbox([[-inf, -inf], [inf, inf]])
-    '''
+    """
+
     _points: Incomplete
     _minpos: Incomplete
     _ignore: bool
@@ -467,8 +471,6 @@ class Bbox(BboxBase):
             scales where negative bounds result in floating point errors.
         """
     def __format__(self, fmt) -> str: ...
-    def __str__(self) -> str: ...
-    def __repr__(self) -> str: ...
     def ignore(self, value) -> None:
         """
         Set whether the existing bounds of the box should be ignored
@@ -608,9 +610,9 @@ class Bbox(BboxBase):
         method is mainly for internal use.
         """
     def set(self, other) -> None:
-        '''
+        """
         Set this bounding box from the "frozen" bounds of another `Bbox`.
-        '''
+        """
     def mutated(self):
         """Return whether the bbox has changed since init."""
     def mutatedx(self):
@@ -624,6 +626,7 @@ class TransformedBbox(BboxBase):
     transform.  When either the child bounding box or transform
     changes, the bounds of this bbox will update accordingly.
     """
+
     _bbox: Incomplete
     _transform: Incomplete
     _points: Incomplete
@@ -649,6 +652,7 @@ class LockableBbox(BboxBase):
     When the child bounding box changes, the bounds of this bbox will update
     accordingly with the exception of the locked elements.
     """
+
     _bbox: Incomplete
     _points: Incomplete
     _locked_points: Incomplete
@@ -680,28 +684,28 @@ class LockableBbox(BboxBase):
     @property
     def locked_x0(self):
         """
-        float or None: The value used for the locked x0.
+        Float or None: The value used for the locked x0.
         """
     @locked_x0.setter
     def locked_x0(self, x0) -> None: ...
     @property
     def locked_y0(self):
         """
-        float or None: The value used for the locked y0.
+        Float or None: The value used for the locked y0.
         """
     @locked_y0.setter
     def locked_y0(self, y0) -> None: ...
     @property
     def locked_x1(self):
         """
-        float or None: The value used for the locked x1.
+        Float or None: The value used for the locked x1.
         """
     @locked_x1.setter
     def locked_x1(self, x1) -> None: ...
     @property
     def locked_y1(self):
         """
-        float or None: The value used for the locked y1.
+        Float or None: The value used for the locked y1.
         """
     @locked_y1.setter
     def locked_y1(self, y1) -> None: ...
@@ -735,6 +739,7 @@ class Transform(TransformNode):
 
     - :meth:`transform_path`
     """
+
     input_dims: Incomplete
     output_dims: Incomplete
     is_separable: bool
@@ -791,7 +796,7 @@ class Transform(TransformNode):
 
         """
     def __sub__(self, other):
-        '''
+        """
         Compose *self* with the inverse of *other*, cancelling identical terms
         if any::
 
@@ -818,7 +823,7 @@ class Transform(TransformNode):
           ``B.inverted()`` won\'t be updated and the last two terms won\'t cancel
           out anymore; on the other hand, ``A + B - B`` will always be equal to
           ``A`` even if ``B`` is mutated.
-        '''
+        """
     def __array__(self, *args, **kwargs):
         """Array interface to get at this Transform's affine matrix."""
     def transform(self, values):
@@ -977,6 +982,7 @@ class TransformWrapper(Transform):
     during their entire lifetime, so the child transform may only be replaced
     with another child transform of the same dimensions.
     """
+
     pass_through: bool
     def __init__(self, child) -> None:
         """
@@ -1014,6 +1020,7 @@ class AffineBase(Transform):
     """
     The base class of all affine transformations of any number of dimensions.
     """
+
     is_affine: bool
     _inverted: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
@@ -1043,6 +1050,7 @@ class Affine2DBase(AffineBase):
     Subclasses of this class will generally only need to override a
     constructor and `~.Transform.get_matrix` that generates a custom 3x3 matrix.
     """
+
     input_dims: int
     output_dims: int
     def frozen(self): ...
@@ -1063,6 +1071,7 @@ class Affine2D(Affine2DBase):
     """
     A mutable 2D affine transformation.
     """
+
     _mtx: Incomplete
     _invalid: int
     def __init__(self, matrix: Incomplete | None = None, **kwargs) -> None:
@@ -1076,7 +1085,6 @@ class Affine2D(Affine2DBase):
         If *matrix* is None, initialize with the identity transform.
         """
     _base_str: Incomplete
-    def __str__(self) -> str: ...
     @staticmethod
     def from_values(a, b, c, d, e, f):
         """
@@ -1197,6 +1205,7 @@ class IdentityTransform(Affine2DBase):
     A special class that does one thing, the identity transform, in a
     fast way.
     """
+
     _mtx: Incomplete
     def frozen(self): ...
     __str__: Incomplete
@@ -1212,18 +1221,20 @@ class IdentityTransform(Affine2DBase):
 
 class _BlendedMixin:
     """Common methods for `BlendedGenericTransform` and `BlendedAffine2D`."""
+
     def __eq__(self, other): ...
     def contains_branch_seperately(self, transform): ...
     __str__: Incomplete
 
 class BlendedGenericTransform(_BlendedMixin, Transform):
-    '''
+    """
     A "blended" transform uses one transform for the *x*-direction, and
     another transform for the *y*-direction.
 
     This "generic" version can handle any given child transform in the
     *x*- and *y*-directions.
-    '''
+    """
+
     input_dims: int
     output_dims: int
     is_separable: bool
@@ -1232,14 +1243,14 @@ class BlendedGenericTransform(_BlendedMixin, Transform):
     _y: Incomplete
     _affine: Incomplete
     def __init__(self, x_transform, y_transform, **kwargs) -> None:
-        '''
+        """
         Create a new "blended" transform using *x_transform* to transform the
         *x*-axis and *y_transform* to transform the *y*-axis.
 
         You will generally not call this constructor directly but use the
         `blended_transform_factory` function instead, which can determine
         automatically which kind of blended transform to create.
-        '''
+        """
     @property
     def depth(self): ...
     def contains_branch(self, other): ...
@@ -1252,19 +1263,20 @@ class BlendedGenericTransform(_BlendedMixin, Transform):
     def get_affine(self): ...
 
 class BlendedAffine2D(_BlendedMixin, Affine2DBase):
-    '''
+    """
     A "blended" transform uses one transform for the *x*-direction, and
     another transform for the *y*-direction.
 
     This version is an optimization for the case where both child
     transforms are of type `Affine2DBase`.
-    '''
+    """
+
     is_separable: bool
     _x: Incomplete
     _y: Incomplete
     _mtx: Incomplete
     def __init__(self, x_transform, y_transform, **kwargs) -> None:
-        '''
+        """
         Create a new "blended" transform using *x_transform* to transform the
         *x*-axis and *y_transform* to transform the *y*-axis.
 
@@ -1273,28 +1285,29 @@ class BlendedAffine2D(_BlendedMixin, Affine2DBase):
         You will generally not call this constructor directly but use the
         `blended_transform_factory` function instead, which can determine
         automatically which kind of blended transform to create.
-        '''
+        """
     _inverted: Incomplete
     _invalid: int
     def get_matrix(self): ...
 
 def blended_transform_factory(x_transform, y_transform):
-    '''
+    """
     Create a new "blended" transform using *x_transform* to transform
     the *x*-axis and *y_transform* to transform the *y*-axis.
 
     A faster version of the blended transform is returned for the case
     where both child transforms are affine.
-    '''
+    """
 
 class CompositeGenericTransform(Transform):
-    '''
+    """
     A composite transform formed by applying transform *a* then
     transform *b*.
 
     This "generic" version can handle any two arbitrary
     transformations.
-    '''
+    """
+
     pass_through: bool
     input_dims: Incomplete
     output_dims: Incomplete
@@ -1333,6 +1346,7 @@ class CompositeAffine2D(Affine2DBase):
     This version is an optimization that handles the case where both *a*
     and *b* are 2D affines.
     """
+
     input_dims: Incomplete
     output_dims: Incomplete
     _a: Incomplete
@@ -1374,6 +1388,7 @@ class BboxTransform(Affine2DBase):
     """
     `BboxTransform` linearly transforms points from one `Bbox` to another.
     """
+
     is_separable: bool
     _boxin: Incomplete
     _boxout: Incomplete
@@ -1393,6 +1408,7 @@ class BboxTransformTo(Affine2DBase):
     `BboxTransformTo` is a transformation that linearly transforms points from
     the unit bounding box to a given `Bbox`.
     """
+
     is_separable: bool
     _boxout: Incomplete
     _mtx: Incomplete
@@ -1411,6 +1427,7 @@ class BboxTransformToMaxOnly(BboxTransformTo):
     `BboxTransformToMaxOnly` is a transformation that linearly transforms points from
     the unit bounding box to a given `Bbox` with a fixed upper left of (0, 0).
     """
+
     _mtx: Incomplete
     _inverted: Incomplete
     _invalid: int
@@ -1421,6 +1438,7 @@ class BboxTransformFrom(Affine2DBase):
     `BboxTransformFrom` linearly transforms points from a given `Bbox` to the
     unit bounding box.
     """
+
     is_separable: bool
     _boxin: Incomplete
     _mtx: Incomplete
@@ -1435,6 +1453,7 @@ class ScaledTranslation(Affine2DBase):
     A transformation that translates by *xt* and *yt*, after *xt* and *yt*
     have been transformed by *scale_trans*.
     """
+
     _t: Incomplete
     _scale_trans: Incomplete
     _mtx: Incomplete
@@ -1448,6 +1467,7 @@ class _ScaledRotation(Affine2DBase):
     """
     A transformation that applies rotation by *theta*, after transform by *trans_shift*.
     """
+
     _theta: Incomplete
     _trans_shift: Incomplete
     _mtx: Incomplete
@@ -1455,7 +1475,7 @@ class _ScaledRotation(Affine2DBase):
     def get_matrix(self): ...
 
 class AffineDeltaTransform(Affine2DBase):
-    '''
+    """
     A transform wrapper for transforming displacements between pairs of points.
 
     This class is intended to be used to transform displacements ("position
@@ -1469,7 +1489,8 @@ class AffineDeltaTransform(Affine2DBase):
     matrix to zero.
 
     This class is experimental as of 3.3, and the API may change.
-    '''
+    """
+
     pass_through: bool
     _base_transform: Incomplete
     def __init__(self, transform, **kwargs) -> None: ...
@@ -1489,6 +1510,7 @@ class TransformedPath(TransformNode):
         path's vertices/codes will not trigger a transform recomputation.
 
     """
+
     _path: Incomplete
     _transform: Incomplete
     _transformed_path: Incomplete
@@ -1528,6 +1550,7 @@ class TransformedPatchPath(TransformedPath):
     `~.patches.Patch`. This cached copy is automatically updated when the
     non-affine part of the transform or the patch changes.
     """
+
     _patch: Incomplete
     def __init__(self, patch) -> None:
         """

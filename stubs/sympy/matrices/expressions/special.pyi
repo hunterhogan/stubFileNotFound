@@ -1,5 +1,5 @@
 from .matexpr import MatrixExpr as MatrixExpr
-from sympy.assumptions.ask import Q as Q, ask as ask
+from sympy.assumptions.ask import ask as ask, Q as Q
 from sympy.core.relational import Eq as Eq
 from sympy.core.singleton import S as S
 from sympy.core.sympify import _sympify as _sympify
@@ -10,8 +10,7 @@ class ZeroMatrix(MatrixExpr):
     """The Matrix Zero 0 - additive identity
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatrixSymbol, ZeroMatrix
     >>> A = MatrixSymbol('A', 3, 5)
     >>> Z = ZeroMatrix(3, 5)
@@ -20,6 +19,7 @@ class ZeroMatrix(MatrixExpr):
     >>> Z*A.T
     0
     """
+
     is_ZeroMatrix: bool
     def __new__(cls, m, n): ...
     @property
@@ -41,6 +41,7 @@ class GenericZeroMatrix(ZeroMatrix):
     This exists primarily so MatAdd() with no arguments can return something
     meaningful.
     """
+
     def __new__(cls): ...
     @property
     def rows(self) -> None: ...
@@ -56,14 +57,14 @@ class Identity(MatrixExpr):
     """The Matrix Identity I - multiplicative identity
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Identity, MatrixSymbol
     >>> A = MatrixSymbol('A', 3, 5)
     >>> I = Identity(3)
     >>> I*A
     A
     """
+
     is_Identity: bool
     def __new__(cls, n): ...
     @property
@@ -91,6 +92,7 @@ class GenericIdentity(Identity):
     This exists primarily so MatMul() with no arguments can return something
     meaningful.
     """
+
     def __new__(cls): ...
     @property
     def rows(self) -> None: ...
@@ -108,6 +110,7 @@ class OneMatrix(MatrixExpr):
     """
     Matrix whose all entries are ones.
     """
+
     def __new__(cls, m, n, evaluate: bool = False): ...
     @property
     def shape(self): ...

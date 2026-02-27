@@ -1,8 +1,6 @@
-import pyarrow as pa
-
 from pandas._libs.missing import NAType
-
 from pandas.core.dtypes.base import StorageExtensionDtype
+import pyarrow as pa
 
 class ArrowDtype(StorageExtensionDtype):
     pyarrow_dtype: pa.DataType

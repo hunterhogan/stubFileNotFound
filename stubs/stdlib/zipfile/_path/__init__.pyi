@@ -1,11 +1,10 @@
-import sys
 from _typeshed import StrPath
 from collections.abc import Iterator, Sequence
 from io import TextIOWrapper
 from os import PathLike
-from typing import IO, Literal, TypeVar, overload
-from typing_extensions import Self
+from typing import IO, Literal, overload, Self, TypeVar
 from zipfile import ZipFile
+import sys
 
 _ZF = TypeVar("_ZF", bound=ZipFile)
 

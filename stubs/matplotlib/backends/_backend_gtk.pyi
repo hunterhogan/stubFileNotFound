@@ -1,7 +1,9 @@
 from _typeshed import Incomplete
 from matplotlib import _api as _api, backend_tools as backend_tools, cbook as cbook
 from matplotlib._pylab_helpers import Gcf as Gcf
-from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, NavigationToolbar2 as NavigationToolbar2, TimerBase as TimerBase, _Backend as _Backend
+from matplotlib.backend_bases import (
+	_Backend as _Backend, FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase,
+	NavigationToolbar2 as NavigationToolbar2, TimerBase as TimerBase)
 from matplotlib.backend_tools import Cursors as Cursors
 
 _log: Incomplete
@@ -13,6 +15,7 @@ def mpl_to_gtk_cursor_name(mpl_cursor): ...
 
 class TimerGTK(TimerBase):
     """Subclass of `.TimerBase` using GTK timer events."""
+
     _timer: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
     def _timer_start(self) -> None: ...
@@ -38,6 +41,7 @@ class _FigureManagerGTK(FigureManagerBase):
     window : Gtk.Window
         The Gtk.Window
     """
+
     _gtk_ver: Incomplete
     window: Incomplete
     vbox: Incomplete

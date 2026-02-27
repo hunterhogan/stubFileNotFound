@@ -16,6 +16,7 @@ class QuadratureRule:
     :class:`QuadratureRule` therefore implements instance caching
     in :func:`~mpmath.__new__`.
     """
+
     ctx: Incomplete
     standard_cache: Incomplete
     transformed_cache: Incomplete
@@ -59,7 +60,7 @@ class QuadratureRule:
 
         """
     def guess_degree(self, prec):
-        '''
+        """
         Given a desired precision `p` in bits, estimate the degree `m`
         of the quadrature required to accomplish full accuracy for
         typical integrals. By default, :func:`~mpmath.quad` will perform up
@@ -88,7 +89,7 @@ class QuadratureRule:
 
         This formula is based purely on a limited amount of
         experimentation and will sometimes be wrong.
-        '''
+        """
     def estimate_error(self, results, prec, epsilon):
         """
         Given results from integrations `[I_1, I_2, \\ldots, I_k]` done
@@ -126,7 +127,7 @@ class QuadratureRule:
         """
 
 class TanhSinh(QuadratureRule):
-    '''
+    """
     This class implements "tanh-sinh" or "doubly exponential"
     quadrature. This quadrature rule is based on the Euler-Maclaurin
     integral formula. By performing a change of variables involving
@@ -158,7 +159,8 @@ class TanhSinh(QuadratureRule):
     * [Bailey]_
     * http://users.cs.dal.ca/~jborwein/tanh-sinh.pdf
 
-    '''
+    """
+
     def sum_next(self, f, nodes, degree, prec, previous, verbose: bool = False):
         """
         Step sum for tanh-sinh quadrature of degree `m`. We exploit the
@@ -183,7 +185,7 @@ class TanhSinh(QuadratureRule):
         """
 
 class GaussLegendre(QuadratureRule):
-    '''
+    """
     This class implements Gauss-Legendre quadrature, which is
     exceptionally efficient for polynomials and polynomial-like (i.e.
     very smooth) integrands.
@@ -204,7 +206,8 @@ class GaussLegendre(QuadratureRule):
       * Handles endpoint singularities worse
       * Handles infinite integration intervals worse
 
-    '''
+    """
+
     def calc_nodes(self, degree, prec, verbose: bool = False):
         """
         Calculates the abscissas and weights for Gauss-Legendre
@@ -214,7 +217,7 @@ class GaussLegendre(QuadratureRule):
 class QuadratureMethods:
     def __init__(ctx, *args, **kwargs) -> None: ...
     def quad(ctx, f, *points, **kwargs):
-        '''
+        """
         Computes a single, double or triple integral over a given
         1D interval, 2D rectangle, or 3D cuboid. A basic example::
 
@@ -474,7 +477,7 @@ class QuadratureMethods:
 
         1. http://mathworld.wolfram.com/DoubleIntegral.html
 
-        '''
+        """
     def quadts(ctx, *args, **kwargs):
         """
         Performs tanh-sinh quadrature. The call
@@ -518,7 +521,7 @@ class QuadratureMethods:
         tanh-sinh quadrature.
         """
     def quadosc(ctx, f, interval, omega: Incomplete | None = None, period: Incomplete | None = None, zeros: Incomplete | None = None):
-        '''
+        """
         Calculates
 
         .. math ::
@@ -677,7 +680,7 @@ class QuadratureMethods:
             >>> quad(lambda x: cos(x)/exp(x), [0, inf])
             0.5
 
-        '''
+        """
     def quadsubdiv(ctx, f, interval, tol: Incomplete | None = None, maxintervals: Incomplete | None = None, **kwargs):
         """
         Computes the integral of *f* over the interval or path specified

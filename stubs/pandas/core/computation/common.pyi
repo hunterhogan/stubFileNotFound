@@ -1,2 +1,3 @@
 from typing import Any
+
 def result_type_many(*arrays_and_dtypes: Any) -> Any: ...

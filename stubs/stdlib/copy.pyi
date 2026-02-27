@@ -1,5 +1,5 @@
+from typing import Any, Protocol, type_check_only, TypeVar
 import sys
-from typing import Any, Protocol, TypeVar, type_check_only
 
 __all__ = ["Error", "copy", "deepcopy"]
 

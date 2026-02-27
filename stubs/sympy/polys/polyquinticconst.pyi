@@ -4,6 +4,7 @@ __all__ = ['PolyQuintic']
 
 class PolyQuintic:
     """Special functions for solvable quintics"""
+
     zeta1: Incomplete
     zeta2: Incomplete
     zeta3: Incomplete

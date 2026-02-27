@@ -1,7 +1,6 @@
-import numpy as np
-
 from pandas.core.dtypes.generic import ABCExtensionArray as ABCExtensionArray
 from typing import Any
+import numpy as np
 
 def arithmetic_op(left: np.ndarray[Any, Any] | ABCExtensionArray, right: Any, op: Any, str_rep: str) -> Any: ...
 def comparison_op(

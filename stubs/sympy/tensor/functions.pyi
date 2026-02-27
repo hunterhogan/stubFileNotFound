@@ -9,6 +9,7 @@ class TensorProduct(Expr):
     """
     Generic class for tensor products.
     """
+
     is_number: bool
     def __new__(cls, *args, **kwargs): ...
     def rank(self): ...
@@ -24,18 +25,15 @@ def shape(expr):
     suitable object such as matrix or array.
 
     Parameters
-    ==========
-
+    ----------
     expr : SymPy object having ``MatrixKind`` or ``ArrayKind``.
 
     Raises
-    ======
-
+    ------
     NoShapeError : Raised when object with wrong kind is passed.
 
     Examples
-    ========
-
+    --------
     This function returns the shape of any object representing matrix or array.
 
     >>> from sympy import shape, Array, ImmutableDenseMatrix, Integral
@@ -70,8 +68,7 @@ def shape(expr):
     sympy.tensor.functions.NoShapeError: shape() called on non-array object: Integral(x, x)
 
     Notes
-    =====
-
+    -----
     Array-like classes (such as ``Matrix`` or ``NDimArray``) has ``shape``
     property which returns its shape, but it cannot be used for non-array
     classes containing array. This function returns the shape of any
@@ -86,8 +83,7 @@ class NoShapeError(Exception):
     This error can be imported from ``sympy.tensor.functions``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import shape
     >>> from sympy.abc import x
     >>> shape(x)

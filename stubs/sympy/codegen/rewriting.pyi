@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from sympy.assumptions import Q as Q, ask as ask
+from sympy.assumptions import ask as ask, Q as Q
 from sympy.codegen.cfunctions import exp2 as exp2, expm1 as expm1, log1p as log1p, log2 as log2
 from sympy.codegen.matrix_nodes import MatrixSolve as MatrixSolve
 from sympy.codegen.numpy_nodes import logaddexp as logaddexp, logaddexp2 as logaddexp2
@@ -18,24 +18,25 @@ from sympy.matrices.expressions.matexpr import MatrixSymbol as MatrixSymbol
 from sympy.utilities.iterables import sift as sift
 
 class Optimization:
-    """ Abstract base class for rewriting optimization.
+    """Abstract base class for rewriting optimization.
 
     Subclasses should implement ``__call__`` taking an expression
     as argument.
 
     Parameters
-    ==========
+    ----------
     cost_function : callable returning number
     priority : number
 
     """
+
     cost_function: Incomplete
     priority: Incomplete
     def __init__(self, cost_function=None, priority: int = 1) -> None: ...
     def cheapest(self, *args): ...
 
 class ReplaceOptim(Optimization):
-    """ Rewriting optimization calling replace on expressions.
+    """Rewriting optimization calling replace on expressions.
 
     Explanation
     ===========
@@ -45,16 +46,14 @@ class ReplaceOptim(Optimization):
     :meth:`sympy.core.basic.Basic.replace`).
 
     Parameters
-    ==========
-
+    ----------
     query :
         First argument passed to replace.
     value :
         Second argument passed to replace.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol
     >>> from sympy.codegen.rewriting import ReplaceOptim
     >>> from sympy.codegen.cfunctions import exp2
@@ -65,24 +64,23 @@ class ReplaceOptim(Optimization):
     exp2(x)
 
     """
+
     query: Incomplete
     value: Incomplete
     def __init__(self, query, value, **kwargs) -> None: ...
     def __call__(self, expr): ...
 
 def optimize(expr, optimizations):
-    """ Apply optimizations to an expression.
+    """Apply optimizations to an expression.
 
     Parameters
-    ==========
-
+    ----------
     expr : expression
     optimizations : iterable of ``Optimization`` instances
         The optimizations will be sorted with respect to ``priority`` (highest first).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import log, Symbol
     >>> from sympy.codegen.rewriting import optims_c99, optimize
     >>> x = Symbol('x')
@@ -105,7 +103,7 @@ log2const_opt: Incomplete
 logsumexp_2terms_opt: Incomplete
 
 class FuncMinusOneOptim(ReplaceOptim):
-    '''Specialization of ReplaceOptim for functions evaluating "f(x) - 1".
+    """Specialization of ReplaceOptim for functions evaluating "f(x) - 1".
 
     Explanation
     ===========
@@ -118,8 +116,7 @@ class FuncMinusOneOptim(ReplaceOptim):
     to subtracting one afterwards.
 
     Parameters
-    ==========
-
+    ----------
     func :
         The function which is subtracted by one.
     func_m_1 :
@@ -130,8 +127,7 @@ class FuncMinusOneOptim(ReplaceOptim):
         transformation if it completely eliminates the number term.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, exp
     >>> from sympy.codegen.rewriting import FuncMinusOneOptim
     >>> from sympy.codegen.cfunctions import expm1
@@ -141,14 +137,15 @@ class FuncMinusOneOptim(ReplaceOptim):
     expm1(x) + 2*expm1(5*y)
 
 
-    '''
+    """
+
     func: Incomplete
     func_m_1: Incomplete
     opportunistic: Incomplete
     def __init__(self, func, func_m_1, opportunistic: bool = True) -> None: ...
     def _group_Add_terms(self, add): ...
     def replace_in_Add(self, e):
-        """ passed as second argument to Basic.replace(...) """
+        """Passed as second argument to Basic.replace(...)"""
     def __call__(self, expr): ...
 
 expm1_opt: Incomplete
@@ -157,7 +154,7 @@ powm1_opt: Incomplete
 log1p_opt: Incomplete
 
 def create_expand_pow_optimization(limit, *, base_req=...):
-    """ Creates an instance of :class:`ReplaceOptim` for expanding ``Pow``.
+    """Creates an instance of :class:`ReplaceOptim` for expanding ``Pow``.
 
     Explanation
     ===========
@@ -167,8 +164,7 @@ def create_expand_pow_optimization(limit, *, base_req=...):
     ``limit``).
 
     Parameters
-    ==========
-
+    ----------
     limit : int
          The highest power which is expanded into multiplication.
     base_req : function returning bool
@@ -176,8 +172,7 @@ def create_expand_pow_optimization(limit, *, base_req=...):
          the ``is_symbol`` attribute of the base.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, sin
     >>> from sympy.codegen.rewriting import create_expand_pow_optimization
     >>> x = Symbol('x')

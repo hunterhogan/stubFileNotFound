@@ -25,4 +25,3 @@ def setMacCreatorAndType(path, fileCreator, fileType) -> None:
             fileType: A four-character file type tag.
 
     """
-

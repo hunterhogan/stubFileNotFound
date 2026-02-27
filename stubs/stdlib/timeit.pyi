@@ -1,9 +1,8 @@
-import time
 from collections.abc import Callable, Sequence
-from typing import IO, Any
-from typing_extensions import TypeAlias
+from typing import Any, IO, TypeAlias
+import time
 
-__all__ = ["Timer", "timeit", "repeat", "default_timer"]
+__all__ = ["Timer", "default_timer", "repeat", "timeit"]
 
 _Timer: TypeAlias = Callable[[], float]
 _Stmt: TypeAlias = str | Callable[[], object]
@@ -15,7 +14,7 @@ class Timer:
         self,
         stmt: _Stmt = "pass",
         setup: _Stmt = "pass",
-        timer: _Timer = time.perf_counter,
+        timer: _Timer = ...,
         globals: dict[str, Any] | None = None,
     ) -> None: ...
     def print_exc(self, file: IO[str] | None = None) -> None: ...
@@ -26,14 +25,14 @@ class Timer:
 def timeit(
     stmt: _Stmt = "pass",
     setup: _Stmt = "pass",
-    timer: _Timer = time.perf_counter,
+    timer: _Timer = ...,
     number: int = 1000000,
     globals: dict[str, Any] | None = None,
 ) -> float: ...
 def repeat(
     stmt: _Stmt = "pass",
     setup: _Stmt = "pass",
-    timer: _Timer = time.perf_counter,
+    timer: _Timer = ...,
     repeat: int = 5,
     number: int = 1000000,
     globals: dict[str, Any] | None = None,

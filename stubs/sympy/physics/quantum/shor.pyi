@@ -7,7 +7,7 @@ from sympy.physics.quantum.gate import Gate as Gate
 from sympy.physics.quantum.qapply import qapply as qapply
 from sympy.physics.quantum.qexpr import QuantumError as QuantumError
 from sympy.physics.quantum.qft import QFT as QFT
-from sympy.physics.quantum.qubit import Qubit as Qubit, measure_partial_oneshot as measure_partial_oneshot
+from sympy.physics.quantum.qubit import measure_partial_oneshot as measure_partial_oneshot, Qubit as Qubit
 from sympy.utilities.iterables import variations as variations
 
 class OrderFindingException(QuantumError): ...
@@ -19,6 +19,7 @@ class CMod(Gate):
     TODO: implement a decompose property that returns how to do this in terms
     of elementary gates
     """
+
     @classmethod
     def _eval_args(cls, args) -> None: ...
     @property
@@ -32,9 +33,9 @@ class CMod(Gate):
         """N is the type of modular arithmetic we are doing."""
     def _apply_operator_Qubit(self, qubits, **options):
         """
-            This directly calculates the controlled mod of the second half of
-            the register and puts it in the second
-            This will look pretty when we get Tensor Symbolically working
+        This directly calculates the controlled mod of the second half of
+        the register and puts it in the second
+        This will look pretty when we get Tensor Symbolically working
         """
 
 def shor(N):

@@ -293,4 +293,3 @@ def parseArgs(args):
     """
 def main(args=None) -> None:
     """Partially instantiate a variable font"""
-

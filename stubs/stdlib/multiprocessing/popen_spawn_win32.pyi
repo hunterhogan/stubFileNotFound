@@ -1,8 +1,7 @@
-import sys
+from .util import Finalize
 from multiprocessing.process import BaseProcess
 from typing import ClassVar, Final
-
-from .util import Finalize
+import sys
 
 if sys.platform == "win32":
     __all__ = ["Popen"]

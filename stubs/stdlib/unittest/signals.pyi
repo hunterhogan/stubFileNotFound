@@ -1,7 +1,7 @@
-import unittest.result
 from collections.abc import Callable
-from typing import TypeVar, overload
+from typing import overload, TypeVar
 from typing_extensions import ParamSpec
+import unittest.result
 
 _P = ParamSpec("_P")
 _T = TypeVar("_T")

@@ -1,7 +1,6 @@
+from ..config import PyPIRCCommand
 from _typeshed import Incomplete
 from typing import ClassVar
-
-from ..config import PyPIRCCommand
 
 class upload(PyPIRCCommand):
     description: ClassVar[str]

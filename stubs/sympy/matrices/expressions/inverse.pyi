@@ -1,5 +1,5 @@
 from _typeshed import Incomplete
-from sympy.assumptions.ask import Q as Q, ask as ask
+from sympy.assumptions.ask import ask as ask, Q as Q
 from sympy.assumptions.refine import handlers_dict as handlers_dict
 from sympy.core import Basic as Basic, S as S
 from sympy.core.sympify import _sympify as _sympify
@@ -15,8 +15,7 @@ class Inverse(MatPow):
     method of matrices.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatrixSymbol, Inverse
     >>> A = MatrixSymbol('A', 3, 3)
     >>> B = MatrixSymbol('B', 3, 3)
@@ -30,6 +29,7 @@ class Inverse(MatPow):
     (A*B)**(-1)
 
     """
+
     is_Inverse: bool
     exp: Incomplete
     def __new__(cls, mat, exp=...): ...

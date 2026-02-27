@@ -8,7 +8,7 @@ def expand_tuples(L):
     [(1, 2)]
     """
 def _toposort(edges):
-    ''' Topological sort algorithm by Kahn [1] - O(nodes + vertices)
+    """Topological sort algorithm by Kahn [1] - O(nodes + vertices)
 
     inputs:
         edges - a dict of the form {a: {b, c}} where b and c depend on a
@@ -24,7 +24,7 @@ def _toposort(edges):
     [1] Kahn, Arthur B. (1962), "Topological sorting of large networks",
     Communications of the ACM
     [2] https://en.wikipedia.org/wiki/Toposort#Algorithms
-    '''
+    """
 def reverse_dict(d):
     """Reverses direction of dependence dict
 
@@ -39,7 +39,7 @@ def reverse_dict(d):
 
     """
 def groupby(func, seq):
-    """ Group a collection by a key function
+    """Group a collection by a key function
 
     >>> from sympy.multipledispatch.utils import groupby
     >>> names = ['Alice', 'Bob', 'Charlie', 'Dan', 'Edith', 'Frank']
@@ -50,6 +50,7 @@ def groupby(func, seq):
     >>> groupby(iseven, [1, 2, 3, 4, 5, 6, 7, 8])  # doctest: +SKIP
     {False: [1, 3, 5, 7], True: [2, 4, 6, 8]}
 
-    See Also:
+    See Also
+    --------
         ``countby``
     """

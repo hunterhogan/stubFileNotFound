@@ -1,26 +1,35 @@
 from _typeshed import Incomplete
-from matplotlib import _blocking_input as _blocking_input, _docstring as _docstring, backend_bases as backend_bases, projections as projections
-from matplotlib.artist import Artist as Artist, _finalize_rasterization as _finalize_rasterization, allow_rasterization as allow_rasterization
+from matplotlib import (
+	_blocking_input as _blocking_input, _docstring as _docstring, backend_bases as backend_bases,
+	projections as projections)
+from matplotlib.artist import (
+	_finalize_rasterization as _finalize_rasterization, allow_rasterization as allow_rasterization, Artist as Artist)
 from matplotlib.axes import Axes as Axes
-from matplotlib.backend_bases import DrawEvent as DrawEvent, FigureCanvasBase as FigureCanvasBase, MouseButton as MouseButton, NonGuiException as NonGuiException, _get_renderer as _get_renderer
+from matplotlib.backend_bases import (
+	_get_renderer as _get_renderer, DrawEvent as DrawEvent, FigureCanvasBase as FigureCanvasBase,
+	MouseButton as MouseButton, NonGuiException as NonGuiException)
 from matplotlib.gridspec import GridSpec as GridSpec, SubplotParams as SubplotParams
-from matplotlib.layout_engine import ConstrainedLayoutEngine as ConstrainedLayoutEngine, LayoutEngine as LayoutEngine, PlaceHolderLayoutEngine as PlaceHolderLayoutEngine, TightLayoutEngine as TightLayoutEngine
+from matplotlib.layout_engine import (
+	ConstrainedLayoutEngine as ConstrainedLayoutEngine, LayoutEngine as LayoutEngine,
+	PlaceHolderLayoutEngine as PlaceHolderLayoutEngine, TightLayoutEngine as TightLayoutEngine)
 from matplotlib.patches import Rectangle as Rectangle
 from matplotlib.text import Text as Text
-from matplotlib.transforms import Affine2D as Affine2D, Bbox as Bbox, BboxTransformTo as BboxTransformTo, TransformedBbox as TransformedBbox
+from matplotlib.transforms import (
+	Affine2D as Affine2D, Bbox as Bbox, BboxTransformTo as BboxTransformTo, TransformedBbox as TransformedBbox)
 
 _log: Incomplete
 
 def _stale_figure_callback(self, val) -> None: ...
 
 class _AxesStack:
-    '''
+    """
     Helper class to track Axes in a figure.
 
     Axes are tracked both in the order in which they have been added
     (``self._axes`` insertion/iteration order) and in the separate "gca" stack
     (which is the index to which they map in the ``self._axes`` dict).
-    '''
+    """
+
     _axes: Incomplete
     _counter: Incomplete
     def __init__(self) -> None: ...
@@ -42,6 +51,7 @@ class FigureBase(Artist):
     Base class for `.Figure` and `.SubFigure` containing the methods that add
     artists to the figure or subfigure, create Axes, etc.
     """
+
     _suptitle: Incomplete
     _supxlabel: Incomplete
     _supylabel: Incomplete
@@ -315,7 +325,7 @@ class FigureBase(Artist):
             fig.add_axes(ax)
         """
     def add_subplot(self, *args, **kwargs):
-        '''
+        """
         Add an `~.axes.Axes` to the figure as part of a subplot arrangement.
 
         Call signatures::
@@ -412,7 +422,7 @@ class FigureBase(Artist):
 
             ax1.remove()  # delete ax1 from the figure
             fig.add_subplot(ax1)  # add ax1 back to the figure
-        '''
+        """
     def _add_axes_internal(self, ax, key):
         """Private helper for `add_axes` and `add_subplot`."""
     def subplots(self, nrows: int = 1, ncols: int = 1, *, sharex: bool = False, sharey: bool = False, squeeze: bool = True, width_ratios: Incomplete | None = None, height_ratios: Incomplete | None = None, subplot_kw: Incomplete | None = None, gridspec_kw: Incomplete | None = None):
@@ -539,7 +549,7 @@ class FigureBase(Artist):
         Remove the `~.axes.Axes` *ax* from the figure; update the current Axes.
         """
     def _remove_axes(self, ax, owners) -> None:
-        '''
+        """
         Common helper for removal of standard Axes (via delaxes) and of child Axes.
 
         Parameters
@@ -549,7 +559,7 @@ class FigureBase(Artist):
         owners
             List of objects (list or _AxesStack) "owning" the Axes, from which the Axes
             will be remove()d.
-        '''
+        """
     _axobservers: Incomplete
     def clear(self, keep_observers: bool = False) -> None:
         """
@@ -720,7 +730,7 @@ class FigureBase(Artist):
         .pyplot.text
         """
     def colorbar(self, mappable, cax: Incomplete | None = None, ax: Incomplete | None = None, use_gridspec: bool = True, **kwargs):
-        '''
+        """
         Add a colorbar to a plot.
 
         Parameters
@@ -790,7 +800,7 @@ class FigureBase(Artist):
         with semi-transparent images (alpha < 1) and colorbar extensions;
         therefore, this workaround is not used by default (see issue #1188).
 
-        '''
+        """
     def subplots_adjust(self, left: Incomplete | None = None, bottom: Incomplete | None = None, right: Incomplete | None = None, top: Incomplete | None = None, wspace: Incomplete | None = None, hspace: Incomplete | None = None) -> None:
         """
         Adjust the subplot layout parameters.
@@ -1139,7 +1149,7 @@ class FigureBase(Artist):
     @staticmethod
     def _normalize_grid_string(layout): ...
     def subplot_mosaic(self, mosaic, *, sharex: bool = False, sharey: bool = False, width_ratios: Incomplete | None = None, height_ratios: Incomplete | None = None, empty_sentinel: str = '.', subplot_kw: Incomplete | None = None, per_subplot_kw: Incomplete | None = None, gridspec_kw: Incomplete | None = None):
-        '''
+        """
         Build a layout of Axes based on ASCII art or nested lists.
 
         This is a helper function to build complex GridSpec layouts visually.
@@ -1244,7 +1254,7 @@ class FigureBase(Artist):
            the Axes is left-to-right and top-to-bottom of their position in the
            total layout.
 
-        '''
+        """
     def _set_artist_props(self, a) -> None: ...
 
 class SubFigure(FigureBase):
@@ -1265,6 +1275,7 @@ class SubFigure(FigureBase):
 
     See :doc:`/gallery/subplots_axes_and_figures/subfigures`
     """
+
     _subplotspec: Incomplete
     _parent: Incomplete
     _root_figure: Incomplete
@@ -1279,7 +1290,7 @@ class SubFigure(FigureBase):
     transSubfigure: Incomplete
     patch: Incomplete
     def __init__(self, parent, subplotspec, *, facecolor: Incomplete | None = None, edgecolor: Incomplete | None = None, linewidth: float = 0.0, frameon: Incomplete | None = None, **kwargs) -> None:
-        '''
+        """
         Parameters
         ----------
         parent : `.Figure` or `.SubFigure`
@@ -1308,7 +1319,7 @@ class SubFigure(FigureBase):
         **kwargs : `.SubFigure` properties, optional
 
             %(SubFigure:kwdoc)s
-        '''
+        """
     @property
     def canvas(self): ...
     @property
@@ -1392,9 +1403,8 @@ class Figure(FigureBase):
         depending on the renderer option_image_nocomposite function.  If
         *suppressComposite* is a boolean, this will override the renderer.
     """
+
     _render_lock: Incomplete
-    def __str__(self) -> str: ...
-    def __repr__(self) -> str: ...
     _root_figure: Incomplete
     _layout_engine: Incomplete
     _canvas_callbacks: Incomplete
@@ -1603,7 +1613,7 @@ class Figure(FigureBase):
         """Return whether `.Figure.tight_layout` is called when drawing."""
     stale: bool
     def set_tight_layout(self, tight) -> None:
-        '''
+        """
         Set whether and how `.Figure.tight_layout` is called when drawing.
 
         Parameters
@@ -1613,7 +1623,7 @@ class Figure(FigureBase):
             If ``None``, use :rc:`figure.autolayout` instead.
             If a dict, pass it as kwargs to `.Figure.tight_layout`, overriding the
             default paddings.
-        '''
+        """
     def get_constrained_layout(self):
         """
         Return whether constrained layout is being used.
@@ -1871,7 +1881,7 @@ class Figure(FigureBase):
     def add_axobserver(self, func):
         """Whenever the Axes state change, ``func(self)`` will be called."""
     def savefig(self, fname, *, transparent: Incomplete | None = None, **kwargs) -> None:
-        '''
+        """
         Save the current figure as an image or vector graphic to a file.
 
         Call signature::
@@ -1987,7 +1997,7 @@ class Figure(FigureBase):
             Additional keyword arguments that are passed to
             `PIL.Image.Image.save` when saving the figure.
 
-        '''
+        """
     def ginput(self, n: int = 1, timeout: int = 30, show_clicks: bool = True, mouse_add=..., mouse_pop=..., mouse_stop=...):
         """
         Blocking call to interact with a figure.

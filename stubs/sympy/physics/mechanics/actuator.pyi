@@ -1,19 +1,19 @@
-import abc
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
+import abc
 
-__all__ = ['ActuatorBase', 'ForceActuator', 'LinearDamper', 'LinearSpring', 'TorqueActuator', 'DuffingSpring', 'CoulombKineticFriction']
+__all__ = ['ActuatorBase', 'CoulombKineticFriction', 'DuffingSpring', 'ForceActuator', 'LinearDamper', 'LinearSpring', 'TorqueActuator']
 
 class ActuatorBase(ABC, metaclass=abc.ABCMeta):
     """Abstract base class for all actuator classes to inherit from.
 
     Notes
-    =====
-
+    -----
     Instances of this class cannot be directly instantiated by users. However,
     it can be used to created custom actuator types through subclassing.
 
     """
+
     def __init__(self) -> None:
         """Initializer for ``ActuatorBase``."""
     @abstractmethod
@@ -33,11 +33,9 @@ class ActuatorBase(ABC, metaclass=abc.ABCMeta):
         equations of motion method classes, e.g. ``LagrangesMethod``.
 
         """
-    def __repr__(self) -> str:
-        """Default representation of an actuator."""
 
 class ForceActuator(ActuatorBase):
-    '''Force-producing actuator.
+    """Force-producing actuator.
 
     Explanation
     ===========
@@ -66,8 +64,7 @@ class ForceActuator(ActuatorBase):
        |<--l(t)--->|
 
     Examples
-    ========
-
+    --------
     To construct an actuator, an expression (or symbol) must be supplied to
     represent the force it can produce, alongside a pathway specifying its line
     of action. Let\'s also create a global reference frame and spatially fix one
@@ -93,8 +90,7 @@ class ForceActuator(ActuatorBase):
     ForceActuator(F, LinearPathway(pA, pB))
 
     Parameters
-    ==========
-
+    ----------
     force : Expr
         The scalar expression defining the (expansile) force that the actuator
         produces.
@@ -102,13 +98,13 @@ class ForceActuator(ActuatorBase):
         The pathway that the actuator follows. This must be an instance of a
         concrete subclass of ``PathwayBase``, e.g. ``LinearPathway``.
 
-    '''
+    """
+
     def __init__(self, force, pathway) -> None:
         """Initializer for ``ForceActuator``.
 
         Parameters
-        ==========
-
+        ----------
         force : Expr
             The scalar expression defining the (expansile) force that the
             actuator produces.
@@ -145,8 +141,7 @@ class ForceActuator(ActuatorBase):
         equations of motion method classes, e.g. ``LagrangesMethod``.
 
         Examples
-        ========
-
+        --------
         The below example shows how to generate the loads produced by a force
         actuator that follows a linear pathway. In this example we'll assume
         that the force actuator is being used to model a simple linear spring.
@@ -201,11 +196,9 @@ class ForceActuator(ActuatorBase):
         [(pA, c*Derivative(q(t), t)*N.x), (pB, - c*Derivative(q(t), t)*N.x)]
 
         """
-    def __repr__(self) -> str:
-        """Representation of a ``ForceActuator``."""
 
 class LinearSpring(ForceActuator):
-    '''A spring with its spring force as a linear function of its length.
+    """A spring with its spring force as a linear function of its length.
 
     Explanation
     ===========
@@ -237,8 +230,7 @@ class LinearSpring(ForceActuator):
        |<--l(t)--->|
 
     Examples
-    ========
-
+    --------
     To construct a linear spring, an expression (or symbol) must be supplied to
     represent the stiffness (spring constant) of the spring, alongside a
     pathway specifying its line of action. Let\'s also create a global reference
@@ -289,8 +281,7 @@ class LinearSpring(ForceActuator):
     -k*(-l + sqrt(q(t)**2))
 
     Parameters
-    ==========
-
+    ----------
     stiffness : Expr
         The spring constant.
     pathway : PathwayBase
@@ -302,19 +293,18 @@ class LinearSpring(ForceActuator):
         function of the pathway\'s length with no constant offset.
 
     See Also
-    ========
-
+    --------
     ForceActuator: force-producing actuator (superclass of ``LinearSpring``).
     LinearPathway: straight-line pathway between a pair of points.
 
-    '''
+    """
+
     pathway: Incomplete
     def __init__(self, stiffness, pathway, equilibrium_length=...) -> None:
         """Initializer for ``LinearSpring``.
 
         Parameters
-        ==========
-
+        ----------
         stiffness : Expr
             The spring constant.
         pathway : PathwayBase
@@ -343,11 +333,9 @@ class LinearSpring(ForceActuator):
     _equilibrium_length: Incomplete
     @equilibrium_length.setter
     def equilibrium_length(self, equilibrium_length) -> None: ...
-    def __repr__(self) -> str:
-        """Representation of a ``LinearSpring``."""
 
 class LinearDamper(ForceActuator):
-    '''A damper whose force is a linear function of its extension velocity.
+    """A damper whose force is a linear function of its extension velocity.
 
     Explanation
     ===========
@@ -384,8 +372,7 @@ class LinearDamper(ForceActuator):
        |<--l(t)--->|
 
     Examples
-    ========
-
+    --------
     To construct a linear damper, an expression (or symbol) must be supplied to
     represent the damping coefficient of the damper (we\'ll use the symbol
     ``c``), alongside a pathway specifying its line of action. Let\'s also
@@ -425,8 +412,7 @@ class LinearDamper(ForceActuator):
     -c*sqrt(q(t)**2)*Derivative(q(t), t)/q(t)
 
     Parameters
-    ==========
-
+    ----------
     damping : Expr
         The damping constant.
     pathway : PathwayBase
@@ -434,19 +420,18 @@ class LinearDamper(ForceActuator):
         concrete subclass of ``PathwayBase``, e.g. ``LinearPathway``.
 
     See Also
-    ========
-
+    --------
     ForceActuator: force-producing actuator (superclass of ``LinearDamper``).
     LinearPathway: straight-line pathway between a pair of points.
 
-    '''
+    """
+
     pathway: Incomplete
     def __init__(self, damping, pathway) -> None:
         """Initializer for ``LinearDamper``.
 
         Parameters
-        ==========
-
+        ----------
         damping : Expr
             The damping constant.
         pathway : PathwayBase
@@ -465,8 +450,6 @@ class LinearDamper(ForceActuator):
     _damping: Incomplete
     @damping.setter
     def damping(self, damping) -> None: ...
-    def __repr__(self) -> str:
-        """Representation of a ``LinearDamper``."""
 
 class TorqueActuator(ActuatorBase):
     """Torque-producing actuator.
@@ -478,8 +461,7 @@ class TorqueActuator(ActuatorBase):
     opposite torques on a pair of bodies.
 
     Examples
-    ========
-
+    --------
     To construct a torque actuator, an expression (or symbol) must be supplied
     to represent the torque it can produce, alongside a vector specifying the
     axis about which the torque will act, and a pair of frames on which the
@@ -504,8 +486,7 @@ class TorqueActuator(ActuatorBase):
     when one is passed instead of a ``ReferenceFrame``.
 
     Parameters
-    ==========
-
+    ----------
     torque : Expr
         The scalar expression defining the torque that the actuator produces.
     axis : Vector
@@ -517,12 +498,12 @@ class TorqueActuator(ActuatorBase):
         that the (equal and opposite) reaction torque is applied to this frame.
 
     """
+
     def __init__(self, torque, axis, target_frame, reaction_frame=None) -> None:
         """Initializer for ``TorqueActuator``.
 
         Parameters
-        ==========
-
+        ----------
         torque : Expr
             The scalar expression defining the torque that the actuator
             produces.
@@ -541,8 +522,7 @@ class TorqueActuator(ActuatorBase):
         """Alternate constructor to instantiate from a ``PinJoint`` instance.
 
         Examples
-        ========
-
+        --------
         To create a pin joint the ``PinJoint`` class requires a name, parent
         body, and child body to be passed to its constructor. It is also
         possible to control the joint axis using the ``joint_axis`` keyword
@@ -580,8 +560,7 @@ class TorqueActuator(ActuatorBase):
         TorqueActuator(T, axis=N.z, target_frame=A, reaction_frame=N)
 
         Parameters
-        ==========
-
+        ----------
         torque : Expr
             The scalar expression defining the torque that the actuator
             produces.
@@ -634,8 +613,7 @@ class TorqueActuator(ActuatorBase):
         equations of motion method classes, e.g. ``LagrangesMethod``.
 
         Examples
-        ========
-
+        --------
         The below example shows how to generate the loads produced by a torque
         actuator that acts on a pair of bodies attached by a pin joint.
 
@@ -670,8 +648,6 @@ class TorqueActuator(ActuatorBase):
         [(N, T*N.z)]
 
         """
-    def __repr__(self) -> str:
-        """Representation of a ``TorqueActuator``."""
 
 class DuffingSpring(ForceActuator):
     """A nonlinear spring based on the Duffing equation.
@@ -684,8 +660,7 @@ class DuffingSpring(ForceActuator):
     and alpha is the coefficient for the nonlinear cubic term.
 
     Parameters
-    ==========
-
+    ----------
     linear_stiffness : Expr
         The linear stiffness coefficient (beta).
     nonlinear_stiffness : Expr
@@ -695,6 +670,7 @@ class DuffingSpring(ForceActuator):
     equilibrium_length : Expr, optional
         The length at which the spring is in equilibrium (x).
     """
+
     _pathway: Incomplete
     def __init__(self, linear_stiffness, nonlinear_stiffness, pathway, equilibrium_length=...) -> None: ...
     @property
@@ -722,10 +698,9 @@ class DuffingSpring(ForceActuator):
     _force: Incomplete
     @force.setter
     def force(self, force) -> None: ...
-    def __repr__(self) -> str: ...
 
 class CoulombKineticFriction(ForceActuator):
-    '''Coulomb kinetic friction with Stribeck and viscous effects.
+    """Coulomb kinetic friction with Stribeck and viscous effects.
 
     Explanation
     ===========
@@ -748,8 +723,7 @@ class CoulombKineticFriction(ForceActuator):
     - Viscous effect: :math:`\\sigma v`
 
     Notes
-    =====
-
+    -----
     The actuator makes the following assumptions:
 
     - The actuator assumes relative motion is non-zero.
@@ -768,8 +742,7 @@ class CoulombKineticFriction(ForceActuator):
     - The viscous friction term :math:`\\sigma v` is opposite to :math:`v`.
 
     Examples
-    ========
-
+    --------
     The below example shows how to generate the loads produced by a Coulomb kinetic
     friction actuator in a mass-spring system with friction.
 
@@ -800,8 +773,7 @@ class CoulombKineticFriction(ForceActuator):
         Matrix([[-k*x(t) - m*Derivative(v(t), t) + (-g*m*mu_k*sign(v(t)*sign(x(t))) - sigma*v(t)*sign(x(t)))*x(t)/Abs(x(t))]])
 
     Parameters
-    ==========
-
+    ----------
     f_n : sympifiable
         The normal force between the surfaces. It should always be a non-negative scalar.
     mu_k : sympifiable
@@ -816,7 +788,7 @@ class CoulombKineticFriction(ForceActuator):
         The coefficient of static friction. Defaults to mu_k, meaning the Stribeck effect evaluates to 0 by default.
 
     References
-    ==========
+    ----------
 
     .. [Moore2022] https://moorepants.github.io/learn-multibody-dynamics/loads.html#friction.
     .. [Flores2023] Paulo Flores, Jorge Ambrosio, Hamid M. Lankarani,
@@ -825,7 +797,8 @@ class CoulombKineticFriction(ForceActuator):
     .. [Rogner2017] I. Rogner, "Friction modelling for robotic applications with planar motion",
             Chalmers University of Technology, Department of Electrical Engineering, 2017.
 
-    '''
+    """
+
     _mu_k: Incomplete
     _mu_s: Incomplete
     _f_n: Incomplete
@@ -852,4 +825,3 @@ class CoulombKineticFriction(ForceActuator):
     def force(self): ...
     @force.setter
     def force(self, force) -> None: ...
-    def __repr__(self) -> str: ...

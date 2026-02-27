@@ -3,21 +3,19 @@ from sympy.core.numbers import Integer as Integer, Rational as Rational
 from sympy.core.singleton import S as S
 
 def egyptian_fraction(r, algorithm: str = 'Greedy'):
-    '''
+    """
     Return the list of denominators of an Egyptian fraction
     expansion [1]_ of the said rational `r`.
 
     Parameters
-    ==========
-
+    ----------
     r : Rational or (p, q)
         a positive rational number, ``p/q``.
     algorithm : { "Greedy", "Graham Jewett", "Takenouchi", "Golomb" }, optional
         Denotes the algorithm to be used (the default is "Greedy").
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Rational
     >>> from sympy.ntheory.egyptian_fraction import egyptian_fraction
     >>> egyptian_fraction(Rational(3, 7))
@@ -32,13 +30,11 @@ def egyptian_fraction(r, algorithm: str = 'Greedy'):
     [1, 2, 3, 4, 9, 234, 1118, 2580]
 
     See Also
-    ========
-
+    --------
     sympy.core.numbers.Rational
 
     Notes
-    =====
-
+    -----
     Currently the following algorithms are supported:
 
     1) Greedy Algorithm
@@ -91,14 +87,14 @@ def egyptian_fraction(r, algorithm: str = 'Greedy'):
     4, 5, 6, 7, 14, 574, 2788, 6460, 11590, 33062, 113820], and so on.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Egyptian_fraction
     .. [2] https://en.wikipedia.org/wiki/Greedy_algorithm_for_Egyptian_fractions
     .. [3] https://www.ics.uci.edu/~eppstein/numth/egypt/conflict.html
     .. [4] https://web.archive.org/web/20180413004012/https://ami.ektf.hu/uploads/papers/finalpdf/AMI_42_from129to134.pdf
 
-    '''
+    """
 def egypt_greedy(x, y): ...
 def egypt_graham_jewett(x, y): ...
 def egypt_takenouchi(x, y): ...

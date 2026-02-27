@@ -78,7 +78,7 @@ def make_layout_margins(layoutgrids, fig, renderer, *, w_pad: int = 0, h_pad: in
     """
 def make_margin_suptitles(layoutgrids, fig, renderer, *, w_pad: int = 0, h_pad: int = 0) -> None: ...
 def match_submerged_margins(layoutgrids, fig) -> None:
-    '''
+    """
     Make the margins that are submerged inside an Axes the same size.
 
     This allows Axes that span two columns (or rows) that are offset
@@ -87,7 +87,7 @@ def match_submerged_margins(layoutgrids, fig) -> None:
     This gives the proper layout for something like::
         fig = plt.figure(constrained_layout=True)
         axs = fig.subplot_mosaic("AAAB
-CCDD")
+    CCDD")
 
     Without this routine, the Axes D will be wider than C, because the
     margin width between the two columns in C has no width by default,
@@ -101,7 +101,7 @@ CCDD")
     margins between the two columns of D.
 
     See test_constrained_layout::test_constrained_layout12 for an example.
-    '''
+    """
 def get_cb_parent_spans(cbax):
     """
     Figure out which subplotspecs this colorbar belongs to.

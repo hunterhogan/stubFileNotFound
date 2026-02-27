@@ -1,8 +1,8 @@
-import sys
 from types import GenericAlias
 from typing import Any, Generic, NewType, TypeVar
+import sys
 
-__all__ = ["Queue", "SimpleQueue", "JoinableQueue"]
+__all__ = ["JoinableQueue", "Queue", "SimpleQueue"]
 
 _T = TypeVar("_T")
 

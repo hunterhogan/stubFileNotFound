@@ -4,7 +4,7 @@ IF NOT DEFINED VIRTUAL_ENV (
 )
 SET pathRoot=%VIRTUAL_ENV%\..
 
-SET pathFix=%pathRoot%\stubs\glyphsLib
+SET pathFix=%pathRoot%\stubs\
 SET pythonVersion=py311
 
 ruff check --fix --target-version %pythonVersion% --config ruff.toml %pathFix%

@@ -17,4 +17,3 @@ def parse_glyphs_filter(filter_str, is_pre: bool = ...):
          Return None if parse failed.
     """
 def write_glyphs_filter(result): ...
-

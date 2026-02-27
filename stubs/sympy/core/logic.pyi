@@ -1,4 +1,6 @@
-FuzzyBool = bool | None
+from typing import TypeAlias
+
+FuzzyBool: TypeAlias = bool | None
 
 def _torf(args):
     """Return True if all args are True, False if they
@@ -27,8 +29,7 @@ def _fuzzy_group(args, quick_exit: bool = False):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.logic import _fuzzy_group
 
     By default, multiple Falses mean the group is broken:
@@ -55,8 +56,7 @@ def fuzzy_bool(x):
     for the None value and non-false values (which become None), too.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.logic import fuzzy_bool
     >>> from sympy.abc import x
     >>> fuzzy_bool(x), fuzzy_bool(None)
@@ -69,8 +69,7 @@ def fuzzy_and(args):
     """Return True (all True), False (any False) or None.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.logic import fuzzy_and
     >>> from sympy import Dummy
 
@@ -97,8 +96,7 @@ def fuzzy_not(v):
     Return None if `v` is None else `not v`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.logic import fuzzy_not
     >>> fuzzy_not(True)
     False
@@ -127,13 +125,16 @@ def fuzzy_or(args):
     """
 def fuzzy_xor(args):
     """Return None if any element of args is not True or False, else
-    True (if there are an odd number of True elements), else False."""
+    True (if there are an odd number of True elements), else False.
+    """
 def fuzzy_nand(args):
     """Return False if all args are True, True if they are all False,
-    else None."""
+    else None.
+    """
 
 class Logic:
     """Logical expression"""
+
     op_2class: dict[str, type[Logic]]
     def __new__(cls, *args): ...
     def __getnewargs__(self): ...
@@ -142,15 +143,14 @@ class Logic:
     def __ne__(a, b): ...
     def __lt__(self, other): ...
     def __cmp__(self, other): ...
-    def __str__(self) -> str: ...
     __repr__ = __str__
     @staticmethod
     def fromstring(text):
         """Logic from string with space around & and | but none after !.
 
-           e.g.
+        e.g.
 
-           !a & b | c
+        !a & b | c
         """
 
 class AndOr_Base(Logic):

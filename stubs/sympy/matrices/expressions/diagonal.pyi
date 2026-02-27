@@ -11,8 +11,7 @@ class DiagonalMatrix(MatrixExpr):
     `M[i, j]` where `i != j`, are zero.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatrixSymbol, DiagonalMatrix, Symbol
     >>> n = Symbol('n', integer=True)
     >>> m = Symbol('m', integer=True)
@@ -46,6 +45,7 @@ class DiagonalMatrix(MatrixExpr):
     True
 
     """
+
     arg: Incomplete
     shape: Incomplete
     @property
@@ -58,8 +58,7 @@ class DiagonalOf(MatrixExpr):
     a single column matrix.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatrixSymbol, DiagonalOf, Symbol
     >>> n = Symbol('n', integer=True)
     >>> m = Symbol('m', integer=True)
@@ -96,6 +95,7 @@ class DiagonalOf(MatrixExpr):
     True
 
     """
+
     arg: Incomplete
     @property
     def shape(self): ...
@@ -107,6 +107,7 @@ class DiagMatrix(MatrixExpr):
     """
     Turn a vector into a diagonal matrix.
     """
+
     def __new__(cls, vector): ...
     @property
     def shape(self): ...

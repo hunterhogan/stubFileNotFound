@@ -1,4 +1,4 @@
-import sympy.plotting.backends.base_backend as base_backend
+from sympy.plotting.backends import base_backend
 from sympy.plotting.series import LineOver1DRangeSeries as LineOver1DRangeSeries
 from sympy.plotting.textplot import textplot as textplot
 

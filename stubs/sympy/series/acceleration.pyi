@@ -9,8 +9,7 @@ def richardson(A, k, n, N):
     Choosing N ~= 2*n often gives good results.
 
     Examples
-    ========
-
+    --------
     A simple example is to calculate exp(1) using the limit definition.
     This limit converges slowly; n = 100 only produces two accurate
     digits:

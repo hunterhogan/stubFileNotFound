@@ -1,9 +1,9 @@
-import sys
 from _typeshed import ReadableBuffer, Unused
-from typing import IO, Any, BinaryIO, Final, Literal, NamedTuple, NoReturn, overload
-from typing_extensions import Self, TypeAlias, deprecated
+from typing import Any, BinaryIO, Final, IO, Literal, NamedTuple, NoReturn, overload, Self, TypeAlias
+from typing_extensions import deprecated
+import sys
 
-__all__ = ["open", "Error", "Wave_read", "Wave_write"]
+__all__ = ["Error", "Wave_read", "Wave_write", "open"]
 
 _File: TypeAlias = str | IO[bytes]
 

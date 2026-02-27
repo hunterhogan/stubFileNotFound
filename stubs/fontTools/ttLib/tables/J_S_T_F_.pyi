@@ -8,4 +8,3 @@ class table_J_S_T_F_(BaseTTXConverter):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/jstf
     """
-

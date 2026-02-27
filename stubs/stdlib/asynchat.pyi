@@ -1,5 +1,5 @@
-import asyncore
 from abc import abstractmethod
+import asyncore
 
 class simple_producer:
     def __init__(self, data: bytes, buffer_size: int = 512) -> None: ...

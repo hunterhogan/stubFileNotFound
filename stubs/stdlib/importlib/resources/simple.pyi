@@ -1,10 +1,9 @@
-import abc
-import sys
 from _typeshed import StrPath
 from collections.abc import Iterator
 from io import TextIOWrapper
-from typing import IO, Any, BinaryIO, Literal, NoReturn, overload
-from typing_extensions import Never
+from typing import Any, BinaryIO, IO, Literal, Never, NoReturn, overload
+import abc
+import sys
 
 if sys.version_info >= (3, 11):
     from .abc import Traversable, TraversableResources

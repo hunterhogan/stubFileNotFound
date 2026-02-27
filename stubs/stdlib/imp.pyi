@@ -1,19 +1,12 @@
-import types
 from _imp import (
-    acquire_lock as acquire_lock,
-    create_dynamic as create_dynamic,
-    get_frozen_object as get_frozen_object,
-    init_frozen as init_frozen,
-    is_builtin as is_builtin,
-    is_frozen as is_frozen,
-    is_frozen_package as is_frozen_package,
-    lock_held as lock_held,
-    release_lock as release_lock,
-)
+	acquire_lock as acquire_lock, create_dynamic as create_dynamic, get_frozen_object as get_frozen_object,
+	init_frozen as init_frozen, is_builtin as is_builtin, is_frozen as is_frozen, is_frozen_package as is_frozen_package,
+	lock_held as lock_held, release_lock as release_lock)
 from _typeshed import StrPath
 from os import PathLike
 from types import TracebackType
-from typing import IO, Any, Final, Protocol, type_check_only
+from typing import Any, Final, IO, Protocol, type_check_only
+import types
 
 SEARCH_ERROR: Final = 0
 PY_SOURCE: Final = 1

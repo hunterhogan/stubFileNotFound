@@ -5,12 +5,11 @@ from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.physics.quantum.constants import hbar as hbar
 
 def wavefunction(n, x):
-    '''
+    """
     Returns the wavefunction for particle on ring.
 
     Parameters
-    ==========
-
+    ----------
     n : The quantum number.
         Here ``n`` can be positive as well as negative
         which can be used to describe the direction of motion of particle.
@@ -18,8 +17,7 @@ def wavefunction(n, x):
         The angle.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.pring import wavefunction
     >>> from sympy import Symbol, integrate, pi
     >>> x=Symbol("x")
@@ -38,21 +36,20 @@ def wavefunction(n, x):
     1
 
     References
-    ==========
+    ----------
 
     .. [1] Atkins, Peter W.; Friedman, Ronald (2005). Molecular Quantum
            Mechanics (4th ed.).  Pages 71-73.
 
-    '''
+    """
 def energy(n, m, r):
-    '''
+    """
     Returns the energy of the state corresponding to quantum number ``n``.
 
     E=(n**2 * (hcross)**2) / (2 * m * r**2)
 
     Parameters
-    ==========
-
+    ----------
     n :
         The quantum number.
     m :
@@ -61,8 +58,7 @@ def energy(n, m, r):
         Radius of circle.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.pring import energy
     >>> from sympy import Symbol
     >>> m=Symbol("m")
@@ -75,9 +71,9 @@ def energy(n, m, r):
     0.111111111111111*hbar**2
 
     References
-    ==========
+    ----------
 
     .. [1] Atkins, Peter W.; Friedman, Ronald (2005). Molecular Quantum
            Mechanics (4th ed.).  Pages 71-73.
 
-    '''
+    """

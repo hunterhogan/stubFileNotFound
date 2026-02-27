@@ -7,18 +7,18 @@ class TypeA(Standard_Cartan):
     the A series of simple Lie algebras.
     ====
     """
+
     def __new__(cls, n): ...
     def dimension(self):
-        '''Dimension of the vector space V underlying the Lie algebra
+        """Dimension of the vector space V underlying the Lie algebra
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.cartan_type import CartanType
         >>> c = CartanType("A4")
         >>> c.dimension()
         5
-        '''
+        """
     def basic_root(self, i, j):
         """
         This is a method just to generate roots
@@ -27,7 +27,7 @@ class TypeA(Standard_Cartan):
 
         """
     def simple_root(self, i):
-        '''
+        """
         Every lie algebra has a unique root system.
         Given a root system Q, there is a subset of the
         roots such that an element of Q is called a
@@ -44,30 +44,28 @@ class TypeA(Standard_Cartan):
         This method returns the ith simple root for the A series.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.cartan_type import CartanType
         >>> c = CartanType("A4")
         >>> c.simple_root(1)
         [1, -1, 0, 0, 0]
 
-        '''
+        """
     def positive_roots(self):
-        '''
+        """
         This method generates all the positive roots of
         A_n.  This is half of all of the roots of A_n;
         by multiplying all the positive roots by -1 we
         get the negative roots.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.cartan_type import CartanType
         >>> c = CartanType("A3")
         >>> c.positive_roots()
         {1: [1, -1, 0, 0], 2: [1, 0, -1, 0], 3: [1, 0, 0, -1], 4: [0, 1, -1, 0],
                 5: [0, 1, 0, -1], 6: [0, 0, 1, -1]}
-        '''
+        """
     def highest_root(self):
         """
         Returns the highest weight root for A_n
@@ -85,8 +83,7 @@ class TypeA(Standard_Cartan):
         entry of the Cartan matrix is (<alpha[i],alpha[j]>).
 
         Examples
-        ========
-
+        --------
         >>> from sympy.liealgebras.cartan_type import CartanType
         >>> c = CartanType('A4')
         >>> c.cartan_matrix()

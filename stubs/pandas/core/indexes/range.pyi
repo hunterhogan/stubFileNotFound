@@ -1,29 +1,12 @@
-from collections.abc import (
-    Hashable,
-    Sequence,
-)
-from typing import (
-    Any,
-    Self,
-    overload,
-)
-
-import numpy as np
+from collections.abc import Hashable, Sequence
 from pandas._stubs_only import IndexSubclassBase
+from pandas._typing import (
+	AnyArrayLike, Dtype, HashableT, MaskType, np_1darray_intp, np_ndarray_anyint, np_ndarray_bool, Scalar)
 from pandas.core.arrays.boolean import BooleanArray
 from pandas.core.base import IndexOpsMixin
 from pandas.core.indexes.base import Index
-
-from pandas._typing import (
-    AnyArrayLike,
-    Dtype,
-    HashableT,
-    MaskType,
-    Scalar,
-    np_1darray_intp,
-    np_ndarray_anyint,
-    np_ndarray_bool,
-)
+from typing import Any, overload, Self
+import numpy as np
 
 class RangeIndex(IndexSubclassBase[int, np.int64]):
     def __new__(

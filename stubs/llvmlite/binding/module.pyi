@@ -18,9 +18,9 @@ class ModuleRef(ffi.ObjectRef):
     """
     A reference to a LLVM module.
     """
+
     _context: Incomplete
     def __init__(self, module_ptr, context) -> None: ...
-    def __str__(self) -> str: ...
     def as_bitcode(self):
         """
         Return the module's LLVM bitcode, as a bytes object.
@@ -66,9 +66,9 @@ class ModuleRef(ffi.ObjectRef):
     def data_layout(self, strrep) -> None: ...
     @property
     def triple(self):
-        '''
+        """
         This module\'s target "triple" specification, as a string.
-        '''
+        """
     @triple.setter
     def triple(self, strrep) -> None: ...
     def link_in(self, other, preserve: bool = False) -> None:
@@ -78,14 +78,14 @@ class ModuleRef(ffi.ObjectRef):
         """
     @property
     def global_variables(self):
-        '''
+        """
         Return an iterator over this module\'s global variables.
         The iterator will yield a ValueRef for each global variable.
 
         Note that global variables don\'t include functions
         (a function is a "global value" but not a "global variable" in
          LLVM parlance)
-        '''
+        """
     @property
     def functions(self):
         """

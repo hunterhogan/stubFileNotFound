@@ -1,7 +1,7 @@
-import collections.abc
 from _typeshed import Incomplete
 from collections.abc import Generator
 from matplotlib import _api as _api, _c_internal_utils as _c_internal_utils
+import collections.abc
 
 class _ExceptionInfo:
     """
@@ -13,6 +13,7 @@ class _ExceptionInfo:
     alive indefinitely, which can lead to very surprising memory issues for
     users and result in incorrect tracebacks.
     """
+
     _cls: Incomplete
     _args: Incomplete
     def __init__(self, cls, *args) -> None: ...
@@ -21,7 +22,7 @@ class _ExceptionInfo:
     def to_exception(self): ...
 
 def _get_running_interactive_framework():
-    '''
+    """
     Return the interactive framework whose event loop is currently running, if
     any, or "headless" if no event loop can be started, or None.
 
@@ -30,13 +31,14 @@ def _get_running_interactive_framework():
     Optional[str]
         One of the following values: "qt", "gtk3", "gtk4", "wx", "tk",
         "macosx", "headless", ``None``.
-    '''
+    """
 def _exception_printer(exc) -> None: ...
 
 class _StrongRef:
     """
     Wrapper similar to a weakref, but keeping a strong reference to the object.
     """
+
     _obj: Incomplete
     def __init__(self, obj) -> None: ...
     def __call__(self): ...
@@ -56,6 +58,7 @@ class _UnhashDict:
     This class only implements the interface needed for `CallbackRegistry`, and
     tries to minimize the overhead for the hashable case.
     """
+
     _dict: Incomplete
     _pairs: Incomplete
     def __init__(self, pairs) -> None: ...
@@ -120,6 +123,7 @@ class CallbackRegistry:
         throws a `ValueError`.  The default, None, does not restrict the
         handled signals.
     """
+
     _signals: Incomplete
     exception_handler: Incomplete
     callbacks: Incomplete
@@ -184,9 +188,9 @@ class silent_list(list):
     If ``self.type`` is None, the type name is obtained from the first item in
     the list (if any).
     """
+
     type: Incomplete
     def __init__(self, type, seq: Incomplete | None = None) -> None: ...
-    def __repr__(self) -> str: ...
 
 def _local_over_kwdict(local_var, kwargs, *keys, warning_cls=...): ...
 def strip_math(s):
@@ -278,6 +282,7 @@ class _Stack:
 
     Mimics home/back/forward in a web browser.
     """
+
     _pos: int
     _elements: Incomplete
     def __init__(self) -> None: ...
@@ -355,6 +360,7 @@ class Grouper:
     >>> grp.joined(a, d)
     False
     """
+
     _mapping: Incomplete
     _ordering: Incomplete
     _next_order: Incomplete
@@ -381,6 +387,7 @@ class Grouper:
 
 class GrouperView:
     """Immutable view over a `.Grouper`."""
+
     _grouper: Incomplete
     def __init__(self, grouper) -> None: ...
     def __contains__(self, item) -> bool: ...
@@ -492,7 +499,7 @@ def _broadcast_with_masks(*args, compress: bool = False):
         The broadcasted and masked inputs.
     """
 def boxplot_stats(X, whis: float = 1.5, bootstrap: Incomplete | None = None, labels: Incomplete | None = None, autorange: bool = False):
-    '''
+    """
     Return a list of dictionaries of statistics used to draw a series of box
     and whisker plots using `~.Axes.bxp`.
 
@@ -568,7 +575,7 @@ def boxplot_stats(X, whis: float = 1.5, bootstrap: Incomplete | None = None, lab
     General approach from:
     McGill, R., Tukey, J.W., and Larsen, W.A. (1978) "Variations of
     Boxplots", The American Statistician, 32:12-16.
-    '''
+    """
 
 ls_mapper: Incomplete
 ls_mapper_r: Incomplete

@@ -21,6 +21,7 @@ class Newton:
     * needs first derivative
     * 2 function evaluations per iteration
     """
+
     maxsteps: int
     ctx: Incomplete
     x0: Incomplete
@@ -44,6 +45,7 @@ class Secant:
 
     * converges slowly for multiple roots
     """
+
     maxsteps: int
     ctx: Incomplete
     x0: Incomplete
@@ -69,6 +71,7 @@ class MNewton:
     * needs first and second derivative of f
     * 3 function evaluations per iteration
     """
+
     maxsteps: int
     ctx: Incomplete
     x0: Incomplete
@@ -96,6 +99,7 @@ class Halley:
     * 3 function evaluations per iteration
     * converges slowly for multiple roots
     """
+
     maxsteps: int
     ctx: Incomplete
     x0: Incomplete
@@ -125,6 +129,7 @@ class Muller:
 
     http://en.wikipedia.org/wiki/Muller's_method
     """
+
     maxsteps: int
     ctx: Incomplete
     x0: Incomplete
@@ -151,6 +156,7 @@ class Bisection:
     * converges slowly
     * needs sign change
     """
+
     maxsteps: int
     ctx: Incomplete
     f: Incomplete
@@ -193,6 +199,7 @@ class Illinois:
     * has problems with multiple roots
     * needs sign change
     """
+
     maxsteps: int
     ctx: Incomplete
     a: Incomplete
@@ -240,6 +247,7 @@ class Ridder:
 
     http://en.wikipedia.org/wiki/Ridders'_method
     """
+
     maxsteps: int
     ctx: Incomplete
     f: Incomplete
@@ -257,6 +265,7 @@ class ANewton:
     Uses Newton's method modified to use Steffensens method when convergence is
     slow. (I.e. for multiple roots.)
     """
+
     maxsteps: int
     ctx: Incomplete
     x0: Incomplete
@@ -304,6 +313,7 @@ class MDNewton:
 
     [2] http://openopt.org/Welcome
     """
+
     maxsteps: int
     ctx: Incomplete
     f: Incomplete
@@ -541,7 +551,7 @@ def multiplicity(ctx, f, root, tol: Incomplete | None = None, maxsteps: int = 10
     """
 def steffensen(f):
     """
-    linear convergent function -> quadratic convergent function
+    Linear convergent function -> quadratic convergent function
 
     Steffensen's method for quadratic convergence of a linear converging
     sequence.

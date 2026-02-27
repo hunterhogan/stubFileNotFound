@@ -4,15 +4,14 @@ from sympy.core.sympify import sympify as sympify
 from sympy.utilities.timeutils import timethis as timethis
 
 def residue(expr, x, x0):
-    '''
+    """
     Finds the residue of ``expr`` at the point x=x0.
 
     The residue is defined as the coefficient of ``1/(x-x0)`` in the power series
     expansion about ``x=x0``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, residue, sin
     >>> x = Symbol("x")
     >>> residue(1/x, x, 0)
@@ -25,7 +24,7 @@ def residue(expr, x, x0):
     This function is essential for the Residue Theorem [1].
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Residue_theorem
-    '''
+    """

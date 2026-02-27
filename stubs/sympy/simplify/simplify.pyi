@@ -1,10 +1,15 @@
 from _typeshed import Incomplete
 from sympy.concrete.products import Product as Product
 from sympy.concrete.summations import Sum as Sum
-from sympy.core import Add as Add, Basic as Basic, Dummy as Dummy, Eq as Eq, Expr as Expr, Function as Function, Mul as Mul, Pow as Pow, S as S, Symbol as Symbol, expand_func as expand_func, expand_power_exp as expand_power_exp, factor_terms as factor_terms, sympify as sympify
+from sympy.core import (
+	Add as Add, Basic as Basic, Dummy as Dummy, Eq as Eq, expand_func as expand_func, expand_power_exp as expand_power_exp,
+	Expr as Expr, factor_terms as factor_terms, Function as Function, Mul as Mul, Pow as Pow, S as S, Symbol as Symbol,
+	sympify as sympify)
 from sympy.core.exprtools import factor_nc as factor_nc
-from sympy.core.function import _mexpand as _mexpand, count_ops as count_ops, expand as expand, expand_log as expand_log, expand_mul as expand_mul, nfloat as nfloat
-from sympy.core.numbers import Float as Float, I as I, Rational as Rational, equal_valued as equal_valued, pi as pi
+from sympy.core.function import (
+	_mexpand as _mexpand, count_ops as count_ops, expand as expand, expand_log as expand_log, expand_mul as expand_mul,
+	nfloat as nfloat)
+from sympy.core.numbers import equal_valued as equal_valued, Float as Float, I as I, pi as pi, Rational as Rational
 from sympy.core.parameters import global_parameters as global_parameters
 from sympy.core.relational import Relational as Relational
 from sympy.core.rules import Transform as Transform
@@ -16,15 +21,19 @@ from sympy.functions.elementary.complexes import Abs as Abs, sign as sign, unpol
 from sympy.functions.elementary.exponential import ExpBase as ExpBase
 from sympy.functions.elementary.hyperbolic import HyperbolicFunction as HyperbolicFunction
 from sympy.functions.elementary.integers import ceiling as ceiling
-from sympy.functions.elementary.piecewise import Piecewise as Piecewise, piecewise_fold as piecewise_fold, piecewise_simplify as piecewise_simplify
+from sympy.functions.elementary.piecewise import (
+	Piecewise as Piecewise, piecewise_fold as piecewise_fold, piecewise_simplify as piecewise_simplify)
 from sympy.functions.elementary.trigonometric import TrigonometricFunction as TrigonometricFunction
-from sympy.functions.special.bessel import BesselBase as BesselBase, besseli as besseli, besselj as besselj, besselk as besselk, bessely as bessely, jn as jn
+from sympy.functions.special.bessel import (
+	BesselBase as BesselBase, besseli as besseli, besselj as besselj, besselk as besselk, bessely as bessely, jn as jn)
 from sympy.functions.special.tensor_functions import KroneckerDelta as KroneckerDelta
 from sympy.integrals.integrals import Integral as Integral
 from sympy.logic.boolalg import Boolean as Boolean
-from sympy.matrices.expressions import MatAdd as MatAdd, MatMul as MatMul, MatPow as MatPow, MatrixExpr as MatrixExpr, MatrixSymbol as MatrixSymbol
+from sympy.matrices.expressions import (
+	MatAdd as MatAdd, MatMul as MatMul, MatPow as MatPow, MatrixExpr as MatrixExpr, MatrixSymbol as MatrixSymbol)
 from sympy.polys import cancel as cancel, factor as factor, together as together
-from sympy.polys.numberfields.minpoly import _is_sum_surds as _is_sum_surds, _minimal_polynomial_sq as _minimal_polynomial_sq
+from sympy.polys.numberfields.minpoly import (
+	_is_sum_surds as _is_sum_surds, _minimal_polynomial_sq as _minimal_polynomial_sq)
 from sympy.sets.sets import Set as Set
 from sympy.simplify.combsimp import combsimp as combsimp
 from sympy.simplify.cse_opts import sub_post as sub_post, sub_pre as sub_pre
@@ -61,8 +70,7 @@ def separatevars(expr, symbols=[], dict: bool = False, force: bool = False):
     of assumptions on the symbols involved.
 
     Notes
-    =====
-
+    -----
     The order of the factors is determined by Mul, so that the
     separated expressions may not necessarily be grouped together.
 
@@ -71,8 +79,7 @@ def separatevars(expr, symbols=[], dict: bool = False, force: bool = False):
     count on the returned factors being factored.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x, y, z, alpha
     >>> from sympy import separatevars, sin
     >>> separatevars((x*y)**y)
@@ -150,33 +157,33 @@ def posify(eq):
     """
 def hypersimp(f, k):
     """Given combinatorial term f(k) simplify its consecutive term ratio
-       i.e. f(k+1)/f(k).  The input term can be composed of functions and
-       integer sequences which have equivalent representation in terms
-       of gamma special function.
+    i.e. f(k+1)/f(k).  The input term can be composed of functions and
+    integer sequences which have equivalent representation in terms
+    of gamma special function.
 
-       Explanation
-       ===========
+    Explanation
+    ===========
 
-       The algorithm performs three basic steps:
+    The algorithm performs three basic steps:
 
-       1. Rewrite all functions in terms of gamma, if possible.
+    1. Rewrite all functions in terms of gamma, if possible.
 
-       2. Rewrite all occurrences of gamma in terms of products
-          of gamma and rising factorial with integer,  absolute
-          constant exponent.
+    2. Rewrite all occurrences of gamma in terms of products
+       of gamma and rising factorial with integer,  absolute
+       constant exponent.
 
-       3. Perform simplification of nested fractions, powers
-          and if the resulting expression is a quotient of
-          polynomials, reduce their total degree.
+    3. Perform simplification of nested fractions, powers
+       and if the resulting expression is a quotient of
+       polynomials, reduce their total degree.
 
-       If f(k) is hypergeometric then as result we arrive with a
-       quotient of polynomials of minimal degree. Otherwise None
-       is returned.
+    If f(k) is hypergeometric then as result we arrive with a
+    quotient of polynomials of minimal degree. Otherwise None
+    is returned.
 
-       For more information on the implemented algorithm refer to:
+    For more information on the implemented algorithm refer to:
 
-       1. W. Koepf, Algorithms for m-fold Hypergeometric Summation,
-          Journal of Symbolic Computation (1995) 20, 399-417
+    1. W. Koepf, Algorithms for m-fold Hypergeometric Summation,
+       Journal of Symbolic Computation (1995) 20, 399-417
     """
 def hypersimilar(f, g, k):
     """
@@ -204,8 +211,7 @@ def signsimp(expr, evaluate=None):
     extracted from powers and products.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import signsimp, exp, symbols
     >>> from sympy.abc import x, y
     >>> i = symbols('i', odd=True)
@@ -255,8 +261,8 @@ def sum_simplify(s, **kwargs):
 def sum_combine(s_t):
     """Helper function for Sum simplification
 
-       Attempts to simplify a list of sums, by combining limits / sum function's
-       returns the simplified sum
+    Attempts to simplify a list of sums, by combining limits / sum function's
+    returns the simplified sum
     """
 def factor_sum(self, limits=None, radical: bool = False, clear: bool = False, fraction: bool = False, sign: bool = True):
     """Return Sum with constant factors extracted.
@@ -265,8 +271,7 @@ def factor_sum(self, limits=None, radical: bool = False, clear: bool = False, fr
     keywords are passed to ``factor_terms``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Sum
     >>> from sympy.abc import x, y
     >>> from sympy.simplify.simplify import factor_sum
@@ -284,8 +289,8 @@ def product_mul(self, other, method: int = 0):
     """Helper function for Product simplification"""
 def _nthroot_solve(p, n, prec):
     """
-     helper function for ``nthroot``
-     It denests ``p**Rational(1, n)`` using its minimal polynomial
+    Helper function for ``nthroot``
+    It denests ``p**Rational(1, n)`` using its minimal polynomial
     """
 def logcombine(expr, force: bool = False):
     """
@@ -301,8 +306,7 @@ def logcombine(expr, force: bool = False):
     take place.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, symbols, log, logcombine, I
     >>> from sympy.abc import a, x, y, z
     >>> logcombine(a*log(x) + log(y) - log(z))
@@ -325,8 +329,7 @@ def logcombine(expr, force: bool = False):
     log(x**2) + I*log(x**3)
 
     See Also
-    ========
-
+    --------
     posify: replace all symbols with symbols having positive assumptions
     sympy.core.function.expand_log: expand the logarithms of products
         and powers; the opposite of logcombine
@@ -343,8 +346,7 @@ def inversecombine(expr):
     to the original expression.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.simplify import inversecombine
     >>> from sympy import asin, sin, log, exp
     >>> from sympy.abc import x
@@ -360,15 +362,14 @@ def kroneckersimp(expr):
     The only simplification currently attempted is to identify multiplicative cancellation:
 
     Examples
-    ========
-
+    --------
     >>> from sympy import KroneckerDelta, kroneckersimp
     >>> from sympy.abc import i
     >>> kroneckersimp(1 + KroneckerDelta(0, i) * KroneckerDelta(1, i))
     1
     """
 def besselsimp(expr):
-    '''
+    """
     Simplify bessel-type functions.
 
     Explanation
@@ -393,14 +394,13 @@ def besselsimp(expr):
     sqrt(2)*cosh(z)/(sqrt(pi)*sqrt(z))
     >>> besselsimp(z*besseli(0, z) + z*(besseli(2, z))/2 + besseli(1, z))
     3*z*besseli(0, z)/2
-    '''
+    """
 def nthroot(expr, n, max_len: int = 4, prec: int = 15):
     """
     Compute a real nth-root of a sum of surds.
 
     Parameters
-    ==========
-
+    ----------
     expr : sum of surds
     n : integer
     max_len : maximum number of surds passed as constants to ``nsimplify``
@@ -413,8 +413,7 @@ def nthroot(expr, n, max_len: int = 4, prec: int = 15):
     roots.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.simplify import nthroot
     >>> from sympy import sqrt
     >>> nthroot(90 + 34*sqrt(7), 3)
@@ -451,8 +450,7 @@ def nsimplify(expr, constants=(), tolerance=None, full: bool = False, rational=N
     When rational_conversion='exact' it uses the exact, base-2 representation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import nsimplify, sqrt, GoldenRatio, exp, I, pi
     >>> nsimplify(4/(1+sqrt(5)), [GoldenRatio])
     -2 + 2*GoldenRatio
@@ -469,8 +467,7 @@ def nsimplify(expr, constants=(), tolerance=None, full: bool = False, rational=N
     1/3
 
     See Also
-    ========
-
+    --------
     sympy.core.function.nfloat
 
     """
@@ -479,8 +476,7 @@ def _real_to_rational(expr, tolerance=None, rational_conversion: str = 'base10')
     Replace all reals in expr with rationals.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.simplify import _real_to_rational
     >>> from sympy.abc import x
 
@@ -504,8 +500,7 @@ def clear_coefficients(expr, rhs=...):
     as `r`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.simplify import clear_coefficients
     >>> from sympy.abc import x, y
     >>> from sympy import Dummy
@@ -524,7 +519,7 @@ def clear_coefficients(expr, rhs=...):
     1/6
     """
 def nc_simplify(expr, deep: bool = True):
-    '''
+    """
     Simplify a non-commutative expression composed of multiplication
     and raising to a power by grouping repeated subterms into one power.
     Priority is given to simplifications that give the fewest number
@@ -539,8 +534,7 @@ def nc_simplify(expr, deep: bool = True):
     that do not need simplifying on all levels.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols
     >>> from sympy.simplify.simplify import nc_simplify
     >>> a, b, c = symbols("a b c", commutative=False)
@@ -563,7 +557,7 @@ def nc_simplify(expr, deep: bool = True):
     >>> nc_simplify(expr, deep=False)
     (a*b*a*b)**2*(a*c)**2
 
-    '''
+    """
 def dotprodsimp(expr, withsimp: bool = False):
     """Simplification for a sum of products targeted at the kind of blowup that
     occurs during summation of products. Intended to reduce expression blowup
@@ -571,8 +565,7 @@ def dotprodsimp(expr, withsimp: bool = False):
     algebraic expressions and does not recurse into non.
 
     Parameters
-    ==========
-
+    ----------
     withsimp : bool, optional
         Specifies whether a flag should be returned along with the expression
         to indicate roughly whether simplification was successful. It is used

@@ -2,14 +2,15 @@ from _typeshed import Incomplete
 from sympy.core import Add as Add, Dummy as Dummy, Expr as Expr, Mul as Mul, S as S, sympify as sympify
 from sympy.core.cache import cacheit as cacheit
 from sympy.core.containers import Tuple as Tuple
-from sympy.core.function import Function as Function, PoleError as PoleError, expand_log as expand_log, expand_power_base as expand_power_base
+from sympy.core.function import (
+	expand_log as expand_log, expand_power_base as expand_power_base, Function as Function, PoleError as PoleError)
 from sympy.core.sorting import default_sort_key as default_sort_key
 from sympy.functions.elementary.exponential import exp as exp, log as log
 from sympy.sets.sets import Complement as Complement
 from sympy.utilities.iterables import is_sequence as is_sequence, uniq as uniq
 
 class Order(Expr):
-    """ Represents the limiting behavior of some function.
+    """Represents the limiting behavior of some function.
 
     Explanation
     ===========
@@ -55,8 +56,7 @@ class Order(Expr):
     proportional to `x^2`, `x` and constants.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import O, oo, cos, pi
     >>> from sympy.abc import x, y
 
@@ -93,13 +93,12 @@ class Order(Expr):
     O(x - pi/2, (x, pi/2))
 
     References
-    ==========
+    ----------
 
     .. [1] `Big O notation <https://en.wikipedia.org/wiki/Big_O_notation>`_
 
     Notes
-    =====
-
+    -----
     In ``O(f(x), x)`` the expression ``f(x)`` is assumed to have a leading
     term.  ``O(f(x), x)`` is automatically transformed to
     ``O(f(x).as_leading_term(x),x)``.
@@ -122,6 +121,7 @@ class Order(Expr):
     and the limit point is assumed to be zero.
 
     """
+
     is_Order: bool
     __slots__: Incomplete
     @cacheit

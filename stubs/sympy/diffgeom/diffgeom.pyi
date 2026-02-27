@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
 from sympy.combinatorics import Permutation as Permutation
-from sympy.core import Add as Add, Basic as Basic, Dict as Dict, Expr as Expr, Function as Function, Lambda as Lambda, Mul as Mul, Pow as Pow, S as S, Tuple as Tuple, diff as diff
+from sympy.core import (
+	Add as Add, Basic as Basic, Dict as Dict, diff as diff, Expr as Expr, Function as Function, Lambda as Lambda,
+	Mul as Mul, Pow as Pow, S as S, Tuple as Tuple)
 from sympy.core.cache import cacheit as cacheit
 from sympy.core.symbol import Dummy as Dummy, Str as Str, Symbol as Symbol
 from sympy.core.sympify import _sympify as _sympify
@@ -8,7 +10,9 @@ from sympy.functions import factorial as factorial
 from sympy.simplify.simplify import simplify as simplify
 from sympy.solvers import solve as solve
 from sympy.tensor.array import ImmutableDenseNDimArray as ImmutableDenseNDimArray
-from sympy.utilities.exceptions import SymPyDeprecationWarning as SymPyDeprecationWarning, ignore_warnings as ignore_warnings, sympy_deprecation_warning as sympy_deprecation_warning
+from sympy.utilities.exceptions import (
+	ignore_warnings as ignore_warnings, sympy_deprecation_warning as sympy_deprecation_warning,
+	SymPyDeprecationWarning as SymPyDeprecationWarning)
 from typing import Any
 
 class Manifold(Basic):
@@ -24,8 +28,7 @@ class Manifold(Basic):
     characteristics of the manifold that it represents, though.
 
     Parameters
-    ==========
-
+    ----------
     name : str
         The name of the manifold.
 
@@ -33,8 +36,7 @@ class Manifold(Basic):
         The dimension of the manifold.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.diffgeom import Manifold
     >>> m = Manifold('M', 2)
     >>> m
@@ -43,10 +45,11 @@ class Manifold(Basic):
     2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Manifold
     """
+
     def __new__(cls, name, dim, **kwargs): ...
     @property
     def name(self): ...
@@ -70,8 +73,7 @@ class Patch(Basic):
     characteristics of the patch that it represents.
 
     Parameters
-    ==========
-
+    ----------
     name : str
         The name of the patch.
 
@@ -79,8 +81,7 @@ class Patch(Basic):
         The manifold on which the patch is defined.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.diffgeom import Manifold, Patch
     >>> m = Manifold('M', 2)
     >>> p = Patch('P', m)
@@ -90,12 +91,13 @@ class Patch(Basic):
     2
 
     References
-    ==========
+    ----------
 
     .. [1] G. Sussman, J. Wisdom, W. Farr, Functional Differential Geometry
            (2013)
 
     """
+
     def __new__(cls, name, manifold, **kwargs): ...
     @property
     def name(self): ...
@@ -125,8 +127,7 @@ class CoordSystem(Basic):
     transformation cannot be done.
 
     Parameters
-    ==========
-
+    ----------
     name : str
         The name of the coordinate system.
 
@@ -143,8 +144,7 @@ class CoordSystem(Basic):
         the expressions after transformation.
 
     Examples
-    ========
-
+    --------
     We define two-dimensional Cartesian coordinate system and polar coordinate
     system.
 
@@ -209,11 +209,12 @@ class CoordSystem(Basic):
     1
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Coordinate_system
 
     """
+
     def __new__(cls, name, patch, symbols=None, relations={}, **kwargs): ...
     @property
     def name(self): ...
@@ -232,18 +233,15 @@ class CoordSystem(Basic):
         Return coordinate transformation function from *self* to *sys*.
 
         Parameters
-        ==========
-
+        ----------
         sys : CoordSystem
 
         Returns
-        =======
-
+        -------
         sympy.Lambda
 
         Examples
-        ========
-
+        --------
         >>> from sympy.diffgeom.rn import R2_r, R2_p
         >>> R2_r.transformation(R2_p)
         Lambda((x, y), Matrix([
@@ -271,20 +269,17 @@ class CoordSystem(Basic):
         If coordinates are not given, coordinate symbols of *self* are used.
 
         Parameters
-        ==========
-
+        ----------
         sys : CoordSystem
 
         coordinates : Any iterable, optional.
 
         Returns
-        =======
-
+        -------
         sympy.ImmutableDenseMatrix containing CoordinateSymbol
 
         Examples
-        ========
-
+        --------
         >>> from sympy.diffgeom.rn import R2_r, R2_p
         >>> R2_r.transform(R2_p)
         Matrix([
@@ -304,20 +299,17 @@ class CoordSystem(Basic):
         If coordinates are not given, coordinate symbols of *self* are used.
 
         Parameters
-        ==========
-
+        ----------
         sys : CoordSystem
 
         coordinates : Any iterable, optional.
 
         Returns
-        =======
-
+        -------
         sympy.ImmutableDenseMatrix
 
         Examples
-        ========
-
+        --------
         >>> from sympy.diffgeom.rn import R2_r, R2_p
         >>> R2_p.jacobian(R2_r)
         Matrix([
@@ -337,20 +329,17 @@ class CoordSystem(Basic):
         are used.
 
         Parameters
-        ==========
-
+        ----------
         sys : CoordSystem
 
         coordinates : Any iterable, optional.
 
         Returns
-        =======
-
+        -------
         sympy.Expr
 
         Examples
-        ========
-
+        --------
         >>> from sympy.diffgeom.rn import R2_r, R2_p
         >>> R2_r.jacobian_determinant(R2_p)
         1/sqrt(x**2 + y**2)
@@ -367,22 +356,27 @@ class CoordSystem(Basic):
     coord_function = base_scalar
     def base_scalars(self):
         """Returns a list of all coordinate functions.
-        For more details see the ``base_scalar`` method of this class."""
+        For more details see the ``base_scalar`` method of this class.
+        """
     coord_functions = base_scalars
     def base_vector(self, coord_index):
         """Return a basis vector field.
         The basis vector field for this coordinate system. It is also an
-        operator on scalar fields."""
+        operator on scalar fields.
+        """
     def base_vectors(self):
         """Returns a list of all base vectors.
-        For more details see the ``base_vector`` method of this class."""
+        For more details see the ``base_vector`` method of this class.
+        """
     def base_oneform(self, coord_index):
         """Return a basis 1-form field.
         The basis one-form field for this coordinate system. It is also an
-        operator on vector fields."""
+        operator on vector fields.
+        """
     def base_oneforms(self):
         """Returns a list of all base oneforms.
-        For more details see the ``base_oneform`` method of this class."""
+        For more details see the ``base_oneform`` method of this class.
+        """
 
 class CoordinateSymbol(Symbol):
     """A symbol which denotes an abstract value of i-th coordinate of
@@ -398,15 +392,13 @@ class CoordinateSymbol(Symbol):
     of CoordSystem.
 
     Parameters
-    ==========
-
+    ----------
     coord_sys : CoordSystem
 
     index : integer
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, Lambda, Matrix, sqrt, atan2, cos, sin
     >>> from sympy.diffgeom import Manifold, Patch, CoordSystem
     >>> m = Manifold('M', 2)
@@ -441,6 +433,7 @@ class CoordinateSymbol(Symbol):
     r
 
     """
+
     def __new__(cls, coord_sys, index, **assumptions): ...
     def __getnewargs__(self): ...
     def _hashable_content(self): ...
@@ -463,16 +456,14 @@ class Point(Basic):
     expressions if you use inappropriate coordinate systems.
 
     Parameters
-    ==========
-
+    ----------
     coord_sys : CoordSystem
 
     coords : list
         The coordinates of the point.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import pi
     >>> from sympy.diffgeom import Point
     >>> from sympy.diffgeom.rn import R2, R2_r, R2_p
@@ -493,6 +484,7 @@ class Point(Basic):
     [ sqrt(2)*rho/2]])
 
     """
+
     def __new__(cls, coord_sys, coords, **kwargs): ...
     @property
     def patch(self): ...
@@ -530,15 +522,13 @@ class BaseScalarField(Expr):
     expressions containing ``BaseScalarField`` instances.
 
     Parameters
-    ==========
-
+    ----------
     coord_sys : CoordSystem
 
     index : integer
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function, pi
     >>> from sympy.diffgeom import BaseScalarField
     >>> from sympy.diffgeom.rn import R2_r, R2_p
@@ -561,6 +551,7 @@ class BaseScalarField(Expr):
     g(-pi)
 
     """
+
     is_commutative: bool
     def __new__(cls, coord_sys, index, **kwargs): ...
     @property
@@ -602,14 +593,13 @@ class BaseVectorField(Expr):
     use unappropriate coordinate systems.
 
     Parameters
-    ==========
+    ----------
     coord_sys : CoordSystem
 
     index : integer
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function
     >>> from sympy.diffgeom.rn import R2_p, R2_r
     >>> from sympy.diffgeom import BaseVectorField
@@ -639,6 +629,7 @@ class BaseVectorField(Expr):
     \\dxi                       /|xi=rho*sin(theta)
 
     """
+
     is_commutative: bool
     def __new__(cls, coord_sys, index, **kwargs): ...
     @property
@@ -671,9 +662,7 @@ class Commutator(Expr):
     to `v_1(v_2(f)) - v_2(v_1(f))`.
 
     Examples
-    ========
-
-
+    --------
     >>> from sympy.diffgeom.rn import R2_p, R2_r
     >>> from sympy.diffgeom import Commutator
     >>> from sympy import simplify
@@ -695,6 +684,7 @@ class Commutator(Expr):
     -2*cos(theta)*y**2/(x**2 + y**2)
 
     """
+
     def __new__(cls, v1, v2): ...
     @property
     def v1(self): ...
@@ -717,8 +707,7 @@ class Differential(Expr):
     as `df(v) = v(f)`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function
     >>> from sympy.diffgeom.rn import R2_r
     >>> from sympy.diffgeom import Differential
@@ -746,6 +735,7 @@ class Differential(Expr):
     >>> Differential(dg)
     0
     """
+
     is_commutative: bool
     def __new__(cls, form_field): ...
     @property
@@ -786,8 +776,7 @@ class TensorProduct(Expr):
     they are not antisymmetric and hence are not form fields.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.diffgeom.rn import R2_r
     >>> from sympy.diffgeom import TensorProduct
 
@@ -827,6 +816,7 @@ class TensorProduct(Expr):
     3*dy
 
     """
+
     def __new__(cls, *args): ...
     def __call__(self, *fields):
         """Apply on a list of fields.
@@ -851,8 +841,7 @@ class WedgeProduct(TensorProduct):
     sense. The wedge product permits the creation of such forms.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.diffgeom.rn import R2_r
     >>> from sympy.diffgeom import WedgeProduct
 
@@ -876,9 +865,11 @@ class WedgeProduct(TensorProduct):
     0
 
     """
+
     def __call__(self, *fields):
         """Apply on a list of vector_fields.
-        The expression is rewritten internally in terms of tensor products and evaluated."""
+        The expression is rewritten internally in terms of tensor products and evaluated.
+        """
 
 class LieDerivative(Expr):
     """Lie derivative with respect to a vector field.
@@ -891,8 +882,7 @@ class LieDerivative(Expr):
     to which one derives.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.diffgeom.rn import R2_r, R2_p
     >>> from sympy.diffgeom import (LieDerivative, TensorProduct)
 
@@ -923,6 +913,7 @@ class LieDerivative(Expr):
     LieDerivative(e_x, TensorProduct(dx, dy))
 
     """
+
     def __new__(cls, v_field, expr): ...
     @property
     def v_field(self): ...
@@ -934,8 +925,7 @@ class BaseCovarDerivativeOp(Expr):
     """Covariant derivative operator with respect to a base vector.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.diffgeom.rn import R2_r
     >>> from sympy.diffgeom import BaseCovarDerivativeOp
     >>> from sympy.diffgeom import metric_to_Christoffel_2nd, TensorProduct
@@ -954,6 +944,7 @@ class BaseCovarDerivativeOp(Expr):
     >>> cvd(fx*e_x)
     e_x
     """
+
     def __new__(cls, coord_sys, index, christoffel): ...
     @property
     def coord_sys(self): ...
@@ -973,8 +964,7 @@ class CovarDerivativeOp(Expr):
     """Covariant derivative operator.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.diffgeom.rn import R2_r
     >>> from sympy.diffgeom import CovarDerivativeOp
     >>> from sympy.diffgeom import metric_to_Christoffel_2nd, TensorProduct
@@ -993,6 +983,7 @@ class CovarDerivativeOp(Expr):
     x*e_x
 
     """
+
     def __new__(cls, wrt, christoffel): ...
     @property
     def wrt(self): ...
@@ -1024,7 +1015,7 @@ def intcurve_series(vector_field, param, start_point, n: int = 6, coord_sys=None
     thing as a difference of points for a general manifold).
 
     Parameters
-    ==========
+    ----------
     vector_field
         the vector field for which an integral curve will be given
 
@@ -1042,8 +1033,7 @@ def intcurve_series(vector_field, param, start_point, n: int = 6, coord_sys=None
         coeffs (default False) - if True return a list of elements of the expansion
 
     Examples
-    ========
-
+    --------
     Use the predefined R2 manifold:
 
     >>> from sympy.abc import t, x, y
@@ -1096,8 +1086,7 @@ def intcurve_series(vector_field, param, start_point, n: int = 6, coord_sys=None
     [                                t**2*x*y/(x**2 + y**2)**2]])
 
     See Also
-    ========
-
+    --------
     intcurve_diffequ
 
     """
@@ -1122,8 +1111,7 @@ def intcurve_diffequ(vector_field, param, start_point, coord_sys=None):
     thing as a difference of points for a general manifold).
 
     Parameters
-    ==========
-
+    ----------
     vector_field
         the vector field for which an integral curve will be given
 
@@ -1137,13 +1125,11 @@ def intcurve_diffequ(vector_field, param, start_point, coord_sys=None):
         the coordinate system in which to give the equations
 
     Returns
-    =======
-
+    -------
     a tuple of (equations, initial conditions)
 
     Examples
-    ========
-
+    --------
     Use the predefined R2 manifold:
 
     >>> from sympy.abc import t
@@ -1172,8 +1158,7 @@ def intcurve_diffequ(vector_field, param, start_point, coord_sys=None):
     [f_0(0) - 1, f_1(0) - pi/2]
 
     See Also
-    ========
-
+    --------
     intcurve_series
 
     """
@@ -1182,8 +1167,7 @@ def contravariant_order(expr, _strict: bool = False):
     """Return the contravariant order of an expression.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.diffgeom import contravariant_order
     >>> from sympy.diffgeom.rn import R2
     >>> from sympy.abc import a
@@ -1200,8 +1184,7 @@ def covariant_order(expr, _strict: bool = False):
     """Return the covariant order of an expression.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.diffgeom import covariant_order
     >>> from sympy.diffgeom.rn import R2
     >>> from sympy.abc import a
@@ -1220,8 +1203,7 @@ def vectors_in_basis(expr, to_sys):
     coefficients are kept in the old system.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.diffgeom import vectors_in_basis
     >>> from sympy.diffgeom.rn import R2_r, R2_p
 
@@ -1239,8 +1221,7 @@ def twoform_to_matrix(expr):
     which the expression of `w` is given.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.diffgeom.rn import R2
     >>> from sympy.diffgeom import twoform_to_matrix, TensorProduct
     >>> TP = TensorProduct
@@ -1265,8 +1246,7 @@ def metric_to_Christoffel_1st(expr):
     Levi-Civita connection for the given metric.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.diffgeom.rn import R2
     >>> from sympy.diffgeom import metric_to_Christoffel_1st, TensorProduct
     >>> TP = TensorProduct
@@ -1283,8 +1263,7 @@ def metric_to_Christoffel_2nd(expr):
     Levi-Civita connection for the given metric.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.diffgeom.rn import R2
     >>> from sympy.diffgeom import metric_to_Christoffel_2nd, TensorProduct
     >>> TP = TensorProduct
@@ -1303,8 +1282,7 @@ def metric_to_Riemann_components(expr):
     given.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import exp
     >>> from sympy.diffgeom.rn import R2
     >>> from sympy.diffgeom import metric_to_Riemann_components, TensorProduct
@@ -1330,8 +1308,7 @@ def metric_to_Ricci_components(expr):
     given.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import exp
     >>> from sympy.diffgeom.rn import R2
     >>> from sympy.diffgeom import metric_to_Ricci_components, TensorProduct

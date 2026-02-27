@@ -1,7 +1,6 @@
-import selectors
-from socket import socket
-
 from . import base_events
+from socket import socket
+import selectors
 
 __all__ = ("BaseSelectorEventLoop",)
 

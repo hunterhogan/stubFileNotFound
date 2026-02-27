@@ -7,16 +7,15 @@ from sympy.matrices.exceptions import ShapeError as ShapeError
 from sympy.matrices.expressions.matexpr import MatrixExpr as MatrixExpr
 from sympy.matrices.expressions.matmul import MatMul as MatMul
 from sympy.matrices.expressions.special import ZeroMatrix as ZeroMatrix
-from sympy.stats.rv import RandomSymbol as RandomSymbol, is_random as is_random
+from sympy.stats.rv import is_random as is_random, RandomSymbol as RandomSymbol
 from sympy.stats.symbolic_probability import Covariance as Covariance, Expectation as Expectation, Variance as Variance
 
 class ExpectationMatrix(Expectation, MatrixExpr):
-    '''
+    """
     Expectation of a random matrix expression.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import ExpectationMatrix, Normal
     >>> from sympy.stats.rv import RandomMatrixSymbol
     >>> from sympy import symbols, MatrixSymbol, Matrix
@@ -48,21 +47,21 @@ class ExpectationMatrix(Expectation, MatrixExpr):
     [12, 14],
     [24, 26]])
 
-    '''
+    """
+
     def __new__(cls, expr, condition=None): ...
     @property
     def shape(self): ...
     def expand(self, **hints): ...
 
 class VarianceMatrix(Variance, MatrixExpr):
-    '''
+    """
     Variance of a random matrix probability expression. Also known as
     Covariance matrix, auto-covariance matrix, dispersion matrix,
     or variance-covariance matrix.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import VarianceMatrix
     >>> from sympy.stats.rv import RandomMatrixSymbol
     >>> from sympy import symbols, MatrixSymbol
@@ -80,19 +79,19 @@ class VarianceMatrix(Variance, MatrixExpr):
     A*VarianceMatrix(X)*A.T
     >>> VarianceMatrix(A*X + B*Y).expand()
     2*A*CrossCovarianceMatrix(X, Y)*B.T + A*VarianceMatrix(X)*A.T + B*VarianceMatrix(Y)*B.T
-    '''
+    """
+
     def __new__(cls, arg, condition=None): ...
     @property
     def shape(self): ...
     def expand(self, **hints): ...
 
 class CrossCovarianceMatrix(Covariance, MatrixExpr):
-    '''
+    """
     Covariance of a random matrix probability expression.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import CrossCovarianceMatrix
     >>> from sympy.stats.rv import RandomMatrixSymbol
     >>> from sympy import symbols, MatrixSymbol
@@ -117,7 +116,8 @@ class CrossCovarianceMatrix(Covariance, MatrixExpr):
     >>> CrossCovarianceMatrix(A*X + B*Y, C.T*Z + D.T*W).expand()
     A*CrossCovarianceMatrix(X, W)*D + A*CrossCovarianceMatrix(X, Z)*C + B*CrossCovarianceMatrix(Y, W)*D + B*CrossCovarianceMatrix(Y, Z)*C
 
-    '''
+    """
+
     def __new__(cls, arg1, arg2, condition=None): ...
     @property
     def shape(self): ...

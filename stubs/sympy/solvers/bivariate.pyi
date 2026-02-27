@@ -5,23 +5,22 @@ from sympy.core.power import Pow as Pow
 from sympy.core.singleton import S as S
 from sympy.core.sorting import ordered as ordered
 from sympy.core.symbol import Dummy as Dummy
-from sympy.functions.elementary.exponential import LambertW as LambertW, exp as exp, log as log
+from sympy.functions.elementary.exponential import exp as exp, LambertW as LambertW, log as log
 from sympy.functions.elementary.miscellaneous import root as root
 from sympy.polys.polyroots import roots as roots
-from sympy.polys.polytools import Poly as Poly, factor as factor
+from sympy.polys.polytools import factor as factor, Poly as Poly
 from sympy.simplify.radsimp import collect as collect
 from sympy.simplify.simplify import powsimp as powsimp, separatevars as separatevars
 from sympy.solvers.solvers import _invert as _invert, solve as solve
 from sympy.utilities.iterables import uniq as uniq
 
 def _filtered_gens(poly, symbol):
-    """process the generators of ``poly``, returning the set of generators that
+    """Process the generators of ``poly``, returning the set of generators that
     have ``symbol``.  If there are two generators that are inverses of each other,
     prefer the one that has no denominator.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.bivariate import _filtered_gens
     >>> from sympy import Poly, exp
     >>> from sympy.abc import x
@@ -40,8 +39,7 @@ def _mostfunc(lhs, func, X=None):
     most ``func`` having the specified variable.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.bivariate import _mostfunc
     >>> from sympy import exp
     >>> from sympy.abc import x, y
@@ -62,8 +60,7 @@ def _linab(arg, symbol):
     independent of ``symbol``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.bivariate import _linab
     >>> from sympy.abc import x, y
     >>> from sympy import exp, S
@@ -137,8 +134,7 @@ def bivariate_type(f, x, y, *, first: bool = True):
     Only positive values of ``u`` are considered.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import solve
     >>> from sympy.solvers.bivariate import bivariate_type
     >>> from sympy.abc import x, y

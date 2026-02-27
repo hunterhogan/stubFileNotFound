@@ -1,7 +1,7 @@
 from __future__ import annotations
 
+from typing import assert_type
 import codecs
-from typing_extensions import assert_type
 
 assert_type(codecs.decode("x", "unicode-escape"), str)
 assert_type(codecs.decode(b"x", "unicode-escape"), str)

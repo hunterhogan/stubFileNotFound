@@ -1,7 +1,7 @@
 from .accumulationbounds import AccumBounds as AccumBounds, AccumulationBounds as AccumulationBounds
 from .singularities import singularities as singularities
 from sympy.core import Pow as Pow, S as S
-from sympy.core.function import Function as Function, diff as diff, expand_mul as expand_mul
+from sympy.core.function import diff as diff, expand_mul as expand_mul, Function as Function
 from sympy.core.kind import NumberKind as NumberKind
 from sympy.core.mod import Mod as Mod
 from sympy.core.numbers import equal_valued as equal_valued
@@ -10,15 +10,20 @@ from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol
 from sympy.core.sympify import _sympify as _sympify
 from sympy.functions.elementary.complexes import Abs as Abs, im as im, re as re
 from sympy.functions.elementary.exponential import exp as exp, log as log
-from sympy.functions.elementary.hyperbolic import acosh as acosh, acoth as acoth, acsch as acsch, asech as asech, asinh as asinh, atanh as atanh, cosh as cosh, coth as coth, csch as csch, sech as sech, sinh as sinh, tanh as tanh
+from sympy.functions.elementary.hyperbolic import (
+	acosh as acosh, acoth as acoth, acsch as acsch, asech as asech, asinh as asinh, atanh as atanh, cosh as cosh,
+	coth as coth, csch as csch, sech as sech, sinh as sinh, tanh as tanh)
 from sympy.functions.elementary.integers import frac as frac
 from sympy.functions.elementary.piecewise import Piecewise as Piecewise
-from sympy.functions.elementary.trigonometric import TrigonometricFunction as TrigonometricFunction, acos as acos, acot as acot, acsc as acsc, asec as asec, asin as asin, atan as atan, cos as cos, cot as cot, csc as csc, sec as sec, sin as sin, tan as tan
+from sympy.functions.elementary.trigonometric import (
+	acos as acos, acot as acot, acsc as acsc, asec as asec, asin as asin, atan as atan, cos as cos, cot as cot, csc as csc,
+	sec as sec, sin as sin, tan as tan, TrigonometricFunction as TrigonometricFunction)
 from sympy.matrices.dense import hessian as hessian
 from sympy.polys.polytools import degree as degree, lcm_list as lcm_list
 from sympy.sets.conditionset import ConditionSet as ConditionSet
 from sympy.sets.fancysets import ImageSet as ImageSet
-from sympy.sets.sets import Complement as Complement, FiniteSet as FiniteSet, Intersection as Intersection, Interval as Interval, Union as Union
+from sympy.sets.sets import (
+	Complement as Complement, FiniteSet as FiniteSet, Intersection as Intersection, Interval as Interval, Union as Union)
 from sympy.utilities import filldedent as filldedent
 from sympy.utilities.iterables import iterable as iterable
 
@@ -32,8 +37,7 @@ def continuous_domain(f, symbol, domain):
     other set operations.
 
     Parameters
-    ==========
-
+    ----------
     f : :py:class:`~.Expr`
         The concerned function.
     symbol : :py:class:`~.Symbol`
@@ -42,8 +46,7 @@ def continuous_domain(f, symbol, domain):
         The domain over which the continuity of the symbol has to be checked.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Interval, Symbol, S, tan, log, pi, sqrt
     >>> from sympy.calculus.util import continuous_domain
     >>> x = Symbol('x')
@@ -57,14 +60,12 @@ def continuous_domain(f, symbol, domain):
     Interval.open(1/2, oo)
 
     Returns
-    =======
-
+    -------
     :py:class:`~.Interval`
         Union of all intervals where the function is continuous.
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         If the method to determine continuity of such a function
         has not yet been developed.
@@ -77,8 +78,7 @@ def function_range(f, symbol, domain):
     determine limits.
 
     Parameters
-    ==========
-
+    ----------
     f : :py:class:`~.Expr`
         The concerned function.
     symbol : :py:class:`~.Symbol`
@@ -87,8 +87,7 @@ def function_range(f, symbol, domain):
         The domain under which the range of the function has to be found.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Interval, Symbol, S, exp, log, pi, sqrt, sin, tan
     >>> from sympy.calculus.util import function_range
     >>> x = Symbol('x')
@@ -106,15 +105,13 @@ def function_range(f, symbol, domain):
     Interval(0, 3)
 
     Returns
-    =======
-
+    -------
     :py:class:`~.Interval`
         Union of all ranges for all intervals under domain where function is
         continuous.
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         If any of the intervals, in the given domain, for which function
         is continuous are not finite or real,
@@ -126,8 +123,7 @@ def not_empty_in(finset_intersection, *syms):
     ``finite_set`` is not-empty.
 
     Parameters
-    ==========
-
+    ----------
     finset_intersection : Intersection of FiniteSet
         The unevaluated intersection of FiniteSet containing
         real-valued functions with Union of Sets
@@ -135,8 +131,7 @@ def not_empty_in(finset_intersection, *syms):
         Symbol for which domain is to be found
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         The algorithms to find the non-emptiness of the given FiniteSet are
         not yet implemented.
@@ -147,8 +142,7 @@ def not_empty_in(finset_intersection, *syms):
         (https://github.com/sympy/sympy/issues).
 
     Examples
-    ========
-
+    --------
     >>> from sympy import FiniteSet, Interval, not_empty_in, oo
     >>> from sympy.abc import x
     >>> not_empty_in(FiniteSet(x/2).intersect(Interval(0, 1)), x)
@@ -159,12 +153,11 @@ def not_empty_in(finset_intersection, *syms):
     Union(Interval.Lopen(-2, -1), Interval(2, oo))
     """
 def periodicity(f, symbol, check: bool = False):
-    '''
+    """
     Tests the given function for periodicity in the given symbol.
 
     Parameters
-    ==========
-
+    ----------
     f : :py:class:`~.Expr`
         The concerned function.
     symbol : :py:class:`~.Symbol`
@@ -173,23 +166,20 @@ def periodicity(f, symbol, check: bool = False):
         The flag to verify whether the value being returned is a period or not.
 
     Returns
-    =======
-
+    -------
     period
         The period of the function is returned.
         ``None`` is returned when the function is aperiodic or has a complex period.
         The value of $0$ is returned as the period of a constant function.
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         The value of the period computed cannot be verified.
 
 
     Notes
-    =====
-
+    -----
     Currently, we do not support functions with a complex period.
     The period of functions having complex periodic values such
     as ``exp``, ``sinh`` is evaluated to ``None``.
@@ -202,7 +192,7 @@ def periodicity(f, symbol, check: bool = False):
     to ``False`` by default.
 
     Examples
-    ========
+    --------
     >>> from sympy import periodicity, Symbol, sin, cos, tan, exp
     >>> x = Symbol(\'x\')
     >>> f = sin(x) + sin(2*x) + sin(3*x)
@@ -215,7 +205,7 @@ def periodicity(f, symbol, check: bool = False):
     >>> periodicity(sin(4*x)**cos(2*x), x)
     pi
     >>> periodicity(exp(x), x)
-    '''
+    """
 def _periodicity(args, symbol):
     """
     Helper for `periodicity` to find the period of a list of simpler
@@ -224,8 +214,7 @@ def _periodicity(args, symbol):
     all the functions.
 
     Parameters
-    ==========
-
+    ----------
     args : Tuple of :py:class:`~.Symbol`
         All the symbols present in a function.
 
@@ -233,8 +222,7 @@ def _periodicity(args, symbol):
         The symbol over which the function is to be evaluated.
 
     Returns
-    =======
-
+    -------
     period
         The least common period of the function for all the symbols
         of the function.
@@ -248,20 +236,17 @@ def lcim(numbers):
     `None` is returned for incommensurable numbers.
 
     Parameters
-    ==========
-
+    ----------
     numbers : list
         Numbers (rational and/or irrational) for which lcim is to be found.
 
     Returns
-    =======
-
+    -------
     number
         lcim if it exists, otherwise ``None`` for incommensurable numbers.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.calculus.util import lcim
     >>> from sympy import S, pi
     >>> lcim([S(1)/2, S(3)/4, S(5)/6])
@@ -274,8 +259,7 @@ def is_convex(f, *syms, domain=...):
     """Determines the  convexity of the function passed in the argument.
 
     Parameters
-    ==========
-
+    ----------
     f : :py:class:`~.Expr`
         The concerned function.
     syms : Tuple of :py:class:`~.Symbol`
@@ -285,21 +269,18 @@ def is_convex(f, *syms, domain=...):
         If unspecified, S.Reals will be the default domain.
 
     Returns
-    =======
-
+    -------
     bool
         The method returns ``True`` if the function is convex otherwise it
         returns ``False``.
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         The check for the convexity of multivariate functions is not implemented yet.
 
     Notes
-    =====
-
+    -----
     To determine concavity of a function pass `-f` as the concerned function.
     To determine logarithmic convexity of a function pass `\\log(f)` as
     concerned function.
@@ -309,8 +290,7 @@ def is_convex(f, *syms, domain=...):
     Currently, convexity check of multivariate functions is not handled.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import is_convex, symbols, exp, oo, Interval
     >>> x = symbols('x')
     >>> is_convex(exp(x), x)
@@ -321,7 +301,7 @@ def is_convex(f, *syms, domain=...):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Convex_function
     .. [2] http://www.ifp.illinois.edu/~angelia/L3_convfunc.pdf
@@ -336,8 +316,7 @@ def stationary_points(f, symbol, domain=...):
     function is 0) in the given domain.
 
     Parameters
-    ==========
-
+    ----------
     f : :py:class:`~.Expr`
         The concerned function.
     symbol : :py:class:`~.Symbol`
@@ -347,15 +326,13 @@ def stationary_points(f, symbol, domain=...):
         If unspecified, ``S.Reals`` will be the default domain.
 
     Returns
-    =======
-
+    -------
     Set
         A set of stationary points for the function. If there are no
         stationary point, an :py:class:`~.EmptySet` is returned.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Interval, Symbol, S, sin, pi, pprint, stationary_points
     >>> x = Symbol('x')
 
@@ -376,8 +353,7 @@ def maximum(f, symbol, domain=...):
     Returns the maximum value of a function in the given domain.
 
     Parameters
-    ==========
-
+    ----------
     f : :py:class:`~.Expr`
         The concerned function.
     symbol : :py:class:`~.Symbol`
@@ -387,14 +363,12 @@ def maximum(f, symbol, domain=...):
         If unspecified, then the global maximum is returned.
 
     Returns
-    =======
-
+    -------
     number
         Maximum value of the function in given domain.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Interval, Symbol, S, sin, cos, pi, maximum
     >>> x = Symbol('x')
 
@@ -414,8 +388,7 @@ def minimum(f, symbol, domain=...):
     Returns the minimum value of a function in the given domain.
 
     Parameters
-    ==========
-
+    ----------
     f : :py:class:`~.Expr`
         The concerned function.
     symbol : :py:class:`~.Symbol`
@@ -425,14 +398,12 @@ def minimum(f, symbol, domain=...):
         If unspecified, then the global minimum is returned.
 
     Returns
-    =======
-
+    -------
     number
         Minimum value of the function in the given domain.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Interval, Symbol, S, sin, cos, minimum
     >>> x = Symbol('x')
 

@@ -1,9 +1,8 @@
-import socket
 from collections.abc import Callable, MutableSequence, Sequence
 from re import Match, Pattern
 from types import TracebackType
-from typing import Any, Final
-from typing_extensions import Self
+from typing import Any, Final, Self
+import socket
 
 __all__ = ["Telnet"]
 

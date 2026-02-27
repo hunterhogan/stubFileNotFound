@@ -9,4 +9,3 @@ def from_loose_ufo_time(string):
     or as the Glyphs formet.
     """
 def to_ufo_color(color): ...
-

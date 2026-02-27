@@ -1,14 +1,40 @@
 from sympy.core.random import _randint as _randint
 from sympy.external.gmpy import GROUND_TYPES as GROUND_TYPES
-from sympy.polys.densearith import dmp_add as dmp_add, dmp_add_mul as dmp_add_mul, dmp_div as dmp_div, dmp_expand as dmp_expand, dmp_max_norm as dmp_max_norm, dmp_mul as dmp_mul, dmp_mul_ground as dmp_mul_ground, dmp_neg as dmp_neg, dmp_pow as dmp_pow, dmp_quo as dmp_quo, dmp_quo_ground as dmp_quo_ground, dmp_sub as dmp_sub, dmp_sub_mul as dmp_sub_mul, dup_add as dup_add, dup_div as dup_div, dup_l1_norm as dup_l1_norm, dup_lshift as dup_lshift, dup_max_norm as dup_max_norm, dup_mul as dup_mul, dup_mul_ground as dup_mul_ground, dup_neg as dup_neg, dup_quo as dup_quo, dup_quo_ground as dup_quo_ground, dup_sqr as dup_sqr, dup_sub as dup_sub, dup_sub_mul as dup_sub_mul
-from sympy.polys.densebasic import dmp_LC as dmp_LC, dmp_convert as dmp_convert, dmp_degree as dmp_degree, dmp_degree_in as dmp_degree_in, dmp_degree_list as dmp_degree_list, dmp_eject as dmp_eject, dmp_exclude as dmp_exclude, dmp_from_dict as dmp_from_dict, dmp_ground as dmp_ground, dmp_ground_LC as dmp_ground_LC, dmp_include as dmp_include, dmp_inject as dmp_inject, dmp_nest as dmp_nest, dmp_one as dmp_one, dmp_raise as dmp_raise, dmp_terms_gcd as dmp_terms_gcd, dmp_zero_p as dmp_zero_p, dup_LC as dup_LC, dup_TC as dup_TC, dup_convert as dup_convert, dup_degree as dup_degree, dup_inflate as dup_inflate, dup_strip as dup_strip, dup_terms_gcd as dup_terms_gcd
-from sympy.polys.densetools import dmp_clear_denoms as dmp_clear_denoms, dmp_diff_eval_in as dmp_diff_eval_in, dmp_eval_in as dmp_eval_in, dmp_eval_tail as dmp_eval_tail, dmp_ground_monic as dmp_ground_monic, dmp_ground_primitive as dmp_ground_primitive, dmp_ground_trunc as dmp_ground_trunc, dmp_shift as dmp_shift, dup_clear_denoms as dup_clear_denoms, dup_content as dup_content, dup_mirror as dup_mirror, dup_monic as dup_monic, dup_primitive as dup_primitive, dup_shift as dup_shift, dup_trunc as dup_trunc
-from sympy.polys.euclidtools import dmp_inner_gcd as dmp_inner_gcd, dmp_primitive as dmp_primitive, dup_inner_gcd as dup_inner_gcd
-from sympy.polys.galoistools import gf_add_mul as gf_add_mul, gf_div as gf_div, gf_factor as gf_factor, gf_factor_sqf as gf_factor_sqf, gf_from_int_poly as gf_from_int_poly, gf_gcdex as gf_gcdex, gf_lshift as gf_lshift, gf_mul as gf_mul, gf_rem as gf_rem, gf_sqf_p as gf_sqf_p, gf_to_int_poly as gf_to_int_poly
+from sympy.polys.densearith import (
+	dmp_add as dmp_add, dmp_add_mul as dmp_add_mul, dmp_div as dmp_div, dmp_expand as dmp_expand,
+	dmp_max_norm as dmp_max_norm, dmp_mul as dmp_mul, dmp_mul_ground as dmp_mul_ground, dmp_neg as dmp_neg,
+	dmp_pow as dmp_pow, dmp_quo as dmp_quo, dmp_quo_ground as dmp_quo_ground, dmp_sub as dmp_sub,
+	dmp_sub_mul as dmp_sub_mul, dup_add as dup_add, dup_div as dup_div, dup_l1_norm as dup_l1_norm,
+	dup_lshift as dup_lshift, dup_max_norm as dup_max_norm, dup_mul as dup_mul, dup_mul_ground as dup_mul_ground,
+	dup_neg as dup_neg, dup_quo as dup_quo, dup_quo_ground as dup_quo_ground, dup_sqr as dup_sqr, dup_sub as dup_sub,
+	dup_sub_mul as dup_sub_mul)
+from sympy.polys.densebasic import (
+	dmp_convert as dmp_convert, dmp_degree as dmp_degree, dmp_degree_in as dmp_degree_in,
+	dmp_degree_list as dmp_degree_list, dmp_eject as dmp_eject, dmp_exclude as dmp_exclude, dmp_from_dict as dmp_from_dict,
+	dmp_ground as dmp_ground, dmp_ground_LC as dmp_ground_LC, dmp_include as dmp_include, dmp_inject as dmp_inject,
+	dmp_LC as dmp_LC, dmp_nest as dmp_nest, dmp_one as dmp_one, dmp_raise as dmp_raise, dmp_terms_gcd as dmp_terms_gcd,
+	dmp_zero_p as dmp_zero_p, dup_convert as dup_convert, dup_degree as dup_degree, dup_inflate as dup_inflate,
+	dup_LC as dup_LC, dup_strip as dup_strip, dup_TC as dup_TC, dup_terms_gcd as dup_terms_gcd)
+from sympy.polys.densetools import (
+	dmp_clear_denoms as dmp_clear_denoms, dmp_diff_eval_in as dmp_diff_eval_in, dmp_eval_in as dmp_eval_in,
+	dmp_eval_tail as dmp_eval_tail, dmp_ground_monic as dmp_ground_monic, dmp_ground_primitive as dmp_ground_primitive,
+	dmp_ground_trunc as dmp_ground_trunc, dmp_shift as dmp_shift, dup_clear_denoms as dup_clear_denoms,
+	dup_content as dup_content, dup_mirror as dup_mirror, dup_monic as dup_monic, dup_primitive as dup_primitive,
+	dup_shift as dup_shift, dup_trunc as dup_trunc)
+from sympy.polys.euclidtools import (
+	dmp_inner_gcd as dmp_inner_gcd, dmp_primitive as dmp_primitive, dup_inner_gcd as dup_inner_gcd)
+from sympy.polys.galoistools import (
+	gf_add_mul as gf_add_mul, gf_div as gf_div, gf_factor as gf_factor, gf_factor_sqf as gf_factor_sqf,
+	gf_from_int_poly as gf_from_int_poly, gf_gcdex as gf_gcdex, gf_lshift as gf_lshift, gf_mul as gf_mul, gf_rem as gf_rem,
+	gf_sqf_p as gf_sqf_p, gf_to_int_poly as gf_to_int_poly)
 from sympy.polys.polyconfig import query as query
-from sympy.polys.polyerrors import CoercionFailed as CoercionFailed, DomainError as DomainError, EvaluationFailed as EvaluationFailed, ExtraneousFactors as ExtraneousFactors
+from sympy.polys.polyerrors import (
+	CoercionFailed as CoercionFailed, DomainError as DomainError, EvaluationFailed as EvaluationFailed,
+	ExtraneousFactors as ExtraneousFactors)
 from sympy.polys.polyutils import _sort_factors as _sort_factors
-from sympy.polys.sqfreetools import _dmp_check_degrees as _dmp_check_degrees, _dup_check_degrees as _dup_check_degrees, dmp_sqf_norm as dmp_sqf_norm, dmp_sqf_part as dmp_sqf_part, dup_sqf_norm as dup_sqf_norm, dup_sqf_p as dup_sqf_p, dup_sqf_part as dup_sqf_part
+from sympy.polys.sqfreetools import (
+	_dmp_check_degrees as _dmp_check_degrees, _dup_check_degrees as _dup_check_degrees, dmp_sqf_norm as dmp_sqf_norm,
+	dmp_sqf_part as dmp_sqf_part, dup_sqf_norm as dup_sqf_norm, dup_sqf_p as dup_sqf_p, dup_sqf_part as dup_sqf_part)
 from sympy.utilities import subsets as subsets
 
 def dup_trial_division(f, factors, K):
@@ -26,13 +52,12 @@ def dmp_trial_division(f, factors, u, K):
     An error will be raised if any factor does not divide ``f``.
     """
 def dup_zz_mignotte_bound(f, K):
-    '''
+    """
     The Knuth-Cohen variant of Mignotte bound for
     univariate polynomials in ``K[x]``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys import ring, ZZ
     >>> R, x = ring("x", ZZ)
 
@@ -61,13 +86,12 @@ def dup_zz_mignotte_bound(f, K):
 
 
     References
-    ==========
-
+    ----------
     ..[1] [Abbott13]_
 
-    '''
+    """
 def dmp_zz_mignotte_bound(f, u, K):
-    """Mignotte bound for multivariate polynomials in `K[X]`. """
+    """Mignotte bound for multivariate polynomials in `K[X]`."""
 def dup_zz_hensel_step(m, f, g, h, s, t, K):
     """
     One step in Hensel lifting in `Z[x]`.
@@ -91,7 +115,7 @@ def dup_zz_hensel_step(m, f, g, h, s, t, K):
         S*G + T*H = 1 (mod m**2)
 
     References
-    ==========
+    ----------
 
     .. [1] [Gathen99]_
 
@@ -114,23 +138,22 @@ def dup_zz_hensel_lift(p, f, f_list, l, K):
        F_i = f_i (mod p), i = 1..r
 
     References
-    ==========
+    ----------
 
     .. [1] [Gathen99]_
 
     """
 def _test_pl(fc, q, pl): ...
 def dup_zz_zassenhaus(f, K):
-    """Factor primitive square-free polynomials in `Z[x]`. """
+    """Factor primitive square-free polynomials in `Z[x]`."""
 def dup_zz_irreducible_p(f, K):
-    """Test irreducibility using Eisenstein's criterion. """
+    """Test irreducibility using Eisenstein's criterion."""
 def dup_cyclotomic_p(f, K, irreducible: bool = False):
-    '''
+    """
     Efficiently test if ``f`` is a cyclotomic polynomial.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys import ring, ZZ
     >>> R, x = ring("x", ZZ)
 
@@ -143,15 +166,14 @@ def dup_cyclotomic_p(f, K, irreducible: bool = False):
     True
 
     References
-    ==========
-
+    ----------
     Bradford, Russell J., and James H. Davenport. "Effective tests for
     cyclotomic polynomials." In International Symposium on Symbolic and
     Algebraic Computation, pp. 244-251. Springer, Berlin, Heidelberg, 1988.
 
-    '''
+    """
 def dup_zz_cyclotomic_poly(n, K):
-    """Efficiently generate n-th cyclotomic polynomial. """
+    """Efficiently generate n-th cyclotomic polynomial."""
 def _dup_cyclotomic_decompose(n, K): ...
 def dup_zz_cyclotomic_factor(f, K):
     """
@@ -166,15 +188,15 @@ def dup_zz_cyclotomic_factor(f, K):
     approach (e.g. Zassenhaus's).
 
     References
-    ==========
+    ----------
 
     .. [1] [Weisstein09]_
 
     """
 def dup_zz_factor_sqf(f, K):
-    """Factor square-free (non-primitive) polynomials in `Z[x]`. """
+    """Factor square-free (non-primitive) polynomials in `Z[x]`."""
 def dup_zz_factor(f, K):
-    '''
+    """
     Factor (non square-free) polynomials in `Z[x]`.
 
     Given a univariate polynomial `f` in `Z[x]` computes its complete
@@ -192,8 +214,7 @@ def dup_zz_factor(f, K):
               (content(f), [(f_1, k_1), ..., (f_n, k_n))
 
     Examples
-    ========
-
+    --------
     Consider the polynomial `f = 2*x**4 - 2`::
 
         >>> from sympy.polys import ring, ZZ
@@ -214,23 +235,23 @@ def dup_zz_factor(f, K):
     disable this behaviour set cyclotomic=False.
 
     References
-    ==========
+    ----------
 
     .. [1] [Gathen99]_
 
-    '''
+    """
 def dmp_zz_wang_non_divisors(E, cs, ct, K):
-    """Wang/EEZ: Compute a set of valid divisors.  """
+    """Wang/EEZ: Compute a set of valid divisors."""
 def dmp_zz_wang_test_points(f, T, ct, A, u, K):
-    """Wang/EEZ: Test evaluation points for suitability. """
+    """Wang/EEZ: Test evaluation points for suitability."""
 def dmp_zz_wang_lead_coeffs(f, T, cs, E, H, A, u, K):
-    """Wang/EEZ: Compute correct leading coefficients. """
+    """Wang/EEZ: Compute correct leading coefficients."""
 def dup_zz_diophantine(F, m, p, K):
-    """Wang/EEZ: Solve univariate Diophantine equations. """
+    """Wang/EEZ: Solve univariate Diophantine equations."""
 def dmp_zz_diophantine(F, c, A, d, p, u, K):
-    """Wang/EEZ: Solve multivariate Diophantine equations. """
+    """Wang/EEZ: Solve multivariate Diophantine equations."""
 def dmp_zz_wang_hensel_lifting(f, H, LC, A, p, u, K):
-    """Wang/EEZ: Parallel Hensel lifting algorithm. """
+    """Wang/EEZ: Parallel Hensel lifting algorithm."""
 def dmp_zz_wang(f, u, K, mod=None, seed=None):
     """
     Factor primitive square-free polynomials in `Z[X]`.
@@ -255,14 +276,14 @@ def dmp_zz_wang(f, u, K, mod=None, seed=None):
     (when an integer) or (for testing purposes) can be a sequence of numbers.
 
     References
-    ==========
+    ----------
 
     .. [1] [Wang78]_
     .. [2] [Geddes92]_
 
     """
 def dmp_zz_factor(f, u, K):
-    '''
+    """
     Factor (non square-free) polynomials in `Z[X]`.
 
     Given a multivariate polynomial `f` in `Z[x]` computes its complete
@@ -292,27 +313,26 @@ def dmp_zz_factor(f, u, K):
                     f = 2 (x - y) (x + y)
 
     References
-    ==========
+    ----------
 
     .. [1] [Gathen99]_
 
-    '''
+    """
 def dup_qq_i_factor(f, K0):
-    """Factor univariate polynomials into irreducibles in `QQ_I[x]`. """
+    """Factor univariate polynomials into irreducibles in `QQ_I[x]`."""
 def dup_zz_i_factor(f, K0):
-    """Factor univariate polynomials into irreducibles in `ZZ_I[x]`. """
+    """Factor univariate polynomials into irreducibles in `ZZ_I[x]`."""
 def dmp_qq_i_factor(f, u, K0):
-    """Factor multivariate polynomials into irreducibles in `QQ_I[X]`. """
+    """Factor multivariate polynomials into irreducibles in `QQ_I[X]`."""
 def dmp_zz_i_factor(f, u, K0):
-    """Factor multivariate polynomials into irreducibles in `ZZ_I[X]`. """
+    """Factor multivariate polynomials into irreducibles in `ZZ_I[X]`."""
 def dup_ext_factor(f, K):
     """Factor univariate polynomials over algebraic number fields.
 
     The domain `K` must be an algebraic number field `k(a)` (see :ref:`QQ(a)`).
 
     Examples
-    ========
-
+    --------
     First define the algebraic number field `K = \\mathbb{Q}(\\sqrt{2})`:
 
     >>> from sympy import QQ, sqrt
@@ -362,8 +382,7 @@ def dup_ext_factor(f, K):
     number field  like `\\mathbb{Q}(\\sqrt{2})`.
 
     See Also
-    ========
-
+    --------
     dmp_ext_factor:
         Analogous function for multivariate polynomials over ``k(a)``.
     dup_sqf_norm:
@@ -377,8 +396,7 @@ def dmp_ext_factor(f, u, K):
     The domain `K` must be an algebraic number field `k(a)` (see :ref:`QQ(a)`).
 
     Examples
-    ========
-
+    --------
     First define the algebraic number field `K = \\mathbb{Q}(\\sqrt{2})`:
 
     >>> from sympy import QQ, sqrt
@@ -409,8 +427,7 @@ def dmp_ext_factor(f, u, K):
     See :func:`dup_ext_factor` for explanation.
 
     See Also
-    ========
-
+    --------
     dup_ext_factor:
         Analogous function for univariate polynomials over ``k(a)``.
     dmp_sqf_norm:
@@ -419,17 +436,17 @@ def dmp_ext_factor(f, u, K):
         The high-level function that ultimately uses this function as needed.
     """
 def dup_gf_factor(f, K):
-    """Factor univariate polynomials over finite fields. """
+    """Factor univariate polynomials over finite fields."""
 def dmp_gf_factor(f, u, K) -> None:
-    """Factor multivariate polynomials over finite fields. """
+    """Factor multivariate polynomials over finite fields."""
 def dup_factor_list(f, K0):
-    """Factor univariate polynomials into irreducibles in `K[x]`. """
+    """Factor univariate polynomials into irreducibles in `K[x]`."""
 def dup_factor_list_include(f, K):
-    """Factor univariate polynomials into irreducibles in `K[x]`. """
+    """Factor univariate polynomials into irreducibles in `K[x]`."""
 def dmp_factor_list(f, u, K0):
-    """Factor multivariate polynomials into irreducibles in `K[X]`. """
+    """Factor multivariate polynomials into irreducibles in `K[X]`."""
 def dmp_factor_list_include(f, u, K):
-    """Factor multivariate polynomials into irreducibles in `K[X]`. """
+    """Factor multivariate polynomials into irreducibles in `K[X]`."""
 def dup_irreducible_p(f, K):
     """
     Returns ``True`` if a univariate polynomial ``f`` has no factors

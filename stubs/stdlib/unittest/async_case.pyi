@@ -1,10 +1,9 @@
-import sys
+from .case import TestCase
 from asyncio.events import AbstractEventLoop
 from collections.abc import Awaitable, Callable
 from typing import TypeVar
 from typing_extensions import ParamSpec
-
-from .case import TestCase
+import sys
 
 if sys.version_info >= (3, 11):
     from contextlib import AbstractAsyncContextManager

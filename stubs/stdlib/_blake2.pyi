@@ -1,7 +1,6 @@
-import sys
 from _typeshed import ReadableBuffer
-from typing import ClassVar, Final, final
-from typing_extensions import Self
+from typing import ClassVar, Final, final, Self
+import sys
 
 BLAKE2B_MAX_DIGEST_SIZE: Final = 64
 BLAKE2B_MAX_KEY_SIZE: Final = 64

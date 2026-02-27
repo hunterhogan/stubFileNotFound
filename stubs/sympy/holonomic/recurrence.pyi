@@ -13,8 +13,7 @@ def RecurrenceOperators(base, generator):
     noncommutative Symbol or a string.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ZZ
     >>> from sympy import symbols
     >>> from sympy.holonomic.recurrence import RecurrenceOperators
@@ -33,8 +32,7 @@ class RecurrenceOperatorAlgebra:
     for Recurrence Operators.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ZZ
     >>> from sympy import symbols
     >>> from sympy.holonomic.recurrence import RecurrenceOperators
@@ -45,15 +43,14 @@ class RecurrenceOperatorAlgebra:
     ZZ[n]
 
     See Also
-    ========
-
+    --------
     RecurrenceOperator
     """
+
     base: Incomplete
     shift_operator: Incomplete
     gen_symbol: Incomplete
     def __init__(self, base, generator) -> None: ...
-    def __str__(self) -> str: ...
     __repr__ = __str__
     def __eq__(self, other): ...
 
@@ -74,8 +71,7 @@ class RecurrenceOperator:
     the operator `Sn`. See examples below.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.holonomic.recurrence import RecurrenceOperator, RecurrenceOperators
     >>> from sympy import ZZ
     >>> from sympy import symbols
@@ -92,10 +88,10 @@ class RecurrenceOperator:
     (1) + (n**2 + n)Sn + (-n - 2)Sn**2
 
     See Also
-    ========
-
+    --------
     DifferentialOperatorAlgebra
     """
+
     _op_priority: int
     parent: Incomplete
     listofpoly: Incomplete
@@ -113,7 +109,6 @@ class RecurrenceOperator:
     def __sub__(self, other): ...
     def __rsub__(self, other): ...
     def __pow__(self, n): ...
-    def __str__(self) -> str: ...
     __repr__ = __str__
     def __eq__(self, other): ...
 
@@ -123,11 +118,11 @@ class HolonomicSequence:
     recurrence relation with Polynomial coefficients. Alternatively, A sequence
     is Holonomic if and only if its generating function is a Holonomic Function.
     """
+
     recurrence: Incomplete
     u0: Incomplete
     _have_init_cond: bool
     n: Incomplete
     def __init__(self, recurrence, u0=[]) -> None: ...
-    def __repr__(self) -> str: ...
     __str__ = __repr__
     def __eq__(self, other): ...

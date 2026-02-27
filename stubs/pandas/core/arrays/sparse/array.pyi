@@ -1,39 +1,14 @@
-from collections.abc import (
-    Iterable,
-    Set as AbstractSet,
-)
+from collections.abc import Iterable, Set as AbstractSet
 from enum import Enum
-from typing import (
-    Any,
-    Literal,
-    Never,
-    Protocol,
-    Self,
-    TypeAlias,
-    final,
-    overload,
-    type_check_only,
-)
-
-from pandas.core.arraylike import OpsMixin
-from pandas.core.arrays import ExtensionArray
-from pandas.core.series import Series
-
 from pandas._libs.sparse import SparseIndex
 from pandas._typing import (
-    AnyArrayLike,
-    Axis,
-    AxisInt,
-    NpDtype,
-    NpDtypeNoStr,
-    Scalar,
-    ScalarIndexer,
-    SequenceIndexer,
-    np_1darray,
-    np_1darray_int32,
-)
-
+	AnyArrayLike, Axis, AxisInt, np_1darray, np_1darray_int32, NpDtype, NpDtypeNoStr, Scalar, ScalarIndexer,
+	SequenceIndexer)
+from pandas.core.arraylike import OpsMixin
+from pandas.core.arrays import ExtensionArray
 from pandas.core.dtypes.dtypes import SparseDtype
+from pandas.core.series import Series
+from typing import Any, final, Literal, Never, overload, Protocol, Self, type_check_only, TypeAlias
 
 SparseIndexKind: TypeAlias = Literal["integer", "block"]
 

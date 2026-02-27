@@ -850,4 +850,3 @@ class VariationBlock(Block):
         all the statements in this feature, and then call ``end_feature``.
         """
     def asFea(self, indent: str = ''): ...
-

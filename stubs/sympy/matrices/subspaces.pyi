@@ -4,8 +4,7 @@ def _columnspace(M, simplify: bool = False):
     """Returns a list of vectors (Matrix objects) that span columnspace of ``M``
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> M = Matrix(3, 3, [1, 3, 0, -2, -6, 0, 3, 9, 6])
     >>> M
@@ -23,8 +22,7 @@ def _columnspace(M, simplify: bool = False):
     [6]])]
 
     See Also
-    ========
-
+    --------
     nullspace
     rowspace
     """
@@ -32,8 +30,7 @@ def _nullspace(M, simplify: bool = False, iszerofunc=...):
     """Returns list of vectors (Matrix objects) that span nullspace of ``M``
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> M = Matrix(3, 3, [1, 3, 0, -2, -6, 0, 3, 9, 6])
     >>> M
@@ -48,8 +45,7 @@ def _nullspace(M, simplify: bool = False, iszerofunc=...):
     [ 0]])]
 
     See Also
-    ========
-
+    --------
     columnspace
     rowspace
     """
@@ -57,8 +53,7 @@ def _rowspace(M, simplify: bool = False):
     """Returns a list of vectors that span the row space of ``M``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> M = Matrix(3, 3, [1, 3, 0, -2, -6, 0, 3, 9, 6])
     >>> M
@@ -74,8 +69,7 @@ def _orthogonalize(cls, *vecs, normalize: bool = False, rankcheck: bool = False)
     to vectors supplied in ``vecs``.
 
     Parameters
-    ==========
-
+    ----------
     vecs
         vectors to be made orthogonal
 
@@ -90,14 +84,12 @@ def _orthogonalize(cls, *vecs, normalize: bool = False, rankcheck: bool = False)
         or linearly dependent vectors are found.
 
     Returns
-    =======
-
+    -------
     list
         List of orthogonal (or orthonormal) basis vectors.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import I, Matrix
     >>> v = [Matrix([1, I]), Matrix([1, -I])]
     >>> Matrix.orthogonalize(*v)
@@ -108,12 +100,11 @@ def _orthogonalize(cls, *vecs, normalize: bool = False, rankcheck: bool = False)
     [-I]])]
 
     See Also
-    ========
-
+    --------
     MatrixBase.QRdecomposition
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process
     """

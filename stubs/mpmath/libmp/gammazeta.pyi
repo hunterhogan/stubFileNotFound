@@ -1,8 +1,31 @@
-from .backend import MPZ as MPZ, MPZ_ONE as MPZ_ONE, MPZ_THREE as MPZ_THREE, MPZ_ZERO as MPZ_ZERO, gmpy as gmpy, xrange as xrange
-from .libelefun import constant_memo as constant_memo, cos_sin_fixed as cos_sin_fixed, def_mpf_constant as def_mpf_constant, exp_fixed as exp_fixed, ln2_fixed as ln2_fixed, ln_sqrt2pi_fixed as ln_sqrt2pi_fixed, log_int_fixed as log_int_fixed, mpf_cos_pi as mpf_cos_pi, mpf_cos_sin as mpf_cos_sin, mpf_cos_sin_pi as mpf_cos_sin_pi, mpf_cosh as mpf_cosh, mpf_cosh_sinh as mpf_cosh_sinh, mpf_exp as mpf_exp, mpf_ln2 as mpf_ln2, mpf_ln_sqrt2pi as mpf_ln_sqrt2pi, mpf_log as mpf_log, mpf_pi as mpf_pi, mpf_pow as mpf_pow, mpf_sin_pi as mpf_sin_pi, mpf_sqrtpi as mpf_sqrtpi, pi_fixed as pi_fixed, sqrtpi_fixed as sqrtpi_fixed
+from .backend import (
+	gmpy as gmpy, MPZ as MPZ, MPZ_ONE as MPZ_ONE, MPZ_THREE as MPZ_THREE, MPZ_ZERO as MPZ_ZERO, xrange as xrange)
+from .libelefun import (
+	constant_memo as constant_memo, cos_sin_fixed as cos_sin_fixed, def_mpf_constant as def_mpf_constant,
+	exp_fixed as exp_fixed, ln2_fixed as ln2_fixed, ln_sqrt2pi_fixed as ln_sqrt2pi_fixed, log_int_fixed as log_int_fixed,
+	mpf_cos_pi as mpf_cos_pi, mpf_cos_sin as mpf_cos_sin, mpf_cos_sin_pi as mpf_cos_sin_pi, mpf_cosh as mpf_cosh,
+	mpf_cosh_sinh as mpf_cosh_sinh, mpf_exp as mpf_exp, mpf_ln2 as mpf_ln2, mpf_ln_sqrt2pi as mpf_ln_sqrt2pi,
+	mpf_log as mpf_log, mpf_pi as mpf_pi, mpf_pow as mpf_pow, mpf_sin_pi as mpf_sin_pi, mpf_sqrtpi as mpf_sqrtpi,
+	pi_fixed as pi_fixed, sqrtpi_fixed as sqrtpi_fixed)
 from .libintmath import ifac as ifac, ifac2 as ifac2, list_primes as list_primes, moebius as moebius
-from .libmpc import mpc_abs as mpc_abs, mpc_add as mpc_add, mpc_add_mpf as mpc_add_mpf, mpc_cos_pi as mpc_cos_pi, mpc_div as mpc_div, mpc_div_mpf as mpc_div_mpf, mpc_exp as mpc_exp, mpc_half as mpc_half, mpc_log as mpc_log, mpc_mpf_div as mpc_mpf_div, mpc_mul as mpc_mul, mpc_mul_int as mpc_mul_int, mpc_mul_mpf as mpc_mul_mpf, mpc_neg as mpc_neg, mpc_one as mpc_one, mpc_pos as mpc_pos, mpc_pow as mpc_pow, mpc_pow_int as mpc_pow_int, mpc_reciprocal as mpc_reciprocal, mpc_shift as mpc_shift, mpc_sin_pi as mpc_sin_pi, mpc_square as mpc_square, mpc_sub as mpc_sub, mpc_sub_mpf as mpc_sub_mpf, mpc_two as mpc_two, mpc_zero as mpc_zero
-from .libmpf import ComplexResult as ComplexResult, bitcount as bitcount, fhalf as fhalf, finf as finf, fnan as fnan, fninf as fninf, fnone as fnone, fone as fone, from_int as from_int, from_man_exp as from_man_exp, from_rational as from_rational, ftwo as ftwo, fzero as fzero, isqrt_fast as isqrt_fast, lshift as lshift, mpf_abs as mpf_abs, mpf_add as mpf_add, mpf_div as mpf_div, mpf_floor as mpf_floor, mpf_gt as mpf_gt, mpf_le as mpf_le, mpf_lt as mpf_lt, mpf_mul as mpf_mul, mpf_mul_int as mpf_mul_int, mpf_neg as mpf_neg, mpf_perturb as mpf_perturb, mpf_pos as mpf_pos, mpf_pow_int as mpf_pow_int, mpf_rdiv_int as mpf_rdiv_int, mpf_shift as mpf_shift, mpf_sign as mpf_sign, mpf_sqrt as mpf_sqrt, mpf_sub as mpf_sub, negative_rnd as negative_rnd, reciprocal_rnd as reciprocal_rnd, round_ceiling as round_ceiling, round_down as round_down, round_fast as round_fast, round_floor as round_floor, round_nearest as round_nearest, round_up as round_up, sqrt_fixed as sqrt_fixed, to_fixed as to_fixed, to_float as to_float, to_int as to_int
+from .libmpc import (
+	mpc_abs as mpc_abs, mpc_add as mpc_add, mpc_add_mpf as mpc_add_mpf, mpc_cos_pi as mpc_cos_pi, mpc_div as mpc_div,
+	mpc_div_mpf as mpc_div_mpf, mpc_exp as mpc_exp, mpc_half as mpc_half, mpc_log as mpc_log, mpc_mpf_div as mpc_mpf_div,
+	mpc_mul as mpc_mul, mpc_mul_int as mpc_mul_int, mpc_mul_mpf as mpc_mul_mpf, mpc_neg as mpc_neg, mpc_one as mpc_one,
+	mpc_pos as mpc_pos, mpc_pow as mpc_pow, mpc_pow_int as mpc_pow_int, mpc_reciprocal as mpc_reciprocal,
+	mpc_shift as mpc_shift, mpc_sin_pi as mpc_sin_pi, mpc_square as mpc_square, mpc_sub as mpc_sub,
+	mpc_sub_mpf as mpc_sub_mpf, mpc_two as mpc_two, mpc_zero as mpc_zero)
+from .libmpf import (
+	bitcount as bitcount, ComplexResult as ComplexResult, fhalf as fhalf, finf as finf, fnan as fnan, fninf as fninf,
+	fnone as fnone, fone as fone, from_int as from_int, from_man_exp as from_man_exp, from_rational as from_rational,
+	ftwo as ftwo, fzero as fzero, isqrt_fast as isqrt_fast, lshift as lshift, mpf_abs as mpf_abs, mpf_add as mpf_add,
+	mpf_div as mpf_div, mpf_floor as mpf_floor, mpf_gt as mpf_gt, mpf_le as mpf_le, mpf_lt as mpf_lt, mpf_mul as mpf_mul,
+	mpf_mul_int as mpf_mul_int, mpf_neg as mpf_neg, mpf_perturb as mpf_perturb, mpf_pos as mpf_pos,
+	mpf_pow_int as mpf_pow_int, mpf_rdiv_int as mpf_rdiv_int, mpf_shift as mpf_shift, mpf_sign as mpf_sign,
+	mpf_sqrt as mpf_sqrt, mpf_sub as mpf_sub, negative_rnd as negative_rnd, reciprocal_rnd as reciprocal_rnd,
+	round_ceiling as round_ceiling, round_down as round_down, round_fast as round_fast, round_floor as round_floor,
+	round_nearest as round_nearest, round_up as round_up, sqrt_fixed as sqrt_fixed, to_fixed as to_fixed,
+	to_float as to_float, to_int as to_int)
 from _typeshed import Incomplete
 
 def catalan_fixed(prec): ...
@@ -34,7 +57,7 @@ def mpf_bernoulli(n, prec, rnd: Incomplete | None = None):
     """Computation of Bernoulli numbers (numerically)"""
 def mpf_bernoulli_huge(n, prec, rnd: Incomplete | None = None): ...
 def bernfrac(n):
-    '''
+    """
     Returns a tuple of integers `(p, q)` such that `p/q = B_n` exactly,
     where `B_n` denotes the `n`-th Bernoulli number. The fraction is
     always reduced to lowest terms. Note that for `n > 1` and `n` odd,
@@ -103,7 +126,7 @@ def bernfrac(n):
     2. The Bernoulli Number Page:
        http://www.bernoulli.org/
 
-    '''
+    """
 def mpf_harmonic(x, prec, rnd): ...
 def mpc_harmonic(z, prec, rnd): ...
 def mpf_psi0(x, prec, rnd='d'):

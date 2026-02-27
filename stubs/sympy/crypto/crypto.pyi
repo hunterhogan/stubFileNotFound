@@ -4,7 +4,7 @@ from string import printable
 from sympy.core import Symbol as Symbol
 from sympy.core.numbers import Rational as Rational
 from sympy.core.random import _randint as _randint, _randrange as _randrange
-from sympy.external.gmpy import GROUND_TYPES as GROUND_TYPES, gcd as gcd, invert as invert
+from sympy.external.gmpy import gcd as gcd, GROUND_TYPES as GROUND_TYPES, invert as invert
 from sympy.matrices import Matrix as Matrix
 from sympy.ntheory import factorint as factorint, isprime as isprime, primitive_root as primitive_root
 from sympy.ntheory.generate import nextprime as nextprime
@@ -19,9 +19,9 @@ __doctest_skip__: Incomplete
 
 class NonInvertibleCipherWarning(RuntimeWarning):
     """A warning raised if the cipher is not invertible."""
+
     fullMessage: Incomplete
     def __init__(self, msg) -> None: ...
-    def __str__(self) -> str: ...
     def warn(self, stacklevel: int = 3) -> None: ...
 
 def AZ(s=None):
@@ -30,8 +30,7 @@ def AZ(s=None):
     of upper case strings will be returned.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import AZ
     >>> AZ('Hello, world!')
     'HELLOWORLD'
@@ -39,8 +38,7 @@ def AZ(s=None):
     ['HELLO', 'WORLD']
 
     See Also
-    ========
-
+    --------
     check_and_join
 
     """
@@ -56,8 +54,7 @@ def padded_key(key, symbols):
     b) there are characters in ``key`` that are  not in ``symbols``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import padded_key
     >>> padded_key('PUPPY', 'OPQRSTUVWXY')
     'PUYOQRSTVWX'
@@ -68,13 +65,12 @@ def padded_key(key, symbols):
 
     """
 def check_and_join(phrase, symbols=None, filter=None):
-    '''
+    """
     Joins characters of ``phrase`` and if ``symbols`` is given, raises
     an error if any character in ``phrase`` is not in ``symbols``.
 
     Parameters
-    ==========
-
+    ----------
     phrase
         String or list of strings to be returned as a string.
 
@@ -84,8 +80,7 @@ def check_and_join(phrase, symbols=None, filter=None):
         If ``symbols`` is ``None``, no checking is performed.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import check_and_join
     >>> check_and_join(\'a phrase\')
     \'a phrase\'
@@ -98,7 +93,7 @@ def check_and_join(phrase, symbols=None, filter=None):
     ...
     ValueError: characters in phrase but not symbols: "!HPS"
 
-    '''
+    """
 def _prep(msg, key, alp, default=None): ...
 def cycle_list(k, n):
     """
@@ -106,21 +101,19 @@ def cycle_list(k, n):
     left by ``k`` (so the list starts with ``k`` (mod ``n``)).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import cycle_list
     >>> cycle_list(3, 10)
     [3, 4, 5, 6, 7, 8, 9, 0, 1, 2]
 
     """
 def encipher_shift(msg, key, symbols=None):
-    '''
+    """
     Performs shift cipher encryption on plaintext msg, and returns the
     ciphertext.
 
     Parameters
-    ==========
-
+    ----------
     key : int
         The secret key.
 
@@ -128,14 +121,12 @@ def encipher_shift(msg, key, symbols=None):
         Plaintext of upper-case letters.
 
     Returns
-    =======
-
+    -------
     str
         Ciphertext of upper-case letters.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import encipher_shift, decipher_shift
     >>> msg = "GONAVYBEATARMY"
     >>> ct = encipher_shift(msg, 1); ct
@@ -153,8 +144,7 @@ def encipher_shift(msg, key, symbols=None):
     \'GONAVYBEATARMY\'
 
     Notes
-    =====
-
+    -----
     ALGORITHM:
 
         STEPS:
@@ -173,25 +163,23 @@ def encipher_shift(msg, key, symbols=None):
     with a right shift of 1.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Caesar_cipher
     .. [2] https://mathworld.wolfram.com/CaesarsMethod.html
 
     See Also
-    ========
-
+    --------
     decipher_shift
 
-    '''
+    """
 def decipher_shift(msg, key, symbols=None):
-    '''
+    """
     Return the text by shifting the characters of ``msg`` to the
     left by the amount given by ``key``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import encipher_shift, decipher_shift
     >>> msg = "GONAVYBEATARMY"
     >>> ct = encipher_shift(msg, 1); ct
@@ -207,7 +195,7 @@ def decipher_shift(msg, key, symbols=None):
     >>> decipher_shift(ct, 1)
     \'GONAVYBEATARMY\'
 
-    '''
+    """
 def encipher_rot13(msg, symbols=None):
     """
     Performs the ROT13 encryption on a given plaintext ``msg``.
@@ -223,13 +211,12 @@ def encipher_rot13(msg, symbols=None):
     key of 13 (midway point of the alphabet).
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/ROT13
 
     See Also
-    ========
-
+    --------
     decipher_rot13
     encipher_shift
 
@@ -248,8 +235,7 @@ def decipher_rot13(msg, symbols=None):
     consistency.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import encipher_rot13, decipher_rot13
     >>> msg = 'GONAVYBEATARMY'
     >>> ciphertext = encipher_rot13(msg);ciphertext
@@ -279,8 +265,7 @@ def encipher_affine(msg, key, symbols=None, _inverse: bool = False):
     not true.
 
     Parameters
-    ==========
-
+    ----------
     msg : str
         Characters that appear in ``symbols``.
 
@@ -294,14 +279,12 @@ def encipher_affine(msg, key, symbols=None, _inverse: bool = False):
         letters and all other characters are ignored.
 
     Returns
-    =======
-
+    -------
     ct
         String of characters (the ciphertext message)
 
     Notes
-    =====
-
+    -----
     ALGORITHM:
 
         STEPS:
@@ -319,18 +302,17 @@ def encipher_affine(msg, key, symbols=None, _inverse: bool = False):
     order to recover the key.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Affine_cipher
 
     See Also
-    ========
-
+    --------
     decipher_affine
 
     """
 def decipher_affine(msg, key, symbols=None):
-    '''
+    """
     Return the deciphered text that was made from the mapping,
     `x \\rightarrow ax+b` (mod `N`), where ``N`` is the
     number of characters in the alphabet. Deciphering is done by
@@ -338,8 +320,7 @@ def decipher_affine(msg, key, symbols=None):
     where `c = a^{-1}` (mod `N`) and `d = -a^{-1}b` (mod `N`).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import encipher_affine, decipher_affine
     >>> msg = "GO NAVY BEAT ARMY"
     >>> key = (3, 1)
@@ -349,11 +330,10 @@ def decipher_affine(msg, key, symbols=None):
     \'GONAVYBEATARMY\'
 
     See Also
-    ========
-
+    --------
     encipher_affine
 
-    '''
+    """
 def encipher_atbash(msg, symbols=None):
     """
     Enciphers a given ``msg`` into its Atbash ciphertext and returns it.
@@ -369,8 +349,7 @@ def encipher_atbash(msg, symbols=None):
     and ``b = 25``
 
     See Also
-    ========
-
+    --------
     decipher_atbash
 
     """
@@ -386,8 +365,7 @@ def decipher_atbash(msg, symbols=None):
     consistency.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import encipher_atbash, decipher_atbash
     >>> msg = 'GONAVYBEATARMY'
     >>> encipher_atbash(msg)
@@ -400,18 +378,17 @@ def decipher_atbash(msg, symbols=None):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Atbash
 
     See Also
-    ========
-
+    --------
     encipher_atbash
 
     """
 def encipher_substitution(msg, old, new=None):
-    '''
+    """
     Returns the ciphertext obtained by replacing each character that
     appears in ``old`` with the corresponding character in ``new``.
     If ``old`` is a mapping, then new is ignored and the replacements
@@ -426,8 +403,7 @@ def encipher_substitution(msg, old, new=None):
     for other characters can be quickly guessed.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import encipher_substitution, AZ
     >>> old = \'OEYAG\'
     >>> new = \'034^6\'
@@ -461,19 +437,18 @@ def encipher_substitution(msg, old, new=None):
     \\97\\98\\99
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Substitution_cipher
 
-    '''
+    """
 def encipher_vigenere(msg, key, symbols=None):
-    '''
+    """
     Performs the Vigenere cipher encryption on plaintext ``msg``, and
     returns the ciphertext.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import encipher_vigenere, AZ
     >>> key = "encrypt"
     >>> msg = "meet me on monday"
@@ -614,29 +589,28 @@ def encipher_vigenere(msg, key, symbols=None):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Vigenere_cipher
     .. [2] https://web.archive.org/web/20071116100808/https://filebox.vt.edu/users/batman/kryptos.html
        (short URL: https://goo.gl/ijr22d)
 
-    '''
+    """
 def decipher_vigenere(msg, key, symbols=None):
-    '''
+    """
     Decode using the Vigenere cipher.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import decipher_vigenere
     >>> key = "encrypt"
     >>> ct = "QRGK kt HRZQE BPR"
     >>> decipher_vigenere(ct, key)
     \'MEETMEONMONDAY\'
 
-    '''
+    """
 def encipher_hill(msg, key, symbols=None, pad: str = 'Q'):
-    '''
+    """
     Return the Hill cipher encryption of ``msg``.
 
     Explanation
@@ -659,8 +633,7 @@ def encipher_hill(msg, key, symbols=None, pad: str = 'Q'):
 
 
     Parameters
-    ==========
-
+    ----------
     msg
         Plaintext message of `n` upper-case letters.
 
@@ -673,14 +646,12 @@ def encipher_hill(msg, key, symbols=None, pad: str = 'Q'):
         multiple of ``k``.
 
     Returns
-    =======
-
+    -------
     ct
         Ciphertext of upper-case letters.
 
     Notes
-    =====
-
+    -----
     ALGORITHM:
 
         STEPS:
@@ -699,7 +670,7 @@ def encipher_hill(msg, key, symbols=None, pad: str = 'Q'):
                letters. This has length ``k*t``.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Hill_cipher
     .. [2] Lester S. Hill, Cryptography in an Algebraic Alphabet,
@@ -707,19 +678,17 @@ def encipher_hill(msg, key, symbols=None, pad: str = 'Q'):
        pp.306-312.
 
     See Also
-    ========
-
+    --------
     decipher_hill
 
-    '''
+    """
 def decipher_hill(msg, key, symbols=None):
-    '''
+    """
     Deciphering is the same as enciphering but using the inverse of the
     key matrix.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import encipher_hill, decipher_hill
     >>> from sympy import Matrix
 
@@ -758,11 +727,10 @@ def decipher_hill(msg, key, symbols=None):
     \'UIKY\'
 
     See Also
-    ========
-
+    --------
     encipher_hill
 
-    '''
+    """
 def encipher_bifid(msg, key, symbols=None):
     """
     Performs the Bifid cipher encryption on plaintext ``msg``, and
@@ -772,8 +740,7 @@ def encipher_bifid(msg, key, symbols=None):
     Polybius square.
 
     Parameters
-    ==========
-
+    ----------
     msg
         Plaintext string.
 
@@ -789,24 +756,22 @@ def encipher_bifid(msg, key, symbols=None):
         (default is string.printable)
 
     Returns
-    =======
-
+    -------
     ciphertext
         Ciphertext using Bifid5 cipher without spaces.
 
     See Also
-    ========
-
+    --------
     decipher_bifid, encipher_bifid5, encipher_bifid6
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Bifid_cipher
 
     """
 def decipher_bifid(msg, key, symbols=None):
-    '''
+    """
     Performs the Bifid cipher decryption on ciphertext ``msg``, and
     returns the plaintext.
 
@@ -814,8 +779,7 @@ def decipher_bifid(msg, key, symbols=None):
     Polybius square.
 
     Parameters
-    ==========
-
+    ----------
     msg
         Ciphertext string.
 
@@ -831,14 +795,12 @@ def decipher_bifid(msg, key, symbols=None):
         (default=string.printable, a `10 \\times 10` matrix)
 
     Returns
-    =======
-
+    -------
     deciphered
         Deciphered text.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import (
     ...     encipher_bifid, decipher_bifid, AZ)
 
@@ -882,13 +844,12 @@ def decipher_bifid(msg, key, symbols=None):
     >>> decipher_bifid(_, \'gold pug\')
     \'heldo~wor6d!\'
 
-    '''
+    """
 def bifid_square(key):
     """Return characters of ``key`` arranged in a square.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import (
     ...    bifid_square, AZ, padded_key, bifid5)
     >>> bifid_square(AZ().replace('J', ''))
@@ -908,13 +869,12 @@ def bifid_square(key):
     [V, W, X, Y, Z]])
 
     See Also
-    ========
-
+    --------
     padded_key
 
     """
 def encipher_bifid5(msg, key):
-    '''
+    """
     Performs the Bifid cipher encryption on plaintext ``msg``, and
     returns the ciphertext.
 
@@ -954,8 +914,7 @@ def encipher_bifid5(msg, key):
                string, this is the ciphertext of ``msg``.
 
     Parameters
-    ==========
-
+    ----------
     msg : str
         Plaintext string.
 
@@ -969,14 +928,12 @@ def encipher_bifid5(msg, key):
         (in alphabetical order).
 
     Returns
-    =======
-
+    -------
     ct
         Ciphertext (all caps, no spaces).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import (
     ...     encipher_bifid5, decipher_bifid5)
 
@@ -995,8 +952,7 @@ def encipher_bifid5(msg, key):
 
 
     Notes
-    =====
-
+    -----
     The Bifid cipher was invented around 1901 by Felix Delastelle.
     It is a *fractional substitution* cipher, where letters are
     replaced by pairs of symbols from a smaller alphabet. The
@@ -1009,13 +965,12 @@ def encipher_bifid5(msg, key):
     was used in the field by the German Army during World War I.
 
     See Also
-    ========
-
+    --------
     decipher_bifid5, encipher_bifid
 
-    '''
+    """
 def decipher_bifid5(msg, key):
-    '''
+    """
     Return the Bifid cipher decryption of ``msg``.
 
     Explanation
@@ -1026,8 +981,7 @@ def decipher_bifid5(msg, key):
     length 25 is used.
 
     Parameters
-    ==========
-
+    ----------
     msg
         Ciphertext string.
 
@@ -1038,14 +992,12 @@ def decipher_bifid5(msg, key):
         Non-alphabetic characters are ignored.
 
     Returns
-    =======
-
+    -------
     plaintext
         Plaintext from Bifid5 cipher (all caps, no spaces).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import encipher_bifid5, decipher_bifid5
     >>> key = "gold bug"
     >>> encipher_bifid5(\'meet me on friday\', key)
@@ -1055,16 +1007,15 @@ def decipher_bifid5(msg, key):
     >>> decipher_bifid5(_, key)
     \'MEETMEONMONDAY\'
 
-    '''
+    """
 def bifid5_square(key=None):
-    '''
+    """
     5x5 Polybius square.
 
     Produce the Polybius square for the `5 \\times 5` Bifid cipher.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import bifid5_square
     >>> bifid5_square("gold bug")
     Matrix([
@@ -1074,7 +1025,7 @@ def bifid5_square(key=None):
     [P, Q, R, S, T],
     [V, W, X, Y, Z]])
 
-    '''
+    """
 def encipher_bifid6(msg, key):
     """
     Performs the Bifid cipher encryption on plaintext ``msg``, and
@@ -1084,8 +1035,7 @@ def encipher_bifid6(msg, key):
     Polybius square.
 
     Parameters
-    ==========
-
+    ----------
     msg
         Plaintext string (digits okay).
 
@@ -1096,19 +1046,17 @@ def encipher_bifid6(msg, key):
         filled with letters A through Z and digits 0 through 9.
 
     Returns
-    =======
-
+    -------
     ciphertext
         Ciphertext from Bifid cipher (all caps, no spaces).
 
     See Also
-    ========
-
+    --------
     decipher_bifid6, encipher_bifid
 
     """
 def decipher_bifid6(msg, key):
-    '''
+    """
     Performs the Bifid cipher decryption on ciphertext ``msg``, and
     returns the plaintext.
 
@@ -1116,8 +1064,7 @@ def decipher_bifid6(msg, key):
     Polybius square.
 
     Parameters
-    ==========
-
+    ----------
     msg
         Ciphertext string (digits okay); converted to upper case
 
@@ -1129,14 +1076,12 @@ def decipher_bifid6(msg, key):
         All letters are converted to uppercase.
 
     Returns
-    =======
-
+    -------
     plaintext
         Plaintext from Bifid cipher (all caps, no spaces).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import encipher_bifid6, decipher_bifid6
     >>> key = "gold bug"
     >>> encipher_bifid6(\'meet me on monday at 8am\', key)
@@ -1144,17 +1089,16 @@ def decipher_bifid6(msg, key):
     >>> decipher_bifid6(_, key)
     \'MEETMEONMONDAYAT8AM\'
 
-    '''
+    """
 def bifid6_square(key=None):
-    '''
+    """
     6x6 Polybius square.
 
     Produces the Polybius square for the `6 \\times 6` Bifid cipher.
     Assumes alphabet of symbols is "A", ..., "Z", "0", ..., "9".
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import bifid6_square
     >>> key = "gold bug"
     >>> bifid6_square(key)
@@ -1166,14 +1110,13 @@ def bifid6_square(key=None):
     [Y, Z, 0, 1, 2, 3],
     [4, 5, 6, 7, 8, 9]])
 
-    '''
+    """
 def _decipher_rsa_crt(i, d, factors):
     """Decipher RSA using chinese remainder theorem from the information
     of the relatively-prime factors of the modulus.
 
     Parameters
-    ==========
-
+    ----------
     i : integer
         Ciphertext
 
@@ -1185,8 +1128,7 @@ def _decipher_rsa_crt(i, d, factors):
         the modulus component of the original RSA key.
 
     Examples
-    ========
-
+    --------
     How to decrypt RSA with CRT:
 
     >>> from sympy.crypto.crypto import rsa_public_key, rsa_private_key
@@ -1208,8 +1150,7 @@ def _rsa_key(*args, public: bool = True, private: bool = True, totient: str = 'E
     """A private subroutine to generate RSA key
 
     Parameters
-    ==========
-
+    ----------
     public, private : bool, optional
         Flag to generate either a public key, a private key.
 
@@ -1223,8 +1164,7 @@ def rsa_public_key(*args, **kwargs):
     """Return the RSA *public key* pair, `(n, e)`
 
     Parameters
-    ==========
-
+    ----------
     args : naturals
         If specified as `p, q, e` where `p` and `q` are distinct primes
         and `e` is a desired public exponent of the RSA, `n = p q` and
@@ -1325,8 +1265,7 @@ def rsa_public_key(*args, **kwargs):
         you pass ``True`` to this keyword.
 
     Returns
-    =======
-
+    -------
     (n, e) : int, int
         `n` is a product of any arbitrary number of primes given as
         the argument.
@@ -1339,8 +1278,7 @@ def rsa_public_key(*args, **kwargs):
         not relatively prime to the modulus.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import rsa_public_key
 
     A public key of a two-prime RSA:
@@ -1360,8 +1298,7 @@ def rsa_public_key(*args, **kwargs):
     (30030, 7)
 
     Notes
-    =====
-
+    -----
     Although the RSA can be generalized over any modulus `n`, using
     two large primes had became the most popular specification because a
     product of two large primes is usually the hardest to factor
@@ -1371,14 +1308,13 @@ def rsa_public_key(*args, **kwargs):
     of each prime-factoring algorithms to verify the claim.
 
     See Also
-    ========
-
+    --------
     rsa_private_key
     encipher_rsa
     decipher_rsa
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29
 
@@ -1392,8 +1328,7 @@ def rsa_private_key(*args, **kwargs):
     """Return the RSA *private key* pair, `(n, d)`
 
     Parameters
-    ==========
-
+    ----------
     args : naturals
         The keyword is identical to the ``args`` in
         :meth:`rsa_public_key`.
@@ -1455,8 +1390,7 @@ def rsa_private_key(*args, **kwargs):
         :meth:`rsa_public_key`.
 
     Returns
-    =======
-
+    -------
     (n, d) : int, int
         `n` is a product of any arbitrary number of primes given as
         the argument.
@@ -1469,8 +1403,7 @@ def rsa_private_key(*args, **kwargs):
         not relatively prime to the totient of the modulus.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import rsa_private_key
 
     A private key of a two-prime RSA:
@@ -1490,14 +1423,13 @@ def rsa_private_key(*args, **kwargs):
     (30030, 823)
 
     See Also
-    ========
-
+    --------
     rsa_public_key
     encipher_rsa
     decipher_rsa
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/RSA_%28cryptosystem%29
 
@@ -1512,8 +1444,7 @@ def encipher_rsa(i, key, factors=None):
     """Encrypt the plaintext with RSA.
 
     Parameters
-    ==========
-
+    ----------
     i : integer
         The plaintext to be encrypted for.
 
@@ -1531,8 +1462,7 @@ def encipher_rsa(i, key, factors=None):
         :meth:`decipher_rsa`.
 
     Notes
-    =====
-
+    -----
     Some specifications may make the RSA not cryptographically
     meaningful.
 
@@ -1548,8 +1478,7 @@ def encipher_rsa(i, key, factors=None):
     mapping.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import encipher_rsa
     >>> from sympy.crypto.crypto import rsa_public_key, rsa_private_key
 
@@ -1578,8 +1507,7 @@ def decipher_rsa(i, key, factors=None):
     """Decrypt the ciphertext with RSA.
 
     Parameters
-    ==========
-
+    ----------
     i : integer
         The ciphertext to be decrypted for.
 
@@ -1625,14 +1553,12 @@ def decipher_rsa(i, key, factors=None):
         theoretical speed advantage.
 
     Notes
-    =====
-
+    -----
     See the ``Notes`` section in the documentation of
     :meth:`encipher_rsa`
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import decipher_rsa, encipher_rsa
     >>> from sympy.crypto.crypto import rsa_public_key, rsa_private_key
 
@@ -1666,8 +1592,7 @@ def decipher_rsa(i, key, factors=None):
     12
 
     See Also
-    ========
-
+    --------
     encipher_rsa
     """
 def kid_rsa_public_key(a, b, A, B):
@@ -1694,8 +1619,7 @@ def kid_rsa_public_key(a, b, A, B):
     plaintext is `p = c d \\pmod n`.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import kid_rsa_public_key
     >>> a, b, A, B = 3, 4, 5, 6
     >>> kid_rsa_public_key(a, b, A, B)
@@ -1709,8 +1633,7 @@ def kid_rsa_private_key(a, b, A, B):
     keeps secret.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import kid_rsa_private_key
     >>> a, b, A, B = 3, 4, 5, 6
     >>> kid_rsa_private_key(a, b, A, B)
@@ -1722,8 +1645,7 @@ def encipher_kid_rsa(msg, key):
     Here ``msg`` is the plaintext and ``key`` is the public key.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import (
     ...     encipher_kid_rsa, kid_rsa_public_key)
     >>> msg = 200
@@ -1738,8 +1660,7 @@ def decipher_kid_rsa(msg, key):
     Here ``msg`` is the plaintext and ``key`` is the private key.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import (
     ...     kid_rsa_public_key, kid_rsa_private_key,
     ...     decipher_kid_rsa, encipher_kid_rsa)
@@ -1763,15 +1684,14 @@ def encode_morse(msg, sep: str = '|', mapping=None):
     separated by ``sep`` and words by a double ``sep``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import encode_morse
     >>> msg = 'ATTACK RIGHT FLANK'
     >>> encode_morse(msg)
     '.-|-|-|.-|-.-.|-.-||.-.|..|--.|....|-||..-.|.-..|.-|-.|-.-'
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Morse_code
 
@@ -1783,26 +1703,24 @@ def decode_morse(msg, sep: str = '|', mapping=None):
     into plaintext.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import decode_morse
     >>> mc = '--|---|...-|.||.|.-|...|-'
     >>> decode_morse(mc)
     'MOVE EAST'
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Morse_code
 
     """
 def lfsr_sequence(key, fill, n):
-    '''
+    """
     This function creates an LFSR sequence.
 
     Parameters
-    ==========
-
+    ----------
     key : list
         A list of finite field elements, `[c_0, c_1, \\ldots, c_k].`
 
@@ -1814,16 +1732,14 @@ def lfsr_sequence(key, fill, n):
         Number of terms of the sequence that the function returns.
 
     Returns
-    =======
-
+    -------
     L
         The LFSR sequence defined by
         `x_{n+1} = c_k x_n + \\ldots + c_0 x_{n-k}`, for
         `n \\leq k`.
 
     Notes
-    =====
-
+    -----
     S. Golomb [G]_ gives a list of three statistical properties a
     sequence of numbers `a = \\{a_n\\}_{n=1}^\\infty`,
     `a_n \\in \\{0,1\\}`, should display to be considered
@@ -1863,8 +1779,7 @@ def lfsr_sequence(key, fill, n):
       `0`\'s.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import lfsr_sequence
     >>> from sympy.polys.domains import FF
     >>> F = FF(2)
@@ -1875,19 +1790,18 @@ def lfsr_sequence(key, fill, n):
     1 mod 2, 1 mod 2, 0 mod 2, 0 mod 2, 1 mod 2]
 
     References
-    ==========
+    ----------
 
     .. [G] Solomon Golomb, Shift register sequences, Aegean Park Press,
        Laguna Hills, Ca, 1967
 
-    '''
+    """
 def lfsr_autocorrelation(L, P, k):
     """
     This function computes the LFSR autocorrelation function.
 
     Parameters
-    ==========
-
+    ----------
     L
         A periodic sequence of elements of `GF(2)`.
         L must have length larger than P.
@@ -1899,14 +1813,12 @@ def lfsr_autocorrelation(L, P, k):
         An integer `k` (`0 < k < P`).
 
     Returns
-    =======
-
+    -------
     autocorrelation
         The k-th value of the autocorrelation of the LFSR L.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import (
     ...     lfsr_sequence, lfsr_autocorrelation)
     >>> from sympy.polys.domains import FF
@@ -1921,19 +1833,17 @@ def lfsr_autocorrelation(L, P, k):
 
     """
 def lfsr_connection_polynomial(s):
-    '''
+    """
     This function computes the LFSR connection polynomial.
 
     Parameters
-    ==========
-
+    ----------
     s
         A sequence of elements of even length, with entries in a finite
         field.
 
     Returns
-    =======
-
+    -------
     C(x)
         The connection polynomial of a minimal LFSR yielding s.
 
@@ -1941,8 +1851,7 @@ def lfsr_connection_polynomial(s):
         article [M]_.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import (
     ...     lfsr_sequence, lfsr_connection_polynomial)
     >>> from sympy.polys.domains import FF
@@ -1969,13 +1878,13 @@ def lfsr_connection_polynomial(s):
     x**3 + x + 1
 
     References
-    ==========
+    ----------
 
     .. [M] James L. Massey, "Shift-Register Synthesis and BCH Decoding."
         IEEE Trans. on Information Theory, vol. 15(1), pp. 122-127,
         Jan 1969.
 
-    '''
+    """
 def elgamal_private_key(digit: int = 10, seed=None):
     """
     Return three number tuple as private key.
@@ -1993,14 +1902,12 @@ def elgamal_private_key(digit: int = 10, seed=None):
     ``a`` and ``ct`` to get ``b``.
 
     Parameters
-    ==========
-
+    ----------
     digit : int
         Minimum number of binary digits for key.
 
     Returns
-    =======
-
+    -------
     tuple : (p, r, d)
         p = prime number.
 
@@ -2009,14 +1916,12 @@ def elgamal_private_key(digit: int = 10, seed=None):
         d = random number.
 
     Notes
-    =====
-
+    -----
     For testing purposes, the ``seed`` parameter may be set to control
     the output of this routine. See sympy.core.random._randrange.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import elgamal_private_key
     >>> from sympy.ntheory import is_primitive_root, isprime
     >>> a, b, _ = elgamal_private_key()
@@ -2031,22 +1936,19 @@ def elgamal_public_key(key):
     Return three number tuple as public key.
 
     Parameters
-    ==========
-
+    ----------
     key : (p, r, e)
         Tuple generated by ``elgamal_private_key``.
 
     Returns
-    =======
-
+    -------
     tuple : (p, r, e)
         `e = r**d \\bmod p`
 
         `d` is a random number in private key.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import elgamal_public_key
     >>> elgamal_public_key((1031, 14, 636))
     (1031, 14, 212)
@@ -2070,8 +1972,7 @@ def encipher_elgamal(i, key, seed=None):
     `c_{2} \\equiv m e^{a} \\pmod p`
 
     Parameters
-    ==========
-
+    ----------
     msg
         int of encoded message.
 
@@ -2079,20 +1980,17 @@ def encipher_elgamal(i, key, seed=None):
         Public key.
 
     Returns
-    =======
-
+    -------
     tuple : (c1, c2)
         Encipher into two number.
 
     Notes
-    =====
-
+    -----
     For testing purposes, the ``seed`` parameter may be set to control
     the output of this routine. See sympy.core.random._randrange.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import encipher_elgamal, elgamal_private_key, elgamal_public_key
     >>> pri = elgamal_private_key(5, seed=[3]); pri
     (37, 2, 3)
@@ -2121,8 +2019,7 @@ def decipher_elgamal(msg, key):
     `\\frac{1}{r^{ad}} m e^a \\equiv \\frac{1}{r^{ad}} m {r^{d a}} \\equiv m \\pmod p`
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import decipher_elgamal
     >>> from sympy.crypto.crypto import encipher_elgamal
     >>> from sympy.crypto.crypto import elgamal_private_key
@@ -2160,14 +2057,12 @@ def dh_private_key(digit: int = 10, seed=None):
         `g^{ab} \\pmod p`
 
     Parameters
-    ==========
-
+    ----------
     digit
         Minimum number of binary digits required in key.
 
     Returns
-    =======
-
+    -------
     tuple : (p, g, a)
         p = prime number.
 
@@ -2176,14 +2071,12 @@ def dh_private_key(digit: int = 10, seed=None):
         a = random number from 2 through p - 1.
 
     Notes
-    =====
-
+    -----
     For testing purposes, the ``seed`` parameter may be set to control
     the output of this routine. See sympy.core.random._randrange.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import dh_private_key
     >>> from sympy.ntheory import isprime, is_primitive_root
     >>> p, g, _ = dh_private_key()
@@ -2205,21 +2098,18 @@ def dh_public_key(key):
     This is the tuple that Alice sends to Bob.
 
     Parameters
-    ==========
-
+    ----------
     key : (p, g, a)
         A tuple generated by ``dh_private_key``.
 
     Returns
-    =======
-
+    -------
     tuple : int, int, int
         A tuple of `(p, g, g^a \\mod p)` with `p`, `g` and `a` given as
         parameters.s
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import dh_private_key, dh_public_key
     >>> p, g, a = dh_private_key();
     >>> _p, _g, x = dh_public_key((p, g, a))
@@ -2237,8 +2127,7 @@ def dh_shared_key(key, b):
     keys they received from each other and their private keys.
 
     Parameters
-    ==========
-
+    ----------
     key : (p, g, x)
         Tuple `(p, g, x)` generated by ``dh_public_key``.
 
@@ -2247,14 +2136,12 @@ def dh_shared_key(key, b):
         (Chosen by second key exchange member (Bob)).
 
     Returns
-    =======
-
+    -------
     int
         A shared key.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import (
     ...     dh_private_key, dh_public_key, dh_shared_key)
     >>> prk = dh_private_key();
@@ -2274,8 +2161,7 @@ def _legendre(a, p):
          0 if a is divisible by p
 
     Parameters
-    ==========
-
+    ----------
     a : int
         The number to test.
 
@@ -2283,8 +2169,7 @@ def _legendre(a, p):
         The prime to test ``a`` against.
 
     Returns
-    =======
-
+    -------
     int
         Legendre symbol (a / p).
 
@@ -2331,20 +2216,17 @@ def gm_private_key(p, q, a=None):
     entropy of the code.
 
     Parameters
-    ==========
-
+    ----------
     p, q, a
         Initialization variables.
 
     Returns
-    =======
-
+    -------
     tuple : (p, q)
         The input value ``p`` and ``q``.
 
     Raises
-    ======
-
+    ------
     ValueError
         If ``p`` and ``q`` are not distinct odd primes.
 
@@ -2356,14 +2238,12 @@ def gm_public_key(p, q, a=None, seed=None):
     public keys are randomly selected.
 
     Parameters
-    ==========
-
+    ----------
     p, q, a : int, int, int
         Initialization variables.
 
     Returns
-    =======
-
+    -------
     tuple : (a, N)
         ``a`` is the input ``a`` if it is not ``None`` otherwise
         some random integer coprime to ``p`` and ``q``.
@@ -2377,8 +2257,7 @@ def encipher_gm(i, key, seed=None):
     Note that gm uses random encryption.
 
     Parameters
-    ==========
-
+    ----------
     i : int
         The message to encrypt.
 
@@ -2386,8 +2265,7 @@ def encipher_gm(i, key, seed=None):
         The public key.
 
     Returns
-    =======
-
+    -------
     list : list of int
         The randomized encrypted message.
 
@@ -2397,8 +2275,7 @@ def decipher_gm(message, key):
     Decrypt message 'message' using public_key 'key'.
 
     Parameters
-    ==========
-
+    ----------
     message : list of int
         The randomized encrypted message.
 
@@ -2406,63 +2283,56 @@ def decipher_gm(message, key):
         The private key.
 
     Returns
-    =======
-
+    -------
     int
         The encrypted message.
 
     """
 def encipher_railfence(message, rails):
-    '''
+    """
     Performs Railfence Encryption on plaintext and returns ciphertext
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import encipher_railfence
     >>> message = "hello world"
     >>> encipher_railfence(message,3)
     \'horel ollwd\'
 
     Parameters
-    ==========
-
+    ----------
     message : string, the message to encrypt.
     rails : int, the number of rails.
 
     Returns
-    =======
-
+    -------
     The Encrypted string message.
 
     References
-    ==========
+    ----------
     .. [1] https://en.wikipedia.org/wiki/Rail_fence_cipher
 
-    '''
+    """
 def decipher_railfence(ciphertext, rails):
-    '''
+    """
     Decrypt the message using the given rails
 
     Examples
-    ========
-
+    --------
     >>> from sympy.crypto.crypto import decipher_railfence
     >>> decipher_railfence("horel ollwd",3)
     \'hello world\'
 
     Parameters
-    ==========
-
+    ----------
     message : string, the message to encrypt.
     rails : int, the number of rails.
 
     Returns
-    =======
-
+    -------
     The Decrypted string message.
 
-    '''
+    """
 def bg_private_key(p, q):
     """
     Check if p and q can be used as private keys for
@@ -2479,20 +2349,17 @@ def bg_private_key(p, q):
         3. p and q must be congruent to 3 mod 4
 
     Parameters
-    ==========
-
+    ----------
     p, q
         The keys to be checked.
 
     Returns
-    =======
-
+    -------
     p, q
         Input values.
 
     Raises
-    ======
-
+    ------
     ValueError
         If p and q do not pass the above conditions.
 
@@ -2509,14 +2376,12 @@ def bg_public_key(p, q):
     then returns their product.
 
     Parameters
-    ==========
-
+    ----------
     p, q
         The private keys.
 
     Returns
-    =======
-
+    -------
     N
         The public key.
 
@@ -2539,8 +2404,7 @@ def encipher_bg(i, key, seed=None):
         6. Return (c, x_L)
 
     Parameters
-    ==========
-
+    ----------
     i
         Message, a non-negative integer
 
@@ -2548,14 +2412,12 @@ def encipher_bg(i, key, seed=None):
         The public key
 
     Returns
-    =======
-
+    -------
     Tuple
         (encrypted_message, x_L)
 
     Raises
-    ======
-
+    ------
     ValueError
         If i is negative.
 
@@ -2578,8 +2440,7 @@ def decipher_bg(message, key):
         5. Compute original message by XORing c and b.
 
     Parameters
-    ==========
-
+    ----------
     message
         Tuple of encrypted message and a non-negative integer.
 
@@ -2587,8 +2448,7 @@ def decipher_bg(message, key):
         Tuple of private keys.
 
     Returns
-    =======
-
+    -------
     orig_msg
         The original message
 

@@ -1,13 +1,12 @@
 from __future__ import annotations
 
-import unittest
 from collections.abc import Iterator, Mapping
 from datetime import datetime, timedelta
 from decimal import Decimal
 from fractions import Fraction
-from typing import TypedDict, Union
-from typing_extensions import assert_type
+from typing import assert_type, TypedDict, Union
 from unittest.mock import _ANY, ANY, AsyncMock, MagicMock, Mock, patch
+import unittest
 
 case = unittest.TestCase()
 

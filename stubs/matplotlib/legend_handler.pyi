@@ -21,6 +21,7 @@ class HandlerBase:
     width, height) that are scaled by fontsize if necessary.
 
     """
+
     _update_prop_func: Incomplete
     def __init__(self, xpad: float = 0.0, ypad: float = 0.0, update_func: Incomplete | None = None) -> None:
         """
@@ -84,6 +85,7 @@ class HandlerNpoints(HandlerBase):
     """
     A legend handler that shows *numpoints* points in the legend entry.
     """
+
     _numpoints: Incomplete
     _marker_pad: Incomplete
     def __init__(self, marker_pad: float = 0.3, numpoints: Incomplete | None = None, **kwargs) -> None:
@@ -105,6 +107,7 @@ class HandlerNpointsYoffsets(HandlerNpoints):
     A legend handler that shows *numpoints* in the legend, and allows them to
     be individually offset in the y-direction.
     """
+
     _yoffsets: Incomplete
     def __init__(self, numpoints: Incomplete | None = None, yoffsets: Incomplete | None = None, **kwargs) -> None:
         """
@@ -125,6 +128,7 @@ class HandlerLine2DCompound(HandlerNpoints):
     Original handler for `.Line2D` instances, that relies on combining
     a line-only with a marker-only artist.  May be deprecated in the future.
     """
+
     def create_artists(self, legend, orig_handle, xdescent, ydescent, width, height, fontsize, trans): ...
 
 class HandlerLine2D(HandlerNpoints):
@@ -136,12 +140,14 @@ class HandlerLine2D(HandlerNpoints):
     HandlerLine2DCompound : An earlier handler implementation, which used one
                             artist for the line and another for the marker(s).
     """
+
     def create_artists(self, legend, orig_handle, xdescent, ydescent, width, height, fontsize, trans): ...
 
 class HandlerPatch(HandlerBase):
     """
     Handler for `.Patch` instances.
     """
+
     _patch_func: Incomplete
     def __init__(self, patch_func: Incomplete | None = None, **kwargs) -> None:
         """
@@ -168,6 +174,7 @@ class HandlerStepPatch(HandlerBase):
     """
     Handler for `~.matplotlib.patches.StepPatch` instances.
     """
+
     @staticmethod
     def _create_patch(orig_handle, xdescent, ydescent, width, height): ...
     @staticmethod
@@ -178,12 +185,14 @@ class HandlerLineCollection(HandlerLine2D):
     """
     Handler for `.LineCollection` instances.
     """
+
     def get_numpoints(self, legend): ...
     def _default_update_prop(self, legend_handle, orig_handle) -> None: ...
     def create_artists(self, legend, orig_handle, xdescent, ydescent, width, height, fontsize, trans): ...
 
 class HandlerRegularPolyCollection(HandlerNpointsYoffsets):
     """Handler for `.RegularPolyCollection`\\s."""
+
     _sizes: Incomplete
     def __init__(self, yoffsets: Incomplete | None = None, sizes: Incomplete | None = None, **kwargs) -> None: ...
     def get_numpoints(self, legend): ...
@@ -194,14 +203,17 @@ class HandlerRegularPolyCollection(HandlerNpointsYoffsets):
 
 class HandlerPathCollection(HandlerRegularPolyCollection):
     """Handler for `.PathCollection`\\s, which are used by `~.Axes.scatter`."""
+
     def create_collection(self, orig_handle, sizes, offsets, offset_transform): ...
 
 class HandlerCircleCollection(HandlerRegularPolyCollection):
     """Handler for `.CircleCollection`\\s."""
+
     def create_collection(self, orig_handle, sizes, offsets, offset_transform): ...
 
 class HandlerErrorbar(HandlerLine2D):
     """Handler for Errorbars."""
+
     _xerr_size: Incomplete
     _yerr_size: Incomplete
     def __init__(self, xerr_size: float = 0.5, yerr_size: Incomplete | None = None, marker_pad: float = 0.3, numpoints: Incomplete | None = None, **kwargs) -> None: ...
@@ -212,6 +224,7 @@ class HandlerStem(HandlerNpointsYoffsets):
     """
     Handler for plots produced by `~.Axes.stem`.
     """
+
     _bottom: Incomplete
     def __init__(self, marker_pad: float = 0.3, numpoints: Incomplete | None = None, bottom: Incomplete | None = None, yoffsets: Incomplete | None = None, **kwargs) -> None:
         """
@@ -241,6 +254,7 @@ class HandlerTuple(HandlerBase):
     """
     Handler for Tuple.
     """
+
     _ndivide: Incomplete
     _pad: Incomplete
     def __init__(self, ndivide: int = 1, pad: Incomplete | None = None, **kwargs) -> None:
@@ -262,5 +276,6 @@ class HandlerPolyCollection(HandlerBase):
     Handler for `.PolyCollection` used in `~.Axes.fill_between` and
     `~.Axes.stackplot`.
     """
+
     def _update_prop(self, legend_handle, orig_handle): ...
     def create_artists(self, legend, orig_handle, xdescent, ydescent, width, height, fontsize, trans): ...

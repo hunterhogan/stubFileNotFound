@@ -4,8 +4,10 @@ from sympy.core.basic import Basic as Basic
 from sympy.core.expr import Atom as Atom, Expr as Expr
 from sympy.core.numbers import Float as Float, Integer as Integer, oo as oo
 from sympy.core.relational import Ge as Ge, Gt as Gt, Le as Le, Lt as Lt
-from sympy.core.sympify import SympifyError as SympifyError, _sympify as _sympify, sympify as sympify
-from sympy.utilities.iterables import filter_symbols as filter_symbols, iterable as iterable, numbered_symbols as numbered_symbols, topological_sort as topological_sort
+from sympy.core.sympify import _sympify as _sympify, sympify as sympify, SympifyError as SympifyError
+from sympy.utilities.iterables import (
+	filter_symbols as filter_symbols, iterable as iterable, numbered_symbols as numbered_symbols,
+	topological_sort as topological_sort)
 from typing import Any
 
 def _mk_Tuple(args):
@@ -14,14 +16,12 @@ def _mk_Tuple(args):
     AST strings.
 
     Parameters
-    ==========
-
+    ----------
     args: iterable
         Arguments to :class:`sympy.Tuple`.
 
     Returns
-    =======
-
+    -------
     sympy.Tuple
     """
 
@@ -29,7 +29,7 @@ class CodegenAST(Basic):
     __slots__: Incomplete
 
 class Token(CodegenAST):
-    """ Base class for the AST types.
+    """Base class for the AST types.
 
     Explanation
     ===========
@@ -45,6 +45,7 @@ class Token(CodegenAST):
     attribute to process the value passed to ``__new__()``. Attributes listed
     in the class attribute ``not_in_args`` are not passed to :class:`~.Basic`.
     """
+
     __slots__: tuple[str, ...]
     _fields = __slots__
     defaults: dict[str, Any]
@@ -54,10 +55,10 @@ class Token(CodegenAST):
     def is_Atom(self): ...
     @classmethod
     def _get_constructor(cls, attr):
-        """ Get the constructor function for an attribute by name. """
+        """Get the constructor function for an attribute by name."""
     @classmethod
     def _construct(cls, attr, arg):
-        """ Construct an attribute value from argument passed to ``__new__()``. """
+        """Construct an attribute value from argument passed to ``__new__()``."""
     def __new__(cls, *args, **kwargs): ...
     def __eq__(self, other): ...
     def _hashable_content(self): ...
@@ -66,13 +67,11 @@ class Token(CodegenAST):
     def _indented(self, printer, k, v, *args, **kwargs): ...
     def _sympyrepr(self, printer, *args, joiner: str = ', ', **kwargs): ...
     _sympystr = _sympyrepr
-    def __repr__(self) -> str: ...
     def kwargs(self, exclude=(), apply=None):
-        """ Get instance's attributes as dict of keyword arguments.
+        """Get instance's attributes as dict of keyword arguments.
 
         Parameters
-        ==========
-
+        ----------
         exclude : collection of str
             Collection of keywords to exclude.
 
@@ -81,13 +80,12 @@ class Token(CodegenAST):
         """
 
 class BreakToken(Token):
-    """ Represents 'break' in C/Python ('exit' in Fortran).
+    """Represents 'break' in C/Python ('exit' in Fortran).
 
     Use the premade instance ``break_`` or instantiate manually.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ccode, fcode
     >>> from sympy.codegen.ast import break_
     >>> ccode(break_)
@@ -99,13 +97,12 @@ class BreakToken(Token):
 break_: Incomplete
 
 class ContinueToken(Token):
-    """ Represents 'continue' in C/Python ('cycle' in Fortran)
+    """Represents 'continue' in C/Python ('cycle' in Fortran)
 
     Use the premade instance ``continue_`` or instantiate manually.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ccode, fcode
     >>> from sympy.codegen.ast import continue_
     >>> ccode(continue_)
@@ -117,19 +114,19 @@ class ContinueToken(Token):
 continue_: Incomplete
 
 class NoneToken(Token):
-    """ The AST equivalence of Python's NoneType
+    """The AST equivalence of Python's NoneType
 
     The corresponding instance of Python's ``None`` is ``none``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.ast import none, Variable
     >>> from sympy import pycode
     >>> print(pycode(Variable('x').as_Declaration(value=none)))
     x = None
 
     """
+
     def __eq__(self, other): ...
     def _hashable_content(self): ...
     def __hash__(self): ...
@@ -137,14 +134,14 @@ class NoneToken(Token):
 none: Incomplete
 
 class AssignmentBase(CodegenAST):
-    ''' Abstract base class for Assignment and AugmentedAssignment.
+    """Abstract base class for Assignment and AugmentedAssignment.
 
-    Attributes:
-    ===========
-
+    Attributes
+    ----------
     op : str
         Symbol for assignment operator, e.g. "=", "+=", etc.
-    '''
+    """
+
     def __new__(cls, lhs, rhs): ...
     @property
     def lhs(self): ...
@@ -152,7 +149,7 @@ class AssignmentBase(CodegenAST):
     def rhs(self): ...
     @classmethod
     def _check_args(cls, lhs, rhs) -> None:
-        """ Check arguments to __new__ and raise exception if any problems found.
+        """Check arguments to __new__ and raise exception if any problems found.
 
         Derived classes may wish to override this.
         """
@@ -162,8 +159,7 @@ class Assignment(AssignmentBase):
     Represents variable assignment for code generation.
 
     Parameters
-    ==========
-
+    ----------
     lhs : Expr
         SymPy object representing the lhs of the expression. These should be
         singular objects, such as one would use in writing code. Notable types
@@ -177,8 +173,7 @@ class Assignment(AssignmentBase):
         the dimensions will not align.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, MatrixSymbol, Matrix
     >>> from sympy.codegen.ast import Assignment
     >>> x, y, z = symbols('x, y, z')
@@ -193,19 +188,20 @@ class Assignment(AssignmentBase):
     >>> Assignment(A[0, 1], x)
     Assignment(A[0, 1], x)
     """
+
     op: str
 
 class AugmentedAssignment(AssignmentBase):
-    '''
+    """
     Base class for augmented assignments.
 
-    Attributes:
-    ===========
-
+    Attributes
+    ----------
     binop : str
        Symbol for binary operation being applied in the assignment, such as "+",
        "*", etc.
-    '''
+    """
+
     binop: str | None
     @property
     def op(self): ...
@@ -239,8 +235,7 @@ def aug_assign(lhs, op, rhs):
     directly, like AddAugmentedAssignment(x, y).
 
     Parameters
-    ==========
-
+    ----------
     lhs : Expr
         SymPy object representing the lhs of the expression. These should be
         singular objects, such as one would use in writing code. Notable types
@@ -257,8 +252,7 @@ def aug_assign(lhs, op, rhs):
         the dimensions will not align.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols
     >>> from sympy.codegen.ast import aug_assign
     >>> x, y = symbols('x, y')
@@ -296,8 +290,7 @@ class CodeBlock(CodegenAST):
         pulled out as assignments.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, ccode
     >>> from sympy.codegen.ast import CodeBlock, Assignment
     >>> x, y = symbols('x y')
@@ -307,6 +300,7 @@ class CodeBlock(CodegenAST):
     y = x + 1;
 
     """
+
     def __new__(cls, *args): ...
     def __iter__(self): ...
     def _sympyrepr(self, printer, *args, **kwargs): ...
@@ -320,8 +314,7 @@ class CodeBlock(CodegenAST):
         variables are assigned before they are used.
 
         Examples
-        ========
-
+        --------
         The existing order of assignments is preserved as much as possible.
 
         This function assumes that variables are assigned to only once.
@@ -357,8 +350,7 @@ class CodeBlock(CodegenAST):
         information.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols, sin
         >>> from sympy.codegen.ast import CodeBlock, Assignment
         >>> x, y, z = symbols('x y z')
@@ -380,23 +372,21 @@ class CodeBlock(CodegenAST):
         """
 
 class For(Token):
-    '''Represents a \'for-loop\' in the code.
+    """Represents a \'for-loop\' in the code.
 
     Expressions are of the form:
         "for target in iter:
             body..."
 
     Parameters
-    ==========
-
+    ----------
     target : symbol
     iter : iterable
     body : CodeBlock or iterable
-!        When passed an iterable it is used to instantiate a CodeBlock.
+    !        When passed an iterable it is used to instantiate a CodeBlock.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, Range
     >>> from sympy.codegen.ast import aug_assign, For
     >>> x, i, j, k = symbols(\'x i j k\')
@@ -421,7 +411,8 @@ class For(Token):
             ))
         ))
     ))
-    '''
+    """
+
     __slots__: Incomplete
     _fields: Incomplete
     _construct_target: Incomplete
@@ -431,18 +422,16 @@ class For(Token):
     def _construct_iterable(cls, itr): ...
 
 class String(Atom, Token):
-    """ SymPy object representing a string.
+    """SymPy object representing a string.
 
     Atomic object which is not an expression (as opposed to Symbol).
 
     Parameters
-    ==========
-
+    ----------
     text : str
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.ast import String
     >>> f = String('foo')
     >>> f
@@ -455,6 +444,7 @@ class String(Atom, Token):
     String('foo')
 
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     not_in_args: Incomplete
@@ -468,16 +458,15 @@ class String(Atom, Token):
     def _latex(self, printer): ...
 
 class QuotedString(String):
-    """ Represents a string which should be printed with quotes. """
+    """Represents a string which should be printed with quotes."""
 class Comment(String):
-    """ Represents a comment. """
+    """Represents a comment."""
 
 class Node(Token):
-    """ Subclass of Token, carrying the attribute 'attrs' (Tuple)
+    """Subclass of Token, carrying the attribute 'attrs' (Tuple)
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.ast import Node, value_const, pointer_const
     >>> n1 = Node([value_const])
     >>> n1.attr_params('value_const')  # get the parameters of attribute (by name)
@@ -492,15 +481,16 @@ class Node(Token):
     True
 
     """
+
     __slots__: tuple[str, ...]
     _fields = __slots__
     defaults: dict[str, Any]
     _construct_attrs: Incomplete
     def attr_params(self, looking_for):
-        """ Returns the parameters of the Attribute with name ``looking_for`` in self.attrs """
+        """Returns the parameters of the Attribute with name ``looking_for`` in self.attrs"""
 
 class Type(Token):
-    """ Represents a type.
+    """Represents a type.
 
     Explanation
     ===========
@@ -512,16 +502,14 @@ class Type(Token):
     representable by the underlying data type (e.g. unsigned integers).
 
     Parameters
-    ==========
-
+    ----------
     name : str
         Name of the type, e.g. ``object``, ``int16``, ``float16`` (where the latter two
         would use the ``Type`` sub-classes ``IntType`` and ``FloatType`` respectively).
         If a ``Type`` instance is given, the said instance is returned.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.ast import Type
     >>> t = Type.from_expr(42)
     >>> t
@@ -549,28 +537,27 @@ class Type(Token):
     'boost::multiprecision::cpp_dec_float_50 x'
 
     References
-    ==========
+    ----------
 
     .. [1] https://numpy.org/doc/stable/user/basics.types.html
 
     """
+
     __slots__: tuple[str, ...]
     _fields = __slots__
     _construct_name = String
     def _sympystr(self, printer, *args, **kwargs): ...
     @classmethod
     def from_expr(cls, expr):
-        """ Deduces type from an expression or a ``Symbol``.
+        """Deduces type from an expression or a ``Symbol``.
 
         Parameters
-        ==========
-
+        ----------
         expr : number or SymPy object
             The type will be deduced from type or properties.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.codegen.ast import Type, integer, complex_
         >>> Type.from_expr(2) == integer
         True
@@ -583,18 +570,16 @@ class Type(Token):
         ValueError: Could not deduce type from expr.
 
         Raises
-        ======
-
+        ------
         ValueError when type deduction fails.
 
         """
     def _check(self, value) -> None: ...
     def cast_check(self, value, rtol=None, atol: int = 0, precision_targets=None):
-        """ Casts a value to the data type of the instance.
+        """Casts a value to the data type of the instance.
 
         Parameters
-        ==========
-
+        ----------
         value : number
         rtol : floating point number
             Relative tolerance. (will be deduced if not given).
@@ -604,8 +589,7 @@ class Type(Token):
             Maps substitutions for Type, e.g. {integer: int64, real: float32}
 
         Examples
-        ========
-
+        --------
         >>> from sympy.codegen.ast import integer, float32, int8
         >>> integer.cast_check(3.0) == 3
         True
@@ -639,7 +623,8 @@ class Type(Token):
     def _latex(self, printer): ...
 
 class IntBaseType(Type):
-    """ Integer base type, contains no size information. """
+    """Integer base type, contains no size information."""
+
     __slots__: Incomplete
     cast_nocheck: Incomplete
 
@@ -650,7 +635,8 @@ class _SizedIntType(IntBaseType):
     def _check(self, value) -> None: ...
 
 class SignedIntType(_SizedIntType):
-    """ Represents a signed integer type. """
+    """Represents a signed integer type."""
+
     __slots__: Incomplete
     @property
     def min(self): ...
@@ -658,7 +644,8 @@ class SignedIntType(_SizedIntType):
     def max(self): ...
 
 class UnsignedIntType(_SizedIntType):
-    """ Represents an unsigned integer type. """
+    """Represents an unsigned integer type."""
+
     __slots__: Incomplete
     @property
     def min(self): ...
@@ -668,18 +655,18 @@ class UnsignedIntType(_SizedIntType):
 two: Incomplete
 
 class FloatBaseType(Type):
-    """ Represents a floating point number type. """
+    """Represents a floating point number type."""
+
     __slots__: Incomplete
     cast_nocheck = Float
 
 class FloatType(FloatBaseType):
-    """ Represents a floating point type with fixed bit width.
+    """Represents a floating point type with fixed bit width.
 
     Base 2 & one sign bit is assumed.
 
     Parameters
-    ==========
-
+    ----------
     name : str
         Name of the type.
     nbits : integer
@@ -690,8 +677,7 @@ class FloatType(FloatBaseType):
         Number of bits used to represent the mantissa.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S
     >>> from sympy.codegen.ast import FloatType
     >>> half_precision = FloatType('f16', nbits=16, nmant=10, nexp=5)
@@ -712,6 +698,7 @@ class FloatType(FloatBaseType):
       ...
     ValueError: Maximum value for data type smaller than new value.
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     _construct_nbits = Integer
@@ -719,29 +706,29 @@ class FloatType(FloatBaseType):
     _construct_nexp = Integer
     @property
     def max_exponent(self):
-        """ The largest positive number n, such that 2**(n - 1) is a representable finite value. """
+        """The largest positive number n, such that 2**(n - 1) is a representable finite value."""
     @property
     def min_exponent(self):
-        """ The lowest negative number n, such that 2**(n - 1) is a valid normalized number. """
+        """The lowest negative number n, such that 2**(n - 1) is a valid normalized number."""
     @property
     def max(self):
-        """ Maximum value representable. """
+        """Maximum value representable."""
     @property
     def tiny(self):
-        """ The minimum positive normalized value. """
+        """The minimum positive normalized value."""
     @property
     def eps(self):
-        """ Difference between 1.0 and the next representable value. """
+        """Difference between 1.0 and the next representable value."""
     @property
     def dig(self):
-        """ Number of decimal digits that are guaranteed to be preserved in text.
+        """Number of decimal digits that are guaranteed to be preserved in text.
 
         When converting text -> float -> text, you are guaranteed that at least ``dig``
         number of digits are preserved with respect to rounding or overflow.
         """
     @property
     def decimal_dig(self):
-        """ Number of digits needed to store & load without loss.
+        """Number of digits needed to store & load without loss.
 
         Explanation
         ===========
@@ -752,17 +739,18 @@ class FloatType(FloatBaseType):
         as text.
         """
     def cast_nocheck(self, value):
-        """ Casts without checking if out of bounds or subnormal. """
+        """Casts without checking if out of bounds or subnormal."""
     def _check(self, value) -> None: ...
 
 class ComplexBaseType(FloatBaseType):
     __slots__: Incomplete
     def cast_nocheck(self, value):
-        """ Casts without checking if out of bounds or subnormal. """
+        """Casts without checking if out of bounds or subnormal."""
     def _check(self, value) -> None: ...
 
 class ComplexType(ComplexBaseType, FloatType):
-    """ Represents a complex floating point number. """
+    """Represents a complex floating point number."""
+
     __slots__: Incomplete
 
 intc: Incomplete
@@ -790,20 +778,18 @@ complex_: Incomplete
 bool_: Incomplete
 
 class Attribute(Token):
-    """ Attribute (possibly parametrized)
+    """Attribute (possibly parametrized)
 
     For use with :class:`sympy.codegen.ast.Node` (which takes instances of
     ``Attribute`` as ``attrs``).
 
     Parameters
-    ==========
-
+    ----------
     name : str
     parameters : Tuple
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.ast import Attribute
     >>> volatile = Attribute('volatile')
     >>> volatile
@@ -816,6 +802,7 @@ class Attribute(Token):
     >>> a.parameters == (1, 2, 3)
     True
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     defaults: Incomplete
@@ -827,11 +814,10 @@ value_const: Incomplete
 pointer_const: Incomplete
 
 class Variable(Node):
-    """ Represents a variable.
+    """Represents a variable.
 
     Parameters
-    ==========
-
+    ----------
     symbol : Symbol
     type : Type (optional)
         Type of the variable.
@@ -839,8 +825,7 @@ class Variable(Node):
         Will be stored as a Tuple.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol
     >>> from sympy.codegen.ast import Variable, float32, integer
     >>> x = Symbol('x')
@@ -875,6 +860,7 @@ class Variable(Node):
     Declaration(Variable(w, value=42, attrs=(value_const,)))
 
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     defaults: Incomplete
@@ -882,13 +868,12 @@ class Variable(Node):
     _construct_value: Incomplete
     @classmethod
     def deduced(cls, symbol, value=None, attrs=..., cast_check: bool = True):
-        """ Alt. constructor with type deduction from ``Type.from_expr``.
+        """Alt. constructor with type deduction from ``Type.from_expr``.
 
         Deduces type primarily from ``symbol``, secondarily from ``value``.
 
         Parameters
-        ==========
-
+        ----------
         symbol : Symbol
         value : expr
             (optional) value of the variable.
@@ -897,8 +882,7 @@ class Variable(Node):
             Whether to apply ``Type.cast_check`` on ``value``.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Symbol
         >>> from sympy.codegen.ast import Variable, complex_
         >>> n = Symbol('n', integer=True)
@@ -914,7 +898,7 @@ class Variable(Node):
 
         """
     def as_Declaration(self, **kwargs):
-        """ Convenience method for creating a Declaration instance.
+        """Convenience method for creating a Declaration instance.
 
         Explanation
         ===========
@@ -924,8 +908,7 @@ class Variable(Node):
         the ``value`` of the Variable instance).
 
         Examples
-        ========
-
+        --------
         >>> from sympy.codegen.ast import Variable, NoneToken
         >>> x = Variable('x')
         >>> decl1 = x.as_Declaration()
@@ -948,11 +931,10 @@ class Variable(Node):
     __gt__: Incomplete
 
 class Pointer(Variable):
-    """ Represents a pointer. See ``Variable``.
+    """Represents a pointer. See ``Variable``.
 
     Examples
-    ========
-
+    --------
     Can create instances of ``Element``:
 
     >>> from sympy import Symbol
@@ -963,15 +945,15 @@ class Pointer(Variable):
     Element(x, indices=(i + 1,))
 
     """
+
     __slots__: Incomplete
     def __getitem__(self, key): ...
 
 class Element(Token):
-    """ Element in (a possibly N-dimensional) array.
+    """Element in (a possibly N-dimensional) array.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.ast import Element
     >>> elem = Element('x', 'ijk')
     >>> elem.symbol.name == 'x'
@@ -985,6 +967,7 @@ class Element(Token):
     'x[i*l + j*m + k*n + o]'
 
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     defaults: Incomplete
@@ -994,16 +977,14 @@ class Element(Token):
     _construct_offset: Incomplete
 
 class Declaration(Token):
-    """ Represents a variable declaration
+    """Represents a variable declaration
 
     Parameters
-    ==========
-
+    ----------
     variable : Variable
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.ast import Declaration, NoneToken, untyped
     >>> z = Declaration('z')
     >>> z.variable.type == untyped
@@ -1016,27 +997,26 @@ class Declaration(Token):
     >>> z.variable.value == NoneToken()  # OK
     True
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     _construct_variable = Variable
 
 class While(Token):
-    ''' Represents a \'for-loop\' in the code.
+    """Represents a \'for-loop\' in the code.
 
     Expressions are of the form:
         "while condition:
              body..."
 
     Parameters
-    ==========
-
+    ----------
     condition : expression convertible to Boolean
     body : CodeBlock or iterable
         When passed an iterable it is used to instantiate a CodeBlock.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, Gt, Abs
     >>> from sympy.codegen import aug_assign, Assignment, While
     >>> x, dx = symbols(\'x dx\')
@@ -1046,7 +1026,8 @@ class While(Token):
     ...     aug_assign(x, \'+\', dx)
     ... ])
 
-    '''
+    """
+
     __slots__: Incomplete
     _fields: Incomplete
     _construct_condition: Incomplete
@@ -1054,33 +1035,31 @@ class While(Token):
     def _construct_body(cls, itr): ...
 
 class Scope(Token):
-    """ Represents a scope in the code.
+    """Represents a scope in the code.
 
     Parameters
-    ==========
-
+    ----------
     body : CodeBlock or iterable
         When passed an iterable it is used to instantiate a CodeBlock.
 
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     @classmethod
     def _construct_body(cls, itr): ...
 
 class Stream(Token):
-    ''' Represents a stream.
+    """Represents a stream.
 
     There are two predefined Stream instances ``stdout`` & ``stderr``.
 
     Parameters
-    ==========
-
+    ----------
     name : str
 
     Examples
-    ========
-
+    --------
     >>> from sympy import pycode, Symbol
     >>> from sympy.codegen.ast import Print, stderr, QuotedString
     >>> print(pycode(Print([\'x\'], file=stderr)))
@@ -1089,7 +1068,8 @@ class Stream(Token):
     >>> print(pycode(Print([QuotedString(\'x\')], file=stderr)))  # print literally "x"
     print("x", file=sys.stderr)
 
-    '''
+    """
+
     __slots__: Incomplete
     _fields: Incomplete
     _construct_name = String
@@ -1098,23 +1078,22 @@ stdout: Incomplete
 stderr: Incomplete
 
 class Print(Token):
-    ''' Represents print command in the code.
+    """Represents print command in the code.
 
     Parameters
-    ==========
-
+    ----------
     formatstring : str
     *args : Basic instances (or convertible to such through sympify)
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.ast import Print
     >>> from sympy import pycode
     >>> print(pycode(Print(\'x y\'.split(), "coordinate: %12.5g %12.5g\\\\n")))
     print("coordinate: %12.5g %12.5g\\n" % (x, y), end="")
 
-    '''
+    """
+
     __slots__: Incomplete
     _fields: Incomplete
     defaults: Incomplete
@@ -1123,21 +1102,19 @@ class Print(Token):
     _construct_file = Stream
 
 class FunctionPrototype(Node):
-    """ Represents a function prototype
+    """Represents a function prototype
 
     Allows the user to generate forward declaration in e.g. C/C++.
 
     Parameters
-    ==========
-
+    ----------
     return_type : Type
     name : str
     parameters: iterable of Variable instances
     attrs : iterable of Attribute instances
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ccode, symbols
     >>> from sympy.codegen.ast import real, FunctionPrototype
     >>> x, y = symbols('x y', real=True)
@@ -1146,6 +1123,7 @@ class FunctionPrototype(Node):
     'double foo(double x, double y)'
 
     """
+
     __slots__: Incomplete
     _fields: tuple[str, ...]
     _construct_return_type = Type
@@ -1156,11 +1134,10 @@ class FunctionPrototype(Node):
     def from_FunctionDefinition(cls, func_def): ...
 
 class FunctionDefinition(FunctionPrototype):
-    """ Represents a function definition in the code.
+    """Represents a function definition in the code.
 
     Parameters
-    ==========
-
+    ----------
     return_type : Type
     name : str
     parameters: iterable of Variable instances
@@ -1168,8 +1145,7 @@ class FunctionDefinition(FunctionPrototype):
     attrs : iterable of Attribute instances
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ccode, symbols
     >>> from sympy.codegen.ast import real, FunctionPrototype
     >>> x, y = symbols('x y', real=True)
@@ -1184,6 +1160,7 @@ class FunctionDefinition(FunctionPrototype):
         return x*y;
     }
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     @classmethod
@@ -1192,16 +1169,14 @@ class FunctionDefinition(FunctionPrototype):
     def from_FunctionPrototype(cls, func_proto, body): ...
 
 class Return(Token):
-    """ Represents a return command in the code.
+    """Represents a return command in the code.
 
     Parameters
-    ==========
-
+    ----------
     return : Basic
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.ast import Return
     >>> from sympy.printing.pycode import pycode
     >>> from sympy import Symbol
@@ -1210,22 +1185,21 @@ class Return(Token):
     return x
 
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     _construct_return: Incomplete
 
 class FunctionCall(Token, Expr):
-    """ Represents a call to a function in the code.
+    """Represents a call to a function in the code.
 
     Parameters
-    ==========
-
+    ----------
     name : str
     function_args : Tuple
 
     Examples
-    ========
-
+    --------
     >>> from sympy.codegen.ast import FunctionCall
     >>> from sympy import pycode
     >>> fcall = FunctionCall('foo', 'bar baz'.split())
@@ -1233,21 +1207,24 @@ class FunctionCall(Token, Expr):
     foo(bar, baz)
 
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     _construct_name = String
     _construct_function_args: Incomplete
 
 class Raise(Token):
-    """ Prints as 'raise ...' in Python, 'throw ...' in C++"""
+    """Prints as 'raise ...' in Python, 'throw ...' in C++"""
+
     __slots__: Incomplete
     _fields: Incomplete
 
 class RuntimeError_(Token):
-    """ Represents 'std::runtime_error' in C++ and 'RuntimeError' in Python.
+    """Represents 'std::runtime_error' in C++ and 'RuntimeError' in Python.
 
     Note that the latter is uncommon, and you might want to use e.g. ValueError.
     """
+
     __slots__: Incomplete
     _fields: Incomplete
     _construct_message = String

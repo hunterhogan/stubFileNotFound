@@ -154,4 +154,3 @@ def handleClash2(existing: Iterable[str] = [], prefix: str = '', suffix: str = '
           ... \t\'00000.2.0000000000\')
           True
     """
-

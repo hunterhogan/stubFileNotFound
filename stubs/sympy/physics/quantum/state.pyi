@@ -3,7 +3,7 @@ from sympy.core.function import Function
 from sympy.physics.quantum.kind import BraKind, KetKind
 from sympy.physics.quantum.qexpr import QExpr
 
-__all__ = ['KetBase', 'BraBase', 'StateBase', 'State', 'Ket', 'Bra', 'TimeDepState', 'TimeDepBra', 'TimeDepKet', 'OrthogonalKet', 'OrthogonalBra', 'OrthogonalState', 'Wavefunction']
+__all__ = ['Bra', 'BraBase', 'Ket', 'KetBase', 'OrthogonalBra', 'OrthogonalKet', 'OrthogonalState', 'State', 'StateBase', 'TimeDepBra', 'TimeDepKet', 'TimeDepState', 'Wavefunction']
 
 class StateBase(QExpr):
     """Abstract base class for general abstract states in quantum mechanics.
@@ -15,9 +15,10 @@ class StateBase(QExpr):
     This is an abstract base class and you should not instantiate it directly,
     instead use State.
     """
+
     @classmethod
     def _operators_to_state(self, ops, **options) -> None:
-        """ Returns the eigenstate instance for the passed operators.
+        """Returns the eigenstate instance for the passed operators.
 
         This method should be overridden in subclasses. It will handle being
         passed either an Operator instance or set of Operator instances. It
@@ -25,7 +26,7 @@ class StateBase(QExpr):
         NotImplementedError. See cartesian.py for an example.
         """
     def _state_to_operators(self, op_classes, **options) -> None:
-        """ Returns the operators which this state instance is an eigenstate
+        """Returns the operators which this state instance is an eigenstate
         of.
 
         This method should be overridden in subclasses. It will be called on
@@ -60,6 +61,7 @@ class KetBase(StateBase):
     an abstract base class and you should not instantiate it directly, instead
     use Ket.
     """
+
     kind = KetKind
     lbracket = _straight_bracket
     rbracket = _rbracket
@@ -94,8 +96,7 @@ class KetBase(StateBase):
         teach the Ket how to implement OperatorName*Ket
 
         Parameters
-        ==========
-
+        ----------
         op : Operator
             The Operator that is acting on the Ket as op*Ket
         options : dict
@@ -110,6 +111,7 @@ class BraBase(StateBase):
     is an abstract base class and you should not instantiate it directly,
     instead use Bra.
     """
+
     kind = BraKind
     lbracket = _lbracket
     rbracket = _straight_bracket
@@ -140,16 +142,14 @@ class Ket(State, KetBase):
     expressing Kets in Dirac notation [1]_.
 
     Parameters
-    ==========
-
+    ----------
     args : tuple
         The list of numbers or parameters that uniquely specify the
         ket. This will usually be its symbol or its quantum numbers. For
         time-dependent state, this will include the time.
 
     Examples
-    ========
-
+    --------
     Create a simple Ket and looking at its properties::
 
         >>> from sympy.physics.quantum import Ket
@@ -186,10 +186,11 @@ class Ket(State, KetBase):
         |nm>
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Bra-ket_notation
     """
+
     @classmethod
     def dual_class(self): ...
 
@@ -201,16 +202,14 @@ class Bra(State, BraBase):
     expressing Bras in Dirac notation.
 
     Parameters
-    ==========
-
+    ----------
     args : tuple
         The list of numbers or parameters that uniquely specify the
         ket. This will usually be its symbol or its quantum numbers. For
         time-dependent state, this will include the time.
 
     Examples
-    ========
-
+    --------
     Create a simple Bra and look at its properties::
 
         >>> from sympy.physics.quantum import Bra
@@ -244,10 +243,11 @@ class Bra(State, BraBase):
         <mm| - I*<mm|
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Bra-ket_notation
     """
+
     @classmethod
     def dual_class(self): ...
 
@@ -260,13 +260,13 @@ class TimeDepState(StateBase):
     label argument.
 
     Parameters
-    ==========
-
+    ----------
     args : tuple
         The list of numbers or parameters that uniquely specify the ket. This
         will usually be its symbol or its quantum numbers. For time-dependent
         state, this will include the time as the final argument.
     """
+
     @classmethod
     def default_args(self): ...
     @property
@@ -292,16 +292,14 @@ class TimeDepKet(TimeDepState, KetBase):
     ``TimeDepBra``.
 
     Parameters
-    ==========
-
+    ----------
     args : tuple
         The list of numbers or parameters that uniquely specify the ket. This
         will usually be its symbol or its quantum numbers. For time-dependent
         state, this will include the time as the final argument.
 
     Examples
-    ========
-
+    --------
     Create a TimeDepKet and look at its attributes::
 
         >>> from sympy.physics.quantum import TimeDepKet
@@ -322,6 +320,7 @@ class TimeDepKet(TimeDepState, KetBase):
         >>> k.dual_class()
         <class 'sympy.physics.quantum.state.TimeDepBra'>
     """
+
     @classmethod
     def dual_class(self): ...
 
@@ -332,16 +331,14 @@ class TimeDepBra(TimeDepState, BraBase):
     should be used for Bras that vary with time. Its dual is a TimeDepBra.
 
     Parameters
-    ==========
-
+    ----------
     args : tuple
         The list of numbers or parameters that uniquely specify the ket. This
         will usually be its symbol or its quantum numbers. For time-dependent
         state, this will include the time as the final argument.
 
     Examples
-    ========
-
+    --------
         >>> from sympy.physics.quantum import TimeDepBra
         >>> b = TimeDepBra('psi', 't')
         >>> b
@@ -355,6 +352,7 @@ class TimeDepBra(TimeDepState, BraBase):
         >>> b.dual
         |psi;t>
     """
+
     @classmethod
     def dual_class(self): ...
 
@@ -376,6 +374,7 @@ class OrthogonalKet(OrthogonalState, KetBase):
         >>> (OrthogonalBra(n)*OrthogonalKet(m)).doit()
         <n|m>
     """
+
     @classmethod
     def dual_class(self): ...
     def _eval_innerproduct(self, bra, **hints): ...
@@ -383,6 +382,7 @@ class OrthogonalKet(OrthogonalState, KetBase):
 class OrthogonalBra(OrthogonalState, BraBase):
     """Orthogonal Bra in quantum mechanics.
     """
+
     @classmethod
     def dual_class(self): ...
 
@@ -393,8 +393,7 @@ class Wavefunction(Function):
     be used to easily calculate normalizations and probabilities.
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
            The expression representing the functional form of the w.f.
 
@@ -402,8 +401,7 @@ class Wavefunction(Function):
            The coordinates to be integrated over, and their bounds
 
     Examples
-    ========
-
+    --------
     Particle in a box, specifying bounds in the more primitive way of using
     Piecewise:
 
@@ -470,6 +468,7 @@ class Wavefunction(Function):
         Wavefunction(2*x, x)
 
     """
+
     def __new__(cls, *args, **options): ...
     def __call__(self, *args, **options): ...
     def _eval_derivative(self, symbol): ...
@@ -489,8 +488,7 @@ class Wavefunction(Function):
         Return the coordinates which the wavefunction depends on
 
         Examples
-        ========
-
+        --------
             >>> from sympy.physics.quantum.state import Wavefunction
             >>> from sympy import symbols
             >>> x,y = symbols('x,y')
@@ -509,8 +507,7 @@ class Wavefunction(Function):
         limits are specified, defaults to ``(-oo, oo)``.
 
         Examples
-        ========
-
+        --------
             >>> from sympy.physics.quantum.state import Wavefunction
             >>> from sympy import symbols
             >>> x, y = symbols('x, y')
@@ -531,8 +528,7 @@ class Wavefunction(Function):
         Return the expression which is the functional form of the Wavefunction
 
         Examples
-        ========
-
+        --------
             >>> from sympy.physics.quantum.state import Wavefunction
             >>> from sympy import symbols
             >>> x, y = symbols('x, y')
@@ -547,8 +543,7 @@ class Wavefunction(Function):
         Returns true if the Wavefunction is properly normalized
 
         Examples
-        ========
-
+        --------
             >>> from sympy import symbols, pi
             >>> from sympy.functions import sqrt, sin
             >>> from sympy.physics.quantum.state import Wavefunction
@@ -570,8 +565,7 @@ class Wavefunction(Function):
         the bounds specified.
 
         Examples
-        ========
-
+        --------
             >>> from sympy import symbols, pi
             >>> from sympy.functions import sqrt, sin
             >>> from sympy.physics.quantum.state import Wavefunction
@@ -592,8 +586,7 @@ class Wavefunction(Function):
         Return a normalized version of the Wavefunction
 
         Examples
-        ========
-
+        --------
             >>> from sympy import symbols, pi
             >>> from sympy.functions import sin
             >>> from sympy.physics.quantum.state import Wavefunction
@@ -611,8 +604,7 @@ class Wavefunction(Function):
         Return the absolute magnitude of the w.f., `|\\psi(x)|^2`
 
         Examples
-        ========
-
+        --------
             >>> from sympy import symbols, pi
             >>> from sympy.functions import sin
             >>> from sympy.physics.quantum.state import Wavefunction

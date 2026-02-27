@@ -38,4 +38,3 @@ def instantiateVariableFont(varfont, location, inplace: bool = False, overlap: b
     """
 def main(args=None) -> None:
     """Instantiate a variation font"""
-

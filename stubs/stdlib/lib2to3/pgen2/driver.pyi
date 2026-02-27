@@ -1,11 +1,10 @@
+from ..pytree import _NL
+from . import _Convert
+from .grammar import Grammar
 from _typeshed import StrPath
 from collections.abc import Iterable
 from logging import Logger
 from typing import IO
-
-from ..pytree import _NL
-from . import _Convert
-from .grammar import Grammar
 
 __all__ = ["Driver", "load_grammar"]
 

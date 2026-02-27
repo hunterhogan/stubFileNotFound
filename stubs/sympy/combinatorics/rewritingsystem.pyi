@@ -6,7 +6,7 @@ class RewritingSystem:
     A class implementing rewriting systems for `FpGroup`s.
 
     References
-    ==========
+    ----------
     .. [1] Epstein, D., Holt, D. and Rees, S. (1991).
            The use of Knuth-Bendix methods to solve the word problem in automatic groups.
            Journal of Symbolic Computation, 12(4-5), pp.397-414.
@@ -15,6 +15,7 @@ class RewritingSystem:
            https://www.gap-system.org/Manuals/pkg/kbmag-1.5.3/doc/manual.pdf
 
     """
+
     group: Incomplete
     alphabet: Incomplete
     _is_confluent: Incomplete
@@ -75,7 +76,8 @@ class RewritingSystem:
         Arguments:
             rules (dictionary): Rules for which the inverse rules are to computed.
 
-        Returns:
+        Returns
+        -------
             Dictionary of inverse_rules.
 
         """

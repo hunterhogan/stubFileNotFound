@@ -1,8 +1,8 @@
-import sys
-import types
 from _typeshed import ReadableBuffer
 from importlib.machinery import ModuleSpec
 from typing import Any
+import sys
+import types
 
 check_hash_based_pycs: str
 if sys.version_info >= (3, 14):

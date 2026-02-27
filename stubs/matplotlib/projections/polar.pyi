@@ -1,11 +1,11 @@
-import matplotlib.axis as maxis
-import matplotlib.ticker as mticker
-import matplotlib.transforms as mtransforms
 from _typeshed import Incomplete
 from matplotlib import _api as _api, cbook as cbook
 from matplotlib.axes import Axes as Axes
 from matplotlib.path import Path as Path
 from matplotlib.spines import Spine as Spine
+import matplotlib.axis as maxis
+import matplotlib.ticker as mticker
+import matplotlib.transforms as mtransforms
 
 def _apply_theta_transforms_warn() -> None: ...
 
@@ -25,6 +25,7 @@ class PolarTransform(mtransforms.Transform):
     Path segments at a fixed radius are automatically transformed to circular
     arcs as long as ``path._interpolation_steps > 1``.
     """
+
     input_dims: int
     output_dims: int
     _axis: Incomplete
@@ -64,6 +65,7 @@ class PolarAffine(mtransforms.Affine2DBase):
     :math:`r_{\\min}, r_{\\max}` are the minimum and maximum radial limits after
     any scaling (e.g. log scaling) has been removed.
     """
+
     _scale_transform: Incomplete
     _limits: Incomplete
     _mtx: Incomplete
@@ -88,6 +90,7 @@ class InvertedPolarTransform(mtransforms.Transform):
     The inverse of the polar transform, mapping Cartesian
     coordinate space *x* and *y* back to *theta* and *r*.
     """
+
     input_dims: int
     output_dims: int
     _axis: Incomplete
@@ -114,6 +117,7 @@ class ThetaFormatter(mticker.Formatter):
     Used to format the *theta* tick labels.  Converts the native
     unit of radians into degrees and adds a degree symbol.
     """
+
     def __call__(self, x, pos: Incomplete | None = None): ...
 
 class _AxisWrapper:
@@ -134,6 +138,7 @@ class ThetaLocator(mticker.Locator):
     view spans the entire circle. In such cases, the previously used default
     locations of every 45 degrees are returned.
     """
+
     base: Incomplete
     axis: Incomplete
     def __init__(self, base) -> None: ...
@@ -154,6 +159,7 @@ class ThetaTick(maxis.XTick):
     the spine. The label padding is also applied here since it's not possible
     to use a generic axes transform to produce tick-specific padding.
     """
+
     _text1_translate: Incomplete
     _text2_translate: Incomplete
     def __init__(self, axes, *args, **kwargs) -> None: ...
@@ -168,6 +174,7 @@ class ThetaAxis(maxis.XAxis):
     This overrides certain properties of an `.XAxis` to provide special-casing
     for an angular axis.
     """
+
     __name__: str
     axis_name: str
     _tick_class = ThetaTick
@@ -187,6 +194,7 @@ class RadialLocator(mticker.Locator):
     delegates to the base `.Locator` (which may be different depending on the
     scale of the *r*-axis).
     """
+
     base: Incomplete
     _axes: Incomplete
     def __init__(self, base, axes: Incomplete | None = None) -> None: ...
@@ -216,6 +224,7 @@ class _ThetaShift(mtransforms.ScaledTranslation):
         Whether to shift away from the start (``'min'``) or the end (``'max'``)
         of the axes, or using the rlabel position (``'rlabel'``).
     """
+
     axes: Incomplete
     mode: Incomplete
     pad: Incomplete
@@ -234,6 +243,7 @@ class RadialTick(maxis.YTick):
     the spine. Labels are also rotated to be perpendicular to the spine, when
     'auto' rotation is enabled.
     """
+
     def __init__(self, *args, **kwargs) -> None: ...
     def _determine_anchor(self, mode, angle, start): ...
     def update_position(self, loc) -> None: ...
@@ -245,6 +255,7 @@ class RadialAxis(maxis.YAxis):
     This overrides certain properties of a `.YAxis` to provide special-casing
     for a radial axis.
     """
+
     __name__: str
     axis_name: str
     _tick_class = RadialTick
@@ -280,6 +291,7 @@ class _WedgeBbox(mtransforms.Bbox):
     originLim : `~matplotlib.transforms.Bbox`
         Bbox determining the origin for the wedge, if different from *viewLim*
     """
+
     _center: Incomplete
     _viewLim: Incomplete
     _originLim: Incomplete
@@ -294,6 +306,7 @@ class PolarAxes(Axes):
 
     Theta starts pointing east and goes anti-clockwise.
     """
+
     name: str
     _default_theta_offset: Incomplete
     _default_theta_direction: Incomplete
@@ -364,7 +377,7 @@ class PolarAxes(Axes):
         Get the offset for the location of 0 in radians.
         """
     def set_theta_zero_location(self, loc, offset: float = 0.0):
-        '''
+        """
         Set the location of theta\'s zero.
 
         This simply calls `set_theta_offset` with the correct value in radians.
@@ -377,7 +390,7 @@ class PolarAxes(Axes):
             An offset in degrees to apply from the specified *loc*. **Note:**
             this offset is *always* applied counter-clockwise regardless of
             the direction setting.
-        '''
+        """
     def set_theta_direction(self, direction) -> None:
         """
         Set the direction in which theta increases.

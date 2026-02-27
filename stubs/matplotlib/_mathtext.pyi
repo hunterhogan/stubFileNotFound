@@ -1,13 +1,16 @@
+from . import cbook as cbook
+from ._mathtext_data import (
+	latex_to_bakoma as latex_to_bakoma, stix_glyph_fixes as stix_glyph_fixes, stix_virtual_fonts as stix_virtual_fonts,
+	tex2uni as tex2uni)
+from .font_manager import findfont as findfont, FontProperties as FontProperties, get_font as get_font
+from .ft2font import (
+	FT2Font as FT2Font, FT2Image as FT2Image, Glyph as Glyph, Kerning as Kerning, LoadFlags as LoadFlags)
+from _typeshed import Incomplete
+from pyparsing import ParserElement, ParseResults
+from typing import NamedTuple
 import abc
 import enum
 import typing as T
-from . import cbook as cbook
-from ._mathtext_data import latex_to_bakoma as latex_to_bakoma, stix_glyph_fixes as stix_glyph_fixes, stix_virtual_fonts as stix_virtual_fonts, tex2uni as tex2uni
-from .font_manager import FontProperties as FontProperties, findfont as findfont, get_font as get_font
-from .ft2font import FT2Font as FT2Font, FT2Image as FT2Image, Glyph as Glyph, Kerning as Kerning, LoadFlags as LoadFlags
-from _typeshed import Incomplete
-from pyparsing import ParseResults, ParserElement
-from typing import NamedTuple
 
 _log: Incomplete
 
@@ -23,7 +26,7 @@ def get_unicode_index(symbol: str) -> int:
     """
 
 class VectorParse(NamedTuple):
-    '''
+    """
     The namedtuple type returned by ``MathTextParser("path").parse(...)``.
 
     Attributes
@@ -34,7 +37,8 @@ class VectorParse(NamedTuple):
         The glyphs including their positions.
     rect : list
         The list of rectangles.
-    '''
+    """
+
     width: float
     height: float
     depth: float
@@ -42,7 +46,7 @@ class VectorParse(NamedTuple):
     rects: list[tuple[float, float, float, float]]
 
 class RasterParse(NamedTuple):
-    '''
+    """
     The namedtuple type returned by ``MathTextParser("agg").parse(...)``.
 
     Attributes
@@ -53,7 +57,8 @@ class RasterParse(NamedTuple):
         The global metrics.
     image : FT2Image
         A raster image.
-    '''
+    """
+
     ox: float
     oy: float
     width: float
@@ -68,6 +73,7 @@ class Output:
     This class is not exposed to end users, but converted to a `VectorParse` or
     a `RasterParse` by `.MathTextParser.parse`.
     """
+
     box: Incomplete
     glyphs: list[tuple[float, float, FontInfo]]
     rects: list[tuple[float, float, float, float]]
@@ -76,7 +82,7 @@ class Output:
     def to_raster(self, *, antialiased: bool) -> RasterParse: ...
 
 class FontMetrics(NamedTuple):
-    '''
+    """
     Metrics of a font.
 
     Attributes
@@ -95,7 +101,8 @@ class FontMetrics(NamedTuple):
     slanted : bool
         Whether the glyph should be considered as "slanted" (currently used for kerning
         sub/superscripts).
-    '''
+    """
+
     advance: float
     height: float
     width: float
@@ -123,6 +130,7 @@ class Fonts(abc.ABC):
     return the character metrics.  It also delegates to a backend class
     to do the actual drawing.
     """
+
     default_font_prop: Incomplete
     load_glyph_flags: Incomplete
     def __init__(self, default_font_prop: FontProperties, load_glyph_flags: LoadFlags) -> None:
@@ -145,7 +153,7 @@ class Fonts(abc.ABC):
     def _get_font(self, font: str) -> FT2Font: ...
     def _get_info(self, font: str, font_class: str, sym: str, fontsize: float, dpi: float) -> FontInfo: ...
     def get_metrics(self, font: str, font_class: str, sym: str, fontsize: float, dpi: float) -> FontMetrics:
-        '''
+        """
         Parameters
         ----------
         font : str
@@ -167,7 +175,7 @@ class Fonts(abc.ABC):
         Returns
         -------
         FontMetrics
-        '''
+        """
     def render_glyph(self, output: Output, ox: float, oy: float, font: str, font_class: str, sym: str, fontsize: float, dpi: float) -> None:
         """
         At position (*ox*, *oy*), draw the glyph specified by the remaining
@@ -199,6 +207,7 @@ class TruetypeFonts(Fonts, metaclass=abc.ABCMeta):
     A generic base class for all font setups that use Truetype fonts
     (through FT2Font).
     """
+
     _fonts: Incomplete
     fontmap: dict[str | int, str]
     def __init__(self, default_font_prop: FontProperties, load_glyph_flags: LoadFlags) -> None: ...
@@ -217,6 +226,7 @@ class BakomaFonts(TruetypeFonts):
     Symbols are strewn about a number of font files, each of which has
     its own proprietary 8-bit encoding.
     """
+
     _fontmap: Incomplete
     _stix_fallback: Incomplete
     def __init__(self, default_font_prop: FontProperties, load_glyph_flags: LoadFlags) -> None: ...
@@ -226,7 +236,7 @@ class BakomaFonts(TruetypeFonts):
     def get_sized_alternatives_for_symbol(self, fontname: str, sym: str) -> list[tuple[str, str]]: ...
 
 class UnicodeFonts(TruetypeFonts):
-    '''
+    """
     An abstract base class for handling Unicode fonts.
 
     While some reasonably complete Unicode fonts (such as DejaVu) may
@@ -235,7 +245,8 @@ class UnicodeFonts(TruetypeFonts):
 
     This class will "fallback" on the Bakoma fonts when a required
     symbol cannot be found in the font.
-    '''
+    """
+
     _cmr10_substitutions: Incomplete
     _fallback_font: Incomplete
     def __init__(self, default_font_prop: FontProperties, load_glyph_flags: LoadFlags) -> None: ...
@@ -257,6 +268,7 @@ class DejaVuSerifFonts(DejaVuFonts):
 
     If a glyph is not found it will fallback to Stix Serif
     """
+
     _fontmap: Incomplete
 
 class DejaVuSansFonts(DejaVuFonts):
@@ -265,10 +277,11 @@ class DejaVuSansFonts(DejaVuFonts):
 
     If a glyph is not found it will fallback to Stix Sans
     """
+
     _fontmap: Incomplete
 
 class StixFonts(UnicodeFonts):
-    '''
+    """
     A font handling class for the STIX fonts.
 
     In addition to what UnicodeFonts provides, this class:
@@ -278,7 +291,8 @@ class StixFonts(UnicodeFonts):
       code points, such as "Blackboard".
 
     - handles sized alternative characters for the STIXSizeX fonts.
-    '''
+    """
+
     _fontmap: dict[str | int, str]
     _fallback_font: Incomplete
     _sans: bool
@@ -291,6 +305,7 @@ class StixSansFonts(StixFonts):
     A font handling class for the STIX fonts (that uses sans-serif
     characters by default).
     """
+
     _sans: bool
 
 SHRINK_FACTOR: float
@@ -302,6 +317,7 @@ class FontConstantsBase:
     and superscripts are laid out.  These are all metrics that can't
     be reliably retrieved from the font metrics in the font itself.
     """
+
     script_space: T.ClassVar[float]
     subdrop: T.ClassVar[float]
     sup1: T.ClassVar[float]
@@ -344,9 +360,9 @@ def _get_font_constant_set(state: ParserState) -> type[FontConstantsBase]: ...
 
 class Node:
     """A node in the TeX box model."""
+
     size: int
     def __init__(self) -> None: ...
-    def __repr__(self) -> str: ...
     def get_kerning(self, next: Node | None) -> float: ...
     def shrink(self) -> None:
         """
@@ -358,6 +374,7 @@ class Node:
 
 class Box(Node):
     """A node with a physical location."""
+
     width: Incomplete
     height: Incomplete
     depth: Incomplete
@@ -367,10 +384,12 @@ class Box(Node):
 
 class Vbox(Box):
     """A box with only height (zero width)."""
+
     def __init__(self, height: float, depth: float) -> None: ...
 
 class Hbox(Box):
     """A box with only width (zero height and depth)."""
+
     def __init__(self, width: float) -> None: ...
 
 class Char(Node):
@@ -385,6 +404,7 @@ class Char(Node):
     must be converted into a `Kern` node when the `Char` is added to its parent
     `Hlist`.
     """
+
     c: Incomplete
     fontset: Incomplete
     font: Incomplete
@@ -392,7 +412,6 @@ class Char(Node):
     fontsize: Incomplete
     dpi: Incomplete
     def __init__(self, c: str, state: ParserState) -> None: ...
-    def __repr__(self) -> str: ...
     width: Incomplete
     height: Incomplete
     depth: Incomplete
@@ -414,6 +433,7 @@ class Accent(Char):
     since they are already offset correctly from the baseline in
     TrueType fonts.
     """
+
     width: Incomplete
     height: Incomplete
     depth: int
@@ -423,19 +443,20 @@ class Accent(Char):
 
 class List(Box):
     """A list of nodes (either horizontal or vertical)."""
+
     shift_amount: float
     children: Incomplete
     glue_set: float
     glue_sign: int
     glue_order: int
     def __init__(self, elements: T.Sequence[Node]) -> None: ...
-    def __repr__(self) -> str: ...
     glue_ratio: float
     def _set_glue(self, x: float, sign: int, totals: list[float], error_type: str) -> None: ...
     def shrink(self) -> None: ...
 
 class Hlist(List):
     """A horizontal list of boxes."""
+
     def __init__(self, elements: T.Sequence[Node], w: float = 0.0, m: T.Literal['additional', 'exactly'] = 'additional', do_kern: bool = True) -> None: ...
     children: Incomplete
     def kern(self) -> None:
@@ -475,6 +496,7 @@ class Hlist(List):
 
 class Vlist(List):
     """A vertical list of boxes."""
+
     def __init__(self, elements: T.Sequence[Node], h: float = 0.0, m: T.Literal['additional', 'exactly'] = 'additional') -> None: ...
     width: Incomplete
     depth: Incomplete
@@ -503,7 +525,7 @@ class Vlist(List):
         """
 
 class Rule(Box):
-    '''
+    """
     A solid black rectangle.
 
     It has *width*, *depth*, and *height* fields just as in an `Hlist`.
@@ -511,17 +533,20 @@ class Rule(Box):
     determined by running the rule up to the boundary of the innermost
     enclosing box.  This is called a "running dimension".  The width is never
     running in an `Hlist`; the height and depth are never running in a `Vlist`.
-    '''
+    """
+
     fontset: Incomplete
     def __init__(self, width: float, height: float, depth: float, state: ParserState) -> None: ...
     def render(self, output: Output, x: float, y: float, w: float, h: float) -> None: ...
 
 class Hrule(Rule):
     """Convenience class to create a horizontal rule."""
+
     def __init__(self, state: ParserState, thickness: float | None = None) -> None: ...
 
 class Vrule(Rule):
     """Convenience class to create a vertical rule."""
+
     def __init__(self, state: ParserState) -> None: ...
 
 class _GlueSpec(NamedTuple):
@@ -538,6 +563,7 @@ class Glue(Node):
     (This is a memory optimization which probably doesn't matter anymore, but
     it's easier to stick to what TeX does.)
     """
+
     glue_spec: Incomplete
     def __init__(self, glue_type: _GlueSpec | T.Literal['fil', 'fill', 'filll', 'neg_fil', 'neg_fill', 'neg_filll', 'empty', 'ss']) -> None: ...
     def shrink(self) -> None: ...
@@ -547,6 +573,7 @@ class HCentered(Hlist):
     A convenience class to create an `Hlist` whose contents are
     centered within its enclosing box.
     """
+
     def __init__(self, elements: list[Node]) -> None: ...
 
 class VCentered(Vlist):
@@ -554,6 +581,7 @@ class VCentered(Vlist):
     A convenience class to create a `Vlist` whose contents are
     centered within its enclosing box.
     """
+
     def __init__(self, elements: list[Node]) -> None: ...
 
 class Kern(Node):
@@ -566,11 +594,11 @@ class Kern(Node):
     when its *width* denotes additional spacing in the vertical
     direction.
     """
+
     height: int
     depth: int
     width: Incomplete
     def __init__(self, width: float) -> None: ...
-    def __repr__(self) -> str: ...
     def shrink(self) -> None: ...
 
 class AutoHeightChar(Hlist):
@@ -581,6 +609,7 @@ class AutoHeightChar(Hlist):
     the BaKoMa fonts), the correct glyph will be selected, otherwise this will
     always just return a scaled version of the glyph.
     """
+
     shift_amount: Incomplete
     def __init__(self, c: str, height: float, depth: float, state: ParserState, always: bool = False, factor: float | None = None) -> None: ...
 
@@ -592,6 +621,7 @@ class AutoWidthChar(Hlist):
     the BaKoMa fonts), the correct glyph will be selected, otherwise this will
     always just return a scaled version of the glyph.
     """
+
     width: Incomplete
     def __init__(self, c: str, width: float, state: ParserState, always: bool = False, char_class: type[Char] = ...) -> None: ...
 
@@ -609,7 +639,7 @@ def Error(msg: str) -> ParserElement:
     """Helper class to raise parser errors."""
 
 class ParserState:
-    '''
+    """
     Parser state.
 
     States are pushed and popped from a stack as necessary, and the "current"
@@ -617,7 +647,8 @@ class ParserState:
 
     Upon entering and leaving a group { } or math/non-math, the stack is pushed
     and popped accordingly.
-    '''
+    """
+
     fontset: Incomplete
     _font: Incomplete
     font_class: Incomplete
@@ -633,7 +664,7 @@ class ParserState:
         """Return the underline thickness for this state."""
 
 def cmd(expr: str, args: ParserElement) -> ParserElement:
-    '''
+    """
     Helper to define TeX commands.
 
     ``cmd("\\cmd", args)`` is equivalent to
@@ -642,7 +673,7 @@ def cmd(expr: str, args: ParserElement) -> ParserElement:
     already includes arguments (e.g. "\\cmd{arg}{...}"), then they are stripped
     when constructing the parse element, but kept (and *expr* is used as is) in
     the error message.
-    '''
+    """
 
 class Parser:
     """
@@ -652,6 +683,7 @@ class Parser:
 
     The grammar is based directly on that in TeX, though it cuts a few corners.
     """
+
     class _MathStyle(enum.Enum):
         DISPLAYSTYLE = 0
         TEXTSTYLE = 1
@@ -660,7 +692,7 @@ class Parser:
     _binary_operators: Incomplete
     _relation_symbols: Incomplete
     _arrow_symbols: Incomplete
-    _spaced_symbols = _binary_operators | _relation_symbols | _arrow_symbols
+    _spaced_symbols: T.TypeAlias = _binary_operators | _relation_symbols | _arrow_symbols
     _punctuation_symbols: Incomplete
     _overunder_symbols: Incomplete
     _overunder_functions: Incomplete
@@ -670,7 +702,7 @@ class Parser:
     _ambi_delims: Incomplete
     _left_delims: Incomplete
     _right_delims: Incomplete
-    _delims = _left_delims | _right_delims | _ambi_delims
+    _delims: T.TypeAlias = _left_delims | _right_delims | _ambi_delims
     _small_greek: Incomplete
     _latin_alphabets: Incomplete
     _expression: Incomplete

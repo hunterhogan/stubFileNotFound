@@ -2,7 +2,8 @@ from _typeshed import Incomplete
 from sympy.core.containers import Tuple as Tuple
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol
 from sympy.plotting.plot import plot_factory as plot_factory
-from sympy.plotting.series import ImplicitSeries as ImplicitSeries, _set_discretization_points as _set_discretization_points
+from sympy.plotting.series import (
+	_set_discretization_points as _set_discretization_points, ImplicitSeries as ImplicitSeries)
 from sympy.polys.polyutils import _sort_gens as _sort_gens
 from sympy.utilities.decorator import doctest_depends_on as doctest_depends_on
 from sympy.utilities.iterables import flatten as flatten
@@ -10,7 +11,7 @@ from sympy.utilities.iterables import flatten as flatten
 __doctest_requires__: Incomplete
 
 def plot_implicit(expr, x_var=None, y_var=None, adaptive: bool = True, depth: int = 0, n: int = 300, line_color: str = 'blue', show: bool = True, **kwargs):
-    '''A plot function to plot implicit equations / inequalities.
+    """A plot function to plot implicit equations / inequalities.
 
     Arguments
     =========
@@ -59,8 +60,7 @@ def plot_implicit(expr, x_var=None, y_var=None, adaptive: bool = True, depth: in
     interval arithmetic, fails to plot with small line width.
 
     Examples
-    ========
-
+    --------
     Plot expressions:
 
     .. plot::
@@ -151,4 +151,4 @@ def plot_implicit(expr, x_var=None, y_var=None, adaptive: bool = True, depth: in
 
         >>> p8 = plot_implicit(y - 1, y_var=y)
         >>> p9 = plot_implicit(x - 1, x_var=x)
-    '''
+    """

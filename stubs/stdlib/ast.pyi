@@ -1,17 +1,15 @@
+from _ast import (
+	PyCF_ALLOW_TOP_LEVEL_AWAIT as PyCF_ALLOW_TOP_LEVEL_AWAIT, PyCF_ONLY_AST as PyCF_ONLY_AST,
+	PyCF_TYPE_COMMENTS as PyCF_TYPE_COMMENTS)
+from _typeshed import ReadableBuffer, Unused
+from collections.abc import Iterable, Iterator, Sequence
+from typing import Any, ClassVar, Generic, Literal, overload, Self, type_check_only, TypedDict, TypeVar as _TypeVar
+from typing_extensions import deprecated, disjoint_base, Unpack
 import ast
 import builtins
 import os
 import sys
 import typing_extensions
-from _ast import (
-    PyCF_ALLOW_TOP_LEVEL_AWAIT as PyCF_ALLOW_TOP_LEVEL_AWAIT,
-    PyCF_ONLY_AST as PyCF_ONLY_AST,
-    PyCF_TYPE_COMMENTS as PyCF_TYPE_COMMENTS,
-)
-from _typeshed import ReadableBuffer, Unused
-from collections.abc import Iterable, Iterator, Sequence
-from typing import Any, ClassVar, Generic, Literal, TypedDict, TypeVar as _TypeVar, overload, type_check_only
-from typing_extensions import Self, Unpack, deprecated, disjoint_base
 
 if sys.version_info >= (3, 13):
     from _ast import PyCF_OPTIMIZED_AST as PyCF_OPTIMIZED_AST

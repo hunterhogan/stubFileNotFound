@@ -6,14 +6,20 @@ from sympy.core.sympify import _sympify as _sympify, sympify as sympify
 from sympy.external import import_module as import_module
 from sympy.functions.elementary.exponential import exp as exp
 from sympy.functions.special.gamma_functions import multigamma as multigamma
-from sympy.matrices import Determinant as Determinant, ImmutableMatrix as ImmutableMatrix, Inverse as Inverse, MatrixBase as MatrixBase, MatrixSet as MatrixSet, MatrixSymbol as MatrixSymbol, Trace as Trace, Transpose as Transpose, matrix2numpy as matrix2numpy
-from sympy.stats.rv import Distribution as Distribution, MatrixDomain as MatrixDomain, NamedArgsMixin as NamedArgsMixin, PSpace as PSpace, RandomMatrixSymbol as RandomMatrixSymbol, _symbol_converter as _symbol_converter, _value_check as _value_check
+from sympy.matrices import (
+	Determinant as Determinant, ImmutableMatrix as ImmutableMatrix, Inverse as Inverse, matrix2numpy as matrix2numpy,
+	MatrixBase as MatrixBase, MatrixSet as MatrixSet, MatrixSymbol as MatrixSymbol, Trace as Trace, Transpose as Transpose)
+from sympy.stats.rv import (
+	_symbol_converter as _symbol_converter, _value_check as _value_check, Distribution as Distribution,
+	MatrixDomain as MatrixDomain, NamedArgsMixin as NamedArgsMixin, PSpace as PSpace,
+	RandomMatrixSymbol as RandomMatrixSymbol)
 
 class MatrixPSpace(PSpace):
     """
     Represents probability space for
     Matrix Distributions.
     """
+
     def __new__(cls, sym, distribution, dim_n, dim_m): ...
     distribution: Incomplete
     symbol: Incomplete
@@ -35,6 +41,7 @@ def rv(symbol, cls, args): ...
 
 class SampleMatrixScipy:
     """Returns the sample from scipy of the given distribution"""
+
     def __new__(cls, dist, size, seed=None): ...
     @classmethod
     def _sample_scipy(cls, dist, size, seed):
@@ -42,6 +49,7 @@ class SampleMatrixScipy:
 
 class SampleMatrixNumpy:
     """Returns the sample from numpy of the given distribution"""
+
     def __new__(cls, dist, size, seed=None): ...
     @classmethod
     def _sample_numpy(cls, dist, size, seed):
@@ -49,6 +57,7 @@ class SampleMatrixNumpy:
 
 class SampleMatrixPymc:
     """Returns the sample from pymc of the given distribution"""
+
     def __new__(cls, dist, size, seed=None): ...
     @classmethod
     def _sample_pymc(cls, dist, size, seed):
@@ -60,6 +69,7 @@ class MatrixDistribution(Distribution, NamedArgsMixin):
     """
     Abstract class for Matrix Distribution.
     """
+
     def __new__(cls, *args): ...
     @staticmethod
     def check(*args) -> None: ...
@@ -88,8 +98,7 @@ def MatrixGamma(symbol, alpha, beta, scale_matrix):
     The density of the said distribution can be found at [1].
 
     Parameters
-    ==========
-
+    ----------
     alpha: Positive Real number
         Shape Parameter
     beta: Positive Real number
@@ -98,13 +107,11 @@ def MatrixGamma(symbol, alpha, beta, scale_matrix):
         Scale Matrix
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import density, MatrixGamma
     >>> from sympy import MatrixSymbol, symbols
     >>> a, b = symbols('a b', positive=True)
@@ -119,7 +126,7 @@ def MatrixGamma(symbol, alpha, beta, scale_matrix):
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Matrix_gamma_distribution
 
@@ -142,21 +149,18 @@ def Wishart(symbol, n, scale_matrix):
     The density of the said distribution can be found at [1].
 
     Parameters
-    ==========
-
+    ----------
     n: Positive Real number
         Represents degrees of freedom
     scale_matrix: Positive definite real square matrix
         Scale Matrix
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy.stats import density, Wishart
     >>> from sympy import MatrixSymbol, symbols
     >>> n = symbols('n', positive=True)
@@ -170,7 +174,7 @@ def Wishart(symbol, n, scale_matrix):
     exp(-2/3)/(2**n*3**(n/2)*sqrt(pi)*gamma(n/2)*gamma(n/2 - 1/2))
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Wishart_distribution
 
@@ -193,8 +197,7 @@ def MatrixNormal(symbol, location_matrix, scale_matrix_1, scale_matrix_2):
     The density of the said distribution can be found at [1].
 
     Parameters
-    ==========
-
+    ----------
     location_matrix: Real ``n x p`` matrix
         Represents degrees of freedom
     scale_matrix_1: Positive definite matrix
@@ -203,13 +206,11 @@ def MatrixNormal(symbol, location_matrix, scale_matrix_1, scale_matrix_2):
         Scale Matrix of shape ``p x p``
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatrixSymbol
     >>> from sympy.stats import density, MatrixNormal
     >>> M = MatrixNormal('M', [[1, 2]], [1], [[1, 0], [0, 1]])
@@ -222,7 +223,7 @@ def MatrixNormal(symbol, location_matrix, scale_matrix_1, scale_matrix_2):
     exp(-4)/(2*pi)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Matrix_normal_distribution
 
@@ -245,8 +246,7 @@ def MatrixStudentT(symbol, nu, location_matrix, scale_matrix_1, scale_matrix_2):
     The density of the said distribution can be found at [1].
 
     Parameters
-    ==========
-
+    ----------
     nu: Positive Real number
         degrees of freedom
     location_matrix: Positive definite real square matrix
@@ -257,13 +257,11 @@ def MatrixStudentT(symbol, nu, location_matrix, scale_matrix_1, scale_matrix_2):
         Scale Matrix of shape ``n x n``
 
     Returns
-    =======
-
+    -------
     RandomSymbol
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatrixSymbol,symbols
     >>> from sympy.stats import density, MatrixStudentT
     >>> v = symbols('v',positive=True)
@@ -277,7 +275,7 @@ def MatrixStudentT(symbol, nu, location_matrix, scale_matrix_1, scale_matrix_2):
     [0, 1]]))**0.5)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Matrix_t-distribution
 

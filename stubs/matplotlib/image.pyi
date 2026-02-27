@@ -1,9 +1,11 @@
-from matplotlib._image import *
-import matplotlib.colorizer as mcolorizer
 from _typeshed import Incomplete
 from matplotlib import _api as _api, _image as _image, cbook as cbook
+from matplotlib._image import *
 from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase
-from matplotlib.transforms import Affine2D as Affine2D, Bbox as Bbox, BboxBase as BboxBase, BboxTransform as BboxTransform, BboxTransformTo as BboxTransformTo, IdentityTransform as IdentityTransform, TransformedBbox as TransformedBbox
+from matplotlib.transforms import (
+	Affine2D as Affine2D, Bbox as Bbox, BboxBase as BboxBase, BboxTransform as BboxTransform,
+	BboxTransformTo as BboxTransformTo, IdentityTransform as IdentityTransform, TransformedBbox as TransformedBbox)
+import matplotlib.colorizer as mcolorizer
 
 _log: Incomplete
 _interpd_: Incomplete
@@ -72,12 +74,12 @@ class _ImageBase(mcolorizer.ColorizingArtist):
 
     Additional kwargs are matplotlib.artist properties
     """
+
     zorder: int
     origin: Incomplete
     axes: Incomplete
     _imcache: Incomplete
     def __init__(self, ax, cmap: Incomplete | None = None, norm: Incomplete | None = None, colorizer: Incomplete | None = None, interpolation: Incomplete | None = None, origin: Incomplete | None = None, filternorm: bool = True, filterrad: float = 4.0, resample: bool = False, *, interpolation_stage: Incomplete | None = None, **kwargs) -> None: ...
-    def __str__(self) -> str: ...
     def __getstate__(self): ...
     def get_size(self):
         """Return the size of the image as tuple (numrows, numcols)."""
@@ -336,6 +338,7 @@ class AxesImage(_ImageBase):
         the output image is larger than the input image.
     **kwargs : `~matplotlib.artist.Artist` properties
     """
+
     _extent: Incomplete
     def __init__(self, ax, *, cmap: Incomplete | None = None, norm: Incomplete | None = None, colorizer: Incomplete | None = None, interpolation: Incomplete | None = None, origin: Incomplete | None = None, extent: Incomplete | None = None, filternorm: bool = True, filterrad: float = 4.0, resample: bool = False, interpolation_stage: Incomplete | None = None, **kwargs) -> None: ...
     def get_window_extent(self, renderer: Incomplete | None = None): ...
@@ -431,6 +434,7 @@ class PcolorImage(AxesImage):
     This uses a variation of the original irregular image code,
     and it is used by pcolorfast for the corresponding grid type.
     """
+
     def __init__(self, ax, x: Incomplete | None = None, y: Incomplete | None = None, A: Incomplete | None = None, *, cmap: Incomplete | None = None, norm: Incomplete | None = None, colorizer: Incomplete | None = None, **kwargs) -> None:
         """
         Parameters
@@ -486,6 +490,7 @@ class PcolorImage(AxesImage):
 
 class FigureImage(_ImageBase):
     """An image attached to a figure."""
+
     zorder: int
     _interpolation: str
     ox: Incomplete
@@ -493,7 +498,7 @@ class FigureImage(_ImageBase):
     magnification: float
     def __init__(self, fig, *, cmap: Incomplete | None = None, norm: Incomplete | None = None, colorizer: Incomplete | None = None, offsetx: int = 0, offsety: int = 0, origin: Incomplete | None = None, **kwargs) -> None:
         """
-        cmap is a colors.Colormap instance
+        Cmap is a colors.Colormap instance
         norm is a colors.Normalize instance to map luminance to 0-1
 
         kwargs are an optional list of Artist keyword args
@@ -507,10 +512,11 @@ class FigureImage(_ImageBase):
 
 class BboxImage(_ImageBase):
     """The Image class whose size is determined by the given bbox."""
+
     bbox: Incomplete
     def __init__(self, bbox, *, cmap: Incomplete | None = None, norm: Incomplete | None = None, colorizer: Incomplete | None = None, interpolation: Incomplete | None = None, origin: Incomplete | None = None, filternorm: bool = True, filterrad: float = 4.0, resample: bool = False, **kwargs) -> None:
         """
-        cmap is a colors.Colormap instance
+        Cmap is a colors.Colormap instance
         norm is a colors.Normalize instance to map luminance to 0-1
 
         kwargs are an optional list of Artist keyword args
@@ -522,7 +528,7 @@ class BboxImage(_ImageBase):
     def make_image(self, renderer, magnification: float = 1.0, unsampled: bool = False): ...
 
 def imread(fname, format: Incomplete | None = None):
-    '''
+    """
     Read an image from a file into an array.
 
     .. note::
@@ -558,9 +564,9 @@ def imread(fname, format: Incomplete | None = None):
         PNG images are returned as float arrays (0-1).  All other formats are
         returned as int arrays, with a bit depth determined by the file\'s
         contents.
-    '''
+    """
 def imsave(fname, arr, vmin: Incomplete | None = None, vmax: Incomplete | None = None, cmap: Incomplete | None = None, format: Incomplete | None = None, origin: Incomplete | None = None, dpi: int = 100, *, metadata: Incomplete | None = None, pil_kwargs: Incomplete | None = None) -> None:
-    '''
+    """
     Colormap and save an array as an image file.
 
     RGB(A) images are passed through.  Single channel images will be
@@ -608,7 +614,7 @@ def imsave(fname, arr, vmin: Incomplete | None = None, vmax: Incomplete | None =
         Keyword arguments passed to `PIL.Image.Image.save`.  If the \'pnginfo\'
         key is present, it completely overrides *metadata*, including the
         default \'Software\' key.
-    '''
+    """
 def pil_to_array(pilImage):
     """
     Load a `PIL image`_ and return it as a numpy int array.

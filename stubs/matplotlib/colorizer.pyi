@@ -16,6 +16,7 @@ class Colorizer:
     norm: colors.Normalize or str or None, default: None
         The normalization used to normalize the data
     """
+
     _cmap: Incomplete
     _id_norm: Incomplete
     _norm: Incomplete
@@ -140,6 +141,7 @@ class _ColorizerInterface:
     attribute. Other functions that as shared between `.ColorizingArtist`
     and `.cm.ScalarMappable` are not included.
     """
+
     def _scale_norm(self, norm, vmin, vmax) -> None: ...
     def to_rgba(self, x, alpha: Incomplete | None = None, bytes: bool = False, norm: bool = True):
         """
@@ -248,6 +250,7 @@ class _ScalarMappable(_ColorizerInterface):
     The ScalarMappable applies data normalization before returning RGBA colors from
     the given `~matplotlib.colors.Colormap`.
     """
+
     _A: Incomplete
     _colorizer: Incomplete
     colorbar: Incomplete
@@ -308,6 +311,7 @@ class ColorizingArtist(_ScalarMappable, artist.Artist):
     returning RGBA colors from a `~matplotlib.colors.Colormap`.
 
     """
+
     def __init__(self, colorizer, **kwargs) -> None:
         """
         Parameters
@@ -326,7 +330,7 @@ class ColorizingArtist(_ScalarMappable, artist.Artist):
         """
 
 def _auto_norm_from_scale(scale_cls):
-    '''
+    """
     Automatically generate a norm class from *scale_cls*.
 
     This differs from `.colors.make_norm_from_scale` in the following points:
@@ -340,4 +344,4 @@ def _auto_norm_from_scale(scale_cls):
     Note that ``make_norm_from_scale`` caches the generated norm classes
     (not the instances) and reuses them for later calls.  For example,
     ``type(_auto_norm_from_scale("log")) == LogNorm``.
-    '''
+    """

@@ -171,4 +171,3 @@ def addGSUBFeatureVariations(vf, designspace, featureTags=(), *, log_enabled: bo
     """
 def main(args=None) -> None:
     """Build variable fonts from a designspace file and masters"""
-

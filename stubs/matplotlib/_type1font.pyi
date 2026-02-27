@@ -1,7 +1,7 @@
-import typing as T
 from . import _api as _api
 from _typeshed import Incomplete
 from matplotlib.cbook import _format_approx as _format_approx
+import typing as T
 
 _log: Incomplete
 
@@ -18,12 +18,12 @@ class _Token:
     kind : str
         Description of the token (for debugging or testing).
     """
+
     __slots__: Incomplete
     kind: str
     pos: Incomplete
     raw: Incomplete
     def __init__(self, pos, raw) -> None: ...
-    def __str__(self) -> str: ...
     def endpos(self):
         """Position one past the end of the token"""
     def is_keyword(self, *names):
@@ -75,7 +75,7 @@ class _NumberToken(_Token):
     def is_number(self): ...
     def value(self): ...
 
-def _tokenize(data: bytes, skip_ws: bool) -> T.Generator[_Token, int, None]:
+def _tokenize(data: bytes, skip_ws: bool) -> T.Generator[_Token, int]:
     """
     A generator that produces _Token instances from Type-1 font code.
 
@@ -135,6 +135,7 @@ class Type1Font:
         - Subrs: array of byte code subroutines
         - OtherSubrs: bytes object encoding some PostScript code
     """
+
     __slots__: Incomplete
     parts: Incomplete
     decrypted: Incomplete
@@ -162,7 +163,7 @@ class Type1Font:
         """
     @staticmethod
     def _decrypt(ciphertext, key, ndiscard: int = 4):
-        '''
+        """
         Decrypt ciphertext using the Type-1 font algorithm.
 
         The algorithm is described in Adobe\'s "Adobe Type 1 Font Format".
@@ -172,10 +173,10 @@ class Type1Font:
 
         The ndiscard argument should be an integer, usually 4.
         That number of bytes is discarded from the beginning of plaintext.
-        '''
+        """
     @staticmethod
     def _encrypt(plaintext, key, ndiscard: int = 4):
-        '''
+        """
         Encrypt plaintext using the Type-1 font algorithm.
 
         The algorithm is described in Adobe\'s "Adobe Type 1 Font Format".
@@ -188,15 +189,15 @@ class Type1Font:
         This function prepends NUL bytes for reproducibility, even though
         the original algorithm uses random bytes, presumably to avoid
         cryptanalysis.
-        '''
+        """
     prop: Incomplete
     _pos: Incomplete
     def _parse(self) -> None:
-        '''
+        """
         Find the values of various font properties. This limited kind
         of parsing is described in Chapter 10 "Adobe Type Manager
         Compatibility" of the Type-1 spec.
-        '''
+        """
     def _parse_subrs(self, tokens, _data): ...
     @staticmethod
     def _parse_charstrings(tokens, _data): ...

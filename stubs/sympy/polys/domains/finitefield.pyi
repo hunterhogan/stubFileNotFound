@@ -74,8 +74,7 @@ class FiniteField(Field, SimpleDomain):
     4 mod 5
 
     Notes
-    =====
-
+    -----
     It is also possible to create a :ref:`GF(p)` domain of **non-prime**
     order but the resulting ring is **not** a field: it is just the ring of
     the integers modulo ``n``.
@@ -92,6 +91,7 @@ class FiniteField(Field, SimpleDomain):
 
     .. _finite field: https://en.wikipedia.org/wiki/Finite_field
     """
+
     rep: str
     alias: str
     is_FiniteField: bool
@@ -114,50 +114,49 @@ class FiniteField(Field, SimpleDomain):
     _is_field: Incomplete
     @property
     def is_Field(self): ...
-    def __str__(self) -> str: ...
     def __hash__(self): ...
     def __eq__(self, other):
-        """Returns ``True`` if two domains are equivalent. """
+        """Returns ``True`` if two domains are equivalent."""
     def characteristic(self):
-        """Return the characteristic of this domain. """
+        """Return the characteristic of this domain."""
     def get_field(self):
-        """Returns a field associated with ``self``. """
+        """Returns a field associated with ``self``."""
     def to_sympy(self, a):
-        """Convert ``a`` to a SymPy object. """
+        """Convert ``a`` to a SymPy object."""
     def from_sympy(self, a):
-        """Convert SymPy's Integer to SymPy's ``Integer``. """
+        """Convert SymPy's Integer to SymPy's ``Integer``."""
     def to_int(self, a):
-        """Convert ``val`` to a Python ``int`` object. """
+        """Convert ``val`` to a Python ``int`` object."""
     def is_positive(self, a):
-        """Returns True if ``a`` is positive. """
+        """Returns True if ``a`` is positive."""
     def is_nonnegative(self, a):
-        """Returns True if ``a`` is non-negative. """
+        """Returns True if ``a`` is non-negative."""
     def is_negative(self, a):
-        """Returns True if ``a`` is negative. """
+        """Returns True if ``a`` is negative."""
     def is_nonpositive(self, a):
-        """Returns True if ``a`` is non-positive. """
+        """Returns True if ``a`` is non-positive."""
     def from_FF(K1, a, K0=None):
-        """Convert ``ModularInteger(int)`` to ``dtype``. """
+        """Convert ``ModularInteger(int)`` to ``dtype``."""
     def from_FF_python(K1, a, K0=None):
-        """Convert ``ModularInteger(int)`` to ``dtype``. """
+        """Convert ``ModularInteger(int)`` to ``dtype``."""
     def from_ZZ(K1, a, K0=None):
-        """Convert Python's ``int`` to ``dtype``. """
+        """Convert Python's ``int`` to ``dtype``."""
     def from_ZZ_python(K1, a, K0=None):
-        """Convert Python's ``int`` to ``dtype``. """
+        """Convert Python's ``int`` to ``dtype``."""
     def from_QQ(K1, a, K0=None):
-        """Convert Python's ``Fraction`` to ``dtype``. """
+        """Convert Python's ``Fraction`` to ``dtype``."""
     def from_QQ_python(K1, a, K0=None):
-        """Convert Python's ``Fraction`` to ``dtype``. """
+        """Convert Python's ``Fraction`` to ``dtype``."""
     def from_FF_gmpy(K1, a, K0=None):
-        """Convert ``ModularInteger(mpz)`` to ``dtype``. """
+        """Convert ``ModularInteger(mpz)`` to ``dtype``."""
     def from_ZZ_gmpy(K1, a, K0=None):
-        """Convert GMPY's ``mpz`` to ``dtype``. """
+        """Convert GMPY's ``mpz`` to ``dtype``."""
     def from_QQ_gmpy(K1, a, K0=None):
-        """Convert GMPY's ``mpq`` to ``dtype``. """
+        """Convert GMPY's ``mpq`` to ``dtype``."""
     def from_RealField(K1, a, K0):
-        """Convert mpmath's ``mpf`` to ``dtype``. """
+        """Convert mpmath's ``mpf`` to ``dtype``."""
     def is_square(self, a):
-        """Returns True if ``a`` is a quadratic residue modulo p. """
+        """Returns True if ``a`` is a quadratic residue modulo p."""
     def exsqrt(self, a):
         """Square root modulo p of ``a`` if it is a quadratic residue.
 

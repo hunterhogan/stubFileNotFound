@@ -12,14 +12,13 @@ from sympy.matrices import Matrix as Matrix
 from sympy.matrices.expressions import Transpose as Transpose
 from sympy.simplify.simplify import nsimplify as nsimplify, simplify as simplify
 from sympy.utilities.iterables import is_sequence as is_sequence, uniq as uniq
-from sympy.utilities.misc import Undecidable as Undecidable, filldedent as filldedent, func_name as func_name
+from sympy.utilities.misc import filldedent as filldedent, func_name as func_name, Undecidable as Undecidable
 
 class Point(GeometryEntity):
     """A point in a n-dimensional Euclidean space.
 
     Parameters
-    ==========
-
+    ----------
     coords : sequence of n-coordinate values. In the special
         case where n=2 or 3, a Point2D or Point3D will be created
         as appropriate.
@@ -36,28 +35,24 @@ class Point(GeometryEntity):
 
 
     Attributes
-    ==========
-
+    ----------
     length
     origin: A `Point` representing the origin of the
         appropriately-dimensioned space.
 
     Raises
-    ======
-
+    ------
     TypeError : When instantiating with anything but a Point or sequence
     ValueError : when instantiating with a sequence with length < 2 or
         when trying to reduce dimensions if keyword `on_morph='error'` is
         set.
 
     See Also
-    ========
-
+    --------
     sympy.geometry.line.Segment : Connects two Points
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Point
     >>> from sympy.abc import x
     >>> Point(1, 2, 3)
@@ -78,6 +73,7 @@ class Point(GeometryEntity):
     Point2D(0.5, 0.25)
 
     """
+
     is_Point: bool
     def __new__(cls, *args, **kwargs): ...
     def __abs__(self):
@@ -87,8 +83,7 @@ class Point(GeometryEntity):
         those of other.
 
         Notes
-        =====
-
+        -----
         >>> from sympy import Point
 
         When sequences of coordinates are passed to Point methods, they
@@ -108,8 +103,7 @@ class Point(GeometryEntity):
         Point2D(11/10, 11/5)
 
         See Also
-        ========
-
+        --------
         sympy.geometry.point.Point.translate
 
         """
@@ -125,8 +119,7 @@ class Point(GeometryEntity):
         """Multiply point's coordinates by a factor.
 
         Notes
-        =====
-
+        -----
         >>> from sympy import Point
 
         When multiplying a Point by a floating point number,
@@ -144,8 +137,7 @@ class Point(GeometryEntity):
         Point2D(11/10, 11/5)
 
         See Also
-        ========
-
+        --------
         sympy.geometry.point.Point.scale
         """
     def __rmul__(self, factor):
@@ -154,12 +146,14 @@ class Point(GeometryEntity):
         """Negate the point."""
     def __sub__(self, other):
         """Subtract two points, or subtract a factor from this point's
-        coordinates."""
+        coordinates.
+        """
     @classmethod
     def _normalize_dimension(cls, *points, **kwargs):
         """Ensure that points have the same dimension.
         By default `on_morph='warn'` is passed to the
-        `Point` constructor."""
+        `Point` constructor.
+        """
     @staticmethod
     def affine_rank(*args):
         """The affine rank of a set of points is the dimension
@@ -167,7 +161,8 @@ class Point(GeometryEntity):
         For example, if the points lie on a line (and are not all
         the same) their affine rank is 1.  If the points lie on a plane
         but not a line, their affine rank is 2.  By convention, the empty
-        set has affine rank -1."""
+        set has affine rank -1.
+        """
     @property
     def ambient_dimension(self):
         """Number of components this point has."""
@@ -178,23 +173,19 @@ class Point(GeometryEntity):
         all Points are 2-dimensional.
 
         Parameters
-        ==========
-
+        ----------
         A set of points
 
         Raises
-        ======
-
+        ------
         ValueError : if less than 3 unique points are given
 
         Returns
-        =======
-
+        -------
         boolean
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point3D
         >>> p1 = Point3D(1, 2, 2)
         >>> p2 = Point3D(2, 7, 2)
@@ -211,25 +202,21 @@ class Point(GeometryEntity):
         """The Euclidean distance between self and another GeometricEntity.
 
         Returns
-        =======
-
+        -------
         distance : number or symbolic expression.
 
         Raises
-        ======
-
+        ------
         TypeError : if other is not recognized as a GeometricEntity or is a
                     GeometricEntity for which distance is not defined.
 
         See Also
-        ========
-
+        --------
         sympy.geometry.line.Segment.length
         sympy.geometry.point.Point.taxicab_distance
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point, Line
         >>> p1, p2 = Point(1, 1), Point(4, 5)
         >>> l = Line((3, 1), (2, 2))
@@ -258,18 +245,15 @@ class Point(GeometryEntity):
         the precision indicated (default=15).
 
         Parameters
-        ==========
-
+        ----------
         prec : int
 
         Returns
-        =======
-
+        -------
         point : Point
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point, Rational
         >>> p1 = Point(Rational(1, 2), Rational(3, 2))
         >>> p1
@@ -282,24 +266,20 @@ class Point(GeometryEntity):
         """The intersection between this point and another GeometryEntity.
 
         Parameters
-        ==========
-
+        ----------
         other : GeometryEntity or sequence of coordinates
 
         Returns
-        =======
-
+        -------
         intersection : list of Points
 
         Notes
-        =====
-
+        -----
         The return value will either be an empty list if there is no
         intersection, otherwise it will contain this point.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point
         >>> p1, p2, p3 = Point(0, 0), Point(1, 1), Point(0, 0)
         >>> p1.intersection(p2)
@@ -314,23 +294,19 @@ class Point(GeometryEntity):
         A trivially True value is returned if no points are given.
 
         Parameters
-        ==========
-
+        ----------
         args : sequence of Points
 
         Returns
-        =======
-
+        -------
         is_collinear : boolean
 
         See Also
-        ========
-
+        --------
         sympy.geometry.line.Line
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point
         >>> from sympy.abc import x
         >>> p1, p2 = Point(0, 0), Point(1, 1)
@@ -349,19 +325,16 @@ class Point(GeometryEntity):
         if there are fewer than 2 other points.
 
         Parameters
-        ==========
-
+        ----------
         args : sequence of Points
 
         Returns
-        =======
-
+        -------
         is_concyclic : boolean
 
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point
 
         Define 4 points that are on the unit circle:
@@ -382,7 +355,8 @@ class Point(GeometryEntity):
     @property
     def is_nonzero(self):
         """True if any coordinate is nonzero, False if every coordinate is zero,
-        and None if it cannot be determined."""
+        and None if it cannot be determined.
+        """
     def is_scalar_multiple(self, p):
         """Returns whether each coordinate of `self` is a scalar
         multiple of the corresponding coordinate in point p.
@@ -390,15 +364,15 @@ class Point(GeometryEntity):
     @property
     def is_zero(self):
         """True if every coordinate is zero, False if any coordinate is not zero,
-        and None if it cannot be determined."""
+        and None if it cannot be determined.
+        """
     @property
     def length(self):
         """
         Treating a Point as a Line, this returns 0 for the length of a Point.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point
         >>> p = Point(0, 1)
         >>> p.length
@@ -408,23 +382,19 @@ class Point(GeometryEntity):
         """The midpoint between self and point p.
 
         Parameters
-        ==========
-
+        ----------
         p : Point
 
         Returns
-        =======
-
+        -------
         midpoint : Point
 
         See Also
-        ========
-
+        --------
         sympy.geometry.line.Segment.midpoint
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point
         >>> p1, p2 = Point(1, 1), Point(13, 5)
         >>> p1.midpoint(p2)
@@ -434,15 +404,15 @@ class Point(GeometryEntity):
     @property
     def origin(self):
         """A point of all zeros of the same ambient dimension
-        as the current point"""
+        as the current point
+        """
     @property
     def orthogonal_direction(self):
         """Returns a non-zero point that is orthogonal to the
         line containing `self` and the origin.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Line, Point
         >>> a = Point(1, 2, 3)
         >>> a.orthogonal_direction
@@ -457,24 +427,20 @@ class Point(GeometryEntity):
         and point `b` along the normal direction.
 
         Parameters
-        ==========
-
+        ----------
         a : Point
         b : Point
 
         Returns
-        =======
-
+        -------
         p : Point
 
         See Also
-        ========
-
+        --------
         sympy.geometry.line.LinearEntity.projection
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Line, Point
         >>> a = Point(1, 2)
         >>> b = Point(2, 5)
@@ -491,24 +457,20 @@ class Point(GeometryEntity):
         Returns the sum of the horizontal and vertical distances to point p.
 
         Parameters
-        ==========
-
+        ----------
         p : Point
 
         Returns
-        =======
-
+        -------
         taxicab_distance : The sum of the horizontal
         and vertical distances to point p.
 
         See Also
-        ========
-
+        --------
         sympy.geometry.point.Point.distance
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point
         >>> p1, p2 = Point(1, 1), Point(4, 5)
         >>> p1.taxicab_distance(p2)
@@ -522,20 +484,17 @@ class Point(GeometryEntity):
         point p.
 
         Parameters
-        ==========
-
+        ----------
         p : Point
 
         Returns
-        =======
-
+        -------
         canberra_distance : The weighted sum of horizontal and vertical
         distances to point p. The weight used is the sum of absolute values
         of the coordinates.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point
         >>> p1, p2 = Point(1, 1), Point(3, 3)
         >>> p1.canberra_distance(p2)
@@ -545,53 +504,47 @@ class Point(GeometryEntity):
         2
 
         Raises
-        ======
-
+        ------
         ValueError when both vectors are zero.
 
         See Also
-        ========
-
+        --------
         sympy.geometry.point.Point.distance
 
         """
     @property
     def unit(self):
         """Return the Point that is in the same direction as `self`
-        and a distance of 1 from the origin"""
+        and a distance of 1 from the origin
+        """
 
 class Point2D(Point):
     """A point in a 2-dimensional Euclidean space.
 
     Parameters
-    ==========
-
+    ----------
     coords
         A sequence of 2 coordinate values.
 
     Attributes
-    ==========
-
+    ----------
     x
     y
     length
 
     Raises
-    ======
-
+    ------
     TypeError
         When trying to add or subtract points with different dimensions.
         When trying to create a point with more than two dimensions.
         When `intersection` is called with object other than a Point.
 
     See Also
-    ========
-
+    --------
     sympy.geometry.line.Segment : Connects two Points
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Point2D
     >>> from sympy.abc import x
     >>> Point2D(1, 2)
@@ -610,6 +563,7 @@ class Point2D(Point):
     Point2D(0.5, 0.25)
 
     """
+
     _ambient_dimension: int
     def __new__(cls, *args, _nocheck: bool = False, **kwargs): ...
     def __contains__(self, item) -> bool: ...
@@ -623,13 +577,11 @@ class Point2D(Point):
         """Rotate ``angle`` radians counterclockwise about Point ``pt``.
 
         See Also
-        ========
-
+        --------
         translate, scale
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point2D, pi
         >>> t = Point2D(1, 0)
         >>> t.rotate(pi/2)
@@ -645,13 +597,11 @@ class Point2D(Point):
         reference for the scaling).
 
         See Also
-        ========
-
+        --------
         rotate, translate
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point2D
         >>> t = Point2D(1, 1)
         >>> t.scale(2)
@@ -665,7 +615,7 @@ class Point2D(Point):
         by the 3x3 Matrix, ``matrix``.
 
         See Also
-        ========
+        --------
         sympy.geometry.point.Point2D.rotate
         sympy.geometry.point.Point2D.scale
         sympy.geometry.point.Point2D.translate
@@ -674,13 +624,11 @@ class Point2D(Point):
         """Shift the Point by adding x and y to the coordinates of the Point.
 
         See Also
-        ========
-
+        --------
         sympy.geometry.point.Point2D.rotate, scale
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point2D
         >>> t = Point2D(0, 1)
         >>> t.translate(2)
@@ -697,8 +645,7 @@ class Point2D(Point):
         Returns the two coordinates of the Point.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point2D
         >>> p = Point2D(0, 1)
         >>> p.coordinates
@@ -710,8 +657,7 @@ class Point2D(Point):
         Returns the X coordinate of the Point.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point2D
         >>> p = Point2D(0, 1)
         >>> p.x
@@ -723,8 +669,7 @@ class Point2D(Point):
         Returns the Y coordinate of the Point.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point2D
         >>> p = Point2D(0, 1)
         >>> p.y
@@ -735,29 +680,25 @@ class Point3D(Point):
     """A point in a 3-dimensional Euclidean space.
 
     Parameters
-    ==========
-
+    ----------
     coords
         A sequence of 3 coordinate values.
 
     Attributes
-    ==========
-
+    ----------
     x
     y
     z
     length
 
     Raises
-    ======
-
+    ------
     TypeError
         When trying to add or subtract points with different dimensions.
         When `intersection` is called with object other than a Point.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Point3D
     >>> from sympy.abc import x
     >>> Point3D(1, 2, 3)
@@ -776,6 +717,7 @@ class Point3D(Point):
     Point3D(0.5, 0.25, 3)
 
     """
+
     _ambient_dimension: int
     def __new__(cls, *args, _nocheck: bool = False, **kwargs): ...
     def __contains__(self, item) -> bool: ...
@@ -787,23 +729,19 @@ class Point3D(Point):
         the set of points are collinear, or False otherwise.
 
         Parameters
-        ==========
-
+        ----------
         points : sequence of Point
 
         Returns
-        =======
-
+        -------
         are_collinear : boolean
 
         See Also
-        ========
-
+        --------
         sympy.geometry.line.Line3D
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point3D
         >>> from sympy.abc import x
         >>> p1, p2 = Point3D(0, 0, 0), Point3D(1, 1, 1)
@@ -818,18 +756,15 @@ class Point3D(Point):
         Gives the direction cosine between 2 points
 
         Parameters
-        ==========
-
+        ----------
         p : Point3D
 
         Returns
-        =======
-
+        -------
         list
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point3D
         >>> p1 = Point3D(1, 2, 3)
         >>> p1.direction_cosine(Point3D(2, 3, 5))
@@ -840,18 +775,15 @@ class Point3D(Point):
         Gives the direction ratio between 2 points
 
         Parameters
-        ==========
-
+        ----------
         p : Point3D
 
         Returns
-        =======
-
+        -------
         list
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point3D
         >>> p1 = Point3D(1, 2, 3)
         >>> p1.direction_ratio(Point3D(2, 3, 5))
@@ -861,24 +793,20 @@ class Point3D(Point):
         """The intersection between this point and another GeometryEntity.
 
         Parameters
-        ==========
-
+        ----------
         other : GeometryEntity or sequence of coordinates
 
         Returns
-        =======
-
+        -------
         intersection : list of Points
 
         Notes
-        =====
-
+        -----
         The return value will either be an empty list if there is no
         intersection, otherwise it will contain this point.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point3D
         >>> p1, p2, p3 = Point3D(0, 0, 0), Point3D(1, 1, 1), Point3D(0, 0, 0)
         >>> p1.intersection(p2)
@@ -894,13 +822,11 @@ class Point3D(Point):
         reference for the scaling).
 
         See Also
-        ========
-
+        --------
         translate
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point3D
         >>> t = Point3D(1, 1, 1)
         >>> t.scale(2)
@@ -914,7 +840,7 @@ class Point3D(Point):
         by the 4x4 Matrix, ``matrix``.
 
         See Also
-        ========
+        --------
         sympy.geometry.point.Point3D.scale
         sympy.geometry.point.Point3D.translate
         """
@@ -922,13 +848,11 @@ class Point3D(Point):
         """Shift the Point by adding x and y to the coordinates of the Point.
 
         See Also
-        ========
-
+        --------
         scale
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point3D
         >>> t = Point3D(0, 1, 1)
         >>> t.translate(2)
@@ -945,8 +869,7 @@ class Point3D(Point):
         Returns the three coordinates of the Point.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point3D
         >>> p = Point3D(0, 1, 2)
         >>> p.coordinates
@@ -958,8 +881,7 @@ class Point3D(Point):
         Returns the X coordinate of the Point.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point3D
         >>> p = Point3D(0, 1, 3)
         >>> p.x
@@ -971,8 +893,7 @@ class Point3D(Point):
         Returns the Y coordinate of the Point.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point3D
         >>> p = Point3D(0, 1, 2)
         >>> p.y
@@ -984,8 +905,7 @@ class Point3D(Point):
         Returns the Z coordinate of the Point.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Point3D
         >>> p = Point3D(0, 1, 1)
         >>> p.z

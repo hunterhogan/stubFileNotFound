@@ -16,8 +16,7 @@ class Medium(Basic):
 
 
     Parameters
-    ==========
-
+    ----------
     name: string
         The display name of the Medium.
 
@@ -32,8 +31,7 @@ class Medium(Basic):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import epsilon, mu
     >>> from sympy.physics.optics import Medium
     >>> m1 = Medium('m1')
@@ -45,11 +43,12 @@ class Medium(Basic):
 
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Optical_medium
 
     """
+
     def __new__(cls, name, permittivity=None, permeability=None, n=None): ...
     @property
     def name(self): ...
@@ -59,8 +58,7 @@ class Medium(Basic):
         Returns speed of the electromagnetic wave travelling in the medium.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import Medium
         >>> m = Medium('m')
         >>> m.speed
@@ -76,8 +74,7 @@ class Medium(Basic):
         Returns refractive index of the medium.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import Medium
         >>> m = Medium('m')
         >>> m.refractive_index
@@ -95,12 +92,13 @@ class MediumN(Medium):
     only n specified.
 
     Examples
-    ========
+    --------
     >>> from sympy.physics.optics import Medium
     >>> m = Medium('m', n=2)
     >>> m
     MediumN(Str('m'), 2)
     """
+
     def __new__(cls, name, n): ...
     @property
     def n(self): ...
@@ -116,7 +114,7 @@ class MediumPP(Medium):
     permittivity and permeability will be used.
 
     Examples
-    ========
+    --------
     >>> from sympy.physics.optics import Medium
     >>> from sympy.abc import epsilon, mu
     >>> m1 = Medium('m1', permittivity=epsilon, permeability=mu)
@@ -126,6 +124,7 @@ class MediumPP(Medium):
     >>> m2
     MediumPP(Str('m2'), 625000*ampere**2*second**4/(22468879468420441*pi*kilogram*meter**3), pi*kilogram*meter/(2500000*ampere**2*second**2))
     """
+
     def __new__(cls, name, permittivity, permeability): ...
     @property
     def intrinsic_impedance(self):
@@ -143,8 +142,7 @@ class MediumPP(Medium):
         electric permittivity.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import Medium
         >>> m = Medium('m')
         >>> m.intrinsic_impedance
@@ -157,8 +155,7 @@ class MediumPP(Medium):
         Returns electric permittivity of the medium.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import Medium
         >>> m = Medium('m')
         >>> m.permittivity
@@ -171,8 +168,7 @@ class MediumPP(Medium):
         Returns magnetic permeability of the medium.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.optics import Medium
         >>> m = Medium('m')
         >>> m.permeability

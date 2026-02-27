@@ -1,7 +1,6 @@
+from . import events
 from collections.abc import Awaitable, Callable, Iterable
 from typing import Any
-
-from . import events
 
 __all__ = ("staggered_race",)
 

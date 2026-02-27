@@ -15,8 +15,7 @@ def _dm_rref(M, *, method: str = 'auto'):
     of the Matrix.
 
     See Also
-    ========
-
+    --------
     sympy.polys.matrices.domainmatrix.DomainMatrix.rref
         The ``DomainMatrix`` method that calls this function.
     sympy.polys.matrices.rref._dm_rref_den
@@ -35,8 +34,7 @@ def _dm_rref_den(M, *, keep_domain: bool = True, method: str = 'auto'):
     associated ring or field domain.
 
     See Also
-    ========
-
+    --------
     sympy.polys.matrices.domainmatrix.DomainMatrix.rref_den
         The ``DomainMatrix`` method that calls this function.
     sympy.polys.matrices.rref._dm_rref
@@ -63,7 +61,7 @@ def _dm_rref_choose_method_QQ(M, *, denominator: bool = False):
 def _dm_rref_choose_method_ZZ(M, *, denominator: bool = False):
     """Choose the fastest method for computing RREF over ZZ."""
 def _dm_row_density(M):
-    '''Density measure for sparse matrices.
+    """Density measure for sparse matrices.
 
     Defines the "density", ``d`` as the average number of non-zero entries per
     row except ignoring rows that are fully zero. RREF can ignore fully zero
@@ -72,7 +70,7 @@ def _dm_row_density(M):
 
     Returns ``(density, nrows_nz, ncols)`` where ``nrows_nz`` counts the number
     of nonzero rows and ``ncols`` is the number of columns.
-    '''
+    """
 def _dm_elements(M):
     """Return nonzero elements of a DomainMatrix."""
 def _dm_QQ_numers_denoms(Mq):

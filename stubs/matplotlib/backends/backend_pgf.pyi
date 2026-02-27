@@ -1,9 +1,12 @@
 from _typeshed import Incomplete
 from matplotlib import cbook as cbook
 from matplotlib._pylab_helpers import Gcf as Gcf
-from matplotlib.backend_bases import FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, RendererBase as RendererBase, _Backend as _Backend
+from matplotlib.backend_bases import (
+	_Backend as _Backend, FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase,
+	RendererBase as RendererBase)
 from matplotlib.backends.backend_mixed import MixedModeRenderer as MixedModeRenderer
-from matplotlib.backends.backend_pdf import _create_pdf_info_dict as _create_pdf_info_dict, _datetime_to_pdf as _datetime_to_pdf
+from matplotlib.backends.backend_pdf import (
+	_create_pdf_info_dict as _create_pdf_info_dict, _datetime_to_pdf as _datetime_to_pdf)
 from matplotlib.figure import Figure as Figure
 from matplotlib.font_manager import FontProperties as FontProperties
 from matplotlib.path import Path as Path
@@ -38,7 +41,6 @@ def make_pdf_to_png_converter():
 class LatexError(Exception):
     latex_output: Incomplete
     def __init__(self, message, latex_output: str = '') -> None: ...
-    def __str__(self) -> str: ...
 
 class LatexManager:
     """
@@ -46,6 +48,7 @@ class LatexManager:
     determining the metrics of text elements. The LaTeX environment can be
     modified by setting fonts and/or a custom preamble in `.rcParams`.
     """
+
     @staticmethod
     def _build_latex_header(): ...
     @classmethod
@@ -147,6 +150,7 @@ class PdfPages:
     ...     # When no figure is specified the current figure is saved
     ...     pdf.savefig()
     """
+
     _output_name: Incomplete
     _n_figures: int
     _metadata: Incomplete

@@ -16,6 +16,7 @@ class Unix(PlatformDirsABC):
     <platformdirs.api.PlatformDirsABC.ensure_exists>`.
 
     """
+
     @property
     def user_data_dir(self) -> str:
         """

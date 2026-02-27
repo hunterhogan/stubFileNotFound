@@ -1,17 +1,10 @@
 from collections.abc import Callable
-from typing import (
-    Any,
-    Literal,
-    Self,
-    overload,
-)
-
-import numpy as np
+from pandas._typing import Scalar
 from pandas.core.arrays.boolean import BooleanArray
 from pandas.core.indexes.base import Index
 from pandas.core.series import Series
-
-from pandas._typing import Scalar
+from typing import Any, Literal, overload, Self
+import numpy as np
 
 class NAType:
     def __new__(cls, *args: Any, **kwargs: Any) -> Self: ...

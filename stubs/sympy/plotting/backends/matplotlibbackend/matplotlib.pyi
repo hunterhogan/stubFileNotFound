@@ -1,7 +1,7 @@
-import sympy.plotting.backends.base_backend as base_backend
 from _typeshed import Incomplete
 from sympy.core.basic import Basic as Basic
 from sympy.external import import_module as import_module
+from sympy.plotting.backends import base_backend
 from sympy.printing.latex import latex as latex
 
 def _str_or_latex(label): ...
@@ -12,9 +12,10 @@ def _matplotlib_list(interval_list):
     """
 
 class MatplotlibBackend(base_backend.Plot):
-    """ This class implements the functionalities to use Matplotlib with SymPy
+    """This class implements the functionalities to use Matplotlib with SymPy
     plotting functions.
     """
+
     matplotlib: Incomplete
     plt: Incomplete
     cm: Incomplete
@@ -28,11 +29,11 @@ class MatplotlibBackend(base_backend.Plot):
     def _create_figure(self) -> None: ...
     @staticmethod
     def get_segments(x, y, z=None):
-        """ Convert two list of coordinates to a list of segments to be used
+        """Convert two list of coordinates to a list of segments to be used
         with Matplotlib's :external:class:`~matplotlib.collections.LineCollection`.
 
         Parameters
-        ==========
+        ----------
             x : list
                 List of x-coordinates
 

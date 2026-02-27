@@ -1,8 +1,8 @@
-import sys
 from collections.abc import Callable, Iterable, Mapping
 from typing import Any
+import sys
 
-__all__ = ["BaseProcess", "current_process", "active_children", "parent_process"]
+__all__ = ["BaseProcess", "active_children", "current_process", "parent_process"]
 
 class BaseProcess:
     name: str

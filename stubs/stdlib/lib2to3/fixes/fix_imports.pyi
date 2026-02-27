@@ -1,14 +1,13 @@
+from .. import fixer_base
+from ..pytree import Node
 from _typeshed import StrPath
 from collections.abc import Generator
 from typing import ClassVar, Final, Literal
 
-from .. import fixer_base
-from ..pytree import Node
-
 MAPPING: Final[dict[str, str]]
 
 def alternates(members): ...
-def build_pattern(mapping=...) -> Generator[str, None, None]: ...
+def build_pattern(mapping=...) -> Generator[str]: ...
 
 class FixImports(fixer_base.BaseFix):
     BM_compatible: ClassVar[Literal[True]]

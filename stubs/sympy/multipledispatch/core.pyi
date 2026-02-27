@@ -1,10 +1,10 @@
-from .dispatcher import Dispatcher as Dispatcher, MethodDispatcher as MethodDispatcher, ambiguity_warn as ambiguity_warn
+from .dispatcher import ambiguity_warn as ambiguity_warn, Dispatcher as Dispatcher, MethodDispatcher as MethodDispatcher
 from typing import Any
 
 global_namespace: dict[str, Any]
 
 def dispatch(*types, namespace=..., on_ambiguity=...):
-    """ Dispatch function on the types of the inputs
+    """Dispatch function on the types of the inputs
 
     Supports dispatch on all non-keyword arguments.
 
@@ -15,7 +15,6 @@ def dispatch(*types, namespace=..., on_ambiguity=...):
 
     Examples
     --------
-
     >>> from sympy.multipledispatch import dispatch
     >>> @dispatch(int)
     ... def f(x):
@@ -48,7 +47,7 @@ def dispatch(*types, namespace=..., on_ambiguity=...):
     ...         self.data = [datum]
     """
 def ismethod(func):
-    """ Is func a method?
+    """Is func a method?
 
     Note that this has to work as the method is defined but before the class is
     defined.  At this stage methods look like functions.

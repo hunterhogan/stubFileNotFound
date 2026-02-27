@@ -1,22 +1,21 @@
-import datetime
-import socket
-import ssl
 from _typeshed import Unused
 from builtins import list as _list  # conflicts with a method named "list"
 from collections.abc import Iterable
-from typing import IO, Any, Final, NamedTuple
-from typing_extensions import Self, TypeAlias
+from typing import Any, Final, IO, NamedTuple, Self, TypeAlias
+import datetime
+import socket
+import ssl
 
 __all__ = [
     "NNTP",
+    "NNTP_SSL",
+    "NNTPDataError",
     "NNTPError",
-    "NNTPReplyError",
-    "NNTPTemporaryError",
     "NNTPPermanentError",
     "NNTPProtocolError",
-    "NNTPDataError",
+    "NNTPReplyError",
+    "NNTPTemporaryError",
     "decode_header",
-    "NNTP_SSL",
 ]
 
 _File: TypeAlias = IO[bytes] | bytes | str | None

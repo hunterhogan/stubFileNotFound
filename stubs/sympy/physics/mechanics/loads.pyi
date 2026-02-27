@@ -2,10 +2,11 @@ from _typeshed import Incomplete
 from abc import ABC
 from typing import NamedTuple
 
-__all__ = ['LoadBase', 'Force', 'Torque']
+__all__ = ['Force', 'LoadBase', 'Torque']
 
 class LoadBase(ABC, NamedTuple('LoadBase', [('location', Incomplete), ('vector', Incomplete)])):
     """Abstract base class for the various loading types."""
+
     def __add__(self, other) -> None: ...
     def __mul__(self, other) -> None: ...
     __radd__ = __add__
@@ -23,8 +24,7 @@ class Force(LoadBase):
     entry.
 
     Examples
-    ========
-
+    --------
     A force of magnitude 2 along N.x acting on a point Po can be created as
     follows:
 
@@ -42,8 +42,8 @@ class Force(LoadBase):
     (Po, 2*N.x)
 
     """
+
     def __new__(cls, point, force): ...
-    def __repr__(self) -> str: ...
     @property
     def point(self): ...
     @property
@@ -61,8 +61,7 @@ class Torque(LoadBase):
     the vector as second item.
 
     Examples
-    ========
-
+    --------
     A torque of magnitude 2 about N.x acting on a frame N can be created as
     follows:
 
@@ -79,8 +78,8 @@ class Torque(LoadBase):
     (N, 2*N.x)
 
     """
+
     def __new__(cls, frame, torque): ...
-    def __repr__(self) -> str: ...
     @property
     def frame(self): ...
     @property

@@ -5,8 +5,7 @@ class Transform:
     Immutable mapping that can be used as a generic transformation rule.
 
     Parameters
-    ==========
-
+    ----------
     transform : callable
         Computes the value corresponding to any key.
 
@@ -14,8 +13,7 @@ class Transform:
         If supplied, specifies which objects are in the mapping.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.rules import Transform
     >>> from sympy.abc import x
 
@@ -43,6 +41,7 @@ class Transform:
     >>> add1_odd.get(3, 0)
     4
     """
+
     _transform: Incomplete
     _filter: Incomplete
     def __init__(self, transform, filter=...) -> None: ...

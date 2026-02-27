@@ -1,7 +1,7 @@
-import string
 from _typeshed import Incomplete
+import string
 
-__all__ = ['TickHelper', 'Formatter', 'FixedFormatter', 'NullFormatter', 'FuncFormatter', 'FormatStrFormatter', 'StrMethodFormatter', 'ScalarFormatter', 'LogFormatter', 'LogFormatterExponent', 'LogFormatterMathtext', 'LogFormatterSciNotation', 'LogitFormatter', 'EngFormatter', 'PercentFormatter', 'Locator', 'IndexLocator', 'FixedLocator', 'NullLocator', 'LinearLocator', 'LogLocator', 'AutoLocator', 'MultipleLocator', 'MaxNLocator', 'AutoMinorLocator', 'SymmetricalLogLocator', 'AsinhLocator', 'LogitLocator']
+__all__ = ['AsinhLocator', 'AutoLocator', 'AutoMinorLocator', 'EngFormatter', 'FixedFormatter', 'FixedLocator', 'FormatStrFormatter', 'Formatter', 'FuncFormatter', 'IndexLocator', 'LinearLocator', 'Locator', 'LogFormatter', 'LogFormatterExponent', 'LogFormatterMathtext', 'LogFormatterSciNotation', 'LogLocator', 'LogitFormatter', 'LogitLocator', 'MaxNLocator', 'MultipleLocator', 'NullFormatter', 'NullLocator', 'PercentFormatter', 'ScalarFormatter', 'StrMethodFormatter', 'SymmetricalLogLocator', 'TickHelper']
 
 class _DummyAxis:
     __name__: str
@@ -25,6 +25,7 @@ class Formatter(TickHelper):
     """
     Create a string based on a tick value and location.
     """
+
     locs: Incomplete
     def __call__(self, x, pos: Incomplete | None = None) -> None:
         """
@@ -65,6 +66,7 @@ class Formatter(TickHelper):
 
 class NullFormatter(Formatter):
     """Always return the empty string."""
+
     def __call__(self, x, pos: Incomplete | None = None): ...
 
 class FixedFormatter(Formatter):
@@ -75,6 +77,7 @@ class FixedFormatter(Formatter):
         `.FixedFormatter` should only be used together with `.FixedLocator`.
         Otherwise, the labels may end up in unexpected positions.
     """
+
     seq: Incomplete
     offset_string: str
     def __init__(self, seq) -> None:
@@ -98,6 +101,7 @@ class FuncFormatter(Formatter):
     position ``pos``), and return a string containing the corresponding
     tick label.
     """
+
     func: Incomplete
     offset_string: str
     def __init__(self, func) -> None: ...
@@ -111,7 +115,7 @@ class FuncFormatter(Formatter):
     def set_offset_string(self, ofs) -> None: ...
 
 class FormatStrFormatter(Formatter):
-    '''
+    """
     Use an old-style (\'%\' operator) format string to format the tick.
 
     The format string should have a single variable format (%) in it.
@@ -120,7 +124,8 @@ class FormatStrFormatter(Formatter):
     Negative numeric values (e.g., -1) will use a dash, not a Unicode minus;
     use mathtext to get a Unicode minus by wrapping the format specifier with $
     (e.g. "$%g$").
-    '''
+    """
+
     fmt: Incomplete
     def __init__(self, fmt) -> None: ...
     def __call__(self, x, pos: Incomplete | None = None):
@@ -137,6 +142,7 @@ class _UnicodeMinusFormat(string.Formatter):
     format string is only ever called with kwargs *x* and *pos*, so it blindly
     replaces dashes by unicode minuses without further checking.
     """
+
     def format_field(self, value, format_spec): ...
 
 class StrMethodFormatter(Formatter):
@@ -153,6 +159,7 @@ class StrMethodFormatter(Formatter):
     objects, as `~.Axis.set_major_formatter` directly accepts the format string
     itself.
     """
+
     fmt: Incomplete
     def __init__(self, fmt) -> None: ...
     def __call__(self, x, pos: Incomplete | None = None):
@@ -217,6 +224,7 @@ class ScalarFormatter(Formatter):
         ax3.xaxis.get_major_formatter().set_scientific(False)
 
     """
+
     _offset_threshold: Incomplete
     orderOfMagnitude: int
     format: str
@@ -369,7 +377,7 @@ class ScalarFormatter(Formatter):
     def _set_format(self) -> None: ...
 
 class LogFormatter(Formatter):
-    '''
+    """
     Base class for formatting ticks on a log or symlog scale.
 
     It may be instantiated directly, or subclassed.
@@ -424,7 +432,8 @@ class LogFormatter(Formatter):
 
     To label all minor ticks when the view limits span up to 1.5
     decades, use ``minor_thresholds=(1.5, 1.5)``.
-    '''
+    """
+
     minor_thresholds: Incomplete
     _sublabels: Incomplete
     _linthresh: Incomplete
@@ -463,12 +472,14 @@ class LogFormatterExponent(LogFormatter):
     """
     Format values for log axis using ``exponent = log_base(value)``.
     """
+
     def _num_to_string(self, x, vmin, vmax): ...
 
 class LogFormatterMathtext(LogFormatter):
     """
     Format values for log axis using ``exponent = log_base(value)``.
     """
+
     def _non_decade_format(self, sign_string, base, fx, usetex):
         """Return string for non-decade locations."""
     def __call__(self, x, pos: Incomplete | None = None): ...
@@ -477,6 +488,7 @@ class LogFormatterSciNotation(LogFormatterMathtext):
     """
     Format values following scientific notation in a logarithmic axis.
     """
+
     def _non_decade_format(self, sign_string, base, fx, usetex):
         """Return string for non-decade locations."""
 
@@ -484,6 +496,7 @@ class LogitFormatter(Formatter):
     """
     Probability formatter (using Math text).
     """
+
     _use_overline: Incomplete
     _one_half: Incomplete
     _minor: Incomplete
@@ -491,7 +504,7 @@ class LogitFormatter(Formatter):
     _minor_threshold: Incomplete
     _minor_number: Incomplete
     def __init__(self, *, use_overline: bool = False, one_half: str = '\\frac{1}{2}', minor: bool = False, minor_threshold: int = 25, minor_number: int = 6) -> None:
-        '''
+        """
         Parameters
         ----------
         use_overline : bool, default: False
@@ -514,7 +527,7 @@ class LogitFormatter(Formatter):
         minor_number : int, default: 6
             Number of ticks which are labelled when the number of ticks is
             below the threshold.
-        '''
+        """
     def use_overline(self, use_overline) -> None:
         """
         Switch display mode with overline for labelling p>1/2.
@@ -565,12 +578,13 @@ class EngFormatter(ScalarFormatter):
     Format axis values using engineering prefixes to represent powers
     of 1000, plus a specified unit, e.g., 10 MHz instead of 1e7.
     """
+
     ENG_PREFIXES: Incomplete
     unit: Incomplete
     places: Incomplete
     sep: Incomplete
     def __init__(self, unit: str = '', places: Incomplete | None = None, sep: str = ' ', *, usetex: Incomplete | None = None, useMathText: Incomplete | None = None, useOffset: bool = False) -> None:
-        '''
+        """
         Parameters
         ----------
         unit : str, default: ""
@@ -612,7 +626,7 @@ class EngFormatter(ScalarFormatter):
             3 digits. See also `.set_useOffset`.
 
             .. versionadded:: 3.10
-        '''
+        """
     def __call__(self, x, pos: Incomplete | None = None):
         """
         Return the format for tick value *x* at position *pos*.
@@ -669,6 +683,7 @@ class PercentFormatter(Formatter):
     is_latex : bool
         If *False*, reserved LaTeX characters in *symbol* will be escaped.
     """
+
     xmax: Incomplete
     decimals: Incomplete
     _symbol: Incomplete
@@ -719,6 +734,7 @@ class Locator(TickHelper):
     `~matplotlib.axis.Axis` because the locator stores references to the Axis
     data and view limits.
     """
+
     MAXTICKS: int
     def tick_values(self, vmin, vmax) -> None:
         """
@@ -743,7 +759,7 @@ class Locator(TickHelper):
     def __call__(self) -> None:
         """Return the locations of the ticks."""
     def raise_if_exceeds(self, locs):
-        '''
+        """
         Log at WARNING level if *locs* is longer than `Locator.MAXTICKS`.
 
         This is intended to be called immediately before returning *locs* from
@@ -752,7 +768,7 @@ class Locator(TickHelper):
 
         The "strange" name of this method dates back to when it would raise an
         exception instead of emitting a log.
-        '''
+        """
     def nonsingular(self, v0, v1):
         """
         Adjust a range as needed to avoid singularities.
@@ -781,6 +797,7 @@ class IndexLocator(Locator):
     IndexLocator assumes index plotting; i.e., that the ticks are placed at integer
     values in the range between 0 and len(data) inclusive.
     """
+
     _base: Incomplete
     offset: Incomplete
     def __init__(self, base, offset) -> None:
@@ -801,6 +818,7 @@ class FixedLocator(Locator):
     absolute value; for example, if zero is included in the array of possibilities, then
     it will be included in the chosen ticks.
     """
+
     locs: Incomplete
     nbins: Incomplete
     def __init__(self, locs, nbins: Incomplete | None = None) -> None: ...
@@ -822,6 +840,7 @@ class NullLocator(Locator):
     """
     No ticks
     """
+
     def __call__(self): ...
     def tick_values(self, vmin, vmax):
         """
@@ -843,6 +862,7 @@ class LinearLocator(Locator):
     be nice
 
     """
+
     presets: Incomplete
     def __init__(self, numticks: Incomplete | None = None, presets: Incomplete | None = None) -> None:
         """
@@ -872,6 +892,7 @@ class MultipleLocator(Locator):
     """
     Place ticks at every integer multiple of a base plus an offset.
     """
+
     _edge: Incomplete
     _offset: Incomplete
     def __init__(self, base: float = 1.0, offset: float = 0.0) -> None:
@@ -913,6 +934,7 @@ class _Edge_integer:
     Take floating-point precision limitations into account when calculating
     tick locations as integer multiples of a step.
     """
+
     step: Incomplete
     _offset: Incomplete
     def __init__(self, step, offset) -> None:
@@ -938,6 +960,7 @@ class MaxNLocator(Locator):
     Finds nice tick locations with no more than :math:`nbins + 1` ticks being within the
     view limits. Locations beyond the limits are added to support autoscaling.
     """
+
     default_params: Incomplete
     def __init__(self, nbins: Incomplete | None = None, **kwargs) -> None:
         """
@@ -1021,6 +1044,7 @@ class LogLocator(Locator):
 
     Places ticks at the values ``subs[j] * base**i``.
     """
+
     _base: Incomplete
     numticks: Incomplete
     def __init__(self, base: float = 10.0, subs=(1.0,), *, numticks: Incomplete | None = None) -> None:
@@ -1063,6 +1087,7 @@ class SymmetricalLogLocator(Locator):
     """
     Place ticks spaced linearly near zero and spaced logarithmically beyond a threshold.
     """
+
     _base: Incomplete
     _linthresh: Incomplete
     _subs: Incomplete
@@ -1105,6 +1130,7 @@ class AsinhLocator(Locator):
        This API is provisional and may be revised in the future
        based on early user feedback.
     """
+
     linear_width: Incomplete
     numticks: Incomplete
     symthresh: Incomplete
@@ -1142,6 +1168,7 @@ class LogitLocator(MaxNLocator):
     """
     Place ticks spaced evenly on a logit scale.
     """
+
     _minor: Incomplete
     def __init__(self, minor: bool = False, *, nbins: str = 'auto') -> None:
         """
@@ -1169,6 +1196,7 @@ class AutoLocator(MaxNLocator):
     This is a subclass of `~matplotlib.ticker.MaxNLocator`, with parameters
     *nbins = 'auto'* and *steps = [1, 2, 2.5, 5, 10]*.
     """
+
     def __init__(self) -> None:
         """
         To know the values of the non-public parameters, please have a
@@ -1182,6 +1210,7 @@ class AutoMinorLocator(Locator):
 
     The Axis must use a linear scale and have evenly spaced major ticks.
     """
+
     ndivs: Incomplete
     def __init__(self, n: Incomplete | None = None) -> None:
         """

@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from sympy.utilities.decorator import public
 
-__all__ = ['extract_fundamental_discriminant', 'AlgIntPowers', 'coeff_search', 'isolate']
+__all__ = ['AlgIntPowers', 'coeff_search', 'extract_fundamental_discriminant', 'isolate']
 
 @public
 def extract_fundamental_discriminant(a):
@@ -23,8 +23,7 @@ def extract_fundamental_discriminant(a):
     quadratic field.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.numberfields.utilities import extract_fundamental_discriminant
     >>> print(extract_fundamental_discriminant(-432))
     ({3: 1, -1: 1}, {2: 2, 3: 1})
@@ -36,23 +35,20 @@ def extract_fundamental_discriminant(a):
     {2: 4, 3: 3, -1: 1}
 
     Parameters
-    ==========
-
+    ----------
     a: int, must be 0 or 1 mod 4
 
     Returns
-    =======
-
+    -------
     Pair ``(D, F)``  of dictionaries.
 
     Raises
-    ======
-
+    ------
     ValueError
         If *a* is not 0 or 1 mod 4.
 
     References
-    ==========
+    ----------
 
     .. [1] Cohen, H. *A Course in Computational Algebraic Number Theory.*
        (See Prop. 5.1.3)
@@ -77,8 +73,7 @@ class AlgIntPowers:
     Optionally, the representations may be reduced with respect to a modulus.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Poly, cyclotomic_poly
     >>> from sympy.polys.numberfields.utilities import AlgIntPowers
     >>> T = Poly(cyclotomic_poly(5))
@@ -93,11 +88,12 @@ class AlgIntPowers:
     [-1, -1, -1, -1]
 
     References
-    ==========
+    ----------
 
     .. [1] Cohen, H. *A Course in Computational Algebraic Number Theory.*
 
     """
+
     T: Incomplete
     modulus: Incomplete
     n: Incomplete
@@ -106,8 +102,7 @@ class AlgIntPowers:
     def __init__(self, T, modulus=None) -> None:
         """
         Parameters
-        ==========
-
+        ----------
         T : :py:class:`~.Poly`
             The monic irreducible polynomial over :ref:`ZZ` defining the
             algebraic integer.
@@ -135,8 +130,7 @@ def coeff_search(m, R) -> Generator[Incomplete]:
     list, and skip any repeats. See examples.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.numberfields.utilities import coeff_search
     >>> cs = coeff_search(2, 1)
     >>> C = [next(cs) for i in range(13)]
@@ -145,16 +139,14 @@ def coeff_search(m, R) -> Generator[Incomplete]:
      [1, 2], [1, -2], [0, 2], [3, 3]]
 
     Parameters
-    ==========
-
+    ----------
     m : int
         Length of coeff list.
     R : int
         Initial max abs val for coeffs (will increase as search proceeds).
 
     Returns
-    =======
-
+    -------
     generator
         Infinite generator of lists of coefficients.
 
@@ -165,8 +157,7 @@ def isolate(alg, eps=None, fast: bool = False):
     Find a rational isolating interval for a real algebraic number.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import isolate, sqrt, Rational
     >>> print(isolate(sqrt(2)))  # doctest: +SKIP
     (1, 2)
@@ -174,8 +165,7 @@ def isolate(alg, eps=None, fast: bool = False):
     (24/17, 17/12)
 
     Parameters
-    ==========
-
+    ----------
     alg : str, int, :py:class:`~.Expr`
         The algebraic number to be isolated. Must be a real number, to use this
         particular function. However, see also :py:meth:`.Poly.intervals`,
@@ -187,14 +177,12 @@ def isolate(alg, eps=None, fast: bool = False):
         (Will be passed to :py:meth:`.Poly.refine_root`.)
 
     Returns
-    =======
-
+    -------
     Pair of rational numbers defining an isolating interval for the given
     algebraic number.
 
     See Also
-    ========
-
+    --------
     .Poly.intervals
 
     """

@@ -9,7 +9,7 @@ if sys.version_info >= (3, 13):
     from io import TextIOWrapper
     from pathlib import Path
     from typing import BinaryIO, Literal, overload
-    from typing_extensions import Unpack, deprecated
+    from typing_extensions import deprecated, Unpack
 
     def open_binary(anchor: Anchor, *path_names: StrPath) -> BinaryIO: ...
     @overload

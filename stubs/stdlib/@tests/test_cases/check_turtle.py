@@ -1,4 +1,4 @@
-from turtle import Turtle, dot
+from turtle import dot, Turtle
 
 Turtle().dot()
 Turtle().dot(10)

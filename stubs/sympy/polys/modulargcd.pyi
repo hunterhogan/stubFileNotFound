@@ -2,7 +2,8 @@ from sympy.core.symbol import Dummy as Dummy
 from sympy.ntheory import nextprime as nextprime
 from sympy.ntheory.modular import crt as crt
 from sympy.polys.domains import PolynomialRing as PolynomialRing
-from sympy.polys.galoistools import gf_div as gf_div, gf_from_dict as gf_from_dict, gf_gcd as gf_gcd, gf_gcdex as gf_gcdex, gf_lcm as gf_lcm
+from sympy.polys.galoistools import (
+	gf_div as gf_div, gf_from_dict as gf_from_dict, gf_gcd as gf_gcd, gf_gcdex as gf_gcdex, gf_lcm as gf_lcm)
 from sympy.polys.polyerrors import ModularGCDFailed as ModularGCDFailed
 
 def _trivial_gcd(f, g):
@@ -25,8 +26,7 @@ def _degree_bound_univariate(f, g):
     in `\\mathbb{Z}[x]`.
 
     Parameters
-    ==========
-
+    ----------
     f : PolyElement
         univariate integer polynomial
     g : PolyElement
@@ -34,7 +34,7 @@ def _degree_bound_univariate(f, g):
 
     """
 def _chinese_remainder_reconstruction_univariate(hp, hq, p, q):
-    '''
+    """
     Construct a polynomial `h_{pq}` in `\\mathbb{Z}_{p q}[x]` such that
 
     .. math ::
@@ -53,8 +53,7 @@ def _chinese_remainder_reconstruction_univariate(hp, hq, p, q):
     It is assumed that `h_p` and `h_q` have the same degree.
 
     Parameters
-    ==========
-
+    ----------
     hp : PolyElement
         univariate integer polynomial with coefficients in `\\mathbb{Z}_p`
     hq : PolyElement
@@ -65,8 +64,7 @@ def _chinese_remainder_reconstruction_univariate(hp, hq, p, q):
         modulus of `h_q`, relatively prime to `p`
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.modulargcd import _chinese_remainder_reconstruction_univariate
     >>> from sympy.polys import ring, ZZ
 
@@ -86,9 +84,9 @@ def _chinese_remainder_reconstruction_univariate(hp, hq, p, q):
     >>> hpq.trunc_ground(q) == hq
     True
 
-    '''
+    """
 def modgcd_univariate(f, g):
-    '''
+    """
     Computes the GCD of two polynomials in `\\mathbb{Z}[x]` using a modular
     algorithm.
 
@@ -99,16 +97,14 @@ def modgcd_univariate(f, g):
     are very likely the desired GCD.
 
     Parameters
-    ==========
-
+    ----------
     f : PolyElement
         univariate integer polynomial
     g : PolyElement
         univariate integer polynomial
 
     Returns
-    =======
-
+    -------
     h : PolyElement
         GCD of the polynomials `f` and `g`
     cff : PolyElement
@@ -117,8 +113,7 @@ def modgcd_univariate(f, g):
         cofactor of `g`, i.e. `\\frac{g}{h}`
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.modulargcd import modgcd_univariate
     >>> from sympy.polys import ring, ZZ
 
@@ -149,35 +144,31 @@ def modgcd_univariate(f, g):
     True
 
     References
-    ==========
-
+    ----------
     1. [Monagan00]_
 
-    '''
+    """
 def _primitive(f, p):
-    '''
+    """
     Compute the content and the primitive part of a polynomial in
     `\\mathbb{Z}_p[x_0, \\ldots, x_{k-2}, y] \\cong \\mathbb{Z}_p[y][x_0, \\ldots, x_{k-2}]`.
 
     Parameters
-    ==========
-
+    ----------
     f : PolyElement
         integer polynomial in `\\mathbb{Z}_p[x0, \\ldots, x{k-2}, y]`
     p : Integer
         modulus of `f`
 
     Returns
-    =======
-
+    -------
     contf : PolyElement
         integer polynomial in `\\mathbb{Z}_p[y]`, content of `f`
     ppf : PolyElement
         primitive part of `f`, i.e. `\\frac{f}{contf}`
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.modulargcd import _primitive
     >>> from sympy.polys import ring, ZZ
 
@@ -194,27 +185,24 @@ def _primitive(f, p):
     >>> _primitive(f, p)
     (z, x*y - y**2*z)
 
-    '''
+    """
 def _deg(f):
-    '''
+    """
     Compute the degree of a multivariate polynomial
     `f \\in K[x_0, \\ldots, x_{k-2}, y] \\cong K[y][x_0, \\ldots, x_{k-2}]`.
 
     Parameters
-    ==========
-
+    ----------
     f : PolyElement
         polynomial in `K[x_0, \\ldots, x_{k-2}, y]`
 
     Returns
-    =======
-
+    -------
     degf : Integer tuple
         degree of `f` in `x_0, \\ldots, x_{k-2}`
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.modulargcd import _deg
     >>> from sympy.polys import ring, ZZ
 
@@ -234,27 +222,24 @@ def _deg(f):
     >>> _deg(f)
     (1, 1)
 
-    '''
+    """
 def _LC(f):
-    '''
+    """
     Compute the leading coefficient of a multivariate polynomial
     `f \\in K[x_0, \\ldots, x_{k-2}, y] \\cong K[y][x_0, \\ldots, x_{k-2}]`.
 
     Parameters
-    ==========
-
+    ----------
     f : PolyElement
         polynomial in `K[x_0, \\ldots, x_{k-2}, y]`
 
     Returns
-    =======
-
+    -------
     lcf : PolyElement
         polynomial in `K[y]`, leading coefficient of `f`
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.modulargcd import _LC
     >>> from sympy.polys import ring, ZZ
 
@@ -274,7 +259,7 @@ def _LC(f):
     >>> _LC(f)
     z
 
-    '''
+    """
 def _swap(f, i):
     """
     Make the variable `x_i` the leading one in a multivariate polynomial `f`.
@@ -298,16 +283,14 @@ def _degree_bound_bivariate(f, g):
     set to the minimum of the degrees of `f` and `g` in `x`.
 
     Parameters
-    ==========
-
+    ----------
     f : PolyElement
         bivariate integer polynomial
     g : PolyElement
         bivariate integer polynomial
 
     Returns
-    =======
-
+    -------
     xbound : Integer
         upper bound for the degree of the GCD of the polynomials `f` and
         `g` in the variable `x`
@@ -316,13 +299,12 @@ def _degree_bound_bivariate(f, g):
         polynomials `f` and `g` in the variable `y`
 
     References
-    ==========
-
+    ----------
     1. [Monagan00]_
 
     """
 def _chinese_remainder_reconstruction_multivariate(hp, hq, p, q):
-    '''
+    """
     Construct a polynomial `h_{pq}` in
     `\\mathbb{Z}_{p q}[x_0, \\ldots, x_{k-1}]` such that
 
@@ -343,8 +325,7 @@ def _chinese_remainder_reconstruction_multivariate(hp, hq, p, q):
     `\\mathbb{Z}_{p q}[x_0, \\ldots, x_{k-1}]` is used.
 
     Parameters
-    ==========
-
+    ----------
     hp : PolyElement
         multivariate integer polynomial with coefficients in `\\mathbb{Z}_p`
     hq : PolyElement
@@ -355,8 +336,7 @@ def _chinese_remainder_reconstruction_multivariate(hp, hq, p, q):
         modulus of `h_q`, relatively prime to `p`
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.modulargcd import _chinese_remainder_reconstruction_multivariate
     >>> from sympy.polys import ring, ZZ
 
@@ -392,7 +372,7 @@ def _chinese_remainder_reconstruction_multivariate(hp, hq, p, q):
     >>> hpq.trunc_ground(q) == hq
     True
 
-    '''
+    """
 def _interpolate_multivariate(evalpoints, hpeval, ring, i, p, ground: bool = False):
     """
     Reconstruct a polynomial `h_p` in `\\mathbb{Z}_p[x_0, \\ldots, x_{k-1}]`
@@ -406,8 +386,7 @@ def _interpolate_multivariate(evalpoints, hpeval, ring, i, p, ground: bool = Fal
     In this case, one has to set ``ground=True``.
 
     Parameters
-    ==========
-
+    ----------
     evalpoints : list of Integer objects
         list of evaluation points in `\\mathbb{Z}_p`
     hpeval : list of PolyElement objects
@@ -425,15 +404,14 @@ def _interpolate_multivariate(evalpoints, hpeval, ring, i, p, ground: bool = Fal
         ``False``
 
     Returns
-    =======
-
+    -------
     hp : PolyElement
         interpolated polynomial in (resp. over)
         `\\mathbb{Z}_p[x_0, \\ldots, x_{k-1}]`
 
     """
 def modgcd_bivariate(f, g):
-    '''
+    """
     Computes the GCD of two polynomials in `\\mathbb{Z}[x, y]` using a
     modular algorithm.
 
@@ -450,16 +428,14 @@ def modgcd_bivariate(f, g):
     desired GCD.
 
     Parameters
-    ==========
-
+    ----------
     f : PolyElement
         bivariate integer polynomial
     g : PolyElement
         bivariate integer polynomial
 
     Returns
-    =======
-
+    -------
     h : PolyElement
         GCD of the polynomials `f` and `g`
     cff : PolyElement
@@ -468,8 +444,7 @@ def modgcd_bivariate(f, g):
         cofactor of `g`, i.e. `\\frac{g}{h}`
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.modulargcd import modgcd_bivariate
     >>> from sympy.polys import ring, ZZ
 
@@ -500,11 +475,10 @@ def modgcd_bivariate(f, g):
     True
 
     References
-    ==========
-
+    ----------
     1. [Monagan00]_
 
-    '''
+    """
 def _modgcd_multivariate_p(f, g, p, degbound, contbound):
     """
     Compute the GCD of two polynomials in
@@ -523,8 +497,7 @@ def _modgcd_multivariate_p(f, g, p, degbound, contbound):
     algorithm fails.
 
     Parameters
-    ==========
-
+    ----------
     f : PolyElement
         multivariate integer polynomial with coefficients in `\\mathbb{Z}_p`
     g : PolyElement
@@ -541,20 +514,18 @@ def _modgcd_multivariate_p(f, g, p, degbound, contbound):
         arbitrarily.
 
     Returns
-    =======
-
+    -------
     h : PolyElement
         GCD of the polynomials `f` and `g` or ``None``
 
     References
-    ==========
-
+    ----------
     1. [Monagan00]_
     2. [Brown71]_
 
     """
 def modgcd_multivariate(f, g):
-    '''
+    """
     Compute the GCD of two polynomials in `\\mathbb{Z}[x_0, \\ldots, x_{k-1}]`
     using a modular algorithm.
 
@@ -568,16 +539,14 @@ def modgcd_multivariate(f, g):
     candidates which are very likely the desired GCD.
 
     Parameters
-    ==========
-
+    ----------
     f : PolyElement
         multivariate integer polynomial
     g : PolyElement
         multivariate integer polynomial
 
     Returns
-    =======
-
+    -------
     h : PolyElement
         GCD of the polynomials `f` and `g`
     cff : PolyElement
@@ -586,8 +555,7 @@ def modgcd_multivariate(f, g):
         cofactor of `g`, i.e. `\\frac{g}{h}`
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.modulargcd import modgcd_multivariate
     >>> from sympy.polys import ring, ZZ
 
@@ -620,17 +588,15 @@ def modgcd_multivariate(f, g):
     True
 
     References
-    ==========
-
+    ----------
     1. [Monagan00]_
     2. [Brown71]_
 
-    See also
-    ========
-
+    See Also
+    --------
     _modgcd_multivariate_p
 
-    '''
+    """
 def _gf_div(f, g, p):
     """
     Compute `\\frac f g` modulo `p` for two univariate polynomials over
@@ -652,8 +618,7 @@ def _rational_function_reconstruction(c, p, m):
     `m`. In that case ``None`` is returned.
 
     Parameters
-    ==========
-
+    ----------
     c : PolyElement
         univariate polynomial in `\\mathbb Z[t]`
     p : Integer
@@ -662,14 +627,12 @@ def _rational_function_reconstruction(c, p, m):
         modulus, not necessarily irreducible
 
     Returns
-    =======
-
+    -------
     frac : FracElement
         either `\\frac a b` in `\\mathbb Z(t)` or ``None``
 
     References
-    ==========
-
+    ----------
     1. [Hoeij04]_
 
     """
@@ -692,8 +655,7 @@ def _rational_reconstruction_func_coeffs(hm, p, m, ring, k):
     coefficient. In that case ``None`` is returned.
 
     Parameters
-    ==========
-
+    ----------
     hm : PolyElement
         polynomial in `\\mathbb Z[t_1, \\ldots, t_k][x, z]`
     p : Integer
@@ -707,15 +669,13 @@ def _rational_reconstruction_func_coeffs(hm, p, m, ring, k):
         index of the parameter `t_k` which will be reconstructed
 
     Returns
-    =======
-
+    -------
     h : PolyElement
         reconstructed polynomial in
         `\\mathbb Z(t_k)[t_1, \\ldots, t_{k-1}][x, z]` or ``None``
 
-    See also
-    ========
-
+    See Also
+    --------
     _rational_function_reconstruction
 
     """
@@ -734,8 +694,7 @@ def _trunc(f, minpoly, p):
     `\\mathbb Z_p[z] / (\\check m_{\\alpha}(z))[x]`
 
     Parameters
-    ==========
-
+    ----------
     f : PolyElement
         polynomial in `\\mathbb Z[x, z]`
     minpoly : PolyElement
@@ -745,8 +704,7 @@ def _trunc(f, minpoly, p):
         prime number, modulus of `\\mathbb Z_p`
 
     Returns
-    =======
-
+    -------
     ftrunc : PolyElement
         polynomial in `\\mathbb Z[x, z]`, reduced modulo
         `\\check m_{\\alpha}(z)` and `p`
@@ -763,8 +721,7 @@ def _euclidean_algorithm(f, g, minpoly, p):
     `\\check m_{\\alpha}(z)`. In that case ``None`` is returned.
 
     Parameters
-    ==========
-
+    ----------
     f, g : PolyElement
         polynomials in `\\mathbb Z[x, z]`
     minpoly : PolyElement
@@ -773,8 +730,7 @@ def _euclidean_algorithm(f, g, minpoly, p):
         prime number, modulus of `\\mathbb Z_p`
 
     Returns
-    =======
-
+    -------
     h : PolyElement
         GCD of `f` and `g` in `\\mathbb Z[z, x]` or ``None``, coefficients
         are in `\\left[ -\\frac{p-1} 2, \\frac{p-1} 2 \\right]`
@@ -791,8 +747,7 @@ def _trial_division(f, h, minpoly, p=None):
     is given, `\\mathbb Z_p` is chosen instead.
 
     Parameters
-    ==========
-
+    ----------
     f, h : PolyElement
         polynomials in `\\mathbb Z[t_1, \\ldots, t_k][x, z]`
     minpoly : PolyElement
@@ -802,13 +757,12 @@ def _trial_division(f, h, minpoly, p=None):
         `\\mathbb Q`, default is ``None``
 
     Returns
-    =======
-
+    -------
     rem : PolyElement
         remainder of `\\frac f h`
 
     References
-    ==========
+    ----------
 
     .. [1] [Hoeij02]_
 
@@ -836,8 +790,7 @@ def _func_field_modgcd_p(f, g, minpoly, p):
     division.
 
     Parameters
-    ==========
-
+    ----------
     f, g : PolyElement
         polynomials in `\\mathbb Z[t_1, \\ldots, t_k][x, z]`
     minpoly : PolyElement
@@ -847,16 +800,14 @@ def _func_field_modgcd_p(f, g, minpoly, p):
         prime number, modulus of `\\mathbb Z_p`
 
     Returns
-    =======
-
+    -------
     h : PolyElement
         primitive associate in `\\mathbb Z[t_1, \\ldots, t_k][x, z]` of the
         GCD of the polynomials `f` and `g`  or ``None``, coefficients are
         in `\\left[ -\\frac{p-1} 2, \\frac{p-1} 2 \\right]`
 
     References
-    ==========
-
+    ----------
     1. [Hoeij04]_
 
     """
@@ -875,8 +826,7 @@ def _integer_rational_reconstruction(c, m, domain):
     `m`. In that case ``None`` is returned.
 
     Parameters
-    ==========
-
+    ----------
     c : Integer
         `c = \\frac a b \\; \\mathrm{mod} \\, m`
     m : Integer
@@ -885,14 +835,12 @@ def _integer_rational_reconstruction(c, m, domain):
         `a, b, c` are elements of ``domain``
 
     Returns
-    =======
-
+    -------
     frac : Rational
         either `\\frac a b` in `\\mathbb Q` or ``None``
 
     References
-    ==========
-
+    ----------
     1. [Wang81]_
 
     """
@@ -914,8 +862,7 @@ def _rational_reconstruction_int_coeffs(hm, m, ring):
     coefficient. In that case ``None`` is returned.
 
     Parameters
-    ==========
-
+    ----------
     hm : PolyElement
         polynomial in `\\mathbb Z[t_1, \\ldots, t_k][x, z]`
     m : Integer
@@ -925,15 +872,13 @@ def _rational_reconstruction_int_coeffs(hm, m, ring):
         ring
 
     Returns
-    =======
-
+    -------
     h : PolyElement
         reconstructed polynomial in `\\mathbb Q[t_1, \\ldots, t_k][x, z]` or
         ``None``
 
-    See also
-    ========
-
+    See Also
+    --------
     _integer_rational_reconstruction
 
     """
@@ -955,23 +900,20 @@ def _func_field_modgcd_m(f, g, minpoly):
     fraction free trial division is used.
 
     Parameters
-    ==========
-
+    ----------
     f, g : PolyElement
         polynomials in `\\mathbb Z[t_1, \\ldots, t_k][x, z]`
     minpoly : PolyElement
         irreducible polynomial in `\\mathbb Z[t_1, \\ldots, t_k][z]`
 
     Returns
-    =======
-
+    -------
     h : PolyElement
         the primitive associate in `\\mathbb Z[t_1, \\ldots, t_k][x, z]` of
         the GCD of `f` and `g`
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.modulargcd import _func_field_modgcd_m
     >>> from sympy.polys import ring, ZZ
 
@@ -993,13 +935,11 @@ def _func_field_modgcd_m(f, g, minpoly):
     x + t*z
 
     References
-    ==========
-
+    ----------
     1. [Hoeij04]_
 
-    See also
-    ========
-
+    See Also
+    --------
     _func_field_modgcd_p
 
     """
@@ -1013,16 +953,14 @@ def _to_ZZ_poly(f, ring):
     `\\mathbb Q`.
 
     Parameters
-    ==========
-
+    ----------
     f : PolyElement
         polynomial in `\\mathbb Q(\\alpha)[x_0, \\ldots, x_{n-1}]`
     ring : PolyRing
         `\\mathbb Z[x_1, \\ldots, x_{n-1}][x_0, z]`
 
     Returns
-    =======
-
+    -------
     f_ : PolyElement
         associate of `f` in
         `\\mathbb Z[x_1, \\ldots, x_{n-1}][x_0, z]`
@@ -1038,16 +976,14 @@ def _to_ANP_poly(f, ring):
     `\\mathbb Q`.
 
     Parameters
-    ==========
-
+    ----------
     f : PolyElement
         polynomial in `\\mathbb Z[x_1, \\ldots, x_{n-1}][x_0, z]`
     ring : PolyRing
         `\\mathbb Q(\\alpha)[x_0, \\ldots, x_{n-1}]`
 
     Returns
-    =======
-
+    -------
     f_ : PolyElement
         polynomial in `\\mathbb Q(\\alpha)[x_0, \\ldots, x_{n-1}]`
 
@@ -1098,14 +1034,12 @@ def func_field_modgcd(f, g):
     called recursively.
 
     Parameters
-    ==========
-
+    ----------
     f, g : PolyElement
         polynomials in `\\mathbb Q(\\alpha)[x_0, \\ldots, x_{n-1}]`
 
     Returns
-    =======
-
+    -------
     h : PolyElement
         monic GCD of the polynomials `f` and `g`
     cff : PolyElement
@@ -1114,8 +1048,7 @@ def func_field_modgcd(f, g):
         cofactor of `g`, i.e. `\\frac g h`
 
     Examples
-    ========
-
+    --------
     >>> from sympy.polys.modulargcd import func_field_modgcd
     >>> from sympy.polys import AlgebraicField, QQ, ring
     >>> from sympy import sqrt
@@ -1162,8 +1095,7 @@ def func_field_modgcd(f, g):
     True
 
     References
-    ==========
-
+    ----------
     1. [Hoeij04]_
 
     """

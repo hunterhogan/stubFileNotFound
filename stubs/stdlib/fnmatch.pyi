@@ -1,6 +1,6 @@
-import sys
 from collections.abc import Iterable
 from typing import AnyStr
+import sys
 
 __all__ = ["filter", "fnmatch", "fnmatchcase", "translate"]
 if sys.version_info >= (3, 14):

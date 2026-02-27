@@ -1,4 +1,6 @@
-from .sets import FiniteSet as FiniteSet, Interval as Interval, ProductSet as ProductSet, Set as Set, SetKind as SetKind, Union as Union, tfn as tfn
+from .sets import (
+	FiniteSet as FiniteSet, Interval as Interval, ProductSet as ProductSet, Set as Set, SetKind as SetKind, tfn as tfn,
+	Union as Union)
 from _typeshed import Incomplete
 from sympy.core.basic import Basic as Basic
 from sympy.core.containers import Tuple as Tuple
@@ -8,7 +10,7 @@ from sympy.core.intfunc import igcd as igcd
 from sympy.core.kind import NumberKind as NumberKind
 from sympy.core.logic import fuzzy_and as fuzzy_and, fuzzy_not as fuzzy_not, fuzzy_or as fuzzy_or
 from sympy.core.mod import Mod as Mod
-from sympy.core.numbers import Integer as Integer, Rational as Rational, oo as oo
+from sympy.core.numbers import Integer as Integer, oo as oo, Rational as Rational
 from sympy.core.relational import Eq as Eq, is_eq as is_eq
 from sympy.core.singleton import S as S, Singleton as Singleton
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, symbols as symbols
@@ -24,8 +26,7 @@ class Rationals(Set, metaclass=Singleton):
     the singleton ``S.Rationals``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S
     >>> S.Half in S.Rationals
     True
@@ -33,6 +34,7 @@ class Rationals(Set, metaclass=Singleton):
     >>> [next(iterable) for i in range(12)]
     [0, 1, -1, 1/2, 2, -1/2, -2, 1/3, 3, -1/3, -3, 2/3]
     """
+
     is_iterable: bool
     _inf: Incomplete
     _sup: Incomplete
@@ -51,8 +53,7 @@ class Naturals(Set, metaclass=Singleton):
     the singleton ``S.Naturals``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, Interval, pprint
     >>> 5 in S.Naturals
     True
@@ -67,11 +68,11 @@ class Naturals(Set, metaclass=Singleton):
     {1, 2, ..., 10}
 
     See Also
-    ========
-
+    --------
     Naturals0 : non-negative integers (i.e. includes 0, too)
     Integers : also includes negative integers
     """
+
     is_iterable: bool
     _inf: Integer
     _sup: Incomplete
@@ -91,11 +92,11 @@ class Naturals0(Naturals):
     inclusive of zero.
 
     See Also
-    ========
-
+    --------
     Naturals : positive integers; does not include 0
     Integers : also includes the negative integers
     """
+
     _inf: Incomplete
     def _contains(self, other): ...
     def _eval_is_subset(self, other): ...
@@ -107,8 +108,7 @@ class Integers(Set, metaclass=Singleton):
     available as the singleton ``S.Integers``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, Interval, pprint
     >>> 5 in S.Naturals
     True
@@ -126,11 +126,11 @@ class Integers(Set, metaclass=Singleton):
     {-4, -3, ..., 4}
 
     See Also
-    ========
-
+    --------
     Naturals0 : non-negative integers
     Integers : positive and negative integers and zero
     """
+
     is_iterable: bool
     is_empty: bool
     is_finite_set: bool
@@ -156,8 +156,7 @@ class Reals(Interval, metaclass=Singleton):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, Rational, pi, I
     >>> 5 in S.Reals
     True
@@ -172,10 +171,10 @@ class Reals(Interval, metaclass=Singleton):
 
 
     See Also
-    ========
-
+    --------
     ComplexRegion
     """
+
     @property
     def start(self): ...
     @property
@@ -200,8 +199,7 @@ class ImageSet(Set):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Symbol, S, pi, Dummy, Lambda
     >>> from sympy import FiniteSet, ImageSet, Interval
 
@@ -239,10 +237,10 @@ class ImageSet(Set):
     {0}
 
     See Also
-    ========
-
+    --------
     sympy.sets.sets.imageset
     """
+
     def __new__(cls, flambda, *sets): ...
     lamda: Incomplete
     base_sets: Incomplete
@@ -342,6 +340,7 @@ class Range(Set):
         >>> pprint(r)
         {n, n + 3, ..., n + 18}
     """
+
     def __new__(cls, *args): ...
     start: Incomplete
     stop: Incomplete
@@ -351,8 +350,7 @@ class Range(Set):
         """Return an equivalent Range in the opposite order.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Range
         >>> Range(10).reversed
         Range(9, -1, -1)
@@ -378,7 +376,7 @@ class Range(Set):
     @property
     def _boundary(self): ...
     def as_relational(self, x):
-        """Rewrite a Range in terms of equalities and logic operators. """
+        """Rewrite a Range in terms of equalities and logic operators."""
 
 def normalize_theta_set(theta):
     """
@@ -389,8 +387,7 @@ def normalize_theta_set(theta):
     with end points as non-multiples of ``pi`` is not supported.
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         The algorithms for Normalizing theta Set are not yet
         implemented.
@@ -400,8 +397,7 @@ def normalize_theta_set(theta):
         It is a bug, please report to the github issue tracker.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.sets.fancysets import normalize_theta_set
     >>> from sympy import Interval, FiniteSet, pi
     >>> normalize_theta_set(Interval(9*pi/2, 5*pi))
@@ -439,8 +435,7 @@ class ComplexRegion(Set):
     .. math:: Z = \\{z \\in \\mathbb{C} \\mid z = x + Iy, x \\in [\\operatorname{re}(z)], y \\in [\\operatorname{im}(z)]\\}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ComplexRegion, Interval, S, I, Union
     >>> a = Interval(2, 3)
     >>> b = Interval(4, 6)
@@ -490,13 +485,13 @@ class ComplexRegion(Set):
     True
 
     See Also
-    ========
-
+    --------
     CartesianComplexRegion
     PolarComplexRegion
     Complexes
 
     """
+
     is_ComplexRegion: bool
     def __new__(cls, sets, polar: bool = False): ...
     @property
@@ -505,8 +500,7 @@ class ComplexRegion(Set):
         Return raw input sets to the self.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Interval, ComplexRegion, Union
         >>> a = Interval(2, 3)
         >>> b = Interval(4, 5)
@@ -525,8 +519,7 @@ class ComplexRegion(Set):
         Return a tuple of sets (ProductSets) input of the self.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Interval, ComplexRegion, Union
         >>> a = Interval(2, 3)
         >>> b = Interval(4, 5)
@@ -547,8 +540,7 @@ class ComplexRegion(Set):
         self is in polar form.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Interval, ComplexRegion, Union
         >>> a = Interval(2, 3)
         >>> b = Interval(4, 5)
@@ -569,8 +561,7 @@ class ComplexRegion(Set):
         when self is in polar form.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Interval, ComplexRegion, Union
         >>> a = Interval(2, 3)
         >>> b = Interval(4, 5)
@@ -589,8 +580,7 @@ class ComplexRegion(Set):
         The measure of self.sets.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Interval, ComplexRegion, S
         >>> a, b = Interval(2, 5), Interval(4, 8)
         >>> c = Interval(0, 2*S.Pi)
@@ -609,8 +599,7 @@ class ComplexRegion(Set):
         Converts given subset of real numbers to a complex region.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Interval, ComplexRegion
         >>> unit = Interval(0,1)
         >>> ComplexRegion.from_real(unit)
@@ -626,8 +615,7 @@ class CartesianComplexRegion(ComplexRegion):
     .. math:: Z = \\{z \\in \\mathbb{C} \\mid z = x + Iy, x \\in [\\operatorname{re}(z)], y \\in [\\operatorname{im}(z)]\\}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ComplexRegion, I, Interval
     >>> region = ComplexRegion(Interval(1, 3) * Interval(4, 6))
     >>> 2 + 5*I in region
@@ -635,13 +623,13 @@ class CartesianComplexRegion(ComplexRegion):
     >>> 5*I in region
     False
 
-    See also
-    ========
-
+    See Also
+    --------
     ComplexRegion
     PolarComplexRegion
     Complexes
     """
+
     polar: bool
     variables: Incomplete
     def __new__(cls, sets): ...
@@ -655,8 +643,7 @@ class PolarComplexRegion(ComplexRegion):
     .. math:: Z = \\{z \\in \\mathbb{C} \\mid z = r\\times (\\cos(\\theta) + I\\sin(\\theta)), r \\in [\\texttt{r}], \\theta \\in [\\texttt{theta}]\\}
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ComplexRegion, Interval, oo, pi, I
     >>> rset = Interval(0, oo)
     >>> thetaset = Interval(0, pi)
@@ -666,14 +653,14 @@ class PolarComplexRegion(ComplexRegion):
     >>> 1 - I in upper_half_plane
     False
 
-    See also
-    ========
-
+    See Also
+    --------
     ComplexRegion
     CartesianComplexRegion
     Complexes
 
     """
+
     polar: bool
     variables: Incomplete
     def __new__(cls, sets): ...
@@ -685,21 +672,20 @@ class Complexes(CartesianComplexRegion, metaclass=Singleton):
     The :class:`Set` of all complex numbers
 
     Examples
-    ========
-
+    --------
     >>> from sympy import S, I
     >>> S.Complexes
     Complexes
     >>> 1 + I in S.Complexes
     True
 
-    See also
-    ========
-
+    See Also
+    --------
     Reals
     ComplexRegion
 
     """
+
     is_empty: bool
     is_finite_set: bool
     @property

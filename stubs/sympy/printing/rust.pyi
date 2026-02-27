@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from sympy.codegen.ast import bool_ as bool_, float32 as float32, float64 as float64, int32 as int32, integer as integer, real as real
+from sympy.codegen.ast import (
+	bool_ as bool_, float32 as float32, float64 as float64, int32 as int32, integer as integer, real as real)
 from sympy.core import Float as Float, Lambda as Lambda, Rational as Rational, S as S
 from sympy.core.expr import Expr as Expr
 from sympy.core.numbers import equal_valued as equal_valued
@@ -12,12 +13,14 @@ class float_floor(floor):
     """
     Same as `sympy.floor`, but mimics the Rust behavior of returning a float rather than an integer
     """
+
     def _eval_is_integer(self): ...
 
 class float_ceiling(ceiling):
     """
     Same as `sympy.ceiling`, but mimics the Rust behavior of returning a float rather than an integer
     """
+
     def _eval_is_integer(self): ...
 
 function_overrides: Incomplete
@@ -28,6 +31,7 @@ class TypeCast(Expr):
     """
     The type casting operator of the Rust language.
     """
+
     explicit: Incomplete
     _assumptions: Incomplete
     def __init__(self, expr, type_) -> None: ...
@@ -39,6 +43,7 @@ class TypeCast(Expr):
 
 class RustCodePrinter(CodePrinter):
     """A printer to convert SymPy expressions to strings of Rust code"""
+
     printmethod: str
     language: str
     type_aliases: Incomplete
@@ -59,7 +64,7 @@ class RustCodePrinter(CodePrinter):
     def _print_caller_var(self, expr): ...
     def _print_Function(self, expr):
         """
-        basic function for printing `Function`
+        Basic function for printing `Function`
 
         Function Style :
 
@@ -97,8 +102,9 @@ class RustCodePrinter(CodePrinter):
     def _print_sign(self, expr): ...
     def _cast_to_float(self, expr): ...
     def _can_print(self, name):
-        """ Check if function ``name`` is either a known function or has its own
-            printing method. Used to check if rewriting is possible."""
+        """Check if function ``name`` is either a known function or has its own
+        printing method. Used to check if rewriting is possible.
+        """
     def _collect_functions(self, expr): ...
     def _rewrite_known_functions(self, expr): ...
     def indent_code(self, code):

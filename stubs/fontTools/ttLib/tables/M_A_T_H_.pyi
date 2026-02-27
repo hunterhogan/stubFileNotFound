@@ -8,4 +8,3 @@ class table_M_A_T_H_(BaseTTXConverter):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/math
     """
-

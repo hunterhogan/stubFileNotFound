@@ -1,17 +1,11 @@
 from collections.abc import Sequence
-from typing import Self
-
-import numpy as np
+from pandas._libs.missing import NAType
+from pandas._typing import np_ndarray_bool, type_t
 from pandas.core.arrays.integer import IntegerArray
 from pandas.core.arrays.masked import BaseMaskedArray as BaseMaskedArray
-
-from pandas._libs.missing import NAType
-from pandas._typing import (
-    np_ndarray_bool,
-    type_t,
-)
-
 from pandas.core.dtypes.dtypes import BaseMaskedDtype
+from typing import Self
+import numpy as np
 
 class BooleanDtype(BaseMaskedDtype):
     @classmethod

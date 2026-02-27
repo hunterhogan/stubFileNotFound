@@ -1,9 +1,9 @@
-import sys
 from _typeshed import SupportsWrite
 from collections import deque
 from typing import IO
+import sys
 
-__all__ = ["pprint", "pformat", "isreadable", "isrecursive", "saferepr", "PrettyPrinter", "pp"]
+__all__ = ["PrettyPrinter", "isreadable", "isrecursive", "pformat", "pp", "pprint", "saferepr"]
 
 if sys.version_info >= (3, 10):
     def pformat(

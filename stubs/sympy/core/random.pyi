@@ -34,8 +34,7 @@ def verify_numerically(f, g, z=None, tol: float = 1e-06, a: int = 2, b: int = -1
     off errors.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sin, cos
     >>> from sympy.abc import x
     >>> from sympy.core.random import verify_numerically as tn
@@ -52,8 +51,7 @@ def test_derivative_numerically(f, z, tol: float = 1e-06, a: int = 2, b: int = -
     not be what you expect due to round-off errors.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sin
     >>> from sympy.abc import x
     >>> from sympy.core.random import test_derivative_numerically as td
@@ -71,8 +69,7 @@ def _randrange(seed=None):
       in the order given; the provided list is not modified.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.random import _randrange
     >>> rr = _randrange()
     >>> rr(1000) # doctest: +SKIP
@@ -95,8 +92,7 @@ def _randint(seed=None):
       in the order given; the provided list is not modified.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.random import _randint
     >>> ri = _randint()
     >>> ri(1, 1000) # doctest: +SKIP

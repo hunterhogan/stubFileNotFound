@@ -17,8 +17,7 @@ class System(_Methods):
     libraries for greater flexibility and integration with other tools.
 
     Attributes
-    ==========
-
+    ----------
     frame : ReferenceFrame
         Inertial reference frame of the system.
     fixed_point : Point
@@ -70,8 +69,7 @@ class System(_Methods):
         Backend for forming the equations of motion.
 
     Examples
-    ========
-
+    --------
     In the example below a cart with a pendulum is created. The cart moves along
     the x axis of the rail and the pendulum rotates about the z axis. The length
     of the pendulum is ``l`` with the pendulum represented as a particle. To
@@ -201,6 +199,7 @@ class System(_Methods):
     l*u_pin**2*sin(q_pin)]])
 
     """
+
     _frame: Incomplete
     _fixed_point: Incomplete
     _q_ind: Incomplete
@@ -221,8 +220,7 @@ class System(_Methods):
         """Initialize the system.
 
         Parameters
-        ==========
-
+        ----------
         frame : ReferenceFrame, optional
             The inertial frame of the system. If none is supplied, a new frame
             will be created.
@@ -276,11 +274,13 @@ class System(_Methods):
     @property
     def q(self):
         """Matrix of all the generalized coordinates with the independent
-        stacked upon the dependent."""
+        stacked upon the dependent.
+        """
     @property
     def u(self):
         """Matrix of all the generalized speeds with the independent stacked
-        upon the dependent."""
+        upon the dependent.
+        """
     @property
     def q_ind(self):
         """Matrix of the independent generalized coordinates."""
@@ -315,21 +315,24 @@ class System(_Methods):
     def kdes(self):
         """Kinematical differential equations as expressions equated to the zero
         matrix. These equations describe the coupling between the generalized
-        coordinates and the generalized speeds."""
+        coordinates and the generalized speeds.
+        """
     @kdes.setter
     @_reset_eom_method
     def kdes(self, kdes) -> None: ...
     @property
     def holonomic_constraints(self):
         """Matrix with the holonomic constraints as expressions equated to the
-        zero matrix."""
+        zero matrix.
+        """
     @holonomic_constraints.setter
     @_reset_eom_method
     def holonomic_constraints(self, constraints) -> None: ...
     @property
     def nonholonomic_constraints(self):
         """Matrix with the nonholonomic constraints as expressions equated to
-        the zero matrix."""
+        the zero matrix.
+        """
     @nonholonomic_constraints.setter
     @_reset_eom_method
     def nonholonomic_constraints(self, constraints) -> None: ...
@@ -360,7 +363,7 @@ class System(_Methods):
         an error is raised.
 
         Parameters
-        ==========
+        ----------
         objects : iterable
             The objects that would be added to the system.
         obj_lst : list
@@ -385,8 +388,7 @@ class System(_Methods):
         """Add generalized coordinate(s) to the system.
 
         Parameters
-        ==========
-
+        ----------
         *coordinates : dynamicsymbols
             One or more generalized coordinates to be added to the system.
         independent : bool or list of bool, optional
@@ -400,8 +402,7 @@ class System(_Methods):
         """Add generalized speed(s) to the system.
 
         Parameters
-        ==========
-
+        ----------
         *speeds : dynamicsymbols
             One or more generalized speeds to be added to the system.
         independent : bool or list of bool, optional
@@ -414,8 +415,7 @@ class System(_Methods):
         """Add auxiliary speed(s) to the system.
 
         Parameters
-        ==========
-
+        ----------
         *speeds : dynamicsymbols
             One or more auxiliary speeds to be added to the system.
 
@@ -425,8 +425,7 @@ class System(_Methods):
         """Add kinematic differential equation(s) to the system.
 
         Parameters
-        ==========
-
+        ----------
         *kdes : Expr
             One or more kinematic differential equations.
 
@@ -436,8 +435,7 @@ class System(_Methods):
         """Add holonomic constraint(s) to the system.
 
         Parameters
-        ==========
-
+        ----------
         *constraints : Expr
             One or more holonomic constraints, which are expressions that should
             be zero.
@@ -448,8 +446,7 @@ class System(_Methods):
         """Add nonholonomic constraint(s) to the system.
 
         Parameters
-        ==========
-
+        ----------
         *constraints : Expr
             One or more nonholonomic constraints, which are expressions that
             should be zero.
@@ -460,8 +457,7 @@ class System(_Methods):
         """Add body(ies) to the system.
 
         Parameters
-        ==========
-
+        ----------
         bodies : Particle or RigidBody
             One or more bodies.
 
@@ -471,8 +467,7 @@ class System(_Methods):
         """Add load(s) to the system.
 
         Parameters
-        ==========
-
+        ----------
         *loads : Force or Torque
             One or more loads.
 
@@ -482,8 +477,7 @@ class System(_Methods):
         """Apply uniform gravity to all bodies in the system by adding loads.
 
         Parameters
-        ==========
-
+        ----------
         acceleration : Vector
             The acceleration due to gravity.
 
@@ -493,8 +487,7 @@ class System(_Methods):
         """Add actuator(s) to the system.
 
         Parameters
-        ==========
-
+        ----------
         *actuators : subclass of ActuatorBase
             One or more actuators.
 
@@ -511,14 +504,12 @@ class System(_Methods):
         kinematic differential equations and the bodies.
 
         Parameters
-        ==========
-
+        ----------
         *joints : subclass of Joint
             One or more joints.
 
         Notes
-        =====
-
+        -----
         For the generalized coordinates, generalized speeds and bodies it is
         checked whether they are already known by the system instance. If they
         are, then they are not added. The kinematic differential equations are
@@ -530,14 +521,12 @@ class System(_Methods):
         """Retrieve a body from the system by name.
 
         Parameters
-        ==========
-
+        ----------
         name : str
             The name of the body to retrieve.
 
         Returns
-        =======
-
+        -------
         RigidBody or Particle
             The body with the given name, or None if no such body exists.
 
@@ -546,14 +535,12 @@ class System(_Methods):
         """Retrieve a joint from the system by name.
 
         Parameters
-        ==========
-
+        ----------
         name : str
             The name of the joint to retrieve.
 
         Returns
-        =======
-
+        -------
         subclass of Joint
             The joint with the given name, or None if no such joint exists.
 
@@ -563,21 +550,18 @@ class System(_Methods):
         """Form the equations of motion of the system.
 
         Parameters
-        ==========
-
+        ----------
         eom_method : subclass of KanesMethod or LagrangesMethod
             Backend class to be used for forming the equations of motion. The
             default is ``KanesMethod``.
 
         Returns
-        ========
-
+        -------
         ImmutableMatrix
             Vector of equations of motions.
 
         Examples
-        ========
-
+        --------
         This is a simple example for a one degree of freedom translational
         spring-mass-damper.
 
@@ -609,22 +593,19 @@ class System(_Methods):
         """Compute the equations of motion in the explicit form.
 
         Parameters
-        ==========
-
+        ----------
         inv_method : str
             The specific sympy inverse matrix calculation method to use. For a
             list of valid methods, see
             :meth:`~sympy.matrices.matrixbase.MatrixBase.inv`
 
         Returns
-        ========
-
+        -------
         ImmutableMatrix
             Equations of motion in the explicit form.
 
         See Also
-        ========
-
+        --------
         sympy.physics.mechanics.kane.KanesMethod.rhs:
             KanesMethod's ``rhs`` function.
         sympy.physics.mechanics.lagrange.LagrangesMethod.rhs:
@@ -671,7 +652,8 @@ class System(_Methods):
     @property
     def forcing_full(self):
         """The forcing vector of the system, augmented by the kinematic
-        differential equations in explicit or implicit form."""
+        differential equations in explicit or implicit form.
+        """
     def validate_system(self, eom_method=..., check_duplicates: bool = False) -> None:
         """Validates the system using some basic checks.
 
@@ -699,8 +681,7 @@ class System(_Methods):
               generalized speeds defined by the joints).
 
         Parameters
-        ==========
-
+        ----------
         eom_method : subclass of KanesMethod or LagrangesMethod
             Backend class that will be used for forming the equations of motion.
             There are different checks for the different backends. The default
@@ -711,8 +692,7 @@ class System(_Methods):
             checked when adding objects to the system.
 
         Notes
-        =====
-
+        -----
         This method is not guaranteed to be backwards compatible as it may
         improve over time. The method can become both more and less strict in
         certain areas. However a well-defined system should always pass all
@@ -754,9 +734,8 @@ class SymbolicSystem:
     M_3 : mass matrix of the dynamical equations in implicit form
     G : right hand side of the kinematical differential equations
 
-        Parameters
-        ==========
-
+    Parameters
+    ----------
         coord_states : ordered iterable of functions of time
             This input will either be a collection of the coordinates or states
             of the system depending on whether or not the speeds are also
@@ -819,8 +798,7 @@ class SymbolicSystem:
             (ref_frame, torque)]
 
     Attributes
-    ==========
-
+    ----------
     coordinates : Matrix, shape(n, 1)
         This is a matrix containing the generalized coordinates of the system
 
@@ -913,13 +891,13 @@ class SymbolicSystem:
         ...                            dyn_implicit_mat)
 
     Notes
-    =====
-
+    -----
     m : number of generalized speeds
     n : number of generalized coordinates
     o : number of states
 
     """
+
     _states: Incomplete
     _coordinates: Incomplete
     _speeds: Incomplete
@@ -947,45 +925,55 @@ class SymbolicSystem:
     @property
     def alg_con(self):
         """Returns a list with the indices of the rows containing algebraic
-        constraints in the combined form of the equations of motion"""
+        constraints in the combined form of the equations of motion
+        """
     @property
     def dyn_implicit_mat(self):
         """Returns the matrix, M, corresponding to the dynamic equations in
         implicit form, M x' = F, where the kinematical equations are not
-        included"""
+        included
+        """
     @property
     def dyn_implicit_rhs(self):
         """Returns the column matrix, F, corresponding to the dynamic equations
         in implicit form, M x' = F, where the kinematical equations are not
-        included"""
+        included
+        """
     @property
     def comb_implicit_mat(self):
         """Returns the matrix, M, corresponding to the equations of motion in
         implicit form (form [2]), M x' = F, where the kinematical equations are
-        included"""
+        included
+        """
     @property
     def comb_implicit_rhs(self):
         """Returns the column matrix, F, corresponding to the equations of
         motion in implicit form (form [2]), M x' = F, where the kinematical
-        equations are included"""
+        equations are included
+        """
     def compute_explicit_form(self) -> None:
         """If the explicit right hand side of the combined equations of motion
         is to provided upon initialization, this method will calculate it. This
-        calculation can potentially take awhile to compute."""
+        calculation can potentially take awhile to compute.
+        """
     @property
     def comb_explicit_rhs(self):
         """Returns the right hand side of the equations of motion in explicit
-        form, x' = F, where the kinematical equations are included"""
+        form, x' = F, where the kinematical equations are included
+        """
     @property
     def kin_explicit_rhs(self):
         """Returns the right hand side of the kinematical equations in explicit
-        form, q' = G"""
+        form, q' = G
+        """
     def dynamic_symbols(self):
         """Returns a column matrix containing all of the symbols in the system
-        that depend on time"""
+        that depend on time
+        """
     def constant_symbols(self):
         """Returns a column matrix containing all of the symbols in the system
-        that do not depend on time"""
+        that do not depend on time
+        """
     @property
     def bodies(self):
         """Returns the bodies in the system"""

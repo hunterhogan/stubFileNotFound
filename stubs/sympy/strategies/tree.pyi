@@ -3,7 +3,7 @@ from sympy.strategies.branch import yieldify as yieldify
 from sympy.strategies.core import identity as identity
 
 def treeapply(tree, join, leaf=...):
-    """ Apply functions onto recursive containers (tree).
+    """Apply functions onto recursive containers (tree).
 
     Explanation
     ===========
@@ -14,8 +14,7 @@ def treeapply(tree, join, leaf=...):
     Keys are containers/iterables.  Values are functions [a] -> a.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.strategies.tree import treeapply
     >>> tree = [(3, 2), (4, 1)]
     >>> treeapply(tree, {list: max, tuple: min})
@@ -31,7 +30,7 @@ def treeapply(tree, join, leaf=...):
     25
     """
 def greedy(tree, objective=..., **kwargs):
-    ''' Execute a strategic tree.  Select alternatives greedily
+    """Execute a strategic tree.  Select alternatives greedily
 
     Trees
     -----
@@ -64,8 +63,7 @@ def greedy(tree, objective=..., **kwargs):
     choices to minimize the objective.  It defaults to the identity.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.strategies.tree import greedy
     >>> inc    = lambda x: x + 1
     >>> dec    = lambda x: x - 1
@@ -95,9 +93,9 @@ def greedy(tree, objective=..., **kwargs):
         ([a, b], c)  # do either a or b, then do c
 
     the choice between running ``a`` or ``b`` is made without foresight to c
-    '''
+    """
 def allresults(tree, leaf=...):
-    """ Execute a strategic tree.  Return all possibilities.
+    """Execute a strategic tree.  Return all possibilities.
 
     Returns a lazy iterator of all possible results
 

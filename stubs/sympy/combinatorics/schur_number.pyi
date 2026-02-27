@@ -10,8 +10,7 @@ class SchurNumber(Function):
     the lower bound information can be retrieved.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.combinatorics.schur_number import SchurNumber
 
     Since S(3) = 13, hence the output is a number
@@ -29,6 +28,7 @@ class SchurNumber(Function):
     536
 
     """
+
     @classmethod
     def eval(cls, k): ...
     def lower_bound(self): ...
@@ -41,22 +41,19 @@ def schur_partition(n):
     according to the lower bound given by the Schur Number.
 
     Parameters
-    ==========
-
+    ----------
     n: a number
         n is the upper limit of the range [1, n] for which we need to find and
         return the minimum number of free subsets according to the lower bound
         of schur number
 
     Returns
-    =======
-
+    -------
     List of lists
         List of the minimum number of sum-free subsets
 
     Notes
-    =====
-
+    -----
     It is possible for some n to make the partition into less
     subsets since the only known Schur numbers are:
     S(1) = 1, S(2) = 4, S(3) = 13, S(4) = 44.
@@ -64,8 +61,7 @@ def schur_partition(n):
     that can be done with 4 subsets.
 
     Examples
-    ========
-
+    --------
     For n = 1, 2, 3 the answer is the set itself
 
     >>> from sympy.combinatorics.schur_number import schur_partition

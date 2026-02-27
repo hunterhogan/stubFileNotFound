@@ -1,8 +1,8 @@
-import sys
 from _typeshed import StrOrBytesPath
 from collections.abc import Iterator, Sequence
 from typing import AnyStr
 from typing_extensions import deprecated
+import sys
 
 __all__ = ["escape", "glob", "iglob"]
 

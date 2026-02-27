@@ -16,9 +16,9 @@ from .pythonintegerring import PythonIntegerRing as PythonIntegerRing
 from .pythonrational import PythonRational as PythonRational
 from .pythonrationalfield import PythonRationalField
 from .rationalfield import QQ as QQ, RationalField as RationalField
-from .realfield import RR as RR, RealField as RealField
+from .realfield import RealField as RealField, RR as RR
 
-__all__ = ['Domain', 'FiniteField', 'IntegerRing', 'RationalField', 'RealField', 'ComplexField', 'AlgebraicField', 'PolynomialRing', 'FractionField', 'ExpressionDomain', 'PythonRational', 'GF', 'FF', 'ZZ', 'QQ', 'ZZ_I', 'QQ_I', 'RR', 'CC', 'EX', 'EXRAW', 'PythonFiniteField', 'GMPYFiniteField', 'PythonIntegerRing', 'GMPYIntegerRing', 'PythonRational', 'GMPYRationalField', 'FF_python', 'FF_gmpy', 'ZZ_python', 'ZZ_gmpy', 'QQ_python', 'QQ_gmpy']
+__all__ = ['CC', 'EX', 'EXRAW', 'FF', 'GF', 'QQ', 'QQ_I', 'RR', 'ZZ', 'ZZ_I', 'AlgebraicField', 'ComplexField', 'Domain', 'ExpressionDomain', 'FF_gmpy', 'FF_python', 'FiniteField', 'FractionField', 'GMPYFiniteField', 'GMPYIntegerRing', 'GMPYRationalField', 'IntegerRing', 'PolynomialRing', 'PythonFiniteField', 'PythonIntegerRing', 'PythonRational', 'PythonRational', 'QQ_gmpy', 'QQ_python', 'RationalField', 'RealField', 'ZZ_gmpy', 'ZZ_python']
 
 FF_python = PythonFiniteField
 FF_gmpy = GMPYFiniteField

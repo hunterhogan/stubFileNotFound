@@ -2,7 +2,7 @@ from sympy.core import Expr as Expr, Function as Function, Pow as Pow, sympify a
 from sympy.core.relational import Relational as Relational
 from sympy.core.singleton import S as S
 from sympy.functions.elementary.miscellaneous import Max as Max, Min as Min
-from sympy.polys import Poly as Poly, decompose as decompose
+from sympy.polys import decompose as decompose, Poly as Poly
 from sympy.utilities.misc import func_name as func_name
 
 def decompogen(f, symbol):
@@ -16,8 +16,7 @@ def decompogen(f, symbol):
     Polynomials. For only Polynomial decomposition see ``decompose`` in polys.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import x
     >>> from sympy import decompogen, sqrt, sin, cos
     >>> decompogen(sin(cos(x)), x)
@@ -43,8 +42,7 @@ def compogen(g_s, symbol):
     For only Polynomial composition see ``compose`` in polys.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.decompogen import compogen
     >>> from sympy.abc import x
     >>> from sympy import sqrt, sin, cos

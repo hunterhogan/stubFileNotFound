@@ -36,4 +36,3 @@ class SignatureRecord:
     usReserved2: Incomplete
     pkcs7: Incomplete
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
-

@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from sympy.physics.quantum.kind import OperatorKind
 from sympy.physics.quantum.qexpr import QExpr
 
-__all__ = ['Operator', 'HermitianOperator', 'UnitaryOperator', 'IdentityOperator', 'OuterProduct', 'DifferentialOperator']
+__all__ = ['DifferentialOperator', 'HermitianOperator', 'IdentityOperator', 'Operator', 'OuterProduct', 'UnitaryOperator']
 
 class Operator(QExpr):
     """Base class for non-commuting quantum operators.
@@ -12,15 +12,13 @@ class Operator(QExpr):
     represented as Hermitian operators [2]_.
 
     Parameters
-    ==========
-
+    ----------
     args : tuple
         The list of numbers or parameters that uniquely specify the
         operator. For time-dependent operators, this will include the time.
 
     Examples
-    ========
-
+    --------
     Create an operator and examine its attributes::
 
         >>> from sympy.physics.quantum import Operator
@@ -65,11 +63,12 @@ class Operator(QExpr):
         1
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Operator_%28physics%29
     .. [2] https://en.wikipedia.org/wiki/Observable
     """
+
     is_hermitian: bool | None
     is_unitary: bool | None
     @classmethod
@@ -97,20 +96,19 @@ class HermitianOperator(Operator):
     """A Hermitian operator that satisfies H == Dagger(H).
 
     Parameters
-    ==========
-
+    ----------
     args : tuple
         The list of numbers or parameters that uniquely specify the
         operator. For time-dependent operators, this will include the time.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum import Dagger, HermitianOperator
     >>> H = HermitianOperator('H')
     >>> Dagger(H)
     H
     """
+
     is_hermitian: bool
     def _eval_inverse(self): ...
     def _eval_power(self, exp): ...
@@ -119,20 +117,19 @@ class UnitaryOperator(Operator):
     """A unitary operator that satisfies U*Dagger(U) == 1.
 
     Parameters
-    ==========
-
+    ----------
     args : tuple
         The list of numbers or parameters that uniquely specify the
         operator. For time-dependent operators, this will include the time.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum import Dagger, UnitaryOperator
     >>> U = UnitaryOperator('U')
     >>> U*Dagger(U)
     1
     """
+
     is_unitary: bool
     def _eval_adjoint(self): ...
 
@@ -145,19 +142,18 @@ class IdentityOperator(Operator):
         operators and states.
 
     Parameters
-    ==========
-
+    ----------
     N : Integer
         Optional parameter that specifies the dimension of the Hilbert space
         of operator. This is used when generating a matrix representation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum import IdentityOperator
     >>> IdentityOperator() # doctest: +SKIP
     I
     """
+
     is_hermitian: bool
     is_unitary: bool
     @property
@@ -186,16 +182,14 @@ class OuterProduct(Operator):
     operators in quantum expressions.  For reference see [1]_.
 
     Parameters
-    ==========
-
+    ----------
     ket : KetBase
         The ket on the left side of the outer product.
     bar : BraBase
         The bra on the right side of the outer product.
 
     Examples
-    ========
-
+    --------
     Create a simple outer product by hand and take its dagger::
 
         >>> from sympy.physics.quantum import Ket, Bra, OuterProduct, Dagger
@@ -227,10 +221,11 @@ class OuterProduct(Operator):
         <b|k>*<b|
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Outer_product
     """
+
     is_commutative: bool
     def __new__(cls, *args, **old_assumptions): ...
     @property
@@ -256,8 +251,7 @@ class DifferentialOperator(Operator):
     ``Wavefunction`` that this ``DifferentialOperator`` is applied to.
 
     Parameters
-    ==========
-
+    ----------
     expr : Expr
            The arbitrary expression which the appropriate Wavefunction is to be
            substituted into
@@ -267,8 +261,7 @@ class DifferentialOperator(Operator):
            Wavefunction when this DifferentialOperator is applied
 
     Examples
-    ========
-
+    --------
     You can define a completely arbitrary expression and specify where the
     Wavefunction is to be substituted
 
@@ -288,6 +281,7 @@ class DifferentialOperator(Operator):
     Wavefunction(2, x)
 
     """
+
     @property
     def variables(self):
         """
@@ -295,8 +289,7 @@ class DifferentialOperator(Operator):
         arbitrary expression is evaluated
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.quantum.operator import DifferentialOperator
         >>> from sympy import Symbol, Function, Derivative
         >>> x = Symbol('x')
@@ -316,8 +309,7 @@ class DifferentialOperator(Operator):
         Returns the function which is to be replaced with the Wavefunction
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.quantum.operator import DifferentialOperator
         >>> from sympy import Function, Symbol, Derivative
         >>> x = Symbol('x')
@@ -338,8 +330,7 @@ class DifferentialOperator(Operator):
         substituted into it
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.quantum.operator import DifferentialOperator
         >>> from sympy import Function, Symbol, Derivative
         >>> x = Symbol('x')

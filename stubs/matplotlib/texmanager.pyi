@@ -22,6 +22,7 @@ class TexManager:
 
     Repeated calls to this constructor always return the same instance.
     """
+
     _texcache: Incomplete
     _grey_arrayd: Incomplete
     _font_families: Incomplete
@@ -77,7 +78,7 @@ class TexManager:
         """Return the alpha channel."""
     @classmethod
     def get_rgba(cls, tex, fontsize: Incomplete | None = None, dpi: Incomplete | None = None, rgb=(0, 0, 0)):
-        '''
+        """
         Return latex\'s rendering of the tex string as an RGBA array.
 
         Examples
@@ -85,7 +86,7 @@ class TexManager:
         >>> texmanager = TexManager()
         >>> s = r"\\TeX\\ is $\\displaystyle\\sum_n\\frac{-e^{i\\pi}}{2^n}$!"
         >>> Z = texmanager.get_rgba(s, fontsize=12, dpi=80, rgb=(1, 0, 0))
-        '''
+        """
     @classmethod
     def get_text_width_height_descent(cls, tex, fontsize, renderer: Incomplete | None = None):
         """Return width, height and descent of the text."""

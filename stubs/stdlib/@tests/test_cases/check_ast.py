@@ -1,5 +1,5 @@
+from typing import assert_type
 import ast
-from typing_extensions import assert_type
 
 # Test with source code strings
 assert_type(ast.parse("x = 1"), ast.Module)

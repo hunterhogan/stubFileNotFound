@@ -1,7 +1,6 @@
+from ..cmd import Command
 from _typeshed import Incomplete
 from typing import ClassVar, Final
-
-from ..cmd import Command
 
 PYTHON_SOURCE_EXTENSION: Final = ".py"
 

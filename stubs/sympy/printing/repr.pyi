@@ -1,4 +1,4 @@
-from .printer import Printer as Printer, print_function as print_function
+from .printer import print_function as print_function, Printer as Printer
 from sympy.core.function import AppliedUndef as AppliedUndef
 from sympy.core.mul import Mul as Mul
 from typing import Any
@@ -67,4 +67,4 @@ class ReprPrinter(Printer):
     def _print_ExtensionElement(self, f): ...
 
 def srepr(expr, **settings):
-    """return expr in repr form"""
+    """Return expr in repr form"""

@@ -135,4 +135,3 @@ class CFF2CharStringMergePen(T2CharStringPen):
                 ]
         """
     def getCharString(self, private=None, globalSubrs=None, var_model=None, optimize: bool = True): ...
-

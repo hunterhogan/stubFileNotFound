@@ -1,6 +1,6 @@
-import matplotlib.artist as martist
 from _typeshed import Incomplete
 from matplotlib import _api as _api, cbook as cbook
+import matplotlib.artist as martist
 
 _log: Incomplete
 GRIDLINE_INTERPOLATION_STEPS: int
@@ -31,6 +31,7 @@ class Tick(martist.Artist):
         The right/top tick label.
 
     """
+
     axes: Incomplete
     _loc: Incomplete
     _major: Incomplete
@@ -45,7 +46,7 @@ class Tick(martist.Artist):
     label2: Incomplete
     def __init__(self, axes, loc, *, size: Incomplete | None = None, width: Incomplete | None = None, color: Incomplete | None = None, tickdir: Incomplete | None = None, pad: Incomplete | None = None, labelsize: Incomplete | None = None, labelcolor: Incomplete | None = None, labelfontfamily: Incomplete | None = None, zorder: Incomplete | None = None, gridOn: Incomplete | None = None, tick1On: bool = True, tick2On: bool = True, label1On: bool = True, label2On: bool = False, major: bool = True, labelrotation: int = 0, grid_color: Incomplete | None = None, grid_linestyle: Incomplete | None = None, grid_linewidth: Incomplete | None = None, grid_alpha: Incomplete | None = None, **kwargs) -> None:
         """
-        bbox is the Bound2D bounding box in display coords of the Axes
+        Bbox is the Bound2D bounding box in display coords of the Axes
         loc is the tick location in data coords
         size is the tick size in points
         """
@@ -106,6 +107,7 @@ class XTick(Tick):
     Contains all the Artists needed to make an x tick - the tick line,
     the label text and the grid line
     """
+
     __name__: str
     def __init__(self, *args, **kwargs) -> None: ...
     def _get_text1_transform(self): ...
@@ -122,6 +124,7 @@ class YTick(Tick):
     Contains all the Artists needed to make a Y tick - the tick line,
     the label text and the grid line
     """
+
     __name__: str
     def __init__(self, *args, **kwargs) -> None: ...
     def _get_text1_transform(self): ...
@@ -144,6 +147,7 @@ class Ticker:
     formatter : `~matplotlib.ticker.Formatter` subclass
         Determines the format of the tick labels.
     """
+
     _locator: Incomplete
     _formatter: Incomplete
     _locator_is_default: bool
@@ -165,6 +169,7 @@ class _LazyTickList:
     See comment above definition of the ``majorTicks`` and ``minorTicks``
     attributes.
     """
+
     _major: Incomplete
     def __init__(self, major) -> None: ...
     def __get__(self, instance, owner): ...
@@ -211,10 +216,10 @@ class Axis(martist.Artist):
     minorTicks : list of `.Tick`
         The minor ticks.
     """
+
     OFFSETTEXTPAD: int
     _tick_class: Incomplete
     converter: Incomplete
-    def __str__(self) -> str: ...
     _remove_overlapping_locs: bool
     isDefault_label: bool
     axes: Incomplete
@@ -294,7 +299,7 @@ class Axis(martist.Artist):
     _scale: Incomplete
     def _set_scale(self, value, **kwargs) -> None: ...
     def _set_axes_scale(self, value, **kwargs) -> None:
-        '''
+        """
         Set this Axis\' scale.
 
         Parameters
@@ -308,7 +313,7 @@ class Axis(martist.Artist):
         **kwargs
             If *value* is a string, keywords are passed to the instantiation method of
             the respective class.
-        '''
+        """
     def limit_range_for_scale(self, vmin, vmax):
         """
         Return the range *vmin*, *vmax*, restricted to the domain supported by the
@@ -473,21 +478,21 @@ class Axis(martist.Artist):
         vmax)`` in that order.
         """
     def get_inverted(self):
-        '''
+        """
         Return whether this Axis is oriented in the "inverse" direction.
 
         The "normal" direction is increasing to the right for the x-axis and to
         the top for the y-axis; the "inverse" direction is increasing to the
         left for the x-axis and to the bottom for the y-axis.
-        '''
+        """
     def set_inverted(self, inverted) -> None:
-        '''
+        """
         Set whether this Axis is oriented in the "inverse" direction.
 
         The "normal" direction is increasing to the right for the x-axis and to
         the top for the y-axis; the "inverse" direction is increasing to the
         left for the x-axis and to the bottom for the y-axis.
-        '''
+        """
     def set_default_intervals(self) -> None:
         """
         Set the default limits for the axis data and view interval if they
@@ -948,7 +953,7 @@ class Axis(martist.Artist):
     def get_tick_space(self) -> None:
         """Return the estimated number of ticks that can fit on the axis."""
     def _get_ticks_position(self):
-        '''
+        """
         Helper for `XAxis.get_ticks_position` and `YAxis.get_ticks_position`.
 
         Check the visibility of tick1line, label1, tick2line, and label2 on
@@ -960,7 +965,7 @@ class Axis(martist.Artist):
           "top" for the x-axis and "right" for the y-axis);
         - "default" if only tick1line, tick2line and label1 are visible;
         - "unknown" otherwise.
-        '''
+        """
     def get_label_position(self):
         """
         Return the label position (top or bottom)
@@ -1037,9 +1042,9 @@ class XAxis(Axis):
         Move ticks and ticklabels (if present) to the bottom of the Axes.
         """
     def get_ticks_position(self):
-        '''
+        """
         Return the ticks position ("top", "bottom", "default", or "unknown").
-        '''
+        """
     get_view_interval: Incomplete
     set_view_interval: Incomplete
     get_data_interval: Incomplete
@@ -1108,9 +1113,9 @@ class YAxis(Axis):
         Move ticks and ticklabels (if present) to the left of the Axes.
         """
     def get_ticks_position(self):
-        '''
+        """
         Return the ticks position ("left", "right", "default", or "unknown").
-        '''
+        """
     get_view_interval: Incomplete
     set_view_interval: Incomplete
     get_data_interval: Incomplete

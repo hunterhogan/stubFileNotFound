@@ -1,5 +1,5 @@
-import codecs
 from _typeshed import ReadableBuffer
+import codecs
 
 class Codec(codecs.Codec):
     # At runtime, this is codecs.unicode_escape_encode

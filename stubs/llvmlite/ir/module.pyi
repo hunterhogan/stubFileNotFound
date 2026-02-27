@@ -22,7 +22,7 @@ class Module:
         e.g. an instruction.
         """
     def add_debug_info(self, kind, operands, is_distinct: bool = False):
-        '''
+        """
         Add debug information metadata to the module with the given
         *operands* (a dict of values with string keys) or return
         a previous equivalent metadata.  *kind* is a string of the
@@ -30,9 +30,9 @@ class Module:
 
         A DIValue instance is returned, it can then be associated to e.g.
         an instruction.
-        '''
+        """
     def add_named_metadata(self, name, element: Incomplete | None = None):
-        '''
+        """
         Add a named metadata node to the module, if it doesn\'t exist,
         or return the existing node.
         If *element* is given, it will append a new element to
@@ -42,7 +42,7 @@ class Module:
 
         Example::
             module.add_named_metadata("llvm.ident", ["llvmlite/1.0"])
-        '''
+        """
     def get_named_metadata(self, name):
         """
         Return the metadata node with the given *name*.  KeyError is raised
@@ -76,4 +76,3 @@ class Module:
     def _get_metadata_lines(self): ...
     def _stringify_body(self): ...
     def _stringify_metadata(self): ...
-    def __repr__(self) -> str: ...

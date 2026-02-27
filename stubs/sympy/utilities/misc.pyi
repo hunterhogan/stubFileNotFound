@@ -14,7 +14,7 @@ def filldedent(s, w: int = 70, **kwargs):
     Additional keyword arguments will be passed to ``textwrap.fill()``.
 
     See Also
-    ========
+    --------
     strlines, rawlines
 
     """
@@ -28,8 +28,7 @@ def strlines(s, c: int = 64, short: bool = False):
     returned without bounding parentheses.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.misc import strlines
     >>> q = 'this is a long string that should be broken into shorter lines'
     >>> print(strlines(q, 40))
@@ -44,7 +43,7 @@ def strlines(s, c: int = 64, short: bool = False):
     True
 
     See Also
-    ========
+    --------
     filldedent, rawlines
     """
 def rawlines(s):
@@ -55,8 +54,7 @@ def rawlines(s):
     function which has to be imported from textwrap.
 
     Examples
-    ========
-
+    --------
     Note: because there are characters in the examples below that need
     to be escaped because they are themselves within a triple quoted
     docstring, expressions below look more complicated than they would
@@ -101,7 +99,7 @@ def rawlines(s):
     )
 
     See Also
-    ========
+    --------
     filldedent, strlines
     '''
 
@@ -135,8 +133,7 @@ def func_name(x, short: bool = False):
     return the alias.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.misc import func_name
     >>> from sympy import Matrix
     >>> from sympy.abc import x
@@ -152,8 +149,7 @@ def _replace(reps):
     ``reps``, on a string. The replacements should be given as mapping.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.misc import _replace
     >>> f = _replace(dict(foo='bar', d='t'))
     >>> f('food')
@@ -163,14 +159,13 @@ def _replace(reps):
     'food'
     """
 def replace(string, *reps):
-    '''Return ``string`` with all keys in ``reps`` replaced with
+    """Return ``string`` with all keys in ``reps`` replaced with
     their corresponding values, longer strings first, irrespective
     of the order they are given.  ``reps`` may be passed as tuples
     or a single mapping.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.misc import replace
     >>> replace(\'foo\', {\'oo\': \'ar\', \'f\': \'b\'})
     \'bar\'
@@ -189,10 +184,10 @@ def replace(string, *reps):
     True
 
     References
-    ==========
+    ----------
 
     .. [1] https://stackoverflow.com/questions/6116978/how-to-replace-multiple-substrings-of-a-string
-    '''
+    """
 def translate(s, a, b=None, c=None):
     """Return ``s`` where characters have been replaced or deleted.
 
@@ -212,8 +207,7 @@ def translate(s, a, b=None, c=None):
         corresponding character in ``newchars``
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.misc import translate
     >>> abc = 'abc'
     >>> translate(abc, None, 'a')
@@ -248,8 +242,7 @@ def as_int(n, strict: bool = True):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.misc import as_int
     >>> from sympy import sqrt, S
 

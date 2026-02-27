@@ -7,7 +7,7 @@ def round_fixed(x, prec): ...
 class IdentificationMethods: ...
 
 def pslq(ctx, x, tol: Incomplete | None = None, maxcoeff: int = 1000, maxsteps: int = 100, verbose: bool = False):
-    '''
+    """
     Given a vector of real numbers `x = [x_0, x_1, ..., x_n]`, ``pslq(x)``
     uses the PSLQ algorithm to find a list of integers
     `[c_0, c_1, ..., c_n]` such that
@@ -119,7 +119,7 @@ def pslq(ctx, x, tol: Incomplete | None = None, maxcoeff: int = 1000, maxsteps: 
 
     The present implementation uses fixed-point instead of floating-point
     arithmetic, since this is significantly (about 7x) faster.
-    '''
+    """
 def findpoly(ctx, x, n: int = 1, **kwargs):
     """
     ``findpoly(x, n)`` returns the coefficients of an integer
@@ -233,7 +233,7 @@ def quadraticstring(ctx, t, a, b, c): ...
 transforms: Incomplete
 
 def identify(ctx, x, constants=[], tol: Incomplete | None = None, maxcoeff: int = 1000, full: bool = False, verbose: bool = False):
-    '''
+    """
     Given a real number `x`, ``identify(x)`` attempts to find an exact
     formula for `x`. This formula is returned as a string. If no match
     is found, ``None`` is returned. With ``full=True``, a list of
@@ -442,4 +442,4 @@ def identify(ctx, x, constants=[], tol: Incomplete | None = None, maxcoeff: int 
     not ``2*exp(pi)+3``. It will be able to recognize the latter if
     ``exp(pi)`` is given explicitly as a base constant.
 
-    '''
+    """

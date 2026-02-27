@@ -11,8 +11,7 @@ def dpll_satisfiable(expr, all_models: bool = False, use_lra_theory: bool = Fals
     Returns a generator of all models if all_models is True.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import A, B
     >>> from sympy.logic.algorithms.dpll2 import dpll_satisfiable
     >>> dpll_satisfiable(A & ~B)
@@ -29,6 +28,7 @@ class SATSolver:
      finding a model to a boolean theory in conjunctive
      normal form.
     """
+
     var_settings: Incomplete
     heuristic: Incomplete
     is_unsatisfied: bool
@@ -72,8 +72,7 @@ class SATSolver:
         halts when every variable has a setting.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.logic.algorithms.dpll2 import SATSolver
         >>> l = SATSolver([{2, -3}, {1}, {3, -3}, {2, -2},
         ... {3, -2}], {1, 2, 3}, set())
@@ -92,8 +91,7 @@ class SATSolver:
         """The current decision level data structure
 
         Examples
-        ========
-
+        --------
         >>> from sympy.logic.algorithms.dpll2 import SATSolver
         >>> l = SATSolver([{1}, {2}], {1, 2}, set())
         >>> next(l._find_model())
@@ -110,8 +108,7 @@ class SATSolver:
         """Check if a clause is satisfied by the current variable setting.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.logic.algorithms.dpll2 import SATSolver
         >>> l = SATSolver([{1}, {-1}], {1}, set())
         >>> try:
@@ -128,8 +125,7 @@ class SATSolver:
         """Check if a literal is a sentinel of a given clause.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.logic.algorithms.dpll2 import SATSolver
         >>> l = SATSolver([{2, -3}, {1}, {3, -3}, {2, -2},
         ... {3, -2}], {1, 2, 3}, set())
@@ -151,8 +147,7 @@ class SATSolver:
         another literal is added to the queue to be set in the future.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.logic.algorithms.dpll2 import SATSolver
         >>> l = SATSolver([{2, -3}, {1}, {3, -3}, {2, -2},
         ... {3, -2}], {1, 2, 3}, set())
@@ -177,8 +172,7 @@ class SATSolver:
         _undo the changes of the most recent decision level.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.logic.algorithms.dpll2 import SATSolver
         >>> l = SATSolver([{2, -3}, {1}, {3, -3}, {2, -2},
         ... {3, -2}], {1, 2, 3}, set())
@@ -197,8 +191,7 @@ class SATSolver:
         """Iterate over the various forms of propagation to simplify the theory.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.logic.algorithms.dpll2 import SATSolver
         >>> l = SATSolver([{2, -3}, {1}, {3, -3}, {2, -2},
         ... {3, -2}], {1, 2, 3}, set())
@@ -228,8 +221,7 @@ class SATSolver:
         """Decay the VSIDS scores for every literal.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.logic.algorithms.dpll2 import SATSolver
         >>> l = SATSolver([{2, -3}, {1}, {3, -3}, {2, -2},
         ... {3, -2}], {1, 2, 3}, set())
@@ -248,8 +240,7 @@ class SATSolver:
             VSIDS Heuristic Calculation
 
         Examples
-        ========
-
+        --------
         >>> from sympy.logic.algorithms.dpll2 import SATSolver
         >>> l = SATSolver([{2, -3}, {1}, {3, -3}, {2, -2},
         ... {3, -2}], {1, 2, 3}, set())
@@ -270,8 +261,7 @@ class SATSolver:
         """Handle the unsetting of a literal for the VSIDS heuristic.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.logic.algorithms.dpll2 import SATSolver
         >>> l = SATSolver([{2, -3}, {1}, {3, -3}, {2, -2},
         ... {3, -2}], {1, 2, 3}, set())
@@ -289,8 +279,7 @@ class SATSolver:
         """Handle the addition of a new clause for the VSIDS heuristic.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.logic.algorithms.dpll2 import SATSolver
         >>> l = SATSolver([{2, -3}, {1}, {3, -3}, {2, -2},
         ... {3, -2}], {1, 2, 3}, set())
@@ -312,8 +301,7 @@ class SATSolver:
         """Add a new clause to the theory.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.logic.algorithms.dpll2 import SATSolver
         >>> l = SATSolver([{2, -3}, {1}, {3, -3}, {2, -2},
         ... {3, -2}], {1, 2, 3}, set())
@@ -334,12 +322,11 @@ class SATSolver:
 
         """
     def _simple_compute_conflict(self):
-        """ Build a clause representing the fact that at least one decision made
+        """Build a clause representing the fact that at least one decision made
         so far is wrong.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.logic.algorithms.dpll2 import SATSolver
         >>> l = SATSolver([{2, -3}, {1}, {3, -3}, {2, -2},
         ... {3, -2}], {1, 2, 3}, set())
@@ -357,6 +344,7 @@ class Level:
     Represents a single level in the DPLL algorithm, and contains
     enough information for a sound backtracking procedure.
     """
+
     decision: Incomplete
     var_settings: Incomplete
     flipped: Incomplete

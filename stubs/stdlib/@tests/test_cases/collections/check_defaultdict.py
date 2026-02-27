@@ -4,10 +4,10 @@ Tests for `defaultdict.__or__` and `defaultdict.__ror__`.
 
 from __future__ import annotations
 
-import os
 from collections import defaultdict
-from typing import Mapping, TypeVar, Union
-from typing_extensions import Self, assert_type
+from collections.abc import Mapping
+from typing import assert_type, Self, TypeVar, Union
+import os
 
 _KT = TypeVar("_KT")
 _VT = TypeVar("_VT")
@@ -40,7 +40,7 @@ def test_defaultdict_dot_or(
     # In contrast to `dict.__or__`, `defaultdict.__or__` returns `Self` if called on a subclass of `defaultdict`:
     assert_type(b | a, CustomDefaultDictSubclass[int, int])
 
-    assert_type(a | c, defaultdict[Union[int, str], Union[int, str]])
+    assert_type(a | c, defaultdict[int | str, int | str])
 
     # arbitrary mappings are not accepted by `defaultdict.__or__`;
     # it has to be a subclass of `dict`
@@ -49,8 +49,8 @@ def test_defaultdict_dot_or(
     # but Mappings such as `os._Environ` or `CustomMappingWithDunderOr`,
     # which define `__ror__` methods that accept `dict`, are fine
     # (`os._Environ.__(r)or__` always returns `dict`, even if a `defaultdict` is passed):
-    assert_type(a | os.environ, dict[Union[str, int], Union[str, int]])
-    assert_type(os.environ | a, dict[Union[str, int], Union[str, int]])
+    assert_type(a | os.environ, dict[str | int, str | int])
+    assert_type(os.environ | a, dict[str | int, str | int])
 
     assert_type(c | os.environ, dict[str, str])
     assert_type(c | e, dict[str, str])

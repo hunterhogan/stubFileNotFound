@@ -1,5 +1,6 @@
 from .determinant import _find_reasonable_pivot_naive as _find_reasonable_pivot_naive
-from .exceptions import NonPositiveDefiniteMatrixError as NonPositiveDefiniteMatrixError, NonSquareMatrixError as NonSquareMatrixError
+from .exceptions import (
+	NonPositiveDefiniteMatrixError as NonPositiveDefiniteMatrixError, NonSquareMatrixError as NonSquareMatrixError)
 from .utilities import _get_intermediate_simp as _get_intermediate_simp, _iszero as _iszero
 from sympy.core import S as S
 from sympy.core.function import expand_mul as expand_mul
@@ -7,12 +8,11 @@ from sympy.functions.elementary.complexes import sign as sign
 from sympy.functions.elementary.miscellaneous import Min as Min, sqrt as sqrt
 
 def _rank_decomposition(M, iszerofunc=..., simplify: bool = False):
-    '''Returns a pair of matrices (`C`, `F`) with matching rank
+    """Returns a pair of matrices (`C`, `F`) with matching rank
     such that `A = C F`.
 
     Parameters
-    ==========
-
+    ----------
     iszerofunc : Function, optional
         A function used for detecting whether an element can
         act as a pivot.  ``lambda x: x.is_zero`` is used by default.
@@ -22,8 +22,7 @@ def _rank_decomposition(M, iszerofunc=..., simplify: bool = False):
         pivot. By default SymPy\'s ``simplify`` is used.
 
     Returns
-    =======
-
+    -------
     (C, F) : Matrices
         `C` and `F` are full-rank matrices with rank as same as `A`,
         whose product gives `A`.
@@ -31,8 +30,7 @@ def _rank_decomposition(M, iszerofunc=..., simplify: bool = False):
         See Notes for additional mathematical details.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> A = Matrix([
     ...     [1, 3, 1, 4],
@@ -56,8 +54,7 @@ def _rank_decomposition(M, iszerofunc=..., simplify: bool = False):
     True
 
     Notes
-    =====
-
+    -----
     Obtaining `F`, an RREF of `A`, is equivalent to creating a
     product
 
@@ -78,7 +75,7 @@ def _rank_decomposition(M, iszerofunc=..., simplify: bool = False):
     same column indices as the indices of the pivot columns of `F`.
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Rank_factorization
 
@@ -87,17 +84,15 @@ def _rank_decomposition(M, iszerofunc=..., simplify: bool = False):
         Mathematics Magazine. 72 (3): 193. doi:10.2307/2690882
 
     See Also
-    ========
-
+    --------
     sympy.matrices.matrixbase.MatrixBase.rref
-    '''
+    """
 def _liupc(M):
     """Liu's algorithm, for pre-determination of the Elimination Tree of
     the given matrix, used in row-based symbolic Cholesky factorization.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import SparseMatrix
     >>> S = SparseMatrix([
     ... [1, 0, 3, 2],
@@ -108,7 +103,7 @@ def _liupc(M):
     ([[0], [], [0], [1, 2]], [4, 3, 4, 4])
 
     References
-    ==========
+    ----------
 
     .. [1] Symbolic Sparse Cholesky Factorization using Elimination Trees,
            Jeroen Van Grondelle (1999)
@@ -119,8 +114,7 @@ def _row_structure_symbolic_cholesky(M):
     non-zero structure of the Cholesky factororization.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import SparseMatrix
     >>> S = SparseMatrix([
     ... [1, 0, 3, 2],
@@ -131,7 +125,7 @@ def _row_structure_symbolic_cholesky(M):
     [[0], [], [0], [1, 2]]
 
     References
-    ==========
+    ----------
 
     .. [1] Symbolic Sparse Cholesky Factorization using Elimination Trees,
            Jeroen Van Grondelle (1999)
@@ -146,8 +140,7 @@ def _cholesky(M, hermitian: bool = True):
     or a symmetric matrix if it is False.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> A = Matrix(((25, 15, -5), (15, 18, 0), (-5, 0, 11)))
     >>> A.cholesky()
@@ -187,8 +180,7 @@ def _cholesky(M, hermitian: bool = True):
     True
 
     See Also
-    ========
-
+    --------
     sympy.matrices.dense.DenseMatrix.LDLdecomposition
     sympy.matrices.matrixbase.MatrixBase.LUdecomposition
     QRdecomposition
@@ -202,8 +194,7 @@ def _cholesky_sparse(M, hermitian: bool = True):
     and non-singular matrix
 
     Examples
-    ========
-
+    --------
     >>> from sympy import SparseMatrix
     >>> A = SparseMatrix(((25,15,-5),(15,18,0),(-5,0,11)))
     >>> A.cholesky()
@@ -240,8 +231,7 @@ def _cholesky_sparse(M, hermitian: bool = True):
     True
 
     See Also
-    ========
-
+    --------
     sympy.matrices.sparse.SparseMatrix.LDLdecomposition
     sympy.matrices.matrixbase.MatrixBase.LUdecomposition
     QRdecomposition
@@ -256,8 +246,7 @@ def _LDLdecomposition(M, hermitian: bool = True):
     or a symmetric matrix otherwise.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, eye
     >>> A = Matrix(((25, 15, -5), (15, 18, 0), (-5, 0, 11)))
     >>> L, D = A.LDLdecomposition()
@@ -291,8 +280,7 @@ def _LDLdecomposition(M, hermitian: bool = True):
     True
 
     See Also
-    ========
-
+    --------
     sympy.matrices.dense.DenseMatrix.cholesky
     sympy.matrices.matrixbase.MatrixBase.LUdecomposition
     QRdecomposition
@@ -307,8 +295,7 @@ def _LDLdecomposition_sparse(M, hermitian: bool = True):
     the diagonal entries of L are 1.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import SparseMatrix
     >>> A = SparseMatrix(((25, 15, -5), (15, 18, 0), (-5, 0, 11)))
     >>> L, D = A.LDLdecomposition()
@@ -337,8 +324,7 @@ def _LUdecomposition(M, iszerofunc=..., simpfunc=None, rankcheck: bool = False):
     rankcheck, iszerofunc, and simpfunc.
 
     Parameters
-    ==========
-
+    ----------
     rankcheck : bool, optional
         Determines if this function should detect the rank
         deficiency of the matrixis and should raise a
@@ -371,8 +357,7 @@ def _LUdecomposition(M, iszerofunc=..., simpfunc=None, rankcheck: bool = False):
         pivot searching algorithm.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> a = Matrix([[4, 3], [6, 3]])
     >>> L, U, _ = a.LUdecomposition()
@@ -386,8 +371,7 @@ def _LUdecomposition(M, iszerofunc=..., simpfunc=None, rankcheck: bool = False):
     [0, -3/2]])
 
     See Also
-    ========
-
+    --------
     sympy.matrices.dense.DenseMatrix.cholesky
     sympy.matrices.dense.DenseMatrix.LDLdecomposition
     QRdecomposition
@@ -399,8 +383,7 @@ def _LUdecomposition_Simple(M, iszerofunc=..., simpfunc=None, rankcheck: bool = 
     """Compute the PLU decomposition of the matrix.
 
     Parameters
-    ==========
-
+    ----------
     rankcheck : bool, optional
         Determines if this function should detect the rank
         deficiency of the matrixis and should raise a
@@ -433,8 +416,7 @@ def _LUdecomposition_Simple(M, iszerofunc=..., simpfunc=None, rankcheck: bool = 
         pivot searching algorithm.
 
     Returns
-    =======
-
+    -------
     (lu, row_swaps) : (Matrix, list)
         If the original matrix is a $m, n$ matrix:
 
@@ -450,15 +432,13 @@ def _LUdecomposition_Simple(M, iszerofunc=..., simpfunc=None, rankcheck: bool = 
         computed by ``P=eye(A.row).permute_forward(perm)``.
 
     Raises
-    ======
-
+    ------
     ValueError
         Raised if ``rankcheck=True`` and the matrix is found to
         be rank deficient during the computation.
 
     Notes
-    =====
-
+    -----
     About the PLU decomposition:
 
     PLU decomposition is a generalization of a LU decomposition
@@ -597,33 +577,31 @@ def _LUdecomposition_Simple(M, iszerofunc=..., simpfunc=None, rankcheck: bool = 
     ``_find_reasonable_pivot()``.
 
     See Also
-    ========
-
+    --------
     sympy.matrices.matrixbase.MatrixBase.LUdecomposition
     LUdecompositionFF
     LUsolve
     """
 def _LUdecompositionFF(M):
-    '''Compute a fraction-free LU decomposition.
+    """Compute a fraction-free LU decomposition.
 
     Returns 4 matrices P, L, D, U such that PA = L D**-1 U.
     If the elements of the matrix belong to some integral domain I, then all
     elements of L, D and U are guaranteed to belong to I.
 
     See Also
-    ========
-
+    --------
     sympy.matrices.matrixbase.MatrixBase.LUdecomposition
     LUdecomposition_Simple
     LUsolve
 
     References
-    ==========
+    ----------
 
     .. [1] W. Zhou & D.J. Jeffrey, "Fraction-free matrix factors: new forms
         for LU and QR factors". Frontiers in Computer Science in China,
         Vol 2, no. 1, pp. 67-80, 2008.
-    '''
+    """
 def _singular_value_decomposition(A):
     """Returns a Condensed Singular Value decomposition.
 
@@ -659,8 +637,7 @@ def _singular_value_decomposition(A):
     The procedure will be illustrated in the examples section.
 
     Examples
-    ========
-
+    --------
     we take a full rank matrix first:
 
     >>> from sympy import Matrix
@@ -833,8 +810,7 @@ def _QRdecomposition(M):
     The procedure will be illustrated in the examples section.
 
     Examples
-    ========
-
+    --------
     A full rank matrix example:
 
     >>> from sympy import Matrix
@@ -972,8 +948,7 @@ def _QRdecomposition(M):
     True
 
     See Also
-    ========
-
+    --------
     sympy.matrices.dense.DenseMatrix.cholesky
     sympy.matrices.dense.DenseMatrix.LDLdecomposition
     sympy.matrices.matrixbase.MatrixBase.LUdecomposition
@@ -987,8 +962,7 @@ def _upper_hessenberg_decomposition(A):
     and P is an orthogonal matrix
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> A = Matrix([
     ...     [1,2,3],
@@ -1011,7 +985,7 @@ def _upper_hessenberg_decomposition(A):
 
 
     References
-    ==========
+    ----------
 
     .. [#] https://mathworld.wolfram.com/HessenbergDecomposition.html
     """

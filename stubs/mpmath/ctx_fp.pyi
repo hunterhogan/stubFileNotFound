@@ -1,14 +1,15 @@
-import math
 from . import function_docs as function_docs, libmp as libmp, math2 as math2
 from .ctx_base import StandardBaseContext as StandardBaseContext
 from .libmp import int_types as int_types, mpf_bernoulli as mpf_bernoulli, to_float as to_float
 from _typeshed import Incomplete
+import math
 
 class FPContext(StandardBaseContext):
     """
     Context for fast low-precision arithmetic (53-bit precision, giving at most
     about 15-digit accuracy), using Python's builtin float and complex.
     """
+
     def __init__(ctx) -> None: ...
     _mpq: Incomplete
     NoConvergence = libmp.NoConvergence

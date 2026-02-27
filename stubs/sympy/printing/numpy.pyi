@@ -1,5 +1,8 @@
 from .codeprinter import CodePrinter as CodePrinter
-from .pycode import ArrayPrinter as ArrayPrinter, PythonCodePrinter as PythonCodePrinter, _known_functions_math as _known_functions_math, _print_known_const as _print_known_const, _print_known_func as _print_known_func, _unpack_integral_limits as _unpack_integral_limits
+from .pycode import (
+	_known_functions_math as _known_functions_math, _print_known_const as _print_known_const,
+	_print_known_func as _print_known_func, _unpack_integral_limits as _unpack_integral_limits,
+	ArrayPrinter as ArrayPrinter, PythonCodePrinter as PythonCodePrinter)
 from _typeshed import Incomplete
 from sympy.core import S as S
 from sympy.core.function import Lambda as Lambda
@@ -17,6 +20,7 @@ class NumPyPrinter(ArrayPrinter, PythonCodePrinter):
     Numpy printer which handles vectorized piecewise functions,
     logical operators, etc.
     """
+
     _module: str
     _kf = _numpy_known_functions
     _kc = _numpy_known_constants
@@ -122,6 +126,7 @@ class CuPyPrinter(NumPyPrinter):
     CuPy printer which handles vectorized piecewise functions,
     logical operators, etc.
     """
+
     _module: str
     _kf = _cupy_known_functions
     _kc = _cupy_known_constants
@@ -135,6 +140,7 @@ class JaxPrinter(NumPyPrinter):
     JAX printer which handles vectorized piecewise functions,
     logical operators, etc.
     """
+
     _module: str
     _kf = _jax_known_functions
     _kc = _jax_known_constants

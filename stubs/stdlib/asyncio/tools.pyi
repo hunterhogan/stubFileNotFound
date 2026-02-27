@@ -1,7 +1,7 @@
-import sys
 from collections.abc import Iterable
 from enum import Enum
 from typing import NamedTuple, SupportsIndex, type_check_only
+import sys
 
 @type_check_only
 class _AwaitedInfo(NamedTuple):  # AwaitedInfo_Type from _remote_debugging

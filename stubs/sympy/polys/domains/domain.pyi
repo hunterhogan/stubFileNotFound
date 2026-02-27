@@ -16,8 +16,7 @@ class Domain:
     :py:class:`~.Domain`.
 
     Examples
-    ========
-
+    --------
     The most common example domains are the integers :ref:`ZZ` and the
     rationals :ref:`QQ`.
 
@@ -165,13 +164,13 @@ class Domain:
     >>> K.get_field()
     QQ(x)
 
-    See also
-    ========
-
+    See Also
+    --------
     DomainElement: abstract base class for domain elements
     construct_domain: construct a minimal domain for some expressions
 
     """
+
     dtype: type | None
     zero: Any
     one: Any
@@ -213,24 +212,22 @@ class Domain:
     rep: str | None
     alias: str | None
     def __init__(self) -> None: ...
-    def __str__(self) -> str: ...
-    def __repr__(self) -> str: ...
     def __hash__(self): ...
     def new(self, *args): ...
     @property
     def tp(self):
         """Alias for :py:attr:`~.Domain.dtype`"""
     def __call__(self, *args):
-        """Construct an element of ``self`` domain from ``args``. """
+        """Construct an element of ``self`` domain from ``args``."""
     def normal(self, *args): ...
     def convert_from(self, element, base):
-        """Convert ``element`` to ``self.dtype`` given the base domain. """
+        """Convert ``element`` to ``self.dtype`` given the base domain."""
     def convert(self, element, base=None):
-        """Convert ``element`` to ``self.dtype``. """
+        """Convert ``element`` to ``self.dtype``."""
     def of_type(self, element):
-        """Check if ``a`` is of type ``dtype``. """
+        """Check if ``a`` is of type ``dtype``."""
     def __contains__(self, a) -> bool:
-        """Check if ``a`` belongs to this domain. """
+        """Check if ``a`` belongs to this domain."""
     def to_sympy(self, a) -> None:
         """Convert domain element *a* to a SymPy expression (Expr).
 
@@ -246,20 +243,17 @@ class Domain:
         to and from :py:class:`~.Expr`.
 
         Parameters
-        ==========
-
+        ----------
         a: domain element
             An element of this :py:class:`~.Domain`.
 
         Returns
-        =======
-
+        -------
         expr: Expr
             A normal SymPy expression of type :py:class:`~.Expr`.
 
         Examples
-        ========
-
+        --------
         Construct an element of the :ref:`QQ` domain and then convert it to
         :py:class:`~.Expr`.
 
@@ -316,9 +310,8 @@ class Domain:
         >>> K.from_sympy(x**2/3 + 1)
         1/3*x**2 + 1
 
-        See also
-        ========
-
+        See Also
+        --------
         from_sympy
         convert_from
         """
@@ -331,56 +324,53 @@ class Domain:
         See :py:meth:`~.Domain.to_sympy` for explanation and examples.
 
         Parameters
-        ==========
-
+        ----------
         expr: Expr
             A normal SymPy expression of type :py:class:`~.Expr`.
 
         Returns
-        =======
-
+        -------
         a: domain element
             An element of this :py:class:`~.Domain`.
 
-        See also
-        ========
-
+        See Also
+        --------
         to_sympy
         convert_from
         """
     def sum(self, args): ...
     def from_FF(K1, a, K0) -> None:
-        """Convert ``ModularInteger(int)`` to ``dtype``. """
+        """Convert ``ModularInteger(int)`` to ``dtype``."""
     def from_FF_python(K1, a, K0) -> None:
-        """Convert ``ModularInteger(int)`` to ``dtype``. """
+        """Convert ``ModularInteger(int)`` to ``dtype``."""
     def from_ZZ_python(K1, a, K0) -> None:
-        """Convert a Python ``int`` object to ``dtype``. """
+        """Convert a Python ``int`` object to ``dtype``."""
     def from_QQ_python(K1, a, K0) -> None:
-        """Convert a Python ``Fraction`` object to ``dtype``. """
+        """Convert a Python ``Fraction`` object to ``dtype``."""
     def from_FF_gmpy(K1, a, K0) -> None:
-        """Convert ``ModularInteger(mpz)`` to ``dtype``. """
+        """Convert ``ModularInteger(mpz)`` to ``dtype``."""
     def from_ZZ_gmpy(K1, a, K0) -> None:
-        """Convert a GMPY ``mpz`` object to ``dtype``. """
+        """Convert a GMPY ``mpz`` object to ``dtype``."""
     def from_QQ_gmpy(K1, a, K0) -> None:
-        """Convert a GMPY ``mpq`` object to ``dtype``. """
+        """Convert a GMPY ``mpq`` object to ``dtype``."""
     def from_RealField(K1, a, K0) -> None:
-        """Convert a real element object to ``dtype``. """
+        """Convert a real element object to ``dtype``."""
     def from_ComplexField(K1, a, K0) -> None:
-        """Convert a complex element to ``dtype``. """
+        """Convert a complex element to ``dtype``."""
     def from_AlgebraicField(K1, a, K0) -> None:
-        """Convert an algebraic number to ``dtype``. """
+        """Convert an algebraic number to ``dtype``."""
     def from_PolynomialRing(K1, a, K0):
-        """Convert a polynomial to ``dtype``. """
+        """Convert a polynomial to ``dtype``."""
     def from_FractionField(K1, a, K0) -> None:
-        """Convert a rational function to ``dtype``. """
+        """Convert a rational function to ``dtype``."""
     def from_MonogenicFiniteExtension(K1, a, K0):
-        """Convert an ``ExtensionElement`` to ``dtype``. """
+        """Convert an ``ExtensionElement`` to ``dtype``."""
     def from_ExpressionDomain(K1, a, K0):
-        """Convert a ``EX`` object to ``dtype``. """
+        """Convert a ``EX`` object to ``dtype``."""
     def from_ExpressionRawDomain(K1, a, K0):
-        """Convert a ``EX`` object to ``dtype``. """
+        """Convert a ``EX`` object to ``dtype``."""
     def from_GlobalPolynomialRing(K1, a, K0):
-        """Convert a polynomial to ``dtype``. """
+        """Convert a polynomial to ``dtype``."""
     def from_GeneralizedPolynomialRing(K1, a, K0): ...
     def unify_with_symbols(K0, K1, symbols): ...
     def unify_composite(K0, K1):
@@ -403,37 +393,36 @@ class Domain:
 
         """
     def __eq__(self, other):
-        """Returns ``True`` if two domains are equivalent. """
+        """Returns ``True`` if two domains are equivalent."""
     def __ne__(self, other):
-        """Returns ``False`` if two domains are equivalent. """
+        """Returns ``False`` if two domains are equivalent."""
     def map(self, seq):
-        """Rersively apply ``self`` to all elements of ``seq``. """
+        """Rersively apply ``self`` to all elements of ``seq``."""
     def get_ring(self) -> None:
-        """Returns a ring associated with ``self``. """
+        """Returns a ring associated with ``self``."""
     def get_field(self) -> None:
-        """Returns a field associated with ``self``. """
+        """Returns a field associated with ``self``."""
     def get_exact(self):
-        """Returns an exact domain associated with ``self``. """
+        """Returns an exact domain associated with ``self``."""
     def __getitem__(self, symbols):
-        """The mathematical way to make a polynomial ring. """
+        """The mathematical way to make a polynomial ring."""
     def poly_ring(self, *symbols, order=...):
-        """Returns a polynomial ring, i.e. `K[X]`. """
+        """Returns a polynomial ring, i.e. `K[X]`."""
     def frac_field(self, *symbols, order=...):
-        """Returns a fraction field, i.e. `K(X)`. """
+        """Returns a fraction field, i.e. `K(X)`."""
     def old_poly_ring(self, *symbols, **kwargs):
-        """Returns a polynomial ring, i.e. `K[X]`. """
+        """Returns a polynomial ring, i.e. `K[X]`."""
     def old_frac_field(self, *symbols, **kwargs):
-        """Returns a fraction field, i.e. `K(X)`. """
+        """Returns a fraction field, i.e. `K(X)`."""
     def algebraic_field(self, *extension, alias=None) -> None:
-        """Returns an algebraic field, i.e. `K(\\alpha, \\ldots)`. """
+        """Returns an algebraic field, i.e. `K(\\alpha, \\ldots)`."""
     def alg_field_from_poly(self, poly, alias=None, root_index: int = -1):
-        '''
+        """
         Convenience method to construct an algebraic extension on a root of a
         polynomial, chosen by root index.
 
         Parameters
-        ==========
-
+        ----------
         poly : :py:class:`~.Poly`
             The polynomial whose root generates the extension.
         alias : str, optional (default=None)
@@ -447,8 +436,7 @@ class Domain:
             real or imaginary axis, resp. $\\mathrm{e}^{2\\pi i/n}$).
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ, Poly
         >>> from sympy.abc import x
         >>> f = Poly(x**2 - 2)
@@ -462,14 +450,13 @@ class Domain:
         >>> L.to_sympy(L([1, 1, 1]))
         alpha**2 + alpha + 1
 
-        '''
+        """
     def cyclotomic_field(self, n, ss: bool = False, alias: str = 'zeta', gen=None, root_index: int = -1):
-        '''
+        """
         Convenience method to construct a cyclotomic field.
 
         Parameters
-        ==========
-
+        ----------
         n : int
             Construct the nth cyclotomic field.
         ss : boolean, optional (default=False)
@@ -485,8 +472,7 @@ class Domain:
             ``-1`` selects the root $\\mathrm{e}^{2\\pi i/n}$.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import QQ, latex
         >>> K = QQ.cyclotomic_field(5)
         >>> K.to_sympy(K([-1, 1]))
@@ -498,38 +484,38 @@ class Domain:
         >>> print(latex(a))
         1 - \\zeta_{7}
 
-        '''
+        """
     def inject(self, *symbols) -> None:
-        """Inject generators into this domain. """
+        """Inject generators into this domain."""
     def drop(self, *symbols):
-        """Drop generators from this domain. """
+        """Drop generators from this domain."""
     def is_zero(self, a):
-        """Returns True if ``a`` is zero. """
+        """Returns True if ``a`` is zero."""
     def is_one(self, a):
-        """Returns True if ``a`` is one. """
+        """Returns True if ``a`` is one."""
     def is_positive(self, a):
-        """Returns True if ``a`` is positive. """
+        """Returns True if ``a`` is positive."""
     def is_negative(self, a):
-        """Returns True if ``a`` is negative. """
+        """Returns True if ``a`` is negative."""
     def is_nonpositive(self, a):
-        """Returns True if ``a`` is non-positive. """
+        """Returns True if ``a`` is non-positive."""
     def is_nonnegative(self, a):
-        """Returns True if ``a`` is non-negative. """
+        """Returns True if ``a`` is non-negative."""
     def canonical_unit(self, a): ...
     def abs(self, a):
-        """Absolute value of ``a``, implies ``__abs__``. """
+        """Absolute value of ``a``, implies ``__abs__``."""
     def neg(self, a):
-        """Returns ``a`` negated, implies ``__neg__``. """
+        """Returns ``a`` negated, implies ``__neg__``."""
     def pos(self, a):
-        """Returns ``a`` positive, implies ``__pos__``. """
+        """Returns ``a`` positive, implies ``__pos__``."""
     def add(self, a, b):
-        """Sum of ``a`` and ``b``, implies ``__add__``.  """
+        """Sum of ``a`` and ``b``, implies ``__add__``."""
     def sub(self, a, b):
-        """Difference of ``a`` and ``b``, implies ``__sub__``.  """
+        """Difference of ``a`` and ``b``, implies ``__sub__``."""
     def mul(self, a, b):
-        """Product of ``a`` and ``b``, implies ``__mul__``.  """
+        """Product of ``a`` and ``b``, implies ``__mul__``."""
     def pow(self, a, b):
-        """Raise ``a`` to power ``b``, implies ``__pow__``.  """
+        """Raise ``a`` to power ``b``, implies ``__pow__``."""
     def exquo(self, a, b) -> None:
         """Exact quotient of *a* and *b*. Analogue of ``a / b``.
 
@@ -546,8 +532,7 @@ class Domain:
         not raise an exception) then ``a == b*q``.
 
         Examples
-        ========
-
+        --------
         We can use ``K.exquo`` instead of ``/`` for exact division.
 
         >>> from sympy import ZZ
@@ -569,35 +554,30 @@ class Domain:
         5/2
 
         Parameters
-        ==========
-
+        ----------
         a: domain element
             The dividend
         b: domain element
             The divisor
 
         Returns
-        =======
-
+        -------
         q: domain element
             The exact quotient
 
         Raises
-        ======
-
+        ------
         ExactQuotientFailed: if exact division is not possible.
         ZeroDivisionError: when the divisor is zero.
 
-        See also
-        ========
-
+        See Also
+        --------
         quo: Analogue of ``a // b``
         rem: Analogue of ``a % b``
         div: Analogue of ``divmod(a, b)``
 
         Notes
-        =====
-
+        -----
         Since the default :py:attr:`~.Domain.dtype` for :ref:`ZZ` is ``int``
         (or ``mpz``) division as ``a / b`` should not be used as it would give
         a ``float`` which is not a domain element.
@@ -625,9 +605,8 @@ class Domain:
         ``K.quo(a, b)`` is equivalent to ``K.div(a, b)[0]``. See
         :py:meth:`~.Domain.div` for more explanation.
 
-        See also
-        ========
-
+        See Also
+        --------
         rem: Analogue of ``a % b``
         div: Analogue of ``divmod(a, b)``
         exquo: Analogue of ``a / b``
@@ -638,9 +617,8 @@ class Domain:
         ``K.rem(a, b)`` is equivalent to ``K.div(a, b)[1]``. See
         :py:meth:`~.Domain.div` for more explanation.
 
-        See also
-        ========
-
+        See Also
+        --------
         quo: Analogue of ``a // b``
         div: Analogue of ``divmod(a, b)``
         exquo: Analogue of ``a / b``
@@ -665,8 +643,7 @@ class Domain:
         :py:meth:`~.Domain.div`.
 
         Examples
-        ========
-
+        --------
         We can use ``K.div`` instead of ``divmod`` for floor division and
         remainder.
 
@@ -681,34 +658,29 @@ class Domain:
         (5/2, 0)
 
         Parameters
-        ==========
-
+        ----------
         a: domain element
             The dividend
         b: domain element
             The divisor
 
         Returns
-        =======
-
+        -------
         (q, r): tuple of domain elements
             The quotient and remainder
 
         Raises
-        ======
-
+        ------
         ZeroDivisionError: when the divisor is zero.
 
-        See also
-        ========
-
+        See Also
+        --------
         quo: Analogue of ``a // b``
         rem: Analogue of ``a % b``
         exquo: Analogue of ``a / b``
 
         Notes
-        =====
-
+        -----
         If ``gmpy`` is installed then the ``gmpy.mpq`` type will be used as
         the :py:attr:`~.Domain.dtype` for :ref:`QQ`. The ``gmpy.mpq`` type
         defines ``divmod`` in a way that is undesirable so
@@ -730,27 +702,27 @@ class Domain:
 
         """
     def invert(self, a, b) -> None:
-        """Returns inversion of ``a mod b``, implies something. """
+        """Returns inversion of ``a mod b``, implies something."""
     def revert(self, a) -> None:
-        """Returns ``a**(-1)`` if possible. """
+        """Returns ``a**(-1)`` if possible."""
     def numer(self, a) -> None:
-        """Returns numerator of ``a``. """
+        """Returns numerator of ``a``."""
     def denom(self, a) -> None:
-        """Returns denominator of ``a``. """
+        """Returns denominator of ``a``."""
     def half_gcdex(self, a, b):
-        """Half extended GCD of ``a`` and ``b``. """
+        """Half extended GCD of ``a`` and ``b``."""
     def gcdex(self, a, b) -> None:
-        """Extended GCD of ``a`` and ``b``. """
+        """Extended GCD of ``a`` and ``b``."""
     def cofactors(self, a, b):
-        """Returns GCD and cofactors of ``a`` and ``b``. """
+        """Returns GCD and cofactors of ``a`` and ``b``."""
     def gcd(self, a, b) -> None:
-        """Returns GCD of ``a`` and ``b``. """
+        """Returns GCD of ``a`` and ``b``."""
     def lcm(self, a, b) -> None:
-        """Returns LCM of ``a`` and ``b``. """
+        """Returns LCM of ``a`` and ``b``."""
     def log(self, a, b) -> None:
-        """Returns b-base logarithm of ``a``. """
+        """Returns b-base logarithm of ``a``."""
     def sqrt(self, a) -> None:
-        '''Returns a (possibly inexact) square root of ``a``.
+        """Returns a (possibly inexact) square root of ``a``.
 
         Explanation
         ===========
@@ -758,10 +730,10 @@ class Domain:
         domains. It is not recommended to implement this method for domains
         other then :ref:`ZZ`.
 
-        See also
-        ========
+        See Also
+        --------
         exsqrt
-        '''
+        """
     def is_square(self, a) -> None:
         """Returns whether ``a`` is a square in the domain.
 
@@ -772,12 +744,12 @@ class Domain:
         :ref:`RR` and :ref:`CC`, a tiny difference in this equality can be
         tolerated.
 
-        See also
-        ========
+        See Also
+        --------
         exsqrt
         """
     def exsqrt(self, a) -> None:
-        '''Principal square root of a within the domain if ``a`` is square.
+        """Principal square root of a within the domain if ``a`` is square.
 
         Explanation
         ===========
@@ -787,16 +759,16 @@ class Domain:
         this equality can be tolerated. The choice of a "principal" square root
         should follow a consistent rule whenever possible.
 
-        See also
-        ========
+        See Also
+        --------
         sqrt, is_square
-        '''
+        """
     def evalf(self, a, prec=None, **options):
-        """Returns numerical approximation of ``a``. """
+        """Returns numerical approximation of ``a``."""
     n = evalf
     def real(self, a): ...
     def imag(self, a): ...
     def almosteq(self, a, b, tolerance=None):
-        """Check if ``a`` and ``b`` are almost equal. """
+        """Check if ``a`` and ``b`` are almost equal."""
     def characteristic(self) -> None:
-        """Return the characteristic of this domain. """
+        """Return the characteristic of this domain."""

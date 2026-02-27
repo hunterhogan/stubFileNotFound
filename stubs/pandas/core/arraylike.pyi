@@ -1,8 +1,4 @@
-from typing import (
-    Any,
-    Self,
-)
-
+from typing import Any, Self
 import numpy as np
 
 class OpsMixin:

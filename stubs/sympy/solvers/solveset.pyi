@@ -1,41 +1,58 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from sympy.calculus.util import continuous_domain as continuous_domain, function_range as function_range, periodicity as periodicity
-from sympy.core import Add as Add, Basic as Basic, Dummy as Dummy, Expr as Expr, Mul as Mul, Pow as Pow, S as S, Wild as Wild, pi as pi
+from sympy.calculus.util import (
+	continuous_domain as continuous_domain, function_range as function_range, periodicity as periodicity)
+from sympy.core import (
+	Add as Add, Basic as Basic, Dummy as Dummy, Expr as Expr, Mul as Mul, pi as pi, Pow as Pow, S as S, Wild as Wild)
 from sympy.core.containers import Tuple as Tuple
-from sympy.core.function import AppliedUndef as AppliedUndef, Lambda as Lambda, _mexpand as _mexpand, expand_complex as expand_complex, expand_log as expand_log, expand_trig as expand_trig, nfloat as nfloat
+from sympy.core.function import (
+	_mexpand as _mexpand, AppliedUndef as AppliedUndef, expand_complex as expand_complex, expand_log as expand_log,
+	expand_trig as expand_trig, Lambda as Lambda, nfloat as nfloat)
 from sympy.core.intfunc import integer_log as integer_log
 from sympy.core.mod import Mod as Mod
-from sympy.core.numbers import I as I, Number as Number, Rational as Rational, oo as oo
+from sympy.core.numbers import I as I, Number as Number, oo as oo, Rational as Rational
 from sympy.core.relational import Eq as Eq, Ne as Ne, Relational as Relational
 from sympy.core.sorting import default_sort_key as default_sort_key, ordered as ordered
-from sympy.core.symbol import Symbol as Symbol, _uniquely_named_symbol as _uniquely_named_symbol
+from sympy.core.symbol import _uniquely_named_symbol as _uniquely_named_symbol, Symbol as Symbol
 from sympy.core.sympify import _sympify as _sympify, sympify as sympify
 from sympy.core.traversal import preorder_traversal as preorder_traversal
-from sympy.functions import Piecewise as Piecewise, acos as acos, acot as acot, acsc as acsc, asec as asec, asin as asin, atan as atan, cos as cos, cot as cot, csc as csc, exp as exp, log as log, piecewise_fold as piecewise_fold, sec as sec, sin as sin, tan as tan
+from sympy.functions import (
+	acos as acos, acot as acot, acsc as acsc, asec as asec, asin as asin, atan as atan, cos as cos, cot as cot, csc as csc,
+	exp as exp, log as log, Piecewise as Piecewise, piecewise_fold as piecewise_fold, sec as sec, sin as sin, tan as tan)
 from sympy.functions.combinatorial.numbers import totient as totient
 from sympy.functions.elementary.complexes import Abs as Abs, arg as arg, im as im, re as re
-from sympy.functions.elementary.hyperbolic import HyperbolicFunction as HyperbolicFunction, acosh as acosh, acoth as acoth, acsch as acsch, asech as asech, asinh as asinh, atanh as atanh, cosh as cosh, coth as coth, csch as csch, sech as sech, sinh as sinh, tanh as tanh
+from sympy.functions.elementary.hyperbolic import (
+	acosh as acosh, acoth as acoth, acsch as acsch, asech as asech, asinh as asinh, atanh as atanh, cosh as cosh,
+	coth as coth, csch as csch, HyperbolicFunction as HyperbolicFunction, sech as sech, sinh as sinh, tanh as tanh)
 from sympy.functions.elementary.miscellaneous import real_root as real_root
 from sympy.functions.elementary.trigonometric import TrigonometricFunction as TrigonometricFunction
 from sympy.logic.boolalg import And as And, BooleanTrue as BooleanTrue
 from sympy.matrices import Matrix as Matrix, MatrixBase as MatrixBase, zeros as zeros
 from sympy.ntheory.factor_ import divisors as divisors
 from sympy.ntheory.residue_ntheory import discrete_log as discrete_log, nthroot_mod as nthroot_mod
-from sympy.polys import Poly as Poly, PolynomialError as PolynomialError, RootOf as RootOf, degree as degree, factor as factor, gcd as gcd, lcm as lcm, roots as roots, together as together
+from sympy.polys import (
+	degree as degree, factor as factor, gcd as gcd, lcm as lcm, Poly as Poly, PolynomialError as PolynomialError,
+	RootOf as RootOf, roots as roots, together as together)
 from sympy.polys.matrices.linsolve import _linear_eq_to_dict as _linear_eq_to_dict, _linsolve as _linsolve
 from sympy.polys.polyerrors import CoercionFailed as CoercionFailed
 from sympy.polys.polyroots import UnsolvableFactorError as UnsolvableFactorError
 from sympy.polys.polytools import groebner as groebner, invert as invert, poly as poly
-from sympy.polys.solvers import PolyNonlinearError as PolyNonlinearError, solve_lin_sys as solve_lin_sys, sympy_eqs_to_ring as sympy_eqs_to_ring
-from sympy.sets import Complement as Complement, ConditionSet as ConditionSet, Contains as Contains, FiniteSet as FiniteSet, ImageSet as ImageSet, Intersection as Intersection, Interval as Interval, Union as Union, imageset as imageset
+from sympy.polys.solvers import (
+	PolyNonlinearError as PolyNonlinearError, solve_lin_sys as solve_lin_sys, sympy_eqs_to_ring as sympy_eqs_to_ring)
+from sympy.sets import (
+	Complement as Complement, ConditionSet as ConditionSet, Contains as Contains, FiniteSet as FiniteSet,
+	ImageSet as ImageSet, imageset as imageset, Intersection as Intersection, Interval as Interval, Union as Union)
 from sympy.sets.sets import ProductSet as ProductSet, Set as Set
 from sympy.simplify import logcombine as logcombine, powdenest as powdenest
-from sympy.simplify.simplify import fraction as fraction, nsimplify as nsimplify, simplify as simplify, trigsimp as trigsimp
+from sympy.simplify.simplify import (
+	fraction as fraction, nsimplify as nsimplify, simplify as simplify, trigsimp as trigsimp)
 from sympy.solvers.polysys import solve_poly_system as solve_poly_system
-from sympy.solvers.solvers import _simple_dens as _simple_dens, checksol as checksol, denoms as denoms, recast_to_symbols as recast_to_symbols, unrad as unrad
+from sympy.solvers.solvers import (
+	_simple_dens as _simple_dens, checksol as checksol, denoms as denoms, recast_to_symbols as recast_to_symbols,
+	unrad as unrad)
 from sympy.utilities import filldedent as filldedent
-from sympy.utilities.iterables import has_dups as has_dups, is_sequence as is_sequence, iterable as iterable, numbered_symbols as numbered_symbols
+from sympy.utilities.iterables import (
+	has_dups as has_dups, is_sequence as is_sequence, iterable as iterable, numbered_symbols as numbered_symbols)
 
 class NonlinearError(ValueError):
     """Raised when unexpectedly encountering nonlinear equations"""
@@ -49,8 +66,7 @@ def _masked(f, *atoms):
     applied in sequence, the origin ``f`` will be restored.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import cos
     >>> from sympy.abc import x
     >>> from sympy.solvers.solveset import _masked
@@ -98,8 +114,7 @@ def _invert(f_x, y, x, domain=...):
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.solveset import invert_complex, invert_real
     >>> from sympy.abc import x, y
     >>> from sympy import exp
@@ -119,7 +134,7 @@ def _invert(f_x, y, x, domain=...):
     (x, {0})
 
     See Also
-    ========
+    --------
     invert_real, invert_complex
     """
 invert_complex = _invert
@@ -175,8 +190,7 @@ def domain_check(f, symbol, p):
     these conditions is met then True will be returned.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Mul, oo
     >>> from sympy.abc import x
     >>> from sympy.solvers.solveset import domain_check
@@ -209,7 +223,7 @@ def _is_finite_with_finite_vars(f, domain=...):
     left unmodified.
     """
 def _is_function_class_equation(func_class, f, symbol):
-    """ Tests whether the equation is an equation of the given function class.
+    """Tests whether the equation is an equation of the given function class.
 
     The given equation belongs to the given function class if it is
     comprised of functions of the function class which are multiplied by
@@ -217,8 +231,7 @@ def _is_function_class_equation(func_class, f, symbol):
     arguments of all such functions must be linear in the symbol as well.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.solveset import _is_function_class_equation
     >>> from sympy import tan, sin, tanh, sinh, exp
     >>> from sympy.abc import x
@@ -236,13 +249,13 @@ def _is_function_class_equation(func_class, f, symbol):
     True
     """
 def _solve_as_rational(f, symbol, domain):
-    """ solve rational functions"""
+    """Solve rational functions"""
 
 class _SolveTrig1Error(Exception):
     """Raised when _solve_trig1 heuristics do not apply"""
 
 def _solve_trig(f, symbol, domain):
-    """Function to call other helpers to solve trigonometric equations """
+    """Function to call other helpers to solve trigonometric equations"""
 def _solve_trig1(f, symbol, domain):
     """Primary solver for trigonometric and hyperbolic equations
 
@@ -251,7 +264,7 @@ def _solve_trig1(f, symbol, domain):
     raises _SolveTrig1Error if f == 0 cannot be solved.
 
     Notes
-    =====
+    -----
     Algorithm:
     1. Do a change of variable x -> mu*x in arguments to trigonometric and
     hyperbolic functions, in order to reduce them to small integers. (This
@@ -266,23 +279,24 @@ def _solve_trig1(f, symbol, domain):
     """
 def _solve_trig2(f, symbol, domain):
     """Secondary helper to solve trigonometric equations,
-    called when first helper fails """
+    called when first helper fails
+    """
 def _solve_as_poly(f, symbol, domain=...):
     """
     Solve the equation using polynomial techniques if it already is a
     polynomial equation or, with a change of variables, can be made so.
     """
 def _solve_radical(f, unradf, symbol, solveset_solver):
-    """ Helper function to solve equations with radicals """
+    """Helper function to solve equations with radicals"""
 def _solve_abs(f, symbol, domain):
-    """ Helper function to solve equation involving absolute value function """
+    """Helper function to solve equation involving absolute value function"""
 def solve_decomposition(f, symbol, domain):
-    '''
+    """
     Function to solve equations via the principle of "Decomposition
     and Rewriting".
 
     Examples
-    ========
+    --------
     >>> from sympy import exp, sin, Symbol, pprint, S
     >>> from sympy.solvers.solveset import solve_decomposition as sd
     >>> x = Symbol(\'x\')
@@ -298,11 +312,12 @@ def solve_decomposition(f, symbol, domain):
     >>> pprint(sd(f3, x, S.Reals), use_unicode=False)
     {2*n*pi - 2 | n in Integers} U {2*n*pi - 2 + pi | n in Integers}
 
-    '''
+    """
 def _solveset(f, symbol, domain, _check: bool = False):
     """Helper for solveset to return a result from an expression
     that has already been sympify'ed and is known to contain the
-    given symbol."""
+    given symbol.
+    """
 def _is_modular(f, symbol):
     """
     Helper function to check below mentioned types of modular equations.
@@ -313,8 +328,7 @@ def _is_modular(f, symbol):
     C -> It is an integer.
 
     Parameters
-    ==========
-
+    ----------
     f : Expr
         The equation to be checked.
 
@@ -322,8 +336,7 @@ def _is_modular(f, symbol):
         The concerned variable for which the equation is to be checked.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, exp, Mod
     >>> from sympy.solvers.solveset import _is_modular as check
     >>> x, y = symbols('x y')
@@ -378,8 +391,7 @@ def _invert_modular(modterm, rhs, n, symbol):
           from nthroot_mod function.
 
     Parameters
-    ==========
-
+    ----------
     modterm, rhs : Expr
         The modular equation to be inverted, ``modterm - rhs = 0``
 
@@ -390,14 +402,12 @@ def _invert_modular(modterm, rhs, n, symbol):
         Dummy variable for output g_n.
 
     Returns
-    =======
-
+    -------
     A tuple (f_x, g_n) is being returned where f_x is modular independent function
     of symbol and g_n being set of values f_x can have.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, exp, Mod, Dummy, S
     >>> from sympy.solvers.solveset import _invert_modular as invert_modular
     >>> x, y = symbols('x y')
@@ -424,8 +434,7 @@ def _solve_modular(f, symbol, domain):
     where A is not a function of symbol.
 
     Parameters
-    ==========
-
+    ----------
     f : Expr
         The modular equation to be solved, ``f = 0``
 
@@ -437,14 +446,12 @@ def _solve_modular(f, symbol, domain):
         Integers.
 
     Returns
-    =======
-
+    -------
     A set of integer solutions satisfying the given modular equation.
     A ``ConditionSet`` if the equation is unsolvable.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.solveset import _solve_modular as solve_modulo
     >>> from sympy import S, Symbol, sin, Intersection, Interval, Mod
     >>> x = Symbol('x')
@@ -467,17 +474,16 @@ def _term_factors(f) -> Generator[Incomplete, Incomplete]:
     in the given equation.
 
     Parameters
-    ==========
+    ----------
     f : Expr
         Equation that needs to be addressed
 
     Returns
-    =======
+    -------
     Factors of all terms present in the equation.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols
     >>> from sympy.solvers.solveset import _term_factors
     >>> x = symbols('x')
@@ -499,8 +505,7 @@ def _solve_exponential(lhs, rhs, symbol, domain):
     .. math:: 4^{5 - 9x} - e^{2 - x}
 
     Parameters
-    ==========
-
+    ----------
     lhs, rhs : Expr
         The exponential equation to be solved, `lhs = rhs`
 
@@ -511,8 +516,7 @@ def _solve_exponential(lhs, rhs, symbol, domain):
         A set over which the equation is solved.
 
     Returns
-    =======
-
+    -------
     A set of solutions satisfying the given equation.
     A ``ConditionSet`` if the equation is unsolvable or
     if the assumptions are not properly defined, in that case
@@ -520,8 +524,7 @@ def _solve_exponential(lhs, rhs, symbol, domain):
     solution(s) of the equation with the desired assumptions.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.solveset import _solve_exponential as solve_expo
     >>> from sympy import symbols, S
     >>> x = symbols('x', real=True)
@@ -563,8 +566,7 @@ def _is_exponential(f, symbol):
     exponents, else ``False``.
 
     Parameters
-    ==========
-
+    ----------
     f : Expr
         The equation to be checked
 
@@ -572,8 +574,7 @@ def _is_exponential(f, symbol):
         The variable in which the equation is checked
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, cos, exp
     >>> from sympy.solvers.solveset import _is_exponential as check
     >>> x, y = symbols('x y')
@@ -611,8 +612,7 @@ def _solve_logarithm(lhs, rhs, symbol, domain):
     .. math:: \\log(x(x - 4))
 
     Parameters
-    ==========
-
+    ----------
     lhs, rhs : Expr
         The logarithmic equation to be solved, `lhs = rhs`
 
@@ -623,14 +623,12 @@ def _solve_logarithm(lhs, rhs, symbol, domain):
         A set over which the equation is solved.
 
     Returns
-    =======
-
+    -------
     A set of solutions satisfying the given equation.
     A ``ConditionSet`` if the equation is unsolvable.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, log, S
     >>> from sympy.solvers.solveset import _solve_logarithm as solve_log
     >>> x = symbols('x')
@@ -682,8 +680,7 @@ def _is_logarithmic(f, symbol):
     `a\\log(f(x)) + b\\log(g(x)) + ... + c` else ``False``.
 
     Parameters
-    ==========
-
+    ----------
     f : Expr
         The equation to be checked
 
@@ -691,13 +688,11 @@ def _is_logarithmic(f, symbol):
         The variable in which the equation is checked
 
     Returns
-    =======
-
+    -------
     ``True`` if the equation is logarithmic otherwise ``False``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, tan, log
     >>> from sympy.solvers.solveset import _is_logarithmic as check
     >>> x, y = symbols('x y')
@@ -751,8 +746,7 @@ def _is_lambert(f, symbol):
           g, h are linear functions or log terms.
 
     Parameters
-    ==========
-
+    ----------
     f : Expr
         The equation to be checked
 
@@ -760,13 +754,11 @@ def _is_lambert(f, symbol):
         The variable in which the equation is checked
 
     Returns
-    =======
-
+    -------
     If this returns ``False`` then the Lambert solver (``_solve_lambert``) will not be called.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.solveset import _is_lambert
     >>> from sympy import symbols, cosh, sinh, log
     >>> x = symbols('x')
@@ -781,8 +773,7 @@ def _is_lambert(f, symbol):
     True
 
     See Also
-    ========
-
+    --------
     _solve_lambert
 
     """
@@ -796,8 +787,7 @@ def _transolve(f, symbol, domain):
         - Logarithmic equations
 
     Parameters
-    ==========
-
+    ----------
     f : Any transcendental equation that needs to be solved.
         This needs to be an expression, which is assumed
         to be equal to ``0``.
@@ -809,8 +799,7 @@ def _transolve(f, symbol, domain):
         This needs to be of class ``Set``.
 
     Returns
-    =======
-
+    -------
     Set
         A set of values for ``symbol`` for which ``f`` is equal to
         zero. An ``EmptySet`` is returned if ``f`` does not have solutions
@@ -829,8 +818,7 @@ def _transolve(f, symbol, domain):
     ``solveset``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.solveset import _transolve as transolve
     >>> from sympy.solvers.solvers import _tsolve as tsolve
     >>> from sympy import symbols, S, pprint
@@ -967,8 +955,7 @@ def solveset(f, symbol=None, domain=...):
     """Solves a given inequality or equation with set as output
 
     Parameters
-    ==========
-
+    ----------
     f : Expr or a relational.
         The target equation or inequality
     symbol : Symbol
@@ -977,8 +964,7 @@ def solveset(f, symbol=None, domain=...):
         The domain over which the equation is solved
 
     Returns
-    =======
-
+    -------
     Set
         A set of values for `symbol` for which `f` is True or is equal to
         zero. An :class:`~.EmptySet` is returned if `f` is False or nonzero.
@@ -988,8 +974,7 @@ def solveset(f, symbol=None, domain=...):
     ``solveset`` claims to be complete in the solution set that it returns.
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         The algorithms to solve inequalities in complex domain  are
         not yet implemented.
@@ -1000,8 +985,7 @@ def solveset(f, symbol=None, domain=...):
 
 
     Notes
-    =====
-
+    -----
     Python interprets 0 and 1 as False and True, respectively, but
     in this function they refer to solutions of an expression. So 0 and 1
     return the domain and EmptySet, respectively, while True and False
@@ -1010,14 +994,12 @@ def solveset(f, symbol=None, domain=...):
 
 
     See Also
-    ========
-
+    --------
     solveset_real: solver for real domain
     solveset_complex: solver for complex domain
 
     Examples
-    ========
-
+    --------
     >>> from sympy import exp, sin, Symbol, pprint, S, Eq
     >>> from sympy.solvers.solveset import solveset, solveset_real
 
@@ -1069,14 +1051,14 @@ def solveset_complex(f, symbol): ...
 def _solveset_multi(eqs, syms, domains):
     """Basic implementation of a multivariate solveset.
 
-    For internal use (not ready for public consumption)"""
+    For internal use (not ready for public consumption)
+    """
 def solvify(f, symbol, domain):
     """Solves an equation using solveset and returns the solution in accordance
     with the `solve` output API.
 
     Returns
-    =======
-
+    -------
     We classify the output based on the type of solution returned by `solveset`.
 
     Solution    |    Output
@@ -1094,14 +1076,12 @@ def solvify(f, symbol, domain):
 
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         A ConditionSet is the input.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.solveset import solvify
     >>> from sympy.abc import x
     >>> from sympy import S, tan, sin, exp
@@ -1124,23 +1104,20 @@ def linear_coeffs(eq, *syms, dict: bool = False):
     list.
 
     Raises
-    ======
-
+    ------
     NonlinearError
         The equation contains a nonlinear term
     ValueError
         duplicate or unordered symbols are passed
 
     Parameters
-    ==========
-
+    ----------
     dict - (default False) when True, return coefficients as a
         dictionary with coefficients keyed to syms that were present;
         key 1 gives the constant term
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.solveset import linear_coeffs
     >>> from sympy.abc import x, y, z
     >>> linear_coeffs(3*x + 2*y - 1, x, y)
@@ -1212,16 +1189,14 @@ def linear_eq_to_matrix(equations, *symbols):
     ``Eq(a, b)`` :math:`\\Rightarrow a - b`.
 
     Raises
-    ======
-
+    ------
     NonlinearError
         The equations contain a nonlinear term.
     ValueError
         The symbols are not given or are not unique.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import linear_eq_to_matrix, symbols
     >>> c, x, y, z = symbols('c, x, y, z')
 
@@ -1264,7 +1239,7 @@ def linear_eq_to_matrix(equations, *symbols):
 
     """
 def linsolve(system, *symbols):
-    '''
+    """
     Solve system of $N$ linear equations with $M$ variables; both
     underdetermined and overdetermined systems are supported.
     The possible number of solutions is zero, one or infinite.
@@ -1324,8 +1299,7 @@ def linsolve(system, *symbols):
     results, after elimination, in a row echelon form matrix.
 
     Returns
-    =======
-
+    -------
     A FiniteSet containing an ordered tuple of values for the
     unknowns for which the `system` has a solution. (Wrapping
     the tuple in FiniteSet is used to maintain a consistent
@@ -1334,15 +1308,13 @@ def linsolve(system, *symbols):
     Returns EmptySet, if the linear system is inconsistent.
 
     Raises
-    ======
-
+    ------
     ValueError
         The input is not valid.
         The symbols are not given.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix, linsolve, symbols
     >>> x, y, z = symbols("x, y, z")
     >>> A = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 10]])
@@ -1431,17 +1403,16 @@ def linsolve(system, *symbols):
     Traceback (most recent call last):
     ...
     NonlinearError: nonlinear term: x**2
-    '''
+    """
 def _return_conditionset(eqs, symbols): ...
-def substitution(system, symbols, result=[{}], known_symbols=[], exclude=[], all_symbols=None):
+def substitution(system, symbols, result=..., known_symbols=[], exclude=[], all_symbols=None):
     """
     Solves the `system` using substitution method. It is used in
     :func:`~.nonlinsolve`. This will be called from :func:`~.nonlinsolve` when any
     equation(s) is non polynomial equation.
 
     Parameters
-    ==========
-
+    ----------
     system : list of equations
         The target system of equations
     symbols : list of symbols to be solved.
@@ -1457,8 +1428,7 @@ def substitution(system, symbols, result=[{}], known_symbols=[], exclude=[], all
     all_symbols : known_symbols + symbols(unsolved).
 
     Returns
-    =======
-
+    -------
     A FiniteSet of ordered tuple of values of `all_symbols` for which the
     `system` has solution. Order of values in the tuple is same as symbols
     present in the parameter `all_symbols`. If parameter `all_symbols` is None
@@ -1475,8 +1445,7 @@ def substitution(system, symbols, result=[{}], known_symbols=[], exclude=[], all
     output format throughout the solveset.
 
     Raises
-    ======
-
+    ------
     ValueError
         The input is not valid.
         The symbols are not given.
@@ -1484,8 +1453,7 @@ def substitution(system, symbols, result=[{}], known_symbols=[], exclude=[], all
         The input symbols are not :class:`~.Symbol` type.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, substitution
     >>> x, y = symbols('x, y', real=True)
     >>> substitution([x + y], [x], [{y: 1}], [y], set([]), [x, y])
@@ -1533,16 +1501,14 @@ def nonlinsolve(system, *symbols):
     and complex solution (if they exist).
 
     Parameters
-    ==========
-
+    ----------
     system : list of equations
         The target system of equations
     symbols : list of Symbols
         symbols should be given as a sequence eg. list
 
     Returns
-    =======
-
+    -------
     A :class:`~.FiniteSet` of ordered tuple of values of `symbols` for which the `system`
     has solution. Order of values in the tuple is same as symbols present in
     the parameter `symbols`.
@@ -1570,8 +1536,7 @@ def nonlinsolve(system, *symbols):
        symbols = [x, y]
 
     Raises
-    ======
-
+    ------
     ValueError
         The input is not valid.
         The symbols are not given.
@@ -1579,8 +1544,7 @@ def nonlinsolve(system, *symbols):
         The input symbols are not `Symbol` type.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols, nonlinsolve
     >>> x, y, z = symbols('x, y, z', real=True)
     >>> nonlinsolve([x*y - 1, 4*x**2 + y**2 - 5], [x, y])

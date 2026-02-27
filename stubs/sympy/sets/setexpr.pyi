@@ -1,5 +1,7 @@
 from .fancysets import ImageSet as ImageSet
-from .sets import set_add as set_add, set_div as set_div, set_function as set_function, set_mul as set_mul, set_pow as set_pow, set_sub as set_sub
+from .sets import (
+	set_add as set_add, set_div as set_div, set_function as set_function, set_mul as set_mul, set_pow as set_pow,
+	set_sub as set_sub)
 from _typeshed import Incomplete
 from sympy.core import Expr as Expr
 from sympy.core.decorators import _sympifyit as _sympifyit, call_highest_priority as call_highest_priority
@@ -8,8 +10,7 @@ class SetExpr(Expr):
     """An expression that can take on values of a set.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Interval, FiniteSet
     >>> from sympy.sets.setexpr import SetExpr
 
@@ -20,6 +21,7 @@ class SetExpr(Expr):
     >>> (2*a + b).set
     Interval(1, 20)
     """
+
     _op_priority: float
     def __new__(cls, setarg): ...
     set: Incomplete

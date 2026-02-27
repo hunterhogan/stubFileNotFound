@@ -1,5 +1,4 @@
-from typing_extensions import Literal, assert_type
-
+from typing import assert_type, Literal
 
 # Note: type checkers / linters are free to point out that the set difference
 #   below is redundant. But typeshed should allow it, as its job is to describe

@@ -1,7 +1,7 @@
-import abc
 from .integrals import Integral as Integral
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from sympy.core.add import Add as Add
 from sympy.core.cache import cacheit as cacheit
@@ -17,26 +17,36 @@ from sympy.core.singleton import S as S
 from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, Wild as Wild
 from sympy.functions.elementary.complexes import Abs as Abs
 from sympy.functions.elementary.exponential import exp as exp, log as log
-from sympy.functions.elementary.hyperbolic import HyperbolicFunction as HyperbolicFunction, asinh as asinh, cosh as cosh, coth as coth, csch as csch, sech as sech, sinh as sinh, tanh as tanh
+from sympy.functions.elementary.hyperbolic import (
+	asinh as asinh, cosh as cosh, coth as coth, csch as csch, HyperbolicFunction as HyperbolicFunction, sech as sech,
+	sinh as sinh, tanh as tanh)
 from sympy.functions.elementary.miscellaneous import sqrt as sqrt
 from sympy.functions.elementary.piecewise import Piecewise as Piecewise
-from sympy.functions.elementary.trigonometric import TrigonometricFunction as TrigonometricFunction, acos as acos, acot as acot, acsc as acsc, asec as asec, asin as asin, atan as atan, cos as cos, cot as cot, csc as csc, sec as sec, sin as sin, tan as tan
+from sympy.functions.elementary.trigonometric import (
+	acos as acos, acot as acot, acsc as acsc, asec as asec, asin as asin, atan as atan, cos as cos, cot as cot, csc as csc,
+	sec as sec, sin as sin, tan as tan, TrigonometricFunction as TrigonometricFunction)
 from sympy.functions.special.delta_functions import DiracDelta as DiracDelta, Heaviside as Heaviside
 from sympy.functions.special.elliptic_integrals import elliptic_e as elliptic_e, elliptic_f as elliptic_f
-from sympy.functions.special.error_functions import Chi as Chi, Ci as Ci, Ei as Ei, Shi as Shi, Si as Si, erf as erf, erfi as erfi, fresnelc as fresnelc, fresnels as fresnels, li as li
+from sympy.functions.special.error_functions import (
+	Chi as Chi, Ci as Ci, Ei as Ei, erf as erf, erfi as erfi, fresnelc as fresnelc, fresnels as fresnels, li as li,
+	Shi as Shi, Si as Si)
 from sympy.functions.special.gamma_functions import uppergamma as uppergamma
-from sympy.functions.special.polynomials import OrthogonalPolynomial as OrthogonalPolynomial, assoc_laguerre as assoc_laguerre, chebyshevt as chebyshevt, chebyshevu as chebyshevu, gegenbauer as gegenbauer, hermite as hermite, jacobi as jacobi, laguerre as laguerre, legendre as legendre
+from sympy.functions.special.polynomials import (
+	assoc_laguerre as assoc_laguerre, chebyshevt as chebyshevt, chebyshevu as chebyshevu, gegenbauer as gegenbauer,
+	hermite as hermite, jacobi as jacobi, laguerre as laguerre, legendre as legendre,
+	OrthogonalPolynomial as OrthogonalPolynomial)
 from sympy.functions.special.zeta_functions import polylog as polylog
 from sympy.logic.boolalg import And as And
 from sympy.ntheory.factor_ import primefactors as primefactors
-from sympy.polys.polytools import Poly as Poly, degree as degree, gcd_list as gcd_list, lcm_list as lcm_list
+from sympy.polys.polytools import degree as degree, gcd_list as gcd_list, lcm_list as lcm_list, Poly as Poly
 from sympy.simplify.radsimp import fraction as fraction
 from sympy.simplify.simplify import simplify as simplify
 from sympy.solvers.solvers import solve as solve
 from sympy.strategies.core import condition as condition, do_one as do_one, null_safe as null_safe, switch as switch
 from sympy.utilities.iterables import iterable as iterable
 from sympy.utilities.misc import debug as debug
-from typing import Callable, NamedTuple, Sequence
+from typing import NamedTuple
+import abc
 
 @dataclass
 class Rule(ABC, metaclass=abc.ABCMeta):
@@ -50,16 +60,19 @@ class Rule(ABC, metaclass=abc.ABCMeta):
 @dataclass
 class AtomicRule(Rule, ABC, metaclass=abc.ABCMeta):
     """A simple rule that does not depend on other rules"""
+
     def contains_dont_know(self) -> bool: ...
 
 @dataclass
 class ConstantRule(AtomicRule):
     """integrate(a, x)  ->  a*x"""
+
     def eval(self) -> Expr: ...
 
 @dataclass
 class ConstantTimesRule(Rule):
     """integrate(a*f(x), x)  ->  a*integrate(f(x), x)"""
+
     constant: Expr
     other: Expr
     substep: Rule
@@ -69,6 +82,7 @@ class ConstantTimesRule(Rule):
 @dataclass
 class PowerRule(AtomicRule):
     """integrate(x**a, x)"""
+
     base: Expr
     exp: Expr
     def eval(self) -> Expr: ...
@@ -76,6 +90,7 @@ class PowerRule(AtomicRule):
 @dataclass
 class NestedPowRule(AtomicRule):
     """integrate((x**a)**b, x)"""
+
     base: Expr
     exp: Expr
     def eval(self) -> Expr: ...
@@ -83,6 +98,7 @@ class NestedPowRule(AtomicRule):
 @dataclass
 class AddRule(Rule):
     """integrate(f(x) + g(x), x) -> integrate(f(x), x) + integrate(g(x), x)"""
+
     substeps: list[Rule]
     def eval(self) -> Expr: ...
     def contains_dont_know(self) -> bool: ...
@@ -90,6 +106,7 @@ class AddRule(Rule):
 @dataclass
 class URule(Rule):
     """integrate(f(g(x))*g'(x), x) -> integrate(f(u), u), u = g(x)"""
+
     u_var: Symbol
     u_func: Expr
     substep: Rule
@@ -99,6 +116,7 @@ class URule(Rule):
 @dataclass
 class PartsRule(Rule):
     """integrate(u(x)*v'(x), x) -> u(x)*v(x) - integrate(u'(x)*v(x), x)"""
+
     u: Symbol
     dv: Expr
     v_step: Rule
@@ -109,6 +127,7 @@ class PartsRule(Rule):
 @dataclass
 class CyclicPartsRule(Rule):
     """Apply PartsRule multiple times to integrate exp(x)*sin(x)"""
+
     parts_rules: list[PartsRule]
     coefficient: Expr
     def eval(self) -> Expr: ...
@@ -120,31 +139,37 @@ class TrigRule(AtomicRule, ABC, metaclass=abc.ABCMeta): ...
 @dataclass
 class SinRule(TrigRule):
     """integrate(sin(x), x) -> -cos(x)"""
+
     def eval(self) -> Expr: ...
 
 @dataclass
 class CosRule(TrigRule):
     """integrate(cos(x), x) -> sin(x)"""
+
     def eval(self) -> Expr: ...
 
 @dataclass
 class SecTanRule(TrigRule):
     """integrate(sec(x)*tan(x), x) -> sec(x)"""
+
     def eval(self) -> Expr: ...
 
 @dataclass
 class CscCotRule(TrigRule):
     """integrate(csc(x)*cot(x), x) -> -csc(x)"""
+
     def eval(self) -> Expr: ...
 
 @dataclass
 class Sec2Rule(TrigRule):
     """integrate(sec(x)**2, x) -> tan(x)"""
+
     def eval(self) -> Expr: ...
 
 @dataclass
 class Csc2Rule(TrigRule):
     """integrate(csc(x)**2, x) -> -cot(x)"""
+
     def eval(self) -> Expr: ...
 
 @dataclass
@@ -153,16 +178,19 @@ class HyperbolicRule(AtomicRule, ABC, metaclass=abc.ABCMeta): ...
 @dataclass
 class SinhRule(HyperbolicRule):
     """integrate(sinh(x), x) -> cosh(x)"""
+
     def eval(self) -> Expr: ...
 
 @dataclass
 class CoshRule(HyperbolicRule):
     """integrate(cosh(x), x) -> sinh(x)"""
+
     def eval(self): ...
 
 @dataclass
 class ExpRule(AtomicRule):
     """integrate(a**x, x) -> a**x/ln(a)"""
+
     base: Expr
     exp: Expr
     def eval(self) -> Expr: ...
@@ -170,22 +198,26 @@ class ExpRule(AtomicRule):
 @dataclass
 class ReciprocalRule(AtomicRule):
     """integrate(1/x, x) -> ln(x)"""
+
     base: Expr
     def eval(self) -> Expr: ...
 
 @dataclass
 class ArcsinRule(AtomicRule):
     """integrate(1/sqrt(1-x**2), x) -> asin(x)"""
+
     def eval(self) -> Expr: ...
 
 @dataclass
 class ArcsinhRule(AtomicRule):
     """integrate(1/sqrt(1+x**2), x) -> asin(x)"""
+
     def eval(self) -> Expr: ...
 
 @dataclass
 class ReciprocalSqrtQuadraticRule(AtomicRule):
     """integrate(1/sqrt(a+b*x+c*x**2), x) -> log(2*sqrt(c)*sqrt(a+b*x+c*x**2)+b+2*c*x)/sqrt(c)"""
+
     a: Expr
     b: Expr
     c: Expr
@@ -194,6 +226,7 @@ class ReciprocalSqrtQuadraticRule(AtomicRule):
 @dataclass
 class SqrtQuadraticDenomRule(AtomicRule):
     """integrate(poly(x)/sqrt(a+b*x+c*x**2), x)"""
+
     a: Expr
     b: Expr
     c: Expr
@@ -203,6 +236,7 @@ class SqrtQuadraticDenomRule(AtomicRule):
 @dataclass
 class SqrtQuadraticRule(AtomicRule):
     """integrate(sqrt(a+b*x+c*x**2), x)"""
+
     a: Expr
     b: Expr
     c: Expr
@@ -211,6 +245,7 @@ class SqrtQuadraticRule(AtomicRule):
 @dataclass
 class AlternativeRule(Rule):
     """Multiple ways to do integration."""
+
     alternatives: list[Rule]
     def eval(self) -> Expr: ...
     def contains_dont_know(self) -> bool: ...
@@ -218,17 +253,20 @@ class AlternativeRule(Rule):
 @dataclass
 class DontKnowRule(Rule):
     """Leave the integral as is."""
+
     def eval(self) -> Expr: ...
     def contains_dont_know(self) -> bool: ...
 
 @dataclass
 class DerivativeRule(AtomicRule):
     """integrate(f'(x), x) -> f(x)"""
+
     def eval(self) -> Expr: ...
 
 @dataclass
 class RewriteRule(Rule):
     """Rewrite integrand to another form that is easier to handle."""
+
     rewritten: Expr
     substep: Rule
     def eval(self) -> Expr: ...
@@ -272,6 +310,7 @@ class TrigSubstitutionRule(Rule):
 @dataclass
 class ArctanRule(AtomicRule):
     """integrate(a/(b*x**2+c), x) -> a/b / sqrt(c/b) * atan(x/sqrt(c/b))"""
+
     a: Expr
     b: Expr
     c: Expr
@@ -518,8 +557,7 @@ def integral_steps(integrand, symbol, **options):
     https://github.com/sympy/sympy_gamma/blob/master/app/logic/intsteps.py.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import exp, sin
     >>> from sympy.integrals.manualintegrate import integral_steps
     >>> from sympy.abc import x
@@ -537,8 +575,7 @@ def integral_steps(integrand, symbol, **options):
     ConstantRule(integrand=9, variable=x)]))
 
     Returns
-    =======
-
+    -------
     rule : Rule
         The first step; most rules have substeps that must also be
         considered. These substeps can be evaluated using ``manualintegrate``
@@ -557,8 +594,7 @@ def manualintegrate(f, var):
     Unlike :func:`~.integrate`, var can only be a single symbol.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sin, cos, tan, exp, log, integrate
     >>> from sympy.integrals.manualintegrate import manualintegrate
     >>> from sympy.abc import x
@@ -588,8 +624,7 @@ def manualintegrate(f, var):
     -log(cos(x))
 
     See Also
-    ========
-
+    --------
     sympy.integrals.integrals.integrate
     sympy.integrals.integrals.Integral.doit
     sympy.integrals.integrals.Integral

@@ -11,8 +11,7 @@ class Adjoint(MatrixExpr):
     function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import MatrixSymbol, Adjoint, adjoint
     >>> A = MatrixSymbol('A', 3, 5)
     >>> B = MatrixSymbol('B', 5, 3)
@@ -25,6 +24,7 @@ class Adjoint(MatrixExpr):
     >>> adjoint(A*B) == Adjoint(A*B).doit()
     True
     """
+
     is_Adjoint: bool
     def doit(self, **hints): ...
     @property

@@ -1,45 +1,44 @@
+from _typeshed import ExcInfo
+from collections.abc import Callable
+from typing import Any, Final, NamedTuple, Self, type_check_only, TypeAlias
 import sys
 import types
 import unittest
-from _typeshed import ExcInfo
-from collections.abc import Callable
-from typing import Any, Final, NamedTuple, type_check_only
-from typing_extensions import Self, TypeAlias
 
 __all__ = [
-    "register_optionflag",
-    "DONT_ACCEPT_TRUE_FOR_1",
-    "DONT_ACCEPT_BLANKLINE",
-    "NORMALIZE_WHITESPACE",
-    "ELLIPSIS",
-    "SKIP",
-    "IGNORE_EXCEPTION_DETAIL",
     "COMPARISON_FLAGS",
-    "REPORT_UDIFF",
+    "DONT_ACCEPT_BLANKLINE",
+    "DONT_ACCEPT_TRUE_FOR_1",
+    "ELLIPSIS",
+    "FAIL_FAST",
+    "IGNORE_EXCEPTION_DETAIL",
+    "NORMALIZE_WHITESPACE",
+    "REPORTING_FLAGS",
     "REPORT_CDIFF",
     "REPORT_NDIFF",
     "REPORT_ONLY_FIRST_FAILURE",
-    "REPORTING_FLAGS",
-    "FAIL_FAST",
-    "Example",
-    "DocTest",
-    "DocTestParser",
-    "DocTestFinder",
-    "DocTestRunner",
-    "OutputChecker",
-    "DocTestFailure",
-    "UnexpectedException",
+    "REPORT_UDIFF",
+    "SKIP",
     "DebugRunner",
-    "testmod",
-    "testfile",
-    "run_docstring_examples",
-    "DocTestSuite",
     "DocFileSuite",
-    "set_unittest_reportflags",
-    "script_from_examples",
-    "testsource",
-    "debug_src",
+    "DocTest",
+    "DocTestFailure",
+    "DocTestFinder",
+    "DocTestParser",
+    "DocTestRunner",
+    "DocTestSuite",
+    "Example",
+    "OutputChecker",
+    "UnexpectedException",
     "debug",
+    "debug_src",
+    "register_optionflag",
+    "run_docstring_examples",
+    "script_from_examples",
+    "set_unittest_reportflags",
+    "testfile",
+    "testmod",
+    "testsource",
 ]
 
 if sys.version_info >= (3, 13):

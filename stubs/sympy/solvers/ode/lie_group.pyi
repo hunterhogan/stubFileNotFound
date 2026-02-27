@@ -2,9 +2,9 @@ from .ode import checkinfsol as checkinfsol
 from _typeshed import Incomplete
 from sympy.core import Add as Add, Mul as Mul, Pow as Pow, S as S
 from sympy.core.exprtools import factor_terms as factor_terms
-from sympy.core.function import AppliedUndef as AppliedUndef, Function as Function, expand as expand
+from sympy.core.function import AppliedUndef as AppliedUndef, expand as expand, Function as Function
 from sympy.core.relational import Eq as Eq, Equality as Equality
-from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, Wild as Wild, symbols as symbols
+from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, symbols as symbols, Wild as Wild
 from sympy.functions import exp as exp, log as log
 from sympy.integrals.integrals import integrate as integrate
 from sympy.polys import Poly as Poly
@@ -63,8 +63,7 @@ def infinitesimals(eq, func=None, order=None, hint: str = 'default', match=None)
     heuristic needs to be found, it can be passed as a flag to ``hint``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Function
     >>> from sympy.solvers.ode.lie_group import infinitesimals
     >>> from sympy.abc import x
@@ -74,8 +73,7 @@ def infinitesimals(eq, func=None, order=None, hint: str = 'default', match=None)
     [{eta(x, f(x)): exp(x**3/3), xi(x, f(x)): 0}]
 
     References
-    ==========
-
+    ----------
     - Solving differential equations by Symmetry Groups,
       John Starrett, pp. 1 - pp. 14
 
@@ -107,8 +105,7 @@ def lie_heuristic_abaco1_simple(match, comp: bool = False):
 
 
     References
-    ==========
-
+    ----------
     - E.S Cheb-Terrab, L.G.S Duarte and L.A,C.P da Mota, Computer Algebra
       Solving of First Order ODEs Using Symmetry Methods, pp. 8
 
@@ -139,7 +136,7 @@ def lie_heuristic_abaco1_product(match, comp: bool = False):
 
 
     References
-    ==========
+    ----------
     - E.S. Cheb-Terrab, A.D. Roche, Symmetries and First Order
       ODE Patterns, pp. 7 - pp. 8
 
@@ -157,7 +154,7 @@ def lie_heuristic_bivariate(match, comp: bool = False):
     are increased till a certain maximum value.
 
     References
-    ==========
+    ----------
     - Lie Groups and Differential Equations
       pp. 327 - pp. 329
 
@@ -180,7 +177,7 @@ def lie_heuristic_chi(match, comp: bool = False):
 
 
     References
-    ==========
+    ----------
     - E.S Cheb-Terrab, L.G.S Duarte and L.A,C.P da Mota, Computer Algebra
       Solving of First Order ODEs Using Symmetry Methods, pp. 8
 
@@ -217,7 +214,7 @@ def lie_heuristic_function_sum(match, comp: bool = False):
 
 
     References
-    ==========
+    ----------
     - E.S. Cheb-Terrab, A.D. Roche, Symmetries and First Order
       ODE Patterns, pp. 7 - pp. 8
 
@@ -254,7 +251,7 @@ def lie_heuristic_abaco2_similar(match, comp: bool = False):
     interchanged, to get `\\xi` as `f(x^*)` and `\\eta` as `g(y^*)`
 
     References
-    ==========
+    ----------
     - E.S. Cheb-Terrab, A.D. Roche, Symmetries and First Order
       ODE Patterns, pp. 10 - pp. 12
 
@@ -284,7 +281,7 @@ def lie_heuristic_abaco2_unique_unknown(match, comp: bool = False):
        are solutions.
 
     References
-    ==========
+    ----------
     - E.S. Cheb-Terrab, A.D. Roche, Symmetries and First Order
       ODE Patterns, pp. 10 - pp. 12
 
@@ -297,7 +294,7 @@ def lie_heuristic_abaco2_unique_general(match, comp: bool = False):
     The complete sequence of steps is given in the paper mentioned below.
 
     References
-    ==========
+    ----------
     - E.S. Cheb-Terrab, A.D. Roche, Symmetries and First Order
       ODE Patterns, pp. 10 - pp. 12
 
@@ -321,13 +318,13 @@ def lie_heuristic_linear(match, comp: bool = False):
     `h` need not be a rational function in this case.
 
     References
-    ==========
+    ----------
     - E.S. Cheb-Terrab, A.D. Roche, Symmetries and First Order
       ODE Patterns, pp. 10 - pp. 12
 
     """
 def _lie_group_remove(coords):
-    '''
+    """
     This function is strictly meant for internal use by the Lie group ODE solving
     method. It replaces arbitrary functions returned by pdsolve as follows:
 
@@ -337,8 +334,7 @@ def _lie_group_remove(coords):
     4] If there is no arbitrary function coords is returned unchanged.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.solvers.ode.lie_group import _lie_group_remove
     >>> from sympy import Function
     >>> from sympy.abc import x, y
@@ -356,4 +352,4 @@ def _lie_group_remove(coords):
     >>> _lie_group_remove(eq)
     x**4*y
 
-    '''
+    """

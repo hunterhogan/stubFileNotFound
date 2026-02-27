@@ -1,6 +1,6 @@
 from sympy.utilities import public
 
-__all__ = ['find_simple_recurrence_vector', 'find_simple_recurrence', 'rationalize', 'guess_generating_function_rational', 'guess_generating_function', 'guess']
+__all__ = ['find_simple_recurrence', 'find_simple_recurrence_vector', 'guess', 'guess_generating_function', 'guess_generating_function_rational', 'rationalize']
 
 @public
 def find_simple_recurrence_vector(l):
@@ -26,16 +26,14 @@ def find_simple_recurrence_vector(l):
     the argument is not a list of rational numbers.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.concrete.guess import find_simple_recurrence_vector
     >>> from sympy import fibonacci
     >>> find_simple_recurrence_vector([fibonacci(k) for k in range(12)])
     [1, -1, -1]
 
     See Also
-    ========
-
+    --------
     See the function sympy.concrete.guess.find_simple_recurrence which is more
     user-friendly.
 
@@ -49,8 +47,7 @@ def find_simple_recurrence(v, A=..., N=...):
     the returned expression is always n (and never n-1, n-2, etc.).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.concrete.guess import find_simple_recurrence
     >>> from sympy import fibonacci
     >>> find_simple_recurrence([fibonacci(k) for k in range(12)])
@@ -65,14 +62,13 @@ def find_simple_recurrence(v, A=..., N=...):
     """
 @public
 def rationalize(x, maxcoeff: int = 10000):
-    '''
+    """
     Helps identifying a rational number from a float (or mpmath.mpf) value by
     using a continued fraction. The algorithm stops as soon as a large partial
     quotient is detected (greater than 10000 by default).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.concrete.guess import rationalize
     >>> from mpmath import cos, pi
     >>> rationalize(cos(pi/3))
@@ -90,8 +86,7 @@ def rationalize(x, maxcoeff: int = 10000):
     355/113
 
     See Also
-    ========
-
+    --------
     Several other methods can approximate a real number as a rational, like:
 
       * fractions.Fraction.from_decimal
@@ -110,16 +105,15 @@ def rationalize(x, maxcoeff: int = 10000):
     when studying sequences of increasing numbers. If the user cares more
     on getting simple fractions, other methods may be more convenient.
 
-    '''
+    """
 @public
 def guess_generating_function_rational(v, X=...):
-    '''
+    """
     Tries to "guess" a rational generating function for a sequence of rational
     numbers v.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.concrete.guess import guess_generating_function_rational
     >>> from sympy import fibonacci
     >>> l = [fibonacci(k) for k in range(5,15)]
@@ -127,15 +121,14 @@ def guess_generating_function_rational(v, X=...):
     (3*x + 5)/(-x**2 - x + 1)
 
     See Also
-    ========
-
+    --------
     sympy.series.approximants
     mpmath.pade
 
-    '''
+    """
 @public
 def guess_generating_function(v, X=..., types=['all'], maxsqrtn: int = 2):
-    '''
+    """
     Tries to "guess" a generating function for a sequence of rational numbers v.
     Only a few patterns are implemented yet.
 
@@ -171,8 +164,7 @@ def guess_generating_function(v, X=..., types=['all'], maxsqrtn: int = 2):
     again after having removed the leading zeros.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.concrete.guess import guess_generating_function as ggf
     >>> ggf([k+1 for k in range(12)], types=[\'ogf\', \'lgf\', \'hlgf\'])
     {\'hlgf\': 1/(1 - x), \'lgf\': 1/(x + 1), \'ogf\': 1/(x**2 - 2*x + 1)}
@@ -201,15 +193,15 @@ def guess_generating_function(v, X=..., types=['all'], maxsqrtn: int = 2):
     sqrt(1/(x**4 + 2*x**2 - 4*x + 1))
 
     References
-    ==========
+    ----------
 
     .. [1] "Concrete Mathematics", R.L. Graham, D.E. Knuth, O. Patashnik
     .. [2] https://oeis.org/wiki/Generating_functions
 
-    '''
+    """
 @public
 def guess(l, all: bool = False, evaluate: bool = True, niter: int = 2, variables=None):
-    '''
+    """
     This function is adapted from the Rate.m package for Mathematica
     written by Christian Krattenthaler.
     It tries to guess a formula from a given sequence of rational numbers.
@@ -246,8 +238,7 @@ def guess(l, all: bool = False, evaluate: bool = True, niter: int = 2, variables
     the first symbol in the list.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.concrete.guess import guess
     >>> guess([1,2,6,24,120], evaluate=False)
     [Product(i1 + 1, (i1, 1, i0 - 1))]
@@ -257,4 +248,4 @@ def guess(l, all: bool = False, evaluate: bool = True, niter: int = 2, variables
     >>> i0 = symbols("i0")
     >>> [r[0].subs(i0,n).doit() for n in range(1,10)]
     [1, 2, 7, 42, 429, 7436, 218348, 10850216, 911835460]
-    '''
+    """

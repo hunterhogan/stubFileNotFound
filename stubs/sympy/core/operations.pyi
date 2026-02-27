@@ -10,13 +10,15 @@ from sympy.core.add import Add as Add
 from sympy.core.expr import Expr as Expr
 from sympy.core.mul import Mul as Mul
 from sympy.logic.boolalg import And as And, Boolean as Boolean, Or as Or
-from sympy.multipledispatch.dispatcher import Dispatcher as Dispatcher, RaiseNotImplementedError as RaiseNotImplementedError, ambiguity_register_error_ignore_dup as ambiguity_register_error_ignore_dup, str_signature as str_signature
+from sympy.multipledispatch.dispatcher import (
+	ambiguity_register_error_ignore_dup as ambiguity_register_error_ignore_dup, Dispatcher as Dispatcher,
+	RaiseNotImplementedError as RaiseNotImplementedError, str_signature as str_signature)
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.iterables import sift as sift
 from typing import overload
 
 class AssocOp(Basic):
-    """ Associative operations, can separate noncommutative and
+    """Associative operations, can separate noncommutative and
     commutative parts.
 
     (a op b) op c == a op (b op c) == a op b op c.
@@ -33,14 +35,14 @@ class AssocOp(Basic):
        deprecated. See :ref:`non-expr-args-deprecated` for details.
 
     Parameters
-    ==========
-
+    ----------
     *args :
         Arguments which are operated
 
     evaluate : bool, optional
         Evaluate the operation. If not passed, refer to ``global_parameters.evaluate``.
     """
+
     __slots__: tuple[str, ...]
     _args_type: type[Basic] | None
     @cacheit
@@ -50,14 +52,14 @@ class AssocOp(Basic):
         """Create new instance with already-processed args.
         If the args are not in canonical order, then a non-canonical
         result will be returned, so use with caution. The order of
-        args may change if the sign of the args is changed."""
+        args may change if the sign of the args is changed.
+        """
     def _new_rawargs(self, *args, reeval: bool = True, **kwargs):
         """Create new instance of own class with args exactly as provided by
         caller but returning the self class identity if args is empty.
 
         Examples
-        ========
-
+        --------
            This is handy when we want to optimize things, e.g.
 
                >>> from sympy import Mul, S
@@ -98,9 +100,10 @@ class AssocOp(Basic):
     def flatten(cls, seq):
         """Return seq so that none of the elements are of type `cls`. This is
         the vanilla routine that will be used if a class derived from AssocOp
-        does not define its own flatten routine."""
+        does not define its own flatten routine.
+        """
     def _matches_commutative(self, expr, repl_dict=None, old: bool = False):
-        '''
+        """
         Matches Add/Mul "pattern" to an expression "expr".
 
         repl_dict ... a dictionary of (wild: expression) pairs, that get
@@ -109,8 +112,7 @@ class AssocOp(Basic):
         This function is the main workhorse for Add/Mul.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols, Wild, sin
         >>> a = Wild("a")
         >>> b = Wild("b")
@@ -137,7 +139,7 @@ class AssocOp(Basic):
         the "a: x" is not returned in the result, but otherwise it is
         equivalent.
 
-        '''
+        """
     def _has_matcher(self):
         """Helper for .has() that checks for containment of
         subexpressions within an expr by using sets of args
@@ -189,8 +191,7 @@ class LatticeOp(AssocOp):
     attributes zero and identity. All defining properties are then respected.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Integer
     >>> from sympy.core.operations import LatticeOp
     >>> class my_join(LatticeOp):
@@ -206,10 +207,11 @@ class LatticeOp(AssocOp):
     2
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Lattice_%28order%29
     """
+
     is_commutative: bool
     def __new__(cls, *args, **options): ...
     @classmethod
@@ -241,8 +243,7 @@ class AssocOpDispatcher:
     in the handler class.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Add, Expr, Symbol
     >>> from sympy.core.add import add
 
@@ -259,13 +260,13 @@ class AssocOpDispatcher:
     True
 
     """
+
     name: Incomplete
     doc: Incomplete
     handlerattr: Incomplete
     _handlergetter: Incomplete
     _dispatcher: Incomplete
     def __init__(self, name, doc=None) -> None: ...
-    def __repr__(self) -> str: ...
     def register_handlerclass(self, classes, typ, on_ambiguity=...) -> None:
         """
         Register the handler class for two classes, in both straight and reversed order.
@@ -284,8 +285,7 @@ class AssocOpDispatcher:
     def __call__(self, *args, _sympify: bool = True, **kwargs):
         """
         Parameters
-        ==========
-
+        ----------
         *args :
             Arguments which are operated
         """

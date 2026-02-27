@@ -1,16 +1,18 @@
 from sympy.physics.quantum.operator import HermitianOperator
 from sympy.physics.quantum.state import Bra, Ket
 
-__all__ = ['PIABHamiltonian', 'PIABKet', 'PIABBra']
+__all__ = ['PIABBra', 'PIABHamiltonian', 'PIABKet']
 
 class PIABHamiltonian(HermitianOperator):
     """Particle in a box Hamiltonian operator."""
+
     @classmethod
     def _eval_hilbert_space(cls, label): ...
     def _apply_operator_PIABKet(self, ket, **options): ...
 
 class PIABKet(Ket):
     """Particle in a box eigenket."""
+
     @classmethod
     def _eval_hilbert_space(cls, args): ...
     @classmethod
@@ -21,6 +23,7 @@ class PIABKet(Ket):
 
 class PIABBra(Bra):
     """Particle in a box eigenbra."""
+
     @classmethod
     def _eval_hilbert_space(cls, label): ...
     @classmethod

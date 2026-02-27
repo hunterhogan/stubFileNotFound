@@ -1,4 +1,4 @@
-__all__ = ['pole_zero_numerical_data', 'pole_zero_plot', 'step_response_numerical_data', 'step_response_plot', 'impulse_response_numerical_data', 'impulse_response_plot', 'ramp_response_numerical_data', 'ramp_response_plot', 'bode_magnitude_numerical_data', 'bode_phase_numerical_data', 'bode_magnitude_plot', 'bode_phase_plot', 'bode_plot', 'nyquist_plot_expr', 'nyquist_plot', 'nichols_plot_expr', 'nichols_plot']
+__all__ = ['bode_magnitude_numerical_data', 'bode_magnitude_plot', 'bode_phase_numerical_data', 'bode_phase_plot', 'bode_plot', 'impulse_response_numerical_data', 'impulse_response_plot', 'nichols_plot', 'nichols_plot_expr', 'nyquist_plot', 'nyquist_plot_expr', 'pole_zero_numerical_data', 'pole_zero_plot', 'ramp_response_numerical_data', 'ramp_response_plot', 'step_response_numerical_data', 'step_response_plot']
 
 def pole_zero_numerical_data(system):
     """
@@ -9,21 +9,18 @@ def pole_zero_numerical_data(system):
     backend/plotting-module.
 
     Parameters
-    ==========
-
+    ----------
     system : SISOLinearTimeInvariant
         The system for which the pole-zero data is to be computed.
 
     Returns
-    =======
-
+    -------
     tuple : (zeros, poles)
         zeros = Zeros of the system as a list of Python float/complex.
         poles = Poles of the system as a list of Python float/complex.
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         When a SISO LTI system is not passed.
 
@@ -35,8 +32,7 @@ def pole_zero_numerical_data(system):
         the variable of the Laplace transform.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import s
     >>> from sympy.physics.control.lti import TransferFunction
     >>> from sympy.physics.control.control_plots import pole_zero_numerical_data
@@ -45,8 +41,7 @@ def pole_zero_numerical_data(system):
     ([-1j, 1j], [-2.0, -1.0, (-0.5-0.8660254037844386j), (-0.5+0.8660254037844386j)])
 
     See Also
-    ========
-
+    --------
     pole_zero_plot
 
     """
@@ -59,8 +54,7 @@ def pole_zero_plot(system, pole_color: str = 'blue', pole_markersize: int = 10, 
     the system's zeros and 'x' shaped markers representing the system's poles.
 
     Parameters
-    ==========
-
+    ----------
     system : SISOLinearTimeInvariant type systems
         The system for which the pole-zero plot is to be computed.
     pole_color : str, tuple, optional
@@ -87,7 +81,7 @@ def pole_zero_plot(system, pole_color: str = 'blue', pole_markersize: int = 10, 
         Defaults to True.
 
     Examples
-    ========
+    --------
 
     .. plot::
         :context: close-figs
@@ -101,12 +95,11 @@ def pole_zero_plot(system, pole_color: str = 'blue', pole_markersize: int = 10, 
         >>> pole_zero_plot(tf1)   # doctest: +SKIP
 
     See Also
-    ========
-
+    --------
     pole_zero_numerical_data
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Pole%E2%80%93zero_plot
 
@@ -122,8 +115,7 @@ def step_response_numerical_data(system, prec: int = 8, lower_limit: int = 0, up
     for more details.
 
     Parameters
-    ==========
-
+    ----------
     system : SISOLinearTimeInvariant
         The system for which the unit step response data is to be computed.
     prec : int, optional
@@ -138,15 +130,13 @@ def step_response_numerical_data(system, prec: int = 8, lower_limit: int = 0, up
         :class:`sympy.plotting.series.LineOver1DRangeSeries` class.
 
     Returns
-    =======
-
+    -------
     tuple : (x, y)
         x = Time-axis values of the points in the step response. NumPy array.
         y = Amplitude-axis values of the points in the step response. NumPy array.
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         When a SISO LTI system is not passed.
 
@@ -160,8 +150,7 @@ def step_response_numerical_data(system, prec: int = 8, lower_limit: int = 0, up
         When ``lower_limit`` parameter is less than 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import s
     >>> from sympy.physics.control.lti import TransferFunction
     >>> from sympy.physics.control.control_plots import step_response_numerical_data
@@ -171,8 +160,7 @@ def step_response_numerical_data(system, prec: int = 8, lower_limit: int = 0, up
     [0.0, 0.023844582399907256, 0.042894276802320226, ..., 6.828770759094287e-12, 6.456457160755703e-12])
 
     See Also
-    ========
-
+    --------
     step_response_plot
 
     """
@@ -182,8 +170,7 @@ def step_response_plot(system, color: str = 'b', prec: int = 8, lower_limit: int
     the response of the system when the input signal is a step function.
 
     Parameters
-    ==========
-
+    ----------
     system : SISOLinearTimeInvariant type
         The LTI SISO system for which the Step Response is to be computed.
     color : str, tuple, optional
@@ -205,7 +192,7 @@ def step_response_plot(system, color: str = 'b', prec: int = 8, lower_limit: int
         If ``True``, the plot will have a grid. Defaults to True.
 
     Examples
-    ========
+    --------
 
     .. plot::
         :context: close-figs
@@ -219,12 +206,11 @@ def step_response_plot(system, color: str = 'b', prec: int = 8, lower_limit: int
         >>> step_response_plot(tf1)   # doctest: +SKIP
 
     See Also
-    ========
-
+    --------
     impulse_response_plot, ramp_response_plot
 
     References
-    ==========
+    ----------
 
     .. [1] https://www.mathworks.com/help/control/ref/lti.step.html
 
@@ -240,8 +226,7 @@ def impulse_response_numerical_data(system, prec: int = 8, lower_limit: int = 0,
     for more details.
 
     Parameters
-    ==========
-
+    ----------
     system : SISOLinearTimeInvariant
         The system for which the impulse response data is to be computed.
     prec : int, optional
@@ -256,15 +241,13 @@ def impulse_response_numerical_data(system, prec: int = 8, lower_limit: int = 0,
         :class:`sympy.plotting.series.LineOver1DRangeSeries` class.
 
     Returns
-    =======
-
+    -------
     tuple : (x, y)
         x = Time-axis values of the points in the impulse response. NumPy array.
         y = Amplitude-axis values of the points in the impulse response. NumPy array.
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         When a SISO LTI system is not passed.
 
@@ -278,8 +261,7 @@ def impulse_response_numerical_data(system, prec: int = 8, lower_limit: int = 0,
         When ``lower_limit`` parameter is less than 0.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import s
     >>> from sympy.physics.control.lti import TransferFunction
     >>> from sympy.physics.control.control_plots import impulse_response_numerical_data
@@ -289,8 +271,7 @@ def impulse_response_numerical_data(system, prec: int = 8, lower_limit: int = 0,
     [0.9999999799999999, 0.7042848373025861,...,7.170748906965121e-13, -5.1901263495547205e-12])
 
     See Also
-    ========
-
+    --------
     impulse_response_plot
 
     """
@@ -300,8 +281,7 @@ def impulse_response_plot(system, color: str = 'b', prec: int = 8, lower_limit: 
     continuous-time system.
 
     Parameters
-    ==========
-
+    ----------
     system : SISOLinearTimeInvariant type
         The LTI SISO system for which the Impulse Response is to be computed.
     color : str, tuple, optional
@@ -323,7 +303,7 @@ def impulse_response_plot(system, color: str = 'b', prec: int = 8, lower_limit: 
         If ``True``, the plot will have a grid. Defaults to True.
 
     Examples
-    ========
+    --------
 
     .. plot::
         :context: close-figs
@@ -337,12 +317,11 @@ def impulse_response_plot(system, color: str = 'b', prec: int = 8, lower_limit: 
         >>> impulse_response_plot(tf1)   # doctest: +SKIP
 
     See Also
-    ========
-
+    --------
     step_response_plot, ramp_response_plot
 
     References
-    ==========
+    ----------
 
     .. [1] https://www.mathworks.com/help/control/ref/dynamicsystem.impulse.html
 
@@ -358,8 +337,7 @@ def ramp_response_numerical_data(system, slope: int = 1, prec: int = 8, lower_li
     for more details.
 
     Parameters
-    ==========
-
+    ----------
     system : SISOLinearTimeInvariant
         The system for which the ramp response data is to be computed.
     slope : Number, optional
@@ -376,15 +354,13 @@ def ramp_response_numerical_data(system, slope: int = 1, prec: int = 8, lower_li
         :class:`sympy.plotting.series.LineOver1DRangeSeries` class.
 
     Returns
-    =======
-
+    -------
     tuple : (x, y)
         x = Time-axis values of the points in the ramp response plot. NumPy array.
         y = Amplitude-axis values of the points in the ramp response plot. NumPy array.
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         When a SISO LTI system is not passed.
 
@@ -400,8 +376,7 @@ def ramp_response_numerical_data(system, slope: int = 1, prec: int = 8, lower_li
         When ``slope`` is negative.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import s
     >>> from sympy.physics.control.lti import TransferFunction
     >>> from sympy.physics.control.control_plots import ramp_response_numerical_data
@@ -411,8 +386,7 @@ def ramp_response_numerical_data(system, slope: int = 1, prec: int = 8, lower_li
     [1.4504508011325967e-09, 0.006046440489058766,..., 0.12499999999568202, 0.12499999999661349]))
 
     See Also
-    ========
-
+    --------
     ramp_response_plot
 
     """
@@ -426,8 +400,7 @@ def ramp_response_plot(system, slope: int = 1, color: str = 'b', prec: int = 8, 
     the default value is 1.
 
     Parameters
-    ==========
-
+    ----------
     system : SISOLinearTimeInvariant type
         The LTI SISO system for which the Ramp Response is to be computed.
     slope : Number, optional
@@ -451,7 +424,7 @@ def ramp_response_plot(system, slope: int = 1, color: str = 'b', prec: int = 8, 
         If ``True``, the plot will have a grid. Defaults to True.
 
     Examples
-    ========
+    --------
 
     .. plot::
         :context: close-figs
@@ -465,12 +438,11 @@ def ramp_response_plot(system, slope: int = 1, color: str = 'b', prec: int = 8, 
         >>> ramp_response_plot(tf1, upper_limit=2)   # doctest: +SKIP
 
     See Also
-    ========
-
+    --------
     step_response_plot, impulse_response_plot
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Ramp_function
 
@@ -484,8 +456,7 @@ def bode_magnitude_numerical_data(system, initial_exp: int = -5, final_exp: int 
     backend/plotting-module.
 
     Parameters
-    ==========
-
+    ----------
     system : SISOLinearTimeInvariant
         The system for which the data is to be computed.
     initial_exp : Number, optional
@@ -496,15 +467,13 @@ def bode_magnitude_numerical_data(system, initial_exp: int = -5, final_exp: int 
         User can choose between ``'rad/sec'`` (radians/second) and ``'Hz'`` (Hertz) as frequency units.
 
     Returns
-    =======
-
+    -------
     tuple : (x, y)
         x = x-axis values of the Bode magnitude plot.
         y = y-axis values of the Bode magnitude plot.
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         When a SISO LTI system is not passed.
 
@@ -518,8 +487,7 @@ def bode_magnitude_numerical_data(system, initial_exp: int = -5, final_exp: int 
         When incorrect frequency units are given as input.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import s
     >>> from sympy.physics.control.lti import TransferFunction
     >>> from sympy.physics.control.control_plots import bode_magnitude_numerical_data
@@ -529,8 +497,7 @@ def bode_magnitude_numerical_data(system, initial_exp: int = -5, final_exp: int 
     [-6.020599914256786, -6.0205999155219505,..., -193.4117304087953, -200.00000000260573])
 
     See Also
-    ========
-
+    --------
     bode_magnitude_plot, bode_phase_numerical_data
 
     """
@@ -549,8 +516,7 @@ def bode_phase_numerical_data(system, initial_exp: int = -5, final_exp: int = 5,
     backend/plotting-module.
 
     Parameters
-    ==========
-
+    ----------
     system : SISOLinearTimeInvariant
         The system for which the Bode phase plot data is to be computed.
     initial_exp : Number, optional
@@ -565,15 +531,13 @@ def bode_phase_numerical_data(system, initial_exp: int = -5, final_exp: int = 5,
         Set to ``True`` by default.
 
     Returns
-    =======
-
+    -------
     tuple : (x, y)
         x = x-axis values of the Bode phase plot.
         y = y-axis values of the Bode phase plot.
 
     Raises
-    ======
-
+    ------
     NotImplementedError
         When a SISO LTI system is not passed.
 
@@ -587,8 +551,7 @@ def bode_phase_numerical_data(system, initial_exp: int = -5, final_exp: int = 5,
         When incorrect frequency or phase units are given as input.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import s
     >>> from sympy.physics.control.lti import TransferFunction
     >>> from sympy.physics.control.control_plots import bode_phase_numerical_data
@@ -598,8 +561,7 @@ def bode_phase_numerical_data(system, initial_exp: int = -5, final_exp: int = 5,
     [-2.5000000000291665e-05, -3.6180885085e-05, -5.08895483066e-05,...,-3.1415085799262523, -3.14155265358979])
 
     See Also
-    ========
-
+    --------
     bode_magnitude_plot, bode_phase_numerical_data
 
     """
@@ -614,8 +576,7 @@ def bode_plot(system, initial_exp: int = -5, final_exp: int = 5, grid: bool = Tr
     Returns the Bode phase and magnitude plots of a continuous-time system.
 
     Parameters
-    ==========
-
+    ----------
     system : SISOLinearTimeInvariant type
         The LTI SISO system for which the Bode Plot is to be computed.
     initial_exp : Number, optional
@@ -639,7 +600,7 @@ def bode_plot(system, initial_exp: int = -5, final_exp: int = 5, grid: bool = Tr
         User can choose between ``'rad'`` (radians) and ``'deg'`` (degree) as phase units.
 
     Examples
-    ========
+    --------
 
     .. plot::
         :context: close-figs
@@ -653,8 +614,7 @@ def bode_plot(system, initial_exp: int = -5, final_exp: int = 5, grid: bool = Tr
         >>> bode_plot(tf1, initial_exp=0.2, final_exp=0.7)   # doctest: +SKIP
 
     See Also
-    ========
-
+    --------
     bode_magnitude_plot, bode_phase_plot
 
     """
@@ -667,8 +627,7 @@ def nyquist_plot(system, initial_omega: float = 0.01, final_omega: int = 100, sh
     Generates the Nyquist plot for a continuous-time system.
 
     Parameters
-    ==========
-
+    ----------
     system : SISOLinearTimeInvariant
         The LTI SISO system for which the Nyquist plot is to be generated.
     initial_omega : float, optional
@@ -685,7 +644,7 @@ def nyquist_plot(system, initial_omega: float = 0.01, final_omega: int = 100, sh
         Additional keyword arguments for customization.
 
     Examples
-    ========
+    --------
 
     .. plot::
         :context: close-figs
@@ -699,8 +658,7 @@ def nyquist_plot(system, initial_omega: float = 0.01, final_omega: int = 100, sh
         >>> nyquist_plot(tf1)   # doctest: +SKIP
 
     See Also
-    ========
-
+    --------
     nichols_plot, bode_plot
 
     """
@@ -709,8 +667,7 @@ def nichols_plot(system, initial_omega: float = 0.01, final_omega: int = 100, sh
     Generates the Nichols plot for a LTI system.
 
     Parameters
-    ==========
-
+    ----------
     system : SISOLinearTimeInvariant
         The LTI SISO system for which the Nyquist plot is to be generated.
     initial_omega : float, optional
@@ -727,7 +684,7 @@ def nichols_plot(system, initial_omega: float = 0.01, final_omega: int = 100, sh
         Additional keyword arguments for customization.
 
     Examples
-    ========
+    --------
 
     .. plot::
         :context: close-figs
@@ -741,8 +698,7 @@ def nichols_plot(system, initial_omega: float = 0.01, final_omega: int = 100, sh
         >>> nichols_plot(tf1)   # doctest: +SKIP
 
     See Also
-    ========
-
+    --------
     nyquist_plot, bode_plot
 
     """

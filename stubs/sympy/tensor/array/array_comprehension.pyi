@@ -17,8 +17,7 @@ class ArrayComprehension(Basic):
     calling the doit() function will launch the expansion.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.tensor.array import ArrayComprehension
     >>> from sympy import symbols
     >>> i, j, k = symbols('i j k')
@@ -31,14 +30,14 @@ class ArrayComprehension(Basic):
     >>> b.doit()
     ArrayComprehension(10*i + j, (i, 1, 4), (j, 1, k))
     """
+
     def __new__(cls, function, *symbols, **assumptions): ...
     @property
     def function(self):
         """The function applied across limits.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.tensor.array import ArrayComprehension
         >>> from sympy import symbols
         >>> i, j = symbols('i j')
@@ -52,8 +51,7 @@ class ArrayComprehension(Basic):
         The list of limits that will be applied while expanding the array.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.tensor.array import ArrayComprehension
         >>> from sympy import symbols
         >>> i, j = symbols('i j')
@@ -69,8 +67,7 @@ class ArrayComprehension(Basic):
         from the free symbol set.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.tensor.array import ArrayComprehension
         >>> from sympy import symbols
         >>> i, j, k = symbols('i j k')
@@ -86,8 +83,7 @@ class ArrayComprehension(Basic):
         """The tuples of the variables in the limits.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.tensor.array import ArrayComprehension
         >>> from sympy import symbols
         >>> i, j, k = symbols('i j k')
@@ -117,8 +113,7 @@ class ArrayComprehension(Basic):
         calculating the shape.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.tensor.array import ArrayComprehension
         >>> from sympy import symbols
         >>> i, j, k = symbols('i j k')
@@ -136,8 +131,7 @@ class ArrayComprehension(Basic):
         dimension.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.tensor.array import ArrayComprehension
         >>> from sympy import symbols
         >>> i, j, k = symbols('i j k')
@@ -152,8 +146,7 @@ class ArrayComprehension(Basic):
         """The rank of the expanded array.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.tensor.array import ArrayComprehension
         >>> from sympy import symbols
         >>> i, j, k = symbols('i j k')
@@ -167,13 +160,11 @@ class ArrayComprehension(Basic):
         of elements in the array.
 
         Raises
-        ======
-
+        ------
         ValueError : When the length of the array is symbolic
 
         Examples
-        ========
-
+        --------
         >>> from sympy.tensor.array import ArrayComprehension
         >>> from sympy import symbols
         >>> i, j = symbols('i j')
@@ -194,13 +185,11 @@ class ArrayComprehension(Basic):
         """Transform the expanded array to a list.
 
         Raises
-        ======
-
+        ------
         ValueError : When there is a symbolic dimension
 
         Examples
-        ========
-
+        --------
         >>> from sympy.tensor.array import ArrayComprehension
         >>> from sympy import symbols
         >>> i, j = symbols('i j')
@@ -212,14 +201,12 @@ class ArrayComprehension(Basic):
         """Transform the expanded array to a matrix.
 
         Raises
-        ======
-
+        ------
         ValueError : When there is a symbolic dimension
         ValueError : When the rank of the expanded array is not equal to 2
 
         Examples
-        ========
-
+        --------
         >>> from sympy.tensor.array import ArrayComprehension
         >>> from sympy import symbols
         >>> i, j = symbols('i j')
@@ -239,15 +226,13 @@ class ArrayComprehensionMap(ArrayComprehension):
     A subclass of ArrayComprehension dedicated to map external function lambda.
 
     Notes
-    =====
-
+    -----
     Only the lambda function is considered.
     At most one argument in lambda function is accepted in order to avoid ambiguity
     in value assignment.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.tensor.array import ArrayComprehensionMap
     >>> from sympy import symbols
     >>> i, j, k = symbols('i j k')
@@ -259,6 +244,7 @@ class ArrayComprehensionMap(ArrayComprehension):
     [2, 3, 4, 5]
 
     """
+
     def __new__(cls, function, *symbols, **assumptions): ...
     @property
     def func(self): ...

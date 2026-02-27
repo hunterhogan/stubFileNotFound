@@ -19,16 +19,14 @@ def fft(seq, dps=None):
     as the complexity of expressions increases with the size of the sequence.
 
     Parameters
-    ==========
-
+    ----------
     seq : iterable
         The sequence on which **DFT** is to be applied.
     dps : Integer
         Specifies the number of decimal digits for precision.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import fft, ifft
 
     >>> fft([1, 2, 3, 4])
@@ -47,7 +45,7 @@ def fft(seq, dps=None):
     [1.0, 7.0, 3.0, 4.0]
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Cooley%E2%80%93Tukey_FFT_algorithm
     .. [2] https://mathworld.wolfram.com/FastFourierTransform.html
@@ -66,8 +64,7 @@ def ntt(seq, prime):
     *radix-2 NTT* requires the number of sample points to be a power of 2.
 
     Parameters
-    ==========
-
+    ----------
     seq : iterable
         The sequence on which **DFT** is to be applied.
     prime : Integer
@@ -75,8 +72,7 @@ def ntt(seq, prime):
         **NTT** on the sequence.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import ntt, intt
     >>> ntt([1, 2, 3, 4], prime=3*2**8 + 1)
     [10, 643, 767, 122]
@@ -88,7 +84,7 @@ def ntt(seq, prime):
     [1, 2, 3, 4]
 
     References
-    ==========
+    ----------
 
     .. [1] http://www.apfloat.org/ntt.html
     .. [2] https://mathworld.wolfram.com/NumberTheoreticTransform.html
@@ -107,14 +103,12 @@ def fwht(seq):
     *radix-2 FWHT* requires the number of sample points to be a power of 2.
 
     Parameters
-    ==========
-
+    ----------
     seq : iterable
         The sequence on which WHT is to be applied.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import fwht, ifwht
     >>> fwht([4, 2, 2, 0, 0, 2, -2, 0])
     [8, 0, 8, 0, 8, 8, 0, 0]
@@ -127,7 +121,7 @@ def fwht(seq):
     [19, -1, 11, -9, -7, 13, -15, 5]
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Hadamard_transform
     .. [2] https://en.wikipedia.org/wiki/Fast_Walsh%E2%80%93Hadamard_transform
@@ -136,7 +130,8 @@ def fwht(seq):
 def ifwht(seq): ...
 def _mobius_transform(seq, sgn, subset):
     """Utility function for performing Mobius Transform using
-    Yate's Dynamic Programming method"""
+    Yate's Dynamic Programming method
+    """
 def mobius_transform(seq, subset: bool = True):
     """
     Performs the Mobius Transform for subset lattice with indices of
@@ -150,8 +145,7 @@ def mobius_transform(seq, subset: bool = True):
     the size of sequence to be a power of 2.
 
     Parameters
-    ==========
-
+    ----------
     seq : iterable
         The sequence on which Mobius Transform is to be applied.
     subset : bool
@@ -159,8 +153,7 @@ def mobius_transform(seq, subset: bool = True):
         or supersets of the given set.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols
     >>> from sympy import mobius_transform, inverse_mobius_transform
     >>> x, y, z = symbols('x y z')
@@ -185,7 +178,7 @@ def mobius_transform(seq, subset: bool = True):
     [1, 2, 3, 4]
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/M%C3%B6bius_inversion_formula
     .. [2] https://people.csail.mit.edu/rrw/presentations/subset-conv.pdf

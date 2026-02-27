@@ -6,12 +6,11 @@ from sympy.matrices.expressions import MatrixExpr as MatrixExpr
 from sympy.matrices.matrixbase import MatrixBase as MatrixBase
 
 class ElementwiseApplyFunction(MatrixExpr):
-    '''
+    """
     Apply function to a matrix elementwise without evaluating.
 
     Examples
-    ========
-
+    --------
     It can be created by calling ``.applyfunc(<function>)`` on a matrix
     expression:
 
@@ -44,7 +43,8 @@ class ElementwiseApplyFunction(MatrixExpr):
     [E, 0, 0],
     [0, E, 0],
     [0, 0, E]])
-    '''
+    """
+
     def __new__(cls, function, expr): ...
     @property
     def function(self): ...

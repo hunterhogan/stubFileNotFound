@@ -1,5 +1,7 @@
 from .determinant import _find_reasonable_pivot as _find_reasonable_pivot
-from .utilities import _dotprodsimp as _dotprodsimp, _get_intermediate_simp as _get_intermediate_simp, _iszero as _iszero, _simplify as _simplify
+from .utilities import (
+	_dotprodsimp as _dotprodsimp, _get_intermediate_simp as _get_intermediate_simp, _iszero as _iszero,
+	_simplify as _simplify)
 from sympy.polys.domains import QQ as QQ, ZZ as ZZ
 from sympy.polys.polyerrors import CoercionFailed as CoercionFailed
 
@@ -10,8 +12,7 @@ def _row_reduce_list(mat, rows, cols, one, iszerofunc, simpfunc, normalize_last:
     were used in the process of row reduction.
 
     Parameters
-    ==========
-
+    ----------
     mat : list
         list of matrix elements, must be ``rows`` * ``cols`` in length
 
@@ -42,15 +43,15 @@ def _row_reduce(M, iszerofunc, simpfunc, normalize_last: bool = True, normalize:
 def _is_echelon(M, iszerofunc=...):
     """Returns `True` if the matrix is in echelon form. That is, all rows of
     zeros are at the bottom, and below each leading non-zero in a row are
-    exclusively zeros."""
+    exclusively zeros.
+    """
 def _echelon_form(M, iszerofunc=..., simplify: bool = False, with_pivots: bool = False):
     """Returns a matrix row-equivalent to ``M`` that is in echelon form. Note
     that echelon form of a matrix is *not* unique, however, properties like the
     row space and the null space are preserved.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> M = Matrix([[1, 2], [3, 4]])
     >>> M.echelon_form()
@@ -62,8 +63,7 @@ def _rank(M, iszerofunc=..., simplify: bool = False):
     """Returns the rank of a matrix.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> from sympy.abc import x
     >>> m = Matrix([[1, 2], [x, 1 - 1/x]])
@@ -81,8 +81,7 @@ def _rref(M, iszerofunc=..., simplify: bool = False, pivots: bool = True, normal
     of pivot vars.
 
     Parameters
-    ==========
-
+    ----------
     iszerofunc : Function
         A function used for detecting whether an element can
         act as a pivot.  ``lambda x: x.is_zero`` is used by default.
@@ -105,8 +104,7 @@ def _rref(M, iszerofunc=..., simplify: bool = False, pivots: bool = True, normal
         used to zero above and below the pivot.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> from sympy.abc import x
     >>> m = Matrix([[1, 2], [x, 1 - 1/x]])
@@ -141,8 +139,7 @@ def _rref(M, iszerofunc=..., simplify: bool = False, pivots: bool = True, normal
     [0, 0,         0,          0]]), (0, 1))
 
     Notes
-    =====
-
+    -----
     The default value of ``normalize_last=True`` can provide significant
     speedup to row reduction, especially on matrices with symbols.  However,
     if you depend on the form row reduction algorithm leaves entries

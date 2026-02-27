@@ -34,7 +34,7 @@ class CharMetrics(NamedTuple):
     bbox: Incomplete
 
 def _parse_char_metrics(fh):
-    '''
+    """
     Parse the given filehandle for character metrics information and return
     the information as dicts.
 
@@ -52,7 +52,7 @@ def _parse_char_metrics(fh):
     -----
     This function is incomplete per the standard, but thus far parses
     all the sample afm files tried.
-    '''
+    """
 def _parse_kern_pairs(fh):
     """
     Return a kern pairs dictionary; keys are (*char1*, *char2*) tuples and

@@ -1,11 +1,18 @@
-import tkinter as tk
 from . import _tkagg as _tkagg
-from ._tkagg import TK_PHOTO_COMPOSITE_OVERLAY as TK_PHOTO_COMPOSITE_OVERLAY, TK_PHOTO_COMPOSITE_SET as TK_PHOTO_COMPOSITE_SET
+from ._tkagg import (
+	TK_PHOTO_COMPOSITE_OVERLAY as TK_PHOTO_COMPOSITE_OVERLAY, TK_PHOTO_COMPOSITE_SET as TK_PHOTO_COMPOSITE_SET)
 from _typeshed import Incomplete
 from collections.abc import Generator
-from matplotlib import _api as _api, _c_internal_utils as _c_internal_utils, backend_tools as backend_tools, cbook as cbook
+from matplotlib import (
+	_api as _api, _c_internal_utils as _c_internal_utils, backend_tools as backend_tools, cbook as cbook)
 from matplotlib._pylab_helpers import Gcf as Gcf
-from matplotlib.backend_bases import CloseEvent as CloseEvent, FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, KeyEvent as KeyEvent, LocationEvent as LocationEvent, MouseButton as MouseButton, MouseEvent as MouseEvent, NavigationToolbar2 as NavigationToolbar2, ResizeEvent as ResizeEvent, TimerBase as TimerBase, ToolContainerBase as ToolContainerBase, _Backend as _Backend, _Mode as _Mode, cursors as cursors
+from matplotlib.backend_bases import (
+	_Backend as _Backend, _Mode as _Mode, CloseEvent as CloseEvent, cursors as cursors,
+	FigureCanvasBase as FigureCanvasBase, FigureManagerBase as FigureManagerBase, KeyEvent as KeyEvent,
+	LocationEvent as LocationEvent, MouseButton as MouseButton, MouseEvent as MouseEvent,
+	NavigationToolbar2 as NavigationToolbar2, ResizeEvent as ResizeEvent, TimerBase as TimerBase,
+	ToolContainerBase as ToolContainerBase)
+import tkinter as tk
 
 _log: Incomplete
 cursord: Incomplete
@@ -41,6 +48,7 @@ def blit(photoimage, aggimage, offsets, bbox: Incomplete | None = None) -> None:
 
 class TimerTk(TimerBase):
     """Subclass of `backend_bases.TimerBase` using Tk timer events."""
+
     _timer: Incomplete
     parent: Incomplete
     def __init__(self, parent, *args, **kwargs) -> None: ...
@@ -105,6 +113,7 @@ class FigureManagerTk(FigureManagerBase):
     window : tk.Window
         The tk.Window
     """
+
     _owns_mainloop: bool
     window: Incomplete
     _window_dpi: Incomplete
@@ -129,7 +138,7 @@ class NavigationToolbar2Tk(NavigationToolbar2, tk.Frame):
     message: Incomplete
     _message_label: Incomplete
     def __init__(self, canvas, window: Incomplete | None = None, *, pack_toolbar: bool = True) -> None:
-        '''
+        """
         Parameters
         ----------
         canvas : `FigureCanvas`
@@ -141,7 +150,7 @@ class NavigationToolbar2Tk(NavigationToolbar2, tk.Frame):
             list during initialization with ``side="bottom"`` and ``fill="x"``.
             If you want to use the toolbar with a different layout manager, use
             ``pack_toolbar=False``.
-        '''
+        """
     def _rescale(self) -> None:
         """
         Scale all children of the toolbar to current DPI setting.

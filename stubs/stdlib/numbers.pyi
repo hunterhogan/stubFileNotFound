@@ -8,9 +8,9 @@
 # nor `float` as a subtype of `numbers.Real`, etc.)
 
 from abc import ABCMeta, abstractmethod
-from typing import ClassVar, Literal, Protocol, overload, type_check_only
+from typing import ClassVar, Literal, overload, Protocol, type_check_only
 
-__all__ = ["Number", "Complex", "Real", "Rational", "Integral"]
+__all__ = ["Complex", "Integral", "Number", "Rational", "Real"]
 
 ############################
 # Protocols for return types

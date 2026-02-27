@@ -9,7 +9,9 @@ from sympy.matrices.expressions.matexpr import MatrixExpr as MatrixExpr
 from sympy.matrices.expressions.special import Identity as Identity
 from sympy.matrices.expressions.transpose import transpose as transpose
 from sympy.matrices.matrixbase import MatrixBase as MatrixBase
-from sympy.strategies import canon as canon, condition as condition, distribute as distribute, do_one as do_one, exhaust as exhaust, flatten as flatten, typed as typed, unpack as unpack
+from sympy.strategies import (
+	canon as canon, condition as condition, distribute as distribute, do_one as do_one, exhaust as exhaust,
+	flatten as flatten, typed as typed, unpack as unpack)
 from sympy.strategies.traverse import bottom_up as bottom_up
 from sympy.utilities import sift as sift
 
@@ -23,8 +25,7 @@ def kronecker_product(*matrices):
 
 
     Examples
-    ========
-
+    --------
     For ``MatrixSymbol`` arguments a ``KroneckerProduct`` object is returned.
     Elements of this matrix can be obtained by indexing, or for MatrixSymbols
     with known dimension the explicit matrix can be obtained with
@@ -65,7 +66,7 @@ def kronecker_product(*matrices):
     [-1, 0,  0, 0]])
 
     See Also
-    ========
+    --------
         KroneckerProduct
 
     """
@@ -89,6 +90,7 @@ class KroneckerProduct(MatrixExpr):
     >>> isinstance(KroneckerProduct(A, B), KroneckerProduct)
     True
     """
+
     is_KroneckerProduct: bool
     def __new__(cls, *args, check: bool = True): ...
     @property
@@ -104,8 +106,7 @@ class KroneckerProduct(MatrixExpr):
         """Determine whether two matrices have the same Kronecker product structure
 
         Examples
-        ========
-
+        --------
         >>> from sympy import KroneckerProduct, MatrixSymbol, symbols
         >>> m, n = symbols(r'm, n', integer=True)
         >>> A = MatrixSymbol('A', m, m)
@@ -124,7 +125,7 @@ class KroneckerProduct(MatrixExpr):
         multiplication inside the KroneckerProdut
 
         Examples
-        ========
+        --------
         >>> from sympy import KroneckerProduct, MatrixSymbol, symbols
         >>> m, n = symbols(r'm, n', integer=True)
         >>> A = MatrixSymbol('A', m, n)
@@ -149,20 +150,17 @@ def matrix_kronecker_product(*matrices):
     This is the standard Kronecker product of matrices [1].
 
     Parameters
-    ==========
-
+    ----------
     matrices : tuple of MatrixBase instances
         The matrices to take the Kronecker product of.
 
     Returns
-    =======
-
+    -------
     matrix : MatrixBase
         The Kronecker product matrix.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Matrix
     >>> from sympy.matrices.expressions.kronecker import (
     ... matrix_kronecker_product)
@@ -183,7 +181,7 @@ def matrix_kronecker_product(*matrices):
     [0, 0, 3, 4]])
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Kronecker_product
     """
@@ -203,8 +201,7 @@ def combine_kronecker(expr):
     as a single KroneckerProduct.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.matrices.expressions import combine_kronecker
     >>> from sympy import MatrixSymbol, KroneckerProduct, symbols
     >>> m, n = symbols(r'm, n', integer=True)

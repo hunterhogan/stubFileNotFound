@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from sympy.physics.quantum.operator import HermitianOperator, UnitaryOperator
 
-__all__ = ['Gate', 'CGate', 'UGate', 'OneQubitGate', 'TwoQubitGate', 'IdentityGate', 'HadamardGate', 'XGate', 'YGate', 'ZGate', 'TGate', 'PhaseGate', 'SwapGate', 'CNotGate', 'CNOT', 'SWAP', 'H', 'X', 'Y', 'Z', 'T', 'S', 'Phase', 'normalized', 'gate_sort', 'gate_simp', 'random_circuit', 'CPHASE', 'CGateS']
+__all__ = ['CNOT', 'CPHASE', 'SWAP', 'CGate', 'CGateS', 'CNotGate', 'Gate', 'H', 'HadamardGate', 'IdentityGate', 'OneQubitGate', 'Phase', 'PhaseGate', 'S', 'SwapGate', 'T', 'TGate', 'TwoQubitGate', 'UGate', 'X', 'XGate', 'Y', 'YGate', 'Z', 'ZGate', 'gate_simp', 'gate_sort', 'normalized', 'random_circuit']
 
 def normalized(normalize) -> None:
     """Set flag controlling normalization of Hadamard gates by `1/\\sqrt{2}`.
@@ -29,10 +29,11 @@ class Gate(UnitaryOperator):
         A list of the target qubits (as ints) that the gate will apply to.
 
     Examples
-    ========
+    --------
 
 
     """
+
     _label_separator: str
     gate_name: str
     gate_name_latex: str
@@ -90,9 +91,10 @@ class CGate(Gate):
         instance that is the target operator.
 
     Examples
-    ========
+    --------
 
     """
+
     gate_name: str
     gate_name_latex: str
     control_value: Incomplete
@@ -142,6 +144,7 @@ class CGateS(CGate):
     """Version of CGate that allows gate simplifications.
     I.e. cnot looks like an oplus, cphase has dots, etc.
     """
+
     simplify_cgate: bool
 
 class UGate(Gate):
@@ -154,6 +157,7 @@ class UGate(Gate):
         target qubits and U is a unitary matrix with dimension of
         len(targets).
     """
+
     gate_name: str
     gate_name_latex: str
     @classmethod
@@ -178,6 +182,7 @@ class UGate(Gate):
 
 class OneQubitGate(Gate):
     """A single qubit unitary gate base class."""
+
     nqubits: Incomplete
     def plot_gate(self, circ_plot, gate_idx) -> None: ...
     def _eval_commutator(self, other, **hints): ...
@@ -185,6 +190,7 @@ class OneQubitGate(Gate):
 
 class TwoQubitGate(Gate):
     """A two qubit unitary gate base class."""
+
     nqubits: Incomplete
 
 class IdentityGate(OneQubitGate):
@@ -196,9 +202,10 @@ class IdentityGate(OneQubitGate):
         The target qubit this gate will apply to.
 
     Examples
-    ========
+    --------
 
     """
+
     is_hermitian: bool
     gate_name: str
     gate_name_latex: str
@@ -216,8 +223,7 @@ class HadamardGate(HermitianOperator, OneQubitGate):
         The target qubit this gate will apply to.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import sqrt
     >>> from sympy.physics.quantum.qubit import Qubit
     >>> from sympy.physics.quantum.gate import HadamardGate
@@ -230,6 +236,7 @@ class HadamardGate(HermitianOperator, OneQubitGate):
     sqrt(2)*|00>/2 + sqrt(2)*|11>/2
 
     """
+
     gate_name: str
     gate_name_latex: str
     def get_target_matrix(self, format: str = 'sympy'): ...
@@ -249,9 +256,10 @@ class XGate(HermitianOperator, OneQubitGate):
         The target qubit this gate will apply to.
 
     Examples
-    ========
+    --------
 
     """
+
     gate_name: str
     gate_name_latex: str
     def get_target_matrix(self, format: str = 'sympy'): ...
@@ -271,9 +279,10 @@ class YGate(HermitianOperator, OneQubitGate):
         The target qubit this gate will apply to.
 
     Examples
-    ========
+    --------
 
     """
+
     gate_name: str
     gate_name_latex: str
     def get_target_matrix(self, format: str = 'sympy'): ...
@@ -290,9 +299,10 @@ class ZGate(HermitianOperator, OneQubitGate):
         The target qubit this gate will apply to.
 
     Examples
-    ========
+    --------
 
     """
+
     gate_name: str
     gate_name_latex: str
     def get_target_matrix(self, format: str = 'sympy'): ...
@@ -311,9 +321,10 @@ class PhaseGate(OneQubitGate):
         The target qubit this gate will apply to.
 
     Examples
-    ========
+    --------
 
     """
+
     is_hermitian: bool
     gate_name: str
     gate_name_latex: str
@@ -333,9 +344,10 @@ class TGate(OneQubitGate):
         The target qubit this gate will apply to.
 
     Examples
-    ========
+    --------
 
     """
+
     is_hermitian: bool
     gate_name: str
     gate_name_latex: str
@@ -362,8 +374,7 @@ class CNotGate(HermitianOperator, CGate, TwoQubitGate):
         A tuple of the form (control, target).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.quantum.gate import CNOT
     >>> from sympy.physics.quantum.qapply import qapply
     >>> from sympy.physics.quantum.qubit import Qubit
@@ -372,6 +383,7 @@ class CNotGate(HermitianOperator, CGate, TwoQubitGate):
     |11>
 
     """
+
     gate_name: str
     gate_name_latex: str
     simplify_cgate: bool
@@ -417,9 +429,10 @@ class SwapGate(TwoQubitGate):
         A tuple of the form (target1, target2).
 
     Examples
-    ========
+    --------
 
     """
+
     is_hermitian: bool
     gate_name: str
     gate_name_latex: str

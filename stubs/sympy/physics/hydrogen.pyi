@@ -11,8 +11,7 @@ def R_nl(n, l, r, Z: int = 1):
     Returns the Hydrogen radial wavefunction R_{nl}.
 
     Parameters
-    ==========
-
+    ----------
     n : integer
         Principal Quantum Number which is
         an integer with possible values as 1, 2, 3, 4,...
@@ -27,8 +26,7 @@ def R_nl(n, l, r, Z: int = 1):
     Everything is in Hartree atomic units.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.hydrogen import R_nl
     >>> from sympy.abc import r, Z
     >>> R_nl(1, 0, r, Z)
@@ -77,13 +75,12 @@ def R_nl(n, l, r, Z: int = 1):
 
     """
 def Psi_nlm(n, l, m, r, phi, theta, Z: int = 1):
-    '''
+    """
     Returns the Hydrogen wave function psi_{nlm}. It\'s the product of
     the radial wavefunction R_{nl} and the spherical harmonic Y_{l}^{m}.
 
     Parameters
-    ==========
-
+    ----------
     n : integer
         Principal Quantum Number which is
         an integer with possible values as 1, 2, 3, 4,...
@@ -105,8 +102,7 @@ def Psi_nlm(n, l, m, r, phi, theta, Z: int = 1):
     Everything is in Hartree atomic units.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.hydrogen import Psi_nlm
     >>> from sympy import Symbol
     >>> r=Symbol("r", positive=True)
@@ -129,16 +125,15 @@ def Psi_nlm(n, l, m, r, phi, theta, Z: int = 1):
     >>> jacobi=r**2*sin(theta)
     >>> integrate(abs_sqrd*jacobi, (r,0,oo), (phi,0,2*pi), (theta,0,pi))
     1
-    '''
+    """
 def E_nl(n, Z: int = 1):
-    '''
+    """
     Returns the energy of the state (n, l) in Hartree atomic units.
 
     The energy does not depend on "l".
 
     Parameters
-    ==========
-
+    ----------
     n : integer
         Principal Quantum Number which is
         an integer with possible values as 1, 2, 3, 4,...
@@ -146,8 +141,7 @@ def E_nl(n, Z: int = 1):
         Atomic number (1 for Hydrogen, 2 for Helium, ...)
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.hydrogen import E_nl
     >>> from sympy.abc import n, Z
     >>> E_nl(n, Z)
@@ -161,7 +155,7 @@ def E_nl(n, Z: int = 1):
     >>> E_nl(3, 47)
     -2209/18
 
-    '''
+    """
 def E_nl_dirac(n, l, spin_up: bool = True, Z: int = 1, c=...):
     """
     Returns the relativistic energy of the state (n, l, spin) in Hartree atomic
@@ -171,8 +165,7 @@ def E_nl_dirac(n, l, spin_up: bool = True, Z: int = 1, c=...):
     *not* included.
 
     Parameters
-    ==========
-
+    ----------
     n : integer
         Principal Quantum Number which is
         an integer with possible values as 1, 2, 3, 4,...
@@ -188,8 +181,7 @@ def E_nl_dirac(n, l, spin_up: bool = True, Z: int = 1, c=...):
         taken from https://arxiv.org/abs/1012.3627
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.hydrogen import E_nl_dirac
     >>> E_nl_dirac(1, 0)
     -0.500006656595360

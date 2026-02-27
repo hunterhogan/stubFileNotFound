@@ -9,11 +9,11 @@ from sympy.core.containers import Tuple as Tuple
 from sympy.core.expr import Expr as Expr
 from sympy.core.function import Derivative as Derivative, expand as expand
 from sympy.core.mul import Mul as Mul
-from sympy.core.numbers import Float as Float, _illegal as _illegal
+from sympy.core.numbers import _illegal as _illegal, Float as Float
 from sympy.core.relational import Eq as Eq
 from sympy.core.singleton import S as S
 from sympy.core.sorting import ordered as ordered
-from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, Wild as Wild, symbols as symbols
+from sympy.core.symbol import Dummy as Dummy, Symbol as Symbol, symbols as symbols, Wild as Wild
 from sympy.functions.combinatorial.factorials import factorial as factorial
 from sympy.functions.combinatorial.numbers import bernoulli as bernoulli, harmonic as harmonic
 from sympy.functions.elementary.complexes import re as re
@@ -27,7 +27,7 @@ from sympy.integrals.integrals import Integral as Integral
 from sympy.logic.boolalg import And as And, Not as Not
 from sympy.polys.partfrac import apart as apart
 from sympy.polys.polyerrors import PolificationFailed as PolificationFailed, PolynomialError as PolynomialError
-from sympy.polys.polytools import Poly as Poly, factor as factor, parallel_poly_from_expr as parallel_poly_from_expr
+from sympy.polys.polytools import factor as factor, parallel_poly_from_expr as parallel_poly_from_expr, Poly as Poly
 from sympy.polys.rationaltools import together as together
 from sympy.series.limitseq import limit_seq as limit_seq
 from sympy.series.order import O as O
@@ -37,7 +37,7 @@ from sympy.sets.sets import FiniteSet as FiniteSet, Interval as Interval
 from sympy.utilities.iterables import sift as sift
 
 class Sum(AddWithLimits, ExprWithIntLimits):
-    '''
+    """
     Represents unevaluated summation.
 
     Explanation
@@ -93,8 +93,7 @@ class Sum(AddWithLimits, ExprWithIntLimits):
     with limits typeset on the top being inclusive.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import i, k, m, n, x
     >>> from sympy import Sum, factorial, oo, IndexedBase, Function
     >>> Sum(k, (k, 1, m))
@@ -154,20 +153,20 @@ class Sum(AddWithLimits, ExprWithIntLimits):
     0
 
     See Also
-    ========
-
+    --------
     summation
     Product, sympy.concrete.products.product
 
     References
-    ==========
+    ----------
 
     .. [1] Michael Karr, "Summation in Finite Terms", Journal of the ACM,
            Volume 28 Issue 2, April 1981, Pages 305-350
            https://dl.acm.org/doi/10.1145/322248.322255
     .. [2] https://en.wikipedia.org/wiki/Summation#Capital-sigma_notation
     .. [3] https://en.wikipedia.org/wiki/Empty_sum
-    '''
+    """
+
     __slots__: Incomplete
     limits: tuple[tuple[Symbol, Expr, Expr]]
     def __new__(cls, function, *symbols, **assumptions): ...
@@ -248,13 +247,12 @@ class Sum(AddWithLimits, ExprWithIntLimits):
         and false if divergent and NotImplementedError if it cannot be checked.
 
         References
-        ==========
+        ----------
 
         .. [1] https://en.wikipedia.org/wiki/Convergence_tests
 
         Examples
-        ========
-
+        --------
         >>> from sympy import factorial, S, Sum, Symbol, oo
         >>> n = Symbol('n', integer=True)
         >>> Sum(n/(n - 1), (n, 4, 7)).is_convergent()
@@ -267,8 +265,7 @@ class Sum(AddWithLimits, ExprWithIntLimits):
         True
 
         See Also
-        ========
-
+        --------
         Sum.is_absolutely_convergent
         sympy.concrete.products.Product.is_convergent
         """
@@ -280,13 +277,12 @@ class Sum(AddWithLimits, ExprWithIntLimits):
         an infinite series.
 
         References
-        ==========
+        ----------
 
         .. [1] https://en.wikipedia.org/wiki/Absolute_convergence
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Sum, Symbol, oo
         >>> n = Symbol('n', integer=True)
         >>> Sum((-1)**n, (n, 1, oo)).is_absolutely_convergent()
@@ -295,8 +291,7 @@ class Sum(AddWithLimits, ExprWithIntLimits):
         True
 
         See Also
-        ========
-
+        --------
         Sum.is_convergent
         """
     def euler_maclaurin(self, m: int = 0, n: int = 0, eps: int = 0, eval_integral: bool = True):
@@ -343,7 +338,7 @@ class Sum(AddWithLimits, ExprWithIntLimits):
         as soon as the remainder term is less than the epsilon.
         """
     def reverse_order(self, *indices):
-        '''
+        """
         Reverse the order of a limit in a Sum.
 
         Explanation
@@ -356,8 +351,7 @@ class Sum(AddWithLimits, ExprWithIntLimits):
         starting from the inner-most limit tuple.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Sum
         >>> from sympy.abc import x, y, a, b, c, d
 
@@ -392,18 +386,17 @@ class Sum(AddWithLimits, ExprWithIntLimits):
         Sum(x*y, (x, b + 1, a - 1), (y, 6, 1))
 
         See Also
-        ========
-
+        --------
         sympy.concrete.expr_with_intlimits.ExprWithIntLimits.index, reorder_limit,
         sympy.concrete.expr_with_intlimits.ExprWithIntLimits.reorder
 
         References
-        ==========
+        ----------
 
         .. [1] Michael Karr, "Summation in Finite Terms", Journal of the ACM,
                Volume 28 Issue 2, April 1981, Pages 305-350
                https://dl.acm.org/doi/10.1145/322248.322255
-        '''
+        """
     def _eval_rewrite_as_Product(self, *args, **kwargs): ...
 
 def summation(f, *symbols, **kwargs):
@@ -430,8 +423,7 @@ def summation(f, *symbols, **kwargs):
     Repeated sums can be computed by introducing additional symbols tuples::
 
     Examples
-    ========
-
+    --------
     >>> from sympy import summation, oo, symbols, log
     >>> i, n, m = symbols('i n m', integer=True)
 
@@ -450,8 +442,7 @@ def summation(f, *symbols, **kwargs):
     exp(x)
 
     See Also
-    ========
-
+    --------
     Sum
     Product, sympy.concrete.products.product
 
@@ -468,8 +459,7 @@ def telescopic_direct(L, R, n, limits):
     n difference between the indexes of L and R
 
     Examples
-    ========
-
+    --------
     >>> from sympy.concrete.summations import telescopic_direct
     >>> from sympy.abc import k, a, b
     >>> telescopic_direct(1/k, -1/(k+2), 2, (k, a, b))
@@ -490,14 +480,13 @@ def eval_sum_direct(expr, limits):
     """
 def eval_sum_symbolic(f, limits): ...
 def _eval_sum_hyper(f, i, a):
-    """ Returns (res, cond). Sums from a to oo. """
+    """Returns (res, cond). Sums from a to oo."""
 def eval_sum_hyper(f, i_a_b): ...
 def eval_sum_residue(f, i_a_b):
     """Compute the infinite summation with residues
 
     Notes
-    =====
-
+    -----
     If $f(n), g(n)$ are polynomials with $\\deg(g(n)) - \\deg(f(n)) \\ge 2$,
     some infinite summations can be computed by the following residue
     evaluations.
@@ -513,8 +502,7 @@ def eval_sum_residue(f, i_a_b):
         \\text{Res}(\\csc(\\pi x) \\frac{f(x)}{g(x)}, \\alpha)
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Sum, oo, Symbol
     >>> x = Symbol('x')
 
@@ -552,7 +540,7 @@ def eval_sum_residue(f, i_a_b):
     -1 + pi/(2*tanh(pi))
 
     References
-    ==========
+    ----------
 
     .. [#] http://www.supermath.info/InfiniteSeriesandtheResidueTheorem.pdf
 

@@ -7,8 +7,7 @@ def digits(n, b: int = 10, digits=None):
     element in the list is ``b`` (or ``-b`` if ``n`` is negative).
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory.digits import digits
     >>> digits(35)
     [10, 3, 5]
@@ -30,8 +29,7 @@ def digits(n, b: int = 10, digits=None):
     [10, 0, 0, 3, 5]
 
     Parameters
-    ==========
-
+    ----------
     n: integer
         The number whose digits are returned.
 
@@ -43,7 +41,7 @@ def digits(n, b: int = 10, digits=None):
         necessary).
 
     See Also
-    ========
+    --------
     sympy.core.intfunc.num_digits, count_digits
     """
 def count_digits(n, b: int = 10):
@@ -53,8 +51,7 @@ def count_digits(n, b: int = 10):
     number and values indicating how many times that digit appeared.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory import count_digits
 
     >>> count_digits(1111339)
@@ -82,16 +79,15 @@ def count_digits(n, b: int = 10):
     [1, 3, 7, 9]
 
     See Also
-    ========
+    --------
     sympy.core.intfunc.num_digits, digits
     """
 def is_palindromic(n, b: int = 10):
-    """return True if ``n`` is the same when read from left to right
+    """Return True if ``n`` is the same when read from left to right
     or right to left in the given base, ``b``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.ntheory import is_palindromic
 
     >>> all(is_palindromic(i) for i in (-11, 1, 22, 121))

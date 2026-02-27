@@ -1,26 +1,23 @@
 from sympy.core.basic import Atom
 from sympy.physics.quantum.gate import Gate
 
-__all__ = ['OracleGate', 'WGate', 'superposition_basis', 'grover_iteration', 'apply_grover']
+__all__ = ['OracleGate', 'WGate', 'apply_grover', 'grover_iteration', 'superposition_basis']
 
 def superposition_basis(nqubits):
     """Creates an equal superposition of the computational basis.
 
     Parameters
-    ==========
-
+    ----------
     nqubits : int
         The number of qubits.
 
     Returns
-    =======
-
+    -------
     state : Qubit
         An equal superposition of the computational basis with nqubits.
 
     Examples
-    ========
-
+    --------
     Create an equal superposition of 2 qubits::
 
         >>> from sympy.physics.quantum.grover import superposition_basis
@@ -30,6 +27,7 @@ def superposition_basis(nqubits):
 
 class OracleGateFunction(Atom):
     """Wrapper for python functions used in `OracleGate`s"""
+
     def __new__(cls, function): ...
     def _hashable_content(self): ...
     def __call__(self, *args): ...
@@ -42,8 +40,7 @@ class OracleGate(Gate):
     finds its desired qubits and false otherwise.
 
     Parameters
-    ==========
-
+    ----------
     qubits : int
         Number of qubits.
 
@@ -51,8 +48,7 @@ class OracleGate(Gate):
         A callable function that returns a boolean on a computational basis.
 
     Examples
-    ========
-
+    --------
     Apply an Oracle gate that flips the sign of ``|2>`` on different qubits::
 
         >>> from sympy.physics.quantum.qubit import IntQubit
@@ -65,6 +61,7 @@ class OracleGate(Gate):
         >>> qapply(v*IntQubit(3))
         |3>
     """
+
     gate_name: str
     gate_name_latex: str
     @classmethod
@@ -82,14 +79,12 @@ class OracleGate(Gate):
         """Apply this operator to a Qubit subclass.
 
         Parameters
-        ==========
-
+        ----------
         qubits : Qubit
             The qubit subclass to apply this operator to.
 
         Returns
-        =======
-
+        -------
         state : Expr
             The resulting quantum state.
         """
@@ -105,12 +100,12 @@ class WGate(Gate):
     ``|phi> = (tensor product of n Hadamards)*(|0> with n qubits)``
 
     Parameters
-    ==========
-
+    ----------
     nqubits : int
         The number of qubits to operate on
 
     """
+
     gate_name: str
     gate_name_latex: str
     @classmethod
@@ -127,21 +122,18 @@ def grover_iteration(qstate, oracle):
     """Applies one application of the Oracle and W Gate, WV.
 
     Parameters
-    ==========
-
+    ----------
     qstate : Qubit
         A superposition of qubits.
     oracle : OracleGate
         The black box operator that flips the sign of the desired basis qubits.
 
     Returns
-    =======
-
+    -------
     Qubit : The qubits after applying the Oracle and W gate.
 
     Examples
-    ========
-
+    --------
     Perform one iteration of grover's algorithm to see a phase change::
 
         >>> from sympy.physics.quantum.qapply import qapply
@@ -161,21 +153,18 @@ def apply_grover(oracle, nqubits, iterations=None):
     """Applies grover's algorithm.
 
     Parameters
-    ==========
-
+    ----------
     oracle : callable
         The unknown callable function that returns true when applied to the
         desired qubits and false otherwise.
 
     Returns
-    =======
-
+    -------
     state : Expr
         The resulting state after Grover's algorithm has been iterated.
 
     Examples
-    ========
-
+    --------
     Apply grover's algorithm to an even superposition of 2 qubits::
 
         >>> from sympy.physics.quantum.qapply import qapply

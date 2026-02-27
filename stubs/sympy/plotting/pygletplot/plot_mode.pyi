@@ -19,6 +19,7 @@ class PlotMode(PlotObject):
     or one of its children, such
     as PlotSurface or PlotCurve.
     """
+
     i_vars: Incomplete
     d_vars: Incomplete
     intervals: Incomplete

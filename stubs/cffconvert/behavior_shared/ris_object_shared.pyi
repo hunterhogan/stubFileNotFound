@@ -1,6 +1,6 @@
-import abc
 from _typeshed import Incomplete
 from abc import abstractmethod
+import abc
 
 class RisObjectShared(metaclass=abc.ABCMeta):
     supported_ris_props: Incomplete
@@ -15,7 +15,6 @@ class RisObjectShared(metaclass=abc.ABCMeta):
     url: Incomplete
     year: Incomplete
     def __init__(self, cffobj, initialize_empty: bool = False) -> None: ...
-    def __str__(self) -> str: ...
     def add_all(self): ...
     def add_abstract(self): ...
     @abstractmethod

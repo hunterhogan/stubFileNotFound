@@ -1,5 +1,5 @@
-import sys
 from typing import Any, ClassVar, final
+import sys
 
 class Str(str): ...
 

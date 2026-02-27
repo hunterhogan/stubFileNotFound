@@ -7,11 +7,10 @@ def add_mathml_headers(s): ...
 def _read_binary(pkgname, filename): ...
 def _read_xsl(xsl): ...
 def apply_xsl(mml, xsl):
-    '''Apply a xsl to a MathML string.
+    """Apply a xsl to a MathML string.
 
     Parameters
-    ==========
-
+    ----------
     mml
         A string with MathML code.
     xsl
@@ -26,8 +25,7 @@ def apply_xsl(mml, xsl):
         Alternatively, a full path to an xsl file can be given.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.mathml import apply_xsl
     >>> xsl = \'simple_mmlctop.xsl\'
     >>> mml = \'<apply> <plus/> <ci>a</ci> <ci>b</ci> </apply>\'
@@ -39,15 +37,14 @@ def apply_xsl(mml, xsl):
       <mo> + </mo>
       <mi>b</mi>
     </mrow>
-    '''
+    """
 def c2p(mml, simple: bool = False):
     """Transforms a document in MathML content (like the one that sympy produces)
     in one document in MathML presentation, more suitable for printing, and more
     widely accepted
 
     Examples
-    ========
-
+    --------
     >>> from sympy.utilities.mathml import c2p
     >>> mml = '<apply> <exp/> <cn>2</cn> </apply>'
     >>> c2p(mml,simple=True) != c2p(mml,simple=False)

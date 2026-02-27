@@ -9,10 +9,10 @@ class FontmakeError(Exception):
     main purpose is to provide a source file trail that points to where the
     explosion came from.
     """
+
     msg: Incomplete
     source_trail: Incomplete
     def __init__(self, msg, source_file) -> None: ...
-    def __str__(self) -> str: ...
 
 class TTFAError(FontmakeError):
     exitcode: Incomplete

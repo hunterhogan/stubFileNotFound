@@ -1,9 +1,10 @@
-import sys
 from _typeshed import MaybeNone
 from collections.abc import Callable, Iterable, Iterator
 from types import GenericAlias
-from typing import Any, Generic, Literal, SupportsComplex, SupportsFloat, SupportsIndex, SupportsInt, TypeVar, overload
-from typing_extensions import Self, TypeAlias, disjoint_base
+from typing import (
+	Any, Generic, Literal, overload, Self, SupportsComplex, SupportsFloat, SupportsIndex, SupportsInt, TypeAlias, TypeVar)
+from typing_extensions import disjoint_base
+import sys
 
 _T = TypeVar("_T")
 _S = TypeVar("_S")

@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
-from sympy.core import Add as Add, Eq as Eq, Expr as Expr, Mul as Mul, Pow as Pow, S as S, expand_mul as expand_mul, expand_multinomial as expand_multinomial
+from sympy.core import (
+	Add as Add, Eq as Eq, expand_mul as expand_mul, expand_multinomial as expand_multinomial, Expr as Expr, Mul as Mul,
+	Pow as Pow, S as S)
 from sympy.core.exprtools import decompose_power as decompose_power, decompose_power_rat as decompose_power_rat
 from sympy.core.numbers import _illegal as _illegal
 from sympy.external.gmpy import GROUND_TYPES as GROUND_TYPES
@@ -21,51 +23,50 @@ def _nsort(roots, separated: bool = False):
     an error if any computation cannot be done with precision.
     """
 def _sort_gens(gens, **args):
-    """Sort generators in a reasonably intelligent way. """
+    """Sort generators in a reasonably intelligent way."""
 def _unify_gens(f_gens, g_gens):
-    """Unify generators in a reasonably intelligent way. """
+    """Unify generators in a reasonably intelligent way."""
 def _analyze_gens(gens):
-    """Support for passing generators as `*gens` and `[gens]`. """
+    """Support for passing generators as `*gens` and `[gens]`."""
 def _sort_factors(factors, **args):
-    """Sort low-level factors in increasing 'complexity' order. """
+    """Sort low-level factors in increasing 'complexity' order."""
 
 illegal_types: Incomplete
 finf: Incomplete
 
 def _not_a_coeff(expr):
-    """Do not treat NaN and infinities as valid polynomial coefficients. """
+    """Do not treat NaN and infinities as valid polynomial coefficients."""
 def _parallel_dict_from_expr_if_gens(exprs, opt):
-    """Transform expressions into a multinomial form given generators. """
+    """Transform expressions into a multinomial form given generators."""
 def _parallel_dict_from_expr_no_gens(exprs, opt):
-    """Transform expressions into a multinomial form and figure out generators. """
+    """Transform expressions into a multinomial form and figure out generators."""
 def _dict_from_expr_if_gens(expr, opt):
-    """Transform an expression into a multinomial form given generators. """
+    """Transform an expression into a multinomial form given generators."""
 def _dict_from_expr_no_gens(expr, opt):
-    """Transform an expression into a multinomial form and figure out generators. """
+    """Transform an expression into a multinomial form and figure out generators."""
 def parallel_dict_from_expr(exprs, **args):
-    """Transform expressions into a multinomial form. """
+    """Transform expressions into a multinomial form."""
 def _parallel_dict_from_expr(exprs, opt):
-    """Transform expressions into a multinomial form. """
+    """Transform expressions into a multinomial form."""
 def dict_from_expr(expr, **args):
-    """Transform an expression into a multinomial form. """
+    """Transform an expression into a multinomial form."""
 def _dict_from_expr(expr, opt):
-    """Transform an expression into a multinomial form. """
+    """Transform an expression into a multinomial form."""
 def expr_from_dict(rep, *gens):
-    """Convert a multinomial form into an expression. """
+    """Convert a multinomial form into an expression."""
 parallel_dict_from_basic = parallel_dict_from_expr
 dict_from_basic = dict_from_expr
 basic_from_dict = expr_from_dict
 
 def _dict_reorder(rep, gens, new_gens):
-    """Reorder levels using dict representation. """
+    """Reorder levels using dict representation."""
 
 class PicklableWithSlots:
     """
     Mixin class that allows to pickle objects with ``__slots__``.
 
     Examples
-    ========
-
+    --------
     First define a class that mixes :class:`PicklableWithSlots` in::
 
         >>> from sympy.polys.polyutils import PicklableWithSlots
@@ -96,6 +97,7 @@ class PicklableWithSlots:
         ('abc', 10)
 
     """
+
     __slots__: Incomplete
     def __getstate__(self, cls=None): ...
     def __setstate__(self, d) -> None: ...
@@ -110,6 +112,7 @@ class IntegerPowerable:
     first, zeroth, or negative powers, override the corresponding methods,
     `_first_power`, `_zeroth_power`, `_negative_power`, below.
     """
+
     def __pow__(self, e, modulo=None): ...
     def _negative_power(self, e, modulo=None) -> None:
         """

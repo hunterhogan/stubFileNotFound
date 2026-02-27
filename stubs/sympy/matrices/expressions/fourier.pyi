@@ -12,14 +12,12 @@ class DFT(MatrixExpr):
     with :math:`\\frac{1}{\\sqrt{n}}` so that it is unitary.
 
     Parameters
-    ==========
-
+    ----------
     n : integer or Symbol
         Size of the transform.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.abc import n
     >>> from sympy.matrices.expressions.fourier import DFT
     >>> DFT(3)
@@ -33,11 +31,12 @@ class DFT(MatrixExpr):
     (n, n)
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/DFT_matrix
 
     """
+
     def __new__(cls, n): ...
     n: Incomplete
     shape: Incomplete
@@ -50,14 +49,12 @@ class IDFT(DFT):
     with :math:`\\frac{1}{\\sqrt{n}}` so that it is unitary.
 
     Parameters
-    ==========
-
+    ----------
     n : integer or Symbol
         Size of the transform
 
     Examples
-    ========
-
+    --------
     >>> from sympy.matrices.expressions.fourier import DFT, IDFT
     >>> IDFT(3)
     IDFT(3)
@@ -65,10 +62,10 @@ class IDFT(DFT):
     I
 
     See Also
-    ========
-
+    --------
     DFT
 
     """
+
     def _entry(self, i, j, **kwargs): ...
     def _eval_inverse(self): ...

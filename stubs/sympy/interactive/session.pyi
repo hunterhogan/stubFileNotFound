@@ -8,7 +8,7 @@ verbose_message: str
 no_ipython: str
 
 def _make_message(ipython: bool = True, quiet: bool = False, source=None):
-    """Create a banner for an interactive session. """
+    """Create a banner for an interactive session."""
 def int_to_Integer(s):
     """
     Wrap integer literals with Integer.
@@ -19,8 +19,7 @@ def int_to_Integer(s):
     Only integer literals are converted.  Float literals are left alone.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Integer # noqa: F401
     >>> from sympy.interactive.session import int_to_Integer
     >>> s = '1.2 + 1/2 - 0x12 + a1'
@@ -39,11 +38,11 @@ def enable_automatic_int_sympification(shell):
     Allow IPython to automatically convert integer literals to Integer.
     """
 def enable_automatic_symbols(shell) -> None:
-    """Allow IPython to automatically create symbols (``isympy -a``). """
+    """Allow IPython to automatically create symbols (``isympy -a``)."""
 def init_ipython_session(shell=None, argv=[], auto_symbols: bool = False, auto_int_to_Integer: bool = False):
-    """Construct new IPython session. """
+    """Construct new IPython session."""
 def init_python_session():
-    """Construct new Python session. """
+    """Construct new Python session."""
 def init_session(ipython=None, pretty_print: bool = True, order=None, use_unicode=None, use_latex=None, quiet: bool = False, auto_symbols: bool = False, auto_int_to_Integer: bool = False, str_printer=None, pretty_printer=None, latex_printer=None, argv=[]):
     """
     Initialize an embedded IPython or Python session. The IPython session is
@@ -51,8 +50,7 @@ def init_session(ipython=None, pretty_print: bool = True, order=None, use_unicod
     matplotlib plotting can be interactive.
 
     Parameters
-    ==========
-
+    ----------
     pretty_print: boolean
         If True, use pretty_print to stringify;
         if False, use sstrrepr to stringify.
@@ -98,14 +96,12 @@ def init_session(ipython=None, pretty_print: bool = True, order=None, use_unicod
         See sympy.bin.isympy for options that can be used to initialize IPython.
 
     See Also
-    ========
-
+    --------
     sympy.interactive.printing.init_printing: for examples and the rest of the parameters.
 
 
     Examples
-    ========
-
+    --------
     >>> from sympy import init_session, Symbol, sin, sqrt
     >>> sin(x) #doctest: +SKIP
     NameError: name 'x' is not defined

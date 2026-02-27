@@ -1,32 +1,12 @@
-from collections.abc import (
-    Iterator,
-    Mapping,
-)
-from types import TracebackType
-from typing import (
-    Any,
-    Generic,
-    Literal,
-    overload,
-)
-
-from pandas.core.frame import DataFrame
-from pandas.core.series import Series
-
+from collections.abc import Iterator, Mapping
 from pandas._libs.lib import NoDefault
 from pandas._typing import (
-    CompressionOptions,
-    DtypeArg,
-    DtypeBackend,
-    FilePath,
-    HashableT,
-    JsonFrameOrient,
-    JsonSeriesOrient,
-    NDFrameT,
-    ReadBuffer,
-    StorageOptions,
-    TimeUnit,
-)
+	CompressionOptions, DtypeArg, DtypeBackend, FilePath, HashableT, JsonFrameOrient, JsonSeriesOrient, NDFrameT,
+	ReadBuffer, StorageOptions, TimeUnit)
+from pandas.core.frame import DataFrame
+from pandas.core.series import Series
+from types import TracebackType
+from typing import Any, Generic, Literal, overload
 
 @overload
 def read_json(

@@ -9,6 +9,7 @@ class GridSpecBase:
     A base class of GridSpec that specifies the geometry of the grid
     that a subplot will be placed.
     """
+
     def __init__(self, nrows, ncols, height_ratios: Incomplete | None = None, width_ratios: Incomplete | None = None) -> None:
         """
         Parameters
@@ -24,7 +25,6 @@ class GridSpecBase:
             relative height of ``height_ratios[i] / sum(height_ratios)``.
             If not given, all rows will have the same height.
         """
-    def __repr__(self) -> str: ...
     nrows: Incomplete
     ncols: Incomplete
     def get_geometry(self):
@@ -113,6 +113,7 @@ class GridSpec(GridSpecBase):
 
     Indexing a GridSpec instance returns a `.SubplotSpec`.
     """
+
     left: Incomplete
     bottom: Incomplete
     right: Incomplete
@@ -221,6 +222,7 @@ class GridSpecFromSubplotSpec(GridSpecBase):
     GridSpec whose subplot layout parameters are inherited from the
     location specified by a given SubplotSpec.
     """
+
     _wspace: Incomplete
     _hspace: Incomplete
     _subplot_spec: Incomplete
@@ -268,10 +270,10 @@ class SubplotSpec:
 
         The index starts from 0.
     """
+
     _gridspec: Incomplete
     num1: Incomplete
     def __init__(self, gridspec, num1, num2: Incomplete | None = None) -> None: ...
-    def __repr__(self) -> str: ...
     @staticmethod
     def _from_subplot_args(figure, args):
         """
@@ -363,6 +365,7 @@ class SubplotParams:
     """
     Parameters defining the positioning of a subplots grid in a figure.
     """
+
     def __init__(self, left: Incomplete | None = None, bottom: Incomplete | None = None, right: Incomplete | None = None, top: Incomplete | None = None, wspace: Incomplete | None = None, hspace: Incomplete | None = None) -> None:
         """
         Defaults are given by :rc:`figure.subplot.[name]`.

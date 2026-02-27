@@ -15,8 +15,7 @@ class Particle(BodyBase):
     Values need to be supplied on initialization, but can be changed later.
 
     Parameters
-    ==========
-
+    ----------
     name : str
         Name of particle
     point : Point
@@ -28,8 +27,7 @@ class Particle(BodyBase):
         The potential energy of the Particle.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.mechanics import Particle, Point
     >>> from sympy import Symbol
     >>> po = Point('po')
@@ -40,6 +38,7 @@ class Particle(BodyBase):
     >>> pa.point = po
 
     """
+
     point: Incomplete
     def __init__(self, name, point=None, mass=None) -> None: ...
     def linear_momentum(self, frame):
@@ -57,14 +56,12 @@ class Particle(BodyBase):
         particle in the frame N.
 
         Parameters
-        ==========
-
+        ----------
         frame : ReferenceFrame
             The frame in which linear momentum is desired.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.mechanics import Particle, Point, ReferenceFrame
         >>> from sympy.physics.mechanics import dynamicsymbols
         >>> from sympy.physics.vector import init_vprinting
@@ -94,8 +91,7 @@ class Particle(BodyBase):
         the inertial frame, N.
 
         Parameters
-        ==========
-
+        ----------
         point : Point
             The point about which angular momentum of the particle is desired.
 
@@ -103,8 +99,7 @@ class Particle(BodyBase):
             The frame in which angular momentum is desired.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.mechanics import Particle, Point, ReferenceFrame
         >>> from sympy.physics.mechanics import dynamicsymbols
         >>> from sympy.physics.vector import init_vprinting
@@ -133,16 +128,14 @@ class Particle(BodyBase):
         particle in the supplied ReferenceFrame.
 
         Parameters
-        ==========
-
+        ----------
         frame : ReferenceFrame
             The Particle's velocity is typically defined with respect to
             an inertial frame but any relevant frame in which the velocity is
             known can be supplied.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.mechanics import Particle, Point, ReferenceFrame
         >>> from sympy import symbols
         >>> m, v, r = symbols('m v r')
@@ -161,16 +154,14 @@ class Particle(BodyBase):
         point and frame.
 
         Parameters
-        ==========
-
+        ----------
         point : sympy.physics.vector.Point
             The point to express the inertia dyadic about.
         frame : sympy.physics.vector.ReferenceFrame
             The reference frame used to construct the dyadic.
 
         Returns
-        =======
-
+        -------
         inertia : sympy.physics.vector.Dyadic
             The inertia dyadic of the particle expressed about the provided
             point and frame.

@@ -1,8 +1,11 @@
-from .backend_webagg_core import FigureCanvasWebAggCore as FigureCanvasWebAggCore, FigureManagerWebAgg as FigureManagerWebAgg, NavigationToolbar2WebAgg as NavigationToolbar2WebAgg, TimerAsyncio as TimerAsyncio, TimerTornado as TimerTornado
+from .backend_webagg_core import (
+	FigureCanvasWebAggCore as FigureCanvasWebAggCore, FigureManagerWebAgg as FigureManagerWebAgg,
+	NavigationToolbar2WebAgg as NavigationToolbar2WebAgg, TimerAsyncio as TimerAsyncio, TimerTornado as TimerTornado)
 from _typeshed import Incomplete
 from matplotlib import is_interactive as is_interactive
 from matplotlib._pylab_helpers import Gcf as Gcf
-from matplotlib.backend_bases import CloseEvent as CloseEvent, NavigationToolbar2 as NavigationToolbar2, _Backend as _Backend
+from matplotlib.backend_bases import (
+	_Backend as _Backend, CloseEvent as CloseEvent, NavigationToolbar2 as NavigationToolbar2)
 
 def connection_info():
     """
@@ -54,6 +57,7 @@ class CommSocket:
     receiving respectively.
 
     """
+
     supports_binary: Incomplete
     manager: Incomplete
     uuid: Incomplete

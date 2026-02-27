@@ -1,9 +1,9 @@
 from sympy.assumptions import AppliedPredicate, Predicate
 
-__all__ = ['BinaryRelation', 'AppliedBinaryRelation']
+__all__ = ['AppliedBinaryRelation', 'BinaryRelation']
 
 class BinaryRelation(Predicate):
-    '''
+    """
     Base class for all binary relational predicates.
 
     Explanation
@@ -17,8 +17,7 @@ class BinaryRelation(Predicate):
     See :obj:`~.Predicate()` for more information about predicate dispatching.
 
     Examples
-    ========
-
+    --------
     Applying and evaluating to boolean value:
 
     >>> from sympy import Q, ask, sin, cos
@@ -59,10 +58,11 @@ class BinaryRelation(Predicate):
     False
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Reflexive_relation
-    '''
+    """
+
     is_reflexive: bool | None
     is_symmetric: bool | None
     def __call__(self, *args): ...
@@ -79,6 +79,7 @@ class AppliedBinaryRelation(AppliedPredicate):
     to the arguments.
 
     """
+
     @property
     def lhs(self):
         """The left-hand side of the relation."""

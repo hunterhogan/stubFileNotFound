@@ -1,8 +1,10 @@
-import abc
 from _typeshed import Incomplete
 from collections.abc import Generator
 from matplotlib import _api as _api, cbook as cbook
-from matplotlib._animation_data import DISPLAY_TEMPLATE as DISPLAY_TEMPLATE, INCLUDED_FRAMES as INCLUDED_FRAMES, JS_INCLUDE as JS_INCLUDE, STYLE_INCLUDE as STYLE_INCLUDE
+from matplotlib._animation_data import (
+	DISPLAY_TEMPLATE as DISPLAY_TEMPLATE, INCLUDED_FRAMES as INCLUDED_FRAMES, JS_INCLUDE as JS_INCLUDE,
+	STYLE_INCLUDE as STYLE_INCLUDE)
+import abc
 
 _log: Incomplete
 subprocess_creation_flags: Incomplete
@@ -30,6 +32,7 @@ def adjusted_figsize(w, h, dpi, n):
 
 class MovieWriterRegistry:
     """Registry of available writer classes by human readable name."""
+
     _registered: Incomplete
     def __init__(self) -> None: ...
     def register(self, name):
@@ -81,6 +84,7 @@ class AbstractMovieWriter(abc.ABC, metaclass=abc.ABCMeta):
     An instance of a concrete subclass of this class can be given as the
     ``writer`` argument of `Animation.save()`.
     """
+
     fps: Incomplete
     metadata: Incomplete
     codec: Incomplete
@@ -153,6 +157,7 @@ class MovieWriter(AbstractMovieWriter):
         The figure to capture data from.
         This must be provided by the subclasses.
     """
+
     supported_formats: Incomplete
     frame_format: Incomplete
     extra_args: Incomplete
@@ -204,6 +209,7 @@ class FileMovieWriter(MovieWriter):
 
     This must be sub-classed to be useful.
     """
+
     def __init__(self, *args, **kwargs) -> None: ...
     fig: Incomplete
     outfile: Incomplete
@@ -262,6 +268,7 @@ class FFMpegBase:
     This is a base class for the concrete `FFMpegWriter` and `FFMpegFileWriter`
     classes.
     """
+
     _exec_key: str
     _args_key: str
     def _supports_transparency(self): ...
@@ -280,6 +287,7 @@ class FFMpegWriter(FFMpegBase, MovieWriter):
 
     .. _their notes on frame rates: https://trac.ffmpeg.org/wiki/Slideshow#Framerates
     """
+
     def _args(self): ...
 
 class FFMpegFileWriter(FFMpegBase, FileMovieWriter):
@@ -293,6 +301,7 @@ class FFMpegFileWriter(FFMpegBase, FileMovieWriter):
 
     .. _their notes on frame rates: https://trac.ffmpeg.org/wiki/Slideshow#Framerates
     """
+
     supported_formats: Incomplete
     def _args(self): ...
 
@@ -304,6 +313,7 @@ class ImageMagickBase:
     `ImageMagickFileWriter` classes, which define an ``input_names`` attribute
     (or property) specifying the input names passed to ImageMagick.
     """
+
     _exec_key: str
     _args_key: str
     def _supports_transparency(self): ...
@@ -320,6 +330,7 @@ class ImageMagickWriter(ImageMagickBase, MovieWriter):
     Frames are streamed directly to ImageMagick via a pipe and written
     in a single pass.
     """
+
     input_names: str
 
 class ImageMagickFileWriter(ImageMagickBase, FileMovieWriter):
@@ -329,6 +340,7 @@ class ImageMagickFileWriter(ImageMagickBase, FileMovieWriter):
     Frames are written to temporary files on disk and then stitched
     together at the end.
     """
+
     supported_formats: Incomplete
     input_names: Incomplete
 
@@ -338,6 +350,7 @@ def _embedded_frames(frame_list, frame_format):
 
 class HTMLWriter(FileMovieWriter):
     """Writer for JavaScript-based HTML movies."""
+
     supported_formats: Incomplete
     @classmethod
     def isAvailable(cls): ...
@@ -386,6 +399,7 @@ class Animation:
     --------
     FuncAnimation,  ArtistAnimation
     """
+
     _draw_was_started: bool
     _fig: Incomplete
     _blit: Incomplete
@@ -500,7 +514,7 @@ class Animation:
     _base64_video: Incomplete
     _video_size: Incomplete
     def to_html5_video(self, embed_limit: Incomplete | None = None):
-        '''
+        """
         Convert the animation to an HTML5 ``<video>`` tag.
 
         This saves the animation as an h264 video, encoded in base64
@@ -523,7 +537,7 @@ class Animation:
             h264 video.
             If the *embed_limit* is exceeded, this returns the string
             "Video too large to embed."
-        '''
+        """
     _html_representation: Incomplete
     def to_jshtml(self, fps: Incomplete | None = None, embed_frames: bool = True, default_mode: Incomplete | None = None):
         """
@@ -579,6 +593,7 @@ class TimedAnimation(Animation):
     blit : bool, default: False
         Whether blitting is used to optimize drawing.
     """
+
     _interval: Incomplete
     _repeat_delay: Incomplete
     _repeat: Incomplete
@@ -619,6 +634,7 @@ class ArtistAnimation(TimedAnimation):
     blit : bool, default: False
         Whether blitting is used to optimize drawing.
     """
+
     _drawn_artists: Incomplete
     _framedata: Incomplete
     def __init__(self, fig, artists, *args, **kwargs) -> None: ...
@@ -730,6 +746,7 @@ class FuncAnimation(TimedAnimation):
         Whether frame data is cached.  Disabling cache might be helpful when
         frames contain large objects.
     """
+
     _args: Incomplete
     _func: Incomplete
     _init_func: Incomplete

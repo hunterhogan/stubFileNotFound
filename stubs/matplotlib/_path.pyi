@@ -9,7 +9,7 @@ def clip_path_to_rect(path: PathIterator, rect: rect_d, inside: bool) -> list:
 def convert_path_to_polygons(path: PathIterator, trans: trans_affine, width: float = ..., height: float = ..., closed_only: bool = ...) -> list:
     """convert_path_to_polygons(path: PathIterator, trans: trans_affine, width: float = 0.0, height: float = 0.0, closed_only: bool = False) -> list"""
 def convert_to_string(path: PathIterator, trans: trans_affine, clip_rect: rect_d, simplify: bool | None, sketch: SketchParams, precision: int, codes, postfix: bool) -> object:
-    '''convert_to_string(path: PathIterator, trans: trans_affine, clip_rect: rect_d, simplify: Optional[bool], sketch: SketchParams, precision: int, codes: Annotated[list[str], FixedSize(5)], postfix: bool) -> object
+    """convert_to_string(path: PathIterator, trans: trans_affine, clip_rect: rect_d, simplify: Optional[bool], sketch: SketchParams, precision: int, codes: Annotated[list[str], FixedSize(5)], postfix: bool) -> object
 
     --
 
@@ -37,7 +37,7 @@ def convert_to_string(path: PathIterator, trans: trans_affine, clip_rect: rect_d
     postfix : bool
         Whether the opcode comes after the values (True) or before (False).
 
-    '''
+    """
 def count_bboxes_overlapping_bbox(bbox: rect_d, bboxes: numpy.ndarray[numpy.float64]) -> int:
     """count_bboxes_overlapping_bbox(bbox: rect_d, bboxes: numpy.ndarray[numpy.float64]) -> int"""
 def get_path_collection_extents(master_transform: trans_affine, paths: PathGenerator, transforms: numpy.ndarray[numpy.float64], offsets: numpy.ndarray[numpy.float64], offset_transform: trans_affine) -> tuple:

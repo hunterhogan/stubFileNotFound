@@ -1,8 +1,8 @@
-import enum
 from _typeshed import Incomplete
 from llvmlite.binding import ffi as ffi
 from llvmlite.binding.common import _decode_string as _decode_string, _encode_string as _encode_string
 from llvmlite.binding.typeref import TypeRef as TypeRef
+import enum
 
 class Linkage(enum.IntEnum):
     external = 0
@@ -64,10 +64,10 @@ class ValueKind(enum.IntEnum):
 class ValueRef(ffi.ObjectRef):
     """A weak reference to a LLVM value.
     """
+
     _kind: Incomplete
     _parents: Incomplete
     def __init__(self, ptr, kind, parents) -> None: ...
-    def __str__(self) -> str: ...
     @property
     def module(self):
         """
@@ -124,7 +124,7 @@ class ValueRef(ffi.ObjectRef):
         """Only works on function value
 
         Parameters
-        -----------
+        ----------
         attr : str
             attribute name
         """
@@ -191,7 +191,7 @@ class ValueRef(ffi.ObjectRef):
         or as a string.
 
         Parameters
-        -----------
+        ----------
         signed_int : bool
             if True and the constant is an integer, returns a signed version
         round_fp : bool

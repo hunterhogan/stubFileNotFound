@@ -1,10 +1,10 @@
-import sys
 from _typeshed import MaybeNone
 from collections.abc import Awaitable, Callable, Coroutine, Iterable, Mapping, Sequence
 from contextlib import _GeneratorContextManager
 from types import TracebackType
-from typing import Any, ClassVar, Final, Generic, Literal, TypeVar, overload, type_check_only
-from typing_extensions import ParamSpec, Self, TypeAlias, disjoint_base
+from typing import Any, ClassVar, Final, Generic, Literal, overload, Self, type_check_only, TypeAlias, TypeVar
+from typing_extensions import disjoint_base, ParamSpec
+import sys
 
 _T = TypeVar("_T")
 _TT = TypeVar("_TT", bound=type[Any])
@@ -16,40 +16,40 @@ _P = ParamSpec("_P")
 if sys.version_info >= (3, 13):
     # ThreadingMock added in 3.13
     __all__ = (
-        "Mock",
-        "MagicMock",
-        "patch",
-        "sentinel",
-        "DEFAULT",
         "ANY",
+        "DEFAULT",
+        "FILTER_DIR",
+        "AsyncMock",
+        "MagicMock",
+        "Mock",
+        "NonCallableMagicMock",
+        "NonCallableMock",
+        "PropertyMock",
+        "ThreadingMock",
         "call",
         "create_autospec",
-        "ThreadingMock",
-        "AsyncMock",
-        "FILTER_DIR",
-        "NonCallableMock",
-        "NonCallableMagicMock",
         "mock_open",
-        "PropertyMock",
+        "patch",
         "seal",
+        "sentinel",
     )
 else:
     __all__ = (
-        "Mock",
-        "MagicMock",
-        "patch",
-        "sentinel",
-        "DEFAULT",
         "ANY",
+        "DEFAULT",
+        "FILTER_DIR",
+        "AsyncMock",
+        "MagicMock",
+        "Mock",
+        "NonCallableMagicMock",
+        "NonCallableMock",
+        "PropertyMock",
         "call",
         "create_autospec",
-        "AsyncMock",
-        "FILTER_DIR",
-        "NonCallableMock",
-        "NonCallableMagicMock",
         "mock_open",
-        "PropertyMock",
+        "patch",
         "seal",
+        "sentinel",
     )
 
 FILTER_DIR: bool  # controls the way mock objects respond to `dir` function

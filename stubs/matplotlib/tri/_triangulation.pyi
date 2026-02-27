@@ -35,6 +35,7 @@ class Triangulation:
     For a Triangulation to be valid it must not have duplicate points,
     triangles formed from colinear points, or overlapping triangles.
     """
+
     x: Incomplete
     y: Incomplete
     mask: Incomplete

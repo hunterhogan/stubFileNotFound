@@ -1,5 +1,5 @@
-import sys
 from typing import Any, Final, Literal, overload
+import sys
 
 if sys.platform != "win32" and sys.platform != "darwin":
     # Depends on soundcard.h

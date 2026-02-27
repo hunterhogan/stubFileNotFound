@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from typing import NamedTuple
 
-__all__ = ['inertia', 'inertia_of_point_mass', 'Inertia']
+__all__ = ['Inertia', 'inertia', 'inertia_of_point_mass']
 
 def inertia(frame, ixx, iyy, izz, ixy: int = 0, iyz: int = 0, izx: int = 0):
     """Simple way to create inertia Dyadic object.
@@ -13,8 +13,7 @@ def inertia(frame, ixx, iyy, izz, ixy: int = 0, iyz: int = 0, izx: int = 0):
     reference frame.
 
     Parameters
-    ==========
-
+    ----------
     frame : ReferenceFrame
         The frame the inertia is defined in.
     ixx : Sympifyable
@@ -31,8 +30,7 @@ def inertia(frame, ixx, iyy, izz, ixy: int = 0, iyz: int = 0, izx: int = 0):
         The zx element in the inertia dyadic.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.mechanics import ReferenceFrame, inertia
     >>> N = ReferenceFrame('N')
     >>> inertia(N, 1, 2, 3)
@@ -43,8 +41,7 @@ def inertia_of_point_mass(mass, pos_vec, frame):
     """Inertia dyadic of a point mass relative to point O.
 
     Parameters
-    ==========
-
+    ----------
     mass : Sympifyable
         Mass of the point mass
     pos_vec : Vector
@@ -53,8 +50,7 @@ def inertia_of_point_mass(mass, pos_vec, frame):
         Reference frame to express the dyadic in
 
     Examples
-    ========
-
+    --------
     >>> from sympy import symbols
     >>> from sympy.physics.mechanics import ReferenceFrame, inertia_of_point_mass
     >>> N = ReferenceFrame('N')
@@ -75,16 +71,14 @@ class Inertia(NamedTuple('Inertia', [('dyadic', Incomplete), ('point', Incomplet
     inertia.
 
     Attributes
-    ==========
-
+    ----------
     dyadic : Dyadic
         The dyadic of the inertia.
     point : Point
         The reference point of the inertia.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.physics.mechanics import ReferenceFrame, Point, Inertia
     >>> N = ReferenceFrame('N')
     >>> Po = Point('Po')
@@ -99,6 +93,7 @@ class Inertia(NamedTuple('Inertia', [('dyadic', Incomplete), ('point', Incomplet
     ((N.x|N.x) + (N.y|N.y) + (N.z|N.z), Po)
 
     """
+
     __slots__: Incomplete
     def __new__(cls, dyadic, point): ...
     @classmethod
@@ -112,8 +107,7 @@ class Inertia(NamedTuple('Inertia', [('dyadic', Incomplete), ('point', Incomplet
         on the tensor values.
 
         Parameters
-        ==========
-
+        ----------
         point : Point
             The reference point of the inertia.
         frame : ReferenceFrame
@@ -132,8 +126,7 @@ class Inertia(NamedTuple('Inertia', [('dyadic', Incomplete), ('point', Incomplet
             The zx element in the inertia dyadic.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols
         >>> from sympy.physics.mechanics import ReferenceFrame, Point, Inertia
         >>> ixx, iyy, izz, ixy, iyz, izx = symbols('ixx iyy izz ixy iyz izx')

@@ -1,10 +1,10 @@
 
 from collections.abc import Callable
+from numpy.typing import NDArray
 from typing import Any
 import numpy as np
-from numpy.typing import NDArray
 
-__all__ = ['get_filter', 'clear_cache', 'sinc_window']
+__all__ = ['clear_cache', 'get_filter', 'sinc_window']
 
 """Filter construction and loading."""
 
@@ -48,7 +48,6 @@ def sinc_window(num_zeros: int = 64,
         if `num_zeros < 1`, `precision < 1`,
         or `rolloff` is outside the range `(0, 1]`.
     """
-    ...
 
 def get_filter(name_or_function: str | Callable[..., tuple[NDArray[np.floating], int, float]],
                **kwargs: Any) -> tuple[NDArray[np.floating], int, float]:
@@ -86,7 +85,6 @@ def get_filter(name_or_function: str | Callable[..., tuple[NDArray[np.floating],
     NotImplementedError
         If `name_or_function` cannot be found as a filter.
     """
-    ...
 
 def load_filter(filter_name: str) -> tuple[NDArray[np.floating], int, float]:
     """Retrieve a pre-computed filter.
@@ -105,7 +103,6 @@ def load_filter(filter_name: str) -> tuple[NDArray[np.floating], int, float]:
     rolloff : float > 0
         The roll-off frequency of the filter, as a fraction of Nyquist
     """
-    ...
 
 def clear_cache() -> None:
     """Clear the filter cache.
@@ -113,4 +110,3 @@ def clear_cache() -> None:
     Calling this function will ensure that packaged filters are reloaded
     upon the next usage.
     """
-    ...

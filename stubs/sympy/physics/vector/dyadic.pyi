@@ -16,6 +16,7 @@ class Dyadic(Printable, EvalfMixin):
     the resulting matrix is equivalent to the inertia tensor.
 
     """
+
     is_number: bool
     args: Incomplete
     def __init__(self, inlist) -> None:
@@ -32,22 +33,20 @@ class Dyadic(Printable, EvalfMixin):
         """
     @property
     def func(self):
-        """Returns the class Dyadic. """
+        """Returns the class Dyadic."""
     def __add__(self, other):
-        """The add operator for Dyadic. """
+        """The add operator for Dyadic."""
     __radd__ = __add__
     def __mul__(self, other):
         """Multiplies the Dyadic by a sympifyable expression.
 
         Parameters
-        ==========
-
+        ----------
         other : Sympafiable
             The scalar to multiply this Dyadic with
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame, outer
         >>> N = ReferenceFrame('N')
         >>> d = outer(N.x, N.x)
@@ -60,14 +59,12 @@ class Dyadic(Printable, EvalfMixin):
         """The inner product operator for a Dyadic and a Dyadic or Vector.
 
         Parameters
-        ==========
-
+        ----------
         other : Dyadic or Vector
             The other Dyadic or Vector to take the inner product with
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame, outer
         >>> N = ReferenceFrame('N')
         >>> D1 = outer(N.x, N.y)
@@ -80,7 +77,7 @@ class Dyadic(Printable, EvalfMixin):
         """
     __and__ = dot
     def __truediv__(self, other):
-        """Divides the Dyadic by a sympifyable expression. """
+        """Divides the Dyadic by a sympifyable expression."""
     def __eq__(self, other):
         """Tests for equality.
 
@@ -93,20 +90,20 @@ class Dyadic(Printable, EvalfMixin):
     def _pretty(self, printer): ...
     def __rsub__(self, other): ...
     def _sympystr(self, printer):
-        """Printing method. """
+        """Printing method."""
     def __sub__(self, other):
-        """The subtraction operator. """
+        """The subtraction operator."""
     def cross(self, other):
         """Returns the dyadic resulting from the dyadic vector cross product:
         Dyadic x Vector.
 
         Parameters
-        ==========
+        ----------
         other : Vector
             Vector to cross with.
 
         Examples
-        ========
+        --------
         >>> from sympy.physics.vector import ReferenceFrame, outer, cross
         >>> N = ReferenceFrame('N')
         >>> d = outer(N.x, N.x)
@@ -126,16 +123,14 @@ class Dyadic(Printable, EvalfMixin):
         Calls the global express function
 
         Parameters
-        ==========
-
+        ----------
         frame1 : ReferenceFrame
             The frame to express the left side of the Dyadic in
         frame2 : ReferenceFrame
             If provided, the frame to express the right side of the Dyadic in
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame, outer, dynamicsymbols
         >>> from sympy.physics.vector import init_vprinting
         >>> init_vprinting(pretty_print=False)
@@ -167,8 +162,7 @@ class Dyadic(Printable, EvalfMixin):
             The matrix that gives the 2D tensor form.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols, trigsimp
         >>> from sympy.physics.vector import ReferenceFrame
         >>> from sympy.physics.mechanics import inertia
@@ -197,14 +191,12 @@ class Dyadic(Printable, EvalfMixin):
         This function calls the global time_derivative method
 
         Parameters
-        ==========
-
+        ----------
         frame : ReferenceFrame
             The frame to take the time derivative in
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame, outer, dynamicsymbols
         >>> from sympy.physics.vector import init_vprinting
         >>> init_vprinting(pretty_print=False)
@@ -222,8 +214,7 @@ class Dyadic(Printable, EvalfMixin):
         """Substitution on the Dyadic.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame
         >>> from sympy import Symbol
         >>> N = ReferenceFrame('N')
@@ -242,20 +233,17 @@ class Dyadic(Printable, EvalfMixin):
         Dyadic.
 
         Parameters
-        ==========
-
+        ----------
         rule : dict-like
             Expresses a replacement rule.
 
         Returns
-        =======
-
+        -------
         Dyadic
             Result of the replacement.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols, pi
         >>> from sympy.physics.vector import ReferenceFrame, outer
         >>> N = ReferenceFrame('N')

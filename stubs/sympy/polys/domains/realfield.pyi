@@ -6,7 +6,8 @@ from sympy.polys.domains.simpledomain import SimpleDomain
 __all__ = ['RealField']
 
 class RealField(Field, CharacteristicZero, SimpleDomain):
-    """Real numbers up to the given precision. """
+    """Real numbers up to the given precision."""
+
     rep: str
     is_RealField: bool
     is_RR: bool
@@ -37,9 +38,9 @@ class RealField(Field, CharacteristicZero, SimpleDomain):
     def __eq__(self, other): ...
     def __hash__(self): ...
     def to_sympy(self, element):
-        """Convert ``element`` to SymPy number. """
+        """Convert ``element`` to SymPy number."""
     def from_sympy(self, expr):
-        """Convert SymPy's number to ``dtype``. """
+        """Convert SymPy's number to ``dtype``."""
     def from_ZZ(self, element, base): ...
     def from_ZZ_python(self, element, base): ...
     def from_ZZ_gmpy(self, element, base): ...
@@ -50,19 +51,19 @@ class RealField(Field, CharacteristicZero, SimpleDomain):
     def from_RealField(self, element, base): ...
     def from_ComplexField(self, element, base): ...
     def to_rational(self, element, limit: bool = True):
-        """Convert a real number to rational number. """
+        """Convert a real number to rational number."""
     def get_ring(self):
-        """Returns a ring associated with ``self``. """
+        """Returns a ring associated with ``self``."""
     def get_exact(self):
-        """Returns an exact domain associated with ``self``. """
+        """Returns an exact domain associated with ``self``."""
     def gcd(self, a, b):
-        """Returns GCD of ``a`` and ``b``. """
+        """Returns GCD of ``a`` and ``b``."""
     def lcm(self, a, b):
-        """Returns LCM of ``a`` and ``b``. """
+        """Returns LCM of ``a`` and ``b``."""
     def almosteq(self, a, b, tolerance=None):
-        """Check if ``a`` and ``b`` are almost equal. """
+        """Check if ``a`` and ``b`` are almost equal."""
     def is_square(self, a):
-        """Returns ``True`` if ``a >= 0`` and ``False`` otherwise. """
+        """Returns ``True`` if ``a >= 0`` and ``False`` otherwise."""
     def exsqrt(self, a):
         """Non-negative square root for ``a >= 0`` and ``None`` otherwise.
 

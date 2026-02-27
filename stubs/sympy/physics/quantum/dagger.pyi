@@ -12,16 +12,14 @@ class Dagger(adjoint):
     operation is equivalent to transpose and complex conjugate [2]_.
 
     Parameters
-    ==========
-
+    ----------
     arg : Expr
         The SymPy expression that we want to take the dagger of.
     evaluate : bool
         Whether the resulting expression should be directly evaluated.
 
     Examples
-    ========
-
+    --------
     Daggering various quantum objects:
 
         >>> from sympy.physics.quantum.dagger import Dagger
@@ -67,11 +65,12 @@ class Dagger(adjoint):
         [-I, -I]])
 
     References
-    ==========
+    ----------
 
     .. [1] https://en.wikipedia.org/wiki/Hermitian_adjoint
     .. [2] https://en.wikipedia.org/wiki/Hermitian_transpose
     """
+
     @property
     def kind(self):
         """Find the kind of a dagger of something (just the kind of the something)."""

@@ -150,4 +150,3 @@ class SettingDefinition(Statement):
     name: Incomplete
     value: Incomplete
     def __init__(self, name, value, location=None) -> None: ...
-

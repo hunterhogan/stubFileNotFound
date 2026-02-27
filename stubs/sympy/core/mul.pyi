@@ -1,5 +1,5 @@
-from .add import Add as Add, _unevaluated_Add as _unevaluated_Add
-from .basic import Basic as Basic, _args_sortkey as _args_sortkey
+from .add import _unevaluated_Add as _unevaluated_Add, Add as Add
+from .basic import _args_sortkey as _args_sortkey, Basic as Basic
 from .cache import cacheit as cacheit
 from .expr import Expr as Expr
 from .intfunc import integer_nthroot as integer_nthroot, trailing as trailing
@@ -31,8 +31,7 @@ def _unevaluated_Mul(*args):
     an unevaluated Mul.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.mul import _unevaluated_Mul as uMul
     >>> from sympy import S, sqrt, Mul
     >>> from sympy.abc import x
@@ -93,8 +92,7 @@ class Mul(Expr, AssocOp):
     resulting object is automatically inferred.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Mul
     >>> from sympy.abc import x, y
     >>> Mul(x, 1)
@@ -121,11 +119,11 @@ class Mul(Expr, AssocOp):
     <class 'sympy.matrices.expressions.matmul.MatMul'>
 
     See Also
-    ========
-
+    --------
     MatMul
 
     """
+
     __slots__: Incomplete
     is_Mul: bool
     _args_type = Expr
@@ -144,7 +142,7 @@ class Mul(Expr, AssocOp):
         combining related terms.
 
         Notes
-        =====
+        -----
             * In an expression like ``a*b*c``, Python process this through SymPy
               as ``Mul(Mul(a, b), c)``. This can have undesirable consequences.
 
@@ -240,8 +238,7 @@ class Mul(Expr, AssocOp):
           then use self.as_coeff_add()[0]
 
         Examples
-        ========
-
+        --------
         >>> from sympy.abc import x, y
         >>> (3*x*y).as_two_terms()
         (3, x*y)
@@ -356,8 +353,7 @@ class Mul(Expr, AssocOp):
         extracted from self.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sqrt
         >>> (-3*sqrt(2)*(2 - 2*sqrt(2))).as_content_primitive()
         (6, -sqrt(2)*(1 - sqrt(2)))
@@ -368,8 +364,7 @@ class Mul(Expr, AssocOp):
         """Transform an expression into an ordered list of factors.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import sin, cos
         >>> from sympy.abc import x, y
 
@@ -387,8 +382,7 @@ def prod(a, start: int = 1):
        ints are included then an int result is returned.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import prod, S
     >>> prod(range(3))
     0
@@ -415,8 +409,7 @@ def _keep_coeff(coeff, factors, clear: bool = True, sign: bool = False):
     If ``sign`` is True, allow a coefficient of -1 to remain factored out.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.core.mul import _keep_coeff
     >>> from sympy.abc import x, y
     >>> from sympy import S

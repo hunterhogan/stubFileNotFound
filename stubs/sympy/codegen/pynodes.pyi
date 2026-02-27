@@ -6,5 +6,6 @@ class List(AbstractList): ...
 
 class NumExprEvaluate(Token):
     """represents a call to :class:`numexpr`s :func:`evaluate`"""
+
     __slots__: Incomplete
     _fields: Incomplete

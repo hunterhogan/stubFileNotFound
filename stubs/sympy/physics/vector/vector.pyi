@@ -11,12 +11,12 @@ class Vector(Printable, EvalfMixin):
     classical mechanics system in PyDy and sympy.physics.vector.
 
     Attributes
-    ==========
-
+    ----------
     simp : Boolean
         Let certain methods use trigsimp on their outputs
 
     """
+
     simp: bool
     is_number: bool
     args: Incomplete
@@ -33,24 +33,22 @@ class Vector(Printable, EvalfMixin):
         """
     @property
     def func(self):
-        """Returns the class Vector. """
+        """Returns the class Vector."""
     def __hash__(self): ...
     def __add__(self, other):
-        """The add operator for Vector. """
+        """The add operator for Vector."""
     def dot(self, other):
         """Dot product of two vectors.
 
         Returns a scalar, the dot product of the two Vectors
 
         Parameters
-        ==========
-
+        ----------
         other : Vector
             The Vector which we are dotting with
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame, dot
         >>> from sympy import symbols
         >>> q1 = symbols('q1')
@@ -65,7 +63,7 @@ class Vector(Printable, EvalfMixin):
 
         """
     def __truediv__(self, other):
-        """This uses mul and inputs self and 1 divided by other. """
+        """This uses mul and inputs self and 1 divided by other."""
     def __eq__(self, other):
         """Tests for equality.
 
@@ -81,14 +79,12 @@ class Vector(Printable, EvalfMixin):
         """Multiplies the Vector by a sympifyable expression.
 
         Parameters
-        ==========
-
+        ----------
         other : Sympifyable
             The scalar to multiply this Vector with
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame
         >>> from sympy import Symbol
         >>> N = ReferenceFrame('N')
@@ -105,14 +101,12 @@ class Vector(Printable, EvalfMixin):
         A rank increasing operation, which returns a Dyadic from two Vectors
 
         Parameters
-        ==========
-
+        ----------
         other : Vector
             The Vector to take the outer product with
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame, outer
         >>> N = ReferenceFrame('N')
         >>> outer(N.x, N.x)
@@ -120,28 +114,26 @@ class Vector(Printable, EvalfMixin):
 
         """
     def _latex(self, printer):
-        """Latex Printing method. """
+        """Latex Printing method."""
     def _pretty(self, printer):
-        """Pretty Printing method. """
+        """Pretty Printing method."""
     def __rsub__(self, other): ...
     def _sympystr(self, printer, order: bool = True):
-        """Printing method. """
+        """Printing method."""
     def __sub__(self, other):
-        """The subtraction operator. """
+        """The subtraction operator."""
     def cross(self, other):
         """The cross product operator for two Vectors.
 
         Returns a Vector, expressed in the same ReferenceFrames as self.
 
         Parameters
-        ==========
-
+        ----------
         other : Vector
             The Vector which we are crossing with
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols
         >>> from sympy.physics.vector import ReferenceFrame, cross
         >>> q1 = symbols('q1')
@@ -167,8 +159,7 @@ class Vector(Printable, EvalfMixin):
         constituent Vector.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame
         >>> R1 = ReferenceFrame('R1')
         >>> R2 = ReferenceFrame('R2')
@@ -186,7 +177,7 @@ class Vector(Printable, EvalfMixin):
         variable in the provided reference frame.
 
         Parameters
-        ==========
+        ----------
         var : Symbol
             What the partial derivative is taken with respect to.
         frame : ReferenceFrame
@@ -200,8 +191,7 @@ class Vector(Printable, EvalfMixin):
             frame.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import Symbol
         >>> from sympy.physics.vector import dynamicsymbols, ReferenceFrame
         >>> from sympy.physics.vector import init_vprinting
@@ -227,8 +217,7 @@ class Vector(Printable, EvalfMixin):
         Uses the global express method.
 
         Parameters
-        ==========
-
+        ----------
         otherframe : ReferenceFrame
             The frame for this Vector to be described in
 
@@ -237,8 +226,7 @@ class Vector(Printable, EvalfMixin):
             are re-expressed in terms otherframe
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame, dynamicsymbols
         >>> from sympy.physics.vector import init_vprinting
         >>> init_vprinting(pretty_print=False)
@@ -264,8 +252,7 @@ class Vector(Printable, EvalfMixin):
             The matrix that gives the 1D vector.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols
         >>> from sympy.physics.vector import ReferenceFrame
         >>> a, b, c = symbols('a, b, c')
@@ -295,8 +282,7 @@ class Vector(Printable, EvalfMixin):
         Calls the global time_derivative method
 
         Parameters
-        ==========
-
+        ----------
         otherframe : ReferenceFrame
             The frame to calculate the time derivative in
 
@@ -307,8 +293,7 @@ class Vector(Printable, EvalfMixin):
         """Substitution on the Vector.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame
         >>> from sympy import Symbol
         >>> N = ReferenceFrame('N')
@@ -322,8 +307,7 @@ class Vector(Printable, EvalfMixin):
         """Returns the magnitude (Euclidean norm) of self.
 
         Warnings
-        ========
-
+        --------
         Python ignores the leading negative sign so that might
         give wrong results.
         ``-A.x.magnitude()`` would be treated as ``-(A.x.magnitude())``,
@@ -335,7 +319,7 @@ class Vector(Printable, EvalfMixin):
     def applyfunc(self, f):
         """Apply a function to each component of a vector."""
     def angle_between(self, vec):
-        '''
+        """
         Returns the smallest angle between Vector \'vec\' and self.
 
         Parameter
@@ -345,8 +329,7 @@ class Vector(Printable, EvalfMixin):
             The Vector between which angle is needed.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.physics.vector import ReferenceFrame
         >>> A = ReferenceFrame("A")
         >>> v1 = A.x
@@ -359,25 +342,24 @@ class Vector(Printable, EvalfMixin):
         acos(sqrt(3)/3)
 
         Warnings
-        ========
-
+        --------
         Python ignores the leading negative sign so that might give wrong
         results. ``-A.x.angle_between()`` would be treated as
         ``-(A.x.angle_between())``, instead of ``(-A.x).angle_between()``.
 
-        '''
+        """
     def free_symbols(self, reference_frame):
         """Returns the free symbols in the measure numbers of the vector
         expressed in the given reference frame.
 
         Parameters
-        ==========
+        ----------
         reference_frame : ReferenceFrame
             The frame with respect to which the free symbols of the given
             vector is to be determined.
 
         Returns
-        =======
+        -------
         set of Symbol
             set of symbols present in the measure numbers of
             ``reference_frame``.
@@ -388,13 +370,13 @@ class Vector(Printable, EvalfMixin):
         measure numbers of the vector expressed in the given reference frame.
 
         Parameters
-        ==========
+        ----------
         reference_frame : ReferenceFrame
             The frame with respect to which the free dynamic symbols of the
             given vector is to be determined.
 
         Returns
-        =======
+        -------
         set
             Set of functions of time ``t``, e.g.
             ``Function('f')(me.dynamicsymbols._t)``.
@@ -406,20 +388,17 @@ class Vector(Printable, EvalfMixin):
         vector.
 
         Parameters
-        ==========
-
+        ----------
         rule : dict-like
             Expresses a replacement rule.
 
         Returns
-        =======
-
+        -------
         Vector
             Result of the replacement.
 
         Examples
-        ========
-
+        --------
         >>> from sympy import symbols, pi
         >>> from sympy.physics.vector import ReferenceFrame
         >>> A = ReferenceFrame('A')

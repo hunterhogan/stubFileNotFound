@@ -1,12 +1,5 @@
-from pandas.core.arrays.numeric import (
-    NumericArray,
-    NumericDtype,
-)
-
-from pandas._typing import (
-    np_ndarray_anyint,
-    np_ndarray_bool,
-)
+from pandas._typing import np_ndarray_anyint, np_ndarray_bool
+from pandas.core.arrays.numeric import NumericArray, NumericDtype
 
 class IntegerDtype(NumericDtype):
     base: None

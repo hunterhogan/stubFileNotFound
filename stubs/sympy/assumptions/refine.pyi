@@ -1,8 +1,8 @@
-from sympy.assumptions import Q as Q, ask as ask
+from collections.abc import Callable
+from sympy.assumptions import ask as ask, Q as Q
 from sympy.core import Add as Add, Basic as Basic, Expr as Expr, Mul as Mul, Pow as Pow, Rational as Rational, S as S
 from sympy.core.logic import fuzzy_not as fuzzy_not
 from sympy.logic.boolalg import Boolean as Boolean
-from typing import Callable
 
 def refine(expr, assumptions: bool = True):
     """
@@ -21,8 +21,7 @@ def refine(expr, assumptions: bool = True):
     if the truth value cannot be determined.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import refine, sqrt, Q
     >>> from sympy.abc import x
     >>> refine(sqrt(x**2), Q.real(x))
@@ -36,8 +35,7 @@ def refine(expr, assumptions: bool = True):
     Q.positive(x)
 
     See Also
-    ========
-
+    --------
     sympy.simplify.simplify.simplify : Structural simplification without assumptions.
     sympy.assumptions.ask.ask : Query for boolean expressions using assumptions.
     """
@@ -46,8 +44,7 @@ def refine_abs(expr, assumptions):
     Handler for the absolute value.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, Abs
     >>> from sympy.assumptions.refine import refine_abs
     >>> from sympy.abc import x
@@ -63,8 +60,7 @@ def refine_Pow(expr, assumptions):
     Handler for instances of Pow.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q
     >>> from sympy.assumptions.refine import refine_Pow
     >>> from sympy.abc import x,y,z
@@ -91,8 +87,7 @@ def refine_atan2(expr, assumptions):
     Handler for the atan2 function.
 
     Examples
-    ========
-
+    --------
     >>> from sympy import Q, atan2
     >>> from sympy.assumptions.refine import refine_atan2
     >>> from sympy.abc import x, y
@@ -116,8 +111,7 @@ def refine_re(expr, assumptions):
     Handler for real part.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.assumptions.refine import refine_re
     >>> from sympy import Q, re
     >>> from sympy.abc import x
@@ -162,8 +156,7 @@ def refine_sign(expr, assumptions):
     Handler for sign.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.assumptions.refine import refine_sign
     >>> from sympy import Symbol, Q, sign, im
     >>> x = Symbol('x', real = True)
@@ -186,8 +179,7 @@ def refine_matrixelement(expr, assumptions):
     Handler for symmetric part.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.assumptions.refine import refine_matrixelement
     >>> from sympy import MatrixSymbol, Q
     >>> X = MatrixSymbol('X', 3, 3)

@@ -1,24 +1,10 @@
-from collections.abc import (
-    Hashable,
-    Sequence,
-)
-from typing import (
-    Self,
-    TypeAlias,
-    TypeVar,
-)
-
-from pandas.core.base import IndexOpsMixin
-
+from collections.abc import Hashable, Sequence
 from pandas._libs.indexing import NDFrameIndexerBase
 from pandas._libs.missing import NAType
 from pandas._libs.tslibs.nattype import NaTType
-from pandas._typing import (
-    Axis,
-    AxisInt,
-    MaskType,
-    Scalar,
-)
+from pandas._typing import Axis, AxisInt, MaskType, Scalar
+from pandas.core.base import IndexOpsMixin
+from typing import Self, TypeAlias, TypeVar
 
 _IndexSliceTuple: TypeAlias = tuple[IndexOpsMixin | MaskType | Scalar | Sequence[Scalar] | slice, ...]
 

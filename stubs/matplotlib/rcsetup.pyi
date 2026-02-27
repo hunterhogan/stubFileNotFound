@@ -1,11 +1,11 @@
-import ast
 from _typeshed import Incomplete
 from matplotlib import _api as _api, cbook as cbook
 from matplotlib._enums import CapStyle as CapStyle, JoinStyle as JoinStyle
 from matplotlib._fontconfig_pattern import parse_fontconfig_pattern as parse_fontconfig_pattern
-from matplotlib.backends import BackendFilter as BackendFilter, backend_registry as backend_registry
+from matplotlib.backends import backend_registry as backend_registry, BackendFilter as BackendFilter
 from matplotlib.cbook import ls_mapper as ls_mapper
 from matplotlib.colors import Colormap as Colormap, is_color_like as is_color_like
+import ast
 
 class __getattr__:
     @property
@@ -200,7 +200,7 @@ class _DunderChecker(ast.NodeVisitor):
 _validate_named_legend_loc: Incomplete
 
 def _validate_legend_loc(loc):
-    '''
+    """
     Confirm that loc is a type which rc.Params["legend.loc"] supports.
 
     .. versionadded:: 3.8
@@ -214,7 +214,7 @@ def _validate_legend_loc(loc):
     -------
     loc : str | int | (float, float) or raise ValueError exception
         The location of the legend.
-    '''
+    """
 def validate_cycler(s):
     """Return a Cycler object from a string repr or the object itself."""
 def validate_hist_bins(s): ...

@@ -20,4 +20,3 @@ def _component_closest_to_origin(components, glyph_set):
 def _distance(pos1, pos2): ...
 def _bounds(component, glyph_set):
     """Return the (xmin, ymin) of the bounds of `component`."""
-

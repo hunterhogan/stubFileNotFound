@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from sympy.core import Basic as Basic
 
 class EPath:
-    '''
+    """
     Manipulate expressions using paths.
 
     EPath grammar in EBNF notation::
@@ -20,26 +20,25 @@ class EPath:
 
     See the docstring of the epath() function.
 
-    '''
+    """
+
     __slots__: Incomplete
     def __new__(cls, path):
-        """Construct new EPath. """
-    def __repr__(self) -> str: ...
+        """Construct new EPath."""
     def _get_ordered_args(self, expr):
-        """Sort ``expr.args`` using printing order. """
+        """Sort ``expr.args`` using printing order."""
     def _hasattrs(self, expr, attrs) -> bool:
-        """Check if ``expr`` has any of ``attrs``. """
+        """Check if ``expr`` has any of ``attrs``."""
     def _hastypes(self, expr, types):
-        """Check if ``expr`` is any of ``types``. """
+        """Check if ``expr`` is any of ``types``."""
     def _has(self, expr, attrs, types):
-        """Apply ``_hasattrs`` and ``_hastypes`` to ``expr``. """
+        """Apply ``_hasattrs`` and ``_hastypes`` to ``expr``."""
     def apply(self, expr, func, args=None, kwargs=None):
-        '''
+        """
         Modify parts of an expression selected by a path.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.simplify.epathtools import EPath
         >>> from sympy import sin, cos, E
         >>> from sympy.abc import x, y, z, t
@@ -56,14 +55,13 @@ class EPath:
         >>> path.apply(expr, lambda expr: 2*expr)
         t + sin(2*x + 1) + cos(2*x + 2*y + E)
 
-        '''
+        """
     def select(self, expr):
-        '''
+        """
         Retrieve parts of an expression selected by a path.
 
         Examples
-        ========
-
+        --------
         >>> from sympy.simplify.epathtools import EPath
         >>> from sympy import sin, cos, E
         >>> from sympy.abc import x, y, z, t
@@ -80,10 +78,10 @@ class EPath:
         >>> path.select(expr)
         [x, x, y]
 
-        '''
+        """
 
 def epath(path, expr=None, func=None, args=None, kwargs=None):
-    '''
+    """
     Manipulate parts of an expression selected by a path.
 
     Explanation
@@ -113,8 +111,7 @@ def epath(path, expr=None, func=None, args=None, kwargs=None):
           Emulates ``hasattr()``.
 
     Parameters
-    ==========
-
+    ----------
     path : str | EPath
         A path as a string or a compiled EPath.
     expr : Basic | iterable
@@ -127,8 +124,7 @@ def epath(path, expr=None, func=None, args=None, kwargs=None):
         Additional keyword arguments to ``func``.
 
     Examples
-    ========
-
+    --------
     >>> from sympy.simplify.epathtools import epath
     >>> from sympy import sin, cos, E
     >>> from sympy.abc import x, y, z, t
@@ -149,4 +145,4 @@ def epath(path, expr=None, func=None, args=None, kwargs=None):
     >>> epath(path, expr, lambda expr: 2*expr)
     t + sin(2*x + 1) + cos(2*x + 2*y + E)
 
-    '''
+    """

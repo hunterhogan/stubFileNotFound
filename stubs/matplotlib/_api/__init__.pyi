@@ -1,9 +1,14 @@
-from .deprecation import MatplotlibDeprecationWarning as MatplotlibDeprecationWarning, delete_parameter as delete_parameter, deprecate_method_override as deprecate_method_override, deprecate_privatize_attribute as deprecate_privatize_attribute, deprecated as deprecated, make_keyword_only as make_keyword_only, rename_parameter as rename_parameter, suppress_matplotlib_deprecation_warning as suppress_matplotlib_deprecation_warning, warn_deprecated as warn_deprecated
+from .deprecation import (
+	delete_parameter as delete_parameter, deprecate_method_override as deprecate_method_override,
+	deprecate_privatize_attribute as deprecate_privatize_attribute, deprecated as deprecated,
+	make_keyword_only as make_keyword_only, MatplotlibDeprecationWarning as MatplotlibDeprecationWarning,
+	rename_parameter as rename_parameter,
+	suppress_matplotlib_deprecation_warning as suppress_matplotlib_deprecation_warning, warn_deprecated as warn_deprecated)
 from _typeshed import Incomplete
 from collections.abc import Generator
 
 class classproperty:
-    '''
+    """
     Like `property`, but also triggers on access via the class, and it is the
     *class* that\'s passed as argument.
 
@@ -17,7 +22,8 @@ class classproperty:
                 return cls.__name__
 
         assert C.foo == "C"
-    '''
+    """
+
     _fget: Incomplete
     fset: Incomplete
     fdel: Incomplete
@@ -39,7 +45,7 @@ def check_isinstance(types, /, **kwargs):
     >>> _api.check_isinstance((SomeClass, None), arg=arg)
     """
 def check_in_list(values, /, *, _print_supported_values: bool = True, **kwargs) -> None:
-    '''
+    """
     For each *key, value* pair in *kwargs*, check that *value* is in *values*;
     if not, raise an appropriate ValueError.
 
@@ -60,9 +66,9 @@ def check_in_list(values, /, *, _print_supported_values: bool = True, **kwargs) 
     Examples
     --------
     >>> _api.check_in_list(["foo", "bar"], arg=arg, other_arg=other_arg)
-    '''
+    """
 def check_shape(shape, /, **kwargs) -> None:
-    '''
+    """
     For each *key, value* pair in *kwargs*, check that *value* has the shape *shape*;
     if not, raise an appropriate ValueError.
 
@@ -76,9 +82,9 @@ def check_shape(shape, /, **kwargs) -> None:
     To check for (N, 2) shaped arrays
 
     >>> _api.check_shape((None, 2), arg=arg, other_arg=other_arg)
-    '''
+    """
 def check_getitem(mapping, /, **kwargs):
-    '''
+    """
     *kwargs* must consist of a single *key, value* pair.  If *key* is in
     *mapping*, return ``mapping[value]``; else, raise an appropriate
     ValueError.
@@ -86,7 +92,7 @@ def check_getitem(mapping, /, **kwargs):
     Examples
     --------
     >>> _api.check_getitem({"foo": "bar"}, arg=arg)
-    '''
+    """
 def caching_module_getattr(cls):
     """
     Helper decorator for implementing module-level ``__getattr__`` as a class.
@@ -106,7 +112,7 @@ def caching_module_getattr(cls):
     and raised if no property with the given name exists.
     """
 def define_aliases(alias_d, cls: Incomplete | None = None):
-    '''
+    """
     Class decorator for defining property aliases.
 
     Use as ::
@@ -122,9 +128,9 @@ def define_aliases(alias_d, cls: Incomplete | None = None):
     The alias map is stored as the ``_alias_map`` attribute on the class and
     can be used by `.normalize_kwargs` (which assumes that higher priority
     aliases come last).
-    '''
+    """
 def select_matching_signature(funcs, *args, **kwargs):
-    '''
+    """
     Select and call the function that accepts ``*args, **kwargs``.
 
     *funcs* is a list of functions which should not raise any exception (other
@@ -163,7 +169,7 @@ def select_matching_signature(funcs, *args, **kwargs):
     *old2*) or a single one (*new*).  Note that the new signature is given
     last, so that callers get a `TypeError` corresponding to the new signature
     if the arguments they passed in do not match any signature.
-    '''
+    """
 def nargs_error(name, takes, given):
     """Generate a TypeError to be raised by function calls with wrong arity."""
 def kwarg_error(name, kw):
@@ -181,11 +187,11 @@ def kwarg_error(name, kw):
 def recursive_subclasses(cls) -> Generator[Incomplete, Incomplete]:
     """Yield *cls* and direct and indirect subclasses of *cls*."""
 def warn_external(message, category: Incomplete | None = None) -> None:
-    '''
+    """
     `warnings.warn` wrapper that sets *stacklevel* to "outside Matplotlib".
 
     The original emitter of the warning can be obtained by patching this
     function back to `warnings.warn`, i.e. ``_api.warn_external =
     warnings.warn`` (or ``functools.partial(warnings.warn, stacklevel=2)``,
     etc.).
-    '''
+    """

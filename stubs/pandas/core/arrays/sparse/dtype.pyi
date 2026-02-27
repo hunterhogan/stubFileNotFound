@@ -1,13 +1,6 @@
-from pandas._typing import (
-    Dtype,
-    Scalar,
-    npt,
-)
-
+from pandas._typing import Dtype, npt, Scalar
 from pandas.core.dtypes.base import ExtensionDtype
-from pandas.core.dtypes.dtypes import (
-    register_extension_dtype as register_extension_dtype,
-)
+from pandas.core.dtypes.dtypes import register_extension_dtype as register_extension_dtype
 
 class SparseDtype(ExtensionDtype):
     def __init__(

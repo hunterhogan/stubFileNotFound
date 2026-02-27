@@ -1,12 +1,13 @@
-import sys
-from _typeshed import MaybeNone, OptExcInfo, ProfileFunction, StrOrBytesPath, TraceFunction, structseq
+from _typeshed import MaybeNone, OptExcInfo, ProfileFunction, StrOrBytesPath, structseq, TraceFunction
 from _typeshed.importlib import MetaPathFinderProtocol, PathEntryFinderProtocol
 from builtins import object as _object
 from collections.abc import AsyncGenerator, Callable, Sequence
 from io import TextIOWrapper
 from types import FrameType, ModuleType, TracebackType
-from typing import Any, Final, Literal, NoReturn, Protocol, TextIO, TypeVar, final, overload, type_check_only
-from typing_extensions import LiteralString, TypeAlias, deprecated
+from typing import (
+	Any, Final, final, Literal, LiteralString, NoReturn, overload, Protocol, TextIO, type_check_only, TypeAlias, TypeVar)
+from typing_extensions import deprecated
+import sys
 
 _T = TypeVar("_T")
 
@@ -374,7 +375,7 @@ if sys.version_info >= (3, 11):
 
 def exit(status: _ExitCode = None, /) -> NoReturn: ...
 
-if sys.platform == "android":  # noqa: Y008
+if sys.platform == "android":
     def getandroidapilevel() -> int: ...
 
 def getallocatedblocks() -> int: ...

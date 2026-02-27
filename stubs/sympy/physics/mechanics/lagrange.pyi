@@ -4,7 +4,7 @@ from sympy.physics.mechanics.method import _Methods
 __all__ = ['LagrangesMethod']
 
 class LagrangesMethod(_Methods):
-    '''Lagrange\'s method object.
+    """Lagrange\'s method object.
 
     Explanation
     ===========
@@ -20,8 +20,7 @@ class LagrangesMethod(_Methods):
     __init__ method.
 
     Attributes
-    ==========
-
+    ----------
     q, u : Matrix
         Matrices of the generalized coordinates and speeds
     loads : iterable
@@ -41,8 +40,7 @@ class LagrangesMethod(_Methods):
         lagrange multipliers (lam)
 
     Examples
-    ========
-
+    --------
     This is a simple example for a one degree of freedom translational
     spring-mass-damper.
 
@@ -93,7 +91,8 @@ class LagrangesMethod(_Methods):
         Matrix([[Derivative(q(t), t)], [(-b*Derivative(q(t), t) - 1.0*k*q(t))/m]])
 
     Please refer to the docstrings on each method for more details.
-    '''
+    """
+
     _L: Incomplete
     eom: Incomplete
     _m_cd: Incomplete
@@ -181,8 +180,7 @@ class LagrangesMethod(_Methods):
         efficient recalculation (i.e. about varying operating points).
 
         Parameters
-        ==========
-
+        ----------
         q_ind, qd_ind : array_like, optional
             The independent generalized coordinates and speeds.
         q_dep, qd_dep : array_like, optional
@@ -199,7 +197,7 @@ class LagrangesMethod(_Methods):
             divide-by-zero and thus ``nan`` results.
 
         Returns
-        =======
+        -------
         Linearizer
             An instantiated
             :class:`sympy.physics.mechanics.linearize.Linearizer`.
@@ -209,7 +207,7 @@ class LagrangesMethod(_Methods):
         """Linearize the equations of motion about a symbolic operating point.
 
         Parameters
-        ==========
+        ----------
         linear_solver : str, callable
             Method used to solve the several symbolic linear systems of the
             form ``A*x=b`` in the linearization process. If a string is
@@ -247,14 +245,14 @@ class LagrangesMethod(_Methods):
         dictionaries. The values may be numeric or symbolic. The more values
         you can specify beforehand, the faster this computation will run.
 
-        For more documentation, please see the ``Linearizer`` class."""
+        For more documentation, please see the ``Linearizer`` class.
+        """
     def solve_multipliers(self, op_point=None, sol_type: str = 'dict'):
         """Solves for the values of the lagrange multipliers symbolically at
         the specified operating point.
 
         Parameters
-        ==========
-
+        ----------
         op_point : dict or iterable of dicts, optional
             Point at which to solve at. The operating point is specified as
             a dictionary or iterable of dictionaries of {symbol: value}. The
@@ -270,8 +268,7 @@ class LagrangesMethod(_Methods):
         """Returns equations that can be solved numerically.
 
         Parameters
-        ==========
-
+        ----------
         inv_method : str
             The specific sympy inverse matrix calculation method to use. For a
             list of valid methods, see

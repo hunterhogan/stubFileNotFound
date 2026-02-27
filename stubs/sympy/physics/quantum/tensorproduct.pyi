@@ -18,14 +18,12 @@ class TensorProduct(Expr):
     arguments remain in the resulting ``TensorProduct``.
 
     Parameters
-    ==========
-
+    ----------
     args : tuple
         A sequence of the objects to take the tensor product of.
 
     Examples
-    ========
-
+    --------
     Start with a simple tensor product of SymPy matrices::
 
         >>> from sympy import Matrix
@@ -71,6 +69,7 @@ class TensorProduct(Expr):
         >>> tp.expand(tensorproduct=True)
         AxC + BxC
     """
+
     is_commutative: bool
     _kind_dispatcher: Incomplete
     @property

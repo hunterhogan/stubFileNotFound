@@ -1,38 +1,38 @@
-import _typeshed
-import sys
-import types
 from _typeshed import SupportsKeysAndGetItem, Unused
 from builtins import property as _builtins_property
 from collections.abc import Callable, Iterable, Iterator, Mapping
-from typing import Any, Final, Generic, Literal, SupportsIndex, TypeVar, overload
-from typing_extensions import Self, TypeAlias, disjoint_base
+from typing import Any, Final, Generic, Literal, overload, Self, SupportsIndex, TypeAlias, TypeVar
+from typing_extensions import disjoint_base
+import _typeshed
+import sys
+import types
 
-__all__ = ["EnumMeta", "Enum", "IntEnum", "Flag", "IntFlag", "auto", "unique"]
+__all__ = ["Enum", "EnumMeta", "Flag", "IntEnum", "IntFlag", "auto", "unique"]
 
 if sys.version_info >= (3, 11):
     __all__ += [
         "CONFORM",
         "CONTINUOUS",
         "EJECT",
+        "KEEP",
+        "NAMED_FLAGS",
+        "STRICT",
+        "UNIQUE",
         "EnumCheck",
         "EnumType",
         "FlagBoundary",
-        "KEEP",
-        "NAMED_FLAGS",
         "ReprEnum",
-        "STRICT",
         "StrEnum",
-        "UNIQUE",
         "global_enum",
         "global_enum_repr",
         "global_flag_repr",
         "global_str",
         "member",
         "nonmember",
-        "property",
-        "verify",
         "pickle_by_enum_name",
         "pickle_by_global_name",
+        "property",
+        "verify",
     ]
 
 if sys.version_info >= (3, 13):
