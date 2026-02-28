@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from fontTools.voltLib.error import VoltLibError as VoltLibError
 from typing import NamedTuple
 
 class Pos(NamedTuple):
@@ -39,14 +40,12 @@ class GroupDefinition(Statement):
 
 class GlyphName(Expression):
     """A single glyph name, such as cedilla."""
-
     glyph: Incomplete
     def __init__(self, glyph, location=None) -> None: ...
     def glyphSet(self): ...
 
 class Enum(Expression):
     """An enum"""
-
     enum: Incomplete
     def __init__(self, enum, location=None) -> None: ...
     def __iter__(self): ...
@@ -54,7 +53,6 @@ class Enum(Expression):
 
 class GroupName(Expression):
     """A glyph group"""
-
     group: Incomplete
     parser_: Incomplete
     def __init__(self, group, parser, location=None) -> None: ...
@@ -63,7 +61,6 @@ class GroupName(Expression):
 
 class Range(Expression):
     """A glyph range"""
-
     start: Incomplete
     end: Incomplete
     parser: Incomplete

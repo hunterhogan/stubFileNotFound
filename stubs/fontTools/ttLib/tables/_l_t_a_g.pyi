@@ -1,7 +1,7 @@
+from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools.misc.textTools import bytesjoin as bytesjoin, safeEval as safeEval, tobytes as tobytes
-from fontTools.ttLib import TTFont
 
 class table__l_t_a_g(DefaultTable.DefaultTable):
     """Language Tag table
@@ -11,7 +11,6 @@ class table__l_t_a_g(DefaultTable.DefaultTable):
 
     See also https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6ltag.html
     """
-
     tags: Incomplete
     def __init__(self, tag=None) -> None: ...
     def addTag(self, tag):

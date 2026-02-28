@@ -1,41 +1,25 @@
+from fontTools.ttLib.ttFont import _VT_co, _NumberT
+import os
 from _typeshed import Incomplete
-from collections.abc import Mapping, MutableMapping, Sequence
+from collections.abc import Mapping, MutableMapping
+from fontTools.config import Config as Config
 from fontTools.misc import xmlWriter as xmlWriter
 from fontTools.misc.configTools import AbstractConfig as AbstractConfig
-from fontTools.misc.textTools import byteord as byteord, Tag as Tag, tostr as tostr
+from fontTools.misc.loggingTools import deprecateArgument as deprecateArgument
+from fontTools.misc.textTools import Tag as Tag, byteord as byteord, tostr as tostr
+from fontTools.ttLib import TTLibError as TTLibError
 from fontTools.ttLib.sfnt import SFNTReader as SFNTReader, SFNTWriter as SFNTWriter
-from fontTools.ttLib.tables import (
-	_a_n_k_r as _a_n_k_r, _a_v_a_r as _a_v_a_r, _b_s_l_n as _b_s_l_n, _c_i_d_g as _c_i_d_g, _c_m_a_p as _c_m_a_p,
-	_c_v_a_r as _c_v_a_r, _c_v_t as _c_v_t, _f_e_a_t as _f_e_a_t, _f_p_g_m as _f_p_g_m, _f_v_a_r as _f_v_a_r,
-	_g_a_s_p as _g_a_s_p, _g_c_i_d as _g_c_i_d, _g_l_y_f as _g_l_y_f, _g_v_a_r as _g_v_a_r, _h_d_m_x as _h_d_m_x,
-	_h_e_a_d as _h_e_a_d, _h_h_e_a as _h_h_e_a, _h_m_t_x as _h_m_t_x, _k_e_r_n as _k_e_r_n, _l_c_a_r as _l_c_a_r,
-	_l_o_c_a as _l_o_c_a, _l_t_a_g as _l_t_a_g, _m_a_x_p as _m_a_x_p, _m_e_t_a as _m_e_t_a, _m_o_r_t as _m_o_r_t,
-	_m_o_r_x as _m_o_r_x, _n_a_m_e as _n_a_m_e, _o_p_b_d as _o_p_b_d, _p_o_s_t as _p_o_s_t, _p_r_e_p as _p_r_e_p,
-	_p_r_o_p as _p_r_o_p, _s_b_i_x as _s_b_i_x, _t_r_a_k as _t_r_a_k, _v_h_e_a as _v_h_e_a, _v_m_t_x as _v_m_t_x,
-	B_A_S_E_ as B_A_S_E_, C_B_D_T_ as C_B_D_T_, C_B_L_C_ as C_B_L_C_, C_F_F_ as C_F_F_, C_F_F__2 as C_F_F__2,
-	C_O_L_R_ as C_O_L_R_, C_P_A_L_ as C_P_A_L_, D__e_b_g as D__e_b_g, D_S_I_G_ as D_S_I_G_, E_B_D_T_ as E_B_D_T_,
-	E_B_L_C_ as E_B_L_C_, F__e_a_t as F__e_a_t, F_F_T_M_ as F_F_T_M_, G__l_a_t as G__l_a_t, G__l_o_c as G__l_o_c,
-	G_D_E_F_ as G_D_E_F_, G_M_A_P_ as G_M_A_P_, G_P_K_G_ as G_P_K_G_, G_P_O_S_ as G_P_O_S_, G_S_U_B_ as G_S_U_B_,
-	G_V_A_R_ as G_V_A_R_, H_V_A_R_ as H_V_A_R_, J_S_T_F_ as J_S_T_F_, L_T_S_H_ as L_T_S_H_, M_A_T_H_ as M_A_T_H_,
-	M_E_T_A_ as M_E_T_A_, M_V_A_R_ as M_V_A_R_, O_S_2f_2 as O_S_2f_2, S__i_l_f as S__i_l_f, S__i_l_l as S__i_l_l,
-	S_I_N_G_ as S_I_N_G_, S_T_A_T_ as S_T_A_T_, S_V_G_ as S_V_G_, T_S_I__0 as T_S_I__0, T_S_I__1 as T_S_I__1,
-	T_S_I__2 as T_S_I__2, T_S_I__3 as T_S_I__3, T_S_I__5 as T_S_I__5, T_S_I_B_ as T_S_I_B_, T_S_I_C_ as T_S_I_C_,
-	T_S_I_D_ as T_S_I_D_, T_S_I_J_ as T_S_I_J_, T_S_I_P_ as T_S_I_P_, T_S_I_S_ as T_S_I_S_, T_S_I_V_ as T_S_I_V_,
-	T_T_F_A_ as T_T_F_A_, V_A_R_C_ as V_A_R_C_, V_D_M_X_ as V_D_M_X_, V_O_R_G_ as V_O_R_G_, V_V_A_R_ as V_V_A_R_)
+from fontTools.ttLib.tables import B_A_S_E_ as B_A_S_E_, C_B_D_T_ as C_B_D_T_, C_B_L_C_ as C_B_L_C_, C_F_F_ as C_F_F_, C_F_F__2 as C_F_F__2, C_O_L_R_ as C_O_L_R_, C_P_A_L_ as C_P_A_L_, D_S_I_G_ as D_S_I_G_, D__e_b_g as D__e_b_g, E_B_D_T_ as E_B_D_T_, E_B_L_C_ as E_B_L_C_, F_F_T_M_ as F_F_T_M_, F__e_a_t as F__e_a_t, G_D_E_F_ as G_D_E_F_, G_M_A_P_ as G_M_A_P_, G_P_K_G_ as G_P_K_G_, G_P_O_S_ as G_P_O_S_, G_S_U_B_ as G_S_U_B_, G_V_A_R_ as G_V_A_R_, G__l_a_t as G__l_a_t, G__l_o_c as G__l_o_c, H_V_A_R_ as H_V_A_R_, J_S_T_F_ as J_S_T_F_, L_T_S_H_ as L_T_S_H_, M_A_T_H_ as M_A_T_H_, M_E_T_A_ as M_E_T_A_, M_V_A_R_ as M_V_A_R_, O_S_2f_2 as O_S_2f_2, S_I_N_G_ as S_I_N_G_, S_T_A_T_ as S_T_A_T_, S_V_G_ as S_V_G_, S__i_l_f as S__i_l_f, S__i_l_l as S__i_l_l, T_S_I_B_ as T_S_I_B_, T_S_I_C_ as T_S_I_C_, T_S_I_D_ as T_S_I_D_, T_S_I_J_ as T_S_I_J_, T_S_I_P_ as T_S_I_P_, T_S_I_S_ as T_S_I_S_, T_S_I_V_ as T_S_I_V_, T_S_I__0 as T_S_I__0, T_S_I__1 as T_S_I__1, T_S_I__2 as T_S_I__2, T_S_I__3 as T_S_I__3, T_S_I__5 as T_S_I__5, T_T_F_A_ as T_T_F_A_, V_A_R_C_ as V_A_R_C_, V_D_M_X_ as V_D_M_X_, V_O_R_G_ as V_O_R_G_, V_V_A_R_ as V_V_A_R_, _a_n_k_r, _a_v_a_r, _b_s_l_n, _c_i_d_g, _c_m_a_p, _c_v_a_r, _c_v_t, _f_e_a_t, _f_p_g_m, _f_v_a_r, _g_a_s_p, _g_c_i_d, _g_l_y_f, _g_v_a_r, _h_d_m_x, _h_e_a_d, _h_h_e_a, _h_m_t_x, _k_e_r_n, _l_c_a_r, _l_o_c_a, _l_t_a_g, _m_a_x_p, _m_e_t_a, _m_o_r_t, _m_o_r_x, _n_a_m_e, _o_p_b_d, _p_o_s_t, _p_r_e_p, _p_r_o_p, _s_b_i_x, _t_r_a_k, _v_h_e_a, _v_m_t_x
 from fontTools.ttLib.tables.DefaultTable import DefaultTable as DefaultTable
-from fontTools.ttLib.ttGlyphSet import (
-	_TTGlyph as _TTGlyph, _TTGlyphSet as _TTGlyphSet, _TTGlyphSetCFF as _TTGlyphSetCFF, _TTGlyphSetGlyf as _TTGlyphSetGlyf,
-	_TTGlyphSetVARC as _TTGlyphSetVARC)
+from fontTools.ttLib.ttGlyphSet import _TTGlyphSet
 from types import ModuleType, TracebackType
-from typing import Any, BinaryIO, Literal, overload, Self, TextIO, TypedDict, TypeVar, Unpack
-import os
+from typing import Any, BinaryIO, Literal, Sequence, TextIO, TypedDict, overload
+from typing_extensions import Self, Unpack
 
-_VT_co = TypeVar('_VT_co', covariant=True)
 log: Incomplete
-_NumberT = TypeVar('_NumberT', bound=float)
 
 class TTFont:
-    r"""Represents a TrueType font.
+    '''Represents a TrueType font.
 
     The object manages file input and output, and offers a convenient way of
     accessing tables. Tables will be only decompiled when necessary, ie. when
@@ -116,8 +100,7 @@ class TTFont:
             lazy (bool): If lazy is set to True, many data structures are loaded lazily, upon
                     access only. If it is set to False, many data structures are loaded immediately.
                     The default is ``lazy=None`` which is somewhere in between.
-    """
-
+    '''
     tables: dict[Tag, DefaultTable | GlyphOrder]
     reader: SFNTReader | None
     sfntVersion: str
@@ -129,8 +112,6 @@ class TTFont:
     ignoreDecompileErrors: bool
     cfg: AbstractConfig
     glyphOrder: list[str]
-    _reverseGlyphOrderDict: dict[str, int]
-    _tableCache: MutableMapping[tuple[Tag, bytes], DefaultTable] | None
     disassembleInstructions: bool
     bitmapGlyphDataFormat: str
     verbose: bool | None
@@ -151,8 +132,6 @@ class TTFont:
                         false, retain the original font order. If None, reorder by table
                         dependency (fastest).
         """
-    def _save(self, file: BinaryIO, tableCache: MutableMapping[tuple[Tag, bytes], Any] | None = None) -> bool:
-        """Internal function, to be shared by save() and TTCollection.save()."""
     class XMLSavingOptions(TypedDict):
         writeVersion: bool
         quiet: bool | None
@@ -170,22 +149,18 @@ class TTFont:
         list of tables to dump. The 'skipTables' argument may be a list of tables
         to skip, but only when the 'tables' argument is false.
         """
-    def _saveXML(self, writer: xmlWriter.XMLWriter, writeVersion: bool = True, quiet: bool | None = None, tables: Sequence[str | bytes] | None = None, skipTables: Sequence[str] | None = None, splitTables: bool = False, splitGlyphs: bool = False, disassembleInstructions: bool = True, bitmapGlyphDataFormat: str = 'raw') -> None: ...
-    def _tableToXML(self, writer: xmlWriter.XMLWriter, tag: str | bytes, quiet: bool | None = None, splitGlyphs: bool = False) -> None: ...
     def importXML(self, fileOrPath: str | os.PathLike[str] | BinaryIO, quiet: bool | None = None) -> None:
         """Import a TTX file (an XML-based text format), so as to recreate
         a font object.
         """
     def isLoaded(self, tag: str | bytes) -> bool:
         """Return true if the table identified by ``tag`` has been
-        decompiled and loaded into memory.
-        """
+        decompiled and loaded into memory."""
     def has_key(self, tag: str | bytes) -> bool:
         """Test if the table identified by ``tag`` is present in the font.
 
         As well as this method, ``tag in font`` can also be used to determine the
-        presence of the table.
-        """
+        presence of the table."""
     __contains__ = has_key
     def keys(self) -> list[str]:
         """Returns the list of tables in the font, along with the ``GlyphOrder`` pseudo-table."""
@@ -200,8 +175,6 @@ class TTFont:
     def __getitem__(self, tag: Literal['CBLC']) -> C_B_L_C_.table_C_B_L_C_: ...
     @overload
     def __getitem__(self, tag: Literal['CFF']) -> C_F_F_.table_C_F_F_: ...
-    @overload
-    def __getitem__(self, tag: Literal['CFF ']) -> C_F_F_.table_C_F_F_: ...
     @overload
     def __getitem__(self, tag: Literal['CFF2']) -> C_F_F__2.table_C_F_F__2: ...
     @overload
@@ -368,7 +341,6 @@ class TTFont:
     def __getitem__(self, tag: Literal['GlyphOrder']) -> GlyphOrder: ...
     @overload
     def __getitem__(self, tag: str | bytes) -> DefaultTable | GlyphOrder: ...
-    def _readTable(self, tag: Tag) -> DefaultTable: ...
     def __setitem__(self, tag: str | bytes, table: DefaultTable) -> None: ...
     def __delitem__(self, tag: str | bytes) -> None: ...
     @overload
@@ -379,8 +351,6 @@ class TTFont:
     def get(self, tag: Literal['CBLC']) -> C_B_L_C_.table_C_B_L_C_ | None: ...
     @overload
     def get(self, tag: Literal['CFF']) -> C_F_F_.table_C_F_F_ | None: ...
-    @overload
-    def get(self, tag: Literal['CFF ']) -> C_F_F_.table_C_F_F_ | None: ...
     @overload
     def get(self, tag: Literal['CFF2']) -> C_F_F__2.table_C_F_F__2 | None: ...
     @overload
@@ -557,9 +527,6 @@ class TTFont:
         """
     def getGlyphOrder(self) -> list[str]:
         """Returns a list of glyph names ordered by their position in the font."""
-    def _getGlyphNamesFromCmap(self) -> None: ...
-    @staticmethod
-    def _makeGlyphName(codepoint: int) -> str: ...
     def getGlyphNames(self) -> list[str]:
         """Get a list of glyph names, sorted alphabetically."""
     def getGlyphNames2(self) -> list[str]:
@@ -580,9 +547,6 @@ class TTFont:
         """Converts a list of glyph names into a list of glyph IDs."""
     def getReverseGlyphMap(self, rebuild: bool = False) -> dict[str, int]:
         """Returns a mapping of glyph names to glyph IDs."""
-    def _buildReverseGlyphOrderDict(self) -> dict[str, int]: ...
-    def _writeTable(self, tag: str | bytes, writer: SFNTWriter, done: list[str | bytes], tableCache: MutableMapping[tuple[Tag, bytes], DefaultTable] | None = None) -> None:
-        """Internal helper function for self.save(). Keeps track of inter-table dependencies."""
     def getTableData(self, tag: str | bytes) -> bytes:
         """Returns the binary representation of a table.
 
@@ -624,7 +588,7 @@ class TTFont:
 
         Raises ``TTLibError`` if the font is not a variable font.
         """
-    def getBestCmap(self, cmapPreferences: Sequence[tuple[int, int]] = ...) -> dict[int, str] | None:
+    def getBestCmap(self, cmapPreferences: Sequence[tuple[int, int]] = ((3, 10), (0, 6), (0, 4), (3, 1), (0, 3), (0, 2), (0, 1), (0, 0))) -> dict[int, str] | None:
         """Returns the 'best' Unicode cmap dictionary available in the font
         or ``None``, if no Unicode cmap subtable is available.
 
@@ -653,7 +617,6 @@ class GlyphOrder:
     """A pseudo table. The glyph order isn't in the font as a separate
     table, but it's nice to present it as such in the TTX format.
     """
-
     def __init__(self, tag: str | None = None) -> None: ...
     def toXML(self, writer: xmlWriter.XMLWriter, ttFont: TTFont) -> None: ...
     glyphOrder: Incomplete
@@ -663,9 +626,6 @@ def getTableModule(tag: str | bytes) -> ModuleType | None:
     """Fetch the packer/unpacker module for a table.
     Return None when no module is found.
     """
-
-_customTableRegistry: dict[str | bytes, tuple[str, str]]
-
 def registerCustomTableClass(tag: str | bytes, moduleName: str, className: str | None = None) -> None:
     """Register a custom packer/unpacker class for a table.
 
@@ -686,24 +646,8 @@ def getTableClass(tag: str | bytes) -> type[DefaultTable]:
     """Fetch the packer/unpacker class for a table."""
 def getClassTag(klass: type[DefaultTable]) -> str | bytes:
     """Fetch the table tag for a class object."""
-@overload
-def newTable(tag: Literal['cmap']) -> _c_m_a_p.table__c_m_a_p: ...
-@overload
-def newTable(tag: Literal['glyf']) -> _g_l_y_f.table__g_l_y_f: ...
-@overload
-def newTable(tag: Literal['hmtx']) -> _h_m_t_x.table__h_m_t_x: ...
-@overload
-def newTable(tag: Literal['loca']) -> _l_o_c_a.table__l_o_c_a: ...
-@overload
-def newTable(tag: Literal['maxp']) -> _m_a_x_p.table__m_a_x_p: ...
-@overload
-def newTable(tag: Literal['post']) -> _p_o_s_t.table__p_o_s_t: ...
-@overload
-def newTable(tag: str | bytes) -> DefaultTable: ...
 def newTable(tag: str | bytes) -> DefaultTable:
     """Return a new instance of a table."""
-def _escapechar(c: str) -> str:
-    """Helper function for tagToIdentifier()"""
 def tagToIdentifier(tag: str | bytes) -> str:
     """Convert a table tag to a valid (but UGLY) python identifier,
     as well as a filename that's guaranteed to be unique even on a
@@ -724,7 +668,7 @@ def tagToIdentifier(tag: str | bytes) -> str:
         'O_S_2f_2'
     """
 def identifierToTag(ident: str) -> str:
-    """The opposite of tagToIdentifier()"""
+    """the opposite of tagToIdentifier()"""
 def tagToXML(tag: str | bytes) -> str:
     """Similarly to tagToIdentifier(), this converts a TT tag
     to a valid XML element name. Since XML element names are

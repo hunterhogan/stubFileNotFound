@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from fontTools.misc.roundTools import otRound as otRound
 from fontTools.misc.vector import Vector as _Vector
 
 def calcBounds(array):
@@ -8,8 +9,7 @@ def calcBounds(array):
     Args:
         array: A sequence of 2D tuples.
 
-    Returns
-    -------
+    Returns:
         A four-item tuple representing the bounding rectangle ``(xMin, yMin, xMax, yMax)``.
     """
 def calcIntBounds(array, round=...):
@@ -23,8 +23,7 @@ def calcIntBounds(array, round=...):
         array: A sequence of 2D tuples.
         round: A rounding function of type ``f(x: float) -> int``.
 
-    Returns
-    -------
+    Returns:
         A four-item tuple of integers representing the bounding rectangle:
         ``(xMin, yMin, xMax, yMax)``.
     """
@@ -37,8 +36,7 @@ def updateBounds(bounds, p, min=..., max=...):
         p: A 2D tuple representing a point.
         min,max: functions to compute the minimum and maximum.
 
-    Returns
-    -------
+    Returns:
         The updated bounding rectangle ``(xMin, yMin, xMax, yMax)``.
     """
 def pointInRect(p, rect):
@@ -49,8 +47,7 @@ def pointInRect(p, rect):
         rect: A bounding rectangle expressed as a tuple
             ``(xMin, yMin, xMax, yMax)``.
 
-    Returns
-    -------
+    Returns:
         ``True`` if the point is inside the rectangle, ``False`` otherwise.
     """
 def pointsInRect(array, rect):
@@ -61,8 +58,7 @@ def pointsInRect(array, rect):
         rect: A bounding rectangle expressed as a tuple
             ``(xMin, yMin, xMax, yMax)``.
 
-    Returns
-    -------
+    Returns:
         A list containing the points inside the rectangle.
     """
 def vectorLength(vector):
@@ -71,8 +67,7 @@ def vectorLength(vector):
     Args:
         vector: A 2D tuple.
 
-    Returns
-    -------
+    Returns:
         The Euclidean length of the vector.
     """
 def asInt16(array):
@@ -81,12 +76,11 @@ def asInt16(array):
     Args:
         array: List of float values.
 
-    Returns
-    -------
+    Returns:
         A list of rounded integers.
     """
 def normRect(rect):
-    """Normalize a bounding box rectangle.
+    '''Normalize a bounding box rectangle.
 
     This function "turns the rectangle the right way up", so that the following
     holds::
@@ -97,10 +91,9 @@ def normRect(rect):
         rect: A bounding rectangle expressed as a tuple
             ``(xMin, yMin, xMax, yMax)``.
 
-    Returns
-    -------
+    Returns:
         A normalized bounding rectangle.
-    """
+    '''
 def scaleRect(rect, x, y):
     """Scale a bounding box rectangle.
 
@@ -110,8 +103,7 @@ def scaleRect(rect, x, y):
         x: Factor to scale the rectangle along the X axis.
         Y: Factor to scale the rectangle along the Y axis.
 
-    Returns
-    -------
+    Returns:
         A scaled bounding rectangle.
     """
 def offsetRect(rect, dx, dy):
@@ -123,8 +115,7 @@ def offsetRect(rect, dx, dy):
         dx: Amount to offset the rectangle along the X axis.
         dY: Amount to offset the rectangle along the Y axis.
 
-    Returns
-    -------
+    Returns:
         An offset bounding rectangle.
     """
 def insetRect(rect, dx, dy):
@@ -136,8 +127,7 @@ def insetRect(rect, dx, dy):
         dx: Amount to inset the rectangle along the X axis.
         dY: Amount to inset the rectangle along the Y axis.
 
-    Returns
-    -------
+    Returns:
         An inset bounding rectangle.
     """
 def sectRect(rect1, rect2):
@@ -148,8 +138,7 @@ def sectRect(rect1, rect2):
             ``(xMin, yMin, xMax, yMax)``.
         rect2: Second bounding rectangle.
 
-    Returns
-    -------
+    Returns:
         A boolean and a rectangle.
         If the input rectangles intersect, returns ``True`` and the intersecting
         rectangle. Returns ``False`` and ``(0, 0, 0, 0)`` if the input
@@ -163,8 +152,7 @@ def unionRect(rect1, rect2):
             ``(xMin, yMin, xMax, yMax)``.
         rect2: Second bounding rectangle.
 
-    Returns
-    -------
+    Returns:
         The smallest rectangle in which both input rectangles are fully
         enclosed.
     """
@@ -175,8 +163,7 @@ def rectCenter(rect):
         rect: Bounding rectangle, expressed as tuples
             ``(xMin, yMin, xMax, yMax)``.
 
-    Returns
-    -------
+    Returns:
         A 2D tuple representing the point at the center of the rectangle.
     """
 def rectArea(rect):
@@ -186,8 +173,7 @@ def rectArea(rect):
         rect: Bounding rectangle, expressed as tuples
             ``(xMin, yMin, xMax, yMax)``.
 
-    Returns
-    -------
+    Returns:
         The area of the rectangle.
     """
 def intRect(rect):
@@ -199,8 +185,7 @@ def intRect(rect):
         rect: Bounding rectangle, expressed as tuples
             ``(xMin, yMin, xMax, yMax)``.
 
-    Returns
-    -------
+    Returns:
         A rounded bounding rectangle.
     """
 def quantizeRect(rect, factor: int = 1):
@@ -224,8 +209,7 @@ def pairwise(iterable, reverse: bool = False) -> Generator[Incomplete]:
         iterable: An iterable
         reverse: If true, iterate in reverse order.
 
-    Returns
-    -------
+    Returns:
         A iterable yielding two elements per iteration.
 
     Example:
@@ -250,58 +234,4 @@ def pairwise(iterable, reverse: bool = False) -> Generator[Incomplete]:
         (('a', 'b'), ('b', 'c'), ('c', 'd'), ('d', 'a'))
         >>> tuple(pairwise(['a', 'b', 'c', 'd'], reverse=True))
         (('d', 'c'), ('c', 'b'), ('b', 'a'), ('a', 'd'))
-    """
-def _test() -> None:
-    """
-    >>> import math
-    >>> calcBounds([])
-    (0, 0, 0, 0)
-    >>> calcBounds([(0, 40), (0, 100), (50, 50), (80, 10)])
-    (0, 10, 80, 100)
-    >>> updateBounds((0, 0, 0, 0), (100, 100))
-    (0, 0, 100, 100)
-    >>> pointInRect((50, 50), (0, 0, 100, 100))
-    True
-    >>> pointInRect((0, 0), (0, 0, 100, 100))
-    True
-    >>> pointInRect((100, 100), (0, 0, 100, 100))
-    True
-    >>> not pointInRect((101, 100), (0, 0, 100, 100))
-    True
-    >>> list(pointsInRect([(50, 50), (0, 0), (100, 100), (101, 100)], (0, 0, 100, 100)))
-    [True, True, True, False]
-    >>> vectorLength((3, 4))
-    5.0
-    >>> vectorLength((1, 1)) == math.sqrt(2)
-    True
-    >>> list(asInt16([0, 0.1, 0.5, 0.9]))
-    [0, 0, 1, 1]
-    >>> normRect((0, 10, 100, 200))
-    (0, 10, 100, 200)
-    >>> normRect((100, 200, 0, 10))
-    (0, 10, 100, 200)
-    >>> scaleRect((10, 20, 50, 150), 1.5, 2)
-    (15.0, 40, 75.0, 300)
-    >>> offsetRect((10, 20, 30, 40), 5, 6)
-    (15, 26, 35, 46)
-    >>> insetRect((10, 20, 50, 60), 5, 10)
-    (15, 30, 45, 50)
-    >>> insetRect((10, 20, 50, 60), -5, -10)
-    (5, 10, 55, 70)
-    >>> intersects, rect = sectRect((0, 10, 20, 30), (0, 40, 20, 50))
-    >>> not intersects
-    True
-    >>> intersects, rect = sectRect((0, 10, 20, 30), (5, 20, 35, 50))
-    >>> intersects
-    1
-    >>> rect
-    (5, 20, 20, 30)
-    >>> unionRect((0, 10, 20, 30), (0, 40, 20, 50))
-    (0, 10, 20, 50)
-    >>> rectCenter((0, 0, 100, 200))
-    (50.0, 100.0)
-    >>> rectCenter((0, 0, 100, 199.0))
-    (50.0, 99.5)
-    >>> intRect((0.9, 2.9, 3.1, 4.1))
-    (0, 2, 4, 5)
     """

@@ -1,6 +1,8 @@
+from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools.ttLib import TTFont
+from fontTools.misc import sstruct as sstruct
+from fontTools.misc.textTools import safeEval as safeEval
 
 Gloc_header: str
 
@@ -9,7 +11,6 @@ class table_G__l_o_c(DefaultTable.DefaultTable):
 
     See also https://graphite.sil.org/graphite_techAbout#graphite-font-tables
     """
-
     dependencies: Incomplete
     attribIds: Incomplete
     numAttribs: int

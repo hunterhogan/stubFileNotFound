@@ -1,5 +1,8 @@
-from _typeshed import Incomplete
 from fontTools.ttLib import TTFont
+from .sbixGlyph import Glyph as Glyph
+from _typeshed import Incomplete
+from fontTools.misc import sstruct as sstruct
+from fontTools.misc.textTools import safeEval as safeEval
 
 sbixStrikeHeaderFormat: str
 sbixGlyphDataOffsetFormat: str

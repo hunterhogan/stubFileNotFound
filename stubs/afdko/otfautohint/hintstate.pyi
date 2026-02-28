@@ -1,26 +1,35 @@
+from .glyphData import feq as feq
+from _typeshed import Incomplete
 from enum import Enum
-from typing import Any, Self
 
-"""
-Storage for intermediate state built by the hinter object
-"""
-log = ...
+log: Incomplete
+
 class hintSegment:
-    """Represents a hint "segment" (one side of a potential stem)"""
-
+    '''Represents a hint "segment" (one side of a potential stem)'''
     class sType(Enum):
-        LINE = ...
-        BEND = ...
-        CURVE = ...
-        LSBBOX = ...
-        USBBOX = ...
-        LGBBOX = ...
-        UGBBOX = ...
-        GHOST = ...
-
-
+        LINE = 1
+        BEND = 2
+        CURVE = 3
+        LSBBOX = 4
+        USBBOX = 5
+        LGBBOX = 6
+        UGBBOX = 7
+        GHOST = 8
+    loc: Incomplete
+    min: Incomplete
+    max: Incomplete
+    bonus: Incomplete
+    type: Incomplete
+    isV: Incomplete
+    isInc: Incomplete
+    desc: Incomplete
+    pe: Incomplete
+    hintval: Incomplete
+    replacedBy: Incomplete
+    deleted: bool
+    suppressed: bool
     def __init__(self, aloc, oMin, oMax, pe, typ, bonus, isV, isInc, desc) -> None:
-        """
+        '''
         Initializes the object
 
         self.loc is the segment location in the aligned dimension
@@ -45,91 +54,65 @@ class hintSegment:
 
         self.hintval, self.replacedBy, and self.deleted are state used
         by the hinter
-        """
-
-    def __eq__(self, other) -> bool:
-        ...
-
-    def __lt__(self, other) -> bool:
-        ...
-
-    def isBend(self):
-        ...
-
-    def isCurve(self):
-        ...
-
-    def isLine(self) -> bool:
-        ...
-
-    def isBBox(self) -> bool:
-        ...
-
-    def isGBBox(self) -> bool:
-        ...
-
-    def isUBBox(self) -> bool:
-        ...
-
-    def isGhost(self):
-        ...
-
-    def current(self, orig=...) -> Self:
+        '''
+    def __eq__(self, other): ...
+    def __lt__(self, other): ...
+    def isBend(self): ...
+    def isCurve(self): ...
+    def isLine(self): ...
+    def isBBox(self): ...
+    def isGBBox(self): ...
+    def isUBBox(self): ...
+    def isGhost(self): ...
+    def current(self, orig=None):
         """
         Returns the object corresponding to this object relative to
         self.replacedBy
         """
-
     def show(self, label) -> None:
         """Logs a debug message about the segment"""
 
-
-
 class stemValue:
     """Represents a potential hint stem"""
-
-    def __init__(self, lloc, uloc, val, spc, lseg, useg, isGhost=...) -> None:
-        ...
-
-    def __eq__(self, other) -> bool:
-        ...
-
-    def __lt__(self, other) -> bool:
+    val: Incomplete
+    spc: Incomplete
+    lloc: Incomplete
+    uloc: Incomplete
+    isGhost: Incomplete
+    pruned: bool
+    merge: bool
+    lseg: Incomplete
+    useg: Incomplete
+    best: Incomplete
+    initialVal: Incomplete
+    idx: Incomplete
+    def __init__(self, lloc, uloc, val, spc, lseg, useg, isGhost: bool = False) -> None: ...
+    def __eq__(self, other): ...
+    def __lt__(self, other):
         """Orders values by lower and then upper location"""
-
-    def ghosted(self) -> tuple[Any, Any]:
+    def ghosted(self):
         """Return the stem range but with ghost stems normalized"""
-
-    def compVal(self, spcFactor=..., ghostFactor=...) -> tuple[Any, Any]:
+    def compVal(self, spcFactor: int = 1, ghostFactor: int = 1):
         """Represent self.val and self.spc as a comparable 2-tuple"""
-
     def show(self, isV, typ) -> None:
         """Add a log message with the content of the object"""
 
-
-
 class pathElementHintState:
     """Stores the intermediate hint state of a pathElement"""
-
-    def __init__(self) -> None:
-        ...
-
+    s_segs: Incomplete
+    m_segs: Incomplete
+    e_segs: Incomplete
+    mask: Incomplete
+    def __init__(self) -> None: ...
     def cleanup(self) -> None:
         """Updates and deletes segments according to deleted and replacedBy"""
-
     def pruneHintSegs(self) -> None:
         """Deletes segments with no assigned hintval"""
-
-    def segments(self) -> list[Any]:
-        ...
-
-    def segLists(self, first=...) -> tuple[tuple[str, list[Any]], tuple[str, list[Any]], tuple[str, list[Any]]] | None:
-        ...
-
-
+    def segments(self): ...
+    def segLists(self, first=None): ...
 
 class glyphHintState:
-    """
+    '''
     Stores the intermediate hint state (for one dimension) of a glyphData
     object
 
@@ -144,8 +127,8 @@ class glyphHintState:
                 of value
     rejectValues: The set of stemValues - mainValues
     counterHinted: True if the glyph is counter hinted in this dimension
-    stems: stemValue stems represented in glyphData 'stem' object format
-    weights: weights corresponding to 'stems', for resolving conflicts
+    stems: stemValue stems represented in glyphData \'stem\' object format
+    weights: weights corresponding to \'stems\', for resolving conflicts
     keepHints: If true, keep already defined hints and masks in this dimension
                (XXX only partially implemented)
     hasOverlaps: True when some stemValues overlap
@@ -155,30 +138,39 @@ class glyphHintState:
                  array where ghostCompat[m][n] is True <=> n can substitute
                  for m (n has the same location on the relevant side)
     mainMask: glyphData hintmask-like representation of mainValues
-    """
-
-    def __init__(self) -> None:
-        ...
-
-    def getPEState(self, pe, make=...) -> pathElementHintState | None:
+    '''
+    peStates: Incomplete
+    overlapRemoved: Incomplete
+    increasingSegs: Incomplete
+    decreasingSegs: Incomplete
+    stemValues: Incomplete
+    mainValues: Incomplete
+    rejectValues: Incomplete
+    counterHinted: bool
+    stems: Incomplete
+    weights: Incomplete
+    keepHints: Incomplete
+    hasOverlaps: Incomplete
+    stemOverlaps: Incomplete
+    ghostCompat: Incomplete
+    goodMask: Incomplete
+    mainMask: Incomplete
+    def __init__(self) -> None: ...
+    def getPEState(self, pe, make: bool = False):
         """
         Returns the pathElementHintState object for pe, allocating the object
         if necessary
         """
-
     def addSegment(self, fr, to, loc, pe1, pe2, typ, bonus, isV, mid1, mid2, desc) -> None:
         """Adds a new segment associated with pathElements pe1 and pe2"""
-
     def compactList(self, l) -> None:
         """
         Compacts overlapping segments with the same location by picking
         one segment to represent the pair, adjusting its values, and
         removing the other segment
         """
-
     def compactLists(self) -> None:
         """Compacts both segment lists"""
-
     def remExtraBends(self) -> None:
         """
         Delete BEND segment x when there is another segment y:
@@ -188,60 +180,39 @@ class glyphHintState:
            3. that overlaps with x and
            4. is at least three times longer
         """
-
-    def deleteSegments(self) -> None:
-        ...
-
+    def deleteSegments(self) -> None: ...
     def cleanup(self) -> None:
         """Runs cleanup on all pathElementHintState objects"""
-
     def pruneHintSegs(self) -> None:
         """Runs pruneHintSegs on all pathElementHintState objects"""
 
-
-
 class stemLocCandidate:
-    strongMultiplier = ...
-    bandMultiplier = ...
-    def __init__(self, loc) -> None:
-        ...
-
-    def addScore(self, score, strong) -> None:
-        ...
-
-    def weight(self, inBand) -> float:
-        ...
-
-    def isStrong(self) -> bool:
-        ...
-
-    def isMixed(self) -> bool:
-        ...
-
-    def __eq__(self, other) -> bool:
-        ...
-
-    def __lt__(self, other) -> bool:
-        ...
-
-
+    strongMultiplier: float
+    bandMultiplier: float
+    loc: Incomplete
+    strong: int
+    weak: int
+    def __init__(self, loc) -> None: ...
+    def addScore(self, score, strong) -> None: ...
+    def weight(self, inBand): ...
+    def isStrong(self): ...
+    def isMixed(self): ...
+    def __eq__(self, other): ...
+    def __lt__(self, other): ...
 
 class instanceStemState:
     """
     State for the process of deciding on the lower and upper locations
     for a particular region stem.
     """
-
-    def __init__(self, loc, dhinter) -> None:
-        ...
-
-    def addToLoc(self, loc, score, strong=..., bb=..., seg=...) -> None:
-        ...
-
-    def bestLocation(self, isBottom) -> None:
-        ...
-
-
+    defaultLoc: Incomplete
+    dhinter: Incomplete
+    candDict: Incomplete
+    usedSegs: Incomplete
+    bb: Incomplete
+    def __init__(self, loc, dhinter) -> None: ...
+    def addToLoc(self, loc, score, strong: bool = False, bb: bool = False, seg=None) -> None: ...
+    def bestLocation(self, isBottom): ...
 
 class links:
     """
@@ -252,29 +223,24 @@ class links:
     links: A cnt x cnt array of integers modified by mark
            (Values only 0 or 1 but kept as ints for later arithmetic)
     """
-
-    def __init__(self, glyph) -> None:
-        ...
-
+    cnt: int
+    links: Incomplete
+    def __init__(self, glyph) -> None: ...
     def logLinks(self) -> None:
         """Prints a log message representing links"""
-
     def logShort(self, shrt, lab) -> None:
         """Prints a log message representing (1-d) shrt"""
-
     def mark(self, stemValues, isV) -> None:
         """
         For each stemValue in hntr, set links[m][n] and links[n][m] to 1
         if one side of a stem is in m and the other is in n
         """
-
     def moveIdx(self, suborder, subidxs, outlinks, idx) -> None:
         """
         Move value idx from subidxs to the end of suborder and update
         outlinks to record all links shared with idx
         """
-
-    def shuffle(self) -> list[Any] | None:
+    def shuffle(self):
         """
         Returns suborder list with all subpath indexes in decreasing
         order of links shared with previous subpath. (The first subpath

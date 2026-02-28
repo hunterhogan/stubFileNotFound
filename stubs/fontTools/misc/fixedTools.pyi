@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 
-__all__ = ['MAX_F2DOT14', 'ensureVersionIsLong', 'fixedToFloat', 'fixedToStr', 'floatToFixed', 'floatToFixedToFloat', 'floatToFixedToStr', 'strToFixed', 'strToFixedToFloat', 'versionToFixed']
+__all__ = ['MAX_F2DOT14', 'fixedToFloat', 'floatToFixed', 'floatToFixedToFloat', 'floatToFixedToStr', 'fixedToStr', 'strToFixed', 'strToFixedToFloat', 'ensureVersionIsLong', 'versionToFixed']
 
 MAX_F2DOT14: Incomplete
 
@@ -12,8 +12,7 @@ def fixedToFloat(value: float, precisionBits: int) -> float:
             value (int): Number in fixed-point format.
             precisionBits (int): Number of precision bits.
 
-    Returns
-    -------
+    Returns:
             Floating point value.
 
     Examples::
@@ -31,8 +30,7 @@ def floatToFixed(value, precisionBits):
             value (float): Floating point value.
             precisionBits (int): Number of precision bits.
 
-    Returns
-    -------
+    Returns:
             int: Fixed-point representation.
 
     Examples::
@@ -55,8 +53,7 @@ def floatToFixedToFloat(value, precisionBits):
             value (float): The input floating point value.
             precisionBits (int): Number of precision bits.
 
-    Returns
-    -------
+    Returns:
             float: The transformed and rounded value.
 
     Examples::
@@ -89,8 +86,7 @@ def fixedToStr(value, precisionBits):
             value (int): The fixed-point value to convert.
             precisionBits (int): Number of precision bits, *up to a maximum of 16*.
 
-    Returns
-    -------
+    Returns:
             str: A string representation of the value.
     """
 def strToFixed(string, precisionBits):
@@ -100,8 +96,7 @@ def strToFixed(string, precisionBits):
             string (str): A string representing a decimal float.
             precisionBits (int): Number of precision bits, *up to a maximum of 16*.
 
-    Returns
-    -------
+    Returns:
             int: Fixed-point representation.
 
     Examples::
@@ -123,8 +118,7 @@ def strToFixedToFloat(string, precisionBits):
             string (str): A string representing a decimal float.
             precisionBits (int): Number of precision bits.
 
-    Returns
-    -------
+    Returns:
             float: The transformed and rounded value.
 
     Examples::
@@ -153,8 +147,7 @@ def floatToFixedToStr(value, precisionBits):
             value (float): The float value to convert.
             precisionBits (int): Number of precision bits, *up to a maximum of 16*.
 
-    Returns
-    -------
+    Returns:
             str: A string representation of the value.
 
     """
@@ -170,8 +163,7 @@ def ensureVersionIsLong(value):
     Args:
             value (Number): a candidate table version number.
 
-    Returns
-    -------
+    Returns:
             int: A table version number, possibly corrected to fixed-point.
     """
 def versionToFixed(value):
@@ -180,7 +172,6 @@ def versionToFixed(value):
     Args:
             value (str): a candidate table version number.
 
-    Returns
-    -------
+    Returns:
             int: A table version number, possibly corrected to fixed-point.
     """

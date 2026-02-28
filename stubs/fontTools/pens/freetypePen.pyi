@@ -9,7 +9,7 @@ class Contour(NamedTuple):
     tags: Incomplete
 
 class FreeTypePen(BasePen):
-    """Pen to rasterize paths with FreeType. Requires `freetype-py` module.
+    '''Pen to rasterize paths with FreeType. Requires `freetype-py` module.
 
     Constructs ``FT_Outline`` from the paths, and renders it within a bitmap
     buffer.
@@ -22,8 +22,7 @@ class FreeTypePen(BasePen):
         glyphSet: a dictionary of drawable glyph objects keyed by name
             used to resolve component references in composite glyphs.
 
-    Examples
-    --------
+    Examples:
         If `numpy` and `matplotlib` is available, the following code will
         show the glyph image of `fi` in a new window::
 
@@ -84,8 +83,7 @@ class FreeTypePen(BasePen):
 
         For Jupyter Notebook, the rendered image will be displayed in a cell if
         you replace ``show()`` with ``image()`` in the examples.
-    """
-
+    '''
     contours: Incomplete
     def __init__(self, glyphSet) -> None: ...
     def outline(self, transform=None, evenOdd: bool = False):
@@ -113,14 +111,12 @@ class FreeTypePen(BasePen):
                 rendering glyphs with negative sidebearings without clipping.
             evenOdd: Pass ``True`` for even-odd fill instead of non-zero.
 
-        Returns
-        -------
+        Returns:
             A tuple of ``(buffer, size)``, where ``buffer`` is a ``bytes``
             object of the resulted bitmap and ``size`` is a 2-tuple of its
             dimension.
 
-        Notes
-        -----
+        Notes:
             The image size should always be given explicitly if you need to get
             a proper glyph image. When ``width`` and ``height`` are omitted, it
             forcifully fits to the bounding box and the side bearings get
@@ -156,13 +152,11 @@ class FreeTypePen(BasePen):
                 rendering glyphs with negative sidebearings without clipping.
             evenOdd: Pass ``True`` for even-odd fill instead of non-zero.
 
-        Returns
-        -------
+        Returns:
             A ``numpy.ndarray`` object with a shape of ``(height, width)``.
             Each element takes a value in the range of ``[0.0, 1.0]``.
 
-        Notes
-        -----
+        Notes:
             The image size should always be given explicitly if you need to get
             a proper glyph image. When ``width`` and ``height`` are omitted, it
             forcifully fits to the bounding box and the side bearings get
@@ -199,8 +193,7 @@ class FreeTypePen(BasePen):
                 rendering glyphs with negative sidebearings without clipping.
             evenOdd: Pass ``True`` for even-odd fill instead of non-zero.
 
-        Notes
-        -----
+        Notes:
             The image size should always be given explicitly if you need to get
             a proper glyph image. When ``width`` and ``height`` are omitted, it
             forcifully fits to the bounding box and the side bearings get
@@ -235,13 +228,11 @@ class FreeTypePen(BasePen):
                 rendering glyphs with negative sidebearings without clipping.
             evenOdd: Pass ``True`` for even-odd fill instead of non-zero.
 
-        Returns
-        -------
+        Returns:
             A ``PIL.image`` object. The image is filled in black with alpha
             channel obtained from the rendered bitmap.
 
-        Notes
-        -----
+        Notes:
             The image size should always be given explicitly if you need to get
             a proper glyph image. When ``width`` and ``height`` are omitted, it
             forcifully fits to the bounding box and the side bearings get
@@ -265,19 +256,13 @@ class FreeTypePen(BasePen):
     def bbox(self):
         """Computes the exact bounding box of an outline.
 
-        Returns
-        -------
+        Returns:
             A tuple of ``(xMin, yMin, xMax, yMax)``.
         """
     @property
     def cbox(self):
         """Returns an outline's ‘control box’.
 
-        Returns
-        -------
+        Returns:
             A tuple of ``(xMin, yMin, xMax, yMax)``.
         """
-    def _moveTo(self, pt) -> None: ...
-    def _lineTo(self, pt) -> None: ...
-    def _curveToOne(self, p1, p2, p3) -> None: ...
-    def _qCurveToOne(self, p1, p2) -> None: ...

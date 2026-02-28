@@ -1,7 +1,9 @@
 from _typeshed import Incomplete
 from fontTools.merge.options import Options as Options
+from fontTools.ttLib import TTFont
+from ufoLib2.typing import PathLike
 
-__all__ = ['Merger', 'Options', 'main']
+__all__ = ['Options', 'Merger', 'main']
 
 class Merger:
     """Font merger.
@@ -27,30 +29,24 @@ class Merger:
     - If duplicate glyph disambiguation takes place as described above then the
       fonts must have a ``GSUB`` table.
 
-    Attributes
-    ----------
+    Attributes:
             options: Currently unused.
     """
-
-    options: Incomplete
-    def __init__(self, options=None) -> None: ...
-    def _openFonts(self, fontfiles): ...
+    options: Options
+    def __init__(self, options: Options | None = None) -> None: ...
     duplicateGlyphsPerFont: Incomplete
-    fonts: Incomplete
-    def merge(self, fontfiles):
+    fonts: list[TTFont]
+    def merge(self, fontfiles: list[PathLike]) -> TTFont:
         """Merges fonts together.
 
         Args:
                 fontfiles: A list of file names to be merged
 
-        Returns
-        -------
+        Returns:
                 A :class:`fontTools.ttLib.TTFont` object. Call the ``save`` method on
                 this to write it out to an OTF file.
         """
     def mergeObjects(self, returnTable, logic, tables): ...
-    def _preMerge(self, font) -> None: ...
-    def _postMerge(self, font) -> None: ...
 
 def main(args=None):
     """Merge multiple fonts into one"""

@@ -34,14 +34,3 @@ class TFMException(Exception):
 
 class TFM:
     def __init__(self, file) -> None: ...
-    _data: Incomplete
-    extraheader: Incomplete
-    face: Incomplete
-    fonttype: Incomplete
-    fontdimens: Incomplete
-    right_boundary_char: Incomplete
-    left_boundary_char: Incomplete
-    chars: Incomplete
-    ligatures: Incomplete
-    kerning: Incomplete
-    def _read(self, file): ...

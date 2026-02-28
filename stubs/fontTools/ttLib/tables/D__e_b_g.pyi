@@ -1,6 +1,7 @@
+from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools.ttLib import TTFont
+from fontTools.misc.textTools import tostr as tostr
 
 class table_D__e_b_g(DefaultTable.DefaultTable):
     data: Incomplete

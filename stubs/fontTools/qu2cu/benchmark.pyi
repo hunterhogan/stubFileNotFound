@@ -1,3 +1,5 @@
+from .qu2cu import *
+from fontTools.cu2qu import curve_to_quadratic as curve_to_quadratic
 
 MAX_ERR: float
 NUM_CURVES: int

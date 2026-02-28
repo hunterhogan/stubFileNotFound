@@ -108,5 +108,5 @@ class BaseInterpolatableCompiler(BaseCompiler):
     def compile_all_variable_features(self, designSpaceDoc, vfNameToTTFont, originalSources, originalGlyphsets, debugFeatureFile=...): # -> None:
         ...
 
-    def compile_variable_features(self, designSpaceDoc, ttFont, glyphSet): # -> None:
+    def compile_variable_features(self, designSpaceDoc, ttFont: TTFont, glyphSet): # -> None:
         ...

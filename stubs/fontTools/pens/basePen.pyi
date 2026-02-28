@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from fontTools.misc.loggingTools import LogMixin
 from fontTools.misc.transform import DecomposedTransform
 
-__all__ = ['AbstractPen', 'BasePen', 'NullPen', 'PenError', 'decomposeQuadraticSegment', 'decomposeSuperBezierSegment']
+__all__ = ['AbstractPen', 'NullPen', 'BasePen', 'PenError', 'decomposeSuperBezierSegment', 'decomposeQuadraticSegment']
 
 class PenError(Exception):
     """Represents an error during penning."""
@@ -16,7 +16,7 @@ class AbstractPen:
     def lineTo(self, pt: tuple[float, float]) -> None:
         """Draw a straight line from the current point to 'pt'."""
     def curveTo(self, *points: tuple[float, float]) -> None:
-        """Draw a cubic bezier with an arbitrary number of control points.
+        '''Draw a cubic bezier with an arbitrary number of control points.
 
         The last point specified is on-curve, all others are off-curve
         (control) points. If the number of control points is > 2, the
@@ -33,7 +33,7 @@ class AbstractPen:
         The conversion algorithm used for n>2 is inspired by NURB
         splines, and is conceptually equivalent to the TrueType "implied
         points" principle. See also decomposeQuadraticSegment().
-        """
+        '''
     def qCurveTo(self, *points: tuple[float, float]) -> None:
         """Draw a whole string of quadratic curve segments.
 
@@ -72,7 +72,6 @@ class AbstractPen:
 
 class NullPen(AbstractPen):
     """A pen that does nothing."""
-
     def moveTo(self, pt) -> None: ...
     def lineTo(self, pt) -> None: ...
     def curveTo(self, *points) -> None: ...
@@ -100,7 +99,6 @@ class DecomposingPen(LoggingPen):
     all instances of a sub-class to raise a :class:`MissingComponentError`
     exception by default.
     """
-
     skipMissingComponents: bool
     MissingComponentError = MissingComponentError
     glyphSet: Incomplete
@@ -126,23 +124,7 @@ class BasePen(DecomposingPen):
     addComponent, addVarComponent, and/or _qCurveToOne. You should not
     override any other methods.
     """
-
-    __currentPoint: Incomplete
     def __init__(self, glyphSet=None) -> None: ...
-    def _moveTo(self, pt) -> None: ...
-    def _lineTo(self, pt) -> None: ...
-    def _curveToOne(self, pt1, pt2, pt3) -> None: ...
-    def _closePath(self) -> None: ...
-    def _endPath(self) -> None: ...
-    def _qCurveToOne(self, pt1, pt2) -> None:
-        """This method implements the basic quadratic curve type. The
-        default implementation delegates the work to the cubic curve
-        function. Optionally override with a native implementation.
-        """
-    def _getCurrentPoint(self):
-        """Return the current point. This is not part of the public
-        interface, yet is useful for subclasses.
-        """
     def closePath(self) -> None: ...
     def endPath(self) -> None: ...
     def moveTo(self, pt) -> None: ...
@@ -161,7 +143,7 @@ def decomposeSuperBezierSegment(points):
     specify a regular curveto-style bezier segment.
     """
 def decomposeQuadraticSegment(points):
-    """Split the quadratic curve segment described by \'points\' into a list
+    '''Split the quadratic curve segment described by \'points\' into a list
     of "atomic" quadratic segments. The \'points\' argument must be a sequence
     with length 2 or greater, containing (x, y) coordinates. The last point
     is the destination on-curve point, the rest of the points are off-curve
@@ -169,12 +151,7 @@ def decomposeQuadraticSegment(points):
 
     This function returns a list of (pt1, pt2) tuples, which each specify a
     plain quadratic bezier segment.
-    """
+    '''
 
 class _TestPen(BasePen):
     """Test class that prints PostScript to stdout."""
-
-    def _moveTo(self, pt) -> None: ...
-    def _lineTo(self, pt) -> None: ...
-    def _curveToOne(self, bcp1, bcp2, pt) -> None: ...
-    def _closePath(self) -> None: ...

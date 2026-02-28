@@ -266,6 +266,7 @@ flushconfig
 flushslots
 fmma
 fmms
+fontfiles
 fontmake
 fontsize
 fonttools
@@ -428,6 +429,7 @@ loadchunk
 LOADCHUNK
 loadfields
 loca
+locl
 loglog
 logx
 longcomplex
@@ -570,6 +572,8 @@ optval
 otfs
 outputformat
 packagename
+parenleft
+parenright
 parfors
 partialled
 Patashnik

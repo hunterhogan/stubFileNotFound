@@ -1,8 +1,14 @@
+from .interpolatableHelpers import *
+from .interpolatableTestContourOrder import test_contour_order as test_contour_order
+from .interpolatableTestStartingPoint import test_starting_point as test_starting_point
 from _typeshed import Incomplete
 from collections.abc import Generator
-from fontTools.pens.recordingPen import (
-	DecomposingRecordingPen as DecomposingRecordingPen, lerpRecordings as lerpRecordings, RecordingPen as RecordingPen)
+from fontTools.misc.fixedTools import floatToFixedToStr as floatToFixedToStr
+from fontTools.misc.transform import Transform as Transform
+from fontTools.pens.momentsPen import OpenContourError as OpenContourError
+from fontTools.pens.recordingPen import DecomposingRecordingPen as DecomposingRecordingPen, RecordingPen as RecordingPen, lerpRecordings as lerpRecordings
 from fontTools.pens.statisticsPen import StatisticsControlPen as StatisticsControlPen, StatisticsPen as StatisticsPen
+from fontTools.pens.transformPen import TransformPen as TransformPen
 from fontTools.varLib.models import normalizeLocation as normalizeLocation, piecewiseLinearMap as piecewiseLinearMap
 from math import atan2 as atan2, pi as pi
 
@@ -16,10 +22,6 @@ class Glyph:
     ITEMS: Incomplete
     name: Incomplete
     def __init__(self, glyphname, glyphset) -> None: ...
-    def _fill_in(self, ix) -> None: ...
-    doesnt_exist: Incomplete
-    recordings: Incomplete
-    def _populate(self, glyphset) -> None: ...
     def draw(self, pen, countor_idx=None) -> None: ...
 
 def test_gen(glyphsets, glyphs=None, names=None, ignore_missing: bool = False, *, locations=None, tolerance=..., kinkiness=..., upem=..., show_all: bool = False, discrete_axes=[]) -> Generator[Incomplete, None, Incomplete]: ...

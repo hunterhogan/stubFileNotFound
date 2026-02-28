@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import KeysView
+from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import Tag as Tag
 from fontTools.ttLib import TTLibError as TTLibError, TTLibFileIsCollectionError as TTLibFileIsCollectionError
 
@@ -26,8 +27,6 @@ class SFNTReader:
         """Fetch the raw table data."""
     def __delitem__(self, tag: str | bytes) -> None: ...
     def close(self) -> None: ...
-    def __getstate__(self): ...
-    def __setstate__(self, state) -> None: ...
 
 ZLIB_COMPRESSION_LEVEL: int
 USE_ZOPFLI: bool
@@ -79,7 +78,6 @@ class SFNTWriter:
         """All tables must have been written to disk. Now write the
         directory.
         """
-    def _calcMasterChecksum(self, directory): ...
     def writeMasterChecksum(self, directory) -> None: ...
     def reordersTables(self): ...
 
@@ -127,10 +125,9 @@ class WOFFFlavorData:
     metaData: Incomplete
     privData: Incomplete
     def __init__(self, reader=None) -> None: ...
-    def _decompress(self, rawData): ...
 
 def calcChecksum(data):
-    """Calculate the checksum for an arbitrary block of data.
+    '''Calculate the checksum for an arbitrary block of data.
 
     If the data length is not a multiple of four, it assumes
     it is to be padded with null byte.
@@ -139,6 +136,6 @@ def calcChecksum(data):
             1633837924
             >>> print(calcChecksum(b"abcdxyz"))
             3655064932
-    """
+    '''
 def readTTCHeader(file): ...
 def writeTTCHeader(file, numFonts): ...

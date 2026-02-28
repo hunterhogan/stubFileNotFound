@@ -1,32 +1,21 @@
 from _typeshed import Incomplete
+from collections import defaultdict as defaultdict
+from fontTools.misc.intTools import bit_count as bit_count
+from fontTools.misc.iterTools import batched as batched
 from fontTools.misc.roundTools import noRound as noRound, otRound as otRound
-from fontTools.varLib.builder import (
-	buildMultiVarData as buildMultiVarData, buildMultiVarStore as buildMultiVarStore,
-	buildSparseVarRegion as buildSparseVarRegion, buildSparseVarRegionList as buildSparseVarRegionList,
-	buildVarRegionList as buildVarRegionList)
+from fontTools.misc.vector import Vector as Vector
+from fontTools.varLib.builder import buildMultiVarData as buildMultiVarData, buildMultiVarStore as buildMultiVarStore, buildSparseVarRegion as buildSparseVarRegion, buildSparseVarRegionList as buildSparseVarRegionList, buildVarRegionList as buildVarRegionList
+from fontTools.varLib.models import supportScalar as supportScalar
+from functools import partial as partial
 from heapq import heappop as heappop, heappush as heappush
 
 NO_VARIATION_INDEX: Incomplete
 
-def _getLocationKey(loc): ...
-
 class OnlineMultiVarStoreBuilder:
-    _axisTags: Incomplete
-    _regionMap: Incomplete
-    _regionList: Incomplete
-    _store: Incomplete
-    _data: Incomplete
-    _model: Incomplete
-    _supports: Incomplete
-    _varDataIndices: Incomplete
-    _varDataCaches: Incomplete
-    _cache: Incomplete
     def __init__(self, axisTags) -> None: ...
     def setModel(self, model) -> None: ...
     def setSupports(self, supports) -> None: ...
     def finish(self): ...
-    _outer: Incomplete
-    def _add_MultiVarData(self) -> None: ...
     def storeMasters(self, master_values, *, round=...): ...
     def storeDeltas(self, deltas, *, round=...): ...
 
@@ -36,14 +25,9 @@ def MultiVarStore___bool__(self): ...
 
 class MultiVarStoreInstancer:
     fvar_axes: Incomplete
-    _varData: Incomplete
-    _regions: Incomplete
     def __init__(self, multivarstore, fvar_axes, location={}) -> None: ...
     location: Incomplete
     def setLocation(self, location) -> None: ...
-    _scalars: Incomplete
-    def _clearCaches(self) -> None: ...
-    def _getScalar(self, regionIdx): ...
     @staticmethod
     def interpolateFromDeltasAndScalars(deltas, scalars): ...
     def __getitem__(self, varidx): ...

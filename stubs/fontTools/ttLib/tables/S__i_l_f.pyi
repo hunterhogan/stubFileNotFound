@@ -1,7 +1,9 @@
+from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable, grUtils as grUtils
 from _typeshed import Incomplete
+from fontTools.misc import sstruct as sstruct
+from fontTools.misc.fixedTools import floatToFixedToStr as floatToFixedToStr
 from fontTools.misc.textTools import byteord as byteord, safeEval as safeEval
-from fontTools.ttLib import TTFont
 
 Silf_hdr_format: str
 Silf_hdr_format_3: str
@@ -45,7 +47,6 @@ class table_S__i_l_f(DefaultTable.DefaultTable):
 
     See also https://graphite.sil.org/graphite_techAbout#graphite-font-tables
     """
-
     silfs: Incomplete
     def __init__(self, tag=None) -> None: ...
     version: Incomplete
@@ -59,7 +60,6 @@ class table_S__i_l_f(DefaultTable.DefaultTable):
 
 class Silf:
     """A particular Silf subtable"""
-
     passes: Incomplete
     scriptTags: Incomplete
     critFeatures: Incomplete

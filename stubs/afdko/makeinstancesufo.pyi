@@ -1,18 +1,14 @@
-from argparse import Namespace
-from typing import Any, Literal
+from _typeshed import Incomplete
+from afdko.fdkutils import validate_path as validate_path
+from afdko.ufotools import validateLayers as validateLayers
 
-"""
-Generates UFO font instances from a set of source UFO fonts
-using either MutatorMath or the fontTools varLib library.
-The paths to the source and instance fonts are specified in
-the .designspace file.
-"""
-__version__ = ...
-logger = ...
-DFLT_DESIGNSPACE_FILENAME = ...
-TEMP_DESIGNSPACE_FILENAME = ...
-FEATURES_FILENAME = ...
-def filterDesignspaceInstances(dsDoc, options) -> str:
+__version__: str
+logger: Incomplete
+DFLT_DESIGNSPACE_FILENAME: str
+TEMP_DESIGNSPACE_FILENAME: str
+FEATURES_FILENAME: str
+
+def filterDesignspaceInstances(dsDoc, options):
     """
     - Filter unwanted instances out of dsDoc as specified by -i option
       (options.indexList), which has already been validated.
@@ -22,15 +18,11 @@ def filterDesignspaceInstances(dsDoc, options) -> str:
     - Write the modified doc to a proper temp file
     - Return the path to the temp DS file.
     """
-
 def updateInstance(fontInstancePath, options) -> None:
     """
     Run checkoutlinesufo and otfautohint, unless explicitly suppressed.
     """
-
-def clearCustomLibs(dFont) -> None:
-    ...
-
+def clearCustomLibs(dFont) -> None: ...
 def roundSelectedFontInfo(fontInfo) -> None:
     """
     'roundGeometry' is false, however, most FontInfo values have to be
@@ -48,19 +40,10 @@ def roundSelectedFontInfo(fontInfo) -> None:
     cumulative rounding errors. Other FontInfo float values are stored as
     Fixed number with 16 bits, and can support 6 decimal places.
     """
-
-def roundPostscriptBlueScale(fontInfo) -> None:
-    ...
-
-def roundGlyphWidths(dFont) -> None:
-    ...
-
-def roundKerningValues(dFont) -> None:
-    ...
-
-def postProcessInstance(fontPath, options) -> None:
-    ...
-
+def roundPostscriptBlueScale(fontInfo) -> None: ...
+def roundGlyphWidths(dFont) -> None: ...
+def roundKerningValues(dFont) -> None: ...
+def postProcessInstance(fontPath, options) -> None: ...
 def validateDesignspaceDoc(dsDoc, dsoptions, **kwArgs) -> None:
     """
     Validate the dsDoc DesignSpaceDocument object, using supplied dsoptions
@@ -68,27 +51,13 @@ def validateDesignspaceDoc(dsDoc, dsoptions, **kwArgs) -> None:
     are above and beyond the basic validations in fontTools.designspaceLib
     and are specific to makeinstancesufo.
     """
-
-def collect_features_content(instances, inst_idx_lst) -> dict[Any, Any]:
+def collect_features_content(instances, inst_idx_lst):
     """
     Returns a dictionary whose keys are 'features.fea' file paths, and the
     values are the contents of the corresponding file.
     """
-
-def starmap_kwargs(pool, fun, args, kwargs):
-    ...
-
-def fun_args_and_kwargs(fun, args, kwargs):
-    ...
-
-def run(options) -> None:
-    ...
-
-def get_options(args) -> Namespace:
-    ...
-
-def main(args=...) -> Literal[1] | None:
-    ...
-
-if __name__ == "__main__":
-    ...
+def starmap_kwargs(pool, fun, args, kwargs): ...
+def fun_args_and_kwargs(fun, args, kwargs): ...
+def run(options) -> None: ...
+def get_options(args): ...
+def main(args=None): ...

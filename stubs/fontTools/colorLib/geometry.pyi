@@ -1,13 +1,5 @@
 from _typeshed import Incomplete
-
-def _vector_between(origin, target): ...
-def _round_point(pt): ...
-def _unit_vector(vec): ...
-
-_CIRCLE_INSIDE_TOLERANCE: float
-_UNIT_VECTOR_THRESHOLD: Incomplete
-
-def _rounding_offset(direction): ...
+from fontTools.misc.roundTools import otRound as otRound
 
 class Circle:
     centre: Incomplete

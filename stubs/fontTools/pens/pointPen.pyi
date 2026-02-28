@@ -3,15 +3,15 @@ from fontTools.misc.enumTools import StrEnum
 from fontTools.misc.loggingTools import LogMixin
 from fontTools.misc.transform import DecomposedTransform
 from fontTools.pens.basePen import AbstractPen, MissingComponentError
-from typing import Any, TypeAlias
+from typing import Any
 
-__all__ = ['AbstractPointPen', 'BasePointToSegmentPen', 'GuessSmoothPointPen', 'PointToSegmentPen', 'ReverseContourPointPen', 'ReverseFlipped', 'SegmentToPointPen']
+__all__ = ['AbstractPointPen', 'BasePointToSegmentPen', 'PointToSegmentPen', 'SegmentToPointPen', 'GuessSmoothPointPen', 'ReverseContourPointPen', 'ReverseFlipped']
 
-Point: TypeAlias = tuple[float, float]
-PointName: TypeAlias = str | None
-SegmentPointList: TypeAlias = list[tuple[Point | None, bool, PointName, Any]]
-SegmentType: TypeAlias = str | None
-SegmentList: TypeAlias = list[tuple[SegmentType, SegmentPointList]]
+Point = tuple[float, float]
+PointName = str | None
+SegmentPointList = list[tuple[Point | None, bool, PointName, Any]]
+SegmentType = str | None
+SegmentList = list[tuple[SegmentType, SegmentPointList]]
 
 class ReverseFlipped(StrEnum):
     """How to handle flipped components during decomposition.
@@ -20,14 +20,12 @@ class ReverseFlipped(StrEnum):
     KEEP_START: Reverse flipped components, keeping original starting point
     ON_CURVE_FIRST: Reverse flipped components, ensuring first point is on-curve
     """
-
     NO = 'no'
     KEEP_START = 'keep_start'
     ON_CURVE_FIRST = 'on_curve_first'
 
 class AbstractPointPen:
     """Baseclass for all PointPens."""
-
     def beginPath(self, identifier: str | None = None, **kwargs: Any) -> None:
         """Start a new sub path."""
     def endPath(self) -> None:
@@ -51,36 +49,9 @@ class BasePointToSegmentPen(AbstractPointPen):
     as points, do use this base implementation as it properly takes
     care of all the edge cases.
     """
-
     currentPath: Incomplete
     def __init__(self) -> None: ...
     def beginPath(self, identifier=None, **kwargs) -> None: ...
-    def _flushContour(self, segments: SegmentList) -> None:
-        """Override this method.
-
-        It will be called for each non-empty sub path with a list
-        of segments: the \'segments\' argument.
-
-        The segments list contains tuples of length 2:
-                (segmentType, points)
-
-        segmentType is one of "move", "line", "curve" or "qcurve".
-        "move" may only occur as the first segment, and it signifies
-        an OPEN path. A CLOSED path does NOT start with a "move", in
-        fact it will not contain a "move" at ALL.
-
-        The \'points\' field in the 2-tuple is a list of point info
-        tuples. The list has 1 or more items, a point tuple has
-        four items:
-                (point, smooth, name, kwargs)
-        \'point\' is an (x, y) coordinate pair.
-
-        For a closed path, the initial moveTo point is defined as
-        the last point of the last segment.
-
-        The \'points\' list of "move" and "line" segments always contains
-        exactly one point tuple.
-        """
     def endPath(self) -> None: ...
     def addPoint(self, pt, segmentType=None, smooth: bool = False, name=None, identifier=None, **kwargs) -> None: ...
 
@@ -92,11 +63,9 @@ class PointToSegmentPen(BasePointToSegmentPen):
     NOTE: The segment pen does not support and will drop point names, identifiers
     and kwargs.
     """
-
     pen: Incomplete
     outputImpliedClosingLine: Incomplete
     def __init__(self, segmentPen, outputImpliedClosingLine: bool = False) -> None: ...
-    def _flushContour(self, segments) -> None: ...
     def addComponent(self, glyphName, transform, identifier=None, **kwargs) -> None: ...
 
 class SegmentToPointPen(AbstractPen):
@@ -104,11 +73,9 @@ class SegmentToPointPen(AbstractPen):
     Adapter class that converts the (Segment)Pen protocol to the
     PointPen protocol.
     """
-
     pen: Incomplete
     contour: list[tuple[Point, SegmentType]] | None
     def __init__(self, pointPen, guessSmooth: bool = True) -> None: ...
-    def _flushContour(self) -> None: ...
     def moveTo(self, pt) -> None: ...
     def lineTo(self, pt) -> None: ...
     def curveTo(self, *pts) -> None: ...
@@ -118,16 +85,11 @@ class SegmentToPointPen(AbstractPen):
     def addComponent(self, glyphName, transform) -> None: ...
 
 class GuessSmoothPointPen(AbstractPointPen):
-    """
+    '''
     Filtering PointPen that tries to determine whether an on-curve point
     should be "smooth", ie. that it\'s a "tangent" point or a "curve" point.
-    """
-
-    _outPen: Incomplete
-    _error: Incomplete
-    _points: Incomplete
+    '''
     def __init__(self, outPen, error: float = 0.05) -> None: ...
-    def _flushContour(self) -> None: ...
     def beginPath(self, identifier=None, **kwargs) -> None: ...
     def endPath(self) -> None: ...
     def addPoint(self, pt, segmentType=None, smooth: bool = False, name=None, identifier=None, **kwargs) -> None: ...
@@ -143,11 +105,9 @@ class ReverseContourPointPen(AbstractPointPen):
     Closed contours are reversed in such a way that the first point remains
     the first point.
     """
-
     pen: Incomplete
     currentContour: Incomplete
     def __init__(self, outputPointPen) -> None: ...
-    def _flushContour(self) -> None: ...
     currentContourIdentifier: Incomplete
     onCurve: Incomplete
     def beginPath(self, identifier=None, **kwargs) -> None: ...
@@ -168,7 +128,6 @@ class DecomposingPointPen(LogMixin, AbstractPointPen):
     all instances of a sub-class to raise a :class:`MissingComponentError`
     exception by default.
     """
-
     skipMissingComponents: bool
     MissingComponentError = MissingComponentError
     glyphSet: Incomplete

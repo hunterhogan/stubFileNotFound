@@ -1,4 +1,5 @@
 from fontTools.misc.visitor import Visitor as Visitor
+from fontTools.ttLib import TTFont as TTFont
 
 class TTVisitor(Visitor):
     def visitAttr(self, obj, attr, value, *args, **kwargs): ...

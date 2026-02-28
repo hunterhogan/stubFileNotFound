@@ -1,10 +1,10 @@
 from _typeshed import Incomplete
 from fontTools.misc import psCharStrings as psCharStrings, sstruct as sstruct
 from fontTools.misc.arrayTools import intRect as intRect, unionRect as unionRect
-from fontTools.misc.textTools import (
-	bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, safeEval as safeEval, tobytes as tobytes,
-	tostr as tostr)
+from fontTools.misc.textTools import bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, safeEval as safeEval, tobytes as tobytes, tostr as tostr
+from fontTools.ttLib import TTFont as TTFont
 from fontTools.ttLib.tables.otBase import OTTableReader as OTTableReader, OTTableWriter as OTTableWriter
+from io import BytesIO as BytesIO
 
 DEBUG: Incomplete
 log: Incomplete
@@ -12,7 +12,7 @@ cffHeaderFormat: str
 maxStackLimit: int
 
 class CFFFontSet:
-    """A CFF font "file" can contain more than one font, although this is
+    '''A CFF font "file" can contain more than one font, although this is
     extremely rare (and not allowed within OpenType fonts).
 
     This class is the entry point for parsing a CFF table. To actually
@@ -31,8 +31,7 @@ class CFFFontSet:
             tt["CFF "].cff[0] # Here\'s your actual font data
             # <fontTools.cffLib.TopDict object at 0x1020f1fd0>
 
-    """
-
+    '''
     otFont: Incomplete
     offSize: Incomplete
     fontNames: Incomplete
@@ -67,7 +66,7 @@ class CFFFontSet:
         version.
         """
     def toXML(self, xmlWriter) -> None:
-        """Write the object into XML representation onto the given
+        '''Write the object into XML representation onto the given
         :class:`fontTools.misc.xmlWriter.XMLWriter`.
 
         .. code:: python
@@ -75,7 +74,7 @@ class CFFFontSet:
                 writer = xmlWriter.XMLWriter(sys.stdout)
                 tt["CFF "].cff.toXML(writer)
 
-        """
+        '''
     major: int
     minor: int
     def fromXML(self, name, attrs, content, otFont=None) -> None:
@@ -88,9 +87,7 @@ class CFFFontSet:
 
 class CFFWriter:
     """Helper class for serializing CFF data to binary. Used by
-    :meth:`CFFFontSet.compile`.
-    """
-
+    :meth:`CFFFontSet.compile`."""
     data: Incomplete
     isCFF2: Incomplete
     def __init__(self, isCFF2) -> None: ...
@@ -103,9 +100,7 @@ def calcOffSize(largestOffset): ...
 
 class IndexCompiler:
     """Base class for writing CFF `INDEX data <https://docs.microsoft.com/en-us/typography/opentype/spec/cff2#5-index-data>`_
-    to binary.
-    """
-
+    to binary."""
     isCFF2: Incomplete
     items: Incomplete
     parent: Incomplete
@@ -120,7 +115,6 @@ class IndexedStringsCompiler(IndexCompiler):
 
 class TopDictIndexCompiler(IndexCompiler):
     """Helper class for writing the TopDict to binary."""
-
     def getItems(self, items, strings): ...
     def getChildren(self, strings): ...
     def getOffsets(self): ...
@@ -130,9 +124,7 @@ class TopDictIndexCompiler(IndexCompiler):
 class FDArrayIndexCompiler(IndexCompiler):
     """Helper class for writing the
     `Font DICT INDEX <https://docs.microsoft.com/en-us/typography/opentype/spec/cff2#10-font-dict-index-font-dicts-and-fdselect>`_
-    to binary.
-    """
-
+    to binary."""
     def getItems(self, items, strings): ...
     def getChildren(self, strings): ...
     def toFile(self, file) -> None: ...
@@ -140,36 +132,27 @@ class FDArrayIndexCompiler(IndexCompiler):
 
 class GlobalSubrsCompiler(IndexCompiler):
     """Helper class for writing the `global subroutine INDEX <https://docs.microsoft.com/en-us/typography/opentype/spec/cff2#9-local-and-global-subr-indexes>`_
-    to binary.
-    """
-
+    to binary."""
     def getItems(self, items, strings): ...
 
 class SubrsCompiler(GlobalSubrsCompiler):
     """Helper class for writing the `local subroutine INDEX <https://docs.microsoft.com/en-us/typography/opentype/spec/cff2#9-local-and-global-subr-indexes>`_
-    to binary.
-    """
-
+    to binary."""
     def setPos(self, pos, endPos) -> None: ...
 
 class CharStringsCompiler(GlobalSubrsCompiler):
     """Helper class for writing the `CharStrings INDEX <https://docs.microsoft.com/en-us/typography/opentype/spec/cff2#9-local-and-global-subr-indexes>`_
-    to binary.
-    """
-
+    to binary."""
     def getItems(self, items, strings): ...
     def setPos(self, pos, endPos) -> None: ...
 
 class Index:
     """This class represents what the CFF spec calls an INDEX (an array of
     variable-sized objects). `Index` items can be addressed and set using
-    Python list indexing.
-    """
-
+    Python list indexing."""
     compilerClass = IndexCompiler
     items: Incomplete
     offsets: Incomplete
-    _isCFF2: Incomplete
     file: Incomplete
     offsetBase: Incomplete
     def __init__(self, file=None, isCFF2=None) -> None: ...
@@ -184,7 +167,7 @@ class Index:
         """Empty the INDEX."""
 
 class GlobalSubrsIndex(Index):
-    """This index contains all the global subroutines in the font. A global
+    '''This index contains all the global subroutines in the font. A global
     subroutine is a set of ``CharString`` data which is accessible to any
     glyph in the font, and are used to store repeated instructions - for
     example, components may be encoded as global subroutines, but so could
@@ -215,8 +198,7 @@ class GlobalSubrsIndex(Index):
     subrs (gsubrs) is less than 1240, the bias is 107. Otherwise if it is less
     than 33900, it is 1131; otherwise it is 32768.",
     `Subroutine Operators <https://docs.microsoft.com/en-us/typography/opentype/otspec180/cff2charstr#section4.4>`)
-    """
-
+    '''
     compilerClass = GlobalSubrsCompiler
     subrClass = psCharStrings.T2CharString
     charStringClass = psCharStrings.T2CharString
@@ -227,7 +209,7 @@ class GlobalSubrsIndex(Index):
     def __init__(self, file=None, globalSubrs=None, private=None, fdSelect=None, fdArray=None, isCFF2=None) -> None: ...
     def produceItem(self, index, data, file, offset): ...
     def toXML(self, xmlWriter) -> None:
-        """Write the subroutines index into XML representation onto the given
+        '''Write the subroutines index into XML representation onto the given
         :class:`fontTools.misc.xmlWriter.XMLWriter`.
 
         .. code:: python
@@ -235,20 +217,18 @@ class GlobalSubrsIndex(Index):
                 writer = xmlWriter.XMLWriter(sys.stdout)
                 tt["CFF "].cff[0].GlobalSubrs.toXML(writer)
 
-        """
+        '''
     def fromXML(self, name, attrs, content) -> None: ...
     def getItemAndSelector(self, index): ...
 
 class SubrsIndex(GlobalSubrsIndex):
     """This index contains a glyph's local subroutines. A local subroutine is a
     private set of ``CharString`` data which is accessible only to the glyph to
-    which the index is attached.
-    """
-
+    which the index is attached."""
     compilerClass = SubrsCompiler
 
 class TopDictIndex(Index):
-    """This index represents the array of ``TopDict`` structures in the font
+    '''This index represents the array of ``TopDict`` structures in the font
     (again, usually only one entry is present). Hence the following calls are
     equivalent:
 
@@ -259,11 +239,9 @@ class TopDictIndex(Index):
             tt["CFF "].cff.topDictIndex[0]
             # <fontTools.cffLib.TopDict object at 0x102ed6e50>
 
-    """
-
+    '''
     compilerClass = TopDictIndexCompiler
     cff2GetGlyphOrder: Incomplete
-    _isCFF2: Incomplete
     items: Incomplete
     file: Incomplete
     offsets: Incomplete
@@ -301,7 +279,7 @@ class FDSelect:
     def append(self, fdSelectValue) -> None: ...
 
 class CharStrings:
-    """The ``CharStrings`` in the font represent the instructions for drawing
+    '''The ``CharStrings`` in the font represent the instructions for drawing
     each glyph. This object presents a dictionary interface to the font\'s
     CharStrings, indexed by glyph name:
 
@@ -314,8 +292,7 @@ class CharStrings:
     :class:`fontTools.misc.psCharStrings.T2CharString` for how to decompile,
     compile and interpret the glyph drawing instructions in the returned objects.
 
-    """
-
+    '''
     globalSubrs: Incomplete
     varStore: Incomplete
     charStringsIndex: Incomplete
@@ -353,19 +330,16 @@ def buildConverters(table): ...
 
 class SimpleConverter:
     def read(self, parent, value): ...
-    def _read(self, parent, value): ...
     def write(self, parent, value): ...
     def xmlWrite(self, xmlWriter, name, value) -> None: ...
     def xmlRead(self, name, attrs, content, parent): ...
 
 class ASCIIConverter(SimpleConverter):
-    def _read(self, parent, value): ...
     def write(self, parent, value): ...
     def xmlWrite(self, xmlWriter, name, value) -> None: ...
     def xmlRead(self, name, attrs, content, parent): ...
 
 class Latin1Converter(SimpleConverter):
-    def _read(self, parent, value): ...
     def write(self, parent, value): ...
     def xmlWrite(self, xmlWriter, name, value) -> None: ...
     def xmlRead(self, name, attrs, content, parent): ...
@@ -387,21 +361,17 @@ class TableConverter(SimpleConverter):
 
 class PrivateDictConverter(TableConverter):
     def getClass(self): ...
-    def _read(self, parent, value): ...
     def write(self, parent, value): ...
 
 class SubrsConverter(TableConverter):
     def getClass(self): ...
-    def _read(self, parent, value): ...
     def write(self, parent, value): ...
 
 class CharStringsConverter(TableConverter):
-    def _read(self, parent, value): ...
     def write(self, parent, value): ...
     def xmlRead(self, name, attrs, content, parent): ...
 
 class CharsetConverter(SimpleConverter):
-    def _read(self, parent, value): ...
     def write(self, parent, value): ...
     def xmlWrite(self, xmlWriter, name, value) -> None: ...
     def xmlRead(self, name, attrs, content, parent) -> None: ...
@@ -431,7 +401,6 @@ class EncodingCompiler:
     def toFile(self, file) -> None: ...
 
 class EncodingConverter(SimpleConverter):
-    def _read(self, parent, value): ...
     def write(self, parent, value): ...
     def xmlWrite(self, xmlWriter, name, value) -> None: ...
     def xmlRead(self, name, attrs, content, parent): ...
@@ -459,18 +428,15 @@ def packEncoding0(charset, encoding, strings): ...
 def packEncoding1(charset, encoding, strings): ...
 
 class FDArrayConverter(TableConverter):
-    def _read(self, parent, value): ...
     def write(self, parent, value): ...
     def xmlRead(self, name, attrs, content, parent): ...
 
 class FDSelectConverter(SimpleConverter):
-    def _read(self, parent, value): ...
     def write(self, parent, value): ...
     def xmlWrite(self, xmlWriter, name, value) -> None: ...
     def xmlRead(self, name, attrs, content, parent): ...
 
 class VarStoreConverter(SimpleConverter):
-    def _read(self, parent, value): ...
     def write(self, parent, value): ...
     def xmlWrite(self, xmlWriter, name, value) -> None: ...
     def xmlRead(self, name, attrs, content, parent): ...
@@ -582,7 +548,6 @@ class BaseDict:
     rawDict: Incomplete
     skipNames: Incomplete
     strings: Incomplete
-    _isCFF2: Incomplete
     file: Incomplete
     offset: Incomplete
     def __init__(self, strings=None, file=None, offset=None, isCFF2=None) -> None: ...
@@ -594,7 +559,7 @@ class BaseDict:
     def fromXML(self, name, attrs, content) -> None: ...
 
 class TopDict(BaseDict):
-    """The ``TopDict`` represents the top-level dictionary holding font
+    '''The ``TopDict`` represents the top-level dictionary holding font
     information. CFF2 tables contain a restricted set of top-level entries
     as described `here <https://docs.microsoft.com/en-us/typography/opentype/spec/cff2#7-top-dict-data>`_,
     but CFF tables may contain a wider range of information. This information
@@ -617,8 +582,7 @@ class TopDict(BaseDict):
             tt["CFF "].cff[0].Private.BlueValues
             # [-15, 0, 515, 515, 666, 666]
 
-    """
-
+    '''
     defaults: Incomplete
     converters: Incomplete
     compilerClass = TopDictCompiler
@@ -648,7 +612,6 @@ class FontDict(BaseDict):
     vstore: Incomplete
     def __init__(self, strings=None, file=None, offset=None, GlobalSubrs=None, isCFF2=None, vstore=None) -> None: ...
     order: Incomplete
-    _isCFF2: bool
     def setCFF2(self, isCFF2) -> None: ...
 
 class PrivateDict(BaseDict):
@@ -659,7 +622,6 @@ class PrivateDict(BaseDict):
     compilerClass = PrivateDictCompiler
     vstore: Incomplete
     nominalWidthX: Incomplete
-    _isCFF2: bool
     def __init__(self, strings=None, file=None, offset=None, isCFF2=None, vstore=None) -> None: ...
     @property
     def in_cff2(self): ...
@@ -667,7 +629,6 @@ class PrivateDict(BaseDict):
 
 class IndexedStrings:
     """SID -> string mapping."""
-
     strings: Incomplete
     def __init__(self, file=None) -> None: ...
     def getCompiler(self): ...

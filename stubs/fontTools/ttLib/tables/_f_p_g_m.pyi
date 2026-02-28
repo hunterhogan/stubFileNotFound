@@ -1,6 +1,6 @@
+from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable, ttProgram as ttProgram
 from _typeshed import Incomplete
-from fontTools.ttLib import TTFont
 
 class table__f_p_g_m(DefaultTable.DefaultTable):
     """Font Program table
@@ -13,7 +13,6 @@ class table__f_p_g_m(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/fpgm
     """
-
     program: Incomplete
     def decompile(self, data, ttFont: TTFont) -> None: ...
     def compile(self, ttFont: TTFont): ...

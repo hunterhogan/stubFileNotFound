@@ -1,4 +1,7 @@
 from _typeshed import Incomplete
+from fontTools.config import Config as Config
+from fontTools.misc.textTools import tobytes as tobytes
+from fontTools.misc.xmlWriter import XMLWriter as XMLWriter
 from unittest import TestCase as _TestCase
 
 def parseXML(xmlSnippet):
@@ -52,11 +55,7 @@ def stripVariableItemsFromTTX(string: str, ttLibVersion: bool = True, checkSumAd
 
 class MockFont:
     """A font-like object that automatically adds any looked up glyphname
-    to its glyphOrder.
-    """
-
-    _glyphOrder: Incomplete
-    _reverseGlyphOrder: Incomplete
+    to its glyphOrder."""
     lazy: bool
     def __init__(self) -> None: ...
     def getGlyphID(self, glyph): ...

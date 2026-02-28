@@ -1,6 +1,6 @@
+from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools.ttLib import TTFont
 
 log: Incomplete
 tsi0Format: str

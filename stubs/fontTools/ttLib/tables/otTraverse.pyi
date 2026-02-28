@@ -1,13 +1,10 @@
 from .otBase import BaseTable
-from collections import deque
-from collections.abc import Callable, Iterable
-from typing import TypeAlias
+from typing import Callable, Deque, Iterable
 
-__all__ = ['SubTablePath', 'bfs_base_table', 'dfs_base_table']
+__all__ = ['bfs_base_table', 'dfs_base_table', 'SubTablePath']
 
-class SubTablePath(tuple[BaseTable.SubTableEntry, ...]):
-    ...
-AddToFrontierFn: TypeAlias = Callable[[deque[SubTablePath], list[SubTablePath]], None]
+class SubTablePath(tuple[BaseTable.SubTableEntry, ...]): ...
+AddToFrontierFn = Callable[[Deque[SubTablePath], list[SubTablePath]], None]
 
 def dfs_base_table(root: BaseTable, root_accessor: str | None = None, skip_root: bool = False, predicate: Callable[[SubTablePath], bool] | None = None, iter_subtables_fn: Callable[[BaseTable], Iterable[BaseTable.SubTableEntry]] | None = None) -> Iterable[SubTablePath]:
     """Depth-first search tree of BaseTables.
@@ -25,8 +22,7 @@ def dfs_base_table(root: BaseTable, root_accessor: str | None = None, skip_root:
             function to iterate over subtables of a table. If None, the default
             BaseTable.iterSubTables() is used.
 
-    Yields
-    ------
+    Yields:
         SubTablePath: tuples of BaseTable.SubTableEntry(name, table, index) namedtuples
         for each of the nodes in the tree. The last entry in a path is the current
         subtable, whereas preceding ones refer to its parent tables all the way up to
@@ -49,8 +45,7 @@ def bfs_base_table(root: BaseTable, root_accessor: str | None = None, skip_root:
             function to iterate over subtables of a table. If None, the default
             BaseTable.iterSubTables() is used.
 
-    Yields
-    ------
+    Yields:
         SubTablePath: tuples of BaseTable.SubTableEntry(name, table, index) namedtuples
         for each of the nodes in the tree. The last entry in a path is the current
         subtable, whereas preceding ones refer to its parent tables all the way up to

@@ -1,6 +1,5 @@
-from _typeshed import Incomplete
-from collections.abc import Callable
 from fontTools.pens.basePen import BasePen as BasePen
+from typing import Callable
 
 def pointToString(pt, ntos=...): ...
 
@@ -37,107 +36,7 @@ class SVGPathPen(BasePen):
             glyphset[glyphname].draw(pen)
             print(tpen.getCommands())
     """
-
-    _commands: Incomplete
-    _lastCommand: Incomplete
-    _lastX: Incomplete
-    _lastY: Incomplete
-    _ntos: Incomplete
     def __init__(self, glyphSet, ntos: Callable[[float], str] = ...) -> None: ...
-    def _handleAnchor(self) -> None:
-        """
-        >>> pen = SVGPathPen(None)
-        >>> pen.moveTo((0, 0))
-        >>> pen.moveTo((10, 10))
-        >>> pen._commands
-        ['M10 10']
-        """
-    def _moveTo(self, pt) -> None:
-        """
-        >>> pen = SVGPathPen(None)
-        >>> pen.moveTo((0, 0))
-        >>> pen._commands
-        ['M0 0']
-
-        >>> pen = SVGPathPen(None)
-        >>> pen.moveTo((10, 0))
-        >>> pen._commands
-        ['M10 0']
-
-        >>> pen = SVGPathPen(None)
-        >>> pen.moveTo((0, 10))
-        >>> pen._commands
-        ['M0 10']
-        """
-    def _lineTo(self, pt) -> None:
-        """
-        # duplicate point
-        >>> pen = SVGPathPen(None)
-        >>> pen.moveTo((10, 10))
-        >>> pen.lineTo((10, 10))
-        >>> pen._commands
-        ['M10 10']
-
-        # vertical line
-        >>> pen = SVGPathPen(None)
-        >>> pen.moveTo((10, 10))
-        >>> pen.lineTo((10, 0))
-        >>> pen._commands
-        ['M10 10', 'V0']
-
-        # horizontal line
-        >>> pen = SVGPathPen(None)
-        >>> pen.moveTo((10, 10))
-        >>> pen.lineTo((0, 10))
-        >>> pen._commands
-        ['M10 10', 'H0']
-
-        # basic
-        >>> pen = SVGPathPen(None)
-        >>> pen.lineTo((70, 80))
-        >>> pen._commands
-        ['L70 80']
-
-        # basic following a moveto
-        >>> pen = SVGPathPen(None)
-        >>> pen.moveTo((0, 0))
-        >>> pen.lineTo((10, 10))
-        >>> pen._commands
-        ['M0 0', ' 10 10']
-        """
-    def _curveToOne(self, pt1, pt2, pt3) -> None:
-        """
-        >>> pen = SVGPathPen(None)
-        >>> pen.curveTo((10, 20), (30, 40), (50, 60))
-        >>> pen._commands
-        ['C10 20 30 40 50 60']
-        """
-    def _qCurveToOne(self, pt1, pt2) -> None:
-        """
-        >>> pen = SVGPathPen(None)
-        >>> pen.qCurveTo((10, 20), (30, 40))
-        >>> pen._commands
-        ['Q10 20 30 40']
-        >>> from fontTools.misc.roundTools import otRound
-        >>> pen = SVGPathPen(None, ntos=lambda v: str(otRound(v)))
-        >>> pen.qCurveTo((3, 3), (7, 5), (11, 4))
-        >>> pen._commands
-        ['Q3 3 5 4', 'Q7 5 11 4']
-        """
-    def _closePath(self) -> None:
-        """
-        >>> pen = SVGPathPen(None)
-        >>> pen.closePath()
-        >>> pen._commands
-        ['Z']
-        """
-    def _endPath(self) -> None:
-        """
-        >>> pen = SVGPathPen(None)
-        >>> pen.endPath()
-        >>> pen._commands
-        []
-        """
     def getCommands(self): ...
 
 def main(args=None) -> None:

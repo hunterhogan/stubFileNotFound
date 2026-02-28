@@ -1,8 +1,5 @@
-from _typeshed import Incomplete
-
 class UFOLibError(Exception): ...
 class UnsupportedUFOFormat(UFOLibError): ...
-
 class GlifLibError(UFOLibError):
     """An error raised by glifLib.
 
@@ -11,8 +8,4 @@ class GlifLibError(UFOLibError):
 
     It will be maintained until only Python 3.11-and-later are supported.
     """
-
-    args: Incomplete
-    def _add_note(self, note: str) -> None: ...
-
 class UnsupportedGLIFFormat(GlifLibError): ...

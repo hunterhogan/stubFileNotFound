@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from fontTools.misc.textTools import Tag as Tag
 from fontTools.ttLib import getClassTag as getClassTag, TTFont
 
 class DefaultTable:

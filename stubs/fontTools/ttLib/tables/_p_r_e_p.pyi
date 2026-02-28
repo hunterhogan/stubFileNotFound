@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from fontTools import ttLib as ttLib
 
 superclass: Incomplete
 

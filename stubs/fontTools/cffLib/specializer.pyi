@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
+from fontTools.cffLib import maxStackLimit as maxStackLimit
 
 def stringToProgram(string): ...
 def programToString(program): ...
@@ -24,13 +25,9 @@ def programToCommands(program, getNumRegions=None):
     initial width value in this case because developers may assemble a CFF2
     charstring from CFF Charstrings, which could have width values.
     """
-def _flattenBlendArgs(args): ...
 def commandsToProgram(commands):
     """Takes a commands list as returned by programToCommands() and converts
-    it back to a T2CharString program list.
-    """
-def _everyN(el, n) -> Generator[Incomplete]:
-    """Group the list el into groups of size n"""
+    it back to a T2CharString program list."""
 
 class _GeneralizerDecombinerCommandsMap:
     @staticmethod
@@ -60,28 +57,7 @@ class _GeneralizerDecombinerCommandsMap:
     @staticmethod
     def rlinecurve(args) -> Generator[Incomplete]: ...
 
-def _convertBlendOpToArgs(blendList): ...
 def generalizeCommands(commands, ignoreErrors: bool = False): ...
 def generalizeProgram(program, getNumRegions=None, **kwargs): ...
-def _categorizeVector(v):
-    """
-    Takes X,Y vector v and returns one of r, h, v, or 0 depending on which
-    of X and/or Y are zero, plus tuple of nonzero ones.  If both are zero,
-    it returns a single zero still.
-
-    >>> _categorizeVector((0,0))
-    ('0', (0,))
-    >>> _categorizeVector((1,0))
-    ('h', (1,))
-    >>> _categorizeVector((0,2))
-    ('v', (2,))
-    >>> _categorizeVector((1,2))
-    ('r', (1, 2))
-    """
-def _mergeCategories(a, b): ...
-def _negateCategory(a): ...
-def _convertToBlendCmds(args): ...
-def _addArgs(a, b): ...
-def _argsStackUse(args): ...
 def specializeCommands(commands, ignoreErrors: bool = False, generalizeFirst: bool = True, preserveTopology: bool = False, maxstack: int = 48): ...
 def specializeProgram(program, getNumRegions=None, **kwargs): ...

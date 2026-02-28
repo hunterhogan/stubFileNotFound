@@ -1,6 +1,9 @@
+from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable, grUtils as grUtils
 from _typeshed import Incomplete
-from fontTools.ttLib import TTFont
+from fontTools.misc import sstruct as sstruct
+from fontTools.misc.fixedTools import floatToFixedToStr as floatToFixedToStr
+from fontTools.misc.textTools import safeEval as safeEval
 
 Glat_format_0: str
 Glat_format_3: str
@@ -17,7 +20,6 @@ class table_G__l_a_t(DefaultTable.DefaultTable):
 
     See also https://graphite.sil.org/graphite_techAbout#graphite-font-tables
     """
-
     scheme: int
     def __init__(self, tag=None) -> None: ...
     version: Incomplete

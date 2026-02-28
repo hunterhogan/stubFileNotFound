@@ -1,4 +1,5 @@
 from ._base import FS as FS
+from ._errors import DirectoryNotEmpty as DirectoryNotEmpty
 from typing import IO
 
 def remove_empty(fs: FS, path: str):

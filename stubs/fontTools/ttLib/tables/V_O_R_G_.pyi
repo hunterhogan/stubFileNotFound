@@ -1,7 +1,7 @@
+from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools.misc.textTools import bytesjoin as bytesjoin, safeEval as safeEval
-from fontTools.ttLib import TTFont
 
 class table_V_O_R_G_(DefaultTable.DefaultTable):
     """Vertical Origin table
@@ -17,7 +17,6 @@ class table_V_O_R_G_(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/vorg
     """
-
     getGlyphName: Incomplete
     VOriginRecords: Incomplete
     def decompile(self, data, ttFont: TTFont) -> None: ...

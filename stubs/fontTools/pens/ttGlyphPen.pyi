@@ -1,18 +1,17 @@
 from _typeshed import Incomplete
-from collections.abc import Callable
 from fontTools.misc.loggingTools import LogMixin
 from fontTools.pens.basePen import LoggingPen
 from fontTools.pens.pointPen import AbstractPointPen
 from fontTools.pens.transformPen import TransformPen, TransformPointPen
 from fontTools.ttLib.tables._g_l_y_f import Glyph
-from fontTools.ttLib.ttGlyphSet import _TTGlyphSet
+from typing import Any, Callable
 
 __all__ = ['TTGlyphPen', 'TTGlyphPointPen']
 
 class _TTGlyphBasePen:
     glyphSet: Incomplete
     handleOverflowingTransforms: Incomplete
-    def __init__(self, glyphSet: _TTGlyphSet | None, handleOverflowingTransforms: bool = True) -> None:
+    def __init__(self, glyphSet: dict[str, Any] | None, handleOverflowingTransforms: bool = True) -> None:
         """
         Construct a new pen.
 
@@ -39,21 +38,15 @@ class _TTGlyphBasePen:
         If both contours and components are present in a glyph, the components
         are decomposed.
         """
-    def _decompose(self, glyphName: str, transformation: tuple[float, float, float, float, float, float]): ...
-    def _isClosed(self) -> None:
-        """
-        Check if the current path is closed.
-        """
     points: Incomplete
     endPts: Incomplete
     types: Incomplete
     components: Incomplete
     def init(self) -> None: ...
-    def addComponent(self, baseGlyphName: str, transformation: tuple[float, float, float, float, float, float], identifier: str | None = None, **kwargs: Incomplete) -> None:
+    def addComponent(self, baseGlyphName: str, transformation: tuple[float, float, float, float, float, float], identifier: str | None = None, **kwargs: Any) -> None:
         """
         Add a sub glyph.
         """
-    def _buildComponents(self, componentFlags): ...
     def glyph(self, componentFlags: int = 4, dropImpliedOnCurves: bool = False, *, round: Callable[[float], int] = ...) -> Glyph:
         """
         Returns a :py:class:`~._g_l_y_f.Glyph` object representing the glyph.
@@ -72,14 +65,10 @@ class TTGlyphPen(_TTGlyphBasePen, LoggingPen):
     font. After using the pen to draw, use the ``.glyph()`` method to retrieve
     a :py:class:`~._g_l_y_f.Glyph` object representing the glyph.
     """
-
     drawMethod: str
     transformPen = TransformPen
     outputImpliedClosingLine: Incomplete
-    def __init__(self, glyphSet: _TTGlyphSet | None = None, handleOverflowingTransforms: bool = True, outputImpliedClosingLine: bool = False) -> None: ...
-    def _addPoint(self, pt: tuple[float, float], tp: int) -> None: ...
-    def _popPoint(self) -> None: ...
-    def _isClosed(self) -> bool: ...
+    def __init__(self, glyphSet: dict[str, Any] | None = None, handleOverflowingTransforms: bool = True, outputImpliedClosingLine: bool = False) -> None: ...
     def lineTo(self, pt: tuple[float, float]) -> None: ...
     def moveTo(self, pt: tuple[float, float]) -> None: ...
     def curveTo(self, *points) -> None: ...
@@ -95,13 +84,10 @@ class TTGlyphPointPen(_TTGlyphBasePen, LogMixin, AbstractPointPen):
     font. After using the pen to draw, use the ``.glyph()`` method to retrieve
     a :py:class:`~._g_l_y_f.Glyph` object representing the glyph.
     """
-
     drawMethod: str
     transformPen = TransformPointPen
-    _currentContourStartIndex: Incomplete
     def init(self) -> None: ...
-    def _isClosed(self) -> bool: ...
-    def beginPath(self, identifier: str | None = None, **kwargs: Incomplete) -> None:
+    def beginPath(self, identifier: str | None = None, **kwargs: Any) -> None:
         """
         Start a new sub path.
         """
@@ -109,7 +95,7 @@ class TTGlyphPointPen(_TTGlyphBasePen, LogMixin, AbstractPointPen):
         """
         End the current sub path.
         """
-    def addPoint(self, pt: tuple[float, float], segmentType: str | None = None, smooth: bool = False, name: str | None = None, identifier: str | None = None, **kwargs: Incomplete) -> None:
+    def addPoint(self, pt: tuple[float, float], segmentType: str | None = None, smooth: bool = False, name: str | None = None, identifier: str | None = None, **kwargs: Any) -> None:
         """
         Add a point to the current sub path.
         """

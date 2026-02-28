@@ -1,6 +1,7 @@
-from _typeshed import Incomplete
-from fontTools.misc.textTools import readHex as readHex, safeEval as safeEval
 from fontTools.ttLib import TTFont
+from _typeshed import Incomplete
+from fontTools.misc import sstruct as sstruct
+from fontTools.misc.textTools import readHex as readHex, safeEval as safeEval
 
 sbixGlyphHeaderFormat: str
 sbixGlyphHeaderFormatSize: Incomplete

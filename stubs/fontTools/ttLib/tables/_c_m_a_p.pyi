@@ -1,12 +1,11 @@
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
+from fontTools.misc.encodingTools import getEncoding as getEncoding
 from fontTools.misc.textTools import bytesjoin as bytesjoin, readHex as readHex, safeEval as safeEval
 from fontTools.ttLib import getSearchRange as getSearchRange, TTFont
-from typing import Any
+from fontTools.unicode import Unicode as Unicode
 
 log: Incomplete
-
-def _make_map(font, chars, gids): ...
 
 class table__c_m_a_p(DefaultTable.DefaultTable):
     """Character to Glyph Index Mapping Table.
@@ -57,7 +56,7 @@ class table__c_m_a_p(DefaultTable.DefaultTable):
                 An object which is a subclass of :py:class:`CmapSubtable` if a matching
                 subtable is found within the font, or ``None`` otherwise.
         """
-    def getBestCmap(self, cmapPreferences=...) -> dict[int, str] | None:
+    def getBestCmap(self, cmapPreferences: tuple[tuple[int, int], ...] = ((3, 10), (0, 6), (0, 4), (3, 1), (0, 3), (0, 2), (0, 1), (0, 0))) -> dict[int, str] | None:
         """Returns the 'best' Unicode cmap dictionary available in the font
         or ``None``, if no Unicode cmap subtable is available.
 
@@ -116,7 +115,6 @@ class CmapSubtable:
     The object exposes a ``.cmap`` attribute, which contains a dictionary mapping
     character codepoints to glyph names.
     """
-
     @staticmethod
     def getSubtableClass(format) -> type[CmapSubtable]:
         """Return the subtable class for a format."""
@@ -125,10 +123,10 @@ class CmapSubtable:
         """Return a new instance of a subtable for the given format."""
     format: Incomplete
     data: Incomplete
-    ttFont: Incomplete
-    platformID: Incomplete
-    platEncID: Incomplete
-    language: Incomplete
+    ttFont: TTFont
+    platformID: int
+    platEncID: int
+    language: int
     cmap: dict[int, str]
     def __init__(self, format) -> None: ...
     def ensureDecompiled(self, recurse: bool = False) -> None: ...
@@ -136,7 +134,7 @@ class CmapSubtable:
     length: Incomplete
     def decompileHeader(self, data, ttFont: TTFont) -> None: ...
     def toXML(self, writer, ttFont: TTFont) -> None: ...
-    def getEncoding(self, default=None):
+    def getEncoding(self, default: str | None = None) -> str | None:
         """Returns the Python encoding name for this cmap subtable based on its platformID,
         platEncID, and language.  If encoding for these values is not known, by default
         ``None`` is returned.  That can be overridden by passing a value to the ``default``
@@ -148,15 +146,14 @@ class CmapSubtable:
         """
     def isUnicode(self) -> bool:
         """Returns true if the characters are interpreted as Unicode codepoints."""
-    def isSymbol(self):
+    def isSymbol(self) -> bool:
         """Returns true if the subtable is for the Symbol encoding (3,0)"""
-    def _writeCodes(self, codes, writer) -> None: ...
-    def __lt__(self, other): ...
+    def __lt__(self, other) -> bool: ...
 
 class cmap_format_0(CmapSubtable):
     cmap: dict[int, str]
     def decompile(self, data, ttFont: TTFont) -> None: ...
-    def compile(self, ttFont: TTFont): ...
+    def compile(self, ttFont: TTFont) -> None: ...
     language: Incomplete
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
 
@@ -203,7 +200,7 @@ class cmap_format_12_or_13(CmapSubtable):
     format: Incomplete
     reserved: int
     data: Incomplete
-    ttFont: Incomplete
+    ttFont: TTFont
     def __init__(self, format) -> None: ...
     length: Incomplete
     language: Incomplete
@@ -216,16 +213,10 @@ class cmap_format_12_or_13(CmapSubtable):
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
 
 class cmap_format_12(cmap_format_12_or_13):
-    _format_step: int
     def __init__(self, format: int = 12) -> None: ...
-    def _computeGIDs(self, startingGlyph, numberOfGlyphs): ...
-    def _IsInSameRun(self, glyphID, lastGlyphID, charCode, lastCharCode): ...
 
 class cmap_format_13(cmap_format_12_or_13):
-    _format_step: int
     def __init__(self, format: int = 13) -> None: ...
-    def _computeGIDs(self, startingGlyph, numberOfGlyphs): ...
-    def _IsInSameRun(self, glyphID, lastGlyphID, charCode, lastCharCode): ...
 
 def cvtToUVS(threeByteString): ...
 def cvtFromUVS(val): ...
@@ -234,10 +225,10 @@ class cmap_format_14(CmapSubtable):
     data: Incomplete
     length: Incomplete
     numVarSelectorRecords: Incomplete
-    ttFont: Incomplete
+    ttFont: TTFont
     language: int
     def decompileHeader(self, data, ttFont: TTFont) -> None: ...
-    cmap: dict[Any, Any]
+    cmap: dict[int, str]
     uvsDict: Incomplete
     def decompile(self, data, ttFont: TTFont) -> None: ...
     def toXML(self, writer, ttFont: TTFont): ...
@@ -247,11 +238,11 @@ class cmap_format_14(CmapSubtable):
 class cmap_format_unknown(CmapSubtable):
     def toXML(self, writer, ttFont: TTFont) -> None: ...
     data: Incomplete
-    cmap: dict[Any, Any]
+    cmap: dict[int, str]
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
     language: int
     def decompileHeader(self, data, ttFont: TTFont) -> None: ...
     def decompile(self, data, ttFont: TTFont) -> None: ...
-    def compile(self, ttFont: TTFont): ...
+    def compile(self, ttFont: TTFont) -> None: ...
 
 cmap_classes: Incomplete

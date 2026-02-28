@@ -5,8 +5,7 @@ from typing import NamedTuple, Self
 __all__ = ['DecomposedTransform', 'Identity', 'Offset', 'Scale', 'Transform']
 
 class Transform(NamedTuple):
-    r"""2x2 transformation matrix plus offset, a.k.a. Affine transform.
-
+    '''2x2 transformation matrix plus offset, a.k.a. Affine transform.
     Transform instances are immutable: all transforming methods, eg.
     rotate(), return a new Transform instance.
 
@@ -82,8 +81,7 @@ class Transform(NamedTuple):
             Traceback (most recent call last):
               File "<stdin>", line 1, in ?
             KeyError: <Transform [0.2 0 0 0.3 0.08 0.18]>
-    """
-
+    '''
     xx: float = ...
     xy: float = ...
     yx: float = ...
@@ -138,10 +136,8 @@ class Transform(NamedTuple):
                 <Transform [1 0 0 1 20 30]>
                 >>>
         """
-    def scale(self, x: float = 1, y: float | None = None) -> Transform:
-        """Return a new transformation, scaled by x, y.
-
-        The 'y' argument
+    def scale(self, x: float = 1, y: float | None = None):
+        """Return a new transformation, scaled by x, y. The 'y' argument
         may be None, which implies to use the x value for y as well.
 
         :Example:
@@ -264,7 +260,6 @@ class DecomposedTransform:
     """The DecomposedTransform class implements a transformation with separate
     translate, rotation, scale, skew, and transformation-center components.
     """
-
     translateX: float = ...
     translateY: float = ...
     rotation: float = ...

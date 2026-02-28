@@ -1,4 +1,6 @@
 from _typeshed import Incomplete
+from fontTools.misc import sstruct as sstruct
+from fontTools.misc.roundTools import otRound as otRound
 from fontTools.misc.textTools import binary2num as binary2num, num2binary as num2binary, safeEval as safeEval
 from fontTools.ttLib import TTFont as TTFont
 from fontTools.ttLib.tables import DefaultTable as DefaultTable
@@ -21,7 +23,7 @@ OS2_format_2: Incomplete
 OS2_format_5: Incomplete
 
 class table_O_S_2f_2(DefaultTable.DefaultTable):
-	"""OS/2 and Windows Metrics table.
+	"""OS/2 and Windows Metrics table
 
 	The ``OS/2`` table contains a variety of font-wide metrics and
 	parameters that may be useful to an operating system or other
@@ -78,10 +80,7 @@ class table_O_S_2f_2(DefaultTable.DefaultTable):
 		"""
 
 OS2_UNICODE_RANGES: Incomplete
-_unicodeStarts: Incomplete
-_unicodeValues: Incomplete
 
-def _getUnicodeRanges(): ...
 def intersectUnicodeRanges(unicodes, inverse: bool = False):
 	"""Intersect a sequence of (int) Unicode codepoints with the Unicode block
 	ranges defined in the OpenType specification v1.7, and return the set of

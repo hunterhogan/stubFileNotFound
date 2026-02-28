@@ -1,5 +1,5 @@
+from .arc import EllipticalArc as EllipticalArc
 from _typeshed import Incomplete
-from collections.abc import Generator
 
 COMMANDS: Incomplete
 ARC_COMMANDS: Incomplete
@@ -8,14 +8,10 @@ COMMAND_RE: Incomplete
 FLOAT_RE: Incomplete
 BOOL_RE: Incomplete
 SEPARATOR_RE: Incomplete
-
-def _tokenize_path(pathdef) -> Generator[Incomplete, Incomplete]: ...
-
 ARC_ARGUMENT_TYPES: Incomplete
 
-def _tokenize_arc_arguments(arcdef) -> Generator[Incomplete]: ...
 def parse_path(pathdef, pen, current_pos=(0, 0), arc_class=...) -> None:
-    """Parse SVG path definition (i.e. "d" attribute of <path> elements)
+    '''Parse SVG path definition (i.e. "d" attribute of <path> elements)
     and call a \'pen\' object\'s moveTo, lineTo, curveTo, qCurveTo and closePath
     methods.
 
@@ -31,4 +27,4 @@ def parse_path(pathdef, pen, current_pos=(0, 0), arc_class=...) -> None:
 
     Otherwise, the arcs are approximated by series of cubic Bezier segments
     ("curveTo"), one every 90 degrees.
-    """
+    '''

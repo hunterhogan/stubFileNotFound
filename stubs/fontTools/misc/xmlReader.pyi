@@ -1,5 +1,7 @@
 from _typeshed import Incomplete
-from fontTools.ttLib import TTFont
+from fontTools import ttLib as ttLib
+from fontTools.misc.textTools import safeEval as safeEval
+from fontTools.ttLib.tables.DefaultTable import DefaultTable as DefaultTable
 
 log: Incomplete
 
@@ -9,8 +11,7 @@ BUFSIZE: int
 
 class XMLReader:
     file: Incomplete
-    _closeStream: bool
-    ttFont: Incomplete
+    ttFont: TTFont
     progress: Incomplete
     quiet: Incomplete
     root: Incomplete
@@ -20,11 +21,6 @@ class XMLReader:
     def __init__(self, fileOrPath, ttFont: TTFont, progress=None, quiet=None, contentOnly: bool = False) -> None: ...
     def read(self, rootless: bool = False) -> None: ...
     def close(self) -> None: ...
-    def _parseFile(self, file) -> None: ...
-    currentTable: Incomplete
-    def _startElementHandler(self, name, attrs) -> None: ...
-    def _characterDataHandler(self, data) -> None: ...
-    def _endElementHandler(self, name) -> None: ...
 
 class ProgressPrinter:
     def __init__(self, title, maxval: int = 100) -> None: ...

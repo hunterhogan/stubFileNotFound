@@ -1,7 +1,8 @@
+from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
+from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import byteord as byteord, safeEval as safeEval
-from fontTools.ttLib import TTFont
 
 METAHeaderFormat: str
 METAGlyphRecordFormat: str
@@ -17,7 +18,6 @@ class table_M_E_T_A_(DefaultTable.DefaultTable):
 
     See also https://web.archive.org/web/20080627183635/http://www.adobe.com/devnet/opentype/gdk/topic.html
     """
-
     dependencies: Incomplete
     glyphRecords: Incomplete
     def decompile(self, data, ttFont: TTFont) -> None: ...

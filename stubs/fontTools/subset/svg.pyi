@@ -1,3 +1,4 @@
+from functools import cache
 
 __all__ = ['subset_glyphs']
 

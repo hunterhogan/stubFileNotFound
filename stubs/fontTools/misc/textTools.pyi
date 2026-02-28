@@ -20,9 +20,12 @@ def hexStr(data):
 def num2binary(l, bits: int = 32): ...
 def binary2num(bin): ...
 def caselessSort(alist):
-    """Return a sorted copy of a list. If there are only strings in the list, it will not consider case."""
+    """Return a sorted copy of a list. If there are only strings
+    in the list, it will not consider case.
+    """
 def pad(data, size):
-    r"""Pad byte string 'data' with null bytes until its length is a multiple of 'size'.
+    """Pad byte string 'data' with null bytes until its length is a
+    multiple of 'size'.
 
     >>> len(pad(b'abcd', 4))
     4

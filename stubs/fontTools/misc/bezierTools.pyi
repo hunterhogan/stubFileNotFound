@@ -1,23 +1,10 @@
-from fontTools.misc.arrayTools import calcBounds as calcBounds, rectArea as rectArea, sectRect as sectRect
 import _cython_3_2_2
+from fontTools.misc.arrayTools import calcBounds as calcBounds, rectArea as rectArea, sectRect as sectRect
+from fontTools.misc.transform import Identity as Identity
 
 COMPILED: bool
 EPSILON: float
 __test__: dict
-_alignment_transformation: _cython_3_2_2.cython_function_or_method
-_both_points_are_on_same_side_of_origin: _cython_3_2_2.cython_function_or_method
-_calcCubicArcLengthCRecurse: _cython_3_2_2.cython_function_or_method
-_curve_bounds: _cython_3_2_2.cython_function_or_method
-_curve_curve_intersections_t: _cython_3_2_2.cython_function_or_method
-_curve_line_intersections_t: _cython_3_2_2.cython_function_or_method
-_is_linelike: _cython_3_2_2.cython_function_or_method
-_line_t_of_pt: _cython_3_2_2.cython_function_or_method
-_segmentrepr: _cython_3_2_2.cython_function_or_method
-_splitCubicAtT: _cython_3_2_2.cython_function_or_method
-_splitCubicAtTC: _cython_3_2_2.cython_function_or_method
-_splitQuadraticAtT: _cython_3_2_2.cython_function_or_method
-_split_cubic_into_two: _cython_3_2_2.cython_function_or_method
-_split_segment_at_t: _cython_3_2_2.cython_function_or_method
 approximateCubicArcLength: _cython_3_2_2.cython_function_or_method
 approximateCubicArcLengthC: _cython_3_2_2.cython_function_or_method
 approximateQuadraticArcLength: _cython_3_2_2.cython_function_or_method

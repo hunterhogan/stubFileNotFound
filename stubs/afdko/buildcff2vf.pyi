@@ -1,48 +1,31 @@
 from _typeshed import Incomplete
-from argparse import Namespace
+from afdko.fdkutils import validate_path as validate_path
 from fontTools.varLib.cff import CFF2CharStringMergePen
-from typing import Any, Literal
 
-"""
-Builds a CFF2 variable font from a designspace file and its UFO masters.
-"""
-__version__ = ...
-STAT_FILENAME = ...
+__version__: str
+STAT_FILENAME: str
+
 class CFF2VFError(Exception):
     """Base exception for buildcff2vf"""
 
+def progress(self, message, *args, **kws) -> None: ...
 
+PROGRESS_LEVEL: Incomplete
+PROGESS_NAME: str
+logger: Incomplete
 
-def progress(self, message, *args, **kws) -> None:
-    ...
-
-PROGRESS_LEVEL = ...
-PROGESS_NAME = ...
-logger = ...
-def getSubset(subset_Path) -> dict[Any, Any]:
-    ...
-
-def subset_masters(designspace, subsetDict) -> None:
-    ...
+def getSubset(subset_Path): ...
+def subset_masters(designspace, subsetDict) -> None: ...
 
 class CompatibilityPen(CFF2CharStringMergePen):
-    def __init__(self, default_commands, glyphName, num_masters, master_idx, roundTolerance=...) -> None:
-        ...
-
-    def add_point(self, point_type, pt_coords) -> None:
-        ...
-
-    def make_flat_curve(self, cur_coords) -> list[Incomplete | Any]:
-        ...
-
-    def make_curve_coords(self, coords, is_default) -> list[Incomplete | Any]:
-        ...
-
-    def check_and_fix_flat_curve(self, cmd, point_type, pt_coords) -> tuple[bool, list[Incomplete | Any] | Any]:
-        ...
-
-    def check_and_fix_closepath(self, cmd, point_type, pt_coords) -> bool:
-        """Some workflows drop a lineto which closes a path.
+    fixed: bool
+    def __init__(self, default_commands, glyphName, num_masters, master_idx, roundTolerance: float = 0.5) -> None: ...
+    def add_point(self, point_type, pt_coords) -> None: ...
+    def make_flat_curve(self, cur_coords): ...
+    def make_curve_coords(self, coords, is_default): ...
+    def check_and_fix_flat_curve(self, cmd, point_type, pt_coords): ...
+    def check_and_fix_closepath(self, cmd, point_type, pt_coords):
+        """ Some workflows drop a lineto which closes a path.
         Also, if the last segment is a curve in one master,
         and a flat curve in another, the flat curve can get
         converted to a closing lineto, and then dropped.
@@ -65,9 +48,8 @@ class CompatibilityPen(CFF2CharStringMergePen):
 
         return True if we can fix this issue.
         """
-
-    def getCharStrings(self, num_masters, private=..., globalSubrs=..., default_idx=...) -> list[Any]:
-        """A command looks like:
+    def getCharStrings(self, num_masters, private=None, globalSubrs=None, default_idx: int = 0):
+        """ A command looks like:
         [op_name, [
             [source 0 arglist for op],
             [source 1 arglist for op],
@@ -86,45 +68,24 @@ class CompatibilityPen(CFF2CharStringMergePen):
         before calling specialize.
         """
 
-
-
-def do_compatibility(vf, master_fonts, default_idx) -> None:
-    ...
-
-def otfFinder(s):
-    ...
-
-def suppress_glyph_names(tt_font) -> None:
-    ...
-
-def remove_mac_names(tt_font) -> None:
-    ...
-
+def do_compatibility(vf, master_fonts, default_idx) -> None: ...
+def otfFinder(s): ...
+def suppress_glyph_names(tt_font) -> None: ...
+def remove_mac_names(tt_font) -> None: ...
 def update_stat_name_ids(tt_font) -> None:
     """
     The STAT spec says that axes must point to the same name ID used
     in the fvar so check here and update if they are different.
     """
-
 def validate_stat_axes(tt_font) -> None:
     """
     Ensure all axes defined in fvar also exist in the STAT table
     """
-
 def validate_stat_values(ttFont) -> None:
     """
     Check axis values in the STAT table to ensure they are within the ranges
     defined in the fvar
     """
-
-def import_stat_override(tt_font, stat_file_path) -> None:
-    ...
-
-def get_options(args) -> Namespace:
-    ...
-
-def main(args=...) -> Literal[1] | None:
-    ...
-
-if __name__ == '__main__':
-    ...
+def import_stat_override(tt_font, stat_file_path) -> None: ...
+def get_options(args): ...
+def main(args=None): ...

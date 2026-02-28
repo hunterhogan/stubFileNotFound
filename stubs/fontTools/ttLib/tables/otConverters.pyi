@@ -1,16 +1,13 @@
-from .otBase import (
-	CountReference as CountReference, FormatSwitchingBaseTable as FormatSwitchingBaseTable, OTTableReader as OTTableReader,
-	OTTableWriter as OTTableWriter, ValueRecordFactory as ValueRecordFactory)
-from .otTables import (
-	AATAction as AATAction, AATState as AATState, AATStateTable as AATStateTable, CompositeMode as _CompositeMode,
-	ContextualMorphAction as ContextualMorphAction, ExtendMode as _ExtendMode,
-	InsertionMorphAction as InsertionMorphAction, LigatureMorphAction as LigatureMorphAction, lookupTypes as lookupTypes,
-	MorxSubtable as MorxSubtable, NO_VARIATION_INDEX as NO_VARIATION_INDEX, VarCompositeGlyph as VarCompositeGlyph)
+from .otBase import CountReference as CountReference, FormatSwitchingBaseTable as FormatSwitchingBaseTable, OTTableReader as OTTableReader, OTTableWriter as OTTableWriter, ValueRecordFactory as ValueRecordFactory
+from .otTables import AATAction as AATAction, AATState as AATState, AATStateTable as AATStateTable, ContextualMorphAction as ContextualMorphAction, InsertionMorphAction as InsertionMorphAction, LigatureMorphAction as LigatureMorphAction, MorxSubtable as MorxSubtable, NO_VARIATION_INDEX as NO_VARIATION_INDEX, VarCompositeGlyph as VarCompositeGlyph, lookupTypes as lookupTypes
 from _typeshed import Incomplete
+from fontTools.misc.lazyTools import LazyList as LazyList
 from fontTools.misc.roundTools import nearestMultipleShortestRepr as nearestMultipleShortestRepr, otRound as otRound
-from fontTools.misc.textTools import (
-	bytesjoin as bytesjoin, pad as pad, safeEval as safeEval, tobytes as tobytes, tostr as tostr)
-from fontTools.ttLib import getSearchRange as getSearchRange, OPTIMIZE_FONT_SPEED as OPTIMIZE_FONT_SPEED
+from fontTools.misc.textTools import bytesjoin as bytesjoin, pad as pad, safeEval as safeEval, tobytes as tobytes, tostr as tostr
+from fontTools.ttLib import OPTIMIZE_FONT_SPEED as OPTIMIZE_FONT_SPEED, getSearchRange as getSearchRange
+from fontTools.ttLib.tables.TupleVariation import TupleVariation as TupleVariation
+from itertools import zip_longest as zip_longest
+from types import SimpleNamespace as SimpleNamespace
 
 log: Incomplete
 istuple: Incomplete
@@ -18,14 +15,11 @@ istuple: Incomplete
 def buildConverters(tableSpec, tableNamespace):
     """Given a table spec from otData.py, build a converter object for each
     field of the table. This is called for each table in otData.py, and
-    the results are assigned to the corresponding class in otTables.py.
-    """
+    the results are assigned to the corresponding class in otTables.py."""
 
 class BaseConverter:
     """Base class for converter objects. Apart from the constructor, this
-    is an abstract class.
-    """
-
+    is an abstract class."""
     name: Incomplete
     repeat: Incomplete
     aux: Incomplete
@@ -221,7 +215,6 @@ class Char64(SimpleValue):
     Unused character positions are filled with 0x00 bytes.
     Used in Apple AAT fonts in the `gcid` table.
     """
-
     staticSize: int
     def read(self, reader, font, tableDict): ...
     def write(self, writer, font, tableDict, value, repeatIndex=None) -> None: ...
@@ -313,10 +306,7 @@ class AATLookupWithDataOffset(BaseConverter):
     def xmlWrite(self, xmlWriter, font, value, name, attrs) -> None: ...
 
 class MorxSubtableConverter(BaseConverter):
-    _PROCESSING_ORDERS: Incomplete
-    _PROCESSING_ORDERS_REVERSED: Incomplete
     def __init__(self, name, repeat, aux, tableClass=None, *, description: str = '') -> None: ...
-    def _setTextDirectionFromCoverageFlags(self, flags, subtable) -> None: ...
     def read(self, reader, font, tableDict): ...
     def xmlWrite(self, xmlWriter, font, value, name, attrs) -> None: ...
     def xmlRead(self, attrs, content, font): ...
@@ -327,21 +317,9 @@ class STXHeader(BaseConverter):
     perGlyphLookup: Incomplete
     def __init__(self, name, repeat, aux, tableClass, *, description: str = '') -> None: ...
     def read(self, reader, font, tableDict): ...
-    def _readTransition(self, reader, entryIndex, font, actionReader): ...
-    def _readLigatures(self, reader, font): ...
-    def _countPerGlyphLookups(self, table): ...
-    def _readPerGlyphLookups(self, table, reader, font): ...
     def write(self, writer, font, tableDict, value, repeatIndex=None) -> None: ...
-    def _compileStates(self, font, states, glyphClassCount, actionIndex): ...
-    def _compilePerGlyphLookups(self, table, font): ...
-    def _compileLigComponents(self, table, font): ...
-    def _compileLigatures(self, table, font): ...
     def xmlWrite(self, xmlWriter, font, value, name, attrs) -> None: ...
-    def _xmlWriteLigatures(self, xmlWriter, font, value, name, attrs) -> None: ...
     def xmlRead(self, attrs, content, font): ...
-    def _xmlReadState(self, attrs, content, font): ...
-    def _xmlReadLigComponents(self, attrs, content, font): ...
-    def _xmlReadLigatures(self, attrs, content, font): ...
 
 class CIDGlyphMap(BaseConverter):
     def read(self, reader, font, tableDict): ...
@@ -378,8 +356,6 @@ class TupleValues:
     def xmlWrite(self, xmlWriter, font, value, name, attrs) -> None: ...
 
 class CFF2Index(BaseConverter):
-    _itemClass: Incomplete
-    _converter: Incomplete
     def __init__(self, name, repeat, aux, tableClass=None, *, itemClass=None, itemConverterClass=None, description: str = '') -> None: ...
     def read(self, reader, font, tableDict): ...
     def write(self, writer, font, tableDict, values, repeatIndex=None) -> None: ...
@@ -398,9 +374,9 @@ class _UInt8Enum(UInt8):
     def toString(cls, value): ...
 
 class ExtendMode(_UInt8Enum):
-    enumClass = _ExtendMode
+    enumClass: Incomplete
 
 class CompositeMode(_UInt8Enum):
-    enumClass = _CompositeMode
+    enumClass: Incomplete
 
 converterMapping: Incomplete

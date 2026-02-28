@@ -1,8 +1,5 @@
-from fontTools.designspaceLib import (
-	AxisLabelDescriptor as AxisLabelDescriptor, DesignSpaceDocument as DesignSpaceDocument,
-	DesignSpaceDocumentError as DesignSpaceDocumentError, LocationLabelDescriptor as LocationLabelDescriptor)
-from fontTools.designspaceLib.types import (
-	getVFUserRegion as getVFUserRegion, locationInRegion as locationInRegion, Region as Region)
+from fontTools.designspaceLib import AxisLabelDescriptor as AxisLabelDescriptor, DesignSpaceDocument as DesignSpaceDocument, DesignSpaceDocumentError as DesignSpaceDocumentError, LocationLabelDescriptor as LocationLabelDescriptor
+from fontTools.designspaceLib.types import Region as Region, getVFUserRegion as getVFUserRegion, locationInRegion as locationInRegion
 from fontTools.ttLib import TTFont as TTFont
 
 def buildVFStatTable(ttFont: TTFont, doc: DesignSpaceDocument, vfName: str) -> None:
@@ -31,5 +28,3 @@ def getStatLocations(doc: DesignSpaceDocument, userRegion: Region) -> list[dict]
 
     .. versionadded:: 5.0
     """
-def _labelToFlags(label: AxisLabelDescriptor | LocationLabelDescriptor) -> int: ...
-def _axisLabelToStatLocation(label: AxisLabelDescriptor) -> dict: ...

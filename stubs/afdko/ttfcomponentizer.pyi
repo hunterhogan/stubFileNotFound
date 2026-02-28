@@ -1,31 +1,26 @@
-from argparse import Namespace
-from typing import Any, Literal
-from ufoLib2 import Font
+from _typeshed import Incomplete
+from afdko.fdkutils import get_font_format as get_font_format
 
-"""
-Takes in a TrueType font and looks for a UFO font stored in the same folder.
-Uses the UFO's components data to componentize matching TrueType glyphs.
-The script only supports components that are not scaled, rotated nor flipped.
-"""
-__version__ = ...
-PUBLIC_PSNAMES = ...
-GOADB_FILENAME = ...
+__version__: str
+PUBLIC_PSNAMES: str
+GOADB_FILENAME: str
+
 class ComponentsData:
-    def __init__(self) -> None:
-        ...
-
-    def add_component(self, name, pos) -> None:
-        ...
-
-
+    names: Incomplete
+    positions: Incomplete
+    same_advwidth: bool
+    def __init__(self) -> None: ...
+    def add_component(self, name, pos) -> None: ...
 
 class TTComponentizer:
-    def __init__(self, ufo, ps_names, input_path, output_path=...) -> None:
-        ...
-
-    def componentize(self) -> None:
-        ...
-
+    ufo: Incomplete
+    ps_names: Incomplete
+    input_path: Incomplete
+    output_path: Incomplete
+    composites_data: Incomplete
+    comp_count: int
+    def __init__(self, ufo, ps_names, input_path, output_path=None) -> None: ...
+    def componentize(self) -> None: ...
     def get_composites_data(self) -> None:
         """
         Iterate thru each glyph of a UFO and collect the names and positions
@@ -40,7 +35,6 @@ class TTComponentizer:
 
         NOTE: All glyph names in the returned dictionary are production names.
         """
-
     def check_1st_comp_advwidth(self, glyph):
         """
         Returns True if the advance width of the composite glyph is the same
@@ -48,7 +42,6 @@ class TTComponentizer:
         This information is essential for setting the flag of the composite's
         first component later on.
         """
-
     def componentize_ttf(self) -> None:
         """
         Loads a TrueType font and iterates thru a dictionary of composites
@@ -60,32 +53,25 @@ class TTComponentizer:
 
         Updates a count of the glyphs that got componentized.
         """
-
     @staticmethod
-    def assemble_components(comps_data) -> list[Any]:
+    def assemble_components(comps_data):
         """
         Assemble and return a list of GlyphComponent objects.
         """
 
-
-
-def get_ufo_path(ttf_path) -> None:
+def get_ufo_path(ttf_path):
     """
     Find a UFO font in the same folder as the TT font.
     Returns the UFO's path or None.
     """
-
-def get_goadb_path(font_path) -> str | None:
+def get_goadb_path(font_path):
     """
     Find a file named GlyphOrderAndAliasDB. This file can be in the same
     folder as the font, or up-to 3 folders above.
     Returns the GOADB's path or None.
     """
-
-def read_txt_file_lines(file_path) -> list[str]:
-    ...
-
-def process_goadb(goadb_path) -> dict[Any, Any]:
+def read_txt_file_lines(file_path): ...
+def process_goadb(goadb_path):
     """
     Read a GOADB file and return a dictionary mapping glyph design names to
     glyph production names. The returned mapping may be empty as it will only
@@ -94,14 +80,12 @@ def process_goadb(goadb_path) -> dict[Any, Any]:
     production_name<tab>design_name<tab>unicode_overrides
     Blank lines and comment lines are alowed in a GOADB file.
     """
-
-def get_goadb_names_mapping(ufo_path) -> dict[Any, Any]:
+def get_goadb_names_mapping(ufo_path):
     """
     Assemble a glyph names' mapping dictionary from a GOADB file.
     Returns a dictionary, which can be empty.
     """
-
-def get_glyph_names_mapping(ufo_path) -> tuple[None, None] | tuple[Font, Any] | tuple[Font, dict[Any, Any]]:
+def get_glyph_names_mapping(ufo_path):
     """
     Return a dictionary mapping glyphs' design names to production names.
     This mapping is necessary because the glyph names of the input TTF will
@@ -118,12 +102,5 @@ def get_glyph_names_mapping(ufo_path) -> tuple[None, None] | tuple[Font, Any] | 
 
     The UFO object is also returned.
     """
-
-def get_options(args) -> Namespace:
-    ...
-
-def main(args=...) -> Literal[1] | None:
-    ...
-
-if __name__ == "__main__":
-    ...
+def get_options(args): ...
+def main(args=None): ...

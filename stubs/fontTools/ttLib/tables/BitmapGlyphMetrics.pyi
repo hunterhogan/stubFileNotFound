@@ -1,5 +1,7 @@
-from _typeshed import Incomplete
 from fontTools.ttLib import TTFont
+from _typeshed import Incomplete
+from fontTools.misc import sstruct as sstruct
+from fontTools.misc.textTools import safeEval as safeEval
 
 log: Incomplete
 bigGlyphMetricsFormat: str

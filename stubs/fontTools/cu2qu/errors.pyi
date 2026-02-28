@@ -14,8 +14,7 @@ class IncompatibleGlyphsError(Error):
     combined_name: Incomplete
     def __init__(self, glyphs) -> None: ...
 
-class IncompatibleSegmentNumberError(IncompatibleGlyphsError):
-    ...
+class IncompatibleSegmentNumberError(IncompatibleGlyphsError): ...
 
 class IncompatibleSegmentTypesError(IncompatibleGlyphsError):
     segments: Incomplete

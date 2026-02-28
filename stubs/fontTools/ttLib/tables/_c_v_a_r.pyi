@@ -1,6 +1,8 @@
+from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools.ttLib import TTFont
+from fontTools.misc import sstruct as sstruct
+from fontTools.misc.textTools import bytesjoin as bytesjoin
 from fontTools.ttLib.tables.TupleVariation import (
 	compileTupleVariationStore as compileTupleVariationStore, decompileTupleVariationStore as decompileTupleVariationStore,
 	TupleVariation as TupleVariation)
@@ -16,7 +18,6 @@ class table__c_v_a_r(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/cvar
     """
-
     dependencies: Incomplete
     variations: Incomplete
     def __init__(self, tag=None) -> None: ...

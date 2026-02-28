@@ -1,19 +1,13 @@
 from _typeshed import Incomplete
-from collections.abc import Callable, Mapping, MutableMapping, Sequence
 from datetime import datetime
 from fontTools.misc import etree as etree
-from functools import singledispatch
+from fontTools.misc.textTools import tostr as tostr
 from numbers import Integral
-from types import SimpleNamespace
-from typing import Any, IO, TypeAlias
+from typing import Any, IO, Mapping, MutableMapping, Sequence
 
 USE_BUILTIN_TYPES: bool
 XML_DECLARATION: bytes
 PLIST_DOCTYPE: bytes
-_date_parser: Incomplete
-
-def _date_from_string(s: str) -> datetime: ...
-def _date_to_string(d: datetime) -> str: ...
 
 class Data:
     """Represents binary data when ``use_builtin_types=False.``
@@ -24,19 +18,16 @@ class Data:
 
     The actual binary data is retrieved using the ``data`` attribute.
     """
-
     data: Incomplete
     def __init__(self, data: bytes) -> None: ...
     @classmethod
     def fromBase64(cls, data: bytes | str) -> Data: ...
     def asBase64(self, maxlinelength: int = 76, indent_level: int = 1) -> bytes: ...
-    def __eq__(self, other: object) -> bool: ...
-
-def _encode_base64(data: bytes, maxlinelength: int | None = 76, indent_level: int = 1) -> bytes: ...
-PlistEncodable: TypeAlias = bool | bytes | Data | datetime | float | Integral | Mapping[str, Any] | Sequence[Any] | str
+    def __eq__(self, other: Any) -> bool: ...
+PlistEncodable = bool | bytes | Data | datetime | float | Integral | Mapping[str, Any] | Sequence[Any] | str
 
 class PlistTarget:
-    """Event handler using the ElementTree Target API that can be
+    '''Event handler using the ElementTree Target API that can be
     passed to a XMLParser to produce property list objects from XML.
     It is based on the CPython plistlib module\'s _PlistParser class,
     but does not use the expat parser.
@@ -55,15 +46,11 @@ class PlistTarget:
     Links:
     https://github.com/python/cpython/blob/main/Lib/plistlib.py
     http://lxml.de/parsing.html#the-target-parser-interface
-    """
-
+    '''
     stack: list[PlistEncodable]
     current_key: str | None
     root: PlistEncodable | None
-    _use_builtin_types: Incomplete
-    _dict_type: Incomplete
     def __init__(self, use_builtin_types: bool | None = None, dict_type: type[MutableMapping[str, Any]] = ...) -> None: ...
-    _data: list[str]
     def start(self, tag: str, attrib: Mapping[str, str]) -> None: ...
     def end(self, tag: str) -> None: ...
     def data(self, data: str) -> None: ...
@@ -83,21 +70,6 @@ def end_real(self) -> None: ...
 def end_string(self) -> None: ...
 def end_data(self) -> None: ...
 def end_date(self) -> None: ...
-
-_TARGET_START_HANDLERS: dict[str, Callable[[PlistTarget], None]]
-_TARGET_END_HANDLERS: dict[str, Callable[[PlistTarget], None]]
-
-def _string_element(value: str, ctx: SimpleNamespace) -> etree.Element: ...
-def _bool_element(value: bool, ctx: SimpleNamespace) -> etree.Element: ...
-def _integer_element(value: int, ctx: SimpleNamespace) -> etree.Element: ...
-def _real_element(value: float, ctx: SimpleNamespace) -> etree.Element: ...
-def _dict_element(d: Mapping[str, PlistEncodable], ctx: SimpleNamespace) -> etree.Element: ...
-def _array_element(array: Sequence[PlistEncodable], ctx: SimpleNamespace) -> etree.Element: ...
-def _date_element(date: datetime, ctx: SimpleNamespace) -> etree.Element: ...
-def _data_element(data: bytes, ctx: SimpleNamespace) -> etree.Element: ...
-def _string_or_data_element(raw_bytes: bytes, ctx: SimpleNamespace) -> etree.Element: ...
-@singledispatch
-def _make_element(value: PlistEncodable, ctx: SimpleNamespace) -> etree.Element: ...
 def totree(value: PlistEncodable, sort_keys: bool = True, skipkeys: bool = False, use_builtin_types: bool | None = None, pretty_print: bool = True, indent_level: int = 1) -> etree.Element:
     """Convert a value derived from a plist into an XML tree.
 
@@ -116,8 +88,7 @@ def totree(value: PlistEncodable, sort_keys: bool = True, skipkeys: bool = False
 
     Returns: an ``etree`` ``Element`` object.
 
-    Raises
-    ------
+    Raises:
         ``TypeError``
             if non-string dictionary keys are serialized
             and ``skipkeys`` is false.
@@ -147,8 +118,7 @@ def load(fp: IO[bytes], use_builtin_types: bool | None = None, dict_type: type[M
             objects. Defaults to True if not provided. Deprecated.
         dict_type: What type to use for dictionaries.
 
-    Returns
-    -------
+    Returns:
         An object (usually a dictionary) representing the top level of
         the plist file.
     """
@@ -162,8 +132,7 @@ def loads(value: bytes, use_builtin_types: bool | None = None, dict_type: type[M
             objects. Defaults to True if not provided. Deprecated.
         dict_type: What type to use for dictionaries.
 
-    Returns
-    -------
+    Returns:
         An object (usually a dictionary) representing the top level of
         the plist file.
     """
@@ -183,8 +152,7 @@ def dump(value: PlistEncodable, fp: IO[bytes], sort_keys: bool = True, skipkeys:
         pretty_print (bool): Whether to indent the output.
         indent_level (int): Level of indentation when serializing.
 
-    Raises
-    ------
+    Raises:
         ``TypeError``
             if non-string dictionary keys are serialized
             and ``skipkeys`` is false.
@@ -207,12 +175,10 @@ def dumps(value: PlistEncodable, sort_keys: bool = True, skipkeys: bool = False,
         pretty_print (bool): Whether to indent the output.
         indent_level (int): Level of indentation when serializing.
 
-    Returns
-    -------
+    Returns:
         string: A plist representation of the Python object.
 
-    Raises
-    ------
+    Raises:
         ``TypeError``
             if non-string dictionary keys are serialized
             and ``skipkeys`` is false.

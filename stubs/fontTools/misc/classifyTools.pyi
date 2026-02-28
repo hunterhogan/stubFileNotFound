@@ -1,15 +1,7 @@
-from _typeshed import Incomplete
-
 class Classifier:
     """
     Main Classifier object, used to classify things into similar sets.
     """
-
-    _things: Incomplete
-    _sets: Incomplete
-    _mapping: Incomplete
-    _dirty: bool
-    _sort: Incomplete
     def __init__(self, sort: bool = True) -> None: ...
     def add(self, set_of_things) -> None:
         """
@@ -19,7 +11,6 @@ class Classifier:
         """
         Add a a list of sets to the classifier.  Any iterable of iterables is accepted.
         """
-    def _process(self): ...
     def getThings(self):
         """Returns the set of all things known so far.
 

@@ -1,10 +1,9 @@
 from _typeshed import Incomplete
-from fontTools.misc.psOperators import (
-	_type1_fontinfo_order as _type1_fontinfo_order, _type1_post_eexec_order as _type1_post_eexec_order,
-	_type1_pre_eexec_order as _type1_pre_eexec_order)
+from fontTools.encodings.StandardEncoding import StandardEncoding as StandardEncoding
+from fontTools.misc import eexec as eexec
+from fontTools.misc.macCreatorType import getMacCreatorAndType as getMacCreatorAndType
 from fontTools.misc.textTools import bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, tobytes as tobytes
 
-__author__: str
 __version__: str
 DEBUG: int
 haveMacSupport: int
@@ -17,7 +16,6 @@ class T1Font:
     Uses a minimal interpeter that supports just about enough PS to parse
     Type 1 fonts.
     """
-
     data: Incomplete
     encoding: Incomplete
     def __init__(self, path, encoding: str = 'ascii', kind=None) -> None: ...
@@ -37,22 +35,20 @@ class T1Font:
     def parse(self) -> None: ...
     def createData(self): ...
     def encode_eexec(self, eexec_dict): ...
-    def _make_lines(self, key, value): ...
-    def _tobytes(self, s, errors: str = 'strict'): ...
 
 def read(path, onlyHeader: bool = False):
-    """Reads any Type 1 font file, returns raw data"""
+    """reads any Type 1 font file, returns raw data"""
 def write(path, data, kind: str = 'OTHER', dohex: bool = False) -> None: ...
 
 LWFNCHUNKSIZE: int
 HEXLINELENGTH: int
 
 def readLWFN(path, onlyHeader: bool = False):
-    """Reads an LWFN font file, returns raw data"""
+    """reads an LWFN font file, returns raw data"""
 def readPFB(path, onlyHeader: bool = False):
-    """Reads a PFB font file, returns raw data"""
+    """reads a PFB font file, returns raw data"""
 def readOther(path):
-    """Reads any (font) file, returns raw data"""
+    """reads any (font) file, returns raw data"""
 def writeLWFN(path, data) -> None: ...
 def writePFB(path, data) -> None: ...
 def writeOther(path, data, dohex: bool = False) -> None: ...
@@ -62,15 +58,11 @@ EEXECEND: Incomplete
 EEXECINTERNALEND: bytes
 EEXECBEGINMARKER: bytes
 EEXECENDMARKER: bytes
-_ishexRE: Incomplete
 
 def isHex(text): ...
 def decryptType1(data): ...
 def findEncryptedChunks(data): ...
 def deHexString(hexstring): ...
-
-_fontType1RE: Incomplete
-
 def assertType1(data): ...
 def longToString(long): ...
 def stringToLong(s): ...

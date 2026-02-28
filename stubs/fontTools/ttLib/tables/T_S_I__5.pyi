@@ -1,6 +1,7 @@
+from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-from fontTools.ttLib import TTFont
+from fontTools.misc.textTools import safeEval as safeEval
 
 log: Incomplete
 

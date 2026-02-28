@@ -1,10 +1,5 @@
 from dataclasses import dataclass
-from fontTools.designspaceLib import (
-	AxisDescriptor as AxisDescriptor, DesignSpaceDocument as DesignSpaceDocument,
-	DesignSpaceDocumentError as DesignSpaceDocumentError, RangeAxisSubsetDescriptor as RangeAxisSubsetDescriptor,
-	SimpleLocationDict as SimpleLocationDict, ValueAxisSubsetDescriptor as ValueAxisSubsetDescriptor,
-	VariableFontDescriptor as VariableFontDescriptor)
-from typing import TypeAlias
+from fontTools.designspaceLib import AxisDescriptor as AxisDescriptor, DesignSpaceDocument as DesignSpaceDocument, DesignSpaceDocumentError as DesignSpaceDocumentError, RangeAxisSubsetDescriptor as RangeAxisSubsetDescriptor, SimpleLocationDict as SimpleLocationDict, ValueAxisSubsetDescriptor as ValueAxisSubsetDescriptor, VariableFontDescriptor as VariableFontDescriptor
 
 def clamp(value, minimum, maximum): ...
 
@@ -16,10 +11,10 @@ class Range:
     def __post_init__(self) -> None: ...
     def __contains__(self, value: float | Range) -> bool: ...
     def intersection(self, other: Range) -> Range | None: ...
-Region: TypeAlias = dict[str, Range | float]
-ConditionSet: TypeAlias = dict[str, Range]
-Rule: TypeAlias = list[ConditionSet]
-Rules: TypeAlias = dict[str, Rule]
+Region = dict[str, Range | float]
+ConditionSet = dict[str, Range]
+Rule = list[ConditionSet]
+Rules = dict[str, Rule]
 
 def locationInRegion(location: SimpleLocationDict, region: Region) -> bool: ...
 def regionInRegion(region: Region, superRegion: Region) -> bool: ...

@@ -1,7 +1,8 @@
+from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
+from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import safeEval as safeEval, tobytes as tobytes, tostr as tostr
-from fontTools.ttLib import TTFont
 
 GMAPFormat: str
 GMAPRecordFormat1: str
@@ -24,7 +25,6 @@ class table_G_M_A_P_(DefaultTable.DefaultTable):
 
     See also https://web.archive.org/web/20080627183635/http://www.adobe.com/devnet/opentype/gdk/topic.html
     """
-
     dependencies: Incomplete
     psFontName: Incomplete
     gmapRecords: Incomplete

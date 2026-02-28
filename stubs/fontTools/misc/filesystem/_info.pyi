@@ -1,3 +1,4 @@
+from ._errors import MissingInfoNamespace as MissingInfoNamespace
 from _typeshed import Incomplete
 from collections.abc import Mapping
 from datetime import datetime
@@ -7,7 +8,6 @@ def epoch_to_datetime(t: int | None) -> datetime | None:
     """Convert epoch time to a UTC datetime."""
 
 class Info:
-    __slots__: Incomplete
     raw: Incomplete
     namespaces: Incomplete
     def __init__(self, raw_info: Mapping[str, Any]) -> None: ...
@@ -30,4 +30,3 @@ class Info:
     def created(self) -> datetime | None: ...
     @property
     def metadata_changed(self) -> datetime | None: ...
-    __repr__ = __str__

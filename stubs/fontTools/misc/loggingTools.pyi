@@ -1,21 +1,19 @@
-from _typeshed import Incomplete
-from collections.abc import Callable
 import logging
 import types
+from _typeshed import Incomplete
 
 TIME_LEVEL: Incomplete
 DEFAULT_FORMATS: Incomplete
 
 class LevelFormatter(logging.Formatter):
-    """Log formatter with level-specific formatting.
+    '''Log formatter with level-specific formatting.
 
     Formatter class which optionally takes a dict of logging levels to
     format strings, allowing to customise the log records appearance for
     specific levels.
 
 
-    Attributes
-    ----------
+    Attributes:
             fmt: A dictionary mapping logging levels to format strings.
                     The ``*`` key identifies the default format string.
             datefmt: As per py:class:`logging.Formatter`
@@ -39,17 +37,14 @@ class LevelFormatter(logging.Formatter):
     this also uses a custom format string
     >>> log.warning("this one uses the default format string")
     [WARNING] this one uses the default format string
-    """
-
+    '''
     default_format: Incomplete
     custom_formats: Incomplete
     def __init__(self, fmt=None, datefmt=None, style: str = '%') -> None: ...
-    _fmt: Incomplete
-    _style: Incomplete
     def format(self, record): ...
 
 def configLogger(**kwargs) -> None:
-    """A more sophisticated logging system configuation manager.
+    '''A more sophisticated logging system configuation manager.
 
     This is more or less the same as :py:func:`logging.basicConfig`,
     with some additional options and defaults.
@@ -91,14 +86,10 @@ def configLogger(**kwargs) -> None:
             propagate: All loggers have a ``propagate`` attribute which determines
                     whether to continue searching for handlers up the logging hierarchy.
                     If not provided, the "propagate" attribute will be set to ``False``.
-    """
-def _resetExistingLoggers(parent: str = 'root') -> None:
-    """Reset the logger named 'parent' and all its children to their initial
-    state, if they already exist in the current configuration.
-    """
+    '''
 
 class Timer:
-    """Keeps track of overall time and split/lap times.
+    '''Keeps track of overall time and split/lap times.
 
     >>> import time
     >>> timer = Timer()
@@ -152,9 +143,7 @@ class Timer:
     Took ... to run \'test1\'
     >>> test2()
     Took ... to run test 2
-    """
-
-    _time: Callable[[], float]
+    '''
     default_msg: str
     default_format: str
     logger: Incomplete
@@ -193,7 +182,7 @@ class Timer:
     def __int__(self) -> int: ...
 
 class ChannelsFilter(logging.Filter):
-    """Provides a hierarchical filter for log entries based on channel names.
+    '''Provides a hierarchical filter for log entries based on channel names.
 
     Filters out records emitted from a list of enabled channel names,
     including their children. It works the same as the ``logging.Filter``
@@ -217,8 +206,7 @@ class ChannelsFilter(logging.Filter):
     also this one
     >>> logging.getLogger(\'A.F\').debug(\'but this one does not!\')
     >>> logging.getLogger(\'C.DE\').debug(\'neither this one!\')
-    """
-
+    '''
     names: Incomplete
     num: Incomplete
     lengths: Incomplete
@@ -264,8 +252,6 @@ class LogMixin:
     >>> print(b.log.name)
     fontTools.misc.loggingTools.AnotherClass
     """
-
-    _log: Incomplete
     @property
     def log(self): ...
 

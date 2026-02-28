@@ -1,3 +1,4 @@
+from .cu2qu import *
 
 MAX_ERR: float
 

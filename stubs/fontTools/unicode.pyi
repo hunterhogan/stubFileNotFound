@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
 
-def _makeunicodes(f): ...
-
 class _UnicodeCustom:
     codes: Incomplete
     def __init__(self, f) -> None: ...

@@ -1,23 +1,11 @@
-from . import (
-	anchor_propagation as anchor_propagation, anchors as anchors, annotations as annotations, axes as axes,
-	background_image as background_image, blue_values as blue_values, bracket_layers as bracket_layers,
-	builders as builders, color_layers as color_layers, common as common, components as components, constants as constants,
-	custom_params as custom_params, features as features, filters as filters, font as font, glyph as glyph,
-	groups as groups, guidelines as guidelines, hints as hints, instances as instances, kerning as kerning,
-	layers as layers, masters as masters, names as names, paths as paths, smart_components as smart_components,
-	sources as sources, tokens as tokens, transformations as transformations, user_data as user_data)
+from .builders import GlyphsBuilder as GlyphsBuilder, UFOBuilder as UFOBuilder
+from .transformations import TRANSFORMATIONS as TRANSFORMATIONS, TRANSFORMATION_CUSTOM_PARAMS as TRANSFORMATION_CUSTOM_PARAMS
 from _typeshed import Incomplete
-from fontTools.designspaceLib import DesignSpaceDocument
-from glyphsLib.builder.builders import GlyphsBuilder as GlyphsBuilder, UFOBuilder as UFOBuilder
-from glyphsLib.classes import GSFont
-from glyphsLib.glyphdata import GlyphData
-from types import ModuleType
-from ufoLib2 import Font
-import os
+from glyphsLib import classes as classes, glyphdata as glyphdata
 
-TRANSFORMATIONS: list
-TRANSFORMATION_CUSTOM_PARAMS: mappingproxy
-def to_ufos(font: GSFont, include_instances: bool = ..., family_name: str | None = ..., propagate_anchors: Incomplete | None = ..., ufo_module: Incomplete | None = ..., minimize_glyphs_diffs: bool = ..., generate_GDEF: bool = ..., store_editor_state: bool = ..., write_skipexportglyphs: bool = ..., expand_includes: bool = ..., minimal: bool = ..., glyph_data: GlyphData | str | bytes | os.PathLike[str] | os.PathLike[bytes] | None = None, preserve_original: bool = ...) -> list[Font]:  # noqa: F811
+logger: Incomplete
+
+def to_ufos(font, include_instances: bool = False, family_name=None, propagate_anchors=None, ufo_module=None, minimize_glyphs_diffs: bool = False, generate_GDEF: bool = True, store_editor_state: bool = True, write_skipexportglyphs: bool = False, expand_includes: bool = False, minimal: bool = False, glyph_data=None, preserve_original: bool = False):
     """Take a GSFont object and convert it into one UFO per master.
 
     Takes in data as Glyphs.app-compatible classes, as documented at
@@ -45,7 +33,7 @@ def to_ufos(font: GSFont, include_instances: bool = ..., family_name: str | None
     The optional glyph_data parameter takes a list of GlyphData.xml paths or
     a pre-parsed GlyphData object that overrides the default one.
     """
-def to_designspace(font: GSFont, family_name: Incomplete | None = ..., instance_dir: Incomplete | None = ..., propagate_anchors: Incomplete | None = ..., ufo_module: Incomplete | None = ..., minimize_glyphs_diffs: bool = ..., generate_GDEF: bool = ..., store_editor_state: bool = ..., write_skipexportglyphs: bool = ..., expand_includes: bool = ..., minimal: bool = ..., glyph_data: Incomplete | None = ..., preserve_original: bool = ...) -> tuple[DesignSpaceDocument, list[Font]]:  # noqa: F811
+def to_designspace(font, family_name=None, instance_dir=None, propagate_anchors=None, ufo_module=None, minimize_glyphs_diffs: bool = False, generate_GDEF: bool = True, store_editor_state: bool = True, write_skipexportglyphs: bool = False, expand_includes: bool = False, minimal: bool = False, glyph_data=None, preserve_original: bool = False):
     """Take a GSFont object and convert it into a Designspace Document + UFOS.
     The UFOs are available as the attribute `font` of each SourceDescriptor of
     the DesignspaceDocument:
@@ -76,8 +64,8 @@ def to_designspace(font: GSFont, family_name: Incomplete | None = ..., instance_
     The optional glyph_data parameter takes a list of GlyphData.xml paths or
     a pre-parsed GlyphData object that overrides the default one.
     """
-def preflight_glyphs(font: GSFont, *, glyph_data: Incomplete | None = ..., **flags):  # noqa: F811
-    """Run a set of transformations over a GSFont object to make
+def preflight_glyphs(font, *, glyph_data=None, **flags):
+    '''Run a set of transformations over a GSFont object to make
     it easier to convert to UFO; resolve all the "smart stuff".
 
     Currently, the transformations are:
@@ -98,11 +86,10 @@ def preflight_glyphs(font: GSFont, *, glyph_data: Incomplete | None = ..., **fla
             named `do_<transformation_name>`, e.g. `do_propagate_all_anchors=False`
             will disable the propagation of anchors.
 
-    Returns
-    -------
+    Returns:
         the modified GSFont object
-    """
-def to_glyphs(ufos_or_designspace: list[Font] | DesignSpaceDocument, glyphs_module: ModuleType = ..., ufo_module: ModuleType | None = ..., minimize_ufo_diffs: bool = ..., expand_includes: bool = ...) -> GSFont:
+    '''
+def to_glyphs(ufos_or_designspace, glyphs_module=..., ufo_module=None, minimize_ufo_diffs: bool = False, expand_includes: bool = False):
     """
     Take a list of UFOs or a single DesignspaceDocument with attached UFOs
     and converts it into a GSFont object.

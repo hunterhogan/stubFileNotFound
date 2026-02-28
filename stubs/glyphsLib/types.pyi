@@ -8,7 +8,6 @@ class ValueType:
     """A base class for value types that are comparable in the Python sense
     and readable/writable using the glyphsLib parser/writer.
     """
-
     default: Incomplete
     value: Incomplete
     def __init__(self, value=None) -> None: ...
@@ -23,8 +22,6 @@ class ValueType:
 
 class Point(Incomplete):
     """Read/write a vector in curly braces."""
-
-    __slots__: Incomplete
     rect: Incomplete
     value: Incomplete
     def __init__(self, value=None, value2=None, rect=None) -> None: ...
@@ -49,7 +46,6 @@ class Size(Point):
 
 class Rect(Incomplete):
     """Read/write a rect of two points in curly braces."""
-
     regex: Incomplete
     def __init__(self, value=None, value2=None) -> None: ...
     def plistValue(self, format_version: int = 2): ...
@@ -64,7 +60,6 @@ class Rect(Incomplete):
 
 class Transform(Incomplete):
     """Read/write a six-element vector."""
-
     def __init__(self, value=None, value2=None, value3=None, value4=None, value5=None, value6=None) -> None: ...
     def plistValue(self, format_version: int = 2): ...
     def determinant(self): ...
@@ -74,7 +69,6 @@ def parse_datetime(src=None):
 
 class Datetime(ValueType):
     """Read/write a datetime.  Doesn't maintain time zone offset."""
-
     def fromString(self, src): ...
     def plistValue(self, format_version: int = 2): ...
     def strftime(self, val): ...
@@ -111,7 +105,6 @@ def floatToString5(f: float) -> str:
 
 class UnicodesList(list):
     """Represent a PLIST-able list of unicode codepoints as strings."""
-
     def __init__(self, value=None) -> None: ...
     def plistValue(self, format_version: int = 2): ...
 
@@ -132,7 +125,6 @@ class IndexPath(ValueType):
     node. However, it can also be three or four integers. Moreover, in the case
     of `origin` and `target`, it can be a list containing a single string.
     """
-
     value: Incomplete
     def __init__(self, value: int | str | list[int | str], value2: int | None = None, value3: int | None = None, value4: int | None = None) -> None: ...
     def fromString(self, string: str) -> list[int | str]: ...

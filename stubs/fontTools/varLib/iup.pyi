@@ -3,10 +3,6 @@ import _cython_3_2_2
 COMPILED: bool
 MAX_LOOKBACK: int
 __test__: dict
-_iup_contour_bound_forced_set: _cython_3_2_2.cython_function_or_method
-_iup_contour_optimize_dp: _cython_3_2_2.cython_function_or_method
-_rot_list: _cython_3_2_2.cython_function_or_method
-_rot_set: _cython_3_2_2.cython_function_or_method
 iup_contour: _cython_3_2_2.cython_function_or_method
 iup_contour_optimize: _cython_3_2_2.cython_function_or_method
 iup_delta: _cython_3_2_2.cython_function_or_method

@@ -1,9 +1,8 @@
-from _typeshed import Incomplete
-from collections.abc import Callable
-from fontTools.misc.textTools import byteord as byteord, strjoin as strjoin, tobytes as tobytes, tostr as tostr
-from typing import BinaryIO, TextIO
 import os
 import types
+from _typeshed import Incomplete
+from fontTools.misc.textTools import byteord as byteord, strjoin as strjoin, tobytes as tobytes, tostr as tostr
+from typing import BinaryIO, Callable, TextIO
 
 INDENT: str
 TTX_LOG: Incomplete
@@ -13,7 +12,6 @@ ILLEGAL_XML_CHARS: Incomplete
 class XMLWriter:
     filename: str | os.PathLike[str] | None
     file: Incomplete
-    _closeStream: bool
     totype: Incomplete
     indentwhite: Incomplete
     newlinestr: Incomplete
@@ -34,12 +32,9 @@ class XMLWriter:
         """Writes a bytes() sequence into the XML, escaping
         non-ASCII bytes.  When this is read in xmlReader,
         the original bytes can be recovered by encoding to
-        'latin-1'.
-        """
+        'latin-1'."""
     def write_noindent(self, string) -> None:
         """Writes text without indentation."""
-    def _writeraw(self, data, indent: bool = True, strip: bool = False) -> None:
-        """Writes bytes, possibly indented."""
     def newline(self) -> None: ...
     def comment(self, data) -> None: ...
     def simpletag(self, _TAG_, *args, **kwargs) -> None: ...

@@ -1,6 +1,8 @@
 from _typeshed import Incomplete
 
-def align_alternate_layers(font, glyph_data: Incomplete | None = ...):
+logger: Incomplete
+
+def align_alternate_layers(font, glyph_data=None):
     """Ensure composites have the same alternate layers as their components.
 
     If a glyph uses a component which has alternate (aka 'bracket') layers, that

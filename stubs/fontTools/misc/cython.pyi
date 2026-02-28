@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
-
-def _empty_decorator(x): ...
+from types import SimpleNamespace as SimpleNamespace
 
 compiled: bool
 locals: Incomplete

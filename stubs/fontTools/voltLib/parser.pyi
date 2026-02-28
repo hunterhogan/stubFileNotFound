@@ -1,4 +1,6 @@
 from _typeshed import Incomplete
+from fontTools.voltLib.error import VoltLibError as VoltLibError
+from fontTools.voltLib.lexer import Lexer as Lexer
 
 PARSE_FUNCS: Incomplete
 

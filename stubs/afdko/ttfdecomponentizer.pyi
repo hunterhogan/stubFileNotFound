@@ -1,25 +1,11 @@
-from argparse import Namespace
-from typing import Literal
+from afdko.fdkutils import get_font_format as get_font_format
 
-"""
-Takes in a TrueType font and de-componentizes (decomposes) any composite
-glyphs into simple glyphs.
+__version__: str
 
-** NOTE: this process leaves the resulting decomposed glyphs with no
-instructions ("hints"). **
-"""
-__version__ = ...
-def get_options(args) -> Namespace:
-    ...
-
-def process_font(input_path, output_path=..., verbose=...) -> int:
+def get_options(args): ...
+def process_font(input_path, output_path=None, verbose: bool = False):
     """
     De-componentize a single font at input_path, saving to output_path (or
     input_path if None)
     """
-
-def main(args=...) -> Literal[0]:
-    ...
-
-if __name__ == "__main__":
-    ...
+def main(args=None): ...

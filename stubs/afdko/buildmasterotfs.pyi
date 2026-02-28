@@ -1,29 +1,20 @@
-from typing import Literal
+from _typeshed import Incomplete
+from afdko.fdkutils import get_temp_file_path as get_temp_file_path, run_shell_command as run_shell_command, validate_path as validate_path
 
-"""
-Builds master source OpenType/CFF fonts from a designspace file
-and UFO master source fonts.
-"""
-__version__ = ...
-from argparse import Namespace
+__version__: str
+logger: Incomplete
 
-logger = ...
-class ShellCommandError(Exception):
-    ...
+class ShellCommandError(Exception): ...
 
+def generalizeCFF(otfPath) -> None: ...
 
-def generalizeCFF(otfPath) -> None:
-    ...
+MKOT_OPT: str
 
-MKOT_OPT = ...
 def build_masters(opts) -> None:
     """
     Build master OTFs using supplied options.
     """
-
-def get_options(args) -> Namespace:
-    ...
-
+def get_options(args): ...
 def validateDesignspaceDoc(dsDoc, **kwArgs) -> None:
     """
     Validate the dsDoc DesignSpaceDocument object. Raises Exceptions if
@@ -31,9 +22,4 @@ def validateDesignspaceDoc(dsDoc, **kwArgs) -> None:
     validations in fontTools.designspaceLib and are specific to
     buildmasterotfs.
     """
-
-def main(args=...) -> Literal[1] | None:
-    ...
-
-if __name__ == "__main__":
-    ...
+def main(args=None): ...

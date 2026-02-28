@@ -1,10 +1,11 @@
+from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from .BitmapGlyphMetrics import (
 	BigGlyphMetrics as BigGlyphMetrics, bigGlyphMetricsFormat as bigGlyphMetricsFormat,
 	SmallGlyphMetrics as SmallGlyphMetrics, smallGlyphMetricsFormat as smallGlyphMetricsFormat)
 from _typeshed import Incomplete
+from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import bytesjoin as bytesjoin, safeEval as safeEval
-from fontTools.ttLib import TTFont
 
 log: Incomplete
 eblcHeaderFormat: str
@@ -26,7 +27,6 @@ class table_E_B_L_C_(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/eblc
     """
-
     dependencies: Incomplete
     def getIndexFormatClass(self, indexFormat): ...
     strikes: Incomplete
@@ -45,7 +45,6 @@ class Strike:
     def fromXML(self, name, attrs, content, ttFont: TTFont, locator) -> None: ...
 
 class BitmapSizeTable:
-    def _getXMLMetricNames(self): ...
     def toXML(self, writer, ttFont: TTFont) -> None: ...
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
 
@@ -53,11 +52,9 @@ class SbitLineMetrics:
     def toXML(self, name, writer, ttFont: TTFont) -> None: ...
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
 
-_indexSubTableSubclassPrefix: str
-
 class EblcIndexSubTable:
     data: Incomplete
-    ttFont: Incomplete
+    ttFont: TTFont
     def __init__(self, data, ttFont: TTFont) -> None: ...
     def __getattr__(self, attr): ...
     def ensureDecompiled(self, recurse: bool = False) -> None: ...
@@ -72,8 +69,6 @@ class EblcIndexSubTable:
     def readMetrics(self, name, attrs, content, ttFont: TTFont) -> None: ...
     def padBitmapData(self, data): ...
     def removeSkipGlyphs(self): ...
-
-def _createOffsetArrayIndexSubTableMixin(formatStringForDataType): ...
 
 class FixedSizeIndexSubTableMixin:
     def writeMetrics(self, writer, ttFont: TTFont) -> None: ...

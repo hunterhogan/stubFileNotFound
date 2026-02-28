@@ -1,17 +1,19 @@
 from _typeshed import Incomplete
+from fontTools import ttLib as ttLib
 from fontTools.feaLib.ast import STATNameStatement as STATNameStatement
-from fontTools.otlLib.optimize.gpos import (
-	_compression_level_from_env as _compression_level_from_env, compact_lookup as compact_lookup)
-from fontTools.ttLib.tables.otBase import (
-	OTLOffsetOverflowError as OTLOffsetOverflowError, OTTableWriter as OTTableWriter, ValueRecord as ValueRecord,
-	valueRecordFormatDict as valueRecordFormatDict)
+from fontTools.misc.fixedTools import fixedToFloat as fixedToFloat
+from fontTools.misc.loggingTools import deprecateFunction as deprecateFunction
+from fontTools.misc.roundTools import otRound as otRound
+from fontTools.otlLib.error import OpenTypeLibError as OpenTypeLibError
+from fontTools.otlLib.optimize.gpos import compact_lookup as compact_lookup
+from fontTools.ttLib.tables.otBase import OTLOffsetOverflowError as OTLOffsetOverflowError, OTTableWriter as OTTableWriter, ValueRecord as ValueRecord, valueRecordFormatDict as valueRecordFormatDict
 from fontTools.ttLib.ttFont import TTFont as TTFont
-from typing import NamedTuple, TypeAlias
+from typing import NamedTuple
 
 log: Incomplete
 
 def buildCoverage(glyphs, glyphMap):
-    """Builds a coverage table.
+    '''Builds a coverage table.
 
     Coverage tables (as defined in the `OpenType spec <https://docs.microsoft.com/en-gb/typography/opentype/spec/chapter2#coverage-table>`__)
     are used in all OpenType Layout lookups apart from the Extension type, and
@@ -33,10 +35,9 @@ def buildCoverage(glyphs, glyphMap):
         glyphMap: a glyph name to ID map, typically returned from
             ``font.getReverseGlyphMap()``.
 
-    Returns
-    -------
+    Returns:
         An ``otTables.Coverage`` object (empty if no glyphs supplied).
-    """
+    '''
 
 LOOKUP_FLAG_RIGHT_TO_LEFT: int
 LOOKUP_FLAG_IGNORE_BASE_GLYPHS: int
@@ -45,7 +46,7 @@ LOOKUP_FLAG_IGNORE_MARKS: int
 LOOKUP_FLAG_USE_MARK_FILTERING_SET: int
 
 def buildLookup(subtables, flags: int = 0, markFilterSet=None, table=None, extension: bool = False):
-    """Turns a collection of rules into a lookup.
+    '''Turns a collection of rules into a lookup.
 
     A Lookup (as defined in the `OpenType Spec <https://docs.microsoft.com/en-gb/typography/opentype/spec/chapter2#lookupTbl>`__)
     wraps the individual rules in a layout operation (substitution or
@@ -72,11 +73,10 @@ def buildLookup(subtables, flags: int = 0, markFilterSet=None, table=None, exten
         table (str): The name of the table this lookup belongs to, e.g. "GPOS" or "GSUB".
         extension (bool): ``True`` if this is an extension lookup, ``False`` otherwise.
 
-    Returns
-    -------
+    Returns:
         An ``otTables.Lookup`` object or ``None`` if there are no subtables
         supplied.
-    """
+    '''
 
 class LookupBuilder:
     SUBTABLE_BREAK_: str
@@ -91,17 +91,17 @@ class LookupBuilder:
     def equals(self, other): ...
     def promote_lookup_type(self, is_named_lookup): ...
     def inferGlyphClasses(self):
-        """Infers glyph glasses for the GDEF table, such as {"cedilla":3}."""
+        '''Infers glyph glasses for the GDEF table, such as {"cedilla":3}.'''
     def getAlternateGlyphs(self):
         """Helper for building 'aalt' features."""
     def buildLookup_(self, subtables): ...
     def buildMarkClasses_(self, marks):
-        """{"cedilla": ("BOTTOM", ast.Anchor), ...} --> {"BOTTOM":0, "TOP":1}
+        '''{"cedilla": ("BOTTOM", ast.Anchor), ...} --> {"BOTTOM":0, "TOP":1}
 
         Helper for MarkBasePostBuilder, MarkLigPosBuilder, and
         MarkMarkPosBuilder. Seems to return the same numeric IDs
         for mark classes as the AFDKO makeotf tool.
-        """
+        '''
     def setBacktrackCoverage_(self, prefix, subtable) -> None: ...
     def setLookAheadCoverage_(self, suffix, subtable) -> None: ...
     def setInputCoverage_(self, glyphs, subtable) -> None: ...
@@ -118,7 +118,7 @@ class LookupBuilder:
     def can_add_mapping(self, _mapping) -> bool: ...
 
 class AlternateSubstBuilder(LookupBuilder):
-    """Builds an Alternate Substitution (GSUB3) lookup.
+    '''Builds an Alternate Substitution (GSUB3) lookup.
 
     Users are expected to manually add alternate glyph substitutions to
     the ``alternates`` attribute after the object has been initialized,
@@ -126,8 +126,7 @@ class AlternateSubstBuilder(LookupBuilder):
 
         builder.alternates["A"] = ["A.alt1", "A.alt2"]
 
-    Attributes
-    ----------
+    Attributes:
         font (``fontTools.TTLib.TTFont``): A font object.
         location: A string or tuple representing the location in the original
             source which produced this lookup.
@@ -139,16 +138,14 @@ class AlternateSubstBuilder(LookupBuilder):
             lookup. If a mark filtering set is provided,
             `LOOKUP_FLAG_USE_MARK_FILTERING_SET` will be set on the lookup\'s
             flags.
-    """
-
+    '''
     alternates: Incomplete
     def __init__(self, font, location) -> None: ...
     def equals(self, other): ...
     def build(self):
         """Build the lookup.
 
-        Returns
-        -------
+        Returns:
             An ``otTables.Lookup`` object representing the alternate
             substitution lookup.
         """
@@ -168,7 +165,6 @@ class ChainContextualRuleset:
     @property
     def hasAnyGlyphClasses(self): ...
     def format2ClassDefs(self): ...
-    def _classBuilderForContext(self, context): ...
 
 class ChainContextualBuilder(LookupBuilder):
     def equals(self, other): ...
@@ -177,8 +173,7 @@ class ChainContextualBuilder(LookupBuilder):
     def build(self):
         """Build the lookup.
 
-        Returns
-        -------
+        Returns:
             An ``otTables.Lookup`` object representing the chained
             contextual positioning lookup.
         """
@@ -196,7 +191,7 @@ class ChainContextualBuilder(LookupBuilder):
     def newLookupRecord_(self, st): ...
 
 class ChainContextPosBuilder(ChainContextualBuilder):
-    """Builds a Chained Contextual Positioning (GPOS8) lookup.
+    '''Builds a Chained Contextual Positioning (GPOS8) lookup.
 
     Users are expected to manually add rules to the ``rules`` attribute after
     the object has been initialized, e.g.::
@@ -209,8 +204,7 @@ class ChainContextPosBuilder(ChainContextualBuilder):
         lookups = [ [lu1], None,  [lu2] ]
         builder.rules.append( (prefix, glyphs, suffix, lookups) )
 
-    Attributes
-    ----------
+    Attributes:
         font (``fontTools.TTLib.TTFont``): A font object.
         location: A string or tuple representing the location in the original
             source which produced this lookup.
@@ -221,8 +215,7 @@ class ChainContextPosBuilder(ChainContextualBuilder):
             lookup. If a mark filtering set is provided,
             `LOOKUP_FLAG_USE_MARK_FILTERING_SET` will be set on the lookup\'s
             flags.
-    """
-
+    '''
     rules: Incomplete
     subtable_type: str
     def __init__(self, font, location) -> None: ...
@@ -230,7 +223,7 @@ class ChainContextPosBuilder(ChainContextualBuilder):
         """Helper for add_single_pos_chained_()"""
 
 class ChainContextSubstBuilder(ChainContextualBuilder):
-    """Builds a Chained Contextual Substitution (GSUB6) lookup.
+    '''Builds a Chained Contextual Substitution (GSUB6) lookup.
 
     Users are expected to manually add rules to the ``rules`` attribute after
     the object has been initialized, e.g.::
@@ -243,8 +236,7 @@ class ChainContextSubstBuilder(ChainContextualBuilder):
         lookups = [ [lu1], None,  [lu2] ]
         builder.rules.append( (prefix, glyphs, suffix, lookups) )
 
-    Attributes
-    ----------
+    Attributes:
         font (``fontTools.TTLib.TTFont``): A font object.
         location: A string or tuple representing the location in the original
             source which produced this lookup.
@@ -255,8 +247,7 @@ class ChainContextSubstBuilder(ChainContextualBuilder):
             lookup. If a mark filtering set is provided,
             `LOOKUP_FLAG_USE_MARK_FILTERING_SET` will be set on the lookup\'s
             flags.
-    """
-
+    '''
     rules: Incomplete
     subtable_type: str
     def __init__(self, font, location) -> None: ...
@@ -267,7 +258,7 @@ class ChainContextSubstBuilder(ChainContextualBuilder):
         """Helper for add_ligature_subst_chained_()"""
 
 class LigatureSubstBuilder(LookupBuilder):
-    """Builds a Ligature Substitution (GSUB4) lookup.
+    '''Builds a Ligature Substitution (GSUB4) lookup.
 
     Users are expected to manually add ligatures to the ``ligatures``
     attribute after the object has been initialized, e.g.::
@@ -275,8 +266,7 @@ class LigatureSubstBuilder(LookupBuilder):
         # sub f i by f_i;
         builder.ligatures[("f","f","i")] = "f_f_i"
 
-    Attributes
-    ----------
+    Attributes:
         font (``fontTools.TTLib.TTFont``): A font object.
         location: A string or tuple representing the location in the original
             source which produced this lookup.
@@ -288,16 +278,14 @@ class LigatureSubstBuilder(LookupBuilder):
             lookup. If a mark filtering set is provided,
             `LOOKUP_FLAG_USE_MARK_FILTERING_SET` will be set on the lookup\'s
             flags.
-    """
-
+    '''
     ligatures: Incomplete
     def __init__(self, font, location) -> None: ...
     def equals(self, other): ...
     def build(self):
         """Build the lookup.
 
-        Returns
-        -------
+        Returns:
             An ``otTables.Lookup`` object representing the ligature
             substitution lookup.
         """
@@ -305,7 +293,7 @@ class LigatureSubstBuilder(LookupBuilder):
     def add_subtable_break(self, location) -> None: ...
 
 class MultipleSubstBuilder(LookupBuilder):
-    """Builds a Multiple Substitution (GSUB2) lookup.
+    '''Builds a Multiple Substitution (GSUB2) lookup.
 
     Users are expected to manually add substitutions to the ``mapping``
     attribute after the object has been initialized, e.g.::
@@ -313,8 +301,7 @@ class MultipleSubstBuilder(LookupBuilder):
         # sub uni06C0 by uni06D5.fina hamza.above;
         builder.mapping["uni06C0"] = [ "uni06D5.fina", "hamza.above"]
 
-    Attributes
-    ----------
+    Attributes:
         font (``fontTools.TTLib.TTFont``): A font object.
         location: A string or tuple representing the location in the original
             source which produced this lookup.
@@ -326,8 +313,7 @@ class MultipleSubstBuilder(LookupBuilder):
             lookup. If a mark filtering set is provided,
             `LOOKUP_FLAG_USE_MARK_FILTERING_SET` will be set on the lookup\'s
             flags.
-    """
-
+    '''
     mapping: Incomplete
     def __init__(self, font, location) -> None: ...
     def equals(self, other): ...
@@ -338,8 +324,7 @@ class MultipleSubstBuilder(LookupBuilder):
 class CursivePosBuilder(LookupBuilder):
     """Builds a Cursive Positioning (GPOS3) lookup.
 
-    Attributes
-    ----------
+    Attributes:
         font (``fontTools.TTLib.TTFont``): A font object.
         location: A string or tuple representing the location in the original
             source which produced this lookup.
@@ -352,7 +337,6 @@ class CursivePosBuilder(LookupBuilder):
             `LOOKUP_FLAG_USE_MARK_FILTERING_SET` will be set on the lookup's
             flags.
     """
-
     attachments: Incomplete
     def __init__(self, font, location) -> None: ...
     def equals(self, other): ...
@@ -372,15 +356,14 @@ class CursivePosBuilder(LookupBuilder):
     def build(self):
         """Build the lookup.
 
-        Returns
-        -------
+        Returns:
             An ``otTables.Lookup`` object representing the cursive
             positioning lookup.
         """
     def add_subtable_break(self, location) -> None: ...
 
 class MarkBasePosBuilder(LookupBuilder):
-    """Builds a Mark-To-Base Positioning (GPOS4) lookup.
+    '''Builds a Mark-To-Base Positioning (GPOS4) lookup.
 
     Users are expected to manually add marks and bases to the ``marks``
     and ``bases`` attributes after the object has been initialized, e.g.::
@@ -391,8 +374,7 @@ class MarkBasePosBuilder(LookupBuilder):
         builder.bases["a"] = {0: a3, 1: a5}
         builder.bases["b"] = {0: a4, 1: a5}
 
-    Attributes
-    ----------
+    Attributes:
         font (``fontTools.TTLib.TTFont``): A font object.
         location: A string or tuple representing the location in the original
             source which produced this lookup.
@@ -406,8 +388,7 @@ class MarkBasePosBuilder(LookupBuilder):
             lookup. If a mark filtering set is provided,
             `LOOKUP_FLAG_USE_MARK_FILTERING_SET` will be set on the lookup\'s
             flags.
-    """
-
+    '''
     marks: Incomplete
     bases: Incomplete
     subtables_: Incomplete
@@ -418,15 +399,14 @@ class MarkBasePosBuilder(LookupBuilder):
     def build(self):
         """Build the lookup.
 
-        Returns
-        -------
+        Returns:
             An ``otTables.Lookup`` object representing the mark-to-base
             positioning lookup.
         """
     def add_subtable_break(self, location) -> None: ...
 
 class MarkLigPosBuilder(LookupBuilder):
-    """Builds a Mark-To-Ligature Positioning (GPOS5) lookup.
+    '''Builds a Mark-To-Ligature Positioning (GPOS5) lookup.
 
     Users are expected to manually add marks and bases to the ``marks``
     and ``ligatures`` attributes after the object has been initialized, e.g.::
@@ -439,8 +419,7 @@ class MarkLigPosBuilder(LookupBuilder):
             { 0: a4, 1: a5 }  # i
         ]
 
-    Attributes
-    ----------
+    Attributes:
         font (``fontTools.TTLib.TTFont``): A font object.
         location: A string or tuple representing the location in the original
             source which produced this lookup.
@@ -455,8 +434,7 @@ class MarkLigPosBuilder(LookupBuilder):
             lookup. If a mark filtering set is provided,
             `LOOKUP_FLAG_USE_MARK_FILTERING_SET` will be set on the lookup\'s
             flags.
-    """
-
+    '''
     marks: Incomplete
     ligatures: Incomplete
     subtables_: Incomplete
@@ -467,15 +445,14 @@ class MarkLigPosBuilder(LookupBuilder):
     def build(self):
         """Build the lookup.
 
-        Returns
-        -------
+        Returns:
             An ``otTables.Lookup`` object representing the mark-to-ligature
             positioning lookup.
         """
     def add_subtable_break(self, location) -> None: ...
 
 class MarkMarkPosBuilder(LookupBuilder):
-    """Builds a Mark-To-Mark Positioning (GPOS6) lookup.
+    '''Builds a Mark-To-Mark Positioning (GPOS6) lookup.
 
     Users are expected to manually add marks and bases to the ``marks``
     and ``baseMarks`` attributes after the object has been initialized, e.g.::
@@ -485,8 +462,7 @@ class MarkMarkPosBuilder(LookupBuilder):
         builder.marks["cedilla"]   = (1, a2)
         builder.baseMarks["acute"] = {0: a3}
 
-    Attributes
-    ----------
+    Attributes:
         font (``fontTools.TTLib.TTFont``): A font object.
         location: A string or tuple representing the location in the original
             source which produced this lookup.
@@ -500,8 +476,7 @@ class MarkMarkPosBuilder(LookupBuilder):
             lookup. If a mark filtering set is provided,
             `LOOKUP_FLAG_USE_MARK_FILTERING_SET` will be set on the lookup\'s
             flags.
-    """
-
+    '''
     marks: Incomplete
     baseMarks: Incomplete
     subtables_: Incomplete
@@ -512,15 +487,14 @@ class MarkMarkPosBuilder(LookupBuilder):
     def build(self):
         """Build the lookup.
 
-        Returns
-        -------
+        Returns:
             An ``otTables.Lookup`` object representing the mark-to-mark
             positioning lookup.
         """
     def add_subtable_break(self, location) -> None: ...
 
 class ReverseChainSingleSubstBuilder(LookupBuilder):
-    """Builds a Reverse Chaining Contextual Single Substitution (GSUB8) lookup.
+    '''Builds a Reverse Chaining Contextual Single Substitution (GSUB8) lookup.
 
     Users are expected to manually add substitutions to the ``substitutions``
     attribute after the object has been initialized, e.g.::
@@ -531,8 +505,7 @@ class ReverseChainSingleSubstBuilder(LookupBuilder):
         mapping = { "d": "d.alt" }
         builder.substitutions.append( (prefix, suffix, mapping) )
 
-    Attributes
-    ----------
+    Attributes:
         font (``fontTools.TTLib.TTFont``): A font object.
         location: A string or tuple representing the location in the original
             source which produced this lookup.
@@ -544,23 +517,21 @@ class ReverseChainSingleSubstBuilder(LookupBuilder):
             lookup. If a mark filtering set is provided,
             `LOOKUP_FLAG_USE_MARK_FILTERING_SET` will be set on the lookup\'s
             flags.
-    """
-
+    '''
     rules: Incomplete
     def __init__(self, font, location) -> None: ...
     def equals(self, other): ...
     def build(self):
         """Build the lookup.
 
-        Returns
-        -------
+        Returns:
             An ``otTables.Lookup`` object representing the chained
             contextual substitution lookup.
         """
     def add_subtable_break(self, location) -> None: ...
 
 class AnySubstBuilder(LookupBuilder):
-    """A temporary builder for Single, Multiple, or Ligature substitution lookup.
+    '''A temporary builder for Single, Multiple, or Ligature substitution lookup.
 
     Users are expected to manually add substitutions to the ``mapping``
     attribute after the object has been initialized, e.g.::
@@ -577,8 +548,7 @@ class AnySubstBuilder(LookupBuilder):
     substitutions to either multiple or ligature substitutions, depending on the
     rest of the rules in the mapping.
 
-    Attributes
-    ----------
+    Attributes:
         font (``fontTools.TTLib.TTFont``): A font object.
         location: A string or tuple representing the location in the original
             source which produced this lookup.
@@ -590,13 +560,9 @@ class AnySubstBuilder(LookupBuilder):
             lookup. If a mark filtering set is provided,
             `LOOKUP_FLAG_USE_MARK_FILTERING_SET` will be set on the lookup\'s
             flags.
-    """
-
+    '''
     mapping: Incomplete
     def __init__(self, font, location) -> None: ...
-    def _add_to_single_subst(self, builder, key, value) -> None: ...
-    def _add_to_multiple_subst(self, builder, key, value) -> None: ...
-    def _add_to_ligature_subst(self, builder, key, value) -> None: ...
     def can_add_mapping(self, mapping) -> bool: ...
     def promote_lookup_type(self, is_named_lookup): ...
     def equals(self, other): ...
@@ -605,7 +571,7 @@ class AnySubstBuilder(LookupBuilder):
     def add_subtable_break(self, location) -> None: ...
 
 class SingleSubstBuilder(LookupBuilder):
-    """Builds a Single Substitution (GSUB1) lookup.
+    '''Builds a Single Substitution (GSUB1) lookup.
 
     Users are expected to manually add substitutions to the ``mapping``
     attribute after the object has been initialized, e.g.::
@@ -613,8 +579,7 @@ class SingleSubstBuilder(LookupBuilder):
         # sub x by y;
         builder.mapping["x"] = "y"
 
-    Attributes
-    ----------
+    Attributes:
         font (``fontTools.TTLib.TTFont``): A font object.
         location: A string or tuple representing the location in the original
             source which produced this lookup.
@@ -625,16 +590,14 @@ class SingleSubstBuilder(LookupBuilder):
             lookup. If a mark filtering set is provided,
             `LOOKUP_FLAG_USE_MARK_FILTERING_SET` will be set on the lookup\'s
             flags.
-    """
-
+    '''
     mapping: Incomplete
     def __init__(self, font, location) -> None: ...
     def equals(self, other): ...
     def build(self):
         """Build the lookup.
 
-        Returns
-        -------
+        Returns:
             An ``otTables.Lookup`` object representing the multiple
             substitution lookup.
         """
@@ -648,11 +611,9 @@ class ClassPairPosSubtableBuilder:
     but builds a list of ``otTables.PairPos`` subtables. It is used by the
     :class:`PairPosBuilder` below.
 
-    Attributes
-    ----------
+    Attributes:
         builder (PairPosBuilder): A pair positioning lookup builder.
     """
-
     builder_: Incomplete
     values_: Incomplete
     forceSubtableBreak_: bool
@@ -661,7 +622,7 @@ class ClassPairPosSubtableBuilder:
     classDef1_: Incomplete
     classDef2_: Incomplete
     def addPair(self, gc1, value1, gc2, value2) -> None:
-        """Add a pair positioning rule.
+        '''Add a pair positioning rule.
 
         Args:
             gc1: A set of glyph names for the "left" glyph
@@ -670,7 +631,7 @@ class ClassPairPosSubtableBuilder:
             gc2: A set of glyph names for the "right" glyph
             value2: An ``otTables.ValueRecord`` object for the right glyph\'s
                 positioning.
-        """
+        '''
     def addSubtableBreak(self) -> None:
         """Add an explicit subtable break at this point."""
     def subtables(self):
@@ -680,8 +641,7 @@ class ClassPairPosSubtableBuilder:
 class PairPosBuilder(LookupBuilder):
     """Builds a Pair Positioning (GPOS2) lookup.
 
-    Attributes
-    ----------
+    Attributes:
         font (``fontTools.TTLib.TTFont``): A font object.
         location: A string or tuple representing the location in the original
             source which produced this lookup.
@@ -697,13 +657,12 @@ class PairPosBuilder(LookupBuilder):
             `LOOKUP_FLAG_USE_MARK_FILTERING_SET` will be set on the lookup's
             flags.
     """
-
     pairs: Incomplete
     glyphPairs: Incomplete
     locations: Incomplete
     def __init__(self, font, location) -> None: ...
     def addClassPair(self, location, glyphclass1, value1, glyphclass2, value2) -> None:
-        """Add a class pair positioning rule to the current lookup.
+        '''Add a class pair positioning rule to the current lookup.
 
         Args:
             location: A string or tuple representing the location in the
@@ -712,9 +671,9 @@ class PairPosBuilder(LookupBuilder):
             value1: A ``otTables.ValueRecord`` for positioning the left glyph.
             glyphclass2: A set of glyph names for the "right" glyph in the pair.
             value2: A ``otTables.ValueRecord`` for positioning the right glyph.
-        """
+        '''
     def addGlyphPair(self, location, glyph1, value1, glyph2, value2) -> None:
-        """Add a glyph pair positioning rule to the current lookup.
+        '''Add a glyph pair positioning rule to the current lookup.
 
         Args:
             location: A string or tuple representing the location in the
@@ -723,14 +682,13 @@ class PairPosBuilder(LookupBuilder):
             value1: A ``otTables.ValueRecord`` for positioning the left glyph.
             glyph2: A glyph name for the "right" glyph in the pair.
             value2: A ``otTables.ValueRecord`` for positioning the right glyph.
-        """
+        '''
     def add_subtable_break(self, location) -> None: ...
     def equals(self, other): ...
     def build(self):
         """Build the lookup.
 
-        Returns
-        -------
+        Returns:
             An ``otTables.Lookup`` object representing the pair positioning
             lookup.
         """
@@ -738,8 +696,7 @@ class PairPosBuilder(LookupBuilder):
 class SinglePosBuilder(LookupBuilder):
     """Builds a Single Positioning (GPOS1) lookup.
 
-    Attributes
-    ----------
+    Attributes:
         font (``fontTools.TTLib.TTFont``): A font object.
         location: A string or tuple representing the location in the original
             source which produced this lookup.
@@ -752,7 +709,6 @@ class SinglePosBuilder(LookupBuilder):
             `LOOKUP_FLAG_USE_MARK_FILTERING_SET` will be set on the lookup's
             flags.
     """
-
     locations: Incomplete
     mapping: Incomplete
     def __init__(self, font, location) -> None: ...
@@ -771,8 +727,7 @@ class SinglePosBuilder(LookupBuilder):
     def build(self):
         """Build the lookup.
 
-        Returns
-        -------
+        Returns:
             An ``otTables.Lookup`` object representing the single positioning
             lookup.
         """
@@ -787,13 +742,12 @@ def buildSingleSubstSubtable(mapping):
     Args:
         mapping: A dictionary mapping input glyph names to output glyph names.
 
-    Returns
-    -------
+    Returns:
         An ``otTables.SingleSubst`` object, or ``None`` if the mapping dictionary
         is empty.
     """
 def buildMultipleSubstSubtable(mapping):
-    """Builds a multiple substitution (GSUB2) subtable.
+    '''Builds a multiple substitution (GSUB2) subtable.
 
     Note that if you are implementing a layout compiler, you may find it more
     flexible to use
@@ -813,11 +767,10 @@ def buildMultipleSubstSubtable(mapping):
         mapping: A dictionary mapping input glyph names to a list of output
             glyph names.
 
-    Returns
-    -------
+    Returns:
         An ``otTables.MultipleSubst`` object or ``None`` if the mapping dictionary
         is empty.
-    """
+    '''
 def buildAlternateSubstSubtable(mapping):
     """Builds an alternate substitution (GSUB3) subtable.
 
@@ -829,13 +782,12 @@ def buildAlternateSubstSubtable(mapping):
         mapping: A dictionary mapping input glyph names to a list of output
             glyph names.
 
-    Returns
-    -------
+    Returns:
         An ``otTables.AlternateSubst`` object or ``None`` if the mapping dictionary
         is empty.
     """
 def buildLigatureSubstSubtable(mapping):
-    """Builds a ligature substitution (GSUB4) subtable.
+    '''Builds a ligature substitution (GSUB4) subtable.
 
     Note that if you are implementing a layout compiler, you may find it more
     flexible to use
@@ -855,11 +807,10 @@ def buildLigatureSubstSubtable(mapping):
         mapping: A dictionary mapping tuples of glyph names to output
             glyph names.
 
-    Returns
-    -------
+    Returns:
         An ``otTables.LigatureSubst`` object or ``None`` if the mapping dictionary
         is empty.
-    """
+    '''
 def buildAnchor(x, y, point=None, deviceX=None, deviceY=None):
     """Builds an Anchor table.
 
@@ -872,12 +823,11 @@ def buildAnchor(x, y, point=None, deviceX=None, deviceY=None):
         deviceX (``otTables.Device``): X coordinate device table, if provided.
         deviceY (``otTables.Device``): Y coordinate device table, if provided.
 
-    Returns
-    -------
+    Returns:
         An ``otTables.Anchor`` object.
     """
 def buildBaseArray(bases, numMarkClasses, glyphMap):
-    """Builds a base array record.
+    '''Builds a base array record.
 
     As part of building mark-to-base positioning rules, you will need to define
     a ``BaseArray`` record, which "defines for each base glyph an array of
@@ -899,13 +849,12 @@ def buildBaseArray(bases, numMarkClasses, glyphMap):
         glyphMap: a glyph name to ID map, typically returned from
             ``font.getReverseGlyphMap()``.
 
-    Returns
-    -------
+    Returns:
         An ``otTables.BaseArray`` object.
-    """
+    '''
 def buildBaseRecord(anchors): ...
 def buildComponentRecord(anchors):
-    """Builds a component record.
+    '''Builds a component record.
 
     As part of building mark-to-ligature positioning rules, you will need to
     define ``ComponentRecord`` objects, which contain "an array of offsets...
@@ -915,13 +864,12 @@ def buildComponentRecord(anchors):
     Args:
         anchors: A list of ``otTables.Anchor`` objects or ``None``.
 
-    Returns
-    -------
+    Returns:
         A ``otTables.ComponentRecord`` object or ``None`` if no anchors are
         supplied.
-    """
+    '''
 def buildCursivePosSubtable(attach, glyphMap):
-    """Builds a cursive positioning (GPOS3) subtable.
+    '''Builds a cursive positioning (GPOS3) subtable.
 
     Cursive positioning lookups are made up of a coverage table of glyphs,
     and a set of ``EntryExitRecord`` records containing the anchors for
@@ -941,11 +889,10 @@ def buildCursivePosSubtable(attach, glyphMap):
         glyphMap: a glyph name to ID map, typically returned from
             ``font.getReverseGlyphMap()``.
 
-    Returns
-    -------
+    Returns:
         An ``otTables.CursivePos`` object, or ``None`` if the attachment
         dictionary was empty.
-    """
+    '''
 def buildDevice(deltas):
     """Builds a Device record as part of a ValueRecord or Anchor.
 
@@ -959,13 +906,12 @@ def buildDevice(deltas):
         deltas: A dictionary mapping pixels-per-em sizes to the delta
             adjustment in pixels when the font is displayed at that size.
 
-    Returns
-    -------
+    Returns:
         An ``otTables.Device`` object if any deltas were supplied, or
         ``None`` otherwise.
     """
 def buildLigatureArray(ligs, numMarkClasses, glyphMap):
-    """Builds a LigatureArray subtable.
+    '''Builds a LigatureArray subtable.
 
     As part of building a mark-to-ligature lookup, you will need to define
     the set of anchors (for each mark class) on each component of the ligature
@@ -992,13 +938,12 @@ def buildLigatureArray(ligs, numMarkClasses, glyphMap):
         glyphMap: a glyph name to ID map, typically returned from
             ``font.getReverseGlyphMap()``.
 
-    Returns
-    -------
+    Returns:
         An ``otTables.LigatureArray`` object if deltas were supplied.
-    """
+    '''
 def buildLigatureAttach(components): ...
 def buildMarkArray(marks, glyphMap):
-    """Builds a mark array subtable.
+    '''Builds a mark array subtable.
 
     As part of building mark-to-* positioning rules, you will need to define
     a MarkArray subtable, which "defines the class and the anchor point
@@ -1020,10 +965,9 @@ def buildMarkArray(marks, glyphMap):
         glyphMap: a glyph name to ID map, typically returned from
             ``font.getReverseGlyphMap()``.
 
-    Returns
-    -------
+    Returns:
         An ``otTables.MarkArray`` object.
-    """
+    '''
 def buildMarkBasePos(marks, bases, glyphMap):
     """Build a list of MarkBasePos (GPOS4) subtables.
 
@@ -1031,7 +975,7 @@ def buildMarkBasePos(marks, bases, glyphMap):
            Use :func:`buildMarkBasePosSubtable` instead.
     """
 def buildMarkBasePosSubtable(marks, bases, glyphMap):
-    """Build a single MarkBasePos (GPOS4) subtable.
+    '''Build a single MarkBasePos (GPOS4) subtable.
 
     This builds a mark-to-base lookup subtable containing all of the referenced
     marks and bases.
@@ -1056,10 +1000,9 @@ def buildMarkBasePosSubtable(marks, bases, glyphMap):
         glyphMap: a glyph name to ID map, typically returned from
             ``font.getReverseGlyphMap()``.
 
-    Returns
-    -------
+    Returns:
         A ``otTables.MarkBasePos`` object.
-    """
+    '''
 def buildMarkLigPos(marks, ligs, glyphMap):
     """Build a list of MarkLigPos (GPOS5) subtables.
 
@@ -1067,7 +1010,7 @@ def buildMarkLigPos(marks, ligs, glyphMap):
        Use :func:`buildMarkLigPosSubtable` instead.
     """
 def buildMarkLigPosSubtable(marks, ligs, glyphMap):
-    """Build a single MarkLigPos (GPOS5) subtable.
+    '''Build a single MarkLigPos (GPOS5) subtable.
 
     This builds a mark-to-base lookup subtable containing all of the referenced
     marks and bases.
@@ -1105,15 +1048,13 @@ def buildMarkLigPosSubtable(marks, ligs, glyphMap):
         glyphMap: a glyph name to ID map, typically returned from
             ``font.getReverseGlyphMap()``.
 
-    Returns
-    -------
+    Returns:
         A ``otTables.MarkLigPos`` object.
-    """
+    '''
 def buildMarkRecord(classID, anchor): ...
 def buildMark2Record(anchors): ...
-def _getValueFormat(f, values, i): ...
 def buildPairPosClassesSubtable(pairs, glyphMap, valueFormat1=None, valueFormat2=None):
-    """Builds a class pair adjustment (GPOS2 format 2) subtable.
+    '''Builds a class pair adjustment (GPOS2 format 2) subtable.
 
     Kerning tables are generally expressed as pair positioning tables using
     class-based pair adjustments. This routine builds format 2 PairPos
@@ -1148,12 +1089,11 @@ def buildPairPosClassesSubtable(pairs, glyphMap, valueFormat1=None, valueFormat2
         valueFormat1: Force the "left" value records to the given format.
         valueFormat2: Force the "right" value records to the given format.
 
-    Returns
-    -------
+    Returns:
         A ``otTables.PairPos`` object.
-    """
+    '''
 def buildPairPosGlyphs(pairs, glyphMap):
-    """Builds a list of glyph-based pair adjustment (GPOS2 format 1) subtables.
+    '''Builds a list of glyph-based pair adjustment (GPOS2 format 1) subtables.
 
     This organises a list of pair positioning adjustments into subtables based
     on common value record formats.
@@ -1180,12 +1120,11 @@ def buildPairPosGlyphs(pairs, glyphMap):
         glyphMap: a glyph name to ID map, typically returned from
             ``font.getReverseGlyphMap()``.
 
-    Returns
-    -------
+    Returns:
         A list of ``otTables.PairPos`` objects.
-    """
+    '''
 def buildPairPosGlyphsSubtable(pairs, glyphMap, valueFormat1=None, valueFormat2=None):
-    """Builds a single glyph-based pair adjustment (GPOS2 format 1) subtable.
+    '''Builds a single glyph-based pair adjustment (GPOS2 format 1) subtable.
 
     This builds a PairPos subtable from a dictionary of glyph pairs and
     their positioning adjustments. See also :func:`buildPairPosGlyphs`.
@@ -1213,12 +1152,11 @@ def buildPairPosGlyphsSubtable(pairs, glyphMap, valueFormat1=None, valueFormat2=
         valueFormat1: Force the "left" value records to the given format.
         valueFormat2: Force the "right" value records to the given format.
 
-    Returns
-    -------
+    Returns:
         A ``otTables.PairPos`` object.
-    """
+    '''
 def buildSinglePos(mapping, glyphMap):
-    """Builds a list of single adjustment (GPOS1) subtables.
+    '''Builds a list of single adjustment (GPOS1) subtables.
 
     This builds a list of SinglePos subtables from a dictionary of glyph
     names and their positioning adjustments. The format of the subtables are
@@ -1244,12 +1182,11 @@ def buildSinglePos(mapping, glyphMap):
         glyphMap: a glyph name to ID map, typically returned from
             ``font.getReverseGlyphMap()``.
 
-    Returns
-    -------
+    Returns:
         A list of ``otTables.SinglePos`` objects.
-    """
+    '''
 def buildSinglePosSubtable(values, glyphMap):
-    """Builds a single adjustment (GPOS1) subtable.
+    '''Builds a single adjustment (GPOS1) subtable.
 
     This builds a list of SinglePos subtables from a dictionary of glyph
     names and their positioning adjustments. The format of the subtable is
@@ -1275,12 +1212,9 @@ def buildSinglePosSubtable(values, glyphMap):
         glyphMap: a glyph name to ID map, typically returned from
             ``font.getReverseGlyphMap()``.
 
-    Returns
-    -------
+    Returns:
         A ``otTables.SinglePos`` object.
-    """
-def _getSinglePosTableKey(subtable, glyphMap): ...
-def _getSinglePosValueKey(valueRecord): ...
+    '''
 
 class _DeviceTuple(NamedTuple):
     DeltaFormat: Incomplete
@@ -1288,8 +1222,6 @@ class _DeviceTuple(NamedTuple):
     EndSize: Incomplete
     DeltaValue: Incomplete
 
-def _makeDeviceTuple(device): ...
-def _getSinglePosValueSize(valueKey): ...
 def buildValue(value):
     """Builds a positioning value record.
 
@@ -1309,8 +1241,7 @@ def buildValue(value):
             - ``xAdvDevice``
             - ``yAdvDevice``
 
-    Returns
-    -------
+    Returns:
         An ``otTables.ValueRecord`` object.
     """
 def buildAttachList(attachPoints, glyphMap):
@@ -1324,8 +1255,7 @@ def buildAttachList(attachPoints, glyphMap):
         attachPoints (dict): A mapping between glyph names and a list of
             contour indices.
 
-    Returns
-    -------
+    Returns:
         An ``otTables.AttachList`` object if attachment points are supplied,
             or ``None`` otherwise.
     """
@@ -1333,7 +1263,7 @@ def buildAttachPoint(points): ...
 def buildCaretValueForCoord(coord): ...
 def buildCaretValueForPoint(point): ...
 def buildLigCaretList(coords, points, glyphMap):
-    """Builds a ligature caret list table.
+    '''Builds a ligature caret list table.
 
     Ligatures appear as a single glyph representing multiple characters; however
     when, for example, editing text containing a ``f_i`` ligature, the user may
@@ -1361,14 +1291,12 @@ def buildLigCaretList(coords, points, glyphMap):
         glyphMap: a glyph name to ID map, typically returned from
             ``font.getReverseGlyphMap()``.
 
-    Returns
-    -------
+    Returns:
         A ``otTables.LigCaretList`` object if any carets are present, or
-            ``None`` otherwise.
-    """
+            ``None`` otherwise.'''
 def buildLigGlyph(coords, points): ...
 def buildMarkGlyphSetsDef(markSets, glyphMap):
-    """Builds a mark glyph sets definition table.
+    '''Builds a mark glyph sets definition table.
 
     OpenType Layout lookups may choose to use mark filtering sets to consider
     or ignore particular combinations of marks. These sets are specified by
@@ -1390,13 +1318,11 @@ def buildMarkGlyphSetsDef(markSets, glyphMap):
             ``font.getReverseGlyphMap()``.
 
     Returns
-    -------
         An ``otTables.MarkGlyphSetsDef`` object.
-    """
+    '''
 
 class ClassDefBuilder:
     """Helper for building ClassDef tables."""
-
     classes_: Incomplete
     glyphs_: Incomplete
     useClass0_: Incomplete
@@ -1408,10 +1334,10 @@ class ClassDefBuilder:
 
 AXIS_VALUE_NEGATIVE_INFINITY: Incomplete
 AXIS_VALUE_POSITIVE_INFINITY: Incomplete
-STATName: TypeAlias = int | str | dict[str, str]
+STATName = int | str | dict[str, str]
 
 def buildStatTable(ttFont: TTFont, axes, locations=None, elidedFallbackName: STATName | STATNameStatement = 2, windowsNames: bool = True, macNames: bool = True) -> None:
-    """Add a \'STAT\' table to \'ttFont\'.
+    '''Add a \'STAT\' table to \'ttFont\'.
 
     \'axes\' is a list of dictionaries describing axes and their
     values.
@@ -1491,12 +1417,9 @@ def buildStatTable(ttFont: TTFont, axes, locations=None, elidedFallbackName: STA
     The \'ttFont\' argument must be a TTFont instance that already has a
     \'name\' table. If a \'STAT\' table already exists, it will be
     overwritten by the newly created one.
-    """
-def _buildAxisRecords(axes, ttFont: TTFont, windowsNames: bool = True, macNames: bool = True): ...
-def _buildAxisValuesFormat4(locations, axes, ttFont: TTFont, windowsNames: bool = True, macNames: bool = True): ...
-def _addName(ttFont: TTFont, value: STATName | STATNameStatement, minNameID: int = 0, windows: bool = True, mac: bool = True) -> int: ...
-def buildMathTable(ttFont: TTFont, constants=None, italicsCorrections=None, topAccentAttachments=None, extendedShapes=None, mathKerns=None, minConnectorOverlap: int = 0, vertGlyphVariants=None, horizGlyphVariants=None, vertGlyphAssembly=None, horizGlyphAssembly=None) -> None:
-    """
+    '''
+def buildMathTable(ttFont, constants=None, italicsCorrections=None, topAccentAttachments=None, extendedShapes=None, mathKerns=None, minConnectorOverlap: int = 0, vertGlyphVariants=None, horizGlyphVariants=None, vertGlyphAssembly=None, horizGlyphAssembly=None) -> None:
+    '''
     Add a \'MATH\' table to \'ttFont\'.
 
     \'constants\' is a dictionary of math constants. The keys are the constant
@@ -1588,9 +1511,4 @@ def buildMathTable(ttFont: TTFont, constants=None, italicsCorrections=None, topA
             ],
             ...
         }
-    """
-def _buildMathConstants(constants): ...
-def _buildMathGlyphInfo(glyphMap, italicsCorrections, topAccentAttachments, extendedShapes, mathKerns): ...
-def _buildMathVariants(glyphMap, minConnectorOverlap, vertGlyphVariants, horizGlyphVariants, vertGlyphAssembly, horizGlyphAssembly): ...
-def _buildMathGlyphConstruction(glyphMap, variants, assemblies): ...
-def _mathValueRecord(value): ...
+    '''

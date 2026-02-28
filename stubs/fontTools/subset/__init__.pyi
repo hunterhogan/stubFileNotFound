@@ -1,16 +1,13 @@
+from fontTools.subset.cff import *
+from fontTools.subset.svg import *
 from _typeshed import Incomplete
 from fontTools.ttLib.ttFont import TTFont
 
-__all__ = ['Options', 'Subsetter', 'load_font', 'main', 'parse_gids', 'parse_glyphs', 'parse_unicodes', 'save_font']
+__all__ = ['Options', 'Subsetter', 'load_font', 'save_font', 'parse_gids', 'parse_glyphs', 'parse_unicodes', 'main']
 
 class Options:
     class OptionError(Exception): ...
     class UnknownOptionError(OptionError): ...
-    _drop_tables_default: Incomplete
-    _no_subset_tables_default: Incomplete
-    _hinting_tables_default: Incomplete
-    _layout_features_groups: Incomplete
-    _layout_features_default: Incomplete
     drop_tables: Incomplete
     no_subset_tables: Incomplete
     passthrough_tables: bool

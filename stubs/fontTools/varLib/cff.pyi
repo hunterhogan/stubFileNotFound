@@ -1,16 +1,15 @@
-from .errors import (
-	VarLibCFFDictMergeError as VarLibCFFDictMergeError, VarLibCFFHintTypeMergeError as VarLibCFFHintTypeMergeError,
-	VarLibCFFPointTypeMergeError as VarLibCFFPointTypeMergeError, VarLibMergeError as VarLibMergeError)
+from .errors import VarLibCFFDictMergeError as VarLibCFFDictMergeError, VarLibCFFHintTypeMergeError as VarLibCFFHintTypeMergeError, VarLibCFFPointTypeMergeError as VarLibCFFPointTypeMergeError, VarLibMergeError as VarLibMergeError
 from _typeshed import Incomplete
-from fontTools.cffLib import (
-	buildOrder as buildOrder, FDArrayIndex as FDArrayIndex, FontDict as FontDict, maxStackLimit as maxStackLimit,
-	privateDictOperators as privateDictOperators, privateDictOperators2 as privateDictOperators2,
-	TopDictIndex as TopDictIndex, topDictOperators as topDictOperators, topDictOperators2 as topDictOperators2,
-	VarStoreData as VarStoreData)
-from fontTools.cffLib.specializer import (
-	commandsToProgram as commandsToProgram, specializeCommands as specializeCommands)
+from fontTools import varLib as varLib
+from fontTools.cffLib import FDArrayIndex as FDArrayIndex, FontDict as FontDict, TopDictIndex as TopDictIndex, VarStoreData as VarStoreData, buildOrder as buildOrder, maxStackLimit as maxStackLimit, privateDictOperators as privateDictOperators, privateDictOperators2 as privateDictOperators2, topDictOperators as topDictOperators, topDictOperators2 as topDictOperators2
+from fontTools.cffLib.specializer import commandsToProgram as commandsToProgram, specializeCommands as specializeCommands
+from fontTools.misc.loggingTools import deprecateFunction as deprecateFunction
 from fontTools.misc.psCharStrings import T2CharString as T2CharString, T2OutlineExtractor as T2OutlineExtractor
+from fontTools.misc.roundTools import roundFunc as roundFunc
 from fontTools.pens.t2CharStringPen import T2CharStringPen as T2CharStringPen
+from fontTools.ttLib import newTable as newTable
+from fontTools.varLib.models import allEqual as allEqual
+from io import BytesIO as BytesIO
 from typing import NamedTuple
 
 MergeDictError = VarLibCFFDictMergeError
@@ -39,7 +38,6 @@ def merge_PrivateDicts(top_dicts, vsindex_dict, var_model, fd_map) -> None:
     ``var_model.locations``. I can then get the index of each subModel
     location in the list of ``var_model.locations``.
     """
-def _cff_or_cff2(font): ...
 def getfd_map(varFont, fonts_list):
     """Since a subset source font may have fewer FontDicts in their
     FDArray than the default font, we have to match up the FontDicts in
@@ -47,8 +45,7 @@ def getfd_map(varFont, fonts_list):
     assuming that the same glyph will reference  matching FontDicts in
     each source font. We return a mapping from fdIndex in the default
     font to a dictionary which maps each master list index of each
-    region font to the equivalent fdIndex in the region font.
-    """
+    region font to the equivalent fdIndex in the region font."""
 
 class CVarData(NamedTuple):
     varDataList: Incomplete
@@ -56,16 +53,12 @@ class CVarData(NamedTuple):
     vsindex_dict: Incomplete
 
 def merge_region_fonts(varFont, model, ordered_fonts_list, glyphOrder) -> None: ...
-def _get_cs(charstrings, glyphName, filterEmpty: bool = False): ...
-def _add_new_vsindex(model, key, masterSupports, vsindex_dict, vsindex_by_key, varDataList): ...
 def merge_charstrings(glyphOrder, num_masters, top_dicts, masterModel): ...
 
 class CFFToCFF2OutlineExtractor(T2OutlineExtractor):
     """This class is used to remove the initial width from the CFF
     charstring without trying to add the width to self.nominalWidthX,
-    which is None.
-    """
-
+    which is None."""
     width: Incomplete
     gotWidth: int
     def popallWidth(self, evenOdd: int = 0): ...
@@ -73,27 +66,20 @@ class CFFToCFF2OutlineExtractor(T2OutlineExtractor):
 class MergeOutlineExtractor(CFFToCFF2OutlineExtractor):
     """Used to extract the charstring commands - including hints - from a
     CFF charstring in order to merge it as another set of region data
-    into a CFF2 variable font charstring.
-    """
-
+    into a CFF2 variable font charstring."""
     def __init__(self, pen, localSubrs, globalSubrs, nominalWidthX, defaultWidthX, private=None, blender=None) -> None: ...
     hintCount: Incomplete
     def countHints(self): ...
-    def _hint_op(self, type, args) -> None: ...
     def op_hstem(self, index) -> None: ...
     def op_vstem(self, index) -> None: ...
     def op_hstemhm(self, index) -> None: ...
     def op_vstemhm(self, index) -> None: ...
-    hintMaskBytes: Incomplete
-    def _get_hintmask(self, index): ...
     def op_hintmask(self, index): ...
     def op_cntrmask(self, index): ...
 
 class CFF2CharStringMergePen(T2CharStringPen):
     """Pen to merge Type 2 CharStrings."""
-
     pt_index: int
-    _commands: Incomplete
     m_index: Incomplete
     num_masters: Incomplete
     prev_move_idx: int
@@ -104,12 +90,6 @@ class CFF2CharStringMergePen(T2CharStringPen):
     def add_point(self, point_type, pt_coords) -> None: ...
     def add_hint(self, hint_type, args) -> None: ...
     def add_hintmask(self, hint_type, abs_args) -> None: ...
-    def _moveTo(self, pt) -> None: ...
-    def _lineTo(self, pt) -> None: ...
-    def _curveToOne(self, pt1, pt2, pt3) -> None: ...
-    def _closePath(self) -> None: ...
-    def _endPath(self) -> None: ...
-    _p0: Incomplete
     def restart(self, region_idx) -> None: ...
     def getCommands(self): ...
     def reorder_blend_args(self, commands, get_delta_func):

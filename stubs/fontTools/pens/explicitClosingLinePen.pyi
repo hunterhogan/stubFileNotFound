@@ -85,5 +85,4 @@ class ExplicitClosingLinePen(ContourFilterPen):
      ('lineTo', ((100, 100),)),
      ('endPath', ())]
     """
-
     def filterContour(self, contour) -> None: ...

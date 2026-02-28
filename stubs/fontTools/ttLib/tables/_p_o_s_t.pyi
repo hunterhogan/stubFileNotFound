@@ -1,8 +1,11 @@
+from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
+from fontTools import ttLib as ttLib
+from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import (
 	bytechr as bytechr, byteord as byteord, readHex as readHex, safeEval as safeEval, tobytes as tobytes, tostr as tostr)
-from fontTools.ttLib import TTFont
+from fontTools.ttLib.standardGlyphOrder import standardGlyphOrder as standardGlyphOrder
 
 log: Incomplete
 postFormat: str
@@ -17,20 +20,18 @@ class table__p_o_s_t(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/post
     """
-
-    formatType: float
     def decompile(self, data, ttFont: TTFont) -> None: ...
-    def compile(self, ttFont: TTFont) -> bytes: ...
+    def compile(self, ttFont: TTFont): ...
     def getGlyphOrder(self):
         """This function will get called by a ttLib.TTFont instance.
         Do not call this function yourself, use TTFont().getGlyphOrder()
         or its relatives instead!
         """
-    glyphOrder: list[str]
+    glyphOrder: Incomplete
     def decode_format_1_0(self, data, ttFont: TTFont) -> None: ...
-    extraNames: list[str]
+    extraNames: Incomplete
     def decode_format_2_0(self, data, ttFont: TTFont) -> None: ...
-    mapping: dict[str, int]
+    mapping: Incomplete
     def build_psNameMapping(self, ttFont: TTFont) -> None: ...
     def decode_format_3_0(self, data, ttFont: TTFont) -> None: ...
     def decode_format_4_0(self, data, ttFont: TTFont) -> None: ...

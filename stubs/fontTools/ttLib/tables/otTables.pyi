@@ -2,16 +2,22 @@ from .otBase import (
 	BaseTable as BaseTable, CountReference as CountReference, FormatSwitchingBaseTable as FormatSwitchingBaseTable,
 	getFormatSwitchingBaseTableClass as getFormatSwitchingBaseTableClass, ValueRecord as ValueRecord)
 from _typeshed import Incomplete
-from collections.abc import Iterator
 from enum import IntEnum, IntFlag
 from fontTools.feaLib.lookupDebugInfo import (
 	LOOKUP_DEBUG_INFO_KEY as LOOKUP_DEBUG_INFO_KEY, LookupDebugInfo as LookupDebugInfo)
+from fontTools.misc.arrayTools import quantizeRect as quantizeRect
+from fontTools.misc.roundTools import otRound as otRound
 from fontTools.misc.textTools import bytesjoin as bytesjoin, pad as pad, safeEval as safeEval
 from fontTools.misc.transform import (
 	DecomposedTransform as DecomposedTransform, Identity as Identity, Transform as Transform)
+from fontTools.misc.vector import Vector as Vector
+from fontTools.pens.boundsPen import ControlBoundsPen as ControlBoundsPen
+from fontTools.pens.transformPen import TransformPen as TransformPen
 from fontTools.ttLib import OPTIMIZE_FONT_SPEED as OPTIMIZE_FONT_SPEED, TTFont
-from fontTools.ttLib.ttGlyphSet import _TTGlyphSet as _TTGlyphSet
-from typing import NamedTuple
+from fontTools.ttLib.tables.otTraverse import dfs_base_table as dfs_base_table
+from fontTools.ttLib.tables.TupleVariation import TupleVariation as TupleVariation
+from fontTools.ttLib.ttGlyphSet import _TTGlyphSet
+from typing import Iterator, NamedTuple
 
 log: Incomplete
 
@@ -40,19 +46,6 @@ class VarTransformMappingValues(NamedTuple):
     defaultValue: Incomplete
 
 VAR_TRANSFORM_MAPPING: Incomplete
-_packer: Incomplete
-_unpacker: Incomplete
-
-def _read_uint32var(data, i):
-    """Read a variable-length number from data starting at index i.
-
-    Return the number and the next index.
-    """
-def _write_uint32var(v):
-    """Write a variable-length number.
-
-    Return the data.
-    """
 
 class VarComponent:
     def __init__(self) -> None: ...
@@ -92,17 +85,12 @@ class AATState:
     def __init__(self) -> None: ...
 
 class AATAction:
-    _FLAGS: Incomplete
     @staticmethod
     def compileActions(font, states): ...
-    def _writeFlagsToXML(self, xmlWriter) -> None: ...
-    def _setFlag(self, flag) -> None: ...
 
 class RearrangementMorphAction(AATAction):
     staticSize: int
     actionHeaderSize: int
-    _FLAGS: Incomplete
-    _VERBS: Incomplete
     NewState: int
     Verb: int
     MarkFirst: bool
@@ -118,7 +106,6 @@ class RearrangementMorphAction(AATAction):
 class ContextualMorphAction(AATAction):
     staticSize: int
     actionHeaderSize: int
-    _FLAGS: Incomplete
     NewState: int
     ReservedFlags: int
     def __init__(self) -> None: ...
@@ -139,7 +126,6 @@ class LigAction:
 class LigatureMorphAction(AATAction):
     staticSize: int
     actionHeaderSize: int
-    _FLAGS: Incomplete
     NewState: int
     ReservedFlags: int
     Actions: Incomplete
@@ -151,14 +137,12 @@ class LigatureMorphAction(AATAction):
     @staticmethod
     def compileActions(font, states): ...
     def compileLigActions(self): ...
-    def _decompileLigActions(self, actionReader, actionIndex): ...
     def fromXML(self, name, attrs, content, font) -> None: ...
     def toXML(self, xmlWriter, font, attrs, name) -> None: ...
 
 class InsertionMorphAction(AATAction):
     staticSize: int
     actionHeaderSize: int
-    _FLAGS: Incomplete
     NewState: int
     ReservedFlags: int
     def __init__(self) -> None: ...
@@ -172,7 +156,6 @@ class InsertionMorphAction(AATAction):
     CurrentInsertionAction: Incomplete
     MarkedInsertionAction: Incomplete
     def decompile(self, reader, font, actionReader) -> None: ...
-    def _decompileInsertionAction(self, actionReader, font, index, count): ...
     def toXML(self, xmlWriter, font, attrs, name) -> None: ...
     def fromXML(self, name, attrs, content, font) -> None: ...
     @staticmethod
@@ -247,7 +230,6 @@ class ClassDef(FormatSwitchingBaseTable):
     classDefs: Incomplete
     def populateDefaults(self, propagator=None) -> None: ...
     def postRead(self, rawTable, font) -> None: ...
-    def _getClassRanges(self, font): ...
     Format: Incomplete
     def preWrite(self, font): ...
     def toXML2(self, xmlWriter, font) -> None: ...
@@ -267,8 +249,6 @@ class LigatureSubst(FormatSwitchingBaseTable):
     ligatures: Incomplete
     def populateDefaults(self, propagator=None) -> None: ...
     def postRead(self, rawTable, font) -> None: ...
-    @staticmethod
-    def _getLigatureSortKey(components): ...
     Format: int
     sortCoverageLast: int
     def preWrite(self, font): ...
@@ -390,13 +370,11 @@ class Paint(Incomplete):
     def getFormatName(self): ...
     def toXML(self, xmlWriter, font, attrs=None, name=None) -> None: ...
     def iterPaintSubTables(self, colr: COLR) -> Iterator[BaseTable.SubTableEntry]: ...
-    def getChildren(self, colr) -> list[Paint]: ...
+    def getChildren(self, colr) -> list['Paint']: ...
     def traverse(self, colr: COLR, callback):
         """Depth-first traversal of graph rooted at self, callback on each node."""
     def getTransform(self) -> Transform: ...
     def computeClipBox(self, colr: COLR, glyphSet: _TTGlyphSet, quantization: int = 1) -> ClipBox | None: ...
-
-_equivalents: Incomplete
 
 def fixLookupOverFlows(ttf, overflowRecord):
     """Either the offset from the LookupList to a lookup overflowed, or
@@ -438,5 +416,3 @@ def fixSubTableOverFlows(ttf, overflowRecord):
     """
     An offset has overflowed within a sub-table. We need to divide this subtable into smaller parts.
     """
-def _buildClasses() -> None: ...
-def _getGlyphsFromCoverageTable(coverage): ...

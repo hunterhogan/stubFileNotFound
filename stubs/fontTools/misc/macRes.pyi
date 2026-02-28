@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import MutableMapping
+from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import bytesjoin as bytesjoin, tostr as tostr
 
 class ResourceError(Exception): ...
@@ -17,8 +18,6 @@ class ResourceReader(MutableMapping):
     representing all the resources of a certain type.
 
     """
-
-    _resources: Incomplete
     file: Incomplete
     def __init__(self, fileOrPath) -> None:
         """Open a file
@@ -31,13 +30,6 @@ class ResourceReader(MutableMapping):
     def openResourceFork(path): ...
     @staticmethod
     def openDataFork(path): ...
-    def _readFile(self) -> None: ...
-    def _read(self, numBytes, offset=None): ...
-    absTypeListOffset: Incomplete
-    absNameListOffset: Incomplete
-    def _readHeaderAndMap(self) -> None: ...
-    def _readTypeList(self) -> None: ...
-    def _readReferenceList(self, resType, refListOffset, numRes): ...
     def __getitem__(self, resType): ...
     def __delitem__(self, resType) -> None: ...
     def __setitem__(self, resType, resources) -> None: ...
@@ -64,15 +56,13 @@ class ResourceReader(MutableMapping):
 class Resource:
     """Represents a resource stored within a resource fork.
 
-    Attributes
-    ----------
+    Attributes:
             type: resource type.
             data: resource data.
             id: ID.
             name: resource name.
             attr: attributes.
     """
-
     type: Incomplete
     data: Incomplete
     id: Incomplete

@@ -7,14 +7,12 @@ class VarLibValidationError(VarLibError):
 
 class VarLibMergeError(VarLibError):
     """Raised when input data cannot be merged into a variable font."""
-
     merger: Incomplete
     stack: Incomplete
     cause: Incomplete
     def __init__(self, merger=None, **kwargs) -> None: ...
     @property
     def reason(self): ...
-    def _master_name(self, ix): ...
     @property
     def offender(self): ...
     @property
@@ -22,13 +20,11 @@ class VarLibMergeError(VarLibError):
 
 class ShouldBeConstant(VarLibMergeError):
     """some values were different, but should have been the same"""
-
     @property
     def details(self): ...
 
 class FoundANone(VarLibMergeError):
     """one of the values in a list was empty when it shouldn't have been"""
-
     @property
     def offender(self): ...
     @property
@@ -36,7 +32,6 @@ class FoundANone(VarLibMergeError):
 
 class NotANone(VarLibMergeError):
     """one of the values in a list was not empty when it should have been"""
-
     @property
     def offender(self): ...
     @property
@@ -55,7 +50,6 @@ class InconsistentExtensions(VarLibMergeError):
 
 class UnsupportedFormat(VarLibMergeError):
     """an OpenType subtable (%s) had a format I didn't expect"""
-
     stack: Incomplete
     def __init__(self, merger=None, **kwargs) -> None: ...
     @property
@@ -67,19 +61,16 @@ class VarLibCFFMergeError(VarLibError): ...
 
 class VarLibCFFDictMergeError(VarLibCFFMergeError):
     """Raised when a CFF PrivateDict cannot be merged."""
-
     args: Incomplete
     def __init__(self, key, value, values) -> None: ...
 
 class VarLibCFFPointTypeMergeError(VarLibCFFMergeError):
     """Raised when a CFF glyph cannot be merged because of point type differences."""
-
     args: Incomplete
     def __init__(self, point_type, pt_index, m_index, default_type, glyph_name) -> None: ...
 
 class VarLibCFFHintTypeMergeError(VarLibCFFMergeError):
     """Raised when a CFF glyph cannot be merged because of hint type differences."""
-
     args: Incomplete
     def __init__(self, hint_type, cmd_index, m_index, default_type, glyph_name) -> None: ...
 

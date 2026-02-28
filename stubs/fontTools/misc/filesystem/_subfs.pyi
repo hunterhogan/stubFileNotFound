@@ -1,18 +1,13 @@
 from ._base import FS as FS
 from ._errors import DirectoryExpected as DirectoryExpected, ResourceNotFound as ResourceNotFound
 from ._info import Info as Info
-from _typeshed import Incomplete
 from collections.abc import Collection
 from typing import Any, IO
 
 class SubFS(FS):
     """Maps a sub-directory of another filesystem."""
-
-    _parent: Incomplete
-    _prefix: Incomplete
     def __init__(self, parent: FS, sub_path: str) -> None: ...
     def delegate_fs(self): ...
-    def _full(self, rel: str) -> str: ...
     def open(self, path: str, mode: str = 'rb', **kwargs) -> IO[Any]: ...
     def exists(self, path: str) -> bool: ...
     def isdir(self, path: str) -> bool: ...
@@ -31,5 +26,4 @@ class SubFS(FS):
 
 class ClosingSubFS(SubFS):
     """Like SubFS, but auto-closes the parent filesystem when closed."""
-
     def close(self) -> None: ...

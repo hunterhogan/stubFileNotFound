@@ -1,5 +1,7 @@
 from ._base import FS as FS
+from ._errors import IllegalDestination as IllegalDestination
 from ._path import combine as combine, frombase as frombase, isbase as isbase
+from ._tools import copy_file_data as copy_file_data
 
 def copy_file(src_fs: FS, src_path: str, dst_fs: FS, dst_path: str): ...
 def copy_structure(src_fs: FS, dst_fs: FS, src_root: str = '/', dst_root: str = '/'): ...

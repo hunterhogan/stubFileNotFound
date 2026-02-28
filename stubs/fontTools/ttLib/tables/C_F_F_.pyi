@@ -1,5 +1,6 @@
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
+from fontTools import cffLib as cffLib
 
 class table_C_F_F_(DefaultTable.DefaultTable):
     """Compact Font Format table (version 1)
@@ -16,9 +17,7 @@ class table_C_F_F_(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/cff
     """
-
     cff: Incomplete
-    _gaveGlyphOrder: bool
     def __init__(self, tag=None) -> None: ...
     def decompile(self, data, otFont) -> None: ...
     def compile(self, otFont): ...

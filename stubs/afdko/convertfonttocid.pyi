@@ -1,101 +1,39 @@
-from typing import Any, LiteralString
+from _typeshed import Incomplete
+from afdko import fdkutils as fdkutils
 
-"""
-convertfonttocid.py. v 1.13.2 Jul 30 2020
+__version__: str
+kBeginToken: str
+kEndToken: str
+kFDDictToken: str
+kGlyphSetToken: str
+kBaseStateTokens: Incomplete
+kBlueValueKeys: Incomplete
+kOtherBlueValueKeys: Incomplete
+kOtherFDDictKeys: Incomplete
+kFontDictBluePairsName: str
+kFontDictOtherBluePairsName: str
+kFontDictBluesName: str
+kFontDictOtherBluesName: str
+kRunTimeFDDictKeys: Incomplete
+kFDDictKeys: Incomplete
+kRequiredCIDFontInfoFields: Incomplete
+kOptionalFields: Incomplete
+kCIDFontInfokeyList: Incomplete
+TX_FIELDS: Incomplete
 
-Convert a Type 1 font to CID, given multiple hint dict defs in the
-"fontinfo" file. See otfautohint help, with the "--doc-fddict" option,
-or the makeotf user guide for details on this format. The output file
-produced by convertFontToCID() is a CID Type 1 font, no matter what
-the input is.
-
-PROCEDURE:
-1. convertFontToCID()
-   - read 'fontinfo' file
-   - getGlyphList(): get list of glyph names (via 'tx -dump -4')
-   - getFontBBox(): get FontBBox (via 'tx -mtx -2')
-   - getFontName(): get FontName (via 'tx -dump -0')
-   - getBlueFuzz(): get BlueFuzz (via 'tx -dump -0')
-
-2. parseFontInfoFile()
-   - parse 'fontinfo' file
-   - collect all FDDict and corresponding GlyphSet
-
-3. makeSortedGlyphLists()
-   - make a list containing a list of glyph names for each FDDict;
-     the list is sorted by FDDict index.
-     NOTE: all glyphs in a list are contiguous and ordered by original GID,
-           and belong to the same FDDict. This allows the glyphs to be
-           merged into a single CID font that will have the same glyph
-           order as the original font.
-
-4. makeTempFonts()
-   - generate a Type1 font (via 'tx -t1 -g ...') for each FDDict;
-     the fonts are subsets of the original font.
-   - fixFontDict():
-     - convert each name-keyed Type1 font to text (via 'detype1')
-     - fix FontName
-     - fix FontMatrix
-     - fix StemSnapH
-     - fix StemSnapV
-     - fix LanguageGroup
-     - fix BlueValues
-     - fix OtherBlues
-     - convert text font back to Type1 (via 'type1')
-
-5. merge_fonts()
-   - makeCIDFontInfo():
-     - get the original font's FontDict (via 'tx -0')
-     - assemble and save a temporary 'cidfontinfo' file
-   - makeGAFile():
-     - generate temporary glyph alias file for each FDDict
-   - convert each name-keyed Type1 font to CID-keyed (via 'mergefonts')
-   - merge all CID-keyed fonts (via 'mergefonts')
-
-"""
-__version__ = ...
-kBeginToken = ...
-kEndToken = ...
-kFDDictToken = ...
-kGlyphSetToken = ...
-kBaseStateTokens = ...
-kBlueValueKeys = ...
-kOtherBlueValueKeys = ...
-kOtherFDDictKeys = ...
-kFontDictBluePairsName = ...
-kFontDictOtherBluePairsName = ...
-kFontDictBluesName = ...
-kFontDictOtherBluesName = ...
-kRunTimeFDDictKeys = ...
-kFDDictKeys = ...
-kRequiredCIDFontInfoFields = ...
-kOptionalFields = ...
-kCIDFontInfokeyList = ...
-TX_FIELDS = ...
-class FontInfoParseError(Exception):
-    ...
-
-
-class FontParseError(Exception):
-    ...
-
+class FontInfoParseError(Exception): ...
+class FontParseError(Exception): ...
 
 class FDDict:
-    def __init__(self) -> None:
-        ...
-
-
-    def getFontInfo(self) -> LiteralString:
-        ...
-
-    def buildBlueLists(self) -> None:
-        ...
-
-
+    DictName: Incomplete
+    FlexOK: str
+    def __init__(self) -> None: ...
+    def getFontInfo(self): ...
+    def buildBlueLists(self) -> None: ...
 
 def parseFontInfoFile(fontDictList, fontInfoData, glyphList, maxY, minY, fontName, blueFuzz):
     """
-    FontDictList may or may not already contain a font dict taken from
+    fontDictList may or may not already contain a font dict taken from
     the source font top FontDict.
 
     Returns fdGlyphDict, fontDictList, finalFDict
@@ -153,25 +91,15 @@ def parseFontInfoFile(fontDictList, fontInfoData, glyphList, maxY, minY, fontNam
                            'OtherBlues': '[-217 -205]',
                            'BaselineYCoord': '0'}>]
     """
-
 def mergeFDDicts(prevDictList, privateDict) -> None:
     """
     Used by beztools & ufotools.
     """
-
-def getGlyphList(fPath, removeNotdef=..., original_font=...) -> list[Any]:
-    ...
-
-def getFontBBox(fPath) -> list[int]:
-    ...
-
-def getFontName(fPath) -> str | Any:
-    ...
-
-def getBlueFuzz(fPath) -> int | float:
-    ...
-
-def makeSortedGlyphLists(glyphList, fdGlyphDict) -> list[list[Any]]:
+def getGlyphList(fPath, removeNotdef: bool = False, original_font: bool = False): ...
+def getFontBBox(fPath): ...
+def getFontName(fPath): ...
+def getBlueFuzz(fPath): ...
+def makeSortedGlyphLists(glyphList, fdGlyphDict):
     """
     Returns a list containing lists of glyph names (one for each FDDict).
 
@@ -181,40 +109,24 @@ def makeSortedGlyphLists(glyphList, fdGlyphDict) -> list[list[Any]]:
                  keys: glyph names
                  values: [FDDict_index, glyph_index]
     """
-
-def fixFontDict(tempPath, fdDict) -> None:
-    ...
-
-def makeTempFonts(fontDictList, glyphSetList, fdGlyphDict, inputPath) -> list[Any]:
-    ...
-
-def makeCIDFontInfo(fontPath, cidfontinfoPath) -> None:
-    ...
-
+def fixFontDict(tempPath, fdDict) -> None: ...
+def makeTempFonts(fontDictList, glyphSetList, fdGlyphDict, inputPath): ...
+def makeCIDFontInfo(fontPath, cidfontinfoPath) -> None: ...
 def makeGAFile(gaPath, fontPath, glyphList, fontDictList, fdGlyphDict, removeNotdef) -> None:
     """
     Creates a glyph alias file for each FDDict.
     These files will be used by 'mergefonts' tool.
     For documentation on the format of this file, run 'mergefonts -h'.
     """
-
-def merge_fonts(inputFontPath, outputPath, fontList, glyphList, fontDictList, fdGlyphDict) -> None:
-    ...
-
-def convertFontToCID(inputPath, outputPath, fontinfoPath=...) -> None:
+def merge_fonts(inputFontPath, outputPath, fontList, glyphList, fontDictList, fdGlyphDict) -> None: ...
+def convertFontToCID(inputPath, outputPath, fontinfoPath=None) -> None:
     """
     Takes in a path to the font file to convert, a path to save the result,
     and an optional path to a '(cid)fontinfo' file.
     """
-
 def mergeFontToCFF(srcPath, outputPath, doSubr) -> None:
     """
     Used by makeotf.
     Assumes srcPath is a type 1 font,and outputPath is an OTF font.
     """
-
-def main() -> None:
-    ...
-
-if __name__ == '__main__':
-    ...
+def main() -> None: ...

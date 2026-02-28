@@ -1,16 +1,14 @@
 from _typeshed import Incomplete
 from collections.abc import Callable, Iterable
-from fontTools.annotations import (
-	ElementType, FormatVersion, FormatVersions, GLIFFormatVersionInput, GlyphNameToFileNameFunc, PathOrFS,
-	UFOFormatVersionInput)
+from fontTools.annotations import ElementType, FormatVersion, FormatVersions, GLIFFormatVersionInput, GlyphNameToFileNameFunc, PathOrFS, UFOFormatVersionInput
 from fontTools.misc.filesystem._base import FS
 from fontTools.pens.pointPen import AbstractPointPen
-from fontTools.ufoLib import _UFOBaseIO, UFOFormatVersion
+from fontTools.ufoLib import UFOFormatVersion, _UFOBaseIO
 from fontTools.ufoLib.errors import GlifLibError as GlifLibError
 from fontTools.ufoLib.utils import BaseFormatVersion
 from typing import Any
 
-__all__ = ['GlifLibError', 'GlyphSet', 'glyphNameToFileName', 'readGlyphFromString', 'writeGlyphToString']
+__all__ = ['GlyphSet', 'GlifLibError', 'readGlyphFromString', 'writeGlyphToString', 'glyphNameToFileName']
 
 class GLIFFormatVersion(BaseFormatVersion):
     """Class representing the versions of the .glif format supported by the UFO version in use.
@@ -19,7 +17,6 @@ class GLIFFormatVersion(BaseFormatVersion):
     return the supported versions of the GLIF file format. If the UFO version is unspecified, the
     :func:`supported_versions` method will return all available GLIF format versions.
     """
-
     FORMAT_1_0 = (1, 0)
     FORMAT_2_0 = (2, 0)
     @classmethod
@@ -32,7 +29,6 @@ class Glyph:
     Minimal glyph object. It has no glyph attributes until either
     the draw() or the drawPoints() method has been called.
     """
-
     glyphName: str
     glyphSet: GlyphSet
     def __init__(self, glyphName: str, glyphSet: GlyphSet) -> None: ...
@@ -58,19 +54,12 @@ class GlyphSet(_UFOBaseIO):
     The simple glyph objects returned through the dict interface do not
     support writing, they are just a convenient way to get at the glyph data.
     """
-
     glyphClass = Glyph
-    _shouldClose: bool
     dirName: str
     fs: FS
-    _havePreviousFile: bool
     ufoFormatVersion: int
     ufoFormatVersionTuple: UFOFormatVersion
     glyphNameToFileName: Callable[[str, set[str]], str]
-    _validateRead: bool
-    _validateWrite: bool
-    _existingFileNames: set[str] | None
-    _reverseContents: dict[str, str] | None
     def __init__(self, path: PathOrFS, glyphNameToFileNameFunc: GlyphNameToFileNameFunc = None, ufoFormatVersion: UFOFormatVersionInput = None, validateRead: bool = True, validateWrite: bool = True, expectContentsFile: bool = False) -> None:
         """
         'path' should be a path (string) to an existing local directory, or
@@ -322,7 +311,7 @@ def readGlyphFromString(aString: str | bytes, glyphObject: Any | None = None, po
     ``validate`` will validate the read data. It is set to ``True`` by default.
     """
 def writeGlyphToString(glyphName: str, glyphObject: Any | None = None, drawPointsFunc: Callable[[Any], None] | None = None, formatVersion: FormatVersion | None = None, validate: bool = True) -> str:
-    """
+    '''
     Return .glif data for a glyph as a string. The XML declaration\'s
     encoding is always set to "UTF-8".
     The \'glyphObject\' argument can be any kind of object (even None);
@@ -365,12 +354,11 @@ def writeGlyphToString(glyphName: str, glyphObject: Any | None = None, drawPoint
     formatVersion is not supported.
 
     ``validate`` will validate the written data. It is set to ``True`` by default.
-    """
+    '''
 
 class _DoneParsing(Exception): ...
 
 class _BaseParser:
-    _elementStack: list[str]
     def __init__(self) -> None: ...
     def parse(self, text: bytes): ...
     def startElementHandler(self, name: str, attrs: Any) -> None: ...
@@ -397,7 +385,6 @@ class GLIFPointPen(AbstractPointPen):
     Helper class using the PointPen protocol to write the <outline>
     part of .glif files.
     """
-
     formatVersion: Incomplete
     identifiers: Incomplete
     outline: Incomplete

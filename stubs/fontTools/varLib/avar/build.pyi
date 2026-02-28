@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
-from fontTools.varLib import _add_avar as _add_avar, _add_fvar as _add_fvar, load_designspace as load_designspace
+from fontTools.ttLib import newTable as newTable
+from fontTools.varLib import load_designspace as load_designspace
 
 log: Incomplete
 

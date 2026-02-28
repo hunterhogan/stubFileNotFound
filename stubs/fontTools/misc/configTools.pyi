@@ -1,6 +1,5 @@
-from collections.abc import Callable, Iterable, Mapping, MutableMapping
 from dataclasses import dataclass
-from typing import Any, ClassVar
+from typing import Any, Callable, ClassVar, Iterable, Mapping, MutableMapping
 
 __all__ = ['AbstractConfig', 'ConfigAlreadyRegisteredError', 'ConfigError', 'ConfigUnknownOptionError', 'ConfigValueParsingError', 'ConfigValueValidationError', 'Option', 'Options']
 
@@ -14,22 +13,18 @@ class ConfigAlreadyRegisteredError(ConfigError):
     Should not be raised too much really, only when developing new fontTools
     modules.
     """
-
     def __init__(self, name) -> None: ...
 
 class ConfigValueParsingError(ConfigError):
     """Raised when a configuration value cannot be parsed."""
-
     def __init__(self, name, value) -> None: ...
 
 class ConfigValueValidationError(ConfigError):
     """Raised when a configuration value cannot be validated."""
-
     def __init__(self, name, value) -> None: ...
 
 class ConfigUnknownOptionError(ConfigError):
     """Raised when a configuration option is unknown."""
-
     def __init__(self, option_or_name) -> None: ...
 
 @dataclass(frozen=True, eq=False)
@@ -51,8 +46,6 @@ class Options(Mapping):
 
     Access existing options using the Mapping interface.
     """
-
-    __options: dict[str, Option]
     def __init__(self, other: Options = None) -> None: ...
     def register(self, name: str, help: str, default: Any, parse: Callable[[str], Any], validate: Callable[[Any], bool] | None = None) -> Option:
         """Create and register a new option."""
@@ -65,7 +58,7 @@ class Options(Mapping):
     def __len__(self) -> int: ...
 
 class AbstractConfig(MutableMapping):
-    """
+    '''
     Create a set of config values, optionally pre-filled with values from
     the given dictionary or pre-existing config object.
 
@@ -87,15 +80,12 @@ class AbstractConfig(MutableMapping):
 
         cfg = MyConfig({"test:option_name": 10})
 
-    """
-
+    '''
     options: ClassVar[Options]
     @classmethod
     def register_option(cls, name: str, help: str, default: Any, parse: Callable[[str], Any], validate: Callable[[Any], bool] | None = None) -> Option:
         """Register an available option in this config system."""
-    _values: dict[str, Any]
     def __init__(self, values: AbstractConfig | dict[Option | str, Any] | Mapping[str, Any] = {}, parse_values: bool = False, skip_unknown: bool = False) -> None: ...
-    def _resolve_option(self, option_or_name: Option | str) -> Option: ...
     def set(self, option_or_name: Option | str, value: Any, parse_values: bool = False, skip_unknown: bool = False):
         """Set the value of an option.
 
@@ -113,7 +103,7 @@ class AbstractConfig(MutableMapping):
                 (e.g. for a later version of fontTools)
         """
     def get(self, option_or_name: Option | str, default: Any = ...) -> Any:
-        """
+        '''
         Get the value of an option. The value which is returned is the first
         provided among:
 
@@ -134,7 +124,7 @@ class AbstractConfig(MutableMapping):
         That way, the function will work the same for users of the API that
         still pass the option to the function call, but will favour the new
         config mechanism if the given font specifies a value for that option.
-        """
+        '''
     def copy(self): ...
     def __getitem__(self, option_or_name: Option | str) -> Any: ...
     def __setitem__(self, option_or_name: Option | str, value: Any) -> None: ...

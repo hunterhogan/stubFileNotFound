@@ -1,4 +1,5 @@
 import _cython_3_2_2
+from fontTools.misc.bezierTools import splitCubicAtTC as splitCubicAtTC
 
 COMPILED: bool
 __test__: dict

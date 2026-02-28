@@ -1,18 +1,11 @@
-from _typeshed import Incomplete
-
 class Visitor:
     defaultStop: bool
-    _visitors: Incomplete
-    @classmethod
-    def _register(celf, clazzes_attrs): ...
     @classmethod
     def register(celf, clazzes): ...
     @classmethod
     def register_attr(celf, clazzes, attrs): ...
     @classmethod
     def register_attrs(celf, clazzes_attrs): ...
-    @classmethod
-    def _visitorsFor(celf, thing, _default={}): ...
     def visitObject(self, obj, *args, **kwargs) -> None:
         """Called to visit an object. This function loops over all non-private
         attributes of the objects and calls any user-registered (via
@@ -33,8 +26,7 @@ class Visitor:
         """Called to visit any value that is a dictionary."""
     def visitLeaf(self, obj, *args, **kwargs) -> None:
         """Called to visit any value that is not an object, list,
-        or dictionary.
-        """
+        or dictionary."""
     def visit(self, obj, *args, **kwargs) -> None:
         """This is the main entry to the visitor. The visitor will visit object
         ``obj``.
