@@ -1,10 +1,26 @@
 from collections.abc import Iterator
-from pandas._libs.missing import NAType
-from pandas._typing import (
-	AxisInt, DtypeArg, np_1darray, np_1darray_bool, NpDtype, npt, Scalar, ScalarIndexer, SequenceIndexer)
+from typing import (
+    Any,
+    Literal,
+    Self,
+    overload,
+)
+
 from pandas.core.arrays import ExtensionArray as ExtensionArray
 from pandas.core.series import Series
-from typing import Any, Literal, overload, Self
+
+from pandas._libs.missing import NAType
+from pandas._typing import (
+    AxisInt,
+    DtypeArg,
+    NpDtype,
+    Scalar,
+    ScalarIndexer,
+    SequenceIndexer,
+    np_1darray,
+    np_1darray_bool,
+    npt,
+)
 
 class BaseMaskedArray(ExtensionArray):
     @overload

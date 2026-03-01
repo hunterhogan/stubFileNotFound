@@ -1,35 +1,35 @@
-from _typeshed import MaybeNone, ReadableBuffer, StrOrBytesPath, SupportsRead, SupportsReadline, WriteableBuffer
-from collections.abc import Callable, Iterable, Iterator, Mapping
-from email._policybase import _MessageT
-from socket import socket
-from typing import BinaryIO, Final, overload, Self, TypeAlias, TypeVar
-from typing_extensions import deprecated
 import email.message
 import io
 import ssl
 import sys
 import types
+from _typeshed import MaybeNone, ReadableBuffer, StrOrBytesPath, SupportsRead, SupportsReadline, WriteableBuffer
+from collections.abc import Callable, Iterable, Iterator, Mapping
+from email._policybase import _MessageT
+from socket import socket
+from typing import BinaryIO, Final, TypeVar, overload
+from typing_extensions import Self, TypeAlias, deprecated
 
 __all__ = [
-    "BadStatusLine",
-    "CannotSendHeader",
-    "CannotSendRequest",
+    "HTTPResponse",
     "HTTPConnection",
     "HTTPException",
-    "HTTPResponse",
-    "HTTPSConnection",
-    "ImproperConnectionState",
-    "IncompleteRead",
-    "InvalidURL",
-    "LineTooLong",
     "NotConnected",
-    "RemoteDisconnected",
-    "ResponseNotReady",
-    "UnimplementedFileMode",
     "UnknownProtocol",
     "UnknownTransferEncoding",
+    "UnimplementedFileMode",
+    "IncompleteRead",
+    "InvalidURL",
+    "ImproperConnectionState",
+    "CannotSendRequest",
+    "CannotSendHeader",
+    "ResponseNotReady",
+    "BadStatusLine",
+    "LineTooLong",
+    "RemoteDisconnected",
     "error",
     "responses",
+    "HTTPSConnection",
 ]
 
 _DataType: TypeAlias = SupportsRead[bytes] | Iterable[ReadableBuffer] | ReadableBuffer

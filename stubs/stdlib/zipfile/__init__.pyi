@@ -1,26 +1,27 @@
+import io
+import sys
 from _typeshed import SizedBuffer, StrOrBytesPath, StrPath
 from collections.abc import Callable, Iterable, Iterator
 from io import TextIOWrapper
 from os import PathLike
 from types import TracebackType
-from typing import Final, IO, Literal, overload, Protocol, Self, type_check_only, TypeAlias
-import io
-import sys
+from typing import IO, Final, Literal, Protocol, overload, type_check_only
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
-    "ZIP_BZIP2",
-    "ZIP_DEFLATED",
-    "ZIP_LZMA",
-    "ZIP_STORED",
     "BadZipFile",
     "BadZipfile",
-    "LargeZipFile",
     "Path",
-    "PyZipFile",
-    "ZipFile",
-    "ZipInfo",
     "error",
+    "ZIP_STORED",
+    "ZIP_DEFLATED",
+    "ZIP_BZIP2",
+    "ZIP_LZMA",
     "is_zipfile",
+    "ZipInfo",
+    "ZipFile",
+    "PyZipFile",
+    "LargeZipFile",
 ]
 
 if sys.version_info >= (3, 14):
@@ -28,8 +29,8 @@ if sys.version_info >= (3, 14):
 
 # TODO: use TypeAlias for these two when mypy bugs are fixed
 # https://github.com/python/mypy/issues/16581
-_DateTuple: TypeAlias = tuple[int, int, int, int, int, int]
-_ZipFileMode: TypeAlias = Literal["r", "w", "x", "a"]
+_DateTuple = tuple[int, int, int, int, int, int]  # noqa: Y026
+_ZipFileMode = Literal["r", "w", "x", "a"]  # noqa: Y026
 
 _ReadWriteMode: TypeAlias = Literal["r", "w"]
 
@@ -272,27 +273,27 @@ class PyZipFile(ZipFile):
 
 class ZipInfo:
     __slots__ = (
-        "CRC",
-        "_end_offset",
-        "_raw_time",
-        "comment",
-        "compress_level",
-        "compress_size",
+        "orig_filename",
+        "filename",
+        "date_time",
         "compress_type",
+        "compress_level",
+        "comment",
+        "extra",
         "create_system",
         "create_version",
-        "date_time",
-        "external_attr",
-        "extra",
         "extract_version",
-        "file_size",
-        "filename",
-        "flag_bits",
-        "header_offset",
-        "internal_attr",
-        "orig_filename",
         "reserved",
+        "flag_bits",
         "volume",
+        "internal_attr",
+        "external_attr",
+        "header_offset",
+        "CRC",
+        "compress_size",
+        "file_size",
+        "_raw_time",
+        "_end_offset",
     )
     filename: str
     date_time: _DateTuple

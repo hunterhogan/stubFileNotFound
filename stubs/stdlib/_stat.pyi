@@ -1,5 +1,5 @@
-from typing import Final
 import sys
+from typing import Final
 
 SF_APPEND: Final = 0x00040000
 SF_ARCHIVED: Final = 0x00010000

@@ -1,6 +1,11 @@
 from collections.abc import Iterator
-from pandas._typing import AxisInt, NDFrameT, np_ndarray_intp
 from typing import Generic
+
+from pandas._typing import (
+    AxisInt,
+    NDFrameT,
+    np_ndarray_intp,
+)
 
 class DataSplitter(Generic[NDFrameT]):
     data: NDFrameT

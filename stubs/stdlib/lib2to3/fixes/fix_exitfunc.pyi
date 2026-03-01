@@ -1,7 +1,8 @@
-from ..pytree import Node
 from _typeshed import Incomplete, StrPath
 from lib2to3 import fixer_base
 from typing import ClassVar, Literal
+
+from ..pytree import Node
 
 class FixExitfunc(fixer_base.BaseFix):
     BM_compatible: ClassVar[Literal[True]]

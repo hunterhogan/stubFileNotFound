@@ -1,9 +1,20 @@
+from typing import Any
+
+from pandas.core.frame import DataFrame
+
 from pandas._libs.lib import NoDefault
 from pandas._typing import (
-	CompressionOptions, ConvertersArg, DtypeArg, DtypeBackend, FilePath, ParseDatesArg, ReadBuffer, SequenceNotStr,
-	StorageOptions, XMLParsers)
-from pandas.core.frame import DataFrame
-from typing import Any
+    CompressionOptions,
+    ConvertersArg,
+    DtypeArg,
+    DtypeBackend,
+    FilePath,
+    ParseDatesArg,
+    ReadBuffer,
+    SequenceNotStr,
+    StorageOptions,
+    XMLParsers,
+)
 
 def read_xml(
     path_or_buffer: FilePath | ReadBuffer[bytes] | ReadBuffer[str],

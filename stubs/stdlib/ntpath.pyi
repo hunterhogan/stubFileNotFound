@@ -1,18 +1,51 @@
+import sys
 from _typeshed import BytesPath, StrOrBytesPath, StrPath
 from genericpath import (
-	_AllowMissingType, ALLOW_MISSING as ALLOW_MISSING, commonprefix as commonprefix, exists as exists,
-	getatime as getatime, getctime as getctime, getmtime as getmtime, getsize as getsize, isdir as isdir, isfile as isfile,
-	samefile as samefile, sameopenfile as sameopenfile, samestat as samestat)
+    ALLOW_MISSING as ALLOW_MISSING,
+    _AllowMissingType,
+    commonprefix as commonprefix,
+    exists as exists,
+    getatime as getatime,
+    getctime as getctime,
+    getmtime as getmtime,
+    getsize as getsize,
+    isdir as isdir,
+    isfile as isfile,
+    samefile as samefile,
+    sameopenfile as sameopenfile,
+    samestat as samestat,
+)
 from os import PathLike
+
 # Re-export common definitions from posixpath to reduce duplication
 from posixpath import (
-	abspath as abspath, basename as basename, commonpath as commonpath, curdir as curdir, defpath as defpath,
-	devnull as devnull, dirname as dirname, expanduser as expanduser, expandvars as expandvars, extsep as extsep,
-	isabs as isabs, islink as islink, ismount as ismount, lexists as lexists, normcase as normcase, normpath as normpath,
-	pardir as pardir, pathsep as pathsep, relpath as relpath, sep as sep, split as split, splitdrive as splitdrive,
-	splitext as splitext, supports_unicode_filenames as supports_unicode_filenames)
-from typing import AnyStr, LiteralString, overload
-import sys
+    abspath as abspath,
+    basename as basename,
+    commonpath as commonpath,
+    curdir as curdir,
+    defpath as defpath,
+    devnull as devnull,
+    dirname as dirname,
+    expanduser as expanduser,
+    expandvars as expandvars,
+    extsep as extsep,
+    isabs as isabs,
+    islink as islink,
+    ismount as ismount,
+    lexists as lexists,
+    normcase as normcase,
+    normpath as normpath,
+    pardir as pardir,
+    pathsep as pathsep,
+    relpath as relpath,
+    sep as sep,
+    split as split,
+    splitdrive as splitdrive,
+    splitext as splitext,
+    supports_unicode_filenames as supports_unicode_filenames,
+)
+from typing import AnyStr, overload
+from typing_extensions import LiteralString
 
 if sys.version_info >= (3, 12):
     from posixpath import isjunction as isjunction, splitroot as splitroot
@@ -20,45 +53,45 @@ if sys.version_info >= (3, 13):
     from genericpath import isdevdrive as isdevdrive
 
 __all__ = [
-    "ALLOW_MISSING",
-    "abspath",
-    "altsep",
+    "normcase",
+    "isabs",
+    "join",
+    "splitdrive",
+    "split",
+    "splitext",
     "basename",
-    "commonpath",
-    "commonprefix",
-    "curdir",
-    "defpath",
-    "devnull",
     "dirname",
-    "exists",
-    "expanduser",
-    "expandvars",
-    "extsep",
+    "commonprefix",
+    "getsize",
+    "getmtime",
     "getatime",
     "getctime",
-    "getmtime",
-    "getsize",
-    "isabs",
+    "islink",
+    "exists",
+    "lexists",
     "isdir",
     "isfile",
-    "islink",
     "ismount",
-    "join",
-    "lexists",
-    "normcase",
+    "expanduser",
+    "expandvars",
     "normpath",
+    "abspath",
+    "curdir",
     "pardir",
+    "sep",
     "pathsep",
+    "defpath",
+    "altsep",
+    "extsep",
+    "devnull",
     "realpath",
+    "supports_unicode_filenames",
     "relpath",
     "samefile",
     "sameopenfile",
     "samestat",
-    "sep",
-    "split",
-    "splitdrive",
-    "splitext",
-    "supports_unicode_filenames",
+    "commonpath",
+    "ALLOW_MISSING",
 ]
 if sys.version_info >= (3, 12):
     __all__ += ["isjunction", "splitroot"]

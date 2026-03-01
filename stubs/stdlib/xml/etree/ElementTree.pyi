@@ -1,39 +1,38 @@
+import sys
 from _collections_abc import dict_keys
 from _typeshed import FileDescriptorOrPath, ReadableBuffer, SupportsRead, SupportsWrite
 from collections.abc import Callable, Generator, ItemsView, Iterable, Iterator, Mapping, Sequence
-from typing import (
-	Any, Final, Generic, Literal, overload, Protocol, SupportsIndex, type_check_only, TypeAlias, TypeGuard, TypeVar)
-from typing_extensions import deprecated, disjoint_base
+from typing import Any, Final, Generic, Literal, Protocol, SupportsIndex, TypeVar, overload, type_check_only
+from typing_extensions import TypeAlias, TypeGuard, deprecated, disjoint_base
 from xml.parsers.expat import XMLParserType
-import sys
 
 __all__ = [
-    "PI",
-    "VERSION",
-    "XML",
-    "XMLID",
     "C14NWriterTarget",
     "Comment",
+    "dump",
     "Element",
     "ElementTree",
-    "ParseError",
-    "ProcessingInstruction",
-    "QName",
-    "SubElement",
-    "TreeBuilder",
-    "XMLParser",
-    "XMLPullParser",
     "canonicalize",
-    "dump",
     "fromstring",
     "fromstringlist",
     "indent",
     "iselement",
     "iterparse",
     "parse",
-    "register_namespace",
+    "ParseError",
+    "PI",
+    "ProcessingInstruction",
+    "QName",
+    "SubElement",
     "tostring",
     "tostringlist",
+    "TreeBuilder",
+    "VERSION",
+    "XML",
+    "XMLID",
+    "XMLParser",
+    "XMLPullParser",
+    "register_namespace",
 ]
 
 _T = TypeVar("_T")
@@ -107,12 +106,12 @@ class Element(Generic[_Tag]):
     def get(self, key: str, default: _T) -> str | _T: ...
     def insert(self, index: int, subelement: Element[Any], /) -> None: ...
     def items(self) -> ItemsView[str, str]: ...
-    def iter(self, tag: str | None = None) -> Generator[Element]: ...
+    def iter(self, tag: str | None = None) -> Generator[Element, None, None]: ...
     @overload
     def iterfind(self, path: Literal[""], namespaces: dict[str, str] | None = None) -> None: ...  # type: ignore[overload-overlap]
     @overload
-    def iterfind(self, path: str, namespaces: dict[str, str] | None = None) -> Generator[Element]: ...
-    def itertext(self) -> Generator[str]: ...
+    def iterfind(self, path: str, namespaces: dict[str, str] | None = None) -> Generator[Element, None, None]: ...
+    def itertext(self) -> Generator[str, None, None]: ...
     def keys(self) -> dict_keys[str, str]: ...
     # makeelement returns the type of self in Python impl, but not in C impl
     def makeelement(self, tag: _OtherTag, attrib: dict[str, str], /) -> Element[_OtherTag]: ...
@@ -160,7 +159,7 @@ class ElementTree(Generic[_Root]):
     def getroot(self) -> _Root: ...
     def _setroot(self, element: Element[Any]) -> None: ...
     def parse(self, source: _FileRead, parser: XMLParser | None = None) -> Element: ...
-    def iter(self, tag: str | None = None) -> Generator[Element]: ...
+    def iter(self, tag: str | None = None) -> Generator[Element, None, None]: ...
     def find(self, path: str, namespaces: dict[str, str] | None = None) -> Element | None: ...
     @overload
     def findtext(self, path: str, default: None = None, namespaces: dict[str, str] | None = None) -> str | None: ...
@@ -170,7 +169,7 @@ class ElementTree(Generic[_Root]):
     @overload
     def iterfind(self, path: Literal[""], namespaces: dict[str, str] | None = None) -> None: ...  # type: ignore[overload-overlap]
     @overload
-    def iterfind(self, path: str, namespaces: dict[str, str] | None = None) -> Generator[Element]: ...
+    def iterfind(self, path: str, namespaces: dict[str, str] | None = None) -> Generator[Element, None, None]: ...
     def write(
         self,
         file_or_filename: _FileWrite,

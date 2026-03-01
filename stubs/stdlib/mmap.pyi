@@ -1,9 +1,9 @@
-from _typeshed import ReadableBuffer, Unused
-from collections.abc import Iterator
-from typing import Final, Literal, NoReturn, overload, Self, SupportsIndex
-from typing_extensions import disjoint_base
 import os
 import sys
+from _typeshed import ReadableBuffer, Unused
+from collections.abc import Iterator
+from typing import Final, Literal, NoReturn, SupportsIndex, overload
+from typing_extensions import Self, disjoint_base
 
 ACCESS_DEFAULT: Final = 0
 ACCESS_READ: Final = 1
@@ -35,22 +35,23 @@ PAGESIZE: Final[int]
 class mmap:
     if sys.platform == "win32":
         def __new__(self, fileno: int, length: int, tagname: str | None = None, access: int = 0, offset: int = 0) -> Self: ...
-    elif sys.version_info >= (3, 13):
-        def __new__(
-            cls,
-            fileno: int,
-            length: int,
-            flags: int = ...,
-            prot: int = ...,
-            access: int = 0,
-            offset: int = 0,
-            *,
-            trackfd: bool = True,
-        ) -> Self: ...
     else:
-        def __new__(
-            cls, fileno: int, length: int, flags: int = ..., prot: int = ..., access: int = 0, offset: int = 0
-        ) -> Self: ...
+        if sys.version_info >= (3, 13):
+            def __new__(
+                cls,
+                fileno: int,
+                length: int,
+                flags: int = ...,
+                prot: int = ...,
+                access: int = 0,
+                offset: int = 0,
+                *,
+                trackfd: bool = True,
+            ) -> Self: ...
+        else:
+            def __new__(
+                cls, fileno: int, length: int, flags: int = ..., prot: int = ..., access: int = 0, offset: int = 0
+            ) -> Self: ...
 
     def close(self) -> None: ...
     def flush(self, offset: int = 0, size: int = None, /) -> None: ...
@@ -59,9 +60,9 @@ class mmap:
     def readline(self) -> bytes: ...
     def resize(self, newsize: int, /) -> None: ...
     if sys.platform != "win32":
-        def seek(self, pos: int, whence: Literal[0, 1, 2, 3, 4] = ..., /) -> None: ...
+        def seek(self, pos: int, whence: Literal[0, 1, 2, 3, 4] = os.SEEK_SET, /) -> None: ...
     else:
-        def seek(self, pos: int, whence: Literal[0, 1, 2] = ..., /) -> None: ...
+        def seek(self, pos: int, whence: Literal[0, 1, 2] = os.SEEK_SET, /) -> None: ...
 
     def size(self) -> int: ...
     def tell(self) -> int: ...

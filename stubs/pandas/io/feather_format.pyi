@@ -1,6 +1,13 @@
 from pandas import DataFrame
+
 from pandas._libs.lib import NoDefault
-from pandas._typing import DtypeBackend, FilePath, HashableT, ReadBuffer, StorageOptions
+from pandas._typing import (
+    DtypeBackend,
+    FilePath,
+    HashableT,
+    ReadBuffer,
+    StorageOptions,
+)
 
 def read_feather(
     path: FilePath | ReadBuffer[bytes],

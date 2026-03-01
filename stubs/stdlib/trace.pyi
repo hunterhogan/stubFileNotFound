@@ -1,11 +1,11 @@
-from _typeshed import Incomplete, StrPath, TraceFunction
-from collections.abc import Callable, Iterable, Mapping, Sequence
-from typing import Any, TypeAlias, TypeVar
-from typing_extensions import ParamSpec
 import sys
 import types
+from _typeshed import Incomplete, StrPath, TraceFunction
+from collections.abc import Callable, Iterable, Mapping, Sequence
+from typing import Any, TypeVar
+from typing_extensions import ParamSpec, TypeAlias
 
-__all__ = ["CoverageResults", "Trace"]
+__all__ = ["Trace", "CoverageResults"]
 
 _T = TypeVar("_T")
 _P = ParamSpec("_P")

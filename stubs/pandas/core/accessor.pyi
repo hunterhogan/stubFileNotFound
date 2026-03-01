@@ -1,4 +1,5 @@
 from collections.abc import Callable
+
 from pandas._typing import TypeT
 
 class PandasDelegate: ...

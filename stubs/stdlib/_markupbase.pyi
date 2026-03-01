@@ -1,5 +1,5 @@
-from typing import Any
 import sys
+from typing import Any
 
 class ParserBase:
     def reset(self) -> None: ...

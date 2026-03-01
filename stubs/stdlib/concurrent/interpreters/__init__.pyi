@@ -1,15 +1,21 @@
-from collections.abc import Callable
-from typing import Any, Literal, Self, TypeVar
-from typing_extensions import ParamSpec
 import sys
 import threading
 import types
+from collections.abc import Callable
+from typing import Any, Literal, TypeVar
+from typing_extensions import ParamSpec, Self
 
 if sys.version_info >= (3, 13):  # needed to satisfy pyright checks for Python <3.13
-    from ._queues import create as create_queue, Queue as Queue, QueueEmpty as QueueEmpty, QueueFull as QueueFull
     from _interpreters import (
-    	_SharedDict, _Whence, InterpreterError as InterpreterError, InterpreterNotFoundError as InterpreterNotFoundError,
-    	is_shareable as is_shareable, NotShareableError as NotShareableError)
+        InterpreterError as InterpreterError,
+        InterpreterNotFoundError as InterpreterNotFoundError,
+        NotShareableError as NotShareableError,
+        _SharedDict,
+        _Whence,
+        is_shareable as is_shareable,
+    )
+
+    from ._queues import Queue as Queue, QueueEmpty as QueueEmpty, QueueFull as QueueFull, create as create_queue
 
     __all__ = [
         "ExecutionFailed",

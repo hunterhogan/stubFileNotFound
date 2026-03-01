@@ -1,12 +1,12 @@
-from collections.abc import Iterable
-from types import ModuleType
-from typing import Any, Final, Protocol, type_check_only
-from typing_extensions import deprecated
 import sys
 import unittest.case
 import unittest.loader
 import unittest.result
 import unittest.suite
+from collections.abc import Iterable
+from types import ModuleType
+from typing import Any, Final, Protocol, type_check_only
+from typing_extensions import deprecated
 
 MAIN_EXAMPLES: Final[str]
 MODULE_EXAMPLES: Final[str]

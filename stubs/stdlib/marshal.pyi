@@ -1,8 +1,9 @@
-from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
-from typing import Any, Final, TypeAlias
 import builtins
 import sys
 import types
+from _typeshed import ReadableBuffer, SupportsRead, SupportsWrite
+from typing import Any, Final
+from typing_extensions import TypeAlias
 
 version: Final[int]
 

@@ -1,22 +1,22 @@
-from collections.abc import Callable, Iterable, Iterator, Sequence
-from types import GenericAlias
-from typing import Any, AnyStr, Generic, Literal, NamedTuple, overload, TypeVar
 import re
 import sys
+from collections.abc import Callable, Iterable, Iterator, Sequence
+from types import GenericAlias
+from typing import Any, AnyStr, Generic, Literal, NamedTuple, TypeVar, overload
 
 __all__ = [
-    "IS_CHARACTER_JUNK",
-    "IS_LINE_JUNK",
-    "Differ",
-    "HtmlDiff",
-    "Match",
-    "SequenceMatcher",
-    "context_diff",
-    "diff_bytes",
     "get_close_matches",
     "ndiff",
     "restore",
+    "SequenceMatcher",
+    "Differ",
+    "IS_CHARACTER_JUNK",
+    "IS_LINE_JUNK",
+    "context_diff",
     "unified_diff",
+    "diff_bytes",
+    "HtmlDiff",
+    "Match",
 ]
 
 _T = TypeVar("_T")

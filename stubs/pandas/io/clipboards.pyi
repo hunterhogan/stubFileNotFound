@@ -1,12 +1,30 @@
 from collections import defaultdict
-from collections.abc import Callable, Sequence
+from collections.abc import (
+    Callable,
+    Sequence,
+)
+import csv
+from typing import (
+    Any,
+    Literal,
+    overload,
+)
+
+from pandas.core.frame import DataFrame
+
 from pandas._libs.lib import NoDefault
 from pandas._typing import (
-	CompressionOptions, CSVEngine, CSVQuoting, DtypeArg, DtypeBackend, ListLikeHashable, StorageOptions, UsecolsArgType)
-from pandas.core.frame import DataFrame
+    CompressionOptions,
+    CSVEngine,
+    CSVQuoting,
+    DtypeArg,
+    DtypeBackend,
+    ListLikeHashable,
+    StorageOptions,
+    UsecolsArgType,
+)
+
 from pandas.io.parsers import TextFileReader
-from typing import Any, Literal, overload
-import csv
 
 @overload
 def read_clipboard(

@@ -1,5 +1,5 @@
-from _typeshed import ReadableBuffer
 import codecs
+from _typeshed import ReadableBuffer
 
 class Codec(codecs.Codec):
     # At runtime, this is codecs.raw_unicode_escape_encode

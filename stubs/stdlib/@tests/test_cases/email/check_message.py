@@ -1,6 +1,6 @@
 from email.headerregistry import Address
 from email.message import EmailMessage
-from typing import assert_type
+from typing_extensions import assert_type
 
 msg = EmailMessage()
 msg["To"] = "receiver@example.com"

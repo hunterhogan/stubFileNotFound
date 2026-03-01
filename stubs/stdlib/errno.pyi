@@ -1,6 +1,6 @@
+import sys
 from collections.abc import Mapping
 from typing import Final
-import sys
 
 errorcode: Mapping[int, str]
 
@@ -92,7 +92,7 @@ ECANCELED: Final[int]  # undocumented
 ENOTRECOVERABLE: Final[int]  # undocumented
 EOWNERDEAD: Final[int]  # undocumented
 
-if sys.platform == "sunos5" or sys.platform == "solaris":
+if sys.platform == "sunos5" or sys.platform == "solaris":  # noqa: Y008
     ELOCKUNMAPPED: Final[int]
     ENOTACTIVE: Final[int]
 

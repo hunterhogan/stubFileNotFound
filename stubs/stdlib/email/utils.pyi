@@ -1,27 +1,27 @@
+import datetime
+import sys
 from _typeshed import Unused
 from collections.abc import Iterable
 from email import _ParamType
 from email.charset import Charset
-from typing import overload, TypeAlias
-from typing_extensions import deprecated
-import datetime
-import sys
+from typing import overload
+from typing_extensions import TypeAlias, deprecated
 
 __all__ = [
     "collapse_rfc2231_value",
     "decode_params",
     "decode_rfc2231",
     "encode_rfc2231",
-    "format_datetime",
     "formataddr",
     "formatdate",
+    "format_datetime",
     "getaddresses",
     "make_msgid",
     "mktime_tz",
     "parseaddr",
     "parsedate",
-    "parsedate_to_datetime",
     "parsedate_tz",
+    "parsedate_to_datetime",
     "unquote",
 ]
 

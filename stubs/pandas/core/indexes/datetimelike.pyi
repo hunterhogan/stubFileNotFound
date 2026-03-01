@@ -1,8 +1,20 @@
-from pandas._libs.tslibs import BaseOffset
-from pandas._typing import AxisIndex, GenericT_co, np_ndarray_complex, S1, TimeUnit
-from pandas.core.indexes.extension import ExtensionIndex
-from typing import Any, Never, Self
+from typing import (
+    Any,
+    Never,
+    Self,
+)
+
 import numpy as np
+from pandas.core.indexes.extension import ExtensionIndex
+
+from pandas._libs.tslibs import BaseOffset
+from pandas._typing import (
+    S1,
+    AxisIndex,
+    GenericT_co,
+    TimeUnit,
+    np_ndarray_complex,
+)
 
 class DatetimeIndexOpsMixin(ExtensionIndex[S1, GenericT_co]):
     @property

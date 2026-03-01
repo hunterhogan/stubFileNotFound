@@ -1,11 +1,11 @@
+import _lsprof
 from _typeshed import StrOrBytesPath, Unused
 from collections.abc import Callable, Mapping
 from types import CodeType
-from typing import Any, Self, TypeAlias, TypeVar
-from typing_extensions import ParamSpec
-import _lsprof
+from typing import Any, TypeVar
+from typing_extensions import ParamSpec, Self, TypeAlias
 
-__all__ = ["Profile", "run", "runctx"]
+__all__ = ["run", "runctx", "Profile"]
 
 def run(statement: str, filename: str | None = None, sort: str | int = -1) -> None: ...
 def runctx(

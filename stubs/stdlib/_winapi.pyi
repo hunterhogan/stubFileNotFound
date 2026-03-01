@@ -1,7 +1,7 @@
+import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Sequence
-from typing import Any, Final, final, Literal, NoReturn, overload
-import sys
+from typing import Any, Final, Literal, NoReturn, final, overload
 
 if sys.platform == "win32":
     ABOVE_NORMAL_PRIORITY_CLASS: Final = 0x8000
@@ -54,7 +54,7 @@ if sys.platform == "win32":
     # Ignore the Flake8 error -- flake8-pyi assumes
     # most numbers this long will be implementation details,
     # but here we can see that it's a power of 2
-    INVALID_HANDLE_VALUE: Final = ...
+    INVALID_HANDLE_VALUE: Final = 0xFFFFFFFFFFFFFFFF  # noqa: Y054
     IDLE_PRIORITY_CLASS: Final = 0x40
     NORMAL_PRIORITY_CLASS: Final = 0x20
     REALTIME_PRIORITY_CLASS: Final = 0x100

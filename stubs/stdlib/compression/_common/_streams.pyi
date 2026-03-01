@@ -1,6 +1,6 @@
 from _typeshed import ReadableBuffer, WriteableBuffer
 from collections.abc import Callable
-from io import BufferedIOBase, DEFAULT_BUFFER_SIZE, RawIOBase
+from io import DEFAULT_BUFFER_SIZE, BufferedIOBase, RawIOBase
 from typing import Any, Protocol, type_check_only
 
 BUFFER_SIZE = DEFAULT_BUFFER_SIZE

@@ -1,18 +1,19 @@
 from __future__ import annotations
 
+import io
+import sys
 from _typeshed import ReadableBuffer
 from bz2 import BZ2Decompressor
 from lzma import LZMADecompressor
-from typing import assert_type, cast
+from typing import cast
+from typing_extensions import assert_type
 from zlib import decompressobj
-import io
-import sys
 
 if sys.version_info >= (3, 14):
-    from compression._common._streams import _Decompressor, _Reader, DecompressReader
+    from compression._common._streams import DecompressReader, _Decompressor, _Reader
     from compression.zstd import ZstdDecompressor
 else:
-    from _compression import _Decompressor, _Reader, DecompressReader
+    from _compression import DecompressReader, _Decompressor, _Reader
 
 ###
 # Tests for DecompressReader/_Decompressor

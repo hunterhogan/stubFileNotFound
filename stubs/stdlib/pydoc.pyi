@@ -1,12 +1,12 @@
+import sys
 from _typeshed import OptExcInfo, SupportsWrite, Unused
 from abc import abstractmethod
 from builtins import list as _list  # "list" conflicts with method name
 from collections.abc import Callable, Container, Mapping, MutableMapping
 from reprlib import Repr
 from types import MethodType, ModuleType, TracebackType
-from typing import Any, AnyStr, Final, IO, NoReturn, overload, Protocol, type_check_only, TypeGuard, TypeVar
-from typing_extensions import deprecated
-import sys
+from typing import IO, Any, AnyStr, Final, NoReturn, Protocol, TypeVar, overload, type_check_only
+from typing_extensions import TypeGuard, deprecated
 
 __all__ = ["help"]
 
@@ -76,7 +76,7 @@ class Doc:
     def docproperty(self, object: object, name: str | None = None, *args: Any) -> str: ...
     @abstractmethod
     def docdata(self, object: object, name: str | None = None, *args: Any) -> str: ...
-    def getdocloc(self, object: object, basedir: str = ...) -> str | None: ...
+    def getdocloc(self, object: object, basedir: str = 'C:\\Users\\hunte\\AppData\\Local\\Programs\\Python\\Python314\\Lib') -> str | None: ...
 
 class HTMLRepr(Repr):
     def __init__(self) -> None: ...

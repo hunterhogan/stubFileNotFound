@@ -1,5 +1,5 @@
-from typing import Any, overload
 import sys
+from typing import Any, overload
 
 _defaultaction: str
 _onceregistry: dict[Any, Any]

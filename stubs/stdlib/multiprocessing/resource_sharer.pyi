@@ -1,5 +1,5 @@
-from socket import socket
 import sys
+from socket import socket
 
 __all__ = ["stop"]
 

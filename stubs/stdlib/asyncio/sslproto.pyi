@@ -1,10 +1,12 @@
-from . import constants, events, futures, protocols, transports
+import ssl
+import sys
 from collections import deque
 from collections.abc import Callable
 from enum import Enum
-from typing import Any, ClassVar, Final, Literal, TypeAlias
-import ssl
-import sys
+from typing import Any, ClassVar, Final, Literal
+from typing_extensions import TypeAlias
+
+from . import constants, events, futures, protocols, transports
 
 def _create_transport_context(server_side: bool, server_hostname: str | None) -> ssl.SSLContext: ...
 

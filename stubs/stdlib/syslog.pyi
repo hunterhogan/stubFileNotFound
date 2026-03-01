@@ -1,5 +1,5 @@
-from typing import Final, overload
 import sys
+from typing import Final, overload
 
 if sys.platform != "win32":
     LOG_ALERT: Final = 1

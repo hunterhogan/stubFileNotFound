@@ -1,7 +1,21 @@
-from pandas._libs.lib import NoDefault
-from pandas._typing import Axis, Frequency, Incomplete, KeysArgType, Level, ListLikeHashable
+from typing import (
+    Any,
+    Self,
+    final,
+    overload,
+)
+
 from pandas.core.resample import TimeGrouper
-from typing import Any, final, overload, Self
+
+from pandas._libs.lib import NoDefault
+from pandas._typing import (
+    Axis,
+    Frequency,
+    Incomplete,
+    KeysArgType,
+    Level,
+    ListLikeHashable,
+)
 
 class Grouper:
     key: KeysArgType | None

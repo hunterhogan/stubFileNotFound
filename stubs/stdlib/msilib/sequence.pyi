@@ -1,5 +1,6 @@
-from typing import Final, TypeAlias
 import sys
+from typing import Final
+from typing_extensions import TypeAlias
 
 if sys.platform == "win32":
     _SequenceType: TypeAlias = list[tuple[str, str | None, int]]

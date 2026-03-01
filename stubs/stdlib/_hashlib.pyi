@@ -1,9 +1,9 @@
+import sys
 from _typeshed import ReadableBuffer
 from collections.abc import Callable
 from types import ModuleType
-from typing import AnyStr, final, overload, Protocol, Self, type_check_only, TypeAlias
-from typing_extensions import disjoint_base
-import sys
+from typing import AnyStr, Protocol, final, overload, type_check_only
+from typing_extensions import Self, TypeAlias, disjoint_base
 
 _DigestMod: TypeAlias = str | Callable[[], _HashObject] | ModuleType | None
 

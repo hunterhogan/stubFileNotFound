@@ -1,14 +1,15 @@
-from ._base import BrokenExecutor, Executor, Future
+import sys
 from collections.abc import Callable, Generator, Iterable, Mapping, MutableMapping, MutableSequence
 from multiprocessing.connection import Connection
 from multiprocessing.context import BaseContext, Process
 from multiprocessing.queues import Queue, SimpleQueue
 from threading import Lock, Semaphore, Thread
 from types import TracebackType
-from typing import Any, Final, Generic, overload, TypeVar
+from typing import Any, Final, Generic, TypeVar, overload
 from typing_extensions import TypeVarTuple, Unpack
 from weakref import ref
-import sys
+
+from ._base import BrokenExecutor, Executor, Future
 
 _T = TypeVar("_T")
 _Ts = TypeVarTuple("_Ts")
@@ -96,7 +97,7 @@ class _SafeQueue(Queue[Future[Any]]):
 
     def _on_queue_feeder_error(self, e: Exception, obj: _CallItem) -> None: ...
 
-def _get_chunks(*iterables: Any, chunksize: int) -> Generator[tuple[Any, ...]]: ...
+def _get_chunks(*iterables: Any, chunksize: int) -> Generator[tuple[Any, ...], None, None]: ...
 def _process_chunk(fn: Callable[..., _T], chunk: Iterable[tuple[Any, ...]]) -> list[_T]: ...
 
 if sys.version_info >= (3, 11):

@@ -1,40 +1,40 @@
+import _thread
+import sys
 from _thread import _ExceptHookArgs, get_native_id as get_native_id
 from _typeshed import ProfileFunction, TraceFunction
 from collections.abc import Callable, Iterable, Mapping
 from contextvars import ContextVar
 from types import TracebackType
-from typing import Any, Final, final, TypeVar
+from typing import Any, Final, TypeVar, final
 from typing_extensions import deprecated
-import _thread
-import sys
 
 _T = TypeVar("_T")
 
 __all__ = [
-    "TIMEOUT_MAX",
-    "Barrier",
-    "BoundedSemaphore",
-    "BrokenBarrierError",
+    "get_ident",
+    "active_count",
     "Condition",
+    "current_thread",
+    "enumerate",
+    "main_thread",
+    "TIMEOUT_MAX",
     "Event",
-    "ExceptHookArgs",
     "Lock",
     "RLock",
     "Semaphore",
+    "BoundedSemaphore",
     "Thread",
-    "ThreadError",
+    "Barrier",
+    "BrokenBarrierError",
     "Timer",
-    "active_count",
-    "current_thread",
-    "enumerate",
-    "excepthook",
-    "get_ident",
-    "get_native_id",
-    "local",
-    "main_thread",
+    "ThreadError",
+    "ExceptHookArgs",
     "setprofile",
     "settrace",
+    "local",
     "stack_size",
+    "excepthook",
+    "get_native_id",
 ]
 
 if sys.version_info >= (3, 10):

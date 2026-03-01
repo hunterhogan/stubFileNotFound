@@ -1,17 +1,16 @@
 from collections.abc import Sequence
-from datetime import datetime, timedelta
-from pandas._libs.interval import Interval
-from pandas._libs.missing import NAType
-from pandas._libs.tslibs.nattype import NaTType
-from pandas._libs.tslibs.period import Period
-from pandas._libs.tslibs.timedeltas import Timedelta
-from pandas._libs.tslibs.timestamps import Timestamp
-from pandas._typing import (
-	BuiltinNotStrObjDtypeArg, BuiltinObjectDtypeArg, BuiltinStrDtypeArg, CategoryDtypeArg, IntervalT, Just, np_1darray_td,
-	np_ndarray, np_ndarray_anyint, np_ndarray_bool, np_ndarray_dt, np_ndarray_float, np_ndarray_str, np_ndarray_td,
-	NumpyNotTimeDtypeArg, NumpyTimedeltaDtypeArg, NumpyTimestampDtypeArg, PandasBaseStrDtypeArg, PandasBooleanDtypeArg,
-	PandasFloatDtypeArg, PandasIntDtypeArg, PandasStrDtypeArg, PandasTimestampDtypeArg, PandasUIntDtypeArg,
-	PyArrowStrDtypeArg, TimedeltaDtypeArg)
+from datetime import (
+    datetime,
+    timedelta,
+)
+from typing import (
+    Any,
+    Never,
+    TypeAlias,
+    overload,
+)
+
+import numpy as np
 from pandas.core.arrays.base import ExtensionArray
 from pandas.core.arrays.boolean import BooleanArray
 from pandas.core.arrays.categorical import Categorical
@@ -22,10 +21,13 @@ from pandas.core.arrays.interval import IntervalArray
 from pandas.core.arrays.numpy_ import NumpyExtensionArray
 from pandas.core.arrays.period import PeriodArray
 from pandas.core.arrays.sparse.array import SparseArray
-from pandas.core.arrays.string_ import BaseStringArray, StringArray, StringDtype
+from pandas.core.arrays.string_ import (
+    BaseStringArray,
+    StringArray,
+    StringDtype,
+)
 from pandas.core.arrays.string_arrow import ArrowStringArray
 from pandas.core.arrays.timedeltas import TimedeltaArray
-from pandas.core.dtypes.dtypes import DatetimeTZDtype, IntervalDtype, PeriodDtype, SparseDtype
 from pandas.core.indexes.base import Index
 from pandas.core.indexes.category import CategoricalIndex
 from pandas.core.indexes.datetimes import DatetimeIndex
@@ -34,8 +36,48 @@ from pandas.core.indexes.period import PeriodIndex
 from pandas.core.indexes.range import RangeIndex
 from pandas.core.indexes.timedeltas import TimedeltaIndex
 from pandas.core.series import Series
-from typing import Any, Never, overload, TypeAlias
-import numpy as np
+
+from pandas._libs.interval import Interval
+from pandas._libs.missing import NAType
+from pandas._libs.tslibs.nattype import NaTType
+from pandas._libs.tslibs.period import Period
+from pandas._libs.tslibs.timedeltas import Timedelta
+from pandas._libs.tslibs.timestamps import Timestamp
+from pandas._typing import (
+    BuiltinNotStrObjDtypeArg,
+    BuiltinObjectDtypeArg,
+    BuiltinStrDtypeArg,
+    CategoryDtypeArg,
+    IntervalT,
+    Just,
+    NumpyNotTimeDtypeArg,
+    NumpyTimedeltaDtypeArg,
+    NumpyTimestampDtypeArg,
+    PandasBaseStrDtypeArg,
+    PandasBooleanDtypeArg,
+    PandasFloatDtypeArg,
+    PandasIntDtypeArg,
+    PandasStrDtypeArg,
+    PandasTimestampDtypeArg,
+    PandasUIntDtypeArg,
+    PyArrowStrDtypeArg,
+    TimedeltaDtypeArg,
+    np_1darray_td,
+    np_ndarray,
+    np_ndarray_anyint,
+    np_ndarray_bool,
+    np_ndarray_dt,
+    np_ndarray_float,
+    np_ndarray_str,
+    np_ndarray_td,
+)
+
+from pandas.core.dtypes.dtypes import (
+    DatetimeTZDtype,
+    IntervalDtype,
+    PeriodDtype,
+    SparseDtype,
+)
 
 _NAStrElement: TypeAlias = str | np.str_ | NAType | None
 _NaNStrElement: TypeAlias = Just[float] | _NAStrElement

@@ -1,5 +1,11 @@
 from enum import Enum
-from typing import Final, Literal, TypeAlias, TypeGuard
+from typing import (
+    Final,
+    Literal,
+    TypeAlias,
+    TypeGuard,
+)
+
 import numpy as np
 
 class _NoDefault(Enum):

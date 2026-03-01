@@ -1,6 +1,5 @@
-from typing import Self, TypeAlias
-from typing_extensions import disjoint_base
 import sys
+from typing_extensions import Self, TypeAlias, disjoint_base
 
 # Actually Tuple[(int,) * 625]
 _State: TypeAlias = tuple[int, ...]

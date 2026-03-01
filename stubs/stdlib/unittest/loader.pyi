@@ -1,11 +1,11 @@
-from collections.abc import Callable, Sequence
-from re import Pattern
-from types import ModuleType
-from typing import Any, Final, TypeAlias
-from typing_extensions import deprecated
 import sys
 import unittest.case
 import unittest.suite
+from collections.abc import Callable, Sequence
+from re import Pattern
+from types import ModuleType
+from typing import Any, Final
+from typing_extensions import TypeAlias, deprecated
 
 _SortComparisonMethod: TypeAlias = Callable[[str, str], int]
 _SuiteClass: TypeAlias = Callable[[list[unittest.case.TestCase]], unittest.suite.TestSuite]

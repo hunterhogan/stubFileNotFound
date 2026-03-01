@@ -1,6 +1,7 @@
-from _typeshed import ReadableBuffer
-from typing import final, Self
 import sys
+from _typeshed import ReadableBuffer
+from typing import final
+from typing_extensions import Self
 
 @final
 class BZ2Compressor:

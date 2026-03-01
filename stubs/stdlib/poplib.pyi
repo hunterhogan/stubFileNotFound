@@ -1,13 +1,13 @@
-from _typeshed import StrOrBytesPath
-from builtins import list as _list  # conflicts with a method named "list"
-from re import Pattern
-from typing import Any, BinaryIO, Final, NoReturn, overload, TypeAlias
-from typing_extensions import deprecated
 import socket
 import ssl
 import sys
+from _typeshed import StrOrBytesPath
+from builtins import list as _list  # conflicts with a method named "list"
+from re import Pattern
+from typing import Any, BinaryIO, Final, NoReturn, overload
+from typing_extensions import TypeAlias, deprecated
 
-__all__ = ["POP3", "POP3_SSL", "error_proto"]
+__all__ = ["POP3", "error_proto", "POP3_SSL"]
 
 _LongResp: TypeAlias = tuple[bytes, list[bytes], int]
 

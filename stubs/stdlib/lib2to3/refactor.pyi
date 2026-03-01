@@ -1,14 +1,15 @@
+from _typeshed import FileDescriptorOrPath, StrPath, SupportsGetItem
+from collections.abc import Container, Generator, Iterable, Mapping
+from logging import Logger, _ExcInfoType
+from multiprocessing import JoinableQueue
+from multiprocessing.synchronize import Lock
+from typing import Any, ClassVar, Final, NoReturn, overload
+
 from .btm_matcher import BottomMatcher
 from .fixer_base import BaseFix
 from .pgen2.driver import Driver
 from .pgen2.grammar import Grammar
 from .pytree import Node
-from _typeshed import FileDescriptorOrPath, StrPath, SupportsGetItem
-from collections.abc import Container, Generator, Iterable, Mapping
-from logging import _ExcInfoType, Logger
-from multiprocessing import JoinableQueue
-from multiprocessing.synchronize import Lock
-from typing import Any, ClassVar, Final, NoReturn, overload
 
 def get_all_fix_names(fixer_pkg: str, remove_prefix: bool = True) -> list[str]: ...
 def get_fixers_from_package(pkg_name: str) -> list[str]: ...
@@ -68,8 +69,8 @@ class RefactoringTool:
     def parse_block(self, block: Iterable[str], lineno: int, indent: int) -> Node: ...
     def wrap_toks(
         self, block: Iterable[str], lineno: int, indent: int
-    ) -> Generator[tuple[int, str, tuple[int, int], tuple[int, int], str]]: ...
-    def gen_lines(self, block: Iterable[str], indent: int) -> Generator[str]: ...
+    ) -> Generator[tuple[int, str, tuple[int, int], tuple[int, int], str], None, None]: ...
+    def gen_lines(self, block: Iterable[str], indent: int) -> Generator[str, None, None]: ...
 
 class MultiprocessingUnsupported(Exception): ...
 

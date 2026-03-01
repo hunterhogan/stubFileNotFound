@@ -1,7 +1,8 @@
-from .. import fixer_base
-from ..pytree import Node
 from _typeshed import Incomplete, StrPath
 from typing import ClassVar, Literal
+
+from .. import fixer_base
+from ..pytree import Node
 
 class FixXrange(fixer_base.BaseFix):
     BM_compatible: ClassVar[Literal[True]]

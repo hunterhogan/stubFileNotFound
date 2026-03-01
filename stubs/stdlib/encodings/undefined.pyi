@@ -1,5 +1,5 @@
-from _typeshed import ReadableBuffer
 import codecs
+from _typeshed import ReadableBuffer
 
 # These return types are just to match the base types. In reality, these always
 # raise an error.

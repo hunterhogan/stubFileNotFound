@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from collections.abc import Hashable, Sequence
-from typing import Any, assert_type, Union
+from typing import Any, Hashable, Sequence, Union
+from typing_extensions import assert_type
+
 
 def check_update_method__int_key() -> None:
     d: dict[int, int] = {}

@@ -1,8 +1,9 @@
-from ..cmd import Command
+import sys
 from _typeshed import Incomplete
 from collections.abc import Callable
 from typing import Any, ClassVar, Final, Literal
-import sys
+
+from ..cmd import Command
 
 HAS_USER_SITE: Final[bool]
 

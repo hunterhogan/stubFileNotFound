@@ -1,19 +1,48 @@
+from datetime import (
+    date as _date,
+    datetime,
+    time as _time,
+    timedelta,
+    tzinfo as _tzinfo,
+)
+
 # The class is private in python implementation. We have to ignore the private usage in the stubs.
 from datetime import _IsoCalendarDate  # pyright: ignore[reportPrivateUsage]
-from datetime import date as _date, datetime, time as _time, timedelta, tzinfo as _tzinfo
-from pandas._libs.tslibs import Period, Tick, Timedelta
-from pandas._libs.tslibs.nattype import NaTType
-from pandas._typing import (
-	np_1darray_bool, np_ndarray_bool, np_ndarray_dt, np_ndarray_td, PeriodFrequency, ShapeT, TimestampNonexistent,
-	TimeUnit)
+import sys
+from time import struct_time
+from typing import (
+    ClassVar,
+    Literal,
+    Never,
+    Self,
+    SupportsIndex,
+    TypeAlias,
+    overload,
+)
+
+import numpy as np
 from pandas.core.indexes.base import Index
 from pandas.core.indexes.datetimes import DatetimeIndex
 from pandas.core.indexes.timedeltas import TimedeltaIndex
 from pandas.core.series import Series
-from time import struct_time
-from typing import Any, ClassVar, Literal, Never, overload, Self, SupportsIndex, TypeAlias
-import numpy as np
-import sys
+
+from pandas._libs.tslibs import (
+    Period,
+    Tick,
+    Timedelta,
+)
+from pandas._libs.tslibs.nattype import NaTType
+from pandas._typing import (
+    PeriodFrequency,
+    ShapeT,
+    TimestampNonexistent,
+    TimeUnit,
+    np_1darray_bool,
+    np_ndarray_bool,
+    np_ndarray_dt,
+    np_ndarray_td,
+)
+from typing import Any
 
 _Ambiguous: TypeAlias = bool | Literal["raise", "NaT"]
 

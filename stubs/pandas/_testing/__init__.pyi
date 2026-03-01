@@ -1,12 +1,37 @@
-from collections.abc import Container, Generator, Iterable
+from collections.abc import (
+    Container,
+    Generator,
+    Iterable,
+)
 from contextlib import contextmanager
-from pandas import Categorical, DataFrame, Index, Series
-from pandas._libs.lib import NoDefault
-from pandas._typing import AnyArrayLike, np_ndarray, T
-from pandas.arrays import DatetimeArray, IntervalArray, PeriodArray, SparseArray, TimedeltaArray
-from pandas.core.arrays.base import ExtensionArray
-from typing import Any, Literal, overload
+from typing import (
+    Any,
+    Literal,
+    overload,
+)
 import warnings
+
+from pandas import (
+    Categorical,
+    DataFrame,
+    Index,
+    Series,
+)
+from pandas.arrays import (
+    DatetimeArray,
+    IntervalArray,
+    PeriodArray,
+    SparseArray,
+    TimedeltaArray,
+)
+from pandas.core.arrays.base import ExtensionArray
+
+from pandas._libs.lib import NoDefault
+from pandas._typing import (
+    AnyArrayLike,
+    T,
+    np_ndarray,
+)
 
 def assert_almost_equal(
     left: T,

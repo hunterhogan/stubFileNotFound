@@ -1,9 +1,9 @@
+import sys
 from _typeshed import structseq
 from collections.abc import Callable
 from types import CodeType
 from typing import Any, Final, final
 from typing_extensions import disjoint_base
-import sys
 
 @disjoint_base
 class Profiler:

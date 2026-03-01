@@ -1,13 +1,27 @@
+from typing import (
+    Any,
+    Self,
+    overload,
+)
+
+import numpy as np
+from pandas.core.arrays.datetimelike import TimelikeOps
+from pandas.core.frame import DataFrame
+
 from pandas._libs.tslibs.nattype import NaTType
 from pandas._libs.tslibs.offsets import DateOffset
 from pandas._libs.tslibs.timedeltas import Timedelta
 from pandas._typing import (
-	AnyArrayLike, DtypeArg, Frequency, np_1darray_float, np_1darray_int32, np_1darray_int64, np_1darray_object,
-	np_1darray_td, NpDtype)
-from pandas.core.arrays.datetimelike import TimelikeOps
-from pandas.core.frame import DataFrame
-from typing import Any, overload, Self
-import numpy as np
+    AnyArrayLike,
+    DtypeArg,
+    Frequency,
+    NpDtype,
+    np_1darray_float,
+    np_1darray_int32,
+    np_1darray_int64,
+    np_1darray_object,
+    np_1darray_td,
+)
 
 class TimedeltaArray(TimelikeOps):
     __array_priority__: int = ...

@@ -1,5 +1,5 @@
-from codecs import CodecInfo
 import sys
+from codecs import CodecInfo
 
 class CodecRegistryError(LookupError, SystemError): ...
 

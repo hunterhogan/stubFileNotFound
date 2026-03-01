@@ -1,19 +1,45 @@
-from datetime import date, datetime, timedelta
+from datetime import (
+    date,
+    datetime,
+    timedelta,
+)
+from typing import (
+    ClassVar,
+    Literal,
+    NamedTuple,
+    Self,
+    TypeAlias,
+    overload,
+)
+
+import numpy as np
 from numpy import typing as npt
-from pandas._libs.tslibs import NaTType
-from pandas._libs.tslibs.period import Period
-from pandas._libs.tslibs.timestamps import Timestamp
-from pandas._typing import (
-	Frequency, Just, np_1darray_bool, np_ndarray, np_ndarray_bool, np_ndarray_dt, np_ndarray_float, np_ndarray_td, ShapeT,
-	TimeUnit)
 from pandas.core.indexes.base import Index
 from pandas.core.indexes.datetimes import DatetimeIndex
 from pandas.core.indexes.period import PeriodIndex
 from pandas.core.indexes.timedeltas import TimedeltaIndex
 from pandas.core.series import Series
+
+from pandas._libs.tslibs import (
+    NaTType,
+)
+from pandas._libs.tslibs.period import Period
+from pandas._libs.tslibs.timestamps import Timestamp
+from pandas._typing import (
+    Frequency,
+    Just,
+    ShapeT,
+    TimeUnit,
+    np_1darray_bool,
+    np_ndarray,
+    np_ndarray_bool,
+    np_ndarray_dt,
+    np_ndarray_float,
+    np_ndarray_td,
+)
+
 from pandas.tseries.offsets import Tick
-from typing import Any, ClassVar, Literal, NamedTuple, overload, Self, TypeAlias
-import numpy as np
+from typing import Any
 
 class Components(NamedTuple):
     days: int
@@ -52,7 +78,7 @@ TimeDeltaUnitChoices: TypeAlias = Literal["W",
     "us",
     "microseconds",
     "microsecond",
-    "盜",
+    "µs",
     "micro",
     "micros",
     "ns",

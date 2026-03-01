@@ -1,17 +1,33 @@
-from _decimal import (
-	__libmpdec_version__ as __libmpdec_version__, __version__ as __version__, BasicContext as BasicContext,
-	DefaultContext as DefaultContext, ExtendedContext as ExtendedContext, getcontext as getcontext,
-	HAVE_CONTEXTVAR as HAVE_CONTEXTVAR, HAVE_THREADS as HAVE_THREADS, localcontext as localcontext, MAX_EMAX as MAX_EMAX,
-	MAX_PREC as MAX_PREC, MIN_EMIN as MIN_EMIN, MIN_ETINY as MIN_ETINY, ROUND_05UP as ROUND_05UP,
-	ROUND_CEILING as ROUND_CEILING, ROUND_DOWN as ROUND_DOWN, ROUND_FLOOR as ROUND_FLOOR,
-	ROUND_HALF_DOWN as ROUND_HALF_DOWN, ROUND_HALF_EVEN as ROUND_HALF_EVEN, ROUND_HALF_UP as ROUND_HALF_UP,
-	ROUND_UP as ROUND_UP, setcontext as setcontext)
-from collections.abc import Container, Sequence
-from types import TracebackType
-from typing import Any, ClassVar, final, Literal, NamedTuple, overload, Self, type_check_only, TypeAlias
-from typing_extensions import disjoint_base
 import numbers
 import sys
+from _decimal import (
+    HAVE_CONTEXTVAR as HAVE_CONTEXTVAR,
+    HAVE_THREADS as HAVE_THREADS,
+    MAX_EMAX as MAX_EMAX,
+    MAX_PREC as MAX_PREC,
+    MIN_EMIN as MIN_EMIN,
+    MIN_ETINY as MIN_ETINY,
+    ROUND_05UP as ROUND_05UP,
+    ROUND_CEILING as ROUND_CEILING,
+    ROUND_DOWN as ROUND_DOWN,
+    ROUND_FLOOR as ROUND_FLOOR,
+    ROUND_HALF_DOWN as ROUND_HALF_DOWN,
+    ROUND_HALF_EVEN as ROUND_HALF_EVEN,
+    ROUND_HALF_UP as ROUND_HALF_UP,
+    ROUND_UP as ROUND_UP,
+    BasicContext as BasicContext,
+    DefaultContext as DefaultContext,
+    ExtendedContext as ExtendedContext,
+    __libmpdec_version__ as __libmpdec_version__,
+    __version__ as __version__,
+    getcontext as getcontext,
+    localcontext as localcontext,
+    setcontext as setcontext,
+)
+from collections.abc import Container, Sequence
+from types import TracebackType
+from typing import Any, ClassVar, Literal, NamedTuple, final, overload, type_check_only
+from typing_extensions import Self, TypeAlias, disjoint_base
 
 if sys.version_info >= (3, 14):
     from _decimal import IEEE_CONTEXT_MAX_BITS as IEEE_CONTEXT_MAX_BITS, IEEEContext as IEEEContext

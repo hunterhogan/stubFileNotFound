@@ -2,13 +2,14 @@
 # and re-exported here,
 # but doing it this way leads to less code duplication for us
 
-from _typeshed import StrPath
-from collections.abc import Iterable, Iterator
-from io import BufferedReader
-from typing import Literal, Never, NoReturn, TypeVar
 import pathlib
 import sys
 import zipfile
+from _typeshed import StrPath
+from collections.abc import Iterable, Iterator
+from io import BufferedReader
+from typing import Literal, NoReturn, TypeVar
+from typing_extensions import Never
 
 if sys.version_info >= (3, 10):
     from importlib._bootstrap_external import FileLoader
@@ -21,7 +22,7 @@ else:
 
 if sys.version_info >= (3, 10):
     if sys.version_info >= (3, 11):
-        __all__ = ["FileReader", "MultiplexedPath", "NamespaceReader", "ZipReader"]
+        __all__ = ["FileReader", "ZipReader", "MultiplexedPath", "NamespaceReader"]
 
     if sys.version_info < (3, 11):
         _T = TypeVar("_T")

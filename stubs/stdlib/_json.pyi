@@ -1,5 +1,6 @@
 from collections.abc import Callable
-from typing import Any, final, Self
+from typing import Any, final
+from typing_extensions import Self
 
 @final
 class make_encoder:

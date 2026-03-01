@@ -1,9 +1,10 @@
-from . import futures
 from _asyncio import Future
 from collections.abc import Callable, Sequence
 from contextvars import Context
 from typing import Any, Final
 from typing_extensions import TypeIs
+
+from . import futures
 
 __all__ = ()
 

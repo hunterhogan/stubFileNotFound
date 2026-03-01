@@ -1,7 +1,8 @@
-from ..cmd import Command
-from ..util import Mixin2to3 as Mixin2to3
 from _typeshed import Incomplete
 from typing import ClassVar, Literal
+
+from ..cmd import Command
+from ..util import Mixin2to3 as Mixin2to3
 
 class build_py(Command):
     description: str

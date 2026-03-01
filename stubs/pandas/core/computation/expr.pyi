@@ -1,5 +1,6 @@
-from pandas.core.computation.scope import Scope as Scope
 import ast
+
+from pandas.core.computation.scope import Scope as Scope
 
 class BaseExprVisitor(ast.NodeVisitor):
     const_type = ...

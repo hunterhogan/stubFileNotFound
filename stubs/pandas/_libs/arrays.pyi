@@ -1,6 +1,16 @@
 from collections.abc import Sequence
-from pandas._typing import AnyArrayLikeInt, AxisInt, DtypeObj, np_ndarray, Shape
-from typing import Any, Self
+from typing import (
+    Any,
+    Self,
+)
+
+from pandas._typing import (
+    AnyArrayLikeInt,
+    AxisInt,
+    DtypeObj,
+    Shape,
+    np_ndarray,
+)
 
 class NDArrayBacked:
     _dtype: DtypeObj

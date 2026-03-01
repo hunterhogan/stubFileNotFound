@@ -1,10 +1,10 @@
 from __future__ import annotations
 
+import sys
 from _typeshed import StrPath
 from os import PathLike
 from pathlib import Path
 from zipfile import Path as ZipPath
-import sys
 
 if sys.version_info >= (3, 10):
     from importlib.metadata._meta import SimplePath

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 
+
 class Waiter:
     def __init__(self) -> None:
         self.tasks: list[asyncio.Task[object]] = []

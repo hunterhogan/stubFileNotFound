@@ -1,11 +1,26 @@
-from decimal import (
-	_ContextManager, Clamped as Clamped, Context as Context, ConversionSyntax as ConversionSyntax, Decimal as Decimal,
-	DecimalException as DecimalException, DecimalTuple as DecimalTuple, DivisionByZero as DivisionByZero,
-	DivisionImpossible as DivisionImpossible, DivisionUndefined as DivisionUndefined, FloatOperation as FloatOperation,
-	Inexact as Inexact, InvalidContext as InvalidContext, InvalidOperation as InvalidOperation, Overflow as Overflow,
-	Rounded as Rounded, Subnormal as Subnormal, Underflow as Underflow)
-from typing import Final, TypeAlias
 import sys
+from decimal import (
+    Clamped as Clamped,
+    Context as Context,
+    ConversionSyntax as ConversionSyntax,
+    Decimal as Decimal,
+    DecimalException as DecimalException,
+    DecimalTuple as DecimalTuple,
+    DivisionByZero as DivisionByZero,
+    DivisionImpossible as DivisionImpossible,
+    DivisionUndefined as DivisionUndefined,
+    FloatOperation as FloatOperation,
+    Inexact as Inexact,
+    InvalidContext as InvalidContext,
+    InvalidOperation as InvalidOperation,
+    Overflow as Overflow,
+    Rounded as Rounded,
+    Subnormal as Subnormal,
+    Underflow as Underflow,
+    _ContextManager,
+)
+from typing import Final
+from typing_extensions import TypeAlias
 
 _TrapType: TypeAlias = type[DecimalException]
 

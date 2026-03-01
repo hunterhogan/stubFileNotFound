@@ -1,9 +1,11 @@
-from .fixer_base import BaseFix
-from .pgen2.grammar import Grammar
 from _typeshed import Incomplete, SupportsGetItem, SupportsLenAndGetItem, Unused
 from abc import abstractmethod
 from collections.abc import Iterable, Iterator, MutableSequence
-from typing import ClassVar, Final, Self, TypeAlias
+from typing import ClassVar, Final
+from typing_extensions import Self, TypeAlias
+
+from .fixer_base import BaseFix
+from .pgen2.grammar import Grammar
 
 _NL: TypeAlias = Node | Leaf
 _Context: TypeAlias = tuple[str, int, int]

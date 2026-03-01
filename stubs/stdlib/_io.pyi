@@ -1,14 +1,13 @@
+import builtins
+import codecs
+import sys
 from _typeshed import FileDescriptorOrPath, MaybeNone, ReadableBuffer, WriteableBuffer
 from collections.abc import Callable, Iterable, Iterator
 from io import BufferedIOBase, RawIOBase, TextIOBase, UnsupportedOperation as UnsupportedOperation
 from os import _Opener
 from types import TracebackType
-from typing import (
-	Any, BinaryIO, Final, Generic, IO, Literal, overload, Protocol, Self, TextIO, type_check_only, TypeVar)
-from typing_extensions import disjoint_base
-import builtins
-import codecs
-import sys
+from typing import IO, Any, BinaryIO, Final, Generic, Literal, Protocol, TextIO, TypeVar, overload, type_check_only
+from typing_extensions import Self, disjoint_base
 
 _T = TypeVar("_T")
 

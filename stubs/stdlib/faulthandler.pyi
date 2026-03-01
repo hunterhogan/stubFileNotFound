@@ -1,5 +1,5 @@
-from _typeshed import FileDescriptorLike
 import sys
+from _typeshed import FileDescriptorLike
 
 def cancel_dump_traceback_later() -> None: ...
 def disable() -> None: ...

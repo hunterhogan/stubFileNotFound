@@ -7,7 +7,7 @@ from email.policy import Policy
 from io import _WrappedBuffer
 from typing import Generic, overload
 
-__all__ = ["BytesFeedParser", "BytesHeaderParser", "BytesParser", "FeedParser", "HeaderParser", "Parser"]
+__all__ = ["Parser", "HeaderParser", "BytesParser", "BytesHeaderParser", "FeedParser", "BytesFeedParser"]
 
 class Parser(Generic[_MessageT]):
     @overload

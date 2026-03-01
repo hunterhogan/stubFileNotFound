@@ -1,9 +1,23 @@
 from collections.abc import Sequence
+from typing import (
+    Any,
+    Literal,
+    TypeAlias,
+    overload,
+)
+
+import pandas as pd
+
 from pandas._libs.lib import NoDefault
 from pandas._typing import (
-	DtypeBackend, np_1darray_anyint, np_1darray_float, np_ndarray, RaiseCoerce, Scalar, SequenceNotStr)
-from typing import Any, Literal, overload, TypeAlias
-import pandas as pd
+    DtypeBackend,
+    RaiseCoerce,
+    Scalar,
+    SequenceNotStr,
+    np_1darray_anyint,
+    np_1darray_float,
+    np_ndarray,
+)
 
 _Downcast: TypeAlias = Literal["integer", "signed", "unsigned", "float"] | None
 

@@ -1,6 +1,7 @@
-from .token import *
 from collections.abc import Callable, Iterable, Iterator
-from typing import TypeAlias
+from typing_extensions import TypeAlias
+
+from .token import *
 
 __all__ = [
     "AMPER",
@@ -13,7 +14,6 @@ __all__ = [
     "CIRCUMFLEX",
     "CIRCUMFLEXEQUAL",
     "COLON",
-    "COLONEQUAL",
     "COMMA",
     "COMMENT",
     "DEDENT",
@@ -68,10 +68,11 @@ __all__ = [
     "TILDE",
     "VBAR",
     "VBAREQUAL",
-    "generate_tokens",
     "tok_name",
     "tokenize",
+    "generate_tokens",
     "untokenize",
+    "COLONEQUAL",
 ]
 
 _Coord: TypeAlias = tuple[int, int]

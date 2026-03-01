@@ -1,41 +1,42 @@
-from . import events, futures, proactor_events, selector_events, streams, windows_utils
-from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
-from collections.abc import Callable
-from typing import Any, ClassVar, Final, IO, NoReturn
 import socket
 import sys
+from _typeshed import Incomplete, ReadableBuffer, WriteableBuffer
+from collections.abc import Callable
+from typing import IO, Any, ClassVar, Final, NoReturn
+
+from . import events, futures, proactor_events, selector_events, streams, windows_utils
 
 # Keep asyncio.__all__ updated with any changes to __all__ here
 if sys.platform == "win32":
     if sys.version_info >= (3, 14):
         __all__ = (
-            "EventLoop",
-            "IocpProactor",
-            "ProactorEventLoop",
             "SelectorEventLoop",
+            "ProactorEventLoop",
+            "IocpProactor",
             "_DefaultEventLoopPolicy",
-            "_WindowsProactorEventLoopPolicy",
             "_WindowsSelectorEventLoopPolicy",
+            "_WindowsProactorEventLoopPolicy",
+            "EventLoop",
         )
     elif sys.version_info >= (3, 13):
         # 3.13 added `EventLoop`.
         __all__ = (
-            "DefaultEventLoopPolicy",
-            "EventLoop",
-            "IocpProactor",
-            "ProactorEventLoop",
             "SelectorEventLoop",
-            "WindowsProactorEventLoopPolicy",
+            "ProactorEventLoop",
+            "IocpProactor",
+            "DefaultEventLoopPolicy",
             "WindowsSelectorEventLoopPolicy",
+            "WindowsProactorEventLoopPolicy",
+            "EventLoop",
         )
     else:
         __all__ = (
-            "DefaultEventLoopPolicy",
-            "IocpProactor",
-            "ProactorEventLoop",
             "SelectorEventLoop",
-            "WindowsProactorEventLoopPolicy",
+            "ProactorEventLoop",
+            "IocpProactor",
+            "DefaultEventLoopPolicy",
             "WindowsSelectorEventLoopPolicy",
+            "WindowsProactorEventLoopPolicy",
         )
 
     NULL: Final = 0

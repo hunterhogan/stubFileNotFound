@@ -1,6 +1,6 @@
+import sys
 from _typeshed import FileDescriptorOrPath
 from collections.abc import Sized
-import sys
 
 __all__ = ["ensure_running", "register", "unregister"]
 

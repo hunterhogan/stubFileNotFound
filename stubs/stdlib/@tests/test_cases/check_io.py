@@ -1,7 +1,7 @@
 from _io import BufferedReader
 from gzip import GzipFile
 from io import FileIO, RawIOBase, TextIOWrapper
-from typing import assert_type
+from typing_extensions import assert_type
 
 BufferedReader(RawIOBase())
 

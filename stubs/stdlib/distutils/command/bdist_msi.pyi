@@ -1,7 +1,8 @@
-from ..cmd import Command
+import sys
 from _typeshed import Incomplete
 from typing import ClassVar, Literal
-import sys
+
+from ..cmd import Command
 
 if sys.platform == "win32":
     from msilib import Control, Dialog

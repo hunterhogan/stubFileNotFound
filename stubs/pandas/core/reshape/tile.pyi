@@ -1,9 +1,30 @@
 from collections.abc import Sequence
-from pandas import Categorical, CategoricalDtype, DatetimeIndex, Index, Interval, IntervalIndex, Timestamp
-from pandas._typing import IntervalT, Label, np_1darray_float, np_1darray_intp, np_ndarray_anyint, np_ndarray_float
-from pandas.core.series import Series
-from typing import Any, Literal, overload
+from typing import (
+    Literal,
+    overload,
+)
+
 import numpy as np
+from pandas import (
+    Categorical,
+    CategoricalDtype,
+    DatetimeIndex,
+    Index,
+    Interval,
+    IntervalIndex,
+    Timestamp,
+)
+from pandas.core.series import Series
+
+from pandas._typing import (
+    IntervalT,
+    Label,
+    np_1darray_float,
+    np_1darray_intp,
+    np_ndarray_anyint,
+    np_ndarray_float,
+)
+from typing import Any
 
 @overload
 def cut(

@@ -1,5 +1,9 @@
-from pandas._typing import (
-	GenericT, IntervalT, np_1darray, np_1darray_int64, np_ndarray, ShapeT, T_EXTENSION_ARRAY, TakeIndexer)
+from typing import (
+    Any,
+    Literal,
+    overload,
+)
+
 from pandas.api.extensions import ExtensionArray
 from pandas.core.arrays.categorical import Categorical
 from pandas.core.indexes.base import Index
@@ -11,7 +15,17 @@ from pandas.core.indexes.period import PeriodIndex
 from pandas.core.indexes.range import RangeIndex
 from pandas.core.indexes.timedeltas import TimedeltaIndex
 from pandas.core.series import Series
-from typing import Any, Literal, overload
+
+from pandas._typing import (
+    T_EXTENSION_ARRAY,
+    GenericT,
+    IntervalT,
+    ShapeT,
+    TakeIndexer,
+    np_1darray,
+    np_1darray_int64,
+    np_ndarray,
+)
 
 # These are type: ignored because the Index types overlap due to inheritance but indices
 # with extension types return the same type while standard type return ndarray

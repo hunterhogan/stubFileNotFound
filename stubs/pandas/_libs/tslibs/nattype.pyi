@@ -1,8 +1,23 @@
-from datetime import datetime, timedelta, tzinfo as _tzinfo
-from pandas._libs.tslibs.period import Period
-from pandas._typing import Frequency, NpDtype, TimestampNonexistent, TimeUnit
-from typing import Literal, Self, TypeAlias
+from datetime import (
+    datetime,
+    timedelta,
+    tzinfo as _tzinfo,
+)
+from typing import (
+    Literal,
+    Self,
+    TypeAlias,
+)
+
 import numpy as np
+
+from pandas._libs.tslibs.period import Period
+from pandas._typing import (
+    Frequency,
+    NpDtype,
+    TimestampNonexistent,
+    TimeUnit,
+)
 
 NaT: NaTType
 iNaT: int

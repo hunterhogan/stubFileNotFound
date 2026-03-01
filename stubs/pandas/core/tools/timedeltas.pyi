@@ -1,11 +1,18 @@
 from datetime import timedelta
+from typing import overload
+
 from pandas import Index
-from pandas._libs.tslibs import Timedelta
-from pandas._libs.tslibs.timedeltas import TimeDeltaUnitChoices
-from pandas._typing import ArrayLike, RaiseCoerce, SequenceNotStr
 from pandas.core.indexes.timedeltas import TimedeltaIndex
 from pandas.core.series import Series
-from typing import Any, overload
+
+from pandas._libs.tslibs import Timedelta
+from pandas._libs.tslibs.timedeltas import TimeDeltaUnitChoices
+from pandas._typing import (
+    ArrayLike,
+    RaiseCoerce,
+    SequenceNotStr,
+)
+from typing import Any
 
 @overload
 def to_timedelta(

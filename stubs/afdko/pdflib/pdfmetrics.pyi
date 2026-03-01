@@ -48,7 +48,7 @@ class FontCache:
     def stringwidth(self, text, font) -> int:
         ...
 
-    def status(self) -> dict_keys[str, list[int]]:
+    def status(self):
         ...
 
 

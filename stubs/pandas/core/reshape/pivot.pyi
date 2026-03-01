@@ -1,14 +1,36 @@
-from collections.abc import Callable, Hashable, Sequence
-from pandas._stubs_only import PivotAggFuncTypes, PivotTableColumnsTypes, PivotTableIndexTypes, PivotTableValuesTypes
-from pandas._typing import AnyArrayLike, ArrayLike, np_ndarray, Scalar, SequenceNotStr
+from collections.abc import (
+    Callable,
+    Hashable,
+    Sequence,
+)
+import datetime
+from typing import (
+    Any,
+    Literal,
+    TypeAlias,
+    overload,
+)
+
+import numpy as np
+import pandas as pd
+from pandas._stubs_only import (
+    PivotAggFuncTypes,
+    PivotTableColumnsTypes,
+    PivotTableIndexTypes,
+    PivotTableValuesTypes,
+)
 from pandas.core.frame import DataFrame
 from pandas.core.groupby.grouper import Grouper
 from pandas.core.indexes.base import Index
 from pandas.core.series import Series
-from typing import Any, Literal, overload, TypeAlias
-import datetime
-import numpy as np
-import pandas as pd
+
+from pandas._typing import (
+    AnyArrayLike,
+    ArrayLike,
+    Scalar,
+    SequenceNotStr,
+    np_ndarray,
+)
 
 _NonIterableHashable: TypeAlias = (
     str

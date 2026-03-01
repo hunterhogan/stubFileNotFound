@@ -1,33 +1,47 @@
-from _io import (  # used elsewhere in typeshed
-	_BufferedIOBase, _IOBase, _RawIOBase, _TextIOBase, _WrappedBuffer as _WrappedBuffer,
-	BlockingIOError as BlockingIOError, BufferedRandom as BufferedRandom, BufferedReader as BufferedReader,
-	BufferedRWPair as BufferedRWPair, BufferedWriter as BufferedWriter, BytesIO as BytesIO,
-	DEFAULT_BUFFER_SIZE as DEFAULT_BUFFER_SIZE, FileIO as FileIO, IncrementalNewlineDecoder as IncrementalNewlineDecoder,
-	open as open, open_code as open_code, StringIO as StringIO, TextIOWrapper as TextIOWrapper)
-from typing import Final, Protocol, TypeVar
 import abc
 import sys
+from _io import (
+    DEFAULT_BUFFER_SIZE as DEFAULT_BUFFER_SIZE,
+    BlockingIOError as BlockingIOError,
+    BufferedRandom as BufferedRandom,
+    BufferedReader as BufferedReader,
+    BufferedRWPair as BufferedRWPair,
+    BufferedWriter as BufferedWriter,
+    BytesIO as BytesIO,
+    FileIO as FileIO,
+    IncrementalNewlineDecoder as IncrementalNewlineDecoder,
+    StringIO as StringIO,
+    TextIOWrapper as TextIOWrapper,
+    _BufferedIOBase,
+    _IOBase,
+    _RawIOBase,
+    _TextIOBase,
+    _WrappedBuffer as _WrappedBuffer,  # used elsewhere in typeshed
+    open as open,
+    open_code as open_code,
+)
+from typing import Final, Protocol, TypeVar
 
 __all__ = [
-    "SEEK_CUR",
-    "SEEK_END",
-    "SEEK_SET",
     "BlockingIOError",
-    "BufferedIOBase",
-    "BufferedRWPair",
-    "BufferedRandom",
-    "BufferedReader",
-    "BufferedWriter",
-    "BytesIO",
-    "FileIO",
+    "open",
+    "open_code",
     "IOBase",
     "RawIOBase",
+    "FileIO",
+    "BytesIO",
     "StringIO",
+    "BufferedIOBase",
+    "BufferedReader",
+    "BufferedWriter",
+    "BufferedRWPair",
+    "BufferedRandom",
     "TextIOBase",
     "TextIOWrapper",
     "UnsupportedOperation",
-    "open",
-    "open_code",
+    "SEEK_SET",
+    "SEEK_CUR",
+    "SEEK_END",
 ]
 
 if sys.version_info >= (3, 14):

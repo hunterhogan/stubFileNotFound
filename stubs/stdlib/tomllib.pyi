@@ -1,10 +1,10 @@
+import sys
 from _typeshed import SupportsRead
 from collections.abc import Callable
 from typing import Any, overload
 from typing_extensions import deprecated
-import sys
 
-__all__ = ("TOMLDecodeError", "load", "loads")
+__all__ = ("loads", "load", "TOMLDecodeError")
 
 if sys.version_info >= (3, 14):
     class TOMLDecodeError(ValueError):

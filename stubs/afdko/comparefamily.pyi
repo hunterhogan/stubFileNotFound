@@ -1,3 +1,4 @@
+from fontTools.ttLib import TTFont
 from _typeshed import Incomplete
 from afdko import fdkutils as fdkutils
 

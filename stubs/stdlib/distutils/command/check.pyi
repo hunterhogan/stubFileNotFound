@@ -1,6 +1,8 @@
-from ..cmd import Command
 from _typeshed import Incomplete
-from typing import Any, ClassVar, Final, Literal, TypeAlias
+from typing import Any, ClassVar, Final, Literal
+from typing_extensions import TypeAlias
+
+from ..cmd import Command
 
 _Reporter: TypeAlias = Any  # really docutils.utils.Reporter
 

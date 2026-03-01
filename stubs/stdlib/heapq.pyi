@@ -1,10 +1,10 @@
+import sys
 from _heapq import *
 from _typeshed import SupportsRichComparison
 from collections.abc import Callable, Generator, Iterable
 from typing import Any, Final, TypeVar
-import sys
 
-__all__ = ["heapify", "heappop", "heappush", "heappushpop", "heapreplace", "merge", "nlargest", "nsmallest"]
+__all__ = ["heappush", "heappop", "heapify", "heapreplace", "merge", "nlargest", "nsmallest", "heappushpop"]
 
 if sys.version_info >= (3, 14):
     # Added to __all__ in 3.14.1

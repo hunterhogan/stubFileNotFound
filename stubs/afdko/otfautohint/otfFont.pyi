@@ -1,3 +1,4 @@
+from fontTools.ttLib import TTFont
 from . import fdTools as fdTools, FontParseError as FontParseError
 from .glyphData import glyphData as glyphData
 from _typeshed import Incomplete

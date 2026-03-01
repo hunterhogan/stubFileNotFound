@@ -1,22 +1,26 @@
+import ssl
+import sys
+from _asyncio import (
+    _get_running_loop as _get_running_loop,
+    _set_running_loop as _set_running_loop,
+    get_event_loop as get_event_loop,
+    get_running_loop as get_running_loop,
+)
+from _typeshed import FileDescriptorLike, ReadableBuffer, StrPath, Unused, WriteableBuffer
+from abc import ABCMeta, abstractmethod
+from collections.abc import Callable, Sequence
+from concurrent.futures import Executor
+from contextvars import Context
+from socket import AddressFamily, AddressInfo, SocketKind, _Address, _RetAddress, socket
+from typing import IO, Any, Literal, Protocol, TypeVar, overload, type_check_only
+from typing_extensions import Self, TypeAlias, TypeVarTuple, Unpack, deprecated
+
 from . import _AwaitableLike, _CoroutineLike
 from .base_events import Server
 from .futures import Future
 from .protocols import BaseProtocol
 from .tasks import Task
 from .transports import BaseTransport, DatagramTransport, ReadTransport, SubprocessTransport, Transport, WriteTransport
-from _asyncio import (
-	_get_running_loop as _get_running_loop, _set_running_loop as _set_running_loop, get_event_loop as get_event_loop,
-	get_running_loop as get_running_loop)
-from _typeshed import FileDescriptorLike, ReadableBuffer, StrPath, Unused, WriteableBuffer
-from abc import ABCMeta, abstractmethod
-from collections.abc import Callable, Sequence
-from concurrent.futures import Executor
-from contextvars import Context
-from socket import _Address, _RetAddress, AddressFamily, AddressInfo, socket, SocketKind
-from typing import Any, IO, Literal, overload, Protocol, Self, type_check_only, TypeAlias, TypeVar
-from typing_extensions import deprecated, TypeVarTuple, Unpack
-import ssl
-import sys
 
 if sys.version_info < (3, 14):
     from .unix_events import AbstractChildWatcher
@@ -28,32 +32,32 @@ if sys.version_info >= (3, 14):
         "AbstractServer",
         "Handle",
         "TimerHandle",
-        "_get_running_loop",
-        "_set_running_loop",
-        "get_event_loop",
         "get_event_loop_policy",
-        "get_running_loop",
-        "new_event_loop",
-        "set_event_loop",
         "set_event_loop_policy",
+        "get_event_loop",
+        "set_event_loop",
+        "new_event_loop",
+        "_set_running_loop",
+        "get_running_loop",
+        "_get_running_loop",
     )
 else:
     __all__ = (
-        "AbstractEventLoop",
         "AbstractEventLoopPolicy",
+        "AbstractEventLoop",
         "AbstractServer",
         "Handle",
         "TimerHandle",
-        "_get_running_loop",
-        "_set_running_loop",
-        "get_child_watcher",
-        "get_event_loop",
         "get_event_loop_policy",
-        "get_running_loop",
-        "new_event_loop",
-        "set_child_watcher",
-        "set_event_loop",
         "set_event_loop_policy",
+        "get_event_loop",
+        "set_event_loop",
+        "new_event_loop",
+        "get_child_watcher",
+        "set_child_watcher",
+        "_set_running_loop",
+        "get_running_loop",
+        "_get_running_loop",
     )
 
 _T = TypeVar("_T")
@@ -69,7 +73,7 @@ class _TaskFactory(Protocol):
     def __call__(self, loop: AbstractEventLoop, factory: _CoroutineLike[_T], /) -> Future[_T]: ...
 
 class Handle:
-    __slots__ = ("__weakref__", "_args", "_callback", "_cancelled", "_context", "_loop", "_repr", "_source_traceback")
+    __slots__ = ("_callback", "_args", "_cancelled", "_loop", "_source_traceback", "_repr", "__weakref__", "_context")
     _cancelled: bool
     _args: Sequence[Any]
     def __init__(
@@ -295,8 +299,8 @@ class AbstractEventLoop:
             host: str | Sequence[str] | None = None,
             port: int = ...,
             *,
-            family: int = ...,
-            flags: int = ...,
+            family: int = AddressFamily.AF_UNSPEC,
+            flags: int = AddressInfo.AI_PASSIVE,
             sock: None = None,
             backlog: int = 100,
             ssl: _SSLContext = None,
@@ -315,8 +319,8 @@ class AbstractEventLoop:
             host: None = None,
             port: None = None,
             *,
-            family: int = ...,
-            flags: int = ...,
+            family: int = AddressFamily.AF_UNSPEC,
+            flags: int = AddressInfo.AI_PASSIVE,
             sock: socket = ...,
             backlog: int = 100,
             ssl: _SSLContext = None,
@@ -336,8 +340,8 @@ class AbstractEventLoop:
             host: str | Sequence[str] | None = None,
             port: int = ...,
             *,
-            family: int = ...,
-            flags: int = ...,
+            family: int = AddressFamily.AF_UNSPEC,
+            flags: int = AddressInfo.AI_PASSIVE,
             sock: None = None,
             backlog: int = 100,
             ssl: _SSLContext = None,
@@ -355,8 +359,8 @@ class AbstractEventLoop:
             host: None = None,
             port: None = None,
             *,
-            family: int = ...,
-            flags: int = ...,
+            family: int = AddressFamily.AF_UNSPEC,
+            flags: int = AddressInfo.AI_PASSIVE,
             sock: socket = ...,
             backlog: int = 100,
             ssl: _SSLContext = None,
@@ -375,8 +379,8 @@ class AbstractEventLoop:
             host: str | Sequence[str] | None = None,
             port: int = ...,
             *,
-            family: int = ...,
-            flags: int = ...,
+            family: int = AddressFamily.AF_UNSPEC,
+            flags: int = AddressInfo.AI_PASSIVE,
             sock: None = None,
             backlog: int = 100,
             ssl: _SSLContext = None,
@@ -393,8 +397,8 @@ class AbstractEventLoop:
             host: None = None,
             port: None = None,
             *,
-            family: int = ...,
-            flags: int = ...,
+            family: int = AddressFamily.AF_UNSPEC,
+            flags: int = AddressInfo.AI_PASSIVE,
             sock: socket = ...,
             backlog: int = 100,
             ssl: _SSLContext = None,

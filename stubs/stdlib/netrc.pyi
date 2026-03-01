@@ -1,8 +1,8 @@
-from _typeshed import StrOrBytesPath
-from typing import TypeAlias
 import sys
+from _typeshed import StrOrBytesPath
+from typing_extensions import TypeAlias
 
-__all__ = ["NetrcParseError", "netrc"]
+__all__ = ["netrc", "NetrcParseError"]
 
 class NetrcParseError(Exception):
     filename: str | None

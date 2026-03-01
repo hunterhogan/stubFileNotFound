@@ -1,9 +1,9 @@
+import sys
 from _typeshed import FileDescriptorLike
 from collections.abc import Iterable
 from types import TracebackType
-from typing import Any, ClassVar, Final, final, Never, overload, Self, TypeVar
-from typing_extensions import deprecated
-import sys
+from typing import Any, ClassVar, Final, TypeVar, final, overload
+from typing_extensions import Never, Self, deprecated
 
 if sys.platform != "win32":
     PIPE_BUF: Final[int]

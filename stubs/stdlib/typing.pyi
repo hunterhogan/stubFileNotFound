@@ -1,30 +1,36 @@
 # Since this module defines "overload" it is not recognized by Ruff as typing.overload
 # TODO: The collections import is required, otherwise mypy crashes.
 # https://github.com/python/mypy/issues/16744
+import collections  # noqa: F401  # pyright: ignore[reportUnusedImport]
+import sys
+import typing_extensions
 from _collections_abc import dict_items, dict_keys, dict_values
-from _typeshed import (
-	IdentityFunction, ReadableBuffer, SupportsGetItem, SupportsGetItemViewable, SupportsKeysAndGetItem, Viewable)
+from _typeshed import IdentityFunction, ReadableBuffer, SupportsGetItem, SupportsGetItemViewable, SupportsKeysAndGetItem, Viewable
 from abc import ABCMeta, abstractmethod
 from re import Match as Match, Pattern as Pattern
 from types import (
-	BuiltinFunctionType, CodeType, FunctionType, GenericAlias, MethodDescriptorType, MethodType, MethodWrapperType,
-	ModuleType, TracebackType, WrapperDescriptorType)
-from typing import Never as _Never
-from typing_extensions import deprecated, ParamSpec as _ParamSpec
-import collections  # pyright: ignore[reportUnusedImport]
-import sys
-import typing_extensions
+    BuiltinFunctionType,
+    CodeType,
+    FunctionType,
+    GenericAlias,
+    MethodDescriptorType,
+    MethodType,
+    MethodWrapperType,
+    ModuleType,
+    TracebackType,
+    WrapperDescriptorType,
+)
+from typing_extensions import Never as _Never, ParamSpec as _ParamSpec, deprecated
 
 if sys.version_info >= (3, 14):
     from _typeshed import EvaluateFunc
+
     from annotationlib import Format
 
 if sys.version_info >= (3, 10):
     from types import UnionType
 
 __all__ = [
-    "IO",
-    "TYPE_CHECKING",
     "AbstractSet",
     "Annotated",
     "Any",
@@ -53,6 +59,7 @@ __all__ = [
     "Generator",
     "Generic",
     "Hashable",
+    "IO",
     "ItemsView",
     "Iterable",
     "Iterator",
@@ -91,6 +98,7 @@ __all__ = [
     "TypedDict",
     "Union",
     "ValuesView",
+    "TYPE_CHECKING",
     "cast",
     "final",
     "get_args",
@@ -129,7 +137,7 @@ if sys.version_info >= (3, 12):
     __all__ += ["TypeAliasType", "override"]
 
 if sys.version_info >= (3, 13):
-    __all__ += ["NoDefault", "ReadOnly", "TypeIs", "get_protocol_members", "is_protocol"]
+    __all__ += ["get_protocol_members", "is_protocol", "NoDefault", "TypeIs", "ReadOnly"]
 
 # We can't use this name here because it leads to issues with mypy, likely
 # due to an import cycle. Below instead we use Any with a comment.
@@ -217,7 +225,7 @@ class TypeVar:
 # N.B. Keep this definition in sync with typing_extensions._SpecialForm
 @final
 class _SpecialForm(_Final):
-    __slots__ = ("__doc__", "_getitem", "_name")
+    __slots__ = ("_name", "__doc__", "_getitem")
     def __getitem__(self, parameters: Any) -> object: ...
     if sys.version_info >= (3, 10):
         def __or__(self, other: Any) -> _SpecialForm: ...
@@ -433,7 +441,7 @@ OrderedDict = _Alias()
 Annotated: _SpecialForm
 
 # Predefined type variables.
-AnyStr = TypeVar("AnyStr", str, bytes)
+AnyStr = TypeVar("AnyStr", str, bytes)  # noqa: Y001
 
 @type_check_only
 class _Generic:
@@ -934,7 +942,7 @@ ByteString: typing_extensions.TypeAlias = bytes | bytearray | memoryview
 
 # Functions
 
-_get_type_hints_obj_allowed_types: typing_extensions.TypeAlias = (
+_get_type_hints_obj_allowed_types: typing_extensions.TypeAlias = (  # noqa: Y042
     object
     | Callable[..., Any]
     | FunctionType
@@ -1080,10 +1088,10 @@ else:
             "__forward_arg__",
             "__forward_code__",
             "__forward_evaluated__",
+            "__forward_value__",
             "__forward_is_argument__",
             "__forward_is_class__",
             "__forward_module__",
-            "__forward_value__",
         )
         __forward_arg__: str
         __forward_code__: CodeType

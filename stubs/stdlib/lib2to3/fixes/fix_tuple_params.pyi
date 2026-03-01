@@ -1,5 +1,6 @@
-from .. import fixer_base
 from typing import ClassVar, Literal
+
+from .. import fixer_base
 
 def is_docstring(stmt): ...
 

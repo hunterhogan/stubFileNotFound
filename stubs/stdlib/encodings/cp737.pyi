@@ -1,5 +1,5 @@
-from _typeshed import ReadableBuffer
 import codecs
+from _typeshed import ReadableBuffer
 
 class Codec(codecs.Codec):
     def encode(self, input: str, errors: str = "strict") -> tuple[bytes, int]: ...

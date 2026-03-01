@@ -1,13 +1,13 @@
+import sys
 from abc import abstractmethod
 from time import struct_time
-from typing import ClassVar, Final, final, NoReturn, overload, Self, SupportsIndex, type_check_only, TypeAlias
-from typing_extensions import CapsuleType, deprecated, disjoint_base
-import sys
+from typing import ClassVar, Final, NoReturn, SupportsIndex, final, overload, type_check_only
+from typing_extensions import CapsuleType, Self, TypeAlias, deprecated, disjoint_base
 
 if sys.version_info >= (3, 11):
-    __all__ = ("MAXYEAR", "MINYEAR", "UTC", "date", "datetime", "time", "timedelta", "timezone", "tzinfo")
+    __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR", "UTC")
 else:
-    __all__ = ("MAXYEAR", "MINYEAR", "date", "datetime", "time", "timedelta", "timezone", "tzinfo")
+    __all__ = ("date", "datetime", "time", "timedelta", "timezone", "tzinfo", "MINYEAR", "MAXYEAR")
 
 MINYEAR: Final = 1
 MAXYEAR: Final = 9999

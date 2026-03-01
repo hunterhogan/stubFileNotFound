@@ -1,9 +1,10 @@
+from _typeshed import Incomplete
+from collections.abc import Sequence
+from typing_extensions import TypeAlias
+
 from ..pytree import _NL, _RawNode
 from . import _Convert
 from .grammar import _DFAS, Grammar
-from _typeshed import Incomplete
-from collections.abc import Sequence
-from typing import TypeAlias
 
 _Context: TypeAlias = Sequence[Incomplete]
 

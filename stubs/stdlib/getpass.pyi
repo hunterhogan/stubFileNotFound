@@ -1,7 +1,7 @@
-from typing import TextIO
 import sys
+from typing import TextIO
 
-__all__ = ["GetPassWarning", "getpass", "getuser"]
+__all__ = ["getpass", "getuser", "GetPassWarning"]
 
 if sys.version_info >= (3, 14):
     def getpass(prompt: str = "Password: ", stream: TextIO | None = None, *, echo_char: str | None = None) -> str: ...

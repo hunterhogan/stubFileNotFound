@@ -1,5 +1,5 @@
-from typing import Literal
 import codecs
+from typing import Literal
 
 def segregate(str: str) -> tuple[bytes, list[int]]: ...
 def selective_len(str: str, max: int) -> int: ...

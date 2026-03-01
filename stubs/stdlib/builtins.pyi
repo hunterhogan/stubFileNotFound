@@ -1,26 +1,79 @@
-from _collections_abc import dict_items, dict_keys, dict_values
-from _typeshed import (
-	AnnotationForm, ConvertibleToFloat, ConvertibleToInt, FileDescriptorOrPath, OpenBinaryMode, OpenBinaryModeReading,
-	OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenTextMode, ReadableBuffer, SupportsAdd, SupportsAiter, SupportsAnext,
-	SupportsDivMod, SupportsFlush, SupportsIter, SupportsKeysAndGetItem, SupportsLenAndGetItem, SupportsNext, SupportsRAdd,
-	SupportsRDivMod, SupportsRichComparison, SupportsRichComparisonT, SupportsWrite)
-from collections.abc import Awaitable, Callable, Iterable, Iterator, MutableSet, Reversible, Set as AbstractSet, Sized
-from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
-from os import PathLike
-from types import CellType, CodeType, GenericAlias, TracebackType
-# mypy crashes if any of {ByteString, Sequence, MutableSequence, Mapping, MutableMapping}
-# are imported from collections.abc in builtins.pyi
-from typing import (  # noqa:UP035,RUF100
-	Any, BinaryIO, ClassVar, Concatenate, Final, final, Generic, IO, Literal, LiteralString, Mapping, MutableMapping,
-	MutableSequence, overload, Protocol, Self, Sequence, SupportsAbs, SupportsBytes, SupportsComplex, SupportsFloat,
-	SupportsIndex, type_check_only, TypeAlias, TypeGuard, TypeVar)
-# we can't import `Literal` from typing or mypy crashes: see #11247
-from typing_extensions import deprecated, disjoint_base, ParamSpec, TypeIs, TypeVarTuple
 import _ast
 import _sitebuiltins
 import _typeshed
 import sys
 import types
+from _collections_abc import dict_items, dict_keys, dict_values
+from _typeshed import (
+    AnnotationForm,
+    ConvertibleToFloat,
+    ConvertibleToInt,
+    FileDescriptorOrPath,
+    OpenBinaryMode,
+    OpenBinaryModeReading,
+    OpenBinaryModeUpdating,
+    OpenBinaryModeWriting,
+    OpenTextMode,
+    ReadableBuffer,
+    SupportsAdd,
+    SupportsAiter,
+    SupportsAnext,
+    SupportsDivMod,
+    SupportsFlush,
+    SupportsIter,
+    SupportsKeysAndGetItem,
+    SupportsLenAndGetItem,
+    SupportsNext,
+    SupportsRAdd,
+    SupportsRDivMod,
+    SupportsRichComparison,
+    SupportsRichComparisonT,
+    SupportsWrite,
+)
+from collections.abc import Awaitable, Callable, Iterable, Iterator, MutableSet, Reversible, Set as AbstractSet, Sized
+from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWrapper
+from os import PathLike
+from types import CellType, CodeType, GenericAlias, TracebackType
+
+# mypy crashes if any of {ByteString, Sequence, MutableSequence, Mapping, MutableMapping}
+# are imported from collections.abc in builtins.pyi
+from typing import (  # noqa: Y022,UP035,RUF100
+    IO,
+    Any,
+    BinaryIO,
+    ClassVar,
+    Final,
+    Generic,
+    Mapping,
+    MutableMapping,
+    MutableSequence,
+    Protocol,
+    Sequence,
+    SupportsAbs,
+    SupportsBytes,
+    SupportsComplex,
+    SupportsFloat,
+    SupportsIndex,
+    TypeVar,
+    final,
+    overload,
+    type_check_only,
+)
+
+# we can't import `Literal` from typing or mypy crashes: see #11247
+from typing_extensions import (  # noqa: Y023
+    Concatenate,
+    Literal,
+    LiteralString,
+    ParamSpec,
+    Self,
+    TypeAlias,
+    TypeGuard,
+    TypeIs,
+    TypeVarTuple,
+    deprecated,
+    disjoint_base,
+)
 
 if sys.version_info >= (3, 14):
     from _typeshed import AnnotateFunc
@@ -70,6 +123,8 @@ class object:
     def __delattr__(self, name: str, /) -> None: ...
     def __eq__(self, value: object, /) -> bool: ...
     def __ne__(self, value: object, /) -> bool: ...
+    def __str__(self) -> str: ...  # noqa: Y029
+    def __repr__(self) -> str: ...  # noqa: Y029
     def __hash__(self) -> int: ...
     def __format__(self, format_spec: str, /) -> str: ...
     def __getattribute__(self, name: str, /) -> Any: ...
@@ -194,7 +249,7 @@ class super:
 
 _PositiveInteger: TypeAlias = Literal[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
 _NegativeInteger: TypeAlias = Literal[-1, -2, -3, -4, -5, -6, -7, -8, -9, -10, -11, -12, -13, -14, -15, -16, -17, -18, -19, -20]
-_LiteralInteger: TypeAlias = _PositiveInteger | _NegativeInteger | Literal[0]  # TODO: Use TypeAlias once mypy bugs are fixed
+_LiteralInteger = _PositiveInteger | _NegativeInteger | Literal[0]  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs are fixed
 
 @disjoint_base
 class int:
@@ -1780,7 +1835,7 @@ class _SupportsPow3NoneOnly(Protocol[_E_contra, _T_co]):
 class _SupportsPow3(Protocol[_E_contra, _M_contra, _T_co]):
     def __pow__(self, other: _E_contra, modulo: _M_contra, /) -> _T_co: ...
 
-_SupportsSomeKindOfPow: TypeAlias = (  # TODO: Use TypeAlias once mypy bugs are fixed
+_SupportsSomeKindOfPow = (  # noqa: Y026  # TODO: Use TypeAlias once mypy bugs are fixed
     _SupportsPow2[Any, Any] | _SupportsPow3NoneOnly[Any, Any] | _SupportsPow3[Any, Any, Any]
 )
 
@@ -2020,8 +2075,8 @@ class BaseException:
     def with_traceback(self, tb: TracebackType | None, /) -> Self: ...
     # Necessary for security-focused static analyzers (e.g, pysa)
     # See https://github.com/python/typeshed/pull/14900
-    def __str__(self) -> str: ...
-    def __repr__(self) -> str: ...
+    def __str__(self) -> str: ...  # noqa: Y029
+    def __repr__(self) -> str: ...  # noqa: Y029
     if sys.version_info >= (3, 11):
         # only present after add_note() is called
         __notes__: list[str]

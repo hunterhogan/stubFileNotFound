@@ -1,9 +1,9 @@
+import sys
 from _typeshed import ReadableBuffer, WriteableBuffer
 from collections.abc import Iterable
 from socket import error as error, gaierror as gaierror, herror as herror, timeout as timeout
-from typing import Any, Final, overload, SupportsIndex, TypeAlias
-from typing_extensions import CapsuleType, disjoint_base
-import sys
+from typing import Any, Final, SupportsIndex, overload
+from typing_extensions import CapsuleType, TypeAlias, disjoint_base
 
 _CMSG: TypeAlias = tuple[int, int, bytes]
 _CMSGArg: TypeAlias = tuple[int, int, ReadableBuffer]

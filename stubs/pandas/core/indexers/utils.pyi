@@ -1,5 +1,11 @@
-from pandas._typing import AnyArrayLike, ListLike, np_1darray_bool, ScalarIndexer
 from typing import overload
+
+from pandas._typing import (
+    AnyArrayLike,
+    ListLike,
+    ScalarIndexer,
+    np_1darray_bool,
+)
 
 @overload
 def check_array_indexer(array: AnyArrayLike, indexer: ScalarIndexer) -> int: ...

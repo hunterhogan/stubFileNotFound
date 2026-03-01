@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from typing import AnyStr, IO
 import mmap
+from typing import IO, AnyStr
+
 
 def check_write(io_bytes: IO[bytes], io_str: IO[str], io_anystr: IO[AnyStr], any_str: AnyStr, buf: mmap.mmap) -> None:
     io_bytes.write(b"")

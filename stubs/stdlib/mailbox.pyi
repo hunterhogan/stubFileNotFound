@@ -1,31 +1,32 @@
+import email.message
+import io
+import sys
 from _typeshed import StrPath, SupportsNoArgReadline, SupportsRead
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable, Iterable, Iterator, Mapping, Sequence
 from email._policybase import _MessageT
 from types import GenericAlias, TracebackType
-from typing import Any, AnyStr, Generic, IO, Literal, overload, Protocol, Self, type_check_only, TypeAlias, TypeVar
-import email.message
-import io
-import sys
+from typing import IO, Any, AnyStr, Generic, Literal, Protocol, TypeVar, overload, type_check_only
+from typing_extensions import Self, TypeAlias
 
 __all__ = [
-    "MH",
-    "MMDF",
-    "Babyl",
-    "BabylMessage",
-    "Error",
-    "ExternalClashError",
-    "FormatError",
-    "MHMessage",
-    "MMDFMessage",
     "Mailbox",
     "Maildir",
-    "MaildirMessage",
+    "mbox",
+    "MH",
+    "Babyl",
+    "MMDF",
     "Message",
+    "MaildirMessage",
+    "mboxMessage",
+    "MHMessage",
+    "BabylMessage",
+    "MMDFMessage",
+    "Error",
     "NoSuchMailboxError",
     "NotEmptyError",
-    "mbox",
-    "mboxMessage",
+    "ExternalClashError",
+    "FormatError",
 ]
 
 _T = TypeVar("_T")

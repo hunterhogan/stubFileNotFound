@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from tempfile import _TemporaryFileWrapper, TemporaryFile
-from typing import assert_type
 import io
 import sys
+from tempfile import TemporaryFile, _TemporaryFileWrapper
+from typing_extensions import assert_type
 
 if sys.platform == "win32":
     assert_type(TemporaryFile(), _TemporaryFileWrapper[bytes])

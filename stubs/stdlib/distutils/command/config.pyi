@@ -1,9 +1,10 @@
-from ..ccompiler import CCompiler
-from ..cmd import Command
 from _typeshed import StrOrBytesPath
 from collections.abc import Sequence
 from re import Pattern
 from typing import ClassVar, Final, Literal
+
+from ..ccompiler import CCompiler
+from ..cmd import Command
 
 LANG_EXT: Final[dict[str, str]]
 

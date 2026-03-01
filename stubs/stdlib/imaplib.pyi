@@ -1,3 +1,6 @@
+import subprocess
+import sys
+import time
 from _typeshed import ReadableBuffer, SizedBuffer, StrOrBytesPath, Unused
 from builtins import list as _list  # conflicts with a method named "list"
 from collections.abc import Callable, Generator
@@ -6,13 +9,10 @@ from re import Pattern
 from socket import socket as _socket
 from ssl import SSLContext, SSLSocket
 from types import TracebackType
-from typing import Any, IO, Literal, overload, Self, SupportsAbs, SupportsInt, TypeAlias
-from typing_extensions import deprecated
-import subprocess
-import sys
-import time
+from typing import IO, Any, Literal, SupportsAbs, SupportsInt, overload
+from typing_extensions import Self, TypeAlias, deprecated
 
-__all__ = ["IMAP4", "IMAP4_SSL", "IMAP4_stream", "Int2AP", "Internaldate2tuple", "ParseFlags", "Time2Internaldate"]
+__all__ = ["IMAP4", "IMAP4_stream", "Internaldate2tuple", "Int2AP", "ParseFlags", "Time2Internaldate", "IMAP4_SSL"]
 
 # TODO: Commands should use their actual return types, not this type alias.
 #       E.g. Tuple[Literal["OK"], List[bytes]]

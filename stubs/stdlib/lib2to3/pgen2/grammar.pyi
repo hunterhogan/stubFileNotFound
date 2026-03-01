@@ -1,5 +1,5 @@
 from _typeshed import StrPath
-from typing import Self, TypeAlias
+from typing_extensions import Self, TypeAlias
 
 _Label: TypeAlias = tuple[int, str | None]
 _DFA: TypeAlias = list[list[tuple[int, int]]]

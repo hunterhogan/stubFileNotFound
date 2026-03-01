@@ -1,6 +1,6 @@
+import codecs
 from _typeshed import ReadableBuffer
 from typing import ClassVar
-import codecs
 
 # This codec is bytes to bytes.
 

@@ -1,10 +1,11 @@
-from _typeshed import ReadableBuffer
-from _zstd import get_frame_size, zstd_version, ZstdCompressor, ZstdDecompressor, ZstdDict, ZstdError
-from collections.abc import Iterable, Mapping
-from compression.zstd._zstdfile import open, ZstdFile
-from typing import Final, final
-import _zstd
 import enum
+from _typeshed import ReadableBuffer
+from collections.abc import Iterable, Mapping
+from compression.zstd._zstdfile import ZstdFile, open
+from typing import Final, final
+
+import _zstd
+from _zstd import ZstdCompressor, ZstdDecompressor, ZstdDict, ZstdError, get_frame_size, zstd_version
 
 __all__ = (
     # compression.zstd

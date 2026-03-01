@@ -1,6 +1,6 @@
+import email.message
 from email import _ParamsType
 from email.policy import Policy
-import email.message
 
 __all__ = ["MIMEBase"]
 

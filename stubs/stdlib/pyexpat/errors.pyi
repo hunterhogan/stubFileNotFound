@@ -1,5 +1,6 @@
-from typing import Final, LiteralString
 import sys
+from typing import Final
+from typing_extensions import LiteralString
 
 codes: dict[str, int]
 messages: dict[int, str]

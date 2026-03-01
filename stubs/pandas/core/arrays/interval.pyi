@@ -1,15 +1,36 @@
 from collections.abc import Sequence
-from pandas._libs.interval import Interval as Interval, IntervalMixin as IntervalMixin
+from typing import (
+    Any,
+    Self,
+    TypeAlias,
+    overload,
+)
+
 from pandas._stubs_only import OrderableT
-from pandas._typing import (
-	AnyArrayLike, DtypeArg, IntervalClosedType, np_1darray_bool, np_1darray_object, np_ndarray, NpDtype, Scalar,
-	ScalarIndexer, SequenceIndexer, TakeIndexer)
 from pandas.core.arrays.base import ExtensionArray as ExtensionArray
-from pandas.core.dtypes.dtypes import IntervalDtype
 from pandas.core.indexes.base import Index
 from pandas.core.series import Series
-from typing import Any, overload, Self, TypeAlias
 import pyarrow as pa
+
+from pandas._libs.interval import (
+    Interval as Interval,
+    IntervalMixin as IntervalMixin,
+)
+from pandas._typing import (
+    AnyArrayLike,
+    DtypeArg,
+    IntervalClosedType,
+    NpDtype,
+    Scalar,
+    ScalarIndexer,
+    SequenceIndexer,
+    TakeIndexer,
+    np_1darray_bool,
+    np_1darray_object,
+    np_ndarray,
+)
+
+from pandas.core.dtypes.dtypes import IntervalDtype
 
 IntervalOrNA: TypeAlias = Interval[Any] | float
 

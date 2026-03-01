@@ -1,57 +1,57 @@
+import sys
+import types
 from _codecs import *
 from _typeshed import ReadableBuffer
 from abc import abstractmethod
 from collections.abc import Callable, Generator, Iterable
-from typing import Any, BinaryIO, ClassVar, Final, Literal, overload, Protocol, Self, TextIO, type_check_only, TypeAlias
-from typing_extensions import deprecated, disjoint_base
-import sys
-import types
+from typing import Any, BinaryIO, ClassVar, Final, Literal, Protocol, TextIO, overload, type_check_only
+from typing_extensions import Self, TypeAlias, deprecated, disjoint_base
 
 __all__ = [
+    "register",
+    "lookup",
+    "open",
+    "EncodedFile",
     "BOM",
+    "BOM_BE",
+    "BOM_LE",
     "BOM32_BE",
     "BOM32_LE",
     "BOM64_BE",
     "BOM64_LE",
-    "BOM_BE",
-    "BOM_LE",
     "BOM_UTF8",
     "BOM_UTF16",
-    "BOM_UTF16_BE",
     "BOM_UTF16_LE",
+    "BOM_UTF16_BE",
     "BOM_UTF32",
-    "BOM_UTF32_BE",
     "BOM_UTF32_LE",
-    "Codec",
+    "BOM_UTF32_BE",
     "CodecInfo",
-    "EncodedFile",
-    "IncrementalDecoder",
+    "Codec",
     "IncrementalEncoder",
+    "IncrementalDecoder",
     "StreamReader",
+    "StreamWriter",
     "StreamReaderWriter",
     "StreamRecoder",
-    "StreamWriter",
-    "backslashreplace_errors",
-    "decode",
-    "encode",
-    "getdecoder",
     "getencoder",
-    "getincrementaldecoder",
+    "getdecoder",
     "getincrementalencoder",
+    "getincrementaldecoder",
     "getreader",
     "getwriter",
-    "ignore_errors",
-    "iterdecode",
+    "encode",
+    "decode",
     "iterencode",
-    "lookup",
-    "lookup_error",
-    "namereplace_errors",
-    "open",
-    "register",
-    "register_error",
-    "replace_errors",
+    "iterdecode",
     "strict_errors",
+    "ignore_errors",
+    "replace_errors",
     "xmlcharrefreplace_errors",
+    "backslashreplace_errors",
+    "namereplace_errors",
+    "register_error",
+    "lookup_error",
 ]
 
 BOM32_BE: Final = b"\xfe\xff"
@@ -196,8 +196,8 @@ def open(
     filename: str, mode: str = "r", encoding: str | None = None, errors: str = "strict", buffering: int = -1
 ) -> StreamReaderWriter: ...
 def EncodedFile(file: _Stream, data_encoding: str, file_encoding: str | None = None, errors: str = "strict") -> StreamRecoder: ...
-def iterencode(iterator: Iterable[str], encoding: str, errors: str = "strict") -> Generator[bytes]: ...
-def iterdecode(iterator: Iterable[bytes], encoding: str, errors: str = "strict") -> Generator[str]: ...
+def iterencode(iterator: Iterable[str], encoding: str, errors: str = "strict") -> Generator[bytes, None, None]: ...
+def iterdecode(iterator: Iterable[bytes], encoding: str, errors: str = "strict") -> Generator[str, None, None]: ...
 
 BOM: Final[Literal[b"\xff\xfe", b"\xfe\xff"]]  # depends on `sys.byteorder`
 BOM_BE: Final = b"\xfe\xff"

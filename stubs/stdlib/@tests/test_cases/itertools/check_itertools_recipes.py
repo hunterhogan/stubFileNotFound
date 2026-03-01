@@ -6,15 +6,27 @@ so they should all type-check without error.
 
 from __future__ import annotations
 
-from collections.abc import Callable, Collection, Hashable, Iterable, Iterator, Sequence
-from itertools import (
-	chain, combinations, count, cycle, filterfalse, groupby, islice, product, repeat, starmap, tee, zip_longest)
-from typing import Any, Literal, overload, Tuple, Type, TypeAlias, TypeVar, Union
-from typing_extensions import TypeVarTuple, Unpack
 import collections
 import math
 import operator
 import sys
+from itertools import chain, combinations, count, cycle, filterfalse, groupby, islice, product, repeat, starmap, tee, zip_longest
+from typing import (
+    Any,
+    Callable,
+    Collection,
+    Hashable,
+    Iterable,
+    Iterator,
+    Literal,
+    Sequence,
+    Tuple,
+    Type,
+    TypeVar,
+    Union,
+    overload,
+)
+from typing_extensions import TypeAlias, TypeVarTuple, Unpack
 
 _T = TypeVar("_T")
 _T1 = TypeVar("_T1")
@@ -24,7 +36,7 @@ _Ts = TypeVarTuple("_Ts")
 
 
 def take(n: int, iterable: Iterable[_T]) -> list[_T]:
-    """Return first n items of the iterable as a list"""
+    "Return first n items of the iterable as a list"
     return list(islice(iterable, n))
 
 
@@ -32,13 +44,13 @@ def take(n: int, iterable: Iterable[_T]) -> list[_T]:
 # but the function actually accepts any iterable
 # as its second argument
 def prepend(value: _T1, iterator: Iterable[_T2]) -> Iterator[_T1 | _T2]:
-    """Prepend a single value in front of an iterator"""
+    "Prepend a single value in front of an iterator"
     # prepend(1, [2, 3, 4]) --> 1 2 3 4
     return chain([value], iterator)
 
 
 def tabulate(function: Callable[[int], _T], start: int = 0) -> Iterator[_T]:
-    """Return function(0), function(1), ..."""
+    "Return function(0), function(1), ..."
     return map(function, count(start))
 
 
@@ -53,17 +65,17 @@ def repeatfunc(func: Callable[[Unpack[_Ts]], _T], times: int | None = None, *arg
 
 
 def flatten(list_of_lists: Iterable[Iterable[_T]]) -> Iterator[_T]:
-    """Flatten one level of nesting"""
+    "Flatten one level of nesting"
     return chain.from_iterable(list_of_lists)
 
 
 def ncycles(iterable: Iterable[_T], n: int) -> Iterator[_T]:
-    """Returns the sequence elements n times"""
+    "Returns the sequence elements n times"
     return chain.from_iterable(repeat(tuple(iterable), n))
 
 
 def tail(n: int, iterable: Iterable[_T]) -> Iterator[_T]:
-    """Return an iterator over the last n items"""
+    "Return an iterator over the last n items"
     # tail(3, 'ABCDEFG') --> E F G
     return iter(collections.deque(iterable, maxlen=n))
 
@@ -71,7 +83,7 @@ def tail(n: int, iterable: Iterable[_T]) -> Iterator[_T]:
 # This function *accepts* any iterable,
 # but it only *makes sense* to use it with an iterator
 def consume(iterator: Iterator[object], n: int | None = None) -> None:
-    """Advance the iterator n-steps ahead. If n is None, consume entirely."""
+    "Advance the iterator n-steps ahead. If n is None, consume entirely."
     # Use functions that consume iterators at C speed.
     if n is None:
         # feed the entire iterator into a zero-length deque
@@ -90,7 +102,7 @@ def nth(iterable: Iterable[_T], n: int, default: _T1) -> _T | _T1: ...
 
 
 def nth(iterable: Iterable[object], n: int, default: object = None) -> object:
-    """Returns the nth item or a default value"""
+    "Returns the nth item or a default value"
     return next(islice(iterable, n, None), default)
 
 
@@ -103,7 +115,7 @@ def quantify(iterable: Iterable[_T], pred: Callable[[_T], bool]) -> int: ...
 
 
 def quantify(iterable: Iterable[object], pred: Callable[[Any], bool] = bool) -> int:
-    """Given a predicate that returns True or False, count the True results."""
+    "Given a predicate that returns True or False, count the True results."
     return sum(map(pred, iterable))
 
 
@@ -128,7 +140,7 @@ def first_true(iterable: Iterable[object], default: object = False, pred: Callab
     return next(filter(pred, iterable), default)
 
 
-_ExceptionOrExceptionTuple: TypeAlias = type[BaseException] | tuple[type[BaseException], ...]
+_ExceptionOrExceptionTuple: TypeAlias = Union[Type[BaseException], Tuple[Type[BaseException], ...]]
 
 
 @overload
@@ -148,9 +160,7 @@ def iter_except(
     Converts a call-until-exception interface to an iterator interface.
     Like builtins.iter(func, sentinel) but uses an exception instead
     of a sentinel to end the loop.
-
-    Examples
-    --------
+    Examples:
         iter_except(functools.partial(heappop, h), IndexError)   # priority queue iterator
         iter_except(d.popitem, KeyError)                         # non-blocking dict iterator
         iter_except(d.popleft, IndexError)                       # non-blocking deque iterator
@@ -176,7 +186,7 @@ def sliding_window(iterable: Iterable[_T], n: int) -> Iterator[tuple[_T, ...]]:
 
 
 def roundrobin(*iterables: Iterable[_T]) -> Iterator[_T]:
-    """roundrobin('ABC', 'D', 'EF') --> A D E B F C"""
+    "roundrobin('ABC', 'D', 'EF') --> A D E B F C"
     # Recipe credited to George Sakkis
     num_active = len(iterables)
     nexts: Iterator[Callable[[], _T]] = cycle(iter(it).__next__ for it in iterables)
@@ -200,7 +210,7 @@ def partition(pred: Callable[[_T], bool], iterable: Iterable[_T]) -> tuple[Itera
 
 
 def subslices(seq: Sequence[_T]) -> Iterator[Sequence[_T]]:
-    """Return all contiguous non-empty subslices of a sequence"""
+    "Return all contiguous non-empty subslices of a sequence"
     # subslices('ABCD') --> A AB ABC ABCD B BC BCD C CD D
     slices = starmap(slice, combinations(range(len(seq) + 1), 2))
     return map(operator.getitem, repeat(seq), slices)
@@ -246,7 +256,7 @@ def unique_everseen(iterable: Iterable[_T], key: Callable[[_T], Hashable]) -> It
 
 
 def unique_everseen(iterable: Iterable[_T], key: Callable[[_T], Hashable] | None = None) -> Iterator[_T]:
-    """List unique elements, preserving order. Remember all elements ever seen."""
+    "List unique elements, preserving order. Remember all elements ever seen."
     # unique_everseen('AAAABBBCCDAABBB') --> A B C D
     # unique_everseen('ABBcCAD', str.lower) --> A B c D
     seen: set[Hashable] = set()
@@ -271,7 +281,7 @@ def unique_everseen(iterable: Iterable[_T], key: Callable[[_T], Hashable] | None
 
 # Slightly adapted from the docs recipe; a one-liner was a bit much for pyright
 def unique_justseen(iterable: Iterable[_T], key: Callable[[_T], bool] | None = None) -> Iterator[_T]:
-    """List unique elements, preserving order. Remember only the element just seen."""
+    "List unique elements, preserving order. Remember only the element just seen."
     # unique_justseen('AAAABBBCCDAABBB') --> A B C D A B
     # unique_justseen('ABBcCAD', str.lower) --> A B c A D
     if key is None:
@@ -281,15 +291,15 @@ def unique_justseen(iterable: Iterable[_T], key: Callable[[_T], bool] | None = N
 
 
 def powerset(iterable: Iterable[_T]) -> Iterator[tuple[_T, ...]]:
-    """powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"""
+    "powerset([1,2,3]) --> () (1,) (2,) (3,) (1,2) (1,3) (2,3) (1,2,3)"
     s = list(iterable)
     return chain.from_iterable(combinations(s, r) for r in range(len(s) + 1))
 
 
 def polynomial_derivative(coefficients: Sequence[float]) -> list[float]:
     """Compute the first derivative of a polynomial.
-    f(x)  =  xł -4x˛ -17x + 60
-    f'(x) = 3x˛ -8x  -17
+    f(x)  =  x³ -4x² -17x + 60
+    f'(x) = 3x² -8x  -17
     """
     # polynomial_derivative([1, -4, -17, 60]) -> [3, -8, -17]
     n = len(coefficients)
@@ -298,7 +308,7 @@ def polynomial_derivative(coefficients: Sequence[float]) -> list[float]:
 
 
 def nth_combination(iterable: Iterable[_T], r: int, index: int) -> tuple[_T, ...]:
-    """Equivalent to list(combinations(iterable, r))[index]"""
+    "Equivalent to list(combinations(iterable, r))[index]"
     pool = tuple(iterable)
     n = len(pool)
     c = math.comb(n, r)
@@ -336,7 +346,7 @@ if sys.version_info >= (3, 10):
     def grouper(
         iterable: Iterable[object], n: int, *, incomplete: Literal["fill", "strict", "ignore"] = "fill", fillvalue: object = None
     ) -> Iterator[tuple[object, ...]]:
-        """Collect data into non-overlapping fixed-length chunks or blocks"""
+        "Collect data into non-overlapping fixed-length chunks or blocks"
         # grouper('ABCDEFG', 3, fillvalue='x') --> ABC DEF Gxx
         # grouper('ABCDEFG', 3, incomplete='strict') --> ABC DEF ValueError
         # grouper('ABCDEFG', 3, incomplete='ignore') --> ABC DEF
@@ -351,7 +361,7 @@ if sys.version_info >= (3, 10):
             raise ValueError("Expected fill, strict, or ignore")
 
     def transpose(it: Iterable[Iterable[_T]]) -> Iterator[tuple[_T, ...]]:
-        """Swap the rows and columns of the input."""
+        "Swap the rows and columns of the input."
         # transpose([(1, 2, 3), (11, 22, 33)]) --> (1, 11) (2, 22) (3, 33)
         return zip(*it, strict=True)
 
@@ -360,7 +370,7 @@ if sys.version_info >= (3, 12):
     from itertools import batched
 
     def sum_of_squares(it: Iterable[float]) -> float:
-        """Add up the squares of the input values."""
+        "Add up the squares of the input values."
         # sum_of_squares([10, 20, 30]) -> 1400
         return math.sumprod(*tee(it))
 
@@ -387,7 +397,7 @@ if sys.version_info >= (3, 12):
         """Evaluate a polynomial at a specific value.
         Computes with better numeric stability than Horner's method.
         """
-        # Evaluate xł -4x˛ -17x + 60 at x = 2.5
+        # Evaluate x³ -4x² -17x + 60 at x = 2.5
         # polynomial_eval([1, -4, -17, 60], x=2.5) --> 8.125
         n = len(coefficients)
         if not n:
@@ -396,7 +406,7 @@ if sys.version_info >= (3, 12):
         return math.sumprod(coefficients, powers)
 
     def matmul(m1: Sequence[Collection[float]], m2: Sequence[Collection[float]]) -> Iterator[tuple[float, ...]]:
-        """Multiply two matrices."""
+        "Multiply two matrices."
         # matmul([(7, 5), (3, 5)], [(2, 5), (7, 9)]) --> (49, 80), (41, 60)
         n = len(m2[0])
         return batched(starmap(math.sumprod, product(m1, transpose(m2))), n)

@@ -1,6 +1,6 @@
-from _typeshed import ReadableBuffer
 import codecs
 import sys
+from _typeshed import ReadableBuffer
 
 if sys.platform == "win32":
     encode = codecs.oem_encode

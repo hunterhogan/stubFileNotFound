@@ -1,7 +1,11 @@
-from pandas.core.computation import expr as expr, ops as ops
+from typing import Any
+
+from pandas.core.computation import (
+    expr as expr,
+    ops as ops,
+)
 from pandas.core.computation.expr import BaseExprVisitor as BaseExprVisitor
 from pandas.core.indexes.base import Index
-from typing import Any
 
 class BinOp(ops.BinOp):
     op: str

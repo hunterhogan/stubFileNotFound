@@ -1,17 +1,49 @@
-from collections.abc import Callable, Hashable, Iterable, Mapping, Sequence
+from collections.abc import (
+    Callable,
+    Hashable,
+    Iterable,
+    Mapping,
+    Sequence,
+)
+from types import TracebackType
+from typing import (
+    Any,
+    BinaryIO,
+    Generic,
+    Literal,
+    Self,
+    TypeAlias,
+    overload,
+)
+
 from odf.opendocument import OpenDocument  # pyright: ignore[reportMissingTypeStubs]
 from openpyxl.workbook.workbook import Workbook
+from pandas.core.frame import DataFrame
+from pyxlsb.workbook import (  # pyright: ignore[reportMissingTypeStubs]
+    Workbook as PyXlsbWorkbook,
+)
+from typing_extensions import (
+    TypeVar,
+)
+from xlrd.book import Book
+from xlsxwriter import (  # pyright: ignore[reportMissingTypeStubs]
+    Workbook as XlsxWorkbook,
+)
+
 from pandas._libs.lib import NoDefault
 from pandas._typing import (
-	Dtype, DtypeBackend, ExcelReadEngine, ExcelWriteEngine, ExcelWriterIfSheetExists, FilePath, IntStrT, ListLikeHashable,
-	ReadBuffer, StorageOptions, UsecolsArgType)
-from pandas.core.frame import DataFrame
-from pyxlsb.workbook import Workbook as PyXlsbWorkbook  # pyright: ignore[reportMissingTypeStubs]
-from types import TracebackType
-from typing import Any, BinaryIO, Generic, Literal, overload, Self, TypeAlias
-from typing_extensions import TypeVar
-from xlrd.book import Book
-from xlsxwriter import Workbook as XlsxWorkbook  # pyright: ignore[reportMissingTypeStubs]
+    Dtype,
+    DtypeBackend,
+    ExcelReadEngine,
+    ExcelWriteEngine,
+    ExcelWriterIfSheetExists,
+    FilePath,
+    IntStrT,
+    ListLikeHashable,
+    ReadBuffer,
+    StorageOptions,
+    UsecolsArgType,
+)
 
 @overload
 def read_excel(

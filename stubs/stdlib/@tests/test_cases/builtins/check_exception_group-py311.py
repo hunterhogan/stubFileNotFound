@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from typing import assert_type, TypeVar
 import sys
+from typing import TypeVar
+from typing_extensions import assert_type
 
 if sys.version_info >= (3, 11):
     # This can be removed later, but right now Flake8 does not know

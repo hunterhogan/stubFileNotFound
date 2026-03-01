@@ -1,11 +1,31 @@
-from collections.abc import Callable, Hashable, Sequence
-from jinja2.environment import Environment, Template
+from collections.abc import (
+    Callable,
+    Hashable,
+    Sequence,
+)
+from typing import (
+    Any,
+    Literal,
+    Self,
+    TypeAlias,
+    TypedDict,
+)
+
+from jinja2.environment import (
+    Environment,
+    Template,
+)
 from jinja2.loaders import FileSystemLoader
 from pandas import Index
-from pandas._typing import Axis, HashableT, Level
+
 # The class is private in pandas implementation. We have to ignore the private usage in the stubs.
 from pandas.core.indexing import _IndexSlice  # pyright: ignore[reportPrivateUsage]
-from typing import Any, Literal, Self, TypeAlias, TypedDict
+
+from pandas._typing import (
+    Axis,
+    HashableT,
+    Level,
+)
 
 BaseFormatter: TypeAlias = str | Callable[[object], str]
 ExtFormatter: TypeAlias = BaseFormatter | dict[Any, BaseFormatter | None]

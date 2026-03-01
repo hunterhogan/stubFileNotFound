@@ -1,12 +1,24 @@
-from . import path as _path
-# Re-export common definitions from os.path to reduce duplication
-from .path import (
-	altsep as altsep, curdir as curdir, defpath as defpath, devnull as devnull, extsep as extsep, pardir as pardir,
-	pathsep as pathsep, sep as sep)
+import sys
 from _typeshed import (
-	AnyStr_co, BytesPath, FileDescriptor, FileDescriptorLike, FileDescriptorOrPath, GenericPath, OpenBinaryMode,
-	OpenBinaryModeReading, OpenBinaryModeUpdating, OpenBinaryModeWriting, OpenTextMode, ReadableBuffer, StrOrBytesPath,
-	StrPath, structseq, SupportsLenAndGetItem, Unused, WriteableBuffer)
+    AnyStr_co,
+    BytesPath,
+    FileDescriptor,
+    FileDescriptorLike,
+    FileDescriptorOrPath,
+    GenericPath,
+    OpenBinaryMode,
+    OpenBinaryModeReading,
+    OpenBinaryModeUpdating,
+    OpenBinaryModeWriting,
+    OpenTextMode,
+    ReadableBuffer,
+    StrOrBytesPath,
+    StrPath,
+    SupportsLenAndGetItem,
+    Unused,
+    WriteableBuffer,
+    structseq,
+)
 from abc import ABC, abstractmethod
 from builtins import OSError
 from collections.abc import Callable, Iterable, Iterator, Mapping, MutableMapping, Sequence
@@ -14,10 +26,36 @@ from io import BufferedRandom, BufferedReader, BufferedWriter, FileIO, TextIOWra
 from subprocess import Popen
 from types import GenericAlias, TracebackType
 from typing import (
-	Any, AnyStr, BinaryIO, Final, final, Generic, IO, Literal, LiteralString, NoReturn, overload, Protocol,
-	runtime_checkable, Self, type_check_only, TypeAlias, TypeVar)
-from typing_extensions import deprecated, Unpack
-import sys
+    IO,
+    Any,
+    AnyStr,
+    BinaryIO,
+    Final,
+    Generic,
+    Literal,
+    NoReturn,
+    Protocol,
+    TypeVar,
+    final,
+    overload,
+    runtime_checkable,
+    type_check_only,
+)
+from typing_extensions import LiteralString, Self, TypeAlias, Unpack, deprecated
+
+from . import path as _path
+
+# Re-export common definitions from os.path to reduce duplication
+from .path import (
+    altsep as altsep,
+    curdir as curdir,
+    defpath as defpath,
+    devnull as devnull,
+    extsep as extsep,
+    pardir as pardir,
+    pathsep as pathsep,
+    sep as sep,
+)
 
 __all__ = [
     "F_OK",
@@ -149,18 +187,18 @@ if sys.platform == "linux":
         "MFD_ALLOW_SEALING",
         "MFD_CLOEXEC",
         "MFD_HUGETLB",
-        "MFD_HUGE_1GB",
-        "MFD_HUGE_1MB",
-        "MFD_HUGE_2GB",
-        "MFD_HUGE_2MB",
-        "MFD_HUGE_8MB",
         "MFD_HUGE_16GB",
         "MFD_HUGE_16MB",
-        "MFD_HUGE_32MB",
-        "MFD_HUGE_64KB",
+        "MFD_HUGE_1GB",
+        "MFD_HUGE_1MB",
         "MFD_HUGE_256MB",
+        "MFD_HUGE_2GB",
+        "MFD_HUGE_2MB",
+        "MFD_HUGE_32MB",
         "MFD_HUGE_512KB",
         "MFD_HUGE_512MB",
+        "MFD_HUGE_64KB",
+        "MFD_HUGE_8MB",
         "MFD_HUGE_MASK",
         "MFD_HUGE_SHIFT",
         "O_DIRECT",
@@ -217,9 +255,9 @@ if sys.platform == "linux" and sys.version_info >= (3, 12):
         "CLONE_SYSVSEM",
         "CLONE_THREAD",
         "CLONE_VM",
-        "PIDFD_NONBLOCK",
         "setns",
         "unshare",
+        "PIDFD_NONBLOCK",
     ]
 if sys.platform == "linux" and sys.version_info >= (3, 10):
     __all__ += [
@@ -1393,15 +1431,16 @@ if sys.platform != "win32":
         def spawnv(mode: int, file: StrOrBytesPath, args: _ExecVArgs) -> int: ...
         def spawnve(mode: int, file: StrOrBytesPath, args: _ExecVArgs, env: _ExecEnv) -> int: ...
 
-elif sys.version_info >= (3, 14):
-    @deprecated("Soft deprecated. Use the subprocess module instead.")
-    def spawnv(mode: int, path: StrOrBytesPath, argv: _ExecVArgs, /) -> int: ...
-    @deprecated("Soft deprecated. Use the subprocess module instead.")
-    def spawnve(mode: int, path: StrOrBytesPath, argv: _ExecVArgs, env: _ExecEnv, /) -> int: ...
-
 else:
-    def spawnv(mode: int, path: StrOrBytesPath, argv: _ExecVArgs, /) -> int: ...
-    def spawnve(mode: int, path: StrOrBytesPath, argv: _ExecVArgs, env: _ExecEnv, /) -> int: ...
+    if sys.version_info >= (3, 14):
+        @deprecated("Soft deprecated. Use the subprocess module instead.")
+        def spawnv(mode: int, path: StrOrBytesPath, argv: _ExecVArgs, /) -> int: ...
+        @deprecated("Soft deprecated. Use the subprocess module instead.")
+        def spawnve(mode: int, path: StrOrBytesPath, argv: _ExecVArgs, env: _ExecEnv, /) -> int: ...
+
+    else:
+        def spawnv(mode: int, path: StrOrBytesPath, argv: _ExecVArgs, /) -> int: ...
+        def spawnve(mode: int, path: StrOrBytesPath, argv: _ExecVArgs, env: _ExecEnv, /) -> int: ...
 
 if sys.version_info >= (3, 14):
     @deprecated("Soft deprecated. Use the subprocess module instead.")

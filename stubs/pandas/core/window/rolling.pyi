@@ -1,12 +1,41 @@
-from collections.abc import Callable, Hashable, Iterator, Sequence
-from pandas import DataFrame, Index, Series
+from collections.abc import (
+    Callable,
+    Hashable,
+    Iterator,
+    Sequence,
+)
+import datetime as dt
+from typing import (
+    Any,
+    Concatenate,
+    Generic,
+    Self,
+    overload,
+)
+
+from pandas import (
+    DataFrame,
+    Index,
+    Series,
+)
+from pandas.core.indexers import BaseIndexer
+
 from pandas._libs.tslibs import BaseOffset
 from pandas._typing import (
-	AggFuncTypeBase, AggFuncTypeFrame, AggFuncTypeSeriesToFrame, AxisInt, CalculationMethod, IntervalClosedType, NDFrameT,
-	P, QuantileInterpolation, T, WindowingEngine, WindowingEngineKwargs, WindowingRankType)
-from pandas.core.indexers import BaseIndexer
-from typing import Any, Concatenate, Generic, overload, Self
-import datetime as dt
+    AggFuncTypeBase,
+    AggFuncTypeFrame,
+    AggFuncTypeSeriesToFrame,
+    AxisInt,
+    CalculationMethod,
+    IntervalClosedType,
+    NDFrameT,
+    P,
+    QuantileInterpolation,
+    T,
+    WindowingEngine,
+    WindowingEngineKwargs,
+    WindowingRankType,
+)
 
 class BaseWindow(Generic[NDFrameT]):
     on: str | Index[Any] | None

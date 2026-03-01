@@ -1,7 +1,8 @@
 from _typeshed import ReadableBuffer
 from collections.abc import Mapping
 from compression.zstd import CompressionParameter, DecompressionParameter
-from typing import Final, final, Literal, Self, TypeAlias
+from typing import Final, Literal, final
+from typing_extensions import Self, TypeAlias
 
 ZSTD_CLEVEL_DEFAULT: Final = 3
 ZSTD_DStreamOutSize: Final = 131072

@@ -1,8 +1,8 @@
+import sys
 from collections.abc import Callable, Iterator, Mapping
 from types import GenericAlias, TracebackType
-from typing import Any, ClassVar, final, Generic, overload, Self, TypeVar
-from typing_extensions import ParamSpec
-import sys
+from typing import Any, ClassVar, Generic, TypeVar, final, overload
+from typing_extensions import ParamSpec, Self
 
 _T = TypeVar("_T")
 _D = TypeVar("_D")

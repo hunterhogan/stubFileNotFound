@@ -1,9 +1,10 @@
-from .handlers import SimpleHandler
 from _typeshed.wsgi import ErrorStream, StartResponse, WSGIApplication, WSGIEnvironment
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from typing import Final, overload, TypeVar
+from typing import Final, TypeVar, overload
 
-__all__ = ["WSGIRequestHandler", "WSGIServer", "demo_app", "make_server"]
+from .handlers import SimpleHandler
+
+__all__ = ["WSGIServer", "WSGIRequestHandler", "demo_app", "make_server"]
 
 server_version: Final[str]  # undocumented
 sys_version: Final[str]  # undocumented

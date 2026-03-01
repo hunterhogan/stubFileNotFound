@@ -1,9 +1,28 @@
+import sys
 from _ctypes import _CArgObject, _CField
 from ctypes import (
-	_Pointer, _SimpleCData, Array, c_char, c_char_p, c_double, c_float, c_int, c_long, c_longlong, c_short, c_uint,
-	c_ulong, c_ulonglong, c_ushort, c_void_p, c_wchar, c_wchar_p, Structure)
-from typing import Any, Final, Self, TypeAlias, TypeVar
-import sys
+    Array,
+    Structure,
+    _Pointer,
+    _SimpleCData,
+    c_char,
+    c_char_p,
+    c_double,
+    c_float,
+    c_int,
+    c_long,
+    c_longlong,
+    c_short,
+    c_uint,
+    c_ulong,
+    c_ulonglong,
+    c_ushort,
+    c_void_p,
+    c_wchar,
+    c_wchar_p,
+)
+from typing import Any, Final, TypeVar
+from typing_extensions import Self, TypeAlias
 
 if sys.version_info >= (3, 12):
     from ctypes import c_ubyte

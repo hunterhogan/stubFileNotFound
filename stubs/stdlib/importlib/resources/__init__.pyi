@@ -1,11 +1,11 @@
+import os
+import sys
 from collections.abc import Iterator
 from contextlib import AbstractContextManager
 from pathlib import Path
 from types import ModuleType
-from typing import Any, BinaryIO, Literal, TextIO, TypeAlias
-from typing_extensions import deprecated
-import os
-import sys
+from typing import Any, BinaryIO, Literal, TextIO
+from typing_extensions import TypeAlias, deprecated
 
 if sys.version_info >= (3, 11):
     from importlib.resources.abc import Traversable
@@ -48,8 +48,14 @@ if sys.version_info >= (3, 12):
 
 if sys.version_info >= (3, 13):
     from importlib.resources._functional import (
-    	contents as contents, is_resource as is_resource, open_binary as open_binary, open_text as open_text, path as path,
-    	read_binary as read_binary, read_text as read_text)
+        contents as contents,
+        is_resource as is_resource,
+        open_binary as open_binary,
+        open_text as open_text,
+        path as path,
+        read_binary as read_binary,
+        read_text as read_text,
+    )
 
 else:
     def open_binary(package: Package, resource: Resource) -> BinaryIO: ...

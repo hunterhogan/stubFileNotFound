@@ -1,10 +1,11 @@
-from .fix_imports import FixImports
 from collections.abc import Generator
 from typing import Final, Literal
 
+from .fix_imports import FixImports
+
 MAPPING: Final[dict[str, list[tuple[Literal["urllib.request", "urllib.parse", "urllib.error"], list[str]]]]]
 
-def build_pattern() -> Generator[str]: ...
+def build_pattern() -> Generator[str, None, None]: ...
 
 class FixUrllib(FixImports):
     def build_pattern(self): ...

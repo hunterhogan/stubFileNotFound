@@ -1,9 +1,9 @@
 from _typeshed import StrOrBytesPath
 from collections.abc import Callable, Mapping
-from typing import Any, Self, TypeAlias, TypeVar
-from typing_extensions import ParamSpec
+from typing import Any, TypeVar
+from typing_extensions import ParamSpec, Self, TypeAlias
 
-__all__ = ["Profile", "run", "runctx"]
+__all__ = ["run", "runctx", "Profile"]
 
 def run(statement: str, filename: str | None = None, sort: str | int = -1) -> None: ...
 def runctx(

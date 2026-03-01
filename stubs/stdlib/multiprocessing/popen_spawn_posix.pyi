@@ -1,7 +1,8 @@
+import sys
+from typing import ClassVar
+
 from . import popen_fork
 from .util import Finalize
-from typing import ClassVar
-import sys
 
 if sys.platform != "win32":
     __all__ = ["Popen"]

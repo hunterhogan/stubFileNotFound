@@ -1,14 +1,36 @@
-from collections.abc import Callable, Hashable, Iterable, Sequence
+from collections.abc import (
+    Callable,
+    Hashable,
+    Iterable,
+    Sequence,
+)
+from typing import (
+    Any,
+    Literal,
+    NamedTuple,
+    TypeAlias,
+    overload,
+    type_check_only,
+)
+
 from matplotlib.axes import Axes
 from matplotlib.colors import Colormap
 from matplotlib.lines import Line2D
-from pandas._typing import (
-	ArrayLike, HashableT, HashableT1, HashableT2, HashableT3, ListLikeHashable, np_ndarray_float, np_ndarray_object)
+import pandas as pd
 from pandas.core.frame import DataFrame
 from pandas.core.series import Series
 from scipy.stats import gaussian_kde
-from typing import Any, Literal, NamedTuple, overload, type_check_only, TypeAlias
-import pandas as pd
+
+from pandas._typing import (
+    ArrayLike,
+    HashableT,
+    HashableT1,
+    HashableT2,
+    HashableT3,
+    ListLikeHashable,
+    np_ndarray_float,
+    np_ndarray_object,
+)
 
 @type_check_only
 class BoxPlotT(NamedTuple):

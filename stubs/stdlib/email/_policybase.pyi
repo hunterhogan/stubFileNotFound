@@ -2,9 +2,10 @@ from abc import ABCMeta, abstractmethod
 from email.errors import MessageDefect
 from email.header import Header
 from email.message import Message
-from typing import Any, Generic, Protocol, Self, type_check_only, TypeVar
+from typing import Any, Generic, Protocol, TypeVar, type_check_only
+from typing_extensions import Self
 
-__all__ = ["Compat32", "Policy", "compat32"]
+__all__ = ["Policy", "Compat32", "compat32"]
 
 _MessageT = TypeVar("_MessageT", bound=Message[Any, Any], default=Message[str, str])
 _MessageT_co = TypeVar("_MessageT_co", covariant=True, bound=Message[Any, Any], default=Message[str, str])

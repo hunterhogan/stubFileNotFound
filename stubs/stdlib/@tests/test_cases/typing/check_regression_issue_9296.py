@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-from collections.abc import KeysView
-from typing import Any, TypeVar
+from typing import Any, KeysView, TypeVar
 
 KT = TypeVar("KT")
 

@@ -1,13 +1,13 @@
 from __future__ import annotations
 
-from collections.abc import Sequence
-from importlib.machinery import ModuleSpec
-from types import ModuleType
-from typing import Self
 import importlib.util
 import pathlib
 import sys
 import zipfile
+from collections.abc import Sequence
+from importlib.machinery import ModuleSpec
+from types import ModuleType
+from typing_extensions import Self
 
 if sys.version_info >= (3, 11):
     from importlib.resources.abc import Traversable

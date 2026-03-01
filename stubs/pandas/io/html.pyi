@@ -1,11 +1,30 @@
-from collections.abc import Callable, Hashable, Mapping, Sequence
+from collections.abc import (
+    Callable,
+    Hashable,
+    Mapping,
+    Sequence,
+)
+from re import Pattern
+from typing import (
+    Any,
+    Literal,
+)
+
+from pandas.core.frame import DataFrame
+
 from pandas._libs.lib import NoDefault
 from pandas._typing import (
-	DtypeBackend, FilePath, HashableT1, HashableT2, HashableT3, HashableT4, HashableT5, HTMLFlavors, ReadBuffer,
-	StorageOptions)
-from pandas.core.frame import DataFrame
-from re import Pattern
-from typing import Any, Literal
+    DtypeBackend,
+    FilePath,
+    HashableT1,
+    HashableT2,
+    HashableT3,
+    HashableT4,
+    HashableT5,
+    HTMLFlavors,
+    ReadBuffer,
+    StorageOptions,
+)
 
 def read_html(
     io: FilePath | ReadBuffer[str],

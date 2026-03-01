@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from contextlib import ExitStack
-from typing import assert_type
+from typing_extensions import assert_type
+
 
 # See issue #7961
 class Thing(ExitStack):

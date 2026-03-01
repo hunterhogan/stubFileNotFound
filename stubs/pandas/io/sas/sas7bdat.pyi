@@ -1,4 +1,5 @@
 from pandas import DataFrame
+
 from pandas.io.sas.sasreader import ReaderBase
 
 class SAS7BDATReader(ReaderBase):

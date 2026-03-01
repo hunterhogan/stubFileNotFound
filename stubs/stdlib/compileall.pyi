@@ -1,7 +1,7 @@
+import sys
 from _typeshed import StrPath
 from py_compile import PycInvalidationMode
 from typing import Any, Protocol, type_check_only
-import sys
 
 __all__ = ["compile_dir", "compile_file", "compile_path"]
 

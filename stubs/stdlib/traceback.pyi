@@ -1,28 +1,28 @@
+import sys
 from _typeshed import SupportsWrite, Unused
 from collections.abc import Generator, Iterable, Iterator, Mapping
 from types import FrameType, TracebackType
-from typing import Any, ClassVar, Literal, overload, Self, SupportsIndex, TypeAlias
-from typing_extensions import deprecated
-import sys
+from typing import Any, ClassVar, Literal, SupportsIndex, overload
+from typing_extensions import Self, TypeAlias, deprecated
 
 __all__ = [
-    "FrameSummary",
-    "StackSummary",
-    "TracebackException",
-    "clear_frames",
     "extract_stack",
     "extract_tb",
-    "format_exc",
     "format_exception",
     "format_exception_only",
     "format_list",
     "format_stack",
     "format_tb",
     "print_exc",
+    "format_exc",
     "print_exception",
     "print_last",
     "print_stack",
     "print_tb",
+    "clear_frames",
+    "FrameSummary",
+    "StackSummary",
+    "TracebackException",
     "walk_stack",
     "walk_tb",
 ]
@@ -111,7 +111,7 @@ def walk_tb(tb: TracebackType | None) -> Iterator[tuple[FrameType, int]]: ...
 if sys.version_info >= (3, 11):
     class _ExceptionPrintContext:
         def indent(self) -> str: ...
-        def emit(self, text_gen: str | Iterable[str], margin_char: str | None = None) -> Generator[str]: ...
+        def emit(self, text_gen: str | Iterable[str], margin_char: str | None = None) -> Generator[str, None, None]: ...
 
 class TracebackException:
     __cause__: TracebackException | None
@@ -232,14 +232,14 @@ class TracebackException:
     def __eq__(self, other: object) -> bool: ...
     __hash__: ClassVar[None]  # type: ignore[assignment]
     if sys.version_info >= (3, 11):
-        def format(self, *, chain: bool = True, _ctx: _ExceptionPrintContext | None = None) -> Generator[str]: ...
+        def format(self, *, chain: bool = True, _ctx: _ExceptionPrintContext | None = None) -> Generator[str, None, None]: ...
     else:
-        def format(self, *, chain: bool = True) -> Generator[str]: ...
+        def format(self, *, chain: bool = True) -> Generator[str, None, None]: ...
 
     if sys.version_info >= (3, 13):
-        def format_exception_only(self, *, show_group: bool = False, _depth: int = 0) -> Generator[str]: ...
+        def format_exception_only(self, *, show_group: bool = False, _depth: int = 0) -> Generator[str, None, None]: ...
     else:
-        def format_exception_only(self) -> Generator[str]: ...
+        def format_exception_only(self) -> Generator[str, None, None]: ...
 
     if sys.version_info >= (3, 11):
         def print(self, *, file: SupportsWrite[str] | None = None, chain: bool = True) -> None: ...
@@ -247,21 +247,21 @@ class TracebackException:
 class FrameSummary:
     if sys.version_info >= (3, 13):
         __slots__ = (
-            "_code",
-            "_lines",
-            "_lines_dedented",
-            "colno",
-            "end_colno",
-            "end_lineno",
             "filename",
             "lineno",
-            "locals",
+            "end_lineno",
+            "colno",
+            "end_colno",
             "name",
+            "_lines",
+            "_lines_dedented",
+            "locals",
+            "_code",
         )
     elif sys.version_info >= (3, 11):
-        __slots__ = ("_line", "colno", "end_colno", "end_lineno", "filename", "lineno", "locals", "name")
+        __slots__ = ("filename", "lineno", "end_lineno", "colno", "end_colno", "name", "_line", "locals")
     else:
-        __slots__ = ("_line", "filename", "lineno", "locals", "name")
+        __slots__ = ("filename", "lineno", "name", "_line", "locals")
     if sys.version_info >= (3, 11):
         def __init__(
             self,

@@ -1,47 +1,105 @@
-from _typeshed import SupportsAdd, SupportsGetItem, SupportsMul, SupportsRAdd, SupportsRMul
-from builtins import bool as _bool, str as _str
+from builtins import (
+    bool as _bool,
+    str as _str,
+)
 from collections.abc import (
-	Callable, Hashable, Iterable, Iterator, KeysView, Mapping, MutableMapping, Sequence, Set as AbstractSet, ValuesView)
-from datetime import date, datetime, time, timedelta
-from matplotlib.axes import Axes as PlotAxes, SubplotBase
-from pandas import Index, Period, PeriodDtype, Timedelta, Timestamp
-from pandas._libs.interval import Interval
-from pandas._libs.lib import NoDefault
-from pandas._libs.missing import NAType
-from pandas._libs.tslibs import BaseOffset
-from pandas._libs.tslibs.nattype import NaTType
-from pandas._stubs_only import OrderableT, T_co, T_contra
-from pandas._typing import (
-	AggFuncTypeBase, AggFuncTypeDictFrame, AggFuncTypeSeriesToFrame, AnyAll, AnyArrayLike, ArrayLike, Axes, AxesData, Axis,
-	AxisColumn, AxisIndex, BooleanDtypeArg, BytesDtypeArg, CalculationMethod, CategoryDtypeArg, ComplexDtypeArg,
-	CompressionOptions, DropKeep, Dtype, DTypeLike, DtypeObj, FilePath, FillnaOptions, FloatDtypeArg, FloatFormatType,
-	Frequency, GenericT, GroupByObjectNonScalar, HashableT1, IgnoreRaise, IndexingInt, IndexKeyFunc, IndexLabel,
-	IntDtypeArg, InterpolateOptions, IntervalClosedType, IntervalT, JoinHow, JSONSerializable, JsonSeriesOrient, Just,
-	Label, Level, ListLike, ListLikeU, MaskType, NaPosition, np_1darray, np_1darray_anyint, np_1darray_bool,
-	np_1darray_bytes, np_1darray_complex, np_1darray_dt, np_1darray_float, np_1darray_int64, np_1darray_intp,
-	np_1darray_object, np_1darray_str, np_1darray_td, np_ndarray, np_ndarray_anyint, np_ndarray_bool, np_ndarray_complex,
-	np_ndarray_dt, np_ndarray_float, np_ndarray_num, np_ndarray_str, np_ndarray_td, NsmallestNlargestKeep,
-	NumpyStrDtypeArg, ObjectDtypeArg, PandasAstypeTimedeltaDtypeArg, PandasAstypeTimestampDtypeArg, PeriodFrequency,
-	QuantileInterpolation, RandomState, ReindexMethod, Renamer, ReplaceValue, S1, S2, S2_contra, S2_NDT_contra, S2_NSDT,
-	Scalar, ScalarT, SequenceNotStr, SeriesByT, SortKind, StrDtypeArg, StrLike, Suffixes, SupportsDType, T as _T,
-	T_COMPLEX, TimeAmbiguous, TimedeltaDtypeArg, TimestampDtypeArg, TimeUnit, TimeZones, ToTimestampHow, UIntDtypeArg,
-	ValueKeyFunc, VoidDtypeArg, WriteBuffer)
+    Callable,
+    Hashable,
+    Iterable,
+    Iterator,
+    KeysView,
+    Mapping,
+    MutableMapping,
+    Sequence,
+    Set as AbstractSet,
+    ValuesView,
+)
+from datetime import (
+    date,
+    datetime,
+    time,
+    timedelta,
+)
+from pathlib import Path
+from typing import (
+    Any,
+    ClassVar,
+    Concatenate,
+    Generic,
+    Literal,
+    Never,
+    NoReturn,
+    Protocol,
+    Self,
+    TypeAlias,
+    final,
+    overload,
+    type_check_only,
+)
+
+from _typeshed import (
+    SupportsAdd,
+    SupportsGetItem,
+    SupportsMul,
+    SupportsRAdd,
+    SupportsRMul,
+)
+from matplotlib.axes import (
+    Axes as PlotAxes,
+    SubplotBase,
+)
+import numpy as np
+from pandas import (
+    Index,
+    Period,
+    PeriodDtype,
+    Timedelta,
+    Timestamp,
+)
+from pandas._stubs_only import (
+    OrderableT,
+    T_co,
+    T_contra,
+)
 from pandas.core.api import (
-	Int8Dtype as Int8Dtype, Int16Dtype as Int16Dtype, Int32Dtype as Int32Dtype, Int64Dtype as Int64Dtype)
+    Int8Dtype as Int8Dtype,
+    Int16Dtype as Int16Dtype,
+    Int32Dtype as Int32Dtype,
+    Int64Dtype as Int64Dtype,
+)
 from pandas.core.arrays.base import ExtensionArray
 from pandas.core.arrays.boolean import BooleanDtype
-from pandas.core.arrays.categorical import Categorical, CategoricalAccessor
+from pandas.core.arrays.categorical import (
+    Categorical,
+    CategoricalAccessor,
+)
 from pandas.core.arrays.datetimes import DatetimeArray
 from pandas.core.arrays.floating import FloatingArray
 from pandas.core.arrays.timedeltas import TimedeltaArray
 from pandas.core.base import (
-	ArrayIndexSeriesTimedeltaNoSeq, ArrayIndexTimedeltaNoSeq, ElementOpsMixin, IndexOpsMixin, NumListLike,
-	ScalarArrayIndexSeriesComplex, ScalarArrayIndexSeriesJustComplex, ScalarArrayIndexSeriesJustFloat,
-	ScalarArrayIndexSeriesJustInt, ScalarArrayIndexSeriesReal, ScalarArrayIndexSeriesTimedelta, SeriesComplex, SeriesReal,
-	Supports_ProtoAdd, Supports_ProtoFloorDiv, Supports_ProtoMul, Supports_ProtoRAdd, Supports_ProtoRFloorDiv,
-	Supports_ProtoRMul, Supports_ProtoRTrueDiv, Supports_ProtoTrueDiv, T_INTERVAL_NP)
-from pandas.core.dtypes.base import ExtensionDtype
-from pandas.core.dtypes.dtypes import CategoricalDtype
+    T_INTERVAL_NP,
+    ArrayIndexSeriesTimedeltaNoSeq,
+    ArrayIndexTimedeltaNoSeq,
+    ElementOpsMixin,
+    IndexOpsMixin,
+    NumListLike,
+    ScalarArrayIndexSeriesComplex,
+    ScalarArrayIndexSeriesJustComplex,
+    ScalarArrayIndexSeriesJustFloat,
+    ScalarArrayIndexSeriesJustInt,
+    ScalarArrayIndexSeriesReal,
+    ScalarArrayIndexSeriesTimedelta,
+    SeriesComplex,
+    SeriesReal,
+    Supports_ProtoAdd,
+    Supports_ProtoFloorDiv,
+    Supports_ProtoMul,
+    Supports_ProtoRAdd,
+    Supports_ProtoRFloorDiv,
+    Supports_ProtoRMul,
+    Supports_ProtoRTrueDiv,
+    Supports_ProtoTrueDiv,
+)
 from pandas.core.frame import DataFrame
 from pandas.core.generic import NDFrame
 from pandas.core.groupby.generic import SeriesGroupBy
@@ -54,22 +112,141 @@ from pandas.core.indexes.interval import IntervalIndex
 from pandas.core.indexes.multi import MultiIndex
 from pandas.core.indexes.period import PeriodIndex
 from pandas.core.indexes.timedeltas import TimedeltaIndex
+
 # The classes are private in pandas implementation. We have to ignore the private usage in the stubs.
 from pandas.core.indexing import _AtIndexer  # pyright: ignore[reportPrivateUsage]
-from pandas.core.indexing import _iAtIndexer  # pyright: ignore[reportPrivateUsage]
-from pandas.core.indexing import _iLocIndexer  # pyright: ignore[reportPrivateUsage]
 from pandas.core.indexing import _IndexSliceTuple  # pyright: ignore[reportPrivateUsage]
 from pandas.core.indexing import _LocIndexer  # pyright: ignore[reportPrivateUsage]
+from pandas.core.indexing import _iAtIndexer  # pyright: ignore[reportPrivateUsage]
+from pandas.core.indexing import _iLocIndexer  # pyright: ignore[reportPrivateUsage]
 from pandas.core.strings.accessor import StringMethods
-from pandas.core.window import Expanding, ExponentialMovingWindow
-from pandas.core.window.rolling import Rolling, Window
-from pandas.plotting import PlotAccessor
-from pathlib import Path
-from typing import (
-	Any, ClassVar, Concatenate, final, Generic, Literal, Never, NoReturn, overload, Protocol, Self, type_check_only,
-	TypeAlias)
-import numpy as np
+from pandas.core.window import (
+    Expanding,
+    ExponentialMovingWindow,
+)
+from pandas.core.window.rolling import (
+    Rolling,
+    Window,
+)
 import xarray as xr
+
+from pandas._libs.interval import Interval
+from pandas._libs.lib import NoDefault
+from pandas._libs.missing import NAType
+from pandas._libs.tslibs import BaseOffset
+from pandas._libs.tslibs.nattype import NaTType
+from pandas._typing import (
+    S1,
+    S2,
+    S2_NSDT,
+    T_COMPLEX,
+    AggFuncTypeBase,
+    AggFuncTypeDictFrame,
+    AggFuncTypeSeriesToFrame,
+    AnyAll,
+    AnyArrayLike,
+    ArrayLike,
+    Axes,
+    AxesData,
+    Axis,
+    AxisColumn,
+    AxisIndex,
+    BooleanDtypeArg,
+    BytesDtypeArg,
+    CalculationMethod,
+    CategoryDtypeArg,
+    ComplexDtypeArg,
+    CompressionOptions,
+    DropKeep,
+    Dtype,
+    DTypeLike,
+    DtypeObj,
+    FilePath,
+    FillnaOptions,
+    FloatDtypeArg,
+    FloatFormatType,
+    Frequency,
+    GenericT,
+    GroupByObjectNonScalar,
+    HashableT1,
+    IgnoreRaise,
+    IndexingInt,
+    IndexKeyFunc,
+    IndexLabel,
+    IntDtypeArg,
+    InterpolateOptions,
+    IntervalClosedType,
+    IntervalT,
+    JoinHow,
+    JSONSerializable,
+    JsonSeriesOrient,
+    Just,
+    Label,
+    Level,
+    ListLike,
+    ListLikeU,
+    MaskType,
+    NaPosition,
+    NsmallestNlargestKeep,
+    NumpyStrDtypeArg,
+    ObjectDtypeArg,
+    PandasAstypeTimedeltaDtypeArg,
+    PandasAstypeTimestampDtypeArg,
+    PeriodFrequency,
+    QuantileInterpolation,
+    RandomState,
+    ReindexMethod,
+    Renamer,
+    ReplaceValue,
+    S2_contra,
+    S2_NDT_contra,
+    Scalar,
+    ScalarT,
+    SequenceNotStr,
+    SeriesByT,
+    SortKind,
+    StrDtypeArg,
+    StrLike,
+    Suffixes,
+    SupportsDType,
+    T as _T,
+    TimeAmbiguous,
+    TimedeltaDtypeArg,
+    TimestampDtypeArg,
+    TimeUnit,
+    TimeZones,
+    ToTimestampHow,
+    UIntDtypeArg,
+    ValueKeyFunc,
+    VoidDtypeArg,
+    WriteBuffer,
+    np_1darray,
+    np_1darray_anyint,
+    np_1darray_bool,
+    np_1darray_bytes,
+    np_1darray_complex,
+    np_1darray_dt,
+    np_1darray_float,
+    np_1darray_int64,
+    np_1darray_intp,
+    np_1darray_object,
+    np_1darray_str,
+    np_1darray_td,
+    np_ndarray,
+    np_ndarray_anyint,
+    np_ndarray_bool,
+    np_ndarray_complex,
+    np_ndarray_dt,
+    np_ndarray_float,
+    np_ndarray_num,
+    np_ndarray_str,
+    np_ndarray_td,
+)
+
+from pandas.core.dtypes.base import ExtensionDtype
+from pandas.core.dtypes.dtypes import CategoricalDtype
+
+from pandas.plotting import PlotAccessor
 
 MaskTypeNoList: TypeAlias = Series[bool] | np_ndarray_bool
 

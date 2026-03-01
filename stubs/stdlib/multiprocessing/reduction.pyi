@@ -1,3 +1,5 @@
+import pickle
+import sys
 from _pickle import _BufferCallback, _ReducedType
 from _typeshed import HasFileno, SupportsWrite, Unused
 from abc import ABCMeta
@@ -7,13 +9,11 @@ from copyreg import _DispatchTableType
 from multiprocessing import connection
 from socket import socket
 from typing import Any, Final
-import pickle
-import sys
 
 if sys.platform == "win32":
-    __all__ = ["DupHandle", "ForkingPickler", "dump", "duplicate", "recv_handle", "register", "send_handle", "steal_handle"]
+    __all__ = ["send_handle", "recv_handle", "ForkingPickler", "register", "dump", "DupHandle", "duplicate", "steal_handle"]
 else:
-    __all__ = ["DupFd", "ForkingPickler", "dump", "recv_handle", "recvfds", "register", "send_handle", "sendfds"]
+    __all__ = ["send_handle", "recv_handle", "ForkingPickler", "register", "dump", "DupFd", "sendfds", "recvfds"]
 
 HAVE_SEND_HANDLE: Final[bool]
 

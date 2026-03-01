@@ -1,9 +1,17 @@
 from multiprocessing import context, reduction as reducer
 from multiprocessing.context import (
-	AuthenticationError as AuthenticationError, BufferTooShort as BufferTooShort, Process as Process,
-	ProcessError as ProcessError, TimeoutError as TimeoutError)
+    AuthenticationError as AuthenticationError,
+    BufferTooShort as BufferTooShort,
+    Process as Process,
+    ProcessError as ProcessError,
+    TimeoutError as TimeoutError,
+)
 from multiprocessing.process import (
-	active_children as active_children, current_process as current_process, parent_process as parent_process)
+    active_children as active_children,
+    current_process as current_process,
+    parent_process as parent_process,
+)
+
 # These are technically functions that return instances of these Queue classes.
 # The stub here doesn't reflect reality exactly --
 # while e.g. `multiprocessing.queues.Queue` is a class,

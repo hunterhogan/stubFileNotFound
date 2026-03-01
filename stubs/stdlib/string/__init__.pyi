@@ -1,12 +1,11 @@
+import sys
 from _typeshed import StrOrLiteralStr
 from collections.abc import Iterable, Mapping, Sequence
 from re import Pattern, RegexFlag
-from typing import Any, ClassVar, Final, LiteralString, overload
-import sys
+from typing import Any, ClassVar, Final, overload
+from typing_extensions import LiteralString
 
 __all__ = [
-    "Formatter",
-    "Template",
     "ascii_letters",
     "ascii_lowercase",
     "ascii_uppercase",
@@ -17,6 +16,8 @@ __all__ = [
     "printable",
     "punctuation",
     "whitespace",
+    "Formatter",
+    "Template",
 ]
 
 whitespace: Final = " \t\n\r\v\f"

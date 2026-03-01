@@ -1,6 +1,6 @@
-from typing import ClassVar
 import _multibytecodec as mbc
 import codecs
+from typing import ClassVar
 
 codec: mbc._MultibyteCodec
 

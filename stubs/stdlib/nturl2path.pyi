@@ -1,5 +1,5 @@
-from typing_extensions import deprecated
 import sys
+from typing_extensions import deprecated
 
 if sys.version_info >= (3, 14):
     @deprecated("The `nturl2path` module is deprecated since Python 3.14.")

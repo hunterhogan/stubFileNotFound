@@ -1,16 +1,16 @@
-from _typeshed import ReadableBuffer, SizedBuffer, StrOrBytesPath, WriteableBuffer
-from io import FileIO, TextIOWrapper
-from typing import Final, Literal, overload, Protocol, type_check_only, TypeAlias
-from typing_extensions import deprecated
 import sys
 import zlib
+from _typeshed import ReadableBuffer, SizedBuffer, StrOrBytesPath, WriteableBuffer
+from io import FileIO, TextIOWrapper
+from typing import Final, Literal, Protocol, overload, type_check_only
+from typing_extensions import TypeAlias, deprecated
 
 if sys.version_info >= (3, 14):
     from compression._common._streams import BaseStream, DecompressReader
 else:
     from _compression import BaseStream, DecompressReader
 
-__all__ = ["BadGzipFile", "GzipFile", "compress", "decompress", "open"]
+__all__ = ["BadGzipFile", "GzipFile", "open", "compress", "decompress"]
 
 _ReadBinaryMode: TypeAlias = Literal["r", "rb"]
 _WriteBinaryMode: TypeAlias = Literal["a", "ab", "w", "wb", "x", "xb"]

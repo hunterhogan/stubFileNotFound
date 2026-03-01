@@ -1,6 +1,6 @@
+import sys
 from typing import Final, NamedTuple, type_check_only
 from typing_extensions import disjoint_base
-import sys
 
 if sys.platform != "win32":
     @type_check_only

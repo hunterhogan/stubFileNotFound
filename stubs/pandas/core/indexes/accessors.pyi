@@ -1,12 +1,18 @@
-from datetime import date, time, tzinfo as _tzinfo
-from pandas._libs.interval import Interval
-from pandas._libs.tslibs import BaseOffset
-from pandas._libs.tslibs.period import Period
-from pandas._libs.tslibs.timedeltas import Timedelta
-from pandas._libs.tslibs.timestamps import Timestamp
-from pandas._typing import (
-	Frequency, np_1darray_bool, np_1darray_object, PeriodFrequency, TimeAmbiguous, TimeNonexistent, TimestampConvention,
-	TimeUnit, TimeZones)
+from datetime import (
+    date,
+    time,
+    tzinfo as _tzinfo,
+)
+from typing import (
+    Any,
+    Generic,
+    Literal,
+    Never,
+    TypeVar,
+    overload,
+    type_check_only,
+)
+
 from pandas.core.accessor import PandasDelegate
 from pandas.core.arrays.base import ExtensionArray
 from pandas.core.arrays.categorical import Categorical
@@ -14,15 +20,35 @@ from pandas.core.arrays.datetimes import DatetimeArray
 from pandas.core.arrays.interval import IntervalArray
 from pandas.core.arrays.period import PeriodArray
 from pandas.core.arrays.timedeltas import TimedeltaArray
-from pandas.core.base import IndexOpsMixin, NoNewAttributesMixin
-from pandas.core.dtypes.dtypes import CategoricalDtype
+from pandas.core.base import (
+    IndexOpsMixin,
+    NoNewAttributesMixin,
+)
 from pandas.core.frame import DataFrame
 from pandas.core.indexes.base import Index
 from pandas.core.indexes.datetimes import DatetimeIndex
 from pandas.core.indexes.period import PeriodIndex
 from pandas.core.indexes.timedeltas import TimedeltaIndex
 from pandas.core.series import Series
-from typing import Any, Generic, Literal, Never, overload, type_check_only, TypeVar
+
+from pandas._libs.interval import Interval
+from pandas._libs.tslibs import BaseOffset
+from pandas._libs.tslibs.period import Period
+from pandas._libs.tslibs.timedeltas import Timedelta
+from pandas._libs.tslibs.timestamps import Timestamp
+from pandas._typing import (
+    Frequency,
+    PeriodFrequency,
+    TimeAmbiguous,
+    TimeNonexistent,
+    TimestampConvention,
+    TimeUnit,
+    TimeZones,
+    np_1darray_bool,
+    np_1darray_object,
+)
+
+from pandas.core.dtypes.dtypes import CategoricalDtype
 
 class Properties(PandasDelegate, NoNewAttributesMixin): ...
 

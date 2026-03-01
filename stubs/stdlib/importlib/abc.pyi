@@ -1,24 +1,24 @@
+import _ast
+import sys
+import types
 from _typeshed import ReadableBuffer, StrPath
 from abc import ABCMeta, abstractmethod
 from collections.abc import Iterator, Mapping, Sequence
 from importlib import _bootstrap_external
 from importlib.machinery import ModuleSpec
 from io import BufferedReader
-from typing import Any, IO, Literal, overload, Protocol, runtime_checkable
+from typing import IO, Any, Literal, Protocol, overload, runtime_checkable
 from typing_extensions import deprecated
-import _ast
-import sys
-import types
 
 if sys.version_info >= (3, 11):
     __all__ = [
-        "ExecutionLoader",
-        "FileLoader",
-        "InspectLoader",
         "Loader",
         "MetaPathFinder",
         "PathEntryFinder",
         "ResourceLoader",
+        "InspectLoader",
+        "ExecutionLoader",
+        "FileLoader",
         "SourceLoader",
     ]
 
@@ -181,4 +181,7 @@ if sys.version_info < (3, 11):
 
 elif sys.version_info < (3, 14):
     from importlib.resources.abc import (
-    	ResourceReader as ResourceReader, Traversable as Traversable, TraversableResources as TraversableResources)
+        ResourceReader as ResourceReader,
+        Traversable as Traversable,
+        TraversableResources as TraversableResources,
+    )

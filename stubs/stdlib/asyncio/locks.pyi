@@ -1,12 +1,14 @@
-from .events import AbstractEventLoop
-from .futures import Future
+import enum
+import sys
 from _typeshed import Unused
 from collections import deque
 from collections.abc import Callable
 from types import TracebackType
-from typing import Any, Literal, Self, TypeVar
-import enum
-import sys
+from typing import Any, Literal, TypeVar
+from typing_extensions import Self
+
+from .events import AbstractEventLoop
+from .futures import Future
 
 if sys.version_info >= (3, 10):
     from .mixins import _LoopBoundMixin
@@ -15,9 +17,9 @@ else:
 
 # Keep asyncio.__all__ updated with any changes to __all__ here
 if sys.version_info >= (3, 11):
-    __all__ = ("Barrier", "BoundedSemaphore", "Condition", "Event", "Lock", "Semaphore")
+    __all__ = ("Lock", "Event", "Condition", "Semaphore", "BoundedSemaphore", "Barrier")
 else:
-    __all__ = ("BoundedSemaphore", "Condition", "Event", "Lock", "Semaphore")
+    __all__ = ("Lock", "Event", "Condition", "Semaphore", "BoundedSemaphore")
 
 _T = TypeVar("_T")
 

@@ -1,10 +1,36 @@
-from collections.abc import Iterator, Sequence
-from pandas._typing import (
-	AnyArrayLikeInt, ArrayLike, AstypeArg, AxisInt, Dtype, ListLike, np_1darray, np_1darray_bool, np_1darray_intp,
-	np_ndarray, npt, Renamer, Scalar, ScalarIndexer, SequenceIndexer, TakeIndexer)
-from pandas.core.dtypes.dtypes import ExtensionDtype as ExtensionDtype
-from typing import Any, Literal, overload, Self
+from collections.abc import (
+    Iterator,
+    Sequence,
+)
+from typing import (
+    Any,
+    Literal,
+    Self,
+    overload,
+)
+
 import numpy as np
+
+from pandas._typing import (
+    AnyArrayLikeInt,
+    ArrayLike,
+    AstypeArg,
+    AxisInt,
+    Dtype,
+    ListLike,
+    Renamer,
+    Scalar,
+    ScalarIndexer,
+    SequenceIndexer,
+    TakeIndexer,
+    np_1darray,
+    np_1darray_bool,
+    np_1darray_intp,
+    np_ndarray,
+    npt,
+)
+
+from pandas.core.dtypes.dtypes import ExtensionDtype as ExtensionDtype
 
 class ExtensionArray:
     def __array_ufunc__(

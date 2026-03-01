@@ -1,5 +1,5 @@
-from typing import Final
 import sys
+from typing import Final
 
 # This module is only available on Windows
 if sys.platform == "win32":

@@ -1,14 +1,26 @@
 from collections.abc import Sequence
+from typing import Any
+
 from pandas import PeriodDtype
-from pandas._libs.tslibs.period import Period, PeriodMixin
-from pandas._typing import (
-	DtypeArg, np_1darray_bool, np_1darray_int64, np_1darray_object, np_ndarray_anyint, NpDtype, PeriodFrequency)
 from pandas.core.arrays.datetimelike import DatelikeOps
 from pandas.core.arrays.datetimes import DatetimeArray
 from pandas.core.indexes.period import PeriodIndex
 from pandas.core.series import Series
-from typing import Any
 import pyarrow as pa
+
+from pandas._libs.tslibs.period import (
+    Period,
+    PeriodMixin,
+)
+from pandas._typing import (
+    DtypeArg,
+    NpDtype,
+    PeriodFrequency,
+    np_1darray_bool,
+    np_1darray_int64,
+    np_1darray_object,
+    np_ndarray_anyint,
+)
 
 class PeriodArray(DatelikeOps, PeriodMixin):
     __array_priority__: int = ...

@@ -1,6 +1,6 @@
-from typing import NamedTuple, Self, type_check_only
-from typing_extensions import deprecated, disjoint_base
 import sys
+from typing import NamedTuple, type_check_only
+from typing_extensions import Self, deprecated, disjoint_base
 
 def libc_ver(executable: str | None = None, lib: str = "", version: str = "", chunksize: int = 16384) -> tuple[str, str]: ...
 def win32_ver(release: str = "", version: str = "", csd: str = "", ptype: str = "") -> tuple[str, str, str, str]: ...

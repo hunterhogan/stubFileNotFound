@@ -1,6 +1,7 @@
+from typing import ClassVar, Literal
+
 from .. import fixer_base
 from ..pytree import Leaf
-from typing import ClassVar, Literal
 
 class FixWsComma(fixer_base.BaseFix):
     BM_compatible: ClassVar[Literal[False]]

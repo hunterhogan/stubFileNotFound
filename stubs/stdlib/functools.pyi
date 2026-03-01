@@ -1,27 +1,26 @@
+import sys
+import types
 from _typeshed import SupportsAllComparisons, SupportsItems
 from collections.abc import Callable, Hashable, Iterable, Sized
 from types import GenericAlias
-from typing import (
-	Any, Final, final, Generic, Literal, NamedTuple, overload, Self, type_check_only, TypeAlias, TypedDict, TypeVar)
-from typing_extensions import disjoint_base, ParamSpec
-import sys
-import types
+from typing import Any, Final, Generic, Literal, NamedTuple, TypedDict, TypeVar, final, overload, type_check_only
+from typing_extensions import ParamSpec, Self, TypeAlias, disjoint_base
 
 __all__ = [
-    "WRAPPER_ASSIGNMENTS",
-    "WRAPPER_UPDATES",
-    "cache",
-    "cached_property",
-    "cmp_to_key",
-    "lru_cache",
-    "partial",
-    "partialmethod",
-    "reduce",
-    "singledispatch",
-    "singledispatchmethod",
-    "total_ordering",
     "update_wrapper",
     "wraps",
+    "WRAPPER_ASSIGNMENTS",
+    "WRAPPER_UPDATES",
+    "total_ordering",
+    "cmp_to_key",
+    "lru_cache",
+    "reduce",
+    "partial",
+    "partialmethod",
+    "singledispatch",
+    "cached_property",
+    "singledispatchmethod",
+    "cache",
 ]
 
 _T = TypeVar("_T")

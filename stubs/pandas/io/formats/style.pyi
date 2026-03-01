@@ -1,16 +1,56 @@
-from collections.abc import Callable, Hashable, MutableMapping, Sequence
+from collections.abc import (
+    Callable,
+    Hashable,
+    MutableMapping,
+    Sequence,
+)
+from typing import (
+    Any,
+    Concatenate,
+    Literal,
+    Protocol,
+    Self,
+    overload,
+)
+
 from matplotlib.colors import Colormap
 from openpyxl.workbook.workbook import Workbook as OpenXlWorkbook
-from pandas._typing import (
-	Axis, ExcelWriterMergeCells, FilePath, HashableT, HashableT1, HashableT2, IndexLabel, IntervalClosedType, Level,
-	np_ndarray, np_ndarray_str, P, QuantileInterpolation, Scalar, StorageOptions, T, WriteBuffer, WriteExcelBuffer)
 from pandas.core.frame import DataFrame
 from pandas.core.series import Series
+from xlsxwriter import (  # pyright: ignore[reportMissingTypeStubs]
+    Workbook as XlsxWorkbook,
+)
+
+from pandas._typing import (
+    Axis,
+    ExcelWriterMergeCells,
+    FilePath,
+    HashableT,
+    HashableT1,
+    HashableT2,
+    IndexLabel,
+    IntervalClosedType,
+    Level,
+    P,
+    QuantileInterpolation,
+    Scalar,
+    StorageOptions,
+    T,
+    WriteBuffer,
+    WriteExcelBuffer,
+    np_ndarray,
+    np_ndarray_str,
+)
+
 from pandas.io.excel import ExcelWriter
 from pandas.io.formats.style_render import (
-	CSSProperties, CSSStyles, ExtFormatter, StyleExportDict, StylerRenderer, Subset)
-from typing import Any, Concatenate, Literal, overload, Protocol, Self
-from xlsxwriter import Workbook as XlsxWorkbook  # pyright: ignore[reportMissingTypeStubs]
+    CSSProperties,
+    CSSStyles,
+    ExtFormatter,
+    StyleExportDict,
+    StylerRenderer,
+    Subset,
+)
 
 class _SeriesFunc(Protocol):
     def __call__(

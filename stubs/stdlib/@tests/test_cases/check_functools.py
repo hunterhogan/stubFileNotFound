@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-from collections.abc import Callable
 from functools import cache, cached_property, wraps
-from typing import assert_type, TypeVar
-from typing_extensions import ParamSpec
+from typing import Callable, TypeVar
+from typing_extensions import ParamSpec, assert_type
 
 P = ParamSpec("P")
 T_co = TypeVar("T_co", covariant=True)

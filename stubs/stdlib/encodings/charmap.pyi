@@ -1,6 +1,6 @@
+import codecs
 from _codecs import _CharMap
 from _typeshed import ReadableBuffer
-import codecs
 
 class Codec(codecs.Codec):
     # At runtime, this is codecs.charmap_encode

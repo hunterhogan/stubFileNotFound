@@ -1,8 +1,13 @@
 from collections.abc import Sequence
-from pandas._libs.tslibs import BaseOffset
-from pandas._typing import np_1darray_intp, np_ndarray_intp
-from pandas.core.indexes.datetimes import DatetimeIndex
 from typing import Any
+
+from pandas.core.indexes.datetimes import DatetimeIndex
+
+from pandas._libs.tslibs import BaseOffset
+from pandas._typing import (
+    np_1darray_intp,
+    np_ndarray_intp,
+)
 
 class BaseIndexer:
     def __init__(

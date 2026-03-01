@@ -1,5 +1,6 @@
-from .. import fixer_base
 from typing import ClassVar, Literal
+
+from .. import fixer_base
 
 class FixZip(fixer_base.ConditionalFix):
     BM_compatible: ClassVar[Literal[True]]

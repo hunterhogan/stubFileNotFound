@@ -1,7 +1,7 @@
+import sys
 from _typeshed import StrOrBytesPath
 from collections.abc import Callable, Sequence
 from typing import SupportsIndex
-import sys
 
 if sys.platform != "win32":
     if sys.version_info >= (3, 14):

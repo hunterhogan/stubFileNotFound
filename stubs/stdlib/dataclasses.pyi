@@ -1,29 +1,29 @@
+import enum
+import sys
+import types
 from _typeshed import DataclassInstance
 from builtins import type as Type  # alias to avoid name clashes with fields named "type"
 from collections.abc import Callable, Iterable, Mapping
 from types import GenericAlias
-from typing import Any, Final, Generic, Literal, Never, overload, Protocol, type_check_only, TypeVar
-from typing_extensions import TypeIs
-import enum
-import sys
-import types
+from typing import Any, Final, Generic, Literal, Protocol, TypeVar, overload, type_check_only
+from typing_extensions import Never, TypeIs
 
 _T = TypeVar("_T")
 _T_co = TypeVar("_T_co", covariant=True)
 
 __all__ = [
-    "MISSING",
+    "dataclass",
+    "field",
     "Field",
     "FrozenInstanceError",
     "InitVar",
+    "MISSING",
+    "fields",
     "asdict",
     "astuple",
-    "dataclass",
-    "field",
-    "fields",
-    "is_dataclass",
     "make_dataclass",
     "replace",
+    "is_dataclass",
 ]
 
 if sys.version_info >= (3, 10):
@@ -172,35 +172,35 @@ class _DefaultFactory(Protocol[_T_co]):
 class Field(Generic[_T]):
     if sys.version_info >= (3, 14):
         __slots__ = (
-            "_field_type",
-            "compare",
+            "name",
+            "type",
             "default",
             "default_factory",
-            "doc",
+            "repr",
             "hash",
             "init",
-            "kw_only",
+            "compare",
             "metadata",
-            "name",
-            "repr",
-            "type",
+            "kw_only",
+            "doc",
+            "_field_type",
         )
     elif sys.version_info >= (3, 10):
         __slots__ = (
-            "_field_type",
-            "compare",
+            "name",
+            "type",
             "default",
             "default_factory",
+            "repr",
             "hash",
             "init",
-            "kw_only",
+            "compare",
             "metadata",
-            "name",
-            "repr",
-            "type",
+            "kw_only",
+            "_field_type",
         )
     else:
-        __slots__ = ("_field_type", "compare", "default", "default_factory", "hash", "init", "metadata", "name", "repr", "type")
+        __slots__ = ("name", "type", "default", "default_factory", "repr", "hash", "init", "compare", "metadata", "_field_type")
     name: str
     type: Type[_T] | str | Any
     default: _T | Literal[_MISSING_TYPE.MISSING]

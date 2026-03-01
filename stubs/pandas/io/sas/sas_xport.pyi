@@ -1,5 +1,6 @@
-from pandas.io.sas.sasreader import ReaderBase
 import pandas as pd
+
+from pandas.io.sas.sasreader import ReaderBase
 
 class XportReader(ReaderBase):
     def close(self) -> None: ...

@@ -1,5 +1,6 @@
-from .. import fixer_base
 from typing import ClassVar, Final, Literal
+
+from .. import fixer_base
 
 MAP: Final[dict[str, str]]
 

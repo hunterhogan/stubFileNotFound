@@ -1,7 +1,8 @@
+import sys
 from _typeshed import ReadOnlyBuffer, StrOrBytesPath
 from types import TracebackType
-from typing import Final, final, overload, Self, type_check_only, TypeAlias, TypeVar
-import sys
+from typing import Final, TypeVar, final, overload, type_check_only
+from typing_extensions import Self, TypeAlias
 
 if sys.platform != "win32":
     _T = TypeVar("_T")

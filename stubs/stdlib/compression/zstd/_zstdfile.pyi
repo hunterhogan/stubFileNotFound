@@ -1,10 +1,12 @@
 from _typeshed import ReadableBuffer, StrOrBytesPath, SupportsWrite, WriteableBuffer
-from _zstd import _ZstdCompressorFlushBlock, _ZstdCompressorFlushFrame, ZstdCompressor
 from collections.abc import Mapping
 from compression._common import _streams
 from compression.zstd import ZstdDict
-from io import _WrappedBuffer, TextIOWrapper
-from typing import Literal, overload, Protocol, type_check_only, TypeAlias
+from io import TextIOWrapper, _WrappedBuffer
+from typing import Literal, Protocol, overload, type_check_only
+from typing_extensions import TypeAlias
+
+from _zstd import ZstdCompressor, _ZstdCompressorFlushBlock, _ZstdCompressorFlushFrame
 
 __all__ = ("ZstdFile", "open")
 

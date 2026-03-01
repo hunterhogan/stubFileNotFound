@@ -1,9 +1,9 @@
-from _typeshed import SupportsWrite
-from collections.abc import Iterable
-from typing import Any, Final, Literal, Self, type_check_only, TypeAlias
-from typing_extensions import disjoint_base
 import csv
 import sys
+from _typeshed import SupportsWrite
+from collections.abc import Iterable
+from typing import Any, Final, Literal, type_check_only
+from typing_extensions import Self, TypeAlias, disjoint_base
 
 __version__: Final[str]
 

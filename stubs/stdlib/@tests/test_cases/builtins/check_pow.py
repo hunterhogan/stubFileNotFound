@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+import sys
 from decimal import Decimal
 from fractions import Fraction
-from typing import Any, assert_type, Literal
-import sys
+from typing import Any, Literal
+from typing_extensions import assert_type
 
 # See #7163
 assert_type(pow(1, 0), Literal[1])

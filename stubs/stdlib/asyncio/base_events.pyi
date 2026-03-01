@@ -1,19 +1,18 @@
+import ssl
+import sys
 from _typeshed import FileDescriptorLike, ReadableBuffer, WriteableBuffer
 from asyncio import _AwaitableLike, _CoroutineLike
-from asyncio.events import _TaskFactory, AbstractEventLoop, AbstractServer, Handle, TimerHandle
+from asyncio.events import AbstractEventLoop, AbstractServer, Handle, TimerHandle, _TaskFactory
 from asyncio.futures import Future
 from asyncio.protocols import BaseProtocol
 from asyncio.tasks import Task
-from asyncio.transports import (
-	BaseTransport, DatagramTransport, ReadTransport, SubprocessTransport, Transport, WriteTransport)
+from asyncio.transports import BaseTransport, DatagramTransport, ReadTransport, SubprocessTransport, Transport, WriteTransport
 from collections.abc import Callable, Iterable, Sequence
 from concurrent.futures import Executor, ThreadPoolExecutor
 from contextvars import Context
-from socket import _Address, _RetAddress, AddressFamily, AddressInfo, socket, SocketKind
-from typing import Any, IO, Literal, overload, TypeAlias, TypeVar
-from typing_extensions import TypeVarTuple, Unpack
-import ssl
-import sys
+from socket import AddressFamily, AddressInfo, SocketKind, _Address, _RetAddress, socket
+from typing import IO, Any, Literal, TypeVar, overload
+from typing_extensions import TypeAlias, TypeVarTuple, Unpack
 
 # Keep asyncio.__all__ updated with any changes to __all__ here
 __all__ = ("BaseEventLoop", "Server")
@@ -284,8 +283,8 @@ class BaseEventLoop(AbstractEventLoop):
             host: str | Sequence[str] | None = None,
             port: int = ...,
             *,
-            family: int = ...,
-            flags: int = ...,
+            family: int = AddressFamily.AF_UNSPEC,
+            flags: int = AddressInfo.AI_PASSIVE,
             sock: None = None,
             backlog: int = 100,
             ssl: _SSLContext = None,
@@ -302,8 +301,8 @@ class BaseEventLoop(AbstractEventLoop):
             host: None = None,
             port: None = None,
             *,
-            family: int = ...,
-            flags: int = ...,
+            family: int = AddressFamily.AF_UNSPEC,
+            flags: int = AddressInfo.AI_PASSIVE,
             sock: socket = ...,
             backlog: int = 100,
             ssl: _SSLContext = None,
@@ -321,8 +320,8 @@ class BaseEventLoop(AbstractEventLoop):
             host: str | Sequence[str] | None = None,
             port: int = ...,
             *,
-            family: int = ...,
-            flags: int = ...,
+            family: int = AddressFamily.AF_UNSPEC,
+            flags: int = AddressInfo.AI_PASSIVE,
             sock: None = None,
             backlog: int = 100,
             ssl: _SSLContext = None,
@@ -338,8 +337,8 @@ class BaseEventLoop(AbstractEventLoop):
             host: None = None,
             port: None = None,
             *,
-            family: int = ...,
-            flags: int = ...,
+            family: int = AddressFamily.AF_UNSPEC,
+            flags: int = AddressInfo.AI_PASSIVE,
             sock: socket = ...,
             backlog: int = 100,
             ssl: _SSLContext = None,

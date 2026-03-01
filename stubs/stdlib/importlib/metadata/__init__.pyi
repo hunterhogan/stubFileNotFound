@@ -1,3 +1,7 @@
+import abc
+import pathlib
+import sys
+import types
 from _collections_abc import dict_keys, dict_values
 from _typeshed import StrPath
 from collections.abc import Iterable, Iterator, Mapping
@@ -6,12 +10,8 @@ from importlib.abc import MetaPathFinder
 from os import PathLike
 from pathlib import Path
 from re import Pattern
-from typing import Any, ClassVar, Generic, NamedTuple, overload, Self, TypeAlias, TypeVar
-from typing_extensions import deprecated, disjoint_base
-import abc
-import pathlib
-import sys
-import types
+from typing import Any, ClassVar, Generic, NamedTuple, TypeVar, overload
+from typing_extensions import Self, TypeAlias, deprecated, disjoint_base
 
 _T = TypeVar("_T")
 _KT = TypeVar("_KT")

@@ -1,6 +1,6 @@
 from _typeshed import StrPath
 from collections.abc import Callable
-from typing import Any, BinaryIO, overload, Protocol, type_check_only
+from typing import Any, BinaryIO, Protocol, overload, type_check_only
 
 __all__ = ["what"]
 

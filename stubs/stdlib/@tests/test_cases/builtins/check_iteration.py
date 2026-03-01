@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from collections.abc import Iterator
-from typing import assert_type
+from typing import Iterator
+from typing_extensions import assert_type
+
 
 class OldStyleIter:
     def __getitem__(self, index: int) -> str:

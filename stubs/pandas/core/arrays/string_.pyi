@@ -1,11 +1,27 @@
-from pandas._libs.missing import NAType
-from pandas._typing import DtypeArg, np_ndarray_object
+from typing import (
+    Any,
+    Generic,
+    Literal,
+    Self,
+    TypeAlias,
+    overload,
+    type_check_only,
+)
+
 from pandas.core.arrays.base import ExtensionArray
 from pandas.core.arrays.numpy_ import NumpyExtensionArray
-from pandas.core.dtypes.base import ExtensionDtype
-from typing import Any, Generic, Literal, overload, Self, type_check_only, TypeAlias
-from typing_extensions import TypeVar
 import pyarrow as pa
+from typing_extensions import (
+    TypeVar,
+)
+
+from pandas._libs.missing import NAType
+from pandas._typing import (
+    DtypeArg,
+    np_ndarray_object,
+)
+
+from pandas.core.dtypes.base import ExtensionDtype
 
 Storage: TypeAlias = Literal["python", "pyarrow"]
 StorageT = TypeVar("StorageT", bound=Storage)

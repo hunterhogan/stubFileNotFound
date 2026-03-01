@@ -1,10 +1,21 @@
-from collections.abc import Hashable, Iterable
-from pandas._typing import Dtype, ListLike, np_1darray_intp, S1
+from collections.abc import (
+    Hashable,
+    Iterable,
+)
+from typing import Self
+
 from pandas.core.accessor import PandasDelegate
 from pandas.core.arrays.categorical import Categorical
 from pandas.core.indexes.base import Index
 from pandas.core.indexes.extension import ExtensionIndex
-from typing import Any, Self
+
+from pandas._typing import (
+    S1,
+    Dtype,
+    ListLike,
+    np_1darray_intp,
+)
+from typing import Any
 
 class CategoricalIndex(ExtensionIndex[S1], PandasDelegate):
     codes: np_1darray_intp = ...

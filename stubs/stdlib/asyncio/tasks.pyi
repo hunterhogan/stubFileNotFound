@@ -1,13 +1,19 @@
+import concurrent.futures
+import sys
+from _asyncio import (
+    Task as Task,
+    _enter_task as _enter_task,
+    _leave_task as _leave_task,
+    _register_task as _register_task,
+    _unregister_task as _unregister_task,
+)
+from collections.abc import AsyncIterator, Awaitable, Coroutine, Generator, Iterable, Iterator
+from typing import Any, Final, Literal, Protocol, TypeVar, overload, type_check_only
+from typing_extensions import TypeAlias
+
 from . import _CoroutineLike
 from .events import AbstractEventLoop
 from .futures import Future
-from _asyncio import (
-	_enter_task as _enter_task, _leave_task as _leave_task, _register_task as _register_task,
-	_unregister_task as _unregister_task, Task as Task)
-from collections.abc import AsyncIterator, Awaitable, Coroutine, Generator, Iterable, Iterator
-from typing import Any, Final, Literal, overload, Protocol, type_check_only, TypeAlias, TypeVar
-import concurrent.futures
-import sys
 
 if sys.version_info >= (3, 11):
     from contextvars import Context
@@ -15,49 +21,49 @@ if sys.version_info >= (3, 11):
 # Keep asyncio.__all__ updated with any changes to __all__ here
 if sys.version_info >= (3, 12):
     __all__ = (
-        "ALL_COMPLETED",
+        "Task",
+        "create_task",
         "FIRST_COMPLETED",
         "FIRST_EXCEPTION",
-        "Task",
-        "_enter_task",
-        "_leave_task",
-        "_register_task",
-        "_unregister_task",
-        "all_tasks",
-        "as_completed",
-        "create_eager_task_factory",
-        "create_task",
-        "current_task",
-        "eager_task_factory",
-        "ensure_future",
-        "gather",
-        "run_coroutine_threadsafe",
-        "shield",
-        "sleep",
+        "ALL_COMPLETED",
         "wait",
         "wait_for",
+        "as_completed",
+        "sleep",
+        "gather",
+        "shield",
+        "ensure_future",
+        "run_coroutine_threadsafe",
+        "current_task",
+        "all_tasks",
+        "create_eager_task_factory",
+        "eager_task_factory",
+        "_register_task",
+        "_unregister_task",
+        "_enter_task",
+        "_leave_task",
     )
 else:
     __all__ = (
-        "ALL_COMPLETED",
+        "Task",
+        "create_task",
         "FIRST_COMPLETED",
         "FIRST_EXCEPTION",
-        "Task",
-        "_enter_task",
-        "_leave_task",
-        "_register_task",
-        "_unregister_task",
-        "all_tasks",
-        "as_completed",
-        "create_task",
-        "current_task",
-        "ensure_future",
-        "gather",
-        "run_coroutine_threadsafe",
-        "shield",
-        "sleep",
+        "ALL_COMPLETED",
         "wait",
         "wait_for",
+        "as_completed",
+        "sleep",
+        "gather",
+        "shield",
+        "ensure_future",
+        "run_coroutine_threadsafe",
+        "current_task",
+        "all_tasks",
+        "_register_task",
+        "_unregister_task",
+        "_enter_task",
+        "_leave_task",
     )
 
 _T = TypeVar("_T")

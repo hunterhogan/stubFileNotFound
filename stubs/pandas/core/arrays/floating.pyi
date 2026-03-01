@@ -1,5 +1,12 @@
-from pandas._typing import np_ndarray_bool, np_ndarray_float
-from pandas.core.arrays.numeric import NumericArray, NumericDtype
+from pandas.core.arrays.numeric import (
+    NumericArray,
+    NumericDtype,
+)
+
+from pandas._typing import (
+    np_ndarray_bool,
+    np_ndarray_float,
+)
 
 class FloatingDtype(NumericDtype):
     @classmethod

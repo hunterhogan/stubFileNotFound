@@ -1,9 +1,11 @@
 from __future__ import annotations
 
-from collections.abc import Callable, Iterator
-from concurrent.futures import as_completed, Future, ThreadPoolExecutor
-from typing import assert_type, Literal
 import sys
+from collections.abc import Callable, Iterator
+from concurrent.futures import Future, ThreadPoolExecutor, as_completed
+from typing import Literal
+from typing_extensions import assert_type
+
 
 class Parent: ...
 
@@ -36,8 +38,8 @@ if sys.version_info >= (3, 14):
         pass
 
     def check_interpreter_pool_executor() -> None:
-        from concurrent.futures import InterpreterPoolExecutor
         import concurrent.futures.interpreter
+        from concurrent.futures import InterpreterPoolExecutor
 
         with InterpreterPoolExecutor(initializer=_initializer, initargs=(1,)):
             ...

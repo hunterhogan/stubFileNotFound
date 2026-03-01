@@ -1,56 +1,67 @@
+import sys
 from _typeshed import AnyOrLiteralStr, BytesPath, FileDescriptorOrPath, StrOrBytesPath, StrPath
 from collections.abc import Iterable
 from genericpath import (
-	_AllowMissingType, ALLOW_MISSING as ALLOW_MISSING, commonprefix as commonprefix, exists as exists,
-	getatime as getatime, getctime as getctime, getmtime as getmtime, getsize as getsize, isdir as isdir, isfile as isfile,
-	samefile as samefile, sameopenfile as sameopenfile, samestat as samestat)
-import sys
+    ALLOW_MISSING as ALLOW_MISSING,
+    _AllowMissingType,
+    commonprefix as commonprefix,
+    exists as exists,
+    getatime as getatime,
+    getctime as getctime,
+    getmtime as getmtime,
+    getsize as getsize,
+    isdir as isdir,
+    isfile as isfile,
+    samefile as samefile,
+    sameopenfile as sameopenfile,
+    samestat as samestat,
+)
 
 if sys.version_info >= (3, 13):
     from genericpath import isdevdrive as isdevdrive
-
 from os import PathLike
-from typing import AnyStr, LiteralString, overload
+from typing import AnyStr, overload
+from typing_extensions import LiteralString
 
 __all__ = [
-    "abspath",
-    "altsep",
+    "normcase",
+    "isabs",
+    "join",
+    "splitdrive",
+    "split",
+    "splitext",
     "basename",
-    "commonpath",
-    "commonprefix",
-    "curdir",
-    "defpath",
-    "devnull",
     "dirname",
-    "exists",
-    "expanduser",
-    "expandvars",
-    "extsep",
+    "commonprefix",
+    "getsize",
+    "getmtime",
     "getatime",
     "getctime",
-    "getmtime",
-    "getsize",
-    "isabs",
+    "islink",
+    "exists",
+    "lexists",
     "isdir",
     "isfile",
-    "islink",
     "ismount",
-    "join",
-    "lexists",
-    "normcase",
+    "expanduser",
+    "expandvars",
     "normpath",
-    "pardir",
-    "pathsep",
-    "realpath",
-    "relpath",
+    "abspath",
     "samefile",
     "sameopenfile",
     "samestat",
+    "curdir",
+    "pardir",
     "sep",
-    "split",
-    "splitdrive",
-    "splitext",
+    "pathsep",
+    "defpath",
+    "altsep",
+    "extsep",
+    "devnull",
+    "realpath",
     "supports_unicode_filenames",
+    "relpath",
+    "commonpath",
 ]
 __all__ += ["ALLOW_MISSING"]
 if sys.version_info >= (3, 12):

@@ -1,17 +1,50 @@
-from collections.abc import Hashable, Sequence
-from pandas import Index
-from pandas._libs.interval import Interval as Interval, IntervalMixin
-from pandas._libs.tslibs.timedeltas import Timedelta
-from pandas._stubs_only import OrderableScalarT, OrderableT, OrderableTimesT
-from pandas._typing import (
-	DatetimeLike, DtypeArg, Frequency, IntervalClosedType, IntervalT, Label, MaskType, np_1darray_bool, np_ndarray_anyint,
-	np_ndarray_bool, np_ndarray_dt, np_ndarray_int64, np_ndarray_intp, np_ndarray_td, npt)
-from pandas.core.dtypes.dtypes import IntervalDtype as IntervalDtype
-from pandas.core.indexes.extension import ExtensionIndex
-from typing import Any, Literal, overload, type_check_only, TypeAlias
+from collections.abc import (
+    Hashable,
+    Sequence,
+)
 import datetime as dt
+from typing import (
+    Literal,
+    TypeAlias,
+    overload,
+    type_check_only,
+)
+
 import numpy as np
 import pandas as pd
+from pandas import Index
+from pandas._stubs_only import (
+    OrderableScalarT,
+    OrderableT,
+    OrderableTimesT,
+)
+from pandas.core.indexes.extension import ExtensionIndex
+
+from pandas._libs.interval import (
+    Interval as Interval,
+    IntervalMixin,
+)
+from pandas._libs.tslibs.timedeltas import Timedelta
+from pandas._typing import (
+    DatetimeLike,
+    DtypeArg,
+    Frequency,
+    IntervalClosedType,
+    IntervalT,
+    Label,
+    MaskType,
+    np_1darray_bool,
+    np_ndarray_anyint,
+    np_ndarray_bool,
+    np_ndarray_dt,
+    np_ndarray_int64,
+    np_ndarray_intp,
+    np_ndarray_td,
+    npt,
+)
+
+from pandas.core.dtypes.dtypes import IntervalDtype as IntervalDtype
+from typing import Any
 
 _EdgesInt: TypeAlias = (
     Sequence[int]

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import sys
 
+
 class _CustomPathLike:
     def __fspath__(self) -> str:
         return ""
