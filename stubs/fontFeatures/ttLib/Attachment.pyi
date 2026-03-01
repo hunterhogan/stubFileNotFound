@@ -1,7 +1,0 @@
-
-"""ttLib.Attachment: Converting Attachment rules to TrueType."""
-def lookup_type(self): # -> Literal[3, 6, 4]:
-    """Mixin to determine the GPOS lookup type of a fontFeatures.Attachment object
-
-    Returns: integer GPOS lookup type.
-    """

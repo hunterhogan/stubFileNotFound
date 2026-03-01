@@ -1,9 +1,0 @@
-
-def parse_arguments(args=...): # -> dict[str, Any]:
-    ...
-
-def main(args=...): # -> Literal[1] | None:
-    ...
-
-if __name__ == "__main__":
-    ...

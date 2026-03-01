@@ -1,3 +1,0 @@
-
-def compress(data, *args, **kwargs):
-    ...

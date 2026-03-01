@@ -1,6 +1,0 @@
-
-def put_languages(self, root): # -> None:
-    ...
-
-def put_address(self, root): # -> None:
-    ...

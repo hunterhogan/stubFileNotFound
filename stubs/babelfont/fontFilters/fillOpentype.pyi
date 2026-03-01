@@ -1,8 +1,0 @@
-
-from babelfont.Font import Font
-
-logger = ...
-def fill_opentype_values(font: Font, args=...): # -> None:
-    """Prepare a font for final compilation by moving values from
-    font attributes to the customOpenTypeValues field.
-    """

@@ -1,6 +1,0 @@
-
-from babelfont import Font
-
-logger = ...
-def bake_in_glyphdata(font: Font, args=...): # -> None:
-    ...

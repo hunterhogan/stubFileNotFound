@@ -1,9 +1,0 @@
-
-from babelfont.Font import Font
-
-logger = ...
-def zero_background_width(font: Font, args=...): # -> None:
-    ...
-
-def decompose_backgrounds(font: Font, args=...): # -> None:
-    ...

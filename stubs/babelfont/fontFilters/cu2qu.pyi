@@ -1,6 +1,0 @@
-
-from babelfont.Font import Font
-
-logger = ...
-def cubic_to_quadratic(font: Font, args: dict = ...): # -> None:
-    ...

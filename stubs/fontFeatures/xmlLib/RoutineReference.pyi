@@ -1,8 +1,0 @@
-
-"""Routines for converting RoutineReference objects to and from XML."""
-def toXML(self): # -> _Element:
-    """Serializes a RoutineReference to a lxml Element object."""
-
-@classmethod
-def fromXML(klass, el):
-    """Creates a RoutineReference from a lxml Element object."""

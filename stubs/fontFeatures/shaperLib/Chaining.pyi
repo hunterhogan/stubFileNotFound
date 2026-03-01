@@ -1,3 +1,0 @@
-
-def shaper_inputs(self):
-    ...

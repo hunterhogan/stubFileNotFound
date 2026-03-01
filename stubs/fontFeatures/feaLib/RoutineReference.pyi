@@ -1,7 +1,0 @@
-
-"""Routines for converting RoutineReference objects to and from Adobe FEA."""
-def feaPreamble(self, ff): # -> list[Any]:
-    ...
-
-def asFeaAST(self, expand=...): # -> Block:
-    ...

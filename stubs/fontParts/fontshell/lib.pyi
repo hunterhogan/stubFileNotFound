@@ -1,6 +1,0 @@
-
-from fontParts.base import BaseLib
-from fontParts.fontshell.base import RBaseObject
-
-class RLib(RBaseObject, BaseLib):
-    wrapClass = ...

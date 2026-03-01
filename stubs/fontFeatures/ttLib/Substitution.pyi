@@ -1,7 +1,0 @@
-
-"""ttLib.Substitution: Converting Substitution rules to TrueType."""
-def lookup_type(self, forFea=...): # -> Literal[8, 2, 6, 3, 1, 4, 9] | None:
-    """Mixin to determine the GSUB lookup type of a fontFeatures.Substitution object
-
-    Returns: integer GSUB lookup type.
-    """

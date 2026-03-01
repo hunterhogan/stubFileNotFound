@@ -1,6 +1,0 @@
-
-def glyphref(g): # -> GlyphName | GlyphClass:
-    ...
-
-def asFeaAST(self): # -> SinglePosStatement | PairPosStatement:
-    ...

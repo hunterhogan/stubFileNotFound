@@ -1,9 +1,0 @@
-
-from babelfont.Font import Font
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    ...
-logger = ...
-def propagate_anchors(font: Font, args=...): # -> None:
-    ...

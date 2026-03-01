@@ -1,6 +1,0 @@
-
-def main(args=...): # -> None:
-    """Compress OpenType Font's CFF or CFF2 table by computing subroutines."""
-
-if __name__ == "__main__":
-    ...
