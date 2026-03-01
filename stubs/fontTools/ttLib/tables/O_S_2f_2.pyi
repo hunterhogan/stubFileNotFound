@@ -1,11 +1,16 @@
 from _typeshed import Incomplete
-from fontTools.misc import sstruct as sstruct
-from fontTools.misc.roundTools import otRound as otRound
-from fontTools.misc.textTools import binary2num as binary2num, num2binary as num2binary, safeEval as safeEval
 from fontTools.ttLib import TTFont as TTFont
 from fontTools.ttLib.tables import DefaultTable as DefaultTable
 
+bigendian: str
 log: Incomplete
+OS2_format_0: str
+OS2_format_1_addition: str
+OS2_format_1: Incomplete
+OS2_format_2_addition: Incomplete
+OS2_format_2: Incomplete
+OS2_format_5_addition: Incomplete
+OS2_format_5: Incomplete
 panoseFormat: str
 
 class Panose:
@@ -13,17 +18,8 @@ class Panose:
 	def toXML(self, writer, ttFont: TTFont) -> None: ...
 	def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
 
-OS2_format_0: str
-OS2_format_1_addition: str
-OS2_format_2_addition: Incomplete
-OS2_format_5_addition: Incomplete
-bigendian: str
-OS2_format_1: Incomplete
-OS2_format_2: Incomplete
-OS2_format_5: Incomplete
-
 class table_O_S_2f_2(DefaultTable.DefaultTable):
-	"""OS/2 and Windows Metrics table
+	"""OS/2 and Windows Metrics table.
 
 	The ``OS/2`` table contains a variety of font-wide metrics and
 	parameters that may be useful to an operating system or other
@@ -35,18 +31,19 @@ class table_O_S_2f_2(DefaultTable.DefaultTable):
 	achVendID: str
 	dependencies: Incomplete
 	panose: Incomplete
-	def decompile(self, data, ttFont: TTFont) -> None: ...
-	def compile(self, ttFont: TTFont): ...
-	def toXML(self, writer, ttFont: TTFont) -> None: ...
-	def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
 	usFirstCharIndex: Incomplete
 	usLastCharIndex: Incomplete
-	def updateFirstAndLastCharIndex(self, ttFont: TTFont) -> None: ...
-	@property
-	def usMaxContex(self): ...
 	usMaxContext: Incomplete
-	@usMaxContex.setter
-	def usMaxContex(self, value) -> None: ...
+	version: int
+	xAvgCharWidth: Incomplete
+
+	def compile(self, ttFont: TTFont): ...
+	def decompile(self, data, ttFont: TTFont) -> None: ...
+	def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
+	def getUnicodeRanges(self):
+		"""Return the set of 'ulUnicodeRange*' bits currently enabled."""
+	def getCodePageRanges(self):
+		"""Return the set of 'ulCodePageRange*' bits currently enabled."""
 	@property
 	def fsFirstCharIndex(self): ...
 	@fsFirstCharIndex.setter
@@ -55,10 +52,12 @@ class table_O_S_2f_2(DefaultTable.DefaultTable):
 	def fsLastCharIndex(self): ...
 	@fsLastCharIndex.setter
 	def fsLastCharIndex(self, value) -> None: ...
-	def getUnicodeRanges(self):
-		"""Return the set of 'ulUnicodeRange*' bits currently enabled."""
-	def setUnicodeRanges(self, bits) -> None:
-		"""Set the 'ulUnicodeRange*' fields to the specified 'bits'."""
+	def recalcAvgCharWidth(self, ttFont: TTFont) -> None:
+		"""Recalculate xAvgCharWidth using metrics from ttFont's 'hmtx' table.
+
+		Set it to 0 if the unlikely event 'hmtx' table is not found.
+		"""
+	def recalcCodePageRanges(self, ttFont: TTFont, pruneOnly: bool = False) -> None: ...
 	def recalcUnicodeRanges(self, ttFont: TTFont, pruneOnly: bool = False) -> None:
 		"""Intersect the codepoints in the font's Unicode cmap subtables with
 		the Unicode block ranges defined in the OpenType specification (v1.7),
@@ -66,20 +65,16 @@ class table_O_S_2f_2(DefaultTable.DefaultTable):
 		intersection.
 		If 'pruneOnly' is True, only clear unused bits with NO intersection.
 		"""
-	def getCodePageRanges(self):
-		"""Return the set of 'ulCodePageRange*' bits currently enabled."""
-	version: int
 	def setCodePageRanges(self, bits) -> None:
 		"""Set the 'ulCodePageRange*' fields to the specified 'bits'."""
-	def recalcCodePageRanges(self, ttFont: TTFont, pruneOnly: bool = False) -> None: ...
-	xAvgCharWidth: Incomplete
-	def recalcAvgCharWidth(self, ttFont: TTFont) -> None:
-		"""Recalculate xAvgCharWidth using metrics from ttFont's 'hmtx' table.
-
-		Set it to 0 if the unlikely event 'hmtx' table is not found.
-		"""
-
-OS2_UNICODE_RANGES: Incomplete
+	def setUnicodeRanges(self, bits) -> None:
+		"""Set the 'ulUnicodeRange*' fields to the specified 'bits'."""
+	def toXML(self, writer, ttFont: TTFont) -> None: ...
+	def updateFirstAndLastCharIndex(self, ttFont: TTFont) -> None: ...
+	@property
+	def usMaxContex(self): ...
+	@usMaxContex.setter
+	def usMaxContex(self, value) -> None: ...
 
 def intersectUnicodeRanges(unicodes, inverse: bool = False):
 	"""Intersect a sequence of (int) Unicode codepoints with the Unicode block

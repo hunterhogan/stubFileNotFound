@@ -1,9 +1,7 @@
-from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools import ttLib as ttLib
-from fontTools.misc.roundTools import otRound as otRound
-from fontTools.misc.textTools import safeEval as safeEval
+from fontTools.ttLib import TTFont
 
 log: Incomplete
 

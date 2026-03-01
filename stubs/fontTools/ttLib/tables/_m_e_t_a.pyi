@@ -2,7 +2,7 @@ from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import bytesjoin as bytesjoin, readHex as readHex, strjoin as strjoin
-from fontTools.ttLib import TTLibError as TTLibError, TTFont
+from fontTools.ttLib import TTFont, TTLibError as TTLibError
 
 META_HEADER_FORMAT: str
 DATA_MAP_FORMAT: str

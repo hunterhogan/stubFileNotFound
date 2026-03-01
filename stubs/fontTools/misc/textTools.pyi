@@ -1,6 +1,5 @@
-import ast
-
-safeEval = ast.literal_eval
+from collections.abc import Iterable
+from typing import Any
 
 class Tag(str):
     @staticmethod
@@ -11,21 +10,20 @@ class Tag(str):
     def __hash__(self): ...
     def tobytes(self): ...
 
-def readHex(content):
+def readHex(content: list[str]):
     """Convert a list of hex strings to binary data."""
-def deHexStr(hexdata):
+def deHexStr(hexdata: str) -> bytes:
     """Convert a hex string to binary data."""
-def hexStr(data):
+def hexStr(data: bytes) -> str:
     """Convert binary data to a hex string."""
 def num2binary(l, bits: int = 32): ...
 def binary2num(bin): ...
-def caselessSort(alist):
+def caselessSort(alist: list[Any]) -> list[Any]:
     """Return a sorted copy of a list. If there are only strings
     in the list, it will not consider case.
     """
-def pad(data, size):
-    """Pad byte string 'data' with null bytes until its length is a
-    multiple of 'size'.
+def pad(data: bytes, size: int) -> bytes:
+    """Pad byte string 'data' with null bytes until its length is a multiple of 'size'.
 
     >>> len(pad(b'abcd', 4))
     4
@@ -38,7 +36,7 @@ def pad(data, size):
     """
 def tostr(s: str | bytes, encoding: str = 'ascii', errors: str = 'strict') -> str: ...
 def tobytes(s: str | bytes, encoding: str = 'ascii', errors: str = 'strict') -> bytes: ...
-def bytechr(n): ...
+def bytechr(n: int) -> bytes: ...
 def byteord(c: int | str | bytes | bytearray) -> int: ...
-def strjoin(iterable, joiner: str = ''): ...
-def bytesjoin(iterable, joiner: bytes = b''): ...
+def strjoin(iterable: Iterable[str], joiner: str = '') -> str: ...
+def bytesjoin(iterable: Iterable[bytes], joiner: bytes = b'') -> bytes: ...

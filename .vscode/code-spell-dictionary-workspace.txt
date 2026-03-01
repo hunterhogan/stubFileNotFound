@@ -26,6 +26,7 @@ ALIASDEL
 aliasupdate
 ALIASUPDATE
 aligment
+alist
 anotherthing
 antialiasing
 antichain
@@ -79,6 +80,7 @@ Benini
 besseli
 besselk
 bgrewriteaof
+bigendian
 bijective
 bincoef
 binlabels
@@ -161,6 +163,7 @@ complevel
 complexfloating
 complib
 connectionstyle
+Contex
 coreviews
 coro
 countkeysinslot
@@ -332,6 +335,7 @@ hbrew
 Hcomm
 hdmx
 heapsort
+hexdata
 hgetall
 hhea
 hmtx
@@ -572,6 +576,8 @@ optval
 otfs
 outputformat
 packagename
+panose
+Panose
 parenleft
 parenright
 parfors
@@ -716,6 +722,7 @@ strappend
 STRAPPEND
 Strassen
 stringizer
+strjoin
 strl
 stubdefaulter
 stubgen
