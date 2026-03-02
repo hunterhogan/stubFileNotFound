@@ -1,7 +1,7 @@
-from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools.misc.textTools import safeEval as safeEval
+from fontTools.ttLib import TTFont
 
 class table_C_O_L_R_(DefaultTable.DefaultTable):
     """Color table
@@ -18,6 +18,7 @@ class table_C_O_L_R_(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/colr
     """
+
     version: Incomplete
     ColorLayers: Incomplete
     table: Incomplete

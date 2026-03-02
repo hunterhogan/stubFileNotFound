@@ -1,14 +1,15 @@
 from fontTools.misc.textTools import bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin
 
 def decrypt(cipherstring, R):
-    '''
+    """
     Decrypts a string using the Type 1 encryption algorithm.
 
     Args:
             cipherstring: String of ciphertext.
             R: Initial key.
 
-    Returns:
+    Returns
+    -------
             decryptedStr: Plaintext string.
             R: Output key for subsequent decryptions.
 
@@ -20,9 +21,9 @@ def decrypt(cipherstring, R):
             True
             >>> R == 36142
             True
-    '''
+    """
 def encrypt(plainstring, R):
-    '''
+    """
     Encrypts a string using the Type 1 encryption algorithm.
 
     Note that the algorithm as described in the Type 1 specification requires the
@@ -34,7 +35,8 @@ def encrypt(plainstring, R):
             plainstring: String of plaintext.
             R: Initial key.
 
-    Returns:
+    Returns
+    -------
             cipherstring: Ciphertext string.
             R: Output key for subsequent encryptions.
 
@@ -53,6 +55,6 @@ def encrypt(plainstring, R):
     True
     >>> R == 36142
     True
-    '''
+    """
 def hexString(s): ...
 def deHexString(h): ...

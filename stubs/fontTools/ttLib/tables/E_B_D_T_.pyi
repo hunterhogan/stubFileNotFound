@@ -1,4 +1,3 @@
-from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from .BitmapGlyphMetrics import (
 	BigGlyphMetrics as BigGlyphMetrics, bigGlyphMetricsFormat as bigGlyphMetricsFormat,
@@ -8,8 +7,8 @@ from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import (
 	bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, deHexStr as deHexStr, hexStr as hexStr,
 	readHex as readHex, safeEval as safeEval, strjoin as strjoin)
+from fontTools.ttLib import TTFont
 
-log: Incomplete
 ebdtTableVersionFormat: str
 ebdtComponentFormat: str
 
@@ -21,6 +20,7 @@ class table_E_B_D_T_(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/ebdt
     """
+
     locatorName: str
     def getImageFormatClass(self, imageFormat): ...
     strikeData: Incomplete

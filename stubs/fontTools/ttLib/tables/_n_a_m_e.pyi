@@ -10,7 +10,6 @@ from fontTools.ttLib import newTable as newTable, TTFont
 from fontTools.ttLib.tables import C_P_A_L_ as C_P_A_L_
 from fontTools.ttLib.ttVisitor import TTVisitor as TTVisitor
 
-log: Incomplete
 nameRecordFormat: str
 nameRecordSize: Incomplete
 
@@ -24,6 +23,7 @@ class table__n_a_m_e(DefaultTable.DefaultTable):
 
 	See also https://learn.microsoft.com/en-us/typography/opentype/spec/name
 	"""
+
 	dependencies: Incomplete
 	names: Incomplete
 	def __init__(self, tag=None) -> None: ...
@@ -52,7 +52,8 @@ class table__n_a_m_e(DefaultTable.DefaultTable):
 	@staticmethod
 	def removeUnusedNames(ttFont: TTFont):
 		"""Remove any name records which are not in NameID range 0-255 and not utilized
-		within the font itself."""
+		within the font itself.
+		"""
 	def _findUnusedNameID(self, minNameID: int = 256):
 		"""Finds an unused name id.
 
@@ -100,7 +101,7 @@ class table__n_a_m_e(DefaultTable.DefaultTable):
 		If the 'nameID' argument is None, the created nameID will not
 		be less than the 'minNameID' argument.
 		"""
-	def addName(self, string, platforms=((1, 0, 0), (3, 1, 1033)), minNameID: int = 255):
+	def addName(self, string, platforms=..., minNameID: int = 255):
 		"""Add a new name record containing 'string' for each (platformID, platEncID,
 		langID) tuple specified in the 'platforms' list.
 

@@ -1,6 +1,6 @@
-import fontTools.pens.basePen
 from fontTools.pens.basePen import BasePen as BasePen, OpenContourError as OpenContourError
 from typing import Any
+import fontTools.pens.basePen
 
 COMPILED: bool
 __test__: dict

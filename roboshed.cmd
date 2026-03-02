@@ -35,6 +35,6 @@ POPd
 
 PUSHd C:\apps\stubFileNotFound
 
-py -m stubFileNotFound.missing2Any
+py -m stubFileNotFound.missing2AnyTransformers
 
 POPd

@@ -8,8 +8,6 @@ from .ufoFont import UFOFontData as UFOFontData
 from _typeshed import Incomplete
 from typing import NamedTuple
 
-log: Incomplete
-
 class ACOptions:
     inputPaths: Incomplete
     outputPaths: Incomplete

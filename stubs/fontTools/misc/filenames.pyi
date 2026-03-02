@@ -7,7 +7,7 @@ maxFileNameLength: int
 class NameTranslationError(Exception): ...
 
 def userNameToFileName(userName, existing=[], prefix: str = '', suffix: str = ''):
-    '''Converts from a user name to a file name.
+    """Converts from a user name to a file name.
 
     Takes care to avoid illegal characters, reserved file names, ambiguity between
     upper- and lower-case characters, and clashes with existing files.
@@ -18,10 +18,12 @@ def userNameToFileName(userName, existing=[], prefix: str = '', suffix: str = ''
             prefix: Prefix to be prepended to the file name.
             suffix: Suffix to be appended to the file name.
 
-    Returns:
+    Returns
+    -------
             A suitable filename.
 
-    Raises:
+    Raises
+    ------
             NameTranslationError: If no suitable name could be generated.
 
     Examples::
@@ -70,10 +72,10 @@ def userNameToFileName(userName, existing=[], prefix: str = '', suffix: str = ''
             True
             >>> userNameToFileName("alt.con") == "alt._con"
             True
-    '''
+    """
 def handleClash1(userName, existing=[], prefix: str = '', suffix: str = ''):
-    '''
-    existing should be a case-insensitive list
+    """
+    Existing should be a case-insensitive list
     of all existing file names.
 
     >>> prefix = ("0" * 5) + "."
@@ -99,10 +101,10 @@ def handleClash1(userName, existing=[], prefix: str = '', suffix: str = ''):
     ...\t\tprefix=prefix, suffix=suffix) == (
     ... \t\'00000.AAAAA000000000000001.0000000000\')
     True
-    '''
+    """
 def handleClash2(existing=[], prefix: str = '', suffix: str = ''):
-    '''
-    existing should be a case-insensitive list
+    """
+    Existing should be a case-insensitive list
     of all existing file names.
 
     >>> prefix = ("0" * 5) + "."
@@ -125,4 +127,4 @@ def handleClash2(existing=[], prefix: str = '', suffix: str = ''):
     >>> handleClash2(existing=e, prefix=prefix, suffix=suffix) == (
     ... \t\'00000.2.0000000000\')
     True
-    '''
+    """

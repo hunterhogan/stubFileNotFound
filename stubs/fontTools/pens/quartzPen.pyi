@@ -7,9 +7,11 @@ class QuartzPen(BasePen):
     """A pen that creates a CGPath
 
     Parameters
+    ----------
     - path: an optional CGPath to add to
     - xform: an optional CGAffineTransform to apply to the path
     """
+
     path: Incomplete
     xform: Incomplete
     def __init__(self, glyphSet, path=None, xform=None) -> None: ...

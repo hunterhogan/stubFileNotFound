@@ -16,6 +16,7 @@ class T1Font:
     Uses a minimal interpeter that supports just about enough PS to parse
     Type 1 fonts.
     """
+
     data: Incomplete
     encoding: Incomplete
     def __init__(self, path, encoding: str = 'ascii', kind=None) -> None: ...
@@ -37,18 +38,18 @@ class T1Font:
     def encode_eexec(self, eexec_dict): ...
 
 def read(path, onlyHeader: bool = False):
-    """reads any Type 1 font file, returns raw data"""
+    """Reads any Type 1 font file, returns raw data"""
 def write(path, data, kind: str = 'OTHER', dohex: bool = False) -> None: ...
 
 LWFNCHUNKSIZE: int
 HEXLINELENGTH: int
 
 def readLWFN(path, onlyHeader: bool = False):
-    """reads an LWFN font file, returns raw data"""
+    """Reads an LWFN font file, returns raw data"""
 def readPFB(path, onlyHeader: bool = False):
-    """reads a PFB font file, returns raw data"""
+    """Reads a PFB font file, returns raw data"""
 def readOther(path):
-    """reads any (font) file, returns raw data"""
+    """Reads any (font) file, returns raw data"""
 def writeLWFN(path, data) -> None: ...
 def writePFB(path, data) -> None: ...
 def writeOther(path, data, dohex: bool = False) -> None: ...

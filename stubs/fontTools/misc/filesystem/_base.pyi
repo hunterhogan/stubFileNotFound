@@ -1,16 +1,20 @@
-import abc
-import types
 from ._copy import copy_dir as copy_dir, copy_file as copy_file
-from ._errors import DestinationExists as DestinationExists, DirectoryExpected as DirectoryExpected, FileExpected as FileExpected, FilesystemClosed as FilesystemClosed, NoSysPath as NoSysPath, ResourceNotFound as ResourceNotFound
+from ._errors import (
+	DestinationExists as DestinationExists, DirectoryExpected as DirectoryExpected, FileExpected as FileExpected,
+	FilesystemClosed as FilesystemClosed, NoSysPath as NoSysPath, ResourceNotFound as ResourceNotFound)
 from ._info import Info as Info
 from ._path import dirname as dirname
 from ._subfs import SubFS as SubFS
 from ._walk import BoundWalker as BoundWalker
 from abc import ABC, abstractmethod
-from typing import Any, Collection, IO, Iterator, Self
+from collections.abc import Collection, Iterator
+from typing import Any, IO, Self
+import abc
+import types
 
 class FS(ABC, metaclass=abc.ABCMeta):
     """Abstract base class for custom filesystems."""
+
     @abstractmethod
     def open(self, path: str, mode: str = 'rb', **kwargs) -> IO[Any]: ...
     @abstractmethod

@@ -1,6 +1,4 @@
-from libcst import matchers
-import libcst
-
+# ruff: noqa: ARG002
 """
 'Fix' unknown types with `Any` and generics with the equivalent of `Any`.
 
@@ -12,16 +10,16 @@ TODO:
 - Would `astToolkit` be useful or better?
 - `np.dtype` without confusing with the other identifiers named `dtype`
 """
+from libcst import matchers
+from stubFileNotFound.fileDiscovery import discoverStubFiles
+import libcst
+import sys
 
 # Generic Type Arguments Configuration
 dictionaryGenericTypeArguments: dict[str, list[libcst.BaseExpression]] = {
-	# '_IndexSliceTuple': [libcst.Name("Any")],
 	'_IsLeapYearProperty': [libcst.Name("Any")],
 	'_PeriodProperties': [libcst.Name("Any"), libcst.Name("Any"), libcst.Name("Any"), libcst.Name("Any"), libcst.Name("Any")],
 	'_PivotAggCallable': [libcst.Name("Any")],
-	# '_PivotTableColumnsTypes': [libcst.Name("Any")],
-	# '_PivotTableIndexTypes': [libcst.Name("Any")],
-	# '_PivotTableValuesTypes': [libcst.Name("Any")],
 	'_PlotAccessorColor': [libcst.Name("Any")],
 	'AbstractSet': [libcst.Name("Any")],
 	'AggFuncTypeDictFrame': [libcst.Name("Any")],
@@ -101,13 +99,10 @@ class TypingImportAdder(libcst.CSTTransformer):
 		"""
 		if (node.module and
 			(matchers.matches(node.module, matchers.Attribute(value=matchers.Name("typing"))) or
-			matchers.matches(node.module, matchers.Name("typing")))):
-
-			if node.names and not isinstance(node.names, libcst.ImportStar):
-				for nameImport in node.names:
-					if isinstance(nameImport, libcst.ImportAlias):
-						if isinstance(nameImport.name, libcst.Name) and nameImport.name.value == "Any":
-							self.hasTypingAnyImport = True
+			matchers.matches(node.module, matchers.Name("typing")))) and node.names and not isinstance(node.names, libcst.ImportStar):
+			for nameImport in node.names:
+				if isinstance(nameImport, libcst.ImportAlias) and isinstance(nameImport.name, libcst.Name) and nameImport.name.value == "Any":
+					self.hasTypingAnyImport = True
 
 	def leave_ImportFrom(self, original_node: libcst.ImportFrom, updated_node: libcst.ImportFrom) -> libcst.ImportFrom:
 		"""Update typing import to include Any if needed.
@@ -130,13 +125,11 @@ class TypingImportAdder(libcst.CSTTransformer):
 		if (not self.hasTypingAnyImport and self.needsTypingAnyImport and
 			updated_node.module and
 			(matchers.matches(updated_node.module, matchers.Attribute(value=matchers.Name("typing"))) or
-			matchers.matches(updated_node.module, matchers.Name("typing")))):
-
-			if updated_node.names and not isinstance(updated_node.names, libcst.ImportStar):
-				listNamesUpdated: list[libcst.ImportAlias] = list(updated_node.names)
-				listNamesUpdated.append(libcst.ImportAlias(name=libcst.Name("Any")))
-				self.hasTypingAnyImport = True
-				return updated_node.with_changes(names=listNamesUpdated)
+			matchers.matches(updated_node.module, matchers.Name("typing")))) and updated_node.names and not isinstance(updated_node.names, libcst.ImportStar):
+			listNamesUpdated: list[libcst.ImportAlias] = list(updated_node.names)
+			listNamesUpdated.append(libcst.ImportAlias(name=libcst.Name("Any")))
+			self.hasTypingAnyImport = True
+			return updated_node.with_changes(names=listNamesUpdated)
 
 		return updated_node
 
@@ -367,10 +360,8 @@ class ImplicitParameterCleaner(libcst.CSTTransformer):
 			parameterFunction.annotation is not None):
 
 			nameParameter = parameterFunction.name.value
-			if nameParameter in ("self", "cls"):
-				if isinstance(parameterFunction.annotation, libcst.Annotation):
-					if isinstance(parameterFunction.annotation.annotation, libcst.Name):
-						return parameterFunction.annotation.annotation.value == "Any"
+			if nameParameter in ("self", "cls") and isinstance(parameterFunction.annotation, libcst.Annotation) and isinstance(parameterFunction.annotation.annotation, libcst.Name):
+				return parameterFunction.annotation.annotation.value == "Any"
 		return False
 
 class GenericTypeArgumentAdder(libcst.CSTTransformer):
@@ -433,13 +424,13 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
 			The subscript node unchanged.
 
 		"""
-		# Normalize chained subscripts like Sequence[Any][T] -> Sequence[T]
+# NOTE Normalize chained subscripts like Sequence[Any][T] -> Sequence[T]
 		normalized_sub = self._normalizeSubscriptChain(updated_node)
 		self.insideSubscript = False
 		return normalized_sub
 
 	def visit_BinaryOperation(self, node: libcst.BinaryOperation) -> None:
-		# Track PEP 604 unions ("|") in type annotations
+# NOTE Track PEP 604 unions ("|") in type annotations
 		if isinstance(node.operator, libcst.BitOr):
 			self.unionDepth += 1
 
@@ -448,8 +439,7 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
 			# In union context, ensure each side's bare generics are parameterized
 			left = updated_node.left
 			right = updated_node.right
-			# Only wrap when appropriate: either top-level unions (not inside subscript)
-			# or unions used as type arguments (inside an Index)
+# NOTE Only wrap when appropriate: either top-level unions (not inside subscript) or unions used as type arguments (inside an Index)
 			if (
 				self.currentContext in ("type_annotation", "function_def")
 				and not self.insideImport
@@ -577,7 +567,7 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
 
 		"""
 		# If this is a TypeAlias declaration, post-process the RHS to parameterize
-		# any bare generics (including generic type aliases) that need type args.
+		# any bare generics, including generic type aliases, that need type args.
 		is_type_alias = (
 			updated_node.annotation
 			and isinstance(updated_node.annotation.annotation, libcst.Name)
@@ -755,8 +745,8 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
 		return updated_node
 
 	def leave_Attribute(self, original_node: libcst.Attribute, updated_node: libcst.Attribute) -> libcst.Attribute | libcst.Subscript:
-		# Transform bare attribute generics (e.g., np.ndarray) similarly to Name, incl. inside unions
-		# Allow this inside TypeAlias bodies as well (but never for the alias target itself)
+		# Transform bare attribute generics, e.g., np.ndarray similarly to Name, incl. inside unions
+		# Allow this inside TypeAlias bodies as well, but never for the alias target itself.
 		if (self.currentContext in ("type_annotation", "function_def") and
 			not self.insideImport and
 			not self.insideSubscript):
@@ -797,9 +787,8 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
 	def extractBaseTypeNameFromExpression(self, expression: libcst.BaseExpression) -> str | None:
 		if isinstance(expression, libcst.Name):
 			return expression.value
-		if isinstance(expression, libcst.Attribute):
-			if isinstance(expression.attr, libcst.Name):
-				return expression.attr.value
+		if isinstance(expression, libcst.Attribute) and isinstance(expression.attr, libcst.Name):
+			return expression.attr.value
 		return None
 
 	def selectTypeArgumentsForType(self, typeName: str) -> list[libcst.BaseExpression] | None:
@@ -811,7 +800,7 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
 		self.insideIndex = True
 
 	def leave_Index(self, original_node: libcst.Index, updated_node: libcst.Index) -> libcst.Index:
-		# We're leaving an index (type argument position) context
+		# We're leaving an index, type argument position, context
 		self.insideIndex = False
 		valueExpression = updated_node.value
 		if isinstance(valueExpression, (libcst.Name, libcst.Attribute)):
@@ -836,7 +825,7 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
 		modified = False
 		for baseArg in updated_node.bases:
 			baseValue: libcst.BaseExpression = baseArg.value
-			# If base is already subscripted (e.g., Base[T, U]), leave it unchanged
+# If base is already subscripted, e.g., `Base[T, U]`, leave it unchanged
 			if isinstance(baseValue, libcst.Subscript):
 				basesUpdated.append(baseArg)
 				continue
@@ -865,7 +854,8 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
 	def _normalizeSubscriptChain(self, node: libcst.Subscript) -> libcst.BaseExpression:
 		"""Collapse chained subscriptions on the same base type into a single subscription.
 
-		Examples:
+		Examples
+		--------
 		- Sequence[Any][T] -> Sequence[T]
 		- Mapping[Any, Any][K, V] -> Mapping[K, V]
 		- Callable[..., Any][[X], Y] -> Callable[[X], Y]
@@ -883,7 +873,7 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
 		if base_name is None:
 			return node
 
-		# Note: Declared TypeAlias names may themselves be generic; do not drop subscripts here.
+# NOTE: Declared TypeAlias names may themselves be generic; do not drop subscripts here.
 
 		# Choose the last slice list with any element that's not a bare Any; else the first
 		def is_meaningful(element: libcst.SubscriptElement) -> bool:
@@ -910,7 +900,7 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
 
 		Skips already-subscripted expressions and the current alias target name.
 		"""
-		# Name or Attribute: try wrapping
+		# Name or Attribute, try wrapping
 		if isinstance(expr, (libcst.Name, libcst.Attribute)):
 			base_name = self.extractBaseTypeNameFromExpression(expr)
 			if (
@@ -921,14 +911,14 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
 				wrapped, did = self.wrapGenericIfBare(expr)
 				return wrapped if did else expr
 			return expr
-		# Binary union (PEP 604): process both sides
+# Binary union (PEP 604): process both sides
 		if isinstance(expr, libcst.BinaryOperation) and isinstance(expr.operator, libcst.BitOr):
 			left_new: libcst.BaseExpression = self._wrapGenericsInTypeAliasValue(expr.left)
 			right_new: libcst.BaseExpression = self._wrapGenericsInTypeAliasValue(expr.right)
 			if left_new is not expr.left or right_new is not expr.right:
 				return expr.with_changes(left=left_new, right=right_new)
 			return expr
-		# Subscript: recurse into slice elements
+# Subscript: recurse into slice elements
 		if isinstance(expr, libcst.Subscript):
 			slice_list: list[libcst.SubscriptElement] = []
 			changed = False
@@ -943,7 +933,7 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
 			if changed:
 				return expr.with_changes(slice=slice_list)
 			return expr
-		# Tuples: map elements
+# Tuples: map elements
 		if isinstance(expr, libcst.Tuple):
 			elts_new: list[libcst.BaseElement] = []
 			changed = False
@@ -957,7 +947,7 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
 			if changed:
 				return expr.with_changes(elements=elts_new)
 			return expr
-		# Parentheses or other wrappers aren’t common here; return as-is
+# Parentheses or other wrappers aren't common here; return as-is
 		return expr
 
 class CombinedStubTransformer(libcst.CSTTransformer):
@@ -1293,3 +1283,14 @@ def processStubString(contentOriginal: str) -> str | None:
 		return treeModified.code
 	return None
 
+def processAllStubFiles(listRelativePaths: list[str]) -> None:
+	"""Process all discovered stub files."""
+	for pathFilename in discoverStubFiles(listRelativePaths):
+		pythonSource: str | None = processStubString(pathFilename.read_text(encoding='utf-8'))
+		if pythonSource is not None:
+			pathFilename.write_text(pythonSource, encoding='utf-8')
+			sys.stdout.write(f"Updated: {pathFilename}\n")
+
+if __name__ == "__main__":
+	listRelativePaths: list[str] = ['pandas']
+	processAllStubFiles(listRelativePaths)

@@ -2,8 +2,6 @@ from .glyphData import feq as feq
 from _typeshed import Incomplete
 from enum import Enum
 
-log: Incomplete
-
 class hintSegment:
     '''Represents a hint "segment" (one side of a potential stem)'''
     class sType(Enum):

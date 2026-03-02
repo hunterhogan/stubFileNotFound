@@ -1,14 +1,14 @@
-import abc
 from .glyphData import feq as feq, fne as fne, pt as pt, stem as stem
-from .hintstate import glyphHintState as glyphHintState, hintSegment as hintSegment, instanceStemState as instanceStemState, links as links, stemValue as stemValue
+from .hintstate import (
+	glyphHintState as glyphHintState, hintSegment as hintSegment, instanceStemState as instanceStemState, links as links,
+	stemValue as stemValue)
 from .logging import logging_reconfig as logging_reconfig, set_log_parameters as set_log_parameters
 from .overlap import removeOverlap as removeOverlap
 from .report import GlyphReport as GlyphReport
 from _typeshed import Incomplete
 from abc import abstractmethod
 from typing import NamedTuple
-
-log: Incomplete
+import abc
 
 class GlyphPE(NamedTuple):
     glyph: Incomplete

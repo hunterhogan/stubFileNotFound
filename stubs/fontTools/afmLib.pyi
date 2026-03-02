@@ -15,7 +15,8 @@ class AFM:
 
         Instantiating an object with a path name will cause the file to be opened,
         read, and parsed. Alternatively the path can be left unspecified, and a
-        file can be parsed later with the :meth:`read` method."""
+        file can be parsed later with the :meth:`read` method.
+        """
     def read(self, path) -> None:
         """Opens, reads and parses a file."""
     def parsechar(self, rest) -> None: ...
@@ -26,7 +27,8 @@ class AFM:
         """Writes out an AFM font to the given path."""
     def has_kernpair(self, pair):
         """Returns `True` if the given glyph pair (specified as a tuple) exists
-        in the kerning dictionary."""
+        in the kerning dictionary.
+        """
     def kernpairs(self):
         """Returns a list of all kern pairs in the kerning dictionary."""
     def has_char(self, char):

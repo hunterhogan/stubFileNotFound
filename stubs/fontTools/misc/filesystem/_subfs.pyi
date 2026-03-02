@@ -6,6 +6,7 @@ from typing import Any, IO
 
 class SubFS(FS):
     """Maps a sub-directory of another filesystem."""
+
     def __init__(self, parent: FS, sub_path: str) -> None: ...
     def delegate_fs(self): ...
     def open(self, path: str, mode: str = 'rb', **kwargs) -> IO[Any]: ...
@@ -26,4 +27,5 @@ class SubFS(FS):
 
 class ClosingSubFS(SubFS):
     """Like SubFS, but auto-closes the parent filesystem when closed."""
+
     def close(self) -> None: ...

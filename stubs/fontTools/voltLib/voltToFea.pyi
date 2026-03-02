@@ -2,7 +2,6 @@ from _typeshed import Incomplete
 from fontTools.feaLib import ast as ast
 from fontTools.ttLib import TTFont as TTFont, TTLibError as TTLibError
 
-log: Incomplete
 TABLES: Incomplete
 
 def sort_groups(groups): ...

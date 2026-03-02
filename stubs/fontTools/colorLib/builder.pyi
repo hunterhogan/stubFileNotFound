@@ -1,16 +1,16 @@
-import enum
 from .errors import ColorLibError as ColorLibError
 from .geometry import round_start_circle_stable_containment as round_start_circle_stable_containment
 from .table_builder import BuildCallback as BuildCallback, TableBuilder as TableBuilder
 from _typeshed import Incomplete
+from collections.abc import Iterable, Mapping, Sequence
 from fontTools.misc.arrayTools import intRect as intRect
 from fontTools.misc.fixedTools import fixedToFloat as fixedToFloat
 from fontTools.misc.treeTools import build_n_ary_tree as build_n_ary_tree
-from fontTools.ttLib.tables import C_O_L_R_ as C_O_L_R_, C_P_A_L_ as C_P_A_L_, _n_a_m_e, otTables as ot
+from fontTools.ttLib.tables import _n_a_m_e, C_O_L_R_ as C_O_L_R_, C_P_A_L_ as C_P_A_L_, otTables as ot
 from fontTools.ttLib.tables.otTables import CompositeMode as CompositeMode, ExtendMode as ExtendMode
-from functools import partial as partial
 from math import ceil as ceil, log as log
-from typing import Any, Iterable, Mapping, Sequence, TypeVar
+from typing import Any, TypeVar
+import enum
 
 T = TypeVar('T')
 MAX_PAINT_COLR_LAYER_COUNT: int
@@ -44,7 +44,8 @@ def buildCOLR(colorGlyphs: _ColorGlyphsDict, version: int | None = None, *, glyp
         clipBoxes: Optional map of base glyph name to clip box 4- or 5-tuples:
             (xMin, yMin, xMax, yMax) or (xMin, yMin, xMax, yMax, varIndexBase).
 
-    Returns:
+    Returns
+    -------
         A new COLR table.
     """
 def buildClipList(clipBoxes: dict[str, _ClipBoxInput]) -> ot.ClipList: ...

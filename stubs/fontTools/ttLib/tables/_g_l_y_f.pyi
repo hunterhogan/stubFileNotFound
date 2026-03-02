@@ -1,6 +1,5 @@
 from . import DefaultTable as DefaultTable, ttProgram as ttProgram
 from _typeshed import Incomplete
-from enum import IntFlag as IntFlag
 from fontTools import ttLib as ttLib, version as version
 from fontTools.misc import sstruct as sstruct, xmlWriter as xmlWriter
 from fontTools.misc.arrayTools import pointInRect as pointInRect, updateBounds as updateBounds
@@ -14,7 +13,6 @@ from fontTools.misc.vector import Vector as Vector
 from fontTools.ttLib import TTFont
 from typing import NamedTuple
 
-log: Incomplete
 SCALE_COMPONENT_OFFSET_DEFAULT: int
 
 class table__g_l_y_f(DefaultTable.DefaultTable):
@@ -90,13 +88,16 @@ class table__g_l_y_f(DefaultTable.DefaultTable):
 	def __len__(self) -> int: ...
 	def getPhantomPoints(self, glyphName, ttFont: TTFont, defaultVerticalOrigin=None):
 		"""Old public name for self._getPhantomPoints().
-		See: https://github.com/fonttools/fonttools/pull/2266"""
+		See: https://github.com/fonttools/fonttools/pull/2266
+		"""
 	def getCoordinatesAndControls(self, glyphName, ttFont: TTFont, defaultVerticalOrigin=None):
 		"""Old public name for self._getCoordinatesAndControls().
-		See: https://github.com/fonttools/fonttools/pull/2266"""
+		See: https://github.com/fonttools/fonttools/pull/2266
+		"""
 	def setCoordinates(self, glyphName, ttFont: TTFont) -> None:
 		"""Old public name for self._setCoordinates().
-		See: https://github.com/fonttools/fonttools/pull/2266"""
+		See: https://github.com/fonttools/fonttools/pull/2266
+		"""
 
 class _GlyphControls(NamedTuple):
 	numberOfContours: Incomplete
@@ -117,7 +118,8 @@ keepFlags: Incomplete
 
 def flagBest(x, y, onCurve):
 	"""For a given x,y delta pair, returns the flag that packs this pair
-	most efficiently, as well as the number of byte cost of such flag."""
+	most efficiently, as well as the number of byte cost of such flag.
+	"""
 def flagFits(newFlag, oldFlag, mask): ...
 def flagSupports(newFlag, oldFlag): ...
 def flagEncodeCoord(flag, mask, coord, coordBytes) -> None: ...
@@ -143,7 +145,7 @@ class CompositeMaxpValues(NamedTuple):
 	maxComponentDepth: Incomplete
 
 class Glyph:
-	'''This class represents an individual TrueType glyph.
+	"""This class represents an individual TrueType glyph.
 
 	TrueType glyph objects come in two flavours: simple and composite. Simple
 	glyph objects contain contours, represented via the ``.coordinates``,
@@ -163,7 +165,8 @@ class Glyph:
 			>> font["glyf"]["Aacute"][0]
 			<fontTools.ttLib.tables._g_l_y_f.GlyphComponent at 0x1027b2ee0>
 
-	'''
+	"""
+
 	numberOfContours: int
 	xMin: int
 	yMin: int
@@ -215,7 +218,7 @@ class Glyph:
 	def isComposite(self) -> bool:
 		"""Test whether a glyph has components."""
 	def getCoordinates(self, glyfTable, *, round=...):
-		'''Return the coordinates, end points and flags
+		"""Return the coordinates, end points and flags
 
 		This method returns three values: A :py:class:`GlyphCoordinates` object,
 		a list of the indexes of the final points of each contour (allowing you
@@ -228,7 +231,7 @@ class Glyph:
 
 		To interpret the flags for each point, see the "Simple Glyph Flags"
 		section of the `glyf table specification <https://docs.microsoft.com/en-us/typography/opentype/spec/glyf#simple-glyph-description>`.
-		'''
+		"""
 	def getComponentNames(self, glyfTable):
 		"""Returns a list of names of component glyphs used in this glyph
 
@@ -238,7 +241,8 @@ class Glyph:
 	def trim(self, remove_hinting: bool = False) -> None:
 		"""Remove padding and, if requested, hinting, from a glyph.
 		This works on both expanded and compacted glyphs, without
-		expanding it."""
+		expanding it.
+		"""
 	def removeHinting(self) -> None:
 		"""Removes TrueType hinting instructions from the glyph."""
 	def draw(self, pen, glyfTable, offset: int = 0):
@@ -273,10 +277,12 @@ def dropImpliedOnCurvePoints(*interpolatable_glyphs: Glyph) -> set[int]:
 	Args:
 		interpolatable_glyphs: The glyph or glyphs to modify in-place.
 
-	Returns:
+	Returns
+	-------
 		The set of point indices that were dropped if any.
 
-	Raises:
+	Raises
+	------
 		ValueError if simple glyphs are not in fact interpolatable because they have
 		different point flags or number of contours.
 
@@ -285,13 +291,14 @@ def dropImpliedOnCurvePoints(*interpolatable_glyphs: Glyph) -> set[int]:
 	"""
 
 class GlyphComponent:
-	'''Represents a component within a composite glyph.
+	"""Represents a component within a composite glyph.
 
 	The component is represented internally with four attributes: ``glyphName``,
 	``x``, ``y`` and ``transform``. If there is no "two-by-two" matrix (i.e
 	no scaling, reflection, or rotation; only translation), the ``transform``
 	attribute is not present.
-	'''
+	"""
+
 	def __init__(self) -> None: ...
 	def getComponentInfo(self):
 		"""Return information about the component
@@ -322,6 +329,7 @@ class GlyphCoordinates:
 	Unlike an ordinary list, this is a numpy-like matrix object which supports
 	matrix addition, scalar multiplication and other operations described below.
 	"""
+
 	def __init__(self, iterable=[]) -> None: ...
 	@property
 	def array(self):

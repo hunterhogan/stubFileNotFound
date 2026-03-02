@@ -4,7 +4,7 @@ __all__ = ['StrEnum']
 
 class StrEnum(str, Enum):
     """
-        Minimal backport of Python 3.11's StrEnum for older versions.
+    Minimal backport of Python 3.11's StrEnum for older versions.
 
-        An Enum where all members are also strings.
-        """
+    An Enum where all members are also strings.
+    """

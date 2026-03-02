@@ -1,7 +1,7 @@
-from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools.misc.textTools import bytesjoin as bytesjoin, safeEval as safeEval
+from fontTools.ttLib import TTFont
 from typing import NamedTuple
 
 class table_C_P_A_L_(DefaultTable.DefaultTable):
@@ -13,6 +13,7 @@ class table_C_P_A_L_(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/cpal
     """
+
     NO_NAME_ID: int
     DEFAULT_PALETTE_TYPE: int
     palettes: Incomplete

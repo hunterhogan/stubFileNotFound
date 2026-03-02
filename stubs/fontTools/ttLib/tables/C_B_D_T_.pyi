@@ -1,4 +1,3 @@
-from fontTools.ttLib import TTFont
 from . import E_B_D_T_ as E_B_D_T_
 from .BitmapGlyphMetrics import (
 	BigGlyphMetrics as BigGlyphMetrics, bigGlyphMetricsFormat as bigGlyphMetricsFormat,
@@ -9,6 +8,7 @@ from .E_B_D_T_ import (
 from _typeshed import Incomplete
 from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import bytesjoin as bytesjoin
+from fontTools.ttLib import TTFont
 
 class table_C_B_D_T_(E_B_D_T_.table_E_B_D_T_):
     """Color Bitmap Data table
@@ -20,6 +20,7 @@ class table_C_B_D_T_(E_B_D_T_.table_E_B_D_T_):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/cbdt
     """
+
     locatorName: str
     def getImageFormatClass(self, imageFormat): ...
 

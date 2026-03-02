@@ -15,7 +15,6 @@ POINT_RUN_COUNT_MASK: int
 TUPLES_SHARE_POINT_NUMBERS: int
 TUPLE_COUNT_MASK: int
 TUPLE_INDEX_MASK: int
-log: Incomplete
 
 class TupleVariation:
     axes: Incomplete

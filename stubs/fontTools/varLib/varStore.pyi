@@ -1,7 +1,9 @@
 from _typeshed import Incomplete
 from fontTools.misc.intTools import bit_count as bit_count
 from fontTools.misc.roundTools import noRound as noRound, otRound as otRound
-from fontTools.varLib.builder import buildVarData as buildVarData, buildVarRegion as buildVarRegion, buildVarRegionList as buildVarRegionList, buildVarStore as buildVarStore
+from fontTools.varLib.builder import (
+	buildVarData as buildVarData, buildVarRegion as buildVarRegion, buildVarRegionList as buildVarRegionList,
+	buildVarStore as buildVarStore)
 from fontTools.varLib.models import supportScalar as supportScalar
 
 NO_VARIATION_INDEX: Incomplete

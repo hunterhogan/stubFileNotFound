@@ -6,13 +6,13 @@ from collections.abc import Generator
 from fontTools.misc.fixedTools import floatToFixedToStr as floatToFixedToStr
 from fontTools.misc.transform import Transform as Transform
 from fontTools.pens.momentsPen import OpenContourError as OpenContourError
-from fontTools.pens.recordingPen import DecomposingRecordingPen as DecomposingRecordingPen, RecordingPen as RecordingPen, lerpRecordings as lerpRecordings
+from fontTools.pens.recordingPen import (
+	DecomposingRecordingPen as DecomposingRecordingPen, lerpRecordings as lerpRecordings, RecordingPen as RecordingPen)
 from fontTools.pens.statisticsPen import StatisticsControlPen as StatisticsControlPen, StatisticsPen as StatisticsPen
 from fontTools.pens.transformPen import TransformPen as TransformPen
 from fontTools.varLib.models import normalizeLocation as normalizeLocation, piecewiseLinearMap as piecewiseLinearMap
 from math import atan2 as atan2, pi as pi
 
-log: Incomplete
 DEFAULT_TOLERANCE: float
 DEFAULT_KINKINESS: float
 DEFAULT_KINKINESS_LENGTH: float

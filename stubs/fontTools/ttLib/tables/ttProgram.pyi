@@ -1,9 +1,8 @@
-from fontTools.ttLib import TTFont
 from _typeshed import Incomplete
 from fontTools.misc.textTools import (
 	binary2num as binary2num, num2binary as num2binary, readHex as readHex, strjoin as strjoin)
+from fontTools.ttLib import TTFont
 
-log: Incomplete
 streamInstructions: Incomplete
 instructions: Incomplete
 
@@ -29,7 +28,7 @@ class Program:
     def toXML(self, writer, ttFont: TTFont) -> None: ...
     def fromXML(self, name, attrs, content, ttFont: TTFont) -> None: ...
     def __bool__(self) -> bool:
-        '''
+        """
         >>> p = Program()
         >>> bool(p)
         False
@@ -51,7 +50,7 @@ class Program:
         \'SVTCA[0]\'
         >>> bool(p)
         False
-        '''
+        """
     __nonzero__ = __bool__
     def __eq__(self, other) -> bool: ...
     def __ne__(self, other) -> bool: ...

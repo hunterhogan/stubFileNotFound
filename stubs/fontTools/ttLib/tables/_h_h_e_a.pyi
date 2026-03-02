@@ -18,6 +18,7 @@ class table__h_h_e_a(DefaultTable.DefaultTable):
 
 	See also https://learn.microsoft.com/en-us/typography/opentype/spec/hhea
 	"""
+
 	dependencies: Incomplete
 	@property
 	def ascender(self): ...

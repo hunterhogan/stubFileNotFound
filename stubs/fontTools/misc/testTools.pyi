@@ -55,7 +55,9 @@ def stripVariableItemsFromTTX(string: str, ttLibVersion: bool = True, checkSumAd
 
 class MockFont:
     """A font-like object that automatically adds any looked up glyphname
-    to its glyphOrder."""
+    to its glyphOrder.
+    """
+
     lazy: bool
     def __init__(self) -> None: ...
     def getGlyphID(self, glyph): ...

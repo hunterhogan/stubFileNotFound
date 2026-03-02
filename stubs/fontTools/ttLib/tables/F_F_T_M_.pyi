@@ -1,8 +1,8 @@
-from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import safeEval as safeEval
 from fontTools.misc.timeTools import timestampFromString as timestampFromString, timestampToString as timestampToString
+from fontTools.ttLib import TTFont
 
 FFTMFormat: str
 
@@ -16,6 +16,7 @@ class table_F_F_T_M_(DefaultTable.DefaultTable):
 
     See also https://fontforge.org/docs/techref/non-standard.html
     """
+
     def decompile(self, data, ttFont: TTFont) -> None: ...
     def compile(self, ttFont: TTFont): ...
     def toXML(self, writer, ttFont: TTFont) -> None: ...

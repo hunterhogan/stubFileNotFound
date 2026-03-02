@@ -5,8 +5,6 @@ from fontTools.misc.textTools import bytesjoin as bytesjoin, readHex as readHex,
 from fontTools.ttLib import getSearchRange as getSearchRange, TTFont
 from fontTools.unicode import Unicode as Unicode
 
-log: Incomplete
-
 class table__c_m_a_p(DefaultTable.DefaultTable):
     """Character to Glyph Index Mapping Table.
 
@@ -115,6 +113,7 @@ class CmapSubtable:
     The object exposes a ``.cmap`` attribute, which contains a dictionary mapping
     character codepoints to glyph names.
     """
+
     @staticmethod
     def getSubtableClass(format) -> type[CmapSubtable]:
         """Return the subtable class for a format."""

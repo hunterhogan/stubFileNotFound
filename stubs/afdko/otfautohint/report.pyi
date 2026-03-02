@@ -1,7 +1,5 @@
 from _typeshed import Incomplete
 
-log: Incomplete
-
 class GlyphReport:
     """Class to store stem and zone data from a particular glyph"""
     name: Incomplete

@@ -1,10 +1,9 @@
-from fontTools.ttLib import TTFont
 from . import fdTools as fdTools, FontParseError as FontParseError
 from .glyphData import glyphData as glyphData
 from _typeshed import Incomplete
 from fontTools.misc.psCharStrings import T2OutlineExtractor
+from fontTools.ttLib import TTFont
 
-log: Incomplete
 kStackLimit: int
 kStemLimit: int
 

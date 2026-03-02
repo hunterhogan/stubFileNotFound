@@ -1,5 +1,8 @@
-from fontTools.designspaceLib import AxisLabelDescriptor as AxisLabelDescriptor, DesignSpaceDocument as DesignSpaceDocument, DesignSpaceDocumentError as DesignSpaceDocumentError, LocationLabelDescriptor as LocationLabelDescriptor
-from fontTools.designspaceLib.types import Region as Region, getVFUserRegion as getVFUserRegion, locationInRegion as locationInRegion
+from fontTools.designspaceLib import (
+	AxisLabelDescriptor as AxisLabelDescriptor, DesignSpaceDocument as DesignSpaceDocument,
+	DesignSpaceDocumentError as DesignSpaceDocumentError, LocationLabelDescriptor as LocationLabelDescriptor)
+from fontTools.designspaceLib.types import (
+	getVFUserRegion as getVFUserRegion, locationInRegion as locationInRegion, Region as Region)
 from fontTools.ttLib import TTFont as TTFont
 
 def buildVFStatTable(ttFont: TTFont, doc: DesignSpaceDocument, vfName: str) -> None:

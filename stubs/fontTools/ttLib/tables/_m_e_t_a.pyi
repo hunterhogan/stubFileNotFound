@@ -15,6 +15,7 @@ class table__m_e_t_a(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/meta
     """
+
     data: Incomplete
     def __init__(self, tag=None) -> None: ...
     def decompile(self, data, ttFont: TTFont) -> None: ...

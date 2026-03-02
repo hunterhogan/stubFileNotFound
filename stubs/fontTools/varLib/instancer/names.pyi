@@ -1,6 +1,5 @@
 from collections.abc import Generator
 from contextlib import contextmanager
-from copy import deepcopy as deepcopy
 from enum import IntEnum
 
 class NameID(IntEnum):
@@ -20,7 +19,7 @@ def getVariationNameIDs(varfont): ...
 @contextmanager
 def pruningUnusedNames(varfont) -> Generator[None]: ...
 def updateNameTable(varfont, axisLimits) -> None:
-    '''Update instatiated variable font\'s name table using STAT AxisValues.
+    """Update instatiated variable font\'s name table using STAT AxisValues.
 
     Raises ValueError if the STAT table is missing or an Axis Value table is
     missing for requested axis locations.
@@ -46,8 +45,9 @@ def updateNameTable(varfont, axisLimits) -> None:
     NameID 16 Typographic Family name: None --> "Open Sans"
     NameID 17 Typographic Subfamily name: None --> "Condensed"
 
-    References:
+    References
+    ----------
     https://docs.microsoft.com/en-us/typography/opentype/spec/stat
     https://docs.microsoft.com/en-us/typography/opentype/spec/name#name-ids
-    '''
+    """
 def checkAxisValuesExist(stat, axisValues, axisCoords) -> None: ...

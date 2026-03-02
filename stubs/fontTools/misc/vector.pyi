@@ -7,6 +7,7 @@ class Vector(tuple):
     vector addition and subtraction, scalar multiplication and division,
     negation, rounding, and comparison tests.
     """
+
     def __new__(cls, values, keep: bool = False): ...
     def __add__(self, other): ...
     __radd__ = __add__
@@ -30,7 +31,8 @@ class Vector(tuple):
         """Return the normalized vector of the vector."""
     def dot(self, other):
         """Performs vector dot product, returning the sum of
-        ``a[0] * b[0], a[1] * b[1], ...``"""
+        ``a[0] * b[0], a[1] * b[1], ...``
+        """
     def toInt(self): ...
     @property
     def values(self): ...

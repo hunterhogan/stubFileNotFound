@@ -3,7 +3,6 @@ from fontTools.ttLib import TTFont as TTFont
 from fontTools.ttLib.tables import DefaultTable as DefaultTable
 
 bigendian: str
-log: Incomplete
 OS2_format_0: str
 OS2_format_1_addition: str
 OS2_format_1: Incomplete

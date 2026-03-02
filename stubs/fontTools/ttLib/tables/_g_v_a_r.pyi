@@ -5,9 +5,7 @@ from fontTools.misc.lazyTools import LazyDict as LazyDict
 from fontTools.misc.textTools import safeEval as safeEval
 from fontTools.ttLib import OPTIMIZE_FONT_SPEED as OPTIMIZE_FONT_SPEED, TTFont
 from fontTools.ttLib.tables.TupleVariation import TupleVariation as TupleVariation
-from functools import partial as partial
 
-log: Incomplete
 GVAR_HEADER_FORMAT_HEAD: str
 GVAR_HEADER_FORMAT_TAIL: str
 GVAR_HEADER_SIZE_HEAD: Incomplete
@@ -23,6 +21,7 @@ class table__g_v_a_r(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/gvar
     """
+
     dependencies: Incomplete
     gid_size: int
     variations: Incomplete

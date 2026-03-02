@@ -2,6 +2,7 @@ class Classifier:
     """
     Main Classifier object, used to classify things into similar sets.
     """
+
     def __init__(self, sort: bool = True) -> None: ...
     def add(self, set_of_things) -> None:
         """

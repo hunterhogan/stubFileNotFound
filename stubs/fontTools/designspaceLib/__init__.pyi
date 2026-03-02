@@ -1,7 +1,8 @@
 from _typeshed import Incomplete
+from collections.abc import MutableMapping
 from fontTools.misc import etree as ET
 from fontTools.misc.loggingTools import LogMixin
-from typing import Any, MutableMapping
+from typing import Any, TypeAlias
 
 __all__ = ['AxisDescriptor', 'AxisLabelDescriptor', 'AxisMappingDescriptor', 'BaseDocReader', 'BaseDocWriter', 'DesignSpaceDocument', 'DesignSpaceDocumentError', 'DiscreteAxisDescriptor', 'InstanceDescriptor', 'LocationLabelDescriptor', 'RangeAxisSubsetDescriptor', 'RuleDescriptor', 'SourceDescriptor', 'ValueAxisSubsetDescriptor', 'VariableFontDescriptor']
 
@@ -15,10 +16,11 @@ class AsDictMixin:
 
 class SimpleDescriptor(AsDictMixin):
     """Containers for a bunch of attributes"""
+
     def compare(self, other) -> None: ...
 
 class SourceDescriptor(SimpleDescriptor):
-    '''Simple container for data related to the source
+    """Simple container for data related to the source
 
     .. code:: python
 
@@ -35,7 +37,8 @@ class SourceDescriptor(SimpleDescriptor):
         s1.mutedGlyphNames.append("Z")
         doc.addSource(s1)
 
-    '''
+    """
+
     flavor: str
     filename: Incomplete
     path: Incomplete
@@ -56,7 +59,7 @@ class SourceDescriptor(SimpleDescriptor):
     def __init__(self, *, filename=None, path=None, font=None, name=None, location=None, designLocation=None, layerName=None, familyName=None, styleName=None, localisedFamilyName=None, copyLib: bool = False, copyInfo: bool = False, copyGroups: bool = False, copyFeatures: bool = False, muteKerning: bool = False, muteInfo: bool = False, mutedGlyphNames=None) -> None: ...
     @property
     def location(self):
-        """dict. Axis values for this source, in design space coordinates.
+        """Dict. Axis values for this source, in design space coordinates.
 
         MutatorMath + varLib.
 
@@ -83,7 +86,7 @@ class SourceDescriptor(SimpleDescriptor):
         """
 
 class RuleDescriptor(SimpleDescriptor):
-    '''Represents the rule descriptor element: a set of glyph substitutions to
+    """Represents the rule descriptor element: a set of glyph substitutions to
     trigger conditionally in some parts of the designspace.
 
     .. code:: python
@@ -108,16 +111,17 @@ class RuleDescriptor(SimpleDescriptor):
                 <sub name="dollar" with="dollar.alt"/>
             </rule>
         </rules>
-    '''
+    """
+
     name: Incomplete
     conditionSets: Incomplete
     subs: Incomplete
     def __init__(self, *, name=None, conditionSets=None, subs=None) -> None: ...
-AnisotropicLocationDict = dict[str, float | tuple[float, float]]
-SimpleLocationDict = dict[str, float]
+AnisotropicLocationDict: TypeAlias = dict[str, float | tuple[float, float]]
+SimpleLocationDict: TypeAlias = dict[str, float]
 
 class AxisMappingDescriptor(SimpleDescriptor):
-    '''Represents the axis mapping element: mapping an input location
+    """Represents the axis mapping element: mapping an input location
     to an output location in the designspace.
 
     .. code:: python
@@ -139,7 +143,8 @@ class AxisMappingDescriptor(SimpleDescriptor):
                 </output>
             </mapping>
         </mappings>
-    '''
+    """
+
     inputLocation: SimpleLocationDict
     outputLocation: SimpleLocationDict
     description: Incomplete
@@ -147,8 +152,7 @@ class AxisMappingDescriptor(SimpleDescriptor):
     def __init__(self, *, inputLocation=None, outputLocation=None, description=None, groupDescription=None) -> None: ...
 
 class InstanceDescriptor(SimpleDescriptor):
-    '''Simple container for data related to the instance
-
+    """Simple container for data related to the instance
 
     .. code:: python
 
@@ -164,7 +168,8 @@ class InstanceDescriptor(SimpleDescriptor):
         i2.styleMapStyleName = "InstanceStyleMapStyleName"
         i2.lib[\'com.coolDesignspaceApp.specimenText\'] = \'Hamburgerwhatever\'
         doc.addInstance(i2)
-    '''
+    """
+
     flavor: str
     filename: Incomplete
     path: Incomplete
@@ -189,7 +194,7 @@ class InstanceDescriptor(SimpleDescriptor):
     def __init__(self, *, filename=None, path=None, font=None, name=None, location=None, locationLabel=None, designLocation=None, userLocation=None, familyName=None, styleName=None, postScriptFontName=None, styleMapFamilyName=None, styleMapStyleName=None, localisedFamilyName=None, localisedStyleName=None, localisedStyleMapFamilyName=None, localisedStyleMapStyleName=None, glyphs=None, kerning: bool = True, info: bool = True, lib=None) -> None: ...
     @property
     def location(self):
-        """dict. Axis values for this instance.
+        """Dict. Axis values for this instance.
 
         MutatorMath + varLib.
 
@@ -281,7 +286,7 @@ class AbstractAxisDescriptor(SimpleDescriptor):
     def __init__(self, *, tag=None, name=None, labelNames=None, hidden: bool = False, map=None, axisOrdering=None, axisLabels=None) -> None: ...
 
 class AxisDescriptor(AbstractAxisDescriptor):
-    '''Simple container for the axis data.
+    """Simple container for the axis data.
 
     Add more localisations?
 
@@ -301,7 +306,8 @@ class AxisDescriptor(AbstractAxisDescriptor):
             AxisLabelDescriptor(name="Regular", userValue=400, elidable=True)
         ]
         doc.addAxis(a1)
-    '''
+    """
+
     minimum: Incomplete
     maximum: Incomplete
     default: Incomplete
@@ -313,7 +319,7 @@ class AxisDescriptor(AbstractAxisDescriptor):
         """Maps value from axis mapping's output (design) to input (user)."""
 
 class DiscreteAxisDescriptor(AbstractAxisDescriptor):
-    '''Container for discrete axis data.
+    """Container for discrete axis data.
 
     Use this for axes that do not interpolate. The main difference from a
     continuous axis is that a continuous axis has a ``minimum`` and ``maximum``,
@@ -340,7 +346,8 @@ class DiscreteAxisDescriptor(AbstractAxisDescriptor):
         doc.addAxis(a2)
 
     .. versionadded:: 5.0
-    '''
+    """
+
     flavor: str
     default: float
     values: list[float]
@@ -374,6 +381,7 @@ class AxisLabelDescriptor(SimpleDescriptor):
 
     .. versionadded:: 5.0
     """
+
     flavor: str
     userMinimum: float | None
     userValue: float
@@ -409,6 +417,7 @@ class LocationLabelDescriptor(SimpleDescriptor):
 
     .. versionadded:: 5.0
     """
+
     flavor: str
     name: str
     userLocation: SimpleLocationDict
@@ -439,6 +448,7 @@ class VariableFontDescriptor(SimpleDescriptor):
 
     .. versionadded:: 5.0
     """
+
     flavor: str
     filename: Incomplete
     name: str
@@ -451,6 +461,7 @@ class RangeAxisSubsetDescriptor(SimpleDescriptor):
 
     .. versionadded:: 5.0
     """
+
     flavor: str
     name: str
     userMinimum: float
@@ -463,6 +474,7 @@ class ValueAxisSubsetDescriptor(SimpleDescriptor):
 
     .. versionadded:: 5.0
     """
+
     flavor: str
     name: str
     userValue: float
@@ -546,7 +558,7 @@ class BaseDocReader(LogMixin):
     def readInfoElement(self, infoElement, instanceObject) -> None:
         """Read the info element."""
     def readGlyphElement(self, glyphElement, instanceObject) -> None:
-        '''
+        """
         Read the glyph element, which could look like either one of these:
 
         .. code-block:: xml
@@ -562,12 +574,12 @@ class BaseDocReader(LogMixin):
                     This is an instance from an anisotropic interpolation.
                 </note>
             </glyph>
-        '''
+        """
     def readLib(self) -> None:
         """Read the lib element for the whole document."""
 
 class DesignSpaceDocument(LogMixin, AsDictMixin):
-    '''The DesignSpaceDocument object can read and write ``.designspace`` data.
+    """The DesignSpaceDocument object can read and write ``.designspace`` data.
     It imports the axes, sources, variable fonts and instances to very basic
     **descriptor** objects that store the data in attributes. Data is added to
     the document by creating such descriptor objects, filling them with data
@@ -598,7 +610,8 @@ class DesignSpaceDocument(LogMixin, AsDictMixin):
         doc.instances
         doc.lib
 
-    '''
+    """
+
     path: Incomplete
     filename: Incomplete
     formatVersion: str | None
@@ -632,7 +645,7 @@ class DesignSpaceDocument(LogMixin, AsDictMixin):
     def write(self, path) -> None:
         """Write this designspace to ``path``."""
     def updatePaths(self) -> None:
-        '''
+        """
         Right before we save we need to identify and respond to the following situations:
         In each descriptor, we have to do the right thing for the filename attribute.
 
@@ -672,7 +685,7 @@ class DesignSpaceDocument(LogMixin, AsDictMixin):
             there is a conflict between the given filename, and the path.
             So we know where the file is relative to the document.
             Can\'t guess why they\'re different, we just choose for path to be correct and update filename.
-        '''
+        """
     def addSource(self, sourceDescriptor: SourceDescriptor):
         """Add the given ``sourceDescriptor`` to ``doc.sources``."""
     def addSourceDescriptor(self, **kwargs):
@@ -800,7 +813,7 @@ class DesignSpaceDocument(LogMixin, AsDictMixin):
         - we need the axis data to do the scaling, so we do those last.
         """
     def loadSourceFonts(self, opener, **kwargs):
-        '''Ensure SourceDescriptor.font attributes are loaded, and return list of fonts.
+        """Ensure SourceDescriptor.font attributes are loaded, and return list of fonts.
 
         Takes a callable which initializes a new font object (e.g. TTFont, or
         defcon.Font, etc.) from the SourceDescriptor.path, and sets the
@@ -823,9 +836,10 @@ class DesignSpaceDocument(LogMixin, AsDictMixin):
                 loaded from the path.
             **kwargs: extra options passed on to the opener function.
 
-        Returns:
+        Returns
+        -------
             List of font objects in the order they appear in the sources list.
-        '''
+        """
     @property
     def formatTuple(self):
         """Return the formatVersion as a tuple of (major, minor).

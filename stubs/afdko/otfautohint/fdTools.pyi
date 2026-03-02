@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 
-log: Incomplete
 kBeginToken: str
 kEndToken: str
 kFDDictToken: str

@@ -1,4 +1,4 @@
-__all__ = ['planWeightAxis', 'planWidthAxis', 'planSlantAxis', 'planOpticalSizeAxis', 'planAxis', 'sanitizeWeight', 'sanitizeWidth', 'sanitizeSlant', 'measureWeight', 'measureWidth', 'measureSlant', 'normalizeLinear', 'normalizeLog', 'normalizeDegrees', 'interpolateLinear', 'interpolateLog', 'processAxis', 'makeDesignspaceSnippet', 'addEmptyAvar', 'main']
+__all__ = ['addEmptyAvar', 'interpolateLinear', 'interpolateLog', 'main', 'makeDesignspaceSnippet', 'measureSlant', 'measureWeight', 'measureWidth', 'normalizeDegrees', 'normalizeLinear', 'normalizeLog', 'planAxis', 'planOpticalSizeAxis', 'planSlantAxis', 'planWeightAxis', 'planWidthAxis', 'processAxis', 'sanitizeSlant', 'sanitizeWeight', 'sanitizeWidth']
 
 def normalizeLinear(value, rangeMin, rangeMax):
     """Linearly normalize value in [rangeMin, rangeMax] to [0, 1], with extrapolation."""
@@ -23,7 +23,7 @@ def sanitizeWeight(userTriple, designTriple, pins, measurements):
 def sanitizeSlant(userTriple, designTriple, pins, measurements):
     """Sanitize the slant axis limits."""
 def planAxis(measureFunc, normalizeFunc, interpolateFunc, glyphSetFunc, axisTag, axisLimits, values, samples=None, glyphs=None, designLimits=None, pins=None, sanitizeFunc=None):
-    '''Plan an axis.
+    """Plan an axis.
 
     measureFunc: callable that takes a glyphset and an optional
     list of glyphnames, and returns the glyphset-wide measurement
@@ -60,7 +60,7 @@ def planAxis(measureFunc, normalizeFunc, interpolateFunc, glyphSetFunc, axisTag,
     the output.
 
     sanitizeFunc: an optional callable to call to sanitize the axis limits.
-    '''
+    """
 def planWeightAxis(glyphSetFunc, axisLimits, weights=None, samples=None, glyphs=None, designLimits=None, pins=None, sanitize: bool = False):
     """Plan a weight (`wght`) axis.
 

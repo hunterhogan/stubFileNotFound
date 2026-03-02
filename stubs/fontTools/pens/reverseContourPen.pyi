@@ -2,7 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from fontTools.pens.filterPen import ContourFilterPen
 
-__all__ = ['reversedContour', 'ReverseContourPen']
+__all__ = ['ReverseContourPen', 'reversedContour']
 
 class ReverseContourPen(ContourFilterPen):
     """Filter pen that passes outline data to another pen, but reversing
@@ -12,6 +12,7 @@ class ReverseContourPen(ContourFilterPen):
     Closed contours are reversed in such a way that the first point remains
     the first point.
     """
+
     outputImpliedClosingLine: Incomplete
     def __init__(self, outPen, outputImpliedClosingLine: bool = False) -> None: ...
     def filterContour(self, contour): ...

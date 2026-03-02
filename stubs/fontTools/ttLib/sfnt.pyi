@@ -4,8 +4,6 @@ from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import Tag as Tag
 from fontTools.ttLib import TTLibError as TTLibError, TTLibFileIsCollectionError as TTLibFileIsCollectionError
 
-log: Incomplete
-
 class SFNTReader:
     def __new__(cls, *args, **kwargs):
         """Return an instance of the SFNTReader sub-class which is compatible
@@ -127,7 +125,7 @@ class WOFFFlavorData:
     def __init__(self, reader=None) -> None: ...
 
 def calcChecksum(data):
-    '''Calculate the checksum for an arbitrary block of data.
+    """Calculate the checksum for an arbitrary block of data.
 
     If the data length is not a multiple of four, it assumes
     it is to be padded with null byte.
@@ -136,6 +134,6 @@ def calcChecksum(data):
             1633837924
             >>> print(calcChecksum(b"abcdxyz"))
             3655064932
-    '''
+    """
 def readTTCHeader(file): ...
 def writeTTCHeader(file, numFonts): ...

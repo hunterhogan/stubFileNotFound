@@ -1,5 +1,5 @@
+from collections.abc import Iterable
 from fontTools.ttLib import ttFont
-from typing import Iterable
 
 __all__ = ['removeOverlaps']
 

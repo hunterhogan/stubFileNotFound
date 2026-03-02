@@ -168,7 +168,6 @@ fsum: Incomplete
 fdot: Incomplete
 sqrt: Incomplete
 cbrt: Incomplete
-log: Incomplete
 log10: Incomplete
 power: Incomplete
 cos: Incomplete

@@ -1,5 +1,8 @@
 from ._base import FS as FS
-from ._errors import CreateFailed as CreateFailed, DirectoryExpected as DirectoryExpected, DirectoryNotEmpty as DirectoryNotEmpty, FileExpected as FileExpected, IllegalDestination as IllegalDestination, ResourceError as ResourceError, ResourceNotFound as ResourceNotFound
+from ._errors import (
+	CreateFailed as CreateFailed, DirectoryExpected as DirectoryExpected, DirectoryNotEmpty as DirectoryNotEmpty,
+	FileExpected as FileExpected, IllegalDestination as IllegalDestination, ResourceError as ResourceError,
+	ResourceNotFound as ResourceNotFound)
 from ._info import Info as Info
 from ._path import isbase as isbase
 from ._subfs import SubFS as SubFS
@@ -12,6 +15,7 @@ class OSFS(FS):
 
     A thin layer on top of `pathlib.Path`.
     """
+
     def __init__(self, root: str | PathLike, create: bool = False) -> None: ...
     def open(self, path: str, mode: str = 'rb', **kwargs) -> IO[Any]: ...
     def exists(self, path: str) -> bool: ...

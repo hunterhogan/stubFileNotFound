@@ -3,7 +3,7 @@ from fontTools.pens.basePen import MissingComponentError as MissingComponentErro
 from fontTools.pens.pointPen import AbstractPointPen as AbstractPointPen
 
 class HashPointPen(AbstractPointPen):
-    '''
+    """
     This pen can be used to check if a glyph\'s contents (outlines plus
     components) have changed.
 
@@ -42,7 +42,8 @@ class HashPointPen(AbstractPointPen):
     > ufo_round_pen = RoundingPointPen(ufo_hash_pen, transformRoundFunc=partial(floatToFixedToFloat, precisionBits=14))
     > ufo_glyph.drawPoints(ufo_round_pen)
     > assert ttf_hash_pen.hash == ufo_hash_pen.hash
-    '''
+    """
+
     glyphset: Incomplete
     data: Incomplete
     def __init__(self, glyphWidth: int = 0, glyphSet=None) -> None: ...

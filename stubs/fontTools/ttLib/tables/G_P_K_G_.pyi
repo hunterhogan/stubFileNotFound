@@ -1,8 +1,8 @@
-from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import bytesjoin as bytesjoin, readHex as readHex, safeEval as safeEval
+from fontTools.ttLib import TTFont
 
 GPKGFormat: str
 
@@ -13,6 +13,7 @@ class table_G_P_K_G_(DefaultTable.DefaultTable):
 
     See also https://web.archive.org/web/20080627183635/http://www.adobe.com/devnet/opentype/gdk/topic.html
     """
+
     GMAPs: Incomplete
     glyphlets: Incomplete
     def decompile(self, data, ttFont: TTFont) -> None: ...

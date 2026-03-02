@@ -13,7 +13,6 @@ from fontTools.ttLib.sfnt import (
 	WOFFFlavorData as WOFFFlavorData)
 from fontTools.ttLib.tables import ttProgram as ttProgram
 
-log: Incomplete
 haveBrotli: bool
 
 class WOFF2Reader(SFNTReader):
@@ -103,12 +102,14 @@ class WOFF2LocaTable(Incomplete):
     """Same as parent class. The only difference is that it attempts to preserve
     the 'indexFormat' as encoded in the WOFF2 glyf table.
     """
+
     tableTag: Incomplete
     def __init__(self, tag=None) -> None: ...
     def compile(self, ttFont: TTFont): ...
 
 class WOFF2GlyfTable(Incomplete):
     """Decoder/Encoder for WOFF2 'glyf' table transform."""
+
     subStreams: Incomplete
     tableTag: Incomplete
     def __init__(self, tag=None) -> None: ...
@@ -150,7 +151,8 @@ class WOFF2FlavorData(WOFFFlavorData):
                 data: another WOFFFlavorData object to initialise data from.
                 transformedTables: set of strings containing table tags to be transformed.
 
-        Raises:
+        Raises
+        ------
                 ImportError if the brotli module is not installed.
 
         NOTE: The 'reader' argument, on the one hand, and the 'data' and
@@ -158,7 +160,7 @@ class WOFF2FlavorData(WOFFFlavorData):
         """
 
 def unpackBase128(data):
-    '''Read one to five bytes from UIntBase128-encoded input string, and return
+    """Read one to five bytes from UIntBase128-encoded input string, and return
     a tuple containing the decoded integer plus any leftover data.
 
     >>> unpackBase128(b\'\\x3f\\x00\\x00\') == (63, b"\\x00\\x00")
@@ -177,7 +179,7 @@ def unpackBase128(data):
     Traceback (most recent call last):
       File "<stdin>", line 1, in ?
     TTLibError: UIntBase128 value exceeds 2**32-1
-    '''
+    """
 def base128Size(n):
     """Return the length in bytes of a UIntBase128-encoded sequence with value n.
 
@@ -189,7 +191,7 @@ def base128Size(n):
     5
     """
 def packBase128(n):
-    '''Encode unsigned integer in range 0 to 2**32-1 (inclusive) to a string of
+    """Encode unsigned integer in range 0 to 2**32-1 (inclusive) to a string of
     bytes using UIntBase128 variable-length encoding. Produce the shortest possible
     encoding.
 
@@ -197,9 +199,9 @@ def packBase128(n):
     True
     >>> packBase128(2**32-1) == b\'\\x8f\\xff\\xff\\xff\\x7f\'
     True
-    '''
+    """
 def unpack255UShort(data):
-    '''Read one to three bytes from 255UInt16-encoded input string, and return a
+    """Read one to three bytes from 255UInt16-encoded input string, and return a
     tuple containing the decoded integer plus any leftover data.
 
     >>> unpack255UShort(bytechr(252))[0]
@@ -212,7 +214,7 @@ def unpack255UShort(data):
     506
     >>> unpack255UShort(struct.pack("BBB", 253, 1, 250))[0]
     506
-    '''
+    """
 def pack255UShort(value):
     """Encode unsigned integer in range 0 to 65535 (inclusive) to a bytestring
     using 255UInt16 variable-length encoding.

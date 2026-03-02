@@ -1,13 +1,13 @@
-from unicodedata2 import *
+from typing import overload, TypeVar
 from unicodedata import *
-from typing import TypeVar, overload
+from unicodedata2 import *
 
-__all__ = ['lookup', 'name', 'decimal', 'digit', 'numeric', 'category', 'bidirectional', 'combining', 'east_asian_width', 'mirrored', 'decomposition', 'normalize', 'unidata_version', 'ucd_3_2_0', 'block', 'script', 'script_extension', 'script_name', 'script_code', 'script_horizontal_direction', 'ot_tags_from_script', 'ot_tag_to_script']
+__all__ = ['bidirectional', 'block', 'category', 'combining', 'decimal', 'decomposition', 'digit', 'east_asian_width', 'lookup', 'mirrored', 'name', 'normalize', 'numeric', 'ot_tag_to_script', 'ot_tags_from_script', 'script', 'script_code', 'script_extension', 'script_horizontal_direction', 'script_name', 'ucd_3_2_0', 'unidata_version']
 
 def mirrored(code):
     """If code (unicode codepoint) has a mirrored version returns it, otherwise None."""
 def script(char):
-    '''Return the four-letter script code assigned to the Unicode character
+    """Return the four-letter script code assigned to the Unicode character
     \'char\' as string.
 
     >>> script("a")
@@ -16,9 +16,9 @@ def script(char):
     \'Zyyy\'
     >>> script(chr(0x10FFFF))
     \'Zzzz\'
-    '''
+    """
 def script_extension(char):
-    '''Return the script extension property assigned to the Unicode character
+    """Return the script extension property assigned to the Unicode character
     \'char\' as a set of string.
 
     >>> script_extension("a") == {\'Latn\'}
@@ -27,7 +27,7 @@ def script_extension(char):
     True
     >>> script_extension(chr(0x10FFFF)) == {\'Zzzz\'}
     True
-    '''
+    """
 def script_name(code, default=...):
     """Return the long, human-readable script name given a four-letter
     Unicode script code.
@@ -52,7 +52,7 @@ def script_horizontal_direction(script_code: str, default: T) -> HorizDirection 
 @overload
 def script_horizontal_direction(script_code: str, default: type[KeyError] = ...) -> HorizDirection: ...
 def block(char):
-    '''Return the block property assigned to the Unicode character \'char\'
+    """Return the block property assigned to the Unicode character \'char\'
     as a string.
 
     >>> block("a")
@@ -61,17 +61,17 @@ def block(char):
     \'Arabic\'
     >>> block(chr(0xEFFFF))
     \'No_Block\'
-    '''
+    """
 def ot_tags_from_script(script_code):
     """Return a list of OpenType script tags associated with a given
     Unicode script code.
     Return ['DFLT'] script tag for invalid/unknown script codes.
     """
 def ot_tag_to_script(tag):
-    '''Return the Unicode script code for the given OpenType script tag, or
+    """Return the Unicode script code for the given OpenType script tag, or
     None for "DFLT" tag or if there is no Unicode script associated with it.
     Raises ValueError if the tag is invalid.
-    '''
+    """
 
 # Names in __all__ with no definition:
 #   bidirectional

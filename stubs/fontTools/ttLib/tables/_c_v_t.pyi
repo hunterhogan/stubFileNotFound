@@ -1,7 +1,7 @@
-from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools.misc.textTools import safeEval as safeEval
+from fontTools.ttLib import TTFont
 
 class table__c_v_t(DefaultTable.DefaultTable):
     """Control Value Table
@@ -11,6 +11,7 @@ class table__c_v_t(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/cvt
     """
+
     values: Incomplete
     def decompile(self, data, ttFont: TTFont) -> None: ...
     def compile(self, ttFont: TTFont): ...

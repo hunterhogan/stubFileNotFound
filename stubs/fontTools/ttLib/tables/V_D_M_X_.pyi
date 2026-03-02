@@ -1,8 +1,8 @@
-from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import safeEval as safeEval
+from fontTools.ttLib import TTFont
 
 VDMX_HeaderFmt: str
 VDMX_RatRangeFmt: str
@@ -17,6 +17,7 @@ class table_V_D_M_X_(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/vdmx
     """
+
     ratRanges: Incomplete
     groups: Incomplete
     def decompile(self, data, ttFont: TTFont) -> None: ...

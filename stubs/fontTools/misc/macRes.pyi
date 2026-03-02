@@ -18,6 +18,7 @@ class ResourceReader(MutableMapping):
     representing all the resources of a certain type.
 
     """
+
     file: Incomplete
     def __init__(self, fileOrPath) -> None:
         """Open a file
@@ -56,13 +57,15 @@ class ResourceReader(MutableMapping):
 class Resource:
     """Represents a resource stored within a resource fork.
 
-    Attributes:
+    Attributes
+    ----------
             type: resource type.
             data: resource data.
             id: ID.
             name: resource name.
             attr: attributes.
     """
+
     type: Incomplete
     data: Incomplete
     id: Incomplete

@@ -1,13 +1,12 @@
-from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools import ttLib as ttLib
 from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import (
 	bytechr as bytechr, byteord as byteord, readHex as readHex, safeEval as safeEval, tobytes as tobytes, tostr as tostr)
+from fontTools.ttLib import TTFont
 from fontTools.ttLib.standardGlyphOrder import standardGlyphOrder as standardGlyphOrder
 
-log: Incomplete
 postFormat: str
 postFormatSize: Incomplete
 
@@ -20,6 +19,7 @@ class table__p_o_s_t(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/post
     """
+
     def decompile(self, data, ttFont: TTFont) -> None: ...
     def compile(self, ttFont: TTFont): ...
     def getGlyphOrder(self):

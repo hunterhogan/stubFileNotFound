@@ -3,10 +3,8 @@ from _typeshed import Incomplete
 from fontTools.misc.textTools import readHex as readHex, safeEval as safeEval
 from fontTools.ttLib import getSearchRange as getSearchRange, TTFont
 
-log: Incomplete
-
 class table__k_e_r_n(DefaultTable.DefaultTable):
-    '''Kerning table
+    """Kerning table
 
     The ``kern`` table contains values that contextually adjust the inter-glyph
     spacing for the glyphs in a ``glyf`` table.
@@ -15,7 +13,8 @@ class table__k_e_r_n(DefaultTable.DefaultTable):
     in the "kern" feature of a ``GPOS`` table.
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/kern
-    '''
+    """
+
     def getkern(self, format): ...
     version: Incomplete
     kernTables: Incomplete

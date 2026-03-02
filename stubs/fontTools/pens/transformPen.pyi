@@ -6,6 +6,7 @@ class TransformPen(FilterPen):
     """Pen that transforms all coordinates using a Affine transformation,
     and passes them to another pen.
     """
+
     def __init__(self, outPen, transformation) -> None:
         """The 'outPen' argument is another pen object. It will receive the
         transformed coordinates. The 'transformation' argument can either
@@ -20,7 +21,7 @@ class TransformPen(FilterPen):
     def addComponent(self, glyphName, transformation) -> None: ...
 
 class TransformPointPen(FilterPointPen):
-    '''PointPen that transforms all coordinates using a Affine transformation,
+    """PointPen that transforms all coordinates using a Affine transformation,
     and passes them to another PointPen.
 
     For example::
@@ -44,7 +45,8 @@ class TransformPointPen(FilterPointPen):
         >>> pen.addComponent("a", (1, 0, 0, 1, -10, 5), identifier="component-0")
         >>> next(v)
         (\'addComponent\', (\'a\', <Transform [2 0 0 2 -30 15]>), {\'identifier\': \'component-0\'})
-    '''
+    """
+
     def __init__(self, outPointPen, transformation) -> None:
         """The 'outPointPen' argument is another point pen object.
         It will receive the transformed coordinates.

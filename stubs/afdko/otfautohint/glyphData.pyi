@@ -1,8 +1,6 @@
 from _typeshed import Incomplete
 from fontTools.pens.basePen import BasePen
 
-log: Incomplete
-
 def norm_float(value):
     """Converts a float (whose decimal part is zero) to integer"""
 def feq(a, b, factor: float = 1.52e-05):

@@ -1,9 +1,8 @@
-from . import FontParseError as FontParseError, fdTools as fdTools
+from . import fdTools as fdTools, FontParseError as FontParseError
 from .glyphData import glyphData as glyphData, norm_float as norm_float
 from _typeshed import Incomplete
 from fontTools.pens.pointPen import AbstractPointPen
 
-log: Incomplete
 PUBLIC_GLYPH_ORDER: str
 ADOBE_DOMAIN_PREFIX: str
 PROCESSED_LAYER_NAME: Incomplete

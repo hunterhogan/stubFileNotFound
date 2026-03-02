@@ -3,8 +3,6 @@ from fontTools import ttLib as ttLib
 from fontTools.misc.textTools import safeEval as safeEval
 from fontTools.ttLib.tables.DefaultTable import DefaultTable as DefaultTable
 
-log: Incomplete
-
 class TTXParseError(Exception): ...
 
 BUFSIZE: int

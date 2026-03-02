@@ -1,11 +1,9 @@
-from fontTools.merge.util import *
 from _typeshed import Incomplete
 from fontTools import ttLib as ttLib
 from fontTools.merge.base import add_method as add_method, mergeObjects as mergeObjects
+from fontTools.merge.util import *
 from fontTools.ttLib.tables import otTables as otTables
 from fontTools.ttLib.tables.DefaultTable import DefaultTable as DefaultTable
-
-log: Incomplete
 
 def mergeLookupLists(lst): ...
 def mergeFeatures(lst): ...

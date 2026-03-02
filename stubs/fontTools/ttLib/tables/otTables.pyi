@@ -2,6 +2,7 @@ from .otBase import (
 	BaseTable as BaseTable, CountReference as CountReference, FormatSwitchingBaseTable as FormatSwitchingBaseTable,
 	getFormatSwitchingBaseTableClass as getFormatSwitchingBaseTableClass, ValueRecord as ValueRecord)
 from _typeshed import Incomplete
+from collections.abc import Iterator
 from enum import IntEnum, IntFlag
 from fontTools.feaLib.lookupDebugInfo import (
 	LOOKUP_DEBUG_INFO_KEY as LOOKUP_DEBUG_INFO_KEY, LookupDebugInfo as LookupDebugInfo)
@@ -17,9 +18,7 @@ from fontTools.ttLib import OPTIMIZE_FONT_SPEED as OPTIMIZE_FONT_SPEED, TTFont
 from fontTools.ttLib.tables.otTraverse import dfs_base_table as dfs_base_table
 from fontTools.ttLib.tables.TupleVariation import TupleVariation as TupleVariation
 from fontTools.ttLib.ttGlyphSet import _TTGlyphSet
-from typing import Iterator, NamedTuple
-
-log: Incomplete
+from typing import NamedTuple
 
 class VarComponentFlags(IntFlag):
     RESET_UNSPECIFIED_AXES = ...
@@ -370,7 +369,7 @@ class Paint(Incomplete):
     def getFormatName(self): ...
     def toXML(self, xmlWriter, font, attrs=None, name=None) -> None: ...
     def iterPaintSubTables(self, colr: COLR) -> Iterator[BaseTable.SubTableEntry]: ...
-    def getChildren(self, colr) -> list['Paint']: ...
+    def getChildren(self, colr) -> list[Paint]: ...
     def traverse(self, colr: COLR, callback):
         """Depth-first traversal of graph rooted at self, callback on each node."""
     def getTransform(self) -> Transform: ...

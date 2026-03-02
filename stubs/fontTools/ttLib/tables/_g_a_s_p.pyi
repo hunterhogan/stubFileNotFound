@@ -1,7 +1,7 @@
-from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools.misc.textTools import safeEval as safeEval
+from fontTools.ttLib import TTFont
 
 GASP_SYMMETRIC_GRIDFIT: int
 GASP_SYMMETRIC_SMOOTHING: int
@@ -16,6 +16,7 @@ class table__g_a_s_p(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/gasp
     """
+
     gaspRange: Incomplete
     def decompile(self, data, ttFont: TTFont) -> None: ...
     def compile(self, ttFont: TTFont): ...

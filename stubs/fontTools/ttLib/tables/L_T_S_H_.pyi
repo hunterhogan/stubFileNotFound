@@ -1,7 +1,7 @@
-from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools.misc.textTools import safeEval as safeEval
+from fontTools.ttLib import TTFont
 
 class table_L_T_S_H_(DefaultTable.DefaultTable):
     """Linear Threshold table
@@ -13,6 +13,7 @@ class table_L_T_S_H_(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/ltsh
     """
+
     yPels: Incomplete
     def decompile(self, data, ttFont: TTFont) -> None: ...
     def compile(self, ttFont: TTFont): ...

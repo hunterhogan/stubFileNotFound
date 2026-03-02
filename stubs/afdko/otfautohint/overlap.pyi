@@ -1,8 +1,6 @@
 from .glyphData import glyphData as glyphData
 from _typeshed import Incomplete
 
-log: Incomplete
-
 def removeOverlap(glyph):
     """
     If the glyphData 'glyph' object has overlap, create a new glyphData

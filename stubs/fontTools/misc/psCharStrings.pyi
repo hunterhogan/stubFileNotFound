@@ -1,9 +1,9 @@
 from _typeshed import Incomplete
-from fontTools.misc.fixedTools import fixedToFloat as fixedToFloat, floatToFixed as floatToFixed, floatToFixedToStr as floatToFixedToStr, strToFixedToFloat as strToFixedToFloat
+from fontTools.misc.fixedTools import (
+	fixedToFloat as fixedToFloat, floatToFixed as floatToFixed, floatToFixedToStr as floatToFixedToStr,
+	strToFixedToFloat as strToFixedToFloat)
 from fontTools.misc.textTools import bytechr as bytechr, byteord as byteord, bytesjoin as bytesjoin, strjoin as strjoin
 from fontTools.pens.boundsPen import BoundsPen as BoundsPen
-
-log: Incomplete
 
 def read_operator(self, b0, data, index): ...
 def read_byte(self, b0, data, index): ...
@@ -213,7 +213,7 @@ class T1OutlineExtractor(T2OutlineExtractor):
     def op_dotsection(self, index) -> None: ...
     def op_hstem3(self, index) -> None: ...
     def op_seac(self, index) -> None:
-        """asb adx ady bchar achar seac"""
+        """Asb adx ady bchar achar seac"""
     def op_vstem3(self, index) -> None: ...
 
 class T2CharString:

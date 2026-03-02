@@ -22,7 +22,6 @@ def math_sqrt(x): ...
 math_log = math.log
 math_sqrt = math.sqrt
 pow: Incomplete
-log: Incomplete
 sqrt: Incomplete
 exp: Incomplete
 cos: Incomplete

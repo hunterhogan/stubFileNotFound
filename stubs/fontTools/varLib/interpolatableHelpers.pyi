@@ -1,12 +1,9 @@
 from _typeshed import Incomplete
-from enum import Enum as Enum
 from fontTools.misc.transform import Transform as Transform
 from fontTools.pens.basePen import AbstractPen as AbstractPen, BasePen as BasePen, DecomposingPen as DecomposingPen
 from fontTools.pens.pointPen import AbstractPointPen as AbstractPointPen, SegmentToPointPen as SegmentToPointPen
 from fontTools.pens.recordingPen import DecomposingRecordingPen as DecomposingRecordingPen, RecordingPen as RecordingPen
 from fontTools.ttLib.ttGlyphSet import LerpGlyphSet as LerpGlyphSet
-
-log: Incomplete
 
 class InterpolatableProblem:
     NOTHING: str
@@ -26,7 +23,8 @@ def sort_problems(problems):
     """Sort problems by severity, then by glyph name, then by problem message."""
 def rot_list(l, k):
     """Rotate list by k items forward.  Ie. item at position 0 will be
-    at position k in returned list.  Negative k is allowed."""
+    at position k in returned list.  Negative k is allowed.
+    """
 
 class PerContourPen(BasePen):
     value: Incomplete

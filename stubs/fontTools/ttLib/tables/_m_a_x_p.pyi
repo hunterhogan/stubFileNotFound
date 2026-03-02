@@ -1,8 +1,8 @@
-from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import safeEval as safeEval
+from fontTools.ttLib import TTFont
 
 maxpFormat_0_5: str
 maxpFormat_1_0_add: str
@@ -15,6 +15,7 @@ class table__m_a_x_p(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/maxp
     """
+
     dependencies: Incomplete
     numGlyphs: Incomplete
     def decompile(self, data, ttFont: TTFont) -> None: ...

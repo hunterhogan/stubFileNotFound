@@ -3,7 +3,6 @@ from fontTools.ttLib import TTFont
 from fontTools.ttLib.tables._g_l_y_f import Glyph, table__g_l_y_f
 from fontTools.ttLib.ttGlyphSet import _TTGlyphSet
 
-log: Incomplete
 MAX_ERR: float
 POST_FORMAT: float
 REVERSE_DIRECTION: bool

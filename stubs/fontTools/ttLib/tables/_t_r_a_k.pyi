@@ -3,7 +3,7 @@ from _typeshed import Incomplete
 from collections.abc import MutableMapping
 from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import bytesjoin as bytesjoin, safeEval as safeEval
-from fontTools.ttLib import TTLibError as TTLibError, TTFont
+from fontTools.ttLib import TTFont, TTLibError as TTLibError
 
 TRAK_HEADER_FORMAT: str
 TRAK_HEADER_FORMAT_SIZE: Incomplete
@@ -23,6 +23,7 @@ class table__t_r_a_k(DefaultTable.DefaultTable):
 
     See also https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6trak.html
     """
+
     dependencies: Incomplete
     reserved: int
     def compile(self, ttFont: TTFont): ...

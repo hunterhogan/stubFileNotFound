@@ -27,7 +27,8 @@ def programToCommands(program, getNumRegions=None):
     """
 def commandsToProgram(commands):
     """Takes a commands list as returned by programToCommands() and converts
-    it back to a T2CharString program list."""
+    it back to a T2CharString program list.
+    """
 
 class _GeneralizerDecombinerCommandsMap:
     @staticmethod

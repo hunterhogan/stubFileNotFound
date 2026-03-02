@@ -7,7 +7,6 @@ from fontTools.misc.timeTools import timestampSinceEpoch as timestampSinceEpoch
 from fontTools.ttLib import OPTIMIZE_FONT_SPEED as OPTIMIZE_FONT_SPEED, TTFont as TTFont, TTLibError as TTLibError
 from fontTools.unicode import setUnicodeData as setUnicodeData
 
-log: Incomplete
 opentypeheaderRE: Incomplete
 
 class Options:

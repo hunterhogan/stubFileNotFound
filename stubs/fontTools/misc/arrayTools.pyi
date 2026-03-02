@@ -9,7 +9,8 @@ def calcBounds(array):
     Args:
         array: A sequence of 2D tuples.
 
-    Returns:
+    Returns
+    -------
         A four-item tuple representing the bounding rectangle ``(xMin, yMin, xMax, yMax)``.
     """
 def calcIntBounds(array, round=...):
@@ -23,7 +24,8 @@ def calcIntBounds(array, round=...):
         array: A sequence of 2D tuples.
         round: A rounding function of type ``f(x: float) -> int``.
 
-    Returns:
+    Returns
+    -------
         A four-item tuple of integers representing the bounding rectangle:
         ``(xMin, yMin, xMax, yMax)``.
     """
@@ -36,7 +38,8 @@ def updateBounds(bounds, p, min=..., max=...):
         p: A 2D tuple representing a point.
         min,max: functions to compute the minimum and maximum.
 
-    Returns:
+    Returns
+    -------
         The updated bounding rectangle ``(xMin, yMin, xMax, yMax)``.
     """
 def pointInRect(p, rect):
@@ -47,7 +50,8 @@ def pointInRect(p, rect):
         rect: A bounding rectangle expressed as a tuple
             ``(xMin, yMin, xMax, yMax)``.
 
-    Returns:
+    Returns
+    -------
         ``True`` if the point is inside the rectangle, ``False`` otherwise.
     """
 def pointsInRect(array, rect):
@@ -58,7 +62,8 @@ def pointsInRect(array, rect):
         rect: A bounding rectangle expressed as a tuple
             ``(xMin, yMin, xMax, yMax)``.
 
-    Returns:
+    Returns
+    -------
         A list containing the points inside the rectangle.
     """
 def vectorLength(vector):
@@ -67,7 +72,8 @@ def vectorLength(vector):
     Args:
         vector: A 2D tuple.
 
-    Returns:
+    Returns
+    -------
         The Euclidean length of the vector.
     """
 def asInt16(array):
@@ -76,11 +82,12 @@ def asInt16(array):
     Args:
         array: List of float values.
 
-    Returns:
+    Returns
+    -------
         A list of rounded integers.
     """
 def normRect(rect):
-    '''Normalize a bounding box rectangle.
+    """Normalize a bounding box rectangle.
 
     This function "turns the rectangle the right way up", so that the following
     holds::
@@ -91,9 +98,10 @@ def normRect(rect):
         rect: A bounding rectangle expressed as a tuple
             ``(xMin, yMin, xMax, yMax)``.
 
-    Returns:
+    Returns
+    -------
         A normalized bounding rectangle.
-    '''
+    """
 def scaleRect(rect, x, y):
     """Scale a bounding box rectangle.
 
@@ -103,7 +111,8 @@ def scaleRect(rect, x, y):
         x: Factor to scale the rectangle along the X axis.
         Y: Factor to scale the rectangle along the Y axis.
 
-    Returns:
+    Returns
+    -------
         A scaled bounding rectangle.
     """
 def offsetRect(rect, dx, dy):
@@ -115,7 +124,8 @@ def offsetRect(rect, dx, dy):
         dx: Amount to offset the rectangle along the X axis.
         dY: Amount to offset the rectangle along the Y axis.
 
-    Returns:
+    Returns
+    -------
         An offset bounding rectangle.
     """
 def insetRect(rect, dx, dy):
@@ -127,7 +137,8 @@ def insetRect(rect, dx, dy):
         dx: Amount to inset the rectangle along the X axis.
         dY: Amount to inset the rectangle along the Y axis.
 
-    Returns:
+    Returns
+    -------
         An inset bounding rectangle.
     """
 def sectRect(rect1, rect2):
@@ -138,7 +149,8 @@ def sectRect(rect1, rect2):
             ``(xMin, yMin, xMax, yMax)``.
         rect2: Second bounding rectangle.
 
-    Returns:
+    Returns
+    -------
         A boolean and a rectangle.
         If the input rectangles intersect, returns ``True`` and the intersecting
         rectangle. Returns ``False`` and ``(0, 0, 0, 0)`` if the input
@@ -152,7 +164,8 @@ def unionRect(rect1, rect2):
             ``(xMin, yMin, xMax, yMax)``.
         rect2: Second bounding rectangle.
 
-    Returns:
+    Returns
+    -------
         The smallest rectangle in which both input rectangles are fully
         enclosed.
     """
@@ -163,7 +176,8 @@ def rectCenter(rect):
         rect: Bounding rectangle, expressed as tuples
             ``(xMin, yMin, xMax, yMax)``.
 
-    Returns:
+    Returns
+    -------
         A 2D tuple representing the point at the center of the rectangle.
     """
 def rectArea(rect):
@@ -173,7 +187,8 @@ def rectArea(rect):
         rect: Bounding rectangle, expressed as tuples
             ``(xMin, yMin, xMax, yMax)``.
 
-    Returns:
+    Returns
+    -------
         The area of the rectangle.
     """
 def intRect(rect):
@@ -185,7 +200,8 @@ def intRect(rect):
         rect: Bounding rectangle, expressed as tuples
             ``(xMin, yMin, xMax, yMax)``.
 
-    Returns:
+    Returns
+    -------
         A rounded bounding rectangle.
     """
 def quantizeRect(rect, factor: int = 1):
@@ -209,7 +225,8 @@ def pairwise(iterable, reverse: bool = False) -> Generator[Incomplete]:
         iterable: An iterable
         reverse: If true, iterate in reverse order.
 
-    Returns:
+    Returns
+    -------
         A iterable yielding two elements per iteration.
 
     Example:

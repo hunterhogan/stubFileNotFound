@@ -1,24 +1,25 @@
-import re
 from fontTools.feaLib.error import FeatureLibError as FeatureLibError, IncludedFeaNotFound as IncludedFeaNotFound
 from fontTools.feaLib.location import FeatureLibLocation as FeatureLibLocation
 from typing import Any, ClassVar
+import re
 
 __test__: dict
 
 class IncludingLexer:
     """A Lexer that follows include statements.
 
-        The OpenType feature file specification states that due to
-        historical reasons, relative imports should be resolved in this
-        order:
+    The OpenType feature file specification states that due to
+    historical reasons, relative imports should be resolved in this
+    order:
 
-        1. If the source font is UFO format, then relative to the UFO's
-           font directory
-        2. relative to the top-level include file
-        3. relative to the parent include file
+    1. If the source font is UFO format, then relative to the UFO's
+       font directory
+    2. relative to the top-level include file
+    3. relative to the parent include file
 
-        We only support 1 (via includeDir) and 2.
+    We only support 1 (via includeDir) and 2.
     """
+
     def __init__(self, featurefile, includeDir=...) -> Any:
         """IncludingLexer.__init__(self, featurefile, *, includeDir=None)
 
@@ -28,7 +29,8 @@ class IncludingLexer:
             If includeDir is passed, it will be used to determine the top-level
             include directory to use for all encountered include statements. If it is
             not passed, ``os.path.dirname(featurefile)`` will be considered the
-            include directory."""
+            include directory.
+        """
     @staticmethod
     def make_lexer_(file_or_path) -> Any:
         """IncludingLexer.make_lexer_(file_or_path)"""
@@ -88,5 +90,6 @@ class Lexer:
 
 class NonIncludingLexer(IncludingLexer):
     """Lexer that does not follow `include` statements, emits them as-is."""
+
     def __next__(self) -> Any:
         """NonIncludingLexer.__next__(self)"""

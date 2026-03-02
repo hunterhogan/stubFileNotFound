@@ -6,7 +6,9 @@ __all__ = ['TeePen']
 class TeePen(AbstractPen):
     """Pen multiplexing drawing to one or more pens.
 
-    Use either as TeePen(pen1, pen2, ...) or TeePen(iterableOfPens)."""
+    Use either as TeePen(pen1, pen2, ...) or TeePen(iterableOfPens).
+    """
+
     pens: Incomplete
     def __init__(self, *pens) -> None: ...
     def moveTo(self, p0) -> None: ...

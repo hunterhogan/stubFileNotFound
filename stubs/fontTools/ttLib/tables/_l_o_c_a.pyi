@@ -1,8 +1,6 @@
-from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
-
-log: Incomplete
+from fontTools.ttLib import TTFont
 
 class table__l_o_c_a(DefaultTable.DefaultTable):
     """Index to Location table
@@ -12,6 +10,7 @@ class table__l_o_c_a(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/loca
     """
+
     dependencies: Incomplete
     locations: Incomplete
     def decompile(self, data, ttFont: TTFont) -> None: ...

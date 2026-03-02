@@ -1,10 +1,12 @@
 from _typeshed import Incomplete
-from fontTools.varLib.models import VariationModel as VariationModel, normalizeValue as normalizeValue, piecewiseLinearMap as piecewiseLinearMap
+from fontTools.varLib.models import (
+	normalizeValue as normalizeValue, piecewiseLinearMap as piecewiseLinearMap, VariationModel as VariationModel)
 
 def Location(loc): ...
 
 class VariableScalar:
     """A scalar with different values at different points in the designspace."""
+
     values: Incomplete
     axes: Incomplete
     def __init__(self, location_value={}) -> None: ...

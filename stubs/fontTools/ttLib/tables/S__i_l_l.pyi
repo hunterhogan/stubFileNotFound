@@ -1,9 +1,9 @@
-from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable, grUtils as grUtils
 from _typeshed import Incomplete
 from fontTools.misc import sstruct as sstruct
 from fontTools.misc.fixedTools import floatToFixedToStr as floatToFixedToStr
 from fontTools.misc.textTools import safeEval as safeEval
+from fontTools.ttLib import TTFont
 
 Sill_hdr: str
 
@@ -12,6 +12,7 @@ class table_S__i_l_l(DefaultTable.DefaultTable):
 
     See also https://graphite.sil.org/graphite_techAbout#graphite-font-tables
     """
+
     langs: Incomplete
     def __init__(self, tag=None) -> None: ...
     version: Incomplete

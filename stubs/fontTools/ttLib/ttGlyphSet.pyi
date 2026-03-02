@@ -1,4 +1,3 @@
-import abc
 from _typeshed import Incomplete
 from abc import ABC, abstractmethod
 from collections.abc import Generator, Mapping
@@ -7,14 +6,18 @@ from fontTools.misc.fixedTools import otRound as otRound
 from fontTools.misc.loggingTools import deprecateFunction as deprecateFunction
 from fontTools.misc.transform import DecomposedTransform as DecomposedTransform, Transform as Transform
 from fontTools.misc.vector import Vector as Vector
-from fontTools.pens.recordingPen import DecomposingRecordingPen as DecomposingRecordingPen, lerpRecordings as lerpRecordings, replayRecording as replayRecording
+from fontTools.pens.recordingPen import (
+	DecomposingRecordingPen as DecomposingRecordingPen, lerpRecordings as lerpRecordings,
+	replayRecording as replayRecording)
 from fontTools.pens.transformPen import TransformPen as TransformPen, TransformPointPen as TransformPointPen
-from types import SimpleNamespace as SimpleNamespace
+import abc
 
 class _TTGlyphSet(Mapping, metaclass=abc.ABCMeta):
     """Generic dict-like GlyphSet class that pulls metrics from hmtx and
-\tglyph shape from TrueType or CFF.
-\t"""
+    \tglyph shape from TrueType or CFF.
+    \t
+    """
+
     recalcBounds: Incomplete
     font: Incomplete
     defaultLocationNormalized: Incomplete
@@ -62,13 +65,15 @@ class _TTGlyphSetVARC(_TTGlyphSet):
 
 class _TTGlyph(ABC, metaclass=abc.ABCMeta):
     """Glyph object that supports the Pen protocol, meaning that it has
-\t.draw() and .drawPoints() methods that take a pen object as their only
-\targument. Additionally there are 'width' and 'lsb' attributes, read from
-\tthe 'hmtx' table.
+    \t.draw() and .drawPoints() methods that take a pen object as their only
+    \targument. Additionally there are 'width' and 'lsb' attributes, read from
+    \tthe 'hmtx' table.
 
-\tIf the font contains a 'vmtx' table, there will also be 'height' and 'tsb'
-\tattributes.
-\t"""
+    \tIf the font contains a 'vmtx' table, there will also be 'height' and 'tsb'
+    \tattributes.
+    \t
+    """
+
     glyphSet: Incomplete
     name: Incomplete
     recalcBounds: Incomplete
@@ -96,11 +101,13 @@ class _TTGlyphVARC(_TTGlyph):
 class LerpGlyphSet(Mapping):
     """A glyphset that interpolates between two other glyphsets.
 
-\tFactor is typically between 0 and 1. 0 means the first glyphset,
-\t1 means the second glyphset, and 0.5 means the average of the
-\ttwo glyphsets. Other values are possible, and can be useful to
-\textrapolate. Defaults to 0.5.
-\t"""
+    \tFactor is typically between 0 and 1. 0 means the first glyphset,
+    \t1 means the second glyphset, and 0.5 means the average of the
+    \ttwo glyphsets. Other values are possible, and can be useful to
+    \textrapolate. Defaults to 0.5.
+    \t
+    """
+
     glyphset1: Incomplete
     glyphset2: Incomplete
     factor: Incomplete

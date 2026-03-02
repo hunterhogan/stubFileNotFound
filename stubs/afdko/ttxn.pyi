@@ -4,7 +4,6 @@ from fontTools.ttLib import TTFont
 
 __help__: str
 __version__: str
-log: Incomplete
 curSystem: Incomplete
 TX_TOOL: str
 INDENT: str

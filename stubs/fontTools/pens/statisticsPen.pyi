@@ -1,7 +1,7 @@
 from fontTools.pens.basePen import BasePen
 from fontTools.pens.momentsPen import MomentsPen
 
-__all__ = ['StatisticsPen', 'StatisticsControlPen']
+__all__ = ['StatisticsControlPen', 'StatisticsPen']
 
 class StatisticsBase:
     def __init__(self) -> None: ...
@@ -13,7 +13,9 @@ class StatisticsPen(StatisticsBase, MomentsPen):
 
     Note that if the glyph shape is self-intersecting, the values
     are not correct (but well-defined). Moreover, area will be
-    negative if contour directions are clockwise."""
+    negative if contour directions are clockwise.
+    """
+
     def __init__(self, glyphset=None) -> None: ...
 
 class StatisticsControlPen(StatisticsBase, BasePen):
@@ -23,5 +25,7 @@ class StatisticsControlPen(StatisticsBase, BasePen):
 
     Note that if the glyph shape is self-intersecting, the values
     are not correct (but well-defined). Moreover, area will be
-    negative if contour directions are clockwise."""
+    negative if contour directions are clockwise.
+    """
+
     def __init__(self, glyphset=None) -> None: ...

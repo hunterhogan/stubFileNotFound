@@ -1,6 +1,9 @@
 from _typeshed import Incomplete
 from dataclasses import dataclass
-from fontTools.designspaceLib import AxisDescriptor as AxisDescriptor, AxisLabelDescriptor as AxisLabelDescriptor, DesignSpaceDocument as DesignSpaceDocument, DiscreteAxisDescriptor as DiscreteAxisDescriptor, SimpleLocationDict as SimpleLocationDict, SourceDescriptor as SourceDescriptor
+from fontTools.designspaceLib import (
+	AxisDescriptor as AxisDescriptor, AxisLabelDescriptor as AxisLabelDescriptor,
+	DesignSpaceDocument as DesignSpaceDocument, DiscreteAxisDescriptor as DiscreteAxisDescriptor,
+	SimpleLocationDict as SimpleLocationDict, SourceDescriptor as SourceDescriptor)
 
 LOGGER: Incomplete
 RibbiStyleName: Incomplete
@@ -9,6 +12,7 @@ BOLD_ITALIC_TO_RIBBI_STYLE: Incomplete
 @dataclass
 class StatNames:
     """Name data generated from the STAT table information."""
+
     familyNames: dict[str, str]
     styleNames: dict[str, str]
     postScriptFontName: str | None

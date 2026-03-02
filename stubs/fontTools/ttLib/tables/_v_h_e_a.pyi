@@ -1,8 +1,8 @@
-from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import safeEval as safeEval
+from fontTools.ttLib import TTFont
 
 vheaFormat: str
 
@@ -18,6 +18,7 @@ class table__v_h_e_a(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/vhea
     """
+
     dependencies: Incomplete
     def decompile(self, data, ttFont: TTFont) -> None: ...
     tableVersion: Incomplete

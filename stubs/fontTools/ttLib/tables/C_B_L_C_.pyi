@@ -11,4 +11,5 @@ class table_C_B_L_C_(E_B_L_C_.table_E_B_L_C_):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/cblc
     """
+
     dependencies: Incomplete

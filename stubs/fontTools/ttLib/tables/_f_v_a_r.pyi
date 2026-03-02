@@ -2,7 +2,7 @@ from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import bytesjoin as bytesjoin, safeEval as safeEval, Tag as Tag
-from fontTools.ttLib import TTLibError as TTLibError, TTFont
+from fontTools.ttLib import TTFont, TTLibError as TTLibError
 
 FVAR_HEADER_FORMAT: str
 FVAR_AXIS_FORMAT: str
@@ -16,6 +16,7 @@ class table__f_v_a_r(DefaultTable.DefaultTable):
 
     See also https://developer.apple.com/fonts/TrueType-Reference-Manual/RM06/Chap6fvar.html
     """
+
     dependencies: Incomplete
     axes: Incomplete
     instances: Incomplete

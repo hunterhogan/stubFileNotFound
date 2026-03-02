@@ -2,6 +2,4 @@
 
 from hunterMakesPy import PackageSettings
 
-identifierPackageFALLBACK = "stubFileNotFound"
-
-settingsPackage = PackageSettings(identifierPackageFALLBACK=identifierPackageFALLBACK)
+settingsPackage = PackageSettings('stubFileNotFound')

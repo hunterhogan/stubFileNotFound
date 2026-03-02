@@ -4,7 +4,7 @@ from fontTools.pens.basePen import BasePen
 __all__ = ['PointInsidePen']
 
 class PointInsidePen(BasePen):
-    '''This pen implements "point inside" testing: to test whether
+    """This pen implements "point inside" testing: to test whether
     a given point lies inside the shape (black) or outside (white).
     Instances of this class can be recycled, as long as the
     setTestPoint() method is used to set the new point to test.
@@ -20,7 +20,8 @@ class PointInsidePen(BasePen):
     algorithm are implemented. The latter is the default, specify
     True for the evenOdd argument of __init__ or setTestPoint
     to use the even-odd algorithm.
-    '''
+    """
+
     def __init__(self, glyphSet, testPoint, evenOdd: bool = False) -> None: ...
     testPoint: Incomplete
     evenOdd: Incomplete

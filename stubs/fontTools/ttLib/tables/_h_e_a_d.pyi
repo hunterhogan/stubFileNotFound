@@ -2,7 +2,6 @@ from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from fontTools.ttLib import TTFont
 
-log: Incomplete
 headFormat: str
 
 class table__h_e_a_d(DefaultTable.DefaultTable):

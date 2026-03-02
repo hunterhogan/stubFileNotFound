@@ -1,4 +1,3 @@
-from fontTools.ttLib import TTFont
 from . import DefaultTable as DefaultTable
 from _typeshed import Incomplete
 from collections.abc import Sequence
@@ -6,8 +5,8 @@ from dataclasses import dataclass
 from fontTools.misc import sstruct as sstruct
 from fontTools.misc.textTools import (
 	bytesjoin as bytesjoin, safeEval as safeEval, strjoin as strjoin, tobytes as tobytes, tostr as tostr)
+from fontTools.ttLib import TTFont
 
-log: Incomplete
 SVG_format_0: str
 SVG_format_0Size: Incomplete
 doc_index_entry_format_0: str
@@ -21,6 +20,7 @@ class table_S_V_G_(DefaultTable.DefaultTable):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/stat
     """
+
     docList: Incomplete
     numEntries: Incomplete
     def decompile(self, data, ttFont: TTFont) -> None: ...
