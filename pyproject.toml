@@ -23,10 +23,11 @@ classifiers = [
 ]
 urls = { Donate = "https://www.patreon.com/integrated", Homepage = "https://github.com/hunterhogan/stubFileNotFound", Repository = "https://github.com/hunterhogan/stubFileNotFound.git" }
 dependencies = [
-  "MonkeyType",
+  "autotyping",
   "charset_normalizer",
   "hunterMakesPy",
   "libcst",
+  "MonkeyType",
   "mypy",
   "pyright",
   "pyupgrade",
@@ -35,7 +36,7 @@ dependencies = [
   "stubdefaulter@git+https://github.com/JelleZijlstra/stubdefaulter.git",
   "typeshed_client",
 ]
-optional-dependencies = { fuckingPandas = [
+optional-dependencies = { effingPandas = [
   "odfpy",
   "pandas",
   "pyxlsb",

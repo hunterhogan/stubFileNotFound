@@ -1582,7 +1582,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
             | Callable[[Series[S1]], Series[bool]]
             | Callable[[S1], bool]
         ),
-        other: S1 | Self | Callable[..., S1 | Self] = ...,
+        other: S1 | Self | Callable[..., S1 | Self] | None = ...,
         *,
         inplace: Literal[True],
         axis: AxisIndex | None = 0,
@@ -1598,7 +1598,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
             | Callable[[Series[S1]], Series[bool]]
             | Callable[[S1], bool]
         ),
-        other: Scalar | Self | Callable[..., Scalar | Self] = ...,
+        other: Scalar | Self | Callable[..., Scalar | Self] | None = ...,
         *,
         inplace: Literal[False] = False,
         axis: AxisIndex | None = 0,

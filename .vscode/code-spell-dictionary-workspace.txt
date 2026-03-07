@@ -69,6 +69,7 @@ autohint
 autohinted
 AUTOHINTING
 autosizes
+autotyping
 axvlines
 backgound
 backslashreplace
