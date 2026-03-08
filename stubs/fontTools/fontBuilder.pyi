@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from ufoLib2.typing import PathLike
 
 __all__ = ['FontBuilder']
 
@@ -27,7 +28,7 @@ class FontBuilder:
         If `font` is given, it must be a `TTFont` instance and `unitsPerEm`
         must _not_ be given. The `isTTF` and `glyphDataFormat` arguments will be ignored.
         """
-    def save(self, file) -> None:
+    def save(self, file: PathLike) -> None:
         """Save the font. The 'file' argument can be either a pathname or a
         writable file object.
         """

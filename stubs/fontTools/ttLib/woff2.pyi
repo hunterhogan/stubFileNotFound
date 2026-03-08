@@ -12,6 +12,7 @@ from fontTools.ttLib.sfnt import (
 	sfntDirectorySize as sfntDirectorySize, SFNTReader as SFNTReader, SFNTWriter as SFNTWriter,
 	WOFFFlavorData as WOFFFlavorData)
 from fontTools.ttLib.tables import ttProgram as ttProgram
+from ufoLib2.typing import PathLike
 
 haveBrotli: bool
 
@@ -23,7 +24,7 @@ class WOFF2Reader(SFNTReader):
     transformBuffer: Incomplete
     flavorData: Incomplete
     ttFont: TTFont
-    def __init__(self, file, checkChecksums: int = 0, fontNumber: int = -1) -> None: ...
+    def __init__(self, file: PathLike, checkChecksums: int = 0, fontNumber: int = -1) -> None: ...
     def __getitem__(self, tag):
         """Fetch the raw table data. Reconstruct transformed tables."""
     def reconstructTable(self, tag):
@@ -43,7 +44,7 @@ class WOFF2Writer(SFNTWriter):
     transformBuffer: Incomplete
     tables: Incomplete
     ttFont: TTFont
-    def __init__(self, file, numTables, sfntVersion: str = '\x00\x01\x00\x00', flavor=None, flavorData=None) -> None: ...
+    def __init__(self, file: PathLike, numTables, sfntVersion: str = '\x00\x01\x00\x00', flavor=None, flavorData=None) -> None: ...
     def __setitem__(self, tag, data) -> None:
         """Associate new entry named 'tag' with raw table data."""
     totalSfntSize: Incomplete
@@ -80,7 +81,7 @@ def getKnownTagIndex(tag):
     """Return index of 'tag' in woff2KnownTags list. Return 63 if not found."""
 
 class WOFF2DirectoryEntry(DirectoryEntry):
-    def fromFile(self, file) -> None: ...
+    def fromFile(self, file: PathLike) -> None: ...
     tag: Incomplete
     length: Incomplete
     def fromString(self, data): ...
@@ -160,7 +161,7 @@ class WOFF2FlavorData(WOFFFlavorData):
         """
 
 def unpackBase128(data):
-    """Read one to five bytes from UIntBase128-encoded input string, and return
+    r"""Read one to five bytes from UIntBase128-encoded input string, and return
     a tuple containing the decoded integer plus any leftover data.
 
     >>> unpackBase128(b\'\\x3f\\x00\\x00\') == (63, b"\\x00\\x00")
@@ -191,7 +192,7 @@ def base128Size(n):
     5
     """
 def packBase128(n):
-    """Encode unsigned integer in range 0 to 2**32-1 (inclusive) to a string of
+    r"""Encode unsigned integer in range 0 to 2**32-1 (inclusive) to a string of
     bytes using UIntBase128 variable-length encoding. Produce the shortest possible
     encoding.
 
@@ -216,7 +217,7 @@ def unpack255UShort(data):
     506
     """
 def pack255UShort(value):
-    """Encode unsigned integer in range 0 to 65535 (inclusive) to a bytestring
+    r"""Encode unsigned integer in range 0 to 65535 (inclusive) to a bytestring
     using 255UInt16 variable-length encoding.
 
     >>> pack255UShort(252) == b'\\xfc'
@@ -226,7 +227,7 @@ def pack255UShort(value):
     >>> pack255UShort(762) == b'\\xfd\\x02\\xfa'
     True
     """
-def compress(input_file, output_file, transform_tables=None) -> None:
+def compress(input_file: PathLike, output_file: PathLike, transform_tables=None) -> None:
     """Compress OpenType font to WOFF2.
 
     Args:
@@ -239,7 +240,7 @@ def compress(input_file, output_file, transform_tables=None) -> None:
                     and 'loca' tables are transformed. An empty set means disable all
                     transformations.
     """
-def decompress(input_file, output_file) -> None:
+def decompress(input_file: PathLike, output_file: PathLike) -> None:
     """Decompress WOFF2 font to OpenType font.
 
     Args:

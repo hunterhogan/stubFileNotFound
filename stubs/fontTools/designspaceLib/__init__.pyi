@@ -3,6 +3,7 @@ from collections.abc import MutableMapping
 from fontTools.misc import etree as ET
 from fontTools.misc.loggingTools import LogMixin
 from typing import Any, TypeAlias
+from ufoLib2.typing import PathLike
 
 __all__ = ['AxisDescriptor', 'AxisLabelDescriptor', 'AxisMappingDescriptor', 'BaseDocReader', 'BaseDocWriter', 'DesignSpaceDocument', 'DesignSpaceDocumentError', 'DiscreteAxisDescriptor', 'InstanceDescriptor', 'LocationLabelDescriptor', 'RangeAxisSubsetDescriptor', 'RuleDescriptor', 'SourceDescriptor', 'ValueAxisSubsetDescriptor', 'VariableFontDescriptor']
 
@@ -152,7 +153,7 @@ class AxisMappingDescriptor(SimpleDescriptor):
     def __init__(self, *, inputLocation=None, outputLocation=None, description=None, groupDescription=None) -> None: ...
 
 class InstanceDescriptor(SimpleDescriptor):
-    """Simple container for data related to the instance
+    r"""Simple container for data related to the instance
 
     .. code:: python
 
@@ -286,7 +287,7 @@ class AbstractAxisDescriptor(SimpleDescriptor):
     def __init__(self, *, tag=None, name=None, labelNames=None, hidden: bool = False, map=None, axisOrdering=None, axisLabels=None) -> None: ...
 
 class AxisDescriptor(AbstractAxisDescriptor):
-    """Simple container for the axis data.
+    r"""Simple container for the axis data.
 
     Add more localisations?
 
@@ -319,7 +320,7 @@ class AxisDescriptor(AbstractAxisDescriptor):
         """Maps value from axis mapping's output (design) to input (user)."""
 
 class DiscreteAxisDescriptor(AbstractAxisDescriptor):
-    """Container for discrete axis data.
+    r"""Container for discrete axis data.
 
     Use this for axes that do not interpolate. The main difference from a
     continuous axis is that a continuous axis has a ``minimum`` and ``maximum``,
@@ -506,7 +507,7 @@ class BaseDocWriter:
     documentObject: Incomplete
     effectiveFormatTuple: Incomplete
     root: Incomplete
-    def __init__(self, documentPath, documentObject: DesignSpaceDocument) -> None: ...
+    def __init__(self, documentpath: PathLike, documentObject: DesignSpaceDocument) -> None: ...
     def write(self, pretty: bool = True, encoding: str = 'UTF-8', xml_declaration: bool = True) -> None: ...
     def intOrFloat(self, num): ...
 
@@ -529,7 +530,7 @@ class BaseDocReader(LogMixin):
     sources: Incomplete
     instances: Incomplete
     axisDefaults: Incomplete
-    def __init__(self, documentPath, documentObject) -> None: ...
+    def __init__(self, documentpath: PathLike, documentObject) -> None: ...
     @classmethod
     def fromstring(cls, string, documentObject): ...
     def read(self) -> None: ...
@@ -630,7 +631,7 @@ class DesignSpaceDocument(LogMixin, AsDictMixin):
     writerClass: Incomplete
     def __init__(self, readerClass=None, writerClass=None) -> None: ...
     @classmethod
-    def fromfile(cls, path, readerClass=None, writerClass=None):
+    def fromfile(cls, path: PathLike, readerClass=None, writerClass=None):
         """Read a designspace file from ``path`` and return a new instance of
         :class:.
         """
@@ -645,7 +646,7 @@ class DesignSpaceDocument(LogMixin, AsDictMixin):
     def write(self, path) -> None:
         """Write this designspace to ``path``."""
     def updatePaths(self) -> None:
-        """
+        r"""
         Right before we save we need to identify and respond to the following situations:
         In each descriptor, we have to do the right thing for the filename attribute.
 

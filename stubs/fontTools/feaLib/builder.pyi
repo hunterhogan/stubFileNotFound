@@ -26,8 +26,9 @@ from fontTools.varLib.errors import VarLibError as VarLibError
 from fontTools.varLib.featureVars import addFeatureVariationsRaw as addFeatureVariationsRaw
 from fontTools.varLib.models import normalizeValue as normalizeValue, piecewiseLinearMap as piecewiseLinearMap
 from fontTools.varLib.varStore import OnlineVarStoreBuilder as OnlineVarStoreBuilder
+from ufoLib2.typing import PathLike
 
-def addOpenTypeFeatures(font, featurefile, tables=None, debug: bool = False) -> None:
+def addOpenTypeFeatures(font, featurefile: PathLike, tables=None, debug: bool = False) -> None:
     """Add features from a file to a font. Note that this replaces any features
     currently present.
 
@@ -108,7 +109,7 @@ class Builder:
     stat_: Incomplete
     conditionsets_: Incomplete
     model_cache: Incomplete
-    def __init__(self, font, featurefile) -> None: ...
+    def __init__(self, font, featurefile: PathLike) -> None: ...
     parseTree: Incomplete
     def build(self, tables=None, debug: bool = False) -> None: ...
     def get_chained_lookup_(self, location, builder_class): ...

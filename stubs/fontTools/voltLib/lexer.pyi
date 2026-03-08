@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from fontTools.voltLib.error import VoltLibError as VoltLibError
+from ufoLib2.typing import PathLike
 
 class Lexer:
     NUMBER: str

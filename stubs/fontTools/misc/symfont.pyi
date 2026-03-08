@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from fontTools.pens.basePen import BasePen as BasePen
+from ufoLib2.typing import PathLike
 
 n: int
 t: Incomplete

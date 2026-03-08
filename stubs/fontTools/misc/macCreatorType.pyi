@@ -12,7 +12,7 @@ def getMacCreatorAndType(path):
             representing the file creator and the second representing the
             file type.
     """
-def setMacCreatorAndType(path, fileCreator, fileType) -> None:
+def setMacCreatorAndType(path: PathLike, fileCreator, fileType) -> None:
     """Set file creator and file type codes for a path.
 
     Note that if the ``xattr`` module is not installed, no action is

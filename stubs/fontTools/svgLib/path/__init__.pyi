@@ -1,10 +1,11 @@
 from .parser import parse_path as parse_path
 from _typeshed import Incomplete
+from ufoLib2.typing import PathLike
 
 __all__ = ['SVGPath', 'parse_path']
 
 class SVGPath:
-    """Parse SVG ``path`` elements from a file or string, and draw them
+    r"""Parse SVG ``path`` elements from a file or string, and draw them
     onto a glyph object that supports the FontTools Pen protocol.
 
     For example, reading from an SVG file and drawing to a Defcon Glyph:

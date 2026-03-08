@@ -5,7 +5,7 @@ import subprocess
 
 # ruff: noqa: S607
 if __name__ == "__main__":
-	listRelativePaths: list[str] = ['fonttools']
+	listRelativePaths: list[str] = ['fontTools']
 
 	convertFilesTOutf8: bool = True
 	stubdefaulter吗: bool = True
@@ -22,7 +22,7 @@ if __name__ == "__main__":
 		settings = {'autoflake': settings_autoflakeDEFAULT.copy()}
 		settings['autoflake']['remove_all_unused_imports'] = False
 	if isort吗:
-		settings['isort'] = settings_isortDEFAULT.copy() # pyright: ignore[reportArgumentType]
+		settings['isort'] = settings_isortDEFAULT.copy() # pyright: ignore[reportArgumentType]  # ty:ignore[invalid-assignment]
 
 	for pathFilename in listPathFilenames:
 		if convertFilesTOutf8:

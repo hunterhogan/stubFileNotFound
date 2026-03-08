@@ -10,7 +10,7 @@ from fontTools.ufoLib.validators import *
 from typing import Any, IO, TypeAlias
 import enum
 
-__all__ = ['UFOFileStructure', 'UFOLibError', 'UFOReader', 'UFOReaderWriter', 'UFOWriter', ..., ..., 'deprecatedFontInfoAttributesVersion2', 'fontInfoAttributesVersion1', 'fontInfoAttributesVersion2', 'fontInfoAttributesVersion3', 'haveFS', 'makeUFOPath', 'validateFontInfoVersion2ValueForAttribute', 'validateFontInfoVersion3ValueForAttribute']
+__all__ = ['UFOFileStructure', 'UFOLibError', 'UFOReader', 'UFOReaderWriter', 'UFOWriter', 'deprecatedFontInfoAttributesVersion2', 'fontInfoAttributesVersion1', 'fontInfoAttributesVersion2', 'fontInfoAttributesVersion3', 'haveFS', 'makeUFOPath', 'validateFontInfoVersion2ValueForAttribute', 'validateFontInfoVersion3ValueForAttribute']
 
 KerningGroupRenameMaps: TypeAlias = dict[str, dict[str, str]]
 LibDict: TypeAlias = dict[str, Any]
@@ -91,7 +91,7 @@ class UFOReader(_UFOBaseIO):
         class's validate value, can be overridden.
         """
     def getKerningGroupConversionRenameMaps(self, validate: bool | None = None) -> KerningGroupRenameMaps:
-        """
+        r"""
         Get maps defining the renaming that was done during any
         needed kerning group conversion. This method returns a
         dictionary of this form::
@@ -270,7 +270,7 @@ class UFOWriter(UFOReader):
         caller to call this when finished working on the UFO.
         """
     def setKerningGroupConversionRenameMaps(self, maps: KerningGroupRenameMaps) -> None:
-        """
+        r"""
         Set maps defining the renaming that should be done
         when writing groups and kerning in UFO 1 and UFO 2.
         This will effectively undo the conversion done when
@@ -336,7 +336,7 @@ class UFOWriter(UFOReader):
         after all glyph sets have been written.
         """
     def getGlyphSet(self, layerName: str | None = None, defaultLayer: bool = True, glyphNameToFileNameFunc: GlyphNameToFileNameFunc = None, validateRead: bool | None = None, validateWrite: bool | None = None, expectContentsFile: bool = False) -> GlyphSet:
-        """
+        r"""
         Return the GlyphSet object associated with the
         appropriate glyph directory in the .ufo.
         If layerName is None, the default glyph set
@@ -394,7 +394,7 @@ class UFOWriter(UFOReader):
 UFOReaderWriter = UFOWriter
 
 def makeUFOPath(path: PathStr) -> str:
-    """
+    r"""
     Return a .ufo pathname.
 
     >>> makeUFOPath("directory/something.ext") == (

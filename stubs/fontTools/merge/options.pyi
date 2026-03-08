@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from ufoLib2.typing import PathLike
 
 class Options:
     class UnknownOptionError(Exception): ...

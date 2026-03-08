@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from fontTools import ttLib as ttLib
 from fontTools.misc.textTools import safeEval as safeEval
 from fontTools.ttLib.tables.DefaultTable import DefaultTable as DefaultTable
+from ufoLib2.typing import PathLike
 
 class TTXParseError(Exception): ...
 

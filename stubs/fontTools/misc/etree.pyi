@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from lxml.etree import *
+from ufoLib2.typing import PathLike
 from xml.etree.ElementTree import *
 from xml.etree.ElementTree import Element as _Element, XML as XML
 
@@ -17,7 +18,7 @@ def SubElement(parent, tag, attrib=..., **extra):
     """
 
 class ElementTree(_ElementTree):
-    """ElementTree subclass that adds \'pretty_print\' and \'doctype\'
+    r"""ElementTree subclass that adds \'pretty_print\' and \'doctype\'
     arguments to the \'write\' method.
     Currently these are only supported for the default XML serialization
     \'method\', and not also for "html" or "text", for these are delegated

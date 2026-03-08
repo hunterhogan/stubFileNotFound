@@ -1,6 +1,7 @@
 from fontTools.feaLib.error import FeatureLibError as FeatureLibError, IncludedFeaNotFound as IncludedFeaNotFound
 from fontTools.feaLib.location import FeatureLibLocation as FeatureLibLocation
 from typing import Any, ClassVar
+from ufoLib2.typing import PathLike
 import re
 
 __test__: dict
@@ -20,7 +21,7 @@ class IncludingLexer:
     We only support 1 (via includeDir) and 2.
     """
 
-    def __init__(self, featurefile, includeDir=...) -> Any:
+    def __init__(self, featurefile: PathLike, includeDir=...) -> Any:
         """IncludingLexer.__init__(self, featurefile, *, includeDir=None)
 
         Initializes an IncludingLexer.

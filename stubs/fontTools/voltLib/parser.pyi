@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from fontTools.voltLib.error import VoltLibError as VoltLibError
 from fontTools.voltLib.lexer import Lexer as Lexer
+from ufoLib2.typing import PathLike
 
 PARSE_FUNCS: Incomplete
 

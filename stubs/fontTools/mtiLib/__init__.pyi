@@ -7,6 +7,7 @@ from fontTools.feaLib.lookupDebugInfo import (
 from fontTools.ttLib import newTable as newTable
 from fontTools.ttLib.tables._c_m_a_p import cmap_classes as cmap_classes
 from fontTools.ttLib.tables.otBase import ValueRecord as ValueRecord, valueRecordFormatDict as valueRecordFormatDict
+from ufoLib2.typing import PathLike
 
 class MtiLibError(Exception): ...
 class ReferenceNotFoundError(MtiLibError): ...

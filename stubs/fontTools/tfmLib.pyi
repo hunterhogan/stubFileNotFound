@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from fontTools.misc.sstruct import calcsize as calcsize, unpack as unpack, unpack2 as unpack2
+from ufoLib2.typing import PathLike
 
 SIZES_FORMAT: str
 SIZES_SIZE: Incomplete
@@ -33,4 +34,4 @@ class TFMException(Exception):
     def __init__(self, message) -> None: ...
 
 class TFM:
-    def __init__(self, file) -> None: ...
+    def __init__(self, file: PathLike) -> None: ...

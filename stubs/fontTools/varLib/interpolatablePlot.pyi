@@ -12,6 +12,7 @@ from fontTools.ttLib import TTFont as TTFont
 from fontTools.ttLib.ttGlyphSet import LerpGlyphSet as LerpGlyphSet
 from fontTools.varLib.interpolatableHelpers import (
 	PerContourOrComponentPen as PerContourOrComponentPen, SimpleRecordingPointPen as SimpleRecordingPointPen)
+from ufoLib2.typing import PathLike
 import types
 
 class OverridingDict(dict):

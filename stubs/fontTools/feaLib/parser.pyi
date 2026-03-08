@@ -6,6 +6,7 @@ from fontTools.feaLib.lexer import (
 from fontTools.feaLib.variableScalar import VariableScalar as VariableScalar
 from fontTools.misc.encodingTools import getEncoding as getEncoding
 from fontTools.misc.textTools import bytechr as bytechr, tobytes as tobytes, tostr as tostr
+from ufoLib2.typing import PathLike
 
 class Parser:
     """Initializes a Parser object.
@@ -47,7 +48,7 @@ class Parser:
     next_token_location_: Incomplete
     lexer_: Incomplete
     missing: Incomplete
-    def __init__(self, featurefile, glyphNames=(), followIncludes: bool = True, includeDir=None, **kwargs) -> None: ...
+    def __init__(self, featurefile: PathLike, glyphNames=(), followIncludes: bool = True, includeDir=None, **kwargs) -> None: ...
     def parse(self):
         """Parse the file, and return a :class:`fontTools.feaLib.ast.FeatureFile`
         object representing the root of the abstract syntax tree containing the

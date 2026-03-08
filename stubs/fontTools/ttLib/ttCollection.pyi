@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from fontTools.ttLib.sfnt import readTTCHeader as readTTCHeader, writeTTCHeader as writeTTCHeader
 from fontTools.ttLib.ttFont import TTFont as TTFont
+from ufoLib2.typing import PathLike
 import types
 
 class TTCollection:
@@ -18,7 +19,7 @@ class TTCollection:
     def __enter__(self): ...
     def __exit__(self, type: type[BaseException] | None, value: BaseException | None, traceback: types.TracebackType | None) -> None: ...
     def close(self) -> None: ...
-    def save(self, file, shareTables: bool = True) -> None:
+    def save(self, file: PathLike, shareTables: bool = True) -> None:
         """Save the font to disk. Similarly to the constructor,
         the 'file' argument can be either a pathname or a writable
         file object.

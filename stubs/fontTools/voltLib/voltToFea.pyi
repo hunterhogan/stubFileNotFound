@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from fontTools.feaLib import ast as ast
 from fontTools.ttLib import TTFont as TTFont, TTLibError as TTLibError
+from ufoLib2.typing import PathLike
 
 TABLES: Incomplete
 

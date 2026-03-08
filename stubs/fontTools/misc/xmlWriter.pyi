@@ -2,6 +2,7 @@ from _typeshed import Incomplete
 from collections.abc import Callable
 from fontTools.misc.textTools import byteord as byteord, strjoin as strjoin, tobytes as tobytes, tostr as tostr
 from typing import BinaryIO, TextIO
+from ufoLib2.typing import PathLike
 import os
 import types
 
@@ -11,8 +12,8 @@ REPLACEMENT: str
 ILLEGAL_XML_CHARS: Incomplete
 
 class XMLWriter:
-    filename: str | os.PathLike[str] | None
-    file: Incomplete
+    filename: PathLike
+    file: PathLike
     totype: Incomplete
     indentwhite: Incomplete
     newlinestr: Incomplete

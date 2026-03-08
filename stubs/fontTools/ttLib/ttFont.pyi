@@ -27,10 +27,11 @@ from fontTools.ttLib.ttGlyphSet import _TTGlyphSet
 from types import ModuleType, TracebackType
 from typing import Any, BinaryIO, Literal, overload, Self, TextIO, TypedDict
 from typing_extensions import Unpack
+from ufoLib2.typing import PathLike
 import os
 
 class TTFont:
-    """Represents a TrueType font.
+    r"""Represents a TrueType font.
 
     The object manages file input and output, and offers a convenient way of
     accessing tables. Tables will be only decompiled when necessary, ie. when

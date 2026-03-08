@@ -24,6 +24,7 @@ from fontTools.varLib.merger import COLRVariationMerger as COLRVariationMerger, 
 from fontTools.varLib.mvar import MVAR_ENTRIES as MVAR_ENTRIES
 from fontTools.varLib.stat import buildVFStatTable as buildVFStatTable
 from typing import NamedTuple
+from ufoLib2.typing import PathLike
 
 FEAVAR_FEATURETAG_LIB_KEY: str
 
@@ -123,7 +124,7 @@ class MasterFinder:
     def __call__(self, src_path): ...
 
 def addGSUBFeatureVariations(vf, designspace, featureTags=(), *, log_enabled: bool = False) -> None:
-    """Add GSUB FeatureVariations table to variable font, based on DesignSpace rules.
+    r"""Add GSUB FeatureVariations table to variable font, based on DesignSpace rules.
 
     Args:
         vf: A TTFont object representing the variable font.
