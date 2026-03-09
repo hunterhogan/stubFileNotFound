@@ -7,6 +7,11 @@
 
 This is a useful tool for me, but I haven't really figured out how to make it useful for more people.
 
+## stub files got found
+
+1. I donated `resampy` to typeshed: [PyPI install](https://pypi.org/project/types-resampy/).
+2. I'm contributing work on `cytoolz` and `toolz` to [`toolz-stubs`](https://github.com/mgrinshpon/toolz-stubs), which is incorporating [`cytoolz-stubs`](https://github.com/OutSquareCapital/cytoolz-stubs), too.
+
 ## How to Contribute
 
 1. Create or improve a stub file.
