@@ -3,7 +3,6 @@ from collections.abc import Mapping, MutableMapping, Sequence
 from fontTools.config import Config as Config
 from fontTools.misc import xmlWriter as xmlWriter
 from fontTools.misc.configTools import AbstractConfig as AbstractConfig
-from fontTools.misc.loggingTools import deprecateArgument as deprecateArgument
 from fontTools.misc.textTools import byteord as byteord, Tag as Tag, tostr as tostr
 from fontTools.ttLib import TTLibError as TTLibError
 from fontTools.ttLib.sfnt import SFNTReader as SFNTReader, SFNTWriter as SFNTWriter
@@ -22,13 +21,15 @@ from fontTools.ttLib.tables import (
 	T_S_I_D_ as T_S_I_D_, T_S_I_J_ as T_S_I_J_, T_S_I_P_ as T_S_I_P_, T_S_I_S_ as T_S_I_S_, T_S_I_V_ as T_S_I_V_,
 	T_T_F_A_ as T_T_F_A_, V_A_R_C_ as V_A_R_C_, V_D_M_X_ as V_D_M_X_, V_O_R_G_ as V_O_R_G_, V_V_A_R_ as V_V_A_R_)
 from fontTools.ttLib.tables.DefaultTable import DefaultTable as DefaultTable
-from fontTools.ttLib.ttFont import _NumberT, _VT_co
 from fontTools.ttLib.ttGlyphSet import _TTGlyphSet
 from types import ModuleType, TracebackType
-from typing import Any, BinaryIO, Literal, overload, Self, TextIO, TypedDict
+from typing import Any, BinaryIO, Literal, overload, Self, TextIO, TypedDict, TypeVar
 from typing_extensions import Unpack
 from ufoLib2.typing import PathLike
 import os
+
+_NumberT = TypeVar("_NumberT", bound=float)
+_VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
 
 class TTFont:
     r"""Represents a TrueType font.
@@ -129,12 +130,12 @@ class TTFont:
     bitmapGlyphDataFormat: str
     verbose: bool | None
     quiet: bool | None
-    def __init__(self, file: str | os.PathLike[str] | BinaryIO | None = None, res_name_or_index: str | int | None = None, sfntVersion: str = '\x00\x01\x00\x00', flavor: str | None = None, checkChecksums: int = 0, verbose: bool | None = None, recalcBBoxes: bool = True, allowVID: Any = ..., ignoreDecompileErrors: bool = False, recalcTimestamp: bool = True, fontNumber: int = -1, lazy: bool | None = None, quiet: bool | None = None, _tableCache: MutableMapping[tuple[Tag, bytes], DefaultTable] | None = None, cfg: Mapping[str, Any] | AbstractConfig = {}) -> None: ...
+    def __init__(self, file: PathLike | None = None, res_name_or_index: str | int | None = None, sfntVersion: str = '\x00\x01\x00\x00', flavor: str | None = None, checkChecksums: int = 0, verbose: bool | None = None, recalcBBoxes: bool = True, allowVID: Any = ..., ignoreDecompileErrors: bool = False, recalcTimestamp: bool = True, fontNumber: int = -1, lazy: bool | None = None, quiet: bool | None = None, _tableCache: MutableMapping[tuple[Tag, bytes], DefaultTable] | None = None, cfg: Mapping[str, Any] | AbstractConfig = {}) -> None: ...
     def __enter__(self) -> Self: ...
     def __exit__(self, exc_type: type[BaseException] | None, exc_value: BaseException | None, traceback: TracebackType | None) -> None: ...
     def close(self) -> None:
         """If we still have a reader object, close it."""
-    def save(self, file: str | os.PathLike[str] | BinaryIO, reorderTables: bool | None = True) -> None:
+    def save(self, file: PathLike, reorderTables: bool | None = True) -> None:
         """Save the font to disk.
 
         Args:
@@ -154,7 +155,7 @@ class TTFont:
         splitGlyphs: bool
         disassembleInstructions: bool
         bitmapGlyphDataFormat: str
-    def saveXML(self, fileOrPath: str | os.PathLike[str] | BinaryIO | TextIO, newlinestr: str = '\n', **kwargs: Unpack[XMLSavingOptions]) -> None:
+    def saveXML(self, fileOrPath: PathLike | TextIO, newlinestr: str = '\n', **kwargs: Unpack[XMLSavingOptions]) -> None:
         """Export the font as TTX (an XML-based text file), or as a series of text
         files when splitTables is true. In the latter case, the 'fileOrPath'
         argument should be a path to a directory.
@@ -162,7 +163,7 @@ class TTFont:
         list of tables to dump. The 'skipTables' argument may be a list of tables
         to skip, but only when the 'tables' argument is false.
         """
-    def importXML(self, fileOrPath: str | os.PathLike[str] | BinaryIO, quiet: bool | None = None) -> None:
+    def importXML(self, fileOrPath: PathLike, quiet: bool | None = None) -> None:
         """Import a TTX file (an XML-based text format), so as to recreate
         a font object.
         """
@@ -570,8 +571,9 @@ class TTFont:
         read from the font file and returned.
         """
     def getGlyphSet(self, preferCFF: bool = True, location: Mapping[str, _NumberT] | None = None, normalized: bool = False, recalcBounds: bool = True) -> _TTGlyphSet:
-        """Return a generic GlyphSet, which is a dict-like object
-        mapping glyph names to glyph objects. The returned glyph objects
+        """Return a generic GlyphSet, which is a dict-like object mapping glyph names to glyph objects.
+
+        The returned glyph objects
         have a ``.draw()`` method that supports the Pen protocol, and will
         have an attribute named 'width'.
 

@@ -6,7 +6,7 @@ class Options:
     verbose: bool
     timing: bool
     drop_tables: Incomplete
-    input_file: Incomplete
+    input_file: PathLike
     output_file: str
     import_file: Incomplete
     def __init__(self, **kwargs) -> None: ...

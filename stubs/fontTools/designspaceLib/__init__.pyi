@@ -87,8 +87,7 @@ class SourceDescriptor(SimpleDescriptor):
         """
 
 class RuleDescriptor(SimpleDescriptor):
-    """Represents the rule descriptor element: a set of glyph substitutions to
-    trigger conditionally in some parts of the designspace.
+    """Represents the rule descriptor element: a set of glyph substitutions to trigger conditionally in some parts of the designspace.
 
     .. code:: python
 
@@ -122,8 +121,7 @@ AnisotropicLocationDict: TypeAlias = dict[str, float | tuple[float, float]]
 SimpleLocationDict: TypeAlias = dict[str, float]
 
 class AxisMappingDescriptor(SimpleDescriptor):
-    """Represents the axis mapping element: mapping an input location
-    to an output location in the designspace.
+    """Represents the axis mapping element: mapping an input location to an output location in the designspace.
 
     .. code:: python
 

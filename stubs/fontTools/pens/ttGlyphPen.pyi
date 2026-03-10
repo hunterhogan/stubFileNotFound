@@ -45,9 +45,7 @@ class _TTGlyphBasePen:
     components: Incomplete
     def init(self) -> None: ...
     def addComponent(self, baseGlyphName: str, transformation: tuple[float, float, float, float, float, float], identifier: str | None = None, **kwargs: Any) -> None:
-        """
-        Add a sub glyph.
-        """
+        """Add a sub glyph."""
     def glyph(self, componentFlags: int = 4, dropImpliedOnCurves: bool = False, *, round: Callable[[float], int] = ...) -> Glyph:
         """
         Returns a :py:class:`~._g_l_y_f.Glyph` object representing the glyph.
@@ -91,14 +89,8 @@ class TTGlyphPointPen(_TTGlyphBasePen, LogMixin, AbstractPointPen):
     transformPen = TransformPointPen
     def init(self) -> None: ...
     def beginPath(self, identifier: str | None = None, **kwargs: Any) -> None:
-        """
-        Start a new sub path.
-        """
+        """Start a new sub path."""
     def endPath(self) -> None:
-        """
-        End the current sub path.
-        """
+        """End the current sub path."""
     def addPoint(self, pt: tuple[float, float], segmentType: str | None = None, smooth: bool = False, name: str | None = None, identifier: str | None = None, **kwargs: Any) -> None:
-        """
-        Add a point to the current sub path.
-        """
+        """Add a point to the current sub path."""

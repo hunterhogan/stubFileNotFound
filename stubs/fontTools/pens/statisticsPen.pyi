@@ -7,9 +7,7 @@ class StatisticsBase:
     def __init__(self) -> None: ...
 
 class StatisticsPen(StatisticsBase, MomentsPen):
-    """Pen calculating area, center of mass, variance and
-    standard-deviation, covariance and correlation, and slant,
-    of glyph shapes.
+    """Pen calculating area, center of mass, variance and standard-deviation, covariance and correlation, and slant, of glyph shapes.
 
     Note that if the glyph shape is self-intersecting, the values
     are not correct (but well-defined). Moreover, area will be
@@ -19,9 +17,7 @@ class StatisticsPen(StatisticsBase, MomentsPen):
     def __init__(self, glyphset=None) -> None: ...
 
 class StatisticsControlPen(StatisticsBase, BasePen):
-    """Pen calculating area, center of mass, variance and
-    standard-deviation, covariance and correlation, and slant,
-    of glyph shapes, using the control polygon only.
+    """Pen calculating area, center of mass, variance and standard-deviation, covariance and correlation, and slant, of glyph shapes, using the control polygon only.
 
     Note that if the glyph shape is self-intersecting, the values
     are not correct (but well-defined). Moreover, area will be

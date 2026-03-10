@@ -1486,7 +1486,7 @@ def buildStatTable(ttFont: TTFont, axes, locations=None, elidedFallbackName: STA
     overwritten by the newly created one.
     """
 def buildMathTable(ttFont, constants=None, italicsCorrections=None, topAccentAttachments=None, extendedShapes=None, mathKerns=None, minConnectorOverlap: int = 0, vertGlyphVariants=None, horizGlyphVariants=None, vertGlyphAssembly=None, horizGlyphAssembly=None) -> None:
-    """
+    r"""
     Add a \'MATH\' table to \'ttFont\'.
 
     \'constants\' is a dictionary of math constants. The keys are the constant

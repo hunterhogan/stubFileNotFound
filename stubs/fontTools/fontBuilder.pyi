@@ -143,15 +143,16 @@ class FontBuilder:
     def setupGVAR(self, variations) -> None: ...
     def calcGlyphBounds(self) -> None:
         """Calculate the bounding boxes of all glyphs in the `glyf` table.
+
         This is usually not called explicitly by client code.
         """
-    def setupHorizontalMetrics(self, metrics) -> None:
+    def setupHorizontalMetrics(self, metrics: dict[str, tuple[int, int]]) -> None:
         """Create a new `hmtx` table, for horizontal metrics.
 
         The `metrics` argument must be a dict, mapping glyph names to
         `(width, leftSidebearing)` tuples.
         """
-    def setupVerticalMetrics(self, metrics) -> None:
+    def setupVerticalMetrics(self, metrics: dict[str, tuple[int, int]]) -> None:
         """Create a new `vmtx` table, for horizontal metrics.
 
         The `metrics` argument must be a dict, mapping glyph names to
@@ -161,35 +162,29 @@ class FontBuilder:
         """See `setupHorizontalMetrics()` and `setupVerticalMetrics()`."""
     def setupHorizontalHeader(self, **values) -> None:
         """Create a new `hhea` table initialize it with default values,
+
         which can be overridden by keyword arguments.
         """
     def setupVerticalHeader(self, **values) -> None:
-        """Create a new `vhea` table initialize it with default values,
-        which can be overridden by keyword arguments.
-        """
+        """Create a new `vhea` table initialize it with default values, which can be overridden by keyword arguments."""
     def setupVerticalOrigins(self, verticalOrigins, defaultVerticalOrigin=None):
-        """Create a new `VORG` table. The `verticalOrigins` argument must be
-        a dict, mapping glyph names to vertical origin values.
+        """Create a new `VORG` table. The `verticalOrigins` argument must be a dict, mapping glyph names to vertical origin values.
 
         The `defaultVerticalOrigin` argument should be the most common vertical
         origin value. If omitted, this value will be derived from the actual
         values in the `verticalOrigins` argument.
         """
     def setupPost(self, keepGlyphNames: bool = True, **values) -> None:
-        """Create a new `post` table and initialize it with default values,
-        which can be overridden by keyword arguments.
-        """
+        """Create a new `post` table and initialize it with default values, which can be overridden by keyword arguments."""
     def setupMaxp(self) -> None:
-        """Create a new `maxp` table. This is called implicitly by FontBuilder
-        itself and is usually not called by client code.
-        """
+        """Create a new `maxp` table. This is called implicitly by FontBuilder itself and is usually not called by client code."""
     def setupDummyDSIG(self) -> None:
-        """This adds an empty DSIG table to the font to make some MS applications
-        happy. This does not properly sign the font.
+        """Adds an empty DSIG table to the font to make some MS applications happy.
+
+        This does not properly sign the font.
         """
     def addOpenTypeFeatures(self, features, filename=None, tables=None, debug: bool = False) -> None:
-        """Add OpenType features to the font from a string containing
-        Feature File syntax.
+        """Add OpenType features to the font from a string containing Feature File syntax.
 
         The `filename` argument is used in error messages and to determine
         where to look for "include" files.

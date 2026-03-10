@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
-from fontTools.misc.psCharStrings import (
-	calcSubrBias as calcSubrBias, SimpleT2Decompiler as SimpleT2Decompiler, T2WidthExtractor as T2WidthExtractor)
+from fontTools.misc.psCharStrings import SimpleT2Decompiler as SimpleT2Decompiler, T2WidthExtractor as T2WidthExtractor
 
 class StopHintCountEvent(Exception): ...
 

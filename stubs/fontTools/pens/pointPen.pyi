@@ -37,7 +37,9 @@ class AbstractPointPen:
     def addComponent(self, baseGlyphName: str, transformation: tuple[float, float, float, float, float, float], identifier: str | None = None, **kwargs: Any) -> None:
         """Add a sub glyph."""
     def addVarComponent(self, glyphName: str, transformation: DecomposedTransform, location: dict[str, float], identifier: str | None = None, **kwargs: Any) -> None:
-        """Add a VarComponent sub glyph. The 'transformation' argument
+        """Add a VarComponent sub glyph.
+
+        The 'transformation' argument
         must be a DecomposedTransform from the fontTools.misc.transform module,
         and the 'location' argument must be a dictionary mapping axis tags
         to their locations.
@@ -45,8 +47,9 @@ class AbstractPointPen:
 
 class BasePointToSegmentPen(AbstractPointPen):
     """
-    Base class for retrieving the outline in a segment-oriented
-    way. The PointPen protocol is simple yet also a little tricky,
+    Base class for retrieving the outline in a segment-oriented way.
+
+    The PointPen protocol is simple yet also a little tricky,
     so when you need an outline presented as segments but you have
     as points, do use this base implementation as it properly takes
     care of all the edge cases.
@@ -60,8 +63,7 @@ class BasePointToSegmentPen(AbstractPointPen):
 
 class PointToSegmentPen(BasePointToSegmentPen):
     """
-    Adapter class that converts the PointPen protocol to the
-    (Segment)Pen protocol.
+    Adapter class that converts the PointPen protocol to the (Segment)Pen protocol.
 
     NOTE: The segment pen does not support and will drop point names, identifiers
     and kwargs.
@@ -73,10 +75,7 @@ class PointToSegmentPen(BasePointToSegmentPen):
     def addComponent(self, glyphName, transform, identifier=None, **kwargs) -> None: ...
 
 class SegmentToPointPen(AbstractPen):
-    """
-    Adapter class that converts the (Segment)Pen protocol to the
-    PointPen protocol.
-    """
+    """Adapter class that converts the (Segment)Pen protocol to the PointPen protocol."""
 
     pen: Incomplete
     contour: list[tuple[Point, SegmentType]] | None
@@ -90,10 +89,7 @@ class SegmentToPointPen(AbstractPen):
     def addComponent(self, glyphName, transform) -> None: ...
 
 class GuessSmoothPointPen(AbstractPointPen):
-    """
-    Filtering PointPen that tries to determine whether an on-curve point
-    should be "smooth", ie. that it\'s a "tangent" point or a "curve" point.
-    """
+    """Filtering PointPen that tries to determine whether an on-curve point should be "smooth", ie. that it\'s a "tangent" point or a "curve" point."""
 
     def __init__(self, outPen, error: float = 0.05) -> None: ...
     def beginPath(self, identifier=None, **kwargs) -> None: ...
@@ -104,8 +100,9 @@ class GuessSmoothPointPen(AbstractPointPen):
 
 class ReverseContourPointPen(AbstractPointPen):
     """
-    This is a PointPen that passes outline data to another PointPen, but
-    reversing the winding direction of all contours. Components are simply
+    A PointPen that passes outline data to another PointPen, but reversing the winding direction of all contours.
+
+    Components are simply
     passed through unchanged.
 
     Closed contours are reversed in such a way that the first point remains
@@ -123,8 +120,8 @@ class ReverseContourPointPen(AbstractPointPen):
     def addComponent(self, glyphName, transform, identifier=None, **kwargs) -> None: ...
 
 class DecomposingPointPen(LogMixin, AbstractPointPen):
-    """Implements a 'addComponent' method that decomposes components
-    (i.e. draws them onto self as simple contours).
+    """Implements a 'addComponent' method that decomposes components (i.e. draws them onto self as simple contours).
+
     It can also be used as a mixin class (e.g. see DecomposingRecordingPointPen).
 
     You must override beginPath, addPoint, endPath. You may
@@ -141,8 +138,7 @@ class DecomposingPointPen(LogMixin, AbstractPointPen):
     glyphSet: Incomplete
     reverseFlipped: Incomplete
     def __init__(self, glyphSet, *args, skipMissingComponents=None, reverseFlipped: bool | ReverseFlipped = False, **kwargs) -> None:
-        """Takes a 'glyphSet' argument (dict), in which the glyphs that are referenced
-        as components are looked up by their name.
+        """Takes a 'glyphSet' argument (dict), in which the glyphs that are referenced as components are looked up by their name.
 
         If the optional 'reverseFlipped' argument is True or a ReverseFlipped enum value,
         components whose transformation matrix has a negative determinant will be decomposed

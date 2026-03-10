@@ -9,7 +9,7 @@ class Contour(NamedTuple):
     tags: Incomplete
 
 class FreeTypePen(BasePen):
-    """Pen to rasterize paths with FreeType. Requires `freetype-py` module.
+    r"""Pen to rasterize paths with FreeType. Requires `freetype-py` module.
 
     Constructs ``FT_Outline`` from the paths, and renders it within a bitmap
     buffer.
@@ -183,8 +183,7 @@ class FreeTypePen(BasePen):
                 (<class 'numpy.ndarray'>, (1000, 500))
         """
     def show(self, width=None, height=None, transform=None, contain: bool = False, evenOdd: bool = False) -> None:
-        """Plots the rendered contours with `pyplot`. Requires `numpy` and
-        `matplotlib`.
+        """Plots the rendered contours with `pyplot`. Requires `numpy` and `matplotlib`.
 
         Args:
             width: Image width of the bitmap in pixels. If omitted, it
@@ -220,6 +219,7 @@ class FreeTypePen(BasePen):
         """
     def image(self, width=None, height=None, transform=None, contain: bool = False, evenOdd: bool = False):
         """Returns the rendered contours as a PIL image. Requires `Pillow`.
+
         Can be used to display a glyph image in Jupyter Notebook.
 
         Args:

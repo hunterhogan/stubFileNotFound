@@ -10,7 +10,9 @@ class OpenContourError(PenError): ...
 
 class AbstractPen:
     def moveTo(self, pt: tuple[float, float]) -> None:
-        """Begin a new sub path, set the current point to 'pt'. You must
+        """Begin a new sub path, set the current point to 'pt'.
+
+        You must
         end each sub path with a call to pen.closePath() or pen.endPath().
         """
     def lineTo(self, pt: tuple[float, float]) -> None:
@@ -121,7 +123,9 @@ class DecomposingPen(LoggingPen):
     def addVarComponent(self, glyphName, transformation, location) -> None: ...
 
 class BasePen(DecomposingPen):
-    """Base class for drawing pens. You must override _moveTo, _lineTo and
+    """Base class for drawing pens.
+
+    You must override _moveTo, _lineTo and
     _curveToOne. You may additionally override _closePath, _endPath,
     addComponent, addVarComponent, and/or _qCurveToOne. You should not
     override any other methods.

@@ -4,6 +4,7 @@ from fontTools.pens.recordingPen import DecomposingRecordingPen as DecomposingRe
 
 def computeMegaGlyphOrder(merger, glyphOrders) -> None:
     """Modifies passed-in glyphOrders to reflect new glyph names.
+    
     Stores merger.glyphOrder.
     """
 def computeMegaUvs(merger, uvsTables):

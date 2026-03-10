@@ -5,7 +5,8 @@ from typing import NamedTuple, Self
 __all__ = ['DecomposedTransform', 'Identity', 'Offset', 'Scale', 'Transform']
 
 class Transform(NamedTuple):
-    """2x2 transformation matrix plus offset, a.k.a. Affine transform.
+    r"""2x2 transformation matrix plus offset, a.k.a. Affine transform.
+
     Transform instances are immutable: all transforming methods, eg.
     rotate(), return a new Transform instance.
 
@@ -138,7 +139,9 @@ class Transform(NamedTuple):
                 >>>
         """
     def scale(self, x: float = 1, y: float | None = None):
-        """Return a new transformation, scaled by x, y. The 'y' argument
+        """Return a new transformation, scaled by x, y.
+
+        The 'y' argument
         may be None, which implies to use the x value for y as well.
 
         :Example:
@@ -179,8 +182,9 @@ class Transform(NamedTuple):
                 >>>
         """
     def reverseTransform(self, other):
-        """Return a new transformation, which is the other transformation
-        transformed by self. self.reverseTransform(other) is equivalent to
+        """Return a new transformation, which is the other transformation transformed by self.
+
+        self.reverseTransform(other) is equivalent to
         other.transform(self).
 
         :Example:
@@ -247,7 +251,9 @@ def Offset(x: float = 0, y: float = 0) -> Transform:
             >>>
     """
 def Scale(x: float, y: float | None = None) -> Transform:
-    """Return the identity transformation scaled by x, y. The 'y' argument
+    """Return the identity transformation scaled by x, y.
+
+    The 'y' argument
     may be None, which implies to use the x value for y as well.
 
     :Example:
@@ -258,9 +264,7 @@ def Scale(x: float, y: float | None = None) -> Transform:
 
 @dataclass
 class DecomposedTransform:
-    """The DecomposedTransform class implements a transformation with separate
-    translate, rotation, scale, skew, and transformation-center components.
-    """
+    """The DecomposedTransform class implements a transformation with separate translate, rotation, scale, skew, and transformation-center components."""
 
     translateX: float = ...
     translateY: float = ...
@@ -275,6 +279,7 @@ class DecomposedTransform:
     @classmethod
     def fromTransform(self, transform):
         """Return a DecomposedTransform() equivalent of this transformation.
+
         The returned solution always has skewY = 0, and angle in the (-180, 180].
 
         :Example:

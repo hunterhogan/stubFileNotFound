@@ -112,6 +112,8 @@ byteord
 bytesjoin
 cachable
 cacheit
+callgsubr
+callsubr
 capi
 capstyle
 caseless
@@ -128,6 +130,7 @@ cffi
 cfloat
 cgutils
 charliermarsh
+charstring
 checkpid
 christofides
 chunksize
@@ -146,6 +149,7 @@ CLOSEPOLY
 CLUSTERDOWN
 cmap
 cmsincrby
+cntrmask
 codegen
 codepoint
 codepoints
@@ -203,6 +207,7 @@ Debg
 Decorrelated
 dedupe
 defcon
+Dehinting
 DELETERULE
 delslots
 DELSLOTS
@@ -212,6 +217,9 @@ deques
 derivand
 designspace
 destringizer
+desubroutinize
+Desubroutinize
+Desubroutinizing
 DICTADD
 DICTDEL
 DICTDUMP
@@ -305,6 +313,7 @@ glyphdata
 GLYPHLIB
 glyphname
 glyphset
+glyphsets
 glyphslib
 glyphspackage
 gmap
@@ -339,10 +348,15 @@ heapsort
 hexdata
 hgetall
 hhea
+hintcount
+hintmask
+Hintmask
 hmtx
 Hoyer
 hrules
 hset
+hstem
+hstemhm
 hunte
 HVAR
 Hyttinen
@@ -414,6 +428,7 @@ lchunks
 lconcat
 ldistinct
 Lehmer
+Lerp
 lessgreater
 levshape
 lfilter
@@ -731,8 +746,11 @@ stubtest
 stylename
 subnormalize
 subprojects
+subr
+Subr
 subroutinize
 subroutinizer
+Subrs
 subsampling
 subsetter
 Subsetter
@@ -867,6 +885,8 @@ vsetattr
 VSETATTR
 vsim
 VSIM
+vstem
+vstemhm
 VVAR
 Wagstaff
 WAVEX

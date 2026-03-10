@@ -3,12 +3,12 @@ from fontTools.pens.filterPen import FilterPen, FilterPointPen
 __all__ = ['TransformPen', 'TransformPointPen']
 
 class TransformPen(FilterPen):
-    """Pen that transforms all coordinates using a Affine transformation,
-    and passes them to another pen.
-    """
+    """Pen that transforms all coordinates using a Affine transformation, and passes them to another pen."""
 
     def __init__(self, outPen, transformation) -> None:
-        """The 'outPen' argument is another pen object. It will receive the
+        """The 'outPen' argument is another pen object.
+
+        It will receive the
         transformed coordinates. The 'transformation' argument can either
         be a six-tuple, or a fontTools.misc.transform.Transform object.
         """
@@ -21,8 +21,7 @@ class TransformPen(FilterPen):
     def addComponent(self, glyphName, transformation) -> None: ...
 
 class TransformPointPen(FilterPointPen):
-    """PointPen that transforms all coordinates using a Affine transformation,
-    and passes them to another PointPen.
+    r"""PointPen that transforms all coordinates using a Affine transformation, and passes them to another PointPen.
 
     For example::
 
@@ -49,6 +48,7 @@ class TransformPointPen(FilterPointPen):
 
     def __init__(self, outPointPen, transformation) -> None:
         """The 'outPointPen' argument is another point pen object.
+        
         It will receive the transformed coordinates.
         The 'transformation' argument can either be a six-tuple, or a
         fontTools.misc.transform.Transform object.
