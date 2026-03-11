@@ -26,7 +26,6 @@ from types import ModuleType, TracebackType
 from typing import Any, BinaryIO, Literal, overload, Self, TextIO, TypedDict, TypeVar
 from typing_extensions import Unpack
 from ufoLib2.typing import PathLike
-import os
 
 _NumberT = TypeVar("_NumberT", bound=float)
 _VT_co = TypeVar("_VT_co", covariant=True)  # Value type covariant containers.
@@ -156,21 +155,18 @@ class TTFont:
         disassembleInstructions: bool
         bitmapGlyphDataFormat: str
     def saveXML(self, fileOrPath: PathLike | TextIO, newlinestr: str = '\n', **kwargs: Unpack[XMLSavingOptions]) -> None:
-        """Export the font as TTX (an XML-based text file), or as a series of text
-        files when splitTables is true. In the latter case, the 'fileOrPath'
+        """Export the font as TTX (an XML-based text file), or as a series of text files when splitTables is true.
+
+        In the latter case, the 'fileOrPath'
         argument should be a path to a directory.
         The 'tables' argument must either be false (dump all tables) or a
         list of tables to dump. The 'skipTables' argument may be a list of tables
         to skip, but only when the 'tables' argument is false.
         """
     def importXML(self, fileOrPath: PathLike, quiet: bool | None = None) -> None:
-        """Import a TTX file (an XML-based text format), so as to recreate
-        a font object.
-        """
+        """Import a TTX file (an XML-based text format), so as to recreate a font object."""
     def isLoaded(self, tag: str | bytes) -> bool:
-        """Return true if the table identified by ``tag`` has been
-        decompiled and loaded into memory.
-        """
+        """Return true if the table identified by ``tag`` has been decompiled and loaded into memory."""
     def has_key(self, tag: str | bytes) -> bool:
         """Test if the table identified by ``tag`` is present in the font.
 
@@ -546,9 +542,7 @@ class TTFont:
     def getGlyphNames(self) -> list[str]:
         """Get a list of glyph names, sorted alphabetically."""
     def getGlyphNames2(self) -> list[str]:
-        """Get a list of glyph names, sorted alphabetically,
-        but not case sensitive.
-        """
+        """Get a list of glyph names, sorted alphabetically, but not case sensitive."""
     def getGlyphName(self, glyphID: int) -> str:
         """Returns the name for the glyph with the given ID.
 
@@ -596,8 +590,9 @@ class TTFont:
         font's defined axes space.
         """
     def normalizeLocation(self, location: Mapping[str, float]) -> dict[str, float]:
-        """Normalize a ``location`` from the font's defined axes space (also
-        known as user space) into the normalized (-1..+1) space. It applies
+        """Normalize a ``location`` from the font's defined axes space (also known as user space) into the normalized (-1..+1) space.
+
+        It applies
         ``avar`` mapping if the font contains an ``avar`` table.
 
         The ``location`` parameter should be a dictionary mapping four-letter
@@ -606,8 +601,7 @@ class TTFont:
         Raises ``TTLibError`` if the font is not a variable font.
         """
     def getBestCmap(self, cmapPreferences: Sequence[tuple[int, int]] = ...) -> dict[int, str] | None:
-        """Returns the 'best' Unicode cmap dictionary available in the font
-        or ``None``, if no Unicode cmap subtable is available.
+        """Returns the 'best' Unicode cmap dictionary available in the font or ``None``, if no Unicode cmap subtable is available.
 
         By default it will search for the following (platformID, platEncID)
         pairs in order::
@@ -631,9 +625,7 @@ class TTFont:
     def reorderGlyphs(self, new_glyph_order: list[str]) -> None: ...
 
 class GlyphOrder:
-    """A pseudo table. The glyph order isn't in the font as a separate
-    table, but it's nice to present it as such in the TTX format.
-    """
+    """A pseudo table. The glyph order isn't in the font as a separate table, but it's nice to present it as such in the TTX format."""
 
     def __init__(self, tag: str | None = None) -> None: ...
     def toXML(self, writer: xmlWriter.XMLWriter, ttFont: TTFont) -> None: ...
@@ -641,9 +633,7 @@ class GlyphOrder:
     def fromXML(self, name: str, attrs: dict[str, str], content: list[Any], ttFont: TTFont) -> None: ...
 
 def getTableModule(tag: str | bytes) -> ModuleType | None:
-    """Fetch the packer/unpacker module for a table.
-    Return None when no module is found.
-    """
+    """Fetch the packer/unpacker module for a table. Return None when no module is found."""
 def registerCustomTableClass(tag: str | bytes, moduleName: str, className: str | None = None) -> None:
     """Register a custom packer/unpacker class for a table.
 
@@ -657,9 +647,7 @@ def registerCustomTableClass(tag: str | bytes, moduleName: str, className: str |
 def unregisterCustomTableClass(tag: str | bytes) -> None:
     """Unregister the custom packer/unpacker class for a table."""
 def getCustomTableClass(tag: str | bytes) -> type[DefaultTable] | None:
-    """Return the custom table class for tag, if one has been registered
-    with 'registerCustomTableClass()'. Else return None.
-    """
+    """Return the custom table class for tag, if one has been registered with 'registerCustomTableClass()'. Else return None."""
 def getTableClass(tag: str | bytes) -> type[DefaultTable]:
     """Fetch the packer/unpacker class for a table."""
 def getClassTag(klass: type[DefaultTable]) -> str | bytes:
@@ -667,9 +655,9 @@ def getClassTag(klass: type[DefaultTable]) -> str | bytes:
 def newTable(tag: str | bytes) -> DefaultTable:
     """Return a new instance of a table."""
 def tagToIdentifier(tag: str | bytes) -> str:
-    """Convert a table tag to a valid (but UGLY) python identifier,
-    as well as a filename that's guaranteed to be unique even on a
-    caseless file system. Each character is mapped to two characters.
+    """Convert a table tag to a valid (but UGLY) python identifier, as well as a filename that's guaranteed to be unique even on a caseless file system.
+
+    Each character is mapped to two characters.
     Lowercase letters get an underscore before the letter, uppercase
     letters get an underscore after the letter. Trailing spaces are
     trimmed. Illegal characters are escaped as two hex bytes. If the
@@ -688,8 +676,9 @@ def tagToIdentifier(tag: str | bytes) -> str:
 def identifierToTag(ident: str) -> str:
     """The opposite of tagToIdentifier()"""
 def tagToXML(tag: str | bytes) -> str:
-    """Similarly to tagToIdentifier(), this converts a TT tag
-    to a valid XML element name. Since XML element names are
+    """Similarly to tagToIdentifier(), this converts a TT tag to a valid XML element name.
+
+    Since XML element names are
     case sensitive, this is a fairly simple/readable translation.
     """
 def xmlToTag(tag: str) -> str:
@@ -699,17 +688,14 @@ TTFTableOrder: Incomplete
 OTFTableOrder: Incomplete
 
 def sortedTagList(tagList: Sequence[str], tableOrder: Sequence[str] | None = None) -> list[str]:
-    """Return a sorted copy of tagList, sorted according to the OpenType
-    specification, or according to a custom tableOrder. If given and not
+    """Return a sorted copy of tagList, sorted according to the OpenType specification, or according to a custom tableOrder.
+
+    If given and not
     None, tableOrder needs to be a list of tag names.
     """
 def reorderFontTables(inFile: BinaryIO, outFile: BinaryIO, tableOrder: Sequence[str] | None = None, checkChecksums: bool = False) -> None:
-    """Rewrite a font file, ordering the tables as recommended by the
-    OpenType specification 1.4.
-    """
+    """Rewrite a font file, ordering the tables as recommended by the OpenType specification 1.4."""
 def maxPowerOfTwo(x: int) -> int:
-    """Return the highest exponent of two, so that
-    (2 ** exponent) <= x.  Return 0 if x is 0.
-    """
+    """Return the highest exponent of two, so that (2 ** exponent) <= x.  Return 0 if x is 0."""
 def getSearchRange(n: int, itemSize: int = 16) -> tuple[int, int, int]:
     """Calculate searchRange, entrySelector, rangeShift."""

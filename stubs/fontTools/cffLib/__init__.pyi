@@ -34,13 +34,16 @@ class CFFFontSet:
 
     """
 
-    otFont: Incomplete
-    offSize: Incomplete
     fontNames: Incomplete
-    topDictIndex: Incomplete
-    strings: Incomplete
-    topDictSize: Incomplete
     GlobalSubrs: Incomplete
+    hdrSize: int
+    major: int
+    minor: int
+    offSize: Incomplete
+    otFont: Incomplete
+    strings: Incomplete
+    topDictIndex: Incomplete
+    topDictSize: Incomplete
     def decompile(self, file: PathLike, otFont, isCFF2=None) -> None:
         """Parse a binary CFF file into an internal representation.
 
@@ -58,7 +61,6 @@ class CFFFontSet:
         """Return TopDict instance identified by name (str) or index (int
         or any object that implements `__index__`).
         """
-    hdrSize: int
     def compile(self, file: PathLike, otFont, isCFF2=None) -> None:
         """Write the object back into binary representation onto the given file.
         ``file`` should be a file handle object. ``otFont`` is the top-level
@@ -78,8 +80,6 @@ class CFFFontSet:
                 tt["CFF "].cff.toXML(writer)
 
         """
-    major: int
-    minor: int
     def fromXML(self, name, attrs, content, otFont=None) -> None:
         """Reads data from the XML element into the ``CFFFontSet`` object."""
     def convertCFFToCFF2(self, otFont) -> None: ...

@@ -1,10 +1,7 @@
 from _typeshed import Incomplete
-from fontTools.cffLib.specializer import (
-	commandsToProgram as commandsToProgram, specializeCommands as specializeCommands)
 from fontTools.misc.psCharStrings import T2CharString as T2CharString
-from fontTools.misc.roundTools import otRound as otRound, roundFunc as roundFunc
 from fontTools.pens.basePen import BasePen as BasePen
-from typing import Any
+from fontTools.ttLib.ttGlyphSet import _TTGlyphSet
 
 class T2CharStringPen(BasePen):
     """Pen to draw Type 2 CharStrings.
@@ -17,6 +14,6 @@ class T2CharStringPen(BasePen):
     which are close to their integral part within the tolerated range.
     """
 
-    round: Incomplete
-    def __init__(self, width: float | None, glyphSet: dict[str, Any] | None, roundTolerance: float = 0.5, CFF2: bool = False) -> None: ...
-    def getCharString(self, private: dict | None = None, globalSubrs: list | None = None, optimize: bool = True) -> T2CharString: ...
+    round: float
+    def __init__(self, width: float | None, glyphSet: _TTGlyphSet | None, roundTolerance: float = 0.5, CFF2: bool = False) -> None: ...
+    def getCharString(self, private: dict[Incomplete, Incomplete] | None = None, globalSubrs: list[Incomplete] | None = None, optimize: bool = True) -> T2CharString: ...

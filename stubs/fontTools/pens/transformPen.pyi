@@ -1,24 +1,28 @@
+from _typeshed import Incomplete
+from fontTools.misc.transform import Transform
+from fontTools.pens.basePen import AbstractPen
 from fontTools.pens.filterPen import FilterPen, FilterPointPen
+from fontTools.pens.pointPen import AbstractPointPen
 
 __all__ = ['TransformPen', 'TransformPointPen']
 
 class TransformPen(FilterPen):
     """Pen that transforms all coordinates using a Affine transformation, and passes them to another pen."""
 
-    def __init__(self, outPen, transformation) -> None:
+    def __init__(self, outPen: AbstractPen, transformation: Transform | tuple[float, float, float, float, float, float]) -> None:
         """The 'outPen' argument is another pen object.
 
         It will receive the
         transformed coordinates. The 'transformation' argument can either
         be a six-tuple, or a fontTools.misc.transform.Transform object.
         """
-    def moveTo(self, pt) -> None: ...
-    def lineTo(self, pt) -> None: ...
-    def curveTo(self, *points) -> None: ...
-    def qCurveTo(self, *points) -> None: ...
+    def moveTo(self, pt: Incomplete) -> None: ...
+    def lineTo(self, pt: Incomplete) -> None: ...
+    def curveTo(self, *points: Incomplete) -> None: ...
+    def qCurveTo(self, *points: Incomplete) -> None: ...
     def closePath(self) -> None: ...
     def endPath(self) -> None: ...
-    def addComponent(self, glyphName, transformation) -> None: ...
+    def addComponent(self, glyphName: str, transformation: Transform | tuple[float, float, float, float, float, float]) -> None: ...  # pyright: ignore[reportIncompatibleMethodOverride] # ty:ignore[invalid-method-override]
 
 class TransformPointPen(FilterPointPen):
     r"""PointPen that transforms all coordinates using a Affine transformation, and passes them to another PointPen.
@@ -46,12 +50,12 @@ class TransformPointPen(FilterPointPen):
         (\'addComponent\', (\'a\', <Transform [2 0 0 2 -30 15]>), {\'identifier\': \'component-0\'})
     """
 
-    def __init__(self, outPointPen, transformation) -> None:
+    def __init__(self, outPointPen: AbstractPointPen, transformation: Transform | tuple[float, float, float, float, float, float]) -> None:
         """The 'outPointPen' argument is another point pen object.
-        
+
         It will receive the transformed coordinates.
         The 'transformation' argument can either be a six-tuple, or a
         fontTools.misc.transform.Transform object.
         """
-    def addPoint(self, pt, segmentType=None, smooth: bool = False, name=None, **kwargs) -> None: ...
-    def addComponent(self, baseGlyphName, transformation, **kwargs) -> None: ...
+    def addPoint(self, pt: Incomplete, segmentType: Incomplete = None, smooth: bool = False, name: Incomplete = None, **kwargs: Incomplete) -> None: ...  # pyright: ignore[reportIncompatibleMethodOverride] # ty:ignore[invalid-method-override]
+    def addComponent(self, baseGlyphName: str, transformation: Transform | tuple[float, float, float, float, float, float], **kwargs: Incomplete) -> None: ...  # pyright: ignore[reportIncompatibleMethodOverride] # ty:ignore[invalid-method-override]
