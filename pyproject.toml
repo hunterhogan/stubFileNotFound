@@ -23,12 +23,13 @@ classifiers = [
 ]
 urls = { Donate = "https://www.patreon.com/integrated", Homepage = "https://github.com/hunterhogan/stubFileNotFound", Repository = "https://github.com/hunterhogan/stubFileNotFound.git" }
 dependencies = [
+  "MonkeyType",
   "autotyping",
   "charset_normalizer",
   "hunterMakesPy",
   "libcst",
-  "MonkeyType",
   "mypy",
+  "pyrefly",
   "pyright",
   "pyupgrade",
   "ruff",
@@ -55,7 +56,7 @@ optional-dependencies = { effingPandas = [
 ] }
 
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]

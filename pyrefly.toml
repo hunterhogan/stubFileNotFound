@@ -1,0 +1,6 @@
+infer-with-first-use = false
+
+[errors]
+no-access = "ignore"
+invalid-type-var = "ignore"
+bad-return = "warn"

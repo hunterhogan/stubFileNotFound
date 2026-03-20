@@ -600,7 +600,7 @@ class TTFont:
 
         Raises ``TTLibError`` if the font is not a variable font.
         """
-    def getBestCmap(self, cmapPreferences: Sequence[tuple[int, int]] = ...) -> dict[int, str] | None:
+    def getBestCmap(self, cmapPreferences: Sequence[tuple[int, int]] = ...) -> _c_m_a_p.CmapSubtable | None:
         """Returns the 'best' Unicode cmap dictionary available in the font or ``None``, if no Unicode cmap subtable is available.
 
         By default it will search for the following (platformID, platEncID)
