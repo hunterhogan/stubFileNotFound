@@ -1,3 +1,4 @@
+from collections.abc import Iterable
 from _typeshed import Incomplete
 from fontTools.merge.options import Options as Options
 from fontTools.ttLib import TTFont
@@ -38,7 +39,7 @@ class Merger:
     def __init__(self, options: Options | None = None) -> None: ...
     duplicateGlyphsPerFont: Incomplete
     fonts: list[TTFont]
-    def merge(self, fontfiles: list[PathLike]) -> TTFont:
+    def merge(self, fontfiles: Iterable[PathLike]) -> TTFont:
         """Merges fonts together.
 
         Args:
