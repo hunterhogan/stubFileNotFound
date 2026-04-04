@@ -16,10 +16,10 @@ def max_flops(device_type, arch, width, num_sms, clock_rate):
         num_sms (int): The number of streaming multiprocessors.
         clock_rate (float): The clock rate in GHz.
 
-    Returns:
+    Returns
+    -------
         float: The maximum FLOPS for the given device type and width.
     """
-    ...
 
 def max_bps(device_type, arch, bus_width, memory_clock_rate): # -> float:
     """
@@ -29,8 +29,7 @@ def max_bps(device_type, arch, bus_width, memory_clock_rate): # -> float:
         bus_width (int): The bus width in bits.
         memory_clock_rate (float): The memory clock rate in GHz.
 
-    Returns:
+    Returns
+    -------
         float: The maximum bytes per second.
     """
-    ...
-

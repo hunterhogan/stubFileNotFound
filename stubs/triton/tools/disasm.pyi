@@ -14,7 +14,7 @@ def parseCtrl(sline): # -> str:
 def processSassLines(fline, sline, labels): # -> tuple[str, str]:
     ...
 
-@functools.lru_cache()
+@functools.lru_cache
 def get_sass(cubin_asm, fun=...): # -> str | None:
     ...
 
@@ -23,4 +23,3 @@ def path_to_cuobjdump(): # -> str:
 
 def extract(file_path, fun): # -> str | None:
     ...
-

@@ -5,8 +5,6 @@ class MatchError(ValueError):
     def __init__(self, message, module_str) -> None:
         ...
 
-    def __str__(self) -> str:
-        ...
 
 
 
@@ -21,4 +19,3 @@ def run_filecheck_test(kernel_fn): # -> None:
 
 def filecheck_test(fn): # -> _Wrapped[Callable[..., Any], Any, Callable[[], Any], None]:
     ...
-

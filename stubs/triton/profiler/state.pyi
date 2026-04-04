@@ -25,16 +25,16 @@ class state:
     """
     def __init__(self, name: str) -> None:
         ...
-    
+
     def __enter__(self): # -> Self:
         ...
-    
+
     def __exit__(self, exc_type, exc_value, traceback) -> None:
         ...
-    
+
     def __call__(self, func): # -> _Wrapped[Callable[..., Any], Any, Callable[..., Any], Any]:
         ...
-    
+
 
 
 def enter_state(name: str) -> None:
@@ -42,4 +42,3 @@ def enter_state(name: str) -> None:
 
 def exit_state() -> None:
     ...
-

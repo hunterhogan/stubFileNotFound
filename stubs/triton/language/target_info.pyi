@@ -19,7 +19,6 @@ def cuda_capability_geq(major, minor=...): # -> Literal[False]:
     returns this as a constexpr boolean. This can be used for guarding
     inline asm implementations that require a certain compute capability.
     """
-    ...
 
 @constexpr_function
 def is_hip(): # -> Literal[False]:
@@ -32,4 +31,3 @@ def is_hip_cdna3(): # -> Literal[False]:
 @constexpr_function
 def is_hip_cdna4(): # -> Literal[False]:
     ...
-

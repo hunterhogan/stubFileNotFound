@@ -1934,4 +1934,3 @@ def builtin_max(*args, propagate_nan=..., _semantic=...) -> constexpr | list[Any
 @builtin
 def builtin_min(*args, propagate_nan=..., _semantic=...) -> constexpr | list[Any] | builtins.tuple[Any, ...] | triton.language.core.tuple:
 	...
-

@@ -77,4 +77,3 @@ def randn4x(seed, offset, n_rounds: tl.constexpr = ...) -> tuple[tl.tensor, tl.t
 	:param seed: The seed for generating random numbers.
 	:param offsets: The offsets to generate random numbers for.
 	"""
-

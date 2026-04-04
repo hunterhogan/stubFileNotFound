@@ -54,4 +54,3 @@ class GPUDriver(DriverBase):
 
 	def assemble_tensormap_to_arg(self, tensormaps_info, args):
 		...
-

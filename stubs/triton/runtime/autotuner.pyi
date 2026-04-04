@@ -172,4 +172,3 @@ def heuristics(values: dict[str, Callable[[dict[str, Any]], Any]]) -> Callable[[
 				each such function takes a list of positional arguments as input.
 	:type values: dict[str, Callable[[dict[str, Any]], Any]]
 	"""
-

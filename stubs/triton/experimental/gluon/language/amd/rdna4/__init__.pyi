@@ -16,5 +16,3 @@ def wmma(a, b, acc, _semantic=...): # -> tensor:
         b (tensor): The operand b to be multiplied.
         acc (tensor): The accumulator tensor.
     """
-    ...
-

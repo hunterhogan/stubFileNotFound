@@ -5,12 +5,12 @@ import subprocess
 
 # ruff: noqa: S607
 if __name__ == "__main__":
-	listRelativePaths: list[str] = ['fontTools']
+	listRelativePaths: list[str] = ['triton']
 
 	convertFilesTOutf8: bool = True
 	stubdefaulter吗: bool = True
 	pyupgrade吗: bool = True
-	pyupgradeVersion: str = 'py311-plus'
+	pyupgradeVersion: str = 'py310-plus'
 	ruffFix吗: bool = True
 	autoflake吗: bool = True
 	isort吗: bool = True
