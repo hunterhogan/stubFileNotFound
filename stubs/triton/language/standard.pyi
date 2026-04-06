@@ -18,14 +18,12 @@ def cdiv(x, div) -> core.tensor:
 @core._tensor_member_fn
 @jit
 @math._add_math_1arg_docstr("sigmoid")
-def sigmoid(x: core.tensor) -> core.tensor:
-	...
+def sigmoid(x: core.tensor) -> core.tensor: ...
 
 @core._tensor_member_fn
 @jit
 @math._add_math_1arg_docstr("softmax")
-def softmax(x: core.tensor, dim=..., keep_dims=..., ieee_rounding=...) -> core.tensor:
-	...
+def softmax(x: core.tensor, dim=..., keep_dims=..., ieee_rounding=...) -> core.tensor: ...
 
 @core._tensor_member_fn
 @jit
@@ -81,56 +79,47 @@ def zeros_like(input) -> core.tensor:
 @core._tensor_member_fn
 @jit
 @core._add_reduction_docstr("maximum", return_indices_arg="return_indices", tie_break_arg="return_indices_tie_break_left")
-def max(input, axis=..., return_indices=..., return_indices_tie_break_left=..., keep_dims=...) -> core.tensor:
-	...
+def max(input, axis=..., return_indices=..., return_indices_tie_break_left=..., keep_dims=...) -> core.tensor: ...
 
 @core._tensor_member_fn
 @jit
 @core._add_reduction_docstr("maximum index", tie_break_arg="tie_break_left")
-def argmax(input, axis, tie_break_left=..., keep_dims=...) -> core.tensor:
-	...
+def argmax(input, axis, tie_break_left=..., keep_dims=...) -> core.tensor: ...
 
 @core._tensor_member_fn
 @jit
 @core._add_reduction_docstr("minimum", return_indices_arg="return_indices", tie_break_arg="return_indices_tie_break_left")
-def min(input, axis=..., return_indices=..., return_indices_tie_break_left=..., keep_dims=...) -> core.tensor:
-	...
+def min(input, axis=..., return_indices=..., return_indices_tie_break_left=..., keep_dims=...) -> core.tensor: ...
 
 @core._tensor_member_fn
 @jit
 @core._add_reduction_docstr("minimum index", tie_break_arg="tie_break_left")
-def argmin(input, axis, tie_break_left=..., keep_dims=...) -> core.tensor:
-	...
+def argmin(input, axis, tie_break_left=..., keep_dims=...) -> core.tensor: ...
 
 @core._tensor_member_fn
 @jit
 @core._add_reduction_docstr("sum", dtype_arg="dtype")
-def sum(input, axis=..., keep_dims=..., dtype: core.constexpr = ...) -> core.tensor:
-	...
+def sum(input, axis=..., keep_dims=..., dtype: core.constexpr = ...) -> core.tensor: ...
 
 @core._tensor_member_fn
 @jit
 @core._add_reduction_docstr("xor sum")
-def xor_sum(input, axis=..., keep_dims=...) -> core.tensor:
-	...
+def xor_sum(input, axis=..., keep_dims=...) -> core.tensor: ...
 
 @core._tensor_member_fn
 @jit
 @core._add_reduction_docstr("reduce_or")
-def reduce_or(input, axis, keep_dims=...) -> core.tensor:
-	...
+def reduce_or(input, axis, keep_dims=...) -> core.tensor: ...
 
 @core._tensor_member_fn
 @jit
 @core._add_scan_docstr("cumsum", dtype_arg="dtype")
-def cumsum(input, axis=..., reverse=..., dtype: core.constexpr = ...) -> core.tensor:
-	...
+def cumsum(input, axis=..., reverse=..., dtype: core.constexpr = ...) -> core.tensor: ...
 
 @core._tensor_member_fn
 @jit
 @core._add_scan_docstr("cumprod")
-def cumprod(input, axis=..., reverse=...) -> core.tensor:
-	...
+def cumprod(input, axis=..., reverse=...) -> core.tensor: ...
 
 @jit
 def sort_impl(x, k: core.constexpr = ..., dim: core.constexpr = ..., descending: core.constexpr = ...) -> core.tensor:
@@ -148,16 +137,13 @@ def sort_impl(x, k: core.constexpr = ..., dim: core.constexpr = ..., descending:
 	"""
 
 @jit
-def sort(x, dim: core.constexpr = ..., descending: core.constexpr = ...) -> core.tensor:
-	...
+def sort(x, dim: core.constexpr = ..., descending: core.constexpr = ...) -> core.tensor: ...
 
 @jit
-def topk(x, k: core.constexpr, dim: core.constexpr = ...) -> core.tensor:
-	...
+def topk(x, k: core.constexpr, dim: core.constexpr = ...) -> core.tensor: ...
 
 @jit
-def bitonic_merge(x, dim: core.constexpr = ..., descending: core.constexpr = ...) -> core.tensor:
-	...
+def bitonic_merge(x, dim: core.constexpr = ..., descending: core.constexpr = ...) -> core.tensor: ...
 
 @core._tensor_member_fn
 @jit
