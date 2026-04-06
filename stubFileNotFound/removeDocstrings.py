@@ -24,4 +24,4 @@ def process_directory(pathRoot: Path) -> None:
                 remove_docstrings_from_file(pathFilename)
 
 # Run it
-process_directory(Path("/apps/hunterMakesPy/humpy_cytoolz"))
+process_directory(Path("/apps/stubFileNotFound/stubs/soundfile"))
