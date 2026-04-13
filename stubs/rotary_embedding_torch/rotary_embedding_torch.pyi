@@ -1,5 +1,4 @@
 from _typeshed import Incomplete
-from math import log as log
 from torch import Tensor as Tensor
 from torch.nn import Module, ModuleList as ModuleList
 from typing import Literal

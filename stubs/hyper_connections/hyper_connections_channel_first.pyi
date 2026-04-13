@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from einops import reduce as reduce, repeat as repeat
-from hyper_connections.hyper_connections import RMSNorm as RMSNorm, Residual as Residual
+from hyper_connections.hyper_connections import Residual as Residual, RMSNorm as RMSNorm
 from torch.nn import Module
 from typing import Callable
 

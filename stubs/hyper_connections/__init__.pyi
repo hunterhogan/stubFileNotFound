@@ -6,3 +6,4 @@ from hyper_connections.manifold_constrained_hyper_connections import (
 	ManifoldConstrainedHyperConnections as ManifoldConstrainedHyperConnections)
 
 mHC = ManifoldConstrainedHyperConnections
+

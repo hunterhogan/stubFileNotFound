@@ -5,7 +5,7 @@ import subprocess
 
 # ruff: noqa: S607
 if __name__ == "__main__":
-	listRelativePaths: list[str] = ['triton']
+	listRelativePaths: list[str] = ['hyper_connections', 'PoPE_pytorch', 'rotary_embedding_torch']
 
 	convertFilesTOutf8: bool = True
 	stubdefaulter吗: bool = True
