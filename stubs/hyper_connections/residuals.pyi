@@ -1,0 +1,13 @@
+from _typeshed import Incomplete
+from einops import rearrange as rearrange
+from torch.nn import Module
+
+class GRUGatedResidual(Module):
+    gru: Incomplete
+    def __init__(self, dim) -> None: ...
+    def forward(self, x, residual): ...
+
+class GatedResidual(Module):
+    to_learned_mix: Incomplete
+    def __init__(self, dim, fine_gate: bool = False) -> None: ...
+    def forward(self, x, residual): ...

@@ -1,0 +1,8 @@
+from hyper_connections.hyper_connections import (
+	AttentionPoolReduceStream as AttentionPoolReduceStream, get_expand_reduce_stream_functions as get_expand_reduce_stream_functions,
+	get_init_and_expand_reduce_stream_functions as get_init_and_expand_reduce_stream_functions, HyperConnections as HyperConnections,
+	Residual as Residual, StreamEmbed as StreamEmbed)
+from hyper_connections.manifold_constrained_hyper_connections import (
+	ManifoldConstrainedHyperConnections as ManifoldConstrainedHyperConnections)
+
+mHC = ManifoldConstrainedHyperConnections
