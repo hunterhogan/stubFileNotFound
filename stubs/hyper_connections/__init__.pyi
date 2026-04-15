@@ -3,7 +3,12 @@ from hyper_connections.hyper_connections import (
 	get_init_and_expand_reduce_stream_functions as get_init_and_expand_reduce_stream_functions, HyperConnections as HyperConnections,
 	Residual as Residual, StreamEmbed as StreamEmbed)
 from hyper_connections.manifold_constrained_hyper_connections import (
+	get_expand_reduce_stream_functions as sherpa_get_expand_reduce_stream_functions,
+	get_init_and_expand_reduce_stream_functions as sherpa_get_init_and_expand_reduce_stream_functions,
 	ManifoldConstrainedHyperConnections as ManifoldConstrainedHyperConnections)
 
 mHC = ManifoldConstrainedHyperConnections
+
+mc_get_expand_reduce_stream_functions = sherpa_get_expand_reduce_stream_functions
+mc_get_init_and_expand_reduce_stream_functions = sherpa_get_init_and_expand_reduce_stream_functions
 
