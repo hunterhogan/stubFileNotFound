@@ -287,6 +287,7 @@ foomodule
 foovalue
 Fors
 fpgm
+fracs
 Frechet
 Freese
 freqstr
@@ -413,6 +414,7 @@ keydict
 keyslot
 keyworded
 klass
+knopps
 Kreher
 krogh
 Kumaraswamy
@@ -708,6 +710,7 @@ silverman
 sinc
 singlecomplex
 singletz
+sinkhorn
 siunitx
 Skiena
 skipexportglyphs

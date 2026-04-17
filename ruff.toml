@@ -3,6 +3,7 @@ extend = "pyproject.toml"
 line-length = 140
 
 [lint]
+allowed-confusables = ["σ", "×", "−", "ℝ"]
 ignore = [
   "ANN401",
   "C901",
@@ -83,3 +84,4 @@ convention = "numpy"
 docstring-code-format = true
 quote-style = "single"
 indent-style = "tab"
+skip-magic-trailing-comma = true
