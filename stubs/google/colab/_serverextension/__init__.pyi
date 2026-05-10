@@ -1,0 +1,6 @@
+import logging
+
+class _ColabLoggingFilter(logging.Filter):
+    def filter(self, record): ...
+
+def load_jupyter_server_extension(server_app): ...

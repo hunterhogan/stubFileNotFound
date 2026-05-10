@@ -1,0 +1,3 @@
+__all__ = ['unassign']
+
+def unassign() -> None: ...

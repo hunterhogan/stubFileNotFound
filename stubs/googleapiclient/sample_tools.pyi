@@ -1,0 +1,3 @@
+__all__ = ['init']
+
+def init(argv, name, version, doc, filename, scope=None, parents=[], discovery_filename=None): ...

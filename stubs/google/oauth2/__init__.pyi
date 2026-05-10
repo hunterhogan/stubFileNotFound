@@ -1,0 +1,3 @@
+class Python37DeprecationWarning(DeprecationWarning): ...
+
+eol_message: str
