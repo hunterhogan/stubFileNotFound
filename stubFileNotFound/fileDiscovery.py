@@ -1,5 +1,7 @@
 """File-level operations."""
 
+from __future__ import annotations
+
 from pathlib import Path
 from stubFileNotFound import settingsPackage
 
@@ -23,5 +25,3 @@ def discoverStubFiles(listRelativePaths: list[str]) -> list[Path]:
 			listPathFilenames.extend(pathTarget.rglob(f'*.{pathSuffix}'))
 
 	return listPathFilenames
-
-

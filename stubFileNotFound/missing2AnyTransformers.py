@@ -1,4 +1,4 @@
-# ruff: noqa: ARG002
+# ruff: noqa: ARG002 D102 PLR0916 PLR0911 PLR0904 DOC201 PLR6301
 """
 'Fix' unknown types with `Any` and generics with the equivalent of `Any`.
 
@@ -10,6 +10,8 @@ TODO:
 - Would `astToolkit` be useful or better?
 - `np.dtype` without confusing with the other identifiers named `dtype`
 """
+from __future__ import annotations
+
 from libcst import matchers
 from stubFileNotFound.fileDiscovery import discoverStubFiles
 import libcst
@@ -145,7 +147,7 @@ class TypingImportAdder(libcst.CSTTransformer):
 
 		"""
 		for parameterFunction in [*node.params.params, *node.params.posonly_params, *node.params.kwonly_params]:
-			if parameterFunction.annotation is None and parameterFunction.name.value not in ("self", "cls"):
+			if parameterFunction.annotation is None and parameterFunction.name.value not in {"self", "cls"}:
 				self.needsTypingAnyImport = True
 
 		if node.params.star_arg and isinstance(node.params.star_arg, libcst.Param) and node.params.star_arg.annotation is None:
@@ -179,7 +181,7 @@ class TypingImportAdder(libcst.CSTTransformer):
 		wasParameterModified: bool = False
 
 		for parameterFunction in updated_node.params.params:
-			if parameterFunction.annotation is None and parameterFunction.name.value not in ("self", "cls"):
+			if parameterFunction.annotation is None and parameterFunction.name.value not in {"self", "cls"}:
 				parameterUpdated = parameterFunction.with_changes(
 					annotation=libcst.Annotation(annotation=libcst.Name("Any"))
 				)
@@ -191,7 +193,7 @@ class TypingImportAdder(libcst.CSTTransformer):
 
 		listPosOnlyParamsUpdated: list[libcst.Param] = []
 		for parameterFunction in updated_node.params.posonly_params:
-			if parameterFunction.annotation is None and parameterFunction.name.value not in ("self", "cls"):
+			if parameterFunction.annotation is None and parameterFunction.name.value not in {"self", "cls"}:
 				parameterUpdated = parameterFunction.with_changes(
 					annotation=libcst.Annotation(annotation=libcst.Name("Any"))
 				)
@@ -203,7 +205,7 @@ class TypingImportAdder(libcst.CSTTransformer):
 
 		listKwOnlyParamsUpdated: list[libcst.Param] = []
 		for parameterFunction in updated_node.params.kwonly_params:
-			if parameterFunction.annotation is None and parameterFunction.name.value not in ("self", "cls"):
+			if parameterFunction.annotation is None and parameterFunction.name.value not in {"self", "cls"}:
 				parameterUpdated = parameterFunction.with_changes(
 					annotation=libcst.Annotation(annotation=libcst.Name("Any"))
 				)
@@ -360,7 +362,7 @@ class ImplicitParameterCleaner(libcst.CSTTransformer):
 			parameterFunction.annotation is not None):
 
 			nameParameter = parameterFunction.name.value
-			if nameParameter in ("self", "cls") and isinstance(parameterFunction.annotation, libcst.Annotation) and isinstance(parameterFunction.annotation.annotation, libcst.Name):
+			if nameParameter in {"self", "cls"} and isinstance(parameterFunction.annotation, libcst.Annotation) and isinstance(parameterFunction.annotation.annotation, libcst.Name):
 				return parameterFunction.annotation.annotation.value == "Any"
 		return False
 
@@ -429,8 +431,8 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
 		self.insideSubscript = False
 		return normalized_sub
 
-	def visit_BinaryOperation(self, node: libcst.BinaryOperation) -> None:
 # NOTE Track PEP 604 unions ("|") in type annotations
+	def visit_BinaryOperation(self, node: libcst.BinaryOperation) -> None:
 		if isinstance(node.operator, libcst.BitOr):
 			self.unionDepth += 1
 
@@ -441,7 +443,7 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
 			right = updated_node.right
 # NOTE Only wrap when appropriate: either top-level unions (not inside subscript) or unions used as type arguments (inside an Index)
 			if (
-				self.currentContext in ("type_annotation", "function_def")
+				self.currentContext in {"type_annotation", "function_def"}
 				and not self.insideImport
 				and (
 					not self.insideSubscript or self.insideIndex
@@ -721,7 +723,7 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
 		nameType = updated_node.value
 
 		if (nameType in dictionaryGenericTypeArguments and
-			self.currentContext in ("type_annotation", "function_def") and
+			self.currentContext in {"type_annotation", "function_def"} and
 			not self.insideImport and
 			not self.insideSubscript and
 			(
@@ -747,7 +749,7 @@ class GenericTypeArgumentAdder(libcst.CSTTransformer):
 	def leave_Attribute(self, original_node: libcst.Attribute, updated_node: libcst.Attribute) -> libcst.Attribute | libcst.Subscript:
 		# Transform bare attribute generics, e.g., np.ndarray similarly to Name, incl. inside unions
 		# Allow this inside TypeAlias bodies as well, but never for the alias target itself.
-		if (self.currentContext in ("type_annotation", "function_def") and
+		if (self.currentContext in {"type_annotation", "function_def"} and
 			not self.insideImport and
 			not self.insideSubscript):
 			baseName = self.extractBaseTypeNameFromExpression(updated_node)

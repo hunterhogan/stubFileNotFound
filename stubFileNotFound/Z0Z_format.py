@@ -1,7 +1,13 @@
-from hunterMakesPy.filesystemToolkit import settings_autoflakeDEFAULT, settings_isortDEFAULT, writePython  # noqa: D100
-from pathlib import Path
+# ruff: noqa: D100
+from __future__ import annotations
+
+from hunterMakesPy.filesystemToolkit import settings_autoflakeDEFAULT, settings_isortDEFAULT, writePython
 from stubFileNotFound.fileDiscovery import discoverStubFiles
-import subprocess
+from typing import TYPE_CHECKING
+import subprocess  # noqa: S404
+
+if TYPE_CHECKING:
+	from pathlib import Path
 
 # ruff: noqa: S607
 if __name__ == "__main__":
@@ -22,7 +28,7 @@ if __name__ == "__main__":
 		settings = {'autoflake': settings_autoflakeDEFAULT.copy()}
 		settings['autoflake']['remove_all_unused_imports'] = False
 	if isort吗:
-		settings['isort'] = settings_isortDEFAULT.copy() # pyright: ignore[reportArgumentType]  # ty:ignore[invalid-assignment]
+		settings['isort'] = settings_isortDEFAULT.copy()  # pyright: ignore[reportArgumentType]  # ty:ignore[invalid-assignment]
 
 	for pathFilename in listPathFilenames:
 		if convertFilesTOutf8:
