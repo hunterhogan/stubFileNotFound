@@ -1,0 +1,3 @@
+from .metric import LogWMSE as LogWMSE
+
+__version__ = ...
