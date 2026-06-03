@@ -138,7 +138,7 @@ def cfunc(sig, locals=..., cache: bool = False, pipeline_class=None, **options):
             return a + b
 
     """
-def jit_module(**kwargs) -> None:
+def jit_module(**kwargs: Incomplete) -> None:
     """Automatically ``jit``-wraps functions defined in a Python module
 
     Note that ``jit_module`` should only be called at the end of the module to
