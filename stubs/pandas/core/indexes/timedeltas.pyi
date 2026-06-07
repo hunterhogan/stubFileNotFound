@@ -115,7 +115,7 @@ class TimedeltaIndex(
     @overload
     def __truediv__(self, other: _NUM_FACTOR_SEQ) -> Self: ...
     @overload
-    def __truediv__(  # pyright: ignore[reportIncompatibleMethodOverride] # ty: ignore[invalid-method-override]
+    def __truediv__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, other: _DT_FACTOR_SEQ | Self
     ) -> Index[float]: ...
     @overload  # type: ignore[override]
@@ -123,7 +123,7 @@ class TimedeltaIndex(
         self, other: np_ndarray_bool | np_ndarray_complex | np_ndarray_dt
     ) -> Never: ...
     @overload
-    def __rtruediv__(  # pyright: ignore[reportIncompatibleMethodOverride] # ty: ignore[invalid-method-override]
+    def __rtruediv__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, other: _DT_FACTOR_SEQ | Self
     ) -> Index[float]: ...
     @overload  # type: ignore[override]
@@ -133,13 +133,13 @@ class TimedeltaIndex(
     @overload
     def __floordiv__(self, other: _NUM_FACTOR_SEQ) -> Self: ...
     @overload
-    def __floordiv__(  # pyright: ignore[reportIncompatibleMethodOverride] # ty: ignore[invalid-method-override]
+    def __floordiv__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, other: _DT_FACTOR_SEQ | Self
     ) -> Index[int]: ...
     @overload
     def __rfloordiv__(self, other: np_ndarray_num | np_ndarray_dt) -> Never: ...
     @overload
-    def __rfloordiv__(  # pyright: ignore[reportIncompatibleMethodOverride] # ty: ignore[invalid-method-override]
+    def __rfloordiv__(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, other: _DT_FACTOR_SEQ | Self
     ) -> Index[int]: ...
     @property

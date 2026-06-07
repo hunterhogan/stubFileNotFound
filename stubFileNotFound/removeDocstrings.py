@@ -26,4 +26,5 @@ def process_directory(pathRoot: Path) -> None:  # noqa: D103
                 remove_docstrings_from_file(pathFilename)
 
 # Run it
-process_directory(Path("/apps/stubFileNotFound/stubs/soundfile"))
+# process_directory(Path("/apps/stubFileNotFound/stubs/soundfile"))
+remove_docstrings_from_file(Path("/apps/stubFileNotFound/stubs/soundfile.pyi"))
