@@ -1,13 +1,17 @@
-from .triton_pope import triton_compute_qk_similarity as triton_compute_qk_similarity
-from .triton_pope_flash_attn import flash_attn as flash_attn
-from PoPE_pytorch.pope import apply_pope_to_qk as apply_pope_to_qk
+from torch import Tensor
 
-def exists(v): ...
-def default(v, d): ...
-def divisible_by(num, den): ...
-
-TRITON_AVAILABLE: bool
-
-def compute_attn_similarity_non_fused(q, k, pope, head_dimension_at_first: bool = True): ...
-def compute_attn_similarity(q, k, pope, allow_tf32: bool = True, head_dimension_at_first: bool = True): ...
-def flash_attn_with_pope(q, k, v, pos_emb=None, mask=None, causal: bool = False, softmax_scale=None, fused=None, head_dimension_at_first: bool = True, dropout: float = 0.0): ...
+def compute_attn_similarity_non_fused(q: Tensor, k: Tensor, pope: tuple[Tensor, Tensor], *, head_dimension_at_first: bool = True) -> Tensor: ...
+def compute_attn_similarity(q: Tensor, k: Tensor, pope: tuple[Tensor, Tensor], *, allow_tf32: bool = True, head_dimension_at_first: bool = True) -> Tensor: ...
+def flash_attn_with_pope(
+	q: Tensor,
+	k: Tensor,
+	v: Tensor,
+	pos_emb: tuple[Tensor, Tensor],
+	*,
+	mask: Tensor | None = None,
+	causal: bool = False,
+	softmax_scale: float | None = None,
+	fused: bool | None = None,
+	head_dimension_at_first: bool = True,
+	dropout: float = 0.0,
+) -> Tensor: ...
