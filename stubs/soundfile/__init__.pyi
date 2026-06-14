@@ -1,14 +1,24 @@
+# ruff: noqa: UP040 PYI001
 from collections.abc import Generator
+from numpy import float32, float64, int16, int32
+from numpy.typing import NDArray
 from os import SEEK_SET
-from typing import Any, BinaryIO, Literal, overload, Self
+from typing import Any, BinaryIO, Literal, overload, Self, TypeAlias, TypeVar
 import numpy
 import os as _os
 
 __version__: str
-type FileDescriptorOrPath = str | int | BinaryIO | _os.PathLike[Any]
-type AudioData = numpy.ndarray[tuple[int, ...], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]]
-type AudioData_2d = numpy.ndarray[tuple[int, int], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int32 | numpy.int16]]
-type dtype_str = Literal['float64', 'float32', 'int32', 'int16']
+FileDescriptorOrPath: TypeAlias = str | int | BinaryIO | _os.PathLike[Any]
+AudioData: TypeAlias = NDArray[numpy.float32 | numpy.float64 | numpy.int16 | numpy.int32]
+AudioData_2d: TypeAlias = numpy.ndarray[tuple[int, int], numpy.dtype[numpy.float32 | numpy.float64 | numpy.int16 | numpy.int32]]
+_2d_float32: TypeAlias = numpy.ndarray[tuple[int, int], numpy.dtype[numpy.float32]]
+_2d_float64: TypeAlias = numpy.ndarray[tuple[int, int], numpy.dtype[numpy.float64]]
+_2d_int16: TypeAlias = numpy.ndarray[tuple[int, int], numpy.dtype[numpy.int16]]
+_2d_int32: TypeAlias = numpy.ndarray[tuple[int, int], numpy.dtype[numpy.int32]]
+
+T_ndarray = TypeVar('T_ndarray', bound=numpy.ndarray)
+
+dtype_str: TypeAlias = Literal['float32', 'float64', 'int16', 'int32']
 __libsndfile_version__: str
 
 @overload
@@ -97,6 +107,36 @@ class SoundFile:
 
 	def tell(self) -> int: ...
 
+	# @overload
+	# def read(self, frames: int = -1, dtype: dtype_str = 'float64', always_2d: bool = False, fill_value: float | None = None,
+	# 		*, out: T_ndarray) -> T_ndarray: ...
+	# @overload
+	# def read(self, frames: int = -1, *, dtype: Literal['float32'], always_2d: Literal[True],
+	# 		fill_value: float | None = None, out: None = None) -> _2d_float32: ...
+	# @overload
+	# def read(self, frames: int = -1, *, dtype: Literal['float32'], always_2d: bool = False,
+	# 		fill_value: float | None = None, out: None = None) -> NDArray[float32]: ...
+	# @overload
+	# def read(self, frames: int = -1, dtype: Literal['float64'] = 'float64', *, always_2d: Literal[True],
+	# 		fill_value: float | None = None, out: None = None) -> _2d_float64: ...
+	# @overload
+	# def read(self, frames: int = -1, dtype: Literal['float64'] = 'float64', always_2d: bool = False,
+	# 		fill_value: float | None = None, out: None = None) -> NDArray[float64]: ...
+	# @overload
+	# def read(self, frames: int = -1, *, dtype: Literal['int16'], always_2d: Literal[True],
+	# 		fill_value: float | None = None, out: None = None) -> _2d_int16: ...
+	# @overload
+	# def read(self, frames: int = -1, *, dtype: Literal['int16'], always_2d: bool = False,
+	# 		fill_value: float | None = None, out: None = None) -> NDArray[int16]: ...
+	# @overload
+	# def read(self, frames: int = -1, *, dtype: Literal['int32'], always_2d: Literal[True],
+	# 		fill_value: float | None = None, out: None = None) -> _2d_int32: ...
+	# @overload
+	# def read(self, frames: int = -1, *, dtype: Literal['int32'], always_2d: bool = False,
+	# 		fill_value: float | None = None, out: None = None) -> NDArray[int32]: ...
+	# def read(self, frames: int = -1, dtype: dtype_str = 'float64',
+	# 		always_2d: bool = False, fill_value: float | None = None,
+	# 		out: T_ndarray | None = None) -> AudioData | AudioData_2d | T_ndarray: ...
 	@overload
 	def read(self, frames: int = -1, dtype: dtype_str = 'float64', *, always_2d: Literal[True], fill_value: float | None = None, out: AudioData_2d | None = None) -> AudioData_2d: ...
 	@overload

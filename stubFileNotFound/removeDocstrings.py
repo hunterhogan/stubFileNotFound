@@ -28,3 +28,27 @@ def process_directory(pathRoot: Path) -> None:  # noqa: D103
 # Run it
 # process_directory(Path("/apps/stubFileNotFound/stubs/soundfile"))
 remove_docstrings_from_file(Path("/apps/stubFileNotFound/stubs/soundfile.pyi"))
+
+"""
+  {
+    "command": "runCommands",
+    "key": "alt+r",          // whatever keybinding you want
+    "args": {
+      "commands": [
+        {
+          "command": "editor.actions.findWithArgs",
+          "args": {
+            "searchString": "(['\"]{3})([\\s\\S\n])*?(['\"]{3})",
+            "isRegex": true
+          }
+        },
+        "editor.action.selectHighlights",
+        "editor.action.addCommentLine",
+        "cancelSelection",                 // optional
+        "closeFindWidget"                  // optional
+      ]
+    },
+    "when": "editorTextFocus && !editorReadonly && editorLangId == python" // restrict python files
+  }
+
+"""
