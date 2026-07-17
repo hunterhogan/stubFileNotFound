@@ -1,0 +1,36 @@
+from _typeshed import Incomplete
+from torch import nn
+
+class DeepLabV3Decoder(nn.Sequential):
+    out_channels: Incomplete
+    def __init__(self, in_channels, out_channels: int = 256, atrous_rates=(12, 24, 36)) -> None: ...
+    def forward(self, *features): ...
+
+class DeepLabV3PlusDecoder(nn.Module):
+    out_channels: Incomplete
+    output_stride: Incomplete
+    aspp: Incomplete
+    up: Incomplete
+    block1: Incomplete
+    block2: Incomplete
+    def __init__(self, encoder_channels, out_channels: int = 256, atrous_rates=(12, 24, 36), output_stride: int = 16) -> None: ...
+    def forward(self, *features): ...
+
+class ASPPConv(nn.Sequential):
+    def __init__(self, in_channels, out_channels, dilation) -> None: ...
+
+class ASPPSeparableConv(nn.Sequential):
+    def __init__(self, in_channels, out_channels, dilation) -> None: ...
+
+class ASPPPooling(nn.Sequential):
+    def __init__(self, in_channels, out_channels) -> None: ...
+    def forward(self, x): ...
+
+class ASPP(nn.Module):
+    convs: Incomplete
+    project: Incomplete
+    def __init__(self, in_channels, out_channels, atrous_rates, separable: bool = False) -> None: ...
+    def forward(self, x): ...
+
+class SeparableConv2d(nn.Sequential):
+    def __init__(self, in_channels, out_channels, kernel_size, stride: int = 1, padding: int = 0, dilation: int = 1, bias: bool = True) -> None: ...

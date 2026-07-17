@@ -1,0 +1,9 @@
+import abc
+import torch.nn as nn
+
+class SegmentationModel(nn.Module, abc.ABC):
+    def __init__(self) -> None: ...
+    def initialize(self) -> None: ...
+    def check_input_shape(self, x) -> None: ...
+    def forward(self, x):
+        """Sequentially pass `x` through model`s encoder, decoder and heads"""

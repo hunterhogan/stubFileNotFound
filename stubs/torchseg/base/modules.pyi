@@ -1,0 +1,16 @@
+import torch.nn as nn
+from _typeshed import Incomplete
+
+class Conv2dReLU(nn.Sequential):
+    def __init__(self, in_channels, out_channels, kernel_size, padding: int = 0, stride: int = 1, use_batchnorm: bool = True) -> None: ...
+
+class SCSEModule(nn.Module):
+    cSE: Incomplete
+    sSE: Incomplete
+    def __init__(self, in_channels, reduction: int = 16) -> None: ...
+    def forward(self, x): ...
+
+class Attention(nn.Module):
+    attention: Incomplete
+    def __init__(self, name, **params) -> None: ...
+    def forward(self, x): ...

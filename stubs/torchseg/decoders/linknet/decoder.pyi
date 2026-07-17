@@ -1,0 +1,16 @@
+import torch.nn as nn
+from ...base import modules as modules
+from _typeshed import Incomplete
+
+class TransposeX2(nn.Sequential):
+    def __init__(self, in_channels, out_channels, use_batchnorm: bool = True) -> None: ...
+
+class DecoderBlock(nn.Module):
+    block: Incomplete
+    def __init__(self, in_channels, out_channels, use_batchnorm: bool = True) -> None: ...
+    def forward(self, x, skip=None): ...
+
+class LinknetDecoder(nn.Module):
+    blocks: Incomplete
+    def __init__(self, encoder_channels, prefinal_channels: int = 32, n_blocks: int = 5, use_batchnorm: bool = True) -> None: ...
+    def forward(self, *features): ...

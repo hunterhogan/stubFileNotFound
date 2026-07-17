@@ -1,0 +1,59 @@
+from ...base import ClassificationHead as ClassificationHead, SegmentationHead as SegmentationHead, SegmentationModel as SegmentationModel
+from ...encoders import get_encoder as get_encoder
+from .decoder import MAnetDecoder as MAnetDecoder
+from _typeshed import Incomplete
+from typing import Callable
+
+class MAnet(SegmentationModel):
+    '''
+    MAnet_ :  Multi-scale Attention Net. The MA-Net can capture rich contextual
+    dependencies based on the attention mechanism, using two blocks:
+        - Position-wise Attention Block (PAB), which captures the spatial dependencies
+            between pixels in a global view
+        - Multi-scale Fusion Attention Block (MFAB), which  captures the channel
+            dependencies between any feature map by multi-scale semantic feature fusion
+
+    Args:
+        encoder_name: Name of the classification model that will be used as an encoder
+            to extract features of different spatial resolution
+        encoder_depth: A number of stages used in encoder in range [3, 5]. Each stage
+            generate features two times smaller in spatial dimensions than previous one
+            (e.g. for depth 0 we will have features with shapes [(N, C, H, W),], for
+            depth 1 - [(N, C, H, W), (N, C, H // 2, W // 2)] and so on).
+            Default is 5
+        encoder_weights: One of **None** (random initialization), **"imagenet"**
+            (pre-training on ImageNet) and other pretrained weights (see table with
+            available weights for each encoder_name)
+        decoder_channels: List of integers which specify **in_channels** parameter
+            for convolutions used in decoder. Length of the list should be
+            the same as **encoder_depth**
+        decoder_use_batchnorm: If **True**, BatchNorm2d layer between Conv2D and
+            Activation layers is used. Available options are **True, False**
+        decoder_pab_channels: A number of channels for PAB module in decoder.
+            Default is 64.
+        in_channels: A number of input channels for the model, default is 3 (RGB images)
+        classes: A number of classes for output mask (or you can think as a number of
+            channels of output mask)
+        activation: An activation function to apply after the final convolution layer.
+            Available options are **"sigmoid"**, **"softmax"**, **"logsoftmax"**,
+            **"tanh"**, **"identity"**, **callable** and **None**.
+            Default is **None**
+        aux_params: Dictionary with parameters of the auxiliary output
+            (classification head). Auxiliary output is build on top of encoder if
+            **aux_params** is not **None** (default). Supported params:
+                - classes (int): A number of classes
+                - pooling (str): One of "max", "avg". Default is "avg"
+                - dropout (float): Dropout factor in [0, 1)
+                - activation (str): An activation function to apply "sigmoid"/"softmax"
+                    (could be **None** to return logits)
+
+    .. _MAnet:
+        https://ieeexplore.ieee.org/abstract/document/9201310
+
+    '''
+    encoder: Incomplete
+    decoder: Incomplete
+    segmentation_head: Incomplete
+    classification_head: Incomplete
+    name: Incomplete
+    def __init__(self, encoder_name: str = 'resnet34', encoder_indices: tuple[int] | None = None, encoder_depth: int = 5, encoder_output_stride: int = 32, encoder_weights: str | None = 'imagenet', decoder_use_batchnorm: bool = True, decoder_channels: list[int] = (256, 128, 64, 32, 16), decoder_pab_channels: int = 64, in_channels: int = 3, classes: int = 1, activation: Callable = ..., encoder_params: dict = {}, aux_params: dict | None = None) -> None: ...

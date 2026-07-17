@@ -1,0 +1,13 @@
+import torch
+from ._base import EncoderMixin as EncoderMixin
+from ._efficientnet import EfficientNet as EfficientNet, get_model_params as get_model_params
+from _typeshed import Incomplete
+from typing import Sequence
+
+class EfficientNetEncoder(EfficientNet, EncoderMixin):
+    def __init__(self, out_indexes: list[int], out_channels: list[int], model_name: str, depth: int = 5, output_stride: int = 32) -> None: ...
+    def get_stages(self) -> dict[int, Sequence[torch.nn.Module]]: ...
+    def forward(self, x: torch.Tensor) -> list[torch.Tensor]: ...
+    def load_state_dict(self, state_dict, **kwargs) -> None: ...
+
+efficient_net_encoders: Incomplete

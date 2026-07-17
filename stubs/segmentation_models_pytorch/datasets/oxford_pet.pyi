@@ -1,0 +1,26 @@
+import torch
+from _typeshed import Incomplete
+from tqdm import tqdm
+
+class OxfordPetDataset(torch.utils.data.Dataset):
+    root: Incomplete
+    mode: Incomplete
+    transform: Incomplete
+    images_directory: Incomplete
+    masks_directory: Incomplete
+    filenames: Incomplete
+    def __init__(self, root, mode: str = 'train', transform=None) -> None: ...
+    def __len__(self) -> int: ...
+    def __getitem__(self, idx): ...
+    @staticmethod
+    def download(root) -> None: ...
+
+class SimpleOxfordPetDataset(OxfordPetDataset):
+    def __getitem__(self, *args, **kwargs): ...
+
+class TqdmUpTo(tqdm):
+    total: Incomplete
+    def update_to(self, b: int = 1, bsize: int = 1, tsize=None) -> None: ...
+
+def download_url(url, filepath) -> None: ...
+def extract_archive(filepath) -> None: ...
