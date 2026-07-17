@@ -46,11 +46,12 @@ optional-dependencies = { effingPandas = [
   "xarray",
   "xlsxwriter",
 ], stubdefaulter = [
-  "fonttools",
   "afdko",
   "fontmake[all]",
+  "fonttools",
   "gftools",
   "glyphsLib[colr,ufo-normalization]",
+  "numba",
   "soundfile>=0.14.0",
 ] }
 

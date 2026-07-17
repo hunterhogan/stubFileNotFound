@@ -64,7 +64,7 @@ from pandas.core.indexes.multi import MultiIndex
 from pandas.core.indexes.period import PeriodIndex
 from pandas.core.indexes.timedeltas import TimedeltaIndex
 from pandas.core.series import Series
-from pandas.core.strings.accessor import StringMethods
+from pandas.core.strings.accessor import StrDescriptor
 
 from pandas._libs.interval import Interval
 from pandas._libs.tslibs.period import Period
@@ -315,6 +315,16 @@ class Index(IndexOpsMixin[S1], ElementOpsMixin[S1]):
         name: Hashable = None,
         tupleize_cols: bool = True,
     ) -> IntervalIndex[Interval[Any]]: ...
+    @overload
+    def __new__(
+        cls,
+        data: Iterable[tuple[Any, ...]],
+        *,
+        dtype: Dtype | None = None,
+        copy: bool = False,
+        name: Hashable = None,
+        tupleize_cols: Literal[True] = True,
+    ) -> MultiIndex: ...
     # generic overloads
     @overload
     def __new__(
@@ -347,18 +357,7 @@ class Index(IndexOpsMixin[S1], ElementOpsMixin[S1]):
         name: Hashable = None,
         tupleize_cols: bool = True,
     ) -> Self: ...
-    @property
-    def str(
-        self,
-    ) -> StringMethods[Self,
-        MultiIndex,
-        np_1darray_bool,
-        Index[list[_str]],
-        Index[int],
-        Index[bytes],
-        Index[_str],
-        Index[Any],
-    ]: ...
+    str = StrDescriptor()
     @final
     def is_(self, other: Any) -> bool: ...
     def __len__(self) -> int: ...
