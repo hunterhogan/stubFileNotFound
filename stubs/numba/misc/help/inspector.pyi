@@ -5,13 +5,11 @@ from numba.core import errors as errors
 from numba.core.registry import cpu_target as cpu_target
 from numba.tests.support import captured_stdout as captured_stdout
 
-def _get_commit(): ...
-
 commit: Incomplete
 github_url: str
 
 def inspect_function(function, target=None):
-    """Return information about the support of a function.
+    '''Return information about the support of a function.
 
     Returns
     -------
@@ -23,7 +21,7 @@ def inspect_function(function, target=None):
             A textual description of the support.
         - "source_infos": dict
             A dictionary containing the source location of each definition.
-    """
+    '''
 def inspect_module(module, target=None, alias=None) -> Generator[Incomplete]:
     """Inspect a module object and yielding results from `inspect_function()`
     for each function object in the module.
@@ -31,7 +29,6 @@ def inspect_module(module, target=None, alias=None) -> Generator[Incomplete]:
 
 class _Stat:
     """For gathering simple statistic of (un)supported functions"""
-
     supported: int
     unsupported: int
     def __init__(self) -> None: ...
@@ -43,9 +40,6 @@ class _Stat:
 
 def filter_private_module(module_components): ...
 def filter_tests_module(module_components): ...
-
-_default_module_filters: Incomplete
-
 def list_modules_in_package(package, module_filters=...) -> Generator[Incomplete, None, Incomplete]:
     """Yield all modules in a given package.
 
@@ -55,15 +49,12 @@ def list_modules_in_package(package, module_filters=...) -> Generator[Incomplete
 class Formatter:
     """Base class for formatters.
     """
-
-    _fileobj: Incomplete
     def __init__(self, fileobj) -> None: ...
     def print(self, *args, **kwargs) -> None: ...
 
 class HTMLFormatter(Formatter):
     """Formatter that outputs HTML
     """
-
     def escape(self, text): ...
     def title(self, text) -> None: ...
     def begin_module_section(self, modname) -> None: ...
@@ -75,7 +66,6 @@ class HTMLFormatter(Formatter):
 class ReSTFormatter(Formatter):
     """Formatter that output ReSTructured text format for Sphinx docs.
     """
-
     def escape(self, text): ...
     def title(self, text) -> None: ...
     def begin_module_section(self, modname) -> None: ...
@@ -84,11 +74,8 @@ class ReSTFormatter(Formatter):
     def write_unsupported_item(self, modname, itemname) -> None: ...
     def write_statistic(self, stat) -> None: ...
 
-def _format_module_infos(formatter, package_name, mod_sequence, target=None) -> None:
-    """Format modules.
-    """
 def write_listings(package_name, filename, output_format) -> None:
-    """Write listing information into a file.
+    '''Write listing information into a file.
 
     Parameters
     ----------
@@ -98,7 +85,7 @@ def write_listings(package_name, filename, output_format) -> None:
         Output filename. Always overwrite.
     output_format : str
         Support formats are "html" and "rst".
-    """
+    '''
 
 program_description: Incomplete
 

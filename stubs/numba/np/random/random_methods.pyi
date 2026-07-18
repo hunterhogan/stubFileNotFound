@@ -1,7 +1,6 @@
-from numba import uint8 as uint8, uint16 as uint16, uint32 as uint32, uint64 as uint64
+from numba import uint16 as uint16, uint32 as uint32, uint64 as uint64, uint8 as uint8
 from numba.core.extending import register_jitable as register_jitable
-from numba.np.random._constants import (
-	UINT8_MAX as UINT8_MAX, UINT16_MAX as UINT16_MAX, UINT32_MAX as UINT32_MAX, UINT64_MAX as UINT64_MAX)
+from numba.np.random._constants import UINT16_MAX as UINT16_MAX, UINT32_MAX as UINT32_MAX, UINT64_MAX as UINT64_MAX, UINT8_MAX as UINT8_MAX
 from numba.np.random.generator_core import next_uint32 as next_uint32, next_uint64 as next_uint64
 
 @register_jitable
@@ -74,12 +73,6 @@ def random_bounded_uint8_fill(bitgen, low, rng, size, dtype):
 def random_bounded_bool_fill(bitgen, low, rng, size, dtype):
     """
     Returns a new array of given size with boolean values.
-    """
-@register_jitable
-def _randint_arg_check(low, high, endpoint, lower_bound, upper_bound) -> None:
-    """
-    Check that low and high are within the bounds
-    for the given datatype.
     """
 @register_jitable
 def random_interval(bitgen, max_val): ...

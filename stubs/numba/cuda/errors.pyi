@@ -9,7 +9,6 @@ class KernelRuntimeError(RuntimeError):
 
 class CudaLoweringError(LoweringError): ...
 
-_launch_help_url: str
 missing_launch_config_msg: Incomplete
 
 def normalize_kernel_dimensions(griddim, blockdim):

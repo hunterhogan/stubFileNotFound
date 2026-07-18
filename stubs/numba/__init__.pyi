@@ -1,111 +1,240 @@
+from numba.core.types import *
+from numba.core.errors import *
+from numba.core.errors import (
+	ByteCodeSupportError as ByteCodeSupportError,
+	CompilerError as CompilerError,
+	ConstantInferenceError as ConstantInferenceError,
+	DeprecationError as DeprecationError,
+	ForbiddenConstruct as ForbiddenConstruct,
+	ForceLiteralArg as ForceLiteralArg,
+	IRError as IRError,
+	InternalError as InternalError,
+	InternalTargetMismatchError as InternalTargetMismatchError,
+	LiteralTypingError as LiteralTypingError,
+	LoweringError as LoweringError,
+	NonexistentTargetError as NonexistentTargetError,
+	NotDefinedError as NotDefinedError,
+	NumbaAssertionError as NumbaAssertionError,
+	NumbaAttributeError as NumbaAttributeError,
+	NumbaDebugInfoWarning as NumbaDebugInfoWarning,
+	NumbaDeprecationWarning as NumbaDeprecationWarning,
+	NumbaError as NumbaError,
+	NumbaExperimentalFeatureWarning as NumbaExperimentalFeatureWarning,
+	NumbaIRAssumptionWarning as NumbaIRAssumptionWarning,
+	NumbaIndexError as NumbaIndexError,
+	NumbaInvalidConfigWarning as NumbaInvalidConfigWarning,
+	NumbaKeyError as NumbaKeyError,
+	NumbaNotImplementedError as NumbaNotImplementedError,
+	NumbaParallelSafetyWarning as NumbaParallelSafetyWarning,
+	NumbaPedanticWarning as NumbaPedanticWarning,
+	NumbaPendingDeprecationWarning as NumbaPendingDeprecationWarning,
+	NumbaPerformanceWarning as NumbaPerformanceWarning,
+	NumbaRuntimeError as NumbaRuntimeError,
+	NumbaSystemWarning as NumbaSystemWarning,
+	NumbaTypeError as NumbaTypeError,
+	NumbaTypeSafetyWarning as NumbaTypeSafetyWarning,
+	NumbaValueError as NumbaValueError,
+	NumbaWarning as NumbaWarning,
+	RedefinedError as RedefinedError,
+	RequireLiteralValue as RequireLiteralValue,
+	TypingError as TypingError,
+	UnsupportedBytecodeError as UnsupportedBytecodeError,
+	UnsupportedError as UnsupportedError,
+	UnsupportedParforsError as UnsupportedParforsError,
+	UnsupportedRewriteError as UnsupportedRewriteError,
+	UntypedAttributeError as UntypedAttributeError,
+	VerificationError as VerificationError,
+)
+from numba.core.types import (
+	int8 as int8,
+	int16 as int16,
+	int32 as int32,
+	int64 as int64,
+	uint8 as uint8,
+	uint16 as uint16,
+	uint32 as uint32,
+	uint64 as uint64,
+	intp as intp,
+	uintp as uintp,
+	intc as intc,
+	uintc as uintc,
+	ssize_t as ssize_t,
+	size_t as size_t,
+	boolean as boolean,
+	float32 as float32,
+	float64 as float64,
+	complex64 as complex64,
+	complex128 as complex128,
+	bool_ as bool_,
+	byte as byte,
+	char as char,
+	uchar as uchar,
+	short as short,
+	ushort as ushort,
+	int_ as int_,
+	uint as uint,
+	long_ as long_,
+	ulong as ulong,
+	longlong as longlong,
+	ulonglong as ulonglong,
+	float_ as float_,
+	double as double,
+	void as void,
+	none as none,
+	b1 as b1,
+	i1 as i1,
+	i2 as i2,
+	i4 as i4,
+	i8 as i8,
+	u1 as u1,
+	u2 as u2,
+	u4 as u4,
+	u8 as u8,
+	f4 as f4,
+	f8 as f8,
+	c8 as c8,
+	c16 as c16,
+	optional as optional,
+	ffi_forced_object as ffi_forced_object,
+	ffi as ffi,
+	deferred_type as deferred_type,
+)
 from numba import experimental as experimental
 from numba.core.decorators import cfunc as cfunc, jit as jit, jit_module as jit_module, njit as njit, stencil as stencil
-from numba.core.errors import *
-from numba.core.types import *
 from numba.core.withcontexts import objmode_context as objmode, parallel_chunksize as parallel_chunksize
 from numba.misc.special import (
-	gdb as gdb, gdb_breakpoint as gdb_breakpoint, gdb_init as gdb_init, literal_unroll as literal_unroll, prange as prange,
-	typeof as typeof)
+	gdb as gdb,
+	gdb_breakpoint as gdb_breakpoint,
+	gdb_init as gdb_init,
+	literal_unroll as literal_unroll,
+	prange as prange,
+	typeof as typeof,
+)
 from numba.np.numpy_support import from_dtype as from_dtype
 from numba.np.ufunc import (
-	get_num_threads as get_num_threads, get_parallel_chunksize as get_parallel_chunksize, guvectorize as guvectorize,
-	set_num_threads as set_num_threads, set_parallel_chunksize as set_parallel_chunksize, vectorize as vectorize)
+	get_num_threads as get_num_threads,
+	get_parallel_chunksize as get_parallel_chunksize,
+	guvectorize as guvectorize,
+	set_num_threads as set_num_threads,
+	set_parallel_chunksize as set_parallel_chunksize,
+	vectorize as vectorize,
+)
 
-__all__ = ['ByteCodeSupportError', 'CompilerError', 'ConstantInferenceError', 'DeprecationError', 'ForbiddenConstruct', 'ForceLiteralArg', 'IRError', 'InternalError', 'InternalTargetMismatchError', 'LiteralTypingError', 'LoweringError', 'NonexistentTargetError', 'NotDefinedError', 'NumbaAssertionError', 'NumbaAttributeError', 'NumbaDebugInfoWarning', 'NumbaDeprecationWarning', 'NumbaError', 'NumbaExperimentalFeatureWarning', 'NumbaIRAssumptionWarning', 'NumbaIndexError', 'NumbaInvalidConfigWarning', 'NumbaKeyError', 'NumbaNotImplementedError', 'NumbaParallelSafetyWarning', 'NumbaPedanticWarning', 'NumbaPendingDeprecationWarning', 'NumbaPerformanceWarning', 'NumbaRuntimeError', 'NumbaSystemWarning', 'NumbaTypeError', 'NumbaTypeSafetyWarning', 'NumbaValueError', 'NumbaWarning', 'RedefinedError', 'RequireLiteralValue', 'TypingError', 'UnsupportedBytecodeError', 'UnsupportedError', 'UnsupportedParforsError', 'UnsupportedRewriteError', 'UntypedAttributeError', 'VerificationError', 'b1', 'bool', 'bool_', 'boolean', 'byte', 'c8', 'c16', 'cfunc', 'char', 'complex64', 'complex128', 'deferred_type', 'double', 'experimental', 'f4', 'f8', 'ffi', 'ffi_forced_object', 'float32', 'float64', 'from_dtype', 'gdb', 'gdb_breakpoint', 'gdb_init', 'get_num_threads', 'get_parallel_chunksize', 'guvectorize', 'i1', 'i2', 'i4', 'i8', 'int8', 'int16', 'int32', 'int64', 'int_', 'intc', 'intp', 'jit', 'jit_module', 'literal_unroll', 'long_', 'longlong', 'njit', 'none', 'objmode', 'optional', 'parallel_chunksize', 'prange', 'set_num_threads', 'set_parallel_chunksize', 'short', 'size_t', 'ssize_t', 'stencil', 'typeof', 'u1', 'u2', 'u4', 'u8', 'uchar', 'uint', 'uint8', 'uint16', 'uint32', 'uint64', 'uintc', 'uintp', 'ulong', 'ulonglong', 'ushort', 'vectorize', 'void']
-
-# Names in __all__ with no definition:
-#   ByteCodeSupportError
-#   CompilerError
-#   ConstantInferenceError
-#   DeprecationError
-#   ForbiddenConstruct
-#   ForceLiteralArg
-#   IRError
-#   InternalError
-#   InternalTargetMismatchError
-#   LiteralTypingError
-#   LoweringError
-#   NonexistentTargetError
-#   NotDefinedError
-#   NumbaAssertionError
-#   NumbaAttributeError
-#   NumbaDebugInfoWarning
-#   NumbaDeprecationWarning
-#   NumbaError
-#   NumbaExperimentalFeatureWarning
-#   NumbaIRAssumptionWarning
-#   NumbaIndexError
-#   NumbaInvalidConfigWarning
-#   NumbaKeyError
-#   NumbaNotImplementedError
-#   NumbaParallelSafetyWarning
-#   NumbaPedanticWarning
-#   NumbaPendingDeprecationWarning
-#   NumbaPerformanceWarning
-#   NumbaRuntimeError
-#   NumbaSystemWarning
-#   NumbaTypeError
-#   NumbaTypeSafetyWarning
-#   NumbaValueError
-#   NumbaWarning
-#   RedefinedError
-#   RequireLiteralValue
-#   TypingError
-#   UnsupportedBytecodeError
-#   UnsupportedError
-#   UnsupportedParforsError
-#   UnsupportedRewriteError
-#   UntypedAttributeError
-#   VerificationError
-#   b1
-#   bool
-#   bool_
-#   boolean
-#   byte
-#   c16
-#   c8
-#   char
-#   complex128
-#   complex64
-#   deferred_type
-#   double
-#   f4
-#   f8
-#   ffi
-#   ffi_forced_object
-#   float32
-#   float64
-#   i1
-#   i2
-#   i4
-#   i8
-#   int16
-#   int32
-#   int64
-#   int8
-#   int_
-#   intc
-#   intp
-#   long_
-#   longlong
-#   none
-#   optional
-#   short
-#   size_t
-#   ssize_t
-#   u1
-#   u2
-#   u4
-#   u8
-#   uchar
-#   uint
-#   uint16
-#   uint32
-#   uint64
-#   uint8
-#   uintc
-#   uintp
-#   ulong
-#   ulonglong
-#   ushort
-#   void
+__all__ = [
+	'ByteCodeSupportError',
+	'CompilerError',
+	'ConstantInferenceError',
+	'DeprecationError',
+	'ForbiddenConstruct',
+	'ForceLiteralArg',
+	'IRError',
+	'InternalError',
+	'InternalTargetMismatchError',
+	'LiteralTypingError',
+	'LoweringError',
+	'NonexistentTargetError',
+	'NotDefinedError',
+	'NumbaAssertionError',
+	'NumbaAttributeError',
+	'NumbaDebugInfoWarning',
+	'NumbaDeprecationWarning',
+	'NumbaError',
+	'NumbaExperimentalFeatureWarning',
+	'NumbaIRAssumptionWarning',
+	'NumbaIndexError',
+	'NumbaInvalidConfigWarning',
+	'NumbaKeyError',
+	'NumbaNotImplementedError',
+	'NumbaParallelSafetyWarning',
+	'NumbaPedanticWarning',
+	'NumbaPendingDeprecationWarning',
+	'NumbaPerformanceWarning',
+	'NumbaRuntimeError',
+	'NumbaSystemWarning',
+	'NumbaTypeError',
+	'NumbaTypeSafetyWarning',
+	'NumbaValueError',
+	'NumbaWarning',
+	'RedefinedError',
+	'RequireLiteralValue',
+	'TypingError',
+	'UnsupportedBytecodeError',
+	'UnsupportedError',
+	'UnsupportedParforsError',
+	'UnsupportedRewriteError',
+	'UntypedAttributeError',
+	'VerificationError',
+	'b1',
+	'bool',
+	'bool_',
+	'boolean',
+	'byte',
+	'c8',
+	'c16',
+	'cfunc',
+	'char',
+	'complex64',
+	'complex128',
+	'deferred_type',
+	'double',
+	'experimental',
+	'f4',
+	'f8',
+	'ffi',
+	'ffi_forced_object',
+	'float32',
+	'float64',
+	'from_dtype',
+	'gdb',
+	'gdb_breakpoint',
+	'gdb_init',
+	'get_num_threads',
+	'get_parallel_chunksize',
+	'guvectorize',
+	'i1',
+	'i2',
+	'i4',
+	'i8',
+	'int8',
+	'int16',
+	'int32',
+	'int64',
+	'int_',
+	'intc',
+	'intp',
+	'jit',
+	'jit_module',
+	'literal_unroll',
+	'long_',
+	'longlong',
+	'njit',
+	'none',
+	'objmode',
+	'optional',
+	'parallel_chunksize',
+	'prange',
+	'set_num_threads',
+	'set_parallel_chunksize',
+	'short',
+	'size_t',
+	'ssize_t',
+	'stencil',
+	'typeof',
+	'u1',
+	'u2',
+	'u4',
+	'u8',
+	'uchar',
+	'uint',
+	'uint8',
+	'uint16',
+	'uint32',
+	'uint64',
+	'uintc',
+	'uintp',
+	'ulong',
+	'ulonglong',
+	'ushort',
+	'vectorize',
+	'void',
+]

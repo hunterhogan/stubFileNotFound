@@ -1,28 +1,20 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
 from numba.core import config as config, consts as consts, errors as errors
-from numba.core.errors import (
-	ConstantInferenceError as ConstantInferenceError, NotDefinedError as NotDefinedError, RedefinedError as RedefinedError,
-	VerificationError as VerificationError)
-from numba.core.utils import (
-	BINOPS_TO_OPERATORS as BINOPS_TO_OPERATORS, INPLACE_BINOPS_TO_OPERATORS as INPLACE_BINOPS_TO_OPERATORS,
-	OPERATORS_TO_BUILTINS as OPERATORS_TO_BUILTINS, UNARY_BUITINS_TO_OPERATORS as UNARY_BUITINS_TO_OPERATORS)
-
-_termcolor: Incomplete
+from numba.core.errors import ConstantInferenceError as ConstantInferenceError, NotDefinedError as NotDefinedError, RedefinedError as RedefinedError, VerificationError as VerificationError
+from numba.core.utils import BINOPS_TO_OPERATORS as BINOPS_TO_OPERATORS, INPLACE_BINOPS_TO_OPERATORS as INPLACE_BINOPS_TO_OPERATORS, OPERATORS_TO_BUILTINS as OPERATORS_TO_BUILTINS, UNARY_BUITINS_TO_OPERATORS as UNARY_BUITINS_TO_OPERATORS
 
 class Loc:
     """Source location
 
     """
-
-    _defmatcher: Incomplete
     filename: Incomplete
     line: Incomplete
     col: Incomplete
     lines: Incomplete
     maybe_decorator: Incomplete
     def __init__(self, filename, line, col=None, maybe_decorator: bool = False) -> None:
-        """Arguments:
+        """ Arguments:
         filename - name of the file
         line - line in file
         col - column
@@ -32,10 +24,7 @@ class Loc:
     def __ne__(self, other): ...
     @classmethod
     def from_function_id(cls, func_id): ...
-    def _find_definition(self): ...
-    def _raw_function_name(self): ...
     def get_lines(self): ...
-    def _get_path(self): ...
     def strformat(self, nlines_up: int = 2): ...
     def with_lineno(self, line, col=None):
         """
@@ -49,20 +38,17 @@ class Loc:
 unknown_loc: Incomplete
 
 class SlotEqualityCheckMixin:
-    __slots__: Incomplete
     def __eq__(self, other): ...
     def __le__(self, other): ...
     def __hash__(self): ...
 
 class EqualityCheckMixin:
-    """Mixin for basic equality checking"""
-
+    """ Mixin for basic equality checking """
     def __eq__(self, other): ...
     def __le__(self, other): ...
     def __hash__(self): ...
 
 class VarMap:
-    _con: Incomplete
     def __init__(self) -> None: ...
     def define(self, name, var) -> None: ...
     def get(self, name): ...
@@ -82,14 +68,9 @@ class Inst(EqualityCheckMixin, AbstractRHS):
     """
     Base class for all IR instructions.
     """
-
     def list_vars(self) -> None:
         """
         List the variables used (read or written) by the instruction.
-        """
-    def _rec_list_vars(self, val):
-        """
-        A recursive helper used to implement list_vars() in subclasses.
         """
 
 class Stmt(Inst):
@@ -97,7 +78,6 @@ class Stmt(Inst):
     Base class for IR statements (instructions which can appear on their
     own in a Block).
     """
-
     is_terminator: bool
     is_exit: bool
     def list_vars(self): ...
@@ -112,7 +92,6 @@ class Terminator(Stmt):
     All subclass of Terminator must override `.get_targets()` to return a list
     of jump targets.
     """
-
     is_terminator: bool
     def get_targets(self) -> None: ...
 
@@ -121,10 +100,8 @@ class Expr(Inst):
     An IR expression (an instruction which can only be part of a larger
     statement).
     """
-
     op: Incomplete
     loc: Incomplete
-    _kws: Incomplete
     def __init__(self, op, loc, **kws) -> None: ...
     def __getattr__(self, name): ...
     def __setattr__(self, name, value) -> None: ...
@@ -206,7 +183,6 @@ class SetItem(Stmt):
     """
     target[index] = value
     """
-
     target: Incomplete
     index: Incomplete
     value: Incomplete
@@ -217,7 +193,6 @@ class StaticSetItem(Stmt):
     """
     target[constant index] = value
     """
-
     target: Incomplete
     index: Incomplete
     index_var: Incomplete
@@ -229,7 +204,6 @@ class DelItem(Stmt):
     """
     del target[index]
     """
-
     target: Incomplete
     index: Incomplete
     loc: Incomplete
@@ -268,12 +242,11 @@ class Raise(Terminator):
     def get_targets(self): ...
 
 class StaticRaise(Terminator):
-    """
+    '''
     Raise an exception class and arguments known at compile-time.
     Note that if *exc_class* is None, a bare "raise" statement is implied
     (i.e. re-raise the current exception).
-    """
-
+    '''
     is_exit: bool
     exc_class: Incomplete
     exc_args: Incomplete
@@ -282,12 +255,11 @@ class StaticRaise(Terminator):
     def get_targets(self): ...
 
 class DynamicRaise(Terminator):
-    """
+    '''
     Raise an exception class and some argument *values* unknown at compile-time.
     Note that if *exc_class* is None, a bare "raise" statement is implied
     (i.e. re-raise the current exception).
-    """
-
+    '''
     is_exit: bool
     exc_class: Incomplete
     exc_args: Incomplete
@@ -299,7 +271,6 @@ class TryRaise(Stmt):
     """A raise statement inside a try-block
     Similar to ``Raise`` but does not terminate.
     """
-
     exception: Incomplete
     loc: Incomplete
     def __init__(self, exception, loc) -> None: ...
@@ -308,7 +279,6 @@ class StaticTryRaise(Stmt):
     """A raise statement inside a try-block.
     Similar to ``StaticRaise`` but does not terminate.
     """
-
     exc_class: Incomplete
     exc_args: Incomplete
     loc: Incomplete
@@ -318,7 +288,6 @@ class DynamicTryRaise(Stmt):
     """A raise statement inside a try-block.
     Similar to ``DynamicRaise`` but does not terminate.
     """
-
     exc_class: Incomplete
     exc_args: Incomplete
     loc: Incomplete
@@ -328,7 +297,6 @@ class Return(Terminator):
     """
     Return to caller.
     """
-
     is_exit: bool
     value: Incomplete
     loc: Incomplete
@@ -339,7 +307,6 @@ class Jump(Terminator):
     """
     Unconditional branch.
     """
-
     target: Incomplete
     loc: Incomplete
     def __init__(self, target, loc) -> None: ...
@@ -349,7 +316,6 @@ class Branch(Terminator):
     """
     Conditional branch.
     """
-
     cond: Incomplete
     truebr: Incomplete
     falsebr: Incomplete
@@ -361,7 +327,6 @@ class Assign(Stmt):
     """
     Assign to a variable.
     """
-
     value: Incomplete
     target: Incomplete
     loc: Incomplete
@@ -371,7 +336,6 @@ class Print(Stmt):
     """
     Print some values.
     """
-
     args: Incomplete
     vararg: Incomplete
     consts: Incomplete
@@ -386,9 +350,8 @@ class Yield(Inst):
     def list_vars(self): ...
 
 class EnterWith(Stmt):
-    """Enter a "with" context
-    """
-
+    '''Enter a "with" context
+    '''
     contextmanager: Incomplete
     begin: Incomplete
     end: Incomplete
@@ -407,7 +370,6 @@ class EnterWith(Stmt):
 
 class PopBlock(Stmt):
     """Marker statement for a pop block op code"""
-
     loc: Incomplete
     def __init__(self, loc) -> None: ...
 
@@ -439,7 +401,6 @@ class FreeVar(EqualityCheckMixin, AbstractRHS):
     A freevar, as loaded by LOAD_DECREF.
     (i.e. a variable defined in an enclosing non-global scope)
     """
-
     index: Incomplete
     name: Incomplete
     value: Incomplete
@@ -451,7 +412,7 @@ class FreeVar(EqualityCheckMixin, AbstractRHS):
 class Var(EqualityCheckMixin, AbstractRHS):
     """
     Attributes
-    ----------
+    -----------
     - scope: Scope
 
     - name: str
@@ -459,7 +420,6 @@ class Var(EqualityCheckMixin, AbstractRHS):
     - loc: Loc
         Definition location
     """
-
     scope: Incomplete
     name: Incomplete
     loc: Incomplete
@@ -484,7 +444,7 @@ class Var(EqualityCheckMixin, AbstractRHS):
 class Scope(EqualityCheckMixin):
     """
     Attributes
-    ----------
+    -----------
     - parent: Scope
         Parent scope
 
@@ -495,7 +455,6 @@ class Scope(EqualityCheckMixin):
         Start of scope location
 
     """
-
     parent: Incomplete
     localvars: Incomplete
     loc: Incomplete
@@ -532,7 +491,6 @@ class Block(EqualityCheckMixin):
     """A code block
 
     """
-
     scope: Incomplete
     body: Incomplete
     loc: Incomplete
@@ -547,10 +505,10 @@ class Block(EqualityCheckMixin):
         Iterate over insts of the given class in this block.
         """
     def find_variable_assignment(self, name):
-        """
+        '''
         Returns the assignment inst associated with variable "name", None if
         it cannot be found.
-        """
+        '''
     def prepend(self, inst) -> None: ...
     def append(self, inst) -> None: ...
     def remove(self, inst) -> None: ...
@@ -570,8 +528,6 @@ class Block(EqualityCheckMixin):
 class Loop(SlotEqualityCheckMixin):
     """Describes a loop-block
     """
-
-    __slots__: Incomplete
     entry: Incomplete
     exit: Incomplete
     def __init__(self, entry, exit) -> None: ...
@@ -579,8 +535,6 @@ class Loop(SlotEqualityCheckMixin):
 class With(SlotEqualityCheckMixin):
     """Describes a with-block
     """
-
-    __slots__: Incomplete
     entry: Incomplete
     exit: Incomplete
     def __init__(self, entry, exit) -> None: ...
@@ -592,10 +546,9 @@ class FunctionIR:
     loc: Incomplete
     arg_count: Incomplete
     arg_names: Incomplete
-    _definitions: Incomplete
     def __init__(self, blocks, is_generator, func_id, loc, definitions, arg_count, arg_names) -> None: ...
     def equal_ir(self, other):
-        """Checks that the IR contained within is equal to the IR in other.
+        """ Checks that the IR contained within is equal to the IR in other.
         Equality is defined by being equal in fundamental structure (blocks,
         labels, IR node type and the order in which they are defined) and the
         IR nodes being equal. IR node equality essentially comes down to
@@ -609,11 +562,6 @@ class FunctionIR:
         Compute a human readable difference in the IR, returns a formatted
         string ready for printing.
         """
-    _consts: Incomplete
-    generator_info: Incomplete
-    variable_lifetime: Incomplete
-    block_entry_vars: Incomplete
-    def _reset_analysis_variables(self) -> None: ...
     def derive(self, blocks, arg_count=None, arg_names=None, force_non_generator: bool = False, loc=None):
         """
         Derive a new function IR from this one, using the given blocks,
@@ -656,7 +604,6 @@ class FunctionIR:
         """
 
 class UndefinedType(EqualityCheckMixin):
-    _singleton: Incomplete
     def __new__(cls): ...
 
 UNDEFINED: Incomplete

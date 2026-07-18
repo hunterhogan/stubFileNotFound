@@ -2,16 +2,14 @@ from _typeshed import Incomplete
 from numba import typeof as typeof
 from numba.core import cgutils as cgutils, config as config, types as types, utils as utils
 from numba.core.extending import overload as overload
-from numba.core.imputils import impl_ret_untracked as impl_ret_untracked, Registry as Registry
+from numba.core.imputils import Registry as Registry, impl_ret_untracked as impl_ret_untracked
 from numba.core.typing import signature as signature
 from numba.cpython.unsafe.numbers import trailing_zeros as trailing_zeros
 
 registry: Incomplete
 lower: Incomplete
-_NP_FLT_FINFO: Incomplete
 FLT_MAX: Incomplete
 FLT_MIN: Incomplete
-_NP_DBL_FINFO: Incomplete
 DBL_MAX: Incomplete
 DBL_MIN: Incomplete
 FLOAT_ABS_MASK: int
@@ -54,11 +52,6 @@ def negate_real(builder, val):
 def call_fp_intrinsic(builder, name, args):
     """
     Call a LLVM intrinsic floating-point operation.
-    """
-def _unary_int_input_wrapper_impl(wrapped_impl):
-    """
-    Return an implementation factory to convert the single integral input
-    argument to a float64, then defer to the *wrapped_impl*.
     """
 def unary_math_int_impl(fn, float_impl) -> None: ...
 def unary_math_intr(fn, intrcode):
@@ -121,7 +114,4 @@ def radians_float_impl(context, builder, sig, args): ...
 def degrees_float_impl(context, builder, sig, args): ...
 def pow_impl(context, builder, sig, args): ...
 def nextafter_impl(context, builder, sig, args): ...
-def _unsigned(T) -> None:
-    """Convert integer to unsigned integer of equivalent width."""
-def _unsigned_impl(T): ...
 def gcd_impl(context, builder, sig, args): ...

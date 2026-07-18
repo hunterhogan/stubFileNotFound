@@ -1,11 +1,8 @@
 from numba.core import config as config, sigutils as sigutils, types as types
-from numba.core.errors import (
-	DeprecationError as DeprecationError, NumbaInvalidConfigWarning as NumbaInvalidConfigWarning)
+from numba.core.errors import DeprecationError as DeprecationError, NumbaInvalidConfigWarning as NumbaInvalidConfigWarning
 from numba.cuda.compiler import declare_device_function as declare_device_function
 from numba.cuda.dispatcher import CUDADispatcher as CUDADispatcher
 from numba.cuda.simulator.kernel import FakeCUDAKernel as FakeCUDAKernel
-
-_msg_deprecated_signature_arg: str
 
 def jit(func_or_sig=None, device: bool = False, inline: bool = False, link=None, debug=None, opt: bool = True, lineinfo: bool = False, cache: bool = False, **kws):
     """

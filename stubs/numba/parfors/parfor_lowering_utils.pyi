@@ -10,19 +10,7 @@ class _CallableNode(NamedTuple):
 class ParforLoweringBuilder:
     """Helper class for building Numba-IR and lowering for Parfor.
     """
-
-    _lowerer: Incomplete
-    _scope: Incomplete
-    _loc: Incomplete
     def __init__(self, lowerer, scope, loc) -> None: ...
-    @property
-    def _context(self): ...
-    @property
-    def _typingctx(self): ...
-    @property
-    def _typemap(self): ...
-    @property
-    def _calltypes(self): ...
     def bind_global_function(self, fobj, ftype, args, kws=None):
         """Binds a global function to a variable.
 

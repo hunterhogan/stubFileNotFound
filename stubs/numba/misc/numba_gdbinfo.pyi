@@ -1,17 +1,12 @@
 from _typeshed import Incomplete
 from numba import config as config
 
-_fields: str
 _gdb_info: Incomplete
 
 class _GDBTestWrapper:
     """Wraps the gdb binary and has methods for checking what the gdb binary
-    has support for (Python and NumPy).
-    """
-
-    _gdb_binary: Incomplete
+    has support for (Python and NumPy)."""
     def __init__(self) -> None: ...
-    def _run_cmd(self, cmd=()): ...
     @property
     def gdb_binary(self): ...
     @classmethod

@@ -13,28 +13,16 @@ ADDRSPACE_LOCAL: int
 nvvm_program = c_void_p
 nvvm_result = c_int
 RESULT_CODE_NAMES: Incomplete
-_datalayout_original: str
-_datalayout_i128: str
 
 def is_available():
     """
     Return if libNVVM is available
     """
 
-_nvvm_lock: Incomplete
-
 class NVVM:
     """Process-wide singleton.
     """
-
-    _PROTOTYPES: Incomplete
-    __INSTANCE: Incomplete
     def __new__(cls): ...
-    _majorIR: Incomplete
-    _minorIR: Incomplete
-    _majorDbg: Incomplete
-    _minorDbg: Incomplete
-    _supported_ccs: Incomplete
     def __init__(self) -> None: ...
     @property
     def data_layout(self): ...
@@ -46,14 +34,13 @@ class NVVM:
 
 class CompilationUnit:
     driver: Incomplete
-    _handle: Incomplete
     def __init__(self) -> None: ...
     def __del__(self) -> None: ...
     def add_module(self, buffer) -> None:
         """
-        Add a module level NVVM IR to a compilation unit.
-        - The buffer should contain an NVVM module IR either in the bitcode
-          representation (LLVM3.0) or in the text representation.
+         Add a module level NVVM IR to a compilation unit.
+         - The buffer should contain an NVVM module IR either in the bitcode
+           representation (LLVM3.0) or in the text representation.
         """
     def lazy_add_module(self, buffer) -> None:
         """
@@ -63,7 +50,7 @@ class CompilationUnit:
         """
     log: Incomplete
     def compile(self, **options):
-        """Perform Compilation.
+        '''Perform Compilation.
 
         Compilation options are accepted as keyword arguments, with the
         following considerations:
@@ -80,8 +67,7 @@ class CompilationUnit:
         Documentation:
 
         https://docs.nvidia.com/cuda/libnvvm-api/index.html#_CPPv418nvvmCompileProgram11nvvmProgramiPPKc
-        """
-    def _try_error(self, err, msg) -> None: ...
+        '''
     def get_log(self): ...
 
 COMPUTE_CAPABILITIES: Incomplete
@@ -104,7 +90,6 @@ def get_arch_option(major, minor):
 MISSING_LIBDEVICE_FILE_MSG: str
 
 class LibDevice:
-    _cache_: Incomplete
     bc: Incomplete
     def __init__(self) -> None: ...
     def get(self): ...

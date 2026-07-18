@@ -1,14 +1,8 @@
-from _typeshed import Incomplete
 from numba.core import utils as utils
 
 class Option:
     """An option to be used in ``TargetConfig``.
     """
-
-    __slots__: Incomplete
-    _type: Incomplete
-    _default: Incomplete
-    _doc: Incomplete
     def __init__(self, type, *, default, doc) -> None:
         """
         Parameters
@@ -36,12 +30,10 @@ class ConfigStack:
     It stores the stack in a thread-local class attribute. All instances in the
     same thread will see the same stack.
     """
-
     @classmethod
     def top_or_none(cls):
         """Get the TOS or return None if no config is set.
         """
-    _stk: Incomplete
     def __init__(self) -> None: ...
     def top(self): ...
     def __len__(self) -> int: ...
@@ -57,7 +49,6 @@ class _MetaTargetConfig(type):
     as class members will be parsed and corresponding getters, setters, and
     delters will be inserted.
     """
-
     def __init__(cls, name, bases, dct) -> None:
         """Invoked when subclass is created.
 
@@ -70,13 +61,10 @@ class _MetaTargetConfig(type):
         ``Option``.
         """
 
-class _NotSetType:
-    ...
-
-_NotSet: Incomplete
+class _NotSetType: ...
 
 class TargetConfig(metaclass=_MetaTargetConfig):
-    """Base class for ``TargetConfig``.
+    '''Base class for ``TargetConfig``.
 
     Subclass should fill class members with ``Option``. For example:
 
@@ -89,11 +77,7 @@ class TargetConfig(metaclass=_MetaTargetConfig):
     >>> tc = MyTargetConfig()
     >>> tc.a_bool_option = True  # invokes the setter
     >>> print(tc.an_int_option)  # print the default
-    """
-
-    __slots__: Incomplete
-    _ZLIB_CONFIG: Incomplete
-    _values: Incomplete
+    '''
     def __init__(self, copy_from=None) -> None:
         """
         Parameters
@@ -135,17 +119,6 @@ class TargetConfig(metaclass=_MetaTargetConfig):
 
         In contrast to ``__repr__``, only options that are explicitly set will
         be shown.
-        """
-    def _guard_option(self, name) -> None: ...
-    def _summary_args(self):
-        """Returns a sorted sequence of 2-tuple containing the
-        ``(flag_name, flag_value)`` for flag that are set with a non-default
-        value.
-        """
-    @classmethod
-    def _make_compression_dictionary(cls) -> bytes:
-        """Returns a ``bytes`` object suitable for use as a dictionary for
-        compression.
         """
     def get_mangle_string(self) -> str:
         """Return a string suitable for symbol mangling.

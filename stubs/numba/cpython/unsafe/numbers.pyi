@@ -3,7 +3,7 @@ from numba.core.extending import intrinsic as intrinsic
 
 @intrinsic
 def viewer(tyctx, val, viewty):
-    """Bitcast a scalar 'val' to the given type 'viewty'."""
+    """ Bitcast a scalar 'val' to the given type 'viewty'. """
 @intrinsic
 def trailing_zeros(typeingctx, src):
     """Counts trailing zeros in the binary representation of an integer."""

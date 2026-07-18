@@ -8,16 +8,6 @@ def same_kind(src, dest):
     Whether the *src* and *dest* units are of the same kind.
     """
 def can_cast_timedelta_units(src, dest): ...
-
-_factors: Incomplete
-
-def _get_conversion_multiplier(big_unit_code, small_unit_code):
-    """
-    Return an integer multiplier allowing to convert from *big_unit_code*
-    to *small_unit_code*.
-    None is returned if the conversion is not possible through a
-    simple integer multiplication.
-    """
 def get_timedelta_conversion_factor(src_unit, dest_unit):
     """
     Return an integer multiplier allowing to convert from timedeltas

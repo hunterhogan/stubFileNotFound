@@ -1,9 +1,6 @@
 from numba.core import cgutils as cgutils, types as types, typing as typing
 from numba.core.extending import intrinsic as intrinsic, overload as overload, overload_method as overload_method
-from numba.core.imputils import (
-	impl_ret_borrowed as impl_ret_borrowed, impl_ret_untracked as impl_ret_untracked, iternext_impl as iternext_impl,
-	lower_builtin as lower_builtin, lower_cast as lower_cast, lower_constant as lower_constant,
-	lower_getattr_generic as lower_getattr_generic, RefType as RefType)
+from numba.core.imputils import RefType as RefType, impl_ret_borrowed as impl_ret_borrowed, impl_ret_untracked as impl_ret_untracked, iternext_impl as iternext_impl, lower_builtin as lower_builtin, lower_cast as lower_cast, lower_constant as lower_constant, lower_getattr_generic as lower_getattr_generic
 
 def namedtuple_constructor(context, builder, sig, args): ...
 def tuple_add(context, builder, sig, args): ...
@@ -17,6 +14,14 @@ def tuple_ge(context, builder, sig, args): ...
 def namedtuple_getattr(context, builder, typ, value, attr):
     """
     Fetch a namedtuple's field.
+    """
+def unituple_constant(context, builder, ty, pyval):
+    """
+    Create a homogeneous tuple constant.
+    """
+def tuple_constant(context, builder, ty, pyval):
+    """
+    Create a heterogeneous tuple constant.
     """
 def getiter_unituple(context, builder, sig, args): ...
 def iternext_unituple(context, builder, sig, args, result) -> None: ...

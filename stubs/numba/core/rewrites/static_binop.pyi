@@ -1,12 +1,11 @@
 from _typeshed import Incomplete
 from numba.core import errors as errors, ir as ir
-from numba.core.rewrites import register_rewrite as register_rewrite, Rewrite as Rewrite
+from numba.core.rewrites import Rewrite as Rewrite, register_rewrite as register_rewrite
 
 class DetectStaticBinops(Rewrite):
     """
     Detect constant arguments to select binops.
     """
-
     rhs_operators: Incomplete
     static_lhs: Incomplete
     static_rhs: Incomplete

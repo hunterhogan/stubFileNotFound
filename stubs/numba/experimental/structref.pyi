@@ -3,16 +3,12 @@ from numba import njit as njit
 from numba.core import cgutils as cgutils, imputils as imputils, types as types
 from numba.core.cgutils import create_struct_proxy as create_struct_proxy
 from numba.core.datamodel import default_manager as default_manager, models as models
-from numba.core.extending import (
-	box as box, infer_getattr as infer_getattr, intrinsic as intrinsic, lower_builtin as lower_builtin,
-	lower_getattr_generic as lower_getattr_generic, lower_setattr_generic as lower_setattr_generic,
-	NativeValue as NativeValue, overload as overload, unbox as unbox)
+from numba.core.extending import NativeValue as NativeValue, box as box, infer_getattr as infer_getattr, intrinsic as intrinsic, lower_builtin as lower_builtin, lower_getattr_generic as lower_getattr_generic, lower_setattr_generic as lower_setattr_generic, overload as overload, unbox as unbox
 from numba.core.typing.templates import AttributeTemplate as AttributeTemplate
 
 class _Utils:
     """Internal builder-code utils for structref definitions.
     """
-
     context: Incomplete
     builder: Incomplete
     struct_type: Incomplete
@@ -132,39 +128,15 @@ class StructRefProxy:
 
     Notes
     -----
+
     * Subclasses should not define ``__init__``.
     * Subclasses can override ``__new__``.
     """
-
-    __slots__: Incomplete
-    @classmethod
-    def _numba_box_(cls, ty, mi):
-        """Called by boxing logic, the conversion of Numba internal
-        representation into a PyObject.
-
-        Parameters
-        ----------
-        ty :
-            a Numba type instance.
-        mi :
-            a wrapped MemInfoPointer.
-
-        Returns
-        -------
-        instance :
-             a StructRefProxy instance.
-        """
     def __new__(cls, *args):
         """Construct a new instance of the structref.
 
         This takes positional-arguments only due to limitation of the compiler.
         The arguments are mapped to ``cls(*args)`` in jit-code.
-        """
-    @property
-    def _numba_type_(self):
-        """Returns the Numba type instance for this structref instance.
-
-        Subclasses should NOT override.
         """
 
 def structref_is(context, builder, sig, args):

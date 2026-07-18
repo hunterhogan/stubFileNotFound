@@ -6,7 +6,6 @@ from numba.core.typing import signature as signature
 from numba.cuda import nvvmutils as nvvmutils
 from numba.cuda.extending import intrinsic as intrinsic
 
-def _type_grid_function(ndim): ...
 @intrinsic
 def grid(typingctx, ndim):
     """grid(ndim)
@@ -39,8 +38,6 @@ def gridsize(typingctx, ndim):
     and is similar for the other two indices, but using the ``y`` and ``z``
     attributes.
     """
-@intrinsic
-def _warpsize(typingctx): ...
 def cuda_warpsize(mod):
     """
     The size of a warp. All architectures implemented to date have a warp size
@@ -54,7 +51,6 @@ def syncthreads(typingctx):
     function waits until all threads in the block call it, at which point it
     returns control to all its callers.
     """
-def _syncthreads_predicate(typingctx, predicate, fname): ...
 @intrinsic
 def syncthreads_count(typingctx, predicate):
     """

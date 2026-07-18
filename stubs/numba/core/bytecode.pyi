@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
-from collections.abc import Generator
 from numba.core import errors as errors, serialize as serialize, utils as utils
 from numba.core.utils import PYVERSION as PYVERSION
-from typing import NamedTuple, TypeAlias
+from typing import NamedTuple
 
 INSTR_LEN: int
 
@@ -16,21 +15,18 @@ class _ExceptionTableEntry(NamedTuple):
     depth: Incomplete
     lasti: Incomplete
 
-_FIXED_OFFSET: int
-
 def get_function_object(obj):
-    """
+    '''
     Objects that wraps function should provide a "__numba__" magic attribute
     that contains a name of an attribute that contains the actual python
     function object.
-    """
+    '''
 def get_code_object(obj):
     """Shamelessly borrowed from llpython"""
-def _as_opcodes(seq): ...
 
 JREL_OPS: Incomplete
 JABS_OPS: Incomplete
-JUMP_OPS: TypeAlias = JREL_OPS | JABS_OPS
+JUMP_OPS = JREL_OPS | JABS_OPS
 TERM_OPS: Incomplete
 EXTENDED_ARG: Incomplete
 HAVE_ARGUMENT: Incomplete
@@ -48,8 +44,6 @@ class ByteCodeInst:
     - lineno:
         -1 means unknown
     """
-
-    __slots__: Incomplete
     offset: Incomplete
     next: Incomplete
     opcode: Incomplete
@@ -73,19 +67,11 @@ ARG_LEN: int
 NO_ARG_LEN: int
 OPCODE_NOP: Incomplete
 
-def _unpack_opargs(code) -> Generator[Incomplete]: ...
-def _patched_opargs(bc_stream) -> Generator[Incomplete]:
-    """Patch the bytecode stream.
-
-    - Adds a NOP bytecode at the start to avoid jump target being at the entry.
-    """
-
 class ByteCodeIter:
     code: Incomplete
     iter: Incomplete
     def __init__(self, code) -> None: ...
     def __iter__(self): ...
-    def _fetch_opcode(self): ...
     def next(self): ...
     __next__ = next
     def read_arg(self, size): ...
@@ -94,8 +80,6 @@ class _ByteCode:
     """
     The decoded bytecode of a function, and related information.
     """
-
-    __slots__: Incomplete
     func_id: Incomplete
     co_names: Incomplete
     co_varnames: Incomplete
@@ -105,28 +89,15 @@ class _ByteCode:
     table: Incomplete
     labels: Incomplete
     def __init__(self, func_id) -> None: ...
-    @classmethod
-    def _compute_lineno(cls, table, code):
-        """
-        Compute the line numbers for all bytecode instructions.
-        """
     def __iter__(self): ...
     def __getitem__(self, offset): ...
     def __contains__(self, offset) -> bool: ...
     def dump(self): ...
-    @classmethod
-    def _compute_used_globals(cls, func, table, co_consts, co_names):
-        """
-        Compute the globals used by the function with the given
-        bytecode table.
-        """
     def get_used_globals(self):
         """
         Get a {name: value} map of the globals used by this code
         object and any nested code objects.
         """
-
-def _fix_LOAD_GLOBAL_arg(arg): ...
 
 class ByteCodePy311(_ByteCode):
     exception_entries: Incomplete
@@ -139,42 +110,40 @@ class ByteCodePy311(_ByteCode):
         """
 
 class ByteCodePy312(ByteCodePy311):
-    _ordered_offsets: Incomplete
     exception_entries: Incomplete
     def __init__(self, func_id) -> None: ...
     @property
     def ordered_offsets(self): ...
     def remove_build_list_swap_pattern(self, entries):
-        """Find the following bytecode pattern:
+        """ Find the following bytecode pattern:
 
-        BUILD_{LIST, MAP, SET}
-        SWAP(2)
-        FOR_ITER
-        ...
-        END_FOR
-        SWAP(2)
+            BUILD_{LIST, MAP, SET}
+            SWAP(2)
+            FOR_ITER
+            ...
+            END_FOR
+            SWAP(2)
 
-        This pattern indicates that a list/dict/set comprehension has
-        been inlined. In this case we can skip the exception blocks
-        entirely along with the dead exceptions that it points to.
-        A pair of exception that sandwiches these exception will
-        also be merged into a single exception.
+            This pattern indicates that a list/dict/set comprehension has
+            been inlined. In this case we can skip the exception blocks
+            entirely along with the dead exceptions that it points to.
+            A pair of exception that sandwiches these exception will
+            also be merged into a single exception.
 
-        Update for Python 3.13, the ending of the pattern has a extra
-        POP_TOP:
+            Update for Python 3.13, the ending of the pattern has a extra
+            POP_TOP:
 
-        ...
-        END_FOR
-        POP_TOP
-        SWAP(2)
+            ...
+            END_FOR
+            POP_TOP
+            SWAP(2)
 
-        Update for Python 3.13.1, there's now a GET_ITER before FOR_ITER.
-        This patch the GET_ITER to NOP to minimize changes downstream
-        (e.g. array-comprehension).
+            Update for Python 3.13.1, there's now a GET_ITER before FOR_ITER.
+            This patch the GET_ITER to NOP to minimize changes downstream
+            (e.g. array-comprehension).
         """
 ByteCode = ByteCodePy311
 ByteCode = ByteCodePy312
-ByteCode = _ByteCode
 
 class FunctionIdentity(serialize.ReduceMixin):
     """
@@ -184,8 +153,6 @@ class FunctionIdentity(serialize.ReduceMixin):
     being compiled, not necessarily the top-level user function
     (the two might be distinct).
     """
-
-    _unique_ids: Incomplete
     func: Incomplete
     func_qualname: Incomplete
     func_name: Incomplete
@@ -207,13 +174,4 @@ class FunctionIdentity(serialize.ReduceMixin):
         """
     def derive(self):
         """Copy the object and increment the unique counter.
-        """
-    def _reduce_states(self):
-        """
-        NOTE: part of ReduceMixin protocol
-        """
-    @classmethod
-    def _rebuild(cls, pyfunc):
-        """
-        NOTE: part of ReduceMixin protocol
         """

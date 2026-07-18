@@ -1,4 +1,3 @@
-from _typeshed import Incomplete
 from numba.core import ir as ir
 from numba.core.errors import ConstantInferenceError as ConstantInferenceError, NumbaError as NumbaError
 
@@ -10,9 +9,6 @@ class ConstantInference:
 
     This shouldn't be used directly, instead call Interpreter.infer_constant().
     """
-
-    _func_ir: Incomplete
-    _cache: Incomplete
     def __init__(self, func_ir) -> None: ...
     def infer_constant(self, name, loc=None):
         """
@@ -20,8 +16,3 @@ class ConstantInference:
         If no value can be inferred, numba.errors.ConstantInferenceError
         is raised.
         """
-    def _fail(self, val) -> None: ...
-    def _do_infer(self, name): ...
-    def _infer_expr(self, expr): ...
-    def _infer_call(self, func, expr): ...
-    def _infer_getattr(self, value, expr): ...

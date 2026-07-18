@@ -1,3 +1,4 @@
+import contextlib
 from .typeof import Purpose as Purpose, typeof as typeof
 from _typeshed import Incomplete
 from collections.abc import Generator, Sequence
@@ -5,10 +6,8 @@ from numba.core import config as config, errors as errors, types as types, utils
 from numba.core.typeconv import Conversion as Conversion, rules as rules
 from numba.core.typing import templates as templates
 from numba.core.utils import order_by_target_specificity as order_by_target_specificity
-import contextlib
 
 class Rating:
-    __slots__: Incomplete
     promote: int
     safe_convert: int
     unsafe_convert: int
@@ -23,10 +22,6 @@ class CallStack(Sequence):
     """
     A compile-time call stack
     """
-
-    _stack: Incomplete
-    _lock: Incomplete
-    _fail_cache: Incomplete
     def __init__(self) -> None: ...
     def __getitem__(self, index):
         """
@@ -60,9 +55,6 @@ class _ResolveCache:
     A cache for function resolution result.
     Currently only remember failed attempts.
     """
-
-    _status: str
-    _exc: BaseException | None
     def __init__(self) -> None: ...
     def mark_error(self, exc) -> None:
         """Mark the function resolution as failed with an exception."""
@@ -77,12 +69,10 @@ class CallFrame:
     """
     A compile-time call frame
     """
-
     typeinfer: Incomplete
     func_id: Incomplete
     args: Incomplete
     target: Incomplete
-    _inferred_retty: Incomplete
     def __init__(self, target, typeinfer, func_id, args) -> None: ...
     def add_return_type(self, return_type) -> None:
         """Add *return_type* to the list of inferred return-types.
@@ -92,11 +82,6 @@ class CallFrame:
 class BaseContext:
     """A typing context for storing function typing constrain template.
     """
-
-    _registries: Incomplete
-    _functions: Incomplete
-    _attributes: Incomplete
-    _globals: Incomplete
     tm: Incomplete
     callstack: Incomplete
     def __init__(self) -> None: ...
@@ -117,12 +102,6 @@ class BaseContext:
         """
         Resolve function type *func* for argument types *args* and *kws*.
         A signature is returned.
-        """
-    def _resolve_builtin_function_type(self, func, args, kws): ...
-    def _resolve_user_function_type(self, func, args, kws, literals=None): ...
-    def _get_attribute_templates(self, typ) -> Generator[Incomplete]:
-        """
-        Get matching AttributeTemplates for the Numba type.
         """
     def resolve_getattr(self, typ, attr):
         """
@@ -154,8 +133,6 @@ class BaseContext:
     def resolve_value_type_prefer_literal(self, value):
         """Resolve value type and prefer Literal types whenever possible.
         """
-    def _get_global_type(self, gv): ...
-    def _load_builtins(self) -> None: ...
     def load_additional_registries(self) -> None:
         """
         Load target-specific registries.  Can be overridden by subclasses.
@@ -164,19 +141,6 @@ class BaseContext:
         """
         Install a *registry* (a templates.Registry instance) of function,
         attribute and global declarations.
-        """
-    def _lookup_global(self, gv):
-        """
-        Look up the registered type for global value *gv*.
-        """
-    def _insert_global(self, gv, gty) -> None:
-        """
-        Register type *gty* for value *gv*.  Only a weak reference
-        to *gv* is kept, if possible.
-        """
-    def _remove_global(self, gv) -> None:
-        """
-        Remove the registered type for global value *gv*.
         """
     def insert_global(self, gv, gty) -> None: ...
     def insert_attributes(self, at) -> None: ...
@@ -196,11 +160,6 @@ class BaseContext:
         Check whether conversion is possible from *fromty* to *toty*.
         If successful, return a numba.typeconv.Conversion instance;
         otherwise None is returned.
-        """
-    def _rate_arguments(self, actualargs, formalargs, unsafe_casting: bool = True, exact_match_required: bool = False):
-        """
-        Rate the actual arguments for compatibility against the formal
-        arguments.  A Rating instance is returned, or None if incompatible.
         """
     def install_possible_conversions(self, actualargs, formalargs):
         """

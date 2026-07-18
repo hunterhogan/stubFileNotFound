@@ -53,7 +53,5 @@ class Annotate:
     [(int64, int64), (float64, float64)]
     >>> Annotate(add, signature=add.signatures[1])  # annotation for (float64, float64)
     """
-
     ann: Incomplete
     def __init__(self, function, signature=None, **kwargs) -> None: ...
-    def _repr_html_(self): ...

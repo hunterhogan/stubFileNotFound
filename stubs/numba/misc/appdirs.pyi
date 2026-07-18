@@ -7,7 +7,7 @@ unicode = str
 system: Incomplete
 
 def user_data_dir(appname=None, appauthor=None, version=None, roaming: bool = False):
-    """Return full path to the user-specific data dir for this application.
+    '''Return full path to the user-specific data dir for this application.
 
         "appname" is the name of application.
             If None, just the system directory is returned.
@@ -37,9 +37,9 @@ def user_data_dir(appname=None, appauthor=None, version=None, roaming: bool = Fa
 
     For Unix, we follow the XDG spec and support $XDG_DATA_HOME.
     That means, by default "~/.local/share/<AppName>".
-    """
+    '''
 def site_data_dir(appname=None, appauthor=None, version=None, multipath: bool = False):
-    """Return full path to the user-shared data dir for this application.
+    '''Return full path to the user-shared data dir for this application.
 
         "appname" is the name of application.
             If None, just the system directory is returned.
@@ -68,9 +68,9 @@ def site_data_dir(appname=None, appauthor=None, version=None, multipath: bool = 
     For Unix, this is using the $XDG_DATA_DIRS[0] default.
 
     WARNING: Do not use this on Windows. See the Vista-Fail note above for why.
-    """
+    '''
 def user_config_dir(appname=None, appauthor=None, version=None, roaming: bool = False):
-    """Return full path to the user-specific config dir for this application.
+    '''Return full path to the user-specific config dir for this application.
 
         "appname" is the name of application.
             If None, just the system directory is returned.
@@ -97,9 +97,9 @@ def user_config_dir(appname=None, appauthor=None, version=None, roaming: bool = 
 
     For Unix, we follow the XDG spec and support $XDG_CONFIG_HOME.
     That means, by default "~/.config/<AppName>".
-    """
+    '''
 def site_config_dir(appname=None, appauthor=None, version=None, multipath: bool = False):
-    """Return full path to the user-shared data dir for this application.
+    '''Return full path to the user-shared data dir for this application.
 
         "appname" is the name of application.
             If None, just the system directory is returned.
@@ -127,9 +127,9 @@ def site_config_dir(appname=None, appauthor=None, version=None, multipath: bool 
     For Unix, this is using the $XDG_CONFIG_DIRS[0] default, if multipath=False
 
     WARNING: Do not use this on Windows. See the Vista-Fail note above for why.
-    """
+    '''
 def user_cache_dir(appname=None, appauthor=None, version=None, opinion: bool = True):
-    """Return full path to the user-specific cache dir for this application.
+    '''Return full path to the user-specific cache dir for this application.
 
         "appname" is the name of application.
             If None, just the system directory is returned.
@@ -160,9 +160,9 @@ def user_cache_dir(appname=None, appauthor=None, version=None, opinion: bool = T
         ...\\Acme\\SuperApp\\Cache\\1.0
     OPINION: This function appends "Cache" to the `CSIDL_LOCAL_APPDATA` value.
     This can be disabled with the `opinion=False` option.
-    """
+    '''
 def user_log_dir(appname=None, appauthor=None, version=None, opinion: bool = True):
-    """Return full path to the user-specific log dir for this application.
+    '''Return full path to the user-specific log dir for this application.
 
         "appname" is the name of application.
             If None, just the system directory is returned.
@@ -192,11 +192,10 @@ def user_log_dir(appname=None, appauthor=None, version=None, opinion: bool = Tru
     OPINION: This function appends "Logs" to the `CSIDL_LOCAL_APPDATA`
     value for Windows and appends "log" to the user cache dir for Unix.
     This can be disabled with the `opinion=False` option.
-    """
+    '''
 
 class AppDirs:
     """Convenience wrapper for getting application dirs."""
-
     appname: Incomplete
     appauthor: Incomplete
     version: Incomplete
@@ -215,16 +214,3 @@ class AppDirs:
     def user_cache_dir(self): ...
     @property
     def user_log_dir(self): ...
-
-def _get_win_folder_from_registry(csidl_name):
-    """This is a fallback technique at best. I'm not sure if using the
-    registry for this guarantees us the correct answer for all CSIDL_*
-    names.
-    """
-def _get_win_folder_with_pywin32(csidl_name): ...
-def _get_win_folder_with_ctypes(csidl_name): ...
-def _get_win_folder_with_jna(csidl_name): ...
-_get_win_folder = _get_win_folder_with_pywin32
-_get_win_folder = _get_win_folder_with_ctypes
-_get_win_folder = _get_win_folder_with_jna
-_get_win_folder = _get_win_folder_from_registry

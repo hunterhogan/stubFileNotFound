@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from contextlib import contextmanager, ExitStack
+from contextlib import ExitStack, contextmanager
 from numba.core import config as config, debuginfo as debuginfo, types as types, utils as utils
 from typing import NamedTuple
 
@@ -23,9 +23,6 @@ def make_bytearray(buf):
     """
     Make a byte array constant from *buf*.
     """
-
-_struct_proxy_cache: Incomplete
-
 def create_struct_proxy(fe_type, kind: str = 'value'):
     """
     Returns a specialized StructProxy subclass for the given fe_type.
@@ -41,25 +38,7 @@ class _StructProxy:
     from DataModel instance.  FE type must have a data model that is a
     subclass of StructModel.
     """
-
-    _fe_type: Incomplete
-    _context: Incomplete
-    _datamodel: Incomplete
-    _builder: Incomplete
-    _be_type: Incomplete
-    _value: Incomplete
-    _outer_ref: Incomplete
     def __init__(self, context, builder, value=None, ref=None) -> None: ...
-    def _make_refs(self, ref):
-        """
-        Return an (outer ref, value ref) pair.  By default, these are
-        the same pointers, but a derived class may override this.
-        """
-    def _get_be_type(self, datamodel) -> None: ...
-    def _cast_member_to_value(self, index, val) -> None: ...
-    def _cast_member_from_value(self, index, val) -> None: ...
-    def _get_ptr_by_index(self, index): ...
-    def _get_ptr_by_name(self, attrname): ...
     def __getattr__(self, field):
         """
         Load the LLVM value of the named *field*.
@@ -79,18 +58,6 @@ class _StructProxy:
     def __len__(self) -> int:
         """
         Return the number of fields.
-        """
-    def _getpointer(self):
-        """
-        Return the LLVM pointer to the underlying structure.
-        """
-    def _getvalue(self):
-        """
-        Load and return the value of the underlying LLVM structure.
-        """
-    def _setvalue(self, value) -> None:
-        """
-        Store the value in this structure.
         """
 
 class ValueStructProxy(_StructProxy):
@@ -98,36 +65,17 @@ class ValueStructProxy(_StructProxy):
     Create a StructProxy suitable for accessing regular values
     (e.g. LLVM values or alloca slots).
     """
-
-    def _get_be_type(self, datamodel): ...
-    def _cast_member_to_value(self, index, val): ...
-    def _cast_member_from_value(self, index, val): ...
-
 class DataStructProxy(_StructProxy):
     """
     Create a StructProxy suitable for accessing data persisted in memory.
     """
-
-    def _get_be_type(self, datamodel): ...
-    def _cast_member_to_value(self, index, val): ...
-    def _cast_member_from_value(self, index, val): ...
 
 class Structure:
     """
     A high-level object wrapping a alloca'ed LLVM structure, including
     named fields and attribute access.
     """
-
-    _type: Incomplete
-    _context: Incomplete
-    _builder: Incomplete
-    _value: Incomplete
-    _namemap: Incomplete
-    _fdmap: Incomplete
-    _typemap: Incomplete
     def __init__(self, context, builder, value=None, ref=None, cast_ref: bool = False) -> None: ...
-    def _get_ptr_by_index(self, index): ...
-    def _get_ptr_by_name(self, attrname): ...
     def __getattr__(self, field):
         """
         Load the LLVM value of the named *field*.
@@ -148,16 +96,6 @@ class Structure:
         """
         Return the number of fields.
         """
-    def _getpointer(self):
-        """
-        Return the LLVM pointer to the underlying structure.
-        """
-    def _getvalue(self):
-        """
-        Load and return the value of the underlying LLVM structure.
-        """
-    def _setvalue(self, value) -> None:
-        """Store the value in this structure"""
 
 def alloca_once(builder, ty, size=None, name: str = '', zfill: bool = False):
     """Allocate stack memory at the entry block of the current function
@@ -223,7 +161,7 @@ def for_range_slice(builder, start, stop, step, intp=None, inc: bool = True) -> 
     inside the loop, and `count` the iteration count.
 
     Parameters
-    ----------
+    -------------
     builder : object
         IRBuilder object
     start : int
@@ -238,7 +176,7 @@ def for_range_slice(builder, start, stop, step, intp=None, inc: bool = True) -> 
         Signals whether the step is positive (True) or negative (False).
 
     Returns
-    -------
+    -----------
         None
     """
 @contextmanager
@@ -269,8 +207,6 @@ def loop_nest(builder, shape, intp, order: str = 'C') -> Generator[Incomplete, N
     This has performance implications when walking an array as it impacts
     the spatial locality of memory accesses.
     """
-@contextmanager
-def _loop_nest(builder, shape, intp) -> Generator[Incomplete]: ...
 def pack_array(builder, values, ty=None):
     """
     Pack a sequence of values in a LLVM array.  *ty* should be given
@@ -288,16 +224,15 @@ def unpack_tuple(builder, tup, count=None):
 def get_item_pointer(context, builder, aryty, ary, inds, wraparound: bool = False, boundscheck: bool = False): ...
 def do_boundscheck(context, builder, ind, dimlen, axis=None) -> None: ...
 def get_item_pointer2(context, builder, data, shape, strides, layout, inds, wraparound: bool = False, boundscheck: bool = False): ...
-def _scalar_pred_against_zero(builder, value, fpred, icond): ...
 def is_scalar_zero(builder, value):
     """
     Return a predicate representing whether *value* is equal to zero.
     """
 def is_not_scalar_zero(builder, value):
-    """
+    '''
     Return a predicate representing whether a *value* is not equal to zero.
     (not exactly "not is_scalar_zero" because of nans)
-    """
+    '''
 def is_scalar_zero_or_nan(builder, value):
     """
     Return a predicate representing whether *value* is equal to either zero
@@ -414,7 +349,6 @@ def memcpy(builder, dst, src, count) -> None:
     * dst.type == src.type
     * count is positive
     """
-def _raw_memcpy(builder, func_name, dst, src, count, itemsize, align) -> None: ...
 def raw_memcpy(builder, dst, src, count, itemsize, align: int = 1):
     """
     Emit a raw memcpy() call for `count` items of size `itemsize`
@@ -458,9 +392,9 @@ def hexdump(builder, ptr, nbytes) -> None:
     as hex.
     """
 def is_nonelike(ty):
-    """Returns if 'ty' is none"""
+    """ returns if 'ty' is none """
 def is_empty_tuple(ty):
-    """Returns if 'ty' is an empty tuple"""
+    """ returns if 'ty' is an empty tuple """
 def create_constant_array(ty, val):
     """
     Create an LLVM-constant of a fixed-length array from Python values.

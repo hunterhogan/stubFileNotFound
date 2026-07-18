@@ -5,12 +5,6 @@ def is_signature(sig):
     Return whether *sig* is a potentially valid signature
     specification (for user-facing APIs).
     """
-def _parse_signature_string(signature_str):
-    """
-    Parameters
-    ----------
-    signature_str : str
-    """
 def normalize_signature(sig):
     """
     From *sig* (a signature specification), return a ``(args, return_type)``

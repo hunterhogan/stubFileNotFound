@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 from collections.abc import Generator
-from numba import _helperlib as _helperlib
 from typing import NamedTuple
 
 class Extent(NamedTuple):
@@ -23,8 +22,6 @@ class Dim:
     stride:
         item stride
     """
-
-    __slots__: Incomplete
     start: Incomplete
     stop: Incomplete
     size: Incomplete
@@ -69,7 +66,6 @@ class Array:
     extent: (start, end)
         start and end offset containing the memory region
     """
-
     is_array: bool
     @classmethod
     def from_desc(cls, offset, shape, strides, itemsize): ...
@@ -82,27 +78,22 @@ class Array:
     extent: Incomplete
     flags: Incomplete
     def __init__(self, dims, itemsize) -> None: ...
-    def _compute_layout(self): ...
-    def _compute_extent(self): ...
     def __getitem__(self, item): ...
     @property
     def is_c_contig(self): ...
     @property
     def is_f_contig(self): ...
     def iter_contiguous_extent(self) -> Generator[Incomplete]:
-        """Generates extents
+        """ Generates extents
         """
     def reshape(self, *newdims, **kws): ...
     def squeeze(self, axis=None): ...
     def ravel(self, order: str = 'C'): ...
 
 def iter_strides_f_contig(arr, shape=None) -> Generator[Incomplete]:
-    """Yields the f-contiguous strides
+    """yields the f-contiguous strides
     """
 def iter_strides_c_contig(arr, shape=None) -> Generator[Incomplete]:
-    """Yields the c-contiguous strides
+    """yields the c-contiguous strides
     """
 def is_element_indexing(item, ndim): ...
-def _compute_size(start, stop, step):
-    """Algorithm adapted from cpython rangeobject.c
-    """

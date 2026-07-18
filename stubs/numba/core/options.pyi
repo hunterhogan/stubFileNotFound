@@ -6,7 +6,6 @@ class TargetOptions:
     """Target options maps user options from decorators to the
     ``numba.core.compiler.Flags`` used by lowering and target context.
     """
-
     class Mapping:
         flag_name: Incomplete
         apply: Incomplete
@@ -30,17 +29,13 @@ class TargetOptions:
         flags : Flags
         options : dict
         """
-    def _apply(self, flags, options) -> None: ...
-_mapping = TargetOptions.Mapping
 
 class DefaultOptions:
     """Defines how user-level target options are mapped to the target flags.
     """
-
     nopython: Incomplete
     forceobj: Incomplete
     looplift: Incomplete
-    _nrt: Incomplete
     debug: Incomplete
     boundscheck: Incomplete
     nogil: Incomplete
@@ -53,8 +48,6 @@ class DefaultOptions:
     error_model: Incomplete
     inline: Incomplete
     forceinline: Incomplete
-    _dbg_extend_lifetimes: Incomplete
-    _dbg_optnone: Incomplete
 
 def include_default_options(*args):
     """Returns a mixin class with a subset of the options

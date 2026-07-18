@@ -4,15 +4,8 @@ from enum import Enum
 from numba.core.controlflow import CFGraph as CFGraph, NEW_BLOCKERS as NEW_BLOCKERS
 from numba.core.errors import UnsupportedBytecodeError as UnsupportedBytecodeError
 from numba.core.ir import Loc as Loc
-from numba.core.utils import (
-	_lazy_pformat as _lazy_pformat, ALL_BINOPS_TO_OPERATORS as ALL_BINOPS_TO_OPERATORS, PYVERSION as PYVERSION,
-	UniqueDict as UniqueDict)
+from numba.core.utils import ALL_BINOPS_TO_OPERATORS as ALL_BINOPS_TO_OPERATORS, PYVERSION as PYVERSION, UniqueDict as UniqueDict
 from typing import NamedTuple
-
-_logger: Incomplete
-_EXCEPT_STACK_OFFSET: int
-_FINALLY_POP = _EXCEPT_STACK_OFFSET
-_NO_RAISE_OPS: Incomplete
 
 class CALL_INTRINSIC_1_Operand(Enum):
     INTRINSIC_STOPITERATION_ERROR = 3
@@ -23,9 +16,6 @@ ci1op = CALL_INTRINSIC_1_Operand
 class BlockKind:
     """Kinds of block to make related code safer than just `str`.
     """
-
-    _members: Incomplete
-    _value: Incomplete
     def __init__(self, value) -> None: ...
     def __hash__(self): ...
     def __lt__(self, other): ...
@@ -36,8 +26,6 @@ class Flow:
 
     Simulate execution to recover dataflow and controlflow information.
     """
-
-    _bytecode: Incomplete
     block_infos: Incomplete
     def __init__(self, bytecode) -> None: ...
     def run(self):
@@ -50,37 +38,16 @@ class Flow:
         A newly forked state is then added to the list of pending states.
         The trace ends when there are no more pending states.
         """
-    def _run_handle_exception(self, runner, state): ...
-    def _run_handle_exception(self, runner, state): ...
-    cfgraph: Incomplete
-    def _build_cfg(self, all_states) -> None: ...
-    def _prune_phis(self, runner): ...
-    def _is_implicit_new_block(self, state): ...
-    def _guard_with_as(self, state) -> None: ...
-    def _guard_with_as(self, state) -> None:
-        """Checks if the next instruction after a SETUP_WITH is something
-        other than a POP_TOP, if it is something else it'll be some sort of
-        store which is not supported (this corresponds to `with CTXMGR as
-        VAR(S)`).
-        """
-
-def _is_null_temp_reg(reg): ...
 
 class TraceRunner:
     """Trace runner contains the states for the trace and the opcode dispatch.
     """
-
     debug_filename: Incomplete
     pending: Incomplete
     finished: Incomplete
     def __init__(self, debug_filename) -> None: ...
     def get_debug_loc(self, lineno): ...
     def dispatch(self, state) -> None: ...
-    def _adjust_except_stack(self, state) -> None:
-        """
-        Adjust stack when entering an exception handler to match expectation
-        by the bytecode.
-        """
     def op_NOP(self, state, inst) -> None: ...
     op_NOT_TAKEN = op_NOP
     def op_RESUME(self, state, inst) -> None: ...
@@ -159,19 +126,19 @@ class TraceRunner:
         """
     def op_DELETE_SLICE_0(self, state, inst) -> None:
         """
-        Del TOS[:]
+        del TOS[:]
         """
     def op_DELETE_SLICE_1(self, state, inst) -> None:
         """
-        Del TOS1[TOS:]
+        del TOS1[TOS:]
         """
     def op_DELETE_SLICE_2(self, state, inst) -> None:
         """
-        Del TOS1[:TOS]
+        del TOS1[:TOS]
         """
     def op_DELETE_SLICE_3(self, state, inst) -> None:
         """
-        Del TOS2[TOS1:TOS]
+        del TOS2[TOS1:TOS]
         """
     def op_BUILD_SLICE(self, state, inst) -> None:
         """
@@ -179,14 +146,12 @@ class TraceRunner:
         """
     def op_BINARY_SLICE(self, state, inst) -> None: ...
     def op_STORE_SLICE(self, state, inst) -> None: ...
-    def _op_POP_JUMP_IF(self, state, inst) -> None: ...
-    op_POP_JUMP_IF_TRUE = _op_POP_JUMP_IF
-    op_POP_JUMP_IF_FALSE = _op_POP_JUMP_IF
-    op_POP_JUMP_IF_NONE = _op_POP_JUMP_IF
-    op_POP_JUMP_IF_NOT_NONE = _op_POP_JUMP_IF
-    def _op_JUMP_IF_OR_POP(self, state, inst) -> None: ...
-    op_JUMP_IF_FALSE_OR_POP = _op_JUMP_IF_OR_POP
-    op_JUMP_IF_TRUE_OR_POP = _op_JUMP_IF_OR_POP
+    op_POP_JUMP_IF_TRUE: Incomplete
+    op_POP_JUMP_IF_FALSE: Incomplete
+    op_POP_JUMP_IF_NONE: Incomplete
+    op_POP_JUMP_IF_NOT_NONE: Incomplete
+    op_JUMP_IF_FALSE_OR_POP: Incomplete
+    op_JUMP_IF_TRUE_OR_POP: Incomplete
     def op_POP_JUMP_FORWARD_IF_NONE(self, state, inst) -> None: ...
     def op_POP_JUMP_FORWARD_IF_NOT_NONE(self, state, inst) -> None: ...
     def op_POP_JUMP_BACKWARD_IF_NONE(self, state, inst) -> None: ...
@@ -217,7 +182,6 @@ class TraceRunner:
     def op_SETUP_LOOP(self, state, inst) -> None: ...
     def op_BEFORE_WITH(self, state, inst) -> None: ...
     def op_SETUP_WITH(self, state, inst) -> None: ...
-    def _setup_try(self, kind, state, next, end) -> None: ...
     def op_PUSH_EXC_INFO(self, state, inst) -> None: ...
     def op_SETUP_FINALLY(self, state, inst) -> None: ...
     def op_POP_EXCEPT(self, state, inst) -> None: ...
@@ -234,7 +198,6 @@ class TraceRunner:
     def op_CALL_FUNCTION_EX(self, state, inst) -> None: ...
     def op_CALL_FUNCTION_EX(self, state, inst) -> None: ...
     def op_CALL_FUNCTION_EX(self, state, inst) -> None: ...
-    def _dup_topx(self, state, inst, count) -> None: ...
     def op_CALL_INTRINSIC_1(self, state, inst) -> None: ...
     def op_DUP_TOPX(self, state, inst) -> None: ...
     def op_DUP_TOP(self, state, inst) -> None: ...
@@ -246,7 +209,6 @@ class TraceRunner:
     def op_ROT_FOUR(self, state, inst) -> None: ...
     def op_UNPACK_SEQUENCE(self, state, inst) -> None: ...
     def op_BUILD_TUPLE(self, state, inst) -> None: ...
-    def _build_tuple_unpack(self, state, inst) -> None: ...
     def op_BUILD_TUPLE_UNPACK_WITH_CALL(self, state, inst) -> None: ...
     def op_BUILD_TUPLE_UNPACK(self, state, inst) -> None: ...
     def op_LIST_TO_TUPLE(self, state, inst) -> None: ...
@@ -271,43 +233,41 @@ class TraceRunner:
         New in version 3.10.
         """
     def op_BINARY_OP(self, state, inst) -> None: ...
-    def _unaryop(self, state, inst) -> None: ...
-    op_UNARY_NEGATIVE = _unaryop
-    op_UNARY_POSITIVE = _unaryop
-    op_UNARY_NOT = _unaryop
-    op_UNARY_INVERT = _unaryop
-    def _binaryop(self, state, inst) -> None: ...
-    op_COMPARE_OP = _binaryop
-    op_IS_OP = _binaryop
-    op_CONTAINS_OP = _binaryop
-    op_INPLACE_ADD = _binaryop
-    op_INPLACE_SUBTRACT = _binaryop
-    op_INPLACE_MULTIPLY = _binaryop
-    op_INPLACE_DIVIDE = _binaryop
-    op_INPLACE_TRUE_DIVIDE = _binaryop
-    op_INPLACE_FLOOR_DIVIDE = _binaryop
-    op_INPLACE_MODULO = _binaryop
-    op_INPLACE_POWER = _binaryop
-    op_INPLACE_MATRIX_MULTIPLY = _binaryop
-    op_INPLACE_LSHIFT = _binaryop
-    op_INPLACE_RSHIFT = _binaryop
-    op_INPLACE_AND = _binaryop
-    op_INPLACE_OR = _binaryop
-    op_INPLACE_XOR = _binaryop
-    op_BINARY_ADD = _binaryop
-    op_BINARY_SUBTRACT = _binaryop
-    op_BINARY_MULTIPLY = _binaryop
-    op_BINARY_DIVIDE = _binaryop
-    op_BINARY_TRUE_DIVIDE = _binaryop
-    op_BINARY_FLOOR_DIVIDE = _binaryop
-    op_BINARY_MODULO = _binaryop
-    op_BINARY_POWER = _binaryop
-    op_BINARY_MATRIX_MULTIPLY = _binaryop
-    op_BINARY_LSHIFT = _binaryop
-    op_BINARY_RSHIFT = _binaryop
-    op_BINARY_AND = _binaryop
-    op_BINARY_OR = _binaryop
-    op_BINARY_XOR = _binaryop
+    op_UNARY_NEGATIVE: Incomplete
+    op_UNARY_POSITIVE: Incomplete
+    op_UNARY_NOT: Incomplete
+    op_UNARY_INVERT: Incomplete
+    op_COMPARE_OP: Incomplete
+    op_IS_OP: Incomplete
+    op_CONTAINS_OP: Incomplete
+    op_INPLACE_ADD: Incomplete
+    op_INPLACE_SUBTRACT: Incomplete
+    op_INPLACE_MULTIPLY: Incomplete
+    op_INPLACE_DIVIDE: Incomplete
+    op_INPLACE_TRUE_DIVIDE: Incomplete
+    op_INPLACE_FLOOR_DIVIDE: Incomplete
+    op_INPLACE_MODULO: Incomplete
+    op_INPLACE_POWER: Incomplete
+    op_INPLACE_MATRIX_MULTIPLY: Incomplete
+    op_INPLACE_LSHIFT: Incomplete
+    op_INPLACE_RSHIFT: Incomplete
+    op_INPLACE_AND: Incomplete
+    op_INPLACE_OR: Incomplete
+    op_INPLACE_XOR: Incomplete
+    op_BINARY_ADD: Incomplete
+    op_BINARY_SUBTRACT: Incomplete
+    op_BINARY_MULTIPLY: Incomplete
+    op_BINARY_DIVIDE: Incomplete
+    op_BINARY_TRUE_DIVIDE: Incomplete
+    op_BINARY_FLOOR_DIVIDE: Incomplete
+    op_BINARY_MODULO: Incomplete
+    op_BINARY_POWER: Incomplete
+    op_BINARY_MATRIX_MULTIPLY: Incomplete
+    op_BINARY_LSHIFT: Incomplete
+    op_BINARY_RSHIFT: Incomplete
+    op_BINARY_AND: Incomplete
+    op_BINARY_OR: Incomplete
+    op_BINARY_XOR: Incomplete
     def op_MAKE_FUNCTION(self, state, inst, MAKE_CLOSURE: bool = False) -> None: ...
     def op_SET_FUNCTION_ATTRIBUTE(self, state, inst) -> None: ...
     def op_MAKE_CLOSURE(self, state, inst) -> None: ...
@@ -326,21 +286,6 @@ class TraceRunner:
 class _State:
     """State of the trace
     """
-
-    _bytecode: Incomplete
-    _pc_initial: Incomplete
-    _pc: Incomplete
-    _nstack_initial: Incomplete
-    _stack: Incomplete
-    _blockstack_initial: Incomplete
-    _blockstack: Incomplete
-    _temp_registers: Incomplete
-    _insts: Incomplete
-    _outedges: Incomplete
-    _terminated: bool
-    _phis: Incomplete
-    _outgoing_phis: Incomplete
-    _used_regs: Incomplete
     def __init__(self, bytecode, pc, nstack, blockstack, nullvals=()) -> None:
         """
         Parameters
@@ -468,7 +413,6 @@ class _State:
         """
 
 class StatePy311(_State):
-    _kw_names: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
     def pop_kw_names(self): ...
     def set_kw_names(self, val) -> None: ...
@@ -478,13 +422,11 @@ class StatePy311(_State):
     def make_null(self): ...
 
 class StatePy313(StatePy311):
-    _make_func_attrs: Incomplete
     def __init__(self, *args, **kwargs) -> None: ...
     def set_function_attribute(self, make_func_res, **kwargs) -> None: ...
     def get_function_attributes(self, make_func_res): ...
 State = StatePy313
 State = StatePy311
-State = _State
 
 class Edge(NamedTuple):
     pc: Incomplete
@@ -495,8 +437,6 @@ class Edge(NamedTuple):
 class AdaptDFA:
     """Adapt Flow to the old DFA class expected by Interpreter
     """
-
-    _flow: Incomplete
     def __init__(self, flow) -> None: ...
     @property
     def infos(self): ...
@@ -509,17 +449,10 @@ class AdaptBlockInfo(NamedTuple):
     outgoing_edgepushed: Incomplete
 
 def adapt_state_infos(state): ...
-def _flatten_inst_regs(iterable) -> Generator[Incomplete]:
-    """Flatten an iterable of registers used in an instruction
-    """
 
 class AdaptCFA:
     """Adapt Flow to the old CFA class expected by Interpreter
     """
-
-    _flow: Incomplete
-    _blocks: Incomplete
-    _backbone: Incomplete
     def __init__(self, flow) -> None: ...
     @property
     def graph(self): ...

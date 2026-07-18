@@ -1,13 +1,8 @@
 from _typeshed import Incomplete
 from numba import prange as prange
 from numba.core import errors as errors, types as types
-from numba.core.extending import (
-	make_attribute_wrapper as make_attribute_wrapper, models as models, register_model as register_model,
-	type_callable as type_callable, typeof_impl as typeof_impl)
-from numba.core.typing.templates import (
-	AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, bound_function as bound_function,
-	ConcreteTemplate as ConcreteTemplate, infer as infer, infer_getattr as infer_getattr, infer_global as infer_global,
-	make_callable_template as make_callable_template, signature as signature)
+from numba.core.extending import make_attribute_wrapper as make_attribute_wrapper, models as models, register_model as register_model, type_callable as type_callable, typeof_impl as typeof_impl
+from numba.core.typing.templates import AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, ConcreteTemplate as ConcreteTemplate, bound_function as bound_function, infer as infer, infer_getattr as infer_getattr, infer_global as infer_global, make_callable_template as make_callable_template, signature as signature
 from numba.parfors.parfor import internal_prange as internal_prange
 
 class Print(AbstractTemplate):
@@ -42,7 +37,6 @@ class PairFirst(AbstractTemplate):
     """
     Given a heterogeneous pair, return the first element.
     """
-
     key: str
     def generic(self, args, kws): ...
 
@@ -50,7 +44,6 @@ class PairSecond(AbstractTemplate):
     """
     Given a heterogeneous pair, return the second element.
     """
-
     key: str
     def generic(self, args, kws): ...
 
@@ -93,7 +86,6 @@ class BinOpFloorDiv(ConcreteTemplate):
     cases: Incomplete
 
 class DivMod(ConcreteTemplate):
-    _tys: Incomplete
     cases: Incomplete
 
 class BinOpPower(ConcreteTemplate):
@@ -211,12 +203,11 @@ class StaticGetItemLiteralStrKeyDict(AbstractTemplate):
     def generic(self, args, kws): ...
 
 class StaticGetItemClass(AbstractTemplate):
-    """This handles the "static_getitem" when a Numba type is subscripted e.g:
+    '''This handles the "static_getitem" when a Numba type is subscripted e.g:
     var = typed.List.empty_list(float64[::1, :])
     It only allows this on simple numerical types. Compound types, like
     records, are not supported.
-    """
-
+    '''
     key: str
     def generic(self, args, kws): ...
 
@@ -249,14 +240,6 @@ class NumberAttribute(AttributeTemplate):
     def resolve_conjugate(self, ty, args, kws): ...
     def resolve_item(self, ty, args, kws): ...
 
-class NPTimedeltaAttribute(AttributeTemplate):
-    key = types.NPTimedelta
-    def resolve___class__(self, ty): ...
-
-class NPDatetimeAttribute(AttributeTemplate):
-    key = types.NPDatetime
-    def resolve___class__(self, ty): ...
-
 class SliceAttribute(AttributeTemplate):
     key = types.SliceType
     def resolve_start(self, ty): ...
@@ -277,7 +260,7 @@ class TypeRefAttribute(AttributeTemplate):
     pysig: Incomplete
     def resolve___call__(self, classty):
         """
-        Resolve a core number's constructor (e.g. calling int(...))
+        Resolve a Numba type reference's constructor (e.g. calling DictType(...))
 
         Note:
 
@@ -286,23 +269,10 @@ class TypeRefAttribute(AttributeTemplate):
         (i.e. passing the ``DictType`` vs ``DictType(key_type, value_type)``)
         """
 
-class MinMaxBase(AbstractTemplate):
-    def _unify_minmax(self, tys): ...
-    def generic(self, args, kws):
-        """
-        Resolve a min() or max() call.
-        """
-
-class Max(MinMaxBase): ...
-class Min(MinMaxBase): ...
-
 class Round(ConcreteTemplate):
     cases: Incomplete
 
 class Bool(AbstractTemplate):
-    def generic(self, args, kws): ...
-
-class Int(AbstractTemplate):
     def generic(self, args, kws): ...
 
 class Float(AbstractTemplate):
@@ -338,7 +308,6 @@ class IndexValue:
     """
     Index and value
     """
-
     index: Incomplete
     value: Incomplete
     def __init__(self, ind, val) -> None: ...

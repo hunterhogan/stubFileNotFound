@@ -1,16 +1,12 @@
-from _typeshed import Incomplete
 from numba.core import types as types
 
 class DataModelManager:
     """Manages mapping of FE types to their corresponding data model
     """
-
-    _handlers: Incomplete
-    _cache: Incomplete
     def __init__(self, handlers=None) -> None:
         """
         Parameters
-        ----------
+        -----------
         handlers: Mapping[Type, DataModel] or None
             Optionally provide the initial handlers mapping.
         """

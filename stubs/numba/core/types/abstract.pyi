@@ -1,17 +1,8 @@
+import abc
 from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from functools import cached_property as cached_property
 from numba.core.utils import get_hashable_key as get_hashable_key
-import abc
-import weakref
-
-_typecodes: Incomplete
-
-def _autoincr(): ...
-
-_typecache: dict[weakref.ref, weakref.ref]
-
-def _on_type_disposal(wr, _pop=...) -> None: ...
 
 class _TypeMetaclass(ABCMeta):
     """
@@ -20,9 +11,7 @@ class _TypeMetaclass(ABCMeta):
     __init__, which sets up the required attributes for equality
     and hashing), then looking it up in the _typecache registry.
     """
-
     def __init__(cls, name, bases, orig_vars) -> None: ...
-    def _intern(cls, inst): ...
     def __call__(cls, *args, **kwargs):
         """
         Instantiate *cls* (a Type subclass, presumably) and intern it.
@@ -30,19 +19,13 @@ class _TypeMetaclass(ABCMeta):
         the new instance is returned.
         """
 
-def _type_reconstructor(reconstructor, reconstructor_args, state):
-    """
-    Rebuild function for unpickling types.
-    """
-
 class Type(metaclass=_TypeMetaclass):
-    """
+    '''
     The base class for all Numba types.
     It is essential that proper equality comparison is implemented.  The
     default implementation uses the "key" property (overridable in subclasses)
     for both comparison and hashing, to ensure sane behaviour.
-    """
-
+    '''
     mutable: bool
     reflected: bool
     name: Incomplete
@@ -74,11 +57,11 @@ class Type(metaclass=_TypeMetaclass):
         as simple casting rules.
         """
     def can_convert_to(self, typingctx, other) -> None:
-        """
+        '''
         Check whether this type can be converted to the *other*.
         If successful, must return a string describing the conversion, e.g.
         "exact", "promote", "unsafe", "safe"; otherwise None is returned.
-        """
+        '''
     def can_convert_from(self, typingctx, other) -> None:
         """
         Similar to *can_convert_to*, but in reverse.  Only needed if
@@ -99,13 +82,11 @@ class Type(metaclass=_TypeMetaclass):
         """
         Return an array of this type.
         """
-    def _determine_array_spec(self, args): ...
     def cast_python_value(self, args) -> None: ...
     @property
     def is_internal(self):
-        """Returns True if this class is an internally defined Numba type by
-        virtue of the module in which it is instantiated, False else.
-        """
+        """ Returns True if this class is an internally defined Numba type by
+        virtue of the module in which it is instantiated, False else."""
     def dump(self, tab: str = '') -> None: ...
 
 class Dummy(Type):
@@ -122,7 +103,6 @@ class Number(Hashable):
     """
     Base class for number types.
     """
-
     def unify(self, typingctx, other):
         """
         Unify the two number types using Numpy's rules.
@@ -132,7 +112,6 @@ class Callable(Type, metaclass=abc.ABCMeta):
     """
     Base class for callables.
     """
-
     @abstractmethod
     def get_call_type(self, context, args, kws):
         """
@@ -151,11 +130,10 @@ class Callable(Type, metaclass=abc.ABCMeta):
         """
 
 class DTypeSpec(Type, metaclass=abc.ABCMeta):
-    """
+    '''
     Base class for types usable as "dtype" arguments to various Numpy APIs
     (e.g. np.empty()).
-    """
-
+    '''
     @property
     @abstractmethod
     def dtype(self):
@@ -167,7 +145,6 @@ class IterableType(Type, metaclass=abc.ABCMeta):
     """
     Base class for iterable types.
     """
-
     @property
     @abstractmethod
     def iterator_type(self):
@@ -184,7 +161,6 @@ class ConstSized(Sized, metaclass=abc.ABCMeta):
     """
     For types that have a constant size
     """
-
     @abstractmethod
     def __len__(self): ...
 
@@ -193,7 +169,6 @@ class IteratorType(IterableType, metaclass=abc.ABCMeta):
     Base class for all iterator types.
     Derived classes should implement the *yield_type* attribute.
     """
-
     def __init__(self, name, **kwargs) -> None: ...
     @property
     @abstractmethod
@@ -219,7 +194,6 @@ class MutableSequence(Sequence, metaclass=abc.ABCMeta):
     Base class for 1d mutable sequence types.  Instances should have the
     *dtype* attribute.
     """
-
     mutable: bool
 
 class ArrayCompatible(Type, metaclass=abc.ABCMeta):
@@ -228,7 +202,6 @@ class ArrayCompatible(Type, metaclass=abc.ABCMeta):
     exposing an __array__ method).
     Derived classes should implement the *as_array* attribute.
     """
-
     array_priority: float
     @property
     @abstractmethod
@@ -251,13 +224,8 @@ class Literal(Type):
     A literal type should always be constructed from the `literal(val)`
     function.
     """
-
-    ctor_map: dict[type, type[Literal]]
-    _literal_type_cache: Incomplete
+    ctor_map: dict[type, type['Literal']]
     def __init__(self, value) -> None: ...
-    _literal_value: Incomplete
-    _key: Incomplete
-    def _literal_init(self, value) -> None: ...
     @property
     def literal_value(self): ...
     @property
@@ -268,7 +236,6 @@ class TypeRef(Dummy):
 
     Used when a type is passed as a value.
     """
-
     instance_type: Incomplete
     def __init__(self, instance_type) -> None: ...
     @property
@@ -279,20 +246,17 @@ class InitialValue:
     Used as a mixin for a type will potentially have an initial value that will
     be carried in the .initial_value attribute.
     """
-
-    _initial_value: Incomplete
     def __init__(self, initial_value) -> None: ...
     @property
     def initial_value(self): ...
 
 class Poison(Type):
-    """
+    '''
     This is the "bottom" type in the type system. It won\'t unify and it\'s
     unliteral version is Poison of itself. It\'s advisable for debugging purposes
     to call the constructor with the type that\'s being poisoned (for whatever
     reason) but this isn\'t strictly required.
-    """
-
+    '''
     ty: Incomplete
     def __init__(self, ty) -> None: ...
     def __unliteral__(self): ...

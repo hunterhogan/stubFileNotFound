@@ -4,12 +4,10 @@ from _typeshed import Incomplete
 
 class RangeType(SimpleIterableType):
     dtype: Incomplete
-    _iterator_type: Incomplete
     def __init__(self, dtype) -> None: ...
     def unify(self, typingctx, other): ...
 
 class RangeIteratorType(SimpleIteratorType):
-    _yield_type: Incomplete
     def __init__(self, dtype) -> None: ...
     def unify(self, typingctx, other): ...
 
@@ -17,7 +15,6 @@ class Generator(SimpleIteratorType):
     """
     Type class for Numba-compiled generator objects.
     """
-
     gen_func: Incomplete
     arg_types: Incomplete
     state_types: Incomplete
@@ -31,7 +28,6 @@ class EnumerateType(SimpleIteratorType):
     Type class for `enumerate` objects.
     Type instances are parametered with the underlying source type.
     """
-
     source_type: Incomplete
     def __init__(self, iterable_type) -> None: ...
     @property
@@ -42,7 +38,6 @@ class ZipType(SimpleIteratorType):
     Type class for `zip` objects.
     Type instances are parametered with the underlying source types.
     """
-
     source_types: Incomplete
     def __init__(self, iterable_types) -> None: ...
     @property
@@ -52,6 +47,5 @@ class ArrayIterator(SimpleIteratorType):
     """
     Type class for iterators of array and buffer objects.
     """
-
     array_type: Incomplete
     def __init__(self, array_type) -> None: ...

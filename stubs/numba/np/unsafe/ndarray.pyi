@@ -7,13 +7,13 @@ from numba.cpython.unsafe.tuple import tuple_setitem as tuple_setitem
 
 @intrinsic
 def empty_inferred(typingctx, shape):
-    """A version of numpy.empty whose dtype is inferred by the type system.
+    '''A version of numpy.empty whose dtype is inferred by the type system.
 
     Expects `shape` to be a int-tuple.
 
     There is special logic in the type-inferencer to handle the "refine"-ing
     of undefined dtype.
-    """
+    '''
 @intrinsic
 def to_fixed_tuple(typingctx, array, length):
     """Convert *array* into a tuple of *length*

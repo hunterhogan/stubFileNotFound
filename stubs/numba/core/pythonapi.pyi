@@ -1,17 +1,12 @@
+import contextlib
 from _typeshed import Incomplete
 from collections.abc import Generator
-from numba import _helperlib as _helperlib
-from numba.core import (
-	cgutils as cgutils, config as config, imputils as imputils, lowering as lowering, serialize as serialize,
-	types as types, utils as utils)
-from numba.core.utils import PYVERSION as PYVERSION
+from numba.core import cgutils as cgutils, config as config, imputils as imputils, lowering as lowering, serialize as serialize, types as types, utils as utils
 from typing import NamedTuple
-import contextlib
 
 PY_UNICODE_1BYTE_KIND: Incomplete
 PY_UNICODE_2BYTE_KIND: Incomplete
 PY_UNICODE_4BYTE_KIND: Incomplete
-PY_UNICODE_WCHAR_KIND: Incomplete
 
 class _Registry:
     functions: Incomplete
@@ -19,9 +14,6 @@ class _Registry:
     def register(self, typeclass): ...
     def lookup(self, typeclass, default=None): ...
 
-_boxers: Incomplete
-_unboxers: Incomplete
-_reflectors: Incomplete
 box: Incomplete
 unbox: Incomplete
 reflect: Incomplete
@@ -30,24 +22,18 @@ class _BoxContext(NamedTuple('_BoxContext', [('context', Incomplete), ('builder'
     """
     The facilities required by boxing implementations.
     """
-
-    __slots__: Incomplete
     def box(self, typ, val): ...
 
 class _UnboxContext(NamedTuple('_UnboxContext', [('context', Incomplete), ('builder', Incomplete), ('pyapi', Incomplete)])):
     """
     The facilities required by unboxing implementations.
     """
-
-    __slots__: Incomplete
     def unbox(self, typ, obj): ...
 
 class _ReflectContext(NamedTuple('_ReflectContext', [('context', Incomplete), ('builder', Incomplete), ('pyapi', Incomplete), ('env_manager', Incomplete), ('is_error', Incomplete)])):
     """
     The facilities required by reflection implementations.
     """
-
-    __slots__: Incomplete
     def set_error(self) -> None: ...
     def box(self, typ, val): ...
     def reflect(self, typ, val): ...
@@ -57,7 +43,6 @@ class NativeValue:
     Encapsulate the result of converting a Python object to a native value,
     recording whether the conversion was successful and how to cleanup.
     """
-
     value: Incomplete
     is_error: Incomplete
     cleanup: Incomplete
@@ -91,7 +76,6 @@ class PythonAPI:
     Code generation facilities to call into the CPython C API (and related
     helpers).
     """
-
     context: Incomplete
     builder: Incomplete
     module: Incomplete
@@ -148,11 +132,11 @@ class PythonAPI:
         error indicator is restored at the end of the block.
         """
     def get_c_object(self, name):
-        """
+        '''
         Get a Python object through its C-accessible *name*
         (e.g. "PyExc_ValueError").  The underlying variable must be
         a `PyObject *`, and the value of that pointer is returned.
-        """
+        '''
     def raise_missing_global_error(self, name) -> None: ...
     def raise_missing_name_error(self, name) -> None: ...
     def fatal_error(self, msg) -> None: ...
@@ -185,7 +169,6 @@ class PythonAPI:
         Convert the given Python integer to a void*.  This is recommended
         over number_as_ssize_t as it isn't affected by signedness.
         """
-    def _long_from_native_int(self, ival, func_name, native_int_type, signed): ...
     def long_from_long(self, ival): ...
     def long_from_ulong(self, ival): ...
     def long_from_ssize_t(self, ival): ...
@@ -199,8 +182,6 @@ class PythonAPI:
         """
         Same as long_from_signed_int, but for unsigned values.
         """
-    def _get_number_operator(self, name): ...
-    def _call_number_operator(self, name, lhs, rhs, inplace: bool = False): ...
     def number_add(self, lhs, rhs, inplace: bool = False): ...
     def number_subtract(self, lhs, rhs, inplace: bool = False): ...
     def number_multiply(self, lhs, rhs, inplace: bool = False): ...
@@ -322,7 +303,7 @@ class PythonAPI:
         """
     def object_delitem(self, obj, key):
         """
-        Del obj[key]
+        del obj[key]
         """
     def string_as_string(self, strobj): ...
     def string_as_string_and_size(self, strobj):
@@ -366,7 +347,6 @@ class PythonAPI:
     def nrt_meminfo_from_pyobject(self, miobj): ...
     def nrt_adapt_ndarray_from_python(self, ary, ptr): ...
     def nrt_adapt_buffer_from_python(self, buf, ptr): ...
-    def _get_function(self, fnty, name): ...
     def alloca_obj(self): ...
     def alloca_buffer(self):
         """
@@ -474,9 +454,6 @@ class PythonAPI:
 class ObjModeUtils:
     """Internal utils for calling objmode dispatcher from within NPM code.
     """
-
     pyapi: Incomplete
     def __init__(self, pyapi) -> None: ...
     def load_dispatcher(self, fnty, argtypes): ...
-    @staticmethod
-    def _call_objmode_dispatcher(compile_args): ...

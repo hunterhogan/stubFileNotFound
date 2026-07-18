@@ -1,37 +1,24 @@
 from _typeshed import Incomplete
 from functools import cached_property as cached_property
 from numba.core import cgutils as cgutils, generators as generators, ir as ir, types as types, utils as utils
-from numba.core.errors import (
-	ForbiddenConstruct as ForbiddenConstruct, LoweringError as LoweringError,
-	NumbaNotImplementedError as NumbaNotImplementedError)
+from numba.core.errors import ForbiddenConstruct as ForbiddenConstruct, LoweringError as LoweringError, NumbaNotImplementedError as NumbaNotImplementedError
 from numba.core.lowering import BaseLower as BaseLower
-
-_unsupported_builtins: Incomplete
 
 class _Undefined:
     """
     A sentinel value for undefined variable created by Expr.undef.
     """
 
-
-_UNDEFINED: Incomplete
 PYTHON_BINOPMAP: Incomplete
 PYTHON_COMPAREOPMAP: Incomplete
 
 class PyLower(BaseLower):
     GeneratorLower = generators.PyGeneratorLower
-    _frozen_strings: Incomplete
-    _live_vars: Incomplete
     def init(self) -> None: ...
     def pre_lower(self) -> None: ...
     def post_lower(self) -> None: ...
     def pre_block(self, block) -> None: ...
     def lower_inst(self, inst) -> None: ...
-    @cached_property
-    def _omitted_typobj(self):
-        """Return a `OmittedArg` type instance as a LLVM value suitable for
-        testing at runtime.
-        """
     def lower_assign(self, inst):
         """
         The returned object must have a new reference
@@ -80,7 +67,6 @@ class PyLower(BaseLower):
         """
         Initialize live variables for *block*.
         """
-    def _getvar(self, name, ltype=None): ...
     def loadvar(self, name):
         """
         Load the llvm value of the variable named *name*.
@@ -105,14 +91,9 @@ class PyLower(BaseLower):
         The default is to allocate a pyobject pointer.
         Use ``ltype`` to override.
         """
-    def _alloca_var(self, name, fetype): ...
     def incref(self, value) -> None: ...
     def decref(self, value) -> None:
         """
         This is allow to be called on non pyobject pointer, in which case
         no code is inserted.
-        """
-    def _freeze_string(self, string):
-        """
-        Freeze a Python string object into the code.
         """

@@ -1,35 +1,14 @@
 from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
-from collections.abc import Generator
 from numba.core import sigutils as sigutils, types as types
 from numba.core.typing import signature as signature
 from numba.np.ufunc.sigparse import parse_signature as parse_signature
-from numba.np.ufunc.ufuncbuilder import _BaseUFuncBuilder as _BaseUFuncBuilder, parse_identity as parse_identity
-
-def _broadcast_axis(a, b):
-    """
-    Raises
-    ------
-    ValueError if broadcast fails
-    """
-def _pairwise_broadcast(shape1, shape2):
-    """
-    Raises
-    ------
-    ValueError if broadcast fails
-    """
-def _multi_broadcast(*shapelist):
-    """
-    Raises
-    ------
-    ValueError if broadcast fails
-    """
+from numba.np.ufunc.ufuncbuilder import _BaseUFuncBuilder, parse_identity as parse_identity
 
 class UFuncMechanism:
     """
     Prepare ufunc arguments for vectorize.
     """
-
     DEFAULT_STREAM: Incomplete
     SUPPORT_DEVICE_SLICING: bool
     typemap: Incomplete
@@ -40,25 +19,6 @@ class UFuncMechanism:
     arrays: Incomplete
     def __init__(self, typemap, args) -> None:
         """Never used directly by user. Invoke by UFuncMechanism.call().
-        """
-    def _fill_arrays(self) -> None:
-        """
-        Get all arguments in array form
-        """
-    def _fill_argtypes(self) -> None:
-        """
-        Get dtypes
-        """
-    def _resolve_signature(self) -> None:
-        """Resolve signature.
-        May have ambiguous case.
-        """
-    def _get_actual_args(self):
-        """Return the actual arguments
-        Casts scalar arguments to np.array.
-        """
-    def _broadcast(self, arys):
-        """Perform numpy ufunc broadcasting
         """
     def get_arguments(self):
         """Prepare and return the arguments for the ufunc.
@@ -119,10 +79,6 @@ class DeviceVectorize(_BaseUFuncBuilder):
     def pyfunc(self): ...
     def add(self, sig=None) -> None: ...
     def build_ufunc(self) -> None: ...
-    def _get_kernel_source(self, template, sig, funcname): ...
-    def _compile_core(self, sig) -> None: ...
-    def _get_globals(self, corefn) -> None: ...
-    def _compile_kernel(self, fnobj, sig) -> None: ...
 
 class DeviceGUFuncVectorize(_BaseUFuncBuilder):
     py_func: Incomplete
@@ -133,21 +89,15 @@ class DeviceGUFuncVectorize(_BaseUFuncBuilder):
     @property
     def pyfunc(self): ...
     def add(self, sig=None) -> None: ...
-    def _compile_kernel(self, fnobj, sig) -> None: ...
-    def _get_globals(self, sig) -> None: ...
 
-def _determine_gufunc_outer_types(argtys, dims) -> Generator[Incomplete]: ...
 def expand_gufunc_template(template, indims, outdims, funcname, argtypes):
     """Expand gufunc source template
     """
-def _gen_src_for_indexing(aref, adims, atype): ...
-def _gen_src_index(adims, atype): ...
 
 class GUFuncEngine:
     """Determine how to broadcast and execute a gufunc
     base on input shape and signature
     """
-
     @classmethod
     def from_signature(cls, signature): ...
     sin: Incomplete
@@ -173,18 +123,6 @@ class GeneralizedUFunc:
     max_blocksize: Incomplete
     def __init__(self, kernelmap, engine) -> None: ...
     def __call__(self, *args, **kws): ...
-    def _schedule(self, inputs, outs): ...
-    def _search_matching_signature(self, idtypes):
-        """
-        Given the input types in `idtypes`, return a compatible sequence of
-        types that is defined in `kernelmap`.
-
-        Note: Ordering is guaranteed by `kernelmap` being a OrderedDict
-        """
-    def _broadcast(self, schedule, params, retvals): ...
-    def _broadcast_array(self, ary, newdim, innerdim): ...
-    def _broadcast_add_axis(self, ary, newshape) -> None: ...
-    def _broadcast_scalar_input(self, ary, shape) -> None: ...
 
 class GUFuncCallSteps(metaclass=ABCMeta):
     """
@@ -196,8 +134,6 @@ class GUFuncCallSteps(metaclass=ABCMeta):
     The base class implements the overall logic; subclasses provide
     target-specific implementations of individual functions.
     """
-
-    __slots__: Incomplete
     @abstractmethod
     def launch_kernel(self, kernel, nelem, args):
         """Implement the kernel launch"""
@@ -226,7 +162,6 @@ class GUFuncCallSteps(metaclass=ABCMeta):
         dtype.
         """
     outputs: Incomplete
-    _copy_result_to_host: Incomplete
     inputs: Incomplete
     def __init__(self, nin, nout, args, kwargs) -> None: ...
     def adjust_input_types(self, indtypes) -> None:

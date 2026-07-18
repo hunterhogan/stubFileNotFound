@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from numba.core import consts as consts, errors as errors, ir as ir
-from numba.core.rewrites import register_rewrite as register_rewrite, Rewrite as Rewrite
+from numba.core.rewrites import Rewrite as Rewrite, register_rewrite as register_rewrite
 
 class RewriteConstRaises(Rewrite):
     """
@@ -12,13 +12,6 @@ class RewriteConstRaises(Rewrite):
     This allows lowering in nopython mode, where one can't instantiate
     exception instances from runtime data.
     """
-
-    def _is_exception_type(self, const): ...
-    def _break_constant(self, const, loc):
-        """
-        Break down constant exception.
-        """
-    def _try_infer_constant(self, func_ir, inst): ...
     raises: Incomplete
     tryraises: Incomplete
     block: Incomplete

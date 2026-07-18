@@ -1,27 +1,21 @@
 from _typeshed import Incomplete
-from numba.core import config as config, errors as errors, types as types
+from numba.core import errors as errors, types as types
 from numba.core.cgutils import is_nonelike as is_nonelike
 from numba.core.errors import TypingError as TypingError
 from numba.core.typing.templates import signature as signature
-from numba.np import npdatetime_helpers as npdatetime_helpers
+from numba.np.npdatetime_helpers import combine_datetime_timedelta_units as combine_datetime_timedelta_units
 from typing import NamedTuple
 
 numpy_version: Incomplete
 FROM_DTYPE: Incomplete
 re_typestr: Incomplete
 re_datetimestr: Incomplete
-sizeof_unicode_char: Incomplete
 
-def _from_str_dtype(dtype): ...
-def _from_datetime_dtype(dtype): ...
 def from_dtype(dtype):
     """
     Return a Numba Type instance corresponding to the given Numpy *dtype*.
     NumbaNotImplementedError is raised on unsupported Numpy dtypes.
     """
-
-_as_dtype_letters: Incomplete
-
 def as_dtype(nbtype):
     """
     Return a numpy dtype instance corresponding to the given Numba type.
@@ -30,8 +24,6 @@ def as_dtype(nbtype):
 def as_struct_dtype(rec):
     """Convert Numba Record type to NumPy structured dtype
     """
-def _check_struct_alignment(rec, fields) -> None:
-    """Check alignment compatibility with Numpy"""
 def map_arrayscalar_type(val): ...
 def is_array(val): ...
 def map_layout(val): ...
@@ -67,21 +59,18 @@ def supported_ufunc_loop(ufunc, loop):
     """
 
 class UFuncLoopSpec(NamedTuple('_UFuncLoopSpec', [('inputs', Incomplete), ('outputs', Incomplete), ('ufunc_sig', Incomplete)])):
-    """
+    '''
     An object describing a ufunc loop\'s inner types.  Properties:
     - inputs: the inputs\' Numba types
     - outputs: the outputs\' Numba types
     - ufunc_sig: the string representing the ufunc\'s type signature, in
       Numpy format (e.g. "ii->i")
-    """
-
-    __slots__: Incomplete
+    '''
     @property
     def numpy_inputs(self): ...
     @property
     def numpy_outputs(self): ...
 
-def _ufunc_loop_sig(out_tys, in_tys): ...
 def ufunc_can_cast(from_, to, has_mixed_inputs, casting: str = 'safe'):
     """
     A variant of np.can_cast() that can allow casting any integer to
@@ -102,15 +91,9 @@ def ufunc_find_matching_loop(ufunc, arg_types):
     return value - A UFuncLoopSpec identifying the loop, or None
                    if no matching loop is found.
     """
-def _is_aligned_struct(struct): ...
 def from_struct_dtype(dtype):
     """Convert a NumPy structured dtype to Numba Record type
     """
-def _get_bytes_buffer(ptr, nbytes):
-    """
-    Get a ctypes array of *nbytes* starting at *ptr*.
-    """
-def _get_array_from_ptr(ptr, nbytes, dtype): ...
 def carray(ptr, shape, dtype=None):
     """
     Return a Numpy array view over the data pointed to by *ptr* with the
@@ -134,11 +117,11 @@ def is_fortran(dims, strides, itemsize):
     Note: The code is usable as a numba-compiled function
     """
 def type_can_asarray(arr):
-    """Returns True if the type of 'arr' is supported by the Numba `np.asarray`
+    """ Returns True if the type of 'arr' is supported by the Numba `np.asarray`
     implementation, False otherwise.
     """
 def type_is_scalar(typ):
-    """Returns True if the type of 'typ' is a scalar type, according to
+    """ Returns True if the type of 'typ' is a scalar type, according to
     NumPy rules. False otherwise.
     https://numpy.org/doc/stable/reference/arrays.scalars.html#built-in-scalar-types
     """

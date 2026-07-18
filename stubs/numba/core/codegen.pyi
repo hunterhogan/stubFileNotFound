@@ -1,3 +1,4 @@
+import abc
 from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from collections.abc import Generator
@@ -9,21 +10,7 @@ from numba.core.runtime import rtsys as rtsys
 from numba.core.runtime.nrtopt import remove_redundant_nrt_refct as remove_redundant_nrt_refct
 from numba.misc.inspection import disassemble_elf_to_cfg as disassemble_elf_to_cfg
 from numba.misc.llvm_pass_timings import PassTimingsCollection as PassTimingsCollection
-import abc
 
-_x86arch: Incomplete
-
-def _is_x86(triple): ...
-def _parse_refprune_flags():
-    """Parse refprune flags from the `config`.
-
-    Invalid values are ignored an warn via a `NumbaInvalidConfigWarning`
-    category.
-
-    Returns
-    -------
-    flags : llvmlite.binding.RefPruneSubpasses
-    """
 def dump(header, body, lang) -> None: ...
 
 class _CFG:
@@ -34,7 +21,6 @@ class _CFG:
     the graph in DOT format.  The ``.display()`` method plots the graph in
     PDF.  If in IPython notebook, the returned image can be inlined.
     """
-
     cres: Incomplete
     name: Incomplete
     py_func: Incomplete
@@ -42,11 +28,11 @@ class _CFG:
     kwargs: Incomplete
     def __init__(self, cres, name, py_func, **kwargs) -> None: ...
     def pretty_printer(self, filename=None, view=None, render_format=None, highlight: bool = True, interleave: bool = False, strip_ir: bool = False, show_key: bool = True, fontsize: int = 10):
-        """
+        '''
         "Pretty" prints the DOT graph of the CFG.
         For explanation of the parameters see the docstring for
         numba.core.dispatcher::inspect_cfg.
-        """
+        '''
     def display(self, filename=None, format: str = 'pdf', view: bool = False):
         """
         Plot the CFG.  In IPython notebook, the return image object can be
@@ -57,7 +43,6 @@ class _CFG:
         the system default application for the image format (PDF). *format* can
         be any valid format string accepted by graphviz, default is 'pdf'.
         """
-    def _repr_svg_(self): ...
 
 class CodeLibrary(metaclass=ABCMeta):
     """
@@ -65,15 +50,6 @@ class CodeLibrary(metaclass=ABCMeta):
     It is tied to a *codegen* instance (e.g. JITCPUCodegen) that will
     determine how the LLVM code is transformed and linked together.
     """
-
-    _finalized: bool
-    _object_caching_enabled: bool
-    _disable_inspection: bool
-    _codegen: Incomplete
-    _name: Incomplete
-    _recorded_timings: Incomplete
-    _dynamic_globals: Incomplete
-    _reload_init: Incomplete
     def __init__(self, codegen: CPUCodegen, name: str) -> None: ...
     @property
     def has_dynamic_globals(self): ...
@@ -86,8 +62,6 @@ class CodeLibrary(metaclass=ABCMeta):
         """
     @property
     def name(self): ...
-    def _raise_if_finalized(self) -> None: ...
-    def _ensure_finalized(self) -> None: ...
     def create_ir_module(self, name):
         """
         Create an LLVM IR module for use by this library.
@@ -125,52 +99,20 @@ class CodeLibrary(metaclass=ABCMeta):
         """
         Get the human-readable assembly.
         """
-    _compiled_object: Incomplete
-    _compiled: bool
     def enable_object_caching(self) -> None: ...
-    def _get_compiled_object(self): ...
-    def _set_compiled_object(self, value) -> None: ...
 
 class CPUCodeLibrary(CodeLibrary):
-    _linking_libraries: Incomplete
-    _final_module: Incomplete
-    _shared_module: Incomplete
     def __init__(self, codegen, name) -> None: ...
-    def _optimize_functions(self, ll_module) -> None:
-        """
-        Internal: run function-level optimizations inside *ll_module*.
-        """
-    def _optimize_final_module(self) -> None:
-        """
-        Internal: optimize this library's final module.
-        """
-    def _get_module_for_linking(self):
-        """
-        Internal: get a LLVM module suitable for linking multiple times
-        into another library.  Exported functions are made "linkonce_odr"
-        to allow for multiple definitions, inlining, and removal of
-        unused exports.
-
-        See discussion in https://github.com/numba/numba/pull/890
-        """
     def add_linking_library(self, library) -> None: ...
     def add_ir_module(self, ir_module) -> None: ...
     def add_llvm_module(self, ll_module) -> None: ...
     def finalize(self) -> None: ...
-    def _finalize_dynamic_globals(self) -> None: ...
-    def _verify_declare_only_symbols(self) -> None: ...
-    _finalized: bool
-    def _finalize_final_module(self) -> None:
-        """
-        Make the underlying LLVM module ready to use.
-        """
     def get_defined_functions(self) -> Generator[Incomplete]:
         """
         Get all functions defined in the library.  The library must have
         been finalized.
         """
     def get_function(self, name): ...
-    def _sentry_cache_disable_inspection(self) -> None: ...
     def get_llvm_str(self): ...
     def get_asm_str(self): ...
     def get_function_cfg(self, name, py_func=None, **kwargs):
@@ -187,24 +129,6 @@ class CPUCodeLibrary(CodeLibrary):
         Optionally requires a compiler toolchain (via pycc) to link the ELF to
         get better disassembly results.
         """
-    @classmethod
-    def _dump_elf(cls, buf):
-        """
-        Dump the symbol table of an ELF file.
-        Needs pyelftools (https://github.com/eliben/pyelftools)
-        """
-    _compiled: bool
-    _compiled_object: Incomplete
-    @classmethod
-    def _object_compiled_hook(cls, ll_module, buf) -> None:
-        """
-        `ll_module` was compiled into object code `buf`.
-        """
-    @classmethod
-    def _object_getbuffer_hook(cls, ll_module):
-        """
-        Return a cached object code for `ll_module`.
-        """
     def serialize_using_bitcode(self):
         """
         Serialize this library using its bitcode as the cached representation.
@@ -215,8 +139,6 @@ class CPUCodeLibrary(CodeLibrary):
         representation.  We also include its bitcode for further inlining
         with other libraries.
         """
-    @classmethod
-    def _unserialize(cls, codegen, state): ...
 
 class AOTCodeLibrary(CPUCodeLibrary):
     def emit_native_object(self):
@@ -232,7 +154,6 @@ class AOTCodeLibrary(CPUCodeLibrary):
 
         This function implicitly calls .finalize().
         """
-    def _finalize_specific(self) -> None: ...
 
 class JITCodeLibrary(CPUCodeLibrary):
     def get_pointer_to_function(self, name):
@@ -249,17 +170,12 @@ class JITCodeLibrary(CPUCodeLibrary):
               library.
             - non-zero if the symbol is defined.
         """
-    def _finalize_specific(self) -> None: ...
 
 class RuntimeLinker:
     """
     For tracking unresolved symbols generated at runtime due to recursion.
     """
-
     PREFIX: str
-    _unresolved: Incomplete
-    _defined: Incomplete
-    _resolved: Incomplete
     def __init__(self) -> None: ...
     def scan_unresolved_symbols(self, module, engine) -> None:
         """
@@ -275,22 +191,14 @@ class RuntimeLinker:
         Fix unresolved symbols if they are defined.
         """
 
-def _proxy(old): ...
-
 class JitEngine:
     """Wraps an ExecutionEngine to provide custom symbol tracking.
     Since the symbol tracking is incomplete  (doesn't consider
     loaded code object), we are not putting it in llvmlite.
     """
-
-    _ee: Incomplete
-    _defined_symbols: Incomplete
     def __init__(self, ee) -> None: ...
     def is_symbol_defined(self, name):
         """Is the symbol defined in this session?
-        """
-    def _load_defined_symbols(self, mod) -> None:
-        """Extract symbols from the module
         """
     def add_module(self, module):
         """Override ExecutionEngine.add_module
@@ -315,23 +223,11 @@ class Codegen(metaclass=ABCMeta):
     ``self._data_layout``: the data layout for the target.
     ``self._target_data``: the binding layer ``TargetData`` for the target.
     """
-
-    @abstractmethod
-    def _create_empty_module(self, name):
-        """
-        Create a new empty module suitable for the target.
-        """
-    @abstractmethod
-    def _add_module(self, module):
-        """
-        Add a module to the execution engine. Ownership of the module is
-        transferred to the engine.
-        """
     @property
     def target_data(self):
-        """
+        '''
         The LLVM "target data" object for this codegen instance.
-        """
+        '''
     def create_library(self, name, **kwargs):
         """
         Create a :class:`CodeLibrary` object for use with this codegen
@@ -340,56 +236,24 @@ class Codegen(metaclass=ABCMeta):
     def unserialize_library(self, serialized): ...
 
 class CPUCodegen(Codegen, metaclass=abc.ABCMeta):
-    _data_layout: Incomplete
-    _llvm_module: Incomplete
-    _rtlinker: Incomplete
     def __init__(self, module_name) -> None: ...
-    _tm_features: Incomplete
-    _tm: Incomplete
-    _engine: Incomplete
-    _target_data: Incomplete
-    _loopvect: bool
-    _opt_level: int
-    def _init(self, llvm_module) -> None: ...
-    def _create_empty_module(self, name): ...
-    def _module_pass_manager(self, **kwargs): ...
-    def _function_pass_manager(self, **kwargs): ...
-    def _pass_builder(self, **kwargs): ...
-    def _check_llvm_bugs(self) -> None:
-        """
-        Guard against some well-known LLVM bug(s).
-        """
     def magic_tuple(self):
         """
         Return a tuple unambiguously describing the codegen behaviour.
         """
-    def _scan_and_fix_unresolved_refs(self, module) -> None: ...
     def insert_unresolved_ref(self, builder, fnty, name): ...
-    def _get_host_cpu_name(self): ...
-    def _get_host_cpu_features(self): ...
 
 class AOTCPUCodegen(CPUCodegen):
     """
     A codegen implementation suitable for Ahead-Of-Time compilation
     (e.g. generation of object files).
     """
-
-    _library_class = AOTCodeLibrary
-    _cpu_name: Incomplete
     def __init__(self, module_name, cpu_name=None) -> None: ...
-    def _customize_tm_options(self, options) -> None: ...
-    def _customize_tm_features(self): ...
-    def _add_module(self, module) -> None: ...
 
 class JITCPUCodegen(CPUCodegen):
     """
     A codegen implementation suitable for Just-In-Time compilation.
     """
-
-    _library_class = JITCodeLibrary
-    def _customize_tm_options(self, options) -> None: ...
-    def _customize_tm_features(self): ...
-    def _add_module(self, module) -> None: ...
     def set_env(self, env_name, env) -> None:
         """Set the environment address.
 

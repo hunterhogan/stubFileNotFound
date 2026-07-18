@@ -5,7 +5,6 @@ class _ArgManager:
     """
     A utility class to handle argument unboxing and cleanup
     """
-
     context: Incomplete
     builder: Incomplete
     api: Incomplete
@@ -33,7 +32,6 @@ class _GilManager:
     A utility class to handle releasing the GIL and then re-acquiring it
     again.
     """
-
     builder: Incomplete
     api: Incomplete
     argman: Incomplete
@@ -54,10 +52,5 @@ class PyCallWrapper:
     def get_env(self, api, builder):
         """Get the Environment object which is declared as a global
         in the module of the wrapped function.
-        """
-    def _simplified_return_type(self):
-        """
-        The NPM callconv has already converted simplified optional types.
-        We can simply use the value type from it.
         """
     def debug_print(self, builder, msg) -> None: ...

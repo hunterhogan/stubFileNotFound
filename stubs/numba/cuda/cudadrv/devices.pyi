@@ -1,8 +1,8 @@
-from .driver import driver as driver, USE_NV_BINDING as USE_NV_BINDING
+import types
+from .driver import USE_NV_BINDING as USE_NV_BINDING, driver as driver
 from _typeshed import Incomplete
 from collections.abc import Generator
 from contextlib import contextmanager
-import types
 
 class _DeviceList:
     lst: Incomplete
@@ -29,8 +29,6 @@ class _DeviceContextManager:
 
     to copy the array *a* onto device 2, referred to by *d_a*.
     """
-
-    _device: Incomplete
     def __init__(self, device) -> None: ...
     def __getattr__(self, item): ...
     def __enter__(self) -> None: ...
@@ -42,11 +40,7 @@ class _Runtime:
     It owns all Devices and Contexts.
     Keeps at most one Context per Device
     """
-
     gpus: Incomplete
-    _tls: Incomplete
-    _mainthread: Incomplete
-    _lock: Incomplete
     def __init__(self) -> None: ...
     @contextmanager
     def ensure_context(self) -> Generator[None]:
@@ -64,20 +58,11 @@ class _Runtime:
         for *devnum*.  If *devnum* is None, use the active CUDA context (must
         be primary) or create a new one with ``devnum=0``.
         """
-    def _get_or_create_context_uncached(self, devnum):
-        """See also ``get_or_create_context(devnum)``.
-        This version does not read the cache.
-        """
-    def _activate_context_for(self, devnum): ...
-    def _get_attached_context(self): ...
-    def _set_attached_context(self, ctx) -> None: ...
     def reset(self) -> None:
         """Clear all contexts in the thread.  Destroy the context if and only
         if we are in the main thread.
         """
-    def _destroy_all_contexts(self) -> None: ...
 
-_runtime: Incomplete
 gpus: Incomplete
 
 def get_context(devnum=None):

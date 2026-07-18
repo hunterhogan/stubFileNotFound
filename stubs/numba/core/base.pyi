@@ -2,14 +2,9 @@ from _typeshed import Incomplete
 from collections.abc import Generator
 from contextlib import contextmanager
 from functools import cached_property as cached_property
-from numba import _dynfunc as _dynfunc, _helperlib as _helperlib
-from numba.core import (
-	cgutils as cgutils, config as config, datamodel as datamodel, debuginfo as debuginfo, errors as errors, event as event,
-	funcdesc as funcdesc, imputils as imputils, targetconfig as targetconfig, types as types, utils as utils)
+from numba.core import cgutils as cgutils, config as config, datamodel as datamodel, debuginfo as debuginfo, errors as errors, event as event, funcdesc as funcdesc, imputils as imputils, targetconfig as targetconfig, types as types, utils as utils
 from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
-from numba.core.imputils import (
-	builtin_registry as builtin_registry, impl_ret_borrowed as impl_ret_borrowed, RegistryLoader as RegistryLoader,
-	user_function as user_function, user_generator as user_generator)
+from numba.core.imputils import RegistryLoader as RegistryLoader, builtin_registry as builtin_registry, impl_ret_borrowed as impl_ret_borrowed, user_function as user_function, user_generator as user_generator
 from numba.core.pythonapi import PythonAPI as PythonAPI
 from numba.cpython import builtins as builtins
 
@@ -18,54 +13,21 @@ PYOBJECT = GENERIC_POINTER
 void_ptr = GENERIC_POINTER
 
 class OverloadSelector:
-    """
+    '''
     An object matching an actual signature against a registry of formal
     signatures and choosing the best candidate, if any.
 
     In the current implementation:
     - a "signature" is a tuple of type classes or type instances
     - the "best candidate" is the most specific match
-    """
-
+    '''
     versions: Incomplete
-    _cache: Incomplete
     def __init__(self) -> None: ...
     def find(self, sig): ...
-    def _find(self, sig): ...
-    def _select_compatible(self, sig):
-        """
-        Select all compatible signatures and their implementation.
-        """
-    def _best_signature(self, candidates):
-        """
-        Returns the best signature out of the candidates
-        """
-    def _sort_signatures(self, candidates):
-        """
-        Sort signatures in ascending level of genericity.
-
-        Returns a 2-tuple:
-
-            * ordered list of signatures
-            * dictionary containing genericity scores
-        """
-    def _match_arglist(self, formal_args, actual_args):
-        """
-        Returns True if the signature is "matching".
-        A formal signature is "matching" if the actual signature matches exactly
-        or if the formal signature is a compatible generic signature.
-        """
-    def _match(self, formal, actual): ...
     def append(self, value, sig) -> None:
         """
         Add a formal signature and its associated value.
         """
-
-@utils.runonce
-def _load_global_helpers() -> None:
-    """
-    Execute once to install special symbols into the LLVM symbol table.
-    """
 
 class BaseContext:
     """
@@ -78,7 +40,6 @@ class BaseContext:
     Only POD structure can live across function boundaries by copying the
     data.
     """
-
     strict_alignment: bool
     implement_powi_as_math_call: bool
     implement_pow_as_math_call: bool
@@ -86,7 +47,6 @@ class BaseContext:
     DIBuilder = debuginfo.DIBuilder
     @property
     def enable_boundscheck(self): ...
-    _boundscheck: Incomplete
     @enable_boundscheck.setter
     def enable_boundscheck(self, value) -> None: ...
     enable_nrt: bool
@@ -101,17 +61,8 @@ class BaseContext:
     typing_context: Incomplete
     target_name: Incomplete
     target: Incomplete
-    _registries: Incomplete
-    _defns: Incomplete
-    _getattrs: Incomplete
-    _setattrs: Incomplete
-    _casts: Incomplete
-    _get_constants: Incomplete
-    _generators: Incomplete
     special_ops: Incomplete
     cached_internal_func: Incomplete
-    _pid: Incomplete
-    _codelib_stack: Incomplete
     data_model_manager: Incomplete
     def __init__(self, typing_context, target) -> None: ...
     def init(self) -> None:
@@ -169,10 +120,6 @@ class BaseContext:
         and attribute implementations.
         """
     def insert_func_defn(self, defns) -> None: ...
-    def _insert_getattr_defn(self, defns) -> None: ...
-    def _insert_setattr_defn(self, defns) -> None: ...
-    def _insert_cast_defn(self, defns) -> None: ...
-    def _insert_get_constant_defn(self, defns) -> None: ...
     def insert_user_function(self, func, fndesc, libs=()) -> None: ...
     def insert_generator(self, genty, gendesc, libs=()) -> None: ...
     def remove_user_function(self, func) -> None:
@@ -182,6 +129,10 @@ class BaseContext:
         """
     def get_external_function_type(self, fndesc): ...
     def declare_function(self, module, fndesc): ...
+    def apply_target_attributes(self, llvm_func, argtypes=None, restype=None) -> None:
+        """
+        Hook for subclasses to apply target-specific attributes (e.g. signext).
+        """
     def declare_external_function(self, module, fndesc): ...
     def insert_const_string(self, mod, string):
         """
@@ -316,14 +267,6 @@ class BaseContext:
         """
     def get_dummy_value(self): ...
     def get_dummy_type(self): ...
-    def _compile_subroutine_no_cache(self, builder, impl, sig, locals=None, flags=None):
-        """
-        Invoke the compiler to compile a function to be used inside a
-        nopython function, but without generating code to call that
-        function.
-
-        Note this context's flags are not inherited.
-        """
     def compile_subroutine(self, builder, impl, sig, locals=None, flags=None, caching: bool = True):
         """
         Compile the function *impl* for the given *sig* (in nopython mode).
@@ -336,6 +279,11 @@ class BaseContext:
         """
         Like compile_subroutine(), but also call the function with the given
         *args*.
+
+        Notes
+        -----
+        Use of this API is discouraged. See coding_guidelines.rst in the
+        developer docs.
         """
     def call_internal(self, builder, fndesc, sig, args):
         """
@@ -347,7 +295,7 @@ class BaseContext:
         the return status automatically.
         """
     def call_unresolved(self, builder, name, sig, args):
-        """
+        '''
         Insert a function call to an unresolved symbol with the given *name*.
 
         Note: this is used for recursive call.
@@ -376,7 +324,7 @@ class BaseContext:
         The legacy lazy JIT and the new ORC JIT would allow a declare-only
         function be used in a module as long as it is defined by the time of its
         first use.
-        """
+        '''
     def get_executable(self, func, fndesc, env) -> None: ...
     def get_python_api(self, builder): ...
     def sentry_record_alignment(self, rectyp, attr) -> None:
@@ -387,7 +335,6 @@ class BaseContext:
         """
         Get a helper class for the given *typ*.
         """
-    def _make_helper(self, builder, typ, value=None, ref=None, kind: str = 'value'): ...
     def make_helper(self, builder, typ, value=None, ref=None):
         """
         Get a helper object to access the *typ*'s members,
@@ -480,18 +427,9 @@ class _wrap_impl:
     (context, signature) arguments.
     The wrapper also forwards attribute queries, which is important.
     """
-
-    _callable: Incomplete
-    _imp: Incomplete
-    _context: Incomplete
-    _sig: Incomplete
     def __init__(self, imp, context, sig) -> None: ...
     def __call__(self, builder, args, loc=None): ...
     def __getattr__(self, item): ...
-
-def _has_loc(fn):
-    """Does function *fn* take ``loc`` argument?
-    """
 
 class _wrap_missing_loc:
     func: Incomplete
@@ -500,8 +438,3 @@ class _wrap_missing_loc:
         """Wrap function for missing ``loc`` keyword argument.
         Otherwise, return the original *fn*.
         """
-
-@utils.runonce
-def _initialize_llvm_lock_event() -> None:
-    """Initial event triggers for LLVM lock
-    """

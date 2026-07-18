@@ -45,11 +45,6 @@ def find_top_level_loops(cfg) -> Generator[Incomplete]:
     """
     A generator that yields toplevel loops given a control-flow-graph
     """
-def _fix_loop_exit(cfg, loop):
-    """
-    Fixes loop.exits for Py3.8+ bytecode CFG changes.
-    This is to handle `break` inside loops.
-    """
 
 class nullified(NamedTuple):
     condition: Incomplete
@@ -80,6 +75,7 @@ def find_literally_calls(func_ir, argtypes) -> None:
 
     Parameters
     ----------
+
     func_ir : numba.ir.FunctionIR
 
     argtypes : Sequence[numba.types.Type]

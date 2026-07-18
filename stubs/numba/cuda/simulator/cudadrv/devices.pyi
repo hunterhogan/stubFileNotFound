@@ -1,12 +1,10 @@
+import types
 from _typeshed import Incomplete
 from typing import NamedTuple
-import types
 
 class _MemoryInfo(NamedTuple):
     free: Incomplete
     total: Incomplete
-
-_SIMULATOR_CC: Incomplete
 
 class FakeCUDADevice:
     uuid: str
@@ -19,9 +17,6 @@ class FakeCUDAContext:
     This stub implements functionality only for simulating a single GPU
     at the moment.
     """
-
-    _device_id: Incomplete
-    _device: Incomplete
     def __init__(self, device_id) -> None: ...
     def __enter__(self) -> None: ...
     def __exit__(self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: types.TracebackType | None) -> None: ...
@@ -53,7 +48,6 @@ class FakeDeviceList:
     keeps track of the GPU status, i.e. whether the context is closed or not,
     which may have been set by the user calling reset()
     """
-
     lst: Incomplete
     closed: bool
     def __init__(self) -> None: ...
@@ -68,6 +62,6 @@ gpus: Incomplete
 def reset() -> None: ...
 def get_context(devnum: int = 0): ...
 def require_context(func):
-    """
+    '''
     In the simulator, a context is always "available", so this is a no-op.
-    """
+    '''

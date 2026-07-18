@@ -1,16 +1,15 @@
+import contextlib
 from _typeshed import Incomplete
 from collections.abc import Generator
 from enum import Enum
 from numba.core import cgutils as cgutils, types as types, typing as typing, utils as utils
 from numba.core.typing.templates import BaseRegistryLoader as BaseRegistryLoader
 from typing import NamedTuple
-import contextlib
 
 class Registry:
     """
     A registry of function and attribute implementations.
     """
-
     name: Incomplete
     functions: Incomplete
     getattrs: Incomplete
@@ -19,15 +18,19 @@ class Registry:
     constants: Incomplete
     def __init__(self, name: str = 'unspecified') -> None: ...
     def lower(self, func, *argtys):
-        """
+        '''
         Decorate an implementation of *func* for the given argument types.
         *func* may be an actual global function object, or any
         pseudo-function supported by Numba, such as "getitem".
 
         The decorated implementation has the signature
         (context, builder, sig, args).
-        """
-    def _decorate_attr(self, impl, ty, attr, impl_list, decorator): ...
+
+        Notes
+        -----
+        Use of this API is discouraged. See coding_guidelines.rst in the
+        developer docs.
+        '''
     def lower_getattr(self, ty, attr):
         """
         Decorate an implementation of __getattr__ for type *ty* and
@@ -35,6 +38,11 @@ class Registry:
 
         The decorated implementation will have the signature
         (context, builder, typ, val).
+
+        Notes
+        -----
+        Use of this API is discouraged. See coding_guidelines.rst in the
+        developer docs.
         """
     def lower_getattr_generic(self, ty):
         """
@@ -44,6 +52,11 @@ class Registry:
         (context, builder, typ, val, attr).  The implementation is
         called for attributes which haven't been explicitly registered
         with lower_getattr().
+
+        Notes
+        -----
+        Use of this API is discouraged. See coding_guidelines.rst in the
+        developer docs.
         """
     def lower_setattr(self, ty, attr):
         """
@@ -52,6 +65,11 @@ class Registry:
 
         The decorated implementation will have the signature
         (context, builder, sig, args).
+
+        Notes
+        -----
+        Use of this API is discouraged. See coding_guidelines.rst in the
+        developer docs.
         """
     def lower_setattr_generic(self, ty):
         """
@@ -61,6 +79,11 @@ class Registry:
         (context, builder, sig, args, attr).  The implementation is
         called for attributes which haven't been explicitly registered
         with lower_setattr().
+
+        Notes
+        -----
+        Use of this API is discouraged. See coding_guidelines.rst in the
+        developer docs.
         """
     def lower_cast(self, fromty, toty):
         """
@@ -69,6 +92,11 @@ class Registry:
 
         The decorated implementation will have the signature
         (context, builder, fromty, toty, val).
+
+        Notes
+        -----
+        Use of this API is discouraged. See coding_guidelines.rst in the
+        developer docs.
         """
     def lower_constant(self, ty):
         """
@@ -76,13 +104,17 @@ class Registry:
 
         The decorated implementation will have the signature
         (context, builder, ty, pyval).
+
+        Notes
+        -----
+        Use of this API is discouraged. See coding_guidelines.rst in the
+        developer docs.
         """
 
 class RegistryLoader(BaseRegistryLoader):
     """
     An incremental loader for a target registry.
     """
-
     registry_items: Incomplete
 
 builtin_registry: Incomplete
@@ -94,8 +126,6 @@ lower_setattr_generic: Incomplete
 lower_cast: Incomplete
 lower_constant: Incomplete
 
-def _decorate_getattr(impl, ty, attr): ...
-def _decorate_setattr(impl, ty, attr): ...
 def fix_returning_optional(context, builder, sig, status, retval): ...
 def user_function(fndesc, libs):
     """
@@ -116,11 +146,6 @@ class _IternextResult:
     A result wrapper for iteration, passed by iternext_impl() into the
     wrapped function.
     """
-
-    __slots__: Incomplete
-    _context: Incomplete
-    _builder: Incomplete
-    _pairobj: Incomplete
     def __init__(self, context, builder, pairobj) -> None: ...
     def set_exhausted(self) -> None:
         """
@@ -148,7 +173,6 @@ class RefType(Enum):
     """
     Enumerate the reference type
     """
-
     NEW = 1
     BORROWED = 2
     UNTRACKED = 3

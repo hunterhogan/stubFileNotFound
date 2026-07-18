@@ -9,7 +9,6 @@ class Dim3:
     """
     Used to implement thread/block indices/dimensions
     """
-
     x: Incomplete
     y: Incomplete
     z: Incomplete
@@ -20,28 +19,24 @@ class GridGroup:
     """
     Used to implement the grid group.
     """
-
     def sync(self) -> None: ...
 
 class FakeCUDACg:
     """
     CUDA Cooperative Groups
     """
-
     def this_grid(self): ...
 
 class FakeCUDALocal:
     """
     CUDA Local arrays
     """
-
     def array(self, shape, dtype): ...
 
 class FakeCUDAConst:
     """
     CUDA Const arrays
     """
-
     def array_like(self, ary): ...
 
 class FakeCUDAShared:
@@ -61,10 +56,6 @@ class FakeCUDAShared:
     will alias all arrays created at that point (though it is not certain that
     this would be supported by Numba anyway).
     """
-
-    _allocations: Incomplete
-    _dynshared_size: Incomplete
-    _dynshared: Incomplete
     def __init__(self, dynshared_size) -> None: ...
     def array(self, shape, dtype): ...
 
@@ -139,15 +130,8 @@ class FakeCUDAModule:
 
     In other words, the CUDA module must be called cuda.
     """
-
     gridDim: Incomplete
     blockDim: Incomplete
-    _cg: Incomplete
-    _local: Incomplete
-    _shared: Incomplete
-    _const: Incomplete
-    _atomic: Incomplete
-    _fp16: Incomplete
     def __init__(self, grid_dim, block_dim, dynshared_size) -> None: ...
     @property
     def cg(self): ...

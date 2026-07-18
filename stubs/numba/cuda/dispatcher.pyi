@@ -1,7 +1,6 @@
 from _typeshed import Incomplete
-from numba import _dispatcher as _dispatcher, cuda as cuda
-from numba.core import (
-	config as config, serialize as serialize, sigutils as sigutils, types as types, typing as typing, utils as utils)
+from numba import cuda as cuda
+from numba.core import config as config, serialize as serialize, sigutils as sigutils, types as types, typing as typing, utils as utils
 from numba.core.caching import Cache as Cache, CacheImpl as CacheImpl
 from numba.core.compiler_lock import global_compiler_lock as global_compiler_lock
 from numba.core.dispatcher import Dispatcher as Dispatcher
@@ -9,12 +8,11 @@ from numba.core.errors import NumbaPerformanceWarning as NumbaPerformanceWarning
 from numba.core.typing.typeof import Purpose as Purpose, typeof as typeof
 from numba.cuda.api import get_current_device as get_current_device
 from numba.cuda.args import wrap_arg as wrap_arg
-from numba.cuda.compiler import compile_cuda as compile_cuda, CUDACompiler as CUDACompiler
+from numba.cuda.compiler import CUDACompiler as CUDACompiler, compile_cuda as compile_cuda
 from numba.cuda.cudadrv import driver as driver
 from numba.cuda.cudadrv.devices import get_context as get_context
 from numba.cuda.descriptor import cuda_target as cuda_target
-from numba.cuda.errors import (
-	missing_launch_config_msg as missing_launch_config_msg, normalize_kernel_dimensions as normalize_kernel_dimensions)
+from numba.cuda.errors import missing_launch_config_msg as missing_launch_config_msg, normalize_kernel_dimensions as normalize_kernel_dimensions
 
 cuda_fp16_math_funcs: Incomplete
 
@@ -23,7 +21,6 @@ class _Kernel(serialize.ReduceMixin):
     CUDA Kernel specialized for a given set of argument types. When called, this
     object launches the kernel on the device.
     """
-
     objectmode: bool
     entry_point: Incomplete
     py_func: Incomplete
@@ -34,13 +31,10 @@ class _Kernel(serialize.ReduceMixin):
     cooperative: Incomplete
     entry_name: Incomplete
     signature: Incomplete
-    _type_annotation: Incomplete
-    _codelibrary: Incomplete
     call_helper: Incomplete
     target_context: Incomplete
     fndesc: Incomplete
     environment: Incomplete
-    _referenced_environments: Incomplete
     lifted: Incomplete
     reload_init: Incomplete
     @global_compiler_lock
@@ -49,24 +43,10 @@ class _Kernel(serialize.ReduceMixin):
     def library(self): ...
     @property
     def type_annotation(self): ...
-    def _find_referenced_environments(self): ...
     @property
     def codegen(self): ...
     @property
     def argument_types(self): ...
-    @classmethod
-    def _rebuild(cls, cooperative, name, signature, codelibrary, debug, lineinfo, call_helper, extensions):
-        """
-        Rebuild an instance.
-        """
-    def _reduce_states(self):
-        """
-        Reduce the instance for serialization.
-        Compiled definitions are serialized in PTX form.
-        Type annotation are discarded.
-        Thread, block and shared memory configuration are serialized.
-        Stream information is discarded.
-        """
     def bind(self) -> None:
         """
         Force binding to current CUDA context
@@ -134,10 +114,6 @@ class _Kernel(serialize.ReduceMixin):
         :return: The maximum number of blocks in the grid.
         """
     def launch(self, args, griddim, blockdim, stream: int = 0, sharedmem: int = 0): ...
-    def _prepare_args(self, ty, val, stream, retr, kernelargs) -> None:
-        """
-        Convert arguments to ctypes and append to kernelargs
-        """
 
 class ForAll:
     dispatcher: Incomplete
@@ -147,7 +123,6 @@ class ForAll:
     sharedmem: Incomplete
     def __init__(self, dispatcher, ntasks, tpb, stream, sharedmem) -> None: ...
     def __call__(self, *args): ...
-    def _compute_thread_per_block(self, dispatcher): ...
 
 class _LaunchConfiguration:
     dispatcher: Incomplete
@@ -167,8 +142,6 @@ class CUDACache(Cache):
     """
     Implements a cache that saves and loads CUDA kernels and compile results.
     """
-
-    _impl_class = CUDACacheImpl
     def load_overload(self, sig, target_context): ...
 
 class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
@@ -181,15 +154,9 @@ class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
     Dispatcher objects are not to be constructed by the user, but instead are
     created using the :func:`numba.cuda.jit` decorator.
     """
-
-    _fold_args: bool
     targetdescr = cuda_target
-    _specialized: bool
     specializations: Incomplete
     def __init__(self, py_func, targetoptions, pipeline_class=...) -> None: ...
-    @property
-    def _numba_type_(self): ...
-    _cache: Incomplete
     def enable_caching(self) -> None: ...
     def configure(self, griddim, blockdim, stream: int = 0, sharedmem: int = 0): ...
     def __getitem__(self, args): ...
@@ -211,8 +178,7 @@ class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
         :param sharedmem: The number of bytes of dynamic shared memory required
                           by the kernel.
         :return: A configured dispatcher, ready to launch on a set of
-                 arguments.
-        """
+                 arguments."""
     @property
     def extensions(self):
         """
@@ -237,7 +203,6 @@ class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
         """
         Compile if necessary and invoke this kernel with *args*.
         """
-    def _compile_for_args(self, *args, **kws): ...
     def typeof_pyval(self, val): ...
     def specialize(self, *args):
         """
@@ -376,14 +341,4 @@ class CUDADispatcher(Dispatcher, serialize.ReduceMixin):
         Produce a dump of the Python source of this function annotated with the
         corresponding Numba IR and type information. The dump is written to
         *file*, or *sys.stdout* if *file* is *None*.
-        """
-    @classmethod
-    def _rebuild(cls, py_func, targetoptions):
-        """
-        Rebuild an instance.
-        """
-    def _reduce_states(self):
-        """
-        Reduce the instance for serialization.
-        Compiled definitions are discarded.
         """

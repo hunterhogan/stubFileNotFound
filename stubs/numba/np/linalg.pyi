@@ -1,15 +1,12 @@
-from .arrayobj import _empty_nd_impl as _empty_nd_impl, array_copy as array_copy, make_array as make_array
+import contextlib
+from .arrayobj import array_copy as array_copy, make_array as make_array
 from _typeshed import Incomplete
 from collections.abc import Generator
 from numba.core import cgutils as cgutils, config as config, types as types
-from numba.core.errors import (
-	NumbaPerformanceWarning as NumbaPerformanceWarning, NumbaTypeError as NumbaTypeError, TypingError as TypingError)
+from numba.core.errors import NumbaPerformanceWarning as NumbaPerformanceWarning, NumbaTypeError as NumbaTypeError, TypingError as TypingError
 from numba.core.extending import intrinsic as intrinsic, overload as overload, register_jitable as register_jitable
-from numba.core.imputils import (
-	impl_ret_borrowed as impl_ret_borrowed, impl_ret_new_ref as impl_ret_new_ref, impl_ret_untracked as impl_ret_untracked,
-	lower_builtin as lower_builtin)
+from numba.core.imputils import impl_ret_borrowed as impl_ret_borrowed, impl_ret_new_ref as impl_ret_new_ref, impl_ret_untracked as impl_ret_untracked, lower_builtin as lower_builtin
 from numba.core.typing import signature as signature
-import contextlib
 
 ll_char: Incomplete
 ll_char_p: Incomplete
@@ -20,7 +17,6 @@ intp_t: Incomplete
 ll_intp_p: Incomplete
 F_INT_nptype: Incomplete
 F_INT_nbtype: Incomplete
-_blas_kinds: Incomplete
 
 def get_blas_kind(dtype, func_name: str = '<BLAS function>'): ...
 def ensure_blas() -> None: ...
@@ -32,7 +28,6 @@ class _BLAS:
     Functions to return type signatures for wrapped
     BLAS functions.
     """
-
     def __init__(self) -> None: ...
     @classmethod
     def numba_xxnrm2(cls, dtype): ...
@@ -44,7 +39,6 @@ class _LAPACK:
     Functions to return type signatures for wrapped
     LAPACK functions.
     """
-
     def __init__(self) -> None: ...
     @classmethod
     def numba_xxgetrf(cls, dtype): ...
@@ -119,15 +113,15 @@ def dot_2_vv(context, builder, sig, args, conjugate: bool = False):
     np.dot(vector, vector)
     np.vdot(vector, vector)
     """
-def dot_2(left, right):
+def dot_2(a, b):
     """
     np.dot(a, b)
     """
-def matmul_2(left, right):
+def matmul_2(a, b):
     """
-    A @ b
+    a @ b
     """
-def dot_2_impl(name, left, right): ...
+def dot_2_impl(name, a, b): ...
 def vdot(left, right):
     """
     np.vdot(a, b)
@@ -143,28 +137,15 @@ def dot_3_mm(context, builder, sig, args):
     """
     np.dot(matrix, matrix, out)
     """
-def dot_3(left, right, out):
+def dot_3(a, b, out):
     """
     np.dot(a, b, out)
     """
 
 fatal_error_func: Incomplete
 
-@register_jitable
-def _check_finite_matrix(a) -> None: ...
-def _check_linalg_matrix(a, func_name, la_prefix: bool = True) -> None: ...
-def _check_homogeneous_types(func_name, *types) -> None: ...
-def _copy_to_fortran_order() -> None: ...
 def ol_copy_to_fortran_order(a): ...
-@register_jitable
-def _inv_err_handler(r) -> None: ...
-@register_jitable
-def _dummy_liveness_func(a):
-    """Pass a list of variables to be preserved through dead code elimination"""
 def inv_impl(a): ...
-@register_jitable
-def _handle_err_maybe_convergence_problem(r) -> None: ...
-def _check_linalg_1_or_2d_matrix(a, func_name, la_prefix: bool = True) -> None: ...
 def cho_impl(a): ...
 def eig_impl(a): ...
 def eigvals_impl(a): ...
@@ -172,77 +153,13 @@ def eigh_impl(a): ...
 def eigvalsh_impl(a): ...
 def svd_impl(a, full_matrices: int = 1): ...
 def qr_impl(a): ...
-def _system_copy_in_b(bcpy, b, nrhs) -> None:
-    """
-    Correctly copy 'b' into the 'bcpy' scratch space.
-    """
-def _system_copy_in_b_impl(bcpy, b, nrhs): ...
-def _system_compute_nrhs(b) -> None:
-    """
-    Compute the number of right hand sides in the system of equations
-    """
-def _system_compute_nrhs_impl(b): ...
-def _system_check_dimensionally_valid(a, b) -> None:
-    """
-    Check that AX=B style system input is dimensionally valid.
-    """
-def _system_check_dimensionally_valid_impl(a, b): ...
-def _system_check_non_empty(a, b) -> None:
-    """
-    Check that AX=B style system input is not empty.
-    """
-def _system_check_non_empty_impl(a, b): ...
-def _lstsq_residual(b, n, nrhs) -> None:
-    """
-    Compute the residual from the 'b' scratch space.
-    """
-def _lstsq_residual_impl(b, n, nrhs): ...
-def _lstsq_solution(b, bcpy, n) -> None:
-    """
-    Extract 'x' (the lstsq solution) from the 'bcpy' scratch space.
-    Note 'b' is only used to check the system input dimension...
-    """
-def _lstsq_solution_impl(b, bcpy, n): ...
 def lstsq_impl(a, b, rcond: float = -1.0): ...
-def _solve_compute_return(b, bcpy) -> None:
-    """
-    Extract 'x' (the solution) from the 'bcpy' scratch space.
-    Note 'b' is only used to check the system input dimension...
-    """
-def _solve_compute_return_impl(b, bcpy): ...
 def solve_impl(a, b): ...
 def pinv_impl(a, rcond: float = 1e-15): ...
-def _get_slogdet_diag_walker(a):
-    """
-    Walks the diag of a LUP decomposed matrix
-    uses that det(A) = prod(diag(lup(A)))
-    and also that log(a)+log(b) = log(a*b)
-    The return sign is adjusted based on the values found
-    such that the log(value) stays in the real domain.
-    """
 def slogdet_impl(a): ...
 def det_impl(a): ...
-def _compute_singular_values(a) -> None:
-    """
-    Compute singular values of *a*.
-    """
-def _compute_singular_values_impl(a):
-    """
-    Returns a function to compute singular values of `a`
-    """
-def _oneD_norm_2(a) -> None:
-    """
-    Compute the L2-norm of 1D-array *a*.
-    """
-def _oneD_norm_2_impl(a): ...
-def _get_norm_impl(x, ord_flag): ...
 def norm_impl(x, ord=None): ...
 def cond_impl(x, p=None): ...
-@register_jitable
-def _get_rank_from_singular_values(sv, t):
-    """
-    Gets rank from singular values with cut-off at a given tolerance
-    """
 def matrix_rank_impl(A, tol=None):
     """
     Computes rank for matrices and vectors.
@@ -260,13 +177,9 @@ def matrix_trace_impl(a, offset: int = 0):
     """
     Computes the trace of an array.
     """
-def _check_scalar_or_lt_2d_mat(a, func_name, la_prefix: bool = True) -> None: ...
 @register_jitable
 def outer_impl_none(a, b, out): ...
 @register_jitable
 def outer_impl_arr(a, b, out): ...
-def _get_outer_impl(a, b, out): ...
 def outer_impl(a, b, out=None): ...
-def _kron_normaliser_impl(x): ...
-def _kron_return(a, b): ...
 def kron_impl(a, b): ...

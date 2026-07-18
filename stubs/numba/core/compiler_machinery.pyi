@@ -1,3 +1,5 @@
+import abc
+import types
 from _typeshed import Incomplete
 from abc import ABCMeta, abstractmethod
 from numba.core import config as config, errors as errors, transforms as transforms, utils as utils
@@ -6,27 +8,19 @@ from numba.core.ir_utils import enforce_no_dels as enforce_no_dels, legalize_sin
 from numba.core.postproc import PostProcessor as PostProcessor
 from numba.core.tracing import event as event
 from typing import NamedTuple
-import abc
-import types
-
-_termcolor: Incomplete
 
 class SimpleTimer:
     """
     A simple context managed timer
     """
-
     ts: Incomplete
     def __enter__(self): ...
     elapsed: Incomplete
     def __exit__(self, *exc) -> None: ...
 
 class CompilerPass(metaclass=ABCMeta):
-    """The base class for all compiler passes.
+    """ The base class for all compiler passes.
     """
-
-    _analysis: Incomplete
-    _pass_id: Incomplete
     @abstractmethod
     def __init__(self, *args, **kwargs): ...
     @classmethod
@@ -71,7 +65,7 @@ class CompilerPass(metaclass=ABCMeta):
         `run_pass`.
         """
     def get_analysis_usage(self, AU) -> None:
-        """Override to set analysis usage
+        """ Override to set analysis usage
         """
     def get_analysis(self, pass_name):
         """
@@ -79,32 +73,27 @@ class CompilerPass(metaclass=ABCMeta):
         """
 
 class SSACompliantMixin:
-    """Mixin to indicate a pass is SSA form compliant. Nothing is asserted
+    """ Mixin to indicate a pass is SSA form compliant. Nothing is asserted
     about this condition at present.
     """
 class FunctionPass(CompilerPass, metaclass=abc.ABCMeta):
-    """Base class for function passes
+    """ Base class for function passes
     """
 class AnalysisPass(CompilerPass, metaclass=abc.ABCMeta):
-    """Base class for analysis passes (no modification made to state)
+    """ Base class for analysis passes (no modification made to state)
     """
 class LoweringPass(CompilerPass, metaclass=abc.ABCMeta):
-    """Base class for lowering passes
+    """ Base class for lowering passes
     """
 
 class AnalysisUsage:
     """This looks and behaves like LLVM's AnalysisUsage because its like that.
     """
-
-    _required: Incomplete
-    _preserved: Incomplete
     def __init__(self) -> None: ...
     def get_required_set(self): ...
     def get_preserved_set(self): ...
     def add_required(self, pss) -> None: ...
     def add_preserved(self, pss) -> None: ...
-
-_DEBUG: bool
 
 def debug_print(*args, **kwargs) -> None: ...
 
@@ -117,19 +106,13 @@ class PassManager:
     """
     The PassManager is a named instance of a particular compilation pipeline
     """
-
-    _ENFORCING: bool
     passes: Incomplete
     exec_times: Incomplete
-    _finalized: bool
-    _analysis: Incomplete
-    _print_after: Incomplete
     pipeline_name: Incomplete
     def __init__(self, pipeline_name) -> None:
-        """
+        '''
         Create a new pipeline with name "pipeline_name"
-        """
-    def _validate_pass(self, pass_cls) -> None: ...
+        '''
     def add_pass(self, pss, description: str = '') -> None:
         """
         Append a pass to the PassManager's compilation pipeline
@@ -139,7 +122,6 @@ class PassManager:
         Add a pass `pass_cls` to the PassManager's compilation pipeline after
         the pass `location`.
         """
-    def _debug_init(self): ...
     def finalize(self) -> None:
         """
         Finalize the PassManager, after which no more passes may be added
@@ -147,12 +129,6 @@ class PassManager:
         """
     @property
     def finalized(self): ...
-    def _patch_error(self, desc, exc):
-        """
-        Patches the error to show the stage that it arose in.
-        """
-    @global_compiler_lock
-    def _runPass(self, index, pss, internal_state): ...
     def run(self, state) -> None:
         """
         Run the defined pipelines on the state.
@@ -171,15 +147,10 @@ class PassRegistry:
     """
     Pass registry singleton class.
     """
-
-    _id: int
-    _registry: Incomplete
     def register(self, mutates_CFG, analysis_only): ...
     def is_registered(self, clazz): ...
     def get(self, clazz): ...
-    def _does_pass_name_alias(self, check): ...
     def find_by_name(self, class_name): ...
     def dump(self) -> None: ...
 
-_pass_registry: Incomplete
 register_pass: Incomplete

@@ -1,28 +1,7 @@
+import abc
 from _typeshed import Incomplete
 from numba import cloudpickle as cloudpickle
-import abc
 
-def _rebuild_reduction(cls, *args):
-    """
-    Global hook to rebuild a given class from its __reduce__ arguments.
-    """
-
-_unpickled_memo: Incomplete
-
-def _numba_unpickle(address, bytedata, hashed):
-    """Used by `numba_unpickle` from _helperlib.c
-
-    Parameters
-    ----------
-    address : int
-    bytedata : bytes
-    hashed : bytes
-
-    Returns
-    -------
-    obj : object
-        unpickled object
-    """
 def dumps(obj):
     """Similar to `pickle.dumps()`. Returns the serialized object in bytes.
     """
@@ -40,25 +19,10 @@ class _CustomPickled:
     new pickler for the object when it is already being pickled by a
     `NumbaPickler`.
     """
-
-    __slots__: Incomplete
     ctor: Incomplete
     states: Incomplete
     def __init__(self, ctor, states) -> None: ...
-    def _reduce(self): ...
-    @classmethod
-    def _rebuild(cls, ctor, states): ...
 
-def _unpickle__CustomPickled(serialized):
-    """Standard unpickling for `_CustomPickled`.
-
-    Uses `NumbaPickler` to load.
-    """
-def _pickle__CustomPickled(cp):
-    """Standard pickling for `_CustomPickled`.
-
-    Uses `NumbaPickler` to dump.
-    """
 def custom_reduce(cls, states):
     """For customizing object serialization in `__reduce__`.
 
@@ -88,10 +52,9 @@ def is_serialiable(obj):
     obj : object
 
     Returns
-    -------
+    --------
     can_serialize : bool
     """
-def _no_pickle(obj) -> None: ...
 def disable_pickling(typ):
     """This is called on a type to disable pickling
     """
@@ -100,19 +63,10 @@ class NumbaPickler(cloudpickle.CloudPickler):
     disabled_types: Incomplete
     def reducer_override(self, obj): ...
 
-def _custom_reduce__custompickled(cp): ...
-
 class ReduceMixin(abc.ABC, metaclass=abc.ABCMeta):
     """A mixin class for objects that should be reduced by the NumbaPickler
     instead of the standard pickler.
     """
-
-    @abc.abstractmethod
-    def _reduce_states(self): ...
-    @classmethod
-    @abc.abstractmethod
-    def _rebuild(cls, **kwargs): ...
-    def _reduce_class(self): ...
     def __reduce__(self): ...
 
 class PickleCallableByPath:
@@ -131,10 +85,6 @@ class PickleCallableByPath:
     >>> wrapped_fn = PickleCallableByPath(my_fn)
     >>> # refer to `wrapped_fn` instead of `my_fn`
     """
-
-    _fn: Incomplete
     def __init__(self, fn) -> None: ...
     def __call__(self, *args, **kwargs): ...
     def __reduce__(self): ...
-    @classmethod
-    def _rebuild(cls, modname, fn_path): ...

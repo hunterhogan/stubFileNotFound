@@ -1,9 +1,7 @@
 from .cudadrv import nvvm as nvvm
 from _typeshed import Incomplete
 from functools import cached_property as cached_property
-from numba.core import (
-	cgutils as cgutils, config as config, datamodel as datamodel, debuginfo as debuginfo,
-	itanium_mangler as itanium_mangler, types as types, typing as typing, utils as utils)
+from numba.core import cgutils as cgutils, config as config, datamodel as datamodel, debuginfo as debuginfo, itanium_mangler as itanium_mangler, types as types, typing as typing, utils as utils
 from numba.core.base import BaseContext as BaseContext
 from numba.core.callconv import BaseCallConv as BaseCallConv, MinimalCallConv as MinimalCallConv
 from numba.core.dispatcher import Dispatcher as Dispatcher
@@ -27,8 +25,6 @@ class CUDATargetContext(BaseContext):
     @property
     def enable_boundscheck(self): ...
     def create_module(self, name): ...
-    _internal_codegen: Incomplete
-    _target_data: Incomplete
     def init(self) -> None: ...
     def load_additional_registries(self) -> None: ...
     def codegen(self): ...
@@ -53,8 +49,8 @@ class CUDATargetContext(BaseContext):
 
         Returns the new code library and the wrapper function.
 
-        Parameters
-        ----------
+        Parameters:
+
         codelib:       The CodeLibrary containing the device function to wrap
                        in a kernel call.
         fndesc:        The FunctionDescriptor of the source function.
@@ -104,8 +100,6 @@ class CUDACABICallConv(BaseCallConv):
 
     Exceptions are unsupported in this convention.
     """
-
-    def _make_call_helper(self, builder) -> None: ...
     def return_value(self, builder, retval): ...
     def return_user_exc(self, builder, exc, exc_args=None, loc=None, func_name=None) -> None: ...
     def return_status_propagate(self, builder, status) -> None: ...

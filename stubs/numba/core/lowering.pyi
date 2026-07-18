@@ -1,13 +1,8 @@
 from _typeshed import Incomplete
-from numba.core import (
-	cgutils as cgutils, config as config, debuginfo as debuginfo, funcdesc as funcdesc, generators as generators, ir as ir,
-	ir_utils as ir_utils, removerefctpass as removerefctpass, targetconfig as targetconfig, types as types,
-	typing as typing, utils as utils)
+from numba.core import cgutils as cgutils, config as config, debuginfo as debuginfo, funcdesc as funcdesc, generators as generators, ir as ir, ir_utils as ir_utils, targetconfig as targetconfig, types as types, typing as typing, utils as utils
 from numba.core.analysis import compute_use_defs as compute_use_defs, must_use_alloca as must_use_alloca
 from numba.core.environment import Environment as Environment
-from numba.core.errors import (
-	LiteralTypingError as LiteralTypingError, LoweringError as LoweringError, new_error_context as new_error_context,
-	NumbaDebugInfoWarning as NumbaDebugInfoWarning, TypingError as TypingError, UnsupportedError as UnsupportedError)
+from numba.core.errors import LiteralTypingError as LiteralTypingError, LoweringError as LoweringError, NumbaDebugInfoWarning as NumbaDebugInfoWarning, TypingError as TypingError, UnsupportedError as UnsupportedError, new_error_context as new_error_context
 from numba.core.funcdesc import default_mangler as default_mangler
 from numba.misc.coverage_support import get_registered_loc_notify as get_registered_loc_notify
 from numba.misc.firstlinefinder import get_func_body_first_lineno as get_func_body_first_lineno
@@ -21,7 +16,6 @@ class BaseLower:
     """
     Lower IR to LLVM
     """
-
     library: Incomplete
     fndesc: Incomplete
     blocks: Incomplete
@@ -39,7 +33,6 @@ class BaseLower:
     context: Incomplete
     defn_loc: Incomplete
     debuginfo: Incomplete
-    _loc_notify_registry: Incomplete
     def __init__(self, context, library, fndesc, func_ir, metadata=None) -> None: ...
     @property
     def call_conv(self): ...
@@ -53,7 +46,6 @@ class BaseLower:
         Init the Python API and Environment Manager for the function being
         lowered.
         """
-    def _compute_def_location(self): ...
     def pre_lower(self) -> None:
         """
         Called before lowering all blocks.
@@ -128,19 +120,8 @@ class BaseLower:
         """
 
 class Lower(BaseLower):
-    GeneratorLower: Incomplete
+    GeneratorLower = generators.GeneratorLower
     def init(self) -> None: ...
-    @property
-    def _disable_sroa_like_opt(self):
-        """Flags that the SROA like optimisation that Numba performs (which
-        prevent alloca and subsequent load/store for locals) should be disabled.
-        Currently, this is conditional solely on the presence of a request for
-        the emission of debug information.
-        """
-    _singly_assigned_vars: Incomplete
-    _blk_local_varmap: Incomplete
-    def _find_singly_assigned_variable(self) -> None: ...
-    _cur_ir_block: Incomplete
     def pre_block(self, block) -> None: ...
     def post_block(self, block) -> None: ...
     def lower_inst(self, inst): ...
@@ -153,49 +134,13 @@ class Lower(BaseLower):
     def lower_yield(self, retty, inst): ...
     def lower_binop(self, resty, expr, op): ...
     def lower_getitem(self, resty, expr, value, index, signature): ...
-    def _cast_var(self, var, ty):
-        """
-        Cast a Numba IR variable to the given Numba type, returning a
-        low-level value.
-        """
     def fold_call_args(self, fnty, signature, pos_args, vararg, kw_args): ...
     def lower_print(self, inst) -> None:
         """
         Lower a ir.Print()
         """
     def lower_call(self, resty, expr): ...
-    def _lower_call_ObjModeDispatcher(self, fnty, expr, signature): ...
-    def _lower_call_ExternalFunction(self, fnty, expr, signature): ...
-    def _lower_call_ExternalFunctionPointer(self, fnty, expr, signature): ...
-    def _lower_call_RecursiveCall(self, fnty, expr, signature): ...
-    def _lower_call_FunctionType(self, fnty, expr, signature): ...
-    def __call_first_class_function_pointer(self, ftype, fname, sig, argvals):
-        """
-        Calls a first-class function pointer.
-
-        This function is responsible for calling a first-class function pointer,
-        which can either be a JIT-compiled function or a Python function. It
-        determines if a JIT address is available, and if so, calls the function
-        using the JIT address. Otherwise, it calls the function using a function
-        pointer obtained from the `__get_first_class_function_pointer` method.
-
-        Args:
-            ftype: The type of the function.
-            fname: The name of the function.
-            sig: The signature of the function.
-            argvals: The argument values to pass to the function.
-
-        Returns
-        -------
-            The result of calling the function.
-        """
-    def __get_first_class_function_pointer(self, ftype, fname, sig): ...
-    def _lower_call_normal(self, fnty, expr, signature): ...
     def lower_expr(self, resty, expr): ...
-    def _alloca_var(self, name, fetype) -> None:
-        """
-        Ensure the given variable has an allocated stack slot (if needed).
-        """
     def getvar(self, name):
         """
         Get a pointer to the given variable's slot.
@@ -216,8 +161,3 @@ class Lower(BaseLower):
     def alloca_lltype(self, name, lltype, datamodel=None): ...
     def incref(self, typ, val) -> None: ...
     def decref(self, typ, val) -> None: ...
-
-def _lit_or_omitted(value):
-    """Returns a Literal instance if the type of value is supported;
-    otherwise, return `Omitted(value)`.
-    """

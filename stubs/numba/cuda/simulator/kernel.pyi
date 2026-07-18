@@ -1,29 +1,14 @@
+import threading
 from ..args import ArgHint as ArgHint, wrap_arg as wrap_arg
 from ..errors import normalize_kernel_dimensions as normalize_kernel_dimensions
 from .cudadrv.devicearray import FakeCUDAArray as FakeCUDAArray, FakeWithinKernelCUDAArray as FakeWithinKernelCUDAArray
 from .kernelapi import Dim3 as Dim3, FakeCUDAModule as FakeCUDAModule, swapped_cuda_module as swapped_cuda_module
 from _typeshed import Incomplete
-from collections.abc import Generator
-from contextlib import contextmanager
-import threading
-
-_kernel_context: Incomplete
-
-@contextmanager
-def _push_kernel_context(mod) -> Generator[None]:
-    """
-    Push the current kernel context.
-    """
-def _get_kernel_context():
-    """
-    Get the current kernel context. This is usually done by a device function.
-    """
 
 class FakeOverload:
     """
     Used only to provide the max_cooperative_grid_blocks method
     """
-
     def max_cooperative_grid_blocks(self, blockdim): ...
 
 class FakeOverloadDict(dict):
@@ -33,11 +18,7 @@ class FakeCUDAKernel:
     """
     Wraps a @cuda.jit-ed function.
     """
-
     fn: Incomplete
-    _device: Incomplete
-    _fastmath: Incomplete
-    _debug: Incomplete
     extensions: Incomplete
     grid_dim: Incomplete
     block_dim: Incomplete
@@ -58,10 +39,8 @@ class BlockThread(threading.Thread):
     """
     Manages the execution of a function for a single CUDA thread.
     """
-
     syncthreads_event: Incomplete
     syncthreads_blocked: bool
-    _manager: Incomplete
     blockIdx: Incomplete
     threadIdx: Incomplete
     exception: Incomplete
@@ -94,11 +73,6 @@ class BlockManager:
     The polling continues until no threads are alive, when execution is
     complete.
     """
-
-    _grid_dim: Incomplete
-    _block_dim: Incomplete
-    _f: Incomplete
-    _debug: Incomplete
     block_state: Incomplete
     def __init__(self, f, grid_dim, block_dim, debug) -> None: ...
     def run(self, grid_point, *args) -> None: ...

@@ -1,20 +1,13 @@
+import contextlib
 from _typeshed import Incomplete
 from collections.abc import Generator
 from numba.core import config as config, ir as ir, types as types, typing as typing, utils as utils
-from numba.core.errors import (
-	CompilerError as CompilerError, ForceLiteralArg as ForceLiteralArg, new_error_context as new_error_context,
-	NumbaValueError as NumbaValueError, termcolor as termcolor, TypingError as TypingError,
-	UnsupportedError as UnsupportedError, UntypedAttributeError as UntypedAttributeError)
+from numba.core.errors import CompilerError as CompilerError, ForceLiteralArg as ForceLiteralArg, NumbaValueError as NumbaValueError, TypingError as TypingError, UnsupportedError as UnsupportedError, UntypedAttributeError as UntypedAttributeError, new_error_context as new_error_context, termcolor as termcolor
 from numba.core.funcdesc import qualifying_prefix as qualifying_prefix
 from numba.core.typeconv import Conversion as Conversion
 from numba.core.typing.templates import Signature as Signature
-import contextlib
-
-_logger: Incomplete
 
 class NOTSET: ...
-
-_termcolor: Incomplete
 
 class TypeVar:
     context: Incomplete
@@ -38,7 +31,6 @@ class ConstraintNetwork:
     TODO: It is possible to optimize constraint propagation to consider only
           dirty type variables.
     """
-
     constraints: Incomplete
     def __init__(self) -> None: ...
     def append(self, constraint) -> None: ...
@@ -54,7 +46,6 @@ class Propagate:
     """
     A simple constraint for direct propagation of types for assignments.
     """
-
     dst: Incomplete
     src: Incomplete
     loc: Incomplete
@@ -149,15 +140,11 @@ def fold_arg_vars(typevars, args, vararg, kws):
     """
     Fold and resolve the argument variables of a function call.
     """
-def _is_array_not_precise(arrty):
-    """Check type is array and it is not precise
-    """
 
 class CallConstraint:
     """Constraint for calling functions.
     Perform case analysis foreach combinations of argument types.
     """
-
     signature: Incomplete
     target: Incomplete
     func: Incomplete
@@ -168,9 +155,6 @@ class CallConstraint:
     def __init__(self, target, func, args, kws, vararg, loc) -> None: ...
     def __call__(self, typeinfer) -> None: ...
     def resolve(self, typeinfer, typevars, fnty) -> None: ...
-    def _add_refine_map(self, typeinfer, typevars, sig) -> None:
-        """Add this expression to the refine_map base on the type of target_type
-        """
     def refine(self, typeinfer, updated_type) -> None: ...
     def get_call_signature(self): ...
 
@@ -191,10 +175,6 @@ class SetItemRefinement:
     """A mixin class to provide the common refinement logic in setitem
     and static setitem.
     """
-
-    def _refine_target_type(self, typeinfer, targetty, idxty, valty, sig) -> None:
-        """Refine the target-type given the known index type and value type.
-        """
 
 class SetItemConstraint(SetItemRefinement):
     target: Incomplete
@@ -251,9 +231,6 @@ class TypeVarMap(dict):
     def __getitem__(self, name): ...
     def __setitem__(self, name, value) -> None: ...
 
-_temporary_dispatcher_map: Incomplete
-_temporary_dispatcher_map_ref_count: Incomplete
-
 @contextlib.contextmanager
 def register_dispatcher(disp) -> Generator[None]:
     """
@@ -269,7 +246,6 @@ class TypeInferer:
     """
     Operates on block that shares the same ir.Scope.
     """
-
     context: Incomplete
     blocks: Incomplete
     generator_info: Incomplete
@@ -284,11 +260,8 @@ class TypeInferer:
     calltypes: Incomplete
     refine_map: Incomplete
     debug: Incomplete
-    _skip_recursion: bool
     def __init__(self, context, func_ir, warnings) -> None: ...
     def copy(self, skip_recursion: bool = False): ...
-    def _mangle_arg_name(self, name): ...
-    def _get_return_vars(self): ...
     def get_argument_types(self): ...
     def seed_argument(self, name, index, typ) -> None: ...
     def seed_type(self, name, typ) -> None:
@@ -322,12 +295,11 @@ class TypeInferer:
         """
         Fill and return the calltypes map.
         """
-    def _unify_return_types(self, rettypes): ...
     def get_return_type(self, typemap): ...
     def get_state_token(self):
-        """The algorithm is monotonic.  It can only grow or "refine" the
+        '''The algorithm is monotonic.  It can only grow or "refine" the
         typevar map.
-        """
+        '''
     def constrain_statement(self, inst) -> None: ...
     def typeof_setitem(self, inst) -> None: ...
     def typeof_storemap(self, inst) -> None: ...
@@ -365,7 +337,6 @@ class NullDebug:
 class TypeInferDebug:
     typeinfer: Incomplete
     def __init__(self, typeinfer) -> None: ...
-    def _dump_state(self) -> None: ...
     def propagate_started(self) -> None: ...
     def propagate_finished(self) -> None: ...
     def unify_finished(self, typdict, retty, fntys) -> None: ...

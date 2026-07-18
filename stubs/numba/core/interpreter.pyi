@@ -1,24 +1,16 @@
 from _typeshed import Incomplete
-from collections.abc import Generator
 from numba.core import config as config, errors as errors, ir as ir
 from numba.core.byteflow import AdaptCFA as AdaptCFA, AdaptDFA as AdaptDFA, BlockKind as BlockKind, Flow as Flow
-from numba.core.errors import (
-	error_extras as error_extras, NotDefinedError as NotDefinedError, UnsupportedBytecodeError as UnsupportedBytecodeError)
+from numba.core.errors import NotDefinedError as NotDefinedError, UnsupportedBytecodeError as UnsupportedBytecodeError, error_extras as error_extras
 from numba.core.ir_utils import get_definition as get_definition, guard as guard
 from numba.core.unsafe import eh as eh
-from numba.core.utils import (
-	_lazy_pformat as _lazy_pformat, BINOPS_TO_OPERATORS as BINOPS_TO_OPERATORS,
-	INPLACE_BINOPS_TO_OPERATORS as INPLACE_BINOPS_TO_OPERATORS, PYVERSION as PYVERSION)
+from numba.core.utils import BINOPS_TO_OPERATORS as BINOPS_TO_OPERATORS, INPLACE_BINOPS_TO_OPERATORS as INPLACE_BINOPS_TO_OPERATORS, PYVERSION as PYVERSION
 from numba.cpython.unsafe.tuple import unpack_single_tuple as unpack_single_tuple
 
 class _UNKNOWN_VALUE:
     """Represents an unknown value, this is for ease of debugging purposes only.
     """
-
-    _varname: Incomplete
     def __init__(self, varname) -> None: ...
-
-_logger: Incomplete
 
 class Assigner:
     """
@@ -32,7 +24,6 @@ class Assigner:
     due to certain limitations of Numba - such as only accepting the
     returning of an array passed as function argument.
     """
-
     dest_to_src: Incomplete
     src_invalidate: Incomplete
     unused_dests: Incomplete
@@ -48,111 +39,6 @@ class Assigner:
         *destname*, otherwise None.
         """
 
-def _remove_assignment_definition(old_body, idx, func_ir, already_deleted_defs) -> None:
-    """
-    Deletes the definition defined for old_body at index idx
-    from func_ir. We assume this stmt will be deleted from
-    new_body.
-
-    In some optimizations we may update the same variable multiple times.
-    In this situation, we only need to delete a particular definition once,
-    this is tracked in already_deleted_def, which is a map from
-    assignment name to the set of values that have already been
-    deleted.
-    """
-def _call_function_ex_replace_kws_small(old_body, keyword_expr, new_body, buildmap_idx, func_ir, already_deleted_defs):
-    """
-    Extracts the kws args passed as varkwarg
-    for CALL_FUNCTION_EX. This pass is taken when
-    n_kws <= 15 and the bytecode looks like:
-
-        # Start for each argument
-        LOAD_FAST  # Load each argument.
-        # End for each argument
-        ...
-        BUILD_CONST_KEY_MAP # Build a map
-
-    In the generated IR, the varkwarg refers
-    to a single build_map that contains all of the
-    kws. In addition to returning the kws, this
-    function updates new_body to remove all usage
-    of the map.
-    """
-def _call_function_ex_replace_kws_large(old_body, buildmap_name, buildmap_idx, search_end, new_body, func_ir, errmsg, already_deleted_defs):
-    """
-    Extracts the kws args passed as varkwarg
-    for CALL_FUNCTION_EX. This pass is taken when
-    n_kws > 15 and the bytecode looks like:
-
-        BUILD_MAP # Construct the map
-        # Start for each argument
-        LOAD_CONST # Load a constant for the name of the argument
-        LOAD_FAST  # Load each argument.
-        MAP_ADD # Append the (key, value) pair to the map
-        # End for each argument
-
-    In the IR generated, the initial build map is empty and a series
-    of setitems are applied afterwards. THE IR looks like:
-
-        $build_map_var = build_map(items=[])
-        $constvar = const(str, ...) # create the const key
-        # CREATE THE ARGUMENT, This may take multiple lines.
-        $created_arg = ...
-        $var = getattr(
-            value=$build_map_var,
-            attr=__setitem__,
-        )
-        $unused_var = call $var($constvar, $created_arg)
-
-    We iterate through the IR, deleting all usages of the buildmap
-    from the new_body, and adds the kws to a new kws list.
-    """
-def _call_function_ex_replace_args_small(old_body, tuple_expr, new_body, buildtuple_idx, func_ir, already_deleted_defs):
-    """
-    Extracts the args passed as vararg
-    for CALL_FUNCTION_EX. This pass is taken when
-    n_args <= 30 and the bytecode looks like:
-
-        # Start for each argument
-        LOAD_FAST  # Load each argument.
-        # End for each argument
-        ...
-        BUILD_TUPLE # Create a tuple of the arguments
-
-    In the IR generated, the vararg refer
-    to a single build_tuple that contains all of the
-    args. In addition to returning the args, this
-    function updates new_body to remove all usage
-    of the tuple.
-    """
-def _call_function_ex_replace_args_large(old_body, vararg_stmt, new_body, search_end, func_ir, errmsg, already_deleted_defs):
-    """
-    Extracts the args passed as vararg
-    for CALL_FUNCTION_EX. This pass is taken when
-    n_args > 30 and the bytecode looks like:
-
-        BUILD_TUPLE # Create a list to append to
-        # Start for each argument
-        LOAD_FAST  # Load each argument.
-        LIST_APPEND # Add the argument to the list
-        # End for each argument
-        ...
-        LIST_TO_TUPLE # Convert the args to a tuple.
-
-    In the IR generated, the tuple is created by concatenating
-    together several 1 element tuples to an initial empty tuple.
-    We traverse backwards in the IR, collecting args, until we
-    find the original empty tuple. For example, the IR might
-    look like:
-
-        $orig_tuple = build_tuple(items=[])
-        $first_var = build_tuple(items=[Var(arg0, test.py:6)])
-        $next_tuple = $orig_tuple + $first_var
-        ...
-        $final_var = build_tuple(items=[Var(argn, test.py:6)])
-        $final_tuple = $prev_tuple + $final_var
-        $varargs_var = $final_tuple
-    """
 def peep_hole_call_function_ex_to_call_function_kw(func_ir):
     """
     This peephole rewrites a bytecode sequence unique to Python 3.10
@@ -172,7 +58,7 @@ def peep_hole_call_function_ex_to_call_function_kw(func_ir):
     and places these values directly into the args and kwargs of the call.
     """
 def peep_hole_list_to_tuple(func_ir):
-    """
+    '''
     This peephole rewrites a bytecode sequence new to Python 3.9 that looks
     like e.g.:
 
@@ -202,7 +88,7 @@ def peep_hole_list_to_tuple(func_ir):
     5. Assigns the accumulator to the variable that exits the peephole and the
        rest of the block/code refers to as the result of the unpack operation.
     6. Patches up
-    """
+    '''
 def peep_hole_delete_with_exit(func_ir):
     """
     This rewrite removes variables used to store the `__exit__` function
@@ -241,17 +127,10 @@ def peep_hole_split_at_pop_block(func_ir):
     This rewrite restores the IR structure to pre 3.11 so that withlifting
     can work correctly.
     """
-def _build_new_build_map(func_ir, name, old_body, old_lineno, new_items):
-    """
-    Create a new build_map with a new set of key/value items
-    but all the other info the same.
-    """
 
 class Interpreter:
     """A bytecode interpreter that builds up the IR.
     """
-
-    _DEBUG_PRINT: bool
     func_id: Incomplete
     arg_count: Incomplete
     arg_names: Incomplete
@@ -259,7 +138,6 @@ class Interpreter:
     is_generator: Incomplete
     blocks: Incomplete
     definitions: Incomplete
-    _exception_vars: Incomplete
     def __init__(self, func_id) -> None: ...
     bytecode: Incomplete
     scopes: Incomplete
@@ -276,71 +154,7 @@ class Interpreter:
         Generate IR for this bytecode.
         """
     def post_process(self, peepholes, func_ir): ...
-    def _end_try_blocks(self):
-        """Closes all try blocks by inserting the required marker at the
-        exception handler
-
-        This is only needed for py3.11 because of the changes in exception
-        handling. This merely maps the new py3.11 semantics back to the old way.
-
-        What the code does:
-
-        - For each block, compute the difference of blockstack to its incoming
-          blocks' blockstack.
-        - If the incoming blockstack has an extra TRY, the current block must
-          be the EXCEPT block and we need to insert a marker.
-
-        See also: _insert_try_block_end
-        """
-    def _legalize_exception_vars(self):
-        """Search for unsupported use of exception variables.
-        Note, they cannot be stored into user variable.
-        """
     def init_first_block(self) -> None: ...
-    def _iter_inst(self) -> Generator[Incomplete]: ...
-    assigner: Incomplete
-    def _start_new_block(self, offset) -> None: ...
-    def _end_current_block(self) -> None: ...
-    def _inject_call(self, func, gv_name, res_name=None) -> None:
-        """A helper function to inject a call to *func* which is a python
-        function.
-
-        Parameters
-        ----------
-        func : callable
-            The function object to be called.
-        gv_name : str
-            The variable name to be used to store the function object.
-        res_name : str; optional
-            The variable name to be used to store the call result.
-            If ``None``, a name is created automatically.
-        """
-    def _insert_try_block_begin(self) -> None:
-        """Insert IR-nodes to mark the start of a `try` block.
-        """
-    def _insert_try_block_end(self) -> None:
-        """Insert IR-nodes to mark the end of a `try` block.
-        """
-    def _insert_exception_variables(self) -> None:
-        """Insert IR-nodes to initialize the exception variables.
-        """
-    def _insert_exception_check(self) -> None:
-        """Called before the end of a block to inject checks if raised.
-        """
-    def _remove_unused_temporaries(self) -> None:
-        """
-        Remove assignments to unused temporary variables from the
-        current block.
-        """
-    def _var_used_in_binop(self, varname, expr):
-        """Return True if 'expr' is a binary expression and 'varname' is used
-        in it as an argument
-        """
-    def _insert_outgoing_phis(self) -> None:
-        """
-        Add assignments to forward requested outgoing values
-        to subsequent blocks.
-        """
     def get_global_value(self, name):
         """
         Get a global value from the func_global (first) or
@@ -363,7 +177,6 @@ class Interpreter:
     def code_cellvars(self): ...
     @property
     def code_freevars(self): ...
-    def _dispatch(self, inst, kws): ...
     def store(self, value, name, redefine: bool = False):
         """
         Store *value* (a Expr or Var instance) into the variable named *name*
@@ -412,9 +225,8 @@ class Interpreter:
     def op_DELETE_SLICE_1(self, inst, base, start, nonevar, slicevar, indexvar) -> None: ...
     def op_DELETE_SLICE_2(self, inst, base, nonevar, stop, slicevar, indexvar) -> None: ...
     def op_DELETE_SLICE_3(self, inst, base, start, stop, slicevar, indexvar) -> None: ...
-    def _op_LOAD_FAST(self, inst, res) -> None: ...
     def op_LOAD_FAST(self, inst, res, as_load_deref: bool = False) -> None: ...
-    op_LOAD_FAST = _op_LOAD_FAST
+    op_LOAD_FAST: Incomplete
     def op_LOAD_FAST_LOAD_FAST(self, inst, res1, res2) -> None: ...
     def op_STORE_FAST_LOAD_FAST(self, inst, store_value, load_res) -> None: ...
     def op_STORE_FAST_STORE_FAST(self, inst, value1, value2) -> None: ...
@@ -458,7 +270,6 @@ class Interpreter:
     def op_CALL_FUNCTION(self, inst, func, args, res) -> None: ...
     def op_CALL_FUNCTION_KW(self, inst, func, args, names, res) -> None: ...
     def op_CALL_FUNCTION_EX(self, inst, func, vararg, varkwarg, res) -> None: ...
-    def _build_tuple_unpack(self, inst, tuples, temps, is_assign) -> None: ...
     def op_BUILD_TUPLE_UNPACK_WITH_CALL(self, inst, tuples, temps, is_assign) -> None: ...
     def op_BUILD_TUPLE_UNPACK(self, inst, tuples, temps, is_assign) -> None: ...
     def op_LIST_TO_TUPLE(self, inst, const_list, res) -> None: ...
@@ -483,8 +294,6 @@ class Interpreter:
     def op_UNARY_POSITIVE(self, inst, value, res): ...
     def op_UNARY_INVERT(self, inst, value, res): ...
     def op_UNARY_NOT(self, inst, value, res): ...
-    def _binop(self, op, lhs, rhs, res) -> None: ...
-    def _inplace_binop(self, op, lhs, rhs, res) -> None: ...
     def op_BINARY_OP(self, inst, op, lhs, rhs, res) -> None: ...
     def op_BINARY_ADD(self, inst, lhs, rhs, res) -> None: ...
     def op_BINARY_SUBTRACT(self, inst, lhs, rhs, res) -> None: ...
@@ -526,10 +335,8 @@ class Interpreter:
     def op_IS_OP(self, inst, lhs, rhs, res) -> None: ...
     def op_CONTAINS_OP(self, inst, lhs, rhs, res) -> None: ...
     def op_BREAK_LOOP(self, inst, end=None) -> None: ...
-    def _op_JUMP_IF(self, inst, pred, iftrue) -> None: ...
     def op_JUMP_IF_FALSE(self, inst, pred) -> None: ...
     def op_JUMP_IF_TRUE(self, inst, pred) -> None: ...
-    def _jump_if_none(self, inst, pred, iftrue) -> None: ...
     def op_POP_JUMP_FORWARD_IF_NONE(self, inst, pred) -> None: ...
     def op_POP_JUMP_FORWARD_IF_NOT_NONE(self, inst, pred) -> None: ...
     def op_POP_JUMP_IF_NONE(self, inst, pred) -> None: ...

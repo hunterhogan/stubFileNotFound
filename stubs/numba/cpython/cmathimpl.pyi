@@ -1,7 +1,7 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, types as types
 from numba.core.extending import overload as overload
-from numba.core.imputils import impl_ret_untracked as impl_ret_untracked, Registry as Registry
+from numba.core.imputils import Registry as Registry, impl_ret_untracked as impl_ret_untracked
 from numba.core.typing import signature as signature
 from numba.cpython import builtins as builtins, mathimpl as mathimpl
 

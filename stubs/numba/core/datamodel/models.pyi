@@ -1,10 +1,9 @@
 from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, types as types
 from numba.core.datamodel.registry import register_default as register_default
-from numba.np import numpy_support as numpy_support
 
 class DataModel:
-    """
+    '''
     DataModel describe how a FE type is represented in the LLVM IR at
     different contexts.
 
@@ -25,10 +24,7 @@ class DataModel:
     "value" representation.  All "from_" prefix function converts to the
     "value"  representation.
 
-    """
-
-    _dmm: Incomplete
-    _fe_type: Incomplete
+    '''
     def __init__(self, dmm, fe_type) -> None: ...
     @property
     def fe_type(self): ...
@@ -85,25 +81,21 @@ class DataModel:
         """
         Recursively check all contained types for need for NRT meminfo.
         """
-    def _compared_fields(self): ...
     def __hash__(self): ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...
 
 class OmittedArgDataModel(DataModel):
-    """
+    '''
     A data model for omitted arguments.  Only the "argument" representation
     is defined, other representations raise a NotImplementedError.
-    """
-
+    '''
     def get_value_type(self): ...
     def get_argument_type(self): ...
     def as_argument(self, builder, val): ...
     def from_argument(self, builder, val) -> None: ...
 
 class BooleanModel(DataModel):
-    _bit_type: Incomplete
-    _byte_type: Incomplete
     def get_value_type(self): ...
     def get_data_type(self): ...
     def get_return_type(self): ...
@@ -119,7 +111,6 @@ class PrimitiveModel(DataModel):
     """A primitive type can be represented natively in the target in all
     usage contexts.
     """
-
     be_type: Incomplete
     def __init__(self, dmm, fe_type, be_type) -> None: ...
     def get_value_type(self): ...
@@ -134,7 +125,6 @@ class ProxyModel(DataModel):
     """
     Helper class for models which delegate to another model.
     """
-
     def get_value_type(self): ...
     def get_data_type(self): ...
     def get_return_type(self): ...
@@ -150,16 +140,12 @@ class EnumModel(ProxyModel):
     """
     Enum members are represented exactly like their values.
     """
-
-    _proxied_model: Incomplete
     def __init__(self, dmm, fe_type) -> None: ...
 
 class OpaqueModel(PrimitiveModel):
     """
     Passed as opaque pointers
     """
-
-    _ptr_type: Incomplete
     def __init__(self, dmm, fe_type) -> None: ...
 
 class MemInfoModel(OpaqueModel):
@@ -174,8 +160,6 @@ class FloatModel(PrimitiveModel):
     def __init__(self, dmm, fe_type) -> None: ...
 
 class PointerModel(PrimitiveModel):
-    _pointee_model: Incomplete
-    _pointee_be_type: Incomplete
     def __init__(self, dmm, fe_type) -> None: ...
 
 class EphemeralPointerModel(PointerModel):
@@ -185,7 +169,6 @@ class EphemeralPointerModel(PointerModel):
     def load_from_data_pointer(self, builder, ptr, align=None): ...
 
 class EphemeralArrayModel(PointerModel):
-    _data_type: Incomplete
     def __init__(self, dmm, fe_type) -> None: ...
     def get_data_type(self): ...
     def as_data(self, builder, value): ...
@@ -196,10 +179,6 @@ class ExternalFuncPointerModel(PrimitiveModel):
     def __init__(self, dmm, fe_type) -> None: ...
 
 class UniTupleModel(DataModel):
-    _elem_model: Incomplete
-    _count: Incomplete
-    _value_type: Incomplete
-    _data_type: Incomplete
     def __init__(self, dmm, fe_type) -> None: ...
     def get_value_type(self): ...
     def get_data_type(self): ...
@@ -220,10 +199,6 @@ class CompositeModel(DataModel):
     """
 
 class StructModel(CompositeModel):
-    _value_type: Incomplete
-    _data_type: Incomplete
-    _fields: Incomplete
-    _models: Incomplete
     def __init__(self, dmm, fe_type, members) -> None: ...
     def get_member_fe_type(self, name):
         """
@@ -233,10 +208,8 @@ class StructModel(CompositeModel):
     def get_data_type(self): ...
     def get_argument_type(self): ...
     def get_return_type(self): ...
-    def _as(self, methname, builder, value): ...
-    def _from(self, methname, builder, value): ...
     def as_data(self, builder, value):
-        """
+        '''
         Converts the LLVM struct in `value` into a representation suited for
         storing into arrays.
 
@@ -250,14 +223,14 @@ class StructModel(CompositeModel):
         Sample usecase: Structures nested with pointers to other structures
         that can be serialized into  a flat representation when storing into
         array.
-        """
+        '''
     def from_data(self, builder, value):
-        """
+        '''
         Convert from "data" representation back into "value" representation.
         Usually invoked when loading from array.
 
         See notes in `as_data()`
-        """
+        '''
     def load_from_data_pointer(self, builder, ptr, align=None): ...
     def as_argument(self, builder, value): ...
     def from_argument(self, builder, value): ...
@@ -322,7 +295,6 @@ class StructModel(CompositeModel):
     def inner_models(self): ...
 
 class ComplexModel(StructModel):
-    _element_type = NotImplemented
     def __init__(self, dmm, fe_type) -> None: ...
 
 class TupleModel(StructModel):
@@ -362,7 +334,6 @@ class ArrayFlagsModel(StructModel):
     def __init__(self, dmm, fe_type) -> None: ...
 
 class NestedArrayModel(ArrayModel):
-    _be_type: Incomplete
     def __init__(self, dmm, fe_type) -> None: ...
     def as_storage_type(self):
         """Return the LLVM type representation for the storage of
@@ -370,7 +341,6 @@ class NestedArrayModel(ArrayModel):
         """
 
 class OptionalModel(StructModel):
-    _value_model: Incomplete
     def __init__(self, dmm, fe_type) -> None: ...
     def get_return_type(self): ...
     def as_return(self, builder, value) -> None: ...
@@ -378,9 +348,6 @@ class OptionalModel(StructModel):
     def traverse(self, builder): ...
 
 class RecordModel(CompositeModel):
-    _models: Incomplete
-    _be_type: Incomplete
-    _be_ptr_type: Incomplete
     def __init__(self, dmm, fe_type) -> None: ...
     def get_value_type(self):
         """Passed around as reference to underlying data
@@ -397,7 +364,6 @@ class RecordModel(CompositeModel):
     def load_from_data_pointer(self, builder, ptr, align=None): ...
 
 class UnicodeCharSeq(DataModel):
-    _be_type: Incomplete
     def __init__(self, dmm, fe_type) -> None: ...
     def get_value_type(self): ...
     def get_data_type(self): ...
@@ -409,7 +375,6 @@ class UnicodeCharSeq(DataModel):
     def from_argument(self, builder, value): ...
 
 class CharSeq(DataModel):
-    _be_type: Incomplete
     def __init__(self, dmm, fe_type) -> None: ...
     def get_value_type(self): ...
     def get_data_type(self): ...
@@ -432,9 +397,6 @@ class UniTupleIter(StructModel):
 class SliceModel(StructModel):
     def __init__(self, dmm, fe_type) -> None: ...
 
-class NPDatetimeModel(PrimitiveModel):
-    def __init__(self, dmm, fe_type) -> None: ...
-
 class ArrayIterator(StructModel):
     def __init__(self, dmm, fe_type) -> None: ...
 
@@ -448,12 +410,6 @@ class RangeIteratorType(StructModel):
     def __init__(self, dmm, fe_type) -> None: ...
 
 class GeneratorModel(CompositeModel):
-    _arg_models: Incomplete
-    _state_models: Incomplete
-    _args_be_type: Incomplete
-    _state_be_type: Incomplete
-    _be_type: Incomplete
-    _be_ptr_type: Incomplete
     def __init__(self, dmm, fe_type) -> None: ...
     def get_value_type(self):
         """
@@ -501,22 +457,15 @@ class DeferredStructModel(CompositeModel):
     def get(self, builder, value): ...
     def set(self, builder, value, content): ...
     def make_uninitialized(self, kind: str = 'value'): ...
-    def _define(self) -> None: ...
-    def _define_value_type(self, value_type) -> None: ...
-    def _define_data_type(self, data_type) -> None: ...
-    @property
-    def _actual_model(self): ...
     def traverse(self, builder): ...
 
 class StructPayloadModel(StructModel):
     """Model for the payload of a mutable struct
     """
-
     def __init__(self, dmm, fe_typ) -> None: ...
 
 class StructRefModel(StructModel):
     """Model for a mutable struct.
     A reference to the payload
     """
-
     def __init__(self, dmm, fe_typ) -> None: ...

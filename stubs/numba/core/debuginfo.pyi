@@ -1,15 +1,14 @@
+import abc
 from _typeshed import Incomplete
 from collections.abc import Generator
 from contextlib import contextmanager
 from numba.core import cgutils as cgutils, config as config, types as types
 from numba.core.datamodel.models import ComplexModel as ComplexModel, UniTupleModel as UniTupleModel
-import abc
 
 @contextmanager
 def suspend_emission(builder) -> Generator[None]:
     """Suspends the emission of debug_metadata for the duration of the context
-    managed block.
-    """
+    managed block."""
 
 class AbstractDIBuilder(metaclass=abc.ABCMeta):
     @abc.abstractmethod
@@ -42,13 +41,10 @@ class DummyDIBuilder(AbstractDIBuilder):
     def initialize(self) -> None: ...
     def finalize(self) -> None: ...
 
-_BYTE_SIZE: int
-
 class DIBuilder(AbstractDIBuilder):
     DWARF_VERSION: int
     DEBUG_INFO_VERSION: int
     DBG_CU_NAME: str
-    _DEBUG: bool
     module: Incomplete
     filepath: Incomplete
     difile: Incomplete
@@ -58,30 +54,7 @@ class DIBuilder(AbstractDIBuilder):
     def __init__(self, module, filepath, cgctx, directives_only) -> None: ...
     dicompileunit: Incomplete
     def initialize(self) -> None: ...
-    def _var_type(self, lltype, size, datamodel=None): ...
     def mark_variable(self, builder, allocavalue, name, lltype, size, line, datamodel=None, argidx=None): ...
     def mark_location(self, builder, line) -> None: ...
     def mark_subprogram(self, function, qualname, argnames, argtypes, line) -> None: ...
     def finalize(self) -> None: ...
-    def _set_module_flags(self) -> None:
-        """Set the module flags metadata
-        """
-    def _add_subprogram(self, name, linkagename, line, function, argmap):
-        """Emit subprogram metadata
-        """
-    def _add_location(self, line):
-        """Emit location metatdaa
-        """
-    @classmethod
-    def _const_int(cls, num, bits: int = 32):
-        """Util to create constant int in metadata
-        """
-    @classmethod
-    def _const_bool(cls, boolean):
-        """Util to create constant boolean in metadata
-        """
-    def _di_file(self): ...
-    def _di_compile_unit(self): ...
-    def _di_subroutine_type(self, line, function, argmap): ...
-    def _di_subprogram(self, name, linkagename, line, function, argmap): ...
-    def _di_location(self, line): ...

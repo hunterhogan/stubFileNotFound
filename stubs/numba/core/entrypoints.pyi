@@ -1,6 +1,5 @@
 from _typeshed import Incomplete
 
-_already_initialized: bool
 logger: Incomplete
 
 def init_all() -> None:

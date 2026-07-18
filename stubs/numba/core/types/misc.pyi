@@ -3,15 +3,13 @@ from numba.core.errors import LiteralTypingError as LiteralTypingError, TypingEr
 from numba.core.ir import UndefinedType as UndefinedType
 from numba.core.typeconv import Conversion as Conversion
 from numba.core.types.abstract import Callable as Callable, Hashable as Hashable, Literal as Literal, Type as Type
-from numba.core.types.common import (
-	Dummy as Dummy, IterableType as IterableType, Opaque as Opaque, SimpleIteratorType as SimpleIteratorType)
+from numba.core.types.common import Dummy as Dummy, IterableType as IterableType, Opaque as Opaque, SimpleIteratorType as SimpleIteratorType
 from numba.core.utils import get_hashable_key as get_hashable_key
 
 class PyObject(Dummy):
     """
     A generic CPython object.
     """
-
     def is_precise(self): ...
 
 class Phantom(Dummy):
@@ -25,7 +23,6 @@ class Undefined(Dummy):
     A type that is left imprecise.  This is used as a temporaray placeholder
     during type inference in the hope that the type can be later refined.
     """
-
     def is_precise(self): ...
 
 class UndefVar(Dummy):
@@ -34,7 +31,6 @@ class UndefVar(Dummy):
     This type can be promoted to any other type.
     This is introduced to handle Python 3.12 LOAD_FAST_AND_CLEAR.
     """
-
     def can_convert_to(self, typingctx, other): ...
 
 class RawPointer(Opaque):
@@ -60,9 +56,6 @@ class Omitted(Opaque):
     """
     An omitted function argument with a default value.
     """
-
-    _value: Incomplete
-    _value_key: Incomplete
     def __init__(self, value) -> None: ...
     @property
     def key(self): ...
@@ -75,7 +68,6 @@ class VarArg(Type):
     end of a function's signature.  Only used for signature matching,
     not for actual values.
     """
-
     dtype: Incomplete
     def __init__(self, dtype) -> None: ...
     @property
@@ -88,11 +80,10 @@ class Module(Dummy):
     def key(self): ...
 
 class MemInfoPointer(Type):
-    """
+    '''
     Pointer to a Numba "meminfo" (i.e. the information for a managed
     piece of memory).
-    """
-
+    '''
     mutable: bool
     dtype: Incomplete
     def __init__(self, dtype) -> None: ...
@@ -109,7 +100,6 @@ class CPointer(Type):
         addrspace : int
             The address space pointee belongs to.
     """
-
     mutable: bool
     dtype: Incomplete
     addrspace: Incomplete
@@ -129,7 +119,6 @@ class EphemeralArray(Type):
     Similar to EphemeralPointer, but pointing to an array of elements,
     rather than a single one.  The array size must be known at compile-time.
     """
-
     dtype: Incomplete
     count: Incomplete
     def __init__(self, dtype, count) -> None: ...
@@ -147,7 +136,6 @@ class Optional(Type):
     """
     Type class for optional types, i.e. union { some type, None }
     """
-
     type: Incomplete
     def __init__(self, typ) -> None: ...
     @property
@@ -160,7 +148,6 @@ class NoneType(Opaque):
     """
     The type for None.
     """
-
     def unify(self, typingctx, other):
         """
         Turn anything to a Optional type;
@@ -175,7 +162,6 @@ class ExceptionClass(Callable, Phantom):
     """
     The type of exception classes (not instances).
     """
-
     exc_class: Incomplete
     def __init__(self, exc_class) -> None: ...
     def get_call_type(self, context, args, kws): ...
@@ -189,7 +175,6 @@ class ExceptionInstance(Phantom):
     The type of exception instances.  *exc_class* should be the
     exception class.
     """
-
     exc_class: Incomplete
     def __init__(self, exc_class) -> None: ...
     @property
@@ -212,7 +197,6 @@ class ClassInstanceType(Type):
     The type of a jitted class *instance*.  It will be the return-type
     of the constructor of the class.
     """
-
     mutable: bool
     name_prefix: str
     class_type: Incomplete
@@ -241,13 +225,11 @@ class ClassType(Callable, Opaque):
     The type of the jitted class (not instance).  When the type of a class
     is called, its constructor is invoked.
     """
-
     mutable: bool
     name_prefix: str
     instance_type_class = ClassInstanceType
     class_name: Incomplete
     class_doc: Incomplete
-    _ctor_template_class: Incomplete
     jit_methods: Incomplete
     jit_props: Incomplete
     jit_static_methods: Incomplete
@@ -264,7 +246,6 @@ class ClassType(Callable, Opaque):
     def instance_type(self): ...
     @property
     def ctor_template(self): ...
-    def _specialize_template(self, basecls): ...
 
 class DeferredType(Type):
     """
@@ -272,8 +253,6 @@ class DeferredType(Type):
     before it is materialized (used in the compiler).  Once defined, it
     behaves exactly as the type it is defining.
     """
-
-    _define: Incomplete
     def __init__(self) -> None: ...
     def get(self): ...
     def define(self, typ) -> None: ...
@@ -286,7 +265,6 @@ class ClassDataType(Type):
     ClassInstanceType contains a pointer to a ClassDataType which represents
     a C structure that contains all the data fields of the class instance.
     """
-
     class_type: Incomplete
     def __init__(self, classtyp) -> None: ...
 
@@ -294,7 +272,6 @@ class ContextManager(Callable, Phantom):
     """
     An overly-simple ContextManager type that cannot be materialized.
     """
-
     cm: Incomplete
     def __init__(self, cm) -> None: ...
     def get_call_signatures(self): ...

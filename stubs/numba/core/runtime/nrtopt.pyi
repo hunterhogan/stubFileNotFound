@@ -1,11 +1,5 @@
-from _typeshed import Incomplete
 from numba.core import cgutils as cgutils
 
-_regex_incref: Incomplete
-_regex_decref: Incomplete
-_regex_bb: Incomplete
-
-def _remove_redundant_nrt_refct(llvmir): ...
 def remove_redundant_nrt_refct(ll_module):
     """
     Remove redundant reference count operations from the

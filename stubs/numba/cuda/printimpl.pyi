@@ -22,5 +22,4 @@ def const_print_impl(ty, context, builder, sigval): ...
 def print_varargs(context, builder, sig, args):
     """This function is a generic 'print' wrapper for arbitrary types.
     It dispatches to the appropriate 'print' implementations above
-    depending on the detected real types in the signature.
-    """
+    depending on the detected real types in the signature."""

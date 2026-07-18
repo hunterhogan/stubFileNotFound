@@ -236,6 +236,7 @@ dothing
 dropindex
 DROPINDEX
 DSIG
+dufunc
 dunder
 dups
 eattr
@@ -268,6 +269,7 @@ fancyarrow
 fanout
 Fanout
 FFTM
+fieldtype
 figsize
 filehandle
 fillbegin
@@ -292,6 +294,7 @@ Frechet
 Freese
 freqstr
 fspath
+ftylist
 Fulldatetime
 funcdict
 funcname
@@ -398,6 +401,7 @@ jany
 Jayme
 Jezek
 Jipsen
+jitclass
 jitted
 jnius
 JOINSTR
@@ -544,6 +548,7 @@ networkx
 newlinestr
 ngroup
 ngroups
+njit
 nkeys
 nlevels
 nnodes
@@ -583,6 +588,7 @@ objkeys
 OBJKEYS
 objlen
 OBJLEN
+objmode
 ocsp
 odfpy
 OFFCURVE
@@ -610,6 +616,7 @@ popcount
 popleft
 posonly
 powmod
+prange
 prec
 prefs
 primorial
@@ -656,6 +663,7 @@ relativedelta
 reldiff
 remquo
 Renamer
+reorderable
 replicaof
 reportviews
 reqs
@@ -729,6 +737,7 @@ sout
 sparsify
 specializer
 sqlalchemy
+ssize
 sstruct
 ssubscribe
 startcol
@@ -898,6 +907,7 @@ websearch
 weekmask
 weekofyear
 wght
+withcontexts
 withcount
 withmatchlen
 WITHPAYLOADS

@@ -1,20 +1,17 @@
+import types
 from _typeshed import Incomplete
 from collections.abc import Generator, Sequence
 from contextlib import contextmanager
 from functools import cached_property as cached_property
 from numba.core import config as config
 from typing import NamedTuple
-import types
 
 class RecordLLVMPassTimingsLegacy:
     """A helper context manager to track LLVM pass timings.
     """
-
-    __slots__: Incomplete
     def __enter__(self):
         """Enables the pass timing in LLVM.
         """
-    _data: Incomplete
     def __exit__(self, exc_val: type[BaseException] | None, exc_type: BaseException | None, exc_tb: types.TracebackType | None) -> None:
         """Reset timings and save report internally.
         """
@@ -29,10 +26,6 @@ class RecordLLVMPassTimingsLegacy:
 class RecordLLVMPassTimings:
     """A helper context manager to track LLVM pass timings.
     """
-
-    __slots__: Incomplete
-    _pb: Incomplete
-    _data: Incomplete
     def __init__(self, pb) -> None: ...
     def __enter__(self):
         """Enables the pass timing in LLVM.
@@ -60,25 +53,12 @@ class PassTimingRecord(NamedTuple):
     pass_name: Incomplete
     instruction: Incomplete
 
-def _adjust_timings(records):
-    """Adjust timing records because of truncated information.
-
-    Details: The percent information can be used to improve the timing
-    information.
-
-    Returns
-    -------
-    res: List[PassTimingRecord]
-    """
-
 class ProcessedPassTimings:
     """A class for processing raw timing report from LLVM.
 
     The processing is done lazily so we don't waste time processing unused
     timing information.
     """
-
-    _raw_data: Incomplete
     def __init__(self, raw_data) -> None: ...
     def __bool__(self) -> bool: ...
     def get_raw_data(self):
@@ -131,17 +111,6 @@ class ProcessedPassTimings:
         -------
         res: str
         """
-    @cached_property
-    def _processed(self):
-        """A cached property for lazily processing the data and returning it.
-
-        See ``_process()`` for details.
-        """
-    def _process(self):
-        """Parses the raw string data from LLVM timing report and attempts
-        to improve the data by recomputing the times
-        (See `_adjust_timings()``).
-        """
 
 class NamedTimings(NamedTuple):
     name: Incomplete
@@ -153,9 +122,6 @@ class PassTimingsCollection(Sequence):
     This class implements the ``Sequence`` protocol for accessing the
     individual timing records.
     """
-
-    _name: Incomplete
-    _records: Incomplete
     def __init__(self, name) -> None: ...
     @contextmanager
     def record_legacy(self, name) -> Generator[None]:
@@ -182,16 +148,6 @@ class PassTimingsCollection(Sequence):
         ----------
         name: str
             Name for the records.
-        """
-    def _append(self, name, timings) -> None:
-        """Append timing records
-
-        Parameters
-        ----------
-        name: str
-            Name for the records.
-        timings: ProcessedPassTimings
-            the timing records.
         """
     def get_total_time(self):
         """Computes the sum of the total time across all contained timings.

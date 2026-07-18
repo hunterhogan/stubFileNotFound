@@ -1,10 +1,8 @@
 from _typeshed import Incomplete
-from numba import config as config, types as types
-from numba.cuda.stubs import _vector_type_stubs as _vector_type_stubs
+from numba import types as types
 
 class SimulatedVectorType:
     attributes: Incomplete
-    _attrs: Incomplete
     def __init__(self, *args) -> None: ...
     @property
     def name(self) -> None: ...
@@ -13,6 +11,5 @@ class SimulatedVectorType:
     def as_list(self): ...
 
 def make_simulated_vector_type(num_elements, name): ...
-def _initialize(): ...
 
 vector_types: Incomplete

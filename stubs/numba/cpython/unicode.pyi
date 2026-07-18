@@ -1,40 +1,15 @@
 from _typeshed import Incomplete
 from numba._helperlib import c_helpers as c_helpers
-from numba.core import cgutils as cgutils, config as config, types as types
+from numba.core import cgutils as cgutils, types as types
 from numba.core.cgutils import is_nonelike as is_nonelike
-from numba.core.datamodel import register_default as register_default, StructModel as StructModel
+from numba.core.datamodel import StructModel as StructModel, register_default as register_default
 from numba.core.errors import TypingError as TypingError
-from numba.core.extending import (
-	box as box, intrinsic as intrinsic, make_attribute_wrapper as make_attribute_wrapper, models as models,
-	NativeValue as NativeValue, overload as overload, overload_method as overload_method,
-	register_jitable as register_jitable, register_model as register_model, unbox as unbox)
-from numba.core.imputils import (
-	impl_ret_new_ref as impl_ret_new_ref, iternext_impl as iternext_impl, lower_builtin as lower_builtin,
-	lower_cast as lower_cast, lower_constant as lower_constant, RefType as RefType)
-from numba.core.pythonapi import (
-	PY_UNICODE_1BYTE_KIND as PY_UNICODE_1BYTE_KIND, PY_UNICODE_2BYTE_KIND as PY_UNICODE_2BYTE_KIND,
-	PY_UNICODE_4BYTE_KIND as PY_UNICODE_4BYTE_KIND, PY_UNICODE_WCHAR_KIND as PY_UNICODE_WCHAR_KIND)
+from numba.core.extending import NativeValue as NativeValue, box as box, intrinsic as intrinsic, make_attribute_wrapper as make_attribute_wrapper, models as models, overload as overload, overload_method as overload_method, register_jitable as register_jitable, register_model as register_model, unbox as unbox
+from numba.core.imputils import RefType as RefType, impl_ret_new_ref as impl_ret_new_ref, iternext_impl as iternext_impl, lower_builtin as lower_builtin, lower_cast as lower_cast, lower_constant as lower_constant
+from numba.core.pythonapi import PY_UNICODE_1BYTE_KIND as PY_UNICODE_1BYTE_KIND, PY_UNICODE_2BYTE_KIND as PY_UNICODE_2BYTE_KIND, PY_UNICODE_4BYTE_KIND as PY_UNICODE_4BYTE_KIND, PY_UNICODE_WCHAR_KIND as PY_UNICODE_WCHAR_KIND
 from numba.core.unsafe.bytes import memcpy_region as memcpy_region
 from numba.core.utils import PYVERSION as PYVERSION
 from numba.cpython import slicing as slicing
-from numba.cpython.hashing import _Py_hash_t as _Py_hash_t
-from numba.cpython.unicode_support import (
-	_Py_CARRIAGE_RETURN as _Py_CARRIAGE_RETURN, _Py_ISALNUM as _Py_ISALNUM, _Py_ISALPHA as _Py_ISALPHA,
-	_Py_ISCARRIAGERETURN as _Py_ISCARRIAGERETURN, _Py_ISLINEBREAK as _Py_ISLINEBREAK, _Py_ISLINEFEED as _Py_ISLINEFEED,
-	_Py_ISLOWER as _Py_ISLOWER, _Py_ISSPACE as _Py_ISSPACE, _Py_ISUPPER as _Py_ISUPPER, _Py_LINEFEED as _Py_LINEFEED,
-	_Py_SPACE as _Py_SPACE, _Py_TAB as _Py_TAB, _Py_TOLOWER as _Py_TOLOWER, _Py_TOUPPER as _Py_TOUPPER,
-	_Py_UCS4 as _Py_UCS4, _PyUnicode_IsAlpha as _PyUnicode_IsAlpha, _PyUnicode_IsCased as _PyUnicode_IsCased,
-	_PyUnicode_IsCaseIgnorable as _PyUnicode_IsCaseIgnorable, _PyUnicode_IsDecimalDigit as _PyUnicode_IsDecimalDigit,
-	_PyUnicode_IsDigit as _PyUnicode_IsDigit, _PyUnicode_IsLineBreak as _PyUnicode_IsLineBreak,
-	_PyUnicode_IsLowercase as _PyUnicode_IsLowercase, _PyUnicode_IsNumeric as _PyUnicode_IsNumeric,
-	_PyUnicode_IsPrintable as _PyUnicode_IsPrintable, _PyUnicode_IsSpace as _PyUnicode_IsSpace,
-	_PyUnicode_IsTitlecase as _PyUnicode_IsTitlecase, _PyUnicode_IsUppercase as _PyUnicode_IsUppercase,
-	_PyUnicode_IsXidContinue as _PyUnicode_IsXidContinue, _PyUnicode_IsXidStart as _PyUnicode_IsXidStart,
-	_PyUnicode_ToFoldedFull as _PyUnicode_ToFoldedFull, _PyUnicode_ToLowerFull as _PyUnicode_ToLowerFull,
-	_PyUnicode_ToTitleFull as _PyUnicode_ToTitleFull, _PyUnicode_ToUpperFull as _PyUnicode_ToUpperFull)
-
-_MAX_UNICODE: int
-_BLOOM_WIDTH: Incomplete
 
 class UnicodeModel(models.StructModel):
     def __init__(self, dmm, fe_type) -> None: ...
@@ -68,15 +43,6 @@ def deref_uint8(typingctx, data, offset): ...
 def deref_uint16(typingctx, data, offset): ...
 @intrinsic
 def deref_uint32(typingctx, data, offset): ...
-@intrinsic
-def _malloc_string(typingctx, kind, char_bytes, length, is_ascii):
-    """Make empty string with data buffer of size alloc_bytes.
-
-    Must set length and kind values for string after it is returned
-    """
-@register_jitable
-def _empty_string(kind, length, is_ascii: int = 0): ...
-def _get_code_point(a, i): ...
 def make_set_codegen(bitsize): ...
 @intrinsic
 def set_uint8(typingctx, data, idx, ch): ...
@@ -84,24 +50,6 @@ def set_uint8(typingctx, data, idx, ch): ...
 def set_uint16(typingctx, data, idx, ch): ...
 @intrinsic
 def set_uint32(typingctx, data, idx, ch): ...
-def _set_code_point(a, i, ch) -> None: ...
-@register_jitable
-def _pick_kind(kind1, kind2): ...
-@register_jitable
-def _pick_ascii(is_ascii1, is_ascii2): ...
-@register_jitable
-def _kind_to_byte_width(kind): ...
-def _cmp_region(a, a_offset, b, b_offset, n): ...
-@register_jitable
-def _codepoint_to_kind(cp):
-    """
-    Compute the minimum unicode kind needed to hold a given codepoint
-    """
-@register_jitable
-def _codepoint_is_ascii(ch):
-    """
-    Returns true if a codepoint is in the ASCII range
-    """
 def unicode_len(s): ...
 def unicode_eq(a, b): ...
 def unicode_ne(a, b): ...
@@ -119,22 +67,8 @@ def unicode_idx_check_type(ty, name) -> None:
     """
 def unicode_sub_check_type(ty, name) -> None:
     """Check object belongs to unicode type"""
-@register_jitable
-def _bloom_add(mask, ch): ...
-@register_jitable
-def _bloom_check(mask, ch): ...
-@register_jitable
-def _default_find(data, substr, start, end):
-    """Left finder."""
-@register_jitable
-def _default_rfind(data, substr, start, end):
-    """Right finder."""
 def generate_finder(find_func):
     """Generate finder either left or right."""
-
-_find: Incomplete
-_rfind: Incomplete
-
 def unicode_find(data, substr, start=None, end=None):
     """Implements str.find()"""
 def unicode_rfind(data, substr, start=None, end=None):
@@ -148,8 +82,6 @@ def unicode_partition(data, sep):
 def unicode_count(src, sub, start=None, end=None): ...
 def unicode_rpartition(data, sep):
     """Implements str.rpartition()"""
-@register_jitable
-def _adjust_indices(length, start, end): ...
 def unicode_startswith(s, prefix, start=None, end=None): ...
 def unicode_endswith(s, substr, start=None, end=None): ...
 def unicode_expandtabs(data, tabsize: int = 8):
@@ -167,10 +99,6 @@ def unicode_center(string, width, fillchar: str = ' '): ...
 def gen_unicode_Xjust(STRING_FIRST): ...
 def generate_splitlines_func(is_line_break_func):
     """Generate splitlines performer based on ascii or unicode line breaks."""
-
-_ascii_splitlines: Incomplete
-_unicode_splitlines: Incomplete
-
 def unicode_splitlines(data, keepends: bool = False):
     """Implements str.splitlines()"""
 @register_jitable
@@ -182,7 +110,6 @@ def unicode_strip_left_bound(string, chars): ...
 @register_jitable
 def unicode_strip_right_bound(string, chars): ...
 def unicode_strip_types_check(chars) -> None: ...
-def _count_args_types_check(arg) -> None: ...
 def unicode_lstrip(string, chars=None): ...
 def unicode_rstrip(string, chars=None): ...
 def unicode_strip(string, chars=None): ...
@@ -203,50 +130,12 @@ def normalize_str_idx(idx, length, is_start: bool = True):
     norm_idx : int
         normalized index
     """
-@register_jitable
-def _normalize_slice_idx_count(arg, slice_len, default):
-    """
-    Used for unicode_count
-
-    If arg < -slice_len, returns 0 (prevents circle)
-
-    If arg is within slice, e.g -slice_len <= arg < slice_len
-    returns its real index via arg % slice_len
-
-    If arg > slice_len, returns arg (in this case count must
-    return 0 if it is start index)
-    """
-@intrinsic
-def _normalize_slice(typingctx, sliceobj, length):
-    """Fix slice object.
-    """
-@intrinsic
-def _slice_span(typingctx, sliceobj):
-    """Compute the span from the given slice object.
-    """
-def _strncpy(dst, dst_offset, src, src_offset, n) -> None: ...
-@intrinsic
-def _get_str_slice_view(typingctx, src_t, start_t, length_t):
-    """Create a slice of a unicode string using a view of its data to avoid
-    extra allocation.
-    """
 def unicode_getitem(s, idx): ...
 def unicode_concat(a, b): ...
-@register_jitable
-def _repeat_impl(str_arg, mult_arg): ...
 def unicode_repeat(a, b): ...
 def unicode_not(a): ...
 def unicode_replace(s, old_str, new_str, count: int = -1): ...
 def gen_isAlX(ascii_func, unicode_func): ...
-
-_unicode_is_alnum: Incomplete
-
-def _is_upper(is_lower, is_upper, is_title): ...
-
-_always_false: Incomplete
-_ascii_is_upper: Incomplete
-_unicode_is_upper: Incomplete
-
 def unicode_isupper(a):
     """
     Implements .isupper()
@@ -261,7 +150,7 @@ def unicode_istitle(data):
     """
 def unicode_islower(data):
     """
-    Impl is an approximate translation of:
+    impl is an approximate translation of:
     https://github.com/python/cpython/blob/201c8f79450628241574fba940e08107178dc3a5/Objects/unicodeobject.c#L11900-L11933    # noqa: E501
     mixed with:
     https://github.com/python/cpython/blob/201c8f79450628241574fba940e08107178dc3a5/Objects/bytes_methods.c#L131-L156    # noqa: E501
@@ -271,58 +160,17 @@ def unicode_isidentifier(data):
 def gen_isX(_PyUnicode_IS_func, empty_is_false: bool = True): ...
 def case_operation(ascii_func, unicode_func):
     """Generate common case operation performer."""
-@register_jitable
-def _handle_capital_sigma(data, length, idx):
-    """This is a translation of the function that handles the capital sigma."""
-@register_jitable
-def _lower_ucs4(code_point, data, length, idx, mapped):
-    """This is a translation of the function that lowers a character."""
-def _gen_unicode_upper_or_lower(lower): ...
-
-_unicode_upper: Incomplete
-_unicode_lower: Incomplete
-
-def _gen_ascii_upper_or_lower(func): ...
-
-_ascii_upper: Incomplete
-_ascii_lower: Incomplete
-
 def unicode_lower(data):
     """Implements .lower()"""
 def unicode_upper(data):
     """Implements .upper()"""
-@register_jitable
-def _unicode_casefold(data, length, res, maxchars): ...
-@register_jitable
-def _ascii_casefold(data, res) -> None: ...
 def unicode_casefold(data):
     """Implements str.casefold()"""
-@register_jitable
-def _unicode_capitalize(data, length, res, maxchars): ...
-@register_jitable
-def _ascii_capitalize(data, res) -> None: ...
 def unicode_capitalize(data): ...
-@register_jitable
-def _unicode_title(data, length, res, maxchars):
-    """This is a translation of the function that titles a unicode string."""
-@register_jitable
-def _ascii_title(data, res) -> None:
-    """Does .title() on an ASCII string"""
 def unicode_title(data):
     """Implements str.title()"""
-@register_jitable
-def _ascii_swapcase(data, res) -> None: ...
-@register_jitable
-def _unicode_swapcase(data, length, res, maxchars): ...
 def unicode_swapcase(data): ...
 def ol_ord(c): ...
-@register_jitable
-def _unicode_char(ch): ...
-
-_out_of_range_msg: Incomplete
-
-@register_jitable
-def _PyUnicode_FromOrdinal(ordinal): ...
 def ol_chr(i): ...
 def unicode_str(s): ...
 def unicode_repr(s): ...

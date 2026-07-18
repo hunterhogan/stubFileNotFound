@@ -8,20 +8,11 @@ class _NRT_Meminfo_Functions(NamedTuple):
     alloc_dtor: Incomplete
     alloc_aligned: Incomplete
 
-_NRT_MEMINFO_SAFE_API: Incomplete
-_NRT_MEMINFO_DEFAULT_API: Incomplete
-
 class NRTContext:
     """
     An object providing access to NRT APIs in the lowering pass.
     """
-
-    _context: Incomplete
-    _enabled: Incomplete
-    _meminfo_api: Incomplete
     def __init__(self, context, enabled) -> None: ...
-    def _require_nrt(self) -> None: ...
-    def _check_null_result(func): ...
     @_check_null_result
     def allocate(self, builder, size):
         """
@@ -189,7 +180,6 @@ class NRTContext:
         Free a memory area allocated for a NRT varsize object.
         Note this does *not* free the NRT object itself!
         """
-    def _call_varsize_alloc(self, builder, meminfo, size, funcname): ...
     def meminfo_data(self, builder, meminfo):
         """
         Given a MemInfo pointer, return a pointer to the allocated data
@@ -198,9 +188,6 @@ class NRTContext:
         """
     def get_meminfos(self, builder, ty, val):
         """Return a list of *(type, meminfo)* inside the given value.
-        """
-    def _call_incref_decref(self, builder, typ, value, funcname) -> None:
-        """Call function of *funcname* on every meminfo found in *value*.
         """
     def incref(self, builder, typ, value) -> None:
         """

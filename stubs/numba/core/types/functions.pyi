@@ -1,5 +1,4 @@
-from .abstract import (
-	Callable as Callable, DTypeSpec as DTypeSpec, Dummy as Dummy, Literal as Literal, Type as Type, weakref as weakref)
+from .abstract import Callable as Callable, DTypeSpec as DTypeSpec, Dummy as Dummy, Literal as Literal, Type as Type, weakref as weakref
 from .common import Opaque as Opaque
 from .misc import unliteral as unliteral
 from _typeshed import Incomplete
@@ -7,43 +6,17 @@ from numba.core import config as config, errors as errors, types as types, utils
 from numba.core.typeconv import Conversion as Conversion
 from typing import NamedTuple
 
-_logger: Incomplete
-_termcolor: Incomplete
-
 class _FAILURE(NamedTuple):
     template: Incomplete
     matched: Incomplete
     error: Incomplete
     literal: Incomplete
 
-_termwidth: Incomplete
-_header_lead: str
-_header_template: Incomplete
-_reason_template: str
-
-def _wrapper(tmp, indent: int = 0): ...
-
-_overload_template: str
-_err_reasons: Incomplete
-
-def _bt_as_lines(bt):
-    """
-    Converts a backtrace into a list of lines, squashes it a bit on the way.
-    """
 def argsnkwargs_to_str(args, kwargs): ...
 
 class _ResolutionFailures:
     """Collect and format function resolution failures.
     """
-
-    _context: Incomplete
-    _function_type: Incomplete
-    _args: Incomplete
-    _kwargs: Incomplete
-    _failures: Incomplete
-    _depth: Incomplete
-    _max_depth: int
-    _scale: int
     def __init__(self, context, function_type, args, kwargs, depth: int = 0) -> None: ...
     def __len__(self) -> int: ...
     def add_error(self, calltemplate, matched, error, literal) -> None:
@@ -65,19 +38,12 @@ class _ResolutionFailures:
         """
     def raise_error(self) -> None: ...
 
-def _unlit_non_poison(ty):
-    """Apply unliteral(ty) and raise a TypingError if type is Poison.
-    """
-
 class BaseFunction(Callable):
     """
     Base type class for some function types.
     """
-
     templates: Incomplete
     typing_key: Incomplete
-    _impl_keys: Incomplete
-    _depth: int
     def __init__(self, template) -> None: ...
     @property
     def key(self): ...
@@ -103,7 +69,6 @@ class BoundFunction(Callable, Opaque):
     """
     A function with an implicit first argument (denoted as *this* below).
     """
-
     template: Incomplete
     typing_key: Incomplete
     this: Incomplete
@@ -129,7 +94,6 @@ class _PickleableWeakRef(weakref.ref):
     Note that if the object referred to is not kept alive elsewhere in the
     pickle, the weakref will immediately expire after being constructed.
     """
-
     def __getnewargs__(self): ...
 
 class WeakType(Type):
@@ -137,10 +101,6 @@ class WeakType(Type):
     Base class for types parametered by a mortal object, to which only
     a weak reference is kept.
     """
-
-    _wr: Incomplete
-    def _store_object(self, obj) -> None: ...
-    def _get_object(self): ...
     @property
     def key(self): ...
     def __eq__(self, other): ...
@@ -150,7 +110,6 @@ class Dispatcher(WeakType, Callable, Dummy):
     """
     Type class for @jit-compiled functions.
     """
-
     def __init__(self, dispatcher) -> None: ...
     def dump(self, tab: str = '') -> None: ...
     def get_call_type(self, context, args, kws):
@@ -174,7 +133,7 @@ class Dispatcher(WeakType, Callable, Dummy):
         """
         Get the implementation key for the given signature.
         """
-    def unify(self, context, other): ...
+    def unify(self, typingctx, other): ...
     def can_convert_to(self, typingctx, other): ...
 
 class ObjModeDispatcher(Dispatcher):
@@ -187,7 +146,6 @@ class ExternalFunctionPointer(BaseFunction):
     *get_pointer* is a Python function taking an object
     and returning the raw pointer value as an int.
     """
-
     sig: Incomplete
     requires_gil: Incomplete
     get_pointer: Incomplete
@@ -201,7 +159,6 @@ class ExternalFunction(Function):
     A named native function (resolvable by LLVM) accepting an explicit
     signature. For internal use only.
     """
-
     symbol: Incomplete
     sig: Incomplete
     def __init__(self, symbol, sig) -> None: ...
@@ -212,7 +169,6 @@ class NamedTupleClass(Callable, Opaque):
     """
     Type class for namedtuple classes.
     """
-
     instance_class: Incomplete
     def __init__(self, instance_class) -> None: ...
     def get_call_type(self, context, args, kws) -> None: ...
@@ -222,10 +178,9 @@ class NamedTupleClass(Callable, Opaque):
     def key(self): ...
 
 class NumberClass(Callable, DTypeSpec, Opaque):
-    """
+    '''
     Type class for number classes (e.g. "np.float64").
-    """
-
+    '''
     instance_type: Incomplete
     def __init__(self, instance_type) -> None: ...
     def get_call_type(self, context, args, kws) -> None: ...
@@ -244,8 +199,6 @@ class RecursiveCall(Opaque):
     """
     Recursive call to a Dispatcher.
     """
-
-    _overloads: Incomplete
     dispatcher_type: Incomplete
     def __init__(self, dispatcher_type) -> None: ...
     def add_overloads(self, args, qualname, uid) -> None:

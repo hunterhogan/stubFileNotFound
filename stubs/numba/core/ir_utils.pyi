@@ -1,74 +1,56 @@
-from _typeshed import Incomplete
-from numba.core import (
-	analysis as analysis, config as config, ir as ir, postproc as postproc, rewrites as rewrites, types as types,
-	typing as typing)
-from numba.core.analysis import (
-	compute_cfg_from_blocks as compute_cfg_from_blocks, compute_live_map as compute_live_map,
-	compute_use_defs as compute_use_defs)
-from numba.core.errors import (
-	CompilerError as CompilerError, NumbaPendingDeprecationWarning as NumbaPendingDeprecationWarning,
-	TypingError as TypingError, UnsupportedError as UnsupportedError)
-from numba.core.extending import _Intrinsic as _Intrinsic
-from numba.core.typing.templates import signature as signature
 import numba
-
-_unique_var_count: int
+from _typeshed import Incomplete
+from numba.core import analysis as analysis, config as config, ir as ir, postproc as postproc, rewrites as rewrites, types as types, typing as typing
+from numba.core.analysis import compute_cfg_from_blocks as compute_cfg_from_blocks, compute_live_map as compute_live_map, compute_use_defs as compute_use_defs
+from numba.core.errors import CompilerError as CompilerError, NumbaPendingDeprecationWarning as NumbaPendingDeprecationWarning, TypingError as TypingError, UnsupportedError as UnsupportedError
+from numba.core.typing.templates import signature as signature
 
 def mk_unique_var(prefix): ...
 
 class _MaxLabel:
-    _value: Incomplete
     def __init__(self, value: int = 0) -> None: ...
     def next(self): ...
     def update(self, newval) -> None: ...
 
-_the_max_label: Incomplete
-
 def get_unused_var_name(prefix, var_table):
-    """Get a new var name with a given prefix and
-    make sure it is unused in the given variable table.
+    """ Get a new var name with a given prefix and
+        make sure it is unused in the given variable table.
     """
 def next_label(): ...
-def mk_alloc(typingctx, typemap, calltypes, lhs, size_var, dtype, scope, loc, lhs_typ):
-    """Generate an array allocation with np.empty() and return list of nodes.
-    size_var can be an int variable or tuple of int variables.
-    lhs_typ is the type of the array being allocated.
-    """
 def convert_size_to_var(size_var, typemap, scope, loc, nodes): ...
 def get_np_ufunc_typ(func, typingctx):
-    """Get type of the incoming function
+    """get type of the incoming function
 
     Resolve using the context for target-awareness
     """
 def mk_range_block(typemap, start, stop, step, calltypes, scope, loc):
-    """Make a block that initializes loop range and iteration variables.
+    """make a block that initializes loop range and iteration variables.
     target label in jump needs to be set.
     """
-def _mk_range_args(typemap, start, stop, step, scope, loc): ...
 def get_global_func_typ(func):
-    """Get type variable for func() from builtin registry"""
+    """get type variable for func() from builtin registry"""
 def mk_loop_header(typemap, phi_var, calltypes, scope, loc):
-    """Make a block that is a loop header updating iteration variables.
+    """make a block that is a loop header updating iteration variables.
     target labels in branch need to be set.
     """
 def legalize_names(varnames):
-    """Returns a dictionary for conversion of variable names to legal
+    """returns a dictionary for conversion of variable names to legal
     parameter names.
     """
 def get_name_var_table(blocks):
-    """Create a mapping from variable names to their ir.Var objects"""
+    """create a mapping from variable names to their ir.Var objects"""
 def replace_var_names(blocks, namedict):
-    """Replace variables (ir.Var to ir.Var) from dictionary (name -> name)"""
+    """replace variables (ir.Var to ir.Var) from dictionary (name -> name)"""
 def replace_var_callback(var, vardict): ...
 def replace_vars(blocks, vardict) -> None:
-    """Replace variables (ir.Var to ir.Var) from dictionary (name -> ir.Var)"""
+    """replace variables (ir.Var to ir.Var) from dictionary (name -> ir.Var)"""
 def replace_vars_stmt(stmt, vardict) -> None: ...
 def replace_vars_inner(node, vardict): ...
 
 visit_vars_extensions: Incomplete
 
 def visit_vars(blocks, callback, cbdata) -> None:
-    """Go over statements of block bodies and replace variable names with
+    """go over statements of block bodies and replace variable names with
     dictionary.
     """
 def visit_vars_stmt(stmt, callback, cbdata) -> None: ...
@@ -77,32 +59,32 @@ def visit_vars_inner(node, callback, cbdata): ...
 add_offset_to_labels_extensions: Incomplete
 
 def add_offset_to_labels(blocks, offset):
-    """Add an offset to all block labels and jump/branch targets
+    """add an offset to all block labels and jump/branch targets
     """
 
 find_max_label_extensions: Incomplete
 
 def find_max_label(blocks): ...
 def flatten_labels(blocks):
-    """Makes the labels in range(0, len(blocks)), useful to compare CFGs
+    """makes the labels in range(0, len(blocks)), useful to compare CFGs
     """
 def remove_dels(blocks) -> None:
-    """Remove ir.Del nodes"""
+    """remove ir.Del nodes"""
 def remove_args(blocks) -> None:
-    """Remove ir.Arg nodes"""
+    """remove ir.Arg nodes"""
 def dead_code_elimination(func_ir, typemap=None, alias_map=None, arg_aliases=None) -> None:
-    """Performs dead code elimination and leaves the IR in a valid state on
+    """ Performs dead code elimination and leaves the IR in a valid state on
     exit
     """
 def remove_dead(blocks, args, func_ir, typemap=None, alias_map=None, arg_aliases=None):
-    """Dead code elimination using liveness and CFG info.
+    """dead code elimination using liveness and CFG info.
     Returns True if something has been removed, or False if nothing is removed.
     """
 
 remove_dead_extensions: Incomplete
 
 def remove_dead_block(block, lives, call_table, arg_aliases, alias_map, alias_set, func_ir, typemap):
-    """Remove dead code using liveness info.
+    """remove dead code using liveness info.
     Mutable arguments (e.g. arrays) that are not definitely assigned are live
     after return of function.
     """
@@ -111,16 +93,16 @@ remove_call_handlers: Incomplete
 
 def remove_dead_random_call(rhs, lives, call_list): ...
 def has_no_side_effect(rhs, lives, call_table):
-    """Returns True if this expression has no side effects that
-    would prevent re-ordering.
+    """ Returns True if this expression has no side effects that
+        would prevent re-ordering.
     """
 
 is_pure_extensions: Incomplete
 
 def is_pure(rhs, lives, call_table):
-    """Returns True if every time this expression is evaluated it
-    returns the same result.  This is not the case for things
-    like calls to numpy.random.
+    """ Returns True if every time this expression is evaluated it
+        returns the same result.  This is not the case for things
+        like calls to numpy.random.
     """
 def is_const_call(module_name, func_name): ...
 
@@ -129,29 +111,28 @@ alias_func_extensions: Incomplete
 
 def get_canonical_alias(v, alias_map): ...
 def find_potential_aliases(blocks, args, typemap, func_ir, alias_map=None, arg_aliases=None):
-    """Find all array aliases and argument aliases to avoid remove as dead"""
-def _add_alias(lhs, rhs, alias_map, arg_aliases) -> None: ...
+    """find all array aliases and argument aliases to avoid remove as dead"""
 def is_immutable_type(var, typemap): ...
 def copy_propagate(blocks, typemap):
-    """Compute copy propagation information for each block using fixed-point
-    iteration on data flow equations:
-    in_b = intersect(predec(B))
-    out_b = gen_b | (in_b - kill_b)
+    """compute copy propagation information for each block using fixed-point
+     iteration on data flow equations:
+     in_b = intersect(predec(B))
+     out_b = gen_b | (in_b - kill_b)
     """
 def init_copy_propagate_data(blocks, entry, typemap):
-    """Get initial condition of copy propagation data flow for each block.
+    """get initial condition of copy propagation data flow for each block.
     """
 
 copy_propagate_extensions: Incomplete
 
 def get_block_copies(blocks, typemap):
-    """Get copies generated and killed by each block
+    """get copies generated and killed by each block
     """
 
 apply_copy_propagate_extensions: Incomplete
 
 def apply_copy_propagate(blocks, in_copies, name_var_table, typemap, calltypes, save_copies=None):
-    """Apply copy propagation to IR: replace variables when copies available"""
+    """apply copy propagation to IR: replace variables when copies available"""
 def fix_setitem_type(stmt, typemap, calltypes) -> None:
     """Copy propagation can replace setitem target variable, which can be array
     with 'A' layout. The replaced variable can be 'C' or 'F', so we update
@@ -162,7 +143,7 @@ def dprint_func_ir(func_ir, title, blocks=None) -> None:
     that may differ from the IR's original blocks.
     """
 def find_topo_order(blocks, cfg=None):
-    """Find topological order of blocks such that true branches are visited
+    """find topological order of blocks such that true branches are visited
     first (e.g. for_break test in test_dataflow). This is written as an iterative
     implementation of post order traversal to avoid recursion limit issues.
     """
@@ -170,21 +151,21 @@ def find_topo_order(blocks, cfg=None):
 call_table_extensions: Incomplete
 
 def get_call_table(blocks, call_table=None, reverse_call_table=None, topological_ordering: bool = True):
-    """Returns a dictionary of call variables and their references.
+    """returns a dictionary of call variables and their references.
     """
 
 tuple_table_extensions: Incomplete
 
 def get_tuple_table(blocks, tuple_table=None):
-    """Returns a dictionary of tuple variables and their values.
+    """returns a dictionary of tuple variables and their values.
     """
 def get_stmt_writes(stmt): ...
 def rename_labels(blocks):
-    """Rename labels of function body blocks according to topological sort.
+    """rename labels of function body blocks according to topological sort.
     The set of labels of these blocks will remain unchanged.
     """
 def simplify_CFG(blocks):
-    """Transform chains of blocks that have no loop into a single block"""
+    """transform chains of blocks that have no loop into a single block"""
 
 arr_math: Incomplete
 
@@ -193,14 +174,14 @@ def canonicalize_array_math(func_ir, typemap, calltypes, typingctx) -> None: ...
 array_accesses_extensions: Incomplete
 
 def get_array_accesses(blocks, accesses=None):
-    """Returns a set of arrays accessed and their indices.
+    """returns a set of arrays accessed and their indices.
     """
 def is_slice_index(index):
-    """See if index is a slice index or has slice in it"""
+    """see if index is a slice index or has slice in it"""
 def merge_adjacent_blocks(blocks) -> None: ...
 def restore_copy_var_names(blocks, save_copies, typemap):
     """
-    Restores variable names of user variables after applying copy propagation
+    restores variable names of user variables after applying copy propagation
     """
 def simplify(func_ir, typemap, calltypes, metadata) -> None: ...
 
@@ -257,15 +238,6 @@ def compile_to_numba_ir(mk_func, glbls, typingctx=None, targetctx=None, arg_typs
     if typingctx and other typing inputs are available and update typemap and
     calltypes.
     """
-def _create_function_from_code_obj(fcode, func_env, func_arg, func_clo, glbls):
-    """
-    Creates a function from a code object. Args:
-    * fcode - the code object
-    * func_env - string for the freevar placeholders
-    * func_arg - string for the function args (e.g. "a, b, c, d=None")
-    * func_clo - string for the closure args
-    * glbls - the function globals
-    """
 def get_ir_of_code(glbls, fcode):
     """
     Compile a code object to get its IR, ir.Del nodes are emitted
@@ -282,18 +254,18 @@ def gen_np_call(func_as_str, func, lhs, args, typingctx, typemap, calltypes): ..
 def dump_block(label, block) -> None: ...
 def dump_blocks(blocks) -> None: ...
 def is_operator_or_getitem(expr):
-    """True if expr is unary or binary operator or getitem"""
+    """true if expr is unary or binary operator or getitem"""
 def is_get_setitem(stmt):
-    """Stmt is getitem assignment or setitem (and static cases)"""
+    """stmt is getitem assignment or setitem (and static cases)"""
 def is_getitem(stmt):
-    """True if stmt is a getitem or static_getitem assignment"""
+    """true if stmt is a getitem or static_getitem assignment"""
 def is_setitem(stmt):
-    """True if stmt is a SetItem or StaticSetItem node"""
+    """true if stmt is a SetItem or StaticSetItem node"""
 def index_var_of_get_setitem(stmt):
-    """Get index variable for getitem/setitem nodes (and static cases)"""
+    """get index variable for getitem/setitem nodes (and static cases)"""
 def set_index_var_of_get_setitem(stmt, new_index) -> None: ...
 def is_namedtuple_class(c):
-    """Check if c is a namedtuple class"""
+    """check if c is a namedtuple class"""
 def fill_block_with_call(newblock, callee, label_next, inputs, outputs):
     """Fill *newblock* to call *callee* with arguments listed in *inputs*.
     The returned values are unwrapped into variables in *outputs*.

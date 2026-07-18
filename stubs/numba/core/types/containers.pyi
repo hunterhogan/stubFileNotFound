@@ -1,23 +1,17 @@
+import abc
 from .. import utils as utils
 from ..errors import TypingError as TypingError
 from ..typeconv import Conversion as Conversion
-from .abstract import (
-	ConstSized as ConstSized, Container as Container, Hashable as Hashable, InitialValue as InitialValue,
-	Literal as Literal, MutableSequence as MutableSequence, Poison as Poison, Sequence as Sequence, Type as Type,
-	TypeRef as TypeRef)
-from .common import (
-	Buffer as Buffer, IterableType as IterableType, SimpleIterableType as SimpleIterableType,
-	SimpleIteratorType as SimpleIteratorType)
+from .abstract import ConstSized as ConstSized, Container as Container, Hashable as Hashable, InitialValue as InitialValue, Literal as Literal, MutableSequence as MutableSequence, Poison as Poison, Sequence as Sequence, Type as Type, TypeRef as TypeRef
+from .common import Buffer as Buffer, IterableType as IterableType, SimpleIterableType as SimpleIterableType, SimpleIteratorType as SimpleIteratorType
 from .misc import NoneType as NoneType, Optional as Optional, Undefined as Undefined, unliteral as unliteral
 from _typeshed import Incomplete
 from collections.abc import Sequence as pySequence
-import abc
 
 class Pair(Type):
     """
     A heterogeneous pair.
     """
-
     first_type: Incomplete
     second_type: Incomplete
     def __init__(self, first_type, second_type) -> None: ...
@@ -31,7 +25,6 @@ class BaseContainerIterator(SimpleIteratorType):
 
     Derived classes must implement the *container_class* attribute.
     """
-
     container: Incomplete
     def __init__(self, container) -> None: ...
     def unify(self, typingctx, other): ...
@@ -44,7 +37,6 @@ class BaseContainerPayload(Type):
 
     Derived classes must implement the *container_class* attribute.
     """
-
     container: Incomplete
     def __init__(self, container) -> None: ...
     @property
@@ -54,7 +46,6 @@ class Bytes(Buffer):
     """
     Type class for Python 3.x bytes objects.
     """
-
     mutable: bool
     slice_is_copy: bool
 
@@ -62,14 +53,12 @@ class ByteArray(Buffer):
     """
     Type class for bytearray objects.
     """
-
     slice_is_copy: bool
 
 class PyArray(Buffer):
     """
     Type class for array.array objects.
     """
-
     slice_is_copy: bool
 
 class MemoryView(Buffer):
@@ -85,22 +74,16 @@ class BaseTuple(ConstSized, Hashable, metaclass=abc.ABCMeta):
     """
     The base class for all tuple types (with a known size).
     """
-
     @classmethod
     def from_types(cls, tys, pyclass=None):
         """
         Instantiate the right tuple type for the given element types.
         """
-    @classmethod
-    def _make_homogeneous_tuple(cls, dtype, count): ...
-    @classmethod
-    def _make_heterogeneous_tuple(cls, tys): ...
 
 class BaseAnonymousTuple(BaseTuple, metaclass=abc.ABCMeta):
     """
     Mixin for non-named tuples.
     """
-
     def can_convert_to(self, typingctx, other):
         """
         Convert this tuple to another one.  Note named tuples are rejected.
@@ -123,7 +106,6 @@ class UniTuple(BaseAnonymousTuple, _HomogeneousTuple, Sequence):
     """
     Type class for homogeneous tuples.
     """
-
     dtype: Incomplete
     count: Incomplete
     def __init__(self, dtype, count) -> None: ...
@@ -141,8 +123,7 @@ class UniTupleIter(BaseContainerIterator):
     """
     Type class for homogeneous tuple iterators.
     """
-
-    container_class = _HomogeneousTuple
+    container_class: Incomplete
 
 class _HeterogeneousTuple(BaseTuple):
     def __getitem__(self, i):
@@ -174,16 +155,11 @@ class Tuple(BaseAnonymousTuple, _HeterogeneousTuple):
         Unify elements of Tuples/UniTuples
         """
 
-class _StarArgTupleMixin:
-    @classmethod
-    def _make_homogeneous_tuple(cls, dtype, count): ...
-    @classmethod
-    def _make_heterogeneous_tuple(cls, tys): ...
+class _StarArgTupleMixin: ...
 
 class StarArgTuple(_StarArgTupleMixin, Tuple):
     """To distinguish from Tuple() used as argument to a `*args`.
     """
-
     def __new__(cls, types): ...
 
 class StarArgUniTuple(_StarArgTupleMixin, UniTuple):
@@ -215,7 +191,6 @@ class List(MutableSequence, InitialValue):
     """
     Type class for (arbitrary-sized) homogeneous lists.
     """
-
     dtype: Incomplete
     reflected: Incomplete
     def __init__(self, dtype, reflected: bool = False, initial_value=None) -> None: ...
@@ -235,7 +210,6 @@ class List(MutableSequence, InitialValue):
 class LiteralList(Literal, ConstSized, Hashable):
     """A heterogeneous immutable list (basically a tuple with list semantics).
     """
-
     mutable: bool
     types: Incomplete
     count: Incomplete
@@ -263,21 +237,18 @@ class ListIter(BaseContainerIterator):
     """
     Type class for list iterators.
     """
-
     container_class = List
 
 class ListPayload(BaseContainerPayload):
     """
     Internal type class for the dynamically-allocated payload of a list.
     """
-
     container_class = List
 
 class Set(Container):
     """
     Type class for homogeneous sets.
     """
-
     mutable: bool
     dtype: Incomplete
     reflected: Incomplete
@@ -294,21 +265,18 @@ class SetIter(BaseContainerIterator):
     """
     Type class for set iterators.
     """
-
     container_class = Set
 
 class SetPayload(BaseContainerPayload):
     """
     Internal type class for the dynamically-allocated payload of a set.
     """
-
     container_class = Set
 
 class SetEntry(Type):
     """
     Internal type class for the entries of a Set's hash table.
     """
-
     set_type: Incomplete
     def __init__(self, set_type) -> None: ...
     @property
@@ -318,7 +286,6 @@ class ListType(IterableType):
     """
     List type
     """
-
     mutable: bool
     item_type: Incomplete
     dtype: Incomplete
@@ -341,7 +308,6 @@ class ListTypeIterableType(SimpleIterableType):
     """
     List iterable type
     """
-
     parent: Incomplete
     yield_type: Incomplete
     def __init__(self, parent) -> None: ...
@@ -351,12 +317,9 @@ class ListTypeIteratorType(SimpleIteratorType):
     iterable: Incomplete
     def __init__(self, iterable) -> None: ...
 
-def _sentry_forbidden_types(key, value) -> None: ...
-
 class DictType(IterableType, InitialValue):
     """Dictionary type
     """
-
     key_type: Incomplete
     value_type: Incomplete
     keyvalue_type: Incomplete
@@ -381,10 +344,7 @@ class LiteralStrKeyDict(Literal, ConstSized, Hashable):
     """A Dictionary of string keys to heterogeneous values (basically a
     namedtuple with dict semantics).
     """
-
     class FakeNamedTuple(pySequence):
-        __name__: Incomplete
-        _fields: Incomplete
         def __init__(self, name, keys) -> None: ...
         def __len__(self) -> int: ...
         def __getitem__(self, key): ...
@@ -410,7 +370,6 @@ class LiteralStrKeyDict(Literal, ConstSized, Hashable):
 class DictItemsIterableType(SimpleIterableType):
     """Dictionary iterable type for .items()
     """
-
     parent: Incomplete
     yield_type: Incomplete
     name: Incomplete
@@ -419,7 +378,6 @@ class DictItemsIterableType(SimpleIterableType):
 class DictKeysIterableType(SimpleIterableType):
     """Dictionary iterable type for .keys()
     """
-
     parent: Incomplete
     yield_type: Incomplete
     name: Incomplete
@@ -428,7 +386,6 @@ class DictKeysIterableType(SimpleIterableType):
 class DictValuesIterableType(SimpleIterableType):
     """Dictionary iterable type for .values()
     """
-
     parent: Incomplete
     yield_type: Incomplete
     name: Incomplete
@@ -439,12 +396,40 @@ class DictIteratorType(SimpleIteratorType):
     iterable: Incomplete
     def __init__(self, iterable) -> None: ...
 
+class SetType(IterableType, InitialValue):
+    """Set type
+    """
+    key_type: Incomplete
+    def __init__(self, keyty, initial_value=None) -> None: ...
+    @property
+    def iterator_type(self): ...
+    def is_precise(self): ...
+    @classmethod
+    def refine(cls, keyty):
+        """Refine to a precise Set type
+        """
+    def unify(self, typingctx, other):
+        """
+        Unify this with the *other* Set.
+        """
+    @property
+    def key(self): ...
+    def __unliteral__(self): ...
+
+class SetIterableType(SimpleIterableType):
+    parent: Incomplete
+    yield_type: Incomplete
+    name: Incomplete
+    def __init__(self, parent) -> None: ...
+
+class SetIteratorType(SimpleIteratorType):
+    parent: Incomplete
+    iterable: Incomplete
+    def __init__(self, iterable) -> None: ...
+
 class StructRef(Type):
     """A mutable struct.
     """
-
-    _fields: Incomplete
-    _typename: Incomplete
     def __init__(self, fields) -> None:
         """
         Parameters
@@ -459,8 +444,8 @@ class StructRef(Type):
 
         The default is an identity function.
 
-        Parameters
-        ----------
+        Parameters:
+        -----------
         fields : Sequence[Tuple[str, Type]]
         """
     @property
@@ -478,10 +463,7 @@ class StructRef(Type):
 class StructRefPayload(Type):
     """The type of the payload of a mutable struct.
     """
-
     mutable: bool
-    _typename: Incomplete
-    _fields: Incomplete
     def __init__(self, typename, fields) -> None: ...
     @property
     def field_dict(self): ...

@@ -2,12 +2,7 @@ from _typeshed import Incomplete
 from numba.core import cgutils as cgutils, config as config, errors as errors, ir as ir, types as types
 from numba.core.analysis import compute_cfg_from_blocks as compute_cfg_from_blocks
 from numba.core.extending import intrinsic as intrinsic
-from numba.core.ir_utils import (
-	build_definitions as build_definitions, dprint_func_ir as dprint_func_ir, find_build_sequence as find_build_sequence,
-	find_callname as find_callname, find_const as find_const, find_potential_aliases as find_potential_aliases,
-	find_topo_order as find_topo_order, get_canonical_alias as get_canonical_alias, get_definition as get_definition,
-	get_global_func_typ as get_global_func_typ, guard as guard, GuardException as GuardException,
-	is_namedtuple_class as is_namedtuple_class, mk_unique_var as mk_unique_var, require as require)
+from numba.core.ir_utils import GuardException as GuardException, build_definitions as build_definitions, dprint_func_ir as dprint_func_ir, find_build_sequence as find_build_sequence, find_callname as find_callname, find_const as find_const, find_potential_aliases as find_potential_aliases, find_topo_order as find_topo_order, get_canonical_alias as get_canonical_alias, get_definition as get_definition, get_global_func_typ as get_global_func_typ, guard as guard, is_namedtuple_class as is_namedtuple_class, mk_unique_var as mk_unique_var, require as require
 from numba.core.typing import npydecl as npydecl, signature as signature
 
 UNKNOWN_CLASS: int
@@ -23,7 +18,7 @@ random_calls: Incomplete
 
 @intrinsic
 def wrap_index(typingctx, idx, size):
-    """
+    '''
     Calculate index value "idx" relative to a size "size" value as
     (idx % size), where "size" is known to be positive.
     Note that we use the mod(%) operation here instead of
@@ -34,7 +29,7 @@ def wrap_index(typingctx, idx, size):
     Both idx and size have to be Integer types.
     size should be from the array size vars that array_analysis
     adds and the bitwidth should match the platform maximum.
-    """
+    '''
 def wrap_index_literal(idx, size): ...
 @intrinsic
 def assert_equiv(typingctx, *val):
@@ -49,7 +44,6 @@ class EquivSet:
     """EquivSet keeps track of equivalence relations between
     a set of objects.
     """
-
     obj_to_ind: Incomplete
     ind_to_obj: Incomplete
     next_ind: Incomplete
@@ -65,18 +59,6 @@ class EquivSet:
         """
     def is_empty(self):
         """Return true if the set is empty, or false otherwise.
-        """
-    def _get_ind(self, x):
-        """Return the internal index (greater or equal to 0) of the given
-        object, or -1 if not found.
-        """
-    def _get_or_add_ind(self, x):
-        """Return the internal index (greater or equal to 0) of the given
-        object, or create a new one if not found.
-        """
-    def _insert(self, objs) -> None:
-        """Base method that inserts a set of equivalent objects by modifying
-        self.
         """
     def is_equiv(self, *objs):
         """Try to derive if given objects are equivalent, return true
@@ -94,7 +76,7 @@ class EquivSet:
         method can be overloaded to transform object type before insertion.
         """
     def intersect(self, equiv_set):
-        """Return the intersection of self and the given equiv_set,
+        """ Return the intersection of self and the given equiv_set,
         without modifying either of them. The result will also keep
         old equivalence indices unchanged.
         """
@@ -106,7 +88,6 @@ class ShapeEquivSet(EquivSet):
     equivalent only when they are equal in value. Tuples are equivalent
     when they are of the same size, and their elements are equivalent.
     """
-
     typemap: Incomplete
     defs: Incomplete
     ind_to_var: Incomplete
@@ -121,11 +102,6 @@ class ShapeEquivSet(EquivSet):
         """
     def clone(self):
         """Return a new copy.
-        """
-    def _get_names(self, obj):
-        """Return a set of names for the given obj, where array and tuples
-        are broken down to their individual shapes or elements. This is
-        safe because both Numba array shapes and Python tuples are immutable.
         """
     def is_equiv(self, *objs):
         """Overload EquivSet.is_equiv to handle Numba IR variables and
@@ -142,9 +118,6 @@ class ShapeEquivSet(EquivSet):
     def get_equiv_set(self, obj):
         """Return the set of equivalent objects.
         """
-    def _insert(self, objs) -> None:
-        """Overload EquivSet._insert to manage ind_to_var dictionary.
-        """
     def insert_equiv(self, *objs):
         """Overload EquivSet.insert_equiv to handle Numba IR variables and
         constants. Input objs are either variable or constant, and at least
@@ -156,10 +129,6 @@ class ShapeEquivSet(EquivSet):
     def get_shape(self, name):
         """Return a tuple of variables that corresponds to the shape
         of the given array, or None if not found.
-        """
-    def _get_shape(self, name):
-        """Return a tuple of variables that corresponds to the shape
-        of the given array, or raise GuardException if not found.
         """
     def get_shape_classes(self, name):
         """Instead of the shape tuple, return tuple of int, where
@@ -210,7 +179,6 @@ class SymbolicEquivSet(ShapeEquivSet):
     (slicing). For instance, a[1:m] and a[0:m-1] shall be considered
     size-equivalence.
     """
-
     def_by: Incomplete
     ref_by: Incomplete
     ext_shapes: Incomplete
@@ -231,11 +199,6 @@ class SymbolicEquivSet(ShapeEquivSet):
         """Retrieve a definition pair for the given variable,
         or return None if it is not available.
         """
-    def _get_or_set_rel(self, name, func_ir=None):
-        """Retrieve a definition pair for the given variable,
-        and if it is not already available, try to look it up
-        in the given func_ir, and remember it for future use.
-        """
     def define(self, var, redefined, func_ir=None, typ=None):
         """Besides incrementing the definition count of the given variable
         name, it will also retrieve and simplify its definition from func_ir,
@@ -244,45 +207,37 @@ class SymbolicEquivSet(ShapeEquivSet):
           1. arithmetic plus and minus with constants
           2. wrap_index (relative to some given size)
         """
-    def _insert(self, objs):
-        """Overload _insert method to handle ind changes between relative
-        objects.  Returns True if some change is made, false otherwise.
-        """
     def set_shape_setitem(self, obj, shape) -> None:
-        """Remember shapes of SetItem IR nodes.
-        """
-    def _get_shape(self, obj):
-        """Overload _get_shape to retrieve the shape of SetItem IR nodes.
+        """remember shapes of SetItem IR nodes.
         """
 
 class WrapIndexMeta:
     """
-    Array analysis should be able to analyze all the function
-    calls that it adds to the IR.  That way, array analysis can
-    be run as often as needed and you should get the same
-    equivalencies.  One modification to the IR that array analysis
-    makes is the insertion of wrap_index calls.  Thus, repeated
-    array analysis passes should be able to analyze these wrap_index
-    calls.  The difficulty of these calls is that the equivalence
-    class of the left-hand side of the assignment is not present in
-    the arguments to wrap_index in the right-hand side.  Instead,
-    the equivalence class of the wrap_index output is a combination
-    of the wrap_index args.  The important thing to
-    note is that if the equivalence classes of the slice size
-    and the dimension's size are the same for two wrap index
-    calls then we can be assured of the answer being the same.
-    So, we maintain the wrap_map dict that maps from a tuple
-    of equivalence class ids for the slice and dimension size
-    to some new equivalence class id for the output size.
-    However, when we are analyzing the first such wrap_index
-    call we don't have a variable there to associate to the
-    size since we're in the process of analyzing the instruction
-    that creates that mapping.  So, instead we return an object
-    of this special class and analyze_inst will establish the
-    connection between a tuple of the parts of this object
-    below and the left-hand side variable.
+      Array analysis should be able to analyze all the function
+      calls that it adds to the IR.  That way, array analysis can
+      be run as often as needed and you should get the same
+      equivalencies.  One modification to the IR that array analysis
+      makes is the insertion of wrap_index calls.  Thus, repeated
+      array analysis passes should be able to analyze these wrap_index
+      calls.  The difficulty of these calls is that the equivalence
+      class of the left-hand side of the assignment is not present in
+      the arguments to wrap_index in the right-hand side.  Instead,
+      the equivalence class of the wrap_index output is a combination
+      of the wrap_index args.  The important thing to
+      note is that if the equivalence classes of the slice size
+      and the dimension's size are the same for two wrap index
+      calls then we can be assured of the answer being the same.
+      So, we maintain the wrap_map dict that maps from a tuple
+      of equivalence class ids for the slice and dimension size
+      to some new equivalence class id for the output size.
+      However, when we are analyzing the first such wrap_index
+      call we don't have a variable there to associate to the
+      size since we're in the process of analyzing the instruction
+      that creates that mapping.  So, instead we return an object
+      of this special class and analyze_inst will establish the
+      connection between a tuple of the parts of this object
+      below and the left-hand side variable.
     """
-
     slice_size: Incomplete
     dim_size: Incomplete
     def __init__(self, slice_size, dim_size) -> None: ...
@@ -309,35 +264,21 @@ class ArrayAnalysis:
         defined within the function.
         """
     def run(self, blocks=None, equiv_set=None) -> None:
-        """Run array shape analysis on the given IR blocks, resulting in
+        """run array shape analysis on the given IR blocks, resulting in
         modified IR and finalized EquivSet for each block.
         """
-    def _run_on_blocks(self, topo_order, blocks, cfg, init_equiv_set) -> None: ...
-    def _combine_to_new_block(self, block, pending_transforms) -> None:
-        """Combine the new instructions from previous pass into a new block
-        body.
-        """
-    def _determine_transform(self, cfg, block, label, scope, init_equiv_set):
-        """Determine the transformation for each instruction in the block
-        """
     def dump(self) -> None:
-        """Dump per-block equivalence sets for debugging purposes.
+        """dump per-block equivalence sets for debugging purposes.
         """
-    def _define(self, equiv_set, var, typ, value) -> None: ...
     class AnalyzeResult:
         kwargs: Incomplete
         def __init__(self, **kwargs) -> None: ...
-    def _analyze_inst(self, label, scope, equiv_set, inst, redefined): ...
-    def _analyze_expr(self, scope, equiv_set, expr, lhs): ...
-    def _analyze_op_getattr(self, scope, equiv_set, expr, lhs): ...
-    def _analyze_op_cast(self, scope, equiv_set, expr, lhs): ...
-    def _analyze_op_exhaust_iter(self, scope, equiv_set, expr, lhs): ...
     def gen_literal_slice_part(self, arg_val, loc, scope, stmts, equiv_set, name: str = 'static_literal_slice_part'): ...
     def gen_static_slice_size(self, lhs_rel, rhs_rel, loc, scope, stmts, equiv_set): ...
     def gen_explicit_neg(self, arg, arg_rel, arg_typ, size_typ, loc, scope, dsize, stmts, equiv_set): ...
     def update_replacement_slice(self, lhs, lhs_typ, lhs_rel, dsize_rel, replacement_slice, slice_index, need_replacement, loc, scope, stmts, equiv_set, size_typ, dsize): ...
     def slice_size(self, index, dsize, equiv_set, scope, stmts):
-        """Reason about the size of a slice represented by the "index"
+        '''Reason about the size of a slice represented by the "index"
         variable, and return a variable that has this size data, or
         raise GuardException if it cannot reason about it.
 
@@ -346,101 +287,7 @@ class ArrayAnalysis:
 
         Extra statements required to produce the result are appended
         to parent function\'s stmts list.
-        """
-    def _index_to_shape(self, scope, equiv_set, var, ind_var):
-        """For indexing like var[index] (either write or read), see if
-        the index corresponds to a range/slice shape.
-        Returns a 2-tuple where the first item is either None or a ir.Var
-        to be used to replace the index variable in the outer getitem or
-        setitem instruction.  The second item is also a tuple returning
-        the shape and prepending instructions.
-        """
-    def _analyze_op_getitem(self, scope, equiv_set, expr, lhs): ...
-    def _analyze_op_static_getitem(self, scope, equiv_set, expr, lhs): ...
-    def _analyze_op_unary(self, scope, equiv_set, expr, lhs): ...
-    def _analyze_op_binop(self, scope, equiv_set, expr, lhs): ...
-    def _analyze_op_inplace_binop(self, scope, equiv_set, expr, lhs): ...
-    def _analyze_op_arrayexpr(self, scope, equiv_set, expr, lhs): ...
-    def _analyze_op_build_tuple(self, scope, equiv_set, expr, lhs): ...
-    def _analyze_op_call(self, scope, equiv_set, expr, lhs): ...
-    def _analyze_op_call_builtins_len(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numba_parfors_array_analysis_assert_equiv(self, scope, equiv_set, loc, args, kws) -> None: ...
-    def _analyze_op_call_numba_parfors_array_analysis_wrap_index(self, scope, equiv_set, loc, args, kws):
-        """Analyze wrap_index calls added by a previous run of
-        Array Analysis
-        """
-    def _analyze_numpy_create_array(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_empty(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numba_np_unsafe_ndarray_empty_inferred(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_zeros(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_ones(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_eye(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_identity(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_diag(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_numpy_array_like(self, scope, equiv_set, args, kws): ...
-    def _analyze_op_call_numpy_ravel(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_copy(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_empty_like(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_zeros_like(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_ones_like(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_full_like(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_asfortranarray(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_reshape(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_transpose(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_rand(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_randn(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_numpy_random_with_size(self, pos, scope, equiv_set, args, kws): ...
-    def _analyze_op_call_numpy_random_ranf(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_random_sample(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_sample(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_random(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_standard_normal(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_chisquare(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_weibull(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_power(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_geometric(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_exponential(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_poisson(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_rayleigh(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_normal(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_uniform(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_beta(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_binomial(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_f(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_gamma(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_lognormal(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_laplace(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_randint(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_random_triangular(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_concatenate(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_stack(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_vstack(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_hstack(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_dstack(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_cumsum(self, scope, equiv_set, loc, args, kws) -> None: ...
-    def _analyze_op_call_numpy_cumprod(self, scope, equiv_set, loc, args, kws) -> None: ...
-    def _analyze_op_call_numpy_linspace(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_op_call_numpy_dot(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_stencil(self, scope, equiv_set, stencil_func, loc, args, kws): ...
-    def _analyze_op_call_numpy_linalg_inv(self, scope, equiv_set, loc, args, kws): ...
-    def _analyze_broadcast(self, scope, equiv_set, loc, args, fn):
-        """Infer shape equivalence of arguments based on Numpy broadcast rules
-        and return shape of output
-        https://docs.scipy.org/doc/numpy/user/basics.broadcasting.html
-        """
-    def _broadcast_assert_shapes(self, scope, equiv_set, loc, shapes, names):
-        """Produce assert_equiv for sizes in each dimension, taking into
-        account of dimension coercion and constant size of 1.
-        """
-    def _call_assert_equiv(self, scope, loc, equiv_set, args, names=None): ...
-    def _make_assert_equiv(self, scope, loc, equiv_set, _args, names=None): ...
-    def _gen_shape_call(self, equiv_set, var, ndims, shape, post): ...
-    def _isarray(self, varname): ...
-    def _istuple(self, varname): ...
-    def _sum_size(self, equiv_set, sizes):
-        """Return the sum of the given list of sizes if they are all equivalent
-        to some constant, or None otherwise.
-        """
+        '''
 
 UNARY_MAP_OP: Incomplete
 BINARY_MAP_OP: Incomplete

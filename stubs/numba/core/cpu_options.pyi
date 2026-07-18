@@ -4,7 +4,6 @@ from abc import ABCMeta, abstractmethod
 class AbstractOptionValue(metaclass=ABCMeta):
     """Abstract base class for custom option values.
     """
-
     @abstractmethod
     def encode(self) -> str:
         """Returns an encoding of the values
@@ -14,11 +13,9 @@ class FastMathOptions(AbstractOptionValue):
     """
     Options for controlling fast math optimization.
     """
-
     flags: Incomplete
     def __init__(self, value) -> None: ...
     def __bool__(self) -> bool: ...
-    __nonzero__ = __bool__
     def encode(self) -> str: ...
     def __eq__(self, other): ...
 
@@ -26,8 +23,6 @@ class ParallelOptions(AbstractOptionValue):
     """
     Options for controlling auto parallelization.
     """
-
-    __slots__: Incomplete
     enabled: Incomplete
     comprehension: Incomplete
     reduction: Incomplete
@@ -38,9 +33,6 @@ class ParallelOptions(AbstractOptionValue):
     fusion: Incomplete
     prange: Incomplete
     def __init__(self, value) -> None: ...
-    def _get_values(self):
-        """Get values as dictionary.
-        """
     def __eq__(self, other): ...
     def encode(self) -> str: ...
 
@@ -48,8 +40,6 @@ class InlineOptions(AbstractOptionValue):
     """
     Options for controlling inlining
     """
-
-    _inline: Incomplete
     def __init__(self, value) -> None: ...
     @property
     def is_never_inline(self):

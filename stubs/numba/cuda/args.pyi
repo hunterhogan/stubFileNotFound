@@ -1,7 +1,7 @@
-from _typeshed import Incomplete
 import abc
+from _typeshed import Incomplete
 
-__all__ = ['ArgHint', 'In', 'InOut', 'Out', 'wrap_arg']
+__all__ = ['In', 'Out', 'InOut', 'ArgHint', 'wrap_arg']
 
 class ArgHint(metaclass=abc.ABCMeta):
     value: Incomplete
@@ -16,8 +16,6 @@ class ArgHint(metaclass=abc.ABCMeta):
         :return: a value (usually an `DeviceNDArray`) to be passed to
             the kernel
         """
-    @property
-    def _numba_type_(self): ...
 
 class In(ArgHint):
     def to_device(self, retr, stream: int = 0): ...

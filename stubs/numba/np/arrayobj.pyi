@@ -1,35 +1,21 @@
 from _typeshed import Incomplete
 from numba import literal_unroll as literal_unroll, pndindex as pndindex
-from numba.core import (
-	cgutils as cgutils, config as config, errors as errors, extending as extending, types as types, typing as typing)
-from numba.core.extending import (
-	intrinsic as intrinsic, overload as overload, overload_attribute as overload_attribute,
-	overload_classmethod as overload_classmethod, overload_method as overload_method, register_jitable as register_jitable)
-from numba.core.imputils import (
-	impl_ret_borrowed as impl_ret_borrowed, impl_ret_new_ref as impl_ret_new_ref, impl_ret_untracked as impl_ret_untracked,
-	iternext_impl as iternext_impl, lower_builtin as lower_builtin, lower_cast as lower_cast,
-	lower_constant as lower_constant, lower_getattr as lower_getattr, lower_getattr_generic as lower_getattr_generic,
-	lower_setattr_generic as lower_setattr_generic, RefType as RefType)
+from numba.core import cgutils as cgutils, errors as errors, extending as extending, types as types, typing as typing
+from numba.core.extending import intrinsic as intrinsic, overload as overload, overload_attribute as overload_attribute, overload_classmethod as overload_classmethod, overload_method as overload_method, register_jitable as register_jitable
+from numba.core.imputils import RefType as RefType, impl_ret_borrowed as impl_ret_borrowed, impl_ret_new_ref as impl_ret_new_ref, impl_ret_untracked as impl_ret_untracked, iternext_impl as iternext_impl, lower_builtin as lower_builtin, lower_cast as lower_cast, lower_constant as lower_constant, lower_getattr as lower_getattr, lower_getattr_generic as lower_getattr_generic, lower_setattr_generic as lower_setattr_generic
 from numba.core.types import StringLiteral as StringLiteral
 from numba.core.typing import signature as signature
-from numba.core.typing.npydecl import (
-	_choose_concatenation_layout as _choose_concatenation_layout, _parse_nested_sequence as _parse_nested_sequence,
-	_sequence_of_arrays as _sequence_of_arrays)
 from numba.cpython import slicing as slicing
-from numba.cpython.charseq import _make_constant_bytes as _make_constant_bytes, bytes_type as bytes_type
+from numba.cpython.charseq import bytes_type as bytes_type
 from numba.cpython.unsafe.tuple import build_full_slice_tuple as build_full_slice_tuple, tuple_setitem as tuple_setitem
 from numba.misc import mergesort as mergesort, quicksort as quicksort
-from numba.np.numpy_support import (
-	as_dtype as as_dtype, carray as carray, check_is_integer as check_is_integer, farray as farray,
-	from_dtype as from_dtype, is_contiguous as is_contiguous, is_fortran as is_fortran, is_nonelike as is_nonelike,
-	lt_complex as lt_complex, lt_floats as lt_floats, numpy_version as numpy_version, type_can_asarray as type_can_asarray,
-	type_is_scalar as type_is_scalar)
+from numba.np.numpy_support import as_dtype as as_dtype, carray as carray, check_is_integer as check_is_integer, farray as farray, from_dtype as from_dtype, is_contiguous as is_contiguous, is_fortran as is_fortran, is_nonelike as is_nonelike, lt_complex as lt_complex, lt_floats as lt_floats, numpy_version as numpy_version, type_can_asarray as type_can_asarray, type_is_scalar as type_is_scalar
 
 def set_range_metadata(builder, load, lower_bound, upper_bound) -> None:
-    """
+    '''
     Set the "range" metadata on a load instruction.
     Note the interval is in the form [lower_bound, upper_bound).
-    """
+    '''
 def mark_positive(builder, load) -> None:
     """
     Mark the result of a load instruction as positive (or zero).
@@ -82,9 +68,10 @@ def update_array_info(aryty, array) -> None:
 def normalize_axis(func_name, arg_name, ndim, axis) -> None:
     """Constrain axis values to valid positive values."""
 def normalize_axis_overloads(func_name, arg_name, ndim, axis): ...
+def normalize_axis_tuple(func_name, arg_name, ndim, axis) -> None:
+    """Normalizes an axis argument into a tuple of non-negative integer axes."""
+def normalize_axis_tuple_overloads(func_name, arg_name, ndim, axis): ...
 def getiter_array(context, builder, sig, args): ...
-def _getitem_array_single_int(context, builder, return_type, aryty, ary, idx):
-    """Evaluate `ary[idx]`, where idx is a single int."""
 def iternext_array(context, builder, sig, args, result) -> None: ...
 def basic_indexing(context, builder, aryty, ary, index_types, indices, boundscheck=None):
     """
@@ -96,14 +83,9 @@ def make_view(context, builder, aryty, ary, return_type, data, shapes, strides):
     """
     Build a view over the given array with the given parameters.
     """
-def _getitem_array_generic(context, builder, return_type, aryty, ary, index_types, indices):
-    """
-    Return the result of indexing *ary* with the given *indices*,
-    returning either a scalar or a view.
-    """
 def getitem_arraynd_intp(context, builder, sig, args):
     """
-    Basic indexing with an integer or a slice.
+    Basic indexing with an integer, slice, or None.
     """
 def getitem_array_tuple(context, builder, sig, args):
     """
@@ -123,7 +105,6 @@ class Indexer:
     Generic indexer interface, for generating indices over a fancy indexed
     array on a single dimension.
     """
-
     def prepare(self) -> None:
         """
         Prepare the indexer by initializing any required variables, basic
@@ -144,23 +125,23 @@ class Indexer:
         """
     def loop_head(self) -> None:
         """
-        Start indexation loop.  Return a (index, count) tuple.
+        Start indexation loop.  Returns a index.
         *index* is an integer LLVM value representing the index over this
         dimension.
-        *count* is either an integer LLVM value representing the current
-        iteration count, or None if this dimension should be omitted from
-        the indexation result.
         """
     def loop_tail(self) -> None:
         """
         Finish indexation loop.
+        """
+    def get_src_idx(self) -> None:
+        """
+        Return the source index for this dimension, if applicable.
         """
 
 class EntireIndexer(Indexer):
     """
     Compute indices along an entire array dimension.
     """
-
     context: Incomplete
     builder: Incomplete
     aryty: Incomplete
@@ -178,12 +159,12 @@ class EntireIndexer(Indexer):
     def get_index_bounds(self): ...
     def loop_head(self): ...
     def loop_tail(self) -> None: ...
+    def get_src_idx(self): ...
 
 class IntegerIndexer(Indexer):
     """
     Compute indices from a single integer.
     """
-
     context: Incomplete
     builder: Incomplete
     idx: Incomplete
@@ -195,21 +176,23 @@ class IntegerIndexer(Indexer):
     def get_index_bounds(self): ...
     def loop_head(self): ...
     def loop_tail(self) -> None: ...
+    def get_src_idx(self): ...
 
 class IntegerArrayIndexer(Indexer):
     """
     Compute indices from an array of integer indices.
     """
-
     context: Incomplete
     builder: Incomplete
-    idxty: Incomplete
-    idxary: Incomplete
+    global_ary_idx_list: Incomplete
+    idx_shape: Incomplete
     size: Incomplete
     ll_intp: Incomplete
-    def __init__(self, context, builder, idxty, idxary, size) -> None: ...
+    idxty: Incomplete
+    idxary: Incomplete
+    src_idx: Incomplete
+    def __init__(self, context, builder, idxty, idxary, size, global_ary_idx_list) -> None: ...
     idx_size: Incomplete
-    idx_index: Incomplete
     bb_start: Incomplete
     bb_end: Incomplete
     def prepare(self) -> None: ...
@@ -218,12 +201,12 @@ class IntegerArrayIndexer(Indexer):
     def get_index_bounds(self): ...
     def loop_head(self): ...
     def loop_tail(self) -> None: ...
+    def get_src_idx(self): ...
 
 class BooleanArrayIndexer(Indexer):
     """
     Compute indices from an array of boolean predicates.
     """
-
     context: Incomplete
     builder: Incomplete
     idxty: Incomplete
@@ -233,7 +216,7 @@ class BooleanArrayIndexer(Indexer):
     def __init__(self, context, builder, idxty, idxary) -> None: ...
     size: Incomplete
     idx_index: Incomplete
-    count: Incomplete
+    src_idx: Incomplete
     bb_start: Incomplete
     bb_tail: Incomplete
     bb_end: Incomplete
@@ -243,12 +226,12 @@ class BooleanArrayIndexer(Indexer):
     def get_index_bounds(self): ...
     def loop_head(self): ...
     def loop_tail(self) -> None: ...
+    def get_src_idx(self): ...
 
 class SliceIndexer(Indexer):
     """
     Compute indices along a slice.
     """
-
     context: Incomplete
     builder: Incomplete
     aryty: Incomplete
@@ -262,7 +245,7 @@ class SliceIndexer(Indexer):
     dim_size: Incomplete
     is_step_negative: Incomplete
     index: Incomplete
-    count: Incomplete
+    src_idx: Incomplete
     bb_start: Incomplete
     bb_end: Incomplete
     def prepare(self) -> None: ...
@@ -271,21 +254,43 @@ class SliceIndexer(Indexer):
     def get_index_bounds(self): ...
     def loop_head(self): ...
     def loop_tail(self) -> None: ...
+    def get_src_idx(self): ...
+
+class SubspaceIndexer(Indexer):
+    context: Incomplete
+    builder: Incomplete
+    global_ary_idx_list: Incomplete
+    shape_tuple: Incomplete
+    ll_intp: Incomplete
+    size: Incomplete
+    def __init__(self, context, builder, shape_tuple, global_ary_idx_list) -> None: ...
+    bb_starts: Incomplete
+    bb_ends: Incomplete
+    def prepare(self) -> None: ...
+    def get_size(self): ...
+    def get_shape(self): ...
+    def get_index_bounds(self): ...
+    def loop_head(self) -> None: ...
+    def loop_tail(self) -> None: ...
+    def get_src_idx(self): ...
 
 class FancyIndexer:
     """
     Perform fancy indexing on the given array.
     """
-
     context: Incomplete
     builder: Incomplete
     aryty: Incomplete
     shapes: Incomplete
     strides: Incomplete
     ll_intp: Incomplete
+    subspace_shape: Incomplete
+    global_ary_idx_list: Incomplete
     newaxes: Incomplete
+    subspace_indexer: Incomplete
+    subspace_index: Incomplete
     indexers: Incomplete
-    def __init__(self, context, builder, aryty, ary, index_types, indices) -> None: ...
+    def __init__(self, context, builder, aryty, ary, index_types, indices, subspace_shape_tuple) -> None: ...
     indexers_shape: Incomplete
     def prepare(self) -> None: ...
     def get_shape(self):
@@ -300,7 +305,9 @@ class FancyIndexer:
         """
     def begin_loops(self): ...
     def end_loops(self) -> None: ...
+    def get_src_indices(self): ...
 
+def get_subspace_shape(context, builder, array_indices): ...
 def fancy_getitem(context, builder, sig, args, aryty, ary, index_types, indices): ...
 def fancy_getitem_array(context, builder, sig, args):
     """
@@ -329,35 +336,9 @@ def extents_may_overlap(context, builder, a_start, a_end, b_start, b_end):
     Whether two memory extents [a_start, a_end) and [b_start, b_end)
     may overlap.
     """
-def maybe_copy_source(context, builder, use_copy, srcty, src, src_shapes, src_strides, src_data): ...
-def _bc_adjust_dimension(context, builder, shapes, strides, target_shape):
-    """
-    Preprocess dimension for broadcasting.
-    Returns (shapes, strides) such that the ndim match *target_shape*.
-    When expanding to higher ndim, the returning shapes and strides are
-    prepended with ones and zeros, respectively.
-    When truncating to lower ndim, the shapes are checked (in runtime).
-    All extra dimension must have size of 1.
-    """
-def _bc_adjust_shape_strides(context, builder, shapes, strides, target_shape):
-    """
-    Broadcast shapes and strides to target_shape given that their ndim already
-    matches.  For each location where the shape is 1 and does not match the
-    dim for target, it is set to the value at the target and the stride is
-    set to zero.
-    """
-def _broadcast_to_shape(context, builder, arrtype, arr, target_shape):
-    """
-    Broadcast the given array to the target_shape.
-    Returns (array_type, array)
-    """
-@intrinsic
-def _numpy_broadcast_to(typingctx, array, shape): ...
+def maybe_copy_source(context, builder, use_copy, indexer, srcty, src, src_shapes, src_strides, src_data): ...
 @intrinsic
 def get_readonly_array(typingctx, arr): ...
-@register_jitable
-def _can_broadcast(array, dest_shape) -> None: ...
-def _default_broadcast_to_impl(array, shape): ...
 def numpy_broadcast_to(array, shape): ...
 @register_jitable
 def numpy_broadcast_shapes_list(r, m, shape) -> None: ...
@@ -366,8 +347,7 @@ def numpy_broadcast_arrays(*args): ...
 def raise_with_shape_context(src_shapes, index_shape) -> None:
     """Targets should implement this if they wish to specialize the error
     handling/messages. The overload implementation takes two tuples as arguments
-    and should raise a ValueError.
-    """
+    and should raise a ValueError."""
 def ol_raise_with_shape_context_generic(src_shapes, index_shape): ...
 def ol_raise_with_shape_context_cpu(src_shapes, index_shape): ...
 def fancy_setslice(context, builder, sig, args, index_types, indices):
@@ -386,14 +366,6 @@ def array_T(context, builder, typ, value): ...
 def numpy_logspace(start, stop, num: int = 50): ...
 def numpy_geomspace(start, stop, num: int = 50): ...
 def numpy_rot90(m, k: int = 1): ...
-def _attempt_nocopy_reshape(context, builder, aryty, ary, newnd, newshape, newstrides):
-    """
-    Call into Numba_attempt_nocopy_reshape() for the given array type
-    and instance, and the specified new shape.
-
-    Return value is non-zero if successful, and the array pointed to
-    by *newstrides* will be filled up with the computed results.
-    """
 def normalize_reshape_value(origsize, shape) -> None: ...
 def array_reshape(context, builder, sig, args): ...
 def array_reshape_vararg(context, builder, sig, args): ...
@@ -403,21 +375,8 @@ def np_append(arr, values, axis=None): ...
 def array_ravel(context, builder, sig, args): ...
 def np_ravel(context, builder, sig, args): ...
 def array_flatten(context, builder, sig, args): ...
-@register_jitable
-def _np_clip_impl(a, a_min, a_max, out): ...
-@register_jitable
-def _np_clip_impl_none(a, b, use_min, out): ...
 def np_clip(a, a_min, a_max, out=None): ...
 def array_clip(a, a_min=None, a_max=None, out=None): ...
-def _change_dtype(context, builder, oldty, newty, ary):
-    """
-    Attempt to fix up *ary* for switching from *oldty* to *newty*.
-
-    See Numpy's array_descr_set()
-    (np/core/src/multiarray/getset.c).
-    Attempt to fix the array's shape and strides for a new dtype.
-    False is returned on failure, True on success.
-    """
 def np_shape(a): ...
 def np_size(a): ...
 def np_unique(ar): ...
@@ -425,10 +384,6 @@ def np_repeat(a, repeats): ...
 @register_jitable
 def np_repeat_impl_repeats_scaler(a, repeats): ...
 def array_repeat(a, repeats): ...
-@intrinsic
-def _intrin_get_itemsize(tyctx, dtype):
-    """Computes the itemsize of the dtype"""
-def _compatible_view(a, dtype) -> None: ...
 def ol_compatible_view(a, dtype):
     """Determines if the array and dtype are compatible for forming a view."""
 def array_view(context, builder, sig, args): ...
@@ -440,7 +395,7 @@ def array_size(context, builder, typ, value): ...
 def array_itemsize(context, builder, typ, value): ...
 def array_nbytes(context, builder, typ, value):
     """
-    Nbytes = size * itemsize
+    nbytes = size * itemsize
     """
 def array_contiguous(context, builder, typ, value): ...
 def array_c_contiguous(context, builder, typ, value): ...
@@ -449,19 +404,6 @@ def array_readonly(context, builder, typ, value): ...
 def array_ctypes(context, builder, typ, value): ...
 def array_ctypes_data(context, builder, typ, value): ...
 def array_ctypes_to_pointer(context, builder, fromty, toty, val): ...
-def _call_contiguous_check(checker, context, builder, aryty, ary):
-    """Helper to invoke the contiguous checker function on an array
-
-    Args
-    ----
-    checker :
-        ``numba.numpy_supports.is_contiguous``, or
-        ``numba.numpy_supports.is_fortran``.
-    context : target context
-    builder : llvm ir builder
-    aryty : numba type
-    ary : llvm value
-    """
 def array_flags(context, builder, typ, value): ...
 def array_flags_c_contiguous(context, builder, typ, value): ...
 def array_flags_f_contiguous(context, builder, typ, value): ...
@@ -498,11 +440,11 @@ def array_complex_attr(context, builder, typ, value, attr):
 def array_conj(arr): ...
 def dtype_type(context, builder, dtypety, dtypeval): ...
 def static_getitem_number_clazz(context, builder, sig, args):
-    """This handles the "static_getitem" when a Numba type is subscripted e.g:
+    '''This handles the "static_getitem" when a Numba type is subscripted e.g:
     var = typed.List.empty_list(float64[::1, :])
     It only allows this on simple numerical types. Compound types, like
     records, are not supported.
-    """
+    '''
 def array_record_getattr(context, builder, typ, value, attr):
     """
     Generic getattr() implementation for record arrays: fetch the given
@@ -557,8 +499,6 @@ def make_array_ndenumerate_cls(nditerty):
     Return the Structure representation of the given *nditerty* (an
     instance of types.NumpyNdEnumerateType).
     """
-def _increment_indices(context, builder, ndim, shape, indices, end_flag=None, loop_continue=None, loop_break=None) -> None: ...
-def _increment_indices_array(context, builder, arrty, arr, indices, end_flag=None) -> None: ...
 def make_nditer_cls(nditerty):
     """
     Return the Structure representation of the given *nditerty* (an
@@ -569,7 +509,6 @@ def make_ndindex_cls(nditerty):
     Return the Structure representation of the given *nditerty* (an
     instance of types.NumpyNdIndexType).
     """
-def _make_flattening_iter_cls(flatiterty, kind): ...
 def make_array_flatiter(context, builder, arrty, arr): ...
 def iternext_numpy_flatiter(context, builder, sig, args, result) -> None: ...
 def iternext_numpy_getitem(context, builder, sig, args): ...
@@ -588,45 +527,16 @@ def make_array_nditer(context, builder, sig, args):
     """
 def iternext_numpy_nditer2(context, builder, sig, args, result) -> None: ...
 def dtype_eq_impl(context, builder, sig, args): ...
-def _empty_nd_impl(context, builder, arrtype, shapes):
-    """Utility function used for allocating a new array during LLVM code
-    generation (lowering).  Given a target context, builder, array
-    type, and a tuple or list of lowered dimension sizes, returns a
-    LLVM value pointing at a Numba runtime allocated array.
-    """
-def _ol_array_allocate(cls, allocsize, align):
-    """Implements a Numba-only default target (cpu) classmethod on the array
-    type.
-    """
-def _call_allocator(arrtype, size, align):
-    """Trampoline to call the intrinsic used for allocation
-    """
 @intrinsic
 def intrin_alloc(typingctx, allocsize, align):
     """Intrinsic to call into the allocator for Array
     """
-def _parse_shape(context, builder, ty, val):
-    """
-    Parse the shape argument to an array constructor.
-    """
-def _parse_empty_args(context, builder, sig, args):
-    """
-    Parse the arguments of a np.empty(), np.zeros() or np.ones() call.
-    """
-def _parse_empty_like_args(context, builder, sig, args):
-    """
-    Parse the arguments of a np.empty_like(), np.zeros_like() or
-    np.ones_like() call.
-    """
-def _check_const_str_dtype(fname, dtype) -> None: ...
 @intrinsic
 def numpy_empty_nd(tyctx, ty_shape, ty_dtype, ty_retty_ref): ...
 def ol_np_empty(shape, dtype=...): ...
 @intrinsic
 def numpy_empty_like_nd(tyctx, ty_prototype, ty_dtype, ty_retty_ref): ...
 def ol_np_empty_like(arr, dtype=None): ...
-@intrinsic
-def _zero_fill_array_method(tyctx, self): ...
 def ol_array_zero_fill(self):
     """Adds a `._zero_fill` method to zero fill an array using memset."""
 def ol_np_zeros(shape, dtype=...): ...
@@ -636,37 +546,19 @@ def impl_np_full(shape, fill_value, dtype=None): ...
 def impl_np_full_like(a, fill_value, dtype=None): ...
 def ol_np_ones(shape, dtype=None): ...
 def impl_np_identity(n, dtype=None): ...
-def _eye_none_handler(N, M) -> None: ...
-def _eye_none_handler_impl(N, M): ...
 def numpy_eye(N, M=None, k: int = 0, dtype=...): ...
 def impl_np_diag(v, k: int = 0): ...
 def numpy_indices(dimensions): ...
 def numpy_diagflat(v, k: int = 0): ...
 def generate_getitem_setitem_with_axis(ndim, kind): ...
 def numpy_take(a, indices, axis=None): ...
-def _arange_dtype(*args): ...
 def np_arange(start, /, stop=None, step=None, dtype=None): ...
 def numpy_linspace(start, stop, num: int = 50): ...
-def _array_copy(context, builder, sig, args):
-    """
-    Array copy.
-    """
-@intrinsic
-def _array_copy_intrinsic(typingctx, a): ...
 def array_copy(context, builder, sig, args): ...
 def impl_numpy_copy(a): ...
-def _as_layout_array(context, builder, sig, args, output_layout):
-    """
-    Common logic for layout conversion function;
-    e.g. ascontiguousarray and asfortranarray
-    """
-@intrinsic
-def _as_layout_array_intrinsic(typingctx, a, output_layout): ...
 def array_ascontiguousarray(a): ...
 def array_asfortranarray(a): ...
 def array_astype(context, builder, sig, args): ...
-@intrinsic
-def _array_tobytes_intrinsic(typingctx, b): ...
 def impl_array_tobytes(arr): ...
 @intrinsic
 def np_frombuffer(typingctx, buffer, dtype, count, offset, retty): ...
@@ -678,11 +570,6 @@ def np_cfarray(context, builder, sig, args):
     """
     numba.numpy_support.carray(...) and
     numba.numpy_support.farray(...).
-    """
-def _get_seq_size(context, builder, seqty, seq): ...
-def _get_borrowing_getitem(context, seqty):
-    """
-    Return a getitem() implementation that doesn't incref its result.
     """
 def compute_sequence_shape(context, builder, ndim, seqty, seq):
     """
@@ -701,17 +588,6 @@ def np_array_typer(typingctx, object, dtype): ...
 @intrinsic
 def np_array(typingctx, obj, dtype): ...
 def impl_np_array(object, dtype=None): ...
-def _normalize_axis(context, builder, func_name, ndim, axis): ...
-def _insert_axis_in_shape(context, builder, orig_shape, ndim, axis):
-    """
-    Compute shape with the new axis inserted
-    e.g. given original shape (2, 3, 4) and axis=2,
-    the returned new shape is (2, 3, 1, 4).
-    """
-def _insert_axis_in_strides(context, builder, orig_strides, ndim, axis):
-    """
-    Same as _insert_axis_in_shape(), but with a strides array.
-    """
 def expand_dims(context, builder, sig, args, axis):
     """
     np.expand_dims() with the given axis.
@@ -719,64 +595,33 @@ def expand_dims(context, builder, sig, args, axis):
 @intrinsic
 def np_expand_dims(typingctx, a, axis): ...
 def impl_np_expand_dims(a, axis): ...
-def _atleast_nd(minimum, axes): ...
-def _atleast_nd_transform(min_ndim, axes):
-    """
-    Return a callback successively inserting 1-sized dimensions at the
-    following axes.
-    """
 def np_atleast_1d(*args): ...
 def np_atleast_2d(*args): ...
 def np_atleast_3d(*args): ...
-def _do_concatenate(context, builder, axis, arrtys, arrs, arr_shapes, arr_strides, retty, ret_shapes):
-    """
-    Concatenate arrays along the given axis.
-    """
-def _np_concatenate(context, builder, arrtys, arrs, retty, axis): ...
-def _np_stack(context, builder, arrtys, arrs, retty, axis): ...
 def np_concatenate_typer(typingctx, arrays, axis): ...
 @intrinsic
 def np_concatenate(typingctx, arrays, axis): ...
 def impl_np_concatenate(arrays, axis: int = 0): ...
-def _column_stack_dims(context, func_name, arrays): ...
 @intrinsic
 def np_column_stack(typingctx, tup): ...
 def impl_column_stack(tup): ...
-def _np_stack_common(context, builder, sig, args, axis):
-    """
-    np.stack() with the given axis value.
-    """
 @intrinsic
 def np_stack_common(typingctx, arrays, axis): ...
 def impl_np_stack(arrays, axis: int = 0): ...
 def NdStack_typer(typingctx, func_name, arrays, ndim_min): ...
-@intrinsic
-def _np_hstack(typingctx, tup): ...
 def impl_np_hstack(tup): ...
-@intrinsic
-def _np_vstack(typingctx, tup): ...
 def impl_np_vstack(tup): ...
-@intrinsic
-def _np_dstack(typingctx, tup): ...
 def impl_np_dstack(tup): ...
 def arr_fill(arr, val): ...
 def array_dot(arr, other): ...
 def np_flip_lr(m): ...
 def np_flip_ud(m): ...
-@intrinsic
-def _build_flip_slice_tuple(tyctx, sz):
-    """Creates a tuple of slices for np.flip indexing like
-    `(slice(None, None, -1),) * sz`
-    """
 def np_flip(m): ...
 def np_array_split(ary, indices_or_sections, axis: int = 0): ...
 def np_split(ary, indices_or_sections, axis: int = 0): ...
 def numpy_vsplit(ary, indices_or_sections): ...
 def numpy_hsplit(ary, indices_or_sections): ...
 def numpy_dsplit(ary, indices_or_sections): ...
-
-_sorts: Incomplete
-
 def default_lt(a, b):
     """
     Trivial comparison function between two keys.
@@ -802,7 +647,6 @@ def as_strided(x, shape=None, strides=None): ...
 def sliding_window_view(x, window_shape, axis=None): ...
 def ol_bool(arr): ...
 def numpy_swapaxes(a, axis1, axis2): ...
-@register_jitable
-def _take_along_axis_impl(arr, indices, axis, Ni_orig, Nk_orig, indices_broadcast_shape): ...
+def numpy_moveaxis(a, source, destination): ...
 def arr_take_along_axis(arr, indices, axis): ...
 def nan_to_num_impl(x, copy: bool = True, nan: float = 0.0, posinf=None, neginf=None): ...

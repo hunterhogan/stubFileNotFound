@@ -1,9 +1,7 @@
-from _typeshed import Incomplete
 from ctypes import c_int, c_void_p
 from enum import IntEnum
 from numba.core import config as config
-from numba.cuda.cudadrv.error import (
-	NvrtcCompilationError as NvrtcCompilationError, NvrtcError as NvrtcError, NvrtcSupportError as NvrtcSupportError)
+from numba.cuda.cudadrv.error import NvrtcCompilationError as NvrtcCompilationError, NvrtcError as NvrtcError, NvrtcSupportError as NvrtcSupportError
 
 nvrtc_program = c_void_p
 nvrtc_result = c_int
@@ -22,17 +20,12 @@ class NvrtcResult(IntEnum):
     NVRTC_ERROR_NAME_EXPRESSION_NOT_VALID = 10
     NVRTC_ERROR_INTERNAL_ERROR = 11
 
-_nvrtc_lock: Incomplete
-
 class NvrtcProgram:
     """
     A class for managing the lifetime of nvrtcProgram instances. Instances of
     the class own an nvrtcProgram; when an instance is deleted, the underlying
     nvrtcProgram is destroyed using the appropriate NVRTC API.
     """
-
-    _nvrtc: Incomplete
-    _handle: Incomplete
     def __init__(self, nvrtc, handle) -> None: ...
     @property
     def handle(self): ...
@@ -47,9 +40,6 @@ class NVRTC:
     NVVM interface. Initialization is protected by a lock and uses the standard
     (for Numba) open_cudalib function to load the NVRTC library.
     """
-
-    _PROTOTYPES: Incomplete
-    __INSTANCE: Incomplete
     def __new__(cls): ...
     def get_version(self):
         """

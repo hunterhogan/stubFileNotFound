@@ -5,7 +5,6 @@ from numba.np import numpy_support as numpy_support
 class UfuncLowererBase:
     """Callable class responsible for lowering calls to a specific gufunc.
     """
-
     ufunc: Incomplete
     make_ufunc_kernel_fn: Incomplete
     kernel: Incomplete
@@ -38,18 +37,9 @@ class UfuncBase:
     def reduce(self): ...
     @property
     def reduceat(self): ...
-    _frozen: bool
     def disable_compile(self) -> None:
         """
         Disable the compilation of new signatures at call time.
-        """
-    def _install_cg(self, targetctx=None) -> None:
-        """
-        Install an implementation function for a GUFunc/DUFunc object in the
-        given target context.  If no target context is given, then
-        _install_cg() installs into the target context of the
-        dispatcher object (should be same default context used by
-        jit() and njit()).
         """
     def find_ewise_function(self, ewise_types):
         """

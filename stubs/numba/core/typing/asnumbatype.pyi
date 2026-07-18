@@ -17,12 +17,9 @@ class AsNumbaTypeRegistry:
     This registry is not used dynamically on instances at runtime; to check the
     type of an object at runtime, use ``numba.typeof``.
     """
-
     lookup: Incomplete
     functions: Incomplete
     def __init__(self) -> None: ...
-    def _numba_type_infer(self, py_type): ...
-    def _builtin_infer(self, py_type): ...
     def register(self, func_or_py_type, numba_type=None) -> None:
         """
         Add support for new Python types (e.g. user-defined JitClasses) to the

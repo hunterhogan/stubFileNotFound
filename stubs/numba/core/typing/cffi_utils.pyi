@@ -6,9 +6,6 @@ from numba.np import numpy_support as numpy_support
 
 ffi: Incomplete
 SUPPORTED: Incomplete
-_ool_func_types: Incomplete
-_ool_func_ptr: Incomplete
-_ffi_instances: Incomplete
 
 def is_ffi_instance(obj): ...
 def is_cffi_func(obj):
@@ -17,14 +14,6 @@ def get_pointer(cffi_func):
     """
     Get a pointer to the underlying function for a CFFI function as an
     integer.
-    """
-
-_cached_type_map: Incomplete
-
-def _type_map():
-    """
-    Lazily compute type map, as calling ffi.typeof() involves costly
-    parsing of C code...
     """
 def map_type(cffi_type, use_record_dtype: bool = False):
     """

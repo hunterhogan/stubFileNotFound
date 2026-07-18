@@ -1,6 +1,4 @@
-from .abstract import (
-	DTypeSpec as DTypeSpec, IteratorType as IteratorType, MutableSequence as MutableSequence, Number as Number,
-	Type as Type)
+from .abstract import DTypeSpec as DTypeSpec, IteratorType as IteratorType, MutableSequence as MutableSequence, Number as Number, Type as Type
 from .common import Buffer as Buffer, Opaque as Opaque, SimpleIteratorType as SimpleIteratorType
 from .containers import Bytes as Bytes
 from .misc import UnicodeType as UnicodeType
@@ -14,7 +12,6 @@ class CharSeq(Type):
     """
     A fixed-length 8-bit character sequence.
     """
-
     mutable: bool
     count: Incomplete
     def __init__(self, count) -> None: ...
@@ -26,7 +23,6 @@ class UnicodeCharSeq(Type):
     """
     A fixed-length unicode character sequence.
     """
-
     mutable: bool
     count: Incomplete
     def __init__(self, count) -> None: ...
@@ -52,7 +48,6 @@ class Record(Type):
     *size* is an int; the record size
     *aligned* is a boolean; whether the record is ABI aligned.
     """
-
     mutable: bool
     @classmethod
     def make_c_struct(cls, name_types):
@@ -66,18 +61,6 @@ class Record(Type):
     aligned: Incomplete
     bitwidth: Incomplete
     def __init__(self, fields, size, aligned) -> None: ...
-    @classmethod
-    def _normalize_fields(cls, fields):
-        """
-        fields:
-            [name: str,
-             value: {
-                 type: Type,
-                 offset: int,
-                 [ alignment: int ],
-                 [ title : str],
-             }]
-        """
     @property
     def key(self): ...
     @property
@@ -123,8 +106,6 @@ class DType(DTypeSpec, Opaque):
 
     np.dtype('int32')
     """
-
-    _dtype: Incomplete
     def __init__(self, dtype) -> None: ...
     @property
     def key(self): ...
@@ -136,7 +117,6 @@ class NumpyFlatType(SimpleIteratorType, MutableSequence):
     """
     Type class for `ndarray.flat()` objects.
     """
-
     array_type: Incomplete
     dtype: Incomplete
     def __init__(self, arrty) -> None: ...
@@ -147,29 +127,25 @@ class NumpyNdEnumerateType(SimpleIteratorType):
     """
     Type class for `np.ndenumerate()` objects.
     """
-
     array_type: Incomplete
     def __init__(self, arrty) -> None: ...
     @property
     def key(self): ...
 
 class NumpyNdIterType(IteratorType):
-    """
+    '''
     Type class for `np.nditer()` objects.
 
     The layout denotes in which order the logical shape is iterated on.
     "C" means logical order (corresponding to in-memory order in C arrays),
     "F" means reverse logical order (corresponding to in-memory order in
     F arrays).
-    """
-
+    '''
     arrays: Incomplete
     layout: Incomplete
     dtypes: Incomplete
     ndim: Incomplete
     def __init__(self, arrays) -> None: ...
-    @classmethod
-    def _compute_layout(cls, arrays): ...
     @property
     def key(self): ...
     @property
@@ -181,13 +157,13 @@ class NumpyNdIterType(IteratorType):
     def yield_type(self): ...
     @cached_property
     def indexers(self):
-        """
+        '''
         A list of (kind, start_dim, end_dim, indices) where:
         - `kind` is either "flat", "indexed", "0d" or "scalar"
         - `start_dim` and `end_dim` are the dimension numbers at which
           this indexing takes place
         - `indices` is the indices of the indexed arrays in self.arrays
-        """
+        '''
     @cached_property
     def need_shaped_indexing(self):
         """
@@ -201,7 +177,6 @@ class NumpyNdIndexType(SimpleIteratorType):
     """
     Type class for `np.ndindex()` objects.
     """
-
     ndim: Incomplete
     def __init__(self, ndim) -> None: ...
     @property
@@ -211,7 +186,6 @@ class Array(Buffer):
     """
     Type class for Numpy arrays.
     """
-
     mutable: bool
     aligned: bool
     def __init__(self, dtype, ndim, layout, readonly: bool = False, name=None, aligned: bool = True) -> None: ...
@@ -238,7 +212,6 @@ class ArrayCTypes(Type):
     """
     This is the type for `np.ndarray.ctypes`.
     """
-
     dtype: Incomplete
     ndim: Incomplete
     def __init__(self, arytype) -> None: ...
@@ -259,20 +232,17 @@ class ArrayFlags(Type):
     """
     This is the type for `np.ndarray.flags`.
     """
-
     array_type: Incomplete
     def __init__(self, arytype) -> None: ...
     @property
     def key(self): ...
 
 class NestedArray(Array):
-    """
+    '''
     A NestedArray is an array nested within a structured type (which are "void"
     type in NumPy parlance). Unlike an Array, the shape, and not just the number
     of dimensions is part of the type of a NestedArray.
-    """
-
-    _shape: Incomplete
+    '''
     def __init__(self, dtype, shape) -> None: ...
     @property
     def shape(self): ...

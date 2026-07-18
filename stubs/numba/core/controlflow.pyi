@@ -1,11 +1,10 @@
+import collections
 from _typeshed import Incomplete
 from collections.abc import Generator
 from numba.core.errors import UnsupportedError as UnsupportedError
 from numba.core.ir import Loc as Loc
 from numba.core.utils import PYVERSION as PYVERSION
 from typing import NamedTuple
-import collections
-import functools
 
 NEW_BLOCKERS: Incomplete
 
@@ -22,8 +21,6 @@ class Loop(NamedTuple('Loop', [('entries', Incomplete), ('exits', Incomplete), (
     """
     A control flow loop, as detected by a CFGraph object.
     """
-
-    __slots__: Incomplete
     def __eq__(self, other): ...
     def __hash__(self): ...
 
@@ -32,21 +29,13 @@ class _DictOfContainers(collections.defaultdict):
 
     Non-empty value is checked by: `bool(value_item) == True`.
     """
-
     def __eq__(self, other): ...
     def __ne__(self, other): ...
-    def _non_empty_items(self): ...
 
 class CFGraph:
     """
     Generic (almost) implementation of a Control Flow Graph.
     """
-
-    _nodes: Incomplete
-    _preds: Incomplete
-    _succs: Incomplete
-    _edge_data: Incomplete
-    _entry_point: Incomplete
     def __init__(self) -> None: ...
     def add_node(self, node) -> None:
         """
@@ -113,33 +102,11 @@ class CFGraph:
         """
     def dominator_tree(self):
         """
-        Return a dictionary of {node -> set(nodes)} mapping each node to
+        return a dictionary of {node -> set(nodes)} mapping each node to
         the set of nodes it immediately dominates
 
         The domtree(B) is the closest strict set of nodes that B dominates
         """
-    @functools.cached_property
-    def _exit_points(self): ...
-    @functools.cached_property
-    def _doms(self): ...
-    @functools.cached_property
-    def _back_edges(self): ...
-    @functools.cached_property
-    def _topo_order(self): ...
-    @functools.cached_property
-    def _descs(self): ...
-    @functools.cached_property
-    def _loops(self): ...
-    @functools.cached_property
-    def _in_loops(self): ...
-    @functools.cached_property
-    def _post_doms(self): ...
-    @functools.cached_property
-    def _idom(self): ...
-    @functools.cached_property
-    def _df(self): ...
-    @functools.cached_property
-    def _domtree(self): ...
     def descendents(self, node):
         """
         Return the set of descendents of the given *node*, in topological
@@ -201,39 +168,6 @@ class CFGraph:
         g : graphviz.Digraph
             Use `g.view()` to open the graph in the default PDF application.
         """
-    def _add_edge(self, from_, to, data=None) -> None: ...
-    def _remove_node_edges(self, node) -> None: ...
-    def _dfs(self, entries=None) -> Generator[Incomplete]: ...
-    _dead_nodes: Incomplete
-    def _eliminate_dead_blocks(self) -> None:
-        """
-        Eliminate all blocks not reachable from the entry point, and
-        stash them into self._dead_nodes.
-        """
-    def _find_exit_points(self):
-        """
-        Compute the graph's exit points.
-        """
-    def _find_postorder(self): ...
-    def _find_immediate_dominators(self): ...
-    def _find_dominator_tree(self): ...
-    def _find_dominance_frontier(self): ...
-    def _find_dominators_internal(self, post: bool = False): ...
-    def _find_dominators(self): ...
-    def _find_post_dominators(self): ...
-    def _find_back_edges(self, stats=None):
-        """
-        Find back edges.  An edge (src, dest) is a back edge if and
-        only if *dest* dominates *src*.
-        """
-    def _find_topo_order(self): ...
-    def _find_descendents(self): ...
-    def _find_loops(self):
-        """
-        Find the loops defined by the graph's back edges.
-        """
-    def _find_in_loops(self): ...
-    def _dump_adj_lists(self, file) -> None: ...
     def __eq__(self, other): ...
     def __ne__(self, other): ...
 
@@ -254,18 +188,12 @@ class ControlFlowAnalysis:
         The set of block that is common to all possible code path.
 
     """
-
     bytecode: Incomplete
     blocks: Incomplete
     liveblocks: Incomplete
     blockseq: Incomplete
     doms: Incomplete
     backbone: Incomplete
-    _force_new_block: bool
-    _curblock: Incomplete
-    _blockstack: Incomplete
-    _loops: Incomplete
-    _withs: Incomplete
     def __init__(self, bytecode) -> None: ...
     def iterblocks(self) -> Generator[Incomplete]:
         """
@@ -287,30 +215,20 @@ class ControlFlowAnalysis:
         Register a jump (conditional or not) to *target* offset.
         *pops* is the number of stack pops implied by the jump (default 0).
         """
-    def _iter_inst(self) -> Generator[Incomplete]: ...
-    def _use_new_block(self, inst): ...
-    def _start_new_block(self, inst) -> None: ...
-    def _guard_with_as(self, current_inst) -> None:
-        """Checks if the next instruction after a SETUP_WITH is something other
-        than a POP_TOP, if it is something else it'll be some sort of store
-        which is not supported (this corresponds to `with CTXMGR as VAR(S)`).
-        """
     def op_SETUP_LOOP(self, inst) -> None: ...
     def op_SETUP_WITH(self, inst) -> None: ...
     def op_POP_BLOCK(self, inst) -> None: ...
     def op_FOR_ITER(self, inst) -> None: ...
-    def _op_ABSOLUTE_JUMP_IF(self, inst) -> None: ...
-    op_POP_JUMP_IF_FALSE = _op_ABSOLUTE_JUMP_IF
-    op_POP_JUMP_IF_TRUE = _op_ABSOLUTE_JUMP_IF
-    op_JUMP_IF_FALSE = _op_ABSOLUTE_JUMP_IF
-    op_JUMP_IF_TRUE = _op_ABSOLUTE_JUMP_IF
-    op_POP_JUMP_FORWARD_IF_FALSE = _op_ABSOLUTE_JUMP_IF
-    op_POP_JUMP_BACKWARD_IF_FALSE = _op_ABSOLUTE_JUMP_IF
-    op_POP_JUMP_FORWARD_IF_TRUE = _op_ABSOLUTE_JUMP_IF
-    op_POP_JUMP_BACKWARD_IF_TRUE = _op_ABSOLUTE_JUMP_IF
-    def _op_ABSOLUTE_JUMP_OR_POP(self, inst) -> None: ...
-    op_JUMP_IF_FALSE_OR_POP = _op_ABSOLUTE_JUMP_OR_POP
-    op_JUMP_IF_TRUE_OR_POP = _op_ABSOLUTE_JUMP_OR_POP
+    op_POP_JUMP_IF_FALSE: Incomplete
+    op_POP_JUMP_IF_TRUE: Incomplete
+    op_JUMP_IF_FALSE: Incomplete
+    op_JUMP_IF_TRUE: Incomplete
+    op_POP_JUMP_FORWARD_IF_FALSE: Incomplete
+    op_POP_JUMP_BACKWARD_IF_FALSE: Incomplete
+    op_POP_JUMP_FORWARD_IF_TRUE: Incomplete
+    op_POP_JUMP_BACKWARD_IF_TRUE: Incomplete
+    op_JUMP_IF_FALSE_OR_POP: Incomplete
+    op_JUMP_IF_TRUE_OR_POP: Incomplete
     def op_JUMP_ABSOLUTE(self, inst) -> None: ...
     def op_JUMP_FORWARD(self, inst) -> None: ...
     op_JUMP_BACKWARD = op_JUMP_FORWARD

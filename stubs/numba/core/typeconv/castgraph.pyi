@@ -1,13 +1,11 @@
-from _typeshed import Incomplete
-from functools import total_ordering as total_ordering
 import enum
+from functools import total_ordering as total_ordering
 
 class Conversion(enum.IntEnum):
     """
     A conversion kind from one type to the other.  The enum members
     are ordered from stricter to looser.
     """
-
     exact = 1
     promote = 2
     safe = 3
@@ -19,8 +17,6 @@ class CastSet:
 
     There is at most one rule per target type.
     """
-
-    _rels: Incomplete
     def __init__(self) -> None: ...
     def insert(self, to, rel): ...
     def items(self): ...
@@ -36,10 +32,6 @@ class TypeGraph:
     This simplifies the definition of casting rules by automatically
     propagating the rules.
     """
-
-    _forwards: Incomplete
-    _backwards: Incomplete
-    _callback: Incomplete
     def __init__(self, callback=None) -> None:
         """
         Args

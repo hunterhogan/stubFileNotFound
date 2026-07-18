@@ -1,12 +1,12 @@
+import contextlib
 from .cudadrv import devicearray as devicearray, devices as devices, driver as driver
 from _typeshed import Incomplete
 from collections.abc import Generator
 from numba.core import config as config
 from numba.cuda.api_util import prepare_shape_strides_dtype as prepare_shape_strides_dtype
-import contextlib
 
-require_context: Incomplete
-current_context: Incomplete
+require_context = devices.require_context
+current_context = devices.get_context
 gpus: Incomplete
 
 @require_context
@@ -129,12 +129,6 @@ def open_ipc_array(handle, shape, dtype, strides=None, offset: int = 0) -> Gener
     """
 def synchronize():
     """Synchronize the current context."""
-def _contiguous_strides_like_array(ary):
-    """
-    Given an array, compute strides for a new contiguous array of the same
-    shape.
-    """
-def _order_like_array(ary): ...
 def device_array_like(ary, stream: int = 0):
     """
     Call :func:`device_array() <numba.cuda.device_array>` with information from
@@ -196,8 +190,7 @@ def event(timing: bool = True):
     Create a CUDA event. Timing data is only recorded by the event if it is
     created with ``timing=True``.
     """
-
-event_elapsed_time: Incomplete
+event_elapsed_time = driver.event_elapsed_time
 
 def select_device(device_id):
     """
@@ -216,7 +209,6 @@ def close() -> None:
     Explicitly clears all contexts in the current thread, and destroys all
     contexts if the current thread is the main thread.
     """
-def _auto_device(ary, stream: int = 0, copy: bool = True): ...
 def detect():
     """
     Detect supported CUDA hardware and print a summary of the detected hardware.

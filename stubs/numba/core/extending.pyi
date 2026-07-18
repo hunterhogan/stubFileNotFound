@@ -1,19 +1,13 @@
 from _typeshed import Incomplete
-from numba._helperlib import _import_cython_function as _import_cython_function
 from numba.core import config as config, errors as errors, types as types, utils as utils
 from numba.core.datamodel import models as models
-from numba.core.imputils import (
-	lower_builtin as lower_builtin, lower_cast as lower_cast, lower_getattr as lower_getattr,
-	lower_getattr_generic as lower_getattr_generic, lower_setattr as lower_setattr,
-	lower_setattr_generic as lower_setattr_generic)
-from numba.core.pythonapi import box as box, NativeValue as NativeValue, reflect as reflect, unbox as unbox
+from numba.core.imputils import lower_builtin as lower_builtin, lower_cast as lower_cast, lower_getattr as lower_getattr, lower_getattr_generic as lower_getattr_generic, lower_setattr as lower_setattr, lower_setattr_generic as lower_setattr_generic
+from numba.core.pythonapi import NativeValue as NativeValue, box as box, reflect as reflect, unbox as unbox
 from numba.core.serialize import ReduceMixin as ReduceMixin
 from numba.core.typing.asnumbatype import as_numba_type as as_numba_type
 from numba.core.typing.templates import infer as infer, infer_getattr as infer_getattr
 from numba.core.typing.typeof import typeof_impl as typeof_impl
 from typing import NamedTuple
-import collections
-import weakref
 
 def type_callable(func):
     """
@@ -21,9 +15,6 @@ def type_callable(func):
     *func* can be a callable object (probably a global) or a string
     denoting a built-in operation (such 'getitem' or '__array_wrap__')
     """
-
-_overload_default_jit_options: Incomplete
-
 def overload(func, jit_options=..., strict: bool = True, inline: str = 'never', prefer_literal: bool = False, **kwargs):
     """
     A decorator marking the decorated function as typing and implementing
@@ -113,9 +104,6 @@ def overload_attribute(typ, attr, **kwargs):
                 return arr.size * arr.itemsize
             return get
     """
-def _overload_method_common(typ, attr, **kwargs):
-    """Common code for overload_method and overload_classmethod
-    """
 def overload_method(typ, attr, **kwargs):
     """
     A decorator marking the decorated function as typing and implementing
@@ -137,7 +125,7 @@ def overload_method(typ, attr, **kwargs):
                 return take_impl
     """
 def overload_classmethod(typ, attr, **kwargs):
-    """
+    '''
     A decorator marking the decorated function as typing and implementing
     classmethod *attr* for the given Numba type in nopython mode.
 
@@ -159,7 +147,7 @@ def overload_classmethod(typ, attr, **kwargs):
         @njit
         def foo(n):
             return types.Array.make(n)
-    """
+    '''
 def make_attribute_wrapper(typeclass, struct_attr, python_attr):
     """
     Make an automatic attribute wrapper exposing member named *struct_attr*
@@ -171,40 +159,12 @@ class _Intrinsic(ReduceMixin):
     """
     Dummy callable for intrinsic
     """
-
-    _memo: weakref.WeakValueDictionary
-    __cache_size: Incomplete
-    _recent: collections.deque
-    __uuid: Incomplete
-    _ctor_kwargs: Incomplete
-    _name: Incomplete
-    _defn: Incomplete
-    _prefer_literal: Incomplete
     def __init__(self, name, defn, prefer_literal: bool = False, **kwargs) -> None: ...
-    @property
-    def _uuid(self):
-        """
-        An instance-specific UUID, to avoid multiple deserializations of
-        a given instance.
-
-        Note this is lazily-generated, for performance reasons.
-        """
-    def _set_uuid(self, u) -> None: ...
-    def _register(self) -> None: ...
     def __call__(self, *args, **kwargs) -> None:
         """
         This is only defined to pretend to be a callable from CPython.
         """
     def __deepcopy__(self, memo): ...
-    def _reduce_states(self):
-        """
-        NOTE: part of ReduceMixin protocol
-        """
-    @classmethod
-    def _rebuild(cls, uuid, name, defn):
-        """
-        NOTE: part of ReduceMixin protocol
-        """
 
 def intrinsic(*args, **kwargs):
     """
@@ -280,6 +240,7 @@ class SentryLiteralArgs(NamedTuple('_SentryLiteralArgs', [('literal_args', Incom
 
     Examples
     --------
+
     The following line:
 
     >>> SentryLiteralArgs(literal_args).for_pysig(pysig).bind(*args, **kwargs)
@@ -288,7 +249,6 @@ class SentryLiteralArgs(NamedTuple('_SentryLiteralArgs', [('literal_args', Incom
 
     >>> sentry_literal_args(pysig, literal_args, args, kwargs)
     """
-
     def for_function(self, func):
         """Bind the sentry to the signature of *func*.
 
@@ -318,7 +278,6 @@ class BoundLiteralArgs(NamedTuple('BoundLiteralArgs', [('pysig', Incomplete), ('
     """
     This class is usually created by SentryLiteralArgs.
     """
-
     def bind(self, *args, **kwargs):
         """Bind to argument types.
         """

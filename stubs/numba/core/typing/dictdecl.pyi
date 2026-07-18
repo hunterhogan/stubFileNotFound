@@ -6,7 +6,6 @@ registry: Incomplete
 infer: Incomplete
 infer_global: Incomplete
 infer_getattr: Incomplete
-_message_dict_support: Incomplete
 
 class DictBuiltin(AbstractTemplate):
     def generic(self, args, kws): ...

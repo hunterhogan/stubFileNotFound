@@ -1,34 +1,15 @@
+import abc
+import enum
 from _typeshed import Incomplete
 from collections.abc import Generator
 from contextlib import contextmanager
 from numba.core import config as config, utils as utils
-import abc
-import enum
 
 class EventStatus(enum.Enum):
     """Status of an event.
     """
-
     START = ...
     END = ...
-
-_builtin_kinds: Incomplete
-
-def _guard_kind(kind):
-    """Guard to ensure that an event kind is valid.
-
-    All event kinds with a "numba:" prefix must be defined in the pre-defined
-    ``numba.core.event._builtin_kinds``.
-    Custom event kinds are allowed by not using the above prefix.
-
-    Parameters
-    ----------
-    kind : str
-
-    Return
-    ------
-    res : str
-    """
 
 class Event:
     """An event.
@@ -42,11 +23,6 @@ class Event:
     exc_details : 3-tuple; optional
         Same 3-tuple for ``__exit__``.
     """
-
-    _kind: Incomplete
-    _status: Incomplete
-    _data: Incomplete
-    _exc_details: Incomplete
     def __init__(self, kind, status, data=None, exc_details=None) -> None: ...
     @property
     def kind(self):
@@ -99,9 +75,6 @@ class Event:
         -------
         res : bool
         """
-    __repr__ = __str__
-
-_registered: Incomplete
 
 def register(kind, listener) -> None:
     """Register a listener for a given event kind.
@@ -130,7 +103,6 @@ def broadcast(event) -> None:
 class Listener(abc.ABC, metaclass=abc.ABCMeta):
     """Base class for all event listeners.
     """
-
     @abc.abstractmethod
     def on_start(self, event):
         """Called when there is a *START* event.
@@ -159,12 +131,8 @@ class TimingListener(Listener):
     """A listener that measures the total time spent between *START* and
     *END* events during the time this listener is active.
     """
-
-    _depth: int
     def __init__(self) -> None: ...
-    _ts: Incomplete
     def on_start(self, event) -> None: ...
-    _duration: Incomplete
     def on_end(self, event) -> None: ...
     @property
     def done(self):
@@ -188,7 +156,6 @@ class RecordingListener(Listener):
     is the time the event occurred as returned by ``time.time()`` and the second
     element is the event.
     """
-
     buffer: Incomplete
     def __init__(self) -> None: ...
     def on_start(self, event) -> None: ...
@@ -196,7 +163,7 @@ class RecordingListener(Listener):
 
 @contextmanager
 def install_listener(kind, listener) -> Generator[Incomplete]:
-    """Install a listener for event "kind" temporarily within the duration of
+    '''Install a listener for event "kind" temporarily within the duration of
     the context.
 
     Returns
@@ -206,11 +173,12 @@ def install_listener(kind, listener) -> Generator[Incomplete]:
 
     Examples
     --------
+
     >>> with install_listener("numba:compile", listener):
     >>>     some_code()  # listener will be active here.
     >>> other_code()     # listener will be unregistered by this point.
 
-    """
+    '''
 @contextmanager
 def install_timer(kind, callback) -> Generator[Incomplete]:
     """Install a TimingListener temporarily to measure the duration of
@@ -226,6 +194,7 @@ def install_timer(kind, callback) -> Generator[Incomplete]:
 
     Examples
     --------
+
     This is equivalent to:
 
     >>> with install_listener(kind, TimingListener()) as res:
@@ -244,6 +213,7 @@ def install_recorder(kind) -> Generator[Incomplete]:
 
     Examples
     --------
+
     This is equivalent to:
 
     >>> with install_listener(kind, RecordingListener()) as res:
@@ -283,11 +253,4 @@ def trigger_event(kind, data=None) -> Generator[None]:
         Event kind.
     data : any; optional
         Extra event data.
-    """
-def _prepare_chrome_trace_data(listener: RecordingListener):
-    """Prepare events in `listener` for serializing as chrome trace data.
-    """
-def _setup_chrome_trace_exit_handler() -> None:
-    """Setup a RecordingListener and an exit handler to write the captured
-    events to file.
     """

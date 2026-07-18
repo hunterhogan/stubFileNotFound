@@ -4,7 +4,6 @@ from numba.core import config as config
 class Rewrite:
     """Defines the abstract base class for Numba rewrites.
     """
-
     def __init__(self, state=None) -> None:
         """Constructor for the Rewrite class.
         """
@@ -20,8 +19,6 @@ class Rewrite:
 class RewriteRegistry:
     """Defines a registry for Numba rewrites.
     """
-
-    _kinds: Incomplete
     rewrites: Incomplete
     def __init__(self) -> None:
         """Constructor for the rewrite registry.  Initializes the rewrites

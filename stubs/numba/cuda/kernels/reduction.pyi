@@ -1,26 +1,16 @@
-from _typeshed import Incomplete
 from numba.np.numpy_support import from_dtype as from_dtype
-
-_WARPSIZE: int
-_NUMWARPS: int
-
-def _gpu_reduce_factory(fn, nbtype): ...
 
 class Reduce:
     """Create a reduction object that reduces values using a given binary
     function. The binary function is compiled once and cached inside this
     object. Keeping this object alive will prevent re-compilation.
     """
-
-    _cache: Incomplete
-    _functor: Incomplete
     def __init__(self, functor) -> None:
         """
         :param functor: A function implementing a binary operation for
                         reduction. It will be compiled as a CUDA device
                         function using ``cuda.jit(device=True)``.
         """
-    def _compile(self, dtype): ...
     def __call__(self, arr, size=None, res=None, init: int = 0, stream: int = 0):
         """Performs a full reduction.
 

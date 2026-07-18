@@ -1,6 +1,6 @@
 from _typeshed import Incomplete
 from numba.core import types as types
-from numba.core.typeconv import _typeconv as _typeconv, castgraph as castgraph, Conversion as Conversion
+from numba.core.typeconv import Conversion as Conversion, castgraph as castgraph
 
 base_url: str
 dev_url: Incomplete
@@ -9,9 +9,6 @@ dashes: Incomplete
 msg: Incomplete
 
 class TypeManager:
-    _conversion_codes: Incomplete
-    _ptr: Incomplete
-    _types: Incomplete
     def __init__(self) -> None: ...
     def select_overload(self, sig, overloads, allow_unsafe, exact_match_required): ...
     def check_compatible(self, fromty, toty): ...
@@ -25,9 +22,6 @@ class TypeCastingRules:
     """
     A helper for establishing type casting rules.
     """
-
-    _tm: Incomplete
-    _tg: Incomplete
     def __init__(self, tm) -> None: ...
     def promote(self, a, b) -> None:
         """
@@ -52,8 +46,4 @@ class TypeCastingRules:
     def unsafe_unsafe(self, a, b) -> None:
         """
         Set `a` can unsafe convert to `b` and `b` can unsafe convert to `a`
-        """
-    def _cb_update(self, a, b, rel) -> None:
-        """
-        Callback for updating.
         """

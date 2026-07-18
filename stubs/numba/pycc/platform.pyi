@@ -1,42 +1,30 @@
 from _typeshed import Incomplete
-from collections.abc import Generator
-from contextlib import contextmanager
 
 CCompiler: Incomplete
 new_compiler: Incomplete
 customize_compiler: Incomplete
 log: Incomplete
-_configs: Incomplete
 
 def get_configs(arg): ...
 
 find_shared_ending: Incomplete
 find_pyext_ending: Incomplete
 
-@contextmanager
-def _gentmpfile(suffix) -> Generator[Incomplete]: ...
 def external_compiler_works():
-    """
+    '''
     Returns True if the "external compiler" bound in numpy.distutil is present
     and working, False otherwise.
-    """
+    '''
 
 class _DummyExtension:
     libraries: Incomplete
 
 class Toolchain:
-    _verbose: bool
-    _compiler: Incomplete
-    _build_ext: Incomplete
-    _py_lib_dirs: Incomplete
-    _py_include_dirs: Incomplete
-    _math_info: Incomplete
     def __init__(self) -> None: ...
     @property
     def verbose(self): ...
     @verbose.setter
     def verbose(self, value) -> None: ...
-    def _raise_external_compiler_error(self) -> None: ...
     def compile_objects(self, sources, output_dir, include_dirs=(), depends=(), macros=(), extra_cflags=None):
         """
         Compile the given source files into a separate object file each,
@@ -71,9 +59,3 @@ class Toolchain:
         """
         Given a C extension's module name, return its intended filename.
         """
-
-def _quote_arg(arg):
-    """
-    Quote the argument for safe use in a shell command line.
-    """
-def _is_sequence(arg): ...

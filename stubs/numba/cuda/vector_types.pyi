@@ -1,8 +1,7 @@
 from _typeshed import Incomplete
 from numba import types as types
 from numba.core import cgutils as cgutils
-from numba.core.extending import (
-	make_attribute_wrapper as make_attribute_wrapper, models as models, register_model as register_model)
+from numba.core.extending import make_attribute_wrapper as make_attribute_wrapper, models as models, register_model as register_model
 from numba.core.typing.templates import ConcreteTemplate as ConcreteTemplate, signature as signature
 from numba.cuda import stubs as stubs
 from numba.cuda.errors import CudaLoweringError as CudaLoweringError
@@ -15,9 +14,6 @@ register_global: Incomplete
 lower: Incomplete
 
 class VectorType(types.Type):
-    _base_type: Incomplete
-    _attr_names: Incomplete
-    _user_facing_object: Incomplete
     def __init__(self, name, base_type, attr_names, user_facing_object) -> None: ...
     @property
     def base_type(self): ...
@@ -59,9 +55,4 @@ vector_types: dict[str, VectorType]
 def build_constructor_overloads(base_type, vty_name, num_elements, arglists, l) -> None:
     """
     For a given vector type, build a list of overloads for its constructor.
-    """
-def _initialize() -> None:
-    """
-    Construct the vector types, populate `vector_types` dictionary, and
-    enable the constructors.
     """

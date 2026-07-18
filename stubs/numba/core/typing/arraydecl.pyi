@@ -1,14 +1,9 @@
 from _typeshed import Incomplete
 from numba.core import types as types, utils as utils
 from numba.core.cgutils import is_nonelike as is_nonelike
-from numba.core.errors import (
-	NumbaAssertionError as NumbaAssertionError, NumbaIndexError as NumbaIndexError, NumbaKeyError as NumbaKeyError,
-	NumbaNotImplementedError as NumbaNotImplementedError, NumbaTypeError as NumbaTypeError,
-	NumbaValueError as NumbaValueError, RequireLiteralValue as RequireLiteralValue, TypingError as TypingError)
+from numba.core.errors import NumbaAssertionError as NumbaAssertionError, NumbaIndexError as NumbaIndexError, NumbaKeyError as NumbaKeyError, NumbaNotImplementedError as NumbaNotImplementedError, NumbaTypeError as NumbaTypeError, NumbaValueError as NumbaValueError, RequireLiteralValue as RequireLiteralValue, TypingError as TypingError
 from numba.core.typing import collections as collections
-from numba.core.typing.templates import (
-	AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, bound_function as bound_function,
-	infer as infer, infer_getattr as infer_getattr, infer_global as infer_global, signature as signature)
+from numba.core.typing.templates import AbstractTemplate as AbstractTemplate, AttributeTemplate as AttributeTemplate, bound_function as bound_function, infer as infer, infer_getattr as infer_getattr, infer_global as infer_global, signature as signature
 from typing import NamedTuple
 
 numpy_version: Incomplete
@@ -49,7 +44,6 @@ class ArrayAttribute(AttributeTemplate):
     def resolve_T(self, ary): ...
     def resolve_real(self, ary): ...
     def resolve_imag(self, ary): ...
-    def _resolve_real_imag(self, ary, attr): ...
     def resolve_transpose(self, ary, args, kws): ...
     def resolve_copy(self, ary, args, kws): ...
     def resolve_item(self, ary, args, kws): ...
@@ -104,15 +98,11 @@ class ArrayFlagsAttribute(AttributeTemplate):
 class NestedArrayAttribute(ArrayAttribute):
     key = types.NestedArray
 
-def _expand_integer(ty):
-    """
-    If *ty* is an integer, expand it to a machine int (like Numpy).
-    """
 def generic_homog(self, args, kws): ...
 def generic_expand(self, args, kws): ...
 def sum_expand(self, args, kws):
     """
-    Sum can be called with or without an axis parameter, and with or without
+    sum can be called with or without an axis parameter, and with or without
     a dtype parameter
     """
 def generic_expand_cumulative(self, args, kws): ...

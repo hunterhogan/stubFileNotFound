@@ -1,6 +1,8 @@
+import numpy as np
+import types as types
 from _typeshed import Incomplete
 from collections.abc import Generator
-from numba import _devicearray as _devicearray
+from numba import _devicearray
 from numba.core import config as config
 from numba.core.errors import NumbaPerformanceWarning as NumbaPerformanceWarning
 from numba.cuda.api_util import prepare_shape_strides_dtype as prepare_shape_strides_dtype
@@ -8,8 +10,6 @@ from numba.cuda.cudadrv import devices as devices, dummyarray as dummyarray
 from numba.np import numpy_support as numpy_support
 from numba.np.numpy_support import numpy_version as numpy_version
 from numba.np.unsafe.ndarray import to_fixed_tuple as to_fixed_tuple
-import numpy as np
-import types as types
 
 lru_cache: Incomplete
 
@@ -23,11 +23,9 @@ def require_cuda_ndarray(obj) -> None:
 class DeviceNDArrayBase(_devicearray.DeviceArray):
     """A on GPU NDArray representation
     """
-
     __cuda_memory__: bool
     __cuda_ndarray__: bool
     ndim: Incomplete
-    _dummy: Incomplete
     shape: Incomplete
     strides: Incomplete
     dtype: Incomplete
@@ -60,13 +58,6 @@ class DeviceNDArrayBase(_devicearray.DeviceArray):
     @property
     def T(self): ...
     def transpose(self, axes=None): ...
-    def _default_stream(self, stream): ...
-    @property
-    def _numba_type_(self):
-        """
-        Magic attribute expected by Numba to get the numba type that
-        represents this object.
-        """
     @property
     def device_ctypes_pointer(self):
         """Returns the ctypes pointer to the GPU data buffer
@@ -146,7 +137,6 @@ class DeviceRecord(DeviceNDArrayBase):
     """
     An on-GPU record type
     """
-
     def __init__(self, dtype, stream: int = 0, gpu_data=None) -> None: ...
     @property
     def flags(self):
@@ -156,41 +146,23 @@ class DeviceRecord(DeviceNDArrayBase):
         with an existing `numpy.ndarray` (as the C- and F- contiguous flags
         aren't writeable).
         """
-    @property
-    def _numba_type_(self):
-        """
-        Magic attribute expected by Numba to get the numba type that
-        represents this object.
-        """
     @devices.require_context
     def __getitem__(self, item): ...
     @devices.require_context
     def getitem(self, item, stream: int = 0):
         """Do `__getitem__(item)` with CUDA stream
         """
-    def _do_getitem(self, item, stream: int = 0): ...
     @devices.require_context
     def __setitem__(self, key, value) -> None: ...
     @devices.require_context
     def setitem(self, key, value, stream: int = 0):
         """Do `__setitem__(key, value)` with CUDA stream
         """
-    def _do_setitem(self, key, value, stream: int = 0) -> None: ...
-
-@lru_cache
-def _assign_kernel(ndim):
-    """
-    A separate method so we don't need to compile code every assignment (!).
-
-    :param ndim: We need to have static array sizes for cuda.local.array, so
-        bake in the number of dimensions into the kernel
-    """
 
 class DeviceNDArray(DeviceNDArrayBase):
     """
     An on-GPU array type
     """
-
     def is_f_contiguous(self):
         """
         Return true if the array is Fortran-contiguous.
@@ -231,14 +203,12 @@ class DeviceNDArray(DeviceNDArrayBase):
     def getitem(self, item, stream: int = 0):
         """Do `__getitem__(item)` with CUDA stream
         """
-    def _do_getitem(self, item, stream: int = 0): ...
     @devices.require_context
     def __setitem__(self, key, value) -> None: ...
     @devices.require_context
     def setitem(self, key, value, stream: int = 0):
         """Do `__setitem__(key, value)` with CUDA stream
         """
-    def _do_setitem(self, key, value, stream: int = 0) -> None: ...
 
 class IpcArrayHandle:
     """
@@ -259,9 +229,6 @@ class IpcArrayHandle:
             some_code(ipc_array)
         # ipc_array is dead at this point
     """
-
-    _array_desc: Incomplete
-    _ipc_handle: Incomplete
     def __init__(self, ipc_handle, array_desc) -> None: ...
     def open(self):
         """
@@ -279,7 +246,6 @@ class MappedNDArray(DeviceNDArrayBase, np.ndarray):
     """
     A host array that uses CUDA mapped memory.
     """
-
     gpu_data: Incomplete
     stream: Incomplete
     def device_setup(self, gpu_data, stream: int = 0) -> None: ...
@@ -288,7 +254,6 @@ class ManagedNDArray(DeviceNDArrayBase, np.ndarray):
     """
     A host array that uses CUDA managed memory.
     """
-
     gpu_data: Incomplete
     stream: Incomplete
     def device_setup(self, gpu_data, stream: int = 0) -> None: ...

@@ -20,9 +20,6 @@ class Status(NamedTuple):
 int32_t: Incomplete
 int64_t: Incomplete
 errcode_t = int32_t
-
-def _const_int(code): ...
-
 RETCODE_OK: Incomplete
 RETCODE_EXC: Incomplete
 RETCODE_NONE: Incomplete
@@ -45,7 +42,6 @@ class BaseCallConv:
         """
         Initialize and return a call helper object for the given builder.
         """
-    def _get_call_helper(self, builder): ...
     def unpack_exception(self, builder, pyapi, status): ...
     def raise_error(self, builder, pyapi, status) -> None:
         """
@@ -55,10 +51,6 @@ class BaseCallConv:
         """
         Get the decoded (unpacked) Python arguments with *argtypes*
         from LLVM function *func*.  A tuple of LLVM values is returned.
-        """
-    def _get_arg_packer(self, argtypes):
-        """
-        Get an argument packer for the given argument types.
         """
 
 class MinimalCallConv(BaseCallConv):
@@ -74,16 +66,9 @@ class MinimalCallConv(BaseCallConv):
     Caller is responsible for allocating a slot for the return value
     (passed as a pointer in the first argument).
     """
-
-    def _make_call_helper(self, builder): ...
     def return_value(self, builder, retval) -> None: ...
     def return_user_exc(self, builder, exc, exc_args=None, loc=None, func_name=None) -> None: ...
     def return_status_propagate(self, builder, status) -> None: ...
-    def _return_errcode_raw(self, builder, code) -> None: ...
-    def _get_return_status(self, builder, code):
-        """
-        Given a return *code*, get a Status instance.
-        """
     def get_function_type(self, restype, argtypes):
         """
         Get the implemented Function type for *restype* and *argtypes*.
@@ -102,28 +87,13 @@ class MinimalCallConv(BaseCallConv):
         """
 
 class _MinimalCallHelper:
-    """
+    '''
     A call helper object for the "minimal" calling convention.
     User exceptions are represented as integer codes and stored in
     a mapping for retrieval from the caller.
-    """
-
+    '''
     exceptions: Incomplete
     def __init__(self) -> None: ...
-    def _add_exception(self, exc, exc_args, locinfo):
-        """
-        Add a new user exception to this helper. Returns an integer that can be
-        used to refer to the added exception in future.
-
-        Parameters
-        ----------
-        exc :
-            exception type
-        exc_args : None or tuple
-            exception args
-        locinfo : tuple
-            location information
-        """
     def get_exception(self, exc_id):
         """
         Get information about a user exception. Returns a tuple of
@@ -158,9 +128,6 @@ class CPUCallConv(BaseCallConv):
     and the exception info pointer (passed as first and second arguments,
     respectively).
     """
-
-    _status_ids: Incomplete
-    def _make_call_helper(self, builder) -> None: ...
     def return_value(self, builder, retval) -> None: ...
     def build_excinfo_struct(self, exc, exc_args, loc, func_name): ...
     def set_static_user_exc(self, builder, exc, exc_args=None, loc=None, func_name=None) -> None: ...
@@ -181,21 +148,15 @@ class CPUCallConv(BaseCallConv):
         """
         Same as ::return_user_exc but for dynamic exceptions
         """
-    def _get_try_state(self, builder): ...
     def check_try_status(self, builder): ...
     def set_try_status(self, builder) -> None: ...
     def unset_try_status(self, builder) -> None: ...
     def return_status_propagate(self, builder, status) -> None: ...
-    def _return_errcode_raw(self, builder, code) -> None: ...
-    def _get_return_status(self, builder, code, excinfoptr):
-        """
-        Given a return *code* and *excinfoptr*, get a Status instance.
-        """
     def get_function_type(self, restype, argtypes):
         """
         Get the implemented Function type for *restype* and *argtypes*.
         """
-    def decorate_function(self, fn, args, fe_argtypes, noalias: bool = False):
+    def decorate_function(self, fn, args, fe_argtypes, noalias: bool = False) -> None:
         """
         Set names of function arguments, and add useful attributes to them.
         """
@@ -203,19 +164,16 @@ class CPUCallConv(BaseCallConv):
         """
         Get the Python-level arguments of LLVM *func*.
         """
-    def _get_return_argument(self, func): ...
-    def _get_excinfo_argument(self, func): ...
     def call_function(self, builder, callee, resty, argtys, args, attrs=None):
-        """
+        '''
         Call the Numba-compiled *callee*.
-
-        Parameters
-        ----------
+        Parameters:
+        -----------
         attrs: LLVM style string or iterable of individual attributes, default
                is None which specifies no attributes. Examples:
                LLVM style string: "noinline fast"
                Equivalent iterable: ("noinline", "fast")
-        """
+        '''
 
 class ErrorModel:
     call_conv: Incomplete
@@ -226,7 +184,6 @@ class PythonErrorModel(ErrorModel):
     """
     The Python error model.  Any invalid FP input raises an exception.
     """
-
     raise_on_fp_zero_division: bool
 
 class NumpyErrorModel(ErrorModel):
@@ -241,7 +198,6 @@ class NumpyErrorModel(ErrorModel):
         http://lists.llvm.org/pipermail/llvm-dev/2014-September/076918.html
         http://lists.llvm.org/pipermail/llvm-commits/Week-of-Mon-20140929/237997.html
     """
-
     raise_on_fp_zero_division: bool
 
 error_models: Incomplete

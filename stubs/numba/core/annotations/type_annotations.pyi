@@ -29,11 +29,9 @@ class TypeAnnotation:
     def annotate(self): ...
     def html_annotate(self, outfile) -> None: ...
     def annotate_raw(self):
-        """
+        '''
         This returns "raw" annotation information i.e. it has no output format
         specific markup included.
-        """
+        '''
 
 re_longest_white_prefix: Incomplete
-
-def _getindent(text): ...

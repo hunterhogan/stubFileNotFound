@@ -1,9 +1,8 @@
+import contextlib
 from _typeshed import Incomplete
 from collections.abc import Generator
-import contextlib
 
-_HAS_PSUTIL: bool
-IS_SUPPORTED = _HAS_PSUTIL
+IS_SUPPORTED: Incomplete
 
 def get_available_memory() -> int | None:
     """
@@ -11,8 +10,7 @@ def get_available_memory() -> int | None:
 
     Used for memory threshold checking in parallel test execution.
 
-    Returns
-    -------
+    Returns:
         int or None: Available memory in bytes, or None if unavailable
     """
 def get_memory_usage() -> dict[str, int | None]:
@@ -22,8 +20,7 @@ def get_memory_usage() -> dict[str, int | None]:
     Returns only RSS and available memory which are the fields
     actually used by the MemoryTracker.
 
-    Returns
-    -------
+    Returns:
         dict: Memory usage information including:
             - rss: Current process RSS (physical memory currently used)
             - available: Available system memory
@@ -36,7 +33,6 @@ class MemoryTracker:
     Stores monitoring data in instance attributes for later access.
     Each instance is typically used for monitoring a single operation.
     """
-
     pid: int
     name: str
     start_time: float | None
@@ -59,8 +55,7 @@ class MemoryTracker:
             name (str): Name/identifier for the function or operation being
                         monitored
 
-        Yields
-        ------
+        Yields:
             self: The MemoryTracker instance for accessing stored data
         """
     def get_summary(self) -> str:
@@ -71,8 +66,7 @@ class MemoryTracker:
         containing name, PID, RSS delta, available memory, duration,
         and start time.
 
-        Returns
-        -------
+        Returns:
             str: Formatted summary string with monitoring results
 
         Note:

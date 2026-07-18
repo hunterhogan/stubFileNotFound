@@ -1,12 +1,12 @@
+import types as types
 from _typeshed import Incomplete
 from contextlib import contextmanager as contextmanager
 from numba.core import cgutils as cgutils
 from numba.core.errors import NumbaNotImplementedError as NumbaNotImplementedError, TypingError as TypingError
-from numba.core.pythonapi import box as box, NativeValue as NativeValue, reflect as reflect, unbox as unbox
+from numba.core.pythonapi import NativeValue as NativeValue, box as box, reflect as reflect, unbox as unbox
 from numba.core.typing.typeof import Purpose as Purpose, typeof as typeof
 from numba.cpython import listobj as listobj, setobj as setobj
 from numba.np import numpy_support as numpy_support
-import types as types
 
 def box_bool(typ, val, c): ...
 def unbox_boolean(typ, obj, c): ...
@@ -19,10 +19,6 @@ def box_complex(typ, val, c): ...
 def unbox_complex(typ, obj, c): ...
 def box_none(typ, val, c): ...
 def unbox_none(typ, val, c): ...
-def box_npdatetime(typ, val, c): ...
-def unbox_npdatetime(typ, obj, c): ...
-def box_nptimedelta(typ, val, c): ...
-def unbox_nptimedelta(typ, obj, c): ...
 def box_raw_pointer(typ, val, c):
     """
     Convert a raw pointer to a Python int.
@@ -98,7 +94,6 @@ class _NumbaTypeHelper:
             c.pyapi.decref(the_numba_type)
         # At this point *nth* should not be used.
     """
-
     c: Incomplete
     def __init__(self, c) -> None: ...
     typeof_fn: Incomplete
@@ -106,10 +101,6 @@ class _NumbaTypeHelper:
     def __exit__(self, *args, **kwargs) -> None: ...
     def typeof(self, obj): ...
 
-def _python_list_to_native(typ, obj, c, size, listptr, errorptr) -> None:
-    """
-    Construct a new native list from a Python list.
-    """
 def unbox_list(typ, obj, c):
     """
     Convert list *obj* to a native list.
@@ -121,20 +112,12 @@ def reflect_list(typ, val, c) -> None:
     """
     Reflect the native list's contents into the Python object.
     """
-def _python_set_to_native(typ, obj, c, size, setptr, errorptr) -> None:
-    """
-    Construct a new native set from a Python set.
-    """
 def unbox_set(typ, obj, c):
     """
     Convert set *obj* to a native set.
 
     If set was previously unboxed, we reuse the existing native set
     to ensure consistency.
-    """
-def _native_set_to_python_list(typ, payload, c):
-    """
-    Create a Python list from a native set's items.
     """
 def box_set(typ, val, c):
     """
@@ -174,9 +157,6 @@ def unbox_numpy_random_bitgenerator(typ, obj, c):
     * next_double (ctypes.CFunctionType instance)
     * bit_generator (ctypes.c_void_p)
     """
-
-_bit_gen_type: Incomplete
-
 def unbox_numpy_random_generator(typ, obj, c):
     """
     Here we're creating a NumPyRandomGeneratorType StructModel with following fields:
