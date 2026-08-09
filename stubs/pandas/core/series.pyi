@@ -21,6 +21,7 @@ from datetime import (
     timedelta,
 )
 from pathlib import Path
+from re import Pattern
 from typing import (
     Any,
     ClassVar,
@@ -39,7 +40,6 @@ from typing import (
 
 from _typeshed import (
     SupportsAdd,
-    SupportsGetItem,
     SupportsMul,
     SupportsRAdd,
     SupportsRMul,
@@ -128,6 +128,7 @@ from pandas.core.window.rolling import (
     Rolling,
     Window,
 )
+from typing_extensions import override
 import xarray as xr
 
 from pandas._libs.interval import Interval
@@ -164,6 +165,7 @@ from pandas._typing import (
     CategoryDtypeArg,
     ComplexDtypeArg,
     CompressionOptions,
+    CovariantList,
     DropKeep,
     Dtype,
     DTypeLike,
@@ -203,6 +205,8 @@ from pandas._typing import (
     NumpyIntDtypeArg,
     NumpyObjectDtypeArg,
     NumpyStrDtypeArg,
+    NumpyTimedeltaDtypeArg,
+    NumpyTimestampDtypeArg,
     NumpyUIntDtypeArg,
     ObjectDtypeArg,
     PandasAstypeTimedeltaDtypeArg,
@@ -212,7 +216,6 @@ from pandas._typing import (
     RandomState,
     ReindexMethod,
     Renamer,
-    ReplaceValue,
     S2_contra,
     S2_NDT_contra,
     Scalar,
@@ -221,7 +224,6 @@ from pandas._typing import (
     SeriesByT,
     SortKind,
     StrDtypeArg,
-    StrLike,
     Suffixes,
     SupportsDType,
     T as _T,
@@ -349,7 +351,7 @@ class _LocIndexerSeries(_LocIndexer, Generic[S1]):
     @overload
     def __setitem__(
         self,
-        key: MaskType | StrLike | _IndexSliceTuple | list[ScalarT],
+        key: MaskType | str | _IndexSliceTuple | list[ScalarT],
         value: S1 | ArrayLike | IndexOpsMixin[S1] | None,
     ) -> None: ...
 
@@ -363,6 +365,16 @@ class _CatDescriptor:
     ) -> CategoricalAccessor[CategoricalValueT]: ...
     @overload
     def __get__(self, instance: Series, owner: Any) -> CategoricalAccessor[Any]: ...
+
+_StrOrPattern: TypeAlias = _str | Pattern[_str]
+_ReplaceValueStr: TypeAlias = (
+    _StrOrPattern
+    | CovariantList[_StrOrPattern]
+    | Mapping[_str, _StrOrPattern | NAType]  # _KT is invariant, hence has to split
+    | Mapping[Pattern[_str], _StrOrPattern | NAType]
+    | Series[_str]
+    | None
+)
 
 class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
     # Define __index__ because mypy thinks Series follows protocol `SupportsIndex` https://github.com/pandas-dev/pandas-stubs/pull/1332#discussion_r2285648790
@@ -728,7 +740,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
     @overload
     def __setitem__(
         self,
-        idx: MaskType | StrLike | _IndexSliceTuple | list[ScalarT],
+        idx: MaskType | _str | _IndexSliceTuple | list[ScalarT],
         value: S1 | ArrayLike | IndexOpsMixin[S1] | None,
     ) -> None: ...
     @overload
@@ -879,7 +891,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
     def items(self) -> Iterator[tuple[Hashable, S1]]: ...
     def keys(self) -> Index[Any]: ...
     @overload
-    def to_dict(self, *, into: type[dict[Any, Any]] = ...) -> dict[Hashable, S1]: ...
+    def to_dict(self, *, into: type[dict[Any, Any]] = ...) -> dict[Any, S1]: ...
     @overload
     def to_dict(
         self, *, into: type[MutableMapping[Any, Any]] | MutableMapping[Any, Any]
@@ -1079,9 +1091,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
     @overload
     def diff(self: Series[Interval[Any]], periods: int = ...) -> Never: ...
     @overload
-    def diff(
-        self: SupportsGetItem[Scalar, SupportsSelfSub[S2]], periods: int = ...
-    ) -> Series[S2]: ...
+    def diff(self: Iterable[SupportsSelfSub[S2]], periods: int = ...) -> Series[S2]: ...
     def autocorr(self, lag: int = 1) -> float: ...
     @overload
     def dot(self, other: Series[S1]) -> Scalar: ...
@@ -1211,7 +1221,12 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
     ) -> Series[S1]: ...
     def swaplevel(self, i: Level = -2, j: Level = -1) -> Series[S1]: ...
     def reorder_levels(self, order: Sequence[int | np.integer]) -> Series[S1]: ...
-    def explode(self, ignore_index: _bool = ...) -> Series[S1]: ...
+    @overload
+    def explode(
+        self: Iterable[CovariantList[S2]], ignore_index: _bool = False
+    ) -> Series[S2]: ...
+    @overload
+    def explode(self, ignore_index: _bool = False) -> Series[S1]: ...
     def unstack(
         self,
         level: IndexLabel = -1,
@@ -1396,14 +1411,33 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
         limit: int | None = ...,
         inplace: _bool = False,
     ) -> Series[S1]: ...
+    @overload
+    def replace(
+        self: Series[_str],
+        to_replace: _ReplaceValueStr = None,
+        value: _ReplaceValueStr | NoDefault = ...,
+        *,
+        regex: _bool = False,
+        inplace: _bool = False,
+    ) -> Series[_str]: ...
+    @overload
+    def replace(
+        self: Series[_str],
+        to_replace: None = None,
+        value: _ReplaceValueStr | NoDefault = ...,
+        *,
+        regex: _ReplaceValueStr,
+        inplace: _bool = False,
+    ) -> Series[_str]: ...
+    @overload
     def replace(
         self,
-        to_replace: ReplaceValue[Any, Any] = ...,
-        value: ReplaceValue[Any, Any] = ...,
+        to_replace: S1 | Mapping[S1, S1] | CovariantList[S1] | Self | None = None,
+        value: S1 | Mapping[S1, S1] | CovariantList[S1] | None = ...,
         *,
-        regex: ReplaceValue[Any, Any] = ...,
+        regex: Literal[False] = False,
         inplace: _bool = False,
-    ) -> Series[S1]: ...
+    ) -> Self: ...
     @overload
     def shift(
         self,
@@ -1838,7 +1872,8 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
     @final
     def last_valid_index(self) -> Scalar: ...
     @overload
-    def value_counts(  # pyrefly: ignore
+    @override
+    def value_counts(
         self,
         normalize: Literal[False] = False,
         sort: _bool = ...,
@@ -1905,6 +1940,10 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
     def __add__(
         self: Supports_ProtoAdd[S2_contra, S2], other: S2_contra | Sequence[S2_contra]
     ) -> Series[S2]: ...
+    # TODO: pandas-dev/pandas-stubs#1799 the following overload causes ty
+    # frozen with test_compute_values in tests/frame/test_frame.py.
+    # Investigate and report to ty.
+    # see https://github.com/pandas-dev/pandas-stubs/actions/runs/31049878204
     @overload
     def __add__(
         self: Series[S2_contra], other: SupportsRAdd[S2_contra, S2]
@@ -4217,7 +4256,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
     ) -> Series[int]: ...
     @overload
     def cumprod(
-        self: SupportsGetItem[Scalar, _SupportsMul[S1]],
+        self: Iterable[_SupportsMul[S1]],
         axis: AxisIndex = ...,
         skipna: _bool = ...,
         *args: Any,
@@ -4341,7 +4380,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
     ) -> Timestamp: ...
     @overload
     def mean(
-        self: SupportsGetItem[Scalar, SupportsTruedivInt[S2]],
+        self: Iterable[SupportsTruedivInt[S2]],
         *,
         axis: AxisIndex | None = 0,
         skipna: _bool = True,
@@ -4371,7 +4410,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
     ) -> float: ...
     @overload
     def median(
-        self: SupportsGetItem[Scalar, SupportsTruedivInt[S2]],
+        self: Iterable[SupportsTruedivInt[S2]],
         *,
         axis: AxisIndex | None = 0,
         skipna: _bool = True,
@@ -4536,7 +4575,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
     ) -> Timedelta: ...
     @overload
     def std(
-        self: SupportsGetItem[Scalar, SupportsTruedivInt[S2]],
+        self: Iterable[SupportsTruedivInt[S2]],
         *,
         axis: AxisIndex | None = 0,
         skipna: _bool | None = True,
@@ -4545,7 +4584,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
         **kwargs: Any,
     ) -> S2: ...
     def sum(
-        self: SupportsGetItem[Scalar, _SupportsAdd[_T]],
+        self: Iterable[_SupportsAdd[_T]],
         *,
         axis: AxisIndex | None = 0,
         skipna: _bool | None = ...,
@@ -4565,7 +4604,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
     @overload
     def to_numpy(
         self: Series[Timestamp],
-        dtype: type[np.datetime64] | None = None,
+        dtype: type[np.datetime64] | NumpyTimestampDtypeArg | None = None,
         copy: bool = False,
         na_value: Scalar = ...,
         **kwargs: Any,
@@ -4581,7 +4620,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
     @overload
     def to_numpy(
         self: Series[Timedelta],
-        dtype: type[np.timedelta64] | None = None,
+        dtype: type[np.timedelta64] | NumpyTimedeltaDtypeArg | None = None,
         copy: bool = False,
         na_value: Scalar = ...,
         **kwargs: Any,
@@ -4811,7 +4850,7 @@ class Series(IndexOpsMixin[S1], ElementOpsMixin[S1], NDFrame):
     ) -> float: ...
     @overload
     def var(
-        self: SupportsGetItem[Scalar, SupportsTruedivInt[S2]],
+        self: Iterable[SupportsTruedivInt[S2]],
         *,
         axis: AxisIndex | None = 0,
         skipna: _bool | None = True,

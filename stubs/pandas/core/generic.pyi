@@ -29,10 +29,10 @@ from pandas.core.series import Series
 from sqlalchemy.engine import Connectable
 from sqlalchemy.sql.type_api import TypeEngineMixin
 
-from pandas._libs.lib import NoDefault
 from pandas._typing import (
     Axis,
     CompressionOptions,
+    CovariantList,
     CSVQuoting,
     Dtype,
     DtypeBackend,
@@ -93,8 +93,6 @@ class NDFrame:
     def __pos__(self) -> Self: ...
     @final
     def __nonzero__(self) -> None: ...
-    @final
-    def bool(self) -> _bool: ...
     def __abs__(self) -> Self: ...
     @final
     def __round__(self, decimals: int = ...) -> Self: ...
@@ -112,19 +110,23 @@ class NDFrame:
     def to_excel(
         self,
         excel_writer: FilePath | WriteExcelBuffer | ExcelWriter,
+        *,
         sheet_name: _str = "Sheet1",
         na_rep: _str = "",
-        float_format: _str | None = ...,
-        columns: _str | Sequence[_str] | None = ...,
+        float_format: _str | None = None,
+        columns: _str | list[_str] | None = None,
         header: _bool | list[_str] = True,
         index: _bool = True,
-        index_label: _str | Sequence[_str] | None = ...,
+        index_label: _str | CovariantList[Hashable] | None = None,
         startrow: int = 0,
         startcol: int = 0,
-        engine: _str | None = ...,
+        engine: Literal["openpyxl", "xlsxwriter"] | None = None,
         merge_cells: ExcelWriterMergeCells = True,
         inf_rep: _str = "inf",
-        freeze_panes: tuple[int, int] | None = ...,
+        freeze_panes: tuple[int, int] | None = None,
+        storage_options: dict[str, Any] | None = None,
+        engine_kwargs: dict[str, Any] | None = None,
+        autofilter: _bool = False,
     ) -> None: ...
     @final
     def to_hdf(
@@ -203,9 +205,9 @@ class NDFrame:
     @final
     def to_clipboard(
         self,
+        *,
         excel: _bool = True,
         sep: _str | None = None,
-        *,
         na_rep: _str = ...,
         float_format: _str | Callable[[object], _str] | None = ...,
         columns: list[HashableT1] | None = ...,
@@ -466,7 +468,6 @@ class NDFrame:
     def resample(
         self,
         rule: Frequency | dt.timedelta,
-        axis: Axis | NoDefault = 0,
         closed: Literal["right", "left"] | None = None,
         label: Literal["right", "left"] | None = None,
         on: Level | None = None,

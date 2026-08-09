@@ -80,7 +80,7 @@ from pandas.core.dtypes.dtypes import (
     SparseDtype,
 )
 
-_NAStrElement: TypeAlias = str | np.str_ | NAType | None
+_NAStrElement: TypeAlias = str | NAType | None
 _NaNStrElement: TypeAlias = Just[float] | _NAStrElement
 _NaNStrData: TypeAlias = Sequence[_NaNStrElement] | np_ndarray | BaseStringArray
 _NaTDatetimeElement: TypeAlias = (
@@ -136,7 +136,7 @@ def array(  # type: ignore[overload-overlap]
 @overload
 def array(
     data: (
-        Sequence[IntervalT | None | float]
+        Sequence[IntervalT | float | None]
         | IntervalArray
         | IntervalIndex[Any]
         | Series[Interval[Any]]

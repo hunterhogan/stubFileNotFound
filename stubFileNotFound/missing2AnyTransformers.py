@@ -1,4 +1,4 @@
-# ruff: noqa: ARG002 D102 PLR0916 PLR0911 PLR0904 DOC201 PLR6301
+# ruff:file-ignore[unused-method-argument, undocumented-public-method, too-many-boolean-expressions, too-many-return-statements, too-many-public-methods, docstring-missing-returns, no-self-use]
 """
 'Fix' unknown types with `Any` and generics with the equivalent of `Any`.
 

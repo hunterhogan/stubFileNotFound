@@ -151,6 +151,7 @@ class TimedeltaIndex(
     def shift(
         self, periods: int = 1, freq: Frequency | timedelta | None = None
     ) -> Self: ...
+    def diff(self, periods: int = 1) -> Self: ...
 
 @overload
 def timedelta_range(
@@ -160,7 +161,7 @@ def timedelta_range(
     freq: Frequency | Timedelta | timedelta | None = None,
     name: Hashable | None = None,
     closed: Literal["left", "right"] | None = None,
-    unit: None | str = None,
+    unit: str | None = None,
 ) -> TimedeltaIndex: ...
 @overload
 def timedelta_range(
@@ -170,7 +171,7 @@ def timedelta_range(
     freq: Frequency | Timedelta | timedelta | None = None,
     name: Hashable | None = None,
     closed: Literal["left", "right"] | None = None,
-    unit: None | str = None,
+    unit: str | None = None,
 ) -> TimedeltaIndex: ...
 @overload
 def timedelta_range(
@@ -180,7 +181,7 @@ def timedelta_range(
     freq: Frequency | Timedelta | timedelta | None = None,
     name: Hashable | None = None,
     closed: Literal["left", "right"] | None = None,
-    unit: None | str = None,
+    unit: str | None = None,
 ) -> TimedeltaIndex: ...
 @overload
 def timedelta_range(
@@ -190,5 +191,5 @@ def timedelta_range(
     *,
     name: Hashable | None = None,
     closed: Literal["left", "right"] | None = None,
-    unit: None | str = None,
+    unit: str | None = None,
 ) -> TimedeltaIndex: ...

@@ -37,6 +37,7 @@ dependencies = [
   "typeshed_client",
 ]
 optional-dependencies = { effingPandas = [
+  "matplotlib",
   "odfpy",
   "pandas",
   "pyxlsb",
