@@ -1,5 +1,6 @@
 from _typeshed import Incomplete
 from afdko import convertfonttocid as convertfonttocid, fdkutils as fdkutils, ufotools as ufotools
+from collections.abc import Sequence
 from typing import Any, Literal
 
 __doc__: str
@@ -84,24 +85,25 @@ class MakeOTFParams:
 	def __init__(self) -> None: ...
 
 def readOptionFile(filePath, makeOTFParams, optionIndex) -> tuple[Literal[True], Any] | tuple[bool, Any]:
-	""" Paths in this file are stored relative to it's directory.
+	"""Paths in this file are stored relative to it's directory.
 	However, we want to set the paths relative to the current directory.
 	"""
 def writeOptionsFile(makeOTFParams, filePath) -> None:
-	""" Note that we have to convert the current options from
+	"""Note that we have to convert the current options from
 	relative to the current directory to relative to the fpr
-	file we are writing."""
-def saveOptionsFile(makeOTFParams) -> None: ...
-def setOptionsFromFontInfo(makeOTFParams) -> None:
-	""" This sets options from the fontinfo file
-		*if they have not already been set *
+	file we are writing.
+	"""
+def saveOptionsFile(makeOTFParams: MakeOTFParams) -> None: ...
+def setOptionsFromFontInfo(makeOTFParams: MakeOTFParams) -> None:
+	"""This sets options from the fontinfo file
+	*if they have not already been set *
 	"""
 def getRelativeDirPath(absPath1, abspath2) -> None:
 	"""
 	Return a relative path to the first dir from the second directory.
 	If the paths have no common prefix, return None
 	"""
-def getOptions(makeOTFParams, args) -> None:
+def getOptions(makeOTFParams: MakeOTFParams, args: Sequence[str]) -> None:
 	"""
 	Fill in the makeotf parameters from first the defaults,
 	then the project file, and finally any other options.
@@ -113,7 +115,8 @@ def getOptions(makeOTFParams, args) -> None:
 	working directory. However, relative paths saved in a
 	project file are relative to the project file location.
 	"""
-def checkInputFile(makeOTFParams) -> None: ...
+def checkInputFile(makeOTFParams: MakeOTFParams) -> None: ...
+def checkROS(makeOTFParams: MakeOTFParams) -> None: ...
 def lookUpDirTree(fileName) -> str | None:
 	"""
 	This is called when we are using a default name for either the
@@ -148,8 +151,8 @@ def psname_in_fmndb(ps_name, fmndb_path) -> bool:
 	Check the FontMenuNameDB file for the presence of a specific PostScript
 	name. Returns a boolean.
 	"""
-def setMissingParams(makeOTFParams) -> None: ...
-def convertFontIfNeeded(makeOTFParams) -> None: ...
+def setMissingParams(makeOTFParams: MakeOTFParams) -> None: ...
+def convertFontIfNeeded(makeOTFParams: MakeOTFParams) -> None: ...
 def get_font_psname(font_path, is_ufo: bool = False): ...
 def updateFontRevision(featuresPath, fontRevision) -> None:
 	"""
@@ -213,7 +216,7 @@ def adjustPaths(makeOTFParams):
 
 byEntryOrder: Incomplete
 
-def runMakeOTF(makeOTFParams) -> None: ...
+def runMakeOTF(makeOTFParams: MakeOTFParams) -> None: ...
 def CheckEnvironment() -> None: ...
 def main(args: list[str] | None = None) -> Literal[1, 2] | None:
 	...

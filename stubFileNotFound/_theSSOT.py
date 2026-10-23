@@ -4,4 +4,4 @@ from __future__ import annotations
 
 from hunterMakesPy import PackageSettings
 
-settingsPackage = PackageSettings('stubFileNotFound')
+settingsPackage = PackageSettings('stubFileNotFound', fileExtension='.pyi')

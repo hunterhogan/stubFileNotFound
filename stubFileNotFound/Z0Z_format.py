@@ -1,22 +1,22 @@
-# ruff: noqa: D100
+# ruff: file-ignore[undocumented-public-module]
 from __future__ import annotations
 
 from hunterMakesPy.filesystemToolkit import settings_autoflakeDEFAULT, settings_isortDEFAULT, writePython
 from stubFileNotFound.fileDiscovery import discoverStubFiles
 from typing import TYPE_CHECKING
-import subprocess  # noqa: S404
+import subprocess  # ruff: ignore[suspicious-subprocess-import]
 
 if TYPE_CHECKING:
 	from pathlib import Path
 
-# ruff: noqa: S607
+# ruff: file-ignore[start-process-with-partial-path]
 if __name__ == "__main__":
 	listRelativePaths: list[str] = ['hyper_connections', 'PoPE_pytorch', 'rotary_embedding_torch']
 
 	convertFilesTOutf8: bool = True
 	stubdefaulter吗: bool = True
 	pyupgrade吗: bool = True
-	pyupgradeVersion: str = 'py310-plus'
+	pyupgradeVersion: str = 'py311-plus'
 	ruffFix吗: bool = True
 	autoflake吗: bool = True
 	isort吗: bool = True

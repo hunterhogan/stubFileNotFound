@@ -8,6 +8,11 @@ from typing import (
     TypeVar,
 )
 
+import numpy as np
+from pandas import (
+    Interval,
+    Period,
+)
 from pandas.core.base import IndexOpsMixin
 
 from pandas._libs.indexing import NDFrameIndexerBase
@@ -18,7 +23,9 @@ from pandas._typing import (
     AxisInt,
     MaskType,
     Scalar,
+    ScalarOrNA,
 )
+from typing import Any
 
 _IndexSliceTuple: TypeAlias = tuple[IndexOpsMixin | MaskType | Scalar | Sequence[Scalar] | slice, ...]
 
@@ -27,7 +34,7 @@ _IndexSliceUnion: TypeAlias = slice | _IndexSliceTuple
 _IndexSliceUnionT = TypeVar("_IndexSliceUnionT", bound=_IndexSliceUnion)
 
 class _IndexSlice:
-    def __getitem__(self, arg: _IndexSliceUnionT) -> _IndexSliceUnionT: ...
+    def __getitem__(self, arg: _IndexSliceUnionT, /) -> _IndexSliceUnionT: ...
 
 IndexSlice: _IndexSlice
 
@@ -39,13 +46,15 @@ class _LocIndexer(_NDFrameIndexer): ...
 class _iLocIndexer(_NDFrameIndexer): ...
 
 class _AtIndexer(NDFrameIndexerBase):
-    def __getitem__(self, key: Hashable) -> Scalar: ...
+    def __getitem__(
+        self, key: Hashable, /
+    ) -> ScalarOrNA | np.bool_ | Period | Interval[Any]: ...
     def __setitem__(
-        self, key: Hashable, value: Scalar | NAType | NaTType | None
+        self, key: Hashable, value: Scalar | NAType | NaTType | None, /
     ) -> None: ...
 
 class _iAtIndexer(NDFrameIndexerBase):
-    def __getitem__(self, key: int) -> Scalar: ...
+    def __getitem__(self, key: int, /) -> ScalarOrNA | np.bool_ | Period | Interval[Any]: ...
     def __setitem__(
-        self, key: int, value: Scalar | NAType | NaTType | None
+        self, key: int, value: Scalar | NAType | NaTType | None, /
     ) -> None: ...

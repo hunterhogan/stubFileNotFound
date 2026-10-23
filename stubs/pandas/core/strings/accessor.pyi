@@ -16,7 +16,6 @@ from typing import (
 
 from pandas.core.arrays.categorical import Categorical
 from pandas.core.arrays.string_ import BaseStringArray
-from pandas.core.base import NoNewAttributesMixin
 from pandas.core.col import Expression
 from pandas.core.frame import DataFrame
 from pandas.core.indexes.base import Index
@@ -36,12 +35,12 @@ from pandas._typing import (
 )
 from typing import Any
 
-class StringMethods(NoNewAttributesMixin, Generic[S2]):
+class StringMethods(Generic[S2]):
     def __iter__(self) -> Never: ...
 
 @type_check_only
 class IndexStringMethods(StringMethods[S2]):
-    def __getitem__(self, key: _slice | int) -> Index[str]: ...
+    def __getitem__(self, key: _slice | int, /) -> Index[str]: ...
     @overload
     def cat(
         self: IndexStringMethods[str],
@@ -307,7 +306,7 @@ class IndexStringMethods(StringMethods[S2]):
 
 @type_check_only
 class SeriesStringMethods(StringMethods[S2]):
-    def __getitem__(self, key: _slice | int) -> Series[str]: ...
+    def __getitem__(self, key: _slice | int, /) -> Series[str]: ...
     @overload
     def cat(
         self: SeriesStringMethods[str],
@@ -576,13 +575,13 @@ class SeriesStringMethods(StringMethods[S2]):
 class StrDescriptor:
     @overload
     def __get__(
-        self, instance: Series[S2], owner: type[Series]
+        self, instance: Series[S2], owner: type[Series], /
     ) -> SeriesStringMethods[S2]: ...
     @overload
     def __get__(
-        self, instance: Index[S2], owner: type[Index[Any]]
+        self, instance: Index[S2], owner: type[Index[Any]], /
     ) -> IndexStringMethods[S2]: ...
     @overload
     def __get__(
-        self, instance: Expression, owner: type[Expression]
+        self, instance: Expression, owner: type[Expression], /
     ) -> SeriesStringMethods[str]: ...

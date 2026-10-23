@@ -1,3 +1,3 @@
-from __future__ import annotations  # noqa: D104
+from __future__ import annotations  # ruff: ignore[undocumented-public-package]
 
-from stubFileNotFound._theSSOT import settingsPackage  # pyright: ignore[reportUnusedImport]
+from stubFileNotFound._theSSOT import settingsPackage as settingsPackage

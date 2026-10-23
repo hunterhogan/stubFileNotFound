@@ -78,7 +78,7 @@ class table__n_a_m_e(DefaultTable.DefaultTable):
 		The returned name ID will not be less than the 'minNameID'
 		argument.
 		"""
-	def addMultilingualName(self, names, ttFont: TTFont | None=None, nameID=None, windows: bool = True, mac: bool = True, minNameID: int = 0):
+	def addMultilingualName(self, names: dict[str, str], ttFont: TTFont | None=None, nameID: int | None = None, windows: bool = True, mac: bool = True, minNameID: int = 0)-> int:
 		"""Add a multilingual name, returning its name ID
 
 		'names' is a dictionary with the name in multiple languages,

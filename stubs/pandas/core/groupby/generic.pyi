@@ -26,6 +26,7 @@ from pandas.core.groupby.groupby import (
     GroupByPlot,
 )
 from pandas.core.series import Series
+from typing_extensions import override
 
 from pandas._libs.tslibs.timestamps import Timestamp
 from pandas._typing import (
@@ -68,40 +69,28 @@ class SeriesGroupBy(GroupBy[Series[S2]], Generic[S2, ByT]):
     @overload
     def aggregate(
         self,
-        func: Callable[Concatenate[Series[S2], P], S3],
-        /,
-        *args: Any,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
-        **kwargs: Any,
-    ) -> Series[S3]: ...
-    @overload
-    def aggregate(
-        self,
         func: Callable[[Series], S3],
         *args: Any,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
         **kwargs: Any,
     ) -> Series[S3]: ...
     @overload
     def aggregate(
         self,
         func: list[AggFuncTypeBase[...]],
-        /,
         *args: Any,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
         **kwargs: Any,
     ) -> DataFrame: ...
     @overload
     def aggregate(
         self,
         func: AggFuncTypeBase[...] | None = ...,
-        /,
         *args: Any,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
         **kwargs: Any,
     ) -> Series: ...
     agg = aggregate
@@ -109,10 +98,9 @@ class SeriesGroupBy(GroupBy[Series[S2]], Generic[S2, ByT]):
     def transform(
         self,
         func: Callable[Concatenate[Series[S2], P], Series[S3]],
-        /,
         *args: Any,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
         **kwargs: Any,
     ) -> Series[S3]: ...
     @overload
@@ -135,6 +123,7 @@ class SeriesGroupBy(GroupBy[Series[S2]], Generic[S2, ByT]):
     ) -> Series: ...
     def nunique(self, dropna: bool = ...) -> Series[int]: ...
     # describe delegates to super() method but here it has keyword-only parameters
+    @override
     def describe(  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override] # ty: ignore[invalid-method-override]
         self,
         *,
@@ -217,6 +206,7 @@ class SeriesGroupBy(GroupBy[Series[S2]], Generic[S2, ByT]):
     def unique(self) -> Series: ...
     # Overrides that provide more precise return types over the GroupBy class
     @final  # type: ignore[misc]
+    @override
     def __iter__(  # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override] # ty: ignore[override-of-final-method]
         self,
     ) -> Iterator[tuple[ByT, Series[S2]]]: ...
@@ -225,6 +215,7 @@ _TT = TypeVar("_TT", bound=Literal[True, False])
 
 class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
     @overload
+    @override
     def apply(
         self,
         func: Callable[Concatenate[DataFrame, P], Scalar | list[Any] | dict[Hashable, Any]],
@@ -251,8 +242,8 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         self,
         func: Literal["size"],
         *args: Any,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
         **kwargs: Any,
     ) -> Series: ...
     @overload
@@ -260,8 +251,8 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         self,
         func: AggFuncTypeFrame[..., Any] | None = ...,
         *args: Any,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
         **kwargs: Any,
     ) -> DataFrame: ...
     @overload
@@ -277,8 +268,8 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         self,
         func: Callable[Concatenate[DataFrame, P], DataFrame],
         *args: Any,
-        engine: WindowingEngine = ...,
-        engine_kwargs: WindowingEngineKwargs = ...,
+        engine: WindowingEngine = None,
+        engine_kwargs: WindowingEngineKwargs = None,
         **kwargs: Any,
     ) -> DataFrame: ...
     @overload
@@ -300,10 +291,11 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
         **kwargs: P.kwargs,
     ) -> DataFrame: ...
     @overload
-    def __getitem__(self, key: Scalar) -> SeriesGroupBy[Any, ByT]: ...
+    @override
+    def __getitem__(self, key: Scalar, /) -> SeriesGroupBy[Any, ByT]: ...
     @overload
     def __getitem__(  # pyright: ignore[reportIncompatibleMethodOverride]
-        self, key: CovariantList[Hashable]
+        self, key: CovariantList[Hashable], /
     ) -> DataFrameGroupBy[ByT, _TT]: ...
     def nunique(self, dropna: bool = True) -> DataFrame: ...
     def idxmax(
@@ -367,38 +359,39 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
     @overload
     def value_counts(
         self: DataFrameGroupBy[ByT, Literal[True]],
-        subset: ListLike | None = ...,
+        subset: ListLike | None = None,
         normalize: Literal[False] = False,
-        sort: bool = ...,
-        ascending: bool = ...,
-        dropna: bool = ...,
+        sort: bool = True,
+        ascending: bool = False,
+        dropna: bool = True,
     ) -> Series[int]: ...
     @overload
     def value_counts(
         self: DataFrameGroupBy[ByT, Literal[True]],
         subset: ListLike | None,
         normalize: Literal[True],
-        sort: bool = ...,
-        ascending: bool = ...,
-        dropna: bool = ...,
+        sort: bool = True,
+        ascending: bool = False,
+        dropna: bool = True,
+    ) -> Series[float]: ...
+    @overload
+    def value_counts(
+        self: DataFrameGroupBy[ByT, Literal[True]],
+        subset: ListLike | None = None,
+        *,
+        normalize: Literal[True],
+        sort: bool = True,
+        ascending: bool = False,
+        dropna: bool = True,
     ) -> Series[float]: ...
     @overload
     def value_counts(
         self: DataFrameGroupBy[ByT, Literal[False]],
-        subset: ListLike | None = ...,
-        normalize: Literal[False] = False,
-        sort: bool = ...,
-        ascending: bool = ...,
-        dropna: bool = ...,
-    ) -> DataFrame: ...
-    @overload
-    def value_counts(
-        self: DataFrameGroupBy[ByT, Literal[False]],
-        subset: ListLike | None,
-        normalize: Literal[True],
-        sort: bool = ...,
-        ascending: bool = ...,
-        dropna: bool = ...,
+        subset: ListLike | None = None,
+        normalize: bool = False,
+        sort: bool = True,
+        ascending: bool = False,
+        dropna: bool = True,
     ) -> DataFrame: ...
     def take(self, indices: TakeIndexer, **kwargs: Any) -> DataFrame: ...
     @overload
@@ -454,13 +447,16 @@ class DataFrameGroupBy(GroupBy[DataFrame], Generic[ByT, _TT]):
     ) -> Series: ...  # Series[Axes] but this is not allowed
     @property
     def dtypes(self) -> Never: ...
-    def __getattr__(self, attr: str) -> SeriesGroupBy[Any, ByT]: ...
+    @override
+    def __getattr__(self, attr: str, /) -> SeriesGroupBy[Any, ByT]: ...
     # Overrides that provide more precise return types over the GroupBy class
     @final  # type: ignore[misc]
+    @override
     def __iter__(  # pyright: ignore[reportIncompatibleMethodOverride] # ty: ignore[override-of-final-method] # pyrefly: ignore[bad-override]
         self,
     ) -> Iterator[tuple[ByT, DataFrame]]: ...
     @overload
+    @override
     def size(self: DataFrameGroupBy[ByT, Literal[True]]) -> Series[int]: ...
     @overload
     def size(self: DataFrameGroupBy[ByT, Literal[False]]) -> DataFrame: ...

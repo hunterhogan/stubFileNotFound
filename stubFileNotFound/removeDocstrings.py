@@ -4,7 +4,7 @@ from __future__ import annotations
 from pathlib import Path
 import re as regex
 
-def remove_docstrings_from_file(pathFilename: Path) -> None:  # noqa: D103
+def remove_docstrings_from_file(pathFilename: Path) -> None:  # ruff: ignore[undocumented-public-function]
     content = pathFilename.read_text(encoding='utf-8')
 
     # Remove triple-quoted docstrings (both """ and ''')
@@ -17,12 +17,12 @@ def remove_docstrings_from_file(pathFilename: Path) -> None:  # noqa: D103
 
     pathFilename.write_text(content, encoding='utf-8')
 
-def process_directory(pathRoot: Path) -> None:  # noqa: D103
+def process_directory(pathRoot: Path) -> None:  # ruff: ignore[undocumented-public-function]
     for root, _dirs, files in pathRoot.walk():
         for file in files:
             if file.endswith('.pyi'):
                 pathFilename = root / file
-                print(f"Processing {pathFilename}")  # noqa: T201
+                print(f"Processing {pathFilename}")  # ruff: ignore[print]
                 remove_docstrings_from_file(pathFilename)
 
 # Run it

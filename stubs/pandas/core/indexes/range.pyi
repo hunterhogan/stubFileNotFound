@@ -3,7 +3,7 @@ from collections.abc import (
     Sequence,
 )
 from typing import (
-    Any,
+    Literal,
     Self,
     overload,
 )
@@ -13,6 +13,7 @@ from pandas._stubs_only import IndexSubclassBase
 from pandas.core.arrays.boolean import BooleanArray
 from pandas.core.base import IndexOpsMixin
 from pandas.core.indexes.base import Index
+from typing_extensions import override
 
 from pandas._typing import (
     AnyArrayLike,
@@ -24,6 +25,7 @@ from pandas._typing import (
     np_ndarray_anyint,
     np_ndarray_bool,
 )
+from typing import Any
 
 class RangeIndex(IndexSubclassBase[int, np.int64]):
     def __new__(
@@ -46,43 +48,36 @@ class RangeIndex(IndexSubclassBase[int, np.int64]):
     @property
     def step(self) -> int: ...
     @property
-    def nbytes(self) -> int: ...
-    def memory_usage(self, deep: bool = ...) -> int: ...
-    @property
+    @override
     def dtype(self) -> np.dtype: ...
-    @property
-    def is_unique(self) -> bool: ...
-    @property
-    def is_monotonic_increasing(self) -> bool: ...
-    @property
-    def is_monotonic_decreasing(self) -> bool: ...
-    @property
-    def has_duplicates(self) -> bool: ...
+    @override
     def factorize(
         self, sort: bool = False, use_na_sentinel: bool = True
     ) -> tuple[np_1darray_intp, RangeIndex]: ...
-    @property
-    def size(self) -> int: ...
-    def all(self, *args: Any, **kwargs: Any) -> bool: ...
-    def any(self, *args: Any, **kwargs: Any) -> bool: ...
+    @override
+    def all(self, axis: None = None, out: None = None, keepdims: Literal[False] = False) -> bool: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override] # ty: ignore[invalid-method-override]
+    @override
+    def any(self, axis: None = None, out: None = None, keepdims: Literal[False] = False) -> bool: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override] # ty: ignore[invalid-method-override]
     @overload  # type: ignore[override]
+    @override
     def union(  # pyrefly: ignore[bad-override]
         self, other: Sequence[int] | Index[int] | Self, sort: bool | None = None
     ) -> Index[int] | Self: ...
     @overload
-    def union(
+    def union(  # ty: ignore[invalid-method-override]
         self, other: Sequence[HashableT] | Index[Any], sort: bool | None = None
     ) -> Index[Any]: ...
     @overload  # type: ignore[override]
+    @override
     def __getitem__(  # pyrefly: ignore[bad-override]
-        self,
-        idx: slice | np_ndarray_anyint | Sequence[int] | Index[Any] | MaskType,
+        self, idx: slice | np_ndarray_anyint | Sequence[int] | Index[Any] | MaskType, /
     ) -> Index[Any]: ...
     @overload
     def __getitem__(  # pyright: ignore[reportIncompatibleMethodOverride] # ty: ignore[invalid-method-override]
-        self, idx: int
+        self, idx: int, /
     ) -> int: ...
-    def where(  # type: ignore[override] # pyrefly: ignore[bad-override]
+    @override
+    def where(  # type: ignore[override] # pyrefly: ignore[bad-override] # ty: ignore[invalid-method-override]
         self,
         cond: Sequence[bool] | np_ndarray_bool | BooleanArray | IndexOpsMixin[bool],
         other: Scalar | AnyArrayLike | None = None,

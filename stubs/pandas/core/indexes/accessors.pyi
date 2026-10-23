@@ -1,6 +1,7 @@
 from datetime import (
     date,
     time,
+    timedelta,
     tzinfo as _tzinfo,
 )
 from typing import (
@@ -20,10 +21,7 @@ from pandas.core.arrays.datetimes import DatetimeArray
 from pandas.core.arrays.interval import IntervalArray
 from pandas.core.arrays.period import PeriodArray
 from pandas.core.arrays.timedeltas import TimedeltaArray
-from pandas.core.base import (
-    IndexOpsMixin,
-    NoNewAttributesMixin,
-)
+from pandas.core.base import IndexOpsMixin
 from pandas.core.frame import DataFrame
 from pandas.core.indexes.base import Index
 from pandas.core.indexes.datetimes import DatetimeIndex
@@ -53,7 +51,7 @@ from pandas.core.dtypes.dtypes import (
     CategoricalValueT,
 )
 
-class Properties(PandasDelegate, NoNewAttributesMixin): ...
+class Properties(PandasDelegate): ...
 
 _DTFieldOpsReturnType = TypeVar("_DTFieldOpsReturnType", bound=Series[int] | Index[int])
 
@@ -70,12 +68,15 @@ class _DayLikeFieldOps(Generic[_DTFieldOpsReturnType]):
     def minute(self) -> _DTFieldOpsReturnType: ...
     @property
     def second(self) -> _DTFieldOpsReturnType: ...
+    # TODO: remove weekday once pandas removes it; use day_of_week (pandas-dev/pandas#12816)
     @property
     def weekday(self) -> _DTFieldOpsReturnType: ...
+    # TODO: remove dayofweek once pandas removes it; use day_of_week (pandas-dev/pandas#64729)
     @property
     def dayofweek(self) -> _DTFieldOpsReturnType: ...
     @property
     def day_of_week(self) -> _DTFieldOpsReturnType: ...
+    # TODO: remove dayofyear once pandas removes it; use day_of_year (pandas-dev/pandas#64729)
     @property
     def dayofyear(self) -> _DTFieldOpsReturnType: ...
     @property
@@ -84,6 +85,7 @@ class _DayLikeFieldOps(Generic[_DTFieldOpsReturnType]):
     def quarter(self) -> _DTFieldOpsReturnType: ...
     @property
     def days_in_month(self) -> _DTFieldOpsReturnType: ...
+    # TODO: remove daysinmonth once pandas removes it; use days_in_month (pandas-dev/pandas#64729)
     @property
     def daysinmonth(self) -> _DTFieldOpsReturnType: ...
 
@@ -180,19 +182,19 @@ _DTTimestampTimedeltaReturnType = TypeVar(
 class _DatetimeRoundingMethods(Generic[_DTTimestampTimedeltaReturnType]):
     def round(
         self,
-        freq: Frequency | None,
+        freq: Frequency | timedelta | None,
         ambiguous: TimeAmbiguous = "raise",
         nonexistent: TimeNonexistent = "raise",
     ) -> _DTTimestampTimedeltaReturnType: ...
     def floor(
         self,
-        freq: Frequency | None,
+        freq: Frequency | timedelta | None,
         ambiguous: TimeAmbiguous = "raise",
         nonexistent: TimeNonexistent = "raise",
     ) -> _DTTimestampTimedeltaReturnType: ...
     def ceil(
         self,
-        freq: Frequency | None,
+        freq: Frequency | timedelta | None,
         ambiguous: TimeAmbiguous = "raise",
         nonexistent: TimeNonexistent = "raise",
     ) -> _DTTimestampTimedeltaReturnType: ...
@@ -426,47 +428,48 @@ class TimedeltaIndexProperties(
 class DtDescriptor:
     @overload
     def __get__(
-        self, instance: Series[Never], owner: type[Series]
+        self, instance: Series[Never], owner: type[Series], /
     ) -> CombinedDatetimelikeProperties: ...
     @overload
     def __get__(
-        self, instance: Series[Timestamp], owner: type[Series]
+        self, instance: Series[Timestamp], owner: type[Series], /
     ) -> TimestampProperties: ...
     @overload
     def __get__(
-        self, instance: Series[Timedelta], owner: type[Series]
+        self, instance: Series[Timedelta], owner: type[Series], /
     ) -> TimedeltaProperties: ...
     @overload
     def __get__(
-        self, instance: Series[Period], owner: type[Series]
+        self, instance: Series[Period], owner: type[Series], /
     ) -> PeriodProperties[Any]: ...
 
 @type_check_only
 class ArrayDescriptor:
     @overload
     def __get__(
-        self, instance: IndexOpsMixin[Never], owner: type[IndexOpsMixin]
+        self, instance: IndexOpsMixin[Never], owner: type[IndexOpsMixin], /
     ) -> ExtensionArray: ...
     @overload
     def __get__(
         self,
         instance: IndexOpsMixin[CategoricalDtype[CategoricalValueT]],
         owner: type[IndexOpsMixin],
+        /,
     ) -> Categorical[CategoricalValueT]: ...
     @overload
     def __get__(
-        self, instance: IndexOpsMixin[Interval[Any]], owner: type[IndexOpsMixin]
+        self, instance: IndexOpsMixin[Interval[Any]], owner: type[IndexOpsMixin], /
     ) -> IntervalArray: ...
     @overload
     def __get__(
-        self, instance: IndexOpsMixin[Timestamp], owner: type[IndexOpsMixin]
+        self, instance: IndexOpsMixin[Timestamp], owner: type[IndexOpsMixin], /
     ) -> DatetimeArray: ...
     @overload
     def __get__(
-        self, instance: IndexOpsMixin[Timedelta], owner: type[IndexOpsMixin]
+        self, instance: IndexOpsMixin[Timedelta], owner: type[IndexOpsMixin], /
     ) -> TimedeltaArray: ...
     # should be NumpyExtensionArray
     @overload
     def __get__(
-        self, instance: IndexOpsMixin, owner: type[IndexOpsMixin]
+        self, instance: IndexOpsMixin, owner: type[IndexOpsMixin], /
     ) -> ExtensionArray: ...

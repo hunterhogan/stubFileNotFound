@@ -7,6 +7,7 @@ from pandas.core.arrays.datetimes import DatetimeArray
 from pandas.core.indexes.period import PeriodIndex
 from pandas.core.series import Series
 import pyarrow as pa
+from typing_extensions import override
 
 from pandas._libs.tslibs.period import (
     Period,
@@ -37,7 +38,9 @@ class PeriodArray(DatelikeOps, PeriodMixin):
         copy: bool = False,
     ) -> None: ...
     @property
+    @override
     def dtype(self) -> PeriodDtype: ...
+    @override
     def __array__(
         self, dtype: NpDtype | None = None, copy: bool | None = None
     ) -> np_1darray_object: ...
@@ -60,10 +63,15 @@ class PeriodArray(DatelikeOps, PeriodMixin):
     def weekofyear(self) -> np_1darray_int64: ...
     @property
     def week(self) -> np_1darray_int64: ...
+    # TODO: remove dayofweek once pandas removes it; use day_of_week (pandas-dev/pandas#64729)
     @property
     def dayofweek(self) -> np_1darray_int64: ...
     @property
+    def day_of_week(self) -> np_1darray_int64: ...
+    # TODO: remove weekday once pandas removes it; use day_of_week (pandas-dev/pandas#12816)
+    @property
     def weekday(self) -> np_1darray_int64: ...
+    # TODO: remove dayofyear once pandas removes it; use day_of_year (pandas-dev/pandas#64729)
     @property
     def dayofyear(self) -> np_1darray_int64: ...
     @property
@@ -74,13 +82,16 @@ class PeriodArray(DatelikeOps, PeriodMixin):
     def qyear(self) -> np_1darray_int64: ...
     @property
     def days_in_month(self) -> np_1darray_int64: ...
+    # TODO: remove daysinmonth once pandas removes it; use days_in_month (pandas-dev/pandas#64729)
     daysinmonth: np_1darray_int64 = ...
     @property
     def is_leap_year(self) -> np_1darray_bool: ...
     @property
-    def start_time(self) -> DatetimeArray: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override]
+    @override
+    def start_time(self) -> DatetimeArray: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override] # ty: ignore[invalid-property-type-override]
     @property
-    def end_time(self) -> DatetimeArray: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override]
+    @override
+    def end_time(self) -> DatetimeArray: ...  # type: ignore[override] # pyright: ignore[reportIncompatibleMethodOverride] # pyrefly: ignore[bad-override] # ty: ignore[invalid-property-type-override]
     def to_timestamp(
         self, freq: PeriodFrequency | None = None, how: str = ...
     ) -> DatetimeArray: ...

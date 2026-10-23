@@ -10,11 +10,15 @@ from typing import (
 )
 
 import numpy as np
+from numpy import typing as npt
 from pandas.core.arrays.datetimes import DatetimeArray
 from pandas.core.indexes.base import Index
 from pandas.core.series import Series
 import pyarrow as pa
-from typing_extensions import TypeVar
+from typing_extensions import (
+    TypeVar,
+    override,
+)
 
 from pandas._libs import NaTType
 from pandas._libs.missing import NAType
@@ -24,12 +28,12 @@ from pandas._libs.tslibs.offsets import (
     SingleConstructorOffset,
 )
 from pandas._typing import (
+    IntervalClosedType,
     NumpyTimedeltaDtypeArg,
     NumpyTimestampDtypeArg,
     Ordered,
     Scalar,
     TimeZones,
-    npt,
 )
 
 from pandas.core.dtypes.base import (
@@ -46,6 +50,7 @@ CategoricalValueT1 = TypeVar("CategoricalValueT1", str, int, float)
 
 class BaseMaskedDtype(ExtensionDtype):
     @property
+    @override
     def na_value(self) -> NAType: ...
 
 class PandasExtensionDtype(ExtensionDtype): ...
@@ -74,6 +79,7 @@ class DatetimeTZDtype(PandasExtensionDtype):
     @property
     def tz(self) -> timezone: ...
     @property
+    @override
     def na_value(self) -> NaTType: ...
     def __from_arrow__(
         self, array: pa.Array[Any] | pa.ChunkedArray[Any]
@@ -86,12 +92,19 @@ class PeriodDtype(PandasExtensionDtype):
     @property
     def freq(self) -> BaseOffset: ...
     @property
+    @override
     def na_value(self) -> NaTType: ...
 
 class IntervalDtype(PandasExtensionDtype):
-    def __init__(self, subtype: str | npt.DTypeLike | None = ...) -> None: ...
+    def __init__(
+        self,
+        subtype: str | npt.DTypeLike | None = None,
+        closed: IntervalClosedType | None = None,
+    ) -> None: ...
     @property
     def subtype(self) -> np.dtype | None: ...
+    @property
+    def closed(self) -> IntervalClosedType | None: ...
 
 class SparseDtype(ExtensionDtype):
     @overload

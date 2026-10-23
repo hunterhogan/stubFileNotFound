@@ -8,10 +8,13 @@ from typing import (
     Self,
     TypeAlias,
     final,
+    overload,
 )
 
 import numpy as np
+from typing_extensions import override
 
+from pandas._libs.missing import NAType
 from pandas._libs.tslibs.period import Period
 from pandas._typing import (
     Frequency,
@@ -34,6 +37,7 @@ class _NatComparison:
 @final
 class NaTType:
     value: np.int64
+    @override
     def __hash__(self) -> int: ...
     def asm8(self) -> np.datetime64: ...
     def to_datetime64(self) -> np.datetime64: ...
@@ -56,14 +60,17 @@ class NaTType:
     def is_year_end(self) -> bool: ...
     @property
     def day_of_year(self) -> float: ...
+    # TODO: remove dayofyear once pandas removes it; use day_of_year (pandas-dev/pandas#64729)
     @property
     def dayofyear(self) -> float: ...
     @property
     def days_in_month(self) -> float: ...
+    # TODO: remove daysinmonth once pandas removes it; use days_in_month (pandas-dev/pandas#64729)
     @property
     def daysinmonth(self) -> float: ...
     @property
     def day_of_week(self) -> float: ...
+    # TODO: remove dayofweek once pandas removes it; use day_of_week (pandas-dev/pandas#64729)
     @property
     def dayofweek(self) -> float: ...
     @property
@@ -81,19 +88,19 @@ class NaTType:
     def date(self) -> NaTType: ...
     def round(
         self,
-        freq: Frequency,
+        freq: Frequency | timedelta,
         ambiguous: bool | Literal["raise"] | NaTType = "raise",
         nonexistent: TimestampNonexistent = "raise",
     ) -> NaTType: ...
     def floor(
         self,
-        freq: Frequency,
+        freq: Frequency | timedelta,
         ambiguous: bool | Literal["raise"] | NaTType = "raise",
         nonexistent: TimestampNonexistent = "raise",
     ) -> NaTType: ...
     def ceil(
         self,
-        freq: Frequency,
+        freq: Frequency | timedelta,
         ambiguous: bool | Literal["raise"] | NaTType = "raise",
         nonexistent: TimestampNonexistent = "raise",
     ) -> NaTType: ...
@@ -147,8 +154,20 @@ class NaTType:
     # inject Period properties
     @property
     def qyear(self) -> float: ...
-    def __eq__(self, other: object) -> bool: ...
-    def __ne__(self, other: object) -> bool: ...
+    @override
+    @overload
+    def __eq__(self, other: NAType, /) -> NAType: ...  # type: ignore[overload-overlap]
+    @overload
+    def __eq__(  # pyright: ignore[reportOverlappingOverload]
+        self, other: object, /
+    ) -> Literal[False]: ...
+    @override
+    @overload
+    def __ne__(self, other: NAType, /) -> NAType: ...  # type: ignore[overload-overlap]
+    @overload
+    def __ne__(  # pyright: ignore[reportOverlappingOverload]
+        self, other: object, /
+    ) -> Literal[True]: ...
     __lt__: _NatComparison
     __le__: _NatComparison
     __gt__: _NatComparison
