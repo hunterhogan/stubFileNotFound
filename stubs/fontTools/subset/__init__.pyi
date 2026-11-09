@@ -1,4 +1,5 @@
 from _typeshed import Incomplete
+from collections.abc import Iterable
 from fontTools.subset.cff import *
 from fontTools.subset.svg import *
 from fontTools.ttLib.ttFont import TTFont
@@ -62,7 +63,7 @@ class Subsetter:
     glyph_names_requested: Incomplete
     glyph_ids_requested: Incomplete
     def __init__(self, options: Options | None = None) -> None: ...
-    def populate(self, glyphs: list[str] = [], gids: list[int] = [], unicodes: list[int] = [], text: str = '') -> None: ...
+    def populate(self, glyphs: Iterable[str] = [], gids: Iterable[int] = [], unicodes: Iterable[int] = [], text: str | bytes = '') -> None: ...
     def _prune_pre_subset(self, font) -> None: ...
     orig_glyph_order: Incomplete
     glyphs_requested: Incomplete

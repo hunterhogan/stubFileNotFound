@@ -13,7 +13,9 @@ class table__h_e_a_d(DefaultTable.DefaultTable):
 	"""
 
 	dependencies: Incomplete
+	flags: int
 	fontRevision: float
+	unitsPerEm: int
 	modified: Incomplete
 	def compile(self, ttFont: TTFont): ...
 	def decompile(self, data, ttFont: TTFont) -> None: ...

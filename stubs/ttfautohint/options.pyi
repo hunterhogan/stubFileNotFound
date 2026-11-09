@@ -1,3 +1,42 @@
+from typing import TypedDict, Unpack
+import io
+import os
+
+class UserOptions(TypedDict, total=False):
+    in_file: str | bytes | os.PathLike[str] | io.BufferedIOBase | None
+    in_buffer: bytes | None
+    out_file: str | bytes | os.PathLike[str] | io.BufferedIOBase | None
+    control_file: str | os.PathLike[str] | None
+    control_buffer: str | bytes | None
+    reference_file: str | os.PathLike[str] | None
+    reference_buffer: bytes | None
+    reference_index: int
+    hinting_range_min: int
+    hinting_range_max: int
+    hinting_limit: int
+    hint_composites: bool
+    adjust_subglyphs: bool
+    increase_x_height: int
+    x_height_snapping_exceptions: str
+    windows_compatibility: bool
+    default_script: str
+    fallback_script: str
+    fallback_scaling: bool
+    symbol: bool
+    fallback_stem_width: int | None
+    ignore_restrictions: bool
+    family_suffix: str | None
+    detailed_info: bool
+    no_info: bool
+    TTFA_info: bool
+    dehint: bool
+    epoch: int | None
+    debug: bool
+    verbose: bool
+    gray_stem_width_mode: int
+    gdi_cleartype_stem_width_mode: int
+    dw_cleartype_stem_width_mode: int
+
 
 USER_OPTIONS = ...
 StemWidthMode = ...
@@ -7,7 +46,7 @@ def validate_options(kwargs): # -> dict[str, Any]:
     ...
 
 SPECIAL_OPT_NAMES = ...
-def format_kwargs(**options): # -> list[Any]:
+def format_kwargs(**options: Unpack[UserOptions]) -> list[str]:
     ...
 
 def strong_stem_width(s): # -> dict[Any, Any]:

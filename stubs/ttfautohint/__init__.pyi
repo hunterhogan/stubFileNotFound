@@ -3,13 +3,14 @@ from contextlib import ExitStack
 from importlib.resources import as_file, files, is_resource
 from ttfautohint._version import __version__
 from ttfautohint.errors import TAError
-from ttfautohint.options import format_kwargs, StemWidthMode, validate_options
+from ttfautohint.options import format_kwargs, StemWidthMode, UserOptions, validate_options
 import atexit
 import io
 import os
 import stat
 import subprocess
 import sys
+from typing import Unpack
 
 __all__ = ["StemWidthMode", "TAError", "__version__", "run", "ttfautohint"]
 _exit_stack = ...
@@ -30,5 +31,5 @@ def run(args, **kwargs):
         args, returncode, stdout, stderr.
     """
 
-def ttfautohint(**kwargs):
+def ttfautohint(**kwargs: Unpack[UserOptions]) -> bytes | None:
     ...

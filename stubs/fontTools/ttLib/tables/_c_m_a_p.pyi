@@ -77,7 +77,7 @@ class table__c_m_a_p(DefaultTable.DefaultTable):
 
         This order can be customized via the ``cmapPreferences`` argument.
         """
-    def buildReversed(self):
+    def buildReversed(self) -> dict[str, set[int]]:
         """Builds a reverse mapping dictionary
 
         Iterates over all Unicode cmap tables and returns a dictionary mapping
