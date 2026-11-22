@@ -6,5 +6,5 @@ SET pathRoot=%VIRTUAL_ENV%\..
 
 SET pathFix=%pathRoot%\stubs\
 
-ruff check --fix --config ruff.toml %pathFix%
+ruff check --fix %pathFix%
 isort %pathFix%

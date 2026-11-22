@@ -1,9 +1,0 @@
-extend = "ruff.toml"
-
-[lint.per-file-ignores]
-"stubs/pandas/*.pyi" = [
-  "ERA001",
-  "PYI001",
-  "RUF013",
-  "UP035",
-]

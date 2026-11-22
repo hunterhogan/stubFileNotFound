@@ -1,7 +1,7 @@
 # ruff: file-ignore[undocumented-public-module]
 from __future__ import annotations
 
-from hunterMakesPy.filesystemToolkit import settings_autoflakeDEFAULT, settings_isortDEFAULT, writePython
+from hunterMakesPy.kitFilesystem import settings_autoflakeDEFAULT, settings_isortDEFAULT, writePython
 from stubFileNotFound.fileDiscovery import discoverStubFiles
 from typing import TYPE_CHECKING
 import subprocess  # ruff: ignore[suspicious-subprocess-import]
@@ -37,7 +37,7 @@ if __name__ == "__main__":
 		if pyupgrade吗:
 			subprocess.run(['pyupgrade', f'--{pyupgradeVersion}', str(pathFilename)], check=False)
 		if ruffFix吗:
-			subprocess.run(['ruff', 'check', '--fix', '--config', 'ruff.toml', str(pathFilename)], check=False)
+			subprocess.run(['ruff', 'check', '--fix', str(pathFilename)], check=False)
 		if autoflake吗 or isort吗:
 			pythonSource: str = pathFilename.read_text(encoding='utf-8')
 			pythonSource = pythonSource.rstrip('\n')
