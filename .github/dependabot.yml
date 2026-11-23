@@ -1,0 +1,7 @@
+# path-sync copy -n shared
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
