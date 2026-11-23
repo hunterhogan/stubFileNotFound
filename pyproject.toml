@@ -33,20 +33,10 @@ dependencies = [
   "stubdefaulter@git+https://github.com/JelleZijlstra/stubdefaulter.git",
   "typeshed_client",
 ]
-optional-dependencies = { effingPandas = [
-  "matplotlib",
-  "odfpy",
-  "pandas",
-  "pyxlsb",
-  "scipy-stubs",
-  "scipy",
-  "sqlalchemy",
-  "xarray",
-  "xlsxwriter",
-], stubdefaulter = [
+optional-dependencies = { stubdefaulter = [
   "afdko",
   "fontmake[all]",
-  "fonttools",
+  "fonttools[all]",
   "gftools",
   "glyphsLib[colr,ufo-normalization]",
   "numba",

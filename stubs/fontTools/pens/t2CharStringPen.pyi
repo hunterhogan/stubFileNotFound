@@ -1,4 +1,5 @@
-from _typeshed import Incomplete
+from collections.abc import Sequence
+from fontTools.cffLib import GlobalSubrsIndex, PrivateDict
 from fontTools.misc.psCharStrings import T2CharString as T2CharString
 from fontTools.pens.basePen import BasePen as BasePen
 from fontTools.ttLib.ttGlyphSet import _TTGlyphSet
@@ -16,4 +17,4 @@ class T2CharStringPen(BasePen):
 
     round: float
     def __init__(self, width: float | None, glyphSet: _TTGlyphSet | None, roundTolerance: float = 0.5, CFF2: bool = False) -> None: ...
-    def getCharString(self, private: dict[Incomplete, Incomplete] | None = None, globalSubrs: list[Incomplete] | None = None, optimize: bool = True) -> T2CharString: ...
+    def getCharString(self, private: PrivateDict | None = None, globalSubrs: GlobalSubrsIndex | Sequence[T2CharString] | None = None, optimize: bool = True) -> T2CharString: ...

@@ -168,6 +168,73 @@ class FeatureParamsSize(FeatureParams): ...
 class FeatureParamsStylisticSet(FeatureParams): ...
 class FeatureParamsCharacterVariants(FeatureParams): ...
 
+class ScriptList(BaseTable):
+    ScriptCount: int
+    ScriptRecord: list[ScriptRecord]
+
+class ScriptRecord(BaseTable):
+    ScriptTag: str
+    Script: Script
+
+class Script(BaseTable):
+    DefaultLangSys: LangSys | None
+    LangSysCount: int
+    LangSysRecord: list[LangSysRecord]
+
+class LangSysRecord(BaseTable):
+    LangSysTag: str
+    LangSys: LangSys
+
+class LangSys(BaseTable):
+    LookupOrder: None
+    ReqFeatureIndex: int
+    FeatureCount: int
+    FeatureIndex: list[int]
+
+class FeatureList(BaseTable):
+    FeatureCount: int
+    FeatureRecord: list[FeatureRecord]
+
+class FeatureRecord(BaseTable):
+    FeatureTag: str
+    Feature: Feature
+
+class Feature(BaseTable):
+    FeatureParams: FeatureParams | None
+    LookupCount: int
+    LookupListIndex: list[int]
+
+class GPOS(BaseTable):
+    Version: int
+    ScriptList: ScriptList
+    FeatureList: FeatureList
+    LookupList: LookupList
+    FeatureVariations: FeatureVariations | None
+
+class GSUB(BaseTable):
+    Version: int
+    ScriptList: ScriptList
+    FeatureList: FeatureList
+    LookupList: LookupList
+    FeatureVariations: FeatureVariations | None
+
+class FeatureVariations(BaseTable):
+    Version: int
+    FeatureVariationCount: int
+    FeatureVariationRecord: list[FeatureVariationRecord]
+
+class FeatureVariationRecord(BaseTable):
+    FeatureTableSubstitution: FeatureTableSubstitution
+
+class FeatureTableSubstitution(BaseTable):
+    Version: int
+    SubstitutionCount: int
+    SubstitutionRecord: list[FeatureTableSubstitutionRecord]
+
+class FeatureTableSubstitutionRecord(BaseTable):
+    FeatureIndex: int
+    Feature: Feature
+
 class Coverage(FormatSwitchingBaseTable):
     glyphs: Incomplete
     def populateDefaults(self, propagator=None) -> None: ...

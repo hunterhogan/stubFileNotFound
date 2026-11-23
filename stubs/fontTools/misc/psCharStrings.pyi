@@ -1,4 +1,6 @@
 from _typeshed import Incomplete
+from collections.abc import Sequence
+from fontTools.cffLib import GlobalSubrsIndex, PrivateDict
 from fontTools.misc.fixedTools import (
 	fixedToFloat as fixedToFloat, floatToFixed as floatToFixed, floatToFixedToStr as floatToFixedToStr,
 	strToFixedToFloat as strToFixedToFloat)
@@ -224,9 +226,9 @@ class T2CharString:
     outlineExtractor = T2OutlineExtractor
     bytecode: Incomplete
     program: Incomplete
-    private: Incomplete
-    globalSubrs: Incomplete
-    def __init__(self, bytecode=None, program=None, private=None, globalSubrs=None) -> None: ...
+    private: PrivateDict | None
+    globalSubrs: GlobalSubrsIndex | Sequence[T2CharString]
+    def __init__(self, bytecode=None, program=None, private: PrivateDict | None = None, globalSubrs: GlobalSubrsIndex | Sequence[T2CharString] | None = None) -> None: ...
     def getNumRegions(self, vsindex=None): ...
     def getIntEncoder(self): ...
     def getFixedEncoder(self): ...

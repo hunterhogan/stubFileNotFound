@@ -212,6 +212,8 @@ class TTFont:
     @overload
     def __getitem__(self, tag: Literal['GSUB']) -> G_S_U_B_.table_G_S_U_B_: ...
     @overload
+    def __getitem__(self, tag: Literal['GPOS', 'GSUB']) -> G_P_O_S_.table_G_P_O_S_ | G_S_U_B_.table_G_S_U_B_: ...
+    @overload
     def __getitem__(self, tag: Literal['GVAR']) -> G_V_A_R_.table_G_V_A_R_: ...
     @overload
     def __getitem__(self, tag: Literal['HVAR']) -> H_V_A_R_.table_H_V_A_R_: ...
@@ -652,6 +654,9 @@ def getTableClass(tag: str | bytes) -> type[DefaultTable]:
     """Fetch the packer/unpacker class for a table."""
 def getClassTag(klass: type[DefaultTable]) -> str | bytes:
     """Fetch the table tag for a class object."""
+@overload
+def newTable(tag: Literal['name', b'name']) -> _n_a_m_e.table__n_a_m_e: ...
+@overload
 def newTable(tag: str | bytes) -> DefaultTable:
     """Return a new instance of a table."""
 def tagToIdentifier(tag: str | bytes) -> str:

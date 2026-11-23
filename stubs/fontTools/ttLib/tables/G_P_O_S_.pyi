@@ -1,4 +1,5 @@
 from .otBase import BaseTTXConverter as BaseTTXConverter
+from .otTables import GPOS
 
 class table_G_P_O_S_(BaseTTXConverter):
     """Glyph Positioning table
@@ -9,3 +10,4 @@ class table_G_P_O_S_(BaseTTXConverter):
 
     See also https://learn.microsoft.com/en-us/typography/opentype/spec/gpos
     """
+    table: GPOS
