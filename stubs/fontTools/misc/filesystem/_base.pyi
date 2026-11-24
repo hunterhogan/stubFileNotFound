@@ -8,7 +8,8 @@ from ._subfs import SubFS as SubFS
 from ._walk import BoundWalker as BoundWalker
 from abc import ABC, abstractmethod
 from collections.abc import Collection, Iterator
-from typing import Any, IO, Self
+from typing import Any, IO
+from typing_extensions import Self
 import abc
 import types
 

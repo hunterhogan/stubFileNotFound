@@ -3,7 +3,8 @@ from collections.abc import Generator
 from numpy import float32, float64, int16, int32
 from numpy.typing import NDArray
 from os import SEEK_SET
-from typing import Any, BinaryIO, Literal, overload, Self, TypeAlias, TypeVar
+from typing import Any, BinaryIO, Literal, overload, TypeAlias, TypeVar
+from typing_extensions import Self
 import numpy
 import os as _os
 

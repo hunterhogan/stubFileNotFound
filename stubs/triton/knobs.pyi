@@ -8,7 +8,8 @@ from .runtime.jit import JitFunctionInfo, KernelParam
 from collections.abc import Callable, Generator
 from contextlib import contextmanager
 from dataclasses import dataclass
-from typing import Any, Generic, Optional, Protocol, Self, TYPE_CHECKING, TypedDict, TypeVar
+from typing import Any, Generic, Optional, Protocol, TYPE_CHECKING, TypedDict, TypeVar
+from typing_extensions import Self
 import functools
 
 if TYPE_CHECKING:

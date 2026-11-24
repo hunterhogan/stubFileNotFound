@@ -10,7 +10,7 @@ import os
 import stat
 import subprocess
 import sys
-from typing import Unpack
+from typing_extensions import Unpack
 
 __all__ = ["StemWidthMode", "TAError", "__version__", "run", "ttfautohint"]
 _exit_stack = ...

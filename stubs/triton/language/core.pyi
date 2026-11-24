@@ -2,7 +2,8 @@ from .._C.libtriton import ir  # noqa: TID252
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any, Literal, Self, TypeVar
+from typing import Any, Literal, TypeVar
+from typing_extensions import Self
 import builtins
 import triton
 

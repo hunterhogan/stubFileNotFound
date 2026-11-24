@@ -23,8 +23,8 @@ from fontTools.ttLib.tables import (
 from fontTools.ttLib.tables.DefaultTable import DefaultTable as DefaultTable
 from fontTools.ttLib.ttGlyphSet import _TTGlyphSet
 from types import ModuleType, TracebackType
-from typing import Any, BinaryIO, Literal, overload, Self, TextIO, TypedDict, TypeVar
-from typing_extensions import Unpack
+from typing import Any, BinaryIO, Literal, overload, TextIO, TypedDict, TypeVar
+from typing_extensions import Self, Unpack
 from ufoLib2.typing import PathLike
 
 _NumberT = TypeVar("_NumberT", bound=float)

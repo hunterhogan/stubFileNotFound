@@ -1,4 +1,5 @@
-from typing import Any, Literal, LiteralString
+from typing import Any, Literal
+from typing_extensions import LiteralString
 
 """
 PDFgen is a library to generate PDF files containing text and graphics.  It is the

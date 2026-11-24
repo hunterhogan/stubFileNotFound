@@ -1,6 +1,7 @@
 from _typeshed import Incomplete
 from dataclasses import dataclass
-from typing import NamedTuple, Self
+from typing import NamedTuple
+from typing_extensions import Self
 
 __all__ = ['DecomposedTransform', 'Identity', 'Offset', 'Scale', 'Transform']
 

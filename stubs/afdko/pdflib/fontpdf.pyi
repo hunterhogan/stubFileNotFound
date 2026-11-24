@@ -1,4 +1,5 @@
-from typing import Literal, Any, LiteralString
+from typing import Literal, Any
+from typing_extensions import LiteralString
 
 from fontTools.pens.basePen import BasePen
 
