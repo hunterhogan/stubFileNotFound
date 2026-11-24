@@ -24,7 +24,8 @@ from collections.abc import Generator, Iterable, Mapping
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.iterables import has_variety as has_variety, sift as sift
 from sympy.utilities.misc import as_int as as_int, filldedent as filldedent, func_name as func_name
-from typing import Any, overload, Self
+from typing import Any, overload
+from typing_extensions import Self
 
 def _corem(eq, c): ...
 

@@ -14,7 +14,8 @@ from sympy.utilities.decorator import deprecated as deprecated
 from sympy.utilities.exceptions import sympy_deprecation_warning as sympy_deprecation_warning
 from sympy.utilities.iterables import iterable as iterable, numbered_symbols as numbered_symbols
 from sympy.utilities.misc import filldedent as filldedent, func_name as func_name
-from typing import Any, ClassVar, overload, Self, TypeVar
+from typing import Any, ClassVar, overload, TypeVar
+from typing_extensions import Self
 
 Tbasic = TypeVar('Tbasic', bound=Basic)
 

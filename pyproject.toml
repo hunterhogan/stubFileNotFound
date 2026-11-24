@@ -71,15 +71,7 @@ use_parentheses = true
 preset = "strict"
 enabled-ignores = ["pyrefly"]
 infer-with-first-use = false
-project-excludes = [
-  "typings",
-  "typings/**/*",
-  "**/node_modules",
-  "**/__pycache__",
-  "**/.*",
-  ".venv",
-  ".vAnalysis",
-]
+project-excludes = ["typings", "typings/**/*", "**/node_modules", "**/__pycache__", "**/.*", ".venv", ".vAnalysis"]
 site-packages-path = ["./typings"]
 # === OK_EDIT: path-sync hunterhogan ===
 
@@ -123,45 +115,7 @@ line-length = 140
 # === DO_NOT_EDIT: path-sync hunterhogan ===
 [tool.ruff.lint]
 preview = true
-allowed-confusables = [
-  "–",
-  "’",
-  "′",
-  "×",
-  "−",
-  "∖",
-  "∗",
-  "∣",
-  "∨",
-  "∪",
-  "∼",
-  "⊗",
-  "ℂ",
-  "ℋ",
-  "ℒ",
-  "ℓ",
-  "ℕ",
-  "ℙ",
-  "ℚ",
-  "ℝ",
-  "ℤ",
-  "ℰ",
-  "ℱ",
-  "𝒪",
-  "𝒮",
-  "𝔼",
-  "𝕀",
-  "𝟙",
-  "α",
-  "Β",
-  "γ",
-  "ι",
-  "Κ",
-  "ν",
-  "ο",
-  "ρ",
-  "σ",
-]
+allowed-confusables = ["–", "’", "′", "×", "−", "∖", "∗", "∣", "∨", "∪", "∼", "⊗", "ℂ", "ℋ", "ℒ", "ℓ", "ℕ", "ℙ", "ℚ", "ℝ", "ℤ", "ℰ", "ℱ", "𝒪", "𝒮", "𝔼", "𝕀", "𝟙", "α", "Β", "γ", "ι", "Κ", "ν", "ο", "ρ", "σ"]
 ignore = [
   "any-type",
   "bad-quotes-inline-string",
@@ -273,18 +227,7 @@ inline-quotes = "single"
 # === DO_NOT_EDIT: path-sync hunterhogan ===
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["useless-import-alias"]
-"*test*.py" = [
-  "ARG",
-  "assert",
-  "BLE",
-  "D",
-  "docstring-missing-returns",
-  "DTZ",
-  "FBT",
-  "PT",
-  "suspicious-non-cryptographic-random-usage",
-  "TRY",
-]
+"*test*.py" = ["ARG", "assert", "BLE", "D", "docstring-missing-returns", "DTZ", "FBT", "PT", "suspicious-non-cryptographic-random-usage", "TRY"]
 # === OK_EDIT: path-sync hunterhogan ===
 
 # === DO_NOT_EDIT: path-sync hunterhogan ===

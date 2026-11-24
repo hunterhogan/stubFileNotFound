@@ -6,7 +6,8 @@ from sympy.core.mul import Mul as Mul
 from sympy.external.gmpy import gcd as gcd, lcm as lcm
 from sympy.polys.domains import Domain as Domain, QQ as QQ
 from sympy.polys.rings import PolyElement as PolyElement, PolyRing as PolyRing
-from typing import Any, Unpack
+from typing import Any
+from typing_extensions import Unpack
 
 def puiseux_ring(symbols: str | list[Expr], domain: Domain) -> tuple[PuiseuxRing, Unpack[tuple[PuiseuxPoly, ...]]]:
     """Construct a Puiseux ring.
